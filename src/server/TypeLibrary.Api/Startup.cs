@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using TypeLibrary.Core.Extensions;
 
 namespace TypeLibrary.Api
 {
@@ -42,9 +43,8 @@ namespace TypeLibrary.Api
             //_activeDirectoryConfiguration = activeDirectoryConfiguration;
             //_swaggerConfiguration = swaggerConfiguration;
 
-            //services.AddMicrosoftSqlServerModule();
             //services.AddApplicationInsightsLoggingModule();
-            //services.AddTypeEditorModule(Configuration).AddModelBuilderModule(Configuration);
+            services.AddTypeLibraryModule(Configuration);
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -62,7 +62,7 @@ namespace TypeLibrary.Api
             // Use Azure Active Directory Module and Swagger Module
             
             //app.UseAzureActiveDirectoryModule(_activeDirectoryConfiguration, _swaggerConfiguration);
-            //app.UseModelBuilderModule().UseTypeEditorModule();
+            app.UseTypeLibraryModule();
 
             app.UseEndpoints(endpoints =>
             {
