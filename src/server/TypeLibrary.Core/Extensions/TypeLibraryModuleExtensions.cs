@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TypeLibrary.Core.Models;
+using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Repositories;
 using TypeLibrary.Services.Contracts;
@@ -84,7 +85,7 @@ namespace TypeLibrary.Core.Extensions
 
             var connectionString = $@"Data Source={dbConfig.DataSource},{dbConfig.Port};Initial Catalog={dbConfig.InitialCatalog};Integrated Security=False;User ID={dbConfig.DbUser};Password='{dbConfig.Password}';TrustServerCertificate=True;MultipleActiveResultSets=True";
 
-            services.AddDbContext<ModelBuilderDbContext>(options =>
+            services.AddDbContext<TypeLibraryDbContext>(options =>
             {
                 options.EnableSensitiveDataLogging();
                 options.UseSqlServer(connectionString, sqlOptions => sqlOptions.MigrationsAssembly("TypeLibrary.Core"));
