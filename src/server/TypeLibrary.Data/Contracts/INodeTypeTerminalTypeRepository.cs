@@ -4,7 +4,7 @@ using Mb.Models.Data.TypeEditor;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface INodeTypeTerminalTypeRepository : IGenericRepository<ModelBuilderDbContext, NodeTypeTerminalType>
+    public interface INodeTypeTerminalTypeRepository : IGenericRepository<TypeLibraryDbContext, NodeTypeTerminalType>
     {
     }
 }

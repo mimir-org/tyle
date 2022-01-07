@@ -5,9 +5,9 @@ using TypeLibrary.Data.Contracts;
 
 namespace TypeLibrary.Data.Repositories
 {
-    public class InterfaceTypeRepository : GenericRepository<ModelBuilderDbContext, InterfaceType>, IInterfaceTypeRepository
+    public class InterfaceTypeRepository : GenericRepository<TypeLibraryDbContext, InterfaceType>, IInterfaceTypeRepository
     {
-        public InterfaceTypeRepository(ModelBuilderDbContext dbContext) : base(dbContext)
+        public InterfaceTypeRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {
         }
     }

@@ -5,9 +5,9 @@ using TypeLibrary.Data.Contracts;
 
 namespace TypeLibrary.Data.Repositories
 {
-    public class TransportTypeRepository : GenericRepository<ModelBuilderDbContext, TransportType>, ITransportTypeRepository
+    public class TransportTypeRepository : GenericRepository<TypeLibraryDbContext, TransportType>, ITransportTypeRepository
     {
-        public TransportTypeRepository(ModelBuilderDbContext dbContext) : base(dbContext)
+        public TransportTypeRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {
         }
     }

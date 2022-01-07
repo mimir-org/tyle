@@ -5,9 +5,9 @@ using TypeLibrary.Data.Contracts;
 
 namespace TypeLibrary.Data.Repositories
 {
-    public class AttributeTypeRepository : GenericRepository<ModelBuilderDbContext, AttributeType>, IAttributeTypeRepository
+    public class AttributeTypeRepository : GenericRepository<TypeLibraryDbContext, AttributeType>, IAttributeTypeRepository
     {
-        public AttributeTypeRepository(ModelBuilderDbContext dbContext) : base(dbContext)
+        public AttributeTypeRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {
         }
     }

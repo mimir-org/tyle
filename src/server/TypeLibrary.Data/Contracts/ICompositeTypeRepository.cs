@@ -4,7 +4,7 @@ using Mb.Models.Data.TypeEditor;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface ISimpleTypeRepository : IGenericRepository<ModelBuilderDbContext, SimpleType>
+    public interface ISimpleTypeRepository : IGenericRepository<TypeLibraryDbContext, SimpleType>
     {
     }
 }

@@ -5,9 +5,9 @@ using TypeLibrary.Data.Contracts;
 
 namespace TypeLibrary.Data.Repositories
 {
-    public class EnumBaseRepository: GenericRepository<ModelBuilderDbContext, EnumBase>, IEnumBaseRepository
+    public class EnumBaseRepository: GenericRepository<TypeLibraryDbContext, EnumBase>, IEnumBaseRepository
     {
-        public EnumBaseRepository(ModelBuilderDbContext dbContext) : base(dbContext)
+        public EnumBaseRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {
         }
     }

@@ -5,10 +5,10 @@ using TypeLibrary.Data.Contracts;
 
 namespace TypeLibrary.Data.Repositories
 {
-    public class LibraryTypeRepository : GenericRepository<ModelBuilderDbContext, LibraryType>, ILibraryTypeRepository
+    public class LibraryTypeRepository : GenericRepository<TypeLibraryDbContext, LibraryType>, ILibraryTypeRepository
 
     {
-        public LibraryTypeRepository(ModelBuilderDbContext dbContext) : base(dbContext)
+        public LibraryTypeRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {
         }
     }

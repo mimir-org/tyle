@@ -4,7 +4,7 @@ using Mb.Models.Data.Enums;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface IEnumBaseRepository : IGenericRepository<ModelBuilderDbContext, EnumBase>
+    public interface IEnumBaseRepository : IGenericRepository<TypeLibraryDbContext, EnumBase>
     {
         
     }

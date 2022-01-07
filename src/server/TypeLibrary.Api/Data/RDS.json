@@ -1,0 +1,871 @@
+[
+  {
+    "Code": "A",
+    "Name": "Drilling system",
+    "Aspect": "Function",
+    "RdsCategoryId": "4612B4C00DA77241E8466B088C9366ED",
+    "SemanticReference": null
+  },
+  {
+    "Code": "B",
+    "Name": "Production system",
+    "Aspect": "Function",
+    "RdsCategoryId": "4612B4C00DA77241E8466B088C9366ED",
+    "SemanticReference": null
+  },
+  {
+    "Code": "C",
+    "Name": "Transportation system",
+    "Aspect": "Function",
+    "RdsCategoryId": "4612B4C00DA77241E8466B088C9366ED",
+    "SemanticReference": null
+  },
+  {
+    "Code": "D",
+    "Name": "Processing system",
+    "Aspect": "Function",
+    "RdsCategoryId": "4612B4C00DA77241E8466B088C9366ED",
+    "SemanticReference": null
+  },
+  {
+    "Code": "E",
+    "Name": "Injection system",
+    "Aspect": "Function",
+    "RdsCategoryId": "4612B4C00DA77241E8466B088C9366ED",
+    "SemanticReference": null
+  },
+  {
+    "Code": "F",
+    "Name": "Storage system",
+    "Aspect": "Function",
+    "RdsCategoryId": "4612B4C00DA77241E8466B088C9366ED",
+    "SemanticReference": null
+  },
+  {
+    "Code": "G",
+    "Name": "Fixation system",
+    "Aspect": "Function",
+    "RdsCategoryId": "4612B4C00DA77241E8466B088C9366ED",
+    "SemanticReference": null
+  },
+  {
+    "Code": "H",
+    "Name": "Safety system",
+    "Aspect": "Function",
+    "RdsCategoryId": "4612B4C00DA77241E8466B088C9366ED",
+    "SemanticReference": null
+  },
+  {
+    "Code": "J",
+    "Name": "Infrastructure system",
+    "Aspect": "Function",
+    "RdsCategoryId": "4612B4C00DA77241E8466B088C9366ED",
+    "SemanticReference": null
+  },
+  {
+    "Code": "HA",
+    "Name": "Fluid supply system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "HC",
+    "Name": "Solid matter supply system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "HD",
+    "Name": "Electrical power supply system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "HF",
+    "Name": "Thermal energy supply system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "HE",
+    "Name": "Mechanical energy supply system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "JA",
+    "Name": "Fluid transport/distribution system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "JC",
+    "Name": "Solid matter transport/distribution system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "JD",
+    "Name": "Electrical power transport/distribution system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "JF",
+    "Name": "Thermal energy transport/distribution system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "JE",
+    "Name": "Mechanical energy transport/distribution system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "KA",
+    "Name": "Flow controlling system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "KB",
+    "Name": "Threshold controlling system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "KC",
+    "Name": "Separation system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "KD",
+    "Name": "Mixing system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "KE",
+    "Name": "Pumping system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "KF",
+    "Name": "Transforming system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "KG",
+    "Name": "Signal transformer system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "KH",
+    "Name": "Solid matter transformation system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "QA",
+    "Name": "Fluid storage system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "QD",
+    "Name": "Electrical energy storage system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "QF",
+    "Name": "Thermal energy storage system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "SA",
+    "Name": "Mechanical - electrical conversion system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "SB",
+    "Name": "Mechanical - pressure - kinetic conversion system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "SC",
+    "Name": "Mechanical - enthalpy conversion system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "SD",
+    "Name": "Chemical - enthalpy conversion system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "SE",
+    "Name": "Chemical - electrical conversion system",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "SemanticReference": null
+  },
+  {
+    "Code": "BFA",
+    "Name": "Flow transmitter",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "BGA",
+    "Name": "Position transmitter",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "BLA",
+    "Name": "Level transmitter",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "BPA",
+    "Name": "Absolute pressure transmitter",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "BPC",
+    "Name": "Differential pressure transmitter",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "BTA",
+    "Name": "Temperature transmitter",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "CCA",
+    "Name": "Rechargeable battery",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "CLA",
+    "Name": "Pool",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "CMA",
+    "Name": "Tank",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "EBA",
+    "Name": "Electric boiler",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "EGC",
+    "Name": "Heat exchanger",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "EQB",
+    "Name": "Cooling panel (condenser)",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "FCA",
+    "Name": "Fuse, overcurrent",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "FCB",
+    "Name": "Circuit-breaker, overcurrent",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "FLA",
+    "Name": "Safety valve",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "FLB",
+    "Name": "Safety damper",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "FLD",
+    "Name": "Rupture disc",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "FLE",
+    "Name": "Expansion tank",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "GAA",
+    "Name": "AC generator",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "GAB",
+    "Name": "DC generator",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "GPA",
+    "Name": "Positive displacement pump",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "GPB",
+    "Name": "Liquid velocity pump",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "GQA",
+    "Name": "Gas compressor",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "HMA",
+    "Name": "Settling tank (gravity based separator)",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "HMB",
+    "Name": "Centrifuge (centrifugal separator)",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "HMC",
+    "Name": "Cyclone (vortex separator)",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "HPA",
+    "Name": "Dryer",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "HPB",
+    "Name": "Distillation column",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "HRA",
+    "Name": "Electrostatic separator (Electrocoalescer)",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "HSA",
+    "Name": "Ion exchanger (Eletrolyser, Electrochlorinator)",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "HSB",
+    "Name": "Absorber",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "HSC",
+    "Name": "Adsorber",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "HVB",
+    "Name": "Flocculator",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "HWA",
+    "Name": "Mixer",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "HXA",
+    "Name": "Chemical reactor",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "MAA",
+    "Name": "Electric motor",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "MLE",
+    "Name": "Gas turbine",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "MSB",
+    "Name": "Diesel cycle engine",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "QAB",
+    "Name": "Circuit breaker, electrical circuit control",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "QMA",
+    "Name": "Shutoff valve, fluid on/off control",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "QNA",
+    "Name": "Control valve, fluid regulation control",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "RAC",
+    "Name": "Electrical resistor",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "RMA",
+    "Name": "Non-return valve, fluid one-way barrier",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "RQA",
+    "Name": "Insulation, thermal",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "RQC",
+    "Name": "Noise barrier",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "ULQ",
+    "Name": "Skid, Package foundation",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "XEE",
+    "Name": "Earth connection",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "TAA",
+    "Name": "Transformer, electrical",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "TAB",
+    "Name": "DC/DC converter, electrical",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "TAC",
+    "Name": "Frequency converter, electrical",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "TBA",
+    "Name": "Rectifier, electrical",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "TBB",
+    "Name": "Inverter, electrical",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "TLA",
+    "Name": "Gear, mechanical",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "TLB",
+    "Name": "Torque converter",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "SemanticReference": null
+  },
+  {
+    "Code": "WB",
+    "Name": "High Voltage Transport ",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "CFBCB7C6B5D9C0C75DC7BA4BFC50F04B",
+    "SemanticReference": null
+  },
+  {
+    "Code": "WD",
+    "Name": "Low Voltage Transport ",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "CFBCB7C6B5D9C0C75DC7BA4BFC50F04B",
+    "SemanticReference": null
+  },
+  {
+    "Code": "WG",
+    "Name": "Communication Transport ",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "CFBCB7C6B5D9C0C75DC7BA4BFC50F04B",
+    "SemanticReference": null
+  },
+  {
+    "Code": "WM",
+    "Name": "Fluid open conduit Transport ",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "CFBCB7C6B5D9C0C75DC7BA4BFC50F04B",
+    "SemanticReference": null
+  },
+  {
+    "Code": "WP",
+    "Name": "Fluid closed conduit Transport ",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "CFBCB7C6B5D9C0C75DC7BA4BFC50F04B",
+    "SemanticReference": null
+  },
+  {
+    "Code": "WQ",
+    "Name": "Mechanical energy Transport ",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "CFBCB7C6B5D9C0C75DC7BA4BFC50F04B",
+    "SemanticReference": null
+  },
+  {
+    "Code": "WV",
+    "Name": "Thermal energy Transport ",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "CFBCB7C6B5D9C0C75DC7BA4BFC50F04B",
+    "SemanticReference": null
+  },
+  {
+    "Code": "WZ",
+    "Name": "Multiple kinds combined Transport ",
+    "Aspect": "Function, Product, Location",
+    "RdsCategoryId": "CFBCB7C6B5D9C0C75DC7BA4BFC50F04B",
+    "SemanticReference": null
+  },
+  {
+    "Code": "XB",
+    "Name": "High Voltage  Interface",
+    "Aspect": "Function, Product",
+    "RdsCategoryId": "A4018B691A807757F07B2B8F71A47E4F",
+    "SemanticReference": null
+  },
+  {
+    "Code": "XD",
+    "Name": "Low Voltage  Interface",
+    "Aspect": "Function, Product",
+    "RdsCategoryId": "A4018B691A807757F07B2B8F71A47E4F",
+    "SemanticReference": null
+  },
+  {
+    "Code": "XG",
+    "Name": "Communication  Interface",
+    "Aspect": "Function, Product",
+    "RdsCategoryId": "A4018B691A807757F07B2B8F71A47E4F",
+    "SemanticReference": null
+  },
+  {
+    "Code": "XK",
+    "Name": "Fluid open conduit  Interface",
+    "Aspect": "Function, Product",
+    "RdsCategoryId": "A4018B691A807757F07B2B8F71A47E4F",
+    "SemanticReference": null
+  },
+  {
+    "Code": "XM",
+    "Name": "Fluid closed conduit  Interface",
+    "Aspect": "Function, Product",
+    "RdsCategoryId": "A4018B691A807757F07B2B8F71A47E4F",
+    "SemanticReference": null
+  },
+  {
+    "Code": "XN",
+    "Name": "Mechanical energy  Interface",
+    "Aspect": "Function, Product",
+    "RdsCategoryId": "A4018B691A807757F07B2B8F71A47E4F",
+    "SemanticReference": null
+  },
+  {
+    "Code": "XV",
+    "Name": "Thermal energy  Interface",
+    "Aspect": "Function, Product",
+    "RdsCategoryId": "A4018B691A807757F07B2B8F71A47E4F",
+    "SemanticReference": null
+  },
+  {
+    "Code": "XZ",
+    "Name": "Multiple kinds combined  Interface",
+    "Aspect": "Function, Product",
+    "RdsCategoryId": "A4018B691A807757F07B2B8F71A47E4F",
+    "SemanticReference": null
+  },
+  {
+    "Code": "BAA",
+    "Name": "Working space",
+    "Aspect": "Location",
+    "RdsCategoryId": "2344F63C58287455CABD02BE327B4C8A",
+    "SemanticReference": null
+  },
+  {
+    "Code": "CAA",
+    "Name": "Storage space",
+    "Aspect": "Location",
+    "RdsCategoryId": "2344F63C58287455CABD02BE327B4C8A",
+    "SemanticReference": null
+  },
+  {
+    "Code": "DAA",
+    "Name": "Equipment space",
+    "Aspect": "Location",
+    "RdsCategoryId": "2344F63C58287455CABD02BE327B4C8A",
+    "SemanticReference": null
+  },
+  {
+    "Code": "EAA",
+    "Name": "Connecting space",
+    "Aspect": "Location",
+    "RdsCategoryId": "2344F63C58287455CABD02BE327B4C8A",
+    "SemanticReference": null
+  },
+  {
+    "Code": "PAA",
+    "Name": "Processing space",
+    "Aspect": "Location",
+    "RdsCategoryId": "2344F63C58287455CABD02BE327B4C8A",
+    "SemanticReference": null
+  },
+  {
+    "Code": "AAA",
+    "Name": "Underground reservoir",
+    "Aspect": "Location",
+    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
+    "SemanticReference": null
+  },
+  {
+    "Code": "BBA",
+    "Name": "Integrated extraction entity",
+    "Aspect": "Location",
+    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
+    "SemanticReference": null
+  },
+  {
+    "Code": "BBB",
+    "Name": "Drilling entity",
+    "Aspect": "Location",
+    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
+    "SemanticReference": null
+  },
+  {
+    "Code": "BBC",
+    "Name": "Well interface entity",
+    "Aspect": "Location",
+    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
+    "SemanticReference": null
+  },
+  {
+    "Code": "BBD",
+    "Name": "Transportation entity",
+    "Aspect": "Location",
+    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
+    "SemanticReference": null
+  },
+  {
+    "Code": "BBE",
+    "Name": "Routing entity",
+    "Aspect": "Location",
+    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
+    "SemanticReference": null
+  },
+  {
+    "Code": "BBF",
+    "Name": "Processing entity",
+    "Aspect": "Location",
+    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
+    "SemanticReference": null
+  },
+  {
+    "Code": "BBG",
+    "Name": "Matter storage entity",
+    "Aspect": "Location",
+    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
+    "SemanticReference": null
+  },
+  {
+    "Code": "BBH",
+    "Name": "Disposal entity",
+    "Aspect": "Location",
+    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
+    "SemanticReference": null
+  },
+  {
+    "Code": "BBJ",
+    "Name": "Injection entity",
+    "Aspect": "Location",
+    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
+    "SemanticReference": null
+  },
+  {
+    "Code": "A",
+    "Name": "Offshore complex",
+    "Aspect": "Location",
+    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
+    "SemanticReference": null
+  },
+  {
+    "Code": "B",
+    "Name": "Onshore complex",
+    "Aspect": "Location",
+    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
+    "SemanticReference": null
+  },
+  {
+    "Code": "C",
+    "Name": "Transition complex",
+    "Aspect": "Location",
+    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
+    "SemanticReference": null
+  },
+  {
+    "Code": "D",
+    "Name": "Interconnection complex",
+    "Aspect": "Location",
+    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
+    "SemanticReference": null
+  }
+]
+

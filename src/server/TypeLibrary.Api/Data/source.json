@@ -1,0 +1,72 @@
+[
+  {
+    "name": "NotSet",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Required",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Design",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Calculated",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Measured",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Required, Low",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Required, High",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Design, Low",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Design, High",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Capacity",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  }
+]

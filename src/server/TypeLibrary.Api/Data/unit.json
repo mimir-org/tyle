@@ -1,0 +1,471 @@
+﻿[
+  {
+    "name": "NotSet",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "None",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Sm3/d",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Sm3/h",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "SCF/hr",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "bbl/d",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "barg",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "bara",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "psi",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "psig",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Pascal",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "degC",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "degF",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Kelvin",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "%",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "kg/m3",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "micron",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "ppm",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "ppb",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "composite",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "2x100%",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "3x50%",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "2x50%",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "<specific>",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "FC",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "FO",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "FR",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "1:n",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "No dead pockets",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "N/A",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "m/s",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "ft/sec",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "liter/MSm3",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "weight %",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "S",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "mS",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "min",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "mm",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "inch",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "mm2",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "sq.inch",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "m3/d",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "m3/h",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "CF/hr",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "m",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "kV",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Hz",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "kVA",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "MVA",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "A",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Ω",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Ohm",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "[list]",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "W",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "MW",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Vah",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "kVAh",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "kA",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "IP",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "V",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "kW",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "db",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "sec",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "rpm",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "%/min",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "kA/1sec",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "kA/3sec",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  }
+]

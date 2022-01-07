@@ -1,0 +1,65 @@
+[
+  {
+    "name": "NotSet",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Unsigned Float",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Float",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Unsigned Integer",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Table",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Selection",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Text and doc reference",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Boolean",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "String",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  }
+]

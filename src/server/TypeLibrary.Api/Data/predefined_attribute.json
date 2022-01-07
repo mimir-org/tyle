@@ -1,0 +1,100 @@
+[
+  {
+    "key": "Hazardous classification requirements",
+    "isMultiSelect": false,
+    "values": [
+      "Safe by ventilation",
+      "Safe by location",
+      "Zone 0",
+      "Zone 1",
+      "Zone 2",
+      "None",
+      "Defined-by-application"
+    ]
+  },
+  {
+    "key": "Fire protection requirements",
+    "isMultiSelect": true,
+    "values": [
+      "Cladding",
+      "Portable",
+      "Sprinkler",
+      "Deluge",
+      "Foam",
+      "None",
+      "Defined-by-application"
+    ]
+  },
+  {
+    "key": "Fire detection requirements",
+    "isMultiSelect": true,
+    "values": [
+      "Call points",
+      "Gas",
+      "Flame",
+      "Heat",
+      "Smoke",
+      "None",
+      "Defined-by-application"
+    ]
+  },
+  {
+    "key": "Environment classification requirements",
+    "isMultiSelect": false,
+    "values": [
+      "Heated",
+      "Cooled & Ventilated",
+      "Weather Protected",
+      "Weather Exposed",
+      "None",
+      "Defined-by-application"
+    ]
+  },
+  {
+    "key": "Noise limitation requirements",
+    "isMultiSelect": false,
+    "values": [
+      "55 dB",
+      "70 dB",
+      "85 dB",
+      "None",
+      "Defined-by-application"
+    ]
+  },
+  {
+    "key": "Wireless coverage requirements",
+    "isMultiSelect": true,
+    "values": [
+      "Wifi",
+      "UHF",
+      "PRS",
+      "None",
+      "Defined-by-application"
+    ]
+  },
+  {
+    "key": "Area activity classification",
+    "isMultiSelect": false,
+    "values": [
+      "Process",
+      "HVAC",
+      "Electrical",
+      "Control",
+      "Laboratory",
+      "Workshop",
+      "Access",
+      "Trucking",
+      "None",
+      "Defined-by-application"
+    ]
+  },
+  {
+    "key": "Area partition classifications",
+    "isMultiSelect": false,
+    "values": [
+      "Table",
+      "None",
+      "Defined-by-application"
+    ]
+  }
+]

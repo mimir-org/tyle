@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
+using AutoMapper;
+using AutoMapper.Configuration;
 using Mb.Models.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -9,11 +11,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TypeLibrary.Core.Models;
+using TypeLibrary.Core.Profiles;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Repositories;
 using TypeLibrary.Services.Contracts;
 using TypeLibrary.Services.Services;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace TypeLibrary.Core.Extensions
 {
@@ -52,6 +56,17 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IRdsService, RdsService>();
             services.AddScoped<ISeedingService, SeedingService>();
             services.AddScoped<IBlobDataService, BlobDataService>();
+
+            // Auto-mapper
+            var cfg = new MapperConfigurationExpression();
+            cfg.AddProfile(new AttributeProfile());
+            cfg.AddProfile<CommonProfile>();
+            cfg.AddProfile(new LibraryTypeProfile());
+            cfg.AddProfile<RdsProfile>();
+            cfg.AddProfile(new TerminalProfile());
+
+            var mapperConfig = new MapperConfiguration(cfg);
+            services.AddSingleton(_ => mapperConfig.CreateMapper());
 
             //Database configuration
             var config = builder.Build();

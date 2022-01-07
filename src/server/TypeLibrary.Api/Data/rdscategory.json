@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Not set",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Functional Systems",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Technical Systems",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Components",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Transports",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Interfaces",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Spaces",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Construction Entities",
+    "description": null,
+    "semanticReference": null,
+    "aspect": "NotSet",
+    "parentId": null
+  }
+]

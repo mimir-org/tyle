@@ -5,9 +5,9 @@ using TypeLibrary.Data.Contracts;
 
 namespace TypeLibrary.Data.Repositories
 {
-    public class TerminalTypeRepository : GenericRepository<ModelBuilderDbContext, TerminalType>, ITerminalTypeRepository
+    public class TerminalTypeRepository : GenericRepository<TypeLibraryDbContext, TerminalType>, ITerminalTypeRepository
     {
-        public TerminalTypeRepository(ModelBuilderDbContext dbContext) : base(dbContext)
+        public TerminalTypeRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {
         }
     }

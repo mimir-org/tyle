@@ -31,7 +31,7 @@ namespace TypeLibrary.Data
         public virtual DbSet<BlobData> BlobData { get; set; }
         public virtual DbSet<Purpose> BlobCategories { get; set; }
 
-        public TypeLibraryDbContext(DbContextOptions<ModelBuilderDbContext> options) : base(options)
+        public TypeLibraryDbContext(DbContextOptions<TypeLibraryDbContext> options) : base(options)
         {
         }
 
@@ -39,30 +39,17 @@ namespace TypeLibrary.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration(new ProjectConfiguration());
-            modelBuilder.ApplyConfiguration(new NodeConfiguration());
-            modelBuilder.ApplyConfiguration(new EdgeConfiguration());
-            modelBuilder.ApplyConfiguration(new AttributeConfiguration());
-            modelBuilder.ApplyConfiguration(new ConnectorConfiguration());
             modelBuilder.ApplyConfiguration(new RdsConfiguration());
             modelBuilder.ApplyConfiguration(new AttributeTypeConfiguration());
             modelBuilder.ApplyConfiguration(new LibraryTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new CollaborationPartnerConfiguration());
             modelBuilder.ApplyConfiguration(new TerminalTypeConfiguration());
             modelBuilder.ApplyConfiguration(new EnumBaseConfiguration());
-            modelBuilder.ApplyConfiguration(new RelationConfiguration());
-            modelBuilder.ApplyConfiguration(new TerminalConfiguration());
             modelBuilder.ApplyConfiguration(new NodeTypeTerminalTypeConfiguration());
             modelBuilder.ApplyConfiguration(new InterfaceTypeConfiguration());
             modelBuilder.ApplyConfiguration(new TransportTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PredefinedAttributeConfiguration());
             modelBuilder.ApplyConfiguration(new BlobDataConfiguration());
-            modelBuilder.ApplyConfiguration(new TransportConfiguration());
-            modelBuilder.ApplyConfiguration(new InterfaceConfiguration());
             modelBuilder.ApplyConfiguration(new SimpleTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new SimpleConfiguration());
-            modelBuilder.ApplyConfiguration(new PurposeConfiguration());
-            modelBuilder.ApplyConfiguration(new VersionConfiguration());
         }
     }
 }

@@ -1,0 +1,194 @@
+[
+  {
+    "name": "Manifold",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Process",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Separate",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Process",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Pump",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Process",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Compress",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Process",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Mix",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Process",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Exchange (heat)",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Process",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "React",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Process",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Transform",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Process",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Generate",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Electrical",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Switch",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Electrical",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Break",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Electrical",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Distribute (Electro)",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Electrical",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Distribute (Process)",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Process",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Transform",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Electrical",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Convert",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Electrical",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Drive",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Electrical",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Heat",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Electrical",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Store",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Electrical",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Measure",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Automation",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Control",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Automation",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Actuate",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Automation",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Support",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Structural",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "Enclose",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "Structural",
+    "aspect": "NotSet",
+    "parentId": null
+  },
+  {
+    "name": "None",
+    "description": null,
+    "semanticReference": null,
+    "discipline": "None",
+    "aspect": "NotSet",
+    "parentId": null
+  }
+]
