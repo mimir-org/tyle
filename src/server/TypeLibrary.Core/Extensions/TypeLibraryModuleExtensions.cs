@@ -3,11 +3,12 @@ using System.IO;
 using System.Threading;
 using AutoMapper;
 using AutoMapper.Configuration;
-using Mb.Models.Configurations;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TypeLibrary.Core.Models;
@@ -56,6 +57,8 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IRdsService, RdsService>();
             services.AddScoped<ISeedingService, SeedingService>();
             services.AddScoped<IBlobDataService, BlobDataService>();
+            services.AddHttpContextAccessor();
+            services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             // Auto-mapper
             var cfg = new MapperConfigurationExpression();
@@ -113,7 +116,7 @@ namespace TypeLibrary.Core.Extensions
         public static IApplicationBuilder UseTypeLibraryModule(this IApplicationBuilder app)
         {
             using var serviceScope = app.ApplicationServices.CreateScope();
-            var context = serviceScope.ServiceProvider.GetRequiredService<ModelBuilderDbContext>();
+            var context = serviceScope.ServiceProvider.GetRequiredService<TypeLibraryDbContext>();
             var seedingService = serviceScope.ServiceProvider.GetRequiredService<ISeedingService>();
             var seedingServiceLogger = serviceScope.ServiceProvider.GetRequiredService<ILogger<ISeedingService>>();
             context.Database.Migrate();
