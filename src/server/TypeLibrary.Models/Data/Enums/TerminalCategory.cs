@@ -10,8 +10,8 @@ namespace TypeLibrary.Models.Data.Enums
         public string Color { get; set; }
 
         //TODO: Remove refs to Terminals
-        [JsonIgnore]
-        public virtual ICollection<Terminal> Terminals { get; set; }
+        //[JsonIgnore]
+        //public virtual ICollection<Terminal> Terminals { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<TerminalType> TerminalTypes { get; set; }

@@ -1,18 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Threading;
-using AutoMapper;
-using AutoMapper.Configuration;
+﻿using System.Threading;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using TypeLibrary.Core.Models;
-using TypeLibrary.Core.Profiles;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Repositories;
@@ -26,13 +18,8 @@ namespace TypeLibrary.Core.Extensions
     {
         public static IServiceCollection AddTypeLibraryModule(this IServiceCollection services, IConfiguration configuration)
         {
-            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory());
-
-            builder.AddJsonFile("appsettings.json");
-            builder.AddJsonFile($"appsettings.{environment}.json", true);
-            builder.AddJsonFile("appsettings.local.json", true);
-            builder.AddEnvironmentVariables();
+            // Add configurations files
+            var builder = services.AddConfigurationFiles();
 
             // Dependency Injection
             services.AddScoped<IAttributeTypeRepository, AttributeTypeRepository>();
@@ -60,54 +47,21 @@ namespace TypeLibrary.Core.Extensions
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
-            // Auto-mapper
-            var cfg = new MapperConfigurationExpression();
-            cfg.AddProfile(new AttributeProfile());
-            cfg.AddProfile<CommonProfile>();
-            cfg.AddProfile(new LibraryTypeProfile());
-            cfg.AddProfile<RdsProfile>();
-            cfg.AddProfile(new TerminalProfile());
+            // Add auto-mapper configurations
+            services.AddAutoMapperConfigurations();
 
-            var mapperConfig = new MapperConfiguration(cfg);
-            services.AddSingleton(_ => mapperConfig.CreateMapper());
-
-            //Database configuration
+            // Build configuration
             var config = builder.Build();
 
-            var dbConfig = new DatabaseConfiguration();
-            var databaseConfigSection = config.GetSection("DatabaseConfiguration");
-            databaseConfigSection.Bind(dbConfig);
+            // Add database-configuration
+            services.AddDatabaseConfigurations(config);
 
-            var dataSource = Environment.GetEnvironmentVariable("DatabaseConfiguration_DataSource");
-            var port = Environment.GetEnvironmentVariable("DatabaseConfiguration_Port");
-            var initialCatalog = Environment.GetEnvironmentVariable("DatabaseConfiguration_InitialCatalog");
-            var dbUser = Environment.GetEnvironmentVariable("DatabaseConfiguration_DbUser");
-            var password = Environment.GetEnvironmentVariable("DatabaseConfiguration_Password");
+            // Add API version
+            services.AddApiVersion();
 
-            if (!string.IsNullOrEmpty(dataSource))
-                dbConfig.DataSource = dataSource.Trim();
+            // Add authentication
 
-            if (!string.IsNullOrEmpty(port) && int.TryParse(port.Trim(), out var portAsInt))
-                dbConfig.Port = portAsInt;
-
-            if (!string.IsNullOrEmpty(initialCatalog))
-                dbConfig.InitialCatalog = initialCatalog.Trim();
-
-            if (!string.IsNullOrEmpty(dbUser))
-                dbConfig.DbUser = dbUser.Trim();
-
-            if (!string.IsNullOrEmpty(password))
-                dbConfig.Password = password.Trim();
-
-            services.AddSingleton(Options.Create(dbConfig));
-
-            var connectionString = $@"Data Source={dbConfig.DataSource},{dbConfig.Port};Initial Catalog={dbConfig.InitialCatalog};Integrated Security=False;User ID={dbConfig.DbUser};Password='{dbConfig.Password}';TrustServerCertificate=True;MultipleActiveResultSets=True";
-
-            services.AddDbContext<TypeLibraryDbContext>(options =>
-            {
-                options.EnableSensitiveDataLogging();
-                options.UseSqlServer(connectionString, sqlOptions => sqlOptions.MigrationsAssembly("TypeLibrary.Core"));
-            });
+            // Add swagger documentation
 
 
             return services;

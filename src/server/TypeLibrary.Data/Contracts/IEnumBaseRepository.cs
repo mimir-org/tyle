@@ -1,5 +1,4 @@
 ﻿using TypeLibrary.Models.Abstract;
-using TypeLibrary.Models.Configurations;
 using TypeLibrary.Models.Data.Enums;
 
 namespace TypeLibrary.Data.Contracts

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using TypeLibrary.Models.Data.Enums;
 using TypeLibrary.Models.Enums;
-using Attribute = TypeLibrary.Models.Data.Attribute;
 
 namespace TypeLibrary.Models.Application
 {

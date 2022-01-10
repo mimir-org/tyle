@@ -26,11 +26,9 @@ namespace TypeLibrary.Api
             {
                 options.AddPolicy("CorsPolicy", builder =>
                 {
-                    builder.AllowAnyHeader()
-                        .AllowAnyOrigin()
-                        .AllowCredentials()
+                    builder.AllowAnyOrigin()
                         .AllowAnyMethod()
-                        .SetIsOriginAllowedToAllowWildcardSubdomains();
+                        .AllowAnyHeader();
                 });
             });
 
@@ -60,7 +58,7 @@ namespace TypeLibrary.Api
             app.UseRouting();
 
             // Use Azure Active Directory Module and Swagger Module
-            
+
             //app.UseAzureActiveDirectoryModule(_activeDirectoryConfiguration, _swaggerConfiguration);
             app.UseTypeLibraryModule();
 
