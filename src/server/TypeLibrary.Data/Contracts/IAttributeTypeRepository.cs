@@ -1,5 +1,6 @@
-﻿using Mb.Models.Abstract;
-using Mb.Models.Data.TypeEditor;
+﻿
+using TypeLibrary.Models.Abstract;
+using TypeLibrary.Models.Data.TypeEditor;
 
 namespace TypeLibrary.Data.Contracts
 {

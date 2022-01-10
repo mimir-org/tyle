@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Mb.Models.Application.TypeEditor;
-using Mb.Models.Data.TypeEditor;
-using Mb.Models.Enums;
+using TypeLibrary.Models.Application.TypeEditor;
+using TypeLibrary.Models.Data.TypeEditor;
+using TypeLibrary.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Services.Contracts;

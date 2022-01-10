@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Mb.Models.Application;
-using Mb.Models.Application.TypeEditor;
-using Mb.Models.Data;
-using Mb.Models.Data.TypeEditor;
-using Mb.Models.Enums;
-using Mb.Models.Extensions;
+using TypeLibrary.Models.Application;
+using TypeLibrary.Models.Application.TypeEditor;
+using TypeLibrary.Models.Data;
+using TypeLibrary.Models.Data.TypeEditor;
+using TypeLibrary.Models.Enums;
+using TypeLibrary.Models.Extensions;
 
 namespace TypeLibrary.Core.Profiles
 {

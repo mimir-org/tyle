@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Mb.Models.Data.TypeEditor;
-using Mb.Models.Enums;
+using TypeLibrary.Models.Data.TypeEditor;
+using TypeLibrary.Models.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

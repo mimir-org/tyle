@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Mb.Models.Application.TypeEditor;
-using Mb.Models.Data.TypeEditor;
+using TypeLibrary.Models.Application.TypeEditor;
+using TypeLibrary.Models.Data.TypeEditor;
 
 namespace TypeLibrary.Services.Contracts
 {

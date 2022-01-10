@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Mb.Models.Application;
-using Mb.Models.Application.TypeEditor;
-using Mb.Models.Data.Enums;
-using Mb.Models.Enums;
-using Mb.Models.Extensions;
+using TypeLibrary.Models.Application;
+using TypeLibrary.Models.Application.TypeEditor;
+using TypeLibrary.Models.Data.Enums;
+using TypeLibrary.Models.Enums;
+using TypeLibrary.Models.Extensions;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Services.Contracts;
 

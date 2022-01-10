@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Mb.Models.Application;
-using Mb.Models.Data.TypeEditor;
+using TypeLibrary.Models.Application;
+using TypeLibrary.Models.Data.TypeEditor;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Mb.Models.Application;
-using Mb.Models.Application.TypeEditor;
-using Mb.Models.Data;
-using Mb.Models.Data.Enums;
-using Mb.Models.Extensions;
+using TypeLibrary.Models.Application;
+using TypeLibrary.Models.Application.TypeEditor;
+using TypeLibrary.Models.Data;
+using TypeLibrary.Models.Data.Enums;
+using TypeLibrary.Models.Extensions;
 using Microsoft.Extensions.Logging;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Services.Contracts;
@@ -97,7 +97,7 @@ namespace TypeLibrary.Services.Services
                 var rdsCategories = _fileRepository.ReadAllFiles<RdsCategory>(rdsCategoryFiles).ToList();
                 var terminalCategories = _fileRepository.ReadAllFiles<TerminalCategory>(terminalCategoryFiles).ToList();
                 var attributeFormats = _fileRepository.ReadAllFiles<AttributeFormat>(attributeFormatFiles).ToList();
-                var buildStatuses = _fileRepository.ReadAllFiles<BuildStatus>(buildStatusFiles).ToList();
+                //var buildStatuses = _fileRepository.ReadAllFiles<BuildStatus>(buildStatusFiles).ToList();
                 var typeAttributes = _fileRepository.ReadAllFiles<TypeAttribute>(typeAttributeFiles).ToList();
                 var symbols = _fileRepository.ReadAllFiles<BlobDataAm>(symbolFileNames).ToList();
                 var simpleTypes = _fileRepository.ReadAllFiles<SimpleTypeAm>(simpleTypeFileNames).ToList();
@@ -116,7 +116,7 @@ namespace TypeLibrary.Services.Services
                 await CreateEnumBase(rdsCategories);
                 await CreateEnumBase(terminalCategories);
                 await CreateEnumBase(attributeFormats);
-                await CreateEnumBase(buildStatuses);
+                //await CreateEnumBase(buildStatuses);
                 await CreateEnumBase(typeAttributes);
                 await CreateEnumBase(purposes);
 

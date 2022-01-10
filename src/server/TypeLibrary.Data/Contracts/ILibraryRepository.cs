@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Mb.Models.Application;
+using TypeLibrary.Models.Application;
 
 namespace TypeLibrary.Data.Contracts
 {

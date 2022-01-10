@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Mb.Models.Application;
+using TypeLibrary.Models.Application;
 using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Contracts;
 

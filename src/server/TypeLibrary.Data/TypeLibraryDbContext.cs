@@ -1,7 +1,7 @@
-﻿using Mb.Models.Configurations;
-using Mb.Models.Data;
-using Mb.Models.Data.Enums;
-using Mb.Models.Data.TypeEditor;
+﻿using TypeLibrary.Models.Configurations;
+using TypeLibrary.Models.Data;
+using TypeLibrary.Models.Data.Enums;
+using TypeLibrary.Models.Data.TypeEditor;
 using Microsoft.EntityFrameworkCore;
 
 namespace TypeLibrary.Data
@@ -18,7 +18,7 @@ namespace TypeLibrary.Data
         public virtual DbSet<AttributeFormat> AttributeFormats { get; set; }
         public virtual DbSet<AttributeQualifier> AttributeQualifiers { get; set; }
         public virtual DbSet<AttributeSource> AttributeSources { get; set; }
-        public virtual DbSet<BuildStatus> BuildStatuses { get; set; }
+        //public virtual DbSet<BuildStatus> BuildStatuses { get; set; }
         public virtual DbSet<RdsCategory> RdsCategories { get; set; }
         public virtual DbSet<TerminalCategory> TerminalCategories { get; set; }
         public virtual DbSet<NodeType> NodeTypes { get; set; }
