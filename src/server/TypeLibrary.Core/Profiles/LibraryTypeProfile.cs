@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Mimirorg.Common.Extensions;
 using TypeLibrary.Models.Application;
 using TypeLibrary.Models.Application.TypeEditor;
 using TypeLibrary.Models.Data.TypeEditor;
 using TypeLibrary.Models.Enums;
-using TypeLibrary.Models.Extensions;
 
 namespace TypeLibrary.Core.Profiles
 {

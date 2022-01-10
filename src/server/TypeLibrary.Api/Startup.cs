@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Mimirorg.Authentication.Extensions;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using TypeLibrary.Core.Extensions;
 
@@ -7,8 +8,7 @@ namespace TypeLibrary.Api
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        //private SwaggerConfiguration _swaggerConfiguration;
-
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,25 +24,24 @@ namespace TypeLibrary.Api
 
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy", builder =>
-                {
-                    builder.AllowAnyOrigin()
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
                         .AllowAnyMethod()
-                        .AllowAnyHeader();
-                });
+                        .AllowAnyHeader()
+                        .SetPreflightMaxAge(TimeSpan.FromSeconds(2520))
+                        .Build());
             });
 
             // Add routing
             services.AddRouting(o => o.LowercaseUrls = true);
 
-            // Add Azure Active Directory Module and Swagger Module
-            //var (swaggerConfiguration, activeDirectoryConfiguration) =
-            //    services.AddAzureActiveDirectoryModule(Configuration);
-            //_activeDirectoryConfiguration = activeDirectoryConfiguration;
-            //_swaggerConfiguration = swaggerConfiguration;
-
+            // Add modules
             //services.AddApplicationInsightsLoggingModule();
             services.AddTypeLibraryModule(Configuration);
+            services.AddMimirorgAuthenticationModule(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+            });
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -57,16 +56,14 @@ namespace TypeLibrary.Api
             app.UseCors("CorsPolicy");
             app.UseRouting();
 
-            // Use Azure Active Directory Module and Swagger Module
-
-            //app.UseAzureActiveDirectoryModule(_activeDirectoryConfiguration, _swaggerConfiguration);
+            // User modules
             app.UseTypeLibraryModule();
+            app.UseMimirorgAuthenticationModule();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-
         }
     }
 }

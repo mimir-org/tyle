@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Mimirorg.Common\Mimirorg.Common.csproj" />
     <ProjectReference Include="..\TypeLibrary.Models\TypeLibrary.Models.csproj" />
   </ItemGroup>
 

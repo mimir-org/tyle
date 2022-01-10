@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 
-namespace TypeLibrary.Models.Extensions
+namespace Mimirorg.Common.Extensions
 {
     public static class TypeExtensions
     {
         public static List<Type> GetImplementations(this Type service, List<Assembly> assemblies)
         {
-            if (assemblies == null || !assemblies.Any())
+            if (!assemblies.Any())
                 return new List<Type>();
 
             if (service.IsGenericType && service.IsGenericTypeDefinition)

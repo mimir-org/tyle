@@ -7,10 +7,11 @@ using AutoMapper;
 using TypeLibrary.Models.Application.TypeEditor;
 using TypeLibrary.Models.Data.TypeEditor;
 using TypeLibrary.Models.Enums;
-using TypeLibrary.Models.Exceptions;
 using TypeLibrary.Models.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Extensions;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Services.Contracts;
 

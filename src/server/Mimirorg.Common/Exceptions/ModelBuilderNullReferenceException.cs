@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TypeLibrary.Models.Exceptions
+﻿namespace Mimirorg.Common.Exceptions
 {
     [Serializable]
     public class ModelBuilderNullReferenceException : Exception

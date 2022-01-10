@@ -1,8 +1,7 @@
-﻿using System.Linq;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
-namespace TypeLibrary.Models.Extensions
+namespace Mimirorg.Common.Extensions
 {
     public static class HttpContextAccessorExtensions
     {

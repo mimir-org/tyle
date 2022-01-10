@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using Mimirorg.Common.Extensions;
 using Newtonsoft.Json;
 using TypeLibrary.Models.Data.Enums;
 using TypeLibrary.Models.Enums;
-using TypeLibrary.Models.Extensions;
 
 namespace TypeLibrary.Models.Data.TypeEditor
 {

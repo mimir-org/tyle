@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace TypeLibrary.Models.Abstract
+namespace Mimirorg.Common.Abstract
 {
     public abstract class GenericRepository<TContext, TEntity> : IGenericRepository<TContext, TEntity> where TContext : DbContext where TEntity : class
     {

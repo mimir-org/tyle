@@ -6,9 +6,9 @@ using AutoMapper.QueryableExtensions;
 using TypeLibrary.Models.Application;
 using TypeLibrary.Models.Data.TypeEditor;
 using TypeLibrary.Models.Enums;
-using TypeLibrary.Models.Exceptions;
-using TypeLibrary.Models.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Extensions;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Services.Contracts;
 

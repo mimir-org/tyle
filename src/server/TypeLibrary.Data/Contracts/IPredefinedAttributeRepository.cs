@@ -1,4 +1,4 @@
-﻿using TypeLibrary.Models.Abstract;
+﻿using Mimirorg.Common.Abstract;
 using TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Data.Contracts

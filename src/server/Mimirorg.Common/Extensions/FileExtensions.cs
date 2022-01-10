@@ -1,11 +1,11 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Http;
+using Mimirorg.Common.Exceptions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
-using TypeLibrary.Models.Exceptions;
 
-namespace TypeLibrary.Models.Extensions
+namespace Mimirorg.Common.Extensions
 {
     public static class FileExtensions
     {

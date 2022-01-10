@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace TypeLibrary.Models.Application
+namespace Mimirorg.Common.Models
 {
     public class Validation
     {

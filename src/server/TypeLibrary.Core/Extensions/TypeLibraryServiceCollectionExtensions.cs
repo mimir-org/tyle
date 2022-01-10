@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using TypeLibrary.Core.Models;
+using Mimirorg.Common.Models;
 using TypeLibrary.Core.Profiles;
 using TypeLibrary.Data;
 // ReSharper disable StringLiteralTypo
@@ -71,12 +71,10 @@ namespace TypeLibrary.Core.Extensions
 
             serviceCollection.AddSingleton(Options.Create(dbConfig));
 
-            var connectionString = $@"Data Source={dbConfig.DataSource},{dbConfig.Port};Initial Catalog={dbConfig.InitialCatalog};Integrated Security=False;User ID={dbConfig.DbUser};Password='{dbConfig.Password}';TrustServerCertificate=True;MultipleActiveResultSets=True";
-
             serviceCollection.AddDbContext<TypeLibraryDbContext>(options =>
             {
                 options.EnableSensitiveDataLogging();
-                options.UseSqlServer(connectionString, sqlOptions => sqlOptions.MigrationsAssembly("TypeLibrary.Core"));
+                options.UseSqlServer(dbConfig.ConnectionString, sqlOptions => sqlOptions.MigrationsAssembly("TypeLibrary.Core"));
             });
 
             return serviceCollection;

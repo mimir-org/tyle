@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Mimirorg.Common.Models;
 using Newtonsoft.Json;
-using TypeLibrary.Models.Application;
 
-namespace TypeLibrary.Models.Extensions
+namespace Mimirorg.Common.Extensions
 {
     public static class ObjectExtensions
     {

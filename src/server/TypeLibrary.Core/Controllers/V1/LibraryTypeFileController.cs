@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using TypeLibrary.Models.Exceptions;
-using TypeLibrary.Models.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Extensions;
 using Swashbuckle.AspNetCore.Annotations;
 using TypeLibrary.Services.Contracts;
 

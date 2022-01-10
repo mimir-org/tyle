@@ -7,11 +7,11 @@ using TypeLibrary.Models.Application;
 using TypeLibrary.Models.Application.TypeEditor;
 using TypeLibrary.Models.Data.TypeEditor;
 using TypeLibrary.Models.Enums;
-using TypeLibrary.Models.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mimirorg.Common.Exceptions;
 using Swashbuckle.AspNetCore.Annotations;
 using TypeLibrary.Services.Contracts;
 
