@@ -11,7 +11,7 @@ namespace TypeLibrary.Models.Extensions
         public static (string terminalCategoryId, string terminalTypeId) CreateCategoryIdAndTerminalTypeId(this string terminalName, string terminalCategoryId)
         {
             if (string.IsNullOrEmpty(terminalCategoryId) || string.IsNullOrEmpty(terminalName))
-                throw new ModelBuilderNullReferenceException("Category and terminal can't be null");
+                throw new MimirorgNullReferenceException("Category and terminal can't be null");
 
             var category = new TerminalCategory
             {

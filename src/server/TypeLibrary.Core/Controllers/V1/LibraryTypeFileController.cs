@@ -82,7 +82,7 @@ namespace TypeLibrary.Core.Controllers.V1
                 await _libraryTypeFileService.LoadDataFromFile(file, cancellationToken);
                 return Ok(true);
             }
-            catch (ModelBuilderDuplicateException e)
+            catch (MimirorgDuplicateException e)
             {
                 return Conflict(e.Message);
             }

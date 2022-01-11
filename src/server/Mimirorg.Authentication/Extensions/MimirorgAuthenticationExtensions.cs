@@ -10,7 +10,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models;
+using Mimirorg.Authentication.Repositories;
+using Mimirorg.Authentication.Services;
 using Mimirorg.Common.Models;
 
 namespace Mimirorg.Authentication.Extensions
@@ -19,6 +22,11 @@ namespace Mimirorg.Authentication.Extensions
     {
         public static IServiceCollection AddMimirorgAuthenticationModule(this IServiceCollection serviceCollection, Action<IdentityOptions> identityOptions)
         {
+            // Dependency injection
+            serviceCollection.AddScoped<ITokenRepository, TokenRepository>();
+            serviceCollection.AddScoped<IAuthService, AuthService>();
+            serviceCollection.AddScoped<IUserService, UserService>();
+
             // Get current environment
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
@@ -96,7 +104,7 @@ namespace Mimirorg.Authentication.Extensions
                 c.CustomSchemaIds(x => x.FullName);
                 c.EnableAnnotations();
 
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey,
@@ -122,11 +130,6 @@ namespace Mimirorg.Authentication.Extensions
                 });
             });
             serviceCollection.AddSwaggerGenNewtonsoftSupport();
-
-            // Dependency injection
-
-            // Auto-mapper
-
 
             return serviceCollection;
         }
