@@ -30,7 +30,7 @@ namespace TypeLibrary.Services.Services
         public IEnumerable<TerminalType> GetTerminals()
         {
             return _terminalTypeRepository.GetAll()
-                .Include(x => x.TerminalCategory)
+                //.Include(x => x.TerminalCategory)
                 .Include(x => x.Attributes)
                 .ToList();
         }
@@ -42,10 +42,10 @@ namespace TypeLibrary.Services.Services
         public Dictionary<string, List<TerminalType>> GetTerminalsByCategory()
         {
             return _terminalTypeRepository.GetAll()
-                .Include(x => x.TerminalCategory)
+                //.Include(x => x.TerminalCategory)
                 .Include(x => x.Attributes)
                 .AsEnumerable()
-                .GroupBy(x => x.TerminalCategory.Name)
+                .GroupBy(x => x.Name)
                 .ToDictionary(g => g.Key, g => g.ToList());
         }
 

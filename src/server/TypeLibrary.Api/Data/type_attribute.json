@@ -2,301 +2,258 @@
   {
     "name": "Space",
     "description": null,
-    "semanticReference": null,
     "parentId": null,
-    "aspect":  "Location" 
+    "aspect": "Location"
   },
   {
     "name": "Facility",
     "description": null,
-    "semanticReference": null,
     "parentId": null,
     "aspect": "Location"
   },
   {
     "name": "Foundation structure",
     "description": null,
-    "semanticReference": null,
     "parentId": null,
     "aspect": "Location"
   },
   {
     "name": "Module",
     "description": null,
-    "semanticReference": null,
     "parentId": null,
     "aspect": "Location"
   },
   {
     "name": "Deck",
     "description": null,
-    "semanticReference": null,
     "parentId": null,
     "aspect": "Location"
   },
   {
     "name": "Area",
     "description": null,
-    "semanticReference": null,
     "parentId": null,
     "aspect": "Location"
   },
   {
     "name": "Route",
     "description": null,
-    "semanticReference": null,
     "parentId": null,
     "aspect": "Location"
   },
   {
     "name": "Enclosure",
     "description": null,
-    "semanticReference": null,
     "parentId": null,
     "aspect": "Location"
   },
   {
     "name": "Point grid location",
     "description": null,
-    "semanticReference": null,
     "parentId": null,
     "aspect": "Location"
   },
   {
     "name": "Object envelope",
     "description": null,
-    "semanticReference": null,
     "parentId": null,
     "aspect": "Location"
   },
   {
     "name": "Terminal",
     "description": null,
-    "semanticReference": null,
     "parentId": null,
     "aspect": "Location"
   },
   {
     "name": "Installation space",
     "description": null,
-    "semanticReference": null,
     "parentId": "0E7C51423721C623EE2C2E5128AAC29B",
     "aspect": "Location"
   },
   {
     "name": "Range space",
     "description": null,
-    "semanticReference": null,
     "parentId": "0E7C51423721C623EE2C2E5128AAC29B",
     "aspect": "Location"
   },
   {
     "name": "Platform facility",
     "description": null,
-    "semanticReference": null,
     "parentId": "74B30F85E14C5F33E4497590013584D0",
     "aspect": "Location"
   },
   {
     "name": "FPSO facility",
     "description": null,
-    "semanticReference": null,
     "parentId": "74B30F85E14C5F33E4497590013584D0",
     "aspect": "Location"
   },
   {
     "name": "Terminal facility",
     "description": null,
-    "semanticReference": null,
     "parentId": "74B30F85E14C5F33E4497590013584D0",
     "aspect": "Location"
   },
   {
     "name": "Subsea facility",
     "description": null,
-    "semanticReference": null,
     "parentId": "74B30F85E14C5F33E4497590013584D0",
     "aspect": "Location"
   },
   {
     "name": "Jacket foundation",
     "description": null,
-    "semanticReference": null,
     "parentId": "013546CF10A39064A02B4C43C69B2CF9",
     "aspect": "Location"
   },
   {
     "name": "Floater foundation",
     "description": null,
-    "semanticReference": null,
     "parentId": "013546CF10A39064A02B4C43C69B2CF9",
     "aspect": "Location"
   },
   {
     "name": "Rig foundation",
     "description": null,
-    "semanticReference": null,
     "parentId": "013546CF10A39064A02B4C43C69B2CF9",
     "aspect": "Location"
   },
   {
     "name": "GBS foundation",
     "description": null,
-    "semanticReference": null,
     "parentId": "013546CF10A39064A02B4C43C69B2CF9",
     "aspect": "Location"
   },
   {
     "name": "Facility module",
     "description": null,
-    "semanticReference": null,
     "parentId": "5065E34131AD4C2BD27EDF04E901071B",
     "aspect": "Location"
   },
   {
     "name": "Tower module",
     "description": null,
-    "semanticReference": null,
     "parentId": "5065E34131AD4C2BD27EDF04E901071B",
     "aspect": "Location"
   },
   {
     "name": "Boom module",
     "description": null,
-    "semanticReference": null,
     "parentId": "5065E34131AD4C2BD27EDF04E901071B",
     "aspect": "Location"
   },
   {
     "name": "Bridge module",
     "description": null,
-    "semanticReference": null,
     "parentId": "5065E34131AD4C2BD27EDF04E901071B",
     "aspect": "Location"
   },
   {
     "name": "Main deck",
     "description": null,
-    "semanticReference": null,
     "parentId": "24CE734D02CCC1F6A7FA673A64BE195D",
     "aspect": "Location"
   },
   {
     "name": "Mezzanine deck",
     "description": null,
-    "semanticReference": null,
     "parentId": "24CE734D02CCC1F6A7FA673A64BE195D",
     "aspect": "Location"
   },
   {
     "name": "Partial deck",
     "description": null,
-    "semanticReference": null,
     "parentId": "24CE734D02CCC1F6A7FA673A64BE195D",
     "aspect": "Location"
   },
   {
     "name": "Area",
     "description": null,
-    "semanticReference": null,
     "parentId": "C4B3F0B03194C431DD4EDB0F68C68BEC",
     "aspect": "Location"
   },
   {
     "name": "Sub area",
     "description": null,
-    "semanticReference": null,
     "parentId": "C4B3F0B03194C431DD4EDB0F68C68BEC",
     "aspect": "Location"
   },
   {
     "name": "Function area",
     "description": null,
-    "semanticReference": null,
     "parentId": "C4B3F0B03194C431DD4EDB0F68C68BEC",
     "aspect": "Location"
   },
   {
     "name": "Route",
     "description": null,
-    "semanticReference": null,
     "parentId": "7560E0375EE7F4DDCF8425EEE1D4B721",
     "aspect": "Location"
   },
   {
     "name": "Container enclosure",
     "description": null,
-    "semanticReference": null,
     "parentId": "DC8A0F1C201EFFF36163978193D8C5A8",
     "aspect": "Location"
   },
   {
     "name": "Cabinet enclosure",
     "description": null,
-    "semanticReference": null,
     "parentId": "DC8A0F1C201EFFF36163978193D8C5A8",
     "aspect": "Location"
   },
   {
     "name": "Box enclosure",
     "description": null,
-    "semanticReference": null,
     "parentId": "DC8A0F1C201EFFF36163978193D8C5A8",
     "aspect": "Location"
   },
   {
     "name": "Point platform grid",
     "description": null,
-    "semanticReference": null,
     "parentId": "7B7A5425B9DC4B77F8BA1BBC4F3C68F6",
     "aspect": "Location"
   },
   {
     "name": "Point local grid",
     "description": null,
-    "semanticReference": null,
     "parentId": "7B7A5425B9DC4B77F8BA1BBC4F3C68F6",
     "aspect": "Location"
   },
   {
     "name": "Point envelope",
     "description": null,
-    "semanticReference": null,
     "parentId": "98E2921B958BD16D0FF23304D33CB177",
     "aspect": "Location"
   },
   {
     "name": "Outline envelope",
     "description": null,
-    "semanticReference": null,
     "parentId": "98E2921B958BD16D0FF23304D33CB177",
     "aspect": "Location"
   },
   {
     "name": "Actual size envelope",
     "description": null,
-    "semanticReference": null,
     "parentId": "98E2921B958BD16D0FF23304D33CB177",
     "aspect": "Location"
   },
   {
     "name": "Pipe terminal",
     "description": null,
-    "semanticReference": null,
     "parentId": "23593F3E4EDBA7324C2FE0FD1B4BBBC5",
     "aspect": "Location"
   },
   {
     "name": "Cable terminal",
     "description": null,
-    "semanticReference": null,
     "parentId": "23593F3E4EDBA7324C2FE0FD1B4BBBC5",
     "aspect": "Location"
   },
   {
     "name": "Duct terminal",
     "description": null,
-    "semanticReference": null,
     "parentId": "23593F3E4EDBA7324C2FE0FD1B4BBBC5",
     "aspect": "Location"
   }

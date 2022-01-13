@@ -8,26 +8,26 @@ namespace TypeLibrary.Models.Extensions
 {
     public static class StringExtensions
     {
-        public static (string terminalCategoryId, string terminalTypeId) CreateCategoryIdAndTerminalTypeId(this string terminalName, string terminalCategoryId)
-        {
-            if (string.IsNullOrEmpty(terminalCategoryId) || string.IsNullOrEmpty(terminalName))
-                throw new ModelBuilderNullReferenceException("Category and terminal can't be null");
+        //public static (string terminalCategoryId, string terminalTypeId) CreateCategoryIdAndTerminalTypeId(this string terminalName, string terminalCategoryId)
+        //{
+        //    if (string.IsNullOrEmpty(terminalCategoryId) || string.IsNullOrEmpty(terminalName))
+        //        throw new ModelBuilderNullReferenceException("Category and terminal can't be null");
 
-            var category = new TerminalCategory
-            {
-                Id = terminalCategoryId
-            };
+        //    var category = new TerminalCategory
+        //    {
+        //        Id = terminalCategoryId
+        //    };
 
-            var createTerminalType = new CreateTerminalType
-            {
-                Name = terminalName,
-                TerminalCategoryId = category.Id
-            };
+        //    var createTerminalType = new CreateTerminalType
+        //    {
+        //        Name = terminalName,
+        //        TerminalCategoryId = category.Id
+        //    };
 
-            var terminalTypeId = createTerminalType.Key.CreateMd5();
+        //    var terminalTypeId = createTerminalType.Key.CreateMd5();
 
-            return (category.Id, terminalTypeId);
-        }
+        //    return (category.Id, terminalTypeId);
+        //}
 
         public static string IncrementMajorVersion(this string version)
         {

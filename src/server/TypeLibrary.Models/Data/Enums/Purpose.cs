@@ -5,11 +5,20 @@ using TypeLibrary.Models.Enums;
 
 namespace TypeLibrary.Models.Data.Enums
 {
-    public class Purpose : EnumBase
+    public class Purpose
     {
+
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Iri { get; set; }
         public Discipline Discipline { get; set; }
-        public override string Key => $"{Name}-{InternalType}-{Discipline}";
-        
+
+        private const string InternalType = "Mb.Models.Data.Enums.Purpose";
+
+        [JsonIgnore]
+        public virtual string Key => $"{Name}-{InternalType}-{Discipline}";
+
         [JsonIgnore]
         public virtual ICollection<LibraryType> LibraryTypes { get; set; }
     }

@@ -1,37 +1,22 @@
 [
   {
     "name": "NotSet",
-    "description": null,
-    "semanticReference": null,
-    "aspect": "NotSet",
-    "parentId": null
+    "description": null
   },
   {
     "name": "Capacity",
-    "description": null,
-    "semanticReference": null,
-    "aspect": "NotSet",
-    "parentId": null
+    "description": null
   },
   {
     "name": "Operating",
-    "description": null,
-    "semanticReference": null,
-    "aspect": "NotSet",
-    "parentId": null
+    "description": null
   },
   {
     "name": "Rating",
-    "description": null,
-    "semanticReference": null,
-    "aspect": "NotSet",
-    "parentId": null
+    "description": null
   },
   {
     "name": "Required",
-    "description": null,
-    "semanticReference": null,
-    "aspect": "NotSet",
-    "parentId": null
+    "description": null
   }
 ]

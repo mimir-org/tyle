@@ -32,7 +32,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<ITransportTypeRepository, TransportTypeRepository>();
             services.AddScoped<ILibraryRepository, LibraryRepository>();
             services.AddScoped<IPredefinedAttributeRepository, PredefinedAttributeRepository>();
-            services.AddScoped<IEnumBaseRepository, EnumBaseRepository>();
+            //services.AddScoped<IEnumBaseRepository, EnumBaseRepository>();
             services.AddScoped<IRdsRepository, RdsRepository>();
             services.AddSingleton<IFileRepository, JsonFileRepository>();
             services.AddScoped<IBlobDataRepository, BlobDataRepository>();
@@ -40,7 +40,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<ILibraryTypeService, LibraryTypeService>();
             services.AddScoped<ILibraryTypeFileService, LibraryTypeFileService>();
             services.AddScoped<IAttributeTypeService, AttributeTypeService>();
-            services.AddScoped<IEnumService, EnumService>();
+            //services.AddScoped<IEnumService, EnumService>();
             services.AddScoped<IRdsService, RdsService>();
             services.AddScoped<ISeedingService, SeedingService>();
             services.AddScoped<IBlobDataService, BlobDataService>();

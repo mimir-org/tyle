@@ -2,73 +2,55 @@
   {
     "name": "Not Set",
     "description": null,
-    "semanticReference": null,
     "color": "",
-    "aspect": "NotSet",
     "parentId": null
   },
   {
     "name": "Material Fluid",
     "description": null,
-    "semanticReference": null,
     "color": "#0066FF",
-    "aspect": "NotSet",
     "parentId": null
   },
   {
     "name": "Material Granulate",
     "description": null,
-    "semanticReference": null,
     "color": "#CC9900",
-    "aspect": "NotSet",
     "parentId": null
   },
   {
     "name": "Material Pieces",
     "description": null,
-    "semanticReference": null,
     "color": "#663300",
-    "aspect": "NotSet",
     "parentId": null
   },
   {
     "name": "Energy Electrical",
     "description": null,
-    "semanticReference": null,
     "color": "#FF0000",
-    "aspect": "NotSet",
     "parentId": null
   },
   {
     "name": "Energy Thermal",
     "description": null,
-    "semanticReference": null,
     "color": "#FF9900",
-    "aspect": "NotSet",
     "parentId": null
   },
   {
     "name": "Energy Mechanical",
     "description": null,
-    "semanticReference": null,
     "color": "#CCCCCC",
-    "aspect": "NotSet",
     "parentId": null
   },
   {
     "name": "Information",
     "description": null,
-    "semanticReference": null,
     "color": "#006600",
-    "aspect": "NotSet",
     "parentId": null
   },
   {
     "name": "Force",
     "description": null,
-    "semanticReference": null,
     "color": "#000000",
-    "aspect": "NotSet",
     "parentId": null
   }
 ]
