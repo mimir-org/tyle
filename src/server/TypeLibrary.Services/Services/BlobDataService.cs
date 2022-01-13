@@ -88,7 +88,7 @@ namespace TypeLibrary.Services.Services
         {
             var dm = await _blobDataRepository.GetAsync(blobData.Id);
             if (dm == null)
-                throw new ModelBuilderNotFoundException($"There is no blob data with id: {blobData.Id}");
+                throw new MimirorgNotFoundException($"There is no blob data with id: {blobData.Id}");
 
             _blobDataRepository.Update(dm);
             await _blobDataRepository.SaveAsync();

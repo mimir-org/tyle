@@ -36,6 +36,20 @@ namespace Mimirorg.Common.Extensions
             return sb.ToString();
         }
 
+        public static string CreateSha512(this string key)
+        {
+            var sb = new StringBuilder();
+            using var sha = SHA512.Create();
+            var inputBytes = Encoding.ASCII.GetBytes(key);
+            var hashBytes = sha.ComputeHash(inputBytes);
+
+            foreach (var t in hashBytes)
+            {
+                sb.Append(t.ToString("X2"));
+            }
+            return sb.ToString();
+        }
+
         public static string ResolveNameFromRoleClaim(this string role)
         {
             if (string.IsNullOrEmpty(role))
@@ -43,7 +57,7 @@ namespace Mimirorg.Common.Extensions
 
             var name = role.Split('_', StringSplitOptions.RemoveEmptyEntries);
             if (name.Length != 2)
-                throw new ModelBuilderInvalidOperationException("The role name contains fail format.");
+                throw new MimirorgInvalidOperationException("The role name contains fail format.");
 
             return name[^1];
         }

@@ -3,11 +3,11 @@
 namespace Mimirorg.Common.Exceptions
 {
     [Serializable]
-    public class ModelBuilderBadRequestException : Exception
+    public class MimirorgBadRequestException : Exception
     {
         private Validation _validation;
 
-        public ModelBuilderBadRequestException(string message) : base(message)
+        public MimirorgBadRequestException(string message) : base(message)
         {
             _validation = new Validation
             {
@@ -15,13 +15,13 @@ namespace Mimirorg.Common.Exceptions
             };
         }
 
-        public ModelBuilderBadRequestException(string message, Validation validation) : base(message)
+        public MimirorgBadRequestException(string message, Validation validation) : base(message)
         {
             _validation = validation;
             _validation.Message = message;
         }
 
-        public IEnumerable<ModelBuilderBadRequest> Errors()
+        public IEnumerable<MimirorgBadRequest> Errors()
         {
             if (_validation.IsValid)
                 yield break;
@@ -39,7 +39,7 @@ namespace Mimirorg.Common.Exceptions
                     if(string.IsNullOrEmpty(name))
                         continue;
 
-                    yield return new ModelBuilderBadRequest
+                    yield return new MimirorgBadRequest
                     {
                         Key = name,
                         Error = result.ErrorMessage ?? string.Empty
@@ -49,7 +49,7 @@ namespace Mimirorg.Common.Exceptions
         }
     }
 
-    public class ModelBuilderBadRequest
+    public class MimirorgBadRequest
     {
         public string Key { get; set; }
         public string Error { get; set; }

@@ -83,12 +83,12 @@ namespace TypeLibrary.Core.Controllers.V1
                 var data = await _libraryTypeService.ConvertToCreateLibraryType(id, filter);
                 return Ok(data);
             }
-            catch (ModelBuilderNotFoundException e)
+            catch (MimirorgNotFoundException e)
             {
                 ModelState.AddModelError("Not found", e.Message);
                 return BadRequest(ModelState);
             }
-            catch (ModelBuilderInvalidOperationException e)
+            catch (MimirorgInvalidOperationException e)
             {
                 ModelState.AddModelError("Invalid value", e.Message);
                 return BadRequest(ModelState);
@@ -162,21 +162,21 @@ namespace TypeLibrary.Core.Controllers.V1
                             await _libraryTypeService.CreateLibraryType<LibraryInterfaceItem>(libraryType);
                         return Ok(libraryInterfaceItem);
                     default:
-                        throw new ModelBuilderInvalidOperationException(
+                        throw new MimirorgInvalidOperationException(
                             $"Can't create type of: {libraryType.ObjectType}");
                 }
             }
-            catch (ModelBuilderDuplicateException e)
+            catch (MimirorgDuplicateException e)
             {
                 ModelState.AddModelError("Duplicate", e.Message);
                 return BadRequest(ModelState);
             }
-            catch (ModelBuilderNullReferenceException e)
+            catch (MimirorgNullReferenceException e)
             {
                 ModelState.AddModelError("Duplicate", e.Message);
                 return BadRequest(ModelState);
             }
-            catch (ModelBuilderInvalidOperationException e)
+            catch (MimirorgInvalidOperationException e)
             {
                 ModelState.AddModelError("Duplicate", e.Message);
                 return BadRequest(ModelState);
@@ -221,16 +221,16 @@ namespace TypeLibrary.Core.Controllers.V1
                             await _libraryTypeService.UpdateLibraryType<LibraryInterfaceItem>(id, libraryType, updateMajorVersion, updateMinorVersion);
                         return Ok(libraryInterfaceItem);
                     default:
-                        throw new ModelBuilderInvalidOperationException(
+                        throw new MimirorgInvalidOperationException(
                             $"Can't create type of: {libraryType.ObjectType}");
                 }
             }
-            catch (ModelBuilderNullReferenceException e)
+            catch (MimirorgNullReferenceException e)
             {
                 ModelState.AddModelError("Bad request", e.Message);
                 return BadRequest(ModelState);
             }
-            catch (ModelBuilderNotFoundException e)
+            catch (MimirorgNotFoundException e)
             {
                 ModelState.AddModelError("Bad request", e.Message);
                 return BadRequest(ModelState);
@@ -262,7 +262,7 @@ namespace TypeLibrary.Core.Controllers.V1
                 var createdType = await _libraryTypeService.CreateSimpleType(simpleType);
                 return StatusCode(201, createdType);
             }
-            catch (ModelBuilderDuplicateException e)
+            catch (MimirorgDuplicateException e)
             {
                 ModelState.AddModelError("Duplicate", e.Message);
                 return BadRequest(ModelState);
@@ -299,7 +299,7 @@ namespace TypeLibrary.Core.Controllers.V1
                 await _libraryTypeService.DeleteType(id);
                 return Ok(true);
             }
-            catch (ModelBuilderNotFoundException e)
+            catch (MimirorgNotFoundException e)
             {
                 return NotFound(e);
             }

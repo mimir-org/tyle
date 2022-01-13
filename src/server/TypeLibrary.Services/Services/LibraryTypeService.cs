@@ -49,7 +49,7 @@ namespace TypeLibrary.Services.Services
             var libraryTypeComponent = await _libraryTypeComponentRepository.GetAsync(id);
 
             if (!ignoreNotFound && libraryTypeComponent == null)
-                throw new ModelBuilderNotFoundException($"The type with id: {id} could not be found.");
+                throw new MimirorgNotFoundException($"The type with id: {id} could not be found.");
 
             if (libraryTypeComponent is NodeType)
             {
@@ -113,15 +113,15 @@ namespace TypeLibrary.Services.Services
         public async Task<T> UpdateLibraryType<T>(string id, CreateLibraryType createLibraryType, bool updateMajorVersion, bool updateMinorVersion) where T : class, new()
         {
             if (string.IsNullOrEmpty(id))
-                throw new ModelBuilderNullReferenceException("Can't update a type without an id");
+                throw new MimirorgNullReferenceException("Can't update a type without an id");
 
             if (createLibraryType == null)
-                throw new ModelBuilderNullReferenceException("Can't update a null type");
+                throw new MimirorgNullReferenceException("Can't update a null type");
 
             var existingType = await GetTypeById(id);
 
             if (existingType?.Id == null)
-                throw new ModelBuilderNotFoundException($"There is no type with id:{id} to update.");
+                throw new MimirorgNotFoundException($"There is no type with id:{id} to update.");
 
             var existingTypeVersions = GetAllTypes()
                 .Where(x => x.TypeId == existingType.TypeId)
@@ -129,7 +129,7 @@ namespace TypeLibrary.Services.Services
 
             if (double.Parse(existingType.Version, CultureInfo.InvariantCulture) <
                 double.Parse(existingTypeVersions[^1].Version, CultureInfo.InvariantCulture))
-                throw new ModelBuilderInvalidOperationException($"Not allowed to edit previous {existingType.Version} version. Latest version is {existingTypeVersions[^1].Version}");
+                throw new MimirorgInvalidOperationException($"Not allowed to edit previous {existingType.Version} version. Latest version is {existingTypeVersions[^1].Version}");
 
             if (updateMajorVersion || updateMinorVersion)
             {
@@ -214,7 +214,7 @@ namespace TypeLibrary.Services.Services
                         .FirstOrDefaultAsync();
 
                     if (nodeItem == null)
-                        throw new ModelBuilderNotFoundException($"There is no type with id: {id} and filter: {filter}");
+                        throw new MimirorgNotFoundException($"There is no type with id: {id} and filter: {filter}");
 
                     return _mapper.Map<CreateLibraryType>(nodeItem);
 
@@ -225,7 +225,7 @@ namespace TypeLibrary.Services.Services
                         .FirstOrDefaultAsync();
 
                     if (interfaceItem == null)
-                        throw new ModelBuilderNotFoundException($"There is no type with id: {id} and filter: {filter}");
+                        throw new MimirorgNotFoundException($"There is no type with id: {id} and filter: {filter}");
 
                     return _mapper.Map<CreateLibraryType>(interfaceItem);
 
@@ -237,12 +237,12 @@ namespace TypeLibrary.Services.Services
                         .FirstOrDefaultAsync();
 
                     if (transportItem == null)
-                        throw new ModelBuilderNotFoundException($"There is no type with id: {id} and filter: {filter}");
+                        throw new MimirorgNotFoundException($"There is no type with id: {id} and filter: {filter}");
 
                     return _mapper.Map<CreateLibraryType>(transportItem);
 
                 default:
-                    throw new ModelBuilderInvalidOperationException("Filter type mismatch");
+                    throw new MimirorgInvalidOperationException("Filter type mismatch");
             }
         }
 
@@ -257,7 +257,7 @@ namespace TypeLibrary.Services.Services
             var existingType = await _simpleTypeRepository.GetAsync(newType.Id);
 
             if (existingType != null)
-                throw new ModelBuilderDuplicateException($"Type with name {simpleType.Name} already exist.");
+                throw new MimirorgDuplicateException($"Type with name {simpleType.Name} already exist.");
 
             foreach (var attribute in newType.AttributeTypes)
             {
@@ -338,7 +338,7 @@ namespace TypeLibrary.Services.Services
             var existingType = await GetTypeById(id);
 
             if (existingType == null)
-                throw new ModelBuilderNotFoundException($"Could not delete type with id: {id}. The type was not found.");
+                throw new MimirorgNotFoundException($"Could not delete type with id: {id}. The type was not found.");
 
             if (existingType is NodeType typeToDelete)
             {
@@ -505,7 +505,7 @@ namespace TypeLibrary.Services.Services
             var data = (await CreateLibraryTypes(new List<CreateLibraryType> { createLibraryType }, createNewFromExistingVersion))?.FirstOrDefault();
 
             if (data == null)
-                throw new ModelBuilderNullReferenceException("Could not create type");
+                throw new MimirorgNullReferenceException("Could not create type");
 
             var obj = await _libraryRepository.GetLibraryItem<T>(data.Id);
             return obj;
@@ -514,7 +514,7 @@ namespace TypeLibrary.Services.Services
         private void SetLibraryTypeVersion(LibraryType newLibraryType, LibraryType existingLibraryType)
         {
             if (string.IsNullOrWhiteSpace(newLibraryType?.Version) || string.IsNullOrWhiteSpace(existingLibraryType?.Version))
-                throw new ModelBuilderInvalidOperationException("'Null' error when setting version for library type");
+                throw new MimirorgInvalidOperationException("'Null' error when setting version for library type");
 
             //TODO: The rules for when to trigger major/minor version incrementation is not finalized!
 
