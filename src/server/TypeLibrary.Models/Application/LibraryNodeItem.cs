@@ -15,12 +15,10 @@ namespace TypeLibrary.Models.Application
         public string Description { get; set; }
         public string StatusId { get; set; } = "4590637F39B6BA6F39C74293BE9138DF";
         public Aspect Aspect { get; set; }
-        //public ICollection<Connector> Connectors { get; set; }
         public ICollection<Attribute> Attributes { get; set; }
         public string SemanticReference { get; set; }
         public string SymbolId { get; set; }
         public ObjectType LibraryType => ObjectType.ObjectBlock;
-        //public ICollection<Simple> Simples { get; set; }
         public Purpose Purpose { get; set; }
         public string UpdatedBy { get; set; }
         public DateTime? Updated { get; set; }

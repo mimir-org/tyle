@@ -33,8 +33,6 @@ namespace TypeLibrary.Core.Controllers.V1
             _blobDataService = blobDataService;
         }
 
-        #region Get
-        
         /// <summary>
         /// Get blob data from category
         /// </summary>
@@ -59,10 +57,6 @@ namespace TypeLibrary.Core.Controllers.V1
                 return StatusCode(500, "Internal Server Error");
             }
         }
-
-        #endregion
-
-        #region Post
 
         /// <summary>
         /// Create a new blob data object
@@ -92,13 +86,5 @@ namespace TypeLibrary.Core.Controllers.V1
                 return StatusCode(500, "Internal Server Error");
             }
         }
-
-        #endregion
-
-        #region Delete
-
-
-
-        #endregion
     }
 }

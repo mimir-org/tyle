@@ -32,8 +32,6 @@ namespace TypeLibrary.Core.Controllers.V1
             _libraryTypeFileService = libraryTypeFileService;
         }
 
-        #region Get
-
         /// <summary>
         /// Export to file
         /// </summary>
@@ -57,10 +55,6 @@ namespace TypeLibrary.Core.Controllers.V1
                 return StatusCode(500, "Internal Server Error");
             }
         }
-
-        #endregion
-
-        #region Post
 
         /// <summary>
         /// Import from file
@@ -92,13 +86,5 @@ namespace TypeLibrary.Core.Controllers.V1
                 return StatusCode(500, "Internal Server Error");
             }
         }
-
-        #endregion
-
-        #region Delete
-
-
-
-        #endregion
     }
 }

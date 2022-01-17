@@ -79,18 +79,8 @@ namespace TypeLibrary.Services.Services
 
             foreach (var entity in notExisting)
             {
-                foreach (var entityUnit in entity.Units)
-                {
-                    //_enumBaseRepository.Attach(entityUnit, EntityState.Unchanged);
-                }
-
                 await _attributeTypeRepository.CreateAsync(entity);
                 await _attributeTypeRepository.SaveAsync();
-
-                foreach (var entityUnit in entity.Units)
-                {
-                    //_enumBaseRepository.Detach(entityUnit);
-                }
             }
 
             foreach (var notExistingItem in notExisting)

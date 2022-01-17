@@ -7,7 +7,6 @@ using AutoMapper;
 using TypeLibrary.Models.Application.TypeEditor;
 using TypeLibrary.Models.Data.TypeEditor;
 using TypeLibrary.Models.Enums;
-using TypeLibrary.Models.Extensions;
 using Microsoft.AspNetCore.Http;
 using Mimirorg.Common.Extensions;
 using TypeLibrary.Data.Contracts;
@@ -52,7 +51,7 @@ namespace TypeLibrary.Services.Services
             return types.Serialize();
         }
 
-        #region Private methods
+        #region Private
 
         private async Task CreateLibraryTypeComponentsAsync(ICollection<CreateLibraryType> libraryTypes)
         {
@@ -78,6 +77,6 @@ namespace TypeLibrary.Services.Services
                 await _libraryTypeService.CreateLibraryTypes(newTypes);
         }
 
-        #endregion
+        #endregion Private
     }
 }

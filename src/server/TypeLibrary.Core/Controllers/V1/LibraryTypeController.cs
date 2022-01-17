@@ -38,8 +38,6 @@ namespace TypeLibrary.Core.Controllers.V1
             _libraryTypeService = libraryTypeService;
         }
 
-        #region Get
-
         /// <summary>
         /// Get all library types
         /// </summary>
@@ -122,10 +120,6 @@ namespace TypeLibrary.Core.Controllers.V1
                 return StatusCode(500, "Internal Server Error");
             }
         }
-
-        #endregion
-
-        #region Post
 
         /// <summary>
         /// Create a library type
@@ -274,10 +268,6 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        #endregion
-
-        #region Delete
-
         /// <summary>
         /// Delete a type
         /// </summary>
@@ -309,7 +299,5 @@ namespace TypeLibrary.Core.Controllers.V1
                 return StatusCode(500, "Internal Server Error");
             }
         }
-
-        #endregion
     }
 }

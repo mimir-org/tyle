@@ -10,7 +10,6 @@ using Microsoft.Extensions.Options;
 using Mimirorg.Common.Models;
 using TypeLibrary.Core.Profiles;
 using TypeLibrary.Data;
-// ReSharper disable StringLiteralTypo
 
 namespace TypeLibrary.Core.Extensions
 {
