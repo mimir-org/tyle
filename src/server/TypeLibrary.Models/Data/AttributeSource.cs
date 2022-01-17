@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using TypeLibrary.Models.Data.TypeEditor;
 
-namespace TypeLibrary.Models.Data.Enums
+namespace TypeLibrary.Models.Data
 {
-    public class AttributeFormat
+    public class AttributeSource
     {
         public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Iri { get; set; }
 
-        private const string InternalType = "Mb.Models.Data.Enums.AttributeFormat";
+        private const string InternalType = "Mb.Models.Data.Enums.AttributeSource";
 
         [JsonIgnore]
         public virtual string Key => $"{Name}-{InternalType}";

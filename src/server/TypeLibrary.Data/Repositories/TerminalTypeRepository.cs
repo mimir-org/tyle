@@ -1,6 +1,6 @@
 ﻿using Mimirorg.Common.Abstract;
-using TypeLibrary.Models.Data.TypeEditor;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Data.Repositories
 {

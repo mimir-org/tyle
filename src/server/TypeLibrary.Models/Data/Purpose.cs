@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using TypeLibrary.Models.Data.TypeEditor;
 using TypeLibrary.Models.Enums;
 
-namespace TypeLibrary.Models.Data.Enums
+namespace TypeLibrary.Models.Data
 {
     public class Purpose
     {

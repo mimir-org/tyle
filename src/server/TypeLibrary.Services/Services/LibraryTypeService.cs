@@ -4,8 +4,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using TypeLibrary.Models.Application.TypeEditor;
-using TypeLibrary.Models.Data.TypeEditor;
 using TypeLibrary.Models.Enums;
 using TypeLibrary.Models.Extensions;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Models.Application;
+using TypeLibrary.Models.Data;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services

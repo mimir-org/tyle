@@ -1,5 +1,5 @@
 ﻿using Mimirorg.Common.Abstract;
-using TypeLibrary.Models.Data.TypeEditor;
+using TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Data.Contracts
 {

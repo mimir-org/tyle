@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TypeLibrary.Models.Application.TypeEditor
+namespace TypeLibrary.Models.Application
 {
     public class LocationTypeAm
     {

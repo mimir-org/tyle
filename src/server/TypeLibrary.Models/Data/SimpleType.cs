@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace TypeLibrary.Models.Data.TypeEditor
+namespace TypeLibrary.Models.Data
 {
     public class SimpleType
     {

@@ -4,8 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using TypeLibrary.Models.Application;
-using TypeLibrary.Models.Application.TypeEditor;
-using TypeLibrary.Models.Data.TypeEditor;
 using TypeLibrary.Models.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Common.Exceptions;
 using Swashbuckle.AspNetCore.Annotations;
+using TypeLibrary.Models.Data;
 using TypeLibrary.Services.Contracts;
 
 // ReSharper disable StringLiteralTypo

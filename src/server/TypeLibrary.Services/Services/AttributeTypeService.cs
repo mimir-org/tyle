@@ -2,12 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using TypeLibrary.Models.Application.TypeEditor;
 using TypeLibrary.Models.Data;
-using TypeLibrary.Models.Data.TypeEditor;
 using TypeLibrary.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Models.Application;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services

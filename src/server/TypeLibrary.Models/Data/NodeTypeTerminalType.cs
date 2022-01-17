@@ -1,6 +1,6 @@
 ﻿using TypeLibrary.Models.Enums;
 
-namespace TypeLibrary.Models.Data.TypeEditor
+namespace TypeLibrary.Models.Data
 {
     public class NodeTypeTerminalType
     {

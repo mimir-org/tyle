@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using Newtonsoft.Json;
-using TypeLibrary.Models.Application.TypeEditor;
+using TypeLibrary.Models.Application;
 
-namespace TypeLibrary.Models.Data.TypeEditor
+namespace TypeLibrary.Models.Data
 {
     public class NodeType : LibraryType
     {

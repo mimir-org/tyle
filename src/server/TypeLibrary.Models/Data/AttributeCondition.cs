@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using TypeLibrary.Models.Data.TypeEditor;
 
-namespace TypeLibrary.Models.Data.Enums
+namespace TypeLibrary.Models.Data
 {
-    public class AttributeQualifier
+    public class AttributeCondition
     {
         public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Iri { get; set; }
 
-        private const string InternalType = "Mb.Models.Data.Enums.AttributeQualifier";
+        private const string InternalType = "Mb.Models.Data.Enums.AttributeCondition";
 
         [JsonIgnore]
         public virtual string Key => $"{Name}-{InternalType}";

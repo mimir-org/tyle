@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using TypeLibrary.Models.Data.Enums;
+using TypeLibrary.Models.Data;
 using TypeLibrary.Models.Enums;
 
 namespace TypeLibrary.Models.Application

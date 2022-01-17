@@ -1,7 +1,5 @@
 ﻿using TypeLibrary.Models.Configurations;
 using TypeLibrary.Models.Data;
-using TypeLibrary.Models.Data.Enums;
-using TypeLibrary.Models.Data.TypeEditor;
 using Microsoft.EntityFrameworkCore;
 
 namespace TypeLibrary.Data

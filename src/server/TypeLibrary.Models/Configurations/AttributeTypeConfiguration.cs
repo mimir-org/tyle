@@ -2,8 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TypeLibrary.Models.Configurations.Converters;
-using TypeLibrary.Models.Data.Enums;
-using TypeLibrary.Models.Data.TypeEditor;
+using TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {

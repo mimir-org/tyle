@@ -2,12 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using TypeLibrary.Models.Application;
-using TypeLibrary.Models.Application.TypeEditor;
 using TypeLibrary.Models.Data;
-using TypeLibrary.Models.Data.Enums;
 using Microsoft.Extensions.Logging;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Models.Data.TypeEditor;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services

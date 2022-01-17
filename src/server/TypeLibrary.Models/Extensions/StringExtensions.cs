@@ -1,8 +1,6 @@
 ﻿using System;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
-using TypeLibrary.Models.Application.TypeEditor;
-using TypeLibrary.Models.Data.Enums;
 
 namespace TypeLibrary.Models.Extensions
 {

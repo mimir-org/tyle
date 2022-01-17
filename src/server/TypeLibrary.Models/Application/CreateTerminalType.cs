@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Newtonsoft.Json;
-using TypeLibrary.Models.Data.TypeEditor;
+using TypeLibrary.Models.Data;
 
-namespace TypeLibrary.Models.Application.TypeEditor
+namespace TypeLibrary.Models.Application
 {
     public class CreateTerminalType
     {

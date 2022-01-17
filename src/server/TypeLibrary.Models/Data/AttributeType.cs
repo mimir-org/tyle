@@ -2,10 +2,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Mimirorg.Common.Extensions;
 using Newtonsoft.Json;
-using TypeLibrary.Models.Data.Enums;
 using TypeLibrary.Models.Enums;
 
-namespace TypeLibrary.Models.Data.TypeEditor
+namespace TypeLibrary.Models.Data
 {
     public class AttributeType
     {

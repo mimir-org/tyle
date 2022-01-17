@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace TypeLibrary.Models.Application.TypeEditor
+namespace TypeLibrary.Models.Application
 {
     public class SimpleTypeAm
     {

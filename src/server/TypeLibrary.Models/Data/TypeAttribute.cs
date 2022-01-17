@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using TypeLibrary.Models.Enums;
 
-namespace TypeLibrary.Models.Data.Enums
+namespace TypeLibrary.Models.Data
 {
     public class TypeAttribute 
     {

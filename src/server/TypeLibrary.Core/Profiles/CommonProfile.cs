@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using TypeLibrary.Models.Application;
-using TypeLibrary.Models.Data.TypeEditor;
+using TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Core.Profiles
 {

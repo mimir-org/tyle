@@ -1,10 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using TypeLibrary.Models.Data.Enums;
 using TypeLibrary.Models.Enums;
 using TypeLibrary.Models.Extensions;
 
-namespace TypeLibrary.Models.Data.TypeEditor
+namespace TypeLibrary.Models.Data
 {
     public class LibraryType
     {
