@@ -35,18 +35,20 @@ namespace TypeLibrary.Services.Services
                 .ToList();
         }
 
+
+        //TODO: Returner en
         /// <summary>
         /// Get all terminals
         /// </summary>
         /// <returns></returns>
-        public Dictionary<string, List<TerminalType>> GetTerminalsByCategory()
+        public List<TerminalType> GetTerminalsByCategory()
         {
-            return _terminalTypeRepository.GetAll()
-                //.Include(x => x.TerminalCategory)
+            var result = _terminalTypeRepository.GetAll()
                 .Include(x => x.Attributes)
-                .AsEnumerable()
-                .GroupBy(x => x.Name)
-                .ToDictionary(g => g.Key, g => g.ToList());
+                .Include(x => x.Children)
+                .ToList();
+            
+            return result;
         }
 
         /// <summary>

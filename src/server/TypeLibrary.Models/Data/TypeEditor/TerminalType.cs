@@ -11,12 +11,8 @@ namespace TypeLibrary.Models.Data.TypeEditor
         public string Iri { get; set; }
         public string ParentId { get; set; }
         public TerminalType Parent { get; set; }
+        public ICollection<TerminalType> Children { get; set; }
         public string Color { get; set; }
-
-        private const string InternalType = "Mb.Models.Data.Enums.TerminalCategory";
-
-        [JsonIgnore]
-        public virtual string Key => $"{Name}-{InternalType}";
 
         public ICollection<AttributeType> Attributes { get; set; }
         public ICollection<NodeTypeTerminalType> NodeTypes { get; set; }
