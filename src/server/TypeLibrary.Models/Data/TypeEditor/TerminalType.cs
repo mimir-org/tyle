@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TypeLibrary.Models.Data.Enums;
+using Newtonsoft.Json;
 
 namespace TypeLibrary.Models.Data.TypeEditor
 {
@@ -7,12 +7,13 @@ namespace TypeLibrary.Models.Data.TypeEditor
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
+        public string Iri { get; set; }
+        public string ParentId { get; set; }
+        public TerminalType Parent { get; set; }
+        public ICollection<TerminalType> Children { get; set; }
         public string Color { get; set; }
-        
-        public string TerminalCategoryId { get; set; }
-        public TerminalCategory TerminalCategory { get; set; }
-        
-        public string SemanticReference { get; set; }
+
         public ICollection<AttributeType> Attributes { get; set; }
         public ICollection<NodeTypeTerminalType> NodeTypes { get; set; }
         public ICollection<InterfaceType> InterfaceTypes { get; set; }

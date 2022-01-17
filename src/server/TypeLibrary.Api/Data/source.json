@@ -1,72 +1,42 @@
 [
   {
     "name": "NotSet",
-    "description": null,
-    "semanticReference": null,
-    "aspect": "NotSet",
-    "parentId": null
+    "description": null
   },
   {
     "name": "Required",
-    "description": null,
-    "semanticReference": null,
-    "aspect": "NotSet",
-    "parentId": null
+    "description": null
   },
   {
     "name": "Design",
-    "description": null,
-    "semanticReference": null,
-    "aspect": "NotSet",
-    "parentId": null
+    "description": null
   },
   {
     "name": "Calculated",
-    "description": null,
-    "semanticReference": null,
-    "aspect": "NotSet",
-    "parentId": null
+    "description": null
   },
   {
     "name": "Measured",
-    "description": null,
-    "semanticReference": null,
-    "aspect": "NotSet",
-    "parentId": null
+    "description": null
   },
   {
     "name": "Required, Low",
-    "description": null,
-    "semanticReference": null,
-    "aspect": "NotSet",
-    "parentId": null
+    "description": null
   },
   {
     "name": "Required, High",
-    "description": null,
-    "semanticReference": null,
-    "aspect": "NotSet",
-    "parentId": null
+    "description": null
   },
   {
     "name": "Design, Low",
-    "description": null,
-    "semanticReference": null,
-    "aspect": "NotSet",
-    "parentId": null
+    "description": null
   },
   {
     "name": "Design, High",
-    "description": null,
-    "semanticReference": null,
-    "aspect": "NotSet",
-    "parentId": null
+    "description": null
   },
   {
     "name": "Capacity",
-    "description": null,
-    "semanticReference": null,
-    "aspect": "NotSet",
-    "parentId": null
+    "description": null
   }
 ]

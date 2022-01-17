@@ -9,6 +9,7 @@ using TypeLibrary.Models.Data.Enums;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Common.Extensions;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Models.Data.TypeEditor;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -25,7 +26,7 @@ namespace TypeLibrary.Services.Services
         public const string QualifierFileName = "qualifier";
         public const string SourceFileName = "source";
         public const string RdsCategoryFileName = "rdscategory";
-        public const string TerminalCategoryFileName = "termcategory";
+        public const string TerminalTypeFileName = "termtype";
         public const string AttributeFormatFileName = "format";
         public const string BuildStatusFileName = "buildstatus";
         public const string TypeAttributeFileName = "type_attribute";
@@ -35,7 +36,7 @@ namespace TypeLibrary.Services.Services
         public const string SimpleTypeFileName = "simple_type";
 
         private readonly IFileRepository _fileRepository;
-        private readonly IEnumBaseRepository _enumBaseRepository;
+        //private readonly IEnumBaseRepository _enumBaseRepository;
         private readonly ILogger<SeedingService> _logger;
         private readonly ITerminalTypeService _terminalTypeService;
         private readonly IAttributeTypeService _attributeTypeService;
@@ -43,10 +44,13 @@ namespace TypeLibrary.Services.Services
         private readonly IBlobDataService _blobDataService;
         private readonly ILibraryTypeService _libraryTypeService;
 
-        public SeedingService(IFileRepository fileRepository, IEnumBaseRepository enumBaseRepository, ILogger<SeedingService> logger, ITerminalTypeService terminalTypeService, IAttributeTypeService attributeTypeService, IRdsService rdsService, IBlobDataService blobDataService, ILibraryTypeService libraryTypeService)
+        
+        public SeedingService(IFileRepository fileRepository, ILogger<SeedingService> logger, ITerminalTypeService terminalTypeService, IAttributeTypeService attributeTypeService, IRdsService rdsService, IBlobDataService blobDataService, ILibraryTypeService libraryTypeService)
         {
+            //public SeedingService(IFileRepository fileRepository, IEnumBaseRepository enumBaseRepository, ILogger<SeedingService> logger, ITerminalTypeService terminalTypeService, IAttributeTypeService attributeTypeService, IRdsService rdsService, IBlobDataService blobDataService, ILibraryTypeService libraryTypeService)
+            //{
             _fileRepository = fileRepository;
-            _enumBaseRepository = enumBaseRepository;
+            //_enumBaseRepository = enumBaseRepository;
             _logger = logger;
             _terminalTypeService = terminalTypeService;
             _attributeTypeService = attributeTypeService;
@@ -74,7 +78,7 @@ namespace TypeLibrary.Services.Services
                 var qualifierFiles = fileList.Where(x => x.ToLower().Equals(QualifierFileName)).ToList();
                 var sourceFiles = fileList.Where(x => x.ToLower().Equals(SourceFileName)).ToList();
                 var rdsCategoryFiles = fileList.Where(x => x.ToLower().Equals(RdsCategoryFileName)).ToList();
-                var terminalCategoryFiles = fileList.Where(x => x.ToLower().Equals(TerminalCategoryFileName)).ToList();
+                var terminalTypeFiles = fileList.Where(x => x.ToLower().Equals(TerminalTypeFileName)).ToList();
                 var attributeFormatFiles = fileList.Where(x => x.ToLower().Equals(AttributeFormatFileName)).ToList();
                 var buildStatusFiles = fileList.Where(x => x.ToLower().Equals(BuildStatusFileName)).ToList();
                 var typeAttributeFiles = fileList.Where(x => x.ToLower().Equals(TypeAttributeFileName)).ToList();
@@ -95,7 +99,7 @@ namespace TypeLibrary.Services.Services
                 var qualifiers = _fileRepository.ReadAllFiles<AttributeQualifier>(qualifierFiles).ToList();
                 var sources = _fileRepository.ReadAllFiles<AttributeSource>(sourceFiles).ToList();
                 var rdsCategories = _fileRepository.ReadAllFiles<RdsCategory>(rdsCategoryFiles).ToList();
-                var terminalCategories = _fileRepository.ReadAllFiles<TerminalCategory>(terminalCategoryFiles).ToList();
+                var terminalTypes = _fileRepository.ReadAllFiles<TerminalType>(terminalTypeFiles).ToList();
                 var attributeFormats = _fileRepository.ReadAllFiles<AttributeFormat>(attributeFormatFiles).ToList();
                 //var buildStatuses = _fileRepository.ReadAllFiles<BuildStatus>(buildStatusFiles).ToList();
                 var typeAttributes = _fileRepository.ReadAllFiles<TypeAttribute>(typeAttributeFiles).ToList();
@@ -109,16 +113,15 @@ namespace TypeLibrary.Services.Services
                 var predefinedAttributes = _fileRepository.ReadAllFiles<PredefinedAttribute>(predefinedAttributeFiles).ToList();
                 var purposes = _fileRepository.ReadAllFiles<Purpose>(purposeFiles).ToList();
 
-                await CreateEnumBase(units);
-                await CreateEnumBase(conditions);
-                await CreateEnumBase(qualifiers);
-                await CreateEnumBase(sources);
-                await CreateEnumBase(rdsCategories);
-                await CreateEnumBase(terminalCategories);
-                await CreateEnumBase(attributeFormats);
-                //await CreateEnumBase(buildStatuses);
-                await CreateEnumBase(typeAttributes);
-                await CreateEnumBase(purposes);
+                //await CreateEnumBase(units);
+                //await CreateEnumBase(conditions);
+                //await CreateEnumBase(qualifiers);
+                //await CreateEnumBase(sources);
+                //await CreateEnumBase(rdsCategories);
+                //await CreateEnumBase(terminalCategories);
+                //await CreateEnumBase(attributeFormats);
+                //await CreateEnumBase(typeAttributes);
+                //await CreateEnumBase(purposes);
 
                 await _attributeTypeService.CreateAttributeTypes(attributes);
                 await _terminalTypeService.CreateTerminalTypes(terminals);
@@ -140,43 +143,43 @@ namespace TypeLibrary.Services.Services
 
         
 
-        private async Task CreateEnumBase<T>(IEnumerable<T> items) where T : EnumBase
-        {
-            var exitingItems = _enumBaseRepository.GetAll().OfType<T>().ToList();
-            var newItems = items.Select(x => { x.Id = x.Key.CreateMd5(); return x; }).ToList();
-            var notExistingItems = newItems.Where(x => exitingItems.All(y => y.Id != x.Id)).ToList();
+        //private async Task CreateEnumBase<T>(IEnumerable<T> items) where T : EnumBase
+        //{
+        //    var exitingItems = _enumBaseRepository.GetAll().OfType<T>().ToList();
+        //    var newItems = items.Select(x => { x.Id = x.Key.CreateMd5(); return x; }).ToList();
+        //    var notExistingItems = newItems.Where(x => exitingItems.All(y => y.Id != x.Id)).ToList();
 
-            if (!notExistingItems.Any())
-                return;
+        //    if (!notExistingItems.Any())
+        //        return;
 
-            var parents = notExistingItems.Where(x => string.IsNullOrEmpty(x.ParentId)).ToList();
-            var children = notExistingItems.Where(x => !string.IsNullOrEmpty(x.ParentId)).ToList();
+        //    var parents = notExistingItems.Where(x => string.IsNullOrEmpty(x.ParentId)).ToList();
+        //    var children = notExistingItems.Where(x => !string.IsNullOrEmpty(x.ParentId)).ToList();
 
-            foreach (var item in parents)
-            {
-                item.Key.CreateMd5();
-                await _enumBaseRepository.CreateAsync(item);
-            }
+        //    foreach (var item in parents)
+        //    {
+        //        item.Key.CreateMd5();
+        //        await _enumBaseRepository.CreateAsync(item);
+        //    }
 
-            await _enumBaseRepository.SaveAsync();
+        //    await _enumBaseRepository.SaveAsync();
 
-            foreach (var item in parents)
-            {
-                _enumBaseRepository.Detach(item);
-            }
+        //    foreach (var item in parents)
+        //    {
+        //        _enumBaseRepository.Detach(item);
+        //    }
 
-            foreach (var item in children)
-            {
-                item.Key.CreateMd5();
-                await _enumBaseRepository.CreateAsync(item);
-            }
+        //    foreach (var item in children)
+        //    {
+        //        item.Key.CreateMd5();
+        //        await _enumBaseRepository.CreateAsync(item);
+        //    }
 
-            await _enumBaseRepository.SaveAsync();
+        //    await _enumBaseRepository.SaveAsync();
 
-            foreach (var item in children)
-            {
-                _enumBaseRepository.Detach(item);
-            }
-        }
+        //    foreach (var item in children)
+        //    {
+        //        _enumBaseRepository.Detach(item);
+        //    }
+        //}
     }
 }

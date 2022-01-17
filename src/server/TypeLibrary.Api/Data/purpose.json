@@ -2,193 +2,120 @@
   {
     "name": "Manifold",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Process",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Process"
   },
   {
     "name": "Separate",
-    "description": null,
-    "semanticReference": null,
-    "discipline": "Process",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Process"
   },
   {
     "name": "Pump",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Process",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Process"
   },
   {
     "name": "Compress",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Process",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Process"
   },
   {
     "name": "Mix",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Process",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Process"
   },
   {
     "name": "Exchange (heat)",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Process",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Process"
   },
   {
     "name": "React",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Process",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Process"
   },
   {
     "name": "Transform",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Process",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Process"
   },
   {
     "name": "Generate",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Electrical",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Electrical"
   },
   {
     "name": "Switch",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Electrical",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Electrical"
   },
   {
     "name": "Break",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Electrical",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Electrical"
   },
   {
     "name": "Distribute (Electro)",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Electrical",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Electrical"
   },
   {
     "name": "Distribute (Process)",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Process",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Process"
   },
   {
     "name": "Transform",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Electrical",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Electrical"
   },
   {
     "name": "Convert",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Electrical",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Electrical"
   },
   {
     "name": "Drive",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Electrical",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Electrical"
   },
   {
     "name": "Heat",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Electrical",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Electrical"
   },
   {
     "name": "Store",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Electrical",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Electrical"
   },
   {
     "name": "Measure",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Automation",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Automation"
   },
   {
     "name": "Control",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Automation",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Automation"
   },
   {
     "name": "Actuate",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Automation",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Automation"
   },
   {
     "name": "Support",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Structural",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Structural"
   },
   {
     "name": "Enclose",
     "description": null,
-    "semanticReference": null,
-    "discipline": "Structural",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "Structural"
   },
   {
     "name": "None",
     "description": null,
-    "semanticReference": null,
-    "discipline": "None",
-    "aspect": "NotSet",
-    "parentId": null
+    "discipline": "None"
   }
 ]

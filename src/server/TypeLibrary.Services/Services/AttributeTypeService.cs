@@ -17,14 +17,16 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly IPredefinedAttributeRepository _predefinedAttributeRepository;
         private readonly IAttributeTypeRepository _attributeTypeRepository;
-        private readonly IEnumBaseRepository _enumBaseRepository;
+        //private readonly IEnumBaseRepository _enumBaseRepository;
 
-        public AttributeTypeService(IMapper mapper, IPredefinedAttributeRepository predefinedAttributeRepository, IAttributeTypeRepository attributeTypeRepository, IEnumBaseRepository enumBaseRepository)
+        public AttributeTypeService(IMapper mapper, IPredefinedAttributeRepository predefinedAttributeRepository, IAttributeTypeRepository attributeTypeRepository)
         {
+        //public AttributeTypeService(IMapper mapper, IPredefinedAttributeRepository predefinedAttributeRepository, IAttributeTypeRepository attributeTypeRepository, IEnumBaseRepository enumBaseRepository)
+        //{
             _mapper = mapper;
             _predefinedAttributeRepository = predefinedAttributeRepository;
             _attributeTypeRepository = attributeTypeRepository;
-            _enumBaseRepository = enumBaseRepository;
+            //_enumBaseRepository = enumBaseRepository;
         }
 
         /// <summary>
@@ -79,7 +81,7 @@ namespace TypeLibrary.Services.Services
             {
                 foreach (var entityUnit in entity.Units)
                 {
-                    _enumBaseRepository.Attach(entityUnit, EntityState.Unchanged);
+                    //_enumBaseRepository.Attach(entityUnit, EntityState.Unchanged);
                 }
 
                 await _attributeTypeRepository.CreateAsync(entity);
@@ -87,7 +89,7 @@ namespace TypeLibrary.Services.Services
 
                 foreach (var entityUnit in entity.Units)
                 {
-                    _enumBaseRepository.Detach(entityUnit);
+                    //_enumBaseRepository.Detach(entityUnit);
                 }
             }
 

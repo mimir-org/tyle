@@ -15,12 +15,12 @@ namespace TypeLibrary.Models.Extensions
         /// Create EnumBase from a CreateEnum object as correct type
         /// </summary>
         /// <returns></returns>
-        public static EnumBase CreateEnum(this CreateEnum createEnum)
-        {
-            var method = typeof(EnumMapper).GetMethod("CreateEnum");
-            var genericMethod = method?.MakeGenericMethod(createEnum.EnumType.GetEnumTypeFromEnum());
-            return (EnumBase)genericMethod?.Invoke(new EnumMapper(), new object[] { createEnum });
-        }
+        //public static EnumBase CreateEnum(this CreateEnum createEnum)
+        //{
+        //    var method = typeof(EnumMapper).GetMethod("CreateEnum");
+        //    var genericMethod = method?.MakeGenericMethod(createEnum.EnumType.GetEnumTypeFromEnum());
+        //    return (EnumBase)genericMethod?.Invoke(new EnumMapper(), new object[] { createEnum });
+        //}
 
         /// <summary>
         /// Get type of enum as a list
@@ -103,18 +103,18 @@ namespace TypeLibrary.Models.Extensions
         }
     }
 
-    public class EnumMapper
-    {
-        public T CreateEnum<T>(CreateEnum item) where T : EnumBase, new()
-        {
-            var model = new T
-            {
-                Name = item.Name,
-                Description = item.Description,
-                SemanticReference = item.SemanticReference
-            };
+    //public class EnumMapper
+    //{
+    //    public T CreateEnum<T>(CreateEnum item) where T : EnumBase, new()
+    //    {
+    //        var model = new T
+    //        {
+    //            Name = item.Name,
+    //            Description = item.Description,
+    //            SemanticReference = item.SemanticReference
+    //        };
 
-            return model;
-        }
-    }
+    //        return model;
+    //    }
+    //}
 }

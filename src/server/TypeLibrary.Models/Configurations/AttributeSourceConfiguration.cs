@@ -4,17 +4,16 @@ using TypeLibrary.Models.Data.Enums;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class PurposeConfiguration : IEntityTypeConfiguration<Purpose>
+    public class AttributeSourceConfiguration : IEntityTypeConfiguration<AttributeSource>
     {
-        public void Configure(EntityTypeBuilder<Purpose> builder)
+        public void Configure(EntityTypeBuilder<AttributeSource> builder)
         {
-            builder.ToTable("Purpose");
+            builder.ToTable("AttributeSource");
             builder.HasKey(x => x.Id);
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();
             builder.Property(p => p.Description).HasColumnName("Description").IsRequired(false);
             builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false);
-            builder.Property(p => p.Discipline).HasColumnName("Discipline").IsRequired().HasConversion<string>();
         }
     }
 }

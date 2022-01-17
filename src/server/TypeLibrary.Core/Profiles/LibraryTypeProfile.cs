@@ -153,7 +153,7 @@ namespace TypeLibrary.Core.Profiles
             CreateMap<NodeTypeTerminalType, TerminalTypeItem>()
                 .ForMember(dest => dest.TerminalTypeId, opt => opt.MapFrom(src => src.TerminalTypeId))
                 .ForMember(dest => dest.Number, opt => opt.MapFrom(src => src.Number))
-                .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.TerminalType.TerminalCategoryId))
+                //.ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.TerminalType.TerminalCategoryId))
                 .ForMember(dest => dest.ConnectorType, opt => opt.MapFrom(src => src.ConnectorType));
 
             CreateMap<NodeType, LibraryNodeItem>()
