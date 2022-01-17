@@ -34,8 +34,6 @@ namespace TypeLibrary.Core.Controllers.V1
             _attributeTypeService = attributeTypeService;
         }
 
-        #region Get
-
         /// <summary>
         /// Get all attribute types by aspect.
         /// If aspect is NotSet, all attribute types will be returned
@@ -81,10 +79,6 @@ namespace TypeLibrary.Core.Controllers.V1
                 return StatusCode(500, "Internal Server Error");
             }
         }
-
-        #endregion
-
-        #region Post
 
         /// <summary>
         /// Create an attribute type
@@ -147,13 +141,5 @@ namespace TypeLibrary.Core.Controllers.V1
                 return StatusCode(500, "Internal Server Error");
             }
         }
-
-        #endregion
-
-        #region Delete
-
-
-
-        #endregion
     }
 }

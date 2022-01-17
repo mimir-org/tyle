@@ -32,13 +32,11 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
-                //.ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.SemanticReference));
 
             CreateMap<Unit, UnitAm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
-                //.ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.SemanticReference));
 
             CreateMap<PredefinedAttribute, PredefinedAttributeAm>()
                 .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.Key))

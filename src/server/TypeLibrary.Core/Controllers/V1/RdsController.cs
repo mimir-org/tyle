@@ -32,8 +32,6 @@ namespace TypeLibrary.Core.Controllers.V1
             _rdsService = rdsService;
         }
 
-        #region Get
-
         /// <summary>
         /// Get RDS codes
         /// </summary>
@@ -56,17 +54,5 @@ namespace TypeLibrary.Core.Controllers.V1
                 return StatusCode(500, "Internal Server Error");
             }
         }
-
-        #endregion
-
-        #region Post
-
-        #endregion
-
-        #region Delete
-
-
-
-        #endregion
     }
 }

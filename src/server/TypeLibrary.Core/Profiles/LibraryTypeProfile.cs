@@ -153,7 +153,6 @@ namespace TypeLibrary.Core.Profiles
             CreateMap<NodeTypeTerminalType, TerminalTypeItem>()
                 .ForMember(dest => dest.TerminalTypeId, opt => opt.MapFrom(src => src.TerminalTypeId))
                 .ForMember(dest => dest.Number, opt => opt.MapFrom(src => src.Number))
-                //.ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.TerminalType.TerminalCategoryId))
                 .ForMember(dest => dest.ConnectorType, opt => opt.MapFrom(src => src.ConnectorType));
 
             CreateMap<NodeType, LibraryNodeItem>()
@@ -168,16 +167,11 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.SemanticReference))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.AttributeTypes))
                 .ForMember(dest => dest.SymbolId, opt => opt.MapFrom(src => src.SymbolId))
-                //.ForMember(dest => dest.Simples, opt => opt.MapFrom(src => src.SimpleTypes))
                 .ForMember(dest => dest.Purpose, opt => opt.MapFrom(src => src.Purpose))
                 .ForMember(dest => dest.UpdatedBy, opt => opt.MapFrom(src => src.UpdatedBy))
                 .ForMember(dest => dest.Updated, opt => opt.MapFrom(src => src.Updated))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
-                //.AfterMap((src, dest, context) =>
-                //{
-                //    dest.Connectors = Task.Run(() => CreateConnectors(src.TerminalTypes, context)).Result;
-                //});
 
             CreateMap<TransportType, LibraryTransportItem>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -216,64 +210,6 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
         }
-
-        //private async Task<List<Connector>> CreateConnectors(ICollection<NodeTypeTerminalType> nodeTypeTerminalTypes, ResolutionContext context)
-        //{
-        //    //Run these in 6 parallel threads
-        //    var partOfInput = CreateRelationConnector(RelationType.PartOf, ConnectorType.Input, "Part of Relationship");
-        //    var partOfOutput = CreateRelationConnector(RelationType.PartOf, ConnectorType.Output, "Part of Relationship");
-        //    var hasLocationInput = CreateRelationConnector(RelationType.HasLocation, ConnectorType.Input, "Has Location");
-        //    var hasLocationOutput = CreateRelationConnector(RelationType.HasLocation, ConnectorType.Output, "Has Location");
-        //    var fulfilledByInput = CreateRelationConnector(RelationType.FulfilledBy, ConnectorType.Input, "Fulfilled By");
-        //    var fulfilledByOutput = CreateRelationConnector(RelationType.FulfilledBy, ConnectorType.Output, "Fulfilled By");
-
-        //    //Wait for all threads to finish
-        //    await Task.WhenAll(partOfInput, partOfOutput, hasLocationInput, hasLocationOutput, fulfilledByInput, fulfilledByOutput);
-
-        //    var connectors = new List<Connector>
-        //    {
-        //        await partOfInput,
-        //        await partOfOutput,
-        //        await hasLocationInput,
-        //        await hasLocationOutput,
-        //        await fulfilledByInput,
-        //        await fulfilledByOutput
-        //    };
-
-        //    if (nodeTypeTerminalTypes == null) 
-        //        return connectors;
-
-        //    Parallel.ForEach(nodeTypeTerminalTypes, nodeTypeTerminalType =>
-        //    {
-        //        if (nodeTypeTerminalType.Number > 0)
-        //        {
-        //            Parallel.For(0, nodeTypeTerminalType.Number, _ =>
-        //            {
-        //                var terminal = context.Mapper.Map<Terminal>(nodeTypeTerminalType.TerminalType);
-        //                terminal.Type = nodeTypeTerminalType.ConnectorType;
-        //                connectors.Add(terminal);
-        //            });
-        //        }
-        //    });
-
-        //    return connectors;
-        //}
-
-        //private async Task<Connector> CreateRelationConnector(RelationType relationType, ConnectorType connectorType, string name)
-        //{
-        //    var relation = new Relation
-        //    {
-        //        Id = Guid.NewGuid().ToString().ToLower(),
-        //        Name = name,
-        //        Type = connectorType,
-        //        RelationType = relationType,
-        //        NodeId = null,
-        //        Node = null,
-        //        SemanticReference = null
-        //    };
-
-        //    return await Task.Run(() => relation);
-        //}
 
         private static IEnumerable<NodeTypeTerminalType> CreateTerminalTypes(IReadOnlyCollection<TerminalTypeItem> terminalTypes, string nodeId)
         {
