@@ -21,7 +21,7 @@ namespace TypeLibrary.Core.Extensions
             // Add configurations files
             var builder = services.AddConfigurationFiles();
 
-            // Dependency Injection
+            // Dependency Injection - Repositories
             services.AddScoped<IAttributeTypeRepository, AttributeTypeRepository>();
             services.AddScoped<ISimpleTypeRepository, SimpleTypeRepository>();
             services.AddScoped<IInterfaceTypeRepository, InterfaceTypeRepository>();
@@ -35,6 +35,9 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IRdsRepository, RdsRepository>();
             services.AddSingleton<IFileRepository, JsonFileRepository>();
             services.AddScoped<IBlobDataRepository, BlobDataRepository>();
+            services.AddScoped<IConditionRepository, ConditionRepository>();
+
+            // Dependency Injection - Services
             services.AddScoped<ITerminalTypeService, TerminalTypeService>();
             services.AddScoped<ILibraryTypeService, LibraryTypeService>();
             services.AddScoped<ILibraryTypeFileService, LibraryTypeFileService>();
@@ -42,6 +45,9 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IRdsService, RdsService>();
             services.AddScoped<ISeedingService, SeedingService>();
             services.AddScoped<IBlobDataService, BlobDataService>();
+            services.AddScoped<IEnumService, EnumService>();
+
+
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
 

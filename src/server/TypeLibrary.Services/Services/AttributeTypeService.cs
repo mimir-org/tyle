@@ -16,16 +16,12 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly IPredefinedAttributeRepository _predefinedAttributeRepository;
         private readonly IAttributeTypeRepository _attributeTypeRepository;
-        //private readonly IEnumBaseRepository _enumBaseRepository;
 
         public AttributeTypeService(IMapper mapper, IPredefinedAttributeRepository predefinedAttributeRepository, IAttributeTypeRepository attributeTypeRepository)
         {
-        //public AttributeTypeService(IMapper mapper, IPredefinedAttributeRepository predefinedAttributeRepository, IAttributeTypeRepository attributeTypeRepository, IEnumBaseRepository enumBaseRepository)
-        //{
             _mapper = mapper;
             _predefinedAttributeRepository = predefinedAttributeRepository;
             _attributeTypeRepository = attributeTypeRepository;
-            //_enumBaseRepository = enumBaseRepository;
         }
 
         /// <summary>
