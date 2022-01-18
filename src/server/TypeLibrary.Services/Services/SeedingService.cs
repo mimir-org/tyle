@@ -22,9 +22,9 @@ namespace TypeLibrary.Services.Services
         public const string SourceFileName = "source";
         public const string RdsCategoryFileName = "rdscategory";
         public const string TerminalTypeFileName = "termtype";
-        public const string AttributeFormatFileName = "format";
+        public const string FormatFileName = "format";
         public const string BuildStatusFileName = "buildstatus";
-        public const string TypeAttributeFileName = "type_attribute";
+        public const string LocationFileName = "type_attribute";
         public const string PredefinedAttributeFileName = "predefined_attribute";
         public const string PurposeFileName = "purpose";
         public const string SymbolFileName = "symbol";
@@ -70,9 +70,8 @@ namespace TypeLibrary.Services.Services
                 var sourceFiles = fileList.Where(x => x.ToLower().Equals(SourceFileName)).ToList();
                 var rdsCategoryFiles = fileList.Where(x => x.ToLower().Equals(RdsCategoryFileName)).ToList();
                 var terminalTypeFiles = fileList.Where(x => x.ToLower().Equals(TerminalTypeFileName)).ToList();
-                var attributeFormatFiles = fileList.Where(x => x.ToLower().Equals(AttributeFormatFileName)).ToList();
-                var buildStatusFiles = fileList.Where(x => x.ToLower().Equals(BuildStatusFileName)).ToList();
-                var typeAttributeFiles = fileList.Where(x => x.ToLower().Equals(TypeAttributeFileName)).ToList();
+                var formatFiles = fileList.Where(x => x.ToLower().Equals(FormatFileName)).ToList();
+                var locationFiles = fileList.Where(x => x.ToLower().Equals(LocationFileName)).ToList();
                 
                 //Other
                 var contractorFiles = fileList.Where(x => x.ToLower().Equals(ContractorFileName)).ToList();
@@ -86,13 +85,13 @@ namespace TypeLibrary.Services.Services
                 var simpleTypeFileNames = fileList.Where(x => x.ToLower().Equals(SimpleTypeFileName)).ToList();
 
                 var units = _fileRepository.ReadAllFiles<Unit>(unitFiles).ToList();
-                var conditions = _fileRepository.ReadAllFiles<AttributeCondition>(conditionFiles).ToList();
-                var qualifiers = _fileRepository.ReadAllFiles<AttributeQualifier>(qualifierFiles).ToList();
-                var sources = _fileRepository.ReadAllFiles<AttributeSource>(sourceFiles).ToList();
+                var conditions = _fileRepository.ReadAllFiles<Condition>(conditionFiles).ToList();
+                var qualifiers = _fileRepository.ReadAllFiles<Qualifier>(qualifierFiles).ToList();
+                var sources = _fileRepository.ReadAllFiles<Source>(sourceFiles).ToList();
                 var rdsCategories = _fileRepository.ReadAllFiles<RdsCategory>(rdsCategoryFiles).ToList();
                 var terminalTypes = _fileRepository.ReadAllFiles<TerminalType>(terminalTypeFiles).ToList();
-                var attributeFormats = _fileRepository.ReadAllFiles<AttributeFormat>(attributeFormatFiles).ToList();
-                var typeAttributes = _fileRepository.ReadAllFiles<TypeAttribute>(typeAttributeFiles).ToList();
+                var formats = _fileRepository.ReadAllFiles<Format>(formatFiles).ToList();
+                var location = _fileRepository.ReadAllFiles<Location>(locationFiles).ToList();
                 var symbols = _fileRepository.ReadAllFiles<BlobDataAm>(symbolFileNames).ToList();
                 var simpleTypes = _fileRepository.ReadAllFiles<SimpleTypeAm>(simpleTypeFileNames).ToList();
 

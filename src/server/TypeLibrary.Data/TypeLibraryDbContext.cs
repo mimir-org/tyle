@@ -6,10 +6,10 @@ namespace TypeLibrary.Data
 {
     public class TypeLibraryDbContext : DbContext
     {
-        public virtual DbSet<AttributeCondition> AttributeConditions { get; set; }
-        public virtual DbSet<AttributeFormat> AttributeFormats { get; set; }
-        public virtual DbSet<AttributeQualifier> AttributeQualifiers { get; set; }
-        public virtual DbSet<AttributeSource> AttributeSources { get; set; }
+        public virtual DbSet<Condition> Conditions { get; set; }
+        public virtual DbSet<Format> Formats { get; set; }
+        public virtual DbSet<Qualifier> Qualifiers { get; set; }
+        public virtual DbSet<Source> Sources { get; set; }
         public virtual DbSet<AttributeType> AttributeTypes { get; set; }
         public virtual DbSet<BlobData> BlobData { get; set; }
         public virtual DbSet<InterfaceType> InterfaceTypes { get; set; }
@@ -22,7 +22,7 @@ namespace TypeLibrary.Data
         public virtual DbSet<SimpleType> SimpleTypes { get; set; }
         public virtual DbSet<TerminalType> TerminalTypes { get; set; }
         public virtual DbSet<TransportType> TransportTypes { get; set; }
-        public virtual DbSet<TypeAttribute> TypeAttributes { get; set; }
+        public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Unit> Units { get; set; }
 
         public TypeLibraryDbContext(DbContextOptions<TypeLibraryDbContext> options) : base(options)
@@ -33,10 +33,10 @@ namespace TypeLibrary.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration(new AttributeConditionConfiguration());
-            modelBuilder.ApplyConfiguration(new AttributeFormatConfiguration());
-            modelBuilder.ApplyConfiguration(new AttributeQualifierConfiguration());
-            modelBuilder.ApplyConfiguration(new AttributeSourceConfiguration());
+            modelBuilder.ApplyConfiguration(new ConditionConfiguration());
+            modelBuilder.ApplyConfiguration(new FormatConfiguration());
+            modelBuilder.ApplyConfiguration(new QualifierConfiguration());
+            modelBuilder.ApplyConfiguration(new SourceConfiguration());
             modelBuilder.ApplyConfiguration(new AttributeTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BlobDataConfiguration());
             modelBuilder.ApplyConfiguration(new InterfaceTypeConfiguration());
@@ -49,7 +49,7 @@ namespace TypeLibrary.Data
             modelBuilder.ApplyConfiguration(new SimpleTypeConfiguration());
             modelBuilder.ApplyConfiguration(new TerminalTypeConfiguration());
             modelBuilder.ApplyConfiguration(new TransportTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new TypeAttributeConfiguration());
+            modelBuilder.ApplyConfiguration(new LocationConfiguration());
             modelBuilder.ApplyConfiguration(new UnitConfiguration());
         }
     }

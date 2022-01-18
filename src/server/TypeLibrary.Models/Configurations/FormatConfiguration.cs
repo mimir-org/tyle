@@ -4,11 +4,11 @@ using TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class AttributeQualifierConfiguration : IEntityTypeConfiguration<AttributeQualifier>
+    public class FormatConfiguration : IEntityTypeConfiguration<Format>
     {
-        public void Configure(EntityTypeBuilder<AttributeQualifier> builder)
+        public void Configure(EntityTypeBuilder<Format> builder)
         {
-            builder.ToTable("AttributeQualifier");
+            builder.ToTable("Format");
             builder.HasKey(x => x.Id);
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();

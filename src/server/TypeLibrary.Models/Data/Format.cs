@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace TypeLibrary.Models.Data
 {
-    public class AttributeFormat
+    public class Format
     {
         public string Id { get; set; }
         public string Name { get; set; }

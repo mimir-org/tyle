@@ -4,11 +4,11 @@ using TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class AttributeConditionConfiguration : IEntityTypeConfiguration<AttributeCondition>
+    public class SourceConfiguration : IEntityTypeConfiguration<Source>
     {
-        public void Configure(EntityTypeBuilder<AttributeCondition> builder)
+        public void Configure(EntityTypeBuilder<Source> builder)
         {
-            builder.ToTable("AttributeCondition");
+            builder.ToTable("Source");
             builder.HasKey(x => x.Id);
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();

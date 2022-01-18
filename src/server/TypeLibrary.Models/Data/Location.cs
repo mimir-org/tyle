@@ -4,15 +4,15 @@ using TypeLibrary.Models.Enums;
 
 namespace TypeLibrary.Models.Data
 {
-    public class TypeAttribute 
+    public class Location 
     {
         public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Iri { get; set; }
         public string ParentId { get; set; }
-        public TypeAttribute Parent { get; set; }
-        public ICollection<TypeAttribute> Children { get; set; }
+        public Location Parent { get; set; }
+        public ICollection<Location> Children { get; set; }
         public Aspect Aspect { get; set; }
 
         private const string InternalType = "Mb.Models.Data.Enums.TypeAttribute";

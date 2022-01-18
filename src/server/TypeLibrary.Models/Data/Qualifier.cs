@@ -3,14 +3,14 @@ using Newtonsoft.Json;
 
 namespace TypeLibrary.Models.Data
 {
-    public class AttributeCondition
+    public class Qualifier
     {
         public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Iri { get; set; }
 
-        private const string InternalType = "Mb.Models.Data.Enums.AttributeCondition";
+        private const string InternalType = "Mb.Models.Data.Enums.AttributeQualifier";
 
         [JsonIgnore]
         public virtual string Key => $"{Name}-{InternalType}";

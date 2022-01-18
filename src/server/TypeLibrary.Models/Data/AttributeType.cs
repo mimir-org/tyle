@@ -13,18 +13,18 @@ namespace TypeLibrary.Models.Data
         public Aspect Aspect { get; set; }
 
         public string QualifierId { get; set; }
-        public AttributeQualifier Qualifier { get; set; }
+        public Qualifier Qualifier { get; set; }
 
         public string SourceId { get; set; }
-        public AttributeSource Source { get; set; }
+        public Source Source { get; set; }
         
         public string ConditionId { get; set; }
-        public AttributeCondition Condition { get; set; }
+        public Condition Condition { get; set; }
         
         public ICollection<Unit> Units { get; set; }
         
         public string FormatId { get; set; }
-        public AttributeFormat Format { get; set; }
+        public Format Format { get; set; }
 
         public virtual HashSet<string> Tags { get; set; }
 
