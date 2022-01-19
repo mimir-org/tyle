@@ -10,6 +10,7 @@ namespace TypeLibrary.Models.Data
         public string Description { get; set; }
         public string Iri { get; set; }
 
+        [JsonIgnore]
         private const string InternalType = "Mb.Models.Data.Enums.Unit";
 
         [JsonIgnore]

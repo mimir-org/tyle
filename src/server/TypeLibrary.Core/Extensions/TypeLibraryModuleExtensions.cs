@@ -36,6 +36,13 @@ namespace TypeLibrary.Core.Extensions
             services.AddSingleton<IFileRepository, JsonFileRepository>();
             services.AddScoped<IBlobDataRepository, BlobDataRepository>();
             services.AddScoped<IConditionRepository, ConditionRepository>();
+            services.AddScoped<IFormatRepository, FormatRepository>();
+            services.AddScoped<IQualifierRepository, QualifierRepository>();
+            services.AddScoped<ISourceRepository, SourceRepository>();
+            services.AddScoped<ILocationRepository, LocationRepository>();
+            services.AddScoped<IPurposeRepository, PurposeRepository>();
+            services.AddScoped<IRdsCategoryRepository, RdsCategoryRepository>();
+            services.AddScoped<IUnitRepository, UnitRepository>();
 
             // Dependency Injection - Services
             services.AddScoped<ITerminalTypeService, TerminalTypeService>();
@@ -45,7 +52,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IRdsService, RdsService>();
             services.AddScoped<ISeedingService, SeedingService>();
             services.AddScoped<IBlobDataService, BlobDataService>();
-            services.AddScoped<IEnumService, EnumService>();
+            services.AddScoped<IPropertyService, PropertyService>();
 
 
             services.AddHttpContextAccessor();

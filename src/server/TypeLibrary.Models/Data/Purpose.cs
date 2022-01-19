@@ -13,6 +13,7 @@ namespace TypeLibrary.Models.Data
         public string Iri { get; set; }
         public Discipline Discipline { get; set; }
 
+        [JsonIgnore]
         private const string InternalType = "Mb.Models.Data.Enums.Purpose";
 
         [JsonIgnore]

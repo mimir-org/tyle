@@ -2,7 +2,7 @@
 
 namespace TypeLibrary.Models.Application
 {
-    public class ConditionAm
+    public class SourceAm
     {
         public string Id { get; set; }
         [Required]

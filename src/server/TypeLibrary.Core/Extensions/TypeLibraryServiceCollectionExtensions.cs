@@ -36,6 +36,13 @@ namespace TypeLibrary.Core.Extensions
             cfg.AddProfile<RdsProfile>();
             cfg.AddProfile(new TerminalProfile());
             cfg.AddProfile(new ConditionProfile());
+            cfg.AddProfile(new FormatProfile());
+            cfg.AddProfile(new QualifierProfile());
+            cfg.AddProfile(new SourceProfile());
+            cfg.AddProfile(new LocationProfile());
+            cfg.AddProfile(new PurposeProfile());
+            cfg.AddProfile(new RdsCategoryProfile());
+            cfg.AddProfile(new UnitProfile());
 
             var mapperConfig = new MapperConfiguration(cfg);
             serviceCollection.AddSingleton(_ => mapperConfig.CreateMapper());

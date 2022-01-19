@@ -15,6 +15,7 @@ namespace TypeLibrary.Models.Data
         public ICollection<Location> Children { get; set; }
         public Aspect Aspect { get; set; }
 
+        [JsonIgnore]
         private const string InternalType = "Mb.Models.Data.Enums.TypeAttribute";
 
         [JsonIgnore]
