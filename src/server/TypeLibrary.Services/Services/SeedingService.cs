@@ -11,49 +11,44 @@ namespace TypeLibrary.Services.Services
 {
     public class SeedingService : ISeedingService
     {
-        public const string RdsFileName = "rds";
         public const string AttributeFileName = "attribute";
-        public const string ContractorFileName = "contractor";
-        public const string TerminalFileName = "terminal";
+        public const string BlobDataFileName = "blobdata";
+        public const string ConditionFileName = "condition";
+        public const string FormatFileName = "format";
+        public const string LocationFileName = "location";
+        public const string PredefinedAttributeFileName = "predefinedattribute";
+        public const string PurposeFileName = "purpose";
+        public const string QualifierFileName = "qualifier";
+        public const string RdsFileName = "rds";
+        public const string RdsCategoryFileName = "rdscategory";
+        public const string SimpleTypeFileName = "simple_type";
+        public const string SourceFileName = "source";
+        public const string TerminalTypeFileName = "terminaltype";
         public const string TransportFileName = "transport";
         public const string UnitFileName = "unit";
-        public const string ConditionFileName = "condition";
-        public const string QualifierFileName = "qualifier";
-        public const string SourceFileName = "source";
-        public const string RdsCategoryFileName = "rdscategory";
-        public const string TerminalTypeFileName = "termtype";
-        public const string FormatFileName = "format";
-        public const string BuildStatusFileName = "buildstatus";
-        public const string LocationFileName = "type_attribute";
-        public const string PredefinedAttributeFileName = "predefined_attribute";
-        public const string PurposeFileName = "purpose";
-        public const string SymbolFileName = "symbol";
-        public const string SimpleTypeFileName = "simple_type";
-
+        
+        private readonly IAttributeTypeService _attributeTypeService;
+        private readonly IBlobDataService _blobDataService;
+        private readonly IPropertyService _propertyService;
+        private readonly IRdsService _rdsService;
+        private readonly ITerminalTypeService _terminalTypeService;
+        private readonly ILibraryTypeService _libraryTypeService;
         private readonly IFileRepository _fileRepository;
         private readonly ILogger<SeedingService> _logger;
-        private readonly ITerminalTypeService _terminalTypeService;
-        private readonly IAttributeTypeService _attributeTypeService;
-        private readonly IRdsService _rdsService;
-        private readonly IBlobDataService _blobDataService;
-        private readonly ILibraryTypeService _libraryTypeService;
-
         
-        public SeedingService(IFileRepository fileRepository, ILogger<SeedingService> logger, ITerminalTypeService terminalTypeService, IAttributeTypeService attributeTypeService, IRdsService rdsService, IBlobDataService blobDataService, ILibraryTypeService libraryTypeService)
+        public SeedingService(IAttributeTypeService attributeTypeService, IBlobDataService blobDataService, IPropertyService propertyService, IRdsService rdsService,
+            ITerminalTypeService terminalTypeService, IFileRepository fileRepository, ILibraryTypeService libraryTypeService, ILogger<SeedingService> logger)
         {
+            _attributeTypeService = attributeTypeService;
+            _blobDataService = blobDataService;
+            _propertyService = propertyService;
+            _rdsService = rdsService;
+            _terminalTypeService = terminalTypeService;
+            _libraryTypeService = libraryTypeService;
             _fileRepository = fileRepository;
             _logger = logger;
-            _terminalTypeService = terminalTypeService;
-            _attributeTypeService = attributeTypeService;
-            _rdsService = rdsService;
-            _blobDataService = blobDataService;
-            _libraryTypeService = libraryTypeService;
         }
-
-        /// <summary>
-        /// Load all initial data from files
-        /// </summary>
-        /// <returns></returns>
+     
         public async Task LoadDataFromFiles()
         {
             try
@@ -63,50 +58,55 @@ namespace TypeLibrary.Services.Services
                 if (!fileList.Any())
                     return;
 
-                //Enums
-                var unitFiles = fileList.Where(x => x.ToLower().Equals(UnitFileName)).ToList();
                 var conditionFiles = fileList.Where(x => x.ToLower().Equals(ConditionFileName)).ToList();
+                var formatFiles = fileList.Where(x => x.ToLower().Equals(FormatFileName)).ToList();
                 var qualifierFiles = fileList.Where(x => x.ToLower().Equals(QualifierFileName)).ToList();
                 var sourceFiles = fileList.Where(x => x.ToLower().Equals(SourceFileName)).ToList();
-                var rdsCategoryFiles = fileList.Where(x => x.ToLower().Equals(RdsCategoryFileName)).ToList();
-                var terminalTypeFiles = fileList.Where(x => x.ToLower().Equals(TerminalTypeFileName)).ToList();
-                var formatFiles = fileList.Where(x => x.ToLower().Equals(FormatFileName)).ToList();
                 var locationFiles = fileList.Where(x => x.ToLower().Equals(LocationFileName)).ToList();
-                
-                //Other
-                var contractorFiles = fileList.Where(x => x.ToLower().Equals(ContractorFileName)).ToList();
+                var purposeFiles = fileList.Where(x => x.ToLower().Equals(PurposeFileName)).ToList();
+                var rdsCategoryFiles = fileList.Where(x => x.ToLower().Equals(RdsCategoryFileName)).ToList();
+                var unitFiles = fileList.Where(x => x.ToLower().Equals(UnitFileName)).ToList();
+
                 var attributeFiles = fileList.Where(x => x.ToLower().Equals(AttributeFileName)).ToList();
-                var terminalFiles = fileList.Where(x => x.ToLower().Equals(TerminalFileName)).ToList();
-                var transportFiles = fileList.Where(x => x.ToLower().Equals(TransportFileName)).ToList();
+                var terminalTypeFiles = fileList.Where(x => x.ToLower().Equals(TerminalTypeFileName)).ToList();
                 var rdsFiles = fileList.Where(x => x.ToLower().Equals(RdsFileName)).ToList();
                 var predefinedAttributeFiles = fileList.Where(x => x.ToLower().Equals(PredefinedAttributeFileName)).ToList();
-                var purposeFiles = fileList.Where(x => x.ToLower().Equals(PurposeFileName)).ToList();
-                var symbolFileNames = fileList.Where(x => x.ToLower().Equals(SymbolFileName)).ToList();
+                var blobDataFileNames = fileList.Where(x => x.ToLower().Equals(BlobDataFileName)).ToList();
                 var simpleTypeFileNames = fileList.Where(x => x.ToLower().Equals(SimpleTypeFileName)).ToList();
-
-                var units = _fileRepository.ReadAllFiles<Unit>(unitFiles).ToList();
-                var conditions = _fileRepository.ReadAllFiles<Condition>(conditionFiles).ToList();
-                var qualifiers = _fileRepository.ReadAllFiles<Qualifier>(qualifierFiles).ToList();
-                var sources = _fileRepository.ReadAllFiles<Source>(sourceFiles).ToList();
-                var rdsCategories = _fileRepository.ReadAllFiles<RdsCategory>(rdsCategoryFiles).ToList();
-                var terminalTypes = _fileRepository.ReadAllFiles<TerminalType>(terminalTypeFiles).ToList();
-                var formats = _fileRepository.ReadAllFiles<Format>(formatFiles).ToList();
-                var location = _fileRepository.ReadAllFiles<Location>(locationFiles).ToList();
-                var symbols = _fileRepository.ReadAllFiles<BlobDataAm>(symbolFileNames).ToList();
-                var simpleTypes = _fileRepository.ReadAllFiles<SimpleTypeAm>(simpleTypeFileNames).ToList();
+                var transportFiles = fileList.Where(x => x.ToLower().Equals(TransportFileName)).ToList();
+                
+                
+                var conditions = _fileRepository.ReadAllFiles<ConditionAm>(conditionFiles).ToList();
+                var formats = _fileRepository.ReadAllFiles<FormatAm>(formatFiles).ToList();
+                var qualifiers = _fileRepository.ReadAllFiles<QualifierAm>(qualifierFiles).ToList();
+                var sources = _fileRepository.ReadAllFiles<SourceAm>(sourceFiles).ToList();
+                var locations = _fileRepository.ReadAllFiles<LocationAm>(locationFiles).ToList();
+                var purposes = _fileRepository.ReadAllFiles<PurposeAm>(purposeFiles).ToList();
+                var rdsCategories = _fileRepository.ReadAllFiles<RdsCategoryAm>(rdsCategoryFiles).ToList();
+                var units = _fileRepository.ReadAllFiles<UnitAm>(unitFiles).ToList();
 
                 var attributes = _fileRepository.ReadAllFiles<AttributeTypeAm>(attributeFiles).ToList();
-                var terminals = _fileRepository.ReadAllFiles<CreateTerminalType>(terminalFiles).ToList();
-                var transports = _fileRepository.ReadAllFiles<CreateLibraryType>(transportFiles).ToList();
+                var terminalTypes = _fileRepository.ReadAllFiles<CreateTerminalType>(terminalTypeFiles).ToList();
                 var rds = _fileRepository.ReadAllFiles<CreateRds>(rdsFiles).ToList();
                 var predefinedAttributes = _fileRepository.ReadAllFiles<PredefinedAttribute>(predefinedAttributeFiles).ToList();
-                var purposes = _fileRepository.ReadAllFiles<Purpose>(purposeFiles).ToList();
-
+                var blobData = _fileRepository.ReadAllFiles<BlobDataAm>(blobDataFileNames).ToList();
+                var simpleTypes = _fileRepository.ReadAllFiles<SimpleTypeAm>(simpleTypeFileNames).ToList();
+                var transports = _fileRepository.ReadAllFiles<CreateLibraryType>(transportFiles).ToList();
+                
+                await _propertyService.CreateConditions(conditions);
+                await _propertyService.CreateFormats(formats);
+                await _propertyService.CreateQualifiers(qualifiers);
+                await _propertyService.CreateSources(sources);
+                await _propertyService.CreateLocations(locations);
+                await _propertyService.CreatePurposes(purposes);
+                await _propertyService.CreateRdsCategories(rdsCategories);
+                await _propertyService.CreateUnits(units);
+                
                 await _attributeTypeService.CreateAttributeTypes(attributes);
-                await _terminalTypeService.CreateTerminalTypes(terminals);
+                await _terminalTypeService.CreateTerminalTypes(terminalTypes);
                 await _rdsService.CreateRdsAsync(rds);
                 await _attributeTypeService.CreatePredefinedAttributes(predefinedAttributes);
-                await _blobDataService.CreateBlobData(symbols);
+                await _blobDataService.CreateBlobData(blobData);
                 await _libraryTypeService.CreateSimpleTypes(simpleTypes);
 
                 var existingLibraryTypes = _libraryTypeService.GetAllTypes().ToList();

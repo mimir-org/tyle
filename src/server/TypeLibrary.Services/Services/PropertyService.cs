@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Mimirorg.Common.Extensions;
 using TypeLibrary.Models.Data;
 using TypeLibrary.Data.Contracts;
@@ -20,10 +23,11 @@ namespace TypeLibrary.Services.Services
         private readonly IPurposeRepository _purposeRepository;
         private readonly IRdsCategoryRepository _rdsCategoryRepository;
         private readonly IUnitRepository _unitRepository;
+        private readonly ILogger<PropertyService> _logger;
 
         public PropertyService(IMapper mapper, IConditionRepository conditionRepository, IFormatRepository formatRepository,
             IQualifierRepository qualifierRepository, ISourceRepository sourceRepository, ILocationRepository locationRepository,
-            IPurposeRepository purposeRepository, IRdsCategoryRepository rdsCategoryRepository, IUnitRepository unitRepository)
+            IPurposeRepository purposeRepository, IRdsCategoryRepository rdsCategoryRepository, IUnitRepository unitRepository, ILogger<PropertyService> logger)
         {
             _mapper = mapper;
             _conditionRepository = conditionRepository;
@@ -34,6 +38,7 @@ namespace TypeLibrary.Services.Services
             _purposeRepository = purposeRepository;
             _rdsCategoryRepository = rdsCategoryRepository;
             _unitRepository = unitRepository;
+            _logger = logger;
         }
 
         #region Condition
@@ -60,6 +65,29 @@ namespace TypeLibrary.Services.Services
             var createdData = await _conditionRepository.CreateAsync(data);
             await _conditionRepository.SaveAsync();
             return _mapper.Map<ConditionAm>(createdData.Entity);
+        }
+
+        public async Task CreateConditions(List<ConditionAm> dataAm)
+        {
+            try
+            {
+                var dataList = _mapper.Map<List<Condition>>(dataAm);
+
+                foreach (var data in dataList)
+                {
+                    data.Id = data.Key.CreateMd5();
+                    _conditionRepository.Attach(data, EntityState.Added);
+                }
+
+                await _conditionRepository.SaveAsync();
+
+                foreach (var data in dataList)
+                    _conditionRepository.Detach(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Could not create object: {e.Message}");
+            }
         }
 
         #endregion Condition
@@ -91,6 +119,29 @@ namespace TypeLibrary.Services.Services
             return _mapper.Map<FormatAm>(createdData.Entity);
         }
 
+        public async Task CreateFormats(List<FormatAm> dataAm)
+        {
+            try
+            {
+                var dataList = _mapper.Map<List<Format>>(dataAm);
+
+                foreach (var data in dataList)
+                {
+                    data.Id = data.Key.CreateMd5();
+                    _formatRepository.Attach(data, EntityState.Added);
+                }
+
+                await _formatRepository.SaveAsync();
+
+                foreach (var data in dataList)
+                    _formatRepository.Detach(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Could not create object: {e.Message}");
+            }
+        }
+
         #endregion Format
 
 
@@ -118,6 +169,29 @@ namespace TypeLibrary.Services.Services
             var createdData = await _qualifierRepository.CreateAsync(data);
             await _qualifierRepository.SaveAsync();
             return _mapper.Map<QualifierAm>(createdData.Entity);
+        }
+
+        public async Task CreateQualifiers(List<QualifierAm> dataAm)
+        {
+            try
+            {
+                var dataList = _mapper.Map<List<Qualifier>>(dataAm);
+
+                foreach (var data in dataList)
+                {
+                    data.Id = data.Key.CreateMd5();
+                    _qualifierRepository.Attach(data, EntityState.Added);
+                }
+
+                await _qualifierRepository.SaveAsync();
+
+                foreach (var data in dataList)
+                    _qualifierRepository.Detach(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Could not create object: {e.Message}");
+            }
         }
 
         #endregion Qualifier
@@ -149,6 +223,29 @@ namespace TypeLibrary.Services.Services
             return _mapper.Map<SourceAm>(createdData.Entity);
         }
 
+        public async Task CreateSources(List<SourceAm> dataAm)
+        {
+            try
+            {
+                var dataList = _mapper.Map<List<Source>>(dataAm);
+
+                foreach (var data in dataList)
+                {
+                    data.Id = data.Key.CreateMd5();
+                    _sourceRepository.Attach(data, EntityState.Added);
+                }
+
+                await _sourceRepository.SaveAsync();
+
+                foreach (var data in dataList)
+                    _sourceRepository.Detach(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Could not create object: {e.Message}");
+            }
+        }
+
         #endregion Source
 
 
@@ -176,6 +273,29 @@ namespace TypeLibrary.Services.Services
             var createdData = await _locationRepository.CreateAsync(data);
             await _locationRepository.SaveAsync();
             return _mapper.Map<LocationAm>(createdData.Entity);
+        }
+
+        public async Task CreateLocations(List<LocationAm> dataAm)
+        {
+            try
+            {
+                var dataList = _mapper.Map<List<Location>>(dataAm);
+
+                foreach (var data in dataList)
+                {
+                    data.Id = data.Key.CreateMd5();
+                    _locationRepository.Attach(data, EntityState.Added);
+                }
+
+                await _locationRepository.SaveAsync();
+
+                foreach (var data in dataList)
+                    _locationRepository.Detach(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Could not create object: {e.Message}");
+            }
         }
 
         #endregion Location
@@ -207,6 +327,29 @@ namespace TypeLibrary.Services.Services
             return _mapper.Map<PurposeAm>(createdData.Entity);
         }
 
+        public async Task CreatePurposes(List<PurposeAm> dataAm)
+        {
+            try
+            {
+                var dataList = _mapper.Map<List<Purpose>>(dataAm);
+
+                foreach (var data in dataList)
+                {
+                    data.Id = data.Key.CreateMd5();
+                    _purposeRepository.Attach(data, EntityState.Added);
+                }
+
+                await _purposeRepository.SaveAsync();
+
+                foreach (var data in dataList)
+                    _purposeRepository.Detach(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Could not create object: {e.Message}");
+            }
+        }
+
         #endregion Purpose
 
 
@@ -236,6 +379,29 @@ namespace TypeLibrary.Services.Services
             return _mapper.Map<RdsCategoryAm>(createdData.Entity);
         }
 
+        public async Task CreateRdsCategories(List<RdsCategoryAm> dataAm)
+        {
+            try
+            {
+                var dataList = _mapper.Map<List<RdsCategory>>(dataAm);
+
+                foreach (var data in dataList)
+                {
+                    data.Id = data.Key.CreateMd5();
+                    _rdsCategoryRepository.Attach(data, EntityState.Added);
+                }
+
+                await _rdsCategoryRepository.SaveAsync();
+
+                foreach (var data in dataList)
+                    _rdsCategoryRepository.Detach(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Could not create object: {e.Message}");
+            }
+        }
+
         #endregion RdsCategory
 
 
@@ -263,6 +429,29 @@ namespace TypeLibrary.Services.Services
             var createdData = await _unitRepository.CreateAsync(data);
             await _unitRepository.SaveAsync();
             return _mapper.Map<UnitAm>(createdData.Entity);
+        }
+
+        public async Task CreateUnits(List<UnitAm> dataAm)
+        {
+            try
+            {
+                var dataList = _mapper.Map<List<Unit>>(dataAm);
+
+                foreach (var data in dataList)
+                {
+                    data.Id = data.Key.CreateMd5();
+                    _unitRepository.Attach(data, EntityState.Added);
+                }
+
+                await _unitRepository.SaveAsync();
+
+                foreach (var data in dataList)
+                    _unitRepository.Detach(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Could not create object: {e.Message}");
+            }
         }
 
         #endregion Unit

@@ -11,6 +11,7 @@ namespace TypeLibrary.Services.Contracts
         Task<IEnumerable<ConditionAm>> GetConditions();
         Task<ConditionAm> UpdateCondition(ConditionAm dataAm);
         Task<ConditionAm> CreateCondition(ConditionAm dataAm);
+        Task CreateConditions(List<ConditionAm> dataAm);
 
         #endregion Condition
 
@@ -20,6 +21,7 @@ namespace TypeLibrary.Services.Contracts
         Task<IEnumerable<FormatAm>> GetFormats();
         Task<FormatAm> UpdateFormat(FormatAm dataAm);
         Task<FormatAm> CreateFormat(FormatAm dataAm);
+        Task CreateFormats(List<FormatAm> dataAm);
 
         #endregion Format
 
@@ -29,6 +31,7 @@ namespace TypeLibrary.Services.Contracts
         Task<IEnumerable<QualifierAm>> GetQualifiers();
         Task<QualifierAm> UpdateQualifier(QualifierAm dataAm);
         Task<QualifierAm> CreateQualifier(QualifierAm dataAm);
+        Task CreateQualifiers(List<QualifierAm> dataAm);
 
         #endregion Qualifier
 
@@ -38,6 +41,7 @@ namespace TypeLibrary.Services.Contracts
         Task<IEnumerable<SourceAm>> GetSources();
         Task<SourceAm> UpdateSource(SourceAm dataAm);
         Task<SourceAm> CreateSource(SourceAm dataAm);
+        Task CreateSources(List<SourceAm> dataAm);
 
         #endregion Source
 
@@ -47,6 +51,7 @@ namespace TypeLibrary.Services.Contracts
         Task<IEnumerable<LocationAm>> GetLocations();
         Task<LocationAm> UpdateLocation(LocationAm dataAm);
         Task<LocationAm> CreateLocation(LocationAm dataAm);
+        Task CreateLocations(List<LocationAm> dataAm);
 
         #endregion Source
 
@@ -56,6 +61,7 @@ namespace TypeLibrary.Services.Contracts
         Task<IEnumerable<PurposeAm>> GetPurposes();
         Task<PurposeAm> UpdatePurpose(PurposeAm dataAm);
         Task<PurposeAm> CreatePurpose(PurposeAm dataAm);
+        Task CreatePurposes(List<PurposeAm> dataAm);
 
         #endregion Purpose
 
@@ -65,7 +71,8 @@ namespace TypeLibrary.Services.Contracts
         Task<IEnumerable<RdsCategoryAm>> GetRdsCategories();
         Task<RdsCategoryAm> UpdateRdsCategory(RdsCategoryAm dataAm);
         Task<RdsCategoryAm> CreateRdsCategory(RdsCategoryAm dataAm);
-
+        Task CreateRdsCategories(List<RdsCategoryAm> dataAm);
+        
         #endregion RdsCategory
 
 
@@ -74,6 +81,7 @@ namespace TypeLibrary.Services.Contracts
         Task<IEnumerable<UnitAm>> GetUnits();
         Task<UnitAm> UpdateUnit(UnitAm dataAm);
         Task<UnitAm> CreateUnit(UnitAm dataAm);
+        Task CreateUnits(List<UnitAm> dataAm);
 
         #endregion Unit
     }
