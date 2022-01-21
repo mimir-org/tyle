@@ -13,7 +13,8 @@ namespace TypeLibrary.Models.Configurations
             builder.ToTable("SimpleType");
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();
-            builder.Property(p => p.SemanticReference).HasColumnName("SemanticReference").IsRequired(false);
+            builder.Property(p => p.Description).HasColumnName("Description").IsRequired(false);
+            builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false);
 
             builder.HasMany(x => x.AttributeTypes).WithMany(y => y.SimpleTypes).UsingEntity<Dictionary<string, object>>("SimpleType_AttributeType",
                 x => x.HasOne<AttributeType>().WithMany().HasForeignKey("AttributeTypeId"),

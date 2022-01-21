@@ -1,7 +1,7 @@
 [
   {
     "name": "Ingress protection",
-    "semanticReference": null,
+    "Iri": null,
     "attributeTypes": [
       "6C078D9F6704A54D1A3E851A6747048E",
       "FB6F1B60A500B1D3D69962BE2EB36221"
@@ -9,7 +9,7 @@
   },
   {
     "name": "Protective coating",
-    "semanticReference": null,
+    "Iri": null,
     "attributeTypes": [
       "6C078D9F6704A54D1A3E851A6747048E",
       "B4DE1C2B59D9A258B8AFDF3D34E51EA1"
@@ -17,7 +17,7 @@
   },
   {
     "name": "Surface colour",
-    "semanticReference": null,
+    "Iri": null,
     "attributeTypes": [
       "6C078D9F6704A54D1A3E851A6747048E",
       "5CF6974DB6F32D38B394A7A5C3E3150C"
@@ -25,7 +25,7 @@
   },
   {
     "name": "Explosion proofing",
-    "semanticReference": null,
+    "Iri": null,
     "attributeTypes": [
       "6C078D9F6704A54D1A3E851A6747048E",
       "0B6093217D995B223104068B68C7828F"
@@ -33,7 +33,7 @@
   },
   {
     "name": "Noise reduction",
-    "semanticReference": null,
+    "Iri": null,
     "attributeTypes": [
       "6C078D9F6704A54D1A3E851A6747048E",
       "189F9F12C777A89DBE75BC881049905B"
@@ -41,7 +41,7 @@
   },
   {
     "name": "Valve pressure class",
-    "semanticReference": null,
+    "Iri": null,
     "attributeTypes": [
       "6C078D9F6704A54D1A3E851A6747048E",
       "631B251E28E0C94E61CEB0CEE6CAE6F4"
@@ -49,7 +49,7 @@
   },
   {
     "name": "Electric motor cooling",
-    "semanticReference": null,
+    "Iri": null,
     "attributeTypes": [
       "6C078D9F6704A54D1A3E851A6747048E",
       "AC382B30FDCEB90BDF7B6B46CB1DDD8C"
@@ -57,7 +57,7 @@
   },
   {
     "name": "Electric motor design",
-    "semanticReference": null,
+    "Iri": null,
     "attributeTypes": [
       "6C078D9F6704A54D1A3E851A6747048E",
       "1F0DC4DD6FD4E55062341F4E2B84227E"
@@ -65,7 +65,7 @@
   },
   {
     "name": "Electric motor temperature rating",
-    "semanticReference": null,
+    "Iri": null,
     "attributeTypes": [
       "6C078D9F6704A54D1A3E851A6747048E",
       "CF70CC32483DD2B565E3E8D6A0E20384"

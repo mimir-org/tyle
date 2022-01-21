@@ -21,7 +21,7 @@ namespace TypeLibrary.Services.Services
         public const string QualifierFileName = "qualifier";
         public const string RdsFileName = "rds";
         public const string RdsCategoryFileName = "rdscategory";
-        public const string SimpleTypeFileName = "simple_type";
+        public const string SimpleTypeFileName = "simpletype";
         public const string SourceFileName = "source";
         public const string TerminalTypeFileName = "terminaltype";
         public const string TransportFileName = "transport";
