@@ -76,7 +76,7 @@ namespace Mimirorg.Common.Extensions
             if (string.IsNullOrWhiteSpace(name))
                 return string.Empty;
 
-            var withOutSpecialCharacters = new string(name.Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c) || c is '-' or ' ').ToArray());
+            var withOutSpecialCharacters = new string(name.Where(c => char.IsLetterOrDigit(c) && !(char.IsWhiteSpace(c) || c is '-')).ToArray());
             return withOutSpecialCharacters.ToUpper();
         }
     }

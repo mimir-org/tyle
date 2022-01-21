@@ -197,17 +197,17 @@ namespace Mimirorg.Authentication.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "b5d465b3-90cf-4408-a685-14ff462e549d", "98701279-14dc-4380-9c16-dfae40080cd4", "Administrator", "ADMINISTRATOR" });
+                values: new object[] { "b5d465b3-90cf-4408-a685-14ff462e549d", "8fab3420-903b-41dd-ab79-1ac57eef6dd2", "Administrator", "ADMINISTRATOR" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "cabdda90-6e90-4b92-b309-4f5b3784c792", "272166d4-da6a-4d6c-b5e6-b6143e78dd5a", "Account Manager", "ACCOUNT MANAGER" });
+                values: new object[] { "cabdda90-6e90-4b92-b309-4f5b3784c792", "e3ce1417-52fe-4bc5-9c17-89d76c626df3", "Account Manager", "ACCOUNTMANAGER" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "f6d7df3a-bc9f-4a79-a2a0-c001a83c2d6c", "257e3840-ce42-4724-bbe6-96f2a9b5ac05", "Moderator", "MODERATOR" });
+                values: new object[] { "f6d7df3a-bc9f-4a79-a2a0-c001a83c2d6c", "6fa1efe4-bf6e-49d4-b3b0-61c0f27134f5", "Moderator", "MODERATOR" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

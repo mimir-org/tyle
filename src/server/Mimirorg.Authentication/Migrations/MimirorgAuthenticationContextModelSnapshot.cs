@@ -52,21 +52,21 @@ namespace Mimirorg.Authentication.Migrations
                         new
                         {
                             Id = "b5d465b3-90cf-4408-a685-14ff462e549d",
-                            ConcurrencyStamp = "98701279-14dc-4380-9c16-dfae40080cd4",
+                            ConcurrencyStamp = "8fab3420-903b-41dd-ab79-1ac57eef6dd2",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "cabdda90-6e90-4b92-b309-4f5b3784c792",
-                            ConcurrencyStamp = "272166d4-da6a-4d6c-b5e6-b6143e78dd5a",
+                            ConcurrencyStamp = "e3ce1417-52fe-4bc5-9c17-89d76c626df3",
                             Name = "Account Manager",
-                            NormalizedName = "ACCOUNT MANAGER"
+                            NormalizedName = "ACCOUNTMANAGER"
                         },
                         new
                         {
                             Id = "f6d7df3a-bc9f-4a79-a2a0-c001a83c2d6c",
-                            ConcurrencyStamp = "257e3840-ce42-4724-bbe6-96f2a9b5ac05",
+                            ConcurrencyStamp = "6fa1efe4-bf6e-49d4-b3b0-61c0f27134f5",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         });
