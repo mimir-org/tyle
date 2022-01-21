@@ -16,12 +16,14 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly IPredefinedAttributeRepository _predefinedAttributeRepository;
         private readonly IAttributeTypeRepository _attributeTypeRepository;
+        private readonly IUnitRepository _unitRepository;
 
-        public AttributeTypeService(IMapper mapper, IPredefinedAttributeRepository predefinedAttributeRepository, IAttributeTypeRepository attributeTypeRepository)
+        public AttributeTypeService(IMapper mapper, IPredefinedAttributeRepository predefinedAttributeRepository, IAttributeTypeRepository attributeTypeRepository, IUnitRepository unitRepository)
         {
             _mapper = mapper;
             _predefinedAttributeRepository = predefinedAttributeRepository;
             _attributeTypeRepository = attributeTypeRepository;
+            _unitRepository = unitRepository;
         }
 
         /// <summary>
@@ -74,8 +76,18 @@ namespace TypeLibrary.Services.Services
 
             foreach (var entity in notExisting)
             {
+                foreach (var entityUnit in entity.Units)
+                {
+                    _unitRepository.Attach(entityUnit, EntityState.Unchanged);
+                }
+
                 await _attributeTypeRepository.CreateAsync(entity);
                 await _attributeTypeRepository.SaveAsync();
+
+                foreach (var entityUnit in entity.Units)
+                {
+                    _unitRepository.Detach(entityUnit);
+                }
             }
 
             foreach (var notExistingItem in notExisting)
