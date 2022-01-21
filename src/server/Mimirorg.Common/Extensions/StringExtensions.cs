@@ -67,5 +67,17 @@ namespace Mimirorg.Common.Extensions
             var idSplit = id?.Split('_', StringSplitOptions.RemoveEmptyEntries);
             return idSplit?.Length != 2 ? null : idSplit[0];
         }
+
+        public static string ResolveNormalizedName(this string name)
+        {
+            if(string.IsNullOrEmpty(name))
+                return null;
+
+            if (string.IsNullOrWhiteSpace(name))
+                return string.Empty;
+
+            var withOutSpecialCharacters = new string(name.Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c) || c is '-' or ' ').ToArray());
+            return withOutSpecialCharacters.ToUpper();
+        }
     }
 }

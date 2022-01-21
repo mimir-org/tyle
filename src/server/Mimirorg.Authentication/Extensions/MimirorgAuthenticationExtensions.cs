@@ -11,7 +11,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Mimirorg.Authentication.Contracts;
-using Mimirorg.Authentication.Models;
+using Mimirorg.Authentication.Factories;
+using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Authentication.Repositories;
 using Mimirorg.Authentication.Services;
 using Mimirorg.Common.Models;
@@ -23,9 +24,14 @@ namespace Mimirorg.Authentication.Extensions
         public static IServiceCollection AddMimirorgAuthenticationModule(this IServiceCollection serviceCollection, Action<IdentityOptions> identityOptions)
         {
             // Dependency injection
-            serviceCollection.AddScoped<ITokenRepository, TokenRepository>();
-            serviceCollection.AddScoped<IAuthService, AuthService>();
-            serviceCollection.AddScoped<IUserService, UserService>();
+            serviceCollection.AddScoped<IMimirorgTokenRepository, MimirorgTokenRepository>();
+            serviceCollection.AddScoped<IMimirorgCompanyRepository, MimirorgCompanyRepository>();
+
+            serviceCollection.AddScoped<IMimirorgAuthService, MimirorgAuthService>();
+            serviceCollection.AddScoped<IMimirorgUserService, MimirorgUserService>();
+            serviceCollection.AddScoped<IMimirorgCompanyService, MimirorgCompanyService>();
+            
+            serviceCollection.AddSingleton<IMimirorgAuthFactory, MimirorgAuthFactory>();
 
             // Get current environment
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -44,17 +50,17 @@ namespace Mimirorg.Authentication.Extensions
             dbConfig.InitialCatalog = "MimirorgAuthentication";
 
             // Entity framework
-            serviceCollection.AddDbContext<AuthenticationContext>(options =>
+            serviceCollection.AddDbContext<MimirorgAuthenticationContext>(options =>
                 options.UseSqlServer(dbConfig.ConnectionString, sqlOptions =>
                     sqlOptions.MigrationsAssembly("Mimirorg.Authentication")));
 
             // Auth options
             serviceCollection.AddIdentity<MimirorgUser, IdentityRole>(identityOptions)
-                .AddEntityFrameworkStores<AuthenticationContext>()
+                .AddEntityFrameworkStores<MimirorgAuthenticationContext>()
                 .AddDefaultTokenProviders();
 
             // Authentication settings
-            var authSettings = new AuthSettings();
+            var authSettings = new MimirorgAuthSettings();
             config.GetSection("AuthSettings").Bind(authSettings);
             serviceCollection.AddSingleton(Options.Create(authSettings));
 
@@ -163,7 +169,7 @@ namespace Mimirorg.Authentication.Extensions
             app.UseAuthorization();
 
             // Migrate database
-            var context = serviceScope.ServiceProvider.GetRequiredService<AuthenticationContext>();
+            var context = serviceScope.ServiceProvider.GetRequiredService<MimirorgAuthenticationContext>();
             context.Database.Migrate();
         }
     }
