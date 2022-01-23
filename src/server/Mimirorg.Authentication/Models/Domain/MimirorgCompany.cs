@@ -20,7 +20,7 @@ namespace Mimirorg.Authentication.Models.Domain
                 Name = Name,
                 DisplayName = DisplayName,
                 Description = Description,
-                Manager = Manager.ToContentModel()
+                Manager = Manager?.ToContentModel()
             };
         }
     }

@@ -35,8 +35,8 @@ namespace Mimirorg.Authentication.Services
         /// <summary>
         /// Authenticate an user from username, password and app code
         /// </summary>
-        /// <param name="authenticate"></param>
-        /// <returns></returns>
+        /// <param name="authenticate">MimirorgAuthenticateAm</param>
+        /// <returns>ICollection&lt;MimirorgTokenCm&gt;</returns>
         /// <exception cref="MimirorgBadRequestException"></exception>
         /// <exception cref="AuthenticationException"></exception>
         public async Task<ICollection<MimirorgTokenCm>> Authenticate(MimirorgAuthenticateAm authenticate)
@@ -49,41 +49,28 @@ namespace Mimirorg.Authentication.Services
             if (user == null)
                 throw new AuthenticationException($"Couldn't find user with email {authenticate.Email}");
 
-            if (user.IsLockedOut)
-                throw new AuthenticationException($"The user account with email {authenticate.Email} is locked out.");
-
-            if (user.ShouldBeLockedOut)
-            {
-                await LockUser(user.Id);
-                throw new AuthenticationException($"The user account with email {authenticate.Email} is locked out.");
-            }
-
-            var userStatus = await _signInManager.CheckPasswordSignInAsync(user, authenticate.Password, false);
+            var userStatus = await _signInManager.CheckPasswordSignInAsync(user, authenticate.Password, true);
 
             if (!userStatus.Succeeded)
                 throw new AuthenticationException($"The user account with email {authenticate.Email} could not be signed in.");
 
             var validator = new TotpValidator(new TotpGenerator());
-            var hasCorrectPin = validator.Validate(user.SecurityStamp, authenticate.Code);
+            var hasCorrectPin = validator.Validate(user.SecurityHash, authenticate.Code);
 
             if (!hasCorrectPin)
                 throw new AuthenticationException($"The user account with email {authenticate.Email} could not validate code.");
 
-            var now = DateTime.Now.ToUniversalTime();
-            var accessTokenTask = _tokenRepository.CreateAccessToken(user, now);
-            var refreshTokenTask = _tokenRepository.CreateRefreshToken(user, now);
-
-            var accessToken = await accessTokenTask;
-            var refreshToken = await refreshTokenTask;
-
+            var now = DateTime.Now;
+            var accessToken = await _tokenRepository.CreateAccessToken(user, now);
+            var refreshToken = await _tokenRepository.CreateRefreshToken(user, now);
             return new List<MimirorgTokenCm> { accessToken, refreshToken };
         }
 
         /// <summary>
         /// Create a token from refresh token
         /// </summary>
-        /// <param name="secret"></param>
-        /// <returns></returns>
+        /// <param name="secret">string</param>
+        /// <returns>ICollection&lt;MimirorgTokenCm&gt;</returns>
         /// <exception cref="AuthenticationException"></exception>
         public async Task<ICollection<MimirorgTokenCm>> Authenticate(string secret)
         {
@@ -108,81 +95,138 @@ namespace Mimirorg.Authentication.Services
             }
 
             var now = DateTime.Now.ToUniversalTime();
-            var accessTokenTask = _tokenRepository.CreateAccessToken(user, now);
-            var refreshTokenTask = _tokenRepository.CreateRefreshToken(user, now);
-
-            var accessToken = await accessTokenTask;
-            var refreshToken = await refreshTokenTask;
-
+            var accessToken =  await _tokenRepository.CreateAccessToken(user, now);
+            var refreshToken = await _tokenRepository.CreateRefreshToken(user, now);
+            
             return new List<MimirorgTokenCm> { accessToken, refreshToken };
         }
 
-        public Task LockUser(string userId)
+        /// <summary>
+        /// Verify account from verify token
+        /// </summary>
+        /// <param name="token">string</param>
+        /// <returns>bool</returns>
+        /// <exception cref="MimirorgInvalidOperationException"></exception>
+        public async Task<bool> VerifyAccount(string token)
         {
-            // TODO: Missing implementation
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(token))
+                return false;
+
+            var t = Uri.UnescapeDataString(token);
+
+            var regToken = await _tokenRepository.FindBy(x => x.Secret == t).FirstOrDefaultAsync();
+            if (regToken == null)
+                return false;
+
+            var user = await _userManager.FindByEmailAsync(regToken.Email);
+            if (user == null)
+                return false;
+
+            if (regToken.TokenType != MimirorgTokenType.VerifyEmail)
+                throw new MimirorgInvalidOperationException("Only email verify is supported");
+
+            var result = await _userManager.ConfirmEmailAsync(user, t);
+
+            if (regToken.TokenType == MimirorgTokenType.VerifyPhone)
+                result = await _userManager.ConfirmEmailAsync(user, t);
+
+            if (!result.Succeeded)
+                return false;
+
+            _tokenRepository.Attach(regToken, EntityState.Deleted);
+            await _tokenRepository.SaveAsync();
+            return result.Succeeded;
         }
 
         #endregion
 
         #region Authorization
 
+        /// <summary>
+        /// Get all roles
+        /// </summary>
+        /// <returns>ICollection&lt;MimirorgRoleCm&gt;</returns>
         public async Task<ICollection<MimirorgRoleCm>> GetAllRoles()
         {
             var roles = _roleManager.Roles.Select(x => new MimirorgRoleCm { Id = x.Id, Name = x.Name });
             return await Task.FromResult(roles.ToList());
         }
 
+        /// <summary>
+        /// Get all permissions
+        /// </summary>
+        /// <returns>ICollection&lt;MimirorgPermissionCm&gt;</returns>
         public async Task<ICollection<MimirorgPermissionCm>> GetAllPermissions()
         {
             var permissions = ((MimirorgPermission[])Enum.GetValues(typeof(MimirorgPermission))).Select(c => new MimirorgPermissionCm { Id = (int)c, Name = c.GetDisplayName() }).ToList();
             return await Task.FromResult(permissions);
         }
 
+        /// <summary>
+        /// Add an user to a role
+        /// </summary>
+        /// <param name="userRole">MimirorgUserRoleAm</param>
+        /// <returns>bool</returns>
+        /// <exception cref="MimirorgBadRequestException"></exception>
+        /// <exception cref="MimirorgNotFoundException"></exception>
         public async Task<bool> AddUserToRole(MimirorgUserRoleAm userRole)
         {
             var validation = userRole.ValidateObject();
             if (!validation.IsValid)
-                throw new MimirorgBadRequestException($"Couldn't add user to role: {userRole?.UserId} - {userRole?.MimirorgRole?.Id}:{userRole?.MimirorgRole?.Name}", validation);
+                throw new MimirorgBadRequestException($"Couldn't add user to role: {userRole?.UserId} - {userRole?.MimirorgRoleId}", validation);
 
-            var currentRole = await _roleManager.FindByIdAsync(userRole.MimirorgRole.Id);
+            var currentRole = await _roleManager.FindByIdAsync(userRole.MimirorgRoleId);
             if (currentRole == null)
-                throw new MimirorgNotFoundException($"Couldn't find any role with id: {userRole.MimirorgRole.Id}");
+                throw new MimirorgNotFoundException($"Couldn't find any role with id: {userRole.MimirorgRoleId}");
 
             var user = await _userManager.FindByIdAsync(userRole.UserId);
             if (user == null)
                 throw new MimirorgNotFoundException($"Couldn't find any user with id: {userRole.UserId}");
 
-            if (!await _userManager.IsInRoleAsync(user, userRole.MimirorgRole.Name))
+            if (!await _userManager.IsInRoleAsync(user, currentRole.NormalizedName))
             {
-                return await _userManager.AddToRoleAsync(user, userRole.MimirorgRole.Name) == IdentityResult.Success;
+                return await _userManager.AddToRoleAsync(user, currentRole.NormalizedName) == IdentityResult.Success;
             }
 
             return true;
         }
 
+        /// <summary>
+        /// Remove user from a role
+        /// </summary>
+        /// <param  name="userRole">MimirorgUserRoleAm</param>
+        /// <returns>bool</returns>
+        /// <exception cref="MimirorgBadRequestException"></exception>
+        /// <exception cref="MimirorgNotFoundException"></exception>
         public async Task<bool> RemoveUserFromRole(MimirorgUserRoleAm userRole)
         {
             var validation = userRole.ValidateObject();
             if (!validation.IsValid)
-                throw new MimirorgBadRequestException($"Couldn't remove user from role: {userRole?.UserId} - {userRole?.MimirorgRole?.Id}:{userRole?.MimirorgRole?.Name}", validation);
+                throw new MimirorgBadRequestException($"Couldn't remove user from role: {userRole?.UserId} - {userRole?.MimirorgRoleId}", validation);
 
-            var currentRole = await _roleManager.FindByIdAsync(userRole.MimirorgRole.Id);
+            var currentRole = await _roleManager.FindByIdAsync(userRole.MimirorgRoleId);
             if (currentRole == null)
-                throw new MimirorgNotFoundException($"Couldn't find any role with id: {userRole.MimirorgRole.Id}");
+                throw new MimirorgNotFoundException($"Couldn't find any role with id: {userRole.MimirorgRoleId}");
 
             var user = await _userManager.FindByIdAsync(userRole.UserId);
             if (user == null)
                 throw new MimirorgNotFoundException($"Couldn't find any user with id: {userRole.UserId}");
 
-            if (await _userManager.IsInRoleAsync(user, userRole.MimirorgRole.Name))
+            if (await _userManager.IsInRoleAsync(user, currentRole.NormalizedName))
             {
-                return await _userManager.RemoveFromRoleAsync(user, userRole.MimirorgRole.Name) == IdentityResult.Success;
+                return await _userManager.RemoveFromRoleAsync(user, currentRole.NormalizedName) == IdentityResult.Success;
             }
 
             return true;
         }
 
+        /// <summary>
+        /// Set user permission for a specific company and user.
+        /// </summary>
+        /// <param name="userPermission">MimirorgUserPermissionAm</param>
+        /// <returns>bool</returns>
+        /// <exception cref="MimirorgBadRequestException"></exception>
+        /// <exception cref="MimirorgNotFoundException"></exception>
         public async Task<bool> SetPermissions(MimirorgUserPermissionAm userPermission)
         {
             var validation = userPermission.ValidateObject();

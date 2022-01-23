@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -21,7 +23,7 @@ namespace Mimirorg.Authentication.Extensions
 {
     public static class MimirorgAuthenticationExtensions
     {
-        public static IServiceCollection AddMimirorgAuthenticationModule(this IServiceCollection serviceCollection, Action<IdentityOptions> identityOptions)
+        public static IServiceCollection AddMimirorgAuthenticationModule(this IServiceCollection serviceCollection)
         {
             // Dependency injection
             serviceCollection.AddScoped<IMimirorgTokenRepository, MimirorgTokenRepository>();
@@ -30,8 +32,13 @@ namespace Mimirorg.Authentication.Extensions
             serviceCollection.AddScoped<IMimirorgAuthService, MimirorgAuthService>();
             serviceCollection.AddScoped<IMimirorgUserService, MimirorgUserService>();
             serviceCollection.AddScoped<IMimirorgCompanyService, MimirorgCompanyService>();
+            serviceCollection.AddScoped<IMimirorgEmailRepository, MimirorgEmailRepository>();
+            serviceCollection.AddScoped<IMimirorgTemplateRepository, MimirorgTemplateRepository>();
             
             serviceCollection.AddSingleton<IMimirorgAuthFactory, MimirorgAuthFactory>();
+
+            serviceCollection.AddHttpContextAccessor();
+            serviceCollection.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             // Get current environment
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -54,15 +61,25 @@ namespace Mimirorg.Authentication.Extensions
                 options.UseSqlServer(dbConfig.ConnectionString, sqlOptions =>
                     sqlOptions.MigrationsAssembly("Mimirorg.Authentication")));
 
-            // Auth options
-            serviceCollection.AddIdentity<MimirorgUser, IdentityRole>(identityOptions)
-                .AddEntityFrameworkStores<MimirorgAuthenticationContext>()
-                .AddDefaultTokenProviders();
-
             // Authentication settings
             var authSettings = new MimirorgAuthSettings();
-            config.GetSection("AuthSettings").Bind(authSettings);
+            config.GetSection("MimirorgAuthSettings").Bind(authSettings);
             serviceCollection.AddSingleton(Options.Create(authSettings));
+
+            // Auth options
+            serviceCollection.AddIdentity<MimirorgUser, IdentityRole>(options =>
+                {
+                    options.Password.RequireNonAlphanumeric = authSettings.RequireNonAlphanumeric;
+                    options.Password.RequiredLength = authSettings.RequiredLength;
+                    options.Password.RequireDigit = authSettings.RequireDigit;
+                    options.Password.RequireUppercase = authSettings.RequireUppercase;
+                    options.SignIn = new SignInOptions { RequireConfirmedAccount = authSettings.RequireConfirmedAccount };
+                    
+                    if (authSettings.MaxFailedAccessAttempts > 0)
+                        options.Lockout = new LockoutOptions { DefaultLockoutTimeSpan = TimeSpan.FromMinutes(authSettings.DefaultLockoutMinutes), MaxFailedAccessAttempts = authSettings.MaxFailedAccessAttempts };
+                })
+                .AddEntityFrameworkStores<MimirorgAuthenticationContext>()
+                .AddDefaultTokenProviders();
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
@@ -162,7 +179,6 @@ namespace Mimirorg.Authentication.Extensions
                 c.DisplayOperationId();
                 c.DisplayRequestDuration();
                 c.RoutePrefix = string.Empty;
-
             });
 
             app.UseAuthentication();

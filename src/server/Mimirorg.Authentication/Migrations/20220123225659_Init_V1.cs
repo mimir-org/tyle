@@ -30,6 +30,7 @@ namespace Mimirorg.Authentication.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -51,7 +52,7 @@ namespace Mimirorg.Authentication.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MimirorgRefreshToken",
+                name: "MimirorgToken",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -59,11 +60,12 @@ namespace Mimirorg.Authentication.Migrations
                     ClientId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Secret = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ValidTo = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ValidTo = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TokenType = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MimirorgRefreshToken", x => x.Id);
+                    table.PrimaryKey("PK_MimirorgToken", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -197,17 +199,17 @@ namespace Mimirorg.Authentication.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "b5d465b3-90cf-4408-a685-14ff462e549d", "8fab3420-903b-41dd-ab79-1ac57eef6dd2", "Administrator", "ADMINISTRATOR" });
+                values: new object[] { "b5d465b3-90cf-4408-a685-14ff462e549d", "dea6fc09-4548-4b0a-962d-59dea6ed57f9", "Administrator", "ADMINISTRATOR" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "cabdda90-6e90-4b92-b309-4f5b3784c792", "e3ce1417-52fe-4bc5-9c17-89d76c626df3", "Account Manager", "ACCOUNTMANAGER" });
+                values: new object[] { "cabdda90-6e90-4b92-b309-4f5b3784c792", "93a8a99f-779c-4a72-9fc3-24f647eb3abb", "Account Manager", "ACCOUNTMANAGER" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "f6d7df3a-bc9f-4a79-a2a0-c001a83c2d6c", "6fa1efe4-bf6e-49d4-b3b0-61c0f27134f5", "Moderator", "MODERATOR" });
+                values: new object[] { "f6d7df3a-bc9f-4a79-a2a0-c001a83c2d6c", "3367742f-3db2-4c68-8477-6cb8f9bb0d6a", "Moderator", "MODERATOR" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -260,13 +262,13 @@ namespace Mimirorg.Authentication.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_MimirorgRefreshToken_ClientId",
-                table: "MimirorgRefreshToken",
+                name: "IX_MimirorgToken_ClientId",
+                table: "MimirorgToken",
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MimirorgRefreshToken_Secret",
-                table: "MimirorgRefreshToken",
+                name: "IX_MimirorgToken_Secret",
+                table: "MimirorgToken",
                 column: "Secret",
                 unique: true);
         }
@@ -292,7 +294,7 @@ namespace Mimirorg.Authentication.Migrations
                 name: "MimirorgCompany");
 
             migrationBuilder.DropTable(
-                name: "MimirorgRefreshToken");
+                name: "MimirorgToken");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

@@ -9,7 +9,7 @@ namespace Mimirorg.Authentication
 {
     public class MimirorgAuthenticationContext : IdentityDbContext<MimirorgUser, IdentityRole, string>
     {
-        public DbSet<MimirorgRefreshToken> MimirorgRefreshTokens { get; set; }
+        public DbSet<MimirorgToken> MimirorgTokens { get; set; }
         public DbSet<MimirorgCompany> MimirorgCompanies { get; set; }
         public IMimirorgAuthFactory AuthFactory { get; set; }
 
@@ -20,7 +20,7 @@ namespace Mimirorg.Authentication
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new MimirorgRefreshTokenConfiguration());
+            modelBuilder.ApplyConfiguration(new MimirorgTokenConfiguration());
             modelBuilder.ApplyConfiguration(new MimirorgCompanyConfiguration());
             var defaultRoles = AuthFactory.DefaultRoles.ToArray();
             modelBuilder.Entity<IdentityRole>().HasData(defaultRoles);

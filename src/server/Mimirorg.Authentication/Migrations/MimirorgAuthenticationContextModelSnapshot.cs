@@ -52,21 +52,21 @@ namespace Mimirorg.Authentication.Migrations
                         new
                         {
                             Id = "b5d465b3-90cf-4408-a685-14ff462e549d",
-                            ConcurrencyStamp = "8fab3420-903b-41dd-ab79-1ac57eef6dd2",
+                            ConcurrencyStamp = "dea6fc09-4548-4b0a-962d-59dea6ed57f9",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "cabdda90-6e90-4b92-b309-4f5b3784c792",
-                            ConcurrencyStamp = "e3ce1417-52fe-4bc5-9c17-89d76c626df3",
+                            ConcurrencyStamp = "93a8a99f-779c-4a72-9fc3-24f647eb3abb",
                             Name = "Account Manager",
                             NormalizedName = "ACCOUNTMANAGER"
                         },
                         new
                         {
                             Id = "f6d7df3a-bc9f-4a79-a2a0-c001a83c2d6c",
-                            ConcurrencyStamp = "6fa1efe4-bf6e-49d4-b3b0-61c0f27134f5",
+                            ConcurrencyStamp = "3367742f-3db2-4c68-8477-6cb8f9bb0d6a",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         });
@@ -215,7 +215,7 @@ namespace Mimirorg.Authentication.Migrations
                     b.ToTable("MimirorgCompany", (string)null);
                 });
 
-            modelBuilder.Entity("Mimirorg.Authentication.Models.Domain.MimirorgRefreshToken", b =>
+            modelBuilder.Entity("Mimirorg.Authentication.Models.Domain.MimirorgToken", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -239,6 +239,11 @@ namespace Mimirorg.Authentication.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("Secret");
 
+                    b.Property<string>("TokenType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("TokenType");
+
                     b.Property<DateTime>("ValidTo")
                         .HasColumnType("datetime2")
                         .HasColumnName("ValidTo");
@@ -250,7 +255,7 @@ namespace Mimirorg.Authentication.Migrations
                     b.HasIndex("Secret")
                         .IsUnique();
 
-                    b.ToTable("MimirorgRefreshToken", (string)null);
+                    b.ToTable("MimirorgToken", (string)null);
                 });
 
             modelBuilder.Entity("Mimirorg.Authentication.Models.Domain.MimirorgUser", b =>
@@ -300,6 +305,9 @@ namespace Mimirorg.Authentication.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("SecurityHash")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -378,7 +386,7 @@ namespace Mimirorg.Authentication.Migrations
             modelBuilder.Entity("Mimirorg.Authentication.Models.Domain.MimirorgCompany", b =>
                 {
                     b.HasOne("Mimirorg.Authentication.Models.Domain.MimirorgUser", "Manager")
-                        .WithMany("ManageUnits")
+                        .WithMany("MangeCompanies")
                         .HasForeignKey("ManagerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -388,7 +396,7 @@ namespace Mimirorg.Authentication.Migrations
 
             modelBuilder.Entity("Mimirorg.Authentication.Models.Domain.MimirorgUser", b =>
                 {
-                    b.Navigation("ManageUnits");
+                    b.Navigation("MangeCompanies");
                 });
 #pragma warning restore 612, 618
         }

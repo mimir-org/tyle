@@ -9,17 +9,17 @@ namespace Mimirorg.Authentication.Models.Attributes
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class MimirorgAuthorizeAttribute : TypeFilterAttribute
     {
-        public MimirorgAuthorizeAttribute(MimirorgPermission permission) : base(typeof(MimirorgAuthorizeAttribute))
+        public MimirorgAuthorizeAttribute(MimirorgPermission permission) : base(typeof(MimirorgAuthorizeActionFilter))
         {
             Arguments = new object[] { permission, string.Empty, string.Empty };
         }
 
-        public MimirorgAuthorizeAttribute(MimirorgPermission permission, string property) : base(typeof(MimirorgAuthorizeAttribute))
+        public MimirorgAuthorizeAttribute(MimirorgPermission permission, string property) : base(typeof(MimirorgAuthorizeActionFilter))
         {
             Arguments = new object[] { permission, property, string.Empty };
         }
 
-        public MimirorgAuthorizeAttribute(MimirorgPermission permission, string property, string member) : base(typeof(MimirorgAuthorizeAttribute))
+        public MimirorgAuthorizeAttribute(MimirorgPermission permission, string property, string member) : base(typeof(MimirorgAuthorizeActionFilter))
         {
             Arguments = new object[] { permission, property, member };
         }

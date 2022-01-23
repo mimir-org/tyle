@@ -10,11 +10,9 @@ namespace Mimirorg.Authentication.Models.Domain
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public List<MimirorgCompany> ManageUnits { get; set; }
-
-        public bool IsLockedOut => CheckIfLockedOut();
-        public bool ShouldBeLockedOut => CheckIfShouldBeLockedOut();
-
+        public string SecurityHash { get; set; }
+        public List<MimirorgCompany> MangeCompanies { get; set; }
+        
         public MimirorgUserCm ToContentModel()
         {
             return new MimirorgUserCm
@@ -33,22 +31,6 @@ namespace Mimirorg.Authentication.Models.Domain
             FirstName = user.FirstName;
             LastName = user.LastName;
             PhoneNumber = user.PhoneNumber;
-        }
-
-        #endregion
-
-        #region Private methods
-
-        private bool CheckIfShouldBeLockedOut()
-        {
-            // TODO: implement this
-            return false;
-        }
-
-        private bool CheckIfLockedOut()
-        {
-            // TODO: implement this
-            return false;
         }
 
         #endregion

@@ -15,7 +15,7 @@ namespace Mimirorg.Authentication.Configurations
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();
             builder.Property(p => p.DisplayName).HasColumnName("DisplayName").IsRequired(false);
             builder.Property(p => p.Description).HasColumnName("Description").IsRequired();
-            builder.HasOne(x => x.Manager).WithMany(y => y.ManageUnits).HasForeignKey(x => x.ManagerId).IsRequired().OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(x => x.Manager).WithMany(y => y.MangeCompanies).HasForeignKey(x => x.ManagerId).IsRequired().OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Mimirorg.Authentication.Extensions;
+﻿using Microsoft.AspNetCore.Identity;
+using Mimirorg.Authentication.Extensions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using TypeLibrary.Core.Extensions;
@@ -38,10 +39,7 @@ namespace TypeLibrary.Api
             // Add modules
             //services.AddApplicationInsightsLoggingModule();
             services.AddTypeLibraryModule(Configuration);
-            services.AddMimirorgAuthenticationModule(options =>
-            {
-                options.Password.RequireNonAlphanumeric = false;
-            });
+            services.AddMimirorgAuthenticationModule();
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)

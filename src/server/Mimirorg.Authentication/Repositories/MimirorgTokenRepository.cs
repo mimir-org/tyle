@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Mimirorg.Authentication.Contracts;
-using Mimirorg.Authentication.Models.Application;
 using Mimirorg.Authentication.Models.Content;
 using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Authentication.Models.Enums;
@@ -16,7 +15,7 @@ using Mimirorg.Common.Extensions;
 
 namespace Mimirorg.Authentication.Repositories
 {
-    public class MimirorgTokenRepository : GenericRepository<MimirorgAuthenticationContext, MimirorgRefreshToken>, IMimirorgTokenRepository
+    public class MimirorgTokenRepository : GenericRepository<MimirorgAuthenticationContext, MimirorgToken>, IMimirorgTokenRepository
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<MimirorgUser> _userManager;
@@ -54,7 +53,7 @@ namespace Mimirorg.Authentication.Repositories
             }.Union(userClaims);
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authSettings.JwtKey));
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
             var expires = current.AddMinutes(_authSettings.JwtExpireMinutes);
 
             var token = new JwtSecurityToken(
@@ -90,29 +89,27 @@ namespace Mimirorg.Authentication.Repositories
 
             var expires = current.AddMinutes(_authSettings.JwtRefreshExpireMinutes);
             var refreshToken = ($"{Guid.NewGuid()}{user.Email}{Guid.NewGuid()}").CreateSha512();
-            var token = new MimirorgRefreshToken
+            var token = new MimirorgToken
             {
                 ClientId = user.Id,
                 Email = user.Email,
                 Secret = refreshToken,
-                ValidTo = expires
+                ValidTo = expires,
+                TokenType = MimirorgTokenType.RefreshToken
             };
 
-            var oldTokens = FindBy(x => x.ClientId == user.Id, false).ToList();
+            var oldTokens = FindBy(x => x.ClientId == user.Id, false).Where(x => x.TokenType == MimirorgTokenType.RefreshToken).ToList();
             foreach (var oldToken in oldTokens)
             {
                 Attach(oldToken, EntityState.Deleted);
             }
 
+            await SaveAsync();
+
             Attach(token, EntityState.Added);
             await SaveAsync();
-            return new MimirorgTokenCm
-            {
-                ClientId = token.ClientId,
-                Secret = token.Secret,
-                TokenType = MimirorgTokenType.RefreshToken,
-                ValidTo = token.ValidTo
-            };
+
+            return token.ToContentModel();
         }
 
         #region Private methods

@@ -1,11 +1,14 @@
 ﻿using System.Security.Principal;
 using AspNetCore.Totp;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Application;
+using Mimirorg.Authentication.Models.Constants;
 using Mimirorg.Authentication.Models.Content;
 using Mimirorg.Authentication.Models.Domain;
+using Mimirorg.Authentication.Models.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 
@@ -15,10 +18,16 @@ namespace Mimirorg.Authentication.Services
     {
         private readonly UserManager<MimirorgUser> _userManager;
         private readonly MimirorgAuthSettings _authSettings;
+        private readonly IMimirorgTokenRepository _tokenRepository;
+        private readonly IMimirorgEmailRepository _emailRepository;
+        private readonly IMimirorgTemplateRepository _templateRepository;
 
-        public MimirorgUserService(UserManager<MimirorgUser> userManager, IOptions<MimirorgAuthSettings> authSettings)
+        public MimirorgUserService(UserManager<MimirorgUser> userManager, IOptions<MimirorgAuthSettings> authSettings, IMimirorgTokenRepository tokenRepository, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository)
         {
             _userManager = userManager;
+            _tokenRepository = tokenRepository;
+            _emailRepository = emailRepository;
+            _templateRepository = templateRepository;
             _authSettings = authSettings?.Value;
         }
 
@@ -45,12 +54,19 @@ namespace Mimirorg.Authentication.Services
                 throw new MimirorgDuplicateException($"Couldn't register: {userAm.Email}. There is already an user with same username");
 
             var user = userAm.ToDomainModel();
+            var securityKey = $"{Guid.NewGuid()}{MimirorgSecurity.SecurityStamp}{Guid.NewGuid()}";
+            user.SecurityHash = securityKey.CreateSha512();
+            
             var result = await _userManager.CreateAsync(user, userAm.Password);
             if (!result.Succeeded)
-                throw new MimirorgInvalidOperationException($"Couldn't register: {userAm.Email}");
+                throw new MimirorgInvalidOperationException($"Couldn't register: {userAm.Email}.");
+
+            // Create an email verification token and send email to user
+            if (_authSettings.RequireConfirmedAccount)
+                await SendEmailConfirmation(user);
 
             var totpSetupGenerator = new TotpSetupGenerator();
-            var totpSetup = totpSetupGenerator.Generate(_authSettings.ApplicationName, user.UserName, user.SecurityStamp, _authSettings.QrWidth, _authSettings.QrHeight);
+            var totpSetup = totpSetupGenerator.Generate(_authSettings.ApplicationName, user.Id, user.SecurityHash, _authSettings.QrWidth, _authSettings.QrHeight);
 
             return new MimirorgQrCodeCm
             {
@@ -142,5 +158,35 @@ namespace Mimirorg.Authentication.Services
 
             return await _userManager.DeleteAsync(user) == IdentityResult.Success;
         }
+
+        #region Private methods
+
+        private async Task SendEmailConfirmation(MimirorgUser user)
+        {
+            var secret = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var token = new MimirorgToken
+            {
+                ClientId = user.Id,
+                Email = user.Email,
+                Secret = secret,
+                TokenType = MimirorgTokenType.VerifyEmail,
+                ValidTo = DateTime.Now.AddHours(1)
+            };
+
+            var oldTokens = _tokenRepository.GetAll().Where(x => (x.ClientId == user.Id && x.TokenType == MimirorgTokenType.VerifyEmail) || DateTime.Now > x.ValidTo).ToList();
+            
+            foreach (var t in oldTokens)
+            {
+                _tokenRepository.Attach(t, EntityState.Deleted);
+            }
+
+            await _tokenRepository.CreateAsync(token);
+            await _tokenRepository.SaveAsync();
+
+            var email = await _templateRepository.CreateEmailConfirmationTemplate(user, token);
+            await _emailRepository.SendEmail(email);
+        }
+
+        #endregion
     }
 }

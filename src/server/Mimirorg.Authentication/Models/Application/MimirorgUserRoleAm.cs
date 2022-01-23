@@ -8,8 +8,8 @@ namespace Mimirorg.Authentication.Models.Application
         [Required(ErrorMessage = "{0} is required")]
         public string UserId { get; set; }
 
-        [Display(Name = "MimirorgRole")]
+        [Display(Name = "MimirorgRoleId")]
         [Required(ErrorMessage = "{0} is required")]
-        public MimirorgRoleAm MimirorgRole { get; set; }
+        public string MimirorgRoleId { get; set; }
     }
 }
