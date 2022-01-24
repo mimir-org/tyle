@@ -29,19 +29,19 @@ namespace TypeLibrary.Services.Services
         
         private readonly IAttributeTypeService _attributeTypeService;
         private readonly IBlobDataService _blobDataService;
-        private readonly ITypePropertyService _typePropertyService;
+        private readonly IEnumService _enumService;
         private readonly IRdsService _rdsService;
         private readonly ITerminalTypeService _terminalTypeService;
         private readonly ILibraryTypeService _libraryTypeService;
         private readonly IFileRepository _fileRepository;
         private readonly ILogger<SeedingService> _logger;
         
-        public SeedingService(IAttributeTypeService attributeTypeService, IBlobDataService blobDataService, ITypePropertyService typePropertyService, IRdsService rdsService,
+        public SeedingService(IAttributeTypeService attributeTypeService, IBlobDataService blobDataService, IEnumService enumService, IRdsService rdsService,
             ITerminalTypeService terminalTypeService, IFileRepository fileRepository, ILibraryTypeService libraryTypeService, ILogger<SeedingService> logger)
         {
             _attributeTypeService = attributeTypeService;
             _blobDataService = blobDataService;
-            _typePropertyService = typePropertyService;
+            _enumService = enumService;
             _rdsService = rdsService;
             _terminalTypeService = terminalTypeService;
             _libraryTypeService = libraryTypeService;
@@ -93,14 +93,14 @@ namespace TypeLibrary.Services.Services
                 var simpleTypes = _fileRepository.ReadAllFiles<SimpleTypeAm>(simpleTypeFileNames).ToList();
                 var transports = _fileRepository.ReadAllFiles<CreateLibraryType>(transportFiles).ToList();
                 
-                await _typePropertyService.CreateConditions(conditions);
-                await _typePropertyService.CreateFormats(formats);
-                await _typePropertyService.CreateQualifiers(qualifiers);
-                await _typePropertyService.CreateSources(sources);
-                await _typePropertyService.CreateLocations(locations);
-                await _typePropertyService.CreatePurposes(purposes);
-                await _typePropertyService.CreateRdsCategories(rdsCategories);
-                await _typePropertyService.CreateUnits(units);
+                await _enumService.CreateConditions(conditions);
+                await _enumService.CreateFormats(formats);
+                await _enumService.CreateQualifiers(qualifiers);
+                await _enumService.CreateSources(sources);
+                await _enumService.CreateLocations(locations);
+                await _enumService.CreatePurposes(purposes);
+                await _enumService.CreateRdsCategories(rdsCategories);
+                await _enumService.CreateUnits(units);
                 
                 await _attributeTypeService.CreateAttributeTypes(attributes);
                 await _terminalTypeService.CreateTerminalTypes(terminalTypes);
@@ -109,7 +109,7 @@ namespace TypeLibrary.Services.Services
                 await _blobDataService.CreateBlobData(blobData);
                 await _libraryTypeService.CreateSimpleTypes(simpleTypes);
 
-                var existingLibraryTypes = _libraryTypeService.GetAllTypes().ToList();
+                var existingLibraryTypes = _libraryTypeService.GetAllLibraryTypes().ToList();
                 transports = transports.Where(x => existingLibraryTypes.All(y => y.Key != x.Key)).ToList();
                 _libraryTypeService.ClearAllChangeTracker();
                 await _libraryTypeService.CreateLibraryTypes(transports);

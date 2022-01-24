@@ -59,7 +59,7 @@ export function* saveType(action: PayloadAction<CreateLibraryType>) {
 
 export function* getInitialData() {
   try {
-    const endpointUrl = `${process.env.REACT_APP_API_BASE_URL}enum/9`;
+    const endpointUrl = `${process.env.REACT_APP_API_BASE_URL}enum/purpose`;
     const purposesResponse: HttpResponse<Purpose[]> = yield call(get, endpointUrl);
 
     yield statePut(fetchInitialDataSuccessOrError(purposesResponse.data));
@@ -105,7 +105,7 @@ export function* getAttributes(action: PayloadAction<Aspect | undefined>) {
 
 export function* getLocationTypes() {
   try {
-    const endpointUrl = `${process.env.REACT_APP_API_BASE_URL}enum/location-types`;
+    const endpointUrl = `${process.env.REACT_APP_API_BASE_URL}enum/location`;
     const locationTypesResponse: HttpResponse<LocationType[]> = yield call(get, endpointUrl);
 
     yield statePut(fetchLocationTypesSuccessOrError(locationTypesResponse.data));

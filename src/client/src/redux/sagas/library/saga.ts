@@ -15,7 +15,7 @@ export function* searchLibrary(action: PayloadAction<string>) {
   const emptyPayload = { nodeTypes: [], transportTypes: [], interfaceTypes: [], subProjectTypes: [] };
 
   try {
-    const url = `${process.env.REACT_APP_API_BASE_URL}library?name=${action.payload}`;
+    const url = `${process.env.REACT_APP_API_BASE_URL}librarytype?name=${action.payload}`;
     const response = yield call(get, url);
 
     if (response.status === 400) {
@@ -81,7 +81,7 @@ export function* importLibrary(action: PayloadAction<CreateLibraryType[]>) {
 
 export function* getTransportTypes() {
   try {
-    const url = `${process.env.REACT_APP_API_BASE_URL}library/transport`;
+    const url = `${process.env.REACT_APP_API_BASE_URL}librarytype/transport`;
     const response = yield call(get, url);
 
     if (response.status === 400) {
@@ -99,7 +99,7 @@ export function* getTransportTypes() {
 
 export function* getInterfaceTypes() {
   try {
-    const url = `${process.env.REACT_APP_API_BASE_URL}library/interface`;
+    const url = `${process.env.REACT_APP_API_BASE_URL}librarytype/interface`;
     const response = yield call(get, url);
 
     if (response.status === 400) {

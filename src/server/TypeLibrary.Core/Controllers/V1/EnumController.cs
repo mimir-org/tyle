@@ -19,16 +19,16 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("Property CRUD services")]
-    public class TypePropertyController : ControllerBase
+    [SwaggerTag("EnumController")]
+    public class EnumController : ControllerBase
     {
         private readonly ILogger<AttributeTypeController> _logger;
-        private readonly ITypePropertyService _typePropertyService;
+        private readonly IEnumService _enumService;
 
-        public TypePropertyController(ILogger<AttributeTypeController> logger, ITypePropertyService typePropertyService)
+        public EnumController(ILogger<AttributeTypeController> logger, IEnumService enumService)
         {
             _logger = logger;
-            _typePropertyService = typePropertyService;
+            _enumService = enumService;
         }
 
         #region Condition
@@ -41,7 +41,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.GetConditions();
+                var data = await _enumService.GetConditions();
                 return Ok(data);
             }
             catch (Exception e)
@@ -59,7 +59,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.UpdateCondition(dataAm);
+                var data = await _enumService.UpdateCondition(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -77,7 +77,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.CreateCondition(dataAm);
+                var data = await _enumService.CreateCondition(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -100,7 +100,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.GetFormats();
+                var data = await _enumService.GetFormats();
                 return Ok(data);
             }
             catch (Exception e)
@@ -118,7 +118,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.UpdateFormat(dataAm);
+                var data = await _enumService.UpdateFormat(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -136,7 +136,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.CreateFormat(dataAm);
+                var data = await _enumService.CreateFormat(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -159,7 +159,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.GetQualifiers();
+                var data = await _enumService.GetQualifiers();
                 return Ok(data);
             }
             catch (Exception e)
@@ -177,7 +177,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.UpdateQualifier(dataAm);
+                var data = await _enumService.UpdateQualifier(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -195,7 +195,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.CreateQualifier(dataAm);
+                var data = await _enumService.CreateQualifier(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -218,7 +218,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.GetSources();
+                var data = await _enumService.GetSources();
                 return Ok(data);
             }
             catch (Exception e)
@@ -236,7 +236,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.UpdateSource(dataAm);
+                var data = await _enumService.UpdateSource(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -254,7 +254,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.CreateSource(dataAm);
+                var data = await _enumService.CreateSource(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -277,7 +277,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.GetLocations();
+                var data = await _enumService.GetLocations();
                 return Ok(data);
             }
             catch (Exception e)
@@ -295,7 +295,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.UpdateLocation(dataAm);
+                var data = await _enumService.UpdateLocation(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -313,7 +313,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.CreateLocation(dataAm);
+                var data = await _enumService.CreateLocation(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -336,7 +336,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.GetPurposes();
+                var data = await _enumService.GetPurposes();
                 return Ok(data);
             }
             catch (Exception e)
@@ -354,7 +354,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.UpdatePurpose(dataAm);
+                var data = await _enumService.UpdatePurpose(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -372,7 +372,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.CreatePurpose(dataAm);
+                var data = await _enumService.CreatePurpose(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -395,7 +395,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.GetRdsCategories();
+                var data = await _enumService.GetRdsCategories();
                 return Ok(data);
             }
             catch (Exception e)
@@ -413,7 +413,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.UpdateRdsCategory(dataAm);
+                var data = await _enumService.UpdateRdsCategory(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -431,7 +431,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.CreateRdsCategory(dataAm);
+                var data = await _enumService.CreateRdsCategory(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -454,7 +454,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.GetUnits();
+                var data = await _enumService.GetUnits();
                 return Ok(data);
             }
             catch (Exception e)
@@ -472,7 +472,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.UpdateUnit(dataAm);
+                var data = await _enumService.UpdateUnit(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -490,7 +490,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typePropertyService.CreateUnit(dataAm);
+                var data = await _enumService.CreateUnit(dataAm);
                 return Ok(data);
             }
             catch (Exception e)

@@ -4,7 +4,7 @@ using TypeLibrary.Models.Application;
 
 namespace TypeLibrary.Services.Contracts
 {
-    public interface ITypePropertyService
+    public interface IEnumService
     {
         #region Condition
 

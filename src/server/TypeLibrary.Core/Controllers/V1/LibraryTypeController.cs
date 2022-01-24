@@ -37,27 +37,40 @@ namespace TypeLibrary.Core.Controllers.V1
             _libraryTypeService = libraryTypeService;
         }
 
+        #region LibraryTypes
+
         /// <summary>
-        /// Get all library types
+        /// Get all library data by search
         /// </summary>
+        /// <param name="name"></param>
         /// <returns></returns>
-        [HttpGet("")]
-        [ProducesResponseType(typeof(ICollection<LibraryType>), StatusCodes.Status200OK)]
+        [HttpGet]
+        [ProducesResponseType(typeof(Library), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //[Authorize(Policy = "Read")]
-        public IActionResult GetAllLibraryTypes()
+        public async Task<IActionResult> GetLibraryTypes(string name)
         {
             try
             {
-                var allTypes = _libraryTypeService.GetAllTypes().ToList();
+                if (!string.IsNullOrWhiteSpace(name))
+                {
+                    var library = await _libraryTypeService.GetLibraryTypes(name);
+                    return Ok(library);
+                }
+
+                var allTypes = _libraryTypeService.GetAllLibraryTypes().ToList();
                 return Ok(allTypes);
             }
             catch (Exception e)
             {
                 _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
+                return StatusCode(500, e.Message);
             }
         }
+
+        
 
         /// <summary>
         /// Get CreateLibraryType from LibraryTypeId
@@ -98,34 +111,11 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
-        /// Get all simple types
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("simpleType")]
-        [ProducesResponseType(typeof(IEnumerable<SimpleType>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[Authorize(Policy = "Read")]
-        public IActionResult GetSimpleTypes()
-        {
-            try
-            {
-                var types = _libraryTypeService.GetSimpleTypes().ToList();
-                return Ok(types);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        /// <summary>
         /// Create a library type
         /// </summary>
         /// <param name="libraryType"></param>
         /// <returns></returns>
-        [HttpPost("")]
+        [HttpPost]
         [ProducesResponseType(typeof(LibraryType), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -194,7 +184,8 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateLibraryType(string id, [FromBody] CreateLibraryType libraryType, bool updateMajorVersion = false, bool updateMinorVersion = false)
+        public async Task<IActionResult> UpdateLibraryType(string id, [FromBody] CreateLibraryType libraryType,
+            bool updateMajorVersion = false, bool updateMinorVersion = false)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -236,6 +227,182 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
+        /// Delete a type
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[Authorize(Policy = "Admin")]
+        public async Task<IActionResult> DeleteLibraryTypes(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return BadRequest("The id could not be null or empty");
+
+            try
+            {
+                await _libraryTypeService.DeleteLibraryType(id);
+                return Ok(true);
+            }
+            catch (MimirorgNotFoundException e)
+            {
+                return NotFound(e);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        #endregion LibraryTypes
+
+
+        #region SubProject
+
+        /// <summary>
+        /// Get subProjects
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("subProject")]
+        [ProducesResponseType(typeof(ICollection<LibrarySubProjectItem>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //[Authorize(Policy = "Read")]
+        public async Task<IActionResult> GetSubProjects()
+        {
+            try
+            {
+                var subProjects = await _libraryTypeService.GetSubProjects();
+                return Ok(subProjects.ToList());
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        #endregion SubProject
+
+
+        #region NodeType
+
+        /// <summary>
+        /// Get all node types
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("node")]
+        [ProducesResponseType(typeof(ICollection<LibraryNodeItem>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[Authorize(Policy = "Read")]
+        public async Task<IActionResult> GetNodeTypes()
+        {
+            try
+            {
+                var data = await _libraryTypeService.GetNodeTypes();
+                return Ok(data.ToList());
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        #endregion NodeType
+
+
+        #region TransportType
+
+        /// <summary>
+        /// Get transport types
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("transport")]
+        [ProducesResponseType(typeof(ICollection<LibraryTransportItem>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //[Authorize(Policy = "Read")]
+        public async Task<IActionResult> GetTransportTypes()
+        {
+            try
+            {
+                var transportTypes = await _libraryTypeService.GetTransportTypes();
+                return Ok(transportTypes.ToList());
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        #endregion TransportType
+
+
+        #region InterfaceType
+
+        /// <summary>
+        /// Get interface types
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("interface")]
+        [ProducesResponseType(typeof(ICollection<LibraryInterfaceItem>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //[Authorize(Policy = "Read")]
+        public async Task<IActionResult> GetInterfaces()
+        {
+            try
+            {
+                var interfaceTypes = await _libraryTypeService.GetInterfaceTypes();
+                return Ok(interfaceTypes.ToList());
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        #endregion InterfaceType
+
+
+        #region SimpleType
+
+        /// <summary>
+        /// Get all simple types
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("simpleType")]
+        [ProducesResponseType(typeof(IEnumerable<SimpleType>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //[Authorize(Policy = "Read")]
+        public IActionResult GetSimpleTypes()
+        {
+            try
+            {
+                var types = _libraryTypeService.GetSimpleTypes().ToList();
+                return Ok(types);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
         /// Create a simple type
         /// </summary>
         /// <returns></returns>
@@ -267,36 +434,6 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        /// <summary>
-        /// Delete a type
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpDelete("{id}")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> DeleteType(string id)
-        {
-            if (string.IsNullOrEmpty(id))
-                return BadRequest("The id could not be null or empty");
-
-            try
-            {
-                await _libraryTypeService.DeleteType(id);
-                return Ok(true);
-            }
-            catch (MimirorgNotFoundException e)
-            {
-                return NotFound(e);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
+        #endregion SimpleType
     }
 }

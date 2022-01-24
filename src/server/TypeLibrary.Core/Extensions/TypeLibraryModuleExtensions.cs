@@ -52,7 +52,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IRdsService, RdsService>();
             services.AddScoped<ISeedingService, SeedingService>();
             services.AddScoped<IBlobDataService, BlobDataService>();
-            services.AddScoped<ITypePropertyService, TypePropertyService>();
+            services.AddScoped<IEnumService, EnumService>();
 
 
             services.AddHttpContextAccessor();

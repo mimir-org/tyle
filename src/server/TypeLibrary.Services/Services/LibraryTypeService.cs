@@ -27,7 +27,9 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public LibraryTypeService(INodeTypeTerminalTypeRepository nodeTypeTerminalTypeRepository, ILibraryRepository libraryRepository, ILibraryTypeRepository libraryTypeComponentRepository, IAttributeTypeRepository attributeTypeRepository, ISimpleTypeRepository simpleTypeRepository, IMapper mapper, IHttpContextAccessor contextAccessor)
+        public LibraryTypeService(INodeTypeTerminalTypeRepository nodeTypeTerminalTypeRepository, ILibraryRepository libraryRepository, 
+            ILibraryTypeRepository libraryTypeComponentRepository, IAttributeTypeRepository attributeTypeRepository, ISimpleTypeRepository simpleTypeRepository,
+            IMapper mapper, IHttpContextAccessor contextAccessor)
         {
             _nodeTypeTerminalTypeRepository = nodeTypeTerminalTypeRepository;
             _libraryRepository = libraryRepository;
@@ -44,7 +46,7 @@ namespace TypeLibrary.Services.Services
         /// <param name="id"></param>
         /// <param name="ignoreNotFound"></param>
         /// <returns></returns>
-        public async Task<LibraryType> GetTypeById(string id, bool ignoreNotFound = false)
+        public async Task<LibraryType> GetLibraryTypeById(string id, bool ignoreNotFound = false)
         {
             var libraryTypeComponent = await _libraryTypeComponentRepository.GetAsync(id);
 
@@ -118,12 +120,12 @@ namespace TypeLibrary.Services.Services
             if (createLibraryType == null)
                 throw new MimirorgNullReferenceException("Can't update a null type");
 
-            var existingType = await GetTypeById(id);
+            var existingType = await GetLibraryTypeById(id);
 
             if (existingType?.Id == null)
                 throw new MimirorgNotFoundException($"There is no type with id:{id} to update.");
 
-            var existingTypeVersions = GetAllTypes()
+            var existingTypeVersions = GetAllLibraryTypes()
                 .Where(x => x.TypeId == existingType.TypeId)
                 .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList();
 
@@ -145,7 +147,7 @@ namespace TypeLibrary.Services.Services
             createLibraryType.Version = existingType.Version;
             createLibraryType.TypeId = existingType.TypeId;
 
-            await DeleteType(id);
+            await DeleteLibraryType(id);
 
             return await CreateLibraryType<T>(createLibraryType, true);
         }
@@ -154,7 +156,7 @@ namespace TypeLibrary.Services.Services
         /// Get all library types
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<CreateLibraryType> GetAllTypes()
+        public IEnumerable<CreateLibraryType> GetAllLibraryTypes()
         {
             var nodeTypes = _libraryTypeComponentRepository
                 .GetAll()
@@ -333,9 +335,9 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task DeleteType(string id)
+        public async Task DeleteLibraryType(string id)
         {
-            var existingType = await GetTypeById(id);
+            var existingType = await GetLibraryTypeById(id);
 
             if (existingType == null)
                 throw new MimirorgNotFoundException($"Could not delete type with id: {id}. The type was not found.");
@@ -350,9 +352,47 @@ namespace TypeLibrary.Services.Services
                 await _nodeTypeTerminalTypeRepository.SaveAsync();
             }
 
-            //_libraryTypeComponentRepository.Attach(existingType, EntityState.Deleted);
             await _libraryTypeComponentRepository.Delete(existingType.Id);
             await _libraryTypeComponentRepository.SaveAsync();
+        }
+
+        public async Task<Library> GetLibraryTypes(string searchString)
+        {
+            var objectBlocks = await _libraryRepository.GetNodeTypes(searchString);
+            var transports = await _libraryRepository.GetTransportTypes(searchString);
+            var interfaces = await _libraryRepository.GetInterfaceTypes(searchString);
+            var subProjects = await GetSubProjects(searchString);
+
+            var library = new Library
+            {
+                ObjectBlocks = objectBlocks.ToList(),
+                Transports = transports.ToList(),
+                Interfaces = interfaces.ToList(),
+                SubProjects = subProjects.ToList()
+            };
+
+            return library;
+        }
+
+        public async Task<IEnumerable<LibraryNodeItem>> GetNodeTypes()
+        {
+            return await _libraryRepository.GetNodeTypes();
+        }
+
+        public async Task<IEnumerable<LibraryTransportItem>> GetTransportTypes()
+        {
+            return await _libraryRepository.GetTransportTypes();
+        }
+
+        public async Task<IEnumerable<LibraryInterfaceItem>> GetInterfaceTypes()
+        {
+            return await _libraryRepository.GetInterfaceTypes();
+        }
+
+        public Task<IEnumerable<LibrarySubProjectItem>> GetSubProjects(string searchString = null)
+        {
+            //TODO
+            throw new NotImplementedException();
         }
 
         #region Private

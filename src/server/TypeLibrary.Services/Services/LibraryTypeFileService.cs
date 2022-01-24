@@ -47,7 +47,7 @@ namespace TypeLibrary.Services.Services
         /// <returns></returns>
         public byte[] CreateFile()
         {
-            var types = _libraryTypeService.GetAllTypes().ToList();
+            var types = _libraryTypeService.GetAllLibraryTypes().ToList();
             return types.Serialize();
         }
 
