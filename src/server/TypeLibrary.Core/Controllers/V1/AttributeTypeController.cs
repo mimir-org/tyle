@@ -18,7 +18,7 @@ namespace TypeLibrary.Core.Controllers.V1
     /// Library file services
     /// </summary>
     [Produces("application/json")]
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
@@ -43,7 +43,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("{aspect}")]
         [ProducesResponseType(typeof(ICollection<AttributeType>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Read")]
+        //[Authorize(Policy = "Read")]
         public IActionResult GetAttributeTypes(Aspect aspect)
         {
             try
@@ -65,7 +65,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("predefined-attributes")]
         [ProducesResponseType(typeof(ICollection<PredefinedAttributeAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Read")]
+        //[Authorize(Policy = "Read")]
         public IActionResult GetPredefinedAttributes()
         {
             try
@@ -90,7 +90,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize(Policy = "Edit")]
+        //[Authorize(Policy = "Edit")]
         public async Task<IActionResult> CreateAttributeType([FromBody] AttributeTypeAm createAttributeType)
         {
             if (!ModelState.IsValid)
@@ -121,7 +121,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize(Policy = "Edit")]
+        //[Authorize(Policy = "Edit")]
         public async Task<IActionResult> CreateAttributeType2([FromHeader] AttributeTypeAm createAttributeType)
         {
             if (!ModelState.IsValid)

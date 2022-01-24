@@ -15,7 +15,7 @@ namespace TypeLibrary.Core.Controllers.V1
     /// Library file services
     /// </summary>
     [Produces("application/json")]
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
@@ -36,7 +36,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("condition")]
         [ProducesResponseType(typeof(ICollection<ConditionAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Read")]
+        //[Authorize(Policy = "Read")]
         public async Task<IActionResult> GetConditions()
         {
             try
@@ -54,7 +54,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPut("condition")]
         [ProducesResponseType(typeof(ConditionAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Edit")]
+        //[Authorize(Policy = "Edit")]
         public async Task<IActionResult> UpdateCondition([FromBody] ConditionAm dataAm)
         {
             try
@@ -72,7 +72,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPost("condition")]
         [ProducesResponseType(typeof(ConditionAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Admin")]
+        //[Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateCondition([FromBody] ConditionAm dataAm)
         {
             try
@@ -95,7 +95,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("format")]
         [ProducesResponseType(typeof(ICollection<FormatAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Read")]
+        //[Authorize(Policy = "Read")]
         public async Task<IActionResult> GetFormats()
         {
             try
@@ -113,7 +113,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPut("format")]
         [ProducesResponseType(typeof(FormatAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Edit")]
+        //[Authorize(Policy = "Edit")]
         public async Task<IActionResult> UpdateFormat([FromBody] FormatAm dataAm)
         {
             try
@@ -131,7 +131,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPost("format")]
         [ProducesResponseType(typeof(FormatAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Admin")]
+        //[Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateFormat([FromBody] FormatAm dataAm)
         {
             try
@@ -154,7 +154,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("qualifier")]
         [ProducesResponseType(typeof(ICollection<QualifierAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Read")]
+        //[Authorize(Policy = "Read")]
         public async Task<IActionResult> GetQualifiers()
         {
             try
@@ -172,7 +172,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPut("qualifier")]
         [ProducesResponseType(typeof(QualifierAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Edit")]
+        //[Authorize(Policy = "Edit")]
         public async Task<IActionResult> UpdateQualifier([FromBody] QualifierAm dataAm)
         {
             try
@@ -190,7 +190,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPost("qualifier")]
         [ProducesResponseType(typeof(QualifierAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Admin")]
+        //[Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateQualifier([FromBody] QualifierAm dataAm)
         {
             try
@@ -213,7 +213,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("Source")]
         [ProducesResponseType(typeof(ICollection<SourceAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Read")]
+        //[Authorize(Policy = "Read")]
         public async Task<IActionResult> GetSources()
         {
             try
@@ -231,7 +231,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPut("source")]
         [ProducesResponseType(typeof(SourceAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Edit")]
+        //[Authorize(Policy = "Edit")]
         public async Task<IActionResult> UpdateSource([FromBody] SourceAm dataAm)
         {
             try
@@ -249,7 +249,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPost("source")]
         [ProducesResponseType(typeof(SourceAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Admin")]
+        //[Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateSource([FromBody] SourceAm dataAm)
         {
             try
@@ -272,7 +272,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("location")]
         [ProducesResponseType(typeof(ICollection<LocationAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Read")]
+        //[Authorize(Policy = "Read")]
         public async Task<IActionResult> GetLocations()
         {
             try
@@ -290,7 +290,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPut("location")]
         [ProducesResponseType(typeof(LocationAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Edit")]
+        //[Authorize(Policy = "Edit")]
         public async Task<IActionResult> UpdateLocation([FromBody] LocationAm dataAm)
         {
             try
@@ -308,7 +308,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPost("location")]
         [ProducesResponseType(typeof(LocationAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Admin")]
+        //[Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateLocation([FromBody] LocationAm dataAm)
         {
             try
@@ -331,7 +331,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("purpose")]
         [ProducesResponseType(typeof(ICollection<PurposeAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Read")]
+        //[Authorize(Policy = "Read")]
         public async Task<IActionResult> GetPurposes()
         {
             try
@@ -349,7 +349,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPut("purpose")]
         [ProducesResponseType(typeof(PurposeAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Edit")]
+        //[Authorize(Policy = "Edit")]
         public async Task<IActionResult> UpdatePurpose([FromBody] PurposeAm dataAm)
         {
             try
@@ -367,7 +367,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPost("purpose")]
         [ProducesResponseType(typeof(PurposeAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Admin")]
+        //[Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreatePurpose([FromBody] PurposeAm dataAm)
         {
             try
@@ -390,7 +390,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("rdsCategory")]
         [ProducesResponseType(typeof(ICollection<RdsCategoryAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Read")]
+        //[Authorize(Policy = "Read")]
         public async Task<IActionResult> GetRdsCategories()
         {
             try
@@ -408,7 +408,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPut("rdsCategory")]
         [ProducesResponseType(typeof(RdsCategoryAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Edit")]
+        //[Authorize(Policy = "Edit")]
         public async Task<IActionResult> UpdateRdsCategory([FromBody] RdsCategoryAm dataAm)
         {
             try
@@ -426,7 +426,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPost("rdsCategory")]
         [ProducesResponseType(typeof(RdsCategoryAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Admin")]
+        //[Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateRdsCategory([FromBody] RdsCategoryAm dataAm)
         {
             try
@@ -449,7 +449,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("unit")]
         [ProducesResponseType(typeof(ICollection<UnitAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Read")]
+        //[Authorize(Policy = "Read")]
         public async Task<IActionResult> GetUnits()
         {
             try
@@ -467,7 +467,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPut("unit")]
         [ProducesResponseType(typeof(UnitAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Edit")]
+        //[Authorize(Policy = "Edit")]
         public async Task<IActionResult> UpdateUnit([FromBody] UnitAm dataAm)
         {
             try
@@ -485,7 +485,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPost("unit")]
         [ProducesResponseType(typeof(UnitAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Admin")]
+        //[Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateUnit([FromBody] UnitAm dataAm)
         {
             try

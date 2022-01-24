@@ -85,7 +85,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// Get current authenticated user
         /// </summary>
         /// <returns>User</returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

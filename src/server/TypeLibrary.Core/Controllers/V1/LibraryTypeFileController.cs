@@ -16,7 +16,7 @@ namespace TypeLibrary.Core.Controllers.V1
     /// Library file services
     /// </summary>
     [Produces("application/json")]
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
@@ -41,7 +41,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Authorize(Policy = "Read")]
+        //[Authorize(Policy = "Read")]
         public IActionResult ExportTypes()
         {
             try
@@ -65,7 +65,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Authorize(Policy = "Edit")]
+        //[Authorize(Policy = "Edit")]
         public async Task<IActionResult> UploadTypes(IFormFile file, CancellationToken cancellationToken)
         {
             try

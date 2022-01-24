@@ -16,7 +16,7 @@ namespace TypeLibrary.Core.Controllers.V1
     /// Library file services
     /// </summary>
     [Produces("application/json")]
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
@@ -40,7 +40,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("{aspect}")]
         [ProducesResponseType(typeof(ICollection<Rds>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Policy = "Read")]
+        //[Authorize(Policy = "Read")]
         public IActionResult GetRdsCodes(Aspect aspect)
         {
             try

@@ -17,7 +17,7 @@ namespace TypeLibrary.Core.Controllers.V1
     /// Library file services
     /// </summary>
     [Produces("application/json")]
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
@@ -43,7 +43,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize(Policy = "Read")]
+        //[Authorize(Policy = "Read")]
         public IActionResult GetBlobData()
         {
             try
@@ -69,7 +69,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize(Policy = "Edit")]
+        //[Authorize(Policy = "Edit")]
         public async Task<IActionResult> CreateOrUpdateBlob([FromBody] BlobDataAm blobData)
         {
             if (!ModelState.IsValid)
