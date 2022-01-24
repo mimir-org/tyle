@@ -27,7 +27,7 @@ export const librarySlice = createSlice({
     },
     fetchLibrarySuccessOrError: (state, action: PayloadAction<FetchLibrary>) => {
       state.fetching = false;
-      const { nodeTypes, transportTypes, interfaceTypes, subProjectTypes } = action.payload;
+      const { nodeTypes = [], transportTypes = [], interfaceTypes = [], subProjectTypes = [] } = action.payload;
       Object.assign(state, { nodeTypes, transportTypes, interfaceTypes, subProjectTypes });
       action.payload.apiError && state.apiError.push(action.payload.apiError);
     },
