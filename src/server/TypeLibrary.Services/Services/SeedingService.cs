@@ -29,19 +29,19 @@ namespace TypeLibrary.Services.Services
         
         private readonly IAttributeTypeService _attributeTypeService;
         private readonly IBlobDataService _blobDataService;
-        private readonly IPropertyService _propertyService;
+        private readonly ITypePropertyService _typePropertyService;
         private readonly IRdsService _rdsService;
         private readonly ITerminalTypeService _terminalTypeService;
         private readonly ILibraryTypeService _libraryTypeService;
         private readonly IFileRepository _fileRepository;
         private readonly ILogger<SeedingService> _logger;
         
-        public SeedingService(IAttributeTypeService attributeTypeService, IBlobDataService blobDataService, IPropertyService propertyService, IRdsService rdsService,
+        public SeedingService(IAttributeTypeService attributeTypeService, IBlobDataService blobDataService, ITypePropertyService typePropertyService, IRdsService rdsService,
             ITerminalTypeService terminalTypeService, IFileRepository fileRepository, ILibraryTypeService libraryTypeService, ILogger<SeedingService> logger)
         {
             _attributeTypeService = attributeTypeService;
             _blobDataService = blobDataService;
-            _propertyService = propertyService;
+            _typePropertyService = typePropertyService;
             _rdsService = rdsService;
             _terminalTypeService = terminalTypeService;
             _libraryTypeService = libraryTypeService;
@@ -93,14 +93,14 @@ namespace TypeLibrary.Services.Services
                 var simpleTypes = _fileRepository.ReadAllFiles<SimpleTypeAm>(simpleTypeFileNames).ToList();
                 var transports = _fileRepository.ReadAllFiles<CreateLibraryType>(transportFiles).ToList();
                 
-                await _propertyService.CreateConditions(conditions);
-                await _propertyService.CreateFormats(formats);
-                await _propertyService.CreateQualifiers(qualifiers);
-                await _propertyService.CreateSources(sources);
-                await _propertyService.CreateLocations(locations);
-                await _propertyService.CreatePurposes(purposes);
-                await _propertyService.CreateRdsCategories(rdsCategories);
-                await _propertyService.CreateUnits(units);
+                await _typePropertyService.CreateConditions(conditions);
+                await _typePropertyService.CreateFormats(formats);
+                await _typePropertyService.CreateQualifiers(qualifiers);
+                await _typePropertyService.CreateSources(sources);
+                await _typePropertyService.CreateLocations(locations);
+                await _typePropertyService.CreatePurposes(purposes);
+                await _typePropertyService.CreateRdsCategories(rdsCategories);
+                await _typePropertyService.CreateUnits(units);
                 
                 await _attributeTypeService.CreateAttributeTypes(attributes);
                 await _terminalTypeService.CreateTerminalTypes(terminalTypes);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -14,20 +15,20 @@ namespace TypeLibrary.Core.Controllers.V1
     /// Library file services
     /// </summary>
     [Produces("application/json")]
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
     [SwaggerTag("Property CRUD services")]
-    public class PropertyController : ControllerBase
+    public class TypePropertyController : ControllerBase
     {
         private readonly ILogger<AttributeTypeController> _logger;
-        private readonly IPropertyService _enumService;
+        private readonly ITypePropertyService _typePropertyService;
 
-        public PropertyController(ILogger<AttributeTypeController> logger, IPropertyService enumService)
+        public TypePropertyController(ILogger<AttributeTypeController> logger, ITypePropertyService typePropertyService)
         {
             _logger = logger;
-            _enumService = enumService;
+            _typePropertyService = typePropertyService;
         }
 
         #region Condition
@@ -35,12 +36,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("condition")]
         [ProducesResponseType(typeof(ICollection<ConditionAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Read")]
+        [Authorize(Policy = "Read")]
         public async Task<IActionResult> GetConditions()
         {
             try
             {
-                var data = await _enumService.GetConditions();
+                var data = await _typePropertyService.GetConditions();
                 return Ok(data);
             }
             catch (Exception e)
@@ -53,12 +54,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPut("condition")]
         [ProducesResponseType(typeof(ConditionAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Edit")]
+        [Authorize(Policy = "Edit")]
         public async Task<IActionResult> UpdateCondition([FromBody] ConditionAm dataAm)
         {
             try
             {
-                var data = await _enumService.UpdateCondition(dataAm);
+                var data = await _typePropertyService.UpdateCondition(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -71,12 +72,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPost("condition")]
         [ProducesResponseType(typeof(ConditionAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateCondition([FromBody] ConditionAm dataAm)
         {
             try
             {
-                var data = await _enumService.CreateCondition(dataAm);
+                var data = await _typePropertyService.CreateCondition(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -94,12 +95,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("format")]
         [ProducesResponseType(typeof(ICollection<FormatAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Read")]
+        [Authorize(Policy = "Read")]
         public async Task<IActionResult> GetFormats()
         {
             try
             {
-                var data = await _enumService.GetFormats();
+                var data = await _typePropertyService.GetFormats();
                 return Ok(data);
             }
             catch (Exception e)
@@ -112,12 +113,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPut("format")]
         [ProducesResponseType(typeof(FormatAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Edit")]
+        [Authorize(Policy = "Edit")]
         public async Task<IActionResult> UpdateFormat([FromBody] FormatAm dataAm)
         {
             try
             {
-                var data = await _enumService.UpdateFormat(dataAm);
+                var data = await _typePropertyService.UpdateFormat(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -130,12 +131,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPost("format")]
         [ProducesResponseType(typeof(FormatAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateFormat([FromBody] FormatAm dataAm)
         {
             try
             {
-                var data = await _enumService.CreateFormat(dataAm);
+                var data = await _typePropertyService.CreateFormat(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -153,12 +154,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("qualifier")]
         [ProducesResponseType(typeof(ICollection<QualifierAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Read")]
+        [Authorize(Policy = "Read")]
         public async Task<IActionResult> GetQualifiers()
         {
             try
             {
-                var data = await _enumService.GetQualifiers();
+                var data = await _typePropertyService.GetQualifiers();
                 return Ok(data);
             }
             catch (Exception e)
@@ -171,12 +172,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPut("qualifier")]
         [ProducesResponseType(typeof(QualifierAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Edit")]
+        [Authorize(Policy = "Edit")]
         public async Task<IActionResult> UpdateQualifier([FromBody] QualifierAm dataAm)
         {
             try
             {
-                var data = await _enumService.UpdateQualifier(dataAm);
+                var data = await _typePropertyService.UpdateQualifier(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -189,12 +190,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPost("qualifier")]
         [ProducesResponseType(typeof(QualifierAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateQualifier([FromBody] QualifierAm dataAm)
         {
             try
             {
-                var data = await _enumService.CreateQualifier(dataAm);
+                var data = await _typePropertyService.CreateQualifier(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -212,12 +213,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("Source")]
         [ProducesResponseType(typeof(ICollection<SourceAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Read")]
+        [Authorize(Policy = "Read")]
         public async Task<IActionResult> GetSources()
         {
             try
             {
-                var data = await _enumService.GetSources();
+                var data = await _typePropertyService.GetSources();
                 return Ok(data);
             }
             catch (Exception e)
@@ -230,12 +231,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPut("source")]
         [ProducesResponseType(typeof(SourceAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Edit")]
+        [Authorize(Policy = "Edit")]
         public async Task<IActionResult> UpdateSource([FromBody] SourceAm dataAm)
         {
             try
             {
-                var data = await _enumService.UpdateSource(dataAm);
+                var data = await _typePropertyService.UpdateSource(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -248,12 +249,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPost("source")]
         [ProducesResponseType(typeof(SourceAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateSource([FromBody] SourceAm dataAm)
         {
             try
             {
-                var data = await _enumService.CreateSource(dataAm);
+                var data = await _typePropertyService.CreateSource(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -271,12 +272,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("location")]
         [ProducesResponseType(typeof(ICollection<LocationAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Read")]
+        [Authorize(Policy = "Read")]
         public async Task<IActionResult> GetLocations()
         {
             try
             {
-                var data = await _enumService.GetLocations();
+                var data = await _typePropertyService.GetLocations();
                 return Ok(data);
             }
             catch (Exception e)
@@ -289,12 +290,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPut("location")]
         [ProducesResponseType(typeof(LocationAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Edit")]
+        [Authorize(Policy = "Edit")]
         public async Task<IActionResult> UpdateLocation([FromBody] LocationAm dataAm)
         {
             try
             {
-                var data = await _enumService.UpdateLocation(dataAm);
+                var data = await _typePropertyService.UpdateLocation(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -307,12 +308,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPost("location")]
         [ProducesResponseType(typeof(LocationAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateLocation([FromBody] LocationAm dataAm)
         {
             try
             {
-                var data = await _enumService.CreateLocation(dataAm);
+                var data = await _typePropertyService.CreateLocation(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -330,12 +331,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("purpose")]
         [ProducesResponseType(typeof(ICollection<PurposeAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Read")]
+        [Authorize(Policy = "Read")]
         public async Task<IActionResult> GetPurposes()
         {
             try
             {
-                var data = await _enumService.GetPurposes();
+                var data = await _typePropertyService.GetPurposes();
                 return Ok(data);
             }
             catch (Exception e)
@@ -348,12 +349,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPut("purpose")]
         [ProducesResponseType(typeof(PurposeAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Edit")]
+        [Authorize(Policy = "Edit")]
         public async Task<IActionResult> UpdatePurpose([FromBody] PurposeAm dataAm)
         {
             try
             {
-                var data = await _enumService.UpdatePurpose(dataAm);
+                var data = await _typePropertyService.UpdatePurpose(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -366,12 +367,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPost("purpose")]
         [ProducesResponseType(typeof(PurposeAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreatePurpose([FromBody] PurposeAm dataAm)
         {
             try
             {
-                var data = await _enumService.CreatePurpose(dataAm);
+                var data = await _typePropertyService.CreatePurpose(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -389,12 +390,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("rdsCategory")]
         [ProducesResponseType(typeof(ICollection<RdsCategoryAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Read")]
+        [Authorize(Policy = "Read")]
         public async Task<IActionResult> GetRdsCategories()
         {
             try
             {
-                var data = await _enumService.GetRdsCategories();
+                var data = await _typePropertyService.GetRdsCategories();
                 return Ok(data);
             }
             catch (Exception e)
@@ -407,12 +408,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPut("rdsCategory")]
         [ProducesResponseType(typeof(RdsCategoryAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Edit")]
+        [Authorize(Policy = "Edit")]
         public async Task<IActionResult> UpdateRdsCategory([FromBody] RdsCategoryAm dataAm)
         {
             try
             {
-                var data = await _enumService.UpdateRdsCategory(dataAm);
+                var data = await _typePropertyService.UpdateRdsCategory(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -425,12 +426,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPost("rdsCategory")]
         [ProducesResponseType(typeof(RdsCategoryAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateRdsCategory([FromBody] RdsCategoryAm dataAm)
         {
             try
             {
-                var data = await _enumService.CreateRdsCategory(dataAm);
+                var data = await _typePropertyService.CreateRdsCategory(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -448,12 +449,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("unit")]
         [ProducesResponseType(typeof(ICollection<UnitAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Read")]
+        [Authorize(Policy = "Read")]
         public async Task<IActionResult> GetUnits()
         {
             try
             {
-                var data = await _enumService.GetUnits();
+                var data = await _typePropertyService.GetUnits();
                 return Ok(data);
             }
             catch (Exception e)
@@ -466,12 +467,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPut("unit")]
         [ProducesResponseType(typeof(UnitAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Edit")]
+        [Authorize(Policy = "Edit")]
         public async Task<IActionResult> UpdateUnit([FromBody] UnitAm dataAm)
         {
             try
             {
-                var data = await _enumService.UpdateUnit(dataAm);
+                var data = await _typePropertyService.UpdateUnit(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -484,12 +485,12 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpPost("unit")]
         [ProducesResponseType(typeof(UnitAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateUnit([FromBody] UnitAm dataAm)
         {
             try
             {
-                var data = await _enumService.CreateUnit(dataAm);
+                var data = await _typePropertyService.CreateUnit(dataAm);
                 return Ok(data);
             }
             catch (Exception e)

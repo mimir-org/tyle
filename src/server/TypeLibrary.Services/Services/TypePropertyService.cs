@@ -11,7 +11,7 @@ using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
 {
-    public class PropertyService : IPropertyService
+    public class TypePropertyService : ITypePropertyService
     {
         private readonly IMapper _mapper;
         private readonly IConditionRepository _conditionRepository;
@@ -23,7 +23,7 @@ namespace TypeLibrary.Services.Services
         private readonly IRdsCategoryRepository _rdsCategoryRepository;
         private readonly IUnitRepository _unitRepository;
 
-        public PropertyService(IMapper mapper, IConditionRepository conditionRepository, IFormatRepository formatRepository,
+        public TypePropertyService(IMapper mapper, IConditionRepository conditionRepository, IFormatRepository formatRepository,
             IQualifierRepository qualifierRepository, ISourceRepository sourceRepository, ILocationRepository locationRepository,
             IPurposeRepository purposeRepository, IRdsCategoryRepository rdsCategoryRepository, IUnitRepository unitRepository)
         {
