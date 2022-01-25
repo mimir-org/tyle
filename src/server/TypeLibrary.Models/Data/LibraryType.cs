@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using TypeLibrary.Models.Enums;
 using TypeLibrary.Models.Extensions;
@@ -28,6 +29,8 @@ namespace TypeLibrary.Models.Data
         public DateTime? Updated { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
+
+        public ICollection<Collection> Collections { get; set; }
 
         public void IncrementMinorVersion()
         {

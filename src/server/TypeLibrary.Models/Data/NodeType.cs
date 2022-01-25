@@ -13,7 +13,6 @@ namespace TypeLibrary.Models.Data
         public string LocationType { get; set; }
         public string SymbolId { get; set; }
         public virtual ICollection<SimpleType> SimpleTypes { get; set; }
-
         [NotMapped]
         public ICollection<PredefinedAttributeAm> PredefinedAttributes { get; set; }
 

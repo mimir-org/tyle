@@ -49,6 +49,9 @@ namespace TypeLibrary.Models.Application
         // SimpleType
         public ICollection<string> SimpleTypes { get; set; }
 
+        // Collection
+        public ICollection<CollectionAm> Collections { get; set; }
+
         [JsonIgnore]
         public string Key => $"{Name}-{RdsId}-{Aspect}-{Version}";
 

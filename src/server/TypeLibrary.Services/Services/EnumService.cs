@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Extensions;
 using TypeLibrary.Models.Data;
@@ -23,11 +25,12 @@ namespace TypeLibrary.Services.Services
         private readonly IRdsCategoryRepository _rdsCategoryRepository;
         private readonly IUnitRepository _unitRepository;
         private readonly ICollectionRepository _collectionRepository;
+        private readonly IHttpContextAccessor _contextAccessor;
 
         public EnumService(IMapper mapper, IConditionRepository conditionRepository, IFormatRepository formatRepository,
             IQualifierRepository qualifierRepository, ISourceRepository sourceRepository, ILocationRepository locationRepository,
             IPurposeRepository purposeRepository, IRdsCategoryRepository rdsCategoryRepository, IUnitRepository unitRepository, 
-            ICollectionRepository collectionRepository)
+            ICollectionRepository collectionRepository, IHttpContextAccessor contextAccessor)
         {
             _mapper = mapper;
             _conditionRepository = conditionRepository;
@@ -39,6 +42,7 @@ namespace TypeLibrary.Services.Services
             _rdsCategoryRepository = rdsCategoryRepository;
             _unitRepository = unitRepository;
             _collectionRepository = collectionRepository;
+            _contextAccessor = contextAccessor;
         }
 
         #region Condition
@@ -53,6 +57,8 @@ namespace TypeLibrary.Services.Services
         public async Task<ConditionAm> UpdateCondition(ConditionAm dataAm)
         {
             var data = _mapper.Map<Condition>(dataAm);
+            data.Updated = DateTime.Now.ToUniversalTime();
+            data.UpdatedBy = _contextAccessor.GetName();
             _conditionRepository.Update(data);
             await _conditionRepository.SaveAsync();
             return _mapper.Map<ConditionAm>(data);
@@ -61,6 +67,8 @@ namespace TypeLibrary.Services.Services
         public async Task<ConditionAm> CreateCondition(ConditionAm dataAm)
         {
             var data = _mapper.Map<Condition>(dataAm);
+            data.Created = DateTime.Now.ToUniversalTime();
+            data.CreatedBy = _contextAccessor.GetName();
             data.Id = data.Key.CreateMd5();
             var createdData = await _conditionRepository.CreateAsync(data);
             await _conditionRepository.SaveAsync();
@@ -78,6 +86,8 @@ namespace TypeLibrary.Services.Services
 
             foreach (var data in notExisting)
             {
+                data.Created = DateTime.Now.ToUniversalTime();
+                data.CreatedBy = _contextAccessor.GetName();
                 data.Id = data.Key.CreateMd5();
                 _conditionRepository.Attach(data, EntityState.Added);
             }
@@ -103,6 +113,8 @@ namespace TypeLibrary.Services.Services
         public async Task<FormatAm> UpdateFormat(FormatAm dataAm)
         {
             var data = _mapper.Map<Format>(dataAm);
+            data.Updated = DateTime.Now.ToUniversalTime();
+            data.UpdatedBy = _contextAccessor.GetName();
             _formatRepository.Update(data);
             await _formatRepository.SaveAsync();
             return _mapper.Map<FormatAm>(data);
@@ -111,6 +123,8 @@ namespace TypeLibrary.Services.Services
         public async Task<FormatAm> CreateFormat(FormatAm dataAm)
         {
             var data = _mapper.Map<Format>(dataAm);
+            data.Created = DateTime.Now.ToUniversalTime();
+            data.CreatedBy = _contextAccessor.GetName();
             data.Id = data.Key.CreateMd5();
             var createdData = await _formatRepository.CreateAsync(data);
             await _formatRepository.SaveAsync();
@@ -128,6 +142,8 @@ namespace TypeLibrary.Services.Services
 
             foreach (var data in notExisting)
             {
+                data.Created = DateTime.Now.ToUniversalTime();
+                data.CreatedBy = _contextAccessor.GetName();
                 data.Id = data.Key.CreateMd5();
                 _formatRepository.Attach(data, EntityState.Added);
             }
@@ -153,6 +169,8 @@ namespace TypeLibrary.Services.Services
         public async Task<QualifierAm> UpdateQualifier(QualifierAm dataAm)
         {
             var data = _mapper.Map<Qualifier>(dataAm);
+            data.Updated = DateTime.Now.ToUniversalTime();
+            data.UpdatedBy = _contextAccessor.GetName();
             _qualifierRepository.Update(data);
             await _qualifierRepository.SaveAsync();
             return _mapper.Map<QualifierAm>(data);
@@ -161,6 +179,8 @@ namespace TypeLibrary.Services.Services
         public async Task<QualifierAm> CreateQualifier(QualifierAm dataAm)
         {
             var data = _mapper.Map<Qualifier>(dataAm);
+            data.Created = DateTime.Now.ToUniversalTime();
+            data.CreatedBy = _contextAccessor.GetName();
             data.Id = data.Key.CreateMd5();
             var createdData = await _qualifierRepository.CreateAsync(data);
             await _qualifierRepository.SaveAsync();
@@ -178,6 +198,8 @@ namespace TypeLibrary.Services.Services
 
             foreach (var data in notExisting)
             {
+                data.Created = DateTime.Now.ToUniversalTime();
+                data.CreatedBy = _contextAccessor.GetName();
                 data.Id = data.Key.CreateMd5();
                 _qualifierRepository.Attach(data, EntityState.Added);
             }
@@ -203,6 +225,8 @@ namespace TypeLibrary.Services.Services
         public async Task<SourceAm> UpdateSource(SourceAm dataAm)
         {
             var data = _mapper.Map<Source>(dataAm);
+            data.Updated = DateTime.Now.ToUniversalTime();
+            data.UpdatedBy = _contextAccessor.GetName();
             _sourceRepository.Update(data);
             await _sourceRepository.SaveAsync();
             return _mapper.Map<SourceAm>(data);
@@ -211,6 +235,8 @@ namespace TypeLibrary.Services.Services
         public async Task<SourceAm> CreateSource(SourceAm dataAm)
         {
             var data = _mapper.Map<Source>(dataAm);
+            data.Created = DateTime.Now.ToUniversalTime();
+            data.CreatedBy = _contextAccessor.GetName();
             data.Id = data.Key.CreateMd5();
             var createdData = await _sourceRepository.CreateAsync(data);
             await _sourceRepository.SaveAsync();
@@ -228,6 +254,8 @@ namespace TypeLibrary.Services.Services
 
             foreach (var data in notExisting)
             {
+                data.Created = DateTime.Now.ToUniversalTime();
+                data.CreatedBy = _contextAccessor.GetName();
                 data.Id = data.Key.CreateMd5();
                 _sourceRepository.Attach(data, EntityState.Added);
             }
@@ -253,6 +281,8 @@ namespace TypeLibrary.Services.Services
         public async Task<LocationAm> UpdateLocation(LocationAm dataAm)
         {
             var data = _mapper.Map<Location>(dataAm);
+            data.Updated = DateTime.Now.ToUniversalTime();
+            data.UpdatedBy = _contextAccessor.GetName();
             _locationRepository.Update(data);
             await _locationRepository.SaveAsync();
             return _mapper.Map<LocationAm>(data);
@@ -261,6 +291,8 @@ namespace TypeLibrary.Services.Services
         public async Task<LocationAm> CreateLocation(LocationAm dataAm)
         {
             var data = _mapper.Map<Location>(dataAm);
+            data.Created = DateTime.Now.ToUniversalTime();
+            data.CreatedBy = _contextAccessor.GetName();
             data.Id = data.Key.CreateMd5();
             var createdData = await _locationRepository.CreateAsync(data);
             await _locationRepository.SaveAsync();
@@ -278,6 +310,8 @@ namespace TypeLibrary.Services.Services
 
             foreach (var data in notExisting)
             {
+                data.Created = DateTime.Now.ToUniversalTime();
+                data.CreatedBy = _contextAccessor.GetName();
                 data.Id = data.Key.CreateMd5();
                 _locationRepository.Attach(data, EntityState.Added);
             }
@@ -303,6 +337,8 @@ namespace TypeLibrary.Services.Services
         public async Task<PurposeAm> UpdatePurpose(PurposeAm dataAm)
         {
             var data = _mapper.Map<Purpose>(dataAm);
+            data.Updated = DateTime.Now.ToUniversalTime();
+            data.UpdatedBy = _contextAccessor.GetName();
             _purposeRepository.Update(data);
             await _purposeRepository.SaveAsync();
             return _mapper.Map<PurposeAm>(data);
@@ -311,6 +347,8 @@ namespace TypeLibrary.Services.Services
         public async Task<PurposeAm> CreatePurpose(PurposeAm dataAm)
         {
             var data = _mapper.Map<Purpose>(dataAm);
+            data.Created = DateTime.Now.ToUniversalTime();
+            data.CreatedBy = _contextAccessor.GetName();
             data.Id = data.Key.CreateMd5();
             var createdData = await _purposeRepository.CreateAsync(data);
             await _purposeRepository.SaveAsync();
@@ -328,6 +366,8 @@ namespace TypeLibrary.Services.Services
 
             foreach (var data in notExisting)
             {
+                data.Created = DateTime.Now.ToUniversalTime();
+                data.CreatedBy = _contextAccessor.GetName();
                 data.Id = data.Key.CreateMd5();
                 _purposeRepository.Attach(data, EntityState.Added);
             }
@@ -353,6 +393,8 @@ namespace TypeLibrary.Services.Services
         public async Task<RdsCategoryAm> UpdateRdsCategory(RdsCategoryAm dataAm)
         {
             var data = _mapper.Map<RdsCategory>(dataAm);
+            data.Updated = DateTime.Now.ToUniversalTime();
+            data.UpdatedBy = _contextAccessor.GetName();
             _rdsCategoryRepository.Update(data);
             await _rdsCategoryRepository.SaveAsync();
             return _mapper.Map<RdsCategoryAm>(data);
@@ -361,6 +403,8 @@ namespace TypeLibrary.Services.Services
         public async Task<RdsCategoryAm> CreateRdsCategory(RdsCategoryAm dataAm)
         {
             var data = _mapper.Map<RdsCategory>(dataAm);
+            data.Created = DateTime.Now.ToUniversalTime();
+            data.CreatedBy = _contextAccessor.GetName();
             data.Id = data.Key.CreateMd5();
             var createdData = await _rdsCategoryRepository.CreateAsync(data);
             await _rdsCategoryRepository.SaveAsync();
@@ -378,6 +422,8 @@ namespace TypeLibrary.Services.Services
 
             foreach (var data in notExisting)
             {
+                data.Created = DateTime.Now.ToUniversalTime();
+                data.CreatedBy = _contextAccessor.GetName();
                 data.Id = data.Key.CreateMd5();
                 _rdsCategoryRepository.Attach(data, EntityState.Added);
             }
@@ -403,6 +449,8 @@ namespace TypeLibrary.Services.Services
         public async Task<UnitAm> UpdateUnit(UnitAm dataAm)
         {
             var data = _mapper.Map<Unit>(dataAm);
+            data.Updated = DateTime.Now.ToUniversalTime();
+            data.UpdatedBy = _contextAccessor.GetName();
             _unitRepository.Update(data);
             await _unitRepository.SaveAsync();
             return _mapper.Map<UnitAm>(data);
@@ -411,6 +459,8 @@ namespace TypeLibrary.Services.Services
         public async Task<UnitAm> CreateUnit(UnitAm dataAm)
         {
             var data = _mapper.Map<Unit>(dataAm);
+            data.Created = DateTime.Now.ToUniversalTime();
+            data.CreatedBy = _contextAccessor.GetName();
             data.Id = data.Key.CreateMd5();
             var createdData = await _unitRepository.CreateAsync(data);
             await _unitRepository.SaveAsync();
@@ -428,6 +478,8 @@ namespace TypeLibrary.Services.Services
 
             foreach (var data in notExisting)
             {
+                data.Created = DateTime.Now.ToUniversalTime();
+                data.CreatedBy = _contextAccessor.GetName();
                 data.Id = data.Key.CreateMd5();
                 _unitRepository.Attach(data, EntityState.Added);
             }
@@ -453,6 +505,8 @@ namespace TypeLibrary.Services.Services
         public async Task<CollectionAm> UpdateCollection(CollectionAm dataAm)
         {
             var data = _mapper.Map<Collection>(dataAm);
+            data.Updated = DateTime.Now.ToUniversalTime();
+            data.UpdatedBy = _contextAccessor.GetName();
             _collectionRepository.Update(data);
             await _collectionRepository.SaveAsync();
             return _mapper.Map<CollectionAm>(data);
@@ -461,6 +515,8 @@ namespace TypeLibrary.Services.Services
         public async Task<CollectionAm> CreateCollection(CollectionAm dataAm)
         {
             var data = _mapper.Map<Collection>(dataAm);
+            data.Created = DateTime.Now.ToUniversalTime();
+            data.CreatedBy = _contextAccessor.GetName();
             data.Id = data.Key.CreateMd5();
             var createdData = await _collectionRepository.CreateAsync(data);
             await _collectionRepository.SaveAsync();
@@ -478,6 +534,8 @@ namespace TypeLibrary.Services.Services
 
             foreach (var data in notExisting)
             {
+                data.Created = DateTime.Now.ToUniversalTime();
+                data.CreatedBy = _contextAccessor.GetName();
                 data.Id = data.Key.CreateMd5();
                 _collectionRepository.Attach(data, EntityState.Added);
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TypeLibrary.Models.Data;
@@ -27,6 +28,11 @@ namespace TypeLibrary.Models.Configurations
 
             builder.HasOne(x => x.Purpose).WithMany(y => y.LibraryTypes).HasForeignKey(x => x.PurposeId).OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(x => x.Rds).WithMany(y => y.LibraryTypes).HasForeignKey(x => x.RdsId).OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasMany(x => x.Collections).WithMany(y => y.LibraryTypes).UsingEntity<Dictionary<string, object>>("LibraryType_Collection",
+                x => x.HasOne<Collection>().WithMany().HasForeignKey("CollectionId"),
+                x => x.HasOne<LibraryType>().WithMany().HasForeignKey("LibraryTypeId"),
+                x => x.ToTable("LibraryType_Collection"));
         }
     }
 }

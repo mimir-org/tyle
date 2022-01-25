@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using TypeLibrary.Models.Enums;
 
 namespace TypeLibrary.Models.Application
@@ -11,5 +12,9 @@ namespace TypeLibrary.Models.Application
         public string Description { get; set; }
         public string Iri { get; set; }
         public Discipline Discipline { get; set; }
+        public string UpdatedBy { get; set; }
+        public DateTime? Updated { get; set; }
+        public DateTime Created { get; set; }
+        public string CreatedBy { get; set; }
     }
 }
