@@ -22,10 +22,12 @@ namespace TypeLibrary.Services.Services
         private readonly IPurposeRepository _purposeRepository;
         private readonly IRdsCategoryRepository _rdsCategoryRepository;
         private readonly IUnitRepository _unitRepository;
+        private readonly ICollectionRepository _collectionRepository;
 
         public EnumService(IMapper mapper, IConditionRepository conditionRepository, IFormatRepository formatRepository,
             IQualifierRepository qualifierRepository, ISourceRepository sourceRepository, ILocationRepository locationRepository,
-            IPurposeRepository purposeRepository, IRdsCategoryRepository rdsCategoryRepository, IUnitRepository unitRepository)
+            IPurposeRepository purposeRepository, IRdsCategoryRepository rdsCategoryRepository, IUnitRepository unitRepository, 
+            ICollectionRepository collectionRepository)
         {
             _mapper = mapper;
             _conditionRepository = conditionRepository;
@@ -36,6 +38,7 @@ namespace TypeLibrary.Services.Services
             _purposeRepository = purposeRepository;
             _rdsCategoryRepository = rdsCategoryRepository;
             _unitRepository = unitRepository;
+            _collectionRepository = collectionRepository;
         }
 
         #region Condition
@@ -436,5 +439,55 @@ namespace TypeLibrary.Services.Services
         }
 
         #endregion Unit
+
+
+        #region Collection
+
+        public Task<IEnumerable<CollectionAm>> GetCollections()
+        {
+            var dataList = _collectionRepository.GetAll();
+            var dataAm = _mapper.Map<List<CollectionAm>>(dataList);
+            return Task.FromResult<IEnumerable<CollectionAm>>(dataAm);
+        }
+
+        public async Task<CollectionAm> UpdateCollection(CollectionAm dataAm)
+        {
+            var data = _mapper.Map<Collection>(dataAm);
+            _collectionRepository.Update(data);
+            await _collectionRepository.SaveAsync();
+            return _mapper.Map<CollectionAm>(data);
+        }
+
+        public async Task<CollectionAm> CreateCollection(CollectionAm dataAm)
+        {
+            var data = _mapper.Map<Collection>(dataAm);
+            data.Id = data.Key.CreateMd5();
+            var createdData = await _collectionRepository.CreateAsync(data);
+            await _collectionRepository.SaveAsync();
+            return _mapper.Map<CollectionAm>(createdData.Entity);
+        }
+
+        public async Task CreateCollections(List<CollectionAm> dataAm)
+        {
+            var dataList = _mapper.Map<List<Collection>>(dataAm);
+            var existing = _collectionRepository.GetAll().ToList();
+            var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
+
+            if (!notExisting.Any())
+                return;
+
+            foreach (var data in notExisting)
+            {
+                data.Id = data.Key.CreateMd5();
+                _collectionRepository.Attach(data, EntityState.Added);
+            }
+
+            await _collectionRepository.SaveAsync();
+
+            foreach (var data in notExisting)
+                _collectionRepository.Detach(data);
+        }
+
+        #endregion Collection
     }
 }

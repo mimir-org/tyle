@@ -51,6 +51,7 @@ namespace TypeLibrary.Data
             modelBuilder.ApplyConfiguration(new TransportTypeConfiguration());
             modelBuilder.ApplyConfiguration(new LocationConfiguration());
             modelBuilder.ApplyConfiguration(new UnitConfiguration());
+            modelBuilder.ApplyConfiguration(new CollectionConfiguration());
         }
     }
 }

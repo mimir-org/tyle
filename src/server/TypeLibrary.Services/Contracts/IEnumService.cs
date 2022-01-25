@@ -84,5 +84,15 @@ namespace TypeLibrary.Services.Contracts
         Task CreateUnits(List<UnitAm> dataAm);
 
         #endregion Unit
+
+
+        #region Collection
+
+        Task<IEnumerable<CollectionAm>> GetCollections();
+        Task<CollectionAm> UpdateCollection(CollectionAm dataAm);
+        Task<CollectionAm> CreateCollection(CollectionAm dataAm);
+        Task CreateCollections(List<CollectionAm> dataAm);
+
+        #endregion Collection
     }
 }
