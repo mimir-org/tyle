@@ -361,7 +361,8 @@ namespace TypeLibrary.Services.Services
             var objectBlocks = await _libraryRepository.GetNodeTypes(searchString);
             var transports = await _libraryRepository.GetTransportTypes(searchString);
             var interfaces = await _libraryRepository.GetInterfaceTypes(searchString);
-            var subProjects = await GetSubProjects(searchString);
+            //TODO: Correct subprojects return when implemented
+            var subProjects = new List<LibrarySubProjectItem>();
 
             var library = new Library
             {

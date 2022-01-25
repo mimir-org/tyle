@@ -54,14 +54,8 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                if (!string.IsNullOrWhiteSpace(name))
-                {
-                    var library = await _libraryTypeService.GetLibraryTypes(name);
-                    return Ok(library);
-                }
-
-                var allTypes = _libraryTypeService.GetAllLibraryTypes().ToList();
-                return Ok(allTypes);
+                var library = await _libraryTypeService.GetLibraryTypes(name);
+                return Ok(library);
             }
             catch (Exception e)
             {
