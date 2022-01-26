@@ -24,7 +24,7 @@ namespace TypeLibrary.Services.Services
         public const string SimpleTypeFileName = "simpletype";
         public const string SourceFileName = "source";
         public const string TerminalTypeFileName = "terminaltype";
-        public const string TransportFileName = "transport";
+        public const string TransportFileName = "transporttype";
         public const string UnitFileName = "unit";
         
         private readonly IAttributeTypeService _attributeTypeService;
@@ -91,7 +91,7 @@ namespace TypeLibrary.Services.Services
                 var predefinedAttributes = _fileRepository.ReadAllFiles<PredefinedAttribute>(predefinedAttributeFiles).ToList();
                 var blobData = _fileRepository.ReadAllFiles<BlobDataAm>(blobDataFileNames).ToList();
                 var simpleTypes = _fileRepository.ReadAllFiles<SimpleTypeAm>(simpleTypeFileNames).ToList();
-                var transports = _fileRepository.ReadAllFiles<CreateLibraryType>(transportFiles).ToList();
+                //var transports = _fileRepository.ReadAllFiles<CreateLibraryType>(transportFiles).ToList();
                 
                 await _enumService.CreateConditions(conditions);
                 await _enumService.CreateFormats(formats);
@@ -109,10 +109,10 @@ namespace TypeLibrary.Services.Services
                 await _blobDataService.CreateBlobData(blobData);
                 await _libraryTypeService.CreateSimpleTypes(simpleTypes);
 
-                var existingLibraryTypes = _libraryTypeService.GetAllLibraryTypes().ToList();
-                transports = transports.Where(x => existingLibraryTypes.All(y => y.Key != x.Key)).ToList();
-                _libraryTypeService.ClearAllChangeTracker();
-                await _libraryTypeService.CreateLibraryTypes(transports);
+                //var existingLibraryTypes = _libraryTypeService.GetAllLibraryTypes().ToList();
+                //transports = transports.Where(x => existingLibraryTypes.All(y => y.Key != x.Key)).ToList();
+                //_libraryTypeService.ClearAllChangeTracker();
+                //await _libraryTypeService.CreateLibraryTypes(transports);
             }
             catch (Exception e)
             {

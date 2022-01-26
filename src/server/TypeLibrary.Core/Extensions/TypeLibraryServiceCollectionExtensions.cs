@@ -34,7 +34,7 @@ namespace TypeLibrary.Core.Extensions
             cfg.AddProfile<CommonProfile>();
             cfg.AddProfile(new LibraryTypeProfile());
             cfg.AddProfile<RdsProfile>();
-            cfg.AddProfile(new TerminalProfile());
+            cfg.AddProfile(new TerminalTypeProfile());
             cfg.AddProfile(new ConditionProfile());
             cfg.AddProfile(new FormatProfile());
             cfg.AddProfile(new QualifierProfile());

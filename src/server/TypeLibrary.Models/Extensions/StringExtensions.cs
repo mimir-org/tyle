@@ -4,27 +4,6 @@ namespace TypeLibrary.Models.Extensions
 {
     public static class StringExtensions
     {
-        //public static (string terminalCategoryId, string terminalTypeId) CreateCategoryIdAndTerminalTypeId(this string terminalName, string terminalCategoryId)
-        //{
-        //    if (string.IsNullOrEmpty(terminalCategoryId) || string.IsNullOrEmpty(terminalName))
-        //        throw new MimirorgNullReferenceException("Category and terminal can't be null");
-
-        //    var category = new terminalcategory
-        //    {
-        //        id = terminalcategoryid
-        //    };
-
-        //    var createterminaltype = new createterminaltype
-        //    {
-        //        name = terminalname,
-        //        terminalcategoryid = category.id
-        //    };
-
-        //    var terminaltypeid = createterminaltype.key.createmd5();
-
-        //    return (category.id, terminaltypeid);
-        //}
-
         public static string IncrementMajorVersion(this string version)
         {
             return IncrementVersion(version, true, false, false);

@@ -74,7 +74,7 @@ namespace TypeLibrary.Services.Services
 
             var data = _mapper.Map<List<TerminalType>>(createTerminalTypes);
             var existing = _terminalTypeRepository.GetAll().ToList();
-            var notExisting = data.Where(x => existing.All(y => y.Id != x.Id)).ToList();
+            var notExisting = data.Where(x => existing.All(y => y.Name != x.Name)).ToList();
 
             if (!notExisting.Any())
                 return new List<TerminalType>();

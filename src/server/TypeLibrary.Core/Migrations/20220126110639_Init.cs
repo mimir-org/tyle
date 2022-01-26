@@ -24,13 +24,35 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Collection",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CompanyId = table.Column<int>(type: "int", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Collection", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Condition",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,7 +66,11 @@ namespace TypeLibrary.Core.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,7 +86,11 @@ namespace TypeLibrary.Core.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ParentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,7 +123,11 @@ namespace TypeLibrary.Core.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Discipline = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Discipline = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -107,7 +141,11 @@ namespace TypeLibrary.Core.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -121,7 +159,11 @@ namespace TypeLibrary.Core.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -134,7 +176,8 @@ namespace TypeLibrary.Core.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SemanticReference = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -148,7 +191,11 @@ namespace TypeLibrary.Core.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -163,8 +210,8 @@ namespace TypeLibrary.Core.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ParentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Color = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ParentId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -183,7 +230,11 @@ namespace TypeLibrary.Core.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -306,6 +357,30 @@ namespace TypeLibrary.Core.Migrations
                         column: x => x.SourceId,
                         principalTable: "Source",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LibraryType_Collection",
+                columns: table => new
+                {
+                    CollectionId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LibraryTypeId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LibraryType_Collection", x => new { x.CollectionId, x.LibraryTypeId });
+                    table.ForeignKey(
+                        name: "FK_LibraryType_Collection_Collection_CollectionId",
+                        column: x => x.CollectionId,
+                        principalTable: "Collection",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_LibraryType_Collection_LibraryType_LibraryTypeId",
+                        column: x => x.LibraryTypeId,
+                        principalTable: "LibraryType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -528,6 +603,11 @@ namespace TypeLibrary.Core.Migrations
                 column: "TransportType_TerminalTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_LibraryType_Collection_LibraryTypeId",
+                table: "LibraryType_Collection",
+                column: "LibraryTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Location_ParentId",
                 table: "Location",
                 column: "ParentId");
@@ -587,6 +667,9 @@ namespace TypeLibrary.Core.Migrations
                 name: "BlobData");
 
             migrationBuilder.DropTable(
+                name: "LibraryType_Collection");
+
+            migrationBuilder.DropTable(
                 name: "Location");
 
             migrationBuilder.DropTable(
@@ -612,6 +695,9 @@ namespace TypeLibrary.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "Unit");
+
+            migrationBuilder.DropTable(
+                name: "Collection");
 
             migrationBuilder.DropTable(
                 name: "SimpleType");

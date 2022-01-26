@@ -12,8 +12,8 @@ using TypeLibrary.Data;
 namespace TypeLibrary.Core.Migrations
 {
     [DbContext(typeof(TypeLibraryDbContext))]
-    [Migration("20220125075138_Collection")]
-    partial class Collection
+    [Migration("20220126110639_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,6 +37,21 @@ namespace TypeLibrary.Core.Migrations
                     b.HasIndex("UnitId");
 
                     b.ToTable("AttributeType_Unit", (string)null);
+                });
+
+            modelBuilder.Entity("LibraryType_Collection", b =>
+                {
+                    b.Property<string>("CollectionId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LibraryTypeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("CollectionId", "LibraryTypeId");
+
+                    b.HasIndex("LibraryTypeId");
+
+                    b.ToTable("LibraryType_Collection", (string)null);
                 });
 
             modelBuilder.Entity("NodeType_AttributeType", b =>
@@ -210,18 +225,35 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("Id");
 
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int")
+                        .HasColumnName("CompanyId");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("CreatedBy");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Description");
-
-                    b.Property<string>("Iri")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Iri");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Updated");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
@@ -234,6 +266,15 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("Id");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("CreatedBy");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Description");
@@ -246,6 +287,14 @@ namespace TypeLibrary.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Updated");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
@@ -258,6 +307,15 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("Id");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("CreatedBy");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Description");
@@ -270,6 +328,14 @@ namespace TypeLibrary.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Updated");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
@@ -369,6 +435,15 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Aspect");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("CreatedBy");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Description");
@@ -385,6 +460,14 @@ namespace TypeLibrary.Core.Migrations
                     b.Property<string>("ParentId")
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("ParentId");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Updated");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
@@ -450,6 +533,15 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("Id");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("CreatedBy");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Description");
@@ -468,6 +560,14 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
 
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Updated");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("UpdatedBy");
+
                     b.HasKey("Id");
 
                     b.ToTable("Purpose", (string)null);
@@ -478,6 +578,15 @@ namespace TypeLibrary.Core.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("Id");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("CreatedBy");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)")
@@ -491,6 +600,14 @@ namespace TypeLibrary.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Updated");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
@@ -538,6 +655,15 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("Id");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("CreatedBy");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Description");
@@ -550,6 +676,14 @@ namespace TypeLibrary.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Updated");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
@@ -586,6 +720,15 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("Id");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("CreatedBy");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Description");
@@ -598,6 +741,14 @@ namespace TypeLibrary.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Updated");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
@@ -642,6 +793,15 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("Id");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("CreatedBy");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Description");
@@ -654,6 +814,14 @@ namespace TypeLibrary.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Updated");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
@@ -713,6 +881,21 @@ namespace TypeLibrary.Core.Migrations
                     b.HasOne("TypeLibrary.Models.Data.Unit", null)
                         .WithMany()
                         .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LibraryType_Collection", b =>
+                {
+                    b.HasOne("TypeLibrary.Models.Data.Collection", null)
+                        .WithMany()
+                        .HasForeignKey("CollectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TypeLibrary.Models.Data.LibraryType", null)
+                        .WithMany()
+                        .HasForeignKey("LibraryTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -11,15 +11,14 @@ namespace TypeLibrary.Models.Application
         [Required]
         public string Name { get; set; }
 
-        [Required]
-        public string TerminalCategoryId { get; set; }
-
-        public string SemanticReference { get; set; }
+        public string Description { get; set; }
+        public string Iri { get; set; }
+        public string ParentId { get; set; }
         public string Color { get; set; }
         public ICollection<string> Attributes { get; set; }
 
         [JsonIgnore]
-        public string Key => $"{Name}-{TerminalCategoryId}";
+        public string Key => $"{Name}";
 
         [JsonIgnore]
         public ICollection<AttributeType> ConvertToObject => Attributes.Select(x => new AttributeType { Id = x }).ToList();
