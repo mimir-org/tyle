@@ -1,0 +1,44 @@
+name: CI - DEV
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build-client:
+    uses: mimir-org/mimir-actions/.github/workflows/docker-build-push-cached.yaml@main
+    with:
+      repository: typelibrary-client
+      tags: dev
+      context: ./src/client
+      file: ./src/client/Dockerfile
+      target: final
+      build_args: |
+        ENVIR=dev
+      hash_files_template: "**/package-lock.json"
+      push: true
+    secrets:
+      REGISTRY_SERVER_URL: ${{ secrets.REGISTRY_SERVER_URL }}
+      REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
+      REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+
+  build-server:
+    uses: mimir-org/mimir-actions/.github/workflows/docker-build-push-cached.yaml@main
+    with:
+      repository: typelibrary-server
+      tags: dev
+      context: ./src/service
+      file: ./src/service/Dockerfile
+      target: final
+      hash_files_template: "**/*.csproj"
+      push: true
+    secrets:
+      REGISTRY_SERVER_URL: ${{ secrets.REGISTRY_SERVER_URL }}
+      REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
+      REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
