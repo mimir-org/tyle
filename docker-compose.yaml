@@ -2,12 +2,17 @@ version: "3.8"
 
 services:
   client:
-    build:
-      context: ./src/client
-      args:
-        - ENVIR=local
+    build: ./src/client
     ports:
       - "3000:80"
+    environment:
+      - TYPELIBRARY_ENV_API_BASE_URL=http://localhost:5001/v1.0/
+      - TYPELIBRARY_ENV_SOCKET_BASE_URL=http://localhost:5001/
+      - TYPELIBRARY_ENV_APP_ID=2967244a-662f-4462-82bd-7f9bca0a3683
+      - TYPELIBRARY_ENV_CLIENT_ID=0c174c7e-e018-41a2-ba84-3d4b4544a16f
+      - TYPELIBRARY_ENV_TENANT_ID=3aa4a235-b6e2-48d5-9195-7fcf05b459b0
+      - TYPELIBRARY_ENV_COMPANY=equinor.com
+      - TYPELIBRARY_ENV_APP_INSIGHTS_CONNECTION_STRING=InstrumentationKey=3db89d19-7dfb-452f-b3f2-8b9af3efd6b9;IngestionEndpoint=https://norwayeast-0.in.applicationinsights.azure.com/
     networks:
       - type_library_network
 
