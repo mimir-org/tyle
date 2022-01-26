@@ -34,7 +34,7 @@ namespace Mimirorg.Authentication.Extensions
             serviceCollection.AddScoped<IMimirorgCompanyService, MimirorgCompanyService>();
             serviceCollection.AddScoped<IMimirorgEmailRepository, MimirorgEmailRepository>();
             serviceCollection.AddScoped<IMimirorgTemplateRepository, MimirorgTemplateRepository>();
-            
+
             serviceCollection.AddSingleton<IMimirorgAuthFactory, MimirorgAuthFactory>();
 
             serviceCollection.AddHttpContextAccessor();
@@ -56,6 +56,23 @@ namespace Mimirorg.Authentication.Extensions
             databaseConfigSection.Bind(dbConfig);
             dbConfig.InitialCatalog = "MimirorgAuthentication";
 
+            var dataSource = Environment.GetEnvironmentVariable("DatabaseConfiguration_DataSource");
+            var port = Environment.GetEnvironmentVariable("DatabaseConfiguration_Port");
+            var dbUser = Environment.GetEnvironmentVariable("DatabaseConfiguration_DbUser");
+            var password = Environment.GetEnvironmentVariable("DatabaseConfiguration_Password");
+
+            if (!string.IsNullOrEmpty(dataSource))
+                dbConfig.DataSource = dataSource.Trim();
+
+            if (!string.IsNullOrEmpty(port) && int.TryParse(port.Trim(), out var portAsInt))
+                dbConfig.Port = portAsInt;
+
+            if (!string.IsNullOrEmpty(dbUser))
+                dbConfig.DbUser = dbUser.Trim();
+
+            if (!string.IsNullOrEmpty(password))
+                dbConfig.Password = password.Trim();
+
             // Entity framework
             serviceCollection.AddDbContext<MimirorgAuthenticationContext>(options =>
                 options.UseSqlServer(dbConfig.ConnectionString, sqlOptions =>
@@ -73,10 +90,10 @@ namespace Mimirorg.Authentication.Extensions
                     options.Password.RequiredLength = authSettings.RequiredLength;
                     options.Password.RequireDigit = authSettings.RequireDigit;
                     options.Password.RequireUppercase = authSettings.RequireUppercase;
-                    options.SignIn = new SignInOptions { RequireConfirmedAccount = authSettings.RequireConfirmedAccount };
-                    
+                    options.SignIn = new SignInOptions {RequireConfirmedAccount = authSettings.RequireConfirmedAccount};
+
                     if (authSettings.MaxFailedAccessAttempts > 0)
-                        options.Lockout = new LockoutOptions { DefaultLockoutTimeSpan = TimeSpan.FromMinutes(authSettings.DefaultLockoutMinutes), MaxFailedAccessAttempts = authSettings.MaxFailedAccessAttempts };
+                        options.Lockout = new LockoutOptions {DefaultLockoutTimeSpan = TimeSpan.FromMinutes(authSettings.DefaultLockoutMinutes), MaxFailedAccessAttempts = authSettings.MaxFailedAccessAttempts};
                 })
                 .AddEntityFrameworkStores<MimirorgAuthenticationContext>()
                 .AddDefaultTokenProviders();
@@ -118,7 +135,12 @@ namespace Mimirorg.Authentication.Extensions
 
                 foreach (var description in service.ApiVersionDescriptions)
                 {
-                    c.SwaggerDoc(description.GroupName, new OpenApiInfo { Title = swaggerConfiguration.Title, Version = description.ApiVersion.ToString(), Description = swaggerConfiguration.Description, Contact = new OpenApiContact { Name = swaggerConfiguration.Contact?.Name, Email = swaggerConfiguration.Contact?.Email } });
+                    c.SwaggerDoc(description.GroupName,
+                        new OpenApiInfo
+                        {
+                            Title = swaggerConfiguration.Title, Version = description.ApiVersion.ToString(), Description = swaggerConfiguration.Description,
+                            Contact = new OpenApiContact {Name = swaggerConfiguration.Contact?.Name, Email = swaggerConfiguration.Contact?.Email}
+                        });
                 }
 
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, "swagger.xml");
@@ -159,10 +181,7 @@ namespace Mimirorg.Authentication.Extensions
 
         public static void UseMimirorgAuthenticationModule(this IApplicationBuilder app)
         {
-            app.UseSwagger(c =>
-            {
-                c.RouteTemplate = "/swagger/{documentName}/swagger.json";
-            });
+            app.UseSwagger(c => { c.RouteTemplate = "/swagger/{documentName}/swagger.json"; });
 
             using var serviceScope = app.ApplicationServices.CreateScope();
 
