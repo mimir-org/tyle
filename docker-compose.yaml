@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  client:
+    build:
+      context: ./src/client
+      args:
+        - ENVIR=local
+    ports:
+      - "3000:80"
+    networks:
+      - type_library_network
+
+  server:
+    build: ./src/server
+    ports:
+      - "5001:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DatabaseConfiguration_DataSource=mssql
+      - DatabaseConfiguration_Port=1433
+      - DatabaseConfiguration_InitialCatalog=TypeLibrary
+      - DatabaseConfiguration_DbUser=sa
+      - DatabaseConfiguration_Password=P4ssw0rd1
+    networks:
+      - type_library_network
+    depends_on:
+      - mssql
+
+  mssql:
+    image: "mcr.microsoft.com/mssql/server:2017-CU8-ubuntu"
+    volumes:
+      - mssql:/var/opt/mssql
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=P4ssw0rd1
+      - MSSQL_PID=Standard
+    networks:
+      - type_library_network
+    restart: unless-stopped
+
+volumes:
+  mssql:
+    driver: local
+
+networks:
+  type_library_network:
+    driver: bridge
