@@ -1,11 +1,12 @@
 import { call, put } from "redux-saga/effects";
 import { User } from "../../../models";
+import Config from "../../../models/Config";
 import { ApiError, get } from "../../../models/webclient";
 import { fetchUserSuccessOrError } from "../../store/user/userSlice";
 
 export function* getUser() {
   try {
-    const url = process.env.REACT_APP_API_BASE_URL + "user";
+    const url = Config.API_BASE_URL + "user";
     const response = yield call(get, url);
 
     const user: User = {
@@ -14,7 +15,7 @@ export function* getUser() {
       role: response?.data?.role,
     };
 
-    yield put(fetchUserSuccessOrError({user: user, apiError: null}));
+    yield put(fetchUserSuccessOrError({ user: user, apiError: null }));
   } catch (error) {
     const apiError: ApiError = {
       key: fetchUserSuccessOrError.type,
@@ -22,6 +23,6 @@ export function* getUser() {
       errorData: null,
     };
 
-    yield put(fetchUserSuccessOrError({user: null, apiError: apiError}));
+    yield put(fetchUserSuccessOrError({ user: null, apiError: apiError }));
   }
 }

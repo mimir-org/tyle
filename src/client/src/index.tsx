@@ -3,8 +3,14 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { App } from "./modules/app";
 import { loginRequest, msalConfig } from "./models/webclient/MsalConfig";
-import { PublicClientApplication, EventType, EventMessage, AuthenticationResult } from "@azure/msal-browser";
+import {
+  PublicClientApplication,
+  EventType,
+  EventMessage,
+  AuthenticationResult,
+} from "@azure/msal-browser";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
+import Config from "./models/Config";
 
 const rootElement = document.getElementById("root");
 export const msalInstance = new PublicClientApplication(msalConfig);
@@ -15,7 +21,8 @@ if (accounts.length > 0) msalInstance.setActiveAccount(accounts[0]);
 msalInstance.handleRedirectPromise().then((response) => {
   if (response !== null) return;
 
-  if (!accounts || accounts.length < 1) msalInstance.loginRedirect(loginRequest);
+  if (!accounts || accounts.length < 1)
+    msalInstance.loginRedirect(loginRequest);
   else msalInstance.acquireTokenSilent(loginRequest);
 });
 
@@ -29,7 +36,7 @@ msalInstance.addEventCallback((event: EventMessage) => {
 
 const appInsights = new ApplicationInsights({
   config: {
-    connectionString: process.env.REACT_APP_APP_INSIGHTS_CONNECTION_STRING,
+    connectionString: Config.APP_INSIGHTS_CONNECTION_STRING,
   },
 });
 
