@@ -47,7 +47,7 @@ namespace TypeLibrary.Core.Extensions
 
             // Dependency Injection - Services
             services.AddScoped<ITerminalTypeService, TerminalTypeService>();
-            services.AddScoped<ILibraryTypeService, LibraryTypeService>();
+            services.AddScoped<ITypeService, TypeService>();
             services.AddScoped<ILibraryTypeFileService, LibraryTypeFileService>();
             services.AddScoped<IAttributeService, AttributeService>();
             services.AddScoped<IRdsService, RdsService>();

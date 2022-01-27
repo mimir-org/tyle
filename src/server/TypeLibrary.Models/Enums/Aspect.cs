@@ -18,7 +18,7 @@ namespace TypeLibrary.Models.Enums
         [Display(Name = "Product")]
         Product = 4,
 
-        [Display(Name = "Location")]
+        [Display(Name = "LocationDm")]
         Location = 8
     }
 }

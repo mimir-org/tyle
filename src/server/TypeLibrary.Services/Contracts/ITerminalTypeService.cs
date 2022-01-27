@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TypeLibrary.Models.Application;
-using TypeLibrary.Models.Data;
+
+using TypeLibrary.Models.Models.Application;
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Services.Contracts
 {
     public interface ITerminalTypeService
     {
-        IEnumerable<TerminalType> GetTerminals();
-        List<TerminalType> GetTerminalsByCategory();
-        Task<TerminalType> CreateTerminalType(CreateTerminalType createTerminalType);
-        Task<List<TerminalType>> CreateTerminalTypes(List<CreateTerminalType> createTerminalTypes);
+        IEnumerable<TerminalDm> GetTerminals();
+        List<TerminalDm> GetTerminalsByCategory();
+        Task<TerminalDm> CreateTerminalType(TerminalAm terminalAm);
+        Task<List<TerminalDm>> CreateTerminalTypes(List<TerminalAm> createTerminalTypes);
     }
 }

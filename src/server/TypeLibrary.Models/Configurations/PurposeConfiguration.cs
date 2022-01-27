@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Models.Data;
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class PurposeConfiguration : IEntityTypeConfiguration<Purpose>
+    public class PurposeConfiguration : IEntityTypeConfiguration<PurposeDm>
     {
-        public void Configure(EntityTypeBuilder<Purpose> builder)
+        public void Configure(EntityTypeBuilder<PurposeDm> builder)
         {
             builder.ToTable("Purpose");
             builder.HasKey(x => x.Id);

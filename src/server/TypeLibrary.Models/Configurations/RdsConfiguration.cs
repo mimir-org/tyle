@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Models.Data;
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class RdsConfiguration : IEntityTypeConfiguration<Rds>
+    public class RdsConfiguration : IEntityTypeConfiguration<RdsDm>
     {
-        public void Configure(EntityTypeBuilder<Rds> builder)
+        public void Configure(EntityTypeBuilder<RdsDm> builder)
         {
             builder.HasKey(x => x.Id);
             builder.ToTable("Rds");
@@ -16,7 +16,7 @@ namespace TypeLibrary.Models.Configurations
             builder.Property(p => p.SemanticReference).HasColumnName("SemanticReference").IsRequired(false);
             builder.Property(p => p.Aspect).HasColumnName("Aspect").IsRequired().HasConversion<string>();
             
-            builder.HasOne(x => x.RdsCategory).WithMany(y => y.RdsList).HasForeignKey(x => x.RdsCategoryId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.RdsCategoryDm).WithMany(y => y.RdsList).HasForeignKey(x => x.RdsCategoryId).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

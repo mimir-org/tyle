@@ -2,26 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TypeLibrary.Models.Application;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
-using TypeLibrary.Models.Data;
+
+using TypeLibrary.Models.Models.Application;
+using TypeLibrary.Models.Models.Data;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1
 {
     /// <summary>
-    /// Library file services
+    /// TypeCm file services
     /// </summary>
     [Produces("application/json")]
     //[Authorize]
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("Attribute type services")]
+    [SwaggerTag("AttributeDm typeDm services")]
     public class BlobController : ControllerBase
     {
         private readonly ILogger<BlobController> _logger;
@@ -64,7 +65,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="blobData"></param>
         /// <returns></returns>
         [HttpPost("")]
-        [ProducesResponseType(typeof(BlobData), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(BlobDm), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

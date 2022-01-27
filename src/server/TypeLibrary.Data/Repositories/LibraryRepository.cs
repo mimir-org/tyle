@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using TypeLibrary.Models.Application;
 using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Models.Models.Client;
 
 namespace TypeLibrary.Data.Repositories
 {
@@ -24,38 +24,38 @@ namespace TypeLibrary.Data.Repositories
             _nodeTypeRepository = nodeTypeRepository;
         }
 
-        public async Task<IEnumerable<LibraryNodeItem>> GetNodeTypes(string searchString = null)
+        public async Task<IEnumerable<NodeCm>> GetNodeTypes(string searchString = null)
         {
             var nodeTypes = await _nodeTypeRepository.GetAll()
                 .Include(x => x.AttributeList)
                     .ThenInclude(x => x.Units)
                 .Include(x => x.TerminalTypes)
-                    .ThenInclude(x => x.TerminalType)
+                    .ThenInclude(x => x.TerminalDm)
                     .ThenInclude(x => x.Attributes)
                     .ThenInclude(x => x.Units)
-                .Include(x => x.Rds)
-                    .ThenInclude(x => x.RdsCategory)
+                .Include(x => x.RdsDm)
+                    .ThenInclude(x => x.RdsCategoryDm)
                 .Include(x => x.SimpleTypes)
                     .ThenInclude(x => x.AttributeList)
                     .ThenInclude(x => x.Units)
-                .Include(x => x.Purpose)
+                .Include(x => x.PurposeDm)
                 .AsSplitQuery()
                 .ToArrayAsync();
 
             if (!string.IsNullOrWhiteSpace(searchString))
                 nodeTypes = nodeTypes.Where(x => x.Name.ToLower().Contains(searchString.ToLower())).ToArray();
 
-            return nodeTypes.Select(nodeType => _mapper.Map<LibraryNodeItem>(nodeType)).ToList();
+            return nodeTypes.Select(nodeType => _mapper.Map<NodeCm>(nodeType)).ToList();
         }
 
-        public async Task<IEnumerable<LibraryInterfaceItem>> GetInterfaceTypes(string searchString = null)
+        public async Task<IEnumerable<InterfaceCm>> GetInterfaceTypes(string searchString = null)
         {
 
             var interfaceTypes = await _interfaceTypeRepository.GetAll()
                 .Include(x => x.AttributeList)
-                .Include(x => x.Rds)
-                    .ThenInclude(x => x.RdsCategory)
-                .Include(x => x.Purpose)
+                .Include(x => x.RdsDm)
+                    .ThenInclude(x => x.RdsCategoryDm)
+                .Include(x => x.PurposeDm)
                 .OrderBy(x => x.Name)
                 .AsSplitQuery()
                 .ToArrayAsync();
@@ -63,16 +63,16 @@ namespace TypeLibrary.Data.Repositories
             if (!string.IsNullOrWhiteSpace(searchString))
                 interfaceTypes = interfaceTypes.Where(x => x.Name.ToLower().Contains(searchString.ToLower())).ToArray();
 
-            return interfaceTypes.Select(interfaceType => _mapper.Map<LibraryInterfaceItem>(interfaceType)).ToList();
+            return interfaceTypes.Select(interfaceType => _mapper.Map<InterfaceCm>(interfaceType)).ToList();
         }
 
-        public async Task<IEnumerable<LibraryTransportItem>> GetTransportTypes(string searchString = null)
+        public async Task<IEnumerable<TransportCm>> GetTransportTypes(string searchString = null)
         {
             var transportTypes = await _transportTypeRepository.GetAll()
                 .Include(x => x.AttributeList)
-                .Include(x => x.Rds)
-                    .ThenInclude(x => x.RdsCategory)
-                .Include(x => x.Purpose)
+                .Include(x => x.RdsDm)
+                    .ThenInclude(x => x.RdsCategoryDm)
+                .Include(x => x.PurposeDm)
                 .OrderBy(x => x.Name)
                 .AsSplitQuery()
                 .ToArrayAsync();
@@ -80,40 +80,40 @@ namespace TypeLibrary.Data.Repositories
             if (!string.IsNullOrWhiteSpace(searchString))
                 transportTypes = transportTypes.Where(x => x.Name.ToLower().Contains(searchString.ToLower())).ToArray();
 
-            return transportTypes.Select(transportType => _mapper.Map<LibraryTransportItem>(transportType)).ToList();
+            return transportTypes.Select(transportType => _mapper.Map<TransportCm>(transportType)).ToList();
         }
 
         public async Task<T> GetLibraryItem<T>(string id) where T : class, new()
         {
-            if (typeof(LibraryNodeItem).IsAssignableFrom(typeof(T)))
+            if (typeof(NodeCm).IsAssignableFrom(typeof(T)))
             {
                 var nodeType = await _nodeTypeRepository.FindBy(x => x.Id == id)
                     .Include(x => x.AttributeList)
                     .Include("AttributeList.Units")
                     .Include(x => x.TerminalTypes)
-                    .Include("TerminalTypes.TerminalType")
-                    .Include("TerminalTypes.TerminalType.TerminalCategory")
-                    .Include("TerminalTypes.TerminalType.AttributeList")
-                    .Include("TerminalTypes.TerminalType.AttributeList.Units")
-                    .Include(x => x.Rds)
-                    .Include("Rds.RdsCategory")
+                    .Include("TerminalTypes.TerminalDm")
+                    .Include("TerminalTypes.TerminalDm.TerminalCategory")
+                    .Include("TerminalTypes.TerminalDm.AttributeList")
+                    .Include("TerminalTypes.TerminalDm.AttributeList.Units")
+                    .Include(x => x.RdsDm)
+                    .Include("RdsDm.RdsCategoryDm")
                     .Include(x => x.SimpleTypes)
                     .Include("SimpleTypes.AttributeList")
                     .Include("SimpleTypes.AttributeList.Units")
-                    .Include(x => x.Purpose)
+                    .Include(x => x.PurposeDm)
                     .AsSplitQuery()
                     .FirstOrDefaultAsync();
 
                 return _mapper.Map<T>(nodeType);
             }
 
-            if (typeof(LibraryInterfaceItem).IsAssignableFrom(typeof(T)))
+            if (typeof(InterfaceCm).IsAssignableFrom(typeof(T)))
             {
                 var interfaceType = await _interfaceTypeRepository.FindBy(x => x.Id == id)
                     .Include(x => x.AttributeList)
-                    .Include(x => x.Rds)
-                    .Include("Rds.RdsCategory")
-                    .Include(x => x.Purpose)
+                    .Include(x => x.RdsDm)
+                    .Include("RdsDm.RdsCategoryDm")
+                    .Include(x => x.PurposeDm)
                     .OrderBy(x => x.Name)
                     .AsSplitQuery()
                     .FirstOrDefaultAsync();
@@ -121,13 +121,13 @@ namespace TypeLibrary.Data.Repositories
                 return _mapper.Map<T>(interfaceType);
             }
 
-            if (typeof(LibraryTransportItem).IsAssignableFrom(typeof(T)))
+            if (typeof(TransportCm).IsAssignableFrom(typeof(T)))
             {
                 var transportType = await _transportTypeRepository.FindBy(x => x.Id == id)
                     .Include(x => x.AttributeList)
-                    .Include(x => x.Rds)
-                    .Include("Rds.RdsCategory")
-                    .Include(x => x.Purpose)
+                    .Include(x => x.RdsDm)
+                    .Include("RdsDm.RdsCategoryDm")
+                    .Include(x => x.PurposeDm)
                     .OrderBy(x => x.Name)
                     .AsSplitQuery()
                     .FirstOrDefaultAsync();

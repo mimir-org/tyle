@@ -2,13 +2,14 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using TypeLibrary.Models.Data;
+
 using TypeLibrary.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Models.Application;
+using TypeLibrary.Models.Models.Application;
+using TypeLibrary.Models.Models.Client;
+using TypeLibrary.Models.Models.Data;
 using TypeLibrary.Services.Contracts;
-using PredefinedAttribute = TypeLibrary.Models.Application.PredefinedAttribute;
 
 namespace TypeLibrary.Services.Services
 {
@@ -33,13 +34,13 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="aspect"></param>
         /// <returns></returns>
-        public IEnumerable<Attribute> GetAttributes(Aspect aspect)
+        public IEnumerable<AttributeDm> GetAttributes(Aspect aspect)
         {
             var all = _attributeRepository.GetAll()
-                .Include(x => x.Qualifier)
-                .Include(x => x.Source)
-                .Include(x => x.Condition)
-                .Include(x => x.Format)
+                .Include(x => x.QualifierDm)
+                .Include(x => x.SourceDm)
+                .Include(x => x.ConditionDm)
+                .Include(x => x.FormatDm)
                 .Include(x => x.Units)
                 .ToList();
 
@@ -53,7 +54,7 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="attributeAm"></param>
         /// <returns></returns>
-        public async Task<Attribute> CreateAttribute(AttributeAm attributeAm)
+        public async Task<AttributeDm> CreateAttribute(AttributeAm attributeAm)
         {
             var data = await CreateAttributes(new List<AttributeAm> { attributeAm });
             return data.SingleOrDefault();
@@ -64,17 +65,17 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="attributeAmList"></param>
         /// <returns></returns>
-        public async Task<ICollection<Attribute>> CreateAttributes(List<AttributeAm> attributeAmList)
+        public async Task<ICollection<AttributeDm>> CreateAttributes(List<AttributeAm> attributeAmList)
         {
             if (attributeAmList == null || !attributeAmList.Any())
-                return new List<Attribute>();
+                return new List<AttributeDm>();
 
-            var data = _mapper.Map<List<Attribute>>(attributeAmList);
+            var data = _mapper.Map<List<AttributeDm>>(attributeAmList);
             var existing = _attributeRepository.GetAll().ToList();
             var notExisting = data.Where(x => existing.All(y => y.Id != x.Id)).ToList();
 
             if (!notExisting.Any())
-                return new List<Attribute>();
+                return new List<AttributeDm>();
 
             foreach (var entity in notExisting)
             {
@@ -104,10 +105,10 @@ namespace TypeLibrary.Services.Services
         /// Get predefined predefinedAttributeList
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<PredefinedAttribute> GetPredefinedAttributes()
+        public IEnumerable<PredefinedAttributeCm> GetPredefinedAttributes()
         {
             var all = _predefinedAttributeRepository.GetAll().ToList();
-            return _mapper.Map<List<PredefinedAttribute>>(all);
+            return _mapper.Map<List<PredefinedAttributeCm>>(all);
         }
 
         /// <summary>
@@ -115,16 +116,16 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="predefinedAttributeList"></param>
         /// <returns></returns>
-        public async Task<List<Models.Data.PredefinedAttribute>> CreatePredefinedAttributes(List<Models.Data.PredefinedAttribute> predefinedAttributeList)
+        public async Task<List<PredefinedAttributeDm>> CreatePredefinedAttributes(List<PredefinedAttributeDm> predefinedAttributeList)
         {
             if (predefinedAttributeList == null || !predefinedAttributeList.Any())
-                return new List<Models.Data.PredefinedAttribute>();
+                return new List<PredefinedAttributeDm>();
 
             var existing = _predefinedAttributeRepository.GetAll().ToList();
             var notExisting = predefinedAttributeList.Where(x => existing.All(y => y.Key != x.Key)).ToList();
 
             if (!notExisting.Any())
-                return new List<Models.Data.PredefinedAttribute>();
+                return new List<PredefinedAttributeDm>();
 
             foreach (var entity in notExisting)
             {

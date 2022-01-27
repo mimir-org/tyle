@@ -1,9 +1,10 @@
 ﻿using Mimirorg.Common.Abstract;
-using TypeLibrary.Models.Data;
+
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface IUnitRepository : IGenericRepository<TypeLibraryDbContext, Unit>
+    public interface IUnitRepository : IGenericRepository<TypeLibraryDbContext, UnitDm>
     {
     }
 }

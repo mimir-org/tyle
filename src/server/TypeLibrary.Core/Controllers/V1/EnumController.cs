@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
-using TypeLibrary.Models.Application;
+using TypeLibrary.Models.Models.Application;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1
 {
     /// <summary>
-    /// Library file services
+    /// TypeCm file services
     /// </summary>
     [Produces("application/json")]
     //[Authorize]
@@ -31,7 +31,7 @@ namespace TypeLibrary.Core.Controllers.V1
             _enumService = enumService;
         }
 
-        #region Condition
+        #region ConditionDm
 
         [HttpGet("condition")]
         [ProducesResponseType(typeof(ICollection<ConditionAm>), StatusCodes.Status200OK)]
@@ -87,10 +87,10 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        #endregion Condition
+        #endregion ConditionDm
 
 
-        #region Format
+        #region FormatDm
 
         [HttpGet("format")]
         [ProducesResponseType(typeof(ICollection<FormatAm>), StatusCodes.Status200OK)]
@@ -146,10 +146,10 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        #endregion Format
+        #endregion FormatDm
 
 
-        #region Qualifier
+        #region QualifierDm
 
         [HttpGet("qualifier")]
         [ProducesResponseType(typeof(ICollection<QualifierAm>), StatusCodes.Status200OK)]
@@ -205,12 +205,12 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        #endregion Qualifier
+        #endregion QualifierDm
 
 
-        #region Source
+        #region SourceDm
 
-        [HttpGet("Source")]
+        [HttpGet("SourceDm")]
         [ProducesResponseType(typeof(ICollection<SourceAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
@@ -264,10 +264,10 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        #endregion Source
+        #endregion SourceDm
 
 
-        #region Location
+        #region LocationDm
 
         [HttpGet("location")]
         [ProducesResponseType(typeof(ICollection<LocationAm>), StatusCodes.Status200OK)]
@@ -323,10 +323,10 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        #endregion Location
+        #endregion LocationDm
 
 
-        #region Purpose
+        #region PurposeDm
 
         [HttpGet("purpose")]
         [ProducesResponseType(typeof(ICollection<PurposeAm>), StatusCodes.Status200OK)]
@@ -382,10 +382,10 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        #endregion Purpose
+        #endregion PurposeDm
 
 
-        #region RdsCategory
+        #region RdsCategoryDm
 
         [HttpGet("rdsCategory")]
         [ProducesResponseType(typeof(ICollection<RdsCategoryAm>), StatusCodes.Status200OK)]
@@ -441,10 +441,10 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        #endregion RdsCategory
+        #endregion RdsCategoryDm
 
 
-        #region Unit
+        #region UnitDm
 
         [HttpGet("unit")]
         [ProducesResponseType(typeof(ICollection<UnitAm>), StatusCodes.Status200OK)]
@@ -500,10 +500,10 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        #endregion Unit
+        #endregion UnitDm
 
 
-        #region Collection
+        #region CollectionDm
 
         [HttpGet("collection")]
         [ProducesResponseType(typeof(ICollection<CollectionAm>), StatusCodes.Status200OK)]
@@ -559,6 +559,6 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        #endregion Collection
+        #endregion CollectionDm
     }
 }

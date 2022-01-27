@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Models.Data;
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class InterfaceTypeConfiguration : IEntityTypeConfiguration<InterfaceType>
+    public class InterfaceTypeConfiguration : IEntityTypeConfiguration<InterfaceDm>
     {
-        public void Configure(EntityTypeBuilder<InterfaceType> builder)
+        public void Configure(EntityTypeBuilder<InterfaceDm> builder)
         {
-            builder.Property(p => p.TerminalTypeId).HasColumnName("InterfaceType_TerminalTypeId").IsRequired(false);
+            builder.Property(p => p.TerminalId).HasColumnName("Interface_TerminalId").IsRequired(false);
             
-            builder.HasOne(x => x.TerminalType).WithMany(y => y.InterfaceTypes).HasForeignKey(x => x.TerminalTypeId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.TerminalDm).WithMany(y => y.Interfaces).HasForeignKey(x => x.TerminalId).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

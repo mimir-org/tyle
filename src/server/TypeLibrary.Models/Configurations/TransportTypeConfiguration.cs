@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Models.Data;
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class TransportTypeConfiguration : IEntityTypeConfiguration<TransportType>
+    public class TransportTypeConfiguration : IEntityTypeConfiguration<TransportDm>
     {
-        public void Configure(EntityTypeBuilder<TransportType> builder)
+        public void Configure(EntityTypeBuilder<TransportDm> builder)
         {
-            builder.Property(p => p.TerminalTypeId).HasColumnName("TransportType_TerminalTypeId").IsRequired(false);
+            builder.Property(p => p.TerminalId).HasColumnName("Transport_TerminalId").IsRequired(false);
             
-            builder.HasOne(x => x.TerminalType).WithMany(y => y.TransportTypes).HasForeignKey(x => x.TerminalTypeId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.TerminalDm).WithMany(y => y.Transports).HasForeignKey(x => x.TerminalId).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

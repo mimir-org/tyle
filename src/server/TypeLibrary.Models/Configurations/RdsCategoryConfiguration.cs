@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Models.Data;
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class RdsCategoryConfiguration : IEntityTypeConfiguration<RdsCategory>
+    public class RdsCategoryConfiguration : IEntityTypeConfiguration<RdsCategoryDm>
     {
-        public void Configure(EntityTypeBuilder<RdsCategory> builder)
+        public void Configure(EntityTypeBuilder<RdsCategoryDm> builder)
         {
             builder.ToTable("RdsCategory");
             builder.HasKey(x => x.Id);

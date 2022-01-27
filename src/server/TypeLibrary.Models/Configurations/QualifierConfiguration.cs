@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Models.Data;
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class QualifierConfiguration : IEntityTypeConfiguration<Qualifier>
+    public class QualifierConfiguration : IEntityTypeConfiguration<QualifierDm>
     {
-        public void Configure(EntityTypeBuilder<Qualifier> builder)
+        public void Configure(EntityTypeBuilder<QualifierDm> builder)
         {
             builder.ToTable("Qualifier");
             builder.HasKey(x => x.Id);

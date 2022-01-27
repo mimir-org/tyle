@@ -32,8 +32,4 @@
     <ProjectReference Include="..\TypeLibrary.Services\TypeLibrary.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

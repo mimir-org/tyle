@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TypeLibrary.Models.Application;
-using TypeLibrary.Models.Data;
+
 using TypeLibrary.Models.Enums;
-using PredefinedAttribute = TypeLibrary.Models.Application.PredefinedAttribute;
+using TypeLibrary.Models.Models.Application;
+using TypeLibrary.Models.Models.Client;
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Services.Contracts
 {
     public interface IAttributeService
     {
-        IEnumerable<Attribute> GetAttributes(Aspect aspect);
-        Task<Attribute> CreateAttribute(AttributeAm attributeAm);
-        Task<ICollection<Attribute>> CreateAttributes(List<AttributeAm> attributeAmList);
-        IEnumerable<PredefinedAttribute> GetPredefinedAttributes();
-        Task<List<Models.Data.PredefinedAttribute>> CreatePredefinedAttributes(List<Models.Data.PredefinedAttribute> predefinedAttributeList);
+        IEnumerable<AttributeDm> GetAttributes(Aspect aspect);
+        Task<AttributeDm> CreateAttribute(AttributeAm attributeAm);
+        Task<ICollection<AttributeDm>> CreateAttributes(List<AttributeAm> attributeAmList);
+        IEnumerable<PredefinedAttributeCm> GetPredefinedAttributes();
+        Task<List<PredefinedAttributeDm>> CreatePredefinedAttributes(List<PredefinedAttributeDm> predefinedAttributeList);
     }
 }

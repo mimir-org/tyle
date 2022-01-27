@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Models.Data;
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class ConditionConfiguration : IEntityTypeConfiguration<Condition>
+    public class ConditionConfiguration : IEntityTypeConfiguration<ConditionDm>
     {
-        public void Configure(EntityTypeBuilder<Condition> builder)
+        public void Configure(EntityTypeBuilder<ConditionDm> builder)
         {
             builder.ToTable("Condition");
             builder.HasKey(x => x.Id);

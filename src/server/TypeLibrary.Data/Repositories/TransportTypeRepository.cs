@@ -1,10 +1,11 @@
 ﻿using Mimirorg.Common.Abstract;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Models.Data;
+
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Data.Repositories
 {
-    public class TransportTypeRepository : GenericRepository<TypeLibraryDbContext, TransportType>, ITransportTypeRepository
+    public class TransportTypeRepository : GenericRepository<TypeLibraryDbContext, TransportDm>, ITransportTypeRepository
     {
         public TransportTypeRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {

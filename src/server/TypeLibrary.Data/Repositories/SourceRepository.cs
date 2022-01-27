@@ -1,10 +1,11 @@
 ﻿using Mimirorg.Common.Abstract;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Models.Data;
+
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Data.Repositories
 {
-    public class SourceRepository : GenericRepository<TypeLibraryDbContext, Source>, ISourceRepository
+    public class SourceRepository : GenericRepository<TypeLibraryDbContext, SourceDm>, ISourceRepository
     {
         public SourceRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {

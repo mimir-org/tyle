@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Models.Data;
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class SourceConfiguration : IEntityTypeConfiguration<Source>
+    public class SourceConfiguration : IEntityTypeConfiguration<SourceDm>
     {
-        public void Configure(EntityTypeBuilder<Source> builder)
+        public void Configure(EntityTypeBuilder<SourceDm> builder)
         {
             builder.ToTable("Source");
             builder.HasKey(x => x.Id);

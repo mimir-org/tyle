@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Models.Data;
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class FormatConfiguration : IEntityTypeConfiguration<Format>
+    public class FormatConfiguration : IEntityTypeConfiguration<FormatDm>
     {
-        public void Configure(EntityTypeBuilder<Format> builder)
+        public void Configure(EntityTypeBuilder<FormatDm> builder)
         {
             builder.ToTable("Format");
             builder.HasKey(x => x.Id);

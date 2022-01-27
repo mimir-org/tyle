@@ -8,23 +8,22 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
-using TypeLibrary.Models.Application;
-using TypeLibrary.Models.Data;
+using TypeLibrary.Models.Models.Application;
+using TypeLibrary.Models.Models.Client;
+using TypeLibrary.Models.Models.Data;
 using TypeLibrary.Services.Contracts;
-using Attribute = TypeLibrary.Models.Data.Attribute;
-using PredefinedAttribute = TypeLibrary.Models.Application.PredefinedAttribute;
 
 namespace TypeLibrary.Core.Controllers.V1
 {
     /// <summary>
-    /// Library file services
+    /// TypeCm file services
     /// </summary>
     [Produces("application/json")]
     //[Authorize]
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("Attribute services")]
+    [SwaggerTag("AttributeDm services")]
     public class AttributeController : ControllerBase
     {
         private readonly ILogger<AttributeController> _logger;
@@ -42,8 +41,8 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <param name="aspect"></param>
         /// <returns></returns>
-        [HttpGet("{aspect}")]
-        [ProducesResponseType(typeof(ICollection<Attribute>), StatusCodes.Status200OK)]
+        [HttpGet("{aspectEnumEnum}")]
+        [ProducesResponseType(typeof(ICollection<AttributeDm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public IActionResult GetAttributes(Aspect aspect)
@@ -65,7 +64,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <returns></returns>
         [HttpGet("predefined-attributes")]
-        [ProducesResponseType(typeof(ICollection<PredefinedAttribute>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<PredefinedAttributeCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public IActionResult GetPredefinedAttributes()
@@ -88,7 +87,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="attributeAm"></param>
         /// <returns></returns>
         [HttpPost("attribute")]
-        [ProducesResponseType(typeof(Attribute), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AttributeDm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

@@ -1,29 +1,30 @@
 ﻿using TypeLibrary.Models.Configurations;
-using TypeLibrary.Models.Data;
+
 using Microsoft.EntityFrameworkCore;
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Data
 {
     public class TypeLibraryDbContext : DbContext
     {
-        public virtual DbSet<Condition> Conditions { get; set; }
-        public virtual DbSet<Format> Formats { get; set; }
-        public virtual DbSet<Qualifier> Qualifiers { get; set; }
-        public virtual DbSet<Source> Sources { get; set; }
-        public virtual DbSet<Attribute> Attributes { get; set; }
-        public virtual DbSet<BlobData> BlobData { get; set; }
-        public virtual DbSet<InterfaceType> InterfaceTypes { get; set; }
-        public virtual DbSet<LibraryType> LibraryTypes { get; set; }
-        public virtual DbSet<NodeTypeTerminalType> NodeTypeTerminalTypes { get; set; }
-        public virtual DbSet<PredefinedAttribute> PredefinedAttributes { get; set; }
-        public virtual DbSet<Purpose> Purposes { get; set; }
-        public virtual DbSet<RdsCategory> RdsCategories { get; set; }
-        public virtual DbSet<Rds> Rds { get; set; }
-        public virtual DbSet<SimpleType> SimpleTypes { get; set; }
-        public virtual DbSet<TerminalType> TerminalTypes { get; set; }
-        public virtual DbSet<TransportType> TransportTypes { get; set; }
-        public virtual DbSet<Location> Locations { get; set; }
-        public virtual DbSet<Unit> Units { get; set; }
+        public virtual DbSet<ConditionDm> Conditions { get; set; }
+        public virtual DbSet<FormatDm> Formats { get; set; }
+        public virtual DbSet<QualifierDm> Qualifiers { get; set; }
+        public virtual DbSet<SourceDm> Sources { get; set; }
+        public virtual DbSet<AttributeDm> Attributes { get; set; }
+        public virtual DbSet<BlobDm> BlobData { get; set; }
+        public virtual DbSet<InterfaceDm> InterfaceTypes { get; set; }
+        public virtual DbSet<TypeDm> LibraryTypes { get; set; }
+        public virtual DbSet<NodeTerminalDm> NodeTypeTerminalTypes { get; set; }
+        public virtual DbSet<PredefinedAttributeDm> PredefinedAttributes { get; set; }
+        public virtual DbSet<PurposeDm> Purposes { get; set; }
+        public virtual DbSet<RdsCategoryDm> RdsCategories { get; set; }
+        public virtual DbSet<RdsDm> Rds { get; set; }
+        public virtual DbSet<SimpleDm> SimpleTypes { get; set; }
+        public virtual DbSet<TerminalDm> TerminalTypes { get; set; }
+        public virtual DbSet<TransportDm> TransportTypes { get; set; }
+        public virtual DbSet<LocationDm> Locations { get; set; }
+        public virtual DbSet<UnitDm> Units { get; set; }
 
         public TypeLibraryDbContext(DbContextOptions<TypeLibraryDbContext> options) : base(options)
         {
@@ -41,7 +42,7 @@ namespace TypeLibrary.Data
             modelBuilder.ApplyConfiguration(new BlobDataConfiguration());
             modelBuilder.ApplyConfiguration(new InterfaceTypeConfiguration());
             modelBuilder.ApplyConfiguration(new LibraryTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new NodeTypeTerminalTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new NodeTerminalConfiguration());
             modelBuilder.ApplyConfiguration(new PredefinedAttributeConfiguration());
             modelBuilder.ApplyConfiguration(new PurposeConfiguration());
             modelBuilder.ApplyConfiguration(new RdsCategoryConfiguration());

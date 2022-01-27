@@ -4,8 +4,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Models.Application;
-using TypeLibrary.Models.Data;
+
+using TypeLibrary.Models.Models.Application;
+using TypeLibrary.Models.Models.Data;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -27,7 +28,7 @@ namespace TypeLibrary.Services.Services
         /// Get all terminals
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<TerminalType> GetTerminals()
+        public IEnumerable<TerminalDm> GetTerminals()
         {
             return _terminalTypeRepository.GetAll()
                 //.Include(x => x.TerminalCategory)
@@ -41,7 +42,7 @@ namespace TypeLibrary.Services.Services
         /// Get all terminals
         /// </summary>
         /// <returns></returns>
-        public List<TerminalType> GetTerminalsByCategory()
+        public List<TerminalDm> GetTerminalsByCategory()
         {
             var result = _terminalTypeRepository.GetAll()
                 .Include(x => x.Attributes)
@@ -52,13 +53,13 @@ namespace TypeLibrary.Services.Services
         }
 
         /// <summary>
-        /// Create a terminal type
+        /// Create a terminal typeDm
         /// </summary>
-        /// <param name="createTerminalType"></param>
+        /// <param name="terminalAm"></param>
         /// <returns></returns>
-        public async Task<TerminalType> CreateTerminalType(CreateTerminalType createTerminalType)
+        public async Task<TerminalDm> CreateTerminalType(TerminalAm terminalAm)
         {
-            var data = await CreateTerminalTypes(new List<CreateTerminalType> { createTerminalType });
+            var data = await CreateTerminalTypes(new List<TerminalAm> { terminalAm });
             return data.SingleOrDefault();
         }
 
@@ -67,17 +68,17 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="createTerminalTypes"></param>
         /// <returns></returns>
-        public async Task<List<TerminalType>> CreateTerminalTypes(List<CreateTerminalType> createTerminalTypes)
+        public async Task<List<TerminalDm>> CreateTerminalTypes(List<TerminalAm> createTerminalTypes)
         {
             if (createTerminalTypes == null || !createTerminalTypes.Any())
-                return new List<TerminalType>();
+                return new List<TerminalDm>();
 
-            var data = _mapper.Map<List<TerminalType>>(createTerminalTypes);
+            var data = _mapper.Map<List<TerminalDm>>(createTerminalTypes);
             var existing = _terminalTypeRepository.GetAll().ToList();
             var notExisting = data.Where(x => existing.All(y => y.Name != x.Name)).ToList();
 
             if (!notExisting.Any())
-                return new List<TerminalType>();
+                return new List<TerminalDm>();
 
             foreach (var entity in notExisting)
             {

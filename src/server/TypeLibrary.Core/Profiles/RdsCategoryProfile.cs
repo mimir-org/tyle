@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using TypeLibrary.Models.Application;
-using TypeLibrary.Models.Data;
+
+using TypeLibrary.Models.Models.Application;
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Core.Profiles
 {
@@ -8,7 +9,7 @@ namespace TypeLibrary.Core.Profiles
     {
         public RdsCategoryProfile()
         {
-            CreateMap<RdsCategoryAm, RdsCategory>()
+            CreateMap<RdsCategoryAm, RdsCategoryDm>()
                 .ForMember(dest => dest.Id, opt => opt.UseDestinationValue())
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
@@ -18,7 +19,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
 
-            CreateMap<RdsCategory, RdsCategoryAm>()
+            CreateMap<RdsCategoryDm, RdsCategoryAm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))

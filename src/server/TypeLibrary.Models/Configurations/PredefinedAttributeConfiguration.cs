@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TypeLibrary.Models.Configurations.Converters;
-using TypeLibrary.Models.Data;
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class PredefinedAttributeConfiguration : IEntityTypeConfiguration<PredefinedAttribute>
+    public class PredefinedAttributeConfiguration : IEntityTypeConfiguration<PredefinedAttributeDm>
     {
-        public void Configure(EntityTypeBuilder<PredefinedAttribute> builder)
+        public void Configure(EntityTypeBuilder<PredefinedAttributeDm> builder)
         {
             var stringConverter = new StringCollectionValueConverter();
             var stringComparer = new StringCollectionValueComparer();

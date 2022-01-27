@@ -5,8 +5,8 @@ using AutoMapper;
 using TypeLibrary.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Models.Application;
-using TypeLibrary.Models.Data;
+using TypeLibrary.Models.Models.Application;
+using TypeLibrary.Models.Models.Data;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -27,9 +27,9 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="aspect"></param>
         /// <returns></returns>
-        public IEnumerable<Rds> GetRds(Aspect aspect)
+        public IEnumerable<RdsDm> GetRds(Aspect aspect)
         {
-            var all = _rdsRepository.GetAll().Include(x => x.RdsCategory).ToList();
+            var all = _rdsRepository.GetAll().Include(x => x.RdsCategoryDm).ToList();
             return aspect == Aspect.NotSet ?
                 all :
                 all.Where(x => x.Aspect.HasFlag(aspect));
@@ -38,11 +38,11 @@ namespace TypeLibrary.Services.Services
         /// <summary>
         /// Create a RDS
         /// </summary>
-        /// <param name="createRds"></param>
+        /// <param name="rdsAm"></param>
         /// <returns></returns>
-        public async Task<Rds> CreateRds(CreateRds createRds)
+        public async Task<RdsDm> CreateRds(RdsAm rdsAm)
         {
-            var data = await CreateRdsAsync(new List<CreateRds> { createRds });
+            var data = await CreateRdsAsync(new List<RdsAm> { rdsAm });
             return data.SingleOrDefault();
         }
 
@@ -51,18 +51,18 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="createRds"></param>
         /// <returns></returns>
-        public async Task<List<Rds>> CreateRdsAsync(List<CreateRds> createRds)
+        public async Task<List<RdsDm>> CreateRdsAsync(List<RdsAm> createRds)
         {
             if (createRds == null || !createRds.Any())
-                return new List<Rds>();
+                return new List<RdsDm>();
 
-            var data = _mapper.Map<List<Rds>>(createRds);
+            var data = _mapper.Map<List<RdsDm>>(createRds);
 
             var existing = _rdsRepository.GetAll().ToList();
             var notExisting = data.Where(x => existing.All(y => y.Id != x.Id)).ToList();
 
             if (!notExisting.Any())
-                return new List<Rds>();
+                return new List<RdsDm>();
 
             foreach (var entity in notExisting)
             {

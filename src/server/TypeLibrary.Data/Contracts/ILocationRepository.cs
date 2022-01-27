@@ -1,9 +1,10 @@
 ﻿using Mimirorg.Common.Abstract;
-using TypeLibrary.Models.Data;
+
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface ILocationRepository : IGenericRepository<TypeLibraryDbContext, Location>
+    public interface ILocationRepository : IGenericRepository<TypeLibraryDbContext, LocationDm>
     {
     }
 }

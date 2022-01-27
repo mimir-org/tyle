@@ -2,10 +2,10 @@
 using System.Linq;
 using AutoMapper;
 using Mimirorg.Common.Extensions;
-using TypeLibrary.Models.Application;
-using TypeLibrary.Models.Data;
-using Attribute = TypeLibrary.Models.Data.Attribute;
-using PredefinedAttribute = TypeLibrary.Models.Application.PredefinedAttribute;
+
+using TypeLibrary.Models.Models.Application;
+using TypeLibrary.Models.Models.Client;
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Core.Profiles
 {
@@ -13,7 +13,7 @@ namespace TypeLibrary.Core.Profiles
     {
         public AttributeProfile()
         {
-            CreateMap<AttributeAm, Attribute>()
+            CreateMap<AttributeAm, AttributeDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Key.CreateMd5()))
                 .ForMember(dest => dest.Entity, opt => opt.MapFrom(src => src.Entity))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
@@ -27,19 +27,19 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Units, opt => opt.MapFrom(src => src.ConvertToObject))
                 .ForMember(dest => dest.SelectValuesString, opt => opt.MapFrom(src => src.SelectValues == null ? null : src.SelectValues.ConvertToString()));
 
-            CreateMap<UnitAm, Unit>()
+            CreateMap<UnitAm, UnitDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri));
 
-            CreateMap<Unit, UnitAm>()
+            CreateMap<UnitDm, UnitAm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri));
 
-            CreateMap<Models.Data.PredefinedAttribute, PredefinedAttribute>()
+            CreateMap<PredefinedAttributeDm, PredefinedAttributeCm>()
                 .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.Key))
                 .ForMember(dest => dest.Values, opt => opt.MapFrom(src => src.Values.ToDictionary(x => x, x => false)))
                 .ForMember(dest => dest.IsMultiSelect, opt => opt.MapFrom(src => src.IsMultiSelect));

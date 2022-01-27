@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Models.Data;
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class LibraryTypeConfiguration : IEntityTypeConfiguration<LibraryType>
+    public class LibraryTypeConfiguration : IEntityTypeConfiguration<TypeDm>
 
     {
-        public void Configure(EntityTypeBuilder<LibraryType> builder)
+        public void Configure(EntityTypeBuilder<TypeDm> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.ToTable("LibraryType");
+            builder.ToTable("Type");
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();
             builder.Property(p => p.Version).HasColumnName("Version").IsRequired();
@@ -26,13 +26,13 @@ namespace TypeLibrary.Models.Configurations
             builder.Property(p => p.CreatedBy).HasColumnName("CreatedBy").IsRequired().HasDefaultValue("Unknown");
             builder.Property(p => p.Created).HasColumnName("Created").IsRequired().HasDefaultValue(DateTime.MinValue.ToUniversalTime());
 
-            builder.HasOne(x => x.Purpose).WithMany(y => y.LibraryTypes).HasForeignKey(x => x.PurposeId).OnDelete(DeleteBehavior.NoAction);
-            builder.HasOne(x => x.Rds).WithMany(y => y.LibraryTypes).HasForeignKey(x => x.RdsId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.PurposeDm).WithMany(y => y.LibraryTypes).HasForeignKey(x => x.PurposeId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.RdsDm).WithMany(y => y.LibraryTypes).HasForeignKey(x => x.RdsId).OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasMany(x => x.Collections).WithMany(y => y.LibraryTypes).UsingEntity<Dictionary<string, object>>("LibraryType_Collection",
-                x => x.HasOne<Collection>().WithMany().HasForeignKey("CollectionId"),
-                x => x.HasOne<LibraryType>().WithMany().HasForeignKey("LibraryTypeId"),
-                x => x.ToTable("LibraryType_Collection"));
+            builder.HasMany(x => x.Collections).WithMany(y => y.Types).UsingEntity<Dictionary<string, object>>("Type_Collection",
+                x => x.HasOne<CollectionDm>().WithMany().HasForeignKey("CollectionId"),
+                x => x.HasOne<TypeDm>().WithMany().HasForeignKey("TypeId"),
+                x => x.ToTable("Type_Collection"));
         }
     }
 }

@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Models.Data;
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class UnitConfiguration : IEntityTypeConfiguration<Unit>
+    public class UnitConfiguration : IEntityTypeConfiguration<UnitDm>
     {
-        public void Configure(EntityTypeBuilder<Unit> builder)
+        public void Configure(EntityTypeBuilder<UnitDm> builder)
         {
             builder.ToTable("Unit");
             builder.HasKey(x => x.Id);

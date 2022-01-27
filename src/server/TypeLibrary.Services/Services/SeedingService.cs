@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using TypeLibrary.Models.Application;
-using TypeLibrary.Models.Data;
+
 using Microsoft.Extensions.Logging;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Models.Models.Application;
+using TypeLibrary.Models.Models.Data;
 using TypeLibrary.Services.Contracts;
-using PredefinedAttribute = TypeLibrary.Models.Data.PredefinedAttribute;
 
 namespace TypeLibrary.Services.Services
 {
@@ -33,19 +33,19 @@ namespace TypeLibrary.Services.Services
         private readonly IEnumService _enumService;
         private readonly IRdsService _rdsService;
         private readonly ITerminalTypeService _terminalTypeService;
-        private readonly ILibraryTypeService _libraryTypeService;
+        private readonly ITypeService _typeService;
         private readonly IFileRepository _fileRepository;
         private readonly ILogger<SeedingService> _logger;
         
         public SeedingService(IAttributeService attributeService, IBlobDataService blobDataService, IEnumService enumService, IRdsService rdsService,
-            ITerminalTypeService terminalTypeService, IFileRepository fileRepository, ILibraryTypeService libraryTypeService, ILogger<SeedingService> logger)
+            ITerminalTypeService terminalTypeService, IFileRepository fileRepository, ITypeService typeService, ILogger<SeedingService> logger)
         {
             _attributeService = attributeService;
             _blobDataService = blobDataService;
             _enumService = enumService;
             _rdsService = rdsService;
             _terminalTypeService = terminalTypeService;
-            _libraryTypeService = libraryTypeService;
+            _typeService = typeService;
             _fileRepository = fileRepository;
             _logger = logger;
         }
@@ -87,12 +87,12 @@ namespace TypeLibrary.Services.Services
                 var units = _fileRepository.ReadAllFiles<UnitAm>(unitFiles).ToList();
 
                 var attributes = _fileRepository.ReadAllFiles<AttributeAm>(attributeFiles).ToList();
-                var terminalTypes = _fileRepository.ReadAllFiles<CreateTerminalType>(terminalTypeFiles).ToList();
-                var rds = _fileRepository.ReadAllFiles<CreateRds>(rdsFiles).ToList();
-                var predefinedAttributes = _fileRepository.ReadAllFiles<PredefinedAttribute>(predefinedAttributeFiles).ToList();
+                var terminalTypes = _fileRepository.ReadAllFiles<TerminalAm>(terminalTypeFiles).ToList();
+                var rds = _fileRepository.ReadAllFiles<RdsAm>(rdsFiles).ToList();
+                var predefinedAttributes = _fileRepository.ReadAllFiles<PredefinedAttributeDm>(predefinedAttributeFiles).ToList();
                 var blobData = _fileRepository.ReadAllFiles<BlobDataAm>(blobDataFileNames).ToList();
-                var simpleTypes = _fileRepository.ReadAllFiles<SimpleTypeAm>(simpleTypeFileNames).ToList();
-                //var transports = _fileRepository.ReadAllFiles<CreateLibraryType>(transportFiles).ToList();
+                var simpleTypes = _fileRepository.ReadAllFiles<SimpleAm>(simpleTypeFileNames).ToList();
+                var transports = _fileRepository.ReadAllFiles<TypeAm>(transportFiles).ToList();
                 
                 await _enumService.CreateConditions(conditions);
                 await _enumService.CreateFormats(formats);
@@ -108,12 +108,12 @@ namespace TypeLibrary.Services.Services
                 await _rdsService.CreateRdsAsync(rds);
                 await _attributeService.CreatePredefinedAttributes(predefinedAttributes);
                 await _blobDataService.CreateBlobData(blobData);
-                await _libraryTypeService.CreateSimpleTypes(simpleTypes);
+                await _typeService.CreateSimpleTypes(simpleTypes);
 
-                //var existingLibraryTypes = _libraryTypeService.GetAllLibraryTypes().ToList();
-                //transports = transports.Where(x => existingLibraryTypes.All(y => y.Key != x.Key)).ToList();
-                //_libraryTypeService.ClearAllChangeTracker();
-                //await _libraryTypeService.CreateLibraryTypes(transports);
+                var existingLibraryTypes = _typeService.GetAllTypes().ToList();
+                transports = transports.Where(x => existingLibraryTypes.All(y => y.Key != x.Key)).ToList();
+                _typeService.ClearAllChangeTracker();
+                await _typeService.CreateTypes(transports);
             }
             catch (Exception e)
             {

@@ -13,14 +13,14 @@ using TypeLibrary.Services.Contracts;
 namespace TypeLibrary.Core.Controllers.V1
 {
     /// <summary>
-    /// Library file services
+    /// TypeCm file services
     /// </summary>
     [Produces("application/json")]
     //[Authorize]
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("Library type file services")]
+    [SwaggerTag("TypeCm typeDm file services")]
     public class LibraryTypeFileController : ControllerBase
     {
         private readonly ILogger<LibraryTypeFileController> _logger;

@@ -7,24 +7,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
-using TypeLibrary.Models.Application;
-using TypeLibrary.Models.Data;
+using TypeLibrary.Models.Models.Application;
+using TypeLibrary.Models.Models.Data;
 using TypeLibrary.Services.Contracts;
-using Attribute = TypeLibrary.Models.Data.Attribute;
 
 // ReSharper disable StringLiteralTypo
 
 namespace TypeLibrary.Core.Controllers.V1
 {
     /// <summary>
-    /// Terminal type services
+    /// Terminal typeDm services
     /// </summary>
     [Produces("application/json")]
     //[Authorize]
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("TerminalType")]
+    [SwaggerTag("TerminalDm")]
     public class TerminalTypeController : ControllerBase
     {
         private readonly ILogger<TerminalTypeController> _logger;
@@ -41,7 +40,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <returns></returns>
         [HttpGet("")]
-        [ProducesResponseType(typeof(ICollection<TerminalType>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<TerminalDm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public IActionResult GetTerminalTypes()
@@ -63,7 +62,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <returns></returns>
         [HttpGet("category")]
-        [ProducesResponseType(typeof(Dictionary<string, TerminalType>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Dictionary<string, TerminalDm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public IActionResult GetTerminalTypesByCategory()
@@ -81,26 +80,26 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
-        /// Create a terminal type
+        /// Create a terminal typeDm
         /// </summary>
-        /// <param name="createTerminalType"></param>
+        /// <param name="terminalAm"></param>
         /// <returns></returns>
         [HttpPost("")]
-        [ProducesResponseType(typeof(Attribute), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AttributeDm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> CreateTerminalType([FromBody] CreateTerminalType createTerminalType)
+        public async Task<IActionResult> CreateTerminalType([FromBody] TerminalAm terminalAm)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var createdTerminalType = await _terminalTypeService.CreateTerminalType(createTerminalType);
+                var createdTerminalType = await _terminalTypeService.CreateTerminalType(terminalAm);
                 if (createdTerminalType == null)
-                    return BadRequest("The terminal type already exist");
+                    return BadRequest("The terminal typeDm already exist");
 
                 return Ok(createdTerminalType);
             }

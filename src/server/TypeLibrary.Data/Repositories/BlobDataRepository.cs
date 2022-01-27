@@ -1,10 +1,11 @@
 ﻿using Mimirorg.Common.Abstract;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Models.Data;
+
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Data.Repositories
 {
-    public class BlobDataRepository : GenericRepository<TypeLibraryDbContext, BlobData>, IBlobDataRepository
+    public class BlobDataRepository : GenericRepository<TypeLibraryDbContext, BlobDm>, IBlobDataRepository
     {
         public BlobDataRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {

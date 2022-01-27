@@ -1,13 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Models.Data;
+using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class CollectionConfiguration : IEntityTypeConfiguration<Collection>
+    public class CollectionConfiguration : IEntityTypeConfiguration<CollectionDm>
     {
-        public void Configure(EntityTypeBuilder<Collection> builder)
+        public void Configure(EntityTypeBuilder<CollectionDm> builder)
         {
             builder.ToTable("Collection");
             builder.HasKey(x => x.Id);

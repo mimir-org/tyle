@@ -6,9 +6,10 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Extensions;
-using TypeLibrary.Models.Data;
+
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Models.Application;
+using TypeLibrary.Models.Models.Application;
+using TypeLibrary.Models.Models.Data;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -45,7 +46,7 @@ namespace TypeLibrary.Services.Services
             _contextAccessor = contextAccessor;
         }
 
-        #region Condition
+        #region ConditionDm
 
         public Task<IEnumerable<ConditionAm>> GetConditions()
         {
@@ -56,7 +57,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<ConditionAm> UpdateCondition(ConditionAm dataAm)
         {
-            var data = _mapper.Map<Condition>(dataAm);
+            var data = _mapper.Map<ConditionDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _conditionRepository.Update(data);
@@ -66,7 +67,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<ConditionAm> CreateCondition(ConditionAm dataAm)
         {
-            var data = _mapper.Map<Condition>(dataAm);
+            var data = _mapper.Map<ConditionDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             data.Id = data.Key.CreateMd5();
@@ -77,7 +78,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task CreateConditions(List<ConditionAm> dataAm)
         {
-            var dataList = _mapper.Map<List<Condition>>(dataAm);
+            var dataList = _mapper.Map<List<ConditionDm>>(dataAm);
             var existing = _conditionRepository.GetAll().ToList();
             var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
 
@@ -98,10 +99,10 @@ namespace TypeLibrary.Services.Services
                 _conditionRepository.Detach(data);
         }
 
-        #endregion Condition
+        #endregion ConditionDm
 
 
-        #region Format
+        #region FormatDm
 
         public Task<IEnumerable<FormatAm>> GetFormats()
         {
@@ -112,7 +113,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<FormatAm> UpdateFormat(FormatAm dataAm)
         {
-            var data = _mapper.Map<Format>(dataAm);
+            var data = _mapper.Map<FormatDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _formatRepository.Update(data);
@@ -122,7 +123,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<FormatAm> CreateFormat(FormatAm dataAm)
         {
-            var data = _mapper.Map<Format>(dataAm);
+            var data = _mapper.Map<FormatDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             data.Id = data.Key.CreateMd5();
@@ -133,7 +134,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task CreateFormats(List<FormatAm> dataAm)
         {
-            var dataList = _mapper.Map<List<Format>>(dataAm);
+            var dataList = _mapper.Map<List<FormatDm>>(dataAm);
             var existing = _formatRepository.GetAll().ToList();
             var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
 
@@ -154,10 +155,10 @@ namespace TypeLibrary.Services.Services
                 _formatRepository.Detach(data);
         }
 
-        #endregion Format
+        #endregion FormatDm
 
 
-        #region Qualifier
+        #region QualifierDm
 
         public Task<IEnumerable<QualifierAm>> GetQualifiers()
         {
@@ -168,7 +169,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<QualifierAm> UpdateQualifier(QualifierAm dataAm)
         {
-            var data = _mapper.Map<Qualifier>(dataAm);
+            var data = _mapper.Map<QualifierDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _qualifierRepository.Update(data);
@@ -178,7 +179,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<QualifierAm> CreateQualifier(QualifierAm dataAm)
         {
-            var data = _mapper.Map<Qualifier>(dataAm);
+            var data = _mapper.Map<QualifierDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             data.Id = data.Key.CreateMd5();
@@ -189,7 +190,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task CreateQualifiers(List<QualifierAm> dataAm)
         {
-            var dataList = _mapper.Map<List<Qualifier>>(dataAm);
+            var dataList = _mapper.Map<List<QualifierDm>>(dataAm);
             var existing = _qualifierRepository.GetAll().ToList();
             var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
 
@@ -210,10 +211,10 @@ namespace TypeLibrary.Services.Services
                 _qualifierRepository.Detach(data);
         }
 
-        #endregion Qualifier
+        #endregion QualifierDm
 
 
-        #region Source
+        #region SourceDm
 
         public Task<IEnumerable<SourceAm>> GetSources()
         {
@@ -224,7 +225,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<SourceAm> UpdateSource(SourceAm dataAm)
         {
-            var data = _mapper.Map<Source>(dataAm);
+            var data = _mapper.Map<SourceDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _sourceRepository.Update(data);
@@ -234,7 +235,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<SourceAm> CreateSource(SourceAm dataAm)
         {
-            var data = _mapper.Map<Source>(dataAm);
+            var data = _mapper.Map<SourceDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             data.Id = data.Key.CreateMd5();
@@ -245,7 +246,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task CreateSources(List<SourceAm> dataAm)
         {
-            var dataList = _mapper.Map<List<Source>>(dataAm);
+            var dataList = _mapper.Map<List<SourceDm>>(dataAm);
             var existing = _sourceRepository.GetAll().ToList();
             var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
 
@@ -266,10 +267,10 @@ namespace TypeLibrary.Services.Services
                 _sourceRepository.Detach(data);
         }
 
-        #endregion Source
+        #endregion SourceDm
 
 
-        #region Location
+        #region LocationDm
 
         public Task<IEnumerable<LocationAm>> GetLocations()
         {
@@ -280,7 +281,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<LocationAm> UpdateLocation(LocationAm dataAm)
         {
-            var data = _mapper.Map<Location>(dataAm);
+            var data = _mapper.Map<LocationDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _locationRepository.Update(data);
@@ -290,7 +291,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<LocationAm> CreateLocation(LocationAm dataAm)
         {
-            var data = _mapper.Map<Location>(dataAm);
+            var data = _mapper.Map<LocationDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             data.Id = data.Key.CreateMd5();
@@ -301,7 +302,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task CreateLocations(List<LocationAm> dataAm)
         {
-            var dataList = _mapper.Map<List<Location>>(dataAm);
+            var dataList = _mapper.Map<List<LocationDm>>(dataAm);
             var existing = _locationRepository.GetAll().ToList();
             var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
 
@@ -322,10 +323,10 @@ namespace TypeLibrary.Services.Services
                 _locationRepository.Detach(data);
         }
 
-        #endregion Location
+        #endregion LocationDm
 
 
-        #region Purpose
+        #region PurposeDm
 
         public Task<IEnumerable<PurposeAm>> GetPurposes()
         {
@@ -336,7 +337,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<PurposeAm> UpdatePurpose(PurposeAm dataAm)
         {
-            var data = _mapper.Map<Purpose>(dataAm);
+            var data = _mapper.Map<PurposeDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _purposeRepository.Update(data);
@@ -346,7 +347,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<PurposeAm> CreatePurpose(PurposeAm dataAm)
         {
-            var data = _mapper.Map<Purpose>(dataAm);
+            var data = _mapper.Map<PurposeDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             data.Id = data.Key.CreateMd5();
@@ -357,7 +358,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task CreatePurposes(List<PurposeAm> dataAm)
         {
-            var dataList = _mapper.Map<List<Purpose>>(dataAm);
+            var dataList = _mapper.Map<List<PurposeDm>>(dataAm);
             var existing = _purposeRepository.GetAll().ToList();
             var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
 
@@ -378,10 +379,10 @@ namespace TypeLibrary.Services.Services
                 _purposeRepository.Detach(data);
         }
 
-        #endregion Purpose
+        #endregion PurposeDm
 
 
-        #region RdsCategory
+        #region RdsCategoryDm
 
         public Task<IEnumerable<RdsCategoryAm>> GetRdsCategories()
         {
@@ -392,7 +393,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<RdsCategoryAm> UpdateRdsCategory(RdsCategoryAm dataAm)
         {
-            var data = _mapper.Map<RdsCategory>(dataAm);
+            var data = _mapper.Map<RdsCategoryDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _rdsCategoryRepository.Update(data);
@@ -402,7 +403,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<RdsCategoryAm> CreateRdsCategory(RdsCategoryAm dataAm)
         {
-            var data = _mapper.Map<RdsCategory>(dataAm);
+            var data = _mapper.Map<RdsCategoryDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             data.Id = data.Key.CreateMd5();
@@ -413,7 +414,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task CreateRdsCategories(List<RdsCategoryAm> dataAm)
         {
-            var dataList = _mapper.Map<List<RdsCategory>>(dataAm);
+            var dataList = _mapper.Map<List<RdsCategoryDm>>(dataAm);
             var existing = _rdsCategoryRepository.GetAll().ToList();
             var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
 
@@ -434,10 +435,10 @@ namespace TypeLibrary.Services.Services
                 _rdsCategoryRepository.Detach(data);
         }
 
-        #endregion RdsCategory
+        #endregion RdsCategoryDm
 
 
-        #region Unit
+        #region UnitDm
 
         public Task<IEnumerable<UnitAm>> GetUnits()
         {
@@ -448,7 +449,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<UnitAm> UpdateUnit(UnitAm dataAm)
         {
-            var data = _mapper.Map<Unit>(dataAm);
+            var data = _mapper.Map<UnitDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _unitRepository.Update(data);
@@ -458,7 +459,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<UnitAm> CreateUnit(UnitAm dataAm)
         {
-            var data = _mapper.Map<Unit>(dataAm);
+            var data = _mapper.Map<UnitDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             data.Id = data.Key.CreateMd5();
@@ -469,7 +470,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task CreateUnits(List<UnitAm> dataAm)
         {
-            var dataList = _mapper.Map<List<Unit>>(dataAm);
+            var dataList = _mapper.Map<List<UnitDm>>(dataAm);
             var existing = _unitRepository.GetAll().ToList();
             var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
 
@@ -490,10 +491,10 @@ namespace TypeLibrary.Services.Services
                 _unitRepository.Detach(data);
         }
 
-        #endregion Unit
+        #endregion UnitDm
 
 
-        #region Collection
+        #region CollectionDm
 
         public Task<IEnumerable<CollectionAm>> GetCollections()
         {
@@ -504,7 +505,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<CollectionAm> UpdateCollection(CollectionAm dataAm)
         {
-            var data = _mapper.Map<Collection>(dataAm);
+            var data = _mapper.Map<CollectionDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _collectionRepository.Update(data);
@@ -514,7 +515,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<CollectionAm> CreateCollection(CollectionAm dataAm)
         {
-            var data = _mapper.Map<Collection>(dataAm);
+            var data = _mapper.Map<CollectionDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             data.Id = data.Key.CreateMd5();
@@ -525,7 +526,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task CreateCollections(List<CollectionAm> dataAm)
         {
-            var dataList = _mapper.Map<List<Collection>>(dataAm);
+            var dataList = _mapper.Map<List<CollectionDm>>(dataAm);
             var existing = _collectionRepository.GetAll().ToList();
             var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
 
@@ -546,6 +547,6 @@ namespace TypeLibrary.Services.Services
                 _collectionRepository.Detach(data);
         }
 
-        #endregion Collection
+        #endregion CollectionDm
     }
 }
