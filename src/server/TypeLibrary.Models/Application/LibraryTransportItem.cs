@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TypeLibrary.Models.Data;
 using TypeLibrary.Models.Enums;
+using Attribute = TypeLibrary.Models.Data.Attribute;
 
 namespace TypeLibrary.Models.Application
 {
@@ -18,7 +19,7 @@ namespace TypeLibrary.Models.Application
         public string SemanticReference { get; set; }
         public string TerminalId { get; set; }
         public string TerminalTypeId { get; set; }
-        public ICollection<AttributeType> Attributes { get; set; }
+        public ICollection<Attribute> Attributes { get; set; }
         public ObjectType LibraryType => ObjectType.Transport;
         public Purpose Purpose { get; set; }
         public string UpdatedBy { get; set; }

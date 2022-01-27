@@ -37,11 +37,11 @@ namespace TypeLibrary.Models.Application
         public string SymbolId { get; set; }
 
         // NodeType (Object Block), TransportType
-        public ICollection<string> AttributeTypes { get; set; }
+        public ICollection<string> AttributeStringList { get; set; }
 
         // Location aspect
         public string LocationType { get; set; }
-        public ICollection<PredefinedAttributeAm> PredefinedAttributes { get; set; }
+        public ICollection<PredefinedAttribute> PredefinedAttributes { get; set; }
 
         // InterfaceType, TransportType
         public string TerminalTypeId { get; set; }

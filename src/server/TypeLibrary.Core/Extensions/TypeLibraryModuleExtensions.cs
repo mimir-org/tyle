@@ -22,7 +22,7 @@ namespace TypeLibrary.Core.Extensions
             var builder = services.AddConfigurationFiles();
 
             // Dependency Injection - Repositories
-            services.AddScoped<IAttributeTypeRepository, AttributeTypeRepository>();
+            services.AddScoped<IAttributeRepository, AttributeRepository>();
             services.AddScoped<ISimpleTypeRepository, SimpleTypeRepository>();
             services.AddScoped<IInterfaceTypeRepository, InterfaceTypeRepository>();
             services.AddScoped<ILibraryTypeRepository, LibraryTypeRepository>();
@@ -49,7 +49,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<ITerminalTypeService, TerminalTypeService>();
             services.AddScoped<ILibraryTypeService, LibraryTypeService>();
             services.AddScoped<ILibraryTypeFileService, LibraryTypeFileService>();
-            services.AddScoped<IAttributeTypeService, AttributeTypeService>();
+            services.AddScoped<IAttributeService, AttributeService>();
             services.AddScoped<IRdsService, RdsService>();
             services.AddScoped<ISeedingService, SeedingService>();
             services.AddScoped<IBlobDataService, BlobDataService>();

@@ -13,13 +13,13 @@ namespace TypeLibrary.Services.Services
     public class TerminalTypeService : ITerminalTypeService
     {
         private readonly ITerminalTypeRepository _terminalTypeRepository;
-        private readonly IAttributeTypeRepository _attributeTypeRepository;
+        private readonly IAttributeRepository _attributeRepository;
         private readonly IMapper _mapper;
 
-        public TerminalTypeService(ITerminalTypeRepository terminalTypeRepository, IAttributeTypeRepository attributeTypeRepository, IMapper mapper)
+        public TerminalTypeService(ITerminalTypeRepository terminalTypeRepository, IAttributeRepository attributeRepository, IMapper mapper)
         {
             _terminalTypeRepository = terminalTypeRepository;
-            _attributeTypeRepository = attributeTypeRepository;
+            _attributeRepository = attributeRepository;
             _mapper = mapper;
         }
 
@@ -83,7 +83,7 @@ namespace TypeLibrary.Services.Services
             {
                 foreach (var entityAttribute in entity.Attributes)
                 {
-                    _attributeTypeRepository.Attach(entityAttribute, EntityState.Unchanged);
+                    _attributeRepository.Attach(entityAttribute, EntityState.Unchanged);
                 }
 
                 await _terminalTypeRepository.CreateAsync(entity);
@@ -91,7 +91,7 @@ namespace TypeLibrary.Services.Services
 
                 foreach (var entityAttribute in entity.Attributes)
                 {
-                    _attributeTypeRepository.Detach(entityAttribute);
+                    _attributeRepository.Detach(entityAttribute);
                 }
             }
 

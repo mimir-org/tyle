@@ -9,12 +9,12 @@ namespace TypeLibrary.Models.Data
     public class NodeType : LibraryType
     {
         public ICollection<NodeTypeTerminalType> TerminalTypes { get; set; }
-        public ICollection<AttributeType> AttributeTypes { get; set; }
+        public ICollection<Attribute> AttributeList { get; set; }
         public string LocationType { get; set; }
         public string SymbolId { get; set; }
         public virtual ICollection<SimpleType> SimpleTypes { get; set; }
         [NotMapped]
-        public ICollection<PredefinedAttributeAm> PredefinedAttributes { get; set; }
+        public ICollection<Application.PredefinedAttribute> PredefinedAttributes { get; set; }
 
         [JsonIgnore]
         public string PredefinedAttributeData { get; set; }
@@ -38,7 +38,7 @@ namespace TypeLibrary.Models.Data
                 return;
             }
 
-            PredefinedAttributes = JsonConvert.DeserializeObject<ICollection<PredefinedAttributeAm>>(PredefinedAttributeData);
+            PredefinedAttributes = JsonConvert.DeserializeObject<ICollection<Application.PredefinedAttribute>>(PredefinedAttributeData);
         }
     }
 }

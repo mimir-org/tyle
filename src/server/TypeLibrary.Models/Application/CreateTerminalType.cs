@@ -21,6 +21,6 @@ namespace TypeLibrary.Models.Application
         public string Key => $"{Name}";
 
         [JsonIgnore]
-        public ICollection<AttributeType> ConvertToObject => Attributes.Select(x => new AttributeType { Id = x }).ToList();
+        public ICollection<Attribute> ConvertToObject => Attributes.Select(x => new Attribute { Id = x }).ToList();
     }
 }

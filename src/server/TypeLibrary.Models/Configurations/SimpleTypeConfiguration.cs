@@ -16,10 +16,10 @@ namespace TypeLibrary.Models.Configurations
             builder.Property(p => p.Description).HasColumnName("Description").IsRequired(false);
             builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false);
 
-            builder.HasMany(x => x.AttributeTypes).WithMany(y => y.SimpleTypes).UsingEntity<Dictionary<string, object>>("SimpleType_AttributeType",
-                x => x.HasOne<AttributeType>().WithMany().HasForeignKey("AttributeTypeId"),
+            builder.HasMany(x => x.AttributeList).WithMany(y => y.SimpleTypes).UsingEntity<Dictionary<string, object>>("SimpleType_Attribute",
+                x => x.HasOne<Attribute>().WithMany().HasForeignKey("AttributeId"),
                 x => x.HasOne<SimpleType>().WithMany().HasForeignKey("SimpleTypeId"),
-                x => x.ToTable("SimpleType_AttributeType")
+                x => x.ToTable("SimpleType_Attribute")
             );
 
             builder.HasMany(x => x.NodeTypes).WithMany(y => y.SimpleTypes).UsingEntity<Dictionary<string, object>>("SimpleType_NodeType",

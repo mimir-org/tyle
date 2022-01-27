@@ -22,10 +22,10 @@ namespace TypeLibrary.Core.Controllers.V1
     [SwaggerTag("EnumController")]
     public class EnumController : ControllerBase
     {
-        private readonly ILogger<AttributeTypeController> _logger;
+        private readonly ILogger<EnumController> _logger;
         private readonly IEnumService _enumService;
 
-        public EnumController(ILogger<AttributeTypeController> logger, IEnumService enumService)
+        public EnumController(ILogger<EnumController> logger, IEnumService enumService)
         {
             _logger = logger;
             _enumService = enumService;

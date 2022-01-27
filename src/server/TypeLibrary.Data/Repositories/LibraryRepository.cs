@@ -27,7 +27,7 @@ namespace TypeLibrary.Data.Repositories
         public async Task<IEnumerable<LibraryNodeItem>> GetNodeTypes(string searchString = null)
         {
             var nodeTypes = await _nodeTypeRepository.GetAll()
-                .Include(x => x.AttributeTypes)
+                .Include(x => x.AttributeList)
                     .ThenInclude(x => x.Units)
                 .Include(x => x.TerminalTypes)
                     .ThenInclude(x => x.TerminalType)
@@ -36,7 +36,7 @@ namespace TypeLibrary.Data.Repositories
                 .Include(x => x.Rds)
                     .ThenInclude(x => x.RdsCategory)
                 .Include(x => x.SimpleTypes)
-                    .ThenInclude(x => x.AttributeTypes)
+                    .ThenInclude(x => x.AttributeList)
                     .ThenInclude(x => x.Units)
                 .Include(x => x.Purpose)
                 .AsSplitQuery()
@@ -52,7 +52,7 @@ namespace TypeLibrary.Data.Repositories
         {
 
             var interfaceTypes = await _interfaceTypeRepository.GetAll()
-                .Include(x => x.AttributeTypes)
+                .Include(x => x.AttributeList)
                 .Include(x => x.Rds)
                     .ThenInclude(x => x.RdsCategory)
                 .Include(x => x.Purpose)
@@ -69,7 +69,7 @@ namespace TypeLibrary.Data.Repositories
         public async Task<IEnumerable<LibraryTransportItem>> GetTransportTypes(string searchString = null)
         {
             var transportTypes = await _transportTypeRepository.GetAll()
-                .Include(x => x.AttributeTypes)
+                .Include(x => x.AttributeList)
                 .Include(x => x.Rds)
                     .ThenInclude(x => x.RdsCategory)
                 .Include(x => x.Purpose)
@@ -88,18 +88,18 @@ namespace TypeLibrary.Data.Repositories
             if (typeof(LibraryNodeItem).IsAssignableFrom(typeof(T)))
             {
                 var nodeType = await _nodeTypeRepository.FindBy(x => x.Id == id)
-                    .Include(x => x.AttributeTypes)
-                    .Include("AttributeTypes.Units")
+                    .Include(x => x.AttributeList)
+                    .Include("AttributeList.Units")
                     .Include(x => x.TerminalTypes)
                     .Include("TerminalTypes.TerminalType")
                     .Include("TerminalTypes.TerminalType.TerminalCategory")
-                    .Include("TerminalTypes.TerminalType.Attributes")
-                    .Include("TerminalTypes.TerminalType.Attributes.Units")
+                    .Include("TerminalTypes.TerminalType.AttributeList")
+                    .Include("TerminalTypes.TerminalType.AttributeList.Units")
                     .Include(x => x.Rds)
                     .Include("Rds.RdsCategory")
                     .Include(x => x.SimpleTypes)
-                    .Include("SimpleTypes.AttributeTypes")
-                    .Include("SimpleTypes.AttributeTypes.Units")
+                    .Include("SimpleTypes.AttributeList")
+                    .Include("SimpleTypes.AttributeList.Units")
                     .Include(x => x.Purpose)
                     .AsSplitQuery()
                     .FirstOrDefaultAsync();
@@ -110,7 +110,7 @@ namespace TypeLibrary.Data.Repositories
             if (typeof(LibraryInterfaceItem).IsAssignableFrom(typeof(T)))
             {
                 var interfaceType = await _interfaceTypeRepository.FindBy(x => x.Id == id)
-                    .Include(x => x.AttributeTypes)
+                    .Include(x => x.AttributeList)
                     .Include(x => x.Rds)
                     .Include("Rds.RdsCategory")
                     .Include(x => x.Purpose)
@@ -124,7 +124,7 @@ namespace TypeLibrary.Data.Repositories
             if (typeof(LibraryTransportItem).IsAssignableFrom(typeof(T)))
             {
                 var transportType = await _transportTypeRepository.FindBy(x => x.Id == id)
-                    .Include(x => x.AttributeTypes)
+                    .Include(x => x.AttributeList)
                     .Include(x => x.Rds)
                     .Include("Rds.RdsCategory")
                     .Include(x => x.Purpose)

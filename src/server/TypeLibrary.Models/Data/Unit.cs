@@ -22,6 +22,6 @@ namespace TypeLibrary.Models.Data
         public virtual string Key => $"{Name}-{InternalType}";
 
         [JsonIgnore]
-        public virtual ICollection<AttributeType> AttributeTypes { get; set; }
+        public virtual ICollection<Attribute> AttributeList { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
-                .ForMember(dest => dest.AttributeTypes, opt => opt.MapFrom(src => CreateAttributeTypes(src.AttributeTypes.ToList()).ToList()))
+                .ForMember(dest => dest.AttributeList, opt => opt.MapFrom(src => CreateAttributes(src.AttributeStringList.ToList()).ToList()))
                 .ForMember(dest => dest.NodeTypes, opt => opt.Ignore());
 
             CreateMap<SimpleType, SimpleTypeAm>()
@@ -26,13 +26,13 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri));
         }
 
-        private static IEnumerable<AttributeType> CreateAttributeTypes(IReadOnlyCollection<string> attributeTypes)
+        private static IEnumerable<Attribute> CreateAttributes(IReadOnlyCollection<string> attributes)
         {
-            if (attributeTypes == null || !attributeTypes.Any())
+            if (attributes == null || !attributes.Any())
                 yield break;
 
-            foreach (var item in attributeTypes)
-                yield return new AttributeType
+            foreach (var item in attributes)
+                yield return new Attribute
                 {
                     Id = item
                 };

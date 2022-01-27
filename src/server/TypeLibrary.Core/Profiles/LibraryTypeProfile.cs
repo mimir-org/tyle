@@ -26,7 +26,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.LocationType, opt => opt.MapFrom(src => src.LocationType))
                 .ForMember(dest => dest.SymbolId, opt => opt.MapFrom(src => src.SymbolId))
                 .ForMember(dest => dest.TerminalTypes, opt => opt.MapFrom(src => CreateTerminalTypes(src.TerminalTypes.ToList(), $"{src.Key}-{src.Domain}".CreateMd5()).ToList()))
-                .ForMember(dest => dest.AttributeTypes, opt => opt.MapFrom(src => CreateAttributeTypes(src.AttributeTypes.ToList()).ToList()))
+                .ForMember(dest => dest.AttributeList, opt => opt.MapFrom(src => CreateAttributes(src.AttributeStringList.ToList()).ToList()))
                 .ForMember(dest => dest.SimpleTypes, opt => opt.MapFrom(src => SimpleTypes(src.SimpleTypes.ToList()).ToList()))
                 .ForMember(dest => dest.PurposeId, opt => opt.MapFrom(src => src.Purpose))
                 .ForMember(dest => dest.Purpose, opt => opt.Ignore())
@@ -53,7 +53,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.TerminalTypeId, opt => opt.MapFrom(src => src.TerminalTypeId))
                 .ForMember(dest => dest.PurposeId, opt => opt.MapFrom(src => src.Purpose))
                 .ForMember(dest => dest.Purpose, opt => opt.Ignore())
-                .ForMember(dest => dest.AttributeTypes, opt => opt.MapFrom(src => CreateAttributeTypes(src.AttributeTypes.ToList()).ToList()))
+                .ForMember(dest => dest.AttributeList, opt => opt.MapFrom(src => CreateAttributes(src.AttributeStringList.ToList()).ToList()))
                 .ForMember(dest => dest.UpdatedBy, opt => opt.MapFrom(src => src.UpdatedBy))
                 .ForMember(dest => dest.Updated, opt => opt.MapFrom(src => src.Updated))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
@@ -68,7 +68,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId))
                 .ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.SemanticReference))
                 .ForMember(dest => dest.Collections, opt => opt.MapFrom(src => src.Collections))
-                .ForMember(dest => dest.AttributeTypes, opt => opt.MapFrom(src => CreateAttributeTypes(src.AttributeTypes.ToList()).ToList()))
+                .ForMember(dest => dest.AttributeList, opt => opt.MapFrom(src => CreateAttributes(src.AttributeStringList.ToList()).ToList()))
                 .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.PurposeId, opt => opt.MapFrom(src => src.Purpose))
@@ -91,7 +91,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Collections, opt => opt.MapFrom(src => src.Collections))
                 .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
                 .ForMember(dest => dest.TerminalTypes, opt => opt.MapFrom(src => src.TerminalTypes))
-                .ForMember(dest => dest.AttributeTypes, opt => opt.MapFrom(src => src.AttributeTypes.Select(x => x.Id)))
+                .ForMember(dest => dest.AttributeStringList, opt => opt.MapFrom(src => src.AttributeList.Select(x => x.Id)))
                 .ForMember(dest => dest.SimpleTypes, opt => opt.MapFrom(src => src.SimpleTypes.Select(x => x.Id)))
                 .ForMember(dest => dest.LocationType, opt => opt.MapFrom(src => src.LocationType))
                 .ForMember(dest => dest.SymbolId, opt => opt.MapFrom(src => src.SymbolId))
@@ -119,7 +119,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Collections, opt => opt.MapFrom(src => src.Collections))
                 .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
                 .ForMember(dest => dest.TerminalTypes, opt => opt.Ignore())
-                .ForMember(dest => dest.AttributeTypes, opt => opt.MapFrom(src => src.AttributeTypes.Select(x => x.Id)))
+                .ForMember(dest => dest.AttributeStringList, opt => opt.MapFrom(src => src.AttributeList.Select(x => x.Id)))
                 .ForMember(dest => dest.SimpleTypes, opt => opt.Ignore())
                 .ForMember(dest => dest.LocationType, opt => opt.Ignore())
                 .ForMember(dest => dest.SymbolId, opt => opt.Ignore())
@@ -143,7 +143,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Collections, opt => opt.MapFrom(src => src.Collections))
                 .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
                 .ForMember(dest => dest.TerminalTypes, opt => opt.Ignore())
-                .ForMember(dest => dest.AttributeTypes, opt => opt.MapFrom(src => src.AttributeTypes.Select(x => x.Id)))
+                .ForMember(dest => dest.AttributeStringList, opt => opt.MapFrom(src => src.AttributeList.Select(x => x.Id)))
                 .ForMember(dest => dest.SimpleTypes, opt => opt.Ignore())
                 .ForMember(dest => dest.LocationType, opt => opt.Ignore())
                 .ForMember(dest => dest.SymbolId, opt => opt.Ignore())
@@ -170,7 +170,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Rds.RdsCategory.Name))
                 .ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.SemanticReference))
-                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.AttributeTypes))
+                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.AttributeList))
                 .ForMember(dest => dest.SymbolId, opt => opt.MapFrom(src => src.SymbolId))
                 .ForMember(dest => dest.Purpose, opt => opt.MapFrom(src => src.Purpose))
                 .ForMember(dest => dest.UpdatedBy, opt => opt.MapFrom(src => src.UpdatedBy))
@@ -190,7 +190,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.SemanticReference))
                 .ForMember(dest => dest.TerminalId, opt => opt.Ignore())
                 .ForMember(dest => dest.TerminalTypeId, opt => opt.MapFrom(src => src.TerminalTypeId))
-                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.AttributeTypes))
+                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.AttributeList))
                 .ForMember(dest => dest.Purpose, opt => opt.MapFrom(src => src.Purpose))
                 .ForMember(dest => dest.UpdatedBy, opt => opt.MapFrom(src => src.UpdatedBy))
                 .ForMember(dest => dest.Updated, opt => opt.MapFrom(src => src.Updated))
@@ -250,13 +250,13 @@ namespace TypeLibrary.Core.Profiles
             }
         }
 
-        private static IEnumerable<AttributeType> CreateAttributeTypes(IReadOnlyCollection<string> attributeTypes)
+        private static IEnumerable<Attribute> CreateAttributes(IReadOnlyCollection<string> attributes)
         {
-            if (attributeTypes == null || !attributeTypes.Any())
+            if (attributes == null || !attributes.Any())
                 yield break;
 
-            foreach (var item in attributeTypes)
-                yield return new AttributeType
+            foreach (var item in attributes)
+                yield return new Attribute
                 {
                     Id = item
                 };

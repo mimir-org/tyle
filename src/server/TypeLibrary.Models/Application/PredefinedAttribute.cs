@@ -2,7 +2,7 @@
 
 namespace TypeLibrary.Models.Application
 {
-    public class PredefinedAttributeAm
+    public class PredefinedAttribute
     {
         public string Key { get; set; }
         public virtual Dictionary<string, bool> Values { get; set; }

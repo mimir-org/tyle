@@ -10,7 +10,7 @@ namespace TypeLibrary.Data
         public virtual DbSet<Format> Formats { get; set; }
         public virtual DbSet<Qualifier> Qualifiers { get; set; }
         public virtual DbSet<Source> Sources { get; set; }
-        public virtual DbSet<AttributeType> AttributeTypes { get; set; }
+        public virtual DbSet<Attribute> Attributes { get; set; }
         public virtual DbSet<BlobData> BlobData { get; set; }
         public virtual DbSet<InterfaceType> InterfaceTypes { get; set; }
         public virtual DbSet<LibraryType> LibraryTypes { get; set; }
@@ -37,7 +37,7 @@ namespace TypeLibrary.Data
             modelBuilder.ApplyConfiguration(new FormatConfiguration());
             modelBuilder.ApplyConfiguration(new QualifierConfiguration());
             modelBuilder.ApplyConfiguration(new SourceConfiguration());
-            modelBuilder.ApplyConfiguration(new AttributeTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new AttributeConfiguration());
             modelBuilder.ApplyConfiguration(new BlobDataConfiguration());
             modelBuilder.ApplyConfiguration(new InterfaceTypeConfiguration());
             modelBuilder.ApplyConfiguration(new LibraryTypeConfiguration());

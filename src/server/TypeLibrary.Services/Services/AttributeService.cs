@@ -8,21 +8,23 @@ using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Models.Application;
 using TypeLibrary.Services.Contracts;
+using PredefinedAttribute = TypeLibrary.Models.Application.PredefinedAttribute;
 
 namespace TypeLibrary.Services.Services
 {
-    public class AttributeTypeService : IAttributeTypeService
+    public class AttributeService : IAttributeService
     {
         private readonly IMapper _mapper;
         private readonly IPredefinedAttributeRepository _predefinedAttributeRepository;
-        private readonly IAttributeTypeRepository _attributeTypeRepository;
+        private readonly IAttributeRepository _attributeRepository;
         private readonly IUnitRepository _unitRepository;
 
-        public AttributeTypeService(IMapper mapper, IPredefinedAttributeRepository predefinedAttributeRepository, IAttributeTypeRepository attributeTypeRepository, IUnitRepository unitRepository)
+        public AttributeService(IMapper mapper, IPredefinedAttributeRepository predefinedAttributeRepository, 
+            IAttributeRepository attributeRepository, IUnitRepository unitRepository)
         {
             _mapper = mapper;
             _predefinedAttributeRepository = predefinedAttributeRepository;
-            _attributeTypeRepository = attributeTypeRepository;
+            _attributeRepository = attributeRepository;
             _unitRepository = unitRepository;
         }
 
@@ -31,9 +33,9 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="aspect"></param>
         /// <returns></returns>
-        public IEnumerable<AttributeType> GetAttributeTypes(Aspect aspect)
+        public IEnumerable<Attribute> GetAttributes(Aspect aspect)
         {
-            var all = _attributeTypeRepository.GetAll()
+            var all = _attributeRepository.GetAll()
                 .Include(x => x.Qualifier)
                 .Include(x => x.Source)
                 .Include(x => x.Condition)
@@ -47,32 +49,32 @@ namespace TypeLibrary.Services.Services
         }
 
         /// <summary>
-        /// Create an attribute type
+        /// Create an attribute
         /// </summary>
-        /// <param name="createAttributeType"></param>
+        /// <param name="attributeAm"></param>
         /// <returns></returns>
-        public async Task<AttributeType> CreateAttributeType(AttributeTypeAm createAttributeType)
+        public async Task<Attribute> CreateAttribute(AttributeAm attributeAm)
         {
-            var data = await CreateAttributeTypes(new List<AttributeTypeAm> { createAttributeType });
+            var data = await CreateAttributes(new List<AttributeAm> { attributeAm });
             return data.SingleOrDefault();
         }
 
         /// <summary>
-        /// Create from a list of attribute types
+        /// Create from a list of attributes
         /// </summary>
-        /// <param name="createAttributeTypes"></param>
+        /// <param name="attributeAmList"></param>
         /// <returns></returns>
-        public async Task<ICollection<AttributeType>> CreateAttributeTypes(List<AttributeTypeAm> createAttributeTypes)
+        public async Task<ICollection<Attribute>> CreateAttributes(List<AttributeAm> attributeAmList)
         {
-            if (createAttributeTypes == null || !createAttributeTypes.Any())
-                return new List<AttributeType>();
+            if (attributeAmList == null || !attributeAmList.Any())
+                return new List<Attribute>();
 
-            var data = _mapper.Map<List<AttributeType>>(createAttributeTypes);
-            var existing = _attributeTypeRepository.GetAll().ToList();
+            var data = _mapper.Map<List<Attribute>>(attributeAmList);
+            var existing = _attributeRepository.GetAll().ToList();
             var notExisting = data.Where(x => existing.All(y => y.Id != x.Id)).ToList();
 
             if (!notExisting.Any())
-                return new List<AttributeType>();
+                return new List<Attribute>();
 
             foreach (var entity in notExisting)
             {
@@ -81,8 +83,8 @@ namespace TypeLibrary.Services.Services
                     _unitRepository.Attach(entityUnit, EntityState.Unchanged);
                 }
 
-                await _attributeTypeRepository.CreateAsync(entity);
-                await _attributeTypeRepository.SaveAsync();
+                await _attributeRepository.CreateAsync(entity);
+                await _attributeRepository.SaveAsync();
 
                 foreach (var entityUnit in entity.Units)
                 {
@@ -92,44 +94,44 @@ namespace TypeLibrary.Services.Services
 
             foreach (var notExistingItem in notExisting)
             {
-                _attributeTypeRepository.Detach(notExistingItem);
+                _attributeRepository.Detach(notExistingItem);
             }
 
             return data;
         }
 
         /// <summary>
-        /// Get predefined attributes
+        /// Get predefined predefinedAttributeList
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<PredefinedAttributeAm> GetPredefinedAttributes()
+        public IEnumerable<PredefinedAttribute> GetPredefinedAttributes()
         {
             var all = _predefinedAttributeRepository.GetAll().ToList();
-            return _mapper.Map<List<PredefinedAttributeAm>>(all);
+            return _mapper.Map<List<PredefinedAttribute>>(all);
         }
 
         /// <summary>
-        /// Create Predefined attributes from a list
+        /// Create Predefined predefinedAttributeList from a list
         /// </summary>
-        /// <param name="attributes"></param>
+        /// <param name="predefinedAttributeList"></param>
         /// <returns></returns>
-        public async Task<List<PredefinedAttribute>> CreatePredefinedAttributes(List<PredefinedAttribute> attributes)
+        public async Task<List<Models.Data.PredefinedAttribute>> CreatePredefinedAttributes(List<Models.Data.PredefinedAttribute> predefinedAttributeList)
         {
-            if (attributes == null || !attributes.Any())
-                return new List<PredefinedAttribute>();
+            if (predefinedAttributeList == null || !predefinedAttributeList.Any())
+                return new List<Models.Data.PredefinedAttribute>();
 
             var existing = _predefinedAttributeRepository.GetAll().ToList();
-            var notExisting = attributes.Where(x => existing.All(y => y.Key != x.Key)).ToList();
+            var notExisting = predefinedAttributeList.Where(x => existing.All(y => y.Key != x.Key)).ToList();
 
             if (!notExisting.Any())
-                return new List<PredefinedAttribute>();
+                return new List<Models.Data.PredefinedAttribute>();
 
             foreach (var entity in notExisting)
             {
                 await _predefinedAttributeRepository.CreateAsync(entity);
             }
             await _predefinedAttributeRepository.SaveAsync();
-            return attributes;
+            return predefinedAttributeList;
         }
     }
 }

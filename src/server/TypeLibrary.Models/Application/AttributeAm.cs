@@ -7,7 +7,7 @@ using TypeLibrary.Models.Enums;
 
 namespace TypeLibrary.Models.Application
 {
-    public class AttributeTypeAm
+    public class AttributeAm
     {
         [Required]
         public string Entity { get; set; }

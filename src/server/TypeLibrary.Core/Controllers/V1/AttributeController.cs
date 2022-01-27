@@ -11,6 +11,8 @@ using Swashbuckle.AspNetCore.Annotations;
 using TypeLibrary.Models.Application;
 using TypeLibrary.Models.Data;
 using TypeLibrary.Services.Contracts;
+using Attribute = TypeLibrary.Models.Data.Attribute;
+using PredefinedAttribute = TypeLibrary.Models.Application.PredefinedAttribute;
 
 namespace TypeLibrary.Core.Controllers.V1
 {
@@ -22,33 +24,33 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("Attribute type services")]
-    public class AttributeTypeController : ControllerBase
+    [SwaggerTag("Attribute services")]
+    public class AttributeController : ControllerBase
     {
-        private readonly ILogger<AttributeTypeController> _logger;
-        private readonly IAttributeTypeService _attributeTypeService;
+        private readonly ILogger<AttributeController> _logger;
+        private readonly IAttributeService _attributeService;
 
-        public AttributeTypeController(ILogger<AttributeTypeController> logger, IAttributeTypeService attributeTypeService)
+        public AttributeController(ILogger<AttributeController> logger, IAttributeService attributeService)
         {
             _logger = logger;
-            _attributeTypeService = attributeTypeService;
+            _attributeService = attributeService;
         }
 
         /// <summary>
-        /// Get all attribute types by aspect.
-        /// If aspect is NotSet, all attribute types will be returned
+        /// Get all attributes by aspect.
+        /// If aspect is NotSet, all attributes will be returned
         /// </summary>
         /// <param name="aspect"></param>
         /// <returns></returns>
         [HttpGet("{aspect}")]
-        [ProducesResponseType(typeof(ICollection<AttributeType>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<Attribute>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
-        public IActionResult GetAttributeTypes(Aspect aspect)
+        public IActionResult GetAttributes(Aspect aspect)
         {
             try
             {
-                var data = _attributeTypeService.GetAttributeTypes(aspect).ToList();
+                var data = _attributeService.GetAttributes(aspect).ToList();
                 return Ok(data);
             }
             catch (Exception e)
@@ -63,14 +65,14 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <returns></returns>
         [HttpGet("predefined-attributes")]
-        [ProducesResponseType(typeof(ICollection<PredefinedAttributeAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<PredefinedAttribute>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public IActionResult GetPredefinedAttributes()
         {
             try
             {
-                var data = _attributeTypeService.GetPredefinedAttributes().ToList();
+                var data = _attributeService.GetPredefinedAttributes().ToList();
                 return Ok(data);
             }
             catch (Exception e)
@@ -81,59 +83,28 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
-        /// Create an attribute type
+        /// Create an attribute
         /// </summary>
-        /// <param name="createAttributeType"></param>
+        /// <param name="attributeAm"></param>
         /// <returns></returns>
         [HttpPost("attribute")]
-        [ProducesResponseType(typeof(AttributeType), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Attribute), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> CreateAttributeType([FromBody] AttributeTypeAm createAttributeType)
+        public async Task<IActionResult> CreateAttribute([FromBody] AttributeAm attributeAm)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var createdAttribute = await _attributeTypeService.CreateAttributeType(createAttributeType);
-                if (createdAttribute == null)
+                var attribute = await _attributeService.CreateAttribute(attributeAm);
+                if (attribute == null)
                     return BadRequest("The attribute already exist");
 
-                return Ok(createdAttribute);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        /// <summary>
-        /// Create an attribute type
-        /// </summary>
-        /// <param name="createAttributeType"></param>
-        /// <returns></returns>
-        [HttpPost("attribute2")]
-        [ProducesResponseType(typeof(AttributeType), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> CreateAttributeType2([FromHeader] AttributeTypeAm createAttributeType)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            try
-            {
-                var createdAttribute = await _attributeTypeService.CreateAttributeType(createAttributeType);
-                if (createdAttribute == null)
-                    return BadRequest("The attribute already exist");
-
-                return Ok(createdAttribute);
+                return Ok(attribute);
             }
             catch (Exception e)
             {

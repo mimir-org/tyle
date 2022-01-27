@@ -22,13 +22,13 @@ namespace TypeLibrary.Services.Services
         private readonly INodeTypeTerminalTypeRepository _nodeTypeTerminalTypeRepository;
         private readonly ILibraryRepository _libraryRepository;
         private readonly ILibraryTypeRepository _libraryTypeComponentRepository;
-        private readonly IAttributeTypeRepository _attributeTypeRepository;
+        private readonly IAttributeRepository _attributeRepository;
         private readonly ISimpleTypeRepository _simpleTypeRepository;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _contextAccessor;
 
         public LibraryTypeService(INodeTypeTerminalTypeRepository nodeTypeTerminalTypeRepository, ILibraryRepository libraryRepository, 
-            ILibraryTypeRepository libraryTypeComponentRepository, IAttributeTypeRepository attributeTypeRepository, ISimpleTypeRepository simpleTypeRepository,
+            ILibraryTypeRepository libraryTypeComponentRepository, IAttributeRepository attributeRepository, ISimpleTypeRepository simpleTypeRepository,
             IMapper mapper, IHttpContextAccessor contextAccessor)
         {
             _nodeTypeTerminalTypeRepository = nodeTypeTerminalTypeRepository;
@@ -36,7 +36,7 @@ namespace TypeLibrary.Services.Services
             _libraryTypeComponentRepository = libraryTypeComponentRepository;
             _mapper = mapper;
             _contextAccessor = contextAccessor;
-            _attributeTypeRepository = attributeTypeRepository;
+            _attributeRepository = attributeRepository;
             _simpleTypeRepository = simpleTypeRepository;
         }
 
@@ -58,9 +58,9 @@ namespace TypeLibrary.Services.Services
                 return await _libraryTypeComponentRepository.FindBy(x => x.Id == id)
                     .OfType<NodeType>()
                     .Include(x => x.TerminalTypes)
-                    .Include(x => x.AttributeTypes)
+                    .Include(x => x.AttributeList)
                     .Include(x => x.SimpleTypes)
-                    .ThenInclude(y => y.AttributeTypes)
+                    .ThenInclude(y => y.AttributeList)
                     .FirstOrDefaultAsync();
             }
 
@@ -69,7 +69,7 @@ namespace TypeLibrary.Services.Services
                 return await _libraryTypeComponentRepository.FindBy(x => x.Id == id)
                     .OfType<TransportType>()
                     .Include(x => x.TerminalType)
-                    .Include(x => x.AttributeTypes)
+                    .Include(x => x.AttributeList)
                     .FirstOrDefaultAsync();
             }
 
@@ -163,15 +163,15 @@ namespace TypeLibrary.Services.Services
                 .OfType<NodeType>()
                 .Include(x => x.TerminalTypes)
                 .Include("TerminalTypes.TerminalType")
-                .Include(x => x.AttributeTypes)
+                .Include(x => x.AttributeList)
                 .Include(x => x.SimpleTypes)
-                .ThenInclude(y => y.AttributeTypes)
+                .ThenInclude(y => y.AttributeList)
                 .ToList();
 
             var transportTypes = _libraryTypeComponentRepository
                 .GetAll()
                 .OfType<TransportType>()
-                .Include(x => x.AttributeTypes)
+                .Include(x => x.AttributeList)
                 .ToList();
 
             var interfaceType = _libraryTypeComponentRepository
@@ -211,7 +211,7 @@ namespace TypeLibrary.Services.Services
                         .OfType<NodeType>()
                         .Include(x => x.TerminalTypes)
                         .Include("TerminalTypes.TerminalType")
-                        .Include(x => x.AttributeTypes)
+                        .Include(x => x.AttributeList)
                         .Include(x => x.SimpleTypes)
                         .FirstOrDefaultAsync();
 
@@ -235,7 +235,7 @@ namespace TypeLibrary.Services.Services
                     var transportItem = await _libraryTypeComponentRepository
                         .FindBy(x => x.Id == id)
                         .OfType<TransportType>()
-                        .Include(x => x.AttributeTypes)
+                        .Include(x => x.AttributeList)
                         .FirstOrDefaultAsync();
 
                     if (transportItem == null)
@@ -261,9 +261,9 @@ namespace TypeLibrary.Services.Services
             if (existingType != null)
                 throw new MimirorgDuplicateException($"Type with name {simpleType.Name} already exist.");
 
-            foreach (var attribute in newType.AttributeTypes)
+            foreach (var attribute in newType.AttributeList)
             {
-                _attributeTypeRepository.Attach(attribute, EntityState.Unchanged);
+                _attributeRepository.Attach(attribute, EntityState.Unchanged);
             }
 
             await _simpleTypeRepository.CreateAsync(newType);
@@ -293,18 +293,18 @@ namespace TypeLibrary.Services.Services
                     continue;
                 }
 
-                foreach (var attribute in newType.AttributeTypes)
+                foreach (var attribute in newType.AttributeList)
                 {
-                    _attributeTypeRepository.Attach(attribute, EntityState.Unchanged);
+                    _attributeRepository.Attach(attribute, EntityState.Unchanged);
                 }
 
                 await _simpleTypeRepository.CreateAsync(newType);
                 await _simpleTypeRepository.SaveAsync();
                 _simpleTypeRepository.Detach(newType);
 
-                foreach (var attribute in newType.AttributeTypes)
+                foreach (var attribute in newType.AttributeList)
                 {
-                    _attributeTypeRepository.Detach(attribute);
+                    _attributeRepository.Detach(attribute);
                 }
             }
         }
@@ -315,7 +315,7 @@ namespace TypeLibrary.Services.Services
         /// <returns></returns>
         public IEnumerable<SimpleType> GetSimpleTypes()
         {
-            var types = _simpleTypeRepository.GetAll().Include(x => x.AttributeTypes).ToList();
+            var types = _simpleTypeRepository.GetAll().Include(x => x.AttributeList).ToList();
             return types;
         }
 
@@ -326,7 +326,7 @@ namespace TypeLibrary.Services.Services
         {
             _nodeTypeTerminalTypeRepository?.Context?.ChangeTracker.Clear();
             _libraryTypeComponentRepository?.Context?.ChangeTracker.Clear();
-            _attributeTypeRepository?.Context?.ChangeTracker.Clear();
+            _attributeRepository?.Context?.ChangeTracker.Clear();
             _simpleTypeRepository?.Context?.ChangeTracker.Clear();
         }
 
@@ -442,11 +442,11 @@ namespace TypeLibrary.Services.Services
                 {
                     case NodeType nt:
                         {
-                            if (nt.AttributeTypes != null && nt.AttributeTypes.Any())
+                            if (nt.AttributeList != null && nt.AttributeList.Any())
                             {
-                                foreach (var attributeType in nt.AttributeTypes)
+                                foreach (var attribute in nt.AttributeList)
                                 {
-                                    _attributeTypeRepository.Attach(attributeType, EntityState.Unchanged);
+                                    _attributeRepository.Attach(attribute, EntityState.Unchanged);
                                 }
                             }
 
@@ -460,11 +460,11 @@ namespace TypeLibrary.Services.Services
                             await _libraryTypeComponentRepository.CreateAsync(nt);
                             await _libraryTypeComponentRepository.SaveAsync();
 
-                            if (nt.AttributeTypes != null && nt.AttributeTypes.Any())
+                            if (nt.AttributeList != null && nt.AttributeList.Any())
                             {
-                                foreach (var attributeType in nt.AttributeTypes)
+                                foreach (var attribute in nt.AttributeList)
                                 {
-                                    _attributeTypeRepository.Detach(attributeType);
+                                    _attributeRepository.Detach(attribute);
                                 }
                             }
 
@@ -482,22 +482,22 @@ namespace TypeLibrary.Services.Services
 
                     case InterfaceType it:
 
-                        if (it.AttributeTypes != null && it.AttributeTypes.Any())
+                        if (it.AttributeList != null && it.AttributeList.Any())
                         {
-                            foreach (var attributeType in it.AttributeTypes)
+                            foreach (var attribute in it.AttributeList)
                             {
-                                _attributeTypeRepository.Attach(attributeType, EntityState.Unchanged);
+                                _attributeRepository.Attach(attribute, EntityState.Unchanged);
                             }
                         }
 
                         await _libraryTypeComponentRepository.CreateAsync(it);
                         await _libraryTypeComponentRepository.SaveAsync();
 
-                        if (it.AttributeTypes != null && it.AttributeTypes.Any())
+                        if (it.AttributeList != null && it.AttributeList.Any())
                         {
-                            foreach (var attributeType in it.AttributeTypes)
+                            foreach (var attribute in it.AttributeList)
                             {
-                                _attributeTypeRepository.Detach(attributeType);
+                                _attributeRepository.Detach(attribute);
                             }
                         }
 
@@ -506,22 +506,22 @@ namespace TypeLibrary.Services.Services
 
                     case TransportType tt:
                         {
-                            if (tt.AttributeTypes != null && tt.AttributeTypes.Any())
+                            if (tt.AttributeList != null && tt.AttributeList.Any())
                             {
-                                foreach (var attributeType in tt.AttributeTypes)
+                                foreach (var attribute in tt.AttributeList)
                                 {
-                                    _attributeTypeRepository.Attach(attributeType, EntityState.Unchanged);
+                                    _attributeRepository.Attach(attribute, EntityState.Unchanged);
                                 }
                             }
 
                             await _libraryTypeComponentRepository.CreateAsync(tt);
                             await _libraryTypeComponentRepository.SaveAsync();
 
-                            if (tt.AttributeTypes != null && tt.AttributeTypes.Any())
+                            if (tt.AttributeList != null && tt.AttributeList.Any())
                             {
-                                foreach (var attributeType in tt.AttributeTypes)
+                                foreach (var attribute in tt.AttributeList)
                                 {
-                                    _attributeTypeRepository.Detach(attributeType);
+                                    _attributeRepository.Detach(attribute);
                                 }
                             }
 

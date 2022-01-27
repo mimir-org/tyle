@@ -10,6 +10,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using TypeLibrary.Models.Application;
 using TypeLibrary.Models.Data;
 using TypeLibrary.Services.Contracts;
+using Attribute = TypeLibrary.Models.Data.Attribute;
 
 // ReSharper disable StringLiteralTypo
 
@@ -85,7 +86,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="createTerminalType"></param>
         /// <returns></returns>
         [HttpPost("")]
-        [ProducesResponseType(typeof(AttributeType), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Attribute), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

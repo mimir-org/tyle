@@ -18,10 +18,10 @@ namespace TypeLibrary.Models.Configurations
 
             builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
             
-            builder.HasMany(x => x.Attributes).WithMany(y => y.TerminalTypes).UsingEntity<Dictionary<string, object>>("TerminalType_AttributeType",
-                x => x.HasOne<AttributeType>().WithMany().HasForeignKey("AttributeTypeId"),
+            builder.HasMany(x => x.Attributes).WithMany(y => y.TerminalTypes).UsingEntity<Dictionary<string, object>>("TerminalType_Attribute",
+                x => x.HasOne<Attribute>().WithMany().HasForeignKey("AttributeId"),
                 x => x.HasOne<TerminalType>().WithMany().HasForeignKey("TerminalTypeId"),
-                x => x.ToTable("TerminalType_AttributeType")
+                x => x.ToTable("TerminalType_Attribute")
             );
         }
     }

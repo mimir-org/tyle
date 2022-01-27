@@ -10,7 +10,7 @@ namespace TypeLibrary.Models.Data
         public string Description { get; set; }
         public string Iri { get; set; }
         
-        public virtual ICollection<AttributeType> AttributeTypes { get; set; }
+        public virtual ICollection<Attribute> AttributeList { get; set; }
 
         [JsonIgnore]
         public ICollection<NodeType> NodeTypes { get; set; }

@@ -6,6 +6,6 @@ namespace TypeLibrary.Models.Data
     {
         public string TerminalTypeId { get; set; }
         public TerminalType TerminalType { get; set; }
-        public ICollection<AttributeType> AttributeTypes { get; set; }
+        public ICollection<Attribute> AttributeList { get; set; }
     }
 }
