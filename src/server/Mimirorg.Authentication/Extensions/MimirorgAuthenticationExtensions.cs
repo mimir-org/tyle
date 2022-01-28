@@ -51,21 +51,43 @@ namespace Mimirorg.Authentication.Extensions
                 .AddJsonFile("appsettings.local.json", true);
             var config = builder.Build();
 
-            var dbConfig = new DatabaseConfiguration();
-            var databaseConfigSection = config.GetSection("DatabaseConfiguration");
-            databaseConfigSection.Bind(dbConfig);
-            dbConfig.InitialCatalog = "MimirorgAuthentication";
+            // Authentication settings
+            var authSettings = new MimirorgAuthSettings();
+            config.GetSection("MimirorgAuthSettings").Bind(authSettings);
 
-            var dataSource = Environment.GetEnvironmentVariable("DatabaseConfiguration_DataSource");
-            var port = Environment.GetEnvironmentVariable("DatabaseConfiguration_Port");
-            var dbUser = Environment.GetEnvironmentVariable("DatabaseConfiguration_DbUser");
-            var password = Environment.GetEnvironmentVariable("DatabaseConfiguration_Password");
+            var jwtKey = Environment.GetEnvironmentVariable("MimirorgAuthSettings_JwtKey");
+            var jwtIssuer = Environment.GetEnvironmentVariable("MimirorgAuthSettings_JwtIssuer");
+            var jwtAudience = Environment.GetEnvironmentVariable("MimirorgAuthSettings_JwtAudience");
+
+            if (!string.IsNullOrEmpty(jwtKey))
+                authSettings.JwtKey = jwtKey.Trim();
+
+            if (!string.IsNullOrEmpty(jwtIssuer))
+                authSettings.JwtIssuer = jwtIssuer;
+
+            if (!string.IsNullOrEmpty(jwtAudience))
+                authSettings.JwtAudience = jwtAudience.Trim();
+
+            serviceCollection.AddSingleton(Options.Create(authSettings));
+
+            // Authentication Database configuration
+
+            var dbConfig = authSettings.DatabaseConfiguration;
+
+            var dataSource = Environment.GetEnvironmentVariable("MimirorgAuthSettings_DatabaseConfiguration_DataSource");
+            var port = Environment.GetEnvironmentVariable("MimirorgAuthSettings_DatabaseConfiguration_Port");
+            var initialCatalog = Environment.GetEnvironmentVariable("MimirorgAuthSettings_DatabaseConfiguration_InitialCatalog");
+            var dbUser = Environment.GetEnvironmentVariable("MimirorgAuthSettings_DatabaseConfiguration_DbUser");
+            var password = Environment.GetEnvironmentVariable("MimirorgAuthSettings_DatabaseConfiguration_Password");
 
             if (!string.IsNullOrEmpty(dataSource))
                 dbConfig.DataSource = dataSource.Trim();
 
             if (!string.IsNullOrEmpty(port) && int.TryParse(port.Trim(), out var portAsInt))
                 dbConfig.Port = portAsInt;
+
+            if (!string.IsNullOrEmpty(initialCatalog))
+                dbConfig.InitialCatalog = initialCatalog.Trim();
 
             if (!string.IsNullOrEmpty(dbUser))
                 dbConfig.DbUser = dbUser.Trim();
@@ -77,11 +99,6 @@ namespace Mimirorg.Authentication.Extensions
             serviceCollection.AddDbContext<MimirorgAuthenticationContext>(options =>
                 options.UseSqlServer(dbConfig.ConnectionString, sqlOptions =>
                     sqlOptions.MigrationsAssembly("Mimirorg.Authentication")));
-
-            // Authentication settings
-            var authSettings = new MimirorgAuthSettings();
-            config.GetSection("MimirorgAuthSettings").Bind(authSettings);
-            serviceCollection.AddSingleton(Options.Create(authSettings));
 
             // Auth options
             serviceCollection.AddIdentity<MimirorgUser, IdentityRole>(options =>

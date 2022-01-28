@@ -27,6 +27,11 @@ services:
       - DatabaseConfiguration_InitialCatalog=TypeLibrary
       - DatabaseConfiguration_DbUser=sa
       - DatabaseConfiguration_Password=P4ssw0rd1
+      - MimirorgAuthSettings_DatabaseConfiguration_DataSource=mssql
+      - MimirorgAuthSettings_DatabaseConfiguration_Port=1433
+      - MimirorgAuthSettings_DatabaseConfiguration_InitialCatalog=MimirorgAuthentication2
+      - MimirorgAuthSettings_DatabaseConfiguration_DbUser=sa
+      - MimirorgAuthSettings_DatabaseConfiguration_Password=P4ssw0rd1
     networks:
       - type_library_network
     depends_on:

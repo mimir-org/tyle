@@ -1,4 +1,6 @@
-﻿namespace Mimirorg.Authentication.Models.Domain
+﻿using Mimirorg.Common.Models;
+
+namespace Mimirorg.Authentication.Models.Domain
 {
     public class MimirorgAuthSettings
     {
@@ -19,5 +21,7 @@
         public int RequiredLength { get; set; } = 10;
         public string EmailKey { get; set; }
         public string EmailSecret { get; set; }
+
+        public DatabaseConfiguration DatabaseConfiguration { get; set; }
     }
 }
