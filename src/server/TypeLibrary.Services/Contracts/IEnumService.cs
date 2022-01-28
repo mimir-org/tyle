@@ -86,13 +86,13 @@ namespace TypeLibrary.Services.Contracts
         #endregion UnitDm
 
 
-        #region CollectionDm
+        #region CategoryDm
 
-        Task<IEnumerable<CollectionAm>> GetCollections();
-        Task<CollectionAm> UpdateCollection(CollectionAm dataAm);
-        Task<CollectionAm> CreateCollection(CollectionAm dataAm);
-        Task CreateCollections(List<CollectionAm> dataAm);
+        Task<IEnumerable<CategoryAm>> GetCollections();
+        Task<CategoryAm> UpdateCollection(CategoryAm dataAm);
+        Task<CategoryAm> CreateCollection(CategoryAm dataAm);
+        Task CreateCollections(List<CategoryAm> dataAm);
 
-        #endregion CollectionDm
+        #endregion CategoryDm
     }
 }

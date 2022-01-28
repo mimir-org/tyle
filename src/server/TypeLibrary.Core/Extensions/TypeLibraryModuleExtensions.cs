@@ -43,7 +43,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IPurposeRepository, PurposeRepository>();
             services.AddScoped<IRdsCategoryRepository, RdsCategoryRepository>();
             services.AddScoped<IUnitRepository, UnitRepository>();
-            services.AddScoped<ICollectionRepository, CollectionRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             // Dependency Injection - Services
             services.AddScoped<ITerminalTypeService, TerminalTypeService>();

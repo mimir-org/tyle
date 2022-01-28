@@ -40,7 +40,7 @@ namespace TypeLibrary.Models.Models.Application
         public ICollection<PredefinedAttributeCm> PredefinedAttributes { get; set; }
         public string TerminalTypeId { get; set; }
         public ICollection<string> SimpleTypes { get; set; }
-        public ICollection<CollectionAm> Collections { get; set; }
+        public ICollection<CategoryAm> Categories { get; set; }
 
         [JsonIgnore]
         public string Key => $"{Name}-{RdsId}-{Aspect}-{Version}";

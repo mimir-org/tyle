@@ -5,11 +5,11 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class CollectionConfiguration : IEntityTypeConfiguration<CollectionDm>
+    public class CategoryConfiguration : IEntityTypeConfiguration<CategoryDm>
     {
-        public void Configure(EntityTypeBuilder<CollectionDm> builder)
+        public void Configure(EntityTypeBuilder<CategoryDm> builder)
         {
-            builder.ToTable("Collection");
+            builder.ToTable("Category");
             builder.HasKey(x => x.Id);
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();

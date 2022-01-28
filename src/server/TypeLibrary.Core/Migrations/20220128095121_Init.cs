@@ -24,7 +24,7 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Collection",
+                name: "Category",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -38,7 +38,7 @@ namespace TypeLibrary.Core.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Collection", x => x.Id);
+                    table.PrimaryKey("PK_Category", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -409,23 +409,23 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Type_Collection",
+                name: "Type_Category",
                 columns: table => new
                 {
-                    CollectionId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CategoryId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     TypeId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Type_Collection", x => new { x.CollectionId, x.TypeId });
+                    table.PrimaryKey("PK_Type_Category", x => new { x.CategoryId, x.TypeId });
                     table.ForeignKey(
-                        name: "FK_Type_Collection_Collection_CollectionId",
-                        column: x => x.CollectionId,
-                        principalTable: "Collection",
+                        name: "FK_Type_Category_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Type_Collection_Type_TypeId",
+                        name: "FK_Type_Category_Type_TypeId",
                         column: x => x.TypeId,
                         principalTable: "Type",
                         principalColumn: "Id",
@@ -653,8 +653,8 @@ namespace TypeLibrary.Core.Migrations
                 column: "Transport_TerminalId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Type_Collection_TypeId",
-                table: "Type_Collection",
+                name: "IX_Type_Category_TypeId",
+                table: "Type_Category",
                 column: "TypeId");
         }
 
@@ -691,7 +691,7 @@ namespace TypeLibrary.Core.Migrations
                 name: "Transport_Attribute");
 
             migrationBuilder.DropTable(
-                name: "Type_Collection");
+                name: "Type_Category");
 
             migrationBuilder.DropTable(
                 name: "Unit");
@@ -703,7 +703,7 @@ namespace TypeLibrary.Core.Migrations
                 name: "Attribute");
 
             migrationBuilder.DropTable(
-                name: "Collection");
+                name: "Category");
 
             migrationBuilder.DropTable(
                 name: "Condition");

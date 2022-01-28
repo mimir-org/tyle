@@ -29,10 +29,10 @@ namespace TypeLibrary.Models.Configurations
             builder.HasOne(x => x.PurposeDm).WithMany(y => y.LibraryTypes).HasForeignKey(x => x.PurposeId).OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(x => x.RdsDm).WithMany(y => y.LibraryTypes).HasForeignKey(x => x.RdsId).OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasMany(x => x.Collections).WithMany(y => y.Types).UsingEntity<Dictionary<string, object>>("Type_Collection",
-                x => x.HasOne<CollectionDm>().WithMany().HasForeignKey("CollectionId"),
+            builder.HasMany(x => x.Categories).WithMany(y => y.Types).UsingEntity<Dictionary<string, object>>("Type_Category",
+                x => x.HasOne<CategoryDm>().WithMany().HasForeignKey("CategoryId"),
                 x => x.HasOne<TypeDm>().WithMany().HasForeignKey("TypeId"),
-                x => x.ToTable("Type_Collection"));
+                x => x.ToTable("Type_Category"));
         }
     }
 }

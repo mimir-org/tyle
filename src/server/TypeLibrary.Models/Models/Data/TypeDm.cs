@@ -30,7 +30,7 @@ namespace TypeLibrary.Models.Models.Data
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
 
-        public ICollection<CollectionDm> Collections { get; set; }
+        public ICollection<CategoryDm> Categories { get; set; }
 
         public void IncrementMinorVersion()
         {

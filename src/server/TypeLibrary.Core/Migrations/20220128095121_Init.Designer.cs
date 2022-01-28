@@ -12,7 +12,7 @@ using TypeLibrary.Data;
 namespace TypeLibrary.Core.Migrations
 {
     [DbContext(typeof(TypeLibraryDbContext))]
-    [Migration("20220127172557_Init")]
+    [Migration("20220128095121_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -114,19 +114,19 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Transport_Attribute", (string)null);
                 });
 
-            modelBuilder.Entity("Type_Collection", b =>
+            modelBuilder.Entity("Type_Category", b =>
                 {
-                    b.Property<string>("CollectionId")
+                    b.Property<string>("CategoryId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("TypeId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("CollectionId", "TypeId");
+                    b.HasKey("CategoryId", "TypeId");
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("Type_Collection", (string)null);
+                    b.ToTable("Type_Category", (string)null);
                 });
 
             modelBuilder.Entity("TypeLibrary.Models.Models.Data.AttributeDm", b =>
@@ -219,7 +219,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Blob", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.CollectionDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.CategoryDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -257,7 +257,7 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Collection", (string)null);
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("TypeLibrary.Models.Models.Data.ConditionDm", b =>
@@ -960,11 +960,11 @@ namespace TypeLibrary.Core.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Type_Collection", b =>
+            modelBuilder.Entity("Type_Category", b =>
                 {
-                    b.HasOne("TypeLibrary.Models.Models.Data.CollectionDm", null)
+                    b.HasOne("TypeLibrary.Models.Models.Data.CategoryDm", null)
                         .WithMany()
-                        .HasForeignKey("CollectionId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
