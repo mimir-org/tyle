@@ -23,7 +23,7 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("AttributeDm services")]
+    [SwaggerTag("Attribute services")]
     public class AttributeController : ControllerBase
     {
         private readonly ILogger<AttributeController> _logger;

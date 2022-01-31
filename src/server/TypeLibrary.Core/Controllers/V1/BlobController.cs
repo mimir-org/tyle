@@ -22,7 +22,7 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("AttributeDm typeDm services")]
+    [SwaggerTag("Blob (icons) services")]
     public class BlobController : ControllerBase
     {
         private readonly ILogger<BlobController> _logger;

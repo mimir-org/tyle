@@ -21,7 +21,7 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("AttributeDm typeDm services")]
+    [SwaggerTag("Rds services")]
     public class RdsController : ControllerBase
     {
         private readonly ILogger<RdsController> _logger;

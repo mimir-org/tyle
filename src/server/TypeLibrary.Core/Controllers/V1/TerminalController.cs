@@ -23,13 +23,13 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("TerminalDm")]
-    public class TerminalTypeController : ControllerBase
+    [SwaggerTag("Terminal services")]
+    public class TerminalController : ControllerBase
     {
-        private readonly ILogger<TerminalTypeController> _logger;
+        private readonly ILogger<TerminalController> _logger;
         private readonly ITerminalTypeService _terminalTypeService;
 
-        public TerminalTypeController(ILogger<TerminalTypeController> logger, ITerminalTypeService terminalTypeService)
+        public TerminalController(ILogger<TerminalController> logger, ITerminalTypeService terminalTypeService)
         {
             _logger = logger;
             _terminalTypeService = terminalTypeService;
