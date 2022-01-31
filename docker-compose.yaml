@@ -22,16 +22,16 @@ services:
       - "5001:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - DatabaseConfiguration_DataSource=mssql
-      - DatabaseConfiguration_Port=1433
-      - DatabaseConfiguration_InitialCatalog=TypeLibrary
-      - DatabaseConfiguration_DbUser=sa
-      - DatabaseConfiguration_Password=P4ssw0rd1
-      - MimirorgAuthSettings_DatabaseConfiguration_DataSource=mssql
-      - MimirorgAuthSettings_DatabaseConfiguration_Port=1433
-      - MimirorgAuthSettings_DatabaseConfiguration_InitialCatalog=MimirorgAuthentication2
-      - MimirorgAuthSettings_DatabaseConfiguration_DbUser=sa
-      - MimirorgAuthSettings_DatabaseConfiguration_Password=P4ssw0rd1
+      - DatabaseConfiguration__DataSource=mssql
+      - DatabaseConfiguration__Port=1433
+      - DatabaseConfiguration__InitialCatalog=TypeLibrary
+      - DatabaseConfiguration__DbUser=sa
+      - DatabaseConfiguration__Password=P4ssw0rd1
+      - MimirorgAuthSettings__DatabaseConfiguration__DataSource=mssql
+      - MimirorgAuthSettings__DatabaseConfiguration__Port=1433
+      - MimirorgAuthSettings__DatabaseConfiguration__InitialCatalog=MimirorgAuthentication2
+      - MimirorgAuthSettings__DatabaseConfiguration__DbUser=sa
+      - MimirorgAuthSettings__DatabaseConfiguration__Password=P4ssw0rd1
     networks:
       - type_library_network
     depends_on:

@@ -48,52 +48,20 @@ namespace Mimirorg.Authentication.Extensions
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", true)
                 .AddJsonFile($"appsettings.{environment}.json", true)
-                .AddJsonFile("appsettings.local.json", true);
+                .AddJsonFile("appsettings.local.json", true)
+                .AddEnvironmentVariables();
             var config = builder.Build();
 
             // Authentication settings
             var authSettings = new MimirorgAuthSettings();
             config.GetSection("MimirorgAuthSettings").Bind(authSettings);
 
-            var jwtKey = Environment.GetEnvironmentVariable("MimirorgAuthSettings_JwtKey");
-            var jwtIssuer = Environment.GetEnvironmentVariable("MimirorgAuthSettings_JwtIssuer");
-            var jwtAudience = Environment.GetEnvironmentVariable("MimirorgAuthSettings_JwtAudience");
-
-            if (!string.IsNullOrEmpty(jwtKey))
-                authSettings.JwtKey = jwtKey.Trim();
-
-            if (!string.IsNullOrEmpty(jwtIssuer))
-                authSettings.JwtIssuer = jwtIssuer;
-
-            if (!string.IsNullOrEmpty(jwtAudience))
-                authSettings.JwtAudience = jwtAudience.Trim();
 
             serviceCollection.AddSingleton(Options.Create(authSettings));
 
             // Authentication Database configuration
 
             var dbConfig = authSettings.DatabaseConfiguration;
-
-            var dataSource = Environment.GetEnvironmentVariable("MimirorgAuthSettings_DatabaseConfiguration_DataSource");
-            var port = Environment.GetEnvironmentVariable("MimirorgAuthSettings_DatabaseConfiguration_Port");
-            var initialCatalog = Environment.GetEnvironmentVariable("MimirorgAuthSettings_DatabaseConfiguration_InitialCatalog");
-            var dbUser = Environment.GetEnvironmentVariable("MimirorgAuthSettings_DatabaseConfiguration_DbUser");
-            var password = Environment.GetEnvironmentVariable("MimirorgAuthSettings_DatabaseConfiguration_Password");
-
-            if (!string.IsNullOrEmpty(dataSource))
-                dbConfig.DataSource = dataSource.Trim();
-
-            if (!string.IsNullOrEmpty(port) && int.TryParse(port.Trim(), out var portAsInt))
-                dbConfig.Port = portAsInt;
-
-            if (!string.IsNullOrEmpty(initialCatalog))
-                dbConfig.InitialCatalog = initialCatalog.Trim();
-
-            if (!string.IsNullOrEmpty(dbUser))
-                dbConfig.DbUser = dbUser.Trim();
-
-            if (!string.IsNullOrEmpty(password))
-                dbConfig.Password = password.Trim();
 
             // Entity framework
             serviceCollection.AddDbContext<MimirorgAuthenticationContext>(options =>

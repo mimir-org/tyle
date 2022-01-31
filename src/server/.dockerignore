@@ -4,3 +4,5 @@ Dockerfile
 **/[b | B]in
 **/[O | o]bj
 **/[O | o]ut/
+
+**/appsettings.local.json
