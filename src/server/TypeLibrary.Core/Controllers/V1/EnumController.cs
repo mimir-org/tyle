@@ -19,7 +19,7 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("EnumController")]
+    [SwaggerTag("CRUD operations on previous 'Enum' types")]
     public class EnumController : ControllerBase
     {
         private readonly ILogger<EnumController> _logger;

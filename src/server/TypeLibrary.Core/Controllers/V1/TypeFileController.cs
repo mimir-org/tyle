@@ -20,13 +20,13 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("TypeCm typeDm file services")]
-    public class LibraryTypeFileController : ControllerBase
+    [SwaggerTag("Type file services")]
+    public class TypeFileController : ControllerBase
     {
-        private readonly ILogger<LibraryTypeFileController> _logger;
+        private readonly ILogger<TypeFileController> _logger;
         private readonly ILibraryTypeFileService _libraryTypeFileService;
 
-        public LibraryTypeFileController(ILogger<LibraryTypeFileController> logger, ILibraryTypeFileService libraryTypeFileService)
+        public TypeFileController(ILogger<TypeFileController> logger, ILibraryTypeFileService libraryTypeFileService)
         {
             _logger = logger;
             _libraryTypeFileService = libraryTypeFileService;

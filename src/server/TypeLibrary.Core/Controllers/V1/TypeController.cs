@@ -25,7 +25,7 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("TypeDm")]
+    [SwaggerTag("Type services")]
     public class TypeController : ControllerBase
     {
         private readonly ILogger<TypeController> _logger;
