@@ -6,7 +6,7 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class LibraryTypeConfiguration : IEntityTypeConfiguration<TypeDm>
+    public class LibraryConfiguration : IEntityTypeConfiguration<TypeDm>
 
     {
         public void Configure(EntityTypeBuilder<TypeDm> builder)

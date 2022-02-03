@@ -32,13 +32,13 @@ namespace TypeLibrary.Services.Services
         private readonly IBlobDataService _blobDataService;
         private readonly IEnumService _enumService;
         private readonly IRdsService _rdsService;
-        private readonly ITerminalTypeService _terminalTypeService;
+        private readonly ITerminalService _terminalTypeService;
         private readonly ITypeService _typeService;
         private readonly IFileRepository _fileRepository;
         private readonly ILogger<SeedingService> _logger;
         
         public SeedingService(IAttributeService attributeService, IBlobDataService blobDataService, IEnumService enumService, IRdsService rdsService,
-            ITerminalTypeService terminalTypeService, IFileRepository fileRepository, ITypeService typeService, ILogger<SeedingService> logger)
+            ITerminalService terminalTypeService, IFileRepository fileRepository, ITypeService typeService, ILogger<SeedingService> logger)
         {
             _attributeService = attributeService;
             _blobDataService = blobDataService;

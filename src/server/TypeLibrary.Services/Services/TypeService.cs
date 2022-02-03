@@ -20,16 +20,16 @@ namespace TypeLibrary.Services.Services
 {
     public class TypeService : ITypeService
     {
-        private readonly INodeTypeTerminalTypeRepository _nodeTypeTerminalTypeRepository;
+        private readonly INodeTerminalRepository _nodeTypeTerminalTypeRepository;
         private readonly ILibraryRepository _libraryRepository;
-        private readonly ILibraryTypeRepository _libraryTypeComponentRepository;
+        private readonly ITypeRepository _libraryTypeComponentRepository;
         private readonly IAttributeRepository _attributeRepository;
-        private readonly ISimpleTypeRepository _simpleTypeRepository;
+        private readonly ISimpleRepository _simpleTypeRepository;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public TypeService(INodeTypeTerminalTypeRepository nodeTypeTerminalTypeRepository, ILibraryRepository libraryRepository, 
-            ILibraryTypeRepository libraryTypeComponentRepository, IAttributeRepository attributeRepository, ISimpleTypeRepository simpleTypeRepository,
+        public TypeService(INodeTerminalRepository nodeTypeTerminalTypeRepository, ILibraryRepository libraryRepository, 
+            ITypeRepository libraryTypeComponentRepository, IAttributeRepository attributeRepository, ISimpleRepository simpleTypeRepository,
             IMapper mapper, IHttpContextAccessor contextAccessor)
         {
             _nodeTypeTerminalTypeRepository = nodeTypeTerminalTypeRepository;
@@ -88,11 +88,11 @@ namespace TypeLibrary.Services.Services
         /// <summary>
         /// Create library components
         /// </summary>
-        /// <param name="createTypes"></param>
+        /// <param name="typeAmList"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<TypeDm>> CreateTypes(ICollection<TypeAm> createTypes)
+        public async Task<IEnumerable<TypeDm>> CreateTypes(ICollection<TypeAm> typeAmList)
         {
-            return await CreateLibraryTypes(createTypes, false);
+            return await CreateLibraryTypes(typeAmList, false);
         }
 
         /// <summary>
@@ -252,15 +252,15 @@ namespace TypeLibrary.Services.Services
         /// <summary>
         /// Create a simple typeAm
         /// </summary>
-        /// <param name="simple"></param>
+        /// <param name="simpleAm"></param>
         /// <returns></returns>
-        public async Task<SimpleDm> CreateSimpleType(SimpleAm simple)
+        public async Task<SimpleDm> CreateSimpleType(SimpleAm simpleAm)
         {
-            var newType = _mapper.Map<SimpleDm>(simple);
+            var newType = _mapper.Map<SimpleDm>(simpleAm);
             var existingType = await _simpleTypeRepository.GetAsync(newType.Id);
 
             if (existingType != null)
-                throw new MimirorgDuplicateException($"TypeDm with name {simple.Name} already exist.");
+                throw new MimirorgDuplicateException($"TypeDm with name {simpleAm.Name} already exist.");
 
             foreach (var attribute in newType.AttributeList)
             {
@@ -276,14 +276,14 @@ namespace TypeLibrary.Services.Services
         /// <summary>
         /// Create simple types
         /// </summary>
-        /// <param name="simpleTypes"></param>
+        /// <param name="simpleAmList"></param>
         /// <returns></returns>
-        public async Task CreateSimpleTypes(ICollection<SimpleAm> simpleTypes)
+        public async Task CreateSimpleTypes(ICollection<SimpleAm> simpleAmList)
         {
-            if (simpleTypes == null || !simpleTypes.Any())
+            if (simpleAmList == null || !simpleAmList.Any())
                 return;
 
-            foreach (var typeAm in simpleTypes)
+            foreach (var typeAm in simpleAmList)
             {
                 var newType = _mapper.Map<SimpleDm>(typeAm);
                 var existingType = await _simpleTypeRepository.GetAsync(newType.Id);
@@ -359,9 +359,9 @@ namespace TypeLibrary.Services.Services
 
         public async Task<TypeCm> GetType(string searchString)
         {
-            var objectBlocks = await _libraryRepository.GetNodeTypes(searchString);
-            var transports = await _libraryRepository.GetTransportTypes(searchString);
-            var interfaces = await _libraryRepository.GetInterfaceTypes(searchString);
+            var objectBlocks = await _libraryRepository.GetNodes(searchString);
+            var transports = await _libraryRepository.GetTransports(searchString);
+            var interfaces = await _libraryRepository.GetInterfaces(searchString);
             //TODO: Correct subprojects return when implemented
             var subProjects = new List<SubProjectCm>();
 
@@ -378,17 +378,17 @@ namespace TypeLibrary.Services.Services
 
         public async Task<IEnumerable<NodeCm>> GetNodes()
         {
-            return await _libraryRepository.GetNodeTypes();
+            return await _libraryRepository.GetNodes();
         }
 
         public async Task<IEnumerable<TransportCm>> GetTransports()
         {
-            return await _libraryRepository.GetTransportTypes();
+            return await _libraryRepository.GetTransports();
         }
 
         public async Task<IEnumerable<InterfaceCm>> GetInterfaces()
         {
-            return await _libraryRepository.GetInterfaceTypes();
+            return await _libraryRepository.GetInterfaces();
         }
 
         public Task<IEnumerable<SubProjectCm>> GetSubProjects(string searchString = null)

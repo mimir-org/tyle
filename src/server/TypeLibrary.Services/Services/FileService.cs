@@ -15,13 +15,13 @@ using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
 {
-    public class LibraryTypeFileService : ILibraryTypeFileService
+    public class FileService : IFileService
     {
-        private readonly ILibraryTypeRepository _libraryTypeRepository;
+        private readonly ITypeRepository _libraryTypeRepository;
         private readonly ITypeService _typeService;
         private readonly IMapper _mapper;
 
-        public LibraryTypeFileService(ILibraryTypeRepository libraryTypeRepository, ITypeService typeService, IMapper mapper)
+        public FileService(ITypeRepository libraryTypeRepository, ITypeService typeService, IMapper mapper)
         {
             _libraryTypeRepository = libraryTypeRepository;
             _typeService = typeService;

@@ -6,9 +6,9 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Core.Profiles
 {
-    public class TerminalTypeProfile : Profile
+    public class TerminalProfile : Profile
     {
-        public TerminalTypeProfile()
+        public TerminalProfile()
         {
             CreateMap<TerminalAm, TerminalDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Key.CreateMd5()))

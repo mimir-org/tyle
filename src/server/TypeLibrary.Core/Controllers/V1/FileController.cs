@@ -20,16 +20,16 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("Type file services")]
-    public class TypeFileController : ControllerBase
+    [SwaggerTag("File services")]
+    public class FileController : ControllerBase
     {
-        private readonly ILogger<TypeFileController> _logger;
-        private readonly ILibraryTypeFileService _libraryTypeFileService;
+        private readonly ILogger<FileController> _logger;
+        private readonly IFileService _fileService;
 
-        public TypeFileController(ILogger<TypeFileController> logger, ILibraryTypeFileService libraryTypeFileService)
+        public FileController(ILogger<FileController> logger, IFileService fileService)
         {
             _logger = logger;
-            _libraryTypeFileService = libraryTypeFileService;
+            _fileService = fileService;
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = _libraryTypeFileService.CreateFile();
+                var data = _fileService.CreateFile();
                 return File(data, "application/json", "types.json");
             }
             catch (Exception e)
@@ -73,7 +73,7 @@ namespace TypeLibrary.Core.Controllers.V1
                 if (!file.ValidateJsonFile())
                     return BadRequest("Invalid file extension. The file must be a json file");
 
-                await _libraryTypeFileService.LoadDataFromFile(file, cancellationToken);
+                await _fileService.LoadDataFromFile(file, cancellationToken);
                 return Ok(true);
             }
             catch (MimirorgDuplicateException e)

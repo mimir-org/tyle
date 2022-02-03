@@ -11,13 +11,13 @@ using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
 {
-    public class TerminalTypeService : ITerminalTypeService
+    public class TerminalService : ITerminalService
     {
-        private readonly ITerminalTypeRepository _terminalTypeRepository;
+        private readonly ITerminalRepository _terminalTypeRepository;
         private readonly IAttributeRepository _attributeRepository;
         private readonly IMapper _mapper;
 
-        public TerminalTypeService(ITerminalTypeRepository terminalTypeRepository, IAttributeRepository attributeRepository, IMapper mapper)
+        public TerminalService(ITerminalRepository terminalTypeRepository, IAttributeRepository attributeRepository, IMapper mapper)
         {
             _terminalTypeRepository = terminalTypeRepository;
             _attributeRepository = attributeRepository;
@@ -66,14 +66,14 @@ namespace TypeLibrary.Services.Services
         /// <summary>
         /// Create from a list of terminal types
         /// </summary>
-        /// <param name="createTerminalTypes"></param>
+        /// <param name="terminalAmList"></param>
         /// <returns></returns>
-        public async Task<List<TerminalDm>> CreateTerminalTypes(List<TerminalAm> createTerminalTypes)
+        public async Task<List<TerminalDm>> CreateTerminalTypes(List<TerminalAm> terminalAmList)
         {
-            if (createTerminalTypes == null || !createTerminalTypes.Any())
+            if (terminalAmList == null || !terminalAmList.Any())
                 return new List<TerminalDm>();
 
-            var data = _mapper.Map<List<TerminalDm>>(createTerminalTypes);
+            var data = _mapper.Map<List<TerminalDm>>(terminalAmList);
             var existing = _terminalTypeRepository.GetAll().ToList();
             var notExisting = data.Where(x => existing.All(y => y.Name != x.Name)).ToList();
 

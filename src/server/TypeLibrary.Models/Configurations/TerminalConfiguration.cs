@@ -5,7 +5,7 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class TerminalTypeConfiguration : IEntityTypeConfiguration<TerminalDm>
+    public class TerminalConfiguration : IEntityTypeConfiguration<TerminalDm>
     {
         public void Configure(EntityTypeBuilder<TerminalDm> builder)
         {

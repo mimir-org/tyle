@@ -4,7 +4,7 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface INodeTypeRepository : IGenericRepository<TypeLibraryDbContext, NodeDm>
+    public interface ITerminalRepository : IGenericRepository<TypeLibraryDbContext, TerminalDm>
     {
     }
 }

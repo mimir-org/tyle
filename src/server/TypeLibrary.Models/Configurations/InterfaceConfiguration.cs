@@ -4,7 +4,7 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class InterfaceTypeConfiguration : IEntityTypeConfiguration<InterfaceDm>
+    public class InterfaceConfiguration : IEntityTypeConfiguration<InterfaceDm>
     {
         public void Configure(EntityTypeBuilder<InterfaceDm> builder)
         {

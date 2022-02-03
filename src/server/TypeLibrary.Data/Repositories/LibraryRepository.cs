@@ -10,13 +10,13 @@ namespace TypeLibrary.Data.Repositories
 {
     public class LibraryRepository : ILibraryRepository
     {
-        private readonly ITransportTypeRepository _transportTypeRepository;
-        private readonly IInterfaceTypeRepository _interfaceTypeRepository;
-        private readonly INodeTypeRepository _nodeTypeRepository;
+        private readonly ITransportRepository _transportTypeRepository;
+        private readonly IInterfaceRepository _interfaceTypeRepository;
+        private readonly INodeRepository _nodeTypeRepository;
         private readonly IMapper _mapper;
 
-        public LibraryRepository(IMapper mapper, ITransportTypeRepository transportTypeRepository,
-            IInterfaceTypeRepository interfaceTypeRepository, INodeTypeRepository nodeTypeRepository)
+        public LibraryRepository(IMapper mapper, ITransportRepository transportTypeRepository,
+            IInterfaceRepository interfaceTypeRepository, INodeRepository nodeTypeRepository)
         {
             _mapper = mapper;
             _transportTypeRepository = transportTypeRepository;
@@ -24,7 +24,7 @@ namespace TypeLibrary.Data.Repositories
             _nodeTypeRepository = nodeTypeRepository;
         }
 
-        public async Task<IEnumerable<NodeCm>> GetNodeTypes(string searchString = null)
+        public async Task<IEnumerable<NodeCm>> GetNodes(string searchString = null)
         {
             var nodeTypes = await _nodeTypeRepository.GetAll()
                 .Include(x => x.AttributeList)
@@ -48,7 +48,7 @@ namespace TypeLibrary.Data.Repositories
             return nodeTypes.Select(nodeType => _mapper.Map<NodeCm>(nodeType)).ToList();
         }
 
-        public async Task<IEnumerable<InterfaceCm>> GetInterfaceTypes(string searchString = null)
+        public async Task<IEnumerable<InterfaceCm>> GetInterfaces(string searchString = null)
         {
 
             var interfaceTypes = await _interfaceTypeRepository.GetAll()
@@ -66,7 +66,7 @@ namespace TypeLibrary.Data.Repositories
             return interfaceTypes.Select(interfaceType => _mapper.Map<InterfaceCm>(interfaceType)).ToList();
         }
 
-        public async Task<IEnumerable<TransportCm>> GetTransportTypes(string searchString = null)
+        public async Task<IEnumerable<TransportCm>> GetTransports(string searchString = null)
         {
             var transportTypes = await _transportTypeRepository.GetAll()
                 .Include(x => x.AttributeList)

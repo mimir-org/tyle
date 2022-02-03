@@ -5,7 +5,7 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class SimpleTypeConfiguration : IEntityTypeConfiguration<SimpleDm>
+    public class SimpleConfiguration : IEntityTypeConfiguration<SimpleDm>
     {
         public void Configure(EntityTypeBuilder<SimpleDm> builder)
         {

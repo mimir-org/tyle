@@ -8,9 +8,9 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Core.Profiles
 {
-    public class SimpleTypeProfile : Profile
+    public class SimpleProfile : Profile
     {
-        public SimpleTypeProfile()
+        public SimpleProfile()
         {
             CreateMap<SimpleAm, SimpleDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Key.CreateMd5()))

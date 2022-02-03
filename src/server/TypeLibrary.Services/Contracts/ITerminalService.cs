@@ -6,11 +6,11 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Services.Contracts
 {
-    public interface ITerminalTypeService
+    public interface ITerminalService
     {
         IEnumerable<TerminalDm> GetTerminals();
         List<TerminalDm> GetTerminalsByCategory();
         Task<TerminalDm> CreateTerminalType(TerminalAm terminalAm);
-        Task<List<TerminalDm>> CreateTerminalTypes(List<TerminalAm> createTerminalTypes);
+        Task<List<TerminalDm>> CreateTerminalTypes(List<TerminalAm> terminalAmList);
     }
 }

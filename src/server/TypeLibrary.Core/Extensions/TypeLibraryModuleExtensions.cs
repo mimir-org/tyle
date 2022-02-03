@@ -23,13 +23,13 @@ namespace TypeLibrary.Core.Extensions
 
             // Dependency Injection - Repositories
             services.AddScoped<IAttributeRepository, AttributeRepository>();
-            services.AddScoped<ISimpleTypeRepository, SimpleTypeRepository>();
-            services.AddScoped<IInterfaceTypeRepository, InterfaceTypeRepository>();
-            services.AddScoped<ILibraryTypeRepository, LibraryTypeRepository>();
-            services.AddScoped<INodeTypeRepository, NodeTypeRepository>();
-            services.AddScoped<INodeTypeTerminalTypeRepository, NodeTypeTerminalTypeRepository>();
-            services.AddScoped<ITerminalTypeRepository, TerminalTypeRepository>();
-            services.AddScoped<ITransportTypeRepository, TransportTypeRepository>();
+            services.AddScoped<ISimpleRepository, SimpleRepository>();
+            services.AddScoped<IInterfaceRepository, InterfaceRepository>();
+            services.AddScoped<ITypeRepository, TypeRepository>();
+            services.AddScoped<INodeRepository, NodeRepository>();
+            services.AddScoped<INodeTerminalRepository, NodeTerminalRepository>();
+            services.AddScoped<ITerminalRepository, TerminalRepository>();
+            services.AddScoped<ITransportRepository, TransportRepository>();
             services.AddScoped<ILibraryRepository, LibraryRepository>();
             services.AddScoped<IPredefinedAttributeRepository, PredefinedAttributeRepository>();
             services.AddScoped<IRdsRepository, RdsRepository>();
@@ -46,9 +46,9 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             // Dependency Injection - Services
-            services.AddScoped<ITerminalTypeService, TerminalTypeService>();
+            services.AddScoped<ITerminalService, TerminalService>();
             services.AddScoped<ITypeService, TypeService>();
-            services.AddScoped<ILibraryTypeFileService, LibraryTypeFileService>();
+            services.AddScoped<IFileService, FileService>();
             services.AddScoped<IAttributeService, AttributeService>();
             services.AddScoped<IRdsService, RdsService>();
             services.AddScoped<ISeedingService, SeedingService>();

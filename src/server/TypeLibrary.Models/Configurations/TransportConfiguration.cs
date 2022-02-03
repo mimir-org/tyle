@@ -4,7 +4,7 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class TransportTypeConfiguration : IEntityTypeConfiguration<TransportDm>
+    public class TransportConfiguration : IEntityTypeConfiguration<TransportDm>
     {
         public void Configure(EntityTypeBuilder<TransportDm> builder)
         {

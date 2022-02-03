@@ -27,9 +27,9 @@ namespace TypeLibrary.Core.Controllers.V1
     public class TerminalController : ControllerBase
     {
         private readonly ILogger<TerminalController> _logger;
-        private readonly ITerminalTypeService _terminalTypeService;
+        private readonly ITerminalService _terminalTypeService;
 
-        public TerminalController(ILogger<TerminalController> logger, ITerminalTypeService terminalTypeService)
+        public TerminalController(ILogger<TerminalController> logger, ITerminalService terminalTypeService)
         {
             _logger = logger;
             _terminalTypeService = terminalTypeService;

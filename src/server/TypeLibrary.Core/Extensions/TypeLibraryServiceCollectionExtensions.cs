@@ -34,7 +34,7 @@ namespace TypeLibrary.Core.Extensions
             cfg.AddProfile<CommonProfile>();
             cfg.AddProfile(new TypeProfile());
             cfg.AddProfile<RdsProfile>();
-            cfg.AddProfile(new TerminalTypeProfile());
+            cfg.AddProfile(new TerminalProfile());
             cfg.AddProfile(new ConditionProfile());
             cfg.AddProfile(new FormatProfile());
             cfg.AddProfile(new QualifierProfile());
@@ -43,7 +43,7 @@ namespace TypeLibrary.Core.Extensions
             cfg.AddProfile(new PurposeProfile());
             cfg.AddProfile(new RdsCategoryProfile());
             cfg.AddProfile(new UnitProfile());
-            cfg.AddProfile(new SimpleTypeProfile());
+            cfg.AddProfile(new SimpleProfile());
             cfg.AddProfile(new CategoryProfile());
 
             var mapperConfig = new MapperConfiguration(cfg);
