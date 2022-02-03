@@ -1,15 +1,14 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class CategoryConfiguration : IEntityTypeConfiguration<CategoryDm>
+    public class CollectionConfiguration : IEntityTypeConfiguration<CollectionDm>
     {
-        public void Configure(EntityTypeBuilder<CategoryDm> builder)
+        public void Configure(EntityTypeBuilder<CollectionDm> builder)
         {
-            builder.ToTable("Category");
+            builder.ToTable("Collection");
             builder.HasKey(x => x.Id);
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();

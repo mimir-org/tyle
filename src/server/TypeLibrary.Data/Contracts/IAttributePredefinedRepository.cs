@@ -4,7 +4,7 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface IPredefinedAttributeRepository : IGenericRepository<TypeLibraryDbContext, PredefinedAttributeDm>
+    public interface IAttributePredefinedRepository : IGenericRepository<TypeLibraryDbContext, AttributePredefinedDm>
     {
     }
 }

@@ -12,7 +12,7 @@ using TypeLibrary.Data;
 namespace TypeLibrary.Core.Migrations
 {
     [DbContext(typeof(TypeLibraryDbContext))]
-    [Migration("20220128095121_Init")]
+    [Migration("20220203103228_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -114,19 +114,19 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Transport_Attribute", (string)null);
                 });
 
-            modelBuilder.Entity("Type_Category", b =>
+            modelBuilder.Entity("Type_Collection", b =>
                 {
-                    b.Property<string>("CategoryId")
+                    b.Property<string>("CollectionId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("TypeId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("CategoryId", "TypeId");
+                    b.HasKey("CollectionId", "TypeId");
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("Type_Category", (string)null);
+                    b.ToTable("Type_Collection", (string)null);
                 });
 
             modelBuilder.Entity("TypeLibrary.Models.Models.Data.AttributeDm", b =>
@@ -193,6 +193,25 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Attribute", (string)null);
                 });
 
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.AttributePredefinedDm", b =>
+                {
+                    b.Property<string>("Key")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("Key");
+
+                    b.Property<bool>("IsMultiSelect")
+                        .HasColumnType("bit")
+                        .HasColumnName("IsMultiSelect");
+
+                    b.Property<string>("Values")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Values");
+
+                    b.HasKey("Key");
+
+                    b.ToTable("AttributePredefined", (string)null);
+                });
+
             modelBuilder.Entity("TypeLibrary.Models.Models.Data.BlobDm", b =>
                 {
                     b.Property<string>("Id")
@@ -219,7 +238,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Blob", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.CategoryDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.CollectionDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -257,7 +276,7 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category", (string)null);
+                    b.ToTable("Collection", (string)null);
                 });
 
             modelBuilder.Entity("TypeLibrary.Models.Models.Data.ConditionDm", b =>
@@ -424,25 +443,6 @@ namespace TypeLibrary.Core.Migrations
                     b.HasIndex("TerminalTypeId");
 
                     b.ToTable("Node_Terminal", (string)null);
-                });
-
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.PredefinedAttributeDm", b =>
-                {
-                    b.Property<string>("Key")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("Key");
-
-                    b.Property<bool>("IsMultiSelect")
-                        .HasColumnType("bit")
-                        .HasColumnName("IsMultiSelect");
-
-                    b.Property<string>("Values")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Values");
-
-                    b.HasKey("Key");
-
-                    b.ToTable("PredefinedAttribute", (string)null);
                 });
 
             modelBuilder.Entity("TypeLibrary.Models.Models.Data.PurposeDm", b =>
@@ -960,11 +960,11 @@ namespace TypeLibrary.Core.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Type_Category", b =>
+            modelBuilder.Entity("Type_Collection", b =>
                 {
-                    b.HasOne("TypeLibrary.Models.Models.Data.CategoryDm", null)
+                    b.HasOne("TypeLibrary.Models.Models.Data.CollectionDm", null)
                         .WithMany()
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("CollectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

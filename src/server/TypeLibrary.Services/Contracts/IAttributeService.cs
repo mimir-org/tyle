@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using TypeLibrary.Models.Enums;
 using TypeLibrary.Models.Models.Application;
 using TypeLibrary.Models.Models.Client;
@@ -13,7 +12,7 @@ namespace TypeLibrary.Services.Contracts
         IEnumerable<AttributeDm> GetAttributes(Aspect aspect);
         Task<AttributeDm> CreateAttribute(AttributeAm attributeAm);
         Task<ICollection<AttributeDm>> CreateAttributes(List<AttributeAm> attributeAmList);
-        IEnumerable<PredefinedAttributeCm> GetPredefinedAttributes();
-        Task<List<PredefinedAttributeDm>> CreatePredefinedAttributes(List<PredefinedAttributeDm> predefinedAttributeList);
+        IEnumerable<AttributePredefinedCm> GetAttributesPredefined();
+        Task<List<AttributePredefinedDm>> CreateAttributesPredefined(List<AttributePredefinedDm> attributePredefinedList);
     }
 }

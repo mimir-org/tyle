@@ -44,7 +44,7 @@ namespace TypeLibrary.Core.Extensions
             cfg.AddProfile(new RdsCategoryProfile());
             cfg.AddProfile(new UnitProfile());
             cfg.AddProfile(new SimpleProfile());
-            cfg.AddProfile(new CategoryProfile());
+            cfg.AddProfile(new CollectionProfile());
 
             var mapperConfig = new MapperConfiguration(cfg);
             serviceCollection.AddSingleton(_ => mapperConfig.CreateMapper());

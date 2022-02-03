@@ -9,8 +9,6 @@ namespace TypeLibrary.Models.Models.Application
         public int Number { get; set; }
         public ConnectorType ConnectorType { get; set; }
 
-        public string CategoryId { get; set; }
-
         [JsonIgnore]
         public string Key => $"{TerminalTypeId}-{ConnectorType}";
     }

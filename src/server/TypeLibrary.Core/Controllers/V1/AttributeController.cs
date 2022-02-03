@@ -63,15 +63,15 @@ namespace TypeLibrary.Core.Controllers.V1
         /// Get predefined attributes
         /// </summary>
         /// <returns></returns>
-        [HttpGet("predefined-attributes")]
-        [ProducesResponseType(typeof(ICollection<PredefinedAttributeCm>), StatusCodes.Status200OK)]
+        [HttpGet("attributes-predefined")]
+        [ProducesResponseType(typeof(ICollection<AttributePredefinedCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
-        public IActionResult GetPredefinedAttributes()
+        public IActionResult GetAttributesPredefined()
         {
             try
             {
-                var data = _attributeService.GetPredefinedAttributes().ToList();
+                var data = _attributeService.GetAttributesPredefined().ToList();
                 return Ok(data);
             }
             catch (Exception e)

@@ -37,10 +37,10 @@ namespace TypeLibrary.Models.Models.Application
         public string SymbolId { get; set; }
         public ICollection<string> AttributeStringList { get; set; }
         public string LocationType { get; set; }
-        public ICollection<PredefinedAttributeCm> PredefinedAttributes { get; set; }
+        public ICollection<AttributePredefinedCm> PredefinedAttributes { get; set; }
         public string TerminalTypeId { get; set; }
         public ICollection<string> SimpleTypes { get; set; }
-        public ICollection<CategoryAm> Categories { get; set; }
+        public ICollection<CollectionAm> Categories { get; set; }
 
         [JsonIgnore]
         public string Key => $"{Name}-{RdsId}-{Aspect}-{Version}";

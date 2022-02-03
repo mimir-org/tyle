@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-
 using TypeLibrary.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Contracts;
@@ -16,15 +15,15 @@ namespace TypeLibrary.Services.Services
     public class AttributeService : IAttributeService
     {
         private readonly IMapper _mapper;
-        private readonly IPredefinedAttributeRepository _predefinedAttributeRepository;
+        private readonly IAttributePredefinedRepository _attributePredefinedRepository;
         private readonly IAttributeRepository _attributeRepository;
         private readonly IUnitRepository _unitRepository;
 
-        public AttributeService(IMapper mapper, IPredefinedAttributeRepository predefinedAttributeRepository, 
+        public AttributeService(IMapper mapper, IAttributePredefinedRepository attributePredefinedRepository, 
             IAttributeRepository attributeRepository, IUnitRepository unitRepository)
         {
             _mapper = mapper;
-            _predefinedAttributeRepository = predefinedAttributeRepository;
+            _attributePredefinedRepository = attributePredefinedRepository;
             _attributeRepository = attributeRepository;
             _unitRepository = unitRepository;
         }
@@ -102,37 +101,37 @@ namespace TypeLibrary.Services.Services
         }
 
         /// <summary>
-        /// Get predefined predefinedAttributeList
+        /// Get predefined attributePredefinedList
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<PredefinedAttributeCm> GetPredefinedAttributes()
+        public IEnumerable<AttributePredefinedCm> GetAttributesPredefined()
         {
-            var all = _predefinedAttributeRepository.GetAll().ToList();
-            return _mapper.Map<List<PredefinedAttributeCm>>(all);
+            var all = _attributePredefinedRepository.GetAll().ToList();
+            return _mapper.Map<List<AttributePredefinedCm>>(all);
         }
 
         /// <summary>
-        /// Create Predefined predefinedAttributeList from a list
+        /// Create Predefined attributePredefinedList from a list
         /// </summary>
-        /// <param name="predefinedAttributeList"></param>
+        /// <param name="attributePredefinedList"></param>
         /// <returns></returns>
-        public async Task<List<PredefinedAttributeDm>> CreatePredefinedAttributes(List<PredefinedAttributeDm> predefinedAttributeList)
+        public async Task<List<AttributePredefinedDm>> CreateAttributesPredefined(List<AttributePredefinedDm> attributePredefinedList)
         {
-            if (predefinedAttributeList == null || !predefinedAttributeList.Any())
-                return new List<PredefinedAttributeDm>();
+            if (attributePredefinedList == null || !attributePredefinedList.Any())
+                return new List<AttributePredefinedDm>();
 
-            var existing = _predefinedAttributeRepository.GetAll().ToList();
-            var notExisting = predefinedAttributeList.Where(x => existing.All(y => y.Key != x.Key)).ToList();
+            var existing = _attributePredefinedRepository.GetAll().ToList();
+            var notExisting = attributePredefinedList.Where(x => existing.All(y => y.Key != x.Key)).ToList();
 
             if (!notExisting.Any())
-                return new List<PredefinedAttributeDm>();
+                return new List<AttributePredefinedDm>();
 
             foreach (var entity in notExisting)
             {
-                await _predefinedAttributeRepository.CreateAsync(entity);
+                await _attributePredefinedRepository.CreateAsync(entity);
             }
-            await _predefinedAttributeRepository.SaveAsync();
-            return predefinedAttributeList;
+            await _attributePredefinedRepository.SaveAsync();
+            return attributePredefinedList;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace TypeLibrary.Data
         public virtual DbSet<InterfaceDm> InterfaceTypes { get; set; }
         public virtual DbSet<TypeDm> LibraryTypes { get; set; }
         public virtual DbSet<NodeTerminalDm> NodeTypeTerminalTypes { get; set; }
-        public virtual DbSet<PredefinedAttributeDm> PredefinedAttributes { get; set; }
+        public virtual DbSet<AttributePredefinedDm> PredefinedAttributes { get; set; }
         public virtual DbSet<PurposeDm> Purposes { get; set; }
         public virtual DbSet<RdsCategoryDm> RdsCategories { get; set; }
         public virtual DbSet<RdsDm> Rds { get; set; }
@@ -43,7 +43,7 @@ namespace TypeLibrary.Data
             modelBuilder.ApplyConfiguration(new InterfaceConfiguration());
             modelBuilder.ApplyConfiguration(new LibraryConfiguration());
             modelBuilder.ApplyConfiguration(new NodeTerminalConfiguration());
-            modelBuilder.ApplyConfiguration(new PredefinedAttributeConfiguration());
+            modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());
             modelBuilder.ApplyConfiguration(new PurposeConfiguration());
             modelBuilder.ApplyConfiguration(new RdsCategoryConfiguration());
             modelBuilder.ApplyConfiguration(new RdsConfiguration());
@@ -52,7 +52,7 @@ namespace TypeLibrary.Data
             modelBuilder.ApplyConfiguration(new TransportConfiguration());
             modelBuilder.ApplyConfiguration(new LocationConfiguration());
             modelBuilder.ApplyConfiguration(new UnitConfiguration());
-            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new CollectionConfiguration());
         }
     }
 }

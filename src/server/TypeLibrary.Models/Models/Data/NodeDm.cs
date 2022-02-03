@@ -14,7 +14,7 @@ namespace TypeLibrary.Models.Models.Data
         public string SymbolId { get; set; }
         public virtual ICollection<SimpleDm> SimpleTypes { get; set; }
         [NotMapped]
-        public ICollection<PredefinedAttributeCm> PredefinedAttributes { get; set; }
+        public ICollection<AttributePredefinedCm> PredefinedAttributes { get; set; }
 
         [JsonIgnore]
         public string PredefinedAttributeData { get; set; }
@@ -38,7 +38,7 @@ namespace TypeLibrary.Models.Models.Data
                 return;
             }
 
-            PredefinedAttributes = JsonConvert.DeserializeObject<ICollection<PredefinedAttributeCm>>(PredefinedAttributeData);
+            PredefinedAttributes = JsonConvert.DeserializeObject<ICollection<AttributePredefinedCm>>(PredefinedAttributeData);
         }
     }
 }

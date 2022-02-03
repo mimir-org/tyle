@@ -10,6 +10,19 @@ namespace TypeLibrary.Core.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AttributePredefined",
+                columns: table => new
+                {
+                    Key = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Values = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsMultiSelect = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AttributePredefined", x => x.Key);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Blob",
                 columns: table => new
                 {
@@ -24,7 +37,7 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Category",
+                name: "Collection",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -38,7 +51,7 @@ namespace TypeLibrary.Core.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.Id);
+                    table.PrimaryKey("PK_Collection", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -100,19 +113,6 @@ namespace TypeLibrary.Core.Migrations
                         column: x => x.ParentId,
                         principalTable: "Location",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PredefinedAttribute",
-                columns: table => new
-                {
-                    Key = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Values = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsMultiSelect = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PredefinedAttribute", x => x.Key);
                 });
 
             migrationBuilder.CreateTable(
@@ -409,23 +409,23 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Type_Category",
+                name: "Type_Collection",
                 columns: table => new
                 {
-                    CategoryId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CollectionId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     TypeId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Type_Category", x => new { x.CategoryId, x.TypeId });
+                    table.PrimaryKey("PK_Type_Collection", x => new { x.CollectionId, x.TypeId });
                     table.ForeignKey(
-                        name: "FK_Type_Category_Category_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Category",
+                        name: "FK_Type_Collection_Collection_CollectionId",
+                        column: x => x.CollectionId,
+                        principalTable: "Collection",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Type_Category_Type_TypeId",
+                        name: "FK_Type_Collection_Type_TypeId",
                         column: x => x.TypeId,
                         principalTable: "Type",
                         principalColumn: "Id",
@@ -653,8 +653,8 @@ namespace TypeLibrary.Core.Migrations
                 column: "Transport_TerminalId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Type_Category_TypeId",
-                table: "Type_Category",
+                name: "IX_Type_Collection_TypeId",
+                table: "Type_Collection",
                 column: "TypeId");
         }
 
@@ -662,6 +662,9 @@ namespace TypeLibrary.Core.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Attribute_Unit");
+
+            migrationBuilder.DropTable(
+                name: "AttributePredefined");
 
             migrationBuilder.DropTable(
                 name: "Blob");
@@ -676,9 +679,6 @@ namespace TypeLibrary.Core.Migrations
                 name: "Node_Terminal");
 
             migrationBuilder.DropTable(
-                name: "PredefinedAttribute");
-
-            migrationBuilder.DropTable(
                 name: "Simple_Attribute");
 
             migrationBuilder.DropTable(
@@ -691,7 +691,7 @@ namespace TypeLibrary.Core.Migrations
                 name: "Transport_Attribute");
 
             migrationBuilder.DropTable(
-                name: "Type_Category");
+                name: "Type_Collection");
 
             migrationBuilder.DropTable(
                 name: "Unit");
@@ -703,7 +703,7 @@ namespace TypeLibrary.Core.Migrations
                 name: "Attribute");
 
             migrationBuilder.DropTable(
-                name: "Category");
+                name: "Collection");
 
             migrationBuilder.DropTable(
                 name: "Condition");

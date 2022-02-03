@@ -25,13 +25,13 @@ namespace TypeLibrary.Services.Services
         private readonly IPurposeRepository _purposeRepository;
         private readonly IRdsCategoryRepository _rdsCategoryRepository;
         private readonly IUnitRepository _unitRepository;
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly ICollectionRepository _collectionRepository;
         private readonly IHttpContextAccessor _contextAccessor;
 
         public EnumService(IMapper mapper, IConditionRepository conditionRepository, IFormatRepository formatRepository,
             IQualifierRepository qualifierRepository, ISourceRepository sourceRepository, ILocationRepository locationRepository,
             IPurposeRepository purposeRepository, IRdsCategoryRepository rdsCategoryRepository, IUnitRepository unitRepository, 
-            ICategoryRepository categoryRepository, IHttpContextAccessor contextAccessor)
+            ICollectionRepository collectionRepository, IHttpContextAccessor contextAccessor)
         {
             _mapper = mapper;
             _conditionRepository = conditionRepository;
@@ -42,7 +42,7 @@ namespace TypeLibrary.Services.Services
             _purposeRepository = purposeRepository;
             _rdsCategoryRepository = rdsCategoryRepository;
             _unitRepository = unitRepository;
-            _categoryRepository = categoryRepository;
+            _collectionRepository = collectionRepository;
             _contextAccessor = contextAccessor;
         }
 
@@ -496,38 +496,38 @@ namespace TypeLibrary.Services.Services
 
         #region CategoryDm
 
-        public Task<IEnumerable<CategoryAm>> GetCollections()
+        public Task<IEnumerable<CollectionAm>> GetCollections()
         {
-            var dataList = _categoryRepository.GetAll();
-            var dataAm = _mapper.Map<List<CategoryAm>>(dataList);
-            return Task.FromResult<IEnumerable<CategoryAm>>(dataAm);
+            var dataList = _collectionRepository.GetAll();
+            var dataAm = _mapper.Map<List<CollectionAm>>(dataList);
+            return Task.FromResult<IEnumerable<CollectionAm>>(dataAm);
         }
 
-        public async Task<CategoryAm> UpdateCollection(CategoryAm dataAm)
+        public async Task<CollectionAm> UpdateCollection(CollectionAm dataAm)
         {
-            var data = _mapper.Map<CategoryDm>(dataAm);
+            var data = _mapper.Map<CollectionDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
-            _categoryRepository.Update(data);
-            await _categoryRepository.SaveAsync();
-            return _mapper.Map<CategoryAm>(data);
+            _collectionRepository.Update(data);
+            await _collectionRepository.SaveAsync();
+            return _mapper.Map<CollectionAm>(data);
         }
 
-        public async Task<CategoryAm> CreateCollection(CategoryAm dataAm)
+        public async Task<CollectionAm> CreateCollection(CollectionAm dataAm)
         {
-            var data = _mapper.Map<CategoryDm>(dataAm);
+            var data = _mapper.Map<CollectionDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             data.Id = data.Key.CreateMd5();
-            var createdData = await _categoryRepository.CreateAsync(data);
-            await _categoryRepository.SaveAsync();
-            return _mapper.Map<CategoryAm>(createdData.Entity);
+            var createdData = await _collectionRepository.CreateAsync(data);
+            await _collectionRepository.SaveAsync();
+            return _mapper.Map<CollectionAm>(createdData.Entity);
         }
 
-        public async Task CreateCollections(List<CategoryAm> dataAm)
+        public async Task CreateCollections(List<CollectionAm> dataAm)
         {
-            var dataList = _mapper.Map<List<CategoryDm>>(dataAm);
-            var existing = _categoryRepository.GetAll().ToList();
+            var dataList = _mapper.Map<List<CollectionDm>>(dataAm);
+            var existing = _collectionRepository.GetAll().ToList();
             var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
 
             if (!notExisting.Any())
@@ -538,13 +538,13 @@ namespace TypeLibrary.Services.Services
                 data.Created = DateTime.Now.ToUniversalTime();
                 data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
                 data.Id = data.Key.CreateMd5();
-                _categoryRepository.Attach(data, EntityState.Added);
+                _collectionRepository.Attach(data, EntityState.Added);
             }
 
-            await _categoryRepository.SaveAsync();
+            await _collectionRepository.SaveAsync();
 
             foreach (var data in notExisting)
-                _categoryRepository.Detach(data);
+                _collectionRepository.Detach(data);
         }
 
         #endregion CategoryDm

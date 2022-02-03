@@ -5,15 +5,15 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class PredefinedAttributeConfiguration : IEntityTypeConfiguration<PredefinedAttributeDm>
+    public class AttributePredefinedConfiguration : IEntityTypeConfiguration<AttributePredefinedDm>
     {
-        public void Configure(EntityTypeBuilder<PredefinedAttributeDm> builder)
+        public void Configure(EntityTypeBuilder<AttributePredefinedDm> builder)
         {
             var stringConverter = new StringCollectionValueConverter();
             var stringComparer = new StringCollectionValueComparer();
 
             builder.HasKey(x => x.Key);
-            builder.ToTable("PredefinedAttribute");
+            builder.ToTable("AttributePredefined");
             builder.Property(p => p.Key).HasColumnName("Key").IsRequired();
             builder.Property(p => p.Values).HasColumnName("Values").IsRequired(false).HasConversion(stringConverter, stringComparer);
             builder.Property(p => p.IsMultiSelect).HasColumnName("IsMultiSelect").IsRequired();

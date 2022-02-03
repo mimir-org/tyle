@@ -17,7 +17,7 @@ namespace TypeLibrary.Services.Services
         public const string ConditionFileName = "condition";
         public const string FormatFileName = "format";
         public const string LocationFileName = "location";
-        public const string PredefinedAttributeFileName = "predefinedattribute";
+        public const string PredefinedAttributeFileName = "attributepredefined";
         public const string PurposeFileName = "purpose";
         public const string QualifierFileName = "qualifier";
         public const string RdsFileName = "rds";
@@ -69,9 +69,10 @@ namespace TypeLibrary.Services.Services
                 var unitFiles = fileList.Where(x => x.ToLower().Equals(UnitFileName)).ToList();
 
                 var attributeFiles = fileList.Where(x => x.ToLower().Equals(AttributeFileName)).ToList();
+                var attributePredefinedFiles = fileList.Where(x => x.ToLower().Equals(PredefinedAttributeFileName)).ToList();
                 var terminalTypeFiles = fileList.Where(x => x.ToLower().Equals(TerminalTypeFileName)).ToList();
                 var rdsFiles = fileList.Where(x => x.ToLower().Equals(RdsFileName)).ToList();
-                var predefinedAttributeFiles = fileList.Where(x => x.ToLower().Equals(PredefinedAttributeFileName)).ToList();
+                
                 var blobDataFileNames = fileList.Where(x => x.ToLower().Equals(BlobDataFileName)).ToList();
                 var simpleTypeFileNames = fileList.Where(x => x.ToLower().Equals(SimpleTypeFileName)).ToList();
                 var transportFiles = fileList.Where(x => x.ToLower().Equals(TransportFileName)).ToList();
@@ -87,9 +88,9 @@ namespace TypeLibrary.Services.Services
                 var units = _fileRepository.ReadAllFiles<UnitAm>(unitFiles).ToList();
 
                 var attributes = _fileRepository.ReadAllFiles<AttributeAm>(attributeFiles).ToList();
+                var attributesPredefined = _fileRepository.ReadAllFiles<AttributePredefinedDm>(attributePredefinedFiles).ToList();
                 var terminalTypes = _fileRepository.ReadAllFiles<TerminalAm>(terminalTypeFiles).ToList();
                 var rds = _fileRepository.ReadAllFiles<RdsAm>(rdsFiles).ToList();
-                var predefinedAttributes = _fileRepository.ReadAllFiles<PredefinedAttributeDm>(predefinedAttributeFiles).ToList();
                 var blobData = _fileRepository.ReadAllFiles<BlobDataAm>(blobDataFileNames).ToList();
                 var simpleTypes = _fileRepository.ReadAllFiles<SimpleAm>(simpleTypeFileNames).ToList();
                 var transports = _fileRepository.ReadAllFiles<TypeAm>(transportFiles).ToList();
@@ -104,9 +105,9 @@ namespace TypeLibrary.Services.Services
                 await _enumService.CreateUnits(units);
                 
                 await _attributeService.CreateAttributes(attributes);
+                await _attributeService.CreateAttributesPredefined(attributesPredefined);
                 await _terminalTypeService.CreateTerminalTypes(terminalTypes);
                 await _rdsService.CreateRdsAsync(rds);
-                await _attributeService.CreatePredefinedAttributes(predefinedAttributes);
                 await _blobDataService.CreateBlobData(blobData);
                 await _typeService.CreateSimpleTypes(simpleTypes);
 

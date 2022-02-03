@@ -31,7 +31,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<ITerminalRepository, TerminalRepository>();
             services.AddScoped<ITransportRepository, TransportRepository>();
             services.AddScoped<ILibraryRepository, LibraryRepository>();
-            services.AddScoped<IPredefinedAttributeRepository, PredefinedAttributeRepository>();
+            services.AddScoped<IAttributePredefinedRepository, AttributePredefinedRepository>();
             services.AddScoped<IRdsRepository, RdsRepository>();
             services.AddSingleton<IFileRepository, JsonFileRepository>();
             services.AddScoped<IBlobDataRepository, BlobDataRepository>();
@@ -43,7 +43,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IPurposeRepository, PurposeRepository>();
             services.AddScoped<IRdsCategoryRepository, RdsCategoryRepository>();
             services.AddScoped<IUnitRepository, UnitRepository>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICollectionRepository, CollectionRepository>();
 
             // Dependency Injection - Services
             services.AddScoped<ITerminalService, TerminalService>();
