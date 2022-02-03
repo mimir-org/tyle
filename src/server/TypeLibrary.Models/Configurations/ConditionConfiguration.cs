@@ -4,9 +4,9 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class ConditionConfiguration : IEntityTypeConfiguration<ConditionDm>
+    public class ConditionConfiguration : IEntityTypeConfiguration<ConditionLibDm>
     {
-        public void Configure(EntityTypeBuilder<ConditionDm> builder)
+        public void Configure(EntityTypeBuilder<ConditionLibDm> builder)
         {
             builder.ToTable("Condition");
             builder.HasKey(x => x.Id);

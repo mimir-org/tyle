@@ -6,9 +6,9 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface ISourceService
     {
-        Task<IEnumerable<SourceAm>> GetSources();
-        Task<SourceAm> UpdateSource(SourceAm dataAm);
-        Task<SourceAm> CreateSource(SourceAm dataAm);
-        Task CreateSources(List<SourceAm> dataAm);
+        Task<IEnumerable<SourceLibAm>> GetSources();
+        Task<SourceLibAm> UpdateSource(SourceLibAm dataAm);
+        Task<SourceLibAm> CreateSource(SourceLibAm dataAm);
+        Task CreateSources(List<SourceLibAm> dataAm);
     }
 }

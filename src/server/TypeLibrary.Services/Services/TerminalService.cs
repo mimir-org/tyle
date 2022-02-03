@@ -28,7 +28,7 @@ namespace TypeLibrary.Services.Services
         /// Get all terminals
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<TerminalDm> GetTerminals()
+        public IEnumerable<TerminalLibDm> GetTerminals()
         {
             return _terminalTypeRepository.GetAll()
                 //.Include(x => x.TerminalCategory)
@@ -42,7 +42,7 @@ namespace TypeLibrary.Services.Services
         /// Get all terminals
         /// </summary>
         /// <returns></returns>
-        public List<TerminalDm> GetTerminalsByCategory()
+        public List<TerminalLibDm> GetTerminalsByCategory()
         {
             var result = _terminalTypeRepository.GetAll()
                 .Include(x => x.Attributes)
@@ -57,9 +57,9 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="terminalAm"></param>
         /// <returns></returns>
-        public async Task<TerminalDm> CreateTerminalType(TerminalAm terminalAm)
+        public async Task<TerminalLibDm> CreateTerminalType(TerminalLibAm terminalAm)
         {
-            var data = await CreateTerminalTypes(new List<TerminalAm> { terminalAm });
+            var data = await CreateTerminalTypes(new List<TerminalLibAm> { terminalAm });
             return data.SingleOrDefault();
         }
 
@@ -68,17 +68,17 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="terminalAmList"></param>
         /// <returns></returns>
-        public async Task<List<TerminalDm>> CreateTerminalTypes(List<TerminalAm> terminalAmList)
+        public async Task<List<TerminalLibDm>> CreateTerminalTypes(List<TerminalLibAm> terminalAmList)
         {
             if (terminalAmList == null || !terminalAmList.Any())
-                return new List<TerminalDm>();
+                return new List<TerminalLibDm>();
 
-            var data = _mapper.Map<List<TerminalDm>>(terminalAmList);
+            var data = _mapper.Map<List<TerminalLibDm>>(terminalAmList);
             var existing = _terminalTypeRepository.GetAll().ToList();
             var notExisting = data.Where(x => existing.All(y => y.Name != x.Name)).ToList();
 
             if (!notExisting.Any())
-                return new List<TerminalDm>();
+                return new List<TerminalLibDm>();
 
             foreach (var entity in notExisting)
             {

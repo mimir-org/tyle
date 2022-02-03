@@ -26,37 +26,37 @@ namespace TypeLibrary.Services.Services
             _contextAccessor = contextAccessor;
         }
 
-        public Task<IEnumerable<LocationAm>> GetLocations()
+        public Task<IEnumerable<LocationLibAm>> GetLocations()
         {
             var dataList = _locationRepository.GetAll();
-            var dataAm = _mapper.Map<List<LocationAm>>(dataList);
-            return Task.FromResult<IEnumerable<LocationAm>>(dataAm);
+            var dataAm = _mapper.Map<List<LocationLibAm>>(dataList);
+            return Task.FromResult<IEnumerable<LocationLibAm>>(dataAm);
         }
 
-        public async Task<LocationAm> UpdateLocation(LocationAm dataAm)
+        public async Task<LocationLibAm> UpdateLocation(LocationLibAm dataAm)
         {
-            var data = _mapper.Map<LocationDm>(dataAm);
+            var data = _mapper.Map<LocationLibDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _locationRepository.Update(data);
             await _locationRepository.SaveAsync();
-            return _mapper.Map<LocationAm>(data);
+            return _mapper.Map<LocationLibAm>(data);
         }
 
-        public async Task<LocationAm> CreateLocation(LocationAm dataAm)
+        public async Task<LocationLibAm> CreateLocation(LocationLibAm dataAm)
         {
-            var data = _mapper.Map<LocationDm>(dataAm);
+            var data = _mapper.Map<LocationLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             data.Id = data.Key.CreateMd5();
             var createdData = await _locationRepository.CreateAsync(data);
             await _locationRepository.SaveAsync();
-            return _mapper.Map<LocationAm>(createdData.Entity);
+            return _mapper.Map<LocationLibAm>(createdData.Entity);
         }
 
-        public async Task CreateLocations(List<LocationAm> dataAm)
+        public async Task CreateLocations(List<LocationLibAm> dataAm)
         {
-            var dataList = _mapper.Map<List<LocationDm>>(dataAm);
+            var dataList = _mapper.Map<List<LocationLibDm>>(dataAm);
             var existing = _locationRepository.GetAll().ToList();
             var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
 

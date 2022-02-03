@@ -5,7 +5,7 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Data.Repositories
 {
-    public class TerminalRepository : GenericRepository<TypeLibraryDbContext, TerminalDm>, ITerminalRepository
+    public class TerminalRepository : GenericRepository<TypeLibraryDbContext, TerminalLibDm>, ITerminalRepository
     {
         public TerminalRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {

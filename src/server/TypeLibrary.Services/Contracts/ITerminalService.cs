@@ -8,9 +8,9 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface ITerminalService
     {
-        IEnumerable<TerminalDm> GetTerminals();
-        List<TerminalDm> GetTerminalsByCategory();
-        Task<TerminalDm> CreateTerminalType(TerminalAm terminalAm);
-        Task<List<TerminalDm>> CreateTerminalTypes(List<TerminalAm> terminalAmList);
+        IEnumerable<TerminalLibDm> GetTerminals();
+        List<TerminalLibDm> GetTerminalsByCategory();
+        Task<TerminalLibDm> CreateTerminalType(TerminalLibAm terminalAm);
+        Task<List<TerminalLibDm>> CreateTerminalTypes(List<TerminalLibAm> terminalAmList);
     }
 }

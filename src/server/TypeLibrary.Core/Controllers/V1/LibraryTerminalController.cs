@@ -40,7 +40,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<TerminalDm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<TerminalLibDm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public IActionResult GetTerminalTypes()
@@ -62,7 +62,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <returns></returns>
         [HttpGet("category")]
-        [ProducesResponseType(typeof(Dictionary<string, TerminalDm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Dictionary<string, TerminalLibDm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public IActionResult GetTerminalTypesByCategory()
@@ -85,12 +85,12 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="terminalAm"></param>
         /// <returns></returns>
         [HttpPost]
-        [ProducesResponseType(typeof(AttributeDm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AttributeLibDm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> CreateTerminalType([FromBody] TerminalAm terminalAm)
+        public async Task<IActionResult> CreateTerminalType([FromBody] TerminalLibAm terminalAm)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

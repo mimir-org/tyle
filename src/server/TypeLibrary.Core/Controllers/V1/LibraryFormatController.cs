@@ -32,7 +32,7 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<FormatAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<FormatLibAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public async Task<IActionResult> GetFormats()
@@ -50,10 +50,10 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(FormatAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(FormatLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateFormat([FromBody] FormatAm dataAm)
+        public async Task<IActionResult> UpdateFormat([FromBody] FormatLibAm dataAm)
         {
             try
             {
@@ -68,10 +68,10 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(FormatAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(FormatLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> CreateFormat([FromBody] FormatAm dataAm)
+        public async Task<IActionResult> CreateFormat([FromBody] FormatLibAm dataAm)
         {
             try
             {

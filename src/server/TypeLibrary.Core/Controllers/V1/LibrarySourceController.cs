@@ -32,7 +32,7 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<SourceAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<SourceLibAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public async Task<IActionResult> GetSources()
@@ -50,10 +50,10 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(SourceAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SourceLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateSource([FromBody] SourceAm dataAm)
+        public async Task<IActionResult> UpdateSource([FromBody] SourceLibAm dataAm)
         {
             try
             {
@@ -68,10 +68,10 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(SourceAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SourceLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> CreateSource([FromBody] SourceAm dataAm)
+        public async Task<IActionResult> CreateSource([FromBody] SourceLibAm dataAm)
         {
             try
             {

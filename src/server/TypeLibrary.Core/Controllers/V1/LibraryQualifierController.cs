@@ -32,7 +32,7 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<QualifierAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<QualifierLibAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public async Task<IActionResult> GetQualifiers()
@@ -50,10 +50,10 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(QualifierAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(QualifierLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateQualifier([FromBody] QualifierAm dataAm)
+        public async Task<IActionResult> UpdateQualifier([FromBody] QualifierLibAm dataAm)
         {
             try
             {
@@ -68,10 +68,10 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(QualifierAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(QualifierLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> CreateQualifier([FromBody] QualifierAm dataAm)
+        public async Task<IActionResult> CreateQualifier([FromBody] QualifierLibAm dataAm)
         {
             try
             {

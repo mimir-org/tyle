@@ -26,37 +26,37 @@ namespace TypeLibrary.Services.Services
             _contextAccessor = contextAccessor;
         }
 
-        public Task<IEnumerable<PurposeAm>> GetPurposes()
+        public Task<IEnumerable<PurposeLibAm>> GetPurposes()
         {
             var dataList = _purposeRepository.GetAll();
-            var dataAm = _mapper.Map<List<PurposeAm>>(dataList);
-            return Task.FromResult<IEnumerable<PurposeAm>>(dataAm);
+            var dataAm = _mapper.Map<List<PurposeLibAm>>(dataList);
+            return Task.FromResult<IEnumerable<PurposeLibAm>>(dataAm);
         }
 
-        public async Task<PurposeAm> UpdatePurpose(PurposeAm dataAm)
+        public async Task<PurposeLibAm> UpdatePurpose(PurposeLibAm dataAm)
         {
-            var data = _mapper.Map<PurposeDm>(dataAm);
+            var data = _mapper.Map<PurposeLibDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _purposeRepository.Update(data);
             await _purposeRepository.SaveAsync();
-            return _mapper.Map<PurposeAm>(data);
+            return _mapper.Map<PurposeLibAm>(data);
         }
 
-        public async Task<PurposeAm> CreatePurpose(PurposeAm dataAm)
+        public async Task<PurposeLibAm> CreatePurpose(PurposeLibAm dataAm)
         {
-            var data = _mapper.Map<PurposeDm>(dataAm);
+            var data = _mapper.Map<PurposeLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             data.Id = data.Key.CreateMd5();
             var createdData = await _purposeRepository.CreateAsync(data);
             await _purposeRepository.SaveAsync();
-            return _mapper.Map<PurposeAm>(createdData.Entity);
+            return _mapper.Map<PurposeLibAm>(createdData.Entity);
         }
 
-        public async Task CreatePurposes(List<PurposeAm> dataAm)
+        public async Task CreatePurposes(List<PurposeLibAm> dataAm)
         {
-            var dataList = _mapper.Map<List<PurposeDm>>(dataAm);
+            var dataList = _mapper.Map<List<PurposeLibDm>>(dataAm);
             var existing = _purposeRepository.GetAll().ToList();
             var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
 

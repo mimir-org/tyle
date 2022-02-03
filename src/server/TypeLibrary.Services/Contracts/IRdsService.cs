@@ -8,13 +8,13 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface IRdsService
     {
-        IEnumerable<RdsDm> GetRds(Aspect aspect);
-        IEnumerable<RdsDm> GetRds();
-        Task<RdsDm> CreateRds(RdsAm rdsAm);
-        Task<List<RdsDm>> CreateRdsAsync(List<RdsAm> createRds);
-        Task<IEnumerable<RdsCategoryAm>> GetRdsCategories();
-        Task<RdsCategoryAm> UpdateRdsCategory(RdsCategoryAm dataAm);
-        Task<RdsCategoryAm> CreateRdsCategory(RdsCategoryAm dataAm);
-        Task CreateRdsCategories(List<RdsCategoryAm> dataAm);
+        IEnumerable<RdsLibDm> GetRds(Aspect aspect);
+        IEnumerable<RdsLibDm> GetRds();
+        Task<RdsLibDm> CreateRds(RdsLibAm rdsAm);
+        Task<List<RdsLibDm>> CreateRdsAsync(List<RdsLibAm> createRds);
+        Task<IEnumerable<RdsCategoryLibAm>> GetRdsCategories();
+        Task<RdsCategoryLibAm> UpdateRdsCategory(RdsCategoryLibAm dataAm);
+        Task<RdsCategoryLibAm> CreateRdsCategory(RdsCategoryLibAm dataAm);
+        Task CreateRdsCategories(List<RdsCategoryLibAm> dataAm);
     }
 }

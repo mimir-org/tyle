@@ -5,7 +5,7 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Data.Repositories
 {
-    public class SimpleRepository : GenericRepository<TypeLibraryDbContext, SimpleDm>, ISimpleRepository
+    public class SimpleRepository : GenericRepository<TypeLibraryDbContext, SimpleLibDm>, ISimpleRepository
     {
         public SimpleRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {

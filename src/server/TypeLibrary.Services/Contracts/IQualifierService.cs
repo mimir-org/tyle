@@ -6,9 +6,9 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface IQualifierService
     {
-        Task<IEnumerable<QualifierAm>> GetQualifiers();
-        Task<QualifierAm> UpdateQualifier(QualifierAm dataAm);
-        Task<QualifierAm> CreateQualifier(QualifierAm dataAm);
-        Task CreateQualifiers(List<QualifierAm> dataAm);
+        Task<IEnumerable<QualifierLibAm>> GetQualifiers();
+        Task<QualifierLibAm> UpdateQualifier(QualifierLibAm dataAm);
+        Task<QualifierLibAm> CreateQualifier(QualifierLibAm dataAm);
+        Task CreateQualifiers(List<QualifierLibAm> dataAm);
     }
 }

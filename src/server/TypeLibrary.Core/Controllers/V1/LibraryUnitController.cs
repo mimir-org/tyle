@@ -32,7 +32,7 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<UnitAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<UnitLibAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public async Task<IActionResult> GetUnits()
@@ -50,10 +50,10 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(UnitAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(UnitLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateUnit([FromBody] UnitAm dataAm)
+        public async Task<IActionResult> UpdateUnit([FromBody] UnitLibAm dataAm)
         {
             try
             {
@@ -68,10 +68,10 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(UnitAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(UnitLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> CreateUnit([FromBody] UnitAm dataAm)
+        public async Task<IActionResult> CreateUnit([FromBody] UnitLibAm dataAm)
         {
             try
             {

@@ -4,9 +4,9 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class SourceConfiguration : IEntityTypeConfiguration<SourceDm>
+    public class SourceConfiguration : IEntityTypeConfiguration<SourceLibDm>
     {
-        public void Configure(EntityTypeBuilder<SourceDm> builder)
+        public void Configure(EntityTypeBuilder<SourceLibDm> builder)
         {
             builder.ToTable("Source");
             builder.HasKey(x => x.Id);

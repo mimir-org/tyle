@@ -33,7 +33,7 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="aspect"></param>
         /// <returns></returns>
-        public IEnumerable<AttributeDm> GetAttributes(Aspect aspect)
+        public IEnumerable<AttributeLibDm> GetAttributes(Aspect aspect)
         {
             var all = _attributeRepository.GetAll()
                 .Include(x => x.QualifierDm)
@@ -52,7 +52,7 @@ namespace TypeLibrary.Services.Services
        /// Get all attributes
        /// </summary>
        /// <returns></returns>
-        public IEnumerable<AttributeDm> GetAttributes()
+        public IEnumerable<AttributeLibDm> GetAttributes()
         {
             var all = _attributeRepository.GetAll()
                 .Include(x => x.QualifierDm)
@@ -70,9 +70,9 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="attributeAm"></param>
         /// <returns></returns>
-        public async Task<AttributeDm> CreateAttribute(AttributeAm attributeAm)
+        public async Task<AttributeLibDm> CreateAttribute(AttributeLibAm attributeAm)
         {
-            var data = await CreateAttributes(new List<AttributeAm> { attributeAm });
+            var data = await CreateAttributes(new List<AttributeLibAm> { attributeAm });
             return data.SingleOrDefault();
         }
 
@@ -81,17 +81,17 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="attributeAmList"></param>
         /// <returns></returns>
-        public async Task<ICollection<AttributeDm>> CreateAttributes(List<AttributeAm> attributeAmList)
+        public async Task<ICollection<AttributeLibDm>> CreateAttributes(List<AttributeLibAm> attributeAmList)
         {
             if (attributeAmList == null || !attributeAmList.Any())
-                return new List<AttributeDm>();
+                return new List<AttributeLibDm>();
 
-            var data = _mapper.Map<List<AttributeDm>>(attributeAmList);
+            var data = _mapper.Map<List<AttributeLibDm>>(attributeAmList);
             var existing = _attributeRepository.GetAll().ToList();
             var notExisting = data.Where(x => existing.All(y => y.Id != x.Id)).ToList();
 
             if (!notExisting.Any())
-                return new List<AttributeDm>();
+                return new List<AttributeLibDm>();
 
             foreach (var entity in notExisting)
             {
@@ -121,10 +121,10 @@ namespace TypeLibrary.Services.Services
         /// Get predefined attributePredefinedList
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<AttributePredefinedCm> GetAttributesPredefined()
+        public IEnumerable<AttributePredefinedLibCm> GetAttributesPredefined()
         {
             var all = _attributePredefinedRepository.GetAll().ToList();
-            return _mapper.Map<List<AttributePredefinedCm>>(all);
+            return _mapper.Map<List<AttributePredefinedLibCm>>(all);
         }
 
         /// <summary>
@@ -132,16 +132,16 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="attributePredefinedList"></param>
         /// <returns></returns>
-        public async Task<List<AttributePredefinedDm>> CreateAttributesPredefined(List<AttributePredefinedDm> attributePredefinedList)
+        public async Task<List<AttributePredefinedLibDm>> CreateAttributesPredefined(List<AttributePredefinedLibDm> attributePredefinedList)
         {
             if (attributePredefinedList == null || !attributePredefinedList.Any())
-                return new List<AttributePredefinedDm>();
+                return new List<AttributePredefinedLibDm>();
 
             var existing = _attributePredefinedRepository.GetAll().ToList();
             var notExisting = attributePredefinedList.Where(x => existing.All(y => y.Key != x.Key)).ToList();
 
             if (!notExisting.Any())
-                return new List<AttributePredefinedDm>();
+                return new List<AttributePredefinedLibDm>();
 
             foreach (var entity in notExisting)
             {

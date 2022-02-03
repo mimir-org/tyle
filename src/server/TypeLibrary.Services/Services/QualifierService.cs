@@ -25,37 +25,37 @@ namespace TypeLibrary.Services.Services
             _qualifierRepository = qualifierRepository;
             _contextAccessor = contextAccessor;
         }
-        public Task<IEnumerable<QualifierAm>> GetQualifiers()
+        public Task<IEnumerable<QualifierLibAm>> GetQualifiers()
         {
             var dataList = _qualifierRepository.GetAll();
-            var dataAm = _mapper.Map<List<QualifierAm>>(dataList);
-            return Task.FromResult<IEnumerable<QualifierAm>>(dataAm);
+            var dataAm = _mapper.Map<List<QualifierLibAm>>(dataList);
+            return Task.FromResult<IEnumerable<QualifierLibAm>>(dataAm);
         }
 
-        public async Task<QualifierAm> UpdateQualifier(QualifierAm dataAm)
+        public async Task<QualifierLibAm> UpdateQualifier(QualifierLibAm dataAm)
         {
-            var data = _mapper.Map<QualifierDm>(dataAm);
+            var data = _mapper.Map<QualifierLibDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _qualifierRepository.Update(data);
             await _qualifierRepository.SaveAsync();
-            return _mapper.Map<QualifierAm>(data);
+            return _mapper.Map<QualifierLibAm>(data);
         }
 
-        public async Task<QualifierAm> CreateQualifier(QualifierAm dataAm)
+        public async Task<QualifierLibAm> CreateQualifier(QualifierLibAm dataAm)
         {
-            var data = _mapper.Map<QualifierDm>(dataAm);
+            var data = _mapper.Map<QualifierLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             data.Id = data.Key.CreateMd5();
             var createdData = await _qualifierRepository.CreateAsync(data);
             await _qualifierRepository.SaveAsync();
-            return _mapper.Map<QualifierAm>(createdData.Entity);
+            return _mapper.Map<QualifierLibAm>(createdData.Entity);
         }
 
-        public async Task CreateQualifiers(List<QualifierAm> dataAm)
+        public async Task CreateQualifiers(List<QualifierLibAm> dataAm)
         {
-            var dataList = _mapper.Map<List<QualifierDm>>(dataAm);
+            var dataList = _mapper.Map<List<QualifierLibDm>>(dataAm);
             var existing = _qualifierRepository.GetAll().ToList();
             var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
 

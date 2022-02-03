@@ -32,7 +32,7 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<LocationAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<LocationLibAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public async Task<IActionResult> GetLocations()
@@ -50,10 +50,10 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(LocationAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(LocationLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateLocation([FromBody] LocationAm dataAm)
+        public async Task<IActionResult> UpdateLocation([FromBody] LocationLibAm dataAm)
         {
             try
             {
@@ -68,10 +68,10 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(LocationAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(LocationLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> CreateLocation([FromBody] LocationAm dataAm)
+        public async Task<IActionResult> CreateLocation([FromBody] LocationLibAm dataAm)
         {
             try
             {

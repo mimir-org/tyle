@@ -6,9 +6,9 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface IUnitService
     {
-        Task<IEnumerable<UnitAm>> GetUnits();
-        Task<UnitAm> UpdateUnit(UnitAm dataAm);
-        Task<UnitAm> CreateUnit(UnitAm dataAm);
-        Task CreateUnits(List<UnitAm> dataAm);
+        Task<IEnumerable<UnitLibAm>> GetUnits();
+        Task<UnitLibAm> UpdateUnit(UnitLibAm dataAm);
+        Task<UnitLibAm> CreateUnit(UnitLibAm dataAm);
+        Task CreateUnits(List<UnitLibAm> dataAm);
     }
 }

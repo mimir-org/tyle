@@ -5,7 +5,7 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Data.Repositories
 {
-    public class NodeRepository : GenericRepository<TypeLibraryDbContext, NodeDm>, INodeRepository
+    public class NodeRepository : GenericRepository<TypeLibraryDbContext, NodeLibDm>, INodeRepository
     {
         public NodeRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {

@@ -32,7 +32,7 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<ConditionAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<ConditionLibAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public async Task<IActionResult> GetConditions()
@@ -50,10 +50,10 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(ConditionAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ConditionLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateCondition([FromBody] ConditionAm dataAm)
+        public async Task<IActionResult> UpdateCondition([FromBody] ConditionLibAm dataAm)
         {
             try
             {
@@ -68,10 +68,10 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(ConditionAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ConditionLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> CreateCondition([FromBody] ConditionAm dataAm)
+        public async Task<IActionResult> CreateCondition([FromBody] ConditionLibAm dataAm)
         {
             try
             {

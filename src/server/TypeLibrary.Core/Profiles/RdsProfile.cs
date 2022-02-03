@@ -9,7 +9,7 @@ namespace TypeLibrary.Core.Profiles
     {
         public RdsProfile()
         {
-            CreateMap<RdsAm, RdsDm>()
+            CreateMap<RdsLibAm, RdsLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Key.CreateMd5()))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Code))

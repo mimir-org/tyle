@@ -39,7 +39,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<BlobDataAm>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ICollection<BlobDataLibAm>), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -65,13 +65,13 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="blobData"></param>
         /// <returns></returns>
         [HttpPost]
-        [ProducesResponseType(typeof(BlobDm), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(BlobLibDm), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> CreateOrUpdateBlob([FromBody] BlobDataAm blobData)
+        public async Task<IActionResult> CreateOrUpdateBlob([FromBody] BlobDataLibAm blobData)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

@@ -26,37 +26,37 @@ namespace TypeLibrary.Services.Services
             _contextAccessor = contextAccessor;
         }
 
-        public Task<IEnumerable<UnitAm>> GetUnits()
+        public Task<IEnumerable<UnitLibAm>> GetUnits()
         {
             var dataList = _unitRepository.GetAll();
-            var dataAm = _mapper.Map<List<UnitAm>>(dataList);
-            return Task.FromResult<IEnumerable<UnitAm>>(dataAm);
+            var dataAm = _mapper.Map<List<UnitLibAm>>(dataList);
+            return Task.FromResult<IEnumerable<UnitLibAm>>(dataAm);
         }
 
-        public async Task<UnitAm> UpdateUnit(UnitAm dataAm)
+        public async Task<UnitLibAm> UpdateUnit(UnitLibAm dataAm)
         {
-            var data = _mapper.Map<UnitDm>(dataAm);
+            var data = _mapper.Map<UnitLibDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _unitRepository.Update(data);
             await _unitRepository.SaveAsync();
-            return _mapper.Map<UnitAm>(data);
+            return _mapper.Map<UnitLibAm>(data);
         }
 
-        public async Task<UnitAm> CreateUnit(UnitAm dataAm)
+        public async Task<UnitLibAm> CreateUnit(UnitLibAm dataAm)
         {
-            var data = _mapper.Map<UnitDm>(dataAm);
+            var data = _mapper.Map<UnitLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             data.Id = data.Key.CreateMd5();
             var createdData = await _unitRepository.CreateAsync(data);
             await _unitRepository.SaveAsync();
-            return _mapper.Map<UnitAm>(createdData.Entity);
+            return _mapper.Map<UnitLibAm>(createdData.Entity);
         }
 
-        public async Task CreateUnits(List<UnitAm> dataAm)
+        public async Task CreateUnits(List<UnitLibAm> dataAm)
         {
-            var dataList = _mapper.Map<List<UnitDm>>(dataAm);
+            var dataList = _mapper.Map<List<UnitLibDm>>(dataAm);
             var existing = _unitRepository.GetAll().ToList();
             var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
 

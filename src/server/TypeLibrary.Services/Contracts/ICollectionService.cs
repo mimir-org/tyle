@@ -6,9 +6,9 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface ICollectionService
     {
-        Task<IEnumerable<CollectionAm>> GetCollections();
-        Task<CollectionAm> UpdateCollection(CollectionAm dataAm);
-        Task<CollectionAm> CreateCollection(CollectionAm dataAm);
-        Task CreateCollections(List<CollectionAm> dataAm);
+        Task<IEnumerable<CollectionLibAm>> GetCollections();
+        Task<CollectionLibAm> UpdateCollection(CollectionLibAm dataAm);
+        Task<CollectionLibAm> CreateCollection(CollectionLibAm dataAm);
+        Task CreateCollections(List<CollectionLibAm> dataAm);
     }
 }

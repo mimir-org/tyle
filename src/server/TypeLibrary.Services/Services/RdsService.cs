@@ -34,7 +34,7 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="aspect"></param>
         /// <returns></returns>
-        public IEnumerable<RdsDm> GetRds(Aspect aspect)
+        public IEnumerable<RdsLibDm> GetRds(Aspect aspect)
         {
             var all = _rdsRepository.GetAll().Include(x => x.RdsCategoryDm).ToList();
             return aspect == Aspect.NotSet ?
@@ -46,7 +46,7 @@ namespace TypeLibrary.Services.Services
        /// Get all RDS
        /// </summary>
        /// <returns></returns>
-        public IEnumerable<RdsDm> GetRds()
+        public IEnumerable<RdsLibDm> GetRds()
         {
             var all = _rdsRepository.GetAll().Include(x => x.RdsCategoryDm).ToList();
             return all;
@@ -57,9 +57,9 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="rdsAm"></param>
         /// <returns></returns>
-        public async Task<RdsDm> CreateRds(RdsAm rdsAm)
+        public async Task<RdsLibDm> CreateRds(RdsLibAm rdsAm)
         {
-            var data = await CreateRdsAsync(new List<RdsAm> { rdsAm });
+            var data = await CreateRdsAsync(new List<RdsLibAm> { rdsAm });
             return data.SingleOrDefault();
         }
 
@@ -68,18 +68,18 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="createRds"></param>
         /// <returns></returns>
-        public async Task<List<RdsDm>> CreateRdsAsync(List<RdsAm> createRds)
+        public async Task<List<RdsLibDm>> CreateRdsAsync(List<RdsLibAm> createRds)
         {
             if (createRds == null || !createRds.Any())
-                return new List<RdsDm>();
+                return new List<RdsLibDm>();
 
-            var data = _mapper.Map<List<RdsDm>>(createRds);
+            var data = _mapper.Map<List<RdsLibDm>>(createRds);
 
             var existing = _rdsRepository.GetAll().ToList();
             var notExisting = data.Where(x => existing.All(y => y.Id != x.Id)).ToList();
 
             if (!notExisting.Any())
-                return new List<RdsDm>();
+                return new List<RdsLibDm>();
 
             foreach (var entity in notExisting)
             {
@@ -89,37 +89,37 @@ namespace TypeLibrary.Services.Services
             return data;
         }
 
-        public Task<IEnumerable<RdsCategoryAm>> GetRdsCategories()
+        public Task<IEnumerable<RdsCategoryLibAm>> GetRdsCategories()
         {
             var dataList = _rdsCategoryRepository.GetAll();
-            var dataAm = _mapper.Map<List<RdsCategoryAm>>(dataList);
-            return Task.FromResult<IEnumerable<RdsCategoryAm>>(dataAm);
+            var dataAm = _mapper.Map<List<RdsCategoryLibAm>>(dataList);
+            return Task.FromResult<IEnumerable<RdsCategoryLibAm>>(dataAm);
         }
 
-        public async Task<RdsCategoryAm> UpdateRdsCategory(RdsCategoryAm dataAm)
+        public async Task<RdsCategoryLibAm> UpdateRdsCategory(RdsCategoryLibAm dataAm)
         {
-            var data = _mapper.Map<RdsCategoryDm>(dataAm);
+            var data = _mapper.Map<RdsCategoryLibDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _rdsCategoryRepository.Update(data);
             await _rdsCategoryRepository.SaveAsync();
-            return _mapper.Map<RdsCategoryAm>(data);
+            return _mapper.Map<RdsCategoryLibAm>(data);
         }
 
-        public async Task<RdsCategoryAm> CreateRdsCategory(RdsCategoryAm dataAm)
+        public async Task<RdsCategoryLibAm> CreateRdsCategory(RdsCategoryLibAm dataAm)
         {
-            var data = _mapper.Map<RdsCategoryDm>(dataAm);
+            var data = _mapper.Map<RdsCategoryLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             data.Id = data.Key.CreateMd5();
             var createdData = await _rdsCategoryRepository.CreateAsync(data);
             await _rdsCategoryRepository.SaveAsync();
-            return _mapper.Map<RdsCategoryAm>(createdData.Entity);
+            return _mapper.Map<RdsCategoryLibAm>(createdData.Entity);
         }
 
-        public async Task CreateRdsCategories(List<RdsCategoryAm> dataAm)
+        public async Task CreateRdsCategories(List<RdsCategoryLibAm> dataAm)
         {
-            var dataList = _mapper.Map<List<RdsCategoryDm>>(dataAm);
+            var dataList = _mapper.Map<List<RdsCategoryLibDm>>(dataAm);
             var existing = _rdsCategoryRepository.GetAll().ToList();
             var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
 

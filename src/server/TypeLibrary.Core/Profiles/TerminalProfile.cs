@@ -10,7 +10,7 @@ namespace TypeLibrary.Core.Profiles
     {
         public TerminalProfile()
         {
-            CreateMap<TerminalAm, TerminalDm>()
+            CreateMap<TerminalLibAm, TerminalLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Key.CreateMd5()))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))

@@ -45,7 +45,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="name"></param>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(TypeCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(TypeLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -73,7 +73,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="libraryFilter"></param>
         /// <returns></returns>
         [HttpGet("{id}/{libraryFilter}")]
-        [ProducesResponseType(typeof(TypeAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(TypeLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //[Authorize(Policy = "Read")]
@@ -110,11 +110,11 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="typeAm"></param>
         /// <returns></returns>
         [HttpPost]
-        [ProducesResponseType(typeof(TypeDm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(TypeLibDm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> CreateType([FromBody] TypeAm typeAm)
+        public async Task<IActionResult> CreateType([FromBody] TypeLibAm typeAm)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -128,15 +128,15 @@ namespace TypeLibrary.Core.Controllers.V1
                 switch (typeAm.ObjectType)
                 {
                     case ObjectType.ObjectBlock:
-                        var ob = await _typeService.CreateType<NodeCm>(typeAm);
+                        var ob = await _typeService.CreateType<NodeLibCm>(typeAm);
                         return Ok(ob);
 
                     case ObjectType.Transport:
-                        var ln = await _typeService.CreateType<TransportCm>(typeAm);
+                        var ln = await _typeService.CreateType<TransportLibCm>(typeAm);
                         return Ok(ln);
 
                     case ObjectType.Interface:
-                        var libraryInterfaceItem = await _typeService.CreateType<InterfaceCm>(typeAm);
+                        var libraryInterfaceItem = await _typeService.CreateType<InterfaceLibCm>(typeAm);
                         return Ok(libraryInterfaceItem);
 
                     default:
@@ -174,11 +174,11 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="updateMinorVersion"></param>
         /// <returns></returns>
         [HttpPost("{id}")]
-        [ProducesResponseType(typeof(TypeDm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(TypeLibDm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateType(string id, [FromBody] TypeAm typeAm,
+        public async Task<IActionResult> UpdateType(string id, [FromBody] TypeLibAm typeAm,
             bool updateMajorVersion = false, bool updateMinorVersion = false)
         {
             if (!ModelState.IsValid)
@@ -189,15 +189,15 @@ namespace TypeLibrary.Core.Controllers.V1
                 switch (typeAm.ObjectType)
                 {
                     case ObjectType.ObjectBlock:
-                        var ob = await _typeService.UpdateType<NodeCm>(id, typeAm, updateMajorVersion, updateMinorVersion);
+                        var ob = await _typeService.UpdateType<NodeLibCm>(id, typeAm, updateMajorVersion, updateMinorVersion);
                         return Ok(ob);
 
                     case ObjectType.Transport:
-                        var ln = await _typeService.UpdateType<TransportCm>(id, typeAm, updateMajorVersion, updateMinorVersion);
+                        var ln = await _typeService.UpdateType<TransportLibCm>(id, typeAm, updateMajorVersion, updateMinorVersion);
                         return Ok(ln);
 
                     case ObjectType.Interface:
-                        var interfaceCm = await _typeService.UpdateType<InterfaceCm>(id, typeAm, updateMajorVersion, updateMinorVersion);
+                        var interfaceCm = await _typeService.UpdateType<InterfaceLibCm>(id, typeAm, updateMajorVersion, updateMinorVersion);
                         return Ok(interfaceCm);
 
                     default:
@@ -263,7 +263,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <returns></returns>
         [HttpGet("subProject")]
-        [ProducesResponseType(typeof(ICollection<SubProjectCm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<SubProjectLibCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -292,7 +292,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <returns></returns>
         [HttpGet("node")]
-        [ProducesResponseType(typeof(ICollection<NodeCm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<NodeLibCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -321,7 +321,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <returns></returns>
         [HttpGet("transport")]
-        [ProducesResponseType(typeof(ICollection<TransportCm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<TransportLibCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -350,7 +350,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <returns></returns>
         [HttpGet("interface")]
-        [ProducesResponseType(typeof(ICollection<InterfaceCm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<InterfaceLibCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -379,7 +379,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <returns></returns>
         [HttpGet("simple")]
-        [ProducesResponseType(typeof(IEnumerable<SimpleDm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<SimpleLibDm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         //[Authorize(Policy = "Read")]
@@ -402,12 +402,12 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <returns></returns>
         [HttpPost("simple")]
-        [ProducesResponseType(typeof(IEnumerable<TypeDm>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(IEnumerable<TypeLibDm>), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> CreateSimple(SimpleAm simpleAm)
+        public async Task<IActionResult> CreateSimple(SimpleLibAm simpleAm)
         {
             try
             {

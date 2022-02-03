@@ -32,7 +32,7 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<PurposeAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<PurposeLibAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public async Task<IActionResult> GetPurposes()
@@ -50,10 +50,10 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(PurposeAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PurposeLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdatePurpose([FromBody] PurposeAm dataAm)
+        public async Task<IActionResult> UpdatePurpose([FromBody] PurposeLibAm dataAm)
         {
             try
             {
@@ -68,10 +68,10 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(PurposeAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PurposeLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> CreatePurpose([FromBody] PurposeAm dataAm)
+        public async Task<IActionResult> CreatePurpose([FromBody] PurposeLibAm dataAm)
         {
             try
             {

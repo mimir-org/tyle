@@ -4,9 +4,9 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class CollectionConfiguration : IEntityTypeConfiguration<CollectionDm>
+    public class CollectionConfiguration : IEntityTypeConfiguration<CollectionLibDm>
     {
-        public void Configure(EntityTypeBuilder<CollectionDm> builder)
+        public void Configure(EntityTypeBuilder<CollectionLibDm> builder)
         {
             builder.ToTable("Collection");
             builder.HasKey(x => x.Id);

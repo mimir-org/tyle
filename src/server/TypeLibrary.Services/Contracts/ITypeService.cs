@@ -9,23 +9,23 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface ITypeService
     {
-        Task<TypeDm> GetTypeById(string id, bool ignoreNotFound = false);
-        IEnumerable<TypeAm> GetAllTypes();
-        Task<IEnumerable<TypeDm>> CreateTypes(ICollection<TypeAm> typeAmList);
-        Task<T> CreateType<T>(TypeAm typeAm) where T : class, new();
-        Task<T> UpdateType<T>(string id, TypeAm typeAm, bool updateMajorVersion, bool updateMinorVersion) where T : class, new();
+        Task<TypeLibDm> GetTypeById(string id, bool ignoreNotFound = false);
+        IEnumerable<TypeLibAm> GetAllTypes();
+        Task<IEnumerable<TypeLibDm>> CreateTypes(ICollection<TypeLibAm> typeAmList);
+        Task<T> CreateType<T>(TypeLibAm typeAm) where T : class, new();
+        Task<T> UpdateType<T>(string id, TypeLibAm typeAm, bool updateMajorVersion, bool updateMinorVersion) where T : class, new();
         Task DeleteType(string id);
-        Task<TypeAm> ConvertToCreateType(string id, LibraryFilter @enum);
-        Task<SimpleDm> CreateSimpleType(SimpleAm simpleAm);
-        Task CreateSimpleTypes(ICollection<SimpleAm> simpleAmList);
-        IEnumerable<SimpleDm> GetSimpleTypes();
+        Task<TypeLibAm> ConvertToCreateType(string id, LibraryFilter @enum);
+        Task<SimpleLibDm> CreateSimpleType(SimpleLibAm simpleAm);
+        Task CreateSimpleTypes(ICollection<SimpleLibAm> simpleAmList);
+        IEnumerable<SimpleLibDm> GetSimpleTypes();
         void ClearAllChangeTracker();
 
-        Task<TypeCm> GetType(string searchString);
-        Task<IEnumerable<NodeCm>> GetNodes();
-        Task<IEnumerable<TransportCm>> GetTransports();
-        Task<IEnumerable<InterfaceCm>> GetInterfaces();
-        Task<IEnumerable<SubProjectCm>> GetSubProjects(string searchString = null);
+        Task<TypeLibCm> GetType(string searchString);
+        Task<IEnumerable<NodeLibCm>> GetNodes();
+        Task<IEnumerable<TransportLibCm>> GetTransports();
+        Task<IEnumerable<InterfaceLibCm>> GetInterfaces();
+        Task<IEnumerable<SubProjectLibCm>> GetSubProjects(string searchString = null);
 
     }
 }

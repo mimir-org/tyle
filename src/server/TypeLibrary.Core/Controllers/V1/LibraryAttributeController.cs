@@ -42,7 +42,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="aspect"></param>
         /// <returns></returns>
         [HttpGet("{aspectEnumEnum}")]
-        [ProducesResponseType(typeof(ICollection<AttributeDm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<AttributeLibDm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public IActionResult GetAttributes(Aspect aspect)
@@ -64,7 +64,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<AttributeDm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<AttributeLibDm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public IActionResult GetAttributes()
@@ -86,7 +86,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <returns></returns>
         [HttpGet("predefined")]
-        [ProducesResponseType(typeof(ICollection<AttributePredefinedCm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<AttributePredefinedLibCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public IActionResult GetAttributesPredefined()
@@ -109,12 +109,12 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="attributeAm"></param>
         /// <returns></returns>
         [HttpPost]
-        [ProducesResponseType(typeof(AttributeDm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AttributeLibDm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> CreateAttribute([FromBody] AttributeAm attributeAm)
+        public async Task<IActionResult> CreateAttribute([FromBody] AttributeLibAm attributeAm)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

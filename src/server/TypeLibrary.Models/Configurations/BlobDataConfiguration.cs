@@ -4,9 +4,9 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class BlobDataConfiguration : IEntityTypeConfiguration<BlobDm>
+    public class BlobDataConfiguration : IEntityTypeConfiguration<BlobLibDm>
     {
-        public void Configure(EntityTypeBuilder<BlobDm> builder)
+        public void Configure(EntityTypeBuilder<BlobLibDm> builder)
         {
             builder.HasKey(x => x.Id);
             builder.ToTable("Blob");

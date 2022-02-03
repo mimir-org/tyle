@@ -40,7 +40,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="aspect"></param>
         /// <returns></returns>
         [HttpGet("{aspectEnumEnum}")]
-        [ProducesResponseType(typeof(ICollection<RdsDm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<RdsLibDm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public IActionResult GetRdsCodes(Aspect aspect)
@@ -62,7 +62,7 @@ namespace TypeLibrary.Core.Controllers.V1
        /// </summary>
        /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<RdsDm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<RdsLibDm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public IActionResult GetRdsCodes()
@@ -80,7 +80,7 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpGet("category")]
-        [ProducesResponseType(typeof(ICollection<RdsCategoryAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<RdsCategoryLibAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public async Task<IActionResult> GetRdsCategories()
@@ -98,10 +98,10 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPut("category")]
-        [ProducesResponseType(typeof(RdsCategoryAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RdsCategoryLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateRdsCategory([FromBody] RdsCategoryAm dataAm)
+        public async Task<IActionResult> UpdateRdsCategory([FromBody] RdsCategoryLibAm dataAm)
         {
             try
             {
@@ -116,10 +116,10 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPost("category")]
-        [ProducesResponseType(typeof(RdsCategoryAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RdsCategoryLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> CreateRdsCategory([FromBody] RdsCategoryAm dataAm)
+        public async Task<IActionResult> CreateRdsCategory([FromBody] RdsCategoryLibAm dataAm)
         {
             try
             {

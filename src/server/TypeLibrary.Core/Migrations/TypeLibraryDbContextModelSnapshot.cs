@@ -127,7 +127,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Type_Collection", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.AttributeDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.AttributeLibDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -154,7 +154,7 @@ namespace TypeLibrary.Core.Migrations
                     b.Property<string>("FormatId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("InterfaceDmId")
+                    b.Property<string>("InterfaceLibDmId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("QualifierId")
@@ -182,7 +182,7 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasIndex("FormatId");
 
-                    b.HasIndex("InterfaceDmId");
+                    b.HasIndex("InterfaceLibDmId");
 
                     b.HasIndex("QualifierId");
 
@@ -191,7 +191,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Attribute", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.AttributePredefinedDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.AttributePredefinedLibDm", b =>
                 {
                     b.Property<string>("Key")
                         .HasColumnType("nvarchar(450)")
@@ -210,7 +210,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("AttributePredefined", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.BlobDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.BlobLibDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -236,7 +236,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Blob", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.CollectionDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.CollectionLibDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -277,7 +277,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Collection", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.ConditionDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.ConditionLibDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -318,7 +318,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Condition", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.FormatDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.FormatLibDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -359,7 +359,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Format", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.LocationDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.LocationLibDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -411,7 +411,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Location", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.NodeTerminalDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.NodeTerminalLibDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -443,7 +443,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Node_Terminal", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.PurposeDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.PurposeLibDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -489,7 +489,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Purpose", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.QualifierDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.QualifierLibDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -530,7 +530,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Qualifier", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.RdsCategoryDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.RdsCategoryLibDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -571,7 +571,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("RdsCategory", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.RdsDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.RdsLibDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -606,7 +606,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Rds", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.SimpleDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.SimpleLibDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -630,7 +630,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Simple", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.SourceDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.SourceLibDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -671,7 +671,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Source", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.TerminalDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.TerminalLibDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -703,7 +703,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Terminal", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.TypeDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.TypeLibDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -782,10 +782,10 @@ namespace TypeLibrary.Core.Migrations
 
                     b.ToTable("Type", (string)null);
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("TypeDm");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("TypeLibDm");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.UnitDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.UnitLibDm", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)")
@@ -826,9 +826,9 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Unit", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.InterfaceDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.InterfaceLibDm", b =>
                 {
-                    b.HasBaseType("TypeLibrary.Models.Models.Data.TypeDm");
+                    b.HasBaseType("TypeLibrary.Models.Models.Data.TypeLibDm");
 
                     b.Property<string>("TerminalId")
                         .HasColumnType("nvarchar(450)")
@@ -836,12 +836,12 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasIndex("TerminalId");
 
-                    b.HasDiscriminator().HasValue("InterfaceDm");
+                    b.HasDiscriminator().HasValue("InterfaceLibDm");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.NodeDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.NodeLibDm", b =>
                 {
-                    b.HasBaseType("TypeLibrary.Models.Models.Data.TypeDm");
+                    b.HasBaseType("TypeLibrary.Models.Models.Data.TypeLibDm");
 
                     b.Property<string>("LocationType")
                         .HasColumnType("nvarchar(max)");
@@ -852,12 +852,12 @@ namespace TypeLibrary.Core.Migrations
                     b.Property<string>("SymbolId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("NodeDm");
+                    b.HasDiscriminator().HasValue("NodeLibDm");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.TransportDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.TransportLibDm", b =>
                 {
-                    b.HasBaseType("TypeLibrary.Models.Models.Data.TypeDm");
+                    b.HasBaseType("TypeLibrary.Models.Models.Data.TypeLibDm");
 
                     b.Property<string>("TerminalId")
                         .HasColumnType("nvarchar(450)")
@@ -865,18 +865,18 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasIndex("TerminalId");
 
-                    b.HasDiscriminator().HasValue("TransportDm");
+                    b.HasDiscriminator().HasValue("TransportLibDm");
                 });
 
             modelBuilder.Entity("Attribute_Unit", b =>
                 {
-                    b.HasOne("TypeLibrary.Models.Models.Data.AttributeDm", null)
+                    b.HasOne("TypeLibrary.Models.Models.Data.AttributeLibDm", null)
                         .WithMany()
                         .HasForeignKey("AttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TypeLibrary.Models.Models.Data.UnitDm", null)
+                    b.HasOne("TypeLibrary.Models.Models.Data.UnitLibDm", null)
                         .WithMany()
                         .HasForeignKey("UnitId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -885,13 +885,13 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("Node_Attribute", b =>
                 {
-                    b.HasOne("TypeLibrary.Models.Models.Data.AttributeDm", null)
+                    b.HasOne("TypeLibrary.Models.Models.Data.AttributeLibDm", null)
                         .WithMany()
                         .HasForeignKey("AttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TypeLibrary.Models.Models.Data.NodeDm", null)
+                    b.HasOne("TypeLibrary.Models.Models.Data.NodeLibDm", null)
                         .WithMany()
                         .HasForeignKey("NodeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -900,13 +900,13 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("Simple_Attribute", b =>
                 {
-                    b.HasOne("TypeLibrary.Models.Models.Data.AttributeDm", null)
+                    b.HasOne("TypeLibrary.Models.Models.Data.AttributeLibDm", null)
                         .WithMany()
                         .HasForeignKey("AttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TypeLibrary.Models.Models.Data.SimpleDm", null)
+                    b.HasOne("TypeLibrary.Models.Models.Data.SimpleLibDm", null)
                         .WithMany()
                         .HasForeignKey("SimpleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -915,13 +915,13 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("Simple_Node", b =>
                 {
-                    b.HasOne("TypeLibrary.Models.Models.Data.NodeDm", null)
+                    b.HasOne("TypeLibrary.Models.Models.Data.NodeLibDm", null)
                         .WithMany()
                         .HasForeignKey("NodeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TypeLibrary.Models.Models.Data.SimpleDm", null)
+                    b.HasOne("TypeLibrary.Models.Models.Data.SimpleLibDm", null)
                         .WithMany()
                         .HasForeignKey("SimpleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -930,13 +930,13 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("Terminal_Attribute", b =>
                 {
-                    b.HasOne("TypeLibrary.Models.Models.Data.AttributeDm", null)
+                    b.HasOne("TypeLibrary.Models.Models.Data.AttributeLibDm", null)
                         .WithMany()
                         .HasForeignKey("AttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TypeLibrary.Models.Models.Data.TerminalDm", null)
+                    b.HasOne("TypeLibrary.Models.Models.Data.TerminalLibDm", null)
                         .WithMany()
                         .HasForeignKey("TerminalId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -945,13 +945,13 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("Transport_Attribute", b =>
                 {
-                    b.HasOne("TypeLibrary.Models.Models.Data.AttributeDm", null)
+                    b.HasOne("TypeLibrary.Models.Models.Data.AttributeLibDm", null)
                         .WithMany()
                         .HasForeignKey("AttributeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TypeLibrary.Models.Models.Data.TransportDm", null)
+                    b.HasOne("TypeLibrary.Models.Models.Data.TransportLibDm", null)
                         .WithMany()
                         .HasForeignKey("TransportId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -960,41 +960,41 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("Type_Collection", b =>
                 {
-                    b.HasOne("TypeLibrary.Models.Models.Data.CollectionDm", null)
+                    b.HasOne("TypeLibrary.Models.Models.Data.CollectionLibDm", null)
                         .WithMany()
                         .HasForeignKey("CollectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TypeLibrary.Models.Models.Data.TypeDm", null)
+                    b.HasOne("TypeLibrary.Models.Models.Data.TypeLibDm", null)
                         .WithMany()
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.AttributeDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.AttributeLibDm", b =>
                 {
-                    b.HasOne("TypeLibrary.Models.Models.Data.ConditionDm", "ConditionDm")
+                    b.HasOne("TypeLibrary.Models.Models.Data.ConditionLibDm", "ConditionDm")
                         .WithMany("AttributeList")
                         .HasForeignKey("ConditionId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("TypeLibrary.Models.Models.Data.FormatDm", "FormatDm")
+                    b.HasOne("TypeLibrary.Models.Models.Data.FormatLibDm", "FormatDm")
                         .WithMany("AttributeList")
                         .HasForeignKey("FormatId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("TypeLibrary.Models.Models.Data.InterfaceDm", null)
+                    b.HasOne("TypeLibrary.Models.Models.Data.InterfaceLibDm", null)
                         .WithMany("AttributeList")
-                        .HasForeignKey("InterfaceDmId");
+                        .HasForeignKey("InterfaceLibDmId");
 
-                    b.HasOne("TypeLibrary.Models.Models.Data.QualifierDm", "QualifierDm")
+                    b.HasOne("TypeLibrary.Models.Models.Data.QualifierLibDm", "QualifierDm")
                         .WithMany("AttributeList")
                         .HasForeignKey("QualifierId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("TypeLibrary.Models.Models.Data.SourceDm", "SourceDm")
+                    b.HasOne("TypeLibrary.Models.Models.Data.SourceLibDm", "SourceDm")
                         .WithMany("AttributeList")
                         .HasForeignKey("SourceId")
                         .OnDelete(DeleteBehavior.NoAction);
@@ -1008,9 +1008,9 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("SourceDm");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.LocationDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.LocationLibDm", b =>
                 {
-                    b.HasOne("TypeLibrary.Models.Models.Data.LocationDm", "Parent")
+                    b.HasOne("TypeLibrary.Models.Models.Data.LocationLibDm", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.NoAction);
@@ -1018,14 +1018,14 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.NodeTerminalDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.NodeTerminalLibDm", b =>
                 {
-                    b.HasOne("TypeLibrary.Models.Models.Data.NodeDm", "NodeDm")
+                    b.HasOne("TypeLibrary.Models.Models.Data.NodeLibDm", "NodeDm")
                         .WithMany("TerminalTypes")
                         .HasForeignKey("NodeTypeId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("TypeLibrary.Models.Models.Data.TerminalDm", "TerminalDm")
+                    b.HasOne("TypeLibrary.Models.Models.Data.TerminalLibDm", "TerminalDm")
                         .WithMany("Nodes")
                         .HasForeignKey("TerminalTypeId")
                         .OnDelete(DeleteBehavior.NoAction);
@@ -1035,9 +1035,9 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("TerminalDm");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.RdsDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.RdsLibDm", b =>
                 {
-                    b.HasOne("TypeLibrary.Models.Models.Data.RdsCategoryDm", "RdsCategoryDm")
+                    b.HasOne("TypeLibrary.Models.Models.Data.RdsCategoryLibDm", "RdsCategoryDm")
                         .WithMany("RdsList")
                         .HasForeignKey("RdsCategoryId")
                         .OnDelete(DeleteBehavior.NoAction);
@@ -1045,9 +1045,9 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("RdsCategoryDm");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.TerminalDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.TerminalLibDm", b =>
                 {
-                    b.HasOne("TypeLibrary.Models.Models.Data.TerminalDm", "Parent")
+                    b.HasOne("TypeLibrary.Models.Models.Data.TerminalLibDm", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.NoAction);
@@ -1055,14 +1055,14 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.TypeDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.TypeLibDm", b =>
                 {
-                    b.HasOne("TypeLibrary.Models.Models.Data.PurposeDm", "PurposeDm")
+                    b.HasOne("TypeLibrary.Models.Models.Data.PurposeLibDm", "PurposeDm")
                         .WithMany("LibraryTypes")
                         .HasForeignKey("PurposeId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("TypeLibrary.Models.Models.Data.RdsDm", "RdsDm")
+                    b.HasOne("TypeLibrary.Models.Models.Data.RdsLibDm", "RdsDm")
                         .WithMany("LibraryTypes")
                         .HasForeignKey("RdsId")
                         .OnDelete(DeleteBehavior.NoAction);
@@ -1072,9 +1072,9 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("RdsDm");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.InterfaceDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.InterfaceLibDm", b =>
                 {
-                    b.HasOne("TypeLibrary.Models.Models.Data.TerminalDm", "TerminalDm")
+                    b.HasOne("TypeLibrary.Models.Models.Data.TerminalLibDm", "TerminalDm")
                         .WithMany("Interfaces")
                         .HasForeignKey("TerminalId")
                         .OnDelete(DeleteBehavior.NoAction);
@@ -1082,9 +1082,9 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("TerminalDm");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.TransportDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.TransportLibDm", b =>
                 {
-                    b.HasOne("TypeLibrary.Models.Models.Data.TerminalDm", "TerminalDm")
+                    b.HasOne("TypeLibrary.Models.Models.Data.TerminalLibDm", "TerminalDm")
                         .WithMany("Transports")
                         .HasForeignKey("TerminalId")
                         .OnDelete(DeleteBehavior.NoAction);
@@ -1092,47 +1092,47 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("TerminalDm");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.ConditionDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.ConditionLibDm", b =>
                 {
                     b.Navigation("AttributeList");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.FormatDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.FormatLibDm", b =>
                 {
                     b.Navigation("AttributeList");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.LocationDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.LocationLibDm", b =>
                 {
                     b.Navigation("Children");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.PurposeDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.PurposeLibDm", b =>
                 {
                     b.Navigation("LibraryTypes");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.QualifierDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.QualifierLibDm", b =>
                 {
                     b.Navigation("AttributeList");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.RdsCategoryDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.RdsCategoryLibDm", b =>
                 {
                     b.Navigation("RdsList");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.RdsDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.RdsLibDm", b =>
                 {
                     b.Navigation("LibraryTypes");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.SourceDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.SourceLibDm", b =>
                 {
                     b.Navigation("AttributeList");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.TerminalDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.TerminalLibDm", b =>
                 {
                     b.Navigation("Children");
 
@@ -1143,12 +1143,12 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Transports");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.InterfaceDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.InterfaceLibDm", b =>
                 {
                     b.Navigation("AttributeList");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Models.Models.Data.NodeDm", b =>
+            modelBuilder.Entity("TypeLibrary.Models.Models.Data.NodeLibDm", b =>
                 {
                     b.Navigation("TerminalTypes");
                 });

@@ -5,9 +5,9 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class AttributePredefinedConfiguration : IEntityTypeConfiguration<AttributePredefinedDm>
+    public class AttributePredefinedConfiguration : IEntityTypeConfiguration<AttributePredefinedLibDm>
     {
-        public void Configure(EntityTypeBuilder<AttributePredefinedDm> builder)
+        public void Configure(EntityTypeBuilder<AttributePredefinedLibDm> builder)
         {
             var stringConverter = new StringCollectionValueConverter();
             var stringComparer = new StringCollectionValueComparer();

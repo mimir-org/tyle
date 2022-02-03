@@ -4,9 +4,9 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class InterfaceConfiguration : IEntityTypeConfiguration<InterfaceDm>
+    public class InterfaceConfiguration : IEntityTypeConfiguration<InterfaceLibDm>
     {
-        public void Configure(EntityTypeBuilder<InterfaceDm> builder)
+        public void Configure(EntityTypeBuilder<InterfaceLibDm> builder)
         {
             builder.Property(p => p.TerminalId).HasColumnName("Interface_TerminalId").IsRequired(false);
             

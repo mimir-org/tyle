@@ -91,22 +91,22 @@ namespace TypeLibrary.Services.Services
                 var transportFiles = fileList.Where(x => x.ToLower().Equals(TransportFileName)).ToList();
                 
                 
-                var conditions = _fileRepository.ReadAllFiles<ConditionAm>(conditionFiles).ToList();
-                var formats = _fileRepository.ReadAllFiles<FormatAm>(formatFiles).ToList();
-                var qualifiers = _fileRepository.ReadAllFiles<QualifierAm>(qualifierFiles).ToList();
-                var sources = _fileRepository.ReadAllFiles<SourceAm>(sourceFiles).ToList();
-                var locations = _fileRepository.ReadAllFiles<LocationAm>(locationFiles).ToList();
-                var purposes = _fileRepository.ReadAllFiles<PurposeAm>(purposeFiles).ToList();
-                var rdsCategories = _fileRepository.ReadAllFiles<RdsCategoryAm>(rdsCategoryFiles).ToList();
-                var units = _fileRepository.ReadAllFiles<UnitAm>(unitFiles).ToList();
+                var conditions = _fileRepository.ReadAllFiles<ConditionLibAm>(conditionFiles).ToList();
+                var formats = _fileRepository.ReadAllFiles<FormatLibAm>(formatFiles).ToList();
+                var qualifiers = _fileRepository.ReadAllFiles<QualifierLibAm>(qualifierFiles).ToList();
+                var sources = _fileRepository.ReadAllFiles<SourceLibAm>(sourceFiles).ToList();
+                var locations = _fileRepository.ReadAllFiles<LocationLibAm>(locationFiles).ToList();
+                var purposes = _fileRepository.ReadAllFiles<PurposeLibAm>(purposeFiles).ToList();
+                var rdsCategories = _fileRepository.ReadAllFiles<RdsCategoryLibAm>(rdsCategoryFiles).ToList();
+                var units = _fileRepository.ReadAllFiles<UnitLibAm>(unitFiles).ToList();
 
-                var attributes = _fileRepository.ReadAllFiles<AttributeAm>(attributeFiles).ToList();
-                var attributesPredefined = _fileRepository.ReadAllFiles<AttributePredefinedDm>(attributePredefinedFiles).ToList();
-                var terminalTypes = _fileRepository.ReadAllFiles<TerminalAm>(terminalTypeFiles).ToList();
-                var rds = _fileRepository.ReadAllFiles<RdsAm>(rdsFiles).ToList();
-                var blobData = _fileRepository.ReadAllFiles<BlobDataAm>(blobDataFileNames).ToList();
-                var simpleTypes = _fileRepository.ReadAllFiles<SimpleAm>(simpleTypeFileNames).ToList();
-                var transports = _fileRepository.ReadAllFiles<TypeAm>(transportFiles).ToList();
+                var attributes = _fileRepository.ReadAllFiles<AttributeLibAm>(attributeFiles).ToList();
+                var attributesPredefined = _fileRepository.ReadAllFiles<AttributePredefinedLibDm>(attributePredefinedFiles).ToList();
+                var terminalTypes = _fileRepository.ReadAllFiles<TerminalLibAm>(terminalTypeFiles).ToList();
+                var rds = _fileRepository.ReadAllFiles<RdsLibAm>(rdsFiles).ToList();
+                var blobData = _fileRepository.ReadAllFiles<BlobDataLibAm>(blobDataFileNames).ToList();
+                var simpleTypes = _fileRepository.ReadAllFiles<SimpleLibAm>(simpleTypeFileNames).ToList();
+                var transports = _fileRepository.ReadAllFiles<TypeLibAm>(transportFiles).ToList();
                 
                 await _conditionService.CreateConditions(conditions);
                 await _formatService.CreateFormats(formats);

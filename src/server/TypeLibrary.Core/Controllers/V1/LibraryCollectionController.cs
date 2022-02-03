@@ -32,7 +32,7 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<CollectionAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<CollectionLibAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public async Task<IActionResult> GetCollections()
@@ -50,10 +50,10 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(CollectionAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CollectionLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateCollection([FromBody] CollectionAm dataAm)
+        public async Task<IActionResult> UpdateCollection([FromBody] CollectionLibAm dataAm)
         {
             try
             {
@@ -68,10 +68,10 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(CollectionAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CollectionLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> CreateCollection([FromBody] CollectionAm dataAm)
+        public async Task<IActionResult> CreateCollection([FromBody] CollectionLibAm dataAm)
         {
             try
             {

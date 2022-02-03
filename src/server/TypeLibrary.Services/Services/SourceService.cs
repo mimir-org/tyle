@@ -26,37 +26,37 @@ namespace TypeLibrary.Services.Services
             _contextAccessor = contextAccessor;
         }
 
-        public Task<IEnumerable<SourceAm>> GetSources()
+        public Task<IEnumerable<SourceLibAm>> GetSources()
         {
             var dataList = _sourceRepository.GetAll();
-            var dataAm = _mapper.Map<List<SourceAm>>(dataList);
-            return Task.FromResult<IEnumerable<SourceAm>>(dataAm);
+            var dataAm = _mapper.Map<List<SourceLibAm>>(dataList);
+            return Task.FromResult<IEnumerable<SourceLibAm>>(dataAm);
         }
 
-        public async Task<SourceAm> UpdateSource(SourceAm dataAm)
+        public async Task<SourceLibAm> UpdateSource(SourceLibAm dataAm)
         {
-            var data = _mapper.Map<SourceDm>(dataAm);
+            var data = _mapper.Map<SourceLibDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _sourceRepository.Update(data);
             await _sourceRepository.SaveAsync();
-            return _mapper.Map<SourceAm>(data);
+            return _mapper.Map<SourceLibAm>(data);
         }
 
-        public async Task<SourceAm> CreateSource(SourceAm dataAm)
+        public async Task<SourceLibAm> CreateSource(SourceLibAm dataAm)
         {
-            var data = _mapper.Map<SourceDm>(dataAm);
+            var data = _mapper.Map<SourceLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             data.Id = data.Key.CreateMd5();
             var createdData = await _sourceRepository.CreateAsync(data);
             await _sourceRepository.SaveAsync();
-            return _mapper.Map<SourceAm>(createdData.Entity);
+            return _mapper.Map<SourceLibAm>(createdData.Entity);
         }
 
-        public async Task CreateSources(List<SourceAm> dataAm)
+        public async Task CreateSources(List<SourceLibAm> dataAm)
         {
-            var dataList = _mapper.Map<List<SourceDm>>(dataAm);
+            var dataList = _mapper.Map<List<SourceLibDm>>(dataAm);
             var existing = _sourceRepository.GetAll().ToList();
             var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
 

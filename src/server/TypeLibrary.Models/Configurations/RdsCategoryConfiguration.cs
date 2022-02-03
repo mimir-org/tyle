@@ -4,9 +4,9 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class RdsCategoryConfiguration : IEntityTypeConfiguration<RdsCategoryDm>
+    public class RdsCategoryConfiguration : IEntityTypeConfiguration<RdsCategoryLibDm>
     {
-        public void Configure(EntityTypeBuilder<RdsCategoryDm> builder)
+        public void Configure(EntityTypeBuilder<RdsCategoryLibDm> builder)
         {
             builder.ToTable("RdsCategory");
             builder.HasKey(x => x.Id);

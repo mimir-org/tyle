@@ -6,9 +6,9 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface IConditionService
     {
-        Task<IEnumerable<ConditionAm>> GetConditions();
-        Task<ConditionAm> UpdateCondition(ConditionAm dataAm);
-        Task<ConditionAm> CreateCondition(ConditionAm dataAm);
-        Task CreateConditions(List<ConditionAm> dataAm);
+        Task<IEnumerable<ConditionLibAm>> GetConditions();
+        Task<ConditionLibAm> UpdateCondition(ConditionLibAm dataAm);
+        Task<ConditionLibAm> CreateCondition(ConditionLibAm dataAm);
+        Task CreateConditions(List<ConditionLibAm> dataAm);
     }
 }

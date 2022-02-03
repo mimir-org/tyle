@@ -4,7 +4,7 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface ILocationRepository : IGenericRepository<TypeLibraryDbContext, LocationDm>
+    public interface ILocationRepository : IGenericRepository<TypeLibraryDbContext, LocationLibDm>
     {
     }
 }

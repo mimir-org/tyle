@@ -5,9 +5,9 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class TerminalConfiguration : IEntityTypeConfiguration<TerminalDm>
+    public class TerminalConfiguration : IEntityTypeConfiguration<TerminalLibDm>
     {
-        public void Configure(EntityTypeBuilder<TerminalDm> builder)
+        public void Configure(EntityTypeBuilder<TerminalLibDm> builder)
         {
             builder.HasKey(x => x.Id);
             builder.ToTable("Terminal");
@@ -19,8 +19,8 @@ namespace TypeLibrary.Models.Configurations
             builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
             
             builder.HasMany(x => x.Attributes).WithMany(y => y.TerminalTypes).UsingEntity<Dictionary<string, object>>("Terminal_Attribute",
-                x => x.HasOne<AttributeDm>().WithMany().HasForeignKey("AttributeId"),
-                x => x.HasOne<TerminalDm>().WithMany().HasForeignKey("TerminalId"),
+                x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),
+                x => x.HasOne<TerminalLibDm>().WithMany().HasForeignKey("TerminalId"),
                 x => x.ToTable("Terminal_Attribute")
             );
         }

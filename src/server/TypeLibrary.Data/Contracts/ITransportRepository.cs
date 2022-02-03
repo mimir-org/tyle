@@ -4,7 +4,7 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface ITransportRepository : IGenericRepository<TypeLibraryDbContext, TransportDm>
+    public interface ITransportRepository : IGenericRepository<TypeLibraryDbContext, TransportLibDm>
     {
     }
 }

@@ -5,7 +5,7 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Data.Repositories
 {
-    public class FormatRepository : GenericRepository<TypeLibraryDbContext, FormatDm>, IFormatRepository
+    public class FormatRepository : GenericRepository<TypeLibraryDbContext, FormatLibDm>, IFormatRepository
     {
         public FormatRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {

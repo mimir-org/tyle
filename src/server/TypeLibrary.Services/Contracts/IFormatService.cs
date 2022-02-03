@@ -6,9 +6,9 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface IFormatService
     {
-        Task<IEnumerable<FormatAm>> GetFormats();
-        Task<FormatAm> UpdateFormat(FormatAm dataAm);
-        Task<FormatAm> CreateFormat(FormatAm dataAm);
-        Task CreateFormats(List<FormatAm> dataAm);
+        Task<IEnumerable<FormatLibAm>> GetFormats();
+        Task<FormatLibAm> UpdateFormat(FormatLibAm dataAm);
+        Task<FormatLibAm> CreateFormat(FormatLibAm dataAm);
+        Task CreateFormats(List<FormatLibAm> dataAm);
     }
 }

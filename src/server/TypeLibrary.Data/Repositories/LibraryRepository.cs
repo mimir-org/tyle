@@ -24,7 +24,7 @@ namespace TypeLibrary.Data.Repositories
             _nodeTypeRepository = nodeTypeRepository;
         }
 
-        public async Task<IEnumerable<NodeCm>> GetNodes(string searchString = null)
+        public async Task<IEnumerable<NodeLibCm>> GetNodes(string searchString = null)
         {
             var nodeTypes = await _nodeTypeRepository.GetAll()
                 .Include(x => x.AttributeList)
@@ -45,10 +45,10 @@ namespace TypeLibrary.Data.Repositories
             if (!string.IsNullOrWhiteSpace(searchString))
                 nodeTypes = nodeTypes.Where(x => x.Name.ToLower().Contains(searchString.ToLower())).ToArray();
 
-            return nodeTypes.Select(nodeType => _mapper.Map<NodeCm>(nodeType)).ToList();
+            return nodeTypes.Select(nodeType => _mapper.Map<NodeLibCm>(nodeType)).ToList();
         }
 
-        public async Task<IEnumerable<InterfaceCm>> GetInterfaces(string searchString = null)
+        public async Task<IEnumerable<InterfaceLibCm>> GetInterfaces(string searchString = null)
         {
 
             var interfaceTypes = await _interfaceTypeRepository.GetAll()
@@ -63,10 +63,10 @@ namespace TypeLibrary.Data.Repositories
             if (!string.IsNullOrWhiteSpace(searchString))
                 interfaceTypes = interfaceTypes.Where(x => x.Name.ToLower().Contains(searchString.ToLower())).ToArray();
 
-            return interfaceTypes.Select(interfaceType => _mapper.Map<InterfaceCm>(interfaceType)).ToList();
+            return interfaceTypes.Select(interfaceType => _mapper.Map<InterfaceLibCm>(interfaceType)).ToList();
         }
 
-        public async Task<IEnumerable<TransportCm>> GetTransports(string searchString = null)
+        public async Task<IEnumerable<TransportLibCm>> GetTransports(string searchString = null)
         {
             var transportTypes = await _transportTypeRepository.GetAll()
                 .Include(x => x.AttributeList)
@@ -80,12 +80,12 @@ namespace TypeLibrary.Data.Repositories
             if (!string.IsNullOrWhiteSpace(searchString))
                 transportTypes = transportTypes.Where(x => x.Name.ToLower().Contains(searchString.ToLower())).ToArray();
 
-            return transportTypes.Select(transportType => _mapper.Map<TransportCm>(transportType)).ToList();
+            return transportTypes.Select(transportType => _mapper.Map<TransportLibCm>(transportType)).ToList();
         }
 
         public async Task<T> GetLibraryItem<T>(string id) where T : class, new()
         {
-            if (typeof(NodeCm).IsAssignableFrom(typeof(T)))
+            if (typeof(NodeLibCm).IsAssignableFrom(typeof(T)))
             {
                 var nodeType = await _nodeTypeRepository.FindBy(x => x.Id == id)
                     .Include(x => x.AttributeList)
@@ -107,7 +107,7 @@ namespace TypeLibrary.Data.Repositories
                 return _mapper.Map<T>(nodeType);
             }
 
-            if (typeof(InterfaceCm).IsAssignableFrom(typeof(T)))
+            if (typeof(InterfaceLibCm).IsAssignableFrom(typeof(T)))
             {
                 var interfaceType = await _interfaceTypeRepository.FindBy(x => x.Id == id)
                     .Include(x => x.AttributeList)
@@ -121,7 +121,7 @@ namespace TypeLibrary.Data.Repositories
                 return _mapper.Map<T>(interfaceType);
             }
 
-            if (typeof(TransportCm).IsAssignableFrom(typeof(T)))
+            if (typeof(TransportLibCm).IsAssignableFrom(typeof(T)))
             {
                 var transportType = await _transportTypeRepository.FindBy(x => x.Id == id)
                     .Include(x => x.AttributeList)

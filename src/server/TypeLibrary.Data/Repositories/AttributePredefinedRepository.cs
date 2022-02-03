@@ -5,7 +5,7 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Data.Repositories
 {
-    public class AttributePredefinedRepository : GenericRepository<TypeLibraryDbContext, AttributePredefinedDm>, IAttributePredefinedRepository
+    public class AttributePredefinedRepository : GenericRepository<TypeLibraryDbContext, AttributePredefinedLibDm>, IAttributePredefinedRepository
     {
         public AttributePredefinedRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {

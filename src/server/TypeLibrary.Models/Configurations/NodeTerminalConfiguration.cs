@@ -4,9 +4,9 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class NodeTerminalConfiguration : IEntityTypeConfiguration<NodeTerminalDm>
+    public class NodeTerminalConfiguration : IEntityTypeConfiguration<NodeTerminalLibDm>
     {
-        public void Configure(EntityTypeBuilder<NodeTerminalDm> builder)
+        public void Configure(EntityTypeBuilder<NodeTerminalLibDm> builder)
         {
             builder.HasKey(x => x.Id);
             builder.ToTable("Node_Terminal");

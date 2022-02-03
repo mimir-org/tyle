@@ -4,9 +4,9 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class FormatConfiguration : IEntityTypeConfiguration<FormatDm>
+    public class FormatConfiguration : IEntityTypeConfiguration<FormatLibDm>
     {
-        public void Configure(EntityTypeBuilder<FormatDm> builder)
+        public void Configure(EntityTypeBuilder<FormatLibDm> builder)
         {
             builder.ToTable("Format");
             builder.HasKey(x => x.Id);

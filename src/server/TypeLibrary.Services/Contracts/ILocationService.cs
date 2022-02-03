@@ -6,9 +6,9 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface ILocationService
     {
-        Task<IEnumerable<LocationAm>> GetLocations();
-        Task<LocationAm> UpdateLocation(LocationAm dataAm);
-        Task<LocationAm> CreateLocation(LocationAm dataAm);
-        Task CreateLocations(List<LocationAm> dataAm);
+        Task<IEnumerable<LocationLibAm>> GetLocations();
+        Task<LocationLibAm> UpdateLocation(LocationLibAm dataAm);
+        Task<LocationLibAm> CreateLocation(LocationLibAm dataAm);
+        Task CreateLocations(List<LocationLibAm> dataAm);
     }
 }

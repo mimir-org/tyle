@@ -13,7 +13,7 @@ namespace TypeLibrary.Core.Profiles
     {
         public TypeProfile()
         {
-            CreateMap<TypeAm, NodeDm>()
+            CreateMap<TypeLibAm, NodeLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => $"{src.Key}-{src.Domain}-{src.Version}".CreateMd5()))
                 .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
@@ -40,7 +40,7 @@ namespace TypeLibrary.Core.Profiles
                     dest.ResolvePredefinedAttributeData();
                 });
 
-            CreateMap<TypeAm, TransportDm>()
+            CreateMap<TypeLibAm, TransportLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => $"{src.Key}-{src.Domain}-{src.Version}".CreateMd5()))
                 .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
@@ -60,7 +60,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
 
-            CreateMap<TypeAm, InterfaceDm>()
+            CreateMap<TypeLibAm, InterfaceLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => $"{src.Key}-{src.Domain}-{src.Version}".CreateMd5()))
                 .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
@@ -80,7 +80,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
 
-            CreateMap<NodeDm, TypeAm>()
+            CreateMap<NodeLibDm, TypeLibAm>()
                 .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
@@ -108,7 +108,7 @@ namespace TypeLibrary.Core.Profiles
                     src.ResolvePredefinedAttributes();
                 });
 
-            CreateMap<TransportDm, TypeAm>()
+            CreateMap<TransportLibDm, TypeLibAm>()
                 .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
@@ -132,7 +132,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
 
-            CreateMap<InterfaceDm, TypeAm>()
+            CreateMap<InterfaceLibDm, TypeLibAm>()
                 .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
@@ -156,12 +156,12 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
 
-            CreateMap<NodeTerminalDm, TerminalCm>()
+            CreateMap<NodeTerminalLibDm, TerminalLibCm>()
                 .ForMember(dest => dest.TerminalTypeId, opt => opt.MapFrom(src => src.TerminalTypeId))
                 .ForMember(dest => dest.Number, opt => opt.MapFrom(src => src.Number))
                 .ForMember(dest => dest.ConnectorType, opt => opt.MapFrom(src => src.ConnectorType));
 
-            CreateMap<NodeDm, NodeCm>()
+            CreateMap<NodeLibDm, NodeLibCm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Rds, opt => opt.MapFrom(src => src.RdsDm.Code))
@@ -179,7 +179,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
 
-            CreateMap<TransportDm, TransportCm>()
+            CreateMap<TransportLibDm, TransportLibCm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Rds, opt => opt.MapFrom(src => src.RdsDm.Code))
@@ -198,7 +198,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
             
-            CreateMap<InterfaceDm, InterfaceCm>()
+            CreateMap<InterfaceLibDm, InterfaceLibCm>()
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Rds, opt => opt.MapFrom(src => src.RdsDm.Code))
@@ -217,12 +217,12 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
         }
 
-        private static IEnumerable<NodeTerminalDm> CreateTerminalTypes(IReadOnlyCollection<TerminalCm> terminalTypes, string nodeId)
+        private static IEnumerable<NodeTerminalLibDm> CreateTerminalTypes(IReadOnlyCollection<TerminalLibCm> terminalTypes, string nodeId)
         {
             if (terminalTypes == null || !terminalTypes.Any())
                 yield break;
 
-            var sortedTerminalTypes = new List<TerminalCm>();
+            var sortedTerminalTypes = new List<TerminalLibCm>();
 
             foreach (var item in terminalTypes)
             {
@@ -240,7 +240,7 @@ namespace TypeLibrary.Core.Profiles
             foreach (var item in sortedTerminalTypes)
             {
                 var key = $"{item.Key}-{nodeId}"; 
-                yield return new NodeTerminalDm
+                yield return new NodeTerminalLibDm
                 {
                     Id = key.CreateMd5(),
                     NodeTypeId = nodeId,
@@ -251,24 +251,24 @@ namespace TypeLibrary.Core.Profiles
             }
         }
 
-        private static IEnumerable<AttributeDm> CreateAttributes(IReadOnlyCollection<string> attributes)
+        private static IEnumerable<AttributeLibDm> CreateAttributes(IReadOnlyCollection<string> attributes)
         {
             if (attributes == null || !attributes.Any())
                 yield break;
 
             foreach (var item in attributes)
-                yield return new AttributeDm
+                yield return new AttributeLibDm
                 {
                     Id = item
                 };
         }
 
-        private static IEnumerable<SimpleDm> SimpleTypes(IReadOnlyCollection<string> simpleTypes)
+        private static IEnumerable<SimpleLibDm> SimpleTypes(IReadOnlyCollection<string> simpleTypes)
         {
             if (simpleTypes == null || !simpleTypes.Any())
                 yield break;
             foreach (var item in simpleTypes)
-                yield return new SimpleDm
+                yield return new SimpleLibDm
                 {
                     Id = item
                 };

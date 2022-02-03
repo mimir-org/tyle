@@ -6,10 +6,10 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class LibraryConfiguration : IEntityTypeConfiguration<TypeDm>
+    public class LibraryConfiguration : IEntityTypeConfiguration<TypeLibDm>
 
     {
-        public void Configure(EntityTypeBuilder<TypeDm> builder)
+        public void Configure(EntityTypeBuilder<TypeLibDm> builder)
         {
             builder.HasKey(x => x.Id);
             builder.ToTable("Type");
@@ -30,8 +30,8 @@ namespace TypeLibrary.Models.Configurations
             builder.HasOne(x => x.RdsDm).WithMany(y => y.LibraryTypes).HasForeignKey(x => x.RdsId).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasMany(x => x.Collections).WithMany(y => y.Types).UsingEntity<Dictionary<string, object>>("Type_Collection",
-                x => x.HasOne<CollectionDm>().WithMany().HasForeignKey("CollectionId"),
-                x => x.HasOne<TypeDm>().WithMany().HasForeignKey("TypeId"),
+                x => x.HasOne<CollectionLibDm>().WithMany().HasForeignKey("CollectionId"),
+                x => x.HasOne<TypeLibDm>().WithMany().HasForeignKey("TypeId"),
                 x => x.ToTable("Type_Collection"));
         }
     }

@@ -37,7 +37,7 @@ namespace TypeLibrary.Services.Services
         {
             await using var stream = new MemoryStream();
             await file.CopyToAsync(stream, cancellationToken);
-            var types = stream.ToArray().Deserialize<List<TypeAm>>();
+            var types = stream.ToArray().Deserialize<List<TypeLibAm>>();
             await CreateLibraryTypeComponentsAsync(types);
         }
 
@@ -53,18 +53,18 @@ namespace TypeLibrary.Services.Services
 
         #region Private
 
-        private async Task CreateLibraryTypeComponentsAsync(ICollection<TypeAm> libraryTypes)
+        private async Task CreateLibraryTypeComponentsAsync(ICollection<TypeLibAm> libraryTypes)
         {
             var existingTypes = _libraryTypeRepository.GetAll().ToList();
-            var newTypes = new List<TypeAm>();
+            var newTypes = new List<TypeLibAm>();
             
             foreach (var createLibraryType in libraryTypes)
             {
-                TypeDm typeDm = createLibraryType.ObjectType switch
+                TypeLibDm typeDm = createLibraryType.ObjectType switch
                 {
-                    ObjectType.ObjectBlock => _mapper.Map<NodeDm>(createLibraryType),
-                    ObjectType.Interface => _mapper.Map<InterfaceDm>(createLibraryType),
-                    ObjectType.Transport => _mapper.Map<TransportDm>(createLibraryType),
+                    ObjectType.ObjectBlock => _mapper.Map<NodeLibDm>(createLibraryType),
+                    ObjectType.Interface => _mapper.Map<InterfaceLibDm>(createLibraryType),
+                    ObjectType.Transport => _mapper.Map<TransportLibDm>(createLibraryType),
                     _ => null
                 };
 

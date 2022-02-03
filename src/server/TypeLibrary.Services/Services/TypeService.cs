@@ -47,17 +47,17 @@ namespace TypeLibrary.Services.Services
         /// <param name="id"></param>
         /// <param name="ignoreNotFound"></param>
         /// <returns></returns>
-        public async Task<TypeDm> GetTypeById(string id, bool ignoreNotFound = false)
+        public async Task<TypeLibDm> GetTypeById(string id, bool ignoreNotFound = false)
         {
             var libraryTypeComponent = await _libraryTypeComponentRepository.GetAsync(id);
 
             if (!ignoreNotFound && libraryTypeComponent == null)
                 throw new MimirorgNotFoundException($"The typeAm with id: {id} could not be found.");
 
-            if (libraryTypeComponent is NodeDm)
+            if (libraryTypeComponent is NodeLibDm)
             {
                 return await _libraryTypeComponentRepository.FindBy(x => x.Id == id)
-                    .OfType<NodeDm>()
+                    .OfType<NodeLibDm>()
                     .Include(x => x.TerminalTypes)
                     .Include(x => x.AttributeList)
                     .Include(x => x.SimpleTypes)
@@ -65,19 +65,19 @@ namespace TypeLibrary.Services.Services
                     .FirstOrDefaultAsync();
             }
 
-            if (libraryTypeComponent is TransportDm)
+            if (libraryTypeComponent is TransportLibDm)
             {
                 return await _libraryTypeComponentRepository.FindBy(x => x.Id == id)
-                    .OfType<TransportDm>()
+                    .OfType<TransportLibDm>()
                     .Include(x => x.TerminalDm)
                     .Include(x => x.AttributeList)
                     .FirstOrDefaultAsync();
             }
 
-            if (libraryTypeComponent is InterfaceDm)
+            if (libraryTypeComponent is InterfaceLibDm)
             {
                 return await _libraryTypeComponentRepository.FindBy(x => x.Id == id)
-                    .OfType<InterfaceDm>()
+                    .OfType<InterfaceLibDm>()
                     .Include(x => x.TerminalDm)
                     .FirstOrDefaultAsync();
             }
@@ -90,7 +90,7 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="typeAmList"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<TypeDm>> CreateTypes(ICollection<TypeAm> typeAmList)
+        public async Task<IEnumerable<TypeLibDm>> CreateTypes(ICollection<TypeLibAm> typeAmList)
         {
             return await CreateLibraryTypes(typeAmList, false);
         }
@@ -100,7 +100,7 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="typeAm"></param>
         /// <returns></returns>
-        public async Task<T> CreateType<T>(TypeAm typeAm) where T : class, new()
+        public async Task<T> CreateType<T>(TypeLibAm typeAm) where T : class, new()
         {
             return await CreateLibraryType<T>(typeAm, false);
         }
@@ -113,7 +113,7 @@ namespace TypeLibrary.Services.Services
         /// <param name="updateMajorVersion"></param>
         /// <param name="updateMinorVersion"></param>
         /// <returns></returns>
-        public async Task<T> UpdateType<T>(string id, TypeAm typeAm, bool updateMajorVersion, bool updateMinorVersion) where T : class, new()
+        public async Task<T> UpdateType<T>(string id, TypeLibAm typeAm, bool updateMajorVersion, bool updateMinorVersion) where T : class, new()
         {
             if (string.IsNullOrEmpty(id))
                 throw new MimirorgNullReferenceException("Can't update a typeAm without an id");
@@ -157,11 +157,11 @@ namespace TypeLibrary.Services.Services
         /// Get all library types
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<TypeAm> GetAllTypes()
+        public IEnumerable<TypeLibAm> GetAllTypes()
         {
             var nodeTypes = _libraryTypeComponentRepository
                 .GetAll()
-                .OfType<NodeDm>()
+                .OfType<NodeLibDm>()
                 .Include(x => x.TerminalTypes)
                 .Include("TerminalTypes.TerminalDm")
                 .Include(x => x.AttributeList)
@@ -171,26 +171,26 @@ namespace TypeLibrary.Services.Services
 
             var transportTypes = _libraryTypeComponentRepository
                 .GetAll()
-                .OfType<TransportDm>()
+                .OfType<TransportLibDm>()
                 .Include(x => x.AttributeList)
                 .ToList();
 
             var interfaceType = _libraryTypeComponentRepository
                 .GetAll()
-                .OfType<InterfaceDm>()
+                .OfType<InterfaceLibDm>()
                 .ToList();
 
-            foreach (var clt in nodeTypes.Select(x => _mapper.Map<TypeAm>(x)))
+            foreach (var clt in nodeTypes.Select(x => _mapper.Map<TypeLibAm>(x)))
             {
                 yield return clt;
             }
 
-            foreach (var clt in transportTypes.Select(x => _mapper.Map<TypeAm>(x)))
+            foreach (var clt in transportTypes.Select(x => _mapper.Map<TypeLibAm>(x)))
             {
                 yield return clt;
             }
 
-            foreach (var clt in interfaceType.Select(x => _mapper.Map<TypeAm>(x)))
+            foreach (var clt in interfaceType.Select(x => _mapper.Map<TypeLibAm>(x)))
             {
                 yield return clt;
             }
@@ -202,14 +202,14 @@ namespace TypeLibrary.Services.Services
         /// <param name="id"></param>
         /// <param name="enum"></param>
         /// <returns></returns>
-        public async Task<TypeAm> ConvertToCreateType(string id, LibraryFilter @enum)
+        public async Task<TypeLibAm> ConvertToCreateType(string id, LibraryFilter @enum)
         {
             switch (@enum)
             {
                 case LibraryFilter.Node:
                     var nodeItem = await _libraryTypeComponentRepository
                         .FindBy(x => x.Id == id)
-                        .OfType<NodeDm>()
+                        .OfType<NodeLibDm>()
                         .Include(x => x.TerminalTypes)
                         .Include("TerminalTypes.TerminalDm")
                         .Include(x => x.AttributeList)
@@ -219,30 +219,30 @@ namespace TypeLibrary.Services.Services
                     if (nodeItem == null)
                         throw new MimirorgNotFoundException($"There is no typeAm with id: {id} and @enum: {@enum}");
 
-                    return _mapper.Map<TypeAm>(nodeItem);
+                    return _mapper.Map<TypeLibAm>(nodeItem);
 
                 case LibraryFilter.Interface:
                     var interfaceItem = await _libraryTypeComponentRepository
                         .FindBy(x => x.Id == id)
-                        .OfType<InterfaceDm>()
+                        .OfType<InterfaceLibDm>()
                         .FirstOrDefaultAsync();
 
                     if (interfaceItem == null)
                         throw new MimirorgNotFoundException($"There is no typeAm with id: {id} and @enum: {@enum}");
 
-                    return _mapper.Map<TypeAm>(interfaceItem);
+                    return _mapper.Map<TypeLibAm>(interfaceItem);
 
                 case LibraryFilter.Transport:
                     var transportItem = await _libraryTypeComponentRepository
                         .FindBy(x => x.Id == id)
-                        .OfType<TransportDm>()
+                        .OfType<TransportLibDm>()
                         .Include(x => x.AttributeList)
                         .FirstOrDefaultAsync();
 
                     if (transportItem == null)
                         throw new MimirorgNotFoundException($"There is no typeAm with id: {id} and @enum: {@enum}");
 
-                    return _mapper.Map<TypeAm>(transportItem);
+                    return _mapper.Map<TypeLibAm>(transportItem);
 
                 default:
                     throw new MimirorgInvalidOperationException("Filter typeAm mismatch");
@@ -254,9 +254,9 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="simpleAm"></param>
         /// <returns></returns>
-        public async Task<SimpleDm> CreateSimpleType(SimpleAm simpleAm)
+        public async Task<SimpleLibDm> CreateSimpleType(SimpleLibAm simpleAm)
         {
-            var newType = _mapper.Map<SimpleDm>(simpleAm);
+            var newType = _mapper.Map<SimpleLibDm>(simpleAm);
             var existingType = await _simpleTypeRepository.GetAsync(newType.Id);
 
             if (existingType != null)
@@ -278,14 +278,14 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="simpleAmList"></param>
         /// <returns></returns>
-        public async Task CreateSimpleTypes(ICollection<SimpleAm> simpleAmList)
+        public async Task CreateSimpleTypes(ICollection<SimpleLibAm> simpleAmList)
         {
             if (simpleAmList == null || !simpleAmList.Any())
                 return;
 
             foreach (var typeAm in simpleAmList)
             {
-                var newType = _mapper.Map<SimpleDm>(typeAm);
+                var newType = _mapper.Map<SimpleLibDm>(typeAm);
                 var existingType = await _simpleTypeRepository.GetAsync(newType.Id);
 
                 if (existingType != null)
@@ -314,7 +314,7 @@ namespace TypeLibrary.Services.Services
         /// Get all simple types
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<SimpleDm> GetSimpleTypes()
+        public IEnumerable<SimpleLibDm> GetSimpleTypes()
         {
             var types = _simpleTypeRepository.GetAll().Include(x => x.AttributeList).ToList();
             return types;
@@ -343,7 +343,7 @@ namespace TypeLibrary.Services.Services
             if (existingType == null)
                 throw new MimirorgNotFoundException($"Could not delete typeAm with id: {id}. The typeAm was not found.");
 
-            if (existingType is NodeDm typeToDelete)
+            if (existingType is NodeLibDm typeToDelete)
             {
                 foreach (var terminalType in typeToDelete.TerminalTypes)
                 {
@@ -357,15 +357,15 @@ namespace TypeLibrary.Services.Services
             await _libraryTypeComponentRepository.SaveAsync();
         }
 
-        public async Task<TypeCm> GetType(string searchString)
+        public async Task<TypeLibCm> GetType(string searchString)
         {
             var objectBlocks = await _libraryRepository.GetNodes(searchString);
             var transports = await _libraryRepository.GetTransports(searchString);
             var interfaces = await _libraryRepository.GetInterfaces(searchString);
             //TODO: Correct subprojects return when implemented
-            var subProjects = new List<SubProjectCm>();
+            var subProjects = new List<SubProjectLibCm>();
 
-            var library = new TypeCm
+            var library = new TypeLibCm
             {
                 ObjectBlocks = objectBlocks.ToList(),
                 Transports = transports.ToList(),
@@ -376,22 +376,22 @@ namespace TypeLibrary.Services.Services
             return library;
         }
 
-        public async Task<IEnumerable<NodeCm>> GetNodes()
+        public async Task<IEnumerable<NodeLibCm>> GetNodes()
         {
             return await _libraryRepository.GetNodes();
         }
 
-        public async Task<IEnumerable<TransportCm>> GetTransports()
+        public async Task<IEnumerable<TransportLibCm>> GetTransports()
         {
             return await _libraryRepository.GetTransports();
         }
 
-        public async Task<IEnumerable<InterfaceCm>> GetInterfaces()
+        public async Task<IEnumerable<InterfaceLibCm>> GetInterfaces()
         {
             return await _libraryRepository.GetInterfaces();
         }
 
-        public Task<IEnumerable<SubProjectCm>> GetSubProjects(string searchString = null)
+        public Task<IEnumerable<SubProjectLibCm>> GetSubProjects(string searchString = null)
         {
             //TODO
             throw new NotImplementedException();
@@ -399,9 +399,9 @@ namespace TypeLibrary.Services.Services
 
         #region Private
 
-        private async Task<IEnumerable<TypeDm>> CreateLibraryTypes(ICollection<TypeAm> createLibraryTypes, bool createNewFromExistingVersion)
+        private async Task<IEnumerable<TypeLibDm>> CreateLibraryTypes(ICollection<TypeLibAm> createLibraryTypes, bool createNewFromExistingVersion)
         {
-            var createdLibraryTypes = new List<TypeDm>();
+            var createdLibraryTypes = new List<TypeLibDm>();
 
             if (createLibraryTypes == null || !createLibraryTypes.Any())
                 return createdLibraryTypes;
@@ -426,11 +426,11 @@ namespace TypeLibrary.Services.Services
                 if (createLibraryType.Aspect == Aspect.Location)
                     createLibraryType.ObjectType = ObjectType.ObjectBlock;
 
-                TypeDm typeDm = createLibraryType.ObjectType switch
+                TypeLibDm typeDm = createLibraryType.ObjectType switch
                 {
-                    ObjectType.ObjectBlock => _mapper.Map<NodeDm>(createLibraryType),
-                    ObjectType.Interface => _mapper.Map<InterfaceDm>(createLibraryType),
-                    ObjectType.Transport => _mapper.Map<TransportDm>(createLibraryType),
+                    ObjectType.ObjectBlock => _mapper.Map<NodeLibDm>(createLibraryType),
+                    ObjectType.Interface => _mapper.Map<InterfaceLibDm>(createLibraryType),
+                    ObjectType.Transport => _mapper.Map<TransportLibDm>(createLibraryType),
                     _ => null
                 };
 
@@ -441,7 +441,7 @@ namespace TypeLibrary.Services.Services
 
                 switch (typeDm)
                 {
-                    case NodeDm nt:
+                    case NodeLibDm nt:
                         {
                             if (nt.AttributeList != null && nt.AttributeList.Any())
                             {
@@ -481,7 +481,7 @@ namespace TypeLibrary.Services.Services
                             continue;
                         }
 
-                    case InterfaceDm it:
+                    case InterfaceLibDm it:
 
                         if (it.AttributeList != null && it.AttributeList.Any())
                         {
@@ -505,7 +505,7 @@ namespace TypeLibrary.Services.Services
                         createdLibraryTypes.Add(it);
                         continue;
 
-                    case TransportDm tt:
+                    case TransportLibDm tt:
                         {
                             if (tt.AttributeList != null && tt.AttributeList.Any())
                             {
@@ -539,12 +539,12 @@ namespace TypeLibrary.Services.Services
             return createdLibraryTypes;
         }
 
-        private async Task<T> CreateLibraryType<T>(TypeAm typeAm, bool createNewFromExistingVersion) where T : class, new()
+        private async Task<T> CreateLibraryType<T>(TypeLibAm typeAm, bool createNewFromExistingVersion) where T : class, new()
         {
             if (typeAm == null)
                 return null;
 
-            var data = (await CreateLibraryTypes(new List<TypeAm> { typeAm }, createNewFromExistingVersion))?.FirstOrDefault();
+            var data = (await CreateLibraryTypes(new List<TypeLibAm> { typeAm }, createNewFromExistingVersion))?.FirstOrDefault();
 
             if (data == null)
                 throw new MimirorgNullReferenceException("Could not create typeAm");
@@ -553,7 +553,7 @@ namespace TypeLibrary.Services.Services
             return obj;
         }
 
-        private void SetLibraryTypeVersion(TypeDm newTypeDm, TypeDm existingTypeDm)
+        private void SetLibraryTypeVersion(TypeLibDm newTypeDm, TypeLibDm existingTypeDm)
         {
             if (string.IsNullOrWhiteSpace(newTypeDm?.Version) || string.IsNullOrWhiteSpace(existingTypeDm?.Version))
                 throw new MimirorgInvalidOperationException("'Null' error when setting version for library typeAm");

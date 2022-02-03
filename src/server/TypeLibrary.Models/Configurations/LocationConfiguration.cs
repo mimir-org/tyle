@@ -4,9 +4,9 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class LocationConfiguration : IEntityTypeConfiguration<LocationDm>
+    public class LocationConfiguration : IEntityTypeConfiguration<LocationLibDm>
     {
-        public void Configure(EntityTypeBuilder<LocationDm> builder)
+        public void Configure(EntityTypeBuilder<LocationLibDm> builder)
         {
             builder.ToTable("Location");
             builder.HasKey(x => x.Id);

@@ -4,9 +4,9 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class TransportConfiguration : IEntityTypeConfiguration<TransportDm>
+    public class TransportConfiguration : IEntityTypeConfiguration<TransportLibDm>
     {
-        public void Configure(EntityTypeBuilder<TransportDm> builder)
+        public void Configure(EntityTypeBuilder<TransportLibDm> builder)
         {
             builder.Property(p => p.TerminalId).HasColumnName("Transport_TerminalId").IsRequired(false);
             

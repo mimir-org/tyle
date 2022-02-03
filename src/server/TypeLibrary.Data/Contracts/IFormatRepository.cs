@@ -4,7 +4,7 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface IFormatRepository : IGenericRepository<TypeLibraryDbContext, FormatDm>
+    public interface IFormatRepository : IGenericRepository<TypeLibraryDbContext, FormatLibDm>
     {
     }
 }

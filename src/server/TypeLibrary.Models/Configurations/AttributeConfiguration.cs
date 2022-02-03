@@ -6,9 +6,9 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class AttributeConfiguration : IEntityTypeConfiguration<AttributeDm>
+    public class AttributeConfiguration : IEntityTypeConfiguration<AttributeLibDm>
     {
-        public void Configure(EntityTypeBuilder<AttributeDm> builder)
+        public void Configure(EntityTypeBuilder<AttributeLibDm> builder)
         {
             var stringComparer = new StringHashSetValueComparer();
             var stringConverter = new StringHashSetValueConverter();
@@ -30,26 +30,26 @@ namespace TypeLibrary.Models.Configurations
             builder.HasOne(x => x.FormatDm).WithMany(y => y.AttributeList).HasForeignKey(x => x.FormatId).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasMany(x => x.Units).WithMany(y => y.AttributeList).UsingEntity<Dictionary<string, object>>("Attribute_Unit",
-                x => x.HasOne<UnitDm>().WithMany().HasForeignKey("UnitId"),
-                x => x.HasOne<AttributeDm>().WithMany().HasForeignKey("AttributeId"),
+                x => x.HasOne<UnitLibDm>().WithMany().HasForeignKey("UnitId"),
+                x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),
                 x => x.ToTable("Attribute_Unit")
             );
 
             builder.HasMany(x => x.NodeTypes).WithMany(y => y.AttributeList).UsingEntity<Dictionary<string, object>>("Node_Attribute",
-                x => x.HasOne<NodeDm>().WithMany().HasForeignKey("NodeId"),
-                x => x.HasOne<AttributeDm>().WithMany().HasForeignKey("AttributeId"),
+                x => x.HasOne<NodeLibDm>().WithMany().HasForeignKey("NodeId"),
+                x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),
                 x => x.ToTable("Node_Attribute")
             );
 
             builder.HasMany(x => x.TransportTypes).WithMany(y => y.AttributeList).UsingEntity<Dictionary<string, object>>("Transport_Attribute",
-                x => x.HasOne<TransportDm>().WithMany().HasForeignKey("TransportId"),
-                x => x.HasOne<AttributeDm>().WithMany().HasForeignKey("AttributeId"),
+                x => x.HasOne<TransportLibDm>().WithMany().HasForeignKey("TransportId"),
+                x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),
                 x => x.ToTable("Transport_Attribute")
             );
 
             builder.HasMany(x => x.SimpleTypes).WithMany(y => y.AttributeList).UsingEntity<Dictionary<string, object>>("Simple_Attribute",
-                x => x.HasOne<SimpleDm>().WithMany().HasForeignKey("SimpleId"),
-                x => x.HasOne<AttributeDm>().WithMany().HasForeignKey("AttributeId"),
+                x => x.HasOne<SimpleLibDm>().WithMany().HasForeignKey("SimpleId"),
+                x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),
                 x => x.ToTable("Simple_Attribute")
             );
         }

@@ -4,9 +4,9 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class QualifierConfiguration : IEntityTypeConfiguration<QualifierDm>
+    public class QualifierConfiguration : IEntityTypeConfiguration<QualifierLibDm>
     {
-        public void Configure(EntityTypeBuilder<QualifierDm> builder)
+        public void Configure(EntityTypeBuilder<QualifierLibDm> builder)
         {
             builder.ToTable("Qualifier");
             builder.HasKey(x => x.Id);

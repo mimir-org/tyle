@@ -26,37 +26,37 @@ namespace TypeLibrary.Services.Services
             _contextAccessor = contextAccessor;
         }
 
-        public Task<IEnumerable<CollectionAm>> GetCollections()
+        public Task<IEnumerable<CollectionLibAm>> GetCollections()
         {
             var dataList = _collectionRepository.GetAll();
-            var dataAm = _mapper.Map<List<CollectionAm>>(dataList);
-            return Task.FromResult<IEnumerable<CollectionAm>>(dataAm);
+            var dataAm = _mapper.Map<List<CollectionLibAm>>(dataList);
+            return Task.FromResult<IEnumerable<CollectionLibAm>>(dataAm);
         }
 
-        public async Task<CollectionAm> UpdateCollection(CollectionAm dataAm)
+        public async Task<CollectionLibAm> UpdateCollection(CollectionLibAm dataAm)
         {
-            var data = _mapper.Map<CollectionDm>(dataAm);
+            var data = _mapper.Map<CollectionLibDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _collectionRepository.Update(data);
             await _collectionRepository.SaveAsync();
-            return _mapper.Map<CollectionAm>(data);
+            return _mapper.Map<CollectionLibAm>(data);
         }
 
-        public async Task<CollectionAm> CreateCollection(CollectionAm dataAm)
+        public async Task<CollectionLibAm> CreateCollection(CollectionLibAm dataAm)
         {
-            var data = _mapper.Map<CollectionDm>(dataAm);
+            var data = _mapper.Map<CollectionLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             data.Id = data.Key.CreateMd5();
             var createdData = await _collectionRepository.CreateAsync(data);
             await _collectionRepository.SaveAsync();
-            return _mapper.Map<CollectionAm>(createdData.Entity);
+            return _mapper.Map<CollectionLibAm>(createdData.Entity);
         }
 
-        public async Task CreateCollections(List<CollectionAm> dataAm)
+        public async Task CreateCollections(List<CollectionLibAm> dataAm)
         {
-            var dataList = _mapper.Map<List<CollectionDm>>(dataAm);
+            var dataList = _mapper.Map<List<CollectionLibDm>>(dataAm);
             var existing = _collectionRepository.GetAll().ToList();
             var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
 

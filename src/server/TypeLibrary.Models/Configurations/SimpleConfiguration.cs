@@ -5,9 +5,9 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class SimpleConfiguration : IEntityTypeConfiguration<SimpleDm>
+    public class SimpleConfiguration : IEntityTypeConfiguration<SimpleLibDm>
     {
-        public void Configure(EntityTypeBuilder<SimpleDm> builder)
+        public void Configure(EntityTypeBuilder<SimpleLibDm> builder)
         {
             builder.HasKey(x => x.Id);
             builder.ToTable("Simple");
@@ -17,14 +17,14 @@ namespace TypeLibrary.Models.Configurations
             builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false);
 
             builder.HasMany(x => x.AttributeList).WithMany(y => y.SimpleTypes).UsingEntity<Dictionary<string, object>>("Simple_Attribute",
-                x => x.HasOne<AttributeDm>().WithMany().HasForeignKey("AttributeId"),
-                x => x.HasOne<SimpleDm>().WithMany().HasForeignKey("SimpleId"),
+                x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),
+                x => x.HasOne<SimpleLibDm>().WithMany().HasForeignKey("SimpleId"),
                 x => x.ToTable("Simple_Attribute")
             );
 
             builder.HasMany(x => x.NodeTypes).WithMany(y => y.SimpleTypes).UsingEntity<Dictionary<string, object>>("Simple_Node",
-                x => x.HasOne<NodeDm>().WithMany().HasForeignKey("NodeId"),
-                x => x.HasOne<SimpleDm>().WithMany().HasForeignKey("SimpleId"),
+                x => x.HasOne<NodeLibDm>().WithMany().HasForeignKey("NodeId"),
+                x => x.HasOne<SimpleLibDm>().WithMany().HasForeignKey("SimpleId"),
                 x => x.ToTable("Simple_Node")
             );
         }

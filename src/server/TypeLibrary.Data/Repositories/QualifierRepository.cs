@@ -5,7 +5,7 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Data.Repositories
 {
-    public class QualifierRepository : GenericRepository<TypeLibraryDbContext, QualifierDm>, IQualifierRepository
+    public class QualifierRepository : GenericRepository<TypeLibraryDbContext, QualifierLibDm>, IQualifierRepository
     {
         public QualifierRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {

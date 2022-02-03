@@ -6,9 +6,9 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface IPurposeService
     {
-        Task<IEnumerable<PurposeAm>> GetPurposes();
-        Task<PurposeAm> UpdatePurpose(PurposeAm dataAm);
-        Task<PurposeAm> CreatePurpose(PurposeAm dataAm);
-        Task CreatePurposes(List<PurposeAm> dataAm);
+        Task<IEnumerable<PurposeLibAm>> GetPurposes();
+        Task<PurposeLibAm> UpdatePurpose(PurposeLibAm dataAm);
+        Task<PurposeLibAm> CreatePurpose(PurposeLibAm dataAm);
+        Task CreatePurposes(List<PurposeLibAm> dataAm);
     }
 }

@@ -4,9 +4,9 @@ using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Configurations
 {
-    public class PurposeConfiguration : IEntityTypeConfiguration<PurposeDm>
+    public class PurposeConfiguration : IEntityTypeConfiguration<PurposeLibDm>
     {
-        public void Configure(EntityTypeBuilder<PurposeDm> builder)
+        public void Configure(EntityTypeBuilder<PurposeLibDm> builder)
         {
             builder.ToTable("Purpose");
             builder.HasKey(x => x.Id);

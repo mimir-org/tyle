@@ -26,37 +26,37 @@ namespace TypeLibrary.Services.Services
             _contextAccessor = contextAccessor;
         }
 
-        public Task<IEnumerable<ConditionAm>> GetConditions()
+        public Task<IEnumerable<ConditionLibAm>> GetConditions()
         {
             var dataList = _conditionRepository.GetAll();
-            var dataAm = _mapper.Map<List<ConditionAm>>(dataList);
-            return Task.FromResult<IEnumerable<ConditionAm>>(dataAm);
+            var dataAm = _mapper.Map<List<ConditionLibAm>>(dataList);
+            return Task.FromResult<IEnumerable<ConditionLibAm>>(dataAm);
         }
 
-        public async Task<ConditionAm> UpdateCondition(ConditionAm dataAm)
+        public async Task<ConditionLibAm> UpdateCondition(ConditionLibAm dataAm)
         {
-            var data = _mapper.Map<ConditionDm>(dataAm);
+            var data = _mapper.Map<ConditionLibDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _conditionRepository.Update(data);
             await _conditionRepository.SaveAsync();
-            return _mapper.Map<ConditionAm>(data);
+            return _mapper.Map<ConditionLibAm>(data);
         }
 
-        public async Task<ConditionAm> CreateCondition(ConditionAm dataAm)
+        public async Task<ConditionLibAm> CreateCondition(ConditionLibAm dataAm)
         {
-            var data = _mapper.Map<ConditionDm>(dataAm);
+            var data = _mapper.Map<ConditionLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             data.Id = data.Key.CreateMd5();
             var createdData = await _conditionRepository.CreateAsync(data);
             await _conditionRepository.SaveAsync();
-            return _mapper.Map<ConditionAm>(createdData.Entity);
+            return _mapper.Map<ConditionLibAm>(createdData.Entity);
         }
 
-        public async Task CreateConditions(List<ConditionAm> dataAm)
+        public async Task CreateConditions(List<ConditionLibAm> dataAm)
         {
-            var dataList = _mapper.Map<List<ConditionDm>>(dataAm);
+            var dataList = _mapper.Map<List<ConditionLibDm>>(dataAm);
             var existing = _conditionRepository.GetAll().ToList();
             var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
 

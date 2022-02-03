@@ -26,37 +26,37 @@ namespace TypeLibrary.Services.Services
             _contextAccessor = contextAccessor;
         }
 
-        public Task<IEnumerable<FormatAm>> GetFormats()
+        public Task<IEnumerable<FormatLibAm>> GetFormats()
         {
             var dataList = _formatRepository.GetAll();
-            var dataAm = _mapper.Map<List<FormatAm>>(dataList);
-            return Task.FromResult<IEnumerable<FormatAm>>(dataAm);
+            var dataAm = _mapper.Map<List<FormatLibAm>>(dataList);
+            return Task.FromResult<IEnumerable<FormatLibAm>>(dataAm);
         }
 
-        public async Task<FormatAm> UpdateFormat(FormatAm dataAm)
+        public async Task<FormatLibAm> UpdateFormat(FormatLibAm dataAm)
         {
-            var data = _mapper.Map<FormatDm>(dataAm);
+            var data = _mapper.Map<FormatLibDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _formatRepository.Update(data);
             await _formatRepository.SaveAsync();
-            return _mapper.Map<FormatAm>(data);
+            return _mapper.Map<FormatLibAm>(data);
         }
 
-        public async Task<FormatAm> CreateFormat(FormatAm dataAm)
+        public async Task<FormatLibAm> CreateFormat(FormatLibAm dataAm)
         {
-            var data = _mapper.Map<FormatDm>(dataAm);
+            var data = _mapper.Map<FormatLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             data.Id = data.Key.CreateMd5();
             var createdData = await _formatRepository.CreateAsync(data);
             await _formatRepository.SaveAsync();
-            return _mapper.Map<FormatAm>(createdData.Entity);
+            return _mapper.Map<FormatLibAm>(createdData.Entity);
         }
 
-        public async Task CreateFormats(List<FormatAm> dataAm)
+        public async Task CreateFormats(List<FormatLibAm> dataAm)
         {
-            var dataList = _mapper.Map<List<FormatDm>>(dataAm);
+            var dataList = _mapper.Map<List<FormatLibDm>>(dataAm);
             var existing = _formatRepository.GetAll().ToList();
             var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
 
