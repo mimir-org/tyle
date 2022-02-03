@@ -30,19 +30,32 @@ namespace TypeLibrary.Services.Services
         
         private readonly IAttributeService _attributeService;
         private readonly IBlobDataService _blobDataService;
-        private readonly IEnumService _enumService;
+        private readonly IConditionService _conditionService;
+        private readonly IFormatService _formatService;
+        private readonly IQualifierService _qualifierService;
+        private readonly ISourceService _sourceService;
+        private readonly ILocationService _locationService;
+        private readonly IPurposeService _purposeService;
+        private readonly IUnitService _unitService;
         private readonly IRdsService _rdsService;
         private readonly ITerminalService _terminalTypeService;
         private readonly ITypeService _typeService;
         private readonly IFileRepository _fileRepository;
         private readonly ILogger<SeedingService> _logger;
         
-        public SeedingService(IAttributeService attributeService, IBlobDataService blobDataService, IEnumService enumService, IRdsService rdsService,
-            ITerminalService terminalTypeService, IFileRepository fileRepository, ITypeService typeService, ILogger<SeedingService> logger)
+        public SeedingService(IAttributeService attributeService, IBlobDataService blobDataService, IConditionService conditionService, IFormatService formatService, 
+            IQualifierService qualifierService, ISourceService sourceService, ILocationService locationService, IPurposeService purposeService, IUnitService unitService, 
+            IRdsService rdsService, ITerminalService terminalTypeService, ITypeService typeService, IFileRepository fileRepository, ILogger<SeedingService> logger)
         {
             _attributeService = attributeService;
             _blobDataService = blobDataService;
-            _enumService = enumService;
+            _conditionService = conditionService;
+            _formatService = formatService;
+            _qualifierService = qualifierService;
+            _sourceService = sourceService;
+            _locationService = locationService;
+            _purposeService = purposeService;
+            _unitService = unitService;
             _rdsService = rdsService;
             _terminalTypeService = terminalTypeService;
             _typeService = typeService;
@@ -95,14 +108,14 @@ namespace TypeLibrary.Services.Services
                 var simpleTypes = _fileRepository.ReadAllFiles<SimpleAm>(simpleTypeFileNames).ToList();
                 var transports = _fileRepository.ReadAllFiles<TypeAm>(transportFiles).ToList();
                 
-                await _enumService.CreateConditions(conditions);
-                await _enumService.CreateFormats(formats);
-                await _enumService.CreateQualifiers(qualifiers);
-                await _enumService.CreateSources(sources);
-                await _enumService.CreateLocations(locations);
-                await _enumService.CreatePurposes(purposes);
-                await _enumService.CreateRdsCategories(rdsCategories);
-                await _enumService.CreateUnits(units);
+                await _conditionService.CreateConditions(conditions);
+                await _formatService.CreateFormats(formats);
+                await _qualifierService.CreateQualifiers(qualifiers);
+                await _sourceService.CreateSources(sources);
+                await _locationService.CreateLocations(locations);
+                await _purposeService.CreatePurposes(purposes);
+                await _rdsService.CreateRdsCategories(rdsCategories);
+                await _unitService.CreateUnits(units);
                 
                 await _attributeService.CreateAttributes(attributes);
                 await _attributeService.CreateAttributesPredefined(attributesPredefined);

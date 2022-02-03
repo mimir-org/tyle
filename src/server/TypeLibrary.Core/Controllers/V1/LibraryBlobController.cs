@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Threading;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Mimirorg.Common.Exceptions;
-using Mimirorg.Common.Extensions;
 using Swashbuckle.AspNetCore.Annotations;
+
+using TypeLibrary.Models.Models.Application;
+using TypeLibrary.Models.Models.Data;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1
@@ -20,34 +22,35 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("File services")]
-    public class FileController : ControllerBase
+    [SwaggerTag("Blob (icons) services")]
+    public class LibraryBlobController : ControllerBase
     {
-        private readonly ILogger<FileController> _logger;
-        private readonly IFileService _fileService;
+        private readonly ILogger<LibraryBlobController> _logger;
+        private readonly IBlobDataService _blobDataService;
 
-        public FileController(ILogger<FileController> logger, IFileService fileService)
+        public LibraryBlobController(ILogger<LibraryBlobController> logger, IBlobDataService blobDataService)
         {
             _logger = logger;
-            _fileService = fileService;
+            _blobDataService = blobDataService;
         }
 
         /// <summary>
-        /// Export to file
+        /// Get blob data from category
         /// </summary>
         /// <returns></returns>
-        [HttpGet("export")]
-        [ProducesResponseType(typeof(FileContentResult), StatusCodes.Status200OK)]
+        [HttpGet]
+        [ProducesResponseType(typeof(ICollection<BlobDataAm>), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         //[Authorize(Policy = "Read")]
-        public IActionResult ExportTypes()
+        public IActionResult GetBlobData()
         {
             try
             {
-                var data = _fileService.CreateFile();
-                return File(data, "application/json", "types.json");
+                var blobs = _blobDataService.GetBlobData().ToList();
+                return Ok(blobs);
             }
             catch (Exception e)
             {
@@ -57,28 +60,26 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
-        /// Import from file
+        /// Create a new blob data object
         /// </summary>
+        /// <param name="blobData"></param>
         /// <returns></returns>
-        [HttpPost("import")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [HttpPost]
+        [ProducesResponseType(typeof(BlobDm), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UploadTypes(IFormFile file, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateOrUpdateBlob([FromBody] BlobDataAm blobData)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             try
             {
-                if (!file.ValidateJsonFile())
-                    return BadRequest("Invalid file extension. The file must be a json file");
-
-                await _fileService.LoadDataFromFile(file, cancellationToken);
-                return Ok(true);
-            }
-            catch (MimirorgDuplicateException e)
-            {
-                return Conflict(e.Message);
+                var createdBlob = await _blobDataService.CreateBlobData(blobData);
+                return StatusCode(201, createdBlob);
             }
             catch (Exception e)
             {

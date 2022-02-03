@@ -10,6 +10,7 @@ namespace TypeLibrary.Services.Contracts
     public interface IAttributeService
     {
         IEnumerable<AttributeDm> GetAttributes(Aspect aspect);
+        IEnumerable<AttributeDm> GetAttributes();
         Task<AttributeDm> CreateAttribute(AttributeAm attributeAm);
         Task<ICollection<AttributeDm>> CreateAttributes(List<AttributeAm> attributeAmList);
         IEnumerable<AttributePredefinedCm> GetAttributesPredefined();

@@ -53,8 +53,14 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IRdsService, RdsService>();
             services.AddScoped<ISeedingService, SeedingService>();
             services.AddScoped<IBlobDataService, BlobDataService>();
-            services.AddScoped<IEnumService, EnumService>();
-
+            services.AddScoped<IConditionService, ConditionService>();
+            services.AddScoped<IFormatService, FormatService>();
+            services.AddScoped<IQualifierService, QualifierService>();
+            services.AddScoped<ISourceService, SourceService>();
+            services.AddScoped<ILocationService, LocationService>();
+            services.AddScoped<IPurposeService, PurposeService>();
+            services.AddScoped<IUnitService, UnitService>();
+            services.AddScoped<ICollectionService, CollectionService>();
 
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();

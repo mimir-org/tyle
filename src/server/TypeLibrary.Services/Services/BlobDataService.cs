@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using TypeLibrary.Data.Contracts;
-
 using TypeLibrary.Models.Models.Application;
 using TypeLibrary.Models.Models.Data;
 using TypeLibrary.Services.Contracts;

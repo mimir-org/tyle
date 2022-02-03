@@ -26,12 +26,12 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
     [SwaggerTag("Type services")]
-    public class TypeController : ControllerBase
+    public class LibraryTypeController : ControllerBase
     {
-        private readonly ILogger<TypeController> _logger;
+        private readonly ILogger<LibraryTypeController> _logger;
         private readonly ITypeService _typeService;
 
-        public TypeController(ILogger<TypeController> logger, ITypeService typeService)
+        public LibraryTypeController(ILogger<LibraryTypeController> logger, ITypeService typeService)
         {
             _logger = logger;
             _typeService = typeService;

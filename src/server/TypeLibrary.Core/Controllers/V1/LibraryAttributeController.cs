@@ -24,12 +24,12 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
     [SwaggerTag("Attribute services")]
-    public class AttributeController : ControllerBase
+    public class LibraryAttributeController : ControllerBase
     {
-        private readonly ILogger<AttributeController> _logger;
+        private readonly ILogger<LibraryAttributeController> _logger;
         private readonly IAttributeService _attributeService;
 
-        public AttributeController(ILogger<AttributeController> logger, IAttributeService attributeService)
+        public LibraryAttributeController(ILogger<LibraryAttributeController> logger, IAttributeService attributeService)
         {
             _logger = logger;
             _attributeService = attributeService;
@@ -60,10 +60,32 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
+        /// Get all attributes
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(ICollection<AttributeDm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[Authorize(Policy = "Read")]
+        public IActionResult GetAttributes()
+        {
+            try
+            {
+                var data = _attributeService.GetAttributes().ToList();
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
         /// Get predefined attributes
         /// </summary>
         /// <returns></returns>
-        [HttpGet("attributes-predefined")]
+        [HttpGet("predefined")]
         [ProducesResponseType(typeof(ICollection<AttributePredefinedCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
@@ -86,7 +108,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <param name="attributeAm"></param>
         /// <returns></returns>
-        [HttpPost("attribute")]
+        [HttpPost]
         [ProducesResponseType(typeof(AttributeDm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

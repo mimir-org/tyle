@@ -48,6 +48,23 @@ namespace TypeLibrary.Services.Services
                 all.Where(x => x.Aspect.HasFlag(aspect)).ToList();
         }
 
+       /// <summary>
+       /// Get all attributes
+       /// </summary>
+       /// <returns></returns>
+        public IEnumerable<AttributeDm> GetAttributes()
+        {
+            var all = _attributeRepository.GetAll()
+                .Include(x => x.QualifierDm)
+                .Include(x => x.SourceDm)
+                .Include(x => x.ConditionDm)
+                .Include(x => x.FormatDm)
+                .Include(x => x.Units)
+                .ToList();
+
+            return all;
+        }
+
         /// <summary>
         /// Create an attribute
         /// </summary>

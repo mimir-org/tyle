@@ -24,12 +24,12 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
     [SwaggerTag("Terminal services")]
-    public class TerminalController : ControllerBase
+    public class LibraryTerminalController : ControllerBase
     {
-        private readonly ILogger<TerminalController> _logger;
+        private readonly ILogger<LibraryTerminalController> _logger;
         private readonly ITerminalService _terminalTypeService;
 
-        public TerminalController(ILogger<TerminalController> logger, ITerminalService terminalTypeService)
+        public LibraryTerminalController(ILogger<LibraryTerminalController> logger, ITerminalService terminalTypeService)
         {
             _logger = logger;
             _terminalTypeService = terminalTypeService;
@@ -39,7 +39,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// Get terminal types
         /// </summary>
         /// <returns></returns>
-        [HttpGet("")]
+        [HttpGet]
         [ProducesResponseType(typeof(ICollection<TerminalDm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
@@ -84,7 +84,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <param name="terminalAm"></param>
         /// <returns></returns>
-        [HttpPost("")]
+        [HttpPost]
         [ProducesResponseType(typeof(AttributeDm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
