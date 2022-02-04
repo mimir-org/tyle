@@ -1,7 +1,6 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace TypeLibrary.Models.Enums
+namespace Mimirorg.Common.Enums
 {
     [Flags]
     public enum Discipline

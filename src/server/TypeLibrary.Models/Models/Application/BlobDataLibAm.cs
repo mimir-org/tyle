@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using TypeLibrary.Models.Enums;
+using Mimirorg.Common.Enums;
 
 namespace TypeLibrary.Models.Models.Application
 {

@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using TypeLibrary.Models.Enums;
 using Microsoft.EntityFrameworkCore;
+using Mimirorg.Common.Enums;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Models.Models.Application;
 using TypeLibrary.Models.Models.Client;

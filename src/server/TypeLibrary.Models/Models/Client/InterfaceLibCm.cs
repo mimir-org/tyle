@@ -1,5 +1,5 @@
 ﻿using System;
-using TypeLibrary.Models.Enums;
+using Mimirorg.Common.Enums;
 using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Models.Client

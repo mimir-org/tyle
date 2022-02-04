@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TypeLibrary.Models.Enums
+namespace Mimirorg.Common.Enums
 {
     public enum SelectType
     {

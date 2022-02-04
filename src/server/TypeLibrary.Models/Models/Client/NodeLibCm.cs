@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using TypeLibrary.Models.Enums;
+using Mimirorg.Common.Enums;
 using TypeLibrary.Models.Models.Data;
 using Attribute = System.Attribute;
 

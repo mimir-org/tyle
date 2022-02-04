@@ -1,4 +1,4 @@
-﻿namespace TypeLibrary.Models.Enums
+﻿namespace Mimirorg.Common.Enums
 {
     public enum ConnectorType
     {

@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using TypeLibrary.Models.Enums;
+﻿using Mimirorg.Common.Enums;
+using Newtonsoft.Json;
 
 namespace TypeLibrary.Models.Models.Application
 {

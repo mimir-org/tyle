@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TypeLibrary.Models.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mimirorg.Common.Enums;
 using Swashbuckle.AspNetCore.Annotations;
 using TypeLibrary.Models.Models.Application;
 using TypeLibrary.Models.Models.Client;

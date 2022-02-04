@@ -1,7 +1,6 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace TypeLibrary.Models.Enums
+namespace Mimirorg.Common.Enums
 {
     [Flags]
     public enum Aspect
@@ -18,7 +17,7 @@ namespace TypeLibrary.Models.Enums
         [Display(Name = "Product")]
         Product = 4,
 
-        [Display(Name = "LocationDm")]
+        [Display(Name = "Location")]
         Location = 8
     }
 }

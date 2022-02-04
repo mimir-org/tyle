@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Extensions;
-using TypeLibrary.Models.Enums;
 using TypeLibrary.Models.Models.Application;
 using TypeLibrary.Models.Models.Client;
 using TypeLibrary.Models.Models.Data;

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Mimirorg.Common.Enums;
 using Newtonsoft.Json;
-using TypeLibrary.Models.Enums;
 
 namespace TypeLibrary.Models.Models.Data
 {

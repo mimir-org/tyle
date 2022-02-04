@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TypeLibrary.Models.Enums;
+using Mimirorg.Common.Enums;
 using TypeLibrary.Models.Models.Application;
 using TypeLibrary.Models.Models.Data;
 

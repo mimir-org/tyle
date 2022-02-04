@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Mimirorg.Common.Enums;
 using Newtonsoft.Json;
-using TypeLibrary.Models.Enums;
 using TypeLibrary.Models.Models.Data;
 
 namespace TypeLibrary.Models.Models.Application
