@@ -41,6 +41,6 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Key => $"{Entity}-{Aspect}-{QualifierId}-{SourceId}-{ConditionId}";
 
         [JsonIgnore]
-        public ICollection<UnitLibDm> ConvertToObject => Units.Select(x => new UnitLibDm { Id = x }).ToList();
+        public ICollection<UnitLibDm> ConvertToObject => Units?.Select(x => new UnitLibDm { Id = x }).ToList();
     }
 }

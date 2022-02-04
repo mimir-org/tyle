@@ -23,6 +23,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.SelectType, opt => opt.MapFrom(src => src.SelectType))
                 .ForMember(dest => dest.Discipline, opt => opt.MapFrom(src => src.Discipline))
                 .ForMember(dest => dest.Units, opt => opt.MapFrom(src => src.ConvertToObject))
+                .ForMember(dest => dest.SelectValues, opt => opt.Ignore())
                 .ForMember(dest => dest.SelectValuesString, opt => opt.MapFrom(src => src.SelectValues == null ? null : src.SelectValues.ConvertToString()));
 
             CreateMap<UnitLibAm, UnitLibDm>()

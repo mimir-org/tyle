@@ -19,6 +19,6 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Key => $"{Name}";
 
         [JsonIgnore]
-        public ICollection<AttributeLibDm> ConvertToObject => Attributes.Select(x => new AttributeLibDm { Id = x }).ToList();
+        public ICollection<AttributeLibDm> ConvertToObject => Attributes?.Select(x => new AttributeLibDm { Id = x }).ToList();
     }
 }
