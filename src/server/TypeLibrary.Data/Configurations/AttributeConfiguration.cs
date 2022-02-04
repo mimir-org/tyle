@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Mimirorg.Common.Converters;
-using TypeLibrary.Models.Models.Data;
+using Mimirorg.TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Data.Configurations
 {

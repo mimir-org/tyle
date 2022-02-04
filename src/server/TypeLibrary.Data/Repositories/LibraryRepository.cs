@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Models.Models.Client;
+using Mimirorg.TypeLibrary.Models.Client;
 
 namespace TypeLibrary.Data.Repositories
 {

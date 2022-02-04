@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Swashbuckle.AspNetCore.Annotations;
-using TypeLibrary.Models.Models.Application;
-using TypeLibrary.Models.Models.Client;
-using TypeLibrary.Models.Models.Data;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
+using Mimirorg.TypeLibrary.Models.Data;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1

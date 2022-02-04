@@ -28,7 +28,6 @@
     <ProjectReference Include="..\Mimirorg.Authentication\Mimirorg.Authentication.csproj" />
     <ProjectReference Include="..\Mimirorg.Common\Mimirorg.Common.csproj" />
     <ProjectReference Include="..\TypeLibrary.Data\TypeLibrary.Data.csproj" />
-    <ProjectReference Include="..\TypeLibrary.Models\TypeLibrary.Models.csproj" />
     <ProjectReference Include="..\TypeLibrary.Services\TypeLibrary.Services.csproj" />
   </ItemGroup>
 

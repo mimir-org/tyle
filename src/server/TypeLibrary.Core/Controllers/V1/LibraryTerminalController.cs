@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
-using TypeLibrary.Models.Models.Application;
-using TypeLibrary.Models.Models.Data;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Data;
 using TypeLibrary.Services.Contracts;
 
 // ReSharper disable StringLiteralTypo

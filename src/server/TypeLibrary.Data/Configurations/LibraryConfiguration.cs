@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Models.Models.Data;
+using Mimirorg.TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Data.Configurations
 {

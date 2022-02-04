@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
-using TypeLibrary.Models.Models.Application;
+using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1

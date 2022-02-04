@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Extensions;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Models.Models.Application;
-using TypeLibrary.Models.Models.Data;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Data;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using AutoMapper;
 using Mimirorg.Common.Extensions;
-
-using TypeLibrary.Models.Models.Application;
-using TypeLibrary.Models.Models.Client;
-using TypeLibrary.Models.Models.Data;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
+using Mimirorg.TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Core.Profiles
 {
