@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TypeLibrary.Models.Models.Data;
 
-namespace TypeLibrary.Models.Configurations
+namespace TypeLibrary.Data.Configurations
 {
     public class SimpleConfiguration : IEntityTypeConfiguration<SimpleLibDm>
     {

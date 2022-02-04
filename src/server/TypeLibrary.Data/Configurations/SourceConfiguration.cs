@@ -2,13 +2,13 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TypeLibrary.Models.Models.Data;
 
-namespace TypeLibrary.Models.Configurations
+namespace TypeLibrary.Data.Configurations
 {
-    public class QualifierConfiguration : IEntityTypeConfiguration<QualifierLibDm>
+    public class SourceConfiguration : IEntityTypeConfiguration<SourceLibDm>
     {
-        public void Configure(EntityTypeBuilder<QualifierLibDm> builder)
+        public void Configure(EntityTypeBuilder<SourceLibDm> builder)
         {
-            builder.ToTable("Qualifier");
+            builder.ToTable("Source");
             builder.HasKey(x => x.Id);
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();

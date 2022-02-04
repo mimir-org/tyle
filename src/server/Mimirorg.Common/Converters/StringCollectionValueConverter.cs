@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace TypeLibrary.Models.Configurations.Converters
+namespace Mimirorg.Common.Converters
 {
     public class StringCollectionValueConverter : ValueConverter<ICollection<string>, string>
     {

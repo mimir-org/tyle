@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;
 
-namespace TypeLibrary.Models.Configurations.Converters
+namespace Mimirorg.Common.Converters
 {
     public static class JsonConverter
     {

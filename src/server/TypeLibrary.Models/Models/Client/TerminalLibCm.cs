@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using TypeLibrary.Models.Enums;
 
-namespace TypeLibrary.Models.Models.Application
+namespace TypeLibrary.Models.Models.Client
 {
     public class TerminalLibCm
     {

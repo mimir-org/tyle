@@ -2,13 +2,13 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TypeLibrary.Models.Models.Data;
 
-namespace TypeLibrary.Models.Configurations
+namespace TypeLibrary.Data.Configurations
 {
-    public class ConditionConfiguration : IEntityTypeConfiguration<ConditionLibDm>
+    public class UnitConfiguration : IEntityTypeConfiguration<UnitLibDm>
     {
-        public void Configure(EntityTypeBuilder<ConditionLibDm> builder)
+        public void Configure(EntityTypeBuilder<UnitLibDm> builder)
         {
-            builder.ToTable("Condition");
+            builder.ToTable("Unit");
             builder.HasKey(x => x.Id);
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();

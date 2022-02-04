@@ -2,13 +2,13 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TypeLibrary.Models.Models.Data;
 
-namespace TypeLibrary.Models.Configurations
+namespace TypeLibrary.Data.Configurations
 {
-    public class UnitConfiguration : IEntityTypeConfiguration<UnitLibDm>
+    public class FormatConfiguration : IEntityTypeConfiguration<FormatLibDm>
     {
-        public void Configure(EntityTypeBuilder<UnitLibDm> builder)
+        public void Configure(EntityTypeBuilder<FormatLibDm> builder)
         {
-            builder.ToTable("Unit");
+            builder.ToTable("Format");
             builder.HasKey(x => x.Id);
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();

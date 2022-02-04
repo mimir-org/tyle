@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TypeLibrary.Models.Configurations.Converters;
+using Mimirorg.Common.Converters;
 using TypeLibrary.Models.Models.Data;
 
-namespace TypeLibrary.Models.Configurations
+namespace TypeLibrary.Data.Configurations
 {
     public class AttributeConfiguration : IEntityTypeConfiguration<AttributeLibDm>
     {
