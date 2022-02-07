@@ -3,14 +3,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using TypeLibrary.Models.Enums;
 using Microsoft.EntityFrameworkCore;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using TypeLibrary.Data.Contracts;
-
-using TypeLibrary.Models.Models.Application;
-using TypeLibrary.Models.Models.Data;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Data;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -32,12 +31,12 @@ namespace TypeLibrary.Services.Services
         /// <param name="blobData"></param>
         /// <param name="saveData"></param>
         /// <returns></returns>
-        public async Task<BlobDm> CreateBlobData(BlobDataAm blobData, bool saveData = true)
+        public async Task<BlobLibDm> CreateBlobData(BlobDataLibAm blobData, bool saveData = true)
         {
             if (!string.IsNullOrEmpty(blobData.Id))
                 return await UpdateBlobData(blobData);
 
-            var dm = _mapper.Map<BlobDm>(blobData);
+            var dm = _mapper.Map<BlobLibDm>(blobData);
             dm.Id = dm.Key.CreateMd5();
 
             var blobExist = await _blobDataRepository.GetAsync(dm.Id);
@@ -67,9 +66,9 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="blobDataList"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<BlobDm>> CreateBlobData(IEnumerable<BlobDataAm> blobDataList)
+        public async Task<IEnumerable<BlobLibDm>> CreateBlobData(IEnumerable<BlobDataLibAm> blobDataList)
         {
-            var blobs = new List<BlobDm>();
+            var blobs = new List<BlobLibDm>();
 
             foreach (var blobData in blobDataList)
             {
@@ -85,7 +84,7 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="blobData"></param>
         /// <returns></returns>
-        public async Task<BlobDm> UpdateBlobData(BlobDataAm blobData)
+        public async Task<BlobLibDm> UpdateBlobData(BlobDataLibAm blobData)
         {
             var dm = await _blobDataRepository.GetAsync(blobData.Id);
             if (dm == null)
@@ -100,14 +99,14 @@ namespace TypeLibrary.Services.Services
         /// Get all blobs
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BlobDataAm> GetBlobData()
+        public IEnumerable<BlobDataLibAm> GetBlobData()
         {
             var dms = _blobDataRepository.GetAll()
                 .OrderBy(x => x.Name)
-                .ProjectTo<BlobDataAm>(_mapper.ConfigurationProvider)
+                .ProjectTo<BlobDataLibAm>(_mapper.ConfigurationProvider)
                 .ToList();
 
-            dms.Insert(0, new BlobDataAm
+            dms.Insert(0, new BlobDataLibAm
             {
                 Discipline = Discipline.None,
                 Data = null,

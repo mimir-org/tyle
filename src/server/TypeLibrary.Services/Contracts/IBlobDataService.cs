@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using TypeLibrary.Models.Models.Application;
-using TypeLibrary.Models.Models.Data;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Services.Contracts
 {
     public interface IBlobDataService
     {
-        Task<BlobDm> CreateBlobData(BlobDataAm blobData, bool saveData = true);
-        Task<IEnumerable<BlobDm>> CreateBlobData(IEnumerable<BlobDataAm> blobDataList);
-        Task<BlobDm> UpdateBlobData(BlobDataAm blobData);
-        IEnumerable<BlobDataAm> GetBlobData();
+        Task<BlobLibDm> CreateBlobData(BlobDataLibAm blobData, bool saveData = true);
+        Task<IEnumerable<BlobLibDm>> CreateBlobData(IEnumerable<BlobDataLibAm> blobDataList);
+        Task<BlobLibDm> UpdateBlobData(BlobDataLibAm blobData);
+        IEnumerable<BlobDataLibAm> GetBlobData();
     }
 }

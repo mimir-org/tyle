@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Mimirorg.Authentication.Extensions;
+﻿using Mimirorg.Authentication.Extensions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using TypeLibrary.Core.Extensions;

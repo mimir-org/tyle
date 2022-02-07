@@ -23,15 +23,15 @@ namespace TypeLibrary.Core.Extensions
 
             // Dependency Injection - Repositories
             services.AddScoped<IAttributeRepository, AttributeRepository>();
-            services.AddScoped<ISimpleTypeRepository, SimpleTypeRepository>();
-            services.AddScoped<IInterfaceTypeRepository, InterfaceTypeRepository>();
+            services.AddScoped<ISimpleRepository, SimpleRepository>();
+            services.AddScoped<IInterfaceRepository, InterfaceRepository>();
             services.AddScoped<ILibraryTypeRepository, LibraryTypeRepository>();
-            services.AddScoped<INodeTypeRepository, NodeTypeRepository>();
-            services.AddScoped<INodeTypeTerminalTypeRepository, NodeTypeTerminalTypeRepository>();
-            services.AddScoped<ITerminalTypeRepository, TerminalTypeRepository>();
-            services.AddScoped<ITransportTypeRepository, TransportTypeRepository>();
-            services.AddScoped<ILibraryRepository, LibraryRepository>();
-            services.AddScoped<IPredefinedAttributeRepository, PredefinedAttributeRepository>();
+            services.AddScoped<INodeRepository, NodeRepository>();
+            services.AddScoped<ITerminalNodeRepository, TerminalNodeRepository>();
+            services.AddScoped<ITerminalRepository, TerminalRepository>();
+            services.AddScoped<ITransportRepository, TransportRepository>();
+            services.AddScoped<ILibraryTypeItemRepository, LibraryTypeItemRepository>();
+            services.AddScoped<IAttributePredefinedRepository, AttributePredefinedRepository>();
             services.AddScoped<IRdsRepository, RdsRepository>();
             services.AddSingleton<IFileRepository, JsonFileRepository>();
             services.AddScoped<IBlobDataRepository, BlobDataRepository>();
@@ -39,22 +39,28 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IFormatRepository, FormatRepository>();
             services.AddScoped<IQualifierRepository, QualifierRepository>();
             services.AddScoped<ISourceRepository, SourceRepository>();
-            services.AddScoped<ILocationRepository, LocationRepository>();
+            services.AddScoped<IAttributeTypeRepository, AttributeTypeRepository>();
             services.AddScoped<IPurposeRepository, PurposeRepository>();
             services.AddScoped<IRdsCategoryRepository, RdsCategoryRepository>();
             services.AddScoped<IUnitRepository, UnitRepository>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICollectionRepository, CollectionRepository>();
 
             // Dependency Injection - Services
-            services.AddScoped<ITerminalTypeService, TerminalTypeService>();
-            services.AddScoped<ITypeService, TypeService>();
-            services.AddScoped<ILibraryTypeFileService, LibraryTypeFileService>();
+            services.AddScoped<ITerminalService, TerminalService>();
+            services.AddScoped<Services.Contracts.ILibraryTypeService, Services.Services.LibraryTypeService>();
+            services.AddScoped<IFileService, FileService>();
             services.AddScoped<IAttributeService, AttributeService>();
             services.AddScoped<IRdsService, RdsService>();
             services.AddScoped<ISeedingService, SeedingService>();
             services.AddScoped<IBlobDataService, BlobDataService>();
-            services.AddScoped<IEnumService, EnumService>();
-
+            services.AddScoped<IConditionService, ConditionService>();
+            services.AddScoped<IFormatService, FormatService>();
+            services.AddScoped<IQualifierService, QualifierService>();
+            services.AddScoped<ISourceService, SourceService>();
+            services.AddScoped<IAttributeTypeService, AttributeTypeService>();
+            services.AddScoped<IPurposeService, PurposeService>();
+            services.AddScoped<IUnitService, UnitService>();
+            services.AddScoped<ICollectionService, CollectionService>();
 
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Mimirorg.Common.Extensions;
-using TypeLibrary.Models.Models.Application;
-using TypeLibrary.Models.Models.Data;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Core.Profiles
 {
@@ -9,7 +9,7 @@ namespace TypeLibrary.Core.Profiles
     {
         public RdsProfile()
         {
-            CreateMap<RdsAm, RdsDm>()
+            CreateMap<RdsLibAm, RdsLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Key.CreateMd5()))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Code))

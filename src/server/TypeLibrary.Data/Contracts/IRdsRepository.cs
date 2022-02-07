@@ -1,10 +1,9 @@
 ﻿using Mimirorg.Common.Abstract;
-
-using TypeLibrary.Models.Models.Data;
+using Mimirorg.TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface IRdsRepository : IGenericRepository<TypeLibraryDbContext, RdsDm>
+    public interface IRdsRepository : IGenericRepository<TypeLibraryDbContext, RdsLibDm>
     {
     }
 }

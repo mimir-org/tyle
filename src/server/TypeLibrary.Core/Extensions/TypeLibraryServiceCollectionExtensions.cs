@@ -32,19 +32,19 @@ namespace TypeLibrary.Core.Extensions
             var cfg = new MapperConfigurationExpression();
             cfg.AddProfile(new AttributeProfile());
             cfg.AddProfile<CommonProfile>();
-            cfg.AddProfile(new TypeProfile());
+            cfg.AddProfile(new LibraryTypeProfile());
             cfg.AddProfile<RdsProfile>();
-            cfg.AddProfile(new TerminalTypeProfile());
+            cfg.AddProfile(new TerminalProfile());
             cfg.AddProfile(new ConditionProfile());
             cfg.AddProfile(new FormatProfile());
             cfg.AddProfile(new QualifierProfile());
             cfg.AddProfile(new SourceProfile());
-            cfg.AddProfile(new LocationProfile());
+            cfg.AddProfile(new AttributeTypeProfile());
             cfg.AddProfile(new PurposeProfile());
             cfg.AddProfile(new RdsCategoryProfile());
             cfg.AddProfile(new UnitProfile());
-            cfg.AddProfile(new SimpleTypeProfile());
-            cfg.AddProfile(new CategoryProfile());
+            cfg.AddProfile(new SimpleProfile());
+            cfg.AddProfile(new CollectionProfile());
 
             var mapperConfig = new MapperConfiguration(cfg);
             serviceCollection.AddSingleton(_ => mapperConfig.CreateMapper());

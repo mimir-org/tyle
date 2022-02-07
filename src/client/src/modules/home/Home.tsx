@@ -30,8 +30,8 @@ const Home = ({ dispatch }: Props) => {
     <>
       <LibraryModule />
       <TypeEditorComponent />
-      <ErrorModule dispatch={dispatch} />
-      <ValidationModule dispatch={dispatch} />
+      <ErrorModule />
+      <ValidationModule />
     </>
   );
 };

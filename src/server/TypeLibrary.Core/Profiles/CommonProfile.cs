@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-
-using TypeLibrary.Models.Models.Application;
-using TypeLibrary.Models.Models.Data;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Core.Profiles
 {
@@ -9,13 +8,13 @@ namespace TypeLibrary.Core.Profiles
     {
         public CommonProfile()
         {
-            CreateMap<BlobDm, BlobDataAm>()
+            CreateMap<BlobLibDm, BlobDataLibAm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Data, opt => opt.MapFrom(src => src.Data))
                 .ForMember(dest => dest.Discipline, opt => opt.MapFrom(src => src.Discipline));
 
-            CreateMap<BlobDataAm, BlobDm>()
+            CreateMap<BlobDataLibAm, BlobLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Data, opt => opt.MapFrom(src => src.Data))

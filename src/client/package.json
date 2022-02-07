@@ -5,6 +5,7 @@
   "dependencies": {
     "@azure/msal-browser": "^2.21.0",
     "@azure/msal-react": "^1.2.0",
+    "@headlessui/react": "^1.4.3",
     "@microsoft/applicationinsights-web": "^2.7.2",
     "@reduxjs/toolkit": "^1.7.1",
     "file-saver": "^2.0.5",

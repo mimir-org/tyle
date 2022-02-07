@@ -5,10 +5,17 @@ export enum Aspect {
   Product = 4,
   Location = 8,
 }
+
 export enum ConnectorType {
   Input = 0,
   Output = 1,
-  //Bidirectional = 2
+  Bidirectional = 2
+}
+
+export enum ConnectorVisibility {
+  None = 0,
+  InputVisible = 1,
+  OutputVisible = 2,
 }
 
 export enum RelationType {

@@ -1,15 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TypeLibrary.Models.Enums;
-using TypeLibrary.Models.Models.Application;
-using TypeLibrary.Models.Models.Data;
+using Mimirorg.Common.Enums;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Services.Contracts
 {
     public interface IRdsService
     {
-        IEnumerable<RdsDm> GetRds(Aspect aspect);
-        Task<RdsDm> CreateRds(RdsAm rdsAm);
-        Task<List<RdsDm>> CreateRdsAsync(List<RdsAm> createRds);
+        IEnumerable<RdsLibDm> GetRds(Aspect aspect);
+        IEnumerable<RdsLibDm> GetRds();
+        Task<RdsLibDm> CreateRds(RdsLibAm rdsAm);
+        Task<List<RdsLibDm>> CreateRdsAsync(List<RdsLibAm> createRds);
+        Task<IEnumerable<RdsCategoryLibAm>> GetRdsCategories();
+        Task<RdsCategoryLibAm> UpdateRdsCategory(RdsCategoryLibAm dataAm);
+        Task<RdsCategoryLibAm> CreateRdsCategory(RdsCategoryLibAm dataAm);
+        Task CreateRdsCategories(List<RdsCategoryLibAm> dataAm);
     }
 }

@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeLibrary.Data", "TypeLib
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeLibrary.Services", "TypeLibrary.Services\TypeLibrary.Services.csproj", "{996E423A-1826-4A3D-906A-5A416280FF16}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeLibrary.Models", "TypeLibrary.Models\TypeLibrary.Models.csproj", "{58F05920-737D-49A1-8F41-9E1C1D6C1834}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mimirorg.Common", "Mimirorg.Common\Mimirorg.Common.csproj", "{752EE90A-8F6E-4C62-BE89-57AE9C7C2D87}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mimirorg.TypeLibrary", "Mimirorg.TypeLibrary\Mimirorg.TypeLibrary.csproj", "{08BB0BD6-A925-4D91-A54C-3440E6F59763}"
@@ -23,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8872F15B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mimirorg.Authentication.Tests", "Tests\Mimirorg.Authentication.Tests\Mimirorg.Authentication.Tests.csproj", "{7EA45256-0262-45C8-BD52-7D516C0A700B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mimirorg.Common.Tests", "Tests\Mimirorg.Common.Tests\Mimirorg.Common.Tests.csproj", "{0AC7FEAD-F436-4A3C-9FCF-2B0A3FCD4B4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mimirorg.Common.Tests", "Tests\Mimirorg.Common.Tests\Mimirorg.Common.Tests.csproj", "{0AC7FEAD-F436-4A3C-9FCF-2B0A3FCD4B4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +45,6 @@ Global
 		{996E423A-1826-4A3D-906A-5A416280FF16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{996E423A-1826-4A3D-906A-5A416280FF16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{996E423A-1826-4A3D-906A-5A416280FF16}.Release|Any CPU.Build.0 = Release|Any CPU
-		{58F05920-737D-49A1-8F41-9E1C1D6C1834}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{58F05920-737D-49A1-8F41-9E1C1D6C1834}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{58F05920-737D-49A1-8F41-9E1C1D6C1834}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{58F05920-737D-49A1-8F41-9E1C1D6C1834}.Release|Any CPU.Build.0 = Release|Any CPU
 		{752EE90A-8F6E-4C62-BE89-57AE9C7C2D87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{752EE90A-8F6E-4C62-BE89-57AE9C7C2D87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{752EE90A-8F6E-4C62-BE89-57AE9C7C2D87}.Release|Any CPU.ActiveCfg = Release|Any CPU

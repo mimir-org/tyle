@@ -7,14 +7,14 @@ interface Props {
 }
 
 /**
- * Component for a radio button.
+ * Component for a radio button in Mimir.
  * @param interface
  * @returns a radio button.
  */
 const RadioButton = ({ isChecked, onChange, id }: Props) => (
   <RadioButtonWrapper>
     <input type="radio" value={id} key={id} checked={isChecked ?? false} id={id} onChange={(e) => onChange(e)} />
-    <div className="checkmark-circle"/>
+    <div className="checkmark-circle" />
   </RadioButtonWrapper>
 );
 

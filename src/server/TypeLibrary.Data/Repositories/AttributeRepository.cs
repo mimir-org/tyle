@@ -1,11 +1,10 @@
 ﻿using Mimirorg.Common.Abstract;
 using TypeLibrary.Data.Contracts;
-
-using TypeLibrary.Models.Models.Data;
+using Mimirorg.TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Data.Repositories
 {
-    public class AttributeRepository : GenericRepository<TypeLibraryDbContext, AttributeDm>, IAttributeRepository
+    public class AttributeRepository : GenericRepository<TypeLibraryDbContext, AttributeLibDm>, IAttributeRepository
     {
         public AttributeRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {

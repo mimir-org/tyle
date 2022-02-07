@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-
-using TypeLibrary.Models.Models.Application;
-using TypeLibrary.Models.Models.Data;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Core.Profiles
 {
@@ -9,7 +8,7 @@ namespace TypeLibrary.Core.Profiles
     {
         public FormatProfile()
         {
-            CreateMap<FormatAm, FormatDm>()
+            CreateMap<FormatLibAm, FormatLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.UseDestinationValue())
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
@@ -19,7 +18,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
 
-            CreateMap<FormatDm, FormatAm>()
+            CreateMap<FormatLibDm, FormatLibAm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
