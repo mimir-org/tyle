@@ -1,9 +1,8 @@
-import { Aspect, Connector, Interface, Node, Transport } from "..";
+import { Connector, Interface, Node, Transport } from "../../index";
 
-export type isEdge = keyof Edge;
 export const EDGE_KIND = "Edge";
 
-class Edge {
+interface Edge {
   id: string;
   iri: string;
   domain: string;
@@ -40,23 +39,7 @@ class Edge {
   isLockedStatusBy: string;
   isLockedStatusDate: string;
 
-  kind: string = EDGE_KIND;
-
-  constructor(edge: Edge) {
-    Object.assign(this, edge);
-  }
-
-  parentType() {
-    if (this.fromNode) return this.fromNode.aspect;
-
-    return Aspect.NotSet;
-  }
-
-  targetType() {
-    if (this.toNode) return this.toNode.aspect;
-
-    return Aspect.NotSet;
-  }
+  kind: string;
 }
 
 export default Edge;

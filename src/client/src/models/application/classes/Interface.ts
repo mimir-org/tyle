@@ -1,8 +1,8 @@
-import { Attribute, Connector } from ".";
+import { Attribute, Connector } from "./index";
 
-export const TRANSPORT_KIND = "Transport";
+export const INTERFACE_KIND = "Interface";
 
-class Transport {
+interface Interface {
   id: string;
   iri: string;
   version: string;
@@ -22,12 +22,7 @@ class Transport {
   createdBy: string;
   created: Date;
   libraryTypeId: string;
-
-  kind: string = TRANSPORT_KIND;
-
-  constructor(transport: Transport) {
-    Object.assign(this, transport);
-  }
+  kind: string;
 }
 
-export default Transport;
+export default Interface;

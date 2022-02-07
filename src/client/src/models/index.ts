@@ -1,3 +1,3 @@
-export * from "./classes";
+export * from "./application/classes";
 export * from "./Enums";
 export * from "./Types";

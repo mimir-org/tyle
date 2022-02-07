@@ -1,8 +1,8 @@
-import { Attribute, ConnectorType, EnumBase, RelationType } from "..";
+import { Attribute, ConnectorType, ConnectorVisibility, EnumBase, RelationType } from "../../index";
 
 export const CONNECTOR_KIND = "Connector";
 
-class Connector {
+interface Connector {
   id: string;
   iri: string;
   domain: string;
@@ -11,7 +11,7 @@ class Connector {
   semanticReference: string;
   nodeId: string;
   nodeIri: string;
-  visible: boolean;
+  connectorVisibility: ConnectorVisibility;
   isRequired: boolean;
 
   // Terminal
@@ -24,11 +24,7 @@ class Connector {
   // Relation
   relationType: RelationType;
 
-  kind: string = CONNECTOR_KIND;
-
-  constructor(connector: Connector) {
-    Object.assign(this, connector);
-  }
+  kind: string;
 }
 
 export default Connector;

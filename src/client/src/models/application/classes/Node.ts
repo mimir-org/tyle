@@ -1,9 +1,9 @@
-import { Aspect, Attribute, EnumBase, Purpose, Simple } from "..";
+import { Aspect, Attribute, EnumBase, Purpose, Simple } from "../../index";
 import Connector from "./Connector";
 
 export const NODE_KIND = "Node";
 
-class Node {
+interface Node {
   id: string;
   iri: string;
   domain: string;
@@ -40,28 +40,18 @@ class Node {
   simples: Simple[];
   width: number;
   height: number;
+  isLocked: boolean;
+  isLockedStatusBy: string;
+  isLockedStatusDate: string;
+  kind: string;
 
   // Required only for product aspect
   cost: number;
 
   // Only for client
-  isSelected: boolean | false;
-  isBlockSelected: boolean | false;
-  isHidden: boolean | false;
-  blockWidth: number;
-  blockHeight: number;
-
-  isConnectedOffPage: boolean | false;
-
-  isLocked: boolean;
-  isLockedStatusBy: string;
-  isLockedStatusDate: string;
-
-  kind: string = NODE_KIND;
-
-  constructor(node: Node) {
-    Object.assign(this, node);
-  }
+  isSelected?: boolean | false;
+  isBlockSelected?: boolean | false;
+  isHidden?: boolean | false;
 }
 
 export default Node;

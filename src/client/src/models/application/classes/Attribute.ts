@@ -1,8 +1,8 @@
-import { Discipline, EnumBase, SelectType } from "..";
+import { Discipline, EnumBase, SelectType } from "../../index";
 
 export const ATTRIBUTE_KIND = "Attribute";
 
-class Attribute {
+interface Attribute {
   id: string;
   iri: string;
   domain: string;
@@ -30,17 +30,10 @@ class Attribute {
   discipline: Discipline;
   tags: Set<string>;
   interfaceId: string;
-
   isLocked: boolean;
   isLockedStatusBy: string;
   isLockedStatusDate: string;
-
-  kind: string = ATTRIBUTE_KIND;
-
-  // eslint-disable-next-line @typescript-eslint/no-useless-constructor
-  constructor(attribute: Attribute) {
-    Object.assign(this, attribute);
-  }
+  kind: string;
 }
 
 export default Attribute;

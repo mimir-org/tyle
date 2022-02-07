@@ -1,5 +1,5 @@
-import { Aspect, ConnectorType, ObjectType, PredefinedAttribute, TerminalTypeItem } from "..";
-import { CreateId } from "../../helpers";
+import { Aspect, ConnectorType, ObjectType, PredefinedAttribute, TerminalTypeItem } from "../../index";
+import { CreateId } from "../../../helpers";
 
 export const CREATE_LIBRARY_KIND = "CreateLibraryType";
 
@@ -22,7 +22,7 @@ export default interface CreateLibraryType {
 }
 
 export const defaultCreateLibraryType: CreateLibraryType = {
-  id: "",
+  id: null,
   name: "",
   aspect: Aspect.NotSet,
   objectType: ObjectType.NotSet,
