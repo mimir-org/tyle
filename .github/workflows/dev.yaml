@@ -46,8 +46,10 @@ jobs:
       REGISTRY_USERNAMES: ${{ secrets.REGISTRY_USERNAME }}
       REGISTRY_PASSWORDS: ${{ secrets.REGISTRY_PASSWORD }}
 
-  nuget:
+  nuget-Common:
     runs-on: ubuntu-latest
+    env:
+      package_name: Mimirorg.Common/
     defaults:
       run:
         working-directory: src/server
@@ -55,10 +57,29 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build
-        run: dotnet build -c Release Mimirorg.Common/
+        run: dotnet build -c Release ${{env.package_name}}
 
       - name: Package Nuget
-        run: dotnet pack -c Release --output . --no-build Mimirorg.Common/
+        run: dotnet pack -c Release --output . --no-build ${{env.package_name}}
 
       - name: Push
-        run: dotnet nuget push Mimirorg.Common.1.0.0.nupkg -k ${{secrets.NUGET_API_KEY}} --source ${{env.nuget_source}}
+        run: dotnet nuget push ${{package_name}}.1.0.0.nupkg -k ${{secrets.NUGET_API_KEY}} --source ${{env.nuget_source}}
+
+  nuget-TypeLibrary:
+    runs-on: ubuntu-latest
+    env:
+      package_name: Mimirorg.TypeLibrary/
+    defaults:
+      run:
+        working-directory: src/server
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build
+        run: dotnet build -c Release ${{env.package_name}}
+
+      - name: Package Nuget
+        run: dotnet pack -c Release --output . --no-build ${{env.package_name}}
+
+      - name: Push
+        run: dotnet nuget push ${{package_name}}.1.0.0.nupkg -k ${{secrets.NUGET_API_KEY}} --source ${{env.nuget_source}}
