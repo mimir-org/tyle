@@ -17,6 +17,6 @@ namespace Mimirorg.TypeLibrary.Models.Data
         public virtual string Key => $"{Name}";
 
         [JsonIgnore]
-        public virtual ICollection<TypeLibDm> Types { get; set; }
+        public virtual ICollection<LibraryTypeLibDm> Types { get; set; }
     }
 }

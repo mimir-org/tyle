@@ -23,6 +23,6 @@ namespace Mimirorg.TypeLibrary.Models.Data
         public virtual string Key => $"{Name}-{InternalType}-{Discipline}";
 
         [JsonIgnore]
-        public virtual ICollection<TypeLibDm> LibraryTypes { get; set; }
+        public virtual ICollection<LibraryTypeLibDm> LibraryTypes { get; set; }
     }
 }

@@ -263,7 +263,7 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Type",
+                name: "LibraryType",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -289,24 +289,24 @@ namespace TypeLibrary.Core.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Type", x => x.Id);
+                    table.PrimaryKey("PK_LibraryType", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Type_Purpose_PurposeId",
+                        name: "FK_LibraryType_Purpose_PurposeId",
                         column: x => x.PurposeId,
                         principalTable: "Purpose",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Type_Rds_RdsId",
+                        name: "FK_LibraryType_Rds_RdsId",
                         column: x => x.RdsId,
                         principalTable: "Rds",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Type_Terminal_Interface_TerminalId",
+                        name: "FK_LibraryType_Terminal_Interface_TerminalId",
                         column: x => x.Interface_TerminalId,
                         principalTable: "Terminal",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Type_Terminal_Transport_TerminalId",
+                        name: "FK_LibraryType_Terminal_Transport_TerminalId",
                         column: x => x.Transport_TerminalId,
                         principalTable: "Terminal",
                         principalColumn: "Id");
@@ -343,6 +343,11 @@ namespace TypeLibrary.Core.Migrations
                         principalTable: "Format",
                         principalColumn: "Id");
                     table.ForeignKey(
+                        name: "FK_Attribute_LibraryType_InterfaceLibDmId",
+                        column: x => x.InterfaceLibDmId,
+                        principalTable: "LibraryType",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Attribute_Qualifier_QualifierId",
                         column: x => x.QualifierId,
                         principalTable: "Qualifier",
@@ -352,11 +357,30 @@ namespace TypeLibrary.Core.Migrations
                         column: x => x.SourceId,
                         principalTable: "Source",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LibraryType_Collection",
+                columns: table => new
+                {
+                    CollectionId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LibraryTypeId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LibraryType_Collection", x => new { x.CollectionId, x.LibraryTypeId });
                     table.ForeignKey(
-                        name: "FK_Attribute_Type_InterfaceLibDmId",
-                        column: x => x.InterfaceLibDmId,
-                        principalTable: "Type",
-                        principalColumn: "Id");
+                        name: "FK_LibraryType_Collection_Collection_CollectionId",
+                        column: x => x.CollectionId,
+                        principalTable: "Collection",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_LibraryType_Collection_LibraryType_LibraryTypeId",
+                        column: x => x.LibraryTypeId,
+                        principalTable: "LibraryType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -373,14 +397,14 @@ namespace TypeLibrary.Core.Migrations
                 {
                     table.PrimaryKey("PK_Node_Terminal", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Node_Terminal_LibraryType_NodeTypeId",
+                        column: x => x.NodeTypeId,
+                        principalTable: "LibraryType",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Node_Terminal_Terminal_TerminalTypeId",
                         column: x => x.TerminalTypeId,
                         principalTable: "Terminal",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Node_Terminal_Type_NodeTypeId",
-                        column: x => x.NodeTypeId,
-                        principalTable: "Type",
                         principalColumn: "Id");
                 });
 
@@ -395,39 +419,15 @@ namespace TypeLibrary.Core.Migrations
                 {
                     table.PrimaryKey("PK_Simple_Node", x => new { x.NodeId, x.SimpleId });
                     table.ForeignKey(
+                        name: "FK_Simple_Node_LibraryType_NodeId",
+                        column: x => x.NodeId,
+                        principalTable: "LibraryType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Simple_Node_Simple_SimpleId",
                         column: x => x.SimpleId,
                         principalTable: "Simple",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Simple_Node_Type_NodeId",
-                        column: x => x.NodeId,
-                        principalTable: "Type",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Type_Collection",
-                columns: table => new
-                {
-                    CollectionId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TypeId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Type_Collection", x => new { x.CollectionId, x.TypeId });
-                    table.ForeignKey(
-                        name: "FK_Type_Collection_Collection_CollectionId",
-                        column: x => x.CollectionId,
-                        principalTable: "Collection",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Type_Collection_Type_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "Type",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -473,9 +473,9 @@ namespace TypeLibrary.Core.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Node_Attribute_Type_NodeId",
+                        name: "FK_Node_Attribute_LibraryType_NodeId",
                         column: x => x.NodeId,
-                        principalTable: "Type",
+                        principalTable: "LibraryType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -545,9 +545,9 @@ namespace TypeLibrary.Core.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Transport_Attribute_Type_TransportId",
+                        name: "FK_Transport_Attribute_LibraryType_TransportId",
                         column: x => x.TransportId,
-                        principalTable: "Type",
+                        principalTable: "LibraryType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -586,6 +586,31 @@ namespace TypeLibrary.Core.Migrations
                 name: "IX_AttributeType_ParentId",
                 table: "AttributeType",
                 column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LibraryType_Interface_TerminalId",
+                table: "LibraryType",
+                column: "Interface_TerminalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LibraryType_PurposeId",
+                table: "LibraryType",
+                column: "PurposeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LibraryType_RdsId",
+                table: "LibraryType",
+                column: "RdsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LibraryType_Transport_TerminalId",
+                table: "LibraryType",
+                column: "Transport_TerminalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LibraryType_Collection_LibraryTypeId",
+                table: "LibraryType_Collection",
+                column: "LibraryTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Node_Attribute_NodeId",
@@ -631,31 +656,6 @@ namespace TypeLibrary.Core.Migrations
                 name: "IX_Transport_Attribute_TransportId",
                 table: "Transport_Attribute",
                 column: "TransportId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Type_Interface_TerminalId",
-                table: "Type",
-                column: "Interface_TerminalId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Type_PurposeId",
-                table: "Type",
-                column: "PurposeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Type_RdsId",
-                table: "Type",
-                column: "RdsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Type_Transport_TerminalId",
-                table: "Type",
-                column: "Transport_TerminalId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Type_Collection_TypeId",
-                table: "Type_Collection",
-                column: "TypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -671,6 +671,9 @@ namespace TypeLibrary.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "Blob");
+
+            migrationBuilder.DropTable(
+                name: "LibraryType_Collection");
 
             migrationBuilder.DropTable(
                 name: "Node_Attribute");
@@ -691,10 +694,10 @@ namespace TypeLibrary.Core.Migrations
                 name: "Transport_Attribute");
 
             migrationBuilder.DropTable(
-                name: "Type_Collection");
+                name: "Unit");
 
             migrationBuilder.DropTable(
-                name: "Unit");
+                name: "Collection");
 
             migrationBuilder.DropTable(
                 name: "Simple");
@@ -703,22 +706,19 @@ namespace TypeLibrary.Core.Migrations
                 name: "Attribute");
 
             migrationBuilder.DropTable(
-                name: "Collection");
-
-            migrationBuilder.DropTable(
                 name: "Condition");
 
             migrationBuilder.DropTable(
                 name: "Format");
 
             migrationBuilder.DropTable(
+                name: "LibraryType");
+
+            migrationBuilder.DropTable(
                 name: "Qualifier");
 
             migrationBuilder.DropTable(
                 name: "Source");
-
-            migrationBuilder.DropTable(
-                name: "Type");
 
             migrationBuilder.DropTable(
                 name: "Purpose");

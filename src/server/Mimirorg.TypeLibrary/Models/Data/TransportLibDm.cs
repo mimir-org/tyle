@@ -1,6 +1,6 @@
 ﻿namespace Mimirorg.TypeLibrary.Models.Data
 {
-    public class TransportLibDm : TypeLibDm
+    public class TransportLibDm : LibraryTypeLibDm
     {
         public string TerminalId { get; set; }
         public TerminalLibDm TerminalDm { get; set; }

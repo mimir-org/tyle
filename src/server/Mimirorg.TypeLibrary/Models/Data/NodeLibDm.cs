@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Mimirorg.TypeLibrary.Models.Data
 {
-    public class NodeLibDm : TypeLibDm
+    public class NodeLibDm : LibraryTypeLibDm
     {
         public ICollection<NodeTerminalLibDm> TerminalTypes { get; set; }
         public ICollection<AttributeLibDm> AttributeList { get; set; }

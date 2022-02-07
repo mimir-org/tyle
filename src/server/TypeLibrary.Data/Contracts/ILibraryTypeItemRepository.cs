@@ -4,7 +4,7 @@ using Mimirorg.TypeLibrary.Models.Client;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface ILibraryRepository
+    public interface ILibraryTypeItemRepository
     {
         Task<IEnumerable<NodeLibCm>> GetNodes(string searchString = null);
         Task<IEnumerable<InterfaceLibCm>> GetInterfaces(string searchString = null);

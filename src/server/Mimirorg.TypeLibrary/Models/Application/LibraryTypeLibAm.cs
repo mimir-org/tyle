@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
-    public class TypeLibAm : IValidatableObject
+    public class LibraryTypeLibAm : IValidatableObject
     {
         [Required]
         public string Name { get; set; }

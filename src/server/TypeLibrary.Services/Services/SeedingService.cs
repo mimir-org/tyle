@@ -7,6 +7,7 @@ using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Data;
 using TypeLibrary.Services.Contracts;
+using ILibraryTypeService = TypeLibrary.Services.Contracts.ILibraryTypeService;
 
 namespace TypeLibrary.Services.Services
 {
@@ -39,13 +40,13 @@ namespace TypeLibrary.Services.Services
         private readonly IUnitService _unitService;
         private readonly IRdsService _rdsService;
         private readonly ITerminalService _terminalTypeService;
-        private readonly ITypeService _typeService;
+        private readonly ILibraryTypeService _libraryTypeService;
         private readonly IFileRepository _fileRepository;
         private readonly ILogger<SeedingService> _logger;
         
         public SeedingService(IAttributeService attributeService, IBlobDataService blobDataService, IConditionService conditionService, IFormatService formatService, 
             IQualifierService qualifierService, ISourceService sourceService, IAttributeTypeService attributeTypeService, IPurposeService purposeService, IUnitService unitService, 
-            IRdsService rdsService, ITerminalService terminalTypeService, ITypeService typeService, IFileRepository fileRepository, ILogger<SeedingService> logger)
+            IRdsService rdsService, ITerminalService terminalTypeService, ILibraryTypeService libraryTypeService, IFileRepository fileRepository, ILogger<SeedingService> logger)
         {
             _attributeService = attributeService;
             _blobDataService = blobDataService;
@@ -58,7 +59,7 @@ namespace TypeLibrary.Services.Services
             _unitService = unitService;
             _rdsService = rdsService;
             _terminalTypeService = terminalTypeService;
-            _typeService = typeService;
+            _libraryTypeService = libraryTypeService;
             _fileRepository = fileRepository;
             _logger = logger;
         }
@@ -106,7 +107,7 @@ namespace TypeLibrary.Services.Services
                 var rds = _fileRepository.ReadAllFiles<RdsLibAm>(rdsFiles).ToList();
                 var blobData = _fileRepository.ReadAllFiles<BlobDataLibAm>(blobDataFileNames).ToList();
                 var simpleTypes = _fileRepository.ReadAllFiles<SimpleLibAm>(simpleTypeFileNames).ToList();
-                var transports = _fileRepository.ReadAllFiles<TypeLibAm>(transportFiles).ToList();
+                var transports = _fileRepository.ReadAllFiles<LibraryTypeLibAm>(transportFiles).ToList();
                 
                 await _conditionService.CreateConditions(conditions);
                 await _formatService.CreateFormats(formats);
@@ -122,12 +123,12 @@ namespace TypeLibrary.Services.Services
                 await _terminalTypeService.CreateTerminalTypes(terminalTypes);
                 await _rdsService.CreateRdsAsync(rds);
                 await _blobDataService.CreateBlobData(blobData);
-                await _typeService.CreateSimpleTypes(simpleTypes);
+                await _libraryTypeService.CreateSimpleTypes(simpleTypes);
 
-                var existingLibraryTypes = _typeService.GetAllTypes().ToList();
+                var existingLibraryTypes = _libraryTypeService.GetAllLibraryTypes().ToList();
                 transports = transports.Where(x => existingLibraryTypes.All(y => y.Key != x.Key)).ToList();
-                _typeService.ClearAllChangeTracker();
-                await _typeService.CreateTypes(transports);
+                _libraryTypeService.ClearAllChangeTracker();
+                await _libraryTypeService.CreateLibraryTypes(transports);
             }
             catch (Exception e)
             {

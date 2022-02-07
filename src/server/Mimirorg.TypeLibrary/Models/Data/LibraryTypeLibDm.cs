@@ -4,7 +4,7 @@ using Mimirorg.Common.Extensions;
 
 namespace Mimirorg.TypeLibrary.Models.Data
 {
-    public class TypeLibDm
+    public class LibraryTypeLibDm
     {
         public string Id { get; set; }
         public string Version { get; set; }

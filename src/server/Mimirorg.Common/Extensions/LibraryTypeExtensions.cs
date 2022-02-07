@@ -2,7 +2,7 @@
 
 namespace Mimirorg.Common.Extensions
 {
-    public static class TypeExtensions
+    public static class LibraryTypeExtensions
     {
         public static List<Type> GetImplementations(this Type service, List<Assembly> assemblies)
         {

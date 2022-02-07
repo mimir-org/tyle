@@ -32,7 +32,7 @@ namespace TypeLibrary.Core.Extensions
             var cfg = new MapperConfigurationExpression();
             cfg.AddProfile(new AttributeProfile());
             cfg.AddProfile<CommonProfile>();
-            cfg.AddProfile(new TypeProfile());
+            cfg.AddProfile(new LibraryTypeProfile());
             cfg.AddProfile<RdsProfile>();
             cfg.AddProfile(new TerminalProfile());
             cfg.AddProfile(new ConditionProfile());

@@ -9,11 +9,11 @@ using Mimirorg.TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Core.Profiles
 {
-    public class TypeProfile : Profile
+    public class LibraryTypeProfile : Profile
     {
-        public TypeProfile()
+        public LibraryTypeProfile()
         {
-            CreateMap<TypeLibAm, NodeLibDm>()
+            CreateMap<LibraryTypeLibAm, NodeLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => $"{src.Key}-{src.Domain}-{src.Version}".CreateMd5()))
                 .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
@@ -40,7 +40,7 @@ namespace TypeLibrary.Core.Profiles
                     dest.ResolvePredefinedAttributeData();
                 });
 
-            CreateMap<TypeLibAm, TransportLibDm>()
+            CreateMap<LibraryTypeLibAm, TransportLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => $"{src.Key}-{src.Domain}-{src.Version}".CreateMd5()))
                 .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
@@ -60,7 +60,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
 
-            CreateMap<TypeLibAm, InterfaceLibDm>()
+            CreateMap<LibraryTypeLibAm, InterfaceLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => $"{src.Key}-{src.Domain}-{src.Version}".CreateMd5()))
                 .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
@@ -80,7 +80,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
 
-            CreateMap<NodeLibDm, TypeLibAm>()
+            CreateMap<NodeLibDm, LibraryTypeLibAm>()
                 .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
@@ -108,7 +108,7 @@ namespace TypeLibrary.Core.Profiles
                     src.ResolvePredefinedAttributes();
                 });
 
-            CreateMap<TransportLibDm, TypeLibAm>()
+            CreateMap<TransportLibDm, LibraryTypeLibAm>()
                 .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
@@ -132,7 +132,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
 
-            CreateMap<InterfaceLibDm, TypeLibAm>()
+            CreateMap<InterfaceLibDm, LibraryTypeLibAm>()
                 .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))

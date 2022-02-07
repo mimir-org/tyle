@@ -6,13 +6,13 @@ using Mimirorg.TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Data.Configurations
 {
-    public class LibraryConfiguration : IEntityTypeConfiguration<TypeLibDm>
+    public class LibraryConfiguration : IEntityTypeConfiguration<LibraryTypeLibDm>
 
     {
-        public void Configure(EntityTypeBuilder<TypeLibDm> builder)
+        public void Configure(EntityTypeBuilder<LibraryTypeLibDm> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.ToTable("Type");
+            builder.ToTable("LibraryType");
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();
             builder.Property(p => p.Version).HasColumnName("Version").IsRequired();
@@ -29,10 +29,10 @@ namespace TypeLibrary.Data.Configurations
             builder.HasOne(x => x.PurposeDm).WithMany(y => y.LibraryTypes).HasForeignKey(x => x.PurposeId).OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(x => x.RdsDm).WithMany(y => y.LibraryTypes).HasForeignKey(x => x.RdsId).OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasMany(x => x.Collections).WithMany(y => y.Types).UsingEntity<Dictionary<string, object>>("Type_Collection",
+            builder.HasMany(x => x.Collections).WithMany(y => y.Types).UsingEntity<Dictionary<string, object>>("LibraryType_Collection",
                 x => x.HasOne<CollectionLibDm>().WithMany().HasForeignKey("CollectionId"),
-                x => x.HasOne<TypeLibDm>().WithMany().HasForeignKey("TypeId"),
-                x => x.ToTable("Type_Collection"));
+                x => x.HasOne<LibraryTypeLibDm>().WithMany().HasForeignKey("LibraryTypeId"),
+                x => x.ToTable("LibraryType_Collection"));
         }
     }
 }

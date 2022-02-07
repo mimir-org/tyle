@@ -16,6 +16,6 @@ namespace Mimirorg.TypeLibrary.Models.Data
         public Aspect Aspect { get; set; }
 
         [JsonIgnore]
-        public ICollection<TypeLibDm> LibraryTypes { get; set; }
+        public ICollection<LibraryTypeLibDm> LibraryTypes { get; set; }
     }
 }

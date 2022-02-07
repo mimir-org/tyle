@@ -1,6 +1,6 @@
 ﻿namespace Mimirorg.TypeLibrary.Models.Client
 {
-    public class TypeLibCm
+    public class LibraryTypeLibCm
     {
         public IEnumerable<NodeLibCm> ObjectBlocks { get; set; }
         public IEnumerable<InterfaceLibCm> Interfaces { get; set; }

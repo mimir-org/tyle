@@ -13,7 +13,7 @@ namespace TypeLibrary.Data
         public virtual DbSet<AttributeLibDm> Attributes { get; set; }
         public virtual DbSet<BlobLibDm> BlobData { get; set; }
         public virtual DbSet<InterfaceLibDm> InterfaceTypes { get; set; }
-        public virtual DbSet<TypeLibDm> LibraryTypes { get; set; }
+        public virtual DbSet<LibraryTypeLibDm> LibraryTypes { get; set; }
         public virtual DbSet<NodeTerminalLibDm> NodeTypeTerminalTypes { get; set; }
         public virtual DbSet<AttributePredefinedLibDm> PredefinedAttributes { get; set; }
         public virtual DbSet<PurposeLibDm> Purposes { get; set; }

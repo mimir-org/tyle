@@ -17,23 +17,23 @@ using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
 {
-    public class TypeService : ITypeService
+    public class LibraryTypeService : Contracts.ILibraryTypeService
     {
         private readonly INodeTerminalRepository _nodeTypeTerminalTypeRepository;
-        private readonly ILibraryRepository _libraryRepository;
-        private readonly ITypeRepository _libraryTypeComponentRepository;
+        private readonly ILibraryTypeItemRepository _libraryTypeItemRepository;
+        private readonly ILibraryTypeRepository _libraryLibraryTypeComponentRepository;
         private readonly IAttributeRepository _attributeRepository;
         private readonly ISimpleRepository _simpleTypeRepository;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public TypeService(INodeTerminalRepository nodeTypeTerminalTypeRepository, ILibraryRepository libraryRepository, 
-            ITypeRepository libraryTypeComponentRepository, IAttributeRepository attributeRepository, ISimpleRepository simpleTypeRepository,
+        public LibraryTypeService(INodeTerminalRepository nodeTypeTerminalTypeRepository, ILibraryTypeItemRepository libraryTypeItemRepository, 
+            ILibraryTypeRepository libraryLibraryTypeComponentRepository, IAttributeRepository attributeRepository, ISimpleRepository simpleTypeRepository,
             IMapper mapper, IHttpContextAccessor contextAccessor)
         {
             _nodeTypeTerminalTypeRepository = nodeTypeTerminalTypeRepository;
-            _libraryRepository = libraryRepository;
-            _libraryTypeComponentRepository = libraryTypeComponentRepository;
+            _libraryTypeItemRepository = libraryTypeItemRepository;
+            _libraryLibraryTypeComponentRepository = libraryLibraryTypeComponentRepository;
             _mapper = mapper;
             _contextAccessor = contextAccessor;
             _attributeRepository = attributeRepository;
@@ -46,16 +46,16 @@ namespace TypeLibrary.Services.Services
         /// <param name="id"></param>
         /// <param name="ignoreNotFound"></param>
         /// <returns></returns>
-        public async Task<TypeLibDm> GetTypeById(string id, bool ignoreNotFound = false)
+        public async Task<LibraryTypeLibDm> GetLibraryTypeById(string id, bool ignoreNotFound = false)
         {
-            var libraryTypeComponent = await _libraryTypeComponentRepository.GetAsync(id);
+            var libraryTypeComponent = await _libraryLibraryTypeComponentRepository.GetAsync(id);
 
             if (!ignoreNotFound && libraryTypeComponent == null)
                 throw new MimirorgNotFoundException($"The typeAm with id: {id} could not be found.");
 
             if (libraryTypeComponent is NodeLibDm)
             {
-                return await _libraryTypeComponentRepository.FindBy(x => x.Id == id)
+                return await _libraryLibraryTypeComponentRepository.FindBy(x => x.Id == id)
                     .OfType<NodeLibDm>()
                     .Include(x => x.TerminalTypes)
                     .Include(x => x.AttributeList)
@@ -66,7 +66,7 @@ namespace TypeLibrary.Services.Services
 
             if (libraryTypeComponent is TransportLibDm)
             {
-                return await _libraryTypeComponentRepository.FindBy(x => x.Id == id)
+                return await _libraryLibraryTypeComponentRepository.FindBy(x => x.Id == id)
                     .OfType<TransportLibDm>()
                     .Include(x => x.TerminalDm)
                     .Include(x => x.AttributeList)
@@ -75,7 +75,7 @@ namespace TypeLibrary.Services.Services
 
             if (libraryTypeComponent is InterfaceLibDm)
             {
-                return await _libraryTypeComponentRepository.FindBy(x => x.Id == id)
+                return await _libraryLibraryTypeComponentRepository.FindBy(x => x.Id == id)
                     .OfType<InterfaceLibDm>()
                     .Include(x => x.TerminalDm)
                     .FirstOrDefaultAsync();
@@ -89,7 +89,7 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="typeAmList"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<TypeLibDm>> CreateTypes(ICollection<TypeLibAm> typeAmList)
+        public async Task<IEnumerable<LibraryTypeLibDm>> CreateLibraryTypes(ICollection<LibraryTypeLibAm> typeAmList)
         {
             return await CreateLibraryTypes(typeAmList, false);
         }
@@ -97,35 +97,35 @@ namespace TypeLibrary.Services.Services
         /// <summary>
         /// Create a library component
         /// </summary>
-        /// <param name="typeAm"></param>
+        /// <param name="libraryTypeAm"></param>
         /// <returns></returns>
-        public async Task<T> CreateType<T>(TypeLibAm typeAm) where T : class, new()
+        public async Task<T> CreateLibraryType<T>(LibraryTypeLibAm libraryTypeAm) where T : class, new()
         {
-            return await CreateLibraryType<T>(typeAm, false);
+            return await CreateLibraryType<T>(libraryTypeAm, false);
         }
 
         /// <summary>
         /// Update a library typeAm based on id
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="typeAm"></param>
+        /// <param name="libraryTypeAm"></param>
         /// <param name="updateMajorVersion"></param>
         /// <param name="updateMinorVersion"></param>
         /// <returns></returns>
-        public async Task<T> UpdateType<T>(string id, TypeLibAm typeAm, bool updateMajorVersion, bool updateMinorVersion) where T : class, new()
+        public async Task<T> UpdateLibraryType<T>(string id, LibraryTypeLibAm libraryTypeAm, bool updateMajorVersion, bool updateMinorVersion) where T : class, new()
         {
             if (string.IsNullOrEmpty(id))
                 throw new MimirorgNullReferenceException("Can't update a typeAm without an id");
 
-            if (typeAm == null)
+            if (libraryTypeAm == null)
                 throw new MimirorgNullReferenceException("Can't update a null typeAm");
 
-            var existingType = await GetTypeById(id);
+            var existingType = await GetLibraryTypeById(id);
 
             if (existingType?.Id == null)
                 throw new MimirorgNotFoundException($"There is no typeAm with id:{id} to update.");
 
-            var existingTypeVersions = GetAllTypes()
+            var existingTypeVersions = GetAllLibraryTypes()
                 .Where(x => x.TypeId == existingType.TypeId)
                 .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList();
 
@@ -135,30 +135,30 @@ namespace TypeLibrary.Services.Services
 
             if (updateMajorVersion || updateMinorVersion)
             {
-                typeAm.Version = updateMajorVersion ?
+                libraryTypeAm.Version = updateMajorVersion ?
                     existingTypeVersions[^1].Version.IncrementMajorVersion() :
                     existingTypeVersions[^1].Version.IncrementMinorVersion();
 
-                typeAm.TypeId = existingTypeVersions[0].TypeId;
+                libraryTypeAm.TypeId = existingTypeVersions[0].TypeId;
 
-                return await CreateLibraryType<T>(typeAm, true);
+                return await CreateLibraryType<T>(libraryTypeAm, true);
             }
 
-            typeAm.Version = existingType.Version;
-            typeAm.TypeId = existingType.TypeId;
+            libraryTypeAm.Version = existingType.Version;
+            libraryTypeAm.TypeId = existingType.TypeId;
 
-            await DeleteType(id);
+            await DeleteLibraryType(id);
 
-            return await CreateLibraryType<T>(typeAm, true);
+            return await CreateLibraryType<T>(libraryTypeAm, true);
         }
 
         /// <summary>
         /// Get all library types
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<TypeLibAm> GetAllTypes()
+        public IEnumerable<LibraryTypeLibAm> GetAllLibraryTypes()
         {
-            var nodeTypes = _libraryTypeComponentRepository
+            var nodeTypes = _libraryLibraryTypeComponentRepository
                 .GetAll()
                 .OfType<NodeLibDm>()
                 .Include(x => x.TerminalTypes)
@@ -168,28 +168,28 @@ namespace TypeLibrary.Services.Services
                 .ThenInclude(y => y.AttributeList)
                 .ToList();
 
-            var transportTypes = _libraryTypeComponentRepository
+            var transportTypes = _libraryLibraryTypeComponentRepository
                 .GetAll()
                 .OfType<TransportLibDm>()
                 .Include(x => x.AttributeList)
                 .ToList();
 
-            var interfaceType = _libraryTypeComponentRepository
+            var interfaceType = _libraryLibraryTypeComponentRepository
                 .GetAll()
                 .OfType<InterfaceLibDm>()
                 .ToList();
 
-            foreach (var clt in nodeTypes.Select(x => _mapper.Map<TypeLibAm>(x)))
+            foreach (var clt in nodeTypes.Select(x => _mapper.Map<LibraryTypeLibAm>(x)))
             {
                 yield return clt;
             }
 
-            foreach (var clt in transportTypes.Select(x => _mapper.Map<TypeLibAm>(x)))
+            foreach (var clt in transportTypes.Select(x => _mapper.Map<LibraryTypeLibAm>(x)))
             {
                 yield return clt;
             }
 
-            foreach (var clt in interfaceType.Select(x => _mapper.Map<TypeLibAm>(x)))
+            foreach (var clt in interfaceType.Select(x => _mapper.Map<LibraryTypeLibAm>(x)))
             {
                 yield return clt;
             }
@@ -201,12 +201,12 @@ namespace TypeLibrary.Services.Services
         /// <param name="id"></param>
         /// <param name="enum"></param>
         /// <returns></returns>
-        public async Task<TypeLibAm> ConvertToCreateType(string id, LibraryFilter @enum)
+        public async Task<LibraryTypeLibAm> ConvertToCreateLibraryType(string id, LibraryFilter @enum)
         {
             switch (@enum)
             {
                 case LibraryFilter.Node:
-                    var nodeItem = await _libraryTypeComponentRepository
+                    var nodeItem = await _libraryLibraryTypeComponentRepository
                         .FindBy(x => x.Id == id)
                         .OfType<NodeLibDm>()
                         .Include(x => x.TerminalTypes)
@@ -218,10 +218,10 @@ namespace TypeLibrary.Services.Services
                     if (nodeItem == null)
                         throw new MimirorgNotFoundException($"There is no typeAm with id: {id} and @enum: {@enum}");
 
-                    return _mapper.Map<TypeLibAm>(nodeItem);
+                    return _mapper.Map<LibraryTypeLibAm>(nodeItem);
 
                 case LibraryFilter.Interface:
-                    var interfaceItem = await _libraryTypeComponentRepository
+                    var interfaceItem = await _libraryLibraryTypeComponentRepository
                         .FindBy(x => x.Id == id)
                         .OfType<InterfaceLibDm>()
                         .FirstOrDefaultAsync();
@@ -229,10 +229,10 @@ namespace TypeLibrary.Services.Services
                     if (interfaceItem == null)
                         throw new MimirorgNotFoundException($"There is no typeAm with id: {id} and @enum: {@enum}");
 
-                    return _mapper.Map<TypeLibAm>(interfaceItem);
+                    return _mapper.Map<LibraryTypeLibAm>(interfaceItem);
 
                 case LibraryFilter.Transport:
-                    var transportItem = await _libraryTypeComponentRepository
+                    var transportItem = await _libraryLibraryTypeComponentRepository
                         .FindBy(x => x.Id == id)
                         .OfType<TransportLibDm>()
                         .Include(x => x.AttributeList)
@@ -241,7 +241,7 @@ namespace TypeLibrary.Services.Services
                     if (transportItem == null)
                         throw new MimirorgNotFoundException($"There is no typeAm with id: {id} and @enum: {@enum}");
 
-                    return _mapper.Map<TypeLibAm>(transportItem);
+                    return _mapper.Map<LibraryTypeLibAm>(transportItem);
 
                 default:
                     throw new MimirorgInvalidOperationException("Filter typeAm mismatch");
@@ -325,7 +325,7 @@ namespace TypeLibrary.Services.Services
         public void ClearAllChangeTracker()
         {
             _nodeTypeTerminalTypeRepository?.Context?.ChangeTracker.Clear();
-            _libraryTypeComponentRepository?.Context?.ChangeTracker.Clear();
+            _libraryLibraryTypeComponentRepository?.Context?.ChangeTracker.Clear();
             _attributeRepository?.Context?.ChangeTracker.Clear();
             _simpleTypeRepository?.Context?.ChangeTracker.Clear();
         }
@@ -335,9 +335,9 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task DeleteType(string id)
+        public async Task DeleteLibraryType(string id)
         {
-            var existingType = await GetTypeById(id);
+            var existingType = await GetLibraryTypeById(id);
 
             if (existingType == null)
                 throw new MimirorgNotFoundException($"Could not delete typeAm with id: {id}. The typeAm was not found.");
@@ -352,19 +352,19 @@ namespace TypeLibrary.Services.Services
                 await _nodeTypeTerminalTypeRepository.SaveAsync();
             }
 
-            await _libraryTypeComponentRepository.Delete(existingType.Id);
-            await _libraryTypeComponentRepository.SaveAsync();
+            await _libraryLibraryTypeComponentRepository.Delete(existingType.Id);
+            await _libraryLibraryTypeComponentRepository.SaveAsync();
         }
 
-        public async Task<TypeLibCm> GetType(string searchString)
+        public async Task<LibraryTypeLibCm> GetLibraryType(string searchString)
         {
-            var objectBlocks = await _libraryRepository.GetNodes(searchString);
-            var transports = await _libraryRepository.GetTransports(searchString);
-            var interfaces = await _libraryRepository.GetInterfaces(searchString);
+            var objectBlocks = await _libraryTypeItemRepository.GetNodes(searchString);
+            var transports = await _libraryTypeItemRepository.GetTransports(searchString);
+            var interfaces = await _libraryTypeItemRepository.GetInterfaces(searchString);
             //TODO: Correct subprojects return when implemented
             var subProjects = new List<SubProjectLibCm>();
 
-            var library = new TypeLibCm
+            var library = new LibraryTypeLibCm
             {
                 ObjectBlocks = objectBlocks.ToList(),
                 Transports = transports.ToList(),
@@ -377,17 +377,17 @@ namespace TypeLibrary.Services.Services
 
         public async Task<IEnumerable<NodeLibCm>> GetNodes()
         {
-            return await _libraryRepository.GetNodes();
+            return await _libraryTypeItemRepository.GetNodes();
         }
 
         public async Task<IEnumerable<TransportLibCm>> GetTransports()
         {
-            return await _libraryRepository.GetTransports();
+            return await _libraryTypeItemRepository.GetTransports();
         }
 
         public async Task<IEnumerable<InterfaceLibCm>> GetInterfaces()
         {
-            return await _libraryRepository.GetInterfaces();
+            return await _libraryTypeItemRepository.GetInterfaces();
         }
 
         public Task<IEnumerable<SubProjectLibCm>> GetSubProjects(string searchString = null)
@@ -398,9 +398,9 @@ namespace TypeLibrary.Services.Services
 
         #region Private
 
-        private async Task<IEnumerable<TypeLibDm>> CreateLibraryTypes(ICollection<TypeLibAm> createLibraryTypes, bool createNewFromExistingVersion)
+        private async Task<IEnumerable<LibraryTypeLibDm>> CreateLibraryTypes(ICollection<LibraryTypeLibAm> createLibraryTypes, bool createNewFromExistingVersion)
         {
-            var createdLibraryTypes = new List<TypeLibDm>();
+            var createdLibraryTypes = new List<LibraryTypeLibDm>();
 
             if (createLibraryTypes == null || !createLibraryTypes.Any())
                 return createdLibraryTypes;
@@ -425,7 +425,7 @@ namespace TypeLibrary.Services.Services
                 if (createLibraryType.Aspect == Aspect.Location)
                     createLibraryType.ObjectType = ObjectType.ObjectBlock;
 
-                TypeLibDm typeDm = createLibraryType.ObjectType switch
+                LibraryTypeLibDm libraryTypeDm = createLibraryType.ObjectType switch
                 {
                     ObjectType.ObjectBlock => _mapper.Map<NodeLibDm>(createLibraryType),
                     ObjectType.Interface => _mapper.Map<InterfaceLibDm>(createLibraryType),
@@ -433,12 +433,12 @@ namespace TypeLibrary.Services.Services
                     _ => null
                 };
 
-                if (typeDm?.Id == null)
+                if (libraryTypeDm?.Id == null)
                     return null;
 
-                typeDm.TypeId = !createNewFromExistingVersion ? typeDm.Id : createLibraryType.TypeId;
+                libraryTypeDm.TypeId = !createNewFromExistingVersion ? libraryTypeDm.Id : createLibraryType.TypeId;
 
-                switch (typeDm)
+                switch (libraryTypeDm)
                 {
                     case NodeLibDm nt:
                         {
@@ -457,8 +457,8 @@ namespace TypeLibrary.Services.Services
                                     _simpleTypeRepository.Attach(simpleType, EntityState.Unchanged);
                                 }
                             }
-                            await _libraryTypeComponentRepository.CreateAsync(nt);
-                            await _libraryTypeComponentRepository.SaveAsync();
+                            await _libraryLibraryTypeComponentRepository.CreateAsync(nt);
+                            await _libraryLibraryTypeComponentRepository.SaveAsync();
 
                             if (nt.AttributeList != null && nt.AttributeList.Any())
                             {
@@ -490,8 +490,8 @@ namespace TypeLibrary.Services.Services
                             }
                         }
 
-                        await _libraryTypeComponentRepository.CreateAsync(it);
-                        await _libraryTypeComponentRepository.SaveAsync();
+                        await _libraryLibraryTypeComponentRepository.CreateAsync(it);
+                        await _libraryLibraryTypeComponentRepository.SaveAsync();
 
                         if (it.AttributeList != null && it.AttributeList.Any())
                         {
@@ -514,8 +514,8 @@ namespace TypeLibrary.Services.Services
                                 }
                             }
 
-                            await _libraryTypeComponentRepository.CreateAsync(tt);
-                            await _libraryTypeComponentRepository.SaveAsync();
+                            await _libraryLibraryTypeComponentRepository.CreateAsync(tt);
+                            await _libraryLibraryTypeComponentRepository.SaveAsync();
 
                             if (tt.AttributeList != null && tt.AttributeList.Any())
                             {
@@ -538,23 +538,23 @@ namespace TypeLibrary.Services.Services
             return createdLibraryTypes;
         }
 
-        private async Task<T> CreateLibraryType<T>(TypeLibAm typeAm, bool createNewFromExistingVersion) where T : class, new()
+        private async Task<T> CreateLibraryType<T>(LibraryTypeLibAm libraryTypeAm, bool createNewFromExistingVersion) where T : class, new()
         {
-            if (typeAm == null)
+            if (libraryTypeAm == null)
                 return null;
 
-            var data = (await CreateLibraryTypes(new List<TypeLibAm> { typeAm }, createNewFromExistingVersion))?.FirstOrDefault();
+            var data = (await CreateLibraryTypes(new List<LibraryTypeLibAm> { libraryTypeAm }, createNewFromExistingVersion))?.FirstOrDefault();
 
             if (data == null)
                 throw new MimirorgNullReferenceException("Could not create typeAm");
 
-            var obj = await _libraryRepository.GetLibraryItem<T>(data.Id);
+            var obj = await _libraryTypeItemRepository.GetLibraryItem<T>(data.Id);
             return obj;
         }
 
-        private void SetLibraryTypeVersion(TypeLibDm newTypeDm, TypeLibDm existingTypeDm)
+        private void SetLibraryTypeVersion(LibraryTypeLibDm newLibraryTypeDm, LibraryTypeLibDm existingLibraryTypeDm)
         {
-            if (string.IsNullOrWhiteSpace(newTypeDm?.Version) || string.IsNullOrWhiteSpace(existingTypeDm?.Version))
+            if (string.IsNullOrWhiteSpace(newLibraryTypeDm?.Version) || string.IsNullOrWhiteSpace(existingLibraryTypeDm?.Version))
                 throw new MimirorgInvalidOperationException("'Null' error when setting version for library typeAm");
 
             //TODO: The rules for when to trigger major/minor version incrementation is not finalized!

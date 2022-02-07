@@ -24,19 +24,19 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("Type services")]
+    [SwaggerTag("LibraryType services")]
     public class LibraryTypeController : ControllerBase
     {
         private readonly ILogger<LibraryTypeController> _logger;
-        private readonly ITypeService _typeService;
+        private readonly ILibraryTypeService _libraryTypeService;
 
-        public LibraryTypeController(ILogger<LibraryTypeController> logger, ITypeService typeService)
+        public LibraryTypeController(ILogger<LibraryTypeController> logger, ILibraryTypeService libraryTypeService)
         {
             _logger = logger;
-            _typeService = typeService;
+            _libraryTypeService = libraryTypeService;
         }
 
-        #region Types
+        #region LibraryTypes
 
         /// <summary>
         /// Get all types by search
@@ -44,16 +44,16 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="name"></param>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(TypeLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(LibraryTypeLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //[Authorize(Policy = "Read")]
-        public async Task<IActionResult> GetType(string name)
+        public async Task<IActionResult> GetLibraryType(string name)
         {
             try
             {
-                var typeCm = await _typeService.GetType(name);
+                var typeCm = await _libraryTypeService.GetLibraryType(name);
                 return Ok(typeCm);
             }
             catch (Exception e)
@@ -72,18 +72,18 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="libraryFilter"></param>
         /// <returns></returns>
         [HttpGet("{id}/{libraryFilter}")]
-        [ProducesResponseType(typeof(TypeLibAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(LibraryTypeLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //[Authorize(Policy = "Read")]
-        public async Task<IActionResult> GetType([Required] string id, [Required] LibraryFilter libraryFilter)
+        public async Task<IActionResult> GetLibraryType([Required] string id, [Required] LibraryFilter libraryFilter)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var data = await _typeService.ConvertToCreateType(id, libraryFilter);
+                var data = await _libraryTypeService.ConvertToCreateLibraryType(id, libraryFilter);
                 return Ok(data);
             }
             catch (MimirorgNotFoundException e)
@@ -106,40 +106,40 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <summary>
         /// Create a typeDm
         /// </summary>
-        /// <param name="typeAm"></param>
+        /// <param name="libraryTypeAm"></param>
         /// <returns></returns>
         [HttpPost]
-        [ProducesResponseType(typeof(TypeLibDm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(LibraryTypeLibDm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> CreateType([FromBody] TypeLibAm typeAm)
+        public async Task<IActionResult> CreateLibraryType([FromBody] LibraryTypeLibAm libraryTypeAm)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                if (typeAm.Aspect == Aspect.Location)
-                    typeAm.ObjectType = ObjectType.ObjectBlock;
+                if (libraryTypeAm.Aspect == Aspect.Location)
+                    libraryTypeAm.ObjectType = ObjectType.ObjectBlock;
                 
 
-                switch (typeAm.ObjectType)
+                switch (libraryTypeAm.ObjectType)
                 {
                     case ObjectType.ObjectBlock:
-                        var ob = await _typeService.CreateType<NodeLibCm>(typeAm);
+                        var ob = await _libraryTypeService.CreateLibraryType<NodeLibCm>(libraryTypeAm);
                         return Ok(ob);
 
                     case ObjectType.Transport:
-                        var ln = await _typeService.CreateType<TransportLibCm>(typeAm);
+                        var ln = await _libraryTypeService.CreateLibraryType<TransportLibCm>(libraryTypeAm);
                         return Ok(ln);
 
                     case ObjectType.Interface:
-                        var libraryInterfaceItem = await _typeService.CreateType<InterfaceLibCm>(typeAm);
+                        var libraryInterfaceItem = await _libraryTypeService.CreateLibraryType<InterfaceLibCm>(libraryTypeAm);
                         return Ok(libraryInterfaceItem);
 
                     default:
-                        throw new MimirorgInvalidOperationException($"Can't create typeAm of: {typeAm.ObjectType}");
+                        throw new MimirorgInvalidOperationException($"Can't create typeAm of: {libraryTypeAm.ObjectType}");
                 }
             }
             catch (MimirorgDuplicateException e)
@@ -168,16 +168,16 @@ namespace TypeLibrary.Core.Controllers.V1
         /// Update a typeDm
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="typeAm"></param>
+        /// <param name="libraryTypeAm"></param>
         /// <param name="updateMajorVersion"></param>
         /// <param name="updateMinorVersion"></param>
         /// <returns></returns>
         [HttpPost("{id}")]
-        [ProducesResponseType(typeof(TypeLibDm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(LibraryTypeLibDm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateType(string id, [FromBody] TypeLibAm typeAm,
+        public async Task<IActionResult> UpdateLibraryType(string id, [FromBody] LibraryTypeLibAm libraryTypeAm,
             bool updateMajorVersion = false, bool updateMinorVersion = false)
         {
             if (!ModelState.IsValid)
@@ -185,22 +185,22 @@ namespace TypeLibrary.Core.Controllers.V1
 
             try
             {
-                switch (typeAm.ObjectType)
+                switch (libraryTypeAm.ObjectType)
                 {
                     case ObjectType.ObjectBlock:
-                        var ob = await _typeService.UpdateType<NodeLibCm>(id, typeAm, updateMajorVersion, updateMinorVersion);
+                        var ob = await _libraryTypeService.UpdateLibraryType<NodeLibCm>(id, libraryTypeAm, updateMajorVersion, updateMinorVersion);
                         return Ok(ob);
 
                     case ObjectType.Transport:
-                        var ln = await _typeService.UpdateType<TransportLibCm>(id, typeAm, updateMajorVersion, updateMinorVersion);
+                        var ln = await _libraryTypeService.UpdateLibraryType<TransportLibCm>(id, libraryTypeAm, updateMajorVersion, updateMinorVersion);
                         return Ok(ln);
 
                     case ObjectType.Interface:
-                        var interfaceCm = await _typeService.UpdateType<InterfaceLibCm>(id, typeAm, updateMajorVersion, updateMinorVersion);
+                        var interfaceCm = await _libraryTypeService.UpdateLibraryType<InterfaceLibCm>(id, libraryTypeAm, updateMajorVersion, updateMinorVersion);
                         return Ok(interfaceCm);
 
                     default:
-                        throw new MimirorgInvalidOperationException($"Can't create typeAm of: {typeAm.ObjectType}");
+                        throw new MimirorgInvalidOperationException($"Can't create typeAm of: {libraryTypeAm.ObjectType}");
                 }
             }
             catch (MimirorgNullReferenceException e)
@@ -231,14 +231,14 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> DeleteType(string id)
+        public async Task<IActionResult> DeleteLibraryType(string id)
         {
             if (string.IsNullOrEmpty(id))
                 return BadRequest("The id could not be null or empty");
 
             try
             {
-                await _typeService.DeleteType(id);
+                await _libraryTypeService.DeleteLibraryType(id);
                 return Ok(true);
             }
             catch (MimirorgNotFoundException e)
@@ -252,7 +252,7 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        #endregion Types
+        #endregion LibraryTypes
 
 
         #region SubProject
@@ -271,7 +271,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var subProjectCmList = await _typeService.GetSubProjects();
+                var subProjectCmList = await _libraryTypeService.GetSubProjects();
                 return Ok(subProjectCmList.ToList());
             }
             catch (Exception e)
@@ -300,7 +300,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typeService.GetNodes();
+                var data = await _libraryTypeService.GetNodes();
                 return Ok(data.ToList());
             }
             catch (Exception e)
@@ -329,7 +329,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typeService.GetTransports();
+                var data = await _libraryTypeService.GetTransports();
                 return Ok(data.ToList());
             }
             catch (Exception e)
@@ -358,7 +358,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _typeService.GetInterfaces();
+                var data = await _libraryTypeService.GetInterfaces();
                 return Ok(data.ToList());
             }
             catch (Exception e)
@@ -386,7 +386,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var types = _typeService.GetSimpleTypes().ToList();
+                var types = _libraryTypeService.GetSimpleTypes().ToList();
                 return Ok(types);
             }
             catch (Exception e)
@@ -401,7 +401,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <returns></returns>
         [HttpPost("simple")]
-        [ProducesResponseType(typeof(IEnumerable<TypeLibDm>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(IEnumerable<LibraryTypeLibDm>), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -413,7 +413,7 @@ namespace TypeLibrary.Core.Controllers.V1
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var simple = await _typeService.CreateSimpleType(simpleAm);
+                var simple = await _libraryTypeService.CreateSimpleType(simpleAm);
                 return StatusCode(201, simple);
             }
             catch (MimirorgDuplicateException e)

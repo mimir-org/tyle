@@ -8,14 +8,14 @@ using Mimirorg.TypeLibrary.Models.Client;
 
 namespace TypeLibrary.Data.Repositories
 {
-    public class LibraryRepository : ILibraryRepository
+    public class LibraryTypeItemRepository : ILibraryTypeItemRepository
     {
         private readonly ITransportRepository _transportTypeRepository;
         private readonly IInterfaceRepository _interfaceTypeRepository;
         private readonly INodeRepository _nodeTypeRepository;
         private readonly IMapper _mapper;
 
-        public LibraryRepository(IMapper mapper, ITransportRepository transportTypeRepository,
+        public LibraryTypeItemRepository(IMapper mapper, ITransportRepository transportTypeRepository,
             IInterfaceRepository interfaceTypeRepository, INodeRepository nodeTypeRepository)
         {
             _mapper = mapper;

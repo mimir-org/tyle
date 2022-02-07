@@ -37,6 +37,21 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Attribute_Unit", (string)null);
                 });
 
+            modelBuilder.Entity("LibraryType_Collection", b =>
+                {
+                    b.Property<string>("CollectionId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LibraryTypeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("CollectionId", "LibraryTypeId");
+
+                    b.HasIndex("LibraryTypeId");
+
+                    b.ToTable("LibraryType_Collection", (string)null);
+                });
+
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.AttributeLibDm", b =>
                 {
                     b.Property<string>("Id")
@@ -319,6 +334,88 @@ namespace TypeLibrary.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Format", (string)null);
+                });
+
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.LibraryTypeLibDm", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("Id");
+
+                    b.Property<int>("Aspect")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc))
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Unknown")
+                        .HasColumnName("CreatedBy");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Name");
+
+                    b.Property<string>("PurposeId")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("PurposeId");
+
+                    b.Property<string>("RdsId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SemanticReference")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("SemanticReference");
+
+                    b.Property<string>("StatusId")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("4590637F39B6BA6F39C74293BE9138DF")
+                        .HasColumnName("StatusId");
+
+                    b.Property<string>("TypeId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("TypeId");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Updated");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("UpdatedBy");
+
+                    b.Property<string>("Version")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Version");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PurposeId");
+
+                    b.HasIndex("RdsId");
+
+                    b.ToTable("LibraryType", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("LibraryTypeLibDm");
                 });
 
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.NodeTerminalLibDm", b =>
@@ -613,88 +710,6 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Terminal", (string)null);
                 });
 
-            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.TypeLibDm", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("Id");
-
-                    b.Property<int>("Aspect")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Created")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc))
-                        .HasColumnName("Created");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("Unknown")
-                        .HasColumnName("CreatedBy");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Description");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Name");
-
-                    b.Property<string>("PurposeId")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("PurposeId");
-
-                    b.Property<string>("RdsId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("SemanticReference")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("SemanticReference");
-
-                    b.Property<string>("StatusId")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("4590637F39B6BA6F39C74293BE9138DF")
-                        .HasColumnName("StatusId");
-
-                    b.Property<string>("TypeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("TypeId");
-
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Updated");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("UpdatedBy");
-
-                    b.Property<string>("Version")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Version");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PurposeId");
-
-                    b.HasIndex("RdsId");
-
-                    b.ToTable("Type", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("TypeLibDm");
-                });
-
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.UnitLibDm", b =>
                 {
                     b.Property<string>("Id")
@@ -811,24 +826,9 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Transport_Attribute", (string)null);
                 });
 
-            modelBuilder.Entity("Type_Collection", b =>
-                {
-                    b.Property<string>("CollectionId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("TypeId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("CollectionId", "TypeId");
-
-                    b.HasIndex("TypeId");
-
-                    b.ToTable("Type_Collection", (string)null);
-                });
-
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.InterfaceLibDm", b =>
                 {
-                    b.HasBaseType("Mimirorg.TypeLibrary.Models.Data.TypeLibDm");
+                    b.HasBaseType("Mimirorg.TypeLibrary.Models.Data.LibraryTypeLibDm");
 
                     b.Property<string>("TerminalId")
                         .HasColumnType("nvarchar(450)")
@@ -841,7 +841,7 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.NodeLibDm", b =>
                 {
-                    b.HasBaseType("Mimirorg.TypeLibrary.Models.Data.TypeLibDm");
+                    b.HasBaseType("Mimirorg.TypeLibrary.Models.Data.LibraryTypeLibDm");
 
                     b.Property<string>("LocationType")
                         .HasColumnType("nvarchar(max)");
@@ -857,7 +857,7 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.TransportLibDm", b =>
                 {
-                    b.HasBaseType("Mimirorg.TypeLibrary.Models.Data.TypeLibDm");
+                    b.HasBaseType("Mimirorg.TypeLibrary.Models.Data.LibraryTypeLibDm");
 
                     b.Property<string>("TerminalId")
                         .HasColumnType("nvarchar(450)")
@@ -879,6 +879,21 @@ namespace TypeLibrary.Core.Migrations
                     b.HasOne("Mimirorg.TypeLibrary.Models.Data.UnitLibDm", null)
                         .WithMany()
                         .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LibraryType_Collection", b =>
+                {
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.CollectionLibDm", null)
+                        .WithMany()
+                        .HasForeignKey("CollectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.LibraryTypeLibDm", null)
+                        .WithMany()
+                        .HasForeignKey("LibraryTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -928,6 +943,23 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Parent");
                 });
 
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.LibraryTypeLibDm", b =>
+                {
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.PurposeLibDm", "PurposeDm")
+                        .WithMany("LibraryTypes")
+                        .HasForeignKey("PurposeId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.RdsLibDm", "RdsDm")
+                        .WithMany("LibraryTypes")
+                        .HasForeignKey("RdsId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("PurposeDm");
+
+                    b.Navigation("RdsDm");
+                });
+
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.NodeTerminalLibDm", b =>
                 {
                     b.HasOne("Mimirorg.TypeLibrary.Models.Data.NodeLibDm", "NodeDm")
@@ -963,23 +995,6 @@ namespace TypeLibrary.Core.Migrations
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Parent");
-                });
-
-            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.TypeLibDm", b =>
-                {
-                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.PurposeLibDm", "PurposeDm")
-                        .WithMany("LibraryTypes")
-                        .HasForeignKey("PurposeId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.RdsLibDm", "RdsDm")
-                        .WithMany("LibraryTypes")
-                        .HasForeignKey("RdsId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("PurposeDm");
-
-                    b.Navigation("RdsDm");
                 });
 
             modelBuilder.Entity("Node_Attribute", b =>
@@ -1053,21 +1068,6 @@ namespace TypeLibrary.Core.Migrations
                     b.HasOne("Mimirorg.TypeLibrary.Models.Data.TransportLibDm", null)
                         .WithMany()
                         .HasForeignKey("TransportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Type_Collection", b =>
-                {
-                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.CollectionLibDm", null)
-                        .WithMany()
-                        .HasForeignKey("CollectionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.TypeLibDm", null)
-                        .WithMany()
-                        .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
