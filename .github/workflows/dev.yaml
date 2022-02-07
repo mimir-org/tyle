@@ -9,6 +9,9 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  nuget_source: https://api.nuget.org/v3/index.json
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build-client:
@@ -42,3 +45,20 @@ jobs:
       REGISTRY_SERVER_URL: ${{ secrets.REGISTRY_SERVER_URL }}
       REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
       REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+
+  nuget:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/server
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build
+        run: dotnet build -c Release Mimirorg.Common/
+
+      - name: Package Nuget
+        run: dotnet pack -c Release --output . --no-build Mimirorg.Common/
+
+      - name: Push
+        run: dotnet nuget push Mimirorg.Common.1.0.0.nupkg -k ${{secrets.NUGET_API_KEY}} --source ${{env.nuget_source}}
