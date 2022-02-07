@@ -20,8 +20,6 @@ namespace Mimirorg.TypeLibrary.Models.Data
         public string ConditionId { get; set; }
         public ConditionLibDm Condition { get; set; }
         
-        public ICollection<UnitLibDm> Units { get; set; }
-        
         public string FormatId { get; set; }
         public FormatLibDm Format { get; set; }
 
@@ -43,13 +41,19 @@ namespace Mimirorg.TypeLibrary.Models.Data
         public virtual ICollection<TerminalLibDm> Terminals { get; set; }
 
         [JsonIgnore]
+        public virtual ICollection<InterfaceLibDm> Interfaces { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<NodeLibDm> Nodes { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<SimpleLibDm> SimpleTypes { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<TransportLibDm> Transports { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<SimpleLibDm> SimpleTypes { get; set; }
+        public ICollection<UnitLibDm> Units { get; set; }
 
         private string CreateDescription()
         {

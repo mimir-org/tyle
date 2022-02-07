@@ -22,6 +22,21 @@ namespace TypeLibrary.Core.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Attribute_Interface", b =>
+                {
+                    b.Property<string>("AttributeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("InterfaceId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("AttributeId", "InterfaceId");
+
+                    b.HasIndex("InterfaceId");
+
+                    b.ToTable("Attribute_Interface", (string)null);
+                });
+
             modelBuilder.Entity("Attribute_Node", b =>
                 {
                     b.Property<string>("AttributeId")
@@ -124,9 +139,6 @@ namespace TypeLibrary.Core.Migrations
                     b.Property<string>("FormatId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("InterfaceLibDmId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("QualifierId")
                         .HasColumnType("nvarchar(450)");
 
@@ -151,8 +163,6 @@ namespace TypeLibrary.Core.Migrations
                     b.HasIndex("ConditionId");
 
                     b.HasIndex("FormatId");
-
-                    b.HasIndex("InterfaceLibDmId");
 
                     b.HasIndex("QualifierId");
 
@@ -883,6 +893,21 @@ namespace TypeLibrary.Core.Migrations
                     b.HasDiscriminator().HasValue("TransportLibDm");
                 });
 
+            modelBuilder.Entity("Attribute_Interface", b =>
+                {
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeLibDm", null)
+                        .WithMany()
+                        .HasForeignKey("AttributeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.InterfaceLibDm", null)
+                        .WithMany()
+                        .HasForeignKey("InterfaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Attribute_Node", b =>
                 {
                     b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeLibDm", null)
@@ -969,10 +994,6 @@ namespace TypeLibrary.Core.Migrations
                         .WithMany("Attributes")
                         .HasForeignKey("FormatId")
                         .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.InterfaceLibDm", null)
-                        .WithMany("Attributes")
-                        .HasForeignKey("InterfaceLibDmId");
 
                     b.HasOne("Mimirorg.TypeLibrary.Models.Data.QualifierLibDm", "Qualifier")
                         .WithMany("Attributes")
@@ -1171,11 +1192,6 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("TerminalNodes");
 
                     b.Navigation("Transports");
-                });
-
-            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.InterfaceLibDm", b =>
-                {
-                    b.Navigation("Attributes");
                 });
 
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.NodeLibDm", b =>
