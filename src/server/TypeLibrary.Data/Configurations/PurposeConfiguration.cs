@@ -8,7 +8,7 @@ namespace TypeLibrary.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<PurposeLibDm> builder)
         {
-            builder.ToTable("PurposeId");
+            builder.ToTable("Purpose");
             builder.HasKey(x => x.Id);
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();

@@ -12,7 +12,7 @@ using TypeLibrary.Data;
 namespace TypeLibrary.Core.Migrations
 {
     [DbContext(typeof(TypeLibraryDbContext))]
-    [Migration("20220207105831_Init")]
+    [Migration("20220207110320_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -508,7 +508,7 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PurposeId", (string)null);
+                    b.ToTable("Purpose", (string)null);
                 });
 
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.QualifierLibDm", b =>

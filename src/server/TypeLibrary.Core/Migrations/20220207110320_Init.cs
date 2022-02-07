@@ -116,7 +116,7 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PurposeId",
+                name: "Purpose",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -131,7 +131,7 @@ namespace TypeLibrary.Core.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PurposeId", x => x.Id);
+                    table.PrimaryKey("PK_Purpose", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -291,9 +291,9 @@ namespace TypeLibrary.Core.Migrations
                 {
                     table.PrimaryKey("PK_LibraryType", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LibraryType_PurposeId_PurposeId",
+                        name: "FK_LibraryType_Purpose_PurposeId",
                         column: x => x.PurposeId,
-                        principalTable: "PurposeId",
+                        principalTable: "Purpose",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_LibraryType_Rds_RdsId",
@@ -753,7 +753,7 @@ namespace TypeLibrary.Core.Migrations
                 name: "Source");
 
             migrationBuilder.DropTable(
-                name: "PurposeId");
+                name: "Purpose");
 
             migrationBuilder.DropTable(
                 name: "Rds");

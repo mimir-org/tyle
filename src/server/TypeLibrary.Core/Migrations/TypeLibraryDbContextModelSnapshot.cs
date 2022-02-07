@@ -506,7 +506,7 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PurposeId", (string)null);
+                    b.ToTable("Purpose", (string)null);
                 });
 
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.QualifierLibDm", b =>
