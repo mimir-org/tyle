@@ -3,7 +3,7 @@ using Mimirorg.TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface INodeTerminalRepository : IGenericRepository<TypeLibraryDbContext, NodeTerminalLibDm>
+    public interface ITerminalNodeRepository : IGenericRepository<TypeLibraryDbContext, TerminalNodeLibDm>
     {
     }
 }

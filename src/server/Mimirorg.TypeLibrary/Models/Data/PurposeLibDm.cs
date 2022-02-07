@@ -17,7 +17,7 @@ namespace Mimirorg.TypeLibrary.Models.Data
         public string CreatedBy { get; set; }
 
         [JsonIgnore]
-        private const string InternalType = "Mb.Models.Data.Enums.Purpose";
+        private const string InternalType = "Mb.Models.Data.Enums.PurposeId";
 
         [JsonIgnore]
         public virtual string Key => $"{Name}-{InternalType}-{Discipline}";

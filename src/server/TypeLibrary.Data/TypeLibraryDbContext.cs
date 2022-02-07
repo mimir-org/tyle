@@ -14,7 +14,7 @@ namespace TypeLibrary.Data
         public virtual DbSet<BlobLibDm> BlobData { get; set; }
         public virtual DbSet<InterfaceLibDm> InterfaceTypes { get; set; }
         public virtual DbSet<LibraryTypeLibDm> LibraryTypes { get; set; }
-        public virtual DbSet<NodeTerminalLibDm> NodeTypeTerminalTypes { get; set; }
+        public virtual DbSet<TerminalNodeLibDm> NodeTypeTerminalTypes { get; set; }
         public virtual DbSet<AttributePredefinedLibDm> PredefinedAttributes { get; set; }
         public virtual DbSet<PurposeLibDm> Purposes { get; set; }
         public virtual DbSet<RdsCategoryLibDm> RdsCategories { get; set; }
@@ -40,8 +40,8 @@ namespace TypeLibrary.Data
             modelBuilder.ApplyConfiguration(new AttributeConfiguration());
             modelBuilder.ApplyConfiguration(new BlobDataConfiguration());
             modelBuilder.ApplyConfiguration(new InterfaceConfiguration());
-            modelBuilder.ApplyConfiguration(new LibraryConfiguration());
-            modelBuilder.ApplyConfiguration(new NodeTerminalConfiguration());
+            modelBuilder.ApplyConfiguration(new LibraryTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new TerminalNodeConfiguration());
             modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());
             modelBuilder.ApplyConfiguration(new PurposeConfiguration());
             modelBuilder.ApplyConfiguration(new RdsCategoryConfiguration());

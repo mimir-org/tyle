@@ -40,7 +40,7 @@ namespace TypeLibrary.Core.Profiles
 
             CreateMap<AttributePredefinedLibDm, AttributePredefinedLibCm>()
                 .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.Key))
-                .ForMember(dest => dest.Values, opt => opt.MapFrom(src => src.Values.ToDictionary(x => x, x => false)))
+                .ForMember(dest => dest.Values, opt => opt.MapFrom(src => src.ValueStringList.ToDictionary(x => x, x => false)))
                 .ForMember(dest => dest.IsMultiSelect, opt => opt.MapFrom(src => src.IsMultiSelect));
         }
     }

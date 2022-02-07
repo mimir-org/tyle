@@ -36,7 +36,7 @@ namespace TypeLibrary.Services.Services
         /// <returns></returns>
         public IEnumerable<RdsLibDm> GetRds(Aspect aspect)
         {
-            var all = _rdsRepository.GetAll().Include(x => x.RdsCategoryDm).ToList();
+            var all = _rdsRepository.GetAll().Include(x => x.RdsCategory).ToList();
             return aspect == Aspect.NotSet ?
                 all :
                 all.Where(x => x.Aspect.HasFlag(aspect));
@@ -48,7 +48,7 @@ namespace TypeLibrary.Services.Services
        /// <returns></returns>
         public IEnumerable<RdsLibDm> GetRds()
         {
-            var all = _rdsRepository.GetAll().Include(x => x.RdsCategoryDm).ToList();
+            var all = _rdsRepository.GetAll().Include(x => x.RdsCategory).ToList();
             return all;
         }
 

@@ -15,7 +15,7 @@ namespace TypeLibrary.Data.Configurations
             builder.HasKey(x => x.Key);
             builder.ToTable("AttributePredefined");
             builder.Property(p => p.Key).HasColumnName("Key").IsRequired();
-            builder.Property(p => p.Values).HasColumnName("Values").IsRequired(false).HasConversion(stringConverter, stringComparer);
+            builder.Property(p => p.ValueStringList).HasColumnName("ValueStringList").IsRequired(false).HasConversion(stringConverter, stringComparer);
             builder.Property(p => p.IsMultiSelect).HasColumnName("IsMultiSelect").IsRequired();
         }
     }

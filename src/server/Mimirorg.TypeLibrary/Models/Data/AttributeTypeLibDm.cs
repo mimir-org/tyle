@@ -9,9 +9,9 @@ namespace Mimirorg.TypeLibrary.Models.Data
         public string Name { get; set; }
         public string Description { get; set; }
         public string Iri { get; set; }
-        public string ParentId { get; set; }
-        public AttributeTypeLibDm Parent { get; set; }
-        public ICollection<AttributeTypeLibDm> Children { get; set; }
+        public string AttributeTypeParentId { get; set; }
+        public AttributeTypeLibDm ParentAttributeType { get; set; }
+        public ICollection<AttributeTypeLibDm> ChildrenAttributeTypes { get; set; }
         public Aspect Aspect { get; set; }
         public string UpdatedBy { get; set; }
         public DateTime? Updated { get; set; }
@@ -22,6 +22,6 @@ namespace Mimirorg.TypeLibrary.Models.Data
         private const string InternalType = "Mb.Models.Data.Enums.TypeAttribute";
 
         [JsonIgnore]
-        public virtual string Key => string.IsNullOrEmpty(ParentId) ? $"{Name}-{InternalType}" : $"{Name}-{InternalType}-{ParentId}";
+        public virtual string Key => string.IsNullOrEmpty(AttributeTypeParentId) ? $"{Name}-{InternalType}" : $"{Name}-{InternalType}-{AttributeTypeParentId}";
     }
 }

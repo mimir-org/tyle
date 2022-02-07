@@ -23,34 +23,33 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.Discipline).HasColumnName("Discipline").IsRequired().HasConversion<string>();
             builder.Property(p => p.Tags).HasColumnName("Tags").IsRequired(false).HasConversion(stringConverter, stringComparer);
 
-            builder.HasOne(x => x.ConditionDm).WithMany(y => y.AttributeList).HasForeignKey(x => x.ConditionId).OnDelete(DeleteBehavior.NoAction);
-            builder.HasOne(x => x.QualifierDm).WithMany(y => y.AttributeList).HasForeignKey(x => x.QualifierId).OnDelete(DeleteBehavior.NoAction);
-            builder.HasOne(x => x.SourceDm).WithMany(y => y.AttributeList).HasForeignKey(x => x.SourceId).OnDelete(DeleteBehavior.NoAction);
-            builder.HasOne(x => x.FormatDm).WithMany(y => y.AttributeList).HasForeignKey(x => x.FormatId).OnDelete(DeleteBehavior.NoAction);
-            builder.HasOne(x => x.FormatDm).WithMany(y => y.AttributeList).HasForeignKey(x => x.FormatId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.Condition).WithMany(y => y.Attributes).HasForeignKey(x => x.ConditionId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.Qualifier).WithMany(y => y.Attributes).HasForeignKey(x => x.QualifierId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.Source).WithMany(y => y.Attributes).HasForeignKey(x => x.SourceId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.Format).WithMany(y => y.Attributes).HasForeignKey(x => x.FormatId).OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasMany(x => x.Units).WithMany(y => y.AttributeList).UsingEntity<Dictionary<string, object>>("Attribute_Unit",
+            builder.HasMany(x => x.Units).WithMany(y => y.Attributes).UsingEntity<Dictionary<string, object>>("Attribute_Unit",
                 x => x.HasOne<UnitLibDm>().WithMany().HasForeignKey("UnitId"),
                 x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),
                 x => x.ToTable("Attribute_Unit")
             );
 
-            builder.HasMany(x => x.NodeTypes).WithMany(y => y.AttributeList).UsingEntity<Dictionary<string, object>>("Node_Attribute",
+            builder.HasMany(x => x.Nodes).WithMany(y => y.Attributes).UsingEntity<Dictionary<string, object>>("Attribute_Node",
                 x => x.HasOne<NodeLibDm>().WithMany().HasForeignKey("NodeId"),
                 x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),
-                x => x.ToTable("Node_Attribute")
+                x => x.ToTable("Attribute_Node")
             );
 
-            builder.HasMany(x => x.TransportTypes).WithMany(y => y.AttributeList).UsingEntity<Dictionary<string, object>>("Transport_Attribute",
+            builder.HasMany(x => x.Transports).WithMany(y => y.Attributes).UsingEntity<Dictionary<string, object>>("Attribute_Transport",
                 x => x.HasOne<TransportLibDm>().WithMany().HasForeignKey("TransportId"),
                 x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),
-                x => x.ToTable("Transport_Attribute")
+                x => x.ToTable("Attribute_Transport")
             );
 
-            builder.HasMany(x => x.SimpleTypes).WithMany(y => y.AttributeList).UsingEntity<Dictionary<string, object>>("Simple_Attribute",
+            builder.HasMany(x => x.SimpleTypes).WithMany(y => y.Attributes).UsingEntity<Dictionary<string, object>>("Attribute_Simple",
                 x => x.HasOne<SimpleLibDm>().WithMany().HasForeignKey("SimpleId"),
                 x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),
-                x => x.ToTable("Simple_Attribute")
+                x => x.ToTable("Attribute_Simple")
             );
         }
     }

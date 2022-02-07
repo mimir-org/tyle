@@ -29,16 +29,16 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string StatusId { get; set; } = "4590637F39B6BA6F39C74293BE9138DF";
 
         [Required]
-        public string Purpose { get; set; }
+        public string PurposeId { get; set; }
 
-        public ICollection<TerminalLibCm> TerminalTypes { get; set; }
+        public ICollection<TerminalLibCm> Terminals { get; set; }
         public string SymbolId { get; set; }
-        public ICollection<string> AttributeStringList { get; set; }
+        public ICollection<string> AttributeIdList { get; set; }
         public string LocationType { get; set; }
-        public ICollection<AttributePredefinedLibCm> PredefinedAttributes { get; set; }
-        public string TerminalTypeId { get; set; }
+        public ICollection<AttributePredefinedLibCm> AttributesPredefined { get; set; }
+        public string TerminalId { get; set; }
         public ICollection<string> SimpleTypes { get; set; }
-        public ICollection<CollectionLibAm> Categories { get; set; }
+        public ICollection<CollectionLibAm> Collections { get; set; }
 
         [JsonIgnore]
         public string Key => $"{Name}-{RdsId}-{Aspect}-{Version}";
@@ -53,7 +53,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if ((ObjectType == ObjectType.Interface || ObjectType == ObjectType.Transport) && string.IsNullOrEmpty(TerminalTypeId))
+            if ((ObjectType == ObjectType.Interface || ObjectType == ObjectType.Transport) && string.IsNullOrEmpty(TerminalId))
             {
                 yield return new ValidationResult(
 

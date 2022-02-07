@@ -17,7 +17,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string TerminalId { get; set; }
         public string TerminalTypeId { get; set; }
         public ObjectType LibraryType => ObjectType.Interface;
-        public PurposeLibDm PurposeDm { get; set; }
+        public PurposeLibDm Purpose { get; set; }
         public string UpdatedBy { get; set; }
         public DateTime? Updated { get; set; }
         public DateTime Created { get; set; }

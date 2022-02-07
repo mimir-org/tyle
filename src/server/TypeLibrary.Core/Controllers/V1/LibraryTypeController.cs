@@ -284,7 +284,7 @@ namespace TypeLibrary.Core.Controllers.V1
         #endregion SubProject
 
 
-        #region NodeDm
+        #region Node
 
         /// <summary>
         /// Get all nodes
@@ -310,7 +310,7 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        #endregion NodeDm
+        #endregion Node
 
 
         #region Transport

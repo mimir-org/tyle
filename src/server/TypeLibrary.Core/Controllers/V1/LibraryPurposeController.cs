@@ -18,7 +18,7 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("Purpose services")]
+    [SwaggerTag("PurposeId services")]
     public class LibraryPurposeController : ControllerBase
     {
         private readonly ILogger<LibraryPurposeController> _logger;

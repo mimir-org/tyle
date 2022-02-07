@@ -10,35 +10,35 @@ namespace TypeLibrary.Data.Repositories
 {
     public class LibraryTypeItemRepository : ILibraryTypeItemRepository
     {
-        private readonly ITransportRepository _transportTypeRepository;
-        private readonly IInterfaceRepository _interfaceTypeRepository;
-        private readonly INodeRepository _nodeTypeRepository;
+        private readonly ITransportRepository _transportRepository;
+        private readonly IInterfaceRepository _interfaceRepository;
+        private readonly INodeRepository _nodeRepository;
         private readonly IMapper _mapper;
 
-        public LibraryTypeItemRepository(IMapper mapper, ITransportRepository transportTypeRepository,
-            IInterfaceRepository interfaceTypeRepository, INodeRepository nodeTypeRepository)
+        public LibraryTypeItemRepository(IMapper mapper, ITransportRepository transportRepository,
+            IInterfaceRepository interfaceRepository, INodeRepository nodeRepository)
         {
             _mapper = mapper;
-            _transportTypeRepository = transportTypeRepository;
-            _interfaceTypeRepository = interfaceTypeRepository;
-            _nodeTypeRepository = nodeTypeRepository;
+            _transportRepository = transportRepository;
+            _interfaceRepository = interfaceRepository;
+            _nodeRepository = nodeRepository;
         }
 
         public async Task<IEnumerable<NodeLibCm>> GetNodes(string searchString = null)
         {
-            var nodeTypes = await _nodeTypeRepository.GetAll()
-                .Include(x => x.AttributeList)
+            var nodeTypes = await _nodeRepository.GetAll()
+                .Include(x => x.Attributes)
                     .ThenInclude(x => x.Units)
-                .Include(x => x.TerminalTypes)
-                    .ThenInclude(x => x.TerminalDm)
+                .Include(x => x.Terminals)
+                    .ThenInclude(x => x.Terminal)
                     .ThenInclude(x => x.Attributes)
                     .ThenInclude(x => x.Units)
-                .Include(x => x.RdsDm)
-                    .ThenInclude(x => x.RdsCategoryDm)
+                .Include(x => x.Rds)
+                    .ThenInclude(x => x.RdsCategory)
                 .Include(x => x.SimpleTypes)
-                    .ThenInclude(x => x.AttributeList)
+                    .ThenInclude(x => x.Attributes)
                     .ThenInclude(x => x.Units)
-                .Include(x => x.PurposeDm)
+                .Include(x => x.Purpose)
                 .AsSplitQuery()
                 .ToArrayAsync();
 
@@ -51,11 +51,11 @@ namespace TypeLibrary.Data.Repositories
         public async Task<IEnumerable<InterfaceLibCm>> GetInterfaces(string searchString = null)
         {
 
-            var interfaceTypes = await _interfaceTypeRepository.GetAll()
-                .Include(x => x.AttributeList)
-                .Include(x => x.RdsDm)
-                    .ThenInclude(x => x.RdsCategoryDm)
-                .Include(x => x.PurposeDm)
+            var interfaceTypes = await _interfaceRepository.GetAll()
+                .Include(x => x.Attributes)
+                .Include(x => x.Rds)
+                    .ThenInclude(x => x.RdsCategory)
+                .Include(x => x.Purpose)
                 .OrderBy(x => x.Name)
                 .AsSplitQuery()
                 .ToArrayAsync();
@@ -68,11 +68,11 @@ namespace TypeLibrary.Data.Repositories
 
         public async Task<IEnumerable<TransportLibCm>> GetTransports(string searchString = null)
         {
-            var transportTypes = await _transportTypeRepository.GetAll()
-                .Include(x => x.AttributeList)
-                .Include(x => x.RdsDm)
-                    .ThenInclude(x => x.RdsCategoryDm)
-                .Include(x => x.PurposeDm)
+            var transportTypes = await _transportRepository.GetAll()
+                .Include(x => x.Attributes)
+                .Include(x => x.Rds)
+                    .ThenInclude(x => x.RdsCategory)
+                .Include(x => x.Purpose)
                 .OrderBy(x => x.Name)
                 .AsSplitQuery()
                 .ToArrayAsync();
@@ -87,20 +87,20 @@ namespace TypeLibrary.Data.Repositories
         {
             if (typeof(NodeLibCm).IsAssignableFrom(typeof(T)))
             {
-                var nodeType = await _nodeTypeRepository.FindBy(x => x.Id == id)
-                    .Include(x => x.AttributeList)
-                    .Include("AttributeList.Units")
-                    .Include(x => x.TerminalTypes)
-                    .Include("TerminalTypes.TerminalDm")
-                    .Include("TerminalTypes.TerminalDm.TerminalCategory")
-                    .Include("TerminalTypes.TerminalDm.AttributeList")
-                    .Include("TerminalTypes.TerminalDm.AttributeList.Units")
-                    .Include(x => x.RdsDm)
-                    .Include("RdsDm.RdsCategoryDm")
+                var nodeType = await _nodeRepository.FindBy(x => x.Id == id)
+                    .Include(x => x.Attributes)
+                    .Include("AttributeIdList.Units")
+                    .Include(x => x.Terminals)
+                    .Include("Terminals.Terminal")
+                    .Include("Terminals.Terminal.TerminalCategory")
+                    .Include("Terminals.Terminal.AttributeIdList")
+                    .Include("Terminals.Terminal.AttributeIdList.Units")
+                    .Include(x => x.Rds)
+                    .Include("Rds.RdsCategory")
                     .Include(x => x.SimpleTypes)
-                    .Include("SimpleTypes.AttributeList")
-                    .Include("SimpleTypes.AttributeList.Units")
-                    .Include(x => x.PurposeDm)
+                    .Include("SimpleTypes.AttributeIdList")
+                    .Include("SimpleTypes.AttributeIdList.Units")
+                    .Include(x => x.Purpose)
                     .AsSplitQuery()
                     .FirstOrDefaultAsync();
 
@@ -109,11 +109,11 @@ namespace TypeLibrary.Data.Repositories
 
             if (typeof(InterfaceLibCm).IsAssignableFrom(typeof(T)))
             {
-                var interfaceType = await _interfaceTypeRepository.FindBy(x => x.Id == id)
-                    .Include(x => x.AttributeList)
-                    .Include(x => x.RdsDm)
-                    .Include("RdsDm.RdsCategoryDm")
-                    .Include(x => x.PurposeDm)
+                var interfaceType = await _interfaceRepository.FindBy(x => x.Id == id)
+                    .Include(x => x.Attributes)
+                    .Include(x => x.Rds)
+                    .Include("Rds.RdsCategory")
+                    .Include(x => x.Purpose)
                     .OrderBy(x => x.Name)
                     .AsSplitQuery()
                     .FirstOrDefaultAsync();
@@ -123,11 +123,11 @@ namespace TypeLibrary.Data.Repositories
 
             if (typeof(TransportLibCm).IsAssignableFrom(typeof(T)))
             {
-                var transportType = await _transportTypeRepository.FindBy(x => x.Id == id)
-                    .Include(x => x.AttributeList)
-                    .Include(x => x.RdsDm)
-                    .Include("RdsDm.RdsCategoryDm")
-                    .Include(x => x.PurposeDm)
+                var transportType = await _transportRepository.FindBy(x => x.Id == id)
+                    .Include(x => x.Attributes)
+                    .Include(x => x.Rds)
+                    .Include("Rds.RdsCategory")
+                    .Include(x => x.Purpose)
                     .OrderBy(x => x.Name)
                     .AsSplitQuery()
                     .FirstOrDefaultAsync();
@@ -140,9 +140,9 @@ namespace TypeLibrary.Data.Repositories
 
         public void ClearAllChangeTracker()
         {
-            _transportTypeRepository?.Context?.ChangeTracker.Clear();
-            _interfaceTypeRepository?.Context?.ChangeTracker.Clear();
-            _nodeTypeRepository?.Context?.ChangeTracker.Clear();
+            _transportRepository?.Context?.ChangeTracker.Clear();
+            _interfaceRepository?.Context?.ChangeTracker.Clear();
+            _nodeRepository?.Context?.ChangeTracker.Clear();
         }
     }
 }

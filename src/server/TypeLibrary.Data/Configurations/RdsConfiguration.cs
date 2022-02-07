@@ -16,7 +16,7 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.SemanticReference).HasColumnName("SemanticReference").IsRequired(false);
             builder.Property(p => p.Aspect).HasColumnName("Aspect").IsRequired().HasConversion<string>();
             
-            builder.HasOne(x => x.RdsCategoryDm).WithMany(y => y.RdsList).HasForeignKey(x => x.RdsCategoryId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.RdsCategory).WithMany(y => y.RdsList).HasForeignKey(x => x.RdsCategoryId).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

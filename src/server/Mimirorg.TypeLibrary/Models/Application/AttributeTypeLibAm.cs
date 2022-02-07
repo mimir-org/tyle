@@ -11,8 +11,8 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Description { get; set; }
         public string Iri { get; set; }
         public string ParentId { get; set; }
-        public AttributeTypeLibAm Parent { get; set; }
-        public ICollection<AttributeTypeLibAm> Children { get; set; }
+        public AttributeTypeLibAm ParentAttributeType { get; set; }
+        public ICollection<AttributeTypeLibAm> ChildrenAttributeTypes { get; set; }
         public Aspect Aspect { get; set; }
         public string UpdatedBy { get; set; }
         public DateTime? Updated { get; set; }

@@ -27,7 +27,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IInterfaceRepository, InterfaceRepository>();
             services.AddScoped<ILibraryTypeRepository, LibraryTypeRepository>();
             services.AddScoped<INodeRepository, NodeRepository>();
-            services.AddScoped<INodeTerminalRepository, NodeTerminalRepository>();
+            services.AddScoped<ITerminalNodeRepository, TerminalNodeRepository>();
             services.AddScoped<ITerminalRepository, TerminalRepository>();
             services.AddScoped<ITransportRepository, TransportRepository>();
             services.AddScoped<ILibraryTypeItemRepository, LibraryTypeItemRepository>();

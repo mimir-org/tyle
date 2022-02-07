@@ -10,7 +10,7 @@ namespace TypeLibrary.Data.Configurations
         {
             builder.Property(p => p.TerminalId).HasColumnName("Interface_TerminalId").IsRequired(false);
             
-            builder.HasOne(x => x.TerminalDm).WithMany(y => y.Interfaces).HasForeignKey(x => x.TerminalId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.Terminal).WithMany(y => y.Interfaces).HasForeignKey(x => x.TerminalId).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

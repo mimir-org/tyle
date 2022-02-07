@@ -6,37 +6,37 @@ namespace Mimirorg.TypeLibrary.Models.Data
 {
     public class NodeLibDm : LibraryTypeLibDm
     {
-        public ICollection<NodeTerminalLibDm> TerminalTypes { get; set; }
-        public ICollection<AttributeLibDm> AttributeList { get; set; }
+        public ICollection<TerminalNodeLibDm> Terminals { get; set; }
+        public ICollection<AttributeLibDm> Attributes { get; set; }
         public string LocationType { get; set; }
         public string SymbolId { get; set; }
         public virtual ICollection<SimpleLibDm> SimpleTypes { get; set; }
         [NotMapped]
-        public ICollection<AttributePredefinedLibCm> PredefinedAttributes { get; set; }
+        public ICollection<AttributePredefinedLibCm> AttributesPredefined { get; set; }
 
         [JsonIgnore]
-        public string PredefinedAttributeData { get; set; }
+        public string AttributeDataPredefined { get; set; }
 
-        public void ResolvePredefinedAttributeData()
+        public void ResolveAttributeDataPredefined()
         {
-            if (PredefinedAttributes == null || !PredefinedAttributes.Any())
+            if (AttributesPredefined == null || !AttributesPredefined.Any())
             {
-                PredefinedAttributeData = null;
+                AttributeDataPredefined = null;
                 return;
             }
 
-            PredefinedAttributeData = JsonConvert.SerializeObject(PredefinedAttributes);
+            AttributeDataPredefined = JsonConvert.SerializeObject(AttributesPredefined);
         }
 
-        public void ResolvePredefinedAttributes()
+        public void ResolveAttributesPredefined()
         {
-            if (string.IsNullOrEmpty(PredefinedAttributeData))
+            if (string.IsNullOrEmpty(AttributeDataPredefined))
             {
-                PredefinedAttributes = null;
+                AttributesPredefined = null;
                 return;
             }
 
-            PredefinedAttributes = JsonConvert.DeserializeObject<ICollection<AttributePredefinedLibCm>>(PredefinedAttributeData);
+            AttributesPredefined = JsonConvert.DeserializeObject<ICollection<AttributePredefinedLibCm>>(AttributeDataPredefined);
         }
     }
 }

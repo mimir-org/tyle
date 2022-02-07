@@ -19,7 +19,7 @@ namespace TypeLibrary.Services.Services
 {
     public class LibraryTypeService : Contracts.ILibraryTypeService
     {
-        private readonly INodeTerminalRepository _nodeTypeTerminalTypeRepository;
+        private readonly ITerminalNodeRepository _nodeTypeTerminalTypeRepository;
         private readonly ILibraryTypeItemRepository _libraryTypeItemRepository;
         private readonly ILibraryTypeRepository _libraryLibraryTypeComponentRepository;
         private readonly IAttributeRepository _attributeRepository;
@@ -27,7 +27,7 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public LibraryTypeService(INodeTerminalRepository nodeTypeTerminalTypeRepository, ILibraryTypeItemRepository libraryTypeItemRepository, 
+        public LibraryTypeService(ITerminalNodeRepository nodeTypeTerminalTypeRepository, ILibraryTypeItemRepository libraryTypeItemRepository, 
             ILibraryTypeRepository libraryLibraryTypeComponentRepository, IAttributeRepository attributeRepository, ISimpleRepository simpleTypeRepository,
             IMapper mapper, IHttpContextAccessor contextAccessor)
         {
@@ -57,10 +57,10 @@ namespace TypeLibrary.Services.Services
             {
                 return await _libraryLibraryTypeComponentRepository.FindBy(x => x.Id == id)
                     .OfType<NodeLibDm>()
-                    .Include(x => x.TerminalTypes)
-                    .Include(x => x.AttributeList)
+                    .Include(x => x.Terminals)
+                    .Include(x => x.Attributes)
                     .Include(x => x.SimpleTypes)
-                    .ThenInclude(y => y.AttributeList)
+                    .ThenInclude(y => y.Attributes)
                     .FirstOrDefaultAsync();
             }
 
@@ -68,8 +68,8 @@ namespace TypeLibrary.Services.Services
             {
                 return await _libraryLibraryTypeComponentRepository.FindBy(x => x.Id == id)
                     .OfType<TransportLibDm>()
-                    .Include(x => x.TerminalDm)
-                    .Include(x => x.AttributeList)
+                    .Include(x => x.Terminal)
+                    .Include(x => x.Attributes)
                     .FirstOrDefaultAsync();
             }
 
@@ -77,7 +77,7 @@ namespace TypeLibrary.Services.Services
             {
                 return await _libraryLibraryTypeComponentRepository.FindBy(x => x.Id == id)
                     .OfType<InterfaceLibDm>()
-                    .Include(x => x.TerminalDm)
+                    .Include(x => x.Terminal)
                     .FirstOrDefaultAsync();
             }
 
@@ -161,17 +161,17 @@ namespace TypeLibrary.Services.Services
             var nodeTypes = _libraryLibraryTypeComponentRepository
                 .GetAll()
                 .OfType<NodeLibDm>()
-                .Include(x => x.TerminalTypes)
-                .Include("TerminalTypes.TerminalDm")
-                .Include(x => x.AttributeList)
+                .Include(x => x.Terminals)
+                .Include("Terminals.Terminal")
+                .Include(x => x.Attributes)
                 .Include(x => x.SimpleTypes)
-                .ThenInclude(y => y.AttributeList)
+                .ThenInclude(y => y.Attributes)
                 .ToList();
 
             var transportTypes = _libraryLibraryTypeComponentRepository
                 .GetAll()
                 .OfType<TransportLibDm>()
-                .Include(x => x.AttributeList)
+                .Include(x => x.Attributes)
                 .ToList();
 
             var interfaceType = _libraryLibraryTypeComponentRepository
@@ -209,9 +209,9 @@ namespace TypeLibrary.Services.Services
                     var nodeItem = await _libraryLibraryTypeComponentRepository
                         .FindBy(x => x.Id == id)
                         .OfType<NodeLibDm>()
-                        .Include(x => x.TerminalTypes)
-                        .Include("TerminalTypes.TerminalDm")
-                        .Include(x => x.AttributeList)
+                        .Include(x => x.Terminals)
+                        .Include("Terminals.Terminal")
+                        .Include(x => x.Attributes)
                         .Include(x => x.SimpleTypes)
                         .FirstOrDefaultAsync();
 
@@ -235,7 +235,7 @@ namespace TypeLibrary.Services.Services
                     var transportItem = await _libraryLibraryTypeComponentRepository
                         .FindBy(x => x.Id == id)
                         .OfType<TransportLibDm>()
-                        .Include(x => x.AttributeList)
+                        .Include(x => x.Attributes)
                         .FirstOrDefaultAsync();
 
                     if (transportItem == null)
@@ -261,7 +261,7 @@ namespace TypeLibrary.Services.Services
             if (existingType != null)
                 throw new MimirorgDuplicateException($"TypeDm with name {simpleAm.Name} already exist.");
 
-            foreach (var attribute in newType.AttributeList)
+            foreach (var attribute in newType.Attributes)
             {
                 _attributeRepository.Attach(attribute, EntityState.Unchanged);
             }
@@ -293,7 +293,7 @@ namespace TypeLibrary.Services.Services
                     continue;
                 }
 
-                foreach (var attribute in newType.AttributeList)
+                foreach (var attribute in newType.Attributes)
                 {
                     _attributeRepository.Attach(attribute, EntityState.Unchanged);
                 }
@@ -302,7 +302,7 @@ namespace TypeLibrary.Services.Services
                 await _simpleTypeRepository.SaveAsync();
                 _simpleTypeRepository.Detach(newType);
 
-                foreach (var attribute in newType.AttributeList)
+                foreach (var attribute in newType.Attributes)
                 {
                     _attributeRepository.Detach(attribute);
                 }
@@ -315,7 +315,7 @@ namespace TypeLibrary.Services.Services
         /// <returns></returns>
         public IEnumerable<SimpleLibDm> GetSimpleTypes()
         {
-            var types = _simpleTypeRepository.GetAll().Include(x => x.AttributeList).ToList();
+            var types = _simpleTypeRepository.GetAll().Include(x => x.Attributes).ToList();
             return types;
         }
 
@@ -344,7 +344,7 @@ namespace TypeLibrary.Services.Services
 
             if (existingType is NodeLibDm typeToDelete)
             {
-                foreach (var terminalType in typeToDelete.TerminalTypes)
+                foreach (var terminalType in typeToDelete.Terminals)
                 {
                     _nodeTypeTerminalTypeRepository.Attach(terminalType, EntityState.Deleted);
                 }
@@ -358,7 +358,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<LibraryTypeLibCm> GetLibraryType(string searchString)
         {
-            var objectBlocks = await _libraryTypeItemRepository.GetNodes(searchString);
+            var nodes = await _libraryTypeItemRepository.GetNodes(searchString);
             var transports = await _libraryTypeItemRepository.GetTransports(searchString);
             var interfaces = await _libraryTypeItemRepository.GetInterfaces(searchString);
             //TODO: Correct subprojects return when implemented
@@ -366,7 +366,7 @@ namespace TypeLibrary.Services.Services
 
             var library = new LibraryTypeLibCm
             {
-                ObjectBlocks = objectBlocks.ToList(),
+                Nodes = nodes.ToList(),
                 Transports = transports.ToList(),
                 Interfaces = interfaces.ToList(),
                 SubProjects = subProjects.ToList()
@@ -442,9 +442,9 @@ namespace TypeLibrary.Services.Services
                 {
                     case NodeLibDm nt:
                         {
-                            if (nt.AttributeList != null && nt.AttributeList.Any())
+                            if (nt.Attributes != null && nt.Attributes.Any())
                             {
-                                foreach (var attribute in nt.AttributeList)
+                                foreach (var attribute in nt.Attributes)
                                 {
                                     _attributeRepository.Attach(attribute, EntityState.Unchanged);
                                 }
@@ -460,9 +460,9 @@ namespace TypeLibrary.Services.Services
                             await _libraryLibraryTypeComponentRepository.CreateAsync(nt);
                             await _libraryLibraryTypeComponentRepository.SaveAsync();
 
-                            if (nt.AttributeList != null && nt.AttributeList.Any())
+                            if (nt.Attributes != null && nt.Attributes.Any())
                             {
-                                foreach (var attribute in nt.AttributeList)
+                                foreach (var attribute in nt.Attributes)
                                 {
                                     _attributeRepository.Detach(attribute);
                                 }
@@ -482,9 +482,9 @@ namespace TypeLibrary.Services.Services
 
                     case InterfaceLibDm it:
 
-                        if (it.AttributeList != null && it.AttributeList.Any())
+                        if (it.Attributes != null && it.Attributes.Any())
                         {
-                            foreach (var attribute in it.AttributeList)
+                            foreach (var attribute in it.Attributes)
                             {
                                 _attributeRepository.Attach(attribute, EntityState.Unchanged);
                             }
@@ -493,9 +493,9 @@ namespace TypeLibrary.Services.Services
                         await _libraryLibraryTypeComponentRepository.CreateAsync(it);
                         await _libraryLibraryTypeComponentRepository.SaveAsync();
 
-                        if (it.AttributeList != null && it.AttributeList.Any())
+                        if (it.Attributes != null && it.Attributes.Any())
                         {
-                            foreach (var attribute in it.AttributeList)
+                            foreach (var attribute in it.Attributes)
                             {
                                 _attributeRepository.Detach(attribute);
                             }
@@ -506,9 +506,9 @@ namespace TypeLibrary.Services.Services
 
                     case TransportLibDm tt:
                         {
-                            if (tt.AttributeList != null && tt.AttributeList.Any())
+                            if (tt.Attributes != null && tt.Attributes.Any())
                             {
-                                foreach (var attribute in tt.AttributeList)
+                                foreach (var attribute in tt.Attributes)
                                 {
                                     _attributeRepository.Attach(attribute, EntityState.Unchanged);
                                 }
@@ -517,9 +517,9 @@ namespace TypeLibrary.Services.Services
                             await _libraryLibraryTypeComponentRepository.CreateAsync(tt);
                             await _libraryLibraryTypeComponentRepository.SaveAsync();
 
-                            if (tt.AttributeList != null && tt.AttributeList.Any())
+                            if (tt.Attributes != null && tt.Attributes.Any())
                             {
-                                foreach (var attribute in tt.AttributeList)
+                                foreach (var attribute in tt.Attributes)
                                 {
                                     _attributeRepository.Detach(attribute);
                                 }

@@ -45,7 +45,7 @@ namespace TypeLibrary.Services.Services
         {
             var result = _terminalTypeRepository.GetAll()
                 .Include(x => x.Attributes)
-                .Include(x => x.Children)
+                .Include(x => x.ChildrenTerminals)
                 .ToList();
             
             return result;

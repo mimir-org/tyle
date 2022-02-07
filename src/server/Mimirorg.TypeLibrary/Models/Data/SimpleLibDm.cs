@@ -9,9 +9,9 @@ namespace Mimirorg.TypeLibrary.Models.Data
         public string Description { get; set; }
         public string Iri { get; set; }
         
-        public virtual ICollection<AttributeLibDm> AttributeList { get; set; }
+        public virtual ICollection<AttributeLibDm> Attributes { get; set; }
 
         [JsonIgnore]
-        public ICollection<NodeLibDm> NodeTypes { get; set; }
+        public ICollection<NodeLibDm> Nodes { get; set; }
     }
 }

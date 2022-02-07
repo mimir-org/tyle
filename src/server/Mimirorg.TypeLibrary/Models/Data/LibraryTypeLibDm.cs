@@ -19,9 +19,9 @@ namespace Mimirorg.TypeLibrary.Models.Data
         public Aspect Aspect { get; set; }
 
         public string RdsId { get; set; }
-        public RdsLibDm RdsDm { get; set; }
+        public RdsLibDm Rds { get; set; }
         public string PurposeId { get; set; }
-        public PurposeLibDm PurposeDm { get; set; }
+        public PurposeLibDm Purpose { get; set; }
 
         public string UpdatedBy { get; set; }
         public DateTime? Updated { get; set; }

@@ -16,8 +16,8 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
-                .ForMember(dest => dest.AttributeList, opt => opt.MapFrom(src => CreateAttributes(src.AttributeStringList.ToList()).ToList()))
-                .ForMember(dest => dest.NodeTypes, opt => opt.Ignore());
+                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => CreateAttributes(src.AttributeIdList.ToList()).ToList()))
+                .ForMember(dest => dest.Nodes, opt => opt.Ignore());
 
             CreateMap<SimpleLibDm, SimpleLibAm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
