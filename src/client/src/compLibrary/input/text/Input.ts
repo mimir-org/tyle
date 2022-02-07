@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import { Color } from "../../colors";
 
 interface Props {
@@ -19,7 +19,7 @@ const Input = styled.input<Props>`
   margin-right: ${(props) => props.inputType === "tech" && "4px"};
   background-color: ${(props) => (props.readOnly ? Color.GreyLight : Color.White)};
   font-size: ${(props) => GetFontSize(props.fontSize)};
-  font-style: ${(props) => props.fontStyle ? props.fontStyle : 'revert'};
+  font-style: ${(props) => (props.fontStyle ? props.fontStyle : "revert")};
 
   @media (min-width: 3000px) {
     height: 40px;

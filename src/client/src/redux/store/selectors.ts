@@ -35,14 +35,29 @@ export const usernameSelector = createAppSelector(
   (username) => username
 );
 
+export const userErrorsSelector = createAppSelector(
+    (state) => state.userState.apiError,
+    (errors) => errors
+);
+
 export const editorStateSelector = createAppSelector(
   (state) => state.editor,
   (editor) => editor
 );
 
+export const editorErrorsSelector = createAppSelector(
+    (state) => state.editor.apiError,
+    (errors) => errors
+);
+
 export const librarySelector = createAppSelector(
   (state) => state.library,
   (library) => library
+);
+
+export const libraryErrorsSelector = createAppSelector(
+    (state) => state.library.apiError,
+    (errors) => errors
 );
 
 export const validationSelector = createAppSelector(

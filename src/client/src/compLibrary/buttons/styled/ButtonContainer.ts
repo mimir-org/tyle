@@ -1,26 +1,30 @@
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import { Color } from "../../colors";
 import { FontSize } from "../../font";
 
-const ButtonContainer = styled.button`
+interface Props {
+    icon: boolean;
+    disabled?: boolean;
+}
+
+const ButtonContainer = styled.button<Props>`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  min-width: 94px;
-  height: 34px;
+  gap: 10px;
+  height: 35px;
   background: ${Color.GreyLight};
   border: 1px solid ${Color.BlueMagenta};
   border-radius: 2px;
-  margin: 10px 0;
-  padding-left: 5px;
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+  padding: 10px 20px;
   font-size: ${FontSize.Standard};
   color: ${Color.Black};
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 
-  .button-text {
+  > span {
     max-width: 260px;
-    padding: 0 5px;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
@@ -28,11 +32,16 @@ const ButtonContainer = styled.button`
     overflow: hidden;
   }
 
+  :disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
   :active {
     border-width: 2px;
   }
 
-  :hover {
+  :hover:not(:disabled) {
     text-decoration: underline;
   }
 `;
