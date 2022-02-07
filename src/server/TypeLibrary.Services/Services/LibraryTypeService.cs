@@ -57,7 +57,7 @@ namespace TypeLibrary.Services.Services
             {
                 return await _libraryLibraryTypeComponentRepository.FindBy(x => x.Id == id)
                     .OfType<NodeLibDm>()
-                    .Include(x => x.Terminals)
+                    .Include(x => x.TerminalNodes)
                     .Include(x => x.Attributes)
                     .Include(x => x.SimpleTypes)
                     .ThenInclude(y => y.Attributes)
@@ -161,8 +161,8 @@ namespace TypeLibrary.Services.Services
             var nodeTypes = _libraryLibraryTypeComponentRepository
                 .GetAll()
                 .OfType<NodeLibDm>()
-                .Include(x => x.Terminals)
-                .Include("Terminals.Terminal")
+                .Include(x => x.TerminalNodes)
+                .Include("TerminalNodes.Terminal")
                 .Include(x => x.Attributes)
                 .Include(x => x.SimpleTypes)
                 .ThenInclude(y => y.Attributes)
@@ -209,8 +209,8 @@ namespace TypeLibrary.Services.Services
                     var nodeItem = await _libraryLibraryTypeComponentRepository
                         .FindBy(x => x.Id == id)
                         .OfType<NodeLibDm>()
-                        .Include(x => x.Terminals)
-                        .Include("Terminals.Terminal")
+                        .Include(x => x.TerminalNodes)
+                        .Include("TerminalNodes.Terminal")
                         .Include(x => x.Attributes)
                         .Include(x => x.SimpleTypes)
                         .FirstOrDefaultAsync();
@@ -344,7 +344,7 @@ namespace TypeLibrary.Services.Services
 
             if (existingType is NodeLibDm typeToDelete)
             {
-                foreach (var terminalType in typeToDelete.Terminals)
+                foreach (var terminalType in typeToDelete.TerminalNodes)
                 {
                     _nodeTypeTerminalTypeRepository.Attach(terminalType, EntityState.Deleted);
                 }

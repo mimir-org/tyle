@@ -6,7 +6,7 @@ namespace Mimirorg.TypeLibrary.Models.Data
 {
     public class NodeLibDm : LibraryTypeLibDm
     {
-        public ICollection<TerminalNodeLibDm> Terminals { get; set; }
+        public ICollection<TerminalNodeLibDm> TerminalNodes { get; set; }
         public ICollection<AttributeLibDm> Attributes { get; set; }
         public string LocationType { get; set; }
         public string SymbolId { get; set; }
