@@ -63,7 +63,7 @@ jobs:
         run: dotnet pack -c Release --output . --no-build ${{env.package_name}}
 
       - name: Push
-        run: dotnet nuget push ${{env.package_name}}.1.0.0.nupkg -k ${{secrets.NUGET_API_KEY}} --source ${{env.nuget_source}}
+        run: dotnet nuget push ${{env.package_name}}.1.0.0.nupkg -k ${{secrets.NUGET_API_KEY}} --source ${{env.nuget_source}} --skip-duplicate
 
   nuget-TypeLibrary:
     runs-on: ubuntu-latest
@@ -82,4 +82,4 @@ jobs:
         run: dotnet pack -c Release --output . --no-build ${{env.package_name}}
 
       - name: Push
-        run: dotnet nuget push ${{env.package_name}}.1.0.0.nupkg -k ${{secrets.NUGET_API_KEY}} --source ${{env.nuget_source}}
+        run: dotnet nuget push ${{env.package_name}}.1.0.0.nupkg -k ${{secrets.NUGET_API_KEY}} --source ${{env.nuget_source}} --skip-duplicate
