@@ -3,7 +3,7 @@ using Mimirorg.Common.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
-    public class LocationLibAm
+    public class AttributeTypeLibAm
     {
         public string Id { get; set; }
         [Required]
@@ -11,8 +11,8 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Description { get; set; }
         public string Iri { get; set; }
         public string ParentId { get; set; }
-        public LocationLibAm Parent { get; set; }
-        public ICollection<LocationLibAm> Children { get; set; }
+        public AttributeTypeLibAm Parent { get; set; }
+        public ICollection<AttributeTypeLibAm> Children { get; set; }
         public Aspect Aspect { get; set; }
         public string UpdatedBy { get; set; }
         public DateTime? Updated { get; set; }

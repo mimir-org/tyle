@@ -39,7 +39,7 @@ namespace TypeLibrary.Core.Extensions
             cfg.AddProfile(new FormatProfile());
             cfg.AddProfile(new QualifierProfile());
             cfg.AddProfile(new SourceProfile());
-            cfg.AddProfile(new LocationProfile());
+            cfg.AddProfile(new AttributeTypeProfile());
             cfg.AddProfile(new PurposeProfile());
             cfg.AddProfile(new RdsCategoryProfile());
             cfg.AddProfile(new UnitProfile());

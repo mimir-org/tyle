@@ -22,7 +22,7 @@ namespace TypeLibrary.Data
         public virtual DbSet<SimpleLibDm> SimpleTypes { get; set; }
         public virtual DbSet<TerminalLibDm> TerminalTypes { get; set; }
         public virtual DbSet<TransportLibDm> TransportTypes { get; set; }
-        public virtual DbSet<LocationLibDm> Locations { get; set; }
+        public virtual DbSet<AttributeTypeLibDm> Locations { get; set; }
         public virtual DbSet<UnitLibDm> Units { get; set; }
 
         public TypeLibraryDbContext(DbContextOptions<TypeLibraryDbContext> options) : base(options)
@@ -49,7 +49,7 @@ namespace TypeLibrary.Data
             modelBuilder.ApplyConfiguration(new SimpleConfiguration());
             modelBuilder.ApplyConfiguration(new TerminalConfiguration());
             modelBuilder.ApplyConfiguration(new TransportConfiguration());
-            modelBuilder.ApplyConfiguration(new LocationConfiguration());
+            modelBuilder.ApplyConfiguration(new AttributeTypeConfiguration());
             modelBuilder.ApplyConfiguration(new UnitConfiguration());
             modelBuilder.ApplyConfiguration(new CollectionConfiguration());
         }

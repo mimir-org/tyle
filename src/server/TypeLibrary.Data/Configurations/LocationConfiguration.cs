@@ -4,11 +4,11 @@ using Mimirorg.TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Data.Configurations
 {
-    public class LocationConfiguration : IEntityTypeConfiguration<LocationLibDm>
+    public class AttributeTypeConfiguration : IEntityTypeConfiguration<AttributeTypeLibDm>
     {
-        public void Configure(EntityTypeBuilder<LocationLibDm> builder)
+        public void Configure(EntityTypeBuilder<AttributeTypeLibDm> builder)
         {
-            builder.ToTable("Location");
+            builder.ToTable("AttributeType");
             builder.HasKey(x => x.Id);
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();

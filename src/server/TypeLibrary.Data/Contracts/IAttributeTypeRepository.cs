@@ -3,7 +3,7 @@ using Mimirorg.TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface ILocationRepository : IGenericRepository<TypeLibraryDbContext, LocationLibDm>
+    public interface IAttributeTypeRepository : IGenericRepository<TypeLibraryDbContext, AttributeTypeLibDm>
     {
     }
 }

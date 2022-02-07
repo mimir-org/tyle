@@ -23,6 +23,31 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AttributeType",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ParentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AttributeType", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AttributeType_AttributeType_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "AttributeType",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Blob",
                 columns: table => new
                 {
@@ -88,31 +113,6 @@ namespace TypeLibrary.Core.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Format", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Location",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ParentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Location", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Location_Location_ParentId",
-                        column: x => x.ParentId,
-                        principalTable: "Location",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -583,8 +583,8 @@ namespace TypeLibrary.Core.Migrations
                 column: "UnitId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Location_ParentId",
-                table: "Location",
+                name: "IX_AttributeType_ParentId",
+                table: "AttributeType",
                 column: "ParentId");
 
             migrationBuilder.CreateIndex(
@@ -667,10 +667,10 @@ namespace TypeLibrary.Core.Migrations
                 name: "AttributePredefined");
 
             migrationBuilder.DropTable(
-                name: "Blob");
+                name: "AttributeType");
 
             migrationBuilder.DropTable(
-                name: "Location");
+                name: "Blob");
 
             migrationBuilder.DropTable(
                 name: "Node_Attribute");

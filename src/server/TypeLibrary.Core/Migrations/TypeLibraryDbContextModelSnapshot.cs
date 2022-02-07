@@ -120,6 +120,58 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("AttributePredefined", (string)null);
                 });
 
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.AttributeTypeLibDm", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("Id");
+
+                    b.Property<string>("Aspect")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Aspect");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("CreatedBy");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("Iri")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Iri");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Name");
+
+                    b.Property<string>("ParentId")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("ParentId");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Updated");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("AttributeType", (string)null);
+                });
+
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.BlobLibDm", b =>
                 {
                     b.Property<string>("Id")
@@ -267,58 +319,6 @@ namespace TypeLibrary.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Format", (string)null);
-                });
-
-            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.LocationLibDm", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("Id");
-
-                    b.Property<string>("Aspect")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Aspect");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Created");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("CreatedBy");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Description");
-
-                    b.Property<string>("Iri")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Iri");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Name");
-
-                    b.Property<string>("ParentId")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("ParentId");
-
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Updated");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("UpdatedBy");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ParentId");
-
-                    b.ToTable("Location", (string)null);
                 });
 
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.NodeTerminalLibDm", b =>
@@ -918,9 +918,9 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("SourceDm");
                 });
 
-            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.LocationLibDm", b =>
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.AttributeTypeLibDm", b =>
                 {
-                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.LocationLibDm", "Parent")
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeTypeLibDm", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.NoAction);
@@ -1092,6 +1092,11 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("TerminalDm");
                 });
 
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.AttributeTypeLibDm", b =>
+                {
+                    b.Navigation("Children");
+                });
+
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.ConditionLibDm", b =>
                 {
                     b.Navigation("AttributeList");
@@ -1100,11 +1105,6 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.FormatLibDm", b =>
                 {
                     b.Navigation("AttributeList");
-                });
-
-            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.LocationLibDm", b =>
-                {
-                    b.Navigation("Children");
                 });
 
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.PurposeLibDm", b =>

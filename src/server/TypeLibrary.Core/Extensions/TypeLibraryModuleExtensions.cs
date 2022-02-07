@@ -39,7 +39,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IFormatRepository, FormatRepository>();
             services.AddScoped<IQualifierRepository, QualifierRepository>();
             services.AddScoped<ISourceRepository, SourceRepository>();
-            services.AddScoped<ILocationRepository, LocationRepository>();
+            services.AddScoped<IAttributeTypeRepository, AttributeTypeRepository>();
             services.AddScoped<IPurposeRepository, PurposeRepository>();
             services.AddScoped<IRdsCategoryRepository, RdsCategoryRepository>();
             services.AddScoped<IUnitRepository, UnitRepository>();
@@ -57,7 +57,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IFormatService, FormatService>();
             services.AddScoped<IQualifierService, QualifierService>();
             services.AddScoped<ISourceService, SourceService>();
-            services.AddScoped<ILocationService, LocationService>();
+            services.AddScoped<IAttributeTypeService, AttributeTypeService>();
             services.AddScoped<IPurposeService, PurposeService>();
             services.AddScoped<IUnitService, UnitService>();
             services.AddScoped<ICollectionService, CollectionService>();

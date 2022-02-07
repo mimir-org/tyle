@@ -3,15 +3,15 @@ using Newtonsoft.Json;
 
 namespace Mimirorg.TypeLibrary.Models.Data
 {
-    public class LocationLibDm 
+    public class AttributeTypeLibDm 
     {
         public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Iri { get; set; }
         public string ParentId { get; set; }
-        public LocationLibDm Parent { get; set; }
-        public ICollection<LocationLibDm> Children { get; set; }
+        public AttributeTypeLibDm Parent { get; set; }
+        public ICollection<AttributeTypeLibDm> Children { get; set; }
         public Aspect Aspect { get; set; }
         public string UpdatedBy { get; set; }
         public DateTime? Updated { get; set; }

@@ -18,27 +18,27 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("Location services")]
-    public class LibraryLocationController : ControllerBase
+    [SwaggerTag("AttributeType services")]
+    public class LibraryAttributeTypeController : ControllerBase
     {
-        private readonly ILogger<LibraryLocationController> _logger;
-        private readonly ILocationService _locationService;
+        private readonly ILogger<LibraryAttributeTypeController> _logger;
+        private readonly IAttributeTypeService _attributeTypeService;
 
-        public LibraryLocationController(ILogger<LibraryLocationController> logger, ILocationService locationService)
+        public LibraryAttributeTypeController(ILogger<LibraryAttributeTypeController> logger, IAttributeTypeService attributeTypeService)
         {
             _logger = logger;
-            _locationService = locationService;
+            _attributeTypeService = attributeTypeService;
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<LocationLibAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<AttributeTypeLibAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
-        public async Task<IActionResult> GetLocations()
+        public async Task<IActionResult> GetAttributeTypes()
         {
             try
             {
-                var data = await _locationService.GetLocations();
+                var data = await _attributeTypeService.GetAttributeTypes();
                 return Ok(data);
             }
             catch (Exception e)
@@ -49,14 +49,14 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(LocationLibAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AttributeTypeLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateLocation([FromBody] LocationLibAm dataAm)
+        public async Task<IActionResult> UpdateAttributeType([FromBody] AttributeTypeLibAm dataAm)
         {
             try
             {
-                var data = await _locationService.UpdateLocation(dataAm);
+                var data = await _attributeTypeService.UpdateAttributeType(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -67,14 +67,14 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(LocationLibAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AttributeTypeLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> CreateLocation([FromBody] LocationLibAm dataAm)
+        public async Task<IActionResult> CreateAttributeType([FromBody] AttributeTypeLibAm dataAm)
         {
             try
             {
-                var data = await _locationService.CreateLocation(dataAm);
+                var data = await _attributeTypeService.CreateAttributeType(dataAm);
                 return Ok(data);
             }
             catch (Exception e)

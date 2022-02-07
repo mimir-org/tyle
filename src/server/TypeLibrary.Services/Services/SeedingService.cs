@@ -16,7 +16,7 @@ namespace TypeLibrary.Services.Services
         public const string BlobDataFileName = "blobdata";
         public const string ConditionFileName = "condition";
         public const string FormatFileName = "format";
-        public const string LocationFileName = "location";
+        public const string AttributeTypeFileName = "attributetype";
         public const string PredefinedAttributeFileName = "attributepredefined";
         public const string PurposeFileName = "purpose";
         public const string QualifierFileName = "qualifier";
@@ -34,7 +34,7 @@ namespace TypeLibrary.Services.Services
         private readonly IFormatService _formatService;
         private readonly IQualifierService _qualifierService;
         private readonly ISourceService _sourceService;
-        private readonly ILocationService _locationService;
+        private readonly IAttributeTypeService _attributeTypeService;
         private readonly IPurposeService _purposeService;
         private readonly IUnitService _unitService;
         private readonly IRdsService _rdsService;
@@ -44,7 +44,7 @@ namespace TypeLibrary.Services.Services
         private readonly ILogger<SeedingService> _logger;
         
         public SeedingService(IAttributeService attributeService, IBlobDataService blobDataService, IConditionService conditionService, IFormatService formatService, 
-            IQualifierService qualifierService, ISourceService sourceService, ILocationService locationService, IPurposeService purposeService, IUnitService unitService, 
+            IQualifierService qualifierService, ISourceService sourceService, IAttributeTypeService attributeTypeService, IPurposeService purposeService, IUnitService unitService, 
             IRdsService rdsService, ITerminalService terminalTypeService, ITypeService typeService, IFileRepository fileRepository, ILogger<SeedingService> logger)
         {
             _attributeService = attributeService;
@@ -53,7 +53,7 @@ namespace TypeLibrary.Services.Services
             _formatService = formatService;
             _qualifierService = qualifierService;
             _sourceService = sourceService;
-            _locationService = locationService;
+            _attributeTypeService = attributeTypeService;
             _purposeService = purposeService;
             _unitService = unitService;
             _rdsService = rdsService;
@@ -76,7 +76,7 @@ namespace TypeLibrary.Services.Services
                 var formatFiles = fileList.Where(x => x.ToLower().Equals(FormatFileName)).ToList();
                 var qualifierFiles = fileList.Where(x => x.ToLower().Equals(QualifierFileName)).ToList();
                 var sourceFiles = fileList.Where(x => x.ToLower().Equals(SourceFileName)).ToList();
-                var locationFiles = fileList.Where(x => x.ToLower().Equals(LocationFileName)).ToList();
+                var attributeTypeFiles = fileList.Where(x => x.ToLower().Equals(AttributeTypeFileName)).ToList();
                 var purposeFiles = fileList.Where(x => x.ToLower().Equals(PurposeFileName)).ToList();
                 var rdsCategoryFiles = fileList.Where(x => x.ToLower().Equals(RdsCategoryFileName)).ToList();
                 var unitFiles = fileList.Where(x => x.ToLower().Equals(UnitFileName)).ToList();
@@ -95,7 +95,7 @@ namespace TypeLibrary.Services.Services
                 var formats = _fileRepository.ReadAllFiles<FormatLibAm>(formatFiles).ToList();
                 var qualifiers = _fileRepository.ReadAllFiles<QualifierLibAm>(qualifierFiles).ToList();
                 var sources = _fileRepository.ReadAllFiles<SourceLibAm>(sourceFiles).ToList();
-                var locations = _fileRepository.ReadAllFiles<LocationLibAm>(locationFiles).ToList();
+                var attributeTypes = _fileRepository.ReadAllFiles<AttributeTypeLibAm>(attributeTypeFiles).ToList();
                 var purposes = _fileRepository.ReadAllFiles<PurposeLibAm>(purposeFiles).ToList();
                 var rdsCategories = _fileRepository.ReadAllFiles<RdsCategoryLibAm>(rdsCategoryFiles).ToList();
                 var units = _fileRepository.ReadAllFiles<UnitLibAm>(unitFiles).ToList();
@@ -112,7 +112,7 @@ namespace TypeLibrary.Services.Services
                 await _formatService.CreateFormats(formats);
                 await _qualifierService.CreateQualifiers(qualifiers);
                 await _sourceService.CreateSources(sources);
-                await _locationService.CreateLocations(locations);
+                await _attributeTypeService.CreateAttributeTypes(attributeTypes);
                 await _purposeService.CreatePurposes(purposes);
                 await _rdsService.CreateRdsCategories(rdsCategories);
                 await _unitService.CreateUnits(units);
