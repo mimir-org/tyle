@@ -49,7 +49,7 @@ jobs:
   nuget-Common:
     runs-on: ubuntu-latest
     env:
-      package_name: Mimirorg.Common/
+      package_name: Mimirorg.Common
     defaults:
       run:
         working-directory: src/server
@@ -68,7 +68,7 @@ jobs:
   nuget-TypeLibrary:
     runs-on: ubuntu-latest
     env:
-      package_name: Mimirorg.TypeLibrary/
+      package_name: Mimirorg.TypeLibrary
     defaults:
       run:
         working-directory: src/server
