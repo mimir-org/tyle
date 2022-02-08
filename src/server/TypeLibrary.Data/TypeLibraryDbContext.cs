@@ -20,10 +20,11 @@ namespace TypeLibrary.Data
         public virtual DbSet<RdsCategoryLibDm> RdsCategories { get; set; }
         public virtual DbSet<RdsLibDm> Rds { get; set; }
         public virtual DbSet<SimpleLibDm> SimpleTypes { get; set; }
-        public virtual DbSet<TerminalLibDm> TerminalTypes { get; set; }
-        public virtual DbSet<TransportLibDm> TransportTypes { get; set; }
-        public virtual DbSet<AttributeTypeLibDm> Locations { get; set; }
+        public virtual DbSet<TerminalLibDm> Terminal { get; set; }
+        public virtual DbSet<TransportLibDm> Transport { get; set; }
+        public virtual DbSet<AttributeAspectLibDm> Locations { get; set; }
         public virtual DbSet<UnitLibDm> Units { get; set; }
+        public virtual DbSet<NodeLibDm> Nodes { get; set; }
 
         public TypeLibraryDbContext(DbContextOptions<TypeLibraryDbContext> options) : base(options)
         {
@@ -49,7 +50,7 @@ namespace TypeLibrary.Data
             modelBuilder.ApplyConfiguration(new SimpleConfiguration());
             modelBuilder.ApplyConfiguration(new TerminalConfiguration());
             modelBuilder.ApplyConfiguration(new TransportConfiguration());
-            modelBuilder.ApplyConfiguration(new AttributeTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new AttributeAspectConfiguration());
             modelBuilder.ApplyConfiguration(new UnitConfiguration());
             modelBuilder.ApplyConfiguration(new CollectionConfiguration());
         }

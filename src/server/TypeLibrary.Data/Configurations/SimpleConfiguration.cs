@@ -16,12 +16,6 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.Description).HasColumnName("Description").IsRequired(false);
             builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false);
 
-            builder.HasMany(x => x.Attributes).WithMany(y => y.SimpleTypes).UsingEntity<Dictionary<string, object>>("Simple_Attribute",
-                x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),
-                x => x.HasOne<SimpleLibDm>().WithMany().HasForeignKey("SimpleId"),
-                x => x.ToTable("Simple_Attribute")
-            );
-
             builder.HasMany(x => x.Nodes).WithMany(y => y.SimpleTypes).UsingEntity<Dictionary<string, object>>("Simple_Node",
                 x => x.HasOne<NodeLibDm>().WithMany().HasForeignKey("NodeId"),
                 x => x.HasOne<SimpleLibDm>().WithMany().HasForeignKey("SimpleId"),
