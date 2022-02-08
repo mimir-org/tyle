@@ -14,9 +14,9 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();
             builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false);
-            builder.Property(p => p.ParentTerminalId).HasColumnName("ParentTerminalId").IsRequired(false);
+            builder.Property(p => p.ParentId).HasColumnName("ParentTerminalId").IsRequired(false);
 
-            builder.HasOne(x => x.ParentTerminal).WithMany(y => y.ChildrenTerminals).HasForeignKey(x => x.ParentTerminalId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
             
             builder.HasMany(x => x.Attributes).WithMany(y => y.Terminals).UsingEntity<Dictionary<string, object>>("Terminal_Attribute",
                 x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),

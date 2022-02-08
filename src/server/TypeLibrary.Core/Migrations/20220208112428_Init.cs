@@ -10,6 +10,31 @@ namespace TypeLibrary.Core.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AttributeAspect",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ParentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AttributeAspect", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AttributeAspect_AttributeAspect_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "AttributeAspect",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AttributePredefined",
                 columns: table => new
                 {
@@ -20,31 +45,6 @@ namespace TypeLibrary.Core.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AttributePredefined", x => x.Key);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AttributeType",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ParentTerminalId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AttributeType", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AttributeType_AttributeType_ParentTerminalId",
-                        column: x => x.ParentTerminalId,
-                        principalTable: "AttributeType",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -323,7 +323,7 @@ namespace TypeLibrary.Core.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "Unknown"),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Interface_TerminalId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    LocationType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AttributeAspect = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SymbolId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AttributeDataPredefined = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Transport_TerminalId = table.Column<string>(type: "nvarchar(450)", nullable: true)
@@ -397,30 +397,6 @@ namespace TypeLibrary.Core.Migrations
                         name: "FK_Attribute_Unit_Unit_UnitId",
                         column: x => x.UnitId,
                         principalTable: "Unit",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Simple_Attribute",
-                columns: table => new
-                {
-                    AttributeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    SimpleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Simple_Attribute", x => new { x.AttributeId, x.SimpleId });
-                    table.ForeignKey(
-                        name: "FK_Simple_Attribute_Attribute_AttributeId",
-                        column: x => x.AttributeId,
-                        principalTable: "Attribute",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Simple_Attribute_Simple_SimpleId",
-                        column: x => x.SimpleId,
-                        principalTable: "Simple",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -640,9 +616,9 @@ namespace TypeLibrary.Core.Migrations
                 column: "UnitId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AttributeType_ParentTerminalId",
-                table: "AttributeType",
-                column: "ParentTerminalId");
+                name: "IX_AttributeAspect_ParentId",
+                table: "AttributeAspect",
+                column: "ParentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LibraryType_Interface_TerminalId",
@@ -673,11 +649,6 @@ namespace TypeLibrary.Core.Migrations
                 name: "IX_Rds_RdsCategoryId",
                 table: "Rds",
                 column: "RdsCategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Simple_Attribute_SimpleId",
-                table: "Simple_Attribute",
-                column: "SimpleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Simple_Node_SimpleId",
@@ -723,19 +694,16 @@ namespace TypeLibrary.Core.Migrations
                 name: "Attribute_Unit");
 
             migrationBuilder.DropTable(
-                name: "AttributePredefined");
+                name: "AttributeAspect");
 
             migrationBuilder.DropTable(
-                name: "AttributeType");
+                name: "AttributePredefined");
 
             migrationBuilder.DropTable(
                 name: "Blob");
 
             migrationBuilder.DropTable(
                 name: "LibraryType_Collection");
-
-            migrationBuilder.DropTable(
-                name: "Simple_Attribute");
 
             migrationBuilder.DropTable(
                 name: "Simple_Node");

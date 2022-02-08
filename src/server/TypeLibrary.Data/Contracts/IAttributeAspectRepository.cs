@@ -3,7 +3,7 @@ using Mimirorg.TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface IAttributeTypeRepository : IGenericRepository<TypeLibraryDbContext, AttributeTypeLibDm>
+    public interface IAttributeAspectRepository : IGenericRepository<TypeLibraryDbContext, AttributeAspectLibDm>
     {
     }
 }

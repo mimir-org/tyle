@@ -15,7 +15,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
                 .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color))
-                .ForMember(dest => dest.ParentTerminalId, opt => opt.MapFrom(src => src.ParentTerminalId))
+                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentTerminalId))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.ConvertToObject));
         }
     }

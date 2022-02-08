@@ -18,27 +18,27 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("AttributeType services")]
-    public class LibraryAttributeTypeController : ControllerBase
+    [SwaggerTag("AttributeAspect services")]
+    public class LibraryAttributeAspectController : ControllerBase
     {
-        private readonly ILogger<LibraryAttributeTypeController> _logger;
-        private readonly IAttributeTypeService _attributeTypeService;
+        private readonly ILogger<LibraryAttributeAspectController> _logger;
+        private readonly IAttributeAspectService _attributeAspectService;
 
-        public LibraryAttributeTypeController(ILogger<LibraryAttributeTypeController> logger, IAttributeTypeService attributeTypeService)
+        public LibraryAttributeAspectController(ILogger<LibraryAttributeAspectController> logger, IAttributeAspectService attributeAspectService)
         {
             _logger = logger;
-            _attributeTypeService = attributeTypeService;
+            _attributeAspectService = attributeAspectService;
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<AttributeTypeLibAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<AttributeAspectLibAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
         public async Task<IActionResult> GetAttributeTypes()
         {
             try
             {
-                var data = await _attributeTypeService.GetAttributeTypes();
+                var data = await _attributeAspectService.GetAttributeAspects();
                 return Ok(data);
             }
             catch (Exception e)
@@ -49,14 +49,14 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(AttributeTypeLibAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AttributeAspectLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateAttributeType([FromBody] AttributeTypeLibAm dataAm)
+        public async Task<IActionResult> UpdateAttributeType([FromBody] AttributeAspectLibAm dataAm)
         {
             try
             {
-                var data = await _attributeTypeService.UpdateAttributeType(dataAm);
+                var data = await _attributeAspectService.UpdateAttributeAspect(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -67,14 +67,14 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(AttributeTypeLibAm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AttributeAspectLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> CreateAttributeType([FromBody] AttributeTypeLibAm dataAm)
+        public async Task<IActionResult> CreateAttributeType([FromBody] AttributeAspectLibAm dataAm)
         {
             try
             {
-                var data = await _attributeTypeService.CreateAttributeType(dataAm);
+                var data = await _attributeAspectService.CreateAttributeAspect(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
