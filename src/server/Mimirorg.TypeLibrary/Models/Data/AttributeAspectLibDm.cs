@@ -19,7 +19,7 @@ namespace Mimirorg.TypeLibrary.Models.Data
         public string CreatedBy { get; set; }
 
         [JsonIgnore]
-        private const string InternalType = "Mb.Models.Data.Enums.TypeAttribute";
+        private const string InternalType = "Mb.Models.Data.Enums.AttributeAspect";
 
         [JsonIgnore]
         public virtual string Key => string.IsNullOrEmpty(ParentId) ? $"{Name}-{InternalType}" : $"{Name}-{InternalType}-{ParentId}";
