@@ -257,7 +257,16 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Aspect");
 
-                    b.Property<string>("ConditionId")
+                    b.Property<string>("AttributeConditionId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AttributeFormatId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AttributeQualifierId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AttributeSourceId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Discipline")
@@ -270,23 +279,14 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Entity");
 
-                    b.Property<string>("FormatId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("QualifierId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Select")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Selector");
+                        .HasColumnName("Select");
 
                     b.Property<string>("SelectValuesString")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("SelectValuesString");
-
-                    b.Property<string>("SourceId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Tags")
                         .HasColumnType("nvarchar(max)")
@@ -294,13 +294,13 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ConditionId");
+                    b.HasIndex("AttributeConditionId");
 
-                    b.HasIndex("FormatId");
+                    b.HasIndex("AttributeFormatId");
 
-                    b.HasIndex("QualifierId");
+                    b.HasIndex("AttributeQualifierId");
 
-                    b.HasIndex("SourceId");
+                    b.HasIndex("AttributeSourceId");
 
                     b.ToTable("Attribute", (string)null);
                 });
@@ -982,22 +982,22 @@ namespace TypeLibrary.Core.Migrations
                 {
                     b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeConditionLibDm", "AttributeCondition")
                         .WithMany("Attributes")
-                        .HasForeignKey("ConditionId")
+                        .HasForeignKey("AttributeConditionId")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeFormatLibDm", "AttributeFormat")
                         .WithMany("Attributes")
-                        .HasForeignKey("FormatId")
+                        .HasForeignKey("AttributeFormatId")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeQualifierLibDm", "AttributeQualifier")
                         .WithMany("Attributes")
-                        .HasForeignKey("QualifierId")
+                        .HasForeignKey("AttributeQualifierId")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeSourceLibDm", "AttributeSource")
                         .WithMany("Attributes")
-                        .HasForeignKey("SourceId")
+                        .HasForeignKey("AttributeSourceId")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("AttributeCondition");

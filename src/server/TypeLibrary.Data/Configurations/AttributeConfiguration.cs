@@ -19,14 +19,14 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.Entity).HasColumnName("Entity").IsRequired();
             builder.Property(p => p.Aspect).HasColumnName("Aspect").IsRequired().HasConversion<string>();
             builder.Property(p => p.SelectValuesString).HasColumnName("SelectValuesString").IsRequired(false);
-            builder.Property(p => p.Select).HasColumnName("Selector").IsRequired().HasConversion<string>();
+            builder.Property(p => p.Select).HasColumnName("Select").IsRequired().HasConversion<string>();
             builder.Property(p => p.Discipline).HasColumnName("Discipline").IsRequired().HasConversion<string>();
             builder.Property(p => p.Tags).HasColumnName("Tags").IsRequired(false).HasConversion(stringConverter, stringComparer);
 
-            builder.HasOne(x => x.AttributeCondition).WithMany(y => y.Attributes).HasForeignKey(x => x.ConditionId).OnDelete(DeleteBehavior.NoAction);
-            builder.HasOne(x => x.AttributeQualifier).WithMany(y => y.Attributes).HasForeignKey(x => x.QualifierId).OnDelete(DeleteBehavior.NoAction);
-            builder.HasOne(x => x.AttributeSource).WithMany(y => y.Attributes).HasForeignKey(x => x.SourceId).OnDelete(DeleteBehavior.NoAction);
-            builder.HasOne(x => x.AttributeFormat).WithMany(y => y.Attributes).HasForeignKey(x => x.FormatId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.AttributeCondition).WithMany(y => y.Attributes).HasForeignKey(x => x.AttributeConditionId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.AttributeQualifier).WithMany(y => y.Attributes).HasForeignKey(x => x.AttributeQualifierId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.AttributeSource).WithMany(y => y.Attributes).HasForeignKey(x => x.AttributeSourceId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.AttributeFormat).WithMany(y => y.Attributes).HasForeignKey(x => x.AttributeFormatId).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasMany(x => x.Units).WithMany(y => y.Attributes).UsingEntity<Dictionary<string, object>>("Attribute_Unit",
                 x => x.HasOne<UnitLibDm>().WithMany().HasForeignKey("UnitId"),

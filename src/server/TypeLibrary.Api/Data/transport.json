@@ -8,16 +8,16 @@
     "rdsId": "C48DCD574DB8B731EEB8E2101060213F",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminalTypes": null,
-    "symbolId": null,
-    "attributeTypes": [
+    "terminals": null,
+    "blobId": null,
+    "attributes": [
       "208283CA650C401877F38BCBB66D0937",
       "C55856CC00019688F60EE7EB5118521B"
     ],
-    "locationType": null,
+    "attributeAspect": null,
     "predefinedAttributes": null,
-    "terminalTypeId": "CDBE6464576FF822972293A9C9627A3B",
-    "simpleTypes": null,
+    "terminalId": "CDBE6464576FF822972293A9C9627A3B",
+    "simple": null,
     "version": "1.0",
 
     "updatedBy": null,
@@ -34,16 +34,16 @@
     "rdsId": "FAB5929F1C76515CB98E552A86CA6076",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminalTypes": null,
-    "symbolId": null,
-    "attributeTypes": [
+    "terminals": null,
+    "blobId": null,
+    "attributes": [
       "208283CA650C401877F38BCBB66D0937",
       "C55856CC00019688F60EE7EB5118521B"
     ],
-    "locationType": null,
+    "attributeAspect": null,
     "predefinedAttributes": null,
-    "terminalTypeId": "CC6DD5A9564E236AEFD3DA0DA2DACF11",
-    "simpleTypes": null,
+    "terminalId": "CC6DD5A9564E236AEFD3DA0DA2DACF11",
+    "simple": null,
     "version": "1.0",
 
     "updatedBy": null,
@@ -60,16 +60,16 @@
     "rdsId": "FAB5929F1C76515CB98E552A86CA6076",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminalTypes": null,
-    "symbolId": null,
-    "attributeTypes": [
+    "terminals": null,
+    "blobId": null,
+    "attributes": [
       "208283CA650C401877F38BCBB66D0937",
       "C55856CC00019688F60EE7EB5118521B"
     ],
-    "locationType": null,
+    "attributeAspect": null,
     "predefinedAttributes": null,
-    "terminalTypeId": "5153111276AA3B42F8E2061D148CF093",
-    "simpleTypes": null,
+    "terminalId": "5153111276AA3B42F8E2061D148CF093",
+    "simple": null,
     "version": "1.0",
 
     "updatedBy": null,
@@ -86,13 +86,13 @@
     "rdsId": "21C044473B0ED4047F64EF4E41800621",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminalTypes": null,
-    "symbolId": null,
-    "attributeTypes": [ "208283CA650C401877F38BCBB66D0937" ],
-    "locationType": null,
+    "terminals": null,
+    "blobId": null,
+    "attributes": [ "208283CA650C401877F38BCBB66D0937" ],
+    "attributeAspect": null,
     "predefinedAttributes": null,
-    "terminalTypeId": "9A69A18F06C5A284BF7B39BDD5FCB329",
-    "simpleTypes": null,
+    "terminalId": "9A69A18F06C5A284BF7B39BDD5FCB329",
+    "simple": null,
     "version": "1.0",
 
     "updatedBy": null,
@@ -109,17 +109,17 @@
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminalTypes": null,
-    "symbolId": null,
-    "attributeTypes": [
+    "terminals": null,
+    "blobId": null,
+    "attributes": [
       "007049245AC46BCA9FA3FD6220CAD41C",
       "06FD5EB8A1ED5961F5BE68D26FE8F58D",
       "19862F5A2B1F83C4BBE3432FA5EE51A8"
     ],
-    "locationType": null,
+    "attributeAspect": null,
     "predefinedAttributes": null,
-    "terminalTypeId": "6089771C4B5AC170DFB12CCAFC589CE9",
-    "simpleTypes": null,
+    "terminalId": "6089771C4B5AC170DFB12CCAFC589CE9",
+    "simple": null,
     "version": "1.0",
 
     "updatedBy": null,
@@ -137,17 +137,17 @@
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminalTypes": null,
-    "symbolId": null,
-    "attributeTypes": [
+    "terminals": null,
+    "blobId": null,
+    "attributes": [
       "007049245AC46BCA9FA3FD6220CAD41C",
       "06FD5EB8A1ED5961F5BE68D26FE8F58D",
       "19862F5A2B1F83C4BBE3432FA5EE51A8"
     ],
-    "locationType": null,
+    "attributeAspect": null,
     "predefinedAttributes": null,
-    "terminalTypeId": "BFB27765A609F27FD3A2DF59C4E4D63D",
-    "simpleTypes": null,
+    "terminalId": "BFB27765A609F27FD3A2DF59C4E4D63D",
+    "simple": null,
     "version": "1.0",
 
     "updatedBy": "Magnus Oanes Knædal",
@@ -164,17 +164,17 @@
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminalTypes": null,
-    "symbolId": null,
-    "attributeTypes": [
+    "terminals": null,
+    "blobId": null,
+    "attributes": [
       "007049245AC46BCA9FA3FD6220CAD41C",
       "06FD5EB8A1ED5961F5BE68D26FE8F58D",
       "19862F5A2B1F83C4BBE3432FA5EE51A8"
     ],
-    "locationType": null,
+    "attributeAspect": null,
     "predefinedAttributes": null,
-    "terminalTypeId": "CEBA282B7418B7F199798B645E1CBA56",
-    "simpleTypes": null,
+    "terminalId": "CEBA282B7418B7F199798B645E1CBA56",
+    "simple": null,
     "version": "1.0",
 
     "updatedBy": null,
@@ -191,17 +191,17 @@
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminalTypes": null,
-    "symbolId": null,
-    "attributeTypes": [
+    "terminals": null,
+    "blobId": null,
+    "attributes": [
       "007049245AC46BCA9FA3FD6220CAD41C",
       "06FD5EB8A1ED5961F5BE68D26FE8F58D",
       "19862F5A2B1F83C4BBE3432FA5EE51A8"
     ],
-    "locationType": null,
+    "attributeAspect": null,
     "predefinedAttributes": null,
-    "terminalTypeId": "27634FF8002B12E75D98E07CCD005D18",
-    "simpleTypes": null,
+    "terminalId": "27634FF8002B12E75D98E07CCD005D18",
+    "simple": null,
     "version": "1.0",
 
     "updatedBy": null,
@@ -218,16 +218,16 @@
     "rdsId": "C48DCD574DB8B731EEB8E2101060213F",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminalTypes": null,
-    "symbolId": null,
-    "attributeTypes": [
+    "terminals": null,
+    "blobId": null,
+    "attributes": [
       "208283CA650C401877F38BCBB66D0937",
       "C55856CC00019688F60EE7EB5118521B"
     ],
-    "locationType": null,
+    "attributeAspect": null,
     "predefinedAttributes": null,
-    "terminalTypeId": "CDBE6464576FF822972293A9C9627A3B",
-    "simpleTypes": null,
+    "terminalId": "CDBE6464576FF822972293A9C9627A3B",
+    "simple": null,
     "version": "1.0",
 
     "updatedBy": null,
@@ -244,16 +244,16 @@
     "rdsId": "FAB5929F1C76515CB98E552A86CA6076",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminalTypes": null,
-    "symbolId": null,
-    "attributeTypes": [
+    "terminals": null,
+    "blobId": null,
+    "attributes": [
       "208283CA650C401877F38BCBB66D0937",
       "C55856CC00019688F60EE7EB5118521B"
     ],
-    "locationType": null,
+    "attributeAspect": null,
     "predefinedAttributes": null,
-    "terminalTypeId": "CC6DD5A9564E236AEFD3DA0DA2DACF11",
-    "simpleTypes": null,
+    "terminalId": "CC6DD5A9564E236AEFD3DA0DA2DACF11",
+    "simple": null,
     "version": "1.0",
 
     "updatedBy": null,
@@ -270,16 +270,16 @@
     "rdsId": "FAB5929F1C76515CB98E552A86CA6076",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminalTypes": null,
-    "symbolId": null,
-    "attributeTypes": [
+    "terminals": null,
+    "blobId": null,
+    "attributes": [
       "208283CA650C401877F38BCBB66D0937",
       "C55856CC00019688F60EE7EB5118521B"
     ],
-    "locationType": null,
+    "attributeAspect": null,
     "predefinedAttributes": null,
-    "terminalTypeId": "5153111276AA3B42F8E2061D148CF093",
-    "simpleTypes": null,
+    "terminalId": "5153111276AA3B42F8E2061D148CF093",
+    "simple": null,
     "version": "1.0",
 
     "updatedBy": null,
@@ -296,13 +296,13 @@
     "rdsId": "21C044473B0ED4047F64EF4E41800621",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminalTypes": null,
-    "symbolId": null,
-    "attributeTypes": [ "208283CA650C401877F38BCBB66D0937" ],
-    "locationType": null,
+    "terminals": null,
+    "blobId": null,
+    "attributes": [ "208283CA650C401877F38BCBB66D0937" ],
+    "attributeAspect": null,
     "predefinedAttributes": null,
-    "terminalTypeId": "9A69A18F06C5A284BF7B39BDD5FCB329",
-    "simpleTypes": null,
+    "terminalId": "9A69A18F06C5A284BF7B39BDD5FCB329",
+    "simple": null,
     "version": "1.0",
 
     "updatedBy": null,
@@ -319,17 +319,17 @@
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminalTypes": null,
-    "symbolId": null,
-    "attributeTypes": [
+    "terminals": null,
+    "blobId": null,
+    "attributes": [
       "007049245AC46BCA9FA3FD6220CAD41C",
       "06FD5EB8A1ED5961F5BE68D26FE8F58D",
       "19862F5A2B1F83C4BBE3432FA5EE51A8"
     ],
-    "locationType": null,
+    "attributeAspect": null,
     "predefinedAttributes": null,
-    "terminalTypeId": "6089771C4B5AC170DFB12CCAFC589CE9",
-    "simpleTypes": null,
+    "terminalId": "6089771C4B5AC170DFB12CCAFC589CE9",
+    "simple": null,
     "version": "1.0",
 
     "updatedBy": null,
@@ -347,17 +347,17 @@
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminalTypes": null,
-    "symbolId": null,
-    "attributeTypes": [
+    "terminals": null,
+    "blobId": null,
+    "attributes": [
       "007049245AC46BCA9FA3FD6220CAD41C",
       "06FD5EB8A1ED5961F5BE68D26FE8F58D",
       "19862F5A2B1F83C4BBE3432FA5EE51A8"
     ],
-    "locationType": null,
+    "attributeAspect": null,
     "predefinedAttributes": null,
-    "terminalTypeId": "BFB27765A609F27FD3A2DF59C4E4D63D",
-    "simpleTypes": null,
+    "terminalId": "BFB27765A609F27FD3A2DF59C4E4D63D",
+    "simple": null,
     "version": "1.0",
 
     "updatedBy": "Magnus Oanes Knædal",
@@ -374,17 +374,17 @@
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminalTypes": null,
-    "symbolId": null,
-    "attributeTypes": [
+    "terminals": null,
+    "blobId": null,
+    "attributes": [
       "007049245AC46BCA9FA3FD6220CAD41C",
       "06FD5EB8A1ED5961F5BE68D26FE8F58D",
       "19862F5A2B1F83C4BBE3432FA5EE51A8"
     ],
-    "locationType": null,
+    "attributeAspect": null,
     "predefinedAttributes": null,
-    "terminalTypeId": "CEBA282B7418B7F199798B645E1CBA56",
-    "simpleTypes": null,
+    "terminalId": "CEBA282B7418B7F199798B645E1CBA56",
+    "simple": null,
     "version": "1.0",
 
     "updatedBy": null,
@@ -401,17 +401,17 @@
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminalTypes": null,
-    "symbolId": null,
-    "attributeTypes": [
+    "terminals": null,
+    "blobId": null,
+    "attributes": [
       "007049245AC46BCA9FA3FD6220CAD41C",
       "06FD5EB8A1ED5961F5BE68D26FE8F58D",
       "19862F5A2B1F83C4BBE3432FA5EE51A8"
     ],
-    "locationType": null,
+    "attributeAspect": null,
     "predefinedAttributes": null,
-    "terminalTypeId": "27634FF8002B12E75D98E07CCD005D18",
-    "simpleTypes": null,
+    "terminalId": "27634FF8002B12E75D98E07CCD005D18",
+    "simple": null,
     "version": "1.0",
 
     "updatedBy": null,

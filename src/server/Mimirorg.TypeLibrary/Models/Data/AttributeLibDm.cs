@@ -11,16 +11,16 @@ namespace Mimirorg.TypeLibrary.Models.Data
         public string Entity { get; set; }
         public Aspect Aspect { get; set; }
 
-        public string QualifierId { get; set; }
+        public string AttributeQualifierId { get; set; }
         public AttributeQualifierLibDm AttributeQualifier { get; set; }
 
-        public string SourceId { get; set; }
+        public string AttributeSourceId { get; set; }
         public AttributeSourceLibDm AttributeSource { get; set; }
         
-        public string ConditionId { get; set; }
+        public string AttributeConditionId { get; set; }
         public AttributeConditionLibDm AttributeCondition { get; set; }
         
-        public string FormatId { get; set; }
+        public string AttributeFormatId { get; set; }
         public AttributeFormatLibDm AttributeFormat { get; set; }
 
         public virtual HashSet<string> Tags { get; set; }

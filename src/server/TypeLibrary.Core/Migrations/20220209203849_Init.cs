@@ -248,36 +248,36 @@ namespace TypeLibrary.Core.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Entity = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    QualifierId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    SourceId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ConditionId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    FormatId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    AttributeQualifierId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    AttributeSourceId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    AttributeConditionId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    AttributeFormatId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Tags = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SelectValuesString = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Selector = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Select = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Discipline = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Attribute", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Attribute_AttributeCondition_ConditionId",
-                        column: x => x.ConditionId,
+                        name: "FK_Attribute_AttributeCondition_AttributeConditionId",
+                        column: x => x.AttributeConditionId,
                         principalTable: "AttributeCondition",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Attribute_AttributeFormat_FormatId",
-                        column: x => x.FormatId,
+                        name: "FK_Attribute_AttributeFormat_AttributeFormatId",
+                        column: x => x.AttributeFormatId,
                         principalTable: "AttributeFormat",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Attribute_AttributeQualifier_QualifierId",
-                        column: x => x.QualifierId,
+                        name: "FK_Attribute_AttributeQualifier_AttributeQualifierId",
+                        column: x => x.AttributeQualifierId,
                         principalTable: "AttributeQualifier",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Attribute_AttributeSource_SourceId",
-                        column: x => x.SourceId,
+                        name: "FK_Attribute_AttributeSource_AttributeSourceId",
+                        column: x => x.AttributeSourceId,
                         principalTable: "AttributeSource",
                         principalColumn: "Id");
                 });
@@ -571,24 +571,24 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attribute_ConditionId",
+                name: "IX_Attribute_AttributeConditionId",
                 table: "Attribute",
-                column: "ConditionId");
+                column: "AttributeConditionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attribute_FormatId",
+                name: "IX_Attribute_AttributeFormatId",
                 table: "Attribute",
-                column: "FormatId");
+                column: "AttributeFormatId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attribute_QualifierId",
+                name: "IX_Attribute_AttributeQualifierId",
                 table: "Attribute",
-                column: "QualifierId");
+                column: "AttributeQualifierId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attribute_SourceId",
+                name: "IX_Attribute_AttributeSourceId",
                 table: "Attribute",
-                column: "SourceId");
+                column: "AttributeSourceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Attribute_Interface_InterfaceId",
