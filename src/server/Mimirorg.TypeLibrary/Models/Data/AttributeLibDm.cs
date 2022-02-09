@@ -12,16 +12,16 @@ namespace Mimirorg.TypeLibrary.Models.Data
         public Aspect Aspect { get; set; }
 
         public string QualifierId { get; set; }
-        public QualifierLibDm Qualifier { get; set; }
+        public AttributeQualifierLibDm AttributeQualifier { get; set; }
 
         public string SourceId { get; set; }
-        public SourceLibDm Source { get; set; }
+        public AttributeSourceLibDm AttributeSource { get; set; }
         
         public string ConditionId { get; set; }
-        public ConditionLibDm Condition { get; set; }
+        public AttributeConditionLibDm AttributeCondition { get; set; }
         
         public string FormatId { get; set; }
-        public FormatLibDm Format { get; set; }
+        public AttributeFormatLibDm AttributeFormat { get; set; }
 
         public virtual HashSet<string> Tags { get; set; }
 
@@ -31,7 +31,7 @@ namespace Mimirorg.TypeLibrary.Models.Data
         [JsonIgnore]
         public string SelectValuesString { get; set; }
 
-        public SelectType SelectType { get; set; }
+        public Select Select { get; set; }
 
         public Discipline Discipline { get; set; }
 
@@ -47,7 +47,7 @@ namespace Mimirorg.TypeLibrary.Models.Data
         public virtual ICollection<NodeLibDm> Nodes { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<SimpleLibDm> SimpleTypes { get; set; }
+        public virtual ICollection<SimpleLibDm> Simple { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<TransportLibDm> Transports { get; set; }
@@ -59,18 +59,18 @@ namespace Mimirorg.TypeLibrary.Models.Data
         {
             var text = string.Empty;
 
-            if (Source?.Name != null && Source?.Name != "NotSet")
-                text += Source.Name + " ";
+            if (AttributeSource?.Name != null && AttributeSource?.Name != "NotSet")
+                text += AttributeSource.Name + " ";
 
             text += Entity;
 
             var subText = string.Empty;
 
-            if (Qualifier?.Name != null && Qualifier.Name != "NotSet")
-                subText = Qualifier.Name;
+            if (AttributeQualifier?.Name != null && AttributeQualifier.Name != "NotSet")
+                subText = AttributeQualifier.Name;
 
-            if (Condition?.Name != null && Condition.Name != "NotSet")
-                subText += ", " + Condition.Name;
+            if (AttributeCondition?.Name != null && AttributeCondition.Name != "NotSet")
+                subText += ", " + AttributeCondition.Name;
 
             if (!string.IsNullOrEmpty(subText))
                 text += " - " + subText;

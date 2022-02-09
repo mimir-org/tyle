@@ -16,8 +16,8 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();
             builder.Property(p => p.Version).HasColumnName("Version").IsRequired();
-            builder.Property(p => p.TypeId).HasColumnName("TypeId").IsRequired();
-            builder.Property(p => p.SemanticReference).HasColumnName("SemanticReference").IsRequired(false).HasDefaultValue(null);
+            builder.Property(p => p.FirstVersionId).HasColumnName("FirstVersionId").IsRequired();
+            builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false).HasDefaultValue(null);
             builder.Property(p => p.PurposeId).HasColumnName("PurposeId").IsRequired(false);
             builder.Property(p => p.Description).HasColumnName("Description").IsRequired(false).HasDefaultValue(null);
             builder.Property(p => p.StatusId).HasColumnName("StatusId").IsRequired().HasDefaultValue("4590637F39B6BA6F39C74293BE9138DF");

@@ -59,7 +59,7 @@ namespace TypeLibrary.Services.Services
                     .OfType<NodeLibDm>()
                     .Include(x => x.TerminalNodes)
                     .Include(x => x.Attributes)
-                    .Include(x => x.SimpleTypes)
+                    .Include(x => x.Simple)
                     .ThenInclude(y => y.Attributes)
                     .FirstOrDefaultAsync();
             }
@@ -126,7 +126,7 @@ namespace TypeLibrary.Services.Services
                 throw new MimirorgNotFoundException($"There is no typeAm with id:{id} to update.");
 
             var existingTypeVersions = GetAllLibraryTypes()
-                .Where(x => x.TypeId == existingType.TypeId)
+                .Where(x => x.FirstVersionId == existingType.FirstVersionId)
                 .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList();
 
             if (double.Parse(existingType.Version, CultureInfo.InvariantCulture) <
@@ -139,13 +139,13 @@ namespace TypeLibrary.Services.Services
                     existingTypeVersions[^1].Version.IncrementMajorVersion() :
                     existingTypeVersions[^1].Version.IncrementMinorVersion();
 
-                libraryTypeAm.TypeId = existingTypeVersions[0].TypeId;
+                libraryTypeAm.FirstVersionId = existingTypeVersions[0].FirstVersionId;
 
                 return await CreateLibraryType<T>(libraryTypeAm, true);
             }
 
             libraryTypeAm.Version = existingType.Version;
-            libraryTypeAm.TypeId = existingType.TypeId;
+            libraryTypeAm.FirstVersionId = existingType.FirstVersionId;
 
             await DeleteLibraryType(id);
 
@@ -164,7 +164,7 @@ namespace TypeLibrary.Services.Services
                 .Include(x => x.TerminalNodes)
                 .Include("TerminalNodes.Terminal")
                 .Include(x => x.Attributes)
-                .Include(x => x.SimpleTypes)
+                .Include(x => x.Simple)
                 .ThenInclude(y => y.Attributes)
                 .ToList();
 
@@ -201,18 +201,18 @@ namespace TypeLibrary.Services.Services
         /// <param name="id"></param>
         /// <param name="enum"></param>
         /// <returns></returns>
-        public async Task<LibraryTypeLibAm> ConvertToCreateLibraryType(string id, LibraryFilter @enum)
+        public async Task<LibraryTypeLibAm> ConvertToCreateLibraryType(string id, LibraryTypeFilter @enum)
         {
             switch (@enum)
             {
-                case LibraryFilter.Node:
+                case LibraryTypeFilter.Node:
                     var nodeItem = await _libraryLibraryTypeComponentRepository
                         .FindBy(x => x.Id == id)
                         .OfType<NodeLibDm>()
                         .Include(x => x.TerminalNodes)
                         .Include("TerminalNodes.Terminal")
                         .Include(x => x.Attributes)
-                        .Include(x => x.SimpleTypes)
+                        .Include(x => x.Simple)
                         .FirstOrDefaultAsync();
 
                     if (nodeItem == null)
@@ -220,7 +220,7 @@ namespace TypeLibrary.Services.Services
 
                     return _mapper.Map<LibraryTypeLibAm>(nodeItem);
 
-                case LibraryFilter.Interface:
+                case LibraryTypeFilter.Interface:
                     var interfaceItem = await _libraryLibraryTypeComponentRepository
                         .FindBy(x => x.Id == id)
                         .OfType<InterfaceLibDm>()
@@ -231,7 +231,7 @@ namespace TypeLibrary.Services.Services
 
                     return _mapper.Map<LibraryTypeLibAm>(interfaceItem);
 
-                case LibraryFilter.Transport:
+                case LibraryTypeFilter.Transport:
                     var transportItem = await _libraryLibraryTypeComponentRepository
                         .FindBy(x => x.Id == id)
                         .OfType<TransportLibDm>()
@@ -436,7 +436,7 @@ namespace TypeLibrary.Services.Services
                 if (libraryTypeDm?.Id == null)
                     return null;
 
-                libraryTypeDm.TypeId = !createNewFromExistingVersion ? libraryTypeDm.Id : createLibraryType.TypeId;
+                libraryTypeDm.FirstVersionId = !createNewFromExistingVersion ? libraryTypeDm.Id : createLibraryType.FirstVersionId;
 
                 switch (libraryTypeDm)
                 {
@@ -450,9 +450,9 @@ namespace TypeLibrary.Services.Services
                                 }
                             }
 
-                            if (nt.SimpleTypes != null && nt.SimpleTypes.Any())
+                            if (nt.Simple != null && nt.Simple.Any())
                             {
-                                foreach (var simpleType in nt.SimpleTypes)
+                                foreach (var simpleType in nt.Simple)
                                 {
                                     _simpleTypeRepository.Attach(simpleType, EntityState.Unchanged);
                                 }
@@ -468,9 +468,9 @@ namespace TypeLibrary.Services.Services
                                 }
                             }
 
-                            if (nt.SimpleTypes != null && nt.SimpleTypes.Any())
+                            if (nt.Simple != null && nt.Simple.Any())
                             {
-                                foreach (var simpleType in nt.SimpleTypes)
+                                foreach (var simpleType in nt.Simple)
                                 {
                                     _simpleTypeRepository.Detach(simpleType);
                                 }

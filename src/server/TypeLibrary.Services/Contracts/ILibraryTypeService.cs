@@ -16,7 +16,7 @@ namespace TypeLibrary.Services.Contracts
         Task<T> CreateLibraryType<T>(LibraryTypeLibAm libraryTypeAm) where T : class, new();
         Task<T> UpdateLibraryType<T>(string id, LibraryTypeLibAm libraryTypeAm, bool updateMajorVersion, bool updateMinorVersion) where T : class, new();
         Task DeleteLibraryType(string id);
-        Task<LibraryTypeLibAm> ConvertToCreateLibraryType(string id, LibraryFilter @enum);
+        Task<LibraryTypeLibAm> ConvertToCreateLibraryType(string id, LibraryTypeFilter @enum);
 
         Task<SimpleLibDm> CreateSimpleType(SimpleLibAm simpleAm);
         Task CreateSimpleTypes(ICollection<SimpleLibAm> simpleAmList);

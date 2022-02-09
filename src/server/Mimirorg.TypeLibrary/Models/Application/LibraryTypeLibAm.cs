@@ -44,7 +44,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Key => $"{Name}-{RdsId}-{Aspect}-{Version}";
 
         public string Version { get; set; }
-        public string TypeId { get; set; }
+        public string FirstVersionId { get; set; }
 
         public string UpdatedBy { get; set; }
         public DateTime? Updated { get; set; }

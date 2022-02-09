@@ -20,7 +20,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.ConditionId, opt => opt.MapFrom(src => src.ConditionId))
                 .ForMember(dest => dest.FormatId, opt => opt.MapFrom(src => src.FormatId))
                 .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags))
-                .ForMember(dest => dest.SelectType, opt => opt.MapFrom(src => src.SelectType))
+                .ForMember(dest => dest.Select, opt => opt.MapFrom(src => src.Select))
                 .ForMember(dest => dest.Discipline, opt => opt.MapFrom(src => src.Discipline))
                 .ForMember(dest => dest.Units, opt => opt.MapFrom(src => src.ConvertToObject))
                 .ForMember(dest => dest.SelectValues, opt => opt.Ignore())

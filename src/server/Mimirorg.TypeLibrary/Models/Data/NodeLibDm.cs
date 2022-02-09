@@ -9,8 +9,8 @@ namespace Mimirorg.TypeLibrary.Models.Data
         public ICollection<TerminalNodeLibDm> TerminalNodes { get; set; }
         public ICollection<AttributeLibDm> Attributes { get; set; }
         public string AttributeAspect { get; set; }
-        public string SymbolId { get; set; }
-        public virtual ICollection<SimpleLibDm> SimpleTypes { get; set; }
+        public string BlobId { get; set; }
+        public virtual ICollection<SimpleLibDm> Simple { get; set; }
         [NotMapped]
         public ICollection<AttributePredefinedLibCm> AttributesPredefined { get; set; }
 

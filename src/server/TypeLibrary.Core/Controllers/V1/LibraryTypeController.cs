@@ -69,21 +69,21 @@ namespace TypeLibrary.Core.Controllers.V1
         /// Get a typeDm
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="libraryFilter"></param>
+        /// <param name="libraryTypeFilter"></param>
         /// <returns></returns>
-        [HttpGet("{id}/{libraryFilter}")]
+        [HttpGet("{id}/{libraryTypeFilter}")]
         [ProducesResponseType(typeof(LibraryTypeLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //[Authorize(Policy = "Read")]
-        public async Task<IActionResult> GetLibraryType([Required] string id, [Required] LibraryFilter libraryFilter)
+        public async Task<IActionResult> GetLibraryType([Required] string id, [Required] LibraryTypeFilter libraryTypeFilter)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var data = await _libraryTypeService.ConvertToCreateLibraryType(id, libraryFilter);
+                var data = await _libraryTypeService.ConvertToCreateLibraryType(id, libraryTypeFilter);
                 return Ok(data);
             }
             catch (MimirorgNotFoundException e)

@@ -15,20 +15,20 @@ namespace TypeLibrary.Core.Profiles
         {
             CreateMap<LibraryTypeLibAm, NodeLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => $"{src.Key}-{src.Domain}-{src.Version}".CreateMd5()))
-                .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId))
+                .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.FirstVersionId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId))
-                .ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.SemanticReference))
+                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.SemanticReference))
                 .ForMember(dest => dest.Collections, opt => opt.MapFrom(src => src.Collections))
                 .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.AttributeAspect, opt => opt.MapFrom(src => src.LocationType))
-                .ForMember(dest => dest.SymbolId, opt => opt.MapFrom(src => src.SymbolId))
+                .ForMember(dest => dest.BlobId, opt => opt.MapFrom(src => src.SymbolId))
                 .ForMember(dest => dest.TerminalNodes, opt => opt.MapFrom(src => CreateTerminals(src.Terminals.ToList(), $"{src.Key}-{src.Domain}".CreateMd5()).ToList()))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => CreateAttributes(src.AttributeIdList.ToList()).ToList()))
-                .ForMember(dest => dest.SimpleTypes, opt => opt.MapFrom(src => SimpleTypes(src.SimpleTypes.ToList()).ToList()))
+                .ForMember(dest => dest.Simple, opt => opt.MapFrom(src => SimpleTypes(src.SimpleTypes.ToList()).ToList()))
                 .ForMember(dest => dest.PurposeId, opt => opt.MapFrom(src => src.PurposeId))
                 .ForMember(dest => dest.Purpose, opt => opt.Ignore())
                 .ForMember(dest => dest.UpdatedBy, opt => opt.MapFrom(src => src.UpdatedBy))
@@ -42,12 +42,12 @@ namespace TypeLibrary.Core.Profiles
 
             CreateMap<LibraryTypeLibAm, TransportLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => $"{src.Key}-{src.Domain}-{src.Version}".CreateMd5()))
-                .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId))
+                .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.FirstVersionId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId))
-                .ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.SemanticReference))
+                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.SemanticReference))
                 .ForMember(dest => dest.Collections, opt => opt.MapFrom(src => src.Collections))
                 .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
@@ -62,12 +62,12 @@ namespace TypeLibrary.Core.Profiles
 
             CreateMap<LibraryTypeLibAm, InterfaceLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => $"{src.Key}-{src.Domain}-{src.Version}".CreateMd5()))
-                .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId))
+                .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.FirstVersionId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId))
-                .ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.SemanticReference))
+                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.SemanticReference))
                 .ForMember(dest => dest.Collections, opt => opt.MapFrom(src => src.Collections))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => CreateAttributes(src.AttributeIdList.ToList()).ToList()))
                 .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
@@ -81,21 +81,21 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
 
             CreateMap<NodeLibDm, LibraryTypeLibAm>()
-                .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId))
+                .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.FirstVersionId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.ObjectType, opt => opt.MapFrom(src => ObjectType.ObjectBlock))
-                .ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.SemanticReference))
+                .ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.Iri))
                 .ForMember(dest => dest.Collections, opt => opt.MapFrom(src => src.Collections))
                 .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
                 .ForMember(dest => dest.Terminals, opt => opt.MapFrom(src => src.TerminalNodes))
                 .ForMember(dest => dest.AttributeIdList, opt => opt.MapFrom(src => src.Attributes.Select(x => x.Id)))
-                .ForMember(dest => dest.SimpleTypes, opt => opt.MapFrom(src => src.SimpleTypes.Select(x => x.Id)))
+                .ForMember(dest => dest.SimpleTypes, opt => opt.MapFrom(src => src.Simple.Select(x => x.Id)))
                 .ForMember(dest => dest.LocationType, opt => opt.MapFrom(src => src.AttributeAspect))
-                .ForMember(dest => dest.SymbolId, opt => opt.MapFrom(src => src.SymbolId))
+                .ForMember(dest => dest.SymbolId, opt => opt.MapFrom(src => src.BlobId))
                 .ForMember(dest => dest.AttributesPredefined, opt => opt.MapFrom(src => src.AttributesPredefined))
                 .ForMember(dest => dest.TerminalId, opt => opt.Ignore())
                 .ForMember(dest => dest.UpdatedBy, opt => opt.MapFrom(src => src.UpdatedBy))
@@ -109,14 +109,14 @@ namespace TypeLibrary.Core.Profiles
                 });
 
             CreateMap<TransportLibDm, LibraryTypeLibAm>()
-                .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId))
+                .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.FirstVersionId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.ObjectType, opt => opt.MapFrom(src => ObjectType.Transport))
-                .ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.SemanticReference))
+                .ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.Iri))
                 .ForMember(dest => dest.Collections, opt => opt.MapFrom(src => src.Collections))
                 .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
                 .ForMember(dest => dest.Terminals, opt => opt.Ignore())
@@ -133,14 +133,14 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
 
             CreateMap<InterfaceLibDm, LibraryTypeLibAm>()
-                .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId))
+                .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.FirstVersionId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.ObjectType, opt => opt.MapFrom(src => ObjectType.Interface))
-                .ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.SemanticReference))
+                .ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.Iri))
                 .ForMember(dest => dest.Collections, opt => opt.MapFrom(src => src.Collections))
                 .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
                 .ForMember(dest => dest.Terminals, opt => opt.Ignore())
@@ -159,7 +159,7 @@ namespace TypeLibrary.Core.Profiles
             CreateMap<TerminalNodeLibDm, TerminalLibCm>()
                 .ForMember(dest => dest.TerminalId, opt => opt.MapFrom(src => src.TerminalId))
                 .ForMember(dest => dest.Number, opt => opt.MapFrom(src => src.Number))
-                .ForMember(dest => dest.ConnectorType, opt => opt.MapFrom(src => src.ConnectorType));
+                .ForMember(dest => dest.ConnectorDirection, opt => opt.MapFrom(src => src.ConnectorDirection));
 
             CreateMap<NodeLibDm, NodeLibCm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -170,9 +170,9 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Rds.RdsCategory.Name))
-                .ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.SemanticReference))
+                .ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.Iri))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes))
-                .ForMember(dest => dest.SymbolId, opt => opt.MapFrom(src => src.SymbolId))
+                .ForMember(dest => dest.SymbolId, opt => opt.MapFrom(src => src.BlobId))
                 .ForMember(dest => dest.Purpose, opt => opt.MapFrom(src => src.Purpose))
                 .ForMember(dest => dest.UpdatedBy, opt => opt.MapFrom(src => src.UpdatedBy))
                 .ForMember(dest => dest.Updated, opt => opt.MapFrom(src => src.Updated))
@@ -188,7 +188,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
-                .ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.SemanticReference))
+                .ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.Iri))
                 .ForMember(dest => dest.TerminalId, opt => opt.Ignore())
                 .ForMember(dest => dest.TerminalTypeId, opt => opt.MapFrom(src => src.TerminalId))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes))
@@ -207,7 +207,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
-                .ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.SemanticReference))
+                .ForMember(dest => dest.SemanticReference, opt => opt.MapFrom(src => src.Iri))
                 .ForMember(dest => dest.TerminalId, opt => opt.Ignore())
                 .ForMember(dest => dest.TerminalTypeId, opt => opt.MapFrom(src => src.TerminalId))
                 .ForMember(dest => dest.Purpose, opt => opt.MapFrom(src => src.Purpose))
@@ -226,7 +226,7 @@ namespace TypeLibrary.Core.Profiles
 
             foreach (var item in terminals)
             {
-                var existingSortedTerminalType = sortedTerminalTypes.FirstOrDefault(x => x.TerminalId == item.TerminalId && x.ConnectorType == item.ConnectorType);
+                var existingSortedTerminalType = sortedTerminalTypes.FirstOrDefault(x => x.TerminalId == item.TerminalId && x.ConnectorDirection == item.ConnectorDirection);
                 if (existingSortedTerminalType == null)
                 {
                     sortedTerminalTypes.Add(item);
@@ -246,7 +246,7 @@ namespace TypeLibrary.Core.Profiles
                     NodeId = nodeId,
                     TerminalId = item.TerminalId,
                     Number = item.Number,
-                    ConnectorType = item.ConnectorType
+                    ConnectorDirection = item.ConnectorDirection
                 };
             }
         }

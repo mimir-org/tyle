@@ -24,12 +24,12 @@ namespace TypeLibrary.Core.Controllers.V1
     public class LibraryBlobController : ControllerBase
     {
         private readonly ILogger<LibraryBlobController> _logger;
-        private readonly IBlobDataService _blobDataService;
+        private readonly IBlobService _blobService;
 
-        public LibraryBlobController(ILogger<LibraryBlobController> logger, IBlobDataService blobDataService)
+        public LibraryBlobController(ILogger<LibraryBlobController> logger, IBlobService blobService)
         {
             _logger = logger;
-            _blobDataService = blobDataService;
+            _blobService = blobService;
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<BlobDataLibAm>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ICollection<BlobLibAm>), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -47,7 +47,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var blobs = _blobDataService.GetBlobData().ToList();
+                var blobs = _blobService.GetBlob().ToList();
                 return Ok(blobs);
             }
             catch (Exception e)
@@ -60,7 +60,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <summary>
         /// Create a new blob data object
         /// </summary>
-        /// <param name="blobData"></param>
+        /// <param name="blob"></param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(BlobLibDm), StatusCodes.Status201Created)]
@@ -69,14 +69,14 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> CreateOrUpdateBlob([FromBody] BlobDataLibAm blobData)
+        public async Task<IActionResult> CreateOrUpdateBlob([FromBody] BlobLibAm blob)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var createdBlob = await _blobDataService.CreateBlobData(blobData);
+                var createdBlob = await _blobService.CreateBlob(blob);
                 return StatusCode(201, createdBlob);
             }
             catch (Exception e)

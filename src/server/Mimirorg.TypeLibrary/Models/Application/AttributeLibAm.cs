@@ -24,7 +24,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public ICollection<string> SelectValues { get; set; }
 
         [Required]
-        public SelectType SelectType { get; set; }
+        public Select Select { get; set; }
 
         [Required]
         public Discipline Discipline { get; set; }

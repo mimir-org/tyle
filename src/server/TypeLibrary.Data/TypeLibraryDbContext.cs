@@ -6,10 +6,10 @@ namespace TypeLibrary.Data
 {
     public class TypeLibraryDbContext : DbContext
     {
-        public virtual DbSet<ConditionLibDm> Conditions { get; set; }
-        public virtual DbSet<FormatLibDm> Formats { get; set; }
-        public virtual DbSet<QualifierLibDm> Qualifiers { get; set; }
-        public virtual DbSet<SourceLibDm> Sources { get; set; }
+        public virtual DbSet<AttributeConditionLibDm> Conditions { get; set; }
+        public virtual DbSet<AttributeFormatLibDm> Formats { get; set; }
+        public virtual DbSet<AttributeQualifierLibDm> Qualifiers { get; set; }
+        public virtual DbSet<AttributeSourceLibDm> Sources { get; set; }
         public virtual DbSet<AttributeLibDm> Attributes { get; set; }
         public virtual DbSet<BlobLibDm> BlobData { get; set; }
         public virtual DbSet<InterfaceLibDm> InterfaceTypes { get; set; }
@@ -34,10 +34,10 @@ namespace TypeLibrary.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration(new ConditionConfiguration());
-            modelBuilder.ApplyConfiguration(new FormatConfiguration());
-            modelBuilder.ApplyConfiguration(new QualifierConfiguration());
-            modelBuilder.ApplyConfiguration(new SourceConfiguration());
+            modelBuilder.ApplyConfiguration(new AttributeConditionConfiguration());
+            modelBuilder.ApplyConfiguration(new AttributeFormatConfiguration());
+            modelBuilder.ApplyConfiguration(new AttributeQualifierConfiguration());
+            modelBuilder.ApplyConfiguration(new AttributeSourceConfiguration());
             modelBuilder.ApplyConfiguration(new AttributeConfiguration());
             modelBuilder.ApplyConfiguration(new BlobDataConfiguration());
             modelBuilder.ApplyConfiguration(new InterfaceConfiguration());

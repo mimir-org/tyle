@@ -14,8 +14,8 @@ namespace Mimirorg.TypeLibrary.Models.Data
         [Required]
         public string StatusId { get; set; }
 
-        public string TypeId { get; set; }
-        public string SemanticReference { get; set; }
+        public string FirstVersionId { get; set; }
+        public string Iri { get; set; }
         public Aspect Aspect { get; set; }
 
         public string RdsId { get; set; }

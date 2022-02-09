@@ -7,9 +7,9 @@ namespace Mimirorg.TypeLibrary.Models.Client
     {
         public string TerminalId { get; set; }
         public int Number { get; set; }
-        public ConnectorType ConnectorType { get; set; }
+        public ConnectorDirection ConnectorDirection { get; set; }
 
         [JsonIgnore]
-        public string Key => $"{TerminalId}-{ConnectorType}";
+        public string Key => $"{TerminalId}-{ConnectorDirection}";
     }
 }

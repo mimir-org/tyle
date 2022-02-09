@@ -6,7 +6,7 @@ namespace Mimirorg.TypeLibrary.Models.Data
     {
         public string Id { get; set; }
         public int Number { get; set; }
-        public ConnectorType ConnectorType { get; set; }
+        public ConnectorDirection ConnectorDirection { get; set; }
         public string NodeId { get; set; }
         public NodeLibDm Node { get; set; }
         public string TerminalId { get; set; }

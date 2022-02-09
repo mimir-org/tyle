@@ -36,10 +36,10 @@ namespace TypeLibrary.Services.Services
         public IEnumerable<AttributeLibDm> GetAttributes(Aspect aspect)
         {
             var all = _attributeRepository.GetAll()
-                .Include(x => x.Qualifier)
-                .Include(x => x.Source)
-                .Include(x => x.Condition)
-                .Include(x => x.Format)
+                .Include(x => x.AttributeQualifier)
+                .Include(x => x.AttributeSource)
+                .Include(x => x.AttributeCondition)
+                .Include(x => x.AttributeFormat)
                 .Include(x => x.Units)
                 .ToList();
 
@@ -55,10 +55,10 @@ namespace TypeLibrary.Services.Services
         public IEnumerable<AttributeLibDm> GetAttributes()
         {
             var all = _attributeRepository.GetAll()
-                .Include(x => x.Qualifier)
-                .Include(x => x.Source)
-                .Include(x => x.Condition)
-                .Include(x => x.Format)
+                .Include(x => x.AttributeQualifier)
+                .Include(x => x.AttributeSource)
+                .Include(x => x.AttributeCondition)
+                .Include(x => x.AttributeFormat)
                 .Include(x => x.Units)
                 .ToList();
 
