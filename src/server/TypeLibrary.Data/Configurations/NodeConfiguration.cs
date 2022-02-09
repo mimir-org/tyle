@@ -8,7 +8,7 @@ namespace TypeLibrary.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<NodeLibDm> builder)
         {
-            builder.Property(p => p.AttributeAspect).HasColumnName("AttributeAspect").IsRequired();
+            builder.Property(p => p.AttributeAspectId).HasColumnName("AttributeAspectId").IsRequired();
             builder.Property(p => p.BlobId).HasColumnName("BlobId").IsRequired();
         }
     }

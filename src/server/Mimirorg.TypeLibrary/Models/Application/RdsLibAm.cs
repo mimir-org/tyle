@@ -8,7 +8,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Name { get; set; }
         public string Code { get; set; }
         public string RdsCategoryId { get; set; }
-        public string SemanticReference { get; set; }
+        public string Iri { get; set; }
         public Aspect Aspect { get; set; }
 
         [JsonIgnore]

@@ -290,7 +290,7 @@ namespace TypeLibrary.Core.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RdsCategoryId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    SemanticReference = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -395,9 +395,9 @@ namespace TypeLibrary.Core.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "Unknown"),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Interface_TerminalId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    AttributeAspect = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AttributeAspectId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BlobId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AttributeDataPredefined = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AttributePredefined = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Transport_TerminalId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>

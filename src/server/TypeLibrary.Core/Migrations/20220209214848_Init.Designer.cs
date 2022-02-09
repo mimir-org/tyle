@@ -12,7 +12,7 @@ using TypeLibrary.Data;
 namespace TypeLibrary.Core.Migrations
 {
     [DbContext(typeof(TypeLibraryDbContext))]
-    [Migration("20220209203849_Init")]
+    [Migration("20220209214848_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -660,6 +660,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Code");
 
+                    b.Property<string>("Iri")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Iri");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -667,10 +671,6 @@ namespace TypeLibrary.Core.Migrations
 
                     b.Property<string>("RdsCategoryId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("SemanticReference")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("SemanticReference");
 
                     b.HasKey("Id");
 
@@ -855,10 +855,10 @@ namespace TypeLibrary.Core.Migrations
                 {
                     b.HasBaseType("Mimirorg.TypeLibrary.Models.Data.LibraryTypeLibDm");
 
-                    b.Property<string>("AttributeAspect")
+                    b.Property<string>("AttributeAspectId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AttributeDataPredefined")
+                    b.Property<string>("AttributePredefined")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BlobId")

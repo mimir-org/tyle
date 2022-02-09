@@ -13,9 +13,8 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string Name { get; set; }
         public string Description { get; set; }
         public string StatusId { get; set; } = "4590637F39B6BA6F39C74293BE9138DF";
-        public string SemanticReference { get; set; }
+        public string Iri { get; set; }
         public string TerminalId { get; set; }
-        public string TerminalTypeId { get; set; }
         public ICollection<AttributeLibDm> Attributes { get; set; }
         public ObjectType LibraryType => ObjectType.Transport;
         public PurposeLibDm Purpose { get; set; }

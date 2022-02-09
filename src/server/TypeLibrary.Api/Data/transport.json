@@ -7,7 +7,7 @@
     "semanticReference": "",
     "rdsId": "C48DCD574DB8B731EEB8E2101060213F",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
-    "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
+    "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "terminals": null,
     "blobId": null,
     "attributes": [
@@ -15,7 +15,7 @@
       "C55856CC00019688F60EE7EB5118521B"
     ],
     "attributeAspect": null,
-    "predefinedAttributes": null,
+    "attributesPredefined": null,
     "terminalId": "CDBE6464576FF822972293A9C9627A3B",
     "simple": null,
     "version": "1.0",
@@ -33,7 +33,7 @@
     "semanticReference": "",
     "rdsId": "FAB5929F1C76515CB98E552A86CA6076",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
-    "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
+    "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "terminals": null,
     "blobId": null,
     "attributes": [
@@ -41,7 +41,7 @@
       "C55856CC00019688F60EE7EB5118521B"
     ],
     "attributeAspect": null,
-    "predefinedAttributes": null,
+    "attributesPredefined": null,
     "terminalId": "CC6DD5A9564E236AEFD3DA0DA2DACF11",
     "simple": null,
     "version": "1.0",
@@ -59,7 +59,7 @@
     "semanticReference": "",
     "rdsId": "FAB5929F1C76515CB98E552A86CA6076",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
-    "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
+    "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "terminals": null,
     "blobId": null,
     "attributes": [
@@ -67,7 +67,7 @@
       "C55856CC00019688F60EE7EB5118521B"
     ],
     "attributeAspect": null,
-    "predefinedAttributes": null,
+    "attributesPredefined": null,
     "terminalId": "5153111276AA3B42F8E2061D148CF093",
     "simple": null,
     "version": "1.0",
@@ -85,12 +85,12 @@
     "semanticReference": "",
     "rdsId": "21C044473B0ED4047F64EF4E41800621",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
-    "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
+    "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "terminals": null,
     "blobId": null,
     "attributes": [ "208283CA650C401877F38BCBB66D0937" ],
     "attributeAspect": null,
-    "predefinedAttributes": null,
+    "attributesPredefined": null,
     "terminalId": "9A69A18F06C5A284BF7B39BDD5FCB329",
     "simple": null,
     "version": "1.0",
@@ -108,7 +108,7 @@
     "semanticReference": "",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
-    "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
+    "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "terminals": null,
     "blobId": null,
     "attributes": [
@@ -117,7 +117,7 @@
       "19862F5A2B1F83C4BBE3432FA5EE51A8"
     ],
     "attributeAspect": null,
-    "predefinedAttributes": null,
+    "attributesPredefined": null,
     "terminalId": "6089771C4B5AC170DFB12CCAFC589CE9",
     "simple": null,
     "version": "1.0",
@@ -136,7 +136,7 @@
     "semanticReference": "",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
-    "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
+    "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "terminals": null,
     "blobId": null,
     "attributes": [
@@ -145,7 +145,7 @@
       "19862F5A2B1F83C4BBE3432FA5EE51A8"
     ],
     "attributeAspect": null,
-    "predefinedAttributes": null,
+    "attributesPredefined": null,
     "terminalId": "BFB27765A609F27FD3A2DF59C4E4D63D",
     "simple": null,
     "version": "1.0",
@@ -163,7 +163,7 @@
     "semanticReference": "",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
-    "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
+    "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "terminals": null,
     "blobId": null,
     "attributes": [
@@ -172,7 +172,7 @@
       "19862F5A2B1F83C4BBE3432FA5EE51A8"
     ],
     "attributeAspect": null,
-    "predefinedAttributes": null,
+    "attributesPredefined": null,
     "terminalId": "CEBA282B7418B7F199798B645E1CBA56",
     "simple": null,
     "version": "1.0",
@@ -190,7 +190,7 @@
     "semanticReference": "",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
-    "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
+    "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "terminals": null,
     "blobId": null,
     "attributes": [
@@ -199,7 +199,7 @@
       "19862F5A2B1F83C4BBE3432FA5EE51A8"
     ],
     "attributeAspect": null,
-    "predefinedAttributes": null,
+    "attributesPredefined": null,
     "terminalId": "27634FF8002B12E75D98E07CCD005D18",
     "simple": null,
     "version": "1.0",
@@ -217,7 +217,7 @@
     "semanticReference": "",
     "rdsId": "C48DCD574DB8B731EEB8E2101060213F",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
-    "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
+    "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "terminals": null,
     "blobId": null,
     "attributes": [
@@ -225,7 +225,7 @@
       "C55856CC00019688F60EE7EB5118521B"
     ],
     "attributeAspect": null,
-    "predefinedAttributes": null,
+    "attributesPredefined": null,
     "terminalId": "CDBE6464576FF822972293A9C9627A3B",
     "simple": null,
     "version": "1.0",
@@ -243,7 +243,7 @@
     "semanticReference": "",
     "rdsId": "FAB5929F1C76515CB98E552A86CA6076",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
-    "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
+    "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "terminals": null,
     "blobId": null,
     "attributes": [
@@ -251,7 +251,7 @@
       "C55856CC00019688F60EE7EB5118521B"
     ],
     "attributeAspect": null,
-    "predefinedAttributes": null,
+    "attributesPredefined": null,
     "terminalId": "CC6DD5A9564E236AEFD3DA0DA2DACF11",
     "simple": null,
     "version": "1.0",
@@ -269,7 +269,7 @@
     "semanticReference": "",
     "rdsId": "FAB5929F1C76515CB98E552A86CA6076",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
-    "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
+    "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "terminals": null,
     "blobId": null,
     "attributes": [
@@ -277,7 +277,7 @@
       "C55856CC00019688F60EE7EB5118521B"
     ],
     "attributeAspect": null,
-    "predefinedAttributes": null,
+    "attributesPredefined": null,
     "terminalId": "5153111276AA3B42F8E2061D148CF093",
     "simple": null,
     "version": "1.0",
@@ -295,12 +295,12 @@
     "semanticReference": "",
     "rdsId": "21C044473B0ED4047F64EF4E41800621",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
-    "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
+    "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "terminals": null,
     "blobId": null,
     "attributes": [ "208283CA650C401877F38BCBB66D0937" ],
     "attributeAspect": null,
-    "predefinedAttributes": null,
+    "attributesPredefined": null,
     "terminalId": "9A69A18F06C5A284BF7B39BDD5FCB329",
     "simple": null,
     "version": "1.0",
@@ -318,7 +318,7 @@
     "semanticReference": "",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
-    "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
+    "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "terminals": null,
     "blobId": null,
     "attributes": [
@@ -327,7 +327,7 @@
       "19862F5A2B1F83C4BBE3432FA5EE51A8"
     ],
     "attributeAspect": null,
-    "predefinedAttributes": null,
+    "attributesPredefined": null,
     "terminalId": "6089771C4B5AC170DFB12CCAFC589CE9",
     "simple": null,
     "version": "1.0",
@@ -346,7 +346,7 @@
     "semanticReference": "",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
-    "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
+    "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "terminals": null,
     "blobId": null,
     "attributes": [
@@ -355,7 +355,7 @@
       "19862F5A2B1F83C4BBE3432FA5EE51A8"
     ],
     "attributeAspect": null,
-    "predefinedAttributes": null,
+    "attributesPredefined": null,
     "terminalId": "BFB27765A609F27FD3A2DF59C4E4D63D",
     "simple": null,
     "version": "1.0",
@@ -373,7 +373,7 @@
     "semanticReference": "",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
-    "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
+    "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "terminals": null,
     "blobId": null,
     "attributes": [
@@ -382,7 +382,7 @@
       "19862F5A2B1F83C4BBE3432FA5EE51A8"
     ],
     "attributeAspect": null,
-    "predefinedAttributes": null,
+    "attributesPredefined": null,
     "terminalId": "CEBA282B7418B7F199798B645E1CBA56",
     "simple": null,
     "version": "1.0",
@@ -400,7 +400,7 @@
     "semanticReference": "",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "statusId": "4590637F39B6BA6F39C74293BE9138DF",
-    "purpose": "2072BCCA9E13F0C9F30FBAA190676D18",
+    "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "terminals": null,
     "blobId": null,
     "attributes": [
@@ -409,7 +409,7 @@
       "19862F5A2B1F83C4BBE3432FA5EE51A8"
     ],
     "attributeAspect": null,
-    "predefinedAttributes": null,
+    "attributesPredefined": null,
     "terminalId": "27634FF8002B12E75D98E07CCD005D18",
     "simple": null,
     "version": "1.0",

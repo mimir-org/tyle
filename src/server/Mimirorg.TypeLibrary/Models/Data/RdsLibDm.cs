@@ -12,7 +12,7 @@ namespace Mimirorg.TypeLibrary.Models.Data
         public string RdsCategoryId { get; set; }
         public RdsCategoryLibDm RdsCategory { get; set; }
 
-        public string SemanticReference { get; set; }
+        public string Iri { get; set; }
         public Aspect Aspect { get; set; }
 
         [JsonIgnore]

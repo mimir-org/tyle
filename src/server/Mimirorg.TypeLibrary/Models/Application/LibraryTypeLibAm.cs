@@ -20,7 +20,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [EnumDataType(typeof(ObjectType))]
         public ObjectType ObjectType { get; set; }
 
-        public string SemanticReference { get; set; }
+        public string Iri { get; set; }
 
         [Required]
         public string RdsId { get; set; }
@@ -32,12 +32,12 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string PurposeId { get; set; }
 
         public ICollection<TerminalLibCm> Terminals { get; set; }
-        public string SymbolId { get; set; }
+        public string BlobId { get; set; }
         public ICollection<string> AttributeIdList { get; set; }
-        public string LocationType { get; set; }
+        public string AttributeAspectId { get; set; }
         public ICollection<AttributePredefinedLibCm> AttributesPredefined { get; set; }
         public string TerminalId { get; set; }
-        public ICollection<string> SimpleTypes { get; set; }
+        public ICollection<string> Simple { get; set; }
         public ICollection<CollectionLibAm> Collections { get; set; }
 
         [JsonIgnore]

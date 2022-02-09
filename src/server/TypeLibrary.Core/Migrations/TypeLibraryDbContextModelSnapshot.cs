@@ -658,6 +658,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Code");
 
+                    b.Property<string>("Iri")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Iri");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -665,10 +669,6 @@ namespace TypeLibrary.Core.Migrations
 
                     b.Property<string>("RdsCategoryId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("SemanticReference")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("SemanticReference");
 
                     b.HasKey("Id");
 
@@ -853,10 +853,10 @@ namespace TypeLibrary.Core.Migrations
                 {
                     b.HasBaseType("Mimirorg.TypeLibrary.Models.Data.LibraryTypeLibDm");
 
-                    b.Property<string>("AttributeAspect")
+                    b.Property<string>("AttributeAspectId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AttributeDataPredefined")
+                    b.Property<string>("AttributePredefined")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BlobId")
