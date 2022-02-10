@@ -12,7 +12,7 @@ using TypeLibrary.Data;
 namespace TypeLibrary.Core.Migrations
 {
     [DbContext(typeof(TypeLibraryDbContext))]
-    [Migration("20220210170012_Init")]
+    [Migration("20220210175004_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

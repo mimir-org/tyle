@@ -14,7 +14,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string Description { get; set; }
         public string StatusId { get; set; } = "4590637F39B6BA6F39C74293BE9138DF";
         public Aspect Aspect { get; set; }
-        public ICollection<Attribute> Attributes { get; set; }
+        public ICollection<AttributeLibDm> Attributes { get; set; }
         public string Iri { get; set; }
         public string BlobId { get; set; }
         public ObjectType LibraryType => ObjectType.ObjectBlock;
