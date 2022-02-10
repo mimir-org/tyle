@@ -10,7 +10,7 @@ namespace TypeLibrary.Data.Configurations
         {
             builder.ToTable("AttributeQualifier");
             builder.HasKey(x => x.Id);
-            builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
+            builder.HasIndex(x => x.Name).IsUnique();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();
             builder.Property(p => p.Description).HasColumnName("Description").IsRequired(false);
             builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false);

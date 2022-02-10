@@ -4,7 +4,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
 {
     public class AttributeFormatLibAm
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }

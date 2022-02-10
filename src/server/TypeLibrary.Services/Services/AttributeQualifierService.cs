@@ -47,7 +47,6 @@ namespace TypeLibrary.Services.Services
             var data = _mapper.Map<AttributeQualifierLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
-            data.Id = data.Key.CreateMd5();
             var createdData = await _qualifierRepository.CreateAsync(data);
             await _qualifierRepository.SaveAsync();
             return _mapper.Map<AttributeQualifierLibAm>(createdData.Entity);
@@ -57,7 +56,7 @@ namespace TypeLibrary.Services.Services
         {
             var dataList = _mapper.Map<List<AttributeQualifierLibDm>>(dataAm);
             var existing = _qualifierRepository.GetAll().ToList();
-            var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
+            var notExisting = dataList.Where(x => existing.All(y => y.Name != x.Name)).ToList();
 
             if (!notExisting.Any())
                 return;
@@ -66,7 +65,6 @@ namespace TypeLibrary.Services.Services
             {
                 data.Created = DateTime.Now.ToUniversalTime();
                 data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
-                data.Id = data.Key.CreateMd5();
                 _qualifierRepository.Attach(data, EntityState.Added);
             }
 

@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json;
-
-namespace Mimirorg.TypeLibrary.Models.Data
+﻿namespace Mimirorg.TypeLibrary.Models.Data
 {
     public class AttributeQualifierLibDm
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Iri { get; set; }
@@ -12,11 +10,5 @@ namespace Mimirorg.TypeLibrary.Models.Data
         public DateTime? Updated { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-
-        [JsonIgnore]
-        private const string InternalType = "Mb.Models.Data.Enums.AttributeQualifier";
-
-        [JsonIgnore]
-        public virtual string Key => $"{Name}-{InternalType}";
     }
 }

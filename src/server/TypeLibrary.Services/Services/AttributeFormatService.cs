@@ -48,7 +48,6 @@ namespace TypeLibrary.Services.Services
             var data = _mapper.Map<AttributeFormatLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
-            data.Id = data.Key.CreateMd5();
             var createdData = await _formatRepository.CreateAsync(data);
             await _formatRepository.SaveAsync();
             return _mapper.Map<AttributeFormatLibAm>(createdData.Entity);
@@ -58,7 +57,7 @@ namespace TypeLibrary.Services.Services
         {
             var dataList = _mapper.Map<List<AttributeFormatLibDm>>(dataAm);
             var existing = _formatRepository.GetAll().ToList();
-            var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
+            var notExisting = dataList.Where(x => existing.All(y => y.Name != x.Name)).ToList();
 
             if (!notExisting.Any())
                 return;
@@ -67,7 +66,6 @@ namespace TypeLibrary.Services.Services
             {
                 data.Created = DateTime.Now.ToUniversalTime();
                 data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
-                data.Id = data.Key.CreateMd5();
                 _formatRepository.Attach(data, EntityState.Added);
             }
 

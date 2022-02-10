@@ -48,7 +48,6 @@ namespace TypeLibrary.Services.Services
             var data = _mapper.Map<AttributeConditionLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
-            data.Id = data.Key.CreateMd5();
             var createdData = await _conditionRepository.CreateAsync(data);
             await _conditionRepository.SaveAsync();
             return _mapper.Map<AttributeConditionLibAm>(createdData.Entity);
@@ -58,7 +57,7 @@ namespace TypeLibrary.Services.Services
         {
             var dataList = _mapper.Map<List<AttributeConditionLibDm>>(dataAm);
             var existing = _conditionRepository.GetAll().ToList();
-            var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
+            var notExisting = dataList.Where(x => existing.All(y => y.Name != x.Name)).ToList();
 
             if (!notExisting.Any())
                 return;
@@ -67,7 +66,6 @@ namespace TypeLibrary.Services.Services
             {
                 data.Created = DateTime.Now.ToUniversalTime();
                 data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
-                data.Id = data.Key.CreateMd5();
                 _conditionRepository.Attach(data, EntityState.Added);
             }
 
