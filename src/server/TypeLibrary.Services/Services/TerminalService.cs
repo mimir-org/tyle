@@ -56,9 +56,9 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="terminalAm"></param>
         /// <returns></returns>
-        public async Task<TerminalLibDm> CreateTerminalType(TerminalLibAm terminalAm)
+        public async Task<TerminalLibDm> CreateTerminal(TerminalLibAm terminalAm)
         {
-            var data = await CreateTerminalTypes(new List<TerminalLibAm> { terminalAm });
+            var data = await CreateTerminals(new List<TerminalLibAm> { terminalAm });
             return data.SingleOrDefault();
         }
 
@@ -67,7 +67,7 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="terminalAmList"></param>
         /// <returns></returns>
-        public async Task<List<TerminalLibDm>> CreateTerminalTypes(List<TerminalLibAm> terminalAmList)
+        public async Task<List<TerminalLibDm>> CreateTerminals(List<TerminalLibAm> terminalAmList)
         {
             if (terminalAmList == null || !terminalAmList.Any())
                 return new List<TerminalLibDm>();

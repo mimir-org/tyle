@@ -211,14 +211,14 @@ namespace TypeLibrary.Core.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ParentTerminalId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ParentId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Terminal", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Terminal_Terminal_ParentTerminalId",
-                        column: x => x.ParentTerminalId,
+                        name: "FK_Terminal_Terminal_ParentId",
+                        column: x => x.ParentId,
                         principalTable: "Terminal",
                         principalColumn: "Id");
                 });
@@ -656,9 +656,9 @@ namespace TypeLibrary.Core.Migrations
                 column: "SimpleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Terminal_ParentTerminalId",
+                name: "IX_Terminal_ParentId",
                 table: "Terminal",
-                column: "ParentTerminalId");
+                column: "ParentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Terminal_Attribute_TerminalId",

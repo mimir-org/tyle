@@ -11,7 +11,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         public string Description { get; set; }
         public string Iri { get; set; }
-        public string ParentTerminalId { get; set; }
+        public string ParentId { get; set; }
         public string Color { get; set; }
         public ICollection<string> AttributeIdList { get; set; }
 

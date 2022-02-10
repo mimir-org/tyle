@@ -120,7 +120,7 @@ namespace TypeLibrary.Services.Services
                 
                 await _attributeService.CreateAttributes(attributes);
                 await _attributeService.CreateAttributesPredefined(attributesPredefined);
-                await _terminalService.CreateTerminalTypes(terminals);
+                await _terminalService.CreateTerminals(terminals);
                 await _rdsService.CreateRdsAsync(rds);
                 await _blobService.CreateBlob(blobs);
                 await _libraryTypeService.CreateSimpleTypes(simple);

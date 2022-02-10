@@ -12,7 +12,7 @@ using TypeLibrary.Data;
 namespace TypeLibrary.Core.Migrations
 {
     [DbContext(typeof(TypeLibraryDbContext))]
-    [Migration("20220209214848_Init")]
+    [Migration("20220210093823_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -726,7 +726,7 @@ namespace TypeLibrary.Core.Migrations
 
                     b.Property<string>("ParentId")
                         .HasColumnType("nvarchar(450)")
-                        .HasColumnName("ParentTerminalId");
+                        .HasColumnName("ParentId");
 
                     b.HasKey("Id");
 

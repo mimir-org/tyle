@@ -724,7 +724,7 @@ namespace TypeLibrary.Core.Migrations
 
                     b.Property<string>("ParentId")
                         .HasColumnType("nvarchar(450)")
-                        .HasColumnName("ParentTerminalId");
+                        .HasColumnName("ParentId");
 
                     b.HasKey("Id");
 

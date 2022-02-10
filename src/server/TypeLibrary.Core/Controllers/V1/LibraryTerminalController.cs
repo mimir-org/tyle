@@ -96,7 +96,7 @@ namespace TypeLibrary.Core.Controllers.V1
 
             try
             {
-                var createdTerminalType = await _terminalTypeService.CreateTerminalType(terminalAm);
+                var createdTerminalType = await _terminalTypeService.CreateTerminal(terminalAm);
                 if (createdTerminalType == null)
                     return BadRequest("The terminal typeDm already exist");
 

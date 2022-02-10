@@ -9,7 +9,7 @@ namespace TypeLibrary.Services.Contracts
     {
         IEnumerable<TerminalLibDm> GetTerminals();
         List<TerminalLibDm> GetTerminalsByCategory();
-        Task<TerminalLibDm> CreateTerminalType(TerminalLibAm terminalAm);
-        Task<List<TerminalLibDm>> CreateTerminalTypes(List<TerminalLibAm> terminalAmList);
+        Task<TerminalLibDm> CreateTerminal(TerminalLibAm terminalAm);
+        Task<List<TerminalLibDm>> CreateTerminals(List<TerminalLibAm> terminalAmList);
     }
 }
