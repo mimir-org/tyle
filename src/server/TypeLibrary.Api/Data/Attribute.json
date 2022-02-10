@@ -1,243 +1,243 @@
 ﻿[
   {
     "entity": "Level",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "4A4F85CD4F326A3C2E21A479002A3286",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required, Low",
+    "attributeCondition": "Minimum",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Level",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "1EC6555C36B5C6B5EABBD85A2A79FF08",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required, High",
+    "attributeCondition": "Minimum",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Level",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "B0CCD75F423E1240D981CBB06DF8E38B",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design, Low",
+    "attributeCondition": "Nominal",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Level",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "7BC47561DD28DFAC0D330F29A8F31EC7",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design, High",
+    "attributeCondition": "Nominal",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Level",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Minimum",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Level",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Nominal",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Density",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Minimum",
     "units": [
       "E3FF61F84B41214B6E0C64FBE332A3F0"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Density",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Nominal",
     "units": [
       "E3FF61F84B41214B6E0C64FBE332A3F0"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Density",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Maximum",
     "units": [
       "E3FF61F84B41214B6E0C64FBE332A3F0"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Gas/Liquid Ratio, GLR",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Nominal",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Gas/Oil Ratio, GOR",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Nominal",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Gas Volume Fraction, GVF",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Nominal",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Water Cut, WC",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Nominal",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Level",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Maximum",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Temperature",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "7BC47561DD28DFAC0D330F29A8F31EC7",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design, High",
+    "attributeCondition": "Nominal",
     "units": [
       "C8D3295246390474742CA763B56D4DA8",
       "C87CC4F2DF711783B6C443FF48F4E386",
       "31EDDD028D54698267B98EB1727EED53"
     ],
     "aspect": "Product",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Temperature",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "B0CCD75F423E1240D981CBB06DF8E38B",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design, Low",
+    "attributeCondition": "Maximum",
     "units": [
       "C8D3295246390474742CA763B56D4DA8",
       "C87CC4F2DF711783B6C443FF48F4E386",
       "31EDDD028D54698267B98EB1727EED53"
     ],
     "aspect": "Product",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Temperature",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "B0CCD75F423E1240D981CBB06DF8E38B",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design, Low",
+    "attributeCondition": "Nominal",
     "units": [
       "C8D3295246390474742CA763B56D4DA8",
       "C87CC4F2DF711783B6C443FF48F4E386",
       "31EDDD028D54698267B98EB1727EED53"
     ],
     "aspect": "Product",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Flowrate, volumetric",
-    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Capacity",
+    "attributeSource": "Design",
+    "attributeCondition": "Maximum",
     "units": [
       "63B2EE4AE1A8B5CE2E839CCBCA78604B",
       "5F48B074C9D55FDBB8AE298038D55F32",
@@ -245,15 +245,15 @@
       "8E146124030887861D102236CFA3B83F"
     ],
     "aspect": "Product",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Flowrate, volumetric",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Minimum",
     "units": [
       "63B2EE4AE1A8B5CE2E839CCBCA78604B",
       "5F48B074C9D55FDBB8AE298038D55F32",
@@ -261,15 +261,15 @@
       "8E146124030887861D102236CFA3B83F"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Flowrate, volumetric",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Nominal",
     "units": [
       "63B2EE4AE1A8B5CE2E839CCBCA78604B",
       "5F48B074C9D55FDBB8AE298038D55F32",
@@ -277,15 +277,15 @@
       "8E146124030887861D102236CFA3B83F"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Flowrate, volumetric",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Maximum",
     "units": [
       "63B2EE4AE1A8B5CE2E839CCBCA78604B",
       "5F48B074C9D55FDBB8AE298038D55F32",
@@ -293,15 +293,15 @@
       "8E146124030887861D102236CFA3B83F"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, absolute",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Minimum",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -310,15 +310,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, absolute",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Nominal",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -327,15 +327,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Product",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, absolute",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Maximum",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -344,15 +344,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Product",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, absolute",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Minimum",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -361,15 +361,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, absolute",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Nominal",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -378,15 +378,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, absolute",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Maximum",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -395,15 +395,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, delta",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Maximum",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -412,15 +412,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, delta",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Nominal",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -429,15 +429,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Product",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, delta",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Maximum",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -446,15 +446,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Product",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, delta",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Minimum",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -463,15 +463,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, delta",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Nominal",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -480,15 +480,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, delta",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Maximum",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -497,58 +497,58 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Temperature",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "4A4F85CD4F326A3C2E21A479002A3286",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required, Low",
+    "attributeCondition": "Minimum",
     "units": [
       "C8D3295246390474742CA763B56D4DA8",
       "C87CC4F2DF711783B6C443FF48F4E386",
       "31EDDD028D54698267B98EB1727EED53"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Temperature",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "1EC6555C36B5C6B5EABBD85A2A79FF08",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required, High",
+    "attributeCondition": "Minimum",
     "units": [
       "C8D3295246390474742CA763B56D4DA8",
       "C87CC4F2DF711783B6C443FF48F4E386",
       "31EDDD028D54698267B98EB1727EED53"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Gas HC Dew Point",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Nominal",
     "units": [
       "C8D3295246390474742CA763B56D4DA8"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Flowrate, volumetric",
-    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Capacity",
+    "attributeSource": "Design",
+    "attributeCondition": "Nominal",
     "units": [
       "63B2EE4AE1A8B5CE2E839CCBCA78604B",
       "5F48B074C9D55FDBB8AE298038D55F32",
@@ -556,456 +556,456 @@
       "8E146124030887861D102236CFA3B83F"
     ],
     "aspect": "Product",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Turbidity, particle size",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Maximum",
     "units": [
       "A823F8F59FAAFDDA7C5C65AA87984886"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Velocity",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Minimum",
     "units": [
       "7874BEE6B2FCD271925CE499E7B8497F",
       "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Water separation efficiency",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Minimum",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Water separation efficiency",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Minimum",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "K-value",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Minimum",
     "units": [
       "7874BEE6B2FCD271925CE499E7B8497F",
       "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "K-value",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Minimum",
     "units": [
       "7874BEE6B2FCD271925CE499E7B8497F",
       "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "aspect": "Product",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Gas Carry-under, volumetric",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Maximum",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Gas Carry-under, volumetric",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Maximum",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Liquid Carry-over, volumetric",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Maximum",
     "units": [
       "399FBC77419CAA95E9AB45C3889D5488"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Liquid Carry-over, volumetric",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Maximum",
     "units": [
       "399FBC77419CAA95E9AB45C3889D5488"
     ],
     "aspect": "Product",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Liquid Mass Fraction",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Maximum",
     "units": [
       "9D54C708760C4FF1BCC472BC27FA7B52"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Gas separation efficiency",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Minimum",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Liquid Mass Fraction",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Maximum",
     "units": [
       "9D54C708760C4FF1BCC472BC27FA7B52"
     ],
     "aspect": "Product",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Response time",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Maximum",
     "units": [
       "7FD299F1FE73E1C298EF66D65AE6C628",
       "85755DF18D0A604CADDA9C47EC8C6243"
     ],
     "aspect": "Product",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Duration",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Minimum",
     "units": [
       "85755DF18D0A604CADDA9C47EC8C6243",
       "7FD299F1FE73E1C298EF66D65AE6C628",
       "5185F2E23625D490056168844FFF0CA1"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Duration",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Minimum",
     "units": [
       "85755DF18D0A604CADDA9C47EC8C6243",
       "7FD299F1FE73E1C298EF66D65AE6C628",
       "5185F2E23625D490056168844FFF0CA1"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Duration",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Maximum",
     "units": [
       "85755DF18D0A604CADDA9C47EC8C6243",
       "7FD299F1FE73E1C298EF66D65AE6C628",
       "5185F2E23625D490056168844FFF0CA1"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Duration",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Maximum",
     "units": [
       "85755DF18D0A604CADDA9C47EC8C6243",
       "7FD299F1FE73E1C298EF66D65AE6C628",
       "5185F2E23625D490056168844FFF0CA1"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Crossection, Inner Diameter",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Required",
+    "attributeCondition": "Minimum",
     "units": [
       "DF7381E76922A27B14C4C3C51A4AC631",
       "B3906EE602DD2E3E588F8EC17F1C5564"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Crossection, Inner Diameter",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Required",
+    "attributeCondition": "Minimum",
     "units": [
       "DF7381E76922A27B14C4C3C51A4AC631",
       "B3906EE602DD2E3E588F8EC17F1C5564"
     ],
     "aspect": "Product",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Crossection, Area",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Required",
+    "attributeCondition": "Minimum",
     "units": [
       "7B88D4F4D073C691F680FF292FC0EB4A",
       "E2BDF073C1B5C8A6020110A597695C33"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Crossection, Area",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Required",
+    "attributeCondition": "Minimum",
     "units": [
       "7B88D4F4D073C691F680FF292FC0EB4A",
       "E2BDF073C1B5C8A6020110A597695C33"
     ],
     "aspect": "Product",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Response time",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Maximum",
     "units": [
       "7FD299F1FE73E1C298EF66D65AE6C628",
       "85755DF18D0A604CADDA9C47EC8C6243"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Gas separation efficiency",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Minimum",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Dead pocket prevention",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Maximum",
     "units": [
       "A120D3B73207296B650737659939EEAD",
       "0B3316E84CFF33D3AB105EC63946509E"
     ],
     "aspect": "Product",
-    "attributeFormat": "9BCD3F67C56CC9FA4A10DB4D0AB7562C",
+    "attributeFormat": "Boolean",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Dead pocket prevention",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Maximum",
     "units": [
       "A120D3B73207296B650737659939EEAD",
       "0B3316E84CFF33D3AB105EC63946509E"
     ],
     "aspect": "Function",
-    "attributeFormat": "9BCD3F67C56CC9FA4A10DB4D0AB7562C",
+    "attributeFormat": "Boolean",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Velocity",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Maximum",
     "units": [
       "7874BEE6B2FCD271925CE499E7B8497F",
       "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Velocity",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Minimum",
     "units": [
       "7874BEE6B2FCD271925CE499E7B8497F",
       "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "aspect": "Product",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Velocity",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Maximum",
     "units": [
       "7874BEE6B2FCD271925CE499E7B8497F",
       "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "aspect": "Product",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Velocity",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Minimum",
     "units": [
       "7874BEE6B2FCD271925CE499E7B8497F",
       "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Velocity",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Nominal",
     "units": [
       "7874BEE6B2FCD271925CE499E7B8497F",
       "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Velocity",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Maximum",
     "units": [
       "7874BEE6B2FCD271925CE499E7B8497F",
       "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Redundancy",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Nominal",
     "units": [
       "02DAE010EE69AD90EF56A5DD28D9E883",
       "372EAE4BE5C4DB5B3E3875202D2A91E4",
@@ -1013,15 +1013,15 @@
       "AB6BC330D255851DD3E88E1B4E662A92"
     ],
     "aspect": "Function",
-    "attributeFormat": "FBA8F35461A4BBE2F2547B65F151BE69",
+    "attributeFormat": "Selection",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Redundancy",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Nominal",
     "units": [
       "02DAE010EE69AD90EF56A5DD28D9E883",
       "372EAE4BE5C4DB5B3E3875202D2A91E4",
@@ -1029,67 +1029,67 @@
       "AB6BC330D255851DD3E88E1B4E662A92"
     ],
     "aspect": "Product",
-    "attributeFormat": "FBA8F35461A4BBE2F2547B65F151BE69",
+    "attributeFormat": "Selection",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Design Margin",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Nominal",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Design Margin",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Nominal",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Design Case",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Required",
+    "attributeCondition": "Nominal",
     "units": [
       "44EF56D4D7A7E0D6710B1ED4B65AE05E"
     ],
     "aspect": "Function",
-    "attributeFormat": "08E6F5FE8E2B576C23670251D81FA06D",
+    "attributeFormat": "Text and doc reference",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Design Case",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Required",
+    "attributeCondition": "Nominal",
     "units": [
       "44EF56D4D7A7E0D6710B1ED4B65AE05E"
     ],
     "aspect": "Product",
-    "attributeFormat": "08E6F5FE8E2B576C23670251D81FA06D",
+    "attributeFormat": "Text and doc reference",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Fail action",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Nominal",
     "units": [
       "02DAE010EE69AD90EF56A5DD28D9E883",
       "62939A3FF63DBE324D66D57E4B82B71A",
@@ -1097,15 +1097,15 @@
       "191068DFE13AE9922F5059CCDA67526C"
     ],
     "aspect": "Function",
-    "attributeFormat": "FBA8F35461A4BBE2F2547B65F151BE69",
+    "attributeFormat": "Selection",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Fail action",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Nominal",
     "units": [
       "02DAE010EE69AD90EF56A5DD28D9E883",
       "62939A3FF63DBE324D66D57E4B82B71A",
@@ -1113,85 +1113,85 @@
       "191068DFE13AE9922F5059CCDA67526C"
     ],
     "aspect": "Product",
-    "attributeFormat": "FBA8F35461A4BBE2F2547B65F151BE69",
+    "attributeFormat": "Selection",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Slope, inclining",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Minimum",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "374D20AC97EAAC6274A2D694FD8D24A8"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Slope, inclining",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Minimum",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "374D20AC97EAAC6274A2D694FD8D24A8"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Slope, declining",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Minimum",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "374D20AC97EAAC6274A2D694FD8D24A8"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Slope, declining",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Minimum",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "374D20AC97EAAC6274A2D694FD8D24A8"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Substance content",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Maximum",
     "units": [
       "50F21B28B1D8FB3433BBFCB43E2B1315",
       "21500052C7BE4C74186303CD3CCE8E07"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Flowrate, volumetric",
-    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Capacity",
+    "attributeSource": "Required",
+    "attributeCondition": "Minimum",
     "units": [
       "63B2EE4AE1A8B5CE2E839CCBCA78604B",
       "5F48B074C9D55FDBB8AE298038D55F32",
@@ -1199,395 +1199,395 @@
       "8E146124030887861D102236CFA3B83F"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Oil in water",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Nominal",
     "units": [
       "50F21B28B1D8FB3433BBFCB43E2B1315",
       "21500052C7BE4C74186303CD3CCE8E07"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Oil in water",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Nominal",
     "units": [
       "50F21B28B1D8FB3433BBFCB43E2B1315",
       "21500052C7BE4C74186303CD3CCE8E07"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Head, downstream",
-    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Operating",
+    "attributeSource": "Calculated",
+    "attributeCondition": "Nominal",
     "units": [
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Head, downstream",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Required",
+    "attributeCondition": "Nominal",
     "units": [
       "0E58052344DCBE3692A3B088CD36A002"
     ],
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Relative North",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
     "units": [
       "0E58052344DCBE3692A3B088CD36A002",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Location",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Position", "Admin" ]
   },
   {
     "entity": "Relative East",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
     "units": [
       "0E58052344DCBE3692A3B088CD36A002",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Location",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Position", "Admin" ]
   },
   {
     "entity": "Relative Elevation",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
     "units": [
       "0E58052344DCBE3692A3B088CD36A002",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Location",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Position", "Admin" ]
   },
   {
     "entity": "Absolute Elevation",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
     "units": [
       "0E58052344DCBE3692A3B088CD36A002",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Location",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Position" ]
   },
   {
     "entity": "Size box Width",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
     "units": [
       "0E58052344DCBE3692A3B088CD36A002",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Location",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Size", "Admin" ]
   },
   {
     "entity": "Size box Height",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
     "units": [
       "0E58052344DCBE3692A3B088CD36A002",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Location",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Size", "Admin" ]
   },
   {
     "entity": "Size box Length",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
     "units": [
       "0E58052344DCBE3692A3B088CD36A002",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Location",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Size", "Admin" ]
   },
   {
     "entity": "Depth BSL (subsea only)",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
     "units": [
       "0E58052344DCBE3692A3B088CD36A002"
     ],
     "aspect": "Location",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Position" ]
   },
   {
     "entity": "UTM Zone",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
     "units": [
       "02DAE010EE69AD90EF56A5DD28D9E883"
     ],
     "aspect": "Location",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Position" ]
   },
   {
     "entity": "UTM North",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
     "units": [
       "02DAE010EE69AD90EF56A5DD28D9E883"
     ],
     "aspect": "Location",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Position" ]
   },
   {
     "entity": "UTM East",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
     "units": [
       "02DAE010EE69AD90EF56A5DD28D9E883"
     ],
     "aspect": "Location",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Position" ]
   },
   {
     "entity": "Voltage",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC", // Maximum
+    "attributeQualifier": "Rating", // Rating
+    "attributeSource": "Design", // Design
+    "attributeCondition": "Maximum", // Maximum
     "units": [
       "894E489682900A936362F123633FF7BC", // kV
       "E84F64395609F2970B9161FBF0B943EE" // V
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Voltage",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "Rating", // Rating
+    "attributeSource": "Design", // Design
+    "attributeCondition": "Nominal", // Nominal
     "units": [
       "894E489682900A936362F123633FF7BC", // kV
       "E84F64395609F2970B9161FBF0B943EE" // V
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Power capacity, appearant",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "Rating", // Rating
+    "attributeSource": "Design", // Design
+    "attributeCondition": "Nominal", // Nominal
     "units": [
       "2766B1116773996CE16DD0E969010E80", // kVA
       "3F201832F7AFA46EC99375292F1B92E6" // MVA
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Power capacity",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "Rating", // Rating
+    "attributeSource": "Design", // Design
+    "attributeCondition": "Nominal", // Nominal
     "units": [
       "2766B1116773996CE16DD0E969010E80", // kVA
       "3F201832F7AFA46EC99375292F1B92E6" // MVA
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Power capacity, appearant",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC", // Maximum
+    "attributeQualifier": "Rating", // Rating
+    "attributeSource": "Design", // Design
+    "attributeCondition": "Maximum", // Maximum
     "units": [
       "2766B1116773996CE16DD0E969010E80", // kVA
       "3F201832F7AFA46EC99375292F1B92E6" // MVA
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Power factor",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "Rating", // Rating
+    "attributeSource": "Design", // Design
+    "attributeCondition": "Nominal", // Nominal
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60", // Unsigned float
+    "attributeFormat": "Unsigned Float", // Unsigned float
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Current capacity",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "Rating", // Rating
+    "attributeSource": "Design", // Design
+    "attributeCondition": "Nominal", // Nominal
     "units": [
       "6E26614D307D41DE875987A143419AB9", // A
       "60458C323113E3C45FAABD08DBFBC55D" // kA
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Current capacity",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC", // Maximum
+    "attributeQualifier": "Rating", // Rating
+    "attributeSource": "Design", // Design
+    "attributeCondition": "Maximum", // Maximum
     "units": [
       "6E26614D307D41DE875987A143419AB9", // A
       "60458C323113E3C45FAABD08DBFBC55D" // kA
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Resistance",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "Rating", // Rating
+    "attributeSource": "Design", // Design
+    "attributeCondition": "Nominal", // Nominal
     "units": [
       "68FC7BE58329BBBEC78C6631C7F37A88", // Ω
       "C2969D285AED65E9133A39390B28EB7D" // Ohm
     ],
     "aspect": "Product",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60", // Unsigned float
+    "attributeFormat": "Unsigned Float", // Unsigned float
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Winding taps",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "Rating", // Rating
+    "attributeSource": "Design", // Design
+    "attributeCondition": "NotSet", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Ratios",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "Rating", // Rating
+    "attributeSource": "Design", // Design
+    "attributeCondition": "NotSet", // NotSet
     "units": [
       "32957978C0E4FB6008812BAAFFD56EEC" // [list]
     ],
     "aspect": "Product",
-    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "String", // String
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Power capacity, real",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "Rating", // Rating
+    "attributeSource": "Design", // Design
+    "attributeCondition": "Nominal", // Nominal
     "units": [
       "B2B68149BFCC3F8193582BFB4EFFCF88", // W
       "62CF948E25D6F57E81EE422239ED1A5F", // MW
       "DD6E835F0610AE7BB54B3DBC88E792FD" // kW
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Switching device",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "NotSet", // NotSet
+    "attributeSource": "Design", // Design
+    "attributeCondition": "NotSet", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "String", // String
     "select": "SingleSelect",
     "selectValues": [
       "IGBT",
@@ -1597,12 +1597,12 @@
   },
   {
     "entity": "Transformer type, pulses",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "Rating", // Rating
+    "attributeSource": "Design", // Design
+    "attributeCondition": "NotSet", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "SingleSelect",
     "selectValues": [
       "6",
@@ -1614,65 +1614,65 @@
   },
   {
     "entity": "Frequency",
-    "attributeQualifier": "0D691C0758C26CCFBDD04750FC136926", // Required
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850", // Minimum
+    "attributeQualifier": "Required", // Required
+    "attributeSource": "Design", // Design
+    "attributeCondition": "Minimum", // Minimum
     "units": [
       "FCC9BF9B6381052C038DD5971355DD77" // Hz
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Frequency",
-    "attributeQualifier": "0D691C0758C26CCFBDD04750FC136926", // Required
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC", // Maximum
+    "attributeQualifier": "Required", // Required
+    "attributeSource": "Design", // Design
+    "attributeCondition": "Maximum", // Maximum
     "units": [
       "FCC9BF9B6381052C038DD5971355DD77" // Hz
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Frequency",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "Rating", // Rating
+    "attributeSource": "Design", // Design
+    "attributeCondition": "Nominal", // Nominal
     "units": [
       "FCC9BF9B6381052C038DD5971355DD77" // Hz
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Battery Voltage",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "Rating", // Rating
+    "attributeSource": "Design", // Design
+    "attributeCondition": "Nominal", // Nominal
     "units": [
       "E84F64395609F2970B9161FBF0B943EE", // V
       "894E489682900A936362F123633FF7BC" // kV
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Phases generated",
-    "attributeQualifier": "0D691C0758C26CCFBDD04750FC136926", // Required
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "Required", // Required
+    "attributeSource": "Design", // Design
+    "attributeCondition": "NotSet", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "SingleSelect",
     "selectValues": [
       "1",
@@ -1682,26 +1682,26 @@
   },
   {
     "entity": "Backup capacity",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850", // Minimum
+    "attributeQualifier": "Rating", // Rating
+    "attributeSource": "Design", // Design
+    "attributeCondition": "Minimum", // Minimum
     "units": [
       "4F76B6D7DC7A57426260347D9FB90F23", // Vah
       "BBF17540EC576CA6AA4D9ED6CC33E8AF" // kVAh
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Chemistry",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "Rating", // Rating
+    "attributeSource": "Design", // Design
+    "attributeCondition": "NotSet", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "String", // String
     "select": "SingleSelect",
     "selectValues": [
       "LiFePO",
@@ -1712,129 +1712,129 @@
   },
   {
     "entity": "Capacity",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850", // Minimum
+    "attributeQualifier": "Rating", // Rating
+    "attributeSource": "Design", // Design
+    "attributeCondition": "Minimum", // Minimum
     "units": [
       "4F76B6D7DC7A57426260347D9FB90F23", // Vah
       "BBF17540EC576CA6AA4D9ED6CC33E8AF" // kVAh
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Cells",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "NotSet", // NotSet
+    "attributeSource": "Design", // Design
+    "attributeCondition": "NotSet", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Cross section",
-    "attributeQualifier": "0D691C0758C26CCFBDD04750FC136926", // Required
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "Required", // Required
+    "attributeSource": "Design", // Design
+    "attributeCondition": "Nominal", // Nominal
     "units": [
       "7B88D4F4D073C691F680FF292FC0EB4A" // mm2
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Conductors/wires",
-    "attributeQualifier": "0D691C0758C26CCFBDD04750FC136926", // Required
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850", // Minimum
+    "attributeQualifier": "Required", // Required
+    "attributeSource": "Design", // Design
+    "attributeCondition": "Minimum", // Minimum
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "Unsigned Integer", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "IP rating",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "NotSet", // NotSet
+    "attributeSource": "NotSet", // NotSet
+    "attributeCondition": "NotSet", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "String", // String
     "select": "None",
     "discipline": "None"
   },
   {
     "entity": "Coating system",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "NotSet", // NotSet
+    "attributeSource": "NotSet", // NotSet
+    "attributeCondition": "NotSet", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "String", // String
     "select": "None",
     "discipline": "None"
   },
   {
     "entity": "Colour code",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "NotSet", // NotSet
+    "attributeSource": "NotSet", // NotSet
+    "attributeCondition": "NotSet", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "String", // String
     "select": "None",
     "discipline": "None"
   },
   {
     "entity": "Ex/ATEX rating",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "NotSet", // NotSet
+    "attributeSource": "NotSet", // NotSet
+    "attributeCondition": "NotSet", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "String", // String
     "select": "None",
     "discipline": "None"
   },
   {
     "entity": "Noise level",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "NotSet", // NotSet
+    "attributeSource": "NotSet", // NotSet
+    "attributeCondition": "NotSet", // NotSet
     "units": [
       "0B997D4BBEF35B3BA298741C49EF70C7" // db 
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned int
+    "attributeFormat": "Unsigned Integer", // Unsigned int
     "select": "None",
     "discipline": "None"
   },
   {
     "entity": "Pressure rating",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "NotSet", // NotSet
+    "attributeSource": "NotSet", // NotSet
+    "attributeCondition": "NotSet", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "String", // String
     "select": "None",
     "discipline": "None"
   },
   {
     "entity": "Cooling code",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "NotSet", // NotSet
+    "attributeSource": "NotSet", // NotSet
+    "attributeCondition": "NotSet", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "String", // String
     "select": "SingleSelect",
     "selectValues": [
       "IC410",
@@ -1846,34 +1846,34 @@
   },
   {
     "entity": "Design code",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "NotSet", // NotSet
+    "attributeSource": "NotSet", // NotSet
+    "attributeCondition": "NotSet", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "String", // String
     "select": "None",
     "discipline": "None"
   },
   {
     "entity": "Temperature class",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "NotSet", // NotSet
+    "attributeSource": "NotSet", // NotSet
+    "attributeCondition": "NotSet", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "String", // String
     "select": "None",
     "discipline": "None"
   },
   {
     "entity": "Requirements standard",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "NotSet", // NotSet
+    "attributeSource": "NotSet", // NotSet
+    "attributeCondition": "NotSet", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "String", // String
     "select": "SingleSelect",
     "selectValues": [
       "IEC60529",
@@ -1898,12 +1898,12 @@
   },
   {
     "entity": "BDM configuration",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "NotSet",
+    "attributeSource": "Design",
+    "attributeCondition": "NotSet",
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88",
+    "attributeFormat": "String",
     "select": "SingleSelect",
     "selectValues": [
       "VSI",
@@ -1914,42 +1914,42 @@
   },
   {
     "entity": "Busbar current",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Maximum",
     "units": [
       "6E26614D307D41DE875987A143419AB9",
       "60458C323113E3C45FAABD08DBFBC55D"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Busbar current",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Nominal",
     "units": [
       "6E26614D307D41DE875987A143419AB9",
       "60458C323113E3C45FAABD08DBFBC55D"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Cooling Method",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "NotSet",
+    "attributeSource": "Design",
+    "attributeCondition": "NotSet",
     "units": [
       "175AEE65C3F87C15B0BD60A713C59F40"
     ],
     "aspect": "Product",
-    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88",
+    "attributeFormat": "String",
     "select": "SingleSelect",
     "selectValues": [
       "AN",
@@ -1963,26 +1963,26 @@
   },
   {
     "entity": "Current",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Nominal",
     "units": [
       "6E26614D307D41DE875987A143419AB9",
       "60458C323113E3C45FAABD08DBFBC55D"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Drive mode",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "NotSet",
+    "attributeSource": "Design",
+    "attributeCondition": "NotSet",
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88",
+    "attributeFormat": "String",
     "select": "SingleSelect",
     "selectValues": [
       "Fixed Speed",
@@ -1992,217 +1992,217 @@
   },
   {
     "entity": "Fault current",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Nominal",
     "units": [
       "6E26614D307D41DE875987A143419AB9",
       "60458C323113E3C45FAABD08DBFBC55D"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Fault duration",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Nominal",
     "units": [
       "3AD9FFC9ECA02C36CC8B11A43E99C937"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Impedance (Uz)",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Nominal",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Operating Speed",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Maximum",
     "units": [
       "54280642CB5A64AF6D5B341953B5D3ED"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Operating Speed",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Minimum",
     "units": [
       "54280642CB5A64AF6D5B341953B5D3ED"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Overcurrent capability",
-    "attributeQualifier": "0D691C0758C26CCFBDD04750FC136926",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Required",
+    "attributeSource": "Design",
+    "attributeCondition": "Minimum",
     "units": [
       "74843B59B2EC60A60C0D3723EEB31C78"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Primary Voltage",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Nominal",
     "units": [
       "B2B68149BFCC3F8193582BFB4EFFCF88",
       "894E489682900A936362F123633FF7BC"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Rated Voltage",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Nominal",
     "units": [
       "B2B68149BFCC3F8193582BFB4EFFCF88",
       "894E489682900A936362F123633FF7BC"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Resistor capacity",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Nominal",
     "units": [
       "6E26614D307D41DE875987A143419AB9",
       "60458C323113E3C45FAABD08DBFBC55D"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Secondary Voltage",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Nominal",
     "units": [
       "894E489682900A936362F123633FF7BC",
       "E84F64395609F2970B9161FBF0B943EE"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Shaft Power",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Nominal",
     "units": [
       "B2B68149BFCC3F8193582BFB4EFFCF88",
       "62CF948E25D6F57E81EE422239ED1A5F",
       "DD6E835F0610AE7BB54B3DBC88E792FD"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Short-time withstand current",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Nominal",
     "units": [
       "E9D872482BAF312F2783CBF7EB5E339D",
       "D616D9A083098DDB59DD05E8A0CB298C"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "System Frequency",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Nominal",
     "units": [
       "FCC9BF9B6381052C038DD5971355DD77"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "System Voltage",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Nominal",
     "units": [
       "894E489682900A936362F123633FF7BC",
       "E84F64395609F2970B9161FBF0B943EE"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "System Voltage",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Maximum",
     "units": [
       "894E489682900A936362F123633FF7BC",
       "E84F64395609F2970B9161FBF0B943EE"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Type of Switchgear",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "NotSet",
+    "attributeSource": "Design",
+    "attributeCondition": "NotSet",
     "units": null,
     "aspect": "Product",
-    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88",
+    "attributeFormat": "String",
     "select": "SingleSelect",
     "selectValues": [
       "GIS",
@@ -2216,96 +2216,96 @@
   },
   {
     "entity": "VA Rating",
-    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Rating",
+    "attributeSource": "Design",
+    "attributeCondition": "Nominal",
     "units": [
       "2766B1116773996CE16DD0E969010E80",
       "3F201832F7AFA46EC99375292F1B92E6"
     ],
     "aspect": "Product",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Backup capacity",
-    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
-    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Capacity",
+    "attributeSource": "Capacity",
+    "attributeCondition": "Minimum",
     "units": [
       "4F76B6D7DC7A57426260347D9FB90F23",
       "BBF17540EC576CA6AA4D9ED6CC33E8AF"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Battery Voltage",
-    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
-    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Capacity",
+    "attributeSource": "Capacity",
+    "attributeCondition": "Nominal",
     "units": [
       "E84F64395609F2970B9161FBF0B943EE",
       "894E489682900A936362F123633FF7BC"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Busbar current",
-    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
-    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Capacity",
+    "attributeSource": "Capacity",
+    "attributeCondition": "Nominal",
     "units": [
       "6E26614D307D41DE875987A143419AB9",
       "60458C323113E3C45FAABD08DBFBC55D"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Capacity",
-    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
-    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "Capacity",
+    "attributeSource": "Capacity",
+    "attributeCondition": "Minimum",
     "units": [
       "4F76B6D7DC7A57426260347D9FB90F23",
       "BBF17540EC576CA6AA4D9ED6CC33E8AF"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Current capacity",
-    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
-    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Capacity",
+    "attributeSource": "Capacity",
+    "attributeCondition": "Nominal",
     "units": [
       "6E26614D307D41DE875987A143419AB9",
       "60458C323113E3C45FAABD08DBFBC55D"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Drive mode",
-    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "NotSet",
+    "attributeSource": "Capacity",
+    "attributeCondition": "NotSet",
     "units": null,
     "aspect": "Function",
-    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88",
+    "attributeFormat": "String",
     "select": "SingleSelect",
     "selectValues": [
       "Fixed Speed",
@@ -2315,111 +2315,111 @@
   },
   {
     "entity": "Frequency",
-    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
-    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Capacity",
+    "attributeSource": "Capacity",
+    "attributeCondition": "Nominal",
     "units": [
       "FCC9BF9B6381052C038DD5971355DD77"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Power capacity",
-    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
-    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Capacity",
+    "attributeSource": "Capacity",
+    "attributeCondition": "Nominal",
     "units": [
       "2766B1116773996CE16DD0E969010E80",
       "3F201832F7AFA46EC99375292F1B92E6"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Power capacity, appearant",
-    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
-    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Capacity",
+    "attributeSource": "Capacity",
+    "attributeCondition": "Nominal",
     "units": [
       "2766B1116773996CE16DD0E969010E80",
       "3F201832F7AFA46EC99375292F1B92E6"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Power capacity, real",
-    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
-    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Capacity",
+    "attributeSource": "Capacity",
+    "attributeCondition": "Nominal",
     "units": [
       "B2B68149BFCC3F8193582BFB4EFFCF88",
       "62CF948E25D6F57E81EE422239ED1A5F",
       "DD6E835F0610AE7BB54B3DBC88E792FD"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Power factor",
-    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
-    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Capacity",
+    "attributeSource": "Capacity",
+    "attributeCondition": "Nominal",
     "units": null,
     "aspect": "Function",
-    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "Unsigned Float",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Resistor capacity",
-    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
-    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Capacity",
+    "attributeSource": "Capacity",
+    "attributeCondition": "Nominal",
     "units": [
       "6E26614D307D41DE875987A143419AB9",
       "60458C323113E3C45FAABD08DBFBC55D"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Shaft Power",
-    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
-    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Capacity",
+    "attributeSource": "Capacity",
+    "attributeCondition": "Nominal",
     "units": [
       "B2B68149BFCC3F8193582BFB4EFFCF88",
       "62CF948E25D6F57E81EE422239ED1A5F",
       "DD6E835F0610AE7BB54B3DBC88E792FD"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Voltage",
-    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
-    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "Capacity",
+    "attributeSource": "Capacity",
+    "attributeCondition": "Nominal",
     "units": [
       "894E489682900A936362F123633FF7BC",
       "E84F64395609F2970B9161FBF0B943EE"
     ],
     "aspect": "Function",
-    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "Unsigned Integer",
     "select": "None",
     "discipline": "Electrical"
   }
