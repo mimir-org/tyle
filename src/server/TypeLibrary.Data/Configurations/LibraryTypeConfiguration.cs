@@ -14,6 +14,7 @@ namespace TypeLibrary.Data.Configurations
             builder.HasKey(x => x.Id);
             builder.ToTable("LibraryType");
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
+            builder.Property(p => p.ParentId).HasColumnName("ParentId");
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();
             builder.Property(p => p.Version).HasColumnName("Version").IsRequired();
             builder.Property(p => p.FirstVersionId).HasColumnName("FirstVersionId").IsRequired();
@@ -26,6 +27,7 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.CreatedBy).HasColumnName("CreatedBy").IsRequired().HasDefaultValue("Unknown");
             builder.Property(p => p.Created).HasColumnName("Created").IsRequired().HasDefaultValue(DateTime.MinValue.ToUniversalTime());
 
+            builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(x => x.Purpose).WithMany(y => y.LibraryTypes).HasForeignKey(x => x.PurposeId).OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(x => x.Rds).WithMany(y => y.LibraryTypes).HasForeignKey(x => x.RdsId).OnDelete(DeleteBehavior.NoAction);
 

@@ -7,14 +7,17 @@ namespace Mimirorg.TypeLibrary.Models.Data
     public class LibraryTypeLibDm
     {
         public string Id { get; set; }
+        public string ParentId { get; set; }
+        public LibraryTypeLibDm Parent { get; set; }
+        public ICollection<LibraryTypeLibDm> Children { get; set; }
         public string Version { get; set; }
+        public string FirstVersionId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
         [Required]
         public string StatusId { get; set; }
 
-        public string FirstVersionId { get; set; }
         public string Iri { get; set; }
         public Aspect Aspect { get; set; }
 

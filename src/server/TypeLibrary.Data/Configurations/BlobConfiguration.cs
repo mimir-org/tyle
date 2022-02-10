@@ -4,7 +4,7 @@ using Mimirorg.TypeLibrary.Models.Data;
 
 namespace TypeLibrary.Data.Configurations
 {
-    public class BlobDataConfiguration : IEntityTypeConfiguration<BlobLibDm>
+    public class BlobConfiguration : IEntityTypeConfiguration<BlobLibDm>
     {
         public void Configure(EntityTypeBuilder<BlobLibDm> builder)
         {
@@ -12,6 +12,7 @@ namespace TypeLibrary.Data.Configurations
             builder.ToTable("Blob");
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();
+            builder.Property(p => p.Iri).HasColumnName("Iri");
             builder.Property(p => p.Data).HasColumnName("Data").IsRequired();
             builder.Property(p => p.Discipline).HasColumnName("Discipline").IsRequired().HasConversion<string>();
         }

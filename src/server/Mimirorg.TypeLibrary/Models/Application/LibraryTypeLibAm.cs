@@ -7,6 +7,8 @@ namespace Mimirorg.TypeLibrary.Models.Application
 {
     public class LibraryTypeLibAm : IValidatableObject
     {
+        public string ParentId { get; set; }
+
         [Required]
         public string Name { get; set; }
 

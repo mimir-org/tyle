@@ -40,7 +40,7 @@ namespace TypeLibrary.Data
             modelBuilder.ApplyConfiguration(new AttributeSourceConfiguration());
             modelBuilder.ApplyConfiguration(new AttributeConfiguration());
             modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());
-            modelBuilder.ApplyConfiguration(new BlobDataConfiguration());
+            modelBuilder.ApplyConfiguration(new BlobConfiguration());
             modelBuilder.ApplyConfiguration(new InterfaceConfiguration());
             modelBuilder.ApplyConfiguration(new LibraryTypeConfiguration());
             modelBuilder.ApplyConfiguration(new TerminalNodeConfiguration());

@@ -317,6 +317,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("Key");
 
+                    b.Property<string>("Iri")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Iri");
+
                     b.Property<bool>("IsMultiSelect")
                         .HasColumnType("bit")
                         .HasColumnName("IsMultiSelect");
@@ -428,6 +432,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Discipline");
 
+                    b.Property<string>("Iri")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Iri");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -523,6 +531,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
 
+                    b.Property<string>("ParentId")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("ParentId");
+
                     b.Property<string>("PurposeId")
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("PurposeId");
@@ -551,6 +563,8 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("Version");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
 
                     b.HasIndex("PurposeId");
 
@@ -996,6 +1010,11 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.LibraryTypeLibDm", b =>
                 {
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.LibraryTypeLibDm", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("Mimirorg.TypeLibrary.Models.Data.PurposeLibDm", "Purpose")
                         .WithMany("LibraryTypes")
                         .HasForeignKey("PurposeId")
@@ -1005,6 +1024,8 @@ namespace TypeLibrary.Core.Migrations
                         .WithMany("LibraryTypes")
                         .HasForeignKey("RdsId")
                         .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Parent");
 
                     b.Navigation("Purpose");
 
@@ -1104,6 +1125,11 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.AttributeLibDm", b =>
+                {
+                    b.Navigation("Children");
+                });
+
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.LibraryTypeLibDm", b =>
                 {
                     b.Navigation("Children");
                 });

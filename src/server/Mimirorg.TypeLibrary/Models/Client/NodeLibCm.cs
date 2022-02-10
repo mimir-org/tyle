@@ -6,6 +6,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
     public class NodeLibCm
     {
         public string Id { get; set; }
+        public string ParentId { get; set; }
         public string Version { get; set; } = "1.0";
         public string Rds { get; set; }
         public string Category { get; set; }

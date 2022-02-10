@@ -103,6 +103,7 @@ namespace TypeLibrary.Core.Migrations
                 columns: table => new
                 {
                     Key = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ValueStringList = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsMultiSelect = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -153,6 +154,7 @@ namespace TypeLibrary.Core.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Data = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Discipline = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -367,11 +369,12 @@ namespace TypeLibrary.Core.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ParentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Version = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstVersionId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StatusId = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "4590637F39B6BA6F39C74293BE9138DF"),
-                    FirstVersionId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Aspect = table.Column<int>(type: "int", nullable: false),
                     RdsId = table.Column<string>(type: "nvarchar(450)", nullable: true),
@@ -390,6 +393,11 @@ namespace TypeLibrary.Core.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_LibraryType", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LibraryType_LibraryType_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "LibraryType",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_LibraryType_Purpose_PurposeId",
                         column: x => x.PurposeId,
@@ -596,6 +604,11 @@ namespace TypeLibrary.Core.Migrations
                 name: "IX_LibraryType_Interface_TerminalId",
                 table: "LibraryType",
                 column: "Interface_TerminalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LibraryType_ParentId",
+                table: "LibraryType",
+                column: "ParentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LibraryType_PurposeId",

@@ -15,6 +15,7 @@ namespace TypeLibrary.Core.Profiles
         {
             CreateMap<LibraryTypeLibAm, NodeLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => $"{src.Key}-{src.Domain}-{src.Version}".CreateMd5()))
+                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.FirstVersionId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
@@ -42,6 +43,7 @@ namespace TypeLibrary.Core.Profiles
 
             CreateMap<LibraryTypeLibAm, TransportLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => $"{src.Key}-{src.Domain}-{src.Version}".CreateMd5()))
+                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.FirstVersionId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
@@ -62,6 +64,7 @@ namespace TypeLibrary.Core.Profiles
 
             CreateMap<LibraryTypeLibAm, InterfaceLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => $"{src.Key}-{src.Domain}-{src.Version}".CreateMd5()))
+                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.FirstVersionId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
@@ -81,6 +84,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
 
             CreateMap<NodeLibDm, LibraryTypeLibAm>()
+                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.FirstVersionId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
@@ -109,6 +113,7 @@ namespace TypeLibrary.Core.Profiles
                 });
 
             CreateMap<TransportLibDm, LibraryTypeLibAm>()
+                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.FirstVersionId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
@@ -133,6 +138,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
 
             CreateMap<InterfaceLibDm, LibraryTypeLibAm>()
+                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.FirstVersionId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
@@ -162,6 +168,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.ConnectorDirection, opt => opt.MapFrom(src => src.ConnectorDirection));
 
             CreateMap<NodeLibDm, NodeLibCm>()
+                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Rds, opt => opt.MapFrom(src => src.Rds.Code))
@@ -181,6 +188,7 @@ namespace TypeLibrary.Core.Profiles
 
             CreateMap<TransportLibDm, TransportLibCm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Rds, opt => opt.MapFrom(src => src.Rds.Code))
                 .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Rds.RdsCategory.Name))
@@ -198,6 +206,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
             
             CreateMap<InterfaceLibDm, InterfaceLibCm>()
+                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Rds, opt => opt.MapFrom(src => src.Rds.Code))

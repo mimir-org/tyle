@@ -9,6 +9,8 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         [Required]
         public string Name { get; set; }
+        
+        public string Iri { get; set; }
 
         [Required]
         public string Data { get; set; }
