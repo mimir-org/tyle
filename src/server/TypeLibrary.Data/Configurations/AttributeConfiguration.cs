@@ -22,6 +22,7 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.Select).HasColumnName("Select").IsRequired().HasConversion<string>();
             builder.Property(p => p.Discipline).HasColumnName("Discipline").IsRequired().HasConversion<string>();
             builder.Property(p => p.Tags).HasColumnName("Tags").IsRequired(false).HasConversion(stringConverter, stringComparer);
+            builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false);
 
             builder.HasOne(x => x.AttributeCondition).WithMany(y => y.Attributes).HasForeignKey(x => x.AttributeConditionId).OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(x => x.AttributeQualifier).WithMany(y => y.Attributes).HasForeignKey(x => x.AttributeQualifierId).OnDelete(DeleteBehavior.NoAction);

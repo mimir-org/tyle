@@ -9,6 +9,8 @@ namespace Mimirorg.TypeLibrary.Models.Application
     {
         [Required]
         public string Entity { get; set; }
+        
+        public string Iri { get; set; }
 
         [Required]
         public string AttributeQualifierId { get; set; }

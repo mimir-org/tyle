@@ -9,6 +9,7 @@ namespace Mimirorg.TypeLibrary.Models.Data
     {
         public string Id { get; set; }
         public string Entity { get; set; }
+        public string Iri { get; set; }
         public Aspect Aspect { get; set; }
 
         public string AttributeQualifierId { get; set; }

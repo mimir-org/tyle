@@ -6,25 +6,25 @@ namespace TypeLibrary.Data
 {
     public class TypeLibraryDbContext : DbContext
     {
-        public virtual DbSet<AttributeConditionLibDm> Conditions { get; set; }
-        public virtual DbSet<AttributeFormatLibDm> Formats { get; set; }
-        public virtual DbSet<AttributeQualifierLibDm> Qualifiers { get; set; }
-        public virtual DbSet<AttributeSourceLibDm> Sources { get; set; }
-        public virtual DbSet<AttributeLibDm> Attributes { get; set; }
-        public virtual DbSet<BlobLibDm> BlobData { get; set; }
-        public virtual DbSet<InterfaceLibDm> InterfaceTypes { get; set; }
-        public virtual DbSet<LibraryTypeLibDm> LibraryTypes { get; set; }
-        public virtual DbSet<TerminalNodeLibDm> NodeTypeTerminalTypes { get; set; }
-        public virtual DbSet<AttributePredefinedLibDm> PredefinedAttributes { get; set; }
-        public virtual DbSet<PurposeLibDm> Purposes { get; set; }
-        public virtual DbSet<RdsCategoryLibDm> RdsCategories { get; set; }
+        public virtual DbSet<AttributeConditionLibDm> AttributeCondition { get; set; }
+        public virtual DbSet<AttributeFormatLibDm> AttributeFormat { get; set; }
+        public virtual DbSet<AttributeQualifierLibDm> AttributeQualifier { get; set; }
+        public virtual DbSet<AttributeSourceLibDm> AttributeSource { get; set; }
+        public virtual DbSet<AttributeLibDm> Attribute { get; set; }
+        public virtual DbSet<BlobLibDm> Blob { get; set; }
+        public virtual DbSet<InterfaceLibDm> Interface { get; set; }
+        public virtual DbSet<LibraryTypeLibDm> LibraryType { get; set; }
+        public virtual DbSet<TerminalNodeLibDm> TerminalNode { get; set; }
+        public virtual DbSet<AttributePredefinedLibDm> AttributePredefined { get; set; }
+        public virtual DbSet<PurposeLibDm> Purpose { get; set; }
+        public virtual DbSet<RdsCategoryLibDm> RdsCategory { get; set; }
         public virtual DbSet<RdsLibDm> Rds { get; set; }
-        public virtual DbSet<SimpleLibDm> SimpleTypes { get; set; }
+        public virtual DbSet<SimpleLibDm> Simple { get; set; }
         public virtual DbSet<TerminalLibDm> Terminal { get; set; }
         public virtual DbSet<TransportLibDm> Transport { get; set; }
-        public virtual DbSet<AttributeAspectLibDm> Locations { get; set; }
-        public virtual DbSet<UnitLibDm> Units { get; set; }
-        public virtual DbSet<NodeLibDm> Nodes { get; set; }
+        public virtual DbSet<AttributeAspectLibDm> AttributeAspect { get; set; }
+        public virtual DbSet<UnitLibDm> Unit { get; set; }
+        public virtual DbSet<NodeLibDm> Node { get; set; }
 
         public TypeLibraryDbContext(DbContextOptions<TypeLibraryDbContext> options) : base(options)
         {
@@ -39,6 +39,7 @@ namespace TypeLibrary.Data
             modelBuilder.ApplyConfiguration(new AttributeQualifierConfiguration());
             modelBuilder.ApplyConfiguration(new AttributeSourceConfiguration());
             modelBuilder.ApplyConfiguration(new AttributeConfiguration());
+            modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());
             modelBuilder.ApplyConfiguration(new BlobDataConfiguration());
             modelBuilder.ApplyConfiguration(new InterfaceConfiguration());
             modelBuilder.ApplyConfiguration(new LibraryTypeConfiguration());

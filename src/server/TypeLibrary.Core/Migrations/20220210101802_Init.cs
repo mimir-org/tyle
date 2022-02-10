@@ -247,6 +247,7 @@ namespace TypeLibrary.Core.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Entity = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AttributeQualifierId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     AttributeSourceId = table.Column<string>(type: "nvarchar(450)", nullable: true),
