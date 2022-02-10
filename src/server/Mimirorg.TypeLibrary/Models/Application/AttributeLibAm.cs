@@ -7,6 +7,8 @@ namespace Mimirorg.TypeLibrary.Models.Application
 {
     public class AttributeLibAm
     {
+        public string ParentId { get; set; }
+
         [Required]
         public string Entity { get; set; }
         

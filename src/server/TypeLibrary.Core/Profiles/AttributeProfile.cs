@@ -11,6 +11,7 @@ namespace TypeLibrary.Core.Profiles
         {
             CreateMap<AttributeLibAm, AttributeLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Key.CreateMd5()))
+                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.Entity, opt => opt.MapFrom(src => src.Entity))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.AttributeQualifier, opt => opt.MapFrom(src => src.AttributeQualifier))

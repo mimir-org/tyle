@@ -16,6 +16,7 @@ namespace TypeLibrary.Data.Configurations
             builder.HasKey(x => x.Id);
             builder.ToTable("Attribute");
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
+            builder.Property(p => p.ParentId).HasColumnName("ParentId");
             builder.Property(p => p.Entity).HasColumnName("Entity").IsRequired();
             builder.Property(p => p.Aspect).HasColumnName("Aspect").IsRequired().HasConversion<string>();
             builder.Property(p => p.SelectValuesString).HasColumnName("SelectValuesString").IsRequired(false);
@@ -23,11 +24,12 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.Discipline).HasColumnName("Discipline").IsRequired().HasConversion<string>();
             builder.Property(p => p.Tags).HasColumnName("Tags").IsRequired(false).HasConversion(stringConverter, stringComparer);
             builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false);
-            
             builder.Property(p => p.AttributeQualifier).HasColumnName("AttributeQualifier");
             builder.Property(p => p.AttributeSource).HasColumnName("AttributeSource");
             builder.Property(p => p.AttributeCondition).HasColumnName("AttributeCondition");
             builder.Property(p => p.AttributeFormat).HasColumnName("AttributeFormat");
+
+            builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasMany(x => x.Units).WithMany(y => y.Attributes).UsingEntity<Dictionary<string, object>>("Attribute_Unit",
                 x => x.HasOne<UnitLibDm>().WithMany().HasForeignKey("UnitId"),

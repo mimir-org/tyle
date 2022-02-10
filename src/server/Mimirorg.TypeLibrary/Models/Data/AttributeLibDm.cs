@@ -8,6 +8,9 @@ namespace Mimirorg.TypeLibrary.Models.Data
     public class AttributeLibDm
     {
         public string Id { get; set; }
+        public string ParentId { get; set; }
+        public AttributeLibDm Parent { get; set; }
+        public ICollection<AttributeLibDm> Children { get; set; }
         public string Entity { get; set; }
         public string Iri { get; set; }
         public Aspect Aspect { get; set; }

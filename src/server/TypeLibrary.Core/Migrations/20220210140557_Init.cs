@@ -14,6 +14,7 @@ namespace TypeLibrary.Core.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ParentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Entity = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -29,6 +30,11 @@ namespace TypeLibrary.Core.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Attribute", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Attribute_Attribute_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Attribute",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -550,6 +556,11 @@ namespace TypeLibrary.Core.Migrations
                         principalTable: "Terminal",
                         principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Attribute_ParentId",
+                table: "Attribute",
+                column: "ParentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Attribute_Interface_InterfaceId",

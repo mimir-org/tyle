@@ -12,7 +12,7 @@ using TypeLibrary.Data;
 namespace TypeLibrary.Core.Migrations
 {
     [DbContext(typeof(TypeLibraryDbContext))]
-    [Migration("20220210135106_Init")]
+    [Migration("20220210140557_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -289,6 +289,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Iri");
 
+                    b.Property<string>("ParentId")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("ParentId");
+
                     b.Property<string>("Select")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -303,6 +307,8 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("Tags");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Attribute", (string)null);
                 });
@@ -980,6 +986,16 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Parent");
                 });
 
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.AttributeLibDm", b =>
+                {
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeLibDm", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Parent");
+                });
+
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.LibraryTypeLibDm", b =>
                 {
                     b.HasOne("Mimirorg.TypeLibrary.Models.Data.PurposeLibDm", "Purpose")
@@ -1085,6 +1101,11 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.AttributeAspectLibDm", b =>
+                {
+                    b.Navigation("Children");
+                });
+
+            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.AttributeLibDm", b =>
                 {
                     b.Navigation("Children");
                 });
