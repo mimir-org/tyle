@@ -12,17 +12,10 @@ namespace Mimirorg.TypeLibrary.Models.Data
         public string Iri { get; set; }
         public Aspect Aspect { get; set; }
 
-        public string AttributeQualifierId { get; set; }
-        public AttributeQualifierLibDm AttributeQualifier { get; set; }
-
-        public string AttributeSourceId { get; set; }
-        public AttributeSourceLibDm AttributeSource { get; set; }
-        
-        public string AttributeConditionId { get; set; }
-        public AttributeConditionLibDm AttributeCondition { get; set; }
-        
-        public string AttributeFormatId { get; set; }
-        public AttributeFormatLibDm AttributeFormat { get; set; }
+        public string AttributeQualifier { get; set; }
+        public string AttributeSource { get; set; }
+        public string AttributeCondition { get; set; }
+        public string AttributeFormat { get; set; }
 
         public virtual HashSet<string> Tags { get; set; }
 
@@ -60,18 +53,18 @@ namespace Mimirorg.TypeLibrary.Models.Data
         {
             var text = string.Empty;
 
-            if (AttributeSource?.Name != null && AttributeSource?.Name != "NotSet")
-                text += AttributeSource.Name + " ";
+            if (!string.IsNullOrWhiteSpace(AttributeSource) && AttributeSource != "NotSet")
+                text += AttributeSource + " ";
 
             text += Entity;
 
             var subText = string.Empty;
 
-            if (AttributeQualifier?.Name != null && AttributeQualifier.Name != "NotSet")
-                subText = AttributeQualifier.Name;
+            if (!string.IsNullOrWhiteSpace(AttributeQualifier) && AttributeQualifier != "NotSet")
+                subText = AttributeQualifier;
 
-            if (AttributeCondition?.Name != null && AttributeCondition.Name != "NotSet")
-                subText += ", " + AttributeCondition.Name;
+            if (!string.IsNullOrWhiteSpace(AttributeCondition) && AttributeCondition != "NotSet")
+                subText += ", " + AttributeCondition;
 
             if (!string.IsNullOrEmpty(subText))
                 text += " - " + subText;

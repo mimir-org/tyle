@@ -1,243 +1,243 @@
 ﻿[
   {
     "entity": "Level",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "4A4F85CD4F326A3C2E21A479002A3286",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "4A4F85CD4F326A3C2E21A479002A3286",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Level",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "1EC6555C36B5C6B5EABBD85A2A79FF08",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "1EC6555C36B5C6B5EABBD85A2A79FF08",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Level",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "B0CCD75F423E1240D981CBB06DF8E38B",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "B0CCD75F423E1240D981CBB06DF8E38B",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Level",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "7BC47561DD28DFAC0D330F29A8F31EC7",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "7BC47561DD28DFAC0D330F29A8F31EC7",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Level",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Level",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Density",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "E3FF61F84B41214B6E0C64FBE332A3F0"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Density",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "E3FF61F84B41214B6E0C64FBE332A3F0"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Density",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "E3FF61F84B41214B6E0C64FBE332A3F0"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Gas/Liquid Ratio, GLR",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Gas/Oil Ratio, GOR",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Gas Volume Fraction, GVF",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Water Cut, WC",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Level",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Temperature",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "7BC47561DD28DFAC0D330F29A8F31EC7",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "7BC47561DD28DFAC0D330F29A8F31EC7",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "C8D3295246390474742CA763B56D4DA8",
       "C87CC4F2DF711783B6C443FF48F4E386",
       "31EDDD028D54698267B98EB1727EED53"
     ],
     "aspect": "Product",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Temperature",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "B0CCD75F423E1240D981CBB06DF8E38B",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "B0CCD75F423E1240D981CBB06DF8E38B",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "C8D3295246390474742CA763B56D4DA8",
       "C87CC4F2DF711783B6C443FF48F4E386",
       "31EDDD028D54698267B98EB1727EED53"
     ],
     "aspect": "Product",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Temperature",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "B0CCD75F423E1240D981CBB06DF8E38B",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "B0CCD75F423E1240D981CBB06DF8E38B",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "C8D3295246390474742CA763B56D4DA8",
       "C87CC4F2DF711783B6C443FF48F4E386",
       "31EDDD028D54698267B98EB1727EED53"
     ],
     "aspect": "Product",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Flowrate, volumetric",
-    "attributeQualifierId": "8151C108975768042D3EF56E78C41A74",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "63B2EE4AE1A8B5CE2E839CCBCA78604B",
       "5F48B074C9D55FDBB8AE298038D55F32",
@@ -245,15 +245,15 @@
       "8E146124030887861D102236CFA3B83F"
     ],
     "aspect": "Product",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Flowrate, volumetric",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "63B2EE4AE1A8B5CE2E839CCBCA78604B",
       "5F48B074C9D55FDBB8AE298038D55F32",
@@ -261,15 +261,15 @@
       "8E146124030887861D102236CFA3B83F"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Flowrate, volumetric",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "63B2EE4AE1A8B5CE2E839CCBCA78604B",
       "5F48B074C9D55FDBB8AE298038D55F32",
@@ -277,15 +277,15 @@
       "8E146124030887861D102236CFA3B83F"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Flowrate, volumetric",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "63B2EE4AE1A8B5CE2E839CCBCA78604B",
       "5F48B074C9D55FDBB8AE298038D55F32",
@@ -293,15 +293,15 @@
       "8E146124030887861D102236CFA3B83F"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, absolute",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -310,15 +310,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, absolute",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -327,15 +327,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Product",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, absolute",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -344,15 +344,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Product",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, absolute",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -361,15 +361,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, absolute",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -378,15 +378,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, absolute",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -395,15 +395,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, delta",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -412,15 +412,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, delta",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -429,15 +429,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Product",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, delta",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -446,15 +446,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Product",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, delta",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -463,15 +463,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, delta",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -480,15 +480,15 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Pressure, delta",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "5100236CC6A5BAA4E805D7EB6FB55544",
       "E651B3A7A2D0089181DC2E642506414A",
@@ -497,58 +497,58 @@
       "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Temperature",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "4A4F85CD4F326A3C2E21A479002A3286",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "4A4F85CD4F326A3C2E21A479002A3286",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "C8D3295246390474742CA763B56D4DA8",
       "C87CC4F2DF711783B6C443FF48F4E386",
       "31EDDD028D54698267B98EB1727EED53"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Temperature",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "1EC6555C36B5C6B5EABBD85A2A79FF08",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "1EC6555C36B5C6B5EABBD85A2A79FF08",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "C8D3295246390474742CA763B56D4DA8",
       "C87CC4F2DF711783B6C443FF48F4E386",
       "31EDDD028D54698267B98EB1727EED53"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Gas HC Dew Point",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "C8D3295246390474742CA763B56D4DA8"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Flowrate, volumetric",
-    "attributeQualifierId": "8151C108975768042D3EF56E78C41A74",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "63B2EE4AE1A8B5CE2E839CCBCA78604B",
       "5F48B074C9D55FDBB8AE298038D55F32",
@@ -556,456 +556,456 @@
       "8E146124030887861D102236CFA3B83F"
     ],
     "aspect": "Product",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Turbidity, particle size",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "A823F8F59FAAFDDA7C5C65AA87984886"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Velocity",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "7874BEE6B2FCD271925CE499E7B8497F",
       "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Water separation efficiency",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Water separation efficiency",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "K-value",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "7874BEE6B2FCD271925CE499E7B8497F",
       "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "K-value",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "7874BEE6B2FCD271925CE499E7B8497F",
       "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "aspect": "Product",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Gas Carry-under, volumetric",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Gas Carry-under, volumetric",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Liquid Carry-over, volumetric",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "399FBC77419CAA95E9AB45C3889D5488"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Liquid Carry-over, volumetric",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "399FBC77419CAA95E9AB45C3889D5488"
     ],
     "aspect": "Product",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Liquid Mass Fraction",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "9D54C708760C4FF1BCC472BC27FA7B52"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Gas separation efficiency",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Liquid Mass Fraction",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "9D54C708760C4FF1BCC472BC27FA7B52"
     ],
     "aspect": "Product",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Response time",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "7FD299F1FE73E1C298EF66D65AE6C628",
       "85755DF18D0A604CADDA9C47EC8C6243"
     ],
     "aspect": "Product",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Duration",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "85755DF18D0A604CADDA9C47EC8C6243",
       "7FD299F1FE73E1C298EF66D65AE6C628",
       "5185F2E23625D490056168844FFF0CA1"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Duration",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "85755DF18D0A604CADDA9C47EC8C6243",
       "7FD299F1FE73E1C298EF66D65AE6C628",
       "5185F2E23625D490056168844FFF0CA1"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Duration",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "85755DF18D0A604CADDA9C47EC8C6243",
       "7FD299F1FE73E1C298EF66D65AE6C628",
       "5185F2E23625D490056168844FFF0CA1"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Duration",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "85755DF18D0A604CADDA9C47EC8C6243",
       "7FD299F1FE73E1C298EF66D65AE6C628",
       "5185F2E23625D490056168844FFF0CA1"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Crossection, Inner Diameter",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "DF7381E76922A27B14C4C3C51A4AC631",
       "B3906EE602DD2E3E588F8EC17F1C5564"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Crossection, Inner Diameter",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "DF7381E76922A27B14C4C3C51A4AC631",
       "B3906EE602DD2E3E588F8EC17F1C5564"
     ],
     "aspect": "Product",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Crossection, Area",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "7B88D4F4D073C691F680FF292FC0EB4A",
       "E2BDF073C1B5C8A6020110A597695C33"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Crossection, Area",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "7B88D4F4D073C691F680FF292FC0EB4A",
       "E2BDF073C1B5C8A6020110A597695C33"
     ],
     "aspect": "Product",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Response time",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "7FD299F1FE73E1C298EF66D65AE6C628",
       "85755DF18D0A604CADDA9C47EC8C6243"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Gas separation efficiency",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Dead pocket prevention",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "A120D3B73207296B650737659939EEAD",
       "0B3316E84CFF33D3AB105EC63946509E"
     ],
     "aspect": "Product",
-    "attributeFormatId": "9BCD3F67C56CC9FA4A10DB4D0AB7562C",
+    "attributeFormat": "9BCD3F67C56CC9FA4A10DB4D0AB7562C",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Dead pocket prevention",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "A120D3B73207296B650737659939EEAD",
       "0B3316E84CFF33D3AB105EC63946509E"
     ],
     "aspect": "Function",
-    "attributeFormatId": "9BCD3F67C56CC9FA4A10DB4D0AB7562C",
+    "attributeFormat": "9BCD3F67C56CC9FA4A10DB4D0AB7562C",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Velocity",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "7874BEE6B2FCD271925CE499E7B8497F",
       "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Velocity",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "7874BEE6B2FCD271925CE499E7B8497F",
       "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "aspect": "Product",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Velocity",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "7874BEE6B2FCD271925CE499E7B8497F",
       "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "aspect": "Product",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Velocity",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "7874BEE6B2FCD271925CE499E7B8497F",
       "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Velocity",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "7874BEE6B2FCD271925CE499E7B8497F",
       "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Velocity",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "7874BEE6B2FCD271925CE499E7B8497F",
       "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Redundancy",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "02DAE010EE69AD90EF56A5DD28D9E883",
       "372EAE4BE5C4DB5B3E3875202D2A91E4",
@@ -1013,15 +1013,15 @@
       "AB6BC330D255851DD3E88E1B4E662A92"
     ],
     "aspect": "Function",
-    "attributeFormatId": "FBA8F35461A4BBE2F2547B65F151BE69",
+    "attributeFormat": "FBA8F35461A4BBE2F2547B65F151BE69",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Redundancy",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "02DAE010EE69AD90EF56A5DD28D9E883",
       "372EAE4BE5C4DB5B3E3875202D2A91E4",
@@ -1029,67 +1029,67 @@
       "AB6BC330D255851DD3E88E1B4E662A92"
     ],
     "aspect": "Product",
-    "attributeFormatId": "FBA8F35461A4BBE2F2547B65F151BE69",
+    "attributeFormat": "FBA8F35461A4BBE2F2547B65F151BE69",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Design Margin",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Design Margin",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Design Case",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "44EF56D4D7A7E0D6710B1ED4B65AE05E"
     ],
     "aspect": "Function",
-    "attributeFormatId": "08E6F5FE8E2B576C23670251D81FA06D",
+    "attributeFormat": "08E6F5FE8E2B576C23670251D81FA06D",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Design Case",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "44EF56D4D7A7E0D6710B1ED4B65AE05E"
     ],
     "aspect": "Product",
-    "attributeFormatId": "08E6F5FE8E2B576C23670251D81FA06D",
+    "attributeFormat": "08E6F5FE8E2B576C23670251D81FA06D",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Fail action",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "02DAE010EE69AD90EF56A5DD28D9E883",
       "62939A3FF63DBE324D66D57E4B82B71A",
@@ -1097,15 +1097,15 @@
       "191068DFE13AE9922F5059CCDA67526C"
     ],
     "aspect": "Function",
-    "attributeFormatId": "FBA8F35461A4BBE2F2547B65F151BE69",
+    "attributeFormat": "FBA8F35461A4BBE2F2547B65F151BE69",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Fail action",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "02DAE010EE69AD90EF56A5DD28D9E883",
       "62939A3FF63DBE324D66D57E4B82B71A",
@@ -1113,85 +1113,85 @@
       "191068DFE13AE9922F5059CCDA67526C"
     ],
     "aspect": "Product",
-    "attributeFormatId": "FBA8F35461A4BBE2F2547B65F151BE69",
+    "attributeFormat": "FBA8F35461A4BBE2F2547B65F151BE69",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Slope, inclining",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "374D20AC97EAAC6274A2D694FD8D24A8"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Slope, inclining",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "374D20AC97EAAC6274A2D694FD8D24A8"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Slope, declining",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "374D20AC97EAAC6274A2D694FD8D24A8"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Slope, declining",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936",
       "374D20AC97EAAC6274A2D694FD8D24A8"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Substance content",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "50F21B28B1D8FB3433BBFCB43E2B1315",
       "21500052C7BE4C74186303CD3CCE8E07"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Flowrate, volumetric",
-    "attributeQualifierId": "8151C108975768042D3EF56E78C41A74",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "63B2EE4AE1A8B5CE2E839CCBCA78604B",
       "5F48B074C9D55FDBB8AE298038D55F32",
@@ -1199,395 +1199,395 @@
       "8E146124030887861D102236CFA3B83F"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Oil in water",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "50F21B28B1D8FB3433BBFCB43E2B1315",
       "21500052C7BE4C74186303CD3CCE8E07"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Oil in water",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "50F21B28B1D8FB3433BBFCB43E2B1315",
       "21500052C7BE4C74186303CD3CCE8E07"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Head, downstream",
-    "attributeQualifierId": "DBE3DC211006BA760076FF7ADC039F1B",
-    "attributeSourceId": "65A7B2F5BAF45FA89924FABE5B132E33",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "DBE3DC211006BA760076FF7ADC039F1B",
+    "attributeSource": "65A7B2F5BAF45FA89924FABE5B132E33",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Head, downstream",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "5802B6AACC88F78D4BF703CEE4B803F2",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "5802B6AACC88F78D4BF703CEE4B803F2",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "0E58052344DCBE3692A3B088CD36A002"
     ],
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Process"
   },
   {
     "entity": "Relative North",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
     "units": [
       "0E58052344DCBE3692A3B088CD36A002",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Location",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Position", "Admin" ]
   },
   {
     "entity": "Relative East",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
     "units": [
       "0E58052344DCBE3692A3B088CD36A002",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Location",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Position", "Admin" ]
   },
   {
     "entity": "Relative Elevation",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
     "units": [
       "0E58052344DCBE3692A3B088CD36A002",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Location",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Position", "Admin" ]
   },
   {
     "entity": "Absolute Elevation",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
     "units": [
       "0E58052344DCBE3692A3B088CD36A002",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Location",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Position" ]
   },
   {
     "entity": "Size box Width",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
     "units": [
       "0E58052344DCBE3692A3B088CD36A002",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Location",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Size", "Admin" ]
   },
   {
     "entity": "Size box Height",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
     "units": [
       "0E58052344DCBE3692A3B088CD36A002",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Location",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Size", "Admin" ]
   },
   {
     "entity": "Size box Length",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
     "units": [
       "0E58052344DCBE3692A3B088CD36A002",
       "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "aspect": "Location",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Size", "Admin" ]
   },
   {
     "entity": "Depth BSL (subsea only)",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
     "units": [
       "0E58052344DCBE3692A3B088CD36A002"
     ],
     "aspect": "Location",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Position" ]
   },
   {
     "entity": "UTM Zone",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
     "units": [
       "02DAE010EE69AD90EF56A5DD28D9E883"
     ],
     "aspect": "Location",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Position" ]
   },
   {
     "entity": "UTM North",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
     "units": [
       "02DAE010EE69AD90EF56A5DD28D9E883"
     ],
     "aspect": "Location",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Position" ]
   },
   {
     "entity": "UTM East",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662",
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662",
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
     "units": [
       "02DAE010EE69AD90EF56A5DD28D9E883"
     ],
     "aspect": "Location",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Process",
     "tags": [ "Position" ]
   },
   {
     "entity": "Voltage",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC", // Maximum
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC", // Maximum
     "units": [
       "894E489682900A936362F123633FF7BC", // kV
       "E84F64395609F2970B9161FBF0B943EE" // V
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Voltage",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
     "units": [
       "894E489682900A936362F123633FF7BC", // kV
       "E84F64395609F2970B9161FBF0B943EE" // V
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Power capacity, appearant",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
     "units": [
       "2766B1116773996CE16DD0E969010E80", // kVA
       "3F201832F7AFA46EC99375292F1B92E6" // MVA
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Power capacity",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
     "units": [
       "2766B1116773996CE16DD0E969010E80", // kVA
       "3F201832F7AFA46EC99375292F1B92E6" // MVA
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Power capacity, appearant",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC", // Maximum
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC", // Maximum
     "units": [
       "2766B1116773996CE16DD0E969010E80", // kVA
       "3F201832F7AFA46EC99375292F1B92E6" // MVA
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Power factor",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60", // Unsigned float
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60", // Unsigned float
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Current capacity",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
     "units": [
       "6E26614D307D41DE875987A143419AB9", // A
       "60458C323113E3C45FAABD08DBFBC55D" // kA
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Current capacity",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC", // Maximum
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC", // Maximum
     "units": [
       "6E26614D307D41DE875987A143419AB9", // A
       "60458C323113E3C45FAABD08DBFBC55D" // kA
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Resistance",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
     "units": [
       "68FC7BE58329BBBEC78C6631C7F37A88", // Ω
       "C2969D285AED65E9133A39390B28EB7D" // Ohm
     ],
     "aspect": "Product",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60", // Unsigned float
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60", // Unsigned float
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Winding taps",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Ratios",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
     "units": [
       "32957978C0E4FB6008812BAAFFD56EEC" // [list]
     ],
     "aspect": "Product",
-    "attributeFormatId": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Power capacity, real",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
     "units": [
       "B2B68149BFCC3F8193582BFB4EFFCF88", // W
       "62CF948E25D6F57E81EE422239ED1A5F", // MW
       "DD6E835F0610AE7BB54B3DBC88E792FD" // kW
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Switching device",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
     "select": "SingleSelect",
     "selectValues": [
       "IGBT",
@@ -1597,12 +1597,12 @@
   },
   {
     "entity": "Transformer type, pulses",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "SingleSelect",
     "selectValues": [
       "6",
@@ -1614,65 +1614,65 @@
   },
   {
     "entity": "Frequency",
-    "attributeQualifierId": "0D691C0758C26CCFBDD04750FC136926", // Required
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850", // Minimum
+    "attributeQualifier": "0D691C0758C26CCFBDD04750FC136926", // Required
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850", // Minimum
     "units": [
       "FCC9BF9B6381052C038DD5971355DD77" // Hz
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Frequency",
-    "attributeQualifierId": "0D691C0758C26CCFBDD04750FC136926", // Required
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC", // Maximum
+    "attributeQualifier": "0D691C0758C26CCFBDD04750FC136926", // Required
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC", // Maximum
     "units": [
       "FCC9BF9B6381052C038DD5971355DD77" // Hz
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Frequency",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
     "units": [
       "FCC9BF9B6381052C038DD5971355DD77" // Hz
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Battery Voltage",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
     "units": [
       "E84F64395609F2970B9161FBF0B943EE", // V
       "894E489682900A936362F123633FF7BC" // kV
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Phases generated",
-    "attributeQualifierId": "0D691C0758C26CCFBDD04750FC136926", // Required
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "0D691C0758C26CCFBDD04750FC136926", // Required
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "SingleSelect",
     "selectValues": [
       "1",
@@ -1682,26 +1682,26 @@
   },
   {
     "entity": "Backup capacity",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850", // Minimum
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850", // Minimum
     "units": [
       "4F76B6D7DC7A57426260347D9FB90F23", // Vah
       "BBF17540EC576CA6AA4D9ED6CC33E8AF" // kVAh
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Chemistry",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
     "select": "SingleSelect",
     "selectValues": [
       "LiFePO",
@@ -1712,129 +1712,129 @@
   },
   {
     "entity": "Capacity",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850", // Minimum
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE", // Rating
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850", // Minimum
     "units": [
       "4F76B6D7DC7A57426260347D9FB90F23", // Vah
       "BBF17540EC576CA6AA4D9ED6CC33E8AF" // kVAh
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Cells",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Cross section",
-    "attributeQualifierId": "0D691C0758C26CCFBDD04750FC136926", // Required
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0", // Nominal
+    "attributeQualifier": "0D691C0758C26CCFBDD04750FC136926", // Required
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0", // Nominal
     "units": [
       "7B88D4F4D073C691F680FF292FC0EB4A" // mm2
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Conductors/wires",
-    "attributeQualifierId": "0D691C0758C26CCFBDD04750FC136926", // Required
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850", // Minimum
+    "attributeQualifier": "0D691C0758C26CCFBDD04750FC136926", // Required
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3", // Design
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850", // Minimum
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned integer
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "IP rating",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
     "select": "None",
     "discipline": "None"
   },
   {
     "entity": "Coating system",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
     "select": "None",
     "discipline": "None"
   },
   {
     "entity": "Colour code",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
     "select": "None",
     "discipline": "None"
   },
   {
     "entity": "Ex/ATEX rating",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
     "select": "None",
     "discipline": "None"
   },
   {
     "entity": "Noise level",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
     "units": [
       "0B997D4BBEF35B3BA298741C49EF70C7" // db 
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned int
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2", // Unsigned int
     "select": "None",
     "discipline": "None"
   },
   {
     "entity": "Pressure rating",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
     "select": "None",
     "discipline": "None"
   },
   {
     "entity": "Cooling code",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
     "select": "SingleSelect",
     "selectValues": [
       "IC410",
@@ -1846,34 +1846,34 @@
   },
   {
     "entity": "Design code",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
     "select": "None",
     "discipline": "None"
   },
   {
     "entity": "Temperature class",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
     "select": "None",
     "discipline": "None"
   },
   {
     "entity": "Requirements standard",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
-    "attributeSourceId": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87", // NotSet
+    "attributeSource": "E4AC50788784BA83FAAD1821E2F1E662", // NotSet
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A", // NotSet
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "8F862EE92B0ECBE913616212F57BDB88", // String
+    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88", // String
     "select": "SingleSelect",
     "selectValues": [
       "IEC60529",
@@ -1898,12 +1898,12 @@
   },
   {
     "entity": "BDM configuration",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "8F862EE92B0ECBE913616212F57BDB88",
+    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88",
     "select": "SingleSelect",
     "selectValues": [
       "VSI",
@@ -1914,42 +1914,42 @@
   },
   {
     "entity": "Busbar current",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "6E26614D307D41DE875987A143419AB9",
       "60458C323113E3C45FAABD08DBFBC55D"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Busbar current",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "6E26614D307D41DE875987A143419AB9",
       "60458C323113E3C45FAABD08DBFBC55D"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Cooling Method",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
     "units": [
       "175AEE65C3F87C15B0BD60A713C59F40"
     ],
     "aspect": "Product",
-    "attributeFormatId": "8F862EE92B0ECBE913616212F57BDB88",
+    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88",
     "select": "SingleSelect",
     "selectValues": [
       "AN",
@@ -1963,26 +1963,26 @@
   },
   {
     "entity": "Current",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "6E26614D307D41DE875987A143419AB9",
       "60458C323113E3C45FAABD08DBFBC55D"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Drive mode",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "8F862EE92B0ECBE913616212F57BDB88",
+    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88",
     "select": "SingleSelect",
     "selectValues": [
       "Fixed Speed",
@@ -1992,217 +1992,217 @@
   },
   {
     "entity": "Fault current",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "6E26614D307D41DE875987A143419AB9",
       "60458C323113E3C45FAABD08DBFBC55D"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Fault duration",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "3AD9FFC9ECA02C36CC8B11A43E99C937"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Impedance (Uz)",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Operating Speed",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "54280642CB5A64AF6D5B341953B5D3ED"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Operating Speed",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "54280642CB5A64AF6D5B341953B5D3ED"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Overcurrent capability",
-    "attributeQualifierId": "0D691C0758C26CCFBDD04750FC136926",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "0D691C0758C26CCFBDD04750FC136926",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "74843B59B2EC60A60C0D3723EEB31C78"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Primary Voltage",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "B2B68149BFCC3F8193582BFB4EFFCF88",
       "894E489682900A936362F123633FF7BC"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Rated Voltage",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "B2B68149BFCC3F8193582BFB4EFFCF88",
       "894E489682900A936362F123633FF7BC"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Resistor capacity",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "6E26614D307D41DE875987A143419AB9",
       "60458C323113E3C45FAABD08DBFBC55D"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Secondary Voltage",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "894E489682900A936362F123633FF7BC",
       "E84F64395609F2970B9161FBF0B943EE"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Shaft Power",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "B2B68149BFCC3F8193582BFB4EFFCF88",
       "62CF948E25D6F57E81EE422239ED1A5F",
       "DD6E835F0610AE7BB54B3DBC88E792FD"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Short-time withstand current",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "E9D872482BAF312F2783CBF7EB5E339D",
       "D616D9A083098DDB59DD05E8A0CB298C"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "System Frequency",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "FCC9BF9B6381052C038DD5971355DD77"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "System Voltage",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "894E489682900A936362F123633FF7BC",
       "E84F64395609F2970B9161FBF0B943EE"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "System Voltage",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "B4F30953809C638DC28A4B1FAF1F9BEC",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "B4F30953809C638DC28A4B1FAF1F9BEC",
     "units": [
       "894E489682900A936362F123633FF7BC",
       "E84F64395609F2970B9161FBF0B943EE"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Type of Switchgear",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
     "units": null,
     "aspect": "Product",
-    "attributeFormatId": "8F862EE92B0ECBE913616212F57BDB88",
+    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88",
     "select": "SingleSelect",
     "selectValues": [
       "GIS",
@@ -2216,96 +2216,96 @@
   },
   {
     "entity": "VA Rating",
-    "attributeQualifierId": "B01AD94A3420E851FCDFDD64866A35FE",
-    "attributeSourceId": "93DA780BECE3637E30BC2850F0E0FDA3",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "B01AD94A3420E851FCDFDD64866A35FE",
+    "attributeSource": "93DA780BECE3637E30BC2850F0E0FDA3",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "2766B1116773996CE16DD0E969010E80",
       "3F201832F7AFA46EC99375292F1B92E6"
     ],
     "aspect": "Product",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Backup capacity",
-    "attributeQualifierId": "8151C108975768042D3EF56E78C41A74",
-    "attributeSourceId": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
+    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "4F76B6D7DC7A57426260347D9FB90F23",
       "BBF17540EC576CA6AA4D9ED6CC33E8AF"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Battery Voltage",
-    "attributeQualifierId": "8151C108975768042D3EF56E78C41A74",
-    "attributeSourceId": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
+    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "E84F64395609F2970B9161FBF0B943EE",
       "894E489682900A936362F123633FF7BC"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Busbar current",
-    "attributeQualifierId": "8151C108975768042D3EF56E78C41A74",
-    "attributeSourceId": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
+    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "6E26614D307D41DE875987A143419AB9",
       "60458C323113E3C45FAABD08DBFBC55D"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Capacity",
-    "attributeQualifierId": "8151C108975768042D3EF56E78C41A74",
-    "attributeSourceId": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeConditionId": "A2CE43F487C83C807558DC76AADE5850",
+    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
+    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
+    "attributeCondition": "A2CE43F487C83C807558DC76AADE5850",
     "units": [
       "4F76B6D7DC7A57426260347D9FB90F23",
       "BBF17540EC576CA6AA4D9ED6CC33E8AF"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Current capacity",
-    "attributeQualifierId": "8151C108975768042D3EF56E78C41A74",
-    "attributeSourceId": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
+    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "6E26614D307D41DE875987A143419AB9",
       "60458C323113E3C45FAABD08DBFBC55D"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Drive mode",
-    "attributeQualifierId": "23BE80E317DA30DBAAA862D672FD1E87",
-    "attributeSourceId": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeConditionId": "424EE17AEA18CAEB3DB3409D2C0A467A",
+    "attributeQualifier": "23BE80E317DA30DBAAA862D672FD1E87",
+    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
+    "attributeCondition": "424EE17AEA18CAEB3DB3409D2C0A467A",
     "units": null,
     "aspect": "Function",
-    "attributeFormatId": "8F862EE92B0ECBE913616212F57BDB88",
+    "attributeFormat": "8F862EE92B0ECBE913616212F57BDB88",
     "select": "SingleSelect",
     "selectValues": [
       "Fixed Speed",
@@ -2315,111 +2315,111 @@
   },
   {
     "entity": "Frequency",
-    "attributeQualifierId": "8151C108975768042D3EF56E78C41A74",
-    "attributeSourceId": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
+    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "FCC9BF9B6381052C038DD5971355DD77"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Power capacity",
-    "attributeQualifierId": "8151C108975768042D3EF56E78C41A74",
-    "attributeSourceId": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
+    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "2766B1116773996CE16DD0E969010E80",
       "3F201832F7AFA46EC99375292F1B92E6"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Power capacity, appearant",
-    "attributeQualifierId": "8151C108975768042D3EF56E78C41A74",
-    "attributeSourceId": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
+    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "2766B1116773996CE16DD0E969010E80",
       "3F201832F7AFA46EC99375292F1B92E6"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Power capacity, real",
-    "attributeQualifierId": "8151C108975768042D3EF56E78C41A74",
-    "attributeSourceId": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
+    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "B2B68149BFCC3F8193582BFB4EFFCF88",
       "62CF948E25D6F57E81EE422239ED1A5F",
       "DD6E835F0610AE7BB54B3DBC88E792FD"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Power factor",
-    "attributeQualifierId": "8151C108975768042D3EF56E78C41A74",
-    "attributeSourceId": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
+    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": null,
     "aspect": "Function",
-    "attributeFormatId": "CCA61D52018A96C3324B07AE871B6A60",
+    "attributeFormat": "CCA61D52018A96C3324B07AE871B6A60",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Resistor capacity",
-    "attributeQualifierId": "8151C108975768042D3EF56E78C41A74",
-    "attributeSourceId": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
+    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "6E26614D307D41DE875987A143419AB9",
       "60458C323113E3C45FAABD08DBFBC55D"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Shaft Power",
-    "attributeQualifierId": "8151C108975768042D3EF56E78C41A74",
-    "attributeSourceId": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
+    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "B2B68149BFCC3F8193582BFB4EFFCF88",
       "62CF948E25D6F57E81EE422239ED1A5F",
       "DD6E835F0610AE7BB54B3DBC88E792FD"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   },
   {
     "entity": "Voltage",
-    "attributeQualifierId": "8151C108975768042D3EF56E78C41A74",
-    "attributeSourceId": "942EB77DC37664366A8A23B1A6B0E636",
-    "attributeConditionId": "F917171C8D07503473DBE853128DD6A0",
+    "attributeQualifier": "8151C108975768042D3EF56E78C41A74",
+    "attributeSource": "942EB77DC37664366A8A23B1A6B0E636",
+    "attributeCondition": "F917171C8D07503473DBE853128DD6A0",
     "units": [
       "894E489682900A936362F123633FF7BC",
       "E84F64395609F2970B9161FBF0B943EE"
     ],
     "aspect": "Function",
-    "attributeFormatId": "C2E4AB421C5E441D3EEC9BF6E70344F2",
+    "attributeFormat": "C2E4AB421C5E441D3EEC9BF6E70344F2",
     "select": "None",
     "discipline": "Electrical"
   }

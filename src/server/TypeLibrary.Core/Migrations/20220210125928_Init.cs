@@ -249,36 +249,40 @@ namespace TypeLibrary.Core.Migrations
                     Entity = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AttributeQualifierId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    AttributeSourceId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    AttributeConditionId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    AttributeFormatId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    AttributeQualifier = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AttributeSource = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AttributeCondition = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AttributeFormat = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Tags = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SelectValuesString = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Select = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Discipline = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Discipline = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AttributeConditionLibDmId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    AttributeFormatLibDmId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    AttributeQualifierLibDmId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    AttributeSourceLibDmId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Attribute", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Attribute_AttributeCondition_AttributeConditionId",
-                        column: x => x.AttributeConditionId,
+                        name: "FK_Attribute_AttributeCondition_AttributeConditionLibDmId",
+                        column: x => x.AttributeConditionLibDmId,
                         principalTable: "AttributeCondition",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Attribute_AttributeFormat_AttributeFormatId",
-                        column: x => x.AttributeFormatId,
+                        name: "FK_Attribute_AttributeFormat_AttributeFormatLibDmId",
+                        column: x => x.AttributeFormatLibDmId,
                         principalTable: "AttributeFormat",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Attribute_AttributeQualifier_AttributeQualifierId",
-                        column: x => x.AttributeQualifierId,
+                        name: "FK_Attribute_AttributeQualifier_AttributeQualifierLibDmId",
+                        column: x => x.AttributeQualifierLibDmId,
                         principalTable: "AttributeQualifier",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Attribute_AttributeSource_AttributeSourceId",
-                        column: x => x.AttributeSourceId,
+                        name: "FK_Attribute_AttributeSource_AttributeSourceLibDmId",
+                        column: x => x.AttributeSourceLibDmId,
                         principalTable: "AttributeSource",
                         principalColumn: "Id");
                 });
@@ -572,24 +576,24 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attribute_AttributeConditionId",
+                name: "IX_Attribute_AttributeConditionLibDmId",
                 table: "Attribute",
-                column: "AttributeConditionId");
+                column: "AttributeConditionLibDmId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attribute_AttributeFormatId",
+                name: "IX_Attribute_AttributeFormatLibDmId",
                 table: "Attribute",
-                column: "AttributeFormatId");
+                column: "AttributeFormatLibDmId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attribute_AttributeQualifierId",
+                name: "IX_Attribute_AttributeQualifierLibDmId",
                 table: "Attribute",
-                column: "AttributeQualifierId");
+                column: "AttributeQualifierLibDmId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attribute_AttributeSourceId",
+                name: "IX_Attribute_AttributeSourceLibDmId",
                 table: "Attribute",
-                column: "AttributeSourceId");
+                column: "AttributeSourceLibDmId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Attribute_Interface_InterfaceId",

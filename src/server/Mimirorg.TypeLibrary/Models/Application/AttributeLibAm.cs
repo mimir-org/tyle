@@ -13,13 +13,16 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Iri { get; set; }
 
         [Required]
-        public string AttributeQualifierId { get; set; }
+        public string AttributeQualifier { get; set; }
         
         [Required]
-        public string AttributeSourceId { get; set; }
+        public string AttributeSource { get; set; }
 
         [Required]
-        public string AttributeConditionId { get; set; }
+        public string AttributeCondition { get; set; }
+
+        [Required]
+        public string AttributeFormat { get; set; }
 
         public ICollection<string> Units { get; set; }
         
@@ -34,13 +37,10 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public Aspect Aspect { get; set; }
 
-        [Required]
-        public string AttributeFormatId { get; set; }
-
         public HashSet<string> Tags { get; set; }
 
         [JsonIgnore]
-        public string Key => $"{Entity}-{Aspect}-{AttributeQualifierId}-{AttributeSourceId}-{AttributeConditionId}";
+        public string Key => $"{Entity}-{Aspect}-{AttributeQualifier}-{AttributeSource}-{AttributeCondition}";
 
         [JsonIgnore]
         public ICollection<UnitLibDm> ConvertToObject => Units?.Select(x => new UnitLibDm { Id = x }).ToList();

@@ -257,16 +257,32 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Aspect");
 
-                    b.Property<string>("AttributeConditionId")
+                    b.Property<string>("AttributeCondition")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("AttributeCondition");
+
+                    b.Property<string>("AttributeConditionLibDmId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("AttributeFormatId")
+                    b.Property<string>("AttributeFormat")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("AttributeFormat");
+
+                    b.Property<string>("AttributeFormatLibDmId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("AttributeQualifierId")
+                    b.Property<string>("AttributeQualifier")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("AttributeQualifier");
+
+                    b.Property<string>("AttributeQualifierLibDmId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("AttributeSourceId")
+                    b.Property<string>("AttributeSource")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("AttributeSource");
+
+                    b.Property<string>("AttributeSourceLibDmId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Discipline")
@@ -298,13 +314,13 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AttributeConditionId");
+                    b.HasIndex("AttributeConditionLibDmId");
 
-                    b.HasIndex("AttributeFormatId");
+                    b.HasIndex("AttributeFormatLibDmId");
 
-                    b.HasIndex("AttributeQualifierId");
+                    b.HasIndex("AttributeQualifierLibDmId");
 
-                    b.HasIndex("AttributeSourceId");
+                    b.HasIndex("AttributeSourceLibDmId");
 
                     b.ToTable("Attribute", (string)null);
                 });
@@ -984,33 +1000,21 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.AttributeLibDm", b =>
                 {
-                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeConditionLibDm", "AttributeCondition")
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeConditionLibDm", null)
                         .WithMany("Attributes")
-                        .HasForeignKey("AttributeConditionId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("AttributeConditionLibDmId");
 
-                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeFormatLibDm", "AttributeFormat")
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeFormatLibDm", null)
                         .WithMany("Attributes")
-                        .HasForeignKey("AttributeFormatId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("AttributeFormatLibDmId");
 
-                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeQualifierLibDm", "AttributeQualifier")
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeQualifierLibDm", null)
                         .WithMany("Attributes")
-                        .HasForeignKey("AttributeQualifierId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("AttributeQualifierLibDmId");
 
-                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeSourceLibDm", "AttributeSource")
+                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeSourceLibDm", null)
                         .WithMany("Attributes")
-                        .HasForeignKey("AttributeSourceId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("AttributeCondition");
-
-                    b.Navigation("AttributeFormat");
-
-                    b.Navigation("AttributeQualifier");
-
-                    b.Navigation("AttributeSource");
+                        .HasForeignKey("AttributeSourceLibDmId");
                 });
 
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.LibraryTypeLibDm", b =>

@@ -23,11 +23,11 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.Discipline).HasColumnName("Discipline").IsRequired().HasConversion<string>();
             builder.Property(p => p.Tags).HasColumnName("Tags").IsRequired(false).HasConversion(stringConverter, stringComparer);
             builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false);
-
-            builder.HasOne(x => x.AttributeCondition).WithMany(y => y.Attributes).HasForeignKey(x => x.AttributeConditionId).OnDelete(DeleteBehavior.NoAction);
-            builder.HasOne(x => x.AttributeQualifier).WithMany(y => y.Attributes).HasForeignKey(x => x.AttributeQualifierId).OnDelete(DeleteBehavior.NoAction);
-            builder.HasOne(x => x.AttributeSource).WithMany(y => y.Attributes).HasForeignKey(x => x.AttributeSourceId).OnDelete(DeleteBehavior.NoAction);
-            builder.HasOne(x => x.AttributeFormat).WithMany(y => y.Attributes).HasForeignKey(x => x.AttributeFormatId).OnDelete(DeleteBehavior.NoAction);
+            
+            builder.Property(p => p.AttributeQualifier).HasColumnName("AttributeQualifier").IsRequired(false).HasDefaultValue(null);
+            builder.Property(p => p.AttributeSource).HasColumnName("AttributeSource").IsRequired(false).HasDefaultValue(null);
+            builder.Property(p => p.AttributeCondition).HasColumnName("AttributeCondition").IsRequired(false).HasDefaultValue(null);
+            builder.Property(p => p.AttributeFormat).HasColumnName("AttributeFormat").IsRequired(false).HasDefaultValue(null);
 
             builder.HasMany(x => x.Units).WithMany(y => y.Attributes).UsingEntity<Dictionary<string, object>>("Attribute_Unit",
                 x => x.HasOne<UnitLibDm>().WithMany().HasForeignKey("UnitId"),
