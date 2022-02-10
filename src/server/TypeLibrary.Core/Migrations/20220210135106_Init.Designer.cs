@@ -12,7 +12,7 @@ using TypeLibrary.Data;
 namespace TypeLibrary.Core.Migrations
 {
     [DbContext(typeof(TypeLibraryDbContext))]
-    [Migration("20220210125928_Init")]
+    [Migration("20220210135106_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -263,29 +263,17 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("AttributeCondition");
 
-                    b.Property<string>("AttributeConditionLibDmId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("AttributeFormat")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("AttributeFormat");
-
-                    b.Property<string>("AttributeFormatLibDmId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AttributeQualifier")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("AttributeQualifier");
 
-                    b.Property<string>("AttributeQualifierLibDmId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("AttributeSource")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("AttributeSource");
-
-                    b.Property<string>("AttributeSourceLibDmId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Discipline")
                         .IsRequired()
@@ -315,14 +303,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("Tags");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AttributeConditionLibDmId");
-
-                    b.HasIndex("AttributeFormatLibDmId");
-
-                    b.HasIndex("AttributeQualifierLibDmId");
-
-                    b.HasIndex("AttributeSourceLibDmId");
 
                     b.ToTable("Attribute", (string)null);
                 });
@@ -1000,25 +980,6 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.AttributeLibDm", b =>
-                {
-                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeConditionLibDm", null)
-                        .WithMany("Attributes")
-                        .HasForeignKey("AttributeConditionLibDmId");
-
-                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeFormatLibDm", null)
-                        .WithMany("Attributes")
-                        .HasForeignKey("AttributeFormatLibDmId");
-
-                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeQualifierLibDm", null)
-                        .WithMany("Attributes")
-                        .HasForeignKey("AttributeQualifierLibDmId");
-
-                    b.HasOne("Mimirorg.TypeLibrary.Models.Data.AttributeSourceLibDm", null)
-                        .WithMany("Attributes")
-                        .HasForeignKey("AttributeSourceLibDmId");
-                });
-
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.LibraryTypeLibDm", b =>
                 {
                     b.HasOne("Mimirorg.TypeLibrary.Models.Data.PurposeLibDm", "Purpose")
@@ -1126,26 +1087,6 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.AttributeAspectLibDm", b =>
                 {
                     b.Navigation("Children");
-                });
-
-            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.AttributeConditionLibDm", b =>
-                {
-                    b.Navigation("Attributes");
-                });
-
-            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.AttributeFormatLibDm", b =>
-                {
-                    b.Navigation("Attributes");
-                });
-
-            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.AttributeQualifierLibDm", b =>
-                {
-                    b.Navigation("Attributes");
-                });
-
-            modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.AttributeSourceLibDm", b =>
-                {
-                    b.Navigation("Attributes");
                 });
 
             modelBuilder.Entity("Mimirorg.TypeLibrary.Models.Data.PurposeLibDm", b =>

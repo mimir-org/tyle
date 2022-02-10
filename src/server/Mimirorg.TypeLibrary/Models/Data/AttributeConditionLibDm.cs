@@ -18,8 +18,5 @@ namespace Mimirorg.TypeLibrary.Models.Data
 
         [JsonIgnore]
         public virtual string Key => $"{Name}-{InternalType}";
-
-        [JsonIgnore]
-        public virtual ICollection<AttributeLibDm> Attributes { get; set; }
     }
 }

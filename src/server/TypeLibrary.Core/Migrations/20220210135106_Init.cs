@@ -10,6 +10,28 @@ namespace TypeLibrary.Core.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Attribute",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Entity = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AttributeQualifier = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AttributeSource = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AttributeCondition = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AttributeFormat = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Tags = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SelectValuesString = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Select = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Discipline = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Attribute", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AttributeAspect",
                 columns: table => new
                 {
@@ -242,52 +264,6 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Attribute",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Entity = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AttributeQualifier = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AttributeSource = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AttributeCondition = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AttributeFormat = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Tags = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SelectValuesString = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Select = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Discipline = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AttributeConditionLibDmId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    AttributeFormatLibDmId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    AttributeQualifierLibDmId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    AttributeSourceLibDmId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Attribute", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Attribute_AttributeCondition_AttributeConditionLibDmId",
-                        column: x => x.AttributeConditionLibDmId,
-                        principalTable: "AttributeCondition",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Attribute_AttributeFormat_AttributeFormatLibDmId",
-                        column: x => x.AttributeFormatLibDmId,
-                        principalTable: "AttributeFormat",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Attribute_AttributeQualifier_AttributeQualifierLibDmId",
-                        column: x => x.AttributeQualifierLibDmId,
-                        principalTable: "AttributeQualifier",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Attribute_AttributeSource_AttributeSourceLibDmId",
-                        column: x => x.AttributeSourceLibDmId,
-                        principalTable: "AttributeSource",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Rds",
                 columns: table => new
                 {
@@ -333,30 +309,6 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Attribute_Unit",
-                columns: table => new
-                {
-                    AttributeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UnitId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Attribute_Unit", x => new { x.AttributeId, x.UnitId });
-                    table.ForeignKey(
-                        name: "FK_Attribute_Unit_Attribute_AttributeId",
-                        column: x => x.AttributeId,
-                        principalTable: "Attribute",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Attribute_Unit_Unit_UnitId",
-                        column: x => x.UnitId,
-                        principalTable: "Unit",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Terminal_Attribute",
                 columns: table => new
                 {
@@ -376,6 +328,30 @@ namespace TypeLibrary.Core.Migrations
                         name: "FK_Terminal_Attribute_Terminal_TerminalId",
                         column: x => x.TerminalId,
                         principalTable: "Terminal",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Attribute_Unit",
+                columns: table => new
+                {
+                    AttributeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UnitId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Attribute_Unit", x => new { x.AttributeId, x.UnitId });
+                    table.ForeignKey(
+                        name: "FK_Attribute_Unit_Attribute_AttributeId",
+                        column: x => x.AttributeId,
+                        principalTable: "Attribute",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Attribute_Unit_Unit_UnitId",
+                        column: x => x.UnitId,
+                        principalTable: "Unit",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -576,26 +552,6 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attribute_AttributeConditionLibDmId",
-                table: "Attribute",
-                column: "AttributeConditionLibDmId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Attribute_AttributeFormatLibDmId",
-                table: "Attribute",
-                column: "AttributeFormatLibDmId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Attribute_AttributeQualifierLibDmId",
-                table: "Attribute",
-                column: "AttributeQualifierLibDmId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Attribute_AttributeSourceLibDmId",
-                table: "Attribute",
-                column: "AttributeSourceLibDmId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Attribute_Interface_InterfaceId",
                 table: "Attribute_Interface",
                 column: "InterfaceId");
@@ -702,7 +658,19 @@ namespace TypeLibrary.Core.Migrations
                 name: "AttributeAspect");
 
             migrationBuilder.DropTable(
+                name: "AttributeCondition");
+
+            migrationBuilder.DropTable(
+                name: "AttributeFormat");
+
+            migrationBuilder.DropTable(
                 name: "AttributePredefined");
+
+            migrationBuilder.DropTable(
+                name: "AttributeQualifier");
+
+            migrationBuilder.DropTable(
+                name: "AttributeSource");
 
             migrationBuilder.DropTable(
                 name: "Blob");
@@ -733,18 +701,6 @@ namespace TypeLibrary.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "LibraryType");
-
-            migrationBuilder.DropTable(
-                name: "AttributeCondition");
-
-            migrationBuilder.DropTable(
-                name: "AttributeFormat");
-
-            migrationBuilder.DropTable(
-                name: "AttributeQualifier");
-
-            migrationBuilder.DropTable(
-                name: "AttributeSource");
 
             migrationBuilder.DropTable(
                 name: "Purpose");

@@ -24,10 +24,10 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.Tags).HasColumnName("Tags").IsRequired(false).HasConversion(stringConverter, stringComparer);
             builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false);
             
-            builder.Property(p => p.AttributeQualifier).HasColumnName("AttributeQualifier").IsRequired(false).HasDefaultValue(null);
-            builder.Property(p => p.AttributeSource).HasColumnName("AttributeSource").IsRequired(false).HasDefaultValue(null);
-            builder.Property(p => p.AttributeCondition).HasColumnName("AttributeCondition").IsRequired(false).HasDefaultValue(null);
-            builder.Property(p => p.AttributeFormat).HasColumnName("AttributeFormat").IsRequired(false).HasDefaultValue(null);
+            builder.Property(p => p.AttributeQualifier).HasColumnName("AttributeQualifier");
+            builder.Property(p => p.AttributeSource).HasColumnName("AttributeSource");
+            builder.Property(p => p.AttributeCondition).HasColumnName("AttributeCondition");
+            builder.Property(p => p.AttributeFormat).HasColumnName("AttributeFormat");
 
             builder.HasMany(x => x.Units).WithMany(y => y.Attributes).UsingEntity<Dictionary<string, object>>("Attribute_Unit",
                 x => x.HasOne<UnitLibDm>().WithMany().HasForeignKey("UnitId"),
