@@ -286,14 +286,14 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Discipline");
 
-                    b.Property<string>("Entity")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Entity");
-
                     b.Property<string>("Iri")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Iri");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Name");
 
                     b.Property<string>("ParentId")
                         .HasColumnType("nvarchar(450)")
@@ -511,8 +511,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("Id");
 
-                    b.Property<int>("Aspect")
-                        .HasColumnType("int");
+                    b.Property<string>("Aspect")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Aspect");
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()

@@ -10,9 +10,23 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string ParentId { get; set; }
 
         [Required]
-        public string Entity { get; set; }
+        public string Name { get; set; }
         
         public string Iri { get; set; }
+
+        [Required]
+        public Aspect Aspect { get; set; }
+
+        [Required]
+        public Discipline Discipline { get; set; }
+
+        public HashSet<string> Tags { get; set; }
+
+        [Required]
+        public Select Select { get; set; }
+
+        public ICollection<string> SelectValues { get; set; }
+        public ICollection<string> Units { get; set; }
 
         [Required]
         public string AttributeQualifier { get; set; }
@@ -26,25 +40,10 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public string AttributeFormat { get; set; }
 
-        public ICollection<string> Units { get; set; }
-        
-        public ICollection<string> SelectValues { get; set; }
-
-        [Required]
-        public Select Select { get; set; }
-
-        [Required]
-        public Discipline Discipline { get; set; }
-
-        [Required]
-        public Aspect Aspect { get; set; }
-
-        public HashSet<string> Tags { get; set; }
-
-        [JsonIgnore]
-        public string Key => $"{Entity}-{Aspect}-{AttributeQualifier}-{AttributeSource}-{AttributeCondition}";
-
         [JsonIgnore]
         public ICollection<UnitLibDm> ConvertToObject => Units?.Select(x => new UnitLibDm { Id = x }).ToList();
+
+        [JsonIgnore]
+        public string Key => $"{Name}-{Aspect}-{AttributeQualifier}-{AttributeSource}-{AttributeCondition}";
     }
 }

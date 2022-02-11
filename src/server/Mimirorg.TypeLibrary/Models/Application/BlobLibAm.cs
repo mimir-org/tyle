@@ -13,9 +13,9 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Iri { get; set; }
 
         [Required]
-        public string Data { get; set; }
+        public Discipline Discipline { get; set; }
 
         [Required]
-        public Discipline Discipline { get; set; }
+        public string Data { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿[
   {
-    "entity": "Level",
+    "name": "Level",
     "attributeQualifier": "Rating",
     "attributeSource": "Required, Low",
     "attributeCondition": "Minimum",
@@ -14,7 +14,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Level",
+    "name": "Level",
     "attributeQualifier": "Rating",
     "attributeSource": "Required, High",
     "attributeCondition": "Minimum",
@@ -28,7 +28,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Level",
+    "name": "Level",
     "attributeQualifier": "Rating",
     "attributeSource": "Design, Low",
     "attributeCondition": "Nominal",
@@ -42,7 +42,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Level",
+    "name": "Level",
     "attributeQualifier": "Rating",
     "attributeSource": "Design, High",
     "attributeCondition": "Nominal",
@@ -56,7 +56,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Level",
+    "name": "Level",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Minimum",
@@ -70,7 +70,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Level",
+    "name": "Level",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
@@ -84,7 +84,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Density",
+    "name": "Density",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Minimum",
@@ -97,7 +97,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Density",
+    "name": "Density",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
@@ -110,7 +110,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Density",
+    "name": "Density",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Maximum",
@@ -123,7 +123,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Gas/Liquid Ratio, GLR",
+    "name": "Gas/Liquid Ratio, GLR",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
@@ -136,7 +136,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Gas/Oil Ratio, GOR",
+    "name": "Gas/Oil Ratio, GOR",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
@@ -149,7 +149,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Gas Volume Fraction, GVF",
+    "name": "Gas Volume Fraction, GVF",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
@@ -162,7 +162,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Water Cut, WC",
+    "name": "Water Cut, WC",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
@@ -175,7 +175,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Level",
+    "name": "Level",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Maximum",
@@ -189,7 +189,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Temperature",
+    "name": "Temperature",
     "attributeQualifier": "Rating",
     "attributeSource": "Design, High",
     "attributeCondition": "Nominal",
@@ -204,7 +204,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Temperature",
+    "name": "Temperature",
     "attributeQualifier": "Rating",
     "attributeSource": "Design, Low",
     "attributeCondition": "Maximum",
@@ -219,7 +219,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Temperature",
+    "name": "Temperature",
     "attributeQualifier": "Rating",
     "attributeSource": "Design, Low",
     "attributeCondition": "Nominal",
@@ -234,7 +234,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Flowrate, volumetric",
+    "name": "Flowrate, volumetric",
     "attributeQualifier": "Capacity",
     "attributeSource": "Design",
     "attributeCondition": "Maximum",
@@ -250,7 +250,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Flowrate, volumetric",
+    "name": "Flowrate, volumetric",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Minimum",
@@ -266,7 +266,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Flowrate, volumetric",
+    "name": "Flowrate, volumetric",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
@@ -282,7 +282,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Flowrate, volumetric",
+    "name": "Flowrate, volumetric",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Maximum",
@@ -298,7 +298,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Pressure, absolute",
+    "name": "Pressure, absolute",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -315,7 +315,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Pressure, absolute",
+    "name": "Pressure, absolute",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -332,7 +332,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Pressure, absolute",
+    "name": "Pressure, absolute",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Maximum",
@@ -349,7 +349,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Pressure, absolute",
+    "name": "Pressure, absolute",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Minimum",
@@ -366,7 +366,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Pressure, absolute",
+    "name": "Pressure, absolute",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
@@ -383,7 +383,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Pressure, absolute",
+    "name": "Pressure, absolute",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Maximum",
@@ -400,7 +400,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Pressure, delta",
+    "name": "Pressure, delta",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
@@ -417,7 +417,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Pressure, delta",
+    "name": "Pressure, delta",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -434,7 +434,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Pressure, delta",
+    "name": "Pressure, delta",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Maximum",
@@ -451,7 +451,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Pressure, delta",
+    "name": "Pressure, delta",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Minimum",
@@ -468,7 +468,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Pressure, delta",
+    "name": "Pressure, delta",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
@@ -485,7 +485,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Pressure, delta",
+    "name": "Pressure, delta",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Maximum",
@@ -502,7 +502,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Temperature",
+    "name": "Temperature",
     "attributeQualifier": "Rating",
     "attributeSource": "Required, Low",
     "attributeCondition": "Minimum",
@@ -517,7 +517,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Temperature",
+    "name": "Temperature",
     "attributeQualifier": "Rating",
     "attributeSource": "Required, High",
     "attributeCondition": "Minimum",
@@ -532,7 +532,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Gas HC Dew Point",
+    "name": "Gas HC Dew Point",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
@@ -545,7 +545,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Flowrate, volumetric",
+    "name": "Flowrate, volumetric",
     "attributeQualifier": "Capacity",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -561,7 +561,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Turbidity, particle size",
+    "name": "Turbidity, particle size",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
@@ -574,7 +574,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Velocity",
+    "name": "Velocity",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -588,7 +588,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Water separation efficiency",
+    "name": "Water separation efficiency",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -601,7 +601,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Water separation efficiency",
+    "name": "Water separation efficiency",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -614,7 +614,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "K-value",
+    "name": "K-value",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -628,7 +628,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "K-value",
+    "name": "K-value",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -642,7 +642,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Gas Carry-under, volumetric",
+    "name": "Gas Carry-under, volumetric",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
@@ -655,7 +655,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Gas Carry-under, volumetric",
+    "name": "Gas Carry-under, volumetric",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
@@ -668,7 +668,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Liquid Carry-over, volumetric",
+    "name": "Liquid Carry-over, volumetric",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
@@ -681,7 +681,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Liquid Carry-over, volumetric",
+    "name": "Liquid Carry-over, volumetric",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
@@ -694,7 +694,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Liquid Mass Fraction",
+    "name": "Liquid Mass Fraction",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
@@ -707,7 +707,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Gas separation efficiency",
+    "name": "Gas separation efficiency",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -720,7 +720,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Liquid Mass Fraction",
+    "name": "Liquid Mass Fraction",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
@@ -733,7 +733,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Response time",
+    "name": "Response time",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
@@ -747,7 +747,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Duration",
+    "name": "Duration",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -762,7 +762,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Duration",
+    "name": "Duration",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -777,7 +777,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Duration",
+    "name": "Duration",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
@@ -792,7 +792,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Duration",
+    "name": "Duration",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
@@ -807,7 +807,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Crossection, Inner Diameter",
+    "name": "Crossection, Inner Diameter",
     "attributeQualifier": "Operating",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -821,7 +821,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Crossection, Inner Diameter",
+    "name": "Crossection, Inner Diameter",
     "attributeQualifier": "Operating",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -835,7 +835,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Crossection, Area",
+    "name": "Crossection, Area",
     "attributeQualifier": "Operating",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -849,7 +849,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Crossection, Area",
+    "name": "Crossection, Area",
     "attributeQualifier": "Operating",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -863,7 +863,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Response time",
+    "name": "Response time",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
@@ -877,7 +877,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Gas separation efficiency",
+    "name": "Gas separation efficiency",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -890,7 +890,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Dead pocket prevention",
+    "name": "Dead pocket prevention",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
@@ -904,7 +904,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Dead pocket prevention",
+    "name": "Dead pocket prevention",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
@@ -918,7 +918,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Velocity",
+    "name": "Velocity",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
@@ -932,7 +932,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Velocity",
+    "name": "Velocity",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Minimum",
@@ -946,7 +946,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Velocity",
+    "name": "Velocity",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Maximum",
@@ -960,7 +960,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Velocity",
+    "name": "Velocity",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Minimum",
@@ -974,7 +974,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Velocity",
+    "name": "Velocity",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
@@ -988,7 +988,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Velocity",
+    "name": "Velocity",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Maximum",
@@ -1002,7 +1002,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Redundancy",
+    "name": "Redundancy",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
@@ -1018,7 +1018,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Redundancy",
+    "name": "Redundancy",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
@@ -1034,7 +1034,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Design Margin",
+    "name": "Design Margin",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
@@ -1047,7 +1047,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Design Margin",
+    "name": "Design Margin",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
@@ -1060,7 +1060,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Design Case",
+    "name": "Design Case",
     "attributeQualifier": "Operating",
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
@@ -1073,7 +1073,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Design Case",
+    "name": "Design Case",
     "attributeQualifier": "Operating",
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
@@ -1086,7 +1086,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Fail action",
+    "name": "Fail action",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
@@ -1102,7 +1102,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Fail action",
+    "name": "Fail action",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
@@ -1118,7 +1118,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Slope, inclining",
+    "name": "Slope, inclining",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -1132,7 +1132,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Slope, inclining",
+    "name": "Slope, inclining",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -1146,7 +1146,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Slope, declining",
+    "name": "Slope, declining",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -1160,7 +1160,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Slope, declining",
+    "name": "Slope, declining",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -1174,7 +1174,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Substance content",
+    "name": "Substance content",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
@@ -1188,7 +1188,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Flowrate, volumetric",
+    "name": "Flowrate, volumetric",
     "attributeQualifier": "Capacity",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -1204,7 +1204,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Oil in water",
+    "name": "Oil in water",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
@@ -1218,7 +1218,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Oil in water",
+    "name": "Oil in water",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
@@ -1232,7 +1232,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Head, downstream",
+    "name": "Head, downstream",
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
@@ -1245,7 +1245,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Head, downstream",
+    "name": "Head, downstream",
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
@@ -1258,7 +1258,7 @@
     "discipline": "Process"
   },
   {
-    "entity": "Relative North",
+    "name": "Relative North",
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -1273,7 +1273,7 @@
     "tags": [ "Position", "Admin" ]
   },
   {
-    "entity": "Relative East",
+    "name": "Relative East",
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -1288,7 +1288,7 @@
     "tags": [ "Position", "Admin" ]
   },
   {
-    "entity": "Relative Elevation",
+    "name": "Relative Elevation",
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -1303,7 +1303,7 @@
     "tags": [ "Position", "Admin" ]
   },
   {
-    "entity": "Absolute Elevation",
+    "name": "Absolute Elevation",
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -1318,7 +1318,7 @@
     "tags": [ "Position" ]
   },
   {
-    "entity": "Size box Width",
+    "name": "Size box Width",
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -1333,7 +1333,7 @@
     "tags": [ "Size", "Admin" ]
   },
   {
-    "entity": "Size box Height",
+    "name": "Size box Height",
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -1348,7 +1348,7 @@
     "tags": [ "Size", "Admin" ]
   },
   {
-    "entity": "Size box Length",
+    "name": "Size box Length",
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -1363,7 +1363,7 @@
     "tags": [ "Size", "Admin" ]
   },
   {
-    "entity": "Depth BSL (subsea only)",
+    "name": "Depth BSL (subsea only)",
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -1377,7 +1377,7 @@
     "tags": [ "Position" ]
   },
   {
-    "entity": "UTM Zone",
+    "name": "UTM Zone",
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -1391,7 +1391,7 @@
     "tags": [ "Position" ]
   },
   {
-    "entity": "UTM North",
+    "name": "UTM North",
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -1405,7 +1405,7 @@
     "tags": [ "Position" ]
   },
   {
-    "entity": "UTM East",
+    "name": "UTM East",
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -1419,7 +1419,7 @@
     "tags": [ "Position" ]
   },
   {
-    "entity": "Voltage",
+    "name": "Voltage",
     "attributeQualifier": "Rating", // Rating
     "attributeSource": "Design", // Design
     "attributeCondition": "Maximum", // Maximum
@@ -1433,7 +1433,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Voltage",
+    "name": "Voltage",
     "attributeQualifier": "Rating", // Rating
     "attributeSource": "Design", // Design
     "attributeCondition": "Nominal", // Nominal
@@ -1447,7 +1447,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Power capacity, appearant",
+    "name": "Power capacity, appearant",
     "attributeQualifier": "Rating", // Rating
     "attributeSource": "Design", // Design
     "attributeCondition": "Nominal", // Nominal
@@ -1461,7 +1461,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Power capacity",
+    "name": "Power capacity",
     "attributeQualifier": "Rating", // Rating
     "attributeSource": "Design", // Design
     "attributeCondition": "Nominal", // Nominal
@@ -1475,7 +1475,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Power capacity, appearant",
+    "name": "Power capacity, appearant",
     "attributeQualifier": "Rating", // Rating
     "attributeSource": "Design", // Design
     "attributeCondition": "Maximum", // Maximum
@@ -1489,7 +1489,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Power factor",
+    "name": "Power factor",
     "attributeQualifier": "Rating", // Rating
     "attributeSource": "Design", // Design
     "attributeCondition": "Nominal", // Nominal
@@ -1500,7 +1500,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Current capacity",
+    "name": "Current capacity",
     "attributeQualifier": "Rating", // Rating
     "attributeSource": "Design", // Design
     "attributeCondition": "Nominal", // Nominal
@@ -1514,7 +1514,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Current capacity",
+    "name": "Current capacity",
     "attributeQualifier": "Rating", // Rating
     "attributeSource": "Design", // Design
     "attributeCondition": "Maximum", // Maximum
@@ -1528,7 +1528,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Resistance",
+    "name": "Resistance",
     "attributeQualifier": "Rating", // Rating
     "attributeSource": "Design", // Design
     "attributeCondition": "Nominal", // Nominal
@@ -1542,7 +1542,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Winding taps",
+    "name": "Winding taps",
     "attributeQualifier": "Rating", // Rating
     "attributeSource": "Design", // Design
     "attributeCondition": "NotSet", // NotSet
@@ -1553,7 +1553,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Ratios",
+    "name": "Ratios",
     "attributeQualifier": "Rating", // Rating
     "attributeSource": "Design", // Design
     "attributeCondition": "NotSet", // NotSet
@@ -1566,7 +1566,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Power capacity, real",
+    "name": "Power capacity, real",
     "attributeQualifier": "Rating", // Rating
     "attributeSource": "Design", // Design
     "attributeCondition": "Nominal", // Nominal
@@ -1581,7 +1581,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Switching device",
+    "name": "Switching device",
     "attributeQualifier": "NotSet", // NotSet
     "attributeSource": "Design", // Design
     "attributeCondition": "NotSet", // NotSet
@@ -1596,7 +1596,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Transformer type, pulses",
+    "name": "Transformer type, pulses",
     "attributeQualifier": "Rating", // Rating
     "attributeSource": "Design", // Design
     "attributeCondition": "NotSet", // NotSet
@@ -1613,7 +1613,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Frequency",
+    "name": "Frequency",
     "attributeQualifier": "Required", // Required
     "attributeSource": "Design", // Design
     "attributeCondition": "Minimum", // Minimum
@@ -1626,7 +1626,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Frequency",
+    "name": "Frequency",
     "attributeQualifier": "Required", // Required
     "attributeSource": "Design", // Design
     "attributeCondition": "Maximum", // Maximum
@@ -1639,7 +1639,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Frequency",
+    "name": "Frequency",
     "attributeQualifier": "Rating", // Rating
     "attributeSource": "Design", // Design
     "attributeCondition": "Nominal", // Nominal
@@ -1652,7 +1652,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Battery Voltage",
+    "name": "Battery Voltage",
     "attributeQualifier": "Rating", // Rating
     "attributeSource": "Design", // Design
     "attributeCondition": "Nominal", // Nominal
@@ -1666,7 +1666,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Phases generated",
+    "name": "Phases generated",
     "attributeQualifier": "Required", // Required
     "attributeSource": "Design", // Design
     "attributeCondition": "NotSet", // NotSet
@@ -1681,7 +1681,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Backup capacity",
+    "name": "Backup capacity",
     "attributeQualifier": "Rating", // Rating
     "attributeSource": "Design", // Design
     "attributeCondition": "Minimum", // Minimum
@@ -1695,7 +1695,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Chemistry",
+    "name": "Chemistry",
     "attributeQualifier": "Rating", // Rating
     "attributeSource": "Design", // Design
     "attributeCondition": "NotSet", // NotSet
@@ -1711,7 +1711,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Capacity",
+    "name": "Capacity",
     "attributeQualifier": "Rating", // Rating
     "attributeSource": "Design", // Design
     "attributeCondition": "Minimum", // Minimum
@@ -1725,7 +1725,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Cells",
+    "name": "Cells",
     "attributeQualifier": "NotSet", // NotSet
     "attributeSource": "Design", // Design
     "attributeCondition": "NotSet", // NotSet
@@ -1736,7 +1736,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Cross section",
+    "name": "Cross section",
     "attributeQualifier": "Required", // Required
     "attributeSource": "Design", // Design
     "attributeCondition": "Nominal", // Nominal
@@ -1749,7 +1749,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Conductors/wires",
+    "name": "Conductors/wires",
     "attributeQualifier": "Required", // Required
     "attributeSource": "Design", // Design
     "attributeCondition": "Minimum", // Minimum
@@ -1760,7 +1760,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "IP rating",
+    "name": "IP rating",
     "attributeQualifier": "NotSet", // NotSet
     "attributeSource": "NotSet", // NotSet
     "attributeCondition": "NotSet", // NotSet
@@ -1771,7 +1771,7 @@
     "discipline": "None"
   },
   {
-    "entity": "Coating system",
+    "name": "Coating system",
     "attributeQualifier": "NotSet", // NotSet
     "attributeSource": "NotSet", // NotSet
     "attributeCondition": "NotSet", // NotSet
@@ -1782,7 +1782,7 @@
     "discipline": "None"
   },
   {
-    "entity": "Colour code",
+    "name": "Colour code",
     "attributeQualifier": "NotSet", // NotSet
     "attributeSource": "NotSet", // NotSet
     "attributeCondition": "NotSet", // NotSet
@@ -1793,7 +1793,7 @@
     "discipline": "None"
   },
   {
-    "entity": "Ex/ATEX rating",
+    "name": "Ex/ATEX rating",
     "attributeQualifier": "NotSet", // NotSet
     "attributeSource": "NotSet", // NotSet
     "attributeCondition": "NotSet", // NotSet
@@ -1804,7 +1804,7 @@
     "discipline": "None"
   },
   {
-    "entity": "Noise level",
+    "name": "Noise level",
     "attributeQualifier": "NotSet", // NotSet
     "attributeSource": "NotSet", // NotSet
     "attributeCondition": "NotSet", // NotSet
@@ -1817,7 +1817,7 @@
     "discipline": "None"
   },
   {
-    "entity": "Pressure rating",
+    "name": "Pressure rating",
     "attributeQualifier": "NotSet", // NotSet
     "attributeSource": "NotSet", // NotSet
     "attributeCondition": "NotSet", // NotSet
@@ -1828,7 +1828,7 @@
     "discipline": "None"
   },
   {
-    "entity": "Cooling code",
+    "name": "Cooling code",
     "attributeQualifier": "NotSet", // NotSet
     "attributeSource": "NotSet", // NotSet
     "attributeCondition": "NotSet", // NotSet
@@ -1845,7 +1845,7 @@
     "discipline": "None"
   },
   {
-    "entity": "Design code",
+    "name": "Design code",
     "attributeQualifier": "NotSet", // NotSet
     "attributeSource": "NotSet", // NotSet
     "attributeCondition": "NotSet", // NotSet
@@ -1856,7 +1856,7 @@
     "discipline": "None"
   },
   {
-    "entity": "Temperature class",
+    "name": "Temperature class",
     "attributeQualifier": "NotSet", // NotSet
     "attributeSource": "NotSet", // NotSet
     "attributeCondition": "NotSet", // NotSet
@@ -1867,7 +1867,7 @@
     "discipline": "None"
   },
   {
-    "entity": "Requirements standard",
+    "name": "Requirements standard",
     "attributeQualifier": "NotSet", // NotSet
     "attributeSource": "NotSet", // NotSet
     "attributeCondition": "NotSet", // NotSet
@@ -1897,7 +1897,7 @@
     "discipline": "None"
   },
   {
-    "entity": "BDM configuration",
+    "name": "BDM configuration",
     "attributeQualifier": "NotSet",
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
@@ -1913,7 +1913,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Busbar current",
+    "name": "Busbar current",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Maximum",
@@ -1927,7 +1927,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Busbar current",
+    "name": "Busbar current",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -1941,7 +1941,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Cooling Method",
+    "name": "Cooling Method",
     "attributeQualifier": "NotSet",
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
@@ -1962,7 +1962,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Current",
+    "name": "Current",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -1976,7 +1976,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Drive mode",
+    "name": "Drive mode",
     "attributeQualifier": "NotSet",
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
@@ -1991,7 +1991,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Fault current",
+    "name": "Fault current",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -2005,7 +2005,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Fault duration",
+    "name": "Fault duration",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -2018,7 +2018,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Impedance (Uz)",
+    "name": "Impedance (Uz)",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -2031,7 +2031,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Operating Speed",
+    "name": "Operating Speed",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Maximum",
@@ -2044,7 +2044,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Operating Speed",
+    "name": "Operating Speed",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Minimum",
@@ -2057,7 +2057,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Overcurrent capability",
+    "name": "Overcurrent capability",
     "attributeQualifier": "Required",
     "attributeSource": "Design",
     "attributeCondition": "Minimum",
@@ -2070,7 +2070,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Primary Voltage",
+    "name": "Primary Voltage",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -2084,7 +2084,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Rated Voltage",
+    "name": "Rated Voltage",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -2098,7 +2098,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Resistor capacity",
+    "name": "Resistor capacity",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -2112,7 +2112,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Secondary Voltage",
+    "name": "Secondary Voltage",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -2126,7 +2126,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Shaft Power",
+    "name": "Shaft Power",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -2141,7 +2141,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Short-time withstand current",
+    "name": "Short-time withstand current",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -2155,7 +2155,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "System Frequency",
+    "name": "System Frequency",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -2168,7 +2168,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "System Voltage",
+    "name": "System Voltage",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -2182,7 +2182,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "System Voltage",
+    "name": "System Voltage",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Maximum",
@@ -2196,7 +2196,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Type of Switchgear",
+    "name": "Type of Switchgear",
     "attributeQualifier": "NotSet",
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
@@ -2215,7 +2215,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "VA Rating",
+    "name": "VA Rating",
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -2229,7 +2229,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Backup capacity",
+    "name": "Backup capacity",
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
     "attributeCondition": "Minimum",
@@ -2243,7 +2243,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Battery Voltage",
+    "name": "Battery Voltage",
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
@@ -2257,7 +2257,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Busbar current",
+    "name": "Busbar current",
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
@@ -2271,7 +2271,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Capacity",
+    "name": "Capacity",
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
     "attributeCondition": "Minimum",
@@ -2285,7 +2285,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Current capacity",
+    "name": "Current capacity",
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
@@ -2299,7 +2299,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Drive mode",
+    "name": "Drive mode",
     "attributeQualifier": "NotSet",
     "attributeSource": "Capacity",
     "attributeCondition": "NotSet",
@@ -2314,7 +2314,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Frequency",
+    "name": "Frequency",
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
@@ -2327,7 +2327,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Power capacity",
+    "name": "Power capacity",
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
@@ -2341,7 +2341,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Power capacity, appearant",
+    "name": "Power capacity, appearant",
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
@@ -2355,7 +2355,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Power capacity, real",
+    "name": "Power capacity, real",
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
@@ -2370,7 +2370,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Power factor",
+    "name": "Power factor",
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
@@ -2381,7 +2381,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Resistor capacity",
+    "name": "Resistor capacity",
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
@@ -2395,7 +2395,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Shaft Power",
+    "name": "Shaft Power",
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
@@ -2410,7 +2410,7 @@
     "discipline": "Electrical"
   },
   {
-    "entity": "Voltage",
+    "name": "Voltage",
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",

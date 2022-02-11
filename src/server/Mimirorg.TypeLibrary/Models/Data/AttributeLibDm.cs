@@ -11,28 +11,23 @@ namespace Mimirorg.TypeLibrary.Models.Data
         public string ParentId { get; set; }
         public AttributeLibDm Parent { get; set; }
         public ICollection<AttributeLibDm> Children { get; set; }
-        public string Entity { get; set; }
+        public string Name { get; set; }
         public string Iri { get; set; }
         public Aspect Aspect { get; set; }
+        public Discipline Discipline { get; set; }
+        public virtual HashSet<string> Tags { get; set; }
+        public Select Select { get; set; }
+
+        [JsonIgnore]
+        public string SelectValuesString { get; set; }
 
         public string AttributeQualifier { get; set; }
         public string AttributeSource { get; set; }
         public string AttributeCondition { get; set; }
         public string AttributeFormat { get; set; }
 
-        public virtual HashSet<string> Tags { get; set; }
-
         [NotMapped]
         public ICollection<string> SelectValues => string.IsNullOrEmpty(SelectValuesString) ? null : SelectValuesString.ConvertToArray();
-
-        [JsonIgnore]
-        public string SelectValuesString { get; set; }
-
-        public Select Select { get; set; }
-
-        public Discipline Discipline { get; set; }
-
-        public string Description => CreateDescription();
 
         [JsonIgnore]
         public virtual ICollection<TerminalLibDm> Terminals { get; set; }
@@ -52,6 +47,8 @@ namespace Mimirorg.TypeLibrary.Models.Data
         [JsonIgnore]
         public ICollection<UnitLibDm> Units { get; set; }
 
+        public string Description => CreateDescription();
+
         private string CreateDescription()
         {
             var text = string.Empty;
@@ -59,7 +56,7 @@ namespace Mimirorg.TypeLibrary.Models.Data
             if (!string.IsNullOrWhiteSpace(AttributeSource) && AttributeSource != "NotSet")
                 text += AttributeSource + " ";
 
-            text += Entity;
+            text += Name;
 
             var subText = string.Empty;
 

@@ -17,13 +17,13 @@ namespace TypeLibrary.Data.Configurations
             builder.ToTable("Attribute");
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
             builder.Property(p => p.ParentId).HasColumnName("ParentId");
-            builder.Property(p => p.Entity).HasColumnName("Entity").IsRequired();
+            builder.Property(p => p.Name).HasColumnName("Name").IsRequired();
+            builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false);
             builder.Property(p => p.Aspect).HasColumnName("Aspect").IsRequired().HasConversion<string>();
             builder.Property(p => p.SelectValuesString).HasColumnName("SelectValuesString").IsRequired(false);
             builder.Property(p => p.Select).HasColumnName("Select").IsRequired().HasConversion<string>();
             builder.Property(p => p.Discipline).HasColumnName("Discipline").IsRequired().HasConversion<string>();
             builder.Property(p => p.Tags).HasColumnName("Tags").IsRequired(false).HasConversion(stringConverter, stringComparer);
-            builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false);
             builder.Property(p => p.AttributeQualifier).HasColumnName("AttributeQualifier");
             builder.Property(p => p.AttributeSource).HasColumnName("AttributeSource");
             builder.Property(p => p.AttributeCondition).HasColumnName("AttributeCondition");

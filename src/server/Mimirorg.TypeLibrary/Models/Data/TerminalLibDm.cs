@@ -6,9 +6,9 @@
         public string ParentId { get; set; }
         public TerminalLibDm Parent { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
         public string Iri { get; set; }
         public string Color { get; set; }
+        public string Description { get; set; }
         
         public ICollection<TerminalLibDm> Children { get; set; }
         public ICollection<AttributeLibDm> Attributes { get; set; }

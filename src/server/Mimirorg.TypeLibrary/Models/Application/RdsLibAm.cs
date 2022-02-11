@@ -5,10 +5,11 @@ namespace Mimirorg.TypeLibrary.Models.Application
 {
     public class RdsLibAm
     {
-        public string Name { get; set; }
-        public string Code { get; set; }
         public string RdsCategoryId { get; set; }
+        public string Name { get; set; }
         public string Iri { get; set; }
+        public string Code { get; set; }
+        
         public Aspect Aspect { get; set; }
 
         [JsonIgnore]

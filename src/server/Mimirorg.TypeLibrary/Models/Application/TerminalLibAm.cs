@@ -6,19 +6,20 @@ namespace Mimirorg.TypeLibrary.Models.Application
 {
     public class TerminalLibAm
     {
+        public string ParentId { get; set; }
+
         [Required]
         public string Name { get; set; }
-
-        public string Description { get; set; }
         public string Iri { get; set; }
-        public string ParentId { get; set; }
         public string Color { get; set; }
+        public string Description { get; set; }
+        
         public ICollection<string> AttributeIdList { get; set; }
 
         [JsonIgnore]
-        public string Key => $"{Name}";
+        public ICollection<AttributeLibDm> ConvertToObject => AttributeIdList?.Select(x => new AttributeLibDm { Id = x }).ToList();
 
         [JsonIgnore]
-        public ICollection<AttributeLibDm> ConvertToObject => AttributeIdList?.Select(x => new AttributeLibDm { Id = x }).ToList();
+        public string Key => $"{Name}";
     }
 }
