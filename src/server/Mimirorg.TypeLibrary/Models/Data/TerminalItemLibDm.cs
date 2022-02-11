@@ -1,9 +1,9 @@
 ﻿using Mimirorg.Common.Enums;
 using Newtonsoft.Json;
 
-namespace Mimirorg.TypeLibrary.Models.Client
+namespace Mimirorg.TypeLibrary.Models.Data
 {
-    public class TerminalLibCm
+    public class TerminalItemLibDm
     {
         public string TerminalId { get; set; }
         public int Number { get; set; }

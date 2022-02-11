@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Models.Client;
+using Mimirorg.TypeLibrary.Models.Data;
 using Newtonsoft.Json;
 
 namespace Mimirorg.TypeLibrary.Models.Application
@@ -33,7 +34,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public string PurposeId { get; set; }
 
-        public ICollection<TerminalLibCm> Terminals { get; set; }
+        public ICollection<TerminalItemLibDm> Terminals { get; set; }
         public string BlobId { get; set; }
         public ICollection<string> AttributeIdList { get; set; }
         public string AttributeAspectId { get; set; }

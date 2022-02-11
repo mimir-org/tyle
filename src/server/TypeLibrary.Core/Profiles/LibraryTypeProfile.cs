@@ -162,7 +162,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
 
-            CreateMap<TerminalNodeLibDm, TerminalLibCm>()
+            CreateMap<TerminalNodeLibDm, TerminalItemLibDm>()
                 .ForMember(dest => dest.TerminalId, opt => opt.MapFrom(src => src.TerminalId))
                 .ForMember(dest => dest.Number, opt => opt.MapFrom(src => src.Number))
                 .ForMember(dest => dest.ConnectorDirection, opt => opt.MapFrom(src => src.ConnectorDirection));
@@ -224,12 +224,12 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
         }
 
-        private static IEnumerable<TerminalNodeLibDm> CreateTerminals(IReadOnlyCollection<TerminalLibCm> terminals, string nodeId)
+        private static IEnumerable<TerminalNodeLibDm> CreateTerminals(IReadOnlyCollection<TerminalItemLibDm> terminals, string nodeId)
         {
             if (terminals == null || !terminals.Any())
                 yield break;
 
-            var sortedTerminalTypes = new List<TerminalLibCm>();
+            var sortedTerminalTypes = new List<TerminalItemLibDm>();
 
             foreach (var item in terminals)
             {

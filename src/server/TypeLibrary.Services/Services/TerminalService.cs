@@ -30,25 +30,10 @@ namespace TypeLibrary.Services.Services
         public IEnumerable<TerminalLibDm> GetTerminals()
         {
             return _terminalTypeRepository.GetAll()
-                //.Include(x => x.TerminalCategory)
-                .Include(x => x.Attributes)
-                .ToList();
-        }
-
-
-        //TODO: Returner en
-        /// <summary>
-        /// Get all terminals
-        /// </summary>
-        /// <returns></returns>
-        public List<TerminalLibDm> GetTerminalsByCategory()
-        {
-            var result = _terminalTypeRepository.GetAll()
-                .Include(x => x.Attributes)
+                .Where(x => string.IsNullOrWhiteSpace(x.ParentId))
                 .Include(x => x.Children)
+                .Include(x => x.Attributes)
                 .ToList();
-            
-            return result;
         }
 
         /// <summary>
