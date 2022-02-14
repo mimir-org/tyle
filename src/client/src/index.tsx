@@ -34,14 +34,16 @@ msalInstance.addEventCallback((event: EventMessage) => {
   }
 });
 
-const appInsights = new ApplicationInsights({
-  config: {
-    connectionString: Config.APP_INSIGHTS_CONNECTION_STRING,
-  },
-});
+if (Config.APP_INSIGHTS_CONNECTION_STRING) {
+  const appInsights = new ApplicationInsights({
+    config: {
+      connectionString: Config.APP_INSIGHTS_CONNECTION_STRING,
+    },
+  });
 
-appInsights.loadAppInsights();
-appInsights.trackPageView();
+  appInsights.loadAppInsights();
+  appInsights.trackPageView();
+}
 
 ReactDOM.render(
   <Provider store={red.store}>
