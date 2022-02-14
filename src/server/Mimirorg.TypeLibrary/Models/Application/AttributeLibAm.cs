@@ -34,12 +34,9 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         public string ParentId { get; set; }
         public ICollection<string> SelectValues { get; set; }
-        public ICollection<string> UnitNames { get; set; }
+        public ICollection<string> UnitIdList { get; set; }
         public HashSet<string> Tags { get; set; }
-
-        [JsonIgnore]
-        public ICollection<UnitLibAm> ConvertToObject => UnitNames?.Select(x => new UnitLibAm{ Name = x }).ToList();
-
+        
         [JsonIgnore]
         public string Id => ($"{Name}-{Aspect}-{AttributeQualifier}-{AttributeSource}-{AttributeCondition}").CreateMd5();
     }

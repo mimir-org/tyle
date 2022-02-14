@@ -126,7 +126,7 @@ namespace TypeLibrary.Services.Services
                 await _libraryTypeService.CreateSimpleTypes(simple);
 
                 var existingLibraryTypes = _libraryTypeService.GetAllLibraryTypes().ToList();
-                transports = transports.Where(x => existingLibraryTypes.All(y => y.Key != x.Key)).ToList();
+                transports = transports.Where(x => existingLibraryTypes.All(y => y.Id != x.Id)).ToList();
                 _libraryTypeService.ClearAllChangeTracker();
                 await _libraryTypeService.CreateLibraryTypes(transports);
             }

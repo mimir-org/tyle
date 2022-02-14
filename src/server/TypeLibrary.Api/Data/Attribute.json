@@ -7,8 +7,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "mm"
+    "unitIdList": [
+      "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -23,9 +23,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "1:n",
-      "%"
+    "unitIdList": [
+      "374D20AC97EAAC6274A2D694FD8D24A8",
+      "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -40,9 +40,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "1:n",
-      "%"
+    "unitIdList": [
+      "374D20AC97EAAC6274A2D694FD8D24A8",
+      "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -57,9 +57,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Ω",
-      "Ohm"
+    "unitIdList": [
+      "68FC7BE58329BBBEC78C6631C7F37A88",
+      "C2969D285AED65E9133A39390B28EB7D"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -74,8 +74,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -90,8 +90,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -106,9 +106,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "1:n",
-      "%"
+    "unitIdList": [
+      "374D20AC97EAAC6274A2D694FD8D24A8",
+      "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -123,11 +123,11 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Sm3/h",
-      "Sm3/d",
-      "bbl/d",
-      "SCF/hr"
+    "unitIdList": [
+      "5F48B074C9D55FDBB8AE298038D55F32",
+      "63B2EE4AE1A8B5CE2E839CCBCA78604B",
+      "8E146124030887861D102236CFA3B83F",
+      "9621949CAD3457E87B1BA4483DB8B8F9"
     ],
     "attributeQualifier": "Capacity",
     "attributeSource": "Design",
@@ -142,9 +142,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kVA",
-      "MVA"
+    "unitIdList": [
+      "2766B1116773996CE16DD0E969010E80",
+      "3F201832F7AFA46EC99375292F1B92E6"
     ],
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
@@ -159,7 +159,7 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -176,7 +176,7 @@
       "IGBT",
       "Thyristor"
     ],
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "NotSet",
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
@@ -190,8 +190,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "rpm"
+    "unitIdList": [
+      "54280642CB5A64AF6D5B341953B5D3ED"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -206,8 +206,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "<specific>"
+    "unitIdList": [
+      "44EF56D4D7A7E0D6710B1ED4B65AE05E"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Required",
@@ -222,9 +222,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kV",
-      "V"
+    "unitIdList": [
+      "894E489682900A936362F123633FF7BC",
+      "E84F64395609F2970B9161FBF0B943EE"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -243,7 +243,7 @@
       "Lead",
       "NiH"
     ],
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
@@ -257,9 +257,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "ppb",
-      "ppm"
+    "unitIdList": [
+      "21500052C7BE4C74186303CD3CCE8E07",
+      "50F21B28B1D8FB3433BBFCB43E2B1315"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -274,9 +274,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kA",
-      "A"
+    "unitIdList": [
+      "60458C323113E3C45FAABD08DBFBC55D",
+      "6E26614D307D41DE875987A143419AB9"
     ],
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
@@ -294,9 +294,9 @@
     ],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "m",
-      "mm"
+    "unitIdList": [
+      "0E58052344DCBE3692A3B088CD36A002",
+      "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
@@ -311,8 +311,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "degC"
+    "unitIdList": [
+      "C8D3295246390474742CA763B56D4DA8"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -327,8 +327,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "db"
+    "unitIdList": [
+      "0B997D4BBEF35B3BA298741C49EF70C7"
     ],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
@@ -343,9 +343,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%",
-      "mm"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936",
+      "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design, High",
@@ -360,9 +360,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%",
-      "mm"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936",
+      "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required, Low",
@@ -377,9 +377,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "m/s",
-      "ft/sec"
+    "unitIdList": [
+      "7874BEE6B2FCD271925CE499E7B8497F",
+      "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -394,9 +394,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kV",
-      "V"
+    "unitIdList": [
+      "894E489682900A936362F123633FF7BC",
+      "E84F64395609F2970B9161FBF0B943EE"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -411,7 +411,7 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -425,9 +425,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "m/s",
-      "ft/sec"
+    "unitIdList": [
+      "7874BEE6B2FCD271925CE499E7B8497F",
+      "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -442,9 +442,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%",
-      "mm"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936",
+      "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -459,8 +459,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "mm2"
+    "unitIdList": [
+      "7B88D4F4D073C691F680FF292FC0EB4A"
     ],
     "attributeQualifier": "Required",
     "attributeSource": "Design",
@@ -475,8 +475,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "rpm"
+    "unitIdList": [
+      "54280642CB5A64AF6D5B341953B5D3ED"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -491,10 +491,10 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "MW",
-      "W",
-      "kW"
+    "unitIdList": [
+      "62CF948E25D6F57E81EE422239ED1A5F",
+      "B2B68149BFCC3F8193582BFB4EFFCF88",
+      "DD6E835F0610AE7BB54B3DBC88E792FD"
     ],
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
@@ -509,9 +509,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "ppb",
-      "ppm"
+    "unitIdList": [
+      "21500052C7BE4C74186303CD3CCE8E07",
+      "50F21B28B1D8FB3433BBFCB43E2B1315"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -526,8 +526,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "liter/MSm3"
+    "unitIdList": [
+      "399FBC77419CAA95E9AB45C3889D5488"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -542,8 +542,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -558,9 +558,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "N/A",
-      "No dead pockets"
+    "unitIdList": [
+      "0B3316E84CFF33D3AB105EC63946509E",
+      "A120D3B73207296B650737659939EEAD"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -577,8 +577,8 @@
     ],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "m"
+    "unitIdList": [
+      "0E58052344DCBE3692A3B088CD36A002"
     ],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
@@ -593,9 +593,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kA",
-      "A"
+    "unitIdList": [
+      "60458C323113E3C45FAABD08DBFBC55D",
+      "6E26614D307D41DE875987A143419AB9"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -610,8 +610,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -629,7 +629,7 @@
       "1",
       "3"
     ],
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "Required",
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
@@ -643,10 +643,10 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Kelvin",
-      "degF",
-      "degC"
+    "unitIdList": [
+      "31EDDD028D54698267B98EB1727EED53",
+      "C87CC4F2DF711783B6C443FF48F4E386",
+      "C8D3295246390474742CA763B56D4DA8"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design, Low",
@@ -661,9 +661,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "m/s",
-      "ft/sec"
+    "unitIdList": [
+      "7874BEE6B2FCD271925CE499E7B8497F",
+      "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -678,8 +678,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "weight %"
+    "unitIdList": [
+      "9D54C708760C4FF1BCC472BC27FA7B52"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -697,9 +697,9 @@
     ],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "m",
-      "mm"
+    "unitIdList": [
+      "0E58052344DCBE3692A3B088CD36A002",
+      "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
@@ -714,10 +714,10 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "MW",
-      "W",
-      "kW"
+    "unitIdList": [
+      "62CF948E25D6F57E81EE422239ED1A5F",
+      "B2B68149BFCC3F8193582BFB4EFFCF88",
+      "DD6E835F0610AE7BB54B3DBC88E792FD"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -732,9 +732,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "mm2",
-      "sq.inch"
+    "unitIdList": [
+      "7B88D4F4D073C691F680FF292FC0EB4A",
+      "E2BDF073C1B5C8A6020110A597695C33"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Required",
@@ -749,8 +749,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -765,9 +765,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kA",
-      "A"
+    "unitIdList": [
+      "60458C323113E3C45FAABD08DBFBC55D",
+      "6E26614D307D41DE875987A143419AB9"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -782,8 +782,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "[list]"
+    "unitIdList": [
+      "32957978C0E4FB6008812BAAFFD56EEC"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -798,10 +798,10 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Kelvin",
-      "degF",
-      "degC"
+    "unitIdList": [
+      "31EDDD028D54698267B98EB1727EED53",
+      "C87CC4F2DF711783B6C443FF48F4E386",
+      "C8D3295246390474742CA763B56D4DA8"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design, Low",
@@ -816,12 +816,12 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "psig",
-      "psi",
-      "barg",
-      "bara",
-      "Pascal"
+    "unitIdList": [
+      "2BCEC2671165D195258ACDA5135109AB",
+      "36C8C2D1F2C92C516F853B0E4BBA0530",
+      "5100236CC6A5BAA4E805D7EB6FB55544",
+      "E651B3A7A2D0089181DC2E642506414A",
+      "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -836,9 +836,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "m/s",
-      "ft/sec"
+    "unitIdList": [
+      "7874BEE6B2FCD271925CE499E7B8497F",
+      "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -853,8 +853,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Hz"
+    "unitIdList": [
+      "FCC9BF9B6381052C038DD5971355DD77"
     ],
     "attributeQualifier": "Required",
     "attributeSource": "Design",
@@ -869,10 +869,10 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "min",
-      "S",
-      "mS"
+    "unitIdList": [
+      "5185F2E23625D490056168844FFF0CA1",
+      "7FD299F1FE73E1C298EF66D65AE6C628",
+      "85755DF18D0A604CADDA9C47EC8C6243"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -887,9 +887,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kV",
-      "V"
+    "unitIdList": [
+      "894E489682900A936362F123633FF7BC",
+      "E84F64395609F2970B9161FBF0B943EE"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -904,11 +904,11 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Sm3/h",
-      "Sm3/d",
-      "bbl/d",
-      "SCF/hr"
+    "unitIdList": [
+      "5F48B074C9D55FDBB8AE298038D55F32",
+      "63B2EE4AE1A8B5CE2E839CCBCA78604B",
+      "8E146124030887861D102236CFA3B83F",
+      "9621949CAD3457E87B1BA4483DB8B8F9"
     ],
     "attributeQualifier": "Capacity",
     "attributeSource": "Required",
@@ -923,8 +923,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "liter/MSm3"
+    "unitIdList": [
+      "399FBC77419CAA95E9AB45C3889D5488"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -939,8 +939,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "m"
+    "unitIdList": [
+      "0E58052344DCBE3692A3B088CD36A002"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -955,11 +955,11 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Sm3/h",
-      "Sm3/d",
-      "bbl/d",
-      "SCF/hr"
+    "unitIdList": [
+      "5F48B074C9D55FDBB8AE298038D55F32",
+      "63B2EE4AE1A8B5CE2E839CCBCA78604B",
+      "8E146124030887861D102236CFA3B83F",
+      "9621949CAD3457E87B1BA4483DB8B8F9"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -974,9 +974,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kVA",
-      "MVA"
+    "unitIdList": [
+      "2766B1116773996CE16DD0E969010E80",
+      "3F201832F7AFA46EC99375292F1B92E6"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -991,9 +991,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Vah",
-      "kVAh"
+    "unitIdList": [
+      "4F76B6D7DC7A57426260347D9FB90F23",
+      "BBF17540EC576CA6AA4D9ED6CC33E8AF"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -1008,10 +1008,10 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "MW",
-      "W",
-      "kW"
+    "unitIdList": [
+      "62CF948E25D6F57E81EE422239ED1A5F",
+      "B2B68149BFCC3F8193582BFB4EFFCF88",
+      "DD6E835F0610AE7BB54B3DBC88E792FD"
     ],
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
@@ -1026,7 +1026,7 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "Required",
     "attributeSource": "Design",
     "attributeCondition": "Minimum",
@@ -1044,7 +1044,7 @@
       "CSI",
       "PWM"
     ],
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "NotSet",
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
@@ -1058,9 +1058,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kV",
-      "V"
+    "unitIdList": [
+      "894E489682900A936362F123633FF7BC",
+      "E84F64395609F2970B9161FBF0B943EE"
     ],
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
@@ -1075,11 +1075,11 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "None",
-      "2x100%",
-      "2x50%",
-      "3x50%"
+    "unitIdList": [
+      "02DAE010EE69AD90EF56A5DD28D9E883",
+      "372EAE4BE5C4DB5B3E3875202D2A91E4",
+      "AB6BC330D255851DD3E88E1B4E662A92",
+      "E4D30A0E9BBAD4158166A3B85A4DD739"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -1097,9 +1097,9 @@
     ],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "m",
-      "mm"
+    "unitIdList": [
+      "0E58052344DCBE3692A3B088CD36A002",
+      "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
@@ -1114,8 +1114,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kg/m3"
+    "unitIdList": [
+      "E3FF61F84B41214B6E0C64FBE332A3F0"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -1130,9 +1130,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "m/s",
-      "ft/sec"
+    "unitIdList": [
+      "7874BEE6B2FCD271925CE499E7B8497F",
+      "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -1147,9 +1147,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%",
-      "mm"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936",
+      "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -1164,10 +1164,10 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Kelvin",
-      "degF",
-      "degC"
+    "unitIdList": [
+      "31EDDD028D54698267B98EB1727EED53",
+      "C87CC4F2DF711783B6C443FF48F4E386",
+      "C8D3295246390474742CA763B56D4DA8"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required, High",
@@ -1182,10 +1182,10 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Kelvin",
-      "degF",
-      "degC"
+    "unitIdList": [
+      "31EDDD028D54698267B98EB1727EED53",
+      "C87CC4F2DF711783B6C443FF48F4E386",
+      "C8D3295246390474742CA763B56D4DA8"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required, Low",
@@ -1200,7 +1200,7 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -1214,8 +1214,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kg/m3"
+    "unitIdList": [
+      "E3FF61F84B41214B6E0C64FBE332A3F0"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -1230,12 +1230,12 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "psig",
-      "psi",
-      "barg",
-      "bara",
-      "Pascal"
+    "unitIdList": [
+      "2BCEC2671165D195258ACDA5135109AB",
+      "36C8C2D1F2C92C516F853B0E4BBA0530",
+      "5100236CC6A5BAA4E805D7EB6FB55544",
+      "E651B3A7A2D0089181DC2E642506414A",
+      "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -1250,9 +1250,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Vah",
-      "kVAh"
+    "unitIdList": [
+      "4F76B6D7DC7A57426260347D9FB90F23",
+      "BBF17540EC576CA6AA4D9ED6CC33E8AF"
     ],
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
@@ -1267,8 +1267,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "<specific>"
+    "unitIdList": [
+      "44EF56D4D7A7E0D6710B1ED4B65AE05E"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Required",
@@ -1283,8 +1283,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%/min"
+    "unitIdList": [
+      "74843B59B2EC60A60C0D3723EEB31C78"
     ],
     "attributeQualifier": "Required",
     "attributeSource": "Design",
@@ -1299,7 +1299,7 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -1313,8 +1313,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -1329,9 +1329,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kVA",
-      "MVA"
+    "unitIdList": [
+      "2766B1116773996CE16DD0E969010E80",
+      "3F201832F7AFA46EC99375292F1B92E6"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -1346,10 +1346,10 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "min",
-      "S",
-      "mS"
+    "unitIdList": [
+      "5185F2E23625D490056168844FFF0CA1",
+      "7FD299F1FE73E1C298EF66D65AE6C628",
+      "85755DF18D0A604CADDA9C47EC8C6243"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -1364,9 +1364,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Vah",
-      "kVAh"
+    "unitIdList": [
+      "4F76B6D7DC7A57426260347D9FB90F23",
+      "BBF17540EC576CA6AA4D9ED6CC33E8AF"
     ],
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
@@ -1381,7 +1381,7 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -1413,7 +1413,7 @@
       "IEC",
       "IEC/EN 60034-1"
     ],
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -1429,8 +1429,8 @@
     ],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "None"
+    "unitIdList": [
+      "02DAE010EE69AD90EF56A5DD28D9E883"
     ],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
@@ -1445,9 +1445,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kA",
-      "A"
+    "unitIdList": [
+      "60458C323113E3C45FAABD08DBFBC55D",
+      "6E26614D307D41DE875987A143419AB9"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -1462,9 +1462,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kA",
-      "A"
+    "unitIdList": [
+      "60458C323113E3C45FAABD08DBFBC55D",
+      "6E26614D307D41DE875987A143419AB9"
     ],
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
@@ -1479,9 +1479,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kV",
-      "V"
+    "unitIdList": [
+      "894E489682900A936362F123633FF7BC",
+      "E84F64395609F2970B9161FBF0B943EE"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -1496,8 +1496,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kg/m3"
+    "unitIdList": [
+      "E3FF61F84B41214B6E0C64FBE332A3F0"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -1512,12 +1512,12 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "psig",
-      "psi",
-      "barg",
-      "bara",
-      "Pascal"
+    "unitIdList": [
+      "2BCEC2671165D195258ACDA5135109AB",
+      "36C8C2D1F2C92C516F853B0E4BBA0530",
+      "5100236CC6A5BAA4E805D7EB6FB55544",
+      "E651B3A7A2D0089181DC2E642506414A",
+      "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -1532,7 +1532,7 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
@@ -1546,9 +1546,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "1:n",
-      "%"
+    "unitIdList": [
+      "374D20AC97EAAC6274A2D694FD8D24A8",
+      "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -1570,7 +1570,7 @@
       "Metal enclosed",
       "Arc resistant"
     ],
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "NotSet",
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
@@ -1584,9 +1584,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "m/s",
-      "ft/sec"
+    "unitIdList": [
+      "7874BEE6B2FCD271925CE499E7B8497F",
+      "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -1601,9 +1601,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "m/s",
-      "ft/sec"
+    "unitIdList": [
+      "7874BEE6B2FCD271925CE499E7B8497F",
+      "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -1618,9 +1618,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kA",
-      "A"
+    "unitIdList": [
+      "60458C323113E3C45FAABD08DBFBC55D",
+      "6E26614D307D41DE875987A143419AB9"
     ],
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
@@ -1635,9 +1635,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kA",
-      "A"
+    "unitIdList": [
+      "60458C323113E3C45FAABD08DBFBC55D",
+      "6E26614D307D41DE875987A143419AB9"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -1652,9 +1652,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kA",
-      "A"
+    "unitIdList": [
+      "60458C323113E3C45FAABD08DBFBC55D",
+      "6E26614D307D41DE875987A143419AB9"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -1674,7 +1674,7 @@
       "24",
       "36"
     ],
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
@@ -1688,8 +1688,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -1704,9 +1704,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%",
-      "mm"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936",
+      "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -1721,9 +1721,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "m/s",
-      "ft/sec"
+    "unitIdList": [
+      "7874BEE6B2FCD271925CE499E7B8497F",
+      "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -1738,9 +1738,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kV",
-      "V"
+    "unitIdList": [
+      "894E489682900A936362F123633FF7BC",
+      "E84F64395609F2970B9161FBF0B943EE"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -1755,9 +1755,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kV",
-      "V"
+    "unitIdList": [
+      "894E489682900A936362F123633FF7BC",
+      "E84F64395609F2970B9161FBF0B943EE"
     ],
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
@@ -1772,9 +1772,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kVA",
-      "MVA"
+    "unitIdList": [
+      "2766B1116773996CE16DD0E969010E80",
+      "3F201832F7AFA46EC99375292F1B92E6"
     ],
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
@@ -1796,8 +1796,8 @@
       "OFAF",
       "OFWF"
     ],
-    "unitNames": [
-      "IP"
+    "unitIdList": [
+      "175AEE65C3F87C15B0BD60A713C59F40"
     ],
     "attributeQualifier": "NotSet",
     "attributeSource": "Design",
@@ -1812,12 +1812,12 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "psig",
-      "psi",
-      "barg",
-      "bara",
-      "Pascal"
+    "unitIdList": [
+      "2BCEC2671165D195258ACDA5135109AB",
+      "36C8C2D1F2C92C516F853B0E4BBA0530",
+      "5100236CC6A5BAA4E805D7EB6FB55544",
+      "E651B3A7A2D0089181DC2E642506414A",
+      "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -1832,12 +1832,12 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "psig",
-      "psi",
-      "barg",
-      "bara",
-      "Pascal"
+    "unitIdList": [
+      "2BCEC2671165D195258ACDA5135109AB",
+      "36C8C2D1F2C92C516F853B0E4BBA0530",
+      "5100236CC6A5BAA4E805D7EB6FB55544",
+      "E651B3A7A2D0089181DC2E642506414A",
+      "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -1852,12 +1852,12 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "psig",
-      "psi",
-      "barg",
-      "bara",
-      "Pascal"
+    "unitIdList": [
+      "2BCEC2671165D195258ACDA5135109AB",
+      "36C8C2D1F2C92C516F853B0E4BBA0530",
+      "5100236CC6A5BAA4E805D7EB6FB55544",
+      "E651B3A7A2D0089181DC2E642506414A",
+      "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -1875,7 +1875,7 @@
       "Fixed Speed",
       "Varable Speed"
     ],
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "NotSet",
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
@@ -1891,9 +1891,9 @@
     ],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "m",
-      "mm"
+    "unitIdList": [
+      "0E58052344DCBE3692A3B088CD36A002",
+      "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
@@ -1911,9 +1911,9 @@
     ],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "m",
-      "mm"
+    "unitIdList": [
+      "0E58052344DCBE3692A3B088CD36A002",
+      "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
@@ -1928,9 +1928,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kA",
-      "A"
+    "unitIdList": [
+      "60458C323113E3C45FAABD08DBFBC55D",
+      "6E26614D307D41DE875987A143419AB9"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -1945,8 +1945,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Hz"
+    "unitIdList": [
+      "FCC9BF9B6381052C038DD5971355DD77"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -1961,11 +1961,11 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Sm3/h",
-      "Sm3/d",
-      "bbl/d",
-      "SCF/hr"
+    "unitIdList": [
+      "5F48B074C9D55FDBB8AE298038D55F32",
+      "63B2EE4AE1A8B5CE2E839CCBCA78604B",
+      "8E146124030887861D102236CFA3B83F",
+      "9621949CAD3457E87B1BA4483DB8B8F9"
     ],
     "attributeQualifier": "Capacity",
     "attributeSource": "Design",
@@ -1980,9 +1980,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kA",
-      "A"
+    "unitIdList": [
+      "60458C323113E3C45FAABD08DBFBC55D",
+      "6E26614D307D41DE875987A143419AB9"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -2002,7 +2002,7 @@
       "IC416",
       "IC418"
     ],
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -2016,8 +2016,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -2032,9 +2032,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "mm2",
-      "sq.inch"
+    "unitIdList": [
+      "7B88D4F4D073C691F680FF292FC0EB4A",
+      "E2BDF073C1B5C8A6020110A597695C33"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Required",
@@ -2049,8 +2049,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -2065,7 +2065,7 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -2079,12 +2079,12 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "psig",
-      "psi",
-      "barg",
-      "bara",
-      "Pascal"
+    "unitIdList": [
+      "2BCEC2671165D195258ACDA5135109AB",
+      "36C8C2D1F2C92C516F853B0E4BBA0530",
+      "5100236CC6A5BAA4E805D7EB6FB55544",
+      "E651B3A7A2D0089181DC2E642506414A",
+      "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -2099,9 +2099,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kV",
-      "W"
+    "unitIdList": [
+      "894E489682900A936362F123633FF7BC",
+      "B2B68149BFCC3F8193582BFB4EFFCF88"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -2116,12 +2116,12 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "psig",
-      "psi",
-      "barg",
-      "bara",
-      "Pascal"
+    "unitIdList": [
+      "2BCEC2671165D195258ACDA5135109AB",
+      "36C8C2D1F2C92C516F853B0E4BBA0530",
+      "5100236CC6A5BAA4E805D7EB6FB55544",
+      "E651B3A7A2D0089181DC2E642506414A",
+      "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -2136,10 +2136,10 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "MW",
-      "W",
-      "kW"
+    "unitIdList": [
+      "62CF948E25D6F57E81EE422239ED1A5F",
+      "B2B68149BFCC3F8193582BFB4EFFCF88",
+      "DD6E835F0610AE7BB54B3DBC88E792FD"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -2154,9 +2154,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "ppb",
-      "ppm"
+    "unitIdList": [
+      "21500052C7BE4C74186303CD3CCE8E07",
+      "50F21B28B1D8FB3433BBFCB43E2B1315"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -2171,9 +2171,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kV",
-      "W"
+    "unitIdList": [
+      "894E489682900A936362F123633FF7BC",
+      "B2B68149BFCC3F8193582BFB4EFFCF88"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -2188,9 +2188,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%",
-      "mm"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936",
+      "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required, High",
@@ -2205,7 +2205,7 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "NotSet",
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
@@ -2219,11 +2219,11 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "None",
-      "FR",
-      "FC",
-      "FO"
+    "unitIdList": [
+      "02DAE010EE69AD90EF56A5DD28D9E883",
+      "191068DFE13AE9922F5059CCDA67526C",
+      "62939A3FF63DBE324D66D57E4B82B71A",
+      "6C7B3D3946989CDD054D3A701A653312"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -2238,9 +2238,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kV",
-      "V"
+    "unitIdList": [
+      "894E489682900A936362F123633FF7BC",
+      "E84F64395609F2970B9161FBF0B943EE"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -2255,12 +2255,12 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "psig",
-      "psi",
-      "barg",
-      "bara",
-      "Pascal"
+    "unitIdList": [
+      "2BCEC2671165D195258ACDA5135109AB",
+      "36C8C2D1F2C92C516F853B0E4BBA0530",
+      "5100236CC6A5BAA4E805D7EB6FB55544",
+      "E651B3A7A2D0089181DC2E642506414A",
+      "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -2278,9 +2278,9 @@
     ],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "m",
-      "mm"
+    "unitIdList": [
+      "0E58052344DCBE3692A3B088CD36A002",
+      "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
@@ -2295,8 +2295,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "sec"
+    "unitIdList": [
+      "3AD9FFC9ECA02C36CC8B11A43E99C937"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -2311,8 +2311,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Hz"
+    "unitIdList": [
+      "FCC9BF9B6381052C038DD5971355DD77"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -2327,9 +2327,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "N/A",
-      "No dead pockets"
+    "unitIdList": [
+      "0B3316E84CFF33D3AB105EC63946509E",
+      "A120D3B73207296B650737659939EEAD"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -2344,9 +2344,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "S",
-      "mS"
+    "unitIdList": [
+      "7FD299F1FE73E1C298EF66D65AE6C628",
+      "85755DF18D0A604CADDA9C47EC8C6243"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -2361,11 +2361,11 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Sm3/h",
-      "Sm3/d",
-      "bbl/d",
-      "SCF/hr"
+    "unitIdList": [
+      "5F48B074C9D55FDBB8AE298038D55F32",
+      "63B2EE4AE1A8B5CE2E839CCBCA78604B",
+      "8E146124030887861D102236CFA3B83F",
+      "9621949CAD3457E87B1BA4483DB8B8F9"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -2380,7 +2380,7 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -2394,9 +2394,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Vah",
-      "kVAh"
+    "unitIdList": [
+      "4F76B6D7DC7A57426260347D9FB90F23",
+      "BBF17540EC576CA6AA4D9ED6CC33E8AF"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -2411,8 +2411,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Hz"
+    "unitIdList": [
+      "FCC9BF9B6381052C038DD5971355DD77"
     ],
     "attributeQualifier": "Capacity",
     "attributeSource": "Capacity",
@@ -2427,9 +2427,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "m/s",
-      "ft/sec"
+    "unitIdList": [
+      "7874BEE6B2FCD271925CE499E7B8497F",
+      "CCCCA643EFECB9791863C718DD75A9FA"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -2444,8 +2444,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "micron"
+    "unitIdList": [
+      "A823F8F59FAAFDDA7C5C65AA87984886"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -2460,8 +2460,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -2476,10 +2476,10 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "min",
-      "S",
-      "mS"
+    "unitIdList": [
+      "5185F2E23625D490056168844FFF0CA1",
+      "7FD299F1FE73E1C298EF66D65AE6C628",
+      "85755DF18D0A604CADDA9C47EC8C6243"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -2494,9 +2494,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kVA",
-      "MVA"
+    "unitIdList": [
+      "2766B1116773996CE16DD0E969010E80",
+      "3F201832F7AFA46EC99375292F1B92E6"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -2511,8 +2511,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "weight %"
+    "unitIdList": [
+      "9D54C708760C4FF1BCC472BC27FA7B52"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -2527,9 +2527,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "S",
-      "mS"
+    "unitIdList": [
+      "7FD299F1FE73E1C298EF66D65AE6C628",
+      "85755DF18D0A604CADDA9C47EC8C6243"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -2547,9 +2547,9 @@
     ],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "m",
-      "mm"
+    "unitIdList": [
+      "0E58052344DCBE3692A3B088CD36A002",
+      "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
@@ -2564,9 +2564,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kVA",
-      "MVA"
+    "unitIdList": [
+      "2766B1116773996CE16DD0E969010E80",
+      "3F201832F7AFA46EC99375292F1B92E6"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -2581,9 +2581,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "kA/3sec",
-      "kA/1sec"
+    "unitIdList": [
+      "D616D9A083098DDB59DD05E8A0CB298C",
+      "E9D872482BAF312F2783CBF7EB5E339D"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -2598,11 +2598,11 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "None",
-      "FR",
-      "FC",
-      "FO"
+    "unitIdList": [
+      "02DAE010EE69AD90EF56A5DD28D9E883",
+      "191068DFE13AE9922F5059CCDA67526C",
+      "62939A3FF63DBE324D66D57E4B82B71A",
+      "6C7B3D3946989CDD054D3A701A653312"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -2617,8 +2617,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Hz"
+    "unitIdList": [
+      "FCC9BF9B6381052C038DD5971355DD77"
     ],
     "attributeQualifier": "Required",
     "attributeSource": "Design",
@@ -2633,9 +2633,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "inch",
-      "mm"
+    "unitIdList": [
+      "B3906EE602DD2E3E588F8EC17F1C5564",
+      "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Required",
@@ -2650,8 +2650,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -2668,8 +2668,8 @@
     ],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "None"
+    "unitIdList": [
+      "02DAE010EE69AD90EF56A5DD28D9E883"
     ],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
@@ -2686,8 +2686,8 @@
     ],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "None"
+    "unitIdList": [
+      "02DAE010EE69AD90EF56A5DD28D9E883"
     ],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
@@ -2702,10 +2702,10 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Kelvin",
-      "degF",
-      "degC"
+    "unitIdList": [
+      "31EDDD028D54698267B98EB1727EED53",
+      "C87CC4F2DF711783B6C443FF48F4E386",
+      "C8D3295246390474742CA763B56D4DA8"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design, High",
@@ -2720,11 +2720,11 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "None",
-      "2x100%",
-      "2x50%",
-      "3x50%"
+    "unitIdList": [
+      "02DAE010EE69AD90EF56A5DD28D9E883",
+      "372EAE4BE5C4DB5B3E3875202D2A91E4",
+      "AB6BC330D255851DD3E88E1B4E662A92",
+      "E4D30A0E9BBAD4158166A3B85A4DD739"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -2739,8 +2739,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -2758,7 +2758,7 @@
       "Fixed Speed",
       "Varable Speed"
     ],
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "NotSet",
     "attributeSource": "Capacity",
     "attributeCondition": "NotSet",
@@ -2772,12 +2772,12 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "psig",
-      "psi",
-      "barg",
-      "bara",
-      "Pascal"
+    "unitIdList": [
+      "2BCEC2671165D195258ACDA5135109AB",
+      "36C8C2D1F2C92C516F853B0E4BBA0530",
+      "5100236CC6A5BAA4E805D7EB6FB55544",
+      "E651B3A7A2D0089181DC2E642506414A",
+      "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -2792,12 +2792,12 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "psig",
-      "psi",
-      "barg",
-      "bara",
-      "Pascal"
+    "unitIdList": [
+      "2BCEC2671165D195258ACDA5135109AB",
+      "36C8C2D1F2C92C516F853B0E4BBA0530",
+      "5100236CC6A5BAA4E805D7EB6FB55544",
+      "E651B3A7A2D0089181DC2E642506414A",
+      "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -2812,7 +2812,7 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
@@ -2826,8 +2826,8 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -2842,9 +2842,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "%",
-      "mm"
+    "unitIdList": [
+      "7157264EB5CBEDE6E983D803FBE1F936",
+      "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design, Low",
@@ -2859,9 +2859,9 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "inch",
-      "mm"
+    "unitIdList": [
+      "B3906EE602DD2E3E588F8EC17F1C5564",
+      "DF7381E76922A27B14C4C3C51A4AC631"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Required",
@@ -2876,7 +2876,7 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [],
+    "unitIdList": [],
     "attributeQualifier": "NotSet",
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
@@ -2890,12 +2890,12 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "psig",
-      "psi",
-      "barg",
-      "bara",
-      "Pascal"
+    "unitIdList": [
+      "2BCEC2671165D195258ACDA5135109AB",
+      "36C8C2D1F2C92C516F853B0E4BBA0530",
+      "5100236CC6A5BAA4E805D7EB6FB55544",
+      "E651B3A7A2D0089181DC2E642506414A",
+      "E77EC79D1D08733C2632E5D7F37D69EF"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -2910,10 +2910,10 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "min",
-      "S",
-      "mS"
+    "unitIdList": [
+      "5185F2E23625D490056168844FFF0CA1",
+      "7FD299F1FE73E1C298EF66D65AE6C628",
+      "85755DF18D0A604CADDA9C47EC8C6243"
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -2928,11 +2928,11 @@
     "tags": [],
     "select": 0,
     "selectValues": null,
-    "unitNames": [
-      "Sm3/h",
-      "Sm3/d",
-      "bbl/d",
-      "SCF/hr"
+    "unitIdList": [
+      "5F48B074C9D55FDBB8AE298038D55F32",
+      "63B2EE4AE1A8B5CE2E839CCBCA78604B",
+      "8E146124030887861D102236CFA3B83F",
+      "9621949CAD3457E87B1BA4483DB8B8F9"
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",

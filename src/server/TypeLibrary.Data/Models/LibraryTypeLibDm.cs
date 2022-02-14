@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Enums;
 
@@ -17,9 +16,6 @@ namespace TypeLibrary.Data.Models
         public string FirstVersionId { get; set; }
         public Aspect Aspect { get; set; }
         public string Description { get; set; }
-
-        [Required]
-        public string StatusId { get; set; }
 
         public string RdsId { get; set; }
         public RdsLibDm Rds { get; set; }

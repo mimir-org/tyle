@@ -13,11 +13,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Iri { get; set; }
         public string Color { get; set; }
         public string Description { get; set; }
-        
-        public ICollection<string> AttributeIdList { get; set; } // TODO: must contain full object
-
-        [JsonIgnore]
-        public ICollection<AttributeLibAm> ConvertToObject => AttributeIdList?.Select(x => new AttributeLibAm()).ToList(); // TODO: Resolve id
+        public ICollection<string> AttributeIdList { get; set; }
 
         [JsonIgnore]
         public string Id => $"{Name}".CreateMd5();

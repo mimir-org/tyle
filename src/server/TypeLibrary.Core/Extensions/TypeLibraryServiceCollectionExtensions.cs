@@ -31,11 +31,11 @@ namespace TypeLibrary.Core.Extensions
         {
             var provider = serviceCollection.BuildServiceProvider();
             var cfg = new MapperConfigurationExpression();
-            cfg.AddProfile(new AttributeProfile(provider.GetService<IApplicationSettingsRepository>()));
+            cfg.AddProfile(new AttributeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IUnitFactory>()));
             cfg.AddProfile(new BlobProfile(provider.GetService<IApplicationSettingsRepository>()));
-            cfg.AddProfile(new LibraryTypeProfile());
+            cfg.AddProfile(new LibraryTypeProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new RdsProfile(provider.GetService<IApplicationSettingsRepository>()));
-            cfg.AddProfile(new TerminalProfile());
+            cfg.AddProfile(new TerminalProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IAttributeFactory>()));
             cfg.AddProfile(new AttributeConditionProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new AttributeFormatProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new AttributeQualifierProfile(provider.GetService<IApplicationSettingsRepository>()));

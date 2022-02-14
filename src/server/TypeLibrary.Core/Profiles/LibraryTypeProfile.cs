@@ -1,34 +1,33 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Core.Profiles
 {
     public class LibraryTypeProfile : Profile
     {
-        public LibraryTypeProfile()
+        public LibraryTypeProfile(IApplicationSettingsRepository settings)
         {
             CreateMap<LibraryTypeLibAm, NodeLibDm>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => $"{src.Key}-{src.Domain}-{src.Version}".CreateMd5()))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.FirstVersionId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId))
-                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
+                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => $"{settings.GetCurrentOntologyIri()}fsb/{src.Id}"))
                 .ForMember(dest => dest.Collections, opt => opt.MapFrom(src => src.Collections))
                 .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.AttributeAspectId, opt => opt.MapFrom(src => src.AttributeAspectId))
                 .ForMember(dest => dest.BlobId, opt => opt.MapFrom(src => src.BlobId))
-                .ForMember(dest => dest.TerminalNodes, opt => opt.MapFrom(src => CreateTerminals(src.Terminals.ToList(), $"{src.Key}-{src.Domain}".CreateMd5()).ToList()))
+                .ForMember(dest => dest.TerminalNodes, opt => opt.MapFrom(src => CreateTerminals(src.Terminals.ToList(), src.Id).ToList()))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => CreateAttributes(src.AttributeIdList.ToList()).ToList()))
                 .ForMember(dest => dest.Simple, opt => opt.MapFrom(src => SimpleTypes(src.Simple.ToList()).ToList()))
                 .ForMember(dest => dest.PurposeId, opt => opt.MapFrom(src => src.PurposeId))
@@ -43,14 +42,13 @@ namespace TypeLibrary.Core.Profiles
                 });
 
             CreateMap<LibraryTypeLibAm, TransportLibDm>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => $"{src.Key}-{src.Domain}-{src.Version}".CreateMd5()))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.FirstVersionId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId))
-                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
+                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => $"{settings.GetCurrentOntologyIri()}transport/{src.Id}"))
                 .ForMember(dest => dest.Collections, opt => opt.MapFrom(src => src.Collections))
                 .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
@@ -64,14 +62,13 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
 
             CreateMap<LibraryTypeLibAm, InterfaceLibDm>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => $"{src.Key}-{src.Domain}-{src.Version}".CreateMd5()))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.FirstVersionId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId))
-                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
+                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => $"{settings.GetCurrentOntologyIri()}interface/{src.Id}"))
                 .ForMember(dest => dest.Collections, opt => opt.MapFrom(src => src.Collections))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => CreateAttributes(src.AttributeIdList.ToList()).ToList()))
                 .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
@@ -90,10 +87,8 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.ObjectType, opt => opt.MapFrom(src => ObjectType.ObjectBlock))
-                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
                 .ForMember(dest => dest.Collections, opt => opt.MapFrom(src => src.Collections))
                 .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
                 .ForMember(dest => dest.Terminals, opt => opt.MapFrom(src => src.TerminalNodes))
@@ -119,10 +114,8 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.ObjectType, opt => opt.MapFrom(src => ObjectType.Transport))
-                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
                 .ForMember(dest => dest.Collections, opt => opt.MapFrom(src => src.Collections))
                 .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
                 .ForMember(dest => dest.Terminals, opt => opt.Ignore())
@@ -144,10 +137,8 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.ObjectType, opt => opt.MapFrom(src => ObjectType.Interface))
-                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
                 .ForMember(dest => dest.Collections, opt => opt.MapFrom(src => src.Collections))
                 .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
                 .ForMember(dest => dest.Terminals, opt => opt.Ignore())
@@ -175,7 +166,6 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Rds, opt => opt.MapFrom(src => src.Rds.Code))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Rds.RdsCategory.Name))
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
@@ -195,7 +185,6 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Rds.RdsCategory.Name))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
                 .ForMember(dest => dest.TerminalId, opt => opt.MapFrom(src => src.TerminalId))
@@ -214,7 +203,6 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Rds.RdsCategory.Name))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
                 .ForMember(dest => dest.TerminalId, opt => opt.MapFrom(src => src.TerminalId))

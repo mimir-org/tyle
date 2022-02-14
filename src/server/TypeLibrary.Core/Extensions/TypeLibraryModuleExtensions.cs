@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Factories;
 using TypeLibrary.Data.Repositories;
 using TypeLibrary.Services.Contracts;
 using TypeLibrary.Services.Services;
@@ -63,17 +64,21 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IUnitService, UnitService>();
             services.AddScoped<ICollectionService, CollectionService>();
 
+            // Factories
+            services.AddScoped<IUnitFactory, UnitFactory>();
+            services.AddScoped<IAttributeFactory, AttributeFactory>();
+
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
-
-            // Add auto-mapper configurations
-            services.AddAutoMapperConfigurations();
 
             // Build configuration
             var config = builder.Build();
 
             // Add database-configuration
             services.AddDatabaseConfigurations(config);
+
+            // Add auto-mapper configurations
+            services.AddAutoMapperConfigurations();
 
             // Add API version
             services.AddApiVersion();

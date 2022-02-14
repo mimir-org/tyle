@@ -8,5 +8,6 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Key { get; set; }
         public bool IsMultiSelect { get; set; }
         public ICollection<string> ValueStringList { get; set; }
+        // TODO: Skulle hatt kobling til Aspect
     }
 }

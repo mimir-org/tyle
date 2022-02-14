@@ -50,16 +50,16 @@
     "name": "Chemicals",
     "Color": "#00CC66",
     "parentId": "F1DD54732321389535FE836DE6DD0C04",
-    "attributes": [
-      "CB829C88C33DF42B7690CC29E659EDD6",
-      "41B7CF54DDE119BFE40B55674F9D77A4",
-      "FEA0FAE6F4E315A8C4F3F0EF5EB01F5D",
-      "EA1E6B73F083F202B4AED5ABB301F777",
-      "ECCBB859E5E26D27F947A8E01D05AE33",
-      "936C1BA47993F387D3748E3B7C36ECF9",
-      "5B5F91B2F6D4F501921EB25DE69D3FF5",
-      "5AEF706459B6783DF4E8DBB44DB7675D",
-      "253C4378695D07254389059798270182"
+    "attributeIdList": [
+      "15AFB308ABE00544A25CF35BE028B75D",
+      "71E2BFA908D978A0D64725596C6A7148",
+      "78DA261AA3BB5A192B9F693377632478",
+      "11845C1C348E28563B4EA4B2E960B04C",
+      "DFED2BB5DBDCD3A0031E0645F6523C7A",
+      "727F5CA7EDB0695E3D8CD451A111F2A0",
+      "54694D53D12C1F09DD96D67A5045CA6A",
+      "F08BFA8DB2A624E99B91D169BF9C4B92",
+      "2F3F70BA9011E3D4C716AADF3B0193E2"
     ]
   },
 
@@ -67,16 +67,16 @@
     "name": "Process (HC)",
     "Color": "#663300",
     "parentId": "F1DD54732321389535FE836DE6DD0C04",
-    "attributes": [
-      "CB829C88C33DF42B7690CC29E659EDD6",
-      "41B7CF54DDE119BFE40B55674F9D77A4",
-      "FEA0FAE6F4E315A8C4F3F0EF5EB01F5D",
-      "EA1E6B73F083F202B4AED5ABB301F777",
-      "ECCBB859E5E26D27F947A8E01D05AE33",
-      "936C1BA47993F387D3748E3B7C36ECF9",
-      "5B5F91B2F6D4F501921EB25DE69D3FF5",
-      "5AEF706459B6783DF4E8DBB44DB7675D",
-      "253C4378695D07254389059798270182"
+    "attributeIdList": [
+      "15AFB308ABE00544A25CF35BE028B75D",
+      "71E2BFA908D978A0D64725596C6A7148",
+      "78DA261AA3BB5A192B9F693377632478",
+      "11845C1C348E28563B4EA4B2E960B04C",
+      "DFED2BB5DBDCD3A0031E0645F6523C7A",
+      "727F5CA7EDB0695E3D8CD451A111F2A0",
+      "54694D53D12C1F09DD96D67A5045CA6A",
+      "F08BFA8DB2A624E99B91D169BF9C4B92",
+      "2F3F70BA9011E3D4C716AADF3B0193E2"
     ]
   },
 
@@ -84,16 +84,16 @@
     "name": "Utilities",
     "Color": "#006600",
     "parentId": "F1DD54732321389535FE836DE6DD0C04",
-    "attributes": [
-      "CB829C88C33DF42B7690CC29E659EDD6",
-      "41B7CF54DDE119BFE40B55674F9D77A4",
-      "FEA0FAE6F4E315A8C4F3F0EF5EB01F5D",
-      "EA1E6B73F083F202B4AED5ABB301F777",
-      "ECCBB859E5E26D27F947A8E01D05AE33",
-      "936C1BA47993F387D3748E3B7C36ECF9",
-      "5B5F91B2F6D4F501921EB25DE69D3FF5",
-      "5AEF706459B6783DF4E8DBB44DB7675D",
-      "253C4378695D07254389059798270182"
+    "attributeIdList": [
+      "15AFB308ABE00544A25CF35BE028B75D",
+      "71E2BFA908D978A0D64725596C6A7148",
+      "78DA261AA3BB5A192B9F693377632478",
+      "11845C1C348E28563B4EA4B2E960B04C",
+      "DFED2BB5DBDCD3A0031E0645F6523C7A",
+      "727F5CA7EDB0695E3D8CD451A111F2A0",
+      "54694D53D12C1F09DD96D67A5045CA6A",
+      "F08BFA8DB2A624E99B91D169BF9C4B92",
+      "2F3F70BA9011E3D4C716AADF3B0193E2"
     ]
   },
 
@@ -101,16 +101,16 @@
     "name": "Water",
     "Color": "#333399",
     "parentId": "F1DD54732321389535FE836DE6DD0C04",
-    "attributes": [
-      "CB829C88C33DF42B7690CC29E659EDD6",
-      "41B7CF54DDE119BFE40B55674F9D77A4",
-      "FEA0FAE6F4E315A8C4F3F0EF5EB01F5D",
-      "EA1E6B73F083F202B4AED5ABB301F777",
-      "ECCBB859E5E26D27F947A8E01D05AE33",
-      "936C1BA47993F387D3748E3B7C36ECF9",
-      "5B5F91B2F6D4F501921EB25DE69D3FF5",
-      "5AEF706459B6783DF4E8DBB44DB7675D",
-      "253C4378695D07254389059798270182"
+    "attributeIdList": [
+      "15AFB308ABE00544A25CF35BE028B75D",
+      "71E2BFA908D978A0D64725596C6A7148",
+      "78DA261AA3BB5A192B9F693377632478",
+      "11845C1C348E28563B4EA4B2E960B04C",
+      "DFED2BB5DBDCD3A0031E0645F6523C7A",
+      "727F5CA7EDB0695E3D8CD451A111F2A0",
+      "54694D53D12C1F09DD96D67A5045CA6A",
+      "F08BFA8DB2A624E99B91D169BF9C4B92",
+      "2F3F70BA9011E3D4C716AADF3B0193E2"
     ]
   },
 
@@ -118,90 +118,90 @@
     "name": "Dry powder",
     "Color": "#CC9900",
     "parentId": "921C40542A8AD5DACF0379A2B0EBFF0B",
-    "attributes": []
+    "attributeIdList": []
   },
   {
     "name": "Main HV System 80",
     "Color": "#9966CC",
     "parentId": "54CC2AB379D04FA1B6A6B83A962B0CF2",
-    "attributes": []
+    "attributeIdList": []
   },
   {
     "name": "Main HV System 81",
     "Color": "#6666FF",
     "parentId": "54CC2AB379D04FA1B6A6B83A962B0CF2",
-    "attributes": []
+    "attributeIdList": []
   },
   {
     "name": "Main HV System 82",
     "Color": "#669900",
     "parentId": "54CC2AB379D04FA1B6A6B83A962B0CF2",
-    "attributes": []
+    "attributeIdList": []
   },
   {
     "name": "Essential power System 83",
     "Color": "#FF9900",
     "parentId": "54CC2AB379D04FA1B6A6B83A962B0CF2",
-    "attributes": []
+    "attributeIdList": []
   },
   {
     "name": "Emergency power System 84",
     "Color": "#FF0000",
     "parentId": "54CC2AB379D04FA1B6A6B83A962B0CF2",
-    "attributes": []
+    "attributeIdList": []
   },
   {
     "name": "Battery power System 85",
     "Color": "#CC9900",
     "parentId": "54CC2AB379D04FA1B6A6B83A962B0CF2",
-    "attributes": []
+    "attributeIdList": []
   },
   {
     "name": "Heating medium",
     "Color": "#FF0000",
     "parentId": "5B670C2BA827FF826A5625732BEE2D60",
-    "attributes": []
+    "attributeIdList": []
   },
   {
     "name": "Cooling medium",
     "Color": "#333399",
     "parentId": "5B670C2BA827FF826A5625732BEE2D60",
-    "attributes": []
+    "attributeIdList": []
   },
   {
     "name": "Rotating shaft/axle",
     "Color": "#CCCCCC",
     "parentId": "C7E6CB4B9FA127F191B9DCCFBDDB2052",
-    "attributes": []
+    "attributeIdList": []
   },
   {
     "name": "Push Pull rod/piston",
     "Color": "#000000",
     "parentId": "C7E6CB4B9FA127F191B9DCCFBDDB2052",
-    "attributes": []
+    "attributeIdList": []
   },
   {
     "name": "Telecommunication System 86",
     "Color": "#9966CC",
     "parentId": "A82BE0F551B8708BC08EB33CD9DED0CF",
-    "attributes": []
+    "attributeIdList": []
   },
   {
     "name": "Automation System 87",
     "Color": "#00CC66",
     "parentId": "A82BE0F551B8708BC08EB33CD9DED0CF",
-    "attributes": []
+    "attributeIdList": []
   },
   {
     "name": "Bolting",
     "Color": "#000000",
     "parentId": "9EB6B78A99CDB6FFD3D40D18621D9F80",
-    "attributes": []
+    "attributeIdList": []
   },
   {
     "name": "Locking",
     "Color": "#CCCCCC",
     "parentId": "9EB6B78A99CDB6FFD3D40D18621D9F80",
-    "attributes": []
+    "attributeIdList": []
   }
 ]
