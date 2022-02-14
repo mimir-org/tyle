@@ -1,21 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Mimirorg.Common.Enums;
+using Mimirorg.TypeLibrary.Extensions;
+using Discipline = Mimirorg.TypeLibrary.Enums.Discipline;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
     public class BlobLibAm
     {
-        public string Id { get; set; }
-
         [Required]
         public string Name { get; set; }
         
-        public string Iri { get; set; }
-
         [Required]
         public Discipline Discipline { get; set; }
 
         [Required]
         public string Data { get; set; }
+
+        public virtual string Key => $"{Name}-{Discipline}".CreateMd5();
     }
 }

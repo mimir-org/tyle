@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Mimirorg.Common.Enums;
 using Mimirorg.Common.Extensions;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Data;
+using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -111,7 +111,6 @@ namespace TypeLibrary.Services.Services
             var data = _mapper.Map<RdsCategoryLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
-            data.Id = data.Key.CreateMd5();
             var createdData = await _rdsCategoryRepository.CreateAsync(data);
             await _rdsCategoryRepository.SaveAsync();
             return _mapper.Map<RdsCategoryLibAm>(createdData.Entity);
@@ -121,7 +120,7 @@ namespace TypeLibrary.Services.Services
         {
             var dataList = _mapper.Map<List<RdsCategoryLibDm>>(dataAm);
             var existing = _rdsCategoryRepository.GetAll().ToList();
-            var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
+            var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Id)).ToList();
 
             if (!notExisting.Any())
                 return;
@@ -130,7 +129,6 @@ namespace TypeLibrary.Services.Services
             {
                 data.Created = DateTime.Now.ToUniversalTime();
                 data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
-                data.Id = data.Key.CreateMd5();
                 _rdsCategoryRepository.Attach(data, EntityState.Added);
             }
 

@@ -3,13 +3,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Microsoft.EntityFrameworkCore;
-using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
+using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Extensions;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Data;
+using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -33,26 +33,14 @@ namespace TypeLibrary.Services.Services
         /// <returns></returns>
         public async Task<BlobLibDm> CreateBlob(BlobLibAm blob, bool saveData = true)
         {
-            if (!string.IsNullOrEmpty(blob.Id))
-                return await UpdateBlob(blob);
+            var id = blob.Key.CreateMd5();
+            var blobExist = await _blobDataRepository.GetAsync(id);
+
+            if(blobExist != null)
+                throw new MimirorgDuplicateException($"There is already an blob with name: {blob.Name} and discipline: {blob.Discipline}");
 
             var dm = _mapper.Map<BlobLibDm>(blob);
-            dm.Id = dm.Key.CreateMd5();
-
-            var blobExist = await _blobDataRepository.GetAsync(dm.Id);
-
-            if (blobExist != null)
-            {
-                blob.Id = dm.Id;
-                _mapper.Map(blob, blobExist);
-                _blobDataRepository.Attach(blobExist, EntityState.Modified);
-
-                if (saveData)
-                    await _blobDataRepository.SaveAsync();
-
-                return blobExist;
-            }
-
+            dm.Id = id;
             await _blobDataRepository.CreateAsync(dm);
 
             if (saveData)
@@ -82,13 +70,14 @@ namespace TypeLibrary.Services.Services
         /// <summary>
         /// Update a blob
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="blob"></param>
         /// <returns></returns>
-        public async Task<BlobLibDm> UpdateBlob(BlobLibAm blob)
+        public async Task<BlobLibDm> UpdateBlob(string id, BlobLibAm blob)
         {
-            var dm = await _blobDataRepository.GetAsync(blob.Id);
+            var dm = await _blobDataRepository.GetAsync(id);
             if (dm == null)
-                throw new MimirorgNotFoundException($"There is no blob data with id: {blob.Id}");
+                throw new MimirorgNotFoundException($"There is no blob data with id: {id}");
 
             _blobDataRepository.Update(dm);
             await _blobDataRepository.SaveAsync();
@@ -110,7 +99,6 @@ namespace TypeLibrary.Services.Services
             {
                 Discipline = Discipline.None,
                 Data = null,
-                Id = null,
                 Name = "No symbol"
             });
 

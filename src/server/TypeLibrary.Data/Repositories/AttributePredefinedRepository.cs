@@ -1,7 +1,7 @@
 ﻿using Mimirorg.Common.Abstract;
 
 using TypeLibrary.Data.Contracts;
-using Mimirorg.TypeLibrary.Models.Data;
+using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Repositories
 {

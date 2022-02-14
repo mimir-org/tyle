@@ -3,72 +3,72 @@
     "name": "Ingress protection",
     "Iri": null,
     "attributes": [
-      "6C078D9F6704A54D1A3E851A6747048E",
-      "FB6F1B60A500B1D3D69962BE2EB36221"
+      "ECD0E99E4AA3F241721F5284E69FEDBB",
+      "62C976154869426038D989A2BB0B2864"
     ]
   },
   {
     "name": "Protective coating",
     "Iri": null,
     "attributes": [
-      "6C078D9F6704A54D1A3E851A6747048E",
-      "B4DE1C2B59D9A258B8AFDF3D34E51EA1"
+      "ECD0E99E4AA3F241721F5284E69FEDBB",
+      "519C9AE9672776F3CC8A573B300B2C5C"
     ]
   },
   {
     "name": "Surface colour",
     "Iri": null,
     "attributes": [
-      "6C078D9F6704A54D1A3E851A6747048E",
-      "5CF6974DB6F32D38B394A7A5C3E3150C"
+      "ECD0E99E4AA3F241721F5284E69FEDBB",
+      "62B8A3C7EA7C9CBC191848DF55B9C4E1"
     ]
   },
   {
     "name": "Explosion proofing",
     "Iri": null,
     "attributes": [
-      "6C078D9F6704A54D1A3E851A6747048E",
-      "0B6093217D995B223104068B68C7828F"
+      "ECD0E99E4AA3F241721F5284E69FEDBB",
+      "0980968103C5E858D229A5098D41D18C"
     ]
   },
   {
     "name": "Noise reduction",
     "Iri": null,
     "attributes": [
-      "6C078D9F6704A54D1A3E851A6747048E",
-      "189F9F12C777A89DBE75BC881049905B"
+      "ECD0E99E4AA3F241721F5284E69FEDBB",
+      "9BF2B5015B79E0FDD36A9E442FFD041B"
     ]
   },
   {
     "name": "Valve pressure class",
     "Iri": null,
     "attributes": [
-      "6C078D9F6704A54D1A3E851A6747048E",
-      "631B251E28E0C94E61CEB0CEE6CAE6F4"
+      "ECD0E99E4AA3F241721F5284E69FEDBB",
+      "3EA1B28C0EB2978023B56843806A0F54"
     ]
   },
   {
     "name": "Electric motor cooling",
     "Iri": null,
     "attributes": [
-      "6C078D9F6704A54D1A3E851A6747048E",
-      "AC382B30FDCEB90BDF7B6B46CB1DDD8C"
+      "ECD0E99E4AA3F241721F5284E69FEDBB",
+      "489EF96F1F743CED9071A56753D6426E"
     ]
   },
   {
     "name": "Electric motor design",
     "Iri": null,
     "attributes": [
-      "6C078D9F6704A54D1A3E851A6747048E",
-      "1F0DC4DD6FD4E55062341F4E2B84227E"
+      "ECD0E99E4AA3F241721F5284E69FEDBB",
+      "6A9A317814E8C1163244017800990ED7"
     ]
   },
   {
     "name": "Electric motor temperature rating",
     "Iri": null,
     "attributes": [
-      "6C078D9F6704A54D1A3E851A6747048E",
-      "CF70CC32483DD2B565E3E8D6A0E20384"
+      "ECD0E99E4AA3F241721F5284E69FEDBB",
+      "A33DF8FC148D7E7E3038C65974B897AD"
     ]
   }
 ]

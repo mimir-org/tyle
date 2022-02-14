@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Mimirorg.TypeLibrary.Models.Data;
+using Mimirorg.TypeLibrary.Extensions;
 using Newtonsoft.Json;
 
 namespace Mimirorg.TypeLibrary.Models.Application
@@ -14,12 +14,12 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Color { get; set; }
         public string Description { get; set; }
         
-        public ICollection<string> AttributeIdList { get; set; }
+        public ICollection<string> AttributeIdList { get; set; } // TODO: must contain full object
 
         [JsonIgnore]
-        public ICollection<AttributeLibDm> ConvertToObject => AttributeIdList?.Select(x => new AttributeLibDm { Id = x }).ToList();
+        public ICollection<AttributeLibAm> ConvertToObject => AttributeIdList?.Select(x => new AttributeLibAm()).ToList(); // TODO: Resolve id
 
         [JsonIgnore]
-        public string Key => $"{Name}";
+        public string Id => $"{Name}".CreateMd5();
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using AutoMapper;
-using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,6 +9,7 @@ using Microsoft.Extensions.Options;
 using Mimirorg.Common.Models;
 using TypeLibrary.Core.Profiles;
 using TypeLibrary.Data;
+using TypeLibrary.Data.Contracts;
 
 namespace TypeLibrary.Core.Extensions
 {
@@ -29,21 +29,23 @@ namespace TypeLibrary.Core.Extensions
 
         public static IServiceCollection AddAutoMapperConfigurations(this IServiceCollection serviceCollection)
         {
+            var provider = serviceCollection.BuildServiceProvider();
             var cfg = new MapperConfigurationExpression();
-            cfg.AddProfile(new AttributeProfile());
-            cfg.AddProfile<BlobProfile>();
+            cfg.AddProfile(new AttributeProfile(provider.GetService<IApplicationSettingsRepository>()));
+            cfg.AddProfile(new BlobProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new LibraryTypeProfile());
-            cfg.AddProfile<RdsProfile>();
+            cfg.AddProfile(new RdsProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new TerminalProfile());
-            cfg.AddProfile(new AttributeConditionProfile());
-            cfg.AddProfile(new AttributeFormatProfile());
-            cfg.AddProfile(new AttributeQualifierProfile());
-            cfg.AddProfile(new AttributeSourceProfile());
-            cfg.AddProfile(new AttributeAspectProfile());
-            cfg.AddProfile(new PurposeProfile());
-            cfg.AddProfile(new RdsCategoryProfile());
-            cfg.AddProfile(new UnitProfile());
-            cfg.AddProfile(new SimpleProfile());
+            cfg.AddProfile(new AttributeConditionProfile(provider.GetService<IApplicationSettingsRepository>()));
+            cfg.AddProfile(new AttributeFormatProfile(provider.GetService<IApplicationSettingsRepository>()));
+            cfg.AddProfile(new AttributeQualifierProfile(provider.GetService<IApplicationSettingsRepository>()));
+            cfg.AddProfile(new AttributeSourceProfile(provider.GetService<IApplicationSettingsRepository>()));
+            cfg.AddProfile(new AttributeAspectProfile(provider.GetService<IApplicationSettingsRepository>()));
+            cfg.AddProfile(new AttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>()));
+            cfg.AddProfile(new PurposeProfile(provider.GetService<IApplicationSettingsRepository>()));
+            cfg.AddProfile(new RdsCategoryProfile(provider.GetService<IApplicationSettingsRepository>()));
+            cfg.AddProfile(new UnitProfile(provider.GetService<IApplicationSettingsRepository>()));
+            cfg.AddProfile(new SimpleProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new AttributeCollectionProfile());
 
             var mapperConfig = new MapperConfiguration(cfg);

@@ -1,5 +1,4 @@
-﻿using Mimirorg.Common.Enums;
-using Mimirorg.TypeLibrary.Models.Data;
+﻿using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Client
 {
@@ -17,7 +16,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string Iri { get; set; }
         public string TerminalId { get; set; }
         public ObjectType LibraryType => ObjectType.Interface;
-        public PurposeLibDm Purpose { get; set; }
+        public PurposeLibCm Purpose { get; set; }
         public string UpdatedBy { get; set; }
         public DateTime? Updated { get; set; }
         public DateTime Created { get; set; }

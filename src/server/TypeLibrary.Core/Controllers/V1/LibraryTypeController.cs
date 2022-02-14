@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.TypeLibrary.Enums;
 using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
-using Mimirorg.TypeLibrary.Models.Data;
+using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1
@@ -254,36 +254,6 @@ namespace TypeLibrary.Core.Controllers.V1
 
         #endregion LibraryTypes
 
-
-        #region SubProject
-
-        /// <summary>
-        /// Get subProjects
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("subProject")]
-        [ProducesResponseType(typeof(ICollection<SubProjectLibCm>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[Authorize(Policy = "Read")]
-        public async Task<IActionResult> GetSubProjects()
-        {
-            try
-            {
-                var subProjectCmList = await _libraryTypeService.GetSubProjects();
-                return Ok(subProjectCmList.ToList());
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        #endregion SubProject
-
-
         #region Node
 
         /// <summary>
@@ -311,7 +281,6 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         #endregion Node
-
 
         #region Transport
 
