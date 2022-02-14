@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Data;
+using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Services.Contracts
 {
@@ -9,7 +9,7 @@ namespace TypeLibrary.Services.Contracts
     {
         Task<BlobLibDm> CreateBlob(BlobLibAm blob, bool saveData = true);
         Task<IEnumerable<BlobLibDm>> CreateBlob(IEnumerable<BlobLibAm> blobDataList);
-        Task<BlobLibDm> UpdateBlob(BlobLibAm blob);
+        Task<BlobLibDm> UpdateBlob(string id, BlobLibAm blob);
         IEnumerable<BlobLibAm> GetBlob();
     }
 }

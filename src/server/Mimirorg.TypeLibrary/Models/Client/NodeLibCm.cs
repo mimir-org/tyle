@@ -1,5 +1,4 @@
-﻿using Mimirorg.Common.Enums;
-using Mimirorg.TypeLibrary.Models.Data;
+﻿using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Client
 {
@@ -14,11 +13,11 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string Description { get; set; }
         public string StatusId { get; set; } = "4590637F39B6BA6F39C74293BE9138DF";
         public Aspect Aspect { get; set; }
-        public ICollection<AttributeLibDm> Attributes { get; set; }
+        public ICollection<AttributeLibCm> Attributes { get; set; }
         public string Iri { get; set; }
         public string BlobId { get; set; }
         public ObjectType LibraryType => ObjectType.ObjectBlock;
-        public PurposeLibDm Purpose { get; set; }
+        public PurposeLibCm Purpose { get; set; }
         public string UpdatedBy { get; set; }
         public DateTime? Updated { get; set; }
         public DateTime Created { get; set; }

@@ -5,11 +5,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
-using Mimirorg.Common.Enums;
 using Mimirorg.Common.Extensions;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Data;
+using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 using ILibraryTypeService = TypeLibrary.Services.Contracts.ILibraryTypeService;
 

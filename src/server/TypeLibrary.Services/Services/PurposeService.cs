@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Extensions;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Data;
+using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -48,7 +48,6 @@ namespace TypeLibrary.Services.Services
             var data = _mapper.Map<PurposeLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
-            data.Id = data.Key.CreateMd5();
             var createdData = await _purposeRepository.CreateAsync(data);
             await _purposeRepository.SaveAsync();
             return _mapper.Map<PurposeLibAm>(createdData.Entity);
@@ -58,7 +57,7 @@ namespace TypeLibrary.Services.Services
         {
             var dataList = _mapper.Map<List<PurposeLibDm>>(dataAm);
             var existing = _purposeRepository.GetAll().ToList();
-            var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Key.CreateMd5())).ToList();
+            var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Id)).ToList();
 
             if (!notExisting.Any())
                 return;
@@ -67,7 +66,6 @@ namespace TypeLibrary.Services.Services
             {
                 data.Created = DateTime.Now.ToUniversalTime();
                 data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
-                data.Id = data.Key.CreateMd5();
                 _purposeRepository.Attach(data, EntityState.Added);
             }
 

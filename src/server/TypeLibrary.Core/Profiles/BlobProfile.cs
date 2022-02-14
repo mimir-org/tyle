@@ -1,24 +1,31 @@
 ﻿using AutoMapper;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Data;
+using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Core.Profiles
 {
     public class BlobProfile : Profile
     {
-        public BlobProfile()
+        public BlobProfile(IApplicationSettingsRepository settings)
         {
             CreateMap<BlobLibDm, BlobLibAm>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
                 .ForMember(dest => dest.Data, opt => opt.MapFrom(src => src.Data))
                 .ForMember(dest => dest.Discipline, opt => opt.MapFrom(src => src.Discipline));
 
             CreateMap<BlobLibAm, BlobLibDm>()
+                .ForMember(dest => dest.Id, opt => opt.UseDestinationValue())
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => $"{settings.GetCurrentOntologyIri()}blob/name/{src.Name}/discipline/{src.Discipline}"))
+                .ForMember(dest => dest.Data, opt => opt.MapFrom(src => src.Data))
+                .ForMember(dest => dest.Discipline, opt => opt.MapFrom(src => src.Discipline));
+            
+            CreateMap<BlobLibDm, BlobLibCm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Iri))
                 .ForMember(dest => dest.Data, opt => opt.MapFrom(src => src.Data))
                 .ForMember(dest => dest.Discipline, opt => opt.MapFrom(src => src.Discipline));
         }

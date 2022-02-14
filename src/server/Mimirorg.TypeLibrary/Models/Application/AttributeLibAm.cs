@@ -1,32 +1,24 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using Mimirorg.Common.Enums;
-using Mimirorg.TypeLibrary.Models.Data;
+using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Extensions;
+using Discipline = Mimirorg.TypeLibrary.Enums.Discipline;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
     public class AttributeLibAm
     {
-        public string ParentId { get; set; }
-
         [Required]
         public string Name { get; set; }
         
-        public string Iri { get; set; }
-
         [Required]
         public Aspect Aspect { get; set; }
 
         [Required]
         public Discipline Discipline { get; set; }
 
-        public HashSet<string> Tags { get; set; }
-
         [Required]
         public Select Select { get; set; }
-
-        public ICollection<string> SelectValues { get; set; }
-        public ICollection<string> Units { get; set; }
 
         [Required]
         public string AttributeQualifier { get; set; }
@@ -40,10 +32,15 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public string AttributeFormat { get; set; }
 
-        [JsonIgnore]
-        public ICollection<UnitLibDm> ConvertToObject => Units?.Select(x => new UnitLibDm { Id = x }).ToList();
+        public string ParentId { get; set; }
+        public ICollection<string> SelectValues { get; set; }
+        public ICollection<string> UnitNames { get; set; }
+        public HashSet<string> Tags { get; set; }
 
         [JsonIgnore]
-        public string Key => $"{Name}-{Aspect}-{AttributeQualifier}-{AttributeSource}-{AttributeCondition}";
+        public ICollection<UnitLibAm> ConvertToObject => UnitNames?.Select(x => new UnitLibAm{ Name = x }).ToList();
+
+        [JsonIgnore]
+        public string Id => ($"{Name}-{Aspect}-{AttributeQualifier}-{AttributeSource}-{AttributeCondition}").CreateMd5();
     }
 }

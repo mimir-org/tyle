@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Mimirorg.Common.Enums;
-using Mimirorg.TypeLibrary.Models.Client;
-using Mimirorg.TypeLibrary.Models.Data;
+using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Extensions;
 using Newtonsoft.Json;
 
 namespace Mimirorg.TypeLibrary.Models.Application
@@ -13,31 +12,31 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public string Name { get; set; }
 
-        public string Iri { get; set; }
+        public string Iri { get; set; } // TODO: Denne skal bort
         public string Version { get; set; }
         public string FirstVersionId { get; set; }
         public Aspect Aspect { get; set; }
         public string Description { get; set; }
 
         [Required]
-        public string StatusId { get; set; } = "4590637F39B6BA6F39C74293BE9138DF";
+        public string StatusId { get; set; } = "4590637F39B6BA6F39C74293BE9138DF"; // TODO: Denne skal bort
 
         [Required]
-        public string RdsId { get; set; }
+        public string RdsId { get; set; } // TODO: Denne bør ikke registreres med id, men objekt RdsLibAm
 
         [Required]
-        public string PurposeId { get; set; }
+        public string PurposeId { get; set; } // TODO: Representeres som objekt
 
-        public string BlobId { get; set; }
-        public string AttributeAspectId { get; set; }
+        public string BlobId { get; set; } // TODO: Representeres som objekt, bør hete symbol
+        public string AttributeAspectId { get; set; } // TODO: Representeres som objekt, bør hete symbol
         public string TerminalId { get; set; }
 
         [EnumDataType(typeof(ObjectType))]
         public ObjectType ObjectType { get; set; }
 
-        public ICollection<TerminalItemLibDm> Terminals { get; set; }
+        public ICollection<TerminalItemLibAm> Terminals { get; set; }
         public ICollection<string> AttributeIdList { get; set; }
-        public ICollection<AttributePredefinedLibCm> AttributesPredefined { get; set; }
+        public ICollection<AttributePredefinedLibAm> AttributesPredefined { get; set; }
         public ICollection<string> Simple { get; set; }
         public ICollection<CollectionLibAm> Collections { get; set; }
 
@@ -49,7 +48,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Domain { get; set; }
 
         [JsonIgnore]
-        public string Key => $"{Name}-{RdsId}-{Aspect}-{Version}";
+        public string Key => $"{Name}-{RdsId}-{Aspect}-{Version}".CreateMd5();
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

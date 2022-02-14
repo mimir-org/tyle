@@ -195,7 +195,7 @@ namespace Mimirorg.Authentication.Controllers.V1
                 var data = await _authService.SetPermissions(userPermission);
                 return Ok(data);
             }
-            catch (MimirorgNotFoundException e)
+            catch (MimirorgNotFoundException)
             {
                 return NotFound();
             }

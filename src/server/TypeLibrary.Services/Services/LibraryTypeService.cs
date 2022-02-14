@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
-using Mimirorg.TypeLibrary.Models.Data;
-using TypeLibrary.Services.Contracts;
+using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Services.Services
 {
@@ -361,15 +360,12 @@ namespace TypeLibrary.Services.Services
             var nodes = await _libraryTypeItemRepository.GetNodes(searchString);
             var transports = await _libraryTypeItemRepository.GetTransports(searchString);
             var interfaces = await _libraryTypeItemRepository.GetInterfaces(searchString);
-            //TODO: Correct subprojects return when implemented
-            var subProjects = new List<SubProjectLibCm>();
-
+            
             var library = new LibraryTypeLibCm
             {
                 Nodes = nodes.ToList(),
                 Transports = transports.ToList(),
-                Interfaces = interfaces.ToList(),
-                SubProjects = subProjects.ToList()
+                Interfaces = interfaces.ToList()
             };
 
             return library;
@@ -388,12 +384,6 @@ namespace TypeLibrary.Services.Services
         public async Task<IEnumerable<InterfaceLibCm>> GetInterfaces()
         {
             return await _libraryTypeItemRepository.GetInterfaces();
-        }
-
-        public Task<IEnumerable<SubProjectLibCm>> GetSubProjects(string searchString = null)
-        {
-            //TODO
-            throw new NotImplementedException();
         }
 
         #region Private

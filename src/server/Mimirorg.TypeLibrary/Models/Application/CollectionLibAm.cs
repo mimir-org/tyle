@@ -4,7 +4,6 @@ namespace Mimirorg.TypeLibrary.Models.Application
 {
     public class CollectionLibAm
     {
-        public string Id { get; set; }
         public int? CompanyId { get; set; }
 
         [Required]

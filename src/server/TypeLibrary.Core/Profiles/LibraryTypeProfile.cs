@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Mimirorg.Common.Enums;
 using Mimirorg.Common.Extensions;
+using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
-using Mimirorg.TypeLibrary.Models.Data;
+using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Core.Profiles
 {
@@ -224,12 +225,12 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
         }
 
-        private static IEnumerable<TerminalNodeLibDm> CreateTerminals(IReadOnlyCollection<TerminalItemLibDm> terminals, string nodeId)
+        private static IEnumerable<TerminalNodeLibDm> CreateTerminals(IReadOnlyCollection<TerminalItemLibAm> terminals, string nodeId)
         {
             if (terminals == null || !terminals.Any())
                 yield break;
 
-            var sortedTerminalTypes = new List<TerminalItemLibDm>();
+            var sortedTerminalTypes = new List<TerminalItemLibAm>();
 
             foreach (var item in terminals)
             {

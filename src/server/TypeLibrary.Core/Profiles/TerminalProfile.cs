@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Data;
+using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Core.Profiles
 {
@@ -10,7 +9,7 @@ namespace TypeLibrary.Core.Profiles
         public TerminalProfile()
         {
             CreateMap<TerminalLibAm, TerminalLibDm>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Key.CreateMd5()))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
