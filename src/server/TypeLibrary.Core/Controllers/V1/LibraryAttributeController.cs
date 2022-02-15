@@ -40,7 +40,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <param name="aspect"></param>
         /// <returns></returns>
-        [HttpGet("{aspectEnumEnum}")]
+        [HttpGet("{aspect}")]
         [ProducesResponseType(typeof(ICollection<AttributeLibDm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
