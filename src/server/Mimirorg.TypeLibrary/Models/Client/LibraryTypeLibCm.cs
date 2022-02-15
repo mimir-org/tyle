@@ -5,5 +5,7 @@
         public IEnumerable<NodeLibCm> Nodes { get; set; }
         public IEnumerable<InterfaceLibCm> Interfaces { get; set; }
         public IEnumerable<TransportLibCm> Transports { get; set; }
+
+        public string Kind => nameof(LibraryTypeLibCm);
     }
 }

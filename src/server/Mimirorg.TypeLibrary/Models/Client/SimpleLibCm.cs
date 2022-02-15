@@ -7,5 +7,7 @@
         public string Iri { get; set; }
         public string Description { get; set; }
         public virtual ICollection<AttributeLibCm> Attributes { get; set; }
+
+        public string Kind => nameof(SimpleLibCm);
     }
 }

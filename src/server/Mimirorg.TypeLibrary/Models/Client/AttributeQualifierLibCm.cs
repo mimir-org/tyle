@@ -10,5 +10,7 @@
         public DateTime? Updated { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
+
+        public string Kind => nameof(AttributeQualifierLibCm);
     }
 }

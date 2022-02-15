@@ -22,5 +22,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public DateTime? Updated { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
+
+        public string Kind => nameof(NodeLibCm);
     }
 }

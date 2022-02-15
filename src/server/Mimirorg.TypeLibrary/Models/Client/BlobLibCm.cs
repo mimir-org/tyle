@@ -9,5 +9,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string Iri { get; set; }
         public Discipline Discipline { get; set; }
         public string Data { get; set; }
+
+        public string Kind => nameof(BlobLibCm);
     }
 }
