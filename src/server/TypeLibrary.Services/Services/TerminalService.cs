@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -27,13 +28,15 @@ namespace TypeLibrary.Services.Services
         /// Get all terminals
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<TerminalLibDm> GetTerminals()
+        public IEnumerable<TerminalLibCm> GetTerminals()
         {
-            return _terminalTypeRepository.GetAll()
+            var terminals = _terminalTypeRepository.GetAll()
                 .Where(x => string.IsNullOrWhiteSpace(x.ParentId))
                 .Include(x => x.Children)
                 .Include(x => x.Attributes)
                 .ToList();
+
+            return _mapper.Map<List<TerminalLibCm>>(terminals);
         }
 
         /// <summary>
@@ -41,7 +44,7 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="terminalAm"></param>
         /// <returns></returns>
-        public async Task<TerminalLibDm> CreateTerminal(TerminalLibAm terminalAm)
+        public async Task<TerminalLibCm> CreateTerminal(TerminalLibAm terminalAm)
         {
             var data = await CreateTerminals(new List<TerminalLibAm> { terminalAm });
             return data.SingleOrDefault();
@@ -52,17 +55,17 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="terminalAmList"></param>
         /// <returns></returns>
-        public async Task<List<TerminalLibDm>> CreateTerminals(List<TerminalLibAm> terminalAmList)
+        public async Task<List<TerminalLibCm>> CreateTerminals(List<TerminalLibAm> terminalAmList)
         {
             if (terminalAmList == null || !terminalAmList.Any())
-                return new List<TerminalLibDm>();
+                return new List<TerminalLibCm>();
 
             var data = _mapper.Map<List<TerminalLibDm>>(terminalAmList);
             var existing = _terminalTypeRepository.GetAll().ToList();
             var notExisting = data.Where(x => existing.All(y => y.Name != x.Name)).ToList();
 
             if (!notExisting.Any())
-                return new List<TerminalLibDm>();
+                return new List<TerminalLibCm>();
 
             foreach (var entity in notExisting)
             {
@@ -80,7 +83,7 @@ namespace TypeLibrary.Services.Services
                 }
             }
 
-            return data;
+            return _mapper.Map<List<TerminalLibCm>>(data);
         }
     }
 }

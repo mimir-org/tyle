@@ -18,9 +18,9 @@ namespace TypeLibrary.Services.Contracts
         Task DeleteLibraryType(string id);
         Task<LibraryTypeLibAm> ConvertToCreateLibraryType(string id, LibraryTypeFilter @enum);
 
-        Task<SimpleLibDm> CreateSimpleType(SimpleLibAm simpleAm);
+        Task<SimpleLibCm> CreateSimpleType(SimpleLibAm simpleAm);
         Task CreateSimpleTypes(ICollection<SimpleLibAm> simpleAmList);
-        IEnumerable<SimpleLibDm> GetSimpleTypes();
+        IEnumerable<SimpleLibCm> GetSimpleTypes();
         
         Task<IEnumerable<NodeLibCm>> GetNodes();
         Task<IEnumerable<TransportLibCm>> GetTransports();

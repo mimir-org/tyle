@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Extensions;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -26,31 +27,31 @@ namespace TypeLibrary.Services.Services
             _contextAccessor = contextAccessor;
         }
 
-        public Task<IEnumerable<AttributeFormatLibAm>> GetAttributeFormats()
+        public Task<IEnumerable<AttributeFormatLibCm>> GetAttributeFormats()
         {
             var dataList = _formatRepository.GetAll();
-            var dataAm = _mapper.Map<List<AttributeFormatLibAm>>(dataList);
-            return Task.FromResult<IEnumerable<AttributeFormatLibAm>>(dataAm);
+            var dataAm = _mapper.Map<List<AttributeFormatLibCm>>(dataList);
+            return Task.FromResult(dataAm.AsEnumerable());
         }
 
-        public async Task<AttributeFormatLibAm> UpdateAttributeFormat(AttributeFormatLibAm dataAm)
+        public async Task<AttributeFormatLibCm> UpdateAttributeFormat(AttributeFormatLibAm dataAm)
         {
             var data = _mapper.Map<AttributeFormatLibDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _formatRepository.Update(data);
             await _formatRepository.SaveAsync();
-            return _mapper.Map<AttributeFormatLibAm>(data);
+            return _mapper.Map<AttributeFormatLibCm>(data);
         }
 
-        public async Task<AttributeFormatLibAm> CreateAttributeFormat(AttributeFormatLibAm dataAm)
+        public async Task<AttributeFormatLibCm> CreateAttributeFormat(AttributeFormatLibAm dataAm)
         {
             var data = _mapper.Map<AttributeFormatLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             var createdData = await _formatRepository.CreateAsync(data);
             await _formatRepository.SaveAsync();
-            return _mapper.Map<AttributeFormatLibAm>(createdData.Entity);
+            return _mapper.Map<AttributeFormatLibCm>(createdData.Entity);
         }
 
         public async Task CreateAttributeFormats(List<AttributeFormatLibAm> dataAm)

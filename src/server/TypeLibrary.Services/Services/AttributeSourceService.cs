@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Extensions;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -26,31 +27,31 @@ namespace TypeLibrary.Services.Services
             _contextAccessor = contextAccessor;
         }
 
-        public Task<IEnumerable<AttributeSourceLibAm>> GetAttributeSources()
+        public Task<IEnumerable<AttributeSourceLibCm>> GetAttributeSources()
         {
             var dataList = _sourceRepository.GetAll();
-            var dataAm = _mapper.Map<List<AttributeSourceLibAm>>(dataList);
-            return Task.FromResult<IEnumerable<AttributeSourceLibAm>>(dataAm);
+            var dataAm = _mapper.Map<List<AttributeSourceLibCm>>(dataList);
+            return Task.FromResult(dataAm.AsEnumerable());
         }
 
-        public async Task<AttributeSourceLibAm> UpdateAttributeSource(AttributeSourceLibAm dataAm)
+        public async Task<AttributeSourceLibCm> UpdateAttributeSource(AttributeSourceLibAm dataAm)
         {
             var data = _mapper.Map<AttributeSourceLibDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _sourceRepository.Update(data);
             await _sourceRepository.SaveAsync();
-            return _mapper.Map<AttributeSourceLibAm>(data);
+            return _mapper.Map<AttributeSourceLibCm>(data);
         }
 
-        public async Task<AttributeSourceLibAm> CreateAttributeSource(AttributeSourceLibAm dataAm)
+        public async Task<AttributeSourceLibCm> CreateAttributeSource(AttributeSourceLibAm dataAm)
         {
             var data = _mapper.Map<AttributeSourceLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             var createdData = await _sourceRepository.CreateAsync(data);
             await _sourceRepository.SaveAsync();
-            return _mapper.Map<AttributeSourceLibAm>(createdData.Entity);
+            return _mapper.Map<AttributeSourceLibCm>(createdData.Entity);
         }
 
         public async Task CreateAttributeSources(List<AttributeSourceLibAm> dataAm)

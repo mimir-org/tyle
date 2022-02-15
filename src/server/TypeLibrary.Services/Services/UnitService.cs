@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Extensions;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -26,31 +27,31 @@ namespace TypeLibrary.Services.Services
             _contextAccessor = contextAccessor;
         }
 
-        public Task<IEnumerable<UnitLibAm>> GetUnits()
+        public Task<IEnumerable<UnitLibCm>> GetUnits()
         {
             var dataList = _unitRepository.GetAll();
-            var dataAm = _mapper.Map<List<UnitLibAm>>(dataList);
-            return Task.FromResult<IEnumerable<UnitLibAm>>(dataAm);
+            var dataAm = _mapper.Map<List<UnitLibCm>>(dataList);
+            return Task.FromResult(dataAm.AsEnumerable());
         }
 
-        public async Task<UnitLibAm> UpdateUnit(UnitLibAm dataAm)
+        public async Task<UnitLibCm> UpdateUnit(UnitLibAm dataAm)
         {
             var data = _mapper.Map<UnitLibDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _unitRepository.Update(data);
             await _unitRepository.SaveAsync();
-            return _mapper.Map<UnitLibAm>(data);
+            return _mapper.Map<UnitLibCm>(data);
         }
 
-        public async Task<UnitLibAm> CreateUnit(UnitLibAm dataAm)
+        public async Task<UnitLibCm> CreateUnit(UnitLibAm dataAm)
         {
             var data = _mapper.Map<UnitLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             var createdData = await _unitRepository.CreateAsync(data);
             await _unitRepository.SaveAsync();
-            return _mapper.Map<UnitLibAm>(createdData.Entity);
+            return _mapper.Map<UnitLibCm>(createdData.Entity);
         }
 
         public async Task CreateUnits(List<UnitLibAm> dataAm)

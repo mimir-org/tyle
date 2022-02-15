@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Extensions;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -25,31 +26,31 @@ namespace TypeLibrary.Services.Services
             _qualifierRepository = qualifierRepository;
             _contextAccessor = contextAccessor;
         }
-        public Task<IEnumerable<AttributeQualifierLibAm>> GetAttributeQualifiers()
+        public Task<IEnumerable<AttributeQualifierLibCm>> GetAttributeQualifiers()
         {
             var dataList = _qualifierRepository.GetAll();
-            var dataAm = _mapper.Map<List<AttributeQualifierLibAm>>(dataList);
-            return Task.FromResult<IEnumerable<AttributeQualifierLibAm>>(dataAm);
+            var dataAm = _mapper.Map<List<AttributeQualifierLibCm>>(dataList);
+            return Task.FromResult(dataAm.AsEnumerable());
         }
 
-        public async Task<AttributeQualifierLibAm> UpdateAttributeQualifier(AttributeQualifierLibAm dataAm)
+        public async Task<AttributeQualifierLibCm> UpdateAttributeQualifier(AttributeQualifierLibAm dataAm)
         {
             var data = _mapper.Map<AttributeQualifierLibDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _qualifierRepository.Update(data);
             await _qualifierRepository.SaveAsync();
-            return _mapper.Map<AttributeQualifierLibAm>(data);
+            return _mapper.Map<AttributeQualifierLibCm>(data);
         }
 
-        public async Task<AttributeQualifierLibAm> CreateAttributeQualifier(AttributeQualifierLibAm dataAm)
+        public async Task<AttributeQualifierLibCm> CreateAttributeQualifier(AttributeQualifierLibAm dataAm)
         {
             var data = _mapper.Map<AttributeQualifierLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             var createdData = await _qualifierRepository.CreateAsync(data);
             await _qualifierRepository.SaveAsync();
-            return _mapper.Map<AttributeQualifierLibAm>(createdData.Entity);
+            return _mapper.Map<AttributeQualifierLibCm>(createdData.Entity);
         }
 
         public async Task CreateAttributeQualifiers(List<AttributeQualifierLibAm> dataAm)

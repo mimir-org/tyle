@@ -33,28 +33,30 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="aspect"></param>
         /// <returns></returns>
-        public IEnumerable<AttributeLibDm> GetAttributes(Aspect aspect)
+        public IEnumerable<AttributeLibCm> GetAttributes(Aspect aspect)
         {
             var all = _attributeRepository.GetAll()
                 .Include(x => x.Units)
                 .ToList();
 
-            return aspect == Aspect.NotSet ?
+            var attributes = aspect == Aspect.NotSet ?
                 all :
                 all.Where(x => x.Aspect.HasFlag(aspect)).ToList();
+
+            return _mapper.Map<List<AttributeLibCm>>(attributes).ToList();
         }
 
        /// <summary>
        /// Get all attributes
        /// </summary>
        /// <returns></returns>
-        public IEnumerable<AttributeLibDm> GetAttributes()
+        public IEnumerable<AttributeLibCm> GetAttributes()
         {
             var all = _attributeRepository.GetAll()
                 .Include(x => x.Units)
                 .ToList();
 
-            return all;
+            return _mapper.Map<List<AttributeLibCm>>(all).ToList();
         }
 
         /// <summary>
@@ -62,7 +64,7 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="attributeAm"></param>
         /// <returns></returns>
-        public async Task<AttributeLibDm> CreateAttribute(AttributeLibAm attributeAm)
+        public async Task<AttributeLibCm> CreateAttribute(AttributeLibAm attributeAm)
         {
             var data = await CreateAttributes(new List<AttributeLibAm> { attributeAm });
             return data.SingleOrDefault();
@@ -73,17 +75,17 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="attributeAmList"></param>
         /// <returns></returns>
-        public async Task<ICollection<AttributeLibDm>> CreateAttributes(List<AttributeLibAm> attributeAmList)
+        public async Task<ICollection<AttributeLibCm>> CreateAttributes(List<AttributeLibAm> attributeAmList)
         {
             if (attributeAmList == null || !attributeAmList.Any())
-                return new List<AttributeLibDm>();
+                return new List<AttributeLibCm>();
 
             var data = _mapper.Map<List<AttributeLibDm>>(attributeAmList);
             var existing = _attributeRepository.GetAll().ToList();
             var notExisting = data.Where(x => existing.All(y => y.Id != x.Id)).ToList();
 
             if (!notExisting.Any())
-                return new List<AttributeLibDm>();
+                return new List<AttributeLibCm>();
 
             foreach (var entity in notExisting)
             {
@@ -106,7 +108,7 @@ namespace TypeLibrary.Services.Services
                 _attributeRepository.Detach(notExistingItem);
             }
 
-            return data;
+            return _mapper.Map<List<AttributeLibCm>>(data);
         }
 
         /// <summary>
@@ -124,23 +126,23 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="attributePredefinedList"></param>
         /// <returns></returns>
-        public async Task<List<AttributePredefinedLibDm>> CreateAttributesPredefined(List<AttributePredefinedLibDm> attributePredefinedList)
+        public async Task<ICollection<AttributePredefinedLibCm>> CreateAttributesPredefined(List<AttributePredefinedLibDm> attributePredefinedList)
         {
             if (attributePredefinedList == null || !attributePredefinedList.Any())
-                return new List<AttributePredefinedLibDm>();
+                return new List<AttributePredefinedLibCm>();
 
             var existing = _attributePredefinedRepository.GetAll().ToList();
             var notExisting = attributePredefinedList.Where(x => existing.All(y => y.Key != x.Key)).ToList();
 
             if (!notExisting.Any())
-                return new List<AttributePredefinedLibDm>();
+                return new List<AttributePredefinedLibCm>();
 
             foreach (var entity in notExisting)
             {
                 await _attributePredefinedRepository.CreateAsync(entity);
             }
             await _attributePredefinedRepository.SaveAsync();
-            return attributePredefinedList;
+            return _mapper.Map<List<AttributePredefinedLibCm>>(attributePredefinedList);
         }
     }
 }

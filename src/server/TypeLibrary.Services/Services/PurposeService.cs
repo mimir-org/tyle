@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Extensions;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -26,31 +27,31 @@ namespace TypeLibrary.Services.Services
             _contextAccessor = contextAccessor;
         }
 
-        public Task<IEnumerable<PurposeLibAm>> GetPurposes()
+        public Task<IEnumerable<PurposeLibCm>> GetPurposes()
         {
             var dataList = _purposeRepository.GetAll();
-            var dataAm = _mapper.Map<List<PurposeLibAm>>(dataList);
-            return Task.FromResult<IEnumerable<PurposeLibAm>>(dataAm);
+            var dataAm = _mapper.Map<List<PurposeLibCm>>(dataList);
+            return Task.FromResult(dataAm.AsEnumerable());
         }
 
-        public async Task<PurposeLibAm> UpdatePurpose(PurposeLibAm dataAm)
+        public async Task<PurposeLibCm> UpdatePurpose(PurposeLibAm dataAm)
         {
             var data = _mapper.Map<PurposeLibDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _purposeRepository.Update(data);
             await _purposeRepository.SaveAsync();
-            return _mapper.Map<PurposeLibAm>(data);
+            return _mapper.Map<PurposeLibCm>(data);
         }
 
-        public async Task<PurposeLibAm> CreatePurpose(PurposeLibAm dataAm)
+        public async Task<PurposeLibCm> CreatePurpose(PurposeLibAm dataAm)
         {
             var data = _mapper.Map<PurposeLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             var createdData = await _purposeRepository.CreateAsync(data);
             await _purposeRepository.SaveAsync();
-            return _mapper.Map<PurposeLibAm>(createdData.Entity);
+            return _mapper.Map<PurposeLibCm>(createdData.Entity);
         }
 
         public async Task CreatePurposes(List<PurposeLibAm> dataAm)

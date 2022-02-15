@@ -252,7 +252,7 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="simpleAm"></param>
         /// <returns></returns>
-        public async Task<SimpleLibDm> CreateSimpleType(SimpleLibAm simpleAm)
+        public async Task<SimpleLibCm> CreateSimpleType(SimpleLibAm simpleAm)
         {
             var newType = _mapper.Map<SimpleLibDm>(simpleAm);
             var existingType = await _simpleTypeRepository.GetAsync(newType.Id);
@@ -268,7 +268,7 @@ namespace TypeLibrary.Services.Services
             await _simpleTypeRepository.CreateAsync(newType);
             await _simpleTypeRepository.SaveAsync();
 
-            return newType;
+            return _mapper.Map<SimpleLibCm>(newType);
         }
 
         /// <summary>
@@ -312,10 +312,10 @@ namespace TypeLibrary.Services.Services
         /// Get all simple types
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<SimpleLibDm> GetSimpleTypes()
+        public IEnumerable<SimpleLibCm> GetSimpleTypes()
         {
             var types = _simpleTypeRepository.GetAll().Include(x => x.Attributes).ToList();
-            return types;
+            return _mapper.Map<List<SimpleLibCm>>(types);
         }
 
         /// <summary>

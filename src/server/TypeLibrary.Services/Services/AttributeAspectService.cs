@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Extensions;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -26,31 +27,31 @@ namespace TypeLibrary.Services.Services
             _contextAccessor = contextAccessor;
         }
 
-        public Task<IEnumerable<AttributeAspectLibAm>> GetAttributeAspects()
+        public Task<IEnumerable<AttributeAspectLibCm>> GetAttributeAspects()
         {
             var dataList = _attributeAspectRepository.GetAll();
-            var dataAm = _mapper.Map<List<AttributeAspectLibAm>>(dataList);
-            return Task.FromResult<IEnumerable<AttributeAspectLibAm>>(dataAm);
+            var dataAm = _mapper.Map<List<AttributeAspectLibCm>>(dataList);
+            return Task.FromResult(dataAm.AsEnumerable());
         }
 
-        public async Task<AttributeAspectLibAm> UpdateAttributeAspect(AttributeAspectLibAm dataAm)
+        public async Task<AttributeAspectLibCm> UpdateAttributeAspect(AttributeAspectLibAm dataAm)
         {
             var data = _mapper.Map<AttributeAspectLibDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _attributeAspectRepository.Update(data);
             await _attributeAspectRepository.SaveAsync();
-            return _mapper.Map<AttributeAspectLibAm>(data);
+            return _mapper.Map<AttributeAspectLibCm>(data);
         }
 
-        public async Task<AttributeAspectLibAm> CreateAttributeAspect(AttributeAspectLibAm dataAm)
+        public async Task<AttributeAspectLibCm> CreateAttributeAspect(AttributeAspectLibAm dataAm)
         {
             var data = _mapper.Map<AttributeAspectLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             var createdData = await _attributeAspectRepository.CreateAsync(data);
             await _attributeAspectRepository.SaveAsync();
-            return _mapper.Map<AttributeAspectLibAm>(createdData.Entity);
+            return _mapper.Map<AttributeAspectLibCm>(createdData.Entity);
         }
 
         public async Task CreateAttributeAspects(List<AttributeAspectLibAm> dataAm)

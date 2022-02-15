@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 
 namespace TypeLibrary.Services.Contracts
 {
     public interface IAttributeAspectService
     {
-        Task<IEnumerable<AttributeAspectLibAm>> GetAttributeAspects();
-        Task<AttributeAspectLibAm> UpdateAttributeAspect(AttributeAspectLibAm dataAm);
-        Task<AttributeAspectLibAm> CreateAttributeAspect(AttributeAspectLibAm dataAm);
+        Task<IEnumerable<AttributeAspectLibCm>> GetAttributeAspects();
+        Task<AttributeAspectLibCm> UpdateAttributeAspect(AttributeAspectLibAm dataAm);
+        Task<AttributeAspectLibCm> CreateAttributeAspect(AttributeAspectLibAm dataAm);
         Task CreateAttributeAspects(List<AttributeAspectLibAm> dataAm);
     }
 }

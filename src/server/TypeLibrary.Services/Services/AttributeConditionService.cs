@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Extensions;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -26,31 +27,31 @@ namespace TypeLibrary.Services.Services
             _contextAccessor = contextAccessor;
         }
 
-        public Task<IEnumerable<AttributeConditionLibAm>> GetAttributeConditions()
+        public Task<IEnumerable<AttributeConditionLibCm>> GetAttributeConditions()
         {
             var dataList = _conditionRepository.GetAll();
-            var dataAm = _mapper.Map<List<AttributeConditionLibAm>>(dataList);
-            return Task.FromResult<IEnumerable<AttributeConditionLibAm>>(dataAm);
+            var dataAm = _mapper.Map<List<AttributeConditionLibCm>>(dataList);
+            return Task.FromResult(dataAm.AsEnumerable());
         }
 
-        public async Task<AttributeConditionLibAm> UpdateAttributeCondition(AttributeConditionLibAm dataAm)
+        public async Task<AttributeConditionLibCm> UpdateAttributeCondition(AttributeConditionLibAm dataAm)
         {
             var data = _mapper.Map<AttributeConditionLibDm>(dataAm);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _conditionRepository.Update(data);
             await _conditionRepository.SaveAsync();
-            return _mapper.Map<AttributeConditionLibAm>(data);
+            return _mapper.Map<AttributeConditionLibCm>(data);
         }
 
-        public async Task<AttributeConditionLibAm> CreateAttributeCondition(AttributeConditionLibAm dataAm)
+        public async Task<AttributeConditionLibCm> CreateAttributeCondition(AttributeConditionLibAm dataAm)
         {
             var data = _mapper.Map<AttributeConditionLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
             data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             var createdData = await _conditionRepository.CreateAsync(data);
             await _conditionRepository.SaveAsync();
-            return _mapper.Map<AttributeConditionLibAm>(createdData.Entity);
+            return _mapper.Map<AttributeConditionLibCm>(createdData.Entity);
         }
 
         public async Task CreateAttributeConditions(List<AttributeConditionLibAm> dataAm)

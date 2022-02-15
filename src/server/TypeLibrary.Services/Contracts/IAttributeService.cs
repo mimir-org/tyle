@@ -9,11 +9,11 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface IAttributeService
     {
-        IEnumerable<AttributeLibDm> GetAttributes(Aspect aspect);
-        IEnumerable<AttributeLibDm> GetAttributes();
-        Task<AttributeLibDm> CreateAttribute(AttributeLibAm attributeAm);
-        Task<ICollection<AttributeLibDm>> CreateAttributes(List<AttributeLibAm> attributeAmList);
+        IEnumerable<AttributeLibCm> GetAttributes(Aspect aspect);
+        IEnumerable<AttributeLibCm> GetAttributes();
+        Task<AttributeLibCm> CreateAttribute(AttributeLibAm attributeAm);
+        Task<ICollection<AttributeLibCm>> CreateAttributes(List<AttributeLibAm> attributeAmList);
         IEnumerable<AttributePredefinedLibCm> GetAttributesPredefined();
-        Task<List<AttributePredefinedLibDm>> CreateAttributesPredefined(List<AttributePredefinedLibDm> attributePredefinedList);
+        Task<ICollection<AttributePredefinedLibCm>> CreateAttributesPredefined(List<AttributePredefinedLibDm> attributePredefinedList);
     }
 }
