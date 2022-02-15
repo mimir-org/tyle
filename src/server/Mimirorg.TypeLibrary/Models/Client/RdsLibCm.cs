@@ -10,5 +10,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string Iri { get; set; }
         public string Code { get; set; }
         public Aspect Aspect { get; set; }
+
+        public string Kind => nameof(RdsLibCm);
     }
 }

@@ -23,6 +23,8 @@ namespace Mimirorg.TypeLibrary.Models.Client
 
         public string Description => CreateDescription();
 
+        public string Kind => nameof(AttributeLibCm);
+
         private string CreateDescription()
         {
             var text = string.Empty;
