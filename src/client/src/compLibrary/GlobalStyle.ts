@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components/macro";
 import { FontType } from "./font";
 
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
   // CSS RESET (https://www.joshwcomeau.com/css/custom-css-reset/)
   *, *::before, *::after {
     box-sizing: border-box;
@@ -59,5 +59,3 @@ const GlobalStyle = createGlobalStyle`
     background-color: transparent;
   }
 `;
-
-export default GlobalStyle;

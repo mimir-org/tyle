@@ -3,7 +3,7 @@ import { Color } from "../../../colors";
 import { Icon } from "../../../icon";
 
 interface NotificationModalContentContainerProps {
-  isWarning: boolean;
+  isWarning?: boolean;
 }
 
 export const NotificationModalContentContainer = styled.div<NotificationModalContentContainerProps>`

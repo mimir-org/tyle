@@ -27,5 +27,5 @@ const Input = styled.input<Props>`
   }
 `;
 
-const GetFontSize = (fontSize: string) => fontSize ?? "13px";
+const GetFontSize = (fontSize: string | undefined) => fontSize ?? "13px";
 export default Input;
