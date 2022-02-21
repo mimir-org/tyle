@@ -1,10 +1,15 @@
 import { Dispatch } from "redux";
 import { useEffect } from "react";
+// import { LoginModule } from "../login";
 import { LibraryModule } from "../library";
 import { ErrorModule } from "../error";
 import { ValidationModule } from "../validation";
 import { TypeEditorComponent } from "../editor";
-import { fetchLibrary, fetchLibraryInterfaceTypes, fetchLibraryTransportTypes } from "../../redux/store/library/librarySlice";
+import {
+  fetchLibrary,
+  fetchLibraryInterfaceTypes,
+  fetchLibraryTransportTypes,
+} from "../../redux/store/library/librarySlice";
 import { fetchBlobData } from "../../redux/store/editor/editorSlice";
 import { fetchUser } from "../../redux/store/user/userSlice";
 
@@ -28,6 +33,7 @@ const Home = ({ dispatch }: Props) => {
 
   return (
     <>
+      {/* <LoginModule /> */}
       <LibraryModule />
       <TypeEditorComponent />
       <ErrorModule />

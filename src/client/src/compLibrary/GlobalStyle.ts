@@ -35,6 +35,7 @@ const GlobalStyle = createGlobalStyle`
 
   #root, #__next {
     isolation: isolate;
+    height: 100%;
   }
   
   // APPLICATION SPECIFIC GLOBALS
