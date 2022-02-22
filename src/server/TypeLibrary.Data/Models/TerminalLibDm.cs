@@ -14,7 +14,7 @@ namespace TypeLibrary.Data.Models
         
         public ICollection<TerminalLibDm> Children { get; set; }
         public ICollection<AttributeLibDm> Attributes { get; set; }
-        public ICollection<TerminalNodeLibDm> TerminalNodes { get; set; }
+        public ICollection<NodeTerminalLibDm> TerminalNodes { get; set; }
         public ICollection<InterfaceLibDm> Interfaces { get; set; }
         public ICollection<TransportLibDm> Transports { get; set; }
     }

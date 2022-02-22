@@ -19,6 +19,12 @@ namespace TypeLibrary.Data.Models
         public string CreatedBy { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<LibraryTypeLibDm> LibraryTypes { get; set; }
+        public virtual ICollection<TransportLibDm> Transports { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<InterfaceLibDm> Interfaces { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<NodeLibDm> Nodes { get; set; }
     }
 }

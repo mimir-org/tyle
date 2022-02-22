@@ -17,6 +17,7 @@ namespace Mimirorg.Common.Abstract
         Task Delete(int id);
         Task Delete(string id);
         void Detach(TEntity entity);
+        void Detach(ICollection<TEntity> entities);
         void Attach(TEntity entity, EntityState state);
         void Attach(ICollection<TEntity> entities, EntityState state);
         Task<int> SaveAsync();

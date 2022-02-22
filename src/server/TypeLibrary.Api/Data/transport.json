@@ -3,23 +3,15 @@
     "name": "Cable System 80 (F)",
     "description": null,
     "aspect": "Function",
-    "objectType": "Transport",
-    "semanticReference": "",
     "rdsId": "C48DCD574DB8B731EEB8E2101060213F",
-    "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminals": null,
-    "blobId": null,
-    "attributes": [
-      "208283CA650C401877F38BCBB66D0937",
-      "C55856CC00019688F60EE7EB5118521B"
+    "attributeIdList": [
+      "44385AF5C56EFCAB77158EA3DFA68329", 
+      "A35B5FA0D0D4D06FD236A23917D4493F" 
     ],
-    "attributeAspect": null,
-    "attributesPredefined": null,
     "terminalId": "CDBE6464576FF822972293A9C9627A3B",
-    "simple": null,
     "version": "1.0",
-
+    "firstVersionId": null,
     "updatedBy": null,
     "updated": null,
     "created": "2021-11-29T07:24:46.9861644",
@@ -29,23 +21,15 @@
     "name": "Cable System 82 (F)",
     "description": null,
     "aspect": "Function",
-    "objectType": "Transport",
-    "semanticReference": "",
     "rdsId": "FAB5929F1C76515CB98E552A86CA6076",
-    "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminals": null,
-    "blobId": null,
-    "attributes": [
-      "208283CA650C401877F38BCBB66D0937",
-      "C55856CC00019688F60EE7EB5118521B"
+    "attributeIdList": [
+      "44385AF5C56EFCAB77158EA3DFA68329", 
+      "A35B5FA0D0D4D06FD236A23917D4493F" 
     ],
-    "attributeAspect": null,
-    "attributesPredefined": null,
     "terminalId": "CC6DD5A9564E236AEFD3DA0DA2DACF11",
-    "simple": null,
     "version": "1.0",
-
+    "firstVersionId": null,
     "updatedBy": null,
     "updated": null,
     "created": "2021-11-29T07:25:53.0636539",
@@ -55,23 +39,15 @@
     "name": "Cable System 85 (F)",
     "description": null,
     "aspect": "Function",
-    "objectType": "Transport",
-    "semanticReference": "",
     "rdsId": "FAB5929F1C76515CB98E552A86CA6076",
-    "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminals": null,
-    "blobId": null,
-    "attributes": [
-      "208283CA650C401877F38BCBB66D0937",
-      "C55856CC00019688F60EE7EB5118521B"
+    "attributeIdList": [
+      "44385AF5C56EFCAB77158EA3DFA68329", 
+      "A35B5FA0D0D4D06FD236A23917D4493F" 
     ],
-    "attributeAspect": null,
-    "attributesPredefined": null,
     "terminalId": "5153111276AA3B42F8E2061D148CF093",
-    "simple": null,
     "version": "1.0",
-
+    "firstVersionId": null,
     "updatedBy": null,
     "updated": null,
     "created": "2021-11-29T07:27:09.9300627",
@@ -81,20 +57,14 @@
     "name": "Cable System 87 (F)",
     "description": null,
     "aspect": "Function",
-    "objectType": "Transport",
-    "semanticReference": "",
     "rdsId": "21C044473B0ED4047F64EF4E41800621",
-    "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminals": null,
-    "blobId": null,
-    "attributes": [ "208283CA650C401877F38BCBB66D0937" ],
-    "attributeAspect": null,
-    "attributesPredefined": null,
+    "attributeIdList": [
+      "44385AF5C56EFCAB77158EA3DFA68329"
+    ],
     "terminalId": "9A69A18F06C5A284BF7B39BDD5FCB329",
-    "simple": null,
     "version": "1.0",
-
+    "firstVersionId": null,
     "updatedBy": null,
     "updated": null,
     "created": "2021-11-29T07:28:42.3379771",
@@ -104,54 +74,37 @@
     "name": "Chemicals (F)",
     "description": null,
     "aspect": "Function",
-    "objectType": "Transport",
-    "semanticReference": "",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
-    "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminals": null,
-    "blobId": null,
-    "attributes": [
-      "007049245AC46BCA9FA3FD6220CAD41C",
-      "06FD5EB8A1ED5961F5BE68D26FE8F58D",
-      "19862F5A2B1F83C4BBE3432FA5EE51A8"
+    "attributeIdList": [
+      "B9C6BD307C06BC6CB7B7F32FF7072B55",
+      "2FE5BFF63AC615DBCEE65B3878A6D871",
+      "2934EC8FF97885913227C182298B6CE0"
     ],
-    "attributeAspect": null,
-    "attributesPredefined": null,
     "terminalId": "6089771C4B5AC170DFB12CCAFC589CE9",
-    "simple": null,
     "version": "1.0",
-
+    "firstVersionId": null,
     "updatedBy": null,
     "updated": null,
     "created": "2021-11-30T07:33:11.7522152",
     "createdBy": "Magnus Oanes Knædal"
   },
-
   {
     "name": "Process (HC) (F)",
     "description": null,
     "aspect": "Function",
-    "objectType": "Transport",
-    "semanticReference": "",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
-    "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminals": null,
-    "blobId": null,
-    "attributes": [
-      "007049245AC46BCA9FA3FD6220CAD41C",
-      "06FD5EB8A1ED5961F5BE68D26FE8F58D",
-      "19862F5A2B1F83C4BBE3432FA5EE51A8"
+    "attributeIdList": [
+      "B9C6BD307C06BC6CB7B7F32FF7072B55",
+      "2FE5BFF63AC615DBCEE65B3878A6D871",
+      "2934EC8FF97885913227C182298B6CE0"
     ],
-    "attributeAspect": null,
-    "attributesPredefined": null,
     "terminalId": "BFB27765A609F27FD3A2DF59C4E4D63D",
-    "simple": null,
     "version": "1.0",
-
-    "updatedBy": "Magnus Oanes Knædal",
-    "updated": "2021-11-30T07:31:53.3938496",
+    "firstVersionId": null,
+    "updatedBy": null,
+    "updated": null,
     "created": "2021-11-30T07:07:38.6354683",
     "createdBy": "Magnus Oanes Knædal"
   },
@@ -159,24 +112,16 @@
     "name": "Utilities (F)",
     "description": null,
     "aspect": "Function",
-    "objectType": "Transport",
-    "semanticReference": "",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
-    "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminals": null,
-    "blobId": null,
-    "attributes": [
-      "007049245AC46BCA9FA3FD6220CAD41C",
-      "06FD5EB8A1ED5961F5BE68D26FE8F58D",
-      "19862F5A2B1F83C4BBE3432FA5EE51A8"
+    "attributeIdList": [
+      "B9C6BD307C06BC6CB7B7F32FF7072B55",
+      "2FE5BFF63AC615DBCEE65B3878A6D871",
+      "2934EC8FF97885913227C182298B6CE0"
     ],
-    "attributeAspect": null,
-    "attributesPredefined": null,
     "terminalId": "CEBA282B7418B7F199798B645E1CBA56",
-    "simple": null,
     "version": "1.0",
-
+    "firstVersionId": null,
     "updatedBy": null,
     "updated": null,
     "created": "2021-11-30T07:35:02.0881966",
@@ -186,24 +131,16 @@
     "name": "Water (F)",
     "description": null,
     "aspect": "Function",
-    "objectType": "Transport",
-    "semanticReference": "",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
-    "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminals": null,
-    "blobId": null,
-    "attributes": [
-      "007049245AC46BCA9FA3FD6220CAD41C",
-      "06FD5EB8A1ED5961F5BE68D26FE8F58D",
-      "19862F5A2B1F83C4BBE3432FA5EE51A8"
+    "attributeIdList": [
+      "B9C6BD307C06BC6CB7B7F32FF7072B55",
+      "2FE5BFF63AC615DBCEE65B3878A6D871",
+      "2934EC8FF97885913227C182298B6CE0"
     ],
-    "attributeAspect": null,
-    "attributesPredefined": null,
     "terminalId": "27634FF8002B12E75D98E07CCD005D18",
-    "simple": null,
     "version": "1.0",
-
+    "firstVersionId": null,
     "updatedBy": null,
     "updated": null,
     "created": "2021-11-30T07:32:05.5933985",
@@ -213,23 +150,15 @@
     "name": "Cable System 80 (P)",
     "description": null,
     "aspect": "Product",
-    "objectType": "Transport",
-    "semanticReference": "",
     "rdsId": "C48DCD574DB8B731EEB8E2101060213F",
-    "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminals": null,
-    "blobId": null,
-    "attributes": [
-      "208283CA650C401877F38BCBB66D0937",
-      "C55856CC00019688F60EE7EB5118521B"
+    "attributeIdList": [
+      "44385AF5C56EFCAB77158EA3DFA68329",
+      "A35B5FA0D0D4D06FD236A23917D4493F"
     ],
-    "attributeAspect": null,
-    "attributesPredefined": null,
     "terminalId": "CDBE6464576FF822972293A9C9627A3B",
-    "simple": null,
     "version": "1.0",
-
+    "firstVersionId": null,
     "updatedBy": null,
     "updated": null,
     "created": "2021-11-29T07:24:46.9861644",
@@ -239,23 +168,15 @@
     "name": "Cable System 82 (P)",
     "description": null,
     "aspect": "Product",
-    "objectType": "Transport",
-    "semanticReference": "",
     "rdsId": "FAB5929F1C76515CB98E552A86CA6076",
-    "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminals": null,
-    "blobId": null,
-    "attributes": [
-      "208283CA650C401877F38BCBB66D0937",
-      "C55856CC00019688F60EE7EB5118521B"
+    "attributeIdList": [
+      "44385AF5C56EFCAB77158EA3DFA68329",
+      "A35B5FA0D0D4D06FD236A23917D4493F"
     ],
-    "attributeAspect": null,
-    "attributesPredefined": null,
     "terminalId": "CC6DD5A9564E236AEFD3DA0DA2DACF11",
-    "simple": null,
     "version": "1.0",
-
+    "firstVersionId": null,
     "updatedBy": null,
     "updated": null,
     "created": "2021-11-29T07:25:53.0636539",
@@ -265,23 +186,15 @@
     "name": "Cable System 85 (P)",
     "description": null,
     "aspect": "Product",
-    "objectType": "Transport",
-    "semanticReference": "",
     "rdsId": "FAB5929F1C76515CB98E552A86CA6076",
-    "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminals": null,
-    "blobId": null,
-    "attributes": [
-      "208283CA650C401877F38BCBB66D0937",
-      "C55856CC00019688F60EE7EB5118521B"
+    "attributeIdList": [
+      "44385AF5C56EFCAB77158EA3DFA68329",
+      "A35B5FA0D0D4D06FD236A23917D4493F"
     ],
-    "attributeAspect": null,
-    "attributesPredefined": null,
     "terminalId": "5153111276AA3B42F8E2061D148CF093",
-    "simple": null,
     "version": "1.0",
-
+    "firstVersionId": null,
     "updatedBy": null,
     "updated": null,
     "created": "2021-11-29T07:27:09.9300627",
@@ -291,20 +204,14 @@
     "name": "Cable System 87 (P)",
     "description": null,
     "aspect": "Product",
-    "objectType": "Transport",
-    "semanticReference": "",
     "rdsId": "21C044473B0ED4047F64EF4E41800621",
-    "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminals": null,
-    "blobId": null,
-    "attributes": [ "208283CA650C401877F38BCBB66D0937" ],
-    "attributeAspect": null,
-    "attributesPredefined": null,
+    "attributeIdList": [
+      "44385AF5C56EFCAB77158EA3DFA68329"
+    ],
     "terminalId": "9A69A18F06C5A284BF7B39BDD5FCB329",
-    "simple": null,
     "version": "1.0",
-
+    "firstVersionId": null,
     "updatedBy": null,
     "updated": null,
     "created": "2021-11-29T07:28:42.3379771",
@@ -314,54 +221,37 @@
     "name": "Chemicals (P)",
     "description": null,
     "aspect": "Product",
-    "objectType": "Transport",
-    "semanticReference": "",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
-    "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminals": null,
-    "blobId": null,
-    "attributes": [
-      "007049245AC46BCA9FA3FD6220CAD41C",
-      "06FD5EB8A1ED5961F5BE68D26FE8F58D",
-      "19862F5A2B1F83C4BBE3432FA5EE51A8"
+    "attributeIdList": [
+      "B9C6BD307C06BC6CB7B7F32FF7072B55",
+      "2FE5BFF63AC615DBCEE65B3878A6D871",
+      "2934EC8FF97885913227C182298B6CE0"
     ],
-    "attributeAspect": null,
-    "attributesPredefined": null,
     "terminalId": "6089771C4B5AC170DFB12CCAFC589CE9",
-    "simple": null,
     "version": "1.0",
-
+    "firstVersionId": null,
     "updatedBy": null,
     "updated": null,
     "created": "2021-11-30T07:33:11.7522152",
     "createdBy": "Magnus Oanes Knædal"
   },
-
   {
     "name": "Process (HC) (P)",
     "description": null,
     "aspect": "Product",
-    "objectType": "Transport",
-    "semanticReference": "",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
-    "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminals": null,
-    "blobId": null,
-    "attributes": [
-      "007049245AC46BCA9FA3FD6220CAD41C",
-      "06FD5EB8A1ED5961F5BE68D26FE8F58D",
-      "19862F5A2B1F83C4BBE3432FA5EE51A8"
+    "attributeIdList": [
+      "B9C6BD307C06BC6CB7B7F32FF7072B55",
+      "2FE5BFF63AC615DBCEE65B3878A6D871",
+      "2934EC8FF97885913227C182298B6CE0"
     ],
-    "attributeAspect": null,
-    "attributesPredefined": null,
     "terminalId": "BFB27765A609F27FD3A2DF59C4E4D63D",
-    "simple": null,
     "version": "1.0",
-
-    "updatedBy": "Magnus Oanes Knædal",
-    "updated": "2021-11-30T07:31:53.3938496",
+    "firstVersionId": null,
+    "updatedBy": null,
+    "updated": null,
     "created": "2021-11-30T07:07:38.6354683",
     "createdBy": "Magnus Oanes Knædal"
   },
@@ -369,24 +259,16 @@
     "name": "Utilities (P)",
     "description": null,
     "aspect": "Product",
-    "objectType": "Transport",
-    "semanticReference": "",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
-    "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminals": null,
-    "blobId": null,
-    "attributes": [
-      "007049245AC46BCA9FA3FD6220CAD41C",
-      "06FD5EB8A1ED5961F5BE68D26FE8F58D",
-      "19862F5A2B1F83C4BBE3432FA5EE51A8"
+    "attributeIdList": [
+      "B9C6BD307C06BC6CB7B7F32FF7072B55",
+      "2FE5BFF63AC615DBCEE65B3878A6D871",
+      "2934EC8FF97885913227C182298B6CE0"
     ],
-    "attributeAspect": null,
-    "attributesPredefined": null,
     "terminalId": "CEBA282B7418B7F199798B645E1CBA56",
-    "simple": null,
     "version": "1.0",
-
+    "firstVersionId": null,
     "updatedBy": null,
     "updated": null,
     "created": "2021-11-30T07:35:02.0881966",
@@ -396,24 +278,16 @@
     "name": "Water (P)",
     "description": null,
     "aspect": "Product",
-    "objectType": "Transport",
-    "semanticReference": "",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
-    "statusId": "4590637F39B6BA6F39C74293BE9138DF",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
-    "terminals": null,
-    "blobId": null,
-    "attributes": [
-      "007049245AC46BCA9FA3FD6220CAD41C",
-      "06FD5EB8A1ED5961F5BE68D26FE8F58D",
-      "19862F5A2B1F83C4BBE3432FA5EE51A8"
+    "attributeIdList": [
+      "B9C6BD307C06BC6CB7B7F32FF7072B55",
+      "2FE5BFF63AC615DBCEE65B3878A6D871",
+      "2934EC8FF97885913227C182298B6CE0"
     ],
-    "attributeAspect": null,
-    "attributesPredefined": null,
     "terminalId": "27634FF8002B12E75D98E07CCD005D18",
-    "simple": null,
     "version": "1.0",
-
+    "firstVersionId": null,
     "updatedBy": null,
     "updated": null,
     "created": "2021-11-30T07:32:05.5933985",

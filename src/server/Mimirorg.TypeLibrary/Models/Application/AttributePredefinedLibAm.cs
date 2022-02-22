@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
@@ -6,8 +7,14 @@ namespace Mimirorg.TypeLibrary.Models.Application
     {
         [Required]
         public string Key { get; set; }
+
+        [Required]
         public bool IsMultiSelect { get; set; }
+        
+        [Required]
         public ICollection<string> ValueStringList { get; set; }
-        // TODO: Skulle hatt kobling til Aspect
+
+        [Required]
+        public Aspect Aspect { get; set; }
     }
 }

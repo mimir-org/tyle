@@ -16,7 +16,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Discipline, opt => opt.MapFrom(src => src.Discipline));
 
             CreateMap<BlobLibAm, BlobLibDm>()
-                .ForMember(dest => dest.Id, opt => opt.UseDestinationValue())
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => $"{settings.GetCurrentOntologyIri()}blob/name/{src.Name}/discipline/{src.Discipline}"))
                 .ForMember(dest => dest.Data, opt => opt.MapFrom(src => src.Data))
@@ -25,7 +25,7 @@ namespace TypeLibrary.Core.Profiles
             CreateMap<BlobLibDm, BlobLibCm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Iri))
+                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
                 .ForMember(dest => dest.Data, opt => opt.MapFrom(src => src.Data))
                 .ForMember(dest => dest.Discipline, opt => opt.MapFrom(src => src.Discipline));
         }

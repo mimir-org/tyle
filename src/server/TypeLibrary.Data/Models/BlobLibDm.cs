@@ -1,4 +1,5 @@
-﻿using Mimirorg.TypeLibrary.Enums;
+﻿using System.Collections.Generic;
+using Mimirorg.TypeLibrary.Enums;
 using Newtonsoft.Json;
 
 namespace TypeLibrary.Data.Models
@@ -13,5 +14,8 @@ namespace TypeLibrary.Data.Models
 
         [JsonIgnore]
         public virtual string Key => $"{Name}-{Discipline}";
+
+        [JsonIgnore]
+        public virtual ICollection<NodeLibDm> Nodes { get; set; }
     }
 }
