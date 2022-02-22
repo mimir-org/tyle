@@ -1,8 +1,8 @@
 import { Aspect } from "../enums/aspect";
 
-export interface AttributePredefinedLibAm {
+export interface SelectedAttributePredefinedLibAm {
   key: string;
   isMultiSelect: boolean;
-  valueStringList: string[];
+  values: { [key: string]: boolean };
   aspect: Aspect;
 }
