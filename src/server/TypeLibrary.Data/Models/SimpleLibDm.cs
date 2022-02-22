@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using Mimirorg.TypeLibrary.Contracts;
 using Newtonsoft.Json;
 
 namespace TypeLibrary.Data.Models
 {
-    public class SimpleLibDm
+    public class SimpleLibDm : ILibraryType
     {
         public string Id { get; set; }
         public string Name { get; set; }

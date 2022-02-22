@@ -68,6 +68,9 @@ namespace Mimirorg.Common.Abstract
         public virtual async Task Delete(string id)
         {
             var entityToDelete = await DbSet.FindAsync(id);
+            if(entityToDelete == null)
+                return;
+
             if (Context.Entry(entityToDelete).State == EntityState.Detached)
             {
                 DbSet.Attach(entityToDelete);
@@ -81,12 +84,23 @@ namespace Mimirorg.Common.Abstract
             Context.Entry(entity).State = EntityState.Detached;
         }
 
-        public void Attach(TEntity entity, EntityState state)
+        public virtual void Detach(ICollection<TEntity> entities)
+        {
+            if (entities == null || !entities.Any())
+                return;
+
+            foreach (var entity in entities)
+            {
+                Context.Entry(entity).State = EntityState.Detached;
+            }
+        }
+
+        public virtual void Attach(TEntity entity, EntityState state)
         {
             Context.Entry(entity).State = state;
         }
 
-        public void Attach(ICollection<TEntity> entities, EntityState state)
+        public virtual void Attach(ICollection<TEntity> entities, EntityState state)
         {
             if(entities == null || !entities.Any())
                 return;
@@ -97,7 +111,7 @@ namespace Mimirorg.Common.Abstract
             }
         }
 
-        public async Task<int> SaveAsync()
+        public virtual async Task<int> SaveAsync()
         {
             return await Context.SaveChangesAsync();
         }

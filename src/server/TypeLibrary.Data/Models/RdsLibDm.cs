@@ -15,6 +15,12 @@ namespace TypeLibrary.Data.Models
         public Aspect Aspect { get; set; }
 
         [JsonIgnore]
-        public ICollection<LibraryTypeLibDm> LibraryTypes { get; set; }
+        public virtual ICollection<TransportLibDm> Transports { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<InterfaceLibDm> Interfaces { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<NodeLibDm> Nodes { get; set; }
     }
 }

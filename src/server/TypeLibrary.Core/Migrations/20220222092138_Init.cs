@@ -107,7 +107,8 @@ namespace TypeLibrary.Core.Migrations
                     Key = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsMultiSelect = table.Column<bool>(type: "bit", nullable: false),
-                    ValueStringList = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ValueStringList = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -369,58 +370,146 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LibraryType",
+                name: "Interface",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ParentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RdsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PurposeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ParentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Version = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstVersionId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StatusId = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "4590637F39B6BA6F39C74293BE9138DF"),
-                    RdsId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    PurposeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "Unknown"),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Interface_TerminalId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    AttributeAspectId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BlobId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AttributePredefined = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Transport_TerminalId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Interface_TerminalId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LibraryType", x => x.Id);
+                    table.PrimaryKey("PK_Interface", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LibraryType_LibraryType_ParentId",
+                        name: "FK_Interface_Interface_ParentId",
                         column: x => x.ParentId,
-                        principalTable: "LibraryType",
+                        principalTable: "Interface",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_LibraryType_Purpose_PurposeId",
+                        name: "FK_Interface_Purpose_PurposeId",
                         column: x => x.PurposeId,
                         principalTable: "Purpose",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_LibraryType_Rds_RdsId",
+                        name: "FK_Interface_Rds_RdsId",
                         column: x => x.RdsId,
                         principalTable: "Rds",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_LibraryType_Terminal_Interface_TerminalId",
+                        name: "FK_Interface_Terminal_Interface_TerminalId",
                         column: x => x.Interface_TerminalId,
                         principalTable: "Terminal",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Node",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RdsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PurposeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ParentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Version = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstVersionId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BlobId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    AttributeAspectId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "Unknown"),
+                    SelectedAttributePredefined = table.Column<string>(type: "nvarchar(MAX)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Node", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LibraryType_Terminal_Transport_TerminalId",
+                        name: "FK_Node_AttributeAspect_AttributeAspectId",
+                        column: x => x.AttributeAspectId,
+                        principalTable: "AttributeAspect",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Node_Blob_BlobId",
+                        column: x => x.BlobId,
+                        principalTable: "Blob",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Node_Node_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Node",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Node_Purpose_PurposeId",
+                        column: x => x.PurposeId,
+                        principalTable: "Purpose",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Node_Rds_RdsId",
+                        column: x => x.RdsId,
+                        principalTable: "Rds",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Transport",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RdsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PurposeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ParentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Version = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstVersionId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "Unknown"),
+                    Transport_TerminalId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Transport", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Transport_Purpose_PurposeId",
+                        column: x => x.PurposeId,
+                        principalTable: "Purpose",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Transport_Rds_RdsId",
+                        column: x => x.RdsId,
+                        principalTable: "Rds",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Transport_Terminal_Transport_TerminalId",
                         column: x => x.Transport_TerminalId,
                         principalTable: "Terminal",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Transport_Transport_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Transport",
                         principalColumn: "Id");
                 });
 
@@ -441,9 +530,9 @@ namespace TypeLibrary.Core.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Attribute_Interface_LibraryType_InterfaceId",
+                        name: "FK_Attribute_Interface_Interface_InterfaceId",
                         column: x => x.InterfaceId,
-                        principalTable: "LibraryType",
+                        principalTable: "Interface",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -465,57 +554,33 @@ namespace TypeLibrary.Core.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Attribute_Node_LibraryType_NodeId",
+                        name: "FK_Attribute_Node_Node_NodeId",
                         column: x => x.NodeId,
-                        principalTable: "LibraryType",
+                        principalTable: "Node",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Attribute_Transport",
-                columns: table => new
-                {
-                    AttributeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TransportId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Attribute_Transport", x => new { x.AttributeId, x.TransportId });
-                    table.ForeignKey(
-                        name: "FK_Attribute_Transport_Attribute_AttributeId",
-                        column: x => x.AttributeId,
-                        principalTable: "Attribute",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Attribute_Transport_LibraryType_TransportId",
-                        column: x => x.TransportId,
-                        principalTable: "LibraryType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "LibraryType_Collection",
+                name: "Node_Collection",
                 columns: table => new
                 {
                     CollectionId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LibraryTypeId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    NodeId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LibraryType_Collection", x => new { x.CollectionId, x.LibraryTypeId });
+                    table.PrimaryKey("PK_Node_Collection", x => new { x.CollectionId, x.NodeId });
                     table.ForeignKey(
-                        name: "FK_LibraryType_Collection_Collection_CollectionId",
+                        name: "FK_Node_Collection_Collection_CollectionId",
                         column: x => x.CollectionId,
                         principalTable: "Collection",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_LibraryType_Collection_LibraryType_LibraryTypeId",
-                        column: x => x.LibraryTypeId,
-                        principalTable: "LibraryType",
+                        name: "FK_Node_Collection_Node_NodeId",
+                        column: x => x.NodeId,
+                        principalTable: "Node",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -531,9 +596,9 @@ namespace TypeLibrary.Core.Migrations
                 {
                     table.PrimaryKey("PK_Simple_Node", x => new { x.NodeId, x.SimpleId });
                     table.ForeignKey(
-                        name: "FK_Simple_Node_LibraryType_NodeId",
+                        name: "FK_Simple_Node_Node_NodeId",
                         column: x => x.NodeId,
-                        principalTable: "LibraryType",
+                        principalTable: "Node",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -558,15 +623,39 @@ namespace TypeLibrary.Core.Migrations
                 {
                     table.PrimaryKey("PK_Terminal_Node", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Terminal_Node_LibraryType_NodeId",
+                        name: "FK_Terminal_Node_Node_NodeId",
                         column: x => x.NodeId,
-                        principalTable: "LibraryType",
+                        principalTable: "Node",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Terminal_Node_Terminal_TerminalId",
                         column: x => x.TerminalId,
                         principalTable: "Terminal",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Attribute_Transport",
+                columns: table => new
+                {
+                    AttributeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TransportId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Attribute_Transport", x => new { x.AttributeId, x.TransportId });
+                    table.ForeignKey(
+                        name: "FK_Attribute_Transport_Attribute_AttributeId",
+                        column: x => x.AttributeId,
+                        principalTable: "Attribute",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Attribute_Transport_Transport_TransportId",
+                        column: x => x.TransportId,
+                        principalTable: "Transport",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -623,34 +712,54 @@ namespace TypeLibrary.Core.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_LibraryType_Interface_TerminalId",
-                table: "LibraryType",
+                name: "IX_Interface_Interface_TerminalId",
+                table: "Interface",
                 column: "Interface_TerminalId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LibraryType_ParentId",
-                table: "LibraryType",
+                name: "IX_Interface_ParentId",
+                table: "Interface",
                 column: "ParentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LibraryType_PurposeId",
-                table: "LibraryType",
+                name: "IX_Interface_PurposeId",
+                table: "Interface",
                 column: "PurposeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LibraryType_RdsId",
-                table: "LibraryType",
+                name: "IX_Interface_RdsId",
+                table: "Interface",
                 column: "RdsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LibraryType_Transport_TerminalId",
-                table: "LibraryType",
-                column: "Transport_TerminalId");
+                name: "IX_Node_AttributeAspectId",
+                table: "Node",
+                column: "AttributeAspectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LibraryType_Collection_LibraryTypeId",
-                table: "LibraryType_Collection",
-                column: "LibraryTypeId");
+                name: "IX_Node_BlobId",
+                table: "Node",
+                column: "BlobId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Node_ParentId",
+                table: "Node",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Node_PurposeId",
+                table: "Node",
+                column: "PurposeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Node_RdsId",
+                table: "Node",
+                column: "RdsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Node_Collection_NodeId",
+                table: "Node_Collection",
+                column: "NodeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rds_RdsCategoryId",
@@ -681,6 +790,26 @@ namespace TypeLibrary.Core.Migrations
                 name: "IX_Terminal_Node_TerminalId",
                 table: "Terminal_Node",
                 column: "TerminalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transport_ParentId",
+                table: "Transport",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transport_PurposeId",
+                table: "Transport",
+                column: "PurposeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transport_RdsId",
+                table: "Transport",
+                column: "RdsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transport_Transport_TerminalId",
+                table: "Transport",
+                column: "Transport_TerminalId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -701,9 +830,6 @@ namespace TypeLibrary.Core.Migrations
                 name: "Attribute_Unit");
 
             migrationBuilder.DropTable(
-                name: "AttributeAspect");
-
-            migrationBuilder.DropTable(
                 name: "AttributeCondition");
 
             migrationBuilder.DropTable(
@@ -719,10 +845,7 @@ namespace TypeLibrary.Core.Migrations
                 name: "AttributeSource");
 
             migrationBuilder.DropTable(
-                name: "Blob");
-
-            migrationBuilder.DropTable(
-                name: "LibraryType_Collection");
+                name: "Node_Collection");
 
             migrationBuilder.DropTable(
                 name: "Simple_Node");
@@ -732,6 +855,12 @@ namespace TypeLibrary.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "Terminal_Node");
+
+            migrationBuilder.DropTable(
+                name: "Interface");
+
+            migrationBuilder.DropTable(
+                name: "Transport");
 
             migrationBuilder.DropTable(
                 name: "Unit");
@@ -746,16 +875,22 @@ namespace TypeLibrary.Core.Migrations
                 name: "Attribute");
 
             migrationBuilder.DropTable(
-                name: "LibraryType");
+                name: "Node");
+
+            migrationBuilder.DropTable(
+                name: "Terminal");
+
+            migrationBuilder.DropTable(
+                name: "AttributeAspect");
+
+            migrationBuilder.DropTable(
+                name: "Blob");
 
             migrationBuilder.DropTable(
                 name: "Purpose");
 
             migrationBuilder.DropTable(
                 name: "Rds");
-
-            migrationBuilder.DropTable(
-                name: "Terminal");
 
             migrationBuilder.DropTable(
                 name: "RdsCategory");

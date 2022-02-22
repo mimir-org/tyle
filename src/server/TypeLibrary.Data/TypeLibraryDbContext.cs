@@ -13,8 +13,7 @@ namespace TypeLibrary.Data
         public virtual DbSet<AttributeLibDm> Attribute { get; set; }
         public virtual DbSet<BlobLibDm> Blob { get; set; }
         public virtual DbSet<InterfaceLibDm> Interface { get; set; }
-        public virtual DbSet<LibraryTypeLibDm> LibraryType { get; set; }
-        public virtual DbSet<TerminalNodeLibDm> TerminalNode { get; set; }
+        public virtual DbSet<NodeTerminalLibDm> TerminalNode { get; set; }
         public virtual DbSet<AttributePredefinedLibDm> AttributePredefined { get; set; }
         public virtual DbSet<PurposeLibDm> Purpose { get; set; }
         public virtual DbSet<RdsCategoryLibDm> RdsCategory { get; set; }
@@ -42,8 +41,7 @@ namespace TypeLibrary.Data
             modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());
             modelBuilder.ApplyConfiguration(new BlobConfiguration());
             modelBuilder.ApplyConfiguration(new InterfaceConfiguration());
-            modelBuilder.ApplyConfiguration(new LibraryTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new TerminalNodeConfiguration());
+            modelBuilder.ApplyConfiguration(new NodeTerminalConfiguration());
             modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());
             modelBuilder.ApplyConfiguration(new PurposeConfiguration());
             modelBuilder.ApplyConfiguration(new RdsCategoryConfiguration());
@@ -54,6 +52,7 @@ namespace TypeLibrary.Data
             modelBuilder.ApplyConfiguration(new AttributeAspectConfiguration());
             modelBuilder.ApplyConfiguration(new UnitConfiguration());
             modelBuilder.ApplyConfiguration(new CollectionConfiguration());
+            modelBuilder.ApplyConfiguration(new NodeConfiguration());
         }
     }
 }

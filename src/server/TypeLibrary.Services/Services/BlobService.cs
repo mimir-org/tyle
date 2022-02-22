@@ -5,7 +5,6 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Extensions;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -33,14 +32,12 @@ namespace TypeLibrary.Services.Services
         /// <returns></returns>
         public async Task<BlobLibCm> CreateBlob(BlobLibAm blob, bool saveData = true)
         {
-            var id = blob.Key.CreateMd5();
-            var blobExist = await _blobDataRepository.GetAsync(id);
+            var blobExist = await _blobDataRepository.GetAsync(blob.Id);
 
             if(blobExist != null)
                 throw new MimirorgDuplicateException($"There is already an blob with name: {blob.Name} and discipline: {blob.Discipline}");
 
             var dm = _mapper.Map<BlobLibDm>(blob);
-            dm.Id = id;
             await _blobDataRepository.CreateAsync(dm);
 
             if (saveData)
@@ -56,15 +53,22 @@ namespace TypeLibrary.Services.Services
         /// <returns></returns>
         public async Task<IEnumerable<BlobLibCm>> CreateBlob(IEnumerable<BlobLibAm> blobDataList)
         {
-            var blobs = new List<BlobLibCm>();
+            var blobs = new List<BlobLibDm>();
+            var existingBlobs = _blobDataRepository.GetAll().ToList();
 
             foreach (var blobData in blobDataList)
             {
-                blobs.Add(await CreateBlob(blobData, false));
+                var blobExist = existingBlobs.FirstOrDefault(x => x.Id == blobData.Id);
+                if(blobExist != null)
+                    continue;
+
+                var dm = _mapper.Map<BlobLibDm>(blobData);
+                await _blobDataRepository.CreateAsync(dm);
+                blobs.Add(dm);
             }
 
             await _blobDataRepository.SaveAsync();
-            return blobs;
+            return _mapper.Map<List<BlobLibCm>>(blobs);
         }
 
         /// <summary>

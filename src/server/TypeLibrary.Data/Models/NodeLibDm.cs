@@ -1,44 +1,41 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using Mimirorg.TypeLibrary.Models.Client;
-using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using Mimirorg.TypeLibrary.Enums;
 
 namespace TypeLibrary.Data.Models
 {
-    public class NodeLibDm : LibraryTypeLibDm
+    public class NodeLibDm
     {
-        public ICollection<TerminalNodeLibDm> TerminalNodes { get; set; }
-        public ICollection<AttributeLibDm> Attributes { get; set; }
-        public string AttributeAspectId { get; set; }
+        public string Id { get; set; }
+        public string Iri { get; set; }
+        public string Name { get; set; }
+        public string RdsId { get; set; }
+        public RdsLibDm Rds { get; set; }
+        public string PurposeId { get; set; }
+        public PurposeLibDm Purpose { get; set; }
+        public string ParentId { get; set; }
+        public NodeLibDm Parent { get; set; }
+        public string Version { get; set; }
+        public string FirstVersionId { get; set; }
+        public Aspect Aspect { get; set; }
+        public State State { get; set; }
+        public int CompanyId { get; set; }
+        public string Description { get; set; }
         public string BlobId { get; set; }
-        public virtual ICollection<SimpleLibDm> Simple { get; set; }
-        [NotMapped]
-        public ICollection<AttributePredefinedLibCm> AttributesPredefined { get; set; }
+        public BlobLibDm Blob { get; set; }
+        public string AttributeAspectId { get; set; }
+        public AttributeAspectLibDm AttributeAspect { get; set; }
 
-        [JsonIgnore]
-        public string AttributePredefined { get; set; }
+        public string UpdatedBy { get; set; }
+        public DateTime? Updated { get; set; }
+        public DateTime Created { get; set; }
+        public string CreatedBy { get; set; }
 
-        public void ResolveAttributePredefined()
-        {
-            if (AttributesPredefined == null || !AttributesPredefined.Any())
-            {
-                AttributePredefined = null;
-                return;
-            }
-
-            AttributePredefined = JsonConvert.SerializeObject(AttributesPredefined);
-        }
-
-        public void ResolveAttributesPredefined()
-        {
-            if (string.IsNullOrEmpty(AttributePredefined))
-            {
-                AttributesPredefined = null;
-                return;
-            }
-
-            AttributesPredefined = JsonConvert.DeserializeObject<ICollection<AttributePredefinedLibCm>>(AttributePredefined);
-        }
+        public virtual ICollection<NodeLibDm> Children { get; set; }
+        public virtual ICollection<CollectionLibDm> Collections { get; set; }
+        public virtual ICollection<NodeTerminalLibDm> NodeTerminals { get; set; }
+        public virtual ICollection<AttributeLibDm> Attributes { get; set; }
+        public virtual ICollection<SimpleLibDm> Simples { get; set; }
+        public virtual List<SelectedAttributePredefinedLibDm> SelectedAttributePredefined { get; set; }
     }
 }

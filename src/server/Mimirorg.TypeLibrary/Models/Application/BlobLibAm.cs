@@ -15,6 +15,6 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public string Data { get; set; }
 
-        public virtual string Key => $"{Name}-{Discipline}".CreateMd5();
+        public virtual string Id => $"{Name}-{Discipline}".CreateMd5();
     }
 }

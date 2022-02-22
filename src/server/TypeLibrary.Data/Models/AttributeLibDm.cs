@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using Mimirorg.Common.Extensions;
+using Mimirorg.TypeLibrary.Contracts;
 using Mimirorg.TypeLibrary.Enums;
 
 namespace TypeLibrary.Data.Models
 {
-    public class AttributeLibDm
+    public class AttributeLibDm : ILibraryType
     {
         public string Id { get; set; }
         public string ParentId { get; set; }
@@ -31,6 +32,6 @@ namespace TypeLibrary.Data.Models
         public virtual ICollection<NodeLibDm> Nodes { get; set; }
         public virtual ICollection<SimpleLibDm> Simple { get; set; }
         public virtual ICollection<TransportLibDm> Transports { get; set; }
-        public ICollection<UnitLibDm> Units { get; set; }
+        public virtual ICollection<UnitLibDm> Units { get; set; }
     }
 }
