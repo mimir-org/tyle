@@ -12,7 +12,7 @@ interface Props {
  * @param interface
  * @returns a button with text and an optional icon.
  */
-const Button = ({ onClick, text, icon = null, disabled = false }: Props) => (
+const Button = ({ onClick, text, icon = "", disabled = false }: Props) => (
   <ButtonContainer
     onClick={() => onClick()}
     icon={icon !== null}

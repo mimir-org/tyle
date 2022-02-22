@@ -1,8 +1,9 @@
 import { RadioButtonWrapper } from "./styled";
+import { ChangeEvent } from "react";
 
 interface Props {
   isChecked: boolean;
-  onChange: (e) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   id: string;
 }
 

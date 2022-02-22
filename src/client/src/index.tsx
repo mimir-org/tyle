@@ -1,16 +1,14 @@
-import red from "./redux/store/index";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { App } from "./modules/app";
-import { loginRequest, msalConfig } from "./models/webclient/MsalConfig";
+import Config from "./models/Config";
+import { App } from "./components/app";
+import { loginRequest, msalConfig } from "./models/MsalConfig";
+import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import {
   PublicClientApplication,
   EventType,
   EventMessage,
   AuthenticationResult,
 } from "@azure/msal-browser";
-import { ApplicationInsights } from "@microsoft/applicationinsights-web";
-import Config from "./models/Config";
 
 const rootElement = document.getElementById("root");
 export const msalInstance = new PublicClientApplication(msalConfig);
@@ -34,18 +32,15 @@ msalInstance.addEventCallback((event: EventMessage) => {
   }
 });
 
-const appInsights = new ApplicationInsights({
-  config: {
-    connectionString: Config.APP_INSIGHTS_CONNECTION_STRING,
-  },
-});
+if (Config.APP_INSIGHTS_CONNECTION_STRING) {
+  const appInsights = new ApplicationInsights({
+    config: {
+      connectionString: Config.APP_INSIGHTS_CONNECTION_STRING,
+    },
+  });
 
-appInsights.loadAppInsights();
-appInsights.trackPageView();
+  appInsights.loadAppInsights();
+  appInsights.trackPageView();
+}
 
-ReactDOM.render(
-  <Provider store={red.store}>
-    <App pca={msalInstance} />
-  </Provider>,
-  rootElement
-);
+ReactDOM.render(<App pca={msalInstance} />, rootElement);

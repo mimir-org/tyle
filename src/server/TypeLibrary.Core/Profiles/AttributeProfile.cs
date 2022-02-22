@@ -43,7 +43,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Select, opt => opt.MapFrom(src => src.Select))
                 .ForMember(dest => dest.Discipline, opt => opt.MapFrom(src => src.Discipline))
                 .ForMember(dest => dest.UnitIdList, opt => opt.MapFrom(src => src.Units.Select(x => x.Id).ToList()))
-                .ForMember(dest => dest.SelectValues, opt => opt.MapFrom(src => src.SelectValues.ConvertToString()));
+                .ForMember(dest => dest.SelectValues, opt => opt.MapFrom(src => src.SelectValues));
 
             CreateMap<AttributeLibDm, AttributeLibCm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -59,7 +59,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Select, opt => opt.MapFrom(src => src.Select))
                 .ForMember(dest => dest.Discipline, opt => opt.MapFrom(src => src.Discipline))
                 .ForMember(dest => dest.Units, opt => opt.MapFrom(src => src.Units))
-                .ForMember(dest => dest.SelectValues, opt => opt.MapFrom(src => src.SelectValues.ConvertToString()));
+                .ForMember(dest => dest.SelectValues, opt => opt.MapFrom(src => src.SelectValues));
         }
 
         private IEnumerable<UnitLibAm> ResolveUnits(ICollection<string> unitIdList, IUnitFactory unitFactory)
