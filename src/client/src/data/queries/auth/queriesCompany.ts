@@ -1,16 +1,17 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { MimirorgCompanyAm } from "../../../models/auth/application/mimirorgCompanyAm";
 import { apiCompany } from "../../api/auth/apiCompany";
+import { UpdateEntity } from "../../types/updateEntity";
 
 const keys = {
   all: ["companies"] as const,
   lists: () => [...keys.all, "list"] as const,
-  company: (id: number) => [...keys.lists(), { id }] as const,
+  company: (id: string) => [...keys.all, { id }] as const,
 };
 
 export const useGetCompanies = () => useQuery(keys.lists(), apiCompany.getCompanies);
 
-export const useGetCompany = (id: number) => useQuery(keys.company(id), () => apiCompany.getCompany(id));
+export const useGetCompany = (id: string) => useQuery(keys.company(id), () => apiCompany.getCompany(id));
 
 export const useCreateCompany = () => {
   const queryClient = useQueryClient();
@@ -23,12 +24,9 @@ export const useCreateCompany = () => {
 export const useUpdateCompany = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(
-    (update: { item: MimirorgCompanyAm; id: number }) => apiCompany.putCompany(update.id, update.item),
-    {
-      onSuccess: (data) => queryClient.invalidateQueries(keys.company(data.id)),
-    }
-  );
+  return useMutation((update: UpdateEntity<MimirorgCompanyAm>) => apiCompany.putCompany(update.id, update), {
+    onSuccess: (data) => queryClient.invalidateQueries(keys.company(data.id)),
+  });
 };
 
 export const useDeleteCompany = () => {

@@ -8,6 +8,9 @@ export const apiAttributeQualifier = {
   getAttributeQualifiers() {
     return apiClient.get<AttributeQualifierLibCm[]>(_basePath).then((r) => r.data);
   },
+  putAttributeQualifier(id: string, item: AttributeQualifierLibAm) {
+    return apiClient.post<AttributeQualifierLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
+  },
   postAttributeQualifier(item: AttributeQualifierLibAm) {
     return apiClient.post<AttributeQualifierLibCm>(_basePath, item).then((r) => r.data);
   },

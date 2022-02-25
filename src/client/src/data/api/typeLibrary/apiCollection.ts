@@ -8,6 +8,9 @@ export const apiCollection = {
   getCollections() {
     return apiClient.get<CollectionLibCm[]>(_basePath).then((r) => r.data);
   },
+  putCollection(id: string, item: CollectionLibAm) {
+    return apiClient.post<CollectionLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
+  },
   postCollection(item: CollectionLibAm) {
     return apiClient.post<CollectionLibCm>(_basePath, item).then((r) => r.data);
   },

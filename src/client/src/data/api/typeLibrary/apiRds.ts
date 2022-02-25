@@ -16,6 +16,9 @@ export const apiRds = {
   getRdsCategories() {
     return apiClient.get<RdsCategoryLibCm[]>(`${_basePath}/category`).then((r) => r.data);
   },
+  putRdsCategory(id: string, item: RdsCategoryLibAm) {
+    return apiClient.post<RdsCategoryLibCm>(`${_basePath}/category/${id}`, item).then((r) => r.data);
+  },
   postRdsCategory(item: RdsCategoryLibAm) {
     return apiClient.post<RdsCategoryLibCm>(`${_basePath}/category`, item).then((r) => r.data);
   },

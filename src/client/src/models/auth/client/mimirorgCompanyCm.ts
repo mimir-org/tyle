@@ -1,7 +1,7 @@
 import { MimirorgUserCm } from "./mimirorgUserCm";
 
 export interface MimirorgCompanyCm {
-  id: number;
+  id: string;
   name: string;
   displayName: string;
   description: string;
