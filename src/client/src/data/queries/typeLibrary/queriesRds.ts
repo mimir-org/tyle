@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiRds } from "../../api/typeLibrary/apiRds";
 import { RdsCategoryLibAm } from "../../../models/typeLibrary/application/rdsCategoryLibAm";
 import { Aspect } from "../../../models/typeLibrary/enums/aspect";
+import { UpdateEntity } from "../../types/updateEntity";
 
 const keys = {
   allRds: ["rds"] as const,
@@ -22,6 +23,14 @@ export const useCreateRdsCategory = () => {
   const queryClient = useQueryClient();
 
   return useMutation((item: RdsCategoryLibAm) => apiRds.postRdsCategory(item), {
+    onSuccess: () => queryClient.invalidateQueries(keys.rdsCategoryLists()),
+  });
+};
+
+export const useUpdateRdsCategory = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation((item: UpdateEntity<RdsCategoryLibAm>) => apiRds.putRdsCategory(item.id, item), {
     onSuccess: () => queryClient.invalidateQueries(keys.rdsCategoryLists()),
   });
 };

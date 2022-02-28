@@ -16,8 +16,6 @@ export const useCreateAspectNode = () => {
   const queryClient = useQueryClient();
 
   return useMutation((unit: NodeLibAm) => apiAspectNode.postAspectNode(unit), {
-    onSuccess: () => {
-      return queryClient.invalidateQueries(keys.lists());
-    },
+    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };

@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { CollectionLibAm } from "../../../models/typeLibrary/application/collectionLibAm";
 import { apiCollection } from "../../api/typeLibrary/apiCollection";
+import { UpdateEntity } from "../../types/updateEntity";
 
 const keys = {
   all: ["collections"] as const,
@@ -13,6 +14,14 @@ export const useCreateCollection = () => {
   const queryClient = useQueryClient();
 
   return useMutation((item: CollectionLibAm) => apiCollection.postCollection(item), {
+    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
+  });
+};
+
+export const useUpdateCollection = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation((item: UpdateEntity<CollectionLibAm>) => apiCollection.putCollection(item.id, item), {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };
