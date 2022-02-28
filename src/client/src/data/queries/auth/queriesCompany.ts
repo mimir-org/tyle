@@ -32,7 +32,7 @@ export const useUpdateCompany = () => {
 export const useDeleteCompany = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((id: number) => apiCompany.deleteCompany(id), {
+  return useMutation((id: string) => apiCompany.deleteCompany(id), {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };

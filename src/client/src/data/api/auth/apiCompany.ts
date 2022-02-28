@@ -17,7 +17,7 @@ export const apiCompany = {
   putCompany(id: string, item: MimirorgCompanyAm) {
     return apiClient.put<MimirorgCompanyCm>(`${_basePath}/${id}`, item).then((r) => r.data);
   },
-  deleteCompany(id: number) {
+  deleteCompany(id: string) {
     return apiClient.delete<boolean>(`${_basePath}/${id}`).then((r) => r.data);
   },
 };
