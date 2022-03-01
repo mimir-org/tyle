@@ -9,7 +9,7 @@ export const apiAttributeFormat = {
     return apiClient.get<AttributeFormatLibCm[]>(_basePath).then((r) => r.data);
   },
   putAttributeFormat(id: string, item: AttributeFormatLibAm) {
-    return apiClient.post<AttributeFormatLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
+    return apiClient.put<AttributeFormatLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
   },
   postAttributeFormat(item: AttributeFormatLibAm) {
     return apiClient.post<AttributeFormatLibCm>(_basePath, item).then((r) => r.data);

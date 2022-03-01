@@ -12,6 +12,6 @@ export const apiUnit = {
     return apiClient.post<UnitLibCm>(_basePath, item).then((r) => r.data);
   },
   putUnit(id: string, item: UnitLibAm) {
-    return apiClient.post<UnitLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
+    return apiClient.put<UnitLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
   },
 };
