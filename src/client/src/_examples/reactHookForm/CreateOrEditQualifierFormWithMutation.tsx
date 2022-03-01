@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
-import { useServerSideValidation } from "../../components/hooks/useServerSideValidation";
+import { useValidationFromServer } from "../../components/hooks/useValidationFromServer";
 import { useCreateAttributeQualifier } from "../../data/queries/typeLibrary/queriesAttributeQualifier";
+import { getValidationStateFromServer } from "../../data/helpers/getValidationStateFromServer";
 import {
   AttributeQualifierLibAm,
   createEmptyAttributeQualifierLibAm,
@@ -10,7 +11,9 @@ interface Props {
   defaultValues?: AttributeQualifierLibAm;
 }
 
-export const CreateOrEditQualifierFormWithMutation = ({ defaultValues = createEmptyAttributeQualifierLibAm() }: Props) => {
+export const CreateOrEditQualifierFormWithMutation = ({
+  defaultValues = createEmptyAttributeQualifierLibAm(),
+}: Props) => {
   const {
     register,
     handleSubmit,
@@ -18,7 +21,8 @@ export const CreateOrEditQualifierFormWithMutation = ({ defaultValues = createEm
     formState: { errors },
   } = useForm<AttributeQualifierLibAm>({ defaultValues });
   const mutation = useCreateAttributeQualifier();
-  useServerSideValidation<AttributeQualifierLibAm>(mutation.error, setError);
+  const validationState = getValidationStateFromServer<AttributeQualifierLibAm>(mutation.error);
+  useValidationFromServer<AttributeQualifierLibAm>(setError, validationState?.errors);
 
   return (
     <div>
