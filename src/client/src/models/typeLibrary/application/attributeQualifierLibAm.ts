@@ -6,3 +6,14 @@ export interface AttributeQualifierLibAm {
   created: string;
   createdBy: string;
 }
+
+export const createEmptyAttributeQualifierLibAm = (): AttributeQualifierLibAm => {
+  return {
+    name: "",
+    description: "",
+    updatedBy: "",
+    updated: null,
+    created: "",
+    createdBy: "",
+  };
+};
