@@ -9,7 +9,7 @@ export const apiAttributeCondition = {
     return apiClient.get<AttributeConditionLibCm[]>(_basePath).then((r) => r.data);
   },
   putAttributeCondition(id: string, item: AttributeConditionLibAm) {
-    return apiClient.post<AttributeConditionLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
+    return apiClient.put<AttributeConditionLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
   },
   postAttributeCondition(item: AttributeConditionLibAm) {
     return apiClient.post<AttributeConditionLibCm>(_basePath, item).then((r) => r.data);
