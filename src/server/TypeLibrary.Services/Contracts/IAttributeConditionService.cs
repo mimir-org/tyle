@@ -8,7 +8,7 @@ namespace TypeLibrary.Services.Contracts
     public interface IAttributeConditionService
     {
         Task<IEnumerable<AttributeConditionLibCm>> GetAttributeConditions();
-        Task<AttributeConditionLibCm> UpdateAttributeCondition(AttributeConditionLibAm dataAm);
+        Task<AttributeConditionLibCm> UpdateAttributeCondition(AttributeConditionLibAm dataAm, string id);
         Task<AttributeConditionLibCm> CreateAttributeCondition(AttributeConditionLibAm dataAm);
         Task CreateAttributeConditions(List<AttributeConditionLibAm> dataAm);
     }

@@ -34,9 +34,10 @@ namespace TypeLibrary.Services.Services
             return Task.FromResult(dataAm.AsEnumerable());
         }
 
-        public async Task<AttributeConditionLibCm> UpdateAttributeCondition(AttributeConditionLibAm dataAm)
+        public async Task<AttributeConditionLibCm> UpdateAttributeCondition(AttributeConditionLibAm dataAm, string id)
         {
             var data = _mapper.Map<AttributeConditionLibDm>(dataAm);
+            data.Id = int.Parse(id);
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _conditionRepository.Update(data);

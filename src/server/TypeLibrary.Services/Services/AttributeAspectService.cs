@@ -34,9 +34,10 @@ namespace TypeLibrary.Services.Services
             return Task.FromResult(dataAm.AsEnumerable());
         }
 
-        public async Task<AttributeAspectLibCm> UpdateAttributeAspect(AttributeAspectLibAm dataAm)
+        public async Task<AttributeAspectLibCm> UpdateAttributeAspect(AttributeAspectLibAm dataAm, string id)
         {
             var data = _mapper.Map<AttributeAspectLibDm>(dataAm);
+            data.Id = id;
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _attributeAspectRepository.Update(data);

@@ -48,15 +48,15 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(typeof(AttributeAspectLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateAttributeType([FromBody] AttributeAspectLibAm dataAm)
+        public async Task<IActionResult> UpdateAttributeType([FromBody] AttributeAspectLibAm dataAm, [FromRoute] string id)
         {
             try
             {
-                var data = await _attributeAspectService.UpdateAttributeAspect(dataAm);
+                var data = await _attributeAspectService.UpdateAttributeAspect(dataAm, id);
                 return Ok(data);
             }
             catch (Exception e)
