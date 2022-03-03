@@ -99,9 +99,10 @@ namespace TypeLibrary.Services.Services
             return Task.FromResult(dataAm.AsEnumerable());
         }
 
-        public async Task<RdsCategoryLibCm> UpdateRdsCategory(RdsCategoryLibAm dataAm)
+        public async Task<RdsCategoryLibCm> UpdateRdsCategory(RdsCategoryLibAm dataAm, string id)
         {
             var data = _mapper.Map<RdsCategoryLibDm>(dataAm);
+            data.Id = id;
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _rdsCategoryRepository.Update(data);

@@ -13,7 +13,7 @@ namespace TypeLibrary.Services.Contracts
         Task<RdsLibCm> CreateRds(RdsLibAm rdsAm);
         Task<List<RdsLibCm>> CreateRdsAsync(List<RdsLibAm> createRds);
         Task<IEnumerable<RdsCategoryLibCm>> GetRdsCategories();
-        Task<RdsCategoryLibCm> UpdateRdsCategory(RdsCategoryLibAm dataAm);
+        Task<RdsCategoryLibCm> UpdateRdsCategory(RdsCategoryLibAm dataAm, string id);
         Task<RdsCategoryLibCm> CreateRdsCategory(RdsCategoryLibAm dataAm);
         Task CreateRdsCategories(List<RdsCategoryLibAm> dataAm);
     }
