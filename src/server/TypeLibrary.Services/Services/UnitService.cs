@@ -34,9 +34,10 @@ namespace TypeLibrary.Services.Services
             return Task.FromResult(dataAm.AsEnumerable());
         }
 
-        public async Task<UnitLibCm> UpdateUnit(UnitLibAm dataAm)
+        public async Task<UnitLibCm> UpdateUnit(UnitLibAm dataAm, string id)
         {
             var data = _mapper.Map<UnitLibDm>(dataAm);
+            data.Id = id;
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _unitRepository.Update(data);
