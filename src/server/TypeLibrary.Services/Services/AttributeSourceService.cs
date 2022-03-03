@@ -34,9 +34,10 @@ namespace TypeLibrary.Services.Services
             return Task.FromResult(dataAm.AsEnumerable());
         }
 
-        public async Task<AttributeSourceLibCm> UpdateAttributeSource(AttributeSourceLibAm dataAm)
+        public async Task<AttributeSourceLibCm> UpdateAttributeSource(AttributeSourceLibAm dataAm, int id)
         {
             var data = _mapper.Map<AttributeSourceLibDm>(dataAm);
+            data.Id = id;
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _sourceRepository.Update(data);
