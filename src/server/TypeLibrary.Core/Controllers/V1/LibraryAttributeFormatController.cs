@@ -52,7 +52,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(typeof(AttributeFormatLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateFormat([FromBody] AttributeFormatLibAm dataAm, [FromRoute] string id)
+        public async Task<IActionResult> UpdateFormat([FromBody] AttributeFormatLibAm dataAm, [FromRoute] int id)
         {
             try
             {

@@ -34,10 +34,10 @@ namespace TypeLibrary.Services.Services
             return Task.FromResult(dataAm.AsEnumerable());
         }
 
-        public async Task<AttributeFormatLibCm> UpdateAttributeFormat(AttributeFormatLibAm dataAm, string id)
+        public async Task<AttributeFormatLibCm> UpdateAttributeFormat(AttributeFormatLibAm dataAm, int id)
         {
             var data = _mapper.Map<AttributeFormatLibDm>(dataAm);
-            data.Id = int.Parse(id);
+            data.Id = id;
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _formatRepository.Update(data);
