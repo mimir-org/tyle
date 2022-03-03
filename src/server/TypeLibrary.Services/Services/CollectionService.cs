@@ -35,9 +35,10 @@ namespace TypeLibrary.Services.Services
             return Task.FromResult(dataAm.AsEnumerable());
         }
 
-        public async Task<CollectionLibCm> UpdateCollection(CollectionLibAm dataAm)
+        public async Task<CollectionLibCm> UpdateCollection(CollectionLibAm dataAm, string id)
         {
             var data = _mapper.Map<CollectionLibDm>(dataAm);
+            data.Id = id;
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _collectionRepository.Update(data);
