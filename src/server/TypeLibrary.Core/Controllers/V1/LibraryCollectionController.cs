@@ -48,15 +48,15 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(typeof(CollectionLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateCollection([FromBody] CollectionLibAm dataAm)
+        public async Task<IActionResult> UpdateCollection([FromBody] CollectionLibAm dataAm, [FromRoute] string id)
         {
             try
             {
-                var data = await _collectionService.UpdateCollection(dataAm);
+                var data = await _collectionService.UpdateCollection(dataAm, id);
                 return Ok(data);
             }
             catch (Exception e)

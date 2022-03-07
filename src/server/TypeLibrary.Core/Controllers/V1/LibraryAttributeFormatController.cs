@@ -48,15 +48,15 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(typeof(AttributeFormatLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateFormat([FromBody] AttributeFormatLibAm dataAm)
+        public async Task<IActionResult> UpdateFormat([FromBody] AttributeFormatLibAm dataAm, [FromRoute] int id)
         {
             try
             {
-                var data = await _attributeFormatService.UpdateAttributeFormat(dataAm);
+                var data = await _attributeFormatService.UpdateAttributeFormat(dataAm, id);
                 return Ok(data);
             }
             catch (Exception e)

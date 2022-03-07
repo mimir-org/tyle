@@ -48,15 +48,15 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(typeof(AttributeSourceLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateSource([FromBody] AttributeSourceLibAm dataAm)
+        public async Task<IActionResult> UpdateSource([FromBody] AttributeSourceLibAm dataAm, [FromRoute] int id)
         {
             try
             {
-                var data = await _attributeSourceService.UpdateAttributeSource(dataAm);
+                var data = await _attributeSourceService.UpdateAttributeSource(dataAm, id);
                 return Ok(data);
             }
             catch (Exception e)
