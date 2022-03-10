@@ -75,24 +75,24 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// <summary>
         /// Authenticate an user with secret
         /// </summary>
-        /// <param name="secret">string</param>
+        /// <param name="authenticateSecret">string</param>
         /// <returns>ICollection&lt;MimirorgTokenCm&gt;</returns>
         [AllowAnonymous]
-        [HttpGet]
-        [Route("{secret}")]
+        [HttpPost]
+        [Route("secret")]
         [ProducesResponseType(typeof(ICollection<MimirorgTokenCm>), 200)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [SwaggerOperation("Login with secret")]
-        public async Task<IActionResult> LoginSecret([FromRoute] string secret)
+        public async Task<IActionResult> LoginSecret([FromBody] MimirorgAuthenticateSecretAm authenticateSecret)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var data = await _authService.Authenticate(secret);
+                var data = await _authService.Authenticate(authenticateSecret.Secret);
                 return Ok(data);
             }
             catch (AuthenticationException e)
