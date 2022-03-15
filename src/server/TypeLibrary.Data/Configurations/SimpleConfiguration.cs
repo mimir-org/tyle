@@ -11,10 +11,10 @@ namespace TypeLibrary.Data.Configurations
         {
             builder.HasKey(x => x.Id);
             builder.ToTable("Simple");
-            builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
-            builder.Property(p => p.Name).HasColumnName("Name").IsRequired();
-            builder.Property(p => p.Description).HasColumnName("Description").IsRequired(false);
-            builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false);
+            builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(127);
+            builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(63);
+            builder.Property(p => p.Description).HasColumnName("Description").IsRequired(false).HasMaxLength(511);
+            builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false).HasMaxLength(255);
 
             builder.HasMany(x => x.Nodes).WithMany(y => y.Simples).UsingEntity<Dictionary<string, object>>("Simple_Node",
                 x => x.HasOne<NodeLibDm>().WithMany().HasForeignKey("NodeId"),
