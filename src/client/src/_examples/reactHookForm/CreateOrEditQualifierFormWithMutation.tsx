@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useValidationFromServer } from "../../components/hooks/useValidationFromServer";
+import { useValidationFromServer } from "../../hooks/useValidationFromServer";
 import { useCreateAttributeQualifier } from "../../data/queries/typeLibrary/queriesAttributeQualifier";
 import { getValidationStateFromServer } from "../../data/helpers/getValidationStateFromServer";
 import {
