@@ -4,5 +4,5 @@ export interface MimirorgUserAm {
   confirmPassword: string;
   firstName: string;
   lastName: string;
-  phoneNumber: string;
+  phoneNumber: string | null;
 }

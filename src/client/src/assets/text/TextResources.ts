@@ -1,15 +1,43 @@
 /* All static text for Type Library */
 
 const TextResources = {
+  // Global
+  Global_Application_Load: "Loading application",
+
   // Modules
   Module_Library: "Library",
 
-  // Log in
-  Login_Label: "Login",
-  Login_Label_Register: "Register",
-  Login_Label_SSO_Email: "SSO e-mail",
-  Login_Label_Email: "E-mail",
-  Login_Label_Password: "Password",
+  // Forms
+  Forms_Required_Description: "* Indicates a required field.",
+
+  // Login
+  Login_Title: "Login",
+  Login_Description: "View, create and edit types!",
+  Login_Email: "E-mail *",
+  Login_Password: "Password *",
+  Login_Code: "Authenticator code *",
+  Login_Not_Registered: "Don't have an account?",
+  Login_Register_Link: "Sign up",
+
+  // Register
+  Register_Title: "Register",
+  Register_Description: "Create an account to collaborate with your organization!",
+  Register_FirstName: "First name *",
+  Register_LastName: "Last name *",
+  Register_Email: "E-mail *",
+  Register_Phone: "Phone",
+  Register_Password: "Password *",
+  Register_Confirm_Password: "Confirm password *",
+  Register_Submit: "Create account",
+  Register_Is_Registered: "Have an account?",
+  Register_Login_Link: "Log in",
+  Register_Finalize_Verification: "Please verify your email",
+  Register_Finalize_Verification_Description:
+    "You're almost there! We have sent you an email to verify your registration. Just click on the link in that email to complete your signup. If you don't see it, you may need to check your spam folder.",
+  Register_Finalize_MFA: "Multi-factor authentication",
+  Register_Finalize_MFA_Description:
+    "Scan the QR code below in your authenticator app of choice. The code shown in the app can then be used during login.",
+  Register_Finalize_Finish_Link: "Finish registration",
 
   // LibraryModule
   Library_SearchBox_Placeholder: "Search the Library",
@@ -29,12 +57,9 @@ const TextResources = {
   TypeEditor_Properties_Terminal_Type: "Search and choose Terminal Type...",
   TypeEditor_Properties_Add_Terminal: "Add",
   TypeEditor_Properties_Clear_All_Terminal: "Clear all",
-  TypeEditor_Properties_Predefined_Location_Attributes:
-    "Select or search Predefined Location Attributes...",
-  TypeEditor_Properties_Block_Attributes:
-    "Select or search Block Attributes...",
-  TypeEditor_Properties_Location_Attributes:
-    "Select or search Location Attributes...",
+  TypeEditor_Properties_Predefined_Location_Attributes: "Select or search Predefined Location Attributes...",
+  TypeEditor_Properties_Block_Attributes: "Select or search Block Attributes...",
+  TypeEditor_Properties_Location_Attributes: "Select or search Location Attributes...",
   TypeEditor_Properties_Simple_Types: "Select or search Simple Types...",
   TypeEditor_New_Type_Preview: "Type Preview:",
   TypeEditor_Preview_Info: "Click on preview objects to see inspector info",
@@ -58,8 +83,7 @@ const TextResources = {
   TypeEditor_Error_RDS: "*Please select RDS for the type.",
   TypeEditor_Error_Status: "*Please select a status for the type",
   TypeEditor_Error_Attributes: "*Please add one or more attributes.",
-  TypeEditor_Error_Location_Attributes:
-    "*Please add one or more location attributes.",
+  TypeEditor_Error_Location_Attributes: "*Please add one or more location attributes.",
   TypeEditor_Error_Terminals: "*Please select one or more terminals.",
   TypeEditor_Error_TerminalsType:
     "*You can only select two of each terminal, one must be input, the other must be output.",
@@ -70,8 +94,7 @@ const TextResources = {
   Error_Tile: "Something went wrong",
   Error_GetFileData: "Could not create nodes and edges from file",
   Error_ServerUnavailable: "The server is unavailable",
-  Error_NoActiveAccount:
-    "No active account. Verify a user has been signed in and setActiveAccount has been called",
+  Error_NoActiveAccount: "No active account. Verify a user has been signed in and setActiveAccount has been called",
   Error_Forbidden: "Access denied",
   Error_Server: "Internal server error",
 

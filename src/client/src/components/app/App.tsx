@@ -1,36 +1,16 @@
-import { GlobalStyle } from "../../compLibrary/GlobalStyle";
-import { LoginBox } from "./styled/LoginBox";
+import { useGetCurrentUser } from "../../data/queries/auth/queriesUser";
+import { Unauthenticated } from "./components/unauthenticated/Unauthenticated";
+import { Authenticated } from "./components/authenticated/Authenticated";
+import { FullPageSpinner } from "../../compLibrary/spinner";
 import { TextResources } from "../../assets/text";
-import { msalInstance } from "../../index";
-import { Home } from "../home";
-import { Button } from "../../compLibrary/buttons";
-import { IPublicClientApplication } from "@azure/msal-browser";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
-import { AuthenticatedTemplate, MsalProvider, UnauthenticatedTemplate } from "@azure/msal-react";
 
-type AppProps = {
-  pca: IPublicClientApplication;
-};
+export const App = () => {
+  const { data: user, isSuccess, isLoading } = useGetCurrentUser();
+  const isLoggedIn = isSuccess && user;
 
-export const App = ({ pca }: AppProps) => {
-  const login = () => msalInstance.loginRedirect();
-  const queryClient = new QueryClient();
+  if (isLoading) {
+    return <FullPageSpinner text={TextResources.Global_Application_Load} />;
+  }
 
-  return (
-    <MsalProvider instance={pca}>
-      <AuthenticatedTemplate>
-        <GlobalStyle />
-        <QueryClientProvider client={queryClient}>
-          <Home />
-          <ReactQueryDevtools />
-        </QueryClientProvider>
-      </AuthenticatedTemplate>
-      <UnauthenticatedTemplate>
-        <LoginBox>
-          <Button text={TextResources.Login_Label} onClick={login} />
-        </LoginBox>
-      </UnauthenticatedTemplate>
-    </MsalProvider>
-  );
+  return isLoggedIn ? <Authenticated /> : <Unauthenticated />;
 };
