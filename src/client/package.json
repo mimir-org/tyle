@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@azure/msal-browser": "^2.21.0",
-    "@azure/msal-react": "^1.2.0",
     "@headlessui/react": "^1.4.3",
     "@microsoft/applicationinsights-web": "^2.7.2",
     "axios": "^0.26.0",
