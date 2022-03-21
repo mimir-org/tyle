@@ -13,19 +13,19 @@ namespace TypeLibrary.Core.Migrations
                 name: "Attribute",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ParentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Discipline = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    ParentId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Aspect = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
+                    Discipline = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
                     Tags = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Select = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Select = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
                     SelectValuesString = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AttributeQualifier = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AttributeSource = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AttributeCondition = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AttributeFormat = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    AttributeQualifier = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: true),
+                    AttributeSource = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: true),
+                    AttributeCondition = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: true),
+                    AttributeFormat = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -41,16 +41,16 @@ namespace TypeLibrary.Core.Migrations
                 name: "AttributeAspect",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ParentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    ParentId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Aspect = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CreatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,15 +66,15 @@ namespace TypeLibrary.Core.Migrations
                 name: "AttributeCondition",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", maxLength: 127, nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: true),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CreatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -87,13 +87,13 @@ namespace TypeLibrary.Core.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: true),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CreatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -104,11 +104,11 @@ namespace TypeLibrary.Core.Migrations
                 name: "AttributePredefined",
                 columns: table => new
                 {
-                    Key = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Key = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     IsMultiSelect = table.Column<bool>(type: "bit", nullable: false),
                     ValueStringList = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Aspect = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -121,13 +121,13 @@ namespace TypeLibrary.Core.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: true),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CreatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -140,13 +140,13 @@ namespace TypeLibrary.Core.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: true),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CreatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -157,10 +157,10 @@ namespace TypeLibrary.Core.Migrations
                 name: "Blob",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Discipline = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Discipline = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
                     Data = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -172,13 +172,13 @@ namespace TypeLibrary.Core.Migrations
                 name: "Collection",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CompanyId = table.Column<int>(type: "int", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    CompanyId = table.Column<int>(type: "int", maxLength: 127, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -190,15 +190,15 @@ namespace TypeLibrary.Core.Migrations
                 name: "Purpose",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Discipline = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Discipline = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CreatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -209,14 +209,14 @@ namespace TypeLibrary.Core.Migrations
                 name: "RdsCategory",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CreatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -227,10 +227,10 @@ namespace TypeLibrary.Core.Migrations
                 name: "Simple",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -241,10 +241,10 @@ namespace TypeLibrary.Core.Migrations
                 name: "Terminal",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ParentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    ParentId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -262,14 +262,14 @@ namespace TypeLibrary.Core.Migrations
                 name: "Unit",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CreatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -280,12 +280,12 @@ namespace TypeLibrary.Core.Migrations
                 name: "Rds",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RdsCategoryId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    RdsCategoryId = table.Column<string>(type: "nvarchar(127)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Code = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    Aspect = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -301,8 +301,8 @@ namespace TypeLibrary.Core.Migrations
                 name: "Attribute_Simple",
                 columns: table => new
                 {
-                    AttributeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    SimpleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    AttributeId = table.Column<string>(type: "nvarchar(127)", nullable: false),
+                    SimpleId = table.Column<string>(type: "nvarchar(127)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -325,8 +325,8 @@ namespace TypeLibrary.Core.Migrations
                 name: "Terminal_Attribute",
                 columns: table => new
                 {
-                    AttributeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TerminalId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    AttributeId = table.Column<string>(type: "nvarchar(127)", nullable: false),
+                    TerminalId = table.Column<string>(type: "nvarchar(127)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -349,8 +349,8 @@ namespace TypeLibrary.Core.Migrations
                 name: "Attribute_Unit",
                 columns: table => new
                 {
-                    AttributeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UnitId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    AttributeId = table.Column<string>(type: "nvarchar(127)", nullable: false),
+                    UnitId = table.Column<string>(type: "nvarchar(127)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -373,21 +373,21 @@ namespace TypeLibrary.Core.Migrations
                 name: "Interface",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RdsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PurposeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ParentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Version = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstVersionId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    RdsId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    PurposeId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
+                    ParentId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
+                    Version = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
+                    FirstVersionId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    Aspect = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "Unknown"),
-                    Interface_TerminalId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    CreatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false, defaultValue: "Unknown"),
+                    Interface_TerminalId = table.Column<string>(type: "nvarchar(127)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -418,24 +418,24 @@ namespace TypeLibrary.Core.Migrations
                 name: "Node",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RdsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PurposeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ParentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Version = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstVersionId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    State = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CompanyId = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BlobId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    AttributeAspectId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    RdsId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    PurposeId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
+                    ParentId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
+                    Version = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
+                    FirstVersionId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    Aspect = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
+                    State = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
+                    CompanyId = table.Column<int>(type: "int", maxLength: 127, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
+                    BlobId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
+                    AttributeAspectId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "Unknown"),
+                    CreatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false, defaultValue: "Unknown"),
                     SelectedAttributePredefined = table.Column<string>(type: "nvarchar(MAX)", nullable: true)
                 },
                 constraints: table =>
@@ -472,21 +472,21 @@ namespace TypeLibrary.Core.Migrations
                 name: "Transport",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RdsId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PurposeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ParentId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Version = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstVersionId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Aspect = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "Unknown"),
-                    Transport_TerminalId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    RdsId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    PurposeId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
+                    ParentId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
+                    Version = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
+                    FirstVersionId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    Aspect = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    Transport_TerminalId = table.Column<string>(type: "nvarchar(127)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -517,8 +517,8 @@ namespace TypeLibrary.Core.Migrations
                 name: "Attribute_Interface",
                 columns: table => new
                 {
-                    AttributeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    InterfaceId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    AttributeId = table.Column<string>(type: "nvarchar(127)", nullable: false),
+                    InterfaceId = table.Column<string>(type: "nvarchar(127)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -541,8 +541,8 @@ namespace TypeLibrary.Core.Migrations
                 name: "Attribute_Node",
                 columns: table => new
                 {
-                    AttributeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    NodeId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    AttributeId = table.Column<string>(type: "nvarchar(127)", nullable: false),
+                    NodeId = table.Column<string>(type: "nvarchar(127)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -565,8 +565,8 @@ namespace TypeLibrary.Core.Migrations
                 name: "Node_Collection",
                 columns: table => new
                 {
-                    CollectionId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    NodeId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    CollectionId = table.Column<string>(type: "nvarchar(127)", nullable: false),
+                    NodeId = table.Column<string>(type: "nvarchar(127)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -589,8 +589,8 @@ namespace TypeLibrary.Core.Migrations
                 name: "Simple_Node",
                 columns: table => new
                 {
-                    NodeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    SimpleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    NodeId = table.Column<string>(type: "nvarchar(127)", nullable: false),
+                    SimpleId = table.Column<string>(type: "nvarchar(127)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -613,11 +613,11 @@ namespace TypeLibrary.Core.Migrations
                 name: "Terminal_Node",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
                     Number = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
-                    ConnectorDirection = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NodeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    TerminalId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ConnectorDirection = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
+                    NodeId = table.Column<string>(type: "nvarchar(127)", nullable: true),
+                    TerminalId = table.Column<string>(type: "nvarchar(127)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -638,8 +638,8 @@ namespace TypeLibrary.Core.Migrations
                 name: "Attribute_Transport",
                 columns: table => new
                 {
-                    AttributeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TransportId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    AttributeId = table.Column<string>(type: "nvarchar(127)", nullable: false),
+                    TransportId = table.Column<string>(type: "nvarchar(127)", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -1,61 +1,54 @@
 [
   {
     "name": "Cable System 80 (F)",
-    "description": null,
     "aspect": "Function",
     "rdsId": "C48DCD574DB8B731EEB8E2101060213F",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "attributeIdList": [
-      "44385AF5C56EFCAB77158EA3DFA68329", 
-      "A35B5FA0D0D4D06FD236A23917D4493F" 
+      "44385AF5C56EFCAB77158EA3DFA68329",
+      "A35B5FA0D0D4D06FD236A23917D4493F"
     ],
     "terminalId": "CDBE6464576FF822972293A9C9627A3B",
-    "version": "1.0",
-    "firstVersionId": null,
-    "updatedBy": null,
-    "updated": null,
-    "created": "2021-11-29T07:24:46.9861644",
-    "createdBy": "Erlend Fjøsna"
+    "version":  "1.0",
+    "updated": "2022-01-01T00:00:00.0000000",
+    "created": "2022-01-01T00:00:00.0000000",
+    "updatedBy": "Seeding service",
+    "createdBy": "Seeding service"
   },
   {
     "name": "Cable System 82 (F)",
-    "description": null,
     "aspect": "Function",
     "rdsId": "FAB5929F1C76515CB98E552A86CA6076",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "attributeIdList": [
-      "44385AF5C56EFCAB77158EA3DFA68329", 
-      "A35B5FA0D0D4D06FD236A23917D4493F" 
+      "44385AF5C56EFCAB77158EA3DFA68329",
+      "A35B5FA0D0D4D06FD236A23917D4493F"
     ],
     "terminalId": "CC6DD5A9564E236AEFD3DA0DA2DACF11",
     "version": "1.0",
-    "firstVersionId": null,
-    "updatedBy": null,
-    "updated": null,
-    "created": "2021-11-29T07:25:53.0636539",
-    "createdBy": "Erlend Fjøsna"
+    "updated": "2022-01-01T00:00:00.0000000",
+    "created": "2022-01-01T00:00:00.0000000",
+    "updatedBy": "Seeding service",
+    "createdBy": "Seeding service"
   },
   {
     "name": "Cable System 85 (F)",
-    "description": null,
     "aspect": "Function",
     "rdsId": "FAB5929F1C76515CB98E552A86CA6076",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "attributeIdList": [
-      "44385AF5C56EFCAB77158EA3DFA68329", 
-      "A35B5FA0D0D4D06FD236A23917D4493F" 
+      "44385AF5C56EFCAB77158EA3DFA68329",
+      "A35B5FA0D0D4D06FD236A23917D4493F"
     ],
     "terminalId": "5153111276AA3B42F8E2061D148CF093",
     "version": "1.0",
-    "firstVersionId": null,
-    "updatedBy": null,
-    "updated": null,
-    "created": "2021-11-29T07:27:09.9300627",
-    "createdBy": "Erlend Fjøsna"
+    "updated": "2022-01-01T00:00:00.0000000",
+    "created": "2022-01-01T00:00:00.0000000",
+    "updatedBy": "Seeding service",
+    "createdBy": "Seeding service"
   },
   {
     "name": "Cable System 87 (F)",
-    "description": null,
     "aspect": "Function",
     "rdsId": "21C044473B0ED4047F64EF4E41800621",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
@@ -64,15 +57,13 @@
     ],
     "terminalId": "9A69A18F06C5A284BF7B39BDD5FCB329",
     "version": "1.0",
-    "firstVersionId": null,
-    "updatedBy": null,
-    "updated": null,
-    "created": "2021-11-29T07:28:42.3379771",
-    "createdBy": "Erlend Fjøsna"
+    "updated": "2022-01-01T00:00:00.0000000",
+    "created": "2022-01-01T00:00:00.0000000",
+    "updatedBy": "Seeding service",
+    "createdBy": "Seeding service"
   },
   {
     "name": "Chemicals (F)",
-    "description": null,
     "aspect": "Function",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
@@ -83,15 +74,13 @@
     ],
     "terminalId": "6089771C4B5AC170DFB12CCAFC589CE9",
     "version": "1.0",
-    "firstVersionId": null,
-    "updatedBy": null,
-    "updated": null,
-    "created": "2021-11-30T07:33:11.7522152",
-    "createdBy": "Magnus Oanes Knædal"
+    "updated": "2022-01-01T00:00:00.0000000",
+    "created": "2022-01-01T00:00:00.0000000",
+    "updatedBy": "Seeding service",
+    "createdBy": "Seeding service"
   },
   {
     "name": "Process (HC) (F)",
-    "description": null,
     "aspect": "Function",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
@@ -102,15 +91,13 @@
     ],
     "terminalId": "BFB27765A609F27FD3A2DF59C4E4D63D",
     "version": "1.0",
-    "firstVersionId": null,
-    "updatedBy": null,
-    "updated": null,
-    "created": "2021-11-30T07:07:38.6354683",
-    "createdBy": "Magnus Oanes Knædal"
+    "updated": "2022-01-01T00:00:00.0000000",
+    "created": "2022-01-01T00:00:00.0000000",
+    "updatedBy": "Seeding service",
+    "createdBy": "Seeding service"
   },
   {
     "name": "Utilities (F)",
-    "description": null,
     "aspect": "Function",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
@@ -121,15 +108,13 @@
     ],
     "terminalId": "CEBA282B7418B7F199798B645E1CBA56",
     "version": "1.0",
-    "firstVersionId": null,
-    "updatedBy": null,
-    "updated": null,
-    "created": "2021-11-30T07:35:02.0881966",
-    "createdBy": "Magnus Oanes Knædal"
+    "updated": "2022-01-01T00:00:00.0000000",
+    "created": "2022-01-01T00:00:00.0000000",
+    "updatedBy": "Seeding service",
+    "createdBy": "Seeding service"
   },
   {
     "name": "Water (F)",
-    "description": null,
     "aspect": "Function",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
@@ -140,15 +125,13 @@
     ],
     "terminalId": "27634FF8002B12E75D98E07CCD005D18",
     "version": "1.0",
-    "firstVersionId": null,
-    "updatedBy": null,
-    "updated": null,
-    "created": "2021-11-30T07:32:05.5933985",
-    "createdBy": "Magnus Oanes Knædal"
+    "updated": "2022-01-01T00:00:00.0000000",
+    "created": "2022-01-01T00:00:00.0000000",
+    "updatedBy": "Seeding service",
+    "createdBy": "Seeding service"
   },
   {
     "name": "Cable System 80 (P)",
-    "description": null,
     "aspect": "Product",
     "rdsId": "C48DCD574DB8B731EEB8E2101060213F",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
@@ -158,15 +141,13 @@
     ],
     "terminalId": "CDBE6464576FF822972293A9C9627A3B",
     "version": "1.0",
-    "firstVersionId": null,
-    "updatedBy": null,
-    "updated": null,
-    "created": "2021-11-29T07:24:46.9861644",
-    "createdBy": "Erlend Fjøsna"
+    "updated": "2022-01-01T00:00:00.0000000",
+    "created": "2022-01-01T00:00:00.0000000",
+    "updatedBy": "Seeding service",
+    "createdBy": "Seeding service"
   },
   {
     "name": "Cable System 82 (P)",
-    "description": null,
     "aspect": "Product",
     "rdsId": "FAB5929F1C76515CB98E552A86CA6076",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
@@ -176,15 +157,13 @@
     ],
     "terminalId": "CC6DD5A9564E236AEFD3DA0DA2DACF11",
     "version": "1.0",
-    "firstVersionId": null,
-    "updatedBy": null,
-    "updated": null,
-    "created": "2021-11-29T07:25:53.0636539",
-    "createdBy": "Erlend Fjøsna"
+    "updated": "2022-01-01T00:00:00.0000000",
+    "created": "2022-01-01T00:00:00.0000000",
+    "updatedBy": "Seeding service",
+    "createdBy": "Seeding service"
   },
   {
     "name": "Cable System 85 (P)",
-    "description": null,
     "aspect": "Product",
     "rdsId": "FAB5929F1C76515CB98E552A86CA6076",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
@@ -194,15 +173,13 @@
     ],
     "terminalId": "5153111276AA3B42F8E2061D148CF093",
     "version": "1.0",
-    "firstVersionId": null,
-    "updatedBy": null,
-    "updated": null,
-    "created": "2021-11-29T07:27:09.9300627",
-    "createdBy": "Erlend Fjøsna"
+    "updated": "2022-01-01T00:00:00.0000000",
+    "created": "2022-01-01T00:00:00.0000000",
+    "updatedBy": "Seeding service",
+    "createdBy": "Seeding service"
   },
   {
     "name": "Cable System 87 (P)",
-    "description": null,
     "aspect": "Product",
     "rdsId": "21C044473B0ED4047F64EF4E41800621",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
@@ -211,15 +188,13 @@
     ],
     "terminalId": "9A69A18F06C5A284BF7B39BDD5FCB329",
     "version": "1.0",
-    "firstVersionId": null,
-    "updatedBy": null,
-    "updated": null,
-    "created": "2021-11-29T07:28:42.3379771",
-    "createdBy": "Erlend Fjøsna"
+    "updated": "2022-01-01T00:00:00.0000000",
+    "created": "2022-01-01T00:00:00.0000000",
+    "updatedBy": "Seeding service",
+    "createdBy": "Seeding service"
   },
   {
     "name": "Chemicals (P)",
-    "description": null,
     "aspect": "Product",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
@@ -230,15 +205,13 @@
     ],
     "terminalId": "6089771C4B5AC170DFB12CCAFC589CE9",
     "version": "1.0",
-    "firstVersionId": null,
-    "updatedBy": null,
-    "updated": null,
-    "created": "2021-11-30T07:33:11.7522152",
-    "createdBy": "Magnus Oanes Knædal"
+    "updated": "2022-01-01T00:00:00.0000000",
+    "created": "2022-01-01T00:00:00.0000000",
+    "updatedBy": "Seeding service",
+    "createdBy": "Seeding service"
   },
   {
     "name": "Process (HC) (P)",
-    "description": null,
     "aspect": "Product",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
@@ -249,15 +222,13 @@
     ],
     "terminalId": "BFB27765A609F27FD3A2DF59C4E4D63D",
     "version": "1.0",
-    "firstVersionId": null,
-    "updatedBy": null,
-    "updated": null,
-    "created": "2021-11-30T07:07:38.6354683",
-    "createdBy": "Magnus Oanes Knædal"
+    "updated": "2022-01-01T00:00:00.0000000",
+    "created": "2022-01-01T00:00:00.0000000",
+    "updatedBy": "Seeding service",
+    "createdBy": "Seeding service"
   },
   {
     "name": "Utilities (P)",
-    "description": null,
     "aspect": "Product",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
@@ -268,15 +239,13 @@
     ],
     "terminalId": "CEBA282B7418B7F199798B645E1CBA56",
     "version": "1.0",
-    "firstVersionId": null,
-    "updatedBy": null,
-    "updated": null,
-    "created": "2021-11-30T07:35:02.0881966",
-    "createdBy": "Magnus Oanes Knædal"
+    "updated": "2022-01-01T00:00:00.0000000",
+    "created": "2022-01-01T00:00:00.0000000",
+    "updatedBy": "Seeding service",
+    "createdBy": "Seeding service"
   },
   {
     "name": "Water (P)",
-    "description": null,
     "aspect": "Product",
     "rdsId": "771BE7A54D3745DF36526BC2062C832D",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
@@ -287,10 +256,9 @@
     ],
     "terminalId": "27634FF8002B12E75D98E07CCD005D18",
     "version": "1.0",
-    "firstVersionId": null,
-    "updatedBy": null,
-    "updated": null,
-    "created": "2021-11-30T07:32:05.5933985",
-    "createdBy": "Magnus Oanes Knædal"
+    "updated": "2022-01-01T00:00:00.0000000",
+    "created": "2022-01-01T00:00:00.0000000",
+    "updatedBy": "Seeding service",
+    "createdBy": "Seeding service"
   }
 ]
