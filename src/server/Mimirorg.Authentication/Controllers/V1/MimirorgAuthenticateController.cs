@@ -35,7 +35,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         [AllowAnonymous]
         [HttpPost]
         [Route("")]
-        [ProducesResponseType(typeof(ICollection<MimirorgTokenCm>), 200)]
+        [ProducesResponseType(typeof(MimirorgTokenCm), 200)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
