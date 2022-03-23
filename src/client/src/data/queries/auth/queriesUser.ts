@@ -9,6 +9,7 @@ export const userKeys = {
 export const useGetCurrentUser = () => {
   return useQuery(userKeys.all, apiUser.getCurrentUser, {
     retry: 0,
+    refetchOnWindowFocus: false,
   });
 };
 
