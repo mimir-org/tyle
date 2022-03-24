@@ -45,11 +45,21 @@ export const Login = () => {
 
         <FormInputCollection>
           <FormLabel htmlFor="email">{TextResources.Login_Email}</FormLabel>
-          <Input id="email" type="email" {...register("email", { required: true })} />
+          <Input
+            id="email"
+            type="email"
+            placeholder={TextResources.Forms_Placeholder_Email}
+            {...register("email", { required: true })}
+          />
           <FormError>{errors.email && errors.email.message}</FormError>
 
           <FormLabel htmlFor="password">{TextResources.Login_Password}</FormLabel>
-          <Input id="password" type="password" {...register("password", { required: true })} />
+          <Input
+            id="password"
+            type="password"
+            placeholder={TextResources.Forms_Placeholder_Password}
+            {...register("password", { required: true })}
+          />
           <FormError>{errors.password && errors.password.message}</FormError>
 
           <FormLabel htmlFor="code">{TextResources.Login_Code}</FormLabel>
@@ -58,6 +68,7 @@ export const Login = () => {
             type="tel"
             pattern="[0-9]*"
             autoComplete="off"
+            placeholder={TextResources.Forms_Placeholder_AuthCode}
             {...register("code", { required: true, valueAsNumber: true })}
           ></Input>
           <FormError>{errors.code && errors.code.message}</FormError>

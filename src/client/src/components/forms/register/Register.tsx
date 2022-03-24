@@ -49,15 +49,28 @@ export const Register = () => {
           </FormHeader>
           <FormInputCollection>
             <FormLabel htmlFor="email">{TextResources.Register_Email}</FormLabel>
-            <Input id="email" type="email" {...register("email", { required: true })} />
+            <Input
+              id="email"
+              type="email"
+              placeholder={TextResources.Forms_Placeholder_Email}
+              {...register("email", { required: true })}
+            />
             <FormError>{errors.email && errors.email.message}</FormError>
 
             <FormLabel htmlFor="firstName">{TextResources.Register_FirstName}</FormLabel>
-            <Input id="firstName" {...register("firstName", { required: true })} />
+            <Input
+              id="firstName"
+              placeholder={TextResources.Forms_Placeholder_FistName}
+              {...register("firstName", { required: true })}
+            />
             <FormError>{errors.firstName && errors.firstName.message}</FormError>
 
             <FormLabel htmlFor="lastName">{TextResources.Register_LastName}</FormLabel>
-            <Input id="lastName" {...register("lastName", { required: true })} />
+            <Input
+              id="lastName"
+              placeholder={TextResources.Forms_Placeholder_LastName}
+              {...register("lastName", { required: true })}
+            />
             <FormError>{errors.lastName && errors.lastName.message}</FormError>
 
             <FormLabel htmlFor="phoneNumber">{TextResources.Register_Phone}</FormLabel>
@@ -65,11 +78,21 @@ export const Register = () => {
             <FormError>{errors.phoneNumber && errors.phoneNumber.message}</FormError>
 
             <FormLabel htmlFor="password">{TextResources.Register_Password}</FormLabel>
-            <Input id="password" type="password" {...register("password", { required: true })} />
+            <Input
+              id="password"
+              type="password"
+              placeholder={TextResources.Forms_Placeholder_Password}
+              {...register("password", { required: true })}
+            />
             <FormError>{errors.password && errors.password.message}</FormError>
 
             <FormLabel htmlFor="confirmPassword">{TextResources.Register_Confirm_Password}</FormLabel>
-            <Input id="confirmPassword" type="password" {...register("confirmPassword", { required: true })} />
+            <Input
+              id="confirmPassword"
+              type="password"
+              placeholder={TextResources.Forms_Placeholder_Password}
+              {...register("confirmPassword", { required: true })}
+            />
             <FormError>{errors.confirmPassword && errors.confirmPassword.message}</FormError>
             <FormRequiredText>{TextResources.Forms_Required_Description}</FormRequiredText>
           </FormInputCollection>

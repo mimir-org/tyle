@@ -8,6 +8,11 @@ const TextResources = {
   Module_Library: "Library",
 
   // Forms
+  Forms_Placeholder_Email: "you@organization.com",
+  Forms_Placeholder_Password: "**********",
+  Forms_Placeholder_AuthCode: "123456",
+  Forms_Placeholder_FistName: "Jane",
+  Forms_Placeholder_LastName: "Smith",
   Forms_Required_Description: "* Indicates a required field.",
 
   // Login
