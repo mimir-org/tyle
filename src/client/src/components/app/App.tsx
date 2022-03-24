@@ -9,7 +9,7 @@ export const App = () => {
   const isLoggedIn = isSuccess && user;
 
   if (isLoading) {
-    return <FullPageSpinner text={TextResources.Global_Application_Load} />;
+    return <FullPageSpinner text={TextResources.GLOBAL_APPLICATION_LOAD} />;
   }
 
   return isLoggedIn ? <Authenticated /> : <Unauthenticated />;

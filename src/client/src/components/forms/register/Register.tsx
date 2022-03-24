@@ -44,62 +44,62 @@ export const Register = () => {
         <Form onSubmit={handleSubmit((data) => createUserMutation.mutate(data))}>
           <Icon size={50} src={LibraryIcon} alt="" />
           <FormHeader>
-            <FormHeaderTitle>{TextResources.Register_Title}</FormHeaderTitle>
-            <FormHeaderText>{TextResources.Register_Description}</FormHeaderText>
+            <FormHeaderTitle>{TextResources.REGISTER_TITLE}</FormHeaderTitle>
+            <FormHeaderText>{TextResources.REGISTER_DESCRIPTION}</FormHeaderText>
           </FormHeader>
           <FormInputCollection>
-            <FormLabel htmlFor="email">{TextResources.Register_Email}</FormLabel>
+            <FormLabel htmlFor="email">{TextResources.REGISTER_EMAIL}</FormLabel>
             <Input
               id="email"
               type="email"
-              placeholder={TextResources.Forms_Placeholder_Email}
+              placeholder={TextResources.FORMS_PLACEHOLDER_EMAIL}
               {...register("email", { required: true })}
             />
             <FormError>{errors.email && errors.email.message}</FormError>
 
-            <FormLabel htmlFor="firstName">{TextResources.Register_FirstName}</FormLabel>
+            <FormLabel htmlFor="firstName">{TextResources.REGISTER_FIRSTNAME}</FormLabel>
             <Input
               id="firstName"
-              placeholder={TextResources.Forms_Placeholder_FistName}
+              placeholder={TextResources.FORMS_PLACEHOLDER_FIRSTNAME}
               {...register("firstName", { required: true })}
             />
             <FormError>{errors.firstName && errors.firstName.message}</FormError>
 
-            <FormLabel htmlFor="lastName">{TextResources.Register_LastName}</FormLabel>
+            <FormLabel htmlFor="lastName">{TextResources.REGISTER_LASTNAME}</FormLabel>
             <Input
               id="lastName"
-              placeholder={TextResources.Forms_Placeholder_LastName}
+              placeholder={TextResources.FORMS_PLACEHOLDER_LASTNAME}
               {...register("lastName", { required: true })}
             />
             <FormError>{errors.lastName && errors.lastName.message}</FormError>
 
-            <FormLabel htmlFor="phoneNumber">{TextResources.Register_Phone}</FormLabel>
+            <FormLabel htmlFor="phoneNumber">{TextResources.REGISTER_PHONE}</FormLabel>
             <Input id="phoneNumber" type="tel" {...register("phoneNumber", { required: false })} />
             <FormError>{errors.phoneNumber && errors.phoneNumber.message}</FormError>
 
-            <FormLabel htmlFor="password">{TextResources.Register_Password}</FormLabel>
+            <FormLabel htmlFor="password">{TextResources.REGISTER_PASSWORD}</FormLabel>
             <Input
               id="password"
               type="password"
-              placeholder={TextResources.Forms_Placeholder_Password}
+              placeholder={TextResources.FORMS_PLACEHOLDER_PASSWORD}
               {...register("password", { required: true })}
             />
             <FormError>{errors.password && errors.password.message}</FormError>
 
-            <FormLabel htmlFor="confirmPassword">{TextResources.Register_Confirm_Password}</FormLabel>
+            <FormLabel htmlFor="confirmPassword">{TextResources.REGISTER_CONFIRM_PASSWORD}</FormLabel>
             <Input
               id="confirmPassword"
               type="password"
-              placeholder={TextResources.Forms_Placeholder_Password}
+              placeholder={TextResources.FORMS_PLACEHOLDER_PASSWORD}
               {...register("confirmPassword", { required: true })}
             />
             <FormError>{errors.confirmPassword && errors.confirmPassword.message}</FormError>
-            <FormRequiredText>{TextResources.Forms_Required_Description}</FormRequiredText>
+            <FormRequiredText>{TextResources.FORMS_REQUIRED_DESCRIPTION}</FormRequiredText>
           </FormInputCollection>
           <FormActionContainer>
-            <FormButton>{TextResources.Register_Submit}</FormButton>
+            <FormButton>{TextResources.REGISTER_SUBMIT}</FormButton>
             <FormSecondaryActionText>
-              {TextResources.Register_Is_Registered} <FormLink to="/">{TextResources.Register_Login_Link}</FormLink>
+              {TextResources.REGISTER_IS_REGISTERED} <FormLink to="/">{TextResources.REGISTER_LOGIN_LINK}</FormLink>
             </FormSecondaryActionText>
           </FormActionContainer>
         </Form>

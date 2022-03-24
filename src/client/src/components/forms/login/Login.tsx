@@ -39,45 +39,45 @@ export const Login = () => {
       <Form onSubmit={handleSubmit((data) => loginMutation.mutate(data))}>
         <Icon size={50} src={LibraryIcon} alt="" />
         <FormHeader>
-          <FormHeaderTitle>{TextResources.Login_Title}</FormHeaderTitle>
-          <FormHeaderText>{TextResources.Login_Description}</FormHeaderText>
+          <FormHeaderTitle>{TextResources.LOGIN_TITLE}</FormHeaderTitle>
+          <FormHeaderText>{TextResources.LOGIN_DESCRIPTION}</FormHeaderText>
         </FormHeader>
 
         <FormInputCollection>
-          <FormLabel htmlFor="email">{TextResources.Login_Email}</FormLabel>
+          <FormLabel htmlFor="email">{TextResources.LOGIN_EMAIL}</FormLabel>
           <Input
             id="email"
             type="email"
-            placeholder={TextResources.Forms_Placeholder_Email}
+            placeholder={TextResources.FORMS_PLACEHOLDER_EMAIL}
             {...register("email", { required: true })}
           />
           <FormError>{errors.email && errors.email.message}</FormError>
 
-          <FormLabel htmlFor="password">{TextResources.Login_Password}</FormLabel>
+          <FormLabel htmlFor="password">{TextResources.LOGIN_PASSWORD}</FormLabel>
           <Input
             id="password"
             type="password"
-            placeholder={TextResources.Forms_Placeholder_Password}
+            placeholder={TextResources.FORMS_PLACEHOLDER_PASSWORD}
             {...register("password", { required: true })}
           />
           <FormError>{errors.password && errors.password.message}</FormError>
 
-          <FormLabel htmlFor="code">{TextResources.Login_Code}</FormLabel>
+          <FormLabel htmlFor="code">{TextResources.LOGIN_CODE}</FormLabel>
           <Input
             id="code"
             type="tel"
             pattern="[0-9]*"
             autoComplete="off"
-            placeholder={TextResources.Forms_Placeholder_AuthCode}
+            placeholder={TextResources.FORMS_PLACEHOLDER_CODE}
             {...register("code", { required: true, valueAsNumber: true })}
           ></Input>
           <FormError>{errors.code && errors.code.message}</FormError>
-          <FormRequiredText>{TextResources.Forms_Required_Description}</FormRequiredText>
+          <FormRequiredText>{TextResources.FORMS_REQUIRED_DESCRIPTION}</FormRequiredText>
         </FormInputCollection>
         <FormActionContainer>
-          <FormButton>{TextResources.Login_Title}</FormButton>
+          <FormButton>{TextResources.LOGIN_TITLE}</FormButton>
           <FormSecondaryActionText>
-            {TextResources.Login_Not_Registered} <FormLink to="/register">{TextResources.Login_Register_Link}</FormLink>
+            {TextResources.LOGIN_NOT_REGISTERED} <FormLink to="/register">{TextResources.LOGIN_REGISTER_Link}</FormLink>
           </FormSecondaryActionText>
         </FormActionContainer>
       </Form>

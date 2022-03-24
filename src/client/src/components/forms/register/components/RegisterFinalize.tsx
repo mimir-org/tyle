@@ -15,14 +15,14 @@ interface Props {
 export const RegisterFinalize = ({ qrCodeBase64 }: Props) => (
   <RegisterFinalizeContainer>
     <RegisterFinalizeSection>
-      <RegisterFinalizeHeader>{TextResources.Register_Finalize_Verification}</RegisterFinalizeHeader>
-      <RegisterFinalizeText>{TextResources.Register_Finalize_Verification_Description}</RegisterFinalizeText>
+      <RegisterFinalizeHeader>{TextResources.REGISTER_FINALIZE_VERIFICATION}</RegisterFinalizeHeader>
+      <RegisterFinalizeText>{TextResources.REGISTER_FINALIZE_VERIFICATION_DESCRIPTION}</RegisterFinalizeText>
     </RegisterFinalizeSection>
     <RegisterFinalizeSection>
-      <RegisterFinalizeHeader>{TextResources.Register_Finalize_MFA}</RegisterFinalizeHeader>
-      <RegisterFinalizeText>{TextResources.Register_Finalize_MFA_Description}</RegisterFinalizeText>
+      <RegisterFinalizeHeader>{TextResources.REGISTER_FINALIZE_MFA}</RegisterFinalizeHeader>
+      <RegisterFinalizeText>{TextResources.REGISTER_FINALIZE_MFA_DESCRIPTION}</RegisterFinalizeText>
       <RegisterQrImage size={300} src={qrCodeBase64} alt="" />
-      <RegisterFinalizeLink to="/">{TextResources.Register_Finalize_Finish_Link}</RegisterFinalizeLink>
+      <RegisterFinalizeLink to="/">{TextResources.REGISTER_FINALIZE_FINISH_LINK}</RegisterFinalizeLink>
     </RegisterFinalizeSection>
   </RegisterFinalizeContainer>
 );
