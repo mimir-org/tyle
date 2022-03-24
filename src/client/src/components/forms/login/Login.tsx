@@ -53,7 +53,13 @@ export const Login = () => {
           <FormError>{errors.password && errors.password.message}</FormError>
 
           <FormLabel htmlFor="code">{TextResources.Login_Code}</FormLabel>
-          <Input id="code" autoComplete="off" {...register("code", { required: true })}></Input>
+          <Input
+            id="code"
+            type="tel"
+            pattern="[0-9]*"
+            autoComplete="off"
+            {...register("code", { required: true, valueAsNumber: true })}
+          ></Input>
           <FormError>{errors.code && errors.code.message}</FormError>
           <FormRequiredText>{TextResources.Forms_Required_Description}</FormRequiredText>
         </FormInputCollection>
