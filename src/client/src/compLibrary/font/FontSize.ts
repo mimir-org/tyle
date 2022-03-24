@@ -1,9 +1,8 @@
 const FontSize = {
   Header: "18px",
-  SubHeader: "16px",
-  Standard: "14px",
-  Medium: "12px",
-  Small: "11px",
+  Standard: "16px",
+  Medium: "14px",
+  Small: "12px",
   Tiny: "10px",
   ToolTip: "8px",
 };

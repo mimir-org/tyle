@@ -4,10 +4,11 @@ import { Color } from "../../../compLibrary/colors";
 import { Link } from "react-router-dom";
 
 export const FormContainer = styled.div`
+  --form-gap: 50px;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  gap: 50px;
+  gap: var(--form-gap);
   height: 100%;
   width: min(700px, 100%);
   padding: 0 min(120px, 10%);
@@ -32,6 +33,16 @@ export const FormHeaderTitle = styled.h1`
 
 export const FormHeaderText = styled.p`
   font-weight: ${FontWeight.Light};
+`;
+
+export const FormErrorBanner = styled.p`
+  // Remove flex gap introduced by element
+  margin: calc(-1 * var(--form-gap)) 0;
+  padding: 5px 10px;
+  border: 1px solid ${Color.RedWarningComplementary};
+  background-color: ${Color.RedWarning};
+  font-size: ${FontSize.Standard};
+  color: ${Color.White};
 `;
 
 export const FormInputCollection = styled.section`

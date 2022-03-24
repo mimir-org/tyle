@@ -21,6 +21,7 @@ const Color = {
   CyanLight: "#CFDADB",
   PurpleLight: "#D8D8EC",
   RedWarning: "#FF708A",
+  RedWarningComplementary: "#EC0000",
 
   // Text
   TextSecondary: "#8C8C8C",

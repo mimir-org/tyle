@@ -23,6 +23,7 @@ import {
   FormContainer,
   FormActionContainer,
   FormRequiredText,
+  FormErrorBanner,
 } from "../styled/Form";
 
 export const Register = () => {
@@ -47,6 +48,9 @@ export const Register = () => {
             <FormHeaderTitle>{TextResources.REGISTER_TITLE}</FormHeaderTitle>
             <FormHeaderText>{TextResources.REGISTER_DESCRIPTION}</FormHeaderText>
           </FormHeader>
+
+          {createUserMutation.isError && <FormErrorBanner>{TextResources.REGISTER_ERROR}</FormErrorBanner>}
+
           <FormInputCollection>
             <FormLabel htmlFor="email">{TextResources.REGISTER_EMAIL}</FormLabel>
             <Input

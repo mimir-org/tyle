@@ -15,9 +15,10 @@ const TextResources = {
   LOGIN_DESCRIPTION: "View, create and edit types!",
   LOGIN_EMAIL: "E-mail *",
   LOGIN_PASSWORD: "Password *",
-  LOGIN_CODE: "Authenticator code *",
+  LOGIN_CODE: "Authentication code *",
   LOGIN_NOT_REGISTERED: "Don't have an account?",
-  LOGIN_REGISTER_Link: "Sign up",
+  LOGIN_REGISTER_LINK: "Sign up",
+  LOGIN_ERROR: "Incorrect username, password or authentication code.",
 
   // Register
   REGISTER_TITLE: "Register",
@@ -31,6 +32,7 @@ const TextResources = {
   REGISTER_SUBMIT: "Create account",
   REGISTER_IS_REGISTERED: "Have an account?",
   REGISTER_LOGIN_LINK: "Log in",
+  REGISTER_ERROR: "An error occurred when trying to create your user.",
   REGISTER_FINALIZE_VERIFICATION: "Please verify your email",
   REGISTER_FINALIZE_VERIFICATION_DESCRIPTION:
     "You're almost there! We have sent you an email to verify your registration. Just click on the link in that email to complete your signup. If you don't see it, you may need to check your spam folder.",

@@ -21,6 +21,7 @@ import {
   FormContainer,
   FormActionContainer,
   FormRequiredText,
+  FormErrorBanner,
 } from "../styled/Form";
 
 export const Login = () => {
@@ -42,6 +43,8 @@ export const Login = () => {
           <FormHeaderTitle>{TextResources.LOGIN_TITLE}</FormHeaderTitle>
           <FormHeaderText>{TextResources.LOGIN_DESCRIPTION}</FormHeaderText>
         </FormHeader>
+
+        {loginMutation.isError && <FormErrorBanner>{TextResources.LOGIN_ERROR}</FormErrorBanner>}
 
         <FormInputCollection>
           <FormLabel htmlFor="email">{TextResources.LOGIN_EMAIL}</FormLabel>
@@ -77,7 +80,7 @@ export const Login = () => {
         <FormActionContainer>
           <FormButton>{TextResources.LOGIN_TITLE}</FormButton>
           <FormSecondaryActionText>
-            {TextResources.LOGIN_NOT_REGISTERED} <FormLink to="/register">{TextResources.LOGIN_REGISTER_Link}</FormLink>
+            {TextResources.LOGIN_NOT_REGISTERED} <FormLink to="/register">{TextResources.LOGIN_REGISTER_LINK}</FormLink>
           </FormSecondaryActionText>
         </FormActionContainer>
       </Form>
