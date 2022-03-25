@@ -9,7 +9,7 @@ export const Spinner = styled.div`
   width: 50px;
   height: 50px;
   border: 5px solid hsla(0, 0%, 0%, 0.3);
-  border-top-color: hsl(0, 0%, 0%);
+  border-top-color: var(--color-neutral-dark);
   border-radius: 50%;
   animation: ${spin} 1s ease-in-out infinite;
 `;

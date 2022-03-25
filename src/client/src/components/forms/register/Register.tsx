@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { getValidationStateFromServer } from "../../../data/helpers/getValidationStateFromServer";
 import { useValidationFromServer } from "../../../hooks/useValidationFromServer";
 import { TextResources } from "../../../assets/text";
-import { Input } from "../../../compLibrary/input/text";
+import { Input } from "../../../compLibrary/input";
 import { MimirorgUserAm } from "../../../models/auth/application/mimirorgUserAm";
 import { useCreateUser } from "../../../data/queries/auth/queriesUser";
 import { RegisterFinalize } from "./components/RegisterFinalize";
