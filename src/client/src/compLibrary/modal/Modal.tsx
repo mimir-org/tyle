@@ -1,24 +1,37 @@
 import { Dialog } from "@headlessui/react";
-import { ModalContainer, ModalContentContainer, ModalOverlay } from "./Modal.styled";
 import { FunctionComponent } from "react";
+import { ModalContent } from "./components/ModalContent";
+import { ModalContainer, ModalLayoutContainer, ModalOverlay } from "./Modal.styled";
 
 interface Props {
   onExit: () => void;
   isOpen: boolean;
   isBlurred?: boolean;
   isFaded?: boolean;
+  title?: string;
+  description?: string;
 }
 
 /**
- * Component for a generic modal in Mimir.
+ * Component for a generic modal.
  * @param interface
  * @returns a centered modal a background overlay.
  */
-export const Modal: FunctionComponent<Props> = ({ onExit, isOpen, isBlurred, isFaded, children }) => (
+export const Modal: FunctionComponent<Props> = ({
+  onExit,
+  isOpen,
+  isBlurred,
+  isFaded,
+  children,
+  title,
+  description,
+}) => (
   <Dialog open={isOpen} onClose={onExit} as={ModalContainer}>
-    <ModalContentContainer>
+    <ModalLayoutContainer>
       <Dialog.Overlay as={ModalOverlay} isBlurred={isBlurred} isFaded={isFaded} />
-      {children}
-    </ModalContentContainer>
+      <ModalContent onExit={onExit} title={title} description={description}>
+        {children}
+      </ModalContent>
+    </ModalLayoutContainer>
   </Dialog>
 );

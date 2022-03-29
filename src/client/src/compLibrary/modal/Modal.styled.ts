@@ -6,7 +6,7 @@ export const ModalContainer = styled.div`
   overflow-y: auto;
 `;
 
-export const ModalContentContainer = styled.div`
+export const ModalLayoutContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
