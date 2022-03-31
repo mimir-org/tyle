@@ -4,7 +4,7 @@ import { useLogin } from "../../../data/queries/auth/queriesAuthenticate";
 import { getValidationStateFromServer } from "../../../data/helpers/getValidationStateFromServer";
 import { useValidationFromServer } from "../../../hooks/useValidationFromServer";
 import { Icon } from "../../../compLibrary/icon";
-import { Input } from "../../../compLibrary/input/text";
+import { Input } from "../../../compLibrary/input";
 import { TextResources } from "../../../assets/text";
 import { LibraryIcon } from "../../../assets/icons/modules";
 import {

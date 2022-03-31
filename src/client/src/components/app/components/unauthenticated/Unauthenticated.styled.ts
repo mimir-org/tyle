@@ -5,14 +5,56 @@ export const UnauthenticatedLayout = styled.div`
   height: 100%;
 
   // Generated block background
-  background-color: #3c3c4b;
+  background-color: var(--color-ui-primary-light);
   opacity: 1;
-  background-image: linear-gradient(30deg, #272738 12%, transparent 12.5%, transparent 87%, #272738 87.5%, #272738),
-    linear-gradient(150deg, #272738 12%, transparent 12.5%, transparent 87%, #272738 87.5%, #272738),
-    linear-gradient(30deg, #272738 12%, transparent 12.5%, transparent 87%, #272738 87.5%, #272738),
-    linear-gradient(150deg, #272738 12%, transparent 12.5%, transparent 87%, #272738 87.5%, #272738),
-    linear-gradient(60deg, #27273877 25%, transparent 25.5%, transparent 75%, #27273877 75%, #27273877),
-    linear-gradient(60deg, #27273877 25%, transparent 25.5%, transparent 75%, #27273877 75%, #27273877);
+  background-image: linear-gradient(
+      30deg,
+      var(--color-ui-primary) 12%,
+      transparent 12.5%,
+      transparent 87%,
+      var(--color-ui-primary) 87.5%,
+      var(--color-ui-primary)
+    ),
+    linear-gradient(
+      150deg,
+      var(--color-ui-primary) 12%,
+      transparent 12.5%,
+      transparent 87%,
+      var(--color-ui-primary) 87.5%,
+      var(--color-ui-primary)
+    ),
+    linear-gradient(
+      30deg,
+      var(--color-ui-primary) 12%,
+      transparent 12.5%,
+      transparent 87%,
+      var(--color-ui-primary) 87.5%,
+      var(--color-ui-primary)
+    ),
+    linear-gradient(
+      150deg,
+      var(--color-ui-primary) 12%,
+      transparent 12.5%,
+      transparent 87%,
+      var(--color-ui-primary) 87.5%,
+      var(--color-ui-primary)
+    ),
+    linear-gradient(
+      60deg,
+      var(--color-ui-primary-alpha) 25%,
+      transparent 25.5%,
+      transparent 75%,
+      var(--color-ui-primary-alpha) 75%,
+      var(--color-ui-primary-alpha)
+    ),
+    linear-gradient(
+      60deg,
+      var(--color-ui-primary-alpha) 25%,
+      transparent 25.5%,
+      transparent 75%,
+      var(--color-ui-primary-alpha) 75%,
+      var(--color-ui-primary-alpha)
+    );
   background-size: 80px 140px;
   background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
 `;
