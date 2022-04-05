@@ -13,4 +13,5 @@ export const SHADOW = {
   BOX_SMALL: "var(--shadow-box-small)",
   BOX_MEDIUM: "var(--shadow-box-medium)",
   BOX_LARGE: "var(--shadow-box-large)",
+  BOX_XL: "var(--shadow-box-xl)",
 };
