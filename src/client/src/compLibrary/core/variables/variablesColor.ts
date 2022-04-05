@@ -91,6 +91,7 @@ export const COLOR = {
   TEXT: {
     PRIMARY: {
       BASE: "var(--color-text-primary)",
+      INVERTED: "var(--color-text-primary-inverted)",
     },
     SECONDARY: {
       BASE: "var(--color-text-secondary)",

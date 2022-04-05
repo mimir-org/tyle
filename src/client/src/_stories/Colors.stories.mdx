@@ -1,0 +1,102 @@
+<!-- Colors.stories.mdx -->
+
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs';
+import { GlobalStyle } from "../compLibrary/core";
+import { THEME } from "../compLibrary/core/constants";
+
+<Meta title="Overview/Colors" />
+
+# Colors
+
+## Overview
+
+The type library uses several colors to help users identify statuses, actions, and navigate the application in general.
+Below you will find an overview of all the colors available in the design system, and that are consumable by the developers.
+
+<GlobalStyle/>
+
+## Color keys
+
+### General UI colors
+
+<ColorPalette>
+    <ColorItem
+      title="Primary"
+      subtitle="Primary colors of the UI"
+      colors={THEME.COLOR.PRIMARY}
+    />
+    <ColorItem
+      title="Secondary"
+      subtitle="Secondary colors of the UI"
+      colors={THEME.COLOR.SECONDARY}
+    />
+</ColorPalette>
+
+### Semantic colors
+
+<ColorPalette>
+    <ColorItem
+      title="Info"
+      subtitle="For semantically neutral actions"
+      colors={THEME.COLOR.SEMANTIC.INFO}
+    />
+    <ColorItem
+      title="Positive"
+      subtitle="For semantically positive actions"
+      colors={THEME.COLOR.SEMANTIC.POSITIVE}
+    />
+    <ColorItem
+      title="Negative"
+      subtitle="For semantically negative actions"
+      colors={THEME.COLOR.SEMANTIC.NEGATIVE}
+    />
+    <ColorItem
+      title="Alert"
+      subtitle="For actions where caution is needed"
+      colors={THEME.COLOR.SEMANTIC.ALERT}
+    />
+</ColorPalette>
+
+### Text colors
+
+<ColorPalette>
+    <ColorItem
+      title="Primary"
+      subtitle="Primary text colors"
+      colors={THEME.COLOR.TEXT.PRIMARY}
+    />
+    <ColorItem
+      title="Secondary"
+      subtitle="Secondary text colors"
+      colors={THEME.COLOR.TEXT.SECONDARY}
+    />
+</ColorPalette>
+
+### Border colors
+<ColorPalette>
+    <ColorItem
+      title="Primary"
+      subtitle="Primary border colors"
+      colors={THEME.COLOR.BORDER.PRIMARY}
+    />
+</ColorPalette>
+
+### Background colors
+
+<ColorPalette>
+    <ColorItem
+      title="Primary"
+      subtitle="Primary background colors"
+      colors={THEME.COLOR.BACKGROUND.PRIMARY}
+    />
+</ColorPalette>
+
+### Surface colors
+
+<ColorPalette>
+    <ColorItem
+      title="Primary"
+      subtitle="Primary surface colors"
+      colors={THEME.COLOR.SURFACE.PRIMARY}
+    />
+</ColorPalette>
