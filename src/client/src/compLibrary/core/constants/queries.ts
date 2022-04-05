@@ -1,7 +1,7 @@
 const BREAKPOINTS = {
-  phoneMax: 550,
-  tabletMax: 1100,
-  laptopMax: 1500,
+  PHONE_MAX: 550,
+  TABLET_MAX: 1100,
+  LAPTOP_MAX: 1500,
 };
 
 /*
@@ -9,7 +9,7 @@ const BREAKPOINTS = {
  * Default size: Desktop monitors, 1501px and up
  */
 export const QUERIES = {
-  phoneAndDown: `(max-width: ${BREAKPOINTS.phoneMax}px)`,
-  tabletAndDown: `(max-width: ${BREAKPOINTS.tabletMax}px)`,
-  laptopAndDown: `(max-width: ${BREAKPOINTS.laptopMax}px)`,
+  PHONE_AND_DOWN: `(max-width: ${BREAKPOINTS.PHONE_MAX}px)`,
+  TABLET_AND_DOWN: `(max-width: ${BREAKPOINTS.TABLET_MAX}px)`,
+  LAPTOP_AND_DOWN: `(max-width: ${BREAKPOINTS.LAPTOP_MAX}px)`,
 };

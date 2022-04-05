@@ -2,48 +2,104 @@ import { css } from "styled-components/macro";
 
 export const variablesColor = css`
   :root {
-    --color-ui-primary-hue: 240;
-    --color-ui-primary: hsl(var(--color-ui-primary-hue), 17%, 19%);
-    --color-ui-primary-light: hsl(var(--color-ui-primary-hue), 17%, 26%);
-    --color-ui-primary-dark: hsl(var(--color-ui-primary-hue), 17%, 15%);
-    --color-ui-primary-alpha: hsla(var(--color-ui-primary-hue), 17%, 19%, 0.5);
+    --color-primary: hsl(240, 17%, 19%);
+    --color-primary-light: hsl(240, 22%, 70%);
+    --color-primary-dark: hsl(240, 33%, 12%);
+    --color-primary-alpha: hsla(240, 22%, 70%, 0.5);
 
-    --color-ui-secondary: hsl(225, 100%, 94%);
-    --color-ui-secondary-dark: hsl(240, 34%, 89%);
+    --color-secondary: hsl(304, 19%, 32%);
+    --color-secondary-light: hsl(315, 29%, 73%);
+    --color-secondary-dark: hsl(293, 35%, 20%);
+    --color-secondary-alpha: hsla(315, 29%, 73%, 0.5);
 
-    --color-ui-ok: hsl(121, 100%, 72%);
-    --color-ui-warn: hsl(40, 100%, 72%);
-    --color-ui-danger: hsl(349, 100%, 72%);
-    --color-ui-danger-dark: hsl(349, 100%, 65%);
+    --color-surface-primary: hsl(0, 0%, 98%);
 
-    --color-grey-scale-1: hsl(0, 0%, 98%);
-    --color-grey-scale-2: hsl(0, 0%, 88%);
-    --color-grey-scale-3: hsl(0, 0%, 77%);
-    --color-grey-scale-4: hsl(0, 0%, 55%);
-    --color-grey-scale-5: hsl(0, 0%, 31%);
+    --color-background-primary: hsl(0, 0%, 100%);
+    --color-background-primary-inverted: hsl(0, 0%, 0%);
 
     --color-text-primary: hsl(0, 0%, 0%);
+    --color-text-primary-inverted: hsl(0, 0%, 100%);
     --color-text-secondary: hsl(0, 0%, 55%);
 
-    --color-neutral-light: hsl(0, 0%, 100%);
-    --color-neutral-dark: hsl(0, 0%, 0%);
+    --color-border-primary: hsl(243, 12%, 70%);
+    --color-border-primary-light: hsl(244, 25%, 89%);
 
-    --color-function-hue: 58;
-    --color-function-primary: hsl(var(--color-function-hue), 95%, 64%);
-    --color-function-dark: hsl(calc(var(--color-function-hue) - 8), 84%, 52%);
-    --color-function-light: hsl(calc(var(--color-function-hue) - 8), 85%, 72%);
-    --color-function-lighter: hsl(var(--color-function-hue), 95%, 83%);
+    --color-positive: hsl(102, 70%, 29%);
+    --color-positive-dark: hsl(110, 78%, 20%);
+    --color-positive-light: hsl(94, 58%, 64%);
 
-    --color-product-hue: 184;
-    --color-product-primary: hsl(var(--color-product-hue), 100%, 50%);
-    --color-product-dark: hsl(var(--color-product-hue), 92%, 31%);
-    --color-product-light: hsl(var(--color-product-hue), 76%, 59%);
-    --color-product-lighter: hsl(var(--color-product-hue), 84%, 85%);
+    --color-negative: hsl(331, 80%, 34%);
+    --color-negative-dark: hsl(319, 87%, 23%);
+    --color-negative-light: hsl(343, 67%, 65%);
 
-    --color-location-hue: 299;
-    --color-location-primary: hsl(var(--color-location-hue), 100%, 50%);
-    --color-location-dark: hsl(var(--color-location-hue), 100%, 33%);
-    --color-location-light: hsl(var(--color-location-hue), 80%, 73%);
-    --color-location-lighter: hsl(var(--color-location-hue), 96%, 90%);
+    --color-info: hsl(183, 100%, 24%);
+    --color-info-dark: hsl(193, 100%, 17%);
+    --color-info-light: hsl(173, 62%, 59%);
+
+    --color-alert: hsl(49, 99%, 35%);
+    --color-alert-dark: hsl(47, 100%, 25%);
+    --color-alert-light: hsl(52, 74%, 64%);
   }
 `;
+
+export const COLOR = {
+  PRIMARY: {
+    BASE: "var(--color-primary)",
+    DARK: "var(--color-primary-dark)",
+    LIGHT: "var(--color-primary-light)",
+    ALPHA: "var(--color-primary-alpha)",
+  },
+  SECONDARY: {
+    BASE: "var(--color-secondary)",
+    DARK: "var(--color-secondary-dark)",
+    LIGHT: "var(--color-secondary-light)",
+    ALPHA: "var(--color-secondary-alpha)",
+  },
+  SEMANTIC: {
+    POSITIVE: {
+      BASE: "var(--color-positive)",
+      DARK: "var(--color-positive-dark)",
+      LIGHT: "var(--color-positive-light)",
+    },
+    NEGATIVE: {
+      BASE: "var(--color-negative)",
+      DARK: "var(--color-negative-dark)",
+      LIGHT: "var(--color-negative-light)",
+    },
+    ALERT: {
+      BASE: "var(--color-alert)",
+      DARK: "var(--color-alert-dark)",
+      LIGHT: "var(--color-alert-light)",
+    },
+    INFO: {
+      BASE: "var(--color-info)",
+      DARK: "var(--color-info-dark)",
+      LIGHT: "var(--color-info-light)",
+    },
+  },
+  SURFACE: {
+    PRIMARY: {
+      BASE: "var(--color-surface-primary)",
+    },
+  },
+  BACKGROUND: {
+    PRIMARY: {
+      BASE: "var(--color-background-primary)",
+      INVERTED: "var(--color-background-primary-inverted)",
+    },
+  },
+  TEXT: {
+    PRIMARY: {
+      BASE: "var(--color-text-primary)",
+    },
+    SECONDARY: {
+      BASE: "var(--color-text-secondary)",
+    },
+  },
+  BORDER: {
+    PRIMARY: {
+      BASE: "var(--color-border-primary)",
+      LIGHT: "var(--color-border-primary-light)",
+    },
+  },
+};
