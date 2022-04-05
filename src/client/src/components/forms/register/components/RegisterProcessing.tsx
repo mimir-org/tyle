@@ -1,11 +1,13 @@
+import { Flex } from "../../../../compLibrary/layout/Flex";
 import { Spinner } from "../../../../compLibrary/spinner";
-import { RegisterProcessingContainer, RegisterProcessingText } from "./RegisterProcessing.styled";
+import { TextResources } from "../../../../assets/text";
+import { THEME } from "../../../../compLibrary/core/constants";
 
 export const RegisterProcessing = () => {
   return (
-    <RegisterProcessingContainer>
-      <RegisterProcessingText>Registering your user</RegisterProcessingText>
+    <Flex flexDirection={"column"} justifyContent={"center"} alignItems={"center"} gap={THEME.SPACING.MEDIUM}>
+      <h2>{TextResources.REGISTER_PROCESSING}</h2>
       <Spinner />
-    </RegisterProcessingContainer>
+    </Flex>
   );
 };

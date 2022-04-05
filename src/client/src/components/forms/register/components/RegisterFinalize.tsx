@@ -1,28 +1,25 @@
 import { TextResources } from "../../../../assets/text";
-import {
-  RegisterFinalizeContainer,
-  RegisterFinalizeHeader,
-  RegisterFinalizeText,
-  RegisterQrImage,
-  RegisterFinalizeLink,
-  RegisterFinalizeSection,
-} from "./RegisterFinalize.styled";
+import { Flex } from "../../../../compLibrary/layout/Flex";
+import { RegisterQrImage, RegisterFinalizeLink } from "./RegisterFinalize.styled";
+import { Divider } from "../../../../compLibrary/divider/Divider";
+import { THEME } from "../../../../compLibrary/core/constants";
 
 interface Props {
   qrCodeBase64?: string;
 }
 
 export const RegisterFinalize = ({ qrCodeBase64 }: Props) => (
-  <RegisterFinalizeContainer>
-    <RegisterFinalizeSection>
-      <RegisterFinalizeHeader>{TextResources.REGISTER_FINALIZE_VERIFICATION}</RegisterFinalizeHeader>
-      <RegisterFinalizeText>{TextResources.REGISTER_FINALIZE_VERIFICATION_DESCRIPTION}</RegisterFinalizeText>
-    </RegisterFinalizeSection>
-    <RegisterFinalizeSection>
-      <RegisterFinalizeHeader>{TextResources.REGISTER_FINALIZE_MFA}</RegisterFinalizeHeader>
-      <RegisterFinalizeText>{TextResources.REGISTER_FINALIZE_MFA_DESCRIPTION}</RegisterFinalizeText>
+  <Flex flexDirection={"column"} gap={"var(--spacing-xl)"}>
+    <Flex as={"section"} flexDirection={"column"} gap={THEME.SPACING.XL}>
+      <h1>{TextResources.REGISTER_FINALIZE_VERIFICATION}</h1>
+      <p>{TextResources.REGISTER_FINALIZE_VERIFICATION_DESCRIPTION}</p>
+    </Flex>
+    <Divider />
+    <Flex as={"section"} flexDirection={"column"} gap={THEME.SPACING.XL}>
+      <h1>{TextResources.REGISTER_FINALIZE_MFA}</h1>
+      <p>{TextResources.REGISTER_FINALIZE_MFA_DESCRIPTION}</p>
       <RegisterQrImage size={300} src={qrCodeBase64} alt="" />
       <RegisterFinalizeLink to="/">{TextResources.REGISTER_FINALIZE_FINISH_LINK}</RegisterFinalizeLink>
-    </RegisterFinalizeSection>
-  </RegisterFinalizeContainer>
+    </Flex>
+  </Flex>
 );

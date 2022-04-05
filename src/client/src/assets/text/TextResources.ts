@@ -33,6 +33,7 @@ const TextResources = {
   REGISTER_IS_REGISTERED: "Have an account?",
   REGISTER_LOGIN_LINK: "Log in",
   REGISTER_ERROR: "An error occurred when trying to create your user.",
+  REGISTER_PROCESSING: "Registering your user",
   REGISTER_FINALIZE_VERIFICATION: "Please verify your email",
   REGISTER_FINALIZE_VERIFICATION_DESCRIPTION:
     "You're almost there! We have sent you an email to verify your registration. Just click on the link in that email to complete your signup. If you don't see it, you may need to check your spam folder.",

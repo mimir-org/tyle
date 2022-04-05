@@ -4,7 +4,7 @@ export const ExitButtonContainer = styled.button`
   position: absolute;
   top: 0;
   right: 0;
-  padding: 10px;
+  padding: var(--spacing-small);
   line-height: 0;
   background: transparent;
   border: 0;
