@@ -1,0 +1,36 @@
+<!-- Shadows.stories.mdx -->
+
+import { Meta } from "@storybook/addon-docs";
+import { GlobalStyle } from "../../compLibrary/core";
+import { THEME } from "../../compLibrary/core/constants";
+import { Flex } from "../../compLibrary/layout/Flex";
+
+<Meta title="Foundations/Shadows" />
+
+# Shadows
+
+## Overview
+
+Here you will find an overview of the different shadows available. These are used to create a sense of hierarchy and elevation within the UI and different layouts.
+
+<GlobalStyle />
+
+## Shadow levels
+
+<Flex
+  flexDirection={"column"}
+  justifyContent={"space-between"}
+  gap={THEME.SPACING.XXXL}
+  padding={THEME.SPACING.XL}
+  border={`2px solid ${THEME.COLOR.BORDER.PRIMARY.BASE}`}
+  borderRadius={THEME.BORDER.RADIUS.MEDIUM}
+>
+  {Object.entries(THEME.SHADOW).map(([k, v]) => {
+    return (
+      <Flex flexDirection={"column"} gap={THEME.SPACING.LARGE} padding={THEME.SPACING.LARGE} boxShadow={v}>
+        <b>{k}</b>
+        <small>{v}</small>
+      </Flex>
+    );
+  })}
+</Flex>
