@@ -1,0 +1,48 @@
+<!-- Rounding.stories.mdx -->
+
+import { Meta } from "@storybook/addon-docs";
+import { GlobalStyle } from "../../compLibrary/core";
+import { THEME } from "../../compLibrary/core/constants";
+import { Flex } from "../../compLibrary/layout/Flex";
+
+<Meta title="Foundations/Rounding" />
+
+# Rounding
+
+## Overview
+
+Here you will find an overview of the different units available for rounding of element corners.
+
+<GlobalStyle />
+
+## Rounding levels
+
+<Flex
+  justifyContent={"space-between"}
+  gap={THEME.SPACING.LARGE}
+  padding={THEME.SPACING.XL}
+  border={`2px solid ${THEME.COLOR.BORDER.PRIMARY.BASE}`}
+  borderRadius={THEME.BORDER.RADIUS.MEDIUM}
+>
+  {Object.entries(THEME.BORDER.RADIUS).map(([k, v]) => {
+    return (
+      <Flex key={v} flexDirection={"column"} gap={THEME.SPACING.MEDIUM}>
+        <div
+          style={{
+            borderRadius: v,
+            width: "100px",
+            height: "100px",
+            padding: "var(--spacing-small)",
+            border: `2px solid red`,
+          }}
+        >
+        </div>
+        <div>
+          <b>{k}</b>
+          <br />
+          <small>{v}</small>
+        </div>
+      </Flex>
+    );
+  })}
+</Flex>
