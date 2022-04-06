@@ -27,7 +27,7 @@ Here you will find an overview of the different shadows available. These are use
 >
   {Object.entries(THEME.SHADOW).map(([k, v]) => {
     return (
-      <Flex flexDirection={"column"} gap={THEME.SPACING.LARGE} padding={THEME.SPACING.LARGE} boxShadow={v}>
+      <Flex key={v} flexDirection={"column"} gap={THEME.SPACING.LARGE} padding={THEME.SPACING.LARGE} boxShadow={v}>
         <b>{k}</b>
         <small>{v}</small>
       </Flex>
