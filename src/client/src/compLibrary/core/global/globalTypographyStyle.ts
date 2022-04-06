@@ -43,6 +43,11 @@ export const globalTypographyStyle = css`
     font: var(--font-text);
   }
 
+  b,
+  strong {
+    font-weight: var(--font-weight-bold);
+  }
+
   a {
     font: var(--font-link);
   }

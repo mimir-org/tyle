@@ -1,0 +1,88 @@
+<!-- Typography.stories.mdx -->
+
+import LinkTo from '@storybook/addon-links/react';
+import { Meta, Description, ColorPalette, ColorItem, Typeset, Canvas } from "@storybook/addon-docs";
+import { GlobalStyle } from "../../compLibrary/core";
+import { THEME } from "../../compLibrary/core/constants";
+import { Flex } from "../../compLibrary/layout/Flex";
+
+<Meta title="Foundations/Typography" />
+
+# Typography
+
+## Overview
+
+Here you will find an overview of the text size hierarchy.
+
+<GlobalStyle />
+
+## Headings
+
+<Canvas>
+  <Flex flexDirection={"column"} padding={THEME.SPACING.LARGE}>
+    <Flex gap={THEME.SPACING.LARGE}>
+      <h1>H1</h1>
+      <div>
+        <h1>Main heading (Roboto bold)</h1>
+        <p>Used as main heading for a given page</p>
+      </div>
+    </Flex>
+    <Flex gap={THEME.SPACING.LARGE}>
+      <h2>H2</h2>
+      <div>
+        <h2>Secondary heading (Roboto bold)</h2>
+        <p>Used as secondary heading following the main heading</p>
+      </div>
+    </Flex>
+    <Flex gap={THEME.SPACING.LARGE}>
+      <h3>H3</h3>
+      <div>
+        <h3>Tertiary heading (Roboto light)</h3>
+      </div>
+    </Flex>
+    <Flex gap={THEME.SPACING.LARGE}>
+      <h4>H4</h4>
+      <div>
+        <h4>Fourth heading (Roboto bold)</h4>
+      </div>
+    </Flex>
+    <Flex gap={THEME.SPACING.LARGE}>
+      <h5>H5</h5>
+      <div>
+        <h5>Fifth heading (Roboto bold)</h5>
+      </div>
+    </Flex>
+  </Flex>
+</Canvas>
+
+## General
+
+<Canvas>
+  <Flex flexDirection={"column"} padding={THEME.SPACING.LARGE}>
+    <Flex gap={THEME.SPACING.LARGE}>
+      <p>{"<p>"}</p>
+      <div>
+        <p>Paragraph text (Roboto normal)</p>
+        <p>Used for general text</p>
+      </div>
+    </Flex>
+    <Flex gap={THEME.SPACING.LARGE}>
+      <a href="/">Link</a>
+      <div>
+        <a href="/">Link text (Roboto normal)</a>
+        <p>Used for navigation between views</p>
+      </div>
+    </Flex>
+    <Flex gap={THEME.SPACING.LARGE}>
+      <p style={{ font: "var(--font-subtext)" }}>Subtext</p>
+      <div>
+        <p style={{ font: "var(--font-subtext)" }}>Subtext (Roboto normal)</p>
+        <p>Used for text with less importance</p>
+      </div>
+    </Flex>
+  </Flex>
+</Canvas>
+
+## Text colors
+
+<p>You can find the available text colors <LinkTo kind="Foundations/Colors" style={{ color: '#1474f3' }}>here.</LinkTo></p>

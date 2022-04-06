@@ -2,7 +2,7 @@ import { css } from "styled-components/macro";
 
 export const variablesFont = css`
   :root {
-    --font-family: "roboto";
+    --font-family: "roboto", sans-serif;
 
     --font-weight-bold: 700;
     --font-weight-normal: 400;
