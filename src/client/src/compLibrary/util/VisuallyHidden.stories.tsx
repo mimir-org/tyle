@@ -15,11 +15,11 @@ export default {
       },
     },
   },
-  args: {
-    children: "Some hidden text goes here.",
-  },
 } as ComponentMeta<typeof VisuallyHidden>;
 
 const Template: ComponentStory<typeof VisuallyHidden> = (args) => <VisuallyHidden {...args} />;
 
 export const Default = Template.bind({});
+Default.args = {
+  children: "Some hidden text goes here.",
+};

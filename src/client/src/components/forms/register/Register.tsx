@@ -10,7 +10,7 @@ import { RegisterFinalize } from "./components/RegisterFinalize";
 import { RegisterProcessing } from "./components/RegisterProcessing";
 import { Icon } from "../../../compLibrary/icon";
 import { LibraryIcon } from "../../../assets/icons/modules";
-import { UnauthenticatedFormButton, UnauthenticatedFormContainer } from "../styled/UnauthenticatedForm";
+import { UnauthenticatedFormContainer } from "../styled/UnauthenticatedForm";
 import { Form } from "../../../compLibrary/forms/Form";
 import { FormErrorBanner } from "../../../compLibrary/forms/FormErrorBanner";
 import { FormHeader } from "../../../compLibrary/forms/FormHeader";
@@ -18,6 +18,7 @@ import { FormField } from "../../../compLibrary/forms/FormField";
 import { FormFieldset } from "../../../compLibrary/forms/FormFieldset";
 import { Flex } from "../../../compLibrary/layout/Flex";
 import { THEME } from "../../../compLibrary/core/constants";
+import { Button } from "../../../compLibrary/button";
 
 export const Register = () => {
   const {
@@ -92,7 +93,7 @@ export const Register = () => {
             <i>{TextResources.FORMS_REQUIRED_DESCRIPTION}</i>
           </FormFieldset>
           <Flex flexDirection={"column"} gap={THEME.SPACING.LARGE}>
-            <UnauthenticatedFormButton>{TextResources.REGISTER_SUBMIT}</UnauthenticatedFormButton>
+            <Button>{TextResources.REGISTER_SUBMIT}</Button>
             <p>
               {TextResources.REGISTER_IS_REGISTERED} <Link to="/">{TextResources.REGISTER_LOGIN_LINK}</Link>
             </p>

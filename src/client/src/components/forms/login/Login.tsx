@@ -8,7 +8,7 @@ import { Icon } from "../../../compLibrary/icon";
 import { Input } from "../../../compLibrary/input";
 import { TextResources } from "../../../assets/text";
 import { LibraryIcon } from "../../../assets/icons/modules";
-import { UnauthenticatedFormButton, UnauthenticatedFormContainer } from "../styled/UnauthenticatedForm";
+import { UnauthenticatedFormContainer } from "../styled/UnauthenticatedForm";
 import { FormErrorBanner } from "../../../compLibrary/forms/FormErrorBanner";
 import { FormHeader } from "../../../compLibrary/forms/FormHeader";
 import { FormField } from "../../../compLibrary/forms/FormField";
@@ -16,6 +16,7 @@ import { Form } from "../../../compLibrary/forms/Form";
 import { FormFieldset } from "../../../compLibrary/forms/FormFieldset";
 import { Flex } from "../../../compLibrary/layout/Flex";
 import { THEME } from "../../../compLibrary/core/constants";
+import { Button } from "../../../compLibrary/button";
 
 export const Login = () => {
   const {
@@ -70,7 +71,7 @@ export const Login = () => {
         </FormFieldset>
 
         <Flex flexDirection={"column"} gap={THEME.SPACING.LARGE}>
-          <UnauthenticatedFormButton>{TextResources.LOGIN_TITLE}</UnauthenticatedFormButton>
+          <Button>{TextResources.LOGIN_TITLE}</Button>
           <p>
             {TextResources.LOGIN_NOT_REGISTERED} <Link to="/register">{TextResources.LOGIN_REGISTER_LINK}</Link>
           </p>

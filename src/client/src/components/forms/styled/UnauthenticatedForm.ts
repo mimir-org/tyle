@@ -12,21 +12,3 @@ export const UnauthenticatedFormContainer = styled.div`
   box-shadow: var(--shadow-box-xl);
   overflow: auto;
 `;
-
-export const UnauthenticatedFormButton = styled.button`
-  min-height: 45px;
-  border: 1px solid var(--color-border-primary);
-  background-color: var(--color-info);
-  color: var(--color-text-primary-inverted);
-  border-radius: var(--border-radius-small);
-
-  :active {
-    border-width: 2px;
-    background-color: var(--color-info-light);
-    font-weight: var(--font-weight-bold);
-  }
-
-  :hover {
-    background-color: var(--color-info-dark);
-  }
-`;
