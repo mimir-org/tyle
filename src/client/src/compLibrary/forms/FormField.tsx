@@ -17,6 +17,6 @@ export const FormField = ({ label, error, children }: PropsWithChildren<FormFiel
   <Container>
     <Label>{label}</Label>
     {children}
-    <Error>{error && error.message}</Error>
+    {error && <Error>{error.message}</Error>}
   </Container>
 );
