@@ -12,5 +12,5 @@ const Template: ComponentStory<typeof Icon> = (args) => <Icon {...args}></Icon>;
 export const Default = Template.bind({});
 Default.args = {
   src: LibraryIcon,
-  size: 15,
+  size: 16,
 };

@@ -15,5 +15,5 @@ export const Icon = styled.img<Props>`
 `;
 
 Icon.defaultProps = {
-  size: 15,
+  size: 16,
 };

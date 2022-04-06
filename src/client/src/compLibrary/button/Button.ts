@@ -4,6 +4,8 @@ export const Button = styled.button`
   position: relative;
   display: inline-flex;
   justify-content: center;
+  align-items: center;
+  gap: var(--spacing-xs);
   white-space: nowrap;
 
   text-decoration: none;
