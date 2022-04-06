@@ -5,7 +5,7 @@ export const FullPageSpinnerContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-large);
+  gap: var(--spacing-medium);
   background-color: var(--color-background-primary);
   height: 100%;
   width: 100%;

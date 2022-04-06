@@ -8,18 +8,18 @@ export const variablesFont = css`
     --font-weight-normal: 400;
     --font-weight-light: 300;
 
-    /* 1.200 - Minor third scale */
-    --font-size: 100%; /*16px*/
-    --font-scale: 1.2;
+    --font-base-size: 100%;
+    --font-scale-ratio: 1.2;
 
-    --font-size-xs: calc(var(--font-size-small) / var(--font-scale));
-    --font-size-small: calc(var(--font-size-base) / var(--font-scale));
+    --font-size-xxs: calc(var(--font-size-xs) / var(--font-scale-ratio));
+    --font-size-xs: calc(var(--font-size-small) / var(--font-scale-ratio));
+    --font-size-small: calc(var(--font-size-base) / var(--font-scale-ratio));
     --font-size-base: 1rem;
-    --font-size-medium: calc(var(--font-size-base) * var(--font-scale));
-    --font-size-large: calc(var(--font-size-medium) * var(--font-scale));
-    --font-size-xl: calc(var(--font-size-large) * var(--font-scale));
-    --font-size-xxl: calc(var(--font-size-xl) * var(--font-scale));
-    --font-size-xxxl: calc(var(--font-size-xxl) * var(--font-scale));
+    --font-size-medium: calc(var(--font-size-base) * var(--font-scale-ratio));
+    --font-size-large: calc(var(--font-size-medium) * var(--font-scale-ratio));
+    --font-size-xl: calc(var(--font-size-large) * var(--font-scale-ratio));
+    --font-size-xxl: calc(var(--font-size-xl) * var(--font-scale-ratio));
+    --font-size-xxxl: calc(var(--font-size-xxl) * var(--font-scale-ratio));
 
     --font-h1: var(--font-weight-bold) var(--font-size-xxxl) var(--font-family);
     --font-h2: var(--font-weight-bold) var(--font-size-xxl) var(--font-family);
@@ -40,6 +40,7 @@ export const FONT = {
     LIGHT: "var(--font-weight-light)",
   },
   SIZES: {
+    XXS: "var(--font-size-xxs)",
     XS: "var(--font-size-xs)",
     SMALL: "var(--font-size-small)",
     BASE: "var(--font-size-base)",

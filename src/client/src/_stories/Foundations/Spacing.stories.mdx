@@ -1,0 +1,50 @@
+<!-- Spacing.stories.mdx -->
+
+import { Meta } from "@storybook/addon-docs";
+import { GlobalStyle } from "../../compLibrary/core";
+import { THEME } from "../../compLibrary/core/constants";
+import { Flex } from "../../compLibrary/layout/Flex";
+
+<Meta title="Foundations/Spacing" />
+
+# Spacing
+
+## Overview
+
+Below you will find an overview of all the spacing primitives available, each step increasing in relation to the one that came before it.
+The spacing is calculated from the base font size (1rem), which means that altering the base font size will scale the spacing accordingly.
+
+<GlobalStyle />
+
+## Spacing sizes
+
+<Flex
+  justifyContent={"space-between"}
+  alignItems={"end"}
+  gap={THEME.SPACING.LARGE}
+  padding={THEME.SPACING.XL}
+  border={`2px solid ${THEME.COLOR.BORDER.PRIMARY.BASE}`}
+  borderRadius={THEME.BORDER.RADIUS.MEDIUM}
+>
+  {Object.entries(THEME.SPACING).map(([k, v]) => {
+    return (
+      <div>
+        <div
+          style={{
+            height: v,
+            maxWidth: "60px",
+            backgroundColor: THEME.COLOR.SECONDARY.BASE,
+          }}
+        ></div>
+        <p>{k}</p>
+        <small
+          style={{
+            fontSize: "var(--font-size-xxs)",
+          }}
+        >
+          {v}
+        </small>
+      </div>
+    );
+  })}
+</Flex>

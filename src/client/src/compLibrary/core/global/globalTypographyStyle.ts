@@ -4,11 +4,19 @@ import { css } from "styled-components/macro";
  * TYPOGRAPHY SPECIFIC GLOBALS
  */
 export const globalTypographyStyle = css`
-  html,
   body {
     font-family: var(--font-family);
     font-weight: var(--font-weight-normal);
-    font-size: var(--font-size);
+    font-size: var(--font-base-size);
+    color: var(--color-text-primary-light);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    color: var(--color-text-primary);
   }
 
   h1 {

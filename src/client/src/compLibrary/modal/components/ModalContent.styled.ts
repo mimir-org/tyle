@@ -10,7 +10,7 @@ export const ModalContentContainer = styled.div<ModalContentContainerProps>`
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-small);
+  gap: var(--spacing-xs);
   min-height: 350px;
   min-width: min(500px, 100%);
   max-width: 100%;
@@ -18,7 +18,7 @@ export const ModalContentContainer = styled.div<ModalContentContainerProps>`
   background-color: var(--color-background-primary);
   box-shadow: var(--shadow-box-medium);
   border-radius: var(--border-radius-small);
-  padding: var(--spacing-xl);
+  padding: var(--spacing-large);
 `;
 
 export const ModalHeader = styled.header`

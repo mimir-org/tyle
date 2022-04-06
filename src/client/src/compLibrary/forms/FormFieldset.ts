@@ -6,7 +6,7 @@ import styled from "styled-components";
 export const FormFieldset = styled.fieldset`
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-medium);
+  gap: var(--spacing-xs);
 
   border: 0;
   padding: 0;

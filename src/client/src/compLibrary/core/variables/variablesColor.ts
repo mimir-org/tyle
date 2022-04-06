@@ -18,6 +18,8 @@ export const variablesColor = css`
     --color-background-primary-inverted: hsl(0, 0%, 0%);
 
     --color-text-primary: hsl(0, 0%, 0%);
+    --color-text-primary-light: hsl(0, 0%, 25%);
+    --color-text-primary-lighter: hsl(0, 0%, 40%);
     --color-text-primary-inverted: hsl(0, 0%, 100%);
     --color-text-secondary: hsl(0, 0%, 55%);
 
@@ -91,6 +93,8 @@ export const COLOR = {
   TEXT: {
     PRIMARY: {
       BASE: "var(--color-text-primary)",
+      LIGHT: "var(--color-text-primary-light)",
+      LIGHTER: "var(--color-text-primary-lighter)",
       INVERTED: "var(--color-text-primary-inverted)",
     },
     SECONDARY: {
