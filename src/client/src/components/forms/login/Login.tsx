@@ -7,7 +7,7 @@ import { useValidationFromServer } from "../../../hooks/useValidationFromServer"
 import { TextResources } from "../../../assets/text";
 import { LibraryIcon } from "../../../assets/icons/modules";
 import { UnauthenticatedFormContainer } from "../styled/UnauthenticatedForm";
-import { THEME } from "../../../complib/core/constants";
+import { THEME } from "../../../complib/core";
 import { Icon } from "../../../complib/media";
 import { Input } from "../../../complib/inputs";
 import { Button } from "../../../complib/buttons";

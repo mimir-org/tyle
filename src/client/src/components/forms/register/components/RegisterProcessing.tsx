@@ -1,7 +1,7 @@
 import { Flex } from "../../../../complib/layouts";
 import { Spinner } from "../../../../complib/feedback";
 import { TextResources } from "../../../../assets/text";
-import { THEME } from "../../../../complib/core/constants";
+import { THEME } from "../../../../complib/core";
 
 export const RegisterProcessing = () => {
   return (

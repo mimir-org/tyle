@@ -2,7 +2,7 @@ import { TextResources } from "../../../../assets/text";
 import { Flex } from "../../../../complib/layouts";
 import { RegisterQrImage, RegisterFinalizeLink } from "./RegisterFinalize.styled";
 import { Divider } from "../../../../complib/data-display";
-import { THEME } from "../../../../complib/core/constants";
+import { THEME } from "../../../../complib/core";
 
 interface Props {
   qrCodeBase64?: string;
