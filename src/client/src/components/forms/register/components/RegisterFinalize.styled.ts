@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Icon } from "../../../../compLibrary/icon";
+import { Icon } from "../../../../compLibrary/media";
 import { Link } from "react-router-dom";
 
 export const RegisterQrImage = styled(Icon)`

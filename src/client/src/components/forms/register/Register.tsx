@@ -2,23 +2,19 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { getValidationStateFromServer } from "../../../data/helpers/getValidationStateFromServer";
 import { useValidationFromServer } from "../../../hooks/useValidationFromServer";
-import { TextResources } from "../../../assets/text";
-import { Input } from "../../../compLibrary/input";
 import { MimirorgUserAm } from "../../../models/auth/application/mimirorgUserAm";
 import { useCreateUser } from "../../../data/queries/auth/queriesUser";
 import { RegisterFinalize } from "./components/RegisterFinalize";
 import { RegisterProcessing } from "./components/RegisterProcessing";
-import { Icon } from "../../../compLibrary/icon";
+import { TextResources } from "../../../assets/text";
 import { LibraryIcon } from "../../../assets/icons/modules";
 import { UnauthenticatedFormContainer } from "../styled/UnauthenticatedForm";
-import { Form } from "../../../compLibrary/forms/Form";
-import { FormErrorBanner } from "../../../compLibrary/forms/FormErrorBanner";
-import { FormHeader } from "../../../compLibrary/forms/FormHeader";
-import { FormField } from "../../../compLibrary/forms/FormField";
-import { FormFieldset } from "../../../compLibrary/forms/FormFieldset";
-import { Flex } from "../../../compLibrary/layout/Flex";
 import { THEME } from "../../../compLibrary/core/constants";
-import { Button } from "../../../compLibrary/button";
+import { Icon } from "../../../compLibrary/media";
+import { Input } from "../../../compLibrary/inputs";
+import { Button } from "../../../compLibrary/buttons";
+import { Flex } from "../../../compLibrary/layouts";
+import { Form, FormErrorBanner, FormField, FormFieldset, FormHeader } from "../../../compLibrary/form";
 
 export const Register = () => {
   const {

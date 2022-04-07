@@ -1,7 +1,7 @@
 import { TextResources } from "../../../../assets/text";
-import { Flex } from "../../../../compLibrary/layout/Flex";
+import { Flex } from "../../../../compLibrary/layouts";
 import { RegisterQrImage, RegisterFinalizeLink } from "./RegisterFinalize.styled";
-import { Divider } from "../../../../compLibrary/divider/Divider";
+import { Divider } from "../../../../compLibrary/data-display";
 import { THEME } from "../../../../compLibrary/core/constants";
 
 interface Props {

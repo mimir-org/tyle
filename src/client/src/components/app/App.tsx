@@ -1,7 +1,7 @@
 import { useGetCurrentUser } from "../../data/queries/auth/queriesUser";
 import { Unauthenticated } from "./components/unauthenticated/Unauthenticated";
 import { Authenticated } from "./components/authenticated/Authenticated";
-import { FullPageSpinner } from "../../compLibrary/spinner";
+import { FullPageSpinner } from "../../compLibrary/feedback";
 import { TextResources } from "../../assets/text";
 
 export const App = () => {

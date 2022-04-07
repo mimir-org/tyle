@@ -1,5 +1,5 @@
-import { Flex } from "../../../../compLibrary/layout/Flex";
-import { Spinner } from "../../../../compLibrary/spinner";
+import { Flex } from "../../../../compLibrary/layouts";
+import { Spinner } from "../../../../compLibrary/feedback";
 import { TextResources } from "../../../../assets/text";
 import { THEME } from "../../../../compLibrary/core/constants";
 
