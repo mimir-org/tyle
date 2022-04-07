@@ -1,8 +1,8 @@
 import { TextResources } from "../../../../assets/text";
-import { Flex } from "../../../../compLibrary/layouts";
+import { Flex } from "../../../../complib/layouts";
 import { RegisterQrImage, RegisterFinalizeLink } from "./RegisterFinalize.styled";
-import { Divider } from "../../../../compLibrary/data-display";
-import { THEME } from "../../../../compLibrary/core/constants";
+import { Divider } from "../../../../complib/data-display";
+import { THEME } from "../../../../complib/core/constants";
 
 interface Props {
   qrCodeBase64?: string;

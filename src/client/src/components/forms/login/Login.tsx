@@ -7,12 +7,12 @@ import { useValidationFromServer } from "../../../hooks/useValidationFromServer"
 import { TextResources } from "../../../assets/text";
 import { LibraryIcon } from "../../../assets/icons/modules";
 import { UnauthenticatedFormContainer } from "../styled/UnauthenticatedForm";
-import { THEME } from "../../../compLibrary/core/constants";
-import { Icon } from "../../../compLibrary/media";
-import { Input } from "../../../compLibrary/inputs";
-import { Button } from "../../../compLibrary/buttons";
-import { Flex } from "../../../compLibrary/layouts";
-import { Form, FormErrorBanner, FormField, FormFieldset, FormHeader } from "../../../compLibrary/form";
+import { THEME } from "../../../complib/core/constants";
+import { Icon } from "../../../complib/media";
+import { Input } from "../../../complib/inputs";
+import { Button } from "../../../complib/buttons";
+import { Flex } from "../../../complib/layouts";
+import { Form, FormErrorBanner, FormField, FormFieldset, FormHeader } from "../../../complib/form";
 
 export const Login = () => {
   const {

@@ -1,4 +1,4 @@
-import { GlobalStyle } from "../src/compLibrary/core";
+import { GlobalStyle } from "../src/complib/core";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
