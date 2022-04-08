@@ -1,4 +1,5 @@
-import { SubTitle } from "./FormHeader.styled";
+import { Heading } from "../text";
+import { THEME } from "../core";
 
 interface Props {
   title?: string;
@@ -13,7 +14,11 @@ interface Props {
  */
 export const FormHeader = ({ title, subtitle }: Props) => (
   <header>
-    {title && <h1>{title}</h1>}
-    {subtitle && <SubTitle>{subtitle}</SubTitle>}
+    {title && <Heading>{title}</Heading>}
+    {subtitle && (
+      <Heading as={"h2"} font={THEME.FONT.TYPES.H3}>
+        {subtitle}
+      </Heading>
+    )}
   </header>
 );

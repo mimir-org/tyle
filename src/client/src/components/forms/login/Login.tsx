@@ -12,6 +12,7 @@ import { Icon } from "../../../complib/media";
 import { Input } from "../../../complib/inputs";
 import { Button } from "../../../complib/buttons";
 import { Flex } from "../../../complib/layouts";
+import { Text } from "../../../complib/text";
 import { Form, FormErrorBanner, FormField, FormFieldset, FormHeader } from "../../../complib/form";
 
 export const Login = () => {
@@ -63,14 +64,14 @@ export const Login = () => {
             />
           </FormField>
 
-          <i>{TextResources.FORMS_REQUIRED_DESCRIPTION}</i>
+          <Text as={"i"}>{TextResources.FORMS_REQUIRED_DESCRIPTION}</Text>
         </FormFieldset>
 
         <Flex flexDirection={"column"} gap={THEME.SPACING.LARGE}>
           <Button>{TextResources.LOGIN_TITLE}</Button>
-          <p>
+          <Text>
             {TextResources.LOGIN_NOT_REGISTERED} <Link to="/register">{TextResources.LOGIN_REGISTER_LINK}</Link>
-          </p>
+          </Text>
         </Flex>
       </Form>
     </UnauthenticatedFormContainer>
