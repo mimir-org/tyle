@@ -1,4 +1,5 @@
 export interface Typography {
+  font?: string;
   fontFamily?: string;
   fontSize?: string;
   fontStyle?: string;
