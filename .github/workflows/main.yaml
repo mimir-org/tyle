@@ -97,10 +97,10 @@ jobs:
         run: dotnet build -c Release ${{env.package_name}}
 
       - name: Package Nuget
-        run: dotnet pack -c Release --output . --include-source --include-symbols  --no-build -p:PackageVersion=${{needs.create-release.outputs.tag}} ${{env.package_name}}
+        run: dotnet pack -c Release --output . --include-source --include-symbols  --no-build -p:PackageVersion=${{needs.create-release.outputs.tag:1}} ${{env.package_name}}
 
       - name: Push
-        run: dotnet nuget push ${{env.package_name}}.${{needs.create-release.outputs.tag}}.nupkg -k ${{secrets.NUGET_API_KEY}} --source ${{env.nuget_source}} --skip-duplicate
+        run: dotnet nuget push ${{env.package_name}}.${{needs.create-release.outputs.tag:1}}.nupkg -k ${{secrets.NUGET_API_KEY}} --source ${{env.nuget_source}} --skip-duplicate
 
   nuget-TypeLibrary:
     runs-on: ubuntu-latest
@@ -118,9 +118,7 @@ jobs:
         run: dotnet build -c Release ${{env.package_name}}
 
       - name: Package Nuget
-        run: | 
-          echo ${{needs.create-release.outputs.tag}}
-          dotnet pack -c Release --output . --include-source --include-symbols  --no-build -p:PackageVersion=${{needs.create-release.outputs.tag}} ${{env.package_name}}
+        run: dotnet pack -c Release --output . --include-source --include-symbols  --no-build -p:PackageVersion=${{needs.create-release.outputs.tag:1}} ${{env.package_name}}
 
       - name: Push
-        run: dotnet nuget push ${{env.package_name}}.${{needs.create-release.outputs.tag}}.nupkg -k ${{secrets.NUGET_API_KEY}} --source ${{env.nuget_source}} --skip-duplicate
+        run: dotnet nuget push ${{env.package_name}}.${{needs.create-release.outputs.tag:1}}.nupkg -k ${{secrets.NUGET_API_KEY}} --source ${{env.nuget_source}} --skip-duplicate
