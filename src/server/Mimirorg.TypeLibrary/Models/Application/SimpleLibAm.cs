@@ -1,19 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Mimirorg.TypeLibrary.Extensions;
 using Newtonsoft.Json;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
     public class SimpleLibAm
     {
-        public string Id { get; set; }
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
-        public string Iri { get; set; }
-
-        public ICollection<string> AttributeIdList { get; set; }
+        public ICollection<string> Attributes { get; set; } // TODO: Bør være objektet AttributeLibAm
 
         [JsonIgnore]
-        public string Key => $"{Name}";
+        public string Id => $"{Name}".CreateMd5();
     }
 }

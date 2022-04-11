@@ -3,11 +3,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Mimirorg.Common.Enums;
+using Mimirorg.Common.Exceptions;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
-using Mimirorg.TypeLibrary.Models.Data;
+using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -33,36 +34,30 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="aspect"></param>
         /// <returns></returns>
-        public IEnumerable<AttributeLibDm> GetAttributes(Aspect aspect)
+        public IEnumerable<AttributeLibCm> GetAttributes(Aspect aspect)
         {
             var all = _attributeRepository.GetAll()
-                .Include(x => x.Qualifier)
-                .Include(x => x.Source)
-                .Include(x => x.Condition)
-                .Include(x => x.Format)
                 .Include(x => x.Units)
                 .ToList();
 
-            return aspect == Aspect.NotSet ?
+            var attributes = aspect == Aspect.NotSet ?
                 all :
                 all.Where(x => x.Aspect.HasFlag(aspect)).ToList();
+
+            return _mapper.Map<List<AttributeLibCm>>(attributes).ToList();
         }
 
        /// <summary>
        /// Get all attributes
        /// </summary>
        /// <returns></returns>
-        public IEnumerable<AttributeLibDm> GetAttributes()
+        public IEnumerable<AttributeLibCm> GetAttributes()
         {
             var all = _attributeRepository.GetAll()
-                .Include(x => x.Qualifier)
-                .Include(x => x.Source)
-                .Include(x => x.Condition)
-                .Include(x => x.Format)
                 .Include(x => x.Units)
                 .ToList();
 
-            return all;
+            return _mapper.Map<List<AttributeLibCm>>(all).ToList();
         }
 
         /// <summary>
@@ -70,10 +65,25 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="attributeAm"></param>
         /// <returns></returns>
-        public async Task<AttributeLibDm> CreateAttribute(AttributeLibAm attributeAm)
+        public async Task<AttributeLibCm> CreateAttribute(AttributeLibAm attributeAm)
         {
-            var data = await CreateAttributes(new List<AttributeLibAm> { attributeAm });
-            return data.SingleOrDefault();
+            if (attributeAm == null)
+                throw new MimirorgNullReferenceException("Can't create an attribute from null object");
+
+            var attribute = _mapper.Map<AttributeLibDm>(attributeAm);
+            if (attribute == null)
+                throw new MimirorgMappingException(nameof(AttributeLibAm), nameof(AttributeLibDm));
+
+            _unitRepository.Attach(attribute.Units, EntityState.Unchanged);
+            await _attributeRepository.CreateAsync(attribute);
+            await _attributeRepository.SaveAsync();
+            _unitRepository.Detach(attribute.Units);
+            _attributeRepository.Detach(attribute);
+            var cm = _mapper.Map<AttributeLibCm>(attribute);
+            if(cm == null)
+                throw new MimirorgMappingException(nameof(AttributeLibDm), nameof(AttributeLibCm));
+
+            return cm;
         }
 
         /// <summary>
@@ -81,17 +91,17 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="attributeAmList"></param>
         /// <returns></returns>
-        public async Task<ICollection<AttributeLibDm>> CreateAttributes(List<AttributeLibAm> attributeAmList)
+        public async Task CreateAttributes(List<AttributeLibAm> attributeAmList)
         {
             if (attributeAmList == null || !attributeAmList.Any())
-                return new List<AttributeLibDm>();
+                return;
 
             var data = _mapper.Map<List<AttributeLibDm>>(attributeAmList);
             var existing = _attributeRepository.GetAll().ToList();
             var notExisting = data.Where(x => existing.All(y => y.Id != x.Id)).ToList();
 
             if (!notExisting.Any())
-                return new List<AttributeLibDm>();
+                return;
 
             foreach (var entity in notExisting)
             {
@@ -113,8 +123,6 @@ namespace TypeLibrary.Services.Services
             {
                 _attributeRepository.Detach(notExistingItem);
             }
-
-            return data;
         }
 
         /// <summary>
@@ -132,23 +140,23 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="attributePredefinedList"></param>
         /// <returns></returns>
-        public async Task<List<AttributePredefinedLibDm>> CreateAttributesPredefined(List<AttributePredefinedLibDm> attributePredefinedList)
+        public async Task CreateAttributesPredefined(List<AttributePredefinedLibAm> attributePredefinedList)
         {
             if (attributePredefinedList == null || !attributePredefinedList.Any())
-                return new List<AttributePredefinedLibDm>();
+                return;
 
             var existing = _attributePredefinedRepository.GetAll().ToList();
             var notExisting = attributePredefinedList.Where(x => existing.All(y => y.Key != x.Key)).ToList();
 
             if (!notExisting.Any())
-                return new List<AttributePredefinedLibDm>();
+                return;
 
             foreach (var entity in notExisting)
             {
-                await _attributePredefinedRepository.CreateAsync(entity);
+                var dm = _mapper.Map<AttributePredefinedLibDm>(entity);
+                await _attributePredefinedRepository.CreateAsync(dm);
             }
             await _attributePredefinedRepository.SaveAsync();
-            return attributePredefinedList;
         }
     }
 }

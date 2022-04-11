@@ -1,15 +1,14 @@
-﻿using Mimirorg.Common.Enums;
-using Newtonsoft.Json;
-
-namespace Mimirorg.TypeLibrary.Models.Client
+﻿namespace Mimirorg.TypeLibrary.Models.Client
 {
     public class TerminalLibCm
     {
-        public string TerminalId { get; set; }
-        public int Number { get; set; }
-        public ConnectorType ConnectorType { get; set; }
-
-        [JsonIgnore]
-        public string Key => $"{TerminalId}-{ConnectorType}";
+        public string Id { get; set; }
+        public string ParentId { get; set; }
+        public TerminalLibCm Parent { get; set; }
+        public string Name { get; set; }
+        public string Iri { get; set; }
+        public string Color { get; set; }
+        public string Description { get; set; }
+        public ICollection<AttributeLibCm> Attributes { get; set; }
     }
 }

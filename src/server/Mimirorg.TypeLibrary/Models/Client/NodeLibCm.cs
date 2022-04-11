@@ -1,26 +1,36 @@
-﻿using Mimirorg.Common.Enums;
-using Mimirorg.TypeLibrary.Models.Data;
+﻿using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Client
 {
     public class NodeLibCm
     {
         public string Id { get; set; }
-        public string Version { get; set; } = "1.0";
-        public string Rds { get; set; }
-        public string Category { get; set; }
+        public string Iri { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public string StatusId { get; set; } = "4590637F39B6BA6F39C74293BE9138DF";
+        public string RdsId { get; set; }
+        public RdsLibCm Rds { get; set; }
+        public string PurposeId { get; set; }
+        public PurposeLibCm Purpose { get; set; }
+        public string ParentId { get; set; }
+        public InterfaceLibCm Parent { get; set; }
+        public string Version { get; set; }
+        public string FirstVersionId { get; set; }
         public Aspect Aspect { get; set; }
-        public ICollection<Attribute> Attributes { get; set; }
-        public string SemanticReference { get; set; }
-        public string SymbolId { get; set; }
-        public ObjectType LibraryType => ObjectType.ObjectBlock;
-        public PurposeLibDm Purpose { get; set; }
+        public State State { get; set; }
+        public int CompanyId { get; set; }
+        public string Description { get; set; }
+        public string BlobId { get; set; }
+        public BlobLibCm Blob { get; set; }
+        public string AttributeAspectId { get; set; }
+        public AttributeAspectLibCm AttributeAspect { get; set; }
         public string UpdatedBy { get; set; }
         public DateTime? Updated { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
+        public ICollection<AttributeLibCm> Attributes { get; set; }
+        public ICollection<NodeTerminalLibCm> NodeTerminals { get; set; }
+        public ICollection<SimpleLibCm> Simples { get; set; }
+        public ICollection<SelectedAttributePredefinedLibCm> SelectedAttributePredefined { get; set; }
+        public string Kind => nameof(NodeLibCm);
     }
 }

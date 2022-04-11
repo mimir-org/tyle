@@ -1,17 +1,25 @@
-﻿using Mimirorg.Common.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Extensions;
 using Newtonsoft.Json;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
     public class RdsLibAm
     {
-        public string Name { get; set; }
-        public string Code { get; set; }
+        [Required]
         public string RdsCategoryId { get; set; }
-        public string SemanticReference { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+
+        [Required]
+        public string Code { get; set; }
+
+        [Required]
         public Aspect Aspect { get; set; }
 
         [JsonIgnore]
-        public string Key => $"{Code}-{RdsCategoryId}";
+        public string Id => $"{Code}-{RdsCategoryId}".CreateMd5(); // TODO: burde være en kombinasjon av Code og Aspect
     }
 }

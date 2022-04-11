@@ -1,9 +1,9 @@
 ﻿using Mimirorg.Common.Abstract;
-using Mimirorg.TypeLibrary.Models.Data;
+using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface IFormatRepository : IGenericRepository<TypeLibraryDbContext, FormatLibDm>
+    public interface IFormatRepository : IGenericRepository<TypeLibraryDbContext, AttributeFormatLibDm>
     {
     }
 }

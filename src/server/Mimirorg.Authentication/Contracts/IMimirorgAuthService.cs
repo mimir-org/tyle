@@ -16,7 +16,7 @@ namespace Mimirorg.Authentication.Contracts
         /// <returns>ICollection&lt;MimirorgTokenCm&gt;</returns>
         /// <exception cref="MimirorgBadRequestException"></exception>
         /// <exception cref="AuthenticationException"></exception>
-        Task<ICollection<MimirorgTokenCm>> Authenticate(MimirorgAuthenticateAm authenticate);
+        Task<MimirorgTokenCm> Authenticate(MimirorgAuthenticateAm authenticate);
 
         /// <summary>
         /// Create a token from refresh token

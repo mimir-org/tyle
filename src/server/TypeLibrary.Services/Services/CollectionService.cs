@@ -6,9 +6,11 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Extensions;
+using Mimirorg.TypeLibrary.Extensions;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Data;
+using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -26,24 +28,25 @@ namespace TypeLibrary.Services.Services
             _contextAccessor = contextAccessor;
         }
 
-        public Task<IEnumerable<CollectionLibAm>> GetCollections()
+        public Task<IEnumerable<CollectionLibCm>> GetCollections()
         {
             var dataList = _collectionRepository.GetAll();
-            var dataAm = _mapper.Map<List<CollectionLibAm>>(dataList);
-            return Task.FromResult<IEnumerable<CollectionLibAm>>(dataAm);
+            var dataAm = _mapper.Map<List<CollectionLibCm>>(dataList);
+            return Task.FromResult(dataAm.AsEnumerable());
         }
 
-        public async Task<CollectionLibAm> UpdateCollection(CollectionLibAm dataAm)
+        public async Task<CollectionLibCm> UpdateCollection(CollectionLibAm dataAm, string id)
         {
             var data = _mapper.Map<CollectionLibDm>(dataAm);
+            data.Id = id;
             data.Updated = DateTime.Now.ToUniversalTime();
             data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _collectionRepository.Update(data);
             await _collectionRepository.SaveAsync();
-            return _mapper.Map<CollectionLibAm>(data);
+            return _mapper.Map<CollectionLibCm>(data);
         }
 
-        public async Task<CollectionLibAm> CreateCollection(CollectionLibAm dataAm)
+        public async Task<CollectionLibCm> CreateCollection(CollectionLibAm dataAm)
         {
             var data = _mapper.Map<CollectionLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
@@ -51,7 +54,7 @@ namespace TypeLibrary.Services.Services
             data.Id = data.Key.CreateMd5();
             var createdData = await _collectionRepository.CreateAsync(data);
             await _collectionRepository.SaveAsync();
-            return _mapper.Map<CollectionLibAm>(createdData.Entity);
+            return _mapper.Map<CollectionLibCm>(createdData.Entity);
         }
 
         public async Task CreateCollections(List<CollectionLibAm> dataAm)

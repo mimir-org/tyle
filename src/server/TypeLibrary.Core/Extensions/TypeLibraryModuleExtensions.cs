@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Factories;
 using TypeLibrary.Data.Repositories;
 using TypeLibrary.Services.Contracts;
 using TypeLibrary.Services.Services;
@@ -22,23 +23,23 @@ namespace TypeLibrary.Core.Extensions
             var builder = services.AddConfigurationFiles();
 
             // Dependency Injection - Repositories
+            services.AddSingleton<IApplicationSettingsRepository, ApplicationSettingsRepository>();
             services.AddScoped<IAttributeRepository, AttributeRepository>();
             services.AddScoped<ISimpleRepository, SimpleRepository>();
             services.AddScoped<IInterfaceRepository, InterfaceRepository>();
-            services.AddScoped<ILibraryTypeRepository, LibraryTypeRepository>();
             services.AddScoped<INodeRepository, NodeRepository>();
-            services.AddScoped<ITerminalNodeRepository, TerminalNodeRepository>();
+            services.AddScoped<INodeTerminalRepository, NodeTerminalRepository>();
             services.AddScoped<ITerminalRepository, TerminalRepository>();
             services.AddScoped<ITransportRepository, TransportRepository>();
             services.AddScoped<ILibraryTypeItemRepository, LibraryTypeItemRepository>();
             services.AddScoped<IAttributePredefinedRepository, AttributePredefinedRepository>();
             services.AddScoped<IRdsRepository, RdsRepository>();
             services.AddSingleton<IFileRepository, JsonFileRepository>();
-            services.AddScoped<IBlobDataRepository, BlobDataRepository>();
-            services.AddScoped<IConditionRepository, ConditionRepository>();
-            services.AddScoped<IFormatRepository, FormatRepository>();
-            services.AddScoped<IQualifierRepository, QualifierRepository>();
-            services.AddScoped<ISourceRepository, SourceRepository>();
+            services.AddScoped<IBlobDataRepository, BlobRepository>();
+            services.AddScoped<IConditionRepository, AttributeConditionRepository>();
+            services.AddScoped<IFormatRepository, AttributeFormatRepository>();
+            services.AddScoped<IQualifierRepository, AttributeQualifierRepository>();
+            services.AddScoped<ISourceRepository, AttributeSourceRepository>();
             services.AddScoped<IAttributeAspectRepository, AttributeAspectRepository>();
             services.AddScoped<IPurposeRepository, PurposeRepository>();
             services.AddScoped<IRdsCategoryRepository, RdsCategoryRepository>();
@@ -47,32 +48,36 @@ namespace TypeLibrary.Core.Extensions
 
             // Dependency Injection - Services
             services.AddScoped<ITerminalService, TerminalService>();
-            services.AddScoped<Services.Contracts.ILibraryTypeService, Services.Services.LibraryTypeService>();
+            services.AddScoped<ILibraryService, LibraryService>();
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IAttributeService, AttributeService>();
             services.AddScoped<IRdsService, RdsService>();
             services.AddScoped<ISeedingService, SeedingService>();
-            services.AddScoped<IBlobDataService, BlobDataService>();
-            services.AddScoped<IConditionService, ConditionService>();
-            services.AddScoped<IFormatService, FormatService>();
-            services.AddScoped<IQualifierService, QualifierService>();
-            services.AddScoped<ISourceService, SourceService>();
+            services.AddScoped<IBlobService, BlobService>();
+            services.AddScoped<IAttributeConditionService, AttributeConditionService>();
+            services.AddScoped<IAttributeFormatService, AttributeFormatService>();
+            services.AddScoped<IAttributeQualifierService, AttributeQualifierService>();
+            services.AddScoped<IAttributeSourceService, AttributeSourceService>();
             services.AddScoped<IAttributeAspectService, AttributeAspectService>();
             services.AddScoped<IPurposeService, PurposeService>();
             services.AddScoped<IUnitService, UnitService>();
             services.AddScoped<ICollectionService, CollectionService>();
 
+            // Factories
+            services.AddScoped<IUnitFactory, UnitFactory>();
+            services.AddScoped<IAttributeFactory, AttributeFactory>();
+
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
-
-            // Add auto-mapper configurations
-            services.AddAutoMapperConfigurations();
 
             // Build configuration
             var config = builder.Build();
 
             // Add database-configuration
             services.AddDatabaseConfigurations(config);
+
+            // Add auto-mapper configurations
+            services.AddAutoMapperConfigurations();
 
             // Add API version
             services.AddApiVersion();

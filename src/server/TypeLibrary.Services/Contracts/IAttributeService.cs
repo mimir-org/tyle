@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Mimirorg.Common.Enums;
+using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
-using Mimirorg.TypeLibrary.Models.Data;
+using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Services.Contracts
 {
     public interface IAttributeService
     {
-        IEnumerable<AttributeLibDm> GetAttributes(Aspect aspect);
-        IEnumerable<AttributeLibDm> GetAttributes();
-        Task<AttributeLibDm> CreateAttribute(AttributeLibAm attributeAm);
-        Task<ICollection<AttributeLibDm>> CreateAttributes(List<AttributeLibAm> attributeAmList);
+        IEnumerable<AttributeLibCm> GetAttributes(Aspect aspect);
+        IEnumerable<AttributeLibCm> GetAttributes();
+        Task<AttributeLibCm> CreateAttribute(AttributeLibAm attributeAm);
+        Task CreateAttributes(List<AttributeLibAm> attributeAmList);
         IEnumerable<AttributePredefinedLibCm> GetAttributesPredefined();
-        Task<List<AttributePredefinedLibDm>> CreateAttributesPredefined(List<AttributePredefinedLibDm> attributePredefinedList);
+        Task CreateAttributesPredefined(List<AttributePredefinedLibAm> attributePredefinedList);
     }
 }

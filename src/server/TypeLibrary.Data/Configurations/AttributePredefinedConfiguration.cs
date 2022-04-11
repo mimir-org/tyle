@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Mimirorg.Common.Converters;
-using Mimirorg.TypeLibrary.Models.Data;
+using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Configurations
 {
@@ -14,9 +14,11 @@ namespace TypeLibrary.Data.Configurations
 
             builder.HasKey(x => x.Key);
             builder.ToTable("AttributePredefined");
-            builder.Property(p => p.Key).HasColumnName("Key").IsRequired();
-            builder.Property(p => p.ValueStringList).HasColumnName("ValueStringList").IsRequired(false).HasConversion(stringConverter, stringComparer);
+            builder.Property(p => p.Key).HasColumnName("Key").IsRequired().HasMaxLength(127);
             builder.Property(p => p.IsMultiSelect).HasColumnName("IsMultiSelect").IsRequired();
+            builder.Property(p => p.Iri).HasColumnName("Iri").HasMaxLength(255);
+            builder.Property(p => p.Aspect).HasColumnName("Aspect").IsRequired().HasConversion<string>().HasMaxLength(31);
+            builder.Property(p => p.ValueStringList).HasColumnName("ValueStringList").IsRequired(false).HasConversion(stringConverter, stringComparer);
         }
     }
 }

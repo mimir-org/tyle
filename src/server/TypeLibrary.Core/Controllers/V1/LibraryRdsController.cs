@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Mimirorg.Common.Enums;
+using Mimirorg.TypeLibrary.Enums;
 using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Data;
+using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1
@@ -96,15 +96,15 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        [HttpPut("category")]
+        [HttpPut("category/{id}")]
         [ProducesResponseType(typeof(RdsCategoryLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateRdsCategory([FromBody] RdsCategoryLibAm dataAm)
+        public async Task<IActionResult> UpdateRdsCategory([FromBody] RdsCategoryLibAm dataAm, [FromRoute] string id)
         {
             try
             {
-                var data = await _rdsService.UpdateRdsCategory(dataAm);
+                var data = await _rdsService.UpdateRdsCategory(dataAm, id);
                 return Ok(data);
             }
             catch (Exception e)
