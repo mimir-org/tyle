@@ -1,8 +1,7 @@
-<!-- Shadows.stories.mdx -->
-
 import { Meta } from "@storybook/addon-docs";
 import { GlobalStyle, THEME } from "../../core";
-import { Flex } from "../../layouts/Flex";
+import { Box } from "../../layouts";
+import { Text } from "../../text";
 
 <Meta title="Foundations/Shadows" />
 
@@ -16,20 +15,21 @@ Here you will find an overview of the different shadows available. These are use
 
 ## Shadow levels
 
-<Flex
+<Box
+  display="flex"
   flexDirection={"column"}
   justifyContent={"space-between"}
   gap={THEME.SPACING.XXL}
-  padding={THEME.SPACING.XL}
+  p={THEME.SPACING.XL}
   border={`2px solid ${THEME.COLOR.BORDER.PRIMARY.BASE}`}
   borderRadius={THEME.BORDER.RADIUS.MEDIUM}
 >
   {Object.entries(THEME.SHADOW).map(([k, v]) => {
     return (
-      <Flex key={v} flexDirection={"column"} gap={THEME.SPACING.LARGE} padding={THEME.SPACING.LARGE} boxShadow={v}>
-        <b>{k}</b>
-        <small>{v}</small>
-      </Flex>
+      <Box key={v} display="flex" flexDirection={"column"} gap={THEME.SPACING.LARGE} p={THEME.SPACING.LARGE} boxShadow={v}>
+        <Text as={"b"}>{k}</Text>
+        <Text as={"small"}>{v}</Text>
+      </Box>
     );
   })}
-</Flex>
+</Box>

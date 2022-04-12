@@ -58,6 +58,6 @@ export const FONT = {
     H5: "var(--font-h5)",
     LINK: "var(--font-link)",
     TEXT: "var(--font-text)",
-    SUBTEXT: "var(--font-subText)",
+    SUBTEXT: "var(--font-subtext)",
   },
 };

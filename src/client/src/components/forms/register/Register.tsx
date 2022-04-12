@@ -13,7 +13,7 @@ import { THEME } from "../../../complib/core";
 import { Icon } from "../../../complib/media";
 import { Input } from "../../../complib/inputs";
 import { Button } from "../../../complib/buttons";
-import { Flex } from "../../../complib/layouts";
+import { Flexbox } from "../../../complib/layouts";
 import { Text } from "../../../complib/text";
 import { Form, FormErrorBanner, FormField, FormFieldset, FormHeader } from "../../../complib/form";
 
@@ -89,12 +89,12 @@ export const Register = () => {
 
             <Text as={"i"}>{TextResources.FORMS_REQUIRED_DESCRIPTION}</Text>
           </FormFieldset>
-          <Flex flexDirection={"column"} gap={THEME.SPACING.LARGE}>
+          <Flexbox flexDirection={"column"} gap={THEME.SPACING.LARGE}>
             <Button>{TextResources.REGISTER_SUBMIT}</Button>
             <Text>
               {TextResources.REGISTER_IS_REGISTERED} <Link to="/">{TextResources.REGISTER_LOGIN_LINK}</Link>
             </Text>
-          </Flex>
+          </Flexbox>
         </Form>
       )}
     </UnauthenticatedFormContainer>

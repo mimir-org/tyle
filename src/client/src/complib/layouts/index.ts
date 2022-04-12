@@ -1,1 +1,2 @@
-export { Flex } from "./Flex";
+export { Flexbox } from "./Flexbox";
+export { Box } from "./Box";

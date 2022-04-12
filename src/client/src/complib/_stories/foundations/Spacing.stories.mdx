@@ -1,8 +1,7 @@
-<!-- Spacing.stories.mdx -->
-
 import { Meta } from "@storybook/addon-docs";
 import { GlobalStyle, THEME } from "../../core";
-import { Flex } from "../../layouts/Flex";
+import { Box, Flexbox } from "../../layouts";
+import { Text } from "../../text";
 
 <Meta title="Foundations/Spacing" />
 
@@ -17,33 +16,22 @@ The spacing is calculated from the base font size (1rem), which means that alter
 
 ## Spacing sizes
 
-<Flex
+<Box
+  display="flex"
   justifyContent={"space-between"}
   alignItems={"end"}
   gap={THEME.SPACING.LARGE}
-  padding={THEME.SPACING.XL}
+  p={THEME.SPACING.XL}
   border={`2px solid ${THEME.COLOR.BORDER.PRIMARY.BASE}`}
   borderRadius={THEME.BORDER.RADIUS.MEDIUM}
 >
   {Object.entries(THEME.SPACING).map(([k, v]) => {
     return (
-      <div key={v}>
-        <div
-          style={{
-            height: v,
-            maxWidth: "60px",
-            backgroundColor: THEME.COLOR.SECONDARY.BASE,
-          }}
-        ></div>
-        <p>{k}</p>
-        <small
-          style={{
-            fontSize: "var(--font-size-xxs)",
-          }}
-        >
-          {v}
-        </small>
-      </div>
+      <Flexbox key={v} flexDirection="column" gap={THEME.SPACING.SMALL}>
+        <Box height={v} maxWidth="60px" bgColor={THEME.COLOR.SECONDARY.BASE} />
+        <Text as={"b"}>{k}</Text>
+        <Text as={"small"} fontSize={THEME.FONT.SIZES.XXS}>{v}</Text>
+      </Flexbox>
     );
   })}
-</Flex>
+</Box>

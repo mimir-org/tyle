@@ -11,7 +11,7 @@ import { THEME } from "../../../complib/core";
 import { Icon } from "../../../complib/media";
 import { Input } from "../../../complib/inputs";
 import { Button } from "../../../complib/buttons";
-import { Flex } from "../../../complib/layouts";
+import { Flexbox } from "../../../complib/layouts";
 import { Text } from "../../../complib/text";
 import { Form, FormErrorBanner, FormField, FormFieldset, FormHeader } from "../../../complib/form";
 
@@ -67,12 +67,12 @@ export const Login = () => {
           <Text as={"i"}>{TextResources.FORMS_REQUIRED_DESCRIPTION}</Text>
         </FormFieldset>
 
-        <Flex flexDirection={"column"} gap={THEME.SPACING.LARGE}>
+        <Flexbox flexDirection={"column"} gap={THEME.SPACING.LARGE}>
           <Button>{TextResources.LOGIN_TITLE}</Button>
           <Text>
             {TextResources.LOGIN_NOT_REGISTERED} <Link to="/register">{TextResources.LOGIN_REGISTER_LINK}</Link>
           </Text>
-        </Flex>
+        </Flexbox>
       </Form>
     </UnauthenticatedFormContainer>
   );
