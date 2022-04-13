@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 interface Props {
   size?: number;
@@ -15,3 +16,10 @@ export const Icon = styled.img<Props>`
   height: ${(props) => (props.size ? `${props.size}px` : "1em")};
   line-height: 1;
 `;
+
+/**
+ * An animation wrapper for the Text component
+ *
+ * @see https://github.com/framer/motion
+ */
+export const MotionIcon = motion(Icon, { forwardMotionProps: true });

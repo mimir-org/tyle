@@ -1,42 +1,51 @@
-import { HeadingContainer } from "./Heading.styled";
-import { ElementType, PropsWithChildren } from "react";
-import { Typography } from "../props";
+import styled from "styled-components/macro";
+import { ElementType } from "react";
+import { motion } from "framer-motion";
+import { Palette, Polymorphic, Typography } from "../props";
 
-export interface HeadingProps<T extends ElementType> extends Pick<Typography, "font" | "fontSize"> {
-  as?: T;
-  useEllipsis?: boolean;
-  ellipsisMaxLines?: number;
-}
+type HeadingProps = Pick<Palette, "color"> &
+  Pick<Typography, "font" | "fontSize" | "fontWeight"> &
+  Polymorphic<ElementType> & {
+    useEllipsis?: boolean;
+    ellipsisMaxLines?: number;
+  };
 
 /**
  * A polymorphic component for heading elements
  *
- * @param as element to display component as (defaults to <p>)
- * @param font overrides font of heading element
- * @param fontSize overrides default size of heading element
+ * @param as element to display component as (defaults to <h1>)
+ * @param font overrides font of text element
+ * @param fontSize overrides default size of the text element
+ * @param fontWeight overrides default font-weight of the text element
+ * @param color overrides default color of the text element
  * @param useEllipsis enable truncation of text
  * @param ellipsisMaxLines set how many lines to display before truncation
- * @param children content of text element
  * @constructor
  */
-export function Heading<T extends ElementType>({
-  as,
-  font,
-  fontSize,
-  useEllipsis = false,
-  ellipsisMaxLines = 1,
-  children,
-}: PropsWithChildren<HeadingProps<T>>) {
-  const Component = as || "h1";
-  return (
-    <HeadingContainer
-      as={Component}
-      font={font}
-      fontSize={fontSize}
-      useEllipsis={useEllipsis}
-      ellipsisMaxLines={ellipsisMaxLines}
-    >
-      {children}
-    </HeadingContainer>
-  );
-}
+export const Heading = styled.h1<HeadingProps>`
+  font: ${(props) => props.font};
+  font-size: ${(props) => props.fontSize};
+  font-weight: ${(props) => props.fontWeight};
+  color: ${(props) => props.color};
+
+  ${({ useEllipsis, ellipsisMaxLines }) =>
+    useEllipsis &&
+    `
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: ${ellipsisMaxLines};
+    overflow: hidden;
+  `}
+`;
+
+Heading.defaultProps = {
+  useEllipsis: false,
+  ellipsisMaxLines: 1,
+};
+
+/**
+ * An animation wrapper for the Text component
+ *
+ * @see https://github.com/framer/motion
+ */
+export const MotionHeading = motion(Heading, { forwardMotionProps: true });
