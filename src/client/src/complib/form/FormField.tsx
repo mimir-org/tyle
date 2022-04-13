@@ -1,5 +1,7 @@
-import { Container, Error, Label } from "./FormField.styled";
 import { PropsWithChildren } from "react";
+import { MotionFlexbox } from "../layouts";
+import { MotionText, Text } from "../text";
+import { ANIMATION, THEME } from "../core";
 
 interface FormFieldProps {
   label?: string;
@@ -14,9 +16,15 @@ interface FormFieldProps {
  * @constructor
  */
 export const FormField = ({ label, error, children }: PropsWithChildren<FormFieldProps>) => (
-  <Container>
-    <Label>{label}</Label>
+  <MotionFlexbox layout={"position"} flexDirection={"column"} gap={THEME.SPACING.XS}>
+    <Text as={"label"} fontWeight={THEME.FONT.WEIGHTS.BOLD}>
+      {label}
+    </Text>
     {children}
-    {error && error.message && <Error>{error.message}</Error>}
-  </Container>
+    {error && error.message && (
+      <MotionText color={THEME.COLOR.SEMANTIC.NEGATIVE.BASE} {...ANIMATION.VARIANTS.FADE}>
+        {error.message}
+      </MotionText>
+    )}
+  </MotionFlexbox>
 );
