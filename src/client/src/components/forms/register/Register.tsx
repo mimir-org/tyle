@@ -10,11 +10,11 @@ import { TextResources } from "../../../assets/text";
 import { LibraryIcon } from "../../../assets/icons/modules";
 import { UnauthenticatedFormContainer } from "../styled/UnauthenticatedForm";
 import { THEME } from "../../../complib/core";
-import { Icon } from "../../../complib/media";
+import { MotionIcon } from "../../../complib/media";
 import { Input } from "../../../complib/inputs";
 import { Button } from "../../../complib/buttons";
-import { Flexbox } from "../../../complib/layouts";
-import { Text } from "../../../complib/text";
+import { MotionText, Text } from "../../../complib/text";
+import { MotionFlexbox } from "../../../complib/layouts";
 import { Form, FormErrorBanner, FormField, FormFieldset, FormHeader } from "../../../complib/form";
 
 export const Register = () => {
@@ -34,7 +34,7 @@ export const Register = () => {
       {createUserMutation.isSuccess && <RegisterFinalize qrCodeBase64={createUserMutation?.data?.code} />}
       {!createUserMutation.isSuccess && !createUserMutation.isLoading && (
         <Form onSubmit={handleSubmit((data) => createUserMutation.mutate(data))}>
-          <Icon size={50} src={LibraryIcon} alt="" />
+          <MotionIcon layout size={50} src={LibraryIcon} alt="" />
           <FormHeader title={TextResources.REGISTER_TITLE} subtitle={TextResources.REGISTER_DESCRIPTION} />
 
           {createUserMutation.isError && <FormErrorBanner>{TextResources.REGISTER_ERROR}</FormErrorBanner>}
@@ -87,14 +87,17 @@ export const Register = () => {
               />
             </FormField>
 
-            <Text as={"i"}>{TextResources.FORMS_REQUIRED_DESCRIPTION}</Text>
+            <MotionText layout as={"i"}>
+              {TextResources.FORMS_REQUIRED_DESCRIPTION}
+            </MotionText>
           </FormFieldset>
-          <Flexbox flexDirection={"column"} gap={THEME.SPACING.LARGE}>
+
+          <MotionFlexbox layout flexDirection={"column"} gap={THEME.SPACING.LARGE}>
             <Button>{TextResources.REGISTER_SUBMIT}</Button>
             <Text>
               {TextResources.REGISTER_IS_REGISTERED} <Link to="/">{TextResources.REGISTER_LOGIN_LINK}</Link>
             </Text>
-          </Flexbox>
+          </MotionFlexbox>
         </Form>
       )}
     </UnauthenticatedFormContainer>

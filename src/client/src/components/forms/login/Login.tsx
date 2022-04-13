@@ -8,11 +8,11 @@ import { TextResources } from "../../../assets/text";
 import { LibraryIcon } from "../../../assets/icons/modules";
 import { UnauthenticatedFormContainer } from "../styled/UnauthenticatedForm";
 import { THEME } from "../../../complib/core";
-import { Icon } from "../../../complib/media";
+import { MotionIcon } from "../../../complib/media";
 import { Input } from "../../../complib/inputs";
 import { Button } from "../../../complib/buttons";
-import { Flexbox } from "../../../complib/layouts";
-import { Text } from "../../../complib/text";
+import { MotionText, Text } from "../../../complib/text";
+import { MotionFlexbox } from "../../../complib/layouts";
 import { Form, FormErrorBanner, FormField, FormFieldset, FormHeader } from "../../../complib/form";
 
 export const Login = () => {
@@ -29,7 +29,7 @@ export const Login = () => {
   return (
     <UnauthenticatedFormContainer>
       <Form onSubmit={handleSubmit((data) => loginMutation.mutate(data))}>
-        <Icon size={50} src={LibraryIcon} alt="" />
+        <MotionIcon layout size={50} src={LibraryIcon} alt="" />
         <FormHeader title={TextResources.LOGIN_TITLE} subtitle={TextResources.LOGIN_DESCRIPTION} />
 
         {loginMutation.isError && <FormErrorBanner>{TextResources.LOGIN_ERROR}</FormErrorBanner>}
@@ -64,15 +64,17 @@ export const Login = () => {
             />
           </FormField>
 
-          <Text as={"i"}>{TextResources.FORMS_REQUIRED_DESCRIPTION}</Text>
+          <MotionText layout={"position"} as={"i"}>
+            {TextResources.FORMS_REQUIRED_DESCRIPTION}
+          </MotionText>
         </FormFieldset>
 
-        <Flexbox flexDirection={"column"} gap={THEME.SPACING.LARGE}>
+        <MotionFlexbox layout flexDirection={"column"} gap={THEME.SPACING.LARGE}>
           <Button>{TextResources.LOGIN_TITLE}</Button>
           <Text>
             {TextResources.LOGIN_NOT_REGISTERED} <Link to="/register">{TextResources.LOGIN_REGISTER_LINK}</Link>
           </Text>
-        </Flexbox>
+        </MotionFlexbox>
       </Form>
     </UnauthenticatedFormContainer>
   );
