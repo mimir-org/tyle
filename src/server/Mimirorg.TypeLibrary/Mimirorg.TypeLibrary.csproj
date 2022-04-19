@@ -9,7 +9,7 @@
     <Version>$(VersionPrefix)</Version>
     <SignAssembly>False</SignAssembly>
     <Copyright></Copyright>
-    <Description></Description>
+    <Description>Type Library models and functionality</Description>
   </PropertyGroup>
 
   <ItemGroup>
