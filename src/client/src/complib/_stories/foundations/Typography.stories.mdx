@@ -1,0 +1,86 @@
+import LinkTo from '@storybook/addon-links/react';
+import { Meta, Canvas } from "@storybook/addon-docs";
+import { GlobalStyle, THEME } from "../../core";
+import { Box, Flexbox } from "../../layouts";
+import { Heading, Text } from "../../text";
+
+<Meta title="Foundations/Typography" />
+
+# Typography
+
+## Overview
+
+Here you will find an overview of the text size hierarchy.
+
+<GlobalStyle />
+
+## Headings
+
+<Canvas>
+  <Box display="flex" flexDirection="column" gap={THEME.SPACING.MEDIUM} p={THEME.SPACING.LARGE}>
+    <Flexbox gap={THEME.SPACING.LARGE}>
+      <Heading as={"h1"}>H1</Heading>
+      <div>
+        <Heading as={"h1"}>Main heading (Roboto bold)</Heading>
+        <Text>Used as main heading for a given page</Text>
+      </div>
+    </Flexbox>
+    <Flexbox gap={THEME.SPACING.LARGE}>
+      <Heading as={"h2"}>H2</Heading>
+      <div>
+        <Heading as={"h2"}>Secondary heading (Roboto bold)</Heading>
+        <Text>Used as secondary heading following the main heading</Text>
+      </div>
+    </Flexbox>
+    <Flexbox gap={THEME.SPACING.LARGE}>
+      <Heading as={"h3"}>H3</Heading>
+      <div>
+        <Heading as={"h3"}>Tertiary heading (Roboto light)</Heading>
+      </div>
+    </Flexbox>
+    <Flexbox gap={THEME.SPACING.LARGE}>
+      <Heading as={"h4"}>H4</Heading>
+      <div>
+        <Heading as={"h4"}>Fourth heading (Roboto bold)</Heading>
+      </div>
+    </Flexbox>
+    <Flexbox gap={THEME.SPACING.LARGE}>
+      <Heading as={"h5"}>H5</Heading>
+      <div>
+        <Heading as={"h5"}>Fifth heading (Roboto bold)</Heading>
+      </div>
+    </Flexbox>
+  </Box>
+</Canvas>
+
+## General
+
+<Canvas>
+  <Box display="flex" flexDirection="column" gap={THEME.SPACING.MEDIUM} p={THEME.SPACING.LARGE}>
+    <Flexbox gap={THEME.SPACING.LARGE}>
+      <Text as={"p"}>&lt;p&gt;</Text>
+      <div>
+        <Text as={"p"}>Paragraph text (Roboto normal)</Text>
+        <Text>Used for general text</Text>
+      </div>
+    </Flexbox>
+    <Flexbox gap={THEME.SPACING.LARGE}>
+      <Text as={"a"} href="/">Link</Text>
+      <div>
+        <Text as={"a"} href="/">Link text (Roboto normal)</Text>
+        <Text>Used for navigation between views</Text>
+      </div>
+    </Flexbox>
+    <Flexbox gap={THEME.SPACING.LARGE}>
+      <Text as={"p"} font={THEME.FONT.TYPES.SUBTEXT}>Subtext</Text>
+      <div>
+        <Text as={"p"} font={THEME.FONT.TYPES.SUBTEXT}>Subtext (Roboto normal)</Text>
+        <Text>Used for text with less importance</Text>
+      </div>
+    </Flexbox>
+  </Box>
+</Canvas>
+
+## Text colors
+
+<p>You can find the available text colors <LinkTo kind="Foundations/Colors" style={{ color: '#1474f3' }}>here.</LinkTo></p>

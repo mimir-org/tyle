@@ -1,28 +1,19 @@
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { MimirorgAuthenticateAm } from "../../../models/auth/application/mimirorgAuthenticateAm";
 import { useLogin } from "../../../data/queries/auth/queriesAuthenticate";
 import { getValidationStateFromServer } from "../../../data/helpers/getValidationStateFromServer";
 import { useValidationFromServer } from "../../../hooks/useValidationFromServer";
-import { Icon } from "../../../compLibrary/icon";
-import { Input } from "../../../compLibrary/input";
 import { TextResources } from "../../../assets/text";
 import { LibraryIcon } from "../../../assets/icons/modules";
-import {
-  Form,
-  FormButton,
-  FormError,
-  FormHeaderTitle,
-  FormHeader,
-  FormHeaderText,
-  FormInputCollection,
-  FormLabel,
-  FormLink,
-  FormSecondaryActionText,
-  FormContainer,
-  FormActionContainer,
-  FormRequiredText,
-  FormErrorBanner,
-} from "../styled/Form";
+import { UnauthenticatedFormContainer } from "../styled/UnauthenticatedForm";
+import { THEME } from "../../../complib/core";
+import { MotionIcon } from "../../../complib/media";
+import { Input } from "../../../complib/inputs";
+import { Button } from "../../../complib/buttons";
+import { MotionText, Text } from "../../../complib/text";
+import { MotionFlexbox } from "../../../complib/layouts";
+import { Form, FormErrorBanner, FormField, FormFieldset, FormHeader } from "../../../complib/form";
 
 export const Login = () => {
   const {
@@ -36,54 +27,55 @@ export const Login = () => {
   useValidationFromServer<MimirorgAuthenticateAm>(setError, validationState?.errors);
 
   return (
-    <FormContainer>
+    <UnauthenticatedFormContainer>
       <Form onSubmit={handleSubmit((data) => loginMutation.mutate(data))}>
-        <Icon size={50} src={LibraryIcon} alt="" />
-        <FormHeader>
-          <FormHeaderTitle>{TextResources.LOGIN_TITLE}</FormHeaderTitle>
-          <FormHeaderText>{TextResources.LOGIN_DESCRIPTION}</FormHeaderText>
-        </FormHeader>
+        <MotionIcon layout size={50} src={LibraryIcon} alt="" />
+        <FormHeader title={TextResources.LOGIN_TITLE} subtitle={TextResources.LOGIN_DESCRIPTION} />
 
         {loginMutation.isError && <FormErrorBanner>{TextResources.LOGIN_ERROR}</FormErrorBanner>}
 
-        <FormInputCollection>
-          <FormLabel htmlFor="email">{TextResources.LOGIN_EMAIL}</FormLabel>
-          <Input
-            id="email"
-            type="email"
-            placeholder={TextResources.FORMS_PLACEHOLDER_EMAIL}
-            {...register("email", { required: true })}
-          />
-          <FormError>{errors.email && errors.email.message}</FormError>
+        <FormFieldset>
+          <FormField label={TextResources.LOGIN_EMAIL} error={errors.email}>
+            <Input
+              id="email"
+              type="email"
+              placeholder={TextResources.FORMS_PLACEHOLDER_EMAIL}
+              {...register("email", { required: true })}
+            />
+          </FormField>
 
-          <FormLabel htmlFor="password">{TextResources.LOGIN_PASSWORD}</FormLabel>
-          <Input
-            id="password"
-            type="password"
-            placeholder={TextResources.FORMS_PLACEHOLDER_PASSWORD}
-            {...register("password", { required: true })}
-          />
-          <FormError>{errors.password && errors.password.message}</FormError>
+          <FormField label={TextResources.LOGIN_PASSWORD} error={errors.password}>
+            <Input
+              id="password"
+              type="password"
+              placeholder={TextResources.FORMS_PLACEHOLDER_PASSWORD}
+              {...register("password", { required: true })}
+            />
+          </FormField>
 
-          <FormLabel htmlFor="code">{TextResources.LOGIN_CODE}</FormLabel>
-          <Input
-            id="code"
-            type="tel"
-            pattern="[0-9]*"
-            autoComplete="off"
-            placeholder={TextResources.FORMS_PLACEHOLDER_CODE}
-            {...register("code", { required: true, valueAsNumber: true })}
-          ></Input>
-          <FormError>{errors.code && errors.code.message}</FormError>
-          <FormRequiredText>{TextResources.FORMS_REQUIRED_DESCRIPTION}</FormRequiredText>
-        </FormInputCollection>
-        <FormActionContainer>
-          <FormButton>{TextResources.LOGIN_TITLE}</FormButton>
-          <FormSecondaryActionText>
-            {TextResources.LOGIN_NOT_REGISTERED} <FormLink to="/register">{TextResources.LOGIN_REGISTER_LINK}</FormLink>
-          </FormSecondaryActionText>
-        </FormActionContainer>
+          <FormField label={TextResources.LOGIN_CODE} error={errors.code}>
+            <Input
+              id="code"
+              type="tel"
+              pattern="[0-9]*"
+              autoComplete="off"
+              placeholder={TextResources.FORMS_PLACEHOLDER_CODE}
+              {...register("code", { required: true, valueAsNumber: true })}
+            />
+          </FormField>
+
+          <MotionText layout={"position"} as={"i"}>
+            {TextResources.FORMS_REQUIRED_DESCRIPTION}
+          </MotionText>
+        </FormFieldset>
+
+        <MotionFlexbox layout flexDirection={"column"} gap={THEME.SPACING.LARGE}>
+          <Button>{TextResources.LOGIN_TITLE}</Button>
+          <Text>
+            {TextResources.LOGIN_NOT_REGISTERED} <Link to="/register">{TextResources.LOGIN_REGISTER_LINK}</Link>
+          </Text>
+        </MotionFlexbox>
       </Form>
-    </FormContainer>
+    </UnauthenticatedFormContainer>
   );
 };
