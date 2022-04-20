@@ -20,7 +20,6 @@ namespace TypeLibrary.Services.Services
         public const string PurposeFileName = "purpose";
         public const string AttributeQualifierFileName = "attributequalifier";
         public const string RdsFileName = "rds";
-        public const string RdsCategoryFileName = "rdscategory";
         public const string SimpleFileName = "simple";
         public const string AttributeSourceFileName = "attributesource";
         public const string TerminalTypeFileName = "terminal";
@@ -77,7 +76,6 @@ namespace TypeLibrary.Services.Services
                 var attributeSourceFiles = fileList.Where(x => x.ToLower().Equals(AttributeSourceFileName)).ToList();
                 var attributeAspectFiles = fileList.Where(x => x.ToLower().Equals(AttributeAspectFileName)).ToList();
                 var purposeFiles = fileList.Where(x => x.ToLower().Equals(PurposeFileName)).ToList();
-                var rdsCategoryFiles = fileList.Where(x => x.ToLower().Equals(RdsCategoryFileName)).ToList();
                 var unitFiles = fileList.Where(x => x.ToLower().Equals(UnitFileName)).ToList();
 
                 var attributeFiles = fileList.Where(x => x.ToLower().Equals(AttributeFileName)).ToList();
@@ -96,7 +94,6 @@ namespace TypeLibrary.Services.Services
                 var attributeSources = _fileRepository.ReadAllFiles<AttributeSourceLibAm>(attributeSourceFiles).ToList();
                 var attributeAspects = _fileRepository.ReadAllFiles<AttributeAspectLibAm>(attributeAspectFiles).ToList();
                 var purposes = _fileRepository.ReadAllFiles<PurposeLibAm>(purposeFiles).ToList();
-                var rdsCategories = _fileRepository.ReadAllFiles<RdsCategoryLibAm>(rdsCategoryFiles).ToList();
                 var units = _fileRepository.ReadAllFiles<UnitLibAm>(unitFiles).ToList();
 
                 var attributes = _fileRepository.ReadAllFiles<AttributeLibAm>(attributeFiles).ToList();
@@ -113,7 +110,6 @@ namespace TypeLibrary.Services.Services
                 await _attributeSourceService.CreateAttributeSources(attributeSources);
                 await _attributeAspectService.CreateAttributeAspects(attributeAspects);
                 await _purposeService.CreatePurposes(purposes);
-                await _rdsService.CreateRdsCategories(rdsCategories);
                 await _unitService.CreateUnits(units);
                 
                 await _attributeService.CreateAttributes(attributes);

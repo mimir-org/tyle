@@ -26,25 +26,13 @@ namespace TypeLibrary.Services.Tests
 
             #region RDS
 
-            var rdsCategory = new RdsCategoryLibDm
-            {
-                Id = "Fake_Rds_Category",
-                Name = "Fake Rds Category",
-                Created = DateTime.Now,
-                CreatedBy = "Test Tester"
-            };
-
             var rds = new RdsLibDm
             {
                 Id = "Fake_Rds",
                 Name = "Fake Rds",
-                Iri = @"https://rds.fake.com/Fake Rds",
-                RdsCategoryId = "Fake_Rds_Category",
-                Code = "FR",
-                Aspect = Aspect.Function
+                Iri = @"https://rds.fake.com/Fake Rds"
             };
 
-            context.RdsCategory.Add(rdsCategory);
             context.Rds.Add(rds);
 
             #endregion

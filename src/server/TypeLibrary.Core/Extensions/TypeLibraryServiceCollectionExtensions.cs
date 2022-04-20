@@ -45,7 +45,6 @@ namespace TypeLibrary.Core.Extensions
             cfg.AddProfile(new AttributeAspectProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new AttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new PurposeProfile(provider.GetService<IApplicationSettingsRepository>()));
-            cfg.AddProfile(new RdsCategoryProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new UnitProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new SimpleProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new SelectedAttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>()));

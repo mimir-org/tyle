@@ -42,7 +42,6 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<ISourceRepository, AttributeSourceRepository>();
             services.AddScoped<IAttributeAspectRepository, AttributeAspectRepository>();
             services.AddScoped<IPurposeRepository, PurposeRepository>();
-            services.AddScoped<IRdsCategoryRepository, RdsCategoryRepository>();
             services.AddScoped<IUnitRepository, UnitRepository>();
             services.AddScoped<ICollectionRepository, CollectionRepository>();
 

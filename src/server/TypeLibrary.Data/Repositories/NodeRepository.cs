@@ -15,7 +15,6 @@ namespace TypeLibrary.Data.Repositories
         public IQueryable<NodeLibDm> GetAllNodes()
         {
             return GetAll()
-                .Include(x => x.Rds)
                 .Include(x => x.Purpose)
                 .Include(x => x.Parent)
                 .Include(x => x.Blob)
@@ -28,7 +27,6 @@ namespace TypeLibrary.Data.Repositories
         public IQueryable<NodeLibDm> FindNode(string id)
         {
             return FindBy(x => x.Id == id)
-                .Include(x => x.Rds)
                 .Include(x => x.Purpose)
                 .Include(x => x.Parent)
                 .Include(x => x.Blob)

@@ -2,870 +2,911 @@
   {
     "Code": "A",
     "Name": "Drilling system",
-    "Aspect": "Function",
-    "RdsCategoryId": "4612B4C00DA77241E8466B088C9366ED",
     "Iri": null
   },
   {
     "Code": "B",
     "Name": "Production system",
-    "Aspect": "Function",
-    "RdsCategoryId": "4612B4C00DA77241E8466B088C9366ED",
     "Iri": null
   },
   {
     "Code": "C",
     "Name": "Transportation system",
-    "Aspect": "Function",
-    "RdsCategoryId": "4612B4C00DA77241E8466B088C9366ED",
     "Iri": null
   },
   {
     "Code": "D",
     "Name": "Processing system",
-    "Aspect": "Function",
-    "RdsCategoryId": "4612B4C00DA77241E8466B088C9366ED",
     "Iri": null
   },
   {
     "Code": "E",
     "Name": "Injection system",
-    "Aspect": "Function",
-    "RdsCategoryId": "4612B4C00DA77241E8466B088C9366ED",
     "Iri": null
   },
   {
     "Code": "F",
     "Name": "Storage system",
-    "Aspect": "Function",
-    "RdsCategoryId": "4612B4C00DA77241E8466B088C9366ED",
     "Iri": null
   },
   {
     "Code": "G",
     "Name": "Fixation system",
-    "Aspect": "Function",
-    "RdsCategoryId": "4612B4C00DA77241E8466B088C9366ED",
     "Iri": null
   },
   {
     "Code": "H",
     "Name": "Safety system",
-    "Aspect": "Function",
-    "RdsCategoryId": "4612B4C00DA77241E8466B088C9366ED",
     "Iri": null
   },
   {
     "Code": "J",
     "Name": "Infrastructure system",
-    "Aspect": "Function",
-    "RdsCategoryId": "4612B4C00DA77241E8466B088C9366ED",
     "Iri": null
   },
   {
     "Code": "HA",
-    "Name": "Fluid supply system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "Name": "Fluid Supply System",
     "Iri": null
   },
   {
     "Code": "HC",
     "Name": "Solid matter supply system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
     "Iri": null
   },
   {
     "Code": "HD",
-    "Name": "Electrical power supply system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "Name": "Electrical Power Supply System",
     "Iri": null
   },
   {
     "Code": "HF",
-    "Name": "Thermal energy supply system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "Name": "Thermal Energy Supply System",
     "Iri": null
   },
   {
     "Code": "HE",
-    "Name": "Mechanical energy supply system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "Name": "Mechanical Energy Supply System",
     "Iri": null
   },
   {
     "Code": "JA",
-    "Name": "Fluid transport/distribution system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "Name": "Fluid Transportation System",
     "Iri": null
   },
   {
     "Code": "JC",
-    "Name": "Solid matter transport/distribution system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "Name": "Solid Material Transportation System",
     "Iri": null
   },
   {
     "Code": "JD",
     "Name": "Electrical power transport/distribution system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
     "Iri": null
   },
   {
     "Code": "JF",
     "Name": "Thermal energy transport/distribution system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
     "Iri": null
   },
   {
     "Code": "JE",
-    "Name": "Mechanical energy transport/distribution system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "Name": "Electrical Power Distribution System",
     "Iri": null
   },
   {
     "Code": "KA",
-    "Name": "Flow controlling system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "Name": "Flow Controlling System",
     "Iri": null
   },
   {
     "Code": "KB",
     "Name": "Threshold controlling system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
     "Iri": null
   },
   {
     "Code": "KC",
-    "Name": "Separation system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "Name": "Separation System",
     "Iri": null
   },
   {
     "Code": "KD",
     "Name": "Mixing system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
     "Iri": null
   },
   {
     "Code": "KE",
-    "Name": "Pumping system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
+    "Name": "Pumping System",
     "Iri": null
   },
   {
     "Code": "KF",
     "Name": "Transforming system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
     "Iri": null
   },
   {
     "Code": "KG",
     "Name": "Signal transformer system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
     "Iri": null
   },
   {
     "Code": "KH",
     "Name": "Solid matter transformation system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
     "Iri": null
   },
   {
     "Code": "QA",
     "Name": "Fluid storage system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
     "Iri": null
   },
   {
     "Code": "QD",
     "Name": "Electrical energy storage system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
     "Iri": null
   },
   {
     "Code": "QF",
     "Name": "Thermal energy storage system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
     "Iri": null
   },
   {
     "Code": "SA",
     "Name": "Mechanical - electrical conversion system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
     "Iri": null
   },
   {
     "Code": "SB",
     "Name": "Mechanical - pressure - kinetic conversion system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
     "Iri": null
   },
   {
     "Code": "SC",
     "Name": "Mechanical - enthalpy conversion system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
     "Iri": null
   },
   {
     "Code": "SD",
     "Name": "Chemical - enthalpy conversion system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
     "Iri": null
   },
   {
     "Code": "SE",
     "Name": "Chemical - electrical conversion system",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "227AB28ACD889CCDDF6D430F716142D5",
     "Iri": null
   },
   {
     "Code": "BFA",
     "Name": "Flow transmitter",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "BGA",
     "Name": "Position transmitter",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "BLA",
     "Name": "Level transmitter",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "BPA",
     "Name": "Absolute pressure transmitter",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "BPC",
     "Name": "Differential pressure transmitter",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "BTA",
     "Name": "Temperature transmitter",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "CCA",
     "Name": "Rechargeable battery",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "CLA",
     "Name": "Pool",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "CMA",
     "Name": "Tank",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "EBA",
     "Name": "Electric boiler",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "EGC",
-    "Name": "Heat exchanger",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "Heat Exchange System",
     "Iri": null
   },
   {
     "Code": "EQB",
     "Name": "Cooling panel (condenser)",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "FCA",
     "Name": "Fuse, overcurrent",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "FCB",
     "Name": "Circuit-breaker, overcurrent",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "FLA",
     "Name": "Safety valve",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "FLB",
     "Name": "Safety damper",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "FLD",
     "Name": "Rupture disc",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "FLE",
     "Name": "Expansion tank",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "GAA",
-    "Name": "AC generator",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "AC Generating System",
     "Iri": null
   },
   {
     "Code": "GAB",
-    "Name": "DC generator",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "DC Generating System",
     "Iri": null
   },
   {
     "Code": "GPA",
-    "Name": "Positive displacement pump",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "Positive Displacement Pumping System",
     "Iri": null
   },
   {
     "Code": "GPB",
-    "Name": "Liquid velocity pump",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "Centrifugal Pumping System",
     "Iri": null
   },
   {
     "Code": "GQA",
-    "Name": "Gas compressor",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "Reciprocating Compressing System",
     "Iri": null
   },
   {
     "Code": "HMA",
-    "Name": "Settling tank (gravity based separator)",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "Gravitational Separating System",
     "Iri": null
   },
   {
     "Code": "HMB",
-    "Name": "Centrifuge (centrifugal separator)",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "Centrifuge Separating System",
     "Iri": null
   },
   {
     "Code": "HMC",
-    "Name": "Cyclone (vortex separator)",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "Cyclone Separating System",
     "Iri": null
   },
   {
     "Code": "HPA",
-    "Name": "Dryer",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "Drying System",
     "Iri": null
   },
   {
     "Code": "HPB",
-    "Name": "Distillation column",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "Distillation System",
     "Iri": null
   },
   {
     "Code": "HRA",
-    "Name": "Electrostatic separator (Electrocoalescer)",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "Electrostatic Separation System",
     "Iri": null
   },
   {
     "Code": "HSA",
-    "Name": "Ion exchanger (Eletrolyser, Electrochlorinator)",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "Ion Exchange System",
     "Iri": null
   },
   {
     "Code": "HSB",
-    "Name": "Absorber",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "Absorbing System",
     "Iri": null
   },
   {
     "Code": "HSC",
-    "Name": "Adsorber",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "Adsorbing System",
     "Iri": null
   },
   {
     "Code": "HVB",
     "Name": "Flocculator",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "HWA",
-    "Name": "Mixer",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "Kneading System",
     "Iri": null
   },
   {
     "Code": "HXA",
     "Name": "Chemical reactor",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "MAA",
-    "Name": "Electric motor",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "AC Electric Motor System",
     "Iri": null
   },
   {
     "Code": "MLE",
-    "Name": "Gas turbine",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "Expander System",
     "Iri": null
   },
   {
     "Code": "MSB",
-    "Name": "Diesel cycle engine",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "Diesel Drive System",
     "Iri": null
   },
   {
     "Code": "QAB",
     "Name": "Circuit breaker, electrical circuit control",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "QMA",
     "Name": "Shutoff valve, fluid on/off control",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "QNA",
     "Name": "Control valve, fluid regulation control",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "RAC",
     "Name": "Electrical resistor",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "RMA",
     "Name": "Non-return valve, fluid one-way barrier",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "RQA",
     "Name": "Insulation, thermal",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "RQC",
     "Name": "Noise barrier",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "ULQ",
     "Name": "Skid, Package foundation",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "XEE",
     "Name": "Earth connection",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "TAA",
-    "Name": "Transformer, electrical",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "Electrical Transforming System",
     "Iri": null
   },
   {
     "Code": "TAB",
-    "Name": "DC/DC converter, electrical",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "DC/DC Converting System",
     "Iri": null
   },
   {
     "Code": "TAC",
     "Name": "Frequency converter, electrical",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "TBA",
-    "Name": "Rectifier, electrical",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "Electrical Rectifying System (AC-DC)",
     "Iri": null
   },
   {
     "Code": "TBB",
-    "Name": "Inverter, electrical",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
+    "Name": "Electrical Inverting System (DC-AC)",
     "Iri": null
   },
   {
     "Code": "TLA",
     "Name": "Gear, mechanical",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "TLB",
     "Name": "Torque converter",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "D5253F4F8DE05B301F3598001252C082",
     "Iri": null
   },
   {
     "Code": "WB",
     "Name": "High Voltage Transport ",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "CFBCB7C6B5D9C0C75DC7BA4BFC50F04B",
     "Iri": null
   },
   {
     "Code": "WD",
     "Name": "Low Voltage Transport ",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "CFBCB7C6B5D9C0C75DC7BA4BFC50F04B",
     "Iri": null
   },
   {
     "Code": "WG",
     "Name": "Communication Transport ",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "CFBCB7C6B5D9C0C75DC7BA4BFC50F04B",
     "Iri": null
   },
   {
     "Code": "WM",
     "Name": "Fluid open conduit Transport ",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "CFBCB7C6B5D9C0C75DC7BA4BFC50F04B",
     "Iri": null
   },
   {
     "Code": "WP",
     "Name": "Fluid closed conduit Transport ",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "CFBCB7C6B5D9C0C75DC7BA4BFC50F04B",
     "Iri": null
   },
   {
     "Code": "WQ",
     "Name": "Mechanical energy Transport ",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "CFBCB7C6B5D9C0C75DC7BA4BFC50F04B",
     "Iri": null
   },
   {
     "Code": "WV",
     "Name": "Thermal energy Transport ",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "CFBCB7C6B5D9C0C75DC7BA4BFC50F04B",
     "Iri": null
   },
   {
     "Code": "WZ",
     "Name": "Multiple kinds combined Transport ",
-    "Aspect": "Function, Product, Location",
-    "RdsCategoryId": "CFBCB7C6B5D9C0C75DC7BA4BFC50F04B",
     "Iri": null
   },
   {
     "Code": "XB",
     "Name": "High Voltage  Interface",
-    "Aspect": "Function, Product",
-    "RdsCategoryId": "A4018B691A807757F07B2B8F71A47E4F",
     "Iri": null
   },
   {
     "Code": "XD",
     "Name": "Low Voltage  Interface",
-    "Aspect": "Function, Product",
-    "RdsCategoryId": "A4018B691A807757F07B2B8F71A47E4F",
     "Iri": null
   },
   {
     "Code": "XG",
     "Name": "Communication  Interface",
-    "Aspect": "Function, Product",
-    "RdsCategoryId": "A4018B691A807757F07B2B8F71A47E4F",
     "Iri": null
   },
   {
     "Code": "XK",
     "Name": "Fluid open conduit  Interface",
-    "Aspect": "Function, Product",
-    "RdsCategoryId": "A4018B691A807757F07B2B8F71A47E4F",
     "Iri": null
   },
   {
     "Code": "XM",
     "Name": "Fluid closed conduit  Interface",
-    "Aspect": "Function, Product",
-    "RdsCategoryId": "A4018B691A807757F07B2B8F71A47E4F",
     "Iri": null
   },
   {
     "Code": "XN",
     "Name": "Mechanical energy  Interface",
-    "Aspect": "Function, Product",
-    "RdsCategoryId": "A4018B691A807757F07B2B8F71A47E4F",
     "Iri": null
   },
   {
     "Code": "XV",
     "Name": "Thermal energy  Interface",
-    "Aspect": "Function, Product",
-    "RdsCategoryId": "A4018B691A807757F07B2B8F71A47E4F",
     "Iri": null
   },
   {
     "Code": "XZ",
     "Name": "Multiple kinds combined  Interface",
-    "Aspect": "Function, Product",
-    "RdsCategoryId": "A4018B691A807757F07B2B8F71A47E4F",
     "Iri": null
   },
   {
     "Code": "BAA",
     "Name": "Working space",
-    "Aspect": "Location",
-    "RdsCategoryId": "2344F63C58287455CABD02BE327B4C8A",
     "Iri": null
   },
   {
     "Code": "CAA",
     "Name": "Storage space",
-    "Aspect": "Location",
-    "RdsCategoryId": "2344F63C58287455CABD02BE327B4C8A",
     "Iri": null
   },
   {
     "Code": "DAA",
     "Name": "Equipment space",
-    "Aspect": "Location",
-    "RdsCategoryId": "2344F63C58287455CABD02BE327B4C8A",
     "Iri": null
   },
   {
     "Code": "EAA",
     "Name": "Connecting space",
-    "Aspect": "Location",
-    "RdsCategoryId": "2344F63C58287455CABD02BE327B4C8A",
     "Iri": null
   },
   {
     "Code": "PAA",
     "Name": "Processing space",
-    "Aspect": "Location",
-    "RdsCategoryId": "2344F63C58287455CABD02BE327B4C8A",
     "Iri": null
   },
   {
     "Code": "AAA",
     "Name": "Underground reservoir",
-    "Aspect": "Location",
-    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
     "Iri": null
   },
   {
     "Code": "BBA",
     "Name": "Integrated extraction entity",
-    "Aspect": "Location",
-    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
     "Iri": null
   },
   {
     "Code": "BBB",
     "Name": "Drilling entity",
-    "Aspect": "Location",
-    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
     "Iri": null
   },
   {
     "Code": "BBC",
     "Name": "Well interface entity",
-    "Aspect": "Location",
-    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
     "Iri": null
   },
   {
     "Code": "BBD",
     "Name": "Transportation entity",
-    "Aspect": "Location",
-    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
     "Iri": null
   },
   {
     "Code": "BBE",
     "Name": "Routing entity",
-    "Aspect": "Location",
-    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
     "Iri": null
   },
   {
     "Code": "BBF",
     "Name": "Processing entity",
-    "Aspect": "Location",
-    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
     "Iri": null
   },
   {
     "Code": "BBG",
     "Name": "Matter storage entity",
-    "Aspect": "Location",
-    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
     "Iri": null
   },
   {
     "Code": "BBH",
     "Name": "Disposal entity",
-    "Aspect": "Location",
-    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
     "Iri": null
   },
   {
     "Code": "BBJ",
     "Name": "Injection entity",
-    "Aspect": "Location",
-    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
     "Iri": null
   },
   {
-    "Code": "A",
+    "Code": "Z",
     "Name": "Offshore complex",
-    "Aspect": "Location",
-    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
     "Iri": null
   },
   {
-    "Code": "B",
+    "Code": "Y",
     "Name": "Onshore complex",
-    "Aspect": "Location",
-    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
     "Iri": null
   },
   {
-    "Code": "C",
+    "Code": "X",
     "Name": "Transition complex",
-    "Aspect": "Location",
-    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
     "Iri": null
   },
   {
-    "Code": "D",
+    "Code": "W",
     "Name": "Interconnection complex",
-    "Aspect": "Location",
-    "RdsCategoryId": "A5A95E3A7DA6F0F67BD783420EC28E22",
+    "Iri": null
+  },
+  {
+    "Code": "EGD",
+    "Name": "Plate Heat Exchange System",
+    "Iri": null
+  },
+  {
+    "Code": "EGE",
+    "Name": "Spiral Heat Exchange System",
+    "Iri": null
+  },
+  {
+    "Code": "EGF",
+    "Name": "Tubular Heat Exchange System",
+    "Iri": null
+  },
+  {
+    "Code": "EMB",
+    "Name": "Furnace System",
+    "Iri": null
+  },
+  {
+    "Code": "EMC",
+    "Name": "Burner System",
+    "Iri": null
+  },
+  {
+    "Code": "EMD",
+    "Name": "Boiler System",
+    "Iri": null
+  },
+  {
+    "Code": "EME",
+    "Name": "Steam Generating System",
+    "Iri": null
+  },
+  {
+    "Code": "EMF",
+    "Name": "Flaring System",
+    "Iri": null
+  },
+  {
+    "Code": "GAX",
+    "Name": "Custom Generating System",
+    "Iri": null
+  },
+  {
+    "Code": "GBA",
+    "Name": "Electric battery generating system",
+    "Iri": null
+  },
+  {
+    "Code": "GBB",
+    "Name": "Fuel cell generating system",
+    "Iri": null
+  },
+  {
+    "Code": "GPC",
+    "Name": "Eductor Pumping System",
+    "Iri": null
+  },
+  {
+    "Code": "GPE",
+    "Name": "Rotary Pumping System",
+    "Iri": null
+  },
+  {
+    "Code": "GPF",
+    "Name": "Agitator, Stirrer, Impeller",
+    "Iri": null
+  },
+  {
+    "Code": "GPX",
+    "Name": "Custom Pumping System",
+    "Iri": null
+  },
+  {
+    "Code": "GQB",
+    "Name": "Fan System",
+    "Iri": null
+  },
+  {
+    "Code": "GQC",
+    "Name": "Gas Ejector System",
+    "Iri": null
+  },
+  {
+    "Code": "GQD",
+    "Name": "Centrifugal Compressing System",
+    "Iri": null
+  },
+  {
+    "Code": "GQE",
+    "Name": "Rotary Compressing System",
+    "Iri": null
+  },
+  {
+    "Code": "GQF",
+    "Name": "Axial Compressing System",
+    "Iri": null
+  },
+  {
+    "Code": "GQG",
+    "Name": "Blower System",
+    "Iri": null
+  },
+  {
+    "Code": "GQX",
+    "Name": "Custom Compression System",
+    "Iri": null
+  },
+  {
+    "Code": "HMD",
+    "Name": "Gas Liquid Separating System",
+    "Iri": null
+  },
+  {
+    "Code": "HME",
+    "Name": "Scrubbing Separating System",
+    "Iri": null
+  },
+  {
+    "Code": "HMF",
+    "Name": "Coalescing System",
+    "Iri": null
+  },
+  {
+    "Code": "HMX",
+    "Name": "Custom Separating System",
+    "Iri": null
+  },
+  {
+    "Code": "HPC",
+    "Name": "Evaporating System",
+    "Iri": null
+  },
+  {
+    "Code": "HPD",
+    "Name": "Stripping Distillation System",
+    "Iri": null
+  },
+  {
+    "Code": "HPE",
+    "Name": "Vacuum Distillation System",
+    "Iri": null
+  },
+  {
+    "Code": "HPF",
+    "Name": "Stabilizing Distillation System",
+    "Iri": null
+  },
+  {
+    "Code": "HQA",
+    "Name": "Skimmer System",
+    "Iri": null
+  },
+  {
+    "Code": "HQB",
+    "Name": "Filter System",
+    "Iri": null
+  },
+  {
+    "Code": "HQC",
+    "Name": "Sieve System",
+    "Iri": null
+  },
+  {
+    "Code": "HQD",
+    "Name": "Mechanical Separation System",
+    "Iri": null
+  },
+  {
+    "Code": "HRB",
+    "Name": "Magnetic Separation System",
+    "Iri": null
+  },
+  {
+    "Code": "HSD",
+    "Name": "Contacting System",
+    "Iri": null
+  },
+  {
+    "Code": "HWB",
+    "Name": "Humidifying System",
+    "Iri": null
+  },
+  {
+    "Code": "HWC",
+    "Name": "Rotary Mixing System",
+    "Iri": null
+  },
+  {
+    "Code": "HWD",
+    "Name": "Static Mixing System",
+    "Iri": null
+  },
+  {
+    "Code": "HWX",
+    "Name": "Custom Mixing System",
+    "Iri": null
+  },
+  {
+    "Code": "MAB",
+    "Name": "Stepper Motor System",
+    "Iri": null
+  },
+  {
+    "Code": "MAC",
+    "Name": "DC Electric Motor System",
+    "Iri": null
+  },
+  {
+    "Code": "MAX",
+    "Name": "Custom Motor System",
+    "Iri": null
+  },
+  {
+    "Code": "MLC",
+    "Name": "Wind Turbine System",
+    "Iri": null
+  },
+  {
+    "Code": "MLD",
+    "Name": "Water Turbine System",
+    "Iri": null
+  },
+  {
+    "Code": "MMA",
+    "Name": "Hydraulic Moving System",
+    "Iri": null
+  },
+  {
+    "Code": "MSA",
+    "Name": "Otto Cycle Drive System",
+    "Iri": null
+  },
+  {
+    "Code": "MSC",
+    "Name": "Wankel Drive System",
+    "Iri": null
+  },
+  {
+    "Code": "MSD",
+    "Name": "Gas Turbine Drive System",
+    "Iri": null
+  },
+  {
+    "Code": "TAD",
+    "Name": "Phase Shifting System",
+    "Iri": null
+  },
+  {
+    "Code": "TBC",
+    "Name": "Electrical Bidirectional Converting System",
+    "Iri": null
+  },
+  {
+    "Code": "WPA",
+    "Name": "Fluid Transportation System",
+    "Iri": null
+  },
+  {
+    "Code": "JG",
+    "Name": "Thermal Energy Transportation System",
+    "Iri": null
+  },
+  {
+    "Code": "KJ",
+    "Name": "Thermal exchange system",
+    "Iri": null
+  },
+  {
+    "Code": "KK",
+    "Name": "Compression System",
+    "Iri": null
+  },
+  {
+    "Code": "KL",
+    "Name": "Chemical Reactor System",
+    "Iri": null
+  },
+  {
+    "Code": "XMC",
+    "Name": "Converging Tee System",
+    "Iri": null
+  },
+  {
+    "Code": "XMD",
+    "Name": "Diverging Tee System ",
     "Iri": null
   }
 ]
-

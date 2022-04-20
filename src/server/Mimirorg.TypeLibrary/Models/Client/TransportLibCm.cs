@@ -8,7 +8,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string Iri { get; set; }
         public string Name { get; set; }
         public string RdsId { get; set; }
-        public RdsLibCm Rds { get; set; }
+        public string RdsName { get; set; }
         public string PurposeId { get; set; }
         public PurposeLibCm Purpose { get; set; }
         public string ParentId { get; set; }
