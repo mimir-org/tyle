@@ -1,7 +1,5 @@
 import { Aspect } from "../enums/aspect";
 import { AttributeLibCm } from "./attributeLibCm";
-import { PurposeLibCm } from "./purposeLibCm";
-import { RdsLibCm } from "./rdsLibCm";
 import { TerminalLibCm } from "./terminalLibCm";
 
 export interface InterfaceLibCm {
@@ -9,9 +7,9 @@ export interface InterfaceLibCm {
   iri: string;
   name: string;
   rdsId: string;
-  rds: RdsLibCm;
+  rdsName: string;
   purposeId: string;
-  purpose: PurposeLibCm;
+  purposeName: string;
   parentId: string;
   parent: InterfaceLibCm;
   version: string;
