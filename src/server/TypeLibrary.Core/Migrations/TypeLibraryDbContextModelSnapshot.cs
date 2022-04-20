@@ -17,7 +17,7 @@ namespace TypeLibrary.Core.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.3")
+                .HasAnnotation("ProductVersion", "6.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -648,15 +648,28 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("ParentId");
 
                     b.Property<string>("PurposeId")
+                        .IsRequired()
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("PurposeId");
+
+                    b.Property<string>("PurposeName")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("PurposeName");
 
                     b.Property<string>("RdsId")
                         .IsRequired()
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("RdsId");
+
+                    b.Property<string>("RdsName")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("RdsName");
 
                     b.Property<string>("TerminalId")
                         .HasColumnType("nvarchar(127)")
@@ -680,10 +693,6 @@ namespace TypeLibrary.Core.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ParentId");
-
-                    b.HasIndex("PurposeId");
-
-                    b.HasIndex("RdsId");
 
                     b.HasIndex("TerminalId");
 
@@ -760,15 +769,28 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("ParentId");
 
                     b.Property<string>("PurposeId")
+                        .IsRequired()
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("PurposeId");
+
+                    b.Property<string>("PurposeName")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("PurposeName");
 
                     b.Property<string>("RdsId")
                         .IsRequired()
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("RdsId");
+
+                    b.Property<string>("RdsName")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("RdsName");
 
                     b.Property<string>("SelectedAttributePredefined")
                         .HasColumnType("nvarchar(MAX)");
@@ -801,10 +823,6 @@ namespace TypeLibrary.Core.Migrations
                     b.HasIndex("BlobId");
 
                     b.HasIndex("ParentId");
-
-                    b.HasIndex("PurposeId");
-
-                    b.HasIndex("RdsId");
 
                     b.ToTable("Node", (string)null);
                 });
@@ -896,89 +914,23 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Purpose", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.RdsCategoryLibDm", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("Id");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Created");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
-                        .HasColumnName("CreatedBy");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(511)
-                        .HasColumnType("nvarchar(511)")
-                        .HasColumnName("Description");
-
-                    b.Property<string>("Iri")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("Iri");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
-                        .HasColumnName("Name");
-
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Updated");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
-                        .HasColumnName("UpdatedBy");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RdsCategory", (string)null);
-                });
-
             modelBuilder.Entity("TypeLibrary.Data.Models.RdsLibDm", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("Id");
 
-                    b.Property<string>("Aspect")
-                        .IsRequired()
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
-                        .HasColumnName("Aspect");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
-                        .HasColumnName("Code");
-
                     b.Property<string>("Iri")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("Iri");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
 
-                    b.Property<string>("RdsCategoryId")
-                        .HasColumnType("nvarchar(127)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("RdsCategoryId");
 
                     b.ToTable("Rds", (string)null);
                 });
@@ -1098,15 +1050,28 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("ParentId");
 
                     b.Property<string>("PurposeId")
+                        .IsRequired()
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("PurposeId");
+
+                    b.Property<string>("PurposeName")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("PurposeName");
 
                     b.Property<string>("RdsId")
                         .IsRequired()
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("RdsId");
+
+                    b.Property<string>("RdsName")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("RdsName");
 
                     b.Property<string>("TerminalId")
                         .HasColumnType("nvarchar(127)")
@@ -1131,10 +1096,6 @@ namespace TypeLibrary.Core.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ParentId");
-
-                    b.HasIndex("PurposeId");
-
-                    b.HasIndex("RdsId");
 
                     b.HasIndex("TerminalId");
 
@@ -1335,27 +1296,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("TypeLibrary.Data.Models.PurposeLibDm", "Purpose")
-                        .WithMany("Interfaces")
-                        .HasForeignKey("PurposeId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("TypeLibrary.Data.Models.RdsLibDm", "Rds")
-                        .WithMany("Interfaces")
-                        .HasForeignKey("RdsId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", "Terminal")
                         .WithMany("Interfaces")
                         .HasForeignKey("TerminalId")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Parent");
-
-                    b.Navigation("Purpose");
-
-                    b.Navigation("Rds");
 
                     b.Navigation("Terminal");
                 });
@@ -1377,26 +1323,11 @@ namespace TypeLibrary.Core.Migrations
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("TypeLibrary.Data.Models.PurposeLibDm", "Purpose")
-                        .WithMany("Nodes")
-                        .HasForeignKey("PurposeId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("TypeLibrary.Data.Models.RdsLibDm", "Rds")
-                        .WithMany("Nodes")
-                        .HasForeignKey("RdsId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.Navigation("AttributeAspect");
 
                     b.Navigation("Blob");
 
                     b.Navigation("Parent");
-
-                    b.Navigation("Purpose");
-
-                    b.Navigation("Rds");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.NodeTerminalLibDm", b =>
@@ -1416,16 +1347,6 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Terminal");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.RdsLibDm", b =>
-                {
-                    b.HasOne("TypeLibrary.Data.Models.RdsCategoryLibDm", "RdsCategory")
-                        .WithMany("RdsList")
-                        .HasForeignKey("RdsCategoryId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("RdsCategory");
-                });
-
             modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>
                 {
                     b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", "Parent")
@@ -1443,27 +1364,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("TypeLibrary.Data.Models.PurposeLibDm", "Purpose")
-                        .WithMany("Transports")
-                        .HasForeignKey("PurposeId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("TypeLibrary.Data.Models.RdsLibDm", "Rds")
-                        .WithMany("Transports")
-                        .HasForeignKey("RdsId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", "Terminal")
                         .WithMany("Transports")
                         .HasForeignKey("TerminalId")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Parent");
-
-                    b.Navigation("Purpose");
-
-                    b.Navigation("Rds");
 
                     b.Navigation("Terminal");
                 });
@@ -1495,29 +1401,6 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Children");
 
                     b.Navigation("NodeTerminals");
-                });
-
-            modelBuilder.Entity("TypeLibrary.Data.Models.PurposeLibDm", b =>
-                {
-                    b.Navigation("Interfaces");
-
-                    b.Navigation("Nodes");
-
-                    b.Navigation("Transports");
-                });
-
-            modelBuilder.Entity("TypeLibrary.Data.Models.RdsCategoryLibDm", b =>
-                {
-                    b.Navigation("RdsList");
-                });
-
-            modelBuilder.Entity("TypeLibrary.Data.Models.RdsLibDm", b =>
-                {
-                    b.Navigation("Interfaces");
-
-                    b.Navigation("Nodes");
-
-                    b.Navigation("Transports");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>

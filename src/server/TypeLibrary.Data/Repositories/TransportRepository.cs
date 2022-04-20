@@ -17,8 +17,6 @@ namespace TypeLibrary.Data.Repositories
             return GetAll()
                 .Include(x => x.Terminal)
                 .Include(x => x.Attributes)
-                .Include(x => x.Rds)
-                .Include(x => x.Purpose)
                 .Include(x => x.Parent);
         }
 
@@ -28,9 +26,6 @@ namespace TypeLibrary.Data.Repositories
                 .Include(x => x.Terminal)
                 .Include(x => x.Attributes)
                 .ThenInclude(y => y.Units)
-                .Include(x => x.Rds)
-                .ThenInclude(y => y.RdsCategory)
-                .Include(x => x.Purpose)
                 .Include(x => x.Parent);
         }
     }

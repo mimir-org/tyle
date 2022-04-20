@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -21,9 +19,9 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => $"{settings.GetCurrentOntologyIri()}aspectnode/{src.Id}"))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
-                .ForMember(dest => dest.Rds, opt => opt.Ignore())
+                .ForMember(dest => dest.RdsName, opt => opt.Ignore())
                 .ForMember(dest => dest.PurposeId, opt => opt.MapFrom(src => src.PurposeId))
-                .ForMember(dest => dest.Purpose, opt => opt.Ignore())
+                .ForMember(dest => dest.PurposeName, opt => opt.Ignore())
                 .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.Parent, opt => opt.Ignore())
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => !string.IsNullOrWhiteSpace(src.Version) ? src.Version : "1.0"))
@@ -76,9 +74,9 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
-                .ForMember(dest => dest.Rds, opt => opt.MapFrom(src => src.Rds))
+                .ForMember(dest => dest.RdsName, opt => opt.MapFrom(src => src.RdsName))
                 .ForMember(dest => dest.PurposeId, opt => opt.MapFrom(src => src.PurposeId))
-                .ForMember(dest => dest.Purpose, opt => opt.MapFrom(src => src.Purpose))
+                .ForMember(dest => dest.PurposeName, opt => opt.MapFrom(src => src.PurposeName))
                 .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.Parent, opt => opt.MapFrom(src => src.Parent))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))

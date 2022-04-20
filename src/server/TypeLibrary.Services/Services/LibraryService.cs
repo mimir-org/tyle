@@ -21,14 +21,18 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly ITransportRepository _transportRepository;
         private readonly INodeRepository _nodeRepository;
+        private readonly IRdsRepository _rdsRepository;
+        private readonly IPurposeRepository _purposeRepository;
 
         #region Constructors
 
-        public LibraryService(IAttributeRepository attributeRepository, ISimpleRepository simpleTypeRepository, IMapper mapper, ITransportRepository transportRepository, INodeRepository nodeRepository)
+        public LibraryService(IAttributeRepository attributeRepository, ISimpleRepository simpleTypeRepository, IMapper mapper, ITransportRepository transportRepository, INodeRepository nodeRepository, IRdsRepository rdsRepository, IPurposeRepository purposeRepository)
         {
             _mapper = mapper;
             _transportRepository = transportRepository;
             _nodeRepository = nodeRepository;
+            _rdsRepository = rdsRepository;
+            _purposeRepository = purposeRepository;
             _attributeRepository = attributeRepository;
             _simpleTypeRepository = simpleTypeRepository;
         }
@@ -96,11 +100,17 @@ namespace TypeLibrary.Services.Services
             if (nodeDmList == null || (!nodeDmList.Any() && nodesToCreate.Any()))
                 throw new MimirorgMappingException(nameof(ICollection<NodeLibAm>), nameof(ICollection<NodeLibDm>));
 
+            var allRds = _rdsRepository.GetAll();
+            var allPurposes = _purposeRepository.GetAll();
+
             foreach (var nodeLibDm in nodeDmList)
             {
                 var validation = nodes.ValidateObject();
                 if (!validation.IsValid)
                     throw new MimirorgBadRequestException("Couldn't create node. The aspect node is not valid.", validation);
+
+                nodeLibDm.RdsName = allRds.FirstOrDefault(x => x.Id == nodeLibDm.RdsId)?.Name;
+                nodeLibDm.PurposeName = allPurposes.FirstOrDefault(x => x.Id == nodeLibDm.ParentId)?.Name;
 
                 // TODO: This one will probably not work
                 _attributeRepository.Attach(nodeLibDm.Attributes, EntityState.Unchanged);
@@ -136,6 +146,9 @@ namespace TypeLibrary.Services.Services
             var nodeLibDm = _mapper.Map<NodeLibDm>(node);
             if (nodeLibDm == null)
                 throw new MimirorgMappingException(nameof(NodeLibAm), nameof(NodeLibDm));
+
+            nodeLibDm.RdsName = _rdsRepository.FindBy(x => x.Id == nodeLibDm.RdsId)?.First()?.Name;
+            nodeLibDm.PurposeName = _purposeRepository.FindBy(x => x.Id == nodeLibDm.PurposeId)?.First()?.Name;
 
             // TODO: This will probably not work. Some other objects must be detached.
             _attributeRepository.Attach(nodeLibDm.Attributes, EntityState.Unchanged);
@@ -243,9 +256,14 @@ namespace TypeLibrary.Services.Services
 
             if (transportDmList == null || (!transportDmList.Any() && transportsToCreate.Any()))
                 throw new MimirorgMappingException("ICollection<TransportLibDm>", "ICollection<TransportLibAm>");
-            
+
+            var allRds = _rdsRepository.GetAll();
+            var allPurposes = _purposeRepository.GetAll();
+
             foreach (var transportLibDm in transportDmList)
             {
+                transportLibDm.RdsName = allRds.FirstOrDefault(x => x.Id == transportLibDm.RdsId)?.Name;
+                transportLibDm.PurposeName = allPurposes.FirstOrDefault(x => x.Id == transportLibDm.PurposeId)?.Name;
                 _attributeRepository.Attach(transportLibDm.Attributes, EntityState.Unchanged);
                 await _transportRepository.CreateAsync(transportLibDm);
                 await _transportRepository.SaveAsync();
@@ -272,6 +290,9 @@ namespace TypeLibrary.Services.Services
             var transportLibDm = _mapper.Map<TransportLibDm>(transport);
             if (transportLibDm == null)
                 throw new MimirorgMappingException("TransportLibAm", "TransportLibDm");
+
+            transportLibDm.RdsName = _rdsRepository.FindBy(x => x.Id == transportLibDm.RdsId)?.First()?.Name;
+            transportLibDm.PurposeName = _purposeRepository.FindBy(x => x.Id == transportLibDm.PurposeId)?.First()?.Name;
 
             _attributeRepository.Attach(transportLibDm.Attributes, EntityState.Unchanged);
             await _transportRepository.CreateAsync(transportLibDm);

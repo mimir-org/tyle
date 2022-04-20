@@ -10,13 +10,9 @@ namespace TypeLibrary.Data.Configurations
         {
             builder.HasKey(x => x.Id);
             builder.ToTable("Rds");
-            builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(127);
-            builder.Property(p => p.Code).HasColumnName("Code").IsRequired().HasMaxLength(63);
-            builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(63);
-            builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false).HasMaxLength(255);
-            builder.Property(p => p.Aspect).HasColumnName("Aspect").IsRequired().HasConversion<string>().HasMaxLength(31);
-
-            builder.HasOne(x => x.RdsCategory).WithMany(y => y.RdsList).HasForeignKey(x => x.RdsCategoryId).OnDelete(DeleteBehavior.NoAction);
+            builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
+            builder.Property(p => p.Name).HasColumnName("Name").IsRequired();
+            builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired();
         }
     }
 }

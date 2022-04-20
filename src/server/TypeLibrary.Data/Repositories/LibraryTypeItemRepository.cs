@@ -33,12 +33,9 @@ namespace TypeLibrary.Data.Repositories
                     .ThenInclude(x => x.Terminal)
                     .ThenInclude(x => x.Attributes)
                     .ThenInclude(x => x.Units)
-                .Include(x => x.Rds)
-                    .ThenInclude(x => x.RdsCategory)
                 .Include(x => x.Simples)
                     .ThenInclude(x => x.Attributes)
                     .ThenInclude(x => x.Units)
-                .Include(x => x.Purpose)
                 .AsSplitQuery()
                 .ToArrayAsync();
 
@@ -53,9 +50,6 @@ namespace TypeLibrary.Data.Repositories
 
             var interfaceTypes = await _interfaceRepository.GetAll()
                 .Include(x => x.Attributes)
-                .Include(x => x.Rds)
-                    .ThenInclude(x => x.RdsCategory)
-                .Include(x => x.Purpose)
                 .OrderBy(x => x.Name)
                 .AsSplitQuery()
                 .ToArrayAsync();
@@ -70,9 +64,6 @@ namespace TypeLibrary.Data.Repositories
         {
             var transportTypes = await _transportRepository.GetAll()
                 .Include(x => x.Attributes)
-                .Include(x => x.Rds)
-                    .ThenInclude(x => x.RdsCategory)
-                .Include(x => x.Purpose)
                 .OrderBy(x => x.Name)
                 .AsSplitQuery()
                 .ToArrayAsync();
@@ -95,12 +86,9 @@ namespace TypeLibrary.Data.Repositories
                     .Include("TerminalNodes.Terminal.TerminalCategory")
                     .Include("TerminalNodes.Terminal.AttributeIdList")
                     .Include("TerminalNodes.Terminal.AttributeIdList.Units")
-                    .Include(x => x.Rds)
-                    .Include("Rds.RdsCategory")
                     .Include(x => x.Simples)
                     .Include("SimpleTypes.AttributeIdList")
                     .Include("SimpleTypes.AttributeIdList.Units")
-                    .Include(x => x.Purpose)
                     .AsSplitQuery()
                     .FirstOrDefaultAsync();
 
@@ -111,9 +99,6 @@ namespace TypeLibrary.Data.Repositories
             {
                 var interfaceType = await _interfaceRepository.FindBy(x => x.Id == id)
                     .Include(x => x.Attributes)
-                    .Include(x => x.Rds)
-                    .Include("Rds.RdsCategory")
-                    .Include(x => x.Purpose)
                     .OrderBy(x => x.Name)
                     .AsSplitQuery()
                     .FirstOrDefaultAsync();
@@ -125,9 +110,6 @@ namespace TypeLibrary.Data.Repositories
             {
                 var transportType = await _transportRepository.FindBy(x => x.Id == id)
                     .Include(x => x.Attributes)
-                    .Include(x => x.Rds)
-                    .Include("Rds.RdsCategory")
-                    .Include(x => x.Purpose)
                     .OrderBy(x => x.Name)
                     .AsSplitQuery()
                     .FirstOrDefaultAsync();
