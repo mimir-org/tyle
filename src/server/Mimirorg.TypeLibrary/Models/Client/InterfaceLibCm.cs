@@ -10,7 +10,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string RdsId { get; set; }
         public string RdsName { get; set; }
         public string PurposeId { get; set; }
-        public PurposeLibCm Purpose { get; set; }
+        public string PurposeName { get; set; }
         public string ParentId { get; set; }
         public InterfaceLibCm Parent { get; set; }
         public string Version { get; set; }

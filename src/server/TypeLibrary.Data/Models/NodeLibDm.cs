@@ -12,7 +12,7 @@ namespace TypeLibrary.Data.Models
         public string RdsId { get; set; }
         public string RdsName { get; set; }
         public string PurposeId { get; set; }
-        public PurposeLibDm Purpose { get; set; }
+        public string PurposeName { get; set; }
         public string ParentId { get; set; }
         public NodeLibDm Parent { get; set; }
         public string Version { get; set; }

@@ -18,7 +18,8 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(63);
             builder.Property(p => p.RdsId).HasColumnName("RdsId").IsRequired().HasMaxLength(127);
             builder.Property(p => p.RdsName).HasColumnName("RdsName").IsRequired().HasMaxLength(127);
-            builder.Property(p => p.PurposeId).HasColumnName("PurposeId").IsRequired(false).HasMaxLength(127);
+            builder.Property(p => p.PurposeId).HasColumnName("PurposeId").IsRequired().HasMaxLength(127);
+            builder.Property(p => p.PurposeName).HasColumnName("PurposeName").IsRequired().HasMaxLength(127);
             builder.Property(p => p.ParentId).HasColumnName("ParentId").HasMaxLength(127);
             builder.Property(p => p.Version).HasColumnName("Version").IsRequired().HasMaxLength(7);
             builder.Property(p => p.FirstVersionId).HasColumnName("FirstVersionId").IsRequired().HasMaxLength(127);
@@ -35,7 +36,6 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.SelectedAttributePredefined).HasJsonConversion();
 
             builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
-            builder.HasOne(x => x.Purpose).WithMany(y => y.Nodes).HasForeignKey(x => x.PurposeId).OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(x => x.Blob).WithMany(y => y.Nodes).HasForeignKey(x => x.BlobId).OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(x => x.AttributeAspect).WithMany(y => y.Nodes).HasForeignKey(x => x.AttributeAspectId).OnDelete(DeleteBehavior.NoAction);
 
