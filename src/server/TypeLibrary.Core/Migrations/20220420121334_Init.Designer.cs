@@ -12,8 +12,8 @@ using TypeLibrary.Data;
 namespace TypeLibrary.Core.Migrations
 {
     [DbContext(typeof(TypeLibraryDbContext))]
-    [Migration("20220420115015_RemovedPurposeIdFk")]
-    partial class RemovedPurposeIdFk
+    [Migration("20220420121334_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
