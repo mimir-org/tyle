@@ -48,15 +48,15 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(typeof(PurposeLibAm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdatePurpose([FromBody] PurposeLibAm dataAm)
+        public async Task<IActionResult> UpdatePurpose([FromBody] PurposeLibAm dataAm, [FromRoute] string id)
         {
             try
             {
-                var data = await _purposeService.UpdatePurpose(dataAm);
+                var data = await _purposeService.UpdatePurpose(dataAm, id);
                 return Ok(data);
             }
             catch (Exception e)

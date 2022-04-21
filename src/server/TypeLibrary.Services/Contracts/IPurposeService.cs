@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 
 namespace TypeLibrary.Services.Contracts
 {
     public interface IPurposeService
     {
-        Task<IEnumerable<PurposeLibAm>> GetPurposes();
-        Task<PurposeLibAm> UpdatePurpose(PurposeLibAm dataAm);
-        Task<PurposeLibAm> CreatePurpose(PurposeLibAm dataAm);
+        Task<IEnumerable<PurposeLibCm>> GetPurposes();
+        Task<PurposeLibCm> UpdatePurpose(PurposeLibAm dataAm, string id);
+        Task<PurposeLibCm> CreatePurpose(PurposeLibAm dataAm);
         Task CreatePurposes(List<PurposeLibAm> dataAm);
     }
 }

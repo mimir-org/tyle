@@ -39,7 +39,7 @@ namespace Mimirorg.Authentication.Services
         /// <returns>ICollection&lt;MimirorgTokenCm&gt;</returns>
         /// <exception cref="MimirorgBadRequestException"></exception>
         /// <exception cref="AuthenticationException"></exception>
-        public async Task<ICollection<MimirorgTokenCm>> Authenticate(MimirorgAuthenticateAm authenticate)
+        public async Task<MimirorgTokenCm> Authenticate(MimirorgAuthenticateAm authenticate)
         {
             var validation = authenticate.ValidateObject();
             if (!validation.IsValid)
@@ -62,8 +62,7 @@ namespace Mimirorg.Authentication.Services
 
             var now = DateTime.Now;
             var accessToken = await _tokenRepository.CreateAccessToken(user, now);
-            var refreshToken = await _tokenRepository.CreateRefreshToken(user, now);
-            return new List<MimirorgTokenCm> { accessToken, refreshToken };
+            return accessToken;
         }
 
         /// <summary>
@@ -75,10 +74,10 @@ namespace Mimirorg.Authentication.Services
         public async Task<ICollection<MimirorgTokenCm>> Authenticate(string secret)
         {
             var token = await _tokenRepository.FindBy(x => x.Secret == secret).FirstOrDefaultAsync();
-            
-            if(token == null)
+
+            if (token == null)
                 throw new AuthenticationException("Can't find any valid refresh token.");
-            
+
             if (token.ValidTo < DateTime.Now.ToUniversalTime())
             {
                 await _tokenRepository.Delete(token.Id);
@@ -95,9 +94,9 @@ namespace Mimirorg.Authentication.Services
             }
 
             var now = DateTime.Now.ToUniversalTime();
-            var accessToken =  await _tokenRepository.CreateAccessToken(user, now);
+            var accessToken = await _tokenRepository.CreateAccessToken(user, now);
             var refreshToken = await _tokenRepository.CreateRefreshToken(user, now);
-            
+
             return new List<MimirorgTokenCm> { accessToken, refreshToken };
         }
 
@@ -238,7 +237,7 @@ namespace Mimirorg.Authentication.Services
                 throw new MimirorgNotFoundException($"Set permissions error. Couldn't find user with id {userPermission.UserId}");
 
             var company = await _mimirorgCompanyService.GetCompanyById(userPermission.CompanyId);
-            if(company == null)
+            if (company == null)
                 throw new MimirorgNotFoundException($"Set permissions error. Couldn't find company with id {userPermission.CompanyId}");
 
             var newClaims = userPermission.Permissions

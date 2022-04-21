@@ -1,46 +1,43 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using Mimirorg.Common.Enums;
-using Mimirorg.TypeLibrary.Models.Data;
+using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Extensions;
+using Discipline = Mimirorg.TypeLibrary.Enums.Discipline;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
     public class AttributeLibAm
     {
         [Required]
-        public string Entity { get; set; }
-
-        [Required]
-        public string QualifierId { get; set; }
+        public string Name { get; set; }
         
         [Required]
-        public string SourceId { get; set; }
-
-        [Required]
-        public string ConditionId { get; set; }
-
-        public ICollection<string> Units { get; set; }
-        
-        public ICollection<string> SelectValues { get; set; }
-
-        [Required]
-        public SelectType SelectType { get; set; }
+        public Aspect Aspect { get; set; }
 
         [Required]
         public Discipline Discipline { get; set; }
 
         [Required]
-        public Aspect Aspect { get; set; }
+        public Select Select { get; set; }
 
         [Required]
-        public string FormatId { get; set; }
+        public string AttributeQualifier { get; set; }
+        
+        [Required]
+        public string AttributeSource { get; set; }
 
+        [Required]
+        public string AttributeCondition { get; set; }
+
+        [Required]
+        public string AttributeFormat { get; set; }
+
+        public string ParentId { get; set; }
+        public ICollection<string> SelectValues { get; set; }
+        public ICollection<string> UnitIdList { get; set; }
         public HashSet<string> Tags { get; set; }
-
+        
         [JsonIgnore]
-        public string Key => $"{Entity}-{Aspect}-{QualifierId}-{SourceId}-{ConditionId}";
-
-        [JsonIgnore]
-        public ICollection<UnitLibDm> ConvertToObject => Units?.Select(x => new UnitLibDm { Id = x }).ToList();
+        public string Id => ($"{Name}-{Aspect}-{AttributeQualifier}-{AttributeSource}-{AttributeCondition}").CreateMd5();
     }
 }

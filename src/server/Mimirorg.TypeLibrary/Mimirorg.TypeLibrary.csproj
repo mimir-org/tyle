@@ -3,10 +3,17 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <PackageProjectUrl>https://github.com/mimir-org/typelibrary</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mimir-org/typelibrary</RepositoryUrl>
+    <PackageTags>typelibrary;typeeditor</PackageTags>
+    <Version>$(VersionPrefix)</Version>
+    <SignAssembly>False</SignAssembly>
+    <Copyright></Copyright>
+    <Description>Type Library models and functionality</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mimirorg.Common\Mimirorg.Common.csproj" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
 </Project>

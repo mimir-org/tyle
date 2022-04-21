@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Mimirorg.TypeLibrary.Models.Data;
+using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Configurations
 {
@@ -11,18 +11,12 @@ namespace TypeLibrary.Data.Configurations
         {
             builder.HasKey(x => x.Id);
             builder.ToTable("Simple");
-            builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
-            builder.Property(p => p.Name).HasColumnName("Name").IsRequired();
-            builder.Property(p => p.Description).HasColumnName("Description").IsRequired(false);
-            builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false);
+            builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(127);
+            builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(63);
+            builder.Property(p => p.Description).HasColumnName("Description").IsRequired(false).HasMaxLength(511);
+            builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false).HasMaxLength(255);
 
-            builder.HasMany(x => x.Attributes).WithMany(y => y.SimpleTypes).UsingEntity<Dictionary<string, object>>("Simple_Attribute",
-                x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),
-                x => x.HasOne<SimpleLibDm>().WithMany().HasForeignKey("SimpleId"),
-                x => x.ToTable("Simple_Attribute")
-            );
-
-            builder.HasMany(x => x.Nodes).WithMany(y => y.SimpleTypes).UsingEntity<Dictionary<string, object>>("Simple_Node",
+            builder.HasMany(x => x.Nodes).WithMany(y => y.Simples).UsingEntity<Dictionary<string, object>>("Simple_Node",
                 x => x.HasOne<NodeLibDm>().WithMany().HasForeignKey("NodeId"),
                 x => x.HasOne<SimpleLibDm>().WithMany().HasForeignKey("SimpleId"),
                 x => x.ToTable("Simple_Node")

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Data;
+using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 // ReSharper disable StringLiteralTypo
@@ -42,33 +42,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(typeof(ICollection<TerminalLibDm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
-        public IActionResult GetTerminalTypes()
+        public IActionResult GetTerminals()
         {
             try
             {
                 var data = _terminalTypeService.GetTerminals().ToList();
-                return Ok(data);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        /// <summary>
-        /// Get categorized terminals
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("category")]
-        [ProducesResponseType(typeof(Dictionary<string, TerminalLibDm>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Read")]
-        public IActionResult GetTerminalTypesByCategory()
-        {
-            try
-            {
-                var data = _terminalTypeService.GetTerminalsByCategory().ToList();
                 return Ok(data);
             }
             catch (Exception e)
@@ -89,14 +67,14 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> CreateTerminalType([FromBody] TerminalLibAm terminalAm)
+        public async Task<IActionResult> CreateTerminal([FromBody] TerminalLibAm terminalAm)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var createdTerminalType = await _terminalTypeService.CreateTerminalType(terminalAm);
+                var createdTerminalType = await _terminalTypeService.CreateTerminal(terminalAm);
                 if (createdTerminalType == null)
                     return BadRequest("The terminal typeDm already exist");
 

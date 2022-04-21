@@ -1,0 +1,207 @@
+[
+  //Categories
+  {
+    "name": "Not Set",
+    "color": "",
+    "parentId": null
+  },
+  {
+    "name": "Material Fluid",
+    "color": "#0066FF",
+    "parentId": null
+  },
+  {
+    "name": "Material Granulate",
+    "color": "#CC9900",
+    "parentId": null
+  },
+  {
+    "name": "Material Pieces",
+    "color": "#663300",
+    "parentId": null
+  },
+  {
+    "name": "Energy Electrical",
+    "color": "#FF0000",
+    "parentId": null
+  },
+  {
+    "name": "Energy Thermal",
+    "color": "#FF9900",
+    "parentId": null
+  },
+  {
+    "name": "Energy Mechanical",
+    "color": "#CCCCCC",
+    "parentId": null
+  },
+  {
+    "name": "Information",
+    "color": "#006600",
+    "parentId": null
+  },
+  {
+    "name": "Force",
+    "color": "#000000",
+    "parentId": null
+  },
+  //Types
+  {
+    "name": "Chemicals",
+    "Color": "#00CC66",
+    "parentId": "F1DD54732321389535FE836DE6DD0C04",
+    "attributeIdList": [
+      "15AFB308ABE00544A25CF35BE028B75D",
+      "71E2BFA908D978A0D64725596C6A7148",
+      "78DA261AA3BB5A192B9F693377632478",
+      "11845C1C348E28563B4EA4B2E960B04C",
+      "DFED2BB5DBDCD3A0031E0645F6523C7A",
+      "727F5CA7EDB0695E3D8CD451A111F2A0",
+      "54694D53D12C1F09DD96D67A5045CA6A",
+      "F08BFA8DB2A624E99B91D169BF9C4B92",
+      "2F3F70BA9011E3D4C716AADF3B0193E2"
+    ]
+  },
+
+  {
+    "name": "Process (HC)",
+    "Color": "#663300",
+    "parentId": "F1DD54732321389535FE836DE6DD0C04",
+    "attributeIdList": [
+      "15AFB308ABE00544A25CF35BE028B75D",
+      "71E2BFA908D978A0D64725596C6A7148",
+      "78DA261AA3BB5A192B9F693377632478",
+      "11845C1C348E28563B4EA4B2E960B04C",
+      "DFED2BB5DBDCD3A0031E0645F6523C7A",
+      "727F5CA7EDB0695E3D8CD451A111F2A0",
+      "54694D53D12C1F09DD96D67A5045CA6A",
+      "F08BFA8DB2A624E99B91D169BF9C4B92",
+      "2F3F70BA9011E3D4C716AADF3B0193E2"
+    ]
+  },
+
+  {
+    "name": "Utilities",
+    "Color": "#006600",
+    "parentId": "F1DD54732321389535FE836DE6DD0C04",
+    "attributeIdList": [
+      "15AFB308ABE00544A25CF35BE028B75D",
+      "71E2BFA908D978A0D64725596C6A7148",
+      "78DA261AA3BB5A192B9F693377632478",
+      "11845C1C348E28563B4EA4B2E960B04C",
+      "DFED2BB5DBDCD3A0031E0645F6523C7A",
+      "727F5CA7EDB0695E3D8CD451A111F2A0",
+      "54694D53D12C1F09DD96D67A5045CA6A",
+      "F08BFA8DB2A624E99B91D169BF9C4B92",
+      "2F3F70BA9011E3D4C716AADF3B0193E2"
+    ]
+  },
+
+  {
+    "name": "Water",
+    "Color": "#333399",
+    "parentId": "F1DD54732321389535FE836DE6DD0C04",
+    "attributeIdList": [
+      "15AFB308ABE00544A25CF35BE028B75D",
+      "71E2BFA908D978A0D64725596C6A7148",
+      "78DA261AA3BB5A192B9F693377632478",
+      "11845C1C348E28563B4EA4B2E960B04C",
+      "DFED2BB5DBDCD3A0031E0645F6523C7A",
+      "727F5CA7EDB0695E3D8CD451A111F2A0",
+      "54694D53D12C1F09DD96D67A5045CA6A",
+      "F08BFA8DB2A624E99B91D169BF9C4B92",
+      "2F3F70BA9011E3D4C716AADF3B0193E2"
+    ]
+  },
+
+  {
+    "name": "Dry powder",
+    "Color": "#CC9900",
+    "parentId": "921C40542A8AD5DACF0379A2B0EBFF0B",
+    "attributeIdList": []
+  },
+  {
+    "name": "Main HV System 80",
+    "Color": "#9966CC",
+    "parentId": "54CC2AB379D04FA1B6A6B83A962B0CF2",
+    "attributeIdList": []
+  },
+  {
+    "name": "Main HV System 81",
+    "Color": "#6666FF",
+    "parentId": "54CC2AB379D04FA1B6A6B83A962B0CF2",
+    "attributeIdList": []
+  },
+  {
+    "name": "Main HV System 82",
+    "Color": "#669900",
+    "parentId": "54CC2AB379D04FA1B6A6B83A962B0CF2",
+    "attributeIdList": []
+  },
+  {
+    "name": "Essential power System 83",
+    "Color": "#FF9900",
+    "parentId": "54CC2AB379D04FA1B6A6B83A962B0CF2",
+    "attributeIdList": []
+  },
+  {
+    "name": "Emergency power System 84",
+    "Color": "#FF0000",
+    "parentId": "54CC2AB379D04FA1B6A6B83A962B0CF2",
+    "attributeIdList": []
+  },
+  {
+    "name": "Battery power System 85",
+    "Color": "#CC9900",
+    "parentId": "54CC2AB379D04FA1B6A6B83A962B0CF2",
+    "attributeIdList": []
+  },
+  {
+    "name": "Heating medium",
+    "Color": "#FF0000",
+    "parentId": "5B670C2BA827FF826A5625732BEE2D60",
+    "attributeIdList": []
+  },
+  {
+    "name": "Cooling medium",
+    "Color": "#333399",
+    "parentId": "5B670C2BA827FF826A5625732BEE2D60",
+    "attributeIdList": []
+  },
+  {
+    "name": "Rotating shaft/axle",
+    "Color": "#CCCCCC",
+    "parentId": "C7E6CB4B9FA127F191B9DCCFBDDB2052",
+    "attributeIdList": []
+  },
+  {
+    "name": "Push Pull rod/piston",
+    "Color": "#000000",
+    "parentId": "C7E6CB4B9FA127F191B9DCCFBDDB2052",
+    "attributeIdList": []
+  },
+  {
+    "name": "Telecommunication System 86",
+    "Color": "#9966CC",
+    "parentId": "A82BE0F551B8708BC08EB33CD9DED0CF",
+    "attributeIdList": []
+  },
+  {
+    "name": "Automation System 87",
+    "Color": "#00CC66",
+    "parentId": "A82BE0F551B8708BC08EB33CD9DED0CF",
+    "attributeIdList": []
+  },
+  {
+    "name": "Bolting",
+    "Color": "#000000",
+    "parentId": "9EB6B78A99CDB6FFD3D40D18621D9F80",
+    "attributeIdList": []
+  },
+  {
+    "name": "Locking",
+    "Color": "#CCCCCC",
+    "parentId": "9EB6B78A99CDB6FFD3D40D18621D9F80",
+    "attributeIdList": []
+  }
+]

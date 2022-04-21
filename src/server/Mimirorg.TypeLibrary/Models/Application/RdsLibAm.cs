@@ -1,17 +1,13 @@
-﻿using Mimirorg.Common.Enums;
-using Newtonsoft.Json;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
     public class RdsLibAm
     {
-        public string Name { get; set; }
+        [Required]
         public string Code { get; set; }
-        public string RdsCategoryId { get; set; }
-        public string SemanticReference { get; set; }
-        public Aspect Aspect { get; set; }
-
-        [JsonIgnore]
-        public string Key => $"{Code}-{RdsCategoryId}";
+        
+        [Required]
+        public string Name { get; set; }
     }
 }

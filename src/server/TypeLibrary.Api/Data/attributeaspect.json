@@ -1,0 +1,260 @@
+[
+  {
+    "name": "Space",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location"
+  },
+  {
+    "name": "Facility",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location"
+  },
+  {
+    "name": "Foundation structure",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location"
+  },
+  {
+    "name": "Module",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location"
+  },
+  {
+    "name": "Deck",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location"
+  },
+  {
+    "name": "Area",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location"
+  },
+  {
+    "name": "Route",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location"
+  },
+  {
+    "name": "Enclosure",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location"
+  },
+  {
+    "name": "Point grid location",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location"
+  },
+  {
+    "name": "Object envelope",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location"
+  },
+  {
+    "name": "Terminal",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location"
+  },
+  {
+    "name": "Installation space",
+    "description": null,
+    "parentId": "4A63D585C3B9893F49C794DE02B3A375", //Space
+    "aspect": "Location"
+  },
+  {
+    "name": "Range space",
+    "description": null,
+    "parentId": "4A63D585C3B9893F49C794DE02B3A375", //Space
+    "aspect": "Location"
+  },
+  {
+    "name": "Platform facility",
+    "description": null,
+    "parentId": "3275C8DFA3E6ACE2D88F7D5D3E39DC67", //Facility
+    "aspect": "Location"
+  },
+  {
+    "name": "FPSO facility",
+    "description": null,
+    "parentId": "3275C8DFA3E6ACE2D88F7D5D3E39DC67", //Facility
+    "aspect": "Location"
+  },
+  {
+    "name": "Terminal facility",
+    "description": null,
+    "parentId": "3275C8DFA3E6ACE2D88F7D5D3E39DC67", //Facility
+    "aspect": "Location"
+  },
+  {
+    "name": "Subsea facility",
+    "description": null,
+    "parentId": "3275C8DFA3E6ACE2D88F7D5D3E39DC67", //Facility
+    "aspect": "Location"
+  },
+  {
+    "name": "Jacket foundation",
+    "description": null,
+    "parentId": "C6496B1F9F7630C97427C5B276A47700", //Foundation structure
+    "aspect": "Location"
+  },
+  {
+    "name": "Floater foundation",
+    "description": null,
+    "parentId": "C6496B1F9F7630C97427C5B276A47700", //Foundation structure
+    "aspect": "Location"
+  },
+  {
+    "name": "Rig foundation",
+    "description": null,
+    "parentId": "C6496B1F9F7630C97427C5B276A47700", //Foundation structure
+    "aspect": "Location"
+  },
+  {
+    "name": "GBS foundation",
+    "description": null,
+    "parentId": "C6496B1F9F7630C97427C5B276A47700", //Foundation structure
+    "aspect": "Location"
+  },
+  {
+    "name": "Facility module",
+    "description": null,
+    "parentId": "316CB94FC7EB0648E971CED9AB897D70", //Module
+    "aspect": "Location"
+  },
+  {
+    "name": "Tower module",
+    "description": null,
+    "parentId": "316CB94FC7EB0648E971CED9AB897D70", //Module
+    "aspect": "Location"
+  },
+  {
+    "name": "Boom module",
+    "description": null,
+    "parentId": "316CB94FC7EB0648E971CED9AB897D70", //Module
+    "aspect": "Location"
+  },
+  {
+    "name": "Bridge module",
+    "description": null,
+    "parentId": "316CB94FC7EB0648E971CED9AB897D70", //Module
+    "aspect": "Location"
+  },
+  {
+    "name": "Main deck",
+    "description": null,
+    "parentId": "D8D2CC93EC8E0A6C5A7601FD1AD1C1C2", //Deck
+    "aspect": "Location"
+  },
+  {
+    "name": "Mezzanine deck",
+    "description": null,
+    "parentId": "D8D2CC93EC8E0A6C5A7601FD1AD1C1C2", //Deck
+    "aspect": "Location"
+  },
+  {
+    "name": "Partial deck",
+    "description": null,
+    "parentId": "D8D2CC93EC8E0A6C5A7601FD1AD1C1C2", //Deck
+    "aspect": "Location"
+  },
+  {
+    "name": "Area",
+    "description": null,
+    "parentId": "C7E77DD6DD301F8DCDEE666B3077A2C5", //Area
+    "aspect": "Location"
+  },
+  {
+    "name": "Sub area",
+    "description": null,
+    "parentId": "C7E77DD6DD301F8DCDEE666B3077A2C5", //Area
+    "aspect": "Location"
+  },
+  {
+    "name": "Function area",
+    "description": null,
+    "parentId": "C7E77DD6DD301F8DCDEE666B3077A2C5", //Area
+    "aspect": "Location"
+  },
+  {
+    "name": "Route",
+    "description": null,
+    "parentId": "0460A48D5570B9028622CBA874893C50", //Route
+    "aspect": "Location"
+  },
+  {
+    "name": "Container enclosure",
+    "description": null,
+    "parentId": "2019471134587AC2746E7A0DCC56E919", //Enclosure
+    "aspect": "Location"
+  },
+  {
+    "name": "Cabinet enclosure",
+    "description": null,
+    "parentId": "2019471134587AC2746E7A0DCC56E919", //Enclosure
+    "aspect": "Location"
+  },
+  {
+    "name": "Box enclosure",
+    "description": null,
+    "parentId": "2019471134587AC2746E7A0DCC56E919", //Enclosure
+    "aspect": "Location"
+  },
+  {
+    "name": "Point platform grid",
+    "description": null,
+    "parentId": "E6CCD4A85EBB6D4CB788C35D41327F1B", //Point grid location
+    "aspect": "Location"
+  },
+  {
+    "name": "Point local grid",
+    "description": null,
+    "parentId": "E6CCD4A85EBB6D4CB788C35D41327F1B", //Point grid location
+    "aspect": "Location"
+  },
+  {
+    "name": "Point envelope",
+    "description": null,
+    "parentId": "752EED6C87A07AF7AD9F895E49C2DFB8", //Object envelope
+    "aspect": "Location"
+  },
+  {
+    "name": "Outline envelope",
+    "description": null,
+    "parentId": "752EED6C87A07AF7AD9F895E49C2DFB8", //Object envelope
+    "aspect": "Location"
+  },
+  {
+    "name": "Actual size envelope",
+    "description": null,
+    "parentId": "752EED6C87A07AF7AD9F895E49C2DFB8", //Object envelope
+    "aspect": "Location"
+  },
+  {
+    "name": "Pipe terminal",
+    "description": null,
+    "parentId": "7E9F755DC65574248AC5D99ED039BDE3", //Terminal
+    "aspect": "Location"
+  },
+  {
+    "name": "Cable terminal",
+    "description": null,
+    "parentId": "7E9F755DC65574248AC5D99ED039BDE3", //Terminal
+    "aspect": "Location"
+  },
+  {
+    "name": "Duct terminal",
+    "description": null,
+    "parentId": "7E9F755DC65574248AC5D99ED039BDE3", //Terminal
+    "aspect": "Location"
+  }
+]
