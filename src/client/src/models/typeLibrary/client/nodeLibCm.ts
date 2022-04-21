@@ -1,7 +1,5 @@
 import { Aspect } from "../enums/aspect";
 import { State } from "../enums/state";
-import { RdsLibCm } from "./rdsLibCm";
-import { PurposeLibCm } from "./purposeLibCm";
 import { InterfaceLibCm } from "./interfaceLibCm";
 import { BlobLibCm } from "./blobLibCm";
 import { AttributeAspectLibCm } from "./attributeAspectLibCm";
@@ -15,9 +13,9 @@ export interface NodeLibCm {
   iri: string;
   name: string;
   rdsId: string;
-  rds: RdsLibCm;
+  rdsName: string;
   purposeId: string;
-  purpose: PurposeLibCm;
+  purposeName: string;
   parentId: string;
   parent: InterfaceLibCm;
   version: string;
