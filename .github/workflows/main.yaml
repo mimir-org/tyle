@@ -50,16 +50,16 @@ jobs:
       repository: typelibrary-client
       tags: |
         latest
-        ${{needs.create-release.outputs.tag}}
+        v${{needs.create-release.outputs.tag}}
       context: ./src/client
       file: ./src/client/Dockerfile
       target: final
       hash_files_template: "**/package-lock.json"
       push: true
     secrets:
-      REGISTRY_SERVER_URLS: ${{ secrets.REGISTRY_SERVER_URL }}
-      REGISTRY_USERNAMES: ${{ secrets.REGISTRY_USERNAME }}
-      REGISTRY_PASSWORDS: ${{ secrets.REGISTRY_PASSWORD }}
+      REGISTRY_SERVER_URLS: ${{ secrets.REGISTRY_SERVER_URL_PROD }}
+      REGISTRY_USERNAMES: ${{ secrets.REGISTRY_USERNAME_PROD }}
+      REGISTRY_PASSWORDS: ${{ secrets.REGISTRY_PASSWORD_PROD }}
 
   build-server:
     uses: mimir-org/mimir-actions/.github/workflows/docker-build-push-cached.yaml@main
@@ -69,16 +69,16 @@ jobs:
       repository: typelibrary-server
       tags: |
         latest
-        ${{needs.create-release.outputs.tag}}
+        v${{needs.create-release.outputs.tag}}
       context: ./src/server
       file: ./src/server/Dockerfile
       target: final
       hash_files_template: "**/*.csproj"
       push: true
     secrets:
-      REGISTRY_SERVER_URLS: ${{ secrets.REGISTRY_SERVER_URL }}
-      REGISTRY_USERNAMES: ${{ secrets.REGISTRY_USERNAME }}
-      REGISTRY_PASSWORDS: ${{ secrets.REGISTRY_PASSWORD }}
+      REGISTRY_SERVER_URLS: ${{ secrets.REGISTRY_SERVER_URL_PROD }}
+      REGISTRY_USERNAMES: ${{ secrets.REGISTRY_USERNAME_PROD }}
+      REGISTRY_PASSWORDS: ${{ secrets.REGISTRY_PASSWORD_PROD }}
 
   nuget-Common:
     runs-on: ubuntu-latest
