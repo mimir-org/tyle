@@ -10,7 +10,7 @@ export interface TransportLibAm {
   aspect: Aspect;
   description: string;
   updatedBy: string;
-  updated: string | null;
+  updated: string;
   created: string;
   createdBy: string;
   terminalId: string;
