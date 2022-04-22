@@ -1,9 +1,10 @@
 import styled from "styled-components/macro";
 import { ElementType } from "react";
 import { motion } from "framer-motion";
-import { Flexbox as FlexboxInterface, Polymorphic } from "../props";
+import { Flex, Polymorphic } from "../props";
+import { flexMixin } from "../mixins";
 
-type FlexboxProps = FlexboxInterface & Polymorphic<ElementType>;
+type FlexboxProps = Flex & Polymorphic<ElementType>;
 
 /**
  * A polymorphic layout component for flexbox behaviour.
@@ -14,17 +15,7 @@ type FlexboxProps = FlexboxInterface & Polymorphic<ElementType>;
  */
 export const Flexbox = styled.div<FlexboxProps>`
   display: flex;
-  flex-direction: ${(props) => props.flexDirection};
-  flex-wrap: ${(props) => props.flexWrap};
-  justify-content: ${(props) => props.justifyContent};
-  align-items: ${(props) => props.alignItems};
-  align-content: ${(props) => props.alignContent};
-  order: ${(props) => props.order};
-  flex: ${(props) => props.flex};
-  flex-grow: ${(props) => props.flexGrow};
-  flex-shrink: ${(props) => props.flexShrink};
-  align-self: ${(props) => props.alignSelf};
-  gap: ${(props) => props.gap};
+  ${flexMixin}
 `;
 
 /**

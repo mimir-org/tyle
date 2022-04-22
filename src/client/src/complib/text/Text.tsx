@@ -2,6 +2,7 @@ import styled from "styled-components/macro";
 import { ElementType } from "react";
 import { motion } from "framer-motion";
 import { Palette, Polymorphic, Typography } from "../props";
+import { paletteMixin, typographyMixin } from "../mixins";
 
 type TextProps = Pick<Palette, "color"> &
   Pick<Typography, "font" | "fontSize" | "fontWeight"> &
@@ -23,10 +24,9 @@ type TextProps = Pick<Palette, "color"> &
  * @constructor
  */
 export const Text = styled.p<TextProps>`
-  font: ${(props) => props.font};
-  font-size: ${(props) => props.fontSize};
-  font-weight: ${(props) => props.fontWeight};
-  color: ${(props) => props.color};
+  display: inline-block;
+  ${typographyMixin};
+  ${paletteMixin};
 
   ${({ useEllipsis, ellipsisMaxLines }) =>
     useEllipsis &&

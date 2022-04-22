@@ -1,5 +1,5 @@
 export type { Borders } from "./borders";
-export type { Flexbox } from "./flexbox";
+export type { Flex } from "./flex";
 export type { Grid } from "./grid";
 export type { Palette } from "./palette";
 export type { Positions } from "./positions";
