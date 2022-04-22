@@ -8,3 +8,4 @@ export type { Sizing } from "./sizing";
 export type { Spacing } from "./spacing";
 export type { Typography } from "./typography";
 export type { Polymorphic } from "./polymorphic";
+export type { Display } from "./display";

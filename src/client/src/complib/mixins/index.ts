@@ -1,4 +1,5 @@
 export { bordersMixin } from "./bordersMixin";
+export { displayMixin } from "./displayMixin";
 export { flexMixin } from "./flexMixin";
 export { gridMixin } from "./gridMixin";
 export { paletteMixin } from "./paletteMixin";
