@@ -1,10 +1,11 @@
 import styled from "styled-components/macro";
 import { ElementType } from "react";
 import { motion } from "framer-motion";
-import { Palette, Polymorphic, Typography } from "../props";
-import { paletteMixin, typographyMixin } from "../mixins";
+import { Display, Palette, Polymorphic, Typography } from "../props";
+import { displayMixin, paletteMixin, typographyMixin } from "../mixins";
 
 type TextProps = Pick<Palette, "color"> &
+  Pick<Display, "whiteSpace"> &
   Pick<Typography, "font" | "fontSize" | "fontWeight"> &
   Polymorphic<ElementType> & {
     useEllipsis?: boolean;
@@ -27,6 +28,7 @@ export const Text = styled.p<TextProps>`
   display: inline-block;
   ${typographyMixin};
   ${paletteMixin};
+  ${displayMixin};
 
   ${({ useEllipsis, ellipsisMaxLines }) =>
     useEllipsis &&
