@@ -6,7 +6,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
     {
         [Required]
         public string Code { get; set; }
-        
+
         [Required]
         public string Name { get; set; }
     }

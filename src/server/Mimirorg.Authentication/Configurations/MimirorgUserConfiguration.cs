@@ -8,7 +8,7 @@ namespace Mimirorg.Authentication.Configurations
     {
         public void Configure(EntityTypeBuilder<MimirorgUser> builder)
         {
-            builder.HasIndex(x => new {x.FirstName, x.LastName}).IsUnique(false);
+            builder.HasIndex(x => new { x.FirstName, x.LastName }).IsUnique(false);
             builder.Property(p => p.FirstName).HasColumnName("FirstName").IsRequired();
             builder.Property(p => p.LastName).HasColumnName("LastName").IsRequired();
             builder.Property(p => p.SecurityHash).HasColumnName("SecurityHash").IsRequired();

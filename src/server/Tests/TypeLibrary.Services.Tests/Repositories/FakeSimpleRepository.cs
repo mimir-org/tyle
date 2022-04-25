@@ -13,8 +13,8 @@ namespace TypeLibrary.Services.Tests.Repositories
 {
     public class FakeSimpleRepository : ISimpleRepository
     {
-        public TypeLibraryDbContext Context { get; set; }
-        public DbSet<SimpleLibDm> DbSet { get; set; }
+        public TypeLibraryDbContext? Context { get; set; }
+        public DbSet<SimpleLibDm>? DbSet { get; set; }
         public IQueryable<SimpleLibDm> GetAll(bool noTracking = true)
         {
             throw new NotImplementedException();

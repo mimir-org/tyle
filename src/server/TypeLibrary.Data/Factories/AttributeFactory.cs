@@ -17,7 +17,7 @@ namespace TypeLibrary.Data.Factories
 
         public AttributeLibDm Get(string id)
         {
-            if(AllAttributes == null || !AllAttributes.Any())
+            if (AllAttributes == null || !AllAttributes.Any())
                 AllAttributes = _attributeRepository.GetAll().ToList();
 
             return AllAttributes?.FirstOrDefault(x => x.Id == id);

@@ -28,7 +28,7 @@ namespace Mimirorg.Authentication.Extensions
         {
             // Dependency injection
             serviceCollection.AddInjectableHostedService<ITimedHookService, TimedHookService>();
-            
+
             serviceCollection.AddScoped<IMimirorgTokenRepository, MimirorgTokenRepository>();
             serviceCollection.AddScoped<IMimirorgCompanyRepository, MimirorgCompanyRepository>();
             serviceCollection.AddScoped<IMimirorgHookRepository, MimirorgHookRepository>();
@@ -79,10 +79,10 @@ namespace Mimirorg.Authentication.Extensions
                     options.Password.RequiredLength = authSettings.RequiredLength;
                     options.Password.RequireDigit = authSettings.RequireDigit;
                     options.Password.RequireUppercase = authSettings.RequireUppercase;
-                    options.SignIn = new SignInOptions {RequireConfirmedAccount = authSettings.RequireConfirmedAccount};
+                    options.SignIn = new SignInOptions { RequireConfirmedAccount = authSettings.RequireConfirmedAccount };
 
                     if (authSettings.MaxFailedAccessAttempts > 0)
-                        options.Lockout = new LockoutOptions {DefaultLockoutTimeSpan = TimeSpan.FromMinutes(authSettings.DefaultLockoutMinutes), MaxFailedAccessAttempts = authSettings.MaxFailedAccessAttempts};
+                        options.Lockout = new LockoutOptions { DefaultLockoutTimeSpan = TimeSpan.FromMinutes(authSettings.DefaultLockoutMinutes), MaxFailedAccessAttempts = authSettings.MaxFailedAccessAttempts };
                 })
                 .AddEntityFrameworkStores<MimirorgAuthenticationContext>()
                 .AddDefaultTokenProviders();
@@ -127,8 +127,10 @@ namespace Mimirorg.Authentication.Extensions
                     c.SwaggerDoc(description.GroupName,
                         new OpenApiInfo
                         {
-                            Title = swaggerConfiguration.Title, Version = description.ApiVersion.ToString(), Description = swaggerConfiguration.Description,
-                            Contact = new OpenApiContact {Name = swaggerConfiguration.Contact?.Name, Email = swaggerConfiguration.Contact?.Email}
+                            Title = swaggerConfiguration.Title,
+                            Version = description.ApiVersion.ToString(),
+                            Description = swaggerConfiguration.Description,
+                            Contact = new OpenApiContact { Name = swaggerConfiguration.Contact?.Name, Email = swaggerConfiguration.Contact?.Email }
                         });
                 }
 

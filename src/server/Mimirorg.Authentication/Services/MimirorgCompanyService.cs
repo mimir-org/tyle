@@ -35,7 +35,7 @@ namespace Mimirorg.Authentication.Services
 
             if (_mimirorgCompanyRepository.FindBy(x => x.Name != null && x.Name.ToLower() == company.Name.ToLower()).Any())
                 throw new MimirorgBadRequestException($"{nameof(company.Name)} must be unique", new Validation(nameof(company.Name), $"{nameof(company.Name)} must be unique"));
-                
+
 
             var domainCompany = company.ToDomainModel();
             await _mimirorgCompanyRepository.CreateAsync(domainCompany);
@@ -87,7 +87,7 @@ namespace Mimirorg.Authentication.Services
                 throw new MimirorgBadRequestException($"Couldn't register: {company.DisplayName ?? company.Name}", validation);
 
             var exist = await _mimirorgCompanyRepository.GetAll().AnyAsync(x => x.Id == id);
-            if(!exist)
+            if (!exist)
                 throw new MimirorgNotFoundException($"Could not find company with id {id}");
 
             var domainCompany = company.ToDomainModel();

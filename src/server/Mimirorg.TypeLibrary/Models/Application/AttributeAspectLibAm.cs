@@ -24,6 +24,6 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         [JsonIgnore]
         public string Id => (string.IsNullOrEmpty(ParentId) ? $"{Name}-{InternalType}" : $"{Name}-{InternalType}-{ParentId}").CreateMd5();
-        
+
     }
 }

@@ -26,17 +26,17 @@ namespace Mimirorg.Common.Exceptions
             if (_validation.IsValid)
                 yield break;
 
-            if(!_validation.Result.Any())
+            if (!_validation.Result.Any())
                 yield break;
 
             foreach (var result in _validation.Result)
             {
-                if(string.IsNullOrEmpty(result.ErrorMessage) || !result.MemberNames.Any())
+                if (string.IsNullOrEmpty(result.ErrorMessage) || !result.MemberNames.Any())
                     continue;
 
                 foreach (var name in result.MemberNames)
                 {
-                    if(string.IsNullOrEmpty(name))
+                    if (string.IsNullOrEmpty(name))
                         continue;
 
                     yield return new MimirorgBadRequest

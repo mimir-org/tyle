@@ -34,7 +34,7 @@ namespace TypeLibrary.Services.Services
         {
             var blobExist = await _blobDataRepository.GetAsync(blob.Id);
 
-            if(blobExist != null)
+            if (blobExist != null)
                 throw new MimirorgDuplicateException($"There is already an blob with name: {blob.Name} and discipline: {blob.Discipline}");
 
             var dm = _mapper.Map<BlobLibDm>(blob);
@@ -59,7 +59,7 @@ namespace TypeLibrary.Services.Services
             foreach (var blobData in blobDataList)
             {
                 var blobExist = existingBlobs.FirstOrDefault(x => x.Id == blobData.Id);
-                if(blobExist != null)
+                if (blobExist != null)
                     continue;
 
                 var dm = _mapper.Map<BlobLibDm>(blobData);

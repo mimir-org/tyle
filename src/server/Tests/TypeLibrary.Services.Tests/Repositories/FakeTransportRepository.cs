@@ -13,8 +13,8 @@ namespace TypeLibrary.Services.Tests.Repositories
 {
     public class FakeTransportRepository : ITransportRepository
     {
-        public TypeLibraryDbContext Context { get; set; }
-        public DbSet<TransportLibDm> DbSet { get; set; }
+        public TypeLibraryDbContext? Context { get; set; }
+        public DbSet<TransportLibDm>? DbSet { get; set; }
         public IQueryable<TransportLibDm> GetAll(bool noTracking = true)
         {
             throw new NotImplementedException();

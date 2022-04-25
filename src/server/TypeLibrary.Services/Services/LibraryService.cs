@@ -231,7 +231,7 @@ namespace TypeLibrary.Services.Services
             var transports = _transportRepository.GetAllTransports().ToList();
             var transportLibCms = _mapper.Map<ICollection<TransportLibCm>>(transports);
 
-            if(transports.Any() && (transportLibCms == null || !transportLibCms.Any()))
+            if (transports.Any() && (transportLibCms == null || !transportLibCms.Any()))
                 throw new MimirorgMappingException("List<TransportLibDm>", "ICollection<TransportLibAm>");
 
             return Task.FromResult(transportLibCms ?? new List<TransportLibCm>());
@@ -284,7 +284,7 @@ namespace TypeLibrary.Services.Services
         public async Task<TransportLibCm> CreateTransport(TransportLibAm transport)
         {
             var existingTransport = await _transportRepository.GetAsync(transport.Id);
-            if(existingTransport != null)
+            if (existingTransport != null)
                 throw new MimirorgBadRequestException($"There is already registered a transport with name: {transport.Name} with version: {transport.Version}");
 
             var transportLibDm = _mapper.Map<TransportLibDm>(transport);
@@ -333,7 +333,7 @@ namespace TypeLibrary.Services.Services
             if (dmObject == null)
                 throw new MimirorgMappingException(nameof(SimpleLibAm), nameof(SimpleLibDm));
 
-            
+
             _attributeRepository.Attach(dmObject.Attributes, EntityState.Unchanged);
             await _simpleTypeRepository.CreateAsync(dmObject);
             await _simpleTypeRepository.SaveAsync();

@@ -70,7 +70,7 @@ namespace TypeLibrary.Core.Profiles
             foreach (var id in unitIdList)
             {
                 var unit = unitFactory.Get(id);
-                if(unit == null)
+                if (unit == null)
                     continue;
 
                 yield return new UnitLibAm { Name = unit.Name };

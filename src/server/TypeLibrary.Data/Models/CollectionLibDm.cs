@@ -15,7 +15,7 @@ namespace TypeLibrary.Data.Models
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
         public DateTime? Updated { get; set; }
-       
+
         [JsonIgnore]
         public virtual string Key => $"{Name}";
 

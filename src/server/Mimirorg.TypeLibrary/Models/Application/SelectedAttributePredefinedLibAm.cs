@@ -7,7 +7,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
     {
         [Required]
         public string Key { get; set; }
-        
+
         [Required]
         public bool IsMultiSelect { get; set; }
 

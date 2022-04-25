@@ -13,14 +13,14 @@ namespace Mimirorg.Authentication.Models.Application
         [Required(ErrorMessage = "{0} is required")]
         public string DisplayName { get; set; }
 
-        [Display(Name = "Description")] 
+        [Display(Name = "Description")]
         public string Description { get; set; }
 
         [Display(Name = "ManagerId")]
         [Required(ErrorMessage = "{0} is required")]
         public string ManagerId { get; set; }
 
-        [Display(Name = "Secret")] 
+        [Display(Name = "Secret")]
         public string Secret { get; set; }
 
         public MimirorgCompany ToDomainModel()
