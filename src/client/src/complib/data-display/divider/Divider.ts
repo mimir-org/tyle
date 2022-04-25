@@ -1,9 +1,27 @@
 import styled from "styled-components";
 
+interface DividerProps {
+  variant?: "horizontal" | "vertical";
+}
+
 /**
  * A simple divider for creating a clear separation between content
  */
-export const Divider = styled.hr`
-  border: 0;
-  border-bottom: 2px solid var(--color-border-primary-light);
+export const Divider = styled.hr<DividerProps>`
+  color: var(--color-border-primary-light);
+  margin: 0 auto;
+  height: 2px;
+  width: 90%;
+
+  ${(props) =>
+    props.variant === "vertical" &&
+    `
+    margin: auto 0;
+    height: 90%;
+    width: 2px;
+  `}
 `;
+
+Divider.defaultProps = {
+  variant: "horizontal",
+};
