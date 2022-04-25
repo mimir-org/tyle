@@ -1,5 +1,5 @@
 export type { Borders } from "./borders";
-export type { Flexbox } from "./flexbox";
+export type { Flex } from "./flex";
 export type { Grid } from "./grid";
 export type { Palette } from "./palette";
 export type { Positions } from "./positions";
@@ -8,3 +8,4 @@ export type { Sizing } from "./sizing";
 export type { Spacing } from "./spacing";
 export type { Typography } from "./typography";
 export type { Polymorphic } from "./polymorphic";
+export type { Display } from "./display";
