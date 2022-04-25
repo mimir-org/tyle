@@ -1,4 +1,6 @@
-﻿namespace Mimirorg.Authentication.Models.Content
+﻿using Newtonsoft.Json;
+
+namespace Mimirorg.Authentication.Models.Content
 {
     public class MimirorgCompanyCm
     {
@@ -7,5 +9,8 @@
         public string DisplayName { get; set; }
         public string Description { get; set; }
         public MimirorgUserCm Manager { get; set; }
+
+        [JsonIgnore]
+        public string Secret { get; set; }
     }
 }

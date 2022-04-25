@@ -17,6 +17,7 @@ using Mimirorg.Authentication.Factories;
 using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Authentication.Repositories;
 using Mimirorg.Authentication.Services;
+using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 
 namespace Mimirorg.Authentication.Extensions
@@ -26,8 +27,11 @@ namespace Mimirorg.Authentication.Extensions
         public static IServiceCollection AddMimirorgAuthenticationModule(this IServiceCollection serviceCollection)
         {
             // Dependency injection
+            serviceCollection.AddInjectableHostedService<ITimedHookService, TimedHookService>();
+            
             serviceCollection.AddScoped<IMimirorgTokenRepository, MimirorgTokenRepository>();
             serviceCollection.AddScoped<IMimirorgCompanyRepository, MimirorgCompanyRepository>();
+            serviceCollection.AddScoped<IMimirorgHookRepository, MimirorgHookRepository>();
 
             serviceCollection.AddScoped<IMimirorgAuthService, MimirorgAuthService>();
             serviceCollection.AddScoped<IMimirorgUserService, MimirorgUserService>();

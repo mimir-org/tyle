@@ -2,6 +2,7 @@
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Application;
 using Mimirorg.Authentication.Models.Content;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
@@ -11,10 +12,12 @@ namespace Mimirorg.Authentication.Services
     public class MimirorgCompanyService : IMimirorgCompanyService
     {
         private readonly IMimirorgCompanyRepository _mimirorgCompanyRepository;
+        private readonly IMimirorgHookRepository _mimirorgHookRepository;
 
-        public MimirorgCompanyService(IMimirorgCompanyRepository mimirorgCompanyRepository)
+        public MimirorgCompanyService(IMimirorgCompanyRepository mimirorgCompanyRepository, IMimirorgHookRepository mimirorgHookRepository)
         {
             _mimirorgCompanyRepository = mimirorgCompanyRepository;
+            _mimirorgHookRepository = mimirorgHookRepository;
         }
 
         /// <summary>
@@ -110,6 +113,17 @@ namespace Mimirorg.Authentication.Services
             await _mimirorgCompanyRepository.Delete(id);
             var status = await _mimirorgCompanyRepository.Context.SaveChangesAsync();
             return status == 1;
+        }
+
+        /// <summary>
+        /// Get all registered hooks for given cache key
+        /// </summary>
+        /// <param name="key">The cache key to search for</param>
+        /// <returns>A collection of hooks</returns>
+        public async Task<ICollection<MimirorgHookCm>> GetAllHooksForCache(CacheKey key)
+        {
+            var hooks = _mimirorgHookRepository.GetAll().Where(x => x.Key == key).Include(x => x.Company).Select(x => x.ToContentModel()).ToList();
+            return await Task.FromResult(hooks);
         }
     }
 }
