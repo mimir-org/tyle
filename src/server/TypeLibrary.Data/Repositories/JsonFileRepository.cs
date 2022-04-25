@@ -15,9 +15,9 @@ namespace TypeLibrary.Data.Repositories
         {
             var executingAssembly = System.Reflection.Assembly.GetExecutingAssembly().Location;
 
-            if (string.IsNullOrEmpty(executingAssembly)) 
+            if (string.IsNullOrEmpty(executingAssembly))
                 return;
-            
+
             _rootPath = Path.GetDirectoryName(executingAssembly);
 
             if (!string.IsNullOrEmpty(_rootPath))

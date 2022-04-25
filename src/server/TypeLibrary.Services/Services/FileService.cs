@@ -25,7 +25,7 @@ namespace TypeLibrary.Services.Services
         /// <param name="file"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task LoadDataFromFile(IFormFile file, CancellationToken cancellationToken)
+        public Task LoadDataFromFile(IFormFile file, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
             //await using var stream = new MemoryStream();
@@ -51,7 +51,7 @@ namespace TypeLibrary.Services.Services
         //{
         //    var existingTypes = _libraryLibraryTypeRepository.GetAll().ToList();
         //    var newTypes = new List<LibraryTypeLibAm>();
-            
+
         //    foreach (var createLibraryType in libraryTypes)
         //    {
         //        LibraryTypeLibDm libraryTypeDm = createLibraryType.ObjectType switch

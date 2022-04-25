@@ -12,7 +12,7 @@ namespace Mimirorg.TypeLibrary.Attributes
             if (value is not DateTime dt)
                 return new ValidationResult("This validation attribute could only be used on a DateTime object");
 
-            if(dt.Kind != DateTimeKind.Utc)
+            if (dt.Kind != DateTimeKind.Utc)
                 return new ValidationResult($"Property {validationContext.MemberName} must be in UTC format (ISO8601)");
 
             return ValidationResult.Success;

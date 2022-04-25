@@ -61,7 +61,7 @@ namespace TypeLibrary.Services.Tests
         public async Task Create_Node_Returns_MimirorgBadRequestException_When_Missing_Parameters(string name, string rds, string purpose, string createdBy, string created)
         {
             var s = created.ParseUtcDateTime();
-            
+
             var nodeToCreate = new NodeLibAm
             {
                 Name = name,
@@ -121,7 +121,7 @@ namespace TypeLibrary.Services.Tests
 
             var id = $"{name}-{rds}-{nodeToCreate.Aspect}-{nodeToCreate.Version}".CreateMd5();
 
-            var node = await  _libraryService.CreateNode(nodeToCreate);
+            var node = await _libraryService.CreateNode(nodeToCreate);
             Assert.NotNull(node);
             Assert.Equal(name, node.Name);
             Assert.Equal(rds, node.RdsId);

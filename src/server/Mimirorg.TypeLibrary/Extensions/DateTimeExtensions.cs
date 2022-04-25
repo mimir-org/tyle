@@ -35,8 +35,8 @@ namespace Mimirorg.TypeLibrary.Extensions
             }
 
             if (DateTimeOffset.TryParseExact(datetime, DateTimeOffsetFormats, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out var dtOffset))
-             return dtOffset.UtcDateTime;
-                
+                return dtOffset.UtcDateTime;
+
             return null;
         }
     }

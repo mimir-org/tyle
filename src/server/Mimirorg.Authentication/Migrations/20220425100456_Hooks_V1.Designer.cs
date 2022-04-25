@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Mimirorg.Authentication;
 
@@ -11,9 +12,10 @@ using Mimirorg.Authentication;
 namespace Mimirorg.Authentication.Migrations
 {
     [DbContext(typeof(MimirorgAuthenticationContext))]
-    partial class MimirorgAuthenticationContextModelSnapshot : ModelSnapshot
+    [Migration("20220425100456_Hooks_V1")]
+    partial class Hooks_V1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

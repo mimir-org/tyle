@@ -14,12 +14,12 @@ namespace Mimirorg.Authentication.Models.Application
         public int CompanyId { get; set; }
 
         public ICollection<MimirorgPermissionAm> Permissions { get; set; }
-        
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (Permissions == null) 
+            if (Permissions == null)
                 yield break;
-            
+
             foreach (var permission in Permissions)
             {
                 var v = permission.Validate(validationContext);

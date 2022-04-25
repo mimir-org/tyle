@@ -15,7 +15,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         [Required]
         public string PurposeId { get; set; }
-        
+
         public string ParentId { get; set; }
 
         public string Version { get; set; } = "1.0";

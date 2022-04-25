@@ -18,7 +18,7 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.Created).HasColumnName("Created").IsRequired();
             builder.Property(p => p.UpdatedBy).HasColumnName("UpdatedBy").IsRequired(false).HasDefaultValue(null).HasMaxLength(63);
             builder.Property(p => p.Updated).HasColumnName("Updated").IsRequired(false).HasDefaultValue(null);
-            
+
         }
     }
 }

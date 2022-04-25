@@ -17,7 +17,7 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.ParentId).HasColumnName("ParentId").IsRequired(false).HasMaxLength(127);
 
             builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
-            
+
             builder.HasMany(x => x.Attributes).WithMany(y => y.Terminals).UsingEntity<Dictionary<string, object>>("Terminal_Attribute",
                 x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),
                 x => x.HasOne<TerminalLibDm>().WithMany().HasForeignKey("TerminalId"),

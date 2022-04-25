@@ -28,7 +28,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color))
                 .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.Parent, opt => opt.MapFrom(src => src.Parent))
-                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src =>src.Attributes));
+                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes));
         }
 
         private IEnumerable<AttributeLibAm> ResolveAttributes(ICollection<string> attributeIdList, IAttributeFactory attributeFactory)
@@ -44,8 +44,8 @@ namespace TypeLibrary.Core.Profiles
 
                 yield return new AttributeLibAm
                 {
-                    Name = attribute.Name, 
-                    AttributeCondition = attribute.AttributeCondition, 
+                    Name = attribute.Name,
+                    AttributeCondition = attribute.AttributeCondition,
                     AttributeQualifier = attribute.AttributeQualifier,
                     AttributeSource = attribute.AttributeSource,
                     Aspect = attribute.Aspect

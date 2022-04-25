@@ -25,7 +25,7 @@ namespace TypeLibrary.Services.Services
         public const string TerminalTypeFileName = "terminal";
         public const string TransportFileName = "transport";
         public const string UnitFileName = "unit";
-        
+
         private readonly IAttributeService _attributeService;
         private readonly IBlobService _blobService;
         private readonly IAttributeConditionService _attributeConditionService;
@@ -40,9 +40,9 @@ namespace TypeLibrary.Services.Services
         private readonly ILibraryService _libraryTypeService;
         private readonly IFileRepository _fileRepository;
         private readonly ILogger<SeedingService> _logger;
-        
-        public SeedingService(IAttributeService attributeService, IBlobService blobService, IAttributeConditionService attributeConditionService, IAttributeFormatService attributeFormatService, 
-            IAttributeQualifierService attributeQualifierService, IAttributeSourceService attributeSourceService, IAttributeAspectService attributeAspectService, IPurposeService purposeService, IUnitService unitService, 
+
+        public SeedingService(IAttributeService attributeService, IBlobService blobService, IAttributeConditionService attributeConditionService, IAttributeFormatService attributeFormatService,
+            IAttributeQualifierService attributeQualifierService, IAttributeSourceService attributeSourceService, IAttributeAspectService attributeAspectService, IPurposeService purposeService, IUnitService unitService,
             IRdsService rdsService, ITerminalService terminalService, ILibraryService libraryTypeService, IFileRepository fileRepository, ILogger<SeedingService> logger)
         {
             _attributeService = attributeService;
@@ -60,7 +60,7 @@ namespace TypeLibrary.Services.Services
             _fileRepository = fileRepository;
             _logger = logger;
         }
-     
+
         public async Task LoadDataFromFiles()
         {
             try
@@ -82,12 +82,12 @@ namespace TypeLibrary.Services.Services
                 var attributePredefinedFiles = fileList.Where(x => x.ToLower().Equals(PredefinedAttributeFileName)).ToList();
                 var terminalFiles = fileList.Where(x => x.ToLower().Equals(TerminalTypeFileName)).ToList();
                 var rdsFiles = fileList.Where(x => x.ToLower().Equals(RdsFileName)).ToList();
-                
+
                 var blobFileNames = fileList.Where(x => x.ToLower().Equals(BlobFileName)).ToList();
                 var simpleFileNames = fileList.Where(x => x.ToLower().Equals(SimpleFileName)).ToList();
                 var transportFiles = fileList.Where(x => x.ToLower().Equals(TransportFileName)).ToList();
-                
-                
+
+
                 var attributeConditions = _fileRepository.ReadAllFiles<AttributeConditionLibAm>(attributeConditionFiles).ToList();
                 var attributeFormats = _fileRepository.ReadAllFiles<AttributeFormatLibAm>(attributeFormatFiles).ToList();
                 var attributeQualifiers = _fileRepository.ReadAllFiles<AttributeQualifierLibAm>(attributeQualifierFiles).ToList();
@@ -103,7 +103,7 @@ namespace TypeLibrary.Services.Services
                 var blobs = _fileRepository.ReadAllFiles<BlobLibAm>(blobFileNames).ToList();
                 var simple = _fileRepository.ReadAllFiles<SimpleLibAm>(simpleFileNames).ToList();
                 var transports = _fileRepository.ReadAllFiles<TransportLibAm>(transportFiles).ToList();
-                
+
                 await _attributeConditionService.CreateAttributeConditions(attributeConditions);
                 await _attributeFormatService.CreateAttributeFormats(attributeFormats);
                 await _attributeQualifierService.CreateAttributeQualifiers(attributeQualifiers);
@@ -111,7 +111,7 @@ namespace TypeLibrary.Services.Services
                 await _attributeAspectService.CreateAttributeAspects(attributeAspects);
                 await _purposeService.CreatePurposes(purposes);
                 await _unitService.CreateUnits(units);
-                
+
                 await _attributeService.CreateAttributes(attributes);
                 await _attributeService.CreateAttributesPredefined(attributesPredefined);
                 await _terminalService.CreateTerminals(terminals);

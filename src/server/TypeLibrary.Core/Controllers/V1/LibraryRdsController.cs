@@ -30,10 +30,10 @@ namespace TypeLibrary.Core.Controllers.V1
             _rdsService = rdsService;
         }
 
-       /// <summary>
-       /// Get all RDS codes
-       /// </summary>
-       /// <returns></returns>
+        /// <summary>
+        /// Get all RDS codes
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<RdsLibCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

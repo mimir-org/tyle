@@ -31,8 +31,8 @@ namespace TypeLibrary.Data.Configurations
             builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(x => x.Terminal).WithMany(y => y.Transports).HasForeignKey(x => x.TerminalId).OnDelete(DeleteBehavior.NoAction);
             builder.Property(p => p.TerminalId).HasColumnName("Transport_TerminalId").IsRequired(false);
-            
-            
+
+
         }
     }
 }
