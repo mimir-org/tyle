@@ -1,5 +1,5 @@
 import { Heading } from "../text";
-import { THEME } from "../core";
+import { theme } from "../core";
 import { MotionFlexbox } from "../layouts";
 
 interface Props {
@@ -17,7 +17,7 @@ export const FormHeader = ({ title, subtitle }: Props) => (
   <MotionFlexbox as={"header"} layout flexDirection={"column"}>
     {title && <Heading>{title}</Heading>}
     {subtitle && (
-      <Heading as={"h2"} font={THEME.FONT.TYPES.H3}>
+      <Heading as={"h2"} font={theme.font.types.h3}>
         {subtitle}
       </Heading>
     )}

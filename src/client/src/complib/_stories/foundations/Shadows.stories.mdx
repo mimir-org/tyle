@@ -1,5 +1,5 @@
 import { Meta } from "@storybook/addon-docs";
-import { GlobalStyle, THEME } from "../../core";
+import { GlobalStyle, theme } from "../../core";
 import { Box } from "../../layouts";
 import { Text } from "../../text";
 
@@ -19,14 +19,14 @@ Here you will find an overview of the different shadows available. These are use
   display="flex"
   flexDirection={"column"}
   justifyContent={"space-between"}
-  gap={THEME.SPACING.XXL}
-  p={THEME.SPACING.XL}
-  border={`2px solid ${THEME.COLOR.BORDER.PRIMARY.BASE}`}
-  borderRadius={THEME.BORDER.RADIUS.MEDIUM}
+  gap={theme.spacing.xxl}
+  p={theme.spacing.xl}
+  border={`2px solid ${theme.color.outline}`}
+  borderRadius={theme.border.radius.medium}
 >
-  {Object.entries(THEME.SHADOW).map(([k, v]) => {
+  {Object.entries(theme.shadow).map(([k, v]) => {
     return (
-      <Box key={v} display="flex" flexDirection={"column"} gap={THEME.SPACING.LARGE} p={THEME.SPACING.LARGE} boxShadow={v}>
+      <Box key={v} display="flex" flexDirection={"column"} gap={theme.spacing.large} p={theme.spacing.large} boxShadow={v}>
         <Text as={"b"}>{k}</Text>
         <Text as={"small"}>{v}</Text>
       </Box>
