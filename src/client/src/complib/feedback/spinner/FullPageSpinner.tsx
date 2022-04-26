@@ -1,6 +1,7 @@
 import { FullPageSpinnerContainer } from "./FullPageSpinner.styled";
 import { Spinner } from "./Spinner";
 import { Heading } from "../../text";
+import { theme } from "../../core";
 
 interface Props {
   text?: string;
@@ -13,7 +14,7 @@ interface Props {
  */
 export const FullPageSpinner = ({ text }: Props) => (
   <FullPageSpinnerContainer>
-    <Heading>{text}</Heading>
+    <Heading color={theme.color.background.on}>{text}</Heading>
     <Spinner />
   </FullPageSpinnerContainer>
 );

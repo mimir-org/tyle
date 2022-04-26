@@ -5,55 +5,55 @@ export const UnauthenticatedLayout = styled.div`
   height: 100%;
 
   // Generated block background
-  background-color: var(--color-background-primary-inverted);
+  background-color: var(--tl-sys-color-tertiary-container);
   opacity: 1;
   background-image: linear-gradient(
       30deg,
-      var(--color-primary) 12%,
+      var(--tl-sys-color-inverse-primary) 12%,
       transparent 12.5%,
       transparent 87%,
-      var(--color-primary) 87.5%,
-      var(--color-primary)
+      var(--tl-sys-color-inverse-primary) 87.5%,
+      var(--tl-sys-color-inverse-primary)
     ),
     linear-gradient(
       150deg,
-      var(--color-primary) 12%,
+      var(--tl-sys-color-inverse-primary) 12%,
       transparent 12.5%,
       transparent 87%,
-      var(--color-primary) 87.5%,
-      var(--color-primary)
+      var(--tl-sys-color-inverse-primary) 87.5%,
+      var(--tl-sys-color-inverse-primary)
     ),
     linear-gradient(
       30deg,
-      var(--color-primary) 12%,
+      var(--tl-sys-color-secondary) 12%,
       transparent 12.5%,
       transparent 87%,
-      var(--color-primary) 87.5%,
-      var(--color-primary)
+      var(--tl-sys-color-secondary) 87.5%,
+      var(--tl-sys-color-secondary)
     ),
     linear-gradient(
       150deg,
-      var(--color-primary) 12%,
+      var(--tl-sys-color-secondary) 12%,
       transparent 12.5%,
       transparent 87%,
-      var(--color-primary) 87.5%,
-      var(--color-primary)
+      var(--tl-sys-color-secondary) 87.5%,
+      var(--tl-sys-color-secondary)
     ),
     linear-gradient(
       60deg,
-      var(--color-secondary-alpha) 25%,
+      var(--tl-sys-color-tertiary) 25%,
       transparent 25.5%,
       transparent 75%,
-      var(--color-primary-alpha) 75%,
-      var(--color-secondary)
+      var(--tl-sys-color-tertiary) 75%,
+      var(--tl-sys-color-tertiary)
     ),
     linear-gradient(
       60deg,
-      var(--color-primary-alpha) 25%,
+      var(--tl-sys-color-tertiary) 25%,
       transparent 25.5%,
       transparent 75%,
-      var(--color-secondary-alpha) 75%,
-      var(--color-primary-alpha)
+      var(--tl-sys-color-tertiary) 75%,
+      var(--tl-sys-color-tertiary)
     );
   background-size: 80px 140px;
   background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;

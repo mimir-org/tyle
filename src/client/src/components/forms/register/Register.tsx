@@ -9,7 +9,7 @@ import { RegisterProcessing } from "./components/RegisterProcessing";
 import { TextResources } from "../../../assets/text";
 import { LibraryIcon } from "../../../assets/icons/modules";
 import { UnauthenticatedFormContainer } from "../styled/UnauthenticatedForm";
-import { THEME } from "../../../complib/core";
+import { theme } from "../../../complib/core";
 import { MotionIcon } from "../../../complib/media";
 import { Input } from "../../../complib/inputs";
 import { Button } from "../../../complib/buttons";
@@ -92,7 +92,7 @@ export const Register = () => {
             </MotionText>
           </FormFieldset>
 
-          <MotionFlexbox layout flexDirection={"column"} gap={THEME.SPACING.LARGE}>
+          <MotionFlexbox layout flexDirection={"column"} gap={theme.spacing.large}>
             <Button>{TextResources.REGISTER_SUBMIT}</Button>
             <Text>
               {TextResources.REGISTER_IS_REGISTERED} <Link to="/">{TextResources.REGISTER_LOGIN_LINK}</Link>
