@@ -17,7 +17,7 @@ interface TokenProps {
  */
 export const Token = ({ text, variant = "medium" }: TokenProps) => {
   const boxProps = boxVariants[variant];
-  const textProps = textVariants[variant];
+  const textVariant = `label-${variant}` as const;
 
   return (
     <Box
@@ -29,9 +29,10 @@ export const Token = ({ text, variant = "medium" }: TokenProps) => {
       borderRadius={"999px"}
       width={"fit-content"}
       maxWidth={"100%"}
-      bgColor={theme.color.secondary.base}
+      bgColor={theme.color.surface.base}
+      border={`1px solid ${theme.color.outline.base}`}
     >
-      <Text {...textProps} whiteSpace={"nowrap"} color={theme.color.secondary.on}>
+      <Text variant={textVariant} whiteSpace={"nowrap"} color={theme.color.surface.on}>
         {text}
       </Text>
     </Box>
@@ -53,17 +54,5 @@ const boxVariants = {
     gap: theme.spacing.small,
     py: theme.spacing.small,
     px: theme.spacing.large,
-  },
-};
-
-const textVariants = {
-  small: {
-    fontSize: theme.font.sizes.small,
-  },
-  medium: {
-    fontSize: theme.font.sizes.base,
-  },
-  large: {
-    fontSize: theme.font.sizes.medium,
   },
 };

@@ -5,43 +5,53 @@ import { css } from "styled-components/macro";
  */
 export const globalTypographyStyle = css`
   body {
-    font-family: var(--tl-sys-font-family);
-    font-weight: var(--tl-sys-font-weight-normal);
-    font-size: var(--tl-sys-font-base-size);
+    font-family: var(--tl-ref-typeface-brand);
+    font-weight: var(--tl-ref-typeface-weight-normal);
+    font-size: var(--tl-ref-font-base-size);
     color: var(--tl-sys-color-on-background);
   }
 
   h1 {
-    font: var(--tl-sys-font-h1);
+    font: var(--tl-sys-typescale-display-large);
+    letter-spacing: var(--tl-sys-typescale-display-large-spacing);
+    line-height: var(--tl-sys-typescale-display-large-line-height);
   }
 
   h2 {
-    font: var(--tl-sys-font-h2);
+    font: var(--tl-sys-typescale-display-medium);
+    letter-spacing: var(--tl-sys-typescale-display-medium-spacing);
+    line-height: var(--tl-sys-typescale-display-medium-line-height);
   }
 
   h3 {
-    font: var(--tl-sys-font-h3);
+    font: var(--tl-sys-typescale-display-small);
+    letter-spacing: var(--tl-sys-typescale-display-small-spacing);
+    line-height: var(--tl-sys-typescale-display-small-line-height);
   }
 
   h4 {
-    font: var(--tl-sys-font-h4);
+    font: var(--tl-sys-typescale-headline-large);
+    letter-spacing: var(--tl-sys-typescale-headline-large-spacing);
+    line-height: var(--tl-sys-typescale-headline-large-line-height);
   }
 
   h5 {
-    font: var(--tl-sys-font-h5);
+    font: var(--tl-sys-typescale-headline-medium);
+    letter-spacing: var(--tl-sys-typescale-headline-medium-spacing);
+    line-height: var(--tl-sys-typescale-headline-medium-line-height);
   }
 
-  p {
-    font: var(--tl-sys-font-text);
+  h6 {
+    font: var(--tl-sys-typescale-headline-small);
+    letter-spacing: var(--tl-sys-typescale-headline-small-spacing);
+    line-height: var(--tl-sys-typescale-headline-small-line-height);
   }
 
-  b,
-  strong {
-    font-weight: var(--tl-sys-font-weight-bold);
-  }
-
+  p,
   a {
-    font: var(--tl-sys-font-link);
+    font: var(--tl-sys-typescale-body-large);
+    letter-spacing: var(--tl-sys-typescale-body-large-spacing);
+    line-height: var(--tl-sys-typescale-body-large-line-height);
   }
 
   a:hover {
@@ -49,7 +59,17 @@ export const globalTypographyStyle = css`
     cursor: pointer;
   }
 
+  b,
+  strong {
+    font-size: var(--tl-sys-typescale-body-large-size);
+    font-weight: var(--tl-ref-typeface-weight-bold);
+    letter-spacing: var(--tl-sys-typescale-body-large-spacing);
+    line-height: var(--tl-sys-typescale-body-large-line-height);
+  }
+
   small {
-    font: var(--tl-sys-font-subtext);
+    font: var(--tl-sys-typescale-body-small);
+    letter-spacing: var(--tl-sys-typescale-body-small-spacing);
+    line-height: var(--tl-sys-typescale-body-small-line-height);
   }
 `;

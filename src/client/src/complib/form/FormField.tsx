@@ -17,7 +17,7 @@ interface FormFieldProps {
  */
 export const FormField = ({ label, error, children }: PropsWithChildren<FormFieldProps>) => (
   <MotionFlexbox layout={"position"} flexDirection={"column"} gap={theme.spacing.xs}>
-    <Text as={"label"} fontWeight={theme.font.weights.bold}>
+    <Text as={"label"} variant={"label-large"}>
       {label}
     </Text>
     {children}

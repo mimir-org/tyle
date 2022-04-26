@@ -4,6 +4,9 @@
 This directory houses mixins that implement the property interfaces defined in the "./props" directory.  
 The aim is that these should be reused for components that expose any of the properties defined within these interfaces.
 
+In addition to the standard prop/mixin implementations one might find more specialized mixins such as "textVariantMixin.ts",
+mixins like these are usually utilized by a small set of components.
+
 ## Partial implementations
 Should you want to expose only parts of an interface to the consumer, then consider omitting or picking parts of a given interface.
 

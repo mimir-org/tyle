@@ -1,12 +1,14 @@
 import styled from "styled-components/macro";
 import { ElementType } from "react";
 import { motion } from "framer-motion";
-import { Palette, Polymorphic, Typography } from "../props";
-import { paletteMixin, typographyMixin } from "../mixins";
+import { Display, Palette, Polymorphic, TextVariant, Typography } from "../props";
+import { displayMixin, paletteMixin, textVariantMixin, typographyMixin } from "../mixins";
 
 type HeadingProps = Pick<Palette, "color"> &
+  Pick<Display, "whiteSpace" | "display"> &
   Pick<Typography, "font" | "fontSize" | "fontWeight"> &
-  Polymorphic<ElementType> & {
+  Polymorphic<ElementType> &
+  TextVariant & {
     useEllipsis?: boolean;
     ellipsisMaxLines?: number;
   };
@@ -26,6 +28,8 @@ type HeadingProps = Pick<Palette, "color"> &
 export const Heading = styled.h1<HeadingProps>`
   ${typographyMixin};
   ${paletteMixin};
+  ${displayMixin};
+  ${textVariantMixin};
 
   ${({ useEllipsis, ellipsisMaxLines }) =>
     useEllipsis &&

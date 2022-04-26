@@ -21,18 +21,14 @@ export const ModalContentContainer = styled.div<ModalContentContainerProps>`
   padding: var(--tl-sys-spacing-large);
 `;
 
-export const ModalHeader = styled.header`
-  margin-bottom: var(--tl-sys-spacing-small);
-`;
-
-export const ModalHeaderTitle = styled.h1`
-  font: var(--tl-sys-font-h2);
+export const ModalHeaderTitle = styled.p`
+  font: var(--tl-sys-typescale-headline-small);
   color: var(--tl-sys-color-on-surface);
   margin: 0;
 `;
 
 export const ModalHeaderDescription = styled.p`
-  font: var(--tl-sys-font-subtext);
+  font: var(--tl-sys-typescale-body-large);
   color: var(--tl-sys-color-on-surface-variant);
   margin: 0;
 `;

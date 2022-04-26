@@ -18,8 +18,7 @@ The spacing is calculated from the base font size (1rem), which means that alter
 
 <Box
   display="flex"
-  justifyContent={"space-between"}
-  alignItems={"end"}
+  flexDirection={"column"}
   gap={theme.spacing.large}
   p={theme.spacing.xl}
   border={`2px solid ${theme.color.outline.base}`}
@@ -27,10 +26,10 @@ The spacing is calculated from the base font size (1rem), which means that alter
 >
   {Object.entries(theme.spacing).map(([k, v]) => {
     return (
-      <Flexbox key={v} flexDirection="column" gap={theme.spacing.small}>
-        <Box height={v} maxWidth="60px" bgColor={theme.color.secondary.base} />
-        <Text as={"b"}>{k}</Text>
-        <Text as={"small"} fontSize={theme.font.sizes.xxs}>{v}</Text>
+      <Flexbox key={v} flexDirection="column" gap={theme.spacing.xs}>
+        <Box height={"40px"} width={v} bgColor={theme.color.primary.base} />
+        <Text variant={"label-large"}>{k}</Text>
+        <Text variant={"label-medium"}>{v}</Text>
       </Flexbox>
     );
   })}

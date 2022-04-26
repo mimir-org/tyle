@@ -1,6 +1,6 @@
 import { spacing } from "../variables/variablesSpacing";
 import { border } from "../variables/variablesBorder";
-import { font } from "../variables/variablesFont";
+import { typography } from "../variables/variablesTypography";
 import { shadow } from "../variables/variablesShadow";
 import { color } from "../variables/variablesColor";
 
@@ -12,7 +12,7 @@ import { color } from "../variables/variablesColor";
 export const theme = {
   border: border,
   color: color,
-  font: font,
+  typography: typography,
   shadow: shadow,
   spacing: spacing,
 };
