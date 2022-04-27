@@ -5,23 +5,23 @@ export const UnauthenticatedLayout = styled.div`
   height: 100%;
 
   // Generated block background
-  background-color: var(--tl-sys-color-tertiary-container);
+  background-color: var(--tl-sys-color-secondary-container);
   opacity: 1;
   background-image: linear-gradient(
       30deg,
-      var(--tl-sys-color-inverse-primary) 12%,
+      var(--tl-sys-color-on-primary-container) 12%,
       transparent 12.5%,
       transparent 87%,
-      var(--tl-sys-color-inverse-primary) 87.5%,
-      var(--tl-sys-color-inverse-primary)
+      var(--tl-sys-color-on-primary-container) 87.5%,
+      var(--tl-sys-color-on-primary-container)
     ),
     linear-gradient(
       150deg,
-      var(--tl-sys-color-inverse-primary) 12%,
+      var(--tl-sys-color-on-primary-container) 12%,
       transparent 12.5%,
       transparent 87%,
-      var(--tl-sys-color-inverse-primary) 87.5%,
-      var(--tl-sys-color-inverse-primary)
+      var(--tl-sys-color-on-primary-container) 87.5%,
+      var(--tl-sys-color-on-primary-container)
     ),
     linear-gradient(
       30deg,

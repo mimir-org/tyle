@@ -21,13 +21,13 @@ The spacing is calculated from the base font size (1rem), which means that alter
   flexDirection={"column"}
   gap={theme.spacing.large}
   p={theme.spacing.xl}
-  border={`2px solid ${theme.color.outline.base}`}
+  border={`2px solid ${theme.color.light.outline.base}`}
   borderRadius={theme.border.radius.medium}
 >
   {Object.entries(theme.spacing).map(([k, v]) => {
     return (
       <Flexbox key={v} flexDirection="column" gap={theme.spacing.xs}>
-        <Box height={"40px"} width={v} bgColor={theme.color.primary.base} />
+        <Box height={"40px"} width={v} bgColor={theme.color.light.primary.base} />
         <Text variant={"label-large"}>{k}</Text>
         <Text variant={"label-medium"}>{v}</Text>
       </Flexbox>

@@ -1,76 +1,157 @@
 import { css } from "styled-components/macro";
 
+export const lightTheme: ColorSystem = {
+  primary: {
+    base: "#5d6408",
+    on: "#ffffff",
+    container: "#e1eb7b",
+    onContainer: "#1a1e01",
+  },
+  secondary: {
+    base: "#5f6145",
+    on: "#ffffff",
+    container: "#e3e5c3",
+    onContainer: "#1b1d08",
+  },
+  tertiary: {
+    base: "#4c665b",
+    on: "#ffffff",
+    container: "#ceecde",
+    onContainer: "#0f2019",
+  },
+  error: {
+    base: "#9d1714",
+    on: "#ffffff",
+    container: "#f4dad4",
+    onContainer: "#350000",
+  },
+  outline: {
+    base: "#78786a",
+  },
+  background: {
+    base: "#fefcf4",
+    on: "#1c1c17",
+  },
+  surface: {
+    base: "#fefcf4",
+    on: "#1c1c17",
+    variant: {
+      base: "#e4e3d2",
+      on: "#47483b",
+    },
+    inverse: {
+      base: "#31312b",
+      on: "#f4f1e9",
+    },
+  },
+}
+
+export const darkTheme: ColorSystem = {
+  primary: {
+    base: "#c5cf62",
+    on: "#2f3402",
+    container: "#454b04",
+    onContainer: "#e1eb7b",
+  },
+  secondary: {
+    base: "#c7c9a8",
+    on: "#30321b",
+    container: "#47492f",
+    onContainer: "#e3e5c3",
+  },
+  tertiary: {
+    base: "#b3d0c3",
+    on: "#1f372d",
+    container: "#354e43",
+    onContainer: "#ceecde",
+  },
+  error: {
+    base: "#eab3a8",
+    on: "#560000",
+    container: "#7b0000",
+    onContainer: "#f4dad4",
+  },
+  outline: {
+    base: "#929283",
+  },
+  background: {
+    base: "#1c1c17",
+    on: "#e4e2da",
+  },
+  surface: {
+    base: "#1c1c17",
+    on: "#e4e2da",
+    variant: {
+      base: "#47483b",
+      on: "#c8c7b7",
+    },
+    inverse: {
+      base: "#e5e2da",
+      on: "#1c1c17",
+    },
+  },
+}
+
+export const color = {
+  light: lightTheme,
+  dark: darkTheme,
+};
+
 export const variablesColor = css`
   :root {
-    --tl-sys-color-primary-light: #5d6408;
-    --tl-sys-color-on-primary-light: #ffffff;
-    --tl-sys-color-primary-container-light: #e1eb7b;
-    --tl-sys-color-on-primary-container-light: #1a1e01;
-    
-    --tl-sys-color-secondary-light: #5f6145;
-    --tl-sys-color-on-secondary-light: #ffffff;
-    --tl-sys-color-secondary-container-light: #e3e5c3;
-    --tl-sys-color-on-secondary-container-light: #1b1d08;
-    
-    --tl-sys-color-tertiary-light: #4c665b;
-    --tl-sys-color-on-tertiary-light: #ffffff;
-    --tl-sys-color-tertiary-container-light: #ceecde;
-    --tl-sys-color-on-tertiary-container-light: #0f2019;
-    
-    --tl-sys-color-error-light: #9d1714;
-    --tl-sys-color-on-error-light: #ffffff;
-    --tl-sys-color-error-container-light: #f4dad4;
-    --tl-sys-color-on-error-container-light: #350000;
-    
-    --tl-sys-color-outline-light: #78786a;
-    
-    --tl-sys-color-background-light: #fefcf4;
-    --tl-sys-color-on-background-light: #1c1c17;
-    
-    --tl-sys-color-surface-light: #fefcf4;
-    --tl-sys-color-on-surface-light: #1c1c17;
-    
-    --tl-sys-color-surface-variant-light: #e4e3d2;
-    --tl-sys-color-on-surface-variant-light: #47483b;
-    
-    --tl-sys-color-inverse-primary-light: #c1cf5e;
-    --tl-sys-color-inverse-surface-light: #31312b;
-    --tl-sys-color-inverse-on-surface-light: #f4f1e9;
+    // Light    
+    --tl-sys-color-primary-light: ${lightTheme.primary.base};
+    --tl-sys-color-on-primary-light: ${lightTheme.primary.on};
+    --tl-sys-color-primary-container-light: ${lightTheme.primary.container};
+    --tl-sys-color-on-primary-container-light: ${lightTheme.primary.onContainer};
+    --tl-sys-color-secondary-light: ${lightTheme.secondary.base};
+    --tl-sys-color-on-secondary-light: ${lightTheme.secondary.on};
+    --tl-sys-color-secondary-container-light: ${lightTheme.secondary.container};
+    --tl-sys-color-on-secondary-container-light: ${lightTheme.secondary.onContainer};
+    --tl-sys-color-tertiary-light: ${lightTheme.tertiary.base};
+    --tl-sys-color-on-tertiary-light: ${lightTheme.tertiary.on};
+    --tl-sys-color-tertiary-container-light: ${lightTheme.tertiary.container};
+    --tl-sys-color-on-tertiary-container-light: ${lightTheme.tertiary.onContainer};
+    --tl-sys-color-error-light: ${lightTheme.error.base};
+    --tl-sys-color-on-error-light: ${lightTheme.error.on};
+    --tl-sys-color-error-container-light: ${lightTheme.error.container};
+    --tl-sys-color-on-error-container-light: ${lightTheme.error.onContainer};
+    --tl-sys-color-outline-light: ${lightTheme.outline.base};
+    --tl-sys-color-background-light: ${lightTheme.background.base};
+    --tl-sys-color-on-background-light: ${lightTheme.background.on};
+    --tl-sys-color-surface-light: ${lightTheme.surface.base};
+    --tl-sys-color-on-surface-light: ${lightTheme.surface.on};
+    --tl-sys-color-surface-variant-light: ${lightTheme.surface.variant.base};
+    --tl-sys-color-on-surface-variant-light: ${lightTheme.surface.variant.on};
+    --tl-sys-color-inverse-surface-light: ${lightTheme.surface.inverse.base};
+    --tl-sys-color-inverse-on-surface-light: ${lightTheme.surface.inverse.on};
 
-    --tl-sys-color-primary-dark: #c5cf62;
-    --tl-sys-color-on-primary-dark: #2f3402;
-    --tl-sys-color-primary-container-dark: #454b04;
-    --tl-sys-color-on-primary-container-dark: #e1eb7b;
-    
-    --tl-sys-color-secondary-dark: #c7c9a8;
-    --tl-sys-color-on-secondary-dark: #30321b;
-    --tl-sys-color-secondary-container-dark: #47492f;
-    --tl-sys-color-on-secondary-container-dark: #e3e5c3;
-    
-    --tl-sys-color-tertiary-dark: #b3d0c3;
-    --tl-sys-color-on-tertiary-dark: #1f372d;
-    --tl-sys-color-tertiary-container-dark: #354e43;
-    --tl-sys-color-on-tertiary-container-dark: #ceecde;
-    
-    --tl-sys-color-error-dark: #eab3a8;
-    --tl-sys-color-on-error-dark: #560000;
-    --tl-sys-color-error-container-dark: #7b0000;
-    --tl-sys-color-on-error-container-dark: #f4dad4;
-    
-    --tl-sys-color-outline-dark: #929283;
-    
-    --tl-sys-color-background-dark: #1c1c17;
-    --tl-sys-color-on-background-dark: #e4e2da;
-    
-    --tl-sys-color-surface-dark: #1c1c17;
-    --tl-sys-color-on-surface-dark: #e4e2da;
-    
-    --tl-sys-color-surface-variant-dark: #47483b;
-    --tl-sys-color-on-surface-variant-dark: #c8c7b7;
-    
-    --tl-sys-color-inverse-primary-dark: #5a6400;
-    --tl-sys-color-inverse-surface-dark: #e5e2da;
-    --tl-sys-color-inverse-on-surface-dark: #1c1c17;
+    // Dark
+    --tl-sys-color-primary-dark: ${darkTheme.primary.base};
+    --tl-sys-color-on-primary-dark: ${darkTheme.primary.on};
+    --tl-sys-color-primary-container-dark: ${darkTheme.primary.container};
+    --tl-sys-color-on-primary-container-dark: ${darkTheme.primary.onContainer};
+    --tl-sys-color-secondary-dark: ${darkTheme.secondary.base};
+    --tl-sys-color-on-secondary-dark: ${darkTheme.secondary.on};
+    --tl-sys-color-secondary-container-dark: ${darkTheme.secondary.container};
+    --tl-sys-color-on-secondary-container-dark: ${darkTheme.secondary.onContainer};
+    --tl-sys-color-tertiary-dark: ${darkTheme.tertiary.base};
+    --tl-sys-color-on-tertiary-dark: ${darkTheme.tertiary.on};
+    --tl-sys-color-tertiary-container-dark: ${darkTheme.tertiary.container};
+    --tl-sys-color-on-tertiary-container-dark: ${darkTheme.tertiary.onContainer};
+    --tl-sys-color-error-dark: ${darkTheme.error.base};
+    --tl-sys-color-on-error-dark: ${darkTheme.error.on};
+    --tl-sys-color-error-container-dark: ${darkTheme.error.container};
+    --tl-sys-color-on-error-container-dark: ${darkTheme.error.onContainer};
+    --tl-sys-color-outline-dark: ${darkTheme.outline.base};
+    --tl-sys-color-background-dark: ${darkTheme.background.base};
+    --tl-sys-color-on-background-dark: ${darkTheme.background.on};
+    --tl-sys-color-surface-dark: ${darkTheme.surface.base};
+    --tl-sys-color-on-surface-dark: ${darkTheme.surface.on};
+    --tl-sys-color-surface-variant-dark: ${darkTheme.surface.variant.base};
+    --tl-sys-color-on-surface-variant-dark: ${darkTheme.surface.variant.on};
+    --tl-sys-color-inverse-surface-dark: ${darkTheme.surface.inverse.base};
+    --tl-sys-color-inverse-on-surface-dark: ${darkTheme.surface.inverse.on};
 
     @media (prefers-color-scheme: light) {
         --tl-sys-color-primary: var(--tl-sys-color-primary-light);
@@ -96,7 +177,6 @@ export const variablesColor = css`
         --tl-sys-color-on-surface: var(--tl-sys-color-on-surface-light);
         --tl-sys-color-surface-variant: var(--tl-sys-color-surface-variant-light);
         --tl-sys-color-on-surface-variant: var(--tl-sys-color-on-surface-variant-light);
-        --tl-sys-color-inverse-primary: var(--tl-sys-color-inverse-primary-light);
         --tl-sys-color-inverse-surface: var(--tl-sys-color-inverse-surface-light);
         --tl-sys-color-inverse-on-surface: var(--tl-sys-color-inverse-on-surface-light);
       
@@ -124,7 +204,6 @@ export const variablesColor = css`
         --tl-sys-color-on-surface: var(--tl-sys-color-on-surface-dark);
         --tl-sys-color-surface-variant: var(--tl-sys-color-surface-variant-dark);
         --tl-sys-color-on-surface-variant: var(--tl-sys-color-on-surface-variant-dark);
-        --tl-sys-color-inverse-primary: var(--tl-sys-color-inverse-primary-dark);
         --tl-sys-color-inverse-surface: var(--tl-sys-color-inverse-surface-dark);
         --tl-sys-color-inverse-on-surface: var(--tl-sys-color-inverse-on-surface-dark);
       }
@@ -154,7 +233,6 @@ export const variablesColor = css`
         --tl-sys-color-on-surface: var(--tl-sys-color-on-surface-dark);
         --tl-sys-color-surface-variant: var(--tl-sys-color-surface-variant-dark);
         --tl-sys-color-on-surface-variant: var(--tl-sys-color-on-surface-variant-dark);
-        --tl-sys-color-inverse-primary: var(--tl-sys-color-inverse-primary-dark);
         --tl-sys-color-inverse-surface: var(--tl-sys-color-inverse-surface-dark);
         --tl-sys-color-inverse-on-surface: var(--tl-sys-color-inverse-on-surface-dark);
       
@@ -182,55 +260,28 @@ export const variablesColor = css`
         --tl-sys-color-on-surface: var(--tl-sys-color-on-surface-light);
         --tl-sys-color-surface-variant: var(--tl-sys-color-surface-variant-light);
         --tl-sys-color-on-surface-variant: var(--tl-sys-color-on-surface-variant-light);
-        --tl-sys-color-inverse-primary: var(--tl-sys-color-inverse-primary-light);
         --tl-sys-color-inverse-surface: var(--tl-sys-color-inverse-surface-light);
         --tl-sys-color-inverse-on-surface: var(--tl-sys-color-inverse-on-surface-light);
       }
   }
 `;
 
-export const color = {
-  primary: {
-    base: "var(--tl-sys-color-primary)",
-    on: "var(--tl-sys-color-on-primary)",
-    container: "var(--tl-sys-color-primary-container)",
-    onContainer: "var(--tl-sys-color-on-primary-container)",
-  },
-  secondary: {
-    base: "var(--tl-sys-color-secondary)",
-    on: "var(--tl-sys-color-on-secondary)",
-    container: "var(--tl-sys-color-secondary-container)",
-    onContainer: "var(--tl-sys-color-on-secondary-container)",
-  },
-  tertiary: {
-    base: "var(--tl-sys-color-tertiary)",
-    on: "var(--tl-sys-color-on-tertiary)",
-    container: "var(--tl-sys-color-tertiary-container)",
-    onContainer: "var(--tl-sys-color-on-tertiary-container)",
-  },
-  error: {
-    base: "var(--tl-sys-color-error)",
-    on: "var(--tl-sys-color-on-error)",
-    container: "var(--tl-sys-color-error-container)",
-    onContainer: "var(--tl-sys-color-on-error-container)",
-  },
-  outline: {
-    base: "var(--tl-sys-color-outline)",
-  },
-  background: {
-    base: "var(--tl-sys-color-background)",
-    on: "var(--tl-sys-color-on-background)",
-  },
-  surface: {
-    base: "var(--tl-sys-color-surface)",
-    on: "var(--tl-sys-color-on-surface)",
-    variant: {
-      base: "var(--tl-sys-color-surface-variant)",
-      on: "var(--tl-sys-color-on-surface-variant)",
-    },
-    inverse: {
-      base: "var(--tl-sys-color-inverse-surface)",
-      on: "var(--tl-sys-color-inverse-on-surface)",
-    },
-  },
-};
+interface Accent {
+  base: string,
+  on: string,
+  container: string,
+  onContainer: string,
+}
+
+export interface ColorSystem {
+  primary: Accent,
+  secondary: Accent,
+  tertiary: Accent,
+  error: Accent,
+  outline: Pick<Accent, "base">,
+  background: Pick<Accent, "base" | "on">,
+  surface: Pick<Accent, "base" | "on"> & {
+    variant: Pick<Accent, "base" | "on">,
+    inverse: Pick<Accent, "base" | "on">
+  }
+}

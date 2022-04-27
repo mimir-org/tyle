@@ -1,8 +1,8 @@
-import { spacing } from "../variables/variablesSpacing";
-import { border } from "../variables/variablesBorder";
-import { typography } from "../variables/variablesTypography";
-import { shadow } from "../variables/variablesShadow";
-import { color } from "../variables/variablesColor";
+import { spacing, SpacingSystem } from "../variables/variablesSpacing";
+import { border, BorderSystem } from "../variables/variablesBorder";
+import { typography, TypographySystem } from "../variables/variablesTypography";
+import { shadow, ShadowSystem } from "../variables/variablesShadow";
+import { color, ColorSystem, darkTheme, lightTheme } from "../variables/variablesColor";
 
 /**
  * Exposes all CSS variables through a typed object.
@@ -15,4 +15,28 @@ export const theme = {
   typography: typography,
   shadow: shadow,
   spacing: spacing,
+};
+
+/**
+ * Defines the theme available through styled-component's theme-provider
+ */
+declare module "styled-components" {
+  export interface DefaultTheme {
+    border: BorderSystem;
+    color: ColorSystem;
+    typography: TypographySystem;
+    shadow: ShadowSystem;
+    spacing: SpacingSystem;
+  }
+}
+
+interface ThemeBuilderProps {
+  colorTheme: string;
+}
+
+export const themeBuilder = ({ colorTheme }: ThemeBuilderProps) => {
+  return {
+    ...theme,
+    color: colorTheme === "dark" ? darkTheme : lightTheme,
+  };
 };

@@ -1,7 +1,7 @@
+import { useTheme } from "styled-components";
 import { FullPageSpinnerContainer } from "./FullPageSpinner.styled";
 import { Spinner } from "./Spinner";
 import { Heading } from "../../text";
-import { theme } from "../../core";
 
 interface Props {
   text?: string;
@@ -12,9 +12,13 @@ interface Props {
  * @param text Text which is shown to the left of the spinner animation
  * @constructor
  */
-export const FullPageSpinner = ({ text }: Props) => (
-  <FullPageSpinnerContainer>
-    <Heading color={theme.color.background.on}>{text}</Heading>
-    <Spinner />
-  </FullPageSpinnerContainer>
-);
+export const FullPageSpinner = ({ text }: Props) => {
+  const theme = useTheme();
+
+  return (
+    <FullPageSpinnerContainer>
+      <Heading color={theme.color.background.on}>{text}</Heading>
+      <Spinner />
+    </FullPageSpinnerContainer>
+  );
+};

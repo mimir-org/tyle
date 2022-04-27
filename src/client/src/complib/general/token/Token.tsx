@@ -1,3 +1,4 @@
+import { useTheme } from "styled-components";
 import { Box } from "../../layouts";
 import { Text } from "../../text";
 import { theme } from "../../core";
@@ -18,6 +19,7 @@ interface TokenProps {
 export const Token = ({ text, variant = "medium" }: TokenProps) => {
   const boxProps = boxVariants[variant];
   const textVariant = `label-${variant}` as const;
+  const contextTheme = useTheme();
 
   return (
     <Box
@@ -29,10 +31,10 @@ export const Token = ({ text, variant = "medium" }: TokenProps) => {
       borderRadius={"999px"}
       width={"fit-content"}
       maxWidth={"100%"}
-      bgColor={theme.color.surface.base}
-      border={`1px solid ${theme.color.outline.base}`}
+      bgColor={contextTheme.color.surface.base}
+      border={`1px solid ${contextTheme.color.outline.base}`}
     >
-      <Text variant={textVariant} whiteSpace={"nowrap"} color={theme.color.surface.on}>
+      <Text variant={textVariant} whiteSpace={"nowrap"} color={contextTheme.color.surface.on}>
         {text}
       </Text>
     </Box>
