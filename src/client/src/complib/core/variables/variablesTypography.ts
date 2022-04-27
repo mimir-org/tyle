@@ -190,7 +190,7 @@ export const variablesTypography = css`
   }
 `;
 
-export const typography = {
+export const typography: TypographySystem = {
   display: {
     large: {
       font: "var(--tl-sys-typescale-display-large)",
@@ -337,3 +337,27 @@ export const typography = {
     },
   },
 };
+
+interface Scale {
+  font: string;
+  size: string;
+  weight: string;
+  fontFamily: string;
+  tracking: string;
+  letterSpacing: string;
+  lineHeight: string;
+}
+
+interface ScaleSet {
+  large: Scale,
+  medium: Scale,
+  small: Scale,
+}
+
+export interface TypographySystem {
+  display: ScaleSet,
+  headline: ScaleSet,
+  title: ScaleSet,
+  body: ScaleSet,
+  label: ScaleSet,
+}
