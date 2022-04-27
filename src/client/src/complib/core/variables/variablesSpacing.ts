@@ -14,7 +14,7 @@ export const variablesSpacing = css`
   }
 `;
 
-export const spacing = {
+export const spacing: SpacingSystem = {
   xxs: "var(--tl-sys-spacing-xxs)",
   xs: "var(--tl-sys-spacing-xs)",
   small: "var(--tl-sys-spacing-small)",
@@ -24,3 +24,14 @@ export const spacing = {
   xxl: "var(--tl-sys-spacing-xxl)",
   xxxl: "var(--tl-sys-spacing-xxxl)",
 };
+
+export interface SpacingSystem {
+  xxs: string;
+  xs: string;
+  small: string;
+  medium: string;
+  large: string;
+  xl: string;
+  xxl: string;
+  xxxl: string;
+}
