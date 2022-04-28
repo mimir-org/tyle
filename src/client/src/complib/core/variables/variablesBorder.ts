@@ -8,10 +8,18 @@ export const variablesBorder = css`
   }
 `;
 
-export const border = {
+export const border: BorderSystem = {
   radius: {
     small: "var(--tl-sys-border-radius-small)",
     medium: "var(--tl-sys-border-radius-medium)",
     large: "var(--tl-sys-border-radius-large)",
   },
 };
+
+export interface BorderSystem {
+  radius: {
+    small: string,
+    medium: string,
+    large: string,
+  }
+}

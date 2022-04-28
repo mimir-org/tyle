@@ -9,9 +9,16 @@ export const variablesShadow = css`
   }
 `;
 
-export const shadow = {
+export const shadow: ShadowSystem = {
   boxSmall: "var(--tl-sys-shadow-box-small)",
   boxMedium: "var(--tl-sys-shadow-box-medium)",
   boxLarge: "var(--tl-sys-shadow-box-large)",
   boxXL: "var(--tl-sys-shadow-box-xl)",
 };
+
+export interface ShadowSystem {
+  boxSmall: string;
+  boxMedium: string;
+  boxLarge: string;
+  boxXL: string;
+}

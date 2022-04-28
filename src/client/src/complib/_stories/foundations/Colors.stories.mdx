@@ -1,4 +1,4 @@
-import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs";
+import { ColorItem, ColorPalette, Meta } from "@storybook/addon-docs";
 import { GlobalStyle, theme } from "../../core";
 
 <Meta title="Foundations/Colors" />
@@ -18,33 +18,29 @@ The structure and form of the color palette is highly inspired by Material Desig
 
 ### Light theme
 
-<div className={"light-theme"}>
-  <ColorPalette>
-    <ColorItem title="Primary" subtitle="Primary accent colors" colors={theme.color.primary} />
-    <ColorItem title="Secondary" subtitle="Secondary accent color"s colors={theme.color.secondary} />
-    <ColorItem title="Tertiary" subtitle="Tertiary accent colors" colors={theme.color.tertiary} />
-    <ColorItem title="Error" subtitle="Semantic error colors" colors={theme.color.error} />
-    <ColorItem title="Background" subtitle="Colors for backgrounds or high emphasis text and icons" colors={theme.color.background} />
-    <ColorItem title="Surface" subtitle="Colors for surfaces or high emphasis text and icons" colors={{base: theme.color.surface.base, on: theme.color.surface.on}} />
-    <ColorItem title="Surface variant" subtitle="Colors for surfaces or medium emphasis text and icons" colors={theme.color.surface.variant} />
-    <ColorItem title="Surface inverse" subtitle="Inverse surface color for high emphasis content" colors={theme.color.surface.inverse} />
-    <ColorItem title="Outline" subtitle="Color for component outlines" colors={theme.color.outline} />
-  </ColorPalette>
-</div>
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Primary accent colors" colors={theme.color.light.primary} />
+  <ColorItem title="Secondary" subtitle="Secondary accent color"s colors={theme.color.light.secondary} />
+  <ColorItem title="Tertiary" subtitle="Tertiary accent colors" colors={theme.color.light.tertiary} />
+  <ColorItem title="Error" subtitle="Semantic error colors" colors={theme.color.light.error} />
+  <ColorItem title="Background" subtitle="Colors for backgrounds or high emphasis text and icons" colors={theme.color.light.background} />
+  <ColorItem title="Surface" subtitle="Colors for surfaces or high emphasis text and icons" colors={{base: theme.color.light.surface.base, on: theme.color.light.surface.on}} />
+  <ColorItem title="Surface variant" subtitle="Colors for surfaces or medium emphasis text and icons" colors={theme.color.light.surface.variant} />
+  <ColorItem title="Surface inverse" subtitle="Inverse surface color for high emphasis content" colors={theme.color.light.surface.inverse} />
+  <ColorItem title="Outline" subtitle="Color for component outlines" colors={theme.color.light.outline} />
+</ColorPalette>
 
 ### Dark theme
 
-<div className={"dark-theme"}>
-  <ColorPalette>
-    <ColorItem title="Primary" subtitle="Primary accent colors" colors={theme.color.primary} />
-    <ColorItem title="Secondary" subtitle="Secondary accent color"s colors={theme.color.secondary} />
-    <ColorItem title="Tertiary" subtitle="Tertiary accent colors" colors={theme.color.tertiary} />
-    <ColorItem title="Error" subtitle="Semantic error colors" colors={theme.color.error} />
-    <ColorItem title="Background" subtitle="Colors for backgrounds or high emphasis text and icons" colors={theme.color.background} />
-    <ColorItem title="Surface" subtitle="Colors for surfaces or high emphasis text and icons" colors={{base: theme.color.surface.base, on: theme.color.surface.on}} />
-    <ColorItem title="Surface variant" subtitle="Colors for surfaces or medium emphasis text and icons" colors={theme.color.surface.variant} />
-    <ColorItem title="Surface inverse" subtitle="Inverse surface color for high emphasis content" colors={theme.color.surface.inverse} />
-    <ColorItem title="Outline" subtitle="Color for component outlines" colors={theme.color.outline} />
-  </ColorPalette>
-</div>
+<ColorPalette>
+  <ColorItem title="Primary" subtitle="Primary accent colors" colors={theme.color.dark.primary} />
+  <ColorItem title="Secondary" subtitle="Secondary accent color"s colors={theme.color.dark.secondary} />
+  <ColorItem title="Tertiary" subtitle="Tertiary accent colors" colors={theme.color.dark.tertiary} />
+  <ColorItem title="Error" subtitle="Semantic error colors" colors={theme.color.dark.error} />
+  <ColorItem title="Background" subtitle="Colors for backgrounds or high emphasis text and icons" colors={theme.color.dark.background} />
+  <ColorItem title="Surface" subtitle="Colors for surfaces or high emphasis text and icons" colors={{base: theme.color.dark.surface.base, on: theme.color.dark.surface.on}} />
+  <ColorItem title="Surface variant" subtitle="Colors for surfaces or medium emphasis text and icons" colors={theme.color.dark.surface.variant} />
+  <ColorItem title="Surface inverse" subtitle="Inverse surface color for high emphasis content" colors={theme.color.dark.surface.inverse} />
+  <ColorItem title="Outline" subtitle="Color for component outlines" colors={theme.color.dark.outline} />
+</ColorPalette>
 

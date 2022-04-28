@@ -1,3 +1,4 @@
+import { useTheme } from "styled-components";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { MimirorgAuthenticateAm } from "../../../models/auth/application/mimirorgAuthenticateAm";
@@ -7,7 +8,6 @@ import { useValidationFromServer } from "../../../hooks/useValidationFromServer"
 import { TextResources } from "../../../assets/text";
 import { LibraryIcon } from "../../../assets/icons/modules";
 import { UnauthenticatedFormContainer } from "../styled/UnauthenticatedForm";
-import { theme } from "../../../complib/core";
 import { MotionIcon } from "../../../complib/media";
 import { Input } from "../../../complib/inputs";
 import { Button } from "../../../complib/buttons";
@@ -25,6 +25,7 @@ export const Login = () => {
   const loginMutation = useLogin();
   const validationState = getValidationStateFromServer<MimirorgAuthenticateAm>(loginMutation.error);
   useValidationFromServer<MimirorgAuthenticateAm>(setError, validationState?.errors);
+  const theme = useTheme();
 
   return (
     <UnauthenticatedFormContainer>
