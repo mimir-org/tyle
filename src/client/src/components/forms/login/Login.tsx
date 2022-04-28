@@ -1,3 +1,4 @@
+import { useTheme } from "styled-components";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { MimirorgAuthenticateAm } from "../../../models/auth/application/mimirorgAuthenticateAm";
@@ -7,7 +8,6 @@ import { useValidationFromServer } from "../../../hooks/useValidationFromServer"
 import { TextResources } from "../../../assets/text";
 import { LibraryIcon } from "../../../assets/icons/modules";
 import { UnauthenticatedFormContainer } from "../styled/UnauthenticatedForm";
-import { THEME } from "../../../complib/core";
 import { MotionIcon } from "../../../complib/media";
 import { Input } from "../../../complib/inputs";
 import { Button } from "../../../complib/buttons";
@@ -25,6 +25,7 @@ export const Login = () => {
   const loginMutation = useLogin();
   const validationState = getValidationStateFromServer<MimirorgAuthenticateAm>(loginMutation.error);
   useValidationFromServer<MimirorgAuthenticateAm>(setError, validationState?.errors);
+  const theme = useTheme();
 
   return (
     <UnauthenticatedFormContainer>
@@ -64,14 +65,14 @@ export const Login = () => {
             />
           </FormField>
 
-          <MotionText layout={"position"} as={"i"}>
+          <MotionText color={theme.color.surface.variant.on} layout={"position"} as={"i"}>
             {TextResources.FORMS_REQUIRED_DESCRIPTION}
           </MotionText>
         </FormFieldset>
 
-        <MotionFlexbox layout flexDirection={"column"} gap={THEME.SPACING.LARGE}>
+        <MotionFlexbox layout flexDirection={"column"} gap={theme.spacing.large}>
           <Button>{TextResources.LOGIN_TITLE}</Button>
-          <Text>
+          <Text color={theme.color.surface.variant.on}>
             {TextResources.LOGIN_NOT_REGISTERED} <Link to="/register">{TextResources.LOGIN_REGISTER_LINK}</Link>
           </Text>
         </MotionFlexbox>

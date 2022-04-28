@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Globalization;
-using Mimirorg.TypeLibrary.Extensions;
 using DateTime = System.DateTime;
 
 namespace Mimirorg.TypeLibrary.Attributes

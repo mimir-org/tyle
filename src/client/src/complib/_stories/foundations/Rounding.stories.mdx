@@ -1,5 +1,5 @@
 import { Meta } from "@storybook/addon-docs";
-import { GlobalStyle, THEME } from "../../core";
+import { GlobalStyle, theme } from "../../core";
 import { Box, Flexbox } from "../../layouts";
 import { Text } from "../../text";
 
@@ -18,16 +18,16 @@ Here you will find an overview of the different units available for rounding of 
 <Box
   display="flex"
   justifyContent={"space-between"}
-  gap={THEME.SPACING.LARGE}
-  p={THEME.SPACING.XL}
-  border={`2px solid ${THEME.COLOR.BORDER.PRIMARY.BASE}`}
-  borderRadius={THEME.BORDER.RADIUS.MEDIUM}
+  gap={theme.spacing.large}
+  p={theme.spacing.xl}
+  border={`2px solid ${theme.color.light.outline.base}`}
+  borderRadius={theme.border.radius.medium}
 >
-  {Object.entries(THEME.BORDER.RADIUS).map(([k, v]) => {
+  {Object.entries(theme.border.radius).map(([k, v]) => {
     return (
-      <Flexbox key={v} flexDirection={"column"} gap={THEME.SPACING.MEDIUM}>
-        <Box borderRadius={v} border="2px solid red" width="100px" height="100px" p={THEME.SPACING.SMALL} />
-        <Flexbox flexDirection="column" gap={THEME.SPACING.SMALL}>
+      <Flexbox key={v} flexDirection={"column"} gap={theme.spacing.medium}>
+        <Box borderRadius={v} border="2px solid red" width="100px" height="100px" p={theme.spacing.small} />
+        <Flexbox flexDirection="column" gap={theme.spacing.small}>
           <Text as={"b"}>{k}</Text>
           <Text as={"small"}>{v}</Text>
         </Flexbox>

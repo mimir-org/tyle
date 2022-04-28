@@ -5,54 +5,71 @@ import { css } from "styled-components/macro";
  */
 export const globalTypographyStyle = css`
   body {
-    font-family: var(--font-family);
-    font-weight: var(--font-weight-normal);
-    font-size: var(--font-base-size);
-    color: var(--color-text-primary-light);
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5 {
-    color: var(--color-text-primary);
+    font-family: var(--tl-ref-typeface-brand);
+    font-weight: var(--tl-ref-typeface-weight-normal);
+    font-size: var(--tl-ref-font-base-size);
+    color: var(--tl-sys-color-on-background);
   }
 
   h1 {
-    font: var(--font-h1);
+    font: var(--tl-sys-typescale-display-large);
+    letter-spacing: var(--tl-sys-typescale-display-large-spacing);
+    line-height: var(--tl-sys-typescale-display-large-line-height);
   }
 
   h2 {
-    font: var(--font-h2);
+    font: var(--tl-sys-typescale-display-medium);
+    letter-spacing: var(--tl-sys-typescale-display-medium-spacing);
+    line-height: var(--tl-sys-typescale-display-medium-line-height);
   }
 
   h3 {
-    font: var(--font-h3);
+    font: var(--tl-sys-typescale-display-small);
+    letter-spacing: var(--tl-sys-typescale-display-small-spacing);
+    line-height: var(--tl-sys-typescale-display-small-line-height);
   }
 
   h4 {
-    font: var(--font-h4);
+    font: var(--tl-sys-typescale-headline-large);
+    letter-spacing: var(--tl-sys-typescale-headline-large-spacing);
+    line-height: var(--tl-sys-typescale-headline-large-line-height);
   }
 
   h5 {
-    font: var(--font-h5);
+    font: var(--tl-sys-typescale-headline-medium);
+    letter-spacing: var(--tl-sys-typescale-headline-medium-spacing);
+    line-height: var(--tl-sys-typescale-headline-medium-line-height);
   }
 
-  p {
-    font: var(--font-text);
+  h6 {
+    font: var(--tl-sys-typescale-headline-small);
+    letter-spacing: var(--tl-sys-typescale-headline-small-spacing);
+    line-height: var(--tl-sys-typescale-headline-small-line-height);
+  }
+
+  p,
+  a {
+    font: var(--tl-sys-typescale-body-large);
+    letter-spacing: var(--tl-sys-typescale-body-large-spacing);
+    line-height: var(--tl-sys-typescale-body-large-line-height);
+  }
+
+  a:hover {
+    text-decoration: underline;
+    cursor: pointer;
   }
 
   b,
   strong {
-    font-weight: var(--font-weight-bold);
-  }
-
-  a {
-    font: var(--font-link);
+    font-size: var(--tl-sys-typescale-body-large-size);
+    font-weight: var(--tl-ref-typeface-weight-bold);
+    letter-spacing: var(--tl-sys-typescale-body-large-spacing);
+    line-height: var(--tl-sys-typescale-body-large-line-height);
   }
 
   small {
-    font: var(--font-subtext);
+    font: var(--tl-sys-typescale-body-small);
+    letter-spacing: var(--tl-sys-typescale-body-small-spacing);
+    line-height: var(--tl-sys-typescale-body-small-line-height);
   }
 `;

@@ -8,7 +8,7 @@ interface DividerProps {
  * A simple divider for creating a clear separation between content
  */
 export const Divider = styled.hr<DividerProps>`
-  color: var(--color-border-primary-light);
+  color: var(--tl-sys-color-outline);
   margin: 0 auto;
   height: 2px;
   width: 90%;

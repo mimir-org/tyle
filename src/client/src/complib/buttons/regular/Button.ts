@@ -5,25 +5,27 @@ export const Button = styled.button`
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  gap: var(--spacing-xs);
+  gap: var(--tl-sys-spacing-xs);
   white-space: nowrap;
 
   text-decoration: none;
   line-height: 1;
 
-  color: var(--color-text-primary-inverted);
-  background-color: var(--color-info);
-  border: 1px solid var(--color-info-dark);
+  color: var(--tl-sys-color-on-primary);
+  background-color: var(--tl-sys-color-primary);
 
-  border-radius: var(--border-radius-small);
-  padding: var(--spacing-small) var(--spacing-small);
+  border: 0;
+  border-radius: var(--tl-sys-border-radius-medium);
+  padding: var(--tl-sys-spacing-small) var(--tl-sys-spacing-small);
 
   :hover {
-    background-color: var(--color-info-dark);
+    cursor: pointer;
+    background-color: var(--tl-sys-color-on-primary-container);
   }
 
   :active {
-    background-color: var(--color-info-light);
+    background-color: var(--tl-sys-color-primary-container);
+    color: var(--tl-sys-color-on-primary-container);
   }
 
   :disabled {

@@ -1,13 +1,14 @@
 import styled from "styled-components/macro";
 import { ElementType } from "react";
 import { motion } from "framer-motion";
-import { Display, Palette, Polymorphic, Typography } from "../props";
-import { displayMixin, paletteMixin, typographyMixin } from "../mixins";
+import { Display, Palette, Polymorphic, TextVariant, Typography } from "../props";
+import { displayMixin, paletteMixin, textVariantMixin, typographyMixin } from "../mixins";
 
 type TextProps = Pick<Palette, "color"> &
-  Pick<Display, "whiteSpace"> &
+  Pick<Display, "whiteSpace" | "display"> &
   Pick<Typography, "font" | "fontSize" | "fontWeight"> &
-  Polymorphic<ElementType> & {
+  Polymorphic<ElementType> &
+  TextVariant & {
     useEllipsis?: boolean;
     ellipsisMaxLines?: number;
   };
@@ -25,10 +26,10 @@ type TextProps = Pick<Palette, "color"> &
  * @constructor
  */
 export const Text = styled.p<TextProps>`
-  display: inline-block;
   ${typographyMixin};
   ${paletteMixin};
   ${displayMixin};
+  ${textVariantMixin};
 
   ${({ useEllipsis, ellipsisMaxLines }) =>
     useEllipsis &&

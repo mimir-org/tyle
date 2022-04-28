@@ -7,6 +7,6 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: var(--spacing-xl);
+  gap: var(--tl-sys-spacing-xl);
   width: 100%;
 `;

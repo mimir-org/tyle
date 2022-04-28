@@ -1,6 +1,7 @@
+import { useTheme } from "styled-components";
 import { Box } from "../../layouts";
 import { Text } from "../../text";
-import { THEME } from "../../core";
+import { theme } from "../../core";
 
 interface TokenProps {
   text: string;
@@ -17,7 +18,8 @@ interface TokenProps {
  */
 export const Token = ({ text, variant = "medium" }: TokenProps) => {
   const boxProps = boxVariants[variant];
-  const textProps = textVariants[variant];
+  const textVariant = `label-${variant}` as const;
+  const contextTheme = useTheme();
 
   return (
     <Box
@@ -29,9 +31,10 @@ export const Token = ({ text, variant = "medium" }: TokenProps) => {
       borderRadius={"999px"}
       width={"fit-content"}
       maxWidth={"100%"}
-      bgColor={THEME.COLOR.SECONDARY.BASE}
+      bgColor={contextTheme.color.surface.base}
+      border={`1px solid ${contextTheme.color.outline.base}`}
     >
-      <Text {...textProps} whiteSpace={"nowrap"} color={THEME.COLOR.TEXT.PRIMARY.INVERTED}>
+      <Text variant={textVariant} whiteSpace={"nowrap"} color={contextTheme.color.surface.on}>
         {text}
       </Text>
     </Box>
@@ -40,30 +43,18 @@ export const Token = ({ text, variant = "medium" }: TokenProps) => {
 
 const boxVariants = {
   small: {
-    gap: THEME.SPACING.XXS,
-    py: THEME.SPACING.XXS,
-    px: THEME.SPACING.SMALL,
+    gap: theme.spacing.xxs,
+    py: theme.spacing.xxs,
+    px: theme.spacing.small,
   },
   medium: {
-    gap: THEME.SPACING.XS,
-    py: THEME.SPACING.XS,
-    px: THEME.SPACING.MEDIUM,
+    gap: theme.spacing.xs,
+    py: theme.spacing.xs,
+    px: theme.spacing.medium,
   },
   large: {
-    gap: THEME.SPACING.SMALL,
-    py: THEME.SPACING.SMALL,
-    px: THEME.SPACING.LARGE,
-  },
-};
-
-const textVariants = {
-  small: {
-    fontSize: THEME.FONT.SIZES.SMALL,
-  },
-  medium: {
-    fontSize: THEME.FONT.SIZES.BASE,
-  },
-  large: {
-    fontSize: THEME.FONT.SIZES.MEDIUM,
+    gap: theme.spacing.small,
+    py: theme.spacing.small,
+    px: theme.spacing.large,
   },
 };

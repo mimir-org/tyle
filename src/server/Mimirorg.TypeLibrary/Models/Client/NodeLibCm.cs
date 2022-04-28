@@ -12,7 +12,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string PurposeId { get; set; }
         public string PurposeName { get; set; }
         public string ParentId { get; set; }
-        public InterfaceLibCm Parent { get; set; }
+        public NodeLibCm Parent { get; set; }
         public string Version { get; set; }
         public string FirstVersionId { get; set; }
         public Aspect Aspect { get; set; }
