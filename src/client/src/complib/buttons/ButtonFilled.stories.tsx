@@ -3,15 +3,13 @@ import { Button } from "./Button";
 import { LibraryIcon } from "../../assets/icons/modules";
 
 export default {
-  title: "Buttons/Button",
+  title: "Buttons/Filled",
   component: Button,
 } as ComponentMeta<typeof Button>;
 
 export const Default = () => <Button>Button</Button>;
 
 export const Disabled = () => <Button disabled>Button</Button>;
-
-export const AsAnchor = () => <Button as={"a"}>Button</Button>;
 
 export const WithIconOnly = () => (
   <Button leftIcon={LibraryIcon} iconOnly>
