@@ -9,4 +9,5 @@ export { spacingMixin } from "./spacingMixin";
 export { sizingMixin } from "./sizingMixin";
 export { typographyMixin } from "./typographyMixin";
 export { textVariantMixin } from "./textVariantMixin";
+export { layeredColor } from "./layeredColor";
 export { translucify } from "./translucify";
