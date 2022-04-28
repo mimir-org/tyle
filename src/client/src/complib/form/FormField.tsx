@@ -20,13 +20,13 @@ export const FormField = ({ label, error, children }: PropsWithChildren<FormFiel
   const theme = useTheme();
 
   return (
-    <MotionFlexbox layout={"position"} flexDirection={"column"} gap={theme.spacing.xs}>
+    <MotionFlexbox layout={"position"} flexDirection={"column"} gap={theme.typeLibrary.spacing.xs}>
       <Text as={"label"} variant={"label-large"}>
         {label}
       </Text>
       {children}
       {error && error.message && (
-        <MotionText color={theme.color.error.base} {...ANIMATION.VARIANTS.FADE}>
+        <MotionText color={theme.typeLibrary.color.error.base} {...ANIMATION.VARIANTS.FADE}>
           {error.message}
         </MotionText>
       )}

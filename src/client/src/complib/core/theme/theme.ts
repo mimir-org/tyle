@@ -17,24 +17,24 @@ export const theme = {
   spacing: spacing,
 };
 
+export interface TypeLibraryTheme {
+  border: BorderSystem;
+  color: ColorSystem;
+  typography: TypographySystem;
+  shadow: ShadowSystem;
+  spacing: SpacingSystem;
+}
+
 /**
  * Defines the theme available through styled-component's theme-provider
  */
 declare module "styled-components" {
   export interface DefaultTheme {
-    border: BorderSystem;
-    color: ColorSystem;
-    typography: TypographySystem;
-    shadow: ShadowSystem;
-    spacing: SpacingSystem;
+    typeLibrary: TypeLibraryTheme;
   }
 }
 
-interface ThemeBuilderProps {
-  colorTheme: string;
-}
-
-export const themeBuilder = ({ colorTheme }: ThemeBuilderProps) => {
+export const themeBuilder = (colorTheme: string) => {
   return {
     ...theme,
     color: colorTheme === "dark" ? darkTheme : lightTheme,

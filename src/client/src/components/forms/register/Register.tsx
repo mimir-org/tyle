@@ -9,15 +9,16 @@ import { RegisterProcessing } from "./components/RegisterProcessing";
 import { TextResources } from "../../../assets/text";
 import { LibraryIcon } from "../../../assets/icons/modules";
 import { UnauthenticatedFormContainer } from "../styled/UnauthenticatedForm";
-import { theme } from "../../../complib/core";
 import { MotionIcon } from "../../../complib/media";
 import { Input } from "../../../complib/inputs";
 import { Button } from "../../../complib/buttons";
 import { MotionText, Text } from "../../../complib/text";
 import { MotionFlexbox } from "../../../complib/layouts";
 import { Form, FormErrorBanner, FormField, FormFieldset, FormHeader } from "../../../complib/form";
+import { useTheme } from "styled-components";
 
 export const Register = () => {
+  const theme = useTheme();
   const {
     register,
     handleSubmit,
@@ -92,7 +93,7 @@ export const Register = () => {
             </MotionText>
           </FormFieldset>
 
-          <MotionFlexbox layout flexDirection={"column"} gap={theme.spacing.large}>
+          <MotionFlexbox layout flexDirection={"column"} gap={theme.typeLibrary.spacing.large}>
             <Button>{TextResources.REGISTER_SUBMIT}</Button>
             <Text>
               {TextResources.REGISTER_IS_REGISTERED} <Link to="/">{TextResources.REGISTER_LOGIN_LINK}</Link>
