@@ -17,9 +17,9 @@ export const FormErrorBanner = ({ children }: FormErrorBannerProps) => {
     <MotionBox
       layout
       {...ANIMATION.VARIANTS.FADE}
-      p={theme.spacing.small}
-      bgColor={theme.color.error.base}
-      color={theme.color.error.on}
+      p={theme.typeLibrary.spacing.small}
+      bgColor={theme.typeLibrary.color.error.base}
+      color={theme.typeLibrary.color.error.on}
     >
       {children}
     </MotionBox>

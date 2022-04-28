@@ -4,10 +4,10 @@ export const ExitButtonContainer = styled.button`
   position: absolute;
   top: 0;
   right: 0;
-  padding: var(--tl-sys-spacing-small);
+  padding: ${(props) => props.theme.typeLibrary.spacing.small};
   line-height: 0;
   background: transparent;
   border: 0;
-  border-radius: var(--tl-sys-border-radius-large);
+  border-radius: ${(props) => props.theme.typeLibrary.border.radius.large};
   cursor: pointer;
 `;
