@@ -7,6 +7,6 @@ export const textVariantMixin = css<TextVariant>`
     `
     font: var(--tl-sys-typescale-${variant});
     letter-spacing: var(--tl-sys-typescale-${variant}-spacing);
-    line-height var(--tl-sys-typescale-${variant}-line-height);
+    line-height: var(--tl-sys-typescale-${variant}-line-height);
   `};
 `;
