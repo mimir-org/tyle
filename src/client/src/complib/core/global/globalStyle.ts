@@ -6,6 +6,8 @@ import { variablesTypography } from "../variables/variablesTypography";
 import { variablesShadow } from "../variables/variablesShadow";
 import { variablesBorder } from "../variables/variablesBorder";
 import { variablesColor } from "../variables/variablesColor";
+import { variablesElevation } from "../variables/variablesElevation";
+import { variablesState } from "../variables/variablesState";
 
 export const GlobalStyle = createGlobalStyle`
   // CSS RESET
@@ -20,4 +22,6 @@ export const GlobalStyle = createGlobalStyle`
   ${variablesShadow}
   ${variablesBorder}
   ${variablesTypography}
+  ${variablesElevation}
+  ${variablesState}
 `;

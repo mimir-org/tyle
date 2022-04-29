@@ -2,6 +2,8 @@ import { spacing, SpacingSystem } from "../variables/variablesSpacing";
 import { border, BorderSystem } from "../variables/variablesBorder";
 import { typography, TypographySystem } from "../variables/variablesTypography";
 import { shadow, ShadowSystem } from "../variables/variablesShadow";
+import { state, StateSystem } from "../variables/variablesState";
+import { elevation, ElevationSystem } from "../variables/variablesElevation";
 import { color, ColorSystem, darkTheme, lightTheme } from "../variables/variablesColor";
 
 /**
@@ -15,6 +17,8 @@ export const theme = {
   typography: typography,
   shadow: shadow,
   spacing: spacing,
+  state: state,
+  elevation: elevation,
 };
 
 export interface TypeLibraryTheme {
@@ -23,6 +27,8 @@ export interface TypeLibraryTheme {
   typography: TypographySystem;
   shadow: ShadowSystem;
   spacing: SpacingSystem;
+  state: StateSystem;
+  elevation: ElevationSystem;
 }
 
 /**
