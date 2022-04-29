@@ -2,6 +2,7 @@ import styled, { css } from "styled-components/macro";
 import { Polymorphic, Positions } from "../props";
 import { ButtonHTMLAttributes, ElementType } from "react";
 import { layeredColor, translucify } from "../mixins";
+import { ColorSystem, ElevationSystem, StateSystem } from "../core";
 
 export type ButtonContainerProps = Omit<Positions, "zIndex"> &
   Polymorphic<ElementType> &
@@ -25,90 +26,6 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   padding: ${(props) => props.theme.typeLibrary.spacing.xs} ${(props) => props.theme.typeLibrary.spacing.small};
   border-radius: 999px;
 
-  ${(props) =>
-    props.variant === "filled" &&
-    css`
-      border: 0;
-      background-color: ${props.theme.typeLibrary.color.primary.base};
-      color: ${props.theme.typeLibrary.color.primary.on};
-
-      :disabled {
-        background-color: ${translucify(props.theme.typeLibrary.color.surface.on, 0.12)};
-        color: ${translucify(props.theme.typeLibrary.color.surface.on, 0.38)};
-      }
-
-      :not(:disabled) {
-        :hover {
-          background: ${layeredColor(
-            {
-              color: props.theme.typeLibrary.color.primary.base,
-              opacity: 0.05,
-            },
-            {
-              color: props.theme.typeLibrary.color.primary.on,
-              opacity: 0.08,
-            },
-            { color: props.theme.typeLibrary.color.primary.base, opacity: 1 }
-          )};
-        }
-
-        :active {
-          background: ${layeredColor(
-            {
-              color: props.theme.typeLibrary.color.primary.on,
-              opacity: 0.12,
-            },
-            { color: props.theme.typeLibrary.color.primary.base, opacity: 1 }
-          )};
-        }
-      }
-    `};
-
-  ${(props) =>
-    props.variant === "outlined" &&
-    css`
-      background-color: transparent;
-      border: 1px solid ${props.theme.typeLibrary.color.outline.base};
-      color: ${props.theme.typeLibrary.color.primary.base};
-
-      :disabled {
-        border-color: ${translucify(props.theme.typeLibrary.color.surface.on, 0.12)};
-        color: ${translucify(props.theme.typeLibrary.color.surface.on, 0.38)};
-      }
-
-      :not(:disabled) {
-        :hover {
-          background-color: ${translucify(props.theme.typeLibrary.color.primary.base, 0.08)};
-        }
-
-        :active {
-          background-color: ${translucify(props.theme.typeLibrary.color.primary.base, 0.12)};
-        }
-      }
-    `};
-
-  ${(props) =>
-    props.variant === "text" &&
-    css`
-      border: 0;
-      background-color: transparent;
-      color: ${props.theme.typeLibrary.color.primary.base};
-
-      :disabled {
-        color: ${translucify(props.theme.typeLibrary.color.surface.on, 0.38)};
-      }
-
-      :not(:disabled) {
-        :hover {
-          background-color: ${translucify(props.theme.typeLibrary.color.primary.base, 0.08)};
-        }
-
-        :active {
-          background-color: ${translucify(props.theme.typeLibrary.color.primary.base, 0.12)};
-        }
-      }
-    `};
-
   :hover {
     cursor: pointer;
   }
@@ -116,8 +33,108 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   :disabled {
     cursor: not-allowed;
   }
+
+  ${({ variant, ...props }) => {
+    const { color, state, elevation } = props.theme.typeLibrary;
+
+    switch (variant) {
+      case "filled": {
+        return filledButton(color, state, elevation);
+      }
+      case "outlined": {
+        return outlinedButton(color, state);
+      }
+      case "text": {
+        return textButton(color, state);
+      }
+    }
+  }};
 `;
 
 ButtonContainer.defaultProps = {
   variant: "filled",
 };
+
+const filledButton = (color: ColorSystem, state: StateSystem, elevationSystem: ElevationSystem) => css`
+  border: 0;
+  background-color: ${color.primary.base};
+  color: ${color.primary.on};
+
+  :disabled {
+    background-color: ${translucify(color.surface.on, state.disabled.container.opacity)};
+    color: ${translucify(color.surface.on, state.disabled.content.opacity)};
+  }
+
+  :not(:disabled) {
+    :hover {
+      background: ${layeredColor(
+        {
+          color: color.primary.base,
+          opacity: elevationSystem.levels[1].opacity,
+        },
+        {
+          color: color.primary.on,
+          opacity: state.hover.opacity,
+        },
+        {
+          color: color.primary.base,
+          opacity: state.enabled.opacity,
+        }
+      )};
+    }
+
+    :active {
+      background: ${layeredColor(
+        {
+          color: color.primary.on,
+          opacity: state.pressed.opacity,
+        },
+        {
+          color: color.primary.base,
+          opacity: state.enabled.opacity,
+        }
+      )};
+    }
+  }
+`;
+
+const outlinedButton = (color: ColorSystem, state: StateSystem) => css`
+  background-color: transparent;
+  border: 1px solid ${color.outline.base};
+  color: ${color.primary.base};
+
+  :disabled {
+    border-color: ${translucify(color.surface.on, state.disabled.container.opacity)};
+    color: ${translucify(color.surface.on, state.disabled.content.opacity)};
+  }
+
+  :not(:disabled) {
+    :hover {
+      background-color: ${translucify(color.primary.base, state.hover.opacity)};
+    }
+
+    :active {
+      background-color: ${translucify(color.primary.base, state.pressed.opacity)};
+    }
+  }
+`;
+
+const textButton = (color: ColorSystem, state: StateSystem) => css`
+  border: 0;
+  background-color: transparent;
+  color: ${color.primary.base};
+
+  :disabled {
+    color: ${translucify(color.surface.on, state.disabled.content.opacity)};
+  }
+
+  :not(:disabled) {
+    :hover {
+      background-color: ${translucify(color.primary.base, state.hover.opacity)};
+    }
+
+    :active {
+      background-color: ${translucify(color.primary.base, state.pressed.opacity)};
+    }
+  }
+`;
