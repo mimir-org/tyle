@@ -1,4 +1,4 @@
-import { GlobalStyle } from "../src/complib/core";
+import { GlobalStyle, themeBuilder, TypeLibraryThemeProvider } from "../src/complib/core";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -12,9 +12,9 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <>
+    <TypeLibraryThemeProvider theme={themeBuilder("light")}>
       <GlobalStyle />
       <Story />
-    </>
+    </TypeLibraryThemeProvider>
   ),
 ];

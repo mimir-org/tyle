@@ -10,5 +10,6 @@
         public string Color { get; set; }
         public string Description { get; set; }
         public ICollection<AttributeLibCm> Attributes { get; set; }
+        public ICollection<TerminalLibCm> Children { get; set; }
     }
 }

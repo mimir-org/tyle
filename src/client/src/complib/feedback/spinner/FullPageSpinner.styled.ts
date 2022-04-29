@@ -5,8 +5,8 @@ export const FullPageSpinnerContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--tl-sys-spacing-medium);
-  background-color: var(--tl-sys-color-background);
+  gap: ${(props) => props.theme.typeLibrary.spacing.medium};
+  background-color: ${(props) => props.theme.typeLibrary.color.background.base};
   height: 100%;
   width: 100%;
 `;
