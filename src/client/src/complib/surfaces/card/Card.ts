@@ -44,7 +44,7 @@ const elevatedCard = (
   elevationLevel?: ElevationLevels,
   interactive?: boolean
 ) => css`
-  box-shadow: ${shadow.boxSmall};
+  box-shadow: ${shadow.small};
   background: ${layeredColor(
     {
       color: color.surface.tint.base,
@@ -56,7 +56,7 @@ const elevatedCard = (
   ${interactive &&
   css`
     :hover {
-      box-shadow: ${shadow.boxMedium};
+      box-shadow: ${shadow.medium};
       background: ${layeredColor(
         {
           color: color.surface.on,

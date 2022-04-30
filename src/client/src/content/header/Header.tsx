@@ -20,7 +20,7 @@ export const Header = () => {
       height={"60px"}
       bgColor={theme.typeLibrary.color.primary.base}
       color={theme.typeLibrary.color.primary.on}
-      boxShadow={theme.typeLibrary.shadow.boxSmall}
+      boxShadow={theme.typeLibrary.shadow.small}
       zIndex={10}
     >
       <Logo name={"Type library"} icon={LibraryIcon} />

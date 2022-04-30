@@ -10,6 +10,6 @@ export const UnauthenticatedFormContainer = styled.div`
   padding: ${(props) => props.theme.typeLibrary.spacing.medium}
     min(${(props) => props.theme.typeLibrary.spacing.xxxl}, 10%);
   background-color: ${(props) => props.theme.typeLibrary.color.surface.base};
-  box-shadow: ${(props) => props.theme.typeLibrary.shadow.boxXL};
+  box-shadow: ${(props) => props.theme.typeLibrary.shadow.xl};
   overflow: auto;
 `;

@@ -14,7 +14,7 @@ export const ModalContentContainer = styled.div<ModalContentContainerProps>`
   min-height: 350px;
   min-width: min(500px, 100%);
   max-width: 100%;
-  box-shadow: ${(props) => props.theme.typeLibrary.shadow.boxMedium};
+  box-shadow: ${(props) => props.theme.typeLibrary.shadow.medium};
   background-color: ${(props) => props.theme.typeLibrary.color.surface.base};
   color: ${(props) => props.theme.typeLibrary.color.surface.variant.on};
   border-radius: ${(props) => props.theme.typeLibrary.border.radius.large};
