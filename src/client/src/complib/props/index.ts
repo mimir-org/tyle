@@ -12,3 +12,4 @@ export type { Display } from "./display";
 export type { Elevation } from "./elevation";
 export type { ElevationLevels } from "./elevation";
 export type { TextVariant } from "./textVariant";
+export type { TextTypes } from "./textVariant";
