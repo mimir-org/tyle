@@ -1,6 +1,18 @@
 import { css } from "styled-components/macro";
 import { math } from "polished";
 
+export interface SpacingSystem {
+  unit: string;
+  xxs: string;
+  xs: string;
+  small: string;
+  medium: string;
+  large: string;
+  xl: string;
+  xxl: string;
+  xxxl: string;
+}
+
 const spacingUnit = "1rem";
 export const spacing: SpacingSystem = {
   unit: spacingUnit,
@@ -27,15 +39,3 @@ export const variablesSpacing = css`
     --tl-sys-spacing-xxxl: ${spacing.xxxl};
   }
 `;
-
-export interface SpacingSystem {
-  unit: string;
-  xxs: string;
-  xs: string;
-  small: string;
-  medium: string;
-  large: string;
-  xl: string;
-  xxl: string;
-  xxxl: string;
-}
