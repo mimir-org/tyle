@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components/macro";
 import { Polymorphic, Positions } from "../props";
 import { ButtonHTMLAttributes, ElementType } from "react";
-import { layeredColor, translucify } from "../mixins";
+import { layer, translucify } from "../mixins";
 import { ColorSystem, ElevationSystem, StateSystem } from "../core";
 
 export type ButtonContainerProps = Omit<Positions, "zIndex"> &
@@ -67,32 +67,17 @@ const filledButton = (color: ColorSystem, state: StateSystem, elevationSystem: E
 
   :not(:disabled) {
     :hover {
-      background: ${layeredColor(
-        {
-          color: color.primary.base,
-          opacity: elevationSystem.levels[1].opacity,
-        },
-        {
-          color: color.primary.on,
-          opacity: state.hover.opacity,
-        },
-        {
-          color: color.primary.base,
-          opacity: state.enabled.opacity,
-        }
+      background: ${layer(
+        translucify(color.primary.base, elevationSystem.levels[1].opacity),
+        translucify(color.primary.on, state.hover.opacity),
+        translucify(color.primary.base, state.enabled.opacity)
       )};
     }
 
     :active {
-      background: ${layeredColor(
-        {
-          color: color.primary.on,
-          opacity: state.pressed.opacity,
-        },
-        {
-          color: color.primary.base,
-          opacity: state.enabled.opacity,
-        }
+      background: ${layer(
+        translucify(color.primary.on, state.pressed.opacity),
+        translucify(color.primary.base, state.enabled.opacity)
       )};
     }
   }

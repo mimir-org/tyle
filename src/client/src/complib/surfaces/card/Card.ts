@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components/macro";
 import { Elevation, ElevationLevels, Polymorphic } from "../../props";
 import { ElementType } from "react";
-import { layeredColor } from "../../mixins";
+import { layer, translucify } from "../../mixins";
 import { ColorSystem, ElevationSystem, ShadowSystem, StateSystem } from "../../core/";
 
 type CardProps = Elevation &
@@ -45,34 +45,25 @@ const elevatedCard = (
   interactive?: boolean
 ) => css`
   box-shadow: ${shadow.small};
-  background: ${layeredColor(
-    {
-      color: color.surface.tint.base,
-      opacity: elevationSystem.levels[elevationLevel ?? 1].opacity,
-    },
-    { color: color.surface.base, opacity: 1 }
+  background: ${layer(
+    translucify(color.surface.tint.base, elevationSystem.levels[elevationLevel ?? 1].opacity),
+    translucify(color.surface.base, state.enabled.opacity)
   )};
 
   ${interactive &&
   css`
     :hover {
       box-shadow: ${shadow.medium};
-      background: ${layeredColor(
-        {
-          color: color.surface.on,
-          opacity: state.hover.opacity,
-        },
-        { color: color.surface.base, opacity: 1 }
+      background: ${layer(
+        translucify(color.surface.on, state.hover.opacity),
+        translucify(color.surface.base, state.enabled.opacity)
       )};
     }
 
     :active {
-      background: ${layeredColor(
-        {
-          color: color.surface.on,
-          opacity: state.pressed.opacity,
-        },
-        { color: color.surface.base, opacity: 1 }
+      background: ${layer(
+        translucify(color.surface.on, state.pressed.opacity),
+        translucify(color.surface.base, state.enabled.opacity)
       )};
     }
   `}
@@ -85,33 +76,24 @@ const filledCard = (
   elevationLevel?: ElevationLevels,
   interactive?: boolean
 ) => css`
-  background: ${layeredColor(
-    {
-      color: color.surface.tint.base,
-      opacity: elevationSystem.levels[elevationLevel ?? 0].opacity,
-    },
-    { color: color.surface.variant.base, opacity: state.enabled.opacity }
+  background: ${layer(
+    translucify(color.surface.tint.base, elevationSystem.levels[elevationLevel ?? 0].opacity),
+    translucify(color.surface.variant.base, state.enabled.opacity)
   )};
 
   ${interactive &&
   css`
     :hover {
-      background: ${layeredColor(
-        {
-          color: color.surface.on,
-          opacity: state.hover.opacity,
-        },
-        { color: color.surface.variant.base, opacity: state.enabled.opacity }
+      background: ${layer(
+        translucify(color.surface.on, state.hover.opacity),
+        translucify(color.surface.variant.base, state.enabled.opacity)
       )};
     }
 
     :active {
-      background: ${layeredColor(
-        {
-          color: color.surface.on,
-          opacity: state.pressed.opacity,
-        },
-        { color: color.surface.variant.base, opacity: state.enabled.opacity }
+      background: ${layer(
+        translucify(color.surface.on, state.pressed.opacity),
+        translucify(color.surface.variant.base, state.enabled.opacity)
       )};
     }
   `}
@@ -124,34 +106,25 @@ const outlinedCard = (
   elevationLevel?: ElevationLevels,
   interactive?: boolean
 ) => css`
-  background: ${layeredColor(
-    {
-      color: color.surface.tint.base,
-      opacity: elevationSystem.levels[elevationLevel ?? 0].opacity,
-    },
-    { color: color.surface.base, opacity: state.enabled.opacity }
-  )};
   border: 1px solid ${color.outline.base};
+  background: ${layer(
+    translucify(color.surface.tint.base, elevationSystem.levels[elevationLevel ?? 0].opacity),
+    translucify(color.surface.base, state.enabled.opacity)
+  )};
 
   ${interactive &&
   css`
     :hover {
-      background: ${layeredColor(
-        {
-          color: color.surface.on,
-          opacity: state.hover.opacity,
-        },
-        { color: color.surface.base, opacity: state.enabled.opacity }
+      background: ${layer(
+        translucify(color.surface.on, state.hover.opacity),
+        translucify(color.surface.base, state.enabled.opacity)
       )};
     }
 
     :active {
-      background: ${layeredColor(
-        {
-          color: color.surface.on,
-          opacity: state.pressed.opacity,
-        },
-        { color: color.surface.base, opacity: state.enabled.opacity }
+      background: ${layer(
+        translucify(color.surface.on, state.pressed.opacity),
+        translucify(color.surface.base, state.enabled.opacity)
       )};
     }
   `}
