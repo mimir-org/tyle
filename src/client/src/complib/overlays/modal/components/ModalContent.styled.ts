@@ -22,13 +22,13 @@ export const ModalContentContainer = styled.div<ModalContentContainerProps>`
 `;
 
 export const ModalHeaderTitle = styled.p`
-  font: ${(props) => props.theme.typeLibrary.typography.headline.small.font};
+  font: ${(props) => props.theme.typeLibrary.typography.sys.roles.headline.small.font};
   color: ${(props) => props.theme.typeLibrary.color.surface.on};
   margin: 0;
 `;
 
 export const ModalHeaderDescription = styled.p`
-  font: ${(props) => props.theme.typeLibrary.typography.body.large.font};
+  font: ${(props) => props.theme.typeLibrary.typography.sys.roles.body.large.font};
   color: ${(props) => props.theme.typeLibrary.color.surface.variant.on};
   margin: 0;
 `;

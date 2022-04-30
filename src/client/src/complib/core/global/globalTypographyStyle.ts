@@ -1,57 +1,45 @@
 import { css } from "styled-components/macro";
+import { TypeLibraryTheme } from "../theme/theme";
+import { getTextRole } from "../../mixins";
 
 /**
  * TYPOGRAPHY SPECIFIC GLOBALS
  */
-export const globalTypographyStyle = css`
+export const globalTypographyStyle = (theme: TypeLibraryTheme) => css`
   body {
-    font-family: var(--tl-ref-typeface-brand);
-    font-weight: var(--tl-ref-typeface-weight-normal);
-    font-size: var(--tl-ref-font-base-size);
-    color: var(--tl-sys-color-on-background);
+    font-family: ${theme.typography.ref.typeface.brand};
+    font-weight: ${theme.typography.ref.typeface.weights.normal};
+    font-size: 100%;
+    color: ${theme.color.background.on};
   }
 
   h1 {
-    font: var(--tl-sys-typescale-display-large);
-    letter-spacing: var(--tl-sys-typescale-display-large-spacing);
-    line-height: var(--tl-sys-typescale-display-large-line-height);
+    ${getTextRole("display-large")}
   }
 
   h2 {
-    font: var(--tl-sys-typescale-display-medium);
-    letter-spacing: var(--tl-sys-typescale-display-medium-spacing);
-    line-height: var(--tl-sys-typescale-display-medium-line-height);
+    ${getTextRole("display-medium")}
   }
 
   h3 {
-    font: var(--tl-sys-typescale-display-small);
-    letter-spacing: var(--tl-sys-typescale-display-small-spacing);
-    line-height: var(--tl-sys-typescale-display-small-line-height);
+    ${getTextRole("display-small")}
   }
 
   h4 {
-    font: var(--tl-sys-typescale-headline-large);
-    letter-spacing: var(--tl-sys-typescale-headline-large-spacing);
-    line-height: var(--tl-sys-typescale-headline-large-line-height);
+    ${getTextRole("headline-large")}
   }
 
   h5 {
-    font: var(--tl-sys-typescale-headline-medium);
-    letter-spacing: var(--tl-sys-typescale-headline-medium-spacing);
-    line-height: var(--tl-sys-typescale-headline-medium-line-height);
+    ${getTextRole("headline-medium")}
   }
 
   h6 {
-    font: var(--tl-sys-typescale-headline-small);
-    letter-spacing: var(--tl-sys-typescale-headline-small-spacing);
-    line-height: var(--tl-sys-typescale-headline-small-line-height);
+    ${getTextRole("headline-small")}
   }
 
   p,
   a {
-    font: var(--tl-sys-typescale-body-large);
-    letter-spacing: var(--tl-sys-typescale-body-large-spacing);
-    line-height: var(--tl-sys-typescale-body-large-line-height);
+    ${getTextRole("body-large")}
   }
 
   a:hover {
@@ -61,15 +49,11 @@ export const globalTypographyStyle = css`
 
   b,
   strong {
-    font-size: var(--tl-sys-typescale-body-large-size);
-    font-weight: var(--tl-ref-typeface-weight-bold);
-    letter-spacing: var(--tl-sys-typescale-body-large-spacing);
-    line-height: var(--tl-sys-typescale-body-large-line-height);
+    ${getTextRole("body-large")}
+    font-weight: ${theme.typography.ref.typeface.weights.bold};
   }
 
   small {
-    font: var(--tl-sys-typescale-body-small);
-    letter-spacing: var(--tl-sys-typescale-body-small-spacing);
-    line-height: var(--tl-sys-typescale-body-small-line-height);
+    ${getTextRole("body-small")}
   }
 `;

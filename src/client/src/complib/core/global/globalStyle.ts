@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components/macro";
 import { globalResetStyle } from "./globalResetStyle";
 import { globalTypographyStyle } from "./globalTypographyStyle";
 import { variablesSpacing } from "../variables/variablesSpacing";
-import { variablesTypography } from "../variables/variablesTypography";
+import { variablesTypography } from "../variables/typography/variablesTypography";
 import { variablesShadow } from "../variables/variablesShadow";
 import { variablesBorder } from "../variables/variablesBorder";
 import { variablesColor } from "../variables/variablesColor";
@@ -14,7 +14,7 @@ export const GlobalStyle = createGlobalStyle`
   ${globalResetStyle}
   
   // APPLICATION SPECIFIC
-  ${globalTypographyStyle}
+  ${({ theme }) => globalTypographyStyle(theme.typeLibrary)}
   
   // CSS VARIABLES
   ${variablesColor}

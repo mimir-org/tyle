@@ -14,4 +14,6 @@ export type { ElevationSystem } from "./variables/variablesElevation";
 export type { ShadowSystem } from "./variables/variablesShadow";
 export type { SpacingSystem } from "./variables/variablesSpacing";
 export type { StateSystem } from "./variables/variablesState";
-export type { TypographySystem } from "./variables/variablesTypography";
+export type { TypographySystem } from "./variables/typography/variablesTypography";
+
+export * from "./variables/typography/types";

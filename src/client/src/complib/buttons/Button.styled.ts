@@ -19,9 +19,9 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   white-space: nowrap;
   text-decoration: none;
 
-  font: ${(props) => props.theme.typeLibrary.typography.label.large.font};
-  line-height: ${(props) => props.theme.typeLibrary.typography.label.large.lineHeight};
-  letter-spacing: ${(props) => props.theme.typeLibrary.typography.label.large.letterSpacing};
+  font: ${(props) => props.theme.typeLibrary.typography.sys.roles.label.large.font};
+  line-height: ${(props) => props.theme.typeLibrary.typography.sys.roles.label.large.lineHeight};
+  letter-spacing: ${(props) => props.theme.typeLibrary.typography.sys.roles.label.large.letterSpacing};
 
   padding: ${(props) => props.theme.typeLibrary.spacing.xs} ${(props) => props.theme.typeLibrary.spacing.small};
   border-radius: 999px;

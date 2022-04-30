@@ -1,5 +1,5 @@
 import { Meta } from "@storybook/addon-docs";
-import { GlobalStyle, theme } from "../../core";
+import { theme } from "../../core";
 import { Box, Flexbox } from "../../layouts";
 import { Text } from "../../text";
 
@@ -11,8 +11,6 @@ import { Text } from "../../text";
 
 Below you will find an overview of all the spacing primitives available, each step increasing in relation to the one that came before it.
 The spacing is calculated from the base font size (1rem), which means that altering the base font size will scale the spacing accordingly.
-
-<GlobalStyle />
 
 ## Spacing sizes
 
@@ -28,8 +26,8 @@ The spacing is calculated from the base font size (1rem), which means that alter
     return (
       <Flexbox key={v} flexDirection="column" gap={theme.spacing.xs}>
         <Box height={"40px"} width={v} bgColor={theme.color.light.primary.base} />
-        <Text variant={"label-large"}>{k}</Text>
-        <Text variant={"label-medium"}>{v}</Text>
+        <Text variant={"title-medium"}>{k}</Text>
+        <Text variant={"label-large"}>{v}</Text>
       </Flexbox>
     );
   })}
