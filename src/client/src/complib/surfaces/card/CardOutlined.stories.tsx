@@ -17,7 +17,11 @@ const Template: ComponentStory<typeof Flexbox> = (args) => (
     <Card {...args}>
       <Flexbox flexDirection={"column"} gap={"20px"}>
         <Heading variant={"title-large"}>A rather nice card</Heading>
-        <Text>A card utilized both the card and layout components.</Text>
+        <Text>
+          {
+            "This card's dimensions are constrained by its parent, use common layout components to populate it's surface"
+          }
+        </Text>
         <Button>Action</Button>
       </Flexbox>
     </Card>
