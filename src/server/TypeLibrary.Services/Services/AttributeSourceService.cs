@@ -29,7 +29,7 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<AttributeSourceLibCm>> GetAttributeSources()
         {
-            var dataList = _sourceRepository.GetAll();
+            var dataList = _sourceRepository.GetAll().ToList();
             var dataAm = _mapper.Map<List<AttributeSourceLibCm>>(dataList);
             return Task.FromResult(dataAm.AsEnumerable());
         }
