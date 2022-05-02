@@ -5,6 +5,7 @@ import { shadow, ShadowSystem } from "../variables/variablesShadow";
 import { state, StateSystem } from "../variables/variablesState";
 import { elevation, ElevationSystem } from "../variables/variablesElevation";
 import { color, ColorSystem, darkTheme, lightTheme } from "../variables/variablesColor";
+import { animation, AnimationSystem } from "../variables/variablesAnimation";
 
 /**
  * Exposes all CSS variables through a typed object.
@@ -19,6 +20,7 @@ export const theme = {
   spacing: spacing,
   state: state,
   elevation: elevation,
+  animation: animation,
 };
 
 export interface TypeLibraryTheme {
@@ -29,6 +31,7 @@ export interface TypeLibraryTheme {
   spacing: SpacingSystem;
   state: StateSystem;
   elevation: ElevationSystem;
+  animation: AnimationSystem;
 }
 
 /**
