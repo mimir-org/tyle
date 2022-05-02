@@ -12,18 +12,18 @@ namespace TypeLibrary.Services.Tests
 {
     public class LibraryServiceTests
     {
-        private readonly ILibraryService _libraryService;
+        private readonly INodeService _nodeService;
 
-        public LibraryServiceTests(ILibraryService libraryService)
+        public LibraryServiceTests(INodeService nodeService)
         {
-            _libraryService = libraryService;
+            _nodeService = nodeService;
         }
 
         [Theory]
         [InlineData("Fake_Node_A")]
         public async Task GetNode_Returns_Correct_Object(string id)
         {
-            var test = await _libraryService.GetNode(id);
+            var test = await _nodeService.GetNode(id);
             Assert.NotNull(test);
             Assert.Equal(id, test.Id);
         }
@@ -32,7 +32,7 @@ namespace TypeLibrary.Services.Tests
         [InlineData("Stupid_Fake")]
         public async Task GetNode_No_Matching_Id_Throws_MimirorgNotFoundException(string id)
         {
-            _ = await Assert.ThrowsAsync<MimirorgNotFoundException>(() => _libraryService.GetNode(id));
+            _ = await Assert.ThrowsAsync<MimirorgNotFoundException>(() => _nodeService.GetNode(id));
         }
 
         [Theory]
@@ -41,7 +41,7 @@ namespace TypeLibrary.Services.Tests
         [InlineData(null)]
         public async Task GetNode_Missing_Id_Throws_MimirorgBadRequestException(string id)
         {
-            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _libraryService.GetNode(id));
+            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.GetNode(id));
         }
 
         [Theory]
@@ -71,7 +71,7 @@ namespace TypeLibrary.Services.Tests
                 Created = s ?? DateTime.MinValue
             };
 
-            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _libraryService.CreateNode(nodeToCreate));
+            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.CreateNode(nodeToCreate));
         }
 
         [Theory]
@@ -89,14 +89,14 @@ namespace TypeLibrary.Services.Tests
                 Created = s ?? DateTime.MinValue
             };
 
-            await _libraryService.CreateNode(nodeToCreate);
-            _ = await Assert.ThrowsAsync<MimirorgDuplicateException>(() => _libraryService.CreateNode(nodeToCreate));
+            await _nodeService.CreateNode(nodeToCreate);
+            _ = await Assert.ThrowsAsync<MimirorgDuplicateException>(() => _nodeService.CreateNode(nodeToCreate));
         }
 
         [Fact]
         public async Task Create_Node_Returns_MimirorgNullReferenceException_When_Null_Parameters()
         {
-            _ = await Assert.ThrowsAsync<MimirorgNullReferenceException>(() => _libraryService.CreateNode(null));
+            _ = await Assert.ThrowsAsync<MimirorgNullReferenceException>(() => _nodeService.CreateNode(null));
         }
 
         [Theory]
@@ -121,7 +121,7 @@ namespace TypeLibrary.Services.Tests
 
             var id = $"{name}-{rds}-{nodeToCreate.Aspect}-{nodeToCreate.Version}".CreateMd5();
 
-            var node = await _libraryService.CreateNode(nodeToCreate);
+            var node = await _nodeService.CreateNode(nodeToCreate);
             Assert.NotNull(node);
             Assert.Equal(name, node.Name);
             Assert.Equal(rds, node.RdsId);
@@ -154,7 +154,7 @@ namespace TypeLibrary.Services.Tests
 
             var id = $"{name}-{rds}-{nodeToCreate.Aspect}-{nodeToCreate.Version}".CreateMd5();
 
-            var node = await _libraryService.CreateNode(nodeToCreate);
+            var node = await _nodeService.CreateNode(nodeToCreate);
             Assert.NotNull(node);
             Assert.Equal(name, node.Name);
             Assert.Equal(rds, node.RdsId);

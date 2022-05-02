@@ -19,33 +19,33 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("Library Transport Services")]
-    public class LibraryTransportController : ControllerBase
+    [SwaggerTag("Library Simple Services")]
+    public class LibrarySimpleController : ControllerBase
     {
-        private readonly ILogger<LibraryTransportController> _logger;
-        private readonly ITransportService _transportService;
+        private readonly ILogger<LibrarySimpleController> _logger;
+        private readonly ISimpleService _simpleService;
 
-        public LibraryTransportController(ILogger<LibraryTransportController> logger, ITransportService transportService)       
+        public LibrarySimpleController(ILogger<LibrarySimpleController> logger, ISimpleService simpleService)
         {
             _logger = logger;
-            _transportService = transportService;
+            _simpleService = simpleService;
         }
 
        /// <summary>
-       /// Get transport by id
+       /// Get simple by id
        /// </summary>
        /// <param name="id"></param>
-       /// <returns>TransportLibCm</returns>
+       /// <returns>SimpleLibCm</returns>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(TransportLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SimpleLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetTransport([FromRoute] string id)
+        public async Task<IActionResult> GetSimple([FromRoute] string id)
         {
             try
             {
-                var data = await _transportService.GetTransport(id);
+                var data = await _simpleService.GetSimple(id);
                 return Ok(data);
             }
             catch (Exception e)
@@ -56,19 +56,19 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
        /// <summary>
-       /// Get all transports
+       /// Get all simple
        /// </summary>
-       /// <returns>TransportLibCm Collection</returns>
+       /// <returns>SimpleLibCm Collection</returns>
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<TransportLibCm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<SimpleLibCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetTransports()
+        public async Task<IActionResult> GetAllSimple()
         {
             try
             {
-                var data = await _transportService.GetTransports();
+                var data = await _simpleService.GetAllSimple();
                 return Ok(data.ToList());
             }
             catch (Exception e)
@@ -79,20 +79,20 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
        /// <summary>
-       /// Update transport
+       /// Update simple
        /// </summary>
        /// <param name="dataAm"></param>
        /// <param name="id"></param>
-       /// <returns>TransportLibCm</returns>
+       /// <returns>SimpleLibCm</returns>
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(TransportLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SimpleLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateTransport([FromBody] TransportLibAm dataAm, [FromRoute] string id)
+        public async Task<IActionResult> UpdateSimple([FromBody] SimpleLibAm dataAm, [FromRoute] string id)
         {
             try
             {
-                var data = await _transportService.UpdateTransport(dataAm, id);
+                var data = await _simpleService.UpdateSimple(dataAm, id);
                 return Ok(data);
             }
             catch (Exception e)
@@ -103,19 +103,19 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
        /// <summary>
-       /// Create transport
+       /// Create simple
        /// </summary>
        /// <param name="dataAm"></param>
-       /// <returns>TransportLibCm</returns>
+       /// <returns>SimpleLibCm</returns>
         [HttpPost]
-        [ProducesResponseType(typeof(TransportLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SimpleLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> CreateTransport([FromBody] TransportLibAm dataAm)
+        public async Task<IActionResult> CreateSimple([FromBody] SimpleLibAm dataAm)
         {
             try
             {
-                var data = await _transportService.CreateTransport(dataAm);
+                var data = await _simpleService.CreateSimple(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -126,19 +126,19 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
        /// <summary>
-       /// Delete a transport
+       /// Delete a simple
        /// </summary>
        /// <param name="id"></param>
        /// <returns>200</returns>
        [HttpDelete]
        [ProducesResponseType(typeof(bool), 200)]
        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-       [SwaggerOperation("Delete a transport")]
-       public async Task<IActionResult> DeleteTransport([FromRoute] string id)
+       [SwaggerOperation("Delete a simple")]
+       public async Task<IActionResult> DeleteSimple([FromRoute] string id)
        {
            try
            {
-               var data = await _transportService.DeleteTransport(id);
+               var data = await _simpleService.DeleteSimple(id);
                return Ok(data);
            }
            catch (Exception e)

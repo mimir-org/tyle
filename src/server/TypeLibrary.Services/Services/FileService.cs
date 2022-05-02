@@ -4,16 +4,16 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using TypeLibrary.Services.Contracts;
-using ILibraryService = TypeLibrary.Services.Contracts.ILibraryService;
+using ITransportService = TypeLibrary.Services.Contracts.ITransportService;
 
 namespace TypeLibrary.Services.Services
 {
     public class FileService : IFileService
     {
-        private readonly ILibraryService _libraryTypeService;
+        private readonly ITransportService _libraryTypeService;
         private readonly IMapper _mapper;
 
-        public FileService(ILibraryService libraryTypeService, IMapper mapper)
+        public FileService(ITransportService libraryTypeService, IMapper mapper)
         {
             _libraryTypeService = libraryTypeService;
             _mapper = mapper;
