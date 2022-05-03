@@ -38,11 +38,6 @@ namespace TypeLibrary.Data.Configurations
             builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(x => x.Blob).WithMany(y => y.Nodes).HasForeignKey(x => x.BlobId).OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(x => x.AttributeAspect).WithMany(y => y.Nodes).HasForeignKey(x => x.AttributeAspectId).OnDelete(DeleteBehavior.NoAction);
-
-            builder.HasMany(x => x.Collections).WithMany(y => y.Types).UsingEntity<Dictionary<string, object>>("Node_Collection",
-                x => x.HasOne<CollectionLibDm>().WithMany().HasForeignKey("CollectionId"),
-                x => x.HasOne<NodeLibDm>().WithMany().HasForeignKey("NodeId"),
-                x => x.ToTable("Node_Collection"));
         }
     }
 }

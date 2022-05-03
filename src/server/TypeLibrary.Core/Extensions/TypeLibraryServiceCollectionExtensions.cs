@@ -48,7 +48,6 @@ namespace TypeLibrary.Core.Extensions
             cfg.AddProfile(new UnitProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new SimpleProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new SelectedAttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>()));
-            cfg.AddProfile(new AttributeCollectionProfile());
             cfg.AddProfile(new NodeTerminalProfile());
 
             var mapperConfig = new MapperConfiguration(cfg);
