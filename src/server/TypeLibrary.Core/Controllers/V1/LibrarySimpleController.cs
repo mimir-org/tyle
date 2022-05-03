@@ -31,11 +31,11 @@ namespace TypeLibrary.Core.Controllers.V1
             _simpleService = simpleService;
         }
 
-       /// <summary>
-       /// Get simple by id
-       /// </summary>
-       /// <param name="id"></param>
-       /// <returns>SimpleLibCm</returns>
+        /// <summary>
+        /// Get simple by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>SimpleLibCm</returns>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(SimpleLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -55,10 +55,10 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-       /// <summary>
-       /// Get all simple
-       /// </summary>
-       /// <returns>SimpleLibCm Collection</returns>
+        /// <summary>
+        /// Get all simple
+        /// </summary>
+        /// <returns>SimpleLibCm Collection</returns>
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<SimpleLibCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -78,12 +78,12 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-       /// <summary>
-       /// Update simple
-       /// </summary>
-       /// <param name="dataAm"></param>
-       /// <param name="id"></param>
-       /// <returns>SimpleLibCm</returns>
+        /// <summary>
+        /// Update simple
+        /// </summary>
+        /// <param name="dataAm"></param>
+        /// <param name="id"></param>
+        /// <returns>SimpleLibCm</returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(SimpleLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -102,11 +102,11 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-       /// <summary>
-       /// Create simple
-       /// </summary>
-       /// <param name="dataAm"></param>
-       /// <returns>SimpleLibCm</returns>
+        /// <summary>
+        /// Create simple
+        /// </summary>
+        /// <param name="dataAm"></param>
+        /// <returns>SimpleLibCm</returns>
         [HttpPost]
         [ProducesResponseType(typeof(SimpleLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -125,27 +125,27 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-       /// <summary>
-       /// Delete a simple
-       /// </summary>
-       /// <param name="id"></param>
-       /// <returns>200</returns>
-       [HttpDelete]
-       [ProducesResponseType(typeof(bool), 200)]
-       [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-       [SwaggerOperation("Delete a simple")]
-       public async Task<IActionResult> DeleteSimple([FromRoute] string id)
-       {
-           try
-           {
-               var data = await _simpleService.DeleteSimple(id);
-               return Ok(data);
-           }
-           catch (Exception e)
-           {
-               _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-               return StatusCode(500, "Internal Server Error");
-           }
-       }
+        /// <summary>
+        /// Delete a simple
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>200</returns>
+        [HttpDelete]
+        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [SwaggerOperation("Delete a simple")]
+        public async Task<IActionResult> DeleteSimple([FromRoute] string id)
+        {
+            try
+            {
+                var data = await _simpleService.DeleteSimple(id);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
     }
 }
