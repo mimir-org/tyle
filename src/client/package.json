@@ -7,6 +7,7 @@
     "@microsoft/applicationinsights-web": "^2.8.0",
     "axios": "^0.26.1",
     "framer-motion": "^6.3.0",
+    "polished": "^4.2.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.30.0",

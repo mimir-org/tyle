@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -94,19 +95,16 @@ namespace TypeLibrary.Services.Services
         /// <returns></returns>
         public IEnumerable<BlobLibCm> GetBlob()
         {
-            var dms = _blobDataRepository.GetAll()
-                .OrderBy(x => x.Name)
-                .ProjectTo<BlobLibAm>(_mapper.ConfigurationProvider)
-                .ToList();
+            var blobDms = _blobDataRepository.GetAll().ToList().OrderBy(x => x.Discipline).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
-            dms.Insert(0, new BlobLibAm
+            blobDms.Insert(0, new BlobLibDm
             {
                 Discipline = Discipline.None,
                 Data = null,
                 Name = "No symbol"
             });
 
-            return _mapper.Map<List<BlobLibCm>>(dms);
+            return _mapper.Map<List<BlobLibCm>>(blobDms);
         }
     }
 }

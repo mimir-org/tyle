@@ -1,5 +1,27 @@
 import { css } from "styled-components/macro";
 
+interface Accent {
+  base: string,
+  on: string,
+  container: string,
+  onContainer: string,
+}
+
+export interface ColorSystem {
+  primary: Accent,
+  secondary: Accent,
+  tertiary: Accent,
+  error: Accent,
+  outline: Pick<Accent, "base">,
+  background: Pick<Accent, "base" | "on">,
+  surface: Pick<Accent, "base" | "on"> & {
+    variant: Pick<Accent, "base" | "on">,
+    inverse: Pick<Accent, "base" | "on">
+    tint: Pick<Accent, "base">
+  }
+  shadow: Pick<Accent, "base">
+}
+
 export const lightTheme: ColorSystem = {
   primary: {
     base: "#5d6408",
@@ -43,7 +65,13 @@ export const lightTheme: ColorSystem = {
       base: "#31312b",
       on: "#f4f1e9",
     },
+    tint: {
+      base: "#5d6408"
+    }
   },
+  shadow: {
+    base: "#000000"
+  }
 }
 
 export const darkTheme: ColorSystem = {
@@ -89,7 +117,13 @@ export const darkTheme: ColorSystem = {
       base: "#e5e2da",
       on: "#1c1c17",
     },
+    tint: {
+      base: "#c5cf62"
+    }
   },
+  shadow: {
+    base: "#000000"
+  }
 }
 
 export const color = {
@@ -120,11 +154,13 @@ export const variablesColor = css`
     --tl-sys-color-background-light: ${lightTheme.background.base};
     --tl-sys-color-on-background-light: ${lightTheme.background.on};
     --tl-sys-color-surface-light: ${lightTheme.surface.base};
+    --tl-sys-color-surface-tint-light: ${lightTheme.surface.tint.base};
     --tl-sys-color-on-surface-light: ${lightTheme.surface.on};
     --tl-sys-color-surface-variant-light: ${lightTheme.surface.variant.base};
     --tl-sys-color-on-surface-variant-light: ${lightTheme.surface.variant.on};
     --tl-sys-color-inverse-surface-light: ${lightTheme.surface.inverse.base};
     --tl-sys-color-inverse-on-surface-light: ${lightTheme.surface.inverse.on};
+    --tl-sys-color-shadow-light: ${lightTheme.shadow.base};
 
     // Dark
     --tl-sys-color-primary-dark: ${darkTheme.primary.base};
@@ -147,11 +183,13 @@ export const variablesColor = css`
     --tl-sys-color-background-dark: ${darkTheme.background.base};
     --tl-sys-color-on-background-dark: ${darkTheme.background.on};
     --tl-sys-color-surface-dark: ${darkTheme.surface.base};
+    --tl-sys-color-surface-tint-dark: ${darkTheme.surface.tint.base};
     --tl-sys-color-on-surface-dark: ${darkTheme.surface.on};
     --tl-sys-color-surface-variant-dark: ${darkTheme.surface.variant.base};
     --tl-sys-color-on-surface-variant-dark: ${darkTheme.surface.variant.on};
     --tl-sys-color-inverse-surface-dark: ${darkTheme.surface.inverse.base};
     --tl-sys-color-inverse-on-surface-dark: ${darkTheme.surface.inverse.on};
+    --tl-sys-color-shadow-dark: ${darkTheme.shadow.base};
 
     @media (prefers-color-scheme: light) {
         --tl-sys-color-primary: var(--tl-sys-color-primary-light);
@@ -174,11 +212,13 @@ export const variablesColor = css`
         --tl-sys-color-background: var(--tl-sys-color-background-light);
         --tl-sys-color-on-background: var(--tl-sys-color-on-background-light);
         --tl-sys-color-surface: var(--tl-sys-color-surface-light);
+        --tl-sys-color-surface-tint: var(--tl-sys-color-surface-tint-light);
         --tl-sys-color-on-surface: var(--tl-sys-color-on-surface-light);
         --tl-sys-color-surface-variant: var(--tl-sys-color-surface-variant-light);
         --tl-sys-color-on-surface-variant: var(--tl-sys-color-on-surface-variant-light);
         --tl-sys-color-inverse-surface: var(--tl-sys-color-inverse-surface-light);
         --tl-sys-color-inverse-on-surface: var(--tl-sys-color-inverse-on-surface-light);
+        --tl-sys-color-shadow: var(--tl-sys-color-shadow-light);
       
       .dark-theme {
         --tl-sys-color-primary: var(--tl-sys-color-primary-dark);
@@ -201,11 +241,13 @@ export const variablesColor = css`
         --tl-sys-color-background: var(--tl-sys-color-background-dark);
         --tl-sys-color-on-background: var(--tl-sys-color-on-background-dark);
         --tl-sys-color-surface: var(--tl-sys-color-surface-dark);
+        --tl-sys-color-surface-tint: var(--tl-sys-color-surface-tint-dark);
         --tl-sys-color-on-surface: var(--tl-sys-color-on-surface-dark);
         --tl-sys-color-surface-variant: var(--tl-sys-color-surface-variant-dark);
         --tl-sys-color-on-surface-variant: var(--tl-sys-color-on-surface-variant-dark);
         --tl-sys-color-inverse-surface: var(--tl-sys-color-inverse-surface-dark);
         --tl-sys-color-inverse-on-surface: var(--tl-sys-color-inverse-on-surface-dark);
+        --tl-sys-color-shadow: var(--tl-sys-color-shadow-dark);
       }
     }
 
@@ -230,11 +272,13 @@ export const variablesColor = css`
         --tl-sys-color-background: var(--tl-sys-color-background-dark);
         --tl-sys-color-on-background: var(--tl-sys-color-on-background-dark);
         --tl-sys-color-surface: var(--tl-sys-color-surface-dark);
+        --tl-sys-color-surface-tint: var(--tl-sys-color-surface-tint-dark);
         --tl-sys-color-on-surface: var(--tl-sys-color-on-surface-dark);
         --tl-sys-color-surface-variant: var(--tl-sys-color-surface-variant-dark);
         --tl-sys-color-on-surface-variant: var(--tl-sys-color-on-surface-variant-dark);
         --tl-sys-color-inverse-surface: var(--tl-sys-color-inverse-surface-dark);
         --tl-sys-color-inverse-on-surface: var(--tl-sys-color-inverse-on-surface-dark);
+        --tl-sys-color-shadow: var(--tl-sys-color-shadow-dark);
       
       .light-theme {
         --tl-sys-color-primary: var(--tl-sys-color-primary-light);
@@ -257,31 +301,13 @@ export const variablesColor = css`
         --tl-sys-color-background: var(--tl-sys-color-background-light);
         --tl-sys-color-on-background: var(--tl-sys-color-on-background-light);
         --tl-sys-color-surface: var(--tl-sys-color-surface-light);
+        --tl-sys-color-surface-tint: var(--tl-sys-color-surface-tint-light);
         --tl-sys-color-on-surface: var(--tl-sys-color-on-surface-light);
         --tl-sys-color-surface-variant: var(--tl-sys-color-surface-variant-light);
         --tl-sys-color-on-surface-variant: var(--tl-sys-color-on-surface-variant-light);
         --tl-sys-color-inverse-surface: var(--tl-sys-color-inverse-surface-light);
         --tl-sys-color-inverse-on-surface: var(--tl-sys-color-inverse-on-surface-light);
+        --tl-sys-color-shadow: var(--tl-sys-color-shadow-light);
       }
   }
 `;
-
-interface Accent {
-  base: string,
-  on: string,
-  container: string,
-  onContainer: string,
-}
-
-export interface ColorSystem {
-  primary: Accent,
-  secondary: Accent,
-  tertiary: Accent,
-  error: Accent,
-  outline: Pick<Accent, "base">,
-  background: Pick<Accent, "base" | "on">,
-  surface: Pick<Accent, "base" | "on"> & {
-    variant: Pick<Accent, "base" | "on">,
-    inverse: Pick<Accent, "base" | "on">
-  }
-}

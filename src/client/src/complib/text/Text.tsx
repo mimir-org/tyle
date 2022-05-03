@@ -2,7 +2,7 @@ import styled from "styled-components/macro";
 import { ElementType } from "react";
 import { motion } from "framer-motion";
 import { Display, Palette, Polymorphic, TextVariant, Typography } from "../props";
-import { displayMixin, paletteMixin, textVariantMixin, typographyMixin } from "../mixins";
+import { displayMixin, getTextRole, paletteMixin, typographyMixin } from "../mixins";
 
 type TextProps = Pick<Palette, "color"> &
   Pick<Display, "whiteSpace" | "display"> &
@@ -29,7 +29,8 @@ export const Text = styled.p<TextProps>`
   ${typographyMixin};
   ${paletteMixin};
   ${displayMixin};
-  ${textVariantMixin};
+
+  ${({ variant }) => getTextRole(variant)}};
 
   ${({ useEllipsis, ellipsisMaxLines }) =>
     useEllipsis &&

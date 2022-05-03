@@ -1,21 +1,5 @@
 import { css } from "styled-components/macro";
 
-export const variablesBorder = css`
-  :root {
-    --tl-sys-border-radius-small: 4px;
-    --tl-sys-border-radius-medium: 8px;
-    --tl-sys-border-radius-large: 16px;
-  }
-`;
-
-export const border: BorderSystem = {
-  radius: {
-    small: "var(--tl-sys-border-radius-small)",
-    medium: "var(--tl-sys-border-radius-medium)",
-    large: "var(--tl-sys-border-radius-large)",
-  },
-};
-
 export interface BorderSystem {
   radius: {
     small: string,
@@ -23,3 +7,21 @@ export interface BorderSystem {
     large: string,
   }
 }
+
+export const border: BorderSystem = {
+  radius: {
+    small: "4px",
+    medium: "8px",
+    large: "16px",
+  },
+};
+
+export const variablesBorder = css`
+  :root {
+    --tl-sys-border-radius-small: ${border.radius.small};
+    --tl-sys-border-radius-medium: ${border.radius.medium};
+    --tl-sys-border-radius-large: ${border.radius.large};
+  }
+`;
+
+

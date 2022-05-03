@@ -5,15 +5,15 @@ import styled from "styled-components";
  */
 export const Input = styled.input`
   border: 0;
-  border-bottom: 1px solid var(--tl-sys-color-outline);
+  border-bottom: 1px solid ${(props) => props.theme.typeLibrary.color.outline.base};
   width: 100%;
-  padding: var(--tl-sys-spacing-small);
+  padding: ${(props) => props.theme.typeLibrary.spacing.small};
   height: 40px;
   background-color: transparent;
-  color: var(--tl-sys-color-on-surface);
+  color: ${(props) => props.theme.typeLibrary.color.surface.on};
   border-radius: 0;
 
   ::placeholder {
-    color: var(--tl-sys-color-on-surface-variant);
+    color: ${(props) => props.theme.typeLibrary.color.surface.variant.on};
   }
 `;

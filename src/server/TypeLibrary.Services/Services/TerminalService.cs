@@ -31,7 +31,6 @@ namespace TypeLibrary.Services.Services
         public IEnumerable<TerminalLibCm> GetTerminals()
         {
             var terminals = _terminalTypeRepository.GetAll()
-                .Where(x => string.IsNullOrWhiteSpace(x.ParentId))
                 .Include(x => x.Children)
                 .Include(x => x.Attributes)
                 .ToList();

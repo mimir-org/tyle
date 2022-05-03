@@ -24,12 +24,12 @@ namespace TypeLibrary.Core.Controllers.V1
     public class LibraryAspectNodeController : ControllerBase
     {
         private readonly ILogger<LibraryAspectNodeController> _logger;
-        private readonly ILibraryService _libraryService;
+        private readonly INodeService _nodeService;
 
-        public LibraryAspectNodeController(ILogger<LibraryAspectNodeController> logger, ILibraryService libraryService)
+        public LibraryAspectNodeController(ILogger<LibraryAspectNodeController> logger, INodeService nodeService)
         {
             _logger = logger;
-            _libraryService = libraryService;
+            _nodeService = nodeService;
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var cm = await _libraryService.GetNodes();
+                var cm = await _nodeService.GetNodes();
                 return Ok(cm);
             }
             catch (Exception e)
@@ -71,7 +71,7 @@ namespace TypeLibrary.Core.Controllers.V1
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var cm = await _libraryService.GetNode(id);
+                var cm = await _nodeService.GetNode(id);
                 return Ok(cm);
             }
             catch (MimirorgBadRequestException e)
@@ -111,7 +111,7 @@ namespace TypeLibrary.Core.Controllers.V1
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var cm = await _libraryService.CreateNode(node);
+                var cm = await _nodeService.CreateNode(node);
                 return Ok(cm);
             }
             catch (MimirorgBadRequestException e)

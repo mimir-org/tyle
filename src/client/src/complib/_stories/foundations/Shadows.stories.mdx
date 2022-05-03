@@ -1,5 +1,5 @@
 import { Meta } from "@storybook/addon-docs";
-import { GlobalStyle, theme } from "../../core";
+import { theme } from "../../core";
 import { Box } from "../../layouts";
 import { Text } from "../../text";
 
@@ -10,8 +10,6 @@ import { Text } from "../../text";
 ## Overview
 
 Here you will find an overview of the different shadows available. These are used to create a sense of hierarchy and elevation within the UI and different layouts.
-
-<GlobalStyle />
 
 ## Shadow levels
 
@@ -27,8 +25,8 @@ Here you will find an overview of the different shadows available. These are use
   {Object.entries(theme.shadow).map(([k, v]) => {
     return (
       <Box key={v} display="flex" flexDirection={"column"} gap={theme.spacing.large} p={theme.spacing.large} boxShadow={v}>
-        <Text as={"b"}>{k}</Text>
-        <Text as={"small"}>{v}</Text>
+        <Text variant={"title-medium"}>theme.shadow.{k}</Text>
+        <Text variant={"label-large"}>box-shadow: {v}</Text>
       </Box>
     );
   })}

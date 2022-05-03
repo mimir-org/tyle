@@ -1,18 +1,15 @@
+type DisplayType = "display-large" | "display-medium" | "display-small";
+
+type HeadlineType = "headline-large" | "headline-medium" | "headline-small";
+
+type TitleType = "title-large" | "title-medium" | "title-small";
+
+type BodyType = "body-large" | "body-medium" | "body-small";
+
+type LabelType = "label-large" | "label-medium" | "label-small";
+
+export type TextTypes = DisplayType | HeadlineType | TitleType | BodyType | LabelType;
+
 export interface TextVariant {
-  variant?:
-    | "display-large"
-    | "display-medium"
-    | "display-small"
-    | "headline-large"
-    | "headline-medium"
-    | "headline-small"
-    | "title-large"
-    | "title-medium"
-    | "title-small"
-    | "body-large"
-    | "body-medium"
-    | "body-small"
-    | "label-large"
-    | "label-medium"
-    | "label-small";
+  variant?: TextTypes;
 }

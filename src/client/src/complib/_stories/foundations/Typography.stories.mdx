@@ -1,5 +1,5 @@
-import { Meta, Canvas } from "@storybook/addon-docs";
-import { GlobalStyle, theme } from "../../core";
+import { Canvas, Meta } from "@storybook/addon-docs";
+import { theme } from "../../core";
 import { Box, Flexbox } from "../../layouts";
 import { Heading, Text } from "../../text";
 
@@ -11,46 +11,44 @@ import { Heading, Text } from "../../text";
 
 Here you will find an overview of the type scale system.
 
-<GlobalStyle />
-
 ## Headings
 
 <Canvas>
   <Box display="flex" flexDirection="column" gap={theme.spacing.medium} p={theme.spacing.large}>
     <Flexbox gap={theme.spacing.large}>
-      <Heading as={"h1"}>H1</Heading>
+      <Heading as={"h1"} variant={"display-large"}>H1</Heading>
       <div>
-        <Heading as={"h1"}>Main heading</Heading>
+        <Heading as={"h1"} variant={"display-large"}>Main heading</Heading>
       </div>
     </Flexbox>
     <Flexbox gap={theme.spacing.large}>
-      <Heading as={"h2"}>H2</Heading>
+      <Heading as={"h2"} variant={"display-medium"}>H2</Heading>
       <div>
-        <Heading as={"h2"}>Secondary heading</Heading>
+        <Heading as={"h2"} variant={"display-medium"}>Secondary heading</Heading>
       </div>
     </Flexbox>
     <Flexbox gap={theme.spacing.large}>
-      <Heading as={"h3"}>H3</Heading>
+      <Heading as={"h3"} variant={"display-small"}>H3</Heading>
       <div>
-        <Heading as={"h3"}>Tertiary heading</Heading>
+        <Heading as={"h3"} variant={"display-small"}>Tertiary heading</Heading>
       </div>
     </Flexbox>
     <Flexbox gap={theme.spacing.large}>
-      <Heading as={"h4"}>H4</Heading>
+      <Heading as={"h4"} variant={"headline-large"}>H4</Heading>
       <div>
-        <Heading as={"h4"}>Fourth heading</Heading>
+        <Heading as={"h4"} variant={"headline-large"}>Fourth heading</Heading>
       </div>
     </Flexbox>
     <Flexbox gap={theme.spacing.large}>
-      <Heading as={"h5"}>H5</Heading>
+      <Heading as={"h5"} variant={"headline-medium"}>H5</Heading>
       <div>
-        <Heading as={"h5"}>Fifth heading</Heading>
+        <Heading as={"h5"} variant={"headline-medium"}>Fifth heading</Heading>
       </div>
     </Flexbox>
     <Flexbox gap={theme.spacing.large}>
-      <Heading as={"h6"}>H5</Heading>
+      <Heading as={"h6"} variant={"headline-small"}>H6</Heading>
       <div>
-        <Heading as={"h6"}>Sixth heading</Heading>
+        <Heading as={"h6"} variant={"headline-small"}>Sixth heading</Heading>
       </div>
     </Flexbox>
   </Box>
@@ -61,17 +59,17 @@ Here you will find an overview of the type scale system.
 <Canvas>
   <Box display="flex" flexDirection="column" gap={theme.spacing.medium} p={theme.spacing.large}>
     <Flexbox gap={theme.spacing.large}>
-      <Text as={"p"}>&lt;p&gt;</Text>
+      <Text as={"p"} variant={"body-large"}>&lt;p&gt;</Text>
       <div>
-        <Text as={"p"}>Paragraph text</Text>
-        <Text>Used for general text</Text>
+        <Text as={"p"} variant={"body-large"}>Paragraph text</Text>
+        <Text variant={"body-large"}>Used for general text</Text>
       </div>
     </Flexbox>
     <Flexbox gap={theme.spacing.large}>
-      <Text as={"a"} href="/">Link</Text>
+      <Text as={"a"} variant={"body-large"} href="/">Link</Text>
       <div>
-        <Text as={"a"} href="/">Link text</Text>
-        <Text>Used for navigation between views</Text>
+        <Text as={"a"} variant={"body-large"} href="/">Link text</Text>
+        <Text variant={"body-large"}>Used for navigation between views</Text>
       </div>
     </Flexbox>
   </Box>

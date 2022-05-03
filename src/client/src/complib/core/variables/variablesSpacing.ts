@@ -1,31 +1,8 @@
 import { css } from "styled-components/macro";
-
-export const variablesSpacing = css`
-  :root {
-    --tl-sys-spacing-unit: 1rem;
-    --tl-sys-spacing-xxs: calc(0.25 * var(--tl-sys-spacing-unit));
-    --tl-sys-spacing-xs: calc(0.5 * var(--tl-sys-spacing-unit));
-    --tl-sys-spacing-small: calc(0.75 * var(--tl-sys-spacing-unit));
-    --tl-sys-spacing-medium: calc(1.25 * var(--tl-sys-spacing-unit));
-    --tl-sys-spacing-large: calc(2 * var(--tl-sys-spacing-unit));
-    --tl-sys-spacing-xl: calc(3.25 * var(--tl-sys-spacing-unit));
-    --tl-sys-spacing-xxl: calc(5.25 * var(--tl-sys-spacing-unit));
-    --tl-sys-spacing-xxxl: calc(8.5 * var(--tl-sys-spacing-unit));
-  }
-`;
-
-export const spacing: SpacingSystem = {
-  xxs: "var(--tl-sys-spacing-xxs)",
-  xs: "var(--tl-sys-spacing-xs)",
-  small: "var(--tl-sys-spacing-small)",
-  medium: "var(--tl-sys-spacing-medium)",
-  large: "var(--tl-sys-spacing-large)",
-  xl: "var(--tl-sys-spacing-xl)",
-  xxl: "var(--tl-sys-spacing-xxl)",
-  xxxl: "var(--tl-sys-spacing-xxxl)",
-};
+import { math } from "polished";
 
 export interface SpacingSystem {
+  unit: string;
   xxs: string;
   xs: string;
   small: string;
@@ -35,3 +12,30 @@ export interface SpacingSystem {
   xxl: string;
   xxxl: string;
 }
+
+const spacingUnit = "1rem";
+export const spacing: SpacingSystem = {
+  unit: spacingUnit,
+  xxs: math(`${spacingUnit} * 0.25`),
+  xs: math(`${spacingUnit} * 0.5`),
+  small: math(`${spacingUnit} * 0.75`),
+  medium: math(`${spacingUnit} * 1.25`),
+  large: math(`${spacingUnit} * 2`),
+  xl: math(`${spacingUnit} * 3.25`),
+  xxl: math(`${spacingUnit} * 5.25`),
+  xxxl: math(`${spacingUnit} * 8.5`),
+};
+
+export const variablesSpacing = css`
+  :root {
+    --tl-sys-spacing-unit: ${spacing.unit};
+    --tl-sys-spacing-xxs: ${spacing.xxs};
+    --tl-sys-spacing-xs: ${spacing.xs};
+    --tl-sys-spacing-small: ${spacing.small};
+    --tl-sys-spacing-medium: ${spacing.medium};
+    --tl-sys-spacing-large: ${spacing.large};
+    --tl-sys-spacing-xl: ${spacing.xl};
+    --tl-sys-spacing-xxl: ${spacing.xxl};
+    --tl-sys-spacing-xxxl: ${spacing.xxxl};
+  }
+`;

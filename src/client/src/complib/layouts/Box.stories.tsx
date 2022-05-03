@@ -35,7 +35,7 @@ WithPaddingAndBorder.args = {
 
 export const WithShadow = Template.bind({});
 WithShadow.args = {
-  boxShadow: theme.shadow.boxMedium,
+  boxShadow: theme.shadow.medium,
 };
 
 export const WithPolymorphicAs = Template.bind({});

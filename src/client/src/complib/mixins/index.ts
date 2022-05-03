@@ -8,4 +8,6 @@ export { shadowsMixin } from "./shadowsMixin";
 export { spacingMixin } from "./spacingMixin";
 export { sizingMixin } from "./sizingMixin";
 export { typographyMixin } from "./typographyMixin";
-export { textVariantMixin } from "./textVariantMixin";
+export { getTextRole } from "./getTextRole";
+export { layer } from "./layer";
+export { translucify } from "./translucify";

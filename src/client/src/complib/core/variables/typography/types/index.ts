@@ -1,0 +1,5 @@
+export type { NominalScale } from "./nominalScale"
+export type { ScaleSpecification } from "./scaleSpecification"
+export type { TypeScaleDimension } from "./typeScaleDimension"
+export type { TypeScaleSpecification } from "./typeScaleSpecification"
+export type { TypographyRoles } from "./typographyRoles"
