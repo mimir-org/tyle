@@ -43,7 +43,6 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IAttributeAspectRepository, AttributeAspectRepository>();
             services.AddScoped<IPurposeRepository, PurposeRepository>();
             services.AddScoped<IUnitRepository, UnitRepository>();
-            services.AddScoped<ICollectionRepository, CollectionRepository>();
 
             // Dependency Injection - Services
             services.AddScoped<ITerminalService, TerminalService>();
@@ -59,7 +58,6 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IAttributeAspectService, AttributeAspectService>();
             services.AddScoped<IPurposeService, PurposeService>();
             services.AddScoped<IUnitService, UnitService>();
-            services.AddScoped<ICollectionService, CollectionService>();
             services.AddScoped<ITransportService, TransportService>();
             services.AddScoped<INodeService, NodeService>();
             services.AddScoped<IInterfaceService, InterfaceService>();
