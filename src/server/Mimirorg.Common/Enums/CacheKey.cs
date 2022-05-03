@@ -41,6 +41,12 @@ namespace Mimirorg.Common.Enums
         SimpleType = 11,
 
         [Display(Name = "Attribute Predefined")]
-        AttributePredefined = 12
+        AttributePredefined = 12,
+
+        [Display(Name = "Interface")]
+        Interface = 13,
+
+        [Display(Name = "Transport")]
+        Transport = 14
     }
 }
