@@ -41,6 +41,9 @@ namespace Mimirorg.Common.Enums
         SimpleType = 11,
 
         [Display(Name = "Attribute Predefined")]
-        AttributePredefined = 12
+        AttributePredefined = 12,
+
+        [Display(Name = "Blob")]
+        Blob = 13
     }
 }
