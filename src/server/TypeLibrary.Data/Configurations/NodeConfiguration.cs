@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TypeLibrary.Data.Models;
@@ -16,10 +15,10 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(127);
             builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false).HasDefaultValue(null).HasMaxLength(255);
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(63);
-            builder.Property(p => p.RdsId).HasColumnName("RdsId").IsRequired().HasMaxLength(127);
+            builder.Property(p => p.RdsCode).HasColumnName("RdsCode").IsRequired().HasMaxLength(127);
             builder.Property(p => p.RdsName).HasColumnName("RdsName").IsRequired().HasMaxLength(127);
-            builder.Property(p => p.PurposeId).HasColumnName("PurposeId").IsRequired().HasMaxLength(127);
             builder.Property(p => p.PurposeName).HasColumnName("PurposeName").IsRequired().HasMaxLength(127);
+            builder.Property(p => p.PurposeDiscipline).HasColumnName("PurposeDiscipline").IsRequired().HasMaxLength(127);
             builder.Property(p => p.ParentId).HasColumnName("ParentId").HasMaxLength(127);
             builder.Property(p => p.Version).HasColumnName("Version").IsRequired().HasMaxLength(7);
             builder.Property(p => p.FirstVersionId).HasColumnName("FirstVersionId").IsRequired().HasMaxLength(127);
@@ -31,13 +30,11 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.Updated).HasColumnName("Updated").IsRequired(false).HasDefaultValue(null);
             builder.Property(p => p.Created).HasColumnName("Created").IsRequired().HasDefaultValue(DateTime.MinValue.ToUniversalTime());
             builder.Property(p => p.CreatedBy).HasColumnName("CreatedBy").IsRequired().HasDefaultValue("Unknown").HasMaxLength(63);
-            builder.Property(p => p.BlobId).HasColumnName("BlobId").HasMaxLength(127);
-            builder.Property(p => p.AttributeAspectId).HasColumnName("AttributeAspectId").HasMaxLength(127);
+            builder.Property(p => p.Symbol).HasColumnName("Symbol").HasMaxLength(127);
+            builder.Property(p => p.AttributeAspectIri).HasColumnName("AttributeAspectIri").HasMaxLength(127);
             builder.Property(p => p.SelectedAttributePredefined).HasJsonConversion();
 
             builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
-            builder.HasOne(x => x.Blob).WithMany(y => y.Nodes).HasForeignKey(x => x.BlobId).OnDelete(DeleteBehavior.NoAction);
-            builder.HasOne(x => x.AttributeAspect).WithMany(y => y.Nodes).HasForeignKey(x => x.AttributeAspectId).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Mimirorg.TypeLibrary.Enums;
-using Newtonsoft.Json;
 
 namespace TypeLibrary.Data.Models
 {
@@ -21,8 +20,5 @@ namespace TypeLibrary.Data.Models
         public DateTime? Updated { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-
-        [JsonIgnore]
-        public virtual ICollection<NodeLibDm> Nodes { get; set; }
     }
 }

@@ -19,8 +19,8 @@ namespace TypeLibrary.Services.Tests.Repositories
                 Id = "Fake_Node_A",
                 FirstVersionId = "Fake_Node_A",
                 Name = "Pump",
-                RdsId = "Fake_Rds",
-                PurposeId = "Fake_Purpose",
+                RdsCode = "Fake_Rds",
+                PurposeName = "Fake_Purpose",
                 Aspect = Aspect.Function,
                 Version = "1.0",
                 Created = DateTime.Now,
@@ -36,8 +36,6 @@ namespace TypeLibrary.Services.Tests.Repositories
         {
             return GetAll()
                 .Include(x => x.Parent)
-                .Include(x => x.Blob)
-                .Include(x => x.AttributeAspect)
                 .Include(x => x.NodeTerminals)
                 .Include(x => x.Attributes)
                 .Include(x => x.Simples);
@@ -47,8 +45,6 @@ namespace TypeLibrary.Services.Tests.Repositories
         {
             return FindBy(x => x.Id == id)
                 .Include(x => x.Parent)
-                .Include(x => x.Blob)
-                .Include(x => x.AttributeAspect)
                 .Include(x => x.NodeTerminals)
                 .Include(x => x.Attributes)
                 .Include(x => x.Simples);
