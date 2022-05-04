@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -18,15 +19,19 @@ namespace TypeLibrary.Services.Services
         private readonly INodeRepository _nodeRepository;
         private readonly IRdsRepository _rdsRepository;
         private readonly IAttributeRepository _attributeRepository;
+        private readonly ISimpleRepository _simpleRepository;
         private readonly IPurposeRepository _purposeRepository;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public NodeService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, IMapper mapper, INodeRepository nodeRepository)
+        public NodeService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, IMapper mapper, INodeRepository nodeRepository, IHttpContextAccessor contextAccessor, ISimpleRepository simpleRepository)
         {
             _purposeRepository = purposeRepository;
             _attributeRepository = attributeRepository;
             _rdsRepository = rdsRepository;
             _mapper = mapper;
             _nodeRepository = nodeRepository;
+            _contextAccessor = contextAccessor;
+            _simpleRepository = simpleRepository;
         }
 
         public async Task<NodeLibCm> GetNode(string id)
@@ -68,22 +73,28 @@ namespace TypeLibrary.Services.Services
             var existingNode = await _nodeRepository.GetAsync(dataAm.Id);
 
             if (existingNode != null)
-                throw new MimirorgBadRequestException($"There is already registered a node with name: {existingNode.Name} with version: {existingNode.Version}");
+                throw new MimirorgBadRequestException($"Node name: '{existingNode.Name}' with RdsCode '{existingNode.RdsCode}', Aspect '{existingNode.Aspect}' and version: {existingNode.Version} already exist");
 
             var nodeLibDm = _mapper.Map<NodeLibDm>(dataAm);
 
             if (nodeLibDm == null)
                 throw new MimirorgMappingException("NodeLibAm", "NodeLibDm");
 
-            nodeLibDm.RdsName = _rdsRepository.FindBy(x => x.Id == nodeLibDm.RdsId)?.First()?.Name;
-            nodeLibDm.PurposeName = _purposeRepository.FindBy(x => x.Id == nodeLibDm.PurposeId)?.First()?.Name;
+            if(nodeLibDm.Attributes != null && nodeLibDm.Attributes.Any())
+                _attributeRepository.Attach(nodeLibDm.Attributes, EntityState.Unchanged);
 
-            _attributeRepository.Attach(nodeLibDm.Attributes, EntityState.Unchanged);
+            if (nodeLibDm.Simples != null && nodeLibDm.Simples.Any())
+                _simpleRepository.Attach(nodeLibDm.Simples, EntityState.Unchanged);
 
             await _nodeRepository.CreateAsync(nodeLibDm);
             await _nodeRepository.SaveAsync();
 
-            _attributeRepository.Detach(nodeLibDm.Attributes);
+            if (nodeLibDm.Simples != null && nodeLibDm.Simples.Any())
+                _simpleRepository.Detach(nodeLibDm.Simples);
+
+            if (nodeLibDm.Attributes != null && nodeLibDm.Attributes.Any())
+                _attributeRepository.Detach(nodeLibDm.Attributes);
+
             _nodeRepository.Detach(nodeLibDm);
 
             var createdObject = _mapper.Map<NodeLibCm>(nodeLibDm);

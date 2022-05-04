@@ -131,6 +131,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="id"></param>
         /// <returns>200</returns>
         [HttpDelete]
+        [Route("{id:required}")]
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Admin")]
