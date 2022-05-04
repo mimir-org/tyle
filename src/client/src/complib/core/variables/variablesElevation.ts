@@ -40,6 +40,7 @@ export const elevation: ElevationSystem = {
 
 export const variablesElevation = css`
   :root {
+    --tl-sys-elevation-level0: ${elevation.levels[0].opacity};
     --tl-sys-elevation-level1: ${elevation.levels[1].opacity};
     --tl-sys-elevation-level2: ${elevation.levels[2].opacity};
     --tl-sys-elevation-level3: ${elevation.levels[3].opacity};

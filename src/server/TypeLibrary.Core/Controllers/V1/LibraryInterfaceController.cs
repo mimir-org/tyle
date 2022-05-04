@@ -19,33 +19,33 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("Library Transport Services")]
-    public class LibraryTransportController : ControllerBase
+    [SwaggerTag("Library Interface Services")]
+    public class LibraryInterfaceController : ControllerBase
     {
-        private readonly ILogger<LibraryTransportController> _logger;
-        private readonly ITransportService _transportService;
+        private readonly ILogger<LibraryInterfaceController> _logger;
+        private readonly IInterfaceService _interfaceService;
 
-        public LibraryTransportController(ILogger<LibraryTransportController> logger, ITransportService transportService)
+        public LibraryInterfaceController(ILogger<LibraryInterfaceController> logger, IInterfaceService interfaceService)
         {
             _logger = logger;
-            _transportService = transportService;
+            _interfaceService = interfaceService;
         }
 
         /// <summary>
-        /// Get transport by id
+        /// Get interface by id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>TransportLibCm</returns>
+        /// <returns>InterfaceLibCm</returns>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(TransportLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(InterfaceLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetTransport([FromRoute] string id)
+        public async Task<IActionResult> GetInterface([FromRoute] string id)
         {
             try
             {
-                var data = await _transportService.GetTransport(id);
+                var data = await _interfaceService.GetInterface(id);
                 return Ok(data);
             }
             catch (Exception e)
@@ -56,19 +56,19 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
-        /// Get all transports
+        /// Get all interfaces
         /// </summary>
-        /// <returns>TransportLibCm Collection</returns>
+        /// <returns>InterfaceLibCm Collection</returns>
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<TransportLibCm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<InterfaceLibCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetTransports()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
-                var data = await _transportService.GetTransports();
+                var data = await _interfaceService.GetInterfaces();
                 return Ok(data.ToList());
             }
             catch (Exception e)
@@ -79,20 +79,20 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
-        /// Update transport
+        /// Update interface
         /// </summary>
         /// <param name="dataAm"></param>
         /// <param name="id"></param>
-        /// <returns>TransportLibCm</returns>
+        /// <returns>InterfaceLibCm</returns>
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(TransportLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(InterfaceLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateTransport([FromBody] TransportLibAm dataAm, [FromRoute] string id)
+        public async Task<IActionResult> UpdateInterface([FromBody] InterfaceLibAm dataAm, [FromRoute] string id)
         {
             try
             {
-                var data = await _transportService.UpdateTransport(dataAm, id);
+                var data = await _interfaceService.UpdateInterface(dataAm, id);
                 return Ok(data);
             }
             catch (Exception e)
@@ -103,19 +103,19 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
-        /// Create transport
+        /// Create interface
         /// </summary>
         /// <param name="dataAm"></param>
-        /// <returns>TransportLibCm</returns>
+        /// <returns>InterfaceLibCm</returns>
         [HttpPost]
-        [ProducesResponseType(typeof(TransportLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(InterfaceLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> CreateTransport([FromBody] TransportLibAm dataAm)
+        public async Task<IActionResult> CreateInterface([FromBody] InterfaceLibAm dataAm)
         {
             try
             {
-                var data = await _transportService.CreateTransport(dataAm);
+                var data = await _interfaceService.CreateInterface(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -126,19 +126,20 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
-        /// Delete a transport
+        /// Delete an interface
         /// </summary>
         /// <param name="id"></param>
         /// <returns>200</returns>
         [HttpDelete]
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [SwaggerOperation("Delete a transport")]
-        public async Task<IActionResult> DeleteTransport([FromRoute] string id)
+        //[Authorize(Policy = "Admin")]
+        [SwaggerOperation("Delete an interface")]
+        public async Task<IActionResult> DeleteInterface([FromRoute] string id)
         {
             try
             {
-                var data = await _transportService.DeleteTransport(id);
+                var data = await _interfaceService.DeleteInterface(id);
                 return Ok(data);
             }
             catch (Exception e)

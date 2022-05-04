@@ -19,33 +19,33 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("Library Transport Services")]
-    public class LibraryTransportController : ControllerBase
+    [SwaggerTag("Library Node Services")]
+    public class LibraryNodeController : ControllerBase
     {
-        private readonly ILogger<LibraryTransportController> _logger;
-        private readonly ITransportService _transportService;
+        private readonly ILogger<LibraryNodeController> _logger;
+        private readonly INodeService _nodeService;
 
-        public LibraryTransportController(ILogger<LibraryTransportController> logger, ITransportService transportService)
+        public LibraryNodeController(ILogger<LibraryNodeController> logger, INodeService nodeService)
         {
             _logger = logger;
-            _transportService = transportService;
+            _nodeService = nodeService;
         }
 
         /// <summary>
-        /// Get transport by id
+        /// Get node by id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>TransportLibCm</returns>
+        /// <returns>NodeLibCm</returns>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(TransportLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetTransport([FromRoute] string id)
+        public async Task<IActionResult> GetNode([FromRoute] string id)
         {
             try
             {
-                var data = await _transportService.GetTransport(id);
+                var data = await _nodeService.GetNode(id);
                 return Ok(data);
             }
             catch (Exception e)
@@ -56,19 +56,19 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
-        /// Get all transports
+        /// Get all nodes
         /// </summary>
-        /// <returns>TransportLibCm Collection</returns>
+        /// <returns>NodeLibCm Collection</returns>
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<TransportLibCm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<NodeLibCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetTransports()
+        public async Task<IActionResult> GetNodes()
         {
             try
             {
-                var data = await _transportService.GetTransports();
+                var data = await _nodeService.GetNodes();
                 return Ok(data.ToList());
             }
             catch (Exception e)
@@ -79,20 +79,20 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
-        /// Update transport
+        /// Update node
         /// </summary>
         /// <param name="dataAm"></param>
         /// <param name="id"></param>
-        /// <returns>TransportLibCm</returns>
+        /// <returns>NodeLibCm</returns>
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(TransportLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateTransport([FromBody] TransportLibAm dataAm, [FromRoute] string id)
+        public async Task<IActionResult> UpdateNode([FromBody] NodeLibAm dataAm, [FromRoute] string id)
         {
             try
             {
-                var data = await _transportService.UpdateTransport(dataAm, id);
+                var data = await _nodeService.UpdateNode(dataAm, id);
                 return Ok(data);
             }
             catch (Exception e)
@@ -103,19 +103,19 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
-        /// Create transport
+        /// Create node
         /// </summary>
         /// <param name="dataAm"></param>
-        /// <returns>TransportLibCm</returns>
+        /// <returns>NodeLibCm</returns>
         [HttpPost]
-        [ProducesResponseType(typeof(TransportLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> CreateTransport([FromBody] TransportLibAm dataAm)
+        public async Task<IActionResult> CreateNode([FromBody] NodeLibAm dataAm)
         {
             try
             {
-                var data = await _transportService.CreateTransport(dataAm);
+                var data = await _nodeService.CreateNode(dataAm);
                 return Ok(data);
             }
             catch (Exception e)
@@ -126,19 +126,21 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
-        /// Delete a transport
+        /// Delete a node
         /// </summary>
         /// <param name="id"></param>
         /// <returns>200</returns>
         [HttpDelete]
+        [Route("{id:required}")]
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [SwaggerOperation("Delete a transport")]
-        public async Task<IActionResult> DeleteTransport([FromRoute] string id)
+        //[Authorize(Policy = "Admin")]
+        [SwaggerOperation("Delete a node")]
+        public async Task<IActionResult> DeleteNode([FromRoute] string id)
         {
             try
             {
-                var data = await _transportService.DeleteTransport(id);
+                var data = await _nodeService.DeleteNode(id);
                 return Ok(data);
             }
             catch (Exception e)

@@ -49,7 +49,6 @@ namespace TypeLibrary.Data
             modelBuilder.ApplyConfiguration(new TransportConfiguration());
             modelBuilder.ApplyConfiguration(new AttributeAspectConfiguration());
             modelBuilder.ApplyConfiguration(new UnitConfiguration());
-            modelBuilder.ApplyConfiguration(new CollectionConfiguration());
             modelBuilder.ApplyConfiguration(new NodeConfiguration());
         }
     }

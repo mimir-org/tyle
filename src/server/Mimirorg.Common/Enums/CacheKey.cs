@@ -43,7 +43,13 @@ namespace Mimirorg.Common.Enums
         [Display(Name = "Attribute Predefined")]
         AttributePredefined = 12,
 
+        [Display(Name = "Interface")]
+        Interface = 13,
+
+        [Display(Name = "Transport")]
+        Transport = 14,
+
         [Display(Name = "Blob")]
-        Blob = 13
+        Blob = 15
     }
 }

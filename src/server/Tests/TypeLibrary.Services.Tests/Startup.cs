@@ -60,7 +60,7 @@ namespace TypeLibrary.Services.Tests
             services.AddSingleton<INodeRepository, FakeNodeRepository>();
             services.AddSingleton<ISimpleRepository, FakeSimpleRepository>();
             services.AddSingleton<ITransportRepository, FakeTransportRepository>();
-            services.AddSingleton<ILibraryService, LibraryService>();
+            services.AddSingleton<ITransportService, TransportService>();
 
             // Add auto-mapper configurations
             services.AddAutoMapperConfigurations();

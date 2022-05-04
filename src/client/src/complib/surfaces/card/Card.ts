@@ -1,7 +1,8 @@
 import styled, { css } from "styled-components/macro";
-import { Elevation, ElevationLevels, Polymorphic } from "../../props";
+import { motion } from "framer-motion";
 import { ElementType } from "react";
 import { layer, translucify } from "../../mixins";
+import { Elevation, ElevationLevels, Polymorphic } from "../../props";
 import { ColorSystem, ElevationSystem, ShadowSystem, StateSystem } from "../../core/";
 
 type CardProps = Elevation &
@@ -129,3 +130,10 @@ const outlinedCard = (
     }
   `}
 `;
+
+/**
+ * An animation wrapper for the Card component
+ *
+ * @see https://github.com/framer/motion
+ */
+export const MotionCard = motion(Card, { forwardMotionProps: true });

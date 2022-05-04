@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Services.Contracts;
-using ILibraryService = TypeLibrary.Services.Contracts.ILibraryService;
+using ITransportService = TypeLibrary.Services.Contracts.ITransportService;
 
 namespace TypeLibrary.Services.Services
 {
@@ -37,13 +37,14 @@ namespace TypeLibrary.Services.Services
         private readonly IUnitService _unitService;
         private readonly IRdsService _rdsService;
         private readonly ITerminalService _terminalService;
-        private readonly ILibraryService _libraryTypeService;
+        private readonly ITransportService _transportService;
+        private readonly ISimpleService _simpleService;
         private readonly IFileRepository _fileRepository;
         private readonly ILogger<SeedingService> _logger;
 
         public SeedingService(IAttributeService attributeService, IBlobService blobService, IAttributeConditionService attributeConditionService, IAttributeFormatService attributeFormatService,
             IAttributeQualifierService attributeQualifierService, IAttributeSourceService attributeSourceService, IAttributeAspectService attributeAspectService, IPurposeService purposeService, IUnitService unitService,
-            IRdsService rdsService, ITerminalService terminalService, ILibraryService libraryTypeService, IFileRepository fileRepository, ILogger<SeedingService> logger)
+            IRdsService rdsService, ITerminalService terminalService, ITransportService transportService, IFileRepository fileRepository, ILogger<SeedingService> logger, ISimpleService simpleService)
         {
             _attributeService = attributeService;
             _blobService = blobService;
@@ -56,9 +57,10 @@ namespace TypeLibrary.Services.Services
             _unitService = unitService;
             _rdsService = rdsService;
             _terminalService = terminalService;
-            _libraryTypeService = libraryTypeService;
+            _transportService = transportService;
             _fileRepository = fileRepository;
             _logger = logger;
+            _simpleService = simpleService;
         }
 
         public async Task LoadDataFromFiles()
@@ -111,16 +113,17 @@ namespace TypeLibrary.Services.Services
                 await _attributeAspectService.CreateAttributeAspects(attributeAspects);
                 await _purposeService.CreatePurposes(purposes);
                 await _unitService.CreateUnits(units);
-
                 await _attributeService.CreateAttributes(attributes);
                 await _attributeService.CreateAttributesPredefined(attributesPredefined);
                 await _terminalService.CreateTerminals(terminals);
                 await _rdsService.CreateRdsAsync(rds);
                 await _blobService.CreateBlob(blobs);
-                await _libraryTypeService.CreateSimple(simple);
 
-                _libraryTypeService.ClearAllChangeTracker();
-                await _libraryTypeService.CreateTransports(transports);
+                _simpleService.ClearAllChangeTrackers();
+                await _simpleService.CreateSimple(simple);
+
+                _transportService.ClearAllChangeTrackers();
+                await _transportService.CreateTransports(transports);
             }
             catch (Exception e)
             {

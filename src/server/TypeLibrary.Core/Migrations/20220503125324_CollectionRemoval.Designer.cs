@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TypeLibrary.Data;
 
@@ -11,9 +12,10 @@ using TypeLibrary.Data;
 namespace TypeLibrary.Core.Migrations
 {
     [DbContext(typeof(TypeLibraryDbContext))]
-    partial class TypeLibraryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220503125324_CollectionRemoval")]
+    partial class CollectionRemoval
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -650,10 +652,15 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("Aspect");
 
-                    b.Property<string>("AttributeAspectIri")
+                    b.Property<string>("AttributeAspectId")
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
-                        .HasColumnName("AttributeAspectIri");
+                        .HasColumnName("AttributeAspectId");
+
+                    b.Property<string>("BlobId")
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("BlobId");
 
                     b.Property<int>("CompanyId")
                         .HasMaxLength(127)
@@ -701,11 +708,11 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("ParentId");
 
-                    b.Property<string>("PurposeDiscipline")
+                    b.Property<string>("PurposeId")
                         .IsRequired()
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
-                        .HasColumnName("PurposeDiscipline");
+                        .HasColumnName("PurposeId");
 
                     b.Property<string>("PurposeName")
                         .IsRequired()
@@ -713,11 +720,11 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("PurposeName");
 
-                    b.Property<string>("RdsCode")
+                    b.Property<string>("RdsId")
                         .IsRequired()
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
-                        .HasColumnName("RdsCode");
+                        .HasColumnName("RdsId");
 
                     b.Property<string>("RdsName")
                         .IsRequired()
@@ -733,11 +740,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(31)
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("State");
-
-                    b.Property<string>("Symbol")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("Symbol");
 
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2")
@@ -755,6 +757,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("Version");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AttributeAspectId");
+
+                    b.HasIndex("BlobId");
 
                     b.HasIndex("ParentId");
 
@@ -1227,10 +1233,24 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("TypeLibrary.Data.Models.NodeLibDm", b =>
                 {
+                    b.HasOne("TypeLibrary.Data.Models.AttributeAspectLibDm", "AttributeAspect")
+                        .WithMany("Nodes")
+                        .HasForeignKey("AttributeAspectId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("TypeLibrary.Data.Models.BlobLibDm", "Blob")
+                        .WithMany("Nodes")
+                        .HasForeignKey("BlobId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("TypeLibrary.Data.Models.NodeLibDm", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("AttributeAspect");
+
+                    b.Navigation("Blob");
 
                     b.Navigation("Parent");
                 });
@@ -1282,11 +1302,18 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeAspectLibDm", b =>
                 {
                     b.Navigation("Children");
+
+                    b.Navigation("Nodes");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>
                 {
                     b.Navigation("Children");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.BlobLibDm", b =>
+                {
+                    b.Navigation("Nodes");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.InterfaceLibDm", b =>
