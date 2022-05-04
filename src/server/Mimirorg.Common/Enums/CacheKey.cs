@@ -47,6 +47,9 @@ namespace Mimirorg.Common.Enums
         Interface = 13,
 
         [Display(Name = "Transport")]
-        Transport = 14
+        Transport = 14,
+
+        [Display(Name = "Blob")]
+        Blob = 15
     }
 }
