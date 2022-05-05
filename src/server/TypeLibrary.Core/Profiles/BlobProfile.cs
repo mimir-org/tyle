@@ -17,11 +17,6 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Data, opt => opt.MapFrom(src => src.Data))
                 .ForMember(dest => dest.Discipline, opt => opt.MapFrom(src => src.Discipline));
 
-            CreateMap<BlobLibDm, BlobLibAm>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Data, opt => opt.MapFrom(src => src.Data))
-                .ForMember(dest => dest.Discipline, opt => opt.MapFrom(src => src.Discipline));
-
             CreateMap<BlobLibDm, BlobLibCm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
