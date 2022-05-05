@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -21,16 +20,14 @@ namespace TypeLibrary.Services.Services
         private readonly IAttributeRepository _attributeRepository;
         private readonly ISimpleRepository _simpleRepository;
         private readonly IPurposeRepository _purposeRepository;
-        private readonly IHttpContextAccessor _contextAccessor;
 
-        public NodeService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, IMapper mapper, INodeRepository nodeRepository, IHttpContextAccessor contextAccessor, ISimpleRepository simpleRepository)
+        public NodeService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, IMapper mapper, INodeRepository nodeRepository, ISimpleRepository simpleRepository)
         {
             _purposeRepository = purposeRepository;
             _attributeRepository = attributeRepository;
             _rdsRepository = rdsRepository;
             _mapper = mapper;
             _nodeRepository = nodeRepository;
-            _contextAccessor = contextAccessor;
             _simpleRepository = simpleRepository;
         }
 
@@ -61,11 +58,6 @@ namespace TypeLibrary.Services.Services
                 throw new MimirorgMappingException("List<NodeLibDm>", "ICollection<NodeLibAm>");
 
             return Task.FromResult(nodeLibCms ?? new List<NodeLibCm>());
-        }
-
-        public Task<NodeLibCm> UpdateNode(NodeLibAm dataAm, string id)
-        {
-            throw new System.NotImplementedException();
         }
 
         public async Task<NodeLibCm> CreateNode(NodeLibAm dataAm)
@@ -105,18 +97,12 @@ namespace TypeLibrary.Services.Services
             return createdObject;
         }
 
-        public async Task<bool> DeleteNode(string id)
-        {
-            await _nodeRepository.Delete(id);
-            var status = await _nodeRepository.Context.SaveChangesAsync();
-            return status == 1;
-        }
-
         public void ClearAllChangeTrackers()
         {
             _nodeRepository?.Context?.ChangeTracker.Clear();
             _rdsRepository?.Context?.ChangeTracker.Clear();
             _attributeRepository?.Context?.ChangeTracker.Clear();
+            _simpleRepository?.Context?.ChangeTracker.Clear();
             _purposeRepository?.Context?.ChangeTracker.Clear();
         }
     }
