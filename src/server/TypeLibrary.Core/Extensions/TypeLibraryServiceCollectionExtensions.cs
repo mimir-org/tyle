@@ -35,8 +35,8 @@ namespace TypeLibrary.Core.Extensions
             cfg.AddProfile(new AttributeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IUnitFactory>()));
             cfg.AddProfile(new BlobProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new NodeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-            cfg.AddProfile(new InterfaceProfile(provider.GetService<IApplicationSettingsRepository>()));
-            cfg.AddProfile(new TransportProfile(provider.GetService<IApplicationSettingsRepository>()));
+            cfg.AddProfile(new InterfaceProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
+            cfg.AddProfile(new TransportProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
             cfg.AddProfile(new RdsProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new TerminalProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IAttributeFactory>()));
             cfg.AddProfile(new AttributeConditionProfile(provider.GetService<IApplicationSettingsRepository>()));

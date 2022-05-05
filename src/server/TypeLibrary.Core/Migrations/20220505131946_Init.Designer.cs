@@ -12,8 +12,8 @@ using TypeLibrary.Data;
 namespace TypeLibrary.Core.Migrations
 {
     [DbContext(typeof(TypeLibraryDbContext))]
-    [Migration("20220503125324_CollectionRemoval")]
-    partial class CollectionRemoval
+    [Migration("20220505131946_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -546,18 +546,20 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("Aspect");
 
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(63)
                         .HasColumnType("datetime2")
                         .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc))
                         .HasColumnName("Created");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
-                        .HasDefaultValue("Unknown")
                         .HasColumnName("CreatedBy");
 
                     b.Property<string>("Description")
@@ -572,6 +574,7 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("FirstVersionId");
 
                     b.Property<string>("Iri")
+                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("Iri");
@@ -587,23 +590,21 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("ParentId");
 
-                    b.Property<string>("PurposeId")
-                        .IsRequired()
+                    b.Property<string>("PurposeDiscipline")
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
-                        .HasColumnName("PurposeId");
+                        .HasColumnName("PurposeDiscipline");
 
                     b.Property<string>("PurposeName")
-                        .IsRequired()
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("PurposeName");
 
-                    b.Property<string>("RdsId")
+                    b.Property<string>("RdsCode")
                         .IsRequired()
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
-                        .HasColumnName("RdsId");
+                        .HasColumnName("RdsCode");
 
                     b.Property<string>("RdsName")
                         .IsRequired()
@@ -616,6 +617,7 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("Interface_TerminalId");
 
                     b.Property<DateTime?>("Updated")
+                        .HasMaxLength(63)
                         .HasColumnType("datetime2")
                         .HasColumnName("Updated");
 
@@ -652,15 +654,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("Aspect");
 
-                    b.Property<string>("AttributeAspectId")
+                    b.Property<string>("AttributeAspectIri")
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
-                        .HasColumnName("AttributeAspectId");
-
-                    b.Property<string>("BlobId")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("BlobId");
+                        .HasColumnName("AttributeAspectIri");
 
                     b.Property<int>("CompanyId")
                         .HasMaxLength(127)
@@ -669,16 +666,15 @@ namespace TypeLibrary.Core.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(63)
                         .HasColumnType("datetime2")
                         .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc))
                         .HasColumnName("Created");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
-                        .HasDefaultValue("Unknown")
                         .HasColumnName("CreatedBy");
 
                     b.Property<string>("Description")
@@ -693,6 +689,7 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("FirstVersionId");
 
                     b.Property<string>("Iri")
+                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("Iri");
@@ -708,11 +705,11 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("ParentId");
 
-                    b.Property<string>("PurposeId")
+                    b.Property<string>("PurposeDiscipline")
                         .IsRequired()
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
-                        .HasColumnName("PurposeId");
+                        .HasColumnName("PurposeDiscipline");
 
                     b.Property<string>("PurposeName")
                         .IsRequired()
@@ -720,11 +717,11 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("PurposeName");
 
-                    b.Property<string>("RdsId")
+                    b.Property<string>("RdsCode")
                         .IsRequired()
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
-                        .HasColumnName("RdsId");
+                        .HasColumnName("RdsCode");
 
                     b.Property<string>("RdsName")
                         .IsRequired()
@@ -741,7 +738,13 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("State");
 
+                    b.Property<string>("Symbol")
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("Symbol");
+
                     b.Property<DateTime?>("Updated")
+                        .HasMaxLength(63)
                         .HasColumnType("datetime2")
                         .HasColumnName("Updated");
 
@@ -757,10 +760,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("Version");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AttributeAspectId");
-
-                    b.HasIndex("BlobId");
 
                     b.HasIndex("ParentId");
 
@@ -952,8 +951,14 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("Aspect");
 
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(63)
                         .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc))
                         .HasColumnName("Created");
 
                     b.Property<string>("CreatedBy")
@@ -974,6 +979,7 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("FirstVersionId");
 
                     b.Property<string>("Iri")
+                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("Iri");
@@ -989,23 +995,21 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("ParentId");
 
-                    b.Property<string>("PurposeId")
-                        .IsRequired()
+                    b.Property<string>("PurposeDiscipline")
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
-                        .HasColumnName("PurposeId");
+                        .HasColumnName("PurposeDiscipline");
 
                     b.Property<string>("PurposeName")
-                        .IsRequired()
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("PurposeName");
 
-                    b.Property<string>("RdsId")
+                    b.Property<string>("RdsCode")
                         .IsRequired()
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
-                        .HasColumnName("RdsId");
+                        .HasColumnName("RdsCode");
 
                     b.Property<string>("RdsName")
                         .IsRequired()
@@ -1017,12 +1021,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("Transport_TerminalId");
 
-                    b.Property<DateTime>("Updated")
+                    b.Property<DateTime?>("Updated")
+                        .HasMaxLength(63)
                         .HasColumnType("datetime2")
                         .HasColumnName("Updated");
 
                     b.Property<string>("UpdatedBy")
-                        .IsRequired()
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("UpdatedBy");
@@ -1233,24 +1237,10 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("TypeLibrary.Data.Models.NodeLibDm", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.AttributeAspectLibDm", "AttributeAspect")
-                        .WithMany("Nodes")
-                        .HasForeignKey("AttributeAspectId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("TypeLibrary.Data.Models.BlobLibDm", "Blob")
-                        .WithMany("Nodes")
-                        .HasForeignKey("BlobId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
                     b.HasOne("TypeLibrary.Data.Models.NodeLibDm", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("AttributeAspect");
-
-                    b.Navigation("Blob");
 
                     b.Navigation("Parent");
                 });
@@ -1302,18 +1292,11 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeAspectLibDm", b =>
                 {
                     b.Navigation("Children");
-
-                    b.Navigation("Nodes");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>
                 {
                     b.Navigation("Children");
-                });
-
-            modelBuilder.Entity("TypeLibrary.Data.Models.BlobLibDm", b =>
-                {
-                    b.Navigation("Nodes");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.InterfaceLibDm", b =>

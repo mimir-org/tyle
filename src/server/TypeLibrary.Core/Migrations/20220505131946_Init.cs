@@ -169,21 +169,39 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Collection",
+                name: "Node",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
-                    CompanyId = table.Column<int>(type: "int", maxLength: 127, nullable: true),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    RdsCode = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    RdsName = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    PurposeName = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    PurposeDiscipline = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    ParentId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
+                    Version = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
+                    FirstVersionId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    Aspect = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
+                    State = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
+                    CompanyId = table.Column<int>(type: "int", maxLength: 127, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    Symbol = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
+                    AttributeAspectIri = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
-                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    Updated = table.Column<DateTime>(type: "datetime2", maxLength: 63, nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", maxLength: 63, nullable: false, defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)),
+                    CreatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    SelectedAttributePredefined = table.Column<string>(type: "nvarchar(MAX)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Collection", x => x.Id);
+                    table.PrimaryKey("PK_Node", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Node_Node_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Node",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -272,49 +290,27 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Node",
+                name: "Attribute_Node",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
-                    RdsId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
-                    RdsName = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
-                    PurposeId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
-                    PurposeName = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
-                    ParentId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
-                    Version = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
-                    FirstVersionId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
-                    Aspect = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
-                    State = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
-                    CompanyId = table.Column<int>(type: "int", maxLength: 127, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
-                    BlobId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
-                    AttributeAspectId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
-                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)),
-                    CreatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false, defaultValue: "Unknown"),
-                    SelectedAttributePredefined = table.Column<string>(type: "nvarchar(MAX)", nullable: true)
+                    AttributeId = table.Column<string>(type: "nvarchar(127)", nullable: false),
+                    NodeId = table.Column<string>(type: "nvarchar(127)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Node", x => x.Id);
+                    table.PrimaryKey("PK_Attribute_Node", x => new { x.AttributeId, x.NodeId });
                     table.ForeignKey(
-                        name: "FK_Node_AttributeAspect_AttributeAspectId",
-                        column: x => x.AttributeAspectId,
-                        principalTable: "AttributeAspect",
-                        principalColumn: "Id");
+                        name: "FK_Attribute_Node_Attribute_AttributeId",
+                        column: x => x.AttributeId,
+                        principalTable: "Attribute",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Node_Blob_BlobId",
-                        column: x => x.BlobId,
-                        principalTable: "Blob",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Node_Node_ParentId",
-                        column: x => x.ParentId,
+                        name: "FK_Attribute_Node_Node_NodeId",
+                        column: x => x.NodeId,
                         principalTable: "Node",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -342,25 +338,50 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Simple_Node",
+                columns: table => new
+                {
+                    NodeId = table.Column<string>(type: "nvarchar(127)", nullable: false),
+                    SimpleId = table.Column<string>(type: "nvarchar(127)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Simple_Node", x => new { x.NodeId, x.SimpleId });
+                    table.ForeignKey(
+                        name: "FK_Simple_Node_Node_NodeId",
+                        column: x => x.NodeId,
+                        principalTable: "Node",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Simple_Node_Simple_SimpleId",
+                        column: x => x.SimpleId,
+                        principalTable: "Simple",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Interface",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
-                    RdsId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    RdsCode = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
                     RdsName = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
-                    PurposeId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
-                    PurposeName = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    PurposeName = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
+                    PurposeDiscipline = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
                     ParentId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
                     Version = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
                     FirstVersionId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
                     Aspect = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
-                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)),
-                    CreatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false, defaultValue: "Unknown"),
+                    Updated = table.Column<DateTime>(type: "datetime2", maxLength: 63, nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", maxLength: 63, nullable: false, defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)),
+                    CreatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
                     Interface_TerminalId = table.Column<string>(type: "nvarchar(127)", nullable: true)
                 },
                 constraints: table =>
@@ -403,24 +424,50 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Terminal_Node",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    Number = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
+                    ConnectorDirection = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
+                    NodeId = table.Column<string>(type: "nvarchar(127)", nullable: true),
+                    TerminalId = table.Column<string>(type: "nvarchar(127)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Terminal_Node", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Terminal_Node_Node_NodeId",
+                        column: x => x.NodeId,
+                        principalTable: "Node",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Terminal_Node_Terminal_TerminalId",
+                        column: x => x.TerminalId,
+                        principalTable: "Terminal",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Transport",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
-                    RdsId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    RdsCode = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
                     RdsName = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
-                    PurposeId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
-                    PurposeName = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    PurposeName = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
+                    PurposeDiscipline = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
                     ParentId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
                     Version = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
                     FirstVersionId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
                     Aspect = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
-                    Updated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", maxLength: 63, nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", maxLength: 63, nullable: false, defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)),
                     CreatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
                     Transport_TerminalId = table.Column<string>(type: "nvarchar(127)", nullable: true)
                 },
@@ -461,103 +508,6 @@ namespace TypeLibrary.Core.Migrations
                         principalTable: "Unit",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Attribute_Node",
-                columns: table => new
-                {
-                    AttributeId = table.Column<string>(type: "nvarchar(127)", nullable: false),
-                    NodeId = table.Column<string>(type: "nvarchar(127)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Attribute_Node", x => new { x.AttributeId, x.NodeId });
-                    table.ForeignKey(
-                        name: "FK_Attribute_Node_Attribute_AttributeId",
-                        column: x => x.AttributeId,
-                        principalTable: "Attribute",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Attribute_Node_Node_NodeId",
-                        column: x => x.NodeId,
-                        principalTable: "Node",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Node_Collection",
-                columns: table => new
-                {
-                    CollectionId = table.Column<string>(type: "nvarchar(127)", nullable: false),
-                    NodeId = table.Column<string>(type: "nvarchar(127)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Node_Collection", x => new { x.CollectionId, x.NodeId });
-                    table.ForeignKey(
-                        name: "FK_Node_Collection_Collection_CollectionId",
-                        column: x => x.CollectionId,
-                        principalTable: "Collection",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Node_Collection_Node_NodeId",
-                        column: x => x.NodeId,
-                        principalTable: "Node",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Simple_Node",
-                columns: table => new
-                {
-                    NodeId = table.Column<string>(type: "nvarchar(127)", nullable: false),
-                    SimpleId = table.Column<string>(type: "nvarchar(127)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Simple_Node", x => new { x.NodeId, x.SimpleId });
-                    table.ForeignKey(
-                        name: "FK_Simple_Node_Node_NodeId",
-                        column: x => x.NodeId,
-                        principalTable: "Node",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Simple_Node_Simple_SimpleId",
-                        column: x => x.SimpleId,
-                        principalTable: "Simple",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Terminal_Node",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
-                    Number = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
-                    ConnectorDirection = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
-                    NodeId = table.Column<string>(type: "nvarchar(127)", nullable: true),
-                    TerminalId = table.Column<string>(type: "nvarchar(127)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Terminal_Node", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Terminal_Node_Node_NodeId",
-                        column: x => x.NodeId,
-                        principalTable: "Node",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Terminal_Node_Terminal_TerminalId",
-                        column: x => x.TerminalId,
-                        principalTable: "Terminal",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -672,24 +622,9 @@ namespace TypeLibrary.Core.Migrations
                 column: "ParentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Node_AttributeAspectId",
-                table: "Node",
-                column: "AttributeAspectId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Node_BlobId",
-                table: "Node",
-                column: "BlobId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Node_ParentId",
                 table: "Node",
                 column: "ParentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Node_Collection_NodeId",
-                table: "Node_Collection",
-                column: "NodeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Simple_Node_SimpleId",
@@ -745,6 +680,9 @@ namespace TypeLibrary.Core.Migrations
                 name: "Attribute_Unit");
 
             migrationBuilder.DropTable(
+                name: "AttributeAspect");
+
+            migrationBuilder.DropTable(
                 name: "AttributeCondition");
 
             migrationBuilder.DropTable(
@@ -760,7 +698,7 @@ namespace TypeLibrary.Core.Migrations
                 name: "AttributeSource");
 
             migrationBuilder.DropTable(
-                name: "Node_Collection");
+                name: "Blob");
 
             migrationBuilder.DropTable(
                 name: "Purpose");
@@ -787,9 +725,6 @@ namespace TypeLibrary.Core.Migrations
                 name: "Unit");
 
             migrationBuilder.DropTable(
-                name: "Collection");
-
-            migrationBuilder.DropTable(
                 name: "Simple");
 
             migrationBuilder.DropTable(
@@ -800,12 +735,6 @@ namespace TypeLibrary.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "Terminal");
-
-            migrationBuilder.DropTable(
-                name: "AttributeAspect");
-
-            migrationBuilder.DropTable(
-                name: "Blob");
         }
     }
 }

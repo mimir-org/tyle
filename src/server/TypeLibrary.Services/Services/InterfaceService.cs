@@ -58,11 +58,6 @@ namespace TypeLibrary.Services.Services
             return Task.FromResult(interfaceLibCms ?? new List<InterfaceLibCm>());
         }
 
-        public Task<InterfaceLibCm> UpdateInterface(InterfaceLibAm dataAm, string id)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public async Task<InterfaceLibCm> CreateInterface(InterfaceLibAm dataAm)
         {
             var existingInterface = await _interfaceRepository.GetAsync(dataAm.Id);
@@ -75,8 +70,8 @@ namespace TypeLibrary.Services.Services
             if (interfaceLibDm == null)
                 throw new MimirorgMappingException("InterfaceLibAm", "InterfaceLibDm");
 
-            interfaceLibDm.RdsName = _rdsRepository.FindBy(x => x.Id == interfaceLibDm.RdsId)?.First()?.Name;
-            interfaceLibDm.PurposeName = _purposeRepository.FindBy(x => x.Id == interfaceLibDm.PurposeId)?.First()?.Name;
+            interfaceLibDm.RdsName = _rdsRepository.FindBy(x => x.Id == interfaceLibDm.RdsCode)?.First()?.Name;
+            interfaceLibDm.PurposeName = _purposeRepository.FindBy(x => x.Id == interfaceLibDm.PurposeName)?.First()?.Name;
 
             _attributeRepository.Attach(interfaceLibDm.Attributes, EntityState.Unchanged);
 
@@ -92,13 +87,6 @@ namespace TypeLibrary.Services.Services
                 throw new MimirorgMappingException("InterfaceLibDm", "InterfaceLibCm");
 
             return createdObject;
-        }
-
-        public async Task<bool> DeleteInterface(string id)
-        {
-            await _interfaceRepository.Delete(id);
-            var status = await _interfaceRepository.Context.SaveChangesAsync();
-            return status == 1;
         }
 
         public void ClearAllChangeTrackers()

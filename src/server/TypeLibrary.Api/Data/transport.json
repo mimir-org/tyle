@@ -1,71 +1,59 @@
 [
   {
-    "name": "Cable System 80 (F)",
+    "name": "Cable System 80",
     "aspect": "Function",
-    "rdsId": "WB",
+    "rdsCode": "WB",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "attributeIdList": [
       "44385AF5C56EFCAB77158EA3DFA68329",
       "A35B5FA0D0D4D06FD236A23917D4493F"
     ],
     "terminalId": "CDBE6464576FF822972293A9C9627A3B",
-    "version":  "1.0",
-    "updated": "2022-01-01T00:00:00.0000000",
     "created": "2022-01-01T00:00:00.0000000",
-    "updatedBy": "Seeding service",
     "createdBy": "Seeding service"
   },
   {
-    "name": "Cable System 82 (F)",
+    "name": "Cable System 82",
     "aspect": "Function",
-    "rdsId": "WD",
+    "rdsCode": "WD",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "attributeIdList": [
       "44385AF5C56EFCAB77158EA3DFA68329",
       "A35B5FA0D0D4D06FD236A23917D4493F"
     ],
     "terminalId": "CC6DD5A9564E236AEFD3DA0DA2DACF11",
-    "version": "1.0",
-    "updated": "2022-01-01T00:00:00.0000000",
     "created": "2022-01-01T00:00:00.0000000",
-    "updatedBy": "Seeding service",
     "createdBy": "Seeding service"
   },
   {
-    "name": "Cable System 85 (F)",
+    "name": "Cable System 85",
     "aspect": "Function",
-    "rdsId": "WD",
+    "rdsCode": "WD",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "attributeIdList": [
       "44385AF5C56EFCAB77158EA3DFA68329",
       "A35B5FA0D0D4D06FD236A23917D4493F"
     ],
     "terminalId": "5153111276AA3B42F8E2061D148CF093",
-    "version": "1.0",
-    "updated": "2022-01-01T00:00:00.0000000",
     "created": "2022-01-01T00:00:00.0000000",
-    "updatedBy": "Seeding service",
     "createdBy": "Seeding service"
   },
   {
-    "name": "Cable System 87 (F)",
+    "name": "Cable System 87",
     "aspect": "Function",
-    "rdsId": "WG",
+    "rdsCode": "WG",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "attributeIdList": [
       "44385AF5C56EFCAB77158EA3DFA68329"
     ],
     "terminalId": "9A69A18F06C5A284BF7B39BDD5FCB329",
-    "version": "1.0",
-    "updated": "2022-01-01T00:00:00.0000000",
     "created": "2022-01-01T00:00:00.0000000",
-    "updatedBy": "Seeding service",
     "createdBy": "Seeding service"
   },
   {
-    "name": "Chemicals (F)",
+    "name": "Chemicals",
     "aspect": "Function",
-    "rdsId": "WP",
+    "rdsCode": "WP",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "attributeIdList": [
       "B9C6BD307C06BC6CB7B7F32FF7072B55",
@@ -73,16 +61,13 @@
       "2934EC8FF97885913227C182298B6CE0"
     ],
     "terminalId": "6089771C4B5AC170DFB12CCAFC589CE9",
-    "version": "1.0",
-    "updated": "2022-01-01T00:00:00.0000000",
     "created": "2022-01-01T00:00:00.0000000",
-    "updatedBy": "Seeding service",
     "createdBy": "Seeding service"
   },
   {
-    "name": "Process (HC) (F)",
+    "name": "Process (HC)",
     "aspect": "Function",
-    "rdsId": "WP",
+    "rdsCode": "WP",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "attributeIdList": [
       "B9C6BD307C06BC6CB7B7F32FF7072B55",
@@ -90,16 +75,13 @@
       "2934EC8FF97885913227C182298B6CE0"
     ],
     "terminalId": "BFB27765A609F27FD3A2DF59C4E4D63D",
-    "version": "1.0",
-    "updated": "2022-01-01T00:00:00.0000000",
     "created": "2022-01-01T00:00:00.0000000",
-    "updatedBy": "Seeding service",
     "createdBy": "Seeding service"
   },
   {
-    "name": "Utilities (F)",
+    "name": "Utilities",
     "aspect": "Function",
-    "rdsId": "WP",
+    "rdsCode": "WP",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "attributeIdList": [
       "B9C6BD307C06BC6CB7B7F32FF7072B55",
@@ -107,16 +89,13 @@
       "2934EC8FF97885913227C182298B6CE0"
     ],
     "terminalId": "CEBA282B7418B7F199798B645E1CBA56",
-    "version": "1.0",
-    "updated": "2022-01-01T00:00:00.0000000",
     "created": "2022-01-01T00:00:00.0000000",
-    "updatedBy": "Seeding service",
     "createdBy": "Seeding service"
   },
   {
-    "name": "Water (F)",
+    "name": "Water",
     "aspect": "Function",
-    "rdsId": "WP",
+    "rdsCode": "WP",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "attributeIdList": [
       "B9C6BD307C06BC6CB7B7F32FF7072B55",
@@ -124,79 +103,64 @@
       "2934EC8FF97885913227C182298B6CE0"
     ],
     "terminalId": "27634FF8002B12E75D98E07CCD005D18",
-    "version": "1.0",
-    "updated": "2022-01-01T00:00:00.0000000",
     "created": "2022-01-01T00:00:00.0000000",
-    "updatedBy": "Seeding service",
     "createdBy": "Seeding service"
   },
   {
-    "name": "Cable System 80 (P)",
+    "name": "Cable System 80",
     "aspect": "Product",
-    "rdsId": "WB",
+    "rdsCode": "WB",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "attributeIdList": [
       "44385AF5C56EFCAB77158EA3DFA68329",
       "A35B5FA0D0D4D06FD236A23917D4493F"
     ],
     "terminalId": "CDBE6464576FF822972293A9C9627A3B",
-    "version": "1.0",
-    "updated": "2022-01-01T00:00:00.0000000",
     "created": "2022-01-01T00:00:00.0000000",
-    "updatedBy": "Seeding service",
     "createdBy": "Seeding service"
   },
   {
-    "name": "Cable System 82 (P)",
+    "name": "Cable System 82",
     "aspect": "Product",
-    "rdsId": "WD",
+    "rdsCode": "WD",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "attributeIdList": [
       "44385AF5C56EFCAB77158EA3DFA68329",
       "A35B5FA0D0D4D06FD236A23917D4493F"
     ],
     "terminalId": "CC6DD5A9564E236AEFD3DA0DA2DACF11",
-    "version": "1.0",
-    "updated": "2022-01-01T00:00:00.0000000",
     "created": "2022-01-01T00:00:00.0000000",
-    "updatedBy": "Seeding service",
     "createdBy": "Seeding service"
   },
   {
-    "name": "Cable System 85 (P)",
+    "name": "Cable System 85",
     "aspect": "Product",
-    "rdsId": "WD",
+    "rdsCode": "WD",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "attributeIdList": [
       "44385AF5C56EFCAB77158EA3DFA68329",
       "A35B5FA0D0D4D06FD236A23917D4493F"
     ],
     "terminalId": "5153111276AA3B42F8E2061D148CF093",
-    "version": "1.0",
-    "updated": "2022-01-01T00:00:00.0000000",
     "created": "2022-01-01T00:00:00.0000000",
-    "updatedBy": "Seeding service",
     "createdBy": "Seeding service"
   },
   {
-    "name": "Cable System 87 (P)",
+    "name": "Cable System 87",
     "aspect": "Product",
-    "rdsId": "WG",
+    "rdsCode": "WG",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "attributeIdList": [
       "44385AF5C56EFCAB77158EA3DFA68329"
     ],
     "terminalId": "9A69A18F06C5A284BF7B39BDD5FCB329",
-    "version": "1.0",
-    "updated": "2022-01-01T00:00:00.0000000",
     "created": "2022-01-01T00:00:00.0000000",
-    "updatedBy": "Seeding service",
     "createdBy": "Seeding service"
   },
   {
-    "name": "Chemicals (P)",
+    "name": "Chemicals",
     "aspect": "Product",
-    "rdsId": "WP",
+    "rdsCode": "WP",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "attributeIdList": [
       "B9C6BD307C06BC6CB7B7F32FF7072B55",
@@ -204,16 +168,13 @@
       "2934EC8FF97885913227C182298B6CE0"
     ],
     "terminalId": "6089771C4B5AC170DFB12CCAFC589CE9",
-    "version": "1.0",
-    "updated": "2022-01-01T00:00:00.0000000",
     "created": "2022-01-01T00:00:00.0000000",
-    "updatedBy": "Seeding service",
     "createdBy": "Seeding service"
   },
   {
-    "name": "Process (HC) (P)",
+    "name": "Process (HC)",
     "aspect": "Product",
-    "rdsId": "WP",
+    "rdsCode": "WP",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "attributeIdList": [
       "B9C6BD307C06BC6CB7B7F32FF7072B55",
@@ -221,16 +182,13 @@
       "2934EC8FF97885913227C182298B6CE0"
     ],
     "terminalId": "BFB27765A609F27FD3A2DF59C4E4D63D",
-    "version": "1.0",
-    "updated": "2022-01-01T00:00:00.0000000",
     "created": "2022-01-01T00:00:00.0000000",
-    "updatedBy": "Seeding service",
     "createdBy": "Seeding service"
   },
   {
-    "name": "Utilities (P)",
+    "name": "Utilities",
     "aspect": "Product",
-    "rdsId": "WP",
+    "rdsCode": "WP",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "attributeIdList": [
       "B9C6BD307C06BC6CB7B7F32FF7072B55",
@@ -238,16 +196,13 @@
       "2934EC8FF97885913227C182298B6CE0"
     ],
     "terminalId": "CEBA282B7418B7F199798B645E1CBA56",
-    "version": "1.0",
-    "updated": "2022-01-01T00:00:00.0000000",
     "created": "2022-01-01T00:00:00.0000000",
-    "updatedBy": "Seeding service",
     "createdBy": "Seeding service"
   },
   {
-    "name": "Water (P)",
+    "name": "Water",
     "aspect": "Product",
-    "rdsId": "WP",
+    "rdsCode": "WP",
     "purposeId": "2072BCCA9E13F0C9F30FBAA190676D18",
     "attributeIdList": [
       "B9C6BD307C06BC6CB7B7F32FF7072B55",
@@ -255,10 +210,7 @@
       "2934EC8FF97885913227C182298B6CE0"
     ],
     "terminalId": "27634FF8002B12E75D98E07CCD005D18",
-    "version": "1.0",
-    "updated": "2022-01-01T00:00:00.0000000",
     "created": "2022-01-01T00:00:00.0000000",
-    "updatedBy": "Seeding service",
     "createdBy": "Seeding service"
   }
 ]

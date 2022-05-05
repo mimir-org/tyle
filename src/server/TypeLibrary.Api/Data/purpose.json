@@ -34,7 +34,7 @@
     "discipline": "Process"
   },
   {
-    "name": "Transform",
+    "name": "Transform (Process)",
     "description": null,
     "discipline": "Process"
   },
@@ -64,7 +64,7 @@
     "discipline": "Process"
   },
   {
-    "name": "Transform",
+    "name": "Transform (Electrical)",
     "description": null,
     "discipline": "Electrical"
   },
