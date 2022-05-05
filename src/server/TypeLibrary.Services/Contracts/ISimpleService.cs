@@ -9,10 +9,8 @@ namespace TypeLibrary.Services.Contracts
     {
         Task<SimpleLibCm> GetSimple(string id);
         Task<IEnumerable<SimpleLibCm>> GetAllSimple();
-        Task<SimpleLibCm> UpdateSimple(SimpleLibAm dataAm, string id);
         Task<SimpleLibCm> CreateSimple(SimpleLibAm dataAm);
         Task<IEnumerable<SimpleLibCm>> CreateSimple(IEnumerable<SimpleLibAm> dataAms);
-        Task<bool> DeleteSimple(string id);
         void ClearAllChangeTrackers();
     }
 }

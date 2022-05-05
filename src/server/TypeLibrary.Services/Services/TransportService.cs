@@ -59,11 +59,6 @@ namespace TypeLibrary.Services.Services
             return Task.FromResult(transportLibCms ?? new List<TransportLibCm>());
         }
 
-        public Task<TransportLibCm> UpdateTransport(TransportLibAm dataAm, string id)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public async Task<TransportLibCm> CreateTransport(TransportLibAm transport)
         {
             var existingTransport = await _transportRepository.GetAsync(transport.Id);
@@ -76,8 +71,8 @@ namespace TypeLibrary.Services.Services
             if (transportLibDm == null)
                 throw new MimirorgMappingException("TransportLibAm", "TransportLibDm");
 
-            transportLibDm.RdsName = _rdsRepository.FindBy(x => x.Id == transportLibDm.RdsId)?.First()?.Name;
-            transportLibDm.PurposeName = _purposeRepository.FindBy(x => x.Id == transportLibDm.PurposeId)?.First()?.Name;
+            transportLibDm.RdsName = _rdsRepository.FindBy(x => x.Id == transportLibDm.RdsCode)?.First()?.Name;
+            transportLibDm.PurposeName = _purposeRepository.FindBy(x => x.Id == transportLibDm.PurposeName)?.First()?.Name;
 
             _attributeRepository.Attach(transportLibDm.Attributes, EntityState.Unchanged);
 
@@ -114,8 +109,8 @@ namespace TypeLibrary.Services.Services
 
             foreach (var transportLibDm in transportDmList)
             {
-                transportLibDm.RdsName = allRds.FirstOrDefault(x => x.Id == transportLibDm.RdsId)?.Name;
-                transportLibDm.PurposeName = allPurposes.FirstOrDefault(x => x.Id == transportLibDm.PurposeId)?.Name;
+                transportLibDm.RdsName = allRds.FirstOrDefault(x => x.Id == transportLibDm.RdsCode)?.Name;
+                transportLibDm.PurposeName = allPurposes.FirstOrDefault(x => x.Id == transportLibDm.PurposeName)?.Name;
                 _attributeRepository.Attach(transportLibDm.Attributes, EntityState.Unchanged);
                 await _transportRepository.CreateAsync(transportLibDm);
                 await _transportRepository.SaveAsync();
@@ -124,13 +119,6 @@ namespace TypeLibrary.Services.Services
             }
 
             return _mapper.Map<ICollection<TransportLibCm>>(transportDmList);
-        }
-
-        public async Task<bool> DeleteTransport(string id)
-        {
-            await _transportRepository.Delete(id);
-            var status = await _transportRepository.Context.SaveChangesAsync();
-            return status == 1;
         }
 
         public void ClearAllChangeTrackers()

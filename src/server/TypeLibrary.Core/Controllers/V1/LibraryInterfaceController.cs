@@ -79,30 +79,6 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
-        /// Update interface
-        /// </summary>
-        /// <param name="dataAm"></param>
-        /// <param name="id"></param>
-        /// <returns>InterfaceLibCm</returns>
-        [HttpPut("{id}")]
-        [ProducesResponseType(typeof(InterfaceLibCm), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateInterface([FromBody] InterfaceLibAm dataAm, [FromRoute] string id)
-        {
-            try
-            {
-                var data = await _interfaceService.UpdateInterface(dataAm, id);
-                return Ok(data);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        /// <summary>
         /// Create interface
         /// </summary>
         /// <param name="dataAm"></param>
@@ -116,30 +92,6 @@ namespace TypeLibrary.Core.Controllers.V1
             try
             {
                 var data = await _interfaceService.CreateInterface(dataAm);
-                return Ok(data);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        /// <summary>
-        /// Delete an interface
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>200</returns>
-        [HttpDelete]
-        [ProducesResponseType(typeof(bool), 200)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Admin")]
-        [SwaggerOperation("Delete an interface")]
-        public async Task<IActionResult> DeleteInterface([FromRoute] string id)
-        {
-            try
-            {
-                var data = await _interfaceService.DeleteInterface(id);
                 return Ok(data);
             }
             catch (Exception e)
