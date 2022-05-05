@@ -80,7 +80,7 @@ namespace TypeLibrary.Services.Services
             if (nodeLibDm == null)
                 throw new MimirorgMappingException("NodeLibAm", "NodeLibDm");
 
-            if(nodeLibDm.Attributes != null && nodeLibDm.Attributes.Any())
+            if (nodeLibDm.Attributes != null && nodeLibDm.Attributes.Any())
                 _attributeRepository.Attach(nodeLibDm.Attributes, EntityState.Unchanged);
 
             if (nodeLibDm.Simples != null && nodeLibDm.Simples.Any())

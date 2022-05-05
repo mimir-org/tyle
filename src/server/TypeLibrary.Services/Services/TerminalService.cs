@@ -31,7 +31,7 @@ namespace TypeLibrary.Services.Services
         public IEnumerable<TerminalLibCm> GetTerminals()
         {
             var terminals = _terminalTypeRepository.GetAll()
-                .Include(x => x.Children)
+                .Include(x => x.Parent)
                 .Include(x => x.Attributes)
                 .ToList();
 
