@@ -56,12 +56,7 @@ namespace TypeLibrary.Services.Services
 
             return Task.FromResult(simpleLibCms ?? new List<SimpleLibCm>());
         }
-
-        public Task<SimpleLibCm> UpdateSimple(SimpleLibAm dataAm, string id)
-        {
-            throw new System.NotImplementedException();
-        }
-
+       
         public async Task<SimpleLibCm> CreateSimple(SimpleLibAm simpleAm)
         {
             var validation = simpleAm.ValidateObject();
@@ -122,13 +117,6 @@ namespace TypeLibrary.Services.Services
             }
 
             return simpleCms;
-        }
-
-        public async Task<bool> DeleteSimple(string id)
-        {
-            await _simpleRepository.Delete(id);
-            var status = await _simpleRepository.Context.SaveChangesAsync();
-            return status == 1;
         }
 
         public void ClearAllChangeTrackers()
