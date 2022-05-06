@@ -56,7 +56,7 @@ namespace TypeLibrary.Services.Services
 
             return Task.FromResult(simpleLibCms ?? new List<SimpleLibCm>());
         }
-       
+
         public async Task<SimpleLibCm> CreateSimple(SimpleLibAm simpleAm)
         {
             var validation = simpleAm.ValidateObject();

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
@@ -17,9 +16,9 @@ namespace TypeLibrary.Services.Services
     public class BlobService : IBlobService
     {
         private readonly IMapper _mapper;
-        private readonly IBlobDataRepository _blobDataRepository;
+        private readonly IBlobRepository _blobDataRepository;
 
-        public BlobService(IMapper mapper, IBlobDataRepository blobDataRepository)
+        public BlobService(IMapper mapper, IBlobRepository blobDataRepository)
         {
             _mapper = mapper;
             _blobDataRepository = blobDataRepository;
