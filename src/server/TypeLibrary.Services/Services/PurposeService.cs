@@ -49,7 +49,7 @@ namespace TypeLibrary.Services.Services
         {
             var data = _mapper.Map<PurposeLibDm>(dataAm);
             data.Created = DateTime.Now.ToUniversalTime();
-            data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
+            data.CreatedBy = _contextAccessor?.GetName() ?? dataAm.CreatedBy ?? "Unknown";
             var createdData = await _purposeRepository.CreateAsync(data);
             await _purposeRepository.SaveAsync();
             return _mapper.Map<PurposeLibCm>(createdData.Entity);
@@ -67,7 +67,7 @@ namespace TypeLibrary.Services.Services
             foreach (var data in notExisting)
             {
                 data.Created = DateTime.Now.ToUniversalTime();
-                data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
+                data.CreatedBy = _contextAccessor?.GetName() ?? data.CreatedBy ?? "Unknown";
                 _purposeRepository.Attach(data, EntityState.Added);
             }
 

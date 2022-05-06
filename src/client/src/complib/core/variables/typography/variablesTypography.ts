@@ -2,11 +2,7 @@ import { css } from "styled-components/macro";
 import { TypeScaleSpecification, TypographyRoles } from "./types";
 import { TypefaceReference, typefaceReference } from "./reference/typefaceReference";
 import { typeScaleSystem } from "./system/typeScaleSystem";
-import { display } from "./system/typeScales/display";
-import { headline } from "./system/typeScales/headline";
-import { title } from "./system/typeScales/title";
-import { body } from "./system/typeScales/body";
-import { label } from "./system/typeScales/label";
+import { body, display, headline, label, title } from "./system/roles";
 import { typeScaleReference } from "./reference/typeScaleReference";
 
 export interface TypographySystem {

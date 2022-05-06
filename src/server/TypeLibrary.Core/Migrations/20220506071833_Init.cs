@@ -178,7 +178,6 @@ namespace TypeLibrary.Core.Migrations
                     RdsCode = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
                     RdsName = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
                     PurposeName = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
-                    PurposeDiscipline = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
                     ParentId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
                     Version = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
                     FirstVersionId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
@@ -211,7 +210,6 @@ namespace TypeLibrary.Core.Migrations
                     Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
                     Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Discipline = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -371,7 +369,6 @@ namespace TypeLibrary.Core.Migrations
                     RdsCode = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
                     RdsName = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
                     PurposeName = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
-                    PurposeDiscipline = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
                     ParentId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
                     Version = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
                     FirstVersionId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
@@ -395,6 +392,31 @@ namespace TypeLibrary.Core.Migrations
                     table.ForeignKey(
                         name: "FK_Interface_Terminal_Interface_TerminalId",
                         column: x => x.Interface_TerminalId,
+                        principalTable: "Terminal",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Node_Terminal",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    Number = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
+                    ConnectorDirection = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
+                    NodeId = table.Column<string>(type: "nvarchar(127)", nullable: true),
+                    TerminalId = table.Column<string>(type: "nvarchar(127)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Node_Terminal", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Node_Terminal_Node_NodeId",
+                        column: x => x.NodeId,
+                        principalTable: "Node",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Node_Terminal_Terminal_TerminalId",
+                        column: x => x.TerminalId,
                         principalTable: "Terminal",
                         principalColumn: "Id");
                 });
@@ -424,31 +446,6 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Terminal_Node",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
-                    Number = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
-                    ConnectorDirection = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
-                    NodeId = table.Column<string>(type: "nvarchar(127)", nullable: true),
-                    TerminalId = table.Column<string>(type: "nvarchar(127)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Terminal_Node", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Terminal_Node_Node_NodeId",
-                        column: x => x.NodeId,
-                        principalTable: "Node",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Terminal_Node_Terminal_TerminalId",
-                        column: x => x.TerminalId,
-                        principalTable: "Terminal",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Transport",
                 columns: table => new
                 {
@@ -458,7 +455,6 @@ namespace TypeLibrary.Core.Migrations
                     RdsCode = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
                     RdsName = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
                     PurposeName = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
-                    PurposeDiscipline = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
                     ParentId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
                     Version = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
                     FirstVersionId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
@@ -627,6 +623,16 @@ namespace TypeLibrary.Core.Migrations
                 column: "ParentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Node_Terminal_NodeId",
+                table: "Node_Terminal",
+                column: "NodeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Node_Terminal_TerminalId",
+                table: "Node_Terminal",
+                column: "TerminalId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Simple_Node_SimpleId",
                 table: "Simple_Node",
                 column: "SimpleId");
@@ -639,16 +645,6 @@ namespace TypeLibrary.Core.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Terminal_Attribute_TerminalId",
                 table: "Terminal_Attribute",
-                column: "TerminalId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Terminal_Node_NodeId",
-                table: "Terminal_Node",
-                column: "NodeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Terminal_Node_TerminalId",
-                table: "Terminal_Node",
                 column: "TerminalId");
 
             migrationBuilder.CreateIndex(
@@ -701,6 +697,9 @@ namespace TypeLibrary.Core.Migrations
                 name: "Blob");
 
             migrationBuilder.DropTable(
+                name: "Node_Terminal");
+
+            migrationBuilder.DropTable(
                 name: "Purpose");
 
             migrationBuilder.DropTable(
@@ -713,9 +712,6 @@ namespace TypeLibrary.Core.Migrations
                 name: "Terminal_Attribute");
 
             migrationBuilder.DropTable(
-                name: "Terminal_Node");
-
-            migrationBuilder.DropTable(
                 name: "Interface");
 
             migrationBuilder.DropTable(
@@ -725,13 +721,13 @@ namespace TypeLibrary.Core.Migrations
                 name: "Unit");
 
             migrationBuilder.DropTable(
+                name: "Node");
+
+            migrationBuilder.DropTable(
                 name: "Simple");
 
             migrationBuilder.DropTable(
                 name: "Attribute");
-
-            migrationBuilder.DropTable(
-                name: "Node");
 
             migrationBuilder.DropTable(
                 name: "Terminal");
