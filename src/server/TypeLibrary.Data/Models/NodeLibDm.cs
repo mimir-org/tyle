@@ -12,7 +12,6 @@ namespace TypeLibrary.Data.Models
         public string RdsCode { get; set; }
         public string RdsName { get; set; }
         public string PurposeName { get; set; }
-        public string PurposeDiscipline { get; set; }
         public string ParentId { get; set; }
         public NodeLibDm Parent { get; set; }
         public string Version { get; set; }

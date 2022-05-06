@@ -1,121 +1,98 @@
 [
   {
-    "name": "Manifold",
-    "description": null,
-    "discipline": "Process"
+    "name": "Manifold (Process)",
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "Separate",
-    "discipline": "Process"
+    "name": "Separate (Process)",
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "Pump",
-    "description": null,
-    "discipline": "Process"
+    "name": "Pump (Process)",
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "Compress",
-    "description": null,
-    "discipline": "Process"
+    "name": "Compress (Process)",
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "Mix",
-    "description": null,
-    "discipline": "Process"
+    "name": "Mix (Process)",
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "Exchange (heat)",
-    "description": null,
-    "discipline": "Process"
+    "name": "Exchange [heat] (Process)",
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "React",
-    "description": null,
-    "discipline": "Process"
+    "name": "React (Process)",
+    "CreatedBy": "Seeding service"
   },
   {
     "name": "Transform (Process)",
-    "description": null,
-    "discipline": "Process"
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "Generate",
-    "description": null,
-    "discipline": "Electrical"
+    "name": "Generate (Electrical)",
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "Switch",
-    "description": null,
-    "discipline": "Electrical"
+    "name": "Switch (Electrical)",
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "Break",
-    "description": null,
-    "discipline": "Electrical"
+    "name": "Break (Electrical)",
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "Distribute (Electro)",
-    "description": null,
-    "discipline": "Electrical"
+    "name": "Distribute (Electrical)",
+    "CreatedBy": "Seeding service"
   },
   {
     "name": "Distribute (Process)",
-    "description": null,
-    "discipline": "Process"
+    "CreatedBy": "Seeding service"
   },
   {
     "name": "Transform (Electrical)",
-    "description": null,
-    "discipline": "Electrical"
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "Convert",
-    "description": null,
-    "discipline": "Electrical"
+    "name": "Convert (Electrical)",
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "Drive",
-    "description": null,
-    "discipline": "Electrical"
+    "name": "Drive (Electrical)",
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "Heat",
-    "description": null,
-    "discipline": "Electrical"
+    "name": "Heat (Electrical)",
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "Store",
-    "description": null,
-    "discipline": "Electrical"
+    "name": "Store (Electrical)",
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "Measure",
-    "description": null,
-    "discipline": "Automation"
+    "name": "Measure (Automation)",
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "Control",
-    "description": null,
-    "discipline": "Automation"
+    "name": "Control (Automation)",
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "Actuate",
-    "description": null,
-    "discipline": "Automation"
+    "name": "Actuate (Automation)",
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "Support",
-    "description": null,
-    "discipline": "Structural"
+    "name": "Support (Structural)",
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "Enclose",
-    "description": null,
-    "discipline": "Structural"
+    "name": "Enclose (Structural)",
+    "CreatedBy": "Seeding service"
   },
   {
-    "name": "None",
-    "description": null,
-    "discipline": "None"
+    "name": "None (None)",
+    "CreatedBy": "Seeding service"
   }
 ]

@@ -44,7 +44,6 @@ namespace TypeLibrary.Services.Tests
                 Id = "Fake_Purpose",
                 Name = "Fake Purpose",
                 Iri = @"https://purpose.fake.com/Fake Purpose",
-                Discipline = Discipline.Electrical,
                 Created = DateTime.Now,
                 CreatedBy = "Test Tester"
             };
