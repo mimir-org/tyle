@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Mimirorg.Common.Abstract;
+using Mimirorg.Common.Extensions;
 
 namespace Mimirorg.Common.Middleware
 {
@@ -10,9 +12,9 @@ namespace Mimirorg.Common.Middleware
         private const int CacheDays = 10;
         private static readonly Dictionary<string, string> Suffixes = new()
         {
-            {".png", "image/png"},
-            {".jpg", "image/jpg"},
-            {".svg", "image/svg+xml"}
+            { ".png", "image/png" },
+            { ".jpg", "image/jpg" },
+            { ".svg", "image/svg+xml" }
         };
 
         public DynamicImageProvider(RequestDelegate next)
@@ -27,12 +29,12 @@ namespace Mimirorg.Common.Middleware
         /// <param name="dataProvider">The data provider to resolve the base64 string</param>
         /// <returns>A completed task</returns>
         // ReSharper disable once UnusedMember.Global
-        public async Task Invoke(HttpContext context, IDynamicImageDataProvider dataProvider)
+        public async Task Invoke(HttpContext context, IDynamicImageDataProvider dataProvider, IHttpContextAccessor contextAccessor)
         {
             try
             {
                 var path = context.Request.Path;
-                
+
                 if (path.Value != null && IsImagePath(path) && path.Value.Contains(PathCondition))
                 {
                     var id = Path.GetFileName(path).Split(".")[0];
