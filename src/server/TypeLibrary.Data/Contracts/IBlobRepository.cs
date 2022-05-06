@@ -3,7 +3,7 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface IBlobDataRepository : IGenericRepository<TypeLibraryDbContext, BlobLibDm>
+    public interface IBlobRepository : IGenericRepository<TypeLibraryDbContext, BlobLibDm>, IDynamicImageDataProvider
     {
     }
 }

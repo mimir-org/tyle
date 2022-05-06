@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Mimirorg.Common.Abstract;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Factories;
@@ -35,7 +36,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IAttributePredefinedRepository, AttributePredefinedRepository>();
             services.AddScoped<IRdsRepository, RdsRepository>();
             services.AddSingleton<IFileRepository, JsonFileRepository>();
-            services.AddScoped<IBlobDataRepository, BlobRepository>();
+            services.AddScoped<IBlobRepository, BlobRepository>();
             services.AddScoped<IConditionRepository, AttributeConditionRepository>();
             services.AddScoped<IFormatRepository, AttributeFormatRepository>();
             services.AddScoped<IQualifierRepository, AttributeQualifierRepository>();
@@ -43,6 +44,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IAttributeAspectRepository, AttributeAspectRepository>();
             services.AddScoped<IPurposeRepository, PurposeRepository>();
             services.AddScoped<IUnitRepository, UnitRepository>();
+            services.AddScoped<IDynamicImageDataProvider, BlobRepository>();
 
             // Dependency Injection - Services
             services.AddScoped<ITerminalService, TerminalService>();

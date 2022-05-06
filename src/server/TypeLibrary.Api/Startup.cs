@@ -1,4 +1,5 @@
 ﻿using Mimirorg.Authentication.Extensions;
+using Mimirorg.Common.Middleware;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using TypeLibrary.Core.Extensions;
@@ -52,6 +53,7 @@ namespace TypeLibrary.Api
 
             app.UseCors("CorsPolicy");
             app.UseRouting();
+            app.UseDynamicImageMiddleware();
 
             // User modules
             app.UseTypeLibraryModule();
