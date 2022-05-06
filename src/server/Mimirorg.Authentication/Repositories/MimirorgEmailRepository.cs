@@ -21,12 +21,12 @@ namespace Mimirorg.Authentication.Repositories
 
         public async Task SendEmail(MimirorgMail email)
         {
-            if(_authSettings == null || string.IsNullOrEmpty(_authSettings.EmailKey) || string.IsNullOrEmpty(_authSettings.EmailSecret))
+            if (_authSettings == null || string.IsNullOrEmpty(_authSettings.EmailKey) || string.IsNullOrEmpty(_authSettings.EmailSecret))
                 throw new MimirorgConfigurationException("Missing configuration for email");
 
             var client = new SendGridClient(_authSettings.EmailSecret);
             var from = new EmailAddress(email.FromEmail, email.FromName);
-            var subject =email.Subject;
+            var subject = email.Subject;
             var to = new EmailAddress(email.ToEmail, email.ToName);
             var plainTextContent = email.PlainTextContent;
             var htmlContent = email.HtmlContent;

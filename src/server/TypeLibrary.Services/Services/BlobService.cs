@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -34,7 +35,7 @@ namespace TypeLibrary.Services.Services
         {
             var blobExist = await _blobDataRepository.GetAsync(blob.Id);
 
-            if(blobExist != null)
+            if (blobExist != null)
                 throw new MimirorgDuplicateException($"There is already an blob with name: {blob.Name} and discipline: {blob.Discipline}");
 
             var dm = _mapper.Map<BlobLibDm>(blob);
@@ -59,7 +60,7 @@ namespace TypeLibrary.Services.Services
             foreach (var blobData in blobDataList)
             {
                 var blobExist = existingBlobs.FirstOrDefault(x => x.Id == blobData.Id);
-                if(blobExist != null)
+                if (blobExist != null)
                     continue;
 
                 var dm = _mapper.Map<BlobLibDm>(blobData);
@@ -94,19 +95,16 @@ namespace TypeLibrary.Services.Services
         /// <returns></returns>
         public IEnumerable<BlobLibCm> GetBlob()
         {
-            var dms = _blobDataRepository.GetAll()
-                .OrderBy(x => x.Name)
-                .ProjectTo<BlobLibAm>(_mapper.ConfigurationProvider)
-                .ToList();
+            var blobDms = _blobDataRepository.GetAll().ToList().OrderBy(x => x.Discipline).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
-            dms.Insert(0, new BlobLibAm
+            blobDms.Insert(0, new BlobLibDm
             {
                 Discipline = Discipline.None,
                 Data = null,
                 Name = "No symbol"
             });
 
-            return _mapper.Map<List<BlobLibCm>>(dms);
+            return _mapper.Map<List<BlobLibCm>>(blobDms);
         }
     }
 }

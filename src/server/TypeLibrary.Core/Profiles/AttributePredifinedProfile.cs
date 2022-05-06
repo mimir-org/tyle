@@ -23,12 +23,6 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.ValueStringList, opt => opt.MapFrom(src => src.ValueStringList))
                 .ForMember(dest => dest.IsMultiSelect, opt => opt.MapFrom(src => src.IsMultiSelect))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect));
-
-            CreateMap<AttributePredefinedLibDm, AttributePredefinedLibAm>()
-                .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.Key))
-                .ForMember(dest => dest.ValueStringList, opt => opt.MapFrom(src => src.ValueStringList))
-                .ForMember(dest => dest.IsMultiSelect, opt => opt.MapFrom(src => src.IsMultiSelect))
-                .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect));
         }
     }
 }

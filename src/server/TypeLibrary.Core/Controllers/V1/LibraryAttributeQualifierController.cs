@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mimirorg.Authentication.Contracts;
+using Mimirorg.Common.Enums;
 using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Services.Contracts;
@@ -23,11 +25,13 @@ namespace TypeLibrary.Core.Controllers.V1
     {
         private readonly ILogger<LibraryAttributeQualifierController> _logger;
         private readonly IAttributeQualifierService _attributeQualifierService;
+        private readonly ITimedHookService _hookService;
 
-        public LibraryAttributeQualifierController(ILogger<LibraryAttributeQualifierController> logger, IAttributeQualifierService attributeQualifierService)
+        public LibraryAttributeQualifierController(ILogger<LibraryAttributeQualifierController> logger, IAttributeQualifierService attributeQualifierService, ITimedHookService hookService)
         {
             _logger = logger;
             _attributeQualifierService = attributeQualifierService;
+            _hookService = hookService;
         }
 
         [HttpGet]
@@ -56,6 +60,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
+                _hookService.HookQueue.Enqueue(CacheKey.AttributeQualifier);
                 var data = await _attributeQualifierService.UpdateAttributeQualifier(dataAm, id);
                 return Ok(data);
             }

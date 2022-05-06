@@ -42,7 +42,7 @@ namespace Mimirorg.Authentication.Services
         /// <exception cref="MimirorgDuplicateException"></exception>
         public async Task<MimirorgQrCodeCm> CreateUser(MimirorgUserAm userAm)
         {
-            if(_authSettings == null)
+            if (_authSettings == null)
                 throw new MimirorgConfigurationException("Missing configuration for auth settings");
 
             var validation = userAm.ValidateObject();
@@ -50,13 +50,13 @@ namespace Mimirorg.Authentication.Services
                 throw new MimirorgBadRequestException($"Couldn't register: {userAm.Email}", validation);
 
             var existingUser = await _userManager.FindByEmailAsync(userAm.Email);
-            if(existingUser != null)
+            if (existingUser != null)
                 throw new MimirorgDuplicateException($"Couldn't register: {userAm.Email}. There is already an user with same username");
 
             var user = userAm.ToDomainModel();
             var securityKey = $"{Guid.NewGuid()}{MimirorgSecurity.SecurityStamp}{Guid.NewGuid()}";
             user.SecurityHash = securityKey.CreateSha512();
-            
+
             var result = await _userManager.CreateAsync(user, userAm.Password);
             if (!result.Succeeded)
                 throw new MimirorgInvalidOperationException($"Couldn't register: {userAm.Email}.");
@@ -174,7 +174,7 @@ namespace Mimirorg.Authentication.Services
             };
 
             var oldTokens = _tokenRepository.GetAll().Where(x => (x.ClientId == user.Id && x.TokenType == MimirorgTokenType.VerifyEmail) || DateTime.Now > x.ValidTo).ToList();
-            
+
             foreach (var t in oldTokens)
             {
                 _tokenRepository.Attach(t, EntityState.Deleted);

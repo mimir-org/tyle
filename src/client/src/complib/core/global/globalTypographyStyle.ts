@@ -1,58 +1,59 @@
 import { css } from "styled-components/macro";
+import { TypeLibraryTheme } from "../theme/theme";
+import { getTextRole } from "../../mixins";
 
 /**
  * TYPOGRAPHY SPECIFIC GLOBALS
  */
-export const globalTypographyStyle = css`
+export const globalTypographyStyle = (theme: TypeLibraryTheme) => css`
   body {
-    font-family: var(--font-family);
-    font-weight: var(--font-weight-normal);
-    font-size: var(--font-base-size);
-    color: var(--color-text-primary-light);
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5 {
-    color: var(--color-text-primary);
+    font-family: ${theme.typography.ref.typeface.brand};
+    font-weight: ${theme.typography.ref.typeface.weights.normal};
+    font-size: 100%;
+    color: ${theme.color.background.on};
   }
 
   h1 {
-    font: var(--font-h1);
+    ${getTextRole("display-large")}
   }
 
   h2 {
-    font: var(--font-h2);
+    ${getTextRole("display-medium")}
   }
 
   h3 {
-    font: var(--font-h3);
+    ${getTextRole("display-small")}
   }
 
   h4 {
-    font: var(--font-h4);
+    ${getTextRole("headline-large")}
   }
 
   h5 {
-    font: var(--font-h5);
+    ${getTextRole("headline-medium")}
   }
 
-  p {
-    font: var(--font-text);
+  h6 {
+    ${getTextRole("headline-small")}
+  }
+
+  p,
+  a {
+    ${getTextRole("body-large")}
+  }
+
+  a:hover {
+    text-decoration: underline;
+    cursor: pointer;
   }
 
   b,
   strong {
-    font-weight: var(--font-weight-bold);
-  }
-
-  a {
-    font: var(--font-link);
+    ${getTextRole("body-large")}
+    font-weight: ${theme.typography.ref.typeface.weights.bold};
   }
 
   small {
-    font: var(--font-subtext);
+    ${getTextRole("body-small")}
   }
 `;

@@ -1,36 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import { apiRds } from "../../api/typeLibrary/apiRds";
-import { RdsCategoryLibAm } from "../../../models/typeLibrary/application/rdsCategoryLibAm";
-import { Aspect } from "../../../models/typeLibrary/enums/aspect";
-import { UpdateEntity } from "../../types/updateEntity";
 
 const keys = {
-  allRds: ["rds"] as const,
-  rdsLists: () => [...keys.allRds, "list"] as const,
-  rdsAspectList: (aspect: Aspect) => [...keys.rdsLists(), { aspect }] as const,
-  allRdsCategories: ["rdsCategories"] as const,
-  rdsCategoryLists: () => [...keys.allRdsCategories, "list"] as const,
+  all: ["rds"] as const,
+  lists: () => [...keys.all, "list"] as const,
 };
 
-export const useGetRds = () => useQuery(keys.rdsLists(), apiRds.getRds);
-
-export const useGetRdsByAspect = (aspect: Aspect) =>
-  useQuery(keys.rdsAspectList(aspect), () => apiRds.getRdsByAspect(aspect));
-
-export const useGetRdsCategories = () => useQuery(keys.rdsCategoryLists(), apiRds.getRdsCategories);
-
-export const useCreateRdsCategory = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation((item: RdsCategoryLibAm) => apiRds.postRdsCategory(item), {
-    onSuccess: () => queryClient.invalidateQueries(keys.rdsCategoryLists()),
-  });
-};
-
-export const useUpdateRdsCategory = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation((item: UpdateEntity<RdsCategoryLibAm>) => apiRds.putRdsCategory(item.id, item), {
-    onSuccess: () => queryClient.invalidateQueries(keys.rdsCategoryLists()),
-  });
-};
+export const useGetRds = () => useQuery(keys.lists(), apiRds.getRds);

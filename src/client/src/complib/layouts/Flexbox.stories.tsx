@@ -1,5 +1,5 @@
 import { ComponentStory } from "@storybook/react";
-import { THEME } from "../core";
+import { theme } from "../core";
 import { Flexbox } from "./Flexbox";
 import { Box } from "./Box";
 
@@ -13,7 +13,7 @@ const Template: ComponentStory<typeof Flexbox> = (args) => (
     {[...Array(5)].map((_, i) => {
       const color = 20 * i;
       return (
-        <Box key={i} p={THEME.SPACING.XL} bgColor={`hsl(${color},60%,60%)`}>
+        <Box key={i} p={theme.spacing.xl} bgColor={`hsl(${color},60%,60%)`}>
           ITEM
         </Box>
       );

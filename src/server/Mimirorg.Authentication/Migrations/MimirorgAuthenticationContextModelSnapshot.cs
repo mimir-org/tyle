@@ -17,7 +17,7 @@ namespace Mimirorg.Authentication.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("ProductVersion", "6.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -52,21 +52,21 @@ namespace Mimirorg.Authentication.Migrations
                         new
                         {
                             Id = "b5d465b3-90cf-4408-a685-14ff462e549d",
-                            ConcurrencyStamp = "dea6fc09-4548-4b0a-962d-59dea6ed57f9",
+                            ConcurrencyStamp = "66aa8ece-9be0-4def-baa8-3ea86f199419",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "cabdda90-6e90-4b92-b309-4f5b3784c792",
-                            ConcurrencyStamp = "93a8a99f-779c-4a72-9fc3-24f647eb3abb",
+                            ConcurrencyStamp = "58b0c5cd-c499-40cc-8e3e-43b994143e9a",
                             Name = "Account Manager",
                             NormalizedName = "ACCOUNTMANAGER"
                         },
                         new
                         {
                             Id = "f6d7df3a-bc9f-4a79-a2a0-c001a83c2d6c",
-                            ConcurrencyStamp = "3367742f-3db2-4c68-8477-6cb8f9bb0d6a",
+                            ConcurrencyStamp = "4f648c4e-e9e2-4a90-8040-9bd97d745313",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         });
@@ -188,7 +188,6 @@ namespace Mimirorg.Authentication.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Description");
 
@@ -205,6 +204,10 @@ namespace Mimirorg.Authentication.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("Name");
 
+                    b.Property<string>("Secret")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Secret");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ManagerId");
@@ -213,6 +216,35 @@ namespace Mimirorg.Authentication.Migrations
                         .IsUnique();
 
                     b.ToTable("MimirorgCompany", (string)null);
+                });
+
+            modelBuilder.Entity("Mimirorg.Authentication.Models.Domain.MimirorgHook", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int")
+                        .HasColumnName("CompanyId");
+
+                    b.Property<string>("Iri")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Iri");
+
+                    b.Property<int>("Key")
+                        .HasColumnType("int")
+                        .HasColumnName("Key");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("MimirorgHook", (string)null);
                 });
 
             modelBuilder.Entity("Mimirorg.Authentication.Models.Domain.MimirorgToken", b =>
@@ -392,6 +424,21 @@ namespace Mimirorg.Authentication.Migrations
                         .IsRequired();
 
                     b.Navigation("Manager");
+                });
+
+            modelBuilder.Entity("Mimirorg.Authentication.Models.Domain.MimirorgHook", b =>
+                {
+                    b.HasOne("Mimirorg.Authentication.Models.Domain.MimirorgCompany", "Company")
+                        .WithMany("Hooks")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("Mimirorg.Authentication.Models.Domain.MimirorgCompany", b =>
+                {
+                    b.Navigation("Hooks");
                 });
 
             modelBuilder.Entity("Mimirorg.Authentication.Models.Domain.MimirorgUser", b =>

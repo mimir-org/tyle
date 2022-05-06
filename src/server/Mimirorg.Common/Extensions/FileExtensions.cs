@@ -22,7 +22,7 @@ namespace Mimirorg.Common.Extensions
 
         }
 
-        public static T Deserialize<T>(this byte[] value) where T: class, new()
+        public static T Deserialize<T>(this byte[] value) where T : class, new()
         {
             if (value == null)
                 throw new MimirorgNullReferenceException("The file byte array is null");

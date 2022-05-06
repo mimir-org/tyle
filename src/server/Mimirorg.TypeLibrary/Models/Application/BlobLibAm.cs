@@ -8,7 +8,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
     {
         [Required]
         public string Name { get; set; }
-        
+
         [Required]
         public Discipline Discipline { get; set; }
 

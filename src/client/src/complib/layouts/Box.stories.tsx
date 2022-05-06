@@ -1,6 +1,6 @@
 import { ComponentStory } from "@storybook/react";
 import { Box } from "./Box";
-import { THEME } from "../core";
+import { theme } from "../core";
 
 export default {
   title: "Layouts/Box",
@@ -12,7 +12,7 @@ const Template: ComponentStory<typeof Box> = (args) => (
     {[...Array(3)].map((_, i) => {
       const color = 20 * i;
       return (
-        <Box key={i} p={THEME.SPACING.XL} bgColor={`hsl(${color},60%,60%)`}>
+        <Box key={i} p={theme.spacing.xl} bgColor={`hsl(${color},60%,60%)`}>
           ITEM
         </Box>
       );
@@ -35,7 +35,7 @@ WithPaddingAndBorder.args = {
 
 export const WithShadow = Template.bind({});
 WithShadow.args = {
-  boxShadow: THEME.SHADOW.BOX_MEDIUM,
+  boxShadow: theme.shadow.medium,
 };
 
 export const WithPolymorphicAs = Template.bind({});

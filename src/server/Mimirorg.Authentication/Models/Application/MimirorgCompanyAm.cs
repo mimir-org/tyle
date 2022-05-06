@@ -20,6 +20,9 @@ namespace Mimirorg.Authentication.Models.Application
         [Required(ErrorMessage = "{0} is required")]
         public string ManagerId { get; set; }
 
+        [Display(Name = "Secret")]
+        public string Secret { get; set; }
+
         public MimirorgCompany ToDomainModel()
         {
             return new MimirorgCompany
@@ -27,7 +30,8 @@ namespace Mimirorg.Authentication.Models.Application
                 Name = Name,
                 DisplayName = DisplayName,
                 Description = Description,
-                ManagerId = ManagerId
+                ManagerId = ManagerId,
+                Secret = Secret
             };
         }
     }

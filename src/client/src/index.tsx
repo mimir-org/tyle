@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import Config from "./models/Config";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
-import { Root } from "./components/root";
+import { Root } from "./content/root";
 
 if (Config.APP_INSIGHTS_CONNECTION_STRING) {
   const appInsights = new ApplicationInsights({

@@ -7,7 +7,7 @@ namespace Mimirorg.Common.Converters
     {
         public StringCollectionValueConverter() : base(
             v => string.Join(",", v.Select(s => s.Trim())),
-            v => v.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries))
+            v => v.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
         {
 
         }

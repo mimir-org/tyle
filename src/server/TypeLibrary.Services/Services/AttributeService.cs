@@ -20,7 +20,7 @@ namespace TypeLibrary.Services.Services
         private readonly IAttributeRepository _attributeRepository;
         private readonly IUnitRepository _unitRepository;
 
-        public AttributeService(IMapper mapper, IAttributePredefinedRepository attributePredefinedRepository, 
+        public AttributeService(IMapper mapper, IAttributePredefinedRepository attributePredefinedRepository,
             IAttributeRepository attributeRepository, IUnitRepository unitRepository)
         {
             _mapper = mapper;
@@ -47,10 +47,10 @@ namespace TypeLibrary.Services.Services
             return _mapper.Map<List<AttributeLibCm>>(attributes).ToList();
         }
 
-       /// <summary>
-       /// Get all attributes
-       /// </summary>
-       /// <returns></returns>
+        /// <summary>
+        /// Get all attributes
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<AttributeLibCm> GetAttributes()
         {
             var all = _attributeRepository.GetAll()
@@ -80,7 +80,7 @@ namespace TypeLibrary.Services.Services
             _unitRepository.Detach(attribute.Units);
             _attributeRepository.Detach(attribute);
             var cm = _mapper.Map<AttributeLibCm>(attribute);
-            if(cm == null)
+            if (cm == null)
                 throw new MimirorgMappingException(nameof(AttributeLibDm), nameof(AttributeLibCm));
 
             return cm;

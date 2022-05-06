@@ -12,7 +12,7 @@ namespace Mimirorg.Authentication.Models.Domain
         public string LastName { get; set; }
         public string SecurityHash { get; set; }
         public List<MimirorgCompany> MangeCompanies { get; set; }
-        
+
         public MimirorgUserCm ToContentModel()
         {
             return new MimirorgUserCm

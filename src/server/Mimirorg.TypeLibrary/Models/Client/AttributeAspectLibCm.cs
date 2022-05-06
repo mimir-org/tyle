@@ -19,6 +19,6 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
 
-        public string Kind => nameof(AttributeAspectLibCm); 
+        public string Kind => nameof(AttributeAspectLibCm);
     }
 }

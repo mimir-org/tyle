@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,9 +34,9 @@ namespace TypeLibrary.Core.Extensions
             var cfg = new MapperConfigurationExpression();
             cfg.AddProfile(new AttributeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IUnitFactory>()));
             cfg.AddProfile(new BlobProfile(provider.GetService<IApplicationSettingsRepository>()));
-            cfg.AddProfile(new NodeProfile(provider.GetService<IApplicationSettingsRepository>()));
-            cfg.AddProfile(new InterfaceProfile(provider.GetService<IApplicationSettingsRepository>()));
-            cfg.AddProfile(new TransportProfile(provider.GetService<IApplicationSettingsRepository>()));
+            cfg.AddProfile(new NodeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
+            cfg.AddProfile(new InterfaceProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
+            cfg.AddProfile(new TransportProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
             cfg.AddProfile(new RdsProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new TerminalProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IAttributeFactory>()));
             cfg.AddProfile(new AttributeConditionProfile(provider.GetService<IApplicationSettingsRepository>()));
@@ -48,7 +49,6 @@ namespace TypeLibrary.Core.Extensions
             cfg.AddProfile(new UnitProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new SimpleProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new SelectedAttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>()));
-            cfg.AddProfile(new AttributeCollectionProfile());
             cfg.AddProfile(new NodeTerminalProfile());
 
             var mapperConfig = new MapperConfiguration(cfg);

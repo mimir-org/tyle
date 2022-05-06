@@ -1,11 +1,14 @@
 import styled from "styled-components/macro";
 import { ElementType } from "react";
 import { motion } from "framer-motion";
-import { Palette, Polymorphic, Typography } from "../props";
+import { Display, Palette, Polymorphic, TextVariant, Typography } from "../props";
+import { displayMixin, getTextRole, paletteMixin, typographyMixin } from "../mixins";
 
 type TextProps = Pick<Palette, "color"> &
+  Pick<Display, "whiteSpace" | "display"> &
   Pick<Typography, "font" | "fontSize" | "fontWeight"> &
-  Polymorphic<ElementType> & {
+  Polymorphic<ElementType> &
+  TextVariant & {
     useEllipsis?: boolean;
     ellipsisMaxLines?: number;
   };
@@ -23,10 +26,11 @@ type TextProps = Pick<Palette, "color"> &
  * @constructor
  */
 export const Text = styled.p<TextProps>`
-  font: ${(props) => props.font};
-  font-size: ${(props) => props.fontSize};
-  font-weight: ${(props) => props.fontWeight};
-  color: ${(props) => props.color};
+  ${typographyMixin};
+  ${paletteMixin};
+  ${displayMixin};
+
+  ${({ variant }) => getTextRole(variant)}};
 
   ${({ useEllipsis, ellipsisMaxLines }) =>
     useEllipsis &&

@@ -11,6 +11,7 @@ namespace Mimirorg.Authentication
     {
         public DbSet<MimirorgToken> MimirorgTokens { get; set; }
         public DbSet<MimirorgCompany> MimirorgCompanies { get; set; }
+        public DbSet<MimirorgHook> MimirorgHooks { get; set; }
         public IMimirorgAuthFactory AuthFactory { get; set; }
 
         public MimirorgAuthenticationContext(DbContextOptions<MimirorgAuthenticationContext> options, IMimirorgAuthFactory authFactory) : base(options)
@@ -22,6 +23,7 @@ namespace Mimirorg.Authentication
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new MimirorgTokenConfiguration());
             modelBuilder.ApplyConfiguration(new MimirorgCompanyConfiguration());
+            modelBuilder.ApplyConfiguration(new MimirorgHookConfiguration());
             var defaultRoles = AuthFactory.DefaultRoles.ToArray();
             modelBuilder.Entity<IdentityRole>().HasData(defaultRoles);
         }

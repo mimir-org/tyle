@@ -10,7 +10,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         [Required]
         public bool IsMultiSelect { get; set; }
-        
+
         [Required]
         public ICollection<string> ValueStringList { get; set; }
 

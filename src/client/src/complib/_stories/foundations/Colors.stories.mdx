@@ -1,5 +1,5 @@
-import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs";
-import { GlobalStyle, THEME } from "../../core";
+import { ColorItem, ColorPalette, Meta } from "@storybook/addon-docs";
+import { theme } from "../../core";
 
 <Meta title="Foundations/Colors" />
 
@@ -10,47 +10,35 @@ import { GlobalStyle, THEME } from "../../core";
 The type library uses several colors to help users identify statuses, actions, and navigate the application in general.
 Below you will find an overview of all the colors available in the design system, and that are consumable by the developers.
 
-<GlobalStyle />
+The structure and form of the color palette is highly inspired by Material Design 3 which one can read more about here: https://m3.material.io/styles/color/overview
 
-## Color keys
+## Core scheme
 
-### General UI colors
-
-<ColorPalette>
-  <ColorItem title="Primary" subtitle="Primary colors of the UI" colors={THEME.COLOR.PRIMARY} />
-  <ColorItem title="Secondary" subtitle="Secondary colors of the UI" colors={THEME.COLOR.SECONDARY} />
-</ColorPalette>
-
-### Semantic colors
+### Light theme
 
 <ColorPalette>
-  <ColorItem title="Info" subtitle="For semantically neutral actions" colors={THEME.COLOR.SEMANTIC.INFO} />
-  <ColorItem title="Positive" subtitle="For semantically positive actions" colors={THEME.COLOR.SEMANTIC.POSITIVE} />
-  <ColorItem title="Negative" subtitle="For semantically negative actions" colors={THEME.COLOR.SEMANTIC.NEGATIVE} />
-  <ColorItem title="Alert" subtitle="For actions where caution is needed" colors={THEME.COLOR.SEMANTIC.ALERT} />
+  <ColorItem title="Primary" subtitle="Primary accent colors" colors={theme.color.light.primary} />
+  <ColorItem title="Secondary" subtitle="Secondary accent color"s colors={theme.color.light.secondary} />
+  <ColorItem title="Tertiary" subtitle="Tertiary accent colors" colors={theme.color.light.tertiary} />
+  <ColorItem title="Error" subtitle="Semantic error colors" colors={theme.color.light.error} />
+  <ColorItem title="Background" subtitle="Colors for backgrounds or high emphasis text and icons" colors={theme.color.light.background} />
+  <ColorItem title="Surface" subtitle="Colors for surfaces or high emphasis text and icons" colors={{base: theme.color.light.surface.base, on: theme.color.light.surface.on}} />
+  <ColorItem title="Surface variant" subtitle="Colors for surfaces or medium emphasis text and icons" colors={theme.color.light.surface.variant} />
+  <ColorItem title="Surface inverse" subtitle="Inverse surface color for high emphasis content" colors={theme.color.light.surface.inverse} />
+  <ColorItem title="Outline" subtitle="Color for component outlines" colors={theme.color.light.outline} />
 </ColorPalette>
 
-### Text colors
+### Dark theme
 
 <ColorPalette>
-  <ColorItem title="Primary" subtitle="Primary text colors" colors={THEME.COLOR.TEXT.PRIMARY} />
-  <ColorItem title="Secondary" subtitle="Secondary text colors" colors={THEME.COLOR.TEXT.SECONDARY} />
+  <ColorItem title="Primary" subtitle="Primary accent colors" colors={theme.color.dark.primary} />
+  <ColorItem title="Secondary" subtitle="Secondary accent color"s colors={theme.color.dark.secondary} />
+  <ColorItem title="Tertiary" subtitle="Tertiary accent colors" colors={theme.color.dark.tertiary} />
+  <ColorItem title="Error" subtitle="Semantic error colors" colors={theme.color.dark.error} />
+  <ColorItem title="Background" subtitle="Colors for backgrounds or high emphasis text and icons" colors={theme.color.dark.background} />
+  <ColorItem title="Surface" subtitle="Colors for surfaces or high emphasis text and icons" colors={{base: theme.color.dark.surface.base, on: theme.color.dark.surface.on}} />
+  <ColorItem title="Surface variant" subtitle="Colors for surfaces or medium emphasis text and icons" colors={theme.color.dark.surface.variant} />
+  <ColorItem title="Surface inverse" subtitle="Inverse surface color for high emphasis content" colors={theme.color.dark.surface.inverse} />
+  <ColorItem title="Outline" subtitle="Color for component outlines" colors={theme.color.dark.outline} />
 </ColorPalette>
 
-### Border colors
-
-<ColorPalette>
-  <ColorItem title="Primary" subtitle="Primary border colors" colors={THEME.COLOR.BORDER.PRIMARY} />
-</ColorPalette>
-
-### Background colors
-
-<ColorPalette>
-  <ColorItem title="Primary" subtitle="Primary background colors" colors={THEME.COLOR.BACKGROUND.PRIMARY} />
-</ColorPalette>
-
-### Surface colors
-
-<ColorPalette>
-  <ColorItem title="Primary" subtitle="Primary surface colors" colors={THEME.COLOR.SURFACE.PRIMARY} />
-</ColorPalette>

@@ -8,9 +8,12 @@ namespace Mimirorg.Authentication.Models.Domain
         public string Name { get; set; }
         public string DisplayName { get; set; }
         public string Description { get; set; }
+        public string Secret { get; set; }
 
         public string ManagerId { get; set; }
         public MimirorgUser Manager { get; set; }
+
+        public List<MimirorgHook> Hooks { get; set; }
 
         public MimirorgCompanyCm ToContentModel()
         {
@@ -20,7 +23,8 @@ namespace Mimirorg.Authentication.Models.Domain
                 Name = Name,
                 DisplayName = DisplayName,
                 Description = Description,
-                Manager = Manager?.ToContentModel()
+                Manager = Manager?.ToContentModel(),
+                Secret = Secret
             };
         }
     }

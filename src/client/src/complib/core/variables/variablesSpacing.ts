@@ -1,26 +1,41 @@
 import { css } from "styled-components/macro";
+import { math } from "polished";
+
+export interface SpacingSystem {
+  unit: string;
+  xxs: string;
+  xs: string;
+  small: string;
+  medium: string;
+  large: string;
+  xl: string;
+  xxl: string;
+  xxxl: string;
+}
+
+const spacingUnit = "1rem";
+export const spacing: SpacingSystem = {
+  unit: spacingUnit,
+  xxs: math(`${spacingUnit} * 0.25`),
+  xs: math(`${spacingUnit} * 0.5`),
+  small: math(`${spacingUnit} * 0.75`),
+  medium: math(`${spacingUnit} * 1.25`),
+  large: math(`${spacingUnit} * 2`),
+  xl: math(`${spacingUnit} * 3.25`),
+  xxl: math(`${spacingUnit} * 5.25`),
+  xxxl: math(`${spacingUnit} * 8.5`),
+};
 
 export const variablesSpacing = css`
   :root {
-    --spacing-unit: 1rem;
-    --spacing-xxs: calc(0.25 * var(--spacing-unit));
-    --spacing-xs: calc(0.5 * var(--spacing-unit));
-    --spacing-small: calc(0.75 * var(--spacing-unit));
-    --spacing-medium: calc(1.25 * var(--spacing-unit));
-    --spacing-large: calc(2 * var(--spacing-unit));
-    --spacing-xl: calc(3.25 * var(--spacing-unit));
-    --spacing-xxl: calc(5.25 * var(--spacing-unit));
-    --spacing-xxxl: calc(8.5 * var(--spacing-unit));
+    --tl-sys-spacing-unit: ${spacing.unit};
+    --tl-sys-spacing-xxs: ${spacing.xxs};
+    --tl-sys-spacing-xs: ${spacing.xs};
+    --tl-sys-spacing-small: ${spacing.small};
+    --tl-sys-spacing-medium: ${spacing.medium};
+    --tl-sys-spacing-large: ${spacing.large};
+    --tl-sys-spacing-xl: ${spacing.xl};
+    --tl-sys-spacing-xxl: ${spacing.xxl};
+    --tl-sys-spacing-xxxl: ${spacing.xxxl};
   }
 `;
-
-export const SPACING = {
-  XXS: "var(--spacing-xxs)",
-  XS: "var(--spacing-xs)",
-  SMALL: "var(--spacing-small)",
-  MEDIUM: "var(--spacing-medium)",
-  LARGE: "var(--spacing-large)",
-  XL: "var(--spacing-xl)",
-  XXL: "var(--spacing-xxl)",
-  XXXL: "var(--spacing-xxxl)",
-};

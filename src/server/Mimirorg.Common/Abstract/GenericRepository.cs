@@ -68,7 +68,7 @@ namespace Mimirorg.Common.Abstract
         public virtual async Task Delete(string id)
         {
             var entityToDelete = await DbSet.FindAsync(id);
-            if(entityToDelete == null)
+            if (entityToDelete == null)
                 return;
 
             if (Context.Entry(entityToDelete).State == EntityState.Detached)
@@ -102,7 +102,7 @@ namespace Mimirorg.Common.Abstract
 
         public virtual void Attach(ICollection<TEntity> entities, EntityState state)
         {
-            if(entities == null || !entities.Any())
+            if (entities == null || !entities.Any())
                 return;
 
             foreach (var entity in entities)

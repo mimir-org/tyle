@@ -10,7 +10,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
     {
         [Required]
         public string Name { get; set; }
-        
+
         [Required]
         public Aspect Aspect { get; set; }
 
@@ -22,7 +22,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         [Required]
         public string AttributeQualifier { get; set; }
-        
+
         [Required]
         public string AttributeSource { get; set; }
 
@@ -36,7 +36,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public ICollection<string> SelectValues { get; set; }
         public ICollection<string> UnitIdList { get; set; }
         public HashSet<string> Tags { get; set; }
-        
+
         [JsonIgnore]
         public string Id => ($"{Name}-{Aspect}-{AttributeQualifier}-{AttributeSource}-{AttributeCondition}").CreateMd5();
     }

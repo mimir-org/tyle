@@ -44,7 +44,6 @@ namespace TypeLibrary.Services.Tests
                 Id = "Fake_Purpose",
                 Name = "Fake Purpose",
                 Iri = @"https://purpose.fake.com/Fake Purpose",
-                Discipline = Discipline.Electrical,
                 Created = DateTime.Now,
                 CreatedBy = "Test Tester"
             };
@@ -60,7 +59,7 @@ namespace TypeLibrary.Services.Tests
             services.AddSingleton<INodeRepository, FakeNodeRepository>();
             services.AddSingleton<ISimpleRepository, FakeSimpleRepository>();
             services.AddSingleton<ITransportRepository, FakeTransportRepository>();
-            services.AddSingleton<ILibraryService, LibraryService>();
+            services.AddSingleton<ITransportService, TransportService>();
 
             // Add auto-mapper configurations
             services.AddAutoMapperConfigurations();

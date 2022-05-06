@@ -1,5 +1,6 @@
 ﻿using Mimirorg.Authentication.Models.Application;
 using Mimirorg.Authentication.Models.Content;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 
 namespace Mimirorg.Authentication.Contracts
@@ -46,5 +47,12 @@ namespace Mimirorg.Authentication.Contracts
         /// <returns>bool</returns>
         /// <exception cref="MimirorgNotFoundException"></exception>
         Task<bool> DeleteCompany(int id);
+
+        /// <summary>
+        /// Get all registered hooks for given cache key
+        /// </summary>
+        /// <param name="key">The cache key to search for</param>
+        /// <returns>A collection of hooks</returns>
+        Task<ICollection<MimirorgHookCm>> GetAllHooksForCache(CacheKey key);
     }
 }
