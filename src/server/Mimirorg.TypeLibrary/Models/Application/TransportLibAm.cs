@@ -20,9 +20,6 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string PurposeName { get; set; }
 
         [Required]
-        public string PurposeDiscipline { get; set; }
-
-        [Required]
         public Aspect Aspect { get; set; }
 
         [Required]

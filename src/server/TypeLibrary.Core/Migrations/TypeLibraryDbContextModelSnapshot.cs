@@ -588,11 +588,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("ParentId");
 
-                    b.Property<string>("PurposeDiscipline")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("PurposeDiscipline");
-
                     b.Property<string>("PurposeName")
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
@@ -703,12 +698,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("ParentId");
 
-                    b.Property<string>("PurposeDiscipline")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("PurposeDiscipline");
-
                     b.Property<string>("PurposeName")
                         .IsRequired()
                         .HasMaxLength(127)
@@ -795,7 +784,7 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasIndex("TerminalId");
 
-                    b.ToTable("Terminal_Node", (string)null);
+                    b.ToTable("Node_Terminal", (string)null);
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.PurposeLibDm", b =>
@@ -819,12 +808,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(511)
                         .HasColumnType("nvarchar(511)")
                         .HasColumnName("Description");
-
-                    b.Property<string>("Discipline")
-                        .IsRequired()
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
-                        .HasColumnName("Discipline");
 
                     b.Property<string>("Iri")
                         .HasMaxLength(255)
@@ -992,11 +975,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("ParentId");
-
-                    b.Property<string>("PurposeDiscipline")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("PurposeDiscipline");
 
                     b.Property<string>("PurposeName")
                         .HasMaxLength(127)
