@@ -9,4 +9,5 @@ export interface TerminalLibCm {
   color: string;
   description: string;
   attributes: AttributeLibCm[];
+  children: TerminalLibCm[];
 }
