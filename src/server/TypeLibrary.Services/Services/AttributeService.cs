@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -36,13 +37,13 @@ namespace TypeLibrary.Services.Services
         /// <returns></returns>
         public IEnumerable<AttributeLibCm> GetAttributes(Aspect aspect)
         {
-            var all = _attributeRepository.GetAll()
-                .Include(x => x.Units)
-                .ToList();
+            if (aspect == Aspect.NotSet)
+                return GetAttributes();
 
-            var attributes = aspect == Aspect.NotSet ?
-                all :
-                all.Where(x => x.Aspect.HasFlag(aspect)).ToList();
+            var attributes = _attributeRepository.GetAll()
+                .Include(x => x.Units).ToList()
+                .Where(x => x.Aspect.HasFlag(aspect))
+                .OrderBy(x => x.Name).ToList();
 
             return _mapper.Map<List<AttributeLibCm>>(attributes).ToList();
         }
@@ -53,11 +54,12 @@ namespace TypeLibrary.Services.Services
         /// <returns></returns>
         public IEnumerable<AttributeLibCm> GetAttributes()
         {
-            var all = _attributeRepository.GetAll()
-                .Include(x => x.Units)
-                .ToList();
+            var attributes = _attributeRepository.GetAll()
+                .Include(x => x.Units).ToList()
+                .OrderBy(x => x.Aspect)
+                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
-            return _mapper.Map<List<AttributeLibCm>>(all).ToList();
+            return _mapper.Map<List<AttributeLibCm>>(attributes).ToList();
         }
 
         /// <summary>
