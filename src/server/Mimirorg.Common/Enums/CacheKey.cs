@@ -49,7 +49,7 @@ namespace Mimirorg.Common.Enums
         [Display(Name = "Transport")]
         Transport = 14,
 
-        [Display(Name = "Blob")]
-        Blob = 15
+        [Display(Name = "Symbol")]
+        Symbol = 15
     }
 }

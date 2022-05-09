@@ -11,23 +11,23 @@ namespace TypeLibrary.Services.Services
 {
     public class SeedingService : ISeedingService
     {
-        public const string AttributeFileName = "attribute";
-        public const string BlobFileName = "blob";
-        public const string AttributeConditionFileName = "attributecondition";
-        public const string AttributeFormatFileName = "attributeformat";
-        public const string AttributeAspectFileName = "attributeaspect";
-        public const string PredefinedAttributeFileName = "attributepredefined";
-        public const string PurposeFileName = "purpose";
-        public const string AttributeQualifierFileName = "attributequalifier";
-        public const string RdsFileName = "rds";
-        public const string SimpleFileName = "simple";
-        public const string AttributeSourceFileName = "attributesource";
-        public const string TerminalTypeFileName = "terminal";
-        public const string TransportFileName = "transport";
-        public const string UnitFileName = "unit";
+        private const string AttributeFileName = "attribute";
+        private const string SymbolFileName = "symbol";
+        private const string AttributeConditionFileName = "attributecondition";
+        private const string AttributeFormatFileName = "attributeformat";
+        private const string AttributeAspectFileName = "attributeaspect";
+        private const string PredefinedAttributeFileName = "attributepredefined";
+        private const string PurposeFileName = "purpose";
+        private const string AttributeQualifierFileName = "attributequalifier";
+        private const string RdsFileName = "rds";
+        private const string SimpleFileName = "simple";
+        private const string AttributeSourceFileName = "attributesource";
+        private const string TerminalTypeFileName = "terminal";
+        private const string TransportFileName = "transport";
+        private const string UnitFileName = "unit";
 
         private readonly IAttributeService _attributeService;
-        private readonly IBlobService _blobService;
+        private readonly ISymbolService _symbolService;
         private readonly IAttributeConditionService _attributeConditionService;
         private readonly IAttributeFormatService _attributeFormatService;
         private readonly IAttributeQualifierService _attributeQualifierService;
@@ -42,12 +42,12 @@ namespace TypeLibrary.Services.Services
         private readonly IFileRepository _fileRepository;
         private readonly ILogger<SeedingService> _logger;
 
-        public SeedingService(IAttributeService attributeService, IBlobService blobService, IAttributeConditionService attributeConditionService, IAttributeFormatService attributeFormatService,
+        public SeedingService(IAttributeService attributeService, ISymbolService symbolService, IAttributeConditionService attributeConditionService, IAttributeFormatService attributeFormatService,
             IAttributeQualifierService attributeQualifierService, IAttributeSourceService attributeSourceService, IAttributeAspectService attributeAspectService, IPurposeService purposeService, IUnitService unitService,
             IRdsService rdsService, ITerminalService terminalService, ITransportService transportService, IFileRepository fileRepository, ILogger<SeedingService> logger, ISimpleService simpleService)
         {
             _attributeService = attributeService;
-            _blobService = blobService;
+            _symbolService = symbolService;
             _attributeConditionService = attributeConditionService;
             _attributeFormatService = attributeFormatService;
             _attributeQualifierService = attributeQualifierService;
@@ -85,7 +85,7 @@ namespace TypeLibrary.Services.Services
                 var terminalFiles = fileList.Where(x => x.ToLower().Equals(TerminalTypeFileName)).ToList();
                 var rdsFiles = fileList.Where(x => x.ToLower().Equals(RdsFileName)).ToList();
 
-                var blobFileNames = fileList.Where(x => x.ToLower().Equals(BlobFileName)).ToList();
+                var symbolFileNames = fileList.Where(x => x.ToLower().Equals(SymbolFileName)).ToList();
                 var simpleFileNames = fileList.Where(x => x.ToLower().Equals(SimpleFileName)).ToList();
                 var transportFiles = fileList.Where(x => x.ToLower().Equals(TransportFileName)).ToList();
 
@@ -102,7 +102,7 @@ namespace TypeLibrary.Services.Services
                 var attributesPredefined = _fileRepository.ReadAllFiles<AttributePredefinedLibAm>(attributePredefinedFiles).ToList();
                 var terminals = _fileRepository.ReadAllFiles<TerminalLibAm>(terminalFiles).ToList();
                 var rds = _fileRepository.ReadAllFiles<RdsLibAm>(rdsFiles).ToList();
-                var blobs = _fileRepository.ReadAllFiles<BlobLibAm>(blobFileNames).ToList();
+                var symbols = _fileRepository.ReadAllFiles<SymbolLibAm>(symbolFileNames).ToList();
                 var simple = _fileRepository.ReadAllFiles<SimpleLibAm>(simpleFileNames).ToList();
                 var transports = _fileRepository.ReadAllFiles<TransportLibAm>(transportFiles).ToList();
 
@@ -117,7 +117,7 @@ namespace TypeLibrary.Services.Services
                 await _attributeService.CreateAttributesPredefined(attributesPredefined);
                 await _terminalService.CreateTerminals(terminals);
                 await _rdsService.CreateRdsAsync(rds);
-                await _blobService.CreateBlob(blobs);
+                await _symbolService.CreateSymbol(symbols);
 
                 _simpleService.ClearAllChangeTrackers();
                 await _simpleService.CreateSimple(simple);

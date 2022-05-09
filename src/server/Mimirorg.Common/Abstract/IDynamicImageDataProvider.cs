@@ -3,10 +3,10 @@
     public interface IDynamicImageDataProvider
     {
         /// <summary>
-        /// Get data blob by id
+        /// Get symbol by id
         /// </summary>
-        /// <param name="id">The data id that resolves the image blob</param>
+        /// <param name="id">The id that resolves the image symbol</param>
         /// <returns>A base64 string value</returns>
-        Task<string> GetBlobDataAsync(string id);
+        Task<string> GetSymbolDataAsync(string id);
     }
 }

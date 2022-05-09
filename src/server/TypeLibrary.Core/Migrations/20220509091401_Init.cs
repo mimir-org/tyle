@@ -154,21 +154,6 @@ namespace TypeLibrary.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Blob",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
-                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Discipline = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
-                    Data = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Blob", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Node",
                 columns: table => new
                 {
@@ -246,6 +231,20 @@ namespace TypeLibrary.Core.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Simple", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Symbol",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Data = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Symbol", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -694,9 +693,6 @@ namespace TypeLibrary.Core.Migrations
                 name: "AttributeSource");
 
             migrationBuilder.DropTable(
-                name: "Blob");
-
-            migrationBuilder.DropTable(
                 name: "Node_Terminal");
 
             migrationBuilder.DropTable(
@@ -707,6 +703,9 @@ namespace TypeLibrary.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "Simple_Node");
+
+            migrationBuilder.DropTable(
+                name: "Symbol");
 
             migrationBuilder.DropTable(
                 name: "Terminal_Attribute");

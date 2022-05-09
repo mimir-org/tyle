@@ -497,40 +497,6 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("AttributeSource", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.BlobLibDm", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("Id");
-
-                    b.Property<string>("Data")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Data");
-
-                    b.Property<string>("Discipline")
-                        .IsRequired()
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
-                        .HasColumnName("Discipline");
-
-                    b.Property<string>("Iri")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("Iri");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
-                        .HasColumnName("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Blob", (string)null);
-                });
-
             modelBuilder.Entity("TypeLibrary.Data.Models.InterfaceLibDm", b =>
                 {
                     b.Property<string>("Id")
@@ -881,6 +847,34 @@ namespace TypeLibrary.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Simple", (string)null);
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.SymbolLibDm", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("Id");
+
+                    b.Property<string>("Data")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Data");
+
+                    b.Property<string>("Iri")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("Iri");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Symbol", (string)null);
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>
