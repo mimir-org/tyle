@@ -1,14 +1,11 @@
-import { State } from "../../models/typeLibrary/enums/state";
-import { Aspect } from "../../models/typeLibrary/enums/aspect";
-import { ConnectorDirection } from "../../models/typeLibrary/enums/connectorDirection";
 import { NodeLibAm } from "../../models/typeLibrary/application/nodeLibAm";
 import { useCreateAspectNode, useGetAspectNodes } from "../../data/queries/typeLibrary/queriesAspectNode";
 import {
-  ResultsContainer,
   ButtonContainer,
-  QueryAndMutationExampleContainer,
-  StatusAndResultsContainer,
   JsonContent,
+  QueryAndMutationExampleContainer,
+  ResultsContainer,
+  StatusAndResultsContainer,
   StatusContainer,
 } from "./QueryAndMutationExample.styled";
 
@@ -20,38 +17,32 @@ export const QueryAndMutationExample = () => {
   // const nodeQuery = useGetAspectNode("44EEE7F5A7771594F7349A8A230AB272");
 
   const exampleNode: NodeLibAm = {
-    name: `Separation System ${query.data?.length}`,
-    rdsId: "01501C14F3073D6C1140B7BB1BAC56D8",
-    purposeId: "24B7E9F78BB9A5278129B46DC27C94C2",
-    parentId: null,
-    version: null,
-    firstVersionId: null,
-    aspect: Aspect.Function,
-    state: State.Draft,
-    companyId: 101,
-    description: "Description for this node",
-    blobId: "018120B75674ABF18AB2F07691D1865C",
-    attributeAspectId: null,
+    name: "Seperation System",
+    rdsName: "Drilling system",
+    rdsCode: "A",
+    purposeName: "Heat (Electrical)",
+    aspect: 2,
+    description: "Liten beskrivelse",
+    symbol: "01A6DC68286629E8D4C415C14BD75D8D",
     nodeTerminals: [
       {
         terminalId: "27634FF8002B12E75D98E07CCD005D18",
-        number: 1,
-        connectorDirection: ConnectorDirection.Input,
+        number: 2,
+        connectorDirection: 0,
       },
       {
         terminalId: "27634FF8002B12E75D98E07CCD005D18",
-        number: 1,
-        connectorDirection: ConnectorDirection.Output,
+        number: 2,
+        connectorDirection: 1,
       },
     ],
     attributeIdList: ["07AFF47B9870A2D1B697F6F319A7185C", "11845C1C348E28563B4EA4B2E960B04C"],
-    selectedAttributePredefined: null,
-    simpleIdList: null,
-    collectionIdList: null,
-    updatedBy: null,
-    updated: null,
-    created: new Date().toISOString(),
-    createdBy: "Example User",
+    selectedAttributePredefined: [],
+    simpleIdList: [],
+    attributeAspectIri: "",
+    companyId: 101,
+    parentId: "",
+    version: "1.0",
   };
 
   return (
@@ -91,7 +82,7 @@ export const QueryAndMutationExample = () => {
 
       <ButtonContainer>
         <button onClick={() => mutation.mutate(exampleNode)}>Add valid node ✅</button>
-        <button onClick={() => mutation.mutate({ ...exampleNode, rdsId: "INVALID_ID" })}>Add invalid node ❌</button>
+        <button onClick={() => mutation.mutate({ ...exampleNode, parentId: "INVALID_ID" })}>Add invalid node ❌</button>
       </ButtonContainer>
     </QueryAndMutationExampleContainer>
   );

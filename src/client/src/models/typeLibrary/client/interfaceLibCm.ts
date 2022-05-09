@@ -6,15 +6,15 @@ export interface InterfaceLibCm {
   id: string;
   iri: string;
   name: string;
-  rdsId: string;
   rdsName: string;
-  purposeId: string;
+  rdsCode: string;
   purposeName: string;
   parentId: string;
   parent: InterfaceLibCm;
   version: string;
   firstVersionId: string;
   aspect: Aspect;
+  companyId: number;
   description: string;
   updatedBy: string;
   updated: string | null;
