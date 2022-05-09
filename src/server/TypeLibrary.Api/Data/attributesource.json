@@ -20,22 +20,6 @@
     "description": null
   },
   {
-    "name": "Required, Low",
-    "description": null
-  },
-  {
-    "name": "Required, High",
-    "description": null
-  },
-  {
-    "name": "Design, Low",
-    "description": null
-  },
-  {
-    "name": "Design, High",
-    "description": null
-  },
-  {
     "name": "Capacity",
     "description": null
   }
