@@ -88,13 +88,7 @@ namespace TypeLibrary.Services.Services
                 _attributeRepository.Detach(nodeLibDm.Attributes);
 
             _nodeRepository.Detach(nodeLibDm);
-
-            var createdObject = _mapper.Map<NodeLibCm>(nodeLibDm);
-
-            if (createdObject == null)
-                throw new MimirorgMappingException("NodeLibDm", "NodeLibCm");
-
-            return createdObject;
+            return await GetNode(nodeLibDm.Id);
         }
 
         public void ClearAllChangeTrackers()
