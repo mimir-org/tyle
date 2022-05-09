@@ -11,7 +11,7 @@ namespace TypeLibrary.Data
         public virtual DbSet<AttributeQualifierLibDm> AttributeQualifier { get; set; }
         public virtual DbSet<AttributeSourceLibDm> AttributeSource { get; set; }
         public virtual DbSet<AttributeLibDm> Attribute { get; set; }
-        public virtual DbSet<BlobLibDm> Blob { get; set; }
+        public virtual DbSet<SymbolLibDm> Symbol { get; set; }
         public virtual DbSet<InterfaceLibDm> Interface { get; set; }
         public virtual DbSet<NodeTerminalLibDm> TerminalNode { get; set; }
         public virtual DbSet<AttributePredefinedLibDm> AttributePredefined { get; set; }
@@ -38,7 +38,7 @@ namespace TypeLibrary.Data
             modelBuilder.ApplyConfiguration(new AttributeSourceConfiguration());
             modelBuilder.ApplyConfiguration(new AttributeConfiguration());
             modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());
-            modelBuilder.ApplyConfiguration(new BlobConfiguration());
+            modelBuilder.ApplyConfiguration(new SymbolConfiguration());
             modelBuilder.ApplyConfiguration(new InterfaceConfiguration());
             modelBuilder.ApplyConfiguration(new NodeTerminalConfiguration());
             modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());

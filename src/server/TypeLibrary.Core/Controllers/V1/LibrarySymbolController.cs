@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Application;
-using TypeLibrary.Data.Models;
+using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1
@@ -20,35 +20,35 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("Blob (icons) services")]
-    public class LibraryBlobController : ControllerBase
+    [SwaggerTag("Symbol services")]
+    public class LibrarySymbolController : ControllerBase
     {
-        private readonly ILogger<LibraryBlobController> _logger;
-        private readonly IBlobService _blobService;
+        private readonly ILogger<LibrarySymbolController> _logger;
+        private readonly ISymbolService _symbolService;
 
-        public LibraryBlobController(ILogger<LibraryBlobController> logger, IBlobService blobService)
+        public LibrarySymbolController(ILogger<LibrarySymbolController> logger, ISymbolService symbolService)
         {
             _logger = logger;
-            _blobService = blobService;
+            _symbolService = symbolService;
         }
 
         /// <summary>
-        /// Get blob data from category
+        /// Get symbol
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<BlobLibAm>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ICollection<SymbolLibCm>), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         //[Authorize(Policy = "Read")]
-        public IActionResult GetBlobData()
+        public IActionResult GetSymbol()
         {
             try
             {
-                var blobs = _blobService.GetBlob().ToList();
-                return Ok(blobs);
+                var data = _symbolService.GetSymbol().ToList();
+                return Ok(data);
             }
             catch (Exception e)
             {
@@ -58,26 +58,26 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
-        /// Create a new blob data object
+        /// Create a new symbol
         /// </summary>
-        /// <param name="blob"></param>
-        /// <returns></returns>
+        /// <param name="symbolLibAm"></param>
+        /// <returns>SymbolLibCm</returns>
         [HttpPost]
-        [ProducesResponseType(typeof(BlobLibDm), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(SymbolLibCm), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> CreateOrUpdateBlob([FromBody] BlobLibAm blob)
+        public async Task<IActionResult> CreateSymbol([FromBody] SymbolLibAm symbolLibAm)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var createdBlob = await _blobService.CreateBlob(blob);
-                return StatusCode(201, createdBlob);
+                var data = await _symbolService.CreateSymbol(symbolLibAm);
+                return StatusCode(201, data);
             }
             catch (Exception e)
             {

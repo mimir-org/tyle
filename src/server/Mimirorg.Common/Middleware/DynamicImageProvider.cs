@@ -38,11 +38,11 @@ namespace Mimirorg.Common.Middleware
                 if (path.Value != null && IsImagePath(path) && path.Value.Contains(PathCondition))
                 {
                     var id = Path.GetFileName(path).Split(".")[0];
-                    var blob = await dataProvider.GetBlobDataAsync(id);
+                    var symbol = await dataProvider.GetSymbolDataAsync(id);
 
-                    if (!string.IsNullOrWhiteSpace(blob))
+                    if (!string.IsNullOrWhiteSpace(symbol))
                     {
-                        var buffer = Convert.FromBase64String(blob);
+                        var buffer = Convert.FromBase64String(symbol);
 
                         if (buffer.Length > 1)
                         {

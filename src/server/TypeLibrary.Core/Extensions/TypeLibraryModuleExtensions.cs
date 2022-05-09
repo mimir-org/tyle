@@ -36,7 +36,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IAttributePredefinedRepository, AttributePredefinedRepository>();
             services.AddScoped<IRdsRepository, RdsRepository>();
             services.AddSingleton<IFileRepository, JsonFileRepository>();
-            services.AddScoped<IBlobRepository, BlobRepository>();
+            services.AddScoped<ISymbolRepository, SymbolRepository>();
             services.AddScoped<IConditionRepository, AttributeConditionRepository>();
             services.AddScoped<IFormatRepository, AttributeFormatRepository>();
             services.AddScoped<IQualifierRepository, AttributeQualifierRepository>();
@@ -44,7 +44,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IAttributeAspectRepository, AttributeAspectRepository>();
             services.AddScoped<IPurposeRepository, PurposeRepository>();
             services.AddScoped<IUnitRepository, UnitRepository>();
-            services.AddScoped<IDynamicImageDataProvider, BlobRepository>();
+            services.AddScoped<IDynamicImageDataProvider, SymbolRepository>();
 
             // Dependency Injection - Services
             services.AddScoped<ITerminalService, TerminalService>();
@@ -52,7 +52,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IAttributeService, AttributeService>();
             services.AddScoped<IRdsService, RdsService>();
             services.AddScoped<ISeedingService, SeedingService>();
-            services.AddScoped<IBlobService, BlobService>();
+            services.AddScoped<ISymbolService, SymbolService>();
             services.AddScoped<IAttributeConditionService, AttributeConditionService>();
             services.AddScoped<IAttributeFormatService, AttributeFormatService>();
             services.AddScoped<IAttributeQualifierService, AttributeQualifierService>();

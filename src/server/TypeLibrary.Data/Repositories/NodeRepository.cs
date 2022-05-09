@@ -17,6 +17,8 @@ namespace TypeLibrary.Data.Repositories
             return GetAll()
                 .Include(x => x.Parent)
                 .Include(x => x.NodeTerminals)
+                .ThenInclude(y => y.Terminal)
+                .ThenInclude(y => y.Parent)
                 .Include(x => x.Attributes)
                 .Include(x => x.Simples);
         }
@@ -26,6 +28,8 @@ namespace TypeLibrary.Data.Repositories
             return FindBy(x => x.Id == id)
                 .Include(x => x.Parent)
                 .Include(x => x.NodeTerminals)
+                .ThenInclude(y => y.Terminal)
+                .ThenInclude(y => y.Parent)
                 .Include(x => x.Attributes)
                 .Include(x => x.Simples);
         }
