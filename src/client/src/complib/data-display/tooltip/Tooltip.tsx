@@ -14,7 +14,11 @@ interface Props {
 }
 
 /**
- * A generic tooltip for providing focusable elements with additional information
+ * A generic tooltip for describing focusable elements.
+ * Handles focus management, collision detection, a11y tags and more.
+ *
+ * See documentation link below for details.
+ * @see https://www.radix-ui.com/docs/primitives/components/tooltip
  *
  * @param children element which receive focus to trigger tooltip
  * @param content of the tooltip itself
@@ -32,7 +36,7 @@ export const Tooltip = ({ children, content, placement = "top", delay = 0, offse
     <TooltipPrimitive.Root delayDuration={delay}>
       <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
       <AnimatePresence>
-        <TooltipPrimitive.Content asChild sideOffset={offset} side={placement}>
+        <TooltipPrimitive.Content asChild avoidCollisions sideOffset={offset} side={placement}>
           <MotionTooltipContent {...motion}>
             {containsTextOnly ? <Text variant={"body-medium"}>{content}</Text> : content}
           </MotionTooltipContent>
