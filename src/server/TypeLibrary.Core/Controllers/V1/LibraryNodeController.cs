@@ -5,15 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Models.Application;
-using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Client;
+using Swashbuckle.AspNetCore.Annotations;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1
 {
     /// <summary>
-    /// TypeDm services
+    /// Library services
     /// </summary>
     [Produces("application/json")]
     [ApiController]
@@ -32,10 +33,32 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
+        /// Get all nodes
+        /// </summary>
+        /// <returns>A collection of nodes</returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(ICollection<NodeLibCm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetNodes()
+        {
+            try
+            {
+                var cm = await _nodeService.GetNodes();
+                return Ok(cm);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        /// <summary>
         /// Get node by id
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns>NodeLibCm</returns>
+        /// <param name="id">node id</param>
+        /// <returns>The content if exist or </returns>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -45,8 +68,25 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _nodeService.GetNode(id);
-                return Ok(data);
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                var cm = await _nodeService.GetNode(id);
+                return Ok(cm);
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                foreach (var error in e.Errors().ToList())
+                {
+                    ModelState.Remove(error.Key);
+                    ModelState.TryAddModelError(error.Key, error.Error);
+                }
+
+                return BadRequest(ModelState);
+            }
+            catch (MimirorgNotFoundException)
+            {
+                return NoContent();
             }
             catch (Exception e)
             {
@@ -56,48 +96,44 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
-        /// Get all nodes
+        /// Create a node
         /// </summary>
-        /// <returns>NodeLibCm Collection</returns>
-        [HttpGet]
-        [ProducesResponseType(typeof(ICollection<NodeLibCm>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetNodes()
-        {
-            try
-            {
-                var data = await _nodeService.GetNodes();
-                return Ok(data.ToList());
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, e.Message);
-            }
-        }
-
-        /// <summary>
-        /// Create node
-        /// </summary>
-        /// <param name="dataAm"></param>
-        /// <returns>NodeLibCm</returns>
+        /// <param name="node">The node that should be created</param>
+        /// <returns>The created node</returns>
         [HttpPost]
         [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> CreateNode([FromBody] NodeLibAm dataAm)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> CreateNode([FromBody] NodeLibAm node)
         {
             try
             {
-                var data = await _nodeService.CreateNode(dataAm);
-                return Ok(data);
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                var cm = await _nodeService.CreateNode(node);
+                return Ok(cm);
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                foreach (var error in e.Errors().ToList())
+                {
+                    ModelState.Remove(error.Key);
+                    ModelState.TryAddModelError(error.Key, error.Error);
+                }
+
+                return BadRequest(ModelState);
+            }
+            catch (MimirorgDuplicateException e)
+            {
+                ModelState.Remove("Id");
+                ModelState.TryAddModelError("Id", e.Message);
+                return BadRequest(ModelState);
             }
             catch (Exception e)
             {
                 _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
+                return StatusCode(500, e.Message);
             }
         }
     }
