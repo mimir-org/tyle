@@ -5,11 +5,11 @@ import { UnitLibCm } from "./unitLibCm";
 
 export interface AttributeLibCm {
   id: string;
-  parentId: string;
-  parent: AttributeLibCm;
   children: AttributeLibCm[];
   name: string;
   iri: string;
+  parentIri: string;
+  parentName: string;
   aspect: Aspect;
   discipline: Discipline;
   tags: Set<string>;

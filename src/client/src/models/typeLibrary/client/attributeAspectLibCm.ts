@@ -2,10 +2,10 @@ import { Aspect } from "../enums/aspect";
 
 export interface AttributeAspectLibCm {
   id: string;
-  parentId: string;
-  parent: AttributeAspectLibCm;
   name: string;
   iri: string;
+  parentIri: string;
+  parentName: string;
   aspect: Aspect;
   description: string;
   children: AttributeAspectLibCm[];
