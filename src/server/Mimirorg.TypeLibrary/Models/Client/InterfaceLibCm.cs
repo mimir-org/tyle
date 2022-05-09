@@ -10,8 +10,8 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string RdsName { get; set; }
         public string RdsCode { get; set; }
         public string PurposeName { get; set; }
-        public string ParentId { get; set; }
-        public InterfaceLibCm Parent { get; set; }
+        public string ParentIri { get; set; }
+        public string ParentName { get; set; }
         public string Version { get; set; }
         public string FirstVersionId { get; set; }
         public Aspect Aspect { get; set; }

@@ -5,11 +5,11 @@ namespace Mimirorg.TypeLibrary.Models.Client
     public class AttributeLibCm
     {
         public string Id { get; set; }
-        public string ParentId { get; set; }
-        public AttributeLibCm Parent { get; set; }
         public ICollection<AttributeLibCm> Children { get; set; }
         public string Name { get; set; }
         public string Iri { get; set; }
+        public string ParentIri { get; set; }
+        public string ParentName { get; set; }
         public Aspect Aspect { get; set; }
         public Discipline Discipline { get; set; }
         public virtual HashSet<string> Tags { get; set; }
