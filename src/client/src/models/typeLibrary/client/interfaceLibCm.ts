@@ -9,8 +9,8 @@ export interface InterfaceLibCm {
   rdsName: string;
   rdsCode: string;
   purposeName: string;
-  parentId: string;
-  parent: InterfaceLibCm;
+  parentIri: string;
+  parentName: string;
   version: string;
   firstVersionId: string;
   aspect: Aspect;

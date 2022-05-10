@@ -9,8 +9,8 @@ export interface TransportLibCm {
   rdsName: string;
   rdsCode: string;
   purposeName: string;
-  parentId: string;
-  parent: TransportLibCm;
+  parentIri: string;
+  parentName: string;
   version: string;
   firstVersionId: string;
   aspect: Aspect;
