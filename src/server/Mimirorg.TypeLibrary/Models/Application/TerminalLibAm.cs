@@ -13,6 +13,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Color { get; set; }
         public string Description { get; set; }
         public ICollection<string> AttributeIdList { get; set; }
+        public string Version { get; set; } = "1.0";
 
         public string Id => $"{Name}".CreateMd5();
     }

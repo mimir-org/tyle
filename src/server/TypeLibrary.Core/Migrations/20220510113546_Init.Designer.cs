@@ -12,8 +12,8 @@ using TypeLibrary.Data;
 namespace TypeLibrary.Core.Migrations
 {
     [DbContext(typeof(TypeLibraryDbContext))]
-    [Migration("20220510104650_DeleteAndContentReferences")]
-    partial class DeleteAndContentReferences
+    [Migration("20220510113546_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1033,6 +1033,12 @@ namespace TypeLibrary.Core.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FirstVersionId")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("FirstVersionId");
+
                     b.Property<string>("Iri")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
@@ -1048,6 +1054,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("ParentId");
+
+                    b.Property<string>("Version")
+                        .IsRequired()
+                        .HasMaxLength(7)
+                        .HasColumnType("nvarchar(7)")
+                        .HasColumnName("Version");
 
                     b.HasKey("Id");
 
