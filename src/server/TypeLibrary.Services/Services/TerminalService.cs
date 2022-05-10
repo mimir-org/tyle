@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -30,12 +31,17 @@ namespace TypeLibrary.Services.Services
         /// <returns></returns>
         public IEnumerable<TerminalLibCm> GetTerminals()
         {
-            var terminals = _terminalTypeRepository.GetAll()
-                .Include(x => x.Parent)
-                .Include(x => x.Attributes)
-                .ToList();
+            var allTerminals = _terminalTypeRepository.GetAll().Include(x => x.Parent).Include(x => x.Attributes).ToList();
+            var terminals = allTerminals.Where(x => x.ParentId != null).ToList();
+            var topParents = allTerminals.Where(x => x.ParentId == null).OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
-            return _mapper.Map<List<TerminalLibCm>>(terminals);
+            var sortedTerminals = terminals.OrderBy(x => topParents
+                .FirstOrDefault(y => y.Id == x.ParentId)?.Name, StringComparer.InvariantCultureIgnoreCase)
+                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
+            sortedTerminals.AddRange(topParents);
+
+            return _mapper.Map<List<TerminalLibCm>>(sortedTerminals);
         }
 
         /// <summary>

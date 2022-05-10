@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Extensions;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -29,9 +30,14 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<AttributeFormatLibCm>> GetAttributeFormats()
         {
-            var dataList = _formatRepository.GetAll();
-            var dataAm = _mapper.Map<List<AttributeFormatLibCm>>(dataList);
-            return Task.FromResult(dataAm.AsEnumerable());
+            var notSet = _formatRepository.FindBy(x => x.Name == Aspect.NotSet.ToString())?.First();
+            var dataSet = _formatRepository.GetAll().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+
+            var dataDmList = new List<AttributeFormatLibDm> { notSet };
+            dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
+
+            var dataCm = _mapper.Map<List<AttributeFormatLibCm>>(dataDmList);
+            return Task.FromResult(dataCm.AsEnumerable());
         }
 
         public async Task<AttributeFormatLibCm> UpdateAttributeFormat(AttributeFormatLibAm dataAm, int id)

@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Extensions;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -29,9 +30,14 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<AttributeConditionLibCm>> GetAttributeConditions()
         {
-            var dataList = _conditionRepository.GetAll();
-            var dataAm = _mapper.Map<List<AttributeConditionLibCm>>(dataList);
-            return Task.FromResult(dataAm.AsEnumerable());
+            var notSet = _conditionRepository.FindBy(x => x.Name == Aspect.NotSet.ToString())?.First();
+            var dataSet = _conditionRepository.GetAll().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+
+            var dataDmList = new List<AttributeConditionLibDm> { notSet };
+            dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
+
+            var dataCmList = _mapper.Map<List<AttributeConditionLibCm>>(dataDmList);
+            return Task.FromResult(dataCmList.AsEnumerable());
         }
 
         public async Task<AttributeConditionLibCm> UpdateAttributeCondition(AttributeConditionLibAm dataAm, int id)
