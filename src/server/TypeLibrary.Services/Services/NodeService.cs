@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -51,7 +52,7 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<NodeLibCm>> GetNodes()
         {
-            var nodes = _nodeRepository.GetAllNodes().ToList();
+            var nodes = _nodeRepository.GetAllNodes().ToList().OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
             var nodeLibCms = _mapper.Map<IEnumerable<NodeLibCm>>(nodes);
 
             if (nodes.Any() && (nodeLibCms == null || !nodeLibCms.Any()))
@@ -88,13 +89,7 @@ namespace TypeLibrary.Services.Services
                 _attributeRepository.Detach(nodeLibDm.Attributes);
 
             _nodeRepository.Detach(nodeLibDm);
-
-            var createdObject = _mapper.Map<NodeLibCm>(nodeLibDm);
-
-            if (createdObject == null)
-                throw new MimirorgMappingException("NodeLibDm", "NodeLibCm");
-
-            return createdObject;
+            return await GetNode(nodeLibDm.Id);
         }
 
         public void ClearAllChangeTrackers()

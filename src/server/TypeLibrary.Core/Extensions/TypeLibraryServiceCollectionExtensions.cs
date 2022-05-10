@@ -73,6 +73,17 @@ namespace TypeLibrary.Core.Extensions
             return serviceCollection;
         }
 
+        public static IServiceCollection AddApplicationSettings(this IServiceCollection serviceCollection, IConfigurationRoot config)
+        {
+            var appSettings = new ApplicationSettings();
+            var appSettingsSection = config.GetSection("ApplicationSettings");
+            appSettingsSection.Bind(appSettings);
+
+            serviceCollection.AddSingleton(Options.Create(appSettings));
+
+            return serviceCollection;
+        }
+
         public static IServiceCollection AddApiVersion(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddApiVersioning(o =>

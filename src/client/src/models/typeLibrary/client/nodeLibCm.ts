@@ -13,8 +13,8 @@ export interface NodeLibCm {
   rdsCode: string;
   rdsName: string;
   purposeName: string;
-  parentId: string;
-  parent: NodeLibCm;
+  parentIri: string;
+  parentName: string;
   version: string;
   firstVersionId: string;
   aspect: Aspect;

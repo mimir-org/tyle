@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -50,7 +51,7 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<TransportLibCm>> GetTransports()
         {
-            var transports = _transportRepository.GetAllTransports().ToList();
+            var transports = _transportRepository.GetAllTransports().ToList().OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
             var transportLibCms = _mapper.Map<IEnumerable<TransportLibCm>>(transports);
 
             if (transports.Any() && (transportLibCms == null || !transportLibCms.Any()))

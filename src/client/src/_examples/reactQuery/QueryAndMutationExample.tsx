@@ -1,5 +1,5 @@
 import { NodeLibAm } from "../../models/typeLibrary/application/nodeLibAm";
-import { useCreateAspectNode, useGetAspectNodes } from "../../data/queries/typeLibrary/queriesAspectNode";
+import { useCreateNode, useGetNodes } from "../../data/queries/typeLibrary/queriesNode";
 import {
   ButtonContainer,
   JsonContent,
@@ -8,41 +8,42 @@ import {
   StatusAndResultsContainer,
   StatusContainer,
 } from "./QueryAndMutationExample.styled";
+import { Aspect } from "../../models/typeLibrary/enums/aspect";
 
 export const QueryAndMutationExample = () => {
-  const mutation = useCreateAspectNode();
-  const query = useGetAspectNodes();
+  const mutation = useCreateNode();
+  const query = useGetNodes();
 
   // Fetching a single node by id and caching it with that id and type
   // const nodeQuery = useGetAspectNode("44EEE7F5A7771594F7349A8A230AB272");
 
   const exampleNode: NodeLibAm = {
-    name: "Seperation System",
-    rdsName: "Drilling system",
+    name: "Test node",
     rdsCode: "A",
+    rdsName: "Drilling system",
     purposeName: "Heat (Electrical)",
-    aspect: 2,
-    description: "Liten beskrivelse",
-    symbol: "01A6DC68286629E8D4C415C14BD75D8D",
+    parentId: "",
+    version: "1.0",
+    aspect: Aspect.Function,
+    companyId: 0,
+    description: "A description goes here",
+    attributeAspectIri: "",
+    symbol: "http://localhost:5001/symbol/018120B75674ABF18AB2F07691D1865C.svg",
+    attributeIdList: ["07AFF47B9870A2D1B697F6F319A7185C", "11845C1C348E28563B4EA4B2E960B04C"],
     nodeTerminals: [
       {
-        terminalId: "27634FF8002B12E75D98E07CCD005D18",
-        number: 2,
+        terminalId: "BFB27765A609F27FD3A2DF59C4E4D63D",
+        number: 1,
         connectorDirection: 0,
       },
       {
-        terminalId: "27634FF8002B12E75D98E07CCD005D18",
-        number: 2,
+        terminalId: "54CC2AB379D04FA1B6A6B83A962B0CF2",
+        number: 1,
         connectorDirection: 1,
       },
     ],
-    attributeIdList: ["07AFF47B9870A2D1B697F6F319A7185C", "11845C1C348E28563B4EA4B2E960B04C"],
     selectedAttributePredefined: [],
     simpleIdList: [],
-    attributeAspectIri: "",
-    companyId: 101,
-    parentId: "",
-    version: "1.0",
   };
 
   return (

@@ -140,6 +140,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("Aspect");
 
+                    b.Property<string>("ContentReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ContentReferences");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
                         .HasColumnName("Created");
@@ -149,6 +153,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("CreatedBy");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Deleted");
 
                     b.Property<string>("Description")
                         .HasMaxLength(511)
@@ -197,6 +207,10 @@ namespace TypeLibrary.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("ContentReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ContentReferences");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
                         .HasColumnName("Created");
@@ -206,6 +220,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(31)
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("CreatedBy");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Deleted");
 
                     b.Property<string>("Description")
                         .HasMaxLength(511)
@@ -245,6 +265,10 @@ namespace TypeLibrary.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("ContentReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ContentReferences");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
                         .HasColumnName("Created");
@@ -254,6 +278,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(31)
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("CreatedBy");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Deleted");
 
                     b.Property<string>("Description")
                         .HasMaxLength(511)
@@ -321,6 +351,16 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("AttributeSource");
 
+                    b.Property<string>("ContentReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ContentReferences");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Deleted");
+
                     b.Property<string>("Discipline")
                         .IsRequired()
                         .HasMaxLength(63)
@@ -377,6 +417,16 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("Aspect");
 
+                    b.Property<string>("ContentReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ContentReferences");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Deleted");
+
                     b.Property<string>("Iri")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
@@ -403,6 +453,10 @@ namespace TypeLibrary.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("ContentReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ContentReferences");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
                         .HasColumnName("Created");
@@ -412,6 +466,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(31)
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("CreatedBy");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Deleted");
 
                     b.Property<string>("Description")
                         .HasMaxLength(511)
@@ -454,6 +514,10 @@ namespace TypeLibrary.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("ContentReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ContentReferences");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
                         .HasColumnName("Created");
@@ -463,6 +527,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(31)
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("CreatedBy");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Deleted");
 
                     b.Property<string>("Description")
                         .HasMaxLength(511)
@@ -513,6 +583,10 @@ namespace TypeLibrary.Core.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ContentReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ContentReferences");
+
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(63)
@@ -525,6 +599,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("CreatedBy");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Deleted");
 
                     b.Property<string>("Description")
                         .HasMaxLength(511)
@@ -623,6 +703,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("int")
                         .HasColumnName("CompanyId");
 
+                    b.Property<string>("ContentReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ContentReferences");
+
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(63)
@@ -635,6 +719,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("CreatedBy");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Deleted");
 
                     b.Property<string>("Description")
                         .HasMaxLength(511)
@@ -760,6 +850,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("Id");
 
+                    b.Property<string>("ContentReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ContentReferences");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
                         .HasColumnName("Created");
@@ -770,12 +864,19 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("CreatedBy");
 
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Deleted");
+
                     b.Property<string>("Description")
                         .HasMaxLength(511)
                         .HasColumnType("nvarchar(511)")
                         .HasColumnName("Description");
 
                     b.Property<string>("Iri")
+                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("Iri");
@@ -806,6 +907,16 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("Id");
 
+                    b.Property<string>("ContentReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ContentReferences");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Deleted");
+
                     b.Property<string>("Iri")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -827,6 +938,16 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("Id");
+
+                    b.Property<string>("ContentReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ContentReferences");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Deleted");
 
                     b.Property<string>("Description")
                         .HasMaxLength(511)
@@ -856,10 +977,20 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("Id");
 
+                    b.Property<string>("ContentReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ContentReferences");
+
                     b.Property<string>("Data")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Data");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Deleted");
 
                     b.Property<string>("Iri")
                         .HasMaxLength(255)
@@ -886,6 +1017,16 @@ namespace TypeLibrary.Core.Migrations
 
                     b.Property<string>("Color")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContentReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ContentReferences");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Deleted");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -929,6 +1070,10 @@ namespace TypeLibrary.Core.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ContentReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ContentReferences");
+
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(63)
@@ -941,6 +1086,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("CreatedBy");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Deleted");
 
                     b.Property<string>("Description")
                         .HasMaxLength(511)
@@ -1023,6 +1174,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("Id");
 
+                    b.Property<string>("ContentReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ContentReferences");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
                         .HasColumnName("Created");
@@ -1032,6 +1187,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("CreatedBy");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Deleted");
 
                     b.Property<string>("Description")
                         .HasMaxLength(511)

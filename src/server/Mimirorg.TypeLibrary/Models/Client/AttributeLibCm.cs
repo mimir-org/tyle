@@ -8,6 +8,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public ICollection<AttributeLibCm> Children { get; set; }
         public string Name { get; set; }
         public string Iri { get; set; }
+        public ICollection<string> ContentReferences { get; set; }
         public string ParentIri { get; set; }
         public string ParentName { get; set; }
         public Aspect Aspect { get; set; }
@@ -20,7 +21,6 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string AttributeFormat { get; set; }
         public ICollection<string> SelectValues { get; set; }
         public ICollection<UnitLibCm> Units { get; set; }
-
         public string Description => CreateDescription();
 
         public string Kind => nameof(AttributeLibCm);

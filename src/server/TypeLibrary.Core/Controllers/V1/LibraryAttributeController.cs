@@ -23,12 +23,12 @@ namespace TypeLibrary.Core.Controllers.V1
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
     [SwaggerTag("Attribute services")]
-    public class LibraryAttributeController : ControllerBase
+    public class AttributeController : ControllerBase
     {
-        private readonly ILogger<LibraryAttributeController> _logger;
+        private readonly ILogger<AttributeController> _logger;
         private readonly IAttributeService _attributeService;
 
-        public LibraryAttributeController(ILogger<LibraryAttributeController> logger, IAttributeService attributeService)
+        public AttributeController(ILogger<AttributeController> logger, IAttributeService attributeService)
         {
             _logger = logger;
             _attributeService = attributeService;

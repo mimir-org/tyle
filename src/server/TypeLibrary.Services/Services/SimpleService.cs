@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -48,7 +49,7 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<SimpleLibCm>> GetAllSimple()
         {
-            var simpleLibDms = _simpleRepository.GetAllSimples().ToList();
+            var simpleLibDms = _simpleRepository.GetAllSimples().ToList().OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
             var simpleLibCms = _mapper.Map<IEnumerable<SimpleLibCm>>(simpleLibDms);
 
             if (simpleLibDms.Any() && (simpleLibCms == null || !simpleLibCms.Any()))

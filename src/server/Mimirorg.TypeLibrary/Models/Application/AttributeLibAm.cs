@@ -32,6 +32,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public string AttributeFormat { get; set; }
 
+        public ICollection<string> ContentReferences { get; set; }
         public string ParentId { get; set; }
         public ICollection<string> SelectValues { get; set; }
         public ICollection<string> UnitIdList { get; set; }
