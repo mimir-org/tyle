@@ -136,5 +136,54 @@ namespace TypeLibrary.Core.Controllers.V1
                 return StatusCode(500, e.Message);
             }
         }
+
+        /// <summary>
+        /// Update node
+        /// </summary>
+        /// <param name="dataAm"></param>
+        /// <param name="id"></param>
+        /// <returns>NodeLibCm</returns>
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[Authorize(Policy = "Edit")]
+        public async Task<IActionResult> UpdateNode([FromBody] NodeLibAm dataAm, [FromRoute] string id)
+        {
+            try
+            {
+                var data = await _nodeService.UpdateNode(dataAm, id);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
+        /// Delete a node
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>200</returns>
+        [HttpDelete]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[Authorize(Policy = "Admin")]
+        [SwaggerOperation("Delete a node")]
+        public async Task<IActionResult> DeleteNode([FromRoute] string id)
+        {
+            try
+            {
+                var data = await _nodeService.DeleteNode(id);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
     }
 }

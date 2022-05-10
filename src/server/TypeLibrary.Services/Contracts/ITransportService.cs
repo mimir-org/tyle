@@ -11,6 +11,8 @@ namespace TypeLibrary.Services.Contracts
         Task<IEnumerable<TransportLibCm>> GetTransports();
         Task<TransportLibCm> CreateTransport(TransportLibAm dataAm);
         Task<IEnumerable<TransportLibCm>> CreateTransports(IEnumerable<TransportLibAm> dataAms);
+        Task<TransportLibCm> UpdateTransport(TransportLibAm dataAm, string id);
+        Task<bool> DeleteTransport(string id);
         void ClearAllChangeTrackers();
     }
 }

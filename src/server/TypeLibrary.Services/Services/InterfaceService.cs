@@ -96,6 +96,24 @@ namespace TypeLibrary.Services.Services
             return createdObject;
         }
 
+        public Task<InterfaceLibCm> UpdateInterface(InterfaceLibAm dataAm, string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> DeleteInterface(string id)
+        {
+            var dm = await _interfaceRepository.GetAsync(id);
+
+            if(dm.Deleted)
+                throw new MimirorgBadRequestException($"The item with id {id} is already marked as deleted in the database.");
+
+            dm.Deleted = true;
+
+            var status = await _interfaceRepository.Context.SaveChangesAsync();
+            return status == 1;
+        }
+
         public void ClearAllChangeTrackers()
         {
             _interfaceRepository?.Context?.ChangeTracker.Clear();

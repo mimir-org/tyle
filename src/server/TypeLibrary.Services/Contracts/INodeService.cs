@@ -10,6 +10,8 @@ namespace TypeLibrary.Services.Contracts
         Task<NodeLibCm> GetNode(string id);
         Task<IEnumerable<NodeLibCm>> GetNodes();
         Task<NodeLibCm> CreateNode(NodeLibAm dataAm);
+        Task<NodeLibCm> UpdateNode(NodeLibAm dataAm, string id);
+        Task<bool> DeleteNode(string id);
         void ClearAllChangeTrackers();
     }
 }

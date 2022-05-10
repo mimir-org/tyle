@@ -128,6 +128,24 @@ namespace TypeLibrary.Services.Services
             return _mapper.Map<ICollection<TransportLibCm>>(transportDmList);
         }
 
+        public Task<TransportLibCm> UpdateTransport(TransportLibAm dataAm, string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> DeleteTransport(string id)
+        {
+            var dm = await _transportRepository.GetAsync(id);
+
+            if (dm.Deleted)
+                throw new MimirorgBadRequestException($"The item with id {id} is already marked as deleted in the database.");
+
+            dm.Deleted = true;
+
+            var status = await _transportRepository.Context.SaveChangesAsync();
+            return status == 1;
+        }
+
         public void ClearAllChangeTrackers()
         {
             _transportRepository?.Context?.ChangeTracker.Clear();
