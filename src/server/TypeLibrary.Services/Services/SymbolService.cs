@@ -93,7 +93,9 @@ namespace TypeLibrary.Services.Services
         /// <returns></returns>
         public IEnumerable<SymbolLibCm> GetSymbol()
         {
-            var symbolLibDms = _symbolRepository.GetAll().ToList().OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var symbolLibDms = _symbolRepository.GetAll().Where(x => !x.Deleted).ToList()
+                .OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
             return _mapper.Map<List<SymbolLibCm>>(symbolLibDms);
         }
     }

@@ -29,7 +29,9 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<UnitLibCm>> GetUnits()
         {
-            var dataList = _unitRepository.GetAll().ToList().OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var dataList = _unitRepository.GetAll().Where(x => !x.Deleted).ToList()
+                .OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
             var dataAm = _mapper.Map<List<UnitLibCm>>(dataList);
             return Task.FromResult(dataAm.AsEnumerable());
         }

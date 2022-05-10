@@ -30,8 +30,8 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<AttributeFormatLibCm>> GetAttributeFormats()
         {
-            var notSet = _formatRepository.FindBy(x => x.Name == Aspect.NotSet.ToString())?.First();
-            var dataSet = _formatRepository.GetAll().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+            var notSet = _formatRepository.FindBy(x => !x.Deleted && x.Name == Aspect.NotSet.ToString())?.First();
+            var dataSet = _formatRepository.GetAll().Where(x => !x.Deleted && x.Name != Aspect.NotSet.ToString()).ToList();
 
             var dataDmList = new List<AttributeFormatLibDm> { notSet };
             dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());

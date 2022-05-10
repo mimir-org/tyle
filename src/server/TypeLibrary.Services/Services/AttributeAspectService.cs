@@ -29,7 +29,7 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<AttributeAspectLibCm>> GetAttributeAspects()
         {
-            var allAttributes = _attributeAspectRepository.GetAll().ToList();
+            var allAttributes = _attributeAspectRepository.GetAll().Where(x => !x.Deleted).ToList();
             var attributes = allAttributes.Where(x => x.ParentId != null).ToList();
             var topParents = allAttributes.Where(x => x.ParentId == null).OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
             

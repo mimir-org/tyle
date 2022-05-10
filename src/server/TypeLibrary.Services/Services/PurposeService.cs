@@ -29,7 +29,9 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<PurposeLibCm>> GetPurposes()
         {
-            var dataList = _purposeRepository.GetAll().ToList().OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var dataList = _purposeRepository.GetAll().Where(x => !x.Deleted).ToList()
+                .OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
             var dataAm = _mapper.Map<List<PurposeLibCm>>(dataList);
             return Task.FromResult(dataAm.AsEnumerable());
         }

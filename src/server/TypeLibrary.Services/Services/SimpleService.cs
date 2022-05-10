@@ -39,6 +39,9 @@ namespace TypeLibrary.Services.Services
             if (data == null)
                 throw new MimirorgNotFoundException($"There is no simple with id: {id}");
 
+            if (data.Deleted)
+                throw new MimirorgBadRequestException($"The item with id {id} is marked as deleted in the database.");
+
             var simpleLibCm = _mapper.Map<SimpleLibCm>(data);
 
             if (simpleLibCm == null)
@@ -49,7 +52,9 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<SimpleLibCm>> GetAllSimple()
         {
-            var simpleLibDms = _simpleRepository.GetAllSimples().ToList().OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var simpleLibDms = _simpleRepository.GetAllSimples().Where(x => !x.Deleted).ToList()
+                .OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
             var simpleLibCms = _mapper.Map<IEnumerable<SimpleLibCm>>(simpleLibDms);
 
             if (simpleLibDms.Any() && (simpleLibCms == null || !simpleLibCms.Any()))

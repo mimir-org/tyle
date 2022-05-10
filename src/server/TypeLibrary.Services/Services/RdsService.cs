@@ -28,7 +28,10 @@ namespace TypeLibrary.Services.Services
         /// <returns></returns>
         public IEnumerable<RdsLibCm> GetRds()
         {
-            var allRds = _rdsRepository.GetAll().ToList().OrderBy(x => x.Id.Length).ThenBy(x => x.Id, StringComparer.InvariantCultureIgnoreCase);
+            var allRds = _rdsRepository.GetAll().Where(x => !x.Deleted).ToList()
+                .OrderBy(x => x.Id.Length)
+                .ThenBy(x => x.Id, StringComparer.InvariantCultureIgnoreCase).ToList();
+
             return _mapper.Map<List<RdsLibCm>>(allRds);
         }
 

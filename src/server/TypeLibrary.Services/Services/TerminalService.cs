@@ -31,7 +31,7 @@ namespace TypeLibrary.Services.Services
         /// <returns></returns>
         public IEnumerable<TerminalLibCm> GetTerminals()
         {
-            var allTerminals = _terminalTypeRepository.GetAll().Include(x => x.Parent).Include(x => x.Attributes).ToList();
+            var allTerminals = _terminalTypeRepository.GetAll().Where(x => !x.Deleted).Include(x => x.Parent).Include(x => x.Attributes).ToList();
             var terminals = allTerminals.Where(x => x.ParentId != null).ToList();
             var topParents = allTerminals.Where(x => x.ParentId == null).OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 

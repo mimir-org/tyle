@@ -29,8 +29,8 @@ namespace TypeLibrary.Services.Services
         }
         public Task<IEnumerable<AttributeQualifierLibCm>> GetAttributeQualifiers()
         {
-            var notSet = _qualifierRepository.FindBy(x => x.Name == Aspect.NotSet.ToString())?.First();
-            var dataSet = _qualifierRepository.GetAll().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+            var notSet = _qualifierRepository.FindBy(x => !x.Deleted && x.Name == Aspect.NotSet.ToString())?.First();
+            var dataSet = _qualifierRepository.GetAll().Where(x => !x.Deleted && x.Name != Aspect.NotSet.ToString()).ToList();
 
             var dataDmList = new List<AttributeQualifierLibDm> { notSet };
             dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());

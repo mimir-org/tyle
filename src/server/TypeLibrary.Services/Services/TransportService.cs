@@ -41,6 +41,9 @@ namespace TypeLibrary.Services.Services
             if (transport == null)
                 throw new MimirorgNotFoundException($"There is no transport with id: {id}");
 
+            if (transport.Deleted)
+                throw new MimirorgBadRequestException($"The item with id {id} is marked as deleted in the database.");
+
             var transportLibCm = _mapper.Map<TransportLibCm>(transport);
 
             if (transportLibCm == null)
@@ -51,7 +54,10 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<TransportLibCm>> GetTransports()
         {
-            var transports = _transportRepository.GetAllTransports().ToList().OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var transports = _transportRepository.GetAllTransports().Where(x => !x.Deleted).ToList()
+                .OrderBy(x => x.Aspect)
+                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
             var transportLibCms = _mapper.Map<IEnumerable<TransportLibCm>>(transports);
 
             if (transports.Any() && (transportLibCms == null || !transportLibCms.Any()))

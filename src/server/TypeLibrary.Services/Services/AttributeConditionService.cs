@@ -30,8 +30,8 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<AttributeConditionLibCm>> GetAttributeConditions()
         {
-            var notSet = _conditionRepository.FindBy(x => x.Name == Aspect.NotSet.ToString())?.First();
-            var dataSet = _conditionRepository.GetAll().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+            var notSet = _conditionRepository.FindBy(x => !x.Deleted && x.Name == Aspect.NotSet.ToString())?.First();
+            var dataSet = _conditionRepository.GetAll().Where(x => !x.Deleted && x.Name != Aspect.NotSet.ToString()).ToList();
 
             var dataDmList = new List<AttributeConditionLibDm> { notSet };
             dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());

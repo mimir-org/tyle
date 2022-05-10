@@ -42,6 +42,9 @@ namespace TypeLibrary.Services.Services
             if (data == null)
                 throw new MimirorgNotFoundException($"There is no node with id: {id}");
 
+            if (data.Deleted)
+                throw new MimirorgBadRequestException($"The item with id {id} is marked as deleted in the database.");
+
             var nodeLibCm = _mapper.Map<NodeLibCm>(data);
 
             if (nodeLibCm == null)
@@ -52,7 +55,10 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<NodeLibCm>> GetNodes()
         {
-            var nodes = _nodeRepository.GetAllNodes().ToList().OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var nodes = _nodeRepository.GetAllNodes().Where(x => !x.Deleted).ToList()
+                .OrderBy(x => x.Aspect)
+                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
             var nodeLibCms = _mapper.Map<IEnumerable<NodeLibCm>>(nodes);
 
             if (nodes.Any() && (nodeLibCms == null || !nodeLibCms.Any()))

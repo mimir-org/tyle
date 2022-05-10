@@ -40,6 +40,9 @@ namespace TypeLibrary.Services.Services
             if (data == null)
                 throw new MimirorgNotFoundException($"There is no interface with id: {id}");
 
+            if (data.Deleted)
+                throw new MimirorgBadRequestException($"The item with id {id} is marked as deleted in the database.");
+
             var interfaceLibCm = _mapper.Map<InterfaceLibCm>(data);
 
             if (interfaceLibCm == null)
@@ -50,7 +53,10 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<InterfaceLibCm>> GetInterfaces()
         {
-            var interfaces = _interfaceRepository.GetAllInterfaces().ToList().OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var interfaces = _interfaceRepository.GetAllInterfaces().Where(x => !x.Deleted).ToList()
+                .OrderBy(x => x.Aspect)
+                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
             var interfaceLibCms = _mapper.Map<IEnumerable<InterfaceLibCm>>(interfaces);
 
             if (interfaces.Any() && (interfaceLibCms == null || !interfaceLibCms.Any()))

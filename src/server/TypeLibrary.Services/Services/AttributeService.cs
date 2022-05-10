@@ -41,6 +41,7 @@ namespace TypeLibrary.Services.Services
                 return GetAttributes();
 
             var attributes = _attributeRepository.GetAll()
+                .Where(x => !x.Deleted)
                 .Include(x => x.Units).ToList()
                 .Where(x => x.Aspect.HasFlag(aspect))
                 .OrderBy(x => x.Name).ToList();
@@ -55,7 +56,9 @@ namespace TypeLibrary.Services.Services
         public IEnumerable<AttributeLibCm> GetAttributes()
         {
             var attributes = _attributeRepository.GetAll()
-                .Include(x => x.Units).ToList()
+                .Where(x => !x.Deleted)
+                .Include(x => x.Units)
+                .ToList()
                 .OrderBy(x => x.Aspect)
                 .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
@@ -133,7 +136,11 @@ namespace TypeLibrary.Services.Services
         /// <returns></returns>
         public IEnumerable<AttributePredefinedLibCm> GetAttributesPredefined()
         {
-            var all = _attributePredefinedRepository.GetAll().ToList().OrderBy(x => x.Aspect).ThenBy(x => x.Key, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var all = _attributePredefinedRepository.GetAll()
+                .Where(x => !x.Deleted).ToList()
+                .OrderBy(x => x.Aspect)
+                .ThenBy(x => x.Key, StringComparer.InvariantCultureIgnoreCase).ToList();
+
             return _mapper.Map<List<AttributePredefinedLibCm>>(all);
         }
 

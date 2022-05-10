@@ -30,8 +30,8 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<AttributeSourceLibCm>> GetAttributeSources()
         {
-            var notSet = _sourceRepository.FindBy(x => x.Name == Aspect.NotSet.ToString())?.First();
-            var dataSet = _sourceRepository.GetAll().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+            var notSet = _sourceRepository.FindBy(x => !x.Deleted && x.Name == Aspect.NotSet.ToString())?.First();
+            var dataSet = _sourceRepository.GetAll().Where(x => !x.Deleted && x.Name != Aspect.NotSet.ToString()).ToList();
 
             var dataDmList = new List<AttributeSourceLibDm> { notSet };
             dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
