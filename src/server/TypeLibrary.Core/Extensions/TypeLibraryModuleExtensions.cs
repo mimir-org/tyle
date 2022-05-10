@@ -78,6 +78,9 @@ namespace TypeLibrary.Core.Extensions
             // Add database-configuration
             services.AddDatabaseConfigurations(config);
 
+            // Add application-settings
+            services.AddApplicationSettings(config);
+
             // Add auto-mapper configurations
             services.AddAutoMapperConfigurations();
 
