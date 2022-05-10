@@ -16,7 +16,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => $"{settings.GetCurrentOntologyIri()}attribute/simple/{src.Id}"))
+                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => $"{settings.ApplicationSemanticUrl}/attribute/simple/{src.Id}"))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => CreateAttributes(src.Attributes.ToList()).ToList()))
                 .ForMember(dest => dest.Nodes, opt => opt.Ignore());
 

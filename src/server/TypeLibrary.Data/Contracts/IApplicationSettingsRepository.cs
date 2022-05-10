@@ -2,6 +2,7 @@
 {
     public interface IApplicationSettingsRepository
     {
-        string GetCurrentOntologyIri();
+        string ApplicationSemanticUrl { get; }
+        string ApplicationUrl { get; }
     }
 }

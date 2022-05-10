@@ -15,7 +15,7 @@ namespace TypeLibrary.Core.Profiles
             CreateMap<SymbolLibAm, SymbolLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => $"{settings.GetCurrentOntologyIri()}symbol/{src.Id}"))
+                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => $"{settings.ApplicationSemanticUrl}/symbol/{src.Id}"))
                 .ForMember(dest => dest.Data, opt => opt.MapFrom(src => src.Data));
 
             CreateMap<SymbolLibDm, SymbolLibCm>()

@@ -13,7 +13,7 @@ namespace TypeLibrary.Core.Profiles
         {
             CreateMap<SelectedAttributePredefinedLibAm, SelectedAttributePredefinedLibDm>()
                 .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.Key.Trim()))
-                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => $"{settings.GetCurrentOntologyIri()}attribute/predefined/{HttpUtility.UrlEncode(src.Key)}"))
+                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => $"{settings.ApplicationSemanticUrl}/attribute/predefined/{HttpUtility.UrlEncode(src.Key)}"))
                 .ForMember(dest => dest.Values, opt => opt.MapFrom(src => src.Values))
                 .ForMember(dest => dest.IsMultiSelect, opt => opt.MapFrom(src => src.IsMultiSelect));
 
