@@ -133,7 +133,7 @@ namespace TypeLibrary.Services.Services
         /// <returns></returns>
         public IEnumerable<AttributePredefinedLibCm> GetAttributesPredefined()
         {
-            var all = _attributePredefinedRepository.GetAll().ToList();
+            var all = _attributePredefinedRepository.GetAll().ToList().OrderBy(x => x.Aspect).ThenBy(x => x.Key, StringComparer.InvariantCultureIgnoreCase).ToList();
             return _mapper.Map<List<AttributePredefinedLibCm>>(all);
         }
 

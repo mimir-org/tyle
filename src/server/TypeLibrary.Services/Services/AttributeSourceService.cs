@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Extensions;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -29,9 +30,14 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<AttributeSourceLibCm>> GetAttributeSources()
         {
-            var dataList = _sourceRepository.GetAll().ToList();
-            var dataAm = _mapper.Map<List<AttributeSourceLibCm>>(dataList);
-            return Task.FromResult(dataAm.AsEnumerable());
+            var notSet = _sourceRepository.FindBy(x => x.Name == Aspect.NotSet.ToString())?.First();
+            var dataSet = _sourceRepository.GetAll().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+
+            var dataDmList = new List<AttributeSourceLibDm> { notSet };
+            dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
+
+            var dataCm = _mapper.Map<List<AttributeSourceLibCm>>(dataDmList);
+            return Task.FromResult(dataCm.AsEnumerable());
         }
 
         public async Task<AttributeSourceLibCm> UpdateAttributeSource(AttributeSourceLibAm dataAm, int id)

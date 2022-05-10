@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Extensions;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -28,9 +29,14 @@ namespace TypeLibrary.Services.Services
         }
         public Task<IEnumerable<AttributeQualifierLibCm>> GetAttributeQualifiers()
         {
-            var dataList = _qualifierRepository.GetAll();
-            var dataAm = _mapper.Map<List<AttributeQualifierLibCm>>(dataList);
-            return Task.FromResult(dataAm.AsEnumerable());
+            var notSet = _qualifierRepository.FindBy(x => x.Name == Aspect.NotSet.ToString())?.First();
+            var dataSet = _qualifierRepository.GetAll().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+
+            var dataDmList = new List<AttributeQualifierLibDm> { notSet };
+            dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
+
+            var dataCm = _mapper.Map<List<AttributeQualifierLibCm>>(dataDmList);
+            return Task.FromResult(dataCm.AsEnumerable());
         }
 
         public async Task<AttributeQualifierLibCm> UpdateAttributeQualifier(AttributeQualifierLibAm dataAm, int id)

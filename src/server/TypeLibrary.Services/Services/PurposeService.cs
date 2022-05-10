@@ -29,7 +29,7 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<PurposeLibCm>> GetPurposes()
         {
-            var dataList = _purposeRepository.GetAll();
+            var dataList = _purposeRepository.GetAll().ToList().OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
             var dataAm = _mapper.Map<List<PurposeLibCm>>(dataList);
             return Task.FromResult(dataAm.AsEnumerable());
         }

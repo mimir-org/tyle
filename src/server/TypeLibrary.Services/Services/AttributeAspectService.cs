@@ -29,9 +29,17 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<AttributeAspectLibCm>> GetAttributeAspects()
         {
-            var dataList = _attributeAspectRepository.GetAll();
-            var dataAm = _mapper.Map<List<AttributeAspectLibCm>>(dataList);
-            return Task.FromResult(dataAm.AsEnumerable());
+            var allAttributes = _attributeAspectRepository.GetAll().ToList();
+            var attributes = allAttributes.Where(x => x.ParentId != null).ToList();
+            var topParents = allAttributes.Where(x => x.ParentId == null).OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            
+            var sortedAttributes = attributes.OrderBy(x => topParents
+                .FirstOrDefault(y => y.Id == x.ParentId)?.Name, StringComparer.InvariantCultureIgnoreCase)
+                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            
+            sortedAttributes.AddRange(topParents);
+            var dataCm = _mapper.Map<List<AttributeAspectLibCm>>(sortedAttributes);
+            return Task.FromResult(dataCm.AsEnumerable());
         }
 
         public async Task<AttributeAspectLibCm> UpdateAttributeAspect(AttributeAspectLibAm dataAm, string id)
