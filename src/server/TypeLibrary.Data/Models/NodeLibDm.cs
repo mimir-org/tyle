@@ -8,6 +8,7 @@ namespace TypeLibrary.Data.Models
     {
         public string Id { get; set; }
         public string Iri { get; set; }
+        public string ContentReferences { get; set; }
         public string Name { get; set; }
         public string RdsCode { get; set; }
         public string RdsName { get; set; }
@@ -26,6 +27,7 @@ namespace TypeLibrary.Data.Models
         public DateTime? Updated { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
+        public bool Deleted { get; set; }
 
         public virtual ICollection<NodeLibDm> Children { get; set; }
         public virtual ICollection<NodeTerminalLibDm> NodeTerminals { get; set; }

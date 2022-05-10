@@ -8,6 +8,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public int Number { get; set; }
         public ConnectorDirection ConnectorDirection { get; set; }
         public TerminalLibCm Terminal { get; set; }
+
         public string Kind => nameof(NodeTerminalLibCm);
     }
 }

@@ -8,6 +8,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string TerminalId { get; set; }
         public int Number { get; set; }
         public ConnectorDirection ConnectorDirection { get; set; }
+
         public string Id => $"{TerminalId}-{ConnectorDirection}".CreateMd5();
     }
 }

@@ -32,6 +32,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         public string Description { get; set; }
         public string Version { get; set; } = "1.0";
+        public ICollection<string> ContentReferences { get; set; }
         public string ParentId { get; set; }
 
         [JsonIgnore]

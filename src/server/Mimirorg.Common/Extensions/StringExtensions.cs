@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using System.Text.Encodings.Web;
 using Mimirorg.Common.Exceptions;
 
 namespace Mimirorg.Common.Extensions
@@ -19,6 +20,15 @@ namespace Mimirorg.Common.Extensions
                 return null;
 
             var returnValue = values.Aggregate(string.Empty, (current, value) => current + $"{value},");
+            return returnValue.TrimEnd(',');
+        }
+
+        public static string ConvertToUriString(this ICollection<string> values)
+        {
+            if (!values.Any())
+                return null;
+
+            var returnValue = values.Aggregate(string.Empty, (current, value) => current + $"{new Uri(value)},");
             return returnValue.TrimEnd(',');
         }
 

@@ -14,6 +14,7 @@ namespace TypeLibrary.Data.Models
         public ICollection<AttributeLibDm> Children { get; set; }
         public string Name { get; set; }
         public string Iri { get; set; }
+        public string ContentReferences { get; set; }
         public Aspect Aspect { get; set; }
         public Discipline Discipline { get; set; }
         public virtual HashSet<string> Tags { get; set; }
@@ -23,6 +24,7 @@ namespace TypeLibrary.Data.Models
         public string AttributeSource { get; set; }
         public string AttributeCondition { get; set; }
         public string AttributeFormat { get; set; }
+        public bool Deleted { get; set; }
 
         [NotMapped]
         public ICollection<string> SelectValues => string.IsNullOrEmpty(SelectValuesString) ? null : SelectValuesString.ConvertToArray();

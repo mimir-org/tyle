@@ -16,5 +16,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         [Required]
         public Aspect Aspect { get; set; }
+
+        public ICollection<string> ContentReferences { get; set; }
     }
 }

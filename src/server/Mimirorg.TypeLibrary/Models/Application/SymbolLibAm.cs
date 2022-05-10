@@ -11,6 +11,8 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public string Data { get; set; }
 
+        public ICollection<string> ContentReferences { get; set; }
+
         public virtual string Id => $"{Name}".CreateMd5();
     }
 }

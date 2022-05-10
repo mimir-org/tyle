@@ -14,6 +14,8 @@ namespace TypeLibrary.Data.Configurations
             builder.ToTable("Node");
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(127);
             builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired().HasMaxLength(255);
+            builder.Property(p => p.ContentReferences).HasColumnName("ContentReferences");
+            builder.Property(p => p.Deleted).HasColumnName("Deleted").IsRequired().HasDefaultValue(0);
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(63);
             builder.Property(p => p.RdsCode).HasColumnName("RdsCode").IsRequired().HasMaxLength(127);
             builder.Property(p => p.RdsName).HasColumnName("RdsName").IsRequired().HasMaxLength(127);

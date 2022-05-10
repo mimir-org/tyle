@@ -13,5 +13,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         [Required]
         public virtual Dictionary<string, bool> Values { get; set; }
+
+        public ICollection<string> ContentReferences { get; set; }
     }
 }

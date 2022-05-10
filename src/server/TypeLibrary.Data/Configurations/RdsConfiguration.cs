@@ -13,6 +13,8 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();
             builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired();
+            builder.Property(p => p.ContentReferences).HasColumnName("ContentReferences");
+            builder.Property(p => p.Deleted).HasColumnName("Deleted").IsRequired().HasDefaultValue(0);
         }
     }
 }
