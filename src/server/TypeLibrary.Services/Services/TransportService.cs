@@ -152,6 +152,9 @@ namespace TypeLibrary.Services.Services
             if (existingDm?.Id == null)
                 throw new MimirorgNotFoundException($"Transport with id {id} does not exist.");
 
+            if(existingDm.CreatedBy == _applicationSettings.System)
+                throw new MimirorgBadRequestException($"The transport with id {id} is created by the system and can not be updated.");
+
             var created = await CreateTransport(dataAm);
 
             if (created?.Id != null)

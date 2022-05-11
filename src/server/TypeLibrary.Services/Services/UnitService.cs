@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 using TypeLibrary.Data.Contracts;
@@ -42,6 +43,19 @@ namespace TypeLibrary.Services.Services
 
         public async Task<UnitLibCm> UpdateUnit(UnitLibAm dataAm, string id)
         {
+
+            if (string.IsNullOrWhiteSpace(id) || dataAm == null)
+                throw new MimirorgBadRequestException("The data object or id can not be null.");
+
+            var existingDm = await _unitRepository.GetAsync(id);
+
+            if (existingDm?.Id == null)
+                throw new MimirorgBadRequestException("Object not found.");
+
+            if (existingDm.CreatedBy == _applicationSettings.System)
+                throw new MimirorgBadRequestException($"The object with id {id} is created by the system and can not be updated.");
+
+            //TODO: The code below must be rewritten. What do we allow to be updated?
             var data = _mapper.Map<UnitLibDm>(dataAm);
             data.Id = id;
             data.Updated = DateTime.Now.ToUniversalTime();
