@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -20,17 +22,19 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly IQualifierRepository _qualifierRepository;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public AttributeQualifierService(IMapper mapper, IQualifierRepository qualifierRepository, IHttpContextAccessor contextAccessor)
+        public AttributeQualifierService(IMapper mapper, IQualifierRepository qualifierRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _qualifierRepository = qualifierRepository;
             _contextAccessor = contextAccessor;
+            _applicationSettings = applicationSettings?.Value;
         }
         public Task<IEnumerable<AttributeQualifierLibCm>> GetAttributeQualifiers()
         {
-            var notSet = _qualifierRepository.FindBy(x => x.Name == Aspect.NotSet.ToString())?.First();
-            var dataSet = _qualifierRepository.GetAll().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+            var notSet = _qualifierRepository.FindBy(x => !x.Deleted && x.Name == Aspect.NotSet.ToString())?.First();
+            var dataSet = _qualifierRepository.GetAll().Where(x => !x.Deleted && x.Name != Aspect.NotSet.ToString()).ToList();
 
             var dataDmList = new List<AttributeQualifierLibDm> { notSet };
             dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
@@ -53,14 +57,12 @@ namespace TypeLibrary.Services.Services
         public async Task<AttributeQualifierLibCm> CreateAttributeQualifier(AttributeQualifierLibAm dataAm)
         {
             var data = _mapper.Map<AttributeQualifierLibDm>(dataAm);
-            data.Created = DateTime.Now.ToUniversalTime();
-            data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             var createdData = await _qualifierRepository.CreateAsync(data);
             await _qualifierRepository.SaveAsync();
             return _mapper.Map<AttributeQualifierLibCm>(createdData.Entity);
         }
 
-        public async Task CreateAttributeQualifiers(List<AttributeQualifierLibAm> dataAm)
+        public async Task CreateAttributeQualifiers(List<AttributeQualifierLibAm> dataAm, bool createdBySystem = false)
         {
             var dataList = _mapper.Map<List<AttributeQualifierLibDm>>(dataAm);
             var existing = _qualifierRepository.GetAll().ToList();
@@ -71,8 +73,7 @@ namespace TypeLibrary.Services.Services
 
             foreach (var data in notExisting)
             {
-                data.Created = DateTime.Now.ToUniversalTime();
-                data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
+                data.CreatedBy = createdBySystem ? _applicationSettings.System : data.CreatedBy;
                 _qualifierRepository.Attach(data, EntityState.Added);
             }
 

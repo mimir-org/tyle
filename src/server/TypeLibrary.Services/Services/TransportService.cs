@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
@@ -21,14 +23,16 @@ namespace TypeLibrary.Services.Services
         private readonly IRdsRepository _rdsRepository;
         private readonly IAttributeRepository _attributeRepository;
         private readonly IPurposeRepository _purposeRepository;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public TransportService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, ITransportRepository transportRepository, IMapper mapper)
+        public TransportService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, ITransportRepository transportRepository, IMapper mapper, IOptions<ApplicationSettings> applicationSettings)
         {
             _purposeRepository = purposeRepository;
             _attributeRepository = attributeRepository;
             _rdsRepository = rdsRepository;
             _transportRepository = transportRepository;
             _mapper = mapper;
+            _applicationSettings = applicationSettings?.Value;
         }
 
         public async Task<TransportLibCm> GetTransport(string id)
@@ -41,6 +45,9 @@ namespace TypeLibrary.Services.Services
             if (transport == null)
                 throw new MimirorgNotFoundException($"There is no transport with id: {id}");
 
+            if (transport.Deleted)
+                throw new MimirorgBadRequestException($"The item with id {id} is marked as deleted in the database.");
+
             var transportLibCm = _mapper.Map<TransportLibCm>(transport);
 
             if (transportLibCm == null)
@@ -51,7 +58,10 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<TransportLibCm>> GetTransports()
         {
-            var transports = _transportRepository.GetAllTransports().ToList().OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var transports = _transportRepository.GetAllTransports().Where(x => !x.Deleted).ToList()
+                .OrderBy(x => x.Aspect)
+                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
             var transportLibCms = _mapper.Map<IEnumerable<TransportLibCm>>(transports);
 
             if (transports.Any() && (transportLibCms == null || !transportLibCms.Any()))
@@ -91,7 +101,7 @@ namespace TypeLibrary.Services.Services
             return createdObject;
         }
 
-        public async Task<IEnumerable<TransportLibCm>> CreateTransports(IEnumerable<TransportLibAm> transports)
+        public async Task<IEnumerable<TransportLibCm>> CreateTransports(IEnumerable<TransportLibAm> transports, bool createdBySystem = false)
         {
             var validation = transports.ValidateObject();
 
@@ -112,14 +122,58 @@ namespace TypeLibrary.Services.Services
             {
                 transportLibDm.RdsName = allRds.FirstOrDefault(x => x.Id == transportLibDm.RdsCode)?.Name;
                 transportLibDm.PurposeName = allPurposes.FirstOrDefault(x => x.Id == transportLibDm.PurposeName)?.Name;
+                
                 _attributeRepository.Attach(transportLibDm.Attributes, EntityState.Unchanged);
+
+                transportLibDm.CreatedBy = createdBySystem ? _applicationSettings.System : transportLibDm.CreatedBy;
+
                 await _transportRepository.CreateAsync(transportLibDm);
                 await _transportRepository.SaveAsync();
+
                 _attributeRepository.Detach(transportLibDm.Attributes);
                 _transportRepository.Detach(transportLibDm);
             }
 
             return _mapper.Map<ICollection<TransportLibCm>>(transportDmList);
+        }
+
+        //TODO: This is (temporary) a create/delete method to maintain compatibility with Mimir TypeEditor.
+        //TODO: This method need to be rewritten as a proper update method with versioning logic.
+        public async Task<TransportLibCm> UpdateTransport(TransportLibAm dataAm, string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                throw new MimirorgBadRequestException("Can't update a transport without an id.");
+
+            if (dataAm == null)
+                throw new MimirorgBadRequestException("Can't update a transport when dataAm is null.");
+
+            var existingDm = await _transportRepository.GetAsync(id);
+
+            if (existingDm?.Id == null)
+                throw new MimirorgNotFoundException($"Transport with id {id} does not exist.");
+
+            var created = await CreateTransport(dataAm);
+
+            if (created?.Id != null)
+                throw new MimirorgBadRequestException($"Unable to update transport with id {id}");
+
+            return await DeleteTransport(id) ? created : throw new MimirorgBadRequestException($"Unable to delete transport with id {id}");
+        }
+
+        public async Task<bool> DeleteTransport(string id)
+        {
+            var dm = await _transportRepository.GetAsync(id);
+
+            if (dm.Deleted)
+                throw new MimirorgBadRequestException($"The transport with id {id} is already marked as deleted in the database.");
+
+            if (dm.CreatedBy == _applicationSettings.System)
+                throw new MimirorgBadRequestException($"The transport with id {id} is created by the system and can not be deleted.");
+
+            dm.Deleted = true;
+
+            var status = await _transportRepository.Context.SaveChangesAsync();
+            return status == 1;
         }
 
         public void ClearAllChangeTrackers()

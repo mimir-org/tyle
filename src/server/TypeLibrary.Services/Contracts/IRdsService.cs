@@ -9,6 +9,6 @@ namespace TypeLibrary.Services.Contracts
     {
         IEnumerable<RdsLibCm> GetRds();
         Task<RdsLibCm> CreateRds(RdsLibAm rdsAm);
-        Task<List<RdsLibCm>> CreateRdsAsync(List<RdsLibAm> createRds);
+        Task<List<RdsLibCm>> CreateRdsAsync(List<RdsLibAm> createRds, bool createdBySystem = false);
     }
 }

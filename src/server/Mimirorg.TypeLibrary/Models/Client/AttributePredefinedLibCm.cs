@@ -12,6 +12,11 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public ICollection<string> ValueStringList { get; set; }
         public Aspect Aspect { get; set; }
 
+        public string UpdatedBy { get; set; }
+        public DateTime? Updated { get; set; }
+        public DateTime Created { get; set; }
+        public string CreatedBy { get; set; }
+
         public string Kind => nameof(AttributePredefinedLibCm);
     }
 }

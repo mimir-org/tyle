@@ -10,6 +10,8 @@ namespace TypeLibrary.Services.Contracts
         Task<InterfaceLibCm> GetInterface(string id);
         Task<IEnumerable<InterfaceLibCm>> GetInterfaces();
         Task<InterfaceLibCm> CreateInterface(InterfaceLibAm dataAm);
+        Task<InterfaceLibCm> UpdateInterface(InterfaceLibAm dataAm, string id);
+        Task<bool> DeleteInterface(string id);
         void ClearAllChangeTrackers();
     }
 }

@@ -12,8 +12,8 @@ namespace TypeLibrary.Services.Contracts
         IEnumerable<AttributeLibCm> GetAttributes(Aspect aspect);
         IEnumerable<AttributeLibCm> GetAttributes();
         Task<AttributeLibCm> CreateAttribute(AttributeLibAm attributeAm);
-        Task CreateAttributes(List<AttributeLibAm> attributeAmList);
+        Task CreateAttributes(List<AttributeLibAm> attributeAmList, bool createdBySystem = false);
         IEnumerable<AttributePredefinedLibCm> GetAttributesPredefined();
-        Task CreateAttributesPredefined(List<AttributePredefinedLibAm> attributePredefinedList);
+        Task CreateAttributesPredefined(List<AttributePredefinedLibAm> attributePredefinedList, bool createdBySystem = false);
     }
 }

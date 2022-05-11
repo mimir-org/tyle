@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
@@ -20,14 +22,16 @@ namespace TypeLibrary.Services.Services
         private readonly IRdsRepository _rdsRepository;
         private readonly IAttributeRepository _attributeRepository;
         private readonly IPurposeRepository _purposeRepository;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public InterfaceService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, IMapper mapper, IInterfaceRepository interfaceRepository)
+        public InterfaceService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, IMapper mapper, IInterfaceRepository interfaceRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             _purposeRepository = purposeRepository;
             _attributeRepository = attributeRepository;
             _rdsRepository = rdsRepository;
             _mapper = mapper;
             _interfaceRepository = interfaceRepository;
+            _applicationSettings = applicationSettings?.Value;
         }
 
         public async Task<InterfaceLibCm> GetInterface(string id)
@@ -40,6 +44,9 @@ namespace TypeLibrary.Services.Services
             if (data == null)
                 throw new MimirorgNotFoundException($"There is no interface with id: {id}");
 
+            if (data.Deleted)
+                throw new MimirorgBadRequestException($"The item with id {id} is marked as deleted in the database.");
+
             var interfaceLibCm = _mapper.Map<InterfaceLibCm>(data);
 
             if (interfaceLibCm == null)
@@ -50,7 +57,10 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<InterfaceLibCm>> GetInterfaces()
         {
-            var interfaces = _interfaceRepository.GetAllInterfaces().ToList().OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var interfaces = _interfaceRepository.GetAllInterfaces().Where(x => !x.Deleted).ToList()
+                .OrderBy(x => x.Aspect)
+                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
             var interfaceLibCms = _mapper.Map<IEnumerable<InterfaceLibCm>>(interfaces);
 
             if (interfaces.Any() && (interfaceLibCms == null || !interfaceLibCms.Any()))
@@ -88,6 +98,45 @@ namespace TypeLibrary.Services.Services
                 throw new MimirorgMappingException("InterfaceLibDm", "InterfaceLibCm");
 
             return createdObject;
+        }
+
+        //TODO: This is (temporary) a create/delete method to maintain compatibility with Mimir TypeEditor.
+        //TODO: This method need to be rewritten as a proper update method with versioning logic.
+        public async Task<InterfaceLibCm> UpdateInterface(InterfaceLibAm dataAm, string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                throw new MimirorgBadRequestException("Can't update an interface without an id.");
+
+            if (dataAm == null)
+                throw new MimirorgBadRequestException("Can't update an interface when dataAm is null.");
+
+            var existingDm = await _interfaceRepository.GetAsync(id);
+
+            if (existingDm?.Id == null)
+                throw new MimirorgNotFoundException($"Interface with id {id} does not exist.");
+
+            var created = await CreateInterface(dataAm);
+
+            if (created?.Id != null)
+                throw new MimirorgBadRequestException($"Unable to update interface with id {id}");
+
+            return await DeleteInterface(id) ? created : throw new MimirorgBadRequestException($"Unable to delete interface with id {id}");
+        }
+
+        public async Task<bool> DeleteInterface(string id)
+        {
+            var dm = await _interfaceRepository.GetAsync(id);
+
+            if(dm.Deleted)
+                throw new MimirorgBadRequestException($"The interface with id {id} is already marked as deleted in the database.");
+
+            if (dm.CreatedBy == _applicationSettings.System)
+                throw new MimirorgBadRequestException($"The interface with id {id} is created by the system and can not be deleted.");
+
+            dm.Deleted = true;
+
+            var status = await _interfaceRepository.Context.SaveChangesAsync();
+            return status == 1;
         }
 
         public void ClearAllChangeTrackers()

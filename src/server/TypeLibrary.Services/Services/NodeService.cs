@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
@@ -21,8 +23,9 @@ namespace TypeLibrary.Services.Services
         private readonly IAttributeRepository _attributeRepository;
         private readonly ISimpleRepository _simpleRepository;
         private readonly IPurposeRepository _purposeRepository;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public NodeService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, IMapper mapper, INodeRepository nodeRepository, ISimpleRepository simpleRepository)
+        public NodeService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, IMapper mapper, INodeRepository nodeRepository, ISimpleRepository simpleRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             _purposeRepository = purposeRepository;
             _attributeRepository = attributeRepository;
@@ -30,6 +33,7 @@ namespace TypeLibrary.Services.Services
             _mapper = mapper;
             _nodeRepository = nodeRepository;
             _simpleRepository = simpleRepository;
+            _applicationSettings = applicationSettings?.Value;
         }
 
         public async Task<NodeLibCm> GetNode(string id)
@@ -42,6 +46,9 @@ namespace TypeLibrary.Services.Services
             if (data == null)
                 throw new MimirorgNotFoundException($"There is no node with id: {id}");
 
+            if (data.Deleted)
+                throw new MimirorgBadRequestException($"The item with id {id} is marked as deleted in the database.");
+
             var nodeLibCm = _mapper.Map<NodeLibCm>(data);
 
             if (nodeLibCm == null)
@@ -52,7 +59,10 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<NodeLibCm>> GetNodes()
         {
-            var nodes = _nodeRepository.GetAllNodes().ToList().OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var nodes = _nodeRepository.GetAllNodes().Where(x => !x.Deleted).ToList()
+                .OrderBy(x => x.Aspect)
+                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
             var nodeLibCms = _mapper.Map<IEnumerable<NodeLibCm>>(nodes);
 
             if (nodes.Any() && (nodeLibCms == null || !nodeLibCms.Any()))
@@ -90,6 +100,45 @@ namespace TypeLibrary.Services.Services
 
             _nodeRepository.Detach(nodeLibDm);
             return await GetNode(nodeLibDm.Id);
+        }
+
+        //TODO: This is (temporary) a create/delete method to maintain compatibility with Mimir TypeEditor.
+        //TODO: This method need to be rewritten as a proper update method with versioning logic.
+        public async Task<NodeLibCm> UpdateNode(NodeLibAm dataAm, string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                throw new MimirorgBadRequestException("Can't update a node without an id.");
+
+            if (dataAm == null)
+                throw new MimirorgBadRequestException("Can't update a node when dataAm is null.");
+
+            var existingDm = await _nodeRepository.GetAsync(id);
+
+            if (existingDm?.Id == null)
+                throw new MimirorgNotFoundException($"Node with id {id} does not exist.");
+
+            var created = await CreateNode(dataAm);
+
+            if (created?.Id != null)
+                throw new MimirorgBadRequestException($"Unable to update node with id {id}");
+
+            return await DeleteNode(id) ? created : throw new MimirorgBadRequestException($"Unable to delete node with id {id}");
+        }
+
+        public async Task<bool> DeleteNode(string id)
+        {
+            var dm = await _nodeRepository.GetAsync(id);
+
+            if (dm.Deleted)
+                throw new MimirorgBadRequestException($"The node with id {id} is already marked as deleted in the database.");
+
+            if (dm.CreatedBy == _applicationSettings.System)
+                throw new MimirorgBadRequestException($"The node with id {id} is created by the system and can not be deleted.");
+
+            dm.Deleted = true;
+
+            var status = await _nodeRepository.Context.SaveChangesAsync();
+            return status == 1;
         }
 
         public void ClearAllChangeTrackers()

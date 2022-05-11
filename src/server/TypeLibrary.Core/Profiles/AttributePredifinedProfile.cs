@@ -1,5 +1,7 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -10,7 +12,7 @@ namespace TypeLibrary.Core.Profiles
 {
     public class AttributePredefinedProfile : Profile
     {
-        public AttributePredefinedProfile(IApplicationSettingsRepository settings)
+        public AttributePredefinedProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor)
         {
             CreateMap<AttributePredefinedLibAm, AttributePredefinedLibDm>()
                 .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.Key.Trim()))
@@ -18,7 +20,9 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.ContentReferences, opt => opt.MapFrom(src => src.ContentReferences.ConvertToUriString()))
                 .ForMember(dest => dest.ValueStringList, opt => opt.MapFrom(src => src.ValueStringList))
                 .ForMember(dest => dest.IsMultiSelect, opt => opt.MapFrom(src => src.IsMultiSelect))
-                .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect));
+                .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
+                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetName()) ? "Unknown" : contextAccessor.GetName()))
+                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now.ToUniversalTime()));
 
             CreateMap<AttributePredefinedLibDm, AttributePredefinedLibCm>()
                 .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.Key))
@@ -26,7 +30,10 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.ContentReferences, opt => opt.MapFrom(src => src.ContentReferences.ConvertToArray()))
                 .ForMember(dest => dest.ValueStringList, opt => opt.MapFrom(src => src.ValueStringList))
                 .ForMember(dest => dest.IsMultiSelect, opt => opt.MapFrom(src => src.IsMultiSelect))
-                .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect));
+                .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect)).ForMember(dest => dest.UpdatedBy, opt => opt.MapFrom(src => src.UpdatedBy))
+                .ForMember(dest => dest.Updated, opt => opt.MapFrom(src => src.Updated))
+                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
+                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
         }
     }
 }

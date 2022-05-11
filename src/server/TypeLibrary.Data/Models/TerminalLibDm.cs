@@ -1,17 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TypeLibrary.Data.Models
 {
     public class TerminalLibDm
     {
         public string Id { get; set; }
-        public string ParentId { get; set; }
-        public TerminalLibDm Parent { get; set; }
-        public string Name { get; set; }
         public string Iri { get; set; }
         public string ContentReferences { get; set; }
+        public string Name { get; set; }
+        public string ParentId { get; set; }
+        public TerminalLibDm Parent { get; set; }
+        public string Version { get; set; }
+        public string FirstVersionId { get; set; }
         public string Color { get; set; }
         public string Description { get; set; }
+        public string UpdatedBy { get; set; }
+        public DateTime? Updated { get; set; }
+        public DateTime Created { get; set; }
+        public string CreatedBy { get; set; }
         public bool Deleted { get; set; }
 
         public ICollection<TerminalLibDm> Children { get; set; }

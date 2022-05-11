@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Models;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -16,11 +18,13 @@ namespace TypeLibrary.Services.Services
     {
         private readonly IMapper _mapper;
         private readonly ISymbolRepository _symbolRepository;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public SymbolService(IMapper mapper, ISymbolRepository symbolRepository)
+        public SymbolService(IMapper mapper, ISymbolRepository symbolRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _symbolRepository = symbolRepository;
+            _applicationSettings = applicationSettings?.Value;
         }
 
         /// <summary>
@@ -49,8 +53,9 @@ namespace TypeLibrary.Services.Services
         /// Create symbol data from list
         /// </summary>
         /// <param name="symbolLibAmList"></param>
+        /// <param name="createdBySystem"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<SymbolLibCm>> CreateSymbol(IEnumerable<SymbolLibAm> symbolLibAmList)
+        public async Task<IEnumerable<SymbolLibCm>> CreateSymbol(IEnumerable<SymbolLibAm> symbolLibAmList, bool createdBySystem = false)
         {
             var symbols = new List<SymbolLibDm>();
             var existingSymbols = _symbolRepository.GetAll().ToList();
@@ -62,6 +67,8 @@ namespace TypeLibrary.Services.Services
                     continue;
 
                 var dm = _mapper.Map<SymbolLibDm>(symbol);
+                dm.CreatedBy = createdBySystem ? _applicationSettings.System : dm.CreatedBy;
+
                 await _symbolRepository.CreateAsync(dm);
                 symbols.Add(dm);
             }
@@ -93,7 +100,9 @@ namespace TypeLibrary.Services.Services
         /// <returns></returns>
         public IEnumerable<SymbolLibCm> GetSymbol()
         {
-            var symbolLibDms = _symbolRepository.GetAll().ToList().OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var symbolLibDms = _symbolRepository.GetAll().Where(x => !x.Deleted).ToList()
+                .OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
             return _mapper.Map<List<SymbolLibCm>>(symbolLibDms);
         }
     }

@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -20,18 +22,20 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly IFormatRepository _formatRepository;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public AttributeFormatService(IMapper mapper, IFormatRepository formatRepository, IHttpContextAccessor contextAccessor)
+        public AttributeFormatService(IMapper mapper, IFormatRepository formatRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _formatRepository = formatRepository;
             _contextAccessor = contextAccessor;
+            _applicationSettings = applicationSettings?.Value;
         }
 
         public Task<IEnumerable<AttributeFormatLibCm>> GetAttributeFormats()
         {
-            var notSet = _formatRepository.FindBy(x => x.Name == Aspect.NotSet.ToString())?.First();
-            var dataSet = _formatRepository.GetAll().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+            var notSet = _formatRepository.FindBy(x => !x.Deleted && x.Name == Aspect.NotSet.ToString())?.First();
+            var dataSet = _formatRepository.GetAll().Where(x => !x.Deleted && x.Name != Aspect.NotSet.ToString()).ToList();
 
             var dataDmList = new List<AttributeFormatLibDm> { notSet };
             dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
@@ -54,14 +58,12 @@ namespace TypeLibrary.Services.Services
         public async Task<AttributeFormatLibCm> CreateAttributeFormat(AttributeFormatLibAm dataAm)
         {
             var data = _mapper.Map<AttributeFormatLibDm>(dataAm);
-            data.Created = DateTime.Now.ToUniversalTime();
-            data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             var createdData = await _formatRepository.CreateAsync(data);
             await _formatRepository.SaveAsync();
             return _mapper.Map<AttributeFormatLibCm>(createdData.Entity);
         }
 
-        public async Task CreateAttributeFormats(List<AttributeFormatLibAm> dataAm)
+        public async Task CreateAttributeFormats(List<AttributeFormatLibAm> dataAm, bool createdBySystem = false)
         {
             var dataList = _mapper.Map<List<AttributeFormatLibDm>>(dataAm);
             var existing = _formatRepository.GetAll().ToList();
@@ -72,8 +74,7 @@ namespace TypeLibrary.Services.Services
 
             foreach (var data in notExisting)
             {
-                data.Created = DateTime.Now.ToUniversalTime();
-                data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
+                data.CreatedBy = createdBySystem ? _applicationSettings.System : data.CreatedBy;
                 _formatRepository.Attach(data, EntityState.Added);
             }
 

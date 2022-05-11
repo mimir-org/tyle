@@ -10,6 +10,6 @@ namespace TypeLibrary.Services.Contracts
         Task<IEnumerable<PurposeLibCm>> GetPurposes();
         Task<PurposeLibCm> UpdatePurpose(PurposeLibAm dataAm, string id);
         Task<PurposeLibCm> CreatePurpose(PurposeLibAm dataAm);
-        Task CreatePurposes(List<PurposeLibAm> dataAm);
+        Task CreatePurposes(List<PurposeLibAm> dataAm, bool createdBySystem = false);
     }
 }

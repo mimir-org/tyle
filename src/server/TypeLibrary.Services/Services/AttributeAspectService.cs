@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Models;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -19,17 +21,19 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly IAttributeAspectRepository _attributeAspectRepository;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public AttributeAspectService(IMapper mapper, IAttributeAspectRepository attributeAspectRepository, IHttpContextAccessor contextAccessor)
+        public AttributeAspectService(IMapper mapper, IAttributeAspectRepository attributeAspectRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _attributeAspectRepository = attributeAspectRepository;
             _contextAccessor = contextAccessor;
+            _applicationSettings = applicationSettings?.Value;
         }
 
         public Task<IEnumerable<AttributeAspectLibCm>> GetAttributeAspects()
         {
-            var allAttributes = _attributeAspectRepository.GetAll().ToList();
+            var allAttributes = _attributeAspectRepository.GetAll().Where(x => !x.Deleted).ToList();
             var attributes = allAttributes.Where(x => x.ParentId != null).ToList();
             var topParents = allAttributes.Where(x => x.ParentId == null).OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
             
@@ -56,14 +60,12 @@ namespace TypeLibrary.Services.Services
         public async Task<AttributeAspectLibCm> CreateAttributeAspect(AttributeAspectLibAm dataAm)
         {
             var data = _mapper.Map<AttributeAspectLibDm>(dataAm);
-            data.Created = DateTime.Now.ToUniversalTime();
-            data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             var createdData = await _attributeAspectRepository.CreateAsync(data);
             await _attributeAspectRepository.SaveAsync();
             return _mapper.Map<AttributeAspectLibCm>(createdData.Entity);
         }
 
-        public async Task CreateAttributeAspects(List<AttributeAspectLibAm> dataAm)
+        public async Task CreateAttributeAspects(List<AttributeAspectLibAm> dataAm, bool createdBySystem = false)
         {
             var dataList = _mapper.Map<List<AttributeAspectLibDm>>(dataAm);
             var existing = _attributeAspectRepository.GetAll().ToList();
@@ -74,8 +76,7 @@ namespace TypeLibrary.Services.Services
 
             foreach (var data in notExisting)
             {
-                data.Created = DateTime.Now.ToUniversalTime();
-                data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
+                data.CreatedBy = createdBySystem ? _applicationSettings.System : data.CreatedBy;
                 _attributeAspectRepository.Attach(data, EntityState.Added);
             }
 

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -11,7 +13,7 @@ namespace TypeLibrary.Core.Profiles
 {
     public class AttributeProfile : Profile
     {
-        public AttributeProfile(IApplicationSettingsRepository settings, IUnitFactory unitFactory)
+        public AttributeProfile(IApplicationSettingsRepository settings, IUnitFactory unitFactory, IHttpContextAccessor contextAccessor)
         {
             CreateMap<AttributeLibAm, AttributeLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -29,7 +31,9 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Discipline, opt => opt.MapFrom(src => src.Discipline))
                 .ForMember(dest => dest.Units, opt => opt.MapFrom(src => ResolveUnits(src.UnitIdList, unitFactory).ToList()))
                 .ForMember(dest => dest.SelectValues, opt => opt.Ignore())
-                .ForMember(dest => dest.SelectValuesString, opt => opt.MapFrom(src => src.SelectValues.ConvertToString()));
+                .ForMember(dest => dest.SelectValuesString, opt => opt.MapFrom(src => src.SelectValues.ConvertToString()))
+                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetName()) ? "Unknown" : contextAccessor.GetName()))
+                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now.ToUniversalTime()));
 
             CreateMap<AttributeLibDm, AttributeLibCm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -47,7 +51,11 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Select, opt => opt.MapFrom(src => src.Select))
                 .ForMember(dest => dest.Discipline, opt => opt.MapFrom(src => src.Discipline))
                 .ForMember(dest => dest.Units, opt => opt.MapFrom(src => src.Units))
-                .ForMember(dest => dest.SelectValues, opt => opt.MapFrom(src => src.SelectValues));
+                .ForMember(dest => dest.SelectValues, opt => opt.MapFrom(src => src.SelectValues))
+                .ForMember(dest => dest.UpdatedBy, opt => opt.MapFrom(src => src.UpdatedBy))
+                .ForMember(dest => dest.Updated, opt => opt.MapFrom(src => src.Updated))
+                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
+                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
         }
 
         private IEnumerable<UnitLibAm> ResolveUnits(ICollection<string> unitIdList, IUnitFactory unitFactory)

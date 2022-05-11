@@ -10,6 +10,6 @@ namespace TypeLibrary.Services.Contracts
         Task<IEnumerable<AttributeQualifierLibCm>> GetAttributeQualifiers();
         Task<AttributeQualifierLibCm> UpdateAttributeQualifier(AttributeQualifierLibAm dataAm, int id);
         Task<AttributeQualifierLibCm> CreateAttributeQualifier(AttributeQualifierLibAm dataAm);
-        Task CreateAttributeQualifiers(List<AttributeQualifierLibAm> dataAm);
+        Task CreateAttributeQualifiers(List<AttributeQualifierLibAm> dataAm, bool createdBySystem = false);
     }
 }
