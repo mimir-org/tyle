@@ -98,9 +98,27 @@ namespace TypeLibrary.Services.Services
             return await GetNode(nodeLibDm.Id);
         }
 
-        public Task<NodeLibCm> UpdateNode(NodeLibAm dataAm, string id)
+        //TODO: This is (temporary) a create/delete method to maintain compatibility with Mimir TypeEditor.
+        //TODO: This method need to be rewritten as a proper update method with versioning logic.
+        public async Task<NodeLibCm> UpdateNode(NodeLibAm dataAm, string id)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(id))
+                throw new MimirorgBadRequestException("Can't update a node without an id.");
+
+            if (dataAm == null)
+                throw new MimirorgBadRequestException("Can't update a node when dataAm is null.");
+
+            var existingDm = await _nodeRepository.GetAsync(id);
+
+            if (existingDm?.Id == null)
+                throw new MimirorgNotFoundException($"Node with id {id} does not exist.");
+
+            var created = await CreateNode(dataAm);
+
+            if (created?.Id != null)
+                throw new MimirorgBadRequestException($"Unable to update node with id {id}");
+
+            return await DeleteNode(id) ? created : throw new MimirorgBadRequestException($"Unable to delete node with id {id}");
         }
 
         public async Task<bool> DeleteNode(string id)

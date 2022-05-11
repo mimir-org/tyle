@@ -96,9 +96,27 @@ namespace TypeLibrary.Services.Services
             return createdObject;
         }
 
-        public Task<InterfaceLibCm> UpdateInterface(InterfaceLibAm dataAm, string id)
+        //TODO: This is (temporary) a create/delete method to maintain compatibility with Mimir TypeEditor.
+        //TODO: This method need to be rewritten as a proper update method with versioning logic.
+        public async Task<InterfaceLibCm> UpdateInterface(InterfaceLibAm dataAm, string id)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(id))
+                throw new MimirorgBadRequestException("Can't update an interface without an id.");
+
+            if (dataAm == null)
+                throw new MimirorgBadRequestException("Can't update an interface when dataAm is null.");
+
+            var existingDm = await _interfaceRepository.GetAsync(id);
+
+            if (existingDm?.Id == null)
+                throw new MimirorgNotFoundException($"Interface with id {id} does not exist.");
+
+            var created = await CreateInterface(dataAm);
+
+            if (created?.Id != null)
+                throw new MimirorgBadRequestException($"Unable to update interface with id {id}");
+
+            return await DeleteInterface(id) ? created : throw new MimirorgBadRequestException($"Unable to delete interface with id {id}");
         }
 
         public async Task<bool> DeleteInterface(string id)

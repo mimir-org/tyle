@@ -4,5 +4,6 @@
     {
         public string ApplicationSemanticUrl { get; set; }
         public string ApplicationUrl { get; set; }
+        public string System => "System";
     }
 }

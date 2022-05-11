@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
@@ -21,14 +23,16 @@ namespace TypeLibrary.Services.Services
         private readonly IRdsRepository _rdsRepository;
         private readonly IAttributeRepository _attributeRepository;
         private readonly IPurposeRepository _purposeRepository;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public TransportService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, ITransportRepository transportRepository, IMapper mapper)
+        public TransportService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, ITransportRepository transportRepository, IMapper mapper, IOptions<ApplicationSettings> applicationSettings)
         {
             _purposeRepository = purposeRepository;
             _attributeRepository = attributeRepository;
             _rdsRepository = rdsRepository;
             _transportRepository = transportRepository;
             _mapper = mapper;
+            _applicationSettings = applicationSettings?.Value;
         }
 
         public async Task<TransportLibCm> GetTransport(string id)
@@ -128,9 +132,27 @@ namespace TypeLibrary.Services.Services
             return _mapper.Map<ICollection<TransportLibCm>>(transportDmList);
         }
 
-        public Task<TransportLibCm> UpdateTransport(TransportLibAm dataAm, string id)
+        //TODO: This is (temporary) a create/delete method to maintain compatibility with Mimir TypeEditor.
+        //TODO: This method need to be rewritten as a proper update method with versioning logic.
+        public async Task<TransportLibCm> UpdateTransport(TransportLibAm dataAm, string id)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(id))
+                throw new MimirorgBadRequestException("Can't update a transport without an id.");
+
+            if (dataAm == null)
+                throw new MimirorgBadRequestException("Can't update a transport when dataAm is null.");
+
+            var existingDm = await _transportRepository.GetAsync(id);
+
+            if (existingDm?.Id == null)
+                throw new MimirorgNotFoundException($"Transport with id {id} does not exist.");
+
+            var created = await CreateTransport(dataAm);
+
+            if (created?.Id != null)
+                throw new MimirorgBadRequestException($"Unable to update transport with id {id}");
+
+            return await DeleteTransport(id) ? created : throw new MimirorgBadRequestException($"Unable to delete transport with id {id}");
         }
 
         public async Task<bool> DeleteTransport(string id)
