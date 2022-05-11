@@ -1,21 +1,26 @@
 import styled, { css } from "styled-components/macro";
-import { Polymorphic, Positions } from "../props";
+import { Polymorphic } from "../props";
 import { ButtonHTMLAttributes, ElementType } from "react";
 import { layer, translucify } from "../mixins";
 import { ColorSystem, ElevationSystem, StateSystem } from "../core";
 
-export type ButtonContainerProps = Omit<Positions, "zIndex"> &
-  Polymorphic<ElementType> &
+export type ButtonContainerProps = Polymorphic<ElementType> &
   ButtonHTMLAttributes<HTMLButtonElement> & {
     variant?: "filled" | "outlined" | "text";
+    iconPlacement?: "left" | "right";
+    iconOnly?: boolean;
   };
 
 export const ButtonContainer = styled.button<ButtonContainerProps>`
-  position: relative;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   gap: ${(props) => props.theme.typeLibrary.spacing.xs};
+  flex-direction: ${(props) => props.iconPlacement === "left" && "row-reverse"};
+  flex-shrink: 0;
+
+  min-width: 40px;
+  min-height: 40px;
   white-space: nowrap;
   text-decoration: none;
 
@@ -49,6 +54,13 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
       }
     }
   }};
+
+  img,
+  svg {
+    flex: 0;
+    min-width: 20px;
+    min-height: 20px;
+  }
 `;
 
 ButtonContainer.defaultProps = {

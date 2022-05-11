@@ -12,11 +12,19 @@ export const Default = () => <Button>Button</Button>;
 export const Disabled = () => <Button disabled>Button</Button>;
 
 export const WithIconOnly = () => (
-  <Button leftIcon={LibraryIcon} iconOnly>
+  <Button icon={LibraryIcon} iconOnly>
     Hidden text
   </Button>
 );
 
-export const WithIconLeftAndText = () => <Button leftIcon={LibraryIcon}>Button</Button>;
+export const WithIconLeftAndText = () => (
+  <Button icon={LibraryIcon} iconPlacement={"left"}>
+    Button
+  </Button>
+);
 
-export const WithIconRightAndText = () => <Button rightIcon={LibraryIcon}>Button</Button>;
+export const WithIconRightAndText = () => (
+  <Button icon={LibraryIcon} iconPlacement={"right"}>
+    Button
+  </Button>
+);

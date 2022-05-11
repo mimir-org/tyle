@@ -16,19 +16,19 @@ export const Disabled = () => (
 );
 
 export const WithIconOnly = () => (
-  <Button variant={"outlined"} leftIcon={LibraryIcon} iconOnly>
+  <Button variant={"outlined"} icon={LibraryIcon} iconOnly>
     Hidden text
   </Button>
 );
 
 export const WithIconLeftAndText = () => (
-  <Button variant={"outlined"} leftIcon={LibraryIcon}>
+  <Button variant={"outlined"} icon={LibraryIcon} iconPlacement={"left"}>
     Button
   </Button>
 );
 
 export const WithIconRightAndText = () => (
-  <Button variant={"outlined"} rightIcon={LibraryIcon}>
+  <Button variant={"outlined"} icon={LibraryIcon} iconPlacement={"right"}>
     Button
   </Button>
 );
