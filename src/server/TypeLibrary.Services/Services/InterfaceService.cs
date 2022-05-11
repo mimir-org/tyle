@@ -115,6 +115,9 @@ namespace TypeLibrary.Services.Services
             if (existingDm?.Id == null)
                 throw new MimirorgNotFoundException($"Interface with id {id} does not exist.");
 
+            if (existingDm.CreatedBy == _applicationSettings.System)
+                throw new MimirorgBadRequestException($"The interface with id {id} is created by the system and can not be updated.");
+
             var created = await CreateInterface(dataAm);
 
             if (created?.Id != null)

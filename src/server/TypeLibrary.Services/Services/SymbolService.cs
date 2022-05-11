@@ -85,11 +85,19 @@ namespace TypeLibrary.Services.Services
         /// <returns></returns>
         public async Task<SymbolLibCm> UpdateSymbol(string id, SymbolLibAm symbolLibAm)
         {
+            if (string.IsNullOrWhiteSpace(id) || symbolLibAm == null)
+                throw new MimirorgBadRequestException("The data object or id can not be null.");
+
             var dm = await _symbolRepository.GetAsync(id);
+            
             if (dm == null)
                 throw new MimirorgNotFoundException($"There is no symbol data with id: {id}");
 
+            if (dm.CreatedBy == _applicationSettings.System)
+                throw new MimirorgBadRequestException($"The symbol with id {id} is created by the system and can not be updated.");
+
             _symbolRepository.Update(dm);
+
             await _symbolRepository.SaveAsync();
             return _mapper.Map<SymbolLibCm>(dm);
         }

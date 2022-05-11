@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
@@ -46,6 +47,18 @@ namespace TypeLibrary.Services.Services
 
         public async Task<AttributeSourceLibCm> UpdateAttributeSource(AttributeSourceLibAm dataAm, int id)
         {
+            if (dataAm == null)
+                throw new MimirorgBadRequestException("The data object can not be null.");
+
+            var existingDm = await _sourceRepository.GetAsync(id);
+
+            if (existingDm?.Id == null)
+                throw new MimirorgBadRequestException("Object not found.");
+
+            if (existingDm.CreatedBy == _applicationSettings.System)
+                throw new MimirorgBadRequestException($"The object with id {id} is created by the system and can not be updated.");
+
+            //TODO: The code below must be rewritten. What do we allow to be updated?
             var data = _mapper.Map<AttributeSourceLibDm>(dataAm);
             data.Id = id;
             data.Updated = DateTime.Now.ToUniversalTime();
