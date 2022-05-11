@@ -26,7 +26,7 @@ interface Props {
  */
 export const Popover = ({ children, content, placement = "top", offset = 8 }: PropsWithChildren<Props>) => {
   const theme = useTheme();
-  const motion = merge(theme.typeLibrary.animation.fade, theme.typeLibrary.animation.scale);
+  const motion = merge({}, theme.typeLibrary.animation.fade, theme.typeLibrary.animation.scale);
 
   return (
     <PopoverPrimitive.Root>
