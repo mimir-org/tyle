@@ -1,98 +1,74 @@
 [
   {
-    "name": "Manifold (Process)",
-    "CreatedBy": "Seeding service"
+    "name": "Manifold (Process)"
   },
   {
-    "name": "Separate (Process)",
-    "CreatedBy": "Seeding service"
+    "name": "Separate (Process)"
   },
   {
-    "name": "Pump (Process)",
-    "CreatedBy": "Seeding service"
+    "name": "Pump (Process)"
   },
   {
-    "name": "Compress (Process)",
-    "CreatedBy": "Seeding service"
+    "name": "Compress (Process)"
   },
   {
-    "name": "Mix (Process)",
-    "CreatedBy": "Seeding service"
+    "name": "Mix (Process)"
   },
   {
-    "name": "Exchange [heat] (Process)",
-    "CreatedBy": "Seeding service"
+    "name": "Exchange [heat] (Process)"
   },
   {
-    "name": "React (Process)",
-    "CreatedBy": "Seeding service"
+    "name": "React (Process)"
   },
   {
-    "name": "Transform (Process)",
-    "CreatedBy": "Seeding service"
+    "name": "Transform (Process)"
   },
   {
-    "name": "Generate (Electrical)",
-    "CreatedBy": "Seeding service"
+    "name": "Generate (Electrical)"
   },
   {
-    "name": "Switch (Electrical)",
-    "CreatedBy": "Seeding service"
+    "name": "Switch (Electrical)"
   },
   {
-    "name": "Break (Electrical)",
-    "CreatedBy": "Seeding service"
+    "name": "Break (Electrical)"
   },
   {
-    "name": "Distribute (Electrical)",
-    "CreatedBy": "Seeding service"
+    "name": "Distribute (Electrical)"
   },
   {
-    "name": "Distribute (Process)",
-    "CreatedBy": "Seeding service"
+    "name": "Distribute (Process)"
   },
   {
-    "name": "Transform (Electrical)",
-    "CreatedBy": "Seeding service"
+    "name": "Transform (Electrical)"
   },
   {
-    "name": "Convert (Electrical)",
-    "CreatedBy": "Seeding service"
+    "name": "Convert (Electrical)"
   },
   {
-    "name": "Drive (Electrical)",
-    "CreatedBy": "Seeding service"
+    "name": "Drive (Electrical)"
   },
   {
-    "name": "Heat (Electrical)",
-    "CreatedBy": "Seeding service"
+    "name": "Heat (Electrical)"
   },
   {
-    "name": "Store (Electrical)",
-    "CreatedBy": "Seeding service"
+    "name": "Store (Electrical)"
   },
   {
-    "name": "Measure (Automation)",
-    "CreatedBy": "Seeding service"
+    "name": "Measure (Automation)"
   },
   {
-    "name": "Control (Automation)",
-    "CreatedBy": "Seeding service"
+    "name": "Control (Automation)"
   },
   {
-    "name": "Actuate (Automation)",
-    "CreatedBy": "Seeding service"
+    "name": "Actuate (Automation)"
   },
   {
-    "name": "Support (Structural)",
-    "CreatedBy": "Seeding service"
+    "name": "Support (Structural)"
   },
   {
-    "name": "Enclose (Structural)",
-    "CreatedBy": "Seeding service"
+    "name": "Enclose (Structural)"
   },
   {
-    "name": "None (None)",
-    "CreatedBy": "Seeding service"
+    "name": "None (None)"
   }
 ]

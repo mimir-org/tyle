@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Mimirorg.Common.Models;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -17,12 +19,14 @@ namespace TypeLibrary.Services.Services
         private readonly ITerminalRepository _terminalTypeRepository;
         private readonly IAttributeRepository _attributeRepository;
         private readonly IMapper _mapper;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public TerminalService(ITerminalRepository terminalTypeRepository, IAttributeRepository attributeRepository, IMapper mapper)
+        public TerminalService(ITerminalRepository terminalTypeRepository, IAttributeRepository attributeRepository, IMapper mapper, IOptions<ApplicationSettings> applicationSettings)
         {
             _terminalTypeRepository = terminalTypeRepository;
             _attributeRepository = attributeRepository;
             _mapper = mapper;
+            _applicationSettings = applicationSettings?.Value;
         }
 
         /// <summary>
@@ -59,8 +63,9 @@ namespace TypeLibrary.Services.Services
         /// Create from a list of terminal types
         /// </summary>
         /// <param name="terminalAmList"></param>
+        /// <param name="createdBySystem"></param>
         /// <returns></returns>
-        public async Task<List<TerminalLibCm>> CreateTerminals(List<TerminalLibAm> terminalAmList)
+        public async Task<List<TerminalLibCm>> CreateTerminals(List<TerminalLibAm> terminalAmList, bool createdBySystem = false)
         {
             if (terminalAmList == null || !terminalAmList.Any())
                 return new List<TerminalLibCm>();
@@ -78,6 +83,8 @@ namespace TypeLibrary.Services.Services
                 {
                     _attributeRepository.Attach(entityAttribute, EntityState.Unchanged);
                 }
+
+                entity.CreatedBy = createdBySystem ? _applicationSettings.System : entity.CreatedBy;
 
                 await _terminalTypeRepository.CreateAsync(entity);
                 await _terminalTypeRepository.SaveAsync();

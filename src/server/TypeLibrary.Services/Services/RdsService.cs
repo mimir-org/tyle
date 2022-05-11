@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.Extensions.Options;
+using Mimirorg.Common.Models;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -15,11 +17,13 @@ namespace TypeLibrary.Services.Services
     {
         private readonly IMapper _mapper;
         private readonly IRdsRepository _rdsRepository;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public RdsService(IMapper mapper, IRdsRepository rdsRepository)
+        public RdsService(IMapper mapper, IRdsRepository rdsRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _rdsRepository = rdsRepository;
+            _applicationSettings = applicationSettings?.Value;
         }
 
         /// <summary>
@@ -50,8 +54,9 @@ namespace TypeLibrary.Services.Services
         /// Create RDS from a list
         /// </summary>
         /// <param name="createRds"></param>
+        /// <param name="createdBySystem"></param>
         /// <returns></returns>
-        public async Task<List<RdsLibCm>> CreateRdsAsync(List<RdsLibAm> createRds)
+        public async Task<List<RdsLibCm>> CreateRdsAsync(List<RdsLibAm> createRds, bool createdBySystem = false)
         {
             if (createRds == null || !createRds.Any())
                 return new List<RdsLibCm>();
@@ -66,6 +71,7 @@ namespace TypeLibrary.Services.Services
 
             foreach (var entity in notExisting)
             {
+                entity.CreatedBy = createdBySystem ? _applicationSettings.System : entity.CreatedBy;
                 await _rdsRepository.CreateAsync(entity);
             }
             await _rdsRepository.SaveAsync();

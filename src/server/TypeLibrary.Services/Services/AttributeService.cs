@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -20,14 +22,15 @@ namespace TypeLibrary.Services.Services
         private readonly IAttributePredefinedRepository _attributePredefinedRepository;
         private readonly IAttributeRepository _attributeRepository;
         private readonly IUnitRepository _unitRepository;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public AttributeService(IMapper mapper, IAttributePredefinedRepository attributePredefinedRepository,
-            IAttributeRepository attributeRepository, IUnitRepository unitRepository)
+        public AttributeService(IMapper mapper, IAttributePredefinedRepository attributePredefinedRepository, IAttributeRepository attributeRepository, IUnitRepository unitRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _attributePredefinedRepository = attributePredefinedRepository;
             _attributeRepository = attributeRepository;
             _unitRepository = unitRepository;
+            _applicationSettings = applicationSettings?.Value;
         }
 
         /// <summary>
@@ -95,8 +98,9 @@ namespace TypeLibrary.Services.Services
         /// Create from a list of attributes
         /// </summary>
         /// <param name="attributeAmList"></param>
+        /// <param name="createdBySystem"></param>
         /// <returns></returns>
-        public async Task CreateAttributes(List<AttributeLibAm> attributeAmList)
+        public async Task CreateAttributes(List<AttributeLibAm> attributeAmList, bool createdBySystem = false)
         {
             if (attributeAmList == null || !attributeAmList.Any())
                 return;
@@ -114,6 +118,8 @@ namespace TypeLibrary.Services.Services
                 {
                     _unitRepository.Attach(entityUnit, EntityState.Unchanged);
                 }
+
+                entity.CreatedBy = createdBySystem ? _applicationSettings.System : entity.CreatedBy;
 
                 await _attributeRepository.CreateAsync(entity);
                 await _attributeRepository.SaveAsync();
@@ -148,8 +154,9 @@ namespace TypeLibrary.Services.Services
         /// Create Predefined attributePredefinedList from a list
         /// </summary>
         /// <param name="attributePredefinedList"></param>
+        /// <param name="createdBySystem"></param>
         /// <returns></returns>
-        public async Task CreateAttributesPredefined(List<AttributePredefinedLibAm> attributePredefinedList)
+        public async Task CreateAttributesPredefined(List<AttributePredefinedLibAm> attributePredefinedList, bool createdBySystem = false)
         {
             if (attributePredefinedList == null || !attributePredefinedList.Any())
                 return;
@@ -163,6 +170,7 @@ namespace TypeLibrary.Services.Services
             foreach (var entity in notExisting)
             {
                 var dm = _mapper.Map<AttributePredefinedLibDm>(entity);
+                dm.CreatedBy = createdBySystem ? _applicationSettings.System : dm.CreatedBy;
                 await _attributePredefinedRepository.CreateAsync(dm);
             }
             await _attributePredefinedRepository.SaveAsync();

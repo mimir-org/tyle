@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -20,12 +22,14 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly ISourceRepository _sourceRepository;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public AttributeSourceService(IMapper mapper, ISourceRepository sourceRepository, IHttpContextAccessor contextAccessor)
+        public AttributeSourceService(IMapper mapper, ISourceRepository sourceRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _sourceRepository = sourceRepository;
             _contextAccessor = contextAccessor;
+            _applicationSettings = applicationSettings?.Value;
         }
 
         public Task<IEnumerable<AttributeSourceLibCm>> GetAttributeSources()
@@ -54,14 +58,12 @@ namespace TypeLibrary.Services.Services
         public async Task<AttributeSourceLibCm> CreateAttributeSource(AttributeSourceLibAm dataAm)
         {
             var data = _mapper.Map<AttributeSourceLibDm>(dataAm);
-            data.Created = DateTime.Now.ToUniversalTime();
-            data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             var createdData = await _sourceRepository.CreateAsync(data);
             await _sourceRepository.SaveAsync();
             return _mapper.Map<AttributeSourceLibCm>(createdData.Entity);
         }
 
-        public async Task CreateAttributeSources(List<AttributeSourceLibAm> dataAm)
+        public async Task CreateAttributeSources(List<AttributeSourceLibAm> dataAm, bool createdBySystem = false)
         {
             var dataList = _mapper.Map<List<AttributeSourceLibDm>>(dataAm);
             var existing = _sourceRepository.GetAll().ToList();
@@ -72,8 +74,7 @@ namespace TypeLibrary.Services.Services
 
             foreach (var data in notExisting)
             {
-                data.Created = DateTime.Now.ToUniversalTime();
-                data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
+                data.CreatedBy = createdBySystem ? _applicationSettings.System : data.CreatedBy;
                 _sourceRepository.Attach(data, EntityState.Added);
             }
 

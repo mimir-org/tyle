@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Mimirorg.TypeLibrary.Enums;
 
 namespace TypeLibrary.Data.Models
@@ -11,6 +12,10 @@ namespace TypeLibrary.Data.Models
         public bool IsMultiSelect { get; set; }
         public virtual ICollection<string> ValueStringList { get; set; }
         public Aspect Aspect { get; set; }
+        public string UpdatedBy { get; set; }
+        public DateTime? Updated { get; set; }
+        public DateTime Created { get; set; }
+        public string CreatedBy { get; set; }
         public bool Deleted { get; set; }
     }
 }

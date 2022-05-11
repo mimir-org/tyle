@@ -27,6 +27,10 @@ namespace TypeLibrary.Core.Migrations
                     AttributeSource = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: true),
                     AttributeCondition = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: true),
                     AttributeFormat = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
@@ -118,6 +122,10 @@ namespace TypeLibrary.Core.Migrations
                     IsMultiSelect = table.Column<bool>(type: "bit", nullable: false),
                     ValueStringList = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Aspect = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
@@ -232,6 +240,10 @@ namespace TypeLibrary.Core.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Iri = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ContentReferences = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
@@ -248,6 +260,10 @@ namespace TypeLibrary.Core.Migrations
                     Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     ContentReferences = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
@@ -264,6 +280,10 @@ namespace TypeLibrary.Core.Migrations
                     Iri = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     ContentReferences = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Data = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
@@ -284,6 +304,10 @@ namespace TypeLibrary.Core.Migrations
                     FirstVersionId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: true),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
@@ -492,12 +516,12 @@ namespace TypeLibrary.Core.Migrations
                     FirstVersionId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
                     Aspect = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
+                    Transport_TerminalId = table.Column<string>(type: "nvarchar(127)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
                     Updated = table.Column<DateTime>(type: "datetime2", maxLength: 63, nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", maxLength: 63, nullable: false, defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)),
                     CreatedBy = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
-                    Transport_TerminalId = table.Column<string>(type: "nvarchar(127)", nullable: true),
                     Deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>

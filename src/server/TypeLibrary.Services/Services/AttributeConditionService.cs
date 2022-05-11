@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -20,12 +22,14 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly IConditionRepository _conditionRepository;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public AttributeConditionService(IMapper mapper, IConditionRepository conditionRepository, IHttpContextAccessor contextAccessor)
+        public AttributeConditionService(IMapper mapper, IConditionRepository conditionRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _conditionRepository = conditionRepository;
             _contextAccessor = contextAccessor;
+            _applicationSettings = applicationSettings?.Value;
         }
 
         public Task<IEnumerable<AttributeConditionLibCm>> GetAttributeConditions()
@@ -54,14 +58,12 @@ namespace TypeLibrary.Services.Services
         public async Task<AttributeConditionLibCm> CreateAttributeCondition(AttributeConditionLibAm dataAm)
         {
             var data = _mapper.Map<AttributeConditionLibDm>(dataAm);
-            data.Created = DateTime.Now.ToUniversalTime();
-            data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             var createdData = await _conditionRepository.CreateAsync(data);
             await _conditionRepository.SaveAsync();
             return _mapper.Map<AttributeConditionLibCm>(createdData.Entity);
         }
 
-        public async Task CreateAttributeConditions(List<AttributeConditionLibAm> dataAm)
+        public async Task CreateAttributeConditions(List<AttributeConditionLibAm> dataAm, bool createdBySystem = false)
         {
             var dataList = _mapper.Map<List<AttributeConditionLibDm>>(dataAm);
             var existing = _conditionRepository.GetAll().ToList();
@@ -72,8 +74,7 @@ namespace TypeLibrary.Services.Services
 
             foreach (var data in notExisting)
             {
-                data.Created = DateTime.Now.ToUniversalTime();
-                data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
+                data.CreatedBy = createdBySystem ? _applicationSettings.System : data.CreatedBy;
                 _conditionRepository.Attach(data, EntityState.Added);
             }
 

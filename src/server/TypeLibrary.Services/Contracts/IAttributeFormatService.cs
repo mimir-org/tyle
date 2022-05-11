@@ -10,6 +10,6 @@ namespace TypeLibrary.Services.Contracts
         Task<IEnumerable<AttributeFormatLibCm>> GetAttributeFormats();
         Task<AttributeFormatLibCm> UpdateAttributeFormat(AttributeFormatLibAm dataAm, int id);
         Task<AttributeFormatLibCm> CreateAttributeFormat(AttributeFormatLibAm dataAm);
-        Task CreateAttributeFormats(List<AttributeFormatLibAm> dataAm);
+        Task CreateAttributeFormats(List<AttributeFormatLibAm> dataAm, bool createdBySystem = false);
     }
 }

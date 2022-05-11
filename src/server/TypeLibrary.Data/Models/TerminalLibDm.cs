@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TypeLibrary.Data.Models
 {
@@ -14,6 +15,10 @@ namespace TypeLibrary.Data.Models
         public string FirstVersionId { get; set; }
         public string Color { get; set; }
         public string Description { get; set; }
+        public string UpdatedBy { get; set; }
+        public DateTime? Updated { get; set; }
+        public DateTime Created { get; set; }
+        public string CreatedBy { get; set; }
         public bool Deleted { get; set; }
 
         public ICollection<TerminalLibDm> Children { get; set; }

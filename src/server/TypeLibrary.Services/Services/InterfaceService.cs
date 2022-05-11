@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
@@ -20,14 +22,16 @@ namespace TypeLibrary.Services.Services
         private readonly IRdsRepository _rdsRepository;
         private readonly IAttributeRepository _attributeRepository;
         private readonly IPurposeRepository _purposeRepository;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public InterfaceService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, IMapper mapper, IInterfaceRepository interfaceRepository)
+        public InterfaceService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, IMapper mapper, IInterfaceRepository interfaceRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             _purposeRepository = purposeRepository;
             _attributeRepository = attributeRepository;
             _rdsRepository = rdsRepository;
             _mapper = mapper;
             _interfaceRepository = interfaceRepository;
+            _applicationSettings = applicationSettings?.Value;
         }
 
         public async Task<InterfaceLibCm> GetInterface(string id)
@@ -124,7 +128,10 @@ namespace TypeLibrary.Services.Services
             var dm = await _interfaceRepository.GetAsync(id);
 
             if(dm.Deleted)
-                throw new MimirorgBadRequestException($"The item with id {id} is already marked as deleted in the database.");
+                throw new MimirorgBadRequestException($"The interface with id {id} is already marked as deleted in the database.");
+
+            if (dm.CreatedBy == _applicationSettings.System)
+                throw new MimirorgBadRequestException($"The interface with id {id} is created by the system and can not be deleted.");
 
             dm.Deleted = true;
 

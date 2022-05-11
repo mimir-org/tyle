@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
@@ -21,8 +23,9 @@ namespace TypeLibrary.Services.Services
         private readonly IAttributeRepository _attributeRepository;
         private readonly ISimpleRepository _simpleRepository;
         private readonly IPurposeRepository _purposeRepository;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public NodeService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, IMapper mapper, INodeRepository nodeRepository, ISimpleRepository simpleRepository)
+        public NodeService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, IMapper mapper, INodeRepository nodeRepository, ISimpleRepository simpleRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             _purposeRepository = purposeRepository;
             _attributeRepository = attributeRepository;
@@ -30,6 +33,7 @@ namespace TypeLibrary.Services.Services
             _mapper = mapper;
             _nodeRepository = nodeRepository;
             _simpleRepository = simpleRepository;
+            _applicationSettings = applicationSettings?.Value;
         }
 
         public async Task<NodeLibCm> GetNode(string id)
@@ -126,7 +130,10 @@ namespace TypeLibrary.Services.Services
             var dm = await _nodeRepository.GetAsync(id);
 
             if (dm.Deleted)
-                throw new MimirorgBadRequestException($"The item with id {id} is already marked as deleted in the database.");
+                throw new MimirorgBadRequestException($"The node with id {id} is already marked as deleted in the database.");
+
+            if (dm.CreatedBy == _applicationSettings.System)
+                throw new MimirorgBadRequestException($"The node with id {id} is created by the system and can not be deleted.");
 
             dm.Deleted = true;
 

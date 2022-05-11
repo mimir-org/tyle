@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Models;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -19,12 +21,14 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly IPurposeRepository _purposeRepository;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public PurposeService(IMapper mapper, IPurposeRepository purposeRepository, IHttpContextAccessor contextAccessor)
+        public PurposeService(IMapper mapper, IPurposeRepository purposeRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _purposeRepository = purposeRepository;
             _contextAccessor = contextAccessor;
+            _applicationSettings = applicationSettings?.Value;
         }
 
         public Task<IEnumerable<PurposeLibCm>> GetPurposes()
@@ -50,14 +54,12 @@ namespace TypeLibrary.Services.Services
         public async Task<PurposeLibCm> CreatePurpose(PurposeLibAm dataAm)
         {
             var data = _mapper.Map<PurposeLibDm>(dataAm);
-            data.Created = DateTime.Now.ToUniversalTime();
-            data.CreatedBy = _contextAccessor?.GetName() ?? dataAm.CreatedBy ?? "Unknown";
             var createdData = await _purposeRepository.CreateAsync(data);
             await _purposeRepository.SaveAsync();
             return _mapper.Map<PurposeLibCm>(createdData.Entity);
         }
 
-        public async Task CreatePurposes(List<PurposeLibAm> dataAm)
+        public async Task CreatePurposes(List<PurposeLibAm> dataAm, bool createdBySystem = false)
         {
             var dataList = _mapper.Map<List<PurposeLibDm>>(dataAm);
             var existing = _purposeRepository.GetAll().ToList();
@@ -68,8 +70,7 @@ namespace TypeLibrary.Services.Services
 
             foreach (var data in notExisting)
             {
-                data.Created = DateTime.Now.ToUniversalTime();
-                data.CreatedBy = _contextAccessor?.GetName() ?? data.CreatedBy ?? "Unknown";
+                data.CreatedBy = createdBySystem ? _applicationSettings.System : data.CreatedBy;
                 _purposeRepository.Attach(data, EntityState.Added);
             }
 

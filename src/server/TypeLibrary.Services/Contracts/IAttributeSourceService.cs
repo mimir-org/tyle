@@ -10,6 +10,6 @@ namespace TypeLibrary.Services.Contracts
         Task<IEnumerable<AttributeSourceLibCm>> GetAttributeSources();
         Task<AttributeSourceLibCm> UpdateAttributeSource(AttributeSourceLibAm dataAm, int id);
         Task<AttributeSourceLibCm> CreateAttributeSource(AttributeSourceLibAm dataAm);
-        Task CreateAttributeSources(List<AttributeSourceLibAm> dataAm);
+        Task CreateAttributeSources(List<AttributeSourceLibAm> dataAm, bool createdBySystem = false);
     }
 }

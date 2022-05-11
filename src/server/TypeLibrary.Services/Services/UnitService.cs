@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Models;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -19,12 +21,14 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly IUnitRepository _unitRepository;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public UnitService(IMapper mapper, IUnitRepository unitRepository, IHttpContextAccessor contextAccessor)
+        public UnitService(IMapper mapper, IUnitRepository unitRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _unitRepository = unitRepository;
             _contextAccessor = contextAccessor;
+            _applicationSettings = applicationSettings?.Value;
         }
 
         public Task<IEnumerable<UnitLibCm>> GetUnits()
@@ -50,14 +54,12 @@ namespace TypeLibrary.Services.Services
         public async Task<UnitLibCm> CreateUnit(UnitLibAm dataAm)
         {
             var data = _mapper.Map<UnitLibDm>(dataAm);
-            data.Created = DateTime.Now.ToUniversalTime();
-            data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
             var createdData = await _unitRepository.CreateAsync(data);
             await _unitRepository.SaveAsync();
             return _mapper.Map<UnitLibCm>(createdData.Entity);
         }
 
-        public async Task CreateUnits(List<UnitLibAm> dataAm)
+        public async Task CreateUnits(List<UnitLibAm> dataAm, bool createdBySystem = false)
         {
             var dataList = _mapper.Map<List<UnitLibDm>>(dataAm);
             var existing = _unitRepository.GetAll().ToList();
@@ -68,8 +70,7 @@ namespace TypeLibrary.Services.Services
 
             foreach (var data in notExisting)
             {
-                data.Created = DateTime.Now.ToUniversalTime();
-                data.CreatedBy = _contextAccessor?.GetName() ?? "Unknown";
+                data.CreatedBy = createdBySystem ? _applicationSettings.System : data.CreatedBy;
                 _unitRepository.Attach(data, EntityState.Added);
             }
 

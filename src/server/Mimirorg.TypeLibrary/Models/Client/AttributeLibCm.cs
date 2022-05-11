@@ -23,6 +23,11 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public ICollection<UnitLibCm> Units { get; set; }
         public string Description => CreateDescription();
 
+        public string UpdatedBy { get; set; }
+        public DateTime? Updated { get; set; }
+        public DateTime Created { get; set; }
+        public string CreatedBy { get; set; }
+
         public string Kind => nameof(AttributeLibCm);
 
         private string CreateDescription()

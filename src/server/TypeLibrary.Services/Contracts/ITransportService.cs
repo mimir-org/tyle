@@ -10,7 +10,7 @@ namespace TypeLibrary.Services.Contracts
         Task<TransportLibCm> GetTransport(string id);
         Task<IEnumerable<TransportLibCm>> GetTransports();
         Task<TransportLibCm> CreateTransport(TransportLibAm dataAm);
-        Task<IEnumerable<TransportLibCm>> CreateTransports(IEnumerable<TransportLibAm> dataAms);
+        Task<IEnumerable<TransportLibCm>> CreateTransports(IEnumerable<TransportLibAm> dataAms, bool createdBySystem = false);
         Task<TransportLibCm> UpdateTransport(TransportLibAm dataAm, string id);
         Task<bool> DeleteTransport(string id);
         void ClearAllChangeTrackers();

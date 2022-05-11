@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Contracts;
@@ -24,6 +25,10 @@ namespace TypeLibrary.Data.Models
         public string AttributeSource { get; set; }
         public string AttributeCondition { get; set; }
         public string AttributeFormat { get; set; }
+        public string UpdatedBy { get; set; }
+        public DateTime? Updated { get; set; }
+        public DateTime Created { get; set; }
+        public string CreatedBy { get; set; }
         public bool Deleted { get; set; }
 
         [NotMapped]

@@ -10,6 +10,6 @@ namespace TypeLibrary.Services.Contracts
         Task<IEnumerable<AttributeConditionLibCm>> GetAttributeConditions();
         Task<AttributeConditionLibCm> UpdateAttributeCondition(AttributeConditionLibAm dataAm, int id);
         Task<AttributeConditionLibCm> CreateAttributeCondition(AttributeConditionLibAm dataAm);
-        Task CreateAttributeConditions(List<AttributeConditionLibAm> dataAm);
+        Task CreateAttributeConditions(List<AttributeConditionLibAm> dataAm, bool createdBySystem = false);
     }
 }

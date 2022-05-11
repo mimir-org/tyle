@@ -101,7 +101,7 @@ namespace TypeLibrary.Services.Services
             return createdObject;
         }
 
-        public async Task<IEnumerable<TransportLibCm>> CreateTransports(IEnumerable<TransportLibAm> transports)
+        public async Task<IEnumerable<TransportLibCm>> CreateTransports(IEnumerable<TransportLibAm> transports, bool createdBySystem = false)
         {
             var validation = transports.ValidateObject();
 
@@ -122,9 +122,14 @@ namespace TypeLibrary.Services.Services
             {
                 transportLibDm.RdsName = allRds.FirstOrDefault(x => x.Id == transportLibDm.RdsCode)?.Name;
                 transportLibDm.PurposeName = allPurposes.FirstOrDefault(x => x.Id == transportLibDm.PurposeName)?.Name;
+                
                 _attributeRepository.Attach(transportLibDm.Attributes, EntityState.Unchanged);
+
+                transportLibDm.CreatedBy = createdBySystem ? _applicationSettings.System : transportLibDm.CreatedBy;
+
                 await _transportRepository.CreateAsync(transportLibDm);
                 await _transportRepository.SaveAsync();
+
                 _attributeRepository.Detach(transportLibDm.Attributes);
                 _transportRepository.Detach(transportLibDm);
             }
@@ -160,7 +165,10 @@ namespace TypeLibrary.Services.Services
             var dm = await _transportRepository.GetAsync(id);
 
             if (dm.Deleted)
-                throw new MimirorgBadRequestException($"The item with id {id} is already marked as deleted in the database.");
+                throw new MimirorgBadRequestException($"The transport with id {id} is already marked as deleted in the database.");
+
+            if (dm.CreatedBy == _applicationSettings.System)
+                throw new MimirorgBadRequestException($"The transport with id {id} is created by the system and can not be deleted.");
 
             dm.Deleted = true;
 

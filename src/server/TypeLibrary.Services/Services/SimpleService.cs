@@ -6,8 +6,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
@@ -21,12 +23,14 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly ISimpleRepository _simpleRepository;
         private readonly IAttributeRepository _attributeRepository;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public SimpleService(IMapper mapper, ISimpleRepository simpleRepository, IAttributeRepository attributeRepository)
+        public SimpleService(IMapper mapper, ISimpleRepository simpleRepository, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _simpleRepository = simpleRepository;
             _attributeRepository = attributeRepository;
+            _applicationSettings = applicationSettings?.Value;
         }
 
         public async Task<SimpleLibCm> GetSimple(string id)
@@ -91,7 +95,7 @@ namespace TypeLibrary.Services.Services
             return cm;
         }
 
-        public async Task<IEnumerable<SimpleLibCm>> CreateSimple(IEnumerable<SimpleLibAm> simpleAmList)
+        public async Task<IEnumerable<SimpleLibCm>> CreateSimple(IEnumerable<SimpleLibAm> simpleAmList, bool createdBySystem = false)
         {
             var simpleCms = new List<SimpleLibCm>();
 
@@ -116,8 +120,12 @@ namespace TypeLibrary.Services.Services
                 simpleCms.Add(_mapper.Map<SimpleLibCm>(dmObject));
 
                 _attributeRepository.Attach(dmObject.Attributes, EntityState.Unchanged);
+
+                dmObject.CreatedBy = createdBySystem ? _applicationSettings.System : dmObject.CreatedBy;
+
                 await _simpleRepository.CreateAsync(dmObject);
                 await _simpleRepository.SaveAsync();
+
                 _attributeRepository.Detach(dmObject.Attributes);
                 _simpleRepository.Detach(dmObject);
             }

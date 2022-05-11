@@ -106,24 +106,24 @@ namespace TypeLibrary.Services.Services
                 var simple = _fileRepository.ReadAllFiles<SimpleLibAm>(simpleFileNames).ToList();
                 var transports = _fileRepository.ReadAllFiles<TransportLibAm>(transportFiles).ToList();
 
-                await _attributeConditionService.CreateAttributeConditions(attributeConditions);
-                await _attributeFormatService.CreateAttributeFormats(attributeFormats);
-                await _attributeQualifierService.CreateAttributeQualifiers(attributeQualifiers);
-                await _attributeSourceService.CreateAttributeSources(attributeSources);
-                await _attributeAspectService.CreateAttributeAspects(attributeAspects);
-                await _purposeService.CreatePurposes(purposes);
-                await _unitService.CreateUnits(units);
-                await _attributeService.CreateAttributes(attributes);
-                await _attributeService.CreateAttributesPredefined(attributesPredefined);
-                await _terminalService.CreateTerminals(terminals);
-                await _rdsService.CreateRdsAsync(rds);
-                await _symbolService.CreateSymbol(symbols);
+                await _attributeConditionService.CreateAttributeConditions(attributeConditions, true);
+                await _attributeFormatService.CreateAttributeFormats(attributeFormats, true);
+                await _attributeQualifierService.CreateAttributeQualifiers(attributeQualifiers, true);
+                await _attributeSourceService.CreateAttributeSources(attributeSources, true);
+                await _attributeAspectService.CreateAttributeAspects(attributeAspects, true);
+                await _purposeService.CreatePurposes(purposes, true);
+                await _unitService.CreateUnits(units, true);
+                await _attributeService.CreateAttributes(attributes, true);
+                await _attributeService.CreateAttributesPredefined(attributesPredefined, true);
+                await _terminalService.CreateTerminals(terminals, true);
+                await _rdsService.CreateRdsAsync(rds, true);
+                await _symbolService.CreateSymbol(symbols, true);
 
                 _simpleService.ClearAllChangeTrackers();
-                await _simpleService.CreateSimple(simple);
+                await _simpleService.CreateSimple(simple, true);
 
                 _transportService.ClearAllChangeTrackers();
-                await _transportService.CreateTransports(transports);
+                await _transportService.CreateTransports(transports, true);
             }
             catch (Exception e)
             {
