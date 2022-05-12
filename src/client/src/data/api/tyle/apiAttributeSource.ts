@@ -1,6 +1,6 @@
 import { apiClient } from "../apiClient";
-import { AttributeSourceLibCm } from "../../../models/typeLibrary/client/attributeSourceLibCm";
-import { AttributeSourceLibAm } from "../../../models/typeLibrary/application/attributeSourceLibAm";
+import { AttributeSourceLibCm } from "../../../models/tyle/client/attributeSourceLibCm";
+import { AttributeSourceLibAm } from "../../../models/tyle/application/attributeSourceLibAm";
 
 const _basePath = "libraryattributesource";
 

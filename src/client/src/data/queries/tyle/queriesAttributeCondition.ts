@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { AttributeConditionLibAm } from "../../../models/typeLibrary/application/attributeConditionLibAm";
-import { apiAttributeCondition } from "../../api/typeLibrary/apiAttributeCondition";
+import { AttributeConditionLibAm } from "../../../models/tyle/application/attributeConditionLibAm";
+import { apiAttributeCondition } from "../../api/tyle/apiAttributeCondition";
 import { UpdateEntity } from "../../types/updateEntity";
 
 const keys = {

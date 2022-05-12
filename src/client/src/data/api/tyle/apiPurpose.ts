@@ -1,6 +1,6 @@
 import { apiClient } from "../apiClient";
-import { PurposeLibCm } from "../../../models/typeLibrary/client/purposeLibCm";
-import { PurposeLibAm } from "../../../models/typeLibrary/application/purposeLibAm";
+import { PurposeLibCm } from "../../../models/tyle/client/purposeLibCm";
+import { PurposeLibAm } from "../../../models/tyle/application/purposeLibAm";
 
 const _basePath = "librarypurpose";
 

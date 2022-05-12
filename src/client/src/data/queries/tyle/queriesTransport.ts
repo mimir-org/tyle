@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { apiTransport } from "../../api/typeLibrary/apiTransport";
+import { apiTransport } from "../../api/tyle/apiTransport";
 
 const keys = {
   all: ["transports"] as const,

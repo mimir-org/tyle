@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { apiRds } from "../../api/typeLibrary/apiRds";
+import { apiRds } from "../../api/tyle/apiRds";
 
 const keys = {
   all: ["rds"] as const,

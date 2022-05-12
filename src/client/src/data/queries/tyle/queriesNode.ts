@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { NodeLibAm } from "../../../models/typeLibrary/application/nodeLibAm";
-import { apiNode } from "../../api/typeLibrary/apiNode";
+import { NodeLibAm } from "../../../models/tyle/application/nodeLibAm";
+import { apiNode } from "../../api/tyle/apiNode";
 
 const keys = {
   all: ["nodes"] as const,

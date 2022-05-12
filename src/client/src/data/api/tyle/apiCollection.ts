@@ -1,6 +1,6 @@
 import { apiClient } from "../apiClient";
-import { CollectionLibCm } from "../../../models/typeLibrary/client/collectionLibCm";
-import { CollectionLibAm } from "../../../models/typeLibrary/application/collectionLibAm";
+import { CollectionLibCm } from "../../../models/tyle/client/collectionLibCm";
+import { CollectionLibAm } from "../../../models/tyle/application/collectionLibAm";
 
 const _basePath = "librarycollection";
 

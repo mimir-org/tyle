@@ -1,6 +1,6 @@
 import { apiClient } from "../apiClient";
-import { NodeLibCm } from "../../../models/typeLibrary/client/nodeLibCm";
-import { NodeLibAm } from "../../../models/typeLibrary/application/nodeLibAm";
+import { NodeLibCm } from "../../../models/tyle/client/nodeLibCm";
+import { NodeLibAm } from "../../../models/tyle/application/nodeLibAm";
 
 const _basePath = "librarynode";
 

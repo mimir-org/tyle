@@ -13,13 +13,13 @@ export const RegisterFinalize = ({ qrCodeBase64 }: Props) => {
   const theme = useTheme();
 
   return (
-    <Flexbox flexDirection={"column"} gap={theme.typeLibrary.spacing.xl}>
-      <Flexbox as={"section"} flexDirection={"column"} gap={theme.typeLibrary.spacing.xl}>
+    <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xl}>
+      <Flexbox as={"section"} flexDirection={"column"} gap={theme.tyle.spacing.xl}>
         <Heading>{TextResources.REGISTER_FINALIZE_VERIFICATION}</Heading>
         <Text>{TextResources.REGISTER_FINALIZE_VERIFICATION_DESCRIPTION}</Text>
       </Flexbox>
       <Divider />
-      <Flexbox as={"section"} flexDirection={"column"} gap={theme.typeLibrary.spacing.xl}>
+      <Flexbox as={"section"} flexDirection={"column"} gap={theme.tyle.spacing.xl}>
         <Heading>{TextResources.REGISTER_FINALIZE_MFA}</Heading>
         <Text>{TextResources.REGISTER_FINALIZE_MFA_DESCRIPTION}</Text>
         <RegisterQrImage size={300} src={qrCodeBase64} alt="" />

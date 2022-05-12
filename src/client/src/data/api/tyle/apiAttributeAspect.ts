@@ -1,6 +1,6 @@
 import { apiClient } from "../apiClient";
-import { AttributeAspectLibCm } from "../../../models/typeLibrary/client/attributeAspectLibCm";
-import { AttributeAspectLibAm } from "../../../models/typeLibrary/application/attributeAspectLibAm";
+import { AttributeAspectLibCm } from "../../../models/tyle/client/attributeAspectLibCm";
+import { AttributeAspectLibAm } from "../../../models/tyle/application/attributeAspectLibAm";
 
 const _basePath = "libraryattributeaspect";
 

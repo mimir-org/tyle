@@ -1,6 +1,6 @@
 import { apiClient } from "../apiClient";
-import { SymbolLibCm } from "../../../models/typeLibrary/client/symbolLibCm";
-import { SymbolLibAm } from "../../../models/typeLibrary/application/symbolLibAm";
+import { SymbolLibCm } from "../../../models/tyle/client/symbolLibCm";
+import { SymbolLibAm } from "../../../models/tyle/application/symbolLibAm";
 
 const _basePath = "librarysymbol";
 

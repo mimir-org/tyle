@@ -1,6 +1,6 @@
 import { apiClient } from "../apiClient";
-import { TerminalLibCm } from "../../../models/typeLibrary/client/terminalLibCm";
-import { TerminalLibAm } from "../../../models/typeLibrary/application/terminalLibAm";
+import { TerminalLibCm } from "../../../models/tyle/client/terminalLibCm";
+import { TerminalLibAm } from "../../../models/tyle/application/terminalLibAm";
 
 const _basePath = "libraryterminal";
 

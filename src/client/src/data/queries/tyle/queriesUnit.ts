@@ -1,6 +1,6 @@
-import { UnitLibAm } from "../../../models/typeLibrary/application/unitLibAm";
+import { UnitLibAm } from "../../../models/tyle/application/unitLibAm";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { apiUnit } from "../../api/typeLibrary/apiUnit";
+import { apiUnit } from "../../api/tyle/apiUnit";
 import { UpdateEntity } from "../../types/updateEntity";
 
 const keys = {

@@ -23,6 +23,6 @@ export const ModalOverlay = styled.div<ModalOverlayProps>`
   position: fixed;
   inset: 0;
   backdrop-filter: ${(props) => props.isBlurred && "blur(5px)"};
-  background-color: ${(props) => props.isFaded && props.theme.typeLibrary.color.surface.inverse.base};
+  background-color: ${(props) => props.isFaded && props.theme.tyle.color.surface.inverse.base};
   opacity: ${(props) => props.isFaded && 0.3};
 `;

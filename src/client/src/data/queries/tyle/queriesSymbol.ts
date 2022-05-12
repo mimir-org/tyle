@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { apiSymbol } from "../../api/typeLibrary/apiSymbol";
-import { SymbolLibAm } from "../../../models/typeLibrary/application/symbolLibAm";
+import { apiSymbol } from "../../api/tyle/apiSymbol";
+import { SymbolLibAm } from "../../../models/tyle/application/symbolLibAm";
 
 const keys = {
   all: ["symbols"] as const,

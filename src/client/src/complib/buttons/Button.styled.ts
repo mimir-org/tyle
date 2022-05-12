@@ -15,7 +15,7 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  gap: ${(props) => props.theme.typeLibrary.spacing.xs};
+  gap: ${(props) => props.theme.tyle.spacing.xs};
   flex-direction: ${(props) => props.iconPlacement === "left" && "row-reverse"};
   flex-shrink: 0;
 
@@ -24,11 +24,11 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   white-space: nowrap;
   text-decoration: none;
 
-  font: ${(props) => props.theme.typeLibrary.typography.sys.roles.label.large.font};
-  line-height: ${(props) => props.theme.typeLibrary.typography.sys.roles.label.large.lineHeight};
-  letter-spacing: ${(props) => props.theme.typeLibrary.typography.sys.roles.label.large.letterSpacing};
+  font: ${(props) => props.theme.tyle.typography.sys.roles.label.large.font};
+  line-height: ${(props) => props.theme.tyle.typography.sys.roles.label.large.lineHeight};
+  letter-spacing: ${(props) => props.theme.tyle.typography.sys.roles.label.large.letterSpacing};
 
-  padding: ${(props) => props.theme.typeLibrary.spacing.xs} ${(props) => props.theme.typeLibrary.spacing.small};
+  padding: ${(props) => props.theme.tyle.spacing.xs} ${(props) => props.theme.tyle.spacing.small};
   border-radius: 999px;
 
   :hover {
@@ -40,7 +40,7 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   }
 
   ${({ variant, ...props }) => {
-    const { color, state, elevation } = props.theme.typeLibrary;
+    const { color, state, elevation } = props.theme.tyle;
 
     switch (variant) {
       case "filled": {

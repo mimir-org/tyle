@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { CollectionLibAm } from "../../../models/typeLibrary/application/collectionLibAm";
-import { apiCollection } from "../../api/typeLibrary/apiCollection";
+import { CollectionLibAm } from "../../../models/tyle/application/collectionLibAm";
+import { apiCollection } from "../../api/tyle/apiCollection";
 import { UpdateEntity } from "../../types/updateEntity";
 
 const keys = {

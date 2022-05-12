@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { AttributeLibAm } from "../../../models/typeLibrary/application/attributeLibAm";
-import { apiAttribute } from "../../api/typeLibrary/apiAttribute";
-import { Aspect } from "../../../models/typeLibrary/enums/aspect";
+import { AttributeLibAm } from "../../../models/tyle/application/attributeLibAm";
+import { apiAttribute } from "../../api/tyle/apiAttribute";
+import { Aspect } from "../../../models/tyle/enums/aspect";
 
 const keys = {
   allAttributes: ["attributes"] as const,

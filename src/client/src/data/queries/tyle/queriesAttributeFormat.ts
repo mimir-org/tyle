@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { AttributeFormatLibAm } from "../../../models/typeLibrary/application/attributeFormatLibAm";
-import { apiAttributeFormat } from "../../api/typeLibrary/apiAttributeFormat";
+import { AttributeFormatLibAm } from "../../../models/tyle/application/attributeFormatLibAm";
+import { apiAttributeFormat } from "../../api/tyle/apiAttributeFormat";
 import { UpdateEntity } from "../../types/updateEntity";
 
 const keys = {

@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "react-query";
-import { GlobalStyle, themeBuilder, TypeLibraryThemeProvider } from "../../complib/core";
+import { GlobalStyle, themeBuilder, TyleThemeProvider } from "../../complib/core";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { App } from "../app";
 import { BrowserRouter } from "react-router-dom";
@@ -13,10 +13,10 @@ export const Root = () => {
   return (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <TypeLibraryThemeProvider theme={themeBuilder(colorTheme)}>
+        <TyleThemeProvider theme={themeBuilder(colorTheme)}>
           <GlobalStyle />
           <App />
-        </TypeLibraryThemeProvider>
+        </TyleThemeProvider>
         {!isProduction && <ReactQueryDevtools />}
       </QueryClientProvider>
     </BrowserRouter>

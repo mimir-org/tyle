@@ -4,6 +4,6 @@ import { LibraryIcon } from "../src/assets/icons/modules";
 export default create({
   base: "light",
   brandImage: LibraryIcon,
-  brandTitle: "Type library",
+  brandTitle: "Tyle",
   brandUrl: "https://github.com/mimir-org/typelibrary",
 });

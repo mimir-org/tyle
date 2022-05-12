@@ -1,6 +1,6 @@
 import { apiClient } from "../apiClient";
-import { AttributeQualifierLibCm } from "../../../models/typeLibrary/client/attributeQualifierLibCm";
-import { AttributeQualifierLibAm } from "../../../models/typeLibrary/application/attributeQualifierLibAm";
+import { AttributeQualifierLibCm } from "../../../models/tyle/client/attributeQualifierLibCm";
+import { AttributeQualifierLibAm } from "../../../models/tyle/application/attributeQualifierLibAm";
 
 const _basePath = "libraryattributequalifier";
 

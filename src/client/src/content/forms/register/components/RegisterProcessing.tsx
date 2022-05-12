@@ -8,12 +8,7 @@ export const RegisterProcessing = () => {
   const theme = useTheme();
 
   return (
-    <Flexbox
-      flexDirection={"column"}
-      justifyContent={"center"}
-      alignItems={"center"}
-      gap={theme.typeLibrary.spacing.medium}
-    >
+    <Flexbox flexDirection={"column"} justifyContent={"center"} alignItems={"center"} gap={theme.tyle.spacing.medium}>
       <Heading as={"h2"}>{TextResources.REGISTER_PROCESSING}</Heading>
       <Spinner />
     </Flexbox>

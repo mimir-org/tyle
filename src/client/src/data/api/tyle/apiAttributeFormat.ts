@@ -1,6 +1,6 @@
 import { apiClient } from "../apiClient";
-import { AttributeFormatLibCm } from "../../../models/typeLibrary/client/attributeFormatLibCm";
-import { AttributeFormatLibAm } from "../../../models/typeLibrary/application/attributeFormatLibAm";
+import { AttributeFormatLibCm } from "../../../models/tyle/client/attributeFormatLibCm";
+import { AttributeFormatLibAm } from "../../../models/tyle/application/attributeFormatLibAm";
 
 const _basePath = "libraryattributeformat";
 

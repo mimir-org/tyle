@@ -1,6 +1,6 @@
 import { apiClient } from "../apiClient";
-import { AttributeConditionLibCm } from "../../../models/typeLibrary/client/attributeConditionLibCm";
-import { AttributeConditionLibAm } from "../../../models/typeLibrary/application/attributeConditionLibAm";
+import { AttributeConditionLibCm } from "../../../models/tyle/client/attributeConditionLibCm";
+import { AttributeConditionLibAm } from "../../../models/tyle/application/attributeConditionLibAm";
 
 const _basePath = "libraryattributecondition";
 

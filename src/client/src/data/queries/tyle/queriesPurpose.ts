@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { PurposeLibAm } from "../../../models/typeLibrary/application/purposeLibAm";
-import { apiPurpose } from "../../api/typeLibrary/apiPurpose";
+import { PurposeLibAm } from "../../../models/tyle/application/purposeLibAm";
+import { apiPurpose } from "../../api/tyle/apiPurpose";
 import { UpdateEntity } from "../../types/updateEntity";
 
 const keys = {

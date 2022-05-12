@@ -14,7 +14,7 @@ export const GlobalStyle = createGlobalStyle`
   ${globalResetStyle}
   
   // APPLICATION SPECIFIC
-  ${({ theme }) => globalTypographyStyle(theme.typeLibrary)}
+  ${({ theme }) => globalTypographyStyle(theme.tyle)}
   
   // CSS VARIABLES
   ${variablesColor}

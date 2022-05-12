@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { AttributeQualifierLibAm } from "../../../models/typeLibrary/application/attributeQualifierLibAm";
-import { apiAttributeQualifier } from "../../api/typeLibrary/apiAttributeQualifier";
+import { AttributeQualifierLibAm } from "../../../models/tyle/application/attributeQualifierLibAm";
+import { apiAttributeQualifier } from "../../api/tyle/apiAttributeQualifier";
 import { UpdateEntity } from "../../types/updateEntity";
 
 const keys = {

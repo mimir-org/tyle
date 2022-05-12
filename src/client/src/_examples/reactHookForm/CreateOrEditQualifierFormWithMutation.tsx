@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
 import { useValidationFromServer } from "../../hooks/useValidationFromServer";
-import { useCreateAttributeQualifier } from "../../data/queries/typeLibrary/queriesAttributeQualifier";
+import { useCreateAttributeQualifier } from "../../data/queries/tyle/queriesAttributeQualifier";
 import { getValidationStateFromServer } from "../../data/helpers/getValidationStateFromServer";
 import {
   AttributeQualifierLibAm,
   createEmptyAttributeQualifierLibAm,
-} from "../../models/typeLibrary/application/attributeQualifierLibAm";
+} from "../../models/tyle/application/attributeQualifierLibAm";
 
 interface Props {
   defaultValues?: AttributeQualifierLibAm;

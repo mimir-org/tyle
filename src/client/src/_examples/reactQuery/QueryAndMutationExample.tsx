@@ -1,5 +1,5 @@
-import { NodeLibAm } from "../../models/typeLibrary/application/nodeLibAm";
-import { useCreateNode, useGetNodes } from "../../data/queries/typeLibrary/queriesNode";
+import { NodeLibAm } from "../../models/tyle/application/nodeLibAm";
+import { useCreateNode, useGetNodes } from "../../data/queries/tyle/queriesNode";
 import {
   ButtonContainer,
   JsonContent,
@@ -8,7 +8,7 @@ import {
   StatusAndResultsContainer,
   StatusContainer,
 } from "./QueryAndMutationExample.styled";
-import { Aspect } from "../../models/typeLibrary/enums/aspect";
+import { Aspect } from "../../models/tyle/enums/aspect";
 
 export const QueryAndMutationExample = () => {
   const mutation = useCreateNode();

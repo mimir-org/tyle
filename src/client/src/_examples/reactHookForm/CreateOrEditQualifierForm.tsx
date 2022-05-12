@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import {
   AttributeQualifierLibAm,
   createEmptyAttributeQualifierLibAm,
-} from "../../models/typeLibrary/application/attributeQualifierLibAm";
+} from "../../models/tyle/application/attributeQualifierLibAm";
 
 interface Props {
   defaultValues?: AttributeQualifierLibAm;

@@ -1,5 +1,5 @@
 import { apiClient } from "../apiClient";
-import { TransportLibCm } from "../../../models/typeLibrary/client/transportLibCm";
+import { TransportLibCm } from "../../../models/tyle/client/transportLibCm";
 
 const _basePath = "librarytransport";
 

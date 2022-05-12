@@ -93,7 +93,7 @@ export const Register = () => {
             </MotionText>
           </FormFieldset>
 
-          <MotionFlexbox layout flexDirection={"column"} gap={theme.typeLibrary.spacing.large}>
+          <MotionFlexbox layout flexDirection={"column"} gap={theme.tyle.spacing.large}>
             <Button>{TextResources.REGISTER_SUBMIT}</Button>
             <Text>
               {TextResources.REGISTER_IS_REGISTERED} <Link to="/">{TextResources.REGISTER_LOGIN_LINK}</Link>

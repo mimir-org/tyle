@@ -1,6 +1,6 @@
 import { apiClient } from "../apiClient";
-import { UnitLibAm } from "../../../models/typeLibrary/application/unitLibAm";
-import { UnitLibCm } from "../../../models/typeLibrary/client/unitLibCm";
+import { UnitLibAm } from "../../../models/tyle/application/unitLibAm";
+import { UnitLibCm } from "../../../models/tyle/client/unitLibCm";
 
 const _basePath = "libraryunit";
 

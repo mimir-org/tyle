@@ -1,5 +1,5 @@
 import { apiClient } from "../apiClient";
-import { RdsLibCm } from "../../../models/typeLibrary/client/rdsLibCm";
+import { RdsLibCm } from "../../../models/tyle/client/rdsLibCm";
 
 const _basePath = "libraryrds";
 
