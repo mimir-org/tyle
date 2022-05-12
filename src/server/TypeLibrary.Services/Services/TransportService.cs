@@ -70,14 +70,30 @@ namespace TypeLibrary.Services.Services
             return Task.FromResult(transportLibCms ?? new List<TransportLibCm>());
         }
 
-        public async Task<TransportLibCm> CreateTransport(TransportLibAm transport)
+        public async Task<TransportLibCm> CreateTransport(TransportLibAm dataAm)
         {
-            var existingTransport = await _transportRepository.GetAsync(transport.Id);
+            if (dataAm == null)
+                throw new MimirorgBadRequestException("Data object can not be null.");
+
+            var dm = await _transportRepository.GetAsync(dataAm.Id);
+
+            if (dm != null)
+            {
+                var errorText = $"Transport '{dm.Name}' with RdsCode '{dm.RdsCode}', Aspect '{dm.Aspect}' and version '{dm.Version}' already exist in db";
+
+                throw dm.Deleted switch
+                {
+                    false => new MimirorgBadRequestException(errorText),
+                    true => new MimirorgBadRequestException(errorText + " as deleted")
+                };
+            }
+
+            var existingTransport = await _transportRepository.GetAsync(dataAm.Id);
 
             if (existingTransport != null)
-                throw new MimirorgBadRequestException($"There is already registered a transport with name: {transport.Name} with version: {transport.Version}");
+                throw new MimirorgBadRequestException($"There is already registered a transport with name: {dataAm.Name} with version: {dataAm.Version}");
 
-            var transportLibDm = _mapper.Map<TransportLibDm>(transport);
+            var transportLibDm = _mapper.Map<TransportLibDm>(dataAm);
 
             if (transportLibDm == null)
                 throw new MimirorgMappingException("TransportLibAm", "TransportLibDm");

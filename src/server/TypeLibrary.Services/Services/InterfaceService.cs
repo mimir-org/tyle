@@ -71,6 +71,22 @@ namespace TypeLibrary.Services.Services
 
         public async Task<InterfaceLibCm> CreateInterface(InterfaceLibAm dataAm)
         {
+            if (dataAm == null)
+                throw new MimirorgBadRequestException("Data object can not be null.");
+
+            var dm = await _interfaceRepository.GetAsync(dataAm.Id);
+
+            if (dm != null)
+            {
+                var errorText = $"Node '{dm.Name}', with RdsCode '{dm.RdsCode}', Aspect '{dm.Aspect}' and version '{dm.Version}' already exist in db";
+
+                throw dm.Deleted switch
+                {
+                    false => new MimirorgBadRequestException(errorText),
+                    true => new MimirorgBadRequestException(errorText + " as deleted")
+                };
+            }
+
             var existingInterface = await _interfaceRepository.GetAsync(dataAm.Id);
 
             if (existingInterface != null)
