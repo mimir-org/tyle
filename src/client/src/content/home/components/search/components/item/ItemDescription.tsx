@@ -21,7 +21,7 @@ export const ItemDescription = ({ title, description, onClick }: Props) => {
       <Text as={"span"} variant={"title-medium"}>
         {title}
       </Text>
-      <Text as={"span"} useEllipsis ellipsisMaxLines={2}>
+      <Text as={"span"} useEllipsis ellipsisMaxLines={3}>
         {description}
       </Text>
     </ItemDescriptionContainer>

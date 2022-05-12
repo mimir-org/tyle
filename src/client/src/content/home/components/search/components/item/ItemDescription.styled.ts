@@ -9,8 +9,10 @@ export const ItemDescriptionContainer = styled.button`
   flex-direction: column;
   gap: ${(props) => props.theme.tyle.spacing.small};
 
+  margin-right: auto;
+
   min-width: 200px;
-  max-width: 80ch;
+  max-width: 65ch;
 
   :hover {
     cursor: pointer;
