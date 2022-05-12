@@ -73,10 +73,21 @@ namespace TypeLibrary.Services.Services
 
         public async Task<NodeLibCm> CreateNode(NodeLibAm dataAm)
         {
-            var existingNode = await _nodeRepository.GetAsync(dataAm.Id);
+            if (dataAm == null)
+                throw new MimirorgBadRequestException("Data object can not be null.");
 
-            if (existingNode != null)
-                throw new MimirorgBadRequestException($"Node name: '{existingNode.Name}' with RdsCode '{existingNode.RdsCode}', Aspect '{existingNode.Aspect}' and version: {existingNode.Version} already exist");
+            var dm = await _nodeRepository.GetAsync(dataAm.Id);
+
+            if (dm != null)
+            {
+                var errorText = $"Node '{dm.Name}' with RdsCode '{dm.RdsCode}', Aspect '{dm.Aspect}' and version '{dm.Version}' already exist in db";
+
+                throw dm.Deleted switch
+                {
+                    false => new MimirorgBadRequestException(errorText),
+                    true => new MimirorgBadRequestException(errorText + " as deleted")
+                };
+            }
 
             var nodeLibDm = _mapper.Map<NodeLibDm>(dataAm);
 
@@ -99,6 +110,7 @@ namespace TypeLibrary.Services.Services
                 _attributeRepository.Detach(nodeLibDm.Attributes);
 
             _nodeRepository.Detach(nodeLibDm);
+
             return await GetNode(nodeLibDm.Id);
         }
 
