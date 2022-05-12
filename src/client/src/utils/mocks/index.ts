@@ -1,0 +1,1 @@
+export { mockTerminalItem } from "./mockTerminalItem";
