@@ -45,9 +45,6 @@ export const CreateOrEditQualifierFormWithMutation = ({
         <input placeholder="enter description" {...register("description")} />
         <p>Error field: {errors.description && errors.description.message}</p>
 
-        <input type="date" {...register("created")} />
-        <p>Error field: {errors.created && errors.created.message}</p>
-
         <button>Submit</button>
       </form>
     </div>

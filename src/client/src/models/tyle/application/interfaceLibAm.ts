@@ -11,5 +11,6 @@ export interface InterfaceLibAm {
   attributeIdList: string[];
   description: string;
   version: string;
+  contentReferences: string[];
   parentId: string;
 }

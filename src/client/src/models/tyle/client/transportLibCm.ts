@@ -4,13 +4,14 @@ import { TerminalLibCm } from "./terminalLibCm";
 
 export interface TransportLibCm {
   id: string;
-  iri: string;
   name: string;
+  iri: string;
+  contentReferences: string[];
+  parentName: string;
+  parentIri: string;
   rdsName: string;
   rdsCode: string;
   purposeName: string;
-  parentIri: string;
-  parentName: string;
   version: string;
   firstVersionId: string;
   aspect: Aspect;

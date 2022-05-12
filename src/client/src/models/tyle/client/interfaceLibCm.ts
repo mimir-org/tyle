@@ -5,6 +5,7 @@ import { TerminalLibCm } from "./terminalLibCm";
 export interface InterfaceLibCm {
   id: string;
   iri: string;
+  contentReferences: string[];
   name: string;
   rdsName: string;
   rdsCode: string;

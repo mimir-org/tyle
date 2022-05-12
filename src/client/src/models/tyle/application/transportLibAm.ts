@@ -11,5 +11,6 @@ export interface TransportLibAm {
   attributeIdList: string[];
   description: string;
   version: string;
+  contentReferences: string[];
   parentId: string;
 }

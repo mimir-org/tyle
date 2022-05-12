@@ -11,6 +11,7 @@ export interface AttributeLibAm {
   attributeSource: string;
   attributeCondition: string;
   attributeFormat: string;
+  contentReferences: string[];
   parentId: string;
   selectValues: string[];
   unitIdList: string[];

@@ -9,6 +9,7 @@ import { SelectedAttributePredefinedLibCm } from "./selectedAttributePredefinedL
 export interface NodeLibCm {
   id: string;
   iri: string;
+  contentReferences: string[];
   name: string;
   rdsCode: string;
   rdsName: string;

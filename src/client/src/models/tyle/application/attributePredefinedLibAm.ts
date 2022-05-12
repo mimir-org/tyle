@@ -5,4 +5,5 @@ export interface AttributePredefinedLibAm {
   isMultiSelect: boolean;
   valueStringList: string[];
   aspect: Aspect;
+  contentReferences: string[];
 }

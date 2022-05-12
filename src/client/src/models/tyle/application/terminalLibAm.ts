@@ -1,8 +1,9 @@
 export interface TerminalLibAm {
-  parentId: string;
   name: string;
-  iri: string;
+  parentId: string;
+  contentReferences: string[];
   color: string;
   description: string;
   attributeIdList: string[];
+  version: string;
 }

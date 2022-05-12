@@ -17,5 +17,6 @@ export interface NodeLibAm {
   symbol: string;
   attributeAspectIri: string;
   version: string;
+  contentReferences: string[];
   parentId: string;
 }
