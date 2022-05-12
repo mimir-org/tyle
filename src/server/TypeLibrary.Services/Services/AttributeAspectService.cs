@@ -12,6 +12,7 @@ using Mimirorg.Common.Models;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -20,11 +21,11 @@ namespace TypeLibrary.Services.Services
     public class AttributeAspectService : IAttributeAspectService
     {
         private readonly IMapper _mapper;
-        private readonly IAttributeAspectRepository _attributeAspectRepository;
+        private readonly IEfAttributeAspectRepository _attributeAspectRepository;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly ApplicationSettings _applicationSettings;
 
-        public AttributeAspectService(IMapper mapper, IAttributeAspectRepository attributeAspectRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
+        public AttributeAspectService(IMapper mapper, IEfAttributeAspectRepository attributeAspectRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _attributeAspectRepository = attributeAspectRepository;

@@ -10,7 +10,7 @@ using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
-using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -19,13 +19,13 @@ namespace TypeLibrary.Services.Services
     public class TransportService : ITransportService
     {
         private readonly IMapper _mapper;
-        private readonly ITransportRepository _transportRepository;
-        private readonly IRdsRepository _rdsRepository;
-        private readonly IAttributeRepository _attributeRepository;
-        private readonly IPurposeRepository _purposeRepository;
+        private readonly IEfTransportRepository _transportRepository;
+        private readonly IEfRdsRepository _rdsRepository;
+        private readonly IEfAttributeRepository _attributeRepository;
+        private readonly IEfPurposeRepository _purposeRepository;
         private readonly ApplicationSettings _applicationSettings;
 
-        public TransportService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, ITransportRepository transportRepository, IMapper mapper, IOptions<ApplicationSettings> applicationSettings)
+        public TransportService(IEfPurposeRepository purposeRepository, IEfAttributeRepository attributeRepository, IEfRdsRepository rdsRepository, IEfTransportRepository transportRepository, IMapper mapper, IOptions<ApplicationSettings> applicationSettings)
         {
             _purposeRepository = purposeRepository;
             _attributeRepository = attributeRepository;

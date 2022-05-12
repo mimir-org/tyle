@@ -13,6 +13,7 @@ using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -21,11 +22,11 @@ namespace TypeLibrary.Services.Services
     public class AttributeSourceService : IAttributeSourceService
     {
         private readonly IMapper _mapper;
-        private readonly ISourceRepository _sourceRepository;
+        private readonly IEfAttributeSourceRepository _sourceRepository;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly ApplicationSettings _applicationSettings;
 
-        public AttributeSourceService(IMapper mapper, ISourceRepository sourceRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
+        public AttributeSourceService(IMapper mapper, IEfAttributeSourceRepository sourceRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _sourceRepository = sourceRepository;

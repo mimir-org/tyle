@@ -8,6 +8,7 @@ using Mimirorg.Common.Models;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -16,10 +17,10 @@ namespace TypeLibrary.Services.Services
     public class RdsService : IRdsService
     {
         private readonly IMapper _mapper;
-        private readonly IRdsRepository _rdsRepository;
+        private readonly IEfRdsRepository _rdsRepository;
         private readonly ApplicationSettings _applicationSettings;
 
-        public RdsService(IMapper mapper, IRdsRepository rdsRepository, IOptions<ApplicationSettings> applicationSettings)
+        public RdsService(IMapper mapper, IEfRdsRepository rdsRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _rdsRepository = rdsRepository;

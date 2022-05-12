@@ -10,6 +10,7 @@ using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -18,13 +19,13 @@ namespace TypeLibrary.Services.Services
     public class InterfaceService : IInterfaceService
     {
         private readonly IMapper _mapper;
-        private readonly IInterfaceRepository _interfaceRepository;
-        private readonly IRdsRepository _rdsRepository;
-        private readonly IAttributeRepository _attributeRepository;
-        private readonly IPurposeRepository _purposeRepository;
+        private readonly IEfInterfaceRepository _interfaceRepository;
+        private readonly IEfRdsRepository _rdsRepository;
+        private readonly IEfAttributeRepository _attributeRepository;
+        private readonly IEfPurposeRepository _purposeRepository;
         private readonly ApplicationSettings _applicationSettings;
 
-        public InterfaceService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, IMapper mapper, IInterfaceRepository interfaceRepository, IOptions<ApplicationSettings> applicationSettings)
+        public InterfaceService(IEfPurposeRepository purposeRepository, IEfAttributeRepository attributeRepository, IEfRdsRepository rdsRepository, IMapper mapper, IEfInterfaceRepository interfaceRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             _purposeRepository = purposeRepository;
             _attributeRepository = attributeRepository;

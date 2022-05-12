@@ -12,6 +12,7 @@ using Mimirorg.Common.Models;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -20,11 +21,11 @@ namespace TypeLibrary.Services.Services
     public class PurposeService : IPurposeService
     {
         private readonly IMapper _mapper;
-        private readonly IPurposeRepository _purposeRepository;
+        private readonly IEfPurposeRepository _purposeRepository;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly ApplicationSettings _applicationSettings;
 
-        public PurposeService(IMapper mapper, IPurposeRepository purposeRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
+        public PurposeService(IMapper mapper, IEfPurposeRepository purposeRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _purposeRepository = purposeRepository;

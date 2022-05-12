@@ -12,6 +12,7 @@ using Mimirorg.Common.Models;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -20,11 +21,11 @@ namespace TypeLibrary.Services.Services
     public class UnitService : IUnitService
     {
         private readonly IMapper _mapper;
-        private readonly IUnitRepository _unitRepository;
+        private readonly IEfUnitRepository _unitRepository;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly ApplicationSettings _applicationSettings;
 
-        public UnitService(IMapper mapper, IUnitRepository unitRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
+        public UnitService(IMapper mapper, IEfUnitRepository unitRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _unitRepository = unitRepository;

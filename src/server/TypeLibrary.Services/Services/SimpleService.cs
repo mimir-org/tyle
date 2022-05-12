@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +10,7 @@ using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
-using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -21,11 +19,11 @@ namespace TypeLibrary.Services.Services
     public class SimpleService : ISimpleService
     {
         private readonly IMapper _mapper;
-        private readonly ISimpleRepository _simpleRepository;
-        private readonly IAttributeRepository _attributeRepository;
+        private readonly IEFSimpleRepository _simpleRepository;
+        private readonly IEfAttributeRepository _attributeRepository;
         private readonly ApplicationSettings _applicationSettings;
 
-        public SimpleService(IMapper mapper, ISimpleRepository simpleRepository, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings)
+        public SimpleService(IMapper mapper, IEFSimpleRepository simpleRepository, IEfAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _simpleRepository = simpleRepository;

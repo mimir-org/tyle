@@ -9,7 +9,7 @@ using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
-using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -18,14 +18,14 @@ namespace TypeLibrary.Services.Services
     public class NodeService : INodeService
     {
         private readonly IMapper _mapper;
-        private readonly INodeRepository _nodeRepository;
-        private readonly IRdsRepository _rdsRepository;
-        private readonly IAttributeRepository _attributeRepository;
-        private readonly ISimpleRepository _simpleRepository;
-        private readonly IPurposeRepository _purposeRepository;
+        private readonly IEfNodeRepository _nodeRepository;
+        private readonly IEfRdsRepository _rdsRepository;
+        private readonly IEfAttributeRepository _attributeRepository;
+        private readonly IEFSimpleRepository _simpleRepository;
+        private readonly IEfPurposeRepository _purposeRepository;
         private readonly ApplicationSettings _applicationSettings;
 
-        public NodeService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, IMapper mapper, INodeRepository nodeRepository, ISimpleRepository simpleRepository, IOptions<ApplicationSettings> applicationSettings)
+        public NodeService(IEfPurposeRepository purposeRepository, IEfAttributeRepository attributeRepository, IEfRdsRepository rdsRepository, IMapper mapper, IEfNodeRepository nodeRepository, IEFSimpleRepository simpleRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             _purposeRepository = purposeRepository;
             _attributeRepository = attributeRepository;

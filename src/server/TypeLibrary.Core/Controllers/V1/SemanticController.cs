@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
 using TypeLibrary.Services.Contracts;
@@ -40,7 +41,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = _attributeService.GetAttributes().FirstOrDefault(x => x.Id == id);
+                var data = _attributeService.GetAttributes(Aspect.NotSet).FirstOrDefault(x => x.Id == id);
                 return Ok(data);
             }
             catch (Exception e)

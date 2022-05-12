@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Core.Extensions;
 using TypeLibrary.Data;
-using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 using TypeLibrary.Services.Services;
@@ -55,10 +54,10 @@ namespace TypeLibrary.Services.Tests
             context.SaveChanges();
             services.AddSingleton(context);
 
-            services.AddSingleton<IAttributeRepository, FakeAttributeRepository>();
-            services.AddSingleton<INodeRepository, FakeNodeRepository>();
-            services.AddSingleton<ISimpleRepository, FakeSimpleRepository>();
-            services.AddSingleton<ITransportRepository, FakeTransportRepository>();
+            services.AddSingleton<IEfAttributeRepository, FakeAttributeRepository>();
+            services.AddSingleton<IEfNodeRepository, FakeNodeRepository>();
+            services.AddSingleton<IEFSimpleRepository, FakeSimpleRepository>();
+            services.AddSingleton<IEfTransportRepository, FakeTransportRepository>();
             services.AddSingleton<ITransportService, TransportService>();
 
             // Add auto-mapper configurations

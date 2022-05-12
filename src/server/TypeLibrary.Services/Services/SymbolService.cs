@@ -9,6 +9,7 @@ using Mimirorg.Common.Models;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -17,10 +18,10 @@ namespace TypeLibrary.Services.Services
     public class SymbolService : ISymbolService
     {
         private readonly IMapper _mapper;
-        private readonly ISymbolRepository _symbolRepository;
+        private readonly IEfSymbolRepository _symbolRepository;
         private readonly ApplicationSettings _applicationSettings;
 
-        public SymbolService(IMapper mapper, ISymbolRepository symbolRepository, IOptions<ApplicationSettings> applicationSettings)
+        public SymbolService(IMapper mapper, IEfSymbolRepository symbolRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _symbolRepository = symbolRepository;

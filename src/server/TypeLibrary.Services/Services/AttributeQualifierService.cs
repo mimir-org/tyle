@@ -13,6 +13,7 @@ using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -21,11 +22,11 @@ namespace TypeLibrary.Services.Services
     public class AttributeQualifierService : IAttributeQualifierService
     {
         private readonly IMapper _mapper;
-        private readonly IQualifierRepository _qualifierRepository;
+        private readonly IEfAttributeQualifierRepository _qualifierRepository;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly ApplicationSettings _applicationSettings;
 
-        public AttributeQualifierService(IMapper mapper, IQualifierRepository qualifierRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
+        public AttributeQualifierService(IMapper mapper, IEfAttributeQualifierRepository qualifierRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _qualifierRepository = qualifierRepository;

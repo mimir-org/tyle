@@ -70,7 +70,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = _attributeService.GetAttributes().ToList();
+                var data = _attributeService.GetAttributes(Aspect.NotSet).ToList();
                 return Ok(data);
             }
             catch (Exception e)

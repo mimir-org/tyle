@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
 using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data;
-using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Services.Tests.Repositories
 {
-    public sealed class FakeNodeRepository : GenericRepository<TypeLibraryDbContext, NodeLibDm>, INodeRepository
+    public sealed class FakeNodeRepository : GenericRepository<TypeLibraryDbContext, NodeLibDm>, IEfNodeRepository
     {
         public FakeNodeRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {

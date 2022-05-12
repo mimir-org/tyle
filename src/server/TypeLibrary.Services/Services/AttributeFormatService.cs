@@ -13,6 +13,7 @@ using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -21,11 +22,11 @@ namespace TypeLibrary.Services.Services
     public class AttributeFormatService : IAttributeFormatService
     {
         private readonly IMapper _mapper;
-        private readonly IFormatRepository _formatRepository;
+        private readonly IEfAttributeFormatDbRepository _formatRepository;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly ApplicationSettings _applicationSettings;
 
-        public AttributeFormatService(IMapper mapper, IFormatRepository formatRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
+        public AttributeFormatService(IMapper mapper, IEfAttributeFormatDbRepository formatRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _formatRepository = formatRepository;

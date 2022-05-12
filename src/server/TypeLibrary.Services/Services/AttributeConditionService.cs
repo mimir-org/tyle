@@ -13,6 +13,7 @@ using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -21,11 +22,11 @@ namespace TypeLibrary.Services.Services
     public class AttributeConditionService : IAttributeConditionService
     {
         private readonly IMapper _mapper;
-        private readonly IConditionRepository _conditionRepository;
+        private readonly IEfAttributeConditionDbRepository _conditionRepository;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly ApplicationSettings _applicationSettings;
 
-        public AttributeConditionService(IMapper mapper, IConditionRepository conditionRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
+        public AttributeConditionService(IMapper mapper, IEfAttributeConditionDbRepository conditionRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _conditionRepository = conditionRepository;

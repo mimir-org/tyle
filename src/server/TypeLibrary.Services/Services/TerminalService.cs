@@ -9,6 +9,7 @@ using Mimirorg.Common.Models;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -16,12 +17,12 @@ namespace TypeLibrary.Services.Services
 {
     public class TerminalService : ITerminalService
     {
-        private readonly ITerminalRepository _terminalTypeRepository;
-        private readonly IAttributeRepository _attributeRepository;
+        private readonly IEfTerminalRepository _terminalTypeRepository;
+        private readonly IEfAttributeRepository _attributeRepository;
         private readonly IMapper _mapper;
         private readonly ApplicationSettings _applicationSettings;
 
-        public TerminalService(ITerminalRepository terminalTypeRepository, IAttributeRepository attributeRepository, IMapper mapper, IOptions<ApplicationSettings> applicationSettings)
+        public TerminalService(IEfTerminalRepository terminalTypeRepository, IEfAttributeRepository attributeRepository, IMapper mapper, IOptions<ApplicationSettings> applicationSettings)
         {
             _terminalTypeRepository = terminalTypeRepository;
             _attributeRepository = attributeRepository;
