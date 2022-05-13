@@ -1,17 +1,19 @@
 import { PropsWithChildren } from "react";
-import VisuallyHiddenSpan from "./styled/VisuallyHiddenSpan";
+import * as VisuallyHiddenPrimitive from "@radix-ui/react-visually-hidden";
 
 interface Props {
-  delegated?: { [key: string]: unknown };
+  asChild?: boolean;
 }
 
 /**
  * A component for including data without displaying it.
  * A typical use case might be description text for icons that can only be read by screen readers.
+ *
  * @param children Components or raw text that should remain hidden.
- * @param delegated Extra attributes that can be set on the visually hidden containing element.
+ * @param asChild Change the component to the HTML tag or custom component of the only child. This will merge the
+ * original component props with the props of the supplied element/component and change the underlying DOM node.
  * @constructor
  */
-export const VisuallyHidden = ({ children, ...delegated }: PropsWithChildren<Props>) => {
-  return <VisuallyHiddenSpan {...delegated}>{children}</VisuallyHiddenSpan>;
+export const VisuallyHidden = ({ children, asChild }: PropsWithChildren<Props>) => {
+  return <VisuallyHiddenPrimitive.Root asChild={asChild}>{children}</VisuallyHiddenPrimitive.Root>;
 };
