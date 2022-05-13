@@ -5,6 +5,7 @@ export const ItemDescriptionContainer = styled.button`
   background-color: transparent;
   text-align: start;
 
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: ${(props) => props.theme.tyle.spacing.small};
@@ -12,7 +13,7 @@ export const ItemDescriptionContainer = styled.button`
   margin-right: auto;
 
   min-width: 200px;
-  max-width: 65ch;
+  max-width: 70ch;
 
   :hover {
     cursor: pointer;
