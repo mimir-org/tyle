@@ -18,10 +18,10 @@ interface Props {
 export const ItemDescription = ({ title, description, onClick }: Props) => {
   return (
     <ItemDescriptionContainer onClick={onClick}>
-      <Text as={"span"} variant={"title-medium"}>
+      <Text as={"span"} variant={"title-medium"} useEllipsis ellipsisMaxLines={1}>
         {title}
       </Text>
-      <Text as={"span"} useEllipsis ellipsisMaxLines={3}>
+      <Text as={"span"} useEllipsis ellipsisMaxLines={2}>
         {description}
       </Text>
     </ItemDescriptionContainer>
