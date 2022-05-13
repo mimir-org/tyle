@@ -5,6 +5,9 @@ const TextResources = {
   // Dialog
   DIALOG_CLOSE: "Close dialog",
 
+  // Alert dialog
+  ALERT_DIALOG_CLOSE: "Cancel",
+
   // Forms
   FORMS_PLACEHOLDER_EMAIL: "you@organization.com",
   FORMS_PLACEHOLDER_PASSWORD: "**********",
