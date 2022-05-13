@@ -20,7 +20,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {icon && iconOnly ? (
           <VisuallyHidden>{children}</VisuallyHidden>
         ) : (
-          <Text as={"span"} variant={"title-medium"}>
+          <Text as={"span"} variant={"title-small"}>
             {children}
           </Text>
         )}
