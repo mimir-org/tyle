@@ -2,6 +2,9 @@ const TextResources = {
   // Global
   GLOBAL_APPLICATION_LOAD: "Loading application",
 
+  // Dialog
+  DIALOG_CLOSE: "Close dialog",
+
   // Forms
   FORMS_PLACEHOLDER_EMAIL: "you@organization.com",
   FORMS_PLACEHOLDER_PASSWORD: "**********",

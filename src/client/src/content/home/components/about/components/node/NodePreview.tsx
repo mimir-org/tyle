@@ -5,7 +5,7 @@ import { TerminalItem } from "../../../../types/TerminalItem";
 import { useTheme } from "styled-components/macro";
 import { meetsInputCriteria, meetsOutputCriteria } from "./NodePreview.helpers";
 
-interface NodePreviewProps {
+export interface NodePreviewProps {
   color: string;
   img: string;
   terminals: TerminalItem[];
