@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
-using Newtonsoft.Json;
+using TypeScriptBuilder;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
@@ -17,10 +17,10 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string ParentId { get; set; }
         public string Description { get; set; }
 
-        [JsonIgnore]
+        [TSExclude]
         private const string InternalType = "Mb.Models.Data.Enums.AttributeAspect";
 
-        [JsonIgnore]
+        [TSExclude]
         public string Id => (string.IsNullOrEmpty(ParentId) ? $"{Name}-{InternalType}" : $"{Name}-{InternalType}-{ParentId}").CreateMd5();
 
     }

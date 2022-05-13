@@ -38,11 +38,11 @@ namespace TypeLibrary.Services.Services
             var allAttributes = _attributeAspectRepository.GetAll().Where(x => !x.Deleted).ToList();
             var attributes = allAttributes.Where(x => x.ParentId != null).ToList();
             var topParents = allAttributes.Where(x => x.ParentId == null).OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
-            
+
             var sortedAttributes = attributes.OrderBy(x => topParents
                 .FirstOrDefault(y => y.Id == x.ParentId)?.Name, StringComparer.InvariantCultureIgnoreCase)
                 .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
-            
+
             sortedAttributes.AddRange(topParents);
             var dataCm = _mapper.Map<List<AttributeAspectLibCm>>(sortedAttributes);
             return Task.FromResult(dataCm.AsEnumerable());
@@ -50,12 +50,12 @@ namespace TypeLibrary.Services.Services
 
         public async Task<AttributeAspectLibCm> UpdateAttributeAspect(AttributeAspectLibAm dataAm, string id)
         {
-            if(string.IsNullOrWhiteSpace(id) || dataAm == null)
+            if (string.IsNullOrWhiteSpace(id) || dataAm == null)
                 throw new MimirorgBadRequestException("The data object or id can not be null.");
 
             var existingDm = await _attributeAspectRepository.GetAsync(id);
 
-            if(existingDm?.Id == null)
+            if (existingDm?.Id == null)
                 throw new MimirorgBadRequestException("Object not found.");
 
             if (existingDm.CreatedBy == _applicationSettings.System)

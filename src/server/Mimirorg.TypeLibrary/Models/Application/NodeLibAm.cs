@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
+using TypeScriptBuilder;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
@@ -32,10 +33,14 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Description { get; set; }
         public string Symbol { get; set; }
         public string AttributeAspectIri { get; set; }
+
+        [TSExclude]
         public string Version { get; set; } = "1.0";
+
         public ICollection<string> ContentReferences { get; set; }
         public string ParentId { get; set; }
 
+        [TSExclude]
         public string Id => $"{Name}-{RdsCode}-{Aspect}-{Version}".CreateMd5();
     }
 }

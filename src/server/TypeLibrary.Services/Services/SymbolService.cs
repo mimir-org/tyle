@@ -90,7 +90,7 @@ namespace TypeLibrary.Services.Services
                 throw new MimirorgBadRequestException("The data object or id can not be null.");
 
             var dm = await _symbolRepository.GetAsync(id);
-            
+
             if (dm == null)
                 throw new MimirorgNotFoundException($"There is no symbol data with id: {id}");
 

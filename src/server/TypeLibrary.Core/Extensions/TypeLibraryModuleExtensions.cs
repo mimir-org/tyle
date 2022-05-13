@@ -47,10 +47,10 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IEfPurposeRepository, EfPurposeRepository>();
             services.AddScoped<IEfUnitRepository, EfUnitRepository>();
             services.AddScoped<IDynamicImageDataProvider, EfSymbolRepository>();
-            
-            
+
+
             services.AddScoped<IAttributeRepository, DbAttributeRepository>();
-            
+
             // Dependency Injection - Services
             services.AddScoped<ITerminalService, TerminalService>();
             services.AddScoped<IFileService, FileService>();
@@ -95,7 +95,6 @@ namespace TypeLibrary.Core.Extensions
             // Add authentication
 
             // Add swagger documentation
-
             return services;
         }
 
