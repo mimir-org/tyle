@@ -10,16 +10,16 @@
   
 <!-- Badges -->
 <p>
-  <a href="https://github.com/Louis3797/awesome-readme-template/graphs/contributors">
+  <a href="https://github.com/mimir-org/typelibrary/graphs/contributors">
     <img src="https://img.shields.io/github/contributors/mimir-org/typelibrary" alt="contributors" />
   </a>
-  <a href="">
+  <a href="https://github.com/mimir-org/typelibrary/commits/main">
     <img src="https://img.shields.io/github/last-commit/mimir-org/typelibrary" alt="last update" />
   </a>
-  <a href="https://github.com/Louis3797/awesome-readme-template/issues/">
+  <a href="https://github.com/mimir-org/typelibrary/issues/">
     <img src="https://img.shields.io/github/issues/mimir-org/typelibrary" alt="open issues" />
   </a>
-  <a href="https://github.com/Louis3797/awesome-readme-template/blob/master/LICENSE">
+  <a href="https://github.com/mimir-org/typelibrary/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/mimir-org/typelibrary.svg" alt="license" />
   </a>
 </p>
