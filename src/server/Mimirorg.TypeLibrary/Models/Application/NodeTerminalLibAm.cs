@@ -1,5 +1,6 @@
 ﻿using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
+using TypeScriptBuilder;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
@@ -9,6 +10,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public int Number { get; set; }
         public ConnectorDirection ConnectorDirection { get; set; }
 
+        [TSExclude]
         public string Id => $"{TerminalId}-{ConnectorDirection}".CreateMd5();
     }
 }

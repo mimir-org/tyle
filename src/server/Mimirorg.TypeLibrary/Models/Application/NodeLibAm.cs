@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
+using TypeScriptBuilder;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
@@ -12,16 +13,16 @@ namespace Mimirorg.TypeLibrary.Models.Application
     public class NodeLibAm// : IVersionObject<NodeLibAm>
     {
         [Required]
-        public string Name { get; set; }
+        public string Name { get; set; } //exception
 
         [Required]
-        public string RdsName { get; set; }
+        public string RdsName { get; set; } //exception
 
         [Required]
-        public string RdsCode { get; set; }
+        public string RdsCode { get; set; } //exception
 
         [Required]
-        public string PurposeName { get; set; } //minor
+        public string PurposeName { get; set; } //minor version increase
 
         [Required]
         public Aspect Aspect { get; set; }
@@ -29,19 +30,24 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public int CompanyId { get; set; } //minor
 
-        public ICollection<string> SimpleIdList { get; set; } //fjerning = exception, legg til = major
-        public ICollection<string> AttributeIdList { get; set; } //fjerning = exception, legg til = major
-        public ICollection<NodeTerminalLibAm> NodeTerminals { get; set; } //fjerning = exception, legg til = major
-        public ICollection<SelectedAttributePredefinedLibAm> SelectedAttributePredefined { get; set; } //fjerning = exception, legg til = major
+        public ICollection<string> SimpleIdList { get; set; } //removal = exception, add til = major version increase
+        public ICollection<string> AttributeIdList { get; set; } //removal = exception, add til = major version increase
+        public ICollection<NodeTerminalLibAm> NodeTerminals { get; set; } //removal = exception, add til = major version increase
+        public ICollection<SelectedAttributePredefinedLibAm> SelectedAttributePredefined { get; set; } //removal = exception, add til = major version increase
 
-        public string Description { get; set; } //minor
-        public string Symbol { get; set; } //minor
-        public string AttributeAspectIri { get; set; } //minor
-        public string Version { get; set; } = "1.0";
-        public string FirstVersionId { get; set; }
-        public ICollection<string> ContentReferences { get; set; } //minor
+        public string Description { get; set; } //minor version increase
+        public string Symbol { get; set; } //minor version increase
+        public string AttributeAspectIri { get; set; } //minor version increase
+        public ICollection<string> ContentReferences { get; set; } //minor version increase
         public string ParentId { get; set; } //exception
 
+        [TSExclude]
+        public string Version { get; set; } = "1.0";
+
+        [TSExclude]
+        public string FirstVersionId { get; set; }
+
+        [TSExclude]
         public string Id => $"{Name}-{RdsCode}-{Aspect}-{Version}".CreateMd5();
     }
 }

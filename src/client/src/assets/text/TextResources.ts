@@ -2,6 +2,12 @@ const TextResources = {
   // Global
   GLOBAL_APPLICATION_LOAD: "Loading application",
 
+  // Dialog
+  DIALOG_CLOSE: "Close dialog",
+
+  // Alert dialog
+  ALERT_DIALOG_CLOSE: "Cancel",
+
   // Forms
   FORMS_PLACEHOLDER_EMAIL: "you@organization.com",
   FORMS_PLACEHOLDER_PASSWORD: "**********",
@@ -41,6 +47,20 @@ const TextResources = {
   REGISTER_FINALIZE_MFA_DESCRIPTION:
     "Scan the QR code below in your authenticator app of choice. The code shown in the app can then be used during login.",
   REGISTER_FINALIZE_FINISH_LINK: "Finish registration",
+
+  // Search
+  SEARCH_TITLE: "Search",
+  SEARCH_PLACEHOLDER: "Search for types",
+  SEARCH_FILTER: "Filter",
+
+  // Item
+  ITEM_CLONE: "Clone",
+  ITEM_EDIT: "Edit",
+  ITEM_DELETE: "Delete",
+
+  // About
+  ABOUT_TITLE: "About",
+  ABOUT_PLACEHOLDER: "Select an item to view its properties",
 };
 
 export default TextResources;

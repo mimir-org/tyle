@@ -73,7 +73,7 @@ namespace TypeLibrary.Services.Services
 
             await _attributeRepository.CreateAttribute(attribute);
             var cm = _mapper.Map<AttributeLibCm>(attribute);
-            
+
             if (cm == null)
                 throw new MimirorgMappingException(nameof(AttributeLibDm), nameof(AttributeLibCm));
 

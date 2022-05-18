@@ -1,12 +1,15 @@
 {
-  "name": "typelibrary",
+  "name": "tyle",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@headlessui/react": "^1.5.0",
     "@microsoft/applicationinsights-web": "^2.8.0",
+    "@radix-ui/react-alert-dialog": "^0.1.7",
+    "@radix-ui/react-dialog": "^0.1.7",
     "@radix-ui/react-popover": "^0.1.6",
     "@radix-ui/react-tooltip": "^0.1.7",
+    "@radix-ui/react-visually-hidden": "^0.1.4",
+    "@styled-icons/heroicons-outline": "^10.36.0",
     "axios": "^0.26.1",
     "framer-motion": "^6.3.0",
     "lodash.merge": "^4.6.2",
@@ -65,6 +68,7 @@
     ]
   },
   "devDependencies": {
+    "@faker-js/faker": "^6.3.1",
     "@storybook/addon-actions": "^6.4.22",
     "@storybook/addon-essentials": "^6.4.22",
     "@storybook/addon-interactions": "^6.4.22",

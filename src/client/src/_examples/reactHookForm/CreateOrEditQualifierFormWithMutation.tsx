@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
 import { useValidationFromServer } from "../../hooks/useValidationFromServer";
-import { useCreateAttributeQualifier } from "../../data/queries/typeLibrary/queriesAttributeQualifier";
+import { useCreateAttributeQualifier } from "../../data/queries/tyle/queriesAttributeQualifier";
 import { getValidationStateFromServer } from "../../data/helpers/getValidationStateFromServer";
 import {
   AttributeQualifierLibAm,
   createEmptyAttributeQualifierLibAm,
-} from "../../models/typeLibrary/application/attributeQualifierLibAm";
+} from "../../models/tyle/application/attributeQualifierLibAm";
 
 interface Props {
   defaultValues?: AttributeQualifierLibAm;
@@ -44,9 +44,6 @@ export const CreateOrEditQualifierFormWithMutation = ({
 
         <input placeholder="enter description" {...register("description")} />
         <p>Error field: {errors.description && errors.description.message}</p>
-
-        <input type="date" {...register("created")} />
-        <p>Error field: {errors.created && errors.created.message}</p>
 
         <button>Submit</button>
       </form>

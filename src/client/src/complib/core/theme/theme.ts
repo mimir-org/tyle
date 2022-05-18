@@ -23,7 +23,7 @@ export const theme = {
   animation: animation,
 };
 
-export interface TypeLibraryTheme {
+export interface TyleTheme {
   border: BorderSystem;
   color: ColorSystem;
   typography: TypographySystem;
@@ -39,7 +39,7 @@ export interface TypeLibraryTheme {
  */
 declare module "styled-components" {
   export interface DefaultTheme {
-    typeLibrary: TypeLibraryTheme;
+    tyle: TyleTheme;
   }
 }
 

@@ -15,15 +15,15 @@ export const Header = () => {
       display={"flex"}
       alignItems={"center"}
       justifyContent={"space-between"}
-      py={theme.typeLibrary.spacing.small}
-      px={theme.typeLibrary.spacing.large}
+      py={theme.tyle.spacing.small}
+      px={theme.tyle.spacing.large}
       height={"60px"}
-      bgColor={theme.typeLibrary.color.primary.base}
-      color={theme.typeLibrary.color.primary.on}
-      boxShadow={theme.typeLibrary.shadow.small}
+      bgColor={theme.tyle.color.primary.base}
+      color={theme.tyle.color.primary.on}
+      boxShadow={theme.tyle.shadow.small}
       zIndex={10}
     >
-      <Logo name={"Type library"} icon={LibraryIcon} />
+      <Logo name={"Tyle"} icon={LibraryIcon} />
       {!isLoading && <User name={`${data?.firstName} ${data?.lastName}`} />}
     </Box>
   );

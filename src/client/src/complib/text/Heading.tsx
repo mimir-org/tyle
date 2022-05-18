@@ -1,10 +1,11 @@
 import styled from "styled-components/macro";
 import { ElementType } from "react";
 import { motion } from "framer-motion";
-import { Display, Palette, Polymorphic, TextVariant, Typography } from "../props";
-import { displayMixin, getTextRole, paletteMixin, typographyMixin } from "../mixins";
+import { Display, Palette, Polymorphic, Spacing, TextVariant, Typography } from "../props";
+import { displayMixin, getTextRole, paletteMixin, spacingMixin, typographyMixin } from "../mixins";
 
-type HeadingProps = Pick<Palette, "color"> &
+type HeadingProps = Spacing &
+  Pick<Palette, "color"> &
   Pick<Display, "whiteSpace" | "display"> &
   Pick<Typography, "font" | "fontSize" | "fontWeight"> &
   Polymorphic<ElementType> &
@@ -29,6 +30,7 @@ export const Heading = styled.h1<HeadingProps>`
   ${typographyMixin};
   ${paletteMixin};
   ${displayMixin};
+  ${spacingMixin};
 
   ${({ variant }) => getTextRole(variant)}};
 

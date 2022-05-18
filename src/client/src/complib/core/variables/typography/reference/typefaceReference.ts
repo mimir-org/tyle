@@ -13,7 +13,7 @@ export const typefaceReference: TypefaceReference = {
   weights: {
     bold: 700,
     medium: 500,
-    normal: 300,
+    normal: 400,
     light: 300,
   }
 };

@@ -1,10 +1,11 @@
 import styled from "styled-components/macro";
 import { ElementType } from "react";
 import { motion } from "framer-motion";
-import { Display, Palette, Polymorphic, TextVariant, Typography } from "../props";
-import { displayMixin, getTextRole, paletteMixin, typographyMixin } from "../mixins";
+import { Display, Palette, Polymorphic, Spacing, TextVariant, Typography } from "../props";
+import { displayMixin, getTextRole, paletteMixin, spacingMixin, typographyMixin } from "../mixins";
 
-type TextProps = Pick<Palette, "color"> &
+type TextProps = Spacing &
+  Pick<Palette, "color"> &
   Pick<Display, "whiteSpace" | "display"> &
   Pick<Typography, "font" | "fontSize" | "fontWeight"> &
   Polymorphic<ElementType> &
@@ -29,6 +30,7 @@ export const Text = styled.p<TextProps>`
   ${typographyMixin};
   ${paletteMixin};
   ${displayMixin};
+  ${spacingMixin};
 
   ${({ variant }) => getTextRole(variant)}};
 

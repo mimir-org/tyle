@@ -2,23 +2,35 @@ import { ButtonContainer, ButtonContainerProps } from "./Button.styled";
 import { Text } from "../text";
 import { VisuallyHidden } from "../accessibility";
 import { Icon } from "../media";
-import { forwardRef } from "react";
+import { forwardRef, isValidElement, ReactElement, ReactNode } from "react";
 
-interface ButtonProps extends ButtonContainerProps {
-  children: string;
-  leftIcon?: string;
-  rightIcon?: string;
+type ButtonProps = ButtonContainerProps & {
+  children: ReactNode;
+  icon?: string | ReactElement;
+  iconPlacement?: "left" | "right";
   iconOnly?: boolean;
-}
+};
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, leftIcon, rightIcon, iconOnly, ...delegated }, ref) => (
-    <ButtonContainer ref={ref} {...delegated}>
-      {leftIcon && <Icon size={18} src={leftIcon} alt="" />}
-      {iconOnly ? <VisuallyHidden>{children}</VisuallyHidden> : <Text variant={"label-large"}>{children}</Text>}
-      {rightIcon && <Icon size={18} src={rightIcon} alt="" />}
-    </ButtonContainer>
-  )
+  ({ children, icon, iconPlacement, iconOnly, ...delegated }, ref) => {
+    const IconComponent = () => (isValidElement(icon) ? icon : <Icon src={icon} alt="" />);
+
+    return (
+      <ButtonContainer ref={ref} iconPlacement={iconPlacement} iconOnly={iconOnly} {...delegated}>
+        {icon && iconOnly ? (
+          <VisuallyHidden>{children}</VisuallyHidden>
+        ) : (
+          <Text as={"span"} variant={"title-small"}>
+            {children}
+          </Text>
+        )}
+        {icon && <IconComponent />}
+      </ButtonContainer>
+    );
+  }
 );
 
-Button.displayName = "ButtonWF";
+Button.displayName = "Button";
+Button.defaultProps = {
+  iconPlacement: "right",
+};

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
-using Newtonsoft.Json;
+using TypeScriptBuilder;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
@@ -31,11 +31,14 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public ICollection<string> AttributeIdList { get; set; }
 
         public string Description { get; set; }
+
+        [TSExclude]
         public string Version { get; set; } = "1.0";
+
         public ICollection<string> ContentReferences { get; set; }
         public string ParentId { get; set; }
 
-        [JsonIgnore]
+        [TSExclude]
         public string Id => $"{Name}-{RdsCode}-{Aspect}-{Version}".CreateMd5();
     }
 }

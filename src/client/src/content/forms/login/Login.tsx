@@ -65,14 +65,14 @@ export const Login = () => {
             />
           </FormField>
 
-          <MotionText color={theme.typeLibrary.color.surface.variant.on} layout={"position"} as={"i"}>
+          <MotionText color={theme.tyle.color.surface.variant.on} layout={"position"} as={"i"}>
             {TextResources.FORMS_REQUIRED_DESCRIPTION}
           </MotionText>
         </FormFieldset>
 
-        <MotionFlexbox layout flexDirection={"column"} gap={theme.typeLibrary.spacing.large}>
+        <MotionFlexbox layout flexDirection={"column"} gap={theme.tyle.spacing.large}>
           <Button>{TextResources.LOGIN_TITLE}</Button>
-          <Text color={theme.typeLibrary.color.surface.variant.on}>
+          <Text color={theme.tyle.color.surface.variant.on}>
             {TextResources.LOGIN_NOT_REGISTERED} <Link to="/register">{TextResources.LOGIN_REGISTER_LINK}</Link>
           </Text>
         </MotionFlexbox>

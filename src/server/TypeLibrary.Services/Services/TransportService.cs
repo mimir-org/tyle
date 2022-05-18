@@ -133,7 +133,7 @@ namespace TypeLibrary.Services.Services
             {
                 transportLibDm.RdsName = allRds.FirstOrDefault(x => x.Id == transportLibDm.RdsCode)?.Name;
                 transportLibDm.PurposeName = allPurposes.FirstOrDefault(x => x.Id == transportLibDm.PurposeName)?.Name;
-                
+
                 _attributeRepository.Attach(transportLibDm.Attributes, EntityState.Unchanged);
 
                 transportLibDm.CreatedBy = createdBySystem ? _applicationSettings.System : transportLibDm.CreatedBy;
@@ -166,7 +166,7 @@ namespace TypeLibrary.Services.Services
             if (existingDm?.Id == null)
                 throw new MimirorgNotFoundException($"Transport with id {id} does not exist.");
 
-            if(existingDm.CreatedBy == _applicationSettings.System)
+            if (existingDm.CreatedBy == _applicationSettings.System)
                 throw new MimirorgBadRequestException($"The transport with id {id} is created by the system and can not be updated.");
 
             var created = await CreateTransport(dataAm);

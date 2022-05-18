@@ -51,6 +51,8 @@ namespace TypeLibrary.Services.Services
             if (data.Deleted)
                 throw new MimirorgBadRequestException($"The item with id {id} is marked as deleted in the database.");
 
+
+
             var nodeLibCm = _mapper.Map<NodeLibCm>(data);
 
             if (nodeLibCm == null)
@@ -93,6 +95,9 @@ namespace TypeLibrary.Services.Services
 
             var nodeLibDm = _mapper.Map<NodeLibDm>(dataAm);
 
+            if (!double.TryParse(nodeLibDm.Version, out _))
+                throw new MimirorgBadRequestException($"Error when parsing version value '{dataAm.Version}' to double.");
+
             if (nodeLibDm == null)
                 throw new MimirorgMappingException("NodeLibAm", "NodeLibDm");
 
@@ -124,30 +129,41 @@ namespace TypeLibrary.Services.Services
             if (dataAm == null)
                 throw new MimirorgBadRequestException("Can't update a node when dataAm is null.");
 
-            var existingDm = await _nodeRepository.FindNode(dataAm.Id).FirstOrDefaultAsync();
+            var nodeToUpdate = await _nodeRepository.FindNode(dataAm.Id).FirstOrDefaultAsync();
 
-            if (existingDm?.Id == null)
+            if (nodeToUpdate?.Id == null)
                 throw new MimirorgNotFoundException($"Node with id {id} does not exist, update is not possible.");
 
-            if (existingDm.CreatedBy == _applicationSettings.System)
+            if (nodeToUpdate.CreatedBy == _applicationSettings.System)
                 throw new MimirorgBadRequestException($"The node with id {id} is created by the system and can not be updated.");
 
-            if (existingDm.Deleted)
+            if (nodeToUpdate.Deleted)
                 throw new MimirorgBadRequestException($"The node with id {id} is deleted and can not be updated.");
+            
+            var latestNodeDm = GetLatestNodeVersion(nodeToUpdate.FirstVersionId);
 
-            var existingDmVersions =  _nodeRepository.GetAllNodes()
-                .Where(x => x.FirstVersionId == existingDm.FirstVersionId && !x.Deleted).ToList()
-                .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList();
+            var latestNodeVersion = double.Parse(latestNodeDm.Version);
+            var nodeToUpdateVersion = double.Parse(nodeToUpdate.Version);
 
-            var latestExistingDmVersion = existingDmVersions[^1];
+            if (latestNodeVersion > nodeToUpdateVersion)
+                throw new MimirorgBadRequestException($"Not allowed to update node with id {nodeToUpdate.Id} and version {nodeToUpdateVersion}. Latest version is node with id {latestNodeDm.Id} and version {latestNodeVersion}");
 
-            if (double.Parse(latestExistingDmVersion.Version, CultureInfo.InvariantCulture) < double.Parse(existingDm.Version, CultureInfo.InvariantCulture))
-                throw new MimirorgBadRequestException($"Not allowed to update version {existingDm.Version} since latest version is {latestExistingDmVersion.Version}");
-             
-            dataAm.Version = IncrementNodeVersion(latestExistingDmVersion, dataAm);
-            dataAm.FirstVersionId = latestExistingDmVersion.FirstVersionId;
+            dataAm.Version = IncrementNodeVersion(latestNodeDm, dataAm);
+            dataAm.FirstVersionId = latestNodeDm.FirstVersionId;
             
             return await CreateNode(dataAm);
+        }
+
+        private NodeLibDm GetLatestNodeVersion(string firstVersionId)
+        {
+            var existingDmVersions = _nodeRepository.GetAllNodes()
+                .Where(x => x.FirstVersionId == firstVersionId && !x.Deleted).ToList()
+                .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList();
+
+            if(!existingDmVersions.Any())
+                throw new MimirorgBadRequestException($"No nodes with 'FirstVersionId' {firstVersionId} found.");
+
+            return existingDmVersions[^1];
         }
         
         public async Task<bool> DeleteNode(string id)

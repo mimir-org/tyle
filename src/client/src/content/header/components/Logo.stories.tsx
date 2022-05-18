@@ -7,4 +7,4 @@ export default {
   component: Logo,
 } as ComponentMeta<typeof Logo>;
 
-export const Default = () => <Logo name={"Type library"} icon={LibraryIcon} />;
+export const Default = () => <Logo name={"Logo name"} icon={LibraryIcon} />;
