@@ -75,23 +75,18 @@ namespace TypeLibrary.Services.Services
             if (dataAm == null)
                 throw new MimirorgBadRequestException("Data object can not be null.");
 
-            var dm = await _transportRepository.GetAsync(dataAm.Id);
+            var existing = await _transportRepository.GetAsync(dataAm.Id);
 
-            if (dm != null)
+            if (existing != null)
             {
-                var errorText = $"Transport '{dm.Name}' with RdsCode '{dm.RdsCode}', Aspect '{dm.Aspect}' and version '{dm.Version}' already exist in db";
+                var errorText = $"Transport '{existing.Name}' with RdsCode '{existing.RdsCode}', Aspect '{existing.Aspect}' and version '{existing.Version}' already exist in db";
 
-                throw dm.Deleted switch
+                throw existing.Deleted switch
                 {
                     false => new MimirorgBadRequestException(errorText),
                     true => new MimirorgBadRequestException(errorText + " as deleted")
                 };
             }
-
-            var existingTransport = await _transportRepository.GetAsync(dataAm.Id);
-
-            if (existingTransport != null)
-                throw new MimirorgBadRequestException($"There is already registered a transport with name: {dataAm.Name} with version: {dataAm.Version}");
 
             var transportLibDm = _mapper.Map<TransportLibDm>(dataAm);
 
@@ -162,6 +157,9 @@ namespace TypeLibrary.Services.Services
 
             if (dataAm == null)
                 throw new MimirorgBadRequestException("Can't update a transport when dataAm is null.");
+
+            if (id == dataAm.Id)
+                throw new MimirorgBadRequestException("Not allowed to update: Name, RdsCode or Aspect.");
 
             var existingDm = await _transportRepository.GetAsync(id);
 

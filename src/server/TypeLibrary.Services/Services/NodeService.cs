@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -76,13 +78,13 @@ namespace TypeLibrary.Services.Services
             if (dataAm == null)
                 throw new MimirorgBadRequestException("Data object can not be null.");
 
-            var dm = await _nodeRepository.GetAsync(dataAm.Id);
+            var existing = await _nodeRepository.FindNode(dataAm.Id).FirstOrDefaultAsync();
 
-            if (dm != null)
+            if (existing != null)
             {
-                var errorText = $"Node '{dm.Name}' with RdsCode '{dm.RdsCode}', Aspect '{dm.Aspect}' and version '{dm.Version}' already exist in db";
+                var errorText = $"Node '{existing.Name}' with RdsCode '{existing.RdsCode}', Aspect '{existing.Aspect}' and version '{existing.Version}' already exist in db";
 
-                throw dm.Deleted switch
+                throw existing.Deleted switch
                 {
                     false => new MimirorgBadRequestException(errorText),
                     true => new MimirorgBadRequestException(errorText + " as deleted")
@@ -114,8 +116,6 @@ namespace TypeLibrary.Services.Services
             return await GetNode(nodeLibDm.Id);
         }
 
-        //TODO: This is (temporary) a create/delete method to maintain compatibility with Mimir TypeEditor.
-        //TODO: This method need to be rewritten as a proper update method with versioning logic.
         public async Task<NodeLibCm> UpdateNode(NodeLibAm dataAm, string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -124,22 +124,32 @@ namespace TypeLibrary.Services.Services
             if (dataAm == null)
                 throw new MimirorgBadRequestException("Can't update a node when dataAm is null.");
 
-            var existingDm = await _nodeRepository.GetAsync(id);
+            var existingDm = await _nodeRepository.FindNode(dataAm.Id).FirstOrDefaultAsync();
 
             if (existingDm?.Id == null)
-                throw new MimirorgNotFoundException($"Node with id {id} does not exist.");
+                throw new MimirorgNotFoundException($"Node with id {id} does not exist, update is not possible.");
 
             if (existingDm.CreatedBy == _applicationSettings.System)
                 throw new MimirorgBadRequestException($"The node with id {id} is created by the system and can not be updated.");
 
-            var created = await CreateNode(dataAm);
+            if (existingDm.Deleted)
+                throw new MimirorgBadRequestException($"The node with id {id} is deleted and can not be updated.");
 
-            if (created?.Id != null)
-                throw new MimirorgBadRequestException($"Unable to update node with id {id}");
+            var existingDmVersions =  _nodeRepository.GetAllNodes()
+                .Where(x => x.FirstVersionId == existingDm.FirstVersionId && !x.Deleted).ToList()
+                .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList();
 
-            return await DeleteNode(id) ? created : throw new MimirorgBadRequestException($"Unable to delete node with id {id}");
+            var latestExistingDmVersion = existingDmVersions[^1];
+
+            if (double.Parse(latestExistingDmVersion.Version, CultureInfo.InvariantCulture) < double.Parse(existingDm.Version, CultureInfo.InvariantCulture))
+                throw new MimirorgBadRequestException($"Not allowed to update version {existingDm.Version} since latest version is {latestExistingDmVersion.Version}");
+             
+            dataAm.Version = IncrementNodeVersion(latestExistingDmVersion, dataAm);
+            dataAm.FirstVersionId = latestExistingDmVersion.FirstVersionId;
+            
+            return await CreateNode(dataAm);
         }
-
+        
         public async Task<bool> DeleteNode(string id)
         {
             var dm = await _nodeRepository.GetAsync(id);
@@ -164,5 +174,168 @@ namespace TypeLibrary.Services.Services
             _simpleRepository?.Context?.ChangeTracker.Clear();
             _purposeRepository?.Context?.ChangeTracker.Clear();
         }
+
+        #region Private
+
+        // ReSharper disable once ReplaceWithSingleAssignment.False
+        // ReSharper disable once ConvertIfToOrExpression
+        private static string IncrementNodeVersion(NodeLibDm existing, NodeLibAm updated)
+        {
+            var major = false;
+            var minor = false;
+
+            if (existing.Name != updated.Name)
+                throw new MimirorgBadRequestException("You cannot change existing name when updating.");
+
+            if (existing.RdsCode != updated.RdsCode)
+                throw new MimirorgBadRequestException("You cannot change existing RDS code when updating.");
+
+            if (existing.RdsName != updated.RdsName)
+                throw new MimirorgBadRequestException("You cannot change existing RDS code when updating.");
+
+            if (existing.Aspect != updated.Aspect)
+                throw new MimirorgBadRequestException("You cannot change existing Aspect when updating.");
+
+            //PurposeName
+            if (existing.PurposeName != updated.PurposeName)
+                minor = true;
+
+            //CompanyId
+            if (existing.CompanyId != updated.CompanyId)
+                minor = true;
+
+            //Simple
+            var simpleIdDmList = existing.Simples?.Select(x => x.Id).ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+            var simpleIdAmList = updated.SimpleIdList?.ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+
+            if (simpleIdAmList?.Count < simpleIdDmList?.Count)
+                throw new MimirorgBadRequestException("You cannot remove existing simple when updating, only add.");
+
+            if (simpleIdAmList?.Count >= simpleIdDmList?.Count)
+            {
+                if (simpleIdAmList.Where((t, i) => t != simpleIdDmList[i]).Any())
+                    throw new MimirorgBadRequestException("You cannot change existing simple when updating, only add.");
+            }
+
+            if (simpleIdAmList?.Count > simpleIdDmList?.Count)
+                major = true;
+
+            //Attribute
+            var attributeIdDmList = existing.Attributes?.Select(x => x.Id).ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+            var attributeIdAmList = updated.AttributeIdList?.ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+
+            if (attributeIdAmList?.Count < attributeIdDmList?.Count)
+                throw new MimirorgBadRequestException("You cannot remove existing attributes when updating, only add.");
+
+            if (attributeIdAmList?.Count >= attributeIdDmList?.Count)
+            {
+                if (attributeIdAmList.Where((t, i) => t != attributeIdDmList[i]).Any())
+                    throw new MimirorgBadRequestException("You cannot change existing attributes when updating, only add.");
+            }
+
+            if (attributeIdAmList?.Count > attributeIdDmList?.Count)
+                major = true;
+
+            //NodeTerminals
+            var nodeTerminalsAmList = updated.NodeTerminals?.ToList().OrderBy(x => x?.TerminalId, StringComparer.InvariantCulture).ToList();
+            var nodeTerminalsDmList = existing.NodeTerminals?.ToList().OrderBy(x => x?.TerminalId, StringComparer.InvariantCulture).ToList();
+
+            if (nodeTerminalsAmList?.Count < nodeTerminalsDmList?.Count)
+                throw new MimirorgBadRequestException("You cannot remove existing node terminals when updating, only add.");
+
+            if (nodeTerminalsAmList?.Count >= nodeTerminalsDmList?.Count)
+            {
+                for (var i = 0; i < nodeTerminalsDmList.Count; i++)
+                {
+                    if (nodeTerminalsAmList[i].TerminalId != nodeTerminalsDmList[i].TerminalId)
+                        throw new MimirorgBadRequestException("You cannot change existing node terminal's terminal id when updating, only add.");
+
+                    if (nodeTerminalsAmList[i].Number != nodeTerminalsDmList[i].Number)
+                        throw new MimirorgBadRequestException("You cannot change existing node terminal's number when updating, only add.");
+
+                    if (nodeTerminalsAmList[i].ConnectorDirection != nodeTerminalsDmList[i].ConnectorDirection)
+                        throw new MimirorgBadRequestException("You cannot change existing node terminal's direction when updating, only add.");
+                }
+            }
+
+            if (nodeTerminalsAmList?.Count > nodeTerminalsDmList?.Count)
+                major = true;
+
+            //SelectedAttributePredefined
+            var selectedAttributePredefinedLibAmList = updated.SelectedAttributePredefined?.ToList().OrderBy(x => x.Key, StringComparer.InvariantCulture).ToList();
+            var selectedAttributePredefinedLibDmList = existing.SelectedAttributePredefined?.ToList().OrderBy(x => x.Key, StringComparer.InvariantCulture).ToList();
+
+            if (selectedAttributePredefinedLibAmList?.Count < selectedAttributePredefinedLibDmList?.Count)
+                throw new MimirorgBadRequestException("You cannot remove existing predefined selected attributes when updating, only add.");
+
+            if (selectedAttributePredefinedLibAmList?.Count >= selectedAttributePredefinedLibDmList?.Count)
+            {
+                for (var i = 0; i < selectedAttributePredefinedLibDmList.Count; i++)
+                {
+                    if (selectedAttributePredefinedLibAmList[i].Key != selectedAttributePredefinedLibDmList[i].Key)
+                        throw new MimirorgBadRequestException("You cannot change existing predefined selected attribute key when updating, only add.");
+
+                    if (selectedAttributePredefinedLibAmList[i].IsMultiSelect != selectedAttributePredefinedLibDmList[i].IsMultiSelect)
+                        throw new MimirorgBadRequestException("You cannot change existing multi select value for predefined selected attributes when updating, only add.");
+
+                    if (selectedAttributePredefinedLibAmList[i].Values.Count != selectedAttributePredefinedLibDmList[i].Values.Count)
+                        throw new MimirorgBadRequestException("You cannot add/remove existing values (dictionary) for predefined selected attributes when updating.");
+
+                    if (!selectedAttributePredefinedLibAmList[i].Values.ContentEquals(selectedAttributePredefinedLibDmList[i].Values))
+                        throw new MimirorgBadRequestException("You cannot add/remove/change existing key values (dictionary) for predefined selected attributes when updating.");
+
+                    var contentReferencesAm = selectedAttributePredefinedLibAmList[i]?.ContentReferences?.ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+                    var contentReferencesDm = selectedAttributePredefinedLibDmList[i]?.ContentReferences?.ConvertToArray().ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+
+                    if (contentReferencesAm == null && contentReferencesDm == null)
+                        continue;
+
+                    if (contentReferencesAm?.Count != contentReferencesDm?.Count)
+                        throw new MimirorgBadRequestException("You cannot add/remove existing content references for predefined selected attributes when updating.");
+
+                    if (contentReferencesAm.Where((t, j) => t != contentReferencesDm[j]).Any())
+                        throw new MimirorgBadRequestException("You cannot change existing content references for predefined selected attributes when updating.");
+                }
+            }
+
+            if (selectedAttributePredefinedLibAmList?.Count > selectedAttributePredefinedLibDmList?.Count)
+                major = true;
+
+            //Description
+            if (existing.Description != updated.Description)
+                minor = true;
+
+            //Symbol
+            if (existing.Symbol != updated.Symbol)
+                minor = true;
+
+            //AttributeAspectIri
+            if (existing.AttributeAspectIri != updated.AttributeAspectIri)
+                minor = true;
+
+            //ContentReferences (Node)
+            var nodeContentRefsAm = updated.ContentReferences?.ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+            var nodeContentRefsDm = existing.ContentReferences?.ConvertToArray().ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+
+            if (nodeContentRefsAm?.Count != nodeContentRefsDm?.Count)
+                minor = true;
+
+            if (nodeContentRefsAm != null && nodeContentRefsDm != null && nodeContentRefsAm.Count == nodeContentRefsDm.Count)
+            {
+                if (nodeContentRefsDm.Where((t, i) => t != nodeContentRefsAm[i]).Any())
+                    minor = true;
+            }
+
+            //ParentId
+            if (existing.ParentId != updated.ParentId)
+                throw new MimirorgBadRequestException("You cannot change existing node parent id when updating.");
+
+            if (!major && !minor)
+                throw new MimirorgBadRequestException("Existing node and updated node is identical");
+
+            return major ? existing.Version.IncrementMajorVersion() : existing.Version.IncrementMinorVersion();
+        }
+
+        #endregion Private
     }
 }

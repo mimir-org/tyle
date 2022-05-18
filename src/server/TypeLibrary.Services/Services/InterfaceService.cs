@@ -9,7 +9,6 @@ using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
-using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
@@ -75,23 +74,18 @@ namespace TypeLibrary.Services.Services
             if (dataAm == null)
                 throw new MimirorgBadRequestException("Data object can not be null.");
 
-            var dm = await _interfaceRepository.GetAsync(dataAm.Id);
+            var existing = await _interfaceRepository.GetAsync(dataAm.Id);
 
-            if (dm != null)
+            if (existing != null)
             {
-                var errorText = $"Node '{dm.Name}', with RdsCode '{dm.RdsCode}', Aspect '{dm.Aspect}' and version '{dm.Version}' already exist in db";
+                var errorText = $"Node '{existing.Name}', with RdsCode '{existing.RdsCode}', Aspect '{existing.Aspect}' and version '{existing.Version}' already exist in db";
 
-                throw dm.Deleted switch
+                throw existing.Deleted switch
                 {
                     false => new MimirorgBadRequestException(errorText),
                     true => new MimirorgBadRequestException(errorText + " as deleted")
                 };
             }
-
-            var existingInterface = await _interfaceRepository.GetAsync(dataAm.Id);
-
-            if (existingInterface != null)
-                throw new MimirorgBadRequestException($"There is already registered an interface with name: {existingInterface.Name} with version: {existingInterface.Version}");
 
             var interfaceLibDm = _mapper.Map<InterfaceLibDm>(dataAm);
 
@@ -126,6 +120,9 @@ namespace TypeLibrary.Services.Services
 
             if (dataAm == null)
                 throw new MimirorgBadRequestException("Can't update an interface when dataAm is null.");
+
+            if (id == dataAm.Id)
+                throw new MimirorgBadRequestException("Not allowed to update: Name, RdsCode or Aspect.");
 
             var existingDm = await _interfaceRepository.GetAsync(id);
 

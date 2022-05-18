@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mimirorg.Authentication.Contracts;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -25,11 +27,13 @@ namespace TypeLibrary.Core.Controllers.V1
     {
         private readonly ILogger<LibraryNodeController> _logger;
         private readonly INodeService _nodeService;
+        private readonly ITimedHookService _hookService;
 
-        public LibraryNodeController(ILogger<LibraryNodeController> logger, INodeService nodeService)
+        public LibraryNodeController(ILogger<LibraryNodeController> logger, INodeService nodeService, ITimedHookService hookService)
         {
             _logger = logger;
             _nodeService = nodeService;
+            _hookService = hookService;
         }
 
         /// <summary>
@@ -112,6 +116,7 @@ namespace TypeLibrary.Core.Controllers.V1
                     return BadRequest(ModelState);
 
                 var cm = await _nodeService.CreateNode(node);
+                _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
                 return Ok(cm);
             }
             catch (MimirorgBadRequestException e)
@@ -152,7 +157,18 @@ namespace TypeLibrary.Core.Controllers.V1
             try
             {
                 var data = await _nodeService.UpdateNode(dataAm, id);
+                _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
                 return Ok(data);
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                foreach (var error in e.Errors().ToList())
+                {
+                    ModelState.Remove(error.Key);
+                    ModelState.TryAddModelError(error.Key, error.Error);
+                }
+
+                return BadRequest(ModelState);
             }
             catch (Exception e)
             {
@@ -177,6 +193,7 @@ namespace TypeLibrary.Core.Controllers.V1
             try
             {
                 var data = await _nodeService.DeleteNode(id);
+                _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
                 return Ok(data);
             }
             catch (Exception e)
