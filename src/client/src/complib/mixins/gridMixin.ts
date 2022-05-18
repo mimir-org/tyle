@@ -14,4 +14,13 @@ export const gridMixin = css<Grid>`
   grid-template-rows: ${(props) => props.gridTemplateRows};
   grid-template-areas: ${(props) => props.gridTemplateAreas};
   grid-area: ${(props) => props.gridArea};
+  justify-items: ${(props) => props.alignItems};
+  align-items: ${(props) => props.alignItems};
+  place-items: ${(props) => props.placeItems};
+  justify-content: ${(props) => props.justifyContent};
+  align-content: ${(props) => props.alignContent};
+  place-content: ${(props) => props.placeContent};
+  justify-self: ${(props) => props.justifySelf};
+  align-self: ${(props) => props.alignSelf};
+  place-self: ${(props) => props.placeSelf};
 `;
