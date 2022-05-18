@@ -3,16 +3,16 @@ import { ElementType } from "react";
 import { motion } from "framer-motion";
 import { Display, Palette, Polymorphic, Spacing, TextVariant, Typography } from "../props";
 import { displayMixin, getTextRole, paletteMixin, spacingMixin, typographyMixin } from "../mixins";
+import { Ellipsis } from "../props/ellipsis";
+import { ellipsisMixin } from "../mixins/ellipsisMixin";
 
 type HeadingProps = Spacing &
   Pick<Palette, "color"> &
   Pick<Display, "whiteSpace" | "display"> &
-  Pick<Typography, "font" | "fontSize" | "fontWeight"> &
+  Pick<Typography, "font" | "fontSize" | "fontWeight" | "textAlign" | "textTransform"> &
   Polymorphic<ElementType> &
-  TextVariant & {
-    useEllipsis?: boolean;
-    ellipsisMaxLines?: number;
-  };
+  TextVariant &
+  Ellipsis;
 
 /**
  * A polymorphic component for heading elements
@@ -31,17 +31,8 @@ export const Heading = styled.h1<HeadingProps>`
   ${paletteMixin};
   ${displayMixin};
   ${spacingMixin};
-
+  ${ellipsisMixin};
   ${({ variant }) => getTextRole(variant)}};
-
-  ${({ useEllipsis, ellipsisMaxLines }) =>
-    useEllipsis &&
-    `
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: ${ellipsisMaxLines};
-    overflow: hidden;
-  `}
 `;
 
 Heading.defaultProps = {
