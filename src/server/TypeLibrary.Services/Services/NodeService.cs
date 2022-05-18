@@ -51,8 +51,6 @@ namespace TypeLibrary.Services.Services
             if (data.Deleted)
                 throw new MimirorgBadRequestException($"The item with id {id} is marked as deleted in the database.");
 
-
-
             var nodeLibCm = _mapper.Map<NodeLibCm>(data);
 
             if (nodeLibCm == null)
@@ -95,8 +93,8 @@ namespace TypeLibrary.Services.Services
 
             var nodeLibDm = _mapper.Map<NodeLibDm>(dataAm);
 
-            if (!double.TryParse(nodeLibDm.Version, out _))
-                throw new MimirorgBadRequestException($"Error when parsing version value '{dataAm.Version}' to double.");
+            if (!double.TryParse(nodeLibDm.Version, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out _))
+                throw new MimirorgBadRequestException($"Error when parsing version value '{nodeLibDm.Version}' to double.");
 
             if (nodeLibDm == null)
                 throw new MimirorgMappingException("NodeLibAm", "NodeLibDm");
@@ -153,18 +151,6 @@ namespace TypeLibrary.Services.Services
             
             return await CreateNode(dataAm);
         }
-
-        private NodeLibDm GetLatestNodeVersion(string firstVersionId)
-        {
-            var existingDmVersions = _nodeRepository.GetAllNodes()
-                .Where(x => x.FirstVersionId == firstVersionId && !x.Deleted).ToList()
-                .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList();
-
-            if(!existingDmVersions.Any())
-                throw new MimirorgBadRequestException($"No nodes with 'FirstVersionId' {firstVersionId} found.");
-
-            return existingDmVersions[^1];
-        }
         
         public async Task<bool> DeleteNode(string id)
         {
@@ -192,6 +178,18 @@ namespace TypeLibrary.Services.Services
         }
 
         #region Private
+
+        private NodeLibDm GetLatestNodeVersion(string firstVersionId)
+        {
+            var existingDmVersions = _nodeRepository.GetAllNodes()
+                .Where(x => x.FirstVersionId == firstVersionId && !x.Deleted).ToList()
+                .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList();
+
+            if (!existingDmVersions.Any())
+                throw new MimirorgBadRequestException($"No nodes with 'FirstVersionId' {firstVersionId} found.");
+
+            return existingDmVersions[^1];
+        }
 
         // ReSharper disable once ReplaceWithSingleAssignment.False
         // ReSharper disable once ConvertIfToOrExpression

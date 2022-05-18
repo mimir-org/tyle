@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mimirorg.Authentication.Contracts;
+using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -24,11 +26,13 @@ namespace TypeLibrary.Core.Controllers.V1
     {
         private readonly ILogger<LibraryTransportController> _logger;
         private readonly ITransportService _transportService;
+        private readonly ITimedHookService _hookService;
 
-        public LibraryTransportController(ILogger<LibraryTransportController> logger, ITransportService transportService)
+        public LibraryTransportController(ILogger<LibraryTransportController> logger, ITransportService transportService, ITimedHookService hookService)
         {
             _logger = logger;
             _transportService = transportService;
+            _hookService = hookService;
         }
 
         /// <summary>
@@ -92,6 +96,7 @@ namespace TypeLibrary.Core.Controllers.V1
             try
             {
                 var data = await _transportService.CreateTransport(dataAm);
+                _hookService.HookQueue.Enqueue(CacheKey.Transport);
                 return Ok(data);
             }
             catch (Exception e)
@@ -116,6 +121,7 @@ namespace TypeLibrary.Core.Controllers.V1
             try
             {
                 var data = await _transportService.UpdateTransport(dataAm, id);
+                _hookService.HookQueue.Enqueue(CacheKey.Transport);
                 return Ok(data);
             }
             catch (Exception e)
@@ -140,6 +146,7 @@ namespace TypeLibrary.Core.Controllers.V1
             try
             {
                 var data = await _transportService.DeleteTransport(id);
+                _hookService.HookQueue.Enqueue(CacheKey.Transport);
                 return Ok(data);
             }
             catch (Exception e)

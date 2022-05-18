@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -89,30 +91,26 @@ namespace TypeLibrary.Services.Services
 
             var interfaceLibDm = _mapper.Map<InterfaceLibDm>(dataAm);
 
+            if (!double.TryParse(interfaceLibDm.Version, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out _))
+                throw new MimirorgBadRequestException($"Error when parsing version value '{interfaceLibDm.Version}' to double.");
+
             if (interfaceLibDm == null)
                 throw new MimirorgMappingException("InterfaceLibAm", "InterfaceLibDm");
 
-            interfaceLibDm.RdsName = _rdsRepository.FindBy(x => x.Id == interfaceLibDm.RdsCode)?.First()?.Name;
-            interfaceLibDm.PurposeName = _purposeRepository.FindBy(x => x.Id == interfaceLibDm.PurposeName)?.First()?.Name;
-
-            _attributeRepository.Attach(interfaceLibDm.Attributes, EntityState.Unchanged);
+            if (interfaceLibDm.Attributes != null && interfaceLibDm.Attributes.Any())
+                _attributeRepository.Attach(interfaceLibDm.Attributes, EntityState.Unchanged);
 
             await _interfaceRepository.CreateAsync(interfaceLibDm);
             await _interfaceRepository.SaveAsync();
 
-            _attributeRepository.Detach(interfaceLibDm.Attributes);
+            if (interfaceLibDm.Attributes != null && interfaceLibDm.Attributes.Any())
+                _attributeRepository.Detach(interfaceLibDm.Attributes);
+
             _interfaceRepository.Detach(interfaceLibDm);
 
-            var createdObject = _mapper.Map<InterfaceLibCm>(interfaceLibDm);
-
-            if (createdObject == null)
-                throw new MimirorgMappingException("InterfaceLibDm", "InterfaceLibCm");
-
-            return createdObject;
+            return await GetInterface(interfaceLibDm.Id);
         }
 
-        //TODO: This is (temporary) a create/delete method to maintain compatibility with Mimir TypeEditor.
-        //TODO: This method need to be rewritten as a proper update method with versioning logic.
         public async Task<InterfaceLibCm> UpdateInterface(InterfaceLibAm dataAm, string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -124,20 +122,29 @@ namespace TypeLibrary.Services.Services
             if (id == dataAm.Id)
                 throw new MimirorgBadRequestException("Not allowed to update: Name, RdsCode or Aspect.");
 
-            var existingDm = await _interfaceRepository.GetAsync(id);
+            var interfaceToUpdate = await _interfaceRepository.GetAsync(id);
 
-            if (existingDm?.Id == null)
+            if (interfaceToUpdate?.Id == null)
                 throw new MimirorgNotFoundException($"Interface with id {id} does not exist.");
 
-            if (existingDm.CreatedBy == _applicationSettings.System)
+            if (interfaceToUpdate.CreatedBy == _applicationSettings.System)
                 throw new MimirorgBadRequestException($"The interface with id {id} is created by the system and can not be updated.");
 
-            var created = await CreateInterface(dataAm);
+            if (interfaceToUpdate.Deleted)
+                throw new MimirorgBadRequestException($"The transport with id {id} is deleted and can not be updated.");
 
-            if (created?.Id != null)
-                throw new MimirorgBadRequestException($"Unable to update interface with id {id}");
+            var latestInterfaceDm = GetLatestInterfaceVersion(interfaceToUpdate.FirstVersionId);
 
-            return await DeleteInterface(id) ? created : throw new MimirorgBadRequestException($"Unable to delete interface with id {id}");
+            var latestInterfaceVersion = double.Parse(latestInterfaceDm.Version);
+            var interfaceToUpdateVersion = double.Parse(interfaceToUpdate.Version);
+
+            if (latestInterfaceVersion > interfaceToUpdateVersion)
+                throw new MimirorgBadRequestException($"Not allowed to update interface with id {interfaceToUpdate.Id} and version {interfaceToUpdateVersion}. Latest version is interface with id {latestInterfaceDm.Id} and version {latestInterfaceVersion}");
+
+            dataAm.Version = IncrementInterfaceVersion(latestInterfaceDm, dataAm);
+            dataAm.FirstVersionId = latestInterfaceDm.FirstVersionId;
+
+            return await CreateInterface(dataAm);
         }
 
         public async Task<bool> DeleteInterface(string id)
@@ -163,5 +170,95 @@ namespace TypeLibrary.Services.Services
             _attributeRepository?.Context?.ChangeTracker.Clear();
             _purposeRepository?.Context?.ChangeTracker.Clear();
         }
+
+        #region Private
+
+        private InterfaceLibDm GetLatestInterfaceVersion(string firstVersionId)
+        {
+            var existingDmVersions = _interfaceRepository.GetAllInterfaces()
+                .Where(x => x.FirstVersionId == firstVersionId && !x.Deleted).ToList()
+                .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList();
+
+            if (!existingDmVersions.Any())
+                throw new MimirorgBadRequestException($"No interfaces with 'FirstVersionId' {firstVersionId} found.");
+
+            return existingDmVersions[^1];
+        }
+
+        // ReSharper disable once ReplaceWithSingleAssignment.False
+        // ReSharper disable once ConvertIfToOrExpression
+        private static string IncrementInterfaceVersion(InterfaceLibDm existing, InterfaceLibAm updated)
+        {
+            var major = false;
+            var minor = false;
+
+            if (existing.Name != updated.Name)
+                throw new MimirorgBadRequestException("You cannot change existing name when updating.");
+
+            if (existing.RdsCode != updated.RdsCode)
+                throw new MimirorgBadRequestException("You cannot change existing RDS code when updating.");
+
+            if (existing.RdsName != updated.RdsName)
+                throw new MimirorgBadRequestException("You cannot change existing RDS code when updating.");
+
+            if (existing.Aspect != updated.Aspect)
+                throw new MimirorgBadRequestException("You cannot change existing Aspect when updating.");
+
+            //PurposeName
+            if (existing.PurposeName != updated.PurposeName)
+                minor = true;
+
+            //CompanyId
+            if (existing.CompanyId != updated.CompanyId)
+                minor = true;
+
+            //TerminalId
+            if (existing.TerminalId != updated.TerminalId)
+                throw new MimirorgBadRequestException("You cannot change existing terminal id when updating.");
+
+            //Attribute
+            var attributeIdDmList = existing.Attributes?.Select(x => x.Id).ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+            var attributeIdAmList = updated.AttributeIdList?.ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+
+            if (attributeIdAmList?.Count < attributeIdDmList?.Count)
+                throw new MimirorgBadRequestException("You cannot remove existing attributes when updating, only add.");
+
+            if (attributeIdAmList?.Count >= attributeIdDmList?.Count)
+            {
+                if (attributeIdAmList.Where((t, i) => t != attributeIdDmList[i]).Any())
+                    throw new MimirorgBadRequestException("You cannot change existing attributes when updating, only add.");
+            }
+
+            if (attributeIdAmList?.Count > attributeIdDmList?.Count)
+                major = true;
+
+            //Description
+            if (existing.Description != updated.Description)
+                minor = true;
+
+            //ContentReferences
+            var contentRefsAm = updated.ContentReferences?.ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+            var contentRefsDm = existing.ContentReferences?.ConvertToArray().ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+
+            if (contentRefsAm?.Count != contentRefsDm?.Count)
+                minor = true;
+
+            if (contentRefsAm != null && contentRefsDm != null && contentRefsAm.Count == contentRefsDm.Count)
+            {
+                if (contentRefsDm.Where((t, i) => t != contentRefsAm[i]).Any())
+                    minor = true;
+            }
+
+            //ParentId
+            if (existing.ParentId != updated.ParentId)
+                throw new MimirorgBadRequestException("You cannot change existing parent id when updating.");
+
+            if (!major && !minor)
+                throw new MimirorgBadRequestException("Existing interface and updated interface is identical");
+
+            return major ? existing.Version.IncrementMajorVersion() : existing.Version.IncrementMinorVersion();
+        }
+
+        #endregion Private
     }
 }

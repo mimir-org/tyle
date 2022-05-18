@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mimirorg.Authentication.Contracts;
+using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -24,11 +26,13 @@ namespace TypeLibrary.Core.Controllers.V1
     {
         private readonly ILogger<LibraryInterfaceController> _logger;
         private readonly IInterfaceService _interfaceService;
+        private readonly ITimedHookService _hookService;
 
-        public LibraryInterfaceController(ILogger<LibraryInterfaceController> logger, IInterfaceService interfaceService)
+        public LibraryInterfaceController(ILogger<LibraryInterfaceController> logger, IInterfaceService interfaceService, ITimedHookService hookService)
         {
             _logger = logger;
             _interfaceService = interfaceService;
+            _hookService = hookService;
         }
 
         /// <summary>
@@ -92,6 +96,7 @@ namespace TypeLibrary.Core.Controllers.V1
             try
             {
                 var data = await _interfaceService.CreateInterface(dataAm);
+                _hookService.HookQueue.Enqueue(CacheKey.Interface);
                 return Ok(data);
             }
             catch (Exception e)
@@ -116,6 +121,7 @@ namespace TypeLibrary.Core.Controllers.V1
             try
             {
                 var data = await _interfaceService.UpdateInterface(dataAm, id);
+                _hookService.HookQueue.Enqueue(CacheKey.Interface);
                 return Ok(data);
             }
             catch (Exception e)
@@ -141,6 +147,7 @@ namespace TypeLibrary.Core.Controllers.V1
             try
             {
                 var data = await _interfaceService.DeleteInterface(id);
+                _hookService.HookQueue.Enqueue(CacheKey.Interface);
                 return Ok(data);
             }
             catch (Exception e)

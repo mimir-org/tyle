@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -90,26 +91,24 @@ namespace TypeLibrary.Services.Services
 
             var transportLibDm = _mapper.Map<TransportLibDm>(dataAm);
 
+            if (!double.TryParse(transportLibDm.Version, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out _))
+                throw new MimirorgBadRequestException($"Error when parsing version value '{transportLibDm.Version}' to double.");
+
             if (transportLibDm == null)
                 throw new MimirorgMappingException("TransportLibAm", "TransportLibDm");
 
-            transportLibDm.RdsName = _rdsRepository.FindBy(x => x.Id == transportLibDm.RdsCode)?.First()?.Name;
-            transportLibDm.PurposeName = _purposeRepository.FindBy(x => x.Id == transportLibDm.PurposeName)?.First()?.Name;
-
-            _attributeRepository.Attach(transportLibDm.Attributes, EntityState.Unchanged);
+            if (transportLibDm.Attributes != null && transportLibDm.Attributes.Any())
+                _attributeRepository.Attach(transportLibDm.Attributes, EntityState.Unchanged);
 
             await _transportRepository.CreateAsync(transportLibDm);
             await _transportRepository.SaveAsync();
 
-            _attributeRepository.Detach(transportLibDm.Attributes);
+            if (transportLibDm.Attributes != null && transportLibDm.Attributes.Any())
+                _attributeRepository.Detach(transportLibDm.Attributes);
+
             _transportRepository.Detach(transportLibDm);
 
-            var createdObject = _mapper.Map<TransportLibCm>(transportLibDm);
-
-            if (createdObject == null)
-                throw new MimirorgMappingException("TransportLibDm", "TransportLibCm");
-
-            return createdObject;
+            return await GetTransport(transportLibDm.Id);
         }
 
         public async Task<IEnumerable<TransportLibCm>> CreateTransports(IEnumerable<TransportLibAm> transports, bool createdBySystem = false)
@@ -131,6 +130,9 @@ namespace TypeLibrary.Services.Services
 
             foreach (var transportLibDm in transportDmList)
             {
+                if (!double.TryParse(transportLibDm.Version, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out _))
+                    throw new MimirorgBadRequestException($"Error when parsing version value '{transportLibDm.Version}' to double.");
+
                 transportLibDm.RdsName = allRds.FirstOrDefault(x => x.Id == transportLibDm.RdsCode)?.Name;
                 transportLibDm.PurposeName = allPurposes.FirstOrDefault(x => x.Id == transportLibDm.PurposeName)?.Name;
 
@@ -148,8 +150,6 @@ namespace TypeLibrary.Services.Services
             return _mapper.Map<ICollection<TransportLibCm>>(transportDmList);
         }
 
-        //TODO: This is (temporary) a create/delete method to maintain compatibility with Mimir TypeEditor.
-        //TODO: This method need to be rewritten as a proper update method with versioning logic.
         public async Task<TransportLibCm> UpdateTransport(TransportLibAm dataAm, string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -158,23 +158,29 @@ namespace TypeLibrary.Services.Services
             if (dataAm == null)
                 throw new MimirorgBadRequestException("Can't update a transport when dataAm is null.");
 
-            if (id == dataAm.Id)
-                throw new MimirorgBadRequestException("Not allowed to update: Name, RdsCode or Aspect.");
+            var transportToUpdate = await _transportRepository.FindTransport(dataAm.Id).FirstOrDefaultAsync();
 
-            var existingDm = await _transportRepository.GetAsync(id);
+            if (transportToUpdate?.Id == null)
+                throw new MimirorgNotFoundException($"Transport with id {id} does not exist, update is not possible.");
 
-            if (existingDm?.Id == null)
-                throw new MimirorgNotFoundException($"Transport with id {id} does not exist.");
-
-            if (existingDm.CreatedBy == _applicationSettings.System)
+            if (transportToUpdate.CreatedBy == _applicationSettings.System)
                 throw new MimirorgBadRequestException($"The transport with id {id} is created by the system and can not be updated.");
 
-            var created = await CreateTransport(dataAm);
+            if (transportToUpdate.Deleted)
+                throw new MimirorgBadRequestException($"The transport with id {id} is deleted and can not be updated.");
 
-            if (created?.Id != null)
-                throw new MimirorgBadRequestException($"Unable to update transport with id {id}");
+            var latestTransportDm = GetLatestTransportVersion(transportToUpdate.FirstVersionId);
 
-            return await DeleteTransport(id) ? created : throw new MimirorgBadRequestException($"Unable to delete transport with id {id}");
+            var latestTransportVersion = double.Parse(latestTransportDm.Version);
+            var transportToUpdateVersion = double.Parse(transportToUpdate.Version);
+
+            if (latestTransportVersion > transportToUpdateVersion)
+                throw new MimirorgBadRequestException($"Not allowed to update transport with id {transportToUpdate.Id} and version {transportToUpdateVersion}. Latest version is transport with id {latestTransportDm.Id} and version {latestTransportVersion}");
+
+            dataAm.Version = IncrementTransportVersion(latestTransportDm, dataAm);
+            dataAm.FirstVersionId = latestTransportDm.FirstVersionId;
+
+            return await CreateTransport(dataAm);
         }
 
         public async Task<bool> DeleteTransport(string id)
@@ -200,5 +206,95 @@ namespace TypeLibrary.Services.Services
             _attributeRepository?.Context?.ChangeTracker.Clear();
             _purposeRepository?.Context?.ChangeTracker.Clear();
         }
+
+        #region Private
+
+        private TransportLibDm GetLatestTransportVersion(string firstVersionId)
+        {
+            var existingDmVersions = _transportRepository.GetAllTransports()
+                .Where(x => x.FirstVersionId == firstVersionId && !x.Deleted).ToList()
+                .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList();
+
+            if (!existingDmVersions.Any())
+                throw new MimirorgBadRequestException($"No nodes with 'FirstVersionId' {firstVersionId} found.");
+
+            return existingDmVersions[^1];
+        }
+
+        // ReSharper disable once ReplaceWithSingleAssignment.False
+        // ReSharper disable once ConvertIfToOrExpression
+        private static string IncrementTransportVersion(TransportLibDm existing, TransportLibAm updated)
+        {
+            var major = false;
+            var minor = false;
+
+            if (existing.Name != updated.Name)
+                throw new MimirorgBadRequestException("You cannot change existing name when updating.");
+
+            if (existing.RdsCode != updated.RdsCode)
+                throw new MimirorgBadRequestException("You cannot change existing RDS code when updating.");
+
+            if (existing.RdsName != updated.RdsName)
+                throw new MimirorgBadRequestException("You cannot change existing RDS code when updating.");
+
+            if (existing.Aspect != updated.Aspect)
+                throw new MimirorgBadRequestException("You cannot change existing Aspect when updating.");
+
+            //PurposeName
+            if (existing.PurposeName != updated.PurposeName)
+                minor = true;
+
+            //CompanyId
+            if (existing.CompanyId != updated.CompanyId)
+                minor = true;
+
+            //TerminalId
+            if (existing.TerminalId != updated.TerminalId)
+                throw new MimirorgBadRequestException("You cannot change existing terminal id when updating.");
+
+            //Attribute
+            var attributeIdDmList = existing.Attributes?.Select(x => x.Id).ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+            var attributeIdAmList = updated.AttributeIdList?.ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+
+            if (attributeIdAmList?.Count < attributeIdDmList?.Count)
+                throw new MimirorgBadRequestException("You cannot remove existing attributes when updating, only add.");
+
+            if (attributeIdAmList?.Count >= attributeIdDmList?.Count)
+            {
+                if (attributeIdAmList.Where((t, i) => t != attributeIdDmList[i]).Any())
+                    throw new MimirorgBadRequestException("You cannot change existing attributes when updating, only add.");
+            }
+
+            if (attributeIdAmList?.Count > attributeIdDmList?.Count)
+                major = true;
+
+            //Description
+            if (existing.Description != updated.Description)
+                minor = true;
+
+            //ContentReferences
+            var contentRefsAm = updated.ContentReferences?.ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+            var contentRefsDm = existing.ContentReferences?.ConvertToArray().ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+
+            if (contentRefsAm?.Count != contentRefsDm?.Count)
+                minor = true;
+
+            if (contentRefsAm != null && contentRefsDm != null && contentRefsAm.Count == contentRefsDm.Count)
+            {
+                if (contentRefsDm.Where((t, i) => t != contentRefsAm[i]).Any())
+                    minor = true;
+            }
+
+            //ParentId
+            if (existing.ParentId != updated.ParentId)
+                throw new MimirorgBadRequestException("You cannot change existing parent id when updating.");
+
+            if (!major && !minor)
+                throw new MimirorgBadRequestException("Existing transport and updated transport is identical");
+
+            return major ? existing.Version.IncrementMajorVersion() : existing.Version.IncrementMinorVersion();
+        }
+
+        #endregion Private
     }
 }

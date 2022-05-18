@@ -25,15 +25,15 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string PurposeName { get; set; } //minor version increase
 
         [Required]
-        public Aspect Aspect { get; set; }
+        public Aspect Aspect { get; set; } //exception
 
         [Required]
-        public int CompanyId { get; set; } //minor
+        public int CompanyId { get; set; } //minor version increase
 
-        public ICollection<string> SimpleIdList { get; set; } //removal = exception, add til = major version increase
-        public ICollection<string> AttributeIdList { get; set; } //removal = exception, add til = major version increase
-        public ICollection<NodeTerminalLibAm> NodeTerminals { get; set; } //removal = exception, add til = major version increase
-        public ICollection<SelectedAttributePredefinedLibAm> SelectedAttributePredefined { get; set; } //removal = exception, add til = major version increase
+        public ICollection<string> SimpleIdList { get; set; } //removal = exception, add = major version increase
+        public ICollection<string> AttributeIdList { get; set; } //removal = exception, add = major version increase
+        public ICollection<NodeTerminalLibAm> NodeTerminals { get; set; } //removal = exception, add = major version increase
+        public ICollection<SelectedAttributePredefinedLibAm> SelectedAttributePredefined { get; set; } //removal = exception, add = major version increase
 
         public string Description { get; set; } //minor version increase
         public string Symbol { get; set; } //minor version increase
