@@ -4,10 +4,11 @@ import { Box } from "../../../../complib/layouts";
 import { Text } from "../../../../complib/text";
 import { ItemList } from "./components/item/ItemList";
 import { useGetNodes } from "../../../../data/queries/tyle/queriesNode";
-import { filterSearchItem, getNodeAsSearchItem } from "./Search.helpers";
 import { TextResources } from "../../../../assets/text";
 import { Item } from "./components/item/Item";
 import { SearchBar } from "./components/SearchBar";
+import { filterSearchItem } from "./Search.helpers";
+import { mapNodeLibCmToSearchItem } from "../../../../utils/mappers";
 
 interface SearchProps {
   selected?: string;
@@ -44,7 +45,7 @@ export const Search = ({ selected, setSelected }: SearchProps) => {
       {nodeQuery.isSuccess && !nodeQuery.isLoading && (
         <ItemList>
           {nodeQuery.data
-            .map((n) => getNodeAsSearchItem(n))
+            .map((n) => mapNodeLibCmToSearchItem(n))
             .filter((n) => filterSearchItem(n, searchQuery))
             .map((i) => (
               <Item isSelected={i.id === selected} setSelected={() => setSelected(i.id)} key={i.id} {...i} />
