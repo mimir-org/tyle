@@ -61,6 +61,11 @@ const TextResources = {
   // About
   ABOUT_TITLE: "About",
   ABOUT_PLACEHOLDER: "Select an item to view its properties",
+
+  // Terminal
+  TERMINAL_TOTAL: "Total terminals",
+  TERMINAL_OPEN_SUMMARY: "Open terminal summary",
+  TERMINAL_SUMMARY: "Summary",
 };
 
 export default TextResources;

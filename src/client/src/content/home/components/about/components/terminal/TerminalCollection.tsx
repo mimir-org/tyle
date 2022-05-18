@@ -3,9 +3,10 @@ import { Divider, Popover } from "../../../../../../complib/data-display";
 import { VisuallyHidden } from "../../../../../../complib/accessibility";
 import { TerminalButton } from "./TerminalButton";
 import { useTheme } from "styled-components";
-import { Box } from "../../../../../../complib/layouts";
+import { Box, Flexbox } from "../../../../../../complib/layouts";
 import { TerminalDescription } from "./TerminalSingle";
 import { Text } from "../../../../../../complib/text";
+import { TextResources } from "../../../../../../assets/text";
 
 interface TerminalCollectionProps {
   terminals: TerminalItem[];
@@ -23,7 +24,7 @@ export const TerminalCollection = ({ terminals, variant }: TerminalCollectionPro
   return (
     <Popover placement={variant} content={<TerminalCollectionDescription terminals={terminals} />}>
       <TerminalButton size={30} color={"#6e6e6e"}>
-        <VisuallyHidden>Open terminal summary</VisuallyHidden>
+        <VisuallyHidden>{TextResources.TERMINAL_OPEN_SUMMARY}</VisuallyHidden>
       </TerminalButton>
     </Popover>
   );
@@ -39,6 +40,7 @@ const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescript
 
   return (
     <Box display={"flex"} gap={theme.tyle.spacing.small} flexDirection={"column"} maxWidth={"250px"}>
+      <Text variant={"title-medium"}>{TextResources.TERMINAL_SUMMARY}</Text>
       <Box
         display={"flex"}
         gap={theme.tyle.spacing.small}
@@ -51,7 +53,10 @@ const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescript
         ))}
       </Box>
       <Divider />
-      <Text>Total amount of terminals: {totalTerminalAmount}</Text>
+      <Flexbox gap={theme.tyle.spacing.xs} justifyContent={"space-between"}>
+        <Text>{TextResources.TERMINAL_TOTAL}:</Text>
+        <Text>{totalTerminalAmount}</Text>
+      </Flexbox>
     </Box>
   );
 };
