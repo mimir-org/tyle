@@ -62,6 +62,10 @@ const TextResources = {
   ABOUT_TITLE: "About",
   ABOUT_PLACEHOLDER: "Select an item to view its properties",
 
+  // Attribute
+  ATTRIBUTE_TITLE: "Attributes",
+  ATTRIBUTE_VALUE: "Value",
+
   // Terminal
   TERMINAL_TOTAL: "Total terminals",
   TERMINAL_OPEN_SUMMARY: "Open terminal summary",
