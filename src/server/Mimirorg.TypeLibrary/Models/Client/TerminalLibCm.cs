@@ -18,5 +18,7 @@
 
         public ICollection<AttributeLibCm> Attributes { get; set; }
         public ICollection<TerminalLibCm> Children { get; set; }
+
+        public string Kind => nameof(TerminalLibCm);
     }
 }
