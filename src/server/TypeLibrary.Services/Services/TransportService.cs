@@ -261,7 +261,7 @@ namespace TypeLibrary.Services.Services
 
             if (attributeIdAmList?.Count >= attributeIdDmList?.Count)
             {
-                if (attributeIdDmList.Where(x => attributeIdAmList.Any(y => y == x)).ToList().Count() != attributeIdDmList.Count)
+                if (attributeIdDmList.Where(x => attributeIdAmList.Any(y => y == x)).ToList().Count != attributeIdDmList.Count)
                     throw new MimirorgBadRequestException("You cannot change existing attributes when updating, only add.");
             }
 
