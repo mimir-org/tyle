@@ -9,6 +9,7 @@ export type TerminalButtonContainerProps = ButtonHTMLAttributes<HTMLButtonElemen
 };
 
 export const TerminalButtonContainer = styled.button<TerminalButtonContainerProps>`
+  flex-shrink: 0;
   position: relative;
   display: inline-flex;
   justify-content: center;
