@@ -1,5 +1,5 @@
 import { css } from "styled-components/macro";
-import { Typography } from "../props";
+import { Typography } from "../../props";
 
 export const typographyMixin = css<Typography>`
   font: ${(props) => props.font};
