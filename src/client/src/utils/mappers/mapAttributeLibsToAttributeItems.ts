@@ -4,7 +4,7 @@ import { darken, mix } from "polished";
 import { getColorFromAspect } from "../getColorFromAspect";
 import { Discipline } from "../../models/tyle/enums/discipline";
 
-export const mapNodeAttributeLibsToAttributeItems = (nodeAttributeLibs: AttributeLibCm[]): AttributeItem[] =>
+export const mapAttributeLibsToAttributeItems = (nodeAttributeLibs: AttributeLibCm[]): AttributeItem[] =>
   nodeAttributeLibs.map((x) => ({
     name: x.name,
     color: getColorForAttributeLibCm(x),

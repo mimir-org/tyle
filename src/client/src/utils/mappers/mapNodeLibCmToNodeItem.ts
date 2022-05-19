@@ -2,7 +2,7 @@ import { NodeLibCm } from "../../models/tyle/client/nodeLibCm";
 import { NodeItem } from "../../content/home/types/NodeItem";
 import { getColorFromAspect } from "../getColorFromAspect";
 import { mapNodeTerminalLibsToLibraryItems } from "./mapNodeTerminalLibsToLibraryItems";
-import { mapNodeAttributeLibsToAttributeItems } from "./mapNodeAttributeLibsToAttributeItems";
+import { mapAttributeLibsToAttributeItems } from "./mapAttributeLibsToAttributeItems";
 
 export const mapNodeLibCmToNodeItem = (nodeLib: NodeLibCm): NodeItem => ({
   name: nodeLib.name,
@@ -11,5 +11,5 @@ export const mapNodeLibCmToNodeItem = (nodeLib: NodeLibCm): NodeItem => ({
   color: getColorFromAspect(nodeLib.aspect),
   tokens: [nodeLib.rdsName, nodeLib.purposeName],
   terminals: mapNodeTerminalLibsToLibraryItems(nodeLib.nodeTerminals),
-  attributes: mapNodeAttributeLibsToAttributeItems(nodeLib.attributes),
+  attributes: mapAttributeLibsToAttributeItems(nodeLib.attributes),
 });
