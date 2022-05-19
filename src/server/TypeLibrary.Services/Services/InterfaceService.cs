@@ -122,7 +122,7 @@ namespace TypeLibrary.Services.Services
             if (id == dataAm.Id)
                 throw new MimirorgBadRequestException("Not allowed to update: Name, RdsCode or Aspect.");
 
-            var interfaceToUpdate = await _interfaceRepository.GetAsync(id);
+            var interfaceToUpdate = await _interfaceRepository.FindInterface(id).FirstOrDefaultAsync();
 
             if (interfaceToUpdate?.Id == null)
                 throw new MimirorgNotFoundException($"Interface with id {id} does not exist.");
@@ -225,7 +225,7 @@ namespace TypeLibrary.Services.Services
 
             if (attributeIdAmList?.Count >= attributeIdDmList?.Count)
             {
-                if (attributeIdAmList.Where((t, i) => t != attributeIdDmList[i]).Any())
+                if (attributeIdDmList.Where(x => attributeIdAmList.Any(y => y == x)).ToList().Count() != attributeIdDmList.Count)
                     throw new MimirorgBadRequestException("You cannot change existing attributes when updating, only add.");
             }
 

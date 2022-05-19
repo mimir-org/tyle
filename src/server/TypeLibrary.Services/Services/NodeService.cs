@@ -129,7 +129,7 @@ namespace TypeLibrary.Services.Services
             if (dataAm == null)
                 throw new MimirorgBadRequestException("Can't update a node when dataAm is null.");
 
-            var nodeToUpdate = await _nodeRepository.FindNode(dataAm.Id).FirstOrDefaultAsync();
+            var nodeToUpdate = await _nodeRepository.FindNode(id).FirstOrDefaultAsync();
 
             if (nodeToUpdate?.Id == null)
                 throw new MimirorgNotFoundException($"Node with id {id} does not exist, update is not possible.");
@@ -245,7 +245,7 @@ namespace TypeLibrary.Services.Services
 
             if (attributeIdAmList?.Count >= attributeIdDmList?.Count)
             {
-                if (attributeIdAmList.Where((t, i) => t != attributeIdDmList[i]).Any())
+                if(attributeIdDmList.Where(x => attributeIdAmList.Any(y => y == x)).ToList().Count() != attributeIdDmList.Count)
                     throw new MimirorgBadRequestException("You cannot change existing attributes when updating, only add.");
             }
 

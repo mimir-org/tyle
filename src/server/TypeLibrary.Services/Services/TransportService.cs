@@ -158,7 +158,7 @@ namespace TypeLibrary.Services.Services
             if (dataAm == null)
                 throw new MimirorgBadRequestException("Can't update a transport when dataAm is null.");
 
-            var transportToUpdate = await _transportRepository.FindTransport(dataAm.Id).FirstOrDefaultAsync();
+            var transportToUpdate = await _transportRepository.FindTransport(id).FirstOrDefaultAsync();
 
             if (transportToUpdate?.Id == null)
                 throw new MimirorgNotFoundException($"Transport with id {id} does not exist, update is not possible.");
@@ -261,7 +261,7 @@ namespace TypeLibrary.Services.Services
 
             if (attributeIdAmList?.Count >= attributeIdDmList?.Count)
             {
-                if (attributeIdAmList.Where((t, i) => t != attributeIdDmList[i]).Any())
+                if (attributeIdDmList.Where(x => attributeIdAmList.Any(y => y == x)).ToList().Count() != attributeIdDmList.Count)
                     throw new MimirorgBadRequestException("You cannot change existing attributes when updating, only add.");
             }
 
