@@ -18,14 +18,11 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public Aspect Aspect { get; set; }
         public int CompanyId { get; set; }
         public string Description { get; set; }
-
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-
         public string TerminalId { get; set; }
         public TerminalLibCm Terminal { get; set; }
         public ICollection<AttributeLibCm> Attributes { get; set; }
-
         public string Kind => nameof(TransportLibCm);
     }
 }

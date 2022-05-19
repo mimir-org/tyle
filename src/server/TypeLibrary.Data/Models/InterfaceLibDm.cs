@@ -23,7 +23,6 @@ namespace TypeLibrary.Data.Models
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public bool Deleted { get; set; }
-
         public string TerminalId { get; set; }
         public TerminalLibDm Terminal { get; set; }
         public virtual ICollection<InterfaceLibDm> Children { get; set; }

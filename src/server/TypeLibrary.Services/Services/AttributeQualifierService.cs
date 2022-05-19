@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
-using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
-using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts.Ef;
@@ -23,14 +20,12 @@ namespace TypeLibrary.Services.Services
     {
         private readonly IMapper _mapper;
         private readonly IEfAttributeQualifierRepository _qualifierRepository;
-        private readonly IHttpContextAccessor _contextAccessor;
         private readonly ApplicationSettings _applicationSettings;
 
-        public AttributeQualifierService(IMapper mapper, IEfAttributeQualifierRepository qualifierRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
+        public AttributeQualifierService(IMapper mapper, IEfAttributeQualifierRepository qualifierRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _qualifierRepository = qualifierRepository;
-            _contextAccessor = contextAccessor;
             _applicationSettings = applicationSettings?.Value;
         }
         public Task<IEnumerable<AttributeQualifierLibCm>> GetAttributeQualifiers()
@@ -61,8 +56,6 @@ namespace TypeLibrary.Services.Services
             //TODO: The code below must be rewritten. What do we allow to be updated?
             var data = _mapper.Map<AttributeQualifierLibDm>(dataAm);
             data.Id = id;
-            data.Updated = DateTime.Now.ToUniversalTime();
-            data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _qualifierRepository.Update(data);
             await _qualifierRepository.SaveAsync();
             return _mapper.Map<AttributeQualifierLibCm>(data);

@@ -18,7 +18,6 @@ namespace TypeLibrary.Data.Models
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public bool Deleted { get; set; }
-
         public ICollection<TerminalLibDm> Children { get; set; }
         public ICollection<AttributeLibDm> Attributes { get; set; }
         public ICollection<NodeTerminalLibDm> TerminalNodes { get; set; }

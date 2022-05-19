@@ -11,7 +11,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         public ICollection<string> ContentReferences { get; set; }
         public string Description { get; set; }
-        public ICollection<string> Attributes { get; set; } // TODO: Bør være objektet AttributeLibAm
+        public ICollection<string> Attributes { get; set; }
 
         [TSExclude]
         public string Id => $"{Name}".CreateMd5();

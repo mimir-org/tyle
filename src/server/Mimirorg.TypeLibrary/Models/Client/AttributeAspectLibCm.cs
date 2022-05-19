@@ -12,14 +12,9 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string ParentName { get; set; }
         public Aspect Aspect { get; set; }
         public string Description { get; set; }
-
-        public string UpdatedBy { get; set; }
-        public DateTime? Updated { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-
         public ICollection<AttributeAspectLibCm> Children { get; set; }
-
         public string Kind => nameof(AttributeAspectLibCm);
     }
 }

@@ -12,6 +12,6 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Description { get; set; }
 
         [TSExclude]
-        public virtual string Id => $"{Name}".CreateMd5();
+        public string Id => $"{Name}".CreateMd5();
     }
 }

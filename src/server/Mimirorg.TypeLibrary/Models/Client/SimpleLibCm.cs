@@ -13,7 +13,7 @@
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
 
-        public virtual ICollection<AttributeLibCm> Attributes { get; set; }
+        public ICollection<AttributeLibCm> Attributes { get; set; }
 
         public string Kind => nameof(SimpleLibCm);
     }

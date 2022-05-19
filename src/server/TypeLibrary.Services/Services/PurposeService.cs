@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
-using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
-using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts.Ef;
@@ -22,14 +19,12 @@ namespace TypeLibrary.Services.Services
     {
         private readonly IMapper _mapper;
         private readonly IEfPurposeRepository _purposeRepository;
-        private readonly IHttpContextAccessor _contextAccessor;
         private readonly ApplicationSettings _applicationSettings;
 
-        public PurposeService(IMapper mapper, IEfPurposeRepository purposeRepository, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
+        public PurposeService(IMapper mapper, IEfPurposeRepository purposeRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _purposeRepository = purposeRepository;
-            _contextAccessor = contextAccessor;
             _applicationSettings = applicationSettings?.Value;
         }
 
@@ -58,8 +53,6 @@ namespace TypeLibrary.Services.Services
             //TODO: The code below must be rewritten. What do we allow to be updated?
             var data = _mapper.Map<PurposeLibDm>(dataAm);
             data.Id = id;
-            data.Updated = DateTime.Now.ToUniversalTime();
-            data.UpdatedBy = _contextAccessor?.GetName() ?? "Unknown";
             _purposeRepository.Update(data);
             await _purposeRepository.SaveAsync();
             return _mapper.Map<PurposeLibCm>(data);

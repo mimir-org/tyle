@@ -10,10 +10,8 @@ namespace TypeLibrary.Data.Models
         public string Iri { get; set; }
         public string ContentReferences { get; set; }
         public bool IsMultiSelect { get; set; }
-        public virtual ICollection<string> ValueStringList { get; set; }
+        public ICollection<string> ValueStringList { get; set; }
         public Aspect Aspect { get; set; }
-        public string UpdatedBy { get; set; }
-        public DateTime? Updated { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public bool Deleted { get; set; }

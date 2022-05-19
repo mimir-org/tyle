@@ -22,15 +22,12 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string Symbol { get; set; }
         public string AttributeAspectIri { get; set; }
         public AttributeAspectLibCm AttributeAspect { get; set; }
-
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-
         public ICollection<AttributeLibCm> Attributes { get; set; }
         public ICollection<NodeTerminalLibCm> NodeTerminals { get; set; }
         public ICollection<SimpleLibCm> Simples { get; set; }
         public ICollection<SelectedAttributePredefinedLibCm> SelectedAttributePredefined { get; set; }
-
         public string Kind => nameof(NodeLibCm);
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Mimirorg.TypeLibrary.Enums;
+﻿using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Client
 {
@@ -11,12 +10,8 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public bool IsMultiSelect { get; set; }
         public ICollection<string> ValueStringList { get; set; }
         public Aspect Aspect { get; set; }
-
-        public string UpdatedBy { get; set; }
-        public DateTime? Updated { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-
         public string Kind => nameof(AttributePredefinedLibCm);
     }
 }

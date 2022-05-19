@@ -26,7 +26,6 @@ namespace TypeLibrary.Data.Models
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public bool Deleted { get; set; }
-
         public virtual ICollection<NodeLibDm> Children { get; set; }
         public virtual ICollection<NodeTerminalLibDm> NodeTerminals { get; set; }
         public virtual ICollection<AttributeLibDm> Attributes { get; set; }
