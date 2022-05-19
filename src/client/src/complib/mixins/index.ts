@@ -11,3 +11,4 @@ export { typographyMixin } from "./props/typographyMixin";
 export { getTextRole } from "./getTextRole";
 export { layer } from "./layer";
 export { translucify } from "./translucify";
+export { hideScrollbar } from "./hideScrollbar";
