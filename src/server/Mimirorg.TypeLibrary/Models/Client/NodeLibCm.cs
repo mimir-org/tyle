@@ -23,8 +23,6 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string AttributeAspectIri { get; set; }
         public AttributeAspectLibCm AttributeAspect { get; set; }
 
-        public string UpdatedBy { get; set; }
-        public DateTime? Updated { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
 
