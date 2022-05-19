@@ -20,7 +20,7 @@ export const typeScaleReference: TypeScaleSpecification<number> = {
   },
   lineHeight: {
     base: 24,
-    n3: 6,
+    n3: 10,
     n2: 16,
     n1: 20,
     p1: 28,
