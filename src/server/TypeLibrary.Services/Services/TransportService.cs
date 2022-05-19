@@ -59,9 +59,8 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<TransportLibCm>> GetTransports()
         {
-            var transports = _transportRepository.GetAllTransports().Where(x => !x.Deleted).ToList()
-                .OrderBy(x => x.Aspect)
-                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var firstVersionIdsDistinct = _transportRepository.GetAllTransports().Where(x => !x.Deleted).Select(y => y.FirstVersionId).Distinct().ToList();
+            var transports = firstVersionIdsDistinct.Select(GetLatestTransportVersion).ToList();
 
             var transportLibCms = _mapper.Map<IEnumerable<TransportLibCm>>(transports);
 

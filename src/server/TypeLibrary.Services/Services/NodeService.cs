@@ -61,11 +61,8 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<NodeLibCm>> GetNodes()
         {
-            //var nodes = _nodeRepository.GetAllNodes().Where(x => !x.Deleted).ToList()
-            //    .OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
-
-            var nodes = _nodeRepository.GetAllNodes().Where(x => !x.Deleted).ToList()
-                .OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var firstVersionIdsDistinct = _nodeRepository.GetAllNodes().Where(x => !x.Deleted).Select(y => y.FirstVersionId).Distinct().ToList();
+            var nodes = firstVersionIdsDistinct.Select(GetLatestNodeVersion).ToList();
 
             var nodeLibCms = _mapper.Map<IEnumerable<NodeLibCm>>(nodes);
 

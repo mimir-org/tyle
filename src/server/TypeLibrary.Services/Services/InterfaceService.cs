@@ -59,9 +59,8 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<InterfaceLibCm>> GetInterfaces()
         {
-            var interfaces = _interfaceRepository.GetAllInterfaces().Where(x => !x.Deleted).ToList()
-                .OrderBy(x => x.Aspect)
-                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var firstVersionIdsDistinct = _interfaceRepository.GetAllInterfaces().Where(x => !x.Deleted).Select(y => y.FirstVersionId).Distinct().ToList();
+            var interfaces = firstVersionIdsDistinct.Select(GetLatestInterfaceVersion).ToList();
 
             var interfaceLibCms = _mapper.Map<IEnumerable<InterfaceLibCm>>(interfaces);
 
