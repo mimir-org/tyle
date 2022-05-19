@@ -12,19 +12,18 @@ namespace TypeLibrary.Data.Models
         public string Id { get; set; }
         public string ParentId { get; set; }
         public AttributeLibDm Parent { get; set; }
-        public ICollection<AttributeLibDm> Children { get; set; }
         public string Name { get; set; }
         public string Iri { get; set; }
         public string ContentReferences { get; set; }
+        public string AttributeQualifier { get; set; }
+        public string AttributeSource { get; set; }
+        public string AttributeCondition { get; set; }
+        public string AttributeFormat { get; set; }
         public Aspect Aspect { get; set; }
         public Discipline Discipline { get; set; }
         public virtual HashSet<string> Tags { get; set; }
         public Select Select { get; set; }
         public string SelectValuesString { get; set; }
-        public string AttributeQualifier { get; set; }
-        public string AttributeSource { get; set; }
-        public string AttributeCondition { get; set; }
-        public string AttributeFormat { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public bool Deleted { get; set; }
@@ -32,6 +31,7 @@ namespace TypeLibrary.Data.Models
         [NotMapped]
         public ICollection<string> SelectValues => string.IsNullOrEmpty(SelectValuesString) ? null : SelectValuesString.ConvertToArray();
 
+        public ICollection<AttributeLibDm> Children { get; set; }
         public virtual ICollection<TerminalLibDm> Terminals { get; set; }
         public virtual ICollection<InterfaceLibDm> Interfaces { get; set; }
         public virtual ICollection<NodeLibDm> Nodes { get; set; }

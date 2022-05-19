@@ -7,16 +7,16 @@ namespace TypeLibrary.Data.Models
     public class TransportLibDm
     {
         public string Id { get; set; }
+        public string ParentId { get; set; }
+        public TransportLibDm Parent { get; set; }
         public string Name { get; set; }
+        public string Version { get; set; }
+        public string FirstVersionId { get; set; }
         public string Iri { get; set; }
         public string ContentReferences { get; set; }
         public string RdsCode { get; set; }
         public string RdsName { get; set; }
         public string PurposeName { get; set; }
-        public string ParentId { get; set; }
-        public TransportLibDm Parent { get; set; }
-        public string Version { get; set; }
-        public string FirstVersionId { get; set; }
         public Aspect Aspect { get; set; }
         public int CompanyId { get; set; }
         public string TerminalId { get; set; }
