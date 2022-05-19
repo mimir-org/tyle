@@ -217,8 +217,8 @@ namespace TypeLibrary.Services.Services
                 throw new MimirorgBadRequestException("You cannot change existing terminal id when updating.");
 
             //Attribute
-            var attributeIdDmList = existing.Attributes?.Select(x => x.Id).ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
-            var attributeIdAmList = updated.AttributeIdList?.ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+            var attributeIdDmList = existing.Attributes?.Select(x => x.Id).ToList();
+            var attributeIdAmList = updated.AttributeIdList?.ToList();
 
             if (attributeIdAmList?.Count < attributeIdDmList?.Count)
                 throw new MimirorgBadRequestException("You cannot remove existing attributes when updating, only add.");
@@ -245,7 +245,7 @@ namespace TypeLibrary.Services.Services
 
             if (contentRefsAm != null && contentRefsDm != null && contentRefsAm.Count == contentRefsDm.Count)
             {
-                if (contentRefsDm.Where((t, i) => t != contentRefsAm[i]).Any())
+                if (contentRefsDm.Where(x => contentRefsAm.Any(y => y == x)).ToList().Count != contentRefsDm.Count)
                     minor = true;
             }
 

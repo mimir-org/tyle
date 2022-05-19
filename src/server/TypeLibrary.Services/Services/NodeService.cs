@@ -237,8 +237,8 @@ namespace TypeLibrary.Services.Services
                 major = true;
 
             //Attribute
-            var attributeIdDmList = existing.Attributes?.Select(x => x.Id).ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
-            var attributeIdAmList = updated.AttributeIdList?.ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+            var attributeIdDmList = existing.Attributes?.Select(x => x.Id).ToList();
+            var attributeIdAmList = updated.AttributeIdList?.ToList();
 
             if (attributeIdAmList?.Count < attributeIdDmList?.Count)
                 throw new MimirorgBadRequestException("You cannot remove existing attributes when updating, only add.");
@@ -330,15 +330,15 @@ namespace TypeLibrary.Services.Services
                 minor = true;
 
             //ContentReferences (Node)
-            var nodeContentRefsAm = updated.ContentReferences?.ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
-            var nodeContentRefsDm = existing.ContentReferences?.ConvertToArray().ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+            var contentRefsAm = updated.ContentReferences?.ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
+            var contentRefsDm = existing.ContentReferences?.ConvertToArray().ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
 
-            if (nodeContentRefsAm?.Count != nodeContentRefsDm?.Count)
+            if (contentRefsAm?.Count != contentRefsDm?.Count)
                 minor = true;
 
-            if (nodeContentRefsAm != null && nodeContentRefsDm != null && nodeContentRefsAm.Count == nodeContentRefsDm.Count)
+            if (contentRefsAm != null && contentRefsDm != null && contentRefsAm.Count == contentRefsDm.Count)
             {
-                if (nodeContentRefsDm.Where((t, i) => t != nodeContentRefsAm[i]).Any())
+                if (contentRefsDm.Where(x => contentRefsAm.Any(y => y == x)).ToList().Count != contentRefsDm.Count)
                     minor = true;
             }
 
