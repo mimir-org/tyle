@@ -29,6 +29,7 @@ namespace TypeLibrary.Data.Repositories.Ef
                 .Include(x => x.Parent)
                 .Include(x => x.NodeTerminals)
                 .ThenInclude(y => y.Terminal)
+                .ThenInclude(y => y.Attributes)
                 .ThenInclude(y => y.Parent)
                 .Include(x => x.Attributes)
                 .Include(x => x.Simples);
