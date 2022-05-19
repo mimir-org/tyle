@@ -3,7 +3,7 @@ import faker from "@faker-js/faker";
 
 export const mockAttributeItem = (): AttributeItem => {
   return {
-    name: `Attribute ${faker.commerce.productAdjective()}`,
+    name: `${faker.commerce.productAdjective()}`,
     color: faker.internet.color(),
     traits: mockAttributeItemTraits(parseInt(faker.random.numeric(1))),
     value: `${faker.random.numeric(2)} ${faker.helpers.arrayElement(["%", "bbl/d", "Sm3/h"])}`,
