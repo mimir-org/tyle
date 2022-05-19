@@ -1,12 +1,13 @@
-import { AttributeButtonContainer, AttributeButtonContainerProps } from "./AttributeButton.styled";
-import { ElementType, forwardRef } from "react";
+import { AttributeButtonContainer } from "./AttributeButton.styled";
+import { ButtonHTMLAttributes, ElementType, forwardRef } from "react";
 import { Polymorphic, TextTypes } from "../../../../../../complib/props";
 import { Text } from "../../../../../../complib/text";
 
-type AttributeButtonProps = AttributeButtonContainerProps &
+export type AttributeButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   Polymorphic<ElementType> & {
     children?: string;
-    variant?: "large" | "medium";
+    color: string;
+    variant?: "large" | "medium" | "small";
   };
 
 /**

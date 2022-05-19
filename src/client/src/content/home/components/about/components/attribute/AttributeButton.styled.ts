@@ -1,14 +1,10 @@
 import styled, { css } from "styled-components/macro";
 import { layer, translucify } from "../../../../../../complib/mixins";
-import { ButtonHTMLAttributes } from "react";
 import { darken } from "polished";
+import { AttributeButtonProps } from "./AttributeButton";
 
-export type AttributeButtonContainerProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  color: string;
-  variant?: "large" | "medium";
-};
-
-export const AttributeButtonContainer = styled.button<AttributeButtonContainerProps>`
+export const AttributeButtonContainer = styled.button<AttributeButtonProps>`
+  flex-shrink: 0;
   text-decoration: none;
   padding: ${(props) => props.theme.tyle.spacing.xxs};
   border: 0;
@@ -63,6 +59,9 @@ export const AttributeButtonContainer = styled.button<AttributeButtonContainerPr
       case "medium": {
         return mediumButton();
       }
+      case "small": {
+        return smallButton();
+      }
     }
   }};
 };
@@ -74,6 +73,11 @@ const largeButton = () => css`
 `;
 
 const mediumButton = () => css`
-  width: 90px;
+  width: 85px;
   height: 35px;
+`;
+
+const smallButton = () => css`
+  width: 65px;
+  height: 30px;
 `;

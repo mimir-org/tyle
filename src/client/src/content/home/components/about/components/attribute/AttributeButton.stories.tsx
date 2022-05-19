@@ -25,6 +25,11 @@ VariantMedium.args = {
   variant: "medium",
 };
 
+export const VariantSmall = Template.bind({});
+VariantSmall.args = {
+  variant: "small",
+};
+
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
