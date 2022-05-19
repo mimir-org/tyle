@@ -67,6 +67,7 @@ const TextResources = {
   ATTRIBUTE_VALUE: "Value",
 
   // Terminal
+  TERMINAL_TITLE: "Terminals",
   TERMINAL_TOTAL: "Total terminals",
   TERMINAL_OPEN_SUMMARY: "Open terminal summary",
   TERMINAL_SUMMARY: "Summary",

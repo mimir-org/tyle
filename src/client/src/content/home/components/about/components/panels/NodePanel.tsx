@@ -1,33 +1,38 @@
+import textResources from "../../../../../../assets/text/TextResources";
 import { useTheme } from "styled-components";
+import { NodePanelPropertiesContainer } from "./NodePanel.styled";
 import { Box, Flexbox, MotionBox } from "../../../../../../complib/layouts";
 import { Heading, Text } from "../../../../../../complib/text";
 import { Token } from "../../../../../../complib/general/token/Token";
 import { NodePreview } from "../node/NodePreview";
 import { NodeItem } from "../../../../types/NodeItem";
 import { AttributeSingle } from "../attribute/AttributeSingle";
-
-interface NodePanelProps {
-  node: NodeItem;
-}
+import { TerminalTable } from "../terminal/TerminalTable";
 
 /**
  * Component that displays information about a given node.
  *
- * @param node
+ * @param name
+ * @param description
+ * @param img
+ * @param color
+ * @param tokens
+ * @param terminals
+ * @param attributes
  * @constructor
  */
-export const NodePanel = ({ node }: NodePanelProps) => {
+export const NodePanel = ({ name, description, img, color, tokens, terminals, attributes }: NodeItem) => {
   const theme = useTheme();
-  const { name, description, img, color, tokens, terminals, attributes } = node;
 
   return (
     <MotionBox
-      {...theme.tyle.animation.fade}
-      display={"flex"}
       flex={1}
+      display={"flex"}
       flexDirection={"column"}
       gap={theme.tyle.spacing.large}
       maxHeight={"100%"}
+      overflow={"hidden"}
+      {...theme.tyle.animation.fade}
     >
       <NodePreview color={color} img={img} terminals={terminals} />
 
@@ -41,14 +46,19 @@ export const NodePanel = ({ node }: NodePanelProps) => {
         {tokens && tokens.map((t, i) => <Token key={i} text={t} />)}
       </Flexbox>
 
-      <Heading as={"h2"} variant={"headline-medium"}>
-        Attributes
-      </Heading>
-      <Box display={"flex"} gap={theme.tyle.spacing.medium} flexWrap={"wrap"} maxHeight={"200px"} overflow={"auto"}>
-        {attributes && attributes.map((a, i) => <AttributeSingle key={i} {...a} />)}
-      </Box>
+      <NodePanelPropertiesContainer>
+        <Heading as={"h3"} variant={"headline-small"}>
+          {textResources.ATTRIBUTE_TITLE}
+        </Heading>
+        <Box display={"flex"} gap={theme.tyle.spacing.medium} flexWrap={"wrap"}>
+          {attributes && attributes.map((a, i) => <AttributeSingle key={i} {...a} />)}
+        </Box>
 
-      <Box></Box>
+        <Heading as={"h3"} variant={"headline-small"}>
+          {textResources.TERMINAL_TITLE}
+        </Heading>
+        {terminals && <TerminalTable terminals={terminals} />}
+      </NodePanelPropertiesContainer>
     </MotionBox>
   );
 };

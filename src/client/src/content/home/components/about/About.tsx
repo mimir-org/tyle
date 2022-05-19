@@ -20,6 +20,7 @@ interface AboutProps {
 export const About = ({ selected }: AboutProps) => {
   const theme = useTheme();
   const nodeQuery = useGetNode(selected);
+  const showNodePanel = !nodeQuery.isFetching && !nodeQuery.isLoading && nodeQuery.isSuccess;
 
   return (
     <Box
@@ -39,9 +40,7 @@ export const About = ({ selected }: AboutProps) => {
       <Text variant={"display-small"}>{TextResources.ABOUT_TITLE}</Text>
       {nodeQuery.isIdle && <Placeholder text={TextResources.ABOUT_PLACEHOLDER} />}
       <AnimatePresence exitBeforeEnter>
-        {!nodeQuery.isFetching && !nodeQuery.isLoading && nodeQuery.isSuccess && (
-          <NodePanel key={`NodePreview-${nodeQuery.data.id}`} node={mapNodeLibCmToNodeItem(nodeQuery.data)} />
-        )}
+        {showNodePanel && <NodePanel key={nodeQuery.data.id} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />}
       </AnimatePresence>
     </Box>
   );
