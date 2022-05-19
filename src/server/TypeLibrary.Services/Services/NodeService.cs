@@ -61,9 +61,11 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<NodeLibCm>> GetNodes()
         {
+            //var nodes = _nodeRepository.GetAllNodes().Where(x => !x.Deleted).ToList()
+            //    .OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
             var nodes = _nodeRepository.GetAllNodes().Where(x => !x.Deleted).ToList()
-                .OrderBy(x => x.Aspect)
-                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+                .OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
             var nodeLibCms = _mapper.Map<IEnumerable<NodeLibCm>>(nodes);
 
@@ -140,8 +142,8 @@ namespace TypeLibrary.Services.Services
             
             var latestNodeDm = GetLatestNodeVersion(nodeToUpdate.FirstVersionId);
 
-            var latestNodeVersion = double.Parse(latestNodeDm.Version);
-            var nodeToUpdateVersion = double.Parse(nodeToUpdate.Version);
+            var latestNodeVersion = double.Parse(latestNodeDm.Version, CultureInfo.InvariantCulture);
+            var nodeToUpdateVersion = double.Parse(nodeToUpdate.Version, CultureInfo.InvariantCulture);
 
             if (latestNodeVersion > nodeToUpdateVersion)
                 throw new MimirorgBadRequestException($"Not allowed to update node with id {nodeToUpdate.Id} and version {nodeToUpdateVersion}. Latest version is node with id {latestNodeDm.Id} and version {latestNodeVersion}");

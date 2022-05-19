@@ -171,8 +171,8 @@ namespace TypeLibrary.Services.Services
 
             var latestTransportDm = GetLatestTransportVersion(transportToUpdate.FirstVersionId);
 
-            var latestTransportVersion = double.Parse(latestTransportDm.Version);
-            var transportToUpdateVersion = double.Parse(transportToUpdate.Version);
+            var latestTransportVersion = double.Parse(latestTransportDm.Version, CultureInfo.InvariantCulture);
+            var transportToUpdateVersion = double.Parse(transportToUpdate.Version, CultureInfo.InvariantCulture);
 
             if (latestTransportVersion > transportToUpdateVersion)
                 throw new MimirorgBadRequestException($"Not allowed to update transport with id {transportToUpdate.Id} and version {transportToUpdateVersion}. Latest version is transport with id {latestTransportDm.Id} and version {latestTransportVersion}");

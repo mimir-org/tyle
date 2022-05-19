@@ -135,8 +135,8 @@ namespace TypeLibrary.Services.Services
 
             var latestInterfaceDm = GetLatestInterfaceVersion(interfaceToUpdate.FirstVersionId);
 
-            var latestInterfaceVersion = double.Parse(latestInterfaceDm.Version);
-            var interfaceToUpdateVersion = double.Parse(interfaceToUpdate.Version);
+            var latestInterfaceVersion = double.Parse(latestInterfaceDm.Version, CultureInfo.InvariantCulture);
+            var interfaceToUpdateVersion = double.Parse(interfaceToUpdate.Version, CultureInfo.InvariantCulture);
 
             if (latestInterfaceVersion > interfaceToUpdateVersion)
                 throw new MimirorgBadRequestException($"Not allowed to update interface with id {interfaceToUpdate.Id} and version {interfaceToUpdateVersion}. Latest version is interface with id {latestInterfaceDm.Id} and version {latestInterfaceVersion}");
