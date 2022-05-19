@@ -3,6 +3,7 @@ import { NodeItem } from "../../content/home/types/NodeItem";
 import { getColorFromAspect } from "../getColorFromAspect";
 import { mapNodeTerminalLibsToLibraryItems } from "./mapNodeTerminalLibsToLibraryItems";
 import { mapAttributeLibsToAttributeItems } from "./mapAttributeLibsToAttributeItems";
+import { sortAttributes, sortTerminals } from "../sorters";
 
 export const mapNodeLibCmToNodeItem = (nodeLib: NodeLibCm): NodeItem => ({
   name: nodeLib.name,
@@ -10,6 +11,6 @@ export const mapNodeLibCmToNodeItem = (nodeLib: NodeLibCm): NodeItem => ({
   description: nodeLib.description,
   color: getColorFromAspect(nodeLib.aspect),
   tokens: [nodeLib.rdsName, nodeLib.purposeName],
-  terminals: mapNodeTerminalLibsToLibraryItems(nodeLib.nodeTerminals),
-  attributes: mapAttributeLibsToAttributeItems(nodeLib.attributes),
+  terminals: sortTerminals(mapNodeTerminalLibsToLibraryItems(nodeLib.nodeTerminals)),
+  attributes: sortAttributes(mapAttributeLibsToAttributeItems(nodeLib.attributes)),
 });
