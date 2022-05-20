@@ -1,6 +1,6 @@
 import { useTheme } from "styled-components";
 import { useGetNode } from "../../../../data/queries/tyle/queriesNode";
-import { Box } from "../../../../complib/layouts";
+import { Box, MotionBox } from "../../../../complib/layouts";
 import { Text } from "../../../../complib/text";
 import { AnimatePresence } from "framer-motion";
 import { NodePanel } from "./components/panels/NodePanel";
@@ -21,6 +21,7 @@ export const About = ({ selected }: AboutProps) => {
   const theme = useTheme();
   const nodeQuery = useGetNode(selected);
   const showNodePanel = !nodeQuery.isFetching && !nodeQuery.isLoading && nodeQuery.isSuccess;
+  const showPlaceHolder = nodeQuery.isIdle || nodeQuery.isError;
 
   return (
     <Box
@@ -38,16 +39,20 @@ export const About = ({ selected }: AboutProps) => {
       color={theme.tyle.color.surface.variant.on}
     >
       <Text variant={"display-small"}>{TextResources.ABOUT_TITLE}</Text>
-      {nodeQuery.isIdle && <Placeholder text={TextResources.ABOUT_PLACEHOLDER} />}
       <AnimatePresence exitBeforeEnter>
+        {showPlaceHolder && <Placeholder text={TextResources.ABOUT_PLACEHOLDER} />}
         {showNodePanel && <NodePanel key={nodeQuery.data.id} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />}
       </AnimatePresence>
     </Box>
   );
 };
 
-const Placeholder = ({ text }: { text: string }) => (
-  <Box display={"flex"} flex={1} justifyContent={"center"} alignItems={"center"}>
-    <Text variant={"headline-large"}>{text}</Text>
-  </Box>
-);
+const Placeholder = ({ text }: { text: string }) => {
+  const theme = useTheme();
+
+  return (
+    <MotionBox display={"flex"} flex={1} justifyContent={"center"} alignItems={"center"} {...theme.tyle.animation.fade}>
+      <Text variant={"headline-large"}>{text}</Text>
+    </MotionBox>
+  );
+};
