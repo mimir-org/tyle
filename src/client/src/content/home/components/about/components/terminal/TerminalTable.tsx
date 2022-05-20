@@ -21,8 +21,8 @@ export const TerminalTable = ({ terminals }: TerminalTableProps) => (
       <TerminalTableHeaders />
     </thead>
     <tbody>
-      {terminals.map((x) => (
-        <TerminalTableRow key={x.name} {...x} />
+      {terminals.map((x, i) => (
+        <TerminalTableRow key={i + x.name} {...x} />
       ))}
     </tbody>
   </TerminalTableContainer>
