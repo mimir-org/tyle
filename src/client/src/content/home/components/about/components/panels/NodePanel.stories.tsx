@@ -6,7 +6,7 @@ export default {
   title: "Content/Home/About/Panel/NodePanel",
   component: NodePanel,
   args: {
-    node: mockNodeItem(),
+    ...mockNodeItem(),
   },
 } as ComponentMeta<typeof NodePanel>;
 

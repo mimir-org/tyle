@@ -8,6 +8,8 @@ import { NodePreview } from "../node/NodePreview";
 import { NodeItem } from "../../../../types/NodeItem";
 import { AttributeSingle } from "../attribute/AttributeSingle";
 import { TerminalTable } from "../terminal/TerminalTable";
+import { AttributeItem } from "../../../../types/AttributeItem";
+import { TerminalItem } from "../../../../types/TerminalItem";
 
 /**
  * Component that displays information about a given node.
@@ -23,6 +25,8 @@ import { TerminalTable } from "../terminal/TerminalTable";
  */
 export const NodePanel = ({ name, description, img, color, tokens, terminals, attributes }: NodeItem) => {
   const theme = useTheme();
+  const showTerminals = terminals && terminals.length > 0;
+  const showAttributes = attributes && attributes.length > 0;
 
   return (
     <MotionBox
@@ -47,18 +51,33 @@ export const NodePanel = ({ name, description, img, color, tokens, terminals, at
       </Flexbox>
 
       <NodePanelPropertiesContainer>
-        <Heading as={"h3"} variant={"headline-small"}>
-          {textResources.ATTRIBUTE_TITLE}
-        </Heading>
-        <Box display={"flex"} gap={theme.tyle.spacing.medium} flexWrap={"wrap"}>
-          {attributes && attributes.map((a, i) => <AttributeSingle key={i} {...a} />)}
-        </Box>
-
-        <Heading as={"h3"} variant={"headline-small"}>
-          {textResources.TERMINAL_TITLE}
-        </Heading>
-        {terminals && <TerminalTable terminals={terminals} />}
+        {showAttributes && <NodePanelAttributes attributes={attributes} />}
+        {showTerminals && <NodePanelTerminals terminals={terminals} />}
       </NodePanelPropertiesContainer>
     </MotionBox>
   );
 };
+
+const NodePanelAttributes = ({ attributes }: { attributes: AttributeItem[] }) => {
+  const theme = useTheme();
+
+  return (
+    <>
+      <Heading as={"h3"} variant={"headline-small"}>
+        {textResources.ATTRIBUTE_TITLE}
+      </Heading>
+      <Box display={"flex"} gap={theme.tyle.spacing.medium} flexWrap={"wrap"}>
+        {attributes && attributes.map((a, i) => <AttributeSingle key={i} {...a} />)}
+      </Box>
+    </>
+  );
+};
+
+const NodePanelTerminals = ({ terminals }: { terminals: TerminalItem[] }) => (
+  <>
+    <Heading as={"h3"} variant={"headline-small"}>
+      {textResources.TERMINAL_TITLE}
+    </Heading>
+    <TerminalTable terminals={terminals} />
+  </>
+);
