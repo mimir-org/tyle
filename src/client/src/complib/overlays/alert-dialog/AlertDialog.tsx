@@ -9,7 +9,7 @@ import { AlertDialogCancel } from "./components/AlertDialogCancel";
 import { AlertDialogAction, AlertDialogActionItem } from "./components/AlertDialogAction";
 
 interface Props {
-  content: ReactNode;
+  content?: ReactNode;
   actions: AlertDialogActionItem[];
   title: string;
   description?: string;
@@ -45,11 +45,11 @@ export const AlertDialog = ({
       <AlertDialogPrimitive.Trigger asChild>{children}</AlertDialogPrimitive.Trigger>
       <AlertDialogPrimitive.Portal>
         <AlertDialogPrimitive.Overlay asChild>
-          <AlertDialogOverlay />
+          <AlertDialogOverlay {...theme.tyle.animation.fade} />
         </AlertDialogPrimitive.Overlay>
         <AlertDialogPrimitive.Content asChild>
-          <AlertDialogContent variant={"elevated"} elevation={3}>
-            <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xxs} maxWidth={"350px"}>
+          <AlertDialogContent variant={"elevated"} elevation={3} {...theme.tyle.animation.fade}>
+            <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xxs}>
               <AlertDialogTitle hide={hideTitle}>{title}</AlertDialogTitle>
               {description && <AlertDialogDescription hide={hideDescription}>{description}</AlertDialogDescription>}
             </Box>
