@@ -10,7 +10,8 @@ const keys = {
 
 export const useGetNodes = () => useQuery(keys.lists(), apiNode.getLibraryNodes);
 
-export const useGetNode = (id?: string) => useQuery(keys.node(id), () => apiNode.getLibraryNode(id), { enabled: !!id });
+export const useGetNode = (id?: string) =>
+  useQuery(keys.node(id), () => apiNode.getLibraryNode(id), { enabled: !!id, retry: false });
 
 export const useCreateNode = () => {
   const queryClient = useQueryClient();
