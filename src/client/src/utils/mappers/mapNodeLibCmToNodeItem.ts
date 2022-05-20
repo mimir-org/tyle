@@ -6,6 +6,7 @@ import { mapAttributeLibsToAttributeItems } from "./mapAttributeLibsToAttributeI
 import { sortAttributes, sortTerminals } from "../sorters";
 
 export const mapNodeLibCmToNodeItem = (nodeLib: NodeLibCm): NodeItem => ({
+  id: nodeLib.id,
   name: nodeLib.name,
   img: nodeLib.symbol,
   description: nodeLib.description,
