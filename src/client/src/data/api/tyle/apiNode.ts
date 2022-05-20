@@ -5,13 +5,19 @@ import { NodeLibAm } from "../../../models/tyle/application/nodeLibAm";
 const _basePath = "librarynode";
 
 export const apiNode = {
-  getAspectNodes() {
+  getLibraryNodes() {
     return apiClient.get<NodeLibCm[]>(_basePath).then((r) => r.data);
   },
-  getAspectNode(id?: string) {
+  getLibraryNode(id?: string) {
     return apiClient.get<NodeLibCm>(`${_basePath}/${id}`).then((r) => r.data);
   },
-  postAspectNode(item: NodeLibAm) {
+  postLibraryNode(item: NodeLibAm) {
     return apiClient.post<NodeLibCm>(_basePath, item).then((r) => r.data);
+  },
+  putLibraryNode(item: NodeLibAm) {
+    return apiClient.put<NodeLibCm>(_basePath, item).then((r) => r.data);
+  },
+  deleteLibraryNode(id: string) {
+    return apiClient.delete<boolean>(`${_basePath}/${id}`).then((r) => r.data);
   },
 };
