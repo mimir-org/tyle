@@ -54,9 +54,11 @@ const TextResources = {
   SEARCH_FILTER: "Filter",
 
   // Item
-  ITEM_CLONE: "Clone",
-  ITEM_EDIT: "Edit",
-  ITEM_DELETE: "Delete",
+  ITEM_ACTION_CLONE: "Clone",
+  ITEM_ACTION_EDIT: "Edit",
+  ITEM_ACTION_DELETE: "Delete",
+  ITEM_ACTION_DELETE_TITLE: "Are you sure you want to delete",
+  ITEM_ACTION_DELETE_DESCRIPTION: "When you delete this item it cannot be recovered.",
 
   // About
   ABOUT_TITLE: "About",

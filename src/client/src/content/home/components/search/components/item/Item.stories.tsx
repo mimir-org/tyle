@@ -1,9 +1,10 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Item } from "./Item";
-
-const loremIpsum =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-  "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Button } from "../../../../../../complib/buttons";
+import { NodeProps } from "../../../about/components/node/Node";
+import { ItemDescriptionProps } from "./ItemDescription";
+import { Default as Node } from "../../../about/components/node/Node.stories";
+import { Default as ItemDescription } from "../../components/item/ItemDescription.stories";
 
 export default {
   title: "Content/Home/Search/Item/Item",
@@ -14,21 +15,20 @@ const Template: ComponentStory<typeof Item> = (args) => <Item {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  id: "ITEM",
-  img: "static/media/src/assets/icons/modules/library.svg",
-  color: "#fef445",
-  name: "Example item",
-  description: loremIpsum,
+  isSelected: false,
+  preview: <Node {...(Node.args as NodeProps)} />,
+  description: <ItemDescription {...(ItemDescription.args as ItemDescriptionProps)} />,
+  actions: (
+    <>
+      <Button>Action A</Button>
+      <Button>Action B</Button>
+      <Button>Action C</Button>
+    </>
+  ),
 };
 
 export const Selected = Template.bind({});
 Selected.args = {
   ...Default.args,
   isSelected: true,
-};
-
-export const WithLongDescription = Template.bind({});
-WithLongDescription.args = {
-  ...Default.args,
-  description: `${loremIpsum}${loremIpsum}`,
 };

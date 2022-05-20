@@ -1,41 +1,41 @@
 import { useTheme } from "styled-components";
 import { MotionCard } from "../../../../../../complib/surfaces";
-import { Flexbox } from "../../../../../../complib/layouts";
-import { ItemDescription } from "./ItemDescription";
-import { SearchItem } from "../../../../types/SearchItem";
-import { ItemActions } from "./ItemActions";
-import { Node } from "../../../about/components/node/Node";
+import { Box, Flexbox } from "../../../../../../complib/layouts";
+import { ReactNode } from "react";
 
-export type SearchItemProps = SearchItem & {
+export interface ItemProps {
   isSelected?: boolean;
-  setSelected?: () => void;
-};
+  preview: ReactNode;
+  description: ReactNode;
+  actions: ReactNode;
+}
 
 /**
- * Component which presents information about a given item.
+ * Component which presents information about an item.
+ * It has 3 slots (preview, description, actions) which you can populate with your own components.
  *
- * @param img source for preview image
- * @param color background for image container
- * @param name of item
- * @param description of item
  * @param isSelected controls the selected style of the item
- * @param setSelected function for setting the currently selected item
+ * @param preview slot for visual preview of the item
+ * @param description slot for description of the item
+ * @param actions slot for actions you can do with the item (usually buttons)
  * @constructor
  */
-export const Item = ({ img, color, name, description, isSelected, setSelected }: SearchItemProps) => {
+export const Item = ({ isSelected, preview, description, actions }: ItemProps) => {
   const theme = useTheme();
 
   return (
     <MotionCard
       layout
-      variant={isSelected ? "elevated" : "filled"}
+      variant={isSelected ? "filled" : "elevated"}
       {...theme.tyle.animation.fade}
       {...theme.tyle.animation.selectHover}
     >
       <Flexbox justifyContent={"space-between"} alignItems={"center"} flexWrap={"wrap"} gap={theme.tyle.spacing.medium}>
-        <Node color={color} img={img} />
-        <ItemDescription title={name} description={description} onClick={setSelected} />
-        <ItemActions />
+        {preview}
+        {description}
+        <Box display={"flex"} gap={theme.tyle.spacing.small} ml={"auto"}>
+          {actions}
+        </Box>
       </Flexbox>
     </MotionCard>
   );
