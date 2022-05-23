@@ -45,11 +45,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetTransport([FromRoute] string id)
+        public async Task<IActionResult> Get([FromRoute] string id)
         {
             try
             {
-                var data = await _transportService.GetTransport(id);
+                var data = await _transportService.Get(id);
                 return Ok(data);
             }
             catch (Exception e)
@@ -68,11 +68,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetTransports()
+        public async Task<IActionResult> GetLatestVersions()
         {
             try
             {
-                var data = await _transportService.GetTransports();
+                var data = await _transportService.GetLatestVersions();
                 return Ok(data.ToList());
             }
             catch (Exception e)
@@ -91,11 +91,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(typeof(TransportLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> CreateTransport([FromBody] TransportLibAm dataAm)
+        public async Task<IActionResult> Create([FromBody] TransportLibAm dataAm)
         {
             try
             {
-                var data = await _transportService.CreateTransport(dataAm);
+                var data = await _transportService.Create(dataAm);
                 _hookService.HookQueue.Enqueue(CacheKey.Transport);
                 return Ok(data);
             }
@@ -116,11 +116,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(typeof(TransportLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateTransport([FromBody] TransportLibAm dataAm, [FromRoute] string id)
+        public async Task<IActionResult> Update([FromBody] TransportLibAm dataAm, [FromRoute] string id)
         {
             try
             {
-                var data = await _transportService.UpdateTransport(dataAm, id);
+                var data = await _transportService.Update(dataAm, id);
                 _hookService.HookQueue.Enqueue(CacheKey.Transport);
                 return Ok(data);
             }
@@ -141,11 +141,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [SwaggerOperation("Delete a transport")]
-        public async Task<IActionResult> DeleteTransport([FromRoute] string id)
+        public async Task<IActionResult> Delete([FromRoute] string id)
         {
             try
             {
-                var data = await _transportService.DeleteTransport(id);
+                var data = await _transportService.Delete(id);
                 _hookService.HookQueue.Enqueue(CacheKey.Transport);
                 return Ok(data);
             }

@@ -123,7 +123,7 @@ namespace TypeLibrary.Services.Services
                 await _simpleService.CreateSimple(simple, true);
 
                 _transportService.ClearAllChangeTrackers();
-                await _transportService.CreateTransports(transports, true);
+                await _transportService.Create(transports, true);
             }
             catch (Exception e)
             {
