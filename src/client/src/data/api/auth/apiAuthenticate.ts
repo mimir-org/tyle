@@ -6,6 +6,6 @@ const _basePath = "mimirorgauthenticate";
 
 export const apiAuthenticate = {
   postLogin(item: MimirorgAuthenticateAm) {
-    return apiClient.post<MimirorgTokenCm>(_basePath, item).then((r) => r.data);
+    return apiClient.post<MimirorgTokenCm>(_basePath, item, { withCredentials: true }).then((r) => r.data);
   },
 };
