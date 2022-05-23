@@ -2,9 +2,8 @@ import styled from "styled-components/macro";
 import { ElementType } from "react";
 import { motion } from "framer-motion";
 import { Display, Palette, Polymorphic, Spacing, TextVariant, Typography } from "../props";
-import { displayMixin, getTextRole, paletteMixin, spacingMixin, typographyMixin } from "../mixins";
+import { displayMixin, ellipsisMixin, getTextRole, paletteMixin, spacingMixin, typographyMixin } from "../mixins";
 import { Ellipsis } from "../props/ellipsis";
-import { ellipsisMixin } from "../mixins/ellipsisMixin";
 
 type TextProps = Spacing &
   Pick<Palette, "color"> &

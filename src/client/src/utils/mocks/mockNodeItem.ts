@@ -4,6 +4,7 @@ import { mockTerminalItem } from "./mockTerminalItem";
 import { mockAttributeItem } from "./mockAttributeItem";
 
 export const mockNodeItem = (): NodeItem => ({
+  id: faker.random.numeric(),
   name: faker.commerce.productName(),
   description: faker.commerce.productDescription(),
   terminals: [...Array(7)].map((_) => mockTerminalItem()),

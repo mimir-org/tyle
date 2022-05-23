@@ -1,5 +1,5 @@
 import { css } from "styled-components/macro";
-import { Sizing } from "../props";
+import { Sizing } from "../../props";
 
 export const sizingMixin = css<Sizing>`
   width: ${(props) => props.width};

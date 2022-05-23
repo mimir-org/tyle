@@ -30,8 +30,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.ContentReferences, opt => opt.MapFrom(src => src.ContentReferences.ConvertToArray()))
                 .ForMember(dest => dest.ValueStringList, opt => opt.MapFrom(src => src.ValueStringList))
                 .ForMember(dest => dest.IsMultiSelect, opt => opt.MapFrom(src => src.IsMultiSelect))
-                .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect)).ForMember(dest => dest.UpdatedBy, opt => opt.MapFrom(src => src.UpdatedBy))
-                .ForMember(dest => dest.Updated, opt => opt.MapFrom(src => src.Updated))
+                .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
         }

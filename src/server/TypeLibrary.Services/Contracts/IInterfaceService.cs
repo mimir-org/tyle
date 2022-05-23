@@ -7,11 +7,11 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface IInterfaceService
     {
-        Task<InterfaceLibCm> GetInterface(string id);
-        Task<IEnumerable<InterfaceLibCm>> GetInterfaces();
-        Task<InterfaceLibCm> CreateInterface(InterfaceLibAm dataAm);
-        Task<InterfaceLibCm> UpdateInterface(InterfaceLibAm dataAm, string id);
-        Task<bool> DeleteInterface(string id);
+        Task<InterfaceLibCm> Get(string id);
+        Task<IEnumerable<InterfaceLibCm>> GetLatestVersions();
+        Task<InterfaceLibCm> Create(InterfaceLibAm dataAm);
+        Task<InterfaceLibCm> Update(InterfaceLibAm dataAm, string id);
+        Task<bool> Delete(string id);
         void ClearAllChangeTrackers();
     }
 }

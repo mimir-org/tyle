@@ -25,9 +25,10 @@ namespace TypeLibrary.Services.Services
         private readonly IEfAttributeRepository _attributeRepository;
         private readonly IEFSimpleRepository _simpleRepository;
         private readonly IEfPurposeRepository _purposeRepository;
+        private readonly IVersionService _versionService;
         private readonly ApplicationSettings _applicationSettings;
 
-        public NodeService(IEfPurposeRepository purposeRepository, IEfAttributeRepository attributeRepository, IEfRdsRepository rdsRepository, IMapper mapper, IEfNodeRepository nodeRepository, IEFSimpleRepository simpleRepository, IOptions<ApplicationSettings> applicationSettings)
+        public NodeService(IEfPurposeRepository purposeRepository, IEfAttributeRepository attributeRepository, IEfRdsRepository rdsRepository, IMapper mapper, IEfNodeRepository nodeRepository, IEFSimpleRepository simpleRepository, IOptions<ApplicationSettings> applicationSettings, IVersionService versionService)
         {
             _purposeRepository = purposeRepository;
             _attributeRepository = attributeRepository;
@@ -35,23 +36,29 @@ namespace TypeLibrary.Services.Services
             _mapper = mapper;
             _nodeRepository = nodeRepository;
             _simpleRepository = simpleRepository;
+            _versionService = versionService;
             _applicationSettings = applicationSettings?.Value;
         }
 
-        public async Task<NodeLibCm> GetNode(string id)
+        public async Task<NodeLibCm> Get(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
                 throw new MimirorgBadRequestException("Can't get node. The id is missing value.");
 
-            var data = await _nodeRepository.FindNode(id).FirstOrDefaultAsync();
-
-            if (data == null)
+            var nodeDm = await _nodeRepository.FindNode(id).FirstOrDefaultAsync();
+            
+            if (nodeDm == null)
                 throw new MimirorgNotFoundException($"There is no node with id: {id}");
 
-            if (data.Deleted)
-                throw new MimirorgBadRequestException($"The item with id {id} is marked as deleted in the database.");
+            if (nodeDm.Deleted)
+                throw new MimirorgBadRequestException($"The node with id {id} is marked as deleted in the database.");
 
-            var nodeLibCm = _mapper.Map<NodeLibCm>(data);
+            var latestVersion = await _versionService.GetLatestVersion(nodeDm);
+
+            if(latestVersion != null && nodeDm.Id != latestVersion.Id)
+                throw new MimirorgBadRequestException($"The node with id {id} and version {nodeDm.Version} is older than latest version {latestVersion.Version}.");
+
+            var nodeLibCm = _mapper.Map<NodeLibCm>(nodeDm);
 
             if (nodeLibCm == null)
                 throw new MimirorgMappingException("NodeLibDm", "NodeLibCm");
@@ -59,20 +66,26 @@ namespace TypeLibrary.Services.Services
             return nodeLibCm;
         }
 
-        public Task<IEnumerable<NodeLibCm>> GetNodes()
+        public async Task<IEnumerable<NodeLibCm>> GetLatestVersions()
         {
-            var firstVersionIdsDistinct = _nodeRepository.GetAllNodes().Where(x => !x.Deleted).Select(y => y.FirstVersionId).Distinct().ToList();
-            var nodes = firstVersionIdsDistinct.Select(GetLatestNodeVersion).ToList();
+            var distinctFirstVersionIdDm = _nodeRepository.GetAllNodes().Where(x => !x.Deleted).ToList().DistinctBy(x => x.FirstVersionId).ToList();
 
-            var nodeLibCms = _mapper.Map<IEnumerable<NodeLibCm>>(nodes);
+            var nodes = new List<NodeLibDm>();
+
+            foreach (var dm in distinctFirstVersionIdDm)
+                nodes.Add(await _versionService.GetLatestVersion(dm));
+
+            nodes = nodes.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
+            var nodeLibCms = _mapper.Map<List<NodeLibCm>>(nodes);
 
             if (nodes.Any() && (nodeLibCms == null || !nodeLibCms.Any()))
                 throw new MimirorgMappingException("List<NodeLibDm>", "ICollection<NodeLibAm>");
 
-            return Task.FromResult(nodeLibCms ?? new List<NodeLibCm>());
+            return await Task.FromResult(nodeLibCms ?? new List<NodeLibCm>());
         }
 
-        public async Task<NodeLibCm> CreateNode(NodeLibAm dataAm)
+        public async Task<NodeLibCm> Create(NodeLibAm dataAm)
         {
             if (dataAm == null)
                 throw new MimirorgBadRequestException("Data object can not be null.");
@@ -115,10 +128,10 @@ namespace TypeLibrary.Services.Services
 
             _nodeRepository.Detach(nodeLibDm);
 
-            return await GetNode(nodeLibDm.Id);
+            return await Get(nodeLibDm.Id);
         }
 
-        public async Task<NodeLibCm> UpdateNode(NodeLibAm dataAm, string id)
+        public async Task<NodeLibCm> Update(NodeLibAm dataAm, string id)
         {
             if (string.IsNullOrEmpty(id))
                 throw new MimirorgBadRequestException("Can't update a node without an id.");
@@ -137,7 +150,13 @@ namespace TypeLibrary.Services.Services
             if (nodeToUpdate.Deleted)
                 throw new MimirorgBadRequestException($"The node with id {id} is deleted and can not be updated.");
             
-            var latestNodeDm = GetLatestNodeVersion(nodeToUpdate.FirstVersionId);
+            var latestNodeDm = await _versionService.GetLatestVersion(nodeToUpdate);
+
+            if(latestNodeDm == null)
+                throw new MimirorgBadRequestException($"Latest node version for node with id {id} not found (null).");
+
+            if (string.IsNullOrWhiteSpace(latestNodeDm.Version))
+                throw new MimirorgBadRequestException($"Latest version for node with id {id} has null or empty as version number.");
 
             var latestNodeVersion = double.Parse(latestNodeDm.Version, CultureInfo.InvariantCulture);
             var nodeToUpdateVersion = double.Parse(nodeToUpdate.Version, CultureInfo.InvariantCulture);
@@ -148,10 +167,10 @@ namespace TypeLibrary.Services.Services
             dataAm.Version = IncrementNodeVersion(latestNodeDm, dataAm);
             dataAm.FirstVersionId = latestNodeDm.FirstVersionId;
             
-            return await CreateNode(dataAm);
+            return await Create(dataAm);
         }
         
-        public async Task<bool> DeleteNode(string id)
+        public async Task<bool> Delete(string id)
         {
             var dm = await _nodeRepository.GetAsync(id);
 
@@ -177,18 +196,6 @@ namespace TypeLibrary.Services.Services
         }
 
         #region Private
-
-        private NodeLibDm GetLatestNodeVersion(string firstVersionId)
-        {
-            var existingDmVersions = _nodeRepository.GetAllNodes()
-                .Where(x => x.FirstVersionId == firstVersionId && !x.Deleted).ToList()
-                .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList();
-
-            if (!existingDmVersions.Any())
-                throw new MimirorgBadRequestException($"No nodes with 'FirstVersionId' {firstVersionId} found.");
-
-            return existingDmVersions[^1];
-        }
 
         // ReSharper disable once ReplaceWithSingleAssignment.False
         // ReSharper disable once ConvertIfToOrExpression

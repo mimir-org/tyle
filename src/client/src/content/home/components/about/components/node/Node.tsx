@@ -2,7 +2,7 @@ import { Icon } from "../../../../../../complib/media";
 import { Box } from "../../../../../../complib/layouts";
 import { useTheme } from "styled-components";
 
-interface NodeBoxProps {
+export interface NodeProps {
   color: string;
   img: string;
   width?: string;
@@ -20,7 +20,7 @@ interface NodeBoxProps {
  * @param imgSize
  * @constructor
  */
-export const Node = ({ color, img, width = "130px", height = "100px", imgSize = 40 }: NodeBoxProps) => {
+export const Node = ({ color, img, width = "130px", height = "100px", imgSize = 40 }: NodeProps) => {
   const theme = useTheme();
 
   return (

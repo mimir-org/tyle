@@ -1,4 +1,5 @@
 import styled from "styled-components/macro";
+import { hideScrollbar } from "../../../../../../complib/mixins";
 
 export const ItemListContainer = styled.div`
   position: relative;
@@ -19,11 +20,6 @@ export const ItemListContainer = styled.div`
   margin-right: ${(props) => `-${props.theme.tyle.spacing.small}`};
 
   // Hidden scrollbar
-  overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  ::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
+  overflow-y: auto;
+  ${hideScrollbar};
 `;

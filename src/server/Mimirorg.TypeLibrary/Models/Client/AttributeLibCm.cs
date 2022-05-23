@@ -5,29 +5,24 @@ namespace Mimirorg.TypeLibrary.Models.Client
     public class AttributeLibCm
     {
         public string Id { get; set; }
-        public ICollection<AttributeLibCm> Children { get; set; }
+        public string ParentName { get; set; }
+        public string ParentIri { get; set; }
         public string Name { get; set; }
         public string Iri { get; set; }
         public ICollection<string> ContentReferences { get; set; }
-        public string ParentIri { get; set; }
-        public string ParentName { get; set; }
-        public Aspect Aspect { get; set; }
-        public Discipline Discipline { get; set; }
-        public virtual HashSet<string> Tags { get; set; }
-        public Select Select { get; set; }
         public string AttributeQualifier { get; set; }
         public string AttributeSource { get; set; }
         public string AttributeCondition { get; set; }
         public string AttributeFormat { get; set; }
+        public Aspect Aspect { get; set; }
+        public Discipline Discipline { get; set; }
+        public HashSet<string> Tags { get; set; }
+        public Select Select { get; set; }
         public ICollection<string> SelectValues { get; set; }
         public ICollection<UnitLibCm> Units { get; set; }
         public string Description => CreateDescription();
-
-        public string UpdatedBy { get; set; }
-        public DateTime? Updated { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-
         public string Kind => nameof(AttributeLibCm);
 
         private string CreateDescription()

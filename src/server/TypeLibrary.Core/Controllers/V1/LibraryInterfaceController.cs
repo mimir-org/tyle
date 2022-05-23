@@ -45,11 +45,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetInterface([FromRoute] string id)
+        public async Task<IActionResult> Get([FromRoute] string id)
         {
             try
             {
-                var data = await _interfaceService.GetInterface(id);
+                var data = await _interfaceService.Get(id);
                 return Ok(data);
             }
             catch (Exception e)
@@ -68,11 +68,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetLatestVersions()
         {
             try
             {
-                var data = await _interfaceService.GetInterfaces();
+                var data = await _interfaceService.GetLatestVersions();
                 return Ok(data.ToList());
             }
             catch (Exception e)
@@ -91,11 +91,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(typeof(InterfaceLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> CreateInterface([FromBody] InterfaceLibAm dataAm)
+        public async Task<IActionResult> Create([FromBody] InterfaceLibAm dataAm)
         {
             try
             {
-                var data = await _interfaceService.CreateInterface(dataAm);
+                var data = await _interfaceService.Create(dataAm);
                 _hookService.HookQueue.Enqueue(CacheKey.Interface);
                 return Ok(data);
             }
@@ -116,11 +116,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(typeof(InterfaceLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateInterface([FromBody] InterfaceLibAm dataAm, [FromRoute] string id)
+        public async Task<IActionResult> Update([FromBody] InterfaceLibAm dataAm, [FromRoute] string id)
         {
             try
             {
-                var data = await _interfaceService.UpdateInterface(dataAm, id);
+                var data = await _interfaceService.Update(dataAm, id);
                 _hookService.HookQueue.Enqueue(CacheKey.Interface);
                 return Ok(data);
             }
@@ -142,11 +142,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Admin")]
         [SwaggerOperation("Delete an interface")]
-        public async Task<IActionResult> DeleteInterface([FromRoute] string id)
+        public async Task<IActionResult> Delete([FromRoute] string id)
         {
             try
             {
-                var data = await _interfaceService.DeleteInterface(id);
+                var data = await _interfaceService.Delete(id);
                 _hookService.HookQueue.Enqueue(CacheKey.Interface);
                 return Ok(data);
             }

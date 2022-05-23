@@ -1,7 +1,8 @@
 import styled from "styled-components/macro";
-import { Card } from "../../surfaces";
+import { MotionCard } from "../../surfaces";
+import { motion } from "framer-motion";
 
-export const DialogContent = styled(Card)`
+export const DialogContent = styled(MotionCard)`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -17,9 +18,8 @@ export const DialogContent = styled(Card)`
   padding: ${(props) => props.theme.tyle.spacing.medium};
 `;
 
-export const DialogOverlay = styled.div`
+export const DialogOverlay = styled(motion.div)`
   position: fixed;
   inset: 0;
-  background-color: black;
-  opacity: 0.5;
+  background-color: hsla(0, 0%, 0%, 0.5);
 `;

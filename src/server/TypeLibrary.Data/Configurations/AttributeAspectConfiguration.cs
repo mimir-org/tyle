@@ -17,11 +17,9 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.ContentReferences).HasColumnName("ContentReferences");
             builder.Property(p => p.Deleted).HasColumnName("Deleted").IsRequired().HasDefaultValue(0);
             builder.Property(p => p.ParentId).HasColumnName("ParentId").HasMaxLength(127);
-            builder.Property(p => p.Aspect).HasColumnName("Aspect").IsRequired().HasConversion<string>().HasMaxLength(31); ;
+            builder.Property(p => p.Aspect).HasColumnName("Aspect").IsRequired().HasConversion<string>().HasMaxLength(31);
             builder.Property(p => p.CreatedBy).HasColumnName("CreatedBy").IsRequired().HasMaxLength(63);
             builder.Property(p => p.Created).HasColumnName("Created").IsRequired();
-            builder.Property(p => p.UpdatedBy).HasColumnName("UpdatedBy").HasMaxLength(63);
-            builder.Property(p => p.Updated).HasColumnName("Updated").HasDefaultValue(null);
 
             builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
         }

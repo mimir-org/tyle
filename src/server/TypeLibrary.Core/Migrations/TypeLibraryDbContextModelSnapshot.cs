@@ -181,15 +181,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("ParentId");
 
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Updated");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
-                        .HasColumnName("UpdatedBy");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ParentId");
@@ -243,15 +234,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Name");
 
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Updated");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
-                        .HasColumnName("UpdatedBy");
-
                     b.HasKey("Id");
 
                     b.ToTable("AttributeCondition", (string)null);
@@ -300,15 +282,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(31)
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("Name");
-
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Updated");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
-                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
@@ -407,15 +380,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Tags");
 
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Updated");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
-                        .HasColumnName("UpdatedBy");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ParentId");
@@ -464,15 +428,6 @@ namespace TypeLibrary.Core.Migrations
                     b.Property<bool>("IsMultiSelect")
                         .HasColumnType("bit")
                         .HasColumnName("IsMultiSelect");
-
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Updated");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
-                        .HasColumnName("UpdatedBy");
 
                     b.Property<string>("ValueStringList")
                         .HasColumnType("nvarchar(max)")
@@ -527,15 +482,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("Name");
 
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Updated");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
-                        .HasColumnName("UpdatedBy");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
@@ -587,15 +533,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(31)
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("Name");
-
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Updated");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
-                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
@@ -692,16 +629,6 @@ namespace TypeLibrary.Core.Migrations
                     b.Property<string>("TerminalId")
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("Interface_TerminalId");
-
-                    b.Property<DateTime?>("Updated")
-                        .HasMaxLength(63)
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Updated");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
-                        .HasColumnName("UpdatedBy");
 
                     b.Property<string>("Version")
                         .IsRequired()
@@ -824,16 +751,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("Symbol");
 
-                    b.Property<DateTime?>("Updated")
-                        .HasMaxLength(63)
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Updated");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
-                        .HasColumnName("UpdatedBy");
-
                     b.Property<string>("Version")
                         .IsRequired()
                         .HasMaxLength(7)
@@ -925,15 +842,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Name");
 
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Updated");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
-                        .HasColumnName("UpdatedBy");
-
                     b.HasKey("Id");
 
                     b.ToTable("Purpose", (string)null);
@@ -974,15 +882,6 @@ namespace TypeLibrary.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
-
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Updated");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
-                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
@@ -1032,15 +931,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Name");
 
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Updated");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
-                        .HasColumnName("UpdatedBy");
-
                     b.HasKey("Id");
 
                     b.ToTable("Simple", (string)null);
@@ -1088,15 +978,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Name");
-
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Updated");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
-                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 
@@ -1157,15 +1038,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("ParentId");
-
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Updated");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
-                        .HasColumnName("UpdatedBy");
 
                     b.Property<string>("Version")
                         .IsRequired()
@@ -1268,16 +1140,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("Transport_TerminalId");
 
-                    b.Property<DateTime?>("Updated")
-                        .HasMaxLength(63)
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Updated");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
-                        .HasColumnName("UpdatedBy");
-
                     b.Property<string>("Version")
                         .IsRequired()
                         .HasMaxLength(7)
@@ -1335,15 +1197,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Name");
-
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Updated");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
-                        .HasColumnName("UpdatedBy");
 
                     b.HasKey("Id");
 

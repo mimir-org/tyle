@@ -1,10 +1,12 @@
 import { Divider, Popover } from "../../../../../../complib/data-display";
 import { useTheme } from "styled-components";
 import { Box, Flexbox } from "../../../../../../complib/layouts";
-import { AttributeButton } from "./AttributeButton";
+import { AttributeButton, AttributeButtonProps } from "./AttributeButton";
 import { AttributeItem } from "../../../../types/AttributeItem";
 import { Text } from "../../../../../../complib/text";
 import { TextResources } from "../../../../../../assets/text";
+
+type AttributeSingleProps = AttributeButtonProps & AttributeItem;
 
 /**
  * Component which shows a single attribute for a given entity in addition to its description in a popover.
@@ -13,14 +15,17 @@ import { TextResources } from "../../../../../../assets/text";
  * @param color representing attribute
  * @param traits various qualities/traits that the attribute has
  * @param value associated with attribute e.g. percentage, dimension etc.
+ * @param delegated receives all properties which AttributeButtonProps define
  * @constructor
  */
-export const AttributeSingle = ({ name, color, traits, value }: AttributeItem) => {
+export const AttributeSingle = ({ name, color, traits, value, ...delegated }: AttributeSingleProps) => {
   const buttonName = name.split(",")[0];
 
   return (
     <Popover content={<AttributeDescription name={name} color={color} traits={traits} value={value} />}>
-      <AttributeButton color={color}>{buttonName}</AttributeButton>
+      <AttributeButton color={color} {...delegated}>
+        {buttonName}
+      </AttributeButton>
     </Popover>
   );
 };

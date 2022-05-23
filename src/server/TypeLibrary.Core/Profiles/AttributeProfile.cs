@@ -52,8 +52,6 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Discipline, opt => opt.MapFrom(src => src.Discipline))
                 .ForMember(dest => dest.Units, opt => opt.MapFrom(src => src.Units))
                 .ForMember(dest => dest.SelectValues, opt => opt.MapFrom(src => src.SelectValues))
-                .ForMember(dest => dest.UpdatedBy, opt => opt.MapFrom(src => src.UpdatedBy))
-                .ForMember(dest => dest.Updated, opt => opt.MapFrom(src => src.Updated))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
         }

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
@@ -12,7 +11,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public bool IsMultiSelect { get; set; }
 
         [Required]
-        public virtual Dictionary<string, bool> Values { get; set; }
+        public Dictionary<string, bool> Values { get; set; }
 
         public ICollection<string> ContentReferences { get; set; }
     }

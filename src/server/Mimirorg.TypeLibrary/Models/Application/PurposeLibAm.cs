@@ -8,10 +8,11 @@ namespace Mimirorg.TypeLibrary.Models.Application
     {
         [Required]
         public string Name { get; set; }
+
         public ICollection<string> ContentReferences { get; set; }
         public string Description { get; set; }
 
         [TSExclude]
-        public virtual string Id => $"{Name}".CreateMd5();
+        public string Id => $"{Name}".CreateMd5();
     }
 }

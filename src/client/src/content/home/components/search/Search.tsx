@@ -5,10 +5,10 @@ import { Text } from "../../../../complib/text";
 import { ItemList } from "./components/item/ItemList";
 import { useGetNodes } from "../../../../data/queries/tyle/queriesNode";
 import { TextResources } from "../../../../assets/text";
-import { Item } from "./components/item/Item";
 import { SearchBar } from "./components/SearchBar";
 import { filterSearchItem } from "./Search.helpers";
-import { mapNodeLibCmToSearchItem } from "../../../../utils/mappers";
+import { mapNodeLibCmToNodeItem } from "../../../../utils/mappers";
+import { NodeSearchItem } from "./components/node/NodeSearchItem";
 
 interface SearchProps {
   selected?: string;
@@ -26,6 +26,7 @@ export const Search = ({ selected, setSelected }: SearchProps) => {
   const theme = useTheme();
   const nodeQuery = useGetNodes();
   const [searchQuery, setSearchQuery] = useState("");
+  const showSearchItems = nodeQuery.isSuccess && !nodeQuery.isLoading;
 
   return (
     <Box
@@ -42,13 +43,13 @@ export const Search = ({ selected, setSelected }: SearchProps) => {
     >
       <Text variant={"display-small"}>{TextResources.SEARCH_TITLE}</Text>
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-      {nodeQuery.isSuccess && !nodeQuery.isLoading && (
+      {showSearchItems && (
         <ItemList>
           {nodeQuery.data
-            .map((n) => mapNodeLibCmToSearchItem(n))
-            .filter((n) => filterSearchItem(n, searchQuery))
-            .map((i) => (
-              <Item isSelected={i.id === selected} setSelected={() => setSelected(i.id)} key={i.id} {...i} />
+            .map((n) => mapNodeLibCmToNodeItem(n))
+            .filter((n) => filterSearchItem(n.name, searchQuery))
+            .map((n) => (
+              <NodeSearchItem key={n.id} isSelected={n.id === selected} setSelected={() => setSelected(n.id)} {...n} />
             ))}
         </ItemList>
       )}
