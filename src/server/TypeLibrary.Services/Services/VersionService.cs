@@ -70,8 +70,8 @@ namespace TypeLibrary.Services.Services
             return await Task.FromResult(existingDmVersions[^1]);
         }
 
-        /// <summary>
-        /// Method will check if exiting object T changes vs new (updated) object TY is allowed.
+       /// <summary>
+        /// Method will check if exiting object T vs new (updated) object TY is allowed.
         /// Throws exception if any changes are not allowed, or if there are no changes between T and TY.
         /// Returns new major or minor version based on what has changes between T and TY.
         /// </summary>
@@ -83,40 +83,18 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgBadRequestException"></exception>
         public async Task<string> CalculateNewVersion<T,TY>(T latestVersionDm, TY newAm) where T : class where TY : class
         {
-            const string exceptionParam = "IncrementVersion<T,TY> Parameters T,TY can't be null.";
-            const string exceptionParamClass = "IncrementVersion<T,TY> class type not supported.";
-            const string exceptionName = "You cannot change existing name.";
-            const string exceptionRdsCode = "You cannot change existing rds code.";
-            const string exceptionRdsName = "You cannot change existing rds name.";
-            const string exceptionAspect = "You cannot change existing aspect.";
-            const string exceptionTerminalId = "You cannot change existing terminal id.";
-            const string exceptionAttributeRemove = "You cannot remove existing attributes, only add.";
-            const string exceptionAttributeChange = "You cannot change existing attributes, only add.";
-            const string exceptionSimpleChange = "You cannot change existing simple, only add.";
-            const string exceptionSimpleRemove = "You cannot remove existing simple, only add.";
-            const string exceptionNodeTerminalRemove = "You cannot remove existing node terminals, only add.";
-            const string exceptionNodeTerminalTerminalId = "You cannot change existing node terminal's terminal id, only add.";
-            const string exceptionNodeTerminalNumber = "You cannot change existing node terminal's number, only add.";
-            const string exceptionNodeTerminalDirection = "You cannot change existing node terminal's direction, only add.";
-            const string exceptionSelectedPredefinedRemove = "You cannot remove existing predefined selected attributes, only add.";
-            const string exceptionSelectedPredefinedChange = "You cannot change existing predefined selected attribute key, only add.";
-            const string exceptionSelectedPredefinedMulti = "You cannot change existing multi select value for predefined selected attributes, only add.";
-            const string exceptionSelectedPredefinedValues = "You cannot add/remove existing values (dictionary) for predefined selected attributes.";
-            const string exceptionSelectedPredefinedKey = "You cannot add/remove/change existing key values (dictionary) for predefined selected attributes.";
-            const string exceptionSelectedPredefinedContRefsRemove = "You cannot add/remove existing content references for predefined selected attributes.";
-            const string exceptionSelectedPredefinedContRefsChange = "You cannot change existing content references for predefined selected attributes.";
-            const string exceptionLatestVersionDmAndNewAmIsIdentical = "Existing object and new object is identical, no changes registered.";
+            ValidateIsLatestVersion(latestVersionDm);
 
             var dmType = latestVersionDm?.GetType();
             var amType = newAm?.GetType();
 
             if (dmType is null || amType is null)
-                throw new MimirorgBadRequestException(exceptionParam);
+                throw new MimirorgBadRequestException("CalculateNewVersion<T,TY> T and/or TY can't be null.");
 
             if (!(dmType == typeof(NodeLibDm) && amType == typeof(NodeLibAm) || 
                 dmType == typeof(TransportLibDm) && amType == typeof(TransportLibAm) ||
                 dmType == typeof(InterfaceLibDm) && amType == typeof(InterfaceLibAm)))
-                throw new MimirorgBadRequestException(exceptionParamClass);
+                throw new MimirorgBadRequestException("CalculateNewVersion<T,TY> type T and/or TY not supported.");
 
             var nodeDm = dmType == typeof(NodeLibDm) ? latestVersionDm as NodeLibDm : null;
             var nodeAm = amType == typeof(NodeLibAm) ? newAm as NodeLibAm : null;
@@ -127,93 +105,11 @@ namespace TypeLibrary.Services.Services
             var interfaceDm = dmType == typeof(InterfaceLibDm) ? latestVersionDm as InterfaceLibDm : null;
             var interfaceAm = amType == typeof(InterfaceLibAm) ? newAm as InterfaceLibAm : null;
 
-            //Check if node parameter T is the latest version
-            if (nodeDm != null)
-            {
-                var latestVersion = await GetLatestVersion(nodeDm);
-                if (latestVersion != null)
-                    if (double.Parse(nodeDm.Version, CultureInfo.InvariantCulture) < double.Parse(latestVersion.Version, CultureInfo.InvariantCulture))
-                        throw new MimirorgBadRequestException($"Latest version is {latestVersion.Version} and not {nodeDm.Version}");
-            }
-
-            //Check if transport parameter T is the latest version
-            if (transportDm != null)
-            {
-                var latestVersion = await GetLatestVersion(transportDm);
-                if (latestVersion != null)
-                    if (double.Parse(transportDm.Version, CultureInfo.InvariantCulture) < double.Parse(latestVersion.Version, CultureInfo.InvariantCulture))
-                        throw new MimirorgBadRequestException($"Latest version is {latestVersion.Version} and not {transportDm.Version}");
-            }
-
-            //Check if interface parameter T is the latest version
-            if (interfaceDm != null)
-            {
-                var latestVersion = await GetLatestVersion(interfaceDm);
-                if (latestVersion != null)
-                    if (double.Parse(interfaceDm.Version, CultureInfo.InvariantCulture) < double.Parse(latestVersion.Version, CultureInfo.InvariantCulture))
-                        throw new MimirorgBadRequestException($"Latest version is {latestVersion.Version} and not {interfaceDm.Version}");
-            }
-
-            // Check all changes between T and TY. Throw exception if changes are not allowed.
-            // Set increaseMinorVersion or increaseMajorVersion flags based on changes between T and TY. 
-
             var increaseMajorVersion = false;
             var increaseMinorVersion = false;
 
-            //Name
-
-            if (nodeDm != null && nodeAm != null && !string.Equals(nodeDm.Name?.ToLower(), nodeAm.Name?.ToLower()))
-                throw new MimirorgBadRequestException(exceptionName);
-
-            if (transportDm != null && transportAm != null && !string.Equals(transportDm.Name?.ToLower(), transportAm.Name?.ToLower()))
-                throw new MimirorgBadRequestException(exceptionName);
-
-            if (interfaceDm != null && interfaceAm != null && !string.Equals(interfaceDm.Name?.ToLower(), interfaceAm.Name?.ToLower()))
-                throw new MimirorgBadRequestException(exceptionName);
-
-            //RdsCode
-
-            if (nodeDm != null && nodeAm != null && !string.Equals(nodeDm.RdsCode?.ToLower(), nodeAm.RdsCode?.ToLower()))
-                throw new MimirorgBadRequestException(exceptionRdsCode);
-
-            if (transportDm != null && transportAm != null && !string.Equals(transportDm.RdsCode?.ToLower(), transportAm.RdsCode?.ToLower()))
-                throw new MimirorgBadRequestException(exceptionRdsCode);
-
-            if (interfaceDm != null && interfaceAm != null && !string.Equals(interfaceDm.RdsCode?.ToLower(), interfaceAm.RdsCode?.ToLower()))
-                throw new MimirorgBadRequestException(exceptionRdsCode);
-
-            //RdsName
-
-            if (nodeDm != null && nodeAm != null && !string.Equals(nodeDm.RdsName?.ToLower(), nodeAm.RdsName?.ToLower()))
-                throw new MimirorgBadRequestException(exceptionRdsName);
-
-            if (transportDm != null && transportAm != null && !string.Equals(transportDm.RdsName?.ToLower(), transportAm.RdsName?.ToLower()))
-                throw new MimirorgBadRequestException(exceptionRdsName);
-
-            if (interfaceDm != null && interfaceAm != null && !string.Equals(interfaceDm.RdsName?.ToLower(), interfaceAm.RdsName?.ToLower()))
-                throw new MimirorgBadRequestException(exceptionRdsName);
-
-            //Aspect
-
-            if (nodeDm != null && nodeAm != null && nodeDm.Aspect != nodeAm.Aspect)
-                throw new MimirorgBadRequestException(exceptionAspect);
-
-            if (transportDm != null && transportAm != null && transportDm.Aspect != transportAm.Aspect)
-                throw new MimirorgBadRequestException(exceptionAspect);
-
-            if (interfaceDm != null && interfaceAm != null && interfaceDm.Aspect != interfaceAm.Aspect)
-                throw new MimirorgBadRequestException(exceptionAspect);
-
-            //ParentId
-
-            if (nodeDm != null && nodeAm != null && !string.Equals(nodeDm.ParentId?.ToLower(), nodeAm.ParentId?.ToLower()))
-                increaseMinorVersion = true;
-
-            if (transportDm != null && transportAm != null && !string.Equals(transportDm.ParentId?.ToLower(), transportAm.ParentId?.ToLower()))
-                increaseMinorVersion = true;
-
-            if (interfaceDm != null && interfaceAm != null && !string.Equals(interfaceDm.ParentId?.ToLower(), interfaceAm.ParentId?.ToLower()))
-                increaseMinorVersion = true;
+            //Validate: Name, RdsCode, RdsName, Aspect, ParentId and TerminalId
+            ValidateNameRdsAspectParentTerminal(latestVersionDm, newAm);
 
             //PurposeName
 
@@ -298,25 +194,17 @@ namespace TypeLibrary.Services.Services
             }
 
             if (attrAms.Count < attrDms.Count)
-                throw new MimirorgBadRequestException(exceptionAttributeRemove);
+                throw new MimirorgBadRequestException("You cannot remove existing attributes, only add.");
 
             if (attrAms.Count >= attrDms.Count)
             {
                 if (attrDms.Where(x => attrAms.Any(y => y == x)).ToList().Count != attrDms.Count)
-                    throw new MimirorgBadRequestException(exceptionAttributeChange);
+                    throw new MimirorgBadRequestException("You cannot change existing attributes, only add.");
 
                 if (attrAms.Count > attrDms.Count)
                     increaseMajorVersion = true;
             }
-
-            //TerminalId
-
-            if (transportDm != null && transportAm != null && !string.Equals(transportDm.TerminalId?.ToLower(), transportAm.TerminalId?.ToLower()))
-                throw new MimirorgBadRequestException(exceptionTerminalId);
-
-            if (interfaceDm != null && interfaceAm != null && !string.Equals(interfaceDm.TerminalId?.ToLower(), interfaceAm.TerminalId?.ToLower()))
-                throw new MimirorgBadRequestException(exceptionTerminalId);
-
+            
             //Simple
 
             if (nodeDm != null && nodeAm != null)
@@ -325,12 +213,12 @@ namespace TypeLibrary.Services.Services
                 var simpleAms = nodeAm.SimpleIdList?.ToList().OrderBy(x => x, StringComparer.InvariantCultureIgnoreCase).ToList() ?? new List<string>();
 
                 if (simpleAms.Count < simpleDms.Count)
-                    throw new MimirorgBadRequestException(exceptionSimpleRemove);
+                    throw new MimirorgBadRequestException("You cannot remove existing simple, only add.");
 
                 if (simpleAms.Count >= simpleDms.Count)
                 {
                     if (simpleDms.Where(x => simpleAms.Any(y => y == x)).ToList().Count != simpleDms.Count)
-                        throw new MimirorgBadRequestException(exceptionSimpleChange);
+                        throw new MimirorgBadRequestException("You cannot change existing simple, only add.");
 
                     if (simpleAms?.Count > simpleDms?.Count)
                         increaseMajorVersion = true;
@@ -345,20 +233,20 @@ namespace TypeLibrary.Services.Services
                 var dmList = nodeDm.NodeTerminals?.ToList().OrderBy(x => x?.TerminalId, StringComparer.InvariantCultureIgnoreCase).ToList();
 
                 if (amList?.Count < dmList?.Count)
-                    throw new MimirorgBadRequestException(exceptionNodeTerminalRemove);
+                    throw new MimirorgBadRequestException("You cannot remove existing node terminals, only add.");
 
                 if (amList?.Count >= dmList?.Count)
                 {
                     for (var i = 0; i < dmList.Count; i++)
                     {
                         if (amList[i].TerminalId != dmList[i].TerminalId)
-                            throw new MimirorgBadRequestException(exceptionNodeTerminalTerminalId);
+                            throw new MimirorgBadRequestException("You cannot change existing node terminal's terminal id, only add.");
 
                         if (amList[i].Number != dmList[i].Number)
-                            throw new MimirorgBadRequestException(exceptionNodeTerminalNumber);
+                            throw new MimirorgBadRequestException("You cannot change existing node terminal's number, only add.");
 
                         if (amList[i].ConnectorDirection != dmList[i].ConnectorDirection)
-                            throw new MimirorgBadRequestException(exceptionNodeTerminalDirection);
+                            throw new MimirorgBadRequestException("You cannot change existing node terminal's direction, only add.");
                     }
                 }
 
@@ -375,23 +263,23 @@ namespace TypeLibrary.Services.Services
                 var dmList = nodeDm.SelectedAttributePredefined?.ToList().OrderBy(x => x?.Key, StringComparer.InvariantCultureIgnoreCase).ToList();
 
                 if (amList?.Count < dmList?.Count)
-                    throw new MimirorgBadRequestException(exceptionSelectedPredefinedRemove);
+                    throw new MimirorgBadRequestException("You cannot remove existing predefined selected attributes, only add.");
 
                 if (amList?.Count >= dmList?.Count)
                 {
                     for (var i = 0; i < dmList.Count; i++)
                     {
                         if (amList[i].Key != dmList[i].Key)
-                            throw new MimirorgBadRequestException(exceptionSelectedPredefinedChange);
+                            throw new MimirorgBadRequestException("You cannot change existing predefined selected attribute key, only add.");
 
                         if (amList[i].IsMultiSelect != dmList[i].IsMultiSelect)
-                            throw new MimirorgBadRequestException(exceptionSelectedPredefinedMulti);
+                            throw new MimirorgBadRequestException("You cannot change existing multi select value for predefined selected attributes, only add.");
 
                         if (amList[i].Values.Count != dmList[i].Values.Count)
-                            throw new MimirorgBadRequestException(exceptionSelectedPredefinedValues);
+                            throw new MimirorgBadRequestException("You cannot add/remove existing values (dictionary) for predefined selected attributes.");
 
                         if (!amList[i].Values.ContentEquals(dmList[i].Values))
-                            throw new MimirorgBadRequestException(exceptionSelectedPredefinedKey);
+                            throw new MimirorgBadRequestException("You cannot add/remove/change existing key values (dictionary) for predefined selected attributes.");
 
                         var contRefsAm = amList[i]?.ContentReferences?.ToList().OrderBy(x => x, StringComparer.InvariantCultureIgnoreCase).ToList();
                         var contRefsDm = dmList[i]?.ContentReferences?.ConvertToArray().ToList().OrderBy(x => x, StringComparer.InvariantCultureIgnoreCase).ToList();
@@ -400,10 +288,10 @@ namespace TypeLibrary.Services.Services
                             continue;
 
                         if (contRefsAm?.Count != contRefsDm?.Count)
-                            throw new MimirorgBadRequestException(exceptionSelectedPredefinedContRefsRemove);
+                            throw new MimirorgBadRequestException("You cannot add/remove existing content references for predefined selected attributes.");
 
                         if (contRefsAm.Where((t, j) => t != contRefsDm[j]).Any())
-                            throw new MimirorgBadRequestException(exceptionSelectedPredefinedContRefsChange);
+                            throw new MimirorgBadRequestException("You cannot change existing content references for predefined selected attributes.");
                     }
                 }
 
@@ -423,7 +311,7 @@ namespace TypeLibrary.Services.Services
 
             //Any version changes?
             if (!increaseMajorVersion && !increaseMinorVersion)
-                throw new MimirorgBadRequestException(exceptionLatestVersionDmAndNewAmIsIdentical);
+                throw new MimirorgBadRequestException("CalculateNewVersion<T,TY> Existing object and new object is identical, no changes detected.");
 
             //Increment node version
             if (nodeDm != null)
@@ -438,7 +326,97 @@ namespace TypeLibrary.Services.Services
                 return await Task.FromResult(increaseMajorVersion ? interfaceDm.Version.IncrementMajorVersion() : interfaceDm.Version.IncrementMinorVersion());
 
             //Code should not reach this line
-            throw new MimirorgBadRequestException("IncrementVersion<T,TY> Critical error.");
+            throw new MimirorgBadRequestException("CalculateNewVersion<T,TY> Sorry, critical unknown error detected!");
         }
+
+        #region Private
+
+        private async void ValidateIsLatestVersion<T>(T dm)
+        {
+            if (dm?.GetType() is null)
+                throw new MimirorgBadRequestException("ValidateIsLatestVersion<T> T can't be null");
+
+            var nodeDm = dm.GetType() == typeof(NodeLibDm) ? dm as NodeLibDm : null;
+            var transportDm = dm.GetType() == typeof(TransportLibDm) ? dm as TransportLibDm : null;
+            var interfaceDm = dm.GetType() == typeof(InterfaceLibDm) ? dm as InterfaceLibDm : null;
+
+            if (nodeDm != null)
+            {
+                var latestVersion = await GetLatestVersion(nodeDm);
+                if (double.Parse(nodeDm.Version, CultureInfo.InvariantCulture) < double.Parse(latestVersion.Version, CultureInfo.InvariantCulture))
+                    throw new MimirorgBadRequestException($"Latest version is {latestVersion.Version} and not {nodeDm.Version}");
+                return;
+            }
+
+            if (transportDm != null)
+            {
+                var latestVersion = await GetLatestVersion(transportDm);
+                if (double.Parse(transportDm.Version, CultureInfo.InvariantCulture) < double.Parse(latestVersion.Version, CultureInfo.InvariantCulture))
+                    throw new MimirorgBadRequestException($"Latest version is {latestVersion.Version} and not {transportDm.Version}");
+                return;
+            }
+
+            if (interfaceDm != null)
+            {
+                var latestVersion = await GetLatestVersion(interfaceDm);
+                if (double.Parse(interfaceDm.Version, CultureInfo.InvariantCulture) < double.Parse(latestVersion.Version, CultureInfo.InvariantCulture))
+                    throw new MimirorgBadRequestException($"Latest version is {latestVersion.Version} and not {interfaceDm.Version}");
+                return;
+            }
+
+            throw new MimirorgBadRequestException("ValidateIsLatestVersion<T> T type not supported.");
+        }
+
+        private static void ValidateNameRdsAspectParentTerminal<T,TY>(T dm, TY am) where T : class where TY : class
+        {
+            if (dm?.GetType() is null)
+                throw new MimirorgBadRequestException("ValidateNameRdsAspectParentTerminal<T,TY> T and/or TY can't be null");
+
+            var nDm = dm.GetType() == typeof(NodeLibDm) ? dm as NodeLibDm : null;
+            var nAm = am.GetType() == typeof(NodeLibAm) ? am as NodeLibAm : null;
+
+            var tDm = dm.GetType() == typeof(TransportLibDm) ? dm as TransportLibDm : null;
+            var tAm = am.GetType() == typeof(TransportLibAm) ? am as TransportLibAm : null;
+
+            var iDm = dm.GetType() == typeof(InterfaceLibDm) ? dm as InterfaceLibDm : null;
+            var iAm = am.GetType() == typeof(InterfaceLibAm) ? am as InterfaceLibAm : null;
+
+            //Name - Node/Transport/Interface
+            if (nDm != null && nAm != null && !string.Equals(nDm.Name?.ToLower(), nAm.Name?.ToLower()) ||
+                tDm != null && tAm != null && !string.Equals(tDm.Name?.ToLower(), tAm.Name?.ToLower()) ||
+                iDm != null && iAm != null && !string.Equals(iDm.Name?.ToLower(), iAm.Name?.ToLower()))
+                throw new MimirorgBadRequestException("Name can't be changed.");
+
+            //RdsCode - Node/Transport/Interface
+            if (nDm != null && nAm != null && !string.Equals(nDm.RdsCode?.ToLower(), nAm.RdsCode?.ToLower()) ||
+                tDm != null && tAm != null && !string.Equals(tDm.RdsCode?.ToLower(), tAm.RdsCode?.ToLower()) ||
+                iDm != null && iAm != null && !string.Equals(iDm.RdsCode?.ToLower(), iAm.RdsCode?.ToLower()))
+                throw new MimirorgBadRequestException("RdsCode can't be changed.");
+
+            //RdsName - Node/Transport/Interface
+            if (nDm != null && nAm != null && !string.Equals(nDm.RdsName?.ToLower(), nAm.RdsName?.ToLower()) ||
+                tDm != null && tAm != null && !string.Equals(tDm.RdsName?.ToLower(), tAm.RdsName?.ToLower()) ||
+                iDm != null && iAm != null && !string.Equals(iDm.RdsName?.ToLower(), iAm.RdsName?.ToLower()))
+                throw new MimirorgBadRequestException("RdsName can't be changed.");
+
+            //Aspect - Node/Transport/Interface
+            if (nDm != null && nAm != null && nDm.Aspect != nAm.Aspect ||
+                tDm != null && tAm != null && tDm.Aspect != tAm.Aspect ||
+                iDm != null && iAm != null && iDm.Aspect != iAm.Aspect)
+                throw new MimirorgBadRequestException("Aspect can't be changed.");
+
+            //ParentId - Node/Transport/Interface
+            if (nDm != null && nAm != null && !string.Equals(nDm.ParentId?.ToLower(), nAm.ParentId?.ToLower()) ||
+                tDm != null && tAm != null && !string.Equals(tDm.ParentId?.ToLower(), tAm.ParentId?.ToLower()) ||
+                iDm != null && iAm != null && !string.Equals(iDm.ParentId?.ToLower(), iAm.ParentId?.ToLower()))
+                throw new MimirorgBadRequestException("ParentId can't be changed.");
+
+            //TerminalId - Transport/Interface
+            if (tDm != null && tAm != null && !string.Equals(tDm.TerminalId?.ToLower(), tAm.TerminalId?.ToLower()) ||
+               iDm != null && iAm != null && !string.Equals(iDm.TerminalId?.ToLower(), iAm.TerminalId?.ToLower()))
+                throw new MimirorgBadRequestException("TerminalId can't be changed.");
+        }
+
+        #endregion Private
     }
 }
