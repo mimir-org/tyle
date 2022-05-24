@@ -9,8 +9,7 @@ export interface InterfaceLibAm {
   companyId: number;
   terminalId: string;
   attributeIdList: string[];
-  description: string;
-  version: string;
   contentReferences: string[];
+  description: string;
   parentId: string;
 }

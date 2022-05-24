@@ -5,5 +5,4 @@ export interface TerminalLibAm {
   color: string;
   description: string;
   attributeIdList: string[];
-  version: string;
 }
