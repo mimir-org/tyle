@@ -23,7 +23,6 @@ export const QueryAndMutationExample = () => {
     rdsName: "Drilling system",
     purposeName: "Heat (Electrical)",
     parentId: "",
-    version: "1.0",
     aspect: Aspect.Function,
     companyId: 0,
     description: "A description goes here",

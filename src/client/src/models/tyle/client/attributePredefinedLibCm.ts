@@ -7,8 +7,6 @@ export interface AttributePredefinedLibCm {
   isMultiSelect: boolean;
   valueStringList: string[];
   aspect: Aspect;
-  updatedBy: string;
-  updated: string | null;
   created: string;
   createdBy: string;
   kind: string;

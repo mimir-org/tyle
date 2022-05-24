@@ -1,6 +1,5 @@
 import { Aspect } from "../enums/aspect";
 import { State } from "../enums/state";
-import { AttributeAspectLibCm } from "./attributeAspectLibCm";
 import { AttributeLibCm } from "./attributeLibCm";
 import { NodeTerminalLibCm } from "./nodeTerminalLibCm";
 import { SimpleLibCm } from "./simpleLibCm";
@@ -8,29 +7,26 @@ import { SelectedAttributePredefinedLibCm } from "./selectedAttributePredefinedL
 
 export interface NodeLibCm {
   id: string;
-  iri: string;
-  contentReferences: string[];
+  parentName: string;
+  parentIri: string;
   name: string;
+  version: string;
+  firstVersionId: string;
+  iri: string;
+  attributeAspectIri: string;
+  contentReferences: string[];
   rdsCode: string;
   rdsName: string;
   purposeName: string;
-  parentIri: string;
-  parentName: string;
-  version: string;
-  firstVersionId: string;
   aspect: Aspect;
   state: State;
   companyId: number;
-  description: string;
   symbol: string;
-  attributeAspectIri: string;
-  attributeAspect: AttributeAspectLibCm;
-  updatedBy: string;
-  updated: string | null;
+  description: string;
   created: string;
   createdBy: string;
-  attributes: AttributeLibCm[];
   nodeTerminals: NodeTerminalLibCm[];
+  attributes: AttributeLibCm[];
   simples: SimpleLibCm[];
   selectedAttributePredefined: SelectedAttributePredefinedLibCm[];
   kind: string;

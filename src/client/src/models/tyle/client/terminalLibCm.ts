@@ -2,19 +2,18 @@ import { AttributeLibCm } from "./attributeLibCm";
 
 export interface TerminalLibCm {
   id: string;
-  iri: string;
-  contentReferences: string[];
-  name: string;
-  parentIri: string;
   parentName: string;
+  parentIri: string;
+  name: string;
   version: string;
   firstVersionId: string;
+  iri: string;
+  contentReferences: string[];
   color: string;
   description: string;
-  updatedBy: string;
-  updated: string | null;
   created: string;
   createdBy: string;
   attributes: AttributeLibCm[];
   children: TerminalLibCm[];
+  kind: string;
 }

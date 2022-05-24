@@ -4,25 +4,23 @@ import { TerminalLibCm } from "./terminalLibCm";
 
 export interface InterfaceLibCm {
   id: string;
-  iri: string;
-  contentReferences: string[];
-  name: string;
-  rdsName: string;
-  rdsCode: string;
-  purposeName: string;
-  parentIri: string;
   parentName: string;
+  parentIri: string;
+  name: string;
   version: string;
   firstVersionId: string;
+  iri: string;
+  contentReferences: string[];
+  rdsCode: string;
+  rdsName: string;
+  purposeName: string;
   aspect: Aspect;
   companyId: number;
-  description: string;
-  updatedBy: string;
-  updated: string | null;
-  created: string;
-  createdBy: string;
   terminalId: string;
   terminal: TerminalLibCm;
+  description: string;
+  created: string;
+  createdBy: string;
   attributes: AttributeLibCm[];
   kind: string;
 }
