@@ -195,7 +195,7 @@ namespace TypeLibrary.Services.Services
             if (latestTransportVersion > transportToUpdateVersion)
                 throw new MimirorgBadRequestException($"Not allowed to update transport with id {transportToUpdate.Id} and version {transportToUpdateVersion}. Latest version is transport with id {latestTransportDm.Id} and version {latestTransportVersion}");
 
-            dataAm.Version = IncrementTransportVersion(latestTransportDm, dataAm);
+            dataAm.Version = await _versionService.CalculateNewVersion(latestTransportDm, dataAm);
             dataAm.FirstVersionId = latestTransportDm.FirstVersionId;
 
             return await Create(dataAm);
@@ -224,83 +224,5 @@ namespace TypeLibrary.Services.Services
             _attributeRepository?.Context?.ChangeTracker.Clear();
             _purposeRepository?.Context?.ChangeTracker.Clear();
         }
-
-        #region Private
-
-        // ReSharper disable once ReplaceWithSingleAssignment.False
-        // ReSharper disable once ConvertIfToOrExpression
-        private static string IncrementTransportVersion(TransportLibDm existing, TransportLibAm updated)
-        {
-            var major = false;
-            var minor = false;
-
-            if (existing.Name != updated.Name)
-                throw new MimirorgBadRequestException("You cannot change existing name when updating.");
-
-            if (existing.RdsCode != updated.RdsCode)
-                throw new MimirorgBadRequestException("You cannot change existing RDS code when updating.");
-
-            if (existing.RdsName != updated.RdsName)
-                throw new MimirorgBadRequestException("You cannot change existing RDS code when updating.");
-
-            if (existing.Aspect != updated.Aspect)
-                throw new MimirorgBadRequestException("You cannot change existing Aspect when updating.");
-
-            //PurposeName
-            if (existing.PurposeName != updated.PurposeName)
-                minor = true;
-
-            //CompanyId
-            if (existing.CompanyId != updated.CompanyId)
-                minor = true;
-
-            //TerminalId
-            if (existing.TerminalId != updated.TerminalId)
-                throw new MimirorgBadRequestException("You cannot change existing terminal id when updating.");
-
-            //Attribute
-            var attributeIdDmList = existing.Attributes?.Select(x => x.Id).ToList();
-            var attributeIdAmList = updated.AttributeIdList?.ToList();
-
-            if (attributeIdAmList?.Count < attributeIdDmList?.Count)
-                throw new MimirorgBadRequestException("You cannot remove existing attributes when updating, only add.");
-
-            if (attributeIdAmList?.Count >= attributeIdDmList?.Count)
-            {
-                if (attributeIdDmList.Where(x => attributeIdAmList.Any(y => y == x)).ToList().Count != attributeIdDmList.Count)
-                    throw new MimirorgBadRequestException("You cannot change existing attributes when updating, only add.");
-            }
-
-            if (attributeIdAmList?.Count > attributeIdDmList?.Count)
-                major = true;
-
-            //Description
-            if (existing.Description != updated.Description)
-                minor = true;
-
-            //ContentReferences
-            var contentRefsAm = updated.ContentReferences?.ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
-            var contentRefsDm = existing.ContentReferences?.ConvertToArray().ToList().OrderBy(x => x, StringComparer.InvariantCulture).ToList();
-
-            if (contentRefsAm?.Count != contentRefsDm?.Count)
-                minor = true;
-
-            if (contentRefsAm != null && contentRefsDm != null && contentRefsAm.Count == contentRefsDm.Count)
-            {
-                if(contentRefsDm.Where(x => contentRefsAm.Any(y => y == x)).ToList().Count != contentRefsDm.Count)
-                    minor = true;
-            }
-
-            //ParentId
-            if (existing.ParentId != updated.ParentId)
-                throw new MimirorgBadRequestException("You cannot change existing parent id when updating.");
-
-            if (!major && !minor)
-                throw new MimirorgBadRequestException("Existing transport and updated transport is identical");
-
-            return major ? existing.Version.IncrementMajorVersion() : existing.Version.IncrementMinorVersion();
-        }
-
-        #endregion Private
     }
 }
