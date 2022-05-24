@@ -3,6 +3,8 @@ version: "3.8"
 services:
   client:
     build: ./src/client
+    hostname: 'tyle'
+    container_name: tyle
     ports:
       - "3001:80"
     environment:
@@ -12,6 +14,8 @@ services:
 
   server:
     build: ./src/server
+    hostname: 'typelibrary'
+    container_name: typelibrary
     ports:
       - "5001:80"
     environment:
@@ -36,6 +40,8 @@ services:
 
   mssql:
     image: "mcr.microsoft.com/mssql/server:2017-CU8-ubuntu"
+    hostname: 'mssql'
+    container_name: mssql
     ports:
       - '127.0.0.1:1433:1433'
     volumes:
