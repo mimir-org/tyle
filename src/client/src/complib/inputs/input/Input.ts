@@ -9,7 +9,7 @@ export const Input = styled.input`
   border-bottom: 1px solid ${(props) => props.theme.tyle.color.outline.base};
   width: 100%;
   padding: ${(props) => props.theme.tyle.spacing.small};
-  padding-left: ${(props) => props.theme.tyle.spacing.xxs};
+  padding-left: ${(props) => props.theme.tyle.spacing.xs};
   height: 40px;
   background-color: transparent;
   color: ${(props) => props.theme.tyle.color.surface.on};
