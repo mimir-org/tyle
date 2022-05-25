@@ -9,8 +9,8 @@ namespace Mimirorg.Package
         {
             try
             {
-                CreateTypeScriptFile("Mimirorg.TypeLibrary.Models.Application", "TypeLibrary.Application.ts");
-                CreateTypeScriptFile("Mimirorg.TypeLibrary.Models.Client", "TypeLibrary.Client.ts");
+                CreateTypeScriptFile(new List<string>() {"Mimirorg.TypeLibrary.Models.Application", "Mimirorg.TypeLibrary.Models.Client",},
+                    "template/index.d.ts");
             }
             catch (Exception e)
             {
@@ -19,12 +19,12 @@ namespace Mimirorg.Package
             }
         }
 
-        public static void CreateTypeScriptFile(string nameSpace, string name)
+        public static void CreateTypeScriptFile(List<string> nameSpaces, string name)
         {
             var ts = new TypeScriptGenerator(new TypeScriptGeneratorOptions
             {
                 IgnoreNamespaces = true,
-                EmitIinInterface = false
+                EmitIinInterface = false,
             });
 
             var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -33,13 +33,15 @@ namespace Mimirorg.Package
 
             var assemblies = Directory.GetFiles(path, "*.dll").Select(Assembly.LoadFile).ToList();
 
-            foreach (var types in assemblies.Select(assembly => assembly.GetTypes().Where(x => x.IsClass && x.Namespace == nameSpace)))
+            foreach (var types in assemblies.Select(assembly =>
+                         assembly.GetTypes().Where(x => x.IsClass && !string.IsNullOrEmpty(x.Namespace) && nameSpaces.Contains(x.Namespace))))
             {
                 foreach (var type in types)
                 {
                     ts.AddCSType(type);
                 }
             }
+
 
             ts.Store(name);
         }
