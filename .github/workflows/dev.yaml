@@ -103,7 +103,7 @@ jobs:
           echo "//registry.npmjs.org/:always-auth=true" > .npmrc
 
       - name: Publish npm package
-        run: npm public --access public
+        run: npm publish --access public
         working-directory: typelibrary-types
 
   nuget-Common:
