@@ -11,6 +11,8 @@ using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Authentication.Models.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Mimirorg.Authentication.Services
 {
@@ -21,14 +23,16 @@ namespace Mimirorg.Authentication.Services
         private readonly IMimirorgTokenRepository _tokenRepository;
         private readonly IMimirorgEmailRepository _emailRepository;
         private readonly IMimirorgTemplateRepository _templateRepository;
+        private readonly IMimirorgCompanyService _mimirorgCompanyService;
 
-        public MimirorgUserService(UserManager<MimirorgUser> userManager, IOptions<MimirorgAuthSettings> authSettings, IMimirorgTokenRepository tokenRepository, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository)
+        public MimirorgUserService(UserManager<MimirorgUser> userManager, IOptions<MimirorgAuthSettings> authSettings, IMimirorgTokenRepository tokenRepository, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IMimirorgCompanyService mimirorgCompanyService)
         {
             _userManager = userManager;
             _tokenRepository = tokenRepository;
             _emailRepository = emailRepository;
             _templateRepository = templateRepository;
             _authSettings = authSettings?.Value;
+            _mimirorgCompanyService = mimirorgCompanyService;
         }
 
         /// <summary>
@@ -67,6 +71,9 @@ namespace Mimirorg.Authentication.Services
 
             var totpSetupGenerator = new TotpSetupGenerator();
             var totpSetup = totpSetupGenerator.Generate(_authSettings.ApplicationName, user.Id, user.SecurityHash, _authSettings.QrWidth, _authSettings.QrHeight);
+
+            // If this is the first registered user and environment is Development, create a dummy organization
+            await CreateDefaultUserData(user);
 
             return new MimirorgQrCodeCm
             {
@@ -185,6 +192,55 @@ namespace Mimirorg.Authentication.Services
 
             var email = await _templateRepository.CreateEmailConfirmationTemplate(user, token);
             await _emailRepository.SendEmail(email);
+        }
+
+        private static string ComputeSha256Hash(string data)
+        {
+            // Create a SHA256   
+            using SHA256 sha256Hash = SHA256.Create();
+
+            // ComputeHash - returns byte array  
+            byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(data));
+
+            // Convert byte array to a string   
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                builder.Append(bytes[i].ToString("x2"));
+            }
+            return builder.ToString();
+        }
+
+        private async Task CreateDefaultUserData(MimirorgUser user)
+        {
+            // If this is the first registered user and environment is Development, create a dummy organization
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            var isDevelopment = !string.IsNullOrWhiteSpace(environment) && environment.ToLower() == "development";
+
+            if (!isDevelopment)
+                return;
+
+            try
+            {
+                var numberOfUsers = await _userManager.Users.CountAsync();
+                var numberOfCompanies = (await _mimirorgCompanyService.GetAllCompanies()).Count();
+
+                if (numberOfUsers != 1 || numberOfCompanies != 0)
+                    return;
+
+                await _mimirorgCompanyService.CreateCompany(new MimirorgCompanyAm
+                {
+                    Name = "Mimirorg Company",
+                    Description = "Mimirorg is the open source comunity for Mimir and :TYLE",
+                    DisplayName = "Mimirorg Company",
+                    Secret = ComputeSha256Hash("Mimirorg Company"),
+                    ManagerId = user.Id
+                });
+
+                await _userManager.AddToRoleAsync(user, MimirorgDefaultRoles.Administrator);
+
+            }
+            catch (Exception) { }
         }
 
         #endregion
