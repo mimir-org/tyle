@@ -97,14 +97,13 @@ jobs:
 
           npm version ${{ needs.create-prerelease.outputs.raw_tag }}
 
-          touch .npmrc
-
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_MIMIRORG_AUTH }}" > .npmrc
-          echo "//registry.npmjs.org/:always-auth=true" > .npmrc
-
       - name: Publish npm package
-        run: npm publish --access public
+        run: |
+          npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+          npm publish --access public --ignore-scripts
         working-directory: typelibrary-types
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_MIMIRORG_AUTH }}
 
   nuget-Common:
     runs-on: ubuntu-latest
