@@ -99,8 +99,8 @@ jobs:
 
           touch .npmrc
 
-          "//registry.npmjs.org/:_authToken=${{ secrets.NPM_MIMIRORG_AUTH }}" > .npmrc
-          "//registry.npmjs.org/:always-auth=true" > .npmrc
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_MIMIRORG_AUTH }}" > .npmrc
+          echo "//registry.npmjs.org/:always-auth=true" > .npmrc
 
       - name: Publish npm package
         run: npm public --access public
