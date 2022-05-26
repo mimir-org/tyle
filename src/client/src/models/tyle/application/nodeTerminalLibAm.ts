@@ -5,3 +5,9 @@ export interface NodeTerminalLibAm {
   number: number;
   connectorDirection: ConnectorDirection;
 }
+
+export const createEmptyNodeTerminalLibAm = (): NodeTerminalLibAm => ({
+  terminalId: "",
+  number: 1,
+  connectorDirection: ConnectorDirection.Input,
+});
