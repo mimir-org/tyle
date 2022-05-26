@@ -16,6 +16,26 @@ const TextResources = {
   FORMS_PLACEHOLDER_LASTNAME: "Smith",
   FORMS_REQUIRED_DESCRIPTION: "* Indicates a required field.",
 
+  // Node form
+  FORMS_NODE_NAME: "Name",
+  FORMS_NODE_NAME_PLACEHOLDER: "Node name",
+  FORMS_NODE_PURPOSE: "Purpose",
+  FORMS_NODE_PURPOSE_PLACEHOLDER: "Select purpose",
+  FORMS_NODE_ASPECT: "Aspect",
+  FORMS_NODE_ASPECT_PLACEHOLDER: "Select aspect",
+  FORMS_NODE_SYMBOL: "Symbol",
+  FORMS_NODE_SYMBOL_PLACEHOLDER: "Select symbol",
+  FORMS_NODE_RDS: "RDS",
+  FORMS_NODE_RDS_PLACEHOLDER: "Select RDS",
+  FORMS_NODE_DESCRIPTION: "Description",
+  FORMS_NODE_DESCRIPTION_PLACEHOLDER: "Additional information about this node can be supplied here.",
+
+  // Node form terminals
+  FORMS_NODE_TERMINAL_TITLE: "Terminals",
+  FORMS_NODE_TERMINAL_ADD: "Add terminal",
+  FORMS_NODE_TERMINAL_PLACEHOLDER: "Select terminal",
+  FORMS_NODE_TERMINAL_DIRECTION_PLACEHOLDER: "Select direction",
+
   // Login
   LOGIN_TITLE: "Login",
   LOGIN_DESCRIPTION: "View, create and edit types!",
