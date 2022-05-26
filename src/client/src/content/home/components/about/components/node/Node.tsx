@@ -34,7 +34,7 @@ export const Node = ({ color, img, width = "130px", height = "100px", imgSize = 
       border={`1px solid ${theme.tyle.color.outline.base}`}
       borderRadius={theme.tyle.border.radius.medium}
     >
-      <Icon size={imgSize} src={img} alt="" />
+      {img && <Icon size={imgSize} src={img} alt="" />}
     </Box>
   );
 };
