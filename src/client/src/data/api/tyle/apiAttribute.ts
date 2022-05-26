@@ -4,7 +4,7 @@ import { AttributeLibAm } from "../../../models/tyle/application/attributeLibAm"
 import { AttributePredefinedLibCm } from "../../../models/tyle/client/attributePredefinedLibCm";
 import { Aspect } from "../../../models/tyle/enums/aspect";
 
-const _basePath = "libraryattribute";
+const _basePath = "attribute";
 
 export const apiAttribute = {
   getAttributes() {
