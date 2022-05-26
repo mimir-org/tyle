@@ -39,6 +39,7 @@ const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends Grou
 ): StylesConfig<Option, IsMulti, Group> => ({
   control: (base, state) => ({
     ...base,
+    minWidth: "250px",
     borderColor: theme.color.outline.base,
     outline: state.isFocused ? "1px solid black" : "revert",
     "&:hover": {
