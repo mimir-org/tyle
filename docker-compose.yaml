@@ -1,10 +1,10 @@
 version: "3.8"
 
 services:
-  client:
+  tyle-client:
     build: ./src/client
-    hostname: 'tyle'
-    container_name: tyle
+    hostname: 'tyleclient'
+    container_name: tyleclient
     ports:
       - "3001:80"
     environment:
@@ -12,10 +12,10 @@ services:
     networks:
       - type_library_network
 
-  server:
+  tyle-server:
     build: ./src/server
-    hostname: 'typelibrary'
-    container_name: typelibrary
+    hostname: 'tyleserver'
+    container_name: tyleserver
     ports:
       - "5001:80"
     environment:
@@ -31,7 +31,7 @@ services:
       - MimirorgAuthSettings__DatabaseConfiguration__DbUser=sa
       - MimirorgAuthSettings__DatabaseConfiguration__Password=P4ssw0rd1
       - ApplicationSettings__ApplicationSemanticUrl=http://localhost:5001/v1/ont
-      - ApplicationSettings__ApplicationUrl=http://localhost:5001
+      - ApplicationSettings__ApplicationUrl=http://tyleserver/
       - CorsConfiguration__ValidOrigins=http://localhost:3001
     networks:
       - type_library_network
