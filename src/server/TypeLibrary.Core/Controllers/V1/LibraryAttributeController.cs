@@ -14,63 +14,31 @@ using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1
 {
-    /// <summary>
-    /// TypeCm file services
-    /// </summary>
     [Produces("application/json")]
-    //[Authorize]
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
     [SwaggerTag("Attribute services")]
-    public class AttributeController : ControllerBase
+    public class LibraryAttributeController : ControllerBase
     {
-        private readonly ILogger<AttributeController> _logger;
+        private readonly ILogger<LibraryAttributeController> _logger;
         private readonly IAttributeService _attributeService;
 
-        public AttributeController(ILogger<AttributeController> logger, IAttributeService attributeService)
+        public LibraryAttributeController(ILogger<LibraryAttributeController> logger, IAttributeService attributeService)
         {
             _logger = logger;
             _attributeService = attributeService;
         }
 
-        /// <summary>
-        /// Get all attributes by aspect.
-        /// If aspect is NotSet, all attributes will be returned
-        /// </summary>
-        /// <param name="aspect"></param>
-        /// <returns></returns>
-        [HttpGet("{aspect}")]
-        [ProducesResponseType(typeof(ICollection<AttributeLibDm>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Read")]
-        public IActionResult GetAttributes(Aspect aspect)
-        {
-            try
-            {
-                var data = _attributeService.GetAttributes(aspect).ToList();
-                return Ok(data);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        /// <summary>
-        /// Get all attributes
-        /// </summary>
-        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<AttributeLibDm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
-        public IActionResult GetAttributes()
+        public IActionResult Get()
         {
             try
             {
-                var data = _attributeService.GetAttributes(Aspect.NotSet).ToList();
+                var data = _attributeService.Get(Aspect.NotSet).ToList();
                 return Ok(data);
             }
             catch (Exception e)
@@ -80,19 +48,33 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        /// <summary>
-        /// Get predefined attributes
-        /// </summary>
-        /// <returns></returns>
+        [HttpGet("{aspect}")]
+        [ProducesResponseType(typeof(ICollection<AttributeLibDm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[Authorize(Policy = "Read")]
+        public IActionResult Get(Aspect aspect)
+        {
+            try
+            {
+                var data = _attributeService.Get(aspect).ToList();
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
         [HttpGet("predefined")]
         [ProducesResponseType(typeof(ICollection<AttributePredefinedLibCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         //[Authorize(Policy = "Read")]
-        public IActionResult GetAttributesPredefined()
+        public IActionResult GetPredefined()
         {
             try
             {
-                var data = _attributeService.GetAttributesPredefined().ToList();
+                var data = _attributeService.GetPredefined().ToList();
                 return Ok(data);
             }
             catch (Exception e)
@@ -102,29 +84,34 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        /// <summary>
-        /// Create an attribute
-        /// </summary>
-        /// <param name="attributeAm"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [ProducesResponseType(typeof(AttributeLibDm), StatusCodes.Status200OK)]
+        [HttpGet("aspect")]
+        [ProducesResponseType(typeof(ICollection<AttributeAspectLibAm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> CreateAttribute([FromBody] AttributeLibAm attributeAm)
+        //[Authorize(Policy = "Read")]
+        public async Task<IActionResult> GetAspects()
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             try
             {
-                var attribute = await _attributeService.CreateAttribute(attributeAm);
-                if (attribute == null)
-                    return BadRequest("The attribute already exist");
+                var data = await _attributeService.GetAspects();
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
 
-                return Ok(attribute);
+        [HttpGet("condition")]
+        [ProducesResponseType(typeof(ICollection<AttributeConditionLibAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[Authorize(Policy = "Read")]
+        public async Task<IActionResult> GetConditions()
+        {
+            try
+            {
+                var data = await _attributeService.GetConditions();
+                return Ok(data);
             }
             catch (Exception e)
             {

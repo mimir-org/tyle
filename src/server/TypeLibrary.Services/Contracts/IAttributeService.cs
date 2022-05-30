@@ -8,11 +8,16 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface IAttributeService
     {
-        IEnumerable<AttributeLibCm> GetAttributes(Aspect aspect);
-        Task<AttributeLibCm> GetAttribute(string id);
-        Task<AttributeLibCm> CreateAttribute(AttributeLibAm attributeAm);
-        Task CreateAttributes(List<AttributeLibAm> attributeAmList, bool createdBySystem = false);
-        IEnumerable<AttributePredefinedLibCm> GetAttributesPredefined();
-        Task CreateAttributesPredefined(List<AttributePredefinedLibAm> attributePredefinedList, bool createdBySystem = false);
+        IEnumerable<AttributeLibCm> Get(Aspect aspect);
+        Task Create(List<AttributeLibAm> attributes, bool createdBySystem = false);
+        
+        IEnumerable<AttributePredefinedLibCm> GetPredefined();
+        Task CreatePredefined(List<AttributePredefinedLibAm> predefined, bool createdBySystem = false);
+
+        Task<IEnumerable<AttributeAspectLibCm>> GetAspects();
+        Task CreateAspects(List<AttributeAspectLibAm> aspects, bool createdBySystem = false);
+
+        Task<IEnumerable<AttributeConditionLibCm>> GetConditions();
+        Task CreateConditions(List<AttributeConditionLibAm> conditions, bool createdBySystem = false);
     }
 }

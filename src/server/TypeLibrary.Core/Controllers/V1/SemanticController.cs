@@ -41,7 +41,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = _attributeService.GetAttributes(Aspect.NotSet).FirstOrDefault(x => x.Id == id);
+                var data = _attributeService.Get(Aspect.NotSet).FirstOrDefault(x => x.Id == id);
                 return Ok(data);
             }
             catch (Exception e)

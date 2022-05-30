@@ -28,11 +28,9 @@ namespace TypeLibrary.Services.Services
 
         private readonly IAttributeService _attributeService;
         private readonly ISymbolService _symbolService;
-        private readonly IAttributeConditionService _attributeConditionService;
         private readonly IAttributeFormatService _attributeFormatService;
         private readonly IAttributeQualifierService _attributeQualifierService;
         private readonly IAttributeSourceService _attributeSourceService;
-        private readonly IAttributeAspectService _attributeAspectService;
         private readonly IPurposeService _purposeService;
         private readonly IUnitService _unitService;
         private readonly IRdsService _rdsService;
@@ -42,17 +40,15 @@ namespace TypeLibrary.Services.Services
         private readonly IFileRepository _fileRepository;
         private readonly ILogger<SeedingService> _logger;
 
-        public SeedingService(IAttributeService attributeService, ISymbolService symbolService, IAttributeConditionService attributeConditionService, IAttributeFormatService attributeFormatService,
-            IAttributeQualifierService attributeQualifierService, IAttributeSourceService attributeSourceService, IAttributeAspectService attributeAspectService, IPurposeService purposeService, IUnitService unitService,
+        public SeedingService(IAttributeService attributeService, ISymbolService symbolService, IAttributeFormatService attributeFormatService,
+            IAttributeQualifierService attributeQualifierService, IAttributeSourceService attributeSourceService, IPurposeService purposeService, IUnitService unitService,
             IRdsService rdsService, ITerminalService terminalService, ITransportService transportService, IFileRepository fileRepository, ILogger<SeedingService> logger, ISimpleService simpleService)
         {
             _attributeService = attributeService;
             _symbolService = symbolService;
-            _attributeConditionService = attributeConditionService;
             _attributeFormatService = attributeFormatService;
             _attributeQualifierService = attributeQualifierService;
             _attributeSourceService = attributeSourceService;
-            _attributeAspectService = attributeAspectService;
             _purposeService = purposeService;
             _unitService = unitService;
             _rdsService = rdsService;
@@ -106,15 +102,15 @@ namespace TypeLibrary.Services.Services
                 var simple = _fileRepository.ReadAllFiles<SimpleLibAm>(simpleFileNames).ToList();
                 var transports = _fileRepository.ReadAllFiles<TransportLibAm>(transportFiles).ToList();
 
-                await _attributeConditionService.CreateAttributeConditions(attributeConditions, true);
                 await _attributeFormatService.CreateAttributeFormats(attributeFormats, true);
                 await _attributeQualifierService.CreateAttributeQualifiers(attributeQualifiers, true);
                 await _attributeSourceService.CreateAttributeSources(attributeSources, true);
-                await _attributeAspectService.CreateAttributeAspects(attributeAspects, true);
                 await _purposeService.CreatePurposes(purposes, true);
                 await _unitService.CreateUnits(units, true);
-                await _attributeService.CreateAttributes(attributes, true);
-                await _attributeService.CreateAttributesPredefined(attributesPredefined, true);
+                await _attributeService.Create(attributes, true);
+                await _attributeService.CreatePredefined(attributesPredefined, true);
+                await _attributeService.CreateAspects(attributeAspects, true);
+                await _attributeService.CreateConditions(attributeConditions, true);
                 await _terminalService.CreateTerminals(terminals, true);
                 await _rdsService.CreateRdsAsync(rds, true);
                 await _symbolService.CreateSymbol(symbols, true);

@@ -19,10 +19,10 @@ namespace TypeLibrary.Services.Services
     public class AttributeFormatService : IAttributeFormatService
     {
         private readonly IMapper _mapper;
-        private readonly IEfAttributeFormatDbRepository _formatRepository;
+        private readonly IEfAttributeFormatRepository _formatRepository;
         private readonly ApplicationSettings _applicationSettings;
 
-        public AttributeFormatService(IMapper mapper, IEfAttributeFormatDbRepository formatRepository, IOptions<ApplicationSettings> applicationSettings)
+        public AttributeFormatService(IMapper mapper, IEfAttributeFormatRepository formatRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _formatRepository = formatRepository;
