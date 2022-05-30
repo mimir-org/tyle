@@ -1,10 +1,11 @@
-import { AttributeLibCm } from "../../models/tyle/client/attributeLibCm";
-import { AttributeItem } from "../../content/home/types/AttributeItem";
 import { darken, mix } from "polished";
-import { getColorFromAspect } from "../getColorFromAspect";
+import { AttributeItem } from "../../content/home/types/AttributeItem";
+import { AttributeLibCm } from "../../models/tyle/client/attributeLibCm";
 import { Discipline } from "../../models/tyle/enums/discipline";
+import { getColorFromAspect } from "../getColorFromAspect";
 
 export const mapAttributeLibCmToAttributeItem = (attribute: AttributeLibCm): AttributeItem => ({
+  id: attribute.id,
   name: attribute.name,
   color: getColorForAttributeLibCm(attribute),
   traits: {
@@ -12,7 +13,6 @@ export const mapAttributeLibCmToAttributeItem = (attribute: AttributeLibCm): Att
     qualifier: attribute.attributeQualifier,
     source: attribute.attributeSource,
   },
-  value: attribute.units?.[0]?.name,
 });
 
 export const mapAttributeLibCmsToAttributeItems = (attributes: AttributeLibCm[]): AttributeItem[] =>

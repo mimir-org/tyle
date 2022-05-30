@@ -1,9 +1,9 @@
-import { TerminalTableContainer, TerminalTableData, TerminalTableHeader } from "./TerminalTable.styled";
-import { TerminalItem } from "../../../../types/TerminalItem";
-import { AttributeSingle } from "../attribute/AttributeSingle";
-import { Flexbox } from "../../../../../../complib/layouts";
 import { useTheme } from "styled-components";
+import { Flexbox } from "../../../../../../complib/layouts";
+import { TerminalItem } from "../../../../types/TerminalItem";
+import { AttributeInfoButton } from "../attribute/AttributeInfoButton";
 import { TerminalButton } from "./TerminalButton";
+import { TerminalTableContainer, TerminalTableData, TerminalTableHeader } from "./TerminalTable.styled";
 
 interface TerminalTableProps {
   terminals: TerminalItem[];
@@ -52,7 +52,7 @@ const TerminalTableRow = ({ name, amount, color, direction, attributes }: Termin
       <TerminalTableData>{amount}</TerminalTableData>
       <TerminalTableData>
         <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.xs}>
-          {attributes && attributes.map((a, i) => <AttributeSingle key={i} variant={"small"} {...a} />)}
+          {attributes && attributes.map((a, i) => <AttributeInfoButton key={i} variant={"small"} {...a} />)}
         </Flexbox>
       </TerminalTableData>
     </tr>

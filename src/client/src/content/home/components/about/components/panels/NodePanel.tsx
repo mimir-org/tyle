@@ -1,15 +1,15 @@
-import textResources from "../../../../../../assets/text/TextResources";
 import { useTheme } from "styled-components";
-import { NodePanelPropertiesContainer } from "./NodePanel.styled";
+import textResources from "../../../../../../assets/text/TextResources";
+import { Token } from "../../../../../../complib/general/token/Token";
 import { Box, Flexbox, MotionBox } from "../../../../../../complib/layouts";
 import { Heading, Text } from "../../../../../../complib/text";
-import { Token } from "../../../../../../complib/general/token/Token";
-import { NodePreview } from "../node/NodePreview";
-import { NodeItem } from "../../../../types/NodeItem";
-import { AttributeSingle } from "../attribute/AttributeSingle";
-import { TerminalTable } from "../terminal/TerminalTable";
 import { AttributeItem } from "../../../../types/AttributeItem";
+import { NodeItem } from "../../../../types/NodeItem";
 import { TerminalItem } from "../../../../types/TerminalItem";
+import { AttributeInfoButton } from "../attribute/AttributeInfoButton";
+import { NodePreview } from "../node/NodePreview";
+import { TerminalTable } from "../terminal/TerminalTable";
+import { NodePanelPropertiesContainer } from "./NodePanel.styled";
 
 /**
  * Component that displays information about a given node.
@@ -67,7 +67,7 @@ const NodePanelAttributes = ({ attributes }: { attributes: AttributeItem[] }) =>
         {textResources.ATTRIBUTE_TITLE}
       </Heading>
       <Box display={"flex"} gap={theme.tyle.spacing.medium} flexWrap={"wrap"}>
-        {attributes && attributes.map((a, i) => <AttributeSingle key={i} {...a} />)}
+        {attributes && attributes.map((a, i) => <AttributeInfoButton key={i} {...a} />)}
       </Box>
     </>
   );
