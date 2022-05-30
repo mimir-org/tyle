@@ -28,19 +28,19 @@ const getColorFromDiscipline = (discipline: Discipline) => {
   switch (discipline) {
     case Discipline.NotSet:
     case Discipline.None:
-      return "";
+      return "rgba(0, 0, 0, 0)";
     case Discipline.ProjectManagement:
-      return "#b900ff";
+      return "hsl(284,100%,50%)";
     case Discipline.Electrical:
-      return "#ffff00";
+      return "hsl(60,100%,50%)";
     case Discipline.Automation:
-      return "#32ff00";
+      return "hsl(108,100%,50%)";
     case Discipline.Structural:
-      return "#ff9600";
+      return "hsl(35,100%,50%)";
     case Discipline.Operation:
-      return "#ff0000";
+      return "hsl(0,100%,50%)";
     case Discipline.Process:
-      return "#00ffff";
+      return "hsl(180,100%,50%)";
   }
 };
 
@@ -51,4 +51,4 @@ const getColorFromDiscipline = (discipline: Discipline) => {
  * @param item
  */
 const getColorForAttributeLibCm = (item: AttributeLibCm) =>
-  darken(0.25, mix(0.25, getColorFromAspect(item.aspect), getColorFromDiscipline(item.discipline)));
+  darken(0.25, mix(0.35, getColorFromAspect(item.aspect), getColorFromDiscipline(item.discipline)));

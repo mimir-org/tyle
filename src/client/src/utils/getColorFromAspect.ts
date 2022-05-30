@@ -4,12 +4,12 @@ export const getColorFromAspect = (aspect: Aspect) => {
   switch (aspect) {
     case Aspect.NotSet:
     case Aspect.None:
-      return "";
+      return "rgba(0, 0, 0, 0)";
     case Aspect.Function:
-      return "#fef445";
+      return "hsl(57,99%,63%)";
     case Aspect.Product:
-      return "#00f0ff";
+      return "hsl(184,100%,50%)";
     case Aspect.Location:
-      return "#fa00ff";
+      return "hsl(299,100%,50%)";
   }
 };
