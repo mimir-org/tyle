@@ -1,12 +1,12 @@
+import { darken } from "polished";
 import styled, { css } from "styled-components/macro";
 import { layer, translucify } from "../../../../../../complib/mixins";
-import { darken } from "polished";
 import { AttributeButtonProps } from "./AttributeButton";
 
 export const AttributeButtonContainer = styled.button<AttributeButtonProps>`
   flex-shrink: 0;
   text-decoration: none;
-  padding: ${(props) => props.theme.tyle.spacing.xxs};
+  padding: 0 ${(props) => props.theme.tyle.spacing.xxs};
   border: 0;
 
   :hover {
@@ -69,15 +69,15 @@ export const AttributeButtonContainer = styled.button<AttributeButtonProps>`
 
 const largeButton = () => css`
   width: 110px;
-  height: 40px;
+  height: 50px;
 `;
 
 const mediumButton = () => css`
   width: 85px;
-  height: 35px;
+  height: 40px;
 `;
 
 const smallButton = () => css`
   width: 65px;
-  height: 30px;
+  height: 35px;
 `;
