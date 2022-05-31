@@ -119,5 +119,41 @@ namespace TypeLibrary.Core.Controllers.V1
                 return StatusCode(500, "Internal Server Error");
             }
         }
+
+        [HttpGet("format")]
+        [ProducesResponseType(typeof(ICollection<AttributeFormatLibAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[Authorize(Policy = "Read")]
+        public async Task<IActionResult> GetFormats()
+        {
+            try
+            {
+                var data = await _attributeService.GetFormats();
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        [HttpGet("qualifier")]
+        [ProducesResponseType(typeof(ICollection<AttributeQualifierLibAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[Authorize(Policy = "Read")]
+        public async Task<IActionResult> GetQualifiers()
+        {
+            try
+            {
+                var data = await _attributeService.GetQualifiers();
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
     }
 }

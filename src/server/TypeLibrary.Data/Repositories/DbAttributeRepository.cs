@@ -15,14 +15,18 @@ namespace TypeLibrary.Data.Repositories
         private readonly IEfAttributePredefinedRepository _attributePredefinedRepository;
         private readonly IEfAttributeAspectRepository _attributeAspectRepository;
         private readonly IEfAttributeConditionRepository _attributeConditionRepository;
+        private readonly IEfAttributeFormatRepository _attributeFormatRepository;
+        private readonly IEfAttributeQualifierRepository _attributeQualifierRepository;
 
-        public DbAttributeRepository(IEfAttributeRepository efAttributeRepository, IEfUnitRepository efUnitRepository, IEfAttributePredefinedRepository attributePredefinedRepository, IEfAttributeAspectRepository attributeAspectRepository, IEfAttributeConditionRepository attributeConditionRepository)
+        public DbAttributeRepository(IEfAttributeRepository efAttributeRepository, IEfUnitRepository efUnitRepository, IEfAttributePredefinedRepository attributePredefinedRepository, IEfAttributeAspectRepository attributeAspectRepository, IEfAttributeConditionRepository attributeConditionRepository, IEfAttributeFormatRepository attributeFormatRepository, IEfAttributeQualifierRepository attributeQualifierRepository)
         {
             _efAttributeRepository = efAttributeRepository;
             _efUnitRepository = efUnitRepository;
             _attributePredefinedRepository = attributePredefinedRepository;
             _attributeAspectRepository = attributeAspectRepository;
             _attributeConditionRepository = attributeConditionRepository;
+            _attributeFormatRepository = attributeFormatRepository;
+            _attributeQualifierRepository = attributeQualifierRepository;
         }
 
         #region Attribute
@@ -119,17 +123,69 @@ namespace TypeLibrary.Data.Repositories
         }
 
         /// <summary>
-        /// Create a new aspect attribute
+        /// Create a new condition attribute
         /// </summary>
-        /// <param name="condition">The aspect attribute that should be created</param>
-        /// <returns>An aspect attribute</returns>
-        public async Task<AttributeConditionLibDm> CreateCondition(AttributeConditionLibDm condition)
+        /// <param name="format">The condition attribute that should be created</param>
+        /// <returns>A condition attribute</returns>
+        public async Task<AttributeConditionLibDm> CreateCondition(AttributeConditionLibDm format)
         {
-            await _attributeConditionRepository.CreateAsync(condition);
+            await _attributeConditionRepository.CreateAsync(format);
             await _attributeConditionRepository.SaveAsync();
-            return condition;
+            return format;
         }
 
         #endregion Condition
+
+        #region Format
+
+        /// <summary>
+        /// Get all format attributes
+        /// </summary>
+        /// <returns>A collection of attribute formats</returns>
+        /// <remarks>Only attribute formats that is not deleted will be returned</remarks>
+        public IEnumerable<AttributeFormatLibDm> GetFormats()
+        {
+            return _attributeFormatRepository.GetAll().Where(x => !x.Deleted);
+        }
+
+        /// <summary>
+        /// Create a new format attribute
+        /// </summary>
+        /// <param name="format">The aspect attribute that should be created</param>
+        /// <returns>A format attribute</returns>
+        public async Task<AttributeFormatLibDm> CreateFormat(AttributeFormatLibDm format)
+        {
+            await _attributeFormatRepository.CreateAsync(format);
+            await _attributeFormatRepository.SaveAsync();
+            return format;
+        }
+
+        #endregion Format
+
+        #region Qualifier
+
+        /// <summary>
+        /// Get all qualifier attributes
+        /// </summary>
+        /// <returns>A collection of attribute qualifier</returns>
+        /// <remarks>Only attribute qualifiers that is not deleted will be returned</remarks>
+        public IEnumerable<AttributeQualifierLibDm> GetQualifiers()
+        {
+            return _attributeQualifierRepository.GetAll().Where(x => !x.Deleted);
+        }
+
+        /// <summary>
+        /// Create a new format attribute
+        /// </summary>
+        /// <param name="qualifier">The aspect attribute that should be created</param>
+        /// <returns>A format attribute</returns>
+        public async Task<AttributeQualifierLibDm> CreateQualifier(AttributeQualifierLibDm qualifier)
+        {
+            await _attributeQualifierRepository.CreateAsync(qualifier);
+            await _attributeQualifierRepository.SaveAsync();
+            return qualifier;
+        }
+
+        #endregion Qualifier
     }
 }

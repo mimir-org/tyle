@@ -192,5 +192,75 @@ namespace TypeLibrary.Services.Services
 
         #endregion Aspect
 
+        #region Format
+
+        public Task<IEnumerable<AttributeFormatLibCm>> GetFormats()
+        {
+            var notSet = _attributeRepository.GetFormats().FirstOrDefault(x => x.Name == Aspect.NotSet.ToString());
+            var dataSet = _attributeRepository.GetFormats().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+
+            var dataDmList = new List<AttributeFormatLibDm> { notSet };
+            dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
+
+            var dataCmList = _mapper.Map<List<AttributeFormatLibCm>>(dataDmList);
+            return Task.FromResult(dataCmList.AsEnumerable());
+        }
+
+        public async Task CreateFormats(List<AttributeFormatLibAm> formats, bool createdBySystem = false)
+        {
+            if (formats == null || !formats.Any())
+                return;
+
+            var data = _mapper.Map<List<AttributeFormatLibDm>>(formats);
+            var existing = _attributeRepository.GetFormats().ToList();
+            var notExisting = data.Exclude(existing, x => x.Id).ToList();
+
+            if (!notExisting.Any())
+                return;
+
+            foreach (var item in notExisting)
+            {
+                item.CreatedBy = createdBySystem ? _applicationSettings.System : item.CreatedBy;
+                await _attributeRepository.CreateFormat(item);
+            }
+        }
+
+        #endregion Format
+
+        #region Qualifier
+
+        public Task<IEnumerable<AttributeQualifierLibCm>> GetQualifiers()
+        {
+            var notSet = _attributeRepository.GetQualifiers().FirstOrDefault(x => x.Name == Aspect.NotSet.ToString());
+            var dataSet = _attributeRepository.GetQualifiers().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+
+            var dataDmList = new List<AttributeQualifierLibDm> { notSet };
+            dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
+
+            var dataCmList = _mapper.Map<List<AttributeQualifierLibCm>>(dataDmList);
+            return Task.FromResult(dataCmList.AsEnumerable());
+        }
+
+        public async Task CreateQualifiers(List<AttributeQualifierLibAm> qualifiers, bool createdBySystem = false)
+        {
+            if (qualifiers == null || !qualifiers.Any())
+                return;
+
+            var data = _mapper.Map<List<AttributeQualifierLibDm>>(qualifiers);
+            var existing = _attributeRepository.GetQualifiers().ToList();
+            var notExisting = data.Exclude(existing, x => x.Id).ToList();
+
+            if (!notExisting.Any())
+                return;
+
+            foreach (var item in notExisting)
+            {
+                item.CreatedBy = createdBySystem ? _applicationSettings.System : item.CreatedBy;
+                await _attributeRepository.CreateQualifier(item);
+            }
+        }
+
+        #endregion Qualifier
+
     }
 }

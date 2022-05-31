@@ -73,10 +73,46 @@ namespace TypeLibrary.Data.Contracts
         /// <summary>
         /// Creates a new attribute condition
         /// </summary>
-        /// <param name="condition">The attribute condition that should be created</param>
+        /// <param name="format">The attribute condition that should be created</param>
         /// <returns>An attribute condition</returns>
-        Task<AttributeConditionLibDm> CreateCondition(AttributeConditionLibDm condition);
+        Task<AttributeConditionLibDm> CreateCondition(AttributeConditionLibDm format);
 
         #endregion Condition
+
+        #region Format
+
+        /// <summary>
+        /// Get all attribute formats
+        /// </summary>
+        /// <returns>A collection of attribute formats</returns>
+        /// <remarks>Only formats that is not deleted will be returned</remarks>
+        IEnumerable<AttributeFormatLibDm> GetFormats();
+
+        /// <summary>
+        /// Creates a new attribute format
+        /// </summary>
+        /// <param name="format">The attribute format that should be created</param>
+        /// <returns>An attribute format</returns>
+        Task<AttributeFormatLibDm> CreateFormat(AttributeFormatLibDm format);
+
+        #endregion Format
+
+        #region Qualifier
+
+        /// <summary>
+        /// Get all attribute qualifiers
+        /// </summary>
+        /// <returns>A collection of attribute qualifiers</returns>
+        /// <remarks>Only qualifiers that is not deleted will be returned</remarks>
+        IEnumerable<AttributeQualifierLibDm> GetQualifiers();
+
+        /// <summary>
+        /// Creates a new attribute qualifier
+        /// </summary>
+        /// <param name="qualifier">The attribute qualifier that should be created</param>
+        /// <returns>An attribute qualifier</returns>
+        Task<AttributeQualifierLibDm> CreateQualifier(AttributeQualifierLibDm qualifier);
+
+        #endregion Qualifier
     }
 }

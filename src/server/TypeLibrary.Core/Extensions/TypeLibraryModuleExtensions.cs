@@ -58,8 +58,6 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IRdsService, RdsService>();
             services.AddScoped<ISeedingService, SeedingService>();
             services.AddScoped<ISymbolService, SymbolService>();
-            services.AddScoped<IAttributeFormatService, AttributeFormatService>();
-            services.AddScoped<IAttributeQualifierService, AttributeQualifierService>();
             services.AddScoped<IAttributeSourceService, AttributeSourceService>();
             services.AddScoped<IPurposeService, PurposeService>();
             services.AddScoped<IUnitService, UnitService>();

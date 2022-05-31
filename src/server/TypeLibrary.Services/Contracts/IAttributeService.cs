@@ -19,5 +19,11 @@ namespace TypeLibrary.Services.Contracts
 
         Task<IEnumerable<AttributeConditionLibCm>> GetConditions();
         Task CreateConditions(List<AttributeConditionLibAm> conditions, bool createdBySystem = false);
+
+        Task<IEnumerable<AttributeFormatLibCm>> GetFormats();
+        Task CreateFormats(List<AttributeFormatLibAm> formats, bool createdBySystem = false);
+
+        Task<IEnumerable<AttributeQualifierLibCm>> GetQualifiers();
+        Task CreateQualifiers(List<AttributeQualifierLibAm> qualifiers, bool createdBySystem = false);
     }
 }
