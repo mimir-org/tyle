@@ -78,7 +78,6 @@ namespace TypeLibrary.Services.Services
                 var simpleFileNames = fileList.Where(x => x.ToLower().Equals(SimpleFileName)).ToList();
                 var transportFiles = fileList.Where(x => x.ToLower().Equals(TransportFileName)).ToList();
 
-
                 var attributeConditions = _fileRepository.ReadAllFiles<AttributeConditionLibAm>(attributeConditionFiles).ToList();
                 var attributeFormats = _fileRepository.ReadAllFiles<AttributeFormatLibAm>(attributeFormatFiles).ToList();
                 var attributeQualifiers = _fileRepository.ReadAllFiles<AttributeQualifierLibAm>(attributeQualifierFiles).ToList();
@@ -101,9 +100,9 @@ namespace TypeLibrary.Services.Services
                 await _attributeService.CreatePredefined(attributesPredefined, true);
                 await _attributeService.CreateAspects(attributeAspects, true);
                 await _attributeService.CreateConditions(attributeConditions, true);
-                await _attributeService.CreateFormats(attributeFormats, true);
                 await _attributeService.CreateQualifiers(attributeQualifiers, true);
                 await _attributeService.CreateSources(attributeSources, true);
+                await _attributeService.CreateFormats(attributeFormats, true);
                 await _terminalService.CreateTerminals(terminals, true);
                 await _rdsService.CreateRdsAsync(rds, true);
                 await _symbolService.CreateSymbol(symbols, true);

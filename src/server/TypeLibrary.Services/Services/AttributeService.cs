@@ -178,7 +178,7 @@ namespace TypeLibrary.Services.Services
 
             var data = _mapper.Map<List<AttributeConditionLibDm>>(conditions);
             var existing = _attributeRepository.GetConditions().ToList();
-            var notExisting = data.Exclude(existing, x => x.Id).ToList();
+            var notExisting = data.Exclude(existing, x => x.Name).ToList();
 
             if (!notExisting.Any())
                 return;
@@ -213,7 +213,7 @@ namespace TypeLibrary.Services.Services
 
             var data = _mapper.Map<List<AttributeFormatLibDm>>(formats);
             var existing = _attributeRepository.GetFormats().ToList();
-            var notExisting = data.Exclude(existing, x => x.Id).ToList();
+            var notExisting = data.Exclude(existing, x => x.Name).ToList();
 
             if (!notExisting.Any())
                 return;
@@ -248,7 +248,7 @@ namespace TypeLibrary.Services.Services
 
             var data = _mapper.Map<List<AttributeQualifierLibDm>>(qualifiers);
             var existing = _attributeRepository.GetQualifiers().ToList();
-            var notExisting = data.Exclude(existing, x => x.Id).ToList();
+            var notExisting = data.Exclude(existing, x => x.Name).ToList();
 
             if (!notExisting.Any())
                 return;
@@ -283,7 +283,7 @@ namespace TypeLibrary.Services.Services
 
             var data = _mapper.Map<List<AttributeSourceLibDm>>(sources);
             var existing = _attributeRepository.GetSources().ToList();
-            var notExisting = data.Exclude(existing, x => x.Id).ToList();
+            var notExisting = data.Exclude(existing, x => x.Name).ToList();
 
             if (!notExisting.Any())
                 return;
