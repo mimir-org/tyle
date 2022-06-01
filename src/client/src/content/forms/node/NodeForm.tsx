@@ -16,8 +16,11 @@ import { useGetTerminals } from "../../../data/queries/tyle/queriesTerminal";
 import { getColorFromAspect } from "../../../utils/getColorFromAspect";
 import { NodePreview } from "../../home/components/about/components/node/NodePreview";
 import { createEmptyFormNodeLibAm, FormNodeLib, mapFormNodeLibAmToNodeLibAm } from "../types/formNodeLib";
-import { FunctionNode } from "./FunctionNode";
+import { FunctionNode } from "./variants/FunctionNode";
 import { aspectOptions, getTerminalItemsFromFormData } from "./NodeForm.helpers";
+import { Aspect } from "../../../models/tyle/enums/aspect";
+import { LocationNode } from "./variants/LocationNode";
+import { ProductNode } from "./variants/ProductNode";
 
 interface NodeFormProps {
   defaultValues?: FormNodeLib;
@@ -176,7 +179,9 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm() }: NodeFor
         bgColor={theme.tyle.color.surface.variant.base}
         color={theme.tyle.color.surface.variant.on}
       >
-        <FunctionNode control={control} />
+        {aspect === Aspect.Function && <FunctionNode control={control} />}
+        {aspect === Aspect.Location && <LocationNode control={control} />}
+        {aspect === Aspect.Product && <ProductNode control={control} />}
       </Box>
 
       <DevTool control={control} placement={"bottom-right"} />
