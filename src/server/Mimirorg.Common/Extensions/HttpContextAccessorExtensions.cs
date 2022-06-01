@@ -34,6 +34,9 @@ namespace Mimirorg.Common.Extensions
             var displayUrl = contextAccessor.HttpContext.Request.GetDisplayUrl();
             var url = new Uri(displayUrl);
 
+            if (url.Host?.ToLower() == "tyleserver")
+                return $"{url.Scheme}://localhost:5001";
+
             return url.IsDefaultPort ? $"{url.Scheme}://{url.Host}" : $"{url.Scheme}://{url.Host}:{url.Port}";
         }
     }

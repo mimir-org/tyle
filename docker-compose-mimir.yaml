@@ -15,7 +15,7 @@ services:
       
    mimir-client:
     build:
-     context: ./../ti-spine-modelbuilder/src/client
+     context: ./../mimir/src/client
      args:
       - MIMIR_VERSION=2.5.0
     hostname: 'mimirclient'
@@ -60,7 +60,7 @@ services:
       - mssql
       
    mimir-server:
-    build: ./../ti-spine-modelbuilder/src/service
+    build: ./../mimir/src/service
     hostname: 'mimirserver'
     container_name: mimirserver
     ports:
