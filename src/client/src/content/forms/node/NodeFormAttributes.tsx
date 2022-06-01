@@ -8,7 +8,7 @@ import { AttributeInfoButton } from "../../home/components/about/components/attr
 import { FormNodeLib } from "../types/formNodeLib";
 import { SelectAttributeDialog } from "./SelectAttributeDialog";
 import { Aspect } from "../../../models/tyle/enums/aspect";
-import { filterAttributes, getAttributeItems, onAddAttributes } from "./NodeFormAttributes.helpers";
+import { getAttributeItems, onAddAttributes, prepareAttributes } from "./NodeFormAttributes.helpers";
 
 export interface NodeFormAttributesProps {
   control: Control<FormNodeLib>;
@@ -20,7 +20,7 @@ export const NodeFormAttributes = ({ control, aspects }: NodeFormAttributesProps
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
   const attributeQuery = useGetAttributes();
-  const filteredAttributes = filterAttributes(attributeQuery.data, aspects);
+  const filteredAttributes = prepareAttributes(attributeQuery.data, aspects);
   const attributeItems = getAttributeItems(filteredAttributes);
 
   return (
