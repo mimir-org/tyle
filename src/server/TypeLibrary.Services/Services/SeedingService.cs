@@ -28,7 +28,6 @@ namespace TypeLibrary.Services.Services
 
         private readonly IAttributeService _attributeService;
         private readonly ISymbolService _symbolService;
-        private readonly IAttributeSourceService _attributeSourceService;
         private readonly IPurposeService _purposeService;
         private readonly IUnitService _unitService;
         private readonly IRdsService _rdsService;
@@ -38,12 +37,11 @@ namespace TypeLibrary.Services.Services
         private readonly IFileRepository _fileRepository;
         private readonly ILogger<SeedingService> _logger;
 
-        public SeedingService(IAttributeService attributeService, ISymbolService symbolService, IAttributeSourceService attributeSourceService, IPurposeService purposeService, IUnitService unitService,
+        public SeedingService(IAttributeService attributeService, ISymbolService symbolService, IPurposeService purposeService, IUnitService unitService,
             IRdsService rdsService, ITerminalService terminalService, ITransportService transportService, IFileRepository fileRepository, ILogger<SeedingService> logger, ISimpleService simpleService)
         {
             _attributeService = attributeService;
             _symbolService = symbolService;
-            _attributeSourceService = attributeSourceService;
             _purposeService = purposeService;
             _unitService = unitService;
             _rdsService = rdsService;
@@ -97,7 +95,6 @@ namespace TypeLibrary.Services.Services
                 var simple = _fileRepository.ReadAllFiles<SimpleLibAm>(simpleFileNames).ToList();
                 var transports = _fileRepository.ReadAllFiles<TransportLibAm>(transportFiles).ToList();
 
-                await _attributeSourceService.CreateAttributeSources(attributeSources, true);
                 await _purposeService.CreatePurposes(purposes, true);
                 await _unitService.CreateUnits(units, true);
                 await _attributeService.Create(attributes, true);
@@ -106,6 +103,7 @@ namespace TypeLibrary.Services.Services
                 await _attributeService.CreateConditions(attributeConditions, true);
                 await _attributeService.CreateFormats(attributeFormats, true);
                 await _attributeService.CreateQualifiers(attributeQualifiers, true);
+                await _attributeService.CreateSources(attributeSources, true);
                 await _terminalService.CreateTerminals(terminals, true);
                 await _rdsService.CreateRdsAsync(rds, true);
                 await _symbolService.CreateSymbol(symbols, true);

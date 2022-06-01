@@ -155,5 +155,23 @@ namespace TypeLibrary.Core.Controllers.V1
                 return StatusCode(500, "Internal Server Error");
             }
         }
+
+        [HttpGet("source")]
+        [ProducesResponseType(typeof(ICollection<AttributeSourceLibAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //[Authorize(Policy = "Read")]
+        public async Task<IActionResult> GetSources()
+        {
+            try
+            {
+                var data = await _attributeService.GetSources();
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
     }
 }

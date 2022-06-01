@@ -262,5 +262,39 @@ namespace TypeLibrary.Services.Services
 
         #endregion Qualifier
 
+        #region Source
+
+        public Task<IEnumerable<AttributeSourceLibCm>> GetSources()
+        {
+            var notSet = _attributeRepository.GetSources().FirstOrDefault(x => x.Name == Aspect.NotSet.ToString());
+            var dataSet = _attributeRepository.GetSources().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+
+            var dataDmList = new List<AttributeSourceLibDm> { notSet };
+            dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
+
+            var dataCmList = _mapper.Map<List<AttributeSourceLibCm>>(dataDmList);
+            return Task.FromResult(dataCmList.AsEnumerable());
+        }
+
+        public async Task CreateSources(List<AttributeSourceLibAm> sources, bool createdBySystem = false)
+        {
+            if (sources == null || !sources.Any())
+                return;
+
+            var data = _mapper.Map<List<AttributeSourceLibDm>>(sources);
+            var existing = _attributeRepository.GetSources().ToList();
+            var notExisting = data.Exclude(existing, x => x.Id).ToList();
+
+            if (!notExisting.Any())
+                return;
+
+            foreach (var item in notExisting)
+            {
+                item.CreatedBy = createdBySystem ? _applicationSettings.System : item.CreatedBy;
+                await _attributeRepository.CreateSource(item);
+            }
+        }
+
+        #endregion Source
     }
 }

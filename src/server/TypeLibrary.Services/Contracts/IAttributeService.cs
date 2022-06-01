@@ -25,5 +25,8 @@ namespace TypeLibrary.Services.Contracts
 
         Task<IEnumerable<AttributeQualifierLibCm>> GetQualifiers();
         Task CreateQualifiers(List<AttributeQualifierLibAm> qualifiers, bool createdBySystem = false);
+
+        Task<IEnumerable<AttributeSourceLibCm>> GetSources();
+        Task CreateSources(List<AttributeSourceLibAm> sources, bool createdBySystem = false);
     }
 }

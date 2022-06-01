@@ -17,8 +17,9 @@ namespace TypeLibrary.Data.Repositories
         private readonly IEfAttributeConditionRepository _attributeConditionRepository;
         private readonly IEfAttributeFormatRepository _attributeFormatRepository;
         private readonly IEfAttributeQualifierRepository _attributeQualifierRepository;
+        private readonly IEfAttributeSourceRepository _attributeSourceRepository;
 
-        public DbAttributeRepository(IEfAttributeRepository efAttributeRepository, IEfUnitRepository efUnitRepository, IEfAttributePredefinedRepository attributePredefinedRepository, IEfAttributeAspectRepository attributeAspectRepository, IEfAttributeConditionRepository attributeConditionRepository, IEfAttributeFormatRepository attributeFormatRepository, IEfAttributeQualifierRepository attributeQualifierRepository)
+        public DbAttributeRepository(IEfAttributeRepository efAttributeRepository, IEfUnitRepository efUnitRepository, IEfAttributePredefinedRepository attributePredefinedRepository, IEfAttributeAspectRepository attributeAspectRepository, IEfAttributeConditionRepository attributeConditionRepository, IEfAttributeFormatRepository attributeFormatRepository, IEfAttributeQualifierRepository attributeQualifierRepository, IEfAttributeSourceRepository attributeSourceRepository)
         {
             _efAttributeRepository = efAttributeRepository;
             _efUnitRepository = efUnitRepository;
@@ -27,6 +28,7 @@ namespace TypeLibrary.Data.Repositories
             _attributeConditionRepository = attributeConditionRepository;
             _attributeFormatRepository = attributeFormatRepository;
             _attributeQualifierRepository = attributeQualifierRepository;
+            _attributeSourceRepository = attributeSourceRepository;
         }
 
         #region Attribute
@@ -187,5 +189,31 @@ namespace TypeLibrary.Data.Repositories
         }
 
         #endregion Qualifier
+
+        #region Source
+
+        /// <summary>
+        /// Get all qualifier attributes
+        /// </summary>
+        /// <returns>A collection of attribute qualifier</returns>
+        /// <remarks>Only attribute qualifiers that is not deleted will be returned</remarks>
+        public IEnumerable<AttributeSourceLibDm> GetSources()
+        {
+            return _attributeSourceRepository.GetAll().Where(x => !x.Deleted);
+        }
+
+        /// <summary>
+        /// Create a new source attribute
+        /// </summary>
+        /// <param name="source">The source attribute that should be created</param>
+        /// <returns>A source attribute</returns>
+        public async Task<AttributeSourceLibDm> CreateSource(AttributeSourceLibDm source)
+        {
+            await _attributeSourceRepository.CreateAsync(source);
+            await _attributeSourceRepository.SaveAsync();
+            return source;
+        }
+
+        #endregion Source
     }
 }
