@@ -91,6 +91,7 @@ const TextResources = {
   ATTRIBUTE_DIALOG_DESCRIPTION: "The attributes listed below are predefined and can be reused across multiple nodes.",
   ATTRIBUTE_DIALOG_FILTER: "Filter attributes",
   ATTRIBUTE_DIALOG_ADD: "Add selected attribute(s)",
+  ATTRIBUTE_REMOVE: "Remove attribute",
 
   // Terminal
   TERMINAL_TITLE: "Terminals",

@@ -5,7 +5,6 @@ export const mockAttributeItem = (): AttributeItem => {
   return {
     id: faker.random.alphaNumeric(),
     name: `${faker.commerce.productAdjective()}`,
-    color: faker.internet.color(),
     traits: mockAttributeItemTraits(parseInt(faker.random.numeric(1))),
   };
 };

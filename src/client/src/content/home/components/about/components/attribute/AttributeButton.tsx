@@ -5,7 +5,6 @@ import { AttributeButtonContainer } from "./AttributeButton.styled";
 
 export type AttributeButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   Polymorphic<ElementType> & {
-    color: string;
     variant?: "large" | "medium" | "small";
     children?: string;
   };

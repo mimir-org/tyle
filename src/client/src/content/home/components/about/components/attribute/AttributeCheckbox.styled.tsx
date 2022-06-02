@@ -22,8 +22,9 @@ export const AttributeCheckboxContainer = styled(CheckboxPrimitive.Root)<Attribu
     cursor: not-allowed;
   }
 
-  ${({ color, ...props }) => {
+  ${({ ...props }) => {
     const { color: colorSystem, state, elevation } = props.theme.tyle;
+    const color = props.theme.tyle.color.tertiary.base;
     const borderColor = darken(0.05, color);
 
     return css`

@@ -10,15 +10,12 @@ type AttributeSingleCheckboxProps = AttributeCheckboxProps & Omit<AttributeItem,
  * The focusable component has checkbox semantics and can be used contexts where this is needed (e.g. multiselect, select, etc.)
  *
  * @param name of attribute
- * @param color representing attribute
  * @param traits various qualities/traits that the attribute has
  * @param delegated receives all properties which AttributeButtonProps define
  * @constructor
  */
-export const AttributeInfoCheckbox = ({ name, color, traits, ...delegated }: AttributeSingleCheckboxProps) => (
-  <Tooltip content={<AttributeDescription name={name} color={color} traits={traits} />}>
-    <AttributeCheckbox color={color} {...delegated}>
-      {name}
-    </AttributeCheckbox>
+export const AttributeInfoCheckbox = ({ name, traits, ...delegated }: AttributeSingleCheckboxProps) => (
+  <Tooltip content={<AttributeDescription name={name} traits={traits} />}>
+    <AttributeCheckbox {...delegated}>{name}</AttributeCheckbox>
   </Tooltip>
 );

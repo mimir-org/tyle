@@ -4,7 +4,6 @@ import { Text } from "../../../../../../complib/text";
 import { AttributeCheckboxContainer } from "./AttributeCheckbox.styled";
 
 export type AttributeCheckboxProps = CheckboxProps & {
-  color: string;
   children?: ReactNode;
 };
 
@@ -16,9 +15,9 @@ export type AttributeCheckboxProps = CheckboxProps & {
  * @see https://www.radix-ui.com/docs/primitives/components/checkbox
  */
 export const AttributeCheckbox = forwardRef<HTMLButtonElement, AttributeCheckboxProps>(
-  ({ children, color, ...delegated }, ref) => {
+  ({ children, ...delegated }, ref) => {
     return (
-      <AttributeCheckboxContainer ref={ref} color={color} {...delegated}>
+      <AttributeCheckboxContainer ref={ref} {...delegated}>
         <Text as={"span"} variant={"label-large"} useEllipsis ellipsisMaxLines={2}>
           {children}
         </Text>

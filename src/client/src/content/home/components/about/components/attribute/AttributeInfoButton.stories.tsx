@@ -18,3 +18,11 @@ export default {
 const Template: ComponentStory<typeof AttributeInfoButton> = (args) => <AttributeInfoButton {...args} />;
 
 export const Default = Template.bind({});
+
+export const Actionable = Template.bind({});
+Actionable.args = {
+  actionable: true,
+  actionIcon: "static/media/src/assets/icons/modules/library.svg",
+  actionText: "Trigger action",
+  onAction: () => alert("[STORYBOOK] AttributeDescription.Remove"),
+};
