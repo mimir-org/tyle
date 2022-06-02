@@ -9,11 +9,15 @@
 
   <ItemGroup>
     <None Remove="template\index.d.ts" />
+    <None Remove="template\package.json" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="template\index.d.ts">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="template\package.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
