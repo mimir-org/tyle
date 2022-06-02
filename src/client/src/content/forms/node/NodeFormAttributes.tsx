@@ -9,6 +9,8 @@ import { FormNodeLib } from "../types/formNodeLib";
 import { SelectAttributeDialog } from "./SelectAttributeDialog";
 import { Aspect } from "../../../models/tyle/enums/aspect";
 import { getAttributeItems, onAddAttributes, prepareAttributes } from "./NodeFormAttributes.helpers";
+import { Trash } from "@styled-icons/heroicons-outline";
+import textResources from "../../../assets/text/TextResources";
 
 export interface NodeFormAttributesProps {
   control: Control<FormNodeLib>;
@@ -39,9 +41,20 @@ export const NodeFormAttributes = ({ control, aspects }: NodeFormAttributesProps
       </Flexbox>
 
       <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.medium}>
-        {attributeFields.fields.map((field) => {
+        {attributeFields.fields.map((field, index) => {
           const attribute = attributeItems.find((x) => x.id === field.value);
-          return attribute && <AttributeInfoButton key={field.id} {...attribute} />;
+          return (
+            attribute && (
+              <AttributeInfoButton
+                key={field.id}
+                actionable
+                actionIcon={<Trash />}
+                actionText={textResources.ATTRIBUTE_REMOVE}
+                onAction={() => attributeFields.remove(index)}
+                {...attribute}
+              />
+            )
+          );
         })}
       </Flexbox>
     </Box>
