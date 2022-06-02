@@ -8,6 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="template\index.d.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="template\index.d.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="TypeScriptBuilder" Version="0.1.10" />
   </ItemGroup>
 
