@@ -3,7 +3,7 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts.Ef
 {
-    public interface IEfAttributeFormatDbRepository : IGenericRepository<TypeLibraryDbContext, AttributeFormatLibDm>
+    public interface IEfAttributeFormatRepository : IGenericRepository<TypeLibraryDbContext, AttributeFormatLibDm>
     {
     }
 }

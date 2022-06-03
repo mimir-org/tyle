@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -35,36 +34,6 @@ namespace TypeLibrary.Services.Services
 
             var dataAm = _mapper.Map<List<UnitLibCm>>(dataList);
             return Task.FromResult(dataAm.AsEnumerable());
-        }
-
-        public async Task<UnitLibCm> UpdateUnit(UnitLibAm dataAm, string id)
-        {
-
-            if (string.IsNullOrWhiteSpace(id) || dataAm == null)
-                throw new MimirorgBadRequestException("The data object or id can not be null.");
-
-            var existingDm = await _unitRepository.GetAsync(id);
-
-            if (existingDm?.Id == null)
-                throw new MimirorgBadRequestException("Object not found.");
-
-            if (existingDm.CreatedBy == _applicationSettings.System)
-                throw new MimirorgBadRequestException($"The object with id {id} is created by the system and can not be updated.");
-
-            //TODO: The code below must be rewritten. What do we allow to be updated?
-            var data = _mapper.Map<UnitLibDm>(dataAm);
-            data.Id = id;
-            _unitRepository.Update(data);
-            await _unitRepository.SaveAsync();
-            return _mapper.Map<UnitLibCm>(data);
-        }
-
-        public async Task<UnitLibCm> CreateUnit(UnitLibAm dataAm)
-        {
-            var data = _mapper.Map<UnitLibDm>(dataAm);
-            var createdData = await _unitRepository.CreateAsync(data);
-            await _unitRepository.SaveAsync();
-            return _mapper.Map<UnitLibCm>(createdData.Entity);
         }
 
         public async Task CreateUnits(List<UnitLibAm> dataAm, bool createdBySystem = false)
