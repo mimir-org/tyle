@@ -98,6 +98,10 @@ const TextResources = {
   TERMINAL_TOTAL: "Total terminals",
   TERMINAL_OPEN_SUMMARY: "Open terminal summary",
   TERMINAL_SUMMARY: "Summary",
+
+  // Predefined attribute
+  PREDEFINED_ATTRIBUTE_TITLE: "Predefined attributes",
+  PREDEFINED_ATTRIBUTE_SELECT: "Select value(s)",
 };
 
 export default TextResources;
