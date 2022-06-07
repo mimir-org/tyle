@@ -1,6 +1,6 @@
 import { Control } from "react-hook-form";
 import { FormNodeLib } from "../../types/formNodeLib";
-import { NodeFormAttributes } from "../NodeFormAttributes";
+import { NodeFormAttributes } from "../attributes/NodeFormAttributes";
 import { Aspect } from "../../../../models/tyle/enums/aspect";
 
 export interface LocationNodeProps {

@@ -15,7 +15,7 @@ import { useGetSymbols } from "../../../data/queries/tyle/queriesSymbol";
 import { useGetTerminals } from "../../../data/queries/tyle/queriesTerminal";
 import { getColorFromAspect } from "../../../utils/getColorFromAspect";
 import { NodePreview } from "../../home/components/about/components/node/NodePreview";
-import { createEmptyFormNodeLibAm, FormNodeLib, mapFormNodeLibAmToNodeLibAm } from "../types/formNodeLib";
+import { createEmptyFormNodeLibAm, FormNodeLib, mapFormNodeLibAmToApiModel } from "../types/formNodeLib";
 import { FunctionNode } from "./variants/FunctionNode";
 import { aspectOptions, getTerminalItemsFromFormData } from "./NodeForm.helpers";
 import { Aspect } from "../../../models/tyle/enums/aspect";
@@ -49,7 +49,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm() }: NodeFor
       flexWrap={"wrap"}
       bgColor={theme.tyle.color.surface.base}
       color={theme.tyle.color.surface.on}
-      onSubmit={handleSubmit((data) => nodeMutation.mutate(mapFormNodeLibAmToNodeLibAm(data)))}
+      onSubmit={handleSubmit((data) => nodeMutation.mutate(mapFormNodeLibAmToApiModel(data)))}
     >
       <Box
         as={"fieldset"}
@@ -170,7 +170,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm() }: NodeFor
       </Box>
 
       <Box
-        flex={2}
+        flex={3}
         display={"flex"}
         flexDirection={"column"}
         gap={theme.tyle.spacing.large}
@@ -179,7 +179,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm() }: NodeFor
         bgColor={theme.tyle.color.surface.variant.base}
         color={theme.tyle.color.surface.variant.on}
       >
-        {aspect === Aspect.Function && <FunctionNode control={control} />}
+        {aspect === Aspect.Function && <FunctionNode control={control} register={register} />}
         {aspect === Aspect.Location && <LocationNode control={control} />}
         {aspect === Aspect.Product && <ProductNode control={control} />}
       </Box>

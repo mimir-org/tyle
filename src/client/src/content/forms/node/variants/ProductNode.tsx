@@ -1,8 +1,8 @@
 import { Control } from "react-hook-form";
 import { FormNodeLib } from "../../types/formNodeLib";
-import { NodeFormAttributes } from "../NodeFormAttributes";
+import { NodeFormAttributes } from "../attributes/NodeFormAttributes";
 import { Aspect } from "../../../../models/tyle/enums/aspect";
-import { NodeFormTerminals } from "../NodeFormTerminals";
+import { NodeFormTerminals } from "../terminals/NodeFormTerminals";
 
 export interface ProductNodeProps {
   control: Control<FormNodeLib>;
