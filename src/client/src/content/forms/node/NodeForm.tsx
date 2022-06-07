@@ -17,7 +17,7 @@ import { Aspect } from "../../../models/tyle/enums/aspect";
 import { getColorFromAspect } from "../../../utils/getColorFromAspect";
 import { NodePreview } from "../../home/components/about/components/node/NodePreview";
 import { createEmptyFormNodeLibAm, FormNodeLib, mapFormNodeLibAmToApiModel } from "../types/formNodeLib";
-import { aspectOptions, getTerminalItemsFromFormData } from "./NodeForm.helpers";
+import { aspectOptions, getTerminalItemsFromFormData, usePrefilledNodeData } from "./NodeForm.helpers";
 import { FunctionNode } from "./variants/FunctionNode";
 import { LocationNode } from "./variants/LocationNode";
 import { ProductNode } from "./variants/ProductNode";
@@ -28,9 +28,10 @@ interface NodeFormProps {
 
 export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm() }: NodeFormProps) => {
   const theme = useTheme();
-  const { register, handleSubmit, control, setValue } = useForm<FormNodeLib>({ defaultValues });
+  const { register, handleSubmit, control, setValue, reset } = useForm<FormNodeLib>({ defaultValues });
 
   const nodeMutation = useCreateNode();
+  const hasPrefilled = usePrefilledNodeData(reset);
 
   const rdsQuery = useGetRds();
   const symbolQuery = useGetSymbols();
@@ -104,6 +105,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm() }: NodeFor
                   getOptionLabel={(x) => x.label}
                   onChange={(x) => onChange(x?.value)}
                   value={aspectOptions.find((x) => x.value === value)}
+                  isDisabled={hasPrefilled}
                 />
               )}
             />
@@ -179,7 +181,6 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm() }: NodeFor
         bgColor={theme.tyle.color.surface.variant.base}
         color={theme.tyle.color.surface.variant.on}
       >
-        {aspect === Aspect.Function && <FunctionNode control={control} />}
         {aspect === Aspect.Function && <FunctionNode control={control} />}
         {aspect === Aspect.Location && <LocationNode control={control} register={register} />}
         {aspect === Aspect.Product && <ProductNode control={control} />}

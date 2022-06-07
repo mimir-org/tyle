@@ -1,9 +1,11 @@
 import { createEmptyNodeLibAm, NodeLibAm } from "../../../models/tyle/application/nodeLibAm";
-import { ValueObject } from "./valueObject";
+import { NodeLibCm } from "../../../models/tyle/client/nodeLibCm";
+import { mapNodeLibCmToNodeLibAm } from "../../../utils/mappers";
 import {
   FormSelectedAttributePredefinedLibAm,
   mapFormSelectedAttributePredefinedLibAmToApiModel,
 } from "./formSelectedAttributePredefinedLibAm";
+import { ValueObject } from "./valueObject";
 
 /**
  * This type functions as a layer between client needs and the backend model.
@@ -30,4 +32,15 @@ export const createEmptyFormNodeLibAm = (): FormNodeLib => ({
   ...createEmptyNodeLibAm(),
   attributeIdList: [],
   selectedAttributePredefined: [],
+});
+
+export const mapNodeLibCmToFormNodeLibAm = (nodeLibCm: NodeLibCm): FormNodeLib => ({
+  ...mapNodeLibCmToNodeLibAm(nodeLibCm),
+  attributeIdList: nodeLibCm.attributes.map((x) => ({
+    value: x.id,
+  })),
+  selectedAttributePredefined: nodeLibCm.selectedAttributePredefined.map((x) => ({
+    ...x,
+    values: Object.keys(x.values).map((y) => ({ value: y })),
+  })),
 });
