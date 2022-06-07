@@ -4,9 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
-using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
-using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts.Ef;
@@ -26,28 +24,6 @@ namespace TypeLibrary.Services.Services
             _mapper = mapper;
             _symbolRepository = symbolRepository;
             _applicationSettings = applicationSettings?.Value;
-        }
-
-        /// <summary>
-        /// Create symbol data
-        /// </summary>
-        /// <param name="symbolLibAm"></param>
-        /// <param name="saveData"></param>
-        /// <returns></returns>
-        public async Task<SymbolLibCm> CreateSymbol(SymbolLibAm symbolLibAm, bool saveData = true)
-        {
-            var symbolExist = await _symbolRepository.GetAsync(symbolLibAm.Id);
-
-            if (symbolExist != null)
-                throw new MimirorgDuplicateException($"There is already a symbol with name: {symbolLibAm.Name}");
-
-            var dm = _mapper.Map<SymbolLibDm>(symbolLibAm);
-            await _symbolRepository.CreateAsync(dm);
-
-            if (saveData)
-                await _symbolRepository.SaveAsync();
-
-            return _mapper.Map<SymbolLibCm>(dm);
         }
 
         /// <summary>
@@ -76,31 +52,6 @@ namespace TypeLibrary.Services.Services
 
             await _symbolRepository.SaveAsync();
             return _mapper.Map<List<SymbolLibCm>>(symbols);
-        }
-
-        /// <summary>
-        /// Update a symbol
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="symbolLibAm"></param>
-        /// <returns></returns>
-        public async Task<SymbolLibCm> UpdateSymbol(string id, SymbolLibAm symbolLibAm)
-        {
-            if (string.IsNullOrWhiteSpace(id) || symbolLibAm == null)
-                throw new MimirorgBadRequestException("The data object or id can not be null.");
-
-            var dm = await _symbolRepository.GetAsync(id);
-
-            if (dm == null)
-                throw new MimirorgNotFoundException($"There is no symbol data with id: {id}");
-
-            if (dm.CreatedBy == _applicationSettings.System)
-                throw new MimirorgBadRequestException($"The symbol with id {id} is created by the system and can not be updated.");
-
-            _symbolRepository.Update(dm);
-
-            await _symbolRepository.SaveAsync();
-            return _mapper.Map<SymbolLibCm>(dm);
         }
 
         /// <summary>

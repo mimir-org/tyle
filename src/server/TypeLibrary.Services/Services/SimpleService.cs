@@ -65,34 +65,6 @@ namespace TypeLibrary.Services.Services
             return Task.FromResult(simpleLibCms ?? new List<SimpleLibCm>());
         }
 
-        public async Task<SimpleLibCm> CreateSimple(SimpleLibAm simpleAm)
-        {
-            var validation = simpleAm.ValidateObject();
-            if (!validation.IsValid)
-                throw new MimirorgBadRequestException("Couldn't create simple", validation);
-
-            var s = await _simpleRepository.GetAsync(simpleAm.Id);
-            if (s != null)
-                throw new MimirorgDuplicateException($"There is already a simple with name: {simpleAm.Name}");
-
-            var dmObject = _mapper.Map<SimpleLibDm>(simpleAm);
-            if (dmObject == null)
-                throw new MimirorgMappingException(nameof(SimpleLibAm), nameof(SimpleLibDm));
-
-
-            _attributeRepository.Attach(dmObject.Attributes, EntityState.Unchanged);
-            await _simpleRepository.CreateAsync(dmObject);
-            await _simpleRepository.SaveAsync();
-            _attributeRepository.Detach(dmObject.Attributes);
-            _simpleRepository.Detach(dmObject);
-
-            var cm = _mapper.Map<SimpleLibCm>(dmObject);
-            if (cm == null)
-                throw new MimirorgMappingException(nameof(SimpleLibDm), nameof(SimpleLibCm));
-
-            return cm;
-        }
-
         public async Task<IEnumerable<SimpleLibCm>> CreateSimple(IEnumerable<SimpleLibAm> simpleAmList, bool createdBySystem = false)
         {
             var simpleCms = new List<SimpleLibCm>();

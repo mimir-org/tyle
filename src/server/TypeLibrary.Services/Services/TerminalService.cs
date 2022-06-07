@@ -52,17 +52,6 @@ namespace TypeLibrary.Services.Services
         }
 
         /// <summary>
-        /// Create a terminal typeDm
-        /// </summary>
-        /// <param name="terminalAm"></param>
-        /// <returns></returns>
-        public async Task<TerminalLibCm> CreateTerminal(TerminalLibAm terminalAm)
-        {
-            var data = await CreateTerminals(new List<TerminalLibAm> { terminalAm });
-            return data.SingleOrDefault();
-        }
-
-        /// <summary>
         /// Create from a list of terminal types
         /// </summary>
         /// <param name="terminalAmList"></param>

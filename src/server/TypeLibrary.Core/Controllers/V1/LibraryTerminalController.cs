@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
-using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 
@@ -48,37 +46,6 @@ namespace TypeLibrary.Core.Controllers.V1
             {
                 var data = _terminalTypeService.GetTerminals().ToList();
                 return Ok(data);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        /// <summary>
-        /// Create a terminal typeDm
-        /// </summary>
-        /// <param name="terminalAm"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> CreateTerminal([FromBody] TerminalLibAm terminalAm)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            try
-            {
-                var createdTerminalType = await _terminalTypeService.CreateTerminal(terminalAm);
-                if (createdTerminalType == null)
-                    return BadRequest("The terminal typeDm already exist");
-
-                return Ok(createdTerminalType);
             }
             catch (Exception e)
             {

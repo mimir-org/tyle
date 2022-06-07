@@ -39,8 +39,8 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IEfRdsRepository, EfRdsRepository>();
             services.AddSingleton<IFileRepository, JsonFileRepository>();
             services.AddScoped<IEfSymbolRepository, EfSymbolRepository>();
-            services.AddScoped<IEfAttributeConditionDbRepository, EfAttributeConditionRepository>();
-            services.AddScoped<IEfAttributeFormatDbRepository, EfAttributeFormatRepository>();
+            services.AddScoped<IEfAttributeConditionRepository, EfAttributeConditionRepository>();
+            services.AddScoped<IEfAttributeFormatRepository, EfAttributeFormatRepository>();
             services.AddScoped<IEfAttributeQualifierRepository, EfAttributeQualifierRepository>();
             services.AddScoped<IEfAttributeSourceRepository, EfAttributeSourceRepository>();
             services.AddScoped<IEfAttributeAspectRepository, EfAttributeAspectRepository>();
@@ -58,11 +58,6 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IRdsService, RdsService>();
             services.AddScoped<ISeedingService, SeedingService>();
             services.AddScoped<ISymbolService, SymbolService>();
-            services.AddScoped<IAttributeConditionService, AttributeConditionService>();
-            services.AddScoped<IAttributeFormatService, AttributeFormatService>();
-            services.AddScoped<IAttributeQualifierService, AttributeQualifierService>();
-            services.AddScoped<IAttributeSourceService, AttributeSourceService>();
-            services.AddScoped<IAttributeAspectService, AttributeAspectService>();
             services.AddScoped<IPurposeService, PurposeService>();
             services.AddScoped<IUnitService, UnitService>();
             services.AddScoped<ITransportService, TransportService>();
