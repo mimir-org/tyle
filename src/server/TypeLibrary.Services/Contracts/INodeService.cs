@@ -12,6 +12,5 @@ namespace TypeLibrary.Services.Contracts
         Task<NodeLibCm> Create(NodeLibAm dataAm);
         Task<NodeLibCm> Update(NodeLibAm dataAm, string id);
         Task<bool> Delete(string id);
-        void ClearAllChangeTrackers();
     }
 }

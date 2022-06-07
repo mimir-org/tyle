@@ -15,7 +15,7 @@
     "name": "Mix (Process)"
   },
   {
-    "name": "Exchange [heat] (Process)"
+    "name": "Heat (Process)"
   },
   {
     "name": "React (Process)"
@@ -69,6 +69,6 @@
     "name": "Enclose (Structural)"
   },
   {
-    "name": "None (None)"
+    "name": "None"
   }
 ]

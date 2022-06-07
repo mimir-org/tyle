@@ -110,7 +110,6 @@ namespace TypeLibrary.Services.Services
                 _simpleService.ClearAllChangeTrackers();
                 await _simpleService.CreateSimple(simple, true);
 
-                _transportService.ClearAllChangeTrackers();
                 await _transportService.Create(transports, true);
             }
             catch (Exception e)

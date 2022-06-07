@@ -242,7 +242,7 @@ namespace TypeLibrary.Services.Services
                         if (amList[i].TerminalId != dmList[i].TerminalId)
                             throw new MimirorgBadRequestException("You cannot change existing node terminal's terminal id, only add.");
 
-                        if (amList[i].Number != dmList[i].Number)
+                        if (amList[i].Quantity != dmList[i].Quantity)
                             throw new MimirorgBadRequestException("You cannot change existing node terminal's number, only add.");
 
                         if (amList[i].ConnectorDirection != dmList[i].ConnectorDirection)

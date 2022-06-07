@@ -50,6 +50,8 @@ namespace TypeLibrary.Core.Extensions
 
 
             services.AddScoped<IAttributeRepository, DbAttributeRepository>();
+            services.AddScoped<IInterfaceRepository, DbInterfaceRepository>();
+            services.AddScoped<ITransportRepository, DbTransportRepository>();
 
             // Dependency Injection - Services
             services.AddScoped<ITerminalService, TerminalService>();

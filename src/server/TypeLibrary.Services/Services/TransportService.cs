@@ -4,14 +4,13 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
-using TypeLibrary.Data.Contracts.Ef;
+using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -20,21 +19,19 @@ namespace TypeLibrary.Services.Services
     public class TransportService : ITransportService
     {
         private readonly IMapper _mapper;
-        private readonly IEfTransportRepository _transportRepository;
-        private readonly IEfRdsRepository _rdsRepository;
-        private readonly IEfAttributeRepository _attributeRepository;
-        private readonly IEfPurposeRepository _purposeRepository;
+        //private readonly IEfTransportRepository _transportRepository;
+        //private readonly IEfRdsRepository _rdsRepository;
+        //private readonly IEfAttributeRepository _attributeRepository;
+        //private readonly IEfPurposeRepository _purposeRepository;
+        private readonly ITransportRepository _transportRepository;
         private readonly IVersionService _versionService;
         private readonly ApplicationSettings _applicationSettings;
 
-        public TransportService(IEfPurposeRepository purposeRepository, IEfAttributeRepository attributeRepository, IEfRdsRepository rdsRepository, IEfTransportRepository transportRepository, IMapper mapper, IOptions<ApplicationSettings> applicationSettings, IVersionService versionService)
+        public TransportService( IMapper mapper, IOptions<ApplicationSettings> applicationSettings, IVersionService versionService, ITransportRepository transportRepository)
         {
-            _purposeRepository = purposeRepository;
-            _attributeRepository = attributeRepository;
-            _rdsRepository = rdsRepository;
-            _transportRepository = transportRepository;
             _mapper = mapper;
             _versionService = versionService;
+            _transportRepository = transportRepository;
             _applicationSettings = applicationSettings?.Value;
         }
 
@@ -43,13 +40,7 @@ namespace TypeLibrary.Services.Services
             if (string.IsNullOrWhiteSpace(id))
                 throw new MimirorgBadRequestException("Can't get transport. The id is missing value.");
 
-            var transportDm = await _transportRepository.FindTransport(id).FirstOrDefaultAsync();
-
-            if (transportDm == null)
-                throw new MimirorgNotFoundException($"There is no transport with id: {id}");
-
-            if (transportDm.Deleted)
-                throw new MimirorgBadRequestException($"The transport with id {id} is marked as deleted in the database.");
+            var transportDm = await _transportRepository.Get(id);
 
             var latestVersion = await _versionService.GetLatestVersion(transportDm);
 
@@ -66,7 +57,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<IEnumerable<TransportLibCm>> GetLatestVersions()
         {
-            var distinctFirstVersionIdDm = _transportRepository.GetAllTransports().Where(x => !x.Deleted).ToList().DistinctBy( x => x.FirstVersionId).ToList();
+            var distinctFirstVersionIdDm = _transportRepository.Get().ToList().DistinctBy( x => x.FirstVersionId).ToList();
 
             var transports = new List<TransportLibDm>();
             
@@ -88,18 +79,10 @@ namespace TypeLibrary.Services.Services
             if (dataAm == null)
                 throw new MimirorgBadRequestException("Data object can not be null.");
 
-            var existing = await _transportRepository.GetAsync(dataAm.Id);
+            var existing = await _transportRepository.Get(dataAm.Id);
 
             if (existing != null)
-            {
-                var errorText = $"Transport '{existing.Name}' with RdsCode '{existing.RdsCode}', Aspect '{existing.Aspect}' and version '{existing.Version}' already exist in db";
-
-                throw existing.Deleted switch
-                {
-                    false => new MimirorgBadRequestException(errorText),
-                    true => new MimirorgBadRequestException(errorText + " as deleted")
-                };
-            }
+                throw new MimirorgBadRequestException($"Transport '{existing.Name}' with RdsCode '{existing.RdsCode}', Aspect '{existing.Aspect}' and version '{existing.Version}' already exist in db.");
 
             var transportLibDm = _mapper.Map<TransportLibDm>(dataAm);
 
@@ -109,17 +92,9 @@ namespace TypeLibrary.Services.Services
             if (transportLibDm == null)
                 throw new MimirorgMappingException("TransportLibAm", "TransportLibDm");
 
-            if (transportLibDm.Attributes != null && transportLibDm.Attributes.Any())
-                _attributeRepository.Attach(transportLibDm.Attributes, EntityState.Unchanged);
-
-            await _transportRepository.CreateAsync(transportLibDm);
-            await _transportRepository.SaveAsync();
-
-            if (transportLibDm.Attributes != null && transportLibDm.Attributes.Any())
-                _attributeRepository.Detach(transportLibDm.Attributes);
-
-            _transportRepository.Detach(transportLibDm);
-
+            await _transportRepository.Create(transportLibDm);
+            _transportRepository.ClearAllChangeTrackers();
+           
             return await Get(transportLibDm.Id);
         }
 
@@ -137,27 +112,15 @@ namespace TypeLibrary.Services.Services
             if (transportDmList == null || (!transportDmList.Any() && transportsToCreate.Any()))
                 throw new MimirorgMappingException("ICollection<TransportLibDm>", "ICollection<TransportLibAm>");
 
-            var allRds = _rdsRepository.GetAll();
-            var allPurposes = _purposeRepository.GetAll();
-
             foreach (var transportLibDm in transportDmList)
             {
                 if (!double.TryParse(transportLibDm.Version, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out _))
                     throw new MimirorgBadRequestException($"Error when parsing version value '{transportLibDm.Version}' to double.");
 
-                transportLibDm.RdsName = allRds.FirstOrDefault(x => x.Id == transportLibDm.RdsCode)?.Name;
-                transportLibDm.PurposeName = allPurposes.FirstOrDefault(x => x.Id == transportLibDm.PurposeName)?.Name;
-
-                _attributeRepository.Attach(transportLibDm.Attributes, EntityState.Unchanged);
-
-                transportLibDm.CreatedBy = createdBySystem ? _applicationSettings.System : transportLibDm.CreatedBy;
-
-                await _transportRepository.CreateAsync(transportLibDm);
-                await _transportRepository.SaveAsync();
-
-                _attributeRepository.Detach(transportLibDm.Attributes);
-                _transportRepository.Detach(transportLibDm);
+                await _transportRepository.Create(transportLibDm);
             }
+
+            _transportRepository.ClearAllChangeTrackers();
 
             return _mapper.Map<ICollection<TransportLibCm>>(transportDmList);
         }
@@ -170,7 +133,7 @@ namespace TypeLibrary.Services.Services
             if (dataAm == null)
                 throw new MimirorgBadRequestException("Can't update a transport when dataAm is null.");
 
-            var transportToUpdate = await _transportRepository.FindTransport(id).FirstOrDefaultAsync();
+            var transportToUpdate = await _transportRepository.Get(id);
 
             if (transportToUpdate?.Id == null)
                 throw new MimirorgNotFoundException($"Transport with id {id} does not exist, update is not possible.");
@@ -203,26 +166,8 @@ namespace TypeLibrary.Services.Services
 
         public async Task<bool> Delete(string id)
         {
-            var dm = await _transportRepository.GetAsync(id);
-
-            if (dm.Deleted)
-                throw new MimirorgBadRequestException($"The transport with id {id} is already marked as deleted in the database.");
-
-            if (dm.CreatedBy == _applicationSettings.System)
-                throw new MimirorgBadRequestException($"The transport with id {id} is created by the system and can not be deleted.");
-
-            dm.Deleted = true;
-
-            var status = await _transportRepository.Context.SaveChangesAsync();
-            return status == 1;
+            return await _transportRepository.Delete(id);
         }
-
-        public void ClearAllChangeTrackers()
-        {
-            _transportRepository?.Context?.ChangeTracker.Clear();
-            _rdsRepository?.Context?.ChangeTracker.Clear();
-            _attributeRepository?.Context?.ChangeTracker.Clear();
-            _purposeRepository?.Context?.ChangeTracker.Clear();
-        }
+        
     }
 }
