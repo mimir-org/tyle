@@ -13,12 +13,12 @@ import { useGetPurposes } from "../../../data/queries/tyle/queriesPurpose";
 import { useGetRds } from "../../../data/queries/tyle/queriesRds";
 import { useGetSymbols } from "../../../data/queries/tyle/queriesSymbol";
 import { useGetTerminals } from "../../../data/queries/tyle/queriesTerminal";
+import { Aspect } from "../../../models/tyle/enums/aspect";
 import { getColorFromAspect } from "../../../utils/getColorFromAspect";
 import { NodePreview } from "../../home/components/about/components/node/NodePreview";
 import { createEmptyFormNodeLibAm, FormNodeLib, mapFormNodeLibAmToApiModel } from "../types/formNodeLib";
-import { FunctionNode } from "./variants/FunctionNode";
 import { aspectOptions, getTerminalItemsFromFormData } from "./NodeForm.helpers";
-import { Aspect } from "../../../models/tyle/enums/aspect";
+import { FunctionNode } from "./variants/FunctionNode";
 import { LocationNode } from "./variants/LocationNode";
 import { ProductNode } from "./variants/ProductNode";
 
@@ -179,8 +179,9 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm() }: NodeFor
         bgColor={theme.tyle.color.surface.variant.base}
         color={theme.tyle.color.surface.variant.on}
       >
-        {aspect === Aspect.Function && <FunctionNode control={control} register={register} />}
-        {aspect === Aspect.Location && <LocationNode control={control} />}
+        {aspect === Aspect.Function && <FunctionNode control={control} />}
+        {aspect === Aspect.Function && <FunctionNode control={control} />}
+        {aspect === Aspect.Location && <LocationNode control={control} register={register} />}
         {aspect === Aspect.Product && <ProductNode control={control} />}
       </Box>
 
