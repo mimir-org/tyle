@@ -1,9 +1,9 @@
-import { default as ReactSelectType } from "react-select/base";
-import ReactSelect, { GroupBase, Props, StylesConfig } from "react-select";
-import { useTheme } from "styled-components";
 import { Ref } from "react";
-import { translucify } from "../../mixins";
+import ReactSelect, { GroupBase, Props, StylesConfig } from "react-select";
+import { default as ReactSelectType } from "react-select/base";
+import { useTheme } from "styled-components";
 import { TyleTheme } from "../../core";
+import { translucify } from "../../mixins";
 
 /**
  * Select component built on top of react-select. Offers a generic api to allow for using almost any data-structure as options.
@@ -39,6 +39,7 @@ const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends Grou
 ): StylesConfig<Option, IsMulti, Group> => ({
   control: (base, state) => ({
     ...base,
+    minHeight: "40px",
     minWidth: "250px",
     borderColor: theme.color.outline.base,
     outline: state.isFocused ? "1px solid black" : "revert",
