@@ -9,8 +9,7 @@ namespace Mimirorg.Package
         {
             try
             {
-                CreateTypeScriptFile(new List<string>() {"Mimirorg.TypeLibrary.Models.Application", "Mimirorg.TypeLibrary.Models.Client",},
-                    "template/index.d.ts");
+                CreateTypeScriptFile(new List<string>() {"Mimirorg.TypeLibrary.Models.Application", "Mimirorg.TypeLibrary.Models.Client"}, "template/index.d.ts");
             }
             catch (Exception e)
             {
