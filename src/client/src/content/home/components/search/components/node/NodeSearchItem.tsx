@@ -1,10 +1,10 @@
 import { Duplicate, PencilAlt, Trash } from "@styled-icons/heroicons-outline";
-import { Link } from "react-router-dom";
 import { TextResources } from "../../../../../../assets/text";
 import textResources from "../../../../../../assets/text/TextResources";
 import { Button } from "../../../../../../complib/buttons";
 import { AlertDialog } from "../../../../../../complib/overlays/alert-dialog/AlertDialog";
 import { useDeleteNode } from "../../../../../../data/queries/tyle/queriesNode";
+import { PlainLink } from "../../../../../utils/PlainLink";
 import { NodeItem } from "../../../../types/NodeItem";
 import { Node } from "../../../about/components/node/Node";
 import { NodePreview } from "../../../about/components/node/NodePreview";
@@ -52,11 +52,11 @@ const NodeSearchItemActions = ({
       <Button disabled variant={"filled"} icon={<Duplicate />} iconOnly>
         {TextResources.ITEM_ACTION_CLONE}
       </Button>
-      <Link to={`/form/node/${id}`}>
+      <PlainLink to={`/form/node/${id}`}>
         <Button as={"span"} variant={"filled"} icon={<PencilAlt />} iconOnly>
           {TextResources.ITEM_ACTION_EDIT}
         </Button>
-      </Link>
+      </PlainLink>
       <AlertDialog
         actions={[deleteAction]}
         title={`${textResources.ITEM_ACTION_DELETE_TITLE} "${name}"?`}
