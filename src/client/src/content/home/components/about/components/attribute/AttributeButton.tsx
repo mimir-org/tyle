@@ -31,5 +31,6 @@ export const AttributeButton = forwardRef<HTMLButtonElement, AttributeButtonProp
 
 AttributeButton.displayName = "AttributeButton";
 AttributeButton.defaultProps = {
+  type: "button",
   variant: "large",
 };
