@@ -1,8 +1,12 @@
+import { Ref } from "react";
 import { Popover } from "../../../../../../complib/data-display";
 import { AttributeButton, AttributeButtonProps } from "./AttributeButton";
 import { AttributeDescription, AttributeDescriptionProps } from "./AttributeDescription";
 
-type AttributeInfoButtonProps = AttributeButtonProps & AttributeDescriptionProps;
+type AttributeInfoButtonProps = AttributeButtonProps &
+  AttributeDescriptionProps & {
+    buttonRef?: Ref<HTMLButtonElement>;
+  };
 
 /**
  * Component which shows a single attribute for a given entity in addition to its description in a popover.
