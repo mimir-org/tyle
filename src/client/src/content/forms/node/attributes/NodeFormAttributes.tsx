@@ -43,16 +43,18 @@ export const NodeFormAttributes = ({ control, aspects, register }: NodeFormAttri
       <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.medium}>
         {attributeFields.fields.map((field, index) => {
           const attribute = attributeItems.find((x) => x.id === field.value);
+          const { ref, ...registerRest } = register(`attributeIdList.${index}`);
           return (
             attribute && (
               <AttributeInfoButton
                 key={field.id}
-                {...register(`attributeIdList.${index}`)}
+                {...registerRest}
                 {...attribute}
                 actionable
                 actionIcon={<Trash />}
                 actionText={textResources.ATTRIBUTE_REMOVE}
                 onAction={() => attributeFields.remove(index)}
+                buttonRef={ref}
               />
             )
           );
