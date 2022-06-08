@@ -1,27 +1,27 @@
-import { Control, useFieldArray } from "react-hook-form";
+import { Trash } from "@styled-icons/heroicons-outline";
+import { Control, useFieldArray, UseFormRegister } from "react-hook-form";
 import { useTheme } from "styled-components/macro";
 import { TextResources } from "../../../../assets/text";
+import textResources from "../../../../assets/text/TextResources";
 import { Box, Flexbox } from "../../../../complib/layouts";
 import { Text } from "../../../../complib/text";
 import { useGetAttributes } from "../../../../data/queries/tyle/queriesAttribute";
+import { Aspect } from "../../../../models/tyle/enums/aspect";
 import { AttributeInfoButton } from "../../../home/components/about/components/attribute/AttributeInfoButton";
 import { FormNodeLib } from "../../types/formNodeLib";
-import { SelectAttributeDialog } from "./SelectAttributeDialog";
-import { Aspect } from "../../../../models/tyle/enums/aspect";
 import { getAttributeItems, onAddAttributes, prepareAttributes } from "./NodeFormAttributes.helpers";
-import { Trash } from "@styled-icons/heroicons-outline";
-import textResources from "../../../../assets/text/TextResources";
+import { SelectAttributeDialog } from "./SelectAttributeDialog";
 
 export interface NodeFormAttributesProps {
   control: Control<FormNodeLib>;
+  register: UseFormRegister<FormNodeLib>;
   aspects?: Aspect[];
 }
 
-export const NodeFormAttributes = ({ control, aspects }: NodeFormAttributesProps) => {
+export const NodeFormAttributes = ({ control, aspects, register }: NodeFormAttributesProps) => {
   const theme = useTheme();
-  const attributeFields = useFieldArray({ control, name: "attributeIdList" });
-
   const attributeQuery = useGetAttributes();
+  const attributeFields = useFieldArray({ control, name: "attributeIdList" });
   const filteredAttributes = prepareAttributes(attributeQuery.data, aspects);
   const attributeItems = getAttributeItems(filteredAttributes);
 
@@ -47,11 +47,12 @@ export const NodeFormAttributes = ({ control, aspects }: NodeFormAttributesProps
             attribute && (
               <AttributeInfoButton
                 key={field.id}
+                {...register(`attributeIdList.${index}`)}
+                {...attribute}
                 actionable
                 actionIcon={<Trash />}
                 actionText={textResources.ATTRIBUTE_REMOVE}
                 onAction={() => attributeFields.remove(index)}
-                {...attribute}
               />
             )
           );

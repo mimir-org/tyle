@@ -1,18 +1,19 @@
-import { Control } from "react-hook-form";
+import { Control, UseFormRegister } from "react-hook-form";
+import { Aspect } from "../../../../models/tyle/enums/aspect";
 import { FormNodeLib } from "../../types/formNodeLib";
 import { NodeFormAttributes } from "../attributes/NodeFormAttributes";
-import { Aspect } from "../../../../models/tyle/enums/aspect";
 import { NodeFormTerminals } from "../terminals/NodeFormTerminals";
 
 export interface ProductNodeProps {
   control: Control<FormNodeLib>;
+  register: UseFormRegister<FormNodeLib>;
 }
 
-export const ProductNode = ({ control }: ProductNodeProps) => {
+export const ProductNode = ({ control, register }: ProductNodeProps) => {
   return (
     <>
       <NodeFormTerminals control={control} />
-      <NodeFormAttributes control={control} aspects={[Aspect.Product]} />
+      <NodeFormAttributes control={control} register={register} aspects={[Aspect.Product]} />
     </>
   );
 };

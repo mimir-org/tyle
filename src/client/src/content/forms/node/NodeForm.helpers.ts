@@ -63,3 +63,14 @@ export const usePrefilledNodeData = (
 
   return hasPrefilled;
 };
+
+/**
+ * Resets the part of node form which is dependent on initial choices, e.g. aspect
+ *
+ * @param resetField
+ */
+export const resetSubform = (resetField: (value: keyof FormNodeLib) => void) => {
+  resetField("selectedAttributePredefined");
+  resetField("nodeTerminals");
+  resetField("attributeIdList");
+};

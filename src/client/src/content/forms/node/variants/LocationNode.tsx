@@ -12,7 +12,7 @@ export interface LocationNodeProps {
 export const LocationNode = ({ control, register }: LocationNodeProps) => {
   return (
     <>
-      <NodeFormAttributes control={control} aspects={[Aspect.Location]} />
+      <NodeFormAttributes control={control} register={register} aspects={[Aspect.Location]} />
       <NodeFormPredefinedAttributes control={control} register={register} aspects={[Aspect.Location]} />
     </>
   );

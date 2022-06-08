@@ -17,7 +17,7 @@ import { Aspect } from "../../../models/tyle/enums/aspect";
 import { getColorFromAspect } from "../../../utils/getColorFromAspect";
 import { NodePreview } from "../../home/components/about/components/node/NodePreview";
 import { createEmptyFormNodeLibAm, FormNodeLib, mapFormNodeLibAmToApiModel } from "../types/formNodeLib";
-import { aspectOptions, getTerminalItemsFromFormData, usePrefilledNodeData } from "./NodeForm.helpers";
+import { aspectOptions, getTerminalItemsFromFormData, resetSubform, usePrefilledNodeData } from "./NodeForm.helpers";
 import { FunctionNode } from "./variants/FunctionNode";
 import { LocationNode } from "./variants/LocationNode";
 import { ProductNode } from "./variants/ProductNode";
@@ -28,7 +28,7 @@ interface NodeFormProps {
 
 export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm() }: NodeFormProps) => {
   const theme = useTheme();
-  const { register, handleSubmit, control, setValue, reset } = useForm<FormNodeLib>({ defaultValues });
+  const { register, handleSubmit, control, setValue, reset, resetField } = useForm<FormNodeLib>({ defaultValues });
 
   const nodeMutation = useCreateNode();
   const hasPrefilled = usePrefilledNodeData(reset);
@@ -103,7 +103,10 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm() }: NodeFor
                   placeholder={textResources.FORMS_NODE_ASPECT_PLACEHOLDER}
                   options={aspectOptions}
                   getOptionLabel={(x) => x.label}
-                  onChange={(x) => onChange(x?.value)}
+                  onChange={(x) => {
+                    resetSubform(resetField);
+                    onChange(x?.value);
+                  }}
                   value={aspectOptions.find((x) => x.value === value)}
                   isDisabled={hasPrefilled}
                 />
@@ -181,9 +184,9 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm() }: NodeFor
         bgColor={theme.tyle.color.surface.variant.base}
         color={theme.tyle.color.surface.variant.on}
       >
-        {aspect === Aspect.Function && <FunctionNode control={control} />}
+        {aspect === Aspect.Function && <FunctionNode control={control} register={register} />}
         {aspect === Aspect.Location && <LocationNode control={control} register={register} />}
-        {aspect === Aspect.Product && <ProductNode control={control} />}
+        {aspect === Aspect.Product && <ProductNode control={control} register={register} />}
       </Box>
 
       <DevTool control={control} placement={"bottom-right"} />
