@@ -179,10 +179,10 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
         <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.medium}>
           <PlainLink to={"/"}>
             <Button as={"span"} variant={"outlined"}>
-              Cancel
+              {textResources.FORMS_CANCEL}
             </Button>
           </PlainLink>
-          <Button type={"submit"}>Submit</Button>
+          <Button type={"submit"}>{textResources.FORMS_SUBMIT}</Button>
         </Flexbox>
       </Box>
 

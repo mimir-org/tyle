@@ -31,9 +31,9 @@ export const NodeFormTerminals = ({ control }: NodeFormTerminalsProps) => {
       p={"0"}
     >
       <Flexbox gap={theme.tyle.spacing.medium} justifyContent={"space-between"}>
-        <Text variant={"headline-medium"}>{textResources.FORMS_NODE_TERMINAL_TITLE}</Text>
+        <Text variant={"headline-medium"}>{textResources.TERMINAL_TITLE}</Text>
         <Button icon={<PlusSm />} iconOnly onClick={() => terminalFields.append(createEmptyNodeTerminalLibAm())}>
-          {textResources.FORMS_NODE_TERMINAL_ADD}
+          {textResources.TERMINAL_ADD}
         </Button>
       </Flexbox>
 
@@ -47,7 +47,7 @@ export const NodeFormTerminals = ({ control }: NodeFormTerminalsProps) => {
                 <Select
                   {...rest}
                   selectRef={ref}
-                  placeholder={textResources.FORMS_NODE_TERMINAL_PLACEHOLDER}
+                  placeholder={textResources.TERMINAL_PLACEHOLDER}
                   options={terminalQuery.data}
                   isLoading={terminalQuery.isLoading}
                   getOptionLabel={(x) => x.name}
@@ -64,7 +64,7 @@ export const NodeFormTerminals = ({ control }: NodeFormTerminalsProps) => {
                 <Select
                   {...rest}
                   selectRef={ref}
-                  placeholder={textResources.FORMS_NODE_TERMINAL_DIRECTION_PLACEHOLDER}
+                  placeholder={textResources.TERMINAL_DIRECTION_PLACEHOLDER}
                   options={connectorDirectionOptions}
                   getOptionLabel={(x) => x.label}
                   onChange={(x) => onChange(x?.value)}

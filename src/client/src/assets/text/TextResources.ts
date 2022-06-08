@@ -15,26 +15,8 @@ const TextResources = {
   FORMS_PLACEHOLDER_FIRSTNAME: "Jane",
   FORMS_PLACEHOLDER_LASTNAME: "Smith",
   FORMS_REQUIRED_DESCRIPTION: "* Indicates a required field.",
-
-  // Node form
-  FORMS_NODE_NAME: "Name",
-  FORMS_NODE_NAME_PLACEHOLDER: "Node name",
-  FORMS_NODE_PURPOSE: "Purpose",
-  FORMS_NODE_PURPOSE_PLACEHOLDER: "Select purpose",
-  FORMS_NODE_ASPECT: "Aspect",
-  FORMS_NODE_ASPECT_PLACEHOLDER: "Select aspect",
-  FORMS_NODE_SYMBOL: "Symbol",
-  FORMS_NODE_SYMBOL_PLACEHOLDER: "Select symbol",
-  FORMS_NODE_RDS: "RDS",
-  FORMS_NODE_RDS_PLACEHOLDER: "Select RDS",
-  FORMS_NODE_DESCRIPTION: "Description",
-  FORMS_NODE_DESCRIPTION_PLACEHOLDER: "Additional information about this node can be supplied here.",
-
-  // Node form terminals
-  FORMS_NODE_TERMINAL_TITLE: "Terminals",
-  FORMS_NODE_TERMINAL_ADD: "Add terminal",
-  FORMS_NODE_TERMINAL_PLACEHOLDER: "Select terminal",
-  FORMS_NODE_TERMINAL_DIRECTION_PLACEHOLDER: "Select direction",
+  FORMS_SUBMIT: "Submit",
+  FORMS_CANCEL: "Cancel",
 
   // Login
   LOGIN_TITLE: "Login",
@@ -68,6 +50,20 @@ const TextResources = {
     "Scan the QR code below in your authenticator app of choice. The code shown in the app can then be used during login.",
   REGISTER_FINALIZE_FINISH_LINK: "Finish registration",
 
+  // Node form
+  FORMS_NODE_NAME: "Name",
+  FORMS_NODE_NAME_PLACEHOLDER: "Node name",
+  FORMS_NODE_PURPOSE: "Purpose",
+  FORMS_NODE_PURPOSE_PLACEHOLDER: "Select purpose",
+  FORMS_NODE_ASPECT: "Aspect",
+  FORMS_NODE_ASPECT_PLACEHOLDER: "Select aspect",
+  FORMS_NODE_SYMBOL: "Symbol",
+  FORMS_NODE_SYMBOL_PLACEHOLDER: "Select symbol",
+  FORMS_NODE_RDS: "RDS",
+  FORMS_NODE_RDS_PLACEHOLDER: "Select RDS",
+  FORMS_NODE_DESCRIPTION: "Description",
+  FORMS_NODE_DESCRIPTION_PLACEHOLDER: "Additional information about this node can be supplied here.",
+
   // Search
   SEARCH_TITLE: "Search",
   SEARCH_PLACEHOLDER: "Search for types",
@@ -98,6 +94,9 @@ const TextResources = {
   TERMINAL_TOTAL: "Total terminals",
   TERMINAL_OPEN_SUMMARY: "Open terminal summary",
   TERMINAL_SUMMARY: "Summary",
+  TERMINAL_ADD: "Add terminal",
+  TERMINAL_PLACEHOLDER: "Select terminal",
+  TERMINAL_DIRECTION_PLACEHOLDER: "Select direction",
 
   // Predefined attribute
   PREDEFINED_ATTRIBUTE_TITLE: "Predefined attributes",
