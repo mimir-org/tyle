@@ -16,6 +16,7 @@ import { useGetTerminals } from "../../../data/queries/tyle/queriesTerminal";
 import { Aspect } from "../../../models/tyle/enums/aspect";
 import { getColorFromAspect } from "../../../utils/getColorFromAspect";
 import { NodePreview } from "../../home/components/about/components/node/NodePreview";
+import { PlainLink } from "../../utils/PlainLink";
 import { createEmptyFormNodeLibAm, FormNodeLib, mapFormNodeLibAmToApiModel } from "../types/formNodeLib";
 import { aspectOptions, getTerminalItemsFromFormData, resetSubform, usePrefilledNodeData } from "./NodeForm.helpers";
 import { FunctionNode } from "./variants/FunctionNode";
@@ -170,7 +171,11 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm() }: NodeFor
         </Flexbox>
 
         <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.medium}>
-          <Button disabled>Cancel</Button>
+          <PlainLink to={"/"}>
+            <Button as={"span"} variant={"outlined"}>
+              Cancel
+            </Button>
+          </PlainLink>
           <Button type={"submit"}>Submit</Button>
         </Flexbox>
       </Box>
