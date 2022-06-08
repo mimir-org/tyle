@@ -10,7 +10,8 @@ export const Authenticated = () => (
     <Routes>
       <Route path={"/"} element={<Home />}></Route>
       <Route path={"/form/node"} element={<NodeForm />}></Route>
-      <Route path={"/form/node/:id"} element={<NodeForm />}></Route>
+      <Route path={"/form/node/clone/:id"} element={<NodeForm />}></Route>
+      <Route path={"/form/node/edit/:id"} element={<NodeForm isEdit />}></Route>
     </Routes>
   </Box>
 );

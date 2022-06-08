@@ -49,10 +49,12 @@ const NodeSearchItemActions = ({
 
   return (
     <>
-      <Button disabled variant={"filled"} icon={<Duplicate />} iconOnly>
-        {TextResources.ITEM_ACTION_CLONE}
-      </Button>
-      <PlainLink to={`/form/node/${id}`}>
+      <PlainLink to={`/form/node/clone/${id}`}>
+        <Button as={"span"} variant={"filled"} icon={<Duplicate />} iconOnly>
+          {TextResources.ITEM_ACTION_CLONE}
+        </Button>
+      </PlainLink>
+      <PlainLink to={`/form/node/edit/${id}`}>
         <Button as={"span"} variant={"filled"} icon={<PencilAlt />} iconOnly>
           {TextResources.ITEM_ACTION_EDIT}
         </Button>
