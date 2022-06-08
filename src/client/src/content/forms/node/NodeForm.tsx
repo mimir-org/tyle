@@ -31,7 +31,6 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm() }: NodeFor
   const { register, handleSubmit, control, setValue, reset, resetField } = useForm<FormNodeLib>({ defaultValues });
 
   const nodeMutation = useCreateNode();
-  const hasPrefilled = usePrefilledNodeData(reset);
 
   const rdsQuery = useGetRds();
   const symbolQuery = useGetSymbols();
@@ -41,6 +40,8 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm() }: NodeFor
   const symbol = useWatch({ control, name: "symbol" });
   const aspect = useWatch({ control, name: "aspect" });
   const nodeTerminals = useWatch({ control, name: "nodeTerminals" });
+
+  const hasPrefilled = usePrefilledNodeData(reset);
 
   return (
     <Box
