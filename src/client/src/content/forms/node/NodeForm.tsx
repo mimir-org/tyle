@@ -8,7 +8,7 @@ import { Input, Select, Textarea } from "../../../complib/inputs";
 import { Box, Flexbox } from "../../../complib/layouts";
 import { Icon } from "../../../complib/media";
 import { Text } from "../../../complib/text";
-import { useCreateNode } from "../../../data/queries/tyle/queriesNode";
+import { useCreateNode, useUpdateNode } from "../../../data/queries/tyle/queriesNode";
 import { useGetPurposes } from "../../../data/queries/tyle/queriesPurpose";
 import { useGetRds } from "../../../data/queries/tyle/queriesRds";
 import { useGetSymbols } from "../../../data/queries/tyle/queriesSymbol";
@@ -25,13 +25,12 @@ import { ProductNode } from "./variants/ProductNode";
 
 interface NodeFormProps {
   defaultValues?: FormNodeLib;
+  isEdit?: boolean;
 }
 
-export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm() }: NodeFormProps) => {
+export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }: NodeFormProps) => {
   const theme = useTheme();
   const { register, handleSubmit, control, setValue, reset, resetField } = useForm<FormNodeLib>({ defaultValues });
-
-  const nodeMutation = useCreateNode();
 
   const rdsQuery = useGetRds();
   const symbolQuery = useGetSymbols();
@@ -44,6 +43,13 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm() }: NodeFor
 
   const hasPrefilled = usePrefilledNodeData(reset);
 
+  const nodeUpdateMutation = useUpdateNode();
+  const nodeCreateMutation = useCreateNode();
+  const submitForm = handleSubmit((data) => {
+    const submittable = mapFormNodeLibAmToApiModel(data);
+    return isEdit ? nodeUpdateMutation.mutate(submittable) : nodeCreateMutation.mutate(submittable);
+  });
+
   return (
     <Box
       as={"form"}
@@ -52,7 +58,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm() }: NodeFor
       flexWrap={"wrap"}
       bgColor={theme.tyle.color.surface.base}
       color={theme.tyle.color.surface.on}
-      onSubmit={handleSubmit((data) => nodeMutation.mutate(mapFormNodeLibAmToApiModel(data)))}
+      onSubmit={submitForm}
     >
       <Box
         as={"fieldset"}
