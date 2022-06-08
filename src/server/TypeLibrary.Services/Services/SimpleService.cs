@@ -19,11 +19,11 @@ namespace TypeLibrary.Services.Services
     public class SimpleService : ISimpleService
     {
         private readonly IMapper _mapper;
-        private readonly IEFSimpleRepository _simpleRepository;
+        private readonly IEfSimpleRepository _simpleRepository;
         private readonly IEfAttributeRepository _attributeRepository;
         private readonly ApplicationSettings _applicationSettings;
 
-        public SimpleService(IMapper mapper, IEFSimpleRepository simpleRepository, IEfAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings)
+        public SimpleService(IMapper mapper, IEfSimpleRepository simpleRepository, IEfAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
             _simpleRepository = simpleRepository;
@@ -54,7 +54,7 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<SimpleLibCm>> GetAllSimple()
         {
-            var simpleLibDms = _simpleRepository.GetAllSimples().Where(x => !x.Deleted).ToList()
+            var simpleLibDms = _simpleRepository.GetAllSimple().Where(x => !x.Deleted).ToList()
                 .OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
             var simpleLibCms = _mapper.Map<IEnumerable<SimpleLibCm>>(simpleLibDms);

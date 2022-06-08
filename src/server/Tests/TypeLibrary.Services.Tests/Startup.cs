@@ -56,7 +56,7 @@ namespace TypeLibrary.Services.Tests
 
             services.AddSingleton<IEfAttributeRepository, FakeAttributeRepository>();
             services.AddSingleton<IEfNodeRepository, FakeNodeRepository>();
-            services.AddSingleton<IEFSimpleRepository, FakeSimpleRepository>();
+            services.AddSingleton<IEfSimpleRepository, FakeSimpleRepository>();
             services.AddSingleton<IEfTransportRepository, FakeTransportRepository>();
             services.AddSingleton<ITransportService, TransportService>();
 

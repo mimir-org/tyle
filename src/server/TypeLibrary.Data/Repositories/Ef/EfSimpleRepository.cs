@@ -6,13 +6,13 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Repositories.Ef
 {
-    public class EfSimpleRepository : GenericRepository<TypeLibraryDbContext, SimpleLibDm>, IEFSimpleRepository
+    public class EfSimpleRepository : GenericRepository<TypeLibraryDbContext, SimpleLibDm>, IEfSimpleRepository
     {
         public EfSimpleRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {
         }
 
-        public IQueryable<SimpleLibDm> GetAllSimples()
+        public IQueryable<SimpleLibDm> GetAllSimple()
         {
             return GetAll().Include(x => x.Attributes);
 

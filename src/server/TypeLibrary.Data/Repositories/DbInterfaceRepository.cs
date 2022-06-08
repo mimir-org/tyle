@@ -62,9 +62,6 @@ namespace TypeLibrary.Data.Repositories
         {
             var dm = await Get(id);
 
-            if (dm.Deleted)
-                throw new MimirorgBadRequestException($"The interface with id {id} is already marked as deleted in the database.");
-
             if (dm.CreatedBy == _applicationSettings.System)
                 throw new MimirorgBadRequestException($"The interface with id {id} is created by the system and can not be deleted.");
 

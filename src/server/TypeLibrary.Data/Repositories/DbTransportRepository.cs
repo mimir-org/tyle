@@ -63,10 +63,7 @@ namespace TypeLibrary.Data.Repositories
 
         public async Task<bool> Delete(string id)
         {
-            var dm = await _transportRepository.GetAsync(id);
-
-            if (dm.Deleted)
-                throw new MimirorgBadRequestException($"The transport with id {id} is already marked as deleted in the database.");
+            var dm = await Get(id);
 
             if (dm.CreatedBy == _applicationSettings.System)
                 throw new MimirorgBadRequestException($"The transport with id {id} is created by the system and can not be deleted.");

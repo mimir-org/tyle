@@ -4,9 +4,9 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts.Ef
 {
-    public interface IEFSimpleRepository : IGenericRepository<TypeLibraryDbContext, SimpleLibDm>
+    public interface IEfSimpleRepository : IGenericRepository<TypeLibraryDbContext, SimpleLibDm>
     {
-        IQueryable<SimpleLibDm> GetAllSimples();
+        IQueryable<SimpleLibDm> GetAllSimple();
         IQueryable<SimpleLibDm> FindSimple(string id);
     }
 }

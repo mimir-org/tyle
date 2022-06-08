@@ -11,7 +11,7 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Services.Tests.Repositories
 {
-    public class FakeSimpleRepository : IEFSimpleRepository
+    public class FakeSimpleRepository : IEfSimpleRepository
     {
         public TypeLibraryDbContext? Context { get; set; }
         public DbSet<SimpleLibDm>? DbSet { get; set; }
@@ -80,7 +80,7 @@ namespace TypeLibrary.Services.Tests.Repositories
             throw new NotImplementedException();
         }
 
-        public IQueryable<SimpleLibDm> GetAllSimples()
+        public IQueryable<SimpleLibDm> GetAllSimple()
         {
             throw new NotImplementedException();
         }

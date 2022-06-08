@@ -28,7 +28,7 @@ namespace TypeLibrary.Core.Extensions
             // Dependency Injection - Repositories
             services.AddSingleton<IApplicationSettingsRepository, ApplicationSettingsRepository>();
             services.AddScoped<IEfAttributeRepository, EfAttributeRepository>();
-            services.AddScoped<IEFSimpleRepository, EfSimpleRepository>();
+            services.AddScoped<IEfSimpleRepository, EfSimpleRepository>();
             services.AddScoped<IEfInterfaceRepository, EfInterfaceRepository>();
             services.AddScoped<IEfNodeRepository, EfNodeRepository>();
             services.AddScoped<IEfNodeTerminalRepository, EfNodeTerminalRepository>();
@@ -48,10 +48,10 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IEfUnitRepository, EfUnitRepository>();
             services.AddScoped<IDynamicImageDataProvider, EfSymbolRepository>();
 
-
             services.AddScoped<IAttributeRepository, DbAttributeRepository>();
             services.AddScoped<IInterfaceRepository, DbInterfaceRepository>();
             services.AddScoped<ITransportRepository, DbTransportRepository>();
+            services.AddScoped<INodeRepository, DbNodeRepository>();
 
             // Dependency Injection - Services
             services.AddScoped<ITerminalService, TerminalService>();
