@@ -1,14 +1,15 @@
-import { NodeItem } from "../../../../types/NodeItem";
-import { useDeleteNode } from "../../../../../../data/queries/tyle/queriesNode";
-import { Node } from "../../../about/components/node/Node";
-import { ItemDescription } from "../item/ItemDescription";
-import { Button } from "../../../../../../complib/buttons";
 import { Duplicate, PencilAlt, Trash } from "@styled-icons/heroicons-outline";
+import { Link } from "react-router-dom";
 import { TextResources } from "../../../../../../assets/text";
+import textResources from "../../../../../../assets/text/TextResources";
+import { Button } from "../../../../../../complib/buttons";
 import { AlertDialog } from "../../../../../../complib/overlays/alert-dialog/AlertDialog";
+import { useDeleteNode } from "../../../../../../data/queries/tyle/queriesNode";
+import { NodeItem } from "../../../../types/NodeItem";
+import { Node } from "../../../about/components/node/Node";
 import { NodePreview } from "../../../about/components/node/NodePreview";
 import { Item } from "../item/Item";
-import textResources from "../../../../../../assets/text/TextResources";
+import { ItemDescription } from "../item/ItemDescription";
 
 type NodeItemProps = NodeItem & {
   isSelected?: boolean;
@@ -51,9 +52,11 @@ const NodeSearchItemActions = ({
       <Button disabled variant={"filled"} icon={<Duplicate />} iconOnly>
         {TextResources.ITEM_ACTION_CLONE}
       </Button>
-      <Button disabled variant={"filled"} icon={<PencilAlt />} iconOnly>
-        {TextResources.ITEM_ACTION_EDIT}
-      </Button>
+      <Link to={`/form/node/${id}`}>
+        <Button as={"span"} variant={"filled"} icon={<PencilAlt />} iconOnly>
+          {TextResources.ITEM_ACTION_EDIT}
+        </Button>
+      </Link>
       <AlertDialog
         actions={[deleteAction]}
         title={`${textResources.ITEM_ACTION_DELETE_TITLE} "${name}"?`}
