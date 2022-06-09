@@ -56,6 +56,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IRdsRepository, DbRdsRepository>();
             services.AddScoped<ISimpleRepository, DbSimpleRepository>();
             services.AddScoped<ISymbolRepository, DbSymbolRepository>();
+            services.AddScoped<ITerminalRepository, DbTerminalRepository>();
 
             // Dependency Injection - Services
             services.AddScoped<ITerminalService, TerminalService>();
