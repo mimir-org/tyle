@@ -7,7 +7,7 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface IUnitService
     {
-        Task<IEnumerable<UnitLibCm>> GetUnits();
-        Task CreateUnits(List<UnitLibAm> dataAm, bool createdBySystem = false);
+        Task<IEnumerable<UnitLibCm>> Get();
+        Task Create(List<UnitLibAm> dataAm, bool createdBySystem = false);
     }
 }

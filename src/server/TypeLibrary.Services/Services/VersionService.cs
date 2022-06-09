@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
-using TypeLibrary.Data.Contracts.Ef;
+using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -14,11 +14,11 @@ namespace TypeLibrary.Services.Services
 {
     public class VersionService : IVersionService
     {
-        private readonly IEfNodeRepository _nodeRepository;
-        private readonly IEfTransportRepository _transportRepository;
-        private readonly IEfInterfaceRepository _interfaceRepository;
+        private readonly INodeRepository _nodeRepository;
+        private readonly ITransportRepository _transportRepository;
+        private readonly IInterfaceRepository _interfaceRepository;
 
-        public VersionService(IEfNodeRepository nodeRepository, IEfTransportRepository transportRepository, IEfInterfaceRepository interfaceRepository)
+        public VersionService(INodeRepository nodeRepository, ITransportRepository transportRepository, IInterfaceRepository interfaceRepository)
         {
             _nodeRepository = nodeRepository;
             _transportRepository = transportRepository;

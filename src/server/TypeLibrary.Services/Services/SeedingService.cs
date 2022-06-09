@@ -95,7 +95,7 @@ namespace TypeLibrary.Services.Services
                 var transports = _fileRepository.ReadAllFiles<TransportLibAm>(transportFiles).ToList();
 
                 await _purposeService.Create(purposes, true);
-                await _unitService.CreateUnits(units, true);
+                await _unitService.Create(units, true);
                 await _attributeService.Create(attributes, true);
                 await _attributeService.CreatePredefined(attributesPredefined, true);
                 await _attributeService.CreateAspects(attributeAspects, true);

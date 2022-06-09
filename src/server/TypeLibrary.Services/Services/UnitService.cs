@@ -26,7 +26,7 @@ namespace TypeLibrary.Services.Services
             _applicationSettings = applicationSettings?.Value;
         }
 
-        public Task<IEnumerable<UnitLibCm>> GetUnits()
+        public Task<IEnumerable<UnitLibCm>> Get()
         {
             var dataList = _unitRepository.Get().ToList()
                 .OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
@@ -35,7 +35,7 @@ namespace TypeLibrary.Services.Services
             return Task.FromResult(dataAm.AsEnumerable());
         }
 
-        public async Task CreateUnits(List<UnitLibAm> dataAm, bool createdBySystem = false)
+        public async Task Create(List<UnitLibAm> dataAm, bool createdBySystem = false)
         {
             var dataList = _mapper.Map<List<UnitLibDm>>(dataAm);
             var existing = _unitRepository.Get().ToList();
