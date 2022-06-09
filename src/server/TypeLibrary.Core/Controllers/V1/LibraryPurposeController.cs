@@ -38,7 +38,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _purposeService.GetPurposes();
+                var data = await _purposeService.Get();
                 return Ok(data);
             }
             catch (Exception e)

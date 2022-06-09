@@ -42,7 +42,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = _rdsService.GetRds().ToList();
+                var data = _rdsService.Get().ToList();
                 return Ok(data);
             }
             catch (Exception e)

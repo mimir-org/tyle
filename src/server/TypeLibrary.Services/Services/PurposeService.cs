@@ -26,7 +26,7 @@ namespace TypeLibrary.Services.Services
             _applicationSettings = applicationSettings?.Value;
         }
 
-        public Task<IEnumerable<PurposeLibCm>> GetPurposes()
+        public Task<IEnumerable<PurposeLibCm>> Get()
         {
             var dataList = _purposeRepository.Get().ToList()
                 .OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
@@ -35,7 +35,7 @@ namespace TypeLibrary.Services.Services
             return Task.FromResult(dataAm.AsEnumerable());
         }
 
-        public async Task CreatePurposes(List<PurposeLibAm> dataAm, bool createdBySystem = false)
+        public async Task Create(List<PurposeLibAm> dataAm, bool createdBySystem = false)
         {
             var dataList = _mapper.Map<List<PurposeLibDm>>(dataAm);
             var existing = _purposeRepository.Get().ToList();

@@ -117,6 +117,7 @@ namespace TypeLibrary.Services.Services
                 if (!double.TryParse(transportLibDm.Version, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out _))
                     throw new MimirorgBadRequestException($"Error when parsing version value '{transportLibDm.Version}' to double.");
 
+                transportLibDm.CreatedBy = createdBySystem ? _applicationSettings.System : transportLibDm.CreatedBy;
                 await _transportRepository.Create(transportLibDm);
             }
 

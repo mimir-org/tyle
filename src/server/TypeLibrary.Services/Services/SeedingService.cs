@@ -94,7 +94,7 @@ namespace TypeLibrary.Services.Services
                 var simple = _fileRepository.ReadAllFiles<SimpleLibAm>(simpleFileNames).ToList();
                 var transports = _fileRepository.ReadAllFiles<TransportLibAm>(transportFiles).ToList();
 
-                await _purposeService.CreatePurposes(purposes, true);
+                await _purposeService.Create(purposes, true);
                 await _unitService.CreateUnits(units, true);
                 await _attributeService.Create(attributes, true);
                 await _attributeService.CreatePredefined(attributesPredefined, true);
@@ -104,12 +104,9 @@ namespace TypeLibrary.Services.Services
                 await _attributeService.CreateSources(attributeSources, true);
                 await _attributeService.CreateFormats(attributeFormats, true);
                 await _terminalService.CreateTerminals(terminals, true);
-                await _rdsService.CreateRdsAsync(rds, true);
+                await _rdsService.Create(rds, true);
                 await _symbolService.CreateSymbol(symbols, true);
-
-                _simpleService.ClearAllChangeTrackers();
-                await _simpleService.CreateSimple(simple, true);
-
+                await _simpleService.Create(simple, true);
                 await _transportService.Create(transports, true);
             }
             catch (Exception e)

@@ -7,8 +7,7 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface IRdsService
     {
-        IEnumerable<RdsLibCm> GetRds();
-        Task<RdsLibCm> CreateRds(RdsLibAm rdsAm);
-        Task<List<RdsLibCm>> CreateRdsAsync(List<RdsLibAm> createRds, bool createdBySystem = false);
+        IEnumerable<RdsLibCm> Get();
+        Task Create(List<RdsLibAm> createRds, bool createdBySystem = false);
     }
 }

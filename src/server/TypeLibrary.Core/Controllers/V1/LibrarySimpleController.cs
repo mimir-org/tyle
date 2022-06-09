@@ -45,7 +45,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _simpleService.GetSimple(id);
+                var data = await _simpleService.Get(id);
                 return Ok(data);
             }
             catch (Exception e)
@@ -68,7 +68,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _simpleService.GetAllSimple();
+                var data = await _simpleService.Get();
                 return Ok(data.ToList());
             }
             catch (Exception e)

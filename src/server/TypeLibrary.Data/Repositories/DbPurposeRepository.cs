@@ -17,7 +17,6 @@ namespace TypeLibrary.Data.Repositories
             _purposeRepository = purposeRepository;
         }
 
-
         public IEnumerable<PurposeLibDm> Get()
         {
             return _purposeRepository.GetAll().Where(x => !x.Deleted);
