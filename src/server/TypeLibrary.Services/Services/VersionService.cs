@@ -41,23 +41,23 @@ namespace TypeLibrary.Services.Services
 
             if (obj.GetType() == typeof(NodeLibDm) && (obj as NodeLibDm)?.Version != null)
             {
-                (existingDmVersions as List<NodeLibDm>)?.AddRange(_nodeRepository.GetAllNodes()
-                    .Where(x => x.FirstVersionId == (obj as NodeLibDm).FirstVersionId && !x.Deleted).ToList()
+                (existingDmVersions as List<NodeLibDm>)?.AddRange(_nodeRepository.Get()
+                    .Where(x => x.FirstVersionId == (obj as NodeLibDm)?.FirstVersionId && !x.Deleted).ToList()
                     .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
             }
 
             else if (obj.GetType() == typeof(InterfaceLibDm) && (obj as InterfaceLibDm)?.Version != null)
             {
-                (existingDmVersions as List<InterfaceLibDm>)?.AddRange(_interfaceRepository.GetAllInterfaces()
-                    .Where(x => x.FirstVersionId == (obj as InterfaceLibDm).FirstVersionId && !x.Deleted).ToList()
+                (existingDmVersions as List<InterfaceLibDm>)?.AddRange(_interfaceRepository.Get()
+                    .Where(x => x.FirstVersionId == (obj as InterfaceLibDm)?.FirstVersionId && !x.Deleted).ToList()
                     .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
             }
 
             
             else if (obj.GetType() == typeof(TransportLibDm) && (obj as TransportLibDm)?.Version != null)
             {
-                (existingDmVersions as List<TransportLibDm>)?.AddRange(_transportRepository.GetAllTransports()
-                    .Where(x => x.FirstVersionId == (obj as TransportLibDm).FirstVersionId && !x.Deleted).ToList()
+                (existingDmVersions as List<TransportLibDm>)?.AddRange(_transportRepository.Get()
+                    .Where(x => x.FirstVersionId == (obj as TransportLibDm)?.FirstVersionId && !x.Deleted).ToList()
                     .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
             }
 
