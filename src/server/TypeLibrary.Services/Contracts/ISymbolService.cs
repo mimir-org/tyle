@@ -7,7 +7,7 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface ISymbolService
     {
-        IEnumerable<SymbolLibCm> GetSymbol();
-        Task CreateSymbol(IEnumerable<SymbolLibAm> symbolDataList, bool createdBySystem = false);
+        IEnumerable<SymbolLibCm> Get();
+        Task Create(IEnumerable<SymbolLibAm> symbolDataList, bool createdBySystem = false);
     }
 }

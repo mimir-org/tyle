@@ -103,9 +103,9 @@ namespace TypeLibrary.Services.Services
                 await _attributeService.CreateQualifiers(attributeQualifiers, true);
                 await _attributeService.CreateSources(attributeSources, true);
                 await _attributeService.CreateFormats(attributeFormats, true);
-                await _terminalService.CreateTerminals(terminals, true);
+                await _terminalService.Create(terminals, true);
                 await _rdsService.Create(rds, true);
-                await _symbolService.CreateSymbol(symbols, true);
+                await _symbolService.Create(symbols, true);
                 await _simpleService.Create(simple, true);
                 await _transportService.Create(transports, true);
             }

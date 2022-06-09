@@ -45,7 +45,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = _symbolService.GetSymbol().ToList();
+                var data = _symbolService.Get().ToList();
                 return Ok(data);
             }
             catch (Exception e)

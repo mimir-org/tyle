@@ -27,7 +27,7 @@ namespace TypeLibrary.Services.Services
             _applicationSettings = applicationSettings?.Value;
         }
 
-        public IEnumerable<TerminalLibCm> GetTerminals()
+        public IEnumerable<TerminalLibCm> Get()
         {
             var firstVersionIdsDistinct = _terminalRepository.Get().Select(y => y.FirstVersionId).Distinct().ToList();
             var allTerminals = firstVersionIdsDistinct.Select(GetLatestTerminalVersion).ToList();
@@ -43,7 +43,7 @@ namespace TypeLibrary.Services.Services
             return _mapper.Map<List<TerminalLibCm>>(sortedTerminals);
         }
        
-        public async Task CreateTerminals(List<TerminalLibAm> terminalAmList, bool createdBySystem = false)
+        public async Task Create(List<TerminalLibAm> terminalAmList, bool createdBySystem = false)
         {
             if (terminalAmList == null || !terminalAmList.Any())
                 return;

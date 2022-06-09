@@ -44,7 +44,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = _terminalTypeService.GetTerminals().ToList();
+                var data = _terminalTypeService.Get().ToList();
                 return Ok(data);
             }
             catch (Exception e)

@@ -26,7 +26,7 @@ namespace TypeLibrary.Services.Services
             _applicationSettings = applicationSettings?.Value;
         }
 
-        public IEnumerable<SymbolLibCm> GetSymbol()
+        public IEnumerable<SymbolLibCm> Get()
         {
             var symbolLibDms = _symbolRepository.Get().ToList()
                 .OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
@@ -34,7 +34,7 @@ namespace TypeLibrary.Services.Services
             return _mapper.Map<List<SymbolLibCm>>(symbolLibDms);
         }
 
-        public async Task CreateSymbol(IEnumerable<SymbolLibAm> symbolLibAmList, bool createdBySystem = false)
+        public async Task Create(IEnumerable<SymbolLibAm> symbolLibAmList, bool createdBySystem = false)
         {
             var dataList = _mapper.Map<List<SymbolLibDm>>(symbolLibAmList);
             var existing = _symbolRepository.Get().ToList();

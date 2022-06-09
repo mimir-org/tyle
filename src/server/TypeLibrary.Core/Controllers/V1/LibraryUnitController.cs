@@ -38,7 +38,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _unitService.GetUnits();
+                var data = await _unitService.Get();
                 return Ok(data);
             }
             catch (Exception e)
