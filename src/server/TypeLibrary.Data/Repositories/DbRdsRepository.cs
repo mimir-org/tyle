@@ -32,5 +32,10 @@ namespace TypeLibrary.Data.Repositories
             foreach (var data in dataDm)
                 _rdsRepository.Detach(data);
         }
+
+        public void ClearAllChangeTrackers()
+        {
+            _rdsRepository?.Context?.ChangeTracker.Clear();
+        }
     }
 }

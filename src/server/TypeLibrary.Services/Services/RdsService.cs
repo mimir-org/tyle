@@ -47,6 +47,7 @@ namespace TypeLibrary.Services.Services
                 data.CreatedBy = createdBySystem ? _applicationSettings.System : data.CreatedBy;
 
             await _rdsRepository.Create(notExisting);
+            _rdsRepository.ClearAllChangeTrackers();
         }
     }
 }

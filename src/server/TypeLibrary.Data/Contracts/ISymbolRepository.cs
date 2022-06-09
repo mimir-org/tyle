@@ -4,10 +4,10 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface IRdsRepository
+    public interface ISymbolRepository
     {
-        IEnumerable<RdsLibDm> Get();
-        Task Create(List<RdsLibDm> dataDm);
+        IEnumerable<SymbolLibDm> Get();
+        Task Create(List<SymbolLibDm> dataDm);
         void ClearAllChangeTrackers();
     }
 }
