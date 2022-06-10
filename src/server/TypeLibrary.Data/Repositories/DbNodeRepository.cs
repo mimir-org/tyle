@@ -34,7 +34,7 @@ namespace TypeLibrary.Data.Repositories
         public async Task<NodeLibDm> Get(string id)
         {
             var nodeDm = await _efNodeRepository.FindNode(id).FirstOrDefaultAsync();
-            
+
             if (nodeDm == null)
                 throw new MimirorgNotFoundException($"There is no node with id: {id}");
 

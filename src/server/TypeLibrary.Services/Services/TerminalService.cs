@@ -42,7 +42,7 @@ namespace TypeLibrary.Services.Services
 
             return _mapper.Map<List<TerminalLibCm>>(sortedTerminals);
         }
-       
+
         public async Task Create(List<TerminalLibAm> terminalAmList, bool createdBySystem = false)
         {
             if (terminalAmList == null || !terminalAmList.Any())

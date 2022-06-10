@@ -32,7 +32,7 @@ namespace TypeLibrary.Data.Repositories
         public async Task<InterfaceLibDm> Get(string id)
         {
             var interfaceDm = await _efInterfaceRepository.FindInterface(id).FirstOrDefaultAsync();
-            
+
             if (interfaceDm == null)
                 throw new MimirorgNotFoundException($"There is no interface with id: {id}");
 

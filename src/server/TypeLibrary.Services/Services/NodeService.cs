@@ -36,7 +36,7 @@ namespace TypeLibrary.Services.Services
                 throw new MimirorgBadRequestException("Can't get node. The id is missing value.");
 
             var nodeDm = await _nodeRepository.Get(id);
-            
+
             if (nodeDm == null)
                 throw new MimirorgNotFoundException($"There is no node with id: {id}");
 
@@ -45,7 +45,7 @@ namespace TypeLibrary.Services.Services
 
             var latestVersion = await _versionService.GetLatestVersion(nodeDm);
 
-            if(latestVersion != null && nodeDm.Id != latestVersion.Id)
+            if (latestVersion != null && nodeDm.Id != latestVersion.Id)
                 throw new MimirorgBadRequestException($"The node with id {id} and version {nodeDm.Version} is older than latest version {latestVersion.Version}.");
 
             var nodeLibCm = _mapper.Map<NodeLibCm>(nodeDm);
@@ -95,7 +95,7 @@ namespace TypeLibrary.Services.Services
 
             await _nodeRepository.Create(nodeLibDm);
             _nodeRepository.ClearAllChangeTrackers();
-            
+
             return await Get(nodeLibDm.Id);
         }
 
@@ -117,10 +117,10 @@ namespace TypeLibrary.Services.Services
 
             if (nodeToUpdate.Deleted)
                 throw new MimirorgBadRequestException($"The node with id {id} is deleted and can not be updated.");
-            
+
             var latestNodeDm = await _versionService.GetLatestVersion(nodeToUpdate);
 
-            if(latestNodeDm == null)
+            if (latestNodeDm == null)
                 throw new MimirorgBadRequestException($"Latest node version for node with id {id} not found (null).");
 
             if (string.IsNullOrWhiteSpace(latestNodeDm.Version))
@@ -134,10 +134,10 @@ namespace TypeLibrary.Services.Services
 
             dataAm.Version = await _versionService.CalculateNewVersion(latestNodeDm, dataAm);
             dataAm.FirstVersionId = latestNodeDm.FirstVersionId;
-            
+
             return await Create(dataAm);
         }
-        
+
         public async Task<bool> Delete(string id)
         {
             return await _nodeRepository.Delete(id);

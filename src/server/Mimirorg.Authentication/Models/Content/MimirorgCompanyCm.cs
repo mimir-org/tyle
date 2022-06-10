@@ -12,5 +12,7 @@ namespace Mimirorg.Authentication.Models.Content
 
         [JsonIgnore]
         public string Secret { get; set; }
+        public string Domain { get; set; }
+        public ICollection<string> Iris { get; set; }
     }
 }

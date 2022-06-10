@@ -53,7 +53,7 @@ namespace TypeLibrary.Services.Services
                     .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
             }
 
-            
+
             else if (obj.GetType() == typeof(TransportLibDm) && (obj as TransportLibDm)?.Version != null)
             {
                 (existingDmVersions as List<TransportLibDm>)?.AddRange(_transportRepository.Get()
@@ -70,7 +70,7 @@ namespace TypeLibrary.Services.Services
             return await Task.FromResult(existingDmVersions[^1]);
         }
 
-       /// <summary>
+        /// <summary>
         /// Method will check if exiting object T vs new (updated) object TY.
         /// Throws exception if any changes are not allowed, or if there are no changes between T and TY.
         /// Returns new major or minor version based on what has changes between T and TY.
@@ -81,7 +81,7 @@ namespace TypeLibrary.Services.Services
         /// <param name="newAm">NodeLibAm, TransportLibAm or InterfaceLibAm</param>
         /// <returns>New version (string) of a Node, Transport og Interface</returns>
         /// <exception cref="MimirorgBadRequestException"></exception>
-        public async Task<string> CalculateNewVersion<T,TY>(T latestVersionDm, TY newAm) where T : class where TY : class
+        public async Task<string> CalculateNewVersion<T, TY>(T latestVersionDm, TY newAm) where T : class where TY : class
         {
             ValidateIsLatestVersion(latestVersionDm);
 
@@ -91,7 +91,7 @@ namespace TypeLibrary.Services.Services
             if (dmType is null || amType is null)
                 throw new MimirorgBadRequestException("CalculateNewVersion<T,TY> T and/or TY can't be null.");
 
-            if (!(dmType == typeof(NodeLibDm) && amType == typeof(NodeLibAm) || 
+            if (!(dmType == typeof(NodeLibDm) && amType == typeof(NodeLibAm) ||
                 dmType == typeof(TransportLibDm) && amType == typeof(TransportLibAm) ||
                 dmType == typeof(InterfaceLibDm) && amType == typeof(InterfaceLibAm)))
                 throw new MimirorgBadRequestException("CalculateNewVersion<T,TY> type T and/or TY not supported.");
@@ -204,7 +204,7 @@ namespace TypeLibrary.Services.Services
                 if (attrAms.Count > attrDms.Count)
                     increaseMajorVersion = true;
             }
-            
+
             //Simple
 
             if (nodeDm != null && nodeAm != null)
@@ -367,7 +367,7 @@ namespace TypeLibrary.Services.Services
             throw new MimirorgBadRequestException("ValidateIsLatestVersion<T> T type not supported.");
         }
 
-        private static void ValidateNameRdsAspectParentTerminal<T,TY>(T dm, TY am) where T : class where TY : class
+        private static void ValidateNameRdsAspectParentTerminal<T, TY>(T dm, TY am) where T : class where TY : class
         {
             if (dm?.GetType() is null)
                 throw new MimirorgBadRequestException("ValidateNameRdsAspectParentTerminal<T,TY> T and/or TY can't be null");

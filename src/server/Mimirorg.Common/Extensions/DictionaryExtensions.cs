@@ -7,7 +7,7 @@
             if (dictionary == null && otherDictionary == null)
                 return true;
 
-            if(dictionary != null && otherDictionary == null)
+            if (dictionary != null && otherDictionary == null)
                 return false;
 
             return dictionary?.Count == otherDictionary.Count && otherDictionary.OrderBy(kvp => kvp.Key).SequenceEqual((dictionary).OrderBy(kvp => kvp.Key));

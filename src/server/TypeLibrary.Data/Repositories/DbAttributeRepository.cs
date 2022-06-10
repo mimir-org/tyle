@@ -59,7 +59,7 @@ namespace TypeLibrary.Data.Repositories
         }
 
         #endregion Attribute
-        
+
         #region Predefined
 
         /// <summary>

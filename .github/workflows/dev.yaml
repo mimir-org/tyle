@@ -94,6 +94,8 @@ jobs:
           cd typelibrary-types
 
           cp -a ../src/server/Mimirorg.Package/template/. ./
+          
+          npx tsc index.ts --declaration
 
           npm version ${{ needs.create-prerelease.outputs.raw_tag }}
 
