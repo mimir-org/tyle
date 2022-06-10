@@ -7,8 +7,7 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface ITerminalService
     {
-        IEnumerable<TerminalLibCm> GetTerminals();
-        Task<TerminalLibCm> CreateTerminal(TerminalLibAm terminalAm);
-        Task<List<TerminalLibCm>> CreateTerminals(List<TerminalLibAm> terminalAmList, bool createdBySystem = false);
+        IEnumerable<TerminalLibCm> Get();
+        Task Create(List<TerminalLibAm> terminalAmList, bool createdBySystem = false);
     }
 }

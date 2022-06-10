@@ -163,10 +163,10 @@ namespace Mimirorg.Authentication.Controllers.V1
 
         private Task AddRefreshTokenCookie(HttpRequest request, HttpResponse response, MimirorgTokenCm token)
         {
-            if(response == null || token == null || request == null)
+            if (response == null || token == null || request == null)
                 return Task.CompletedTask;
 
-            if(token.TokenType != MimirorgTokenType.RefreshToken)
+            if (token.TokenType != MimirorgTokenType.RefreshToken)
                 return Task.CompletedTask;
 
             if (request.Cookies.ContainsKey(RefreshTokenCookie))

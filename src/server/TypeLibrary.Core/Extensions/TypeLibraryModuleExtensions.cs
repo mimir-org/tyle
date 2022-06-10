@@ -28,7 +28,7 @@ namespace TypeLibrary.Core.Extensions
             // Dependency Injection - Repositories
             services.AddSingleton<IApplicationSettingsRepository, ApplicationSettingsRepository>();
             services.AddScoped<IEfAttributeRepository, EfAttributeRepository>();
-            services.AddScoped<IEFSimpleRepository, EfSimpleRepository>();
+            services.AddScoped<IEfSimpleRepository, EfSimpleRepository>();
             services.AddScoped<IEfInterfaceRepository, EfInterfaceRepository>();
             services.AddScoped<IEfNodeRepository, EfNodeRepository>();
             services.AddScoped<IEfNodeTerminalRepository, EfNodeTerminalRepository>();
@@ -39,8 +39,8 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IEfRdsRepository, EfRdsRepository>();
             services.AddSingleton<IFileRepository, JsonFileRepository>();
             services.AddScoped<IEfSymbolRepository, EfSymbolRepository>();
-            services.AddScoped<IEfAttributeConditionDbRepository, EfAttributeConditionRepository>();
-            services.AddScoped<IEfAttributeFormatDbRepository, EfAttributeFormatRepository>();
+            services.AddScoped<IEfAttributeConditionRepository, EfAttributeConditionRepository>();
+            services.AddScoped<IEfAttributeFormatRepository, EfAttributeFormatRepository>();
             services.AddScoped<IEfAttributeQualifierRepository, EfAttributeQualifierRepository>();
             services.AddScoped<IEfAttributeSourceRepository, EfAttributeSourceRepository>();
             services.AddScoped<IEfAttributeAspectRepository, EfAttributeAspectRepository>();
@@ -48,8 +48,16 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IEfUnitRepository, EfUnitRepository>();
             services.AddScoped<IDynamicImageDataProvider, EfSymbolRepository>();
 
-
             services.AddScoped<IAttributeRepository, DbAttributeRepository>();
+            services.AddScoped<IInterfaceRepository, DbInterfaceRepository>();
+            services.AddScoped<ITransportRepository, DbTransportRepository>();
+            services.AddScoped<INodeRepository, DbNodeRepository>();
+            services.AddScoped<IPurposeRepository, DbPurposeRepository>();
+            services.AddScoped<IRdsRepository, DbRdsRepository>();
+            services.AddScoped<ISimpleRepository, DbSimpleRepository>();
+            services.AddScoped<ISymbolRepository, DbSymbolRepository>();
+            services.AddScoped<ITerminalRepository, DbTerminalRepository>();
+            services.AddScoped<IUnitRepository, DbUnitRepository>();
 
             // Dependency Injection - Services
             services.AddScoped<ITerminalService, TerminalService>();
@@ -58,11 +66,6 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IRdsService, RdsService>();
             services.AddScoped<ISeedingService, SeedingService>();
             services.AddScoped<ISymbolService, SymbolService>();
-            services.AddScoped<IAttributeConditionService, AttributeConditionService>();
-            services.AddScoped<IAttributeFormatService, AttributeFormatService>();
-            services.AddScoped<IAttributeQualifierService, AttributeQualifierService>();
-            services.AddScoped<IAttributeSourceService, AttributeSourceService>();
-            services.AddScoped<IAttributeAspectService, AttributeAspectService>();
             services.AddScoped<IPurposeService, PurposeService>();
             services.AddScoped<IUnitService, UnitService>();
             services.AddScoped<ITransportService, TransportService>();

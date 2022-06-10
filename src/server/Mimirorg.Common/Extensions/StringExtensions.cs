@@ -7,6 +7,22 @@ namespace Mimirorg.Common.Extensions
 {
     public static class StringExtensions
     {
+        public static bool HasDuplicateValues(this ICollection<string> values)
+        {
+            if (values == null)
+                return false;
+
+            return values.GroupBy(x => x).Where(g => g.Count() > 1).Select(y => y.Key).ToList().Any();
+        }
+
+        public static bool HasEmptyValues(this ICollection<string> values)
+        {
+            if (values == null)
+                return false;
+
+            return values.Any(string.IsNullOrWhiteSpace);
+        }
+
         public static ICollection<string> ConvertToArray(this string value)
         {
             return string.IsNullOrEmpty(value) ?

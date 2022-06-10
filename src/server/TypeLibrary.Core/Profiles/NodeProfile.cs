@@ -83,7 +83,7 @@ namespace TypeLibrary.Core.Profiles
                 if (existingSortedTerminalType == null)
                     sortedTerminalTypes.Add(item);
                 else
-                    existingSortedTerminalType.Number += item.Number;
+                    existingSortedTerminalType.Quantity += item.Quantity;
             }
 
             foreach (var item in sortedTerminalTypes)
@@ -94,7 +94,7 @@ namespace TypeLibrary.Core.Profiles
                     Id = key.CreateMd5(),
                     NodeId = nodeId,
                     TerminalId = item.TerminalId,
-                    Number = item.Number,
+                    Quantity = item.Quantity,
                     ConnectorDirection = item.ConnectorDirection
                 };
             }

@@ -38,43 +38,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _unitService.GetUnits();
-                return Ok(data);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        [HttpPut("{id}")]
-        [ProducesResponseType(typeof(UnitLibAm), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Edit")]
-        public async Task<IActionResult> UpdateUnit([FromBody] UnitLibAm dataAm, [FromRoute] string id)
-        {
-            try
-            {
-                var data = await _unitService.UpdateUnit(dataAm, id);
-                return Ok(data);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        [HttpPost]
-        [ProducesResponseType(typeof(UnitLibAm), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> CreateUnit([FromBody] UnitLibAm dataAm)
-        {
-            try
-            {
-                var data = await _unitService.CreateUnit(dataAm);
+                var data = await _unitService.Get();
                 return Ok(data);
             }
             catch (Exception e)

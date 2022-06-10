@@ -56,5 +56,18 @@ namespace Mimirorg.Common.Extensions
                 .Where(flag.HasFlag)
                 .Cast<T>();
         }
+
+        /// <summary>
+        /// Returns a Dictionary&lt;int, string&gt; of the parent enumeration. Note that the extension method must
+        /// be called with one of the enumeration values, it does not matter which one is used.
+        /// Sample call: var myDictionary = StringComparison.Ordinal.ToDictionary().
+        /// </summary>
+        /// <returns>Dictionary with Key = enumeration numbers and Value = associated text.</returns>
+        public static Dictionary<int, string> ToDictionary<T>() where T : struct
+        {
+            return Enum.GetValues(typeof(T))
+                .Cast<Enum>()
+                .ToDictionary(t => (int)(object)t, t => t.GetDisplayName());
+        }
     }
 }

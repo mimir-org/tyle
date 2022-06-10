@@ -12,6 +12,5 @@ namespace TypeLibrary.Services.Contracts
         Task<InterfaceLibCm> Create(InterfaceLibAm dataAm);
         Task<InterfaceLibCm> Update(InterfaceLibAm dataAm, string id);
         Task<bool> Delete(string id);
-        void ClearAllChangeTrackers();
     }
 }

@@ -13,6 +13,5 @@ namespace TypeLibrary.Services.Contracts
         Task<IEnumerable<TransportLibCm>> Create(IEnumerable<TransportLibAm> dataAms, bool createdBySystem = false);
         Task<TransportLibCm> Update(TransportLibAm dataAm, string id);
         Task<bool> Delete(string id);
-        void ClearAllChangeTrackers();
     }
 }

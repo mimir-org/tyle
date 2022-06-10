@@ -33,7 +33,7 @@ namespace TypeLibrary.Api
                 {
                     if (hasOrigins)
                     {
-                        builder.WithOrigins(origins!).AllowCredentials();                        
+                        builder.WithOrigins(origins!).AllowCredentials();
                     }
                     else
                     {
