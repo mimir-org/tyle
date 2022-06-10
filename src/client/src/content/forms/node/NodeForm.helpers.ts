@@ -1,35 +1,13 @@
 import { useEffect, useState } from "react";
 import { DefaultValues, KeepStateOptions, UnpackNestedValue } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import textResources from "../../../assets/text/TextResources";
+import { toast } from "../../../complib/data-display";
 import { useGetNode } from "../../../data/queries/tyle/queriesNode";
-import { NodeTerminalLibAm } from "../../../models/tyle/application/nodeTerminalLibAm";
-import { TerminalLibCm } from "../../../models/tyle/client/terminalLibCm";
+import { UpdateEntity } from "../../../data/types/updateEntity";
+import { NodeLibAm } from "../../../models/tyle/application/nodeLibAm";
 import { Aspect } from "../../../models/tyle/enums/aspect";
-import { ConnectorDirection } from "../../../models/tyle/enums/connectorDirection";
-import { TerminalItem } from "../../home/types/TerminalItem";
-import { FormNodeLib, mapNodeLibCmToFormNodeLibAm } from "../types/formNodeLib";
-
-export const getTerminalItemsFromFormData = (formTerminals: NodeTerminalLibAm[], sourceTerminals?: TerminalLibCm[]) => {
-  if (!sourceTerminals || sourceTerminals.length < 1) {
-    return [];
-  }
-
-  const terminalItems: TerminalItem[] = [];
-
-  formTerminals.forEach((formTerminal) => {
-    const sourceTerminal = sourceTerminals.find((x) => x.id === formTerminal.terminalId);
-
-    sourceTerminal &&
-      terminalItems.push({
-        name: sourceTerminal.name,
-        color: sourceTerminal.color,
-        amount: formTerminal.number,
-        direction: ConnectorDirection[formTerminal.connectorDirection] as keyof typeof ConnectorDirection,
-      });
-  });
-
-  return terminalItems;
-};
+import { FormNodeLib, mapFormNodeLibAmToApiModel, mapNodeLibCmToFormNodeLibAm } from "../types/formNodeLib";
 
 export const aspectOptions = [
   { value: Aspect.None, label: "None" },
@@ -73,4 +51,15 @@ export const resetSubform = (resetField: (value: keyof FormNodeLib) => void) => 
   resetField("selectedAttributePredefined");
   resetField("nodeTerminals");
   resetField("attributeIdList");
+};
+
+export const submitNodeData = (formData: FormNodeLib, mutate: (data: UpdateEntity<NodeLibAm>) => Promise<unknown>) => {
+  const submittable = mapFormNodeLibAmToApiModel(formData);
+  const submissionPromise = mutate(submittable);
+
+  toast.promise(submissionPromise, {
+    loading: textResources.FORMS_NODE_SUBMITTING,
+    success: textResources.FORMS_NODE_SUBMITTING_SUCCESS,
+    error: textResources.FORMS_NODE_SUBMITTING_ERROR,
+  });
 };

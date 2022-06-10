@@ -12,16 +12,13 @@ import { useCreateNode, useUpdateNode } from "../../../data/queries/tyle/queries
 import { useGetPurposes } from "../../../data/queries/tyle/queriesPurpose";
 import { useGetRds } from "../../../data/queries/tyle/queriesRds";
 import { useGetSymbols } from "../../../data/queries/tyle/queriesSymbol";
-import { useGetTerminals } from "../../../data/queries/tyle/queriesTerminal";
+import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Aspect } from "../../../models/tyle/enums/aspect";
-import { getColorFromAspect } from "../../../utils/getColorFromAspect";
-import { NodePreview } from "../../home/components/about/components/node/NodePreview";
 import { PlainLink } from "../../utils/PlainLink";
-import { createEmptyFormNodeLibAm, FormNodeLib, mapFormNodeLibAmToApiModel } from "../types/formNodeLib";
-import { aspectOptions, getTerminalItemsFromFormData, resetSubform, usePrefilledNodeData } from "./NodeForm.helpers";
-import { FunctionNode } from "./variants/FunctionNode";
-import { LocationNode } from "./variants/LocationNode";
-import { ProductNode } from "./variants/ProductNode";
+import { createEmptyFormNodeLibAm, FormNodeLib } from "../types/formNodeLib";
+import { aspectOptions, resetSubform, submitNodeData, usePrefilledNodeData } from "./NodeForm.helpers";
+import { NodeFormPreview } from "./NodeFormPreview";
+import { FunctionNode, LocationNode, ProductNode } from "./variants";
 
 interface NodeFormProps {
   defaultValues?: FormNodeLib;
@@ -35,20 +32,14 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
   const rdsQuery = useGetRds();
   const symbolQuery = useGetSymbols();
   const purposeQuery = useGetPurposes();
-  const terminalQuery = useGetTerminals();
 
-  const symbol = useWatch({ control, name: "symbol" });
   const aspect = useWatch({ control, name: "aspect" });
-  const nodeTerminals = useWatch({ control, name: "nodeTerminals" });
 
   const hasPrefilled = usePrefilledNodeData(reset);
 
   const nodeUpdateMutation = useUpdateNode();
   const nodeCreateMutation = useCreateNode();
-  const submitForm = handleSubmit((data) => {
-    const submittable = mapFormNodeLibAmToApiModel(data);
-    return isEdit ? nodeUpdateMutation.mutate(submittable) : nodeCreateMutation.mutate(submittable);
-  });
+  useNavigateOnCriteria("/", nodeCreateMutation.isSuccess || nodeUpdateMutation.isSuccess);
 
   return (
     <Box
@@ -58,7 +49,9 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
       flexWrap={"wrap"}
       bgColor={theme.tyle.color.surface.base}
       color={theme.tyle.color.surface.on}
-      onSubmit={submitForm}
+      onSubmit={handleSubmit((data) =>
+        submitNodeData(data, isEdit ? nodeUpdateMutation.mutateAsync : nodeCreateMutation.mutateAsync)
+      )}
     >
       <Box
         as={"fieldset"}
@@ -71,11 +64,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
         py={theme.tyle.spacing.xl}
         border={0}
       >
-        <NodePreview
-          img={symbol}
-          color={getColorFromAspect(aspect)}
-          terminals={getTerminalItemsFromFormData(nodeTerminals, terminalQuery.data)}
-        />
+        <NodeFormPreview control={control} />
 
         <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.medium}>
           <FormField label={textResources.FORMS_NODE_NAME}>

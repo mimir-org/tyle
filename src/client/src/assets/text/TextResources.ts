@@ -63,6 +63,9 @@ const TextResources = {
   FORMS_NODE_RDS_PLACEHOLDER: "Select RDS",
   FORMS_NODE_DESCRIPTION: "Description",
   FORMS_NODE_DESCRIPTION_PLACEHOLDER: "Additional information about this node can be supplied here.",
+  FORMS_NODE_SUBMITTING: "Submitting node",
+  FORMS_NODE_SUBMITTING_SUCCESS: "You node has been submitted",
+  FORMS_NODE_SUBMITTING_ERROR: "An error occurred during node submission",
 
   // Search
   SEARCH_TITLE: "Search",

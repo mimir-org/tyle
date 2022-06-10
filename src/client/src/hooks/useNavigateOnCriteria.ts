@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 /**
@@ -8,7 +9,9 @@ import { useNavigate } from "react-router-dom";
  */
 export const useNavigateOnCriteria = (path: string, ...criteria: boolean[]) => {
   const navigate = useNavigate();
-  if (criteria.every((c) => c)) {
-    navigate(path);
-  }
+  useEffect(() => {
+    if (criteria.every((c) => c)) {
+      navigate(path);
+    }
+  }, [criteria, navigate, path]);
 };
