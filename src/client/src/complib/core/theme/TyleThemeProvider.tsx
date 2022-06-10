@@ -1,7 +1,8 @@
+import { MotionConfig } from "framer-motion";
 import { PropsWithChildren } from "react";
 import { ThemeProvider } from "styled-components/macro";
+import { Toaster } from "../../data-display";
 import { TyleTheme } from "./theme";
-import { MotionConfig } from "framer-motion";
 
 interface TyleThemeProviderProps {
   theme: TyleTheme;
@@ -23,6 +24,7 @@ export const TyleThemeProvider = ({ theme, children }: PropsWithChildren<TyleThe
   return (
     <ThemeProvider theme={customTheme}>
       <MotionConfig reducedMotion="user">{children}</MotionConfig>
+      <Toaster />
     </ThemeProvider>
   );
 };
