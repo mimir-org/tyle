@@ -3,7 +3,7 @@ import { TerminalLibCm } from "./terminalLibCm";
 
 export interface NodeTerminalLibCm {
   id: string;
-  number: number;
+  quantity: number;
   connectorDirection: ConnectorDirection;
   terminal: TerminalLibCm;
   kind: string;

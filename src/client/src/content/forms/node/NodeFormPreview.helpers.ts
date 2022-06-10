@@ -17,7 +17,7 @@ export const getTerminalItemsFromFormData = (formTerminals: NodeTerminalLibAm[],
       terminalItems.push({
         name: sourceTerminal.name,
         color: sourceTerminal.color,
-        amount: formTerminal.number,
+        amount: formTerminal.quantity,
         direction: ConnectorDirection[formTerminal.connectorDirection] as keyof typeof ConnectorDirection,
       });
   });

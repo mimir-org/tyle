@@ -3,4 +3,7 @@ export interface MimirorgCompanyAm {
   displayName: string;
   description: string;
   managerId: string;
+  secret: string;
+  domain: string;
+  iris: string[];
 }

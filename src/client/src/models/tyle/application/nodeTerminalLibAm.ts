@@ -2,12 +2,12 @@ import { ConnectorDirection } from "../enums/connectorDirection";
 
 export interface NodeTerminalLibAm {
   terminalId: string;
-  number: number;
+  quantity: number;
   connectorDirection: ConnectorDirection;
 }
 
 export const createEmptyNodeTerminalLibAm = (): NodeTerminalLibAm => ({
   terminalId: "",
-  number: 1,
+  quantity: 1,
   connectorDirection: ConnectorDirection.Input,
 });

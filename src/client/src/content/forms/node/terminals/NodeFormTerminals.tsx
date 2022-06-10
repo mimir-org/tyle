@@ -74,7 +74,7 @@ export const NodeFormTerminals = ({ control }: NodeFormTerminalsProps) => {
             />
             <Controller
               control={control}
-              name={`nodeTerminals.${index}.number`}
+              name={`nodeTerminals.${index}.quantity`}
               render={({ field: { onChange, value } }) => (
                 <Input
                   {...field}
