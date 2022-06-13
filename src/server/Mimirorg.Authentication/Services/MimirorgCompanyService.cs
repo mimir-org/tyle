@@ -100,7 +100,7 @@ namespace Mimirorg.Authentication.Services
             var company = await _mimirorgCompanyRepository
                 .FindBy(x => x.Domain == mimirorgCompanyAuth.Domain && x.Secret == mimirorgCompanyAuth.Secret)
                 .Include(x => x.Manager).FirstOrDefaultAsync();
-            
+
             if (company == null)
                 throw new MimirorgNotFoundException($"Could not find company with auth param");
 
