@@ -28,6 +28,9 @@ namespace Mimirorg.Authentication.Models.Application
         [Required(ErrorMessage = "{0} is required")]
         public string Domain { get; set; }
 
+        [Display(Name = "Logo")]
+        public string Logo { get; set; }
+        
         [Display(Name = "Iris")]
         public ICollection<string> Iris { get; set; }
 
@@ -41,6 +44,7 @@ namespace Mimirorg.Authentication.Models.Application
                 ManagerId = ManagerId,
                 Secret = Secret,
                 Domain = Domain,
+                Logo = Logo,
                 Iris = Iris?.ConvertToString()
             };
         }

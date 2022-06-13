@@ -11,6 +11,7 @@ namespace Mimirorg.Authentication.Models.Domain
         public string Description { get; set; }
         public string Secret { get; set; }
         public string Domain { get; set; }
+        public string Logo { get; set; }
         public string Iris { get; set; }
 
         public string ManagerId { get; set; }
@@ -29,6 +30,7 @@ namespace Mimirorg.Authentication.Models.Domain
                 Manager = Manager?.ToContentModel(),
                 Secret = Secret,
                 Domain = Domain,
+                Logo = Logo,
                 Iris = Iris?.ConvertToArray()
             };
         }
