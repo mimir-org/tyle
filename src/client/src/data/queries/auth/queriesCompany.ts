@@ -6,12 +6,12 @@ import { UpdateEntity } from "../../types/updateEntity";
 const keys = {
   all: ["companies"] as const,
   lists: () => [...keys.all, "list"] as const,
-  company: (id: string) => [...keys.all, { id }] as const,
+  company: (id: number) => [...keys.all, { id }] as const,
 };
 
 export const useGetCompanies = () => useQuery(keys.lists(), apiCompany.getCompanies);
 
-export const useGetCompany = (id: string) => useQuery(keys.company(id), () => apiCompany.getCompany(id));
+export const useGetCompany = (id: number) => useQuery(keys.company(id), () => apiCompany.getCompany(id));
 
 export const useCreateCompany = () => {
   const queryClient = useQueryClient();

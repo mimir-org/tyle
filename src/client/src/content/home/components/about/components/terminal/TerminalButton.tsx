@@ -1,11 +1,11 @@
+import { ElementType, forwardRef, ReactNode } from "react";
+import { Polymorphic } from "../../../../../../complib/props";
 import {
   TerminalButtonContainer,
   TerminalButtonContainerProps,
   ThickPlus,
   ThickSwitchHorizontal,
 } from "./TerminalButton.styled";
-import { ElementType, forwardRef, ReactNode } from "react";
-import { Polymorphic } from "../../../../../../complib/props";
 
 type TerminalButtonProps = TerminalButtonContainerProps &
   Polymorphic<ElementType> & {
@@ -30,5 +30,6 @@ export const TerminalButton = forwardRef<HTMLButtonElement, TerminalButtonProps>
 
 TerminalButton.displayName = "TerminalButton";
 TerminalButton.defaultProps = {
+  type: "button",
   variant: "Input",
 };

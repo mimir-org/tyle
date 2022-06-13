@@ -15,6 +15,8 @@ const TextResources = {
   FORMS_PLACEHOLDER_FIRSTNAME: "Jane",
   FORMS_PLACEHOLDER_LASTNAME: "Smith",
   FORMS_REQUIRED_DESCRIPTION: "* Indicates a required field.",
+  FORMS_SUBMIT: "Submit",
+  FORMS_CANCEL: "Cancel",
 
   // Login
   LOGIN_TITLE: "Login",
@@ -48,6 +50,23 @@ const TextResources = {
     "Scan the QR code below in your authenticator app of choice. The code shown in the app can then be used during login.",
   REGISTER_FINALIZE_FINISH_LINK: "Finish registration",
 
+  // Node form
+  FORMS_NODE_NAME: "Name",
+  FORMS_NODE_NAME_PLACEHOLDER: "Node name",
+  FORMS_NODE_PURPOSE: "Purpose",
+  FORMS_NODE_PURPOSE_PLACEHOLDER: "Select purpose",
+  FORMS_NODE_ASPECT: "Aspect",
+  FORMS_NODE_ASPECT_PLACEHOLDER: "Select aspect",
+  FORMS_NODE_SYMBOL: "Symbol",
+  FORMS_NODE_SYMBOL_PLACEHOLDER: "Select symbol",
+  FORMS_NODE_RDS: "RDS",
+  FORMS_NODE_RDS_PLACEHOLDER: "Select RDS",
+  FORMS_NODE_DESCRIPTION: "Description",
+  FORMS_NODE_DESCRIPTION_PLACEHOLDER: "Additional information about this node can be supplied here.",
+  FORMS_NODE_SUBMITTING: "Submitting node",
+  FORMS_NODE_SUBMITTING_SUCCESS: "You node has been submitted",
+  FORMS_NODE_SUBMITTING_ERROR: "An error occurred during node submission",
+
   // Search
   SEARCH_TITLE: "Search",
   SEARCH_PLACEHOLDER: "Search for types",
@@ -66,13 +85,25 @@ const TextResources = {
 
   // Attribute
   ATTRIBUTE_TITLE: "Attributes",
-  ATTRIBUTE_VALUE: "Value",
+  ATTRIBUTE_ADD: "Add attribute(s)",
+  ATTRIBUTE_DIALOG_TITLE: "Select attribute(s)",
+  ATTRIBUTE_DIALOG_DESCRIPTION: "The attributes listed below are predefined and can be reused across multiple nodes.",
+  ATTRIBUTE_DIALOG_FILTER: "Filter attributes",
+  ATTRIBUTE_DIALOG_ADD: "Add selected attribute(s)",
+  ATTRIBUTE_REMOVE: "Remove attribute",
 
   // Terminal
   TERMINAL_TITLE: "Terminals",
   TERMINAL_TOTAL: "Total terminals",
   TERMINAL_OPEN_SUMMARY: "Open terminal summary",
   TERMINAL_SUMMARY: "Summary",
+  TERMINAL_ADD: "Add terminal",
+  TERMINAL_PLACEHOLDER: "Select terminal",
+  TERMINAL_DIRECTION_PLACEHOLDER: "Select direction",
+
+  // Predefined attribute
+  PREDEFINED_ATTRIBUTE_TITLE: "Predefined attributes",
+  PREDEFINED_ATTRIBUTE_SELECT: "Select value(s)",
 };
 
 export default TextResources;

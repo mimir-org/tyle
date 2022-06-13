@@ -2,7 +2,7 @@ export interface AnimationSystem {
   fade: Record<string, unknown>,
   scale: Record<string, unknown>,
   selectHover: Record<string, unknown>,
-  from: (direction: "top" | "right" | "bottom" | "left") => Record<string, unknown>
+  from: (direction: "top" | "right" | "bottom" | "left", distance?: number) => Record<string, unknown>
 }
 
 export const animation: AnimationSystem = {
@@ -31,16 +31,16 @@ export const animation: AnimationSystem = {
   from(direction: "top" | "right" | "bottom" | "left", distance = 10) {
     const fromToMap = {
       top: {
-        y: `${distance}px`
-      },
-      right: {
-        x: `-${distance}px`
-      },
-      bottom: {
         y: `-${distance}px`
       },
-      left: {
+      right: {
         x: `${distance}px`
+      },
+      bottom: {
+        y: `${distance}px`
+      },
+      left: {
+        x: `-${distance}px`
       }
     }
 

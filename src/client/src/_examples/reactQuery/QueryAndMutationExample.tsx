@@ -1,5 +1,6 @@
-import { NodeLibAm } from "../../models/tyle/application/nodeLibAm";
 import { useCreateNode, useGetNodes } from "../../data/queries/tyle/queriesNode";
+import { NodeLibAm } from "../../models/tyle/application/nodeLibAm";
+import { Aspect } from "../../models/tyle/enums/aspect";
 import {
   ButtonContainer,
   JsonContent,
@@ -8,7 +9,6 @@ import {
   StatusAndResultsContainer,
   StatusContainer,
 } from "./QueryAndMutationExample.styled";
-import { Aspect } from "../../models/tyle/enums/aspect";
 
 export const QueryAndMutationExample = () => {
   const mutation = useCreateNode();
@@ -32,12 +32,12 @@ export const QueryAndMutationExample = () => {
     nodeTerminals: [
       {
         terminalId: "BFB27765A609F27FD3A2DF59C4E4D63D",
-        number: 1,
+        quantity: 1,
         connectorDirection: 0,
       },
       {
         terminalId: "54CC2AB379D04FA1B6A6B83A962B0CF2",
-        number: 1,
+        quantity: 1,
         connectorDirection: 1,
       },
     ],

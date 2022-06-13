@@ -1,12 +1,11 @@
-import { AttributeItem } from "../../content/home/types/AttributeItem";
 import faker from "@faker-js/faker";
+import { AttributeItem } from "../../content/home/types/AttributeItem";
 
 export const mockAttributeItem = (): AttributeItem => {
   return {
+    id: faker.random.alphaNumeric(),
     name: `${faker.commerce.productAdjective()}`,
-    color: faker.internet.color(),
     traits: mockAttributeItemTraits(parseInt(faker.random.numeric(1))),
-    value: `${faker.random.numeric(2)} ${faker.helpers.arrayElement(["%", "bbl/d", "Sm3/h"])}`,
   };
 };
 

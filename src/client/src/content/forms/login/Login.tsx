@@ -71,7 +71,7 @@ export const Login = () => {
         </FormFieldset>
 
         <MotionFlexbox layout flexDirection={"column"} gap={theme.tyle.spacing.large}>
-          <Button>{TextResources.LOGIN_TITLE}</Button>
+          <Button type={"submit"}>{TextResources.LOGIN_TITLE}</Button>
           <Text color={theme.tyle.color.surface.variant.on}>
             {TextResources.LOGIN_NOT_REGISTERED} <Link to="/register">{TextResources.LOGIN_REGISTER_LINK}</Link>
           </Text>

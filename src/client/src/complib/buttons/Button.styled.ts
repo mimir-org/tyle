@@ -18,10 +18,7 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   align-items: center;
   gap: ${(props) => props.theme.tyle.spacing.xs};
   flex-direction: ${(props) => props.iconPlacement === "left" && "row-reverse"};
-  flex-shrink: 0;
 
-  min-width: 40px;
-  min-height: 40px;
   white-space: nowrap;
   text-decoration: none;
 
@@ -56,9 +53,14 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
     }
   }};
 
+  ${({ iconOnly, ...props }) =>
+    iconOnly &&
+    css`
+      padding: ${props.theme.tyle.spacing.xs};
+    `};
+
   img,
   svg {
-    flex: 0;
     min-width: 20px;
     min-height: 20px;
   }
