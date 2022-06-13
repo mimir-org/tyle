@@ -1,10 +1,4 @@
-import { ConnectorDirection } from "../enums/connectorDirection";
-
-export interface NodeTerminalLibAm {
-  terminalId: string;
-  quantity: number;
-  connectorDirection: ConnectorDirection;
-}
+import { ConnectorDirection, NodeTerminalLibAm } from "@mimirorg/typelibrary-types";
 
 export const createEmptyNodeTerminalLibAm = (): NodeTerminalLibAm => ({
   terminalId: "",

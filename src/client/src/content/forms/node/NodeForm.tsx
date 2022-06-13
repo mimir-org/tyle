@@ -1,4 +1,5 @@
 import { DevTool } from "@hookform/devtools";
+import { Aspect } from "@mimirorg/typelibrary-types";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { useTheme } from "styled-components/macro";
 import textResources from "../../../assets/text/TextResources";
@@ -13,7 +14,6 @@ import { useGetPurposes } from "../../../data/queries/tyle/queriesPurpose";
 import { useGetRds } from "../../../data/queries/tyle/queriesRds";
 import { useGetSymbols } from "../../../data/queries/tyle/queriesSymbol";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
-import { Aspect } from "../../../models/tyle/enums/aspect";
 import { PlainLink } from "../../utils/PlainLink";
 import { createEmptyFormNodeLibAm, FormNodeLib } from "../types/formNodeLib";
 import { aspectOptions, resetSubform, submitNodeData, usePrefilledNodeData } from "./NodeForm.helpers";

@@ -1,3 +1,4 @@
+import { Aspect } from "@mimirorg/typelibrary-types";
 import { Control, Controller, UseFormRegister } from "react-hook-form";
 import { useTheme } from "styled-components/macro";
 import { TextResources } from "../../../../assets/text";
@@ -6,7 +7,6 @@ import { Input, Select } from "../../../../complib/inputs";
 import { Box, Grid } from "../../../../complib/layouts";
 import { Text } from "../../../../complib/text";
 import { useGetAttributesPredefined } from "../../../../data/queries/tyle/queriesAttribute";
-import { Aspect } from "../../../../models/tyle/enums/aspect";
 import { FormNodeLib } from "../../types/formNodeLib";
 import { preparePredefinedAttributes } from "./NodeFormPredefinedAttributes.helpers";
 

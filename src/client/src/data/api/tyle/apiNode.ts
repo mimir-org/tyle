@@ -1,5 +1,4 @@
-import { NodeLibAm } from "../../../models/tyle/application/nodeLibAm";
-import { NodeLibCm } from "../../../models/tyle/client/nodeLibCm";
+import { NodeLibAm, NodeLibCm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "../apiClient";
 
 const _basePath = "librarynode";

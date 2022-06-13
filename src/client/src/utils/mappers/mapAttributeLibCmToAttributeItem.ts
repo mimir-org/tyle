@@ -1,5 +1,5 @@
+import { AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { AttributeItem } from "../../content/home/types/AttributeItem";
-import { AttributeLibCm } from "../../models/tyle/client/attributeLibCm";
 
 export const mapAttributeLibCmToAttributeItem = (attribute: AttributeLibCm): AttributeItem => ({
   id: attribute.id,

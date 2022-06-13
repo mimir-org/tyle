@@ -1,4 +1,4 @@
-import { PurposeLibCm } from "../../../models/tyle/client/purposeLibCm";
+import { PurposeLibCm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "../apiClient";
 
 const _basePath = "librarypurpose";

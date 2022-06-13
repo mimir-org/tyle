@@ -1,5 +1,4 @@
-import { AttributePredefinedLibCm } from "../../../../models/tyle/client/attributePredefinedLibCm";
-import { Aspect } from "../../../../models/tyle/enums/aspect";
+import { Aspect, AttributePredefinedLibCm } from "@mimirorg/typelibrary-types";
 
 export const preparePredefinedAttributes = (predefinedAttributes?: AttributePredefinedLibCm[], aspects?: Aspect[]) => {
   if (!predefinedAttributes || predefinedAttributes.length == 0) return [];

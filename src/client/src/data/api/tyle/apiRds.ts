@@ -1,5 +1,5 @@
+import { RdsLibCm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "../apiClient";
-import { RdsLibCm } from "../../../models/tyle/client/rdsLibCm";
 
 const _basePath = "libraryrds";
 

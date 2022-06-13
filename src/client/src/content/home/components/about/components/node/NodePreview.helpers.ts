@@ -1,4 +1,4 @@
-import { ConnectorDirection } from "../../../../../../models/tyle/enums/connectorDirection";
+import { ConnectorDirection } from "@mimirorg/typelibrary-types";
 
 type Direction = keyof typeof ConnectorDirection;
 

@@ -1,9 +1,9 @@
-import { NodeLibCm } from "../../models/tyle/client/nodeLibCm";
+import { NodeLibCm } from "@mimirorg/typelibrary-types";
 import { NodeItem } from "../../content/home/types/NodeItem";
 import { getColorFromAspect } from "../getColorFromAspect";
-import { mapNodeTerminalLibCmsToTerminalItems } from "./mapNodeTerminalLibCmToTerminalItem";
-import { mapAttributeLibCmsToAttributeItems } from "./mapAttributeLibCmToAttributeItem";
 import { sortAttributes, sortTerminals } from "../sorters";
+import { mapAttributeLibCmsToAttributeItems } from "./mapAttributeLibCmToAttributeItem";
+import { mapNodeTerminalLibCmsToTerminalItems } from "./mapNodeTerminalLibCmToTerminalItem";
 
 export const mapNodeLibCmToNodeItem = (node: NodeLibCm): NodeItem => ({
   id: node.id,

@@ -1,6 +1,4 @@
-import { NodeTerminalLibAm } from "../../../models/tyle/application/nodeTerminalLibAm";
-import { TerminalLibCm } from "../../../models/tyle/client/terminalLibCm";
-import { ConnectorDirection } from "../../../models/tyle/enums/connectorDirection";
+import { ConnectorDirection, NodeTerminalLibAm, TerminalLibCm } from "@mimirorg/typelibrary-types";
 import { TerminalItem } from "../../home/types/TerminalItem";
 
 export const getTerminalItemsFromFormData = (formTerminals: NodeTerminalLibAm[], sourceTerminals?: TerminalLibCm[]) => {

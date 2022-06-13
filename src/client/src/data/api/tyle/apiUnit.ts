@@ -1,4 +1,4 @@
-import { UnitLibCm } from "../../../models/tyle/client/unitLibCm";
+import { UnitLibCm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "../apiClient";
 
 const _basePath = "libraryunit";

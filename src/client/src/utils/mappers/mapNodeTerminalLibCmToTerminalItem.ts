@@ -1,6 +1,5 @@
+import { ConnectorDirection, NodeTerminalLibCm } from "@mimirorg/typelibrary-types";
 import { TerminalItem } from "../../content/home/types/TerminalItem";
-import { NodeTerminalLibCm } from "../../models/tyle/client/nodeTerminalLibCm";
-import { ConnectorDirection } from "../../models/tyle/enums/connectorDirection";
 import { sortAttributes } from "../sorters";
 import { mapAttributeLibCmsToAttributeItems } from "./mapAttributeLibCmToAttributeItem";
 

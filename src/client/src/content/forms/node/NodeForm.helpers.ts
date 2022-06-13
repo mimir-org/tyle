@@ -1,3 +1,4 @@
+import { Aspect, NodeLibAm } from "@mimirorg/typelibrary-types";
 import { useEffect, useState } from "react";
 import { DefaultValues, KeepStateOptions, UnpackNestedValue } from "react-hook-form";
 import { useParams } from "react-router-dom";
@@ -5,8 +6,6 @@ import textResources from "../../../assets/text/TextResources";
 import { toast } from "../../../complib/data-display";
 import { useGetNode } from "../../../data/queries/tyle/queriesNode";
 import { UpdateEntity } from "../../../data/types/updateEntity";
-import { NodeLibAm } from "../../../models/tyle/application/nodeLibAm";
-import { Aspect } from "../../../models/tyle/enums/aspect";
 import { FormNodeLib, mapFormNodeLibAmToApiModel, mapNodeLibCmToFormNodeLibAm } from "../types/formNodeLib";
 
 export const aspectOptions = [

@@ -1,5 +1,5 @@
+import { Aspect } from "@mimirorg/typelibrary-types";
 import { Control, UseFormRegister } from "react-hook-form";
-import { Aspect } from "../../../../models/tyle/enums/aspect";
 import { FormNodeLib } from "../../types/formNodeLib";
 import { NodeFormAttributes } from "../attributes/NodeFormAttributes";
 import { NodeFormPredefinedAttributes } from "../predefined-attributes/NodeFormPredefinedAttributes";
