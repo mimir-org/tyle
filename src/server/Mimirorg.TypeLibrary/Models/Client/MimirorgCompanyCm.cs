@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Mimirorg.Authentication.Models.Content
+namespace Mimirorg.TypeLibrary.Models.Client
 {
     public class MimirorgCompanyCm
     {

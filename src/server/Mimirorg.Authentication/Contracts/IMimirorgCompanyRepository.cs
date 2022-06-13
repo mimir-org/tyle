@@ -3,7 +3,7 @@ using Mimirorg.Common.Abstract;
 
 namespace Mimirorg.Authentication.Contracts
 {
-    public interface IMimirorgCompanyRepository : IGenericRepository<MimirorgAuthenticationContext, MimirorgCompany>
+    public interface IMimirorgCompanyRepository : IGenericRepository<MimirorgAuthenticationContext, MimirorgCompany>, IDynamicLogoDataProvider
     {
     }
 }

@@ -3,7 +3,7 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts.Ef
 {
-    public interface IEfSymbolRepository : IGenericRepository<TypeLibraryDbContext, SymbolLibDm>, IDynamicImageDataProvider
+    public interface IEfSymbolRepository : IGenericRepository<TypeLibraryDbContext, SymbolLibDm>, IDynamicSymbolDataProvider
     {
     }
 }

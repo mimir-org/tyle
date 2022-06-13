@@ -46,7 +46,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IEfAttributeAspectRepository, EfAttributeAspectRepository>();
             services.AddScoped<IEfPurposeRepository, EfPurposeRepository>();
             services.AddScoped<IEfUnitRepository, EfUnitRepository>();
-            services.AddScoped<IDynamicImageDataProvider, EfSymbolRepository>();
+            services.AddScoped<IDynamicSymbolDataProvider, EfSymbolRepository>();
 
             services.AddScoped<IAttributeRepository, DbAttributeRepository>();
             services.AddScoped<IInterfaceRepository, DbInterfaceRepository>();

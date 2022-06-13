@@ -1,5 +1,4 @@
-﻿using Mimirorg.Authentication.Models.Content;
-using Mimirorg.Authentication.Models.Enums;
+﻿using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.Authentication.Models.Domain
 {
@@ -11,16 +10,5 @@ namespace Mimirorg.Authentication.Models.Domain
         public string Secret { get; set; }
         public DateTime ValidTo { get; set; }
         public MimirorgTokenType TokenType { get; set; }
-
-        public MimirorgTokenCm ToContentModel()
-        {
-            return new MimirorgTokenCm
-            {
-                ClientId = ClientId,
-                Secret = Secret,
-                TokenType = TokenType,
-                ValidTo = ValidTo
-            };
-        }
     }
 }

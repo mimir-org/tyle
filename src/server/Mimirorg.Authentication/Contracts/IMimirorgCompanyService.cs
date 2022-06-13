@@ -1,7 +1,7 @@
-﻿using Mimirorg.Authentication.Models.Application;
-using Mimirorg.Authentication.Models.Content;
-using Mimirorg.Common.Enums;
-using Mimirorg.Common.Exceptions;
+﻿using Mimirorg.Common.Exceptions;
+using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 
 namespace Mimirorg.Authentication.Contracts
 {
@@ -54,5 +54,12 @@ namespace Mimirorg.Authentication.Contracts
         /// <param name="key">The cache key to search for</param>
         /// <returns>A collection of hooks</returns>
         Task<ICollection<MimirorgHookCm>> GetAllHooksForCache(CacheKey key);
+
+        /// <summary>
+        /// Create a new hook
+        /// </summary>
+        /// <param name="hook">The hook to be created</param>
+        /// <returns>The created hook</returns>
+        Task<MimirorgHookCm> CreateHook(MimirorgHookAm hook);
     }
 }

@@ -69,5 +69,20 @@ namespace Mimirorg.Common.Extensions
                 .Cast<Enum>()
                 .ToDictionary(t => (int)(object)t, t => t.GetDisplayName());
         }
+
+        /// <summary>
+        /// Convert enum to enumerable of T
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static IEnumerable<T> AsEnumerable<T>()
+        {
+            if (typeof(T).IsSubclassOf(typeof(Enum)) == false)
+                throw new ArgumentException();
+
+            return Enum.GetValues(typeof(T))
+                .Cast<Enum>()
+                .Cast<T>();
+        }
     }
 }

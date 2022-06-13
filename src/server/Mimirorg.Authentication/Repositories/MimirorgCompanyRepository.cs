@@ -9,5 +9,11 @@ namespace Mimirorg.Authentication.Repositories
         public MimirorgCompanyRepository(MimirorgAuthenticationContext dbContext) : base(dbContext)
         {
         }
+
+        public async Task<string> GetLogoDataAsync(int id)
+        {
+            var company = await GetAsync(id);
+            return company?.Logo;
+        }
     }
 }

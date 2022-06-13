@@ -1,8 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Mimirorg.Authentication.Models.Domain;
-using Mimirorg.Common.Extensions;
 
-namespace Mimirorg.Authentication.Models.Application
+namespace Mimirorg.TypeLibrary.Models.Application
 {
     public class MimirorgCompanyAm
     {
@@ -33,20 +31,5 @@ namespace Mimirorg.Authentication.Models.Application
         
         [Display(Name = "Iris")]
         public ICollection<string> Iris { get; set; }
-
-        public MimirorgCompany ToDomainModel()
-        {
-            return new MimirorgCompany
-            {
-                Name = Name,
-                DisplayName = DisplayName,
-                Description = Description,
-                ManagerId = ManagerId,
-                Secret = Secret,
-                Domain = Domain,
-                Logo = Logo,
-                Iris = Iris?.ConvertToString()
-            };
-        }
     }
 }

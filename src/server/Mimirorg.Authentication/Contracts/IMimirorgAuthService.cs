@@ -1,7 +1,7 @@
 ﻿using System.Security.Authentication;
-using Mimirorg.Authentication.Models.Application;
-using Mimirorg.Authentication.Models.Content;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 
 namespace Mimirorg.Authentication.Contracts
 {
