@@ -17,17 +17,18 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
+            var results = new List<ValidationResult>();
+
             if (Permissions == null)
-                yield break;
+                return results;
 
             foreach (var permission in Permissions)
             {
                 var v = permission.Validate(validationContext);
-                foreach (var result in v)
-                {
-                    yield return result;
-                }
+                results.AddRange(v);
             }
+
+            return results;
         }
     }
 }

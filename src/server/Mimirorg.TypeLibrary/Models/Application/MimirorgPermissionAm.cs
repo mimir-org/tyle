@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Mimirorg.Common.Extensions;
-using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Extensions;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
@@ -18,9 +17,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            var permissions = ((MimirorgPermission[])Enum.GetValues(typeof(MimirorgPermission))).Select(c => new MimirorgPermissionAm { Id = (int)c, Name = c.GetDisplayName() }).ToList();
-            if (!permissions.Any(x => x.Id == Id && x.Name == Name))
-                yield return new ValidationResult("There is no permission with current id or name", new[] { "Id", "Name" });
+            return this.ValidatePermission();
         }
 
         public bool Equals(MimirorgPermissionAm x, MimirorgPermissionAm y)
