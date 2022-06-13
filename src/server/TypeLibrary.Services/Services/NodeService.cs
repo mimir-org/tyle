@@ -40,9 +40,6 @@ namespace TypeLibrary.Services.Services
             if (nodeDm == null)
                 throw new MimirorgNotFoundException($"There is no node with id: {id}");
 
-            if (nodeDm.Deleted)
-                throw new MimirorgBadRequestException($"The node with id {id} is marked as deleted in the database.");
-
             var latestVersion = await _versionService.GetLatestVersion(nodeDm);
 
             if(latestVersion != null && nodeDm.Id != latestVersion.Id)
@@ -58,7 +55,10 @@ namespace TypeLibrary.Services.Services
 
         public async Task<IEnumerable<NodeLibCm>> GetLatestVersions()
         {
-            var distinctFirstVersionIdDm = _nodeRepository.Get().ToList().DistinctBy(x => x.FirstVersionId).ToList();
+            var distinctFirstVersionIdDm = _nodeRepository.Get()?.ToList().DistinctBy(x => x.FirstVersionId).ToList();
+
+            if (distinctFirstVersionIdDm == null || !distinctFirstVersionIdDm.Any())
+                return await Task.FromResult(new List<NodeLibCm>());
 
             var nodes = new List<NodeLibDm>();
 

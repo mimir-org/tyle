@@ -31,15 +31,7 @@ namespace TypeLibrary.Data.Repositories
 
         public async Task<InterfaceLibDm> Get(string id)
         {
-            var interfaceDm = await _efInterfaceRepository.FindInterface(id).FirstOrDefaultAsync();
-            
-            if (interfaceDm == null)
-                throw new MimirorgNotFoundException($"There is no interface with id: {id}");
-
-            if (interfaceDm.Deleted)
-                throw new MimirorgBadRequestException($"The interface with id {id} is marked as deleted in the database.");
-
-            return interfaceDm;
+            return await _efInterfaceRepository.FindInterface(id).FirstOrDefaultAsync(x => !x.Deleted);
         }
 
         public async Task Create(InterfaceLibDm dataDm)
@@ -61,6 +53,9 @@ namespace TypeLibrary.Data.Repositories
         public async Task<bool> Delete(string id)
         {
             var dm = await Get(id);
+
+            if (dm == null)
+                throw new MimirorgNotFoundException($"Interface with id {id} not found, delete failed.");
 
             if (dm.CreatedBy == _applicationSettings.System)
                 throw new MimirorgBadRequestException($"The interface with id {id} is created by the system and can not be deleted.");

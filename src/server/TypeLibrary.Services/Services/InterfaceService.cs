@@ -37,6 +37,9 @@ namespace TypeLibrary.Services.Services
 
             var interfaceDm = await _interfaceRepository.Get(id);
 
+            if (interfaceDm == null)
+                throw new MimirorgNotFoundException($"There is no interface with id: {id}");
+
             var latestVersion = await _versionService.GetLatestVersion(interfaceDm);
 
             if (latestVersion != null && interfaceDm.Id != latestVersion.Id)
@@ -52,7 +55,10 @@ namespace TypeLibrary.Services.Services
 
         public async Task<IEnumerable<InterfaceLibCm>> GetLatestVersions()
         {
-            var distinctFirstVersionIdDm = _interfaceRepository.Get().ToList().DistinctBy(x => x.FirstVersionId).ToList();
+            var distinctFirstVersionIdDm = _interfaceRepository.Get()?.ToList().DistinctBy(x => x.FirstVersionId).ToList();
+
+            if (distinctFirstVersionIdDm == null || !distinctFirstVersionIdDm.Any())
+                return await Task.FromResult(new List<InterfaceLibCm>());
 
             var interfaces = new List<InterfaceLibDm>();
 

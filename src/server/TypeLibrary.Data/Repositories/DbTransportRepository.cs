@@ -36,15 +36,7 @@ namespace TypeLibrary.Data.Repositories
 
         public async Task<TransportLibDm> Get(string id)
         {
-            var transportDm = await _transportRepository.FindTransport(id).FirstOrDefaultAsync();
-
-            if (transportDm == null)
-                throw new MimirorgNotFoundException($"There is no transport with id: {id}");
-
-            if (transportDm.Deleted)
-                throw new MimirorgBadRequestException($"The transport with id {id} is marked as deleted in the database.");
-
-            return transportDm;
+            return await _transportRepository.FindTransport(id).FirstOrDefaultAsync(x => !x.Deleted);
         }
 
         public async Task Create(TransportLibDm dataDm)
@@ -64,6 +56,9 @@ namespace TypeLibrary.Data.Repositories
         public async Task<bool> Delete(string id)
         {
             var dm = await Get(id);
+
+            if (dm == null)
+                throw new MimirorgNotFoundException($"Transport with id {id} not found, delete failed.");
 
             if (dm.CreatedBy == _applicationSettings.System)
                 throw new MimirorgBadRequestException($"The transport with id {id} is created by the system and can not be deleted.");

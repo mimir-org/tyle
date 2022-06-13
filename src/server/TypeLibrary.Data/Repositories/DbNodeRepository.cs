@@ -33,15 +33,7 @@ namespace TypeLibrary.Data.Repositories
 
         public async Task<NodeLibDm> Get(string id)
         {
-            var nodeDm = await _efNodeRepository.FindNode(id).FirstOrDefaultAsync();
-            
-            if (nodeDm == null)
-                throw new MimirorgNotFoundException($"There is no node with id: {id}");
-
-            if (nodeDm.Deleted)
-                throw new MimirorgBadRequestException($"The node with id {id} is marked as deleted in the database.");
-
-            return nodeDm;
+            return await _efNodeRepository.FindNode(id).FirstOrDefaultAsync(x => !x.Deleted);
         }
 
         public async Task Create(NodeLibDm dataDm)
@@ -69,6 +61,9 @@ namespace TypeLibrary.Data.Repositories
         public async Task<bool> Delete(string id)
         {
             var dm = await Get(id);
+
+            if (dm == null)
+                throw new MimirorgNotFoundException($"Node with id {id} not found, delete failed.");
 
             if (dm.CreatedBy == _applicationSettings.System)
                 throw new MimirorgBadRequestException($"The node with id {id} is created by the system and can not be deleted.");

@@ -19,10 +19,6 @@ namespace TypeLibrary.Services.Services
     public class TransportService : ITransportService
     {
         private readonly IMapper _mapper;
-        //private readonly IEfTransportRepository _transportRepository;
-        //private readonly IEfRdsRepository _rdsRepository;
-        //private readonly IEfAttributeRepository _attributeRepository;
-        //private readonly IEfPurposeRepository _purposeRepository;
         private readonly ITransportRepository _transportRepository;
         private readonly IVersionService _versionService;
         private readonly ApplicationSettings _applicationSettings;
@@ -42,6 +38,9 @@ namespace TypeLibrary.Services.Services
 
             var transportDm = await _transportRepository.Get(id);
 
+            if (transportDm == null)
+                throw new MimirorgNotFoundException($"There is no transport with id: {id}");
+
             var latestVersion = await _versionService.GetLatestVersion(transportDm);
 
             if (latestVersion != null && transportDm.Id != latestVersion.Id)
@@ -57,7 +56,10 @@ namespace TypeLibrary.Services.Services
 
         public async Task<IEnumerable<TransportLibCm>> GetLatestVersions()
         {
-            var distinctFirstVersionIdDm = _transportRepository.Get().ToList().DistinctBy( x => x.FirstVersionId).ToList();
+            var distinctFirstVersionIdDm = _transportRepository.Get()?.ToList().DistinctBy( x => x.FirstVersionId).ToList();
+
+            if (distinctFirstVersionIdDm == null || !distinctFirstVersionIdDm.Any())
+                return await Task.FromResult(new List<TransportLibCm>());
 
             var transports = new List<TransportLibDm>();
             
