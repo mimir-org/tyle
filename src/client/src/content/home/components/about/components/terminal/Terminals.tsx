@@ -1,8 +1,8 @@
-import { TerminalItem } from "../../../../types/TerminalItem";
 import { useTheme } from "styled-components";
 import { Box } from "../../../../../../complib/layouts";
-import { TerminalSingle } from "./TerminalSingle";
+import { TerminalItem } from "../../../../types/TerminalItem";
 import { TerminalCollection } from "./TerminalCollection";
+import { TerminalSingle } from "./TerminalSingle";
 
 export interface TerminalsProps {
   terminals: TerminalItem[];
@@ -24,8 +24,11 @@ export const Terminals = ({ terminals, variant, showCollectionLimit = 5 }: Termi
   const useSummary = terminals.length > showCollectionLimit;
 
   return (
-    <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.small}>
-      {!useSummary && terminals.map((terminal) => <TerminalSingle key={terminal.name} {...terminal} />)}
+    <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.small} minWidth={"25px"}>
+      {!useSummary &&
+        terminals.map((terminal, index) => (
+          <TerminalSingle {...terminal} key={terminal.name + terminal.direction + index} />
+        ))}
       {useSummary && <TerminalCollection variant={variant} terminals={terminals} />}
     </Box>
   );

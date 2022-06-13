@@ -1,5 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import { TerminalLibAm } from "../../../models/tyle/application/terminalLibAm";
+import { useQuery } from "react-query";
 import { apiRds } from "../../api/tyle/apiTerminal";
 
 const keys = {
@@ -8,11 +7,3 @@ const keys = {
 };
 
 export const useGetTerminals = () => useQuery(keys.lists(), apiRds.getTerminals);
-
-export const useCreateTerminal = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation((item: TerminalLibAm) => apiRds.postTerminal(item), {
-    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
-  });
-};

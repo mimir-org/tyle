@@ -1,9 +1,9 @@
-import { Input } from "../../../../../complib/inputs";
+import { Filter } from "@styled-icons/heroicons-outline";
+import { useTheme } from "styled-components";
 import { TextResources } from "../../../../../assets/text";
 import { Button } from "../../../../../complib/buttons";
-import { Filter } from "@styled-icons/heroicons-outline";
+import { Input } from "../../../../../complib/inputs";
 import { Flexbox } from "../../../../../complib/layouts";
-import { useTheme } from "styled-components";
 
 interface SearchBarProps {
   searchQuery?: string;
@@ -21,11 +21,12 @@ export const SearchBar = ({ searchQuery, setSearchQuery }: SearchBarProps) => {
   const theme = useTheme();
 
   return (
-    <Flexbox gap={theme.tyle.spacing.large} alignItems={"center"}>
+    <Flexbox gap={theme.tyle.spacing.medium} alignItems={"center"}>
       <Input
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         placeholder={TextResources.SEARCH_PLACEHOLDER}
+        width={"100%"}
       />
       <Button disabled icon={<Filter />}>
         {TextResources.SEARCH_FILTER}

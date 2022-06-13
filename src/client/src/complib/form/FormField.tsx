@@ -1,6 +1,6 @@
 import { useTheme } from "styled-components";
 import { PropsWithChildren } from "react";
-import { MotionFlexbox } from "../layouts";
+import { Flexbox, MotionFlexbox } from "../layouts";
 import { MotionText, Text } from "../text";
 
 interface FormFieldProps {
@@ -20,10 +20,13 @@ export const FormField = ({ label, error, children }: PropsWithChildren<FormFiel
 
   return (
     <MotionFlexbox layout={"position"} flexDirection={"column"} gap={theme.tyle.spacing.xs}>
-      <Text as={"label"} variant={"label-large"}>
-        {label}
-      </Text>
-      {children}
+      <Flexbox as={"label"} flexDirection={"column"} gap={theme.tyle.spacing.xs}>
+        <Text as={"span"} variant={"label-large"}>
+          {label}
+        </Text>
+        {children}
+      </Flexbox>
+
       {error && error.message && (
         <MotionText color={theme.tyle.color.error.base} {...theme.tyle.animation.fade}>
           {error.message}

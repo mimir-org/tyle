@@ -33,4 +33,5 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = "Button";
 Button.defaultProps = {
   iconPlacement: "right",
+  type: "button",
 };

@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { NodeLibAm } from "../../../models/tyle/application/nodeLibAm";
 import { apiNode } from "../../api/tyle/apiNode";
+import { UpdateEntity } from "../../types/updateEntity";
 
 const keys = {
   all: ["nodes"] as const,
@@ -16,7 +17,7 @@ export const useGetNode = (id?: string) =>
 export const useCreateNode = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((unit: NodeLibAm) => apiNode.postLibraryNode(unit), {
+  return useMutation((item: NodeLibAm) => apiNode.postLibraryNode(item), {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };
@@ -24,7 +25,7 @@ export const useCreateNode = () => {
 export const useUpdateNode = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((unit: NodeLibAm) => apiNode.putLibraryNode(unit), {
+  return useMutation((item: UpdateEntity<NodeLibAm>) => apiNode.putLibraryNode(item.id, item), {
     onSuccess: (unit) => queryClient.invalidateQueries(keys.node(unit.id)),
   });
 };
