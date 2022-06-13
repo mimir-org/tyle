@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Mimirorg.Authentication.Models.Domain;
+using Mimirorg.Common.Extensions;
 
 namespace Mimirorg.Authentication.Models.Application
 {
@@ -23,6 +24,13 @@ namespace Mimirorg.Authentication.Models.Application
         [Display(Name = "Secret")]
         public string Secret { get; set; }
 
+        [Display(Name = "Domain")]
+        [Required(ErrorMessage = "{0} is required")]
+        public string Domain { get; set; }
+
+        [Display(Name = "Iris")]
+        public ICollection<string> Iris { get; set; }
+
         public MimirorgCompany ToDomainModel()
         {
             return new MimirorgCompany
@@ -31,7 +39,9 @@ namespace Mimirorg.Authentication.Models.Application
                 DisplayName = DisplayName,
                 Description = Description,
                 ManagerId = ManagerId,
-                Secret = Secret
+                Secret = Secret,
+                Domain = Domain,
+                Iris = Iris?.ConvertToString()
             };
         }
     }

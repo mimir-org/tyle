@@ -23,7 +23,7 @@ namespace TypeLibrary.Services.Services
         private readonly IVersionService _versionService;
         private readonly ApplicationSettings _applicationSettings;
 
-        public TransportService( IMapper mapper, IOptions<ApplicationSettings> applicationSettings, IVersionService versionService, ITransportRepository transportRepository)
+        public TransportService(IMapper mapper, IOptions<ApplicationSettings> applicationSettings, IVersionService versionService, ITransportRepository transportRepository)
         {
             _mapper = mapper;
             _versionService = versionService;
@@ -62,7 +62,7 @@ namespace TypeLibrary.Services.Services
                 return await Task.FromResult(new List<TransportLibCm>());
 
             var transports = new List<TransportLibDm>();
-            
+
             foreach (var dm in distinctFirstVersionIdDm)
                 transports.Add(await _versionService.GetLatestVersion(dm));
 
@@ -96,7 +96,7 @@ namespace TypeLibrary.Services.Services
 
             await _transportRepository.Create(transportLibDm);
             _transportRepository.ClearAllChangeTrackers();
-           
+
             return await Get(transportLibDm.Id);
         }
 
@@ -171,6 +171,6 @@ namespace TypeLibrary.Services.Services
         {
             return await _transportRepository.Delete(id);
         }
-        
+
     }
 }

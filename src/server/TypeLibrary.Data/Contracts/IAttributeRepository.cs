@@ -26,7 +26,7 @@ namespace TypeLibrary.Data.Contracts
         #endregion Attribute
 
         #region Predefined
-        
+
         /// <summary>
         /// Get all predefined attributes
         /// </summary>

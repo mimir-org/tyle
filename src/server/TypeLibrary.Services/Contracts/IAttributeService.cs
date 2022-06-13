@@ -10,7 +10,7 @@ namespace TypeLibrary.Services.Contracts
     {
         IEnumerable<AttributeLibCm> Get(Aspect aspect);
         Task Create(List<AttributeLibAm> attributes, bool createdBySystem = false);
-        
+
         IEnumerable<AttributePredefinedLibCm> GetPredefined();
         Task CreatePredefined(List<AttributePredefinedLibAm> predefined, bool createdBySystem = false);
 

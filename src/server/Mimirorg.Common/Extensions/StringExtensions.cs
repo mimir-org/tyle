@@ -9,7 +9,7 @@ namespace Mimirorg.Common.Extensions
     {
         public static bool HasDuplicateValues(this ICollection<string> values)
         {
-            if(values == null)
+            if (values == null)
                 return false;
 
             return values.GroupBy(x => x).Where(g => g.Count() > 1).Select(y => y.Key).ToList().Any();
