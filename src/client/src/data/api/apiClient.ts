@@ -1,17 +1,11 @@
 import axios from "axios";
 import Config from "../../models/Config";
-import { getToken } from "../../utils/token";
+import { injectBearerToken } from "./interceptors/injectBearerToken";
+import { refreshExpiredToken } from "./interceptors/refreshExpiredToken";
 
 export const apiClient = axios.create({
   baseURL: Config.API_BASE_URL,
 });
 
-apiClient.interceptors.request.use((config) => {
-  const token = getToken();
-
-  if (token?.secret && config.headers) {
-    config.headers["Authorization"] = `Bearer ${token.secret}`;
-  }
-
-  return config;
-});
+apiClient.interceptors.request.use(injectBearerToken);
+apiClient.interceptors.request.use(refreshExpiredToken);
