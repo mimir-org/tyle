@@ -1,14 +1,14 @@
 import { QueryClient, QueryClientProvider } from "react-query";
-import { GlobalStyle, themeBuilder, TyleThemeProvider } from "../../complib/core";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { App } from "../app";
 import { BrowserRouter } from "react-router-dom";
-import { isProduction } from "../../models/Config";
+import { GlobalStyle, themeBuilder, TyleThemeProvider } from "../../complib/core";
 import { usePrefersTheme } from "../../hooks/usePrefersTheme";
+import { isProduction } from "../../models/Config";
+import { App } from "../app";
 
 export const Root = () => {
   const queryClient = new QueryClient();
-  const [colorTheme] = usePrefersTheme("light");
+  const [colorTheme] = usePrefersTheme("light", { storageOnly: true });
 
   return (
     <BrowserRouter>
