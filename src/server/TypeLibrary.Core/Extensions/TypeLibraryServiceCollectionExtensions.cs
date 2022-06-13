@@ -80,7 +80,7 @@ namespace TypeLibrary.Core.Extensions
             appSettingsSection.Bind(appSettings);
 
             serviceCollection.AddSingleton(Options.Create(appSettings));
-            
+
             return serviceCollection;
         }
 

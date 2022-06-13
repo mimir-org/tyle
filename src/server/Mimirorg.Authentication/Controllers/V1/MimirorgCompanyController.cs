@@ -85,34 +85,48 @@ namespace Mimirorg.Authentication.Controllers.V1
             }
         }
 
-        ///// <summary>
-        ///// Get a specific company by id
-        ///// </summary>
-        ///// <param name="id">int</param>
-        ///// <returns>MimirorgCompanyCm</returns>
-        //[HttpGet]
-        //[Route("{id:int}")]
-        //[ProducesResponseType(typeof(MimirorgCompanyCm), 200)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[SwaggerOperation("Get a specific company by id")]
-        //public async Task<IActionResult> GetCompany([FromRoute] int id)
-        //{
-        //    try
-        //    {
-        //        var data = await _companyService.GetCompanyById(id);
-        //        return Ok(data);
-        //    }
-        //    catch (MimirorgNotFoundException)
-        //    {
-        //        return NotFound();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        _logger.LogError(e, $"An error occurred while trying to get company by id. Error: {e.Message}");
-        //        return StatusCode(500, "Internal Server Error");
-        //    }
-        //}
+        /// <summary>
+        /// Get a specific company by auth param
+        /// </summary>
+        /// <param name="mimirorgCompanyAuth">MimirorgCompanyAuthAm</param>
+        /// <returns>MimirorgCompanyCm</returns>
+        [HttpPost]
+        [Route("auth")]
+        [ProducesResponseType(typeof(MimirorgCompanyCm), 200)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [SwaggerOperation("Get a specific company by id")]
+        public async Task<IActionResult> GetCompany([FromBody] MimirorgCompanyAuthAm mimirorgCompanyAuth)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                var data = await _companyService.GetCompanyByAuth(mimirorgCompanyAuth);
+                return Ok(data);
+            }
+            catch (MimirorgNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                foreach (var error in e.Errors().ToList())
+                {
+                    ModelState.Remove(error.Key);
+                    ModelState.TryAddModelError(error.Key, error.Error);
+                }
+
+                return BadRequest(ModelState);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to get company by id. Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
 
         /// <summary>
         /// Register a new company

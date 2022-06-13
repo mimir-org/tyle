@@ -31,6 +31,15 @@ namespace Mimirorg.Authentication.Contracts
         Task<MimirorgCompanyCm> GetCompanyById(int id);
 
         /// <summary>
+        /// Get a company by domain and secret
+        /// </summary>
+        /// <param name="mimirorgCompanyAuth">Domain and secret</param>
+        /// <returns>MimirorgCompanyCm</returns>
+        /// <exception cref="MimirorgNotFoundException"></exception>
+        /// <exception cref="MimirorgBadRequestException"></exception>
+        Task<MimirorgCompanyCm> GetCompanyByAuth(MimirorgCompanyAuthAm mimirorgCompanyAuth);
+
+        /// <summary>
         /// Update a company
         /// </summary>
         /// <param name="id"></param>

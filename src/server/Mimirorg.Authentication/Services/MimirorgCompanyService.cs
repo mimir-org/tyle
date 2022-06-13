@@ -85,6 +85,31 @@ namespace Mimirorg.Authentication.Services
         }
 
         /// <summary>
+        /// Get a company by domain and secret
+        /// </summary>
+        /// <param name="mimirorgCompanyAuth">Domain and secret</param>
+        /// <returns>MimirorgCompanyCm</returns>
+        /// <exception cref="MimirorgNotFoundException"></exception>
+        /// <exception cref="MimirorgBadRequestException"></exception>
+        public async Task<MimirorgCompanyCm> GetCompanyByAuth(MimirorgCompanyAuthAm mimirorgCompanyAuth)
+        {
+            var validation = mimirorgCompanyAuth.ValidateObject();
+            if (!validation.IsValid)
+                throw new MimirorgBadRequestException("The model for mimirorg auth is not valid.", validation);
+
+            var company = await _mimirorgCompanyRepository
+                .FindBy(x => x.Domain == mimirorgCompanyAuth.Domain && x.Secret == mimirorgCompanyAuth.Secret)
+                .Include(x => x.Manager).FirstOrDefaultAsync();
+            
+            if (company == null)
+                throw new MimirorgNotFoundException($"Could not find company with auth param");
+
+            var companyCm = company.ToContentModel();
+            companyCm.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{companyCm.Id}.png";
+            return companyCm;
+        }
+
+        /// <summary>
         /// Update a company
         /// </summary>
         /// <param name="id"></param>
@@ -137,7 +162,7 @@ namespace Mimirorg.Authentication.Services
             var hooks = _mimirorgHookRepository.GetAll().Where(x => x.Key == key).Include(x => x.Company).Select(x => x.ToContentModel()).ToList();
             foreach (var mimirorgHookCm in hooks)
             {
-                if(mimirorgHookCm.Company == null)
+                if (mimirorgHookCm.Company == null)
                     continue;
 
                 mimirorgHookCm.Company.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{mimirorgHookCm.Company.Id}.png";
