@@ -56,7 +56,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<IEnumerable<TransportLibCm>> GetLatestVersions()
         {
-            var distinctFirstVersionIdDm = _transportRepository.Get()?.ToList().DistinctBy( x => x.FirstVersionId).ToList();
+            var distinctFirstVersionIdDm = _transportRepository.Get()?.ToList().DistinctBy(x => x.FirstVersionId).ToList();
 
             if (distinctFirstVersionIdDm == null || !distinctFirstVersionIdDm.Any())
                 return await Task.FromResult(new List<TransportLibCm>());
