@@ -1,6 +1,5 @@
+import { Aspect, NodeLibAm } from "@mimirorg/typelibrary-types";
 import { useCreateNode, useGetNodes } from "../../data/queries/tyle/queriesNode";
-import { NodeLibAm } from "../../models/tyle/application/nodeLibAm";
-import { Aspect } from "../../models/tyle/enums/aspect";
 import {
   ButtonContainer,
   JsonContent,

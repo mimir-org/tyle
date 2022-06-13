@@ -1,6 +1,6 @@
+import { NodeLibAm, NodeLibCm } from "@mimirorg/typelibrary-types";
 import { UpdateEntity } from "../../../data/types/updateEntity";
-import { createEmptyNodeLibAm, NodeLibAm } from "../../../models/tyle/application/nodeLibAm";
-import { NodeLibCm } from "../../../models/tyle/client/nodeLibCm";
+import { createEmptyNodeLibAm } from "../../../models/tyle/application/nodeLibAm";
 import { mapNodeLibCmToNodeLibAm } from "../../../utils/mappers";
 import {
   FormSelectedAttributePredefinedLibAm,

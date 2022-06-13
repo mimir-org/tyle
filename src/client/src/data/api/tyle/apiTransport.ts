@@ -1,5 +1,5 @@
+import { TransportLibCm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "../apiClient";
-import { TransportLibCm } from "../../../models/tyle/client/transportLibCm";
 
 const _basePath = "librarytransport";
 

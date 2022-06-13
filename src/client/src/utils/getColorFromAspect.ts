@@ -1,4 +1,4 @@
-import { Aspect } from "../models/tyle/enums/aspect";
+import { Aspect } from "@mimirorg/typelibrary-types";
 
 export const getColorFromAspect = (aspect: Aspect) => {
   switch (aspect) {

@@ -1,5 +1,5 @@
+import { Aspect } from "@mimirorg/typelibrary-types";
 import { useQuery } from "react-query";
-import { Aspect } from "../../../models/tyle/enums/aspect";
 import { apiAttribute } from "../../api/tyle/apiAttribute";
 
 const keys = {

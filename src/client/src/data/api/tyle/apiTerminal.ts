@@ -1,4 +1,4 @@
-import { TerminalLibCm } from "../../../models/tyle/client/terminalLibCm";
+import { TerminalLibCm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "../apiClient";
 
 const _basePath = "libraryterminal";

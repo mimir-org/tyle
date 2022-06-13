@@ -1,8 +1,7 @@
+import { Aspect, AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { UseFieldArrayReturn } from "react-hook-form";
-import { FormNodeLib } from "../../types/formNodeLib";
-import { AttributeLibCm } from "../../../../models/tyle/client/attributeLibCm";
 import { mapAttributeLibCmToAttributeItem } from "../../../../utils/mappers";
-import { Aspect } from "../../../../models/tyle/enums/aspect";
+import { FormNodeLib } from "../../types/formNodeLib";
 
 export const onAddAttributes = (
   ids: string[],

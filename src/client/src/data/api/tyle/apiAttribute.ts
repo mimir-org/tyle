@@ -1,11 +1,13 @@
-import { AttributeAspectLibCm } from "../../../models/tyle/client/attributeAspectLibCm";
-import { AttributeConditionLibCm } from "../../../models/tyle/client/attributeConditionLibCm";
-import { AttributeFormatLibCm } from "../../../models/tyle/client/attributeFormatLibCm";
-import { AttributeLibCm } from "../../../models/tyle/client/attributeLibCm";
-import { AttributePredefinedLibCm } from "../../../models/tyle/client/attributePredefinedLibCm";
-import { AttributeQualifierLibCm } from "../../../models/tyle/client/attributeQualifierLibCm";
-import { AttributeSourceLibCm } from "../../../models/tyle/client/attributeSourceLibCm";
-import { Aspect } from "../../../models/tyle/enums/aspect";
+import {
+  Aspect,
+  AttributeAspectLibCm,
+  AttributeConditionLibCm,
+  AttributeFormatLibCm,
+  AttributeLibCm,
+  AttributePredefinedLibCm,
+  AttributeQualifierLibCm,
+  AttributeSourceLibCm,
+} from "@mimirorg/typelibrary-types";
 import { apiClient } from "../apiClient";
 
 const _basePath = "libraryattribute";

@@ -1,5 +1,5 @@
+import { SelectedAttributePredefinedLibAm } from "@mimirorg/typelibrary-types";
 import { ValueObject } from "./valueObject";
-import { SelectedAttributePredefinedLibAm } from "../../../models/tyle/application/selectedAttributePredefinedLibAm";
 
 /**
  * This type functions as a layer between client needs and the backend model.

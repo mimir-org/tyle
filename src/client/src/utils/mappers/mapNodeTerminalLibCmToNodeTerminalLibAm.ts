@@ -1,5 +1,4 @@
-import { NodeTerminalLibAm } from "../../models/tyle/application/nodeTerminalLibAm";
-import { NodeTerminalLibCm } from "../../models/tyle/client/nodeTerminalLibCm";
+import { NodeTerminalLibAm, NodeTerminalLibCm } from "@mimirorg/typelibrary-types";
 
 export const mapNodeTerminalLibCmToNodeTerminalLibAm = (nodeTerminal: NodeTerminalLibCm): NodeTerminalLibAm => ({
   ...nodeTerminal,

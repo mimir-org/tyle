@@ -1,5 +1,5 @@
+import { ConnectorDirection } from "@mimirorg/typelibrary-types";
 import { ChangeEvent } from "react";
-import { ConnectorDirection } from "../../../../models/tyle/enums/connectorDirection";
 
 export const onTerminalAmountChange = (
   index: number,

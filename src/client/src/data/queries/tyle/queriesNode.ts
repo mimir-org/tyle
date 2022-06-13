@@ -1,5 +1,5 @@
+import { NodeLibAm } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { NodeLibAm } from "../../../models/tyle/application/nodeLibAm";
 import { apiNode } from "../../api/tyle/apiNode";
 import { UpdateEntity } from "../../types/updateEntity";
 

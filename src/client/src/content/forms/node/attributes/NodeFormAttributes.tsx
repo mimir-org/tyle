@@ -1,3 +1,4 @@
+import { Aspect } from "@mimirorg/typelibrary-types";
 import { Trash } from "@styled-icons/heroicons-outline";
 import { Control, useFieldArray, UseFormRegister } from "react-hook-form";
 import { useTheme } from "styled-components/macro";
@@ -6,7 +7,6 @@ import textResources from "../../../../assets/text/TextResources";
 import { Box, Flexbox } from "../../../../complib/layouts";
 import { Text } from "../../../../complib/text";
 import { useGetAttributes } from "../../../../data/queries/tyle/queriesAttribute";
-import { Aspect } from "../../../../models/tyle/enums/aspect";
 import { AttributeInfoButton } from "../../../home/components/about/components/attribute/AttributeInfoButton";
 import { FormNodeLib } from "../../types/formNodeLib";
 import { getAttributeItems, onAddAttributes, prepareAttributes } from "./NodeFormAttributes.helpers";

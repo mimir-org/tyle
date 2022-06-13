@@ -1,4 +1,4 @@
-import { SymbolLibCm } from "../../../models/tyle/client/symbolLibCm";
+import { SymbolLibCm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "../apiClient";
 
 const _basePath = "librarysymbol";
