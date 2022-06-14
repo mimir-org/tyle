@@ -23,8 +23,7 @@ jobs:
         id: tag_version
         uses: mimir-org/mimir-actions/generate-release-tag-action@main
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          prefix: v
+          github_token: ${{ secrets.GITHUB_TOKEN }}          
 
       - name: Release
         if: ${{ steps.tag_version.outputs.new_tag != '' }}
