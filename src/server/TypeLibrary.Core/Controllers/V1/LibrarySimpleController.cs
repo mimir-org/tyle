@@ -45,7 +45,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _simpleService.GetSimple(id);
+                var data = await _simpleService.Get(id);
                 return Ok(data);
             }
             catch (Exception e)
@@ -68,36 +68,13 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _simpleService.GetAllSimple();
+                var data = await _simpleService.Get();
                 return Ok(data.ToList());
             }
             catch (Exception e)
             {
                 _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
                 return StatusCode(500, e.Message);
-            }
-        }
-
-        /// <summary>
-        /// Create simple
-        /// </summary>
-        /// <param name="dataAm"></param>
-        /// <returns>SimpleLibCm</returns>
-        [HttpPost]
-        [ProducesResponseType(typeof(SimpleLibCm), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Admin")]
-        public async Task<IActionResult> CreateSimple([FromBody] SimpleLibAm dataAm)
-        {
-            try
-            {
-                var data = await _simpleService.CreateSimple(dataAm);
-                return Ok(data);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
             }
         }
     }

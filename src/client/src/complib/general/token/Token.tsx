@@ -30,15 +30,15 @@ export const Token = ({ text, variant = "medium" }: TokenProps) => {
 
 const boxVariants = (theme: DefaultTheme) => ({
   small: {
-    gap: theme.typeLibrary.spacing.xxs,
-    p: `${theme.typeLibrary.spacing.xs} ${theme.typeLibrary.spacing.small}`,
+    gap: theme.tyle.spacing.xxs,
+    p: `${theme.tyle.spacing.xs} ${theme.tyle.spacing.small}`,
   },
   medium: {
-    gap: theme.typeLibrary.spacing.xs,
-    p: `${theme.typeLibrary.spacing.xs} ${theme.typeLibrary.spacing.medium}`,
+    gap: theme.tyle.spacing.xs,
+    p: `${theme.tyle.spacing.xs} ${theme.tyle.spacing.medium}`,
   },
   large: {
-    gap: theme.typeLibrary.spacing.small,
-    p: `${theme.typeLibrary.spacing.small} ${theme.typeLibrary.spacing.large}`,
+    gap: theme.tyle.spacing.small,
+    p: `${theme.tyle.spacing.small} ${theme.tyle.spacing.large}`,
   },
 });

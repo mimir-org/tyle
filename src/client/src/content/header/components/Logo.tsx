@@ -12,7 +12,7 @@ export const Logo = ({ name, icon }: Props) => {
   const theme = useTheme();
 
   return (
-    <Flexbox alignItems={"center"} gap={theme.typeLibrary.spacing.small}>
+    <Flexbox alignItems={"center"} gap={theme.tyle.spacing.small}>
       <Icon size={30} src={icon} alt={""} />
       <Text variant={"title-large"}>{name}</Text>
     </Flexbox>

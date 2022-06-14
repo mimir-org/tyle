@@ -4,9 +4,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
-using Mimirorg.Authentication.Models.Application;
-using Mimirorg.Authentication.Models.Content;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Mimirorg.Authentication.Controllers.V1
@@ -18,6 +19,7 @@ namespace Mimirorg.Authentication.Controllers.V1
     [SwaggerTag("Mimirorg authenticate services")]
     public class MimirorgAuthenticateController : ControllerBase
     {
+        private const string RefreshTokenCookie = "tyleToken";
         private readonly ILogger<MimirorgAuthenticateController> _logger;
         private readonly IMimirorgAuthService _authService;
 
@@ -48,7 +50,12 @@ namespace Mimirorg.Authentication.Controllers.V1
                     return BadRequest(ModelState);
 
                 var data = await _authService.Authenticate(authenticate);
-                return Ok(data);
+                var accessToken = data.FirstOrDefault(x => x.TokenType == MimirorgTokenType.AccessToken);
+                var refreshToken = data.FirstOrDefault(x => x.TokenType == MimirorgTokenType.RefreshToken);
+
+                await AddRefreshTokenCookie(HttpContext.Request, HttpContext.Response, refreshToken);
+
+                return Ok(accessToken);
             }
             catch (MimirorgBadRequestException e)
             {
@@ -75,25 +82,28 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// <summary>
         /// Authenticate an user with secret
         /// </summary>
-        /// <param name="authenticateSecret">string</param>
         /// <returns>ICollection&lt;MimirorgTokenCm&gt;</returns>
         [AllowAnonymous]
         [HttpPost]
         [Route("secret")]
-        [ProducesResponseType(typeof(ICollection<MimirorgTokenCm>), 200)]
+        [ProducesResponseType(typeof(MimirorgTokenCm), 200)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [SwaggerOperation("Login with secret")]
-        public async Task<IActionResult> LoginSecret([FromBody] MimirorgAuthenticateSecretAm authenticateSecret)
+        public async Task<IActionResult> LoginSecret()
         {
             try
             {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
+                if (!HttpContext.Request.Cookies.TryGetValue(RefreshTokenCookie, out var token))
+                    throw new AuthenticationException("Refresh token is missing");
 
-                var data = await _authService.Authenticate(authenticateSecret.Secret);
-                return Ok(data);
+                var data = await _authService.Authenticate(token);
+                var accessToken = data.FirstOrDefault(x => x.TokenType == MimirorgTokenType.AccessToken);
+                var refreshToken = data.FirstOrDefault(x => x.TokenType == MimirorgTokenType.RefreshToken);
+
+                await AddRefreshTokenCookie(HttpContext.Request, HttpContext.Response, refreshToken);
+                return Ok(accessToken);
             }
             catch (AuthenticationException e)
             {
@@ -148,5 +158,32 @@ namespace Mimirorg.Authentication.Controllers.V1
                 return StatusCode(500, "Internal Server Error");
             }
         }
+
+        #region Private methods
+
+        private Task AddRefreshTokenCookie(HttpRequest request, HttpResponse response, MimirorgTokenCm token)
+        {
+            if (response == null || token == null || request == null)
+                return Task.CompletedTask;
+
+            if (token.TokenType != MimirorgTokenType.RefreshToken)
+                return Task.CompletedTask;
+
+            if (request.Cookies.ContainsKey(RefreshTokenCookie))
+                response.Cookies.Delete(RefreshTokenCookie);
+
+            if (!string.IsNullOrWhiteSpace(token.Secret))
+                Response.Cookies.Append(RefreshTokenCookie, token.Secret, new CookieOptions
+                {
+                    Expires = token.ValidTo,
+                    HttpOnly = true,
+                    SameSite = SameSiteMode.Strict,
+                    Secure = true
+                });
+
+            return Task.CompletedTask;
+        }
+
+        #endregion
     }
 }

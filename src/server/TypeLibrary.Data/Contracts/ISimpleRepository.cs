@@ -1,12 +1,14 @@
-﻿using System.Linq;
-using Mimirorg.Common.Abstract;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface ISimpleRepository : IGenericRepository<TypeLibraryDbContext, SimpleLibDm>
+    public interface ISimpleRepository
     {
-        IQueryable<SimpleLibDm> GetAllSimples();
-        IQueryable<SimpleLibDm> FindSimple(string id);
+        Task<SimpleLibDm> Get(string id);
+        IEnumerable<SimpleLibDm> Get();
+        Task Create(SimpleLibDm dataDm);
+        void ClearAllChangeTrackers();
     }
 }

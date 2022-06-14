@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Mimirorg.Authentication.Models.Constants;
-using Mimirorg.Authentication.Models.Enums;
 using Mimirorg.Common.Extensions;
+using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.Authentication.Models.Attributes
 {

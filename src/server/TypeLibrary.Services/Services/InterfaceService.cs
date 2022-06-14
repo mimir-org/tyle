@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
@@ -19,35 +19,33 @@ namespace TypeLibrary.Services.Services
     {
         private readonly IMapper _mapper;
         private readonly IInterfaceRepository _interfaceRepository;
-        private readonly IRdsRepository _rdsRepository;
-        private readonly IAttributeRepository _attributeRepository;
-        private readonly IPurposeRepository _purposeRepository;
+        private readonly IVersionService _versionService;
         private readonly ApplicationSettings _applicationSettings;
 
-        public InterfaceService(IPurposeRepository purposeRepository, IAttributeRepository attributeRepository, IRdsRepository rdsRepository, IMapper mapper, IInterfaceRepository interfaceRepository, IOptions<ApplicationSettings> applicationSettings)
+        public InterfaceService(IMapper mapper, IOptions<ApplicationSettings> applicationSettings, IVersionService versionService, IInterfaceRepository interfaceRepository)
         {
-            _purposeRepository = purposeRepository;
-            _attributeRepository = attributeRepository;
-            _rdsRepository = rdsRepository;
             _mapper = mapper;
+            _versionService = versionService;
             _interfaceRepository = interfaceRepository;
             _applicationSettings = applicationSettings?.Value;
         }
 
-        public async Task<InterfaceLibCm> GetInterface(string id)
+        public async Task<InterfaceLibCm> Get(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
                 throw new MimirorgBadRequestException("Can't get interface. The id is missing value.");
 
-            var data = await _interfaceRepository.FindInterface(id).FirstOrDefaultAsync();
+            var interfaceDm = await _interfaceRepository.Get(id);
 
-            if (data == null)
+            if (interfaceDm == null)
                 throw new MimirorgNotFoundException($"There is no interface with id: {id}");
 
-            if (data.Deleted)
-                throw new MimirorgBadRequestException($"The item with id {id} is marked as deleted in the database.");
+            var latestVersion = await _versionService.GetLatestVersion(interfaceDm);
 
-            var interfaceLibCm = _mapper.Map<InterfaceLibCm>(data);
+            if (latestVersion != null && interfaceDm.Id != latestVersion.Id)
+                throw new MimirorgBadRequestException($"The interface with id {id} and version {interfaceDm.Version} is older than latest version {latestVersion.Version}.");
+
+            var interfaceLibCm = _mapper.Map<InterfaceLibCm>(interfaceDm);
 
             if (interfaceLibCm == null)
                 throw new MimirorgMappingException("InterfaceLibDm", "InterfaceLibCm");
@@ -55,54 +53,53 @@ namespace TypeLibrary.Services.Services
             return interfaceLibCm;
         }
 
-        public Task<IEnumerable<InterfaceLibCm>> GetInterfaces()
+        public async Task<IEnumerable<InterfaceLibCm>> GetLatestVersions()
         {
-            var interfaces = _interfaceRepository.GetAllInterfaces().Where(x => !x.Deleted).ToList()
-                .OrderBy(x => x.Aspect)
-                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var distinctFirstVersionIdDm = _interfaceRepository.Get()?.ToList().DistinctBy(x => x.FirstVersionId).ToList();
 
-            var interfaceLibCms = _mapper.Map<IEnumerable<InterfaceLibCm>>(interfaces);
+            if (distinctFirstVersionIdDm == null || !distinctFirstVersionIdDm.Any())
+                return await Task.FromResult(new List<InterfaceLibCm>());
+
+            var interfaces = new List<InterfaceLibDm>();
+
+            foreach (var dm in distinctFirstVersionIdDm)
+                interfaces.Add(await _versionService.GetLatestVersion(dm));
+
+            interfaces = interfaces.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
+            var interfaceLibCms = _mapper.Map<List<InterfaceLibCm>>(interfaces);
 
             if (interfaces.Any() && (interfaceLibCms == null || !interfaceLibCms.Any()))
                 throw new MimirorgMappingException("List<InterfaceLibDm>", "ICollection<InterfaceLibAm>");
 
-            return Task.FromResult(interfaceLibCms ?? new List<InterfaceLibCm>());
+            return await Task.FromResult(interfaceLibCms ?? new List<InterfaceLibCm>());
         }
 
-        public async Task<InterfaceLibCm> CreateInterface(InterfaceLibAm dataAm)
+        public async Task<InterfaceLibCm> Create(InterfaceLibAm dataAm)
         {
-            var existingInterface = await _interfaceRepository.GetAsync(dataAm.Id);
+            if (dataAm == null)
+                throw new MimirorgBadRequestException("Data object can not be null.");
 
-            if (existingInterface != null)
-                throw new MimirorgBadRequestException($"There is already registered an interface with name: {existingInterface.Name} with version: {existingInterface.Version}");
+            var existing = await _interfaceRepository.Get(dataAm.Id);
+
+            if (existing != null)
+                throw new MimirorgBadRequestException($"Node '{existing.Name}', with RdsCode '{existing.RdsCode}', Aspect '{existing.Aspect}' and version '{existing.Version}' already exist in db.");
 
             var interfaceLibDm = _mapper.Map<InterfaceLibDm>(dataAm);
+
+            if (!double.TryParse(interfaceLibDm.Version, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out _))
+                throw new MimirorgBadRequestException($"Error when parsing version value '{interfaceLibDm.Version}' to double.");
 
             if (interfaceLibDm == null)
                 throw new MimirorgMappingException("InterfaceLibAm", "InterfaceLibDm");
 
-            interfaceLibDm.RdsName = _rdsRepository.FindBy(x => x.Id == interfaceLibDm.RdsCode)?.First()?.Name;
-            interfaceLibDm.PurposeName = _purposeRepository.FindBy(x => x.Id == interfaceLibDm.PurposeName)?.First()?.Name;
+            await _interfaceRepository.Create(interfaceLibDm);
+            _interfaceRepository.ClearAllChangeTrackers();
 
-            _attributeRepository.Attach(interfaceLibDm.Attributes, EntityState.Unchanged);
-
-            await _interfaceRepository.CreateAsync(interfaceLibDm);
-            await _interfaceRepository.SaveAsync();
-
-            _attributeRepository.Detach(interfaceLibDm.Attributes);
-            _interfaceRepository.Detach(interfaceLibDm);
-
-            var createdObject = _mapper.Map<InterfaceLibCm>(interfaceLibDm);
-
-            if (createdObject == null)
-                throw new MimirorgMappingException("InterfaceLibDm", "InterfaceLibCm");
-
-            return createdObject;
+            return await Get(interfaceLibDm.Id);
         }
 
-        //TODO: This is (temporary) a create/delete method to maintain compatibility with Mimir TypeEditor.
-        //TODO: This method need to be rewritten as a proper update method with versioning logic.
-        public async Task<InterfaceLibCm> UpdateInterface(InterfaceLibAm dataAm, string id)
+        public async Task<InterfaceLibCm> Update(InterfaceLibAm dataAm, string id)
         {
             if (string.IsNullOrEmpty(id))
                 throw new MimirorgBadRequestException("Can't update an interface without an id.");
@@ -110,44 +107,43 @@ namespace TypeLibrary.Services.Services
             if (dataAm == null)
                 throw new MimirorgBadRequestException("Can't update an interface when dataAm is null.");
 
-            var existingDm = await _interfaceRepository.GetAsync(id);
+            if (id == dataAm.Id)
+                throw new MimirorgBadRequestException("Not allowed to update: Name, RdsCode or Aspect.");
 
-            if (existingDm?.Id == null)
+            var interfaceToUpdate = await _interfaceRepository.Get(id);
+
+            if (interfaceToUpdate?.Id == null)
                 throw new MimirorgNotFoundException($"Interface with id {id} does not exist.");
 
-            if (existingDm.CreatedBy == _applicationSettings.System)
+            if (interfaceToUpdate.CreatedBy == _applicationSettings.System)
                 throw new MimirorgBadRequestException($"The interface with id {id} is created by the system and can not be updated.");
 
-            var created = await CreateInterface(dataAm);
+            if (interfaceToUpdate.Deleted)
+                throw new MimirorgBadRequestException($"The transport with id {id} is deleted and can not be updated.");
 
-            if (created?.Id != null)
-                throw new MimirorgBadRequestException($"Unable to update interface with id {id}");
+            var latestInterfaceDm = await _versionService.GetLatestVersion(interfaceToUpdate);
 
-            return await DeleteInterface(id) ? created : throw new MimirorgBadRequestException($"Unable to delete interface with id {id}");
+            if (latestInterfaceDm == null)
+                throw new MimirorgBadRequestException($"Latest node version for node with id {id} not found (null).");
+
+            if (string.IsNullOrWhiteSpace(latestInterfaceDm.Version))
+                throw new MimirorgBadRequestException($"Latest version for node with id {id} has null or empty as version number.");
+
+            var latestInterfaceVersion = double.Parse(latestInterfaceDm.Version, CultureInfo.InvariantCulture);
+            var interfaceToUpdateVersion = double.Parse(interfaceToUpdate.Version, CultureInfo.InvariantCulture);
+
+            if (latestInterfaceVersion > interfaceToUpdateVersion)
+                throw new MimirorgBadRequestException($"Not allowed to update interface with id {interfaceToUpdate.Id} and version {interfaceToUpdateVersion}. Latest version is interface with id {latestInterfaceDm.Id} and version {latestInterfaceVersion}");
+
+            dataAm.Version = await _versionService.CalculateNewVersion(latestInterfaceDm, dataAm);
+            dataAm.FirstVersionId = latestInterfaceDm.FirstVersionId;
+
+            return await Create(dataAm);
         }
 
-        public async Task<bool> DeleteInterface(string id)
+        public async Task<bool> Delete(string id)
         {
-            var dm = await _interfaceRepository.GetAsync(id);
-
-            if(dm.Deleted)
-                throw new MimirorgBadRequestException($"The interface with id {id} is already marked as deleted in the database.");
-
-            if (dm.CreatedBy == _applicationSettings.System)
-                throw new MimirorgBadRequestException($"The interface with id {id} is created by the system and can not be deleted.");
-
-            dm.Deleted = true;
-
-            var status = await _interfaceRepository.Context.SaveChangesAsync();
-            return status == 1;
-        }
-
-        public void ClearAllChangeTrackers()
-        {
-            _interfaceRepository?.Context?.ChangeTracker.Clear();
-            _rdsRepository?.Context?.ChangeTracker.Clear();
-            _attributeRepository?.Context?.ChangeTracker.Clear();
-            _purposeRepository?.Context?.ChangeTracker.Clear();
+            return await _interfaceRepository.Delete(id);
         }
     }
 }

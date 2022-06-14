@@ -9,7 +9,7 @@ namespace TypeLibrary.Data.Models
         public string Iri { get; set; }
         public string ContentReferences { get; set; }
         public bool IsMultiSelect { get; set; }
-        public virtual Dictionary<string, bool> Values { get; set; }
+        public Dictionary<string, bool> Values { get; set; }
         public Aspect Aspect { get; set; }
     }
 }

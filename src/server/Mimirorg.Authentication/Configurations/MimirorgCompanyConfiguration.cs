@@ -10,12 +10,16 @@ namespace Mimirorg.Authentication.Configurations
         {
             builder.HasKey(x => x.Id);
             builder.HasIndex(x => x.Name).IsUnique();
+            builder.HasIndex(x => x.Domain).IsUnique();
+            builder.HasIndex(x => new { x.Domain, x.Secret }).IsUnique();
             builder.ToTable("MimirorgCompany");
             builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();
             builder.Property(p => p.DisplayName).HasColumnName("DisplayName").IsRequired(false);
             builder.Property(p => p.Description).HasColumnName("Description").IsRequired(false);
-            builder.Property(p => p.Secret).HasColumnName("Secret").IsRequired(false);
+            builder.Property(p => p.Secret).HasColumnName("Secret").IsRequired();
+            builder.Property(p => p.Domain).HasColumnName("Domain").IsRequired();
+            builder.Property(p => p.Iris).HasColumnName("Iris").IsRequired(false);
             builder.HasOne(x => x.Manager).WithMany(y => y.MangeCompanies).HasForeignKey(x => x.ManagerId).IsRequired().OnDelete(DeleteBehavior.Cascade);
 
         }

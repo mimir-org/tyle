@@ -1,6 +1,4 @@
-﻿using Mimirorg.Authentication.Models.Content;
-
-namespace Mimirorg.Authentication.Models.Domain
+﻿namespace Mimirorg.Authentication.Models.Domain
 {
     public class MimirorgCompany
     {
@@ -9,23 +7,13 @@ namespace Mimirorg.Authentication.Models.Domain
         public string DisplayName { get; set; }
         public string Description { get; set; }
         public string Secret { get; set; }
+        public string Domain { get; set; }
+        public string Logo { get; set; }
+        public string Iris { get; set; }
 
         public string ManagerId { get; set; }
         public MimirorgUser Manager { get; set; }
 
         public List<MimirorgHook> Hooks { get; set; }
-
-        public MimirorgCompanyCm ToContentModel()
-        {
-            return new MimirorgCompanyCm
-            {
-                Id = Id,
-                Name = Name,
-                DisplayName = DisplayName,
-                Description = Description,
-                Manager = Manager?.ToContentModel(),
-                Secret = Secret
-            };
-        }
     }
 }

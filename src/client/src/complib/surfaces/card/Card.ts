@@ -13,11 +13,11 @@ type CardProps = Elevation &
   };
 
 export const Card = styled.div<CardProps>`
-  padding: ${(props) => props.theme.typeLibrary.spacing.small};
-  border-radius: ${(props) => !props.square && props.theme.typeLibrary.border.radius.medium};
+  padding: ${(props) => props.theme.tyle.spacing.small};
+  border-radius: ${(props) => !props.square && props.theme.tyle.border.radius.medium};
 
   ${({ variant, elevation, interactive, ...props }) => {
-    const { color, state, elevation: elevationSystem, shadow } = props.theme.typeLibrary;
+    const { color, state, elevation: elevationSystem, shadow } = props.theme.tyle;
 
     switch (variant) {
       case "elevated": {

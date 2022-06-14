@@ -23,14 +23,25 @@ namespace TypeLibrary.Api
                 o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
 
+            // Add Cors policy
+            var origins = Configuration.GetSection("CorsConfiguration")?.GetValue<string>("ValidOrigins")?.Split(",");
+            var hasOrigins = origins != null && origins.Any();
+
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .SetPreflightMaxAge(TimeSpan.FromSeconds(2520))
-                        .Build());
+                options.AddPolicy("CorsPolicy", builder =>
+                {
+                    if (hasOrigins)
+                    {
+                        builder.WithOrigins(origins!).AllowCredentials();
+                    }
+                    else
+                    {
+                        builder.AllowAnyOrigin();
+                    }
+
+                    builder.AllowAnyHeader().AllowAnyMethod().SetPreflightMaxAge(TimeSpan.FromSeconds(2520));
+                });
             });
 
             // Add routing
@@ -58,6 +69,7 @@ namespace TypeLibrary.Api
             // User modules
             app.UseTypeLibraryModule();
             app.UseMimirorgAuthenticationModule();
+            app.UseCookiePolicy();
 
             app.UseEndpoints(endpoints =>
             {

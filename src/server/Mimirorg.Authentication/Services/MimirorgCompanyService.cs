@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
-using Mimirorg.Authentication.Models.Application;
-using Mimirorg.Authentication.Models.Content;
-using Mimirorg.Common.Enums;
+using Mimirorg.Authentication.Extensions;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
+using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 
 namespace Mimirorg.Authentication.Services
 {
@@ -13,11 +15,13 @@ namespace Mimirorg.Authentication.Services
     {
         private readonly IMimirorgCompanyRepository _mimirorgCompanyRepository;
         private readonly IMimirorgHookRepository _mimirorgHookRepository;
+        private readonly ApplicationSettings _applicationSettings;
 
-        public MimirorgCompanyService(IMimirorgCompanyRepository mimirorgCompanyRepository, IMimirorgHookRepository mimirorgHookRepository)
+        public MimirorgCompanyService(IMimirorgCompanyRepository mimirorgCompanyRepository, IMimirorgHookRepository mimirorgHookRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             _mimirorgCompanyRepository = mimirorgCompanyRepository;
             _mimirorgHookRepository = mimirorgHookRepository;
+            _applicationSettings = applicationSettings?.Value;
         }
 
         /// <summary>
@@ -54,6 +58,12 @@ namespace Mimirorg.Authentication.Services
         public async Task<ICollection<MimirorgCompanyCm>> GetAllCompanies()
         {
             var companies = _mimirorgCompanyRepository.GetAll().Select(x => x.ToContentModel()).ToList();
+            companies = companies.Select(x =>
+            {
+                x.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{x.Id}.png";
+                return x;
+            }).ToList();
+
             return await Task.FromResult(companies);
         }
 
@@ -69,7 +79,34 @@ namespace Mimirorg.Authentication.Services
             if (company == null)
                 throw new MimirorgNotFoundException($"Could not find company with id {id}");
 
-            return company.ToContentModel();
+            var companyCm = company.ToContentModel();
+            companyCm.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{companyCm.Id}.png";
+            return companyCm;
+        }
+
+        /// <summary>
+        /// Get a company by domain and secret
+        /// </summary>
+        /// <param name="mimirorgCompanyAuth">Domain and secret</param>
+        /// <returns>MimirorgCompanyCm</returns>
+        /// <exception cref="MimirorgNotFoundException"></exception>
+        /// <exception cref="MimirorgBadRequestException"></exception>
+        public async Task<MimirorgCompanyCm> GetCompanyByAuth(MimirorgCompanyAuthAm mimirorgCompanyAuth)
+        {
+            var validation = mimirorgCompanyAuth.ValidateObject();
+            if (!validation.IsValid)
+                throw new MimirorgBadRequestException("The model for mimirorg auth is not valid.", validation);
+
+            var company = await _mimirorgCompanyRepository
+                .FindBy(x => x.Domain == mimirorgCompanyAuth.Domain && x.Secret == mimirorgCompanyAuth.Secret)
+                .Include(x => x.Manager).FirstOrDefaultAsync();
+
+            if (company == null)
+                throw new MimirorgNotFoundException($"Could not find company with auth param");
+
+            var companyCm = company.ToContentModel();
+            companyCm.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{companyCm.Id}.png";
+            return companyCm;
         }
 
         /// <summary>
@@ -111,7 +148,7 @@ namespace Mimirorg.Authentication.Services
                 throw new MimirorgNotFoundException($"Could not find company with id {id}");
 
             await _mimirorgCompanyRepository.Delete(id);
-            var status = await _mimirorgCompanyRepository.Context.SaveChangesAsync();
+            var status = await _mimirorgCompanyRepository.SaveAsync();
             return status == 1;
         }
 
@@ -123,7 +160,37 @@ namespace Mimirorg.Authentication.Services
         public async Task<ICollection<MimirorgHookCm>> GetAllHooksForCache(CacheKey key)
         {
             var hooks = _mimirorgHookRepository.GetAll().Where(x => x.Key == key).Include(x => x.Company).Select(x => x.ToContentModel()).ToList();
+            foreach (var mimirorgHookCm in hooks)
+            {
+                if (mimirorgHookCm.Company == null)
+                    continue;
+
+                mimirorgHookCm.Company.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{mimirorgHookCm.Company.Id}.png";
+            }
             return await Task.FromResult(hooks);
+        }
+
+        /// <summary>
+        /// Create a new hook
+        /// </summary>
+        /// <param name="hook">The hook to be created</param>
+        /// <returns>The created hook</returns>
+        public async Task<MimirorgHookCm> CreateHook(MimirorgHookAm hook)
+        {
+            var validation = hook.ValidateObject();
+            if (!validation.IsValid)
+                throw new MimirorgBadRequestException($"Couldn't register hook: {hook?.CompanyId}-{hook?.Key}", validation);
+
+            var hookDm = hook.ToDomainModel();
+            await _mimirorgHookRepository.CreateAsync(hookDm);
+            await _mimirorgHookRepository.SaveAsync();
+            var hookCm = hookDm.ToContentModel();
+            if (hookCm.Company != null)
+            {
+                hookCm.Company.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{hookCm.Company.Id}.png";
+            }
+
+            return hookCm;
         }
     }
 }

@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
-using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -19,161 +18,283 @@ namespace TypeLibrary.Services.Services
     public class AttributeService : IAttributeService
     {
         private readonly IMapper _mapper;
-        private readonly IAttributePredefinedRepository _attributePredefinedRepository;
         private readonly IAttributeRepository _attributeRepository;
-        private readonly IUnitRepository _unitRepository;
         private readonly ApplicationSettings _applicationSettings;
 
-        public AttributeService(IMapper mapper, IAttributePredefinedRepository attributePredefinedRepository, IAttributeRepository attributeRepository, IUnitRepository unitRepository, IOptions<ApplicationSettings> applicationSettings)
+        public AttributeService(IMapper mapper, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings)
         {
             _mapper = mapper;
-            _attributePredefinedRepository = attributePredefinedRepository;
             _attributeRepository = attributeRepository;
-            _unitRepository = unitRepository;
             _applicationSettings = applicationSettings?.Value;
         }
 
+        #region Attribute
+
         /// <summary>
-        /// Get all attribute files by aspect
+        /// Get all attributes by aspect
         /// </summary>
         /// <param name="aspect"></param>
-        /// <returns></returns>
-        public IEnumerable<AttributeLibCm> GetAttributes(Aspect aspect)
+        /// <returns>List of AttributeLibCm</returns>
+        public IEnumerable<AttributeLibCm> Get(Aspect aspect)
         {
-            if (aspect == Aspect.NotSet)
-                return GetAttributes();
+            var attributes = _attributeRepository.Get().ToList()
+                .OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
-            var attributes = _attributeRepository.GetAll()
-                .Where(x => !x.Deleted)
-                .Include(x => x.Units).ToList()
-                .Where(x => x.Aspect.HasFlag(aspect))
-                .OrderBy(x => x.Name).ToList();
+            if (aspect != Aspect.NotSet)
+                attributes = attributes.Where(x => x.Aspect.HasFlag(aspect)).ToList();
 
-            return _mapper.Map<List<AttributeLibCm>>(attributes).ToList();
-        }
-
-        /// <summary>
-        /// Get all attributes
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<AttributeLibCm> GetAttributes()
-        {
-            var attributes = _attributeRepository.GetAll()
-                .Where(x => !x.Deleted)
-                .Include(x => x.Units)
-                .ToList()
-                .OrderBy(x => x.Aspect)
-                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
-
-            return _mapper.Map<List<AttributeLibCm>>(attributes).ToList();
-        }
-
-        /// <summary>
-        /// Create an attribute
-        /// </summary>
-        /// <param name="attributeAm"></param>
-        /// <returns></returns>
-        public async Task<AttributeLibCm> CreateAttribute(AttributeLibAm attributeAm)
-        {
-            if (attributeAm == null)
-                throw new MimirorgNullReferenceException("Can't create an attribute from null object");
-
-            var attribute = _mapper.Map<AttributeLibDm>(attributeAm);
-            if (attribute == null)
-                throw new MimirorgMappingException(nameof(AttributeLibAm), nameof(AttributeLibDm));
-
-            _unitRepository.Attach(attribute.Units, EntityState.Unchanged);
-            await _attributeRepository.CreateAsync(attribute);
-            await _attributeRepository.SaveAsync();
-            _unitRepository.Detach(attribute.Units);
-            _attributeRepository.Detach(attribute);
-            var cm = _mapper.Map<AttributeLibCm>(attribute);
-            if (cm == null)
-                throw new MimirorgMappingException(nameof(AttributeLibDm), nameof(AttributeLibCm));
-
-            return cm;
+            return _mapper.Map<List<AttributeLibCm>>(attributes);
         }
 
         /// <summary>
         /// Create from a list of attributes
         /// </summary>
-        /// <param name="attributeAmList"></param>
+        /// <param name="attributes"></param>
         /// <param name="createdBySystem"></param>
         /// <returns></returns>
-        public async Task CreateAttributes(List<AttributeLibAm> attributeAmList, bool createdBySystem = false)
+        public async Task Create(List<AttributeLibAm> attributes, bool createdBySystem = false)
         {
-            if (attributeAmList == null || !attributeAmList.Any())
+            if (attributes == null || !attributes.Any())
                 return;
 
-            var data = _mapper.Map<List<AttributeLibDm>>(attributeAmList);
-            var existing = _attributeRepository.GetAll().ToList();
-            var notExisting = data.Where(x => existing.All(y => y.Id != x.Id)).ToList();
+            var data = _mapper.Map<List<AttributeLibDm>>(attributes);
+            var existing = _attributeRepository.Get().ToList();
+            var notExisting = data.Exclude(existing, x => x.Id).ToList();
 
             if (!notExisting.Any())
                 return;
 
-            foreach (var entity in notExisting)
+            foreach (var attribute in notExisting)
             {
-                foreach (var entityUnit in entity.Units)
-                {
-                    _unitRepository.Attach(entityUnit, EntityState.Unchanged);
-                }
-
-                entity.CreatedBy = createdBySystem ? _applicationSettings.System : entity.CreatedBy;
-
-                await _attributeRepository.CreateAsync(entity);
-                await _attributeRepository.SaveAsync();
-
-                foreach (var entityUnit in entity.Units)
-                {
-                    _unitRepository.Detach(entityUnit);
-                }
-            }
-
-            foreach (var notExistingItem in notExisting)
-            {
-                _attributeRepository.Detach(notExistingItem);
+                attribute.CreatedBy = createdBySystem ? _applicationSettings.System : attribute.CreatedBy;
+                await _attributeRepository.Create(attribute);
             }
         }
+
+        #endregion Attribute
+
+        #region Predefined
 
         /// <summary>
         /// Get predefined attributePredefinedList
         /// </summary>
-        /// <returns></returns>
-        public IEnumerable<AttributePredefinedLibCm> GetAttributesPredefined()
+        /// <returns>List of AttributePredefinedLibCm</returns>
+        public IEnumerable<AttributePredefinedLibCm> GetPredefined()
         {
-            var all = _attributePredefinedRepository.GetAll()
-                .Where(x => !x.Deleted).ToList()
-                .OrderBy(x => x.Aspect)
-                .ThenBy(x => x.Key, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var attributes = _attributeRepository.GetPredefined().ToList()
+                .OrderBy(x => x.Aspect).ThenBy(x => x.Key, StringComparer.InvariantCultureIgnoreCase).ToList();
 
-            return _mapper.Map<List<AttributePredefinedLibCm>>(all);
+            return _mapper.Map<List<AttributePredefinedLibCm>>(attributes);
         }
 
         /// <summary>
         /// Create Predefined attributePredefinedList from a list
         /// </summary>
-        /// <param name="attributePredefinedList"></param>
+        /// <param name="predefined"></param>
         /// <param name="createdBySystem"></param>
         /// <returns></returns>
-        public async Task CreateAttributesPredefined(List<AttributePredefinedLibAm> attributePredefinedList, bool createdBySystem = false)
+        public async Task CreatePredefined(List<AttributePredefinedLibAm> predefined, bool createdBySystem = false)
         {
-            if (attributePredefinedList == null || !attributePredefinedList.Any())
+            if (predefined == null || !predefined.Any())
                 return;
 
-            var existing = _attributePredefinedRepository.GetAll().ToList();
-            var notExisting = attributePredefinedList.Where(x => existing.All(y => y.Key != x.Key)).ToList();
+            var data = _mapper.Map<List<AttributePredefinedLibDm>>(predefined);
+            var existing = _attributeRepository.GetPredefined().ToList();
+            var notExisting = data.Exclude(existing, x => x.Key).ToList();
 
             if (!notExisting.Any())
                 return;
 
-            foreach (var entity in notExisting)
+            foreach (var attribute in notExisting)
             {
-                var dm = _mapper.Map<AttributePredefinedLibDm>(entity);
-                dm.CreatedBy = createdBySystem ? _applicationSettings.System : dm.CreatedBy;
-                await _attributePredefinedRepository.CreateAsync(dm);
+                attribute.CreatedBy = createdBySystem ? _applicationSettings.System : attribute.CreatedBy;
+                await _attributeRepository.CreatePredefined(attribute);
             }
-            await _attributePredefinedRepository.SaveAsync();
         }
+
+        #endregion Predefined
+
+        #region Aspect
+
+        public Task<IEnumerable<AttributeAspectLibCm>> GetAspects()
+        {
+            var allAspects = _attributeRepository.GetAspects().ToList();
+            var aspects = allAspects.Where(x => x.ParentId != null).ToList();
+            var topParents = allAspects.Where(x => x.ParentId == null).OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
+            var sortedAspects = aspects.OrderBy(x => topParents.FirstOrDefault(y => y.Id == x.ParentId)?.Name, StringComparer.InvariantCultureIgnoreCase)
+                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
+            sortedAspects.AddRange(topParents);
+            var dataCm = _mapper.Map<List<AttributeAspectLibCm>>(sortedAspects);
+            return Task.FromResult(dataCm.AsEnumerable());
+        }
+
+        /// <summary>
+        /// Create new attribute aspects
+        /// </summary>
+        /// <param name="aspects"></param>
+        /// <param name="createdBySystem"></param>
+        /// <returns></returns>
+        public async Task CreateAspects(List<AttributeAspectLibAm> aspects, bool createdBySystem = false)
+        {
+            if (aspects == null || !aspects.Any())
+                return;
+
+            var data = _mapper.Map<List<AttributeAspectLibDm>>(aspects);
+            var existing = _attributeRepository.GetAspects().ToList();
+            var notExisting = data.Exclude(existing, x => x.Id).ToList();
+
+            if (!notExisting.Any())
+                return;
+
+            foreach (var aspect in notExisting)
+            {
+                aspect.CreatedBy = createdBySystem ? _applicationSettings.System : aspect.CreatedBy;
+                await _attributeRepository.CreateAspect(aspect);
+            }
+        }
+
+        #endregion Aspect
+
+        #region Condition
+
+        public Task<IEnumerable<AttributeConditionLibCm>> GetConditions()
+        {
+            var notSet = _attributeRepository.GetConditions().FirstOrDefault(x => x.Name == Aspect.NotSet.ToString());
+            var dataSet = _attributeRepository.GetConditions().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+
+            var dataDmList = new List<AttributeConditionLibDm> { notSet };
+            dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
+
+            var dataCmList = _mapper.Map<List<AttributeConditionLibCm>>(dataDmList);
+            return Task.FromResult(dataCmList.AsEnumerable());
+        }
+
+        public async Task CreateConditions(List<AttributeConditionLibAm> conditions, bool createdBySystem = false)
+        {
+            if (conditions == null || !conditions.Any())
+                return;
+
+            var data = _mapper.Map<List<AttributeConditionLibDm>>(conditions);
+            var existing = _attributeRepository.GetConditions().ToList();
+            var notExisting = data.Exclude(existing, x => x.Name).ToList();
+
+            if (!notExisting.Any())
+                return;
+
+            foreach (var item in notExisting)
+            {
+                item.CreatedBy = createdBySystem ? _applicationSettings.System : item.CreatedBy;
+                await _attributeRepository.CreateCondition(item);
+            }
+        }
+
+        #endregion Aspect
+
+        #region Format
+
+        public Task<IEnumerable<AttributeFormatLibCm>> GetFormats()
+        {
+            var notSet = _attributeRepository.GetFormats().FirstOrDefault(x => x.Name == Aspect.NotSet.ToString());
+            var dataSet = _attributeRepository.GetFormats().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+
+            var dataDmList = new List<AttributeFormatLibDm> { notSet };
+            dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
+
+            var dataCmList = _mapper.Map<List<AttributeFormatLibCm>>(dataDmList);
+            return Task.FromResult(dataCmList.AsEnumerable());
+        }
+
+        public async Task CreateFormats(List<AttributeFormatLibAm> formats, bool createdBySystem = false)
+        {
+            if (formats == null || !formats.Any())
+                return;
+
+            var data = _mapper.Map<List<AttributeFormatLibDm>>(formats);
+            var existing = _attributeRepository.GetFormats().ToList();
+            var notExisting = data.Exclude(existing, x => x.Name).ToList();
+
+            if (!notExisting.Any())
+                return;
+
+            foreach (var item in notExisting)
+            {
+                item.CreatedBy = createdBySystem ? _applicationSettings.System : item.CreatedBy;
+                await _attributeRepository.CreateFormat(item);
+            }
+        }
+
+        #endregion Format
+
+        #region Qualifier
+
+        public Task<IEnumerable<AttributeQualifierLibCm>> GetQualifiers()
+        {
+            var notSet = _attributeRepository.GetQualifiers().FirstOrDefault(x => x.Name == Aspect.NotSet.ToString());
+            var dataSet = _attributeRepository.GetQualifiers().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+
+            var dataDmList = new List<AttributeQualifierLibDm> { notSet };
+            dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
+
+            var dataCmList = _mapper.Map<List<AttributeQualifierLibCm>>(dataDmList);
+            return Task.FromResult(dataCmList.AsEnumerable());
+        }
+
+        public async Task CreateQualifiers(List<AttributeQualifierLibAm> qualifiers, bool createdBySystem = false)
+        {
+            if (qualifiers == null || !qualifiers.Any())
+                return;
+
+            var data = _mapper.Map<List<AttributeQualifierLibDm>>(qualifiers);
+            var existing = _attributeRepository.GetQualifiers().ToList();
+            var notExisting = data.Exclude(existing, x => x.Name).ToList();
+
+            if (!notExisting.Any())
+                return;
+
+            foreach (var item in notExisting)
+            {
+                item.CreatedBy = createdBySystem ? _applicationSettings.System : item.CreatedBy;
+                await _attributeRepository.CreateQualifier(item);
+            }
+        }
+
+        #endregion Qualifier
+
+        #region Source
+
+        public Task<IEnumerable<AttributeSourceLibCm>> GetSources()
+        {
+            var notSet = _attributeRepository.GetSources().FirstOrDefault(x => x.Name == Aspect.NotSet.ToString());
+            var dataSet = _attributeRepository.GetSources().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+
+            var dataDmList = new List<AttributeSourceLibDm> { notSet };
+            dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
+
+            var dataCmList = _mapper.Map<List<AttributeSourceLibCm>>(dataDmList);
+            return Task.FromResult(dataCmList.AsEnumerable());
+        }
+
+        public async Task CreateSources(List<AttributeSourceLibAm> sources, bool createdBySystem = false)
+        {
+            if (sources == null || !sources.Any())
+                return;
+
+            var data = _mapper.Map<List<AttributeSourceLibDm>>(sources);
+            var existing = _attributeRepository.GetSources().ToList();
+            var notExisting = data.Exclude(existing, x => x.Name).ToList();
+
+            if (!notExisting.Any())
+                return;
+
+            foreach (var item in notExisting)
+            {
+                item.CreatedBy = createdBySystem ? _applicationSettings.System : item.CreatedBy;
+                await _attributeRepository.CreateSource(item);
+            }
+        }
+
+        #endregion Source
     }
 }

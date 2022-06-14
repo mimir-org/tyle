@@ -1,8 +1,8 @@
 export interface Positions {
   position?: string;
   zIndex?: string | number;
-  top?: string;
-  right?: string;
-  bottom?: string;
-  left?: string;
+  top?: string | number;
+  right?: string | number;
+  bottom?: string | number;
+  left?: string | number;
 }

@@ -3,9 +3,9 @@ export { QUERIES } from "./constants/queries";
 
 export { theme } from "./theme/theme";
 export { themeBuilder } from "./theme/theme";
-export type { TypeLibraryTheme } from "./theme/theme";
+export type { TyleTheme } from "./theme/theme";
 
-export { TypeLibraryThemeProvider } from "./theme/TypeLibraryThemeProvider";
+export { TyleThemeProvider } from "./theme/TyleThemeProvider";
 
 export type { BorderSystem } from "./variables/variablesBorder";
 export type { ColorSystem } from "./variables/variablesColor";

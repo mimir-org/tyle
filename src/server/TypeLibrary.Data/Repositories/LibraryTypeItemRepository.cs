@@ -5,18 +5,19 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Data.Contracts.Ef;
 
 namespace TypeLibrary.Data.Repositories
 {
     public class LibraryTypeItemRepository : ILibraryTypeItemRepository
     {
-        private readonly ITransportRepository _transportRepository;
-        private readonly IInterfaceRepository _interfaceRepository;
-        private readonly INodeRepository _nodeRepository;
+        private readonly IEfTransportRepository _transportRepository;
+        private readonly IEfInterfaceRepository _interfaceRepository;
+        private readonly IEfNodeRepository _nodeRepository;
         private readonly IMapper _mapper;
 
-        public LibraryTypeItemRepository(IMapper mapper, ITransportRepository transportRepository,
-            IInterfaceRepository interfaceRepository, INodeRepository nodeRepository)
+        public LibraryTypeItemRepository(IMapper mapper, IEfTransportRepository transportRepository,
+            IEfInterfaceRepository interfaceRepository, IEfNodeRepository nodeRepository)
         {
             _mapper = mapper;
             _transportRepository = transportRepository;

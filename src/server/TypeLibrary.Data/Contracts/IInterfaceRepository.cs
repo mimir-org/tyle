@@ -1,12 +1,15 @@
-﻿using System.Linq;
-using Mimirorg.Common.Abstract;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface IInterfaceRepository : IGenericRepository<TypeLibraryDbContext, InterfaceLibDm>
+    public interface IInterfaceRepository
     {
-        IQueryable<InterfaceLibDm> GetAllInterfaces();
-        IQueryable<InterfaceLibDm> FindInterface(string id);
+        IEnumerable<InterfaceLibDm> Get();
+        Task<InterfaceLibDm> Get(string id);
+        Task Create(InterfaceLibDm dataDm);
+        Task<bool> Delete(string id);
+        void ClearAllChangeTrackers();
     }
 }

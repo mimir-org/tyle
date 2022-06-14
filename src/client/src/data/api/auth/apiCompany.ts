@@ -1,6 +1,6 @@
-import { apiClient } from "../apiClient";
 import { MimirorgCompanyAm } from "../../../models/auth/application/mimirorgCompanyAm";
 import { MimirorgCompanyCm } from "../../../models/auth/client/mimirorgCompanyCm";
+import { apiClient } from "../apiClient";
 
 const _basePath = "mimirorgcompany";
 
@@ -8,7 +8,7 @@ export const apiCompany = {
   getCompanies() {
     return apiClient.get<MimirorgCompanyCm[]>(_basePath).then((r) => r.data);
   },
-  getCompany(id: string) {
+  getCompany(id: number) {
     return apiClient.get<MimirorgCompanyCm>(`${_basePath}/${id}`).then((r) => r.data);
   },
   postCompany(item: MimirorgCompanyAm) {

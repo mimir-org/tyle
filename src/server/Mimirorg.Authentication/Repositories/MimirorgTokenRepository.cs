@@ -6,12 +6,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Mimirorg.Authentication.Contracts;
-using Mimirorg.Authentication.Models.Content;
+using Mimirorg.Authentication.Extensions;
 using Mimirorg.Authentication.Models.Domain;
-using Mimirorg.Authentication.Models.Enums;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
+using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Models.Client;
 
 namespace Mimirorg.Authentication.Repositories
 {

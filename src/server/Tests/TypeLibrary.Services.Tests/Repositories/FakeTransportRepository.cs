@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TypeLibrary.Data;
-using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Services.Tests.Repositories
 {
-    public class FakeTransportRepository : ITransportRepository
+    public class FakeTransportRepository : IEfTransportRepository
     {
         public TypeLibraryDbContext? Context { get; set; }
         public DbSet<TransportLibDm>? DbSet { get; set; }

@@ -29,7 +29,7 @@ interface Props {
  */
 export const Tooltip = ({ children, content, placement = "top", delay = 0, offset = 8 }: PropsWithChildren<Props>) => {
   const theme = useTheme();
-  const motion = merge(theme.typeLibrary.animation.fade, theme.typeLibrary.animation.scale);
+  const motion = merge({}, theme.tyle.animation.fade, theme.tyle.animation.scale);
   const containsTextOnly = typeof content === "string";
 
   return (

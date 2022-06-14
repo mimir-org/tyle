@@ -1,12 +1,15 @@
-﻿using System.Linq;
-using Mimirorg.Common.Abstract;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface ITransportRepository : IGenericRepository<TypeLibraryDbContext, TransportLibDm>
+    public interface ITransportRepository
     {
-        IQueryable<TransportLibDm> GetAllTransports();
-        IQueryable<TransportLibDm> FindTransport(string id);
+        IEnumerable<TransportLibDm> Get();
+        Task<TransportLibDm> Get(string id);
+        Task Create(TransportLibDm dataDm);
+        Task<bool> Delete(string id);
+        void ClearAllChangeTrackers();
     }
 }

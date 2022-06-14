@@ -17,7 +17,7 @@ namespace Mimirorg.Authentication.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.4")
+                .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -52,21 +52,21 @@ namespace Mimirorg.Authentication.Migrations
                         new
                         {
                             Id = "b5d465b3-90cf-4408-a685-14ff462e549d",
-                            ConcurrencyStamp = "66aa8ece-9be0-4def-baa8-3ea86f199419",
+                            ConcurrencyStamp = "c04c3e36-1428-467d-b1a1-5d64b863f38f",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "cabdda90-6e90-4b92-b309-4f5b3784c792",
-                            ConcurrencyStamp = "58b0c5cd-c499-40cc-8e3e-43b994143e9a",
+                            ConcurrencyStamp = "ab42c697-d4eb-4222-a9dc-a49760f7c758",
                             Name = "Account Manager",
                             NormalizedName = "ACCOUNTMANAGER"
                         },
                         new
                         {
                             Id = "f6d7df3a-bc9f-4a79-a2a0-c001a83c2d6c",
-                            ConcurrencyStamp = "4f648c4e-e9e2-4a90-8040-9bd97d745313",
+                            ConcurrencyStamp = "5fb457f0-9d85-4d53-9224-f25d6d608723",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         });
@@ -195,6 +195,18 @@ namespace Mimirorg.Authentication.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("DisplayName");
 
+                    b.Property<string>("Domain")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("Domain");
+
+                    b.Property<string>("Iris")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Iris");
+
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ManagerId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -205,14 +217,21 @@ namespace Mimirorg.Authentication.Migrations
                         .HasColumnName("Name");
 
                     b.Property<string>("Secret")
-                        .HasColumnType("nvarchar(max)")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("Secret");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Domain")
+                        .IsUnique();
+
                     b.HasIndex("ManagerId");
 
                     b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("Domain", "Secret")
                         .IsUnique();
 
                     b.ToTable("MimirorgCompany", (string)null);

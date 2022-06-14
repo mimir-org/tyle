@@ -1,12 +1,12 @@
 ﻿using Mimirorg.Common.Abstract;
 using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data;
-using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Services.Tests.Repositories
 {
-    public sealed class FakeAttributeRepository : GenericRepository<TypeLibraryDbContext, AttributeLibDm>, IAttributeRepository
+    public sealed class FakeAttributeRepository : GenericRepository<TypeLibraryDbContext, AttributeLibDm>, IEfAttributeRepository
     {
         public FakeAttributeRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {

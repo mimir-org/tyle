@@ -1,22 +1,44 @@
-import { ComponentMeta } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Button } from "./Button";
 import { LibraryIcon } from "../../assets/icons/modules";
 
 export default {
   title: "Buttons/Filled",
   component: Button,
+  args: {
+    children: "Button",
+    variant: "filled",
+  },
 } as ComponentMeta<typeof Button>;
 
-export const Default = () => <Button>Button</Button>;
+const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
-export const Disabled = () => <Button disabled>Button</Button>;
+export const Default = Template.bind({});
 
-export const WithIconOnly = () => (
-  <Button leftIcon={LibraryIcon} iconOnly>
-    Hidden text
-  </Button>
-);
+export const Disabled = Template.bind({});
+Disabled.args = {
+  disabled: true,
+};
 
-export const WithIconLeftAndText = () => <Button leftIcon={LibraryIcon}>Button</Button>;
+export const WithIconOnly = Template.bind({});
+WithIconOnly.args = {
+  icon: LibraryIcon,
+  iconOnly: true,
+};
 
-export const WithIconRightAndText = () => <Button rightIcon={LibraryIcon}>Button</Button>;
+export const WithIconLeftAndText = Template.bind({});
+WithIconLeftAndText.args = {
+  icon: LibraryIcon,
+  iconPlacement: "left",
+};
+
+export const WithIconRightAndText = Template.bind({});
+WithIconRightAndText.args = {
+  icon: LibraryIcon,
+  iconPlacement: "right",
+};
+
+export const WithDanger = Template.bind({});
+WithDanger.args = {
+  danger: true,
+};

@@ -8,6 +8,7 @@ export interface Flex {
   flex?: string | number;
   flexGrow?: string;
   flexShrink?: string;
+  flexFlow?: string;
   alignSelf?: string;
   gap?: string;
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Mimirorg.TypeLibrary.Contracts;
-using Newtonsoft.Json;
 
 namespace TypeLibrary.Data.Models
 {
@@ -12,15 +11,10 @@ namespace TypeLibrary.Data.Models
         public string Iri { get; set; }
         public string ContentReferences { get; set; }
         public string Description { get; set; }
-        public string UpdatedBy { get; set; }
-        public DateTime? Updated { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public bool Deleted { get; set; }
-
         public virtual ICollection<AttributeLibDm> Attributes { get; set; }
-
-        [JsonIgnore]
         public ICollection<NodeLibDm> Nodes { get; set; }
     }
 }

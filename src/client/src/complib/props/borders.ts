@@ -1,9 +1,9 @@
 export interface Borders {
-  border?: string;
-  borderTop?: string;
-  borderLeft?: string;
-  borderRight?: string;
-  borderBottom?: string;
+  border?: string | number;
+  borderTop?: string | number;
+  borderLeft?: string | number;
+  borderRight?: string | number;
+  borderBottom?: string | number;
   borderColor?: string;
   borderTopColor?: string;
   borderRightColor?: string;

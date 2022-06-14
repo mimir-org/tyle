@@ -1,6 +1,6 @@
 import { MimirorgTokenCm } from "../models/auth/client/mimirorgTokenCm";
 
-const localStorageKey = "typeLibraryToken";
+const localStorageKey = "tyleToken";
 
 const getToken = () => {
   const token = window.localStorage.getItem(localStorageKey);

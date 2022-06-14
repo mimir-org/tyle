@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
-using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -16,26 +16,21 @@ namespace TypeLibrary.Services.Services
 {
     public class TerminalService : ITerminalService
     {
-        private readonly ITerminalRepository _terminalTypeRepository;
-        private readonly IAttributeRepository _attributeRepository;
+        private readonly ITerminalRepository _terminalRepository;
         private readonly IMapper _mapper;
         private readonly ApplicationSettings _applicationSettings;
 
-        public TerminalService(ITerminalRepository terminalTypeRepository, IAttributeRepository attributeRepository, IMapper mapper, IOptions<ApplicationSettings> applicationSettings)
+        public TerminalService(ITerminalRepository terminalRepository, IMapper mapper, IOptions<ApplicationSettings> applicationSettings)
         {
-            _terminalTypeRepository = terminalTypeRepository;
-            _attributeRepository = attributeRepository;
+            _terminalRepository = terminalRepository;
             _mapper = mapper;
             _applicationSettings = applicationSettings?.Value;
         }
 
-        /// <summary>
-        /// Get all terminals
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<TerminalLibCm> GetTerminals()
+        public IEnumerable<TerminalLibCm> Get()
         {
-            var allTerminals = _terminalTypeRepository.GetAll().Where(x => !x.Deleted).Include(x => x.Parent).Include(x => x.Attributes).ToList();
+            var firstVersionIdsDistinct = _terminalRepository.Get().Select(y => y.FirstVersionId).Distinct().ToList();
+            var allTerminals = firstVersionIdsDistinct.Select(GetLatestTerminalVersion).ToList();
             var terminals = allTerminals.Where(x => x.ParentId != null).ToList();
             var topParents = allTerminals.Where(x => x.ParentId == null).OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
@@ -48,54 +43,37 @@ namespace TypeLibrary.Services.Services
             return _mapper.Map<List<TerminalLibCm>>(sortedTerminals);
         }
 
-        /// <summary>
-        /// Create a terminal typeDm
-        /// </summary>
-        /// <param name="terminalAm"></param>
-        /// <returns></returns>
-        public async Task<TerminalLibCm> CreateTerminal(TerminalLibAm terminalAm)
-        {
-            var data = await CreateTerminals(new List<TerminalLibAm> { terminalAm });
-            return data.SingleOrDefault();
-        }
-
-        /// <summary>
-        /// Create from a list of terminal types
-        /// </summary>
-        /// <param name="terminalAmList"></param>
-        /// <param name="createdBySystem"></param>
-        /// <returns></returns>
-        public async Task<List<TerminalLibCm>> CreateTerminals(List<TerminalLibAm> terminalAmList, bool createdBySystem = false)
+        public async Task Create(List<TerminalLibAm> terminalAmList, bool createdBySystem = false)
         {
             if (terminalAmList == null || !terminalAmList.Any())
-                return new List<TerminalLibCm>();
+                return;
 
             var data = _mapper.Map<List<TerminalLibDm>>(terminalAmList);
-            var existing = _terminalTypeRepository.GetAll().ToList();
+            var existing = _terminalRepository.Get().ToList();
             var notExisting = data.Where(x => existing.All(y => y.Name != x.Name)).ToList();
 
             if (!notExisting.Any())
-                return new List<TerminalLibCm>();
+                return;
 
             foreach (var entity in notExisting)
-            {
-                foreach (var entityAttribute in entity.Attributes)
-                {
-                    _attributeRepository.Attach(entityAttribute, EntityState.Unchanged);
-                }
-
                 entity.CreatedBy = createdBySystem ? _applicationSettings.System : entity.CreatedBy;
 
-                await _terminalTypeRepository.CreateAsync(entity);
-                await _terminalTypeRepository.SaveAsync();
-
-                foreach (var entityAttribute in entity.Attributes)
-                {
-                    _attributeRepository.Detach(entityAttribute);
-                }
-            }
-
-            return _mapper.Map<List<TerminalLibCm>>(data);
+            await _terminalRepository.Create(notExisting);
+            _terminalRepository.ClearAllChangeTrackers();
         }
+
+        #region Private
+
+        private TerminalLibDm GetLatestTerminalVersion(string firstVersionId)
+        {
+            var existingDmVersions = _terminalRepository.GetVersions(firstVersionId).ToList();
+
+            if (!existingDmVersions.Any())
+                throw new MimirorgBadRequestException($"No terminals with 'FirstVersionId' {firstVersionId} found.");
+
+            return existingDmVersions[^1];
+        }
+
+        #endregion Private
     }
 }

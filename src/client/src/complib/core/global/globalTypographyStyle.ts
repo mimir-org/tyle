@@ -1,11 +1,11 @@
 import { css } from "styled-components/macro";
-import { TypeLibraryTheme } from "../theme/theme";
+import { TyleTheme } from "../theme/theme";
 import { getTextRole } from "../../mixins";
 
 /**
  * TYPOGRAPHY SPECIFIC GLOBALS
  */
-export const globalTypographyStyle = (theme: TypeLibraryTheme) => css`
+export const globalTypographyStyle = (theme: TyleTheme) => css`
   body {
     font-family: ${theme.typography.ref.typeface.brand};
     font-weight: ${theme.typography.ref.typeface.weights.normal};

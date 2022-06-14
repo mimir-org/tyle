@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Mimirorg.TypeLibrary.Extensions;
+using TypeScriptBuilder;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
@@ -7,9 +8,11 @@ namespace Mimirorg.TypeLibrary.Models.Application
     {
         [Required]
         public string Name { get; set; }
+
         public ICollection<string> ContentReferences { get; set; }
         public string Description { get; set; }
 
-        public virtual string Id => $"{Name}".CreateMd5();
+        [TSExclude]
+        public string Id => $"{Name}".CreateMd5();
     }
 }

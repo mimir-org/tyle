@@ -1,12 +1,15 @@
-﻿using System.Linq;
-using Mimirorg.Common.Abstract;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface INodeRepository : IGenericRepository<TypeLibraryDbContext, NodeLibDm>
+    public interface INodeRepository
     {
-        IQueryable<NodeLibDm> GetAllNodes();
-        IQueryable<NodeLibDm> FindNode(string id);
+        IEnumerable<NodeLibDm> Get();
+        Task<NodeLibDm> Get(string id);
+        Task Create(NodeLibDm dataDm);
+        Task<bool> Delete(string id);
+        void ClearAllChangeTrackers();
     }
 }

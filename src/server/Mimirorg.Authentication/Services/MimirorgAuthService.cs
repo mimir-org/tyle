@@ -4,12 +4,12 @@ using AspNetCore.Totp;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Authentication.Contracts;
-using Mimirorg.Authentication.Models.Application;
-using Mimirorg.Authentication.Models.Content;
 using Mimirorg.Authentication.Models.Domain;
-using Mimirorg.Authentication.Models.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
+using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 
 namespace Mimirorg.Authentication.Services
 {
@@ -39,7 +39,7 @@ namespace Mimirorg.Authentication.Services
         /// <returns>ICollection&lt;MimirorgTokenCm&gt;</returns>
         /// <exception cref="MimirorgBadRequestException"></exception>
         /// <exception cref="AuthenticationException"></exception>
-        public async Task<MimirorgTokenCm> Authenticate(MimirorgAuthenticateAm authenticate)
+        public async Task<ICollection<MimirorgTokenCm>> Authenticate(MimirorgAuthenticateAm authenticate)
         {
             var validation = authenticate.ValidateObject();
             if (!validation.IsValid)
@@ -62,7 +62,8 @@ namespace Mimirorg.Authentication.Services
 
             var now = DateTime.Now;
             var accessToken = await _tokenRepository.CreateAccessToken(user, now);
-            return accessToken;
+            var refreshToken = await _tokenRepository.CreateRefreshToken(user, now);
+            return new List<MimirorgTokenCm> { accessToken, refreshToken };
         }
 
         /// <summary>

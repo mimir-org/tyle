@@ -1,11 +1,8 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
@@ -22,29 +19,24 @@ namespace TypeLibrary.Services.Services
     {
         private readonly IMapper _mapper;
         private readonly ISimpleRepository _simpleRepository;
-        private readonly IAttributeRepository _attributeRepository;
         private readonly ApplicationSettings _applicationSettings;
 
-        public SimpleService(IMapper mapper, ISimpleRepository simpleRepository, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings)
+        public SimpleService(IMapper mapper, IOptions<ApplicationSettings> applicationSettings, ISimpleRepository simpleRepository)
         {
             _mapper = mapper;
             _simpleRepository = simpleRepository;
-            _attributeRepository = attributeRepository;
             _applicationSettings = applicationSettings?.Value;
         }
 
-        public async Task<SimpleLibCm> GetSimple(string id)
+        public async Task<SimpleLibCm> Get(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
                 throw new MimirorgBadRequestException("Can't get simple. The id is missing value.");
 
-            var data = await _simpleRepository.FindSimple(id).FirstOrDefaultAsync();
+            var data = await _simpleRepository.Get(id);
 
             if (data == null)
                 throw new MimirorgNotFoundException($"There is no simple with id: {id}");
-
-            if (data.Deleted)
-                throw new MimirorgBadRequestException($"The item with id {id} is marked as deleted in the database.");
 
             var simpleLibCm = _mapper.Map<SimpleLibCm>(data);
 
@@ -54,9 +46,9 @@ namespace TypeLibrary.Services.Services
             return simpleLibCm;
         }
 
-        public Task<IEnumerable<SimpleLibCm>> GetAllSimple()
+        public Task<IEnumerable<SimpleLibCm>> Get()
         {
-            var simpleLibDms = _simpleRepository.GetAllSimples().Where(x => !x.Deleted).ToList()
+            var simpleLibDms = _simpleRepository.Get().ToList()
                 .OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
             var simpleLibCms = _mapper.Map<IEnumerable<SimpleLibCm>>(simpleLibDms);
@@ -67,76 +59,29 @@ namespace TypeLibrary.Services.Services
             return Task.FromResult(simpleLibCms ?? new List<SimpleLibCm>());
         }
 
-        public async Task<SimpleLibCm> CreateSimple(SimpleLibAm simpleAm)
+        public async Task<IEnumerable<SimpleLibCm>> Create(IEnumerable<SimpleLibAm> simpleAms, bool createdBySystem = false)
         {
-            var validation = simpleAm.ValidateObject();
+            var validation = simpleAms.ValidateObject();
+
             if (!validation.IsValid)
                 throw new MimirorgBadRequestException("Couldn't create simple", validation);
 
-            var s = await _simpleRepository.GetAsync(simpleAm.Id);
-            if (s != null)
-                throw new MimirorgDuplicateException($"There is already a simple with name: {simpleAm.Name}");
+            var existing = _simpleRepository.Get().ToList();
+            var simpleToCreate = simpleAms.Where(x => existing.All(y => y.Id != x.Id)).ToList();
+            var simpleDmList = _mapper.Map<IEnumerable<SimpleLibDm>>(simpleToCreate).ToList();
 
-            var dmObject = _mapper.Map<SimpleLibDm>(simpleAm);
-            if (dmObject == null)
-                throw new MimirorgMappingException(nameof(SimpleLibAm), nameof(SimpleLibDm));
+            if (simpleDmList == null || !simpleDmList.Any() && simpleToCreate.Any())
+                throw new MimirorgMappingException("ICollection<SimpleLibDm>", "ICollection<SimpleLibAm>");
 
-
-            _attributeRepository.Attach(dmObject.Attributes, EntityState.Unchanged);
-            await _simpleRepository.CreateAsync(dmObject);
-            await _simpleRepository.SaveAsync();
-            _attributeRepository.Detach(dmObject.Attributes);
-            _simpleRepository.Detach(dmObject);
-
-            var cm = _mapper.Map<SimpleLibCm>(dmObject);
-            if (cm == null)
-                throw new MimirorgMappingException(nameof(SimpleLibDm), nameof(SimpleLibCm));
-
-            return cm;
-        }
-
-        public async Task<IEnumerable<SimpleLibCm>> CreateSimple(IEnumerable<SimpleLibAm> simpleAmList, bool createdBySystem = false)
-        {
-            var simpleCms = new List<SimpleLibCm>();
-
-            if (simpleAmList == null)
-                return simpleCms;
-
-            foreach (var simpleAm in simpleAmList.ToList())
+            foreach (var simpleDm in simpleDmList)
             {
-                var validation = simpleAm.ValidateObject();
-                if (!validation.IsValid)
-                    throw new MimirorgBadRequestException("Couldn't create simple", validation);
-
-                var s = await _simpleRepository.GetAsync(simpleAm.Id);
-                if (s != null)
-                    continue;
-
-                var dmObject = _mapper.Map<SimpleLibDm>(simpleAm);
-
-                if (dmObject == null)
-                    throw new MimirorgMappingException(nameof(SimpleLibAm), nameof(SimpleLibDm));
-
-                simpleCms.Add(_mapper.Map<SimpleLibCm>(dmObject));
-
-                _attributeRepository.Attach(dmObject.Attributes, EntityState.Unchanged);
-
-                dmObject.CreatedBy = createdBySystem ? _applicationSettings.System : dmObject.CreatedBy;
-
-                await _simpleRepository.CreateAsync(dmObject);
-                await _simpleRepository.SaveAsync();
-
-                _attributeRepository.Detach(dmObject.Attributes);
-                _simpleRepository.Detach(dmObject);
+                simpleDm.CreatedBy = createdBySystem ? _applicationSettings.System : simpleDm.CreatedBy;
+                await _simpleRepository.Create(simpleDm);
             }
 
-            return simpleCms;
-        }
+            _simpleRepository.ClearAllChangeTrackers();
 
-        public void ClearAllChangeTrackers()
-        {
-            _simpleRepository?.Context?.ChangeTracker.Clear();
-            _attributeRepository?.Context?.ChangeTracker.Clear();
+            return _mapper.Map<ICollection<SimpleLibCm>>(simpleDmList);
         }
     }
 }

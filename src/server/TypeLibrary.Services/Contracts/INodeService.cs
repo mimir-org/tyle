@@ -7,11 +7,10 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface INodeService
     {
-        Task<NodeLibCm> GetNode(string id);
-        Task<IEnumerable<NodeLibCm>> GetNodes();
-        Task<NodeLibCm> CreateNode(NodeLibAm dataAm);
-        Task<NodeLibCm> UpdateNode(NodeLibAm dataAm, string id);
-        Task<bool> DeleteNode(string id);
-        void ClearAllChangeTrackers();
+        Task<NodeLibCm> Get(string id);
+        Task<IEnumerable<NodeLibCm>> GetLatestVersions();
+        Task<NodeLibCm> Create(NodeLibAm dataAm);
+        Task<NodeLibCm> Update(NodeLibAm dataAm, string id);
+        Task<bool> Delete(string id);
     }
 }

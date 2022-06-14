@@ -1,7 +1,7 @@
 ﻿using System.Security.Authentication;
-using Mimirorg.Authentication.Models.Application;
-using Mimirorg.Authentication.Models.Content;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 
 namespace Mimirorg.Authentication.Contracts
 {
@@ -16,7 +16,7 @@ namespace Mimirorg.Authentication.Contracts
         /// <returns>ICollection&lt;MimirorgTokenCm&gt;</returns>
         /// <exception cref="MimirorgBadRequestException"></exception>
         /// <exception cref="AuthenticationException"></exception>
-        Task<MimirorgTokenCm> Authenticate(MimirorgAuthenticateAm authenticate);
+        Task<ICollection<MimirorgTokenCm>> Authenticate(MimirorgAuthenticateAm authenticate);
 
         /// <summary>
         /// Create a token from refresh token

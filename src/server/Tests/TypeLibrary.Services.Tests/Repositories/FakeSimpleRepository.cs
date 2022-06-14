@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TypeLibrary.Data;
-using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Services.Tests.Repositories
 {
-    public class FakeSimpleRepository : ISimpleRepository
+    public class FakeSimpleRepository : IEfSimpleRepository
     {
         public TypeLibraryDbContext? Context { get; set; }
         public DbSet<SimpleLibDm>? DbSet { get; set; }
@@ -80,7 +80,7 @@ namespace TypeLibrary.Services.Tests.Repositories
             throw new NotImplementedException();
         }
 
-        public IQueryable<SimpleLibDm> GetAllSimples()
+        public IQueryable<SimpleLibDm> GetAllSimple()
         {
             throw new NotImplementedException();
         }

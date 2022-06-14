@@ -2,6 +2,7 @@
 using System.Text.Json.Serialization;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
+using TypeScriptBuilder;
 using Discipline = Mimirorg.TypeLibrary.Enums.Discipline;
 
 namespace Mimirorg.TypeLibrary.Models.Application
@@ -38,7 +39,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public ICollection<string> UnitIdList { get; set; }
         public HashSet<string> Tags { get; set; }
 
-        [JsonIgnore]
+        [TSExclude]
         public string Id => ($"{Name}-{Aspect}-{AttributeQualifier}-{AttributeSource}-{AttributeCondition}").CreateMd5();
     }
 }
