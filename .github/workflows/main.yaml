@@ -54,10 +54,11 @@ jobs:
       target: final
       hash_files_template: "**/package-lock.json"
       push: true
+      use_dockerhub: true
     secrets:
-      REGISTRY_SERVER_URLS: ${{ secrets.REGISTRY_SERVER_URL }}
-      REGISTRY_USERNAMES: ${{ secrets.REGISTRY_USERNAME }}
-      REGISTRY_PASSWORDS: ${{ secrets.REGISTRY_PASSWORD }}
+      DOCKERHUB_ORG: mimirorg
+      DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+      DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
 
   build-server:
     uses: mimir-org/mimir-actions/.github/workflows/docker-build-push-cached.yaml@main
@@ -73,10 +74,11 @@ jobs:
       target: final
       hash_files_template: "**/*.csproj"
       push: true
+      use_dockerhub: true
     secrets:
-      REGISTRY_SERVER_URLS: ${{ secrets.REGISTRY_SERVER_URL }}
-      REGISTRY_USERNAMES: ${{ secrets.REGISTRY_USERNAME }}
-      REGISTRY_PASSWORDS: ${{ secrets.REGISTRY_PASSWORD }}
+      DOCKERHUB_ORG: mimirorg
+      DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+      DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
 
   npm-Typelibrary:
     runs-on: ubuntu-latest
