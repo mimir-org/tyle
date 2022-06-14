@@ -43,12 +43,12 @@ jobs:
   build-client:
     uses: mimir-org/mimir-actions/.github/workflows/docker-build-push-cached.yaml@main
     needs: create-release
-    if: needs.create-release.outputs.tag!=''
+    if: false && needs.create-release.outputs.tag!='' # Remove false when prod
     with:
       repository: typelibrary-client
       tags: |
         latest
-        ${{needs.create-release.outputs.tag}}
+        v${{needs.create-release.outputs.tag}}
       context: ./src/client
       file: ./src/client/Dockerfile
       target: final
@@ -63,12 +63,12 @@ jobs:
   build-server:
     uses: mimir-org/mimir-actions/.github/workflows/docker-build-push-cached.yaml@main
     needs: create-release
-    if: needs.create-release.outputs.tag!=''
+    if: false && needs.create-release.outputs.tag!='' # Remove false when prod
     with:
       repository: typelibrary-server
       tags: |
         latest
-        ${{needs.create-release.outputs.tag}}
+        v${{needs.create-release.outputs.tag}}
       context: ./src/server
       file: ./src/server/Dockerfile
       target: final
@@ -99,6 +99,8 @@ jobs:
           cd typelibrary-types
 
           cp -a ../src/server/Mimirorg.Package/template/. ./
+          
+          npx tsc index.ts --declaration
 
           npm version ${{ needs.create-release.outputs.raw_tag }}
 
