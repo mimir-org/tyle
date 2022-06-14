@@ -43,7 +43,7 @@ jobs:
   build-client:
     uses: mimir-org/mimir-actions/.github/workflows/docker-build-push-cached.yaml@main
     needs: create-release
-    if: false && needs.create-release.outputs.tag!='' # Remove false when prod
+    if: needs.create-release.outputs.tag!=''
     with:
       repository: typelibrary-client
       tags: |
@@ -63,7 +63,7 @@ jobs:
   build-server:
     uses: mimir-org/mimir-actions/.github/workflows/docker-build-push-cached.yaml@main
     needs: create-release
-    if: false && needs.create-release.outputs.tag!='' # Remove false when prod
+    if: needs.create-release.outputs.tag!=''
     with:
       repository: typelibrary-server
       tags: |
