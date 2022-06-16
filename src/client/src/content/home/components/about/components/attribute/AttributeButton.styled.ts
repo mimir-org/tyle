@@ -6,7 +6,7 @@ import { AttributeButtonProps } from "./AttributeButton";
 export const AttributeButtonContainer = styled.button<AttributeButtonProps>`
   flex-shrink: 0;
   text-decoration: none;
-  padding: 0 ${(props) => props.theme.tyle.spacing.xxs};
+  padding: 0 ${(props) => props.theme.tyle.spacing.base};
   border: 0;
 
   :hover {

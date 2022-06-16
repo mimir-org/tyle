@@ -7,7 +7,7 @@ export const TerminalTableContainer = styled.table`
 
 export const TerminalTableHeader = styled.th`
   border: 1px solid ${(props) => props.theme.tyle.color.sys.outline.base};
-  padding: ${(props) => props.theme.tyle.spacing.xs};
+  padding: ${(props) => props.theme.tyle.spacing.base};
 
   ${getTextRole("label-large")};
 
@@ -17,7 +17,7 @@ export const TerminalTableHeader = styled.th`
 
 export const TerminalTableData = styled.td`
   border: 1px solid ${(props) => props.theme.tyle.color.sys.outline.base};
-  padding: ${(props) => props.theme.tyle.spacing.xs};
+  padding: ${(props) => props.theme.tyle.spacing.base};
 
   ${getTextRole("body-medium")};
 

@@ -14,10 +14,10 @@ export const TerminalButtonContainer = styled.button<TerminalButtonContainerProp
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  gap: ${(props) => props.theme.tyle.spacing.xs};
+  gap: ${(props) => props.theme.tyle.spacing.s};
   white-space: nowrap;
   text-decoration: none;
-  padding: ${(props) => props.theme.tyle.spacing.xxs};
+  padding: ${(props) => props.theme.tyle.spacing.s};
   
   width: ${(props) => `${props.size}px`};
   height: ${(props) => `${props.size}px`};

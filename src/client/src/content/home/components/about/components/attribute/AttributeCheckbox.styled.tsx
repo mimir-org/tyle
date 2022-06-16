@@ -7,7 +7,7 @@ import { AttributeCheckboxProps } from "./AttributeCheckbox";
 export const AttributeCheckboxContainer = styled(CheckboxPrimitive.Root)<AttributeCheckboxProps>`
   flex-shrink: 0;
   text-decoration: none;
-  padding: 0 ${(props) => props.theme.tyle.spacing.xxs};
+  padding: 0 ${(props) => props.theme.tyle.spacing.base};
   border: 0;
 
   outline: ${(props) => props.checked && `2px solid ${props.theme.tyle.color.sys.background.on}`};

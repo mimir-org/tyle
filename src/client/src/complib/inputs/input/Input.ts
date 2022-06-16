@@ -12,7 +12,7 @@ export const Input = styled.input<InputProps>`
   height: 40px;
   min-width: 250px;
 
-  padding: ${(props) => props.theme.tyle.spacing.xs};
+  padding: ${(props) => props.theme.tyle.spacing.xs} ${(props) => props.theme.tyle.spacing.base};
   border: 1px solid ${(props) => props.theme.tyle.color.sys.outline.base};
   border-radius: ${(props) => props.theme.tyle.border.radius.small};
 

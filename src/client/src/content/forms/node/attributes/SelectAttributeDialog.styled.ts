@@ -3,8 +3,8 @@ import { hideScrollbar } from "../../../../complib/mixins";
 
 export const SelectContainer = styled.div`
   display: flex;
-  gap: ${(props) => props.theme.tyle.spacing.medium};
-  padding: ${(props) => props.theme.tyle.spacing.medium};
+  gap: ${(props) => props.theme.tyle.spacing.xl};
+  padding: ${(props) => props.theme.tyle.spacing.xl};
   height: 400px;
   max-width: 450px;
 

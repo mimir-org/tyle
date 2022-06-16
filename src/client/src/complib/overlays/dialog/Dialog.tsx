@@ -1,11 +1,11 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { PropsWithChildren, ReactNode } from "react";
-import { DialogContent, DialogOverlay } from "./Dialog.styled";
-import { Box } from "../../layouts";
 import { useTheme } from "styled-components";
-import { DialogTitle } from "./components/DialogTitle";
+import { Box } from "../../layouts";
 import { DialogDescription } from "./components/DialogDescription";
 import { DialogExit } from "./components/DialogExit";
+import { DialogTitle } from "./components/DialogTitle";
+import { DialogContent, DialogOverlay } from "./Dialog.styled";
 
 interface Props {
   content: ReactNode;
@@ -45,7 +45,7 @@ export const Dialog = ({
         </DialogPrimitive.Overlay>
         <DialogPrimitive.Content asChild>
           <DialogContent variant={"elevated"} elevation={3} {...theme.tyle.animation.fade}>
-            <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xxs} maxWidth={"350px"}>
+            <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xs} maxWidth={"350px"}>
               <DialogTitle hide={hideTitle}>{title}</DialogTitle>
               {description && <DialogDescription hide={hideDescription}>{description}</DialogDescription>}
             </Box>

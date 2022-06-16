@@ -11,7 +11,7 @@ export const User = ({ name }: Props) => {
   const theme = useTheme();
 
   return (
-    <Flexbox alignItems={"center"} gap={theme.tyle.spacing.xs}>
+    <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
       <UserCircle size={24} />
       <Text variant={"body-medium"}>{name}</Text>
     </Flexbox>

@@ -17,14 +17,14 @@ Here you will find an overview of the different shadows available. These are use
   display="flex"
   flexDirection={"column"}
   justifyContent={"space-between"}
-  gap={theme.spacing.xxl}
-  p={theme.spacing.xl}
+  gap={theme.spacing.multiple(8)}
+  p={theme.spacing.multiple(5)}
   border={`2px solid ${lightTheme.outline.base}`}
   borderRadius={theme.border.radius.medium}
 >
   {Object.entries(theme.shadow).map(([k, v]) => {
     return (
-      <Box key={v} display="flex" flexDirection={"column"} gap={theme.spacing.large} p={theme.spacing.large} boxShadow={v}>
+      <Box key={v} display="flex" flexDirection={"column"} gap={theme.spacing.xxl} p={theme.spacing.l} boxShadow={v}>
         <Text variant={"title-medium"}>theme.shadow.{k}</Text>
         <Text variant={"label-large"}>box-shadow: {v}</Text>
       </Box>

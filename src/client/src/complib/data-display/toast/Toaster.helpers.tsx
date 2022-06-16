@@ -7,7 +7,7 @@ import { layer, translucify } from "../../mixins";
 export const getCustomToasterStyles = (theme: TyleTheme): DefaultToastOptions => ({
   style: {
     display: "flex",
-    padding: `${theme.spacing.xs} ${theme.spacing.small}`,
+    padding: `${theme.spacing.base} ${theme.spacing.l}`,
     color: theme.color.sys.surface.on,
     boxShadow: theme.shadow.small,
     borderRadius: theme.border.radius.medium,

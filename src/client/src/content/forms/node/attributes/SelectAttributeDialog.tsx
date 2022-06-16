@@ -40,7 +40,7 @@ export const SelectAttributeDialog = ({ attributes, onAdd }: SelectAttributeDial
       title={TextResources.ATTRIBUTE_DIALOG_TITLE}
       description={TextResources.ATTRIBUTE_DIALOG_DESCRIPTION}
       content={
-        <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.medium} overflow={"auto"}>
+        <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xl} overflow={"auto"}>
           <Input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -51,7 +51,7 @@ export const SelectAttributeDialog = ({ attributes, onAdd }: SelectAttributeDial
               display={"flex"}
               flexWrap={"wrap"}
               justifyContent={"center"}
-              gap={theme.tyle.spacing.medium}
+              gap={theme.tyle.spacing.xl}
               height={"fit-content"}
               width={"100%"}
             >

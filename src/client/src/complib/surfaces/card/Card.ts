@@ -13,7 +13,7 @@ type CardProps = Elevation &
   };
 
 export const Card = styled.div<CardProps>`
-  padding: ${(props) => props.theme.tyle.spacing.small};
+  padding: ${(props) => props.theme.tyle.spacing.l};
   border-radius: ${(props) => !props.square && props.theme.tyle.border.radius.medium};
 
   ${({ variant, elevation, interactive, ...props }) => {
