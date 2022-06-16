@@ -1,13 +1,13 @@
 import { createGlobalStyle } from "styled-components/macro";
+import { variablesColor } from "../variables/color/variablesColor";
+import { variablesTypography } from "../variables/typography/variablesTypography";
+import { variablesBorder } from "../variables/variablesBorder";
+import { variablesElevation } from "../variables/variablesElevation";
+import { variablesShadow } from "../variables/variablesShadow";
+import { variablesSpacing } from "../variables/variablesSpacing";
+import { variablesState } from "../variables/variablesState";
 import { globalResetStyle } from "./globalResetStyle";
 import { globalTypographyStyle } from "./globalTypographyStyle";
-import { variablesSpacing } from "../variables/variablesSpacing";
-import { variablesTypography } from "../variables/typography/variablesTypography";
-import { variablesShadow } from "../variables/variablesShadow";
-import { variablesBorder } from "../variables/variablesBorder";
-import { variablesColor } from "../variables/variablesColor";
-import { variablesElevation } from "../variables/variablesElevation";
-import { variablesState } from "../variables/variablesState";
 
 export const GlobalStyle = createGlobalStyle`
   // CSS RESET

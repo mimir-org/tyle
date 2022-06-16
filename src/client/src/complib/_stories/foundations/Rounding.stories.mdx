@@ -1,6 +1,6 @@
 import { Box, Flexbox } from "../../layouts";
 import { Text } from "../../text";
-import { theme } from "../../core";
+import { theme } from "../../core"; import { lightTheme } from "../../core/variables/color/themes/lightTheme";
 
 <Meta title="Foundations/Rounding" />
 
@@ -17,7 +17,7 @@ Here you will find an overview of the different units available for rounding of 
   justifyContent={"space-between"}
   gap={theme.spacing.large}
   p={theme.spacing.xl}
-  border={`2px solid ${theme.color.light.outline.base}`}
+  border={`2px solid ${lightTheme.outline.base}`}
   borderRadius={theme.border.radius.medium}
 >
   {Object.entries(theme.border.radius).map(([k, v]) => {

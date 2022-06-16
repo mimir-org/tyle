@@ -8,7 +8,7 @@ export const UnauthenticatedFormContainer = styled.div`
   height: 100%;
   width: min(700px, 100%);
   padding: ${(props) => props.theme.tyle.spacing.medium} min(${(props) => props.theme.tyle.spacing.xxxl}, 10%);
-  background-color: ${(props) => props.theme.tyle.color.surface.base};
+  background-color: ${(props) => props.theme.tyle.color.sys.surface.base};
   box-shadow: ${(props) => props.theme.tyle.shadow.xl};
   overflow: auto;
 `;

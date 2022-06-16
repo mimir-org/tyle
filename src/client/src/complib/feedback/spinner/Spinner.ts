@@ -8,8 +8,8 @@ export const Spinner = styled.div`
   display: inline-block;
   width: 50px;
   height: 50px;
-  border: 5px solid ${(props) => props.theme.tyle.color.surface.inverse.base};
-  border-top-color: ${(props) => props.theme.tyle.color.surface.inverse.on};
+  border: 5px solid ${(props) => props.theme.tyle.color.sys.surface.inverse.base};
+  border-top-color: ${(props) => props.theme.tyle.color.sys.surface.inverse.on};
   border-radius: 50%;
   animation: ${spin} 1s ease-in-out infinite;
 `;

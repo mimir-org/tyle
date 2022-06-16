@@ -8,8 +8,8 @@ export const SelectContainer = styled.div`
   height: 400px;
   max-width: 450px;
 
-  background-color: ${(props) => props.theme.tyle.color.surface.variant.base};
-  border: 1px solid ${(props) => props.theme.tyle.color.outline.base};
+  background-color: ${(props) => props.theme.tyle.color.sys.surface.variant.base};
+  border: 1px solid ${(props) => props.theme.tyle.color.sys.outline.base};
   border-radius: ${(props) => props.theme.tyle.border.radius.medium};
 
   // Hidden scrollbar

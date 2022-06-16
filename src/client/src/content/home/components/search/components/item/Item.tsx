@@ -1,7 +1,7 @@
-import { useTheme } from "styled-components";
-import { MotionCard } from "../../../../../../complib/surfaces";
-import { Box, Flexbox } from "../../../../../../complib/layouts";
 import { ReactNode } from "react";
+import { useTheme } from "styled-components";
+import { Box, Flexbox } from "../../../../../../complib/layouts";
+import { MotionCard } from "../../../../../../complib/surfaces";
 
 export interface ItemProps {
   isSelected?: boolean;
@@ -26,7 +26,7 @@ export const Item = ({ isSelected, preview, description, actions }: ItemProps) =
   return (
     <MotionCard
       layout
-      variant={isSelected ? "filled" : "elevated"}
+      variant={isSelected ? "outlined" : "elevated"}
       {...theme.tyle.animation.fade}
       {...theme.tyle.animation.selectHover}
     >

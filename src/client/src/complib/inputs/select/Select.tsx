@@ -41,27 +41,27 @@ const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends Grou
     ...base,
     minHeight: "40px",
     minWidth: "250px",
-    borderColor: theme.color.outline.base,
+    borderColor: theme.color.sys.outline.base,
     outline: state.isFocused ? "1px solid black" : "revert",
     "&:hover": {
-      borderColor: translucify(theme.color.primary.base, 0.5),
+      borderColor: translucify(theme.color.sys.primary.base, 0.5),
     },
   }),
   placeholder: (base) => ({
     ...base,
-    color: theme.color.outline.base,
+    color: theme.color.sys.outline.base,
   }),
   menu: (base) => ({
     ...base,
-    color: theme.color.surface.on,
+    color: theme.color.sys.surface.on,
   }),
   option: (base, state) => {
-    let backgroundColor = state.isSelected ? theme.color.secondary.base : "revert";
-    let color = state.isSelected ? theme.color.secondary.on : "revert";
+    let backgroundColor = state.isSelected ? theme.color.sys.secondary.base : "revert";
+    let color = state.isSelected ? theme.color.sys.secondary.on : "revert";
 
     if (state.isFocused) {
-      backgroundColor = translucify(theme.color.secondary.base, 0.5);
-      color = theme.color.secondary.on;
+      backgroundColor = translucify(theme.color.sys.secondary.base, 0.5);
+      color = theme.color.sys.secondary.on;
     }
 
     return {
@@ -69,8 +69,8 @@ const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends Grou
       backgroundColor,
       color,
       "&:hover": {
-        backgroundColor: translucify(theme.color.secondary.base, 0.5),
-        color: theme.color.secondary.on,
+        backgroundColor: translucify(theme.color.sys.secondary.base, 0.5),
+        color: theme.color.sys.secondary.on,
       },
     };
   },
