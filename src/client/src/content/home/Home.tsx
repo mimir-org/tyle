@@ -13,8 +13,8 @@ export const Home = () => {
       flex={1}
       display={"flex"}
       flexWrap={"wrap"}
-      bgColor={theme.tyle.color.surface.base}
-      color={theme.tyle.color.surface.on}
+      bgColor={theme.tyle.color.sys.surface.base}
+      color={theme.tyle.color.sys.surface.on}
       overflow={"auto"}
     >
       <Search selected={selected} setSelected={setSelected} />

@@ -1,8 +1,8 @@
-import styled, { css } from "styled-components/macro";
-import { Polymorphic } from "../props";
 import { ButtonHTMLAttributes, ElementType } from "react";
+import styled, { css } from "styled-components/macro";
+import { ColorTheme, ElevationSystem, StateSystem } from "../core";
 import { layer, translucify } from "../mixins";
-import { ColorSystem, ElevationSystem, StateSystem } from "../core";
+import { Polymorphic } from "../props";
 
 export type ButtonContainerProps = Polymorphic<ElementType> &
   ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -42,13 +42,13 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
 
     switch (variant) {
       case "filled": {
-        return filledButton(color, state, elevation, danger);
+        return filledButton(color.sys, state, elevation, danger);
       }
       case "outlined": {
-        return outlinedButton(color, state, danger);
+        return outlinedButton(color.sys, state, danger);
       }
       case "text": {
-        return textButton(color, state, danger);
+        return textButton(color.sys, state, danger);
       }
     }
   }};
@@ -70,7 +70,7 @@ ButtonContainer.defaultProps = {
   variant: "filled",
 };
 
-const filledButton = (color: ColorSystem, state: StateSystem, elevationSystem: ElevationSystem, danger?: boolean) => {
+const filledButton = (color: ColorTheme, state: StateSystem, elevationSystem: ElevationSystem, danger?: boolean) => {
   const baseColor = danger ? color.error.base : color.primary.base;
   const onBaseColor = danger ? color.error.on : color.primary.on;
 
@@ -103,9 +103,9 @@ const filledButton = (color: ColorSystem, state: StateSystem, elevationSystem: E
   `;
 };
 
-const outlinedButton = (color: ColorSystem, state: StateSystem, danger?: boolean) => {
+const outlinedButton = (color: ColorTheme, state: StateSystem, danger?: boolean) => {
   const baseColor = danger ? color.error.base : color.primary.base;
-  const borderColor = danger ? color.error.container : color.outline.base;
+  const borderColor = color.outline.base;
 
   return css`
     background-color: transparent;
@@ -129,7 +129,7 @@ const outlinedButton = (color: ColorSystem, state: StateSystem, danger?: boolean
   `;
 };
 
-const textButton = (color: ColorSystem, state: StateSystem, danger?: boolean) => {
+const textButton = (color: ColorTheme, state: StateSystem, danger?: boolean) => {
   const baseColor = danger ? color.error.base : color.primary.base;
 
   return css`

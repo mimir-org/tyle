@@ -41,7 +41,13 @@ export const AttributeDescription = ({
       <Flexbox justifyContent={"space-between"} alignItems={"start"} gap={theme.tyle.spacing.xs}>
         <Text variant={"title-medium"}>{name}</Text>
         {actionable && onAction && (
-          <Button variant={"filled"} icon={actionIcon} iconOnly onClick={onAction} color={theme.tyle.color.surface.on}>
+          <Button
+            variant={"filled"}
+            icon={actionIcon}
+            iconOnly
+            onClick={onAction}
+            color={theme.tyle.color.sys.surface.on}
+          >
             {actionText}
           </Button>
         )}

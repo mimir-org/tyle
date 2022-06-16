@@ -1,7 +1,7 @@
+import { Plus, SwitchHorizontal } from "@styled-icons/heroicons-outline";
+import { ButtonHTMLAttributes } from "react";
 import styled, { css } from "styled-components/macro";
 import { layer, translucify } from "../../../../../../complib/mixins";
-import { ButtonHTMLAttributes } from "react";
-import { Plus, SwitchHorizontal } from "@styled-icons/heroicons-outline";
 
 export type TerminalButtonContainerProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   color: string;
@@ -43,22 +43,22 @@ export const TerminalButtonContainer = styled.button<TerminalButtonContainerProp
       color: #ffffff;
 
       :disabled {
-        background-color: ${translucify(colorSystem.surface.on, state.disabled.container.opacity)};
-        color: ${translucify(colorSystem.surface.on, state.disabled.content.opacity)};
+        background-color: ${translucify(colorSystem.sys.surface.on, state.disabled.container.opacity)};
+        color: ${translucify(colorSystem.sys.surface.on, state.disabled.content.opacity)};
       }
 
       :not(:disabled) {
         :hover {
           background: ${layer(
             translucify(color, elevation.levels[1].opacity),
-            translucify(colorSystem.primary.on, state.hover.opacity),
+            translucify(colorSystem.sys.primary.on, state.hover.opacity),
             translucify(color, state.enabled.opacity)
           )};
         }
 
         :active {
           background: ${layer(
-            translucify(colorSystem.primary.on, state.pressed.opacity),
+            translucify(colorSystem.sys.primary.on, state.pressed.opacity),
             translucify(color, state.enabled.opacity)
           )};
         }

@@ -13,13 +13,13 @@ export const Input = styled.input<InputProps>`
   min-width: 250px;
 
   padding: ${(props) => props.theme.tyle.spacing.xs};
-  border: 1px solid ${(props) => props.theme.tyle.color.outline.base};
+  border: 1px solid ${(props) => props.theme.tyle.color.sys.outline.base};
   border-radius: ${(props) => props.theme.tyle.border.radius.small};
 
   ${getTextRole("body-large")};
   ${sizingMixin};
 
   ::placeholder {
-    color: ${(props) => props.theme.tyle.color.outline.base};
+    color: ${(props) => props.theme.tyle.color.sys.outline.base};
   }
 `;

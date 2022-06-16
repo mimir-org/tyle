@@ -1,6 +1,6 @@
 import { css } from "styled-components/macro";
-import { TyleTheme } from "../theme/theme";
 import { getTextRole } from "../../mixins";
+import { TyleTheme } from "../theme/theme";
 
 /**
  * TYPOGRAPHY SPECIFIC GLOBALS
@@ -10,7 +10,7 @@ export const globalTypographyStyle = (theme: TyleTheme) => css`
     font-family: ${theme.typography.ref.typeface.brand};
     font-weight: ${theme.typography.ref.typeface.weights.normal};
     font-size: 100%;
-    color: ${theme.color.background.on};
+    color: ${theme.color.sys.background.on};
   }
 
   h1 {

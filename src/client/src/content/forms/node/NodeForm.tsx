@@ -47,8 +47,8 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
       flex={1}
       display={"flex"}
       flexWrap={"wrap"}
-      bgColor={theme.tyle.color.surface.base}
-      color={theme.tyle.color.surface.on}
+      bgColor={theme.tyle.color.sys.surface.base}
+      color={theme.tyle.color.sys.surface.on}
       onSubmit={handleSubmit((data) =>
         submitNodeData(data, isEdit ? nodeUpdateMutation.mutateAsync : nodeCreateMutation.mutateAsync)
       )}
@@ -182,8 +182,6 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
         gap={theme.tyle.spacing.large}
         px={theme.tyle.spacing.large}
         py={theme.tyle.spacing.xl}
-        bgColor={theme.tyle.color.surface.variant.base}
-        color={theme.tyle.color.surface.variant.on}
       >
         {aspect === Aspect.Function && <FunctionNode control={control} register={register} />}
         {aspect === Aspect.Location && <LocationNode control={control} register={register} />}
