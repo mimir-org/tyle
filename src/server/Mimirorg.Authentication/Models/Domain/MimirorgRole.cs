@@ -1,4 +1,4 @@
-﻿namespace Mimirorg.Authentication.Models.Domain
+namespace Mimirorg.Authentication.Models.Domain
 {
     public class MimirorgRole
     {

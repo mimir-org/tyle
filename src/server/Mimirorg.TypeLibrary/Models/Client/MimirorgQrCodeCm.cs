@@ -1,4 +1,4 @@
-﻿namespace Mimirorg.TypeLibrary.Models.Client
+namespace Mimirorg.TypeLibrary.Models.Client
 {
     public class MimirorgQrCodeCm
     {

@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Configurations;
 using TypeLibrary.Data.Models;
 

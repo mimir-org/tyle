@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using Mimirorg.TypeLibrary.Extensions;
 
 namespace Mimirorg.TypeLibrary.Models.Application

@@ -1,4 +1,4 @@
-﻿using Mimirorg.Common.Abstract;
+using Mimirorg.Common.Abstract;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 

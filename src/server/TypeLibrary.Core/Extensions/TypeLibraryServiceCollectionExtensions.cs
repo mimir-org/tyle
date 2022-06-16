@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;

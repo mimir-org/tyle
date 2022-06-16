@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
@@ -36,6 +37,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// Get all registered companies
         /// </summary>
         /// <returns>ICollection&lt;MimirorgCompanyCm&gt;</returns>
+        [AllowAnonymous]
         [HttpGet]
         [Route("")]
         [ProducesResponseType(typeof(ICollection<MimirorgCompanyCm>), 200)]
@@ -61,6 +63,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// </summary>
         /// <param name="id">int</param>
         /// <returns>MimirorgCompanyCm</returns>
+        [AllowAnonymous]
         [HttpGet]
         [Route("{id:int}")]
         [ProducesResponseType(typeof(MimirorgCompanyCm), 200)]
@@ -90,6 +93,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// </summary>
         /// <param name="mimirorgCompanyAuth">MimirorgCompanyAuthAm</param>
         /// <returns>MimirorgCompanyCm</returns>
+        [AllowAnonymous]
         [HttpPost]
         [Route("auth")]
         [ProducesResponseType(typeof(MimirorgCompanyCm), 200)]

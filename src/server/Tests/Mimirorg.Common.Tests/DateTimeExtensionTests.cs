@@ -1,4 +1,4 @@
-﻿using Mimirorg.TypeLibrary.Extensions;
+using Mimirorg.TypeLibrary.Extensions;
 using Xunit;
 
 namespace Mimirorg.Common.Tests

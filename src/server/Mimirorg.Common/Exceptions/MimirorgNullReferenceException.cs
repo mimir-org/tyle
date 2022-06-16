@@ -1,4 +1,4 @@
-﻿namespace Mimirorg.Common.Exceptions
+namespace Mimirorg.Common.Exceptions
 {
     [Serializable]
     public class MimirorgNullReferenceException : Exception

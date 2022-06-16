@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Extensions;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
@@ -33,7 +34,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// Get all roles
         /// </summary>
         /// <returns>ICollection&lt;MimirorgRoleCm&gt;</returns>
-        [MimirorgAuthorize(MimirorgPermission.Manage)]
+        [AllowAnonymous]
         [HttpGet]
         [Route("role")]
         [ProducesResponseType(typeof(ICollection<MimirorgRoleCm>), 200)]
@@ -151,7 +152,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// Get all permissions
         /// </summary>
         /// <returns>ICollection&lt;MimirorgRoleCm&gt;</returns>
-        [MimirorgAuthorize(MimirorgPermission.Manage)]
+        [AllowAnonymous]
         [HttpGet]
         [Route("permission")]
         [ProducesResponseType(typeof(ICollection<MimirorgRoleCm>), 200)]
@@ -177,7 +178,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// </summary>
         /// <returns>A boolean value, true if ok</returns>
         /// <remarks>Authenticate</remarks>
-        [MimirorgAuthorize(MimirorgPermission.Manage)]
+        [MimirorgAuthorize(MimirorgPermission.Manage, "userPermission", "CompanyId")]
         [HttpPost]
         [Route("permission")]
         [ProducesResponseType(typeof(bool), 200)]

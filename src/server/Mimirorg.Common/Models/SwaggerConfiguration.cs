@@ -1,4 +1,4 @@
-﻿namespace Mimirorg.Common.Models
+namespace Mimirorg.Common.Models
 {
     public class SwaggerConfiguration
     {

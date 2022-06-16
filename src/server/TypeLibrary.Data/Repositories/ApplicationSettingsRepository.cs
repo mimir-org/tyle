@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Options;
 using Mimirorg.Common.Models;
 using TypeLibrary.Data.Contracts;
 

@@ -1,4 +1,4 @@
-﻿using System.Configuration;
+using System.Configuration;
 
 namespace Mimirorg.Common.Models
 {
@@ -23,11 +23,7 @@ namespace Mimirorg.Common.Models
             var portString = string.Empty;
             if (Port > 0) portString = $",{Port}";
 
-
-            var connection = $@"Data Source={DataSource}{portString};Initial Catalog={InitialCatalog};Integrated Security=False;User ID={DbUser};Password='{Password}';TrustServerCertificate=True;MultipleActiveResultSets=True";
-            Console.WriteLine(connection);
-
-            return connection;
+            return $@"Data Source={DataSource}{portString};Initial Catalog={InitialCatalog};Integrated Security=False;User ID={DbUser};Password='{Password}';TrustServerCertificate=True;MultipleActiveResultSets=True";
         }
 
         #endregion

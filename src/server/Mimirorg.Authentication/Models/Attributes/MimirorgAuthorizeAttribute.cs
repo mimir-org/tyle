@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Mimirorg.Authentication.Models.Constants;
 using Mimirorg.Common.Extensions;
@@ -92,10 +92,18 @@ namespace Mimirorg.Authentication.Models.Attributes
                 return null;
 
             var propValue = context.ActionArguments.FirstOrDefault(x => x.Key.Equals(_property)).Value;
+            if (propValue == null)
+                throw new NullReferenceException($"Couldn't find a property with name {_property}");
 
-            return string.IsNullOrEmpty(_member) ?
-                propValue?.ToString() :
-                propValue.GetPropValue<string>(_member);
+            if (string.IsNullOrEmpty(_member))
+                return propValue.ToString();
+
+            var memberValue = propValue.GetPropValue(_member);
+
+            if (memberValue == null)
+                throw new NullReferenceException($"Couldn't find member property with name {_member}");
+
+            return memberValue.ToString();
         }
     }
 }

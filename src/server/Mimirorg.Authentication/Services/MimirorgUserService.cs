@@ -1,4 +1,4 @@
-﻿using System.Security.Principal;
+using System.Security.Principal;
 using AspNetCore.Totp;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -25,8 +25,9 @@ namespace Mimirorg.Authentication.Services
         private readonly IMimirorgEmailRepository _emailRepository;
         private readonly IMimirorgTemplateRepository _templateRepository;
         private readonly IMimirorgCompanyService _mimirorgCompanyService;
+        private readonly IMimirorgAuthService _mimirorgAuthService;
 
-        public MimirorgUserService(UserManager<MimirorgUser> userManager, IOptions<MimirorgAuthSettings> authSettings, IMimirorgTokenRepository tokenRepository, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IMimirorgCompanyService mimirorgCompanyService)
+        public MimirorgUserService(UserManager<MimirorgUser> userManager, IOptions<MimirorgAuthSettings> authSettings, IMimirorgTokenRepository tokenRepository, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IMimirorgCompanyService mimirorgCompanyService, IMimirorgAuthService mimirorgAuthService)
         {
             _userManager = userManager;
             _tokenRepository = tokenRepository;
@@ -34,6 +35,7 @@ namespace Mimirorg.Authentication.Services
             _templateRepository = templateRepository;
             _authSettings = authSettings?.Value;
             _mimirorgCompanyService = mimirorgCompanyService;
+            _mimirorgAuthService = mimirorgAuthService;
         }
 
         /// <summary>
@@ -71,7 +73,7 @@ namespace Mimirorg.Authentication.Services
                 await SendEmailConfirmation(user);
 
             var totpSetupGenerator = new TotpSetupGenerator();
-            var totpSetup = totpSetupGenerator.Generate(_authSettings.ApplicationName, user.Id, user.SecurityHash, _authSettings.QrWidth, _authSettings.QrHeight);
+            var totpSetup = totpSetupGenerator.Generate(_authSettings.ApplicationName, user.Email, user.SecurityHash, _authSettings.QrWidth, _authSettings.QrHeight);
 
             // If this is the first registered user and environment is Development, create a dummy organization
             await CreateDefaultUserData(user);
@@ -98,7 +100,13 @@ namespace Mimirorg.Authentication.Services
             if (user == null)
                 throw new MimirorgNotFoundException("Couldn't find current user");
 
-            return user.ToContentModel();
+            var userCm = user.ToContentModel();
+
+            var companies = (await _mimirorgCompanyService.GetAllCompanies()).ToList();
+            var permissions = (await _mimirorgAuthService.GetAllPermissions()).ToList();
+            var permissionDictionary = await ResolveCompanies(companies, permissions, user);
+            userCm.Permissions = permissionDictionary;
+            return userCm;
         }
 
         /// <summary>
@@ -113,7 +121,13 @@ namespace Mimirorg.Authentication.Services
             if (user == null)
                 throw new MimirorgNotFoundException($"Couldn't find user with id {id}");
 
-            return user.ToContentModel();
+            var userCm = user.ToContentModel();
+
+            var companies = (await _mimirorgCompanyService.GetAllCompanies()).ToList();
+            var permissions = (await _mimirorgAuthService.GetAllPermissions()).ToList();
+            var permissionDictionary = await ResolveCompanies(companies, permissions, user);
+            userCm.Permissions = permissionDictionary;
+            return userCm;
         }
 
         /// <summary>
@@ -154,7 +168,6 @@ namespace Mimirorg.Authentication.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         public async Task<bool> DeleteUser(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -198,16 +211,16 @@ namespace Mimirorg.Authentication.Services
         private static string ComputeSha256Hash(string data)
         {
             // Create a SHA256   
-            using SHA256 sha256Hash = SHA256.Create();
+            using var sha256Hash = SHA256.Create();
 
             // ComputeHash - returns byte array  
-            byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(data));
+            var bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(data));
 
             // Convert byte array to a string   
-            StringBuilder builder = new StringBuilder();
-            for (int i = 0; i < bytes.Length; i++)
+            var builder = new StringBuilder();
+            foreach (var t in bytes)
             {
-                builder.Append(bytes[i].ToString("x2"));
+                builder.Append(t.ToString("x2"));
             }
             return builder.ToString();
         }
@@ -261,6 +274,51 @@ namespace Mimirorg.Authentication.Services
             {
                 // ignored
             }
+        }
+
+        private async Task<Dictionary<int, MimirorgPermission>> ResolveCompanies(ICollection<MimirorgCompanyCm> companies, ICollection<MimirorgPermissionCm> permissions, MimirorgUser user)
+        {
+            var companyList = new Dictionary<int, MimirorgPermission>();
+
+            if (!companies.Any())
+                return companyList;
+
+            var claims = await _userManager.GetClaimsAsync(user);
+            claims = claims.Where(x => companies.Any(y => x.Type == y.Id.ToString())).ToList();
+
+            var roles = (await _userManager.GetRolesAsync(user)).ToList();
+
+            // Administrator or Account Manager role should give full permission to all companies
+            if (roles.Any(x => x is "Administrator" or "Account Manager"))
+            {
+                foreach (var company in companies)
+                {
+                    companyList.Add(company.Id, MimirorgPermission.Manage);
+                }
+
+                return companyList;
+            }
+
+            // Moderator role should give delete permission to all companies
+            if (roles.Any(x => x is "Moderator"))
+            {
+                foreach (var company in companies)
+                {
+                    companyList.Add(company.Id, MimirorgPermission.Delete);
+                }
+
+                return companyList;
+            }
+
+            foreach (var claim in claims)
+            {
+                var company = companies.FirstOrDefault(x => x.Id.ToString() == claim.Type);
+                var permission = permissions.FirstOrDefault(x => x.Name == claim.Value);
+                if (company != null && permission != null && companyList.All(x => x.Key != company.Id))
+                    companyList.Add(company.Id, (MimirorgPermission) permission.Id);
+            }
+
+            return companyList;
         }
 
         #endregion

@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
+using Mimirorg.Authentication.Models.Attributes;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -28,12 +30,14 @@ namespace TypeLibrary.Core.Controllers.V1
         private readonly ILogger<LibraryNodeController> _logger;
         private readonly INodeService _nodeService;
         private readonly ITimedHookService _hookService;
+        private readonly IMimirorgUserService _userService;
 
-        public LibraryNodeController(ILogger<LibraryNodeController> logger, INodeService nodeService, ITimedHookService hookService)
+        public LibraryNodeController(ILogger<LibraryNodeController> logger, INodeService nodeService, ITimedHookService hookService, IMimirorgUserService userService)
         {
             _logger = logger;
             _nodeService = nodeService;
             _hookService = hookService;
+            _userService = userService;
         }
 
         /// <summary>
@@ -41,6 +45,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <param name="id">node id</param>
         /// <returns>The content if exist or </returns>
+        [AllowAnonymous]
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -81,6 +86,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// Get all nodes
         /// </summary>
         /// <returns>A collection of nodes</returns>
+        [AllowAnonymous]
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<NodeLibCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -104,6 +110,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <param name="node">The node that should be created</param>
         /// <returns>The created node</returns>
+        [MimirorgAuthorize(MimirorgPermission.Write, "node", "CompanyId")]
         [HttpPost]
         [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -148,14 +155,18 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="dataAm"></param>
         /// <param name="id"></param>
         /// <returns>NodeLibCm</returns>
+        [MimirorgAuthorize(MimirorgPermission.Write, "dataAm", "CompanyId")]
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Edit")]
         public async Task<IActionResult> Update([FromBody] NodeLibAm dataAm, [FromRoute] string id)
         {
             try
             {
+                var companyIsChanged = await _nodeService.CompanyIsChanged(id, dataAm.CompanyId);
+                if (companyIsChanged)
+                    return StatusCode(StatusCodes.Status403Forbidden);
+
                 var data = await _nodeService.Update(dataAm, id);
                 _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
                 return Ok(data);
@@ -182,16 +193,28 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <param name="id"></param>
         /// <returns>200</returns>
+        [Authorize]
         [HttpDelete]
         [Route("{id}")]
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Admin")]
         [SwaggerOperation("Delete a node")]
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
             try
             {
+                var node = await _nodeService.Get(id);
+
+                if (node == null)
+                    return NotFound($"Can't find node with id: {id}");
+
+                var currentUser = await _userService.GetUser(HttpContext.User);
+                if (!currentUser.Permissions.TryGetValue(node.CompanyId, out var permission))
+                    return StatusCode(StatusCodes.Status403Forbidden);
+
+                if (!permission.HasFlag(MimirorgPermission.Delete))
+                    return StatusCode(StatusCodes.Status403Forbidden);
+
                 var data = await _nodeService.Delete(id);
                 _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
                 return Ok(data);

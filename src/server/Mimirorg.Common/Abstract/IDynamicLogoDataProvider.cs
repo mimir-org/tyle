@@ -1,4 +1,4 @@
-﻿namespace Mimirorg.Common.Abstract
+namespace Mimirorg.Common.Abstract
 {
     public interface IDynamicLogoDataProvider
     {

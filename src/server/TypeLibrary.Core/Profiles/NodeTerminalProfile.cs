@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Models;

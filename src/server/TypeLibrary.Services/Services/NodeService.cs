@@ -1,12 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
+using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
@@ -141,6 +143,16 @@ namespace TypeLibrary.Services.Services
         public async Task<bool> Delete(string id)
         {
             return await _nodeRepository.Delete(id);
+        }
+
+        public async Task<bool> CompanyIsChanged(string nodeId, int companyId)
+        {
+            var node = await Get(nodeId);
+
+            if (node == null)
+                throw new MimirorgNotFoundException($"Couldn't find node with id: {nodeId}");
+
+            return node.CompanyId != companyId;
         }
     }
 }

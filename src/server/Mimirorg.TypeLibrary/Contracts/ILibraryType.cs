@@ -1,4 +1,4 @@
-﻿namespace Mimirorg.TypeLibrary.Contracts
+namespace Mimirorg.TypeLibrary.Contracts
 {
     public interface ILibraryType
     {

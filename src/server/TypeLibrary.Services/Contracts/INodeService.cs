@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -12,5 +12,6 @@ namespace TypeLibrary.Services.Contracts
         Task<NodeLibCm> Create(NodeLibAm dataAm);
         Task<NodeLibCm> Update(NodeLibAm dataAm, string id);
         Task<bool> Delete(string id);
+        Task<bool> CompanyIsChanged(string nodeId, int companyId);
     }
 }

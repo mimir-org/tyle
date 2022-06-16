@@ -1,3 +1,3 @@
-﻿using Mimirorg.Package;
+using Mimirorg.Package;
 
 MimirorgTsBuilder.CreateTypeScriptFiles();

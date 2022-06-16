@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mimirorg.Common.Converters
@@ -16,7 +16,7 @@ namespace Mimirorg.Common.Converters
     public class StringCollectionValueComparer : ValueComparer<ICollection<string>>
     {
         public StringCollectionValueComparer() : base((c1, c2) => c1.SequenceEqual(c2),
-            c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())), c => (ICollection<string>)c.ToHashSet())
+            c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())), c => (ICollection<string>) c.ToHashSet())
         {
         }
     }

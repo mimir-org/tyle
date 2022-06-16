@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Mimirorg.Common.Abstract;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
