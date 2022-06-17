@@ -45,12 +45,12 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <param name="id">node id</param>
         /// <returns>The content if exist or </returns>
-        [AllowAnonymous]
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [AllowAnonymous]
         public async Task<IActionResult> Get([FromRoute] string id)
         {
             try
@@ -63,6 +63,8 @@ namespace TypeLibrary.Core.Controllers.V1
             }
             catch (MimirorgBadRequestException e)
             {
+                _logger.LogWarning(e, $"Warning error: {e.Message}");
+
                 foreach (var error in e.Errors().ToList())
                 {
                     ModelState.Remove(error.Key);
@@ -86,11 +88,11 @@ namespace TypeLibrary.Core.Controllers.V1
         /// Get all nodes
         /// </summary>
         /// <returns>A collection of nodes</returns>
-        [AllowAnonymous]
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<NodeLibCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [AllowAnonymous]
         public async Task<IActionResult> GetLatestVersions()
         {
             try
@@ -110,11 +112,13 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <param name="node">The node that should be created</param>
         /// <returns>The created node</returns>
-        [MimirorgAuthorize(MimirorgPermission.Write, "node", "CompanyId")]
         [HttpPost]
         [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [MimirorgAuthorize(MimirorgPermission.Write, "node", "CompanyId")]
         public async Task<IActionResult> Create([FromBody] NodeLibAm node)
         {
             try
@@ -128,6 +132,8 @@ namespace TypeLibrary.Core.Controllers.V1
             }
             catch (MimirorgBadRequestException e)
             {
+                _logger.LogWarning(e, $"Warning error: {e.Message}");
+
                 foreach (var error in e.Errors().ToList())
                 {
                     ModelState.Remove(error.Key);
@@ -155,10 +161,12 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="dataAm"></param>
         /// <param name="id"></param>
         /// <returns>NodeLibCm</returns>
-        [MimirorgAuthorize(MimirorgPermission.Write, "dataAm", "CompanyId")]
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [MimirorgAuthorize(MimirorgPermission.Write, "dataAm", "CompanyId")]
         public async Task<IActionResult> Update([FromBody] NodeLibAm dataAm, [FromRoute] string id)
         {
             try
@@ -173,6 +181,8 @@ namespace TypeLibrary.Core.Controllers.V1
             }
             catch (MimirorgBadRequestException e)
             {
+                _logger.LogWarning(e, $"Warning error: {e.Message}");
+
                 foreach (var error in e.Errors().ToList())
                 {
                     ModelState.Remove(error.Key);
@@ -193,12 +203,14 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <param name="id"></param>
         /// <returns>200</returns>
-        [Authorize]
         [HttpDelete]
         [Route("{id}")]
         [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [SwaggerOperation("Delete a node")]
+        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
             try
@@ -218,6 +230,22 @@ namespace TypeLibrary.Core.Controllers.V1
                 var data = await _nodeService.Delete(id);
                 _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
                 return Ok(data);
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                _logger.LogWarning(e, $"Warning error: {e.Message}");
+
+                foreach (var error in e.Errors().ToList())
+                {
+                    ModelState.Remove(error.Key);
+                    ModelState.TryAddModelError(error.Key, error.Error);
+                }
+
+                return BadRequest(ModelState);
+            }
+            catch (MimirorgNotFoundException)
+            {
+                return NoContent();
             }
             catch (Exception e)
             {

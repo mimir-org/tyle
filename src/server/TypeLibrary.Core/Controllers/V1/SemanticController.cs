@@ -1,8 +1,10 @@
 using System;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
@@ -36,13 +38,18 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <returns></returns>
         [HttpGet("attribute/{id}")]
         [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [AllowAnonymous]
         public IActionResult GetAttribute(string id)
         {
             try
             {
                 var data = _attributeService.Get(Aspect.NotSet).FirstOrDefault(x => x.Id == id);
                 return Ok(data);
+            }
+            catch (MimirorgNotFoundException)
+            {
+                return NoContent();
             }
             catch (Exception e)
             {

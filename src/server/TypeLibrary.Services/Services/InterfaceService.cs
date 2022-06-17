@@ -145,5 +145,15 @@ namespace TypeLibrary.Services.Services
         {
             return await _interfaceRepository.Delete(id);
         }
+
+        public async Task<bool> CompanyIsChanged(string interfaceId, int companyId)
+        {
+            var node = await Get(interfaceId);
+
+            if (node == null)
+                throw new MimirorgNotFoundException($"Couldn't find interface with id: {interfaceId}");
+
+            return node.CompanyId != companyId;
+        }
     }
 }

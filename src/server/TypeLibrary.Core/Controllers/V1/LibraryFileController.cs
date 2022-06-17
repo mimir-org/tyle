@@ -1,11 +1,14 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mimirorg.Authentication.Models.Attributes;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
+using Mimirorg.TypeLibrary.Enums;
 using Swashbuckle.AspNetCore.Annotations;
 using TypeLibrary.Services.Contracts;
 
@@ -15,7 +18,6 @@ namespace TypeLibrary.Core.Controllers.V1
     /// TypeCm file services
     /// </summary>
     [Produces("application/json")]
-    //[Authorize]
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
@@ -40,7 +42,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Authorize(Policy = "Read")]
+        [Authorize]
         public IActionResult ExportTypes()
         {
             try
@@ -64,7 +66,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[Authorize(Policy = "Edit")]
+        [MimirorgAuthorize(MimirorgPermission.Manage)]
         public async Task<IActionResult> UploadTypes(IFormFile file, CancellationToken cancellationToken)
         {
             try

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -14,7 +15,6 @@ namespace TypeLibrary.Core.Controllers.V1
     /// TypeCm file services
     /// </summary>
     [Produces("application/json")]
-    //[Authorize]
     [ApiController]
     [ApiVersion("1.0")]
     [Route("V{version:apiVersion}/[controller]")]
@@ -36,8 +36,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<RdsLibCm>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Read")]
+        [AllowAnonymous]
         public IActionResult GetRdsCodes()
         {
             try
