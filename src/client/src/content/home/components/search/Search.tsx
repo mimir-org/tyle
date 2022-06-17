@@ -34,10 +34,10 @@ export const Search = ({ selected, setSelected }: SearchProps) => {
       flex={1}
       display={"flex"}
       flexDirection={"column"}
-      gap={theme.tyle.spacing.large}
-      pt={theme.tyle.spacing.xl}
-      px={theme.tyle.spacing.large}
-      pb={theme.tyle.spacing.medium}
+      gap={theme.tyle.spacing.xxxl}
+      pt={theme.tyle.spacing.multiple(6)}
+      px={theme.tyle.spacing.xxxl}
+      pb={theme.tyle.spacing.xl}
       height={"100%"}
       minWidth={"400px"}
     >

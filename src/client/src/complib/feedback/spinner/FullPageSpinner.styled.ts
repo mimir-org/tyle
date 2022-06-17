@@ -5,7 +5,7 @@ export const FullPageSpinnerContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: ${(props) => props.theme.tyle.spacing.medium};
+  gap: ${(props) => props.theme.tyle.spacing.xl};
   background-color: ${(props) => props.theme.tyle.color.sys.background.base};
   height: 100%;
   width: 100%;

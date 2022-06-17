@@ -15,9 +15,9 @@ export const Header = () => {
       display={"flex"}
       alignItems={"center"}
       justifyContent={"space-between"}
-      py={theme.tyle.spacing.small}
-      px={theme.tyle.spacing.large}
-      height={"60px"}
+      py={theme.tyle.spacing.base}
+      px={theme.tyle.spacing.xxxl}
+      height={"56px"}
       bgColor={theme.tyle.color.sys.primary.base}
       color={theme.tyle.color.sys.primary.on}
       boxShadow={theme.tyle.shadow.small}

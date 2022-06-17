@@ -16,7 +16,7 @@ export const FormErrorBanner = ({ children }: FormErrorBannerProps) => {
     <MotionBox
       layout
       {...theme.tyle.animation.fade}
-      p={theme.tyle.spacing.small}
+      p={theme.tyle.spacing.l}
       bgColor={theme.tyle.color.sys.error.base}
       color={theme.tyle.color.sys.error.on}
     >

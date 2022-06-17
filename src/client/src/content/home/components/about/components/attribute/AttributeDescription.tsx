@@ -1,9 +1,9 @@
 import { useTheme } from "styled-components";
+import { Button } from "../../../../../../complib/buttons";
 import { Box, Flexbox } from "../../../../../../complib/layouts";
 import { Text } from "../../../../../../complib/text";
-import { AttributeItem } from "../../../../types/AttributeItem";
-import { Button } from "../../../../../../complib/buttons";
 import { Actionable } from "../../../../../../types";
+import { AttributeItem } from "../../../../types/AttributeItem";
 
 export type AttributeDescriptionProps = Omit<AttributeItem, "id"> & Partial<Actionable>;
 
@@ -36,9 +36,9 @@ export const AttributeDescription = ({
       display={"flex"}
       flexDirection={"column"}
       width={"150px"}
-      gap={theme.tyle.spacing.medium}
+      gap={theme.tyle.spacing.xl}
     >
-      <Flexbox justifyContent={"space-between"} alignItems={"start"} gap={theme.tyle.spacing.xs}>
+      <Flexbox justifyContent={"space-between"} alignItems={"start"} gap={theme.tyle.spacing.base}>
         <Text variant={"title-medium"}>{name}</Text>
         {actionable && onAction && (
           <Button
@@ -53,10 +53,10 @@ export const AttributeDescription = ({
         )}
       </Flexbox>
 
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xxs}>
+      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.s}>
         {traits &&
           Object.keys(traits).map((k, i) => (
-            <Flexbox key={i} gap={theme.tyle.spacing.medium} justifyContent={"space-between"}>
+            <Flexbox key={i} gap={theme.tyle.spacing.xl} justifyContent={"space-between"}>
               <Text variant={"body-medium"} textTransform={"capitalize"}>
                 {k}:
               </Text>

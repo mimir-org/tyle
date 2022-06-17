@@ -1,9 +1,9 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "../../../../complib/media";
-import { Link } from "react-router-dom";
 
 export const RegisterQrImage = styled(Icon)`
-  margin: ${(props) => props.theme.tyle.spacing.large} auto;
+  margin: ${(props) => props.theme.tyle.spacing.l} auto;
 `;
 
 export const RegisterFinalizeLink = styled(Link)`

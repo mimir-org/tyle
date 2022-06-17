@@ -24,7 +24,7 @@ export const Terminals = ({ terminals, variant, showCollectionLimit = 5 }: Termi
   const useSummary = terminals.length > showCollectionLimit;
 
   return (
-    <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.small} minWidth={"25px"}>
+    <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.base} minWidth={"25px"}>
       {!useSummary &&
         terminals.map((terminal, index) => (
           <TerminalSingle {...terminal} key={terminal.name + terminal.direction + index} />

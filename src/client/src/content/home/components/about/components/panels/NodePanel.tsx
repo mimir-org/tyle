@@ -33,7 +33,7 @@ export const NodePanel = ({ name, description, img, color, tokens, terminals, at
       flex={1}
       display={"flex"}
       flexDirection={"column"}
-      gap={theme.tyle.spacing.large}
+      gap={theme.tyle.spacing.xxl}
       maxHeight={"100%"}
       overflow={"hidden"}
       {...theme.tyle.animation.fade}
@@ -46,7 +46,7 @@ export const NodePanel = ({ name, description, img, color, tokens, terminals, at
       <Text useEllipsis ellipsisMaxLines={5}>
         {description}
       </Text>
-      <Flexbox gap={theme.tyle.spacing.medium} flexWrap={"wrap"}>
+      <Flexbox gap={theme.tyle.spacing.xl} flexWrap={"wrap"}>
         {tokens && tokens.map((t, i) => <Token key={i} text={t} />)}
       </Flexbox>
 
@@ -66,7 +66,7 @@ const NodePanelAttributes = ({ attributes }: { attributes: AttributeItem[] }) =>
       <Heading as={"h3"} variant={"headline-small"}>
         {textResources.ATTRIBUTE_TITLE}
       </Heading>
-      <Box display={"flex"} gap={theme.tyle.spacing.medium} flexWrap={"wrap"}>
+      <Box display={"flex"} gap={theme.tyle.spacing.xl} flexWrap={"wrap"}>
         {attributes && attributes.map((a, i) => <AttributeInfoButton key={i} {...a} />)}
       </Box>
     </>

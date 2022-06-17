@@ -43,7 +43,7 @@ const TerminalTableRow = ({ name, amount, color, direction, attributes }: Termin
   return (
     <tr>
       <TerminalTableData>
-        <Flexbox alignItems={"center"} gap={theme.tyle.spacing.xs}>
+        <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
           <TerminalButton as={"div"} color={color} variant={direction} />
           {name}
         </Flexbox>

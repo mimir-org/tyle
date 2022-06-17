@@ -1,21 +1,21 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useTheme } from "styled-components";
+import { LibraryIcon } from "../../../assets/icons/modules";
+import { TextResources } from "../../../assets/text";
+import { Button } from "../../../complib/buttons";
+import { Form, FormErrorBanner, FormField, FormFieldset, FormHeader } from "../../../complib/form";
+import { Input } from "../../../complib/inputs";
+import { MotionFlexbox } from "../../../complib/layouts";
+import { MotionIcon } from "../../../complib/media";
+import { MotionText, Text } from "../../../complib/text";
 import { getValidationStateFromServer } from "../../../data/helpers/getValidationStateFromServer";
+import { useCreateUser } from "../../../data/queries/auth/queriesUser";
 import { useValidationFromServer } from "../../../hooks/useValidationFromServer";
 import { MimirorgUserAm } from "../../../models/auth/application/mimirorgUserAm";
-import { useCreateUser } from "../../../data/queries/auth/queriesUser";
+import { UnauthenticatedFormContainer } from "../styled/UnauthenticatedForm";
 import { RegisterFinalize } from "./components/RegisterFinalize";
 import { RegisterProcessing } from "./components/RegisterProcessing";
-import { TextResources } from "../../../assets/text";
-import { LibraryIcon } from "../../../assets/icons/modules";
-import { UnauthenticatedFormContainer } from "../styled/UnauthenticatedForm";
-import { MotionIcon } from "../../../complib/media";
-import { Input } from "../../../complib/inputs";
-import { Button } from "../../../complib/buttons";
-import { MotionText, Text } from "../../../complib/text";
-import { MotionFlexbox } from "../../../complib/layouts";
-import { Form, FormErrorBanner, FormField, FormFieldset, FormHeader } from "../../../complib/form";
-import { useTheme } from "styled-components";
 
 export const Register = () => {
   const theme = useTheme();
@@ -93,7 +93,7 @@ export const Register = () => {
             </MotionText>
           </FormFieldset>
 
-          <MotionFlexbox layout flexDirection={"column"} gap={theme.tyle.spacing.large}>
+          <MotionFlexbox layout flexDirection={"column"} gap={theme.tyle.spacing.xxl}>
             <Button type={"submit"}>{TextResources.REGISTER_SUBMIT}</Button>
             <Text>
               {TextResources.REGISTER_IS_REGISTERED} <Link to="/">{TextResources.REGISTER_LOGIN_LINK}</Link>

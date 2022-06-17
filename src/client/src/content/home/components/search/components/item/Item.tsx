@@ -30,10 +30,10 @@ export const Item = ({ isSelected, preview, description, actions }: ItemProps) =
       {...theme.tyle.animation.fade}
       {...theme.tyle.animation.selectHover}
     >
-      <Flexbox justifyContent={"space-between"} alignItems={"center"} flexWrap={"wrap"} gap={theme.tyle.spacing.medium}>
+      <Flexbox justifyContent={"space-between"} alignItems={"center"} flexWrap={"wrap"} gap={theme.tyle.spacing.xl}>
         {preview}
         {description}
-        <Box display={"flex"} gap={theme.tyle.spacing.small} ml={"auto"}>
+        <Box display={"flex"} gap={theme.tyle.spacing.l} ml={"auto"}>
           {actions}
         </Box>
       </Flexbox>

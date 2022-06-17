@@ -27,13 +27,13 @@ export const NodeFormPredefinedAttributes = ({ control, register, aspects }: Nod
       display={"flex"}
       flexDirection={"column"}
       justifyContent={"center"}
-      gap={theme.tyle.spacing.medium}
+      gap={theme.tyle.spacing.xl}
       border={0}
       p={"0"}
     >
       <Text variant={"headline-medium"}>{TextResources.PREDEFINED_ATTRIBUTE_TITLE}</Text>
 
-      <Grid gridTemplateColumns={"repeat(auto-fill, 300px)"} gap={theme.tyle.spacing.medium}>
+      <Grid gridTemplateColumns={"repeat(auto-fill, 300px)"} gap={theme.tyle.spacing.xl}>
         {predefinedAttributes.map((x, index) => {
           return (
             <Box key={x.key}>

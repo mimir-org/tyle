@@ -16,7 +16,7 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  gap: ${(props) => props.theme.tyle.spacing.xs};
+  gap: ${(props) => props.theme.tyle.spacing.s};
   flex-direction: ${(props) => props.iconPlacement === "left" && "row-reverse"};
 
   white-space: nowrap;
@@ -26,7 +26,7 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   line-height: ${(props) => props.theme.tyle.typography.sys.roles.label.large.lineHeight};
   letter-spacing: ${(props) => props.theme.tyle.typography.sys.roles.label.large.letterSpacing};
 
-  padding: ${(props) => props.theme.tyle.spacing.xs} ${(props) => props.theme.tyle.spacing.small};
+  padding: ${(props) => props.theme.tyle.spacing.base} ${(props) => props.theme.tyle.spacing.xl};
   border-radius: 999px;
 
   :hover {
@@ -56,7 +56,7 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   ${({ iconOnly, ...props }) =>
     iconOnly &&
     css`
-      padding: ${props.theme.tyle.spacing.xs};
+      padding: ${props.theme.tyle.spacing.base};
     `};
 
   img,

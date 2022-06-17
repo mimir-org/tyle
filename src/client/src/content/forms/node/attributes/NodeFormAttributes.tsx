@@ -31,16 +31,16 @@ export const NodeFormAttributes = ({ control, aspects, register }: NodeFormAttri
       display={"flex"}
       flexDirection={"column"}
       justifyContent={"center"}
-      gap={theme.tyle.spacing.medium}
+      gap={theme.tyle.spacing.xl}
       border={0}
       p={"0"}
     >
-      <Flexbox gap={theme.tyle.spacing.medium} justifyContent={"space-between"}>
+      <Flexbox gap={theme.tyle.spacing.xl} justifyContent={"space-between"}>
         <Text variant={"headline-medium"}>{TextResources.ATTRIBUTE_TITLE}</Text>
         <SelectAttributeDialog attributes={attributeItems} onAdd={(ids) => onAddAttributes(ids, attributeFields)} />
       </Flexbox>
 
-      <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.medium}>
+      <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.xl}>
         {attributeFields.fields.map((field, index) => {
           const attribute = attributeItems.find((x) => x.id === field.value);
           const { ref, ...registerRest } = register(`attributeIdList.${index}`);
