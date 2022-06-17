@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/src/server/images/library.png" alt="logo" width="100" height="auto" />
+  <img src="/images/library.png" alt="logo" width="100" height="auto" />
   <h1>Tyle</h1>
   <h4>TypeLibrary</h4>
   <p>Server API for creating types!</p>
