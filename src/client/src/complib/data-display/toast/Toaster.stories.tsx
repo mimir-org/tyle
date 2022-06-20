@@ -25,7 +25,7 @@ export const WithCustomContent = () => {
     <Button
       onClick={() =>
         toast.custom(
-          <MotionCard variant={"elevated"} {...theme.tyle.animation.from("right", 400)}>
+          <MotionCard {...theme.tyle.animation.from("right", 400)}>
             <Flexbox gap={"16px"}>
               <div>
                 <Text variant={"title-medium"}>Custom</Text>

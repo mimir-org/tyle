@@ -26,7 +26,7 @@ export const Item = ({ isSelected, preview, description, actions }: ItemProps) =
   return (
     <MotionCard
       layout
-      variant={isSelected ? "outlined" : "elevated"}
+      variant={isSelected ? "selected" : "filled"}
       {...theme.tyle.animation.fade}
       {...theme.tyle.animation.selectHover}
     >
