@@ -44,7 +44,7 @@ export const Dialog = ({
           <DialogOverlay {...theme.tyle.animation.fade} />
         </DialogPrimitive.Overlay>
         <DialogPrimitive.Content asChild>
-          <DialogContent variant={"elevated"} elevation={3} {...theme.tyle.animation.fade}>
+          <DialogContent elevation={3} {...theme.tyle.animation.fade}>
             <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xs} maxWidth={"350px"}>
               <DialogTitle hide={hideTitle}>{title}</DialogTitle>
               {description && <DialogDescription hide={hideDescription}>{description}</DialogDescription>}

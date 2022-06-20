@@ -48,7 +48,7 @@ export const AlertDialog = ({
           <AlertDialogOverlay {...theme.tyle.animation.fade} />
         </AlertDialogPrimitive.Overlay>
         <AlertDialogPrimitive.Content asChild>
-          <AlertDialogContent variant={"elevated"} elevation={3} {...theme.tyle.animation.fade}>
+          <AlertDialogContent elevation={3} {...theme.tyle.animation.fade}>
             <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xs}>
               <AlertDialogTitle hide={hideTitle}>{title}</AlertDialogTitle>
               {description && <AlertDialogDescription hide={hideDescription}>{description}</AlertDialogDescription>}
