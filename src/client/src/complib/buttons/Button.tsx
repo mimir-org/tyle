@@ -1,8 +1,8 @@
-import { ButtonContainer, ButtonContainerProps } from "./Button.styled";
-import { Text } from "../text";
+import { forwardRef, isValidElement, ReactElement, ReactNode } from "react";
 import { VisuallyHidden } from "../accessibility";
 import { Icon } from "../media";
-import { forwardRef, isValidElement, ReactElement, ReactNode } from "react";
+import { Text } from "../text";
+import { ButtonContainer, ButtonContainerProps } from "./Button.styled";
 
 type ButtonProps = ButtonContainerProps & {
   children: ReactNode;
@@ -20,7 +20,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {icon && iconOnly ? (
           <VisuallyHidden>{children}</VisuallyHidden>
         ) : (
-          <Text as={"span"} variant={"title-small"}>
+          <Text as={"span"} variant={"body-small"}>
             {children}
           </Text>
         )}
