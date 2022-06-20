@@ -14,7 +14,7 @@ export const Input = styled.input<InputProps>`
 
   padding: ${(props) => props.theme.tyle.spacing.xs} ${(props) => props.theme.tyle.spacing.base};
   border: 1px solid ${(props) => props.theme.tyle.color.sys.outline.base};
-  border-radius: ${(props) => props.theme.tyle.border.radius.small};
+  border-radius: ${(props) => props.theme.tyle.border.radius.medium};
 
   ${getTextRole("body-large")};
   ${sizingMixin};
