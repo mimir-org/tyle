@@ -1,8 +1,8 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Default as NodePreview } from "../../../content/home/components/about/components/node/NodePreview.stories";
 import { NodePreviewProps } from "../../../content/home/components/about/components/node/NodePreview";
-import { AlertDialog } from "./AlertDialog";
+import { Default as NodePreview } from "../../../content/home/components/about/components/node/NodePreview.stories";
 import { Button } from "../../buttons";
+import { AlertDialog } from "./AlertDialog";
 
 export default {
   title: "Overlays/AlertDialog",
@@ -29,21 +29,6 @@ export const WithComponentContent = Template.bind({});
 WithComponentContent.args = {
   ...Default.args,
   content: <NodePreview {...(NodePreview.args as NodePreviewProps)} />,
-};
-
-export const WithDangerAction = Template.bind({});
-WithDangerAction.args = {
-  ...Default.args,
-  content: <NodePreview {...(NodePreview.args as NodePreviewProps)} />,
-  title: "Are you sure you want to delete this entity?",
-  description: "Deletions are irreversible, be absolutely sure before proceeding.",
-  actions: [
-    {
-      name: "Delete entity",
-      danger: true,
-      onAction: () => alert("[STORYBOOK] AlertDialog.Action"),
-    },
-  ],
 };
 
 export const WithHiddenTitle = Template.bind({});
