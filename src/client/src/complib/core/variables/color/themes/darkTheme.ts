@@ -8,18 +8,18 @@ export const darkTheme: ColorTheme = {
   },
   secondary: {
     base: colorReference.secondary[80],
-    on: colorReference.secondary[20],
+    on: colorReference.secondary[0],
     container: {
-      base: colorReference.secondary[30],
-      on: colorReference.secondary[90]
+      base: colorReference.secondary[40],
+      on: colorReference.secondary[0]
     }
   },
   tertiary: {
     base: colorReference.tertiary[80],
     on: colorReference.primary[20],
     container: {
-      base: colorReference.tertiary[30],
-      on: colorReference.primary[90]
+      base: colorReference.tertiary[40],
+      on: colorReference.primary[70]
     }
   },
   error: {
@@ -38,8 +38,8 @@ export const darkTheme: ColorTheme = {
     },
   },
   surface: {
-    base: colorReference.neutral[10],
-    on: colorReference.neutral[99],
+    base: colorReference.neutral[20],
+    on: colorReference.neutral[80],
     variant: {
       base: colorReference.neutralVariant[30],
       on: colorReference.neutralVariant[80],

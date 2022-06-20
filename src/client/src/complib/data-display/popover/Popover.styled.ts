@@ -5,8 +5,8 @@ import { translucify } from "../../mixins";
 const PopoverContent = styled.div`
   padding: ${(props) => props.theme.tyle.spacing.xl};
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
-  background-color: ${(props) => translucify(props.theme.tyle.color.sys.primary.base, 0.85)};
-  color: ${(props) => props.theme.tyle.color.sys.surface.inverse.on};
+  background-color: ${(props) => translucify(props.theme.tyle.color.sys.primary.base, 0.9)};
+  color: ${(props) => props.theme.tyle.color.sys.primary.on};
   box-shadow: ${(props) => props.theme.tyle.shadow.small};
 `;
 
