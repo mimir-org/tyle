@@ -6,7 +6,9 @@ export interface ColorTheme {
   tertiary: Accent,
   error: Accent,
   outline: Pick<Accent, "base">,
-  background: Pick<Accent, "base" | "on">,
+  background: Pick<Accent, "base" | "on"> & {
+    inverse: Pick<Accent, "base" | "on">
+  },
   surface: Pick<Accent, "base" | "on"> & {
     variant: Pick<Accent, "base" | "on">,
     inverse: Pick<Accent, "base" | "on">

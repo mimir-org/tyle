@@ -9,6 +9,10 @@ export const darkTheme: ColorTheme = {
   secondary: {
     base: colorReference.secondary[80],
     on: colorReference.secondary[20],
+    container: {
+      base: colorReference.secondary[30],
+      on: colorReference.secondary[90]
+    }
   },
   tertiary: {
     base: colorReference.tertiary[80],
@@ -27,7 +31,11 @@ export const darkTheme: ColorTheme = {
   },
   background: {
     base: colorReference.neutral[10],
-    on: colorReference.neutral[99]
+    on: colorReference.neutral[99],
+    inverse: {
+      base: colorReference.neutral[10],
+      on: colorReference.neutral[99],
+    },
   },
   surface: {
     base: colorReference.neutral[10],
