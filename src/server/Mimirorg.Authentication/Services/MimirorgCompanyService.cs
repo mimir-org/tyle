@@ -181,6 +181,10 @@ namespace Mimirorg.Authentication.Services
             if (!validation.IsValid)
                 throw new MimirorgBadRequestException($"Couldn't register hook: {hook?.CompanyId}-{hook?.Key}", validation);
 
+            var existingHook = await _mimirorgHookRepository.FindBy(x => x.CompanyId == hook.CompanyId && x.Key == hook.Key && x.Iri == hook.Iri).FirstOrDefaultAsync();
+            if (existingHook != null)
+                throw new MimirorgBadRequestException("The hook already exist");
+
             var hookDm = hook.ToDomainModel();
             await _mimirorgHookRepository.CreateAsync(hookDm);
             await _mimirorgHookRepository.SaveAsync();
