@@ -100,7 +100,7 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpGet("condition")]
-        [ProducesResponseType(typeof(ICollection<AttributeConditionLibAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<AttributeConditionLibCm>), StatusCodes.Status200OK)]
         [AllowAnonymous]
         public async Task<IActionResult> GetConditions()
         {
@@ -117,7 +117,7 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpGet("format")]
-        [ProducesResponseType(typeof(ICollection<AttributeFormatLibAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<AttributeFormatLibCm>), StatusCodes.Status200OK)]
         [AllowAnonymous]
         public async Task<IActionResult> GetFormats()
         {
@@ -134,7 +134,7 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpGet("qualifier")]
-        [ProducesResponseType(typeof(ICollection<AttributeQualifierLibAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<AttributeQualifierLibCm>), StatusCodes.Status200OK)]
         [AllowAnonymous]
         public async Task<IActionResult> GetQualifiers()
         {
@@ -151,7 +151,7 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpGet("source")]
-        [ProducesResponseType(typeof(ICollection<AttributeSourceLibAm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<AttributeSourceLibCm>), StatusCodes.Status200OK)]
         [AllowAnonymous]
         public async Task<IActionResult> GetSources()
         {

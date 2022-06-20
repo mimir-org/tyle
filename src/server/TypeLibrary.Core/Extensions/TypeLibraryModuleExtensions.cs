@@ -12,6 +12,7 @@ using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Factories;
 using TypeLibrary.Data.Repositories;
 using TypeLibrary.Data.Repositories.Ef;
+using TypeLibrary.Data.Repositories.External;
 using TypeLibrary.Services.Contracts;
 using TypeLibrary.Services.Services;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
@@ -39,16 +40,16 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IEfRdsRepository, EfRdsRepository>();
             services.AddSingleton<IFileRepository, JsonFileRepository>();
             services.AddScoped<IEfSymbolRepository, EfSymbolRepository>();
-            services.AddScoped<IEfAttributeConditionRepository, EfAttributeConditionRepository>();
-            services.AddScoped<IEfAttributeFormatRepository, EfAttributeFormatRepository>();
-            services.AddScoped<IEfAttributeQualifierRepository, EfAttributeQualifierRepository>();
-            services.AddScoped<IEfAttributeSourceRepository, EfAttributeSourceRepository>();
             services.AddScoped<IEfAttributeAspectRepository, EfAttributeAspectRepository>();
             services.AddScoped<IEfPurposeRepository, EfPurposeRepository>();
             services.AddScoped<IEfUnitRepository, EfUnitRepository>();
             services.AddScoped<IDynamicSymbolDataProvider, EfSymbolRepository>();
 
             services.AddScoped<IAttributeRepository, DbAttributeRepository>();
+            services.AddScoped<IAttributeQualifierRepository, DatumRepository>();
+            services.AddScoped<IAttributeSourceRepository, DatumRepository>();
+            services.AddScoped<IAttributeFormatRepository, DatumRepository>();
+            services.AddScoped<IAttributeConditionRepository, DatumRepository>();
             services.AddScoped<IInterfaceRepository, DbInterfaceRepository>();
             services.AddScoped<ITransportRepository, DbTransportRepository>();
             services.AddScoped<INodeRepository, DbNodeRepository>();

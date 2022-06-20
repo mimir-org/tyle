@@ -6,10 +6,6 @@ namespace TypeLibrary.Data
 {
     public class TypeLibraryDbContext : DbContext
     {
-        public virtual DbSet<AttributeConditionLibDm> AttributeCondition { get; set; }
-        public virtual DbSet<AttributeFormatLibDm> AttributeFormat { get; set; }
-        public virtual DbSet<AttributeQualifierLibDm> AttributeQualifier { get; set; }
-        public virtual DbSet<AttributeSourceLibDm> AttributeSource { get; set; }
         public virtual DbSet<AttributeLibDm> Attribute { get; set; }
         public virtual DbSet<SymbolLibDm> Symbol { get; set; }
         public virtual DbSet<InterfaceLibDm> Interface { get; set; }
@@ -32,10 +28,6 @@ namespace TypeLibrary.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration(new AttributeConditionConfiguration());
-            modelBuilder.ApplyConfiguration(new AttributeFormatConfiguration());
-            modelBuilder.ApplyConfiguration(new AttributeQualifierConfiguration());
-            modelBuilder.ApplyConfiguration(new AttributeSourceConfiguration());
             modelBuilder.ApplyConfiguration(new AttributeConfiguration());
             modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());
             modelBuilder.ApplyConfiguration(new SymbolConfiguration());
