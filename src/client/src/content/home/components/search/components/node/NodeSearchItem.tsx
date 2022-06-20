@@ -61,7 +61,7 @@ const NodeSearchItemActions = ({
       </PlainLink>
       <AlertDialog
         actions={[deleteAction]}
-        title={`${textResources.ITEM_ACTION_DELETE_TITLE} "${name}"?`}
+        title={`${textResources.ITEM_ACTION_DELETE_TITLE_START} "${name}" ${textResources.ITEM_ACTION_DELETE_TITLE_END}`}
         description={textResources.ITEM_ACTION_DELETE_DESCRIPTION}
         content={<NodePreview color={color} img={img} terminals={terminals} />}
       >

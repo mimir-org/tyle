@@ -76,7 +76,8 @@ const TextResources = {
   ITEM_ACTION_CLONE: "Clone",
   ITEM_ACTION_EDIT: "Edit",
   ITEM_ACTION_DELETE: "Delete",
-  ITEM_ACTION_DELETE_TITLE: "Are you sure you want to delete",
+  ITEM_ACTION_DELETE_TITLE_START: "Are you sure that you want to delete type",
+  ITEM_ACTION_DELETE_TITLE_END: "from the library?",
   ITEM_ACTION_DELETE_DESCRIPTION: "When you delete this item it cannot be recovered.",
 
   // About
