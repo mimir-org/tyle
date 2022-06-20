@@ -1,7 +1,7 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { PropsWithChildren, ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { Box } from "../../layouts";
+import { Flexbox } from "../../layouts";
 import { DialogDescription } from "./components/DialogDescription";
 import { DialogExit } from "./components/DialogExit";
 import { DialogTitle } from "./components/DialogTitle";
@@ -44,11 +44,11 @@ export const Dialog = ({
           <DialogOverlay {...theme.tyle.animation.fade} />
         </DialogPrimitive.Overlay>
         <DialogPrimitive.Content asChild>
-          <DialogContent elevation={3} {...theme.tyle.animation.fade}>
-            <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xs} maxWidth={"350px"}>
+          <DialogContent {...theme.tyle.animation.fade}>
+            <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
               <DialogTitle hide={hideTitle}>{title}</DialogTitle>
               {description && <DialogDescription hide={hideDescription}>{description}</DialogDescription>}
-            </Box>
+            </Flexbox>
             {content}
             <DialogExit />
           </DialogContent>

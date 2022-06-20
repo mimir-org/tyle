@@ -1,7 +1,7 @@
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 import { PropsWithChildren, ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { Box } from "../../layouts";
+import { Box, Flexbox } from "../../layouts";
 import { AlertDialogContent, AlertDialogOverlay } from "./AlertDialog.styled";
 import { AlertDialogAction, AlertDialogActionItem } from "./components/AlertDialogAction";
 import { AlertDialogCancel } from "./components/AlertDialogCancel";
@@ -48,13 +48,19 @@ export const AlertDialog = ({
           <AlertDialogOverlay {...theme.tyle.animation.fade} />
         </AlertDialogPrimitive.Overlay>
         <AlertDialogPrimitive.Content asChild>
-          <AlertDialogContent elevation={3} {...theme.tyle.animation.fade}>
-            <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xs}>
+          <AlertDialogContent {...theme.tyle.animation.fade}>
+            <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
               <AlertDialogTitle hide={hideTitle}>{title}</AlertDialogTitle>
               {description && <AlertDialogDescription hide={hideDescription}>{description}</AlertDialogDescription>}
-            </Box>
+            </Flexbox>
             {content}
-            <Box display={"flex"} gap={theme.tyle.spacing.base} m={"0 auto"}>
+            <Box
+              display={"flex"}
+              flexWrap={"wrap"}
+              justifyContent={"space-between"}
+              gap={theme.tyle.spacing.base}
+              minWidth={"236px"}
+            >
               <AlertDialogCancel />
               {actions?.map((a) => (
                 <AlertDialogAction key={a.name} {...a} />

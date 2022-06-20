@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import styled from "styled-components/macro";
-import { MotionCard } from "../../surfaces";
+import { MotionBox } from "../../layouts";
+import { translucify } from "../../mixins";
 
-export const AlertDialogContent = styled(MotionCard)`
+export const AlertDialogContent = styled(MotionBox)`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -10,16 +11,24 @@ export const AlertDialogContent = styled(MotionCard)`
 
   display: flex;
   flex-direction: column;
-  gap: ${(props) => props.theme.tyle.spacing.xl};
+  justify-content: center;
+  align-items: center;
+  gap: ${(props) => props.theme.tyle.spacing.multiple(6)};
 
-  width: 90vw;
-  max-width: 500px;
+  background-color: ${(props) => props.theme.tyle.color.sys.background.base};
+  border-radius: ${(props) => props.theme.tyle.border.radius.large};
+
+  width: 590px;
+  min-height: 380px;
+  max-width: 90vw;
   max-height: 85vh;
-  padding: ${(props) => props.theme.tyle.spacing.xl};
+  padding: ${(props) => props.theme.tyle.spacing.multiple(6)};
+
+  box-shadow: ${(props) => props.theme.tyle.shadow.small};
 `;
 
 export const AlertDialogOverlay = styled(motion.div)`
   position: fixed;
   inset: 0;
-  background-color: hsla(0, 0%, 0%, 0.5);
+  background-color: ${(props) => translucify(props.theme.tyle.color.sys.surface.on, 0.08)};
 `;
