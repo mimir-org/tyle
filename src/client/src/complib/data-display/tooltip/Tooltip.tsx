@@ -1,14 +1,15 @@
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
+import { AnimatePresence } from "framer-motion";
 import merge from "lodash.merge";
 import { PropsWithChildren, ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { MotionTooltipContent } from "./Tooltip.styled";
-import { AnimatePresence } from "framer-motion";
 import { Text } from "../../text";
+import { MotionTooltipContent } from "./Tooltip.styled";
 
 interface Props {
   content: ReactNode;
   placement?: "top" | "right" | "bottom" | "left";
+  align?: "start" | "center" | "end";
   delay?: number;
   offset?: number;
 }
@@ -23,11 +24,19 @@ interface Props {
  * @param children element which receive focus to trigger tooltip
  * @param content of the tooltip itself
  * @param placement target placement of the tooltip
+ * @param align target alignment of the tooltip
  * @param delay in ms before showing the tooltip
  * @param offset in px away from the element which triggers the tooltip
  * @constructor
  */
-export const Tooltip = ({ children, content, placement = "top", delay = 0, offset = 8 }: PropsWithChildren<Props>) => {
+export const Tooltip = ({
+  children,
+  content,
+  placement = "top",
+  align = "center",
+  delay = 0,
+  offset = 8,
+}: PropsWithChildren<Props>) => {
   const theme = useTheme();
   const motion = merge({}, theme.tyle.animation.fade, theme.tyle.animation.scale);
   const containsTextOnly = typeof content === "string";
@@ -36,7 +45,7 @@ export const Tooltip = ({ children, content, placement = "top", delay = 0, offse
     <TooltipPrimitive.Root delayDuration={delay}>
       <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
       <AnimatePresence>
-        <TooltipPrimitive.Content asChild avoidCollisions sideOffset={offset} side={placement}>
+        <TooltipPrimitive.Content asChild avoidCollisions sideOffset={offset} side={placement} align={align}>
           <MotionTooltipContent {...motion}>
             {containsTextOnly ? <Text variant={"body-medium"}>{content}</Text> : content}
           </MotionTooltipContent>

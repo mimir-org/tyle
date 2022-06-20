@@ -1,13 +1,14 @@
 import * as PopoverPrimitive from "@radix-ui/react-popover";
+import { AnimatePresence } from "framer-motion";
 import merge from "lodash.merge";
 import { PropsWithChildren, ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { AnimatePresence } from "framer-motion";
 import { MotionPopoverContent } from "./Popover.styled";
 
 interface Props {
   content: ReactNode;
   placement?: "top" | "right" | "bottom" | "left";
+  align?: "start" | "center" | "end";
   offset?: number;
 }
 
@@ -18,13 +19,20 @@ interface Props {
  * See documentation link below for details.
  * @see https://www.radix-ui.com/docs/primitives/components/popover
  *
- * @param children element which receive focus to trigger tooltip
- * @param content of the tooltip itself
- * @param placement target placement of the tooltip
- * @param offset in px away from the element which triggers the tooltip
+ * @param children element which receive focus to trigger popover
+ * @param content of the popover itself
+ * @param placement target placement of the popover
+ * @param align target alignment of the popover
+ * @param offset in px away from the element which triggers the popover
  * @constructor
  */
-export const Popover = ({ children, content, placement = "top", offset = 8 }: PropsWithChildren<Props>) => {
+export const Popover = ({
+  children,
+  content,
+  placement = "top",
+  align = "center",
+  offset = 8,
+}: PropsWithChildren<Props>) => {
   const theme = useTheme();
   const motion = merge({}, theme.tyle.animation.fade, theme.tyle.animation.scale);
 
@@ -32,7 +40,7 @@ export const Popover = ({ children, content, placement = "top", offset = 8 }: Pr
     <PopoverPrimitive.Root>
       <PopoverPrimitive.Trigger asChild>{children}</PopoverPrimitive.Trigger>
       <AnimatePresence>
-        <PopoverPrimitive.Content asChild avoidCollisions sideOffset={offset} side={placement}>
+        <PopoverPrimitive.Content asChild avoidCollisions sideOffset={offset} side={placement} align={align}>
           <MotionPopoverContent {...motion}>{content}</MotionPopoverContent>
         </PopoverPrimitive.Content>
       </AnimatePresence>
