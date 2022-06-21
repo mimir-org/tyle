@@ -1,4 +1,3 @@
-import { Plus, SwitchHorizontal } from "@styled-icons/heroicons-outline";
 import { meetsContrastGuidelines } from "polished";
 import styled, { css } from "styled-components/macro";
 import { layer, translucify } from "../../../../../../complib/mixins";
@@ -28,6 +27,10 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
     cursor: not-allowed;
   }
 
+  path {
+    stroke-width: 3;
+  }
+
   ${({ variant, ...props }) => {
     switch (variant) {
       case "small": {
@@ -47,6 +50,10 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
           width: 30px;
           height: 30px;
           padding: ${props.theme.tyle.spacing.s};
+
+          path {
+            stroke-width: 2;
+          }
         `;
       }
     }
@@ -92,15 +99,3 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
 TerminalButtonContainer.defaultProps = {
   variant: "medium",
 };
-
-export const ThickPlus = styled(Plus)`
-  path {
-    stroke-width: 3;
-  }
-`;
-
-export const ThickSwitchHorizontal = styled(SwitchHorizontal)`
-  path {
-    stroke-width: 3;
-  }
-`;

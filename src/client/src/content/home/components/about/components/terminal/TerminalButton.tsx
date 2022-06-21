@@ -1,6 +1,7 @@
+import { Plus, SwitchHorizontal } from "@styled-icons/heroicons-outline";
 import { ButtonHTMLAttributes, ElementType, forwardRef, ReactNode } from "react";
 import { Polymorphic } from "../../../../../../complib/props";
-import { TerminalButtonContainer, ThickPlus, ThickSwitchHorizontal } from "./TerminalButton.styled";
+import { TerminalButtonContainer } from "./TerminalButton.styled";
 
 export type TerminalButtonVariant = "small" | "medium" | "large";
 
@@ -22,7 +23,7 @@ export const TerminalButton = forwardRef<HTMLButtonElement, TerminalButtonProps>
   ({ children, direction, ...delegated }, ref) => (
     <TerminalButtonContainer ref={ref} {...delegated}>
       {children}
-      {direction !== "Bidirectional" ? <ThickPlus size={"100%"} /> : <ThickSwitchHorizontal size={"100%"} />}
+      {direction !== "Bidirectional" ? <Plus /> : <SwitchHorizontal />}
     </TerminalButtonContainer>
   )
 );
