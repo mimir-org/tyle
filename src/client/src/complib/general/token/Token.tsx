@@ -1,44 +1,44 @@
-import { DefaultTheme, useTheme } from "styled-components";
+import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode } from "react";
+import { Actionable } from "../../../types";
+import { Button } from "../../buttons";
 import { Text } from "../../text";
 import { TokenContainer } from "./Token.styled";
 
-interface TokenProps {
-  text: string;
-  variant?: "small" | "medium" | "large";
-}
+export type TokenBaseProps = Partial<Actionable> & {
+  variant?: "primary" | "secondary";
+  interactive?: boolean;
+  children?: ReactNode;
+};
+
+export type TokenProps = HTMLAttributes<HTMLSpanElement> & TokenBaseProps;
 
 /**
  * A component for representing a piece of data.
  * Often used to display a collection of related attributes.
  *
- * @param text to be displayed inside token
- * @param variant controls size of token
+ * @param children text to be displayed inside token
+ * @param variant controls style of the token
+ * @param actionable
+ * @param actionIcon
+ * @param actionText
+ * @param onAction
  * @constructor
  */
-export const Token = ({ text, variant = "medium" }: TokenProps) => {
-  const boxProps = boxVariants(useTheme())[variant];
-  const textVariant = `label-${variant}` as const;
+export const Token = forwardRef((props: TokenProps, ref: ForwardedRef<HTMLSpanElement>) => {
+  const { children, actionable, actionIcon, actionText, onAction, ...delegated } = props;
 
   return (
-    <TokenContainer as={"span"} {...boxProps}>
-      <Text variant={textVariant} whiteSpace={"nowrap"}>
-        {text}
+    <TokenContainer ref={ref} {...delegated}>
+      <Text variant={"label-small"} useEllipsis ellipsisMaxLines={1}>
+        {children}
       </Text>
+      {actionable && onAction && (
+        <Button variant={"text"} onClick={onAction} icon={actionIcon} iconOnly>
+          {actionText}
+        </Button>
+      )}
     </TokenContainer>
   );
-};
-
-const boxVariants = (theme: DefaultTheme) => ({
-  small: {
-    gap: theme.tyle.spacing.base,
-    p: `${theme.tyle.spacing.base} ${theme.tyle.spacing.l}`,
-  },
-  medium: {
-    gap: theme.tyle.spacing.base,
-    p: `${theme.tyle.spacing.base} ${theme.tyle.spacing.xl}`,
-  },
-  large: {
-    gap: theme.tyle.spacing.l,
-    p: `${theme.tyle.spacing.l} ${theme.tyle.spacing.xxl}`,
-  },
 });
+
+Token.displayName = "Token";

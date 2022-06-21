@@ -1,4 +1,4 @@
-import { ComponentMeta } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Token } from "./Token";
 
 export default {
@@ -6,8 +6,25 @@ export default {
   component: Token,
 } as ComponentMeta<typeof Token>;
 
-export const Small = () => <Token text={"Small"} variant={"small"} />;
+const Template: ComponentStory<typeof Token> = (args) => <Token {...args} />;
 
-export const Medium = () => <Token text={"Medium (default)"} />;
+export const Primary = Template.bind({});
+Primary.args = {
+  children: "Primary token (default)",
+  variant: "primary",
+};
 
-export const Large = () => <Token text={"Large"} variant={"large"} />;
+export const Secondary = Template.bind({});
+Secondary.args = {
+  children: "Secondary token",
+  variant: "secondary",
+};
+
+export const Actionable = Template.bind({});
+Actionable.args = {
+  children: "Actionable token",
+  actionable: true,
+  actionIcon: "static/media/src/assets/icons/modules/library.svg",
+  actionText: "Trigger action",
+  onAction: () => alert("[STORYBOOK] Token.onAction"),
+};

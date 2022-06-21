@@ -1,9 +1,9 @@
 import { Ref } from "react";
 import { Popover } from "../../../../../../complib/data-display";
-import { AttributeButton, AttributeButtonProps } from "./AttributeButton";
+import { TokenButton, TokenButtonProps } from "../../../../../../complib/general";
 import { AttributeDescription, AttributeDescriptionProps } from "./AttributeDescription";
 
-type AttributeInfoButtonProps = AttributeButtonProps &
+type AttributeInfoButtonProps = TokenButtonProps &
   AttributeDescriptionProps & {
     buttonRef?: Ref<HTMLButtonElement>;
   };
@@ -28,9 +28,10 @@ export const AttributeInfoButton = ({
   actionIcon,
   actionText,
   onAction,
-  ...delegated
+  buttonRef,
 }: AttributeInfoButtonProps) => (
   <Popover
+    align={"start"}
     content={
       <AttributeDescription
         name={name}
@@ -42,6 +43,8 @@ export const AttributeInfoButton = ({
       />
     }
   >
-    <AttributeButton {...delegated}>{name}</AttributeButton>
+    <TokenButton ref={buttonRef} variant={"secondary"}>
+      {name}
+    </TokenButton>
   </Popover>
 );

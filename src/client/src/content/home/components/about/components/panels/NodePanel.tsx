@@ -1,6 +1,6 @@
 import { useTheme } from "styled-components";
 import textResources from "../../../../../../assets/text/TextResources";
-import { Token } from "../../../../../../complib/general/token/Token";
+import { Token } from "../../../../../../complib/general";
 import { Box, Flexbox, MotionBox } from "../../../../../../complib/layouts";
 import { Heading, Text } from "../../../../../../complib/text";
 import { AttributeItem } from "../../../../types/AttributeItem";
@@ -47,7 +47,7 @@ export const NodePanel = ({ name, description, img, color, tokens, terminals, at
         {description}
       </Text>
       <Flexbox gap={theme.tyle.spacing.xl} flexWrap={"wrap"}>
-        {tokens && tokens.map((t, i) => <Token key={i} text={t} />)}
+        {tokens && tokens.map((t, i) => <Token key={i}>{t}</Token>)}
       </Flexbox>
 
       <NodePanelPropertiesContainer>
