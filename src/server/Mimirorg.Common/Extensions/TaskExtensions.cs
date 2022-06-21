@@ -1,4 +1,4 @@
-﻿namespace Mimirorg.Common.Extensions
+namespace Mimirorg.Common.Extensions
 {
     public static class TaskExtensions
     {

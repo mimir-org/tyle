@@ -1,5 +1,5 @@
-import { useTheme } from "styled-components";
 import { ReactNode } from "react";
+import { useTheme } from "styled-components";
 import { MotionBox } from "../layouts";
 
 interface FormErrorBannerProps {
@@ -16,9 +16,9 @@ export const FormErrorBanner = ({ children }: FormErrorBannerProps) => {
     <MotionBox
       layout
       {...theme.tyle.animation.fade}
-      p={theme.tyle.spacing.small}
-      bgColor={theme.tyle.color.error.base}
-      color={theme.tyle.color.error.on}
+      p={theme.tyle.spacing.l}
+      bgColor={theme.tyle.color.sys.error.base}
+      color={theme.tyle.color.sys.error.on}
     >
       {children}
     </MotionBox>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,11 +20,19 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly IAttributeRepository _attributeRepository;
         private readonly ApplicationSettings _applicationSettings;
+        private readonly IAttributeQualifierRepository _attributeQualifierRepository;
+        private readonly IAttributeSourceRepository _attributeSourceRepository;
+        private readonly IAttributeFormatRepository _attributeFormatRepository;
+        private readonly IAttributeConditionRepository _attributeConditionRepository;
 
-        public AttributeService(IMapper mapper, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings)
+        public AttributeService(IMapper mapper, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings, IAttributeQualifierRepository attributeQualifierRepository, IAttributeSourceRepository attributeSourceRepository, IAttributeFormatRepository attributeFormatRepository, IAttributeConditionRepository attributeConditionRepository)
         {
             _mapper = mapper;
             _attributeRepository = attributeRepository;
+            _attributeQualifierRepository = attributeQualifierRepository;
+            _attributeSourceRepository = attributeSourceRepository;
+            _attributeFormatRepository = attributeFormatRepository;
+            _attributeConditionRepository = attributeConditionRepository;
             _applicationSettings = applicationSettings?.Value;
         }
 
@@ -161,33 +169,13 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<AttributeConditionLibCm>> GetConditions()
         {
-            var notSet = _attributeRepository.GetConditions().FirstOrDefault(x => x.Name == Aspect.NotSet.ToString());
-            var dataSet = _attributeRepository.GetConditions().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+            var dataSet = _attributeConditionRepository.GetConditions().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
 
-            var dataDmList = new List<AttributeConditionLibDm> { notSet };
+            var dataDmList = new List<AttributeConditionLibDm>();
             dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
 
             var dataCmList = _mapper.Map<List<AttributeConditionLibCm>>(dataDmList);
             return Task.FromResult(dataCmList.AsEnumerable());
-        }
-
-        public async Task CreateConditions(List<AttributeConditionLibAm> conditions, bool createdBySystem = false)
-        {
-            if (conditions == null || !conditions.Any())
-                return;
-
-            var data = _mapper.Map<List<AttributeConditionLibDm>>(conditions);
-            var existing = _attributeRepository.GetConditions().ToList();
-            var notExisting = data.Exclude(existing, x => x.Name).ToList();
-
-            if (!notExisting.Any())
-                return;
-
-            foreach (var item in notExisting)
-            {
-                item.CreatedBy = createdBySystem ? _applicationSettings.System : item.CreatedBy;
-                await _attributeRepository.CreateCondition(item);
-            }
         }
 
         #endregion Aspect
@@ -196,33 +184,13 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<AttributeFormatLibCm>> GetFormats()
         {
-            var notSet = _attributeRepository.GetFormats().FirstOrDefault(x => x.Name == Aspect.NotSet.ToString());
-            var dataSet = _attributeRepository.GetFormats().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+            var dataSet = _attributeFormatRepository.GetFormats().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
 
-            var dataDmList = new List<AttributeFormatLibDm> { notSet };
+            var dataDmList = new List<AttributeFormatLibDm>();
             dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
 
             var dataCmList = _mapper.Map<List<AttributeFormatLibCm>>(dataDmList);
             return Task.FromResult(dataCmList.AsEnumerable());
-        }
-
-        public async Task CreateFormats(List<AttributeFormatLibAm> formats, bool createdBySystem = false)
-        {
-            if (formats == null || !formats.Any())
-                return;
-
-            var data = _mapper.Map<List<AttributeFormatLibDm>>(formats);
-            var existing = _attributeRepository.GetFormats().ToList();
-            var notExisting = data.Exclude(existing, x => x.Name).ToList();
-
-            if (!notExisting.Any())
-                return;
-
-            foreach (var item in notExisting)
-            {
-                item.CreatedBy = createdBySystem ? _applicationSettings.System : item.CreatedBy;
-                await _attributeRepository.CreateFormat(item);
-            }
         }
 
         #endregion Format
@@ -231,33 +199,13 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<AttributeQualifierLibCm>> GetQualifiers()
         {
-            var notSet = _attributeRepository.GetQualifiers().FirstOrDefault(x => x.Name == Aspect.NotSet.ToString());
-            var dataSet = _attributeRepository.GetQualifiers().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+            var dataSet = _attributeQualifierRepository.GetQualifiers().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
 
-            var dataDmList = new List<AttributeQualifierLibDm> { notSet };
+            var dataDmList = new List<AttributeQualifierLibDm>();
             dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
 
             var dataCmList = _mapper.Map<List<AttributeQualifierLibCm>>(dataDmList);
             return Task.FromResult(dataCmList.AsEnumerable());
-        }
-
-        public async Task CreateQualifiers(List<AttributeQualifierLibAm> qualifiers, bool createdBySystem = false)
-        {
-            if (qualifiers == null || !qualifiers.Any())
-                return;
-
-            var data = _mapper.Map<List<AttributeQualifierLibDm>>(qualifiers);
-            var existing = _attributeRepository.GetQualifiers().ToList();
-            var notExisting = data.Exclude(existing, x => x.Name).ToList();
-
-            if (!notExisting.Any())
-                return;
-
-            foreach (var item in notExisting)
-            {
-                item.CreatedBy = createdBySystem ? _applicationSettings.System : item.CreatedBy;
-                await _attributeRepository.CreateQualifier(item);
-            }
         }
 
         #endregion Qualifier
@@ -266,33 +214,13 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<AttributeSourceLibCm>> GetSources()
         {
-            var notSet = _attributeRepository.GetSources().FirstOrDefault(x => x.Name == Aspect.NotSet.ToString());
-            var dataSet = _attributeRepository.GetSources().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+            var dataSet = _attributeSourceRepository.GetSources().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
 
-            var dataDmList = new List<AttributeSourceLibDm> { notSet };
+            var dataDmList = new List<AttributeSourceLibDm>();
             dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
 
             var dataCmList = _mapper.Map<List<AttributeSourceLibCm>>(dataDmList);
             return Task.FromResult(dataCmList.AsEnumerable());
-        }
-
-        public async Task CreateSources(List<AttributeSourceLibAm> sources, bool createdBySystem = false)
-        {
-            if (sources == null || !sources.Any())
-                return;
-
-            var data = _mapper.Map<List<AttributeSourceLibDm>>(sources);
-            var existing = _attributeRepository.GetSources().ToList();
-            var notExisting = data.Exclude(existing, x => x.Name).ToList();
-
-            if (!notExisting.Any())
-                return;
-
-            foreach (var item in notExisting)
-            {
-                item.CreatedBy = createdBySystem ? _applicationSettings.System : item.CreatedBy;
-                await _attributeRepository.CreateSource(item);
-            }
         }
 
         #endregion Source

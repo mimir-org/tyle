@@ -1,4 +1,4 @@
-﻿using Mimirorg.Common.Models;
+using Mimirorg.Common.Models;
 
 namespace Mimirorg.Common.Exceptions
 {

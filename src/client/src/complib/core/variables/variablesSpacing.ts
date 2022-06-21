@@ -1,39 +1,37 @@
 import { css } from "styled-components/macro";
-import { math } from "polished";
 
 export interface SpacingSystem {
-  unit: string;
-  xxs: string;
+  unit: number;
   xs: string;
-  small: string;
-  medium: string;
-  large: string;
+  s: string;
+  base: string;
+  l: string;
   xl: string;
   xxl: string;
   xxxl: string;
+  multiple: (scalar: number) => string
 }
 
-const spacingUnit = "1rem";
+const spacingUnit = 8;
 export const spacing: SpacingSystem = {
   unit: spacingUnit,
-  xxs: math(`${spacingUnit} * 0.25`),
-  xs: math(`${spacingUnit} * 0.5`),
-  small: math(`${spacingUnit} * 0.75`),
-  medium: math(`${spacingUnit} * 1.25`),
-  large: math(`${spacingUnit} * 2`),
-  xl: math(`${spacingUnit} * 3.25`),
-  xxl: math(`${spacingUnit} * 5.25`),
-  xxxl: math(`${spacingUnit} * 8.5`),
+  xs: "2px",
+  s: "4px",
+  base: "8px",
+  l: "12px",
+  xl: "16px",
+  xxl: "20px",
+  xxxl: "24px",
+  multiple: (multiplier: number) => `${multiplier * spacingUnit}px`
 };
 
 export const variablesSpacing = css`
   :root {
     --tl-sys-spacing-unit: ${spacing.unit};
-    --tl-sys-spacing-xxs: ${spacing.xxs};
     --tl-sys-spacing-xs: ${spacing.xs};
-    --tl-sys-spacing-small: ${spacing.small};
-    --tl-sys-spacing-medium: ${spacing.medium};
-    --tl-sys-spacing-large: ${spacing.large};
+    --tl-sys-spacing-small: ${spacing.s};
+    --tl-sys-spacing-base: ${spacing.base};
+    --tl-sys-spacing-large: ${spacing.l};
     --tl-sys-spacing-xl: ${spacing.xl};
     --tl-sys-spacing-xxl: ${spacing.xxl};
     --tl-sys-spacing-xxxl: ${spacing.xxxl};

@@ -1,6 +1,6 @@
 import { Box, Flexbox } from "../../layouts";
 import { Text } from "../../text";
-import { theme } from "../../core";
+import { theme } from "../../core"; import { lightTheme } from "../../core/variables/color/themes/lightTheme";
 
 <Meta title="Foundations/Rounding" />
 
@@ -15,16 +15,16 @@ Here you will find an overview of the different units available for rounding of 
 <Box
   display="flex"
   justifyContent={"space-between"}
-  gap={theme.spacing.large}
-  p={theme.spacing.xl}
-  border={`2px solid ${theme.color.light.outline.base}`}
+  gap={theme.spacing.xxl}
+  p={theme.spacing.xxxl}
+  border={`2px solid ${lightTheme.outline.base}`}
   borderRadius={theme.border.radius.medium}
 >
   {Object.entries(theme.border.radius).map(([k, v]) => {
     return (
-      <Flexbox key={v} flexDirection={"column"} gap={theme.spacing.medium}>
-        <Box borderRadius={v} border="2px solid red" width="100px" height="100px" p={theme.spacing.small} />
-        <Flexbox flexDirection="column" gap={theme.spacing.small}>
+      <Flexbox key={v} flexDirection={"column"} gap={theme.spacing.xxl}>
+        <Box borderRadius={v} border="2px solid red" width="100px" height="100px" p={theme.spacing.l} />
+        <Flexbox flexDirection="column" gap={theme.spacing.l}>
           <Text variant={"title-medium"}>theme.spacing.{k}</Text>
           <Text variant={"label-large"}>{v}</Text>
         </Flexbox>

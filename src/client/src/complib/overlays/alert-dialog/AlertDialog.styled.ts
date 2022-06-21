@@ -1,5 +1,5 @@
-import styled from "styled-components/macro";
 import { motion } from "framer-motion";
+import styled from "styled-components/macro";
 import { MotionCard } from "../../surfaces";
 
 export const AlertDialogContent = styled(MotionCard)`
@@ -10,12 +10,12 @@ export const AlertDialogContent = styled(MotionCard)`
 
   display: flex;
   flex-direction: column;
-  gap: ${(props) => props.theme.tyle.spacing.medium};
+  gap: ${(props) => props.theme.tyle.spacing.xl};
 
   width: 90vw;
   max-width: 500px;
   max-height: 85vh;
-  padding: ${(props) => props.theme.tyle.spacing.medium};
+  padding: ${(props) => props.theme.tyle.spacing.xl};
 `;
 
 export const AlertDialogOverlay = styled(motion.div)`

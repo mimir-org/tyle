@@ -8,7 +8,8 @@ export type { TyleTheme } from "./theme/theme";
 export { TyleThemeProvider } from "./theme/TyleThemeProvider";
 
 export type { BorderSystem } from "./variables/variablesBorder";
-export type { ColorSystem } from "./variables/variablesColor";
+export type { ColorSystem } from "./variables/color/types/colorSystem";
+export type { ColorTheme } from "./variables/color/types/colorTheme";
 export type { ElevationSystem } from "./variables/variablesElevation";
 export type { ShadowSystem } from "./variables/variablesShadow";
 export type { SpacingSystem } from "./variables/variablesSpacing";

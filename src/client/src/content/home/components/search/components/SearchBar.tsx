@@ -21,7 +21,7 @@ export const SearchBar = ({ searchQuery, setSearchQuery }: SearchBarProps) => {
   const theme = useTheme();
 
   return (
-    <Flexbox gap={theme.tyle.spacing.medium} alignItems={"center"}>
+    <Flexbox gap={theme.tyle.spacing.l} alignItems={"center"}>
       <Input
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}

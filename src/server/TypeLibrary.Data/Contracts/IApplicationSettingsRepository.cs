@@ -1,4 +1,4 @@
-﻿namespace TypeLibrary.Data.Contracts
+namespace TypeLibrary.Data.Contracts
 {
     public interface IApplicationSettingsRepository
     {

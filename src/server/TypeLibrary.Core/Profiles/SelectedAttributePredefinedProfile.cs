@@ -1,4 +1,4 @@
-﻿using System.Web;
+using System.Web;
 using AutoMapper;
 using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;

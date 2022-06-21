@@ -1,6 +1,6 @@
+import { DefaultTheme, useTheme } from "styled-components";
 import { Text } from "../../text";
 import { TokenContainer } from "./Token.styled";
-import { DefaultTheme, useTheme } from "styled-components";
 
 interface TokenProps {
   text: string;
@@ -30,15 +30,15 @@ export const Token = ({ text, variant = "medium" }: TokenProps) => {
 
 const boxVariants = (theme: DefaultTheme) => ({
   small: {
-    gap: theme.tyle.spacing.xxs,
-    p: `${theme.tyle.spacing.xs} ${theme.tyle.spacing.small}`,
+    gap: theme.tyle.spacing.base,
+    p: `${theme.tyle.spacing.base} ${theme.tyle.spacing.l}`,
   },
   medium: {
-    gap: theme.tyle.spacing.xs,
-    p: `${theme.tyle.spacing.xs} ${theme.tyle.spacing.medium}`,
+    gap: theme.tyle.spacing.base,
+    p: `${theme.tyle.spacing.base} ${theme.tyle.spacing.xl}`,
   },
   large: {
-    gap: theme.tyle.spacing.small,
-    p: `${theme.tyle.spacing.small} ${theme.tyle.spacing.large}`,
+    gap: theme.tyle.spacing.l,
+    p: `${theme.tyle.spacing.l} ${theme.tyle.spacing.xxl}`,
   },
 });

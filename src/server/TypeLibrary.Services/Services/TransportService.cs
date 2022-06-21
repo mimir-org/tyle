@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -172,5 +172,14 @@ namespace TypeLibrary.Services.Services
             return await _transportRepository.Delete(id);
         }
 
+        public async Task<bool> CompanyIsChanged(string transportId, int companyId)
+        {
+            var transport = await Get(transportId);
+
+            if (transport == null)
+                throw new MimirorgNotFoundException($"Couldn't find transport with id: {transportId}");
+
+            return transport.CompanyId != companyId;
+        }
     }
 }

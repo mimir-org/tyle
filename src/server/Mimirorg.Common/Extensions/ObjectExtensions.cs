@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using Mimirorg.Common.Models;
 using Newtonsoft.Json;
 
@@ -45,8 +45,8 @@ namespace Mimirorg.Common.Extensions
         public static T GetPropValue<T>(this object obj, string name)
         {
             var value = GetPropValue(obj, name);
-            if (value == null) { return default(T); }
-            return (T)value;
+            if (value == null) { return default; }
+            return (T) value;
         }
     }
 }

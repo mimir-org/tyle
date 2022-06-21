@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useTheme } from "styled-components";
+import { TextResources } from "../../../../assets/text";
 import { Box } from "../../../../complib/layouts";
 import { Text } from "../../../../complib/text";
-import { ItemList } from "./components/item/ItemList";
 import { useGetNodes } from "../../../../data/queries/tyle/queriesNode";
-import { TextResources } from "../../../../assets/text";
+import { mapNodeLibCmToNodeItem } from "../../../../utils/mappers";
+import { ItemList } from "./components/item/ItemList";
+import { NodeSearchItem } from "./components/node/NodeSearchItem";
 import { SearchBar } from "./components/SearchBar";
 import { filterSearchItem } from "./Search.helpers";
-import { mapNodeLibCmToNodeItem } from "../../../../utils/mappers";
-import { NodeSearchItem } from "./components/node/NodeSearchItem";
 
 interface SearchProps {
   selected?: string;
@@ -34,14 +34,14 @@ export const Search = ({ selected, setSelected }: SearchProps) => {
       flex={1}
       display={"flex"}
       flexDirection={"column"}
-      gap={theme.tyle.spacing.large}
-      pt={theme.tyle.spacing.xl}
-      px={theme.tyle.spacing.large}
-      pb={theme.tyle.spacing.medium}
+      gap={theme.tyle.spacing.xxxl}
+      pt={theme.tyle.spacing.multiple(6)}
+      px={theme.tyle.spacing.xxxl}
+      pb={theme.tyle.spacing.xl}
       height={"100%"}
       minWidth={"400px"}
     >
-      <Text variant={"display-small"}>{TextResources.SEARCH_TITLE}</Text>
+      <Text variant={"headline-large"}>{TextResources.SEARCH_TITLE}</Text>
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       {showSearchItems && (
         <ItemList>

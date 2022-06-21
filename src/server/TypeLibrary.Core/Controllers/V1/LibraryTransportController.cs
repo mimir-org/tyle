@@ -1,11 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
+using Mimirorg.Authentication.Models.Attributes;
+using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Swashbuckle.AspNetCore.Annotations;
@@ -27,12 +30,14 @@ namespace TypeLibrary.Core.Controllers.V1
         private readonly ILogger<LibraryTransportController> _logger;
         private readonly ITransportService _transportService;
         private readonly ITimedHookService _hookService;
+        private readonly IMimirorgUserService _userService;
 
-        public LibraryTransportController(ILogger<LibraryTransportController> logger, ITransportService transportService, ITimedHookService hookService)
+        public LibraryTransportController(ILogger<LibraryTransportController> logger, ITransportService transportService, ITimedHookService hookService, IMimirorgUserService userService)
         {
             _logger = logger;
             _transportService = transportService;
             _hookService = hookService;
+            _userService = userService;
         }
 
         /// <summary>
@@ -43,14 +48,18 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(TransportLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [AllowAnonymous]
         public async Task<IActionResult> Get([FromRoute] string id)
         {
             try
             {
                 var data = await _transportService.Get(id);
                 return Ok(data);
+            }
+            catch (MimirorgNotFoundException)
+            {
+                return NoContent();
             }
             catch (Exception e)
             {
@@ -65,9 +74,8 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <returns>TransportLibCm Collection</returns>
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<TransportLibCm>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [AllowAnonymous]
         public async Task<IActionResult> GetLatestVersions()
         {
             try
@@ -89,8 +97,11 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <returns>TransportLibCm</returns>
         [HttpPost]
         [ProducesResponseType(typeof(TransportLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Admin")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [MimirorgAuthorize(MimirorgPermission.Write, "dataAm", "CompanyId")]
         public async Task<IActionResult> Create([FromBody] TransportLibAm dataAm)
         {
             try
@@ -98,6 +109,18 @@ namespace TypeLibrary.Core.Controllers.V1
                 var data = await _transportService.Create(dataAm);
                 _hookService.HookQueue.Enqueue(CacheKey.Transport);
                 return Ok(data);
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                _logger.LogWarning(e, $"Warning error: {e.Message}");
+
+                foreach (var error in e.Errors().ToList())
+                {
+                    ModelState.Remove(error.Key);
+                    ModelState.TryAddModelError(error.Key, error.Error);
+                }
+
+                return BadRequest(ModelState);
             }
             catch (Exception e)
             {
@@ -114,15 +137,34 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <returns>TransportLibCm</returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(TransportLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Edit")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [MimirorgAuthorize(MimirorgPermission.Write, "dataAm", "CompanyId")]
         public async Task<IActionResult> Update([FromBody] TransportLibAm dataAm, [FromRoute] string id)
         {
             try
             {
+                var companyIsChanged = await _transportService.CompanyIsChanged(id, dataAm.CompanyId);
+                if (companyIsChanged)
+                    return StatusCode(StatusCodes.Status403Forbidden);
+
                 var data = await _transportService.Update(dataAm, id);
                 _hookService.HookQueue.Enqueue(CacheKey.Transport);
                 return Ok(data);
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                _logger.LogWarning(e, $"Warning error: {e.Message}");
+
+                foreach (var error in e.Errors().ToList())
+                {
+                    ModelState.Remove(error.Key);
+                    ModelState.TryAddModelError(error.Key, error.Error);
+                }
+
+                return BadRequest(ModelState);
             }
             catch (Exception e)
             {
@@ -139,15 +181,47 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpDelete]
         [Route("{id}")]
         [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [SwaggerOperation("Delete a transport")]
+        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
             try
             {
+                var node = await _transportService.Get(id);
+
+                if (node == null)
+                    return NotFound($"Can't find interface with id: {id}");
+
+                var currentUser = await _userService.GetUser(HttpContext.User);
+                if (!currentUser.Permissions.TryGetValue(node.CompanyId, out var permission))
+                    return StatusCode(StatusCodes.Status403Forbidden);
+
+                if (!permission.HasFlag(MimirorgPermission.Delete))
+                    return StatusCode(StatusCodes.Status403Forbidden);
+
                 var data = await _transportService.Delete(id);
                 _hookService.HookQueue.Enqueue(CacheKey.Transport);
                 return Ok(data);
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                _logger.LogWarning(e, $"Warning error: {e.Message}");
+
+                foreach (var error in e.Errors().ToList())
+                {
+                    ModelState.Remove(error.Key);
+                    ModelState.TryAddModelError(error.Key, error.Error);
+                }
+
+                return BadRequest(ModelState);
+            }
+            catch (MimirorgNotFoundException)
+            {
+                return NoContent();
             }
             catch (Exception e)
             {

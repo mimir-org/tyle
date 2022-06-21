@@ -1,4 +1,4 @@
-﻿using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;

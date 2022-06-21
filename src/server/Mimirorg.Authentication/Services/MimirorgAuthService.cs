@@ -1,4 +1,4 @@
-﻿using System.Security.Authentication;
+using System.Security.Authentication;
 using System.Security.Claims;
 using AspNetCore.Totp;
 using Microsoft.AspNetCore.Identity;
@@ -158,7 +158,7 @@ namespace Mimirorg.Authentication.Services
         /// <returns>ICollection&lt;MimirorgPermissionCm&gt;</returns>
         public async Task<ICollection<MimirorgPermissionCm>> GetAllPermissions()
         {
-            var permissions = ((MimirorgPermission[])Enum.GetValues(typeof(MimirorgPermission))).Select(c => new MimirorgPermissionCm { Id = (int)c, Name = c.GetDisplayName() }).ToList();
+            var permissions = ((MimirorgPermission[]) Enum.GetValues(typeof(MimirorgPermission))).Select(c => new MimirorgPermissionCm { Id = (int) c, Name = c.GetDisplayName() }).ToList();
             return await Task.FromResult(permissions);
         }
 
@@ -242,7 +242,7 @@ namespace Mimirorg.Authentication.Services
                 throw new MimirorgNotFoundException($"Set permissions error. Couldn't find company with id {userPermission.CompanyId}");
 
             var newClaims = userPermission.Permissions
-                .Select(x => (MimirorgPermission)x.Id)
+                .Select(x => (MimirorgPermission) x.Id)
                 .Select(y => new Claim(company.Id.ToString(), y.ToString()))
                 .ToList();
 

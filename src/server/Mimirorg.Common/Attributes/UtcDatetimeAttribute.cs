@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using DateTime = System.DateTime;
 
 namespace Mimirorg.Common.Attributes

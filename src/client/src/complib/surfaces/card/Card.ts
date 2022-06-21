@@ -1,9 +1,9 @@
-import styled, { css } from "styled-components/macro";
 import { motion } from "framer-motion";
 import { ElementType } from "react";
+import styled, { css } from "styled-components/macro";
+import { ColorTheme, ElevationSystem, ShadowSystem, StateSystem } from "../../core/";
 import { layer, translucify } from "../../mixins";
 import { Elevation, ElevationLevels, Polymorphic } from "../../props";
-import { ColorSystem, ElevationSystem, ShadowSystem, StateSystem } from "../../core/";
 
 type CardProps = Elevation &
   Polymorphic<ElementType> & {
@@ -13,7 +13,7 @@ type CardProps = Elevation &
   };
 
 export const Card = styled.div<CardProps>`
-  padding: ${(props) => props.theme.tyle.spacing.small};
+  padding: ${(props) => props.theme.tyle.spacing.l};
   border-radius: ${(props) => !props.square && props.theme.tyle.border.radius.medium};
 
   ${({ variant, elevation, interactive, ...props }) => {
@@ -21,13 +21,13 @@ export const Card = styled.div<CardProps>`
 
     switch (variant) {
       case "elevated": {
-        return elevatedCard(color, state, shadow, elevationSystem, elevation, interactive);
+        return elevatedCard(color.sys, state, shadow, elevationSystem, elevation, interactive);
       }
       case "filled": {
-        return filledCard(color, state, elevationSystem, elevation, interactive);
+        return filledCard(color.sys, state, elevationSystem, elevation, interactive);
       }
       case "outlined": {
-        return outlinedCard(color, state, elevationSystem, elevation, interactive);
+        return outlinedCard(color.sys, state, elevationSystem, elevation, interactive);
       }
     }
   }};
@@ -38,7 +38,7 @@ Card.defaultProps = {
 };
 
 const elevatedCard = (
-  color: ColorSystem,
+  color: ColorTheme,
   state: StateSystem,
   shadow: ShadowSystem,
   elevationSystem: ElevationSystem,
@@ -71,7 +71,7 @@ const elevatedCard = (
 `;
 
 const filledCard = (
-  color: ColorSystem,
+  color: ColorTheme,
   state: StateSystem,
   elevationSystem: ElevationSystem,
   elevationLevel?: ElevationLevels,
@@ -101,7 +101,7 @@ const filledCard = (
 `;
 
 const outlinedCard = (
-  color: ColorSystem,
+  color: ColorTheme,
   state: StateSystem,
   elevationSystem: ElevationSystem,
   elevationLevel?: ElevationLevels,

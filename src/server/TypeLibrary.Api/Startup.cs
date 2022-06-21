@@ -1,4 +1,4 @@
-﻿using Mimirorg.Authentication.Extensions;
+using Mimirorg.Authentication.Extensions;
 using Mimirorg.Common.Middleware;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;

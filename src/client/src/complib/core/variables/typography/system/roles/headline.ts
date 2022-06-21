@@ -1,18 +1,18 @@
-import { typeScaleSystem } from "../typeScaleSystem";
-import { typefaceReference } from "../../reference/typefaceReference";
 import { math } from "polished";
-import { NominalScale } from "../../types";
+import { typefaceReference } from "../../reference/typefaceReference";
 import { typeScaleReference } from "../../reference/typeScaleReference";
+import { NominalScale } from "../../types";
+import { typeScaleSystem } from "../typeScaleSystem";
 
 export const headline: NominalScale = {
   large: {
     tracking: 0,
     size: typeScaleSystem.size.p4,
     family: typefaceReference.brand,
-    weight: typefaceReference.weights.normal,
+    weight: typefaceReference.weights.bold,
     lineHeight: typeScaleSystem.lineHeight.p4,
     letterSpacing: math(`0 / ${typeScaleReference.size.p4} * 1rem`),
-    font: `${typefaceReference.weights.normal} ${typeScaleSystem.size.p4} ${typefaceReference.brand}`,
+    font: `${typefaceReference.weights.bold} ${typeScaleSystem.size.p4} ${typefaceReference.brand}`,
   },
   medium: {
     tracking: 0,

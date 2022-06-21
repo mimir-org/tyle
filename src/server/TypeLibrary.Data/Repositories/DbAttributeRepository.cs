@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -14,21 +14,13 @@ namespace TypeLibrary.Data.Repositories
         private readonly IEfUnitRepository _efUnitRepository;
         private readonly IEfAttributePredefinedRepository _attributePredefinedRepository;
         private readonly IEfAttributeAspectRepository _attributeAspectRepository;
-        private readonly IEfAttributeConditionRepository _attributeConditionRepository;
-        private readonly IEfAttributeFormatRepository _attributeFormatRepository;
-        private readonly IEfAttributeQualifierRepository _attributeQualifierRepository;
-        private readonly IEfAttributeSourceRepository _attributeSourceRepository;
 
-        public DbAttributeRepository(IEfAttributeRepository efAttributeRepository, IEfUnitRepository efUnitRepository, IEfAttributePredefinedRepository attributePredefinedRepository, IEfAttributeAspectRepository attributeAspectRepository, IEfAttributeConditionRepository attributeConditionRepository, IEfAttributeFormatRepository attributeFormatRepository, IEfAttributeQualifierRepository attributeQualifierRepository, IEfAttributeSourceRepository attributeSourceRepository)
+        public DbAttributeRepository(IEfAttributeRepository efAttributeRepository, IEfUnitRepository efUnitRepository, IEfAttributePredefinedRepository attributePredefinedRepository, IEfAttributeAspectRepository attributeAspectRepository)
         {
             _efAttributeRepository = efAttributeRepository;
             _efUnitRepository = efUnitRepository;
             _attributePredefinedRepository = attributePredefinedRepository;
             _attributeAspectRepository = attributeAspectRepository;
-            _attributeConditionRepository = attributeConditionRepository;
-            _attributeFormatRepository = attributeFormatRepository;
-            _attributeQualifierRepository = attributeQualifierRepository;
-            _attributeSourceRepository = attributeSourceRepository;
         }
 
         #region Attribute
@@ -111,109 +103,5 @@ namespace TypeLibrary.Data.Repositories
         }
 
         #endregion Aspect
-
-        #region Condition
-
-        /// <summary>
-        /// Get all condition attributes
-        /// </summary>
-        /// <returns>A collection of attribute conditions</returns>
-        /// <remarks>Only attribute conditions that is not deleted will be returned</remarks>
-        public IEnumerable<AttributeConditionLibDm> GetConditions()
-        {
-            return _attributeConditionRepository.GetAll().Where(x => !x.Deleted);
-        }
-
-        /// <summary>
-        /// Create a new condition attribute
-        /// </summary>
-        /// <param name="format">The condition attribute that should be created</param>
-        /// <returns>A condition attribute</returns>
-        public async Task<AttributeConditionLibDm> CreateCondition(AttributeConditionLibDm format)
-        {
-            await _attributeConditionRepository.CreateAsync(format);
-            await _attributeConditionRepository.SaveAsync();
-            return format;
-        }
-
-        #endregion Condition
-
-        #region Format
-
-        /// <summary>
-        /// Get all format attributes
-        /// </summary>
-        /// <returns>A collection of attribute formats</returns>
-        /// <remarks>Only attribute formats that is not deleted will be returned</remarks>
-        public IEnumerable<AttributeFormatLibDm> GetFormats()
-        {
-            return _attributeFormatRepository.GetAll().Where(x => !x.Deleted);
-        }
-
-        /// <summary>
-        /// Create a new format attribute
-        /// </summary>
-        /// <param name="format">The aspect attribute that should be created</param>
-        /// <returns>A format attribute</returns>
-        public async Task<AttributeFormatLibDm> CreateFormat(AttributeFormatLibDm format)
-        {
-            await _attributeFormatRepository.CreateAsync(format);
-            await _attributeFormatRepository.SaveAsync();
-            return format;
-        }
-
-        #endregion Format
-
-        #region Qualifier
-
-        /// <summary>
-        /// Get all qualifier attributes
-        /// </summary>
-        /// <returns>A collection of attribute qualifier</returns>
-        /// <remarks>Only attribute qualifiers that is not deleted will be returned</remarks>
-        public IEnumerable<AttributeQualifierLibDm> GetQualifiers()
-        {
-            return _attributeQualifierRepository.GetAll().Where(x => !x.Deleted);
-        }
-
-        /// <summary>
-        /// Create a new format attribute
-        /// </summary>
-        /// <param name="qualifier">The aspect attribute that should be created</param>
-        /// <returns>A format attribute</returns>
-        public async Task<AttributeQualifierLibDm> CreateQualifier(AttributeQualifierLibDm qualifier)
-        {
-            await _attributeQualifierRepository.CreateAsync(qualifier);
-            await _attributeQualifierRepository.SaveAsync();
-            return qualifier;
-        }
-
-        #endregion Qualifier
-
-        #region Source
-
-        /// <summary>
-        /// Get all qualifier attributes
-        /// </summary>
-        /// <returns>A collection of attribute qualifier</returns>
-        /// <remarks>Only attribute qualifiers that is not deleted will be returned</remarks>
-        public IEnumerable<AttributeSourceLibDm> GetSources()
-        {
-            return _attributeSourceRepository.GetAll().Where(x => !x.Deleted);
-        }
-
-        /// <summary>
-        /// Create a new source attribute
-        /// </summary>
-        /// <param name="source">The source attribute that should be created</param>
-        /// <returns>A source attribute</returns>
-        public async Task<AttributeSourceLibDm> CreateSource(AttributeSourceLibDm source)
-        {
-            await _attributeSourceRepository.CreateAsync(source);
-            await _attributeSourceRepository.SaveAsync();
-            return source;
-        }
-
-        #endregion Source
     }
 }

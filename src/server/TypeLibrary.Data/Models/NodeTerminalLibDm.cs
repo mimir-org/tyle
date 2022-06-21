@@ -1,4 +1,4 @@
-﻿using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Enums;
 
 namespace TypeLibrary.Data.Models
 {

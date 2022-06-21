@@ -6,7 +6,7 @@ import { AttributeButtonProps } from "./AttributeButton";
 export const AttributeButtonContainer = styled.button<AttributeButtonProps>`
   flex-shrink: 0;
   text-decoration: none;
-  padding: 0 ${(props) => props.theme.tyle.spacing.xxs};
+  padding: 0 ${(props) => props.theme.tyle.spacing.base};
   border: 0;
 
   :hover {
@@ -19,33 +19,34 @@ export const AttributeButtonContainer = styled.button<AttributeButtonProps>`
 
   ${({ ...props }) => {
     const { color: colorSystem, state, elevation } = props.theme.tyle;
-    const color = props.theme.tyle.color.tertiary.base;
-    const borderColor = darken(0.05, color);
+    const backgroundColor = props.theme.tyle.color.sys.tertiary.base;
+    const color = props.theme.tyle.color.sys.tertiary.on;
+    const borderColor = darken(0.05, backgroundColor);
 
     return css`
-      background-color: ${color};
-      color: #ffffff;
+      background-color: ${backgroundColor};
+      color: ${color};
       border: 2px solid ${borderColor};
 
       :disabled {
-        border-color: ${translucify(colorSystem.outline.base, state.disabled.container.opacity)};
-        background-color: ${translucify(colorSystem.surface.on, state.disabled.container.opacity)};
-        color: ${translucify(colorSystem.surface.on, state.disabled.content.opacity)};
+        border-color: ${translucify(colorSystem.sys.outline.base, state.disabled.container.opacity)};
+        background-color: ${translucify(colorSystem.sys.surface.on, state.disabled.container.opacity)};
+        color: ${translucify(colorSystem.sys.surface.on, state.disabled.content.opacity)};
       }
 
       :not(:disabled) {
         :hover {
           background: ${layer(
-            translucify(color, elevation.levels[1].opacity),
-            translucify(colorSystem.primary.on, state.hover.opacity),
-            translucify(color, state.enabled.opacity)
+            translucify(backgroundColor, elevation.levels[1].opacity),
+            translucify(colorSystem.sys.primary.on, state.hover.opacity),
+            translucify(backgroundColor, state.enabled.opacity)
           )};
         }
 
         :active {
           background: ${layer(
-            translucify(colorSystem.primary.on, state.pressed.opacity),
-            translucify(color, state.enabled.opacity)
+            translucify(colorSystem.sys.primary.on, state.pressed.opacity),
+            translucify(backgroundColor, state.enabled.opacity)
           )};
         }
       }

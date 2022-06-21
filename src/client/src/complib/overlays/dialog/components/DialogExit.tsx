@@ -1,15 +1,15 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { X } from "@styled-icons/heroicons-outline";
 import { useTheme } from "styled-components";
+import { TextResources } from "../../../../assets/text";
 import { Button } from "../../../buttons";
 import { Box } from "../../../layouts";
-import { X } from "@styled-icons/heroicons-outline";
-import { TextResources } from "../../../../assets/text";
 
 export const DialogExit = () => {
   const theme = useTheme();
   return (
     <DialogPrimitive.Close asChild>
-      <Box position={"absolute"} top={theme.tyle.spacing.xxs} right={theme.tyle.spacing.xxs}>
+      <Box position={"absolute"} top={theme.tyle.spacing.xs} right={theme.tyle.spacing.xs}>
         <Button variant={"text"} icon={<X />} iconOnly>
           {TextResources.DIALOG_CLOSE}
         </Button>

@@ -47,8 +47,8 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
       flex={1}
       display={"flex"}
       flexWrap={"wrap"}
-      bgColor={theme.tyle.color.surface.base}
-      color={theme.tyle.color.surface.on}
+      bgColor={theme.tyle.color.sys.surface.base}
+      color={theme.tyle.color.sys.surface.on}
       onSubmit={handleSubmit((data) =>
         submitNodeData(data, isEdit ? nodeUpdateMutation.mutateAsync : nodeCreateMutation.mutateAsync)
       )}
@@ -59,14 +59,14 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
         display={"flex"}
         flexDirection={"column"}
         justifyContent={"space-between"}
-        gap={theme.tyle.spacing.large}
-        px={theme.tyle.spacing.large}
-        py={theme.tyle.spacing.xl}
+        gap={theme.tyle.spacing.xxl}
+        px={theme.tyle.spacing.xxl}
+        py={theme.tyle.spacing.multiple(6)}
         border={0}
       >
         <NodeFormPreview control={control} />
 
-        <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.medium}>
+        <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xl}>
           <FormField label={textResources.FORMS_NODE_NAME}>
             <Input placeholder={textResources.FORMS_NODE_NAME_PLACEHOLDER} {...register("name")} />
           </FormField>
@@ -165,7 +165,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
           </FormField>
         </Flexbox>
 
-        <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.medium}>
+        <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
           <PlainLink to={"/"}>
             <Button as={"span"} variant={"outlined"}>
               {textResources.FORMS_CANCEL}
@@ -179,11 +179,9 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
         flex={3}
         display={"flex"}
         flexDirection={"column"}
-        gap={theme.tyle.spacing.large}
-        px={theme.tyle.spacing.large}
-        py={theme.tyle.spacing.xl}
-        bgColor={theme.tyle.color.surface.variant.base}
-        color={theme.tyle.color.surface.variant.on}
+        gap={theme.tyle.spacing.xxl}
+        px={theme.tyle.spacing.xxl}
+        py={theme.tyle.spacing.multiple(6)}
       >
         {aspect === Aspect.Function && <FunctionNode control={control} register={register} />}
         {aspect === Aspect.Location && <LocationNode control={control} register={register} />}

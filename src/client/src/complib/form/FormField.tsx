@@ -1,5 +1,5 @@
-import { useTheme } from "styled-components";
 import { PropsWithChildren } from "react";
+import { useTheme } from "styled-components";
 import { Flexbox, MotionFlexbox } from "../layouts";
 import { MotionText, Text } from "../text";
 
@@ -19,8 +19,8 @@ export const FormField = ({ label, error, children }: PropsWithChildren<FormFiel
   const theme = useTheme();
 
   return (
-    <MotionFlexbox layout={"position"} flexDirection={"column"} gap={theme.tyle.spacing.xs}>
-      <Flexbox as={"label"} flexDirection={"column"} gap={theme.tyle.spacing.xs}>
+    <MotionFlexbox layout={"position"} flexDirection={"column"} gap={theme.tyle.spacing.base}>
+      <Flexbox as={"label"} flexDirection={"column"} gap={theme.tyle.spacing.base}>
         <Text as={"span"} variant={"label-large"}>
           {label}
         </Text>
@@ -28,7 +28,7 @@ export const FormField = ({ label, error, children }: PropsWithChildren<FormFiel
       </Flexbox>
 
       {error && error.message && (
-        <MotionText color={theme.tyle.color.error.base} {...theme.tyle.animation.fade}>
+        <MotionText color={theme.tyle.color.sys.error.base} {...theme.tyle.animation.fade}>
           {error.message}
         </MotionText>
       )}

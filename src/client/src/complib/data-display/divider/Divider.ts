@@ -10,7 +10,7 @@ interface DividerProps {
  * A simple divider for creating a clear separation between content
  */
 export const Divider = styled(Separator.Root)<DividerProps>`
-  background-color: ${(props) => props.theme.tyle.color.outline.base};
+  background-color: ${(props) => props.theme.tyle.color.sys.outline.base};
   margin: 0 auto;
   height: 2px;
   width: 90%;

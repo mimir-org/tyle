@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
 using TypeLibrary.Data.Contracts.Ef;

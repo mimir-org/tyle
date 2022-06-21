@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
@@ -36,6 +37,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// Get all registered companies
         /// </summary>
         /// <returns>ICollection&lt;MimirorgCompanyCm&gt;</returns>
+        [AllowAnonymous]
         [HttpGet]
         [Route("")]
         [ProducesResponseType(typeof(ICollection<MimirorgCompanyCm>), 200)]
@@ -61,6 +63,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// </summary>
         /// <param name="id">int</param>
         /// <returns>MimirorgCompanyCm</returns>
+        [AllowAnonymous]
         [HttpGet]
         [Route("{id:int}")]
         [ProducesResponseType(typeof(MimirorgCompanyCm), 200)]
@@ -90,6 +93,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// </summary>
         /// <param name="mimirorgCompanyAuth">MimirorgCompanyAuthAm</param>
         /// <returns>MimirorgCompanyCm</returns>
+        [AllowAnonymous]
         [HttpPost]
         [Route("auth")]
         [ProducesResponseType(typeof(MimirorgCompanyCm), 200)]
@@ -242,6 +246,47 @@ namespace Mimirorg.Authentication.Controllers.V1
             catch (Exception e)
             {
                 _logger.LogError(e, $"An error occurred while trying to update a company. Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
+        /// Register a hook for cache invalidation
+        /// </summary>
+        /// <param name="hook">The hook that should be registered</param>
+        /// <returns>The created hook</returns>
+        [MimirorgAuthorize(MimirorgPermission.Manage, "hook", "CompanyId")]
+        [HttpPost]
+        [Route("hook")]
+        [ProducesResponseType(typeof(MimirorgHookCm), 200)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [SwaggerOperation("Update a registered company")]
+        public async Task<IActionResult> CreateHook([FromBody] MimirorgHookAm hook)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                var data = await _companyService.CreateHook(hook);
+                return Ok(data);
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                foreach (var error in e.Errors().ToList())
+                {
+                    ModelState.Remove(error.Key);
+                    ModelState.TryAddModelError(error.Key, error.Error);
+                }
+
+                return BadRequest(ModelState);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to create a new hook. Error: {e.Message}");
                 return StatusCode(500, "Internal Server Error");
             }
         }

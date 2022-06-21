@@ -8,8 +8,8 @@ export const ItemDescriptionContainer = styled.button`
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: ${(props) => props.theme.tyle.spacing.small};
-  color: ${(props) => props.theme.tyle.color.surface.on};
+  gap: ${(props) => props.theme.tyle.spacing.l};
+  color: ${(props) => props.theme.tyle.color.sys.surface.on};
 
   margin-right: auto;
 

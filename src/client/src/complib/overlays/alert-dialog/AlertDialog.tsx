@@ -1,12 +1,12 @@
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 import { PropsWithChildren, ReactNode } from "react";
-import { AlertDialogContent, AlertDialogOverlay } from "./AlertDialog.styled";
-import { Box } from "../../layouts";
 import { useTheme } from "styled-components";
-import { AlertDialogTitle } from "./components/AlertDialogTitle";
-import { AlertDialogDescription } from "./components/AlertDialogDescription";
-import { AlertDialogCancel } from "./components/AlertDialogCancel";
+import { Box } from "../../layouts";
+import { AlertDialogContent, AlertDialogOverlay } from "./AlertDialog.styled";
 import { AlertDialogAction, AlertDialogActionItem } from "./components/AlertDialogAction";
+import { AlertDialogCancel } from "./components/AlertDialogCancel";
+import { AlertDialogDescription } from "./components/AlertDialogDescription";
+import { AlertDialogTitle } from "./components/AlertDialogTitle";
 
 interface Props {
   content?: ReactNode;
@@ -49,12 +49,12 @@ export const AlertDialog = ({
         </AlertDialogPrimitive.Overlay>
         <AlertDialogPrimitive.Content asChild>
           <AlertDialogContent variant={"elevated"} elevation={3} {...theme.tyle.animation.fade}>
-            <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xxs}>
+            <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xs}>
               <AlertDialogTitle hide={hideTitle}>{title}</AlertDialogTitle>
               {description && <AlertDialogDescription hide={hideDescription}>{description}</AlertDialogDescription>}
             </Box>
             {content}
-            <Box display={"flex"} gap={theme.tyle.spacing.medium} m={"0 auto"}>
+            <Box display={"flex"} gap={theme.tyle.spacing.base} m={"0 auto"}>
               <AlertDialogCancel />
               {actions?.map((a) => (
                 <AlertDialogAction key={a.name} {...a} />

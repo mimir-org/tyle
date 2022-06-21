@@ -1,4 +1,4 @@
-﻿using Mimirorg.Common.Abstract;
+using Mimirorg.Common.Abstract;
 using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts.Ef;

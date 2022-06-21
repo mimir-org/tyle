@@ -1,11 +1,14 @@
-import { spacing, SpacingSystem } from "../variables/variablesSpacing";
-import { border, BorderSystem } from "../variables/variablesBorder";
+import { darkTheme } from "../variables/color/themes/darkTheme";
+import { lightTheme } from "../variables/color/themes/lightTheme";
+import { ColorSystem } from "../variables/color/types/colorSystem";
+import { color } from "../variables/color/variablesColor";
 import { typography, TypographySystem } from "../variables/typography/variablesTypography";
-import { shadow, ShadowSystem } from "../variables/variablesShadow";
-import { state, StateSystem } from "../variables/variablesState";
-import { elevation, ElevationSystem } from "../variables/variablesElevation";
-import { color, ColorSystem, darkTheme, lightTheme } from "../variables/variablesColor";
 import { animation, AnimationSystem } from "../variables/variablesAnimation";
+import { border, BorderSystem } from "../variables/variablesBorder";
+import { elevation, ElevationSystem } from "../variables/variablesElevation";
+import { shadow, ShadowSystem } from "../variables/variablesShadow";
+import { spacing, SpacingSystem } from "../variables/variablesSpacing";
+import { state, StateSystem } from "../variables/variablesState";
 
 /**
  * Exposes all CSS variables through a typed object.
@@ -43,9 +46,12 @@ declare module "styled-components" {
   }
 }
 
-export const themeBuilder = (colorTheme: string) => {
+export const themeBuilder = (colorTheme: string): TyleTheme => {
   return {
     ...theme,
-    color: colorTheme === "dark" ? darkTheme : lightTheme,
+    color: {
+      ...theme.color,
+      sys: colorTheme === "dark" ? darkTheme : lightTheme,
+    },
   };
 };

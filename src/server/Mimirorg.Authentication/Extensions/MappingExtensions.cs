@@ -1,4 +1,4 @@
-﻿using Mimirorg.Authentication.Models.Domain;
+using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;

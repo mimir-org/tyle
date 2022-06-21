@@ -1,4 +1,4 @@
-﻿using Mimirorg.Authentication.Models.Domain;
+using Mimirorg.Authentication.Models.Domain;
 
 namespace Mimirorg.Authentication.Contracts
 {

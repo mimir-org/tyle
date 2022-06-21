@@ -1,4 +1,4 @@
-﻿namespace Mimirorg.Authentication.Models.Constants
+namespace Mimirorg.Authentication.Models.Constants
 {
     public static class MimirorgDefaultRoles
     {

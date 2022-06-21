@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -144,6 +144,16 @@ namespace TypeLibrary.Services.Services
         public async Task<bool> Delete(string id)
         {
             return await _interfaceRepository.Delete(id);
+        }
+
+        public async Task<bool> CompanyIsChanged(string interfaceId, int companyId)
+        {
+            var node = await Get(interfaceId);
+
+            if (node == null)
+                throw new MimirorgNotFoundException($"Couldn't find interface with id: {interfaceId}");
+
+            return node.CompanyId != companyId;
         }
     }
 }

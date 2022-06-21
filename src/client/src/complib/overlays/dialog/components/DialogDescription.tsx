@@ -16,7 +16,7 @@ export const DialogDescription = ({ children, hide }: DialogDescriptionProps) =>
   return (
     <ConditionalWrapper condition={hide} wrapper={(c) => <VisuallyHidden asChild>{c}</VisuallyHidden>}>
       <DialogPrimitive.Description asChild>
-        <Text variant={"label-large"} color={theme.tyle.color.surface.variant.on}>
+        <Text variant={"label-large"} color={theme.tyle.color.sys.surface.variant.on}>
           {children}
         </Text>
       </DialogPrimitive.Description>

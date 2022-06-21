@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
+using Mimirorg.Authentication.Models.Attributes;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -28,12 +30,14 @@ namespace TypeLibrary.Core.Controllers.V1
         private readonly ILogger<LibraryNodeController> _logger;
         private readonly INodeService _nodeService;
         private readonly ITimedHookService _hookService;
+        private readonly IMimirorgUserService _userService;
 
-        public LibraryNodeController(ILogger<LibraryNodeController> logger, INodeService nodeService, ITimedHookService hookService)
+        public LibraryNodeController(ILogger<LibraryNodeController> logger, INodeService nodeService, ITimedHookService hookService, IMimirorgUserService userService)
         {
             _logger = logger;
             _nodeService = nodeService;
             _hookService = hookService;
+            _userService = userService;
         }
 
         /// <summary>
@@ -46,6 +50,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [AllowAnonymous]
         public async Task<IActionResult> Get([FromRoute] string id)
         {
             try
@@ -58,6 +63,8 @@ namespace TypeLibrary.Core.Controllers.V1
             }
             catch (MimirorgBadRequestException e)
             {
+                _logger.LogWarning(e, $"Warning error: {e.Message}");
+
                 foreach (var error in e.Errors().ToList())
                 {
                     ModelState.Remove(error.Key);
@@ -85,6 +92,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(typeof(ICollection<NodeLibCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [AllowAnonymous]
         public async Task<IActionResult> GetLatestVersions()
         {
             try
@@ -108,6 +116,9 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [MimirorgAuthorize(MimirorgPermission.Write, "node", "CompanyId")]
         public async Task<IActionResult> Create([FromBody] NodeLibAm node)
         {
             try
@@ -121,6 +132,8 @@ namespace TypeLibrary.Core.Controllers.V1
             }
             catch (MimirorgBadRequestException e)
             {
+                _logger.LogWarning(e, $"Warning error: {e.Message}");
+
                 foreach (var error in e.Errors().ToList())
                 {
                     ModelState.Remove(error.Key);
@@ -150,18 +163,26 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <returns>NodeLibCm</returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Edit")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [MimirorgAuthorize(MimirorgPermission.Write, "dataAm", "CompanyId")]
         public async Task<IActionResult> Update([FromBody] NodeLibAm dataAm, [FromRoute] string id)
         {
             try
             {
+                var companyIsChanged = await _nodeService.CompanyIsChanged(id, dataAm.CompanyId);
+                if (companyIsChanged)
+                    return StatusCode(StatusCodes.Status403Forbidden);
+
                 var data = await _nodeService.Update(dataAm, id);
                 _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)
             {
+                _logger.LogWarning(e, $"Warning error: {e.Message}");
+
                 foreach (var error in e.Errors().ToList())
                 {
                     ModelState.Remove(error.Key);
@@ -185,16 +206,46 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpDelete]
         [Route("{id}")]
         [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Admin")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [SwaggerOperation("Delete a node")]
+        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
             try
             {
+                var node = await _nodeService.Get(id);
+
+                if (node == null)
+                    return NotFound($"Can't find node with id: {id}");
+
+                var currentUser = await _userService.GetUser(HttpContext.User);
+                if (!currentUser.Permissions.TryGetValue(node.CompanyId, out var permission))
+                    return StatusCode(StatusCodes.Status403Forbidden);
+
+                if (!permission.HasFlag(MimirorgPermission.Delete))
+                    return StatusCode(StatusCodes.Status403Forbidden);
+
                 var data = await _nodeService.Delete(id);
                 _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
                 return Ok(data);
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                _logger.LogWarning(e, $"Warning error: {e.Message}");
+
+                foreach (var error in e.Errors().ToList())
+                {
+                    ModelState.Remove(error.Key);
+                    ModelState.TryAddModelError(error.Key, error.Error);
+                }
+
+                return BadRequest(ModelState);
+            }
+            catch (MimirorgNotFoundException)
+            {
+                return NoContent();
             }
             catch (Exception e)
             {

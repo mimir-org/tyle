@@ -5,7 +5,7 @@ export const ItemListContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: ${(props) => props.theme.tyle.spacing.medium};
+  gap: ${(props) => props.theme.tyle.spacing.xl};
 
   height: 100%;
 
@@ -13,11 +13,11 @@ export const ItemListContainer = styled.div`
   mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
 
   // Extra space for animated content
-  padding-top: ${(props) => props.theme.tyle.spacing.xxs};
-  padding-left: ${(props) => props.theme.tyle.spacing.small};
-  padding-right: ${(props) => props.theme.tyle.spacing.small};
-  margin-left: ${(props) => `-${props.theme.tyle.spacing.small}`};
-  margin-right: ${(props) => `-${props.theme.tyle.spacing.small}`};
+  padding-top: ${(props) => props.theme.tyle.spacing.s};
+  padding-left: ${(props) => props.theme.tyle.spacing.l};
+  padding-right: ${(props) => props.theme.tyle.spacing.l};
+  margin-left: ${(props) => `-${props.theme.tyle.spacing.l}`};
+  margin-right: ${(props) => `-${props.theme.tyle.spacing.l}`};
 
   // Hidden scrollbar
   overflow-y: auto;

@@ -5,7 +5,7 @@ export const NodePanelPropertiesContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: ${(props) => props.theme.tyle.spacing.large};
+  gap: ${(props) => props.theme.tyle.spacing.xxl};
 
   // Hidden scrollbar
   overflow: auto;
@@ -13,8 +13,8 @@ export const NodePanelPropertiesContainer = styled.div`
 
   // Shadow on scroll
   background: ${(props) => css`
-    linear-gradient(${props.theme.tyle.color.surface.variant.base} 30%, rgba(255, 255, 255, 0)),
-    linear-gradient(rgba(255, 255, 255, 0), ${props.theme.tyle.color.surface.variant.base} 70%) 0 100%,
+    linear-gradient(${props.theme.tyle.color.sys.background.base} 30%, rgba(255, 255, 255, 0)),
+    linear-gradient(rgba(255, 255, 255, 0), ${props.theme.tyle.color.sys.background.base} 70%) 0 100%,
     radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)),
     radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%
   `};

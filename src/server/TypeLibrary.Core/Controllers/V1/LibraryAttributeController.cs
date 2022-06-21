@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -32,8 +33,7 @@ namespace TypeLibrary.Core.Controllers.V1
 
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<AttributeLibDm>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Read")]
+        [AllowAnonymous]
         public IActionResult Get()
         {
             try
@@ -50,8 +50,7 @@ namespace TypeLibrary.Core.Controllers.V1
 
         [HttpGet("{aspect}")]
         [ProducesResponseType(typeof(ICollection<AttributeLibDm>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Read")]
+        [AllowAnonymous]
         public IActionResult Get(Aspect aspect)
         {
             try
@@ -68,8 +67,7 @@ namespace TypeLibrary.Core.Controllers.V1
 
         [HttpGet("predefined")]
         [ProducesResponseType(typeof(ICollection<AttributePredefinedLibCm>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Read")]
+        [AllowAnonymous]
         public IActionResult GetPredefined()
         {
             try
@@ -86,8 +84,7 @@ namespace TypeLibrary.Core.Controllers.V1
 
         [HttpGet("aspect")]
         [ProducesResponseType(typeof(ICollection<AttributeAspectLibAm>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Read")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAspects()
         {
             try
@@ -103,9 +100,8 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpGet("condition")]
-        [ProducesResponseType(typeof(ICollection<AttributeConditionLibAm>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Read")]
+        [ProducesResponseType(typeof(ICollection<AttributeConditionLibCm>), StatusCodes.Status200OK)]
+        [AllowAnonymous]
         public async Task<IActionResult> GetConditions()
         {
             try
@@ -121,9 +117,8 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpGet("format")]
-        [ProducesResponseType(typeof(ICollection<AttributeFormatLibAm>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Read")]
+        [ProducesResponseType(typeof(ICollection<AttributeFormatLibCm>), StatusCodes.Status200OK)]
+        [AllowAnonymous]
         public async Task<IActionResult> GetFormats()
         {
             try
@@ -139,9 +134,8 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpGet("qualifier")]
-        [ProducesResponseType(typeof(ICollection<AttributeQualifierLibAm>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Read")]
+        [ProducesResponseType(typeof(ICollection<AttributeQualifierLibCm>), StatusCodes.Status200OK)]
+        [AllowAnonymous]
         public async Task<IActionResult> GetQualifiers()
         {
             try
@@ -157,9 +151,8 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpGet("source")]
-        [ProducesResponseType(typeof(ICollection<AttributeSourceLibAm>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[Authorize(Policy = "Read")]
+        [ProducesResponseType(typeof(ICollection<AttributeSourceLibCm>), StatusCodes.Status200OK)]
+        [AllowAnonymous]
         public async Task<IActionResult> GetSources()
         {
             try
