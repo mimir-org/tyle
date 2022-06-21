@@ -1,16 +1,15 @@
-import { ElementType, forwardRef, ReactNode } from "react";
+import { ButtonHTMLAttributes, ElementType, forwardRef, ReactNode } from "react";
 import { Polymorphic } from "../../../../../../complib/props";
-import {
-  TerminalButtonContainer,
-  TerminalButtonContainerProps,
-  ThickPlus,
-  ThickSwitchHorizontal,
-} from "./TerminalButton.styled";
+import { TerminalButtonContainer, ThickPlus, ThickSwitchHorizontal } from "./TerminalButton.styled";
 
-type TerminalButtonProps = TerminalButtonContainerProps &
+export type TerminalButtonVariant = "small" | "medium" | "large";
+
+export type TerminalButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   Polymorphic<ElementType> & {
     children?: ReactNode;
-    variant?: "Input" | "Output" | "Bidirectional";
+    direction?: "Input" | "Output" | "Bidirectional";
+    color: string;
+    variant?: TerminalButtonVariant;
   };
 
 /**
@@ -20,10 +19,10 @@ type TerminalButtonProps = TerminalButtonContainerProps &
  * @param variant decides which button icon is used
  */
 export const TerminalButton = forwardRef<HTMLButtonElement, TerminalButtonProps>(
-  ({ children, variant, ...delegated }, ref) => (
+  ({ children, direction, ...delegated }, ref) => (
     <TerminalButtonContainer ref={ref} {...delegated}>
       {children}
-      {variant !== "Bidirectional" ? <ThickPlus size={"100%"} /> : <ThickSwitchHorizontal size={"100%"} />}
+      {direction !== "Bidirectional" ? <ThickPlus size={"100%"} /> : <ThickSwitchHorizontal size={"100%"} />}
     </TerminalButtonContainer>
   )
 );
@@ -31,5 +30,6 @@ export const TerminalButton = forwardRef<HTMLButtonElement, TerminalButtonProps>
 TerminalButton.displayName = "TerminalButton";
 TerminalButton.defaultProps = {
   type: "button",
-  variant: "Input",
+  direction: "Input",
+  variant: "medium",
 };

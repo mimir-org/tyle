@@ -44,7 +44,7 @@ const TerminalTableRow = ({ name, amount, color, direction, attributes }: Termin
     <tr>
       <TerminalTableData>
         <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
-          <TerminalButton as={"div"} color={color} variant={direction} />
+          <TerminalButton as={"div"} color={color} direction={direction} />
           {name}
         </Flexbox>
       </TerminalTableData>
@@ -52,7 +52,7 @@ const TerminalTableRow = ({ name, amount, color, direction, attributes }: Termin
       <TerminalTableData>{amount}</TerminalTableData>
       <TerminalTableData>
         <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.xs}>
-          {attributes && attributes.map((a, i) => <AttributeInfoButton key={i} variant={"small"} {...a} />)}
+          {attributes && attributes.map((a, i) => <AttributeInfoButton key={i} {...a} />)}
         </Flexbox>
       </TerminalTableData>
     </tr>

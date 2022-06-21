@@ -19,10 +19,10 @@ export const Default = Template.bind({});
 
 export const VariantLeft = Template.bind({});
 VariantLeft.args = {
-  variant: "left",
+  placement: "left",
 };
 
 export const VariantRight = Template.bind({});
 VariantRight.args = {
-  variant: "right",
+  placement: "right",
 };
