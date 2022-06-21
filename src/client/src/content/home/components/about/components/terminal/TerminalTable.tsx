@@ -1,4 +1,6 @@
+import { ArrowLeft, ArrowRight, SwitchHorizontal } from "@styled-icons/heroicons-outline";
 import { useTheme } from "styled-components";
+import textResources from "../../../../../../assets/text/TextResources";
 import { Flexbox } from "../../../../../../complib/layouts";
 import { TerminalItem } from "../../../../types/TerminalItem";
 import { AttributeInfoButton } from "../attribute/AttributeInfoButton";
@@ -18,7 +20,12 @@ interface TerminalTableProps {
 export const TerminalTable = ({ terminals }: TerminalTableProps) => (
   <TerminalTableContainer>
     <thead>
-      <TerminalTableHeaders />
+      <tr>
+        <TerminalTableHeader textAlign={"left"}>{textResources.TERMINAL_TABLE_NAME}</TerminalTableHeader>
+        <TerminalTableHeader textAlign={"left"}>{textResources.TERMINAL_TABLE_DIRECTION}</TerminalTableHeader>
+        <TerminalTableHeader textAlign={"center"}>{textResources.TERMINAL_TABLE_AMOUNT}</TerminalTableHeader>
+        <TerminalTableHeader textAlign={"left"}>{textResources.TERMINAL_TABLE_ATTRIBUTES}</TerminalTableHeader>
+      </tr>
     </thead>
     <tbody>
       {terminals.map((x, i) => (
@@ -28,30 +35,29 @@ export const TerminalTable = ({ terminals }: TerminalTableProps) => (
   </TerminalTableContainer>
 );
 
-const TerminalTableHeaders = () => (
-  <tr>
-    <TerminalTableHeader>Name</TerminalTableHeader>
-    <TerminalTableHeader>Direction</TerminalTableHeader>
-    <TerminalTableHeader>Amount</TerminalTableHeader>
-    <TerminalTableHeader>Attributes</TerminalTableHeader>
-  </tr>
-);
-
 const TerminalTableRow = ({ name, amount, color, direction, attributes }: TerminalItem) => {
   const theme = useTheme();
+  const directionIconSize = 20;
 
   return (
     <tr>
-      <TerminalTableData>
+      <TerminalTableData textAlign={"left"}>
         <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
-          <TerminalButton as={"div"} color={color} direction={direction} />
+          <TerminalButton variant={"small"} as={"div"} color={color} direction={direction} />
           {name}
         </Flexbox>
       </TerminalTableData>
-      <TerminalTableData>{direction}</TerminalTableData>
-      <TerminalTableData>{amount}</TerminalTableData>
-      <TerminalTableData>
-        <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.xs}>
+      <TerminalTableData textAlign={"left"}>
+        <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
+          {direction === "Input" && <ArrowRight size={directionIconSize} />}
+          {direction === "Output" && <ArrowLeft size={directionIconSize} />}
+          {direction === "Bidirectional" && <SwitchHorizontal size={directionIconSize} />}
+          {direction}
+        </Flexbox>
+      </TerminalTableData>
+      <TerminalTableData textAlign={"center"}>{amount}</TerminalTableData>
+      <TerminalTableData textAlign={"left"}>
+        <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.base}>
           {attributes && attributes.map((a, i) => <AttributeInfoButton key={i} {...a} />)}
         </Flexbox>
       </TerminalTableData>

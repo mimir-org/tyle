@@ -102,6 +102,11 @@ const TextResources = {
   TERMINAL_PLACEHOLDER: "Select terminal",
   TERMINAL_DIRECTION_PLACEHOLDER: "Select direction",
 
+  TERMINAL_TABLE_NAME: "Terminal name",
+  TERMINAL_TABLE_DIRECTION: "Terminal direction",
+  TERMINAL_TABLE_AMOUNT: "Amount",
+  TERMINAL_TABLE_ATTRIBUTES: "Terminal attributes",
+
   // Predefined attribute
   PREDEFINED_ATTRIBUTE_TITLE: "Predefined attributes",
   PREDEFINED_ATTRIBUTE_SELECT: "Select value(s)",
