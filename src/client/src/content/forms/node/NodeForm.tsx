@@ -47,8 +47,8 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
       flex={1}
       display={"flex"}
       flexWrap={"wrap"}
-      bgColor={theme.tyle.color.sys.surface.base}
-      color={theme.tyle.color.sys.surface.on}
+      bgColor={theme.tyle.color.sys.background.base}
+      color={theme.tyle.color.sys.background.on}
       onSubmit={handleSubmit((data) =>
         submitNodeData(data, isEdit ? nodeUpdateMutation.mutateAsync : nodeCreateMutation.mutateAsync)
       )}
@@ -126,7 +126,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
                   onChange={(x) => onChange(x?.data)}
                   value={symbolQuery.data?.find((x) => x.data === value)}
                   formatOptionLabel={(x) => (
-                    <Flexbox alignItems={"center"} gap={theme.tyle.spacing.xs}>
+                    <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
                       <Icon src={x.data} />
                       <Text>{x.name}</Text>
                     </Flexbox>
@@ -166,8 +166,8 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
         </Flexbox>
 
         <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
-          <PlainLink to={"/"}>
-            <Button as={"span"} variant={"outlined"}>
+          <PlainLink tabIndex={-1} to={"/"}>
+            <Button tabIndex={0} as={"span"} variant={"outlined"}>
               {textResources.FORMS_CANCEL}
             </Button>
           </PlainLink>

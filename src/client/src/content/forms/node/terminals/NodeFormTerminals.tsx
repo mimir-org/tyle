@@ -30,7 +30,7 @@ export const NodeFormTerminals = ({ control }: NodeFormTerminalsProps) => {
       border={0}
       p={"0"}
     >
-      <Flexbox gap={theme.tyle.spacing.xl} justifyContent={"space-between"}>
+      <Flexbox gap={theme.tyle.spacing.xl} alignItems={"center"}>
         <Text variant={"headline-medium"}>{textResources.TERMINAL_TITLE}</Text>
         <Button icon={<PlusSm />} iconOnly onClick={() => terminalFields.append(createEmptyNodeTerminalLibAm())}>
           {textResources.TERMINAL_ADD}
