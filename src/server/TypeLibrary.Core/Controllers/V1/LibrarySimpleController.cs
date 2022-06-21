@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.Common.Exceptions;
 using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
@@ -39,14 +40,18 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(SimpleLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [AllowAnonymous]
         public async Task<IActionResult> GetSimple([FromRoute] string id)
         {
             try
             {
                 var data = await _simpleService.Get(id);
                 return Ok(data);
+            }
+            catch (MimirorgNotFoundException)
+            {
+                return NoContent();
             }
             catch (Exception e)
             {
@@ -61,9 +66,8 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <returns>SimpleLibCm Collection</returns>
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<SimpleLibCm>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllSimple()
         {
             try

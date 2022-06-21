@@ -40,19 +40,19 @@ namespace Mimirorg.Authentication.Models.Attributes
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            var isAuthorized = Authorize(context, _permission);
+            var isAuthorized = !string.IsNullOrEmpty(context.HttpContext.User.Identity?.Name);
+            var hasPermission = HasPermission(context, _permission);
 
             if (!isAuthorized)
                 context.Result = new UnauthorizedResult();
+            else if (!hasPermission)
+                context.Result = new ForbidResult();
             else
                 await next();
         }
 
-        public bool Authorize(ActionExecutingContext context, MimirorgPermission permission)
+        public bool HasPermission(ActionExecutingContext context, MimirorgPermission permission)
         {
-            if (string.IsNullOrEmpty(context?.HttpContext.User.Identity?.Name))
-                return false;
-
             // If the user is in administrator role, always return true
             if (context.HttpContext.User.IsInRole(MimirorgDefaultRoles.Administrator))
                 return true;

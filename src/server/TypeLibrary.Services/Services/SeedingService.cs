@@ -13,15 +13,11 @@ namespace TypeLibrary.Services.Services
     {
         private const string AttributeFileName = "attribute";
         private const string SymbolFileName = "symbol";
-        private const string AttributeConditionFileName = "attributecondition";
-        private const string AttributeFormatFileName = "attributeformat";
         private const string AttributeAspectFileName = "attributeaspect";
         private const string PredefinedAttributeFileName = "attributepredefined";
         private const string PurposeFileName = "purpose";
-        private const string AttributeQualifierFileName = "attributequalifier";
         private const string RdsFileName = "rds";
         private const string SimpleFileName = "simple";
-        private const string AttributeSourceFileName = "attributesource";
         private const string TerminalTypeFileName = "terminal";
         private const string TransportFileName = "transport";
         private const string UnitFileName = "unit";
@@ -61,10 +57,6 @@ namespace TypeLibrary.Services.Services
                 if (!fileList.Any())
                     return;
 
-                var attributeConditionFiles = fileList.Where(x => x.ToLower().Equals(AttributeConditionFileName)).ToList();
-                var attributeFormatFiles = fileList.Where(x => x.ToLower().Equals(AttributeFormatFileName)).ToList();
-                var attributeQualifierFiles = fileList.Where(x => x.ToLower().Equals(AttributeQualifierFileName)).ToList();
-                var attributeSourceFiles = fileList.Where(x => x.ToLower().Equals(AttributeSourceFileName)).ToList();
                 var attributeAspectFiles = fileList.Where(x => x.ToLower().Equals(AttributeAspectFileName)).ToList();
                 var purposeFiles = fileList.Where(x => x.ToLower().Equals(PurposeFileName)).ToList();
                 var unitFiles = fileList.Where(x => x.ToLower().Equals(UnitFileName)).ToList();
@@ -78,10 +70,6 @@ namespace TypeLibrary.Services.Services
                 var simpleFileNames = fileList.Where(x => x.ToLower().Equals(SimpleFileName)).ToList();
                 var transportFiles = fileList.Where(x => x.ToLower().Equals(TransportFileName)).ToList();
 
-                var attributeConditions = _fileRepository.ReadAllFiles<AttributeConditionLibAm>(attributeConditionFiles).ToList();
-                var attributeFormats = _fileRepository.ReadAllFiles<AttributeFormatLibAm>(attributeFormatFiles).ToList();
-                var attributeQualifiers = _fileRepository.ReadAllFiles<AttributeQualifierLibAm>(attributeQualifierFiles).ToList();
-                var attributeSources = _fileRepository.ReadAllFiles<AttributeSourceLibAm>(attributeSourceFiles).ToList();
                 var attributeAspects = _fileRepository.ReadAllFiles<AttributeAspectLibAm>(attributeAspectFiles).ToList();
                 var purposes = _fileRepository.ReadAllFiles<PurposeLibAm>(purposeFiles).ToList();
                 var units = _fileRepository.ReadAllFiles<UnitLibAm>(unitFiles).ToList();
@@ -99,10 +87,6 @@ namespace TypeLibrary.Services.Services
                 await _attributeService.Create(attributes, true);
                 await _attributeService.CreatePredefined(attributesPredefined, true);
                 await _attributeService.CreateAspects(attributeAspects, true);
-                await _attributeService.CreateConditions(attributeConditions, true);
-                await _attributeService.CreateQualifiers(attributeQualifiers, true);
-                await _attributeService.CreateSources(attributeSources, true);
-                await _attributeService.CreateFormats(attributeFormats, true);
                 await _terminalService.Create(terminals, true);
                 await _rdsService.Create(rds, true);
                 await _symbolService.Create(symbols, true);
