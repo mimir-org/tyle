@@ -10,6 +10,7 @@ const Template: ComponentStory<typeof Node> = (args) => <Node {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
+  name: "Node",
   color: "#fef445",
   img: "static/media/src/assets/icons/modules/library.svg",
 };

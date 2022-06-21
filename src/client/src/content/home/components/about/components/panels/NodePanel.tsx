@@ -38,7 +38,7 @@ export const NodePanel = ({ name, description, img, color, tokens, terminals, at
       overflow={"hidden"}
       {...theme.tyle.animation.fade}
     >
-      <NodePreview color={color} img={img} terminals={terminals} />
+      <NodePreview variant={"large"} name={name} color={color} img={img} terminals={terminals} />
 
       <Heading as={"h2"} variant={"headline-medium"} useEllipsis ellipsisMaxLines={2}>
         {name}

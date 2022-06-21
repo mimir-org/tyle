@@ -12,12 +12,15 @@ interface NodeFormPreviewProps {
 export const NodeFormPreview = ({ control }: NodeFormPreviewProps) => {
   const terminalQuery = useGetTerminals();
 
+  const name = useWatch({ control, name: "name" });
   const symbol = useWatch({ control, name: "symbol" });
   const aspect = useWatch({ control, name: "aspect" });
   const nodeTerminals = useWatch({ control, name: "nodeTerminals" });
 
   return (
     <NodePreview
+      variant={"large"}
+      name={name}
       img={symbol}
       color={getColorFromAspect(aspect)}
       terminals={getTerminalItemsFromFormData(nodeTerminals, terminalQuery.data)}
