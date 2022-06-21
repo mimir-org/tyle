@@ -8,13 +8,13 @@ export const ItemDescriptionContainer = styled.button`
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: ${(props) => props.theme.tyle.spacing.l};
+  gap: ${(props) => props.theme.tyle.spacing.s};
   color: ${(props) => props.theme.tyle.color.sys.surface.on};
 
   margin-right: auto;
 
-  min-width: 200px;
-  max-width: 70ch;
+  width: 400px;
+  height: 100px;
 
   :hover {
     cursor: pointer;

@@ -6,7 +6,6 @@ import { AlertDialog } from "../../../../../../complib/overlays/alert-dialog/Ale
 import { useDeleteNode } from "../../../../../../data/queries/tyle/queriesNode";
 import { PlainLink } from "../../../../../utils/PlainLink";
 import { NodeItem } from "../../../../types/NodeItem";
-import { Node } from "../../../about/components/node/Node";
 import { NodePreview } from "../../../about/components/node/NodePreview";
 import { Item } from "../item/Item";
 import { ItemDescription } from "../item/ItemDescription";
@@ -27,7 +26,7 @@ type NodeItemProps = NodeItem & {
 export const NodeSearchItem = ({ isSelected, setSelected, ...node }: NodeItemProps) => (
   <Item
     isSelected={isSelected}
-    preview={<Node {...node} />}
+    preview={<NodePreview {...node} />}
     description={<ItemDescription onClick={setSelected} {...node} />}
     actions={<NodeSearchItemActions {...node} />}
   />
@@ -49,13 +48,13 @@ const NodeSearchItemActions = ({
 
   return (
     <>
-      <PlainLink to={`/form/node/clone/${id}`}>
-        <Button as={"span"} variant={"filled"} icon={<Duplicate />} iconOnly>
+      <PlainLink tabIndex={-1} to={`/form/node/clone/${id}`}>
+        <Button tabIndex={0} as={"span"} icon={<Duplicate />} iconOnly>
           {TextResources.ITEM_ACTION_CLONE}
         </Button>
       </PlainLink>
-      <PlainLink to={`/form/node/edit/${id}`}>
-        <Button as={"span"} variant={"filled"} icon={<PencilAlt />} iconOnly>
+      <PlainLink tabIndex={-1} to={`/form/node/edit/${id}`}>
+        <Button tabIndex={0} as={"span"} icon={<PencilAlt />} iconOnly>
           {TextResources.ITEM_ACTION_EDIT}
         </Button>
       </PlainLink>
@@ -63,9 +62,10 @@ const NodeSearchItemActions = ({
         actions={[deleteAction]}
         title={`${textResources.ITEM_ACTION_DELETE_TITLE_START} "${name}" ${textResources.ITEM_ACTION_DELETE_TITLE_END}`}
         description={textResources.ITEM_ACTION_DELETE_DESCRIPTION}
-        content={<NodePreview color={color} img={img} terminals={terminals} />}
+        hideDescription
+        content={<NodePreview name={name} color={color} img={img} terminals={terminals} />}
       >
-        <Button variant={"outlined"} icon={<Trash />} iconOnly>
+        <Button icon={<Trash />} iconOnly>
           {TextResources.ITEM_ACTION_DELETE}
         </Button>
       </AlertDialog>
