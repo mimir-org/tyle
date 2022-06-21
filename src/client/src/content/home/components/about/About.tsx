@@ -37,7 +37,9 @@ export const About = ({ selected }: AboutProps) => {
       minWidth={"400px"}
       color={theme.tyle.color.sys.background.on}
     >
-      <Text variant={"headline-large"}>{TextResources.ABOUT_TITLE}</Text>
+      <Text variant={"headline-large"} color={theme.tyle.color.sys.primary.base}>
+        {TextResources.ABOUT_TITLE}
+      </Text>
       <AnimatePresence exitBeforeEnter>
         {showPlaceHolder && <Placeholder text={TextResources.ABOUT_PLACEHOLDER} />}
         {showNodePanel && <NodePanel key={nodeQuery.data.id} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />}
@@ -50,15 +52,10 @@ const Placeholder = ({ text }: { text: string }) => {
   const theme = useTheme();
 
   return (
-    <MotionBox
-      display={"flex"}
-      flex={1}
-      justifyContent={"center"}
-      alignItems={"center"}
-      {...theme.tyle.animation.fade}
-      color={theme.tyle.color.sys.outline.base}
-    >
-      <Text variant={"title-large"}>{text}</Text>
+    <MotionBox display={"flex"} flex={1} justifyContent={"center"} alignItems={"center"} {...theme.tyle.animation.fade}>
+      <Text variant={"title-large"} color={theme.tyle.color.sys.surface.on}>
+        {text}
+      </Text>
     </MotionBox>
   );
 };

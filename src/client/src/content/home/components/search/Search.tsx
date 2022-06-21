@@ -41,7 +41,9 @@ export const Search = ({ selected, setSelected }: SearchProps) => {
       height={"100%"}
       minWidth={"400px"}
     >
-      <Text variant={"headline-large"}>{TextResources.SEARCH_TITLE}</Text>
+      <Text variant={"headline-large"} color={theme.tyle.color.sys.primary.base}>
+        {TextResources.SEARCH_TITLE}
+      </Text>
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       {showSearchItems && (
         <ItemList>

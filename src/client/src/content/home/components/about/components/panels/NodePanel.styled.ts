@@ -5,7 +5,7 @@ export const NodePanelPropertiesContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: ${(props) => props.theme.tyle.spacing.xxl};
+  gap: ${(props) => props.theme.tyle.spacing.xxxl};
 
   // Hidden scrollbar
   overflow: auto;
