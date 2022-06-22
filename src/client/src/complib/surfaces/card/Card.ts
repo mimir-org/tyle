@@ -30,6 +30,7 @@ Card.defaultProps = {
 
 const selectedCard = (color: ColorSystem) => css`
   background-color: ${color.sys.tertiary.container?.base};
+  box-shadow: none;
 `;
 
 /**
