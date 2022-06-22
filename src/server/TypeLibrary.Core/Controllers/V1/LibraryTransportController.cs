@@ -29,14 +29,12 @@ namespace TypeLibrary.Core.Controllers.V1
     {
         private readonly ILogger<LibraryTransportController> _logger;
         private readonly ITransportService _transportService;
-        private readonly ITimedHookService _hookService;
         private readonly IMimirorgUserService _userService;
 
-        public LibraryTransportController(ILogger<LibraryTransportController> logger, ITransportService transportService, ITimedHookService hookService, IMimirorgUserService userService)
+        public LibraryTransportController(ILogger<LibraryTransportController> logger, ITransportService transportService, IMimirorgUserService userService)
         {
             _logger = logger;
             _transportService = transportService;
-            _hookService = hookService;
             _userService = userService;
         }
 
@@ -107,7 +105,6 @@ namespace TypeLibrary.Core.Controllers.V1
             try
             {
                 var data = await _transportService.Create(dataAm);
-                _hookService.HookQueue.Enqueue(CacheKey.Transport);
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)
@@ -151,7 +148,6 @@ namespace TypeLibrary.Core.Controllers.V1
                     return StatusCode(StatusCodes.Status403Forbidden);
 
                 var data = await _transportService.Update(dataAm, id);
-                _hookService.HookQueue.Enqueue(CacheKey.Transport);
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)
@@ -204,7 +200,6 @@ namespace TypeLibrary.Core.Controllers.V1
                     return StatusCode(StatusCodes.Status403Forbidden);
 
                 var data = await _transportService.Delete(id);
-                _hookService.HookQueue.Enqueue(CacheKey.Transport);
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)

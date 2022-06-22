@@ -5,8 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
+using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
+using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
@@ -20,13 +22,15 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly IInterfaceRepository _interfaceRepository;
         private readonly IVersionService _versionService;
+        private readonly ITimedHookService _hookService;
         private readonly ApplicationSettings _applicationSettings;
 
-        public InterfaceService(IMapper mapper, IOptions<ApplicationSettings> applicationSettings, IVersionService versionService, IInterfaceRepository interfaceRepository)
+        public InterfaceService(IMapper mapper, IOptions<ApplicationSettings> applicationSettings, IVersionService versionService, IInterfaceRepository interfaceRepository, ITimedHookService hookService)
         {
             _mapper = mapper;
             _versionService = versionService;
             _interfaceRepository = interfaceRepository;
+            _hookService = hookService;
             _applicationSettings = applicationSettings?.Value;
         }
 
@@ -96,7 +100,12 @@ namespace TypeLibrary.Services.Services
             await _interfaceRepository.Create(interfaceLibDm);
             _interfaceRepository.ClearAllChangeTrackers();
 
-            return await Get(interfaceLibDm.Id);
+            var dm = await Get(interfaceLibDm.Id);
+
+            if(dm != null)
+                _hookService.HookQueue.Enqueue(CacheKey.Interface);
+
+            return dm;
         }
 
         public async Task<InterfaceLibCm> Update(InterfaceLibAm dataAm, string id)
@@ -143,7 +152,12 @@ namespace TypeLibrary.Services.Services
 
         public async Task<bool> Delete(string id)
         {
-            return await _interfaceRepository.Delete(id);
+            var deleted = await _interfaceRepository.Delete(id);
+
+            if(deleted)
+                _hookService.HookQueue.Enqueue(CacheKey.Interface);
+
+            return deleted;
         }
 
         public async Task<bool> CompanyIsChanged(string interfaceId, int companyId)

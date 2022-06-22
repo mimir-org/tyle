@@ -5,9 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
+using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
+using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
@@ -21,13 +23,15 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly ITransportRepository _transportRepository;
         private readonly IVersionService _versionService;
+        private readonly ITimedHookService _hookService;
         private readonly ApplicationSettings _applicationSettings;
 
-        public TransportService(IMapper mapper, IOptions<ApplicationSettings> applicationSettings, IVersionService versionService, ITransportRepository transportRepository)
+        public TransportService(IMapper mapper, IOptions<ApplicationSettings> applicationSettings, IVersionService versionService, ITransportRepository transportRepository, ITimedHookService hookService)
         {
             _mapper = mapper;
             _versionService = versionService;
             _transportRepository = transportRepository;
+            _hookService = hookService;
             _applicationSettings = applicationSettings?.Value;
         }
 
@@ -97,7 +101,12 @@ namespace TypeLibrary.Services.Services
             await _transportRepository.Create(transportLibDm);
             _transportRepository.ClearAllChangeTrackers();
 
-            return await Get(transportLibDm.Id);
+            var dm = await Get(transportLibDm.Id);
+
+            if(dm != null)
+                _hookService.HookQueue.Enqueue(CacheKey.Transport);
+
+            return dm;
         }
 
         public async Task<IEnumerable<TransportLibCm>> Create(IEnumerable<TransportLibAm> transports, bool createdBySystem = false)
@@ -124,6 +133,8 @@ namespace TypeLibrary.Services.Services
             }
 
             _transportRepository.ClearAllChangeTrackers();
+
+            _hookService.HookQueue.Enqueue(CacheKey.Transport);
 
             return _mapper.Map<ICollection<TransportLibCm>>(transportDmList);
         }
@@ -169,7 +180,12 @@ namespace TypeLibrary.Services.Services
 
         public async Task<bool> Delete(string id)
         {
-            return await _transportRepository.Delete(id);
+            var deleted = await _transportRepository.Delete(id);
+
+            if(deleted)
+                _hookService.HookQueue.Enqueue(CacheKey.Transport);
+
+            return deleted;
         }
 
         public async Task<bool> CompanyIsChanged(string transportId, int companyId)

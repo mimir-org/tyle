@@ -29,14 +29,12 @@ namespace TypeLibrary.Core.Controllers.V1
     {
         private readonly ILogger<LibraryInterfaceController> _logger;
         private readonly IInterfaceService _interfaceService;
-        private readonly ITimedHookService _hookService;
         private readonly IMimirorgUserService _userService;
 
-        public LibraryInterfaceController(ILogger<LibraryInterfaceController> logger, IInterfaceService interfaceService, ITimedHookService hookService, IMimirorgUserService userService)
+        public LibraryInterfaceController(ILogger<LibraryInterfaceController> logger, IInterfaceService interfaceService, IMimirorgUserService userService)
         {
             _logger = logger;
             _interfaceService = interfaceService;
-            _hookService = hookService;
             _userService = userService;
         }
 
@@ -106,7 +104,6 @@ namespace TypeLibrary.Core.Controllers.V1
             try
             {
                 var data = await _interfaceService.Create(dataAm);
-                _hookService.HookQueue.Enqueue(CacheKey.Interface);
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)
@@ -149,7 +146,6 @@ namespace TypeLibrary.Core.Controllers.V1
                     return StatusCode(StatusCodes.Status403Forbidden);
 
                 var data = await _interfaceService.Update(dataAm, id);
-                _hookService.HookQueue.Enqueue(CacheKey.Interface);
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)
@@ -201,7 +197,6 @@ namespace TypeLibrary.Core.Controllers.V1
                     return StatusCode(StatusCodes.Status403Forbidden);
 
                 var data = await _interfaceService.Delete(id);
-                _hookService.HookQueue.Enqueue(CacheKey.Interface);
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)
