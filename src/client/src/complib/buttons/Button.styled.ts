@@ -99,7 +99,7 @@ const filledButton = (color: ColorTheme) =>
       :focus-visible {
         background-color: ${color.primary.base};
         color: ${color.primary.on};
-        outline: 2px solid ${color.secondary.base};
+        outline: 4px solid ${color.secondary.base};
       }
 
       :active {
@@ -128,7 +128,7 @@ const outlinedButton = (color: ColorTheme) =>
       }
 
       :focus-visible {
-        outline: 0;
+        outline: 1px solid ${color.secondary.base};
         border-color: ${color.secondary.base};
       }
 
