@@ -72,7 +72,7 @@ namespace TypeLibrary.Services.Services
 
         /// <summary>
         /// Method will check if exiting object T vs new (updated) object TY.
-        /// Throws exception if any changes are not allowed, or if there are no changes between T and TY.
+        /// Throws exception if any changes are not allowed
         /// Returns new major or minor version based on what has changes between T and TY.
         /// </summary>
         /// <typeparam name="T">NodeLibDm, TransportLibDm or InterfaceLibDm</typeparam>
