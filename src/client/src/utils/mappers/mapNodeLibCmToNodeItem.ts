@@ -11,7 +11,7 @@ export const mapNodeLibCmToNodeItem = (node: NodeLibCm): NodeItem => ({
   img: node.symbol,
   description: node.description,
   color: getColorFromAspect(node.aspect),
-  tokens: [node.rdsName, node.purposeName],
+  tokens: [node.rdsName, node.purposeName, node.createdBy, node.version],
   terminals: sortTerminals(mapNodeTerminalLibCmsToTerminalItems(node.nodeTerminals)),
   attributes: sortAttributes(mapAttributeLibCmsToAttributeItems(node.attributes)),
 });
