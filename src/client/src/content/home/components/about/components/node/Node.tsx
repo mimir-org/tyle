@@ -39,7 +39,11 @@ export const Node = ({ name, color, img, variant = "small" }: NodeProps) => {
       bgColor={color}
       borderRadius={theme.tyle.border.radius.large}
     >
-      <Text variant={variantSpecs.text.variant as TextTypes} color={theme.tyle.color.ref.neutral["0"]}>
+      <Text
+        variant={variantSpecs.text.variant as TextTypes}
+        color={theme.tyle.color.ref.neutral["0"]}
+        textAlign={"center"}
+      >
         {name}
       </Text>
       {img && <Icon size={variantSpecs.icon.size} src={img} alt="" />}
