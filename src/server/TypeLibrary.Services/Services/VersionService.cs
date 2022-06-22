@@ -311,7 +311,7 @@ namespace TypeLibrary.Services.Services
 
             //Any version changes?
             if (!increaseMajorVersion && !increaseMinorVersion)
-                throw new MimirorgBadRequestException("CalculateNewVersion<T,TY> Existing object and new object is identical, no changes detected.");
+                return string.Empty;
 
             //Increment node version
             if (nodeDm != null)

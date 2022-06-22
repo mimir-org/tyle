@@ -144,7 +144,12 @@ namespace TypeLibrary.Services.Services
             if (latestInterfaceVersion > interfaceToUpdateVersion)
                 throw new MimirorgBadRequestException($"Not allowed to update interface with id {interfaceToUpdate.Id} and version {interfaceToUpdateVersion}. Latest version is interface with id {latestInterfaceDm.Id} and version {latestInterfaceVersion}");
 
-            dataAm.Version = await _versionService.CalculateNewVersion(latestInterfaceDm, dataAm);
+            var newVersion = await _versionService.CalculateNewVersion(latestInterfaceDm, dataAm);
+
+            if (string.IsNullOrWhiteSpace(newVersion))
+                return await Get(id);
+
+            dataAm.Version = newVersion;
             dataAm.FirstVersionId = latestInterfaceDm.FirstVersionId;
 
             return await Create(dataAm);
