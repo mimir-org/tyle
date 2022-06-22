@@ -24,9 +24,10 @@ export type TerminalsProps = Pick<TerminalButtonProps, "variant"> & {
 export const Terminals = ({ terminals, placement, variant, showCollectionLimit = 5 }: TerminalsProps) => {
   const theme = useTheme();
   const useSummary = terminals.length > showCollectionLimit;
+  const alignment = placement === "right" ? "start" : "end";
 
   return (
-    <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xs}>
+    <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xs} minWidth={"30px"} alignItems={alignment}>
       {!useSummary &&
         terminals.map((terminal, index) => (
           <TerminalSingle variant={variant} {...terminal} key={terminal.name + terminal.direction + index} />
