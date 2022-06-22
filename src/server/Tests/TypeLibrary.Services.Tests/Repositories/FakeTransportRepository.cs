@@ -80,6 +80,11 @@ namespace TypeLibrary.Services.Tests.Repositories
             throw new NotImplementedException();
         }
 
+        public async Task<TransportLibDm> Get(string id)
+        {
+            return await GetAsync(id);
+        }
+
         public IQueryable<TransportLibDm> GetAllTransports()
         {
             throw new NotImplementedException();

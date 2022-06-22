@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
 using Mimirorg.TypeLibrary.Enums;
@@ -30,6 +31,11 @@ namespace TypeLibrary.Services.Tests.Repositories
             Context.Add(a);
             Context.SaveChanges();
             Detach(a);
+        }
+
+        public async Task<NodeLibDm> Get(string id)
+        {
+            return await GetAsync(id);
         }
 
         public IQueryable<NodeLibDm> GetAllNodes()
