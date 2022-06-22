@@ -32,8 +32,8 @@ export const AttributeDescription = ({
 
   return (
     <Box as={"section"} display={"flex"} flexDirection={"column"} width={"118px"} gap={theme.tyle.spacing.l}>
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
-        <Flexbox justifyContent={"space-between"}>
+      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.base}>
+        <Flexbox justifyContent={"space-between"} alignItems={"center"}>
           <Text variant={"title-small"}>{name}</Text>
           {actionable && onAction && (
             <Button
@@ -54,7 +54,10 @@ export const AttributeDescription = ({
         {traits &&
           Object.keys(traits).map((k, i) => (
             <Text key={i} variant={"body-small"} textTransform={"capitalize"}>
-              {k}: {traits[k]}
+              <Box as={"span"} color={theme.tyle.color.sys.secondary.base}>
+                {k}:{" "}
+              </Box>
+              {traits[k]}
             </Text>
           ))}
       </Flexbox>
