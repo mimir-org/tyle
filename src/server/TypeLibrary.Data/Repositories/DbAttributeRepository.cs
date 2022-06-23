@@ -11,14 +11,14 @@ namespace TypeLibrary.Data.Repositories
     public class DbAttributeRepository : IAttributeRepository
     {
         private readonly IEfAttributeRepository _efAttributeRepository;
-        private readonly IEfUnitRepository _efUnitRepository;
+        private readonly IUnitRepository _unitRepository;
         private readonly IEfAttributePredefinedRepository _attributePredefinedRepository;
         private readonly IEfAttributeAspectRepository _attributeAspectRepository;
 
-        public DbAttributeRepository(IEfAttributeRepository efAttributeRepository, IEfUnitRepository efUnitRepository, IEfAttributePredefinedRepository attributePredefinedRepository, IEfAttributeAspectRepository attributeAspectRepository)
+        public DbAttributeRepository(IEfAttributeRepository efAttributeRepository, IUnitRepository unitRepository, IEfAttributePredefinedRepository attributePredefinedRepository, IEfAttributeAspectRepository attributeAspectRepository)
         {
             _efAttributeRepository = efAttributeRepository;
-            _efUnitRepository = efUnitRepository;
+            _unitRepository = unitRepository;
             _attributePredefinedRepository = attributePredefinedRepository;
             _attributeAspectRepository = attributeAspectRepository;
         }
@@ -42,10 +42,10 @@ namespace TypeLibrary.Data.Repositories
         /// <returns>An attribute</returns>
         public async Task<AttributeLibDm> Create(AttributeLibDm attribute)
         {
-            _efUnitRepository.Attach(attribute.Units, EntityState.Unchanged);
+            _unitRepository.SetAttachUnchanged(attribute.Units);
             await _efAttributeRepository.CreateAsync(attribute);
             await _efAttributeRepository.SaveAsync();
-            _efUnitRepository.Detach(attribute.Units);
+            _unitRepository.Detach(attribute.Units);
             _efAttributeRepository.Detach(attribute);
             return attribute;
         }

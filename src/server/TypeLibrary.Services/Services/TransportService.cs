@@ -103,7 +103,7 @@ namespace TypeLibrary.Services.Services
 
             var dm = await Get(transportLibDm.Id);
 
-            if(dm != null)
+            if (dm != null)
                 _hookService.HookQueue.Enqueue(CacheKey.Transport);
 
             return dm;
@@ -187,7 +187,7 @@ namespace TypeLibrary.Services.Services
         {
             var deleted = await _transportRepository.Delete(id);
 
-            if(deleted)
+            if (deleted)
                 _hookService.HookQueue.Enqueue(CacheKey.Transport);
 
             return deleted;

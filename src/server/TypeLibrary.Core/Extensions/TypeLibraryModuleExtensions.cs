@@ -58,7 +58,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<ISimpleRepository, DbSimpleRepository>();
             services.AddScoped<ISymbolRepository, DbSymbolRepository>();
             services.AddScoped<ITerminalRepository, DbTerminalRepository>();
-            services.AddScoped<IUnitRepository, DbUnitRepository>();
+            services.AddScoped<IUnitRepository, EfUnitRepository>();
 
             // Dependency Injection - Services
             services.AddScoped<ITerminalService, TerminalService>();
@@ -109,7 +109,9 @@ namespace TypeLibrary.Core.Extensions
             var context = serviceScope.ServiceProvider.GetRequiredService<TypeLibraryDbContext>();
             var seedingService = serviceScope.ServiceProvider.GetRequiredService<ISeedingService>();
             var seedingServiceLogger = serviceScope.ServiceProvider.GetRequiredService<ILogger<ISeedingService>>();
-            context.Database.Migrate();
+
+            if (context.Database.IsRelational())
+                context.Database.Migrate();
 
 
             var awaiter = seedingService.LoadDataFromFiles().ConfigureAwait(true).GetAwaiter();

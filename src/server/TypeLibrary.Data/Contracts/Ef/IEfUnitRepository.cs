@@ -3,7 +3,7 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts.Ef
 {
-    public interface IEfUnitRepository : IGenericRepository<TypeLibraryDbContext, UnitLibDm>
+    public interface IEfUnitRepository : IGenericRepository<TypeLibraryDbContext, UnitLibDm>, IUnitRepository
     {
     }
 }

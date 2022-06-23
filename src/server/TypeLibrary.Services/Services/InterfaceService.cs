@@ -102,7 +102,7 @@ namespace TypeLibrary.Services.Services
 
             var dm = await Get(interfaceLibDm.Id);
 
-            if(dm != null)
+            if (dm != null)
                 _hookService.HookQueue.Enqueue(CacheKey.Interface);
 
             return dm;
@@ -159,7 +159,7 @@ namespace TypeLibrary.Services.Services
         {
             var deleted = await _interfaceRepository.Delete(id);
 
-            if(deleted)
+            if (deleted)
                 _hookService.HookQueue.Enqueue(CacheKey.Interface);
 
             return deleted;
