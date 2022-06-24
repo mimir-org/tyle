@@ -25,7 +25,7 @@ export const TerminalCollection = ({ terminals, placement }: TerminalCollectionP
 
   return (
     <Popover placement={placement} content={<TerminalCollectionDescription terminals={terminals} />}>
-      <TerminalButton variant={"large"} color={theme.tyle.color.sys.secondary.base}>
+      <TerminalButton variant={"large"} color={theme.tyle.color.ref.primary["40"]}>
         <VisuallyHidden>{TextResources.TERMINAL_OPEN_SUMMARY}</VisuallyHidden>
       </TerminalButton>
     </Popover>
