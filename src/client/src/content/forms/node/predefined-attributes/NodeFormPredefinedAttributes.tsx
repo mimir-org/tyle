@@ -31,7 +31,7 @@ export const NodeFormPredefinedAttributes = ({ control, register, aspects }: Nod
       border={0}
       p={"0"}
     >
-      <Text variant={"headline-medium"}>{TextResources.PREDEFINED_ATTRIBUTE_TITLE}</Text>
+      <Text variant={"title-large"}>{TextResources.PREDEFINED_ATTRIBUTE_TITLE}</Text>
 
       <Grid gridTemplateColumns={"repeat(auto-fill, 300px)"} gap={theme.tyle.spacing.xl}>
         {predefinedAttributes.map((x, index) => {
