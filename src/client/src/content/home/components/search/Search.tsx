@@ -35,9 +35,6 @@ export const Search = ({ selected, setSelected }: SearchProps) => {
       display={"flex"}
       flexDirection={"column"}
       gap={theme.tyle.spacing.xxxl}
-      pt={theme.tyle.spacing.multiple(6)}
-      px={theme.tyle.spacing.xxxl}
-      pb={theme.tyle.spacing.xl}
       height={"100%"}
       minWidth={"400px"}
     >

@@ -13,6 +13,10 @@ export const Home = () => {
       flex={1}
       display={"flex"}
       flexWrap={"wrap"}
+      gap={theme.tyle.spacing.multiple(24)}
+      px={theme.tyle.spacing.multiple(12)}
+      pt={theme.tyle.spacing.multiple(6)}
+      pb={theme.tyle.spacing.xl}
       bgColor={theme.tyle.color.sys.background.base}
       color={theme.tyle.color.sys.background.on}
       overflow={"auto"}
