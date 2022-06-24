@@ -14,8 +14,11 @@ export const tokenBaseStyle = css<TokenBaseProps>`
   width: fit-content;
 
   border: 0;
-  border-radius: ${(props) => props.theme.tyle.border.radius.large};
   padding: ${(props) => props.theme.tyle.spacing.base};
+
+  :focus-visible {
+    outline: 2px solid ${(props) => props.theme.tyle.color.sys.secondary.base};
+  }
 
   ${({ variant, ...props }) => {
     const {
@@ -33,8 +36,8 @@ export const tokenBaseStyle = css<TokenBaseProps>`
     }
   }};
 
-  ${({ interactive, ...props }) =>
-    interactive &&
+  ${({ $interactive, ...props }) =>
+    $interactive &&
     css`
       :hover {
         cursor: pointer;
@@ -43,6 +46,12 @@ export const tokenBaseStyle = css<TokenBaseProps>`
       :active {
         background-color: ${props.theme.tyle.color.sys.tertiary.container?.base};
       }
+    `};
+
+  ${({ $selected, ...props }) =>
+    $selected &&
+    css`
+      background-color: ${props.theme.tyle.color.sys.tertiary.container?.base};
     `};
 `;
 
@@ -58,6 +67,7 @@ const primaryToken = (color: ColorTheme) =>
   css`
     background-color: ${color.tertiary.base};
     color: ${color.tertiary.on};
+    border-radius: ${(props) => props.theme.tyle.border.radius.large};
   `;
 
 const secondaryToken = (color: ColorTheme, spacing: SpacingSystem) =>
@@ -66,4 +76,5 @@ const secondaryToken = (color: ColorTheme, spacing: SpacingSystem) =>
     background-color: ${color.background.base};
     color: ${color.tertiary.on};
     border: 1px solid ${color.tertiary.base};
+    border-radius: ${(props) => props.theme.tyle.border.radius.medium};
   `;

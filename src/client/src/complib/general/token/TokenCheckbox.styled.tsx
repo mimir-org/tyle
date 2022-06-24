@@ -5,7 +5,7 @@ import { tokenBaseStyle } from "./Token.styled";
 
 export const TokenCheckboxContainer = styled(CheckboxPrimitive.Root)<TokenBaseProps>`
   ${tokenBaseStyle};
-  outline: ${(props) => props.checked && `2px solid ${props.theme.tyle.color.sys.surface.on}`};
+  background-color: ${(props) => props.checked && props.theme.tyle.color.sys.tertiary.container?.base};
 `;
 
 TokenCheckboxContainer.defaultProps = {

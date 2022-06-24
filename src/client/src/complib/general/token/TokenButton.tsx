@@ -17,7 +17,7 @@ export const TokenButton = forwardRef((props: TokenButtonProps, ref: ForwardedRe
   const { children, ...delegated } = props;
 
   return (
-    <TokenContainer ref={ref} as={"button"} interactive {...delegated}>
+    <TokenContainer ref={ref} as={"button"} $interactive {...delegated}>
       <Text variant={"label-small"} useEllipsis ellipsisMaxLines={1}>
         {children}
       </Text>

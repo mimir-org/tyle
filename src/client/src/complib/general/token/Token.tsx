@@ -5,9 +5,10 @@ import { Text } from "../../text";
 import { TokenContainer } from "./Token.styled";
 
 export type TokenBaseProps = Partial<Actionable> & {
-  variant?: "primary" | "secondary";
-  interactive?: boolean;
   children?: ReactNode;
+  variant?: "primary" | "secondary";
+  $interactive?: boolean;
+  $selected?: boolean;
 };
 
 export type TokenProps = HTMLAttributes<HTMLSpanElement> & TokenBaseProps;
@@ -16,8 +17,13 @@ export type TokenProps = HTMLAttributes<HTMLSpanElement> & TokenBaseProps;
  * A component for representing a piece of data.
  * Often used to display a collection of related attributes.
  *
+ * The interactive and selected prop are transient, read more about this in the documentation link below.
+ * @see https://styled-components.com/docs/api#transient-props
+ *
  * @param children text to be displayed inside token
  * @param variant controls style of the token
+ * @param $interactive enables interaction styles for token
+ * @param $selected enables selected styles for token
  * @param actionable
  * @param actionIcon
  * @param actionText

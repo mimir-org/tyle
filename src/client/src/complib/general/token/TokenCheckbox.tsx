@@ -20,7 +20,7 @@ export const TokenCheckbox = forwardRef((props: TokenCheckboxProps, ref: Forward
   const { children, ...delegated } = props;
 
   return (
-    <TokenCheckboxContainer ref={ref} interactive {...delegated}>
+    <TokenCheckboxContainer ref={ref} $interactive {...delegated}>
       <Text variant={"label-small"} useEllipsis ellipsisMaxLines={1}>
         {children}
       </Text>
