@@ -39,12 +39,25 @@ export const SelectAttributeDialog = ({ attributes, onAdd }: SelectAttributeDial
     <Dialog
       title={TextResources.ATTRIBUTE_DIALOG_TITLE}
       description={TextResources.ATTRIBUTE_DIALOG_DESCRIPTION}
+      width={"1000px"}
       content={
-        <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xl} overflow={"auto"}>
+        <Box
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"center"}
+          gap={theme.tyle.spacing.xxxl}
+          width={"100%"}
+          pt={theme.tyle.spacing.xs}
+          mt={`-${theme.tyle.spacing.xs}`}
+          overflow={"auto"}
+        >
           <Input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={TextResources.ATTRIBUTE_DIALOG_FILTER}
+            width={"100%"}
+            maxWidth={"500px"}
+            height={"44px"}
           />
           <SelectContainer>
             <Box
@@ -53,7 +66,6 @@ export const SelectAttributeDialog = ({ attributes, onAdd }: SelectAttributeDial
               justifyContent={"center"}
               gap={theme.tyle.spacing.xl}
               height={"fit-content"}
-              width={"100%"}
             >
               {attributes
                 .filter((x) => filterAttributeItem(x, searchQuery))
