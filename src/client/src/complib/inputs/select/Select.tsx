@@ -3,7 +3,6 @@ import ReactSelect, { GroupBase, Props, StylesConfig } from "react-select";
 import { default as ReactSelectType } from "react-select/base";
 import { useTheme } from "styled-components";
 import { TyleTheme } from "../../core";
-import { translucify } from "../../mixins";
 
 /**
  * Select component built on top of react-select. Offers a generic api to allow for using almost any data-structure as options.
@@ -37,14 +36,21 @@ export const Select = <Option, IsMulti extends boolean = false, Group extends Gr
 const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
   theme: TyleTheme
 ): StylesConfig<Option, IsMulti, Group> => ({
+  container: (base, state) => ({
+    ...base,
+    height: state.isMulti ? "auto" : "40px",
+  }),
   control: (base, state) => ({
     ...base,
+    width: "250px",
     minHeight: "40px",
-    minWidth: "250px",
+    borderWidth: "1px",
+    borderStyle: "solid",
     borderColor: theme.color.sys.outline.base,
-    outline: state.isFocused ? "1px solid black" : "revert",
+    backgroundColor: theme.color.sys.pure.base,
+    outline: state.isFocused ? `2px solid ${theme.color.sys.secondary.base}` : "revert",
     "&:hover": {
-      borderColor: translucify(theme.color.sys.primary.base, 0.5),
+      borderColor: theme.color.sys.secondary.base,
     },
   }),
   placeholder: (base) => ({
@@ -53,25 +59,58 @@ const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends Grou
   }),
   menu: (base) => ({
     ...base,
+    width: "250px",
     color: theme.color.sys.surface.on,
+    boxShadow: "none",
+  }),
+  menuList: (base) => ({
+    ...base,
+    boxShadow: "none",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: theme.color.sys.outline.base,
+    borderRadius: theme.border.radius.medium,
+  }),
+  valueContainer: (base) => ({
+    ...base,
+    paddingLeft: theme.spacing.l,
+    paddingRight: theme.spacing.l,
+    paddingTop: theme.spacing.xs,
+    paddingBottom: theme.spacing.xs,
+  }),
+  singleValue: (base) => ({
+    ...base,
+    color: theme.color.sys.background.on,
+    margin: 0,
+  }),
+  multiValue: (base) => ({
+    ...base,
+    borderRadius: theme.border.radius.small,
+  }),
+  multiValueLabel: (base) => ({
+    ...base,
+    padding: theme.spacing.s,
+    paddingLeft: theme.spacing.base,
+  }),
+  multiValueRemove: (base) => ({
+    ...base,
+    paddingLeft: theme.spacing.s,
+    paddingRight: theme.spacing.s,
   }),
   option: (base, state) => {
-    let backgroundColor = state.isSelected ? theme.color.sys.secondary.base : "revert";
-    let color = state.isSelected ? theme.color.sys.secondary.on : "revert";
+    let backgroundColor = theme.color.sys.pure.base;
 
     if (state.isFocused) {
-      backgroundColor = translucify(theme.color.sys.secondary.base, 0.5);
-      color = theme.color.sys.secondary.on;
+      backgroundColor = theme.color.sys.secondary.container?.base ?? "";
+    } else if (state.isSelected) {
+      backgroundColor = theme.color.sys.tertiary.container?.base ?? "";
     }
 
     return {
       ...base,
       backgroundColor,
-      color,
-      "&:hover": {
-        backgroundColor: translucify(theme.color.sys.secondary.base, 0.5),
-        color: theme.color.sys.secondary.on,
-      },
+      paddingLeft: theme.spacing.base,
+      color: theme.color.sys.background.on,
     };
   },
 });
