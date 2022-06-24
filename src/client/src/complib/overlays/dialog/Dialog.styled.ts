@@ -1,9 +1,12 @@
 import { motion } from "framer-motion";
 import styled from "styled-components/macro";
 import { MotionBox } from "../../layouts";
-import { translucify } from "../../mixins";
+import { flexMixin, sizingMixin, translucify } from "../../mixins";
+import { Flex, Sizing } from "../../props";
 
-export const DialogContent = styled(MotionBox)`
+export type DialogContentProps = Sizing & Flex;
+
+export const DialogContent = styled(MotionBox)<DialogContentProps>`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -13,7 +16,7 @@ export const DialogContent = styled(MotionBox)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: ${(props) => props.theme.tyle.spacing.multiple(6)};
+  gap: ${(props) => props.theme.tyle.spacing.xxxl};
 
   background-color: ${(props) => props.theme.tyle.color.sys.background.base};
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
@@ -25,6 +28,9 @@ export const DialogContent = styled(MotionBox)`
   padding: ${(props) => props.theme.tyle.spacing.multiple(6)};
 
   box-shadow: ${(props) => props.theme.tyle.shadow.small};
+
+  ${sizingMixin};
+  ${flexMixin};
 `;
 
 export const DialogOverlay = styled(motion.div)`
