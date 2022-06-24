@@ -9,6 +9,7 @@ import { NodeItem } from "../../../../types/NodeItem";
 import { NodePreview } from "../../../about/components/node/NodePreview";
 import { Item } from "../item/Item";
 import { ItemDescription } from "../item/ItemDescription";
+import { useTheme } from "styled-components";
 
 type NodeItemProps = NodeItem & {
   isSelected?: boolean;
@@ -39,6 +40,7 @@ const NodeSearchItemActions = ({
   color,
   terminals,
 }: Pick<NodeItem, "id" | "name" | "color" | "img" | "terminals">) => {
+  const theme = useTheme();
   const deleteNodeMutation = useDeleteNode();
   const deleteAction = {
     name: TextResources.ITEM_ACTION_DELETE,
@@ -59,8 +61,9 @@ const NodeSearchItemActions = ({
         </Button>
       </PlainLink>
       <AlertDialog
+        gap={theme.tyle.spacing.multiple(6)}
         actions={[deleteAction]}
-        title={`${textResources.ITEM_ACTION_DELETE_TITLE_START} "${name}" ${textResources.ITEM_ACTION_DELETE_TITLE_END}`}
+        title={`${textResources.ITEM_ACTION_DELETE_TITLE} "${name}"?`}
         description={textResources.ITEM_ACTION_DELETE_DESCRIPTION}
         hideDescription
         content={<NodePreview name={name} color={color} img={img} terminals={terminals} />}
