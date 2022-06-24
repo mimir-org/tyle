@@ -25,6 +25,8 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   letter-spacing: ${(props) => props.theme.tyle.typography.sys.roles.label.large.letterSpacing};
 
   height: 32px;
+  width: fit-content;
+  min-width: 70px;
   padding: ${(props) => props.theme.tyle.spacing.base} ${(props) => props.theme.tyle.spacing.xl};
   border-radius: ${(props) => props.theme.tyle.border.radius.medium};
 
@@ -64,6 +66,7 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
     iconOnly &&
     css`
       padding: ${props.theme.tyle.spacing.xs};
+      min-width: revert;
       width: 24px;
       height: 24px;
 

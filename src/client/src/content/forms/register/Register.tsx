@@ -88,14 +88,14 @@ export const Register = () => {
               />
             </FormField>
 
-            <MotionText layout as={"i"}>
+            <MotionText color={theme.tyle.color.sys.surface.variant.on} layout={"position"} as={"i"}>
               {TextResources.FORMS_REQUIRED_DESCRIPTION}
             </MotionText>
           </FormFieldset>
 
-          <MotionFlexbox layout flexDirection={"column"} gap={theme.tyle.spacing.xxl}>
+          <MotionFlexbox layout flexDirection={"column"} alignItems={"end"} gap={theme.tyle.spacing.xxl}>
             <Button type={"submit"}>{TextResources.REGISTER_SUBMIT}</Button>
-            <Text>
+            <Text color={theme.tyle.color.sys.surface.variant.on}>
               {TextResources.REGISTER_IS_REGISTERED} <Link to="/">{TextResources.REGISTER_LOGIN_LINK}</Link>
             </Text>
           </MotionFlexbox>
