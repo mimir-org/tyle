@@ -14,5 +14,6 @@ export interface ColorTheme {
     inverse: Pick<Accent, "base" | "on">
     tint: Pick<Accent, "base">
   }
-  shadow: Pick<Accent, "base">
+  shadow: Pick<Accent, "base">,
+  pure: Accent,
 }

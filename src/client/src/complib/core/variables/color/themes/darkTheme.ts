@@ -54,5 +54,9 @@ export const darkTheme: ColorTheme = {
   },
   shadow: {
     base: colorReference.neutral[0],
+  },
+  pure: {
+    base: colorReference.neutral[0],
+    on: colorReference.neutral[100]
   }
 };

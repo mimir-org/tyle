@@ -54,5 +54,9 @@ export const lightTheme: ColorTheme = {
   },
   shadow: {
     base: colorReference.neutral[0],
+  },
+  pure: {
+    base: colorReference.neutral[100],
+    on: colorReference.neutral[0]
   }
 };
