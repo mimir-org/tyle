@@ -7,6 +7,7 @@ import { MotionPopoverContent } from "./Popover.styled";
 
 interface Props {
   content: ReactNode;
+  onOpenChange?: () => void;
   placement?: "top" | "right" | "bottom" | "left";
   align?: "start" | "center" | "end";
   offset?: number;
@@ -21,6 +22,7 @@ interface Props {
  *
  * @param children element which receive focus to trigger popover
  * @param content of the popover itself
+ * @param onOpenChange called when popover open state changes
  * @param placement target placement of the popover
  * @param align target alignment of the popover
  * @param offset in px away from the element which triggers the popover
@@ -29,6 +31,7 @@ interface Props {
 export const Popover = ({
   children,
   content,
+  onOpenChange,
   placement = "top",
   align = "center",
   offset = 8,
@@ -37,7 +40,7 @@ export const Popover = ({
   const motion = merge({}, theme.tyle.animation.fade, theme.tyle.animation.scale);
 
   return (
-    <PopoverPrimitive.Root>
+    <PopoverPrimitive.Root onOpenChange={onOpenChange}>
       <PopoverPrimitive.Trigger asChild>{children}</PopoverPrimitive.Trigger>
       <AnimatePresence>
         <PopoverPrimitive.Content asChild avoidCollisions sideOffset={offset} side={placement} align={align}>
