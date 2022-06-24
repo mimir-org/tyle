@@ -1,4 +1,4 @@
-import { Ref } from "react";
+import { Ref, useState } from "react";
 import { Popover } from "../../../../../../complib/data-display";
 import { TokenButton, TokenButtonProps } from "../../../../../../complib/general";
 import { AttributeDescription, AttributeDescriptionProps } from "./AttributeDescription";
@@ -29,22 +29,27 @@ export const AttributeInfoButton = ({
   actionText,
   onAction,
   buttonRef,
-}: AttributeInfoButtonProps) => (
-  <Popover
-    align={"start"}
-    content={
-      <AttributeDescription
-        name={name}
-        traits={traits}
-        actionable={actionable}
-        actionIcon={actionIcon}
-        actionText={actionText}
-        onAction={onAction}
-      />
-    }
-  >
-    <TokenButton ref={buttonRef} variant={"secondary"}>
-      {name}
-    </TokenButton>
-  </Popover>
-);
+}: AttributeInfoButtonProps) => {
+  const [isSelected, setIsSelected] = useState(false);
+
+  return (
+    <Popover
+      align={"start"}
+      onOpenChange={() => setIsSelected(!isSelected)}
+      content={
+        <AttributeDescription
+          name={name}
+          traits={traits}
+          actionable={actionable}
+          actionIcon={actionIcon}
+          actionText={actionText}
+          onAction={onAction}
+        />
+      }
+    >
+      <TokenButton ref={buttonRef} variant={"secondary"} $selected={isSelected}>
+        {name}
+      </TokenButton>
+    </Popover>
+  );
+};
