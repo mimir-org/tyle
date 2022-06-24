@@ -31,12 +31,12 @@ export const NodeFormAttributes = ({ control, aspects, register }: NodeFormAttri
       display={"flex"}
       flexDirection={"column"}
       justifyContent={"center"}
-      gap={theme.tyle.spacing.xl}
+      gap={theme.tyle.spacing.xxxl}
       border={0}
       p={"0"}
     >
       <Flexbox gap={theme.tyle.spacing.xl} alignItems={"center"}>
-        <Text variant={"headline-medium"}>{TextResources.ATTRIBUTE_TITLE}</Text>
+        <Text variant={"title-large"}>{TextResources.ATTRIBUTE_TITLE}</Text>
         <SelectAttributeDialog attributes={attributeItems} onAdd={(ids) => onAddAttributes(ids, attributeFields)} />
       </Flexbox>
 

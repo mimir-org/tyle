@@ -49,6 +49,9 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
       flexWrap={"wrap"}
       bgColor={theme.tyle.color.sys.background.base}
       color={theme.tyle.color.sys.background.on}
+      gap={theme.tyle.spacing.multiple(14)}
+      py={theme.tyle.spacing.multiple(6)}
+      px={theme.tyle.spacing.multiple(11)}
       onSubmit={handleSubmit((data) =>
         submitNodeData(data, isEdit ? nodeUpdateMutation.mutateAsync : nodeCreateMutation.mutateAsync)
       )}
@@ -58,15 +61,15 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
         flex={1}
         display={"flex"}
         flexDirection={"column"}
-        justifyContent={"space-between"}
-        gap={theme.tyle.spacing.xxl}
-        px={theme.tyle.spacing.xxl}
-        py={theme.tyle.spacing.multiple(6)}
+        flexGrow={"0"}
+        alignItems={"center"}
+        gap={theme.tyle.spacing.xl}
         border={0}
+        p={"0"}
       >
         <NodeFormPreview control={control} />
 
-        <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xl}>
+        <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
           <FormField label={textResources.FORMS_NODE_NAME}>
             <Input placeholder={textResources.FORMS_NODE_NAME_PLACEHOLDER} {...register("name")} />
           </FormField>
@@ -175,14 +178,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
         </Flexbox>
       </Box>
 
-      <Box
-        flex={3}
-        display={"flex"}
-        flexDirection={"column"}
-        gap={theme.tyle.spacing.xxl}
-        px={theme.tyle.spacing.xxl}
-        py={theme.tyle.spacing.multiple(6)}
-      >
+      <Box flex={3} display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xxl}>
         {aspect === Aspect.Function && <FunctionNode control={control} register={register} />}
         {aspect === Aspect.Location && <LocationNode control={control} register={register} />}
         {aspect === Aspect.Product && <ProductNode control={control} register={register} />}

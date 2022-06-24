@@ -26,12 +26,12 @@ export const NodeFormTerminals = ({ control }: NodeFormTerminalsProps) => {
       display={"flex"}
       flexDirection={"column"}
       justifyContent={"center"}
-      gap={theme.tyle.spacing.xl}
+      gap={theme.tyle.spacing.xxxl}
       border={0}
       p={"0"}
     >
       <Flexbox gap={theme.tyle.spacing.xl} alignItems={"center"}>
-        <Text variant={"headline-medium"}>{textResources.TERMINAL_TITLE}</Text>
+        <Text variant={"title-large"}>{textResources.TERMINAL_TITLE}</Text>
         <Button icon={<PlusSm />} iconOnly onClick={() => terminalFields.append(createEmptyNodeTerminalLibAm())}>
           {textResources.TERMINAL_ADD}
         </Button>
