@@ -80,12 +80,20 @@ const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends Grou
   }),
   singleValue: (base) => ({
     ...base,
-    color: theme.color.sys.background.on,
     margin: 0,
+    color: theme.color.sys.background.on,
+    font: theme.typography.sys.roles.body.large.font,
+    letterSpacing: theme.typography.sys.roles.body.large.letterSpacing,
+    lineHeight: theme.typography.sys.roles.body.large.lineHeight,
   }),
   multiValue: (base) => ({
     ...base,
+    color: theme.color.sys.secondary.on,
+    backgroundColor: theme.color.sys.secondary.container?.base,
     borderRadius: theme.border.radius.small,
+    font: theme.typography.sys.roles.label.large.font,
+    letterSpacing: theme.typography.sys.roles.label.large.letterSpacing,
+    lineHeight: theme.typography.sys.roles.label.large.lineHeight,
   }),
   multiValueLabel: (base) => ({
     ...base,
