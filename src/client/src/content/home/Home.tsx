@@ -13,12 +13,10 @@ export const Home = () => {
       flex={1}
       display={"flex"}
       flexWrap={"wrap"}
-      gap={theme.tyle.spacing.multiple(24)}
-      px={theme.tyle.spacing.multiple(12)}
+      gap={`min(${theme.tyle.spacing.multiple(27)}, 12vw)`}
+      px={`min(${theme.tyle.spacing.multiple(12)}, 6vw)`}
       pt={theme.tyle.spacing.multiple(6)}
       pb={theme.tyle.spacing.xl}
-      bgColor={theme.tyle.color.sys.background.base}
-      color={theme.tyle.color.sys.background.on}
       overflow={"auto"}
     >
       <Search selected={selected} setSelected={setSelected} />

@@ -19,7 +19,6 @@ export const TerminalTableHeader = styled.th<TerminalTableHeaderProps>`
   color: ${(props) => props.theme.tyle.color.sys.primary.base};
 
   vertical-align: top;
-  white-space: nowrap;
   ${getTextRole("label-large")};
   ${typographyMixin};
 `;

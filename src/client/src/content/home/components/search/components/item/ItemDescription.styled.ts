@@ -13,7 +13,8 @@ export const ItemDescriptionContainer = styled.button`
 
   margin-right: auto;
 
-  width: 400px;
+  min-width: 250px;
+  max-width: 400px;
   height: 100px;
 
   :hover {

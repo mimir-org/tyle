@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { useTheme } from "styled-components";
 import { TextResources } from "../../../../assets/text";
-import { Box } from "../../../../complib/layouts";
-import { Text } from "../../../../complib/text";
 import { useGetNodes } from "../../../../data/queries/tyle/queriesNode";
 import { mapNodeLibCmToNodeItem } from "../../../../utils/mappers";
+import { HomeSection } from "../HomeSection";
 import { ItemList } from "./components/item/ItemList";
 import { NodeSearchItem } from "./components/node/NodeSearchItem";
 import { SearchBar } from "./components/SearchBar";
@@ -23,24 +21,12 @@ interface SearchProps {
  * @constructor
  */
 export const Search = ({ selected, setSelected }: SearchProps) => {
-  const theme = useTheme();
   const nodeQuery = useGetNodes();
   const [searchQuery, setSearchQuery] = useState("");
   const showSearchItems = nodeQuery.isSuccess && !nodeQuery.isLoading;
 
   return (
-    <Box
-      as={"section"}
-      flex={1}
-      display={"flex"}
-      flexDirection={"column"}
-      gap={theme.tyle.spacing.xxxl}
-      height={"100%"}
-      minWidth={"400px"}
-    >
-      <Text variant={"headline-large"} color={theme.tyle.color.sys.primary.base}>
-        {TextResources.SEARCH_TITLE}
-      </Text>
+    <HomeSection title={TextResources.SEARCH_TITLE}>
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       {showSearchItems && (
         <ItemList>
@@ -52,6 +38,6 @@ export const Search = ({ selected, setSelected }: SearchProps) => {
             ))}
         </ItemList>
       )}
-    </Box>
+    </HomeSection>
   );
 };

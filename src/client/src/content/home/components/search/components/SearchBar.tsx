@@ -5,7 +5,7 @@ import { Button } from "../../../../../complib/buttons";
 import { Input } from "../../../../../complib/inputs";
 import { Flexbox } from "../../../../../complib/layouts";
 
-interface SearchBarProps {
+export interface SearchBarProps {
   searchQuery?: string;
   setSearchQuery: (value: string) => void;
 }
