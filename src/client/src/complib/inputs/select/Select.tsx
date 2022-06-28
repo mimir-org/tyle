@@ -3,6 +3,7 @@ import ReactSelect, { GroupBase, Props, StylesConfig } from "react-select";
 import { default as ReactSelectType } from "react-select/base";
 import { useTheme } from "styled-components";
 import { TyleTheme } from "../../core";
+import { translucify } from "../../mixins";
 
 /**
  * Select component built on top of react-select. Offers a generic api to allow for using almost any data-structure as options.
@@ -47,7 +48,7 @@ const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends Grou
     borderWidth: "1px",
     borderStyle: "solid",
     borderColor: theme.color.sys.outline.base,
-    backgroundColor: theme.color.sys.pure.base,
+    backgroundColor: state.isDisabled ? translucify(theme.color.sys.surface.on, 0.08) : theme.color.sys.pure.base,
     outline: state.isFocused ? `2px solid ${theme.color.sys.secondary.base}` : "revert",
     "&:hover": {
       borderColor: theme.color.sys.secondary.base,
@@ -117,7 +118,7 @@ const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends Grou
     return {
       ...base,
       backgroundColor,
-      paddingLeft: theme.spacing.base,
+      paddingLeft: theme.spacing.l,
       color: theme.color.sys.background.on,
     };
   },
