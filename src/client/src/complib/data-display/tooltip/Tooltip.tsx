@@ -4,15 +4,15 @@ import merge from "lodash.merge";
 import { PropsWithChildren, ReactNode } from "react";
 import { useTheme } from "styled-components";
 import { Text } from "../../text";
-import { MotionTooltipContent } from "./Tooltip.styled";
+import { MotionTooltipContent, TooltipContentProps } from "./Tooltip.styled";
 
-interface Props {
+type Props = TooltipContentProps & {
   content: ReactNode;
   placement?: "top" | "right" | "bottom" | "left";
   align?: "start" | "center" | "end";
   delay?: number;
   offset?: number;
-}
+};
 
 /**
  * A generic tooltip for describing focusable elements.
@@ -27,6 +27,7 @@ interface Props {
  * @param align target alignment of the tooltip
  * @param delay in ms before showing the tooltip
  * @param offset in px away from the element which triggers the tooltip
+ * @param delegated receives sizing props for overriding default styles
  * @constructor
  */
 export const Tooltip = ({
@@ -36,6 +37,7 @@ export const Tooltip = ({
   align = "center",
   delay = 0,
   offset = 8,
+  ...delegated
 }: PropsWithChildren<Props>) => {
   const theme = useTheme();
   const motion = merge({}, theme.tyle.animation.fade, theme.tyle.animation.scale);
@@ -46,7 +48,7 @@ export const Tooltip = ({
       <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
       <AnimatePresence>
         <TooltipPrimitive.Content asChild avoidCollisions sideOffset={offset} side={placement} align={align}>
-          <MotionTooltipContent {...motion}>
+          <MotionTooltipContent {...motion} {...delegated}>
             {containsTextOnly ? <Text variant={"body-medium"}>{content}</Text> : content}
           </MotionTooltipContent>
         </TooltipPrimitive.Content>
