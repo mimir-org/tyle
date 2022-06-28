@@ -8,6 +8,7 @@ export default {
   args: {
     children: "Button",
     variant: "text",
+    disabled: false,
   },
 } as ComponentMeta<typeof Button>;
 

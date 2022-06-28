@@ -1,6 +1,6 @@
 import { InputHTMLAttributes } from "react";
 import styled from "styled-components";
-import { getTextRole, sizingMixin } from "../../mixins";
+import { focus, getTextRole, placeholder, sizingMixin } from "../../mixins";
 import { Sizing } from "../../props";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & Sizing;
@@ -19,12 +19,6 @@ export const Input = styled.input<InputProps>`
 
   ${getTextRole("body-large")};
   ${sizingMixin};
-
-  ::placeholder {
-    color: ${(props) => props.theme.tyle.color.sys.outline.base};
-  }
-
-  :focus-visible {
-    outline: 2px solid ${(props) => props.theme.tyle.color.sys.secondary.base};
-  }
+  ${focus};
+  ${placeholder};
 `;

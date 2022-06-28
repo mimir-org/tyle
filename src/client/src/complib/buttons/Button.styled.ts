@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes, ElementType } from "react";
 import styled, { css } from "styled-components/macro";
 import { ColorTheme } from "../core";
+import { focus } from "../mixins";
 import { Polymorphic } from "../props";
 
 export type ButtonContainerProps = Polymorphic<ElementType> &
@@ -43,6 +44,8 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
     width: 24px;
     height: 24px;
   }
+
+  ${focus};
 
   ${({ variant, ...props }) => {
     const {
@@ -89,7 +92,7 @@ const filledButton = (color: ColorTheme) =>
     color: ${color.primary.on};
 
     :disabled {
-      background-color: ${color.surface.variant.base};
+      background-color: ${color.outline.base};
       color: ${color.surface.variant.on};
     }
 
@@ -99,16 +102,9 @@ const filledButton = (color: ColorTheme) =>
         color: ${color.primary.base};
       }
 
-      :focus-visible {
-        background-color: ${color.primary.base};
-        color: ${color.primary.on};
-        outline: 4px solid ${color.secondary.base};
-      }
-
       :active {
-        background-color: ${color.primary.base};
+        background-color: ${color.surface.on};
         color: ${color.primary.on};
-        outline: revert;
       }
     }
   `;
@@ -130,11 +126,6 @@ const outlinedButton = (color: ColorTheme) =>
         background-color: ${color.secondary.base};
       }
 
-      :focus-visible {
-        outline: 1px solid ${color.secondary.base};
-        border-color: ${color.secondary.base};
-      }
-
       :active {
         background-color: ${color.tertiary.container?.base};
       }
@@ -154,10 +145,6 @@ const textButton = (color: ColorTheme) =>
     :not(:disabled) {
       :hover {
         background-color: ${color.secondary.base};
-      }
-
-      :focus-visible {
-        outline-color: ${color.secondary.base};
       }
 
       :active {

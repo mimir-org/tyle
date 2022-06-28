@@ -1,6 +1,6 @@
 import { meetsContrastGuidelines } from "polished";
 import styled, { css } from "styled-components/macro";
-import { layer, translucify } from "../../../../../../complib/mixins";
+import { focus, layer, translucify } from "../../../../../../complib/mixins";
 import { TerminalButtonProps } from "./TerminalButton";
 
 export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
@@ -30,6 +30,8 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
   path {
     stroke-width: 3;
   }
+
+  ${focus};
 
   ${({ variant, ...props }) => {
     switch (variant) {

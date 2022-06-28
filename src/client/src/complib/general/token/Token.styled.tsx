@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components/macro";
 import { ColorTheme, SpacingSystem } from "../../core";
+import { focus } from "../../mixins";
 import { TokenBaseProps } from "./Token";
 
 export const tokenBaseStyle = css<TokenBaseProps>`
@@ -16,9 +17,7 @@ export const tokenBaseStyle = css<TokenBaseProps>`
   border: 0;
   padding: ${(props) => props.theme.tyle.spacing.base};
 
-  :focus-visible {
-    outline: 2px solid ${(props) => props.theme.tyle.color.sys.secondary.base};
-  }
+  ${focus};
 
   ${({ variant, ...props }) => {
     const {

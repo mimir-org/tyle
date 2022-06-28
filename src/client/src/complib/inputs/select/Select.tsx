@@ -43,13 +43,15 @@ const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends Grou
   }),
   control: (base, state) => ({
     ...base,
+    boxShadow: "none",
     width: "250px",
     minHeight: "40px",
     borderWidth: "1px",
     borderStyle: "solid",
     borderColor: theme.color.sys.outline.base,
     backgroundColor: state.isDisabled ? translucify(theme.color.sys.surface.on, 0.08) : theme.color.sys.pure.base,
-    outline: state.isFocused ? `2px solid ${theme.color.sys.secondary.base}` : "revert",
+    outline: state.isFocused ? `1px solid ${theme.color.sys.primary.base}` : "revert",
+    outlineOffset: "1px",
     "&:hover": {
       borderColor: theme.color.sys.secondary.base,
     },
