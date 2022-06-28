@@ -4,11 +4,11 @@ import { Control, useFieldArray, UseFormRegister } from "react-hook-form";
 import { useTheme } from "styled-components/macro";
 import { TextResources } from "../../../../assets/text";
 import textResources from "../../../../assets/text/TextResources";
-import { Box, Flexbox } from "../../../../complib/layouts";
-import { Text } from "../../../../complib/text";
+import { Flexbox } from "../../../../complib/layouts";
 import { useGetAttributes } from "../../../../data/queries/tyle/queriesAttribute";
 import { AttributeInfoButton } from "../../../home/components/about/components/attribute/AttributeInfoButton";
 import { FormNodeLib } from "../../types/formNodeLib";
+import { NodeFormSection } from "../NodeFormSection";
 import { getAttributeItems, onAddAttributes, prepareAttributes } from "./NodeFormAttributes.helpers";
 import { SelectAttributeDialog } from "./SelectAttributeDialog";
 
@@ -26,20 +26,12 @@ export const NodeFormAttributes = ({ control, aspects, register }: NodeFormAttri
   const attributeItems = getAttributeItems(filteredAttributes);
 
   return (
-    <Box
-      as={"fieldset"}
-      display={"flex"}
-      flexDirection={"column"}
-      justifyContent={"center"}
-      gap={theme.tyle.spacing.xxxl}
-      border={0}
-      p={"0"}
-    >
-      <Flexbox gap={theme.tyle.spacing.xl} alignItems={"center"}>
-        <Text variant={"title-large"}>{TextResources.ATTRIBUTE_TITLE}</Text>
+    <NodeFormSection
+      title={TextResources.ATTRIBUTE_TITLE}
+      action={
         <SelectAttributeDialog attributes={attributeItems} onAdd={(ids) => onAddAttributes(ids, attributeFields)} />
-      </Flexbox>
-
+      }
+    >
       <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.xl}>
         {attributeFields.fields.map((field, index) => {
           const attribute = attributeItems.find((x) => x.id === field.value);
@@ -60,6 +52,6 @@ export const NodeFormAttributes = ({ control, aspects, register }: NodeFormAttri
           );
         })}
       </Flexbox>
-    </Box>
+    </NodeFormSection>
   );
 };

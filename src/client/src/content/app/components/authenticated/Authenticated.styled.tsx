@@ -4,6 +4,7 @@ export const AuthenticatedContainer = styled.div`
   height: 100%;
   background-color: ${(props) => props.theme.tyle.color.sys.background.base};
   color: ${(props) => props.theme.tyle.color.sys.background.on};
+  overflow: auto;
   --tl-header-height: 56px;
 `;
 

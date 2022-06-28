@@ -3,7 +3,7 @@ import { Popover } from "../../../../../../complib/data-display";
 import { TokenButton, TokenButtonProps } from "../../../../../../complib/general";
 import { AttributeDescription, AttributeDescriptionProps } from "./AttributeDescription";
 
-type AttributeInfoButtonProps = TokenButtonProps &
+export type AttributeInfoButtonProps = TokenButtonProps &
   AttributeDescriptionProps & {
     buttonRef?: Ref<HTMLButtonElement>;
   };

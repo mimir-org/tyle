@@ -1,4 +1,5 @@
 import { PlusSm } from "@styled-icons/heroicons-outline";
+import { Fragment } from "react";
 import { Control, Controller, useFieldArray } from "react-hook-form";
 import { useTheme } from "styled-components/macro";
 import textResources from "../../../../assets/text/TextResources";
@@ -8,12 +9,12 @@ import { Box, Flexbox, Grid } from "../../../../complib/layouts";
 import { Text } from "../../../../complib/text";
 import { useGetTerminals } from "../../../../data/queries/tyle/queriesTerminal";
 import { createEmptyNodeTerminalLibAm } from "../../../../models/tyle/application/nodeTerminalLibAm";
-import { FormNodeLib } from "../../types/formNodeLib";
-import { connectorDirectionOptions, onTerminalAmountChange } from "./NodeFormTerminals.helpers";
-import { TerminalButton } from "../../../home/components/about/components/terminal/TerminalButton";
-import { Fragment } from "react";
-import { AttributeInfoButton } from "../../../home/components/about/components/attribute/AttributeInfoButton";
 import { mapAttributeLibCmToAttributeItem } from "../../../../utils/mappers";
+import { AttributeInfoButton } from "../../../home/components/about/components/attribute/AttributeInfoButton";
+import { TerminalButton } from "../../../home/components/about/components/terminal/TerminalButton";
+import { FormNodeLib } from "../../types/formNodeLib";
+import { NodeFormSection } from "../NodeFormSection";
+import { connectorDirectionOptions, onTerminalAmountChange } from "./NodeFormTerminals.helpers";
 
 export interface NodeFormTerminalsProps {
   control: Control<FormNodeLib>;
@@ -25,22 +26,14 @@ export const NodeFormTerminals = ({ control }: NodeFormTerminalsProps) => {
   const terminalFields = useFieldArray({ control, name: "nodeTerminals" });
 
   return (
-    <Box
-      as={"fieldset"}
-      display={"flex"}
-      flexDirection={"column"}
-      justifyContent={"center"}
-      gap={theme.tyle.spacing.xxxl}
-      border={0}
-      p={"0"}
-    >
-      <Flexbox gap={theme.tyle.spacing.xl} alignItems={"center"}>
-        <Text variant={"title-large"}>{textResources.TERMINAL_TITLE}</Text>
+    <NodeFormSection
+      title={textResources.TERMINAL_TITLE}
+      action={
         <Button icon={<PlusSm />} iconOnly onClick={() => terminalFields.append(createEmptyNodeTerminalLibAm())}>
           {textResources.TERMINAL_ADD}
         </Button>
-      </Flexbox>
-
+      }
+    >
       <Grid
         gridTemplateColumns={"250px 120px 250px 1fr"}
         columnGap={theme.tyle.spacing.xxxl}
@@ -117,6 +110,6 @@ export const NodeFormTerminals = ({ control }: NodeFormTerminalsProps) => {
           );
         })}
       </Grid>
-    </Box>
+    </NodeFormSection>
   );
 };
