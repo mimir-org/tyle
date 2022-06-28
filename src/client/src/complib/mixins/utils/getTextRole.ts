@@ -1,6 +1,6 @@
 import { css } from "styled-components/macro";
-import { TextTypes } from "../props";
-import { NominalScale, theme, TypographyRoles } from "../core";
+import { NominalScale, theme, TypographyRoles } from "../../core";
+import { TextTypes } from "../../props";
 
 export const getTextRole = (variant?: TextTypes) => {
   if (!variant) return "";
