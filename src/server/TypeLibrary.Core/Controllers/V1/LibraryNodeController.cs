@@ -29,14 +29,12 @@ namespace TypeLibrary.Core.Controllers.V1
     {
         private readonly ILogger<LibraryNodeController> _logger;
         private readonly INodeService _nodeService;
-        private readonly ITimedHookService _hookService;
         private readonly IMimirorgUserService _userService;
 
-        public LibraryNodeController(ILogger<LibraryNodeController> logger, INodeService nodeService, ITimedHookService hookService, IMimirorgUserService userService)
+        public LibraryNodeController(ILogger<LibraryNodeController> logger, INodeService nodeService, IMimirorgUserService userService)
         {
             _logger = logger;
             _nodeService = nodeService;
-            _hookService = hookService;
             _userService = userService;
         }
 
@@ -127,7 +125,6 @@ namespace TypeLibrary.Core.Controllers.V1
                     return BadRequest(ModelState);
 
                 var cm = await _nodeService.Create(node);
-                _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
                 return Ok(cm);
             }
             catch (MimirorgBadRequestException e)
@@ -176,7 +173,6 @@ namespace TypeLibrary.Core.Controllers.V1
                     return StatusCode(StatusCodes.Status403Forbidden);
 
                 var data = await _nodeService.Update(dataAm, id);
-                _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)
@@ -228,7 +224,6 @@ namespace TypeLibrary.Core.Controllers.V1
                     return StatusCode(StatusCodes.Status403Forbidden);
 
                 var data = await _nodeService.Delete(id);
-                _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)

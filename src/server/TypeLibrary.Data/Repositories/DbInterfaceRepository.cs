@@ -52,7 +52,7 @@ namespace TypeLibrary.Data.Repositories
 
         public async Task<bool> Delete(string id)
         {
-            var dm = await Get(id);
+            var dm = await _efInterfaceRepository.Get(id);
 
             if (dm == null)
                 throw new MimirorgNotFoundException($"Interface with id {id} not found, delete failed.");
@@ -62,6 +62,7 @@ namespace TypeLibrary.Data.Repositories
 
             dm.Deleted = true;
 
+            _efInterfaceRepository.Update(dm);
             var status = await _efInterfaceRepository.Context.SaveChangesAsync();
             return status == 1;
         }

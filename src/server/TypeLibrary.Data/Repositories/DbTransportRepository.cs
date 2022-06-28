@@ -55,7 +55,7 @@ namespace TypeLibrary.Data.Repositories
 
         public async Task<bool> Delete(string id)
         {
-            var dm = await Get(id);
+            var dm = await _transportRepository.Get(id);
 
             if (dm == null)
                 throw new MimirorgNotFoundException($"Transport with id {id} not found, delete failed.");
@@ -65,6 +65,7 @@ namespace TypeLibrary.Data.Repositories
 
             dm.Deleted = true;
 
+            _transportRepository.Update(dm);
             var status = await _transportRepository.Context.SaveChangesAsync();
             return status == 1;
         }

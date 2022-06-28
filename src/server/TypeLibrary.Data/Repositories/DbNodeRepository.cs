@@ -60,7 +60,10 @@ namespace TypeLibrary.Data.Repositories
 
         public async Task<bool> Delete(string id)
         {
-            var dm = await Get(id);
+            if (string.IsNullOrWhiteSpace(id))
+                throw new MimirorgNotFoundException("Id can't be null or empty.");
+
+            var dm = await _efNodeRepository.Get(id);
 
             if (dm == null)
                 throw new MimirorgNotFoundException($"Node with id {id} not found, delete failed.");
@@ -70,7 +73,8 @@ namespace TypeLibrary.Data.Repositories
 
             dm.Deleted = true;
 
-            var status = await _efNodeRepository.Context.SaveChangesAsync();
+            _efNodeRepository.Update(dm);
+            var status = await _efNodeRepository.SaveAsync();
             return status == 1;
         }
 
