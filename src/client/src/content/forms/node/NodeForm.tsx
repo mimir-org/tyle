@@ -4,11 +4,13 @@ import { Controller, useForm, useWatch } from "react-hook-form";
 import { useTheme } from "styled-components/macro";
 import textResources from "../../../assets/text/TextResources";
 import { Button } from "../../../complib/buttons";
+import { Popover } from "../../../complib/data-display";
 import { FormField } from "../../../complib/form";
 import { Input, Select, Textarea } from "../../../complib/inputs";
 import { Box, Flexbox } from "../../../complib/layouts";
 import { Icon } from "../../../complib/media";
 import { Text } from "../../../complib/text";
+import { ConditionalWrapper } from "../../../complib/utils";
 import { useCreateNode, useUpdateNode } from "../../../data/queries/tyle/queriesNode";
 import { useGetPurposes } from "../../../data/queries/tyle/queriesPurpose";
 import { useGetRds } from "../../../data/queries/tyle/queriesRds";
@@ -35,7 +37,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
 
   const aspect = useWatch({ control, name: "aspect" });
 
-  const hasPrefilled = usePrefilledNodeData(reset);
+  const hasPrefilledData = usePrefilledNodeData(reset);
 
   const nodeUpdateMutation = useUpdateNode();
   const nodeCreateMutation = useCreateNode();
@@ -95,19 +97,30 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
               control={control}
               name={"aspect"}
               render={({ field: { value, onChange, ref, ...rest } }) => (
-                <Select
-                  {...rest}
-                  selectRef={ref}
-                  placeholder={textResources.FORMS_NODE_ASPECT_PLACEHOLDER}
-                  options={aspectOptions}
-                  getOptionLabel={(x) => x.label}
-                  onChange={(x) => {
-                    resetSubform(resetField);
-                    onChange(x?.value);
-                  }}
-                  value={aspectOptions.find((x) => x.value === value)}
-                  isDisabled={hasPrefilled}
-                />
+                <ConditionalWrapper
+                  condition={hasPrefilledData}
+                  wrapper={(c) => (
+                    <Popover align={"start"} maxWidth={"225px"} content={textResources.FORMS_NODE_ASPECT_DISABLED}>
+                      <div className={"hello"} tabIndex={0}>
+                        {c}
+                      </div>
+                    </Popover>
+                  )}
+                >
+                  <Select
+                    {...rest}
+                    selectRef={ref}
+                    placeholder={textResources.FORMS_NODE_ASPECT_PLACEHOLDER}
+                    options={aspectOptions}
+                    getOptionLabel={(x) => x.label}
+                    onChange={(x) => {
+                      resetSubform(resetField);
+                      onChange(x?.value);
+                    }}
+                    value={aspectOptions.find((x) => x.value === value)}
+                    isDisabled={hasPrefilledData}
+                  />
+                </ConditionalWrapper>
               )}
             />
           </FormField>

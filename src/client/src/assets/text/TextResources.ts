@@ -56,6 +56,8 @@ const TextResources = {
   FORMS_NODE_PURPOSE: "Purpose",
   FORMS_NODE_PURPOSE_PLACEHOLDER: "Select purpose",
   FORMS_NODE_ASPECT: "Aspect",
+  FORMS_NODE_ASPECT_DISABLED:
+    "It is not possible to change the aspect of the current type. We recommend that you select a different type with the desired aspect.",
   FORMS_NODE_ASPECT_PLACEHOLDER: "Select aspect",
   FORMS_NODE_SYMBOL: "Symbol",
   FORMS_NODE_SYMBOL_PLACEHOLDER: "Select symbol",
