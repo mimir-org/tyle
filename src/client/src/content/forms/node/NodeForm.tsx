@@ -101,9 +101,9 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
                   condition={hasPrefilledData}
                   wrapper={(c) => (
                     <Popover align={"start"} maxWidth={"225px"} content={textResources.FORMS_NODE_ASPECT_DISABLED}>
-                      <div className={"hello"} tabIndex={0}>
+                      <Box borderRadius={theme.tyle.border.radius.medium} tabIndex={0}>
                         {c}
-                      </div>
+                      </Box>
                     </Popover>
                   )}
                 >
