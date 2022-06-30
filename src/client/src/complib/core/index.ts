@@ -1,5 +1,4 @@
 export { GlobalStyle } from "./global/globalStyle";
-export { QUERIES } from "./constants/queries";
 
 export { theme } from "./theme/theme";
 export { themeBuilder } from "./theme/theme";
