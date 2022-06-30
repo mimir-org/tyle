@@ -49,6 +49,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
       flex={1}
       display={"flex"}
       flexWrap={"wrap"}
+      justifyContent={"center"}
       gap={`min(${theme.tyle.spacing.multiple(14)}, 8vw)`}
       px={`min(${theme.tyle.spacing.multiple(11)}, 5vw)`}
       py={theme.tyle.spacing.multiple(6)}
