@@ -93,7 +93,7 @@ export const Register = () => {
             </MotionText>
           </FormFieldset>
 
-          <MotionFlexbox layout flexDirection={"column"} alignItems={"end"} gap={theme.tyle.spacing.xxl}>
+          <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.xxl}>
             <Button type={"submit"}>{TextResources.REGISTER_SUBMIT}</Button>
             <Text color={theme.tyle.color.sys.surface.variant.on}>
               {TextResources.REGISTER_IS_REGISTERED} <Link to="/">{TextResources.REGISTER_LOGIN_LINK}</Link>
