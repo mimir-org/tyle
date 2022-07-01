@@ -8,7 +8,7 @@ import { Ellipsis } from "../props/ellipsis";
 type HeadingProps = Spacing &
   Pick<Palette, "color"> &
   Pick<Display, "whiteSpace" | "display"> &
-  Pick<Typography, "font" | "fontSize" | "fontWeight" | "textAlign" | "textTransform"> &
+  Pick<Typography, "font" | "fontSize" | "fontWeight" | "textAlign" | "textTransform" | "wordBreak"> &
   Polymorphic<ElementType> &
   TextVariant &
   Ellipsis;
