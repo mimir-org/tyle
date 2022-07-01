@@ -4,7 +4,7 @@ import { Input } from "../../complib/inputs";
 import { InputProps } from "../../complib/inputs/input/Input";
 
 export const SearchField = (props: InputProps) => (
-  <Input icon={<ThinSearch />} width={"100%"} maxWidth={"500px"} height={"44px"} {...props} />
+  <Input icon={<ThinSearch />} width={"100%"} minWidth={"200px"} maxWidth={"500px"} height={"44px"} {...props} />
 );
 
 const ThinSearch = styled(Search)`
