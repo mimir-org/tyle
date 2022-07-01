@@ -7,6 +7,7 @@ export const InputContainer = styled.input<InputProps>`
   width: 100%;
 
   padding: ${(props) => props.theme.tyle.spacing.base} ${(props) => props.theme.tyle.spacing.l};
+  padding-right: ${(props) => props.iconPlacement === "right" && props.theme.tyle.spacing.multiple(6)};
   padding-left: ${(props) => props.iconPlacement === "left" && props.theme.tyle.spacing.multiple(6)};
   border: 1px solid ${(props) => props.theme.tyle.color.sys.outline.base};
   border-radius: ${(props) => props.theme.tyle.border.radius.medium};
