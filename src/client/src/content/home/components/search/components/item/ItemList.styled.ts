@@ -16,6 +16,7 @@ export const ItemListContainer = styled.div`
   padding-top: ${(props) => props.theme.tyle.spacing.xl};
   padding-left: ${(props) => props.theme.tyle.spacing.l};
   padding-right: ${(props) => props.theme.tyle.spacing.l};
+  margin-top: ${(props) => `-${props.theme.tyle.spacing.xl}`};
   margin-left: ${(props) => `-${props.theme.tyle.spacing.l}`};
   margin-right: ${(props) => `-${props.theme.tyle.spacing.l}`};
 
