@@ -90,7 +90,7 @@ const TextResources = {
   ATTRIBUTE_ADD: "Add attribute(s)",
   ATTRIBUTE_DIALOG_TITLE: "Select attribute(s)",
   ATTRIBUTE_DIALOG_DESCRIPTION: "The attributes listed below are predefined and can be reused across multiple nodes.",
-  ATTRIBUTE_DIALOG_FILTER: "Filter attributes",
+  ATTRIBUTE_DIALOG_SEARCH: "Search",
   ATTRIBUTE_DIALOG_ADD: "Add",
   ATTRIBUTE_REMOVE: "Remove attribute",
 

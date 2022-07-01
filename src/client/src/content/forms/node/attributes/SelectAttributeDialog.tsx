@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useTheme } from "styled-components/macro";
 import { TextResources } from "../../../../assets/text";
 import { Button } from "../../../../complib/buttons";
-import { Input } from "../../../../complib/inputs";
 import { Box } from "../../../../complib/layouts";
 import { Dialog } from "../../../../complib/overlays";
+import { SearchField } from "../../../common/SearchField";
 import { AttributeInfoCheckbox } from "../../../home/components/about/components/attribute/AttributeInfoCheckbox";
 import { AttributeItem } from "../../../home/types/AttributeItem";
 import { filterAttributeItem, onSelectionChange } from "./SelectAttributeDialog.helpers";
@@ -51,13 +51,10 @@ export const SelectAttributeDialog = ({ attributes, onAdd }: SelectAttributeDial
           mt={`-${theme.tyle.spacing.xs}`}
           overflow={"auto"}
         >
-          <Input
+          <SearchField
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder={TextResources.ATTRIBUTE_DIALOG_FILTER}
-            width={"100%"}
-            maxWidth={"500px"}
-            height={"44px"}
+            placeholder={TextResources.ATTRIBUTE_DIALOG_SEARCH}
           />
           <SelectContainer>
             <Box
