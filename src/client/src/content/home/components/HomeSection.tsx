@@ -19,7 +19,7 @@ export const HomeSection = ({ title, children }: HomeSectionProps) => {
   const theme = useTheme();
 
   return (
-    <Box flex={1} display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xxxl} height={"100%"}>
+    <Box flex={1} display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xl} height={"100%"}>
       <Text variant={"headline-large"} color={theme.tyle.color.sys.primary.base}>
         {title}
       </Text>
