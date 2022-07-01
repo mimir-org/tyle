@@ -41,8 +41,8 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
 
   img,
   svg {
-    width: 24px;
-    height: 24px;
+    max-width: 24px;
+    max-height: 24px;
   }
 
   ${focus};
@@ -75,8 +75,8 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
 
       img,
       svg {
-        width: 18px;
-        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
       }
     `};
 `;
