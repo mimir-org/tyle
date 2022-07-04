@@ -57,24 +57,16 @@ export const SelectAttributeDialog = ({ attributes, onAdd }: SelectAttributeDial
             placeholder={TextResources.ATTRIBUTE_DIALOG_SEARCH}
           />
           <SelectContainer>
-            <Box
-              display={"flex"}
-              flexWrap={"wrap"}
-              justifyContent={"center"}
-              gap={theme.tyle.spacing.xl}
-              height={"fit-content"}
-            >
-              {attributes
-                .filter((x) => filterAttributeItem(x, searchQuery))
-                .map((a, i) => (
-                  <AttributeInfoCheckbox
-                    key={i}
-                    checked={selected.includes(a.id)}
-                    onClick={() => onSelectionChange(a.id, selected, setSelected)}
-                    {...a}
-                  />
-                ))}
-            </Box>
+            {attributes
+              .filter((x) => filterAttributeItem(x, searchQuery))
+              .map((a, i) => (
+                <AttributeInfoCheckbox
+                  key={i}
+                  checked={selected.includes(a.id)}
+                  onClick={() => onSelectionChange(a.id, selected, setSelected)}
+                  {...a}
+                />
+              ))}
           </SelectContainer>
           <DialogClose asChild>
             <Button onClick={onAddAttributes} disabled={selected.length < 1}>
