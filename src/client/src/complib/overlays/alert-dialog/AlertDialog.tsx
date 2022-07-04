@@ -20,6 +20,9 @@ type AlertDialogProps = AlertDialogContentProps & {
 /**
  * Component that interrupts the user with important content and expects a response
  *
+ * See documentation link below for details.
+ * @see https://www.radix-ui.com/docs/primitives/components/alert-dialog
+ *
  * @param children component that triggers dialog visibility
  * @param content shown inside the dialog itself
  * @param actions what actions the user can take

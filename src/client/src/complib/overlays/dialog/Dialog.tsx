@@ -19,6 +19,9 @@ export type DialogProps = DialogContentProps & {
 /**
  * Component which is overlaid the primary window, rendering the content underneath inert.
  *
+ * See documentation link below for details.
+ * @see https://www.radix-ui.com/docs/primitives/components/dialog
+ *
  * @param children component that triggers dialog visibility
  * @param content shown inside the dialog itself
  * @param title required title of dialog (can be hidden visually with hideTitle prop)

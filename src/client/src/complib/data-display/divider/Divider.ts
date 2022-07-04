@@ -8,6 +8,9 @@ interface DividerProps {
 
 /**
  * A simple divider for creating a clear separation between content
+ *
+ * See documentation link below for details.
+ * @see https://www.radix-ui.com/docs/primitives/components/separator
  */
 export const Divider = styled(Separator.Root)<DividerProps>`
   background-color: ${(props) => props.theme.tyle.color.sys.secondary.base};
