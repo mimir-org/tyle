@@ -24,6 +24,11 @@ export const AccordionItem = styled(Item)`
     ${focusRaw};
   }
 
+  &[data-state="open"] {
+    border: 1px solid ${(props) => props.theme.tyle.color.sys.secondary.base};
+    background-color: ${(props) => props.theme.tyle.color.sys.secondary.container?.base};
+  }
+
   ${({ disabled, ...props }) =>
     disabled &&
     css`

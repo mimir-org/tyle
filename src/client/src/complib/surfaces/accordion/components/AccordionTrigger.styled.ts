@@ -14,6 +14,10 @@ export const StyledAccordionChevron = styled(ChevronDown)`
     transform: rotate(180deg);
   }
 
+  [data-state="closed"] & {
+    transform: rotate(0deg);
+  }
+
   path {
     stroke-width: 1.5;
   }
