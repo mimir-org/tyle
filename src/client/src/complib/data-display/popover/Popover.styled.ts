@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import styled from "styled-components/macro";
-import { focus, sizingMixin, translucify } from "../../mixins";
-import { Sizing } from "../../props";
+import { focus, paletteMixin, sizingMixin, translucify } from "../../mixins";
+import { Palette, Sizing } from "../../props";
 
-export type PopoverContentProps = Sizing;
+export type PopoverContentProps = Sizing & Palette;
 
 const PopoverContent = styled.div<PopoverContentProps>`
   padding: ${(props) => props.theme.tyle.spacing.xl};
@@ -12,6 +12,7 @@ const PopoverContent = styled.div<PopoverContentProps>`
   color: ${(props) => props.theme.tyle.color.sys.primary.on};
   box-shadow: ${(props) => props.theme.tyle.shadow.small};
   ${sizingMixin};
+  ${paletteMixin};
   ${focus};
 `;
 
