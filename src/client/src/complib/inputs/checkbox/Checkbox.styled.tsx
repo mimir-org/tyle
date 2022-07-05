@@ -10,6 +10,21 @@ export const CheckboxRoot = styled(CheckboxPrimitive.Root)`
   color: ${(props) => props.theme.tyle.color.sys.primary.base};
   height: 24px;
   width: 24px;
+
+  :disabled {
+    color: ${(props) => props.theme.tyle.color.sys.surface.variant.on};
+  }
+
+  :not(:disabled) {
+    :hover {
+      background-color: ${(props) => props.theme.tyle.color.sys.secondary.base};
+    }
+
+    :active {
+      color: ${(props) => props.theme.tyle.color.sys.surface.on};
+    }
+  }
+
   ${focus};
 `;
 
