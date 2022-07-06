@@ -7,5 +7,6 @@ export interface MimirorgCompanyCm {
   description: string;
   manager: MimirorgUserCm;
   domain: string;
+  logo: string;
   iris: string[];
 }

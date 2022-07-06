@@ -5,5 +5,6 @@ export interface MimirorgCompanyAm {
   managerId: string;
   secret: string;
   domain: string;
+  logo: string;
   iris: string[];
 }
