@@ -1,6 +1,5 @@
-import { LibraryIcon } from "../../assets/icons/modules";
 import { useGetCurrentUser } from "../../data/queries/auth/queriesUser";
-import { Logo } from "./components/Logo";
+import { Logo } from "../common/Logo";
 import { User } from "./components/User";
 import { HeaderContainer } from "./Header.styles";
 
@@ -9,7 +8,7 @@ export const Header = () => {
 
   return (
     <HeaderContainer>
-      <Logo name={":TYLE"} icon={LibraryIcon} />
+      <Logo height={"100%"} width={"fit-content"} alt="" />
       {!isLoading && <User name={`${data?.firstName} ${data?.lastName}`} />}
     </HeaderContainer>
   );

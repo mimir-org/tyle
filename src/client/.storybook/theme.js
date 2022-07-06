@@ -1,9 +1,9 @@
 import { create } from "@storybook/theming";
-import { LibraryIcon } from "../src/assets/icons/modules";
+import { TyleLogoDarkRedIcon } from "../src/assets/icons/logo";
 
 export default create({
   base: "light",
-  brandImage: LibraryIcon,
+  brandImage: TyleLogoDarkRedIcon,
   brandTitle: "Tyle",
   brandUrl: "https://github.com/mimir-org/typelibrary",
 });

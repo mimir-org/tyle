@@ -1,18 +1,17 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useTheme } from "styled-components";
-import { LibraryIcon } from "../../../assets/icons/modules";
 import { TextResources } from "../../../assets/text";
 import { Button } from "../../../complib/buttons";
 import { Form, FormErrorBanner, FormField, FormFieldset, FormHeader } from "../../../complib/form";
 import { Input } from "../../../complib/inputs";
 import { MotionFlexbox } from "../../../complib/layouts";
-import { MotionIcon } from "../../../complib/media";
 import { MotionText, Text } from "../../../complib/text";
 import { getValidationStateFromServer } from "../../../data/helpers/getValidationStateFromServer";
 import { useLogin } from "../../../data/queries/auth/queriesAuthenticate";
 import { useValidationFromServer } from "../../../hooks/useValidationFromServer";
 import { MimirorgAuthenticateAm } from "../../../models/auth/application/mimirorgAuthenticateAm";
+import { MotionLogo } from "../../common/Logo";
 import { UnauthenticatedFormContainer } from "../styled/UnauthenticatedForm";
 
 export const Login = () => {
@@ -30,7 +29,7 @@ export const Login = () => {
   return (
     <UnauthenticatedFormContainer>
       <Form onSubmit={handleSubmit((data) => loginMutation.mutate(data))}>
-        <MotionIcon layout size={50} src={LibraryIcon} alt="" />
+        <MotionLogo layout width={"100px"} height={"50px"} inverse alt="" />
         <FormHeader title={TextResources.LOGIN_TITLE} subtitle={TextResources.LOGIN_DESCRIPTION} />
 
         {loginMutation.isError && <FormErrorBanner>{TextResources.LOGIN_ERROR}</FormErrorBanner>}
