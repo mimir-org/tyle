@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { LibraryIcon } from "../../../../../../assets/icons/modules";
 import { AttributeInfoButton } from "./AttributeInfoButton";
 
 export default {
@@ -23,7 +24,7 @@ export const Actionable = Template.bind({});
 Actionable.args = {
   ...Default.args,
   actionable: true,
-  actionIcon: "static/media/src/assets/icons/modules/library.svg",
+  actionIcon: LibraryIcon,
   actionText: "Trigger action",
   onAction: () => alert("[STORYBOOK] AttributeDescription.Remove"),
 };

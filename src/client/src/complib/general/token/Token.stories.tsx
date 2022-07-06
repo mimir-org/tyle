@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { LibraryIcon } from "../../../assets/icons/modules";
 import { Token } from "./Token";
 
 export default {
@@ -24,7 +25,7 @@ export const Actionable = Template.bind({});
 Actionable.args = {
   children: "Actionable token",
   actionable: true,
-  actionIcon: "static/media/src/assets/icons/modules/library.svg",
+  actionIcon: LibraryIcon,
   actionText: "Trigger action",
   onAction: () => alert("[STORYBOOK] Token.onAction"),
 };

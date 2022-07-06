@@ -1,5 +1,6 @@
 import faker from "@faker-js/faker";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { LibraryIcon } from "../../../../../../assets/icons/modules";
 import { mockTerminalItem } from "../../../../../../utils/mocks";
 import { NodePreview } from "./NodePreview";
 
@@ -14,6 +15,6 @@ export const Default = Template.bind({});
 Default.args = {
   name: "Node",
   color: faker.helpers.arrayElement(["#fef445", "#00f0ff", "#fa00ff"]),
-  img: "static/media/src/assets/icons/modules/library.svg",
+  img: LibraryIcon,
   terminals: [...Array(7)].map((_) => mockTerminalItem()),
 };

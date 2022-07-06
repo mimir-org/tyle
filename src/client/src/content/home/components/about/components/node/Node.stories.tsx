@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { LibraryIcon } from "../../../../../../assets/icons/modules";
 import { Node } from "./Node";
 
 export default {
@@ -12,5 +13,5 @@ export const Default = Template.bind({});
 Default.args = {
   name: "Node",
   color: "#fef445",
-  img: "static/media/src/assets/icons/modules/library.svg",
+  img: LibraryIcon,
 };
