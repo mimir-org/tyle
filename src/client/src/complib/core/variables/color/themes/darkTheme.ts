@@ -3,23 +3,23 @@ import { ColorTheme } from "../types/colorTheme";
 
 export const darkTheme: ColorTheme = {
   primary: {
-    base: colorReference.primary[80],
-    on: colorReference.primary[20],
+    base: colorReference.primary[70],
+    on: colorReference.primary[100],
   },
   secondary: {
-    base: colorReference.secondary[80],
+    base: colorReference.secondary[70],
     on: colorReference.secondary[0],
     container: {
-      base: colorReference.secondary[40],
+      base: colorReference.secondary[20],
       on: colorReference.secondary[0]
     }
   },
   tertiary: {
-    base: colorReference.tertiary[80],
-    on: colorReference.primary[20],
+    base: colorReference.tertiary[20],
+    on: colorReference.primary[90],
     container: {
       base: colorReference.tertiary[40],
-      on: colorReference.primary[70]
+      on: colorReference.primary[0]
     }
   },
   error: {
@@ -27,14 +27,14 @@ export const darkTheme: ColorTheme = {
     on: colorReference.error[20],
   },
   outline: {
-    base: colorReference.neutralVariant[60]
+    base: colorReference.neutralVariant[40]
   },
   background: {
     base: colorReference.neutral[10],
     on: colorReference.neutral[99],
     inverse: {
-      base: colorReference.neutral[10],
-      on: colorReference.neutral[99],
+      base: colorReference.neutral[99],
+      on: colorReference.neutral[10],
     },
   },
   surface: {
