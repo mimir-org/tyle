@@ -56,6 +56,8 @@ const TextResources = {
   FORMS_NODE_PURPOSE: "Purpose",
   FORMS_NODE_PURPOSE_PLACEHOLDER: "Select purpose",
   FORMS_NODE_ASPECT: "Aspect",
+  FORMS_NODE_ASPECT_DISABLED:
+    "It is not possible to change the aspect of the current type. We recommend that you select a different type with the desired aspect.",
   FORMS_NODE_ASPECT_PLACEHOLDER: "Select aspect",
   FORMS_NODE_SYMBOL: "Symbol",
   FORMS_NODE_SYMBOL_PLACEHOLDER: "Select symbol",
@@ -71,12 +73,18 @@ const TextResources = {
   SEARCH_TITLE: "Search",
   SEARCH_PLACEHOLDER: "Search for types",
   SEARCH_FILTER: "Filter",
+  SEARCH_RESULTS: "results found",
+  SEARCH_HELP_TITLE: "We are sorry, there are no results for",
+  SEARCH_HELP_SUBTITLE: "Search help",
+  SEARCH_HELP_TIP_1: "Check your search for typos",
+  SEARCH_HELP_TIP_2: "Use more generic search terms",
+  SEARCH_HELP_TIP_3: "The type you are searching for might not have been added yet",
 
   // Item
   ITEM_ACTION_CLONE: "Clone",
   ITEM_ACTION_EDIT: "Edit",
   ITEM_ACTION_DELETE: "Delete",
-  ITEM_ACTION_DELETE_TITLE: "Are you sure you want to delete",
+  ITEM_ACTION_DELETE_TITLE: "Do you want to delete",
   ITEM_ACTION_DELETE_DESCRIPTION: "When you delete this item it cannot be recovered.",
 
   // About
@@ -88,8 +96,8 @@ const TextResources = {
   ATTRIBUTE_ADD: "Add attribute(s)",
   ATTRIBUTE_DIALOG_TITLE: "Select attribute(s)",
   ATTRIBUTE_DIALOG_DESCRIPTION: "The attributes listed below are predefined and can be reused across multiple nodes.",
-  ATTRIBUTE_DIALOG_FILTER: "Filter attributes",
-  ATTRIBUTE_DIALOG_ADD: "Add selected attribute(s)",
+  ATTRIBUTE_DIALOG_SEARCH: "Search",
+  ATTRIBUTE_DIALOG_ADD: "Add",
   ATTRIBUTE_REMOVE: "Remove attribute",
 
   // Terminal
@@ -100,6 +108,11 @@ const TextResources = {
   TERMINAL_ADD: "Add terminal",
   TERMINAL_PLACEHOLDER: "Select terminal",
   TERMINAL_DIRECTION_PLACEHOLDER: "Select direction",
+
+  TERMINAL_TABLE_NAME: "Terminal name",
+  TERMINAL_TABLE_DIRECTION: "Terminal direction",
+  TERMINAL_TABLE_AMOUNT: "Amount",
+  TERMINAL_TABLE_ATTRIBUTES: "Terminal attributes",
 
   // Predefined attribute
   PREDEFINED_ATTRIBUTE_TITLE: "Predefined attributes",

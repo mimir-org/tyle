@@ -4,12 +4,11 @@ import { Button } from "../../../buttons";
 export interface AlertDialogActionItem {
   name: string;
   onAction: () => void;
-  danger?: boolean;
 }
 
-export const AlertDialogAction = ({ name, onAction, danger }: AlertDialogActionItem) => (
+export const AlertDialogAction = ({ name, onAction }: AlertDialogActionItem) => (
   <AlertDialogPrimitive.Action asChild>
-    <Button variant={"filled"} onClick={onAction} danger={danger}>
+    <Button variant={"filled"} onClick={onAction}>
       {name}
     </Button>
   </AlertDialogPrimitive.Action>

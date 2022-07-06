@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Button } from "./Button";
 import { LibraryIcon } from "../../assets/icons/modules";
+import { Button } from "./Button";
 
 export default {
   title: "Buttons/Outlined",
@@ -8,6 +8,7 @@ export default {
   args: {
     children: "Button",
     variant: "outlined",
+    disabled: false,
   },
 } as ComponentMeta<typeof Button>;
 
@@ -36,9 +37,4 @@ export const WithIconRightAndText = Template.bind({});
 WithIconRightAndText.args = {
   icon: LibraryIcon,
   iconPlacement: "right",
-};
-
-export const WithDanger = Template.bind({});
-WithDanger.args = {
-  danger: true,
 };

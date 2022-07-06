@@ -42,11 +42,11 @@ CollectionLimitAbove.args = {
 export const VariantLeft = Template.bind({});
 VariantLeft.args = {
   ...CollectionLimitAbove.args,
-  variant: "left",
+  placement: "left",
 };
 
 export const VariantRight = Template.bind({});
 VariantRight.args = {
   ...CollectionLimitAbove.args,
-  variant: "right",
+  placement: "right",
 };

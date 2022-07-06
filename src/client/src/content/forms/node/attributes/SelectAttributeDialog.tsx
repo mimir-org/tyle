@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useTheme } from "styled-components/macro";
 import { TextResources } from "../../../../assets/text";
 import { Button } from "../../../../complib/buttons";
-import { Input } from "../../../../complib/inputs";
 import { Box } from "../../../../complib/layouts";
 import { Dialog } from "../../../../complib/overlays";
+import { SearchField } from "../../../common/SearchField";
 import { AttributeInfoCheckbox } from "../../../home/components/about/components/attribute/AttributeInfoCheckbox";
 import { AttributeItem } from "../../../home/types/AttributeItem";
 import { filterAttributeItem, onSelectionChange } from "./SelectAttributeDialog.helpers";
@@ -39,33 +39,34 @@ export const SelectAttributeDialog = ({ attributes, onAdd }: SelectAttributeDial
     <Dialog
       title={TextResources.ATTRIBUTE_DIALOG_TITLE}
       description={TextResources.ATTRIBUTE_DIALOG_DESCRIPTION}
+      width={"1000px"}
       content={
-        <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xl} overflow={"auto"}>
-          <Input
+        <Box
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"center"}
+          gap={theme.tyle.spacing.xxxl}
+          width={"100%"}
+          pt={theme.tyle.spacing.xs}
+          mt={`-${theme.tyle.spacing.xs}`}
+          overflow={"auto"}
+        >
+          <SearchField
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder={TextResources.ATTRIBUTE_DIALOG_FILTER}
+            placeholder={TextResources.ATTRIBUTE_DIALOG_SEARCH}
           />
           <SelectContainer>
-            <Box
-              display={"flex"}
-              flexWrap={"wrap"}
-              justifyContent={"center"}
-              gap={theme.tyle.spacing.xl}
-              height={"fit-content"}
-              width={"100%"}
-            >
-              {attributes
-                .filter((x) => filterAttributeItem(x, searchQuery))
-                .map((a, i) => (
-                  <AttributeInfoCheckbox
-                    key={i}
-                    checked={selected.includes(a.id)}
-                    onClick={() => onSelectionChange(a.id, selected, setSelected)}
-                    {...a}
-                  />
-                ))}
-            </Box>
+            {attributes
+              .filter((x) => filterAttributeItem(x, searchQuery))
+              .map((a, i) => (
+                <AttributeInfoCheckbox
+                  key={i}
+                  checked={selected.includes(a.id)}
+                  onClick={() => onSelectionChange(a.id, selected, setSelected)}
+                  {...a}
+                />
+              ))}
           </SelectContainer>
           <DialogClose asChild>
             <Button onClick={onAddAttributes} disabled={selected.length < 1}>

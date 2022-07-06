@@ -1,35 +1,66 @@
-import { useTheme } from "styled-components/macro";
 import { Box } from "../../../../../../complib/layouts";
 import { TerminalItem } from "../../../../types/TerminalItem";
+import { TerminalButtonVariant } from "../terminal/TerminalButton";
 import { Terminals } from "../terminal/Terminals";
-import { Node } from "./Node";
+import { Node, NodeVariant } from "./Node";
 import { meetsInputCriteria, meetsOutputCriteria } from "./NodePreview.helpers";
 
 export interface NodePreviewProps {
+  name: string;
   color: string;
   img: string;
   terminals: TerminalItem[];
+  variant?: "small" | "large";
 }
 
 /**
  * Components which presents a visual representation of a node,
  * this includes the node itself and its inputs, outputs etc.
  *
+ * @param name
  * @param color
  * @param img
  * @param terminals
+ * @param variant
  * @constructor
  */
-export const NodePreview = ({ color, img, terminals }: NodePreviewProps) => {
-  const theme = useTheme();
+export const NodePreview = ({ name, color, img, terminals, variant = "small" }: NodePreviewProps) => {
   const inputSideTerminals = terminals.filter((t) => meetsInputCriteria(t.direction));
   const outputSideTerminals = terminals.filter((t) => meetsOutputCriteria(t.direction));
+  const variantSpecs = NodePreviewVariantSpec[variant];
 
   return (
-    <Box display={"flex"} alignSelf={"center"} alignItems={"center"} gap={theme.tyle.spacing.base}>
-      <Terminals terminals={inputSideTerminals} variant={"left"} />
-      <Node color={color} img={img} width={"320px"} height={"180px"} imgSize={40} />
-      <Terminals terminals={outputSideTerminals} variant={"right"} />
+    <Box display={"flex"} alignSelf={"center"} alignItems={"center"}>
+      <Terminals
+        terminals={inputSideTerminals}
+        placement={"left"}
+        variant={variantSpecs.terminals.variant as TerminalButtonVariant}
+      />
+      <Node name={name} color={color} img={img} variant={variantSpecs.node.variant as NodeVariant} />
+      <Terminals
+        terminals={outputSideTerminals}
+        placement={"right"}
+        variant={variantSpecs.terminals.variant as TerminalButtonVariant}
+      />
     </Box>
   );
+};
+
+const NodePreviewVariantSpec = {
+  small: {
+    node: {
+      variant: "small",
+    },
+    terminals: {
+      variant: "small",
+    },
+  },
+  large: {
+    node: {
+      variant: "large",
+    },
+    terminals: {
+      variant: "medium",
+    },
+  },
 };

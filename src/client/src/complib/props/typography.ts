@@ -8,4 +8,5 @@ export interface Typography {
   lineHeight?: string;
   textAlign?: string;
   textTransform?: string;
+  wordBreak?: string;
 }

@@ -4,11 +4,13 @@ import { Controller, useForm, useWatch } from "react-hook-form";
 import { useTheme } from "styled-components/macro";
 import textResources from "../../../assets/text/TextResources";
 import { Button } from "../../../complib/buttons";
+import { Popover } from "../../../complib/data-display";
 import { FormField } from "../../../complib/form";
 import { Input, Select, Textarea } from "../../../complib/inputs";
 import { Box, Flexbox } from "../../../complib/layouts";
 import { Icon } from "../../../complib/media";
 import { Text } from "../../../complib/text";
+import { ConditionalWrapper } from "../../../complib/utils";
 import { useCreateNode, useUpdateNode } from "../../../data/queries/tyle/queriesNode";
 import { useGetPurposes } from "../../../data/queries/tyle/queriesPurpose";
 import { useGetRds } from "../../../data/queries/tyle/queriesRds";
@@ -35,7 +37,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
 
   const aspect = useWatch({ control, name: "aspect" });
 
-  const hasPrefilled = usePrefilledNodeData(reset);
+  const hasPrefilledData = usePrefilledNodeData(reset);
 
   const nodeUpdateMutation = useUpdateNode();
   const nodeCreateMutation = useCreateNode();
@@ -47,8 +49,10 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
       flex={1}
       display={"flex"}
       flexWrap={"wrap"}
-      bgColor={theme.tyle.color.sys.surface.base}
-      color={theme.tyle.color.sys.surface.on}
+      justifyContent={"center"}
+      gap={`min(${theme.tyle.spacing.multiple(14)}, 8vw)`}
+      px={`min(${theme.tyle.spacing.multiple(11)}, 5vw)`}
+      py={theme.tyle.spacing.multiple(6)}
       onSubmit={handleSubmit((data) =>
         submitNodeData(data, isEdit ? nodeUpdateMutation.mutateAsync : nodeCreateMutation.mutateAsync)
       )}
@@ -58,15 +62,15 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
         flex={1}
         display={"flex"}
         flexDirection={"column"}
-        justifyContent={"space-between"}
-        gap={theme.tyle.spacing.xxl}
-        px={theme.tyle.spacing.xxl}
-        py={theme.tyle.spacing.multiple(6)}
+        flexGrow={"0"}
+        alignItems={"center"}
+        gap={theme.tyle.spacing.xl}
         border={0}
+        p={"0"}
       >
         <NodeFormPreview control={control} />
 
-        <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xl}>
+        <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
           <FormField label={textResources.FORMS_NODE_NAME}>
             <Input placeholder={textResources.FORMS_NODE_NAME_PLACEHOLDER} {...register("name")} />
           </FormField>
@@ -94,19 +98,30 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
               control={control}
               name={"aspect"}
               render={({ field: { value, onChange, ref, ...rest } }) => (
-                <Select
-                  {...rest}
-                  selectRef={ref}
-                  placeholder={textResources.FORMS_NODE_ASPECT_PLACEHOLDER}
-                  options={aspectOptions}
-                  getOptionLabel={(x) => x.label}
-                  onChange={(x) => {
-                    resetSubform(resetField);
-                    onChange(x?.value);
-                  }}
-                  value={aspectOptions.find((x) => x.value === value)}
-                  isDisabled={hasPrefilled}
-                />
+                <ConditionalWrapper
+                  condition={hasPrefilledData}
+                  wrapper={(c) => (
+                    <Popover align={"start"} maxWidth={"225px"} content={textResources.FORMS_NODE_ASPECT_DISABLED}>
+                      <Box borderRadius={theme.tyle.border.radius.medium} tabIndex={0}>
+                        {c}
+                      </Box>
+                    </Popover>
+                  )}
+                >
+                  <Select
+                    {...rest}
+                    selectRef={ref}
+                    placeholder={textResources.FORMS_NODE_ASPECT_PLACEHOLDER}
+                    options={aspectOptions}
+                    getOptionLabel={(x) => x.label}
+                    onChange={(x) => {
+                      resetSubform(resetField);
+                      onChange(x?.value);
+                    }}
+                    value={aspectOptions.find((x) => x.value === value)}
+                    isDisabled={hasPrefilledData}
+                  />
+                </ConditionalWrapper>
               )}
             />
           </FormField>
@@ -126,7 +141,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
                   onChange={(x) => onChange(x?.data)}
                   value={symbolQuery.data?.find((x) => x.data === value)}
                   formatOptionLabel={(x) => (
-                    <Flexbox alignItems={"center"} gap={theme.tyle.spacing.xs}>
+                    <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
                       <Icon src={x.data} />
                       <Text>{x.name}</Text>
                     </Flexbox>
@@ -166,8 +181,8 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
         </Flexbox>
 
         <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
-          <PlainLink to={"/"}>
-            <Button as={"span"} variant={"outlined"}>
+          <PlainLink tabIndex={-1} to={"/"}>
+            <Button tabIndex={0} as={"span"} variant={"outlined"}>
               {textResources.FORMS_CANCEL}
             </Button>
           </PlainLink>
@@ -175,14 +190,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }:
         </Flexbox>
       </Box>
 
-      <Box
-        flex={3}
-        display={"flex"}
-        flexDirection={"column"}
-        gap={theme.tyle.spacing.xxl}
-        px={theme.tyle.spacing.xxl}
-        py={theme.tyle.spacing.multiple(6)}
-      >
+      <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
         {aspect === Aspect.Function && <FunctionNode control={control} register={register} />}
         {aspect === Aspect.Location && <LocationNode control={control} register={register} />}
         {aspect === Aspect.Product && <ProductNode control={control} register={register} />}

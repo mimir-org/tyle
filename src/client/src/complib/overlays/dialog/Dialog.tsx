@@ -1,22 +1,26 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { PropsWithChildren, ReactNode } from "react";
+import { ReactNode } from "react";
 import { useTheme } from "styled-components";
 import { Box } from "../../layouts";
 import { DialogDescription } from "./components/DialogDescription";
 import { DialogExit } from "./components/DialogExit";
 import { DialogTitle } from "./components/DialogTitle";
-import { DialogContent, DialogOverlay } from "./Dialog.styled";
+import { DialogContent, DialogContentProps, DialogOverlay } from "./Dialog.styled";
 
-interface Props {
+export type DialogProps = DialogContentProps & {
+  children?: ReactNode;
   content: ReactNode;
   title: string;
   description?: string;
   hideTitle?: boolean;
   hideDescription?: boolean;
-}
+};
 
 /**
  * Component which is overlaid the primary window, rendering the content underneath inert.
+ *
+ * See documentation link below for details.
+ * @see https://www.radix-ui.com/docs/primitives/components/dialog
  *
  * @param children component that triggers dialog visibility
  * @param content shown inside the dialog itself
@@ -24,6 +28,7 @@ interface Props {
  * @param description optional description of dialog
  * @param hideTitle hides the title from view while remaining readable by screen-readers
  * @param hideDescription hides the description from view while remaining readable by screen-readers
+ * @param delegated receives sizing and flexbox props for overriding default styles
  * @constructor
  */
 export const Dialog = ({
@@ -33,7 +38,8 @@ export const Dialog = ({
   hideTitle,
   description,
   hideDescription,
-}: PropsWithChildren<Props>) => {
+  ...delegated
+}: DialogProps) => {
   const theme = useTheme();
 
   return (
@@ -44,8 +50,8 @@ export const Dialog = ({
           <DialogOverlay {...theme.tyle.animation.fade} />
         </DialogPrimitive.Overlay>
         <DialogPrimitive.Content asChild>
-          <DialogContent variant={"elevated"} elevation={3} {...theme.tyle.animation.fade}>
-            <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xs} maxWidth={"350px"}>
+          <DialogContent {...theme.tyle.animation.fade} {...delegated}>
+            <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xl} maxWidth={"50ch"}>
               <DialogTitle hide={hideTitle}>{title}</DialogTitle>
               {description && <DialogDescription hide={hideDescription}>{description}</DialogDescription>}
             </Box>

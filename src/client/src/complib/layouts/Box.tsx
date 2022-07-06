@@ -1,11 +1,11 @@
-import styled from "styled-components/macro";
-import { ElementType } from "react";
 import { motion } from "framer-motion";
-import { Borders, Display, Flex, Grid, Palette, Polymorphic, Positions, Shadows, Sizing, Spacing } from "../props";
+import { ElementType } from "react";
+import styled from "styled-components/macro";
 import {
   bordersMixin,
   displayMixin,
   flexMixin,
+  focus,
   gridMixin,
   paletteMixin,
   positionsMixin,
@@ -13,6 +13,7 @@ import {
   sizingMixin,
   spacingMixin,
 } from "../mixins";
+import { Borders, Display, Flex, Grid, Palette, Polymorphic, Positions, Shadows, Sizing, Spacing } from "../props";
 
 type BoxProps = Display &
   Positions &
@@ -36,6 +37,7 @@ type BoxProps = Display &
  * @constructor
  */
 export const Box = styled.div<BoxProps>`
+  ${focus};
   ${displayMixin};
   ${flexMixin};
   ${gridMixin};

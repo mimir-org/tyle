@@ -1,8 +1,6 @@
 <div align="center">
 
-  <img src="src/client/public/library.png" alt="logo" width="200" height="auto" />
-  <h1>Tyle (typelibrary)</h1>
-  
+  <img src="src/client/src/assets/icons/logo/logoWhite.svg" alt="logo" width="200" height="auto" />
   <p>
     A tool for building semantically supported templates!
   </p>
@@ -36,20 +34,23 @@
 <!-- Table of Contents -->
 # :notebook_with_decorative_cover: Table of Contents
 
-- [About the Project](#star2-about-the-project)
-  * [Tech Stack](#space_invader-tech-stack)
-  * [Features](#dart-features)
-  * [Design system](#art-design-system)
-  * [Environment Variables](#key-environment-variables)
-- [Getting Started](#toolbox-getting-started)
-  * [Prerequisites](#bangbang-prerequisites)
-  * [Running Locally](#running-running)
-- [Usage](#eyes-usage)
-- [Contributing](#wave-contributing)
-  * [Code of Conduct](#scroll-code-of-conduct)
-- [License](#warning-license)
-- [Contact](#handshake-contact)
-- [Acknowledgements](#gem-acknowledgements)
+- [:notebook_with_decorative_cover: Table of Contents](#notebook_with_decorative_cover-table-of-contents)
+  - [:star2: About the Project](#star2-about-the-project)
+    - [:space_invader: Tech Stack](#space_invader-tech-stack)
+    - [:dart: Features](#dart-features)
+    - [:art: Design System](#art-design-system)
+    - [:key: Environment Variables](#key-environment-variables)
+      - [Client](#client)
+      - [Server](#server)
+  - [:toolbox: Getting Started](#toolbox-getting-started)
+    - [:bangbang: Prerequisites](#bangbang-prerequisites)
+    - [:running: Running](#running-running)
+  - [:eyes: Usage](#eyes-usage)
+  - [:wave: Contributing](#wave-contributing)
+    - [:scroll: Code of Conduct](#scroll-code-of-conduct)
+  - [:warning: License](#warning-license)
+  - [:handshake: Contact](#handshake-contact)
+  - [:gem: Acknowledgements](#gem-acknowledgements)
   
 
 <!-- About the Project -->

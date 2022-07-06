@@ -5,7 +5,7 @@ export const ItemListContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: ${(props) => props.theme.tyle.spacing.xl};
+  gap: ${(props) => props.theme.tyle.spacing.xxxl};
 
   height: 100%;
 
@@ -13,9 +13,10 @@ export const ItemListContainer = styled.div`
   mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
 
   // Extra space for animated content
-  padding-top: ${(props) => props.theme.tyle.spacing.s};
+  padding-top: ${(props) => props.theme.tyle.spacing.xl};
   padding-left: ${(props) => props.theme.tyle.spacing.l};
   padding-right: ${(props) => props.theme.tyle.spacing.l};
+  margin-top: ${(props) => `-${props.theme.tyle.spacing.xl}`};
   margin-left: ${(props) => `-${props.theme.tyle.spacing.l}`};
   margin-right: ${(props) => `-${props.theme.tyle.spacing.l}`};
 

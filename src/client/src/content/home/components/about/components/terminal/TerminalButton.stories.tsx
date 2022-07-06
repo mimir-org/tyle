@@ -15,17 +15,17 @@ export const Default = Template.bind({});
 
 export const VariantInput = Template.bind({});
 VariantInput.args = {
-  variant: "Input",
+  direction: "Input",
 };
 
 export const VariantOutput = Template.bind({});
 VariantOutput.args = {
-  variant: "Output",
+  direction: "Output",
 };
 
 export const VariantBidirectional = Template.bind({});
 VariantBidirectional.args = {
-  variant: "Bidirectional",
+  direction: "Bidirectional",
 };
 
 export const Disabled = Template.bind({});

@@ -1,9 +1,9 @@
-import { Ref } from "react";
+import { Ref, useState } from "react";
 import { Popover } from "../../../../../../complib/data-display";
-import { AttributeButton, AttributeButtonProps } from "./AttributeButton";
+import { TokenButton, TokenButtonProps } from "../../../../../../complib/general";
 import { AttributeDescription, AttributeDescriptionProps } from "./AttributeDescription";
 
-type AttributeInfoButtonProps = AttributeButtonProps &
+export type AttributeInfoButtonProps = TokenButtonProps &
   AttributeDescriptionProps & {
     buttonRef?: Ref<HTMLButtonElement>;
   };
@@ -28,20 +28,28 @@ export const AttributeInfoButton = ({
   actionIcon,
   actionText,
   onAction,
-  ...delegated
-}: AttributeInfoButtonProps) => (
-  <Popover
-    content={
-      <AttributeDescription
-        name={name}
-        traits={traits}
-        actionable={actionable}
-        actionIcon={actionIcon}
-        actionText={actionText}
-        onAction={onAction}
-      />
-    }
-  >
-    <AttributeButton {...delegated}>{name}</AttributeButton>
-  </Popover>
-);
+  buttonRef,
+}: AttributeInfoButtonProps) => {
+  const [isSelected, setIsSelected] = useState(false);
+
+  return (
+    <Popover
+      align={"start"}
+      onOpenChange={() => setIsSelected(!isSelected)}
+      content={
+        <AttributeDescription
+          name={name}
+          traits={traits}
+          actionable={actionable}
+          actionIcon={actionIcon}
+          actionText={actionText}
+          onAction={onAction}
+        />
+      }
+    >
+      <TokenButton ref={buttonRef} variant={"secondary"} $selected={isSelected}>
+        {name}
+      </TokenButton>
+    </Popover>
+  );
+};
