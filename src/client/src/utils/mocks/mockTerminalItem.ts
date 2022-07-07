@@ -1,4 +1,4 @@
-import faker from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 import { TerminalItem } from "../../content/home/types/TerminalItem";
 import { mockAttributeItem } from "./mockAttributeItem";
 

@@ -1,4 +1,4 @@
-import faker from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { LibraryIcon } from "../../../../../../assets/icons/modules";
 import { mockTerminalItem } from "../../../../../../utils/mocks";

@@ -1,4 +1,4 @@
-import faker from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 import { LibraryIcon } from "../../assets/icons/modules";
 import { NodeItem } from "../../content/home/types/NodeItem";
 import { mockAttributeItem } from "./mockAttributeItem";
