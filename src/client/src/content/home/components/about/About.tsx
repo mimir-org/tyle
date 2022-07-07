@@ -20,8 +20,8 @@ interface AboutProps {
  */
 export const About = ({ selected }: AboutProps) => {
   const nodeQuery = useGetNode(selected);
-  const showNodePanel = !nodeQuery.isFetching && !nodeQuery.isLoading && nodeQuery.isSuccess;
-  const showPlaceHolder = nodeQuery.isIdle || nodeQuery.isError;
+  const showNodePanel = !nodeQuery.isFetching && !nodeQuery.isLoading && nodeQuery.isSuccess && nodeQuery.data;
+  const showPlaceHolder = nodeQuery.isIdle || nodeQuery.isError || !nodeQuery.data;
 
   return (
     <HomeSection title={TextResources.ABOUT_TITLE}>
