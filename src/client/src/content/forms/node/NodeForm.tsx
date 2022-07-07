@@ -17,7 +17,7 @@ import { useGetRds } from "../../../data/queries/tyle/queriesRds";
 import { useGetSymbols } from "../../../data/queries/tyle/queriesSymbol";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { PlainLink } from "../../utils/PlainLink";
-import { createEmptyFormNodeLibAm, FormNodeLib } from "../types/formNodeLib";
+import { createEmptyFormNodeLib, FormNodeLib } from "../types/formNodeLib";
 import { aspectOptions, resetSubform, submitNodeData, usePrefilledNodeData } from "./NodeForm.helpers";
 import { NodeFormPreview } from "./NodeFormPreview";
 import { FunctionNode, LocationNode, ProductNode } from "./variants";
@@ -27,7 +27,7 @@ interface NodeFormProps {
   isEdit?: boolean;
 }
 
-export const NodeForm = ({ defaultValues = createEmptyFormNodeLibAm(), isEdit }: NodeFormProps) => {
+export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: NodeFormProps) => {
   const theme = useTheme();
   const { register, handleSubmit, control, setValue, reset, resetField } = useForm<FormNodeLib>({ defaultValues });
 
