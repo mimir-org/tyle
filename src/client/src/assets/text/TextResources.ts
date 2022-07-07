@@ -63,6 +63,8 @@ const TextResources = {
   FORMS_NODE_SYMBOL_PLACEHOLDER: "Select symbol",
   FORMS_NODE_RDS: "RDS",
   FORMS_NODE_RDS_PLACEHOLDER: "Select RDS",
+  FORMS_NODE_OWNER: "Owner",
+  FORMS_NODE_OWNER_PLACEHOLDER: "Select owner",
   FORMS_NODE_DESCRIPTION: "Description",
   FORMS_NODE_DESCRIPTION_PLACEHOLDER: "Additional information about this node can be supplied here.",
   FORMS_NODE_SUBMITTING: "Submitting node",

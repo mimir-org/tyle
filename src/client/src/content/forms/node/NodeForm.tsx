@@ -11,6 +11,7 @@ import { Box, Flexbox } from "../../../complib/layouts";
 import { Icon } from "../../../complib/media";
 import { Text } from "../../../complib/text";
 import { ConditionalWrapper } from "../../../complib/utils";
+import { useGetCompanies } from "../../../data/queries/auth/queriesCompany";
 import { useCreateNode, useUpdateNode } from "../../../data/queries/tyle/queriesNode";
 import { useGetPurposes } from "../../../data/queries/tyle/queriesPurpose";
 import { useGetRds } from "../../../data/queries/tyle/queriesRds";
@@ -34,6 +35,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
   const rdsQuery = useGetRds();
   const symbolQuery = useGetSymbols();
   const purposeQuery = useGetPurposes();
+  const companyQuery = useGetCompanies();
 
   const aspect = useWatch({ control, name: "aspect" });
 
@@ -171,6 +173,26 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
                       onChange(rds.name);
                     }
                   }}
+                />
+              )}
+            />
+          </FormField>
+          <FormField label={textResources.FORMS_NODE_OWNER}>
+            <Controller
+              control={control}
+              name={"companyId"}
+              render={({ field: { value, onChange, ref, ...rest } }) => (
+                <Select
+                  {...rest}
+                  selectRef={ref}
+                  placeholder={textResources.FORMS_NODE_OWNER_PLACEHOLDER}
+                  options={companyQuery.data}
+                  getOptionLabel={(x) => x.name}
+                  getOptionValue={(x) => x.id.toString()}
+                  onChange={(x) => {
+                    onChange(x?.id);
+                  }}
+                  value={companyQuery.data?.find((x) => x.id === value)}
                 />
               )}
             />
