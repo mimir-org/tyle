@@ -1,4 +1,4 @@
-import { DocsContainer } from "@storybook/addon-docs/blocks";
+import { DocsContainer } from "@storybook/addon-docs";
 import { GlobalStyle, themeBuilder, TyleThemeProvider } from "../src/complib/core";
 
 export const parameters = {

@@ -18,15 +18,14 @@ The spacing is calculated from the base font size (1rem), which means that alter
 
 <Box
   display="flex"
-  flexDirection={"column"}
-  gap={theme.spacing.multiple(8)}
+  gap={theme.spacing.xxxl}
   p={theme.spacing.multiple(5)}
   border={`2px solid ${lightTheme.outline.base}`}
   borderRadius={theme.border.radius.medium}
 >
   {Object.entries(getSpacingsOnly()).map(([k, v]) => {
     return (
-      <Flexbox key={v} flexDirection="column" gap={theme.spacing.base}>
+      <Flexbox key={v} flexDirection="column">
         <Box height={"40px"} width={v} bgColor={lightTheme.primary.base} />
         <Text variant={"title-medium"}>{k}</Text>
         <Text variant={"label-large"}>{v}</Text>
