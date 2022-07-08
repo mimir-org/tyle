@@ -88,7 +88,7 @@ export const NodeFormTerminalTable = ({ control }: NodeFormTerminalsProps) => {
                         value={terminalQuery.data?.find((x) => x.id === value)}
                         formatOptionLabel={(x) => (
                           <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
-                            {x.color && <TerminalButton as={"span"} variant={"small"} {...x} />}
+                            {x.color && <TerminalButton as={"span"} variant={"small"} color={x.color} />}
                             <Text>{x.name}</Text>
                           </Flexbox>
                         )}
