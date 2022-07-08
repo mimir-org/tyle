@@ -25,6 +25,11 @@ export const spacing: SpacingSystem = {
   multiple: (multiplier: number) => `${multiplier * spacingUnit}px`
 };
 
+export const getSpacingsOnly = () => {
+  const {unit, multiple, ...spacings} = spacing;
+  return spacings;
+}
+
 export const variablesSpacing = css`
   :root {
     --tl-sys-spacing-unit: ${spacing.unit};

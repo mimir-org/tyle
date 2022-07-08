@@ -6,4 +6,4 @@ export const mapNodeTerminalLibCmToNodeTerminalLibAm = (nodeTerminal: NodeTermin
 });
 
 export const mapNodeTerminalLibCmsToNodeTerminalLibAms = (nodeTerminals: NodeTerminalLibCm[]): NodeTerminalLibAm[] =>
-  nodeTerminals.map((x) => mapNodeTerminalLibCmToNodeTerminalLibAm(x));
+  nodeTerminals?.map((x) => mapNodeTerminalLibCmToNodeTerminalLibAm(x));

@@ -9,11 +9,9 @@ export interface LocationNodeProps {
   register: UseFormRegister<FormNodeLib>;
 }
 
-export const LocationNode = ({ control, register }: LocationNodeProps) => {
-  return (
-    <>
-      <NodeFormAttributes control={control} register={register} aspects={[Aspect.Location]} />
-      <NodeFormPredefinedAttributes control={control} register={register} aspects={[Aspect.Location]} />
-    </>
-  );
-};
+export const LocationNode = ({ control, register }: LocationNodeProps) => (
+  <>
+    <NodeFormAttributes control={control} register={register} aspects={[Aspect.Location]} />
+    <NodeFormPredefinedAttributes control={control} register={register} aspects={[Aspect.Location]} />
+  </>
+);

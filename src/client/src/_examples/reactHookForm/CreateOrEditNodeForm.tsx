@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { createEmptyFormNodeLibAm, FormNodeLib } from "../../content/forms/types/formNodeLib";
+import { createEmptyFormNodeLib, FormNodeLib } from "../../content/forms/types/formNodeLib";
 
 interface Props {
   defaultValues?: FormNodeLib;
@@ -11,7 +11,7 @@ interface Props {
  * @param defaultValues
  * @constructor
  */
-export const CreateOrEditNodeForm = ({ defaultValues = createEmptyFormNodeLibAm() }: Props) => {
+export const CreateOrEditNodeForm = ({ defaultValues = createEmptyFormNodeLib() }: Props) => {
   const { register, handleSubmit } = useForm<FormNodeLib>({ defaultValues });
   const onSubmit: SubmitHandler<FormNodeLib> = (data) => console.log(data);
 

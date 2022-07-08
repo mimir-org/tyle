@@ -3,9 +3,9 @@ import { UpdateEntity } from "../../../data/types/updateEntity";
 import { createEmptyNodeLibAm } from "../../../models/tyle/application/nodeLibAm";
 import { mapNodeLibCmToNodeLibAm } from "../../../utils/mappers";
 import {
-  FormSelectedAttributePredefinedLibAm,
-  mapFormSelectedAttributePredefinedLibAmToApiModel,
-} from "./formSelectedAttributePredefinedLibAm";
+  FormSelectedAttributePredefinedLib,
+  mapFormSelectedAttributePredefinedLibToApiModel,
+} from "./formSelectedAttributePredefinedLib";
 import { ValueObject } from "./valueObject";
 
 /**
@@ -14,29 +14,29 @@ import { ValueObject } from "./valueObject";
  */
 export interface FormNodeLib extends Omit<UpdateEntity<NodeLibAm>, "attributeIdList" | "selectedAttributePredefined"> {
   attributeIdList: ValueObject<string>[];
-  selectedAttributePredefined: FormSelectedAttributePredefinedLibAm[];
+  selectedAttributePredefined: FormSelectedAttributePredefinedLib[];
 }
 
 /**
  * Maps the client-only model back to the model expected by the backend api
  * @param formNode client-only model
  */
-export const mapFormNodeLibAmToApiModel = (formNode: FormNodeLib): UpdateEntity<NodeLibAm> => ({
+export const mapFormNodeLibToApiModel = (formNode: FormNodeLib): UpdateEntity<NodeLibAm> => ({
   ...formNode,
   attributeIdList: formNode.attributeIdList.map((x) => x.value),
   selectedAttributePredefined: formNode.selectedAttributePredefined.map((x) =>
-    mapFormSelectedAttributePredefinedLibAmToApiModel(x)
+    mapFormSelectedAttributePredefinedLibToApiModel(x)
   ),
 });
 
-export const createEmptyFormNodeLibAm = (): FormNodeLib => ({
+export const createEmptyFormNodeLib = (): FormNodeLib => ({
   ...createEmptyNodeLibAm(),
   id: "",
   attributeIdList: [],
   selectedAttributePredefined: [],
 });
 
-export const mapNodeLibCmToFormNodeLibAm = (nodeLibCm: NodeLibCm): FormNodeLib => ({
+export const mapNodeLibCmToFormNodeLib = (nodeLibCm: NodeLibCm): FormNodeLib => ({
   ...mapNodeLibCmToNodeLibAm(nodeLibCm),
   id: nodeLibCm.id,
   attributeIdList: nodeLibCm.attributes.map((x) => ({

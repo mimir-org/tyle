@@ -1,11 +1,11 @@
-import { Filter } from "@styled-icons/heroicons-outline";
+import { PlusSm } from "@styled-icons/heroicons-outline";
 import { useTheme } from "styled-components";
 import { TextResources } from "../../../../../assets/text";
 import { Button } from "../../../../../complib/buttons";
-import { Input } from "../../../../../complib/inputs";
 import { Flexbox } from "../../../../../complib/layouts";
+import { SearchField } from "../../../../common/SearchField";
 
-interface SearchBarProps {
+export interface SearchBarProps {
   searchQuery?: string;
   setSearchQuery: (value: string) => void;
 }
@@ -21,14 +21,13 @@ export const SearchBar = ({ searchQuery, setSearchQuery }: SearchBarProps) => {
   const theme = useTheme();
 
   return (
-    <Flexbox gap={theme.tyle.spacing.l} alignItems={"center"}>
-      <Input
+    <Flexbox gap={theme.tyle.spacing.xxxl} alignItems={"center"}>
+      <SearchField
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         placeholder={TextResources.SEARCH_PLACEHOLDER}
-        width={"100%"}
       />
-      <Button disabled icon={<Filter />}>
+      <Button disabled icon={<PlusSm style={{ flexShrink: 0 }} />}>
         {TextResources.SEARCH_FILTER}
       </Button>
     </Flexbox>

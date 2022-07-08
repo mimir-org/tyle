@@ -6,12 +6,13 @@ import { typography, TypographySystem } from "../variables/typography/variablesT
 import { animation, AnimationSystem } from "../variables/variablesAnimation";
 import { border, BorderSystem } from "../variables/variablesBorder";
 import { elevation, ElevationSystem } from "../variables/variablesElevation";
+import { queries, QuerySystem } from "../variables/variablesQueries";
 import { shadow, ShadowSystem } from "../variables/variablesShadow";
 import { spacing, SpacingSystem } from "../variables/variablesSpacing";
 import { state, StateSystem } from "../variables/variablesState";
 
 /**
- * Exposes all CSS variables through a typed object.
+ * Exposes all theme variables through a typed object.
  * Object is meant to be used where presentational components are consumed through container components, and where the
  * consumer might pass a parameter to control design token related values. (e.g borders, colors, spacing etc.)
  */
@@ -24,6 +25,7 @@ export const theme = {
   state: state,
   elevation: elevation,
   animation: animation,
+  queries: queries,
 };
 
 export interface TyleTheme {
@@ -35,6 +37,7 @@ export interface TyleTheme {
   state: StateSystem;
   elevation: ElevationSystem;
   animation: AnimationSystem;
+  queries: QuerySystem;
 }
 
 /**

@@ -21,7 +21,7 @@ export const ItemDescription = ({ name, description, onClick }: ItemDescriptionP
       <Text as={"span"} variant={"title-medium"} useEllipsis ellipsisMaxLines={1}>
         {name}
       </Text>
-      <Text as={"span"} useEllipsis ellipsisMaxLines={2}>
+      <Text as={"span"} useEllipsis ellipsisMaxLines={3}>
         {description}
       </Text>
     </ItemDescriptionContainer>

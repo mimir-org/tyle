@@ -1,8 +1,8 @@
-import styled from "styled-components/macro";
-import { ElementType } from "react";
 import { motion } from "framer-motion";
+import { ElementType } from "react";
+import styled from "styled-components/macro";
+import { flexMixin, focus } from "../mixins";
 import { Flex, Polymorphic } from "../props";
-import { flexMixin } from "../mixins";
 
 type FlexboxProps = Flex & Polymorphic<ElementType>;
 
@@ -15,7 +15,8 @@ type FlexboxProps = Flex & Polymorphic<ElementType>;
  */
 export const Flexbox = styled.div<FlexboxProps>`
   display: flex;
-  ${flexMixin}
+  ${focus};
+  ${flexMixin};
 `;
 
 /**

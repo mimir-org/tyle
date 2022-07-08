@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { LibraryIcon } from "../../../assets/icons/modules";
 import { Input } from "./Input";
 
 export default {
@@ -18,7 +19,7 @@ Text.args = {
 export const Number = Template.bind({});
 Number.args = {
   defaultValue: 101,
-  placeholder: 123,
+  placeholder: "123",
   type: "number",
 };
 
@@ -34,4 +35,12 @@ Password.args = {
   defaultValue: "youbetterchooseastrongone",
   placeholder: "********************",
   type: "password",
+};
+
+export const WithIcon = Template.bind({});
+WithIcon.args = {
+  defaultValue: "Some input",
+  placeholder: "placeholder",
+  type: "text",
+  icon: LibraryIcon,
 };

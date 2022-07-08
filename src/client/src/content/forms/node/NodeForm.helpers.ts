@@ -6,7 +6,7 @@ import textResources from "../../../assets/text/TextResources";
 import { toast } from "../../../complib/data-display";
 import { useGetNode } from "../../../data/queries/tyle/queriesNode";
 import { UpdateEntity } from "../../../data/types/updateEntity";
-import { FormNodeLib, mapFormNodeLibAmToApiModel, mapNodeLibCmToFormNodeLibAm } from "../types/formNodeLib";
+import { FormNodeLib, mapFormNodeLibToApiModel, mapNodeLibCmToFormNodeLib } from "../types/formNodeLib";
 
 export const aspectOptions = [
   { value: Aspect.None, label: "None" },
@@ -34,7 +34,7 @@ export const usePrefilledNodeData = (
   useEffect(() => {
     if (!hasPrefilled && nodeQuery.isSuccess) {
       setHasPrefilled(true);
-      reset(mapNodeLibCmToFormNodeLibAm(nodeQuery.data), { keepDefaultValues: false });
+      reset(mapNodeLibCmToFormNodeLib(nodeQuery.data), { keepDefaultValues: false });
     }
   }, [hasPrefilled, nodeQuery.isSuccess, nodeQuery.data, reset]);
 
@@ -53,7 +53,7 @@ export const resetSubform = (resetField: (value: keyof FormNodeLib) => void) => 
 };
 
 export const submitNodeData = (formData: FormNodeLib, mutate: (data: UpdateEntity<NodeLibAm>) => Promise<unknown>) => {
-  const submittable = mapFormNodeLibAmToApiModel(formData);
+  const submittable = mapFormNodeLibToApiModel(formData);
   const submissionPromise = mutate(submittable);
 
   toast.promise(submissionPromise, {

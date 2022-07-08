@@ -1,5 +1,5 @@
-import { PropsWithChildren } from "react";
 import * as VisuallyHiddenPrimitive from "@radix-ui/react-visually-hidden";
+import { PropsWithChildren } from "react";
 
 interface Props {
   asChild?: boolean;
@@ -8,6 +8,9 @@ interface Props {
 /**
  * A component for including data without displaying it.
  * A typical use case might be description text for icons that can only be read by screen readers.
+ *
+ * See documentation link below for details.
+ * @see https://www.radix-ui.com/docs/primitives/utilities/visually-hidden
  *
  * @param children Components or raw text that should remain hidden.
  * @param asChild Change the component to the HTML tag or custom component of the only child. This will merge the

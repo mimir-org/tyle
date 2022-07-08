@@ -9,7 +9,7 @@ export const DialogExit = () => {
   const theme = useTheme();
   return (
     <DialogPrimitive.Close asChild>
-      <Box position={"absolute"} top={theme.tyle.spacing.xs} right={theme.tyle.spacing.xs}>
+      <Box position={"absolute"} top={theme.tyle.spacing.xl} right={theme.tyle.spacing.xl}>
         <Button variant={"text"} icon={<X />} iconOnly>
           {TextResources.DIALOG_CLOSE}
         </Button>
