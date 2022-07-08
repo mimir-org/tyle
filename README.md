@@ -1,29 +1,10 @@
-<style rel="stylesheet">
-  .intro {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    padding: 24px;
-    border-radius: 10px;
-    background-color: #3d113f;
-    color: #ffffff;
-  }
-
-  .intro-logo {
-    margin: 24px 0;
-  }
-
-  .intro-link {
-    font-size: 18px;
-    font-weight: bold;
-    color: #adc6ff;
-  }
-</style>
-
-<div class="intro">
-  <img class="intro-logo" src="src/client/src/assets/icons/logo/logoWhite.svg" alt="logo" width="200" height="auto" />
+<div align="center">
+  <br/>
+  
+  <img src="src/client/src/assets/icons/logo/logoWhite.svg" alt="logo" width="200" height="auto" />
+  
+  <br/>
+  <br/>
   
   <p>A tool for building semantically supported templates!</p>
 
@@ -63,7 +44,9 @@
     </a>
   </div>
   
-  <a class="intro-link" href="https://github.com/mimir-org/typelibrary/issues">Report a bug or request a feature</a>
+  <h4>
+  <a href="https://github.com/mimir-org/typelibrary/issues">Report a bug or request a feature</a>
+  </h4>
 </div>
 
 # :notebook_with_decorative_cover: Table of Contents
