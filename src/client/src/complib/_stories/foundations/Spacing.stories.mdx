@@ -3,6 +3,7 @@ import { theme } from "../../core";
 import { Box, Flexbox } from "../../layouts";
 import { Text } from "../../text";
 import { lightTheme } from "../../core/variables/color/themes/lightTheme";
+import { getSpacingsOnly } from "../../core/variables/variablesSpacing";
 
 <Meta title="Foundations/Spacing" />
 
@@ -23,7 +24,7 @@ The spacing is calculated from the base font size (1rem), which means that alter
   border={`2px solid ${lightTheme.outline.base}`}
   borderRadius={theme.border.radius.medium}
 >
-  {Object.entries(theme.spacing).map(([k, v]) => {
+  {Object.entries(getSpacingsOnly()).map(([k, v]) => {
     return (
       <Flexbox key={v} flexDirection="column" gap={theme.spacing.base}>
         <Box height={"40px"} width={v} bgColor={lightTheme.primary.base} />
