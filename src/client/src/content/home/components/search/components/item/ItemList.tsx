@@ -1,8 +1,8 @@
 import { AnimatePresence } from "framer-motion";
-import { ItemListContainer } from "./ItemList.styled";
 import { ReactNode } from "react";
+import { ItemListContainer } from "./ItemList.styled";
 
-interface SearchListProps {
+export interface ItemListProps {
   children: ReactNode;
 }
 
@@ -12,7 +12,7 @@ interface SearchListProps {
  * @param children
  * @constructor
  */
-export const ItemList = ({ children }: SearchListProps) => (
+export const ItemList = ({ children }: ItemListProps) => (
   <ItemListContainer>
     <AnimatePresence>{children}</AnimatePresence>
   </ItemListContainer>

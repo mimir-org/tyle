@@ -1,7 +1,8 @@
-import faker from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
+import { LibraryIcon } from "../../assets/icons/modules";
 import { NodeItem } from "../../content/home/types/NodeItem";
-import { mockTerminalItem } from "./mockTerminalItem";
 import { mockAttributeItem } from "./mockAttributeItem";
+import { mockTerminalItem } from "./mockTerminalItem";
 
 export const mockNodeItem = (): NodeItem => ({
   id: faker.random.numeric(),
@@ -11,5 +12,5 @@ export const mockNodeItem = (): NodeItem => ({
   attributes: [...Array(7)].map((_) => mockAttributeItem()),
   tokens: [...Array(5)].map((_) => faker.commerce.productAdjective()),
   color: faker.helpers.arrayElement(["#fef445", "#00f0ff", "#fa00ff"]),
-  img: "static/media/src/assets/icons/modules/library.svg",
+  img: LibraryIcon,
 });

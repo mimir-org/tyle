@@ -1,3 +1,4 @@
+import { StrictMode } from "react";
 import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter } from "react-router-dom";
@@ -15,7 +16,9 @@ export const Root = () => {
       <QueryClientProvider client={queryClient}>
         <TyleThemeProvider theme={themeBuilder(colorTheme)}>
           <GlobalStyle />
-          <App />
+          <StrictMode>
+            <App />
+          </StrictMode>
         </TyleThemeProvider>
         {!isProduction && <ReactQueryDevtools />}
       </QueryClientProvider>

@@ -5,9 +5,9 @@ import { TextResources } from "../../../../assets/text";
 import { FormField } from "../../../../complib/form";
 import { Input, Select } from "../../../../complib/inputs";
 import { Box, Grid } from "../../../../complib/layouts";
-import { Text } from "../../../../complib/text";
 import { useGetAttributesPredefined } from "../../../../data/queries/tyle/queriesAttribute";
 import { FormNodeLib } from "../../types/formNodeLib";
+import { NodeFormSection } from "../NodeFormSection";
 import { preparePredefinedAttributes } from "./NodeFormPredefinedAttributes.helpers";
 
 export interface NodeFormPredefinedAttributesProps {
@@ -22,17 +22,7 @@ export const NodeFormPredefinedAttributes = ({ control, register, aspects }: Nod
   const predefinedAttributes = preparePredefinedAttributes(predefinedAttributesQuery.data, aspects);
 
   return (
-    <Box
-      as={"fieldset"}
-      display={"flex"}
-      flexDirection={"column"}
-      justifyContent={"center"}
-      gap={theme.tyle.spacing.xl}
-      border={0}
-      p={"0"}
-    >
-      <Text variant={"headline-medium"}>{TextResources.PREDEFINED_ATTRIBUTE_TITLE}</Text>
-
+    <NodeFormSection title={TextResources.PREDEFINED_ATTRIBUTE_TITLE}>
       <Grid gridTemplateColumns={"repeat(auto-fill, 300px)"} gap={theme.tyle.spacing.xl}>
         {predefinedAttributes.map((x, index) => {
           return (
@@ -63,6 +53,6 @@ export const NodeFormPredefinedAttributes = ({ control, register, aspects }: Nod
           );
         })}
       </Grid>
-    </Box>
+    </NodeFormSection>
   );
 };

@@ -1,60 +1,19 @@
 import styled from "styled-components/macro";
 
 export const UnauthenticatedLayout = styled.div`
-  display: flex;
   height: 100%;
-
-  // Generated block background
-  background-color: ${(props) => props.theme.tyle.color.ref.primary[95]};
-  opacity: 1;
-  background-image: linear-gradient(
-      30deg,
-      ${(props) => props.theme.tyle.color.ref.neutral[20]} 12%,
-      transparent 12.5%,
-      transparent 70%,
-      ${(props) => props.theme.tyle.color.ref.neutral[20]} 87.5%,
-      ${(props) => props.theme.tyle.color.ref.neutral[20]}
-    ),
-    linear-gradient(
-      150deg,
-      ${(props) => props.theme.tyle.color.ref.neutral[20]} 12%,
-      transparent 12.5%,
-      transparent 87%,
-      ${(props) => props.theme.tyle.color.ref.neutral[20]} 87.5%,
-      ${(props) => props.theme.tyle.color.ref.neutral[20]}
-    ),
-    linear-gradient(
-      30deg,
-      ${(props) => props.theme.tyle.color.ref.neutral[20]} 12%,
-      transparent 12.5%,
-      transparent 70%,
-      ${(props) => props.theme.tyle.color.ref.neutral[20]} 87.5%,
-      ${(props) => props.theme.tyle.color.ref.neutral[20]}
-    ),
-    linear-gradient(
-      150deg,
-      ${(props) => props.theme.tyle.color.ref.neutral[20]} 12%,
-      transparent 12.5%,
-      transparent 87%,
-      ${(props) => props.theme.tyle.color.ref.neutral[20]} 87.5%,
-      ${(props) => props.theme.tyle.color.ref.neutral[20]}
-    ),
-    linear-gradient(
-      60deg,
-      ${(props) => props.theme.tyle.color.ref.neutral[40]} 25%,
-      transparent 25.5%,
-      transparent 30%,
-      ${(props) => props.theme.tyle.color.ref.neutral[40]} 75%,
-      ${(props) => props.theme.tyle.color.ref.neutral[40]}
-    ),
-    linear-gradient(
-      60deg,
-      ${(props) => props.theme.tyle.color.ref.neutral[40]} 25%,
-      transparent 25.5%,
-      transparent 75%,
-      ${(props) => props.theme.tyle.color.ref.neutral[40]} 75%,
-      ${(props) => props.theme.tyle.color.ref.neutral[40]}
-    );
-  background-size: 80px 140px;
-  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+  background: linear-gradient(
+    250deg,
+    hsl(240deg 19% 9%) 0%,
+    hsl(279deg 27% 12%) 10%,
+    hsl(294deg 34% 14%) 20%,
+    hsl(301deg 41% 16%) 30%,
+    hsl(304deg 50% 19%) 40%,
+    hsl(306deg 58% 21%) 50%,
+    hsl(308deg 39% 30%) 60%,
+    hsl(311deg 30% 38%) 70%,
+    hsl(313deg 23% 47%) 80%,
+    hsl(316deg 24% 55%) 90%,
+    hsl(318deg 29% 64%) 100%
+  );
 `;

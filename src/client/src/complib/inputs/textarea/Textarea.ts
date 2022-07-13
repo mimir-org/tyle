@@ -1,16 +1,20 @@
 import styled from "styled-components/macro";
-import { getTextRole } from "../../mixins";
+import { focus, getTextRole, placeholder } from "../../mixins";
 
+/**
+ * A simple wrapper over the textarea-tag, with styling that follows library conventions.
+ */
 export const Textarea = styled.textarea`
   border: 1px solid ${(props) => props.theme.tyle.color.sys.outline.base};
-  border-radius: ${(props) => props.theme.tyle.border.radius.small};
+  border-radius: ${(props) => props.theme.tyle.border.radius.medium};
   min-height: 150px;
   padding: ${(props) => props.theme.tyle.spacing.base};
   color: ${(props) => props.theme.tyle.color.sys.surface.on};
 
-  ${getTextRole("body-large")};
+  background-color: ${(props) => props.theme.tyle.color.sys.pure.base};
+  color: ${(props) => props.theme.tyle.color.sys.background.on};
 
-  ::placeholder {
-    color: ${(props) => props.theme.tyle.color.sys.outline.base};
-  }
+  ${getTextRole("body-large")};
+  ${focus};
+  ${placeholder};
 `;

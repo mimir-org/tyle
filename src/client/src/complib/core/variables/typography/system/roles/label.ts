@@ -1,8 +1,8 @@
-import { typeScaleSystem } from "../typeScaleSystem";
-import { typefaceReference } from "../../reference/typefaceReference";
 import { math } from "polished";
-import { NominalScale } from "../../types";
+import { typefaceReference } from "../../reference/typefaceReference";
 import { typeScaleReference } from "../../reference/typeScaleReference";
+import { NominalScale } from "../../types";
+import { typeScaleSystem } from "../typeScaleSystem";
 
 export const label: NominalScale = {
   large: {
@@ -25,7 +25,7 @@ export const label: NominalScale = {
   },
   small: {
     tracking: 0.5,
-    size: typeScaleSystem.size.n3,
+    size: typeScaleSystem.size.n2,
     family: typefaceReference.brand,
     weight: typefaceReference.weights.medium,
     lineHeight: typeScaleSystem.lineHeight.n3,

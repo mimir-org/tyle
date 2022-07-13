@@ -1,9 +1,9 @@
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { ConditionalWrapper } from "../../../utils";
 import { VisuallyHidden } from "../../../accessibility";
 import { Text } from "../../../text";
+import { ConditionalWrapper } from "../../../utils";
 
 interface DialogDescriptionProps {
   children: ReactNode;
@@ -16,7 +16,7 @@ export const AlertDialogDescription = ({ children, hide }: DialogDescriptionProp
   return (
     <ConditionalWrapper condition={hide} wrapper={(c) => <VisuallyHidden asChild>{c}</VisuallyHidden>}>
       <AlertDialogPrimitive.Description asChild>
-        <Text variant={"label-large"} color={theme.tyle.color.sys.surface.variant.on}>
+        <Text variant={"title-medium"} textAlign={"center"} color={theme.tyle.color.sys.surface.variant.on}>
           {children}
         </Text>
       </AlertDialogPrimitive.Description>

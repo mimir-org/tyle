@@ -10,9 +10,9 @@ export interface BorderSystem {
 
 export const border: BorderSystem = {
   radius: {
-    small: "4px",
-    medium: "8px",
-    large: "16px",
+    small: "3px",
+    medium: "5px",
+    large: "10px",
   },
 };
 

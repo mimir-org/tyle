@@ -11,4 +11,5 @@ export const typographyMixin = css<Typography>`
   line-height: ${(props) => props.lineHeight};
   text-align: ${(props) => props.textAlign};
   text-transform: ${(props) => props.textTransform};
+  word-break: ${(props) => props.wordBreak};
 `;

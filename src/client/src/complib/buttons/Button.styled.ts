@@ -1,15 +1,15 @@
 import { ButtonHTMLAttributes, ElementType } from "react";
 import styled, { css } from "styled-components/macro";
-import { ColorTheme, ElevationSystem, StateSystem } from "../core";
-import { layer, translucify } from "../mixins";
-import { Polymorphic } from "../props";
+import { ColorTheme } from "../core";
+import { flexMixin, focus } from "../mixins";
+import { Flex, Polymorphic } from "../props";
 
-export type ButtonContainerProps = Polymorphic<ElementType> &
+export type ButtonContainerProps = Flex &
+  Polymorphic<ElementType> &
   ButtonHTMLAttributes<HTMLButtonElement> & {
     variant?: "filled" | "outlined" | "text";
     iconPlacement?: "left" | "right";
     iconOnly?: boolean;
-    danger?: boolean;
   };
 
 export const ButtonContainer = styled.button<ButtonContainerProps>`
@@ -26,8 +26,11 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   line-height: ${(props) => props.theme.tyle.typography.sys.roles.label.large.lineHeight};
   letter-spacing: ${(props) => props.theme.tyle.typography.sys.roles.label.large.letterSpacing};
 
+  height: 32px;
+  width: fit-content;
+  min-width: 70px;
   padding: ${(props) => props.theme.tyle.spacing.base} ${(props) => props.theme.tyle.spacing.xl};
-  border-radius: 999px;
+  border-radius: ${(props) => props.theme.tyle.border.radius.medium};
 
   :hover {
     cursor: pointer;
@@ -37,18 +40,28 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
     cursor: not-allowed;
   }
 
-  ${({ variant, danger, ...props }) => {
-    const { color, state, elevation } = props.theme.tyle;
+  img,
+  svg {
+    max-width: 24px;
+    max-height: 24px;
+  }
+
+  ${focus};
+
+  ${({ variant, ...props }) => {
+    const {
+      color: { sys },
+    } = props.theme.tyle;
 
     switch (variant) {
       case "filled": {
-        return filledButton(color.sys, state, elevation, danger);
+        return filledButton(sys);
       }
       case "outlined": {
-        return outlinedButton(color.sys, state, danger);
+        return outlinedButton(sys);
       }
       case "text": {
-        return textButton(color.sys, state, danger);
+        return textButton(sys);
       }
     }
   }};
@@ -56,99 +69,89 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   ${({ iconOnly, ...props }) =>
     iconOnly &&
     css`
-      padding: ${props.theme.tyle.spacing.base};
+      padding: ${props.theme.tyle.spacing.xs};
+      min-width: revert;
+      width: 24px;
+      height: 24px;
+
+      img,
+      svg {
+        max-width: 18px;
+        max-height: 18px;
+      }
     `};
 
-  img,
-  svg {
-    min-width: 20px;
-    min-height: 20px;
-  }
+  ${flexMixin};
 `;
 
 ButtonContainer.defaultProps = {
   variant: "filled",
 };
 
-const filledButton = (color: ColorTheme, state: StateSystem, elevationSystem: ElevationSystem, danger?: boolean) => {
-  const baseColor = danger ? color.error.base : color.primary.base;
-  const onBaseColor = danger ? color.error.on : color.primary.on;
-
-  return css`
+const filledButton = (color: ColorTheme) =>
+  css`
     border: 0;
-    background-color: ${baseColor};
-    color: ${onBaseColor};
+    background-color: ${color.primary.base};
+    color: ${color.primary.on};
 
     :disabled {
-      background-color: ${translucify(color.surface.on, state.disabled.container.opacity)};
-      color: ${translucify(color.surface.on, state.disabled.content.opacity)};
+      background-color: ${color.outline.base};
+      color: ${color.surface.variant.on};
     }
 
     :not(:disabled) {
       :hover {
-        background: ${layer(
-          translucify(baseColor, elevationSystem.levels[1].opacity),
-          translucify(onBaseColor, state.hover.opacity),
-          translucify(baseColor, state.enabled.opacity)
-        )};
+        background-color: ${color.secondary.base};
+        color: ${color.primary.base};
       }
 
       :active {
-        background: ${layer(
-          translucify(onBaseColor, state.pressed.opacity),
-          translucify(baseColor, state.enabled.opacity)
-        )};
+        background-color: ${color.surface.on};
+        color: ${color.primary.on};
       }
     }
   `;
-};
 
-const outlinedButton = (color: ColorTheme, state: StateSystem, danger?: boolean) => {
-  const baseColor = danger ? color.error.base : color.primary.base;
-  const borderColor = color.outline.base;
-
-  return css`
+const outlinedButton = (color: ColorTheme) =>
+  css`
+    outline: 0;
     background-color: transparent;
-    border: 1px solid ${borderColor};
-    color: ${baseColor};
+    border: 1px solid ${color.primary.base};
+    color: ${color.primary.base};
 
     :disabled {
-      border-color: ${translucify(color.surface.on, state.disabled.container.opacity)};
-      color: ${translucify(color.surface.on, state.disabled.content.opacity)};
+      color: ${color.surface.variant.on};
+      border-color: ${color.outline.base};
     }
 
     :not(:disabled) {
       :hover {
-        background-color: ${translucify(baseColor, state.hover.opacity)};
+        background-color: ${color.secondary.base};
       }
 
       :active {
-        background-color: ${translucify(baseColor, state.pressed.opacity)};
+        background-color: ${color.tertiary.container?.base};
       }
     }
   `;
-};
 
-const textButton = (color: ColorTheme, state: StateSystem, danger?: boolean) => {
-  const baseColor = danger ? color.error.base : color.primary.base;
-
-  return css`
+const textButton = (color: ColorTheme) =>
+  css`
     border: 0;
     background-color: transparent;
-    color: ${baseColor};
+    color: ${color.primary.base};
 
     :disabled {
-      color: ${translucify(color.surface.on, state.disabled.content.opacity)};
+      color: ${color.surface.variant.on};
     }
 
     :not(:disabled) {
       :hover {
-        background-color: ${translucify(baseColor, state.hover.opacity)};
+        background-color: ${color.secondary.base};
       }
 
       :active {
-        background-color: ${translucify(baseColor, state.pressed.opacity)};
+        background-color: ${color.tertiary.container?.base};
       }
     }
   `;
-};

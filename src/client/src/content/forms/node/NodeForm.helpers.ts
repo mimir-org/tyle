@@ -1,20 +1,12 @@
-import { Aspect, NodeLibAm } from "@mimirorg/typelibrary-types";
+import { NodeLibAm } from "@mimirorg/typelibrary-types";
 import { useEffect, useState } from "react";
-import { DefaultValues, KeepStateOptions, UnpackNestedValue } from "react-hook-form";
+import { DefaultValues, KeepStateOptions } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import textResources from "../../../assets/text/TextResources";
 import { toast } from "../../../complib/data-display";
 import { useGetNode } from "../../../data/queries/tyle/queriesNode";
 import { UpdateEntity } from "../../../data/types/updateEntity";
-import { FormNodeLib, mapFormNodeLibAmToApiModel, mapNodeLibCmToFormNodeLibAm } from "../types/formNodeLib";
-
-export const aspectOptions = [
-  { value: Aspect.None, label: "None" },
-  { value: Aspect.NotSet, label: "NotSet" },
-  { value: Aspect.Location, label: "Location" },
-  { value: Aspect.Function, label: "Function" },
-  { value: Aspect.Product, label: "Product" },
-];
+import { FormNodeLib, mapFormNodeLibToApiModel, mapNodeLibCmToFormNodeLib } from "../types/formNodeLib";
 
 /**
  * Hook ties together params from react router, node data from react query and react hook form binding
@@ -22,10 +14,7 @@ export const aspectOptions = [
  * @param reset function which takes node data as parameter and populates form
  */
 export const usePrefilledNodeData = (
-  reset: (
-    values?: DefaultValues<FormNodeLib> | UnpackNestedValue<FormNodeLib>,
-    keepStateOptions?: KeepStateOptions
-  ) => void
+  reset: (values?: DefaultValues<FormNodeLib> | FormNodeLib, keepStateOptions?: KeepStateOptions) => void
 ) => {
   const { id } = useParams();
   const nodeQuery = useGetNode(id);
@@ -34,7 +23,7 @@ export const usePrefilledNodeData = (
   useEffect(() => {
     if (!hasPrefilled && nodeQuery.isSuccess) {
       setHasPrefilled(true);
-      reset(mapNodeLibCmToFormNodeLibAm(nodeQuery.data), { keepDefaultValues: false });
+      reset(mapNodeLibCmToFormNodeLib(nodeQuery.data), { keepDefaultValues: false });
     }
   }, [hasPrefilled, nodeQuery.isSuccess, nodeQuery.data, reset]);
 
@@ -53,7 +42,7 @@ export const resetSubform = (resetField: (value: keyof FormNodeLib) => void) => 
 };
 
 export const submitNodeData = (formData: FormNodeLib, mutate: (data: UpdateEntity<NodeLibAm>) => Promise<unknown>) => {
-  const submittable = mapFormNodeLibAmToApiModel(formData);
+  const submittable = mapFormNodeLibToApiModel(formData);
   const submissionPromise = mutate(submittable);
 
   toast.promise(submissionPromise, {

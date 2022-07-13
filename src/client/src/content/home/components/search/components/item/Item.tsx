@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { Box, Flexbox } from "../../../../../../complib/layouts";
+import { Box } from "../../../../../../complib/layouts";
 import { MotionCard } from "../../../../../../complib/surfaces";
+import { ItemActionContainer } from "./Item.styled";
 
 export interface ItemProps {
   isSelected?: boolean;
@@ -26,17 +27,22 @@ export const Item = ({ isSelected, preview, description, actions }: ItemProps) =
   return (
     <MotionCard
       layout
-      variant={isSelected ? "outlined" : "elevated"}
+      variant={isSelected ? "selected" : "filled"}
       {...theme.tyle.animation.fade}
       {...theme.tyle.animation.selectHover}
     >
-      <Flexbox justifyContent={"space-between"} alignItems={"center"} flexWrap={"wrap"} gap={theme.tyle.spacing.xl}>
+      <Box
+        position={"relative"}
+        display={"flex"}
+        justifyContent={"space-between"}
+        alignItems={"start"}
+        flexWrap={"wrap"}
+        gap={theme.tyle.spacing.xxxl}
+      >
         {preview}
         {description}
-        <Box display={"flex"} gap={theme.tyle.spacing.l} ml={"auto"}>
-          {actions}
-        </Box>
-      </Flexbox>
+        <ItemActionContainer>{actions}</ItemActionContainer>
+      </Box>
     </MotionCard>
   );
 };

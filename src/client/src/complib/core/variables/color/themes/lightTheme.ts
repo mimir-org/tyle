@@ -9,6 +9,10 @@ export const lightTheme: ColorTheme = {
   secondary: {
     base: colorReference.secondary[80],
     on: colorReference.secondary[0],
+    container: {
+      base: colorReference.secondary[99],
+      on: colorReference.secondary[0]
+    }
   },
   tertiary: {
     base: colorReference.tertiary[80],
@@ -23,14 +27,18 @@ export const lightTheme: ColorTheme = {
     on: colorReference.error[100],
   },
   outline: {
-    base: colorReference.neutralVariant[50]
+    base: colorReference.neutralVariant[60]
   },
   background: {
     base: colorReference.neutral[99],
-    on: colorReference.neutral[10]
+    on: colorReference.neutral[10],
+    inverse: {
+      base: colorReference.neutral[10],
+      on: colorReference.neutral[99],
+    },
   },
   surface: {
-    base: colorReference.neutral[99],
+    base: colorReference.neutral[95],
     on: colorReference.neutral[10],
     variant: {
       base: colorReference.neutralVariant[90],
@@ -38,7 +46,7 @@ export const lightTheme: ColorTheme = {
     },
     inverse: {
       base: colorReference.neutral[10],
-      on: colorReference.neutral[99],
+      on: colorReference.neutral[95],
     },
     tint: {
       base: colorReference.primary[10]
@@ -46,5 +54,9 @@ export const lightTheme: ColorTheme = {
   },
   shadow: {
     base: colorReference.neutral[0],
+  },
+  pure: {
+    base: colorReference.neutral[100],
+    on: colorReference.neutral[0]
   }
 };

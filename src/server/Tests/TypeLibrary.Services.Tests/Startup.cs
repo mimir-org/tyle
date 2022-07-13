@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using TypeLibrary.Core.Extensions;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 using TypeLibrary.Services.Services;

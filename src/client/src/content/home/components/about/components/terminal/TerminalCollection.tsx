@@ -10,7 +10,7 @@ import { TerminalDescription } from "./TerminalSingle";
 
 interface TerminalCollectionProps {
   terminals: TerminalItem[];
-  variant?: "left" | "right";
+  placement?: "left" | "right";
 }
 
 /**
@@ -20,10 +20,12 @@ interface TerminalCollectionProps {
  * @param variant decides which side the popover should appear
  * @constructor
  */
-export const TerminalCollection = ({ terminals, variant }: TerminalCollectionProps) => {
+export const TerminalCollection = ({ terminals, placement }: TerminalCollectionProps) => {
+  const theme = useTheme();
+
   return (
-    <Popover placement={variant} content={<TerminalCollectionDescription terminals={terminals} />}>
-      <TerminalButton size={30} color={"#6e6e6e"}>
+    <Popover placement={placement} content={<TerminalCollectionDescription terminals={terminals} />}>
+      <TerminalButton variant={"large"} color={theme.tyle.color.ref.primary["40"]}>
         <VisuallyHidden>{TextResources.TERMINAL_OPEN_SUMMARY}</VisuallyHidden>
       </TerminalButton>
     </Popover>
@@ -40,7 +42,7 @@ const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescript
 
   return (
     <Box display={"flex"} gap={theme.tyle.spacing.l} flexDirection={"column"} maxWidth={"250px"}>
-      <Text variant={"title-medium"}>{TextResources.TERMINAL_SUMMARY}</Text>
+      <Text variant={"title-small"}>{TextResources.TERMINAL_SUMMARY}</Text>
       <Box display={"flex"} gap={theme.tyle.spacing.l} flexDirection={"column"} maxHeight={"250px"} overflow={"auto"}>
         {terminals.map((t) => (
           <TerminalDescription key={t.name} name={t.name} amount={t.amount} color={t.color} direction={t.direction} />
@@ -48,8 +50,8 @@ const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescript
       </Box>
       <Divider />
       <Flexbox gap={theme.tyle.spacing.base} justifyContent={"space-between"}>
-        <Text>{TextResources.TERMINAL_TOTAL}:</Text>
-        <Text>{totalTerminalAmount}</Text>
+        <Text variant={"body-medium"}>{TextResources.TERMINAL_TOTAL}:</Text>
+        <Text variant={"body-medium"}>{totalTerminalAmount}</Text>
       </Flexbox>
     </Box>
   );

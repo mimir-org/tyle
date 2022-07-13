@@ -1,9 +1,5 @@
 import { useForm } from "react-hook-form";
-import {
-  createEmptyFormNodeLibAm,
-  FormNodeLib,
-  mapFormNodeLibAmToApiModel,
-} from "../../content/forms/types/formNodeLib";
+import { createEmptyFormNodeLib, FormNodeLib, mapFormNodeLibToApiModel } from "../../content/forms/types/formNodeLib";
 import { getValidationStateFromServer } from "../../data/helpers/getValidationStateFromServer";
 import { useCreateNode } from "../../data/queries/tyle/queriesNode";
 import { useValidationFromServer } from "../../hooks/useValidationFromServer";
@@ -18,7 +14,7 @@ interface Props {
  * @param defaultValues
  * @constructor
  */
-export const CreateOrEditNodeFormWithMutation = ({ defaultValues = createEmptyFormNodeLibAm() }: Props) => {
+export const CreateOrEditNodeFormWithMutation = ({ defaultValues = createEmptyFormNodeLib() }: Props) => {
   const {
     register,
     handleSubmit,
@@ -42,7 +38,7 @@ export const CreateOrEditNodeFormWithMutation = ({ defaultValues = createEmptyFo
       <h2>Submission form</h2>
       <form
         style={{ display: "flex", flexDirection: "column", gap: "10px", width: "500px", maxWidth: "500px" }}
-        onSubmit={handleSubmit((data) => mutation.mutate(mapFormNodeLibAmToApiModel(data)))}
+        onSubmit={handleSubmit((data) => mutation.mutate(mapFormNodeLibToApiModel(data)))}
       >
         <input placeholder="enter name" {...register("name")} />
         <p>Error field: {errors.name && errors.name.message}</p>

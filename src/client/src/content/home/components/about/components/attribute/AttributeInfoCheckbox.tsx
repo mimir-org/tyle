@@ -1,9 +1,9 @@
 import { Tooltip } from "../../../../../../complib/data-display";
+import { TokenCheckbox, TokenCheckboxProps } from "../../../../../../complib/general";
 import { AttributeItem } from "../../../../types/AttributeItem";
-import { AttributeCheckbox, AttributeCheckboxProps } from "./AttributeCheckbox";
 import { AttributeDescription } from "./AttributeDescription";
 
-type AttributeSingleCheckboxProps = AttributeCheckboxProps & Omit<AttributeItem, "id">;
+type AttributeSingleCheckboxProps = TokenCheckboxProps & Omit<AttributeItem, "id">;
 
 /**
  * Component which shows a single attribute for a given entity in addition to its description in a popover.
@@ -16,6 +16,8 @@ type AttributeSingleCheckboxProps = AttributeCheckboxProps & Omit<AttributeItem,
  */
 export const AttributeInfoCheckbox = ({ name, traits, ...delegated }: AttributeSingleCheckboxProps) => (
   <Tooltip content={<AttributeDescription name={name} traits={traits} />}>
-    <AttributeCheckbox {...delegated}>{name}</AttributeCheckbox>
+    <TokenCheckbox variant={"secondary"} {...delegated}>
+      {name}
+    </TokenCheckbox>
   </Tooltip>
 );

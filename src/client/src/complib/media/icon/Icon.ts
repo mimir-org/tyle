@@ -1,20 +1,25 @@
-import styled from "styled-components";
 import { motion } from "framer-motion";
+import { ImgHTMLAttributes } from "react";
+import styled from "styled-components";
+import { sizingMixin } from "../../mixins";
+import { Sizing } from "../../props";
 
-interface Props {
-  size?: number;
-}
+export type IconProps = ImgHTMLAttributes<HTMLImageElement> &
+  Sizing & {
+    size?: number;
+  };
 
 /**
  * A simple wrapper over the img-tag
  * Has a default width and height of 1em
  * @param size sets height and width of icon
  */
-export const Icon = styled.img<Props>`
+export const Icon = styled.img<IconProps>`
   display: inline-block;
   width: ${(props) => (props.size ? `${props.size}px` : "1em")};
   height: ${(props) => (props.size ? `${props.size}px` : "1em")};
   line-height: 1;
+  ${sizingMixin};
 `;
 
 /**

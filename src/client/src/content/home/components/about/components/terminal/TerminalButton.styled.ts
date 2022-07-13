@@ -1,26 +1,19 @@
-import { Plus, SwitchHorizontal } from "@styled-icons/heroicons-outline";
-import { ButtonHTMLAttributes } from "react";
+import { meetsContrastGuidelines } from "polished";
 import styled, { css } from "styled-components/macro";
-import { layer, translucify } from "../../../../../../complib/mixins";
+import { focus, layer, translucify } from "../../../../../../complib/mixins";
+import { TerminalButtonProps } from "./TerminalButton";
 
-export type TerminalButtonContainerProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  color: string;
-  size?: number;
-};
-
-export const TerminalButtonContainer = styled.button<TerminalButtonContainerProps>`
+export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
   flex-shrink: 0;
   position: relative;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  gap: ${(props) => props.theme.tyle.spacing.s};
   white-space: nowrap;
   text-decoration: none;
-  padding: ${(props) => props.theme.tyle.spacing.s};
+  padding: ${(props) => props.theme.tyle.spacing.xs};
   
-  width: ${(props) => `${props.size}px`};
-  height: ${(props) => `${props.size}px`};
+  border-radius: ${(props) => props.theme.tyle.border.radius.small};
 
   font: ${(props) => props.theme.tyle.typography.sys.roles.label.large.font};
   line-height: ${(props) => props.theme.tyle.typography.sys.roles.label.large.lineHeight};
@@ -34,13 +27,50 @@ export const TerminalButtonContainer = styled.button<TerminalButtonContainerProp
     cursor: not-allowed;
   }
 
+  path {
+    stroke-width: 3;
+  }
+
+  ${focus};
+
+  ${({ variant, ...props }) => {
+    switch (variant) {
+      case "small": {
+        return css`
+          width: 15px;
+          height: 15px;
+        `;
+      }
+      case "medium": {
+        return css`
+          width: 18px;
+          height: 18px;
+        `;
+      }
+      case "large": {
+        return css`
+          width: 30px;
+          height: 30px;
+          padding: ${props.theme.tyle.spacing.s};
+
+          path {
+            stroke-width: 2;
+          }
+        `;
+      }
+    }
+  }};
+
   ${({ color, ...props }) => {
     const { color: colorSystem, state, elevation } = props.theme.tyle;
+    const contentColor = meetsContrastGuidelines(colorSystem.sys.background.on, color).AAA
+      ? colorSystem.sys.background.on
+      : colorSystem.sys.background.inverse.on;
 
     return css`
       border: 0;
       background-color: ${color};
-      color: #ffffff;
+      color: ${contentColor};
 
       :disabled {
         background-color: ${translucify(colorSystem.sys.surface.on, state.disabled.container.opacity)};
@@ -69,17 +99,5 @@ export const TerminalButtonContainer = styled.button<TerminalButtonContainerProp
 `;
 
 TerminalButtonContainer.defaultProps = {
-  size: 25,
+  variant: "medium",
 };
-
-export const ThickPlus = styled(Plus)`
-  path {
-    stroke-width: 3;
-  }
-`;
-
-export const ThickSwitchHorizontal = styled(SwitchHorizontal)`
-  path {
-    stroke-width: 3;
-  }
-`;

@@ -1,6 +1,6 @@
 import { useTheme } from "styled-components";
 import textResources from "../../../../../../assets/text/TextResources";
-import { Token } from "../../../../../../complib/general/token/Token";
+import { Token } from "../../../../../../complib/general";
 import { Box, Flexbox, MotionBox } from "../../../../../../complib/layouts";
 import { Heading, Text } from "../../../../../../complib/text";
 import { AttributeItem } from "../../../../types/AttributeItem";
@@ -33,21 +33,23 @@ export const NodePanel = ({ name, description, img, color, tokens, terminals, at
       flex={1}
       display={"flex"}
       flexDirection={"column"}
-      gap={theme.tyle.spacing.xxl}
+      gap={theme.tyle.spacing.xxxl}
       maxHeight={"100%"}
       overflow={"hidden"}
       {...theme.tyle.animation.fade}
     >
-      <NodePreview color={color} img={img} terminals={terminals} />
+      <NodePreview variant={"large"} name={name} color={color} img={img} terminals={terminals} />
 
-      <Heading as={"h2"} variant={"headline-medium"} useEllipsis ellipsisMaxLines={2}>
-        {name}
-      </Heading>
-      <Text useEllipsis ellipsisMaxLines={5}>
-        {description}
-      </Text>
+      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xl}>
+        <Heading as={"h2"} variant={"title-large"} fontWeight={"500"} useEllipsis ellipsisMaxLines={2}>
+          {name}
+        </Heading>
+        <Text useEllipsis ellipsisMaxLines={8}>
+          {description}
+        </Text>
+      </Flexbox>
       <Flexbox gap={theme.tyle.spacing.xl} flexWrap={"wrap"}>
-        {tokens && tokens.map((t, i) => <Token key={i} text={t} />)}
+        {tokens && tokens.map((t, i) => <Token key={i}>{t}</Token>)}
       </Flexbox>
 
       <NodePanelPropertiesContainer>
@@ -63,7 +65,7 @@ const NodePanelAttributes = ({ attributes }: { attributes: AttributeItem[] }) =>
 
   return (
     <>
-      <Heading as={"h3"} variant={"headline-small"}>
+      <Heading as={"h3"} variant={"body-large"} color={theme.tyle.color.sys.surface.on}>
         {textResources.ATTRIBUTE_TITLE}
       </Heading>
       <Box display={"flex"} gap={theme.tyle.spacing.xl} flexWrap={"wrap"}>
@@ -73,11 +75,15 @@ const NodePanelAttributes = ({ attributes }: { attributes: AttributeItem[] }) =>
   );
 };
 
-const NodePanelTerminals = ({ terminals }: { terminals: TerminalItem[] }) => (
-  <>
-    <Heading as={"h3"} variant={"headline-small"}>
-      {textResources.TERMINAL_TITLE}
-    </Heading>
-    <TerminalTable terminals={terminals} />
-  </>
-);
+const NodePanelTerminals = ({ terminals }: { terminals: TerminalItem[] }) => {
+  const theme = useTheme();
+
+  return (
+    <>
+      <Heading as={"h3"} variant={"body-large"} color={theme.tyle.color.sys.surface.on}>
+        {textResources.TERMINAL_TITLE}
+      </Heading>
+      <TerminalTable terminals={terminals} />
+    </>
+  );
+};

@@ -1,8 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Select } from "./Select";
+import { LibraryIcon } from "../../../assets/icons/modules";
+import { Flexbox } from "../../layouts";
 import { Icon } from "../../media";
 import { Text } from "../../text";
-import { Flexbox } from "../../layouts";
+import { Select } from "./Select";
 
 const mockData = [
   { label: "Item A", value: "Value A" },
@@ -31,7 +32,7 @@ export const WithComponentOptions = () => (
     getOptionValue={(x) => x.value}
     formatOptionLabel={(x) => (
       <Flexbox alignItems={"center"} gap={"8px"}>
-        <Icon src={"static/media/src/assets/icons/modules/library.svg"} />
+        <Icon src={LibraryIcon} />
         <Text>{x.label}</Text>
       </Flexbox>
     )}

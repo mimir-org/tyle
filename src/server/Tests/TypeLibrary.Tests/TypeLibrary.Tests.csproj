@@ -8,7 +8,8 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.6" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.6" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.6" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
         <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
@@ -23,6 +24,8 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\TypeLibrary.Api\TypeLibrary.Api.csproj" />
+        <ProjectReference Include="..\..\TypeLibrary.Data\TypeLibrary.Data.csproj" />
+        <ProjectReference Include="..\..\TypeLibrary.Services\TypeLibrary.Services.csproj" />
     </ItemGroup>
 
     <ItemGroup>
