@@ -73,7 +73,7 @@ export const NodeFormTerminalTable = ({ control }: NodeFormTerminalsProps) => {
             const targetTerminal = terminalQuery.data?.find((x) => x.id === terminalFields.fields[index].terminalId);
 
             return (
-              <Tr key={index}>
+              <Tr key={field.id}>
                 <Td data-label={textResources.TERMINAL_TABLE_NAME}>
                   <Controller
                     control={control}
