@@ -5,6 +5,6 @@ namespace TypeLibrary.Data.Contracts.Ef
 {
     public interface IEfAttributePredefinedRepository : IGenericRepository<TypeLibraryDbContext, AttributePredefinedLibDm>, IAttributePredefinedRepository
     {
-        
+
     }
 }

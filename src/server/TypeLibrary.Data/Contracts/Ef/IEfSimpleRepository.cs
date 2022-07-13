@@ -5,6 +5,6 @@ namespace TypeLibrary.Data.Contracts.Ef
 {
     public interface IEfSimpleRepository : IGenericRepository<TypeLibraryDbContext, SimpleLibDm>, ISimpleRepository
     {
-        
+
     }
 }
