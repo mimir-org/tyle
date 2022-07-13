@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { TerminalButton } from "./TerminalButton";
 
 export default {
-  title: "Content/Home/About/Terminal/TerminalButton",
+  title: "Content/Common/Terminal/TerminalButton",
   component: TerminalButton,
   args: {
     color: "grey",

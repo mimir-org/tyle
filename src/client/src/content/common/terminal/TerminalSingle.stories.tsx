@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { TerminalSingle } from "./TerminalSingle";
 
 export default {
-  title: "Content/Home/About/Terminal/TerminalSingle",
+  title: "Content/Common/Terminal/TerminalSingle",
   component: TerminalSingle,
   args: {
     name: "Example",

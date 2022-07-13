@@ -1,12 +1,12 @@
 import { ArrowLeft, ArrowRight, SwitchHorizontal } from "@styled-icons/heroicons-outline";
 import { useTheme } from "styled-components";
-import textResources from "../../../../../../assets/text/TextResources";
-import { Table, Tbody, Td, Th, Thead, Tr } from "../../../../../../complib/data-display";
-import { Box, Flexbox } from "../../../../../../complib/layouts";
-import { Text } from "../../../../../../complib/text";
-import { useMediaQuery } from "../../../../../../hooks/useMediaQuery";
-import { AttributeInfoButton } from "../../../../../common/attribute";
-import { TerminalItem } from "../../../../types/TerminalItem";
+import textResources from "../../../assets/text/TextResources";
+import { Table, Tbody, Td, Th, Thead, Tr } from "../../../complib/data-display";
+import { Box, Flexbox } from "../../../complib/layouts";
+import { Text } from "../../../complib/text";
+import { useMediaQuery } from "../../../hooks/useMediaQuery";
+import { TerminalItem } from "../../home/types/TerminalItem";
+import { AttributeInfoButton } from "../attribute";
 import { TerminalButton } from "./TerminalButton";
 
 interface TerminalTableProps {

@@ -1,7 +1,6 @@
 import { Box } from "../../../../../../complib/layouts";
+import { TerminalButtonVariant, Terminals } from "../../../../../common/terminal";
 import { TerminalItem } from "../../../../types/TerminalItem";
-import { TerminalButtonVariant } from "../terminal/TerminalButton";
-import { Terminals } from "../terminal/Terminals";
 import { Node, NodeVariant } from "./Node";
 import { meetsInputCriteria, meetsOutputCriteria } from "./NodePreview.helpers";
 

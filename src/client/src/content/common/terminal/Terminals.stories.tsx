@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Terminals } from "./Terminals";
 
 export default {
-  title: "Content/Home/About/Terminal/Terminals",
+  title: "Content/Common/Terminal/Terminals",
   component: Terminals,
   args: {
     showCollectionLimit: 5,

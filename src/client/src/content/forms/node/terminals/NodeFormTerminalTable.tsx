@@ -14,7 +14,7 @@ import { createEmptyNodeTerminalLibAm } from "../../../../models/tyle/applicatio
 import { getValueLabelObjectsFromEnum } from "../../../../utils/getValueLabelObjectsFromEnum";
 import { mapAttributeLibCmToAttributeItem } from "../../../../utils/mappers";
 import { AttributeInfoButton } from "../../../common/attribute";
-import { TerminalButton } from "../../../home/components/about/components/terminal/TerminalButton";
+import { TerminalButton } from "../../../common/terminal";
 import { FormNodeLib } from "../../types/formNodeLib";
 import { NodeFormSection } from "../NodeFormSection";
 import { onTerminalAmountChange } from "./NodeFormTerminalTable.helpers";
