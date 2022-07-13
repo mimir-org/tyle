@@ -43,15 +43,14 @@ namespace TypeLibrary.Data.Repositories.Ef
         {
             return await FindBy(x => x.Id == id)
                 .Include(x => x.Attributes)
-                .Include("AttributeIdList.Units")
+                    .ThenInclude(x => x.Units)
                 .Include(x => x.NodeTerminals)
-                .Include("TerminalNodes.Terminal")
-                .Include("TerminalNodes.Terminal.TerminalCategory")
-                .Include("TerminalNodes.Terminal.AttributeIdList")
-                .Include("TerminalNodes.Terminal.AttributeIdList.Units")
+                    .ThenInclude(x => x.Terminal)
+                    .ThenInclude(x => x.Attributes)
+                    .ThenInclude(x => x.Units)
                 .Include(x => x.Simples)
-                .Include("SimpleTypes.AttributeIdList")
-                .Include("SimpleTypes.AttributeIdList.Units")
+                    .ThenInclude(x => x.Attributes)
+                    .ThenInclude(x => x.Units)
                 .AsSplitQuery()
                 .FirstOrDefaultAsync();
         }
