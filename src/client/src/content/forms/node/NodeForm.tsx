@@ -17,9 +17,10 @@ import { useGetPurposes } from "../../../data/queries/tyle/queriesPurpose";
 import { useGetRds } from "../../../data/queries/tyle/queriesRds";
 import { useGetSymbols } from "../../../data/queries/tyle/queriesSymbol";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
+import { getValueLabelObjectsFromEnum } from "../../../utils/getValueLabelObjectsFromEnum";
 import { PlainLink } from "../../utils/PlainLink";
 import { createEmptyFormNodeLib, FormNodeLib } from "../types/formNodeLib";
-import { aspectOptions, resetSubform, submitNodeData, usePrefilledNodeData } from "./NodeForm.helpers";
+import { resetSubform, submitNodeData, usePrefilledNodeData } from "./NodeForm.helpers";
 import { NodeFormPreview } from "./NodeFormPreview";
 import { FunctionNode, LocationNode, ProductNode } from "./variants";
 
@@ -36,6 +37,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
   const symbolQuery = useGetSymbols();
   const purposeQuery = useGetPurposes();
   const companyQuery = useGetCompanies();
+  const aspectOptions = getValueLabelObjectsFromEnum<Aspect>(Aspect);
 
   const aspect = useWatch({ control, name: "aspect" });
 
