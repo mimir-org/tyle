@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { AttributeInfoCheckbox } from "./AttributeInfoCheckbox";
 
 export default {
-  title: "Content/Home/About/Attribute/AttributeInfoCheckbox",
+  title: "Content/Common/Attribute/AttributeInfoCheckbox",
   component: AttributeInfoCheckbox,
   args: {
     name: "Pressure, absolute",

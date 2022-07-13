@@ -1,6 +1,6 @@
-import { Tooltip } from "../../../../../../complib/data-display";
-import { TokenCheckbox, TokenCheckboxProps } from "../../../../../../complib/general";
-import { AttributeItem } from "../../../../types/AttributeItem";
+import { Tooltip } from "../../../complib/data-display";
+import { TokenCheckbox, TokenCheckboxProps } from "../../../complib/general";
+import { AttributeItem } from "../../home/types/AttributeItem";
 import { AttributeDescription } from "./AttributeDescription";
 
 type AttributeSingleCheckboxProps = TokenCheckboxProps & Omit<AttributeItem, "id">;

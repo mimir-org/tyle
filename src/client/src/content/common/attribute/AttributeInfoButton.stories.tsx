@@ -1,9 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { LibraryIcon } from "../../../../../../assets/icons/modules";
+import { LibraryIcon } from "../../../assets/icons/modules";
 import { AttributeInfoButton } from "./AttributeInfoButton";
 
 export default {
-  title: "Content/Home/About/Attribute/AttributeInfoButton",
+  title: "Content/Common/Attribute/AttributeInfoButton",
   component: AttributeInfoButton,
 } as ComponentMeta<typeof AttributeInfoButton>;
 

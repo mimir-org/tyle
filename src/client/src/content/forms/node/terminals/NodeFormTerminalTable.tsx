@@ -13,7 +13,7 @@ import { useMediaQuery } from "../../../../hooks/useMediaQuery";
 import { createEmptyNodeTerminalLibAm } from "../../../../models/tyle/application/nodeTerminalLibAm";
 import { getValueLabelObjectsFromEnum } from "../../../../utils/getValueLabelObjectsFromEnum";
 import { mapAttributeLibCmToAttributeItem } from "../../../../utils/mappers";
-import { AttributeInfoButton } from "../../../home/components/about/components/attribute/AttributeInfoButton";
+import { AttributeInfoButton } from "../../../common/attribute";
 import { TerminalButton } from "../../../home/components/about/components/terminal/TerminalButton";
 import { FormNodeLib } from "../../types/formNodeLib";
 import { NodeFormSection } from "../NodeFormSection";

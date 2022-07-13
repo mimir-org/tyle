@@ -1,8 +1,8 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Button } from "../../../complib/buttons";
 import { Flexbox } from "../../../complib/layouts";
-import { AttributeInfoButtonProps } from "../../home/components/about/components/attribute/AttributeInfoButton";
-import { Default as AttributeInfoButton } from "../../home/components/about/components/attribute/AttributeInfoButton.stories";
+import { AttributeInfoButtonProps } from "../../common/attribute/AttributeInfoButton";
+import { Default as AttributeInfoButton } from "../../common/attribute/AttributeInfoButton.stories";
 import { NodeFormSection } from "./NodeFormSection";
 
 export default {

@@ -1,6 +1,6 @@
 import { Ref, useState } from "react";
-import { Popover } from "../../../../../../complib/data-display";
-import { TokenButton, TokenButtonProps } from "../../../../../../complib/general";
+import { Popover } from "../../../complib/data-display";
+import { TokenButton, TokenButtonProps } from "../../../complib/general";
 import { AttributeDescription, AttributeDescriptionProps } from "./AttributeDescription";
 
 export type AttributeInfoButtonProps = TokenButtonProps &

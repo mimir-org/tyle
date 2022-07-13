@@ -6,7 +6,7 @@ import { TextResources } from "../../../../assets/text";
 import textResources from "../../../../assets/text/TextResources";
 import { Flexbox } from "../../../../complib/layouts";
 import { useGetAttributes } from "../../../../data/queries/tyle/queriesAttribute";
-import { AttributeInfoButton } from "../../../home/components/about/components/attribute/AttributeInfoButton";
+import { AttributeInfoButton } from "../../../common/attribute";
 import { FormNodeLib } from "../../types/formNodeLib";
 import { NodeFormSection } from "../NodeFormSection";
 import { getAttributeItems, onAddAttributes, prepareAttributes } from "./NodeFormAttributes.helpers";
