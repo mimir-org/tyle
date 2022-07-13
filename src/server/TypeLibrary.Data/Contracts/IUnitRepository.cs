@@ -9,5 +9,7 @@ namespace TypeLibrary.Data.Contracts
         IEnumerable<UnitLibDm> Get();
         Task Create(List<UnitLibDm> dataDm);
         void ClearAllChangeTrackers();
+        void SetUnchanged(ICollection<UnitLibDm> items);
+        void SetDetached(ICollection<UnitLibDm> items);
     }
 }

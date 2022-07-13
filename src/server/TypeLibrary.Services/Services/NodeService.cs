@@ -4,11 +4,9 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
-using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
@@ -142,7 +140,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<bool> Delete(string id)
         {
-            return await _nodeRepository.Delete(id);
+            return await _nodeRepository.Remove(id);
         }
 
         public async Task<bool> CompanyIsChanged(string nodeId, int companyId)

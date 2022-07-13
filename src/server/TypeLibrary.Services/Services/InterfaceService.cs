@@ -55,9 +55,9 @@ namespace TypeLibrary.Services.Services
 
         public async Task<IEnumerable<InterfaceLibCm>> GetLatestVersions()
         {
-            var distinctFirstVersionIdDm = _interfaceRepository.Get()?.ToList().DistinctBy(x => x.FirstVersionId).ToList();
+            var distinctFirstVersionIdDm = _interfaceRepository.Get().Where(x => !x.Deleted).ToList().DistinctBy(x => x.FirstVersionId).ToList();
 
-            if (distinctFirstVersionIdDm == null || !distinctFirstVersionIdDm.Any())
+            if (!distinctFirstVersionIdDm.Any())
                 return await Task.FromResult(new List<InterfaceLibCm>());
 
             var interfaces = new List<InterfaceLibDm>();
@@ -143,7 +143,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<bool> Delete(string id)
         {
-            return await _interfaceRepository.Delete(id);
+            return await _interfaceRepository.Remove(id);
         }
 
         public async Task<bool> CompanyIsChanged(string interfaceId, int companyId)

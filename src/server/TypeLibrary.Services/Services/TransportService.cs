@@ -169,7 +169,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<bool> Delete(string id)
         {
-            return await _transportRepository.Delete(id);
+            return await _transportRepository.Remove(id);
         }
 
         public async Task<bool> CompanyIsChanged(string transportId, int companyId)

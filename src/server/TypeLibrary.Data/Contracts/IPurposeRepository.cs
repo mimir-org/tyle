@@ -8,5 +8,8 @@ namespace TypeLibrary.Data.Contracts
     {
         IEnumerable<PurposeLibDm> Get();
         Task Create(List<PurposeLibDm> dataDm);
+        void SetAdded(ICollection<PurposeLibDm> items);
+        void SetDetached(ICollection<PurposeLibDm> items);
+        void ClearAllChangeTrackers();
     }
 }

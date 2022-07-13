@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using TypeLibrary.Data.Models;
 
-namespace TypeLibrary.Data.Contracts
+namespace TypeLibrary.Data.Contracts.Factories
 {
     public interface IUnitFactory
     {

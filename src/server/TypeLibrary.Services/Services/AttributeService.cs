@@ -24,8 +24,10 @@ namespace TypeLibrary.Services.Services
         private readonly IAttributeSourceRepository _attributeSourceRepository;
         private readonly IAttributeFormatRepository _attributeFormatRepository;
         private readonly IAttributeConditionRepository _attributeConditionRepository;
+        private readonly IAttributePredefinedRepository _attributePredefinedRepository;
+        private readonly IAttributeAspectRepository _attributeAspectRepository;
 
-        public AttributeService(IMapper mapper, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings, IAttributeQualifierRepository attributeQualifierRepository, IAttributeSourceRepository attributeSourceRepository, IAttributeFormatRepository attributeFormatRepository, IAttributeConditionRepository attributeConditionRepository)
+        public AttributeService(IMapper mapper, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings, IAttributeQualifierRepository attributeQualifierRepository, IAttributeSourceRepository attributeSourceRepository, IAttributeFormatRepository attributeFormatRepository, IAttributeConditionRepository attributeConditionRepository, IAttributePredefinedRepository attributePredefinedRepository, IAttributeAspectRepository attributeAspectRepository)
         {
             _mapper = mapper;
             _attributeRepository = attributeRepository;
@@ -33,6 +35,8 @@ namespace TypeLibrary.Services.Services
             _attributeSourceRepository = attributeSourceRepository;
             _attributeFormatRepository = attributeFormatRepository;
             _attributeConditionRepository = attributeConditionRepository;
+            _attributePredefinedRepository = attributePredefinedRepository;
+            _attributeAspectRepository = attributeAspectRepository;
             _applicationSettings = applicationSettings?.Value;
         }
 
@@ -89,7 +93,7 @@ namespace TypeLibrary.Services.Services
         /// <returns>List of AttributePredefinedLibCm</returns>
         public IEnumerable<AttributePredefinedLibCm> GetPredefined()
         {
-            var attributes = _attributeRepository.GetPredefined().ToList()
+            var attributes = _attributePredefinedRepository.GetPredefined().ToList()
                 .OrderBy(x => x.Aspect).ThenBy(x => x.Key, StringComparer.InvariantCultureIgnoreCase).ToList();
 
             return _mapper.Map<List<AttributePredefinedLibCm>>(attributes);
@@ -107,7 +111,7 @@ namespace TypeLibrary.Services.Services
                 return;
 
             var data = _mapper.Map<List<AttributePredefinedLibDm>>(predefined);
-            var existing = _attributeRepository.GetPredefined().ToList();
+            var existing = _attributePredefinedRepository.GetPredefined().ToList();
             var notExisting = data.Exclude(existing, x => x.Key).ToList();
 
             if (!notExisting.Any())
@@ -116,7 +120,7 @@ namespace TypeLibrary.Services.Services
             foreach (var attribute in notExisting)
             {
                 attribute.CreatedBy = createdBySystem ? _applicationSettings.System : attribute.CreatedBy;
-                await _attributeRepository.CreatePredefined(attribute);
+                await _attributePredefinedRepository.CreatePredefined(attribute);
             }
         }
 
@@ -126,7 +130,7 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<AttributeAspectLibCm>> GetAspects()
         {
-            var allAspects = _attributeRepository.GetAspects().ToList();
+            var allAspects = _attributeAspectRepository.GetAspects().ToList();
             var aspects = allAspects.Where(x => x.ParentId != null).ToList();
             var topParents = allAspects.Where(x => x.ParentId == null).OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
@@ -150,7 +154,7 @@ namespace TypeLibrary.Services.Services
                 return;
 
             var data = _mapper.Map<List<AttributeAspectLibDm>>(aspects);
-            var existing = _attributeRepository.GetAspects().ToList();
+            var existing = _attributeAspectRepository.GetAspects().ToList();
             var notExisting = data.Exclude(existing, x => x.Id).ToList();
 
             if (!notExisting.Any())
@@ -159,7 +163,7 @@ namespace TypeLibrary.Services.Services
             foreach (var aspect in notExisting)
             {
                 aspect.CreatedBy = createdBySystem ? _applicationSettings.System : aspect.CreatedBy;
-                await _attributeRepository.CreateAspect(aspect);
+                await _attributeAspectRepository.CreateAspect(aspect);
             }
         }
 

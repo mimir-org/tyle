@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
+using TypeLibrary.Data.Contracts.Factories;
 using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Factories

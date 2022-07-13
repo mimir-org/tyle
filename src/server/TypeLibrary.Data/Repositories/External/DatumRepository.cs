@@ -174,6 +174,8 @@ namespace TypeLibrary.Data.Repositories.External
 
         #endregion
 
+        #region Formats
+
         public IEnumerable<AttributeFormatLibDm> GetFormats()
         {
             var formats = new List<AttributeFormatLibDm>
@@ -251,5 +253,7 @@ namespace TypeLibrary.Data.Repositories.External
         {
             throw new System.NotImplementedException();
         }
+
+        #endregion
     }
 }

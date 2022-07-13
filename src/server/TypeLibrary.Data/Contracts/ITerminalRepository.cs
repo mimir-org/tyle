@@ -7,8 +7,11 @@ namespace TypeLibrary.Data.Contracts
     public interface ITerminalRepository
     {
         IEnumerable<TerminalLibDm> Get();
-        Task Create(List<TerminalLibDm> dataDm);
+        Task Create(List<TerminalLibDm> items);
+        Task<TerminalLibDm> Create(TerminalLibDm terminal);
         IEnumerable<TerminalLibDm> GetVersions(string firstVersionId);
         void ClearAllChangeTrackers();
+        void SetUnchanged(ICollection<TerminalLibDm> items);
+        void SetDetached(ICollection<TerminalLibDm> items);
     }
 }

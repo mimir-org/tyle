@@ -4,7 +4,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using TypeLibrary.Data.Contracts;
 
-namespace TypeLibrary.Data.Repositories
+namespace TypeLibrary.Data.Repositories.Application
 {
     public class JsonFileRepository : IFileRepository
     {

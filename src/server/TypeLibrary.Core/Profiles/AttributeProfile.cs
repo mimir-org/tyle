@@ -7,6 +7,7 @@ using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Factories;
 using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Core.Profiles

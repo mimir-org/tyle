@@ -3,7 +3,7 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts.Ef
 {
-    public interface IEfRdsRepository : IGenericRepository<TypeLibraryDbContext, RdsLibDm>
+    public interface IEfRdsRepository : IGenericRepository<TypeLibraryDbContext, RdsLibDm>, IRdsRepository
     {
     }
 }
