@@ -11,6 +11,7 @@ using Mimirorg.Common.Models;
 using TypeLibrary.Core.Profiles;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Factories;
 
 namespace TypeLibrary.Core.Extensions
 {

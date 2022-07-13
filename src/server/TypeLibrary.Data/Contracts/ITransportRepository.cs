@@ -9,7 +9,7 @@ namespace TypeLibrary.Data.Contracts
         IEnumerable<TransportLibDm> Get();
         Task<TransportLibDm> Get(string id);
         Task Create(TransportLibDm dataDm);
-        Task<bool> Delete(string id);
+        Task<bool> Remove(string id);
         void ClearAllChangeTrackers();
     }
 }

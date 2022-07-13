@@ -9,7 +9,7 @@ namespace TypeLibrary.Data.Contracts
         IEnumerable<InterfaceLibDm> Get();
         Task<InterfaceLibDm> Get(string id);
         Task Create(InterfaceLibDm dataDm);
-        Task<bool> Delete(string id);
+        Task<bool> Remove(string id);
         void ClearAllChangeTrackers();
     }
 }

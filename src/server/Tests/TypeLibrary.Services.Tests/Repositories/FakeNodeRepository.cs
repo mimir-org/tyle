@@ -1,59 +1,75 @@
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Mimirorg.Common.Abstract;
-using Mimirorg.TypeLibrary.Enums;
-using TypeLibrary.Data;
-using TypeLibrary.Data.Contracts.Ef;
+using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Services.Tests.Repositories
 {
-    public sealed class FakeNodeRepository : GenericRepository<TypeLibraryDbContext, NodeLibDm>, IEfNodeRepository
+    public class FakeNodeRepository : INodeRepository
     {
-        public FakeNodeRepository(TypeLibraryDbContext dbContext) : base(dbContext)
-        {
-            // Add some test data
-            var a = new NodeLibDm
-            {
-                Id = "Fake_Node_A",
-                FirstVersionId = "Fake_Node_A",
-                Name = "Pump",
-                RdsCode = "Fake_Rds",
-                PurposeName = "Fake_Purpose",
-                Aspect = Aspect.Function,
-                Version = "1.0",
-                Created = DateTime.Now,
-                CreatedBy = "Test Tester"
-            };
+        //public FakeNodeRepository(TypeLibraryDbContext dbContext) : base(dbContext)
+        //{
+        //    // Add some test data
+        //    var a = new NodeLibDm
+        //    {
+        //        Id = "Fake_Node_A",
+        //        FirstVersionId = "Fake_Node_A",
+        //        Name = "Pump",
+        //        RdsCode = "Fake_Rds",
+        //        PurposeName = "Fake_Purpose",
+        //        Aspect = Aspect.Function,
+        //        Version = "1.0",
+        //        Created = DateTime.Now,
+        //        CreatedBy = "Test Tester"
+        //    };
 
-            Context.Add(a);
-            Context.SaveChanges();
-            Detach(a);
+        //    Context.Add(a);
+        //    Context.SaveChanges();
+        //    Detach(a);
+        //}
+
+        //public IQueryable<NodeLibDm> GetAllNodes()
+        //{
+        //    return GetAll()
+        //        .Include(x => x.Parent)
+        //        .Include(x => x.NodeTerminals)
+        //        .Include(x => x.Attributes)
+        //        .Include(x => x.Simples);
+        //}
+
+        //public IQueryable<NodeLibDm> FindNode(string id)
+        //{
+        //    return FindBy(x => x.Id == id)
+        //        .Include(x => x.Parent)
+        //        .Include(x => x.NodeTerminals)
+        //        .Include(x => x.Attributes)
+        //        .Include(x => x.Simples);
+        //}
+
+        public IEnumerable<NodeLibDm> Get()
+        {
+            throw new NotImplementedException();
         }
 
-        public async Task<NodeLibDm> Get(string id)
+        public Task<NodeLibDm> Get(string id)
         {
-            return await GetAsync(id);
+            throw new NotImplementedException();
         }
 
-        public IQueryable<NodeLibDm> GetAllNodes()
+        public Task<NodeLibDm> Create(NodeLibDm node)
         {
-            return GetAll()
-                .Include(x => x.Parent)
-                .Include(x => x.NodeTerminals)
-                .Include(x => x.Attributes)
-                .Include(x => x.Simples);
+            throw new NotImplementedException();
         }
 
-        public IQueryable<NodeLibDm> FindNode(string id)
+        public Task<bool> Remove(string id)
         {
-            return FindBy(x => x.Id == id)
-                .Include(x => x.Parent)
-                .Include(x => x.NodeTerminals)
-                .Include(x => x.Attributes)
-                .Include(x => x.Simples);
+            throw new NotImplementedException();
+        }
+
+        public void ClearAllChangeTrackers()
+        {
+            throw new NotImplementedException();
         }
     }
 }

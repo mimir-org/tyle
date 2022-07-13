@@ -1,14 +1,10 @@
-using System.Linq;
-using System.Threading.Tasks;
 using Mimirorg.Common.Abstract;
 using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts.Ef
 {
-    public interface IEfNodeRepository : IGenericRepository<TypeLibraryDbContext, NodeLibDm>
+    public interface IEfNodeRepository : IGenericRepository<TypeLibraryDbContext, NodeLibDm>, INodeRepository
     {
-        Task<NodeLibDm> Get(string id);
-        IQueryable<NodeLibDm> GetAllNodes();
-        IQueryable<NodeLibDm> FindNode(string id);
+
     }
 }

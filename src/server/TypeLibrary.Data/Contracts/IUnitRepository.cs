@@ -7,7 +7,9 @@ namespace TypeLibrary.Data.Contracts
     public interface IUnitRepository
     {
         IEnumerable<UnitLibDm> Get();
-        Task Create(List<UnitLibDm> dataDm);
+        Task Create(List<UnitLibDm> units);
         void ClearAllChangeTrackers();
+        void SetUnchanged(ICollection<UnitLibDm> items);
+        void SetDetached(ICollection<UnitLibDm> items);
     }
 }

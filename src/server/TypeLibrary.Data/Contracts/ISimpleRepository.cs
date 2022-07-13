@@ -8,7 +8,9 @@ namespace TypeLibrary.Data.Contracts
     {
         Task<SimpleLibDm> Get(string id);
         IEnumerable<SimpleLibDm> Get();
-        Task Create(SimpleLibDm dataDm);
+        Task Create(SimpleLibDm simple);
         void ClearAllChangeTrackers();
+        void SetUnchanged(ICollection<SimpleLibDm> items);
+        void SetDetached(ICollection<SimpleLibDm> items);
     }
 }

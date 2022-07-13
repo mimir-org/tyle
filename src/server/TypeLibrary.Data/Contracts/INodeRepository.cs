@@ -8,8 +8,8 @@ namespace TypeLibrary.Data.Contracts
     {
         IEnumerable<NodeLibDm> Get();
         Task<NodeLibDm> Get(string id);
-        Task Create(NodeLibDm dataDm);
-        Task<bool> Delete(string id);
+        Task<NodeLibDm> Create(NodeLibDm node);
+        Task<bool> Remove(string id);
         void ClearAllChangeTrackers();
     }
 }

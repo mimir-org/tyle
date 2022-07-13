@@ -9,8 +9,9 @@ using Mimirorg.Common.Abstract;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
+using TypeLibrary.Data.Contracts.Factories;
 using TypeLibrary.Data.Factories;
-using TypeLibrary.Data.Repositories;
+using TypeLibrary.Data.Repositories.Application;
 using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Data.Repositories.External;
 using TypeLibrary.Services.Contracts;
@@ -45,20 +46,22 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IEfUnitRepository, EfUnitRepository>();
             services.AddScoped<IDynamicSymbolDataProvider, EfSymbolRepository>();
 
-            services.AddScoped<IAttributeRepository, DbAttributeRepository>();
+            services.AddScoped<IAttributeRepository, EfAttributeRepository>();
             services.AddScoped<IAttributeQualifierRepository, DatumRepository>();
             services.AddScoped<IAttributeSourceRepository, DatumRepository>();
             services.AddScoped<IAttributeFormatRepository, DatumRepository>();
             services.AddScoped<IAttributeConditionRepository, DatumRepository>();
-            services.AddScoped<IInterfaceRepository, DbInterfaceRepository>();
-            services.AddScoped<ITransportRepository, DbTransportRepository>();
-            services.AddScoped<INodeRepository, DbNodeRepository>();
-            services.AddScoped<IPurposeRepository, DbPurposeRepository>();
-            services.AddScoped<IRdsRepository, DbRdsRepository>();
-            services.AddScoped<ISimpleRepository, DbSimpleRepository>();
-            services.AddScoped<ISymbolRepository, DbSymbolRepository>();
-            services.AddScoped<ITerminalRepository, DbTerminalRepository>();
-            services.AddScoped<IUnitRepository, DbUnitRepository>();
+            services.AddScoped<IAttributePredefinedRepository, EfAttributePredefinedRepository>();
+            services.AddScoped<IAttributeAspectRepository, EfAttributeAspectRepository>();
+            services.AddScoped<IUnitRepository, EfUnitRepository>();
+            services.AddScoped<IInterfaceRepository, EfInterfaceRepository>();
+            services.AddScoped<IPurposeRepository, EfPurposeRepository>();
+            services.AddScoped<INodeRepository, EfNodeRepository>();
+            services.AddScoped<ITransportRepository, EfTransportRepository>();
+            services.AddScoped<ISimpleRepository, EfSimpleRepository>();
+            services.AddScoped<IRdsRepository, EfRdsRepository>();
+            services.AddScoped<ITerminalRepository, EfTerminalRepository>();
+            services.AddScoped<ISymbolRepository, EfSymbolRepository>();
 
             // Dependency Injection - Services
             services.AddScoped<ITerminalService, TerminalService>();
@@ -109,7 +112,9 @@ namespace TypeLibrary.Core.Extensions
             var context = serviceScope.ServiceProvider.GetRequiredService<TypeLibraryDbContext>();
             var seedingService = serviceScope.ServiceProvider.GetRequiredService<ISeedingService>();
             var seedingServiceLogger = serviceScope.ServiceProvider.GetRequiredService<ILogger<ISeedingService>>();
-            context.Database.Migrate();
+
+            if (context.Database.IsRelational())
+                context.Database.Migrate();
 
 
             var awaiter = seedingService.LoadDataFromFiles().ConfigureAwait(true).GetAwaiter();
