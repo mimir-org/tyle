@@ -1,8 +1,8 @@
 import { useTheme } from "styled-components";
-import { TextResources } from "../../../../assets/text";
-import { Divider } from "../../../../complib/data-display";
-import { Flexbox } from "../../../../complib/layouts";
-import { Text } from "../../../../complib/text";
+import { TextResources } from "../../../../../assets/text";
+import { Divider } from "../../../../../complib/data-display";
+import { Flexbox } from "../../../../../complib/layouts";
+import { Text } from "../../../../../complib/text";
 import { RegisterFinalizeLink, RegisterQrImage } from "./RegisterFinalize.styled";
 
 interface Props {

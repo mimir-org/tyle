@@ -1,8 +1,8 @@
 import { useTheme } from "styled-components";
-import { TextResources } from "../../../../assets/text";
-import { Spinner } from "../../../../complib/feedback";
-import { Flexbox } from "../../../../complib/layouts";
-import { Heading } from "../../../../complib/text";
+import { TextResources } from "../../../../../assets/text";
+import { Spinner } from "../../../../../complib/feedback";
+import { Flexbox } from "../../../../../complib/layouts";
+import { Heading } from "../../../../../complib/text";
 
 export const RegisterProcessing = () => {
   const theme = useTheme();

@@ -1,6 +1,6 @@
-import { Register } from "../../../forms/register";
-import { Login } from "../../../forms/login";
 import { Route, Routes } from "react-router-dom";
+import { Login } from "../../../forms/auth/login";
+import { Register } from "../../../forms/auth/register";
 import { UnauthenticatedLayout } from "./Unauthenticated.styled";
 
 export const Unauthenticated = () => {
