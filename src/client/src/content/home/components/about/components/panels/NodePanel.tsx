@@ -4,11 +4,11 @@ import { Token } from "../../../../../../complib/general";
 import { Box, Flexbox, MotionBox } from "../../../../../../complib/layouts";
 import { Heading, Text } from "../../../../../../complib/text";
 import { AttributeInfoButton } from "../../../../../common/attribute";
+import { NodePreview } from "../../../../../common/node";
 import { TerminalTable } from "../../../../../common/terminal";
 import { AttributeItem } from "../../../../types/AttributeItem";
 import { NodeItem } from "../../../../types/NodeItem";
 import { TerminalItem } from "../../../../types/TerminalItem";
-import { NodePreview } from "../node/NodePreview";
 import { NodePanelPropertiesContainer } from "./NodePanel.styled";
 
 /**

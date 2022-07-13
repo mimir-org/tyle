@@ -1,9 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { LibraryIcon } from "../../../../../../assets/icons/modules";
+import { LibraryIcon } from "../../../assets/icons/modules";
 import { Node } from "./Node";
 
 export default {
-  title: "Content/Home/About/Node/Node",
+  title: "Content/Common/Node/Node",
   component: Node,
 } as ComponentMeta<typeof Node>;
 

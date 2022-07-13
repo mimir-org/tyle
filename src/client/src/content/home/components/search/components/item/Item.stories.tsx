@@ -1,10 +1,10 @@
-import { Item } from "./Item";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Button } from "../../../../../../complib/buttons";
-import { NodeProps } from "../../../about/components/node/Node";
-import { ItemDescriptionProps } from "./ItemDescription";
-import { Default as Node } from "../../../about/components/node/Node.stories";
+import { NodeProps } from "../../../../../common/node/Node";
+import { Default as Node } from "../../../../../common/node/Node.stories";
 import { Default as ItemDescription } from "../../components/item/ItemDescription.stories";
+import { Item } from "./Item";
+import { ItemDescriptionProps } from "./ItemDescription";
 
 export default {
   title: "Content/Home/Search/Item/Item",

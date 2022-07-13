@@ -1,15 +1,15 @@
 import { Duplicate, PencilAlt, Trash } from "@styled-icons/heroicons-outline";
+import { useTheme } from "styled-components";
 import { TextResources } from "../../../../../../assets/text";
 import textResources from "../../../../../../assets/text/TextResources";
 import { Button } from "../../../../../../complib/buttons";
 import { AlertDialog } from "../../../../../../complib/overlays/alert-dialog/AlertDialog";
 import { useDeleteNode } from "../../../../../../data/queries/tyle/queriesNode";
+import { NodePreview } from "../../../../../common/node";
 import { PlainLink } from "../../../../../utils/PlainLink";
 import { NodeItem } from "../../../../types/NodeItem";
-import { NodePreview } from "../../../about/components/node/NodePreview";
 import { Item } from "../item/Item";
 import { ItemDescription } from "../item/ItemDescription";
-import { useTheme } from "styled-components";
 
 type NodeItemProps = NodeItem & {
   isSelected?: boolean;

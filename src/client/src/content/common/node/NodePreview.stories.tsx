@@ -1,11 +1,11 @@
 import { faker } from "@faker-js/faker";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { LibraryIcon } from "../../../../../../assets/icons/modules";
-import { mockTerminalItem } from "../../../../../../utils/mocks";
+import { LibraryIcon } from "../../../assets/icons/modules";
+import { mockTerminalItem } from "../../../utils/mocks";
 import { NodePreview } from "./NodePreview";
 
 export default {
-  title: "Content/Home/About/Node/NodePreview",
+  title: "Content/Common/Node/NodePreview",
   component: NodePreview,
 } as ComponentMeta<typeof NodePreview>;
 

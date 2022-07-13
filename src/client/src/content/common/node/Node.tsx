@@ -1,8 +1,8 @@
 import { useTheme } from "styled-components";
-import { Box } from "../../../../../../complib/layouts";
-import { Icon } from "../../../../../../complib/media";
-import { TextTypes } from "../../../../../../complib/props";
-import { Text } from "../../../../../../complib/text";
+import { Box } from "../../../complib/layouts";
+import { Icon } from "../../../complib/media";
+import { TextTypes } from "../../../complib/props";
+import { Text } from "../../../complib/text";
 
 export type NodeVariant = "small" | "large";
 
