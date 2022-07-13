@@ -112,7 +112,9 @@ namespace TypeLibrary.Core.Extensions
             var context = serviceScope.ServiceProvider.GetRequiredService<TypeLibraryDbContext>();
             var seedingService = serviceScope.ServiceProvider.GetRequiredService<ISeedingService>();
             var seedingServiceLogger = serviceScope.ServiceProvider.GetRequiredService<ILogger<ISeedingService>>();
-            context.Database.Migrate();
+
+            if (context.Database.IsRelational())
+                context.Database.Migrate();
 
 
             var awaiter = seedingService.LoadDataFromFiles().ConfigureAwait(true).GetAwaiter();

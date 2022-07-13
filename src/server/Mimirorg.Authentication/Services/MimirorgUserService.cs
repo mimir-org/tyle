@@ -263,7 +263,7 @@ namespace Mimirorg.Authentication.Services
                     var hook = new MimirorgHookAm
                     {
                         CompanyId = company.Id,
-                        Iri = "http://mimirserver/v1.0/cache/invalidate",
+                        Iri = "http://mimirserver/v1.0/common/cache/invalidate",
                         Key = cacheKey
                     };
 

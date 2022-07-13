@@ -72,7 +72,7 @@ namespace TypeLibrary.Services.Services
 
         /// <summary>
         /// Method will check if exiting object T vs new (updated) object TY.
-        /// Throws exception if any changes are not allowed, or if there are no changes between T and TY.
+        /// Throws exception if any changes are not allowed
         /// Returns new major or minor version based on what has changes between T and TY.
         /// </summary>
         /// <typeparam name="T">NodeLibDm, TransportLibDm or InterfaceLibDm</typeparam>
@@ -311,7 +311,7 @@ namespace TypeLibrary.Services.Services
 
             //Any version changes?
             if (!increaseMajorVersion && !increaseMinorVersion)
-                throw new MimirorgBadRequestException("CalculateNewVersion<T,TY> Existing object and new object is identical, no changes detected.");
+                return string.Empty;
 
             //Increment node version
             if (nodeDm != null)

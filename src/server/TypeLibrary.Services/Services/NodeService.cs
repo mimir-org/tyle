@@ -5,8 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
+using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
+using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
@@ -20,13 +22,15 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly INodeRepository _nodeRepository;
         private readonly IVersionService _versionService;
+        private readonly ITimedHookService _hookService;
         private readonly ApplicationSettings _applicationSettings;
 
-        public NodeService(IOptions<ApplicationSettings> applicationSettings, IVersionService versionService, IMapper mapper, INodeRepository nodeRepository)
+        public NodeService(IOptions<ApplicationSettings> applicationSettings, IVersionService versionService, IMapper mapper, INodeRepository nodeRepository, ITimedHookService hookService)
         {
             _versionService = versionService;
             _mapper = mapper;
             _nodeRepository = nodeRepository;
+            _hookService = hookService;
             _applicationSettings = applicationSettings?.Value;
         }
 
@@ -96,7 +100,12 @@ namespace TypeLibrary.Services.Services
             await _nodeRepository.Create(nodeLibDm);
             _nodeRepository.ClearAllChangeTrackers();
 
-            return await Get(nodeLibDm.Id);
+            var dm = await Get(nodeLibDm.Id);
+
+            if (dm != null)
+                _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
+
+            return dm;
         }
 
         public async Task<NodeLibCm> Update(NodeLibAm dataAm, string id)
@@ -132,7 +141,12 @@ namespace TypeLibrary.Services.Services
             if (latestNodeVersion > nodeToUpdateVersion)
                 throw new MimirorgBadRequestException($"Not allowed to update node with id {nodeToUpdate.Id} and version {nodeToUpdateVersion}. Latest version is node with id {latestNodeDm.Id} and version {latestNodeVersion}");
 
-            dataAm.Version = await _versionService.CalculateNewVersion(latestNodeDm, dataAm);
+            var newVersion = await _versionService.CalculateNewVersion(latestNodeDm, dataAm);
+
+            if (string.IsNullOrWhiteSpace(newVersion))
+                return await Get(id);
+
+            dataAm.Version = newVersion;
             dataAm.FirstVersionId = latestNodeDm.FirstVersionId;
 
             return await Create(dataAm);
@@ -140,7 +154,12 @@ namespace TypeLibrary.Services.Services
 
         public async Task<bool> Delete(string id)
         {
-            return await _nodeRepository.Remove(id);
+            var deleted = await _nodeRepository.Remove(id);
+
+            if (deleted)
+                _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
+
+            return deleted;
         }
 
         public async Task<bool> CompanyIsChanged(string nodeId, int companyId)

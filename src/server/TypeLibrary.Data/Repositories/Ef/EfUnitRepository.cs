@@ -12,6 +12,7 @@ namespace TypeLibrary.Data.Repositories.Ef
     {
         public EfUnitRepository(TypeLibraryDbContext dbContext) : base(dbContext)
         {
+
         }
 
         public IEnumerable<UnitLibDm> Get()
@@ -19,15 +20,11 @@ namespace TypeLibrary.Data.Repositories.Ef
             return GetAll().Where(x => !x.Deleted);
         }
 
-        public async Task Create(List<UnitLibDm> dataDm)
+        public async Task Create(List<UnitLibDm> units)
         {
-            foreach (var data in dataDm)
-                Attach(data, EntityState.Added);
-
+            Attach(units, EntityState.Added);
             await SaveAsync();
-
-            foreach (var data in dataDm)
-                Detach(data);
+            Detach(units);
         }
 
         public void ClearAllChangeTrackers()
