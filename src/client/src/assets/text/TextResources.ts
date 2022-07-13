@@ -74,13 +74,17 @@ const TextResources = {
   // Search
   SEARCH_TITLE: "Search",
   SEARCH_PLACEHOLDER: "Search for types",
-  SEARCH_FILTER: "Filter",
   SEARCH_RESULTS: "results found",
   SEARCH_HELP_TITLE: "We are sorry, there are no results for",
   SEARCH_HELP_SUBTITLE: "Search help",
   SEARCH_HELP_TIP_1: "Check your search for typos",
   SEARCH_HELP_TIP_2: "Use more generic search terms",
   SEARCH_HELP_TIP_3: "The type you are searching for might not have been added yet",
+
+  // Filter
+  FILTER_TITLE: "Filter",
+  FILTER_REMOVE_START: "Remove",
+  FILTER_REMOVE_END: "filter",
 
   // Item
   ITEM_ACTION_CLONE: "Clone",
