@@ -1,3 +1,4 @@
+import { ConnectorDirection } from "@mimirorg/typelibrary-types";
 import { PlusSm } from "@styled-icons/heroicons-outline";
 import { Control, Controller, useFieldArray } from "react-hook-form";
 import { useTheme } from "styled-components/macro";
@@ -10,12 +11,13 @@ import { Text } from "../../../../complib/text";
 import { useGetTerminals } from "../../../../data/queries/tyle/queriesTerminal";
 import { useMediaQuery } from "../../../../hooks/useMediaQuery";
 import { createEmptyNodeTerminalLibAm } from "../../../../models/tyle/application/nodeTerminalLibAm";
+import { getValueLabelObjectsFromEnum } from "../../../../utils/getValueLabelObjectsFromEnum";
 import { mapAttributeLibCmToAttributeItem } from "../../../../utils/mappers";
 import { AttributeInfoButton } from "../../../home/components/about/components/attribute/AttributeInfoButton";
 import { TerminalButton } from "../../../home/components/about/components/terminal/TerminalButton";
 import { FormNodeLib } from "../../types/formNodeLib";
 import { NodeFormSection } from "../NodeFormSection";
-import { connectorDirectionOptions, onTerminalAmountChange } from "./NodeFormTerminalTable.helpers";
+import { onTerminalAmountChange } from "./NodeFormTerminalTable.helpers";
 
 export interface NodeFormTerminalsProps {
   control: Control<FormNodeLib>;
@@ -26,6 +28,7 @@ export const NodeFormTerminalTable = ({ control }: NodeFormTerminalsProps) => {
   const terminalQuery = useGetTerminals();
   const terminalFields = useFieldArray({ control, name: "nodeTerminals" });
   const adjustAttributesPadding = useMediaQuery("screen and (min-width: 1500px)");
+  const connectorDirectionOptions = getValueLabelObjectsFromEnum<ConnectorDirection>(ConnectorDirection);
 
   return (
     <NodeFormSection

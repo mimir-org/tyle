@@ -1,10 +1,11 @@
 import { ButtonHTMLAttributes, ElementType } from "react";
 import styled, { css } from "styled-components/macro";
 import { ColorTheme } from "../core";
-import { focus } from "../mixins";
-import { Polymorphic } from "../props";
+import { flexMixin, focus } from "../mixins";
+import { Flex, Polymorphic } from "../props";
 
-export type ButtonContainerProps = Polymorphic<ElementType> &
+export type ButtonContainerProps = Flex &
+  Polymorphic<ElementType> &
   ButtonHTMLAttributes<HTMLButtonElement> & {
     variant?: "filled" | "outlined" | "text";
     iconPlacement?: "left" | "right";
@@ -79,6 +80,8 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
         max-height: 18px;
       }
     `};
+
+  ${flexMixin};
 `;
 
 ButtonContainer.defaultProps = {
