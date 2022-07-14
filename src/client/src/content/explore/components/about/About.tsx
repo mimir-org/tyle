@@ -5,7 +5,7 @@ import { MotionBox } from "../../../../complib/layouts";
 import { Text } from "../../../../complib/text";
 import { useGetNode } from "../../../../data/queries/tyle/queriesNode";
 import { mapNodeLibCmToNodeItem } from "../../../../utils/mappers";
-import { HomeSection } from "../HomeSection";
+import { ExploreSection } from "../ExploreSection";
 import { NodePanel } from "./components/panels/NodePanel";
 
 interface AboutProps {
@@ -24,12 +24,12 @@ export const About = ({ selected }: AboutProps) => {
   const showPlaceHolder = nodeQuery.isIdle || nodeQuery.isError || !nodeQuery.data;
 
   return (
-    <HomeSection title={TextResources.ABOUT_TITLE}>
+    <ExploreSection title={TextResources.ABOUT_TITLE}>
       <AnimatePresence exitBeforeEnter>
         {showPlaceHolder && <Placeholder text={TextResources.ABOUT_PLACEHOLDER} />}
         {showNodePanel && <NodePanel key={nodeQuery.data.id} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />}
       </AnimatePresence>
-    </HomeSection>
+    </ExploreSection>
   );
 };
 

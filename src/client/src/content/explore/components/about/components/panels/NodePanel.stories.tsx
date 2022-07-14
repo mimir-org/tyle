@@ -1,9 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { NodePanel } from "./NodePanel";
 import { mockNodeItem } from "../../../../../../utils/mocks";
+import { NodePanel } from "./NodePanel";
 
 export default {
-  title: "Content/Home/About/Panel/NodePanel",
+  title: "Content/Explore/About/Panels/NodePanel",
   component: NodePanel,
   args: {
     ...mockNodeItem(),

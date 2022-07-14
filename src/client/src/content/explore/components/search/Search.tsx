@@ -7,7 +7,7 @@ import { Flexbox, MotionFlexbox } from "../../../../complib/layouts";
 import { MotionText, Text } from "../../../../complib/text";
 import { useDebounceState } from "../../../../hooks/useDebounceState";
 import { SearchField } from "../../../common/SearchField";
-import { HomeSection } from "../HomeSection";
+import { ExploreSection } from "../ExploreSection";
 import { FilterMenu } from "./components/filter/FilterMenu";
 import { ItemList } from "./components/item/ItemList";
 import { NodeSearchItem } from "./components/node/NodeSearchItem";
@@ -38,7 +38,7 @@ export const Search = ({ selected, setSelected }: SearchProps) => {
   const showPlaceholder = !isLoading && results.length === 0;
 
   return (
-    <HomeSection title={TextResources.SEARCH_TITLE}>
+    <ExploreSection title={TextResources.SEARCH_TITLE}>
       <Flexbox gap={theme.tyle.spacing.xxxl} alignItems={"center"}>
         <SearchField
           value={query}
@@ -96,7 +96,7 @@ export const Search = ({ selected, setSelected }: SearchProps) => {
       )}
 
       {showPlaceholder && <Placeholder query={query} />}
-    </HomeSection>
+    </ExploreSection>
   );
 };
 

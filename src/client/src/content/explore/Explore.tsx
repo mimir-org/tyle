@@ -4,9 +4,9 @@ import { Box } from "../../complib/layouts";
 import { About } from "./components/about/About";
 import { Search } from "./components/search/Search";
 
-export const Home = () => {
+export const Explore = () => {
   const theme = useTheme();
-  const [selected, setSelected] = useState<string>("");
+  const [selected, setSelected] = useState("");
 
   return (
     <Box

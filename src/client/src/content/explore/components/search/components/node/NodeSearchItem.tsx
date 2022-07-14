@@ -7,7 +7,7 @@ import { AlertDialog } from "../../../../../../complib/overlays/alert-dialog/Ale
 import { useDeleteNode } from "../../../../../../data/queries/tyle/queriesNode";
 import { NodePreview } from "../../../../../common/node";
 import { PlainLink } from "../../../../../utils/PlainLink";
-import { NodeItem } from "../../../../types/NodeItem";
+import { NodeItem } from "../../../../../types/NodeItem";
 import { Item } from "../item/Item";
 import { ItemDescription } from "../item/ItemDescription";
 

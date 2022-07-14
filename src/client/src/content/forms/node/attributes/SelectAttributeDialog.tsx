@@ -8,7 +8,7 @@ import { Box } from "../../../../complib/layouts";
 import { Dialog } from "../../../../complib/overlays";
 import { AttributeInfoCheckbox } from "../../../common/attribute";
 import { SearchField } from "../../../common/SearchField";
-import { AttributeItem } from "../../../home/types/AttributeItem";
+import { AttributeItem } from "../../../types/AttributeItem";
 import { filterAttributeItem, onSelectionChange } from "./SelectAttributeDialog.helpers";
 import { SelectContainer } from "./SelectAttributeDialog.styled";
 

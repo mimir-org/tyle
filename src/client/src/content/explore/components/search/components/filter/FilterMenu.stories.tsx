@@ -1,10 +1,10 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Filter } from "../../../../types/Filter";
+import { Filter } from "../../../../../types/Filter";
 import { FilterMenu } from "./FilterMenu";
 import { FilterMenuGroup } from "./FilterMenuGroup";
 
 export default {
-  title: "Content/Home/Search/Filter/FilterMenu",
+  title: "Content/Explore/Search/Filter/FilterMenu",
   component: FilterMenu,
   subcomponents: { FilterMenuGroup },
 } as ComponentMeta<typeof FilterMenu>;

@@ -4,7 +4,7 @@ import { VisuallyHidden } from "../../../complib/accessibility";
 import { Divider, Popover } from "../../../complib/data-display";
 import { Box, Flexbox } from "../../../complib/layouts";
 import { Text } from "../../../complib/text";
-import { TerminalItem } from "../../home/types/TerminalItem";
+import { TerminalItem } from "../../types/TerminalItem";
 import { TerminalButton } from "./TerminalButton";
 import { TerminalDescription } from "./TerminalSingle";
 

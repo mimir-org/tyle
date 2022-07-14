@@ -3,19 +3,19 @@ import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
 import { Text } from "../../../complib/text";
 
-interface HomeSectionProps {
+interface ExploreSectionProps {
   title: string;
   children?: ReactNode;
 }
 
 /**
- * A simple layout component for sections inside the Home component.
+ * A simple layout component for sections inside the Explore component.
  *
  * @param title of the section
  * @param children elements which are wrapped by this layout component
  * @constructor
  */
-export const HomeSection = ({ title, children }: HomeSectionProps) => {
+export const ExploreSection = ({ title, children }: ExploreSectionProps) => {
   const theme = useTheme();
 
   return (

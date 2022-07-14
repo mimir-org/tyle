@@ -6,7 +6,7 @@ import { ItemList } from "./ItemList";
 const mockData = [...Array(10)].map((_, i) => <Item key={i} {...(Item.args as ItemProps)} />);
 
 export default {
-  title: "Content/Home/Search/Item/ItemList",
+  title: "Content/Explore/Search/Item/ItemList",
   component: ItemList,
 } as ComponentMeta<typeof ItemList>;
 

@@ -1,6 +1,6 @@
 import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
-import { TerminalItem } from "../../home/types/TerminalItem";
+import { TerminalItem } from "../../types/TerminalItem";
 import { TerminalButtonProps } from "./TerminalButton";
 import { TerminalCollection } from "./TerminalCollection";
 import { TerminalSingle } from "./TerminalSingle";

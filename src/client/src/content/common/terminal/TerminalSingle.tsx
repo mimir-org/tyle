@@ -2,7 +2,7 @@ import { useTheme } from "styled-components";
 import { Tooltip } from "../../../complib/data-display";
 import { Flexbox } from "../../../complib/layouts";
 import { Text } from "../../../complib/text";
-import { TerminalItem } from "../../home/types/TerminalItem";
+import { TerminalItem } from "../../types/TerminalItem";
 import { TerminalButton, TerminalButtonProps } from "./TerminalButton";
 
 /**

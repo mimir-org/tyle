@@ -2,16 +2,16 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Box } from "../../../complib/layouts";
 import { Text } from "../../../complib/text";
 import { SearchField } from "../../common/SearchField";
-import { HomeSection } from "./HomeSection";
+import { ExploreSection } from "./ExploreSection";
 import { ItemListProps } from "./search/components/item/ItemList";
 import { Default as ItemList } from "./search/components/item/ItemList.stories";
 
 export default {
-  title: "Content/Home/HomeSection",
-  component: HomeSection,
-} as ComponentMeta<typeof HomeSection>;
+  title: "Content/Explore/ExploreSection",
+  component: ExploreSection,
+} as ComponentMeta<typeof ExploreSection>;
 
-const Template: ComponentStory<typeof HomeSection> = (args) => <HomeSection {...args} />;
+const Template: ComponentStory<typeof ExploreSection> = (args) => <ExploreSection {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

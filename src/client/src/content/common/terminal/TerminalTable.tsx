@@ -5,7 +5,7 @@ import { Table, Tbody, Td, Th, Thead, Tr } from "../../../complib/data-display";
 import { Box, Flexbox } from "../../../complib/layouts";
 import { Text } from "../../../complib/text";
 import { useMediaQuery } from "../../../hooks/useMediaQuery";
-import { TerminalItem } from "../../home/types/TerminalItem";
+import { TerminalItem } from "../../types/TerminalItem";
 import { AttributeInfoButton } from "../attribute";
 import { TerminalButton } from "./TerminalButton";
 

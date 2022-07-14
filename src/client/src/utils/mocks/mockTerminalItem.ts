@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { TerminalItem } from "../../content/home/types/TerminalItem";
+import { TerminalItem } from "../../content/types/TerminalItem";
 import { mockAttributeItem } from "./mockAttributeItem";
 
 export const mockTerminalItem = (): TerminalItem => ({

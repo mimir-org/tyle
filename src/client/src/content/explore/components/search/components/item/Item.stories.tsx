@@ -7,7 +7,7 @@ import { Item } from "./Item";
 import { ItemDescriptionProps } from "./ItemDescription";
 
 export default {
-  title: "Content/Home/Search/Item/Item",
+  title: "Content/Explore/Search/Item/Item",
   component: Item,
 } as ComponentMeta<typeof Item>;
 

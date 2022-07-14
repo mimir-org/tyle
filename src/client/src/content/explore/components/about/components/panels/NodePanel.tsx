@@ -6,9 +6,9 @@ import { Heading, Text } from "../../../../../../complib/text";
 import { AttributeInfoButton } from "../../../../../common/attribute";
 import { NodePreview } from "../../../../../common/node";
 import { TerminalTable } from "../../../../../common/terminal";
-import { AttributeItem } from "../../../../types/AttributeItem";
-import { NodeItem } from "../../../../types/NodeItem";
-import { TerminalItem } from "../../../../types/TerminalItem";
+import { AttributeItem } from "../../../../../types/AttributeItem";
+import { NodeItem } from "../../../../../types/NodeItem";
+import { TerminalItem } from "../../../../../types/TerminalItem";
 import { NodePanelPropertiesContainer } from "./NodePanel.styled";
 
 /**

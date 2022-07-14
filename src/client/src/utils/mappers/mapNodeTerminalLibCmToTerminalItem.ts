@@ -1,5 +1,5 @@
 import { ConnectorDirection, NodeTerminalLibCm } from "@mimirorg/typelibrary-types";
-import { TerminalItem } from "../../content/home/types/TerminalItem";
+import { TerminalItem } from "../../content/types/TerminalItem";
 import { sortAttributes } from "../sorters";
 import { mapAttributeLibCmsToAttributeItems } from "./mapAttributeLibCmToAttributeItem";
 

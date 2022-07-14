@@ -5,9 +5,9 @@ import { useGetPurposes } from "../../../../data/queries/tyle/queriesPurpose";
 import { useFuse } from "../../../../hooks/useFuse";
 import { getValueLabelObjectsFromEnum } from "../../../../utils/getValueLabelObjectsFromEnum";
 import { mapNodeLibCmToNodeItem } from "../../../../utils/mappers";
-import { Filter } from "../../types/Filter";
-import { FilterGroup } from "../../types/FilterGroup";
-import { NodeItem } from "../../types/NodeItem";
+import { Filter } from "../../../types/Filter";
+import { FilterGroup } from "../../../types/FilterGroup";
+import { NodeItem } from "../../../types/NodeItem";
 
 /**
  * Indexed fields that the fuzzy-search will try to match a query against

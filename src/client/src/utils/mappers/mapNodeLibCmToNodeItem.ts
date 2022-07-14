@@ -1,5 +1,5 @@
 import { NodeLibCm } from "@mimirorg/typelibrary-types";
-import { NodeItem } from "../../content/home/types/NodeItem";
+import { NodeItem } from "../../content/types/NodeItem";
 import { getColorFromAspect } from "../getColorFromAspect";
 import { sortAttributes, sortTerminals } from "../sorters";
 import { mapAttributeLibCmsToAttributeItems } from "./mapAttributeLibCmToAttributeItem";
