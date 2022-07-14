@@ -17,5 +17,4 @@
     "jsx": "react-jsx"
   },
   "include": ["src"],
-  "exclude": ["src/_legacy/**/*"]
 }
