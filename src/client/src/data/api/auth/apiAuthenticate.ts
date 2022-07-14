@@ -1,5 +1,4 @@
-import { MimirorgAuthenticateAm } from "../../../models/auth/application/mimirorgAuthenticateAm";
-import { MimirorgTokenCm } from "../../../models/auth/client/mimirorgTokenCm";
+import { MimirorgAuthenticateAm, MimirorgTokenCm } from "@mimirorg/typelibrary-types";
 import { apiCredentialClient } from "../apiCredentialClient";
 
 const _basePath = "mimirorgauthenticate";

@@ -1,4 +1,4 @@
-import { MimirorgTokenCm } from "../models/auth/client/mimirorgTokenCm";
+import { MimirorgTokenCm } from "@mimirorg/typelibrary-types";
 
 const localStorageKey = "tyleToken";
 

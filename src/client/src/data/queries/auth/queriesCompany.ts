@@ -1,5 +1,5 @@
+import { MimirorgCompanyAm } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { MimirorgCompanyAm } from "../../../models/auth/application/mimirorgCompanyAm";
 import { apiCompany } from "../../api/auth/apiCompany";
 import { UpdateEntity } from "../../types/updateEntity";
 

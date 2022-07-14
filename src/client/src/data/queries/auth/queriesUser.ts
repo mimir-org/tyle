@@ -1,6 +1,6 @@
+import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery } from "react-query";
 import { apiUser } from "../../api/auth/apiUser";
-import { MimirorgUserAm } from "../../../models/auth/application/mimirorgUserAm";
 
 export const userKeys = {
   all: ["user"] as const,

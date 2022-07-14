@@ -1,7 +1,7 @@
+import { MimirorgAuthenticateAm } from "@mimirorg/typelibrary-types";
 import { useMutation, useQueryClient } from "react-query";
-import { apiAuthenticate } from "../../api/auth/apiAuthenticate";
-import { MimirorgAuthenticateAm } from "../../../models/auth/application/mimirorgAuthenticateAm";
 import { setToken } from "../../../utils/token";
+import { apiAuthenticate } from "../../api/auth/apiAuthenticate";
 import { userKeys } from "./queriesUser";
 
 export const useLogin = () => {

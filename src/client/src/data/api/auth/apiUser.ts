@@ -1,7 +1,5 @@
+import { MimirorgQrCodeCm, MimirorgUserAm, MimirorgUserCm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "../apiClient";
-import { MimirorgQrCodeCm } from "../../../models/auth/client/mimirorgQrCodeCm";
-import { MimirorgUserAm } from "../../../models/auth/application/mimirorgUserAm";
-import { MimirorgUserCm } from "../../../models/auth/client/mimirorgUserCm";
 
 const _basePath = "mimirorguser";
 
