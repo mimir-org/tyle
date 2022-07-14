@@ -3,7 +3,7 @@ import { Button } from "../../../complib/buttons";
 import { Divider } from "../../../complib/data-display";
 import { Box, Flexbox } from "../../../complib/layouts";
 import { Text } from "../../../complib/text";
-import { Actionable } from "../../../types";
+import { Actionable } from "../../../complib/types";
 import { AttributeItem } from "../../types/AttributeItem";
 
 export type AttributeDescriptionProps = Omit<AttributeItem, "id"> & Partial<Actionable>;

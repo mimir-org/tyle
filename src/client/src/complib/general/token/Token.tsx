@@ -1,7 +1,7 @@
 import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode } from "react";
-import { Actionable } from "../../../types";
 import { Button } from "../../buttons";
 import { Text } from "../../text";
+import { Actionable } from "../../types";
 import { TokenContainer } from "./Token.styled";
 
 export type TokenBaseProps = Partial<Actionable> & {
