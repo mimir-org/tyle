@@ -48,7 +48,7 @@ export const FilterMenu = ({ name, filterGroups, ...delegated }: FilterMenuProps
         </Box>
       }
     >
-      <Button icon={<PlusSm />} flexShrink={"0"}>
+      <Button icon={<PlusSm size={24} />} flexShrink={"0"}>
         {name}
       </Button>
     </Popover>
