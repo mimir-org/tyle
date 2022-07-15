@@ -1,8 +1,9 @@
 import { ForwardedRef, forwardRef, isValidElement, ReactElement, ReactNode } from "react";
+import { useTheme } from "styled-components";
 import { VisuallyHidden } from "../accessibility";
 import { Icon } from "../media";
 import { Text } from "../text";
-import { ButtonContainer, ButtonContainerProps } from "./Button.styled";
+import { ButtonContainerProps, MotionButtonContainer } from "./Button.styled";
 
 type ButtonProps = ButtonContainerProps & {
   children: ReactNode;
@@ -12,11 +13,18 @@ type ButtonProps = ButtonContainerProps & {
 };
 
 export const Button = forwardRef((props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
+  const theme = useTheme();
   const { children, icon, iconPlacement, iconOnly, ...delegated } = props;
   const IconComponent = () => (isValidElement(icon) ? icon : <Icon src={icon} alt="" />);
 
   return (
-    <ButtonContainer ref={ref} iconPlacement={iconPlacement} iconOnly={iconOnly} {...delegated}>
+    <MotionButtonContainer
+      ref={ref}
+      iconOnly={iconOnly}
+      iconPlacement={iconPlacement}
+      {...theme.tyle.animation.buttonTap}
+      {...delegated}
+    >
       {icon && iconOnly ? (
         <VisuallyHidden>{children}</VisuallyHidden>
       ) : (
@@ -25,7 +33,7 @@ export const Button = forwardRef((props: ButtonProps, ref: ForwardedRef<HTMLButt
         </Text>
       )}
       {icon && <IconComponent />}
-    </ButtonContainer>
+    </MotionButtonContainer>
   );
 });
 

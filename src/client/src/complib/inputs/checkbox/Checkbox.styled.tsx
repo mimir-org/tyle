@@ -1,4 +1,5 @@
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
+import { motion } from "framer-motion";
 import styled from "styled-components/macro";
 import { CheckboxCheckedIcon } from "../../../assets/icons/checkmark";
 import { focus } from "../../mixins";
@@ -34,3 +35,10 @@ export const CheckboxChecked = styled(CheckboxCheckedIcon)`
   position: absolute;
   inset: 0;
 `;
+
+/**
+ * An animation wrapper for the CheckboxRoot component
+ *
+ * @see https://github.com/framer/motion
+ */
+export const MotionCheckboxRoot = motion(CheckboxRoot);

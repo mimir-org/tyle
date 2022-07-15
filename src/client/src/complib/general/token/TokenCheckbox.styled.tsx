@@ -1,4 +1,5 @@
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
+import { motion } from "framer-motion";
 import styled from "styled-components/macro";
 import { TokenBaseProps } from "./Token";
 import { tokenBaseStyle } from "./Token.styled";
@@ -11,3 +12,10 @@ export const TokenCheckboxContainer = styled(CheckboxPrimitive.Root)<TokenBasePr
 TokenCheckboxContainer.defaultProps = {
   variant: "primary",
 };
+
+/**
+ * An animation wrapper for the TokenCheckboxContainer component
+ *
+ * @see https://github.com/framer/motion
+ */
+export const MotionTokenCheckboxContainer = motion(TokenCheckboxContainer);

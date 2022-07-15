@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { ButtonHTMLAttributes, ElementType } from "react";
 import styled, { css } from "styled-components/macro";
 import { ColorTheme } from "../core";
@@ -155,3 +156,10 @@ const textButton = (color: ColorTheme) =>
       }
     }
   `;
+
+/**
+ * An animation wrapper for the ButtonContainer component
+ *
+ * @see https://github.com/framer/motion
+ */
+export const MotionButtonContainer = motion(ButtonContainer);

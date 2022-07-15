@@ -2,6 +2,8 @@ export interface AnimationSystem {
   fade: Record<string, unknown>,
   scale: Record<string, unknown>,
   selectHover: Record<string, unknown>,
+  buttonTap: Record<string, unknown>,
+  checkboxTap: Record<string, unknown>,
   from: (direction: "top" | "right" | "bottom" | "left", distance?: number) => Record<string, unknown>
 }
 
@@ -28,6 +30,21 @@ export const animation: AnimationSystem = {
       scale: 0.8,
     },
   },
+  selectHover: {
+    whileHover: {
+      scale: 1.02
+    }
+  },
+  buttonTap: {
+    whileTap: {
+      scale: 0.95
+    }
+  },
+  checkboxTap: {
+    whileTap: {
+      scale: 0.8
+    }
+  },
   from(direction: "top" | "right" | "bottom" | "left", distance = 10) {
     const fromToMap = {
       top: {
@@ -53,9 +70,4 @@ export const animation: AnimationSystem = {
       exit: fromToMap[direction]
     }
   },
-  selectHover: {
-    whileHover: {
-      scale: 1.02
-    }
-  }
 }
