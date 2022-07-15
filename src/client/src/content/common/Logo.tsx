@@ -37,4 +37,4 @@ Logo.displayName = "Logo";
  *
  * @see https://github.com/framer/motion
  */
-export const MotionLogo = motion(Logo, { forwardMotionProps: true });
+export const MotionLogo = motion(Logo);

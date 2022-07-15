@@ -38,4 +38,4 @@ const selectedCard = (color: ColorSystem) => css`
  *
  * @see https://github.com/framer/motion
  */
-export const MotionCard = motion(Card, { forwardMotionProps: true });
+export const MotionCard = motion(Card);
