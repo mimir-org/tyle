@@ -1,15 +1,12 @@
 import { useTheme } from "styled-components";
-import textResources from "../../../../../../assets/text/TextResources";
 import { Token } from "../../../../../../complib/general";
-import { Box, Flexbox, MotionBox } from "../../../../../../complib/layouts";
+import { Flexbox, MotionBox } from "../../../../../../complib/layouts";
 import { Heading, Text } from "../../../../../../complib/text";
-import { AttributeInfoButton } from "../../../../../common/attribute";
 import { NodePreview } from "../../../../../common/node";
-import { TerminalTable } from "../../../../../common/terminal";
-import { AttributeItem } from "../../../../../types/AttributeItem";
 import { NodeItem } from "../../../../../types/NodeItem";
-import { TerminalItem } from "../../../../../types/TerminalItem";
 import { NodePanelPropertiesContainer } from "./NodePanel.styled";
+import { NodePanelAttributes } from "./NodePanelAttributes";
+import { NodePanelTerminals } from "./NodePanelTerminals";
 
 /**
  * Component that displays information about a given node.
@@ -57,33 +54,5 @@ export const NodePanel = ({ name, description, img, color, tokens, terminals, at
         {showTerminals && <NodePanelTerminals terminals={terminals} />}
       </NodePanelPropertiesContainer>
     </MotionBox>
-  );
-};
-
-const NodePanelAttributes = ({ attributes }: { attributes: AttributeItem[] }) => {
-  const theme = useTheme();
-
-  return (
-    <>
-      <Heading as={"h3"} variant={"body-large"} color={theme.tyle.color.sys.surface.on}>
-        {textResources.ATTRIBUTE_TITLE}
-      </Heading>
-      <Box display={"flex"} gap={theme.tyle.spacing.xl} flexWrap={"wrap"}>
-        {attributes && attributes.map((a, i) => <AttributeInfoButton key={i} {...a} />)}
-      </Box>
-    </>
-  );
-};
-
-const NodePanelTerminals = ({ terminals }: { terminals: TerminalItem[] }) => {
-  const theme = useTheme();
-
-  return (
-    <>
-      <Heading as={"h3"} variant={"body-large"} color={theme.tyle.color.sys.surface.on}>
-        {textResources.TERMINAL_TITLE}
-      </Heading>
-      <TerminalTable terminals={terminals} />
-    </>
   );
 };
