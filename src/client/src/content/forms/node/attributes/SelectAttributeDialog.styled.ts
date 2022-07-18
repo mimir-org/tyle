@@ -3,6 +3,20 @@ import { hideScrollbar } from "../../../../complib/mixins";
 
 export const SelectContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${(props) => props.theme.tyle.spacing.xxxl};
+  width: 100%;
+
+  // Ghost spacing to avoid focus style clipping
+  padding-top: ${(props) => props.theme.tyle.spacing.xs};
+  margin-top: -${(props) => props.theme.tyle.spacing.xs};
+
+  overflow: auto;
+`;
+
+export const SelectAttributesContainer = styled.div`
+  display: flex;
   flex-wrap: wrap;
   align-content: start;
   justify-content: center;
