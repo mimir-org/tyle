@@ -82,16 +82,14 @@ export const Search = ({ selected, setSelected }: SearchProps) => {
 
       {showResults && (
         <ItemList>
-          {results.map((nodeItem) => {
-            return (
-              <NodeSearchItem
-                key={nodeItem.id}
-                isSelected={nodeItem.id === selected}
-                setSelected={() => setSelected(nodeItem.id)}
-                {...nodeItem}
-              />
-            );
-          })}
+          {results.map((nodeItem) => (
+            <NodeSearchItem
+              key={nodeItem.id}
+              isSelected={nodeItem.id === selected}
+              setSelected={() => setSelected(nodeItem.id)}
+              {...nodeItem}
+            />
+          ))}
         </ItemList>
       )}
 
