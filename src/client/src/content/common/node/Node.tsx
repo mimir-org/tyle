@@ -1,17 +1,13 @@
 import { useTheme } from "styled-components";
-import { Box } from "../../../complib/layouts";
 import { Icon } from "../../../complib/media";
 import { TextTypes } from "../../../complib/props";
 import { Text } from "../../../complib/text";
+import { NodeContainer, NodeContainerProps } from "./Node.styled";
 
-export type NodeVariant = "small" | "large";
-
-export interface NodeProps {
+export type NodeProps = NodeContainerProps & {
   name: string;
-  color: string;
   img: string;
-  variant?: NodeVariant;
-}
+};
 
 /**
  * Component which serves as the visual representation for a node.
@@ -22,23 +18,12 @@ export interface NodeProps {
  * @param variant
  * @constructor
  */
-export const Node = ({ name, color, img, variant = "small" }: NodeProps) => {
+export const Node = ({ name, img, color, variant = "small" }: NodeProps) => {
   const theme = useTheme();
   const variantSpecs = NodeVariantSpecs[variant];
 
   return (
-    <Box
-      display={"flex"}
-      flexDirection={"column"}
-      justifyContent={"start"}
-      alignItems={"center"}
-      gap={variantSpecs.gap}
-      height={variantSpecs.height}
-      width={variantSpecs.width}
-      p={theme.tyle.spacing.xl}
-      bgColor={color}
-      borderRadius={theme.tyle.border.radius.large}
-    >
+    <NodeContainer variant={variant} color={color}>
       <Text
         variant={variantSpecs.text.variant as TextTypes}
         color={theme.tyle.color.ref.neutral["0"]}
@@ -47,15 +32,12 @@ export const Node = ({ name, color, img, variant = "small" }: NodeProps) => {
         {name}
       </Text>
       {img && <Icon size={variantSpecs.icon.size} src={img} alt="" />}
-    </Box>
+    </NodeContainer>
   );
 };
 
 const NodeVariantSpecs = {
   small: {
-    gap: "12px",
-    width: "150px",
-    height: "100px",
     text: {
       variant: "label-small",
     },
@@ -64,9 +46,6 @@ const NodeVariantSpecs = {
     },
   },
   large: {
-    gap: "24px",
-    width: "250px",
-    height: "150px",
     text: {
       variant: "label-large",
     },

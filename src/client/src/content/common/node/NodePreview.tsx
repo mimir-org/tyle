@@ -1,7 +1,8 @@
 import { Box } from "../../../complib/layouts";
 import { TerminalItem } from "../../types/TerminalItem";
 import { TerminalButtonVariant, Terminals } from "../terminal";
-import { Node, NodeVariant } from "./Node";
+import { Node } from "./Node";
+import { NodeVariant } from "./Node.styled";
 import { meetsInputCriteria, meetsOutputCriteria } from "./NodePreview.helpers";
 
 export interface NodePreviewProps {
