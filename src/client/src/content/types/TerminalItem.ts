@@ -1,9 +1,11 @@
 import { AttributeItem } from "./AttributeItem";
 
+export type TerminalItemDirection = "Input" | "Output" | "Bidirectional";
+
 export interface TerminalItem {
   name: string;
   amount: number;
   color: string;
-  direction: "Input" | "Output" | "Bidirectional";
+  direction: TerminalItemDirection;
   attributes?: AttributeItem[];
 }
