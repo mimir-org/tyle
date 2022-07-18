@@ -32,17 +32,15 @@ export const FilterMenuGroup = ({ name, filters, activeFilters, toggleFilter }: 
           display={"flex"}
           flexDirection={"column"}
           gap={theme.tyle.spacing.xs}
-          overflow={"auto"}
           maxHeight={"300px"}
+          overflow={"auto"}
         >
-          {filters?.map((f) => {
-            return (
-              <FilterMenuGroupLabel key={f.label}>
-                <Checkbox onClick={() => toggleFilter(f)} checked={activeFilters?.some((x) => x.value === f.value)} />
-                {f.label}
-              </FilterMenuGroupLabel>
-            );
-          })}
+          {filters?.map((f) => (
+            <FilterMenuGroupLabel key={f.label}>
+              <Checkbox onClick={() => toggleFilter(f)} checked={activeFilters?.some((x) => x.value === f.value)} />
+              {f.label}
+            </FilterMenuGroupLabel>
+          ))}
         </Box>
       </AccordionContent>
     </AccordionItem>
