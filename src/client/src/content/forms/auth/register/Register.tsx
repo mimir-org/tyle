@@ -1,8 +1,8 @@
 import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useTheme } from "styled-components";
-import { TextResources } from "../../../../assets/text";
 import { Button } from "../../../../complib/buttons";
 import { Form, FormErrorBanner, FormField, FormFieldset, FormHeader } from "../../../../complib/form";
 import { Input } from "../../../../complib/inputs";
@@ -18,12 +18,11 @@ import { RegisterProcessing } from "./components/RegisterProcessing";
 
 export const Register = () => {
   const theme = useTheme();
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors },
-  } = useForm<MimirorgUserAm>();
+  const { t } = useTranslation();
+
+  const { register, handleSubmit, setError, formState } = useForm<MimirorgUserAm>();
+  const { errors } = formState;
+
   const createUserMutation = useCreateUser();
   const validationState = getValidationStateFromServer<MimirorgUserAm>(createUserMutation.error);
   useValidationFromServer<MimirorgUserAm>(setError, validationState?.errors);
@@ -35,67 +34,70 @@ export const Register = () => {
       {!createUserMutation.isSuccess && !createUserMutation.isLoading && (
         <Form onSubmit={handleSubmit((data) => createUserMutation.mutate(data))}>
           <MotionLogo layout width={"100px"} height={"50px"} inverse alt="" />
-          <FormHeader title={TextResources.REGISTER_TITLE} subtitle={TextResources.REGISTER_DESCRIPTION} />
+          <FormHeader title={t("forms.register.title")} subtitle={t("forms.register.description")} />
 
-          {createUserMutation.isError && <FormErrorBanner>{TextResources.REGISTER_ERROR}</FormErrorBanner>}
+          {createUserMutation.isError && <FormErrorBanner>{t("forms.register.error")}</FormErrorBanner>}
 
           <FormFieldset>
-            <FormField label={TextResources.REGISTER_EMAIL} error={errors.email}>
+            <FormField label={`${t("forms.fields.email")} *`} error={formState.errors.email}>
               <Input
                 id="email"
                 type="email"
-                placeholder={TextResources.FORMS_PLACEHOLDER_EMAIL}
+                placeholder={t("forms.placeholders.email")}
                 {...register("email", { required: true })}
               />
             </FormField>
 
-            <FormField label={TextResources.REGISTER_FIRSTNAME} error={errors.firstName}>
+            <FormField label={`${t("forms.fields.firstname")} *`} error={errors.firstName}>
               <Input
                 id="firstName"
-                placeholder={TextResources.FORMS_PLACEHOLDER_FIRSTNAME}
+                placeholder={t("forms.placeholders.firstname")}
                 {...register("firstName", { required: true })}
               />
             </FormField>
 
-            <FormField label={TextResources.REGISTER_LASTNAME} error={errors.lastName}>
+            <FormField label={`${t("forms.fields.lastname")} *`} error={errors.lastName}>
               <Input
                 id="lastName"
-                placeholder={TextResources.FORMS_PLACEHOLDER_LASTNAME}
+                placeholder={t("forms.placeholders.lastname")}
                 {...register("lastName", { required: true })}
               />
             </FormField>
 
-            <FormField label={TextResources.REGISTER_PHONE} error={errors.phoneNumber}>
+            <FormField label={t("forms.fields.phone")} error={errors.phoneNumber}>
               <Input id="phoneNumber" type="tel" {...register("phoneNumber", { required: false })} />
             </FormField>
 
-            <FormField label={TextResources.REGISTER_PASSWORD} error={errors.password}>
+            <FormField label={`${t("forms.fields.password")} *`} error={errors.password}>
               <Input
                 id="password"
                 type="password"
-                placeholder={TextResources.FORMS_PLACEHOLDER_PASSWORD}
+                placeholder={t("forms.placeholders.password")}
                 {...register("password", { required: true })}
               />
             </FormField>
 
-            <FormField label={TextResources.REGISTER_CONFIRM_PASSWORD} error={errors.confirmPassword}>
+            <FormField
+              label={`${t("common.confirm")} ${t("forms.fields.password").toLowerCase()} *`}
+              error={errors.confirmPassword}
+            >
               <Input
                 id="confirmPassword"
                 type="password"
-                placeholder={TextResources.FORMS_PLACEHOLDER_PASSWORD}
+                placeholder={t("forms.placeholders.password")}
                 {...register("confirmPassword", { required: true })}
               />
             </FormField>
 
             <MotionText color={theme.tyle.color.sys.surface.variant.on} layout={"position"} as={"i"}>
-              {TextResources.FORMS_REQUIRED_DESCRIPTION}
+              {t("forms.placeholders.required")}
             </MotionText>
           </FormFieldset>
 
           <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.xxl}>
-            <Button type={"submit"}>{TextResources.REGISTER_SUBMIT}</Button>
+            <Button type={"submit"}>{t("forms.register.submit")}</Button>
             <Text color={theme.tyle.color.sys.surface.variant.on}>
-              {TextResources.REGISTER_IS_REGISTERED} <Link to="/">{TextResources.REGISTER_LOGIN_LINK}</Link>
+              {t("forms.register.altLead")} <Link to="/">{t("forms.register.altLink")}</Link>
             </Text>
           </MotionFlexbox>
         </Form>
