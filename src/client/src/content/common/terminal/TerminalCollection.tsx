@@ -1,5 +1,5 @@
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { TextResources } from "../../../assets/text";
 import { VisuallyHidden } from "../../../complib/accessibility";
 import { Divider, Popover } from "../../../complib/data-display";
 import { Box, Flexbox } from "../../../complib/layouts";
@@ -22,11 +22,12 @@ interface TerminalCollectionProps {
  */
 export const TerminalCollection = ({ terminals, placement }: TerminalCollectionProps) => {
   const theme = useTheme();
+  const { t } = useTranslation("translation", { keyPrefix: "terminals.summary" });
 
   return (
     <Popover placement={placement} content={<TerminalCollectionDescription terminals={terminals} />}>
       <TerminalButton variant={"large"} color={theme.tyle.color.ref.primary["40"]}>
-        <VisuallyHidden>{TextResources.TERMINAL_OPEN_SUMMARY}</VisuallyHidden>
+        <VisuallyHidden>{t("open")}</VisuallyHidden>
       </TerminalButton>
     </Popover>
   );
@@ -38,19 +39,20 @@ interface TerminalCollectionDescriptionProps {
 
 const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescriptionProps) => {
   const theme = useTheme();
+  const { t } = useTranslation("translation", { keyPrefix: "terminals.summary" });
   const totalTerminalAmount = terminals.reduce((sum, terminal) => sum + terminal.amount, 0);
 
   return (
     <Box display={"flex"} gap={theme.tyle.spacing.l} flexDirection={"column"} maxWidth={"250px"}>
-      <Text variant={"title-small"}>{TextResources.TERMINAL_SUMMARY}</Text>
+      <Text variant={"title-small"}>{t("title")}</Text>
       <Box display={"flex"} gap={theme.tyle.spacing.l} flexDirection={"column"} maxHeight={"250px"} overflow={"auto"}>
-        {terminals.map((t) => (
-          <TerminalDescription key={t.name} name={t.name} amount={t.amount} color={t.color} direction={t.direction} />
+        {terminals.map((x) => (
+          <TerminalDescription key={x.name} name={x.name} amount={x.amount} color={x.color} direction={x.direction} />
         ))}
       </Box>
       <Divider />
       <Flexbox gap={theme.tyle.spacing.base} justifyContent={"space-between"}>
-        <Text variant={"body-medium"}>{TextResources.TERMINAL_TOTAL}:</Text>
+        <Text variant={"body-medium"}>{t("total")}</Text>
         <Text variant={"body-medium"}>{totalTerminalAmount}</Text>
       </Flexbox>
     </Box>

@@ -1,5 +1,5 @@
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { TextResources } from "../../../../../assets/text";
 import { Divider } from "../../../../../complib/data-display";
 import { Flexbox } from "../../../../../complib/layouts";
 import { Text } from "../../../../../complib/text";
@@ -11,19 +11,20 @@ interface Props {
 
 export const RegisterFinalize = ({ qrCodeBase64 }: Props) => {
   const theme = useTheme();
+  const { t } = useTranslation("translation", { keyPrefix: "forms.register.finalize" });
 
   return (
     <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xl}>
       <Flexbox as={"section"} flexDirection={"column"} gap={theme.tyle.spacing.xl}>
-        <Text variant={"display-small"}>{TextResources.REGISTER_FINALIZE_VERIFICATION}</Text>
-        <Text>{TextResources.REGISTER_FINALIZE_VERIFICATION_DESCRIPTION}</Text>
+        <Text variant={"display-small"}>{t("verification")}</Text>
+        <Text>{t("verificationDescription")}</Text>
       </Flexbox>
       <Divider />
       <Flexbox as={"section"} flexDirection={"column"} gap={theme.tyle.spacing.xl}>
-        <Text variant={"display-small"}>{TextResources.REGISTER_FINALIZE_MFA}</Text>
-        <Text>{TextResources.REGISTER_FINALIZE_MFA_DESCRIPTION}</Text>
+        <Text variant={"display-small"}>{t("mfa")}</Text>
+        <Text>{t("mfaDescription")}</Text>
         <RegisterQrImage size={300} src={qrCodeBase64} alt="" />
-        <RegisterFinalizeLink to="/">{TextResources.REGISTER_FINALIZE_FINISH_LINK}</RegisterFinalizeLink>
+        <RegisterFinalizeLink to="/">{t("finish")}</RegisterFinalizeLink>
       </Flexbox>
     </Flexbox>
   );

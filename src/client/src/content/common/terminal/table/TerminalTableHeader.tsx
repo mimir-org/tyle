@@ -1,11 +1,12 @@
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import textResources from "../../../../assets/text/TextResources";
 import { Th, Tr } from "../../../../complib/data-display";
 import { Text } from "../../../../complib/text";
 import { useMediaQuery } from "../../../../hooks/useMediaQuery";
 
 export const TerminalTableHeader = () => {
   const theme = useTheme();
+  const { t } = useTranslation("translation", { keyPrefix: "terminals" });
   const adjustAmountAlignment = useMediaQuery("screen and (min-width: 1500px)");
   const textColor = theme.tyle.color.sys.primary.base;
 
@@ -13,22 +14,22 @@ export const TerminalTableHeader = () => {
     <Tr>
       <Th>
         <Text as={"span"} color={textColor}>
-          {textResources.TERMINAL_TABLE_NAME}
+          {t("templates.terminal", { object: t("name").toLowerCase() })}
         </Text>
       </Th>
       <Th>
         <Text as={"span"} color={textColor}>
-          {textResources.TERMINAL_TABLE_DIRECTION}
+          {t("templates.terminal", { object: t("direction").toLowerCase() })}
         </Text>
       </Th>
       <Th textAlign={adjustAmountAlignment ? "center" : "left"}>
         <Text as={"span"} color={textColor}>
-          {textResources.TERMINAL_TABLE_AMOUNT}
+          {t("amount")}
         </Text>
       </Th>
       <Th>
         <Text as={"span"} color={textColor}>
-          {textResources.TERMINAL_TABLE_ATTRIBUTES}
+          {t("templates.terminal", { object: t("attributes").toLowerCase() })}
         </Text>
       </Th>
     </Tr>

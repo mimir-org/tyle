@@ -1,8 +1,8 @@
 import { MimirorgAuthenticateAm } from "@mimirorg/typelibrary-types";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useTheme } from "styled-components";
-import { TextResources } from "../../../../assets/text";
 import { Button } from "../../../../complib/buttons";
 import { Form, FormErrorBanner, FormField, FormFieldset, FormHeader } from "../../../../complib/form";
 import { Input } from "../../../../complib/inputs";
@@ -15,64 +15,63 @@ import { MotionLogo } from "../../../common/Logo";
 import { UnauthenticatedFormContainer } from "../UnauthenticatedFormContainer";
 
 export const Login = () => {
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors },
-  } = useForm<MimirorgAuthenticateAm>();
+  const theme = useTheme();
+  const { t } = useTranslation("translation", { keyPrefix: "forms" });
+
+  const { register, handleSubmit, setError, formState } = useForm<MimirorgAuthenticateAm>();
+  const { errors } = formState;
+
   const loginMutation = useLogin();
   const validationState = getValidationStateFromServer<MimirorgAuthenticateAm>(loginMutation.error);
   useValidationFromServer<MimirorgAuthenticateAm>(setError, validationState?.errors);
-  const theme = useTheme();
 
   return (
     <UnauthenticatedFormContainer>
       <Form onSubmit={handleSubmit((data) => loginMutation.mutate(data))}>
         <MotionLogo layout width={"100px"} height={"50px"} inverse alt="" />
-        <FormHeader title={TextResources.LOGIN_TITLE} subtitle={TextResources.LOGIN_DESCRIPTION} />
+        <FormHeader title={t("login.title")} subtitle={t("login.description")} />
 
-        {loginMutation.isError && <FormErrorBanner>{TextResources.LOGIN_ERROR}</FormErrorBanner>}
+        {loginMutation.isError && <FormErrorBanner>{t("login.error")}</FormErrorBanner>}
 
         <FormFieldset>
-          <FormField label={TextResources.LOGIN_EMAIL} error={errors.email}>
+          <FormField label={`${t("fields.email")} *`} error={errors.email}>
             <Input
               id="email"
               type="email"
-              placeholder={TextResources.FORMS_PLACEHOLDER_EMAIL}
+              placeholder={t("placeholders.email")}
               {...register("email", { required: true })}
             />
           </FormField>
 
-          <FormField label={TextResources.LOGIN_PASSWORD} error={errors.password}>
+          <FormField label={`${t("fields.password")} *`} error={errors.password}>
             <Input
               id="password"
               type="password"
-              placeholder={TextResources.FORMS_PLACEHOLDER_PASSWORD}
+              placeholder={t("placeholders.password")}
               {...register("password", { required: true })}
             />
           </FormField>
 
-          <FormField label={TextResources.LOGIN_CODE} error={errors.code}>
+          <FormField label={`${t("fields.code")} *`} error={errors.code}>
             <Input
               id="code"
               type="tel"
               pattern="[0-9]*"
               autoComplete="off"
-              placeholder={TextResources.FORMS_PLACEHOLDER_CODE}
+              placeholder={t("placeholders.code")}
               {...register("code", { required: true, valueAsNumber: true })}
             />
           </FormField>
 
           <MotionText color={theme.tyle.color.sys.surface.variant.on} layout={"position"} as={"i"}>
-            {TextResources.FORMS_REQUIRED_DESCRIPTION}
+            {t("placeholders.required")}
           </MotionText>
         </FormFieldset>
 
         <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.xxl}>
-          <Button type={"submit"}>{TextResources.LOGIN_TITLE}</Button>
+          <Button type={"submit"}>{t("login.submit")}</Button>
           <Text color={theme.tyle.color.sys.surface.variant.on}>
-            {TextResources.LOGIN_NOT_REGISTERED} <Link to="/register">{TextResources.LOGIN_REGISTER_LINK}</Link>
+            {t("login.altLead")} <Link to="/register">{t("login.altLink")}</Link>
           </Text>
         </MotionFlexbox>
       </Form>

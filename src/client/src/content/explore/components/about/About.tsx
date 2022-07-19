@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { TextResources } from "../../../../assets/text";
 import { MotionBox } from "../../../../complib/layouts";
 import { Text } from "../../../../complib/text";
 import { useGetNode } from "../../../../data/queries/tyle/queriesNode";
@@ -19,14 +19,15 @@ interface AboutProps {
  * @constructor
  */
 export const About = ({ selected }: AboutProps) => {
+  const { t } = useTranslation("translation", { keyPrefix: "about" });
   const nodeQuery = useGetNode(selected);
   const showNodePanel = !nodeQuery.isFetching && !nodeQuery.isLoading && nodeQuery.isSuccess && nodeQuery.data;
   const showPlaceHolder = nodeQuery.isIdle || nodeQuery.isError || !nodeQuery.data;
 
   return (
-    <ExploreSection title={TextResources.ABOUT_TITLE}>
+    <ExploreSection title={t("title")}>
       <AnimatePresence exitBeforeEnter>
-        {showPlaceHolder && <Placeholder text={TextResources.ABOUT_PLACEHOLDER} />}
+        {showPlaceHolder && <Placeholder text={t("placeholders.item")} />}
         {showNodePanel && <NodePanel key={nodeQuery.data.id} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />}
       </AnimatePresence>
     </ExploreSection>

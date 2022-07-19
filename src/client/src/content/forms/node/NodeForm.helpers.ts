@@ -1,12 +1,10 @@
-import { NodeLibAm } from "@mimirorg/typelibrary-types";
 import { useEffect, useState } from "react";
 import { DefaultValues, KeepStateOptions } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import textResources from "../../../assets/text/TextResources";
 import { toast } from "../../../complib/data-display";
 import { useGetNode } from "../../../data/queries/tyle/queriesNode";
-import { UpdateEntity } from "../../../data/types/updateEntity";
-import { FormNodeLib, mapFormNodeLibToApiModel, mapNodeLibCmToFormNodeLib } from "../types/formNodeLib";
+import { FormNodeLib, mapNodeLibCmToFormNodeLib } from "../types/formNodeLib";
 
 /**
  * Hook ties together params from react router, node data from react query and react hook form binding
@@ -41,13 +39,13 @@ export const resetSubform = (resetField: (value: keyof FormNodeLib) => void) => 
   resetField("attributeIdList");
 };
 
-export const submitNodeData = (formData: FormNodeLib, mutate: (data: UpdateEntity<NodeLibAm>) => Promise<unknown>) => {
-  const submittable = mapFormNodeLibToApiModel(formData);
-  const submissionPromise = mutate(submittable);
+export const useNodeSubmissionToast = () => {
+  const { t } = useTranslation("translation", { keyPrefix: "node.processing" });
 
-  toast.promise(submissionPromise, {
-    loading: textResources.FORMS_NODE_SUBMITTING,
-    success: textResources.FORMS_NODE_SUBMITTING_SUCCESS,
-    error: textResources.FORMS_NODE_SUBMITTING_ERROR,
-  });
+  return (submissionPromise: Promise<unknown>) =>
+    toast.promise(submissionPromise, {
+      loading: t("loading"),
+      success: t("success"),
+      error: t("error"),
+    });
 };

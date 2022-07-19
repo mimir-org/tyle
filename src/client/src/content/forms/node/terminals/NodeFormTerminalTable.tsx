@@ -1,7 +1,7 @@
 import { ConnectorDirection } from "@mimirorg/typelibrary-types";
 import { Control, Controller, useFieldArray } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import textResources from "../../../../assets/text/TextResources";
 import { Table, Tbody, Td, Thead, Tr } from "../../../../complib/data-display";
 import { Input, Select } from "../../../../complib/inputs";
 import { Flexbox } from "../../../../complib/layouts";
@@ -23,13 +23,14 @@ export interface NodeFormTerminalsProps {
 
 export const NodeFormTerminalTable = ({ control }: NodeFormTerminalsProps) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const terminalQuery = useGetTerminals();
   const terminalFields = useFieldArray({ control, name: "nodeTerminals" });
   const connectorDirectionOptions = getValueLabelObjectsFromEnum<ConnectorDirection>(ConnectorDirection);
 
   return (
     <NodeFormSection
-      title={textResources.TERMINAL_TITLE}
+      title={t("terminals.title")}
       action={<NodeFormTerminalTableAddButton onClick={() => terminalFields.append(createEmptyNodeTerminalLibAm())} />}
     >
       <Table>
@@ -42,7 +43,7 @@ export const NodeFormTerminalTable = ({ control }: NodeFormTerminalsProps) => {
 
             return (
               <Tr key={field.id}>
-                <Td data-label={textResources.TERMINAL_TABLE_NAME}>
+                <Td data-label={t("terminals.templates.terminal", { object: t("terminals.name").toLowerCase() })}>
                   <Controller
                     control={control}
                     name={`nodeTerminals.${index}.terminalId`}
@@ -50,7 +51,7 @@ export const NodeFormTerminalTable = ({ control }: NodeFormTerminalsProps) => {
                       <Select
                         {...rest}
                         selectRef={ref}
-                        placeholder={textResources.TERMINAL_PLACEHOLDER}
+                        placeholder={t("common.templates.select", { object: t("terminals.name").toLowerCase() })}
                         options={terminalQuery.data}
                         isLoading={terminalQuery.isLoading}
                         getOptionLabel={(x) => x.name}
@@ -67,7 +68,7 @@ export const NodeFormTerminalTable = ({ control }: NodeFormTerminalsProps) => {
                     )}
                   />
                 </Td>
-                <Td data-label={textResources.TERMINAL_TABLE_AMOUNT}>
+                <Td data-label={t("terminals.amount")}>
                   <Controller
                     control={control}
                     name={`nodeTerminals.${index}.quantity`}
@@ -82,7 +83,7 @@ export const NodeFormTerminalTable = ({ control }: NodeFormTerminalsProps) => {
                     )}
                   />
                 </Td>
-                <Td data-label={textResources.TERMINAL_TABLE_DIRECTION}>
+                <Td data-label={t("terminals.templates.terminal", { object: t("terminals.direction").toLowerCase() })}>
                   <Controller
                     control={control}
                     name={`nodeTerminals.${index}.connectorDirection`}
@@ -90,7 +91,7 @@ export const NodeFormTerminalTable = ({ control }: NodeFormTerminalsProps) => {
                       <Select
                         {...rest}
                         selectRef={ref}
-                        placeholder={textResources.TERMINAL_DIRECTION_PLACEHOLDER}
+                        placeholder={t("common.templates.select", { object: t("terminals.direction").toLowerCase() })}
                         options={connectorDirectionOptions}
                         onChange={(x) => onChange(x?.value)}
                         value={connectorDirectionOptions.find((x) => x.value === value)}

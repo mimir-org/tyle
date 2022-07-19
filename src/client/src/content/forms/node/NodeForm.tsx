@@ -5,8 +5,8 @@ import { useTheme } from "styled-components/macro";
 import { Box } from "../../../complib/layouts";
 import { useCreateNode, useUpdateNode } from "../../../data/queries/tyle/queriesNode";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
-import { createEmptyFormNodeLib, FormNodeLib } from "../types/formNodeLib";
-import { submitNodeData } from "./NodeForm.helpers";
+import { createEmptyFormNodeLib, FormNodeLib, mapFormNodeLibToApiModel } from "../types/formNodeLib";
+import { useNodeSubmissionToast } from "./NodeForm.helpers";
 import { NodeFormContainer } from "./NodeForm.styled";
 import { NodeFormBaseFields } from "./NodeFormBaseFields";
 import { FunctionNode, LocationNode, ProductNode } from "./variants";
@@ -25,13 +25,18 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
   useNavigateOnCriteria("/", nodeCreateMutation.isSuccess || nodeUpdateMutation.isSuccess);
 
   const aspect = useWatch({ control, name: "aspect" });
+  const toastNodeSubmission = useNodeSubmissionToast();
+
+  const onSubmit = (data: FormNodeLib) => {
+    const mutation = isEdit ? nodeUpdateMutation.mutateAsync : nodeCreateMutation.mutateAsync;
+    const submittable = mapFormNodeLibToApiModel(data);
+    const submissionPromise = mutation(submittable);
+    toastNodeSubmission(submissionPromise);
+    return submissionPromise;
+  };
 
   return (
-    <NodeFormContainer
-      onSubmit={handleSubmit((data) =>
-        submitNodeData(data, isEdit ? nodeUpdateMutation.mutateAsync : nodeCreateMutation.mutateAsync)
-      )}
-    >
+    <NodeFormContainer onSubmit={handleSubmit((data) => onSubmit(data))}>
       <NodeFormBaseFields
         control={control}
         register={register}
