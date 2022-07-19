@@ -86,6 +86,7 @@
     <li><a href="https://styled-components.com/">styled-components</a></li>
     <li><a href="https://styled-icons.dev/">styled-icons</a></li>
     <li><a href="https://polished.js.org/">polished</a></li>
+    <li><a href="https://react.i18next.com/">react-i18next</a></li>
   </ul>
 </details>
 
