@@ -14,6 +14,7 @@ export type DialogProps = DialogContentProps & {
   description?: string;
   hideTitle?: boolean;
   hideDescription?: boolean;
+  closeText?: string;
 };
 
 /**
@@ -28,6 +29,7 @@ export type DialogProps = DialogContentProps & {
  * @param description optional description of dialog
  * @param hideTitle hides the title from view while remaining readable by screen-readers
  * @param hideDescription hides the description from view while remaining readable by screen-readers
+ * @param closeText property for overriding the default text for closing the dialog (screen-readers)
  * @param delegated receives sizing and flexbox props for overriding default styles
  * @constructor
  */
@@ -38,6 +40,7 @@ export const Dialog = ({
   hideTitle,
   description,
   hideDescription,
+  closeText,
   ...delegated
 }: DialogProps) => {
   const theme = useTheme();
@@ -56,7 +59,7 @@ export const Dialog = ({
               {description && <DialogDescription hide={hideDescription}>{description}</DialogDescription>}
             </Box>
             {content}
-            <DialogExit />
+            <DialogExit closeText={closeText} />
           </DialogContent>
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>

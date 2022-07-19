@@ -15,6 +15,7 @@ type AlertDialogProps = AlertDialogContentProps & {
   description?: string;
   hideTitle?: boolean;
   hideDescription?: boolean;
+  cancelText?: string;
 };
 
 /**
@@ -30,6 +31,7 @@ type AlertDialogProps = AlertDialogContentProps & {
  * @param description optional description of dialog
  * @param hideTitle hides the title from view while remaining readable by screen-readers
  * @param hideDescription hides the description from view while remaining readable by screen-readers
+ * @param cancelText property for overriding the text of the cancel action
  * @param delegated receives sizing and flexbox props for overriding default styles
  * @constructor
  */
@@ -41,6 +43,7 @@ export const AlertDialog = ({
   hideTitle,
   description,
   hideDescription,
+  cancelText,
   ...delegated
 }: PropsWithChildren<AlertDialogProps>) => {
   const theme = useTheme();
@@ -66,7 +69,7 @@ export const AlertDialog = ({
               gap={theme.tyle.spacing.base}
               minWidth={"236px"}
             >
-              <AlertDialogCancel />
+              <AlertDialogCancel cancelText={cancelText} />
               {actions?.map((a) => (
                 <AlertDialogAction key={a.name} {...a} />
               ))}
