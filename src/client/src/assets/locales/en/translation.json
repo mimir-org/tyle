@@ -1,0 +1,149 @@
+{
+  "global": {
+    "loading": "Loading application"
+  },
+  "search": {
+    "title": "Search",
+    "placeholders": {
+      "search": "Search for types"
+    },
+    "templates": {
+      "hits": "{{amount}} results found"
+    },
+    "item": {
+      "clone": "Clone",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteDescription": "When you delete this item it cannot be recovered.",
+      "templates": {
+        "delete": "Do you want to delete “{{object}}”?"
+      }
+    },
+    "help": {
+      "subtitle": "Search help",
+      "tip1": "Check your search for typos",
+      "tip2": "Use more generic search terms",
+      "tip3": "The type you are searching for might not have been added yet",
+      "templates": {
+        "query": "We are sorry, there are no results for “{{query}}”"
+      }
+    },
+    "filter": {
+      "title": "Filter",
+      "templates": {
+        "remove": "Remove {{object}} filter"
+      }
+    }
+  },
+  "about": {
+    "title": "About",
+    "placeholders": {
+      "item": "Select an item to view its properties"
+    }
+  },
+  "node": {
+    "name": "Name",
+    "purpose": "Purpose",
+    "aspect": "Aspect",
+    "symbol": "Symbol",
+    "rds": "RDS",
+    "owner": "Owner",
+    "description": "Description",
+    "placeholders": {
+      "name": "Node name",
+      "description": "Additional information about this node can be supplied here."
+    },
+    "disabled": {
+      "aspect": "It is not possible to change the aspect of the current type. We recommend that you select a different type with the desired aspect."
+    },
+    "processing": {
+      "loading": "Submitting node",
+      "success": "Your node has been submitted",
+      "error": "An error occurred during node submission"
+    }
+  },
+  "terminals": {
+    "title": "Terminals",
+    "name": "Name",
+    "amount": "Amount",
+    "direction": "Direction",
+    "attributes": "Attributes",
+    "add": "Add terminal",
+    "summary": {
+      "title": "Summary",
+      "open": "Open terminal summary",
+      "total": "Total terminals:"
+    },
+    "templates": {
+      "terminal": "Terminal {{object}}"
+    }
+  },
+  "attributes": {
+    "title": "Attributes",
+    "add": "Add attribute(s)",
+    "remove": "Remove attribute",
+    "dialog": {
+      "title": "Select attributes(s)",
+      "description": "The attributes listed below are predefined and can be reused across multiple nodes.",
+      "search": "Search",
+      "add": "Add"
+    }
+  },
+  "predefinedAttributes": {
+    "title": "Predefined attributes",
+    "placeholders": {
+      "attribute": "Select value(s)"
+    }
+  },
+  "forms": {
+    "placeholders": {
+      "email": "you@organization.com",
+      "password": "**********",
+      "code": "123456",
+      "firstname": "Jane",
+      "lastname": "Smith",
+      "required": "* Indicates a required field."
+    },
+    "fields": {
+      "email": "E-mail",
+      "password": "Password",
+      "code": "Authentication code",
+      "phone": "Phone",
+      "firstname": "First name",
+      "lastname": "Last name"
+    },
+    "login": {
+      "title": "Login",
+      "description": "View, create and edit types!",
+      "submit": "Login",
+      "altLead": "Don't have an account?",
+      "altLink": "Sign up",
+      "error": "Incorrect username, password or authentication code."
+    },
+    "register": {
+      "title": "Register",
+      "description": "Create an account to collaborate with your organization!",
+      "submit": "Create account",
+      "altLead": "Have an account?",
+      "altLink": "Log in",
+      "error": "An error occurred when trying to create your user.",
+      "processing": "Registering your user",
+      "finalize": {
+        "verification": "Please verify your email",
+        "verificationDescription": "You're almost there! We have sent you an email to verify your registration. Just click on the link in that email to complete your signup. If you don't see it, you may need to check your spam folder.",
+        "mfa": "Multi-factor authentication",
+        "mfaDescription": "Scan the QR code below in your authenticator app of choice. The code shown in the app can then be used during login.",
+        "finish": "Finish registration"
+      }
+    }
+  },
+  "common": {
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "confirm": "Confirm",
+    "select": "Select",
+    "templates": {
+      "select": "Select {{object}}"
+    }
+  }
+}
