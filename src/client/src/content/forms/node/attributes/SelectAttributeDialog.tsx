@@ -1,7 +1,7 @@
 import { DialogClose } from "@radix-ui/react-dialog";
 import { PlusSm } from "@styled-icons/heroicons-outline";
 import { useState } from "react";
-import { TextResources } from "../../../../assets/text";
+import { useTranslation } from "react-i18next";
 import { Button } from "../../../../complib/buttons";
 import { Dialog } from "../../../../complib/overlays";
 import { AttributeInfoCheckbox } from "../../../common/attribute";
@@ -23,6 +23,7 @@ interface SelectAttributeDialogProps {
  * @constructor
  */
 export const SelectAttributeDialog = ({ attributes, onAdd }: SelectAttributeDialogProps) => {
+  const { t } = useTranslation("translation", { keyPrefix: "attributes" });
   const [searchQuery, setSearchQuery] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
 
@@ -34,16 +35,12 @@ export const SelectAttributeDialog = ({ attributes, onAdd }: SelectAttributeDial
 
   return (
     <Dialog
-      title={TextResources.ATTRIBUTE_DIALOG_TITLE}
-      description={TextResources.ATTRIBUTE_DIALOG_DESCRIPTION}
+      title={t("dialog.title")}
+      description={t("dialog.description")}
       width={"1000px"}
       content={
         <SelectContainer>
-          <SearchField
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder={TextResources.ATTRIBUTE_DIALOG_SEARCH}
-          />
+          <SearchField value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder={t("search")} />
           <SelectAttributesContainer>
             {attributes
               .filter((x) => filterAttributeItem(x, searchQuery))
@@ -58,14 +55,14 @@ export const SelectAttributeDialog = ({ attributes, onAdd }: SelectAttributeDial
           </SelectAttributesContainer>
           <DialogClose asChild>
             <Button onClick={onAddAttributes} disabled={selected.length < 1}>
-              {TextResources.ATTRIBUTE_DIALOG_ADD}
+              {t("dialog.add")}
             </Button>
           </DialogClose>
         </SelectContainer>
       }
     >
       <Button icon={<PlusSm />} iconOnly>
-        {TextResources.ATTRIBUTE_ADD}
+        {t("add")}
       </Button>
     </Dialog>
   );

@@ -7,8 +7,8 @@ import {
   UseFormResetField,
   UseFormSetValue,
 } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import textResources from "../../../assets/text/TextResources";
 import { Button } from "../../../complib/buttons";
 import { Popover } from "../../../complib/data-display";
 import { FormField } from "../../../complib/form";
@@ -48,6 +48,7 @@ interface NodeFormBaseFieldsProps {
  */
 export const NodeFormBaseFields = ({ control, register, reset, resetField, setValue }: NodeFormBaseFieldsProps) => {
   const theme = useTheme();
+  const { t } = useTranslation();
 
   const rdsQuery = useGetRds();
   const symbolQuery = useGetSymbols();
@@ -62,10 +63,10 @@ export const NodeFormBaseFields = ({ control, register, reset, resetField, setVa
       <NodeFormPreview control={control} />
 
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
-        <FormField label={textResources.FORMS_NODE_NAME}>
-          <Input placeholder={textResources.FORMS_NODE_NAME_PLACEHOLDER} {...register("name")} />
+        <FormField label={t("node.name")}>
+          <Input placeholder={t("node.placeholders.name")} {...register("name")} />
         </FormField>
-        <FormField label={textResources.FORMS_NODE_PURPOSE}>
+        <FormField label={t("node.purpose")}>
           <Controller
             control={control}
             name={"purposeName"}
@@ -73,7 +74,7 @@ export const NodeFormBaseFields = ({ control, register, reset, resetField, setVa
               <Select
                 {...rest}
                 selectRef={ref}
-                placeholder={textResources.FORMS_NODE_PURPOSE_PLACEHOLDER}
+                placeholder={t("common.templates.select", { object: t("node.purpose").toLowerCase() })}
                 options={purposeQuery.data}
                 isLoading={purposeQuery.isLoading}
                 getOptionLabel={(x) => x.name}
@@ -84,7 +85,7 @@ export const NodeFormBaseFields = ({ control, register, reset, resetField, setVa
             )}
           />
         </FormField>
-        <FormField label={textResources.FORMS_NODE_ASPECT}>
+        <FormField label={t("node.aspect")}>
           <Controller
             control={control}
             name={"aspect"}
@@ -92,7 +93,7 @@ export const NodeFormBaseFields = ({ control, register, reset, resetField, setVa
               <ConditionalWrapper
                 condition={hasPrefilledData}
                 wrapper={(c) => (
-                  <Popover align={"start"} maxWidth={"225px"} content={textResources.FORMS_NODE_ASPECT_DISABLED}>
+                  <Popover align={"start"} maxWidth={"225px"} content={t("node.disabled.aspect")}>
                     <Box borderRadius={theme.tyle.border.radius.medium} tabIndex={0}>
                       {c}
                     </Box>
@@ -102,7 +103,7 @@ export const NodeFormBaseFields = ({ control, register, reset, resetField, setVa
                 <Select
                   {...rest}
                   selectRef={ref}
-                  placeholder={textResources.FORMS_NODE_ASPECT_PLACEHOLDER}
+                  placeholder={t("common.templates.select", { object: t("node.aspect").toLowerCase() })}
                   options={aspectOptions}
                   getOptionLabel={(x) => x.label}
                   onChange={(x) => {
@@ -116,7 +117,7 @@ export const NodeFormBaseFields = ({ control, register, reset, resetField, setVa
             )}
           />
         </FormField>
-        <FormField label={textResources.FORMS_NODE_SYMBOL}>
+        <FormField label={t("node.symbol")}>
           <Controller
             control={control}
             name={"symbol"}
@@ -124,7 +125,7 @@ export const NodeFormBaseFields = ({ control, register, reset, resetField, setVa
               <Select
                 {...rest}
                 selectRef={ref}
-                placeholder={textResources.FORMS_NODE_SYMBOL_PLACEHOLDER}
+                placeholder={t("common.templates.select", { object: t("node.symbol").toLowerCase() })}
                 options={symbolQuery.data}
                 isLoading={symbolQuery.isLoading}
                 getOptionLabel={(x) => x.name}
@@ -142,7 +143,7 @@ export const NodeFormBaseFields = ({ control, register, reset, resetField, setVa
           />
         </FormField>
         <Input type={"hidden"} {...register("rdsCode")} />
-        <FormField label={textResources.FORMS_NODE_RDS}>
+        <FormField label={t("node.rds")}>
           <Controller
             control={control}
             name={"rdsName"}
@@ -150,7 +151,7 @@ export const NodeFormBaseFields = ({ control, register, reset, resetField, setVa
               <Select
                 {...rest}
                 selectRef={ref}
-                placeholder={textResources.FORMS_NODE_RDS_PLACEHOLDER}
+                placeholder={t("common.templates.select", { object: t("node.rds").toLowerCase() })}
                 options={rdsQuery.data}
                 isLoading={rdsQuery.isLoading}
                 getOptionLabel={(x) => `${x.id} - ${x.name}`}
@@ -166,7 +167,7 @@ export const NodeFormBaseFields = ({ control, register, reset, resetField, setVa
             )}
           />
         </FormField>
-        <FormField label={textResources.FORMS_NODE_OWNER}>
+        <FormField label={t("node.owner")}>
           <Controller
             control={control}
             name={"companyId"}
@@ -174,7 +175,7 @@ export const NodeFormBaseFields = ({ control, register, reset, resetField, setVa
               <Select
                 {...rest}
                 selectRef={ref}
-                placeholder={textResources.FORMS_NODE_OWNER_PLACEHOLDER}
+                placeholder={t("common.templates.select", { object: t("node.owner").toLowerCase() })}
                 options={companyQuery.data}
                 getOptionLabel={(x) => x.name}
                 getOptionValue={(x) => x.id.toString()}
@@ -186,18 +187,18 @@ export const NodeFormBaseFields = ({ control, register, reset, resetField, setVa
             )}
           />
         </FormField>
-        <FormField label={textResources.FORMS_NODE_DESCRIPTION}>
-          <Textarea placeholder={textResources.FORMS_NODE_DESCRIPTION_PLACEHOLDER} {...register("description")} />
+        <FormField label={t("node.description")}>
+          <Textarea placeholder={t("node.placeholders.description")} {...register("description")} />
         </FormField>
       </Flexbox>
 
       <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
         <PlainLink tabIndex={-1} to={"/"}>
           <Button tabIndex={0} as={"span"} variant={"outlined"}>
-            {textResources.FORMS_CANCEL}
+            {t("common.cancel")}
           </Button>
         </PlainLink>
-        <Button type={"submit"}>{textResources.FORMS_SUBMIT}</Button>
+        <Button type={"submit"}>{t("common.submit")}</Button>
       </Flexbox>
     </NodeFormBaseFieldsContainer>
   );

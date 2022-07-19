@@ -1,7 +1,7 @@
 import { Aspect } from "@mimirorg/typelibrary-types";
 import { Control, Controller, UseFormRegister } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { TextResources } from "../../../../assets/text";
 import { FormField } from "../../../../complib/form";
 import { Input, Select } from "../../../../complib/inputs";
 import { Box, Grid } from "../../../../complib/layouts";
@@ -18,11 +18,13 @@ export interface NodeFormPredefinedAttributesProps {
 
 export const NodeFormPredefinedAttributes = ({ control, register, aspects }: NodeFormPredefinedAttributesProps) => {
   const theme = useTheme();
+  const { t } = useTranslation("translation", { keyPrefix: "predefinedAttributes" });
+
   const predefinedAttributesQuery = useGetAttributesPredefined();
   const predefinedAttributes = preparePredefinedAttributes(predefinedAttributesQuery.data, aspects);
 
   return (
-    <NodeFormSection title={TextResources.PREDEFINED_ATTRIBUTE_TITLE}>
+    <NodeFormSection title={t("title")}>
       <Grid gridTemplateColumns={"repeat(auto-fill, 300px)"} gap={theme.tyle.spacing.xl}>
         {predefinedAttributes.map((x, index) => {
           return (
@@ -36,7 +38,7 @@ export const NodeFormPredefinedAttributes = ({ control, register, aspects }: Nod
                     <Select
                       {...rest}
                       selectRef={ref}
-                      placeholder={TextResources.PREDEFINED_ATTRIBUTE_SELECT}
+                      placeholder={t("placeholders.attribute")}
                       options={x.valueStringList.map((y) => ({ value: y }))}
                       getOptionLabel={(y) => y.value}
                       isLoading={predefinedAttributesQuery.isLoading}
