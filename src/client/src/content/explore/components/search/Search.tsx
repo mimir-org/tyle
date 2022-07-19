@@ -1,7 +1,6 @@
 import { XCircle } from "@styled-icons/heroicons-outline";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { TextResources } from "../../../../assets/text";
-import textResources from "../../../../assets/text/TextResources";
 import { Token } from "../../../../complib/general";
 import { Flexbox, MotionFlexbox } from "../../../../complib/layouts";
 import { MotionText, Text } from "../../../../complib/text";
@@ -27,6 +26,7 @@ interface SearchProps {
  */
 export const Search = ({ selected, setSelected }: SearchProps) => {
   const theme = useTheme();
+  const { t } = useTranslation("translation", { keyPrefix: "search" });
   const filterGroups = useGetFilterGroups();
   const [activeFilters, toggleFilter] = useFilterState([]);
   const [query, setQuery, debouncedQuery] = useDebounceState("");
@@ -38,15 +38,11 @@ export const Search = ({ selected, setSelected }: SearchProps) => {
   const showPlaceholder = !isLoading && results.length === 0;
 
   return (
-    <ExploreSection title={TextResources.SEARCH_TITLE}>
+    <ExploreSection title={t("title")}>
       <Flexbox gap={theme.tyle.spacing.xxxl} alignItems={"center"}>
-        <SearchField
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder={TextResources.SEARCH_PLACEHOLDER}
-        />
+        <SearchField value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t("placeholders.search")} />
         <FilterMenu
-          name={TextResources.FILTER_TITLE}
+          name={t("filter.title")}
           filterGroups={filterGroups}
           activeFilters={activeFilters}
           toggleFilter={toggleFilter}
@@ -59,7 +55,7 @@ export const Search = ({ selected, setSelected }: SearchProps) => {
             <Token
               key={i}
               actionable
-              actionText={`${textResources.FILTER_REMOVE_START} ${x.label} ${textResources.FILTER_REMOVE_END}`}
+              actionText={t("filter.templates.remove", { object: x.label })}
               actionIcon={<XCircle />}
               onAction={() => toggleFilter(x)}
             >
@@ -76,7 +72,7 @@ export const Search = ({ selected, setSelected }: SearchProps) => {
           color={theme.tyle.color.sys.surface.variant.on}
           {...theme.tyle.animation.fade}
         >
-          {results.length} {textResources.SEARCH_RESULTS}
+          {t("templates.hits", { amount: results.length })}
         </MotionText>
       )}
 
@@ -100,19 +96,20 @@ export const Search = ({ selected, setSelected }: SearchProps) => {
 
 const Placeholder = ({ query }: { query: string }) => {
   const theme = useTheme();
+  const { t } = useTranslation("translation", { keyPrefix: "search.help" });
 
   return (
     <MotionFlexbox layout flexDirection={"column"} gap={theme.tyle.spacing.xl} {...theme.tyle.animation.fade}>
       <Text variant={"title-large"} color={theme.tyle.color.sys.surface.variant.on} wordBreak={"break-all"}>
-        {textResources.SEARCH_HELP_TITLE} “{query}”
+        {t("templates.query", { query })}
       </Text>
       <Text variant={"label-large"} color={theme.tyle.color.sys.primary.base}>
-        {textResources.SEARCH_HELP_SUBTITLE}
+        {t("subtitle")}
       </Text>
       <ul>
-        <li>{textResources.SEARCH_HELP_TIP_1}</li>
-        <li>{textResources.SEARCH_HELP_TIP_2}</li>
-        <li>{textResources.SEARCH_HELP_TIP_3}</li>
+        <li>{t("tip1")}</li>
+        <li>{t("tip2")}</li>
+        <li>{t("tip3")}</li>
       </ul>
     </MotionFlexbox>
   );
