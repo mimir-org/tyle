@@ -13,7 +13,7 @@ import { FormNodeLib, mapNodeLibCmToFormNodeLib } from "../types/formNodeLib";
  */
 export const usePrefilledNodeData = (
   reset: (values?: DefaultValues<FormNodeLib> | FormNodeLib, keepStateOptions?: KeepStateOptions) => void
-) => {
+): [hasPrefilled: boolean, isLoading: boolean] => {
   const { id } = useParams();
   const nodeQuery = useGetNode(id);
   const [hasPrefilled, setHasPrefilled] = useState(false);
@@ -25,7 +25,7 @@ export const usePrefilledNodeData = (
     }
   }, [hasPrefilled, nodeQuery.isSuccess, nodeQuery.data, reset]);
 
-  return hasPrefilled;
+  return [hasPrefilled, nodeQuery.isLoading];
 };
 
 /**

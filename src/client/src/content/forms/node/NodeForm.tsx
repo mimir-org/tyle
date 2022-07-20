@@ -5,6 +5,7 @@ import { useTheme } from "styled-components/macro";
 import { Box } from "../../../complib/layouts";
 import { useCreateNode, useUpdateNode } from "../../../data/queries/tyle/queriesNode";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
+import { Loader } from "../../common/Loader";
 import { createEmptyFormNodeLib, FormNodeLib, mapFormNodeLibToApiModel } from "../types/formNodeLib";
 import { useNodeSubmissionToast, usePrefilledNodeData } from "./NodeForm.helpers";
 import { NodeFormContainer } from "./NodeForm.styled";
@@ -38,20 +39,24 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
 
   return (
     <NodeFormContainer onSubmit={handleSubmit((data) => onSubmit(data))}>
-      <NodeFormBaseFields
-        control={control}
-        register={register}
-        resetField={resetField}
-        setValue={setValue}
-        hasPrefilledData={hasPrefilledData}
-      />
+      {isLoading && <Loader />}
+      {!isLoading && (
+        <>
+          <NodeFormBaseFields
+            control={control}
+            register={register}
+            resetField={resetField}
+            setValue={setValue}
+            hasPrefilledData={hasPrefilledData}
+          />
 
-      <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
-        {aspect === Aspect.Function && <FunctionNode control={control} register={register} />}
-        {aspect === Aspect.Location && <LocationNode control={control} register={register} />}
-        {aspect === Aspect.Product && <ProductNode control={control} register={register} />}
-      </Box>
-
+          <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
+            {aspect === Aspect.Function && <FunctionNode control={control} register={register} />}
+            {aspect === Aspect.Location && <LocationNode control={control} register={register} />}
+            {aspect === Aspect.Product && <ProductNode control={control} register={register} />}
+          </Box>
+        </>
+      )}
       <DevTool control={control} placement={"bottom-right"} />
     </NodeFormContainer>
   );
