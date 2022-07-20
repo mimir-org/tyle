@@ -6,7 +6,7 @@ import { Box } from "../../../complib/layouts";
 import { useCreateNode, useUpdateNode } from "../../../data/queries/tyle/queriesNode";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { createEmptyFormNodeLib, FormNodeLib, mapFormNodeLibToApiModel } from "../types/formNodeLib";
-import { useNodeSubmissionToast } from "./NodeForm.helpers";
+import { useNodeSubmissionToast, usePrefilledNodeData } from "./NodeForm.helpers";
 import { NodeFormContainer } from "./NodeForm.styled";
 import { NodeFormBaseFields } from "./NodeFormBaseFields";
 import { FunctionNode, LocationNode, ProductNode } from "./variants";
@@ -19,14 +19,13 @@ interface NodeFormProps {
 export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: NodeFormProps) => {
   const theme = useTheme();
   const { register, handleSubmit, control, setValue, reset, resetField } = useForm<FormNodeLib>({ defaultValues });
+  const aspect = useWatch({ control, name: "aspect" });
 
   const nodeUpdateMutation = useUpdateNode();
   const nodeCreateMutation = useCreateNode();
-  useNavigateOnCriteria("/", nodeCreateMutation.isSuccess || nodeUpdateMutation.isSuccess);
+  const [hasPrefilledData, isLoading] = usePrefilledNodeData(reset);
 
-  const aspect = useWatch({ control, name: "aspect" });
   const toastNodeSubmission = useNodeSubmissionToast();
-
   const onSubmit = (data: FormNodeLib) => {
     const mutation = isEdit ? nodeUpdateMutation.mutateAsync : nodeCreateMutation.mutateAsync;
     const submittable = mapFormNodeLibToApiModel(data);
@@ -35,14 +34,16 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
     return submissionPromise;
   };
 
+  useNavigateOnCriteria("/", nodeCreateMutation.isSuccess || nodeUpdateMutation.isSuccess);
+
   return (
     <NodeFormContainer onSubmit={handleSubmit((data) => onSubmit(data))}>
       <NodeFormBaseFields
         control={control}
         register={register}
-        reset={reset}
         resetField={resetField}
         setValue={setValue}
+        hasPrefilledData={hasPrefilledData}
       />
 
       <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>

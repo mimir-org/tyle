@@ -1,12 +1,5 @@
 import { Aspect } from "@mimirorg/typelibrary-types";
-import {
-  Control,
-  Controller,
-  UseFormRegister,
-  UseFormReset,
-  UseFormResetField,
-  UseFormSetValue,
-} from "react-hook-form";
+import { Control, Controller, UseFormRegister, UseFormResetField, UseFormSetValue } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Button } from "../../../complib/buttons";
@@ -24,16 +17,16 @@ import { useGetSymbols } from "../../../data/queries/tyle/queriesSymbol";
 import { getValueLabelObjectsFromEnum } from "../../../utils/getValueLabelObjectsFromEnum";
 import { PlainLink } from "../../utils/PlainLink";
 import { FormNodeLib } from "../types/formNodeLib";
-import { resetSubform, usePrefilledNodeData } from "./NodeForm.helpers";
+import { resetSubform } from "./NodeForm.helpers";
 import { NodeFormBaseFieldsContainer } from "./NodeFormBaseFields.styled";
 import { NodeFormPreview } from "./NodeFormPreview";
 
 interface NodeFormBaseFieldsProps {
   control: Control<FormNodeLib>;
   register: UseFormRegister<FormNodeLib>;
-  reset: UseFormReset<FormNodeLib>;
   resetField: UseFormResetField<FormNodeLib>;
   setValue: UseFormSetValue<FormNodeLib>;
+  hasPrefilledData?: boolean;
 }
 
 /**
@@ -41,12 +34,18 @@ interface NodeFormBaseFieldsProps {
  *
  * @param control
  * @param register
- * @param reset
  * @param resetField
  * @param setValue
+ * @param hasPrefilledData
  * @constructor
  */
-export const NodeFormBaseFields = ({ control, register, reset, resetField, setValue }: NodeFormBaseFieldsProps) => {
+export const NodeFormBaseFields = ({
+  control,
+  register,
+  resetField,
+  setValue,
+  hasPrefilledData,
+}: NodeFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -55,8 +54,6 @@ export const NodeFormBaseFields = ({ control, register, reset, resetField, setVa
   const purposeQuery = useGetPurposes();
   const companyQuery = useGetCompanies();
   const aspectOptions = getValueLabelObjectsFromEnum<Aspect>(Aspect);
-
-  const hasPrefilledData = usePrefilledNodeData(reset);
 
   return (
     <NodeFormBaseFieldsContainer>
