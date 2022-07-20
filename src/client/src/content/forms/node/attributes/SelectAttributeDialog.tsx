@@ -40,7 +40,11 @@ export const SelectAttributeDialog = ({ attributes, onAdd }: SelectAttributeDial
       width={"1000px"}
       content={
         <SelectContainer>
-          <SearchField value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder={t("search")} />
+          <SearchField
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder={t("dialog.search")}
+          />
           <SelectAttributesContainer>
             {attributes
               .filter((x) => filterAttributeItem(x, searchQuery))
