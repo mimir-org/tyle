@@ -3,7 +3,7 @@ import { Control, Controller, useFieldArray } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Table, Tbody, Td, Thead, Tr } from "../../../../complib/data-display";
-import { Input, Select } from "../../../../complib/inputs";
+import { Counter, Select } from "../../../../complib/inputs";
 import { Flexbox } from "../../../../complib/layouts";
 import { Text } from "../../../../complib/text";
 import { useGetTerminals } from "../../../../data/queries/tyle/queriesTerminal";
@@ -72,13 +72,12 @@ export const NodeFormTerminalTable = ({ control }: NodeFormTerminalsProps) => {
                   <Controller
                     control={control}
                     name={`nodeTerminals.${index}.quantity`}
-                    render={({ field: { onChange, value } }) => (
-                      <Input
-                        {...field}
-                        type="number"
+                    render={({ field: { onChange, value, ...rest } }) => (
+                      <Counter
+                        {...rest}
+                        id={field.id}
                         value={value}
-                        onChange={(e) => onTerminalAmountChange(index, e, terminalFields.remove, onChange)}
-                        maxWidth={"120px"}
+                        onChange={(val) => onTerminalAmountChange(index, val, terminalFields.remove, onChange)}
                       />
                     )}
                   />
