@@ -3,13 +3,14 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Token } from "../../../../complib/general";
 import { Flexbox, MotionFlexbox } from "../../../../complib/layouts";
-import { MotionText, Text } from "../../../../complib/text";
+import { MotionText } from "../../../../complib/text";
 import { useDebounceState } from "../../../../hooks/useDebounceState";
 import { SearchField } from "../../../common/SearchField";
 import { ExploreSection } from "../ExploreSection";
 import { FilterMenu } from "./components/filter/FilterMenu";
 import { ItemList } from "./components/item/ItemList";
 import { NodeSearchItem } from "./components/node/NodeSearchItem";
+import { SearchPlaceholder } from "./components/SearchPlaceholder";
 import { useFilterState, useGetFilterGroups, useSearchResults } from "./Search.helpers";
 
 interface SearchProps {
@@ -89,28 +90,13 @@ export const Search = ({ selected, setSelected }: SearchProps) => {
         </ItemList>
       )}
 
-      {showPlaceholder && <Placeholder query={query} />}
+      {showPlaceholder && (
+        <SearchPlaceholder
+          title={t("help.templates.query", { query })}
+          subtitle={t("help.subtitle")}
+          tips={[t("help.tip1"), t("help.tip2"), t("help.tip3")]}
+        />
+      )}
     </ExploreSection>
-  );
-};
-
-const Placeholder = ({ query }: { query: string }) => {
-  const theme = useTheme();
-  const { t } = useTranslation("translation", { keyPrefix: "search.help" });
-
-  return (
-    <MotionFlexbox layout flexDirection={"column"} gap={theme.tyle.spacing.xl} {...theme.tyle.animation.fade}>
-      <Text variant={"title-large"} color={theme.tyle.color.sys.surface.variant.on} wordBreak={"break-all"}>
-        {t("templates.query", { query })}
-      </Text>
-      <Text variant={"label-large"} color={theme.tyle.color.sys.primary.base}>
-        {t("subtitle")}
-      </Text>
-      <ul>
-        <li>{t("tip1")}</li>
-        <li>{t("tip2")}</li>
-        <li>{t("tip3")}</li>
-      </ul>
-    </MotionFlexbox>
   );
 };
