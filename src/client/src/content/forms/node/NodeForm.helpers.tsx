@@ -1,10 +1,12 @@
+import { Aspect } from "@mimirorg/typelibrary-types";
 import { useEffect, useState } from "react";
-import { DefaultValues, KeepStateOptions } from "react-hook-form";
+import { Control, DefaultValues, KeepStateOptions, UseFormRegister } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { toast } from "../../../complib/data-display";
 import { useGetNode } from "../../../data/queries/tyle/queriesNode";
 import { FormNodeLib, mapNodeLibCmToFormNodeLib } from "../types/formNodeLib";
+import { FunctionNode, LocationNode, ProductNode } from "./variants";
 
 /**
  * Hook ties together params from react router, node data from react query and react hook form binding
@@ -48,4 +50,21 @@ export const useNodeSubmissionToast = () => {
       success: t("success"),
       error: t("error"),
     });
+};
+
+export const getFormForAspect = (
+  aspect: Aspect,
+  control: Control<FormNodeLib>,
+  register: UseFormRegister<FormNodeLib>
+) => {
+  switch (aspect) {
+    case Aspect.Function:
+      return <FunctionNode control={control} register={register} />;
+    case Aspect.Product:
+      return <ProductNode control={control} register={register} />;
+    case Aspect.Location:
+      return <LocationNode control={control} register={register} />;
+    default:
+      return <></>;
+  }
 };

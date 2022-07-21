@@ -1,5 +1,4 @@
 import { DevTool } from "@hookform/devtools";
-import { Aspect } from "@mimirorg/typelibrary-types";
 import { useForm, useWatch } from "react-hook-form";
 import { useTheme } from "styled-components/macro";
 import { Box } from "../../../complib/layouts";
@@ -7,10 +6,9 @@ import { useCreateNode, useUpdateNode } from "../../../data/queries/tyle/queries
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
 import { createEmptyFormNodeLib, FormNodeLib, mapFormNodeLibToApiModel } from "../types/formNodeLib";
-import { useNodeSubmissionToast, usePrefilledNodeData } from "./NodeForm.helpers";
+import { getFormForAspect, useNodeSubmissionToast, usePrefilledNodeData } from "./NodeForm.helpers";
 import { NodeFormContainer } from "./NodeForm.styled";
 import { NodeFormBaseFields } from "./NodeFormBaseFields";
-import { FunctionNode, LocationNode, ProductNode } from "./variants";
 
 interface NodeFormProps {
   defaultValues?: FormNodeLib;
@@ -51,9 +49,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
           />
 
           <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
-            {aspect === Aspect.Function && <FunctionNode control={control} register={register} />}
-            {aspect === Aspect.Location && <LocationNode control={control} register={register} />}
-            {aspect === Aspect.Product && <ProductNode control={control} register={register} />}
+            {getFormForAspect(aspect, control, register)}
           </Box>
         </>
       )}
