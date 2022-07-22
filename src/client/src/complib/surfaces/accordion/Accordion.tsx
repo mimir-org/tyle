@@ -19,12 +19,10 @@ export type AccordionProps = Sizing & {
  * @param children
  * @constructor
  */
-export const Accordion = function ({ children, type = "single", ...delegated }: AccordionProps) {
-  return (
-    <Root type={type} collapsible={true} asChild>
-      <StyledAccordionRoot type={type} {...delegated}>
-        {children}
-      </StyledAccordionRoot>
-    </Root>
-  );
-};
+export const Accordion = ({ children, type = "single", ...delegated }: AccordionProps) => (
+  <Root type={type} collapsible={true} asChild>
+    <StyledAccordionRoot type={type} {...delegated}>
+      {children}
+    </StyledAccordionRoot>
+  </Root>
+);
