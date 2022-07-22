@@ -9,7 +9,7 @@ import { isProduction } from "../../models/Config";
 import { App } from "../app";
 
 export const Root = () => {
-  const [colorTheme] = usePrefersTheme("light", { storageOnly: true });
+  const [colorTheme] = usePrefersTheme("light");
 
   return (
     <BrowserRouter>
