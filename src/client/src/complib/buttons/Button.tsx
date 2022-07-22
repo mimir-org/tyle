@@ -2,6 +2,7 @@ import { ForwardedRef, forwardRef, isValidElement, ReactElement, ReactNode } fro
 import { useTheme } from "styled-components";
 import { VisuallyHidden } from "../accessibility";
 import { Icon } from "../media";
+import { TextTypes } from "../props";
 import { Text } from "../text";
 import { ButtonContainerProps, MotionButtonContainer } from "./Button.styled";
 
@@ -10,11 +11,12 @@ type ButtonProps = ButtonContainerProps & {
   icon?: string | ReactElement;
   iconPlacement?: "left" | "right";
   iconOnly?: boolean;
+  textVariant?: TextTypes;
 };
 
 export const Button = forwardRef((props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
   const theme = useTheme();
-  const { children, icon, iconPlacement, iconOnly, ...delegated } = props;
+  const { children, icon, iconPlacement, iconOnly, textVariant, ...delegated } = props;
   const IconComponent = () => (isValidElement(icon) ? icon : <Icon src={icon} alt="" />);
 
   return (
@@ -28,7 +30,7 @@ export const Button = forwardRef((props: ButtonProps, ref: ForwardedRef<HTMLButt
       {icon && iconOnly ? (
         <VisuallyHidden>{children}</VisuallyHidden>
       ) : (
-        <Text as={"span"} variant={"body-small"}>
+        <Text as={"span"} variant={textVariant}>
           {children}
         </Text>
       )}
@@ -39,6 +41,7 @@ export const Button = forwardRef((props: ButtonProps, ref: ForwardedRef<HTMLButt
 
 Button.displayName = "Button";
 Button.defaultProps = {
-  iconPlacement: "right",
   type: "button",
+  iconPlacement: "right",
+  textVariant: "body-small",
 };
