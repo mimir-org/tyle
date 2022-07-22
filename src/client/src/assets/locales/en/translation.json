@@ -137,6 +137,12 @@
       }
     }
   },
+  "notFound": {
+    "title": "Oops!",
+    "subtitle": "We can't seem to find the page you're looking for.",
+    "status": "Error code: 404",
+    "link": "Go back home"
+  },
   "common": {
     "cancel": "Cancel",
     "submit": "Submit",
