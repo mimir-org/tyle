@@ -4,7 +4,7 @@
 This directory houses mixins that implement common and reusable functionality for the purpose of styling components.
 
 Many of the mixins available you will find in the "mixins/props" directory, these implement the interfaces defined in the "complib/props" directory.  
-The purpose of these is to aid in creating a common interfaces for components that expose any of the properties defined within these interfaces.  
+The purpose of these is to aid in creating common interfaces for components that expose any of the properties defined within these interfaces.  
 As an example two components "Foo" and "Bar" would expose the same property "maxWidth" by using sizing.ts and sizingMixin.ts.  
 By utilizing the same interfaces and mixins we avoid these components using different names for this property e.g. maxW, maximumWidth etc.
 
