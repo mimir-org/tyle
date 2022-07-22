@@ -2,6 +2,11 @@
   "global": {
     "loading": "Loading application"
   },
+  "user": {
+    "menu": {
+      "darkMode": "Enable dark mode"
+    }
+  },
   "search": {
     "title": "Search",
     "placeholders": {
