@@ -3,7 +3,7 @@ export interface Typography {
   fontFamily?: string;
   fontSize?: string;
   fontStyle?: string;
-  fontWeight?: string;
+  fontWeight?: string | number;
   letterSpacing?: string;
   lineHeight?: string;
   textAlign?: string;
