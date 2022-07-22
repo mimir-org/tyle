@@ -1,6 +1,6 @@
-import { Register } from "../../../forms/register";
-import { Login } from "../../../forms/login";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { Login } from "../../../forms/auth/login";
+import { Register } from "../../../forms/auth/register";
 import { UnauthenticatedLayout } from "./Unauthenticated.styled";
 
 export const Unauthenticated = () => {
@@ -9,6 +9,7 @@ export const Unauthenticated = () => {
       <Routes>
         <Route path={"/"} element={<Login />} />
         <Route path={"/register"} element={<Register />} />
+        <Route path={"*"} element={<Navigate to={"/"} replace />} />
       </Routes>
     </UnauthenticatedLayout>
   );

@@ -1,7 +1,8 @@
 import { CheckboxProps } from "@radix-ui/react-checkbox";
 import { ForwardedRef, forwardRef } from "react";
+import { useTheme } from "styled-components";
 import { CheckboxEmptyIcon } from "../../../assets/icons/checkmark";
-import { CheckboxChecked, CheckboxIndicator, CheckboxRoot } from "./Checkbox.styled";
+import { CheckboxChecked, CheckboxIndicator, MotionCheckboxRoot } from "./Checkbox.styled";
 
 /**
  * A simple checkbox wrapper, with styling that follows library conventions.
@@ -11,13 +12,17 @@ import { CheckboxChecked, CheckboxIndicator, CheckboxRoot } from "./Checkbox.sty
  *
  * @constructor
  */
-export const Checkbox = forwardRef((props: CheckboxProps, ref: ForwardedRef<HTMLButtonElement>) => (
-  <CheckboxRoot ref={ref} {...props}>
-    <CheckboxEmptyIcon />
-    <CheckboxIndicator>
-      <CheckboxChecked />
-    </CheckboxIndicator>
-  </CheckboxRoot>
-));
+export const Checkbox = forwardRef((props: CheckboxProps, ref: ForwardedRef<HTMLButtonElement>) => {
+  const theme = useTheme();
+
+  return (
+    <MotionCheckboxRoot ref={ref} {...theme.tyle.animation.checkboxTap} {...props}>
+      <CheckboxEmptyIcon />
+      <CheckboxIndicator>
+        <CheckboxChecked />
+      </CheckboxIndicator>
+    </MotionCheckboxRoot>
+  );
+});
 
 Checkbox.displayName = "Checkbox";

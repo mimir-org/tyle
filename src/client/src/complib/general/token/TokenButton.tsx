@@ -1,7 +1,8 @@
 import { ButtonHTMLAttributes, ForwardedRef, forwardRef } from "react";
+import { useTheme } from "styled-components";
 import { Text } from "../../text";
 import { TokenBaseProps } from "./Token";
-import { TokenContainer } from "./Token.styled";
+import { MotionTokenContainer } from "./Token.styled";
 
 export type TokenButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & Omit<TokenBaseProps, "interactive">;
 
@@ -14,14 +15,15 @@ export type TokenButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & Omit<To
  * @constructor
  */
 export const TokenButton = forwardRef((props: TokenButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
+  const theme = useTheme();
   const { children, ...delegated } = props;
 
   return (
-    <TokenContainer ref={ref} as={"button"} $interactive {...delegated}>
+    <MotionTokenContainer ref={ref} as={"button"} $interactive {...theme.tyle.animation.buttonTap} {...delegated}>
       <Text variant={"label-small"} useEllipsis ellipsisMaxLines={1}>
         {children}
       </Text>
-    </TokenContainer>
+    </MotionTokenContainer>
   );
 });
 

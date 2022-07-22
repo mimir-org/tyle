@@ -17,7 +17,7 @@ type LogoProps = Omit<IconProps, "src"> & {
  * @constructor
  */
 export const Logo = forwardRef((props: LogoProps, ref: ForwardedRef<HTMLImageElement>) => {
-  let [theme] = usePrefersTheme("light", { storageOnly: true });
+  let [theme] = usePrefersTheme("light");
   const { inverse, ...delegated } = props;
 
   if (inverse && theme === "light") theme = "dark";
@@ -37,4 +37,4 @@ Logo.displayName = "Logo";
  *
  * @see https://github.com/framer/motion
  */
-export const MotionLogo = motion(Logo, { forwardMotionProps: true });
+export const MotionLogo = motion(Logo);

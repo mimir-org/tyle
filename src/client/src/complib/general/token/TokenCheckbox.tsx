@@ -1,8 +1,9 @@
 import { CheckboxProps } from "@radix-ui/react-checkbox";
 import { ForwardedRef, forwardRef } from "react";
+import { useTheme } from "styled-components";
 import { Text } from "../../text";
 import { TokenBaseProps } from "./Token";
-import { TokenCheckboxContainer } from "./TokenCheckbox.styled";
+import { MotionTokenCheckboxContainer } from "./TokenCheckbox.styled";
 
 export type TokenCheckboxProps = CheckboxProps & Omit<TokenBaseProps, "interactive">;
 
@@ -17,14 +18,15 @@ export type TokenCheckboxProps = CheckboxProps & Omit<TokenBaseProps, "interacti
  * @constructor
  */
 export const TokenCheckbox = forwardRef((props: TokenCheckboxProps, ref: ForwardedRef<HTMLButtonElement>) => {
+  const theme = useTheme();
   const { children, ...delegated } = props;
 
   return (
-    <TokenCheckboxContainer ref={ref} $interactive {...delegated}>
+    <MotionTokenCheckboxContainer ref={ref} $interactive {...theme.tyle.animation.checkboxTap} {...delegated}>
       <Text variant={"label-small"} useEllipsis ellipsisMaxLines={1}>
         {children}
       </Text>
-    </TokenCheckboxContainer>
+    </MotionTokenCheckboxContainer>
   );
 });
 

@@ -1,4 +1,4 @@
-import { AttributeItem } from "../../../home/types/AttributeItem";
+import { AttributeItem } from "../../../types/AttributeItem";
 
 /**
  * Simple filtration of an attribute which tries to match an attribute's name and trait values against tokens in search query.

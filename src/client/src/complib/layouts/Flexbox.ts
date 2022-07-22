@@ -24,4 +24,4 @@ export const Flexbox = styled.div<FlexboxProps>`
  *
  * @see https://github.com/framer/motion
  */
-export const MotionFlexbox = motion(Flexbox, { forwardMotionProps: true });
+export const MotionFlexbox = motion(Flexbox);

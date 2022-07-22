@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { LibraryIcon } from "../../assets/icons/modules";
-import { NodeItem } from "../../content/home/types/NodeItem";
+import { NodeItem } from "../../content/types/NodeItem";
 import { mockAttributeItem } from "./mockAttributeItem";
 import { mockTerminalItem } from "./mockTerminalItem";
 

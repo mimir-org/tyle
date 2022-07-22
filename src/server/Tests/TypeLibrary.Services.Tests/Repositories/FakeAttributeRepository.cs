@@ -1,32 +1,35 @@
-using Mimirorg.Common.Abstract;
-using Mimirorg.TypeLibrary.Enums;
-using TypeLibrary.Data;
-using TypeLibrary.Data.Contracts.Ef;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Services.Tests.Repositories
 {
-    public sealed class FakeAttributeRepository : GenericRepository<TypeLibraryDbContext, AttributeLibDm>, IEfAttributeRepository
+    public sealed class FakeAttributeRepository : IAttributeRepository
     {
-        public FakeAttributeRepository(TypeLibraryDbContext dbContext) : base(dbContext)
+        public IEnumerable<AttributeLibDm> Get()
         {
-            // Add some test data
-            var a = new AttributeLibDm
-            {
-                Id = "Fake_Attribute_A",
-                Name = "Fake_Pressure",
-                Aspect = Aspect.Function,
-                Discipline = Discipline.Process,
-                Select = Select.None,
-                AttributeQualifier = "Capacity",
-                AttributeSource = "Required",
-                AttributeCondition = "Minimum",
-                AttributeFormat = "Float"
-            };
+            throw new System.NotImplementedException();
+        }
 
-            Context.Add(a);
-            Context.SaveChanges();
-            Detach(a);
+        public Task<AttributeLibDm> Create(AttributeLibDm attribute)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetUnchanged(ICollection<AttributeLibDm> items)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetDetached(ICollection<AttributeLibDm> items)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ClearAllChangeTrackers()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

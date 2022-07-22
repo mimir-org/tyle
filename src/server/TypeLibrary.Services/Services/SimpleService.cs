@@ -48,8 +48,7 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<SimpleLibCm>> Get()
         {
-            var simpleLibDms = _simpleRepository.Get().ToList()
-                .OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var simpleLibDms = _simpleRepository.Get().OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
             var simpleLibCms = _mapper.Map<IEnumerable<SimpleLibCm>>(simpleLibDms);
 

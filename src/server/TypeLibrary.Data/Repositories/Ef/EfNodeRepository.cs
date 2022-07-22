@@ -1,7 +1,11 @@
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Common.Abstract;
+using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Models;
+using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 
@@ -9,36 +13,82 @@ namespace TypeLibrary.Data.Repositories.Ef
 {
     public class EfNodeRepository : GenericRepository<TypeLibraryDbContext, NodeLibDm>, IEfNodeRepository
     {
-        public EfNodeRepository(TypeLibraryDbContext dbContext) : base(dbContext)
+        private readonly IAttributeRepository _attributeRepository;
+        private readonly ISimpleRepository _simpleRepository;
+        private readonly ApplicationSettings _applicationSettings;
+
+        public EfNodeRepository(TypeLibraryDbContext dbContext, IAttributeRepository attributeRepository, ISimpleRepository simpleRepository, IOptions<ApplicationSettings> applicationSettings) : base(dbContext)
         {
+            _attributeRepository = attributeRepository;
+            _simpleRepository = simpleRepository;
+            _applicationSettings = applicationSettings?.Value;
+        }
+
+        public IEnumerable<NodeLibDm> Get()
+        {
+            return GetAll()
+                .Include(x => x.Attributes)
+                    .ThenInclude(x => x.Units)
+                .Include(x => x.NodeTerminals)
+                    .ThenInclude(x => x.Terminal)
+                    .ThenInclude(x => x.Attributes)
+                    .ThenInclude(x => x.Units)
+                .Include(x => x.Simples)
+                    .ThenInclude(x => x.Attributes)
+                    .ThenInclude(x => x.Units)
+                .AsSplitQuery();
         }
 
         public async Task<NodeLibDm> Get(string id)
         {
-            return await GetAsync(id);
+            return await FindBy(x => x.Id == id)
+                .Include(x => x.Attributes)
+                    .ThenInclude(x => x.Units)
+                .Include(x => x.NodeTerminals)
+                    .ThenInclude(x => x.Terminal)
+                    .ThenInclude(x => x.Attributes)
+                    .ThenInclude(x => x.Units)
+                .Include(x => x.Simples)
+                    .ThenInclude(x => x.Attributes)
+                    .ThenInclude(x => x.Units)
+                .AsSplitQuery()
+                .FirstOrDefaultAsync();
         }
 
-        public IQueryable<NodeLibDm> GetAllNodes()
+        public async Task<NodeLibDm> Create(NodeLibDm node)
         {
-            return GetAll()
-                .Include(x => x.Parent)
-                .Include(x => x.NodeTerminals)
-                .ThenInclude(y => y.Terminal)
-                .ThenInclude(y => y.Parent)
-                .Include(x => x.Attributes)
-                .Include(x => x.Simples);
+            _attributeRepository.SetUnchanged(node.Attributes);
+            _simpleRepository.SetUnchanged(node.Simples);
+            await CreateAsync(node);
+            await SaveAsync();
+
+            _simpleRepository.SetDetached(node.Simples);
+            _attributeRepository.SetDetached(node.Attributes);
+            Detach(node);
+            return node;
         }
 
-        public IQueryable<NodeLibDm> FindNode(string id)
+        public async Task<bool> Remove(string id)
         {
-            return FindBy(x => x.Id == id)
-                .Include(x => x.Parent)
-                .Include(x => x.NodeTerminals)
-                .ThenInclude(y => y.Terminal)
-                .ThenInclude(y => y.Attributes)
-                .ThenInclude(y => y.Parent)
-                .Include(x => x.Attributes)
-                .Include(x => x.Simples);
+            var dm = await Get(id);
+
+            if (dm == null)
+                throw new MimirorgNotFoundException($"Transport with id {id} not found, delete failed.");
+
+            if (dm.CreatedBy == _applicationSettings.System)
+                throw new MimirorgBadRequestException($"The transport with id {id} is created by the system and can not be deleted.");
+
+            dm.Deleted = true;
+
+            var status = await Context.SaveChangesAsync();
+            return status == 1;
+        }
+
+        public void ClearAllChangeTrackers()
+        {
+            _simpleRepository.ClearAllChangeTrackers();
+            _attributeRepository.ClearAllChangeTrackers();
+            Context?.ChangeTracker.Clear();
         }
     }
 }

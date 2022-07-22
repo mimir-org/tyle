@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeLibrary.Services.Tests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mimirorg.Package", "Mimirorg.Package\Mimirorg.Package.csproj", "{BF32D4CE-9EF6-4692-AE52-80940465F707}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TypeLibrary.Tests", "Tests\TypeLibrary.Tests\TypeLibrary.Tests.csproj", "{43591D9F-31DD-4207-BB56-1538EBFA3075}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{BF32D4CE-9EF6-4692-AE52-80940465F707}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF32D4CE-9EF6-4692-AE52-80940465F707}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF32D4CE-9EF6-4692-AE52-80940465F707}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43591D9F-31DD-4207-BB56-1538EBFA3075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43591D9F-31DD-4207-BB56-1538EBFA3075}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43591D9F-31DD-4207-BB56-1538EBFA3075}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43591D9F-31DD-4207-BB56-1538EBFA3075}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +91,7 @@ Global
 		{7EA45256-0262-45C8-BD52-7D516C0A700B} = {8872F15B-D9B0-429D-92CB-CEDF151AEFCA}
 		{0AC7FEAD-F436-4A3C-9FCF-2B0A3FCD4B4F} = {8872F15B-D9B0-429D-92CB-CEDF151AEFCA}
 		{E3A96DDE-C18F-4983-9BE5-F0BD5975153D} = {8872F15B-D9B0-429D-92CB-CEDF151AEFCA}
+		{43591D9F-31DD-4207-BB56-1538EBFA3075} = {8872F15B-D9B0-429D-92CB-CEDF151AEFCA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C8EFA53D-ABAA-4147-97B2-26B33856B157}

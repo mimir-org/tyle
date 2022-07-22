@@ -54,4 +54,4 @@ export const Box = styled.div<BoxProps>`
  *
  * @see https://github.com/framer/motion
  */
-export const MotionBox = motion(Box, { forwardMotionProps: true });
+export const MotionBox = motion(Box);

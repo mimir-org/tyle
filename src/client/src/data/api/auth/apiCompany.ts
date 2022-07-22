@@ -1,5 +1,4 @@
-import { MimirorgCompanyAm } from "../../../models/auth/application/mimirorgCompanyAm";
-import { MimirorgCompanyCm } from "../../../models/auth/client/mimirorgCompanyCm";
+import { MimirorgCompanyAm, MimirorgCompanyCm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "../apiClient";
 
 const _basePath = "mimirorgcompany";

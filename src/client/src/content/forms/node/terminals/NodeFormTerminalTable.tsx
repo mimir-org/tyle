@@ -1,21 +1,21 @@
-import { PlusSm } from "@styled-icons/heroicons-outline";
+import { ConnectorDirection } from "@mimirorg/typelibrary-types";
 import { Control, Controller, useFieldArray } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import textResources from "../../../../assets/text/TextResources";
-import { Button } from "../../../../complib/buttons";
-import { Table, Tbody, Td, Th, Thead, Tr } from "../../../../complib/data-display";
-import { Input, Select } from "../../../../complib/inputs";
-import { Box, Flexbox } from "../../../../complib/layouts";
+import { Table, Tbody, Td, Thead, Tr } from "../../../../complib/data-display";
+import { Counter, Select } from "../../../../complib/inputs";
+import { Flexbox } from "../../../../complib/layouts";
 import { Text } from "../../../../complib/text";
 import { useGetTerminals } from "../../../../data/queries/tyle/queriesTerminal";
-import { useMediaQuery } from "../../../../hooks/useMediaQuery";
 import { createEmptyNodeTerminalLibAm } from "../../../../models/tyle/application/nodeTerminalLibAm";
-import { mapAttributeLibCmToAttributeItem } from "../../../../utils/mappers";
-import { AttributeInfoButton } from "../../../home/components/about/components/attribute/AttributeInfoButton";
-import { TerminalButton } from "../../../home/components/about/components/terminal/TerminalButton";
+import { getValueLabelObjectsFromEnum } from "../../../../utils/getValueLabelObjectsFromEnum";
+import { TerminalButton } from "../../../common/terminal";
 import { FormNodeLib } from "../../types/formNodeLib";
 import { NodeFormSection } from "../NodeFormSection";
-import { connectorDirectionOptions, onTerminalAmountChange } from "./NodeFormTerminalTable.helpers";
+import { onTerminalAmountChange } from "./NodeFormTerminalTable.helpers";
+import { NodeFormTerminalTableAddButton } from "./NodeFormTerminalTableAddButton";
+import { NodeFormTerminalTableAttributes } from "./NodeFormTerminalTableAttributes";
+import { NodeFormTerminalTableHeader } from "./NodeFormTerminalTableHeader";
 
 export interface NodeFormTerminalsProps {
   control: Control<FormNodeLib>;
@@ -23,55 +23,27 @@ export interface NodeFormTerminalsProps {
 
 export const NodeFormTerminalTable = ({ control }: NodeFormTerminalsProps) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const terminalQuery = useGetTerminals();
   const terminalFields = useFieldArray({ control, name: "nodeTerminals" });
-  const adjustAttributesPadding = useMediaQuery("screen and (min-width: 1500px)");
+  const connectorDirectionOptions = getValueLabelObjectsFromEnum<ConnectorDirection>(ConnectorDirection);
 
   return (
     <NodeFormSection
-      title={textResources.TERMINAL_TITLE}
-      action={
-        <Button icon={<PlusSm />} iconOnly onClick={() => terminalFields.append(createEmptyNodeTerminalLibAm())}>
-          {textResources.TERMINAL_ADD}
-        </Button>
-      }
+      title={t("terminals.title")}
+      action={<NodeFormTerminalTableAddButton onClick={() => terminalFields.append(createEmptyNodeTerminalLibAm())} />}
     >
       <Table>
         <Thead>
-          <Tr>
-            <Th>
-              <Text as={"span"} variant={"title-medium"}>
-                {textResources.TERMINAL_TABLE_NAME}
-              </Text>
-            </Th>
-            <Th>
-              <Text as={"span"} variant={"title-medium"}>
-                {textResources.TERMINAL_TABLE_AMOUNT}
-              </Text>
-            </Th>
-            <Th>
-              <Text as={"span"} variant={"title-medium"}>
-                {textResources.TERMINAL_TABLE_DIRECTION}
-              </Text>
-            </Th>
-            <Th>
-              <Text
-                as={"span"}
-                variant={"title-medium"}
-                pl={adjustAttributesPadding ? theme.tyle.spacing.xxxl : undefined}
-              >
-                {textResources.TERMINAL_TABLE_ATTRIBUTES}
-              </Text>
-            </Th>
-          </Tr>
+          <NodeFormTerminalTableHeader />
         </Thead>
         <Tbody>
           {terminalFields.fields.map((field, index) => {
             const targetTerminal = terminalQuery.data?.find((x) => x.id === terminalFields.fields[index].terminalId);
 
             return (
-              <Tr key={index}>
-                <Td data-label={textResources.TERMINAL_TABLE_NAME}>
+              <Tr key={field.id}>
+                <Td data-label={t("terminals.templates.terminal", { object: t("terminals.name").toLowerCase() })}>
                   <Controller
                     control={control}
                     name={`nodeTerminals.${index}.terminalId`}
@@ -79,7 +51,7 @@ export const NodeFormTerminalTable = ({ control }: NodeFormTerminalsProps) => {
                       <Select
                         {...rest}
                         selectRef={ref}
-                        placeholder={textResources.TERMINAL_PLACEHOLDER}
+                        placeholder={t("common.templates.select", { object: t("terminals.name").toLowerCase() })}
                         options={terminalQuery.data}
                         isLoading={terminalQuery.isLoading}
                         getOptionLabel={(x) => x.name}
@@ -96,22 +68,21 @@ export const NodeFormTerminalTable = ({ control }: NodeFormTerminalsProps) => {
                     )}
                   />
                 </Td>
-                <Td data-label={textResources.TERMINAL_TABLE_AMOUNT}>
+                <Td data-label={t("terminals.amount")}>
                   <Controller
                     control={control}
                     name={`nodeTerminals.${index}.quantity`}
-                    render={({ field: { onChange, value } }) => (
-                      <Input
-                        {...field}
-                        type="number"
+                    render={({ field: { onChange, value, ...rest } }) => (
+                      <Counter
+                        {...rest}
+                        id={field.id}
                         value={value}
-                        onChange={(e) => onTerminalAmountChange(index, e, terminalFields.remove, onChange)}
-                        maxWidth={"120px"}
+                        onChange={(val) => onTerminalAmountChange(index, val, terminalFields.remove, onChange)}
                       />
                     )}
                   />
                 </Td>
-                <Td data-label={textResources.TERMINAL_TABLE_DIRECTION}>
+                <Td data-label={t("terminals.templates.terminal", { object: t("terminals.direction").toLowerCase() })}>
                   <Controller
                     control={control}
                     name={`nodeTerminals.${index}.connectorDirection`}
@@ -119,27 +90,15 @@ export const NodeFormTerminalTable = ({ control }: NodeFormTerminalsProps) => {
                       <Select
                         {...rest}
                         selectRef={ref}
-                        placeholder={textResources.TERMINAL_DIRECTION_PLACEHOLDER}
+                        placeholder={t("common.templates.select", { object: t("terminals.direction").toLowerCase() })}
                         options={connectorDirectionOptions}
-                        getOptionLabel={(x) => x.label}
                         onChange={(x) => onChange(x?.value)}
                         value={connectorDirectionOptions.find((x) => x.value === value)}
                       />
                     )}
                   />
                 </Td>
-                <Td data-label={textResources.TERMINAL_TABLE_ATTRIBUTES}>
-                  <Box
-                    display={"flex"}
-                    flexWrap={"wrap"}
-                    gap={theme.tyle.spacing.base}
-                    pl={adjustAttributesPadding ? theme.tyle.spacing.xxxl : undefined}
-                  >
-                    {targetTerminal?.attributes.map(
-                      (x) => x && <AttributeInfoButton key={x.id} {...mapAttributeLibCmToAttributeItem(x)} />
-                    )}
-                  </Box>
-                </Td>
+                <NodeFormTerminalTableAttributes attributes={targetTerminal?.attributes ?? []} />
               </Tr>
             );
           })}

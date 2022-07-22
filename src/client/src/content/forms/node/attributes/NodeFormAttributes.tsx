@@ -1,12 +1,11 @@
 import { Aspect } from "@mimirorg/typelibrary-types";
 import { Trash } from "@styled-icons/heroicons-outline";
 import { Control, useFieldArray, UseFormRegister } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { TextResources } from "../../../../assets/text";
-import textResources from "../../../../assets/text/TextResources";
 import { Flexbox } from "../../../../complib/layouts";
 import { useGetAttributes } from "../../../../data/queries/tyle/queriesAttribute";
-import { AttributeInfoButton } from "../../../home/components/about/components/attribute/AttributeInfoButton";
+import { AttributeInfoButton } from "../../../common/attribute";
 import { FormNodeLib } from "../../types/formNodeLib";
 import { NodeFormSection } from "../NodeFormSection";
 import { getAttributeItems, onAddAttributes, prepareAttributes } from "./NodeFormAttributes.helpers";
@@ -20,6 +19,7 @@ export interface NodeFormAttributesProps {
 
 export const NodeFormAttributes = ({ control, aspects, register }: NodeFormAttributesProps) => {
   const theme = useTheme();
+  const { t } = useTranslation("translation", { keyPrefix: "attributes" });
   const attributeQuery = useGetAttributes();
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
   const filteredAttributes = prepareAttributes(attributeQuery.data, aspects);
@@ -27,7 +27,7 @@ export const NodeFormAttributes = ({ control, aspects, register }: NodeFormAttri
 
   return (
     <NodeFormSection
-      title={TextResources.ATTRIBUTE_TITLE}
+      title={t("title")}
       action={
         <SelectAttributeDialog attributes={attributeItems} onAdd={(ids) => onAddAttributes(ids, attributeFields)} />
       }
@@ -35,18 +35,16 @@ export const NodeFormAttributes = ({ control, aspects, register }: NodeFormAttri
       <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.xl}>
         {attributeFields.fields.map((field, index) => {
           const attribute = attributeItems.find((x) => x.id === field.value);
-          const { ref, ...registerRest } = register(`attributeIdList.${index}`);
           return (
             attribute && (
               <AttributeInfoButton
                 key={field.id}
-                {...registerRest}
+                {...register(`attributeIdList.${index}`)}
                 {...attribute}
                 actionable
                 actionIcon={<Trash />}
-                actionText={textResources.ATTRIBUTE_REMOVE}
+                actionText={t("remove")}
                 onAction={() => attributeFields.remove(index)}
-                buttonRef={ref}
               />
             )
           );

@@ -102,7 +102,7 @@ namespace TypeLibrary.Services.Services
 
             var dm = await Get(nodeLibDm.Id);
 
-            if(dm != null)
+            if (dm != null)
                 _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
 
             return dm;
@@ -148,15 +148,15 @@ namespace TypeLibrary.Services.Services
 
             dataAm.Version = newVersion;
             dataAm.FirstVersionId = latestNodeDm.FirstVersionId;
-            
+
             return await Create(dataAm);
         }
 
         public async Task<bool> Delete(string id)
         {
-            var deleted = await _nodeRepository.Delete(id);
+            var deleted = await _nodeRepository.Remove(id);
 
-            if(deleted)
+            if (deleted)
                 _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
 
             return deleted;

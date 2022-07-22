@@ -1,36 +1,47 @@
 import { ForwardedRef, forwardRef, isValidElement, ReactElement, ReactNode } from "react";
+import { useTheme } from "styled-components";
 import { VisuallyHidden } from "../accessibility";
 import { Icon } from "../media";
+import { TextTypes } from "../props";
 import { Text } from "../text";
-import { ButtonContainer, ButtonContainerProps } from "./Button.styled";
+import { ButtonContainerProps, MotionButtonContainer } from "./Button.styled";
 
 type ButtonProps = ButtonContainerProps & {
   children: ReactNode;
   icon?: string | ReactElement;
   iconPlacement?: "left" | "right";
   iconOnly?: boolean;
+  textVariant?: TextTypes;
 };
 
 export const Button = forwardRef((props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
-  const { children, icon, iconPlacement, iconOnly, ...delegated } = props;
+  const theme = useTheme();
+  const { children, icon, iconPlacement, iconOnly, textVariant, ...delegated } = props;
   const IconComponent = () => (isValidElement(icon) ? icon : <Icon src={icon} alt="" />);
 
   return (
-    <ButtonContainer ref={ref} iconPlacement={iconPlacement} iconOnly={iconOnly} {...delegated}>
+    <MotionButtonContainer
+      ref={ref}
+      iconOnly={iconOnly}
+      iconPlacement={iconPlacement}
+      {...theme.tyle.animation.buttonTap}
+      {...delegated}
+    >
       {icon && iconOnly ? (
         <VisuallyHidden>{children}</VisuallyHidden>
       ) : (
-        <Text as={"span"} variant={"body-small"}>
+        <Text as={"span"} variant={textVariant}>
           {children}
         </Text>
       )}
       {icon && <IconComponent />}
-    </ButtonContainer>
+    </MotionButtonContainer>
   );
 });
 
 Button.displayName = "Button";
 Button.defaultProps = {
-  iconPlacement: "right",
   type: "button",
+  iconPlacement: "right",
+  textVariant: "body-small",
 };

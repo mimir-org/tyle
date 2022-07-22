@@ -44,4 +44,4 @@ Text.defaultProps = {
  *
  * @see https://github.com/framer/motion
  */
-export const MotionText = motion(Text, { forwardMotionProps: true });
+export const MotionText = motion(Text);

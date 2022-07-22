@@ -1,8 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { TerminalButton } from "../../../content/home/components/about/components/terminal/TerminalButton";
 import { Token } from "../../general";
 import { Input, Select } from "../../inputs";
-import { Flexbox } from "../../layouts";
+import { Box, Flexbox } from "../../layouts";
 import { Text } from "../../text";
 import { Table, Tbody, Td, Th, Thead, Tr } from "./Table";
 
@@ -91,9 +90,9 @@ WithCustomContent.args = {
           <Tr key={i}>
             <Td data-label="Column A">
               <Flexbox alignItems={"center"} gap={"8px"}>
-                <TerminalButton variant={"small"} as={"span"} color={"darkred"} direction={"Input"} />
+                <Box width={"20px"} height={"20px"} as={"span"} bgColor={"darkred"} />
                 <Text as={"span"} variant={"body-medium"}>
-                  Extraordinary terminal
+                  Extraordinary
                 </Text>
               </Flexbox>
             </Td>

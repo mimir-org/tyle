@@ -7,7 +7,8 @@ namespace TypeLibrary.Data.Contracts
     public interface IRdsRepository
     {
         IEnumerable<RdsLibDm> Get();
-        Task Create(List<RdsLibDm> dataDm);
+        Task<RdsLibDm> Create(RdsLibDm rds);
+        Task Create(List<RdsLibDm> items);
         void ClearAllChangeTrackers();
     }
 }

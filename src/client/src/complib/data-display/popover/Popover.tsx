@@ -1,6 +1,5 @@
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { AnimatePresence } from "framer-motion";
-import merge from "lodash.merge";
 import { PropsWithChildren, ReactNode } from "react";
 import { useTheme } from "styled-components";
 import { Text } from "../../text";
@@ -40,7 +39,6 @@ export const Popover = ({
   ...delegated
 }: PropsWithChildren<Props>) => {
   const theme = useTheme();
-  const motion = merge({}, theme.tyle.animation.fade, theme.tyle.animation.scale);
   const containsTextOnly = typeof content === "string";
 
   return (
@@ -48,7 +46,7 @@ export const Popover = ({
       <PopoverPrimitive.Trigger asChild>{children}</PopoverPrimitive.Trigger>
       <AnimatePresence>
         <PopoverPrimitive.Content asChild avoidCollisions sideOffset={offset} side={placement} align={align}>
-          <MotionPopoverContent {...motion} {...delegated}>
+          <MotionPopoverContent {...theme.tyle.animation.scale} {...delegated}>
             {containsTextOnly ? (
               <Text variant={"body-medium"} textAlign={"center"}>
                 {content}

@@ -1,8 +1,10 @@
+import {
+  MimirorgPermissionAm,
+  MimirorgPermissionCm,
+  MimirorgRoleCm,
+  MimirorgUserRoleAm,
+} from "@mimirorg/typelibrary-types";
 import { apiClient } from "../apiClient";
-import { MimirorgRoleCm } from "../../../models/auth/client/mimirorgRoleCm";
-import { MimirorgUserRoleAm } from "../../../models/auth/application/mimirorgUserRoleAm";
-import { MimirorgPermissionCm } from "../../../models/auth/client/mimirorgPermissionCm";
-import { MimirorgPermissionAm } from "../../../models/auth/application/mimirorgPermissionAm";
 
 const _basePath = "mimirorgauthorize";
 

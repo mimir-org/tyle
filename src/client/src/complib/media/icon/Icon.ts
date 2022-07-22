@@ -23,8 +23,8 @@ export const Icon = styled.img<IconProps>`
 `;
 
 /**
- * An animation wrapper for the Text component
+ * An animation wrapper for the Icon component
  *
  * @see https://github.com/framer/motion
  */
-export const MotionIcon = motion(Icon, { forwardMotionProps: true });
+export const MotionIcon = motion(Icon);

@@ -3,7 +3,7 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts.Ef
 {
-    public interface IEfAttributeAspectRepository : IGenericRepository<TypeLibraryDbContext, AttributeAspectLibDm>
+    public interface IEfAttributeAspectRepository : IGenericRepository<TypeLibraryDbContext, AttributeAspectLibDm>, IAttributeAspectRepository
     {
     }
 }

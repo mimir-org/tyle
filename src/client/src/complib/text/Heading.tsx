@@ -40,8 +40,8 @@ Heading.defaultProps = {
 };
 
 /**
- * An animation wrapper for the Text component
+ * An animation wrapper for the Heading component
  *
  * @see https://github.com/framer/motion
  */
-export const MotionHeading = motion(Heading, { forwardMotionProps: true });
+export const MotionHeading = motion(Heading);

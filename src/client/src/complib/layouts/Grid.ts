@@ -1,8 +1,8 @@
-import styled from "styled-components/macro";
-import { ElementType } from "react";
 import { motion } from "framer-motion";
-import { Grid as GridInterface, Polymorphic } from "../props";
+import { ElementType } from "react";
+import styled from "styled-components/macro";
 import { gridMixin } from "../mixins";
+import { Grid as GridInterface, Polymorphic } from "../props";
 
 type GridProps = GridInterface & Polymorphic<ElementType>;
 
@@ -23,4 +23,4 @@ export const Grid = styled.div<GridProps>`
  *
  * @see https://github.com/framer/motion
  */
-export const MotionGrid = motion(Grid, { forwardMotionProps: true });
+export const MotionGrid = motion(Grid);

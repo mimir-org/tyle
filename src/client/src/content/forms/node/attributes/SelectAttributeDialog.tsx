@@ -1,16 +1,14 @@
 import { DialogClose } from "@radix-ui/react-dialog";
 import { PlusSm } from "@styled-icons/heroicons-outline";
 import { useState } from "react";
-import { useTheme } from "styled-components/macro";
-import { TextResources } from "../../../../assets/text";
+import { useTranslation } from "react-i18next";
 import { Button } from "../../../../complib/buttons";
-import { Box } from "../../../../complib/layouts";
 import { Dialog } from "../../../../complib/overlays";
+import { AttributeInfoCheckbox } from "../../../common/attribute";
 import { SearchField } from "../../../common/SearchField";
-import { AttributeInfoCheckbox } from "../../../home/components/about/components/attribute/AttributeInfoCheckbox";
-import { AttributeItem } from "../../../home/types/AttributeItem";
+import { AttributeItem } from "../../../types/AttributeItem";
 import { filterAttributeItem, onSelectionChange } from "./SelectAttributeDialog.helpers";
-import { SelectContainer } from "./SelectAttributeDialog.styled";
+import { SelectAttributesContainer, SelectContainer } from "./SelectAttributeDialog.styled";
 
 interface SelectAttributeDialogProps {
   attributes: AttributeItem[];
@@ -25,7 +23,7 @@ interface SelectAttributeDialogProps {
  * @constructor
  */
 export const SelectAttributeDialog = ({ attributes, onAdd }: SelectAttributeDialogProps) => {
-  const theme = useTheme();
+  const { t } = useTranslation("translation", { keyPrefix: "attributes" });
   const [searchQuery, setSearchQuery] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
 
@@ -37,26 +35,17 @@ export const SelectAttributeDialog = ({ attributes, onAdd }: SelectAttributeDial
 
   return (
     <Dialog
-      title={TextResources.ATTRIBUTE_DIALOG_TITLE}
-      description={TextResources.ATTRIBUTE_DIALOG_DESCRIPTION}
+      title={t("dialog.title")}
+      description={t("dialog.description")}
       width={"1000px"}
       content={
-        <Box
-          display={"flex"}
-          flexDirection={"column"}
-          alignItems={"center"}
-          gap={theme.tyle.spacing.xxxl}
-          width={"100%"}
-          pt={theme.tyle.spacing.xs}
-          mt={`-${theme.tyle.spacing.xs}`}
-          overflow={"auto"}
-        >
+        <SelectContainer>
           <SearchField
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder={TextResources.ATTRIBUTE_DIALOG_SEARCH}
+            placeholder={t("dialog.search")}
           />
-          <SelectContainer>
+          <SelectAttributesContainer>
             {attributes
               .filter((x) => filterAttributeItem(x, searchQuery))
               .map((a, i) => (
@@ -67,17 +56,17 @@ export const SelectAttributeDialog = ({ attributes, onAdd }: SelectAttributeDial
                   {...a}
                 />
               ))}
-          </SelectContainer>
+          </SelectAttributesContainer>
           <DialogClose asChild>
             <Button onClick={onAddAttributes} disabled={selected.length < 1}>
-              {TextResources.ATTRIBUTE_DIALOG_ADD}
+              {t("dialog.add")}
             </Button>
           </DialogClose>
-        </Box>
+        </SelectContainer>
       }
     >
       <Button icon={<PlusSm />} iconOnly>
-        {TextResources.ATTRIBUTE_ADD}
+        {t("add")}
       </Button>
     </Dialog>
   );

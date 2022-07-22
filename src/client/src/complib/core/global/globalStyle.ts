@@ -17,6 +17,10 @@ export const GlobalStyle = createGlobalStyle`
   // APPLICATION SPECIFIC
   ${({ theme }) => globalTypographyStyle(theme.tyle)}
   
+  body {
+    background-color: ${(props) => props.theme.tyle.color.sys.background.base}
+  }
+  
   // CSS VARIABLES
   ${variablesColor}
   ${variablesSpacing}

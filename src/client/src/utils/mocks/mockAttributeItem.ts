@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { AttributeItem } from "../../content/home/types/AttributeItem";
+import { AttributeItem } from "../../content/types/AttributeItem";
 
 export const mockAttributeItem = (): AttributeItem => {
   return {

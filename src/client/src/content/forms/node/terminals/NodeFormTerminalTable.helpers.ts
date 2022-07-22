@@ -1,19 +1,9 @@
-import { ConnectorDirection } from "@mimirorg/typelibrary-types";
-import { ChangeEvent } from "react";
-
 export const onTerminalAmountChange = (
-  index: number,
-  event: ChangeEvent<HTMLInputElement>,
-  removeTerminal: (index: number) => void,
-  callback: (event: ChangeEvent<HTMLInputElement>) => void
+  fieldIndex: number,
+  fieldValue: number,
+  removeTerminal: (fieldIndex: number) => void,
+  onChangeCallback: (value: number) => void
 ) => {
-  const amount = parseInt(event.target.value);
-  if (amount < 1) removeTerminal(index);
-  callback(event);
+  if (fieldValue < 1) removeTerminal(fieldIndex);
+  onChangeCallback(fieldValue);
 };
-
-export const connectorDirectionOptions = [
-  { value: ConnectorDirection.Input, label: "Input" },
-  { value: ConnectorDirection.Output, label: "Output" },
-  { value: ConnectorDirection.Bidirectional, label: "Bidirectional" },
-];

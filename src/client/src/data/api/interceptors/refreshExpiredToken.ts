@@ -1,5 +1,5 @@
+import { MimirorgTokenCm } from "@mimirorg/typelibrary-types";
 import { AxiosRequestConfig } from "axios";
-import { MimirorgTokenCm } from "../../../models/auth/client/mimirorgTokenCm";
 import { getToken, setToken } from "../../../utils/token";
 import { apiAuthenticate } from "../auth/apiAuthenticate";
 

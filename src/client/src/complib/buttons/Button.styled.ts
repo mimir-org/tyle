@@ -1,10 +1,15 @@
+import { motion } from "framer-motion";
 import { ButtonHTMLAttributes, ElementType } from "react";
 import styled, { css } from "styled-components/macro";
-import { ColorTheme } from "../core";
-import { focus } from "../mixins";
-import { Polymorphic } from "../props";
+import { flexMixin, focus, spacingMixin } from "../mixins";
+import { Flex, Polymorphic, Spacing } from "../props";
+import { filledButton } from "./variants/filledButton";
+import { outlinedButton } from "./variants/outlinedButton";
+import { textButton } from "./variants/textButton";
 
-export type ButtonContainerProps = Polymorphic<ElementType> &
+export type ButtonContainerProps = Flex &
+  Spacing &
+  Polymorphic<ElementType> &
   ButtonHTMLAttributes<HTMLButtonElement> & {
     variant?: "filled" | "outlined" | "text";
     iconPlacement?: "left" | "right";
@@ -79,76 +84,18 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
         max-height: 18px;
       }
     `};
+
+  ${flexMixin};
+  ${spacingMixin};
 `;
 
 ButtonContainer.defaultProps = {
   variant: "filled",
 };
 
-const filledButton = (color: ColorTheme) =>
-  css`
-    border: 0;
-    background-color: ${color.primary.base};
-    color: ${color.primary.on};
-
-    :disabled {
-      background-color: ${color.outline.base};
-      color: ${color.surface.variant.on};
-    }
-
-    :not(:disabled) {
-      :hover {
-        background-color: ${color.secondary.base};
-        color: ${color.primary.base};
-      }
-
-      :active {
-        background-color: ${color.surface.on};
-        color: ${color.primary.on};
-      }
-    }
-  `;
-
-const outlinedButton = (color: ColorTheme) =>
-  css`
-    outline: 0;
-    background-color: transparent;
-    border: 1px solid ${color.primary.base};
-    color: ${color.primary.base};
-
-    :disabled {
-      color: ${color.surface.variant.on};
-      border-color: ${color.outline.base};
-    }
-
-    :not(:disabled) {
-      :hover {
-        background-color: ${color.secondary.base};
-      }
-
-      :active {
-        background-color: ${color.tertiary.container?.base};
-      }
-    }
-  `;
-
-const textButton = (color: ColorTheme) =>
-  css`
-    border: 0;
-    background-color: transparent;
-    color: ${color.primary.base};
-
-    :disabled {
-      color: ${color.surface.variant.on};
-    }
-
-    :not(:disabled) {
-      :hover {
-        background-color: ${color.secondary.base};
-      }
-
-      :active {
-        background-color: ${color.tertiary.container?.base};
-      }
-    }
-  `;
+/**
+ * An animation wrapper for the ButtonContainer component
+ *
+ * @see https://github.com/framer/motion
+ */
+export const MotionButtonContainer = motion(ButtonContainer);

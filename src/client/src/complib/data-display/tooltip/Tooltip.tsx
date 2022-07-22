@@ -1,6 +1,5 @@
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import { AnimatePresence } from "framer-motion";
-import merge from "lodash.merge";
 import { PropsWithChildren, ReactNode } from "react";
 import { useTheme } from "styled-components";
 import { Text } from "../../text";
@@ -40,7 +39,6 @@ export const Tooltip = ({
   ...delegated
 }: PropsWithChildren<Props>) => {
   const theme = useTheme();
-  const motion = merge({}, theme.tyle.animation.fade, theme.tyle.animation.scale);
   const containsTextOnly = typeof content === "string";
 
   return (
@@ -48,7 +46,7 @@ export const Tooltip = ({
       <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
       <AnimatePresence>
         <TooltipPrimitive.Content asChild avoidCollisions sideOffset={offset} side={placement} align={align}>
-          <MotionTooltipContent {...motion} {...delegated}>
+          <MotionTooltipContent {...theme.tyle.animation.scale} {...delegated}>
             {containsTextOnly ? <Text variant={"body-medium"}>{content}</Text> : content}
           </MotionTooltipContent>
         </TooltipPrimitive.Content>

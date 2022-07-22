@@ -1,8 +1,8 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Default as NodePreview } from "../../../content/home/components/about/components/node/NodePreview.stories";
-import { NodePreviewProps } from "../../../content/home/components/about/components/node/NodePreview";
-import { Dialog } from "./Dialog";
 import { Button } from "../../buttons";
+import { Token } from "../../general";
+import { Box } from "../../layouts";
+import { Dialog } from "./Dialog";
 
 export default {
   title: "Overlays/Dialog",
@@ -19,10 +19,16 @@ Default.args = {
   children: <Button>Show dialog</Button>,
 };
 
-export const WithComponentContent = Template.bind({});
-WithComponentContent.args = {
+export const WithCustomContent = Template.bind({});
+WithCustomContent.args = {
   ...Default.args,
-  content: <NodePreview {...(NodePreview.args as NodePreviewProps)} />,
+  content: (
+    <Box display={"flex"} gap={"8px"} p={"16px"} borderRadius={"5px"} bgColor={"green"}>
+      <Token variant={"secondary"}>YOUR</Token>
+      <Token>CUSTOM</Token>
+      <Token variant={"secondary"}>CONTENT</Token>
+    </Box>
+  ),
 };
 
 export const WithHiddenTitle = Template.bind({});
