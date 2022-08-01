@@ -70,6 +70,7 @@ namespace Mimirorg.Authentication.Controllers.V1
             catch (AuthenticationException e)
             {
                 _logger.LogError(e, $"An error occurred while trying to authenticate the user. Error: {e.Message}");
+                await RemoveRefreshCookies(HttpContext.Request, HttpContext.Response);
                 return StatusCode(401, "Authentication failed");
             }
             catch (Exception e)
@@ -108,6 +109,7 @@ namespace Mimirorg.Authentication.Controllers.V1
             catch (AuthenticationException e)
             {
                 _logger.LogError(e, $"An error occurred while trying to authenticate the user. Error: {e.Message}");
+                await RemoveRefreshCookies(HttpContext.Request, HttpContext.Response);
                 return StatusCode(401, "Authentication failed");
             }
             catch (Exception e)
@@ -180,6 +182,17 @@ namespace Mimirorg.Authentication.Controllers.V1
                     SameSite = SameSiteMode.Strict,
                     Secure = true
                 });
+
+            return Task.CompletedTask;
+        }
+
+        private static Task RemoveRefreshCookies(HttpRequest request, HttpResponse response)
+        {
+            if (response == null || request == null)
+                return Task.CompletedTask;
+
+            if (request.Cookies.ContainsKey(RefreshTokenCookie))
+                response.Cookies.Delete(RefreshTokenCookie);
 
             return Task.CompletedTask;
         }
