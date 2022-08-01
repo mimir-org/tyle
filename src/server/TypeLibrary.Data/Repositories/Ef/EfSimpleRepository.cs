@@ -44,7 +44,8 @@ namespace TypeLibrary.Data.Repositories.Ef
 
         public void ClearAllChangeTrackers()
         {
-            throw new System.NotImplementedException();
+            _attributeRepository.ClearAllChangeTrackers();
+            Context?.ChangeTracker.Clear();
         }
 
         public void SetUnchanged(ICollection<SimpleLibDm> items)
@@ -54,8 +55,7 @@ namespace TypeLibrary.Data.Repositories.Ef
 
         public void SetDetached(ICollection<SimpleLibDm> items)
         {
-            _attributeRepository.ClearAllChangeTrackers();
-            Context?.ChangeTracker.Clear();
+            Detach(items);
         }
     }
 }
