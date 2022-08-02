@@ -7,7 +7,7 @@ export const mapNodeLibCmToNodeLibAm = (node: NodeLibCm): NodeLibAm => {
     simpleIdList: node.simples?.map((x) => x.id),
     attributeIdList: node.attributes?.map((x) => x.id),
     nodeTerminals: mapNodeTerminalLibCmsToNodeTerminalLibAms(node.nodeTerminals),
-    parentId: node.parentIri
+    parentId: node.parentId
   }
   const {id, firstVersionId, version, ...am} = cm;
   return am as NodeLibAm;
