@@ -253,6 +253,10 @@ cd ./typelibrary
 
 We welcome community pull requests for bug fixes, enhancements, and documentation. See [how to contribute](./CONTRIBUTING.md) for more information.
 
+## :department_store: Architecture
+
+Architecture sketches overall. See [Tyle overall](https://github.com/mimir-org/documents/blob/main/architecture/tyle_architecture_overall.pdf) for more information.
+
 ### :scroll: Code of Conduct
 
 This project has adopted the code of conduct defined by the Contributor Covenant to clarify expected behavior in our community. See [.NET Foundation Code of Conduct](https://dotnetfoundation.org/about/code-of-conduct) for more information.
