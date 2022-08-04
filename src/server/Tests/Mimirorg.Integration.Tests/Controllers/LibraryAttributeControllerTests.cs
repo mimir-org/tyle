@@ -1,6 +1,6 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Mimirorg.Setup.Tests;
+using Mimirorg.Setup;
 using Mimirorg.TypeLibrary.Models.Client;
 using Xunit;
 

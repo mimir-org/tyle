@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mimirorg.Package", "Mimiror
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mimirorg.Integration.Tests", "Tests\Mimirorg.Integration.Tests\Mimirorg.Integration.Tests.csproj", "{43591D9F-31DD-4207-BB56-1538EBFA3075}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mimirorg.Setup.Tests", "Tests\Mimirorg.Setup.Tests\Mimirorg.Setup.Tests.csproj", "{7D14C07E-9676-4A8D-8EE8-FE341C9254E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mimirorg.Setup", "Tests\Mimirorg.Setup\Mimirorg.Setup.csproj", "{7D14C07E-9676-4A8D-8EE8-FE341C9254E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

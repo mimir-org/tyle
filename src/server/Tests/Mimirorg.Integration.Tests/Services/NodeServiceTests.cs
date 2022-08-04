@@ -1,4 +1,4 @@
-using Mimirorg.Setup.Tests;
+using Mimirorg.Setup;
 
 namespace Mimirorg.Integration.Tests.Services
 {

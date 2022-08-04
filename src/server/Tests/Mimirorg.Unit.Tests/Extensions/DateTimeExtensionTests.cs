@@ -1,11 +1,16 @@
-using Mimirorg.Setup.Tests.Fixtures;
+using Mimirorg.Setup;
+using Mimirorg.Setup.Fixtures;
 using Mimirorg.TypeLibrary.Extensions;
 using Xunit;
 
 namespace Mimirorg.Unit.Tests.Extensions
 {
-    public class DateTimeExtensionTests : IClassFixture<MimirorgCommonFixture>
+    public class DateTimeExtensionTests : UnitTest<MimirorgCommonFixture>
     {
+        public DateTimeExtensionTests(MimirorgCommonFixture fixture) : base(fixture)
+        {
+        }
+
         [Theory]
         [InlineData("2022-01-01T00:00:00 +03:00")]
         [InlineData("2022-01-01T00:00:00z")]

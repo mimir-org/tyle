@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
-using Mimirorg.Setup.Tests;
-using Mimirorg.Setup.Tests.Fixtures;
+using Mimirorg.Setup;
+using Mimirorg.Setup.Fixtures;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Services.Services;
