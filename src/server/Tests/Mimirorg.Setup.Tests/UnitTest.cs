@@ -7,7 +7,7 @@ namespace Mimirorg.Setup.Tests
     {
         protected UnitTest(TFixture fixture)
         {
-            
+
         }
     }
 }

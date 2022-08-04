@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -83,6 +84,10 @@ namespace TypeLibrary.Services.Services
         {
             if (dataAm == null)
                 throw new MimirorgBadRequestException("Data object can not be null.");
+
+            var validate = dataAm.ValidateObject();
+            if (!validate.IsValid)
+                throw new MimirorgBadRequestException("Node is not valid.", validate);
 
             var existing = await _nodeRepository.Get(dataAm.Id);
 
