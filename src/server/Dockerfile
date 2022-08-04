@@ -14,7 +14,8 @@ RUN dotnet format . --verify-no-changes --verbosity diagnostic --no-restore
 
 FROM base as build
 RUN dotnet build TypeLibrary.Api/TypeLibrary.Api.csproj -c Release --no-restore
-RUN dotnet test
+RUN dotnet test Tests\Mimirorg.Integration.Tests -c Release
+RUN dotnet test Tests\Mimirorg.Unit.Tests -c Release
 
 FROM build as publish
 RUN dotnet publish TypeLibrary.Api/TypeLibrary.Api.csproj -c Release --no-restore --no-build -o /app/publish
