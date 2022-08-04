@@ -1,10 +1,8 @@
-using System;
-
-namespace Mimirorg.Authentication.Tests
+namespace Mimirorg.Setup.Tests
 {
-    public class MimirorgAuthenticationFixture : IDisposable
+    public class MimirorgCommonFixture : IDisposable
     {
-        public MimirorgAuthenticationFixture()
+        public MimirorgCommonFixture()
         {
             Console.WriteLine("Inside SetUp Constructor");
         }

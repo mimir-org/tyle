@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using TypeLibrary.Api;
 using TypeLibrary.Data;
 
-namespace TypeLibrary.Tests.Setup
+namespace Mimirorg.Setup.Tests
 {
     public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
     {

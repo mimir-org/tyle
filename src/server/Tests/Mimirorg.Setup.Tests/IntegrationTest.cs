@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace TypeLibrary.Tests.Setup
+namespace Mimirorg.Setup.Tests
 {
     [Trait("Category", "Integration")]
     public abstract class IntegrationTest : IClassFixture<ApiWebApplicationFactory>

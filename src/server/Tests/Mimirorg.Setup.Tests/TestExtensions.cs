@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace TypeLibrary.Tests.Setup
+namespace Mimirorg.Setup.Tests
 {
     public static class TestExtensions
     {

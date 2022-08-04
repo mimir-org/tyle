@@ -20,4 +20,14 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Mimirorg.Common\Mimirorg.Common.csproj" />
+    <ProjectReference Include="..\..\Mimirorg.TypeLibrary\Mimirorg.TypeLibrary.csproj" />
+    <ProjectReference Include="..\Mimirorg.Setup.Tests\Mimirorg.Setup.Tests.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

@@ -1,12 +1,12 @@
 using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.Setup.Tests;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Services.Contracts;
-using TypeLibrary.Tests.Setup;
 using Xunit;
 
-namespace TypeLibrary.Tests.Services
+namespace Mimirorg.Integration.Tests.Services
 {
     public class AttributeServiceTests : IntegrationTest
     {
@@ -27,7 +27,6 @@ namespace TypeLibrary.Tests.Services
         [InlineData("xxx", Aspect.None, Discipline.NotSet, Select.None, "xxx", "xxx", "xxx", "")]
         public async Task Create_Attributes_Throws_Bad_Request_When_Not_Valid(string name, Aspect aspect, Discipline discipline, Select select, string qualifier, string source, string condition, string format)
         {
-
             var attribute = new AttributeLibAm
             {
                 Name = name,
@@ -44,7 +43,7 @@ namespace TypeLibrary.Tests.Services
             var attributeService = scope.ServiceProvider.GetRequiredService<IAttributeService>();
 
             //Act
-            Task Act() => attributeService.Create(new List<AttributeLibAm> {attribute});
+            Task Act() => attributeService.Create(new List<AttributeLibAm> { attribute });
 
             //Assert
             _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(Act);

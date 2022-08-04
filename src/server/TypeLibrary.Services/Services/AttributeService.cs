@@ -70,7 +70,7 @@ namespace TypeLibrary.Services.Services
             if (attributes == null || !attributes.Any())
                 return;
 
-            if(attributes.ValidateObjects().Any(x => !x.IsValid))
+            if (attributes.ValidateObjects().Any(x => !x.IsValid))
                 throw new MimirorgBadRequestException("One or more attributes is not valid.");
 
             var data = _mapper.Map<List<AttributeLibDm>>(attributes);

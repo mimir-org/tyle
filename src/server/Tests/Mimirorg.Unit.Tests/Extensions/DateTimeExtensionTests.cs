@@ -1,7 +1,8 @@
+using Mimirorg.Setup.Tests;
 using Mimirorg.TypeLibrary.Extensions;
 using Xunit;
 
-namespace Mimirorg.Common.Tests
+namespace Mimirorg.Unit.Tests.Extensions
 {
     public class DateTimeExtensionTests : IClassFixture<MimirorgCommonFixture>
     {

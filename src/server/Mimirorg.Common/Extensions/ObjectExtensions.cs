@@ -28,7 +28,7 @@ namespace Mimirorg.Common.Extensions
 
             foreach (var obj in objects)
             {
-                if(obj == null)
+                if (obj == null)
                     continue;
 
                 yield return obj.ValidateObject();
