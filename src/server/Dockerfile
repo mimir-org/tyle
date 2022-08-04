@@ -13,11 +13,10 @@ FROM base as format
 RUN dotnet format . --verify-no-changes --verbosity diagnostic --no-restore
 
 FROM base as build
+RUN dotnet test -c Release
 RUN dotnet build TypeLibrary.Api/TypeLibrary.Api.csproj -c Release --no-restore
 
 FROM build as publish
-RUN dotnet test Tests/Mimirorg.Integration.Tests -c Release --no-restore
-RUN dotnet test Tests/Mimirorg.Unit.Tests -c Release --no-restore
 RUN dotnet publish TypeLibrary.Api/TypeLibrary.Api.csproj -c Release --no-restore --no-build -o /app/publish
 
 # icu-libs are not included in alpine runtime images

@@ -65,11 +65,21 @@ namespace TypeLibrary.Core.Extensions
 
             serviceCollection.AddSingleton(Options.Create(dbConfig));
 
-            serviceCollection.AddDbContext<TypeLibraryDbContext>(options =>
+            var connectionString = dbConfig.ConnectionString;
+
+            if (connectionString != null)
             {
-                options.EnableSensitiveDataLogging();
-                options.UseSqlServer(dbConfig.ConnectionString, sqlOptions => sqlOptions.MigrationsAssembly("TypeLibrary.Core"));
-            });
+                serviceCollection.AddDbContext<TypeLibraryDbContext>(options =>
+                {
+                    options.EnableSensitiveDataLogging();
+                    options.UseSqlServer(dbConfig.ConnectionString,
+                        sqlOptions => sqlOptions.MigrationsAssembly("TypeLibrary.Core"));
+                });
+            }
+            else
+            {
+                serviceCollection.AddDbContext<TypeLibraryDbContext>(options => options.UseInMemoryDatabase("TestDB"));
+            }
 
             return serviceCollection;
         }

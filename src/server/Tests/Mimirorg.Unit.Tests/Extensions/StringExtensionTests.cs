@@ -39,7 +39,7 @@ namespace Mimirorg.Unit.Tests.Extensions
         {
             var list = new List<string> { value1, value2 };
             var result = list.HasEmptyValues();
-            Assert.True(result);
+            Assert.False(result);
         }
 
         [Theory]

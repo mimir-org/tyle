@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Mimirorg.Authentication;
 using TypeLibrary.Api;
 using TypeLibrary.Data;
 
@@ -16,11 +17,17 @@ namespace Mimirorg.Setup
             builder.ConfigureTestServices(services =>
             {
                 // remove the existing context configuration
-                var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<TypeLibraryDbContext>));
-                if (descriptor != null)
-                    services.Remove(descriptor);
+                var descriptors = services.Where(d => d.ServiceType == typeof(DbContextOptions<TypeLibraryDbContext>) || d.ServiceType == typeof(DbContextOptions<MimirorgAuthenticationContext>)).ToList();
+                if (descriptors.Any())
+                {
+                    foreach (var descriptor in descriptors)
+                    {
+                        services.Remove(descriptor);
+                    }
+                }
 
                 services.AddDbContext<TypeLibraryDbContext>(options => options.UseInMemoryDatabase("TestDB"));
+                services.AddDbContext<MimirorgAuthenticationContext>(options => options.UseInMemoryDatabase("TestDBAuth"));
                 services.AddAuthentication("IntegrationUser").AddScheme<AuthenticationSchemeOptions, IntegrationTestAuthenticationHandler>("IntegrationUser", options => { });
             });
         }

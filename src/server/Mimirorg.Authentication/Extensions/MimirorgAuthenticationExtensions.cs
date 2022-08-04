@@ -70,9 +70,18 @@ namespace Mimirorg.Authentication.Extensions
             var dbConfig = authSettings.DatabaseConfiguration;
 
             // Entity framework
-            serviceCollection.AddDbContext<MimirorgAuthenticationContext>(options =>
-                options.UseSqlServer(dbConfig.ConnectionString, sqlOptions =>
-                    sqlOptions.MigrationsAssembly("Mimirorg.Authentication")));
+            var connectionString = dbConfig.ConnectionString;
+
+            if (connectionString != null)
+            {
+                serviceCollection.AddDbContext<MimirorgAuthenticationContext>(options =>
+                    options.UseSqlServer(dbConfig.ConnectionString, sqlOptions =>
+                        sqlOptions.MigrationsAssembly("Mimirorg.Authentication")));
+            }
+            else
+            {
+                serviceCollection.AddDbContext<MimirorgAuthenticationContext>(options => options.UseInMemoryDatabase("TestDBAuth"));
+            }
 
             // Auth options
             serviceCollection.AddIdentity<MimirorgUser, IdentityRole>(options =>
@@ -198,7 +207,8 @@ namespace Mimirorg.Authentication.Extensions
 
             // Migrate database
             var context = serviceScope.ServiceProvider.GetRequiredService<MimirorgAuthenticationContext>();
-            context.Database.Migrate();
+            if (context.Database.IsRelational())
+                context.Database.Migrate();
         }
     }
 }
