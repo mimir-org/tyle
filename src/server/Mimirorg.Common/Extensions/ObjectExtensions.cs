@@ -21,6 +21,20 @@ namespace Mimirorg.Common.Extensions
             return validation;
         }
 
+        public static IEnumerable<Validation> ValidateObjects(this IEnumerable<object> objects)
+        {
+            if (objects == null)
+                yield break;
+
+            foreach (var obj in objects)
+            {
+                if(obj == null)
+                    continue;
+
+                yield return obj.ValidateObject();
+            }
+        }
+
         public static T DeepCopy<T>(this T self)
         {
             var serialized = JsonConvert.SerializeObject(self);

@@ -8,9 +8,9 @@ namespace TypeLibrary.Tests.Setup
         protected readonly ApiWebApplicationFactory Factory;
         protected readonly HttpClient Client;
 
-        protected IntegrationTest(ApiWebApplicationFactory fixture)
+        protected IntegrationTest(ApiWebApplicationFactory factory)
         {
-            Factory = fixture;
+            Factory = factory;
             Client = Factory.CreateClient();
         }
     }
