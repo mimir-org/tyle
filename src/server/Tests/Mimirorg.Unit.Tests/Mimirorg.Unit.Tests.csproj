@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
+    <PackageReference Include="Moq" Version="4.18.2" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -24,10 +25,6 @@
     <ProjectReference Include="..\..\Mimirorg.Common\Mimirorg.Common.csproj" />
     <ProjectReference Include="..\..\Mimirorg.TypeLibrary\Mimirorg.TypeLibrary.csproj" />
     <ProjectReference Include="..\Mimirorg.Setup.Tests\Mimirorg.Setup.Tests.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

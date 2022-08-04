@@ -1,4 +1,4 @@
-using Mimirorg.Setup.Tests;
+using Mimirorg.Setup.Tests.Fixtures;
 using Mimirorg.TypeLibrary.Extensions;
 using Xunit;
 

@@ -1,5 +1,5 @@
 using Mimirorg.Common.Extensions;
-using Mimirorg.Setup.Tests;
+using Mimirorg.Setup.Tests.Fixtures;
 using Xunit;
 
 // ReSharper disable StringLiteralTypo

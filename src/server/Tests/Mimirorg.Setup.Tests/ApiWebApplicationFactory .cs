@@ -22,8 +22,6 @@ namespace Mimirorg.Setup.Tests
 
                 services.AddDbContext<TypeLibraryDbContext>(options => options.UseInMemoryDatabase("TestDB"));
                 services.AddAuthentication("IntegrationUser").AddScheme<AuthenticationSchemeOptions, IntegrationTestAuthenticationHandler>("IntegrationUser", options => { });
-
-                //services.AddTransient<xxx, xxx>();
             });
         }
     }

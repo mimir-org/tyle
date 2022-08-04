@@ -1,3 +1,41 @@
+using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using Mimirorg.Common.Exceptions;
+using Mimirorg.Setup.Tests;
+using Mimirorg.Setup.Tests.Fixtures;
+using TypeLibrary.Services.Services;
+using Xunit;
+
+namespace Mimirorg.Unit.Tests.Services
+{
+    public class NodeServiceTests : UnitTest<MimirorgCommonFixture>
+    {
+        private readonly MimirorgCommonFixture _fixture;
+        private readonly NodeService _nodeService;
+
+        public NodeServiceTests(MimirorgCommonFixture fixture) : base(fixture)
+        {
+            _fixture = fixture;
+            _nodeService = new NodeService(Options.Create(fixture.ApplicationSettings), fixture.VersionService.Object, fixture.Mapper.Object, fixture.NodeRepository.Object, fixture.TimedHookService.Object);
+        }
+
+        [Fact]
+        public async Task Get_Returns_MimirorgBadRequestException_On_Null_WhiteSpaceParam()
+        {
+            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.Get(null));
+            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.Get(""));
+            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.Get(" "));
+        }
+
+        [Theory]
+        [InlineData("Stupid_Fake")]
+        public async Task GetNode_No_Matching_Id_Throws_MimirorgNotFoundException(string id)
+        {
+            _ = await Assert.ThrowsAsync<MimirorgNotFoundException>(() => _nodeService.Get(id));
+        }
+    }
+}
+
 //using System.Collections.Generic;
 //using System.Threading.Tasks;
 //using Mimirorg.Common.Exceptions;
@@ -18,30 +56,9 @@
 //            _nodeService = nodeService;
 //        }
 
-//        [Theory]
-//        [InlineData("Fake_Node_A")]
-//        public async Task GetNode_Returns_Correct_Object(string id)
-//        {
-//            var test = await _nodeService.Get(id);
-//            Assert.NotNull(test);
-//            Assert.Equal(id, test.Id);
-//        }
 
-//        [Theory]
-//        [InlineData("Stupid_Fake")]
-//        public async Task GetNode_No_Matching_Id_Throws_MimirorgNotFoundException(string id)
-//        {
-//            _ = await Assert.ThrowsAsync<MimirorgNotFoundException>(() => _nodeService.Get(id));
-//        }
 
-//        [Theory]
-//        [InlineData("")]
-//        [InlineData(" ")]
-//        [InlineData(null)]
-//        public async Task GetNode_Missing_Id_Throws_MimirorgBadRequestException(string id)
-//        {
-//            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.Get(id));
-//        }
+
 
 //        [Theory]
 //        [InlineData("", "Fake_Rds", "Fake_Purpose")]
