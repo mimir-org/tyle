@@ -92,7 +92,7 @@ namespace TypeLibrary.Services.Services
             var existing = await _nodeRepository.Get(dataAm.Id);
 
             if (existing != null)
-                throw new MimirorgBadRequestException($"Node '{existing.Name}' with RdsCode '{existing.RdsCode}', Aspect '{existing.Aspect}' and version '{existing.Version}' already exist in db.");
+                throw new MimirorgDuplicateException($"Node '{existing.Name}' with RdsCode '{existing.RdsCode}', Aspect '{existing.Aspect}' and version '{existing.Version}' already exist in db.");
 
             var nodeLibDm = _mapper.Map<NodeLibDm>(dataAm);
 
