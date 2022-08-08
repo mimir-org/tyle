@@ -84,7 +84,7 @@ namespace Mimirorg.Integration.Tests.Services
                     "0646754DC953F5EDD4F6159CD993696D"
                 }
             };
-            
+
             using var scope = Factory.Server.Services.CreateScope();
             var nodeService = scope.ServiceProvider.GetRequiredService<INodeService>();
             var node = await nodeService.Create(nodeToCreate);
