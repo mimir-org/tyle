@@ -15,6 +15,13 @@ namespace Mimirorg.Setup.Fixtures
 
         // Repositories
         public Mock<INodeRepository> NodeRepository = new();
+        public Mock<IAttributeRepository> AttributeRepository = new();
+        public Mock<IAttributeQualifierRepository> AttributeQualifierRepository = new();
+        public Mock<IAttributeSourceRepository> AttributeSourceRepository = new();
+        public Mock<IAttributeFormatRepository> AttributeFormatRepository = new();
+        public Mock<IAttributeConditionRepository> AttributeConditionRepository = new();
+        public Mock<IAttributePredefinedRepository> AttributePredefinedRepository = new();
+        public Mock<IAttributeAspectRepository> AttributeAspectRepository = new();
 
         // Services
         public Mock<IVersionService> VersionService = new();

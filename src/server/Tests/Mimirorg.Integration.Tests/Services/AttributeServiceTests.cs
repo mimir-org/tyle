@@ -1,5 +1,4 @@
 using Microsoft.Extensions.DependencyInjection;
-using Mimirorg.Common.Exceptions;
 using Mimirorg.Setup;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -12,42 +11,6 @@ namespace Mimirorg.Integration.Tests.Services
     {
         public AttributeServiceTests(ApiWebApplicationFactory factory) : base(factory)
         {
-        }
-
-        // TODO: This is a unit test
-        [Theory]
-        [InlineData(null, Aspect.None, Discipline.NotSet, Select.None, "xxx", "xxx", "xxx", "xxx")]
-        [InlineData("xxx", Aspect.None, Discipline.NotSet, Select.None, null, "xxx", "xxx", "xxx")]
-        [InlineData("xxx", Aspect.None, Discipline.NotSet, Select.None, "xxx", null, "xxx", "xxx")]
-        [InlineData("xxx", Aspect.None, Discipline.NotSet, Select.None, "xxx", "xxx", null, "xxx")]
-        [InlineData("xxx", Aspect.None, Discipline.NotSet, Select.None, "xxx", "xxx", "xxx", null)]
-        [InlineData("", Aspect.None, Discipline.NotSet, Select.None, "xxx", "xxx", "xxx", "xxx")]
-        [InlineData("xxx", Aspect.None, Discipline.NotSet, Select.None, "", "xxx", "xxx", "xxx")]
-        [InlineData("xxx", Aspect.None, Discipline.NotSet, Select.None, "xxx", "", "xxx", "xxx")]
-        [InlineData("xxx", Aspect.None, Discipline.NotSet, Select.None, "xxx", "xxx", "", "xxx")]
-        [InlineData("xxx", Aspect.None, Discipline.NotSet, Select.None, "xxx", "xxx", "xxx", "")]
-        public async Task Create_Attributes_Throws_Bad_Request_When_Not_Valid(string name, Aspect aspect, Discipline discipline, Select select, string qualifier, string source, string condition, string format)
-        {
-            var attribute = new AttributeLibAm
-            {
-                Name = name,
-                Aspect = aspect,
-                Discipline = discipline,
-                Select = select,
-                AttributeQualifier = qualifier,
-                AttributeSource = source,
-                AttributeCondition = condition,
-                AttributeFormat = format
-            };
-
-            using var scope = Factory.Server.Services.CreateScope();
-            var attributeService = scope.ServiceProvider.GetRequiredService<IAttributeService>();
-
-            //Act
-            Task Act() => attributeService.Create(new List<AttributeLibAm> { attribute });
-
-            //Assert
-            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(Act);
         }
 
         [Fact]
