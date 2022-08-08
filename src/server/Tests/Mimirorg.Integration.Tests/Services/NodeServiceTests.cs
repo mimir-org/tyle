@@ -2,7 +2,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Setup;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Services.Contracts;
 using Xunit;
@@ -42,7 +41,8 @@ namespace Mimirorg.Integration.Tests.Services
         [Theory]
         [InlineData("Fake_Node_245_1", "Fake_RdsName", "Fake_RdsCode", "Fake_PurposeName")]
         [InlineData("Fake_Node_245_2", "Fake_RdsName_2", "Fake_RdsCode_2", "Fake_PurposeName_2")]
-        public async Task Create_Node_Create_Node_When_Ok_Parameters(string name, string rdsName, string rdsCode, string purposeName)
+        public async Task Create_Node_Create_Node_When_Ok_Parameters(string name, string rdsName, string rdsCode,
+            string purposeName)
         {
             var nodeToCreate = new NodeLibAm
             {
@@ -57,7 +57,7 @@ namespace Mimirorg.Integration.Tests.Services
             using var scope = Factory.Server.Services.CreateScope();
             var nodeService = scope.ServiceProvider.GetRequiredService<INodeService>();
             var node = await nodeService.Create(nodeToCreate);
-            
+
             Assert.NotNull(node);
             Assert.Equal(name, node.Name);
             Assert.Equal(rdsName, node.RdsName);
@@ -66,57 +66,29 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(nodeToCreate.Aspect, node.Aspect);
             Assert.Equal(nodeToCreate.Id, node.Id);
         }
+
+        [Theory]
+        [InlineData("Fake_Node_68912_1", "Fake_RdsName", "Fake_RdsCode", "Fake_PurposeName")]
+        public async Task Create_Node_Node_With_Attributes_Result_Ok(string name, string rdsName, string rdsCode, string purposeName)
+        {
+            var nodeToCreate = new NodeLibAm
+            {
+                Name = name,
+                RdsName = rdsName,
+                RdsCode = rdsCode,
+                PurposeName = purposeName,
+                Aspect = Aspect.NotSet,
+                CompanyId = 1,
+                AttributeIdList = new List<string>
+                {
+                    "0646754DC953F5EDD4F6159CD993696D"
+                }
+            };
+            
+            using var scope = Factory.Server.Services.CreateScope();
+            var nodeService = scope.ServiceProvider.GetRequiredService<INodeService>();
+            var node = await nodeService.Create(nodeToCreate);
+            Assert.Equal(nodeToCreate.Id, node.Id);
+        }
     }
 }
-
-
-
-
-
-
-
-//        [Theory]
-//        [InlineData("Ok_Object", "Fake_Rds", "Fake_Purpose")]
-//        public async Task Create_Node_Node_With_Attributes_Result_Ok(string name, string rds, string purpose)
-//        {
-//            var nodeToCreate = new NodeLibAm
-//            {
-//                Name = name,
-//                RdsCode = rds,
-//                PurposeName = purpose,
-//                Aspect = Aspect.Function,
-//                AttributeIdList = new List<string>
-//                {
-//                    "Fake_Attribute_A"
-//                }
-//            };
-
-
-//        [Theory]
-//        [InlineData("Ok_Object", "Fake_Rds", "Fake_Purpose")]
-//        public async Task Create_Node_Node_With_Attributes_Result_Ok(string name, string rds, string purpose)
-//        {
-//            var nodeToCreate = new NodeLibAm
-//            {
-//                Name = name,
-//                RdsCode = rds,
-//                PurposeName = purpose,
-//                Aspect = Aspect.Function,
-//                AttributeIdList = new List<string>
-//                {
-//                    "Fake_Attribute_A"
-//                }
-//            };
-
-//            var id = $"{name}-{rds}-{nodeToCreate.Aspect}-{nodeToCreate.Version}".CreateMd5();
-
-//            var node = await _nodeService.Create(nodeToCreate);
-//            Assert.NotNull(node);
-//            Assert.Equal(name, node.Name);
-//            Assert.Equal(rds, node.RdsCode);
-//            Assert.Equal(purpose, node.PurposeName);
-//            Assert.Equal(nodeToCreate.Aspect, node.Aspect);
-//            Assert.Equal(id, node.Id);
-//        }
-//    }
-//}
