@@ -58,6 +58,13 @@ namespace TypeLibrary.Services.Services
             return nodeLibCm;
         }
 
+        public async Task<IEnumerable<NodeLibCm>> GetAll()
+        {
+            var nodeLibDms = _nodeRepository.Get()?.ToList();
+            var nodeLibCms = _mapper.Map<List<NodeLibCm>>(nodeLibDms);
+            return await Task.FromResult(nodeLibCms);
+        }
+
         public async Task<IEnumerable<NodeLibCm>> GetLatestVersions()
         {
             var distinctFirstVersionIdDm = _nodeRepository.Get()?.ToList().DistinctBy(x => x.FirstVersionId).ToList();
