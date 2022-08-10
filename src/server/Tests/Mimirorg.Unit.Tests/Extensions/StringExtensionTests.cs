@@ -92,8 +92,8 @@ namespace Mimirorg.Unit.Tests.Extensions
         {
             var result1 = value1.ConvertToArray();
             var result2 = value2.ConvertToArray();
-            Assert.True(result1 is {Count: 0});
-            Assert.True(result2 is {Count: 0});
+            Assert.True(result1 is { Count: 0 });
+            Assert.True(result2 is { Count: 0 });
         }
 
         [Theory]
@@ -151,7 +151,7 @@ namespace Mimirorg.Unit.Tests.Extensions
             var result = value.IncrementPatchVersion();
             Assert.True(result == "1.0");
         }
-        
+
         [Theory]
         [InlineData("1.0.0")]
         public void IncrementPatchVersion_Three_Digits_Returns_Correct_Version(string value)
