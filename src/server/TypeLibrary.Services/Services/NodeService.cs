@@ -67,7 +67,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<IEnumerable<NodeLibCm>> GetLatestVersions()
         {
-            var distinctFirstVersionIdDm = _nodeRepository.Get()?.ToList().DistinctBy(x => x.FirstVersionId).ToList();
+            var distinctFirstVersionIdDm = _nodeRepository.Get()?.Where(x => !x.Deleted).ToList().DistinctBy(x => x.FirstVersionId).ToList();
 
             if (distinctFirstVersionIdDm == null || !distinctFirstVersionIdDm.Any())
                 return await Task.FromResult(new List<NodeLibCm>());
@@ -180,7 +180,7 @@ namespace TypeLibrary.Services.Services
                 Console.WriteLine(e);
                 throw;
             }
-            
+
         }
 
         public async Task<bool> CompanyIsChanged(string nodeId, int companyId)
