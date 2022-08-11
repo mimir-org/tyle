@@ -127,5 +127,35 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.True(nodeCmUpdated?.Description == "Description v1.1");
             Assert.True(nodeCmUpdated.Version == "1.1");
         }
+
+        [Fact]
+        public async Task Delete_Node_Result_Ok()
+        {
+            var nodeAm = new NodeLibAm
+            {
+                Name = "Node5",
+                RdsName = "RdsName",
+                RdsCode = "RdsCode",
+                PurposeName = "PurposeName",
+                Description = "Description",
+                Aspect = Aspect.NotSet,
+                CompanyId = 1,
+                AttributeIdList = new List<string>
+                {
+                    "0646754DC953F5EDD4F6159CD993696D"
+                }
+            };
+
+            var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
+            
+            var nodeCm = await nodeService.Create(nodeAm);
+            var isDeleted = await nodeService.Delete(nodeCm?.Id);
+            var allNodesNotDeleted = await nodeService.GetAll();
+            var allNodesIncludeDeleted = await nodeService.GetAll(true);
+
+            Assert.True(isDeleted);
+            Assert.True(string.IsNullOrEmpty(allNodesNotDeleted?.FirstOrDefault(x => x.Id == nodeCm?.Id)?.Id));
+            Assert.True(!string.IsNullOrEmpty(allNodesIncludeDeleted?.FirstOrDefault(x => x.Id == nodeCm?.Id)?.Id));
+        }
     }
 }

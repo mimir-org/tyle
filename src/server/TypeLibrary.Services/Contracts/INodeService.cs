@@ -8,7 +8,7 @@ namespace TypeLibrary.Services.Contracts
     public interface INodeService
     {
         Task<NodeLibCm> Get(string id);
-        Task<IEnumerable<NodeLibCm>> GetAll();
+        Task<IEnumerable<NodeLibCm>> GetAll(bool includeDeleted = false);
         Task<IEnumerable<NodeLibCm>> GetLatestVersions();
         Task<NodeLibCm> Create(NodeLibAm dataAm);
         Task<NodeLibCm> Update(NodeLibAm dataAm, string id);

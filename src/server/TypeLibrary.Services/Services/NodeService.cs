@@ -58,9 +58,9 @@ namespace TypeLibrary.Services.Services
             return nodeLibCm;
         }
 
-        public async Task<IEnumerable<NodeLibCm>> GetAll()
+        public async Task<IEnumerable<NodeLibCm>> GetAll(bool includeDeleted = false)
         {
-            var nodeLibDms = _nodeRepository.Get()?.ToList();
+            var nodeLibDms = includeDeleted ? _nodeRepository.Get()?.ToList() : _nodeRepository.Get()?.Where(x => !x.Deleted).ToList();
             var nodeLibCms = _mapper.Map<List<NodeLibCm>>(nodeLibDms);
             return await Task.FromResult(nodeLibCms);
         }
@@ -166,12 +166,21 @@ namespace TypeLibrary.Services.Services
 
         public async Task<bool> Delete(string id)
         {
-            var deleted = await _nodeRepository.Remove(id);
+            try
+            {
+                var deleted = await _nodeRepository.Remove(id);
 
-            if (deleted)
-                _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
+                if (deleted)
+                    _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
 
-            return deleted;
+                return deleted;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
         }
 
         public async Task<bool> CompanyIsChanged(string nodeId, int companyId)
