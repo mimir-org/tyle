@@ -76,6 +76,7 @@ namespace TypeLibrary.Data.Repositories.Ef
                 throw new MimirorgBadRequestException($"The transport with id {id} is created by the system and can not be deleted.");
 
             dm.Deleted = true;
+            Update(dm);
 
             var status = await Context.SaveChangesAsync();
             return status == 1;
