@@ -15,7 +15,7 @@ namespace Mimirorg.Integration.Tests.Controllers
         {
         }
 
-        [Theory(Skip = "Randomly fails when running together with all other test. Runs Ok when running alone.")]
+        [Theory]
         [InlineData("/v1/librarynode")]
         public async Task GET_Retrieves_Status_Ok(string endpoint)
         {
