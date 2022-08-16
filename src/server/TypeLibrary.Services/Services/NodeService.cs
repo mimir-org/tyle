@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -57,9 +58,16 @@ namespace TypeLibrary.Services.Services
             return nodeLibCm;
         }
 
+        public async Task<IEnumerable<NodeLibCm>> GetAll(bool includeDeleted = false)
+        {
+            var nodeLibDms = includeDeleted ? _nodeRepository.Get()?.ToList() : _nodeRepository.Get()?.Where(x => !x.Deleted).ToList();
+            var nodeLibCms = _mapper.Map<List<NodeLibCm>>(nodeLibDms);
+            return await Task.FromResult(nodeLibCms);
+        }
+
         public async Task<IEnumerable<NodeLibCm>> GetLatestVersions()
         {
-            var distinctFirstVersionIdDm = _nodeRepository.Get()?.ToList().DistinctBy(x => x.FirstVersionId).ToList();
+            var distinctFirstVersionIdDm = _nodeRepository.Get()?.Where(x => !x.Deleted).ToList().DistinctBy(x => x.FirstVersionId).ToList();
 
             if (distinctFirstVersionIdDm == null || !distinctFirstVersionIdDm.Any())
                 return await Task.FromResult(new List<NodeLibCm>());
@@ -84,10 +92,14 @@ namespace TypeLibrary.Services.Services
             if (dataAm == null)
                 throw new MimirorgBadRequestException("Data object can not be null.");
 
+            var validate = dataAm.ValidateObject();
+            if (!validate.IsValid)
+                throw new MimirorgBadRequestException("Node is not valid.", validate);
+
             var existing = await _nodeRepository.Get(dataAm.Id);
 
             if (existing != null)
-                throw new MimirorgBadRequestException($"Node '{existing.Name}' with RdsCode '{existing.RdsCode}', Aspect '{existing.Aspect}' and version '{existing.Version}' already exist in db.");
+                throw new MimirorgDuplicateException($"Node '{existing.Name}' with RdsCode '{existing.RdsCode}', Aspect '{existing.Aspect}' and version '{existing.Version}' already exist in db.");
 
             var nodeLibDm = _mapper.Map<NodeLibDm>(dataAm);
 
@@ -154,12 +166,21 @@ namespace TypeLibrary.Services.Services
 
         public async Task<bool> Delete(string id)
         {
-            var deleted = await _nodeRepository.Remove(id);
+            try
+            {
+                var deleted = await _nodeRepository.Remove(id);
 
-            if (deleted)
-                _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
+                if (deleted)
+                    _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
 
-            return deleted;
+                return deleted;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
 
         public async Task<bool> CompanyIsChanged(string nodeId, int companyId)

@@ -1,7 +1,7 @@
 using Mimirorg.Authentication.Extensions;
+using Mimirorg.Common;
 using Mimirorg.Common.Middleware;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using TypeLibrary.Core.Extensions;
 
 namespace TypeLibrary.Api
@@ -20,7 +20,7 @@ namespace TypeLibrary.Api
             services.AddControllers().AddNewtonsoftJson(o =>
             {
                 o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                o.SerializerSettings.ContractResolver = new CamelCaseExceptDictionaryKeysResolver();
             });
 
             // Add Cors policy

@@ -1,6 +1,5 @@
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.Encodings.Web;
 using Mimirorg.Common.Exceptions;
 
 namespace Mimirorg.Common.Extensions
@@ -12,7 +11,7 @@ namespace Mimirorg.Common.Extensions
             if (values == null)
                 return false;
 
-            return values.GroupBy(x => x).Where(g => g.Count() > 1).Select(y => y.Key).ToList().Any();
+            return values.GroupBy(x => x.ToLower()).Where(g => g.Count() > 1).Select(y => y.Key.ToLower()).ToList().Any();
         }
 
         public static bool HasEmptyValues(this ICollection<string> values)

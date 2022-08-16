@@ -28,12 +28,8 @@ namespace TypeLibrary.Data.Repositories.Ef
         {
             foreach (var item in items)
             {
-                _attributeRepository.SetUnchanged(item.Attributes);
-                await CreateAsync(item);
-                _attributeRepository.SetDetached(item.Attributes);
+                await Create(item);
             }
-
-            await SaveAsync();
         }
 
         public async Task<TerminalLibDm> Create(TerminalLibDm terminal)

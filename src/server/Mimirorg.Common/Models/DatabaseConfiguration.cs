@@ -1,5 +1,3 @@
-using System.Configuration;
-
 namespace Mimirorg.Common.Models
 {
     public class DatabaseConfiguration
@@ -18,7 +16,8 @@ namespace Mimirorg.Common.Models
         {
             if (string.IsNullOrWhiteSpace(DataSource) || string.IsNullOrWhiteSpace(InitialCatalog) ||
                 string.IsNullOrWhiteSpace(DbUser) || string.IsNullOrWhiteSpace(Password))
-                throw new ConfigurationErrorsException("DatabaseConfiguration is missing or invalid");
+                return null;
+
 
             var portString = string.Empty;
             if (Port > 0) portString = $",{Port}";

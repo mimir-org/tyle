@@ -27,7 +27,8 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public Aspect Aspect { get; set; } //exception
 
-        [Required]
+        [Display(Name = "CompanyId")]
+        [Range(1, int.MaxValue, ErrorMessage = "{0} must be greater than 0")]
         public int CompanyId { get; set; } //minor version increase
 
         public ICollection<string> SimpleIdList { get; set; } //removal = exception, add = major version increase

@@ -59,7 +59,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<IEnumerable<InterfaceLibCm>> GetLatestVersions()
         {
-            var distinctFirstVersionIdDm = _interfaceRepository.Get()?.ToList().DistinctBy(x => x.FirstVersionId).ToList();
+            var distinctFirstVersionIdDm = _interfaceRepository.Get()?.ToList().Where(x => !x.Deleted).DistinctBy(x => x.FirstVersionId).ToList();
 
             if (distinctFirstVersionIdDm == null || !distinctFirstVersionIdDm.Any())
                 return await Task.FromResult(new List<InterfaceLibCm>());
@@ -87,7 +87,7 @@ namespace TypeLibrary.Services.Services
             var existing = await _interfaceRepository.Get(dataAm.Id);
 
             if (existing != null)
-                throw new MimirorgBadRequestException($"Node '{existing.Name}', with RdsCode '{existing.RdsCode}', Aspect '{existing.Aspect}' and version '{existing.Version}' already exist in db.");
+                throw new MimirorgDuplicateException($"Interface '{existing.Name}', with RdsCode '{existing.RdsCode}', Aspect '{existing.Aspect}' and version '{existing.Version}' already exist in db.");
 
             var interfaceLibDm = _mapper.Map<InterfaceLibDm>(dataAm);
 
@@ -116,27 +116,24 @@ namespace TypeLibrary.Services.Services
             if (dataAm == null)
                 throw new MimirorgBadRequestException("Can't update an interface when dataAm is null.");
 
-            if (id == dataAm.Id)
-                throw new MimirorgBadRequestException("Not allowed to update: Name, RdsCode or Aspect.");
-
             var interfaceToUpdate = await _interfaceRepository.Get(id);
 
             if (interfaceToUpdate?.Id == null)
-                throw new MimirorgNotFoundException($"Interface with id {id} does not exist.");
+                throw new MimirorgNotFoundException($"Interface with id {id} does not exist, update is not possible.");
 
             if (interfaceToUpdate.CreatedBy == _applicationSettings.System)
                 throw new MimirorgBadRequestException($"The interface with id {id} is created by the system and can not be updated.");
 
             if (interfaceToUpdate.Deleted)
-                throw new MimirorgBadRequestException($"The transport with id {id} is deleted and can not be updated.");
+                throw new MimirorgBadRequestException($"The interface with id {id} is deleted and can not be updated.");
 
             var latestInterfaceDm = await _versionService.GetLatestVersion(interfaceToUpdate);
 
             if (latestInterfaceDm == null)
-                throw new MimirorgBadRequestException($"Latest node version for node with id {id} not found (null).");
+                throw new MimirorgBadRequestException($"Latest interface version for interface with id {id} not found (null).");
 
             if (string.IsNullOrWhiteSpace(latestInterfaceDm.Version))
-                throw new MimirorgBadRequestException($"Latest version for node with id {id} has null or empty as version number.");
+                throw new MimirorgBadRequestException($"Latest version for interface with id {id} has null or empty as version number.");
 
             var latestInterfaceVersion = double.Parse(latestInterfaceDm.Version, CultureInfo.InvariantCulture);
             var interfaceToUpdateVersion = double.Parse(interfaceToUpdate.Version, CultureInfo.InvariantCulture);

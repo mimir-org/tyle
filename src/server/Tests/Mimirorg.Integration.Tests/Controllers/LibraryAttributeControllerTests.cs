@@ -1,12 +1,12 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Mimirorg.Setup;
 using Mimirorg.TypeLibrary.Models.Client;
-using TypeLibrary.Tests.Setup;
 using Xunit;
 
 // ReSharper disable StringLiteralTypo
 
-namespace TypeLibrary.Tests.Controllers
+namespace Mimirorg.Integration.Tests.Controllers
 {
     public class LibraryAttributeControllerTests : IntegrationTest
     {

@@ -60,7 +60,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<IEnumerable<TransportLibCm>> GetLatestVersions()
         {
-            var distinctFirstVersionIdDm = _transportRepository.Get()?.ToList().DistinctBy(x => x.FirstVersionId).ToList();
+            var distinctFirstVersionIdDm = _transportRepository.Get()?.ToList().Where(x => !x.Deleted).DistinctBy(x => x.FirstVersionId).ToList();
 
             if (distinctFirstVersionIdDm == null || !distinctFirstVersionIdDm.Any())
                 return await Task.FromResult(new List<TransportLibCm>());
@@ -88,7 +88,7 @@ namespace TypeLibrary.Services.Services
             var existing = await _transportRepository.Get(dataAm.Id);
 
             if (existing != null)
-                throw new MimirorgBadRequestException($"Transport '{existing.Name}' with RdsCode '{existing.RdsCode}', Aspect '{existing.Aspect}' and version '{existing.Version}' already exist in db.");
+                throw new MimirorgDuplicateException($"Transport '{existing.Name}' with RdsCode '{existing.RdsCode}', Aspect '{existing.Aspect}' and version '{existing.Version}' already exist in db.");
 
             var transportLibDm = _mapper.Map<TransportLibDm>(dataAm);
 

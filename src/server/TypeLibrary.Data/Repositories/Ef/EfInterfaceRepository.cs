@@ -73,9 +73,8 @@ namespace TypeLibrary.Data.Repositories.Ef
                 throw new MimirorgBadRequestException($"The interface with id {id} is created by the system and can not be deleted.");
 
             dm.Deleted = true;
-
-            var status = await SaveAsync();
-            return status == 1;
+            Context.Entry(dm).State = EntityState.Modified;
+            return await Context.SaveChangesAsync() == 1;
         }
 
         public void ClearAllChangeTrackers()

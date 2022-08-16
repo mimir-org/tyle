@@ -77,7 +77,9 @@ namespace Mimirorg.Authentication.Services
             var token = await _tokenRepository.FindBy(x => x.Secret == secret).FirstOrDefaultAsync();
 
             if (token == null)
+            {
                 throw new AuthenticationException("Can't find any valid refresh token.");
+            }
 
             if (token.ValidTo < DateTime.Now.ToUniversalTime())
             {

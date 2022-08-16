@@ -42,7 +42,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.ContentReferences, opt => opt.MapFrom(src => src.ContentReferences.ConvertToArray()))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.RdsName, opt => opt.MapFrom(src => src.RdsName))
-                .ForMember(dest => dest.RdsCode, opt => opt.MapFrom(src => src.RdsName))
+                .ForMember(dest => dest.RdsCode, opt => opt.MapFrom(src => src.RdsCode))
                 .ForMember(dest => dest.PurposeName, opt => opt.MapFrom(src => src.PurposeName))
                 .ForMember(dest => dest.ParentIri, opt => opt.MapFrom(src => src.Parent != null ? src.Parent.Iri : null))
                 .ForMember(dest => dest.ParentName, opt => opt.MapFrom(src => src.Parent != null ? src.Parent.Name : null))

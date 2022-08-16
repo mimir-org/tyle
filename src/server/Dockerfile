@@ -13,6 +13,7 @@ FROM base as format
 RUN dotnet format . --verify-no-changes --verbosity diagnostic --no-restore
 
 FROM base as build
+RUN dotnet test -c Release
 RUN dotnet build TypeLibrary.Api/TypeLibrary.Api.csproj -c Release --no-restore
 
 FROM build as publish
