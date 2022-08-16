@@ -73,14 +73,13 @@ namespace TypeLibrary.Data.Repositories.Ef
             var dm = await Get(id);
 
             if (dm == null)
-                throw new MimirorgNotFoundException($"Transport with id {id} not found, delete failed.");
+                throw new MimirorgNotFoundException($"Node with id {id} not found, delete failed.");
 
             if (dm.CreatedBy == _applicationSettings.System)
-                throw new MimirorgBadRequestException($"The transport with id {id} is created by the system and can not be deleted.");
+                throw new MimirorgBadRequestException($"The node with id {id} is created by the system and can not be deleted.");
 
             dm.Deleted = true;
-            Update(dm);
-         
+            Context.Entry(dm).State = EntityState.Modified;
             return await Context.SaveChangesAsync() == 1;
         }
 
