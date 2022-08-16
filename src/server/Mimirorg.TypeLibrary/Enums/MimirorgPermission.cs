@@ -14,10 +14,13 @@ namespace Mimirorg.TypeLibrary.Enums
         [Display(Name = "Write")]
         Write = 2,
 
+        [Display(Name = "Approve")]
+        Approve = 3,
+
         [Display(Name = "Delete")]
-        Delete = 4,
+        Delete = 6,
 
         [Display(Name = "Manage")]
-        Manage = 7
+        Manage = 12
     }
 }
