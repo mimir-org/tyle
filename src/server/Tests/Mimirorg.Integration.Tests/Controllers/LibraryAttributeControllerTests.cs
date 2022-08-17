@@ -23,7 +23,6 @@ namespace Mimirorg.Integration.Tests.Controllers
         [InlineData("/v1/libraryattribute/4")]
         [InlineData("/v1/libraryattribute/8")]
         [InlineData("/v1/libraryattribute/predefined")]
-        [InlineData("/v1/libraryattribute/aspect")]
         [InlineData("/v1/libraryattribute/format")]
         [InlineData("/v1/libraryattribute/condition")]
         [InlineData("/v1/libraryattribute/qualifier")]
