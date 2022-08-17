@@ -20,12 +20,10 @@ namespace TypeLibrary.Services.Services
         private const string SimpleFileName = "simple";
         private const string TerminalTypeFileName = "terminal";
         private const string TransportFileName = "transport";
-        private const string UnitFileName = "unit";
 
         private readonly IAttributeService _attributeService;
         private readonly ISymbolService _symbolService;
         private readonly IPurposeService _purposeService;
-        private readonly IUnitService _unitService;
         private readonly IRdsService _rdsService;
         private readonly ITerminalService _terminalService;
         private readonly ITransportService _transportService;
@@ -33,13 +31,12 @@ namespace TypeLibrary.Services.Services
         private readonly IFileRepository _fileRepository;
         private readonly ILogger<SeedingService> _logger;
 
-        public SeedingService(IAttributeService attributeService, ISymbolService symbolService, IPurposeService purposeService, IUnitService unitService,
-            IRdsService rdsService, ITerminalService terminalService, ITransportService transportService, IFileRepository fileRepository, ILogger<SeedingService> logger, ISimpleService simpleService)
+        public SeedingService(IAttributeService attributeService, ISymbolService symbolService, IPurposeService purposeService, IRdsService rdsService,
+            ITerminalService terminalService, ITransportService transportService, IFileRepository fileRepository, ILogger<SeedingService> logger, ISimpleService simpleService)
         {
             _attributeService = attributeService;
             _symbolService = symbolService;
             _purposeService = purposeService;
-            _unitService = unitService;
             _rdsService = rdsService;
             _terminalService = terminalService;
             _transportService = transportService;
@@ -59,7 +56,6 @@ namespace TypeLibrary.Services.Services
 
                 var attributeAspectFiles = fileList.Where(x => x.ToLower().Equals(AttributeAspectFileName)).ToList();
                 var purposeFiles = fileList.Where(x => x.ToLower().Equals(PurposeFileName)).ToList();
-                var unitFiles = fileList.Where(x => x.ToLower().Equals(UnitFileName)).ToList();
 
                 var attributeFiles = fileList.Where(x => x.ToLower().Equals(AttributeFileName)).ToList();
                 var attributePredefinedFiles = fileList.Where(x => x.ToLower().Equals(PredefinedAttributeFileName)).ToList();
@@ -72,7 +68,6 @@ namespace TypeLibrary.Services.Services
 
                 var attributeAspects = _fileRepository.ReadAllFiles<AttributeAspectLibAm>(attributeAspectFiles).ToList();
                 var purposes = _fileRepository.ReadAllFiles<PurposeLibAm>(purposeFiles).ToList();
-                var units = _fileRepository.ReadAllFiles<UnitLibAm>(unitFiles).ToList();
 
                 var attributes = _fileRepository.ReadAllFiles<AttributeLibAm>(attributeFiles).ToList();
                 var attributesPredefined = _fileRepository.ReadAllFiles<AttributePredefinedLibAm>(attributePredefinedFiles).ToList();
@@ -83,7 +78,6 @@ namespace TypeLibrary.Services.Services
                 var transports = _fileRepository.ReadAllFiles<TransportLibAm>(transportFiles).ToList();
 
                 await _purposeService.Create(purposes, true);
-                await _unitService.Create(units, true);
                 await _attributeService.Create(attributes, true);
                 await _attributeService.CreatePredefined(attributesPredefined, true);
                 await _attributeService.CreateAspects(attributeAspects, true);

@@ -43,7 +43,6 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IEfSymbolRepository, EfSymbolRepository>();
             services.AddScoped<IEfAttributeAspectRepository, EfAttributeAspectRepository>();
             services.AddScoped<IEfPurposeRepository, EfPurposeRepository>();
-            services.AddScoped<IEfUnitRepository, EfUnitRepository>();
             services.AddScoped<IDynamicSymbolDataProvider, EfSymbolRepository>();
 
             services.AddScoped<IAttributeRepository, EfAttributeRepository>();
@@ -53,7 +52,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IAttributeConditionRepository, DatumRepository>();
             services.AddScoped<IAttributePredefinedRepository, EfAttributePredefinedRepository>();
             services.AddScoped<IAttributeAspectRepository, EfAttributeAspectRepository>();
-            services.AddScoped<IUnitRepository, EfUnitRepository>();
+            services.AddScoped<IUnitRepository, DatumRepository>();
             services.AddScoped<IInterfaceRepository, EfInterfaceRepository>();
             services.AddScoped<IPurposeRepository, EfPurposeRepository>();
             services.AddScoped<INodeRepository, EfNodeRepository>();
@@ -79,7 +78,6 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IVersionService, VersionService>();
 
             // Factories
-            services.AddScoped<IUnitFactory, UnitFactory>();
             services.AddScoped<IAttributeFactory, AttributeFactory>();
 
             services.AddHttpContextAccessor();
