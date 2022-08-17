@@ -26,8 +26,7 @@ namespace Mimirorg.Unit.Tests.Services
                 fixture.AttributeSourceRepository.Object,
                 fixture.AttributeFormatRepository.Object,
                 fixture.AttributeConditionRepository.Object,
-                fixture.AttributePredefinedRepository.Object,
-                fixture.AttributeAspectRepository.Object);
+                fixture.AttributePredefinedRepository.Object);
         }
 
         [Theory]

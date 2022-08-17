@@ -1,6 +1,5 @@
 import {
   Aspect,
-  AttributeAspectLibCm,
   AttributeConditionLibCm,
   AttributeFormatLibCm,
   AttributeLibCm,
@@ -21,9 +20,6 @@ export const apiAttribute = {
   },
   getAttributesPredefined() {
     return apiClient.get<AttributePredefinedLibCm[]>(`${_basePath}/predefined`).then((r) => r.data);
-  },
-  getAttributesAspect() {
-    return apiClient.get<AttributeAspectLibCm[]>(`${_basePath}/aspect`).then((r) => r.data);
   },
   getAttributesCondition() {
     return apiClient.get<AttributeConditionLibCm[]>(`${_basePath}/condition`).then((r) => r.data);

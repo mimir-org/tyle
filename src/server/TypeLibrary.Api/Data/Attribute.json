@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "parentId": null,
     "name": "Head, downstream",
@@ -2935,5 +2935,607 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Float"
+  },
+  {
+    "name": "Space",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Facility",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Foundation structure",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Module",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Deck",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Areas",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Routes",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Enclosure",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Point grid location",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Object envelope",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Terminal",
+    "description": null,
+    "parentId": null,
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Installation space",
+    "description": null,
+    "parentId": "7F461BD82F1E8C4BA5A961CB132CD45A", //Space ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Range space",
+    "description": null,
+    "parentId": "7F461BD82F1E8C4BA5A961CB132CD45A", //Space ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Platform facility",
+    "description": null,
+    "parentId": "619BD9D75613D5768F516606E744BFEE", //Facility ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "FPSO facility",
+    "description": null,
+    "parentId": "619BD9D75613D5768F516606E744BFEE", //Facility ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Terminal facility",
+    "description": null,
+    "parentId": "619BD9D75613D5768F516606E744BFEE", //Facility ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Subsea facility",
+    "description": null,
+    "parentId": "619BD9D75613D5768F516606E744BFEE", //Facility ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Jacket foundation",
+    "description": null,
+    "parentId": "629895BCA49893B0226FE607BEF27346", //Foundation structure ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Floater foundation",
+    "description": null,
+    "parentId": "629895BCA49893B0226FE607BEF27346", //Foundation structure ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Rig foundation",
+    "description": null,
+    "parentId": "629895BCA49893B0226FE607BEF27346", //Foundation structure ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "GBS foundation",
+    "description": null,
+    "parentId": "629895BCA49893B0226FE607BEF27346", //Foundation structure ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Facility module",
+    "description": null,
+    "parentId": "E16CC9A19BB687FF1CC2ADAD93FA15BA", //Module ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Tower module",
+    "description": null,
+    "parentId": "E16CC9A19BB687FF1CC2ADAD93FA15BA", //Module ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Boom module",
+    "description": null,
+    "parentId": "E16CC9A19BB687FF1CC2ADAD93FA15BA", //Module ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Bridge module",
+    "description": null,
+    "parentId": "E16CC9A19BB687FF1CC2ADAD93FA15BA", //Module ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Main deck",
+    "description": null,
+    "parentId": "59A9EEC701D6E5371D0B6A3947FC4773", //Deck ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Mezzanine deck",
+    "description": null,
+    "parentId": "59A9EEC701D6E5371D0B6A3947FC4773", //Deck ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Partial deck",
+    "description": null,
+    "parentId": "59A9EEC701D6E5371D0B6A3947FC4773", //Deck ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Area",
+    "description": null,
+    "parentId": "63CC6663C6C23EE1838C2F5057A45742", //Area ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Sub area",
+    "description": null,
+    "parentId": "63CC6663C6C23EE1838C2F5057A45742", //Area ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Function area",
+    "description": null,
+    "parentId": "63CC6663C6C23EE1838C2F5057A45742", //Area ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Route",
+    "description": null,
+    "parentId": "CA0824F6C69C463C9764AABBF366B89A", //Route ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Container enclosure",
+    "description": null,
+    "parentId": "9EAE2CF3D80C4DCC1AE0539B39921722", //Enclosure ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Cabinet enclosure",
+    "description": null,
+    "parentId": "9EAE2CF3D80C4DCC1AE0539B39921722", //Enclosure ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Box enclosure",
+    "description": null,
+    "parentId": "9EAE2CF3D80C4DCC1AE0539B39921722", //Enclosure ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Point platform grid",
+    "description": null,
+    "parentId": "2513EB3E7E6AE70F6F799CB9F87DD3D7", //Point grid location ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Point local grid",
+    "description": null,
+    "parentId": "2513EB3E7E6AE70F6F799CB9F87DD3D7", //Point grid location ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Point envelope",
+    "description": null,
+    "parentId": "A3374A6519B9D05DE477676C8BEA40A8", //Object envelope ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Outline envelope",
+    "description": null,
+    "parentId": "A3374A6519B9D05DE477676C8BEA40A8", //Object envelope ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Actual size envelope",
+    "description": null,
+    "parentId": "A3374A6519B9D05DE477676C8BEA40A8", //Object envelope ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Pipe terminal",
+    "description": null,
+    "parentId": "2D390BF802D8D92D021ED670BC71E81D", //Terminal ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Cable terminal",
+    "description": null,
+    "parentId": "2D390BF802D8D92D021ED670BC71E81D", //Terminal ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
+  },
+  {
+    "name": "Duct terminal",
+    "description": null,
+    "parentId": "2D390BF802D8D92D021ED670BC71E81D", //Terminal ok
+    "aspect": "Location",
+    "discipline": 0,
+    "select": 0,
+    "selectValues": null,
+    "attributeQualifier": "NotSet",
+    "attributeSource": "NotSet",
+    "attributeCondition": "NotSet",
+    "attributeFormat": "NotSet",
+    "attributeType": 1
   }
 ]

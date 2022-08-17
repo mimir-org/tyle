@@ -27,8 +27,6 @@ export const useGetAttributesByAspect = (aspect: Aspect) =>
 
 export const useGetAttributesPredefined = () => useQuery(keys.predefinedLists(), apiAttribute.getAttributesPredefined);
 
-export const useGetAttributesAspect = () => useQuery(keys.aspectLists(), apiAttribute.getAttributesAspect);
-
 export const useGetAttributesCondition = () => useQuery(keys.conditionLists(), apiAttribute.getAttributesCondition);
 
 export const useGetAttributesFormat = () => useQuery(keys.formatLists(), apiAttribute.getAttributesFormat);

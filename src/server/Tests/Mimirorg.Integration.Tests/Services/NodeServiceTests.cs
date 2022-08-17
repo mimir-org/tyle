@@ -147,7 +147,7 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
-            
+
             var nodeCm = await nodeService.Create(nodeAm);
             var isDeleted = await nodeService.Delete(nodeCm?.Id);
             var allNodesNotDeleted = await nodeService.GetAll();

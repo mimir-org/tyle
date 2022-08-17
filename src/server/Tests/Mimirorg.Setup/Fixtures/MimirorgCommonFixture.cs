@@ -21,7 +21,6 @@ namespace Mimirorg.Setup.Fixtures
         public Mock<IAttributeFormatRepository> AttributeFormatRepository = new();
         public Mock<IAttributeConditionRepository> AttributeConditionRepository = new();
         public Mock<IAttributePredefinedRepository> AttributePredefinedRepository = new();
-        public Mock<IAttributeAspectRepository> AttributeAspectRepository = new();
 
         // Services
         public Mock<IVersionService> VersionService = new();
@@ -40,32 +39,3 @@ namespace Mimirorg.Setup.Fixtures
         }
     }
 }
-
-
-//var mappingConfig = new MapperConfiguration(mc =>
-//{
-//    mc.AddProfile(new SourceMappingProfile());
-//});
-//IMapper mapper = mappingConfig.CreateMapper();
-//_mapper = mapper;
-
-
-//var cfg = new MapperConfigurationExpression();
-//cfg.AddProfile(new AttributeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IUnitFactory>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new SymbolProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<IOptions<ApplicationSettings>>()));
-//cfg.AddProfile(new NodeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new InterfaceProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new TransportProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new RdsProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new TerminalProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IAttributeFactory>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new AttributeConditionProfile());
-//cfg.AddProfile(new AttributeFormatProfile());
-//cfg.AddProfile(new AttributeQualifierProfile());
-//cfg.AddProfile(new AttributeSourceProfile());
-//cfg.AddProfile(new AttributeAspectProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new AttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new PurposeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new UnitProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new SimpleProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new SelectedAttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>()));
-//cfg.AddProfile(new NodeTerminalProfile());
