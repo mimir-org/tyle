@@ -26,7 +26,6 @@ namespace TypeLibrary.Services.Services
         private readonly IAttributeFormatRepository _attributeFormatRepository;
         private readonly IAttributeConditionRepository _attributeConditionRepository;
         private readonly IAttributePredefinedRepository _attributePredefinedRepository;
-        //private readonly IAttributeAspectRepository _attributeAspectRepository;
 
         public AttributeService(IMapper mapper, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings, IAttributeQualifierRepository attributeQualifierRepository, IAttributeSourceRepository attributeSourceRepository, IAttributeFormatRepository attributeFormatRepository, IAttributeConditionRepository attributeConditionRepository, IAttributePredefinedRepository attributePredefinedRepository)
         {
@@ -37,7 +36,6 @@ namespace TypeLibrary.Services.Services
             _attributeFormatRepository = attributeFormatRepository;
             _attributeConditionRepository = attributeConditionRepository;
             _attributePredefinedRepository = attributePredefinedRepository;
-            //_attributeAspectRepository = attributeAspectRepository;
             _applicationSettings = applicationSettings?.Value;
         }
 
@@ -129,49 +127,6 @@ namespace TypeLibrary.Services.Services
         }
 
         #endregion Predefined
-
-        #region Aspect
-
-        //public Task<IEnumerable<AttributeAspectLibCm>> GetAspects()
-        //{
-        //    var allAspects = _attributeAspectRepository.GetAspects().ToList();
-        //    var aspects = allAspects.Where(x => x.ParentId != null).ToList();
-        //    var topParents = allAspects.Where(x => x.ParentId == null).OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
-
-        //    var sortedAspects = aspects.OrderBy(x => topParents.FirstOrDefault(y => y.Id == x.ParentId)?.Name, StringComparer.InvariantCultureIgnoreCase)
-        //        .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
-
-        //    sortedAspects.AddRange(topParents);
-        //    var dataCm = _mapper.Map<List<AttributeAspectLibCm>>(sortedAspects);
-        //    return Task.FromResult(dataCm.AsEnumerable());
-        //}
-
-        ///// <summary>
-        ///// Create new attribute aspects
-        ///// </summary>
-        ///// <param name="aspects"></param>
-        ///// <param name="createdBySystem"></param>
-        ///// <returns></returns>
-        //public async Task CreateAspects(List<AttributeAspectLibAm> aspects, bool createdBySystem = false)
-        //{
-        //    if (aspects == null || !aspects.Any())
-        //        return;
-
-        //    var data = _mapper.Map<List<AttributeAspectLibDm>>(aspects);
-        //    var existing = _attributeAspectRepository.GetAspects().ToList();
-        //    var notExisting = data.Exclude(existing, x => x.Id).ToList();
-
-        //    if (!notExisting.Any())
-        //        return;
-
-        //    foreach (var aspect in notExisting)
-        //    {
-        //        aspect.CreatedBy = createdBySystem ? _applicationSettings.System : aspect.CreatedBy;
-        //        await _attributeAspectRepository.CreateAspect(aspect);
-        //    }
-        //}
-
-        #endregion Aspect
 
         #region Condition
 

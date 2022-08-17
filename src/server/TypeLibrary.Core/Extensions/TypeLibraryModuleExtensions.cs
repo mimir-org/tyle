@@ -41,7 +41,6 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IEfRdsRepository, EfRdsRepository>();
             services.AddSingleton<IFileRepository, JsonFileRepository>();
             services.AddScoped<IEfSymbolRepository, EfSymbolRepository>();
-            //services.AddScoped<IEfAttributeAspectRepository, EfAttributeAspectRepository>();
             services.AddScoped<IEfPurposeRepository, EfPurposeRepository>();
             services.AddScoped<IEfUnitRepository, EfUnitRepository>();
             services.AddScoped<IDynamicSymbolDataProvider, EfSymbolRepository>();
@@ -52,7 +51,6 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IAttributeFormatRepository, DatumRepository>();
             services.AddScoped<IAttributeConditionRepository, DatumRepository>();
             services.AddScoped<IAttributePredefinedRepository, EfAttributePredefinedRepository>();
-            //services.AddScoped<IAttributeAspectRepository, EfAttributeAspectRepository>();
             services.AddScoped<IUnitRepository, EfUnitRepository>();
             services.AddScoped<IInterfaceRepository, EfInterfaceRepository>();
             services.AddScoped<IPurposeRepository, EfPurposeRepository>();
