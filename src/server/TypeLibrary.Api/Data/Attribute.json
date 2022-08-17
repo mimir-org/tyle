@@ -3007,7 +3007,7 @@
     "attributeType": 1
   },
   {
-    "name": "Area",
+    "name": "Areas",
     "description": null,
     "parentId": null,
     "aspect": "Location",
@@ -3021,7 +3021,7 @@
     "attributeType": 1
   },
   {
-    "name": "Route",
+    "name": "Routes",
     "description": null,
     "parentId": null,
     "aspect": "Location",
@@ -3093,7 +3093,7 @@
   {
     "name": "Installation space",
     "description": null,
-    "parentId": "4A63D585C3B9893F49C794DE02B3A375", //Space
+    "parentId": "7F461BD82F1E8C4BA5A961CB132CD45A", //Space ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3107,7 +3107,7 @@
   {
     "name": "Range space",
     "description": null,
-    "parentId": "4A63D585C3B9893F49C794DE02B3A375", //Space
+    "parentId": "7F461BD82F1E8C4BA5A961CB132CD45A", //Space ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3121,7 +3121,7 @@
   {
     "name": "Platform facility",
     "description": null,
-    "parentId": "3275C8DFA3E6ACE2D88F7D5D3E39DC67", //Facility
+    "parentId": "619BD9D75613D5768F516606E744BFEE", //Facility ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3135,7 +3135,7 @@
   {
     "name": "FPSO facility",
     "description": null,
-    "parentId": "3275C8DFA3E6ACE2D88F7D5D3E39DC67", //Facility
+    "parentId": "619BD9D75613D5768F516606E744BFEE", //Facility ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3149,7 +3149,7 @@
   {
     "name": "Terminal facility",
     "description": null,
-    "parentId": "3275C8DFA3E6ACE2D88F7D5D3E39DC67", //Facility
+    "parentId": "619BD9D75613D5768F516606E744BFEE", //Facility ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3163,7 +3163,7 @@
   {
     "name": "Subsea facility",
     "description": null,
-    "parentId": "3275C8DFA3E6ACE2D88F7D5D3E39DC67", //Facility
+    "parentId": "619BD9D75613D5768F516606E744BFEE", //Facility ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3177,7 +3177,7 @@
   {
     "name": "Jacket foundation",
     "description": null,
-    "parentId": "C6496B1F9F7630C97427C5B276A47700", //Foundation structure
+    "parentId": "629895BCA49893B0226FE607BEF27346", //Foundation structure ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3191,7 +3191,7 @@
   {
     "name": "Floater foundation",
     "description": null,
-    "parentId": "C6496B1F9F7630C97427C5B276A47700", //Foundation structure
+    "parentId": "629895BCA49893B0226FE607BEF27346", //Foundation structure ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3205,7 +3205,7 @@
   {
     "name": "Rig foundation",
     "description": null,
-    "parentId": "C6496B1F9F7630C97427C5B276A47700", //Foundation structure
+    "parentId": "629895BCA49893B0226FE607BEF27346", //Foundation structure ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3219,7 +3219,7 @@
   {
     "name": "GBS foundation",
     "description": null,
-    "parentId": "C6496B1F9F7630C97427C5B276A47700", //Foundation structure
+    "parentId": "629895BCA49893B0226FE607BEF27346", //Foundation structure ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3233,7 +3233,7 @@
   {
     "name": "Facility module",
     "description": null,
-    "parentId": "316CB94FC7EB0648E971CED9AB897D70", //Module
+    "parentId": "E16CC9A19BB687FF1CC2ADAD93FA15BA", //Module ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3247,7 +3247,7 @@
   {
     "name": "Tower module",
     "description": null,
-    "parentId": "316CB94FC7EB0648E971CED9AB897D70", //Module
+    "parentId": "E16CC9A19BB687FF1CC2ADAD93FA15BA", //Module ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3261,7 +3261,7 @@
   {
     "name": "Boom module",
     "description": null,
-    "parentId": "316CB94FC7EB0648E971CED9AB897D70", //Module
+    "parentId": "E16CC9A19BB687FF1CC2ADAD93FA15BA", //Module ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3275,7 +3275,7 @@
   {
     "name": "Bridge module",
     "description": null,
-    "parentId": "316CB94FC7EB0648E971CED9AB897D70", //Module
+    "parentId": "E16CC9A19BB687FF1CC2ADAD93FA15BA", //Module ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3289,7 +3289,7 @@
   {
     "name": "Main deck",
     "description": null,
-    "parentId": "D8D2CC93EC8E0A6C5A7601FD1AD1C1C2", //Deck
+    "parentId": "59A9EEC701D6E5371D0B6A3947FC4773", //Deck ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3303,7 +3303,7 @@
   {
     "name": "Mezzanine deck",
     "description": null,
-    "parentId": "D8D2CC93EC8E0A6C5A7601FD1AD1C1C2", //Deck
+    "parentId": "59A9EEC701D6E5371D0B6A3947FC4773", //Deck ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3317,7 +3317,7 @@
   {
     "name": "Partial deck",
     "description": null,
-    "parentId": "D8D2CC93EC8E0A6C5A7601FD1AD1C1C2", //Deck
+    "parentId": "59A9EEC701D6E5371D0B6A3947FC4773", //Deck ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3331,7 +3331,7 @@
   {
     "name": "Area",
     "description": null,
-    "parentId": "C7E77DD6DD301F8DCDEE666B3077A2C5", //Area
+    "parentId": "63CC6663C6C23EE1838C2F5057A45742", //Area ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3345,7 +3345,7 @@
   {
     "name": "Sub area",
     "description": null,
-    "parentId": "C7E77DD6DD301F8DCDEE666B3077A2C5", //Area
+    "parentId": "63CC6663C6C23EE1838C2F5057A45742", //Area ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3359,7 +3359,7 @@
   {
     "name": "Function area",
     "description": null,
-    "parentId": "C7E77DD6DD301F8DCDEE666B3077A2C5", //Area
+    "parentId": "63CC6663C6C23EE1838C2F5057A45742", //Area ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3373,7 +3373,7 @@
   {
     "name": "Route",
     "description": null,
-    "parentId": "0460A48D5570B9028622CBA874893C50", //Route
+    "parentId": "CA0824F6C69C463C9764AABBF366B89A", //Route ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3387,7 +3387,7 @@
   {
     "name": "Container enclosure",
     "description": null,
-    "parentId": "2019471134587AC2746E7A0DCC56E919", //Enclosure
+    "parentId": "9EAE2CF3D80C4DCC1AE0539B39921722", //Enclosure ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3401,7 +3401,7 @@
   {
     "name": "Cabinet enclosure",
     "description": null,
-    "parentId": "2019471134587AC2746E7A0DCC56E919", //Enclosure
+    "parentId": "9EAE2CF3D80C4DCC1AE0539B39921722", //Enclosure ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3415,7 +3415,7 @@
   {
     "name": "Box enclosure",
     "description": null,
-    "parentId": "2019471134587AC2746E7A0DCC56E919", //Enclosure
+    "parentId": "9EAE2CF3D80C4DCC1AE0539B39921722", //Enclosure ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3429,7 +3429,7 @@
   {
     "name": "Point platform grid",
     "description": null,
-    "parentId": "E6CCD4A85EBB6D4CB788C35D41327F1B", //Point grid location
+    "parentId": "2513EB3E7E6AE70F6F799CB9F87DD3D7", //Point grid location ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3443,7 +3443,7 @@
   {
     "name": "Point local grid",
     "description": null,
-    "parentId": "E6CCD4A85EBB6D4CB788C35D41327F1B", //Point grid location
+    "parentId": "2513EB3E7E6AE70F6F799CB9F87DD3D7", //Point grid location ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3457,7 +3457,7 @@
   {
     "name": "Point envelope",
     "description": null,
-    "parentId": "752EED6C87A07AF7AD9F895E49C2DFB8", //Object envelope
+    "parentId": "A3374A6519B9D05DE477676C8BEA40A8", //Object envelope ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3471,7 +3471,7 @@
   {
     "name": "Outline envelope",
     "description": null,
-    "parentId": "752EED6C87A07AF7AD9F895E49C2DFB8", //Object envelope
+    "parentId": "A3374A6519B9D05DE477676C8BEA40A8", //Object envelope ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3485,7 +3485,7 @@
   {
     "name": "Actual size envelope",
     "description": null,
-    "parentId": "752EED6C87A07AF7AD9F895E49C2DFB8", //Object envelope
+    "parentId": "A3374A6519B9D05DE477676C8BEA40A8", //Object envelope ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3499,7 +3499,7 @@
   {
     "name": "Pipe terminal",
     "description": null,
-    "parentId": "7E9F755DC65574248AC5D99ED039BDE3", //Terminal
+    "parentId": "2D390BF802D8D92D021ED670BC71E81D", //Terminal ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3513,7 +3513,7 @@
   {
     "name": "Cable terminal",
     "description": null,
-    "parentId": "7E9F755DC65574248AC5D99ED039BDE3", //Terminal
+    "parentId": "2D390BF802D8D92D021ED670BC71E81D", //Terminal ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
@@ -3527,7 +3527,7 @@
   {
     "name": "Duct terminal",
     "description": null,
-    "parentId": "7E9F755DC65574248AC5D99ED039BDE3", //Terminal
+    "parentId": "2D390BF802D8D92D021ED670BC71E81D", //Terminal ok
     "aspect": "Location",
     "discipline": 0,
     "select": 0,
