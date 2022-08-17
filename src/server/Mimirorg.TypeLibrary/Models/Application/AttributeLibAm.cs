@@ -32,6 +32,8 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public string AttributeFormat { get; set; }
 
+        public AttributeType AttributeType { get; set; }
+
         public ICollection<string> ContentReferences { get; set; }
         public string ParentId { get; set; }
         public ICollection<string> SelectValues { get; set; }

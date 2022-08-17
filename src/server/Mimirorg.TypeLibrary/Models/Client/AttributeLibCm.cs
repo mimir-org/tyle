@@ -24,6 +24,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public string Kind => nameof(AttributeLibCm);
+        public AttributeType AttributeType { get; set; }
 
         private string CreateDescription()
         {

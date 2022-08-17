@@ -30,6 +30,7 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.AttributeSource).HasColumnName("AttributeSource").HasMaxLength(31);
             builder.Property(p => p.AttributeCondition).HasColumnName("AttributeCondition").HasMaxLength(31);
             builder.Property(p => p.AttributeFormat).HasColumnName("AttributeFormat").HasMaxLength(31);
+            builder.Property(p => p.AttributeType).HasColumnName("AttributeType").IsRequired().HasConversion<string>().HasMaxLength(31);
             builder.Property(p => p.CreatedBy).HasColumnName("CreatedBy").IsRequired().HasMaxLength(31);
             builder.Property(p => p.Created).HasColumnName("Created").IsRequired();
 

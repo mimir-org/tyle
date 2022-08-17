@@ -80,7 +80,7 @@ namespace TypeLibrary.Data.Repositories.Ef
 
             dm.Deleted = true;
             Update(dm);
-         
+
             return await Context.SaveChangesAsync() == 1;
         }
 

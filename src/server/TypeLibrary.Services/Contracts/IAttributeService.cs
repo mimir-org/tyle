@@ -14,8 +14,8 @@ namespace TypeLibrary.Services.Contracts
         IEnumerable<AttributePredefinedLibCm> GetPredefined();
         Task CreatePredefined(List<AttributePredefinedLibAm> predefined, bool createdBySystem = false);
 
-        Task<IEnumerable<AttributeAspectLibCm>> GetAspects();
-        Task CreateAspects(List<AttributeAspectLibAm> aspects, bool createdBySystem = false);
+        //Task<IEnumerable<AttributeAspectLibCm>> GetAspects();
+        //Task CreateAspects(List<AttributeAspectLibAm> aspects, bool createdBySystem = false);
 
         Task<IEnumerable<AttributeConditionLibCm>> GetConditions();
         Task<IEnumerable<AttributeFormatLibCm>> GetFormats();

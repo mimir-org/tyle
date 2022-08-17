@@ -16,7 +16,7 @@ namespace TypeLibrary.Data
         public virtual DbSet<SimpleLibDm> Simple { get; set; }
         public virtual DbSet<TerminalLibDm> Terminal { get; set; }
         public virtual DbSet<TransportLibDm> Transport { get; set; }
-        public virtual DbSet<AttributeAspectLibDm> AttributeAspect { get; set; }
+        //public virtual DbSet<AttributeAspectLibDm> AttributeAspect { get; set; }
         public virtual DbSet<UnitLibDm> Unit { get; set; }
         public virtual DbSet<NodeLibDm> Node { get; set; }
 
@@ -39,7 +39,7 @@ namespace TypeLibrary.Data
             modelBuilder.ApplyConfiguration(new SimpleConfiguration());
             modelBuilder.ApplyConfiguration(new TerminalConfiguration());
             modelBuilder.ApplyConfiguration(new TransportConfiguration());
-            modelBuilder.ApplyConfiguration(new AttributeAspectConfiguration());
+            //modelBuilder.ApplyConfiguration(new AttributeAspectConfiguration());
             modelBuilder.ApplyConfiguration(new UnitConfiguration());
             modelBuilder.ApplyConfiguration(new NodeConfiguration());
         }
