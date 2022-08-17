@@ -147,7 +147,7 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var transportService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITransportService>();
-            
+
             var transportCm = await transportService.Create(transportAm);
             var isDeleted = await transportService.Delete(transportCm?.Id);
             var allTransportsNotDeleted = await transportService.GetLatestVersions();

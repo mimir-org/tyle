@@ -10,10 +10,16 @@ namespace Mimirorg.TypeLibrary.Enums
         [Display(Name = "Deleted")]
         Deleted = 1,
 
+        [Display(Name = "Approve Company")]
+        ApproveCompany = 2,
+
+        [Display(Name = "Approve Global")]
+        ApproveGlobal = 3,
+
         [Display(Name = "Approved Company")]
-        ApprovedCompany = 2,
+        ApprovedCompany = 4,
 
         [Display(Name = "Approved Global")]
-        ApprovedGlobal = 3
+        ApprovedGlobal = 5
     }
 }

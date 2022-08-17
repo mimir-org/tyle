@@ -82,23 +82,6 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        [HttpGet("aspect")]
-        [ProducesResponseType(typeof(ICollection<AttributeAspectLibAm>), StatusCodes.Status200OK)]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetAspects()
-        {
-            try
-            {
-                var data = await _attributeService.GetAspects();
-                return Ok(data);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
         [HttpGet("condition")]
         [ProducesResponseType(typeof(ICollection<AttributeConditionLibCm>), StatusCodes.Status200OK)]
         [AllowAnonymous]
