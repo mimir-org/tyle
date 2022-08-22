@@ -58,6 +58,21 @@ namespace TypeLibrary.Services.Services
         }
 
         /// <summary>
+        /// Find attribute by id
+        /// </summary>
+        /// <param name="id">The attribute id</param>
+        /// <returns>The attribute, otherwise return null</returns>
+        public async Task<AttributeLibCm> Get(string id)
+        {
+            var item = await _attributeRepository.Get(id);
+            if (item == null)
+                return null;
+
+            var attribute = _mapper.Map<AttributeLibCm>(item);
+            return attribute;
+        }
+
+        /// <summary>
         /// Create from a list of attributes
         /// </summary>
         /// <param name="attributes"></param>
@@ -83,6 +98,25 @@ namespace TypeLibrary.Services.Services
                 attribute.CreatedBy = createdBySystem ? _applicationSettings.System : attribute.CreatedBy;
                 await _attributeRepository.Create(attribute);
             }
+        }
+
+        public async Task<AttributeLibCm> Create(AttributeLibAm attribute)
+        {
+            if (attribute == null)
+                throw new MimirorgBadRequestException("Can't create an attribute that is null.");
+
+            var status = attribute.ValidateObject();
+            if (!status.IsValid)
+                throw new MimirorgBadRequestException("The attribute is not valid.", status);
+
+            var data = _mapper.Map<AttributeLibDm>(attribute);
+            var exist = await _attributeRepository.Exist(data.Id);
+            if (exist)
+                throw new MimirorgDuplicateException($"The attribute with Id: {data.Id} already exist");
+
+            await _attributeRepository.Create(data);
+            var attrLibCm = _mapper.Map<AttributeLibCm>(data);
+            return attrLibCm;
         }
 
         #endregion Attribute

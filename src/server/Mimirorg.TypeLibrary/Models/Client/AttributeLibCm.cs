@@ -25,6 +25,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string CreatedBy { get; set; }
         public string Kind => nameof(AttributeLibCm);
         public AttributeType AttributeType { get; set; }
+        public int CompanyId { get; set; }
 
         private string CreateDescription()
         {

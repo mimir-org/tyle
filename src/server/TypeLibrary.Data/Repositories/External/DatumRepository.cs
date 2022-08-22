@@ -24,6 +24,14 @@ namespace TypeLibrary.Data.Repositories.External
             {
                 new()
                 {
+                    Id = "NotSet".CreateMd5(),
+                    Name = "NotSet",
+                    Iri = $"{_settings.ApplicationSemanticUrl}/attribute/condition/{HttpUtility.UrlEncode("NotSet")}",
+                    ContentReferences = null,
+                    Description = null
+                },
+                new()
+                {
                     Id = "Minimum".CreateMd5(),
                     Name = "Minimum",
                     Iri = $"{_settings.ApplicationSemanticUrl}/attribute/condition/{HttpUtility.UrlEncode("Minimum")}",
@@ -74,6 +82,14 @@ namespace TypeLibrary.Data.Repositories.External
             {
                 new()
                 {
+                    Id = "NotSet".CreateMd5(),
+                    Name = "NotSet",
+                    Iri = $"{_settings.ApplicationSemanticUrl}/attribute/qualifier/{HttpUtility.UrlEncode("NotSet")}",
+                    ContentReferences = null,
+                    Description = null
+                },
+                new()
+                {
                     Id = "Capacity".CreateMd5(),
                     Name = "Capacity",
                     Iri = $"{_settings.ApplicationSemanticUrl}/attribute/qualifier/{HttpUtility.UrlEncode("Capacity")}",
@@ -122,6 +138,14 @@ namespace TypeLibrary.Data.Repositories.External
         {
             var sources = new List<AttributeSourceLibDm>
             {
+                new()
+                {
+                    Id = "NotSet".CreateMd5(),
+                    Name = "NotSet",
+                    Iri = $"{_settings.ApplicationSemanticUrl}/attribute/source/{HttpUtility.UrlEncode("NotSet")}",
+                    ContentReferences = null,
+                    Description = null
+                },
                 new()
                 {
                     Id = "Required".CreateMd5(),
@@ -180,6 +204,14 @@ namespace TypeLibrary.Data.Repositories.External
         {
             var formats = new List<AttributeFormatLibDm>
             {
+                new()
+                {
+                    Id = "NotSet".CreateMd5(),
+                    Name = "NotSet",
+                    Iri = $"{_settings.ApplicationSemanticUrl}/attribute/format/{HttpUtility.UrlEncode("NotSet")}",
+                    ContentReferences = null,
+                    Description = null
+                },
                 new()
                 {
                     Id = "Unsigned Float".CreateMd5(),
