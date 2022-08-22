@@ -39,7 +39,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Description { get; set; } //minor version increase
         public string Symbol { get; set; } //minor version increase
         public string AttributeAspectIri { get; set; } //minor version increase
-        public ICollection<string> ContentReferences { get; set; } //minor version increase
+        public ICollection<TypeReferenceAm> TypeReferences { get; set; } //minor version increase
         public string ParentId { get; set; } //exception
 
         [TSExclude]

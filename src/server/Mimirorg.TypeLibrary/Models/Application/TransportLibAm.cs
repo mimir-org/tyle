@@ -29,7 +29,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string TerminalId { get; set; } //exception
 
         public ICollection<string> AttributeIdList { get; set; } //removal = exception, add = major version increase
-        public ICollection<string> ContentReferences { get; set; } //minor version increase
+        public ICollection<TypeReferenceAm> TypeReferences { get; set; } //minor version increase
         public string Description { get; set; } //minor version increase
         public string ParentId { get; set; } //exception
 

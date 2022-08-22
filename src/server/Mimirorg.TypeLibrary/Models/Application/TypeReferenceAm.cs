@@ -2,14 +2,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
-    public class RdsLibAm
+    public class TypeReferenceAm
     {
-        [Required]
-        public string Code { get; set; }
-
         [Required]
         public string Name { get; set; }
 
-        public ICollection<TypeReferenceAm> TypeReferences { get; set; }
+        [Required]
+        public string Iri { get; set; }
     }
 }

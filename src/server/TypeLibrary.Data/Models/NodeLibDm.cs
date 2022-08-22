@@ -14,7 +14,7 @@ namespace TypeLibrary.Data.Models
         public string FirstVersionId { get; set; }
         public string Iri { get; set; }
         public string AttributeAspectIri { get; set; }
-        public string ContentReferences { get; set; }
+        public string TypeReferences { get; set; }
         public string RdsCode { get; set; }
         public string RdsName { get; set; }
         public string PurposeName { get; set; }
