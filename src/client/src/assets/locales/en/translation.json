@@ -100,6 +100,22 @@
       "attribute": "Select value(s)"
     }
   },
+  "attribute": {
+    "name": "Name",
+    "aspect": "Aspect",
+    "discipline": "Discipline",
+    "select": "Select type",
+    "qualifier": "Qualifier",
+    "source": "Source",
+    "condition": "Condition",
+    "format": "Format",
+    "type": "Attribute Type",
+    "placeholders": {
+      "name": "Attribute name",
+      "description": "Additional information about this attribute can be supplied here.",
+      "select": "type"
+    }
+  },
   "forms": {
     "placeholders": {
       "email": "you@organization.com",

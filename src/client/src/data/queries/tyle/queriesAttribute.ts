@@ -22,8 +22,7 @@ const keys = {
 
 export const useGetAttributes = () => useQuery(keys.attributeLists(), apiAttribute.getAttributes);
 
-export const useGetAttributesByAspect = (aspect: Aspect) =>
-  useQuery(keys.attributeAspectList(aspect), () => apiAttribute.getAttributesByAspect(aspect));
+export const useGetAttributesByAspect = (aspect: Aspect) => useQuery(keys.attributeAspectList(aspect), () => apiAttribute.getAttributesByAspect(aspect));
 
 export const useGetAttributesPredefined = () => useQuery(keys.predefinedLists(), apiAttribute.getAttributesPredefined);
 
