@@ -10,6 +10,7 @@ export const createEmptyAttributeLibAm = (): AttributeLibAm => ({
   attributeCondition: "",
   attributeFormat: "",
   attributeType: AttributeType.Normal,
+  companyId: 0,
   contentReferences: [],
   parentId: "",
   selectValues: [],
