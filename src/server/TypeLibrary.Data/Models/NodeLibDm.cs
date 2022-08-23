@@ -151,11 +151,11 @@ namespace TypeLibrary.Data.Models
             ICollection<TypeReferenceAm> references = null;
 
             if (!string.IsNullOrEmpty(TypeReferences))
-                references =JsonConvert.DeserializeObject<ICollection<TypeReferenceAm>>(TypeReferences);
+                references = JsonConvert.DeserializeObject<ICollection<TypeReferenceAm>>(TypeReferences);
 
-            if(references != null && references.SequenceEqual(other.TypeReferences))
+            if (references != null && references.SequenceEqual(other.TypeReferences))
                 minor = true;
-            
+
             if (references == null && other.TypeReferences != null)
                 minor = true;
 
