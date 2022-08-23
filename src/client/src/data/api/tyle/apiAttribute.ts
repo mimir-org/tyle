@@ -2,6 +2,7 @@ import {
   Aspect,
   AttributeConditionLibCm,
   AttributeFormatLibCm,
+  AttributeLibAm,
   AttributeLibCm,
   AttributePredefinedLibCm,
   AttributeQualifierLibCm,
@@ -14,6 +15,12 @@ const _basePath = "libraryattribute";
 export const apiAttribute = {
   getAttributes() {
     return apiClient.get<AttributeLibCm[]>(_basePath).then((r) => r.data);
+  },
+  getAttribute(id?: string) {
+    return apiClient.get<AttributeLibCm>(`${_basePath}/${id}`).then((r) => r.data);
+  },
+  postLibraryAttribute(item: AttributeLibAm) {
+    return apiClient.post<AttributeLibCm>(_basePath, item).then((r) => r.data);
   },
   getAttributesByAspect(aspect: Aspect) {
     return apiClient.get<AttributeLibCm[]>(`${_basePath}/${aspect}`).then((r) => r.data);

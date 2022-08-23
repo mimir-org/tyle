@@ -1,5 +1,5 @@
-import { Aspect } from "@mimirorg/typelibrary-types";
-import { useQuery } from "react-query";
+import { Aspect, AttributeLibAm } from "@mimirorg/typelibrary-types";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiAttribute } from "../../api/tyle/apiAttribute";
 
 const keys = {
@@ -18,11 +18,24 @@ const keys = {
   qualifierLists: () => [...keys.allQualifier, "list"] as const,
   allSource: ["attributesSource"] as const,
   sourceLists: () => [...keys.allSource, "list"] as const,
+  attribute: (id?: string) => [...keys.attributeLists(), id] as const,
 };
 
 export const useGetAttributes = () => useQuery(keys.attributeLists(), apiAttribute.getAttributes);
 
-export const useGetAttributesByAspect = (aspect: Aspect) => useQuery(keys.attributeAspectList(aspect), () => apiAttribute.getAttributesByAspect(aspect));
+export const useGetAttribute = (id?: string) =>
+  useQuery(keys.attribute(id), () => apiAttribute.getAttribute(id), { enabled: !!id, retry: false });
+
+export const useCreateAttribute = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation((item: AttributeLibAm) => apiAttribute.postLibraryAttribute(item), {
+    onSuccess: () => queryClient.invalidateQueries(keys.attributeLists()),
+  });
+};
+
+export const useGetAttributesByAspect = (aspect: Aspect) =>
+  useQuery(keys.attributeAspectList(aspect), () => apiAttribute.getAttributesByAspect(aspect));
 
 export const useGetAttributesPredefined = () => useQuery(keys.predefinedLists(), apiAttribute.getAttributesPredefined);
 
