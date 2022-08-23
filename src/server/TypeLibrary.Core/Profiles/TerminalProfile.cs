@@ -26,7 +26,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color))
                 .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => ResolveAttributes(src.AttributeIdList, attributeFactory)))
-                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetName()) ? "Unknown" : contextAccessor.GetName()))
+                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetEmail()) ? "Unknown" : contextAccessor.GetEmail()))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now.ToUniversalTime()));
 
             CreateMap<TerminalLibDm, TerminalLibCm>()

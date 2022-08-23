@@ -36,7 +36,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.Symbol, opt => opt.MapFrom(src => src.Symbol))
                 .ForMember(dest => dest.AttributeAspectIri, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.AttributeAspectIri) ? null : src.AttributeAspectIri))
-                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetName()) ? "Unknown" : contextAccessor.GetName()))
+                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetEmail()) ? "Unknown" : contextAccessor.GetEmail()))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now.ToUniversalTime()))
                 .ForMember(dest => dest.Children, opt => opt.Ignore())
                 .ForMember(dest => dest.NodeTerminals, opt => opt.MapFrom(src => CreateTerminals(src.NodeTerminals, src.Id).ToList()))

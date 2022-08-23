@@ -29,6 +29,17 @@ namespace TypeLibrary.Data.Repositories.Ef
         }
 
         /// <summary>
+        /// Get attribute by id
+        /// </summary>
+        /// <param name="id">The attribute id</param>
+        /// <returns>If exist it returns the attribute, otherwise it returns null</returns>
+        public async Task<AttributeLibDm> Get(string id)
+        {
+            var item = await FindBy(x => x.Id == id && !x.Deleted).Include(x => x.Units).FirstOrDefaultAsync();
+            return item;
+        }
+
+        /// <summary>
         /// Create a new attribute
         /// </summary>
         /// <param name="attribute">The attribute that should be created</param>
@@ -41,6 +52,17 @@ namespace TypeLibrary.Data.Repositories.Ef
             _unitRepository.SetDetached(attribute.Units);
             Detach(attribute);
             return attribute;
+        }
+
+        /// <summary>
+        /// Check if an attribute already exist
+        /// </summary>
+        /// <param name="id">The attribute id to check if exist</param>
+        /// <returns>True if attribute already exist</returns>
+        public async Task<bool> Exist(string id)
+        {
+            var attribute = await FindBy(x => x.Id == id).FirstOrDefaultAsync();
+            return attribute != null;
         }
 
         public void SetUnchanged(ICollection<AttributeLibDm> items)
