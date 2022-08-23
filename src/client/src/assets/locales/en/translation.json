@@ -120,11 +120,18 @@
     "source": "Source",
     "condition": "Condition",
     "format": "Format",
-    "type": "Attribute Type",
+    "type": "Attribute type",
+    "parent": "Attribute parent",
+    "owner": "Owner",
     "placeholders": {
       "name": "Attribute name",
       "description": "Additional information about this attribute can be supplied here.",
       "select": "type"
+    },
+    "processing": {
+      "loading": "Submitting attribute",
+      "success": "Your attribute has been submitted",
+      "error": "An error occurred during attribute submission"
     },
     "values": {
       "title": "Values",
