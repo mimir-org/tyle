@@ -1,10 +1,10 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { LibraryIcon } from "../../../assets/icons/modules";
-import { AttributeDescription } from "./AttributeDescription";
+import { SelectItemDescription } from "./SelectItemDescription";
 
 export default {
-  title: "Content/Common/Attribute/AttributeDescription",
-  component: AttributeDescription,
+  title: "Content/Common/SelectItem/SelectItemDescription",
+  component: SelectItemDescription,
   args: {
     name: "Pressure, absolute",
     color: "orange",
@@ -14,9 +14,9 @@ export default {
       source: "Calculated",
     },
   },
-} as ComponentMeta<typeof AttributeDescription>;
+} as ComponentMeta<typeof SelectItemDescription>;
 
-const Template: ComponentStory<typeof AttributeDescription> = (args) => <AttributeDescription {...args} />;
+const Template: ComponentStory<typeof SelectItemDescription> = (args) => <SelectItemDescription {...args} />;
 
 export const Default = Template.bind({});
 

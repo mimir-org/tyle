@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-import { hideScrollbar } from "../../../../complib/mixins";
+import { hideScrollbar } from "../../../complib/mixins";
 
 export const SelectContainer = styled.div`
   display: flex;
@@ -15,7 +15,7 @@ export const SelectContainer = styled.div`
   overflow: auto;
 `;
 
-export const SelectAttributesContainer = styled.div`
+export const SelectItemsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-content: start;

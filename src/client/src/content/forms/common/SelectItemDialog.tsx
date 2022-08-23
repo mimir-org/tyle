@@ -1,29 +1,45 @@
 import { DialogClose } from "@radix-ui/react-dialog";
 import { PlusSm } from "@styled-icons/heroicons-outline";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Button } from "../../../../complib/buttons";
-import { Dialog } from "../../../../complib/overlays";
-import { AttributeInfoCheckbox } from "../../../common/attribute";
-import { SearchField } from "../../../common/SearchField";
-import { AttributeItem } from "../../../types/AttributeItem";
-import { filterAttributeItem, onSelectionChange } from "./SelectAttributeDialog.helpers";
-import { SelectAttributesContainer, SelectContainer } from "./SelectAttributeDialog.styled";
+import { Button } from "../../../complib/buttons";
+import { Dialog } from "../../../complib/overlays";
+import { SearchField } from "../../common/SearchField";
+import { SelectItemInfoCheckbox } from "../../common/selectItem";
+import { SelectItem } from "../../types/SelectItem";
+import { filterSelectItem, onSelectionChange } from "./SelectItemDialog.helpers";
+import { SelectContainer, SelectItemsContainer } from "./SelectItemDialog.styled";
 
-interface SelectAttributeDialogProps {
-  attributes: AttributeItem[];
+interface SelectItemDialogProps {
+  title: string;
+  description: string;
+  searchFieldText: string;
+  addItemsButtonText: string;
+  openDialogButtonText: string;
+  items: SelectItem[];
   onAdd: (attributeIds: string[]) => void;
 }
 
 /**
  * Component which shows a searchable dialog of attributes which from the user can select.
  *
- * @param attributes which the user can select from
+ * @param title
+ * @param description
+ * @param searchFieldText
+ * @param addItemsButtonText
+ * @param openDialogButtonText
+ * @param items which the user can select from
  * @param onAdd actions to take when user pressed the add button
  * @constructor
  */
-export const SelectAttributeDialog = ({ attributes, onAdd }: SelectAttributeDialogProps) => {
-  const { t } = useTranslation("translation", { keyPrefix: "attributes" });
+export const SelectItemDialog = ({
+  title,
+  description,
+  searchFieldText,
+  addItemsButtonText,
+  openDialogButtonText,
+  items,
+  onAdd,
+}: SelectItemDialogProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
 
@@ -35,38 +51,38 @@ export const SelectAttributeDialog = ({ attributes, onAdd }: SelectAttributeDial
 
   return (
     <Dialog
-      title={t("dialog.title")}
-      description={t("dialog.description")}
+      title={title}
+      description={description}
       width={"1000px"}
       content={
         <SelectContainer>
           <SearchField
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder={t("dialog.search")}
+            placeholder={searchFieldText}
           />
-          <SelectAttributesContainer>
-            {attributes
-              .filter((x) => filterAttributeItem(x, searchQuery))
+          <SelectItemsContainer>
+            {items
+              .filter((x) => filterSelectItem(x, searchQuery))
               .map((a, i) => (
-                <AttributeInfoCheckbox
+                <SelectItemInfoCheckbox
                   key={i}
                   checked={selected.includes(a.id)}
                   onClick={() => onSelectionChange(a.id, selected, setSelected)}
                   {...a}
                 />
               ))}
-          </SelectAttributesContainer>
+          </SelectItemsContainer>
           <DialogClose asChild>
             <Button onClick={onAddAttributes} disabled={selected.length < 1}>
-              {t("dialog.add")}
+              {addItemsButtonText}
             </Button>
           </DialogClose>
         </SelectContainer>
       }
     >
       <Button icon={<PlusSm />} iconOnly>
-        {t("add")}
+        {openDialogButtonText}
       </Button>
     </Dialog>
   );

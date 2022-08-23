@@ -1,16 +1,16 @@
 import { ForwardedRef, forwardRef, useState } from "react";
 import { Popover } from "../../../complib/data-display";
 import { TokenButton, TokenButtonProps } from "../../../complib/general";
-import { AttributeDescription, AttributeDescriptionProps } from "./AttributeDescription";
+import { SelectItemDescription, SelectItemDescriptionProps } from "./SelectItemDescription";
 
-export type AttributeInfoButtonProps = TokenButtonProps & AttributeDescriptionProps;
+export type SelectItemInfoButtonProps = TokenButtonProps & SelectItemDescriptionProps;
 
 /**
- * Component which shows a single attribute for a given entity in addition to its description in a popover.
+ * Component which shows a single item for a given entity in addition to its description in a popover.
  * The focusable component is a button.
  *
- * @param name of attribute
- * @param traits various qualities/traits that the attribute has
+ * @param name of item
+ * @param traits various qualities/traits that the item has
  * @param actionable enables action button in popover
  * @param actionIcon icon disabled inside action button
  * @param actionText action button text (hidden if icon is supplied)
@@ -18,8 +18,8 @@ export type AttributeInfoButtonProps = TokenButtonProps & AttributeDescriptionPr
  * @param delegated receives all properties which AttributeButtonProps define
  * @constructor
  */
-export const AttributeInfoButton = forwardRef(
-  (props: AttributeInfoButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
+export const SelectItemInfoButton = forwardRef(
+  (props: SelectItemInfoButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
     const { name, traits, actionable, actionIcon, actionText, onAction } = props;
     const [isSelected, setIsSelected] = useState(false);
 
@@ -28,7 +28,7 @@ export const AttributeInfoButton = forwardRef(
         align={"start"}
         onOpenChange={() => setIsSelected(!isSelected)}
         content={
-          <AttributeDescription
+          <SelectItemDescription
             name={name}
             traits={traits}
             actionable={actionable}
@@ -46,4 +46,4 @@ export const AttributeInfoButton = forwardRef(
   }
 );
 
-AttributeInfoButton.displayName = "AttributeInfoButton";
+SelectItemInfoButton.displayName = "AttributeInfoButton";
