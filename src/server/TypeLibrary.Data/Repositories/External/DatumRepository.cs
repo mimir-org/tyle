@@ -263,10 +263,13 @@ namespace TypeLibrary.Data.Repositories.External
 
         private string CreateTypeReference(string name, string iri)
         {
-            var data = new TypeReferenceAm
+            var data = new List<TypeReferenceAm>
             {
-                Name = name,
-                Iri = iri
+                new()
+                {
+                    Name = name,
+                    Iri = iri
+                }
             };
 
             return JsonConvert.SerializeObject(data);
