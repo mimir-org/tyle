@@ -24,7 +24,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => $"{settings.ApplicationSemanticUrl}/attribute/simple/{src.Id}"))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => CreateAttributes(src.Attributes.ToList()).ToList()))
                 .ForMember(dest => dest.Nodes, opt => opt.Ignore())
-                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetName()) ? "Unknown" : contextAccessor.GetName()))
+                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetEmail()) ? "Unknown" : contextAccessor.GetEmail()))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now.ToUniversalTime()));
 
             CreateMap<SimpleLibDm, SimpleLibCm>()

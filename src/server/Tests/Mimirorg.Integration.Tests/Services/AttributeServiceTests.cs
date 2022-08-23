@@ -25,7 +25,9 @@ namespace Mimirorg.Integration.Tests.Services
                 AttributeQualifier = "q1",
                 AttributeSource = "s1",
                 AttributeCondition = "c1",
-                AttributeFormat = "f1"
+                AttributeFormat = "f1",
+                CompanyId = 1,
+                AttributeType = AttributeType.Normal
             };
 
             var attribute2 = new AttributeLibAm
@@ -37,7 +39,9 @@ namespace Mimirorg.Integration.Tests.Services
                 AttributeQualifier = "q2",
                 AttributeSource = "s2",
                 AttributeCondition = "c2",
-                AttributeFormat = "f2"
+                AttributeFormat = "f2",
+                CompanyId = 1,
+                AttributeType = AttributeType.Normal
             };
 
             using var scope = Factory.Server.Services.CreateScope();

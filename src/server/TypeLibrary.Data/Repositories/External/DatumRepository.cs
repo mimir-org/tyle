@@ -11,7 +11,7 @@ namespace TypeLibrary.Data.Repositories.External
 {
     public class DatumRepository : IAttributeConditionRepository, IAttributeQualifierRepository, IAttributeSourceRepository, IAttributeFormatRepository
     {
-        private const string PCA = "PCA";
+        private const string Pca = "PCA";
         private readonly IApplicationSettingsRepository _settings;
 
         public DatumRepository(IApplicationSettingsRepository settings)
@@ -27,10 +27,18 @@ namespace TypeLibrary.Data.Repositories.External
             {
                 new()
                 {
+                    Id = "NotSet".CreateMd5(),
+                    Name = "NotSet",
+                    Iri = $"{_settings.ApplicationSemanticUrl}/attribute/condition/{HttpUtility.UrlEncode("NotSet")}",
+                    TypeReferences = null,
+                    Description = null
+                },
+                new()
+                {
                     Id = "Minimum".CreateMd5(),
                     Name = "Minimum",
                     Iri = $"{_settings.ApplicationSemanticUrl}/attribute/condition/{HttpUtility.UrlEncode("Minimum")}",
-                    TypeReferences = CreateTypeReference(PCA, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004049"),
+                    TypeReferences = CreateTypeReference(Pca, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004049"),
                     Description = @"A Minimum datum represents a minimal magnitude of the relevant quantity."
                 },
                 new()
@@ -38,7 +46,7 @@ namespace TypeLibrary.Data.Repositories.External
                     Id = "Nominal".CreateMd5(),
                     Name = "Nominal",
                     Iri = $"{_settings.ApplicationSemanticUrl}/attribute/condition/{HttpUtility.UrlEncode("Nominal")}",
-                    TypeReferences = CreateTypeReference(PCA, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004045"),
+                    TypeReferences = CreateTypeReference(Pca, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004045"),
                     Description = @"A Nominal datum represents a conventional (and, in many cases, standardised) magnitude used to classify the relevant artefact."
                 },
                 new()
@@ -46,7 +54,7 @@ namespace TypeLibrary.Data.Repositories.External
                     Id = "Maximum".CreateMd5(),
                     Name = "Maximum",
                     Iri = $"{_settings.ApplicationSemanticUrl}/attribute/condition/{HttpUtility.UrlEncode("Maximum")}",
-                    TypeReferences = CreateTypeReference(PCA, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004048"),
+                    TypeReferences = CreateTypeReference(Pca, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004048"),
                     Description = @"A Maximum datum represents a maximal magnitude of the relevant quantity."
                 },
                 new()
@@ -54,7 +62,7 @@ namespace TypeLibrary.Data.Repositories.External
                     Id = "Actual".CreateMd5(),
                     Name = "Actual",
                     Iri = $"{_settings.ApplicationSemanticUrl}/attribute/condition/{HttpUtility.UrlEncode("Actual")}",
-                    TypeReferences = CreateTypeReference(PCA, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004050"),
+                    TypeReferences = CreateTypeReference(Pca, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004050"),
                     Description = @"An Actual datum represents a singular measured magnitude of the relevant quantity."
                 }
             };
@@ -77,6 +85,14 @@ namespace TypeLibrary.Data.Repositories.External
             {
                 new()
                 {
+                    Id = "NotSet".CreateMd5(),
+                    Name = "NotSet",
+                    Iri = $"{_settings.ApplicationSemanticUrl}/attribute/qualifier/{HttpUtility.UrlEncode("NotSet")}",
+                    TypeReferences = null,
+                    Description = null
+                },
+                new()
+                {
                     Id = "Capacity".CreateMd5(),
                     Name = "Capacity",
                     Iri = $"{_settings.ApplicationSemanticUrl}/attribute/qualifier/{HttpUtility.UrlEncode("Capacity")}",
@@ -88,7 +104,7 @@ namespace TypeLibrary.Data.Repositories.External
                     Id = "Operating".CreateMd5(),
                     Name = "Operating",
                     Iri = $"{_settings.ApplicationSemanticUrl}/attribute/qualifier/{HttpUtility.UrlEncode("Operating")}",
-                    TypeReferences = CreateTypeReference(PCA, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004043"),
+                    TypeReferences = CreateTypeReference(Pca, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004043"),
                     Description = "An Operating datum represents a magnitude of the relevant quantity prescribed for, or reported from, normal operation."
                 },
                 new()
@@ -127,6 +143,14 @@ namespace TypeLibrary.Data.Repositories.External
             {
                 new()
                 {
+                    Id = "NotSet".CreateMd5(),
+                    Name = "NotSet",
+                    Iri = $"{_settings.ApplicationSemanticUrl}/attribute/source/{HttpUtility.UrlEncode("NotSet")}",
+                    TypeReferences = null,
+                    Description = null
+                },
+                new()
+                {
                     Id = "Required".CreateMd5(),
                     Name = "Required",
                     Iri = $"{_settings.ApplicationSemanticUrl}/attribute/source/{HttpUtility.UrlEncode("Required")}",
@@ -138,7 +162,7 @@ namespace TypeLibrary.Data.Repositories.External
                     Id = "Design".CreateMd5(),
                     Name = "Design",
                     Iri = $"{_settings.ApplicationSemanticUrl}/attribute/source/{HttpUtility.UrlEncode("Design")}",
-                    TypeReferences = CreateTypeReference(PCA, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004042"),
+                    TypeReferences = CreateTypeReference(Pca, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004042"),
                     Description = @"A Design datum represents a limit magnitude of the relevant quantity within which full function is expected."
                 },
                 new()
@@ -146,7 +170,7 @@ namespace TypeLibrary.Data.Repositories.External
                     Id = "Calculated".CreateMd5(),
                     Name = "Calculated",
                     Iri = $"{_settings.ApplicationSemanticUrl}/attribute/source/{HttpUtility.UrlEncode("Calculated")}",
-                    TypeReferences = CreateTypeReference(PCA, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004038"),
+                    TypeReferences = CreateTypeReference(Pca, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004038"),
                     Description = @"A Calculated datum is an output value of a simulation or similar model of behaviour of the relevant quantity."
                 },
                 new()
@@ -154,7 +178,7 @@ namespace TypeLibrary.Data.Repositories.External
                     Id = "Measured".CreateMd5(),
                     Name = "Measured",
                     Iri = $"{_settings.ApplicationSemanticUrl}/attribute/source/{HttpUtility.UrlEncode("Measured")}",
-                    TypeReferences = CreateTypeReference(PCA, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004039"),
+                    TypeReferences = CreateTypeReference(Pca, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004039"),
                     Description = @"A Measured datum originates in a monitoring of the relevant quantity."
                 },
                 new()
@@ -183,6 +207,14 @@ namespace TypeLibrary.Data.Repositories.External
         {
             var formats = new List<AttributeFormatLibDm>
             {
+                new()
+                {
+                    Id = "NotSet".CreateMd5(),
+                    Name = "NotSet",
+                    Iri = $"{_settings.ApplicationSemanticUrl}/attribute/format/{HttpUtility.UrlEncode("NotSet")}",
+                    TypeReferences = null,
+                    Description = null
+                },
                 new()
                 {
                     Id = "Unsigned Float".CreateMd5(),

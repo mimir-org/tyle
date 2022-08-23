@@ -32,6 +32,10 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public string AttributeFormat { get; set; }
 
+        [Display(Name = "CompanyId")]
+        [Range(1, int.MaxValue, ErrorMessage = "{0} must be greater than 0")]
+        public int CompanyId { get; set; }
+
         public AttributeType AttributeType { get; set; }
 
         public ICollection<TypeReferenceAm> TypeReferences { get; set; }

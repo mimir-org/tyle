@@ -32,6 +32,7 @@ namespace TypeLibrary.Data.Models
         public bool Deleted { get; set; }
 
         public AttributeType AttributeType { get; set; }
+        public int CompanyId { get; set; }
 
         [NotMapped]
         public ICollection<string> SelectValues => string.IsNullOrEmpty(SelectValuesString) ? null : SelectValuesString.ConvertToArray();
