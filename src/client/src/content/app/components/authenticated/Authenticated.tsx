@@ -20,7 +20,7 @@ export const Authenticated = () => {
           <Route path={"/form/node/clone/:id"} element={<NodeForm />} />
           <Route path={"/form/node/edit/:id"} element={<NodeForm isEdit />} />
           <Route path={"/form/attribute"} element={<AttributeForm />} />
-          <Route path={"/form/attribute/edit/:id"} element={<AttributeForm isEdit />} />
+          <Route path={"/form/attribute/clone/:id"} element={<AttributeForm />} />
           <Route
             path={"*"}
             element={
