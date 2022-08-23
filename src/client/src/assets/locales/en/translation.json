@@ -125,6 +125,14 @@
       "name": "Attribute name",
       "description": "Additional information about this attribute can be supplied here.",
       "select": "type"
+    },
+    "values": {
+      "title": "Values",
+      "add": "Add value",
+      "remove": "Remove value",
+      "placeholders": {
+        "value": "Enter selectable value"
+      }
     }
   },
   "forms": {
