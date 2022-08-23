@@ -1,10 +1,11 @@
-import { Aspect, AttributeLibCm, AttributeType } from "@mimirorg/typelibrary-types";
+import { AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { useEffect, useState } from "react";
-import { Control, DefaultValues, KeepStateOptions, UseFormRegister } from "react-hook-form";
+import { DefaultValues, KeepStateOptions } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { toast } from "../../../complib/data-display";
-import { FormAttributeLib } from "./types/formAttributeLib";
+import { useGetAttribute } from "../../../data/queries/tyle/queriesAttribute";
+import { FormAttributeLib, mapAttributeLibCmToFormAttributeLib } from "./types/formAttributeLib";
 
 /**
  * Hook ties together params from react router, node data from react query and react hook form binding
@@ -14,30 +15,21 @@ import { FormAttributeLib } from "./types/formAttributeLib";
 export const usePrefilledAttributeData = (
   reset: (values?: DefaultValues<FormAttributeLib> | FormAttributeLib, keepStateOptions?: KeepStateOptions) => void
 ): [hasPrefilled: boolean, isLoading: boolean] => {
-  // const { id } = useParams();
-  // const nodeQuery = useGetNode(id);
-  // const [hasPrefilled, setHasPrefilled] = useState(false);
+  const { id } = useParams();
+  const attributeQuery = useGetAttribute(id);
+  const [hasPrefilled, setHasPrefilled] = useState(false);
 
-  // useEffect(() => {
-  //   if (!hasPrefilled && nodeQuery.isSuccess) {
-  //     setHasPrefilled(true);
-  //     reset(mapNodeLibCmToFormNodeLib(nodeQuery.data), { keepDefaultValues: false });
-  //   }
-  // }, [hasPrefilled, nodeQuery.isSuccess, nodeQuery.data, reset]);
+  useEffect(() => {
+    if (!hasPrefilled && attributeQuery.isSuccess) {
+      setHasPrefilled(true);
+      reset(mapAttributeLibCmToFormAttributeLib(attributeQuery.data), { keepDefaultValues: false });
+    }
+  }, [hasPrefilled, attributeQuery.isSuccess, attributeQuery.data, reset]);
 
-  return [false, false];
+  return [hasPrefilled, attributeQuery.isLoading];
 };
 
-/**
- * Resets the part of node form which is dependent on initial choices, e.g. aspect
- *
- * @param resetField
- */
-export const resetSubform = (resetField: (value: keyof FormAttributeLib) => void) => {
-  resetField("name");
-};
-
-export const useNodeSubmissionToast = () => {
+export const useAttributeSubmissionToast = () => {
   const { t } = useTranslation("translation", { keyPrefix: "attribute.processing" });
 
   return (submissionPromise: Promise<unknown>) =>
@@ -53,20 +45,3 @@ export const prepareParentAttributes = (attributes?: AttributeLibCm[]) => {
 
   return attributes.filter((a) => a.parentName === null);
 };
-
-// export const getFormForAspect = (
-//   aspect: Aspect,
-//   control: Control<FormAttributeLib>,
-//   register: UseFormRegister<FormAttributeLib>
-// ) => {
-//   switch (aspect) {
-//     case Aspect.Function:
-//       return <FunctionNode control={control} register={register} />;
-//     case Aspect.Product:
-//       return <ProductNode control={control} register={register} />;
-//     case Aspect.Location:
-//       return <LocationNode control={control} register={register} />;
-//     default:
-//       return <></>;
-//   }
-// };
