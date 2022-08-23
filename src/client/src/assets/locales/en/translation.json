@@ -94,6 +94,17 @@
       "add": "Add"
     }
   },
+  "units": {
+    "title": "Units",
+    "open": "Open unit(s) selection dialog",
+    "remove": "Remove unit",
+    "dialog": {
+      "title": "Select unit(s)",
+      "description": "The units listed below are predefined and can be reused across multiple attributes.",
+      "search": "Search",
+      "add": "Add"
+    }
+  },
   "predefinedAttributes": {
     "title": "Predefined attributes",
     "placeholders": {
