@@ -10,7 +10,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Name { get; set; }
 
         public string ParentId { get; set; }
-        public ICollection<string> ContentReferences { get; set; }
+        public ICollection<TypeReferenceAm> TypeReferences { get; set; }
         public string Color { get; set; }
         public string Description { get; set; }
         public ICollection<string> AttributeIdList { get; set; }

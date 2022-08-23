@@ -8,7 +8,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
     {
         [Required]
         public string Name { get; set; }
-        public ICollection<string> ContentReferences { get; set; }
+        public ICollection<TypeReferenceAm> TypeReferences { get; set; }
         public string Description { get; set; }
 
         [TSExclude]

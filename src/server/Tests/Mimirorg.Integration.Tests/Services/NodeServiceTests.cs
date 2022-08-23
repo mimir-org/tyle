@@ -92,8 +92,6 @@ namespace Mimirorg.Integration.Tests.Services
             var nodeCm = await nodeService.Create(nodeAm);
 
             Assert.Equal(nodeAm.Id, nodeCm?.Id);
-            Assert.Equal(nodeAm.Id, nodeCm?.Id);
-            Assert.Equal(nodeAm.AttributeIdList.ElementAt(0), nodeCm?.Attributes.ElementAt(0).Id);
             Assert.Equal(nodeAm.AttributeIdList.ElementAt(0), nodeCm?.Attributes.ElementAt(0).Id);
         }
 

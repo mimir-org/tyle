@@ -23,5 +23,15 @@ namespace Mimirorg.Common.Models
                 new ValidationResult(message, new List<string> {key})
             };
         }
+
+        public void AddNotAllowToChange(string key)
+        {
+            Result.Add(new ValidationResult("The property is not allowed to be changed.", new List<string> { key }));
+        }
+
+        public void AddNotAllowToChange(string key, string message)
+        {
+            Result.Add(new ValidationResult(message, new List<string> { key }));
+        }
     }
 }
