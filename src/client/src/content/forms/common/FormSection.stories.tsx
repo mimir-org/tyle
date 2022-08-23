@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Button } from "../../../complib/buttons";
 import { Flexbox } from "../../../complib/layouts";
 import { SelectItemInfoButtonProps } from "../../common/selectItem/SelectItemInfoButton";
-import { Default as AttributeInfoButton } from "../../common/selectItem/SelectItemInfoButton.stories";
+import { Default as SelectItemInfoButton } from "../../common/selectItem/SelectItemInfoButton.stories";
 import { FormSection } from "./FormSection";
 
 export default {
@@ -30,7 +30,7 @@ WithCustomContent.args = {
   children: (
     <Flexbox flexWrap={"wrap"} gap={"16px"}>
       {[...Array(7)].map((_, i) => (
-        <AttributeInfoButton key={i} {...(AttributeInfoButton.args as SelectItemInfoButtonProps)} />
+        <SelectItemInfoButton key={i} {...(SelectItemInfoButton.args as SelectItemInfoButtonProps)} />
       ))}
     </Flexbox>
   ),
