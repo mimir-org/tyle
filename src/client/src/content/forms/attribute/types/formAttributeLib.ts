@@ -8,8 +8,9 @@ import { ValueObject } from "../../types/valueObject";
  * This type functions as a layer between client needs and the backend model.
  * It allows you to adapt the expected api model to fit client/form logic needs.
  */
-export interface FormAttributeLib extends Omit<UpdateEntity<AttributeLibAm>, "unitIdList"> {
+export interface FormAttributeLib extends Omit<UpdateEntity<AttributeLibAm>, "unitIdList" | "selectValues"> {
   unitIdList: ValueObject<string>[];
+  selectValues: ValueObject<string>[];
 }
 
 /**
@@ -19,12 +20,14 @@ export interface FormAttributeLib extends Omit<UpdateEntity<AttributeLibAm>, "un
 export const mapFormAttributeLibToApiModel = (formAttribute: FormAttributeLib): UpdateEntity<AttributeLibAm> => ({
   ...formAttribute,
   unitIdList: formAttribute.unitIdList.map((x) => x.value),
+  selectValues: formAttribute.selectValues.map((x) => x.value),
 });
 
 export const createEmptyFormAttributeLib = (): FormAttributeLib => ({
   ...createEmptyAttributeLibAm(),
   id: "",
   unitIdList: [],
+  selectValues: [],
 });
 
 export const mapAttributeLibCmToFormAttributeLib = (attributeLibCm: AttributeLibCm): FormAttributeLib => ({
@@ -32,5 +35,8 @@ export const mapAttributeLibCmToFormAttributeLib = (attributeLibCm: AttributeLib
   id: attributeLibCm.id,
   unitIdList: attributeLibCm.units.map((x) => ({
     value: x.id,
+  })),
+  selectValues: attributeLibCm.selectValues.map((x) => ({
+    value: x,
   })),
 });
