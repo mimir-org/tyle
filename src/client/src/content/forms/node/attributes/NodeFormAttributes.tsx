@@ -5,11 +5,11 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Flexbox } from "../../../../complib/layouts";
 import { useGetAttributes } from "../../../../data/queries/tyle/queriesAttribute";
-import { AttributeInfoButton } from "../../../common/attribute";
+import { SelectItemInfoButton } from "../../../common/selectItem";
+import { FormSection } from "../../common/FormSection";
+import { SelectItemDialog } from "../../common/SelectItemDialog";
 import { FormNodeLib } from "../../types/formNodeLib";
-import { NodeFormSection } from "../NodeFormSection";
-import { getAttributeItems, onAddAttributes, prepareAttributes } from "./NodeFormAttributes.helpers";
-import { SelectAttributeDialog } from "./SelectAttributeDialog";
+import { getSelectItemsFromAttributeLibCms, onAddAttributes, prepareAttributes } from "./NodeFormAttributes.helpers";
 
 export interface NodeFormAttributesProps {
   control: Control<FormNodeLib>;
@@ -26,7 +26,7 @@ export const NodeFormAttributes = ({ control, aspects, register }: NodeFormAttri
   const attributeItems = getAttributeItems(filteredAttributes);
 
   return (
-    <NodeFormSection
+    <FormSection
       title={t("title")}
       action={
         <SelectAttributeDialog attributes={attributeItems} onAdd={(ids) => onAddAttributes(ids, attributeFields)} />
@@ -50,6 +50,6 @@ export const NodeFormAttributes = ({ control, aspects, register }: NodeFormAttri
           );
         })}
       </Flexbox>
-    </NodeFormSection>
+    </FormSection>
   );
 };
