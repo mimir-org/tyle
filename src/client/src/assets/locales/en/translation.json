@@ -85,7 +85,7 @@
   },
   "attributes": {
     "title": "Attributes",
-    "add": "Add attribute(s)",
+    "open": "Open attribute(s) selection dialog",
     "remove": "Remove attribute",
     "dialog": {
       "title": "Select attributes(s)",
