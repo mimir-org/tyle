@@ -28,5 +28,15 @@ namespace TypeLibrary.Services.Services
             var dataAm = _mapper.Map<List<UnitLibCm>>(dataList);
             return Task.FromResult(dataAm.AsEnumerable());
         }
+
+        public Task<UnitLibCm> Get(string id)
+        {
+            var unit = _unitRepository.GetUnits().FirstOrDefault(x => x.Id == id);
+            if (unit == null)
+                return null;
+
+            var data = _mapper.Map<UnitLibCm>(unit);
+            return Task.FromResult(data);
+        }
     }
 }
