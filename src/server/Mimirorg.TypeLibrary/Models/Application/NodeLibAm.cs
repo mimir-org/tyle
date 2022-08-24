@@ -118,14 +118,6 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Symbol { get; set; }
 
         /// <summary>
-        /// The iri to the node type attribute
-        /// </summary>
-        /// <remarks>
-        /// A attribute change, will trigger a minor version increase
-        /// </remarks>
-        public string AttributeAspectIri { get; set; }
-
-        /// <summary>
         /// A list of references to other ontologies
         /// </summary>
         /// <remarks>
