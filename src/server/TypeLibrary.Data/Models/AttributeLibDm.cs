@@ -14,7 +14,7 @@ namespace TypeLibrary.Data.Models
         public AttributeLibDm Parent { get; set; }
         public string Name { get; set; }
         public string Iri { get; set; }
-        public string ContentReferences { get; set; }
+        public string TypeReferences { get; set; }
 
         public string AttributeQualifier { get; set; }
         public string AttributeSource { get; set; }

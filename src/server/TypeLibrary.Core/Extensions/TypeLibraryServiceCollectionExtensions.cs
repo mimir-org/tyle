@@ -70,7 +70,6 @@ namespace TypeLibrary.Core.Extensions
             {
                 serviceCollection.AddDbContext<TypeLibraryDbContext>(options =>
                 {
-                    options.EnableSensitiveDataLogging();
                     options.UseSqlServer(dbConfig.ConnectionString,
                         sqlOptions => sqlOptions.MigrationsAssembly("TypeLibrary.Core"));
                 });

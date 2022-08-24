@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -141,13 +142,21 @@ namespace TypeLibrary.Services.Services
             if (latestInterfaceVersion > interfaceToUpdateVersion)
                 throw new MimirorgBadRequestException($"Not allowed to update interface with id {interfaceToUpdate.Id} and version {interfaceToUpdateVersion}. Latest version is interface with id {latestInterfaceDm.Id} and version {latestInterfaceVersion}");
 
-            var newVersion = await _versionService.CalculateNewVersion(latestInterfaceDm, dataAm);
+            // Get version
+            var validation = latestInterfaceDm.HasIllegalChanges(dataAm);
 
-            if (string.IsNullOrWhiteSpace(newVersion))
-                return await Get(id);
+            if (!validation.IsValid)
+                throw new MimirorgBadRequestException(validation.Message, validation);
 
-            dataAm.Version = newVersion;
+            var versionStatus = latestInterfaceDm.CalculateVersionStatus(dataAm);
+
             dataAm.FirstVersionId = latestInterfaceDm.FirstVersionId;
+            dataAm.Version = versionStatus switch
+            {
+                VersionStatus.Minor => latestInterfaceDm.Version.IncrementMinorVersion(),
+                VersionStatus.Major => latestInterfaceDm.Version.IncrementMajorVersion(),
+                _ => latestInterfaceDm.Version
+            };
 
             return await Create(dataAm);
         }
