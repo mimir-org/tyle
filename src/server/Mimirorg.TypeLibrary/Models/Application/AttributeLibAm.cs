@@ -44,6 +44,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [TSExclude]
         public string Id => ($"{Name}-{Aspect}-{AttributeQualifier}-{AttributeSource}-{AttributeCondition}").CreateMd5();
 
+        [TSExclude]
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (Select == Select.None && (SelectValues != null && SelectValues.Any()))
