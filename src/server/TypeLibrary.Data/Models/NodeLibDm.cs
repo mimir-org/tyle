@@ -21,7 +21,6 @@ namespace TypeLibrary.Data.Models
         public string Version { get; set; }
         public string FirstVersionId { get; set; }
         public string Iri { get; set; }
-        public string AttributeAspectIri { get; set; }
         public string TypeReferences { get; set; }
         public string RdsCode { get; set; }
         public string RdsName { get; set; }
@@ -142,9 +141,6 @@ namespace TypeLibrary.Data.Models
                 minor = true;
 
             if (Symbol != other.Symbol)
-                minor = true;
-
-            if (AttributeAspectIri != other.AttributeAspectIri)
                 minor = true;
 
             ICollection<TypeReferenceAm> references = null;
