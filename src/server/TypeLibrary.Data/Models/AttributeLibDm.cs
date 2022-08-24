@@ -18,6 +18,7 @@ namespace TypeLibrary.Data.Models
         public string AttributeSource { get; set; }
         public string AttributeCondition { get; set; }
         public string AttributeFormat { get; set; }
+        public string Units { get; set; }
 
         public int CompanyId { get; set; }
         public Aspect Aspect { get; set; }
@@ -38,6 +39,5 @@ namespace TypeLibrary.Data.Models
         public virtual ICollection<NodeLibDm> Nodes { get; set; }
         public virtual ICollection<SimpleLibDm> Simple { get; set; }
         public virtual ICollection<TransportLibDm> Transports { get; set; }
-        public virtual ICollection<UnitLibDm> Units { get; set; }
     }
 }

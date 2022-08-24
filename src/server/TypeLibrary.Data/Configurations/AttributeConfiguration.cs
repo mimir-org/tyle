@@ -33,12 +33,6 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.CreatedBy).HasColumnName("CreatedBy").IsRequired().HasMaxLength(31);
             builder.Property(p => p.Created).HasColumnName("Created").IsRequired();
 
-            builder.HasMany(x => x.Units).WithMany(y => y.Attributes).UsingEntity<Dictionary<string, object>>("Attribute_Unit",
-                x => x.HasOne<UnitLibDm>().WithMany().HasForeignKey("UnitId"),
-                x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),
-                x => x.ToTable("Attribute_Unit")
-            );
-
             builder.HasMany(x => x.Nodes).WithMany(y => y.Attributes).UsingEntity<Dictionary<string, object>>("Attribute_Node",
                 x => x.HasOne<NodeLibDm>().WithMany().HasForeignKey("NodeId"),
                 x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),

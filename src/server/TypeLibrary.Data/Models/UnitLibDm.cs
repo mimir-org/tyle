@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace TypeLibrary.Data.Models
 {
     public class UnitLibDm
@@ -9,6 +7,5 @@ namespace TypeLibrary.Data.Models
         public string Iri { get; set; }
         public string TypeReferences { get; set; }
         public string Description { get; set; }
-        public virtual ICollection<AttributeLibDm> Attributes { get; set; }
     }
 }
