@@ -260,78 +260,96 @@ namespace TypeLibrary.Data.Repositories.External
 
         public IEnumerable<UnitLibDm> GetUnits()
         {
-            var units = new List<UnitLibDm>();
             var url = $"{_settings.ApplicationSemanticUrl}/unit/";
+            const string salt = "Mb.Models.Data.Enums.Unit";
 
-            var name = "%"; var id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "%/min"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "[list]"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "<specific>"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "1:n"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "2x100%"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "2x50%"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "3x50%"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "A"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "bara"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "barg"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "bbl/d"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "CF/hr"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "composite"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "db"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "degC"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "degF"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "FC"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "FO"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "FR"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "ft/sec"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "Hz"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "inch"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "IP"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "kA"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "kA/1sec"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "kA/3sec"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "Kelvin"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "kg/m3"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "kV"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "kVA"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "kVAh"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "kW"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "liter/MSm3"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "m"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "m/s"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "m3/d"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "m3/h"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "micron"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "min"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "mm"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "mm2"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "mS"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "MVA"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "MW"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "N/A"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "No dead pockets"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "None"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "NotSet"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "Ohm"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "Pascal"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "ppb"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "ppm"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "psi"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "psig"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "rpm"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "S"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "SCF/hr"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "sec"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "Sm3/d"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "Sm3/h"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "sq.inch"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "V"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "Vah"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "W"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "weight %"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
-            name = "Ω"; id = $"{name}-Mb.Models.Data.Enums.Unit".CreateMd5(); units.Add(new UnitLibDm { Id = id, Name = name, Iri = $"{url}{HttpUtility.UrlEncode($"{id}")}", ContentReferences = "", Description = "" });
+            var unitNames = GetUnitNames();
 
-            return units;
+            foreach (var unitName in unitNames)
+            {
+                var id = $"{unitName}-{salt}".CreateMd5();
+
+                yield return new UnitLibDm
+                {
+                    Id = id,
+                    Name = unitName,
+                    Iri = $"{url}{id}"
+                };
+            }
+        }
+
+        private List<string> GetUnitNames()
+        {
+            return new List<string>
+            {
+                "[list]",
+                "%",
+                "%/min",
+                "<specific>",
+                "1:n",
+                "2x100%",
+                "2x50%",
+                "3x50%",
+                "A",
+                "bara",
+                "barg",
+                "bbl/d",
+                "CF/hr",
+                "composite",
+                "db",
+                "degC",
+                "degF",
+                "FC",
+                "FO",
+                "FR",
+                "ft/sec",
+                "Hz",
+                "inch",
+                "IP",
+                "kA",
+                "kA/1sec",
+                "kA/3sec",
+                "Kelvin",
+                "kg/m3",
+                "kV",
+                "kVA",
+                "kVAh",
+                "kW",
+                "liter/MSm3",
+                "m",
+                "m/s",
+                "m3/d",
+                "m3/h",
+                "micron",
+                "min",
+                "mm",
+                "mm2",
+                "mS",
+                "MVA",
+                "MW",
+                "N/A",
+                "No dead pockets",
+                "None",
+                "NotSet",
+                "Ohm",
+                "Pascal",
+                "ppb",
+                "ppm",
+                "psi",
+                "psig",
+                "rpm",
+                "S",
+                "SCF/hr",
+                "sec",
+                "Sm3/d",
+                "Sm3/h",
+                "sq.inch",
+                "V",
+                "Vah",
+                "W",
+                "weight %",
+                "Ω"
+            };
         }
 
         public Task<UnitLibDm> CreateUnit(UnitLibDm unit)
