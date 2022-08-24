@@ -88,7 +88,6 @@ namespace Mimirorg.Unit.Tests.Models
             dummy.am.CompanyId = 10;
             dummy.am.Description = "x";
             dummy.am.Symbol = "x";
-            dummy.am.AttributeAspectIri = "x";
             dummy.am.TypeReferences = dummy.am.TypeReferences.Where(x => x.Name != "XX").ToList();
             dummy.am.TypeReferences.Add(new TypeReferenceAm
             {
@@ -110,7 +109,6 @@ namespace Mimirorg.Unit.Tests.Models
             dummy.am.CompanyId = 10;
             dummy.am.Description = "x";
             dummy.am.Symbol = "x";
-            dummy.am.AttributeAspectIri = "x";
             dummy.am.TypeReferences = dummy.am.TypeReferences.Where(x => x.Name != "XX").ToList();
             dummy.am.TypeReferences.Add(new TypeReferenceAm
             {

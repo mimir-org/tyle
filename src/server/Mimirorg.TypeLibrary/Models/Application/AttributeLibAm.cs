@@ -6,7 +6,7 @@ using Discipline = Mimirorg.TypeLibrary.Enums.Discipline;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
-    public class AttributeLibAm
+    public class AttributeLibAm : IValidatableObject
     {
         [Required]
         public string Name { get; set; }
@@ -43,5 +43,14 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         [TSExclude]
         public string Id => ($"{Name}-{Aspect}-{AttributeQualifier}-{AttributeSource}-{AttributeCondition}").CreateMd5();
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (Select == Select.None && (SelectValues != null && SelectValues.Any()))
+                yield return new ValidationResult($"There should not be any values in {nameof(SelectValues)}, when Select is different from SingleSelect or MultiSelect", SelectValues);
+
+            if (Select != Select.None && (SelectValues == null || !SelectValues.Any()))
+                yield return new ValidationResult($"There should values in {nameof(SelectValues)}, when Select is SingleSelect or MultiSelect", SelectValues);
+        }
     }
 }
