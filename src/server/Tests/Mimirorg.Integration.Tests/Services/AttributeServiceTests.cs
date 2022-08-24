@@ -26,8 +26,7 @@ namespace Mimirorg.Integration.Tests.Services
                 AttributeSource = "s1",
                 AttributeCondition = "c1",
                 AttributeFormat = "f1",
-                CompanyId = 1,
-                AttributeType = AttributeType.Normal
+                CompanyId = 1
             };
 
             var attribute2 = new AttributeLibAm
@@ -40,8 +39,7 @@ namespace Mimirorg.Integration.Tests.Services
                 AttributeSource = "s2",
                 AttributeCondition = "c2",
                 AttributeFormat = "f2",
-                CompanyId = 1,
-                AttributeType = AttributeType.Normal
+                CompanyId = 1
             };
 
             using var scope = Factory.Server.Services.CreateScope();

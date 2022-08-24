@@ -1,29 +1,26 @@
-import { Aspect } from "@mimirorg/typelibrary-types";
 import { Trash } from "@styled-icons/heroicons-outline";
 import { Control, useFieldArray, UseFormRegister } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Flexbox } from "../../../../complib/layouts";
-import { useGetAttributes } from "../../../../data/queries/tyle/queriesAttribute";
+import { useGetUnits } from "../../../../data/queries/tyle/queriesUnit";
 import { SelectItemInfoButton } from "../../../common/selectItem";
 import { FormSection } from "../../common/FormSection";
 import { SelectItemDialog } from "../../common/SelectItemDialog";
-import { FormNodeLib } from "../../types/formNodeLib";
-import { getSelectItemsFromAttributeLibCms, onAddAttributes, prepareAttributes } from "./NodeFormAttributes.helpers";
+import { FormAttributeLib } from "../types/formAttributeLib";
+import { getSelectItemsFromUnitsLibCms, onAddUnits } from "./AttributeFormUnits.helpers";
 
-export interface NodeFormAttributesProps {
-  control: Control<FormNodeLib>;
-  register: UseFormRegister<FormNodeLib>;
-  aspects?: Aspect[];
+export interface AttributeFormUnitsProps {
+  control: Control<FormAttributeLib>;
+  register: UseFormRegister<FormAttributeLib>;
 }
 
-export const NodeFormAttributes = ({ control, aspects, register }: NodeFormAttributesProps) => {
+export const AttributeFormUnits = ({ control, register }: AttributeFormUnitsProps) => {
   const theme = useTheme();
-  const { t } = useTranslation("translation", { keyPrefix: "attributes" });
-  const attributeQuery = useGetAttributes();
-  const attributeFields = useFieldArray({ control, name: "attributeIdList" });
-  const filteredAttributes = prepareAttributes(attributeQuery.data, aspects);
-  const attributeItems = getSelectItemsFromAttributeLibCms(filteredAttributes);
+  const { t } = useTranslation("translation", { keyPrefix: "units" });
+  const unitQuery = useGetUnits();
+  const unitFields = useFieldArray({ control, name: "unitIdList" });
+  const unitItems = getSelectItemsFromUnitsLibCms(unitQuery.data);
 
   return (
     <FormSection
@@ -35,24 +32,24 @@ export const NodeFormAttributes = ({ control, aspects, register }: NodeFormAttri
           searchFieldText={t("dialog.search")}
           addItemsButtonText={t("dialog.add")}
           openDialogButtonText={t("open")}
-          items={attributeItems}
-          onAdd={(ids) => onAddAttributes(ids, attributeFields)}
+          items={unitItems}
+          onAdd={(ids) => onAddUnits(ids, unitFields)}
         />
       }
     >
       <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.xl}>
-        {attributeFields.fields.map((field, index) => {
-          const attribute = attributeItems.find((x) => x.id === field.value);
+        {unitFields.fields.map((field, index) => {
+          const attribute = unitItems.find((x) => x.id === field.value);
           return (
             attribute && (
               <SelectItemInfoButton
                 key={field.id}
-                {...register(`attributeIdList.${index}`)}
+                {...register(`unitIdList.${index}`)}
                 {...attribute}
                 actionable
                 actionIcon={<Trash />}
                 actionText={t("remove")}
-                onAction={() => attributeFields.remove(index)}
+                onAction={() => unitFields.remove(index)}
               />
             )
           );

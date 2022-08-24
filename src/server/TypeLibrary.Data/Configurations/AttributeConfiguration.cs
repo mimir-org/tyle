@@ -16,7 +16,6 @@ namespace TypeLibrary.Data.Configurations
             builder.HasKey(x => x.Id);
             builder.ToTable("Attribute");
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(127);
-            builder.Property(p => p.ParentId).HasColumnName("ParentId").HasMaxLength(127);
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(31);
             builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false).HasMaxLength(255);
             builder.Property(p => p.TypeReferences).HasColumnName("TypeReferences");
@@ -30,12 +29,9 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.AttributeSource).HasColumnName("AttributeSource").HasMaxLength(31);
             builder.Property(p => p.AttributeCondition).HasColumnName("AttributeCondition").HasMaxLength(31);
             builder.Property(p => p.AttributeFormat).HasColumnName("AttributeFormat").HasMaxLength(31);
-            builder.Property(p => p.AttributeType).HasColumnName("AttributeType").IsRequired().HasConversion<string>().HasMaxLength(31);
             builder.Property(p => p.CompanyId).HasColumnName("CompanyId").IsRequired();
             builder.Property(p => p.CreatedBy).HasColumnName("CreatedBy").IsRequired().HasMaxLength(31);
             builder.Property(p => p.Created).HasColumnName("Created").IsRequired();
-
-            builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasMany(x => x.Units).WithMany(y => y.Attributes).UsingEntity<Dictionary<string, object>>("Attribute_Unit",
                 x => x.HasOne<UnitLibDm>().WithMany().HasForeignKey("UnitId"),

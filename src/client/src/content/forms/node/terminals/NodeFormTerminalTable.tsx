@@ -10,8 +10,8 @@ import { useGetTerminals } from "../../../../data/queries/tyle/queriesTerminal";
 import { createEmptyNodeTerminalLibAm } from "../../../../models/tyle/application/nodeTerminalLibAm";
 import { getValueLabelObjectsFromEnum } from "../../../../utils/getValueLabelObjectsFromEnum";
 import { TerminalButton } from "../../../common/terminal";
+import { FormSection } from "../../common/FormSection";
 import { FormNodeLib } from "../../types/formNodeLib";
-import { NodeFormSection } from "../NodeFormSection";
 import { onTerminalAmountChange } from "./NodeFormTerminalTable.helpers";
 import { NodeFormTerminalTableAddButton } from "./NodeFormTerminalTableAddButton";
 import { NodeFormTerminalTableAttributes } from "./NodeFormTerminalTableAttributes";
@@ -29,7 +29,7 @@ export const NodeFormTerminalTable = ({ control }: NodeFormTerminalsProps) => {
   const connectorDirectionOptions = getValueLabelObjectsFromEnum<ConnectorDirection>(ConnectorDirection);
 
   return (
-    <NodeFormSection
+    <FormSection
       title={t("terminals.title")}
       action={<NodeFormTerminalTableAddButton onClick={() => terminalFields.append(createEmptyNodeTerminalLibAm())} />}
     >
@@ -104,6 +104,6 @@ export const NodeFormTerminalTable = ({ control }: NodeFormTerminalsProps) => {
           })}
         </Tbody>
       </Table>
-    </NodeFormSection>
+    </FormSection>
   );
 };
