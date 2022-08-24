@@ -5,8 +5,6 @@ namespace Mimirorg.TypeLibrary.Models.Client
     public class AttributeLibCm
     {
         public string Id { get; set; }
-        public string ParentName { get; set; }
-        public string ParentIri { get; set; }
         public string Name { get; set; }
         public string Iri { get; set; }
         public ICollection<TypeReferenceCm> TypeReferences { get; set; }
@@ -16,16 +14,16 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string AttributeFormat { get; set; }
         public Aspect Aspect { get; set; }
         public Discipline Discipline { get; set; }
-        public HashSet<string> Tags { get; set; }
         public Select Select { get; set; }
+
         public ICollection<string> SelectValues { get; set; }
         public ICollection<UnitLibCm> Units { get; set; }
         public string Description => CreateDescription();
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-        public string Kind => nameof(AttributeLibCm);
-        public AttributeType AttributeType { get; set; }
         public int CompanyId { get; set; }
+        public HashSet<string> Tags { get; set; }
+        public string Kind => nameof(AttributeLibCm);
 
         private string CreateDescription()
         {

@@ -1,6 +1,5 @@
 [
   {
-    "parentId": null,
     "name": "Head, downstream",
     "aspect": 2,
     "discipline": 64,
@@ -14,11 +13,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Slope, declining",
     "aspect": 2,
     "discipline": 64,
@@ -33,11 +30,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Slope, inclining",
     "aspect": 4,
     "discipline": 64,
@@ -52,11 +47,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Resistance",
     "aspect": 4,
     "discipline": 4,
@@ -71,11 +64,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Gas/Oil Ratio, GOR",
     "aspect": 2,
     "discipline": 64,
@@ -89,11 +80,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Gas Volume Fraction, GVF",
     "aspect": 2,
     "discipline": 64,
@@ -107,11 +96,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Slope, inclining",
     "aspect": 2,
     "discipline": 64,
@@ -126,11 +113,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Flowrate, volumetric",
     "aspect": 4,
     "discipline": 64,
@@ -147,11 +132,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Power capacity, appearant",
     "aspect": 2,
     "discipline": 4,
@@ -166,11 +149,9 @@
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Ex/ATEX rating",
     "aspect": 4,
     "discipline": 0,
@@ -182,11 +163,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "String",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Switching device",
     "aspect": 4,
     "discipline": 4,
@@ -201,11 +180,9 @@
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
     "attributeFormat": "String",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Operating Speed",
     "aspect": 4,
     "discipline": 4,
@@ -219,11 +196,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Design Case",
     "aspect": 4,
     "discipline": 64,
@@ -237,11 +212,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
     "attributeFormat": "Text and doc reference",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "System Voltage",
     "aspect": 4,
     "discipline": 4,
@@ -256,11 +229,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Chemistry",
     "aspect": 4,
     "discipline": 4,
@@ -276,11 +247,9 @@
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
     "attributeFormat": "String",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Substance content",
     "aspect": 2,
     "discipline": 64,
@@ -295,11 +264,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Current capacity",
     "aspect": 2,
     "discipline": 4,
@@ -314,11 +281,9 @@
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Size box Width",
     "aspect": 8,
     "discipline": 64,
@@ -336,11 +301,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Gas HC Dew Point",
     "aspect": 2,
     "discipline": 64,
@@ -354,11 +317,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Noise level",
     "aspect": 4,
     "discipline": 0,
@@ -372,11 +333,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Level",
     "aspect": 4,
     "discipline": 64,
@@ -391,11 +350,9 @@
     "attributeSource": "Design, High",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Level",
     "aspect": 2,
     "discipline": 64,
@@ -410,11 +367,9 @@
     "attributeSource": "Required, Low",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Velocity",
     "aspect": 2,
     "discipline": 64,
@@ -429,11 +384,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Voltage",
     "aspect": 4,
     "discipline": 4,
@@ -448,11 +401,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Design code",
     "aspect": 4,
     "discipline": 0,
@@ -464,11 +415,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "String",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Velocity",
     "aspect": 2,
     "discipline": 64,
@@ -483,11 +432,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Level",
     "aspect": 2,
     "discipline": 64,
@@ -502,11 +449,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Cross section",
     "aspect": 4,
     "discipline": 4,
@@ -520,11 +465,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Operating Speed",
     "aspect": 4,
     "discipline": 4,
@@ -538,11 +481,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Power capacity, real",
     "aspect": 2,
     "discipline": 4,
@@ -558,11 +499,9 @@
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Oil in water",
     "aspect": 2,
     "discipline": 64,
@@ -577,11 +516,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Liquid Carry-over, volumetric",
     "aspect": 4,
     "discipline": 64,
@@ -595,11 +532,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Water separation efficiency",
     "aspect": 4,
     "discipline": 64,
@@ -613,11 +548,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Dead pocket prevention",
     "aspect": 2,
     "discipline": 64,
@@ -632,11 +565,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
     "attributeFormat": "Boolean",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Depth BSL (subsea only)",
     "aspect": 8,
     "discipline": 64,
@@ -652,11 +583,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Fault current",
     "aspect": 4,
     "discipline": 4,
@@ -671,11 +600,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Design Margin",
     "aspect": 2,
     "discipline": 64,
@@ -689,11 +616,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Phases generated",
     "aspect": 4,
     "discipline": 4,
@@ -708,11 +633,9 @@
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Temperature",
     "aspect": 4,
     "discipline": 64,
@@ -728,11 +651,9 @@
     "attributeSource": "Design, Low",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Velocity",
     "aspect": 2,
     "discipline": 64,
@@ -747,11 +668,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Liquid Mass Fraction",
     "aspect": 4,
     "discipline": 64,
@@ -765,11 +684,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Relative North",
     "aspect": 8,
     "discipline": 64,
@@ -787,11 +704,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Shaft Power",
     "aspect": 4,
     "discipline": 4,
@@ -807,11 +722,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Crossection, Area",
     "aspect": 4,
     "discipline": 64,
@@ -826,11 +739,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Gas Carry-under, volumetric",
     "aspect": 2,
     "discipline": 64,
@@ -844,11 +755,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Busbar current",
     "aspect": 4,
     "discipline": 4,
@@ -863,11 +772,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Ratios",
     "aspect": 4,
     "discipline": 4,
@@ -881,11 +788,9 @@
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
     "attributeFormat": "String",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Temperature",
     "aspect": 4,
     "discipline": 64,
@@ -901,11 +806,9 @@
     "attributeSource": "Design, Low",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Pressure, absolute",
     "aspect": 4,
     "discipline": 64,
@@ -923,11 +826,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "K-value",
     "aspect": 4,
     "discipline": 64,
@@ -942,11 +843,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Frequency",
     "aspect": 4,
     "discipline": 4,
@@ -960,11 +859,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Duration",
     "aspect": 2,
     "discipline": 64,
@@ -980,11 +877,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Secondary Voltage",
     "aspect": 4,
     "discipline": 4,
@@ -999,11 +894,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Flowrate, volumetric",
     "aspect": 2,
     "discipline": 64,
@@ -1020,11 +913,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Liquid Carry-over, volumetric",
     "aspect": 2,
     "discipline": 64,
@@ -1038,11 +929,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Head, downstream",
     "aspect": 2,
     "discipline": 64,
@@ -1056,11 +945,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Flowrate, volumetric",
     "aspect": 2,
     "discipline": 64,
@@ -1077,11 +964,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Power capacity",
     "aspect": 4,
     "discipline": 4,
@@ -1096,11 +981,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Backup capacity",
     "aspect": 4,
     "discipline": 4,
@@ -1115,11 +998,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Shaft Power",
     "aspect": 2,
     "discipline": 4,
@@ -1135,11 +1016,9 @@
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Conductors/wires",
     "aspect": 4,
     "discipline": 4,
@@ -1151,11 +1030,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "BDM configuration",
     "aspect": 4,
     "discipline": 4,
@@ -1171,11 +1048,9 @@
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
     "attributeFormat": "String",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Voltage",
     "aspect": 2,
     "discipline": 4,
@@ -1190,11 +1065,9 @@
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Redundancy",
     "aspect": 4,
     "discipline": 64,
@@ -1211,11 +1084,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
     "attributeFormat": "Selection",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Size box Height",
     "aspect": 8,
     "discipline": 64,
@@ -1233,11 +1104,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Density",
     "aspect": 2,
     "discipline": 64,
@@ -1251,11 +1120,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Velocity",
     "aspect": 2,
     "discipline": 64,
@@ -1270,11 +1137,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Level",
     "aspect": 2,
     "discipline": 64,
@@ -1289,11 +1154,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Temperature",
     "aspect": 2,
     "discipline": 64,
@@ -1309,11 +1172,9 @@
     "attributeSource": "Required, High",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Temperature",
     "aspect": 2,
     "discipline": 64,
@@ -1329,11 +1190,9 @@
     "attributeSource": "Required, Low",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Colour code",
     "aspect": 4,
     "discipline": 0,
@@ -1345,11 +1204,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "String",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Density",
     "aspect": 2,
     "discipline": 64,
@@ -1363,11 +1220,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Pressure, delta",
     "aspect": 2,
     "discipline": 64,
@@ -1385,11 +1240,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Capacity",
     "aspect": 2,
     "discipline": 4,
@@ -1404,11 +1257,9 @@
     "attributeSource": "Capacity",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Design Case",
     "aspect": 2,
     "discipline": 64,
@@ -1422,11 +1273,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
     "attributeFormat": "Text and doc reference",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Overcurrent capability",
     "aspect": 4,
     "discipline": 4,
@@ -1440,11 +1289,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Pressure rating",
     "aspect": 4,
     "discipline": 0,
@@ -1456,11 +1303,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "String",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Gas Carry-under, volumetric",
     "aspect": 4,
     "discipline": 64,
@@ -1474,11 +1319,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Power capacity, appearant",
     "aspect": 4,
     "discipline": 4,
@@ -1493,11 +1336,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Duration",
     "aspect": 4,
     "discipline": 64,
@@ -1513,11 +1354,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Backup capacity",
     "aspect": 2,
     "discipline": 4,
@@ -1532,11 +1371,9 @@
     "attributeSource": "Capacity",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Power factor",
     "aspect": 4,
     "discipline": 4,
@@ -1548,11 +1385,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Requirements standard",
     "aspect": 4,
     "discipline": 0,
@@ -1582,11 +1417,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "String",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "UTM North",
     "aspect": 8,
     "discipline": 64,
@@ -1602,11 +1435,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Resistor capacity",
     "aspect": 4,
     "discipline": 4,
@@ -1621,11 +1452,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Resistor capacity",
     "aspect": 2,
     "discipline": 4,
@@ -1640,11 +1469,9 @@
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Battery Voltage",
     "aspect": 4,
     "discipline": 4,
@@ -1659,11 +1486,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Density",
     "aspect": 2,
     "discipline": 64,
@@ -1677,11 +1502,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Pressure, absolute",
     "aspect": 4,
     "discipline": 64,
@@ -1699,11 +1522,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Power factor",
     "aspect": 2,
     "discipline": 4,
@@ -1715,11 +1536,9 @@
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Slope, declining",
     "aspect": 4,
     "discipline": 64,
@@ -1734,11 +1553,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Type of Switchgear",
     "aspect": 4,
     "discipline": 4,
@@ -1757,11 +1574,9 @@
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
     "attributeFormat": "String",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Velocity",
     "aspect": 4,
     "discipline": 64,
@@ -1776,11 +1591,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Velocity",
     "aspect": 4,
     "discipline": 64,
@@ -1795,11 +1608,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Busbar current",
     "aspect": 2,
     "discipline": 4,
@@ -1814,11 +1625,9 @@
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Busbar current",
     "aspect": 4,
     "discipline": 4,
@@ -1833,11 +1642,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Current",
     "aspect": 4,
     "discipline": 4,
@@ -1852,11 +1659,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Transformer type, pulses",
     "aspect": 4,
     "discipline": 4,
@@ -1873,11 +1678,9 @@
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Design Margin",
     "aspect": 4,
     "discipline": 64,
@@ -1891,11 +1694,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Level",
     "aspect": 2,
     "discipline": 64,
@@ -1910,11 +1711,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "K-value",
     "aspect": 2,
     "discipline": 64,
@@ -1929,11 +1728,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "System Voltage",
     "aspect": 4,
     "discipline": 4,
@@ -1948,11 +1745,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Battery Voltage",
     "aspect": 2,
     "discipline": 4,
@@ -1967,11 +1762,9 @@
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Power capacity",
     "aspect": 2,
     "discipline": 4,
@@ -1986,11 +1779,9 @@
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Cooling Method",
     "aspect": 4,
     "discipline": 4,
@@ -2008,11 +1799,9 @@
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
     "attributeFormat": "String",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Pressure, delta",
     "aspect": 2,
     "discipline": 64,
@@ -2030,11 +1819,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Pressure, absolute",
     "aspect": 2,
     "discipline": 64,
@@ -2052,11 +1839,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Pressure, delta",
     "aspect": 4,
     "discipline": 64,
@@ -2074,11 +1859,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Drive mode",
     "aspect": 4,
     "discipline": 4,
@@ -2093,11 +1876,9 @@
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
     "attributeFormat": "String",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Absolute Elevation",
     "aspect": 8,
     "discipline": 64,
@@ -2114,11 +1895,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Relative East",
     "aspect": 8,
     "discipline": 64,
@@ -2136,11 +1915,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Current capacity",
     "aspect": 4,
     "discipline": 4,
@@ -2155,11 +1932,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "System Frequency",
     "aspect": 4,
     "discipline": 4,
@@ -2173,11 +1948,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Flowrate, volumetric",
     "aspect": 4,
     "discipline": 64,
@@ -2194,11 +1967,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Current capacity",
     "aspect": 4,
     "discipline": 4,
@@ -2213,11 +1984,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Cooling code",
     "aspect": 4,
     "discipline": 0,
@@ -2234,11 +2003,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "String",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Gas/Liquid Ratio, GLR",
     "aspect": 2,
     "discipline": 64,
@@ -2252,11 +2019,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Crossection, Area",
     "aspect": 2,
     "discipline": 64,
@@ -2271,11 +2036,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Gas separation efficiency",
     "aspect": 4,
     "discipline": 64,
@@ -2289,11 +2052,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Coating system",
     "aspect": 4,
     "discipline": 0,
@@ -2305,11 +2066,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "String",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Pressure, delta",
     "aspect": 2,
     "discipline": 64,
@@ -2327,11 +2086,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Primary Voltage",
     "aspect": 4,
     "discipline": 4,
@@ -2346,11 +2103,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Pressure, absolute",
     "aspect": 2,
     "discipline": 64,
@@ -2368,11 +2123,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Power capacity, real",
     "aspect": 4,
     "discipline": 4,
@@ -2388,11 +2141,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Oil in water",
     "aspect": 2,
     "discipline": 64,
@@ -2407,11 +2158,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Rated Voltage",
     "aspect": 4,
     "discipline": 4,
@@ -2426,11 +2175,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Level",
     "aspect": 2,
     "discipline": 64,
@@ -2445,11 +2192,9 @@
     "attributeSource": "Required, High",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Cells",
     "aspect": 4,
     "discipline": 4,
@@ -2461,11 +2206,9 @@
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Fail action",
     "aspect": 2,
     "discipline": 64,
@@ -2482,11 +2225,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
     "attributeFormat": "Selection",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Voltage",
     "aspect": 4,
     "discipline": 4,
@@ -2501,11 +2242,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Pressure, delta",
     "aspect": 2,
     "discipline": 64,
@@ -2523,11 +2262,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Size box Length",
     "aspect": 8,
     "discipline": 64,
@@ -2545,11 +2282,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Fault duration",
     "aspect": 4,
     "discipline": 4,
@@ -2563,11 +2298,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Frequency",
     "aspect": 4,
     "discipline": 4,
@@ -2581,11 +2314,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Dead pocket prevention",
     "aspect": 4,
     "discipline": 64,
@@ -2600,11 +2331,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
     "attributeFormat": "Boolean",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Response time",
     "aspect": 4,
     "discipline": 64,
@@ -2619,11 +2348,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Flowrate, volumetric",
     "aspect": 2,
     "discipline": 64,
@@ -2640,11 +2367,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Temperature class",
     "aspect": 4,
     "discipline": 0,
@@ -2656,11 +2381,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "String",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Capacity",
     "aspect": 4,
     "discipline": 4,
@@ -2675,11 +2398,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Frequency",
     "aspect": 2,
     "discipline": 4,
@@ -2693,11 +2414,9 @@
     "attributeSource": "Capacity",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Velocity",
     "aspect": 2,
     "discipline": 64,
@@ -2712,11 +2431,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Turbidity, particle size",
     "aspect": 2,
     "discipline": 64,
@@ -2730,11 +2447,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Water separation efficiency",
     "aspect": 2,
     "discipline": 64,
@@ -2748,11 +2463,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Duration",
     "aspect": 4,
     "discipline": 64,
@@ -2768,11 +2481,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Power capacity, appearant",
     "aspect": 4,
     "discipline": 4,
@@ -2787,11 +2498,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Liquid Mass Fraction",
     "aspect": 2,
     "discipline": 64,
@@ -2805,11 +2514,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Response time",
     "aspect": 2,
     "discipline": 64,
@@ -2824,11 +2531,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Relative Elevation",
     "aspect": 8,
     "discipline": 64,
@@ -2846,11 +2551,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "VA Rating",
     "aspect": 4,
     "discipline": 4,
@@ -2865,11 +2568,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Short-time withstand current",
     "aspect": 4,
     "discipline": 4,
@@ -2884,11 +2585,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Fail action",
     "aspect": 4,
     "discipline": 64,
@@ -2905,11 +2604,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
     "attributeFormat": "Selection",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Frequency",
     "aspect": 4,
     "discipline": 4,
@@ -2923,11 +2620,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Crossection, Inner Diameter",
     "aspect": 2,
     "discipline": 64,
@@ -2942,11 +2637,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Impedance (Uz)",
     "aspect": 4,
     "discipline": 4,
@@ -2960,11 +2653,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "UTM Zone",
     "aspect": 8,
     "discipline": 64,
@@ -2980,11 +2671,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "UTM East",
     "aspect": 8,
     "discipline": 64,
@@ -3000,11 +2689,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Temperature",
     "aspect": 4,
     "discipline": 64,
@@ -3020,11 +2707,9 @@
     "attributeSource": "Design, High",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Redundancy",
     "aspect": 2,
     "discipline": 64,
@@ -3041,11 +2726,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Nominal",
     "attributeFormat": "Selection",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Gas separation efficiency",
     "aspect": 2,
     "discipline": 64,
@@ -3059,11 +2742,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Drive mode",
     "aspect": 2,
     "discipline": 4,
@@ -3078,11 +2759,9 @@
     "attributeSource": "Capacity",
     "attributeCondition": "NotSet",
     "attributeFormat": "String",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Pressure, absolute",
     "aspect": 2,
     "discipline": 64,
@@ -3100,11 +2779,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Pressure, absolute",
     "aspect": 2,
     "discipline": 64,
@@ -3122,11 +2799,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Winding taps",
     "aspect": 4,
     "discipline": 4,
@@ -3138,11 +2813,9 @@
     "attributeSource": "Design",
     "attributeCondition": "NotSet",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Water Cut, WC",
     "aspect": 2,
     "discipline": 64,
@@ -3156,11 +2829,9 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Level",
     "aspect": 4,
     "discipline": 64,
@@ -3175,11 +2846,9 @@
     "attributeSource": "Design, Low",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Crossection, Inner Diameter",
     "aspect": 4,
     "discipline": 64,
@@ -3194,11 +2863,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "IP rating",
     "aspect": 4,
     "discipline": 0,
@@ -3210,11 +2877,9 @@
     "attributeSource": "NotSet",
     "attributeCondition": "NotSet",
     "attributeFormat": "String",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Pressure, delta",
     "aspect": 4,
     "discipline": 64,
@@ -3232,11 +2897,9 @@
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Duration",
     "aspect": 2,
     "discipline": 64,
@@ -3252,11 +2915,9 @@
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
     "attributeFormat": "Unsigned Integer",
-    "attributeType": 0,
     "companyId": 1
   },
   {
-    "parentId": null,
     "name": "Flowrate, volumetric",
     "aspect": 2,
     "discipline": 64,
@@ -3273,652 +2934,6 @@
     "attributeSource": "Calculated",
     "attributeCondition": "Maximum",
     "attributeFormat": "Unsigned Float",
-    "attributeType": 0,
-    "companyId": 1
-  },
-  {
-    "name": "Space",
-    "description": null,
-    "parentId": null,
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Facility",
-    "description": null,
-    "parentId": null,
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Foundation structure",
-    "description": null,
-    "parentId": null,
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Module",
-    "description": null,
-    "parentId": null,
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Deck",
-    "description": null,
-    "parentId": null,
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Areas",
-    "description": null,
-    "parentId": null,
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Routes",
-    "description": null,
-    "parentId": null,
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Enclosure",
-    "description": null,
-    "parentId": null,
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Point grid location",
-    "description": null,
-    "parentId": null,
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Object envelope",
-    "description": null,
-    "parentId": null,
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Terminal",
-    "description": null,
-    "parentId": null,
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Installation space",
-    "description": null,
-    "parentId": "7F461BD82F1E8C4BA5A961CB132CD45A", //Space ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Range space",
-    "description": null,
-    "parentId": "7F461BD82F1E8C4BA5A961CB132CD45A", //Space ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Platform facility",
-    "description": null,
-    "parentId": "619BD9D75613D5768F516606E744BFEE", //Facility ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "FPSO facility",
-    "description": null,
-    "parentId": "619BD9D75613D5768F516606E744BFEE", //Facility ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Terminal facility",
-    "description": null,
-    "parentId": "619BD9D75613D5768F516606E744BFEE", //Facility ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Subsea facility",
-    "description": null,
-    "parentId": "619BD9D75613D5768F516606E744BFEE", //Facility ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Jacket foundation",
-    "description": null,
-    "parentId": "629895BCA49893B0226FE607BEF27346", //Foundation structure ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Floater foundation",
-    "description": null,
-    "parentId": "629895BCA49893B0226FE607BEF27346", //Foundation structure ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Rig foundation",
-    "description": null,
-    "parentId": "629895BCA49893B0226FE607BEF27346", //Foundation structure ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "GBS foundation",
-    "description": null,
-    "parentId": "629895BCA49893B0226FE607BEF27346", //Foundation structure ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Facility module",
-    "description": null,
-    "parentId": "E16CC9A19BB687FF1CC2ADAD93FA15BA", //Module ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Tower module",
-    "description": null,
-    "parentId": "E16CC9A19BB687FF1CC2ADAD93FA15BA", //Module ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Boom module",
-    "description": null,
-    "parentId": "E16CC9A19BB687FF1CC2ADAD93FA15BA", //Module ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Bridge module",
-    "description": null,
-    "parentId": "E16CC9A19BB687FF1CC2ADAD93FA15BA", //Module ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Main deck",
-    "description": null,
-    "parentId": "59A9EEC701D6E5371D0B6A3947FC4773", //Deck ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Mezzanine deck",
-    "description": null,
-    "parentId": "59A9EEC701D6E5371D0B6A3947FC4773", //Deck ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Partial deck",
-    "description": null,
-    "parentId": "59A9EEC701D6E5371D0B6A3947FC4773", //Deck ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Area",
-    "description": null,
-    "parentId": "63CC6663C6C23EE1838C2F5057A45742", //Area ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Sub area",
-    "description": null,
-    "parentId": "63CC6663C6C23EE1838C2F5057A45742", //Area ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Function area",
-    "description": null,
-    "parentId": "63CC6663C6C23EE1838C2F5057A45742", //Area ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Route",
-    "description": null,
-    "parentId": "CA0824F6C69C463C9764AABBF366B89A", //Route ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Container enclosure",
-    "description": null,
-    "parentId": "9EAE2CF3D80C4DCC1AE0539B39921722", //Enclosure ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Cabinet enclosure",
-    "description": null,
-    "parentId": "9EAE2CF3D80C4DCC1AE0539B39921722", //Enclosure ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Box enclosure",
-    "description": null,
-    "parentId": "9EAE2CF3D80C4DCC1AE0539B39921722", //Enclosure ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Point platform grid",
-    "description": null,
-    "parentId": "2513EB3E7E6AE70F6F799CB9F87DD3D7", //Point grid location ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Point local grid",
-    "description": null,
-    "parentId": "2513EB3E7E6AE70F6F799CB9F87DD3D7", //Point grid location ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Point envelope",
-    "description": null,
-    "parentId": "A3374A6519B9D05DE477676C8BEA40A8", //Object envelope ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Outline envelope",
-    "description": null,
-    "parentId": "A3374A6519B9D05DE477676C8BEA40A8", //Object envelope ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Actual size envelope",
-    "description": null,
-    "parentId": "A3374A6519B9D05DE477676C8BEA40A8", //Object envelope ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Pipe terminal",
-    "description": null,
-    "parentId": "2D390BF802D8D92D021ED670BC71E81D", //Terminal ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Cable terminal",
-    "description": null,
-    "parentId": "2D390BF802D8D92D021ED670BC71E81D", //Terminal ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
-    "companyId": 1
-  },
-  {
-    "name": "Duct terminal",
-    "description": null,
-    "parentId": "2D390BF802D8D92D021ED670BC71E81D", //Terminal ok
-    "aspect": "Location",
-    "discipline": 0,
-    "select": 0,
-    "selectValues": null,
-    "attributeQualifier": "NotSet",
-    "attributeSource": "NotSet",
-    "attributeCondition": "NotSet",
-    "attributeFormat": "NotSet",
-    "attributeType": 1,
     "companyId": 1
   }
 ]
