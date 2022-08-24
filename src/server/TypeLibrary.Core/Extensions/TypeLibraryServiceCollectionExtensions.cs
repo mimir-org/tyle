@@ -44,7 +44,6 @@ namespace TypeLibrary.Core.Extensions
             cfg.AddProfile(new AttributeFormatProfile());
             cfg.AddProfile(new AttributeQualifierProfile());
             cfg.AddProfile(new AttributeSourceProfile());
-            cfg.AddProfile(new AttributeAspectProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
             cfg.AddProfile(new AttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
             cfg.AddProfile(new PurposeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
             cfg.AddProfile(new UnitProfile(provider.GetService<IApplicationSettingsRepository>()));
@@ -71,7 +70,6 @@ namespace TypeLibrary.Core.Extensions
             {
                 serviceCollection.AddDbContext<TypeLibraryDbContext>(options =>
                 {
-                    options.EnableSensitiveDataLogging();
                     options.UseSqlServer(dbConfig.ConnectionString,
                         sqlOptions => sqlOptions.MigrationsAssembly("TypeLibrary.Core"));
                 });

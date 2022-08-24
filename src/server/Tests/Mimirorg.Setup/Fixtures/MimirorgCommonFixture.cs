@@ -1,8 +1,12 @@
 using AutoMapper;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Models;
+using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Extensions;
+using Mimirorg.TypeLibrary.Models.Application;
 using Moq;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace Mimirorg.Setup.Fixtures
@@ -21,7 +25,6 @@ namespace Mimirorg.Setup.Fixtures
         public Mock<IAttributeFormatRepository> AttributeFormatRepository = new();
         public Mock<IAttributeConditionRepository> AttributeConditionRepository = new();
         public Mock<IAttributePredefinedRepository> AttributePredefinedRepository = new();
-        public Mock<IAttributeAspectRepository> AttributeAspectRepository = new();
 
         // Services
         public Mock<IVersionService> VersionService = new();
@@ -34,38 +37,202 @@ namespace Mimirorg.Setup.Fixtures
 
         }
 
+        public (NodeLibAm am, NodeLibDm dm) CreateNodeTestData()
+        {
+            var typeRefs = new List<TypeReferenceAm>
+            {
+                new()
+                {
+                    Iri = "https://tyle.com",
+                    Name = "XX"
+                }
+            };
+
+            var nodeLibAm = new NodeLibAm
+            {
+                Name = "AA",
+                RdsName = "AA",
+                RdsCode = "AA",
+                Aspect = Aspect.Function,
+                SimpleIdList = new List<string>
+                {
+                    "123",
+                    "555"
+                },
+                AttributeIdList = new List<string>
+                {
+                    "123",
+                    "555"
+                },
+                NodeTerminals = new List<NodeTerminalLibAm>
+                {
+                    new()
+                    {
+                        ConnectorDirection = ConnectorDirection.Input,
+                        Quantity = 1,
+                        TerminalId = "123"
+                    },
+                    new()
+                    {
+                        ConnectorDirection = ConnectorDirection.Input,
+                        Quantity = 1,
+                        TerminalId = "555"
+                    }
+                },
+                SelectedAttributePredefined = new List<SelectedAttributePredefinedLibAm>
+                {
+                    new()
+                    {
+                        Key = "123"
+                    },
+                    new()
+                    {
+                        Key = "555"
+                    }
+                },
+                ParentId = "123",
+                TypeReferences = typeRefs
+            };
+
+            var nodeLibDm = new NodeLibDm
+            {
+                Name = "AA",
+                RdsName = "AA",
+                RdsCode = "AA",
+                Aspect = Aspect.Function,
+                Simples = new List<SimpleLibDm>
+                {
+                    new()
+                    {
+                        Id = "123"
+                    }
+                },
+                Attributes = new List<AttributeLibDm>
+                {
+                    new()
+                    {
+                        Id = "123"
+                    }
+                },
+                NodeTerminals = new List<NodeTerminalLibDm>
+                {
+                    new()
+                    {
+                        ConnectorDirection = ConnectorDirection.Input,
+                        Quantity = 1,
+                        TerminalId = "123",
+                        Id = $"123-{ConnectorDirection.Input}".CreateMd5()
+        }
+                },
+                SelectedAttributePredefined = new List<SelectedAttributePredefinedLibDm>
+                {
+                    new()
+                    {
+                        Key = "123"
+                    }
+                },
+                ParentId = "123",
+                TypeReferences = typeRefs.ConvertToString()
+            };
+
+            return (nodeLibAm, nodeLibDm);
+        }
+
+        public (InterfaceLibAm am, InterfaceLibDm dm) CreateInterfaceTestData()
+        {
+            var typeRefs = new List<TypeReferenceAm>
+            {
+                new()
+                {
+                    Iri = "https://tyle.com",
+                    Name = "XX"
+                }
+            };
+
+            var interfaceLibAm = new InterfaceLibAm
+            {
+                Name = "AA",
+                RdsName = "AA",
+                RdsCode = "AA",
+                Aspect = Aspect.Function,
+                AttributeIdList = new List<string>
+                {
+                    "123",
+                    "555"
+                },
+                ParentId = "123",
+                TypeReferences = typeRefs
+            };
+
+            var interfaceLibDm = new InterfaceLibDm
+            {
+                Name = "AA",
+                RdsName = "AA",
+                RdsCode = "AA",
+                Aspect = Aspect.Function,
+                Attributes = new List<AttributeLibDm>
+                {
+                    new()
+                    {
+                        Id = "123"
+                    }
+                },
+                ParentId = "123",
+                TypeReferences = typeRefs.ConvertToString()
+            };
+
+            return (interfaceLibAm, interfaceLibDm);
+        }
+
+        public (TransportLibAm am, TransportLibDm dm) CreateTransportTestData()
+        {
+            var typeRefs = new List<TypeReferenceAm>
+            {
+                new()
+                {
+                    Iri = "https://tyle.com",
+                    Name = "XX"
+                }
+            };
+
+            var transportLibAm = new TransportLibAm
+            {
+                Name = "AA",
+                RdsName = "AA",
+                RdsCode = "AA",
+                Aspect = Aspect.Function,
+                AttributeIdList = new List<string>
+                {
+                    "123",
+                    "555"
+                },
+                ParentId = "123",
+                TypeReferences = typeRefs
+            };
+
+            var transportLibDm = new TransportLibDm
+            {
+                Name = "AA",
+                RdsName = "AA",
+                RdsCode = "AA",
+                Aspect = Aspect.Function,
+                Attributes = new List<AttributeLibDm>
+                {
+                    new()
+                    {
+                        Id = "123"
+                    }
+                },
+                ParentId = "123",
+                TypeReferences = typeRefs.ConvertToString()
+            };
+
+            return (transportLibAm, transportLibDm);
+        }
+
         public void Dispose()
         {
 
         }
     }
 }
-
-
-//var mappingConfig = new MapperConfiguration(mc =>
-//{
-//    mc.AddProfile(new SourceMappingProfile());
-//});
-//IMapper mapper = mappingConfig.CreateMapper();
-//_mapper = mapper;
-
-
-//var cfg = new MapperConfigurationExpression();
-//cfg.AddProfile(new AttributeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IUnitFactory>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new SymbolProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<IOptions<ApplicationSettings>>()));
-//cfg.AddProfile(new NodeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new InterfaceProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new TransportProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new RdsProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new TerminalProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IAttributeFactory>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new AttributeConditionProfile());
-//cfg.AddProfile(new AttributeFormatProfile());
-//cfg.AddProfile(new AttributeQualifierProfile());
-//cfg.AddProfile(new AttributeSourceProfile());
-//cfg.AddProfile(new AttributeAspectProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new AttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new PurposeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new UnitProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new SimpleProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-//cfg.AddProfile(new SelectedAttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>()));
-//cfg.AddProfile(new NodeTerminalProfile());

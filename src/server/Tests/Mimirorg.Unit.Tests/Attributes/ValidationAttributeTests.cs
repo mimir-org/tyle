@@ -39,9 +39,9 @@ namespace Mimirorg.Unit.Tests.Attributes
     internal class RequiredOneTestValidator
     {
         [RequiredOne("Iri")]
-        public string? Id { get; set; }
+        public string Id { get; set; }
 
         [RequiredOne("Id")]
-        public string? Iri { get; set; }
+        public string Iri { get; set; }
     }
 }

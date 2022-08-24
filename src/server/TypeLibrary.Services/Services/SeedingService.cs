@@ -13,7 +13,6 @@ namespace TypeLibrary.Services.Services
     {
         private const string AttributeFileName = "attribute";
         private const string SymbolFileName = "symbol";
-        private const string AttributeAspectFileName = "attributeaspect";
         private const string PredefinedAttributeFileName = "attributepredefined";
         private const string PurposeFileName = "purpose";
         private const string RdsFileName = "rds";
@@ -54,7 +53,6 @@ namespace TypeLibrary.Services.Services
                 if (!fileList.Any())
                     return;
 
-                var attributeAspectFiles = fileList.Where(x => x.ToLower().Equals(AttributeAspectFileName)).ToList();
                 var purposeFiles = fileList.Where(x => x.ToLower().Equals(PurposeFileName)).ToList();
 
                 var attributeFiles = fileList.Where(x => x.ToLower().Equals(AttributeFileName)).ToList();
@@ -66,7 +64,6 @@ namespace TypeLibrary.Services.Services
                 var simpleFileNames = fileList.Where(x => x.ToLower().Equals(SimpleFileName)).ToList();
                 var transportFiles = fileList.Where(x => x.ToLower().Equals(TransportFileName)).ToList();
 
-                var attributeAspects = _fileRepository.ReadAllFiles<AttributeAspectLibAm>(attributeAspectFiles).ToList();
                 var purposes = _fileRepository.ReadAllFiles<PurposeLibAm>(purposeFiles).ToList();
 
                 var attributes = _fileRepository.ReadAllFiles<AttributeLibAm>(attributeFiles).ToList();
@@ -80,7 +77,6 @@ namespace TypeLibrary.Services.Services
                 await _purposeService.Create(purposes, true);
                 await _attributeService.Create(attributes, true);
                 await _attributeService.CreatePredefined(attributesPredefined, true);
-                await _attributeService.CreateAspects(attributeAspects, true);
                 await _terminalService.Create(terminals, true);
                 await _rdsService.Create(rds, true);
                 await _symbolService.Create(symbols, true);

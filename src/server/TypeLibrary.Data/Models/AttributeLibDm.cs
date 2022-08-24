@@ -14,19 +14,25 @@ namespace TypeLibrary.Data.Models
         public AttributeLibDm Parent { get; set; }
         public string Name { get; set; }
         public string Iri { get; set; }
-        public string ContentReferences { get; set; }
+        public string TypeReferences { get; set; }
+
         public string AttributeQualifier { get; set; }
         public string AttributeSource { get; set; }
         public string AttributeCondition { get; set; }
         public string AttributeFormat { get; set; }
+
         public Aspect Aspect { get; set; }
         public Discipline Discipline { get; set; }
+
         public virtual HashSet<string> Tags { get; set; }
         public Select Select { get; set; }
         public string SelectValuesString { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public bool Deleted { get; set; }
+
+        public AttributeType AttributeType { get; set; }
+        public int CompanyId { get; set; }
 
         [NotMapped]
         public ICollection<string> SelectValues => string.IsNullOrEmpty(SelectValuesString) ? null : SelectValuesString.ConvertToArray();

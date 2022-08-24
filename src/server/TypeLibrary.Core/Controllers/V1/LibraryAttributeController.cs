@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mimirorg.Authentication.Models.Attributes;
+using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
-using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Application;
+using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
@@ -31,8 +33,55 @@ namespace TypeLibrary.Core.Controllers.V1
             _attributeService = attributeService;
         }
 
+        /// <summary>
+        /// Create an attribute
+        /// </summary>
+        /// <param name="attribute">The attribute that should be created</param>
+        /// <returns>The created attribute</returns>
+        [HttpPost]
+        [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
+        public async Task<IActionResult> Create([FromBody] AttributeLibAm attribute)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                var cm = await _attributeService.Create(attribute);
+                return Ok(cm);
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                _logger.LogWarning(e, $"Warning error: {e.Message}");
+
+                foreach (var error in e.Errors().ToList())
+                {
+                    ModelState.Remove(error.Key);
+                    ModelState.TryAddModelError(error.Key, error.Error);
+                }
+
+                return BadRequest(ModelState);
+            }
+            catch (MimirorgDuplicateException e)
+            {
+                ModelState.Remove("Id");
+                ModelState.TryAddModelError("Id", e.Message);
+                return BadRequest(ModelState);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, e.Message);
+            }
+        }
+
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<AttributeLibDm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<AttributeLibCm>), StatusCodes.Status200OK)]
         [AllowAnonymous]
         public IActionResult Get()
         {
@@ -48,8 +97,30 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        [HttpGet("{aspect}")]
-        [ProducesResponseType(typeof(ICollection<AttributeLibDm>), StatusCodes.Status200OK)]
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAttributeById(string id)
+        {
+            try
+            {
+                var data = await _attributeService.Get(id);
+                if (data == null)
+                    return NotFound();
+
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        [HttpGet("aspect/{aspect}")]
+        [ProducesResponseType(typeof(ICollection<AttributeLibCm>), StatusCodes.Status200OK)]
         [AllowAnonymous]
         public IActionResult Get(Aspect aspect)
         {
@@ -73,23 +144,6 @@ namespace TypeLibrary.Core.Controllers.V1
             try
             {
                 var data = _attributeService.GetPredefined().ToList();
-                return Ok(data);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        [HttpGet("aspect")]
-        [ProducesResponseType(typeof(ICollection<AttributeAspectLibAm>), StatusCodes.Status200OK)]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetAspects()
-        {
-            try
-            {
-                var data = await _attributeService.GetAspects();
                 return Ok(data);
             }
             catch (Exception e)

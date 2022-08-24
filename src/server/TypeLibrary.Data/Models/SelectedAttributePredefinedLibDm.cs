@@ -7,7 +7,7 @@ namespace TypeLibrary.Data.Models
     {
         public string Key { get; set; }
         public string Iri { get; set; }
-        public string ContentReferences { get; set; }
+        public string TypeReferences { get; set; }
         public bool IsMultiSelect { get; set; }
         public Dictionary<string, bool> Values { get; set; }
         public Aspect Aspect { get; set; }

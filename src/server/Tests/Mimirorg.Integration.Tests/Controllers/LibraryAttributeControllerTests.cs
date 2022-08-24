@@ -17,13 +17,12 @@ namespace Mimirorg.Integration.Tests.Controllers
 
         [Theory]
         [InlineData("/v1/libraryattribute")]
-        [InlineData("/v1/libraryattribute/0")]
-        [InlineData("/v1/libraryattribute/1")]
-        [InlineData("/v1/libraryattribute/2")]
-        [InlineData("/v1/libraryattribute/4")]
-        [InlineData("/v1/libraryattribute/8")]
+        [InlineData("/v1/libraryattribute/aspect/0")]
+        [InlineData("/v1/libraryattribute/aspect/1")]
+        [InlineData("/v1/libraryattribute/aspect/2")]
+        [InlineData("/v1/libraryattribute/aspect/4")]
+        [InlineData("/v1/libraryattribute/aspect/8")]
         [InlineData("/v1/libraryattribute/predefined")]
-        [InlineData("/v1/libraryattribute/aspect")]
         [InlineData("/v1/libraryattribute/format")]
         [InlineData("/v1/libraryattribute/condition")]
         [InlineData("/v1/libraryattribute/qualifier")]
@@ -54,7 +53,7 @@ namespace Mimirorg.Integration.Tests.Controllers
                 });
             }).CreateClient(new WebApplicationFactoryClientOptions());
 
-            var notSetResponse = await client.GetAndDeserialize<List<AttributeLibCm>>("/v1/libraryattribute/0");
+            var notSetResponse = await client.GetAndDeserialize<List<AttributeLibCm>>("/v1/libraryattribute/aspect/0");
             var response = await client.GetAndDeserialize<List<AttributeLibCm>>("/v1/libraryattribute");
             Assert.Equal(notSetResponse.Count, response.Count);
         }
