@@ -166,7 +166,7 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<AttributeConditionLibCm>> GetConditions()
         {
-            var dataSet = _attributeConditionRepository.GetConditions().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+            var dataSet = _attributeConditionRepository.GetConditions().ToList();
 
             var dataDmList = new List<AttributeConditionLibDm>();
             dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
@@ -181,7 +181,7 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<AttributeFormatLibCm>> GetFormats()
         {
-            var dataSet = _attributeFormatRepository.GetFormats().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+            var dataSet = _attributeFormatRepository.GetFormats().ToList();
 
             var dataDmList = new List<AttributeFormatLibDm>();
             dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
@@ -196,7 +196,7 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<AttributeQualifierLibCm>> GetQualifiers()
         {
-            var dataSet = _attributeQualifierRepository.GetQualifiers().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+            var dataSet = _attributeQualifierRepository.GetQualifiers().ToList();
 
             var dataDmList = new List<AttributeQualifierLibDm>();
             dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
@@ -211,7 +211,7 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<AttributeSourceLibCm>> GetSources()
         {
-            var dataSet = _attributeSourceRepository.GetSources().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+            var dataSet = _attributeSourceRepository.GetSources().ToList();
 
             var dataDmList = new List<AttributeSourceLibDm>();
             dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());

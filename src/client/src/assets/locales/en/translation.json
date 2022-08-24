@@ -85,7 +85,7 @@
   },
   "attributes": {
     "title": "Attributes",
-    "add": "Add attribute(s)",
+    "open": "Open attribute(s) selection dialog",
     "remove": "Remove attribute",
     "dialog": {
       "title": "Select attributes(s)",
@@ -94,10 +94,52 @@
       "add": "Add"
     }
   },
+  "units": {
+    "title": "Units",
+    "open": "Open unit(s) selection dialog",
+    "remove": "Remove unit",
+    "dialog": {
+      "title": "Select unit(s)",
+      "description": "The units listed below are predefined and can be reused across multiple attributes.",
+      "search": "Search",
+      "add": "Add"
+    }
+  },
   "predefinedAttributes": {
     "title": "Predefined attributes",
     "placeholders": {
       "attribute": "Select value(s)"
+    }
+  },
+  "attribute": {
+    "name": "Name",
+    "aspect": "Aspect",
+    "discipline": "Discipline",
+    "select": "Select type",
+    "qualifier": "Qualifier",
+    "source": "Source",
+    "condition": "Condition",
+    "format": "Format",
+    "type": "Attribute type",
+    "parent": "Attribute parent",
+    "owner": "Owner",
+    "placeholders": {
+      "name": "Attribute name",
+      "description": "Additional information about this attribute can be supplied here.",
+      "select": "type"
+    },
+    "processing": {
+      "loading": "Submitting attribute",
+      "success": "Your attribute has been submitted",
+      "error": "An error occurred during attribute submission"
+    },
+    "values": {
+      "title": "Values",
+      "add": "Add value",
+      "remove": "Remove value",
+      "placeholders": {
+        "value": "Enter selectable value"
+      }
     }
   },
   "forms": {

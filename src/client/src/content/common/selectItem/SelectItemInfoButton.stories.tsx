@@ -1,13 +1,13 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { LibraryIcon } from "../../../assets/icons/modules";
-import { AttributeInfoButton } from "./AttributeInfoButton";
+import { SelectItemInfoButton } from "./SelectItemInfoButton";
 
 export default {
-  title: "Content/Common/Attribute/AttributeInfoButton",
-  component: AttributeInfoButton,
-} as ComponentMeta<typeof AttributeInfoButton>;
+  title: "Content/Common/SelectItem/SelectItemInfoButton",
+  component: SelectItemInfoButton,
+} as ComponentMeta<typeof SelectItemInfoButton>;
 
-const Template: ComponentStory<typeof AttributeInfoButton> = (args) => <AttributeInfoButton {...args} />;
+const Template: ComponentStory<typeof SelectItemInfoButton> = (args) => <SelectItemInfoButton {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

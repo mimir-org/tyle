@@ -4,12 +4,12 @@ import { Divider } from "../../../complib/data-display";
 import { Box, Flexbox } from "../../../complib/layouts";
 import { Text } from "../../../complib/text";
 import { Actionable } from "../../../complib/types";
-import { AttributeItem } from "../../types/AttributeItem";
+import { SelectItem } from "../../types/SelectItem";
 
-export type AttributeDescriptionProps = Omit<AttributeItem, "id"> & Partial<Actionable>;
+export type SelectItemDescriptionProps = Omit<SelectItem, "id"> & Partial<Actionable>;
 
 /**
- * Component summarizes information about a given attribute.
+ * Component summarizes information about a given item.
  * This component is most often shown inside either a tooltip or a popover.
  *
  * @param name
@@ -20,14 +20,14 @@ export type AttributeDescriptionProps = Omit<AttributeItem, "id"> & Partial<Acti
  * @param onAction
  * @constructor
  */
-export const AttributeDescription = ({
+export const SelectItemDescription = ({
   name,
   traits,
   actionable,
   actionIcon,
   actionText,
   onAction,
-}: AttributeDescriptionProps) => {
+}: SelectItemDescriptionProps) => {
   const theme = useTheme();
 
   return (
