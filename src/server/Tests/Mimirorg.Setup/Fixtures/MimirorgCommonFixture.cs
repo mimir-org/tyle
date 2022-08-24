@@ -94,8 +94,12 @@ namespace Mimirorg.Setup.Fixtures
                 TypeReferences = typeRefs
             };
 
+            var id = $"AA-AA-{Aspect.Function}-1.0".CreateMd5();
+            var terminalId = $"123-{ConnectorDirection.Input}".CreateMd5();
+
             var nodeLibDm = new NodeLibDm
             {
+                Id = $"AA-AA-{Aspect.Function}-1.0".CreateMd5(),
                 Name = "AA",
                 RdsName = "AA",
                 RdsCode = "AA",
@@ -121,8 +125,8 @@ namespace Mimirorg.Setup.Fixtures
                         ConnectorDirection = ConnectorDirection.Input,
                         Quantity = 1,
                         TerminalId = "123",
-                        Id = $"123-{ConnectorDirection.Input}".CreateMd5()
-        }
+                        Id = $"{terminalId}-{id}".CreateMd5()
+                    }
                 },
                 SelectedAttributePredefined = new List<SelectedAttributePredefinedLibDm>
                 {

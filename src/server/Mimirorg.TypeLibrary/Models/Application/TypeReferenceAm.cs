@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+// ReSharper disable NonReadonlyMemberInGetHashCode
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
-    public class TypeReferenceAm : IEqualityComparer<TypeReferenceAm>
+    public class TypeReferenceAm : IEquatable<TypeReferenceAm>
     {
         [Required]
         public string Name { get; set; }
@@ -10,18 +11,24 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public string Iri { get; set; }
 
-        public bool Equals(TypeReferenceAm x, TypeReferenceAm y)
+
+        public bool Equals(TypeReferenceAm other)
         {
-            if (ReferenceEquals(x, y)) return true;
-            if (ReferenceEquals(x, null)) return false;
-            if (ReferenceEquals(y, null)) return false;
-            if (x.GetType() != y.GetType()) return false;
-            return x.Name == y.Name && x.Iri == y.Iri;
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Name == other.Name && Iri == other.Iri;
         }
 
-        public int GetHashCode(TypeReferenceAm obj)
+        public override bool Equals(object obj)
         {
-            return HashCode.Combine(obj.Name, obj.Iri);
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == this.GetType() && Equals((TypeReferenceAm) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Name, Iri);
         }
     }
 }

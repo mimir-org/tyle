@@ -101,10 +101,7 @@ namespace TypeLibrary.Data.Models
             if (!string.IsNullOrEmpty(TypeReferences))
                 references = JsonConvert.DeserializeObject<ICollection<TypeReferenceAm>>(TypeReferences);
 
-            if (references != null && references.SequenceEqual(other.TypeReferences))
-                minor = true;
-
-            if (references == null && other.TypeReferences != null)
+            if (references != null && !references.SequenceEqual(other.TypeReferences))
                 minor = true;
 
             return major ? VersionStatus.Major : minor ? VersionStatus.Minor : VersionStatus.NoChange;

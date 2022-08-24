@@ -2,7 +2,6 @@ using System.Linq;
 using Mimirorg.Setup;
 using Mimirorg.Setup.Fixtures;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Xunit;
 

@@ -149,6 +149,8 @@ namespace TypeLibrary.Services.Services
                 throw new MimirorgBadRequestException(validation.Message, validation);
 
             var versionStatus = latestInterfaceDm.CalculateVersionStatus(dataAm);
+            if (versionStatus == VersionStatus.NoChange)
+                return await Get(latestInterfaceDm.Id);
 
             dataAm.FirstVersionId = latestInterfaceDm.FirstVersionId;
             dataAm.Version = versionStatus switch

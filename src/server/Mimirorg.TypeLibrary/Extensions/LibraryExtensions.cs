@@ -1,4 +1,3 @@
-using System.Diagnostics.Metrics;
 using Mimirorg.TypeLibrary.Contracts;
 
 namespace Mimirorg.TypeLibrary.Extensions
