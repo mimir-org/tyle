@@ -77,6 +77,7 @@ namespace TypeLibrary.Core.Extensions
 
             // Factories
             services.AddScoped<IAttributeFactory, AttributeFactory>();
+            services.AddScoped<IUnitFactory, UnitFactory>();
 
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();

@@ -21,7 +21,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// <remarks>Only attributes that is not deleted will be returned</remarks>
         public IEnumerable<AttributeLibDm> Get()
         {
-            return GetAll().Where(x => !x.Deleted).Include(x => x.Units);
+            return GetAll().Where(x => !x.Deleted);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// <returns>If exist it returns the attribute, otherwise it returns null</returns>
         public async Task<AttributeLibDm> Get(string id)
         {
-            var item = await FindBy(x => x.Id == id && !x.Deleted).Include(x => x.Units).FirstOrDefaultAsync();
+            var item = await FindBy(x => x.Id == id && !x.Deleted).FirstOrDefaultAsync();
             return item;
         }
 

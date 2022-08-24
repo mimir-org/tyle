@@ -1,17 +1,17 @@
 using System.Collections.Generic;
 using System.Linq;
+using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Factories;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Data.Repositories.External;
 
 namespace TypeLibrary.Data.Factories
 {
     public class UnitFactory : IUnitFactory
     {
         public ICollection<UnitLibDm> AllUnits { get; private set; }
-        private readonly UnitRepository _unitRepository;
+        private readonly IUnitRepository _unitRepository;
 
-        public UnitFactory(UnitRepository unitRepository)
+        public UnitFactory(IUnitRepository unitRepository)
         {
             _unitRepository = unitRepository;
         }
