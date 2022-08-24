@@ -18,13 +18,13 @@ namespace TypeLibrary.Data.Models
         public string AttributeSource { get; set; }
         public string AttributeCondition { get; set; }
         public string AttributeFormat { get; set; }
-        public string Units { get; set; }
-
+        
         public int CompanyId { get; set; }
         public Aspect Aspect { get; set; }
         public Discipline Discipline { get; set; }
         public Select Select { get; set; }
         public string SelectValuesString { get; set; }
+        public string Units { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public bool Deleted { get; set; }
