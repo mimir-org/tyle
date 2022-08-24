@@ -1,7 +1,5 @@
-using System.Security.AccessControl;
 using System.Security.Cryptography;
 using System.Text;
-using Mimirorg.TypeLibrary.Models.Application;
 using Newtonsoft.Json;
 
 namespace Mimirorg.TypeLibrary.Extensions
@@ -29,7 +27,8 @@ namespace Mimirorg.TypeLibrary.Extensions
 
         public static string ConvertToString<T>(this T obj) where T : class
         {
-            return obj == null ? null : JsonConvert.SerializeObject(obj);
+            var dataObject = obj == null ? null : JsonConvert.SerializeObject(obj);
+            return dataObject == "[]" ? null : dataObject;
         }
     }
 }

@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using AutoMapper;
-using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Extensions;
-using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Models;
 

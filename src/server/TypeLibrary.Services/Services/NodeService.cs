@@ -160,6 +160,8 @@ namespace TypeLibrary.Services.Services
                 throw new MimirorgBadRequestException(validation.Message, validation);
 
             var versionStatus = latestNodeDm.CalculateVersionStatus(dataAm);
+            if (versionStatus == VersionStatus.NoChange)
+                return await Get(latestNodeDm.Id);
 
             dataAm.FirstVersionId = latestNodeDm.FirstVersionId;
             dataAm.Version = versionStatus switch

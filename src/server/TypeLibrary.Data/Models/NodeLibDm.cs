@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Newtonsoft.Json;
 using TypeLibrary.Data.Contracts.Common;
@@ -78,7 +79,9 @@ namespace TypeLibrary.Data.Models
 
             if (NodeTerminals != null && other.NodeTerminals != null)
             {
-                if (NodeTerminals.Select(y => y.Id).Any(id => other.NodeTerminals.Select(x => x.Id).All(x => x != id)))
+                var otherTerminals = other.NodeTerminals.Select(x => $"{x.Id}-{Id}".CreateMd5());
+
+                if (NodeTerminals.Select(y => y.Id).Any(id => otherTerminals.Select(x => x).All(x => x != id)))
                 {
                     validation.AddNotAllowToChange(nameof(NodeTerminals), "It is not allowed to remove items from terminals");
                 }
@@ -127,7 +130,9 @@ namespace TypeLibrary.Data.Models
 
             if (NodeTerminals != null && other.NodeTerminals != null)
             {
-                if (!NodeTerminals.Select(x => x.Id).SequenceEqual(other.NodeTerminals.Select(x => x.Id)))
+                var otherTerminals = other.NodeTerminals.Select(x => $"{x.Id}-{Id}".CreateMd5());
+
+                if (!NodeTerminals.Select(x => x.Id).SequenceEqual(otherTerminals))
                     major = true;
             }
 
@@ -148,12 +153,8 @@ namespace TypeLibrary.Data.Models
             if (!string.IsNullOrEmpty(TypeReferences))
                 references = JsonConvert.DeserializeObject<ICollection<TypeReferenceAm>>(TypeReferences);
 
-            if (references != null && references.SequenceEqual(other.TypeReferences))
+            if (references != null && !references.SequenceEqual(other.TypeReferences))
                 minor = true;
-
-            if (references == null && other.TypeReferences != null)
-                minor = true;
-
 
             return major ? VersionStatus.Major : minor ? VersionStatus.Minor : VersionStatus.NoChange;
         }
