@@ -14,6 +14,6 @@ export const createEmptyNodeLibAm = (): NodeLibAm => ({
   description: "",
   symbol: "",
   attributeAspectIri: "",
-  contentReferences: [],
+  typeReferences: [],
   parentId: "",
 });

@@ -11,7 +11,7 @@ export const createEmptyAttributeLibAm = (): AttributeLibAm => ({
   attributeFormat: "",
   attributeType: AttributeType.Normal,
   companyId: 0,
-  contentReferences: [],
+  typeReferences: [],
   parentId: "",
   selectValues: [],
   unitIdList: [],

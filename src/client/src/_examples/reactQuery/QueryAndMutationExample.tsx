@@ -42,7 +42,7 @@ export const QueryAndMutationExample = () => {
     ],
     selectedAttributePredefined: [],
     simpleIdList: [],
-    contentReferences: [],
+    typeReferences: [],
   };
 
   return (
