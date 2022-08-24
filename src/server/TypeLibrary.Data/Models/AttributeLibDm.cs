@@ -18,7 +18,7 @@ namespace TypeLibrary.Data.Models
         public string AttributeSource { get; set; }
         public string AttributeCondition { get; set; }
         public string AttributeFormat { get; set; }
-        
+
         public int CompanyId { get; set; }
         public Aspect Aspect { get; set; }
         public Discipline Discipline { get; set; }
