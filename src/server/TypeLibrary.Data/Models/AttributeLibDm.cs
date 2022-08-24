@@ -24,6 +24,7 @@ namespace TypeLibrary.Data.Models
         public Discipline Discipline { get; set; }
         public Select Select { get; set; }
         public string SelectValuesString { get; set; }
+        public string Units { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public bool Deleted { get; set; }
@@ -38,6 +39,5 @@ namespace TypeLibrary.Data.Models
         public virtual ICollection<NodeLibDm> Nodes { get; set; }
         public virtual ICollection<SimpleLibDm> Simple { get; set; }
         public virtual ICollection<TransportLibDm> Transports { get; set; }
-        public virtual ICollection<UnitLibDm> Units { get; set; }
     }
 }

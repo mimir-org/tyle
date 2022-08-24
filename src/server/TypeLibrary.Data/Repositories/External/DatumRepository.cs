@@ -75,7 +75,7 @@ namespace TypeLibrary.Data.Repositories.External
             throw new System.NotImplementedException();
         }
 
-        #endregion
+        #endregion Condition
 
         #region Qualifier
 
@@ -133,7 +133,7 @@ namespace TypeLibrary.Data.Repositories.External
             throw new System.NotImplementedException();
         }
 
-        #endregion
+        #endregion Qualifier
 
         #region Source
 
@@ -199,7 +199,7 @@ namespace TypeLibrary.Data.Repositories.External
             throw new System.NotImplementedException();
         }
 
-        #endregion
+        #endregion Source
 
         #region Formats
 
@@ -289,7 +289,7 @@ namespace TypeLibrary.Data.Repositories.External
             throw new System.NotImplementedException();
         }
 
-        #endregion
+        #endregion Formats
 
         #region Private methods
 

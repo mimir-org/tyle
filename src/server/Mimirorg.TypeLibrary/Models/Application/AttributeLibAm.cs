@@ -46,11 +46,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (Select == Select.None && (SelectValues != null && SelectValues.Any()))
-                yield return new ValidationResult($"There should not be any values in {nameof(SelectValues)}, when Select is different from SingleSelect or MultiSelect", SelectValues);
-
-            if (Select != Select.None && (SelectValues == null || !SelectValues.Any()))
-                yield return new ValidationResult($"There should values in {nameof(SelectValues)}, when Select is SingleSelect or MultiSelect", SelectValues);
+            return this.ValidateAttribute();
         }
     }
 }
