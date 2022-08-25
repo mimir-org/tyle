@@ -8,7 +8,6 @@ import { Input, Select } from "../../../complib/inputs";
 import { Flexbox } from "../../../complib/layouts";
 import { useGetCompanies } from "../../../data/queries/auth/queriesCompany";
 import {
-  useGetAttributes,
   useGetAttributesCondition,
   useGetAttributesFormat,
   useGetAttributesQualifier,
@@ -39,16 +38,13 @@ export const AttributeFormBaseFields = ({ control, register, hasPrefilledData }:
   const { t } = useTranslation();
 
   const companyQuery = useGetCompanies();
-  const attributeQuery = useGetAttributes();
   const attributeSourceQuery = useGetAttributesSource();
   const attributeFormatQuery = useGetAttributesFormat();
   const attributeQualifierQuery = useGetAttributesQualifier();
   const attributeConditionQuery = useGetAttributesCondition();
   const aspectOptions = getValueLabelObjectsFromEnum<Aspect>(Aspect);
-  const typeOptions = getValueLabelObjectsFromEnum<AttributeType>(AttributeType);
   const disciplineOptions = getValueLabelObjectsFromEnum<Discipline>(Discipline);
   const selectOptions = getValueLabelObjectsFromEnum<AttributeSelect>(AttributeSelect);
-  const filteredAttributes = prepareParentAttributes(attributeQuery.data);
 
   return (
     <AttributeFormBaseFieldsContainer>
@@ -90,6 +86,27 @@ export const AttributeFormBaseFields = ({ control, register, hasPrefilledData }:
                 onChange={(x) => onChange(x?.value)}
                 value={disciplineOptions.find((x) => x.value === value)}
                 isDisabled={hasPrefilledData}
+              />
+            </FormField>
+          )}
+        />
+
+        <Controller
+          control={control}
+          name={"companyId"}
+          render={({ field: { value, onChange, ref, ...rest } }) => (
+            <FormField label={t("attribute.owner")}>
+              <Select
+                {...rest}
+                selectRef={ref}
+                placeholder={t("common.templates.select", { object: t("node.owner").toLowerCase() })}
+                options={companyQuery.data}
+                getOptionLabel={(x) => x.name}
+                getOptionValue={(x) => x.id.toString()}
+                onChange={(x) => {
+                  onChange(x?.id);
+                }}
+                value={companyQuery.data?.find((x) => x.id === value)}
               />
             </FormField>
           )}
@@ -191,65 +208,6 @@ export const AttributeFormBaseFields = ({ control, register, hasPrefilledData }:
                 getOptionValue={(x) => x.name}
                 onChange={(x) => onChange(x?.name)}
                 value={attributeFormatQuery.data?.find((x) => x.name === value)}
-              />
-            </FormField>
-          )}
-        />
-
-        <Controller
-          control={control}
-          name={"attributeType"}
-          render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("attribute.type")}>
-              <Select
-                {...rest}
-                selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("attribute.type").toLowerCase() })}
-                options={typeOptions}
-                getOptionLabel={(x) => x.label}
-                onChange={(x) => onChange(x?.value)}
-                value={typeOptions.find((x) => x.value === value)}
-                isDisabled={hasPrefilledData}
-              />
-            </FormField>
-          )}
-        />
-
-        <Controller
-          control={control}
-          name={"parentId"}
-          render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("attribute.parent")}>
-              <Select
-                {...rest}
-                selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("attribute.parent").toLowerCase() })}
-                options={filteredAttributes}
-                getOptionLabel={(x) => x.name}
-                onChange={(x) => onChange(x?.id)}
-                value={filteredAttributes.find((x) => x.name === value)}
-                isDisabled={hasPrefilledData}
-              />
-            </FormField>
-          )}
-        />
-
-        <Controller
-          control={control}
-          name={"companyId"}
-          render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("attribute.owner")}>
-              <Select
-                {...rest}
-                selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("node.owner").toLowerCase() })}
-                options={companyQuery.data}
-                getOptionLabel={(x) => x.name}
-                getOptionValue={(x) => x.id.toString()}
-                onChange={(x) => {
-                  onChange(x?.id);
-                }}
-                value={companyQuery.data?.find((x) => x.id === value)}
               />
             </FormField>
           )}
