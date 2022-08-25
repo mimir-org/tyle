@@ -1,4 +1,4 @@
-import { AttributeLibCm } from "@mimirorg/typelibrary-types";
+import { Select } from "@mimirorg/typelibrary-types";
 import { useEffect, useState } from "react";
 import { DefaultValues, KeepStateOptions } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -40,8 +40,4 @@ export const useAttributeSubmissionToast = () => {
     });
 };
 
-export const prepareParentAttributes = (attributes?: AttributeLibCm[]) => {
-  if (!attributes || attributes.length == 0) return [];
-
-  return attributes.filter((a) => a.parentName === null);
-};
+export const showSelectValues = (attributeSelect: Select) => attributeSelect !== Select.None;
