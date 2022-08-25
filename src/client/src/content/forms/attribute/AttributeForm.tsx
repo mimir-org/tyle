@@ -19,7 +19,7 @@ interface AttributeFormProps {
 
 export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }: AttributeFormProps) => {
   const theme = useTheme();
-  const { register, handleSubmit, control, reset } = useForm<FormAttributeLib>({ defaultValues });
+  const { register, handleSubmit, control, reset, resetField } = useForm<FormAttributeLib>({ defaultValues });
 
   const attributeCreateMutation = useCreateAttribute();
   const [hasPrefilledData, isLoading] = usePrefilledAttributeData(reset);
@@ -39,7 +39,12 @@ export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }:
       {isLoading && <Loader />}
       {!isLoading && (
         <>
-          <AttributeFormBaseFields control={control} register={register} hasPrefilledData={hasPrefilledData} />
+          <AttributeFormBaseFields
+            control={control}
+            register={register}
+            resetField={resetField}
+            hasPrefilledData={hasPrefilledData}
+          />
 
           <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
             <AttributeFormUnits register={register} control={control} />

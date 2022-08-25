@@ -1,5 +1,5 @@
-import { Aspect, AttributeType, Discipline, Select as AttributeSelect } from "@mimirorg/typelibrary-types";
-import { Control, Controller, UseFormRegister } from "react-hook-form";
+import { Aspect, Discipline, Select as AttributeSelect } from "@mimirorg/typelibrary-types";
+import { Control, Controller, UseFormRegister, UseFormResetField } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Button } from "../../../complib/buttons";
@@ -15,13 +15,14 @@ import {
 } from "../../../data/queries/tyle/queriesAttribute";
 import { getValueLabelObjectsFromEnum } from "../../../utils/getValueLabelObjectsFromEnum";
 import { PlainLink } from "../../utils/PlainLink";
-import { prepareParentAttributes } from "./AttributeForm.helpers";
+import { onChangeSelectType } from "./AttributeFormBaseFields.helpers";
 import { AttributeFormBaseFieldsContainer } from "./AttributeFormBaseFields.styled";
 import { FormAttributeLib } from "./types/formAttributeLib";
 
 interface AttributeFormBaseFieldsProps {
   control: Control<FormAttributeLib>;
   register: UseFormRegister<FormAttributeLib>;
+  resetField: UseFormResetField<FormAttributeLib>;
   hasPrefilledData?: boolean;
 }
 
@@ -30,10 +31,16 @@ interface AttributeFormBaseFieldsProps {
  *
  * @param control
  * @param register
+ * @param resetField
  * @param hasPrefilledData
  * @constructor
  */
-export const AttributeFormBaseFields = ({ control, register, hasPrefilledData }: AttributeFormBaseFieldsProps) => {
+export const AttributeFormBaseFields = ({
+  control,
+  register,
+  resetField,
+  hasPrefilledData,
+}: AttributeFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -125,7 +132,10 @@ export const AttributeFormBaseFields = ({ control, register, hasPrefilledData }:
                 })}
                 options={selectOptions}
                 getOptionLabel={(x) => x.label}
-                onChange={(x) => onChange(x?.value)}
+                onChange={(x) => {
+                  onChangeSelectType(resetField, x?.value);
+                  onChange(x?.value);
+                }}
                 value={selectOptions.find((x) => x.value === value)}
                 isDisabled={hasPrefilledData}
               />
