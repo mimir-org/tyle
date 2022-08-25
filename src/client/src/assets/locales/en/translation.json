@@ -111,6 +111,15 @@
       "attribute": "Select value(s)"
     }
   },
+  "values": {
+    "title": "Values",
+    "add": "Add value",
+    "remove": "Remove value",
+    "value": "Value",
+    "placeholders": {
+      "value": "Enter selectable value"
+    }
+  },
   "attribute": {
     "name": "Name",
     "aspect": "Aspect",
@@ -132,14 +141,6 @@
       "loading": "Submitting attribute",
       "success": "Your attribute has been submitted",
       "error": "An error occurred during attribute submission"
-    },
-    "values": {
-      "title": "Values",
-      "add": "Add value",
-      "remove": "Remove value",
-      "placeholders": {
-        "value": "Enter selectable value"
-      }
     }
   },
   "forms": {
