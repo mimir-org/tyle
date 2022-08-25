@@ -105,6 +105,17 @@
       "add": "Add"
     }
   },
+  "references": {
+    "title": "References",
+    "add": "Add reference",
+    "remove": "Remove reference",
+    "name": "Name",
+    "iri": "IRI",
+    "placeholders": {
+      "name": "Enter reference name",
+      "iri": "Enter reference IRI"
+    }
+  },
   "predefinedAttributes": {
     "title": "Predefined attributes",
     "placeholders": {
