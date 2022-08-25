@@ -13,7 +13,6 @@ export const createEmptyNodeLibAm = (): NodeLibAm => ({
   selectedAttributePredefined: [],
   description: "",
   symbol: "",
-  attributeAspectIri: "",
   typeReferences: [],
   parentId: "",
 });

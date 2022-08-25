@@ -1,4 +1,4 @@
-import { Aspect, AttributeLibAm, AttributeType, Discipline, Select } from "@mimirorg/typelibrary-types";
+import { Aspect, AttributeLibAm, Discipline, Select } from "@mimirorg/typelibrary-types";
 
 export const createEmptyAttributeLibAm = (): AttributeLibAm => ({
   name: "",
@@ -9,10 +9,8 @@ export const createEmptyAttributeLibAm = (): AttributeLibAm => ({
   attributeSource: "",
   attributeCondition: "",
   attributeFormat: "",
-  attributeType: AttributeType.Normal,
   companyId: 0,
   typeReferences: [],
-  parentId: "",
   selectValues: [],
   unitIdList: [],
   tags: [],

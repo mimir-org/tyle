@@ -1,4 +1,4 @@
-import { Aspect, AttributeLibCm, AttributeType } from "@mimirorg/typelibrary-types";
+import { Aspect, AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { UseFieldArrayReturn } from "react-hook-form";
 import { mapAttributeLibCmToSelectItem } from "../../../../utils/mappers/mapAttributeLibCmToSelectItem";
 import { FormNodeLib } from "../../types/formNodeLib";
@@ -25,7 +25,5 @@ export const prepareAttributes = (attributes?: AttributeLibCm[], aspects?: Aspec
   if (!attributes || attributes.length == 0) return [];
   if (!aspects || aspects.length == 0) return [];
 
-  return attributes
-    .filter((a) => aspects.some((x) => x === a.aspect && a.attributeType === AttributeType.Normal))
-    .sort((a, b) => a.discipline - b.discipline);
+  return attributes.filter((a) => aspects.some((x) => x === a.aspect)).sort((a, b) => a.discipline - b.discipline);
 };
