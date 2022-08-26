@@ -16,7 +16,7 @@ interface SelectItemDialogProps {
   addItemsButtonText: string;
   openDialogButtonText: string;
   items: InfoItem[];
-  onAdd: (attributeIds: string[]) => void;
+  onAdd: (ids: string[]) => void;
 }
 
 /**
@@ -43,7 +43,7 @@ export const SelectItemDialog = ({
   const [searchQuery, setSearchQuery] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
 
-  const onAddAttributes = () => {
+  const onAddItems = () => {
     onAdd(selected);
     setSelected([]);
     setSearchQuery("");
@@ -74,7 +74,7 @@ export const SelectItemDialog = ({
               ))}
           </SelectItemsContainer>
           <DialogClose asChild>
-            <Button onClick={onAddAttributes} disabled={selected.length < 1}>
+            <Button onClick={onAddItems} disabled={selected.length < 1}>
               {addItemsButtonText}
             </Button>
           </DialogClose>
