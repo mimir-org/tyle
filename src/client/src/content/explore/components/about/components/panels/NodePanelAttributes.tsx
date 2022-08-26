@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Box } from "../../../../../../complib/layouts";
 import { Heading } from "../../../../../../complib/text";
-import { SelectItemInfoButton } from "../../../../../common/selectItem";
+import { InfoItemButton } from "../../../../../common/infoItem";
 import { NodeItem } from "../../../../../types/NodeItem";
 
 export const NodePanelAttributes = ({ attributes }: Pick<NodeItem, "attributes">) => {
@@ -15,7 +15,7 @@ export const NodePanelAttributes = ({ attributes }: Pick<NodeItem, "attributes">
         {t("title")}
       </Heading>
       <Box display={"flex"} gap={theme.tyle.spacing.xl} flexWrap={"wrap"}>
-        {attributes && attributes.map((a, i) => <SelectItemInfoButton key={i} {...a} />)}
+        {attributes && attributes.map((a, i) => <InfoItemButton key={i} {...a} />)}
       </Box>
     </>
   );

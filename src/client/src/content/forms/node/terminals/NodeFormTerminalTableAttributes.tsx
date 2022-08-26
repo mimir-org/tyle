@@ -4,8 +4,8 @@ import { useTheme } from "styled-components";
 import { Td } from "../../../../complib/data-display";
 import { Box } from "../../../../complib/layouts";
 import { useMediaQuery } from "../../../../hooks/useMediaQuery";
-import { mapAttributeLibCmToAttributeItem } from "../../../../utils/mappers";
-import { SelectItemInfoButton } from "../../../common/selectItem";
+import { mapAttributeLibCmToInfoItem } from "../../../../utils/mappers";
+import { InfoItemButton } from "../../../common/infoItem";
 
 export const NodeFormTerminalTableAttributes = ({ attributes }: Pick<TerminalLibCm, "attributes">) => {
   const theme = useTheme();
@@ -20,7 +20,7 @@ export const NodeFormTerminalTableAttributes = ({ attributes }: Pick<TerminalLib
         gap={theme.tyle.spacing.base}
         pl={adjustAttributesPadding ? theme.tyle.spacing.xxxl : undefined}
       >
-        {attributes.map((x) => x && <SelectItemInfoButton key={x.id} {...mapAttributeLibCmToAttributeItem(x)} />)}
+        {attributes.map((x) => x && <InfoItemButton key={x.id} {...mapAttributeLibCmToInfoItem(x)} />)}
       </Box>
     </Td>
   );

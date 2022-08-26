@@ -1,6 +1,6 @@
 import { Aspect, AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { UseFieldArrayReturn } from "react-hook-form";
-import { mapAttributeLibCmToSelectItem } from "../../../../utils/mappers/mapAttributeLibCmToSelectItem";
+import { mapAttributeLibCmsToInfoItems } from "../../../../utils/mappers";
 import { FormNodeLib } from "../../types/formNodeLib";
 
 export const onAddAttributes = (
@@ -18,7 +18,7 @@ export const onAddAttributes = (
 export const getSelectItemsFromAttributeLibCms = (attributes?: AttributeLibCm[]) => {
   if (!attributes || attributes.length == 0) return [];
 
-  return attributes.map((x) => mapAttributeLibCmToSelectItem(x));
+  return mapAttributeLibCmsToInfoItems(attributes);
 };
 
 export const prepareAttributes = (attributes?: AttributeLibCm[], aspects?: Aspect[]) => {

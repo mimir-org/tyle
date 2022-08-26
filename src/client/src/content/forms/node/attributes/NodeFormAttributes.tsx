@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Flexbox } from "../../../../complib/layouts";
 import { useGetAttributes } from "../../../../data/queries/tyle/queriesAttribute";
-import { SelectItemInfoButton } from "../../../common/selectItem";
+import { InfoItemButton } from "../../../common/infoItem";
 import { FormSection } from "../../common/FormSection";
 import { SelectItemDialog } from "../../common/SelectItemDialog";
 import { FormNodeLib } from "../../types/formNodeLib";
@@ -45,7 +45,7 @@ export const NodeFormAttributes = ({ control, aspects, register }: NodeFormAttri
           const attribute = attributeItems.find((x) => x.id === field.value);
           return (
             attribute && (
-              <SelectItemInfoButton
+              <InfoItemButton
                 key={field.id}
                 {...register(`attributeIdList.${index}`)}
                 {...attribute}

@@ -4,30 +4,30 @@ import { Divider } from "../../../complib/data-display";
 import { Box, Flexbox } from "../../../complib/layouts";
 import { Text } from "../../../complib/text";
 import { Actionable } from "../../../complib/types";
-import { SelectItem } from "../../types/SelectItem";
+import { InfoItem } from "../../types/InfoItem";
 
-export type SelectItemDescriptionProps = Omit<SelectItem, "id"> & Partial<Actionable>;
+export type InfoItemDescriptionProps = Omit<InfoItem, "id"> & Partial<Actionable>;
 
 /**
- * Component summarizes information about a given item.
+ * Component summarizes information about a given generic item.
  * This component is most often shown inside either a tooltip or a popover.
  *
- * @param name
- * @param traits
- * @param actionable
- * @param actionIcon
- * @param actionText
- * @param onAction
+ * @param name of item
+ * @param descriptors various qualities/traits that the item has
+ * @param actionable enables action button in popover
+ * @param actionIcon icon disabled inside action button
+ * @param actionText action button text (hidden if icon is supplied)
+ * @param onAction called when clicking action button
  * @constructor
  */
-export const SelectItemDescription = ({
+export const InfoItemDescription = ({
   name,
-  traits,
+  descriptors,
   actionable,
   actionIcon,
   actionText,
   onAction,
-}: SelectItemDescriptionProps) => {
+}: InfoItemDescriptionProps) => {
   const theme = useTheme();
 
   return (
@@ -50,17 +50,23 @@ export const SelectItemDescription = ({
         <Divider />
       </Flexbox>
 
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.base}>
-        {traits &&
-          Object.keys(traits).map((k, i) => (
+      <Box
+        display={"flex"}
+        flexDirection={"column"}
+        gap={theme.tyle.spacing.base}
+        maxHeight={"250px"}
+        overflow={"auto"}
+      >
+        {descriptors &&
+          Object.keys(descriptors).map((k, i) => (
             <Text key={i} variant={"body-small"} textTransform={"capitalize"}>
               <Box as={"span"} color={theme.tyle.color.sys.secondary.base}>
                 {k}:{" "}
               </Box>
-              {traits[k]}
+              {descriptors[k]}
             </Text>
           ))}
-      </Flexbox>
+      </Box>
     </Box>
   );
 };
