@@ -17,6 +17,7 @@ import { getValueLabelObjectsFromEnum } from "../../../utils/getValueLabelObject
 import { PlainLink } from "../../utils/PlainLink";
 import { onChangeSelectType } from "./AttributeFormBaseFields.helpers";
 import { AttributeFormBaseFieldsContainer } from "./AttributeFormBaseFields.styled";
+import { AttributeFormPreview } from "./AttributeFormPreview";
 import { FormAttributeLib } from "./types/formAttributeLib";
 
 interface AttributeFormBaseFieldsProps {
@@ -55,6 +56,8 @@ export const AttributeFormBaseFields = ({
 
   return (
     <AttributeFormBaseFieldsContainer>
+      <AttributeFormPreview control={control} />
+
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
         <FormField label={t("attribute.name")}>
           <Input placeholder={t("attribute.placeholders.name")} {...register("name")} />
@@ -92,7 +95,6 @@ export const AttributeFormBaseFields = ({
                 getOptionLabel={(x) => x.label}
                 onChange={(x) => onChange(x?.value)}
                 value={disciplineOptions.find((x) => x.value === value)}
-                isDisabled={hasPrefilledData}
               />
             </FormField>
           )}
@@ -137,7 +139,6 @@ export const AttributeFormBaseFields = ({
                   onChange(x?.value);
                 }}
                 value={selectOptions.find((x) => x.value === value)}
-                isDisabled={hasPrefilledData}
               />
             </FormField>
           )}
