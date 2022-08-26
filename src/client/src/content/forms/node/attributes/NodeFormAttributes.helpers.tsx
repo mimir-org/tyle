@@ -1,7 +1,7 @@
 import { Aspect, AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { UseFieldArrayReturn } from "react-hook-form";
 import { mapAttributeLibCmsToInfoItems } from "../../../../utils/mappers";
-import { FormNodeLib } from "../../types/formNodeLib";
+import { FormNodeLib } from "../types/formNodeLib";
 
 export const onAddAttributes = (
   ids: string[],

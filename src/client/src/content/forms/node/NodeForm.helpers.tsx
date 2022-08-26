@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { toast } from "../../../complib/data-display";
 import { useGetNode } from "../../../data/queries/tyle/queriesNode";
-import { FormNodeLib, mapNodeLibCmToFormNodeLib } from "../types/formNodeLib";
+import { FormNodeLib, mapNodeLibCmToFormNodeLib } from "./types/formNodeLib";
 import { FunctionNode, LocationNode, ProductNode } from "./variants";
 
 /**

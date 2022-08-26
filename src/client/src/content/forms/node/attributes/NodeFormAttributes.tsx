@@ -8,7 +8,7 @@ import { useGetAttributes } from "../../../../data/queries/tyle/queriesAttribute
 import { InfoItemButton } from "../../../common/infoItem";
 import { FormSection } from "../../common/FormSection";
 import { SelectItemDialog } from "../../common/SelectItemDialog";
-import { FormNodeLib } from "../../types/formNodeLib";
+import { FormNodeLib } from "../types/formNodeLib";
 import { getSelectItemsFromAttributeLibCms, onAddAttributes, prepareAttributes } from "./NodeFormAttributes.helpers";
 
 export interface NodeFormAttributesProps {
