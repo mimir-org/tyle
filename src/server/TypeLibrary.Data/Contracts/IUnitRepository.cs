@@ -11,13 +11,14 @@ namespace TypeLibrary.Data.Contracts
         /// </summary>
         /// <returns>A collection of units</returns>
         /// <remarks>Only units that is not deleted will be returned</remarks>
-        IEnumerable<UnitLibDm> GetUnits();
+        Task<List<UnitLibDm>> Get();
 
         /// <summary>
-        /// Creates a new unit
+        /// Create an unit
         /// </summary>
-        /// <param name="unit">The unit that should be created</param>
-        /// <returns>An unit</returns>
+        /// <param name="unit">The unit to be created</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         Task<UnitLibDm> CreateUnit(UnitLibDm unit);
     }
 }

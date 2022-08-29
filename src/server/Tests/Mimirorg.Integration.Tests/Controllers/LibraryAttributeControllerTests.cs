@@ -1,7 +1,6 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Mimirorg.Setup;
-using Mimirorg.TypeLibrary.Models.Client;
 using Xunit;
 
 // ReSharper disable StringLiteralTypo
@@ -40,22 +39,6 @@ namespace Mimirorg.Integration.Tests.Controllers
 
             var response = await client.GetAsync(endpoint);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        }
-
-        [Fact]
-        public async Task GET_Retrieves_Same_Data_NotSet_And_Empty()
-        {
-            var client = Factory.WithWebHostBuilder(builder =>
-            {
-                builder.ConfigureServices(services =>
-                {
-
-                });
-            }).CreateClient(new WebApplicationFactoryClientOptions());
-
-            var notSetResponse = await client.GetAndDeserialize<List<AttributeLibCm>>("/v1/libraryattribute/aspect/0");
-            var response = await client.GetAndDeserialize<List<AttributeLibCm>>("/v1/libraryattribute");
-            Assert.Equal(notSetResponse.Count, response.Count);
         }
     }
 }

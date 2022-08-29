@@ -22,7 +22,7 @@ namespace Mimirorg.TypeLibrary.Extensions
 
         public static T ConvertToObject<T>(this string data) where T : class
         {
-            return string.IsNullOrEmpty(data) ? null : JsonConvert.DeserializeObject<T>(data);
+            return JsonConvert.DeserializeObject<T>(data);
         }
 
         public static string ConvertToString<T>(this T obj) where T : class
