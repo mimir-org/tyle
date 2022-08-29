@@ -1,123 +1,99 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Mimirorg.TypeLibrary.Extensions;
+using Mimirorg.TypeLibrary.Models.Application;
+using TypeLibrary.Data.Common;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Models.External;
 
 namespace TypeLibrary.Data.Repositories.External
 {
     public class UnitRepository : IUnitRepository
     {
-        private readonly IApplicationSettingsRepository _settings;
+        public const string UnitSalt = "Mb.Models.Data.Enums.Unit";
 
-        public UnitRepository(IApplicationSettingsRepository settings)
+        private readonly IApplicationSettingsRepository _settings;
+        private readonly ICacheRepository _cacheRepository;
+
+        public UnitRepository(IApplicationSettingsRepository settings, ICacheRepository cacheRepository)
         {
             _settings = settings;
+            _cacheRepository = cacheRepository;
         }
 
-        #region Units
+        #region Public methods
 
-        public IEnumerable<UnitLibDm> GetUnits()
+        /// <summary>
+        /// Get all units
+        /// </summary>
+        /// <returns>A collection of units</returns>
+        /// <remarks>Only units that is not deleted will be returned</remarks>
+        public async Task<List<UnitLibDm>> Get()
         {
-            var url = $"{_settings.ApplicationSemanticUrl}/unit/";
-            const string salt = "Mb.Models.Data.Enums.Unit";
-
-            var unitNames = GetUnitNames();
-
-            foreach (var unitName in unitNames)
-            {
-                var id = $"{unitName}-{salt}".CreateMd5();
-
-                yield return new UnitLibDm
-                {
-                    Id = id,
-                    Name = unitName,
-                    Iri = $"{url}{id}"
-                };
-            }
+            var data = await _cacheRepository.GetOrCreateAsync("pca_units", async () => await FetchUnitsFromPca());
+            return data.OrderBy(x => x.Name).ToList();
         }
 
+        /// <summary>
+        /// Create an unit
+        /// </summary>
+        /// <param name="unit">The unit to be created</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public Task<UnitLibDm> CreateUnit(UnitLibDm unit)
         {
             throw new System.NotImplementedException();
         }
 
-        #endregion Units
+        #endregion
 
         #region Private methods
 
-        private static List<string> GetUnitNames()
+        private Task<List<UnitLibDm>> FetchUnitsFromPca()
         {
-            return new List<string>
+            var client = new SparQlWebClient
             {
-                "[list]",
-                "%",
-                "%/min",
-                "<specific>",
-                "1:n",
-                "2x100%",
-                "2x50%",
-                "3x50%",
-                "A",
-                "bara",
-                "barg",
-                "bbl/d",
-                "CF/hr",
-                "composite",
-                "db",
-                "degC",
-                "degF",
-                "FC",
-                "FO",
-                "FR",
-                "ft/sec",
-                "Hz",
-                "inch",
-                "IP",
-                "kA",
-                "kA/1sec",
-                "kA/3sec",
-                "Kelvin",
-                "kg/m3",
-                "kV",
-                "kVA",
-                "kVAh",
-                "kW",
-                "liter/MSm3",
-                "m",
-                "m/s",
-                "m3/d",
-                "m3/h",
-                "micron",
-                "min",
-                "mm",
-                "mm2",
-                "mS",
-                "MVA",
-                "MW",
-                "N/A",
-                "No dead pockets",
-                "None",
-                "NotSet",
-                "Ohm",
-                "Pascal",
-                "ppb",
-                "ppm",
-                "psi",
-                "psig",
-                "rpm",
-                "S",
-                "SCF/hr",
-                "sec",
-                "Sm3/d",
-                "Sm3/h",
-                "sq.inch",
-                "V",
-                "Vah",
-                "W",
-                "weight %",
-                "Ω"
+                EndPoint = SparQlWebClient.PcaEndPoint,
+                Query = SparQlWebClient.PcaUnitAllQuery
             };
+
+            var units = new List<UnitLibDm>();
+            var data = client.Get<PcaUnit>().ToList();
+
+            if (!data.Any())
+                return Task.FromResult(units);
+
+            foreach (var pcaUnit in data)
+            {
+                var id = $"{pcaUnit.Uom_Label}-{UnitSalt}".CreateMd5();
+                var iri = $"{_settings.ApplicationSemanticUrl}/unit/{id}";
+
+                var typeReferences = new List<TypeReferenceAm>
+                {
+                    new()
+                    {
+                        Iri = pcaUnit.Uom,
+                        Name = "PCA"
+                    }
+                };
+
+                var unit = new UnitLibDm
+                {
+                    Id = id,
+                    Iri = iri,
+                    Name = pcaUnit.Uom_Label,
+                    Description = null,
+                    TypeReferences = typeReferences.ConvertToString(),
+                    Symbol = pcaUnit.Default_Uom_Symbol
+                };
+
+                units.Add(unit);
+            }
+
+            return Task.FromResult(units);
         }
 
         #endregion

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,13 +19,22 @@ namespace TypeLibrary.Services.Services
             _unitRepository = unitRepository;
         }
 
-        public Task<IEnumerable<UnitLibCm>> Get()
+        public async Task<IEnumerable<UnitLibCm>> Get()
         {
-            var dataList = _unitRepository.GetUnits().ToList()
-                .OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var dataList = await _unitRepository.Get();
 
             var dataAm = _mapper.Map<List<UnitLibCm>>(dataList);
-            return Task.FromResult(dataAm.AsEnumerable());
+            return dataAm.AsEnumerable();
+        }
+
+        public async Task<UnitLibCm> Get(string id)
+        {
+            var unit = (await _unitRepository.Get()).FirstOrDefault(x => x.Id == id);
+            if (unit == null)
+                return null;
+
+            var data = _mapper.Map<UnitLibCm>(unit);
+            return data;
         }
     }
 }

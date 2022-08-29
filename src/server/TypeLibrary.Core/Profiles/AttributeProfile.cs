@@ -56,7 +56,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
         }
 
-        private IEnumerable<UnitLibAm> ResolveUnits(ICollection<string> unitIdList, IUnitFactory unitFactory)
+        private IEnumerable<UnitLibDm> ResolveUnits(ICollection<string> unitIdList, IUnitFactory unitFactory)
         {
             if (unitIdList == null || unitFactory == null)
                 yield break;
@@ -67,7 +67,7 @@ namespace TypeLibrary.Core.Profiles
                 if (unit == null)
                     continue;
 
-                yield return new UnitLibAm { Name = unit.Name };
+                yield return unit;
 
             }
         }

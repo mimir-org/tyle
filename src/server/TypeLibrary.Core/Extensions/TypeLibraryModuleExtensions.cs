@@ -8,10 +8,12 @@ using Microsoft.Extensions.Logging;
 using Mimirorg.Common.Abstract;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Contracts.Factories;
 using TypeLibrary.Data.Factories;
 using TypeLibrary.Data.Repositories.Application;
+using TypeLibrary.Data.Repositories.Common;
 using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Data.Repositories.External;
 using TypeLibrary.Services.Contracts;
@@ -26,6 +28,10 @@ namespace TypeLibrary.Core.Extensions
         {
             // Add configurations files
             var builder = services.AddConfigurationFiles();
+
+            // Cache
+            services.AddMemoryCache();
+            services.AddSingleton<ICacheRepository, InMemoryCacheRepository>();
 
             // Dependency Injection - Repositories
             services.AddSingleton<IApplicationSettingsRepository, ApplicationSettingsRepository>();

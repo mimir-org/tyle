@@ -19,7 +19,7 @@ namespace TypeLibrary.Data.Factories
         public UnitLibDm Get(string id)
         {
             if (AllUnits == null || !AllUnits.Any())
-                AllUnits = _unitRepository.GetUnits().ToList();
+                AllUnits = _unitRepository.Get().Result;
 
             return AllUnits?.FirstOrDefault(x => x.Id == id);
         }
