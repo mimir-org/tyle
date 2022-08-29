@@ -50,6 +50,7 @@ namespace TypeLibrary.Core.Extensions
             cfg.AddProfile(new SimpleProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
             cfg.AddProfile(new SelectedAttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new NodeTerminalProfile());
+            cfg.AddProfile(new AttributeReferenceProfile());
 
             var mapperConfig = new MapperConfiguration(cfg);
             serviceCollection.AddSingleton(_ => mapperConfig.CreateMapper());

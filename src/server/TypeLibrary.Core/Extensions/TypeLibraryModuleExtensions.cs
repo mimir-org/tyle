@@ -65,6 +65,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IRdsRepository, EfRdsRepository>();
             services.AddScoped<ITerminalRepository, EfTerminalRepository>();
             services.AddScoped<ISymbolRepository, EfSymbolRepository>();
+            services.AddScoped<IAttributeReferenceRepository, AttributeReferenceRepository>();
 
             // Dependency Injection - Services
             services.AddScoped<ITerminalService, TerminalService>();
