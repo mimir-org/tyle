@@ -1,0 +1,1 @@
+export { isAttributeItem } from "./isAttributeItem";
