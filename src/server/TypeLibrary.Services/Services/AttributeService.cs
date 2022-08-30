@@ -26,8 +26,9 @@ namespace TypeLibrary.Services.Services
         private readonly IAttributeFormatRepository _attributeFormatRepository;
         private readonly IAttributeConditionRepository _attributeConditionRepository;
         private readonly IAttributePredefinedRepository _attributePredefinedRepository;
+        private readonly IAttributeReferenceRepository _attributeReferenceRepository;
 
-        public AttributeService(IMapper mapper, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings, IAttributeQualifierRepository attributeQualifierRepository, IAttributeSourceRepository attributeSourceRepository, IAttributeFormatRepository attributeFormatRepository, IAttributeConditionRepository attributeConditionRepository, IAttributePredefinedRepository attributePredefinedRepository)
+        public AttributeService(IMapper mapper, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings, IAttributeQualifierRepository attributeQualifierRepository, IAttributeSourceRepository attributeSourceRepository, IAttributeFormatRepository attributeFormatRepository, IAttributeConditionRepository attributeConditionRepository, IAttributePredefinedRepository attributePredefinedRepository, IAttributeReferenceRepository attributeReferenceRepository)
         {
             _mapper = mapper;
             _attributeRepository = attributeRepository;
@@ -36,6 +37,7 @@ namespace TypeLibrary.Services.Services
             _attributeFormatRepository = attributeFormatRepository;
             _attributeConditionRepository = attributeConditionRepository;
             _attributePredefinedRepository = attributePredefinedRepository;
+            _attributeReferenceRepository = attributeReferenceRepository;
             _applicationSettings = applicationSettings?.Value;
         }
 
@@ -221,5 +223,15 @@ namespace TypeLibrary.Services.Services
         }
 
         #endregion Source
+
+        #region AttributeReferences
+        
+        public async Task<IEnumerable<AttributeReferenceCm>> GetAttributeReferences()
+        {
+            var dataSet = await _attributeReferenceRepository.Get();
+            return _mapper.Map<List<AttributeReferenceCm>>(dataSet);
+        }
+
+        #endregion AttributeReferences
     }
 }

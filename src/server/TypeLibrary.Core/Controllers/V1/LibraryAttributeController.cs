@@ -219,5 +219,22 @@ namespace TypeLibrary.Core.Controllers.V1
                 return StatusCode(500, "Internal Server Error");
             }
         }
+
+        [HttpGet("reference")]
+        [ProducesResponseType(typeof(ICollection<AttributeReferenceCm>), StatusCodes.Status200OK)]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetReferences()
+        {
+            try
+            {
+                var data = (await _attributeService.GetAttributeReferences()).ToList();
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
     }
 }
