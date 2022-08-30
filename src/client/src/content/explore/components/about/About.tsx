@@ -22,12 +22,15 @@ interface AboutProps {
  * @constructor
  */
 export const About = ({ selected }: AboutProps) => {
-  const nodeQuery = useGetNode(selected?.type == "node" ? selected?.id : "");
   const { t } = useTranslation("translation", { keyPrefix: "about" });
-  const nodeQuery = useGetNode(selected);
-  const showLoading = nodeQuery.isLoading || nodeQuery.isFetching;
+  const nodeQuery = useGetNode(selected?.type == "node" ? selected?.id : "");
+  const attributeQuery = useGetAttribute(selected?.type == "attribute" ? selected?.id : "");
+  const currentQuery = selected?.type == "node" ? nodeQuery : attributeQuery;
+
+  const showLoading = currentQuery.isLoading || currentQuery.isFetching;
+  const showPlaceHolder = !showLoading && !(currentQuery.isSuccess && currentQuery.data);
   const showNodePanel = !showLoading && nodeQuery.isSuccess && nodeQuery.data;
-  const showPlaceHolder = !showLoading && !showNodePanel;
+  const showAttributePanel = !showLoading && attributeQuery.isSuccess && attributeQuery.data;
 
   return (
     <ExploreSection title={t("title")}>
@@ -35,6 +38,9 @@ export const About = ({ selected }: AboutProps) => {
         {showLoading && <Loader />}
         {showPlaceHolder && <AboutPlaceholder text={t("placeholders.item")} />}
         {showNodePanel && <NodePanel key={nodeQuery.data.id} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />}
+        {showAttributePanel && (
+          <AttributePanel key={attributeQuery.data.id} {...mapAttributeLibCmToAttributeItem(attributeQuery.data)} />
+        )}
       </AnimatePresence>
     </ExploreSection>
   );
