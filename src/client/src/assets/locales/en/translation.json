@@ -109,12 +109,7 @@
     "title": "References",
     "add": "Add reference",
     "remove": "Remove reference",
-    "name": "Name",
-    "iri": "IRI",
-    "placeholders": {
-      "name": "Enter reference name",
-      "iri": "Enter reference IRI"
-    }
+    "reference": "Reference"
   },
   "predefinedAttributes": {
     "title": "Predefined attributes",

@@ -1,7 +1,8 @@
 import { Control, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { getColorFromAspect } from "../../../utils/getColorFromAspect";
-import { mapTypeReferenceCmsToDescriptors, mapValueObjectsToDescriptors } from "../../../utils/mappers";
+import { mapValueObjectsToDescriptors } from "../../../utils/mappers";
+import { mapTypeReferenceAmsToDescriptors } from "../../../utils/mappers/mapTypeReferenceAmsToDescriptors";
 import { AttributePreview } from "../../common/attribute";
 import { InfoItem } from "../../types/InfoItem";
 import { FormAttributeLib } from "./types/formAttributeLib";
@@ -27,7 +28,7 @@ export const AttributeFormPreview = ({ control }: AttributeFormPreviewProps) => 
     },
     {
       name: t("references.title"),
-      descriptors: mapTypeReferenceCmsToDescriptors(typeReferences),
+      descriptors: mapTypeReferenceAmsToDescriptors(typeReferences),
     },
   ];
 

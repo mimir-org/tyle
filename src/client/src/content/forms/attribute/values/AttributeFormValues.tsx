@@ -37,7 +37,7 @@ export const AttributeFormValues = ({ control }: AttributeFormValuesProps) => {
               name={`selectValues.${index}.value`}
               render={({ field }) => (
                 <FormField label={t("value")}>
-                  <Input {...field} id={selectValueField.id} placeholder={t("placeholders.value")} />
+                  <Input {...field} id={selectValueField.id} placeholder={t("placeholders.value")} width={"250px"} />
                 </FormField>
               )}
             />
