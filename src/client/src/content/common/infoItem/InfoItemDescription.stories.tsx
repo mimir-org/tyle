@@ -1,22 +1,22 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { LibraryIcon } from "../../../assets/icons/modules";
-import { SelectItemDescription } from "./SelectItemDescription";
+import { InfoItemDescription } from "./InfoItemDescription";
 
 export default {
-  title: "Content/Common/SelectItem/SelectItemDescription",
-  component: SelectItemDescription,
+  title: "Content/Common/InfoItem/InfoItemDescription",
+  component: InfoItemDescription,
   args: {
     name: "Pressure, absolute",
     color: "orange",
-    traits: {
+    descriptors: {
       condition: "Maximum",
       qualifier: "Operating",
       source: "Calculated",
     },
   },
-} as ComponentMeta<typeof SelectItemDescription>;
+} as ComponentMeta<typeof InfoItemDescription>;
 
-const Template: ComponentStory<typeof SelectItemDescription> = (args) => <SelectItemDescription {...args} />;
+const Template: ComponentStory<typeof InfoItemDescription> = (args) => <InfoItemDescription {...args} />;
 
 export const Default = Template.bind({});
 
@@ -25,5 +25,5 @@ Actionable.args = {
   actionable: true,
   actionIcon: LibraryIcon,
   actionText: "Trigger action",
-  onAction: () => alert("[STORYBOOK] AttributeDescription.Remove"),
+  onAction: () => alert("[STORYBOOK] ItemDescription.onAction"),
 };

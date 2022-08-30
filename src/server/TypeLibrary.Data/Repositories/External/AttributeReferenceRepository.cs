@@ -12,18 +12,16 @@ namespace TypeLibrary.Data.Repositories.External
 {
     public class AttributeReferenceRepository : IAttributeReferenceRepository
     {
-        private readonly IApplicationSettingsRepository _settings;
         private readonly ICacheRepository _cacheRepository;
 
-        public AttributeReferenceRepository(IApplicationSettingsRepository settings, ICacheRepository cacheRepository)
+        public AttributeReferenceRepository(ICacheRepository cacheRepository)
         {
-            _settings = settings;
             _cacheRepository = cacheRepository;
         }
 
         #region Public 
 
-        public async Task<List<AttributeReferenceDm>> Get()
+        public async Task<List<TypeReferenceDm>> Get()
         {
             var data = await _cacheRepository.GetOrCreateAsync("pca_attributes", async () => await FetchAttributesFromPca());
             return data;
@@ -34,7 +32,7 @@ namespace TypeLibrary.Data.Repositories.External
 
         #region Private methods
 
-        private Task<List<AttributeReferenceDm>> FetchAttributesFromPca()
+        private Task<List<TypeReferenceDm>> FetchAttributesFromPca()
         {
             var client = new SparQlWebClient
             {
@@ -42,7 +40,7 @@ namespace TypeLibrary.Data.Repositories.External
                 Query = SparQlWebClient.PcaAttributeAllQuery
             };
 
-            var attributes = new List<AttributeReferenceDm>();
+            var attributes = new List<TypeReferenceDm>();
             var data = client.Get<PcaAttribute>().ToList();
 
             if (!data.Any())
@@ -52,7 +50,7 @@ namespace TypeLibrary.Data.Repositories.External
 
             foreach (var pcaUnit in data)
             {
-                var attributeReferenceDm = new AttributeReferenceDm
+                var attributeReferenceDm = new TypeReferenceDm
                 {
                     Name = pcaUnit.Quantity_Label,
                     Iri = pcaUnit.Quantity,

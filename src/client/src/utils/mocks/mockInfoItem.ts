@@ -1,15 +1,15 @@
 import { faker } from "@faker-js/faker";
-import { AttributeItem } from "../../content/types/AttributeItem";
+import { InfoItem } from "../../content/types/InfoItem";
 
-export const mockAttributeItem = (): AttributeItem => {
+export const mockInfoItem = (): InfoItem => {
   return {
     id: faker.random.alphaNumeric(),
     name: `${faker.commerce.productAdjective()}`,
-    traits: mockAttributeItemTraits(parseInt(faker.random.numeric(1))),
+    descriptors: mockInfoItemDescriptors(parseInt(faker.random.numeric(1))),
   };
 };
 
-const mockAttributeItemTraits = (amount = 5) => {
+const mockInfoItemDescriptors = (amount = 5) => {
   const traits: { [key: string]: string } = {};
 
   for (let i = 0; i < amount; i++) {

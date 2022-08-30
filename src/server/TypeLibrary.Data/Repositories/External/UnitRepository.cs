@@ -76,7 +76,8 @@ namespace TypeLibrary.Data.Repositories.External
                     new()
                     {
                         Iri = pcaUnit.Uom,
-                        Name = "PCA"
+                        Name = pcaUnit.Uom_Label,
+                        Source = "PCA"
                     }
                 };
 

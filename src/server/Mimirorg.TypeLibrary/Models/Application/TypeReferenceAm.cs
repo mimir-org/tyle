@@ -11,12 +11,15 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public string Iri { get; set; }
 
+        [Required]
+        public string Source { get; set; }
+
 
         public bool Equals(TypeReferenceAm other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Name == other.Name && Iri == other.Iri;
+            return Name == other.Name && Iri == other.Iri && Source == other.Source;
         }
 
         public override bool Equals(object obj)
@@ -28,7 +31,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Name, Iri);
+            return HashCode.Combine(Name, Iri, Source);
         }
     }
 }

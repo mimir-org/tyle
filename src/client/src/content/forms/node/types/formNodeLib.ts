@@ -1,12 +1,12 @@
 import { NodeLibAm, NodeLibCm } from "@mimirorg/typelibrary-types";
-import { UpdateEntity } from "../../../data/types/updateEntity";
-import { createEmptyNodeLibAm } from "../../../models/tyle/application/nodeLibAm";
-import { mapNodeLibCmToNodeLibAm } from "../../../utils/mappers";
+import { UpdateEntity } from "../../../../data/types/updateEntity";
+import { createEmptyNodeLibAm } from "../../../../models/tyle/application/nodeLibAm";
+import { mapNodeLibCmToNodeLibAm } from "../../../../utils/mappers";
+import { ValueObject } from "../../types/valueObject";
 import {
   FormSelectedAttributePredefinedLib,
   mapFormSelectedAttributePredefinedLibToApiModel,
 } from "./formSelectedAttributePredefinedLib";
-import { ValueObject } from "./valueObject";
 
 /**
  * This type functions as a layer between client needs and the backend model.

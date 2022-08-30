@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Flexbox } from "../../../../complib/layouts";
 import { useGetUnits } from "../../../../data/queries/tyle/queriesUnit";
-import { SelectItemInfoButton } from "../../../common/selectItem";
+import { InfoItemButton } from "../../../common/infoItem";
 import { FormSection } from "../../common/FormSection";
 import { SelectItemDialog } from "../../common/SelectItemDialog";
 import { FormAttributeLib } from "../types/formAttributeLib";
@@ -42,7 +42,7 @@ export const AttributeFormUnits = ({ control, register }: AttributeFormUnitsProp
           const attribute = unitItems.find((x) => x.id === field.value);
           return (
             attribute && (
-              <SelectItemInfoButton
+              <InfoItemButton
                 key={field.id}
                 {...register(`unitIdList.${index}`)}
                 {...attribute}

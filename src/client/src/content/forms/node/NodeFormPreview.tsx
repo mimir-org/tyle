@@ -2,8 +2,8 @@ import { Control, useWatch } from "react-hook-form";
 import { useGetTerminals } from "../../../data/queries/tyle/queriesTerminal";
 import { getColorFromAspect } from "../../../utils/getColorFromAspect";
 import { NodePreview } from "../../common/node";
-import { FormNodeLib } from "../types/formNodeLib";
 import { getTerminalItemsFromFormData } from "./NodeFormPreview.helpers";
+import { FormNodeLib } from "./types/formNodeLib";
 
 interface NodeFormPreviewProps {
   control: Control<FormNodeLib>;

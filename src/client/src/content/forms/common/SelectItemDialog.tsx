@@ -3,10 +3,10 @@ import { PlusSm } from "@styled-icons/heroicons-outline";
 import { useState } from "react";
 import { Button } from "../../../complib/buttons";
 import { Dialog } from "../../../complib/overlays";
+import { InfoItemCheckbox } from "../../common/infoItem";
 import { SearchField } from "../../common/SearchField";
-import { SelectItemInfoCheckbox } from "../../common/selectItem";
-import { SelectItem } from "../../types/SelectItem";
-import { filterSelectItem, onSelectionChange } from "./SelectItemDialog.helpers";
+import { InfoItem } from "../../types/InfoItem";
+import { filterInfoItem, onSelectionChange } from "./SelectItemDialog.helpers";
 import { SelectContainer, SelectItemsContainer } from "./SelectItemDialog.styled";
 
 interface SelectItemDialogProps {
@@ -15,12 +15,12 @@ interface SelectItemDialogProps {
   searchFieldText: string;
   addItemsButtonText: string;
   openDialogButtonText: string;
-  items: SelectItem[];
-  onAdd: (attributeIds: string[]) => void;
+  items: InfoItem[];
+  onAdd: (ids: string[]) => void;
 }
 
 /**
- * Component which shows a searchable dialog of attributes which from the user can select.
+ * Component which shows a searchable dialog of items which from the user can select.
  *
  * @param title
  * @param description
@@ -43,7 +43,7 @@ export const SelectItemDialog = ({
   const [searchQuery, setSearchQuery] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
 
-  const onAddAttributes = () => {
+  const onAddItems = () => {
     onAdd(selected);
     setSelected([]);
     setSearchQuery("");
@@ -63,18 +63,18 @@ export const SelectItemDialog = ({
           />
           <SelectItemsContainer>
             {items
-              .filter((x) => filterSelectItem(x, searchQuery))
+              .filter((x) => filterInfoItem(x, searchQuery))
               .map((a, i) => (
-                <SelectItemInfoCheckbox
+                <InfoItemCheckbox
                   key={i}
-                  checked={selected.includes(a.id)}
-                  onClick={() => onSelectionChange(a.id, selected, setSelected)}
+                  checked={selected.includes(a?.id ?? "")}
+                  onClick={() => onSelectionChange(a?.id ?? "", selected, setSelected)}
                   {...a}
                 />
               ))}
           </SelectItemsContainer>
           <DialogClose asChild>
-            <Button onClick={onAddAttributes} disabled={selected.length < 1}>
+            <Button onClick={onAddItems} disabled={selected.length < 1}>
               {addItemsButtonText}
             </Button>
           </DialogClose>

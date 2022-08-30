@@ -4,5 +4,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
     {
         public string Name { get; set; }
         public string Iri { get; set; }
+        public string Source { get; set; }
+        public string Kind => nameof(TypeReferenceCm);
     }
 }

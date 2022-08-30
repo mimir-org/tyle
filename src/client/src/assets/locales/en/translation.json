@@ -105,17 +105,37 @@
       "add": "Add"
     }
   },
+  "references": {
+    "title": "References",
+    "add": "Add reference",
+    "remove": "Remove reference",
+    "name": "Name",
+    "iri": "IRI",
+    "placeholders": {
+      "name": "Enter reference name",
+      "iri": "Enter reference IRI"
+    }
+  },
   "predefinedAttributes": {
     "title": "Predefined attributes",
     "placeholders": {
       "attribute": "Select value(s)"
     }
   },
+  "values": {
+    "title": "Values",
+    "add": "Add value",
+    "remove": "Remove value",
+    "value": "Value",
+    "placeholders": {
+      "value": "Enter selectable value"
+    }
+  },
   "attribute": {
     "name": "Name",
     "aspect": "Aspect",
     "discipline": "Discipline",
-    "select": "Select type",
+    "select": "Selection",
     "qualifier": "Qualifier",
     "source": "Source",
     "condition": "Condition",
@@ -132,14 +152,6 @@
       "loading": "Submitting attribute",
       "success": "Your attribute has been submitted",
       "error": "An error occurred during attribute submission"
-    },
-    "values": {
-      "title": "Values",
-      "add": "Add value",
-      "remove": "Remove value",
-      "placeholders": {
-        "value": "Enter selectable value"
-      }
     }
   },
   "forms": {

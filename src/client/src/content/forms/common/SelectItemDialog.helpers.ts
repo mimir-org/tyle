@@ -1,14 +1,14 @@
-import { SelectItem } from "../../types/SelectItem";
+import { InfoItem } from "../../types/InfoItem";
 
 /**
- * Simple filtration of an item which tries to match an item's name and trait values against tokens in search query.
+ * Simple filtration of an item which tries to match an item's name and descriptors against tokens in search query.
  * Could be replaced by a more advanced client filtering approach or calls against a dedicated search api.
  *
  * @param item
  * @param query
  */
-export const filterSelectItem = (item: SelectItem, query: string) => {
-  const traitValueString = Object.values(item.traits).join(" ");
+export const filterInfoItem = (item: InfoItem, query: string) => {
+  const traitValueString = Object.values(item.descriptors).join(" ");
   const matchTarget = `${item.name} ${traitValueString}`.toLowerCase();
   const queryTokens = query.split(" ");
 

@@ -1,6 +1,6 @@
 import { UnitLibCm } from "@mimirorg/typelibrary-types";
 import { UseFieldArrayReturn } from "react-hook-form";
-import { mapUnitLibCmToSelectItem } from "../../../../utils/mappers/mapUnitLibCmToSelectItem";
+import { mapUnitLibCmToInfoItem } from "../../../../utils/mappers/mapUnitLibCmToInfoItem";
 import { FormAttributeLib } from "../types/formAttributeLib";
 
 export const onAddUnits = (ids: string[], unitFields: UseFieldArrayReturn<FormAttributeLib, "unitIdList">) => {
@@ -15,5 +15,5 @@ export const onAddUnits = (ids: string[], unitFields: UseFieldArrayReturn<FormAt
 export const getSelectItemsFromUnitsLibCms = (units?: UnitLibCm[]) => {
   if (!units || units.length == 0) return [];
 
-  return units.map((x) => mapUnitLibCmToSelectItem(x));
+  return units.map((x) => mapUnitLibCmToInfoItem(x));
 };

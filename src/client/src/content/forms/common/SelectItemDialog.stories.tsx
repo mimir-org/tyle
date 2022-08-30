@@ -1,8 +1,8 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { mockAttributeItem } from "../../../utils/mocks/mockAttributeItem";
+import { mockInfoItem } from "../../../utils/mocks/mockInfoItem";
 import { SelectItemDialog } from "./SelectItemDialog";
 
-const mockData = [...Array(20)].map((_) => mockAttributeItem());
+const mockData = [...Array(20)].map((_) => mockInfoItem());
 
 export default {
   title: "Content/Forms/Common/SelectItemDialog",

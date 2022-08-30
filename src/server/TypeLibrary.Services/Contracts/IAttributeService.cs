@@ -19,6 +19,6 @@ namespace TypeLibrary.Services.Contracts
         Task<IEnumerable<AttributeFormatLibCm>> GetFormats();
         Task<IEnumerable<AttributeQualifierLibCm>> GetQualifiers();
         Task<IEnumerable<AttributeSourceLibCm>> GetSources();
-        Task<IEnumerable<AttributeReferenceCm>> GetAttributeReferences();
+        Task<IEnumerable<TypeReferenceCm>> GetAttributeReferences();
     }
 }
