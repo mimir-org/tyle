@@ -10,6 +10,6 @@ namespace TypeLibrary.Data.Contracts
         /// Get all attribute references
         /// </summary>
         /// <returns>A collection of attribute references</returns>
-        Task<List<AttributeReferenceDm>> Get();
+        Task<List<TypeReferenceDm>> Get();
     }
 }

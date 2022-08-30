@@ -225,11 +225,11 @@ namespace TypeLibrary.Services.Services
         #endregion Source
 
         #region AttributeReferences
-        
-        public async Task<IEnumerable<AttributeReferenceCm>> GetAttributeReferences()
+
+        public async Task<IEnumerable<TypeReferenceCm>> GetAttributeReferences()
         {
             var dataSet = await _attributeReferenceRepository.Get();
-            return _mapper.Map<List<AttributeReferenceCm>>(dataSet);
+            return _mapper.Map<List<TypeReferenceCm>>(dataSet);
         }
 
         #endregion AttributeReferences

@@ -221,7 +221,7 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         [HttpGet("reference")]
-        [ProducesResponseType(typeof(ICollection<AttributeReferenceCm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<TypeReferenceCm>), StatusCodes.Status200OK)]
         [AllowAnonymous]
         public async Task<IActionResult> GetReferences()
         {
