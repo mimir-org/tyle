@@ -11,7 +11,10 @@ namespace Mimirorg.Common.Converters
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            return serializer.Deserialize(new StringReader((string) reader.Value ?? string.Empty), objectType);
+            if(reader.Value is string value)
+                return serializer.Deserialize(new StringReader(value), objectType);
+            
+            return serializer.Deserialize(reader, objectType);
         }
 
         public override bool CanConvert(Type objectType)
