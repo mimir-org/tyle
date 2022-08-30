@@ -18,6 +18,8 @@ const keys = {
   qualifierLists: () => [...keys.allQualifier, "list"] as const,
   allSource: ["attributesSource"] as const,
   sourceLists: () => [...keys.allSource, "list"] as const,
+  allReference: ["attributesReference"] as const,
+  referenceLists: () => [...keys.allReference, "list"] as const,
   attribute: (id?: string) => [...keys.attributeLists(), id] as const,
 };
 
@@ -46,3 +48,5 @@ export const useGetAttributesFormat = () => useQuery(keys.formatLists(), apiAttr
 export const useGetAttributesQualifier = () => useQuery(keys.qualifierLists(), apiAttribute.getAttributesQualifier);
 
 export const useGetAttributesSource = () => useQuery(keys.sourceLists(), apiAttribute.getAttributesSource);
+
+export const useGetAttributesReference = () => useQuery(keys.referenceLists(), apiAttribute.getAttributesReference);

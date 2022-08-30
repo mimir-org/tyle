@@ -7,6 +7,7 @@ import {
   AttributePredefinedLibCm,
   AttributeQualifierLibCm,
   AttributeSourceLibCm,
+  TypeReferenceCm,
 } from "@mimirorg/typelibrary-types";
 import { apiClient } from "../apiClient";
 
@@ -39,5 +40,8 @@ export const apiAttribute = {
   },
   getAttributesSource() {
     return apiClient.get<AttributeSourceLibCm[]>(`${_basePath}/source`).then((r) => r.data);
+  },
+  getAttributesReference() {
+    return apiClient.get<TypeReferenceCm[]>(`${_basePath}/reference`).then((r) => r.data);
   },
 };
