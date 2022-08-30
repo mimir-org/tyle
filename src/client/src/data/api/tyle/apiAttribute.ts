@@ -23,7 +23,7 @@ export const apiAttribute = {
     return apiClient.post<AttributeLibCm>(_basePath, item).then((r) => r.data);
   },
   getAttributesByAspect(aspect: Aspect) {
-    return apiClient.get<AttributeLibCm[]>(`${_basePath}/${aspect}`).then((r) => r.data);
+    return apiClient.get<AttributeLibCm[]>(`${_basePath}/aspect/${aspect}`).then((r) => r.data);
   },
   getAttributesPredefined() {
     return apiClient.get<AttributePredefinedLibCm[]>(`${_basePath}/predefined`).then((r) => r.data);
