@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { useTheme } from "styled-components";
 import { Token } from "../../../../../../complib/general";
 import { Flexbox, MotionBox } from "../../../../../../complib/layouts";
@@ -40,8 +41,8 @@ export const AttributePanel = (props: AttributeItem) => {
       </Flexbox>
 
       {showContentButtons &&
-        props.contents.map((info) => (
-          <>
+        props.contents.map((info, index) => (
+          <Fragment key={index}>
             <Heading as={"h3"} variant={"body-large"} color={theme.tyle.color.sys.surface.on}>
               {info.name}
             </Heading>
@@ -52,7 +53,7 @@ export const AttributePanel = (props: AttributeItem) => {
                 </Token>
               ))}
             </Flexbox>
-          </>
+          </Fragment>
         ))}
     </MotionBox>
   );
