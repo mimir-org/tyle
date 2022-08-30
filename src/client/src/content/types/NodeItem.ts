@@ -10,4 +10,5 @@ export interface NodeItem {
   tokens: string[];
   terminals: TerminalItem[];
   attributes: InfoItem[];
+  kind: string;
 }

@@ -13,4 +13,5 @@ export const mockNodeItem = (): NodeItem => ({
   tokens: [...Array(5)].map((_) => faker.commerce.productAdjective()),
   color: faker.helpers.arrayElement(["#fef445", "#00f0ff", "#fa00ff"]),
   img: LibraryIcon,
+  kind: "NodeItem",
 });
