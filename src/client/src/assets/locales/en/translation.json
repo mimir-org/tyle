@@ -13,7 +13,7 @@
       "search": "Search for types"
     },
     "templates": {
-      "hits": "{{amount}} results found"
+      "hits": "Showing {{shown}} of {{total}} results found"
     },
     "item": {
       "clone": "Clone",

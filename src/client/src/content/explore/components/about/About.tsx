@@ -1,14 +1,18 @@
 import { AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useGetAttribute } from "../../../../data/queries/tyle/queriesAttribute";
 import { useGetNode } from "../../../../data/queries/tyle/queriesNode";
 import { mapNodeLibCmToNodeItem } from "../../../../utils/mappers";
+import { mapAttributeLibCmToAttributeItem } from "../../../../utils/mappers/mapAttributeLibCmToAttributeItem";
 import { Loader } from "../../../common/Loader";
+import { SelectedInfo } from "../../types/selectedInfo";
 import { ExploreSection } from "../ExploreSection";
 import { AboutPlaceholder } from "./components/AboutPlaceholder";
-import { NodePanel } from "./components/panels/NodePanel";
+import { AttributePanel } from "./components/attribute/AttributePanel";
+import { NodePanel } from "./components/node/NodePanel";
 
 interface AboutProps {
-  selected?: string;
+  selected?: SelectedInfo;
 }
 
 /**
@@ -18,6 +22,7 @@ interface AboutProps {
  * @constructor
  */
 export const About = ({ selected }: AboutProps) => {
+  const nodeQuery = useGetNode(selected?.type == "node" ? selected?.id : "");
   const { t } = useTranslation("translation", { keyPrefix: "about" });
   const nodeQuery = useGetNode(selected);
   const showLoading = nodeQuery.isLoading || nodeQuery.isFetching;
