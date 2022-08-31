@@ -10,6 +10,7 @@ import { mapNodeLibCmToNodeItem } from "../../../../utils/mappers";
 import { mapAttributeLibCmToAttributeItem } from "../../../../utils/mappers/mapAttributeLibCmToAttributeItem";
 import { Filter } from "../../types/filter";
 import { FilterGroup } from "../../types/filterGroup";
+import { Link } from "../../types/link";
 import { SearchResult, SearchResultRaw } from "../../types/searchResult";
 
 /**
@@ -27,6 +28,19 @@ const searchKeys = [
   "attributeSource",
   "attributeCondition",
 ];
+
+export const getCreateMenuLinks = (): Link[] => {
+  return [
+    {
+      name: "Attribute",
+      path: "/form/attribute",
+    },
+    {
+      name: "Aspect object",
+      path: "/form/node",
+    },
+  ];
+};
 
 export const useFilterState = (initial: Filter[]): [filters: Filter[], toggleFilter: (filter: Filter) => void] => {
   const [filters, setFilters] = useState<Filter[]>(initial);
@@ -89,13 +103,13 @@ const getEntityFilters = (): FilterGroup => ({
   filters: [
     {
       key: "kind",
-      label: "Node",
-      value: "NodeLibCm",
+      label: "Attribute",
+      value: "AttributeLibCm",
     },
     {
       key: "kind",
-      label: "Attribute",
-      value: "AttributeLibCm",
+      label: "Aspect object",
+      value: "NodeLibCm",
     },
   ],
 });

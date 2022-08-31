@@ -12,9 +12,10 @@ import { ExploreSection } from "../ExploreSection";
 import { ConditionalAttributeSearchItem } from "./components/attribute/ConditionalAttributeSearchItem";
 import { FilterMenu } from "./components/filter/FilterMenu";
 import { ItemList } from "./components/item/ItemList";
+import { LinkMenu } from "./components/link/LinkMenu";
 import { ConditionalNodeSearchItem } from "./components/node/ConditionalNodeSearchItem";
 import { SearchPlaceholder } from "./components/SearchPlaceholder";
-import { useFilterState, useGetFilterGroups, useSearchResults } from "./Search.helpers";
+import { getCreateMenuLinks, useFilterState, useGetFilterGroups, useSearchResults } from "./Search.helpers";
 
 interface SearchProps {
   selected?: SelectedInfo;
@@ -33,7 +34,6 @@ interface SearchProps {
 export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) => {
   const theme = useTheme();
   const { t } = useTranslation("translation", { keyPrefix: "search" });
-  const filterGroups = useGetFilterGroups();
   const [activeFilters, toggleFilter] = useFilterState([]);
   const [query, setQuery, debouncedQuery] = useDebounceState("");
   const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit);
@@ -50,10 +50,11 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
         <SearchField value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t("placeholders.search")} />
         <FilterMenu
           name={t("filter.title")}
-          filterGroups={filterGroups}
+          filterGroups={useGetFilterGroups()}
           activeFilters={activeFilters}
           toggleFilter={toggleFilter}
         />
+        <LinkMenu name={"Create"} links={getCreateMenuLinks()} />
       </Flexbox>
 
       {showFilterTokens && (
