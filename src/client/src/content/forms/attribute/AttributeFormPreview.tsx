@@ -1,9 +1,10 @@
 import { Control, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { getColorFromAspect } from "../../../utils/getColorFromAspect";
+import { mapValueObjectsToDescriptors } from "../../../utils/mappers";
+import { mapTypeReferenceAmsToDescriptors } from "../../../utils/mappers/mapTypeReferenceAmsToDescriptors";
 import { AttributePreview } from "../../common/attribute";
 import { InfoItem } from "../../types/InfoItem";
-import { getDescriptorsFromTypeReferences, getDescriptorsFromValueObjects } from "./AttributeFormPreview.helpers";
 import { FormAttributeLib } from "./types/formAttributeLib";
 
 interface AttributeFormPreviewProps {
@@ -23,16 +24,17 @@ export const AttributeFormPreview = ({ control }: AttributeFormPreviewProps) => 
   const descriptors: InfoItem[] = [
     {
       name: t("values.title"),
-      descriptors: getDescriptorsFromValueObjects(selectValues),
+      descriptors: mapValueObjectsToDescriptors(selectValues),
     },
     {
       name: t("references.title"),
-      descriptors: getDescriptorsFromTypeReferences(typeReferences),
+      descriptors: mapTypeReferenceAmsToDescriptors(typeReferences),
     },
   ];
 
   return (
     <AttributePreview
+      variant={"large"}
       name={name ? name : t("attribute.name")}
       color={getColorFromAspect(aspect)}
       qualifier={qualifier}

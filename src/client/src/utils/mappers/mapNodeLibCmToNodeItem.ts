@@ -14,4 +14,5 @@ export const mapNodeLibCmToNodeItem = (node: NodeLibCm): NodeItem => ({
   tokens: [node.rdsName, node.purposeName, node.createdBy, node.version],
   terminals: sortTerminals(mapNodeTerminalLibCmsToTerminalItems(node.nodeTerminals)),
   attributes: sortInfoItems(mapAttributeLibCmsToInfoItems(node.attributes)),
+  kind: "NodeItem",
 });

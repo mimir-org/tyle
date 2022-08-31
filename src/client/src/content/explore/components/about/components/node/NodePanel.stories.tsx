@@ -3,7 +3,7 @@ import { mockNodeItem } from "../../../../../../utils/mocks";
 import { NodePanel } from "./NodePanel";
 
 export default {
-  title: "Content/Explore/About/Panels/NodePanel",
+  title: "Content/Explore/About/NodePanel",
   component: NodePanel,
   args: {
     ...mockNodeItem(),

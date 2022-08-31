@@ -1,10 +1,18 @@
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
+import { TextTypes } from "../../../complib/props";
 import { Text } from "../../../complib/text";
 import { InfoItem } from "../../types/InfoItem";
 import { InfoItemButton } from "../infoItem";
-import { AttributePreviewContainer, AttributePreviewDivider, AttributePreviewHeader } from "./AttributePreview.styled";
+import {
+  AttributePreviewContainer,
+  AttributePreviewHeader,
+  AttributePreviewVariant,
+  AttributeSpecificationContainer,
+  AttributeSpecificationGrid,
+  AttributeSpecificationGridDivider,
+} from "./AttributePreview.styled";
 
 interface AttributePreviewProps {
   name: string;
@@ -13,11 +21,12 @@ interface AttributePreviewProps {
   source: string;
   condition: string;
   contents: InfoItem[];
+  variant?: AttributePreviewVariant;
 }
 
 /**
- * Components that presents a visual representation of an attribute,
- * which includes a grid of key features and a variable amount of available values, references etc.
+ * Components which presents a visual representation of an attribute,
+ * this includes a grid of key features and a variable amount of available values, references etc.
  *
  * @param name
  * @param color
@@ -25,53 +34,52 @@ interface AttributePreviewProps {
  * @param qualifier
  * @param condition
  * @param contents
+ * @param variant
  * @constructor
  */
-export const AttributePreview = ({ name, color, source, qualifier, condition, contents }: AttributePreviewProps) => {
+export const AttributePreview = ({
+  name,
+  color,
+  source,
+  qualifier,
+  condition,
+  contents,
+  variant = "small",
+}: AttributePreviewProps) => {
   const theme = useTheme();
   const { t } = useTranslation("translation", { keyPrefix: "attribute" });
+  const showContentButtons = contents.length > 0;
+  const headerTextVariant: TextTypes = variant == "small" ? "title-small" : "title-medium";
+  const gridTitleTextVariant: TextTypes = variant == "small" ? "label-small" : "label-medium";
 
   return (
-    <AttributePreviewContainer>
+    <AttributePreviewContainer variant={variant}>
       <AttributePreviewHeader bgColor={color}>
-        <Text color={theme.tyle.color.ref.neutral["0"]} variant={"title-medium"} useEllipsis>
+        <Text color={theme.tyle.color.ref.neutral["0"]} variant={headerTextVariant} useEllipsis>
           {name}
         </Text>
       </AttributePreviewHeader>
 
-      <Box
-        flex={1}
-        display={"flex"}
-        flexDirection={"column"}
-        justifyContent={"space-between"}
-        gap={theme.tyle.spacing.xl}
-        p={theme.tyle.spacing.l}
-        pl={theme.tyle.spacing.xl}
-        pr={theme.tyle.spacing.xl}
-      >
-        <Box display={"grid"} gridTemplateColumns={"1fr 1fr 1fr"} gap={theme.tyle.spacing.s}>
-          <Text variant={"label-medium"} textTransform={"capitalize"}>
-            {t("qualifier")}
-          </Text>
-          <Text variant={"label-medium"} textTransform={"capitalize"}>
-            {t("source")}
-          </Text>
-          <Text variant={"label-medium"} textTransform={"capitalize"}>
-            {t("condition")}
-          </Text>
-          <AttributePreviewDivider />
+      <AttributeSpecificationContainer>
+        <AttributeSpecificationGrid layout={"position"}>
+          <Text variant={gridTitleTextVariant}>{t("qualifier")}</Text>
+          <Text variant={gridTitleTextVariant}>{t("source")}</Text>
+          <Text variant={gridTitleTextVariant}>{t("condition")}</Text>
+          <AttributeSpecificationGridDivider />
           <Text variant={"label-small"}>{qualifier}</Text>
           <Text variant={"label-small"}>{source}</Text>
           <Text variant={"label-small"}>{condition}</Text>
-        </Box>
+        </AttributeSpecificationGrid>
 
-        <Box display={"flex"} flexWrap={"wrap"} justifyContent={"center"} gap={theme.tyle.spacing.s}>
-          {contents.map((info, i) => {
-            const showDescriptor = Object.keys(info.descriptors).length > 0;
-            return showDescriptor && <InfoItemButton key={i} name={info.name} descriptors={info.descriptors} />;
-          })}
-        </Box>
-      </Box>
+        {showContentButtons && (
+          <Box display={"flex"} flexWrap={"wrap"} justifyContent={"center"} gap={theme.tyle.spacing.s}>
+            {contents.map((info, i) => {
+              const showDescriptor = Object.keys(info.descriptors).length > 0;
+              return showDescriptor && <InfoItemButton key={i} name={info.name} descriptors={info.descriptors} />;
+            })}
+          </Box>
+        )}
+      </AttributeSpecificationContainer>
     </AttributePreviewContainer>
   );
 };

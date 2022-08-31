@@ -7,3 +7,7 @@ export { mapNodeTerminalLibCmsToNodeTerminalLibAms } from "./mapNodeTerminalLibC
 export { mapAttributeLibCmToAttributeLibAm } from "./mapAttributeLibCmToAttributeLibAm";
 export { mapAttributeLibCmToInfoItem } from "./mapAttributeLibCmToInfoItem";
 export { mapAttributeLibCmsToInfoItems } from "./mapAttributeLibCmToInfoItem";
+export { mapListToDescriptors } from "./mapListToDescriptors";
+export { mapUnitLibCmsToDescriptors } from "./mapUnitLibCmsToDescriptors";
+export { mapValueObjectsToDescriptors } from "./mapValueObjectsToDescriptors";
+export { mapTypeReferenceCmsToDescriptors } from "./mapTypeReferenceCmsToDescriptors";

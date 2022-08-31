@@ -1,18 +1,21 @@
-import { Aspect, NodeLibCm } from "@mimirorg/typelibrary-types";
+import { Aspect, AttributeLibCm, NodeLibCm } from "@mimirorg/typelibrary-types";
 import { useState } from "react";
+import { useGetAttributes } from "../../../../data/queries/tyle/queriesAttribute";
 import { useGetNodes } from "../../../../data/queries/tyle/queriesNode";
 import { useGetPurposes } from "../../../../data/queries/tyle/queriesPurpose";
 import { useFuse } from "../../../../hooks/useFuse";
 import { getValueLabelObjectsFromEnum } from "../../../../utils/getValueLabelObjectsFromEnum";
+import { isAttributeLibCm, isNodeLibCm } from "../../../../utils/guards";
 import { mapNodeLibCmToNodeItem } from "../../../../utils/mappers";
+import { mapAttributeLibCmToAttributeItem } from "../../../../utils/mappers/mapAttributeLibCmToAttributeItem";
 import { Filter } from "../../../types/Filter";
 import { FilterGroup } from "../../../types/FilterGroup";
-import { NodeItem } from "../../../types/NodeItem";
+import { SearchResult } from "../../types/searchResult";
 
 /**
  * Indexed fields that the fuzzy-search will try to match a query against
  */
-export const searchKeys = [
+const searchKeys = [
   "id",
   "name",
   "description",
@@ -20,6 +23,9 @@ export const searchKeys = [
   "rdsName",
   "purposeName",
   "nodeTerminals.terminal.name",
+  "attributeQualifier",
+  "attributeSource",
+  "attributeCondition",
 ];
 
 export const useFilterState = (
@@ -40,26 +46,51 @@ export const useFilterState = (
   return [filters, toggleFilter];
 };
 
-export const useSearchResults = (query: string, filters: Filter[]): [results: NodeItem[], isLoading: boolean] => {
+export const useSearchResults = (
+  query: string,
+  filters: Filter[],
+  pageSize = 20
+): [results: SearchResult[], hits: number, isLoading: boolean] => {
   const nodeQuery = useGetNodes();
+  const attributeQuery = useGetAttributes();
   const useFilters = filters.length > 0;
-  const searchableData = nodeQuery.data ?? [];
+  const results: SearchResult[] = [];
 
-  const fuseResult = useFuse<NodeLibCm>(searchableData, query, { keys: searchKeys, matchAllOnEmpty: true });
+  const searchableData = [...(nodeQuery.data ?? []), ...(attributeQuery.data ?? [])];
+  const fuseResult = useFuse(searchableData, query, { keys: searchKeys, matchAllOnEmpty: true });
 
-  const processedResults = useFilters
-    ? fuseResult.filter((x) => filters.some((f) => x.item[f.key as keyof NodeLibCm] == f.value))
+  const filteredResults = useFilters
+    ? fuseResult.filter((x) => filters.some((f) => x.item[f.key as keyof (NodeLibCm | AttributeLibCm)] == f.value))
     : fuseResult;
 
-  const mappedResults = processedResults.map((x) => mapNodeLibCmToNodeItem(x.item));
+  filteredResults.slice(0, pageSize).forEach((x) => {
+    if (isNodeLibCm(x.item)) results.push(mapNodeLibCmToNodeItem(x.item));
+    else if (isAttributeLibCm(x.item)) results.push(mapAttributeLibCmToAttributeItem(x.item));
+  });
 
-  return [mappedResults, nodeQuery.isLoading];
+  return [results, filteredResults.length, nodeQuery.isLoading];
 };
 
 export const useGetFilterGroups = (): FilterGroup[] => {
   const categoryFilters: FilterGroup[] = [];
   const purposeQuery = useGetPurposes();
   const aspectOptions = getValueLabelObjectsFromEnum<Aspect>(Aspect);
+
+  categoryFilters.push({
+    name: "Entity",
+    filters: [
+      {
+        key: "kind",
+        label: "Node",
+        value: "NodeLibCm",
+      },
+      {
+        key: "kind",
+        label: "Attribute",
+        value: "AttributeLibCm",
+      },
+    ],
+  });
 
   categoryFilters.push({
     name: "Aspect",

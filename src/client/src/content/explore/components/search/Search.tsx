@@ -1,4 +1,5 @@
 import { XCircle } from "@styled-icons/heroicons-outline";
+import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Token } from "../../../../complib/general";
@@ -6,37 +7,42 @@ import { Flexbox, MotionFlexbox } from "../../../../complib/layouts";
 import { MotionText } from "../../../../complib/text";
 import { useDebounceState } from "../../../../hooks/useDebounceState";
 import { SearchField } from "../../../common/SearchField";
+import { SelectedInfo } from "../../types/selectedInfo";
 import { ExploreSection } from "../ExploreSection";
+import { ConditionalAttributeSearchItem } from "./components/attribute/ConditionalAttributeSearchItem";
 import { FilterMenu } from "./components/filter/FilterMenu";
 import { ItemList } from "./components/item/ItemList";
-import { NodeSearchItem } from "./components/node/NodeSearchItem";
+import { ConditionalNodeSearchItem } from "./components/node/ConditionalNodeSearchItem";
 import { SearchPlaceholder } from "./components/SearchPlaceholder";
 import { useFilterState, useGetFilterGroups, useSearchResults } from "./Search.helpers";
 
 interface SearchProps {
-  selected?: string;
-  setSelected: (item: string) => void;
+  selected?: SelectedInfo;
+  setSelected: (item: SelectedInfo) => void;
+  pageLimit?: number;
 }
 
 /**
  * Component which displays search controls and search results.
  *
- * @param selected the id of the search result which has been selected
- * @param setSelected sets the id of the selected search result item
+ * @param selected the id and type of currently selected entity
+ * @param setSelected sets the id and type of the selected search result item
+ * @param pageLimit how many items to show per "page" (defaults to 20)
  * @constructor
  */
-export const Search = ({ selected, setSelected }: SearchProps) => {
+export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) => {
   const theme = useTheme();
   const { t } = useTranslation("translation", { keyPrefix: "search" });
   const filterGroups = useGetFilterGroups();
   const [activeFilters, toggleFilter] = useFilterState([]);
   const [query, setQuery, debouncedQuery] = useDebounceState("");
-  const [results, isLoading] = useSearchResults(debouncedQuery, activeFilters);
+  const [results, hits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit);
 
   const showResults = results.length > 0;
   const showFilterTokens = activeFilters.length > 0;
   const showSearchText = !isLoading;
   const showPlaceholder = !isLoading && results.length === 0;
+  const shown = hits < pageLimit ? hits : pageLimit;
 
   return (
     <ExploreSection title={t("title")}>
@@ -73,19 +79,25 @@ export const Search = ({ selected, setSelected }: SearchProps) => {
           color={theme.tyle.color.sys.surface.variant.on}
           {...theme.tyle.animation.fade}
         >
-          {t("templates.hits", { amount: results.length })}
+          {t("templates.hits", { shown: shown, total: hits })}
         </MotionText>
       )}
 
       {showResults && (
         <ItemList>
-          {results.map((nodeItem) => (
-            <NodeSearchItem
-              key={nodeItem.id}
-              isSelected={nodeItem.id === selected}
-              setSelected={() => setSelected(nodeItem.id)}
-              {...nodeItem}
-            />
+          {results.map((item) => (
+            <Fragment key={item.id}>
+              <ConditionalNodeSearchItem
+                item={item}
+                isSelected={item.id == selected?.id}
+                setSelected={() => setSelected({ id: item.id, type: "node" })}
+              />
+              <ConditionalAttributeSearchItem
+                item={item}
+                isSelected={item.id == selected?.id}
+                setSelected={() => setSelected({ id: item.id, type: "attribute" })}
+              />
+            </Fragment>
           ))}
         </ItemList>
       )}
