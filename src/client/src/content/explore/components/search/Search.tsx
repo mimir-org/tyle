@@ -36,13 +36,13 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
   const filterGroups = useGetFilterGroups();
   const [activeFilters, toggleFilter] = useFilterState([]);
   const [query, setQuery, debouncedQuery] = useDebounceState("");
-  const [results, hits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit);
+  const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit);
 
+  const showSearchText = !isLoading;
   const showResults = results.length > 0;
   const showFilterTokens = activeFilters.length > 0;
-  const showSearchText = !isLoading;
   const showPlaceholder = !isLoading && results.length === 0;
-  const shown = hits < pageLimit ? hits : pageLimit;
+  const shown = totalHits < pageLimit ? totalHits : pageLimit;
 
   return (
     <ExploreSection title={t("title")}>
@@ -79,7 +79,7 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
           color={theme.tyle.color.sys.surface.variant.on}
           {...theme.tyle.animation.fade}
         >
-          {t("templates.hits", { shown: shown, total: hits })}
+          {t("templates.hits", { shown: shown, total: totalHits })}
         </MotionText>
       )}
 
