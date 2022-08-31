@@ -14,7 +14,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string Description { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-        public string CompanyId { get; set; }
+        public int CompanyId { get; set; }
         public ICollection<AttributeLibCm> Attributes { get; set; }
         public ICollection<TerminalLibCm> Children { get; set; }
         public string Kind => nameof(TerminalLibCm);

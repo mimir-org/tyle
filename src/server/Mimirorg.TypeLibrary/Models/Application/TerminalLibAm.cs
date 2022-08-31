@@ -19,7 +19,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         /// The parent terminal id
         /// </summary>
         /// <remarks>
-        /// It is allowed to change the parent id. Changing will generate a major increase
+        /// The parent id is not allowed to change
         /// </remarks>
         public string ParentId { get; set; }
 
