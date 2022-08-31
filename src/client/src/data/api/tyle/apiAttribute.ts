@@ -7,6 +7,7 @@ import {
   AttributePredefinedLibCm,
   AttributeQualifierLibCm,
   AttributeSourceLibCm,
+  TypeReferenceCm,
 } from "@mimirorg/typelibrary-types";
 import { apiClient } from "../apiClient";
 
@@ -23,7 +24,7 @@ export const apiAttribute = {
     return apiClient.post<AttributeLibCm>(_basePath, item).then((r) => r.data);
   },
   getAttributesByAspect(aspect: Aspect) {
-    return apiClient.get<AttributeLibCm[]>(`${_basePath}/${aspect}`).then((r) => r.data);
+    return apiClient.get<AttributeLibCm[]>(`${_basePath}/aspect/${aspect}`).then((r) => r.data);
   },
   getAttributesPredefined() {
     return apiClient.get<AttributePredefinedLibCm[]>(`${_basePath}/predefined`).then((r) => r.data);
@@ -39,5 +40,8 @@ export const apiAttribute = {
   },
   getAttributesSource() {
     return apiClient.get<AttributeSourceLibCm[]>(`${_basePath}/source`).then((r) => r.data);
+  },
+  getAttributesReference() {
+    return apiClient.get<TypeReferenceCm[]>(`${_basePath}/reference`).then((r) => r.data);
   },
 };

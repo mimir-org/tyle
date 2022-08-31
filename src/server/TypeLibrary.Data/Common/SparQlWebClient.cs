@@ -26,10 +26,39 @@ namespace TypeLibrary.Data.Common
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
             PREFIX lis: <http://rds.posccaesar.org/ontology/lis14/rdl/>
             PREFIX rdl:   <http://rds.posccaesar.org/ontology/plm/rdl/>
-            select ?quantity ?quantity_label {
-                ?quantity rdfs:subClassOf lis:PhysicalQuantity ; rdfs:label ?quantity_label
+            select ?quantity ?quantity_label ?default_uom ?default_uom_label {
+                ?quantity rdfs:subClassOf lis:PhysicalQuantity ; rdfs:label ?quantity_label .
+                ?quantity rdl:PCA_100000510 ?default_uom .
+                ?default_uom a lis:Scale ; rdfs:label ?default_uom_label
             }
             order by ?quantity_label";
+
+        public const string PcaAttributeConditions = @"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            PREFIX owl: <http://www.w3.org/2002/07/owl#>
+            PREFIX lis: <http://rds.posccaesar.org/ontology/lis14/rdl/>
+            PREFIX rdl:   <http://rds.posccaesar.org/ontology/plm/rdl/>
+            select ?datum ?datum_label {
+              ?datum rdfs:subClassOf rdl:PCA_100004035 ; rdfs:label ?datum_label
+            }
+            order by ?datum_label";
+
+        public const string PcaAttributeQualifiers = @"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            PREFIX owl: <http://www.w3.org/2002/07/owl#>
+            PREFIX lis: <http://rds.posccaesar.org/ontology/lis14/rdl/>
+            PREFIX rdl:   <http://rds.posccaesar.org/ontology/plm/rdl/>
+            select ?datum ?datum_label {
+              ?datum rdfs:subClassOf rdl:PCA_100004034 ; rdfs:label ?datum_label
+            }
+            order by ?datum_label";
+
+        public const string PcaAttributeSources = @"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            PREFIX owl: <http://www.w3.org/2002/07/owl#>
+            PREFIX lis: <http://rds.posccaesar.org/ontology/lis14/rdl/>
+            PREFIX rdl:   <http://rds.posccaesar.org/ontology/plm/rdl/>
+            select ?datum ?datum_label {
+              ?datum rdfs:subClassOf rdl:PCA_100004033 ; rdfs:label ?datum_label
+            }
+            order by ?datum_label";
 
         #endregion
 

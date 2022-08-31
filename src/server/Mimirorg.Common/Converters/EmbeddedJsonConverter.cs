@@ -11,9 +11,9 @@ namespace Mimirorg.Common.Converters
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            if(reader.Value is string value)
+            if (reader.Value is string value)
                 return serializer.Deserialize(new StringReader(value), objectType);
-            
+
             return serializer.Deserialize(reader, objectType);
         }
 

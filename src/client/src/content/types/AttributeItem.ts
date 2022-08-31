@@ -1,14 +1,14 @@
 import { InfoItem } from "./InfoItem";
-import { TerminalItem } from "./TerminalItem";
 
-export interface NodeItem {
+export interface AttributeItem {
   id: string;
   name: string;
   description: string;
-  img: string;
   color: string;
+  qualifier: string;
+  source: string;
+  condition: string;
   tokens: string[];
-  terminals: TerminalItem[];
-  attributes: InfoItem[];
+  contents: InfoItem[];
   kind: string;
 }

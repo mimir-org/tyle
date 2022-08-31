@@ -11,7 +11,9 @@ namespace TypeLibrary.Core.Profiles
             CreateMap<TypeReferenceDm, TypeReferenceCm>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
-                .ForMember(dest => dest.Source, opt => opt.MapFrom(src => src.Source));
+                .ForMember(dest => dest.Source, opt => opt.MapFrom(src => src.Source))
+                .ForMember(dest => dest.SubIri, opt => opt.MapFrom(src => src.SubIri))
+                .ForMember(dest => dest.SubName, opt => opt.MapFrom(src => src.SubName));
         }
     }
 }

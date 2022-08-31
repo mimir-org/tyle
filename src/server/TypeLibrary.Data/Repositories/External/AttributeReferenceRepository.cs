@@ -54,7 +54,9 @@ namespace TypeLibrary.Data.Repositories.External
                 {
                     Name = pcaUnit.Quantity_Label,
                     Iri = pcaUnit.Quantity,
-                    Source = "PCA"
+                    Source = "PCA",
+                    SubName = pcaUnit.Default_Uom_Label,
+                    SubIri = pcaUnit.Default_Uom
                 };
 
                 attributes.Add(attributeReferenceDm);
