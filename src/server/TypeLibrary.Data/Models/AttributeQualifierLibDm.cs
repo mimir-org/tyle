@@ -1,6 +1,8 @@
+using TypeLibrary.Data.Contracts.Common;
+
 namespace TypeLibrary.Data.Models
 {
-    public class AttributeQualifierLibDm
+    public class AttributeQualifierLibDm : IDatum
     {
         public string Id { get; set; }
         public string Name { get; set; }

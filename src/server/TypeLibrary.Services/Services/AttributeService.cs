@@ -166,15 +166,10 @@ namespace TypeLibrary.Services.Services
 
         #region Condition
 
-        public Task<IEnumerable<AttributeConditionLibCm>> GetConditions()
+        public async Task<IEnumerable<AttributeConditionLibCm>> GetConditions()
         {
-            var dataSet = _attributeConditionRepository.GetConditions().ToList();
-
-            var dataDmList = new List<AttributeConditionLibDm>();
-            dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
-
-            var dataCmList = _mapper.Map<List<AttributeConditionLibCm>>(dataDmList);
-            return Task.FromResult(dataCmList.AsEnumerable());
+            var dataSet = await _attributeConditionRepository.GetConditions();
+            return _mapper.Map<List<AttributeConditionLibCm>>(dataSet);
         }
 
         #endregion Aspect
@@ -196,30 +191,20 @@ namespace TypeLibrary.Services.Services
 
         #region Qualifier
 
-        public Task<IEnumerable<AttributeQualifierLibCm>> GetQualifiers()
+        public async Task<IEnumerable<AttributeQualifierLibCm>> GetQualifiers()
         {
-            var dataSet = _attributeQualifierRepository.GetQualifiers().ToList();
-
-            var dataDmList = new List<AttributeQualifierLibDm>();
-            dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
-
-            var dataCmList = _mapper.Map<List<AttributeQualifierLibCm>>(dataDmList);
-            return Task.FromResult(dataCmList.AsEnumerable());
+            var dataSet = await _attributeQualifierRepository.GetQualifiers();
+            return _mapper.Map<List<AttributeQualifierLibCm>>(dataSet);
         }
 
         #endregion Qualifier
 
         #region Source
 
-        public Task<IEnumerable<AttributeSourceLibCm>> GetSources()
+        public async Task<IEnumerable<AttributeSourceLibCm>> GetSources()
         {
-            var dataSet = _attributeSourceRepository.GetSources().ToList();
-
-            var dataDmList = new List<AttributeSourceLibDm>();
-            dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
-
-            var dataCmList = _mapper.Map<List<AttributeSourceLibCm>>(dataDmList);
-            return Task.FromResult(dataCmList.AsEnumerable());
+            var dataSet = await _attributeSourceRepository.GetSources();
+            return _mapper.Map<List<AttributeSourceLibCm>>(dataSet);
         }
 
         #endregion Source

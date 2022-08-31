@@ -86,7 +86,7 @@ namespace TypeLibrary.Data.Repositories.External
                     Id = id,
                     Iri = iri,
                     Name = pcaUnit.Uom_Label,
-                    Description = null,
+                    Description = $"{pcaUnit.Default_Uom_Symbol}",
                     TypeReferences = typeReferences.ConvertToString(),
                     Symbol = pcaUnit.Default_Uom_Symbol
                 };
