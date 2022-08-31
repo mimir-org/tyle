@@ -212,53 +212,6 @@ namespace TypeLibrary.Data.Repositories.External
             }
 
             return Task.FromResult(datums);
-
-
-            //var conditions = new List<AttributeConditionLibDm>
-            //{
-            //new()
-            //{
-            //    Id = "NotSet".CreateMd5(),
-            //    Name = "NotSet",
-            //    Iri = $"{_settings.ApplicationSemanticUrl}/attribute/condition/{HttpUtility.UrlEncode("NotSet")}",
-            //    TypeReferences = null,
-            //    Description = null
-            //},
-            //    new()
-            //    {
-            //        Id = "Minimum".CreateMd5(),
-            //        Name = "Minimum",
-            //        Iri = $"{_settings.ApplicationSemanticUrl}/attribute/condition/{HttpUtility.UrlEncode("Minimum")}",
-            //        TypeReferences = CreateTypeReference(Pca, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004049"),
-            //        Description = @"A Minimum datum represents a minimal magnitude of the relevant quantity."
-            //    },
-            //    new()
-            //    {
-            //        Id = "Nominal".CreateMd5(),
-            //        Name = "Nominal",
-            //        Iri = $"{_settings.ApplicationSemanticUrl}/attribute/condition/{HttpUtility.UrlEncode("Nominal")}",
-            //        TypeReferences = CreateTypeReference(Pca, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004045"),
-            //        Description = @"A Nominal datum represents a conventional (and, in many cases, standardised) magnitude used to classify the relevant artefact."
-            //    },
-            //    new()
-            //    {
-            //        Id = "Maximum".CreateMd5(),
-            //        Name = "Maximum",
-            //        Iri = $"{_settings.ApplicationSemanticUrl}/attribute/condition/{HttpUtility.UrlEncode("Maximum")}",
-            //        TypeReferences = CreateTypeReference(Pca, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004048"),
-            //        Description = @"A Maximum datum represents a maximal magnitude of the relevant quantity."
-            //    },
-            //    new()
-            //    {
-            //        Id = "Actual".CreateMd5(),
-            //        Name = "Actual",
-            //        Iri = $"{_settings.ApplicationSemanticUrl}/attribute/condition/{HttpUtility.UrlEncode("Actual")}",
-            //        TypeReferences = CreateTypeReference(Pca, "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100004050"),
-            //        Description = @"An Actual datum represents a singular measured magnitude of the relevant quantity."
-            //    }
-            //};
-
-            //return conditions;
         }
 
         #endregion Private methods
