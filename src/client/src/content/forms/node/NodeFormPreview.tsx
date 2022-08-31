@@ -1,4 +1,5 @@
 import { Control, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useGetTerminals } from "../../../data/queries/tyle/queriesTerminal";
 import { getColorFromAspect } from "../../../utils/getColorFromAspect";
 import { NodePreview } from "../../common/node";
@@ -10,6 +11,7 @@ interface NodeFormPreviewProps {
 }
 
 export const NodeFormPreview = ({ control }: NodeFormPreviewProps) => {
+  const { t } = useTranslation();
   const terminalQuery = useGetTerminals();
 
   const name = useWatch({ control, name: "name" });
@@ -20,7 +22,7 @@ export const NodeFormPreview = ({ control }: NodeFormPreviewProps) => {
   return (
     <NodePreview
       variant={"large"}
-      name={name}
+      name={name ? name : t("node.name")}
       img={symbol}
       color={getColorFromAspect(aspect)}
       terminals={getTerminalItemsFromFormData(nodeTerminals, terminalQuery.data)}
