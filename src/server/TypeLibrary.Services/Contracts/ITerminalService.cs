@@ -9,5 +9,6 @@ namespace TypeLibrary.Services.Contracts
     {
         IEnumerable<TerminalLibCm> Get();
         Task Create(List<TerminalLibAm> terminalAmList, bool createdBySystem = false);
+        Task<TerminalLibCm> Create(TerminalLibAm terminal);
     }
 }

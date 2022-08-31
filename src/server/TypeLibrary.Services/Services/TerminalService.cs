@@ -62,6 +62,11 @@ namespace TypeLibrary.Services.Services
             _terminalRepository.ClearAllChangeTrackers();
         }
 
+        public Task<TerminalLibCm> Create(TerminalLibAm terminal)
+        {
+            throw new NotImplementedException();
+        }
+
         #region Private
 
         private TerminalLibDm GetLatestTerminalVersion(string firstVersionId)

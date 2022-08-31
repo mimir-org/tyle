@@ -17,6 +17,7 @@ namespace TypeLibrary.Data.Models
         public string Description { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
+        public string CompanyId { get; set; }
         public bool Deleted { get; set; }
         public ICollection<AttributeLibDm> Attributes { get; set; }
         public ICollection<TerminalLibDm> Children { get; set; }
