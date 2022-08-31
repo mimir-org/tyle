@@ -14,6 +14,10 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public string Source { get; set; }
 
+        public string SubName { get; set; }
+
+        public string SubIri { get; set; }
+
 
         public bool Equals(TypeReferenceAm other)
         {
