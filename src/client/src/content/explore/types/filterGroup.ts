@@ -1,4 +1,4 @@
-import { Filter } from "./Filter";
+import { Filter } from "./filter";
 
 export interface FilterGroup {
   name: string;

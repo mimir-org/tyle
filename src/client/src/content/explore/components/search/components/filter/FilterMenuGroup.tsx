@@ -2,7 +2,7 @@ import { useTheme } from "styled-components";
 import { Checkbox } from "../../../../../../complib/inputs/checkbox/Checkbox";
 import { Box } from "../../../../../../complib/layouts";
 import { AccordionContent, AccordionItem, AccordionTrigger } from "../../../../../../complib/surfaces";
-import { Filter } from "../../../../../types/Filter";
+import { Filter } from "../../../../types/filter";
 import { FilterMenuGroupLabel } from "./FilterMenuGroup.styled";
 
 export interface FilterMenuGroupProps {

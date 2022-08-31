@@ -8,8 +8,8 @@ import { getValueLabelObjectsFromEnum } from "../../../../utils/getValueLabelObj
 import { isAttributeLibCm, isNodeLibCm } from "../../../../utils/guards";
 import { mapNodeLibCmToNodeItem } from "../../../../utils/mappers";
 import { mapAttributeLibCmToAttributeItem } from "../../../../utils/mappers/mapAttributeLibCmToAttributeItem";
-import { Filter } from "../../../types/Filter";
-import { FilterGroup } from "../../../types/FilterGroup";
+import { Filter } from "../../types/filter";
+import { FilterGroup } from "../../types/filterGroup";
 import { SearchResult, SearchResultRaw } from "../../types/searchResult";
 
 /**
