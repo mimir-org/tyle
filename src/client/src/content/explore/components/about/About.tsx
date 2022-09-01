@@ -34,7 +34,7 @@ export const About = ({ selected }: AboutProps) => {
 
   return (
     <ExploreSection title={t("title")}>
-      <AnimatePresence exitBeforeEnter>
+      <AnimatePresence mode={"wait"}>
         {showLoading && <Loader />}
         {showPlaceHolder && <AboutPlaceholder text={t("placeholders.item")} />}
         {showNodePanel && <NodePanel key={nodeQuery.data.id} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />}
