@@ -45,17 +45,19 @@ export const Popover = ({
     <PopoverPrimitive.Root onOpenChange={onOpenChange}>
       <PopoverPrimitive.Trigger asChild>{children}</PopoverPrimitive.Trigger>
       <AnimatePresence>
-        <PopoverPrimitive.Content asChild avoidCollisions sideOffset={offset} side={placement} align={align}>
-          <MotionPopoverContent {...theme.tyle.animation.scale} {...delegated}>
-            {containsTextOnly ? (
-              <Text variant={"body-medium"} textAlign={"center"}>
-                {content}
-              </Text>
-            ) : (
-              content
-            )}
-          </MotionPopoverContent>
-        </PopoverPrimitive.Content>
+        <PopoverPrimitive.Portal>
+          <PopoverPrimitive.Content asChild avoidCollisions sideOffset={offset} side={placement} align={align}>
+            <MotionPopoverContent {...theme.tyle.animation.scale} {...delegated}>
+              {containsTextOnly ? (
+                <Text variant={"body-medium"} textAlign={"center"}>
+                  {content}
+                </Text>
+              ) : (
+                content
+              )}
+            </MotionPopoverContent>
+          </PopoverPrimitive.Content>
+        </PopoverPrimitive.Portal>
       </AnimatePresence>
     </PopoverPrimitive.Root>
   );

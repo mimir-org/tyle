@@ -1,3 +1,4 @@
+import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { MotionConfig } from "framer-motion";
 import { PropsWithChildren } from "react";
 import { ThemeProvider } from "styled-components/macro";
@@ -23,8 +24,10 @@ export const TyleThemeProvider = ({ theme, children }: PropsWithChildren<TyleThe
 
   return (
     <ThemeProvider theme={customTheme}>
-      <MotionConfig reducedMotion="user">{children}</MotionConfig>
-      <Toaster />
+      <MotionConfig reducedMotion="user">
+        <TooltipProvider>{children}</TooltipProvider>
+        <Toaster />
+      </MotionConfig>
     </ThemeProvider>
   );
 };
