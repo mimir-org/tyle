@@ -25,7 +25,10 @@ export const AttributeFormReferences = ({ control }: AttributeFormValuesProps) =
     <FormSection
       title={t("references.title")}
       action={
-        <FormAddButton buttonText={t("references.add")} onClick={() => referenceFields.append({ name: "", iri: "" })} />
+        <FormAddButton
+          buttonText={t("references.add")}
+          onClick={() => referenceFields.append({ name: "", iri: "", source: "", subIri: "", subName: "" })}
+        />
       }
     >
       <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.xl}>
