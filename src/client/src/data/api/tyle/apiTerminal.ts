@@ -1,10 +1,19 @@
-import { TerminalLibCm } from "@mimirorg/typelibrary-types";
+import { TerminalLibAm, TerminalLibCm, TypeReferenceCm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "../apiClient";
 
 const _basePath = "libraryterminal";
 
-export const apiRds = {
+export const apiTerminal = {
   getTerminals() {
     return apiClient.get<TerminalLibCm[]>(_basePath).then((r) => r.data);
+  },
+  getTerminal(id?: string) {
+    return apiClient.get<TerminalLibCm>(`${_basePath}/${id}`).then((r) => r.data);
+  },
+  postTerminal(item: TerminalLibAm) {
+    return apiClient.post<TerminalLibCm>(_basePath, item).then((r) => r.data);
+  },
+  getTerminalReferences() {
+    return apiClient.get<TypeReferenceCm[]>(`${_basePath}/reference`).then((r) => r.data);
   },
 };
