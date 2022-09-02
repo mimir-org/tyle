@@ -93,6 +93,6 @@ namespace Mimirorg.TypeLibrary.Models.Application
         /// The value will be set on server
         /// </remarks>
         [TSExclude]
-        public string Id => $"{Name}".CreateMd5();
+        public string Id => $"{Name}-{Version}".CreateMd5();
     }
 }

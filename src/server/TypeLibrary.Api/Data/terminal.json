@@ -58,7 +58,7 @@
   {
     "name": "Chemicals",
     "Color": "#00CC66",
-    "parentId": "F1DD54732321389535FE836DE6DD0C04",
+    "parentId": "0C943199E571EF8934999E9B018850E9",
     "companyId": 1,
     "attributeIdList": [
       "15AFB308ABE00544A25CF35BE028B75D",
@@ -76,7 +76,7 @@
   {
     "name": "Process (HC)",
     "Color": "#663300",
-    "parentId": "F1DD54732321389535FE836DE6DD0C04",
+    "parentId": "0C943199E571EF8934999E9B018850E9",
     "companyId": 1,
     "attributeIdList": [
       "15AFB308ABE00544A25CF35BE028B75D",
@@ -94,7 +94,7 @@
   {
     "name": "Utilities",
     "Color": "#006600",
-    "parentId": "F1DD54732321389535FE836DE6DD0C04",
+    "parentId": "0C943199E571EF8934999E9B018850E9",
     "companyId": 1,
     "attributeIdList": [
       "15AFB308ABE00544A25CF35BE028B75D",
@@ -112,7 +112,7 @@
   {
     "name": "Water",
     "Color": "#333399",
-    "parentId": "F1DD54732321389535FE836DE6DD0C04",
+    "parentId": "0C943199E571EF8934999E9B018850E9",
     "companyId": 1,
     "attributeIdList": [
       "15AFB308ABE00544A25CF35BE028B75D",
@@ -130,105 +130,105 @@
   {
     "name": "Dry powder",
     "Color": "#CC9900",
-    "parentId": "921C40542A8AD5DACF0379A2B0EBFF0B",
+    "parentId": "06C6089F5BEC152E97891DE976DB33EA",
     "companyId": 1,
     "attributeIdList": []
   },
   {
     "name": "Main HV System 80",
     "Color": "#9966CC",
-    "parentId": "54CC2AB379D04FA1B6A6B83A962B0CF2",
+    "parentId": "5B28EA83EA1EE1141A0FB0710258EFFB",
     "companyId": 1,
     "attributeIdList": []
   },
   {
     "name": "Main HV System 81",
     "Color": "#6666FF",
-    "parentId": "54CC2AB379D04FA1B6A6B83A962B0CF2",
+    "parentId": "5B28EA83EA1EE1141A0FB0710258EFFB",
     "companyId": 1,
     "attributeIdList": []
   },
   {
     "name": "Main HV System 82",
     "Color": "#669900",
-    "parentId": "54CC2AB379D04FA1B6A6B83A962B0CF2",
+    "parentId": "5B28EA83EA1EE1141A0FB0710258EFFB",
     "companyId": 1,
     "attributeIdList": []
   },
   {
     "name": "Essential power System 83",
     "Color": "#FF9900",
-    "parentId": "54CC2AB379D04FA1B6A6B83A962B0CF2",
+    "parentId": "5B28EA83EA1EE1141A0FB0710258EFFB",
     "companyId": 1,
     "attributeIdList": []
   },
   {
     "name": "Emergency power System 84",
     "Color": "#FF0000",
-    "parentId": "54CC2AB379D04FA1B6A6B83A962B0CF2",
+    "parentId": "5B28EA83EA1EE1141A0FB0710258EFFB",
     "companyId": 1,
     "attributeIdList": []
   },
   {
     "name": "Battery power System 85",
     "Color": "#CC9900",
-    "parentId": "54CC2AB379D04FA1B6A6B83A962B0CF2",
+    "parentId": "5B28EA83EA1EE1141A0FB0710258EFFB",
     "companyId": 1,
     "attributeIdList": []
   },
   {
     "name": "Heating medium",
     "Color": "#FF0000",
-    "parentId": "5B670C2BA827FF826A5625732BEE2D60",
+    "parentId": "2D9220D76EF44F0A4FEE321EE55D49A2",
     "companyId": 1,
     "attributeIdList": []
   },
   {
     "name": "Cooling medium",
     "Color": "#333399",
-    "parentId": "5B670C2BA827FF826A5625732BEE2D60",
+    "parentId": "2D9220D76EF44F0A4FEE321EE55D49A2",
     "companyId": 1,
     "attributeIdList": []
   },
   {
     "name": "Rotating shaft/axle",
     "Color": "#CCCCCC",
-    "parentId": "C7E6CB4B9FA127F191B9DCCFBDDB2052",
+    "parentId": "9C626568516AF1A70E93182B283B5A4B",
     "companyId": 1,
     "attributeIdList": []
   },
   {
     "name": "Push Pull rod/piston",
     "Color": "#000000",
-    "parentId": "C7E6CB4B9FA127F191B9DCCFBDDB2052",
+    "parentId": "9C626568516AF1A70E93182B283B5A4B",
     "companyId": 1,
     "attributeIdList": []
   },
   {
     "name": "Telecommunication System 86",
     "Color": "#9966CC",
-    "parentId": "A82BE0F551B8708BC08EB33CD9DED0CF",
+    "parentId": "201B169264C4F9249039054BCCDD4494",
     "companyId": 1,
     "attributeIdList": []
   },
   {
     "name": "Automation System 87",
     "Color": "#00CC66",
-    "parentId": "A82BE0F551B8708BC08EB33CD9DED0CF",
+    "parentId": "201B169264C4F9249039054BCCDD4494",
     "companyId": 1,
     "attributeIdList": []
   },
   {
     "name": "Bolting",
     "Color": "#000000",
-    "parentId": "9EB6B78A99CDB6FFD3D40D18621D9F80",
+    "parentId": "89931A6D45A2F570E1E64BA00BCA613E",
     "companyId": 1,
     "attributeIdList": []
   },
   {
     "name": "Locking",
     "Color": "#CCCCCC",
-    "parentId": "9EB6B78A99CDB6FFD3D40D18621D9F80",
+    "parentId": "89931A6D45A2F570E1E64BA00BCA613E",
     "companyId": 1,
     "attributeIdList": []
   }

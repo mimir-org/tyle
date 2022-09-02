@@ -60,6 +60,37 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
+        /// Get terminal type
+        /// </summary>
+        /// <param name="id">The id of the terminal that should be returned</param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetTerminal(string id)
+        {
+            try
+            {
+                var data = await _terminalService.Get(id);
+                if (data == null)
+                    return NotFound(id);
+
+                return Ok(data);
+            }
+            catch (MimirorgNotFoundException)
+            {
+                return NotFound(id);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
         /// Create a terminal
         /// </summary>
         /// <param name="terminal">The terminal that should be created</param>
@@ -103,6 +134,49 @@ namespace TypeLibrary.Core.Controllers.V1
             {
                 _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
                 return StatusCode(500, e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Update terminal
+        /// </summary>
+        /// <param name="terminal">The terminal that should be updated</param>
+        /// <param name="id">The id of the terminal that should be updated</param>
+        /// <returns>TerminalLibCm</returns>
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
+        public async Task<IActionResult> Update([FromBody] TerminalLibAm terminal, [FromRoute] string id)
+        {
+            try
+            {
+                var companyIsChanged = await _terminalService.CompanyIsChanged(id, terminal.CompanyId);
+                if (companyIsChanged)
+                    return StatusCode(StatusCodes.Status403Forbidden);
+
+                var data = await _terminalService.Update(terminal, id);
+                return Ok(data);
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                _logger.LogWarning(e, $"Warning error: {e.Message}");
+
+                foreach (var error in e.Errors().ToList())
+                {
+                    ModelState.Remove(error.Key);
+                    ModelState.TryAddModelError(error.Key, error.Error);
+                }
+
+                return BadRequest(ModelState);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
             }
         }
     }
