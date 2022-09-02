@@ -1,11 +1,12 @@
 import { DevTool } from "@hookform/devtools";
-import { useForm, useWatch } from "react-hook-form";
+import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { useTheme } from "styled-components/macro";
 import { Box } from "../../../complib/layouts";
 import { useCreateNode, useUpdateNode } from "../../../data/queries/tyle/queriesNode";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
-import { getFormForAspect, useNodeSubmissionToast, usePrefilledNodeData } from "./NodeForm.helpers";
+import { FormAttributes } from "../common/FormAttributes";
+import { getFormForAspect, prepareAttributes, useNodeSubmissionToast, usePrefilledNodeData } from "./NodeForm.helpers";
 import { NodeFormContainer } from "./NodeForm.styled";
 import { NodeFormBaseFields } from "./NodeFormBaseFields";
 import { createEmptyFormNodeLib, FormNodeLib, mapFormNodeLibToApiModel } from "./types/formNodeLib";
@@ -23,6 +24,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
   const nodeUpdateMutation = useUpdateNode();
   const nodeCreateMutation = useCreateNode();
   const [hasPrefilledData, isLoading] = usePrefilledNodeData(reset);
+  const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
   const toastNodeSubmission = useNodeSubmissionToast();
   const onSubmit = (data: FormNodeLib) => {
@@ -50,6 +52,13 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
 
           <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
             {getFormForAspect(aspect, control, register)}
+            <FormAttributes
+              register={(index) => register(`attributeIdList.${index}`)}
+              fields={attributeFields.fields}
+              append={attributeFields.append}
+              remove={attributeFields.remove}
+              prepareAttributes={(attributes) => prepareAttributes(attributes, [aspect])}
+            />
           </Box>
         </>
       )}
