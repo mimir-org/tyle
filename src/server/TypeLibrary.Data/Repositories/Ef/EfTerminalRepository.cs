@@ -24,6 +24,15 @@ namespace TypeLibrary.Data.Repositories.Ef
             return GetAll().Where(x => !x.Deleted);
         }
 
+        public async Task<TerminalLibDm> Get(string id)
+        {
+            var terminal = await FindBy(x => x.Id == id)
+                .Include(x => x.Attributes)
+                .FirstOrDefaultAsync();
+
+            return terminal;
+        }
+
         public async Task Create(List<TerminalLibDm> items)
         {
             foreach (var item in items)
