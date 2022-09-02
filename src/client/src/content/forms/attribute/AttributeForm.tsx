@@ -1,14 +1,14 @@
 import { DevTool } from "@hookform/devtools";
-import { useForm, useWatch } from "react-hook-form";
+import { Control, useForm, useWatch } from "react-hook-form";
 import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
-import { useCreateAttribute } from "../../../data/queries/tyle/queriesAttribute";
+import { useCreateAttribute, useGetAttributesReference } from "../../../data/queries/tyle/queriesAttribute";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
+import { FormReferences, HasReferences } from "../common/FormReferences";
 import { showSelectValues, useAttributeSubmissionToast, usePrefilledAttributeData } from "./AttributeForm.helpers";
 import { AttributeFormContainer } from "./AttributeForm.styled";
 import { AttributeFormBaseFields } from "./AttributeFormBaseFields";
-import { AttributeFormReferences } from "./references/AttributeFormReferences";
 import { createEmptyFormAttributeLib, FormAttributeLib, mapFormAttributeLibToApiModel } from "./types/formAttributeLib";
 import { AttributeFormUnits } from "./units/AttributeFormUnits";
 import { AttributeFormValues } from "./values/AttributeFormValues";
@@ -24,6 +24,7 @@ export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }:
   const attributeSelect = useWatch({ control, name: "select" });
 
   const attributeCreateMutation = useCreateAttribute();
+  const attributeReferences = useGetAttributesReference();
   const [hasPrefilledData, isLoading] = usePrefilledAttributeData(reset);
 
   const toastNodeSubmission = useAttributeSubmissionToast();
@@ -50,7 +51,11 @@ export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }:
 
           <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
             <AttributeFormUnits register={register} control={control} />
-            <AttributeFormReferences control={control} />
+            <FormReferences
+              control={control as unknown as Control<HasReferences>}
+              references={attributeReferences.data ?? []}
+              isLoading={attributeReferences.isLoading}
+            />
             {showSelectValues(attributeSelect) && <AttributeFormValues control={control} />}
           </Box>
         </>
