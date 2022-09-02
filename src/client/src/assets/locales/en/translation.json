@@ -149,6 +149,22 @@
       "error": "An error occurred during attribute submission"
     }
   },
+  "terminal": {
+    "name": "Name",
+    "color": "Color",
+    "owner": "Owner",
+    "description": "Description",
+    "placeholders": {
+      "name": "Attribute name",
+      "color": "Select color",
+      "description": "Additional information about this terminal can be supplied here."
+    },
+    "processing": {
+      "loading": "Submitting terminal",
+      "success": "Your terminal has been submitted",
+      "error": "An error occurred during terminal submission"
+    }
+  },
   "forms": {
     "placeholders": {
       "email": "you@organization.com",

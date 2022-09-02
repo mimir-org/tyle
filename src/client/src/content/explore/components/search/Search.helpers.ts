@@ -39,6 +39,10 @@ export const getCreateMenuLinks = (): Link[] => {
       name: "Aspect object",
       path: "/form/node",
     },
+    {
+      name: "Terminal",
+      path: "/form/terminal",
+    },
   ];
 };
 
