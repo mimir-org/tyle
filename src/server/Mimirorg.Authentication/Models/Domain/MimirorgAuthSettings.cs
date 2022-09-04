@@ -5,6 +5,7 @@ namespace Mimirorg.Authentication.Models.Domain
     public class MimirorgAuthSettings
     {
         public string ApplicationName { get; set; }
+        public string ApplicationUrl { get; set; }
         public string JwtKey { get; set; }
         public string JwtIssuer { get; set; }
         public string JwtAudience { get; set; }
