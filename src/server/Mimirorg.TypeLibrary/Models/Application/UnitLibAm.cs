@@ -8,8 +8,9 @@ namespace Mimirorg.TypeLibrary.Models.Application
     {
         [Required]
         public string Name { get; set; }
-        public ICollection<string> ContentReferences { get; set; }
+        public ICollection<TypeReferenceAm> TypeReferences { get; set; }
         public string Description { get; set; }
+        public string Symbol { get; set; }
 
         [TSExclude]
         private const string InternalType = "Mb.Models.Data.Enums.Unit";

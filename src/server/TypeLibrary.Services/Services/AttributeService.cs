@@ -26,8 +26,9 @@ namespace TypeLibrary.Services.Services
         private readonly IAttributeFormatRepository _attributeFormatRepository;
         private readonly IAttributeConditionRepository _attributeConditionRepository;
         private readonly IAttributePredefinedRepository _attributePredefinedRepository;
+        private readonly IAttributeReferenceRepository _attributeReferenceRepository;
 
-        public AttributeService(IMapper mapper, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings, IAttributeQualifierRepository attributeQualifierRepository, IAttributeSourceRepository attributeSourceRepository, IAttributeFormatRepository attributeFormatRepository, IAttributeConditionRepository attributeConditionRepository, IAttributePredefinedRepository attributePredefinedRepository)
+        public AttributeService(IMapper mapper, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings, IAttributeQualifierRepository attributeQualifierRepository, IAttributeSourceRepository attributeSourceRepository, IAttributeFormatRepository attributeFormatRepository, IAttributeConditionRepository attributeConditionRepository, IAttributePredefinedRepository attributePredefinedRepository, IAttributeReferenceRepository attributeReferenceRepository)
         {
             _mapper = mapper;
             _attributeRepository = attributeRepository;
@@ -36,6 +37,7 @@ namespace TypeLibrary.Services.Services
             _attributeFormatRepository = attributeFormatRepository;
             _attributeConditionRepository = attributeConditionRepository;
             _attributePredefinedRepository = attributePredefinedRepository;
+            _attributeReferenceRepository = attributeReferenceRepository;
             _applicationSettings = applicationSettings?.Value;
         }
 
@@ -55,6 +57,21 @@ namespace TypeLibrary.Services.Services
                 attributes = attributes.Where(x => x.Aspect.HasFlag(aspect)).ToList();
 
             return _mapper.Map<List<AttributeLibCm>>(attributes);
+        }
+
+        /// <summary>
+        /// Find attribute by id
+        /// </summary>
+        /// <param name="id">The attribute id</param>
+        /// <returns>The attribute, otherwise return null</returns>
+        public async Task<AttributeLibCm> Get(string id)
+        {
+            var item = await _attributeRepository.Get(id);
+            if (item == null)
+                return null;
+
+            var attribute = _mapper.Map<AttributeLibCm>(item);
+            return attribute;
         }
 
         /// <summary>
@@ -83,6 +100,25 @@ namespace TypeLibrary.Services.Services
                 attribute.CreatedBy = createdBySystem ? _applicationSettings.System : attribute.CreatedBy;
                 await _attributeRepository.Create(attribute);
             }
+        }
+
+        public async Task<AttributeLibCm> Create(AttributeLibAm attribute)
+        {
+            if (attribute == null)
+                throw new MimirorgBadRequestException("Can't create an attribute that is null.");
+
+            var status = attribute.ValidateObject();
+            if (!status.IsValid)
+                throw new MimirorgBadRequestException("The attribute is not valid.", status);
+
+            var data = _mapper.Map<AttributeLibDm>(attribute);
+            var exist = await _attributeRepository.Exist(data.Id);
+            if (exist)
+                throw new MimirorgDuplicateException($"The attribute with Id: {data.Id} already exist");
+
+            await _attributeRepository.Create(data);
+            var attrLibCm = _mapper.Map<AttributeLibCm>(data);
+            return attrLibCm;
         }
 
         #endregion Attribute
@@ -130,15 +166,10 @@ namespace TypeLibrary.Services.Services
 
         #region Condition
 
-        public Task<IEnumerable<AttributeConditionLibCm>> GetConditions()
+        public async Task<IEnumerable<AttributeConditionLibCm>> GetConditions()
         {
-            var dataSet = _attributeConditionRepository.GetConditions().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
-
-            var dataDmList = new List<AttributeConditionLibDm>();
-            dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
-
-            var dataCmList = _mapper.Map<List<AttributeConditionLibCm>>(dataDmList);
-            return Task.FromResult(dataCmList.AsEnumerable());
+            var dataSet = await _attributeConditionRepository.GetConditions();
+            return _mapper.Map<List<AttributeConditionLibCm>>(dataSet);
         }
 
         #endregion Aspect
@@ -147,7 +178,7 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<AttributeFormatLibCm>> GetFormats()
         {
-            var dataSet = _attributeFormatRepository.GetFormats().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
+            var dataSet = _attributeFormatRepository.GetFormats().ToList();
 
             var dataDmList = new List<AttributeFormatLibDm>();
             dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
@@ -160,32 +191,32 @@ namespace TypeLibrary.Services.Services
 
         #region Qualifier
 
-        public Task<IEnumerable<AttributeQualifierLibCm>> GetQualifiers()
+        public async Task<IEnumerable<AttributeQualifierLibCm>> GetQualifiers()
         {
-            var dataSet = _attributeQualifierRepository.GetQualifiers().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
-
-            var dataDmList = new List<AttributeQualifierLibDm>();
-            dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
-
-            var dataCmList = _mapper.Map<List<AttributeQualifierLibCm>>(dataDmList);
-            return Task.FromResult(dataCmList.AsEnumerable());
+            var dataSet = await _attributeQualifierRepository.GetQualifiers();
+            return _mapper.Map<List<AttributeQualifierLibCm>>(dataSet);
         }
 
         #endregion Qualifier
 
         #region Source
 
-        public Task<IEnumerable<AttributeSourceLibCm>> GetSources()
+        public async Task<IEnumerable<AttributeSourceLibCm>> GetSources()
         {
-            var dataSet = _attributeSourceRepository.GetSources().Where(x => x.Name != Aspect.NotSet.ToString()).ToList();
-
-            var dataDmList = new List<AttributeSourceLibDm>();
-            dataDmList.AddRange(dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList());
-
-            var dataCmList = _mapper.Map<List<AttributeSourceLibCm>>(dataDmList);
-            return Task.FromResult(dataCmList.AsEnumerable());
+            var dataSet = await _attributeSourceRepository.GetSources();
+            return _mapper.Map<List<AttributeSourceLibCm>>(dataSet);
         }
 
         #endregion Source
+
+        #region AttributeReferences
+
+        public async Task<IEnumerable<TypeReferenceCm>> GetAttributeReferences()
+        {
+            var dataSet = await _attributeReferenceRepository.Get();
+            return _mapper.Map<List<TypeReferenceCm>>(dataSet);
+        }
+
+        #endregion AttributeReferences
     }
 }

@@ -1,4 +1,4 @@
-import { AttributeItem } from "./AttributeItem";
+import { InfoItem } from "./InfoItem";
 
 export type TerminalItemDirection = "Input" | "Output" | "Bidirectional";
 
@@ -7,5 +7,5 @@ export interface TerminalItem {
   amount: number;
   color: string;
   direction: TerminalItemDirection;
-  attributes?: AttributeItem[];
+  attributes?: InfoItem[];
 }

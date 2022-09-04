@@ -1,11 +1,11 @@
-import styled from "styled-components/macro";
+import styled, { css } from "styled-components/macro";
 import { largeNode } from "./variants/largeNode";
 import { smallNode } from "./variants/smallNode";
 
 export type NodeVariant = "small" | "large";
 
 export interface NodeContainerProps {
-  color: string;
+  color?: string;
   variant?: NodeVariant;
 }
 
@@ -16,7 +16,8 @@ export const NodeContainer = styled.div<NodeContainerProps>`
   align-items: center;
   padding: ${(props) => props.theme.tyle.spacing.xl};
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
-  background: ${(props) => props.color};
+  border: ${(props) => !props.color && css`1px solid ${props.theme.tyle.color.sys.outline.base}`};
+  background: ${(props) => (props.color ? props.color : props.theme.tyle.color.sys.surface.base)};
 
   ${({ variant }) => {
     switch (variant) {

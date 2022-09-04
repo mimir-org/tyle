@@ -4,7 +4,7 @@ export const getColorFromAspect = (aspect: Aspect) => {
   switch (aspect) {
     case Aspect.NotSet:
     case Aspect.None:
-      return "rgba(0, 0, 0, 0)";
+      return "";
     case Aspect.Function:
       return "hsl(57,99%,63%)";
     case Aspect.Product:

@@ -13,7 +13,7 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired();
             builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired();
-            builder.Property(p => p.ContentReferences).HasColumnName("ContentReferences");
+            builder.Property(p => p.TypeReferences).HasColumnName("TypeReferences");
             builder.Property(p => p.Deleted).HasColumnName("Deleted").IsRequired().HasDefaultValue(0);
             builder.Property(p => p.CreatedBy).HasColumnName("CreatedBy").IsRequired().HasMaxLength(31);
             builder.Property(p => p.Created).HasColumnName("Created").IsRequired();

@@ -18,6 +18,10 @@ export const animation: AnimationSystem = {
     exit: {
       opacity: 0,
     },
+    transition: {
+      type: "tween",
+      ease: "easeIn"
+    }
   },
   scale: {
     initial: {

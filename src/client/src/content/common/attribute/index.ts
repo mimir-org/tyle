@@ -1,2 +1,1 @@
-export { AttributeInfoButton } from "./AttributeInfoButton";
-export { AttributeInfoCheckbox } from "./AttributeInfoCheckbox";
+export { AttributePreview } from "./AttributePreview";

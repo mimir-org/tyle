@@ -16,10 +16,9 @@ namespace TypeLibrary.Data.Configurations
             builder.HasKey(x => x.Id);
             builder.ToTable("Attribute");
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(127);
-            builder.Property(p => p.ParentId).HasColumnName("ParentId").HasMaxLength(127);
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(31);
             builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false).HasMaxLength(255);
-            builder.Property(p => p.ContentReferences).HasColumnName("ContentReferences");
+            builder.Property(p => p.TypeReferences).HasColumnName("TypeReferences");
             builder.Property(p => p.Deleted).HasColumnName("Deleted").IsRequired().HasDefaultValue(0);
             builder.Property(p => p.Aspect).HasColumnName("Aspect").IsRequired().HasConversion<string>().HasMaxLength(31);
             builder.Property(p => p.SelectValuesString).HasColumnName("SelectValuesString").IsRequired(false);
@@ -30,17 +29,10 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.AttributeSource).HasColumnName("AttributeSource").HasMaxLength(31);
             builder.Property(p => p.AttributeCondition).HasColumnName("AttributeCondition").HasMaxLength(31);
             builder.Property(p => p.AttributeFormat).HasColumnName("AttributeFormat").HasMaxLength(31);
-            builder.Property(p => p.AttributeType).HasColumnName("AttributeType").IsRequired().HasConversion<string>().HasMaxLength(31);
+            builder.Property(p => p.CompanyId).HasColumnName("CompanyId").IsRequired();
+            builder.Property(p => p.Units).HasColumnName("Units");
             builder.Property(p => p.CreatedBy).HasColumnName("CreatedBy").IsRequired().HasMaxLength(31);
             builder.Property(p => p.Created).HasColumnName("Created").IsRequired();
-
-            builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
-
-            builder.HasMany(x => x.Units).WithMany(y => y.Attributes).UsingEntity<Dictionary<string, object>>("Attribute_Unit",
-                x => x.HasOne<UnitLibDm>().WithMany().HasForeignKey("UnitId"),
-                x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),
-                x => x.ToTable("Attribute_Unit")
-            );
 
             builder.HasMany(x => x.Nodes).WithMany(y => y.Attributes).UsingEntity<Dictionary<string, object>>("Attribute_Node",
                 x => x.HasOne<NodeLibDm>().WithMany().HasForeignKey("NodeId"),

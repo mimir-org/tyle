@@ -2,7 +2,8 @@ import { useTheme } from "styled-components";
 import { Checkbox } from "../../../../../../complib/inputs/checkbox/Checkbox";
 import { Box } from "../../../../../../complib/layouts";
 import { AccordionContent, AccordionItem, AccordionTrigger } from "../../../../../../complib/surfaces";
-import { Filter } from "../../../../../types/Filter";
+import { Text } from "../../../../../../complib/text";
+import { Filter } from "../../../../types/filter";
 import { FilterMenuGroupLabel } from "./FilterMenuGroup.styled";
 
 export interface FilterMenuGroupProps {
@@ -38,7 +39,9 @@ export const FilterMenuGroup = ({ name, filters, activeFilters, toggleFilter }: 
           {filters?.map((f) => (
             <FilterMenuGroupLabel key={f.label}>
               <Checkbox onClick={() => toggleFilter(f)} checked={activeFilters?.some((x) => x.value === f.value)} />
-              {f.label}
+              <Text as={"span"} color={theme.tyle.color.sys.pure.on}>
+                {f.label}
+              </Text>
             </FilterMenuGroupLabel>
           ))}
         </Box>

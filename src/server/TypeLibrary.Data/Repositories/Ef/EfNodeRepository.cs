@@ -28,14 +28,11 @@ namespace TypeLibrary.Data.Repositories.Ef
         {
             return GetAll()
                 .Include(x => x.Attributes)
-                    .ThenInclude(x => x.Units)
                 .Include(x => x.NodeTerminals)
                     .ThenInclude(x => x.Terminal)
                     .ThenInclude(x => x.Attributes)
-                    .ThenInclude(x => x.Units)
                 .Include(x => x.Simples)
                     .ThenInclude(x => x.Attributes)
-                    .ThenInclude(x => x.Units)
                 .AsSplitQuery();
         }
 
@@ -43,14 +40,11 @@ namespace TypeLibrary.Data.Repositories.Ef
         {
             return await FindBy(x => x.Id == id)
                 .Include(x => x.Attributes)
-                    .ThenInclude(x => x.Units)
                 .Include(x => x.NodeTerminals)
                     .ThenInclude(x => x.Terminal)
                     .ThenInclude(x => x.Attributes)
-                    .ThenInclude(x => x.Units)
                 .Include(x => x.Simples)
                     .ThenInclude(x => x.Attributes)
-                    .ThenInclude(x => x.Units)
                 .AsSplitQuery()
                 .FirstOrDefaultAsync();
         }

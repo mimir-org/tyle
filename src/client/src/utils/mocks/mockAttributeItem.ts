@@ -1,21 +1,16 @@
 import { faker } from "@faker-js/faker";
 import { AttributeItem } from "../../content/types/AttributeItem";
+import { mockInfoItem } from "./mockInfoItem";
 
-export const mockAttributeItem = (): AttributeItem => {
-  return {
-    id: faker.random.alphaNumeric(),
-    name: `${faker.commerce.productAdjective()}`,
-    traits: mockAttributeItemTraits(parseInt(faker.random.numeric(1))),
-  };
-};
-
-const mockAttributeItemTraits = (amount = 5) => {
-  const traits: { [key: string]: string } = {};
-
-  for (let i = 0; i < amount; i++) {
-    const name = faker.commerce.product();
-    traits[name] = faker.commerce.productAdjective();
-  }
-
-  return traits;
-};
+export const mockAttributeItem = (): AttributeItem => ({
+  id: faker.random.numeric(),
+  name: faker.commerce.productName(),
+  description: faker.commerce.productDescription(),
+  color: faker.helpers.arrayElement(["#fef445", "#00f0ff", "#fa00ff"]),
+  qualifier: faker.word.adjective(),
+  source: faker.word.adjective(),
+  condition: faker.word.adjective(),
+  tokens: [...Array(5)].map((_) => faker.commerce.productAdjective()),
+  contents: [...Array(2)].map((_) => mockInfoItem()),
+  kind: "AttributeItem",
+});

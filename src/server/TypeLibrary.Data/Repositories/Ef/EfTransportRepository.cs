@@ -43,7 +43,6 @@ namespace TypeLibrary.Data.Repositories.Ef
             var item = await FindBy(x => x.Id == id)
                 .Include(x => x.Terminal)
                 .Include(x => x.Attributes)
-                .ThenInclude(y => y.Units)
                 .Include(x => x.Parent)
                 .AsSplitQuery()
                 .FirstOrDefaultAsync();

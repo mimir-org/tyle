@@ -104,5 +104,114 @@
       "Defined-by-application"
     ],
     "Aspect": "Location"
+  },
+  {
+    "key": "Space",
+    "isMultiSelect": false,
+    "valueStringList": [
+      "Installation space",
+      "Range space"
+    ],
+    "Aspect": "Location"
+  },
+  {
+    "key": "Facility",
+    "isMultiSelect": false,
+    "valueStringList": [
+      "Platform facility",
+      "FPSO facility",
+      "Terminal facility",
+      "Subsea facility"
+    ],
+    "Aspect": "Location"
+  },
+  {
+    "key": "Foundation structure",
+    "isMultiSelect": false,
+    "valueStringList": [
+      "Jacket foundation",
+      "Floater foundation",
+      "Rig foundation",
+      "GBS foundation"
+    ],
+    "Aspect": "Location"
+  },
+  {
+    "key": "Module",
+    "isMultiSelect": false,
+    "valueStringList": [
+      "Facility module",
+      "Tower module",
+      "Boom module",
+      "Bridge module"
+    ],
+    "Aspect": "Location"
+  },
+  {
+    "key": "Deck",
+    "isMultiSelect": false,
+    "valueStringList": [
+      "Main deck",
+      "Mezzanine deck",
+      "Partial deck"
+    ],
+    "Aspect": "Location"
+  },
+  {
+    "key": "Area",
+    "isMultiSelect": false,
+    "valueStringList": [
+      "Area",
+      "Function area",
+      "Sub area"
+    ],
+    "Aspect": "Location"
+  },
+  {
+    "key": "Route",
+    "isMultiSelect": false,
+    "valueStringList": [
+      "Route"
+    ],
+    "Aspect": "Location"
+  },
+  {
+    "key": "Enclosure",
+    "isMultiSelect": false,
+    "valueStringList": [
+      "Container enclosure",
+      "Cabinet enclosure",
+      "Box enclosure"
+    ],
+    "Aspect": "Location"
+  },
+  {
+    "key": "Point grid location",
+    "isMultiSelect": false,
+    "valueStringList": [
+      "Point platform grid",
+      "Point local grid"
+    ],
+    "Aspect": "Location"
+  },
+  {
+    "key": "Object envelope",
+    "isMultiSelect": false,
+    "valueStringList": [
+      "Point envelope",
+      "Outline envelope",
+      "Actual size envelope"
+    ],
+    "Aspect": "Location"
+  },
+  {
+    "key": "Terminal",
+    "isMultiSelect": false,
+    "valueStringList": [
+      "Pipe terminal",
+      "Cable terminal",
+      "Duct terminal"
+    ],
+    "Aspect": "Location"
   }
 ]

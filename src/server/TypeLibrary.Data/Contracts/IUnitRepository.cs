@@ -6,10 +6,19 @@ namespace TypeLibrary.Data.Contracts
 {
     public interface IUnitRepository
     {
-        IEnumerable<UnitLibDm> Get();
-        Task Create(List<UnitLibDm> units);
-        void ClearAllChangeTrackers();
-        void SetUnchanged(ICollection<UnitLibDm> items);
-        void SetDetached(ICollection<UnitLibDm> items);
+        /// <summary>
+        /// Get all units
+        /// </summary>
+        /// <returns>A collection of units</returns>
+        /// <remarks>Only units that is not deleted will be returned</remarks>
+        Task<List<UnitLibDm>> Get();
+
+        /// <summary>
+        /// Create an unit
+        /// </summary>
+        /// <param name="unit">The unit to be created</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        Task<UnitLibDm> CreateUnit(UnitLibDm unit);
     }
 }

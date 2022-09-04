@@ -42,14 +42,16 @@ export const Tooltip = ({
   const containsTextOnly = typeof content === "string";
 
   return (
-    <TooltipPrimitive.Root delayDuration={delay}>
+    <TooltipPrimitive.Root disableHoverableContent delayDuration={delay}>
       <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
       <AnimatePresence>
-        <TooltipPrimitive.Content asChild avoidCollisions sideOffset={offset} side={placement} align={align}>
-          <MotionTooltipContent {...theme.tyle.animation.scale} {...delegated}>
-            {containsTextOnly ? <Text variant={"body-medium"}>{content}</Text> : content}
-          </MotionTooltipContent>
-        </TooltipPrimitive.Content>
+        <TooltipPrimitive.Portal>
+          <TooltipPrimitive.Content asChild avoidCollisions sideOffset={offset} side={placement} align={align}>
+            <MotionTooltipContent {...theme.tyle.animation.scale} {...delegated}>
+              {containsTextOnly ? <Text variant={"body-medium"}>{content}</Text> : content}
+            </MotionTooltipContent>
+          </TooltipPrimitive.Content>
+        </TooltipPrimitive.Portal>
       </AnimatePresence>
     </TooltipPrimitive.Root>
   );

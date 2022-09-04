@@ -1,7 +1,7 @@
-import { Aspect, AttributeLibCm, AttributeType } from "@mimirorg/typelibrary-types";
+import { Aspect, AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { UseFieldArrayReturn } from "react-hook-form";
-import { mapAttributeLibCmToAttributeItem } from "../../../../utils/mappers";
-import { FormNodeLib } from "../../types/formNodeLib";
+import { mapAttributeLibCmsToInfoItems } from "../../../../utils/mappers";
+import { FormNodeLib } from "../types/formNodeLib";
 
 export const onAddAttributes = (
   ids: string[],
@@ -15,17 +15,15 @@ export const onAddAttributes = (
   });
 };
 
-export const getAttributeItems = (attributes?: AttributeLibCm[]) => {
+export const getSelectItemsFromAttributeLibCms = (attributes?: AttributeLibCm[]) => {
   if (!attributes || attributes.length == 0) return [];
 
-  return attributes.map((x) => mapAttributeLibCmToAttributeItem(x));
+  return mapAttributeLibCmsToInfoItems(attributes);
 };
 
 export const prepareAttributes = (attributes?: AttributeLibCm[], aspects?: Aspect[]) => {
   if (!attributes || attributes.length == 0) return [];
   if (!aspects || aspects.length == 0) return [];
 
-  return attributes
-    .filter((a) => aspects.some((x) => x === a.aspect && a.attributeType === AttributeType.Normal))
-    .sort((a, b) => a.discipline - b.discipline);
+  return attributes.filter((a) => aspects.some((x) => x === a.aspect)).sort((a, b) => a.discipline - b.discipline);
 };

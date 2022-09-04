@@ -8,10 +8,12 @@ using Microsoft.Extensions.Logging;
 using Mimirorg.Common.Abstract;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Contracts.Factories;
 using TypeLibrary.Data.Factories;
 using TypeLibrary.Data.Repositories.Application;
+using TypeLibrary.Data.Repositories.Common;
 using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Data.Repositories.External;
 using TypeLibrary.Services.Contracts;
@@ -26,6 +28,10 @@ namespace TypeLibrary.Core.Extensions
         {
             // Add configurations files
             var builder = services.AddConfigurationFiles();
+
+            // Cache
+            services.AddMemoryCache();
+            services.AddSingleton<ICacheRepository, InMemoryCacheRepository>();
 
             // Dependency Injection - Repositories
             services.AddSingleton<IApplicationSettingsRepository, ApplicationSettingsRepository>();
@@ -42,7 +48,6 @@ namespace TypeLibrary.Core.Extensions
             services.AddSingleton<IFileRepository, JsonFileRepository>();
             services.AddScoped<IEfSymbolRepository, EfSymbolRepository>();
             services.AddScoped<IEfPurposeRepository, EfPurposeRepository>();
-            services.AddScoped<IEfUnitRepository, EfUnitRepository>();
             services.AddScoped<IDynamicSymbolDataProvider, EfSymbolRepository>();
 
             services.AddScoped<IAttributeRepository, EfAttributeRepository>();
@@ -51,7 +56,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IAttributeFormatRepository, DatumRepository>();
             services.AddScoped<IAttributeConditionRepository, DatumRepository>();
             services.AddScoped<IAttributePredefinedRepository, EfAttributePredefinedRepository>();
-            services.AddScoped<IUnitRepository, EfUnitRepository>();
+            services.AddScoped<IUnitRepository, UnitRepository>();
             services.AddScoped<IInterfaceRepository, EfInterfaceRepository>();
             services.AddScoped<IPurposeRepository, EfPurposeRepository>();
             services.AddScoped<INodeRepository, EfNodeRepository>();
@@ -60,6 +65,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IRdsRepository, EfRdsRepository>();
             services.AddScoped<ITerminalRepository, EfTerminalRepository>();
             services.AddScoped<ISymbolRepository, EfSymbolRepository>();
+            services.AddScoped<IAttributeReferenceRepository, AttributeReferenceRepository>();
 
             // Dependency Injection - Services
             services.AddScoped<ITerminalService, TerminalService>();
@@ -77,8 +83,8 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IVersionService, VersionService>();
 
             // Factories
-            services.AddScoped<IUnitFactory, UnitFactory>();
             services.AddScoped<IAttributeFactory, AttributeFactory>();
+            services.AddScoped<IUnitFactory, UnitFactory>();
 
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();

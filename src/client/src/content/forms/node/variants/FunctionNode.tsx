@@ -1,8 +1,8 @@
 import { Aspect } from "@mimirorg/typelibrary-types";
 import { Control, UseFormRegister } from "react-hook-form";
-import { FormNodeLib } from "../../types/formNodeLib";
 import { NodeFormAttributes } from "../attributes/NodeFormAttributes";
 import { NodeFormTerminalTable } from "../terminals/NodeFormTerminalTable";
+import { FormNodeLib } from "../types/formNodeLib";
 
 export interface FunctionNodeProps {
   control: Control<FormNodeLib>;

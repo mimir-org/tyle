@@ -1,7 +1,8 @@
+import { motion } from "framer-motion";
 import styled from "styled-components/macro";
 import { hideScrollbar } from "../../../../../../complib/mixins";
 
-export const ItemListContainer = styled.div`
+const ItemListContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -24,3 +25,5 @@ export const ItemListContainer = styled.div`
   overflow-y: auto;
   ${hideScrollbar};
 `;
+
+export const MotionItemListContainer = motion(ItemListContainer);

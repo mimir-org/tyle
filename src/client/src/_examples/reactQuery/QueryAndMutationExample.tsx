@@ -25,7 +25,6 @@ export const QueryAndMutationExample = () => {
     aspect: Aspect.Function,
     companyId: 0,
     description: "A description goes here",
-    attributeAspectIri: "",
     symbol: "http://localhost:5001/symbol/018120B75674ABF18AB2F07691D1865C.svg",
     attributeIdList: ["07AFF47B9870A2D1B697F6F319A7185C", "11845C1C348E28563B4EA4B2E960B04C"],
     nodeTerminals: [
@@ -42,7 +41,7 @@ export const QueryAndMutationExample = () => {
     ],
     selectedAttributePredefined: [],
     simpleIdList: [],
-    contentReferences: [],
+    typeReferences: [],
   };
 
   return (

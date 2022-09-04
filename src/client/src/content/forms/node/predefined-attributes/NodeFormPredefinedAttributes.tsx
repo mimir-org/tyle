@@ -6,8 +6,8 @@ import { FormField } from "../../../../complib/form";
 import { Input, Select } from "../../../../complib/inputs";
 import { Box, Grid } from "../../../../complib/layouts";
 import { useGetAttributesPredefined } from "../../../../data/queries/tyle/queriesAttribute";
-import { FormNodeLib } from "../../types/formNodeLib";
-import { NodeFormSection } from "../NodeFormSection";
+import { FormSection } from "../../common/FormSection";
+import { FormNodeLib } from "../types/formNodeLib";
 import { preparePredefinedAttributes } from "./NodeFormPredefinedAttributes.helpers";
 
 export interface NodeFormPredefinedAttributesProps {
@@ -24,7 +24,7 @@ export const NodeFormPredefinedAttributes = ({ control, register, aspects }: Nod
   const predefinedAttributes = preparePredefinedAttributes(predefinedAttributesQuery.data, aspects);
 
   return (
-    <NodeFormSection title={t("title")}>
+    <FormSection title={t("title")}>
       <Grid gridTemplateColumns={"repeat(auto-fill, 300px)"} gap={theme.tyle.spacing.xl}>
         {predefinedAttributes.map((x, index) => {
           return (
@@ -55,6 +55,6 @@ export const NodeFormPredefinedAttributes = ({ control, register, aspects }: Nod
           );
         })}
       </Grid>
-    </NodeFormSection>
+    </FormSection>
   );
 };

@@ -1,5 +1,9 @@
 import { useForm } from "react-hook-form";
-import { createEmptyFormNodeLib, FormNodeLib, mapFormNodeLibToApiModel } from "../../content/forms/types/formNodeLib";
+import {
+  createEmptyFormNodeLib,
+  FormNodeLib,
+  mapFormNodeLibToApiModel,
+} from "../../content/forms/node/types/formNodeLib";
 import { getValidationStateFromServer } from "../../data/helpers/getValidationStateFromServer";
 import { useCreateNode } from "../../data/queries/tyle/queriesNode";
 import { useValidationFromServer } from "../../hooks/useValidationFromServer";

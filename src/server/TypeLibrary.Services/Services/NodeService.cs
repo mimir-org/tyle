@@ -153,13 +153,23 @@ namespace TypeLibrary.Services.Services
             if (latestNodeVersion > nodeToUpdateVersion)
                 throw new MimirorgBadRequestException($"Not allowed to update node with id {nodeToUpdate.Id} and version {nodeToUpdateVersion}. Latest version is node with id {latestNodeDm.Id} and version {latestNodeVersion}");
 
-            var newVersion = await _versionService.CalculateNewVersion(latestNodeDm, dataAm);
+            // Get version
+            var validation = latestNodeDm.HasIllegalChanges(dataAm);
 
-            if (string.IsNullOrWhiteSpace(newVersion))
-                return await Get(id);
+            if (!validation.IsValid)
+                throw new MimirorgBadRequestException(validation.Message, validation);
 
-            dataAm.Version = newVersion;
+            var versionStatus = latestNodeDm.CalculateVersionStatus(dataAm);
+            if (versionStatus == VersionStatus.NoChange)
+                return await Get(latestNodeDm.Id);
+
             dataAm.FirstVersionId = latestNodeDm.FirstVersionId;
+            dataAm.Version = versionStatus switch
+            {
+                VersionStatus.Minor => latestNodeDm.Version.IncrementMinorVersion(),
+                VersionStatus.Major => latestNodeDm.Version.IncrementMajorVersion(),
+                _ => latestNodeDm.Version
+            };
 
             return await Create(dataAm);
         }

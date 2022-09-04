@@ -5,11 +5,11 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Flexbox } from "../../../../complib/layouts";
 import { useGetAttributes } from "../../../../data/queries/tyle/queriesAttribute";
-import { AttributeInfoButton } from "../../../common/attribute";
-import { FormNodeLib } from "../../types/formNodeLib";
-import { NodeFormSection } from "../NodeFormSection";
-import { getAttributeItems, onAddAttributes, prepareAttributes } from "./NodeFormAttributes.helpers";
-import { SelectAttributeDialog } from "./SelectAttributeDialog";
+import { InfoItemButton } from "../../../common/infoItem";
+import { FormSection } from "../../common/FormSection";
+import { SelectItemDialog } from "../../common/SelectItemDialog";
+import { FormNodeLib } from "../types/formNodeLib";
+import { getSelectItemsFromAttributeLibCms, onAddAttributes, prepareAttributes } from "./NodeFormAttributes.helpers";
 
 export interface NodeFormAttributesProps {
   control: Control<FormNodeLib>;
@@ -23,13 +23,21 @@ export const NodeFormAttributes = ({ control, aspects, register }: NodeFormAttri
   const attributeQuery = useGetAttributes();
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
   const filteredAttributes = prepareAttributes(attributeQuery.data, aspects);
-  const attributeItems = getAttributeItems(filteredAttributes);
+  const attributeItems = getSelectItemsFromAttributeLibCms(filteredAttributes);
 
   return (
-    <NodeFormSection
+    <FormSection
       title={t("title")}
       action={
-        <SelectAttributeDialog attributes={attributeItems} onAdd={(ids) => onAddAttributes(ids, attributeFields)} />
+        <SelectItemDialog
+          title={t("dialog.title")}
+          description={t("dialog.description")}
+          searchFieldText={t("dialog.search")}
+          addItemsButtonText={t("dialog.add")}
+          openDialogButtonText={t("open")}
+          items={attributeItems}
+          onAdd={(ids) => onAddAttributes(ids, attributeFields)}
+        />
       }
     >
       <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.xl}>
@@ -37,7 +45,7 @@ export const NodeFormAttributes = ({ control, aspects, register }: NodeFormAttri
           const attribute = attributeItems.find((x) => x.id === field.value);
           return (
             attribute && (
-              <AttributeInfoButton
+              <InfoItemButton
                 key={field.id}
                 {...register(`attributeIdList.${index}`)}
                 {...attribute}
@@ -50,6 +58,6 @@ export const NodeFormAttributes = ({ control, aspects, register }: NodeFormAttri
           );
         })}
       </Flexbox>
-    </NodeFormSection>
+    </FormSection>
   );
 };

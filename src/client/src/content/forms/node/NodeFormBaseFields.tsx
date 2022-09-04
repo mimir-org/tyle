@@ -16,10 +16,10 @@ import { useGetRds } from "../../../data/queries/tyle/queriesRds";
 import { useGetSymbols } from "../../../data/queries/tyle/queriesSymbol";
 import { getValueLabelObjectsFromEnum } from "../../../utils/getValueLabelObjectsFromEnum";
 import { PlainLink } from "../../utils/PlainLink";
-import { FormNodeLib } from "../types/formNodeLib";
 import { resetSubform } from "./NodeForm.helpers";
 import { NodeFormBaseFieldsContainer } from "./NodeFormBaseFields.styled";
 import { NodeFormPreview } from "./NodeFormPreview";
+import { FormNodeLib } from "./types/formNodeLib";
 
 interface NodeFormBaseFieldsProps {
   control: Control<FormNodeLib>;

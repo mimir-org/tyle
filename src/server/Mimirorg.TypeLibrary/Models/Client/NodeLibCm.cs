@@ -12,8 +12,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string Version { get; set; }
         public string FirstVersionId { get; set; }
         public string Iri { get; set; }
-        public string AttributeAspectIri { get; set; }
-        public ICollection<string> ContentReferences { get; set; }
+        public ICollection<TypeReferenceCm> TypeReferences { get; set; }
         public string RdsCode { get; set; }
         public string RdsName { get; set; }
         public string PurposeName { get; set; }

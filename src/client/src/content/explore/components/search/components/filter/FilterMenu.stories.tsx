@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Filter } from "../../../../../types/Filter";
+import { Filter } from "../../../../types/filter";
 import { FilterMenu } from "./FilterMenu";
 import { FilterMenuGroup } from "./FilterMenuGroup";
 

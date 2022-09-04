@@ -172,13 +172,23 @@ namespace TypeLibrary.Services.Services
             if (latestTransportVersion > transportToUpdateVersion)
                 throw new MimirorgBadRequestException($"Not allowed to update transport with id {transportToUpdate.Id} and version {transportToUpdateVersion}. Latest version is transport with id {latestTransportDm.Id} and version {latestTransportVersion}");
 
-            var newVersion = await _versionService.CalculateNewVersion(latestTransportDm, dataAm);
+            // Get version
+            var validation = latestTransportDm.HasIllegalChanges(dataAm);
 
-            if (string.IsNullOrWhiteSpace(newVersion))
-                return await Get(id);
+            if (!validation.IsValid)
+                throw new MimirorgBadRequestException(validation.Message, validation);
 
-            dataAm.Version = newVersion;
+            var versionStatus = latestTransportDm.CalculateVersionStatus(dataAm);
+            if (versionStatus == VersionStatus.NoChange)
+                return await Get(latestTransportDm.Id);
+
             dataAm.FirstVersionId = latestTransportDm.FirstVersionId;
+            dataAm.Version = versionStatus switch
+            {
+                VersionStatus.Minor => latestTransportDm.Version.IncrementMinorVersion(),
+                VersionStatus.Major => latestTransportDm.Version.IncrementMajorVersion(),
+                _ => latestTransportDm.Version
+            };
 
             return await Create(dataAm);
         }

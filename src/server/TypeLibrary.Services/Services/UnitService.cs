@@ -1,14 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.Extensions.Options;
-using Mimirorg.Common.Models;
-using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -17,38 +12,29 @@ namespace TypeLibrary.Services.Services
     {
         private readonly IMapper _mapper;
         private readonly IUnitRepository _unitRepository;
-        private readonly ApplicationSettings _applicationSettings;
 
-        public UnitService(IMapper mapper, IUnitRepository unitRepository, IOptions<ApplicationSettings> applicationSettings)
+        public UnitService(IMapper mapper, IUnitRepository unitRepository)
         {
             _mapper = mapper;
             _unitRepository = unitRepository;
-            _applicationSettings = applicationSettings?.Value;
         }
 
-        public Task<IEnumerable<UnitLibCm>> Get()
+        public async Task<IEnumerable<UnitLibCm>> Get()
         {
-            var dataList = _unitRepository.Get().ToList()
-                .OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var dataList = await _unitRepository.Get();
 
             var dataAm = _mapper.Map<List<UnitLibCm>>(dataList);
-            return Task.FromResult(dataAm.AsEnumerable());
+            return dataAm.AsEnumerable();
         }
 
-        public async Task Create(List<UnitLibAm> dataAm, bool createdBySystem = false)
+        public async Task<UnitLibCm> Get(string id)
         {
-            var dataList = _mapper.Map<List<UnitLibDm>>(dataAm);
-            var existing = _unitRepository.Get().ToList();
-            var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Id)).ToList();
+            var unit = (await _unitRepository.Get()).FirstOrDefault(x => x.Id == id);
+            if (unit == null)
+                return null;
 
-            if (!notExisting.Any())
-                return;
-
-            foreach (var data in notExisting)
-                data.CreatedBy = createdBySystem ? _applicationSettings.System : data.CreatedBy;
-
-            await _unitRepository.Create(notExisting);
-            _unitRepository.ClearAllChangeTrackers();
+            var data = _mapper.Map<UnitLibCm>(unit);
+            return data;
         }
     }
 }

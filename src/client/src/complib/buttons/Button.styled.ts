@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
 import { ButtonHTMLAttributes, ElementType } from "react";
 import styled, { css } from "styled-components/macro";
-import { flexMixin, focus, spacingMixin } from "../mixins";
-import { Flex, Polymorphic, Spacing } from "../props";
+import { flexMixin, focus, sizingMixin, spacingMixin } from "../mixins";
+import { Flex, Polymorphic, Sizing, Spacing } from "../props";
 import { filledButton } from "./variants/filledButton";
 import { outlinedButton } from "./variants/outlinedButton";
 import { textButton } from "./variants/textButton";
 
 export type ButtonContainerProps = Flex &
+  Sizing &
   Spacing &
   Polymorphic<ElementType> &
   ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -87,6 +88,7 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
 
   ${flexMixin};
   ${spacingMixin};
+  ${sizingMixin};
 `;
 
 ButtonContainer.defaultProps = {

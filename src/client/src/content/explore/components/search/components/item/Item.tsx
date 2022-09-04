@@ -25,12 +25,7 @@ export const Item = ({ isSelected, preview, description, actions }: ItemProps) =
   const theme = useTheme();
 
   return (
-    <MotionCard
-      layout
-      variant={isSelected ? "selected" : "filled"}
-      {...theme.tyle.animation.fade}
-      {...theme.tyle.animation.selectHover}
-    >
+    <MotionCard layout={"position"} variant={isSelected ? "selected" : "filled"} {...theme.tyle.animation.selectHover}>
       <Box
         position={"relative"}
         display={"flex"}

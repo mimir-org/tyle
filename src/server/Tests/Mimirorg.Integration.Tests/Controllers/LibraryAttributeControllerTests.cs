@@ -1,7 +1,6 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Mimirorg.Setup;
-using Mimirorg.TypeLibrary.Models.Client;
 using Xunit;
 
 // ReSharper disable StringLiteralTypo
@@ -17,11 +16,11 @@ namespace Mimirorg.Integration.Tests.Controllers
 
         [Theory]
         [InlineData("/v1/libraryattribute")]
-        [InlineData("/v1/libraryattribute/0")]
-        [InlineData("/v1/libraryattribute/1")]
-        [InlineData("/v1/libraryattribute/2")]
-        [InlineData("/v1/libraryattribute/4")]
-        [InlineData("/v1/libraryattribute/8")]
+        [InlineData("/v1/libraryattribute/aspect/0")]
+        [InlineData("/v1/libraryattribute/aspect/1")]
+        [InlineData("/v1/libraryattribute/aspect/2")]
+        [InlineData("/v1/libraryattribute/aspect/4")]
+        [InlineData("/v1/libraryattribute/aspect/8")]
         [InlineData("/v1/libraryattribute/predefined")]
         [InlineData("/v1/libraryattribute/format")]
         [InlineData("/v1/libraryattribute/condition")]
@@ -40,22 +39,6 @@ namespace Mimirorg.Integration.Tests.Controllers
 
             var response = await client.GetAsync(endpoint);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        }
-
-        [Fact]
-        public async Task GET_Retrieves_Same_Data_NotSet_And_Empty()
-        {
-            var client = Factory.WithWebHostBuilder(builder =>
-            {
-                builder.ConfigureServices(services =>
-                {
-
-                });
-            }).CreateClient(new WebApplicationFactoryClientOptions());
-
-            var notSetResponse = await client.GetAndDeserialize<List<AttributeLibCm>>("/v1/libraryattribute/0");
-            var response = await client.GetAndDeserialize<List<AttributeLibCm>>("/v1/libraryattribute");
-            Assert.Equal(notSetResponse.Count, response.Count);
         }
     }
 }

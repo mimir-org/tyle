@@ -10,7 +10,7 @@ import { PlainLink } from "../../../../../utils/PlainLink";
 import { Item } from "../item/Item";
 import { ItemDescription } from "../item/ItemDescription";
 
-type NodeItemProps = NodeItem & {
+export type NodeSearchItemProps = NodeItem & {
   isSelected?: boolean;
   setSelected?: () => void;
 };
@@ -23,7 +23,7 @@ type NodeItemProps = NodeItem & {
  * @param node
  * @constructor
  */
-export const NodeSearchItem = ({ isSelected, setSelected, ...node }: NodeItemProps) => (
+export const NodeSearchItem = ({ isSelected, setSelected, ...node }: NodeSearchItemProps) => (
   <Item
     isSelected={isSelected}
     preview={<NodePreview {...node} />}

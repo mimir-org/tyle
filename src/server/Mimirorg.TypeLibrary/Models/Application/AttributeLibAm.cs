@@ -6,7 +6,7 @@ using Discipline = Mimirorg.TypeLibrary.Enums.Discipline;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
-    public class AttributeLibAm
+    public class AttributeLibAm : IValidatableObject
     {
         [Required]
         public string Name { get; set; }
@@ -32,15 +32,21 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public string AttributeFormat { get; set; }
 
-        public AttributeType AttributeType { get; set; }
+        [Display(Name = "CompanyId")]
+        [Range(1, int.MaxValue, ErrorMessage = "{0} must be greater than 0")]
+        public int CompanyId { get; set; }
 
-        public ICollection<string> ContentReferences { get; set; }
-        public string ParentId { get; set; }
+        public ICollection<TypeReferenceAm> TypeReferences { get; set; }
         public ICollection<string> SelectValues { get; set; }
         public ICollection<string> UnitIdList { get; set; }
         public HashSet<string> Tags { get; set; }
 
         [TSExclude]
         public string Id => ($"{Name}-{Aspect}-{AttributeQualifier}-{AttributeSource}-{AttributeCondition}").CreateMd5();
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            return this.ValidateAttribute();
+        }
     }
 }

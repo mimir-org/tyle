@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace Mimirorg.TypeLibrary.Extensions
 {
@@ -17,6 +18,17 @@ namespace Mimirorg.TypeLibrary.Extensions
                 sb.Append(t.ToString("X2"));
             }
             return sb.ToString();
+        }
+
+        public static T ConvertToObject<T>(this string data) where T : class
+        {
+            return JsonConvert.DeserializeObject<T>(data);
+        }
+
+        public static string ConvertToString<T>(this T obj) where T : class
+        {
+            var dataObject = obj == null ? null : JsonConvert.SerializeObject(obj);
+            return dataObject == "[]" ? null : dataObject;
         }
     }
 }
