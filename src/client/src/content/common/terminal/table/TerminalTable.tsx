@@ -1,5 +1,5 @@
 import { Table, Tbody, Thead, Tr } from "../../../../complib/data-display";
-import { TerminalItem } from "../../../types/TerminalItem";
+import { NodeTerminalItem } from "../../../types/NodeTerminalItem";
 import { TerminalTableAmount } from "./TerminalTableAmount";
 import { TerminalTableAttributes } from "./TerminalTableAttributes";
 import { TerminalTableDirection } from "./TerminalTableDirection";
@@ -12,7 +12,7 @@ import { TerminalTableIdentifier } from "./TerminalTableIdentifier";
  * @param terminals to show inside the table
  * @constructor
  */
-export const TerminalTable = ({ terminals }: { terminals: TerminalItem[] }) => (
+export const TerminalTable = ({ terminals }: { terminals: NodeTerminalItem[] }) => (
   <Table borders width={"100%"}>
     <Thead>
       <TerminalTableHeader />

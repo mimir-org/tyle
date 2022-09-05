@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Td } from "../../../../complib/data-display";
 import { Flexbox } from "../../../../complib/layouts";
-import { TerminalItem } from "../../../types/TerminalItem";
+import { NodeTerminalItem } from "../../../types/NodeTerminalItem";
 
-export const TerminalTableDirection = ({ direction }: Pick<TerminalItem, "direction">) => {
+export const TerminalTableDirection = ({ direction }: Pick<NodeTerminalItem, "direction">) => {
   const theme = useTheme();
   const { t } = useTranslation("translation", { keyPrefix: "terminals" });
   const directionIconSize = 20;

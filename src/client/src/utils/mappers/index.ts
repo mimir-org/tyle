@@ -1,7 +1,7 @@
 export { mapNodeLibCmToNodeItem } from "./mapNodeLibCmToNodeItem";
 export { mapNodeLibCmToNodeLibAm } from "./mapNodeLibCmToNodeLibAm";
-export { mapNodeTerminalLibCmToTerminalItem } from "./mapNodeTerminalLibCmToTerminalItem";
-export { mapNodeTerminalLibCmsToTerminalItems } from "./mapNodeTerminalLibCmToTerminalItem";
+export { mapNodeTerminalLibCmToNodeTerminalItem } from "./mapNodeTerminalLibCmToNodeTerminalItem";
+export { mapNodeTerminalLibCmsToNodeTerminalItems } from "./mapNodeTerminalLibCmToNodeTerminalItem";
 export { mapNodeTerminalLibCmToNodeTerminalLibAm } from "./mapNodeTerminalLibCmToNodeTerminalLibAm";
 export { mapNodeTerminalLibCmsToNodeTerminalLibAms } from "./mapNodeTerminalLibCmToNodeTerminalLibAm";
 export { mapAttributeLibCmToAttributeLibAm } from "./mapAttributeLibCmToAttributeLibAm";
