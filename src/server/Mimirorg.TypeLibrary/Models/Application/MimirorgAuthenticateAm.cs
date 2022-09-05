@@ -14,6 +14,6 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         [Display(Name = "Code")]
         [Required(ErrorMessage = "{0} is required")]
-        public int Code { get; set; }
+        public string Code { get; set; }
     }
 }
