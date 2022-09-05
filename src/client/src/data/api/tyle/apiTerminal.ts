@@ -13,6 +13,9 @@ export const apiTerminal = {
   postTerminal(item: TerminalLibAm) {
     return apiClient.post<TerminalLibCm>(_basePath, item).then((r) => r.data);
   },
+  putTerminal(id: string, item: TerminalLibAm) {
+    return apiClient.put<TerminalLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
+  },
   getTerminalReferences() {
     return apiClient.get<TypeReferenceCm[]>(`${_basePath}/reference`).then((r) => r.data);
   },

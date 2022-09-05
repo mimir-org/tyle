@@ -1,6 +1,7 @@
 import { TerminalLibAm } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiTerminal } from "../../api/tyle/apiTerminal";
+import { UpdateEntity } from "../../types/updateEntity";
 
 const keys = {
   all: ["terminals"] as const,
@@ -20,6 +21,14 @@ export const useCreateTerminal = () => {
 
   return useMutation((item: TerminalLibAm) => apiTerminal.postTerminal(item), {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
+  });
+};
+
+export const useUpdateTerminal = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation((item: UpdateEntity<TerminalLibAm>) => apiTerminal.putTerminal(item.id, item), {
+    onSuccess: (unit) => queryClient.invalidateQueries(keys.terminal(unit.id)),
   });
 };
 

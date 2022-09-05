@@ -24,6 +24,7 @@ export const Authenticated = () => {
           <Route path={"/form/attribute/clone/:id"} element={<AttributeForm />} />
           <Route path={"/form/terminal"} element={<TerminalForm />} />
           <Route path={"/form/terminal/clone/:id"} element={<TerminalForm />} />
+          <Route path={"/form/terminal/edit/:id"} element={<TerminalForm isEdit />} />
           <Route
             path={"*"}
             element={

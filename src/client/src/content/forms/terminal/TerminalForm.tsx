@@ -2,7 +2,11 @@ import { DevTool } from "@hookform/devtools";
 import { Control, useFieldArray, useForm } from "react-hook-form";
 import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
-import { useCreateTerminal, useGetTerminalReferences } from "../../../data/queries/tyle/queriesTerminal";
+import {
+  useCreateTerminal,
+  useGetTerminalReferences,
+  useUpdateTerminal,
+} from "../../../data/queries/tyle/queriesTerminal";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
 import { FormAttributes } from "../common/FormAttributes";
@@ -17,24 +21,27 @@ interface TerminalFormProps {
   isEdit?: boolean;
 }
 
-export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib() }: TerminalFormProps) => {
+export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), isEdit }: TerminalFormProps) => {
   const theme = useTheme();
   const { register, handleSubmit, control, reset } = useForm<FormTerminalLib>({ defaultValues });
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
-  const createMutation = useCreateTerminal();
   const referenceQuery = useGetTerminalReferences();
   const [_, isLoading] = usePrefilledTerminalData(reset);
+
+  const createMutation = useCreateTerminal();
+  const updateMutation = useUpdateTerminal();
+  const targetMutation = isEdit ? updateMutation : createMutation;
 
   const toastNodeSubmission = useTerminalSubmissionToast();
   const onSubmit = (data: FormTerminalLib) => {
     const submittable = mapFormTerminalLibToApiModel(data);
-    const submissionPromise = createMutation.mutateAsync(submittable);
+    const submissionPromise = targetMutation.mutateAsync(submittable);
     toastNodeSubmission(submissionPromise);
     return submissionPromise;
   };
 
-  useNavigateOnCriteria("/", createMutation.isSuccess);
+  useNavigateOnCriteria("/", targetMutation.isSuccess);
 
   return (
     <TerminalFormContainer onSubmit={handleSubmit((data) => onSubmit(data))}>
