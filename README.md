@@ -174,6 +174,8 @@ To set environment variables for server in development, edit the appsettings.jso
 
 \* `MimirorgAuthSettings__JwtAudience` - The url for Jwt audience.
 
+\* `MimirorgAuthSettings__ApplicationUrl` - The root url for current application.
+
 `MimirorgAuthSettings__RequireConfirmedAccount` - Is it required to confirm accout. Default true.
 
 `MimirorgAuthSettings__JwtExpireMinutes` - The length of valid access token in minutes. Default 15.
