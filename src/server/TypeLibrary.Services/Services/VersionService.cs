@@ -52,7 +52,6 @@ namespace TypeLibrary.Services.Services
                     .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
             }
 
-
             else if (obj.GetType() == typeof(TransportLibDm) && (obj as TransportLibDm)?.Version != null)
             {
                 (existingDmVersions as List<TransportLibDm>)?.AddRange(_transportRepository.Get()

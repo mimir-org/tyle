@@ -61,12 +61,11 @@ namespace TypeLibrary.Data.Models
             if (ParentId != other.ParentId)
                 validation.AddNotAllowToChange(nameof(ParentId));
 
-            if (Attributes != null && other.AttributeIdList != null)
+            Attributes ??= new List<AttributeLibDm>();
+            other.AttributeIdList ??= new List<string>();
+            if (Attributes.Select(y => y.Id).Any(id => other.AttributeIdList.All(x => x != id)))
             {
-                if (Attributes.Select(y => y.Id).Any(id => other.AttributeIdList.All(x => x != id)))
-                {
-                    validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove items from attributes");
-                }
+                validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove items from attributes");
             }
 
             validation.IsValid = !validation.Result.Any();
@@ -87,21 +86,21 @@ namespace TypeLibrary.Data.Models
             if (CompanyId != other.CompanyId)
                 minor = true;
 
-            if (Attributes != null && other.AttributeIdList != null)
-            {
-                if (!Attributes.Select(x => x.Id).SequenceEqual(other.AttributeIdList))
-                    major = true;
-            }
-
             if (Description != other.Description)
                 minor = true;
 
-            ICollection<TypeReferenceAm> references = null;
+            // Attributes
+            Attributes ??= new List<AttributeLibDm>();
+            other.AttributeIdList ??= new List<string>();
+            if (!Attributes.Select(x => x.Id).SequenceEqual(other.AttributeIdList))
+                major = true;
 
-            if (!string.IsNullOrEmpty(TypeReferences))
-                references = JsonConvert.DeserializeObject<ICollection<TypeReferenceAm>>(TypeReferences);
-
-            if (references != null && !references.SequenceEqual(other.TypeReferences))
+            // Type-references
+            var references = string.IsNullOrWhiteSpace(TypeReferences)
+                ? new List<TypeReferenceAm>()
+                : JsonConvert.DeserializeObject<ICollection<TypeReferenceAm>>(TypeReferences) ?? new List<TypeReferenceAm>();
+            other.TypeReferences ??= new List<TypeReferenceAm>();
+            if (!references.SequenceEqual(other.TypeReferences))
                 minor = true;
 
             return major ? VersionStatus.Major : minor ? VersionStatus.Minor : VersionStatus.NoChange;

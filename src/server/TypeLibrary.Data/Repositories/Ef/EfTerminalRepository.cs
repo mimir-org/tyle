@@ -21,7 +21,7 @@ namespace TypeLibrary.Data.Repositories.Ef
 
         public IEnumerable<TerminalLibDm> Get()
         {
-            return GetAll().Where(x => !x.Deleted);
+            return GetAll().Include(x => x.Attributes).Where(x => !x.Deleted);
         }
 
         public async Task<TerminalLibDm> Get(string id)
