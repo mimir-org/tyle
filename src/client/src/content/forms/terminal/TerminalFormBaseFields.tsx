@@ -8,6 +8,7 @@ import { Flexbox } from "../../../complib/layouts";
 import { useGetCompanies } from "../../../data/queries/auth/queriesCompany";
 import { PlainLink } from "../../utils/PlainLink";
 import { TerminalFormBaseFieldsContainer } from "./TerminalFormBaseFields.styled";
+import { TerminalFormPreview } from "./TerminalFormPreview";
 import { FormTerminalLib } from "./types/formTerminalLib";
 
 interface TerminalFormBaseFieldsProps {
@@ -30,6 +31,8 @@ export const TerminalFormBaseFields = ({ control, register }: TerminalFormBaseFi
 
   return (
     <TerminalFormBaseFieldsContainer>
+      <TerminalFormPreview control={control} />
+
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
         <FormField label={t("terminal.name")}>
           <Input placeholder={t("terminal.placeholders.name")} {...register("name")} />

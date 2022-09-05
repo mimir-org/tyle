@@ -25,6 +25,7 @@ export const createEmptyFormTerminalLib = (): FormTerminalLib => ({
   ...createEmptyTerminalLibAm(),
   id: "",
   attributeIdList: [],
+  color: "#000000",
 });
 
 export const mapTerminalLibCmToFormTerminalLib = (terminalLibCm: TerminalLibCm): FormTerminalLib => ({
