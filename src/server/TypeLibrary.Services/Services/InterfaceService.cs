@@ -90,6 +90,8 @@ namespace TypeLibrary.Services.Services
             if (existing != null)
                 throw new MimirorgDuplicateException($"Interface '{existing.Name}', with RdsCode '{existing.RdsCode}', Aspect '{existing.Aspect}' and version '{existing.Version}' already exist in db.");
 
+            dataAm.FirstVersionId = dataAm.Id;
+            dataAm.Version = "1.0";
             var interfaceLibDm = _mapper.Map<InterfaceLibDm>(dataAm);
 
             if (!double.TryParse(interfaceLibDm.Version, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out _))
