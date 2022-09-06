@@ -1,12 +1,14 @@
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Token } from "../../../../../../complib/general";
 import { Flexbox, MotionBox } from "../../../../../../complib/layouts";
 import { Heading, Text } from "../../../../../../complib/text";
+import { InfoItemButton } from "../../../../../common/infoItem";
 import { NodePreview } from "../../../../../common/node";
+import { TerminalTable } from "../../../../../common/terminal";
 import { NodeItem } from "../../../../../types/NodeItem";
-import { NodePanelPropertiesContainer } from "./NodePanel.styled";
-import { NodePanelAttributes } from "./NodePanelAttributes";
-import { NodePanelTerminals } from "./NodePanelTerminals";
+import { PanelPropertiesContainer } from "../common/PanelPropertiesContainer";
+import { PanelSection } from "../common/PanelSection";
 
 /**
  * Component that displays information about a given node.
@@ -22,6 +24,7 @@ import { NodePanelTerminals } from "./NodePanelTerminals";
  */
 export const NodePanel = ({ name, description, img, color, tokens, terminals, attributes }: NodeItem) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const showTerminals = terminals && terminals.length > 0;
   const showAttributes = attributes && attributes.length > 0;
 
@@ -46,13 +49,23 @@ export const NodePanel = ({ name, description, img, color, tokens, terminals, at
         </Text>
       </Flexbox>
       <Flexbox gap={theme.tyle.spacing.xl} flexWrap={"wrap"}>
-        {tokens && tokens.map((t, i) => <Token key={i}>{t}</Token>)}
+        {tokens && tokens.map((token, i) => <Token key={i}>{token}</Token>)}
       </Flexbox>
 
-      <NodePanelPropertiesContainer>
-        {showAttributes && <NodePanelAttributes attributes={attributes} />}
-        {showTerminals && <NodePanelTerminals terminals={terminals} />}
-      </NodePanelPropertiesContainer>
+      <PanelPropertiesContainer>
+        {showAttributes && (
+          <PanelSection title={t("attributes.title")}>
+            {attributes.map((a, i) => (
+              <InfoItemButton key={i} {...a} />
+            ))}
+          </PanelSection>
+        )}
+        {showTerminals && (
+          <PanelSection title={t("terminals.title")}>
+            <TerminalTable terminals={terminals} />
+          </PanelSection>
+        )}
+      </PanelPropertiesContainer>
     </MotionBox>
   );
 };
