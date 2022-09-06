@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Button } from "../../../../../../complib/buttons";
 import { AlertDialog } from "../../../../../../complib/overlays/alert-dialog/AlertDialog";
+import { useDeleteTerminal } from "../../../../../../data/queries/tyle/queriesTerminal";
 import { TerminalPreview } from "../../../../../common/terminal/TerminalPreview";
 import { TerminalItem } from "../../../../../types/TerminalItem";
 import { PlainLink } from "../../../../../utils/PlainLink";
@@ -35,6 +36,12 @@ const TerminalSearchItemActions = ({ id, name, ...rest }: TerminalItem) => {
   const theme = useTheme();
   const { t } = useTranslation("translation", { keyPrefix: "search.item" });
 
+  const deleteMutation = useDeleteTerminal();
+  const deleteAction = {
+    name: t("delete"),
+    onAction: () => deleteMutation.mutate(id),
+  };
+
   return (
     <>
       <PlainLink tabIndex={-1} to={`/form/terminal/clone/${id}`}>
@@ -49,13 +56,13 @@ const TerminalSearchItemActions = ({ id, name, ...rest }: TerminalItem) => {
       </PlainLink>
       <AlertDialog
         gap={theme.tyle.spacing.multiple(6)}
-        actions={[]}
+        actions={[deleteAction]}
         title={t("templates.delete", { object: name })}
         description={t("deleteDescription")}
         hideDescription
         content={<TerminalPreview name={name} {...rest} />}
       >
-        <Button icon={<Trash />} iconOnly disabled>
+        <Button icon={<Trash />} iconOnly>
           {t("delete")}
         </Button>
       </AlertDialog>

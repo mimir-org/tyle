@@ -16,4 +16,7 @@ export const apiTerminal = {
   putTerminal(id: string, item: TerminalLibAm) {
     return apiClient.put<TerminalLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
   },
+  deleteTerminal(id: string) {
+    return apiClient.delete<boolean>(`${_basePath}/${id}`).then((r) => r.data);
+  },
 };

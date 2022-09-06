@@ -29,3 +29,11 @@ export const useUpdateTerminal = () => {
     onSuccess: (unit) => queryClient.invalidateQueries(keys.terminal(unit.id)),
   });
 };
+
+export const useDeleteTerminal = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation((id: string) => apiTerminal.deleteTerminal(id), {
+    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
+  });
+};
