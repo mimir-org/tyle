@@ -59,7 +59,7 @@ namespace Mimirorg.Authentication.Services
             if (!authenticate.Code.All(char.IsDigit))
                 throw new AuthenticationException("Only digit is allowed in code");
 
-            if(!int.TryParse(authenticate.Code, out var codeInt))
+            if (!int.TryParse(authenticate.Code, out var codeInt))
                 throw new AuthenticationException("Only digit is allowed in code");
 
             var hasCorrectPin = validator.Validate(user.SecurityHash, codeInt);
