@@ -19,13 +19,14 @@ interface AttributePreviewProps {
  */
 export const TerminalPreview = ({ name, color, variant = "small" }: AttributePreviewProps) => {
   const headerTextVariant: TextTypes = variant == "small" ? "label-small" : "label-large";
+  const colorToShow = color.length ? color : "rgba(0,0,0,0)";
 
   return (
     <TerminalPreviewContainer variant={variant}>
       <Text variant={headerTextVariant} width={"100%"} textAlign={"center"} useEllipsis>
         {name}
       </Text>
-      <TerminalButton variant={"large"} color={color} />
+      <TerminalButton as={"span"} variant={"large"} color={colorToShow} />
     </TerminalPreviewContainer>
   );
 };

@@ -9,13 +9,12 @@ export interface TerminalPreviewContainerProps {
 export const TerminalPreviewContainer = styled.div<TerminalPreviewContainerProps>`
   display: flex;
   flex-direction: column;
-  justify-content: start;
   align-items: center;
+  align-self: center;
   padding: ${(props) => props.theme.tyle.spacing.xl};
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
   border: 1px solid ${(props) => props.theme.tyle.color.sys.outline.base};
   background-color: ${(props) => props.theme.tyle.color.sys.surface.base};
-  max-width: 255px;
 
   ${({ variant, ...props }) => {
     switch (variant) {
