@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
@@ -30,11 +31,13 @@ namespace TypeLibrary.Core.Controllers.V1
     {
         private readonly ILogger<LibraryTerminalController> _logger;
         private readonly ITerminalService _terminalService;
+        private readonly IMimirorgUserService _userService;
 
-        public LibraryTerminalController(ILogger<LibraryTerminalController> logger, ITerminalService terminalService)
+        public LibraryTerminalController(ILogger<LibraryTerminalController> logger, ITerminalService terminalService, IMimirorgUserService userService)
         {
             _logger = logger;
             _terminalService = terminalService;
+            _userService = userService;
         }
 
         /// <summary>
@@ -49,7 +52,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = _terminalService.Get().ToList();
+                var data = _terminalService.GetAll().ToList();
                 return Ok(data);
             }
             catch (Exception e)
@@ -172,6 +175,61 @@ namespace TypeLibrary.Core.Controllers.V1
                 }
 
                 return BadRequest(ModelState);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
+        /// Delete a terminal
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>200</returns>
+        [HttpDelete]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [SwaggerOperation("Delete a terminal")]
+        [Authorize]
+        public async Task<IActionResult> Delete([FromRoute] string id)
+        {
+            try
+            {
+                var terminalLibCm = await _terminalService.Get(id);
+
+                if (terminalLibCm == null)
+                    return NotFound($"Can't find terminal with id: {id}");
+
+                var currentUser = await _userService.GetUser(HttpContext.User);
+                if (!currentUser.Permissions.TryGetValue(terminalLibCm.CompanyId, out var permission))
+                    return StatusCode(StatusCodes.Status403Forbidden);
+
+                if (!permission.HasFlag(MimirorgPermission.Delete))
+                    return StatusCode(StatusCodes.Status403Forbidden);
+
+                var data = await _terminalService.Delete(id);
+                return Ok(data);
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                _logger.LogWarning(e, $"Warning error: {e.Message}");
+
+                foreach (var error in e.Errors().ToList())
+                {
+                    ModelState.Remove(error.Key);
+                    ModelState.TryAddModelError(error.Key, error.Error);
+                }
+
+                return BadRequest(ModelState);
+            }
+            catch (MimirorgNotFoundException)
+            {
+                return NoContent();
             }
             catch (Exception e)
             {

@@ -35,11 +35,18 @@ namespace TypeLibrary.Services.Services
             _applicationSettings = applicationSettings?.Value;
         }
 
-        public IEnumerable<TerminalLibCm> Get()
+        public IEnumerable<TerminalLibCm> GetAll(bool includeDeleted = false)
         {
-            var firstVersionIdsDistinct = _terminalRepository.Get().Select(y => y.FirstVersionId).Distinct().ToList();
+            var firstVersionIdsDistinct = includeDeleted 
+                ? _terminalRepository.Get().Select(y => y.FirstVersionId).Distinct().ToList() 
+                : _terminalRepository.Get().Where(x => !x.Deleted).Select(y => y.FirstVersionId).Distinct().ToList();
+
             var allTerminals = firstVersionIdsDistinct.Select(GetLatestTerminalVersion).ToList();
-            var terminals = allTerminals.Where(x => x.ParentId != null).ToList();
+
+            var terminals = includeDeleted 
+                ? allTerminals.Where(x => x.ParentId != null).ToList()
+                : allTerminals.Where(x => x.ParentId != null && !x.Deleted).ToList();
+
             var topParents = allTerminals.Where(x => x.ParentId == null).OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
             var sortedTerminals = terminals.OrderBy(x => topParents
@@ -59,7 +66,7 @@ namespace TypeLibrary.Services.Services
             var terminalDm = await _terminalRepository.Get(id);
 
             if (terminalDm == null)
-                throw new MimirorgNotFoundException($"There is no terminal with id: {id}");
+                throw new MimirorgNotFoundException($"There is no terminal with id {id}");
 
             var latestVersion = await _versionService.GetLatestVersion(terminalDm);
 
@@ -170,6 +177,25 @@ namespace TypeLibrary.Services.Services
             };
 
             return await Create(terminal);
+        }
+
+        public async Task<bool> Delete(string id)
+        {
+            try
+            {
+                var deleted = await _terminalRepository.Remove(id);
+
+                if (deleted)
+                    _hookService.HookQueue.Enqueue(CacheKey.Terminal);
+
+                return deleted;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
 
         public async Task<bool> CompanyIsChanged(string terminalId, int companyId)
