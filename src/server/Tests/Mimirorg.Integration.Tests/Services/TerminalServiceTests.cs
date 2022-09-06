@@ -44,7 +44,7 @@ namespace Mimirorg.Integration.Tests.Services
                 TypeReferences = null,
                 Color = "#123456",
                 Description = "Description1",
-                AttributeIdList = new List<string>{ "F302FA9BD63AA991A91C6B9A88CE9691", "0DE08DEEB00409D554DB4B6C31AA34CC" },
+                AttributeIdList = new List<string> { "F302FA9BD63AA991A91C6B9A88CE9691", "0DE08DEEB00409D554DB4B6C31AA34CC" },
                 CompanyId = 1
             };
 

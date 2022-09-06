@@ -10,6 +10,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
+using VDS.RDF;
 using static Mimirorg.TypeLibrary.Extensions.LibraryExtensions;
 
 namespace TypeLibrary.Core.Profiles
@@ -26,7 +27,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.RdsCode, opt => opt.MapFrom(src => src.RdsCode))
                 .ForMember(dest => dest.RdsName, opt => opt.MapFrom(src => src.RdsName))
                 .ForMember(dest => dest.PurposeName, opt => opt.MapFrom(src => src.PurposeName))
-                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
+                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.ParentId) ? null : src.ParentId))
                 .ForMember(dest => dest.Parent, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => !string.IsNullOrWhiteSpace(src.Version) ? src.Version : "1.0"))
                 .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => !string.IsNullOrWhiteSpace(src.FirstVersionId) ? src.FirstVersionId : src.Id))
@@ -50,6 +51,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.PurposeName, opt => opt.MapFrom(src => src.PurposeName))
                 .ForMember(dest => dest.ParentIri, opt => opt.MapFrom(src => src.Parent != null ? src.Parent.Iri : null))
                 .ForMember(dest => dest.ParentName, opt => opt.MapFrom(src => src.Parent != null ? src.Parent.Name : null))
+                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.ParentId) ? null : src.ParentId))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.FirstVersionId))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
