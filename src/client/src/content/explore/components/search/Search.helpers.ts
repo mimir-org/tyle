@@ -3,10 +3,11 @@ import { useState } from "react";
 import { useGetAttributes } from "../../../../data/queries/tyle/queriesAttribute";
 import { useGetNodes } from "../../../../data/queries/tyle/queriesNode";
 import { useGetPurposes } from "../../../../data/queries/tyle/queriesPurpose";
+import { useGetTerminals } from "../../../../data/queries/tyle/queriesTerminal";
 import { useFuse } from "../../../../hooks/useFuse";
 import { getValueLabelObjectsFromEnum } from "../../../../utils/getValueLabelObjectsFromEnum";
-import { isAttributeLibCm, isNodeLibCm } from "../../../../utils/guards";
-import { mapNodeLibCmToNodeItem } from "../../../../utils/mappers";
+import { isAttributeLibCm, isNodeLibCm, isTerminalLibCm } from "../../../../utils/guards";
+import { mapNodeLibCmToNodeItem, mapTerminalLibCmToTerminalItem } from "../../../../utils/mappers";
 import { mapAttributeLibCmToAttributeItem } from "../../../../utils/mappers/mapAttributeLibCmToAttributeItem";
 import { Filter } from "../../types/filter";
 import { FilterGroup } from "../../types/filterGroup";
@@ -115,6 +116,11 @@ const getEntityFilters = (): FilterGroup => ({
       label: "Aspect object",
       value: "NodeLibCm",
     },
+    {
+      key: "kind",
+      label: "Terminal",
+      value: "TerminalLibCm",
+    },
   ],
 });
 
@@ -136,9 +142,11 @@ const filterSearchResults = (filters: Filter[], items: SearchResultRaw[]) => {
 
 const useSearchItems = (): [items: SearchResultRaw[], isLoading: boolean] => {
   const nodeQuery = useGetNodes();
+  const terminalQuery = useGetTerminals();
   const attributeQuery = useGetAttributes();
-  const isLoading = nodeQuery.isLoading || attributeQuery.isLoading;
-  const mergedItems = [...(nodeQuery.data ?? []), ...(attributeQuery.data ?? [])];
+
+  const isLoading = nodeQuery.isLoading || terminalQuery.isLoading || attributeQuery.isLoading;
+  const mergedItems = [...(nodeQuery.data ?? []), ...(terminalQuery.data ?? []), ...(attributeQuery.data ?? [])];
 
   return [mergedItems, isLoading];
 };
@@ -149,6 +157,7 @@ const mapSearchResults = (items: SearchResultRaw[]) => {
   items.forEach((x) => {
     if (isNodeLibCm(x)) mappedSearchResults.push(mapNodeLibCmToNodeItem(x));
     else if (isAttributeLibCm(x)) mappedSearchResults.push(mapAttributeLibCmToAttributeItem(x));
+    else if (isTerminalLibCm(x)) mappedSearchResults.push(mapTerminalLibCmToTerminalItem(x));
   });
 
   return mappedSearchResults;
