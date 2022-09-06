@@ -59,7 +59,6 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(terminalAm.Description, terminalCm.Description);
             Assert.Equal(terminalAm.AttributeIdList.ToList().ConvertToString(), terminalCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
             Assert.Equal(terminalAm.CompanyId, terminalCm.CompanyId);
-            
         }
 
         [Fact]
@@ -89,29 +88,29 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.True(terminalCmUpdated.Version == "1.1");
         }
 
-        //[Fact]
-        //public async Task Delete_Terminal_Result_Ok()
-        //{
-        //    var terminalAm = new TerminalLibAm
-        //    {
-        //        Name = "TestTerminal4",
-        //        ParentId = null,
-        //        TypeReferences = null,
-        //        Color = "#123456",
-        //        Description = "Description1",
-        //        CompanyId = 1
-        //    };
+        [Fact]
+        public async Task Delete_Terminal_Result_Ok()
+        {
+            var terminalAm = new TerminalLibAm
+            {
+                Name = "TestTerminal4",
+                ParentId = null,
+                TypeReferences = null,
+                Color = "#123456",
+                Description = "Description1",
+                CompanyId = 1
+            };
 
-        //    var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
+            var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
 
-        //    var terminalCm = await terminalService.Create(terminalAm);
-        //    var isDeleted = await terminalService.Delete(terminalCm?.Id);
-        //    var deletedTerminal = terminalService.GetAll(true).ToList().FirstOrDefault(x => x.Id == terminalCm?.Id);
+            var terminalCm = await terminalService.Create(terminalAm);
+            var isDeleted = await terminalService.Delete(terminalCm?.Id);
+            var allTerminalsNotDeleted = await terminalService.GetAll();
+            var allTerminalsIncludeDeleted = await terminalService.GetAll(true);
 
-        //    Assert.True(isDeleted);
-        //    Assert.True(deletedTerminal != null);
-        //    Task Act() => terminalService.Get(terminalCm?.Id);
-        //    _ = await Assert.ThrowsAsync<MimirorgNotFoundException>(Act);
-        //}
+            Assert.True(isDeleted);
+            Assert.True(string.IsNullOrEmpty(allTerminalsNotDeleted?.FirstOrDefault(x => x.Id == terminalCm?.Id)?.Id));
+            Assert.True(!string.IsNullOrEmpty(allTerminalsIncludeDeleted?.FirstOrDefault(x => x.Id == terminalCm?.Id)?.Id));
+        }
     }
 }

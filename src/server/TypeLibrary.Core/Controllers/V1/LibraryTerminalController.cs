@@ -52,7 +52,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = _terminalService.GetAll().ToList();
+                var data = _terminalService.GetLatestVersions().ToList();
                 return Ok(data);
             }
             catch (Exception e)

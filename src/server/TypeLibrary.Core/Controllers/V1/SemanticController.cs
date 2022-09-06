@@ -142,7 +142,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = _terminalService.GetAll().FirstOrDefault(x => x.Id == id);
+                var data = _terminalService.GetLatestVersions().FirstOrDefault(x => x.Id == id);
                 if (data == null)
                     return NoContent();
 
