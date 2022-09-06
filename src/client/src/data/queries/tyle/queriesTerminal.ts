@@ -7,8 +7,6 @@ const keys = {
   all: ["terminals"] as const,
   lists: () => [...keys.all, "list"] as const,
   terminal: (id?: string) => [...keys.lists(), id] as const,
-  allReferences: ["terminalReferences"] as const,
-  referenceLists: () => [...keys.allReferences, "list"] as const,
 };
 
 export const useGetTerminals = () => useQuery(keys.lists(), apiTerminal.getTerminals);
@@ -31,5 +29,3 @@ export const useUpdateTerminal = () => {
     onSuccess: (unit) => queryClient.invalidateQueries(keys.terminal(unit.id)),
   });
 };
-
-export const useGetTerminalReferences = () => useQuery(keys.referenceLists(), apiTerminal.getTerminalReferences);

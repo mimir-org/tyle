@@ -1,16 +1,11 @@
 import { DevTool } from "@hookform/devtools";
-import { Control, useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
-import {
-  useCreateTerminal,
-  useGetTerminalReferences,
-  useUpdateTerminal,
-} from "../../../data/queries/tyle/queriesTerminal";
+import { useCreateTerminal, useUpdateTerminal } from "../../../data/queries/tyle/queriesTerminal";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
 import { FormAttributes } from "../common/FormAttributes";
-import { FormReferences, HasReferences } from "../common/FormReferences";
 import { prepareAttributes, usePrefilledTerminalData, useTerminalSubmissionToast } from "./TerminalForm.helpers";
 import { TerminalFormContainer } from "./TerminalForm.styled";
 import { TerminalFormBaseFields } from "./TerminalFormBaseFields";
@@ -26,7 +21,6 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), isE
   const { register, handleSubmit, control, reset } = useForm<FormTerminalLib>({ defaultValues });
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
-  const referenceQuery = useGetTerminalReferences();
   const [_, isLoading] = usePrefilledTerminalData(reset);
 
   const createMutation = useCreateTerminal();
@@ -57,11 +51,6 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), isE
               append={attributeFields.append}
               remove={attributeFields.remove}
               prepareAttributes={prepareAttributes}
-            />
-            <FormReferences
-              control={control as unknown as Control<HasReferences>}
-              references={referenceQuery.data ?? []}
-              isLoading={referenceQuery.isLoading}
             />
           </Box>
         </>
