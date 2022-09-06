@@ -14,6 +14,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -35,21 +36,7 @@ namespace TypeLibrary.Services.Services
             _applicationSettings = applicationSettings?.Value;
         }
 
-        public IEnumerable<TerminalLibCm> Get()
-        {
-            var firstVersionIdsDistinct = _terminalRepository.Get().Select(y => y.FirstVersionId).Distinct().ToList();
-            var allTerminals = firstVersionIdsDistinct.Select(GetLatestTerminalVersion).ToList();
-            var terminals = allTerminals.Where(x => x.ParentId != null).ToList();
-            var topParents = allTerminals.Where(x => x.ParentId == null).OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
-
-            var sortedTerminals = terminals.OrderBy(x => topParents
-                .FirstOrDefault(y => y.Id == x.ParentId)?.Name, StringComparer.InvariantCultureIgnoreCase)
-                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
-
-            sortedTerminals.AddRange(topParents);
-
-            return _mapper.Map<List<TerminalLibCm>>(sortedTerminals);
-        }
+       
 
         public async Task<TerminalLibCm> Get(string id)
         {
@@ -59,7 +46,7 @@ namespace TypeLibrary.Services.Services
             var terminalDm = await _terminalRepository.Get(id);
 
             if (terminalDm == null)
-                throw new MimirorgNotFoundException($"There is no terminal with id: {id}");
+                throw new MimirorgNotFoundException($"There is no terminal with id {id}");
 
             var latestVersion = await _versionService.GetLatestVersion(terminalDm);
 
@@ -72,6 +59,29 @@ namespace TypeLibrary.Services.Services
                 throw new MimirorgMappingException("TerminalLibDm", "TerminalLibCm");
 
             return terminalLibCm;
+        }
+
+        public async Task<IEnumerable<TerminalLibCm>> GetAll(bool includeDeleted = false)
+        {
+            var terminalLibDms = includeDeleted ? _terminalRepository.Get()?.ToList() : _terminalRepository.Get()?.Where(x => !x.Deleted).ToList();
+            var terminalLibCms = _mapper.Map<List<TerminalLibCm>>(terminalLibDms);
+            return await Task.FromResult(terminalLibCms);
+        }
+
+        public IEnumerable<TerminalLibCm> GetLatestVersions()
+        {
+            var firstVersionIdsDistinct = _terminalRepository.Get().Where(x => !x.Deleted).Select(y => y.FirstVersionId).Distinct().ToList();
+            var allTerminals = firstVersionIdsDistinct.Select(GetLatestTerminalVersion).ToList();
+            var terminals = allTerminals.Where(x => x.ParentId != null).ToList();
+            var topParents = allTerminals.Where(x => x.ParentId == null).OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
+            var sortedTerminals = terminals.OrderBy(x => topParents
+                    .FirstOrDefault(y => y.Id == x.ParentId)?.Name, StringComparer.InvariantCultureIgnoreCase)
+                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
+            sortedTerminals.AddRange(topParents);
+
+            return _mapper.Map<List<TerminalLibCm>>(sortedTerminals);
         }
 
         public async Task Create(List<TerminalLibAm> terminalAmList, bool createdBySystem = false)
@@ -170,6 +180,25 @@ namespace TypeLibrary.Services.Services
             };
 
             return await Create(terminal);
+        }
+
+        public async Task<bool> Delete(string id)
+        {
+            try
+            {
+                var deleted = await _terminalRepository.Remove(id);
+
+                if (deleted)
+                    _hookService.HookQueue.Enqueue(CacheKey.Terminal);
+
+                return deleted;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
 
         public async Task<bool> CompanyIsChanged(string terminalId, int companyId)

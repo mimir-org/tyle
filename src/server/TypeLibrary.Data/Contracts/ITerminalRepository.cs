@@ -11,6 +11,7 @@ namespace TypeLibrary.Data.Contracts
         Task Create(List<TerminalLibDm> items);
         Task<TerminalLibDm> Create(TerminalLibDm terminal);
         IEnumerable<TerminalLibDm> GetVersions(string firstVersionId);
+        Task<bool> Remove(string id);
         void ClearAllChangeTrackers();
         void SetUnchanged(ICollection<TerminalLibDm> items);
         void SetDetached(ICollection<TerminalLibDm> items);

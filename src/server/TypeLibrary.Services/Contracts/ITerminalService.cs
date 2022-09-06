@@ -7,11 +7,13 @@ namespace TypeLibrary.Services.Contracts
 {
     public interface ITerminalService
     {
-        IEnumerable<TerminalLibCm> Get();
         Task<TerminalLibCm> Get(string id);
+        Task<IEnumerable<TerminalLibCm>> GetAll(bool includeDeleted = false);
+        IEnumerable<TerminalLibCm> GetLatestVersions();
         Task Create(List<TerminalLibAm> terminalAmList, bool createdBySystem = false);
         Task<TerminalLibCm> Create(TerminalLibAm terminal);
         Task<TerminalLibCm> Update(TerminalLibAm terminal, string id);
+        Task<bool> Delete(string id);
         Task<bool> CompanyIsChanged(string terminalId, int companyId);
     }
 }
