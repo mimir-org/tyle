@@ -116,6 +116,8 @@ namespace TypeLibrary.Services.Services
             if (existing != null)
                 throw new MimirorgDuplicateException($"Terminal '{existing.Name}' and version '{existing.Version}' already exist in db.");
 
+            terminal.FirstVersionId = terminal.Id;
+            terminal.Version = "1.0";
             var terminalDm = _mapper.Map<TerminalLibDm>(terminal);
 
             if (!double.TryParse(terminalDm.Version, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out _))
