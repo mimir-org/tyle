@@ -90,6 +90,8 @@ namespace TypeLibrary.Services.Services
             if (existing != null)
                 throw new MimirorgDuplicateException($"Transport '{existing.Name}' with RdsCode '{existing.RdsCode}', Aspect '{existing.Aspect}' and version '{existing.Version}' already exist in db.");
 
+            dataAm.FirstVersionId = dataAm.Id;
+            dataAm.Version = "1.0";
             var transportLibDm = _mapper.Map<TransportLibDm>(dataAm);
 
             if (!double.TryParse(transportLibDm.Version, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out _))
