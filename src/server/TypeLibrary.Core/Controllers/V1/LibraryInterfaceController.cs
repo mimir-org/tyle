@@ -103,7 +103,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = await _interfaceService.Create(dataAm);
+                var data = await _interfaceService.Create(dataAm, true);
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)

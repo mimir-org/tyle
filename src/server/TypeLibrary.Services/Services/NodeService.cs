@@ -87,7 +87,7 @@ namespace TypeLibrary.Services.Services
             return await Task.FromResult(nodeLibCms ?? new List<NodeLibCm>());
         }
 
-        public async Task<NodeLibCm> Create(NodeLibAm dataAm)
+        public async Task<NodeLibCm> Create(NodeLibAm dataAm, bool resetVersion)
         {
             if (dataAm == null)
                 throw new MimirorgBadRequestException("Data object can not be null.");
@@ -100,6 +100,12 @@ namespace TypeLibrary.Services.Services
 
             if (existing != null)
                 throw new MimirorgDuplicateException($"Node '{existing.Name}' with RdsCode '{existing.RdsCode}', Aspect '{existing.Aspect}' and version '{existing.Version}' already exist in db.");
+
+            if (resetVersion)
+            {
+                dataAm.FirstVersionId = dataAm.Id;
+                dataAm.Version = "1.0";
+            }
 
             var nodeLibDm = _mapper.Map<NodeLibDm>(dataAm);
 
@@ -171,7 +177,7 @@ namespace TypeLibrary.Services.Services
                 _ => latestNodeDm.Version
             };
 
-            return await Create(dataAm);
+            return await Create(dataAm, false);
         }
 
         public async Task<bool> Delete(string id)

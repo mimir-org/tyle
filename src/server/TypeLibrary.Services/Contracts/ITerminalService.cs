@@ -11,7 +11,7 @@ namespace TypeLibrary.Services.Contracts
         Task<IEnumerable<TerminalLibCm>> GetAll(bool includeDeleted = false);
         IEnumerable<TerminalLibCm> GetLatestVersions();
         Task Create(List<TerminalLibAm> terminalAmList, bool createdBySystem = false);
-        Task<TerminalLibCm> Create(TerminalLibAm terminal);
+        Task<TerminalLibCm> Create(TerminalLibAm terminal, bool resetVersion);
         Task<TerminalLibCm> Update(TerminalLibAm terminal, string id);
         Task<bool> Delete(string id);
         Task<bool> CompanyIsChanged(string terminalId, int companyId);

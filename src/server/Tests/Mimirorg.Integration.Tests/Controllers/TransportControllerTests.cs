@@ -59,7 +59,7 @@ namespace Mimirorg.Integration.Tests.Controllers
 
             using var scope = Factory.Server.Services.CreateScope();
             var transportService = scope.ServiceProvider.GetRequiredService<ITransportService>();
-            _ = await transportService.Create(transportToCreate);
+            _ = await transportService.Create(transportToCreate, true);
 
             var response = await client.GetAsync(endpoint);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);

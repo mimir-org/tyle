@@ -33,8 +33,8 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var transportService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITransportService>();
-            await transportService.Create(transportAm);
-            Task Act() => transportService.Create(transportAm);
+            await transportService.Create(transportAm, true);
+            Task Act() => transportService.Create(transportAm, true);
             _ = await Assert.ThrowsAsync<MimirorgDuplicateException>(Act);
         }
 
@@ -57,7 +57,7 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var transportService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITransportService>();
-            var transportCm = await transportService.Create(transportAm);
+            var transportCm = await transportService.Create(transportAm, true);
 
             Assert.NotNull(transportCm);
             Assert.Equal(transportAm.Id, transportCm.Id);
@@ -89,7 +89,7 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var transportService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITransportService>();
-            var transportCm = await transportService.Create(transportAm);
+            var transportCm = await transportService.Create(transportAm, true);
 
             Assert.Equal(transportAm.Id, transportCm?.Id);
             Assert.Equal(transportAm.Id, transportCm?.Id);
@@ -116,7 +116,7 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var transportService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITransportService>();
-            var transportCm = await transportService.Create(transportAm);
+            var transportCm = await transportService.Create(transportAm, true);
 
             transportAm.Description = "Description v1.1";
 
@@ -148,7 +148,7 @@ namespace Mimirorg.Integration.Tests.Services
 
             var transportService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITransportService>();
 
-            var transportCm = await transportService.Create(transportAm);
+            var transportCm = await transportService.Create(transportAm, true);
             var isDeleted = await transportService.Delete(transportCm?.Id);
             var allTransportsNotDeleted = await transportService.GetLatestVersions();
 
