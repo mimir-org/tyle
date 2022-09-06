@@ -29,8 +29,8 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
-            await terminalService.Create(terminalAm);
-            Task Act() => terminalService.Create(terminalAm);
+            await terminalService.Create(terminalAm, true);
+            Task Act() => terminalService.Create(terminalAm, true);
             _ = await Assert.ThrowsAsync<MimirorgDuplicateException>(Act);
         }
 
@@ -49,7 +49,7 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
-            var terminalCm = await terminalService.Create(terminalAm);
+            var terminalCm = await terminalService.Create(terminalAm, true);
 
             Assert.NotNull(terminalCm);
             Assert.Equal(terminalAm.Id, terminalCm.Id);
@@ -76,7 +76,7 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
-            var terminalLibCm = await terminalService.Create(terminalAm);
+            var terminalLibCm = await terminalService.Create(terminalAm, true);
 
             terminalAm.Description = "Description v1.1";
 
@@ -103,7 +103,7 @@ namespace Mimirorg.Integration.Tests.Services
 
             var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
 
-            var terminalCm = await terminalService.Create(terminalAm);
+            var terminalCm = await terminalService.Create(terminalAm, true);
             var isDeleted = await terminalService.Delete(terminalCm?.Id);
             var allTerminalsNotDeleted = await terminalService.GetAll();
             var allTerminalsIncludeDeleted = await terminalService.GetAll(true);

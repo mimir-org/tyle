@@ -10,7 +10,7 @@ namespace TypeLibrary.Services.Contracts
         Task<NodeLibCm> Get(string id);
         Task<IEnumerable<NodeLibCm>> GetAll(bool includeDeleted = false);
         Task<IEnumerable<NodeLibCm>> GetLatestVersions();
-        Task<NodeLibCm> Create(NodeLibAm dataAm);
+        Task<NodeLibCm> Create(NodeLibAm dataAm, bool resetVersion = false);
         Task<NodeLibCm> Update(NodeLibAm dataAm, string id);
         Task<bool> Delete(string id);
         Task<bool> CompanyIsChanged(string nodeId, int companyId);

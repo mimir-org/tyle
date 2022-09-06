@@ -103,7 +103,7 @@ namespace TypeLibrary.Services.Services
             _terminalRepository.ClearAllChangeTrackers();
         }
 
-        public async Task<TerminalLibCm> Create(TerminalLibAm terminal)
+        public async Task<TerminalLibCm> Create(TerminalLibAm terminal, bool resetVersion)
         {
             if (terminal == null)
                 throw new MimirorgBadRequestException("Data object can not be null.");
@@ -116,8 +116,12 @@ namespace TypeLibrary.Services.Services
             if (existing != null)
                 throw new MimirorgDuplicateException($"Terminal '{existing.Name}' and version '{existing.Version}' already exist in db.");
 
-            terminal.FirstVersionId = terminal.Id;
-            terminal.Version = "1.0";
+            if (resetVersion)
+            {
+                terminal.FirstVersionId = terminal.Id;
+                terminal.Version = "1.0";
+            }
+
             var terminalDm = _mapper.Map<TerminalLibDm>(terminal);
 
             if (!double.TryParse(terminalDm.Version, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out _))
@@ -181,7 +185,7 @@ namespace TypeLibrary.Services.Services
                 _ => latestTerminalDm.Version
             };
 
-            return await Create(terminal);
+            return await Create(terminal, false);
         }
 
         public async Task<bool> Delete(string id)

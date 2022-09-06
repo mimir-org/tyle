@@ -80,7 +80,7 @@ namespace TypeLibrary.Services.Services
             return await Task.FromResult(interfaceLibCms ?? new List<InterfaceLibCm>());
         }
 
-        public async Task<InterfaceLibCm> Create(InterfaceLibAm dataAm)
+        public async Task<InterfaceLibCm> Create(InterfaceLibAm dataAm, bool resetVersion)
         {
             if (dataAm == null)
                 throw new MimirorgBadRequestException("Data object can not be null.");
@@ -90,8 +90,12 @@ namespace TypeLibrary.Services.Services
             if (existing != null)
                 throw new MimirorgDuplicateException($"Interface '{existing.Name}', with RdsCode '{existing.RdsCode}', Aspect '{existing.Aspect}' and version '{existing.Version}' already exist in db.");
 
-            dataAm.FirstVersionId = dataAm.Id;
-            dataAm.Version = "1.0";
+            if (resetVersion)
+            {
+                dataAm.FirstVersionId = dataAm.Id;
+                dataAm.Version = "1.0";
+            }
+
             var interfaceLibDm = _mapper.Map<InterfaceLibDm>(dataAm);
 
             if (!double.TryParse(interfaceLibDm.Version, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out _))
@@ -162,7 +166,7 @@ namespace TypeLibrary.Services.Services
                 _ => latestInterfaceDm.Version
             };
 
-            return await Create(dataAm);
+            return await Create(dataAm, false);
         }
 
         public async Task<bool> Delete(string id)

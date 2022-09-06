@@ -112,7 +112,7 @@ namespace TypeLibrary.Core.Controllers.V1
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var cm = await _terminalService.Create(terminal);
+                var cm = await _terminalService.Create(terminal, true);
                 return Ok(cm);
             }
             catch (MimirorgBadRequestException e)
