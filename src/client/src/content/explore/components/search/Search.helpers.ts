@@ -44,6 +44,10 @@ export const getCreateMenuLinks = (): Link[] => {
       name: "Terminal",
       path: "/form/terminal",
     },
+    {
+      name: "Transport",
+      path: "/form/transport",
+    },
   ];
 };
 

@@ -165,6 +165,27 @@
       "error": "An error occurred during terminal submission"
     }
   },
+  "transport": {
+    "name": "Name",
+    "terminal": "Terminal",
+    "purpose": "Purpose",
+    "aspect": "Aspect",
+    "rds": "RDS",
+    "owner": "Owner",
+    "description": "Description",
+    "placeholders": {
+      "name": "Transport name",
+      "description": "Additional information about this transport can be supplied here."
+    },
+    "disabled": {
+      "aspect": "It is not possible to change the aspect of the current type. We recommend that you select a different type with the desired aspect."
+    },
+    "processing": {
+      "loading": "Submitting transport",
+      "success": "Your transport has been submitted",
+      "error": "An error occurred during transport submission"
+    }
+  },
   "forms": {
     "placeholders": {
       "email": "you@organization.com",

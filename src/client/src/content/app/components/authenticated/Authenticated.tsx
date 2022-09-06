@@ -5,6 +5,7 @@ import { Explore } from "../../../explore";
 import { AttributeForm } from "../../../forms/attribute/AttributeForm";
 import { NodeForm } from "../../../forms/node/NodeForm";
 import { TerminalForm } from "../../../forms/terminal/TerminalForm";
+import { TransportForm } from "../../../forms/transport/TransportForm";
 import { Header } from "../../../header/Header";
 import { AuthenticatedContainer, AuthenticatedContentContainer } from "./Authenticated.styled";
 
@@ -25,6 +26,9 @@ export const Authenticated = () => {
           <Route path={"/form/terminal"} element={<TerminalForm />} />
           <Route path={"/form/terminal/clone/:id"} element={<TerminalForm />} />
           <Route path={"/form/terminal/edit/:id"} element={<TerminalForm isEdit />} />
+          <Route path={"/form/transport"} element={<TransportForm />} />
+          <Route path={"/form/transport/clone/:id"} element={<TransportForm />} />
+          <Route path={"/form/transport/edit/:id"} element={<TransportForm isEdit />} />
           <Route
             path={"*"}
             element={
