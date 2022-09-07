@@ -12,5 +12,6 @@ const Template: ComponentStory<typeof TransportPreview> = (args) => <TransportPr
 export const Default = Template.bind({});
 Default.args = {
   name: "Transport",
-  color: faker.color.rgb(),
+  aspectColor: faker.helpers.arrayElement(["#fef445", "#00f0ff", "#fa00ff"]),
+  transportColor: faker.color.rgb(),
 };

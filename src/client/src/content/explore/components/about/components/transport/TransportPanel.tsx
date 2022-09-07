@@ -16,7 +16,15 @@ import { PanelSection } from "../common/PanelSection";
  * @param props receives all properties of a TransportItem
  * @constructor
  */
-export const TransportPanel = ({ name, description, color, attributes, terminal, tokens }: TransportItem) => {
+export const TransportPanel = ({
+  name,
+  description,
+  aspectColor,
+  transportColor,
+  attributes,
+  terminal,
+  tokens,
+}: TransportItem) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const showAttributes = attributes && attributes.length > 0;
@@ -31,7 +39,7 @@ export const TransportPanel = ({ name, description, color, attributes, terminal,
       overflow={"hidden"}
       {...theme.tyle.animation.fade}
     >
-      <TransportPreview name={name} color={color} variant={"large"} />
+      <TransportPreview variant={"large"} name={name} aspectColor={aspectColor} transportColor={transportColor} />
 
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xl}>
         <Heading as={"h2"} variant={"title-large"} fontWeight={"500"} useEllipsis ellipsisMaxLines={2}>
@@ -54,7 +62,7 @@ export const TransportPanel = ({ name, description, color, attributes, terminal,
           </PanelSection>
         )}
         <PanelSection title={t("transport.terminal")}>
-          <TerminalPreview name={terminal.name} color={terminal.color}></TerminalPreview>
+          <TerminalPreview name={terminal.name} color={terminal.color} />
         </PanelSection>
       </PanelPropertiesContainer>
     </MotionBox>

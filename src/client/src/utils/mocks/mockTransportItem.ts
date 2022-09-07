@@ -6,7 +6,8 @@ import { mockTerminalItem } from "./mockTerminalItem";
 export const mockTransportItem = (): TransportItem => ({
   id: faker.random.alphaNumeric(),
   name: `Transport ${faker.random.alpha({ count: 3, casing: "upper" })}`,
-  color: faker.internet.color(),
+  aspectColor: faker.helpers.arrayElement(["#fef445", "#00f0ff", "#fa00ff"]),
+  transportColor: faker.internet.color(),
   description: faker.commerce.productDescription(),
   attributes: [...Array(7)].map((_) => mockInfoItem()),
   terminal: mockTerminalItem(),
