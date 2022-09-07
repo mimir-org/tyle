@@ -4,6 +4,7 @@ import { Token } from "../../../../../../complib/general";
 import { Flexbox, MotionBox } from "../../../../../../complib/layouts";
 import { Heading, Text } from "../../../../../../complib/text";
 import { InfoItemButton } from "../../../../../common/infoItem";
+import { TerminalPreview } from "../../../../../common/terminal/TerminalPreview";
 import { TransportPreview } from "../../../../../common/transport";
 import { TransportItem } from "../../../../../types/TransportItem";
 import { PanelPropertiesContainer } from "../common/PanelPropertiesContainer";
@@ -15,7 +16,7 @@ import { PanelSection } from "../common/PanelSection";
  * @param props receives all properties of a TransportItem
  * @constructor
  */
-export const TransportPanel = ({ name, description, color, attributes, tokens }: TransportItem) => {
+export const TransportPanel = ({ name, description, color, attributes, terminal, tokens }: TransportItem) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const showAttributes = attributes && attributes.length > 0;
@@ -52,6 +53,9 @@ export const TransportPanel = ({ name, description, color, attributes, tokens }:
             ))}
           </PanelSection>
         )}
+        <PanelSection title={t("transport.terminal")}>
+          <TerminalPreview name={terminal.name} color={terminal.color}></TerminalPreview>
+        </PanelSection>
       </PanelPropertiesContainer>
     </MotionBox>
   );
