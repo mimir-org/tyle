@@ -3,8 +3,13 @@ import { useTranslation } from "react-i18next";
 import { useGetAttribute } from "../../../../data/queries/tyle/queriesAttribute";
 import { useGetNode } from "../../../../data/queries/tyle/queriesNode";
 import { useGetTerminal } from "../../../../data/queries/tyle/queriesTerminal";
-import { mapNodeLibCmToNodeItem, mapTerminalLibCmToTerminalItem } from "../../../../utils/mappers";
-import { mapAttributeLibCmToAttributeItem } from "../../../../utils/mappers/mapAttributeLibCmToAttributeItem";
+import { useGetTransport } from "../../../../data/queries/tyle/queriesTransport";
+import {
+  mapAttributeLibCmToAttributeItem,
+  mapNodeLibCmToNodeItem,
+  mapTerminalLibCmToTerminalItem,
+  mapTransportLibCmToTransportItem,
+} from "../../../../utils/mappers";
 import { Loader } from "../../../common/Loader";
 import { SelectedInfo } from "../../types/selectedInfo";
 import { ExploreSection } from "../ExploreSection";
@@ -12,6 +17,7 @@ import { AboutPlaceholder } from "./components/AboutPlaceholder";
 import { AttributePanel } from "./components/attribute/AttributePanel";
 import { NodePanel } from "./components/node/NodePanel";
 import { TerminalPanel } from "./components/terminal/TerminalPanel";
+import { TransportPanel } from "./components/transport/TransportPanel";
 
 interface AboutProps {
   selected?: SelectedInfo;
@@ -35,7 +41,10 @@ export const About = ({ selected }: AboutProps) => {
   const terminalQuery = useGetTerminal(selected?.type == "terminal" ? selected?.id : "");
   const showTerminalPanel = terminalQuery.isSuccess && terminalQuery.data;
 
-  const allQueries = [nodeQuery, attributeQuery, terminalQuery];
+  const transportQuery = useGetTransport(selected?.type == "transport" ? selected?.id : "");
+  const showTransportPanel = transportQuery.isSuccess && transportQuery.data;
+
+  const allQueries = [nodeQuery, attributeQuery, terminalQuery, transportQuery];
   const showLoading = allQueries.some((x) => x.isLoading);
   const showPlaceHolder = allQueries.every((x) => x.isIdle);
 
@@ -50,6 +59,9 @@ export const About = ({ selected }: AboutProps) => {
         )}
         {showTerminalPanel && (
           <TerminalPanel key={terminalQuery.data.id} {...mapTerminalLibCmToTerminalItem(terminalQuery.data)} />
+        )}
+        {showTransportPanel && (
+          <TransportPanel key={transportQuery.data.id} {...mapTransportLibCmToTransportItem(transportQuery.data)} />
         )}
       </AnimatePresence>
     </ExploreSection>
