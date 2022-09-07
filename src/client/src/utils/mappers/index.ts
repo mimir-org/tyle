@@ -8,6 +8,8 @@ export { mapAttributeLibCmToAttributeLibAm } from "./mapAttributeLibCmToAttribut
 export { mapAttributeLibCmToInfoItem } from "./mapAttributeLibCmToInfoItem";
 export { mapAttributeLibCmsToInfoItems } from "./mapAttributeLibCmToInfoItem";
 export { mapTerminalLibCmToTerminalItem } from "./mapTerminalLibCmToTerminalItem";
+export { mapTransportLibCmToTransportItem } from "./mapTransportLibCmToTransportItem";
+export { mapTransportLibCmToTransportLibAm } from "./mapTransportLibCmToTransportLibAm";
 export { mapListToDescriptors } from "./mapListToDescriptors";
 export { mapUnitLibCmsToDescriptors } from "./mapUnitLibCmsToDescriptors";
 export { mapValueObjectsToDescriptors } from "./mapValueObjectsToDescriptors";

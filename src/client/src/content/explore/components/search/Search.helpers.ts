@@ -4,10 +4,15 @@ import { useGetAttributes } from "../../../../data/queries/tyle/queriesAttribute
 import { useGetNodes } from "../../../../data/queries/tyle/queriesNode";
 import { useGetPurposes } from "../../../../data/queries/tyle/queriesPurpose";
 import { useGetTerminals } from "../../../../data/queries/tyle/queriesTerminal";
+import { useGetTransports } from "../../../../data/queries/tyle/queriesTransport";
 import { useFuse } from "../../../../hooks/useFuse";
 import { getValueLabelObjectsFromEnum } from "../../../../utils/getValueLabelObjectsFromEnum";
-import { isAttributeLibCm, isNodeLibCm, isTerminalLibCm } from "../../../../utils/guards";
-import { mapNodeLibCmToNodeItem, mapTerminalLibCmToTerminalItem } from "../../../../utils/mappers";
+import { isAttributeLibCm, isNodeLibCm, isTerminalLibCm, isTransportLibCm } from "../../../../utils/guards";
+import {
+  mapNodeLibCmToNodeItem,
+  mapTerminalLibCmToTerminalItem,
+  mapTransportLibCmToTransportItem,
+} from "../../../../utils/mappers";
 import { mapAttributeLibCmToAttributeItem } from "../../../../utils/mappers/mapAttributeLibCmToAttributeItem";
 import { Filter } from "../../types/filter";
 import { FilterGroup } from "../../types/filterGroup";
@@ -125,6 +130,11 @@ const getEntityFilters = (): FilterGroup => ({
       label: "Terminal",
       value: "TerminalLibCm",
     },
+    {
+      key: "kind",
+      label: "Transport",
+      value: "TransportLibCm",
+    },
   ],
 });
 
@@ -148,9 +158,17 @@ const useSearchItems = (): [items: SearchResultRaw[], isLoading: boolean] => {
   const nodeQuery = useGetNodes();
   const terminalQuery = useGetTerminals();
   const attributeQuery = useGetAttributes();
+  const transportQuery = useGetTransports();
 
-  const isLoading = nodeQuery.isLoading || terminalQuery.isLoading || attributeQuery.isLoading;
-  const mergedItems = [...(nodeQuery.data ?? []), ...(terminalQuery.data ?? []), ...(attributeQuery.data ?? [])];
+  const isLoading =
+    nodeQuery.isLoading || terminalQuery.isLoading || attributeQuery.isLoading || transportQuery.isLoading;
+
+  const mergedItems = [
+    ...(nodeQuery.data ?? []),
+    ...(terminalQuery.data ?? []),
+    ...(attributeQuery.data ?? []),
+    ...(transportQuery.data ?? []),
+  ];
 
   return [mergedItems, isLoading];
 };
@@ -162,6 +180,7 @@ const mapSearchResults = (items: SearchResultRaw[]) => {
     if (isNodeLibCm(x)) mappedSearchResults.push(mapNodeLibCmToNodeItem(x));
     else if (isAttributeLibCm(x)) mappedSearchResults.push(mapAttributeLibCmToAttributeItem(x));
     else if (isTerminalLibCm(x)) mappedSearchResults.push(mapTerminalLibCmToTerminalItem(x));
+    else if (isTransportLibCm(x)) mappedSearchResults.push(mapTransportLibCmToTransportItem(x));
   });
 
   return mappedSearchResults;

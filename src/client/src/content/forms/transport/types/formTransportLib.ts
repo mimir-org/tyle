@@ -1,7 +1,7 @@
 import { TransportLibAm, TransportLibCm } from "@mimirorg/typelibrary-types";
 import { UpdateEntity } from "../../../../data/types/updateEntity";
 import { createEmptyTransportLibAm } from "../../../../models/tyle/application/transportLibAm";
-import { mapTransportLibCmToTransportLibAm } from "../../../../utils/mappers/mapTransportLibCmToTransportLibAm";
+import { mapTransportLibCmToTransportLibAm } from "../../../../utils/mappers";
 import { ValueObject } from "../../types/valueObject";
 
 /**
