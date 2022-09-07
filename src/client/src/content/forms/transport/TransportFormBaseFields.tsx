@@ -18,6 +18,7 @@ import { TerminalButton } from "../../common/terminal";
 import { PlainLink } from "../../utils/PlainLink";
 import { resetSubform } from "./TransportForm.helpers";
 import { TransportFormBaseFieldsContainer } from "./TransportFormBaseFields.styled";
+import { TransportFormPreview } from "./TransportFormPreview";
 import { FormTransportLib } from "./types/formTransportLib";
 
 interface TransportFormBaseFieldsProps {
@@ -56,6 +57,8 @@ export const TransportFormBaseFields = ({
 
   return (
     <TransportFormBaseFieldsContainer>
+      <TransportFormPreview control={control} />
+
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
         <FormField label={t("transport.name")}>
           <Input placeholder={t("transport.placeholders.name")} {...register("name")} />
@@ -127,7 +130,10 @@ export const TransportFormBaseFields = ({
                 isLoading={terminalQuery.isLoading}
                 getOptionLabel={(x) => x.name}
                 getOptionValue={(x) => x.id}
-                onChange={(x) => onChange(x?.id)}
+                onChange={(x) => {
+                  setValue("terminalColor", x?.color, { shouldDirty: true });
+                  onChange(x?.id);
+                }}
                 value={terminalQuery.data?.find((x) => x.id === value)}
                 formatOptionLabel={(x) => (
                   <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>

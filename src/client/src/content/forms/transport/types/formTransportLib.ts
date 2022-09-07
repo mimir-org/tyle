@@ -10,6 +10,7 @@ import { ValueObject } from "../../types/valueObject";
  */
 export interface FormTransportLib extends Omit<UpdateEntity<TransportLibAm>, "attributeIdList"> {
   attributeIdList: ValueObject<string>[];
+  terminalColor?: string;
 }
 
 /**
@@ -33,4 +34,5 @@ export const mapTransportLibCmToFormTransportLib = (transportLibCm: TransportLib
   attributeIdList: transportLibCm.attributes.map((x) => ({
     value: x.id,
   })),
+  terminalColor: transportLibCm.terminal.color,
 });
