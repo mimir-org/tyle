@@ -9,7 +9,7 @@ namespace TypeLibrary.Services.Contracts
     {
         Task<InterfaceLibCm> Get(string id);
         Task<IEnumerable<InterfaceLibCm>> GetLatestVersions();
-        Task<InterfaceLibCm> Create(InterfaceLibAm dataAm);
+        Task<InterfaceLibCm> Create(InterfaceLibAm dataAm, bool resetVersion);
         Task<InterfaceLibCm> Update(InterfaceLibAm dataAm, string id);
         Task<bool> Delete(string id);
         Task<bool> CompanyIsChanged(string interfaceId, int companyId);

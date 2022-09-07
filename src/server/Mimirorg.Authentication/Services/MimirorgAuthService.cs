@@ -55,7 +55,14 @@ namespace Mimirorg.Authentication.Services
                 throw new AuthenticationException($"The user account with email {authenticate.Email} could not be signed in.");
 
             var validator = new TotpValidator(new TotpGenerator());
-            var hasCorrectPin = validator.Validate(user.SecurityHash, authenticate.Code);
+
+            if (!authenticate.Code.All(char.IsDigit))
+                throw new AuthenticationException("Only digit is allowed in code");
+
+            if (!int.TryParse(authenticate.Code, out var codeInt))
+                throw new AuthenticationException("Only digit is allowed in code");
+
+            var hasCorrectPin = validator.Validate(user.SecurityHash, codeInt);
 
             if (!hasCorrectPin)
                 throw new AuthenticationException($"The user account with email {authenticate.Email} could not validate code.");

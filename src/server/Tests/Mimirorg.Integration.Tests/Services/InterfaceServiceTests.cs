@@ -33,8 +33,8 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
-            await interfaceService.Create(interfaceAm);
-            Task Act() => interfaceService.Create(interfaceAm);
+            await interfaceService.Create(interfaceAm, true);
+            Task Act() => interfaceService.Create(interfaceAm, true);
             _ = await Assert.ThrowsAsync<MimirorgDuplicateException>(Act);
         }
 
@@ -57,7 +57,7 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
-            var interfaceCm = await interfaceService.Create(interfaceAm);
+            var interfaceCm = await interfaceService.Create(interfaceAm, true);
 
             Assert.NotNull(interfaceCm);
             Assert.Equal(interfaceAm.Id, interfaceCm.Id);
@@ -89,7 +89,7 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
-            var interfaceCm = await interfaceService.Create(interfaceAm);
+            var interfaceCm = await interfaceService.Create(interfaceAm, true);
 
             Assert.Equal(interfaceAm.Id, interfaceCm?.Id);
             Assert.Equal(interfaceAm.Id, interfaceCm?.Id);
@@ -116,7 +116,7 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
-            var interfaceCm = await interfaceService.Create(interfaceAm);
+            var interfaceCm = await interfaceService.Create(interfaceAm, true);
 
             interfaceAm.Description = "Description v1.1";
 
@@ -147,7 +147,7 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
-            var interfaceCm = await interfaceService.Create(interfaceAm);
+            var interfaceCm = await interfaceService.Create(interfaceAm, true);
 
             var isDeleted = await interfaceService.Delete(interfaceCm?.Id);
             var allInterfacesNotDeleted = await interfaceService.GetLatestVersions();

@@ -59,7 +59,7 @@ namespace Mimirorg.Integration.Tests.Controllers
 
             using var scope = Factory.Server.Services.CreateScope();
             var interfaceService = scope.ServiceProvider.GetRequiredService<IInterfaceService>();
-            _ = await interfaceService.Create(interfaceToCreate);
+            _ = await interfaceService.Create(interfaceToCreate, true);
 
             var response = await client.GetAsync(endpoint);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
