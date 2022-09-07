@@ -60,7 +60,7 @@ namespace Mimirorg.Authentication.Services
             var companies = _mimirorgCompanyRepository.GetAll().Select(x => x.ToContentModel()).ToList();
             companies = companies.Select(x =>
             {
-                x.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{x.Id}.png";
+                x.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{x.Id}.svg";
                 return x;
             }).ToList();
 
@@ -80,7 +80,7 @@ namespace Mimirorg.Authentication.Services
                 throw new MimirorgNotFoundException($"Could not find company with id {id}");
 
             var companyCm = company.ToContentModel();
-            companyCm.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{companyCm.Id}.png";
+            companyCm.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{companyCm.Id}.svg";
             return companyCm;
         }
 
@@ -105,7 +105,7 @@ namespace Mimirorg.Authentication.Services
                 throw new MimirorgNotFoundException($"Could not find company with auth param");
 
             var companyCm = company.ToContentModel();
-            companyCm.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{companyCm.Id}.png";
+            companyCm.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{companyCm.Id}.svg";
             return companyCm;
         }
 
@@ -165,7 +165,7 @@ namespace Mimirorg.Authentication.Services
                 if (mimirorgHookCm.Company == null)
                     continue;
 
-                mimirorgHookCm.Company.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{mimirorgHookCm.Company.Id}.png";
+                mimirorgHookCm.Company.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{mimirorgHookCm.Company.Id}.svg";
             }
             return await Task.FromResult(hooks);
         }
@@ -191,7 +191,7 @@ namespace Mimirorg.Authentication.Services
             var hookCm = hookDm.ToContentModel();
             if (hookCm.Company != null)
             {
-                hookCm.Company.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{hookCm.Company.Id}.png";
+                hookCm.Company.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{hookCm.Company.Id}.svg";
             }
 
             return hookCm;
