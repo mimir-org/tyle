@@ -1,11 +1,13 @@
 import { AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useGetAttribute } from "../../../../data/queries/tyle/queriesAttribute";
+import { useGetInterface } from "../../../../data/queries/tyle/queriesInterface";
 import { useGetNode } from "../../../../data/queries/tyle/queriesNode";
 import { useGetTerminal } from "../../../../data/queries/tyle/queriesTerminal";
 import { useGetTransport } from "../../../../data/queries/tyle/queriesTransport";
 import {
   mapAttributeLibCmToAttributeItem,
+  mapInterfaceLibCmToInterfaceItem,
   mapNodeLibCmToNodeItem,
   mapTerminalLibCmToTerminalItem,
   mapTransportLibCmToTransportItem,
@@ -15,6 +17,7 @@ import { SelectedInfo } from "../../types/selectedInfo";
 import { ExploreSection } from "../ExploreSection";
 import { AboutPlaceholder } from "./components/AboutPlaceholder";
 import { AttributePanel } from "./components/attribute/AttributePanel";
+import { InterfacePanel } from "./components/interface/InterfacePanel";
 import { NodePanel } from "./components/node/NodePanel";
 import { TerminalPanel } from "./components/terminal/TerminalPanel";
 import { TransportPanel } from "./components/transport/TransportPanel";
@@ -44,7 +47,11 @@ export const About = ({ selected }: AboutProps) => {
   const transportQuery = useGetTransport(selected?.type == "transport" ? selected?.id : "");
   const showTransportPanel = transportQuery.isSuccess && transportQuery.data;
 
-  const allQueries = [nodeQuery, attributeQuery, terminalQuery, transportQuery];
+  const interfaceQuery = useGetInterface(selected?.type == "interface" ? selected?.id : "");
+  const showInterfacePanel = interfaceQuery.isSuccess && interfaceQuery.data;
+
+  const allQueries = [nodeQuery, attributeQuery, terminalQuery, transportQuery, interfaceQuery];
+
   const showLoading = allQueries.some((x) => x.isLoading);
   const showPlaceHolder = allQueries.every((x) => x.isIdle);
 
@@ -62,6 +69,9 @@ export const About = ({ selected }: AboutProps) => {
         )}
         {showTransportPanel && (
           <TransportPanel key={transportQuery.data.id} {...mapTransportLibCmToTransportItem(transportQuery.data)} />
+        )}
+        {showInterfacePanel && (
+          <InterfacePanel key={interfaceQuery.data.id} {...mapInterfaceLibCmToInterfaceItem(interfaceQuery.data)} />
         )}
       </AnimatePresence>
     </ExploreSection>
