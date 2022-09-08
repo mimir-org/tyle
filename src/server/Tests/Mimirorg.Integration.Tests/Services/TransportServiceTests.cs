@@ -1,7 +1,9 @@
+using AngleSharp.Dom;
 using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Setup;
 using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Services.Contracts;
 using Xunit;
@@ -26,10 +28,6 @@ namespace Mimirorg.Integration.Tests.Services
                 Description = "Description",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
-                AttributeIdList = new List<string>
-                {
-                    "0646754DC953F5EDD4F6159CD993696D"
-                }
             };
 
             var transportService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITransportService>();
@@ -41,6 +39,21 @@ namespace Mimirorg.Integration.Tests.Services
         [Fact]
         public async Task Create_Transport_Create_Transport_When_Ok_Parameters()
         {
+            var transportParentAm = new TransportLibAm
+            {
+                Name = "TransportParent",
+                RdsName = "RdsName",
+                RdsCode = "RdsCode",
+                PurposeName = "PurposeName",
+                Description = "Description",
+                Aspect = Aspect.NotSet,
+                CompanyId = 1,
+                TerminalId = "8EBC5811473E87602FB0C18A100BD53C"
+            };
+
+            var transportService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITransportService>();
+            var transportParentCm = await transportService.Create(transportParentAm, true);
+
             var transportAm = new TransportLibAm
             {
                 Name = "Transport2",
@@ -50,13 +63,26 @@ namespace Mimirorg.Integration.Tests.Services
                 Description = "Description",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
+                TerminalId = "8EBC5811473E87602FB0C18A100BD53C",
                 AttributeIdList = new List<string>
                 {
                     "0646754DC953F5EDD4F6159CD993696D"
-                }
+                },
+                TypeReferences = new List<TypeReferenceAm>
+                {
+                    new()
+                    {
+                        Name = "TypeRef",
+                        Iri = "https://url.com/1234567890",
+                        Source = "https://source.com/1234567890",
+                        SubName = "SubName",
+                        SubIri = "https://subIri.com/1234567890",
+
+                    }
+                },
+                ParentId = transportParentCm.Id
             };
 
-            var transportService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITransportService>();
             var transportCm = await transportService.Create(transportAm, true);
 
             Assert.NotNull(transportCm);
@@ -65,9 +91,17 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(transportAm.RdsName, transportCm.RdsName);
             Assert.Equal(transportAm.RdsCode, transportCm.RdsCode);
             Assert.Equal(transportAm.PurposeName, transportCm.PurposeName);
-            Assert.Equal(transportAm.Aspect, transportCm.Aspect);
             Assert.Equal(transportAm.Description, transportCm.Description);
+            Assert.Equal(transportAm.Aspect, transportCm.Aspect);
             Assert.Equal(transportAm.CompanyId, transportCm.CompanyId);
+            Assert.Equal(transportAm.TerminalId, transportCm.TerminalId);
+            Assert.Equal(transportAm.AttributeIdList.ToList().ConvertToString(), transportCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
+            Assert.Equal(transportAm.TypeReferences.First().Iri, transportAm.TypeReferences.First().Iri);
+            Assert.Equal(transportAm.TypeReferences.First().Name, transportAm.TypeReferences.First().Name);
+            Assert.Equal(transportAm.TypeReferences.First().Source, transportAm.TypeReferences.First().Source);
+            Assert.Equal(transportAm.TypeReferences.First().SubIri, transportAm.TypeReferences.First().SubIri);
+            Assert.Equal(transportAm.TypeReferences.First().SubName, transportAm.TypeReferences.First().SubName);
+            Assert.Equal(transportAm.ParentId, transportCm.ParentId);
         }
 
         [Fact]

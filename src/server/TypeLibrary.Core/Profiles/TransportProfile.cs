@@ -9,8 +9,8 @@ using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Factories;
 using TypeLibrary.Data.Models;
-using VDS.RDF;
 using static Mimirorg.TypeLibrary.Extensions.LibraryExtensions;
 
 namespace TypeLibrary.Core.Profiles
@@ -28,7 +28,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.RdsName, opt => opt.MapFrom(src => src.RdsName))
                 .ForMember(dest => dest.PurposeName, opt => opt.MapFrom(src => src.PurposeName))
                 .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.ParentId) ? null : src.ParentId))
-                .ForMember(dest => dest.Parent, opt => opt.MapFrom(src => src.ParentId))
+                .ForMember(dest => dest.Parent, opt => opt.Ignore())
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => !string.IsNullOrWhiteSpace(src.Version) ? src.Version : "1.0"))
                 .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => !string.IsNullOrWhiteSpace(src.FirstVersionId) ? src.FirstVersionId : src.Id))
                 .ForMember(dest => dest.State, opt => opt.MapFrom(src => State.Draft))
