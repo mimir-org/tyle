@@ -29,6 +29,9 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Display(Name = "Logo")]
         public string Logo { get; set; }
 
+        [Display(Name = "HomePage")]
+        public string HomePage { get; set; }
+
         [Display(Name = "Iris")]
         public ICollection<string> Iris { get; set; }
     }

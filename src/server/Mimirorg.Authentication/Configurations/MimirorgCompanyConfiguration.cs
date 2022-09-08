@@ -19,9 +19,10 @@ namespace Mimirorg.Authentication.Configurations
             builder.Property(p => p.Description).HasColumnName("Description").IsRequired(false);
             builder.Property(p => p.Secret).HasColumnName("Secret").IsRequired();
             builder.Property(p => p.Domain).HasColumnName("Domain").IsRequired();
+            builder.Property(p => p.Logo).HasColumnName("Logo").IsRequired(false);
+            builder.Property(p => p.HomePage).HasColumnName("HomePage").IsRequired(false).HasMaxLength(255);
             builder.Property(p => p.Iris).HasColumnName("Iris").IsRequired(false);
             builder.HasOne(x => x.Manager).WithMany(y => y.MangeCompanies).HasForeignKey(x => x.ManagerId).IsRequired().OnDelete(DeleteBehavior.Cascade);
-
         }
     }
 }
