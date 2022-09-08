@@ -17,6 +17,7 @@ export { mapTerminalLibCmToTerminalItem } from "./mapTerminalLibCmToTerminalItem
 export { mapTransportLibCmToTransportItem } from "./mapTransportLibCmToTransportItem";
 export { mapTransportLibCmToTransportLibAm } from "./mapTransportLibCmToTransportLibAm";
 
+export { mapInterfaceLibCmToInterfaceItem } from "./mapInterfaceLibCmToInterfaceItem";
 export { mapInterfaceLibCmToInterfaceLibAm } from "./mapInterfaceLibCmToInterfaceLibAm";
 
 export { mapListToDescriptors } from "./mapListToDescriptors";
