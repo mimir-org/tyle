@@ -167,7 +167,7 @@
   },
   "transport": {
     "name": "Name",
-    "terminal": "Terminal",
+    "terminal": "Associated terminal",
     "purpose": "Purpose",
     "aspect": "Aspect",
     "rds": "RDS",
