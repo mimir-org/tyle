@@ -17,7 +17,7 @@ namespace TypeLibrary.Core.Profiles
 {
     public class TransportProfile : Profile
     {
-        public TransportProfile(IApplicationSettingsRepository settings, ITransportFactory transportFactory, IHttpContextAccessor contextAccessor)
+        public TransportProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor)
         {
             CreateMap<TransportLibAm, TransportLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -28,7 +28,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.RdsName, opt => opt.MapFrom(src => src.RdsName))
                 .ForMember(dest => dest.PurposeName, opt => opt.MapFrom(src => src.PurposeName))
                 .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.ParentId) ? null : src.ParentId))
-                .ForMember(dest => dest.Parent, opt => opt.MapFrom(src => ResolveTransport(src.ParentId, transportFactory)))
+                .ForMember(dest => dest.Parent, opt => opt.Ignore())
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => !string.IsNullOrWhiteSpace(src.Version) ? src.Version : "1.0"))
                 .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => !string.IsNullOrWhiteSpace(src.FirstVersionId) ? src.FirstVersionId : src.Id))
                 .ForMember(dest => dest.State, opt => opt.MapFrom(src => State.Draft))
@@ -63,11 +63,6 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.TerminalId, opt => opt.MapFrom(src => src.TerminalId))
                 .ForMember(dest => dest.Terminal, opt => opt.MapFrom(src => src.Terminal))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes));
-        }
-
-        private static TransportLibDm ResolveTransport(string id, ITransportFactory transportFactory)
-        {
-            return transportFactory.Get(id).Result;
         }
     }
 }

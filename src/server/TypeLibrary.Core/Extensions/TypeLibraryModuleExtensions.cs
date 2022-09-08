@@ -84,7 +84,6 @@ namespace TypeLibrary.Core.Extensions
 
             // Factories
             services.AddScoped<IAttributeFactory, AttributeFactory>();
-            services.AddScoped<ITransportFactory, TransportFactory>();
             services.AddScoped<IUnitFactory, UnitFactory>();
 
             services.AddHttpContextAccessor();
