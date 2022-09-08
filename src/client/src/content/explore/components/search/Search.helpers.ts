@@ -9,11 +9,11 @@ import { useFuse } from "../../../../hooks/useFuse";
 import { getValueLabelObjectsFromEnum } from "../../../../utils/getValueLabelObjectsFromEnum";
 import { isAttributeLibCm, isNodeLibCm, isTerminalLibCm, isTransportLibCm } from "../../../../utils/guards";
 import {
+  mapAttributeLibCmToAttributeItem,
   mapNodeLibCmToNodeItem,
   mapTerminalLibCmToTerminalItem,
   mapTransportLibCmToTransportItem,
 } from "../../../../utils/mappers";
-import { mapAttributeLibCmToAttributeItem } from "../../../../utils/mappers/mapAttributeLibCmToAttributeItem";
 import { Filter } from "../../types/filter";
 import { FilterGroup } from "../../types/filterGroup";
 import { Link } from "../../types/link";
@@ -44,6 +44,10 @@ export const getCreateMenuLinks = (): Link[] => {
     {
       name: "Aspect object",
       path: "/form/node",
+    },
+    {
+      name: "Interface",
+      path: "/form/interface",
     },
     {
       name: "Terminal",
