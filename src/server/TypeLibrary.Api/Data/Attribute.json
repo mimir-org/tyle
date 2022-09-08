@@ -126,6 +126,14 @@
       "8C651EFA1A0C21F845E6939C35B47910",
       "03AC3BFA590F2BC7C1754CA45801E166"
     ],
+    "typeReferences": [
+      {
+        "name": "volumetric flow rate",
+        "iri": "https://rds.posccaesar.org/ontology/plm/rdl/PCA_100003606",
+        "source": "PCA",
+        "subName": null,
+        "subIri":  null 
+      }],
     "attributeQualifier": "Capacity",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -813,6 +821,15 @@
       "D1AF6396E3AB247B35BFBA56F5229BE2",
       "F9EA7C055039A975FBFFE1B8BB1805D8"
     ],
+    "typeReferences": [
+      {
+        "name": "pressure",
+        "iri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003596",
+        "source": "PCA",
+        "subName": "pascal",
+        "subIri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003716"
+      }
+    ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -899,6 +916,15 @@
       "8C651EFA1A0C21F845E6939C35B47910",
       "03AC3BFA590F2BC7C1754CA45801E166"
     ],
+    "typeReferences": [
+      {
+        "name": "volumetric flow rate",
+        "iri": "https://rds.posccaesar.org/ontology/plm/rdl/PCA_100003606",
+        "source": "PCA",
+        "subName": null,
+        "subIri": null
+      }
+    ],
     "attributeQualifier": "Capacity",
     "attributeSource": "Required",
     "attributeCondition": "Minimum",
@@ -948,6 +974,15 @@
       "4D9D633FBB21B9036D586EFBD8BFF4FD",
       "8C651EFA1A0C21F845E6939C35B47910",
       "03AC3BFA590F2BC7C1754CA45801E166"
+    ],
+    "typeReferences": [
+      {
+        "name": "volumetric flow rate",
+        "iri": "https://rds.posccaesar.org/ontology/plm/rdl/PCA_100003606",
+        "source": "PCA",
+        "subName": null,
+        "subIri": null
+      }
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -1219,6 +1254,15 @@
       "BAE6EA8E2DCACAECAAAA70B3B12C9EFA",
       "D1AF6396E3AB247B35BFBA56F5229BE2",
       "F9EA7C055039A975FBFFE1B8BB1805D8"
+    ],
+    "typeReferences": [
+      {
+        "name": "pressure",
+        "iri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003596",
+        "source": "PCA",
+        "subName": "pascal",
+        "subIri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003716"
+      }
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -1497,6 +1541,15 @@
       "BAE6EA8E2DCACAECAAAA70B3B12C9EFA",
       "D1AF6396E3AB247B35BFBA56F5229BE2",
       "F9EA7C055039A975FBFFE1B8BB1805D8"
+    ],
+    "typeReferences": [
+      {
+        "name": "pressure",
+        "iri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003596",
+        "source": "PCA",
+        "subName": "pascal",
+        "subIri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003716"
+      }
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -1795,6 +1848,15 @@
       "D1AF6396E3AB247B35BFBA56F5229BE2",
       "F9EA7C055039A975FBFFE1B8BB1805D8"
     ],
+    "typeReferences": [
+      {
+        "name": "pressure",
+        "iri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003596",
+        "source": "PCA",
+        "subName": "pascal",
+        "subIri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003716"
+      }
+    ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Maximum",
@@ -1815,6 +1877,15 @@
       "D1AF6396E3AB247B35BFBA56F5229BE2",
       "F9EA7C055039A975FBFFE1B8BB1805D8"
     ],
+    "typeReferences": [
+      {
+        "name": "pressure",
+        "iri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003596",
+        "source": "PCA",
+        "subName": "pascal",
+        "subIri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003716"
+      }
+    ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Minimum",
@@ -1834,6 +1905,15 @@
       "BAE6EA8E2DCACAECAAAA70B3B12C9EFA",
       "D1AF6396E3AB247B35BFBA56F5229BE2",
       "F9EA7C055039A975FBFFE1B8BB1805D8"
+    ],
+    "typeReferences": [
+      {
+        "name": "pressure",
+        "iri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003596",
+        "source": "PCA",
+        "subName": "pascal",
+        "subIri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003716"
+      }
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
@@ -1941,6 +2021,15 @@
       "4D9D633FBB21B9036D586EFBD8BFF4FD",
       "8C651EFA1A0C21F845E6939C35B47910",
       "03AC3BFA590F2BC7C1754CA45801E166"
+    ],
+    "typeReferences": [
+      {
+        "name": "volumetric flow rate",
+        "iri": "https://rds.posccaesar.org/ontology/plm/rdl/PCA_100003606",
+        "source": "PCA",
+        "subName": null,
+        "subIri": null
+      }
     ],
     "attributeQualifier": "Capacity",
     "attributeSource": "Design",
@@ -2061,6 +2150,15 @@
       "D1AF6396E3AB247B35BFBA56F5229BE2",
       "F9EA7C055039A975FBFFE1B8BB1805D8"
     ],
+    "typeReferences": [
+      {
+        "name": "pressure",
+        "iri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003596",
+        "source": "PCA",
+        "subName": "pascal",
+        "subIri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003716"
+      }
+    ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Minimum",
@@ -2097,6 +2195,15 @@
       "BAE6EA8E2DCACAECAAAA70B3B12C9EFA",
       "D1AF6396E3AB247B35BFBA56F5229BE2",
       "F9EA7C055039A975FBFFE1B8BB1805D8"
+    ],
+    "typeReferences": [
+      {
+        "name": "pressure",
+        "iri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003596",
+        "source": "PCA",
+        "subName": "pascal",
+        "subIri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003716"
+      }
     ],
     "attributeQualifier": "Rating",
     "attributeSource": "Required",
@@ -2232,6 +2339,15 @@
       "D1AF6396E3AB247B35BFBA56F5229BE2",
       "F9EA7C055039A975FBFFE1B8BB1805D8"
     ],
+    "typeReferences": [
+      {
+        "name": "pressure",
+        "iri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003596",
+        "source": "PCA",
+        "subName": "pascal",
+        "subIri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003716"
+      }
+    ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
@@ -2332,6 +2448,15 @@
       "4D9D633FBB21B9036D586EFBD8BFF4FD",
       "8C651EFA1A0C21F845E6939C35B47910",
       "03AC3BFA590F2BC7C1754CA45801E166"
+    ],
+    "typeReferences": [
+      {
+        "name": "volumetric flow rate",
+        "iri": "https://rds.posccaesar.org/ontology/plm/rdl/PCA_100003606",
+        "source": "PCA",
+        "subName": null,
+        "subIri": null
+      }
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -2728,6 +2853,15 @@
       "D1AF6396E3AB247B35BFBA56F5229BE2",
       "F9EA7C055039A975FBFFE1B8BB1805D8"
     ],
+    "typeReferences": [
+      {
+        "name": "pressure",
+        "iri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003596",
+        "source": "PCA",
+        "subName": "pascal",
+        "subIri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003716"
+      }
+    ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
     "attributeCondition": "Nominal",
@@ -2747,6 +2881,15 @@
       "BAE6EA8E2DCACAECAAAA70B3B12C9EFA",
       "D1AF6396E3AB247B35BFBA56F5229BE2",
       "F9EA7C055039A975FBFFE1B8BB1805D8"
+    ],
+    "typeReferences": [
+      {
+        "name": "pressure",
+        "iri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003596",
+        "source": "PCA",
+        "subName": "pascal",
+        "subIri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003716"
+      }
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
@@ -2846,6 +2989,15 @@
       "D1AF6396E3AB247B35BFBA56F5229BE2",
       "F9EA7C055039A975FBFFE1B8BB1805D8"
     ],
+    "typeReferences": [
+      {
+        "name": "pressure",
+        "iri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003596",
+        "source": "PCA",
+        "subName": "pascal",
+        "subIri": "http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003716"
+      }
+    ],
     "attributeQualifier": "Rating",
     "attributeSource": "Design",
     "attributeCondition": "Nominal",
@@ -2881,6 +3033,15 @@
       "4D9D633FBB21B9036D586EFBD8BFF4FD",
       "8C651EFA1A0C21F845E6939C35B47910",
       "03AC3BFA590F2BC7C1754CA45801E166"
+    ],
+    "typeReferences": [
+      {
+        "name": "volumetric flow rate",
+        "iri": "https://rds.posccaesar.org/ontology/plm/rdl/PCA_100003606",
+        "source": "PCA",
+        "subName": null,
+        "subIri": null
+      }
     ],
     "attributeQualifier": "Operating",
     "attributeSource": "Calculated",
