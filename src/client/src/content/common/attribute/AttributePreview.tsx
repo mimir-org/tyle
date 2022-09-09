@@ -4,7 +4,7 @@ import { Box } from "../../../complib/layouts";
 import { TextTypes } from "../../../complib/props";
 import { Text } from "../../../complib/text";
 import { InfoItem } from "../../types/InfoItem";
-import { InfoItemButton } from "../infoItem";
+import { InfoItemButton } from "../info-item";
 import {
   AttributePreviewContainer,
   AttributePreviewHeader,

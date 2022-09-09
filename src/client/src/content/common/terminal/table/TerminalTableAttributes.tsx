@@ -3,7 +3,7 @@ import { useTheme } from "styled-components";
 import { Td } from "../../../../complib/data-display";
 import { Box } from "../../../../complib/layouts";
 import { NodeTerminalItem } from "../../../types/NodeTerminalItem";
-import { InfoItemButton } from "../../infoItem";
+import { InfoItemButton } from "../../info-item";
 
 export const TerminalTableAttributes = ({ attributes }: Pick<NodeTerminalItem, "attributes">) => {
   const theme = useTheme();
