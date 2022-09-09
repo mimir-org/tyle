@@ -1,10 +1,16 @@
 import { useParams } from "react-router-dom";
-import { useGetTransport } from "../../../data/queries/tyle/queriesTransport";
+import { useCreateTransport, useGetTransport, useUpdateTransport } from "../../../data/queries/tyle/queriesTransport";
 import { FormTransportLib } from "./types/formTransportLib";
 
 export const useTransportQuery = () => {
   const { id } = useParams();
   return useGetTransport(id);
+};
+
+export const useTransportMutation = (isEdit?: boolean) => {
+  const createMutation = useCreateTransport();
+  const updateMutation = useUpdateTransport();
+  return isEdit ? updateMutation : createMutation;
 };
 
 /**

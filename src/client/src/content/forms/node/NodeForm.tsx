@@ -3,7 +3,6 @@ import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Box } from "../../../complib/layouts";
-import { useCreateNode, useUpdateNode } from "../../../data/queries/tyle/queriesNode";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
 import { FormAttributes } from "../common/FormAttributes";
@@ -11,7 +10,7 @@ import { onSubmitForm } from "../common/onSubmitForm";
 import { prepareAttributesByAspect } from "../common/prepareAttributesByAspect";
 import { usePrefilledForm } from "../common/usePrefilledForm";
 import { useSubmissionToast } from "../common/useSubmissionToast";
-import { getFormForAspect, useNodeQuery } from "./NodeForm.helpers";
+import { getFormForAspect, useNodeMutation, useNodeQuery } from "./NodeForm.helpers";
 import { NodeFormContainer } from "./NodeForm.styled";
 import { NodeFormBaseFields } from "./NodeFormBaseFields";
 import {
@@ -37,17 +36,14 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
   const query = useNodeQuery();
   const [isPrefilled, isLoading] = usePrefilledForm(query, mapNodeLibCmToFormNodeLib, reset);
 
-  const nodeUpdateMutation = useUpdateNode();
-  const nodeCreateMutation = useCreateNode();
-  const targetMutation = isEdit ? nodeUpdateMutation : nodeCreateMutation;
-
   const toast = useSubmissionToast(t("node.title"));
 
-  useNavigateOnCriteria("/", targetMutation.isSuccess);
+  const mutation = useNodeMutation(isEdit);
+  useNavigateOnCriteria("/", mutation.isSuccess);
 
   return (
     <NodeFormContainer
-      onSubmit={handleSubmit((data) => onSubmitForm(mapFormNodeLibToApiModel(data), targetMutation.mutateAsync, toast))}
+      onSubmit={handleSubmit((data) => onSubmitForm(mapFormNodeLibToApiModel(data), mutation.mutateAsync, toast))}
     >
       {isLoading && <Loader />}
       {!isLoading && (

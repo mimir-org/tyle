@@ -3,7 +3,6 @@ import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
-import { useCreateInterface, useUpdateInterface } from "../../../data/queries/tyle/queriesInterface";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
 import { FormAttributes } from "../common/FormAttributes";
@@ -11,7 +10,7 @@ import { onSubmitForm } from "../common/onSubmitForm";
 import { prepareAttributesByAspect } from "../common/prepareAttributesByAspect";
 import { usePrefilledForm } from "../common/usePrefilledForm";
 import { useSubmissionToast } from "../common/useSubmissionToast";
-import { useInterfaceQuery } from "./InterfaceForm.helpers";
+import { useInterfaceMutation, useInterfaceQuery } from "./InterfaceForm.helpers";
 import { InterfaceFormContainer } from "./InterfaceForm.styled";
 import { InterfaceFormBaseFields } from "./InterfaceFormBaseFields";
 import {
@@ -37,19 +36,14 @@ export const InterfaceForm = ({ defaultValues = createEmptyFormInterfaceLib(), i
   const query = useInterfaceQuery();
   const [isPrefilled, isLoading] = usePrefilledForm(query, mapInterfaceLibCmToFormInterfaceLib, reset);
 
-  const createMutation = useCreateInterface();
-  const updateMutation = useUpdateInterface();
-  const targetMutation = isEdit ? updateMutation : createMutation;
-
   const toast = useSubmissionToast(t("interface.title"));
 
-  useNavigateOnCriteria("/", targetMutation.isSuccess);
+  const mutation = useInterfaceMutation(isEdit);
+  useNavigateOnCriteria("/", mutation.isSuccess);
 
   return (
     <InterfaceFormContainer
-      onSubmit={handleSubmit((data) =>
-        onSubmitForm(mapFormInterfaceLibToApiModel(data), targetMutation.mutateAsync, toast)
-      )}
+      onSubmit={handleSubmit((data) => onSubmitForm(mapFormInterfaceLibToApiModel(data), mutation.mutateAsync, toast))}
     >
       {isLoading && <Loader />}
       {!isLoading && (

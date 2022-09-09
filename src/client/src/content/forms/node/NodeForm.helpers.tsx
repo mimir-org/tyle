@@ -1,13 +1,19 @@
 import { Aspect } from "@mimirorg/typelibrary-types";
 import { Control, UseFormRegister } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { useGetNode } from "../../../data/queries/tyle/queriesNode";
+import { useCreateNode, useGetNode, useUpdateNode } from "../../../data/queries/tyle/queriesNode";
 import { FormNodeLib } from "./types/formNodeLib";
 import { FunctionNode, LocationNode, ProductNode } from "./variants";
 
 export const useNodeQuery = () => {
   const { id } = useParams();
   return useGetNode(id);
+};
+
+export const useNodeMutation = (isEdit?: boolean) => {
+  const nodeUpdateMutation = useUpdateNode();
+  const nodeCreateMutation = useCreateNode();
+  return isEdit ? nodeUpdateMutation : nodeCreateMutation;
 };
 
 /**

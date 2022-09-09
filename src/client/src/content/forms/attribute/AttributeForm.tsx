@@ -36,18 +36,16 @@ export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }:
   const query = useAttributeQuery();
   const [isPrefilled, isLoading] = usePrefilledForm(query, mapAttributeLibCmToFormAttributeLib, reset);
 
-  const attributeCreateMutation = useCreateAttribute();
+  const mutation = useCreateAttribute();
   const attributeReferences = useGetAttributesReference();
 
   const toast = useSubmissionToast(t("attribute.title"));
 
-  useNavigateOnCriteria("/", attributeCreateMutation.isSuccess);
+  useNavigateOnCriteria("/", mutation.isSuccess);
 
   return (
     <AttributeFormContainer
-      onSubmit={handleSubmit((data) =>
-        onSubmitForm(mapFormAttributeLibToApiModel(data), attributeCreateMutation.mutateAsync, toast)
-      )}
+      onSubmit={handleSubmit((data) => onSubmitForm(mapFormAttributeLibToApiModel(data), mutation.mutateAsync, toast))}
     >
       {isLoading && <Loader />}
       {!isLoading && (
