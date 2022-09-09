@@ -7,6 +7,7 @@ import { useCreateTransport, useUpdateTransport } from "../../../data/queries/ty
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
 import { FormAttributes } from "../common/FormAttributes";
+import { onSubmitForm } from "../common/onSubmitForm";
 import { prepareAttributesByAspect } from "../common/prepareAttributesByAspect";
 import { useSubmissionToast } from "../common/useSubmissionToast";
 import { usePrefilledTransportData } from "./TransportForm.helpers";
@@ -34,17 +35,15 @@ export const TransportForm = ({ defaultValues = createEmptyFormTransportLib(), i
   const targetMutation = isEdit ? updateMutation : createMutation;
 
   const toast = useSubmissionToast(t("transport.title"));
-  const onSubmit = (data: FormTransportLib) => {
-    const submittable = mapFormTransportLibToApiModel(data);
-    const submissionPromise = targetMutation.mutateAsync(submittable);
-    toast(submissionPromise);
-    return submissionPromise;
-  };
 
   useNavigateOnCriteria("/", targetMutation.isSuccess);
 
   return (
-    <TransportFormContainer onSubmit={handleSubmit((data) => onSubmit(data))}>
+    <TransportFormContainer
+      onSubmit={handleSubmit((data) =>
+        onSubmitForm(mapFormTransportLibToApiModel(data), targetMutation.mutateAsync, toast)
+      )}
+    >
       {isLoading && <Loader />}
       {!isLoading && (
         <>

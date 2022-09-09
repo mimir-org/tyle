@@ -7,6 +7,7 @@ import { useCreateAttribute, useGetAttributesReference } from "../../../data/que
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
 import { FormReferences, HasReferences } from "../common/FormReferences";
+import { onSubmitForm } from "../common/onSubmitForm";
 import { useSubmissionToast } from "../common/useSubmissionToast";
 import { showSelectValues, usePrefilledAttributeData } from "./AttributeForm.helpers";
 import { AttributeFormContainer } from "./AttributeForm.styled";
@@ -26,22 +27,21 @@ export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }:
   const { register, handleSubmit, control, reset, resetField } = useForm<FormAttributeLib>({ defaultValues });
   const attributeSelect = useWatch({ control, name: "select" });
 
-  const attributeCreateMutation = useCreateAttribute();
-  const attributeReferences = useGetAttributesReference();
   const [hasPrefilledData, isLoading] = usePrefilledAttributeData(reset);
 
+  const attributeCreateMutation = useCreateAttribute();
+  const attributeReferences = useGetAttributesReference();
+
   const toast = useSubmissionToast(t("attribute.title"));
-  const onSubmit = (data: FormAttributeLib) => {
-    const submittable = mapFormAttributeLibToApiModel(data);
-    const submissionPromise = attributeCreateMutation.mutateAsync(submittable);
-    toast(submissionPromise);
-    return submissionPromise;
-  };
 
   useNavigateOnCriteria("/", attributeCreateMutation.isSuccess);
 
   return (
-    <AttributeFormContainer onSubmit={handleSubmit((data) => onSubmit(data))}>
+    <AttributeFormContainer
+      onSubmit={handleSubmit((data) =>
+        onSubmitForm(mapFormAttributeLibToApiModel(data), attributeCreateMutation.mutateAsync, toast)
+      )}
+    >
       {isLoading && <Loader />}
       {!isLoading && (
         <>

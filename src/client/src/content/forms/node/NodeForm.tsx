@@ -7,6 +7,7 @@ import { useCreateNode, useUpdateNode } from "../../../data/queries/tyle/queries
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
 import { FormAttributes } from "../common/FormAttributes";
+import { onSubmitForm } from "../common/onSubmitForm";
 import { prepareAttributesByAspect } from "../common/prepareAttributesByAspect";
 import { useSubmissionToast } from "../common/useSubmissionToast";
 import { getFormForAspect, usePrefilledNodeData } from "./NodeForm.helpers";
@@ -23,26 +24,24 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
   const theme = useTheme();
   const { t } = useTranslation();
   const { register, handleSubmit, control, setValue, reset, resetField } = useForm<FormNodeLib>({ defaultValues });
+
   const aspect = useWatch({ control, name: "aspect" });
+  const attributeFields = useFieldArray({ control, name: "attributeIdList" });
+
+  const [hasPrefilledData, isLoading] = usePrefilledNodeData(reset);
 
   const nodeUpdateMutation = useUpdateNode();
   const nodeCreateMutation = useCreateNode();
-  const [hasPrefilledData, isLoading] = usePrefilledNodeData(reset);
-  const attributeFields = useFieldArray({ control, name: "attributeIdList" });
+  const targetMutation = isEdit ? nodeUpdateMutation : nodeCreateMutation;
 
   const toast = useSubmissionToast(t("node.title"));
-  const onSubmit = (data: FormNodeLib) => {
-    const mutation = isEdit ? nodeUpdateMutation.mutateAsync : nodeCreateMutation.mutateAsync;
-    const submittable = mapFormNodeLibToApiModel(data);
-    const submissionPromise = mutation(submittable);
-    toast(submissionPromise);
-    return submissionPromise;
-  };
 
-  useNavigateOnCriteria("/", nodeCreateMutation.isSuccess || nodeUpdateMutation.isSuccess);
+  useNavigateOnCriteria("/", targetMutation.isSuccess);
 
   return (
-    <NodeFormContainer onSubmit={handleSubmit((data) => onSubmit(data))}>
+    <NodeFormContainer
+      onSubmit={handleSubmit((data) => onSubmitForm(mapFormNodeLibToApiModel(data), targetMutation.mutateAsync, toast))}
+    >
       {isLoading && <Loader />}
       {!isLoading && (
         <>

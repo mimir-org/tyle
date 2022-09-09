@@ -7,6 +7,7 @@ import { useCreateInterface, useUpdateInterface } from "../../../data/queries/ty
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
 import { FormAttributes } from "../common/FormAttributes";
+import { onSubmitForm } from "../common/onSubmitForm";
 import { prepareAttributesByAspect } from "../common/prepareAttributesByAspect";
 import { useSubmissionToast } from "../common/useSubmissionToast";
 import { usePrefilledInterfaceData } from "./InterfaceForm.helpers";
@@ -34,17 +35,15 @@ export const InterfaceForm = ({ defaultValues = createEmptyFormInterfaceLib(), i
   const targetMutation = isEdit ? updateMutation : createMutation;
 
   const toast = useSubmissionToast(t("interface.title"));
-  const onSubmit = (data: FormInterfaceLib) => {
-    const submittable = mapFormInterfaceLibToApiModel(data);
-    const submissionPromise = targetMutation.mutateAsync(submittable);
-    toast(submissionPromise);
-    return submissionPromise;
-  };
 
   useNavigateOnCriteria("/", targetMutation.isSuccess);
 
   return (
-    <InterfaceFormContainer onSubmit={handleSubmit((data) => onSubmit(data))}>
+    <InterfaceFormContainer
+      onSubmit={handleSubmit((data) =>
+        onSubmitForm(mapFormInterfaceLibToApiModel(data), targetMutation.mutateAsync, toast)
+      )}
+    >
       {isLoading && <Loader />}
       {!isLoading && (
         <>

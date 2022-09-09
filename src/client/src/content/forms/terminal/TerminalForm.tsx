@@ -7,6 +7,7 @@ import { useCreateTerminal, useUpdateTerminal } from "../../../data/queries/tyle
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
 import { FormAttributes } from "../common/FormAttributes";
+import { onSubmitForm } from "../common/onSubmitForm";
 import { useSubmissionToast } from "../common/useSubmissionToast";
 import { prepareAttributes, usePrefilledTerminalData } from "./TerminalForm.helpers";
 import { TerminalFormContainer } from "./TerminalForm.styled";
@@ -31,17 +32,15 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), isE
   const targetMutation = isEdit ? updateMutation : createMutation;
 
   const toast = useSubmissionToast(t("terminal.title"));
-  const onSubmit = (data: FormTerminalLib) => {
-    const submittable = mapFormTerminalLibToApiModel(data);
-    const submissionPromise = targetMutation.mutateAsync(submittable);
-    toast(submissionPromise);
-    return submissionPromise;
-  };
 
   useNavigateOnCriteria("/", targetMutation.isSuccess);
 
   return (
-    <TerminalFormContainer onSubmit={handleSubmit((data) => onSubmit(data))}>
+    <TerminalFormContainer
+      onSubmit={handleSubmit((data) =>
+        onSubmitForm(mapFormTerminalLibToApiModel(data), targetMutation.mutateAsync, toast)
+      )}
+    >
       {isLoading && <Loader />}
       {!isLoading && (
         <>
