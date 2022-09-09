@@ -11,6 +11,7 @@ import { SelectedInfo } from "../../types/selectedInfo";
 import { ExploreSection } from "../ExploreSection";
 import { ConditionalAttributeSearchItem } from "./components/attribute/ConditionalAttributeSearchItem";
 import { FilterMenu } from "./components/filter/FilterMenu";
+import { ConditionalInterfaceSearchItem } from "./components/interface/ConditionalInterfaceSearchItem";
 import { ItemList } from "./components/item/ItemList";
 import { LinkMenu } from "./components/link/LinkMenu";
 import { ConditionalNodeSearchItem } from "./components/node/ConditionalNodeSearchItem";
@@ -109,6 +110,11 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
                 item={item}
                 isSelected={item.id == selected?.id}
                 setSelected={() => setSelected({ id: item.id, type: "transport" })}
+              />
+              <ConditionalInterfaceSearchItem
+                item={item}
+                isSelected={item.id == selected?.id}
+                setSelected={() => setSelected({ id: item.id, type: "interface" })}
               />
             </Fragment>
           ))}
