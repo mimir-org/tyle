@@ -1,4 +1,4 @@
-import { Aspect } from "@mimirorg/typelibrary-types";
+import { Aspect, AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { useEffect, useState } from "react";
 import { Control, DefaultValues, KeepStateOptions, UseFormRegister } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -59,12 +59,19 @@ export const getFormForAspect = (
 ) => {
   switch (aspect) {
     case Aspect.Function:
-      return <FunctionNode control={control} register={register} />;
+      return <FunctionNode control={control} />;
     case Aspect.Product:
-      return <ProductNode control={control} register={register} />;
+      return <ProductNode control={control} />;
     case Aspect.Location:
       return <LocationNode control={control} register={register} />;
     default:
       return <></>;
   }
+};
+
+export const prepareAttributes = (attributes?: AttributeLibCm[], aspects?: Aspect[]) => {
+  if (!attributes || attributes.length == 0) return [];
+  if (!aspects || aspects.length == 0) return [];
+
+  return attributes.filter((a) => aspects.some((x) => x === a.aspect)).sort((a, b) => a.discipline - b.discipline);
 };

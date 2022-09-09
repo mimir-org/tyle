@@ -1,17 +1,13 @@
-import { Aspect } from "@mimirorg/typelibrary-types";
-import { Control, UseFormRegister } from "react-hook-form";
-import { NodeFormAttributes } from "../attributes/NodeFormAttributes";
+import { Control } from "react-hook-form";
 import { NodeFormTerminalTable } from "../terminals/NodeFormTerminalTable";
 import { FormNodeLib } from "../types/formNodeLib";
 
 export interface FunctionNodeProps {
   control: Control<FormNodeLib>;
-  register: UseFormRegister<FormNodeLib>;
 }
 
-export const FunctionNode = ({ control, register }: FunctionNodeProps) => (
+export const FunctionNode = ({ control }: FunctionNodeProps) => (
   <>
     <NodeFormTerminalTable control={control} />
-    <NodeFormAttributes control={control} register={register} aspects={[Aspect.Function]} />
   </>
 );

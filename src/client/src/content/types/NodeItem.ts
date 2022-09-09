@@ -1,5 +1,5 @@
 import { InfoItem } from "./InfoItem";
-import { TerminalItem } from "./TerminalItem";
+import { NodeTerminalItem } from "./NodeTerminalItem";
 
 export interface NodeItem {
   id: string;
@@ -8,7 +8,7 @@ export interface NodeItem {
   img: string;
   color: string;
   tokens: string[];
-  terminals: TerminalItem[];
+  terminals: NodeTerminalItem[];
   attributes: InfoItem[];
   kind: string;
 }

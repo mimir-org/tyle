@@ -4,12 +4,12 @@ import { VisuallyHidden } from "../../../complib/accessibility";
 import { Divider, Popover } from "../../../complib/data-display";
 import { Box, Flexbox } from "../../../complib/layouts";
 import { Text } from "../../../complib/text";
-import { TerminalItem } from "../../types/TerminalItem";
+import { NodeTerminalItem } from "../../types/NodeTerminalItem";
 import { TerminalButton } from "./TerminalButton";
 import { TerminalDescription } from "./TerminalSingle";
 
 interface TerminalCollectionProps {
-  terminals: TerminalItem[];
+  terminals: NodeTerminalItem[];
   placement?: "left" | "right";
 }
 
@@ -34,7 +34,7 @@ export const TerminalCollection = ({ terminals, placement }: TerminalCollectionP
 };
 
 interface TerminalCollectionDescriptionProps {
-  terminals: TerminalItem[];
+  terminals: NodeTerminalItem[];
 }
 
 const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescriptionProps) => {

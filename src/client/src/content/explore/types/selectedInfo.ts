@@ -1,4 +1,4 @@
-type SelectedInfoType = "node" | "attribute";
+type SelectedInfoType = "node" | "attribute" | "terminal";
 
 /**
  * Interface for describing the currently selected item in the search list.

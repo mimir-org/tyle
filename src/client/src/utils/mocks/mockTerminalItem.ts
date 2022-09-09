@@ -3,9 +3,11 @@ import { TerminalItem } from "../../content/types/TerminalItem";
 import { mockInfoItem } from "./mockInfoItem";
 
 export const mockTerminalItem = (): TerminalItem => ({
+  id: faker.random.alphaNumeric(),
   name: `Terminal ${faker.random.alpha({ count: 3, casing: "upper" })}`,
   color: faker.internet.color(),
-  amount: parseInt(faker.random.numeric(1)),
-  direction: faker.helpers.arrayElement(["Input", "Output", "Bidirectional"]),
+  description: faker.commerce.productDescription(),
   attributes: [...Array(7)].map((_) => mockInfoItem()),
+  tokens: [...Array(5)].map((_) => faker.commerce.productAdjective()),
+  kind: "TerminalItem",
 });

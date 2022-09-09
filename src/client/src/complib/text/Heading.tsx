@@ -1,11 +1,20 @@
 import { motion } from "framer-motion";
 import { ElementType } from "react";
 import styled from "styled-components/macro";
-import { displayMixin, ellipsisMixin, getTextRole, paletteMixin, spacingMixin, typographyMixin } from "../mixins";
-import { Display, Palette, Polymorphic, Spacing, TextVariant, Typography } from "../props";
+import {
+  displayMixin,
+  ellipsisMixin,
+  getTextRole,
+  paletteMixin,
+  sizingMixin,
+  spacingMixin,
+  typographyMixin,
+} from "../mixins";
+import { Display, Palette, Polymorphic, Sizing, Spacing, TextVariant, Typography } from "../props";
 import { Ellipsis } from "../props/ellipsis";
 
 type HeadingProps = Spacing &
+  Sizing &
   Pick<Palette, "color"> &
   Pick<Display, "whiteSpace" | "display"> &
   Pick<Typography, "font" | "fontSize" | "fontWeight" | "textAlign" | "textTransform" | "wordBreak"> &
@@ -32,6 +41,7 @@ export const Heading = styled.h1<HeadingProps>`
   ${spacingMixin};
   ${ellipsisMixin};
   ${typographyMixin};
+  ${sizingMixin};
 `;
 
 Heading.defaultProps = {

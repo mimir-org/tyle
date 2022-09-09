@@ -61,42 +61,37 @@ namespace TypeLibrary.Data.Models
             if (Aspect != other.Aspect)
                 validation.AddNotAllowToChange(nameof(Aspect));
 
-            if (Simples != null && other.SimpleIdList != null)
-            {
-                if (Simples.Select(y => y.Id).Any(id => other.SimpleIdList.All(x => x != id)))
-                {
-                    validation.AddNotAllowToChange(nameof(Simples), "It is not allowed to remove items from simples");
-                }
-            }
-
-            if (Attributes != null && other.AttributeIdList != null)
-            {
-                if (Attributes.Select(y => y.Id).Any(id => other.AttributeIdList.All(x => x != id)))
-                {
-                    validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove items from attributes");
-                }
-            }
-
-            if (NodeTerminals != null && other.NodeTerminals != null)
-            {
-                var otherTerminals = other.NodeTerminals.Select(x => $"{x.Id}-{Id}".CreateMd5());
-
-                if (NodeTerminals.Select(y => y.Id).Any(id => otherTerminals.Select(x => x).All(x => x != id)))
-                {
-                    validation.AddNotAllowToChange(nameof(NodeTerminals), "It is not allowed to remove items from terminals");
-                }
-            }
-
-            if (SelectedAttributePredefined != null && other.SelectedAttributePredefined != null)
-            {
-                if (SelectedAttributePredefined.Select(y => y.Key).Any(key => other.SelectedAttributePredefined.Select(x => x.Key).All(x => x != key)))
-                {
-                    validation.AddNotAllowToChange(nameof(SelectedAttributePredefined), "It is not allowed to remove items from predefined attributes");
-                }
-            }
-
             if (ParentId != other.ParentId)
                 validation.AddNotAllowToChange(nameof(ParentId));
+
+            Simples ??= new List<SimpleLibDm>();
+            other.SimpleIdList ??= new List<string>();
+            if (Simples.Select(y => y.Id).Any(id => other.SimpleIdList.All(x => x != id)))
+            {
+                validation.AddNotAllowToChange(nameof(Simples), "It is not allowed to remove items from simples");
+            }
+
+            Attributes ??= new List<AttributeLibDm>();
+            other.AttributeIdList ??= new List<string>();
+            if (Attributes.Select(y => y.Id).Any(id => other.AttributeIdList.All(x => x != id)))
+            {
+                validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove items from attributes");
+            }
+
+            NodeTerminals ??= new List<NodeTerminalLibDm>();
+            other.NodeTerminals ??= new List<NodeTerminalLibAm>();
+            var otherTerminals = other.NodeTerminals.Select(x => $"{x.Id}-{Id}".CreateMd5());
+            if (NodeTerminals.Select(y => y.Id).Any(id => otherTerminals.Select(x => x).All(x => x != id)))
+            {
+                validation.AddNotAllowToChange(nameof(NodeTerminals), "It is not allowed to remove items from terminals");
+            }
+
+            SelectedAttributePredefined ??= new List<SelectedAttributePredefinedLibDm>();
+            other.SelectedAttributePredefined ??= new List<SelectedAttributePredefinedLibAm>();
+            if (SelectedAttributePredefined.Select(y => y.Key).Any(key => other.SelectedAttributePredefined.Select(x => x.Key).All(x => x != key)))
+            {
+                validation.AddNotAllowToChange(nameof(SelectedAttributePredefined), "It is not allowed to remove items from predefined attributes");
+            }
 
             validation.IsValid = !validation.Result.Any();
             return validation;
@@ -116,44 +111,43 @@ namespace TypeLibrary.Data.Models
             if (CompanyId != other.CompanyId)
                 minor = true;
 
-            if (Simples != null && other.SimpleIdList != null)
-            {
-                if (!Simples.Select(x => x.Id).SequenceEqual(other.SimpleIdList))
-                    major = true;
-            }
+            // Simples
+            Simples ??= new List<SimpleLibDm>();
+            other.SimpleIdList ??= new List<string>();
+            if (!Simples.Select(x => x.Id).SequenceEqual(other.SimpleIdList))
+                major = true;
 
-            if (Attributes != null && other.AttributeIdList != null)
-            {
-                if (!Attributes.Select(x => x.Id).SequenceEqual(other.AttributeIdList))
-                    major = true;
-            }
+            // Attributes
+            Attributes ??= new List<AttributeLibDm>();
+            other.AttributeIdList ??= new List<string>();
+            if (!Attributes.Select(x => x.Id).SequenceEqual(other.AttributeIdList))
+                major = true;
 
-            if (NodeTerminals != null && other.NodeTerminals != null)
-            {
-                var otherTerminals = other.NodeTerminals.Select(x => $"{x.Id}-{Id}".CreateMd5());
+            // Type-references
+            var references = string.IsNullOrWhiteSpace(TypeReferences)
+                ? new List<TypeReferenceAm>()
+                : JsonConvert.DeserializeObject<ICollection<TypeReferenceAm>>(TypeReferences) ?? new List<TypeReferenceAm>();
+            other.TypeReferences ??= new List<TypeReferenceAm>();
+            if (!references.SequenceEqual(other.TypeReferences))
+                minor = true;
 
-                if (!NodeTerminals.Select(x => x.Id).SequenceEqual(otherTerminals))
-                    major = true;
-            }
+            // Node Terminals
+            NodeTerminals ??= new List<NodeTerminalLibDm>();
+            other.NodeTerminals ??= new List<NodeTerminalLibAm>();
+            var otherTerminals = other.NodeTerminals.Select(x => $"{x.Id}-{Id}".CreateMd5());
+            if (!NodeTerminals.Select(x => x.Id).SequenceEqual(otherTerminals))
+                major = true;
 
-            if (SelectedAttributePredefined != null && other.SelectedAttributePredefined != null)
-            {
-                if (!SelectedAttributePredefined.Select(x => x.Key).SequenceEqual(other.SelectedAttributePredefined.Select(x => x.Key)))
-                    major = true;
-            }
+            // Attribute Predefined
+            SelectedAttributePredefined ??= new List<SelectedAttributePredefinedLibDm>();
+            other.SelectedAttributePredefined ??= new List<SelectedAttributePredefinedLibAm>();
+            if (!SelectedAttributePredefined.Select(x => x.Key).SequenceEqual(other.SelectedAttributePredefined.Select(x => x.Key)))
+                major = true;
 
             if (Description != other.Description)
                 minor = true;
 
             if (Symbol != other.Symbol)
-                minor = true;
-
-            ICollection<TypeReferenceAm> references = null;
-
-            if (!string.IsNullOrEmpty(TypeReferences))
-                references = JsonConvert.DeserializeObject<ICollection<TypeReferenceAm>>(TypeReferences);
-
-            if (references != null && !references.SequenceEqual(other.TypeReferences))
                 minor = true;
 
             return major ? VersionStatus.Major : minor ? VersionStatus.Minor : VersionStatus.NoChange;

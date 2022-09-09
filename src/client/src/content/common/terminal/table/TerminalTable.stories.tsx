@@ -1,12 +1,12 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { mockTerminalItem } from "../../../../utils/mocks";
+import { mockNodeTerminalItem } from "../../../../utils/mocks";
 import { TerminalTable } from "./TerminalTable";
 
 export default {
   title: "Content/Common/Terminal/TerminalTable",
   component: TerminalTable,
   args: {
-    terminals: [...Array(7)].map((_) => mockTerminalItem()),
+    terminals: [...Array(7)].map((_) => mockNodeTerminalItem()),
   },
 } as ComponentMeta<typeof TerminalTable>;
 

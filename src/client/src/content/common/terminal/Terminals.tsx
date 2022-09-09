@@ -1,12 +1,12 @@
 import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
-import { TerminalItem } from "../../types/TerminalItem";
+import { NodeTerminalItem } from "../../types/NodeTerminalItem";
 import { TerminalButtonProps } from "./TerminalButton";
 import { TerminalCollection } from "./TerminalCollection";
 import { TerminalSingle } from "./TerminalSingle";
 
 export type TerminalsProps = Pick<TerminalButtonProps, "variant"> & {
-  terminals: TerminalItem[];
+  terminals: NodeTerminalItem[];
   placement?: "left" | "right";
   showCollectionLimit?: number;
 };

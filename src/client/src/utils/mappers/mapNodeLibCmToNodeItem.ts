@@ -1,9 +1,9 @@
 import { NodeLibCm } from "@mimirorg/typelibrary-types";
 import { NodeItem } from "../../content/types/NodeItem";
 import { getColorFromAspect } from "../getColorFromAspect";
-import { sortInfoItems, sortTerminals } from "../sorters";
+import { sortInfoItems, sortNodeTerminals } from "../sorters";
 import { mapAttributeLibCmsToInfoItems } from "./mapAttributeLibCmToInfoItem";
-import { mapNodeTerminalLibCmsToTerminalItems } from "./mapNodeTerminalLibCmToTerminalItem";
+import { mapNodeTerminalLibCmsToNodeTerminalItems } from "./mapNodeTerminalLibCmToNodeTerminalItem";
 
 export const mapNodeLibCmToNodeItem = (node: NodeLibCm): NodeItem => ({
   id: node.id,
@@ -12,7 +12,7 @@ export const mapNodeLibCmToNodeItem = (node: NodeLibCm): NodeItem => ({
   description: node.description,
   color: getColorFromAspect(node.aspect),
   tokens: [node.rdsName, node.purposeName, node.createdBy, node.version],
-  terminals: sortTerminals(mapNodeTerminalLibCmsToTerminalItems(node.nodeTerminals)),
+  terminals: sortNodeTerminals(mapNodeTerminalLibCmsToNodeTerminalItems(node.nodeTerminals)),
   attributes: sortInfoItems(mapAttributeLibCmsToInfoItems(node.attributes)),
   kind: "NodeItem",
 });

@@ -25,7 +25,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => !string.IsNullOrWhiteSpace(src.Version) ? src.Version : "1.0"))
                 .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => !string.IsNullOrWhiteSpace(src.FirstVersionId) ? src.FirstVersionId : src.Id))
                 .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color))
-                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
+                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.ParentId) ? null : src.ParentId))
                 .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => ResolveAttributes(src.AttributeIdList, attributeFactory)))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetEmail()) ? "Unknown" : contextAccessor.GetEmail()))

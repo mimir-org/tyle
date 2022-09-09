@@ -1,12 +1,13 @@
 export { mapNodeLibCmToNodeItem } from "./mapNodeLibCmToNodeItem";
 export { mapNodeLibCmToNodeLibAm } from "./mapNodeLibCmToNodeLibAm";
-export { mapNodeTerminalLibCmToTerminalItem } from "./mapNodeTerminalLibCmToTerminalItem";
-export { mapNodeTerminalLibCmsToTerminalItems } from "./mapNodeTerminalLibCmToTerminalItem";
+export { mapNodeTerminalLibCmToNodeTerminalItem } from "./mapNodeTerminalLibCmToNodeTerminalItem";
+export { mapNodeTerminalLibCmsToNodeTerminalItems } from "./mapNodeTerminalLibCmToNodeTerminalItem";
 export { mapNodeTerminalLibCmToNodeTerminalLibAm } from "./mapNodeTerminalLibCmToNodeTerminalLibAm";
 export { mapNodeTerminalLibCmsToNodeTerminalLibAms } from "./mapNodeTerminalLibCmToNodeTerminalLibAm";
 export { mapAttributeLibCmToAttributeLibAm } from "./mapAttributeLibCmToAttributeLibAm";
 export { mapAttributeLibCmToInfoItem } from "./mapAttributeLibCmToInfoItem";
 export { mapAttributeLibCmsToInfoItems } from "./mapAttributeLibCmToInfoItem";
+export { mapTerminalLibCmToTerminalItem } from "./mapTerminalLibCmToTerminalItem";
 export { mapListToDescriptors } from "./mapListToDescriptors";
 export { mapUnitLibCmsToDescriptors } from "./mapUnitLibCmsToDescriptors";
 export { mapValueObjectsToDescriptors } from "./mapValueObjectsToDescriptors";

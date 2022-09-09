@@ -2,7 +2,7 @@ import { useTheme } from "styled-components";
 import { Tooltip } from "../../../complib/data-display";
 import { Flexbox } from "../../../complib/layouts";
 import { Text } from "../../../complib/text";
-import { TerminalItem } from "../../types/TerminalItem";
+import { NodeTerminalItem } from "../../types/NodeTerminalItem";
 import { TerminalButton, TerminalButtonProps } from "./TerminalButton";
 
 /**
@@ -21,7 +21,7 @@ export const TerminalSingle = ({
   color,
   direction,
   variant,
-}: TerminalItem & Pick<TerminalButtonProps, "variant">) => {
+}: NodeTerminalItem & Pick<TerminalButtonProps, "variant">) => {
   return (
     <Tooltip content={<TerminalDescription name={name} amount={amount} color={color} direction={direction} />}>
       <TerminalButton color={color} direction={direction} variant={variant} />
@@ -29,7 +29,7 @@ export const TerminalSingle = ({
   );
 };
 
-export const TerminalDescription = ({ name, amount, color, direction }: TerminalItem) => {
+export const TerminalDescription = ({ name, amount, color, direction }: NodeTerminalItem) => {
   const theme = useTheme();
 
   return (

@@ -15,6 +15,7 @@ import { ItemList } from "./components/item/ItemList";
 import { LinkMenu } from "./components/link/LinkMenu";
 import { ConditionalNodeSearchItem } from "./components/node/ConditionalNodeSearchItem";
 import { SearchPlaceholder } from "./components/SearchPlaceholder";
+import { ConditionalTerminalSearchItem } from "./components/terminal/ConditionalTerminalSearchItem";
 import { getCreateMenuLinks, useFilterState, useGetFilterGroups, useSearchResults } from "./Search.helpers";
 
 interface SearchProps {
@@ -97,6 +98,11 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
                 item={item}
                 isSelected={item.id == selected?.id}
                 setSelected={() => setSelected({ id: item.id, type: "attribute" })}
+              />
+              <ConditionalTerminalSearchItem
+                item={item}
+                isSelected={item.id == selected?.id}
+                setSelected={() => setSelected({ id: item.id, type: "terminal" })}
               />
             </Fragment>
           ))}

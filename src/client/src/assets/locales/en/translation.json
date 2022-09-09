@@ -89,7 +89,7 @@
     "remove": "Remove attribute",
     "dialog": {
       "title": "Select attributes(s)",
-      "description": "The attributes listed below are predefined and can be reused across multiple nodes.",
+      "description": "The attributes that are listed below can be reused across multiple entities.",
       "search": "Search",
       "add": "Add"
     }
@@ -147,6 +147,22 @@
       "loading": "Submitting attribute",
       "success": "Your attribute has been submitted",
       "error": "An error occurred during attribute submission"
+    }
+  },
+  "terminal": {
+    "name": "Name",
+    "color": "Color",
+    "owner": "Owner",
+    "description": "Description",
+    "placeholders": {
+      "name": "Attribute name",
+      "color": "Select color",
+      "description": "Additional information about this terminal can be supplied here."
+    },
+    "processing": {
+      "loading": "Submitting terminal",
+      "success": "Your terminal has been submitted",
+      "error": "An error occurred during terminal submission"
     }
   },
   "forms": {

@@ -75,7 +75,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^7.5.0",
-    "@mimirorg/typelibrary-types": "^0.12.1",
+    "@mimirorg/typelibrary-types": "^1.0.0-preview.194",
     "@storybook/addon-a11y": "^6.5.10",
     "@storybook/addon-actions": "^6.5.10",
     "@storybook/addon-essentials": "^6.5.10",

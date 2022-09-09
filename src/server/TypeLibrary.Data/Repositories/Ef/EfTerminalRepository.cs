@@ -26,7 +26,7 @@ namespace TypeLibrary.Data.Repositories.Ef
 
         public IEnumerable<TerminalLibDm> Get()
         {
-            return GetAll();
+            return GetAll().Include(x => x.Attributes);
         }
 
         public async Task<TerminalLibDm> Get(string id)

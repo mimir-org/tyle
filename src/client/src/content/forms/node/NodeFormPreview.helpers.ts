@@ -1,12 +1,12 @@
 import { ConnectorDirection, NodeTerminalLibAm, TerminalLibCm } from "@mimirorg/typelibrary-types";
-import { TerminalItem } from "../../types/TerminalItem";
+import { NodeTerminalItem } from "../../types/NodeTerminalItem";
 
 export const getTerminalItemsFromFormData = (formTerminals: NodeTerminalLibAm[], sourceTerminals?: TerminalLibCm[]) => {
   if (!sourceTerminals || sourceTerminals.length < 1) {
     return [];
   }
 
-  const terminalItems: TerminalItem[] = [];
+  const terminalItems: NodeTerminalItem[] = [];
 
   formTerminals.forEach((formTerminal) => {
     const sourceTerminal = sourceTerminals.find((x) => x.id === formTerminal.terminalId);
