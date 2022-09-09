@@ -9,11 +9,17 @@ import { Loader } from "../../common/Loader";
 import { FormAttributes } from "../common/FormAttributes";
 import { onSubmitForm } from "../common/onSubmitForm";
 import { prepareAttributesByAspect } from "../common/prepareAttributesByAspect";
+import { usePrefilledForm } from "../common/usePrefilledForm";
 import { useSubmissionToast } from "../common/useSubmissionToast";
-import { getFormForAspect, usePrefilledNodeData } from "./NodeForm.helpers";
+import { getFormForAspect, useNodeQuery } from "./NodeForm.helpers";
 import { NodeFormContainer } from "./NodeForm.styled";
 import { NodeFormBaseFields } from "./NodeFormBaseFields";
-import { createEmptyFormNodeLib, FormNodeLib, mapFormNodeLibToApiModel } from "./types/formNodeLib";
+import {
+  createEmptyFormNodeLib,
+  FormNodeLib,
+  mapFormNodeLibToApiModel,
+  mapNodeLibCmToFormNodeLib,
+} from "./types/formNodeLib";
 
 interface NodeFormProps {
   defaultValues?: FormNodeLib;
@@ -28,7 +34,8 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
   const aspect = useWatch({ control, name: "aspect" });
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
-  const [hasPrefilledData, isLoading] = usePrefilledNodeData(reset);
+  const query = useNodeQuery();
+  const [isPrefilled, isLoading] = usePrefilledForm(query, mapNodeLibCmToFormNodeLib, reset);
 
   const nodeUpdateMutation = useUpdateNode();
   const nodeCreateMutation = useCreateNode();
@@ -50,7 +57,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
             register={register}
             resetField={resetField}
             setValue={setValue}
-            hasPrefilledData={hasPrefilledData}
+            isPrefilled={isPrefilled}
           />
 
           <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>

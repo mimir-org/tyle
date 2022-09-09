@@ -9,11 +9,17 @@ import { Loader } from "../../common/Loader";
 import { FormAttributes } from "../common/FormAttributes";
 import { onSubmitForm } from "../common/onSubmitForm";
 import { prepareAttributesByAspect } from "../common/prepareAttributesByAspect";
+import { usePrefilledForm } from "../common/usePrefilledForm";
 import { useSubmissionToast } from "../common/useSubmissionToast";
-import { usePrefilledInterfaceData } from "./InterfaceForm.helpers";
+import { useInterfaceQuery } from "./InterfaceForm.helpers";
 import { InterfaceFormContainer } from "./InterfaceForm.styled";
 import { InterfaceFormBaseFields } from "./InterfaceFormBaseFields";
-import { createEmptyFormInterfaceLib, FormInterfaceLib, mapFormInterfaceLibToApiModel } from "./types/formInterfaceLib";
+import {
+  createEmptyFormInterfaceLib,
+  FormInterfaceLib,
+  mapFormInterfaceLibToApiModel,
+  mapInterfaceLibCmToFormInterfaceLib,
+} from "./types/formInterfaceLib";
 
 interface InterfaceFormProps {
   defaultValues?: FormInterfaceLib;
@@ -28,7 +34,8 @@ export const InterfaceForm = ({ defaultValues = createEmptyFormInterfaceLib(), i
   const aspect = useWatch({ control, name: "aspect" });
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
-  const [hasPrefilledData, isLoading] = usePrefilledInterfaceData(reset);
+  const query = useInterfaceQuery();
+  const [isPrefilled, isLoading] = usePrefilledForm(query, mapInterfaceLibCmToFormInterfaceLib, reset);
 
   const createMutation = useCreateInterface();
   const updateMutation = useUpdateInterface();
@@ -52,7 +59,7 @@ export const InterfaceForm = ({ defaultValues = createEmptyFormInterfaceLib(), i
             register={register}
             resetField={resetField}
             setValue={setValue}
-            hasPrefilledData={hasPrefilledData}
+            isPrefilled={isPrefilled}
           />
 
           <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>

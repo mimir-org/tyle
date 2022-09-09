@@ -9,11 +9,17 @@ import { Loader } from "../../common/Loader";
 import { FormAttributes } from "../common/FormAttributes";
 import { onSubmitForm } from "../common/onSubmitForm";
 import { prepareAttributesByAspect } from "../common/prepareAttributesByAspect";
+import { usePrefilledForm } from "../common/usePrefilledForm";
 import { useSubmissionToast } from "../common/useSubmissionToast";
-import { usePrefilledTransportData } from "./TransportForm.helpers";
+import { useTransportQuery } from "./TransportForm.helpers";
 import { TransportFormContainer } from "./TransportForm.styled";
 import { TransportFormBaseFields } from "./TransportFormBaseFields";
-import { createEmptyFormTransportLib, FormTransportLib, mapFormTransportLibToApiModel } from "./types/formTransportLib";
+import {
+  createEmptyFormTransportLib,
+  FormTransportLib,
+  mapFormTransportLibToApiModel,
+  mapTransportLibCmToFormTransportLib,
+} from "./types/formTransportLib";
 
 interface TransportFormProps {
   defaultValues?: FormTransportLib;
@@ -28,7 +34,8 @@ export const TransportForm = ({ defaultValues = createEmptyFormTransportLib(), i
   const aspect = useWatch({ control, name: "aspect" });
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
-  const [hasPrefilledData, isLoading] = usePrefilledTransportData(reset);
+  const query = useTransportQuery();
+  const [isPrefilled, isLoading] = usePrefilledForm(query, mapTransportLibCmToFormTransportLib, reset);
 
   const createMutation = useCreateTransport();
   const updateMutation = useUpdateTransport();
@@ -52,7 +59,7 @@ export const TransportForm = ({ defaultValues = createEmptyFormTransportLib(), i
             register={register}
             resetField={resetField}
             setValue={setValue}
-            hasPrefilledData={hasPrefilledData}
+            isPrefilled={isPrefilled}
           />
 
           <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>

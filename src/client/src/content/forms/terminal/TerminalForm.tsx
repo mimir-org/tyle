@@ -8,11 +8,17 @@ import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
 import { FormAttributes } from "../common/FormAttributes";
 import { onSubmitForm } from "../common/onSubmitForm";
+import { usePrefilledForm } from "../common/usePrefilledForm";
 import { useSubmissionToast } from "../common/useSubmissionToast";
-import { prepareAttributes, usePrefilledTerminalData } from "./TerminalForm.helpers";
+import { prepareAttributes, useTerminalQuery } from "./TerminalForm.helpers";
 import { TerminalFormContainer } from "./TerminalForm.styled";
 import { TerminalFormBaseFields } from "./TerminalFormBaseFields";
-import { createEmptyFormTerminalLib, FormTerminalLib, mapFormTerminalLibToApiModel } from "./types/formTerminalLib";
+import {
+  createEmptyFormTerminalLib,
+  FormTerminalLib,
+  mapFormTerminalLibToApiModel,
+  mapTerminalLibCmToFormTerminalLib,
+} from "./types/formTerminalLib";
 
 interface TerminalFormProps {
   defaultValues?: FormTerminalLib;
@@ -25,7 +31,8 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), isE
   const { register, handleSubmit, control, reset } = useForm<FormTerminalLib>({ defaultValues });
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
-  const [_, isLoading] = usePrefilledTerminalData(reset);
+  const query = useTerminalQuery();
+  const [_, isLoading] = usePrefilledForm(query, mapTerminalLibCmToFormTerminalLib, reset);
 
   const createMutation = useCreateTerminal();
   const updateMutation = useUpdateTerminal();

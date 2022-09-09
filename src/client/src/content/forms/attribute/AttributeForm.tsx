@@ -8,11 +8,17 @@ import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
 import { FormReferences, HasReferences } from "../common/FormReferences";
 import { onSubmitForm } from "../common/onSubmitForm";
+import { usePrefilledForm } from "../common/usePrefilledForm";
 import { useSubmissionToast } from "../common/useSubmissionToast";
-import { showSelectValues, usePrefilledAttributeData } from "./AttributeForm.helpers";
+import { showSelectValues, useAttributeQuery } from "./AttributeForm.helpers";
 import { AttributeFormContainer } from "./AttributeForm.styled";
 import { AttributeFormBaseFields } from "./AttributeFormBaseFields";
-import { createEmptyFormAttributeLib, FormAttributeLib, mapFormAttributeLibToApiModel } from "./types/formAttributeLib";
+import {
+  createEmptyFormAttributeLib,
+  FormAttributeLib,
+  mapAttributeLibCmToFormAttributeLib,
+  mapFormAttributeLibToApiModel,
+} from "./types/formAttributeLib";
 import { AttributeFormUnits } from "./units/AttributeFormUnits";
 import { AttributeFormValues } from "./values/AttributeFormValues";
 
@@ -27,7 +33,8 @@ export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }:
   const { register, handleSubmit, control, reset, resetField } = useForm<FormAttributeLib>({ defaultValues });
   const attributeSelect = useWatch({ control, name: "select" });
 
-  const [hasPrefilledData, isLoading] = usePrefilledAttributeData(reset);
+  const query = useAttributeQuery();
+  const [isPrefilled, isLoading] = usePrefilledForm(query, mapAttributeLibCmToFormAttributeLib, reset);
 
   const attributeCreateMutation = useCreateAttribute();
   const attributeReferences = useGetAttributesReference();
@@ -49,7 +56,7 @@ export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }:
             control={control}
             register={register}
             resetField={resetField}
-            hasPrefilledData={hasPrefilledData}
+            isPrefilled={isPrefilled}
           />
 
           <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>

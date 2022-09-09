@@ -26,7 +26,7 @@ interface NodeFormBaseFieldsProps {
   register: UseFormRegister<FormNodeLib>;
   resetField: UseFormResetField<FormNodeLib>;
   setValue: UseFormSetValue<FormNodeLib>;
-  hasPrefilledData?: boolean;
+  isPrefilled?: boolean;
 }
 
 /**
@@ -36,7 +36,7 @@ interface NodeFormBaseFieldsProps {
  * @param register
  * @param resetField
  * @param setValue
- * @param hasPrefilledData
+ * @param isPrefilled
  * @constructor
  */
 export const NodeFormBaseFields = ({
@@ -44,7 +44,7 @@ export const NodeFormBaseFields = ({
   register,
   resetField,
   setValue,
-  hasPrefilledData,
+  isPrefilled,
 }: NodeFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
@@ -88,7 +88,7 @@ export const NodeFormBaseFields = ({
             name={"aspect"}
             render={({ field: { value, onChange, ref, ...rest } }) => (
               <ConditionalWrapper
-                condition={hasPrefilledData}
+                condition={isPrefilled}
                 wrapper={(c) => (
                   <Popover align={"start"} maxWidth={"225px"} content={t("node.disabled.aspect")}>
                     <Box borderRadius={theme.tyle.border.radius.medium} tabIndex={0}>
@@ -108,7 +108,7 @@ export const NodeFormBaseFields = ({
                     onChange(x?.value);
                   }}
                   value={aspectOptions.find((x) => x.value === value)}
-                  isDisabled={hasPrefilledData}
+                  isDisabled={isPrefilled}
                 />
               </ConditionalWrapper>
             )}

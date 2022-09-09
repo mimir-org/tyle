@@ -24,7 +24,7 @@ interface AttributeFormBaseFieldsProps {
   control: Control<FormAttributeLib>;
   register: UseFormRegister<FormAttributeLib>;
   resetField: UseFormResetField<FormAttributeLib>;
-  hasPrefilledData?: boolean;
+  isPrefilled?: boolean;
 }
 
 /**
@@ -33,14 +33,14 @@ interface AttributeFormBaseFieldsProps {
  * @param control
  * @param register
  * @param resetField
- * @param hasPrefilledData
+ * @param isPrefilled
  * @constructor
  */
 export const AttributeFormBaseFields = ({
   control,
   register,
   resetField,
-  hasPrefilledData,
+  isPrefilled,
 }: AttributeFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
@@ -76,7 +76,7 @@ export const AttributeFormBaseFields = ({
                 getOptionLabel={(x) => x.label}
                 onChange={(x) => onChange(x?.value)}
                 value={aspectOptions.find((x) => x.value === value)}
-                isDisabled={hasPrefilledData}
+                isDisabled={isPrefilled}
               />
             </FormField>
           )}
