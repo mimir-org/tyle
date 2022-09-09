@@ -6,7 +6,8 @@ import { useCreateNode, useUpdateNode } from "../../../data/queries/tyle/queries
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
 import { FormAttributes } from "../common/FormAttributes";
-import { getFormForAspect, prepareAttributes, useNodeSubmissionToast, usePrefilledNodeData } from "./NodeForm.helpers";
+import { prepareAttributesByAspect } from "../common/prepareAttributesByAspect";
+import { getFormForAspect, useNodeSubmissionToast, usePrefilledNodeData } from "./NodeForm.helpers";
 import { NodeFormContainer } from "./NodeForm.styled";
 import { NodeFormBaseFields } from "./NodeFormBaseFields";
 import { createEmptyFormNodeLib, FormNodeLib, mapFormNodeLibToApiModel } from "./types/formNodeLib";
@@ -57,7 +58,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
               fields={attributeFields.fields}
               append={attributeFields.append}
               remove={attributeFields.remove}
-              prepareAttributes={(attributes) => prepareAttributes(attributes, [aspect])}
+              preprocess={(attributes) => prepareAttributesByAspect(attributes, [aspect])}
             />
           </Box>
         </>

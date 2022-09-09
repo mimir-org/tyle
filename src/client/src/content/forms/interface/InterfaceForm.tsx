@@ -6,7 +6,8 @@ import { useCreateInterface, useUpdateInterface } from "../../../data/queries/ty
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
 import { FormAttributes } from "../common/FormAttributes";
-import { prepareAttributes, useInterfaceSubmissionToast, usePrefilledInterfaceData } from "./InterfaceForm.helpers";
+import { prepareAttributesByAspect } from "../common/prepareAttributesByAspect";
+import { useInterfaceSubmissionToast, usePrefilledInterfaceData } from "./InterfaceForm.helpers";
 import { InterfaceFormContainer } from "./InterfaceForm.styled";
 import { InterfaceFormBaseFields } from "./InterfaceFormBaseFields";
 import { createEmptyFormInterfaceLib, FormInterfaceLib, mapFormInterfaceLibToApiModel } from "./types/formInterfaceLib";
@@ -58,7 +59,7 @@ export const InterfaceForm = ({ defaultValues = createEmptyFormInterfaceLib(), i
               fields={attributeFields.fields}
               append={attributeFields.append}
               remove={attributeFields.remove}
-              prepareAttributes={(attributes) => prepareAttributes(attributes, [aspect])}
+              preprocess={(attributes) => prepareAttributesByAspect(attributes, [aspect])}
             />
           </Box>
         </>

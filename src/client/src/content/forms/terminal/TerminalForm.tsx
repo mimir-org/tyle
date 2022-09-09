@@ -50,7 +50,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), isE
               fields={attributeFields.fields}
               append={attributeFields.append}
               remove={attributeFields.remove}
-              prepareAttributes={prepareAttributes}
+              preprocess={prepareAttributes}
             />
           </Box>
         </>

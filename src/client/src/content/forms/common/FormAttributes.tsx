@@ -17,7 +17,7 @@ export interface FormAttributesProps {
   append: (item: ValueObject<string>) => void;
   remove: (index: number) => void;
   register: (index: number) => UseFormRegisterReturn;
-  prepareAttributes?: (attributes: AttributeLibCm[]) => AttributeLibCm[];
+  preprocess?: (attributes: AttributeLibCm[]) => AttributeLibCm[];
 }
 
 /**
@@ -27,14 +27,14 @@ export interface FormAttributesProps {
  * @param append
  * @param remove
  * @param register
- * @param prepareAttributes pass a function to alter the attribute data before it is shown to the user
+ * @param preprocess pass a function to alter the attribute data before it is shown to the user
  * @constructor
  */
-export const FormAttributes = ({ fields, append, remove, register, prepareAttributes }: FormAttributesProps) => {
+export const FormAttributes = ({ fields, append, remove, register, preprocess }: FormAttributesProps) => {
   const theme = useTheme();
   const { t } = useTranslation("translation", { keyPrefix: "attributes" });
   const attributeQuery = useGetAttributes();
-  const attributes = prepareAttributes ? prepareAttributes(attributeQuery.data ?? []) : attributeQuery.data;
+  const attributes = preprocess ? preprocess(attributeQuery.data ?? []) : attributeQuery.data;
   const attributeItems = getSelectItemsFromAttributeLibCms(attributes);
 
   return (

@@ -6,7 +6,8 @@ import { useCreateTransport, useUpdateTransport } from "../../../data/queries/ty
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
 import { FormAttributes } from "../common/FormAttributes";
-import { prepareAttributes, usePrefilledTransportData, useTransportSubmissionToast } from "./TransportForm.helpers";
+import { prepareAttributesByAspect } from "../common/prepareAttributesByAspect";
+import { usePrefilledTransportData, useTransportSubmissionToast } from "./TransportForm.helpers";
 import { TransportFormContainer } from "./TransportForm.styled";
 import { TransportFormBaseFields } from "./TransportFormBaseFields";
 import { createEmptyFormTransportLib, FormTransportLib, mapFormTransportLibToApiModel } from "./types/formTransportLib";
@@ -58,7 +59,7 @@ export const TransportForm = ({ defaultValues = createEmptyFormTransportLib(), i
               fields={attributeFields.fields}
               append={attributeFields.append}
               remove={attributeFields.remove}
-              prepareAttributes={(attributes) => prepareAttributes(attributes, [aspect])}
+              preprocess={(attributes) => prepareAttributesByAspect(attributes, [aspect])}
             />
           </Box>
         </>
