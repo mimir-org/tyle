@@ -20,7 +20,7 @@ namespace Mimirorg.Integration.Tests.Services
             var terminalAm = new TerminalLibAm
             {
                 Name = "TestTerminal1",
-                ParentId = null,
+                ParentId = "1234",
                 TypeReferences = null,
                 Color = "#123456",
                 Description = "Description1",
@@ -40,8 +40,19 @@ namespace Mimirorg.Integration.Tests.Services
             var terminalAm = new TerminalLibAm
             {
                 Name = "TestTerminal2",
-                ParentId = null,
-                TypeReferences = null,
+                ParentId = "1234",
+                TypeReferences = new List<TypeReferenceAm>
+                {
+                    new()
+                    {
+                        Name = "TypeRef",
+                        Iri = "https://url.com/1234567890",
+                        Source = "https://source.com/1234567890",
+                        SubName = "SubName",
+                        SubIri = "https://subIri.com/1234567890",
+
+                    }
+                },
                 Color = "#123456",
                 Description = "Description1",
                 AttributeIdList = new List<string> { "F302FA9BD63AA991A91C6B9A88CE9691", "0DE08DEEB00409D554DB4B6C31AA34CC" },
@@ -54,7 +65,19 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.NotNull(terminalCm);
             Assert.Equal(terminalAm.Id, terminalCm.Id);
             Assert.Equal(terminalAm.ParentId, terminalCm.ParentId);
-            Assert.Equal(terminalAm.TypeReferences.ConvertToString(), terminalCm.TypeReferences.ConvertToString());
+
+            foreach (var typeReferenceAm in terminalAm.TypeReferences.OrderBy(x => x.Name, StringComparer.InvariantCulture).ThenBy(x => x.SubName))
+            {
+                foreach (var typeReferenceCm in terminalCm.TypeReferences.OrderBy(x => x.Name, StringComparer.InvariantCulture).ThenBy(x => x.SubName))
+                {
+                    Assert.Equal(typeReferenceAm.Name, typeReferenceCm.Name);
+                    Assert.Equal(typeReferenceAm.Source, typeReferenceCm.Source);
+                    Assert.Equal(typeReferenceAm.Iri, typeReferenceCm.Iri);
+                    Assert.Equal(typeReferenceAm.SubIri, typeReferenceCm.SubIri);
+                    Assert.Equal(typeReferenceAm.SubName, typeReferenceCm.SubName);
+                }
+            }
+
             Assert.Equal(terminalAm.Color, terminalCm.Color);
             Assert.Equal(terminalAm.Description, terminalCm.Description);
             Assert.Equal(terminalAm.AttributeIdList.ToList().ConvertToString(), terminalCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
@@ -67,7 +90,7 @@ namespace Mimirorg.Integration.Tests.Services
             var terminalAm = new TerminalLibAm
             {
                 Name = "TestTerminal3",
-                ParentId = null,
+                ParentId = "1234",
                 TypeReferences = null,
                 Color = "#123456",
                 Description = "Description v1.0",
@@ -94,7 +117,7 @@ namespace Mimirorg.Integration.Tests.Services
             var terminalAm = new TerminalLibAm
             {
                 Name = "TestTerminal4",
-                ParentId = null,
+                ParentId = "1234",
                 TypeReferences = null,
                 Color = "#123456",
                 Description = "Description1",

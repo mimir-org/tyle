@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Setup;
 using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Services.Contracts;
 using Xunit;
@@ -50,10 +51,59 @@ namespace Mimirorg.Integration.Tests.Services
                 Description = "Description",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
+                SimpleIdList = new List<string>
+                {
+                    "02FD503A1A6E80CA36A8F194C54144A6"
+                },
                 AttributeIdList = new List<string>
                 {
                     "0646754DC953F5EDD4F6159CD993696D"
-                }
+                },
+                NodeTerminals = new List<NodeTerminalLibAm>{
+                    new()
+                    {
+                        TerminalId = "8EBC5811473E87602FB0C18A100BD53C",
+                        Quantity = 1,
+                        ConnectorDirection = ConnectorDirection.Output
+                    }
+                },
+                SelectedAttributePredefined = new List<SelectedAttributePredefinedLibAm>{
+                    new()
+                    {
+                        Key = "1234",
+                        IsMultiSelect = true,
+                        Values = new Dictionary<string, bool>
+                        {
+                            {"56789", true}
+                        },
+                        TypeReferences = new List<TypeReferenceAm>
+                        {
+                            new()
+                            {
+                                Name = "TypeRef",
+                                Iri = "https://url.com/1234567890",
+                                Source = "https://source.com/1234567890",
+                                SubName = "SubName",
+                                SubIri = "https://subIri.com/1234567890",
+
+                            }
+                        }
+                    }
+                },
+                Symbol = "symbol",
+                TypeReferences = new List<TypeReferenceAm>
+                {
+                    new()
+                    {
+                        Name = "TypeRef",
+                        Iri = "https://url.com/1234567890",
+                        Source = "https://source.com/1234567890",
+                        SubName = "SubName",
+                        SubIri = "https://subIri.com/1234567890",
+
+                    }
+                },
+                ParentId = "1234"
             };
 
             var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
@@ -68,6 +118,44 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(nodeAm.Aspect, nodeCm.Aspect);
             Assert.Equal(nodeAm.Description, nodeCm.Description);
             Assert.Equal(nodeAm.CompanyId, nodeCm.CompanyId);
+            Assert.Equal(nodeAm.SimpleIdList.ToList().ConvertToString(), nodeCm.Simples.Select(x => x.Id).ToList().ConvertToString());
+            Assert.Equal(nodeAm.AttributeIdList.ToList().ConvertToString(), nodeCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
+
+            foreach (var am in nodeAm.NodeTerminals)
+            {
+                foreach (var cm in nodeCm.NodeTerminals)
+                {
+                    Assert.Equal(am.TerminalId, cm.Terminal.Id);
+                    Assert.Equal(am.Quantity, cm.Quantity);
+                    Assert.Equal(am.ConnectorDirection.ToString(), cm.ConnectorDirection.ToString());
+                }
+            }
+
+            Assert.Equal(nodeAm.SelectedAttributePredefined.First().Key, nodeCm.SelectedAttributePredefined.First().Key);
+            Assert.Equal(nodeAm.SelectedAttributePredefined.First().IsMultiSelect, nodeCm.SelectedAttributePredefined.First().IsMultiSelect);
+            Assert.Equal(nodeAm.SelectedAttributePredefined.First().Values.ToString(), nodeCm.SelectedAttributePredefined.First().Values.ToString());
+
+            Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Iri, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Iri);
+            Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Name, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Name);
+            Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Source, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Source);
+            Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().SubIri, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().SubIri);
+            Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().SubName, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().SubName);
+
+            Assert.Equal(nodeAm.Symbol, nodeCm.Symbol);
+
+            foreach (var typeReferenceAm in nodeAm.TypeReferences.OrderBy(x => x.Name, StringComparer.InvariantCulture).ThenBy(x => x.SubName))
+            {
+                foreach (var typeReferenceCm in nodeCm.TypeReferences.OrderBy(x => x.Name, StringComparer.InvariantCulture).ThenBy(x => x.SubName))
+                {
+                    Assert.Equal(typeReferenceAm.Name, typeReferenceCm.Name);
+                    Assert.Equal(typeReferenceAm.Source, typeReferenceCm.Source);
+                    Assert.Equal(typeReferenceAm.Iri, typeReferenceCm.Iri);
+                    Assert.Equal(typeReferenceAm.SubIri, typeReferenceCm.SubIri);
+                    Assert.Equal(typeReferenceAm.SubName, typeReferenceCm.SubName);
+                }
+            }
+
+            Assert.Equal(nodeAm.ParentId, nodeCm.ParentId);
         }
 
         [Fact]

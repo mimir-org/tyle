@@ -9,8 +9,8 @@ using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Factories;
 using TypeLibrary.Data.Models;
-using VDS.RDF;
 using static Mimirorg.TypeLibrary.Extensions.LibraryExtensions;
 
 namespace TypeLibrary.Core.Profiles

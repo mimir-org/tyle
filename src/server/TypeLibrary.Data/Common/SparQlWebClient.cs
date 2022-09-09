@@ -28,8 +28,8 @@ namespace TypeLibrary.Data.Common
             PREFIX rdl:   <http://rds.posccaesar.org/ontology/plm/rdl/>
             select ?quantity ?quantity_label ?default_uom ?default_uom_label {
                 ?quantity rdfs:subClassOf lis:PhysicalQuantity ; rdfs:label ?quantity_label .
-                ?quantity rdl:PCA_100000510 ?default_uom .
-                ?default_uom a lis:Scale ; rdfs:label ?default_uom_label
+                OPTIONAL { ?quantity rdl:PCA_100000510 ?default_uom.
+    			?default_uom a lis:Scale ; rdfs:label ?default_uom_label }
             }
             order by ?quantity_label";
 
@@ -88,7 +88,7 @@ namespace TypeLibrary.Data.Common
                 {
                     if (result.TryGetValue(prop.ToLower(), out var node))
                     {
-                        obj.GetType()?.GetProperty(prop)?.SetValue(obj, node.ToString());
+                        obj.GetType()?.GetProperty(prop)?.SetValue(obj, node?.ToString());
                     }
                 }
 

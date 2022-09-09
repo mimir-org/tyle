@@ -9,6 +9,7 @@ namespace Mimirorg.Authentication.Models.Domain
         public string Secret { get; set; }
         public string Domain { get; set; }
         public string Logo { get; set; }
+        public string HomePage { get; set; }
         public string Iris { get; set; }
 
         public string ManagerId { get; set; }
