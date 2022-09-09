@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { DefaultValues, KeepStateOptions } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import { toast } from "../../../complib/data-display";
 import { useGetTransport } from "../../../data/queries/tyle/queriesTransport";
 import { FormTransportLib, mapTransportLibCmToFormTransportLib } from "./types/formTransportLib";
 
@@ -36,15 +34,3 @@ export const usePrefilledTransportData = (
 export const resetSubform = (resetField: (value: keyof FormTransportLib) => void) => {
   resetField("attributeIdList");
 };
-
-export const useTransportSubmissionToast = () => {
-  const { t } = useTranslation("translation", { keyPrefix: "transport.processing" });
-
-  return (submissionPromise: Promise<unknown>) =>
-    toast.promise(submissionPromise, {
-      loading: t("loading"),
-      success: t("success"),
-      error: t("error"),
-    });
-};
-

@@ -1,5 +1,6 @@
 import { DevTool } from "@hookform/devtools";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Box } from "../../../complib/layouts";
 import { useCreateNode, useUpdateNode } from "../../../data/queries/tyle/queriesNode";
@@ -7,7 +8,8 @@ import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
 import { FormAttributes } from "../common/FormAttributes";
 import { prepareAttributesByAspect } from "../common/prepareAttributesByAspect";
-import { getFormForAspect, useNodeSubmissionToast, usePrefilledNodeData } from "./NodeForm.helpers";
+import { useSubmissionToast } from "../common/useSubmissionToast";
+import { getFormForAspect, usePrefilledNodeData } from "./NodeForm.helpers";
 import { NodeFormContainer } from "./NodeForm.styled";
 import { NodeFormBaseFields } from "./NodeFormBaseFields";
 import { createEmptyFormNodeLib, FormNodeLib, mapFormNodeLibToApiModel } from "./types/formNodeLib";
@@ -19,6 +21,7 @@ interface NodeFormProps {
 
 export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: NodeFormProps) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const { register, handleSubmit, control, setValue, reset, resetField } = useForm<FormNodeLib>({ defaultValues });
   const aspect = useWatch({ control, name: "aspect" });
 
@@ -27,12 +30,12 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
   const [hasPrefilledData, isLoading] = usePrefilledNodeData(reset);
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
-  const toastNodeSubmission = useNodeSubmissionToast();
+  const toast = useSubmissionToast(t("node.title"));
   const onSubmit = (data: FormNodeLib) => {
     const mutation = isEdit ? nodeUpdateMutation.mutateAsync : nodeCreateMutation.mutateAsync;
     const submittable = mapFormNodeLibToApiModel(data);
     const submissionPromise = mutation(submittable);
-    toastNodeSubmission(submissionPromise);
+    toast(submissionPromise);
     return submissionPromise;
   };
 

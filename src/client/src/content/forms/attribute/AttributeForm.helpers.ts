@@ -1,9 +1,7 @@
 import { Select } from "@mimirorg/typelibrary-types";
 import { useEffect, useState } from "react";
 import { DefaultValues, KeepStateOptions } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import { toast } from "../../../complib/data-display";
 import { useGetAttribute } from "../../../data/queries/tyle/queriesAttribute";
 import { FormAttributeLib, mapAttributeLibCmToFormAttributeLib } from "./types/formAttributeLib";
 
@@ -27,17 +25,6 @@ export const usePrefilledAttributeData = (
   }, [hasPrefilled, attributeQuery.isSuccess, attributeQuery.data, reset]);
 
   return [hasPrefilled, attributeQuery.isLoading];
-};
-
-export const useAttributeSubmissionToast = () => {
-  const { t } = useTranslation("translation", { keyPrefix: "attribute.processing" });
-
-  return (submissionPromise: Promise<unknown>) =>
-    toast.promise(submissionPromise, {
-      loading: t("loading"),
-      success: t("success"),
-      error: t("error"),
-    });
 };
 
 export const showSelectValues = (attributeSelect: Select) => attributeSelect !== Select.None;

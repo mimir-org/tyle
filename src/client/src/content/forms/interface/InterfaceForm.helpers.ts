@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { DefaultValues, KeepStateOptions } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import { toast } from "../../../complib/data-display";
 import { useGetInterface } from "../../../data/queries/tyle/queriesInterface";
 import { FormInterfaceLib, mapInterfaceLibCmToFormInterfaceLib } from "./types/formInterfaceLib";
 
@@ -35,15 +33,4 @@ export const usePrefilledInterfaceData = (
  */
 export const resetSubform = (resetField: (value: keyof FormInterfaceLib) => void) => {
   resetField("attributeIdList");
-};
-
-export const useInterfaceSubmissionToast = () => {
-  const { t } = useTranslation("translation", { keyPrefix: "interface.processing" });
-
-  return (submissionPromise: Promise<unknown>) =>
-    toast.promise(submissionPromise, {
-      loading: t("loading"),
-      success: t("success"),
-      error: t("error"),
-    });
 };

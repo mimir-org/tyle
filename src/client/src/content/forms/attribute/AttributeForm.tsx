@@ -1,12 +1,14 @@
 import { DevTool } from "@hookform/devtools";
 import { Control, useForm, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
 import { useCreateAttribute, useGetAttributesReference } from "../../../data/queries/tyle/queriesAttribute";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
 import { FormReferences, HasReferences } from "../common/FormReferences";
-import { showSelectValues, useAttributeSubmissionToast, usePrefilledAttributeData } from "./AttributeForm.helpers";
+import { useSubmissionToast } from "../common/useSubmissionToast";
+import { showSelectValues, usePrefilledAttributeData } from "./AttributeForm.helpers";
 import { AttributeFormContainer } from "./AttributeForm.styled";
 import { AttributeFormBaseFields } from "./AttributeFormBaseFields";
 import { createEmptyFormAttributeLib, FormAttributeLib, mapFormAttributeLibToApiModel } from "./types/formAttributeLib";
@@ -20,6 +22,7 @@ interface AttributeFormProps {
 
 export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }: AttributeFormProps) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const { register, handleSubmit, control, reset, resetField } = useForm<FormAttributeLib>({ defaultValues });
   const attributeSelect = useWatch({ control, name: "select" });
 
@@ -27,11 +30,11 @@ export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }:
   const attributeReferences = useGetAttributesReference();
   const [hasPrefilledData, isLoading] = usePrefilledAttributeData(reset);
 
-  const toastNodeSubmission = useAttributeSubmissionToast();
+  const toast = useSubmissionToast(t("attribute.title"));
   const onSubmit = (data: FormAttributeLib) => {
     const submittable = mapFormAttributeLibToApiModel(data);
     const submissionPromise = attributeCreateMutation.mutateAsync(submittable);
-    toastNodeSubmission(submissionPromise);
+    toast(submissionPromise);
     return submissionPromise;
   };
 

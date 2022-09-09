@@ -1,5 +1,6 @@
 import { DevTool } from "@hookform/devtools";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
 import { useCreateInterface, useUpdateInterface } from "../../../data/queries/tyle/queriesInterface";
@@ -7,7 +8,8 @@ import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { Loader } from "../../common/Loader";
 import { FormAttributes } from "../common/FormAttributes";
 import { prepareAttributesByAspect } from "../common/prepareAttributesByAspect";
-import { useInterfaceSubmissionToast, usePrefilledInterfaceData } from "./InterfaceForm.helpers";
+import { useSubmissionToast } from "../common/useSubmissionToast";
+import { usePrefilledInterfaceData } from "./InterfaceForm.helpers";
 import { InterfaceFormContainer } from "./InterfaceForm.styled";
 import { InterfaceFormBaseFields } from "./InterfaceFormBaseFields";
 import { createEmptyFormInterfaceLib, FormInterfaceLib, mapFormInterfaceLibToApiModel } from "./types/formInterfaceLib";
@@ -19,6 +21,7 @@ interface InterfaceFormProps {
 
 export const InterfaceForm = ({ defaultValues = createEmptyFormInterfaceLib(), isEdit }: InterfaceFormProps) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const { register, handleSubmit, control, setValue, reset, resetField } = useForm<FormInterfaceLib>({ defaultValues });
 
   const aspect = useWatch({ control, name: "aspect" });
@@ -30,11 +33,11 @@ export const InterfaceForm = ({ defaultValues = createEmptyFormInterfaceLib(), i
   const updateMutation = useUpdateInterface();
   const targetMutation = isEdit ? updateMutation : createMutation;
 
-  const toastNodeSubmission = useInterfaceSubmissionToast();
+  const toast = useSubmissionToast(t("interface.title"));
   const onSubmit = (data: FormInterfaceLib) => {
     const submittable = mapFormInterfaceLibToApiModel(data);
     const submissionPromise = targetMutation.mutateAsync(submittable);
-    toastNodeSubmission(submissionPromise);
+    toast(submissionPromise);
     return submissionPromise;
   };
 

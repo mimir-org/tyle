@@ -47,6 +47,7 @@
     }
   },
   "node": {
+    "title": "Aspect object",
     "name": "Name",
     "purpose": "Purpose",
     "aspect": "Aspect",
@@ -66,6 +67,96 @@
       "success": "Your node has been submitted",
       "error": "An error occurred during node submission"
     }
+  },
+  "attribute": {
+    "title": "Attribute",
+    "name": "Name",
+    "aspect": "Aspect",
+    "discipline": "Discipline",
+    "select": "Selection",
+    "qualifier": "Qualifier",
+    "source": "Source",
+    "condition": "Condition",
+    "format": "Format",
+    "type": "Attribute type",
+    "parent": "Attribute parent",
+    "owner": "Owner",
+    "placeholders": {
+      "name": "Attribute name",
+      "description": "Additional information about this attribute can be supplied here.",
+      "select": "type"
+    },
+    "processing": {
+      "loading": "Submitting attribute",
+      "success": "Your attribute has been submitted",
+      "error": "An error occurred during attribute submission"
+    }
+  },
+  "terminal": {
+    "title": "Terminal",
+    "name": "Name",
+    "color": "Color",
+    "owner": "Owner",
+    "description": "Description",
+    "placeholders": {
+      "name": "Attribute name",
+      "color": "Select color",
+      "description": "Additional information about this terminal can be supplied here."
+    },
+    "processing": {
+      "loading": "Submitting terminal",
+      "success": "Your terminal has been submitted",
+      "error": "An error occurred during terminal submission"
+    }
+  },
+  "transport": {
+    "title": "Transport",
+    "name": "Name",
+    "terminal": "Associated terminal",
+    "purpose": "Purpose",
+    "aspect": "Aspect",
+    "rds": "RDS",
+    "owner": "Owner",
+    "description": "Description",
+    "placeholders": {
+      "name": "Transport name",
+      "description": "Additional information about this transport can be supplied here."
+    },
+    "disabled": {
+      "aspect": "It is not possible to change the aspect of the current type. We recommend that you select a different type with the desired aspect."
+    },
+    "processing": {
+      "loading": "Submitting transport",
+      "success": "Your transport has been submitted",
+      "error": "An error occurred during transport submission"
+    }
+  },
+  "interface": {
+    "title": "Interface",
+    "name": "Name",
+    "terminal": "Associated terminal",
+    "purpose": "Purpose",
+    "aspect": "Aspect",
+    "rds": "RDS",
+    "owner": "Owner",
+    "description": "Description",
+    "placeholders": {
+      "name": "Transport name",
+      "description": "Additional information about this transport can be supplied here."
+    },
+    "disabled": {
+      "aspect": "It is not possible to change the aspect of the current type. We recommend that you select a different type with the desired aspect."
+    },
+    "processing": {
+      "loading": "Submitting interface",
+      "success": "Your interface has been submitted",
+      "error": "An error occurred during interface submission"
+    }
+  },
+  "processing": {
+    "loading": "Submitting {{type}}",
+    "success": "Your {{type}} has been submitted",
+    "error": "An error occurred during {{type}} submission"
   },
   "terminals": {
     "title": "Terminals",
@@ -124,87 +215,6 @@
     "value": "Value",
     "placeholders": {
       "value": "Enter selectable value"
-    }
-  },
-  "attribute": {
-    "name": "Name",
-    "aspect": "Aspect",
-    "discipline": "Discipline",
-    "select": "Selection",
-    "qualifier": "Qualifier",
-    "source": "Source",
-    "condition": "Condition",
-    "format": "Format",
-    "type": "Attribute type",
-    "parent": "Attribute parent",
-    "owner": "Owner",
-    "placeholders": {
-      "name": "Attribute name",
-      "description": "Additional information about this attribute can be supplied here.",
-      "select": "type"
-    },
-    "processing": {
-      "loading": "Submitting attribute",
-      "success": "Your attribute has been submitted",
-      "error": "An error occurred during attribute submission"
-    }
-  },
-  "terminal": {
-    "name": "Name",
-    "color": "Color",
-    "owner": "Owner",
-    "description": "Description",
-    "placeholders": {
-      "name": "Attribute name",
-      "color": "Select color",
-      "description": "Additional information about this terminal can be supplied here."
-    },
-    "processing": {
-      "loading": "Submitting terminal",
-      "success": "Your terminal has been submitted",
-      "error": "An error occurred during terminal submission"
-    }
-  },
-  "transport": {
-    "name": "Name",
-    "terminal": "Associated terminal",
-    "purpose": "Purpose",
-    "aspect": "Aspect",
-    "rds": "RDS",
-    "owner": "Owner",
-    "description": "Description",
-    "placeholders": {
-      "name": "Transport name",
-      "description": "Additional information about this transport can be supplied here."
-    },
-    "disabled": {
-      "aspect": "It is not possible to change the aspect of the current type. We recommend that you select a different type with the desired aspect."
-    },
-    "processing": {
-      "loading": "Submitting transport",
-      "success": "Your transport has been submitted",
-      "error": "An error occurred during transport submission"
-    }
-  },
-  "interface": {
-    "name": "Name",
-    "terminal": "Associated terminal",
-    "purpose": "Purpose",
-    "aspect": "Aspect",
-    "rds": "RDS",
-    "owner": "Owner",
-    "description": "Description",
-    "placeholders": {
-      "name": "Transport name",
-      "description": "Additional information about this transport can be supplied here."
-    },
-    "disabled": {
-      "aspect": "It is not possible to change the aspect of the current type. We recommend that you select a different type with the desired aspect."
-    },
-    "processing": {
-      "loading": "Submitting interface",
-      "success": "Your interface has been submitted",
-      "error": "An error occurred during interface submission"
     }
   },
   "forms": {

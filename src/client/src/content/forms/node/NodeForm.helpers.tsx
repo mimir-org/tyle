@@ -1,9 +1,7 @@
 import { Aspect } from "@mimirorg/typelibrary-types";
 import { useEffect, useState } from "react";
 import { Control, DefaultValues, KeepStateOptions, UseFormRegister } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import { toast } from "../../../complib/data-display";
 import { useGetNode } from "../../../data/queries/tyle/queriesNode";
 import { FormNodeLib, mapNodeLibCmToFormNodeLib } from "./types/formNodeLib";
 import { FunctionNode, LocationNode, ProductNode } from "./variants";
@@ -39,17 +37,6 @@ export const resetSubform = (resetField: (value: keyof FormNodeLib) => void) => 
   resetField("selectedAttributePredefined");
   resetField("nodeTerminals");
   resetField("attributeIdList");
-};
-
-export const useNodeSubmissionToast = () => {
-  const { t } = useTranslation("translation", { keyPrefix: "node.processing" });
-
-  return (submissionPromise: Promise<unknown>) =>
-    toast.promise(submissionPromise, {
-      loading: t("loading"),
-      success: t("success"),
-      error: t("error"),
-    });
 };
 
 export const getFormForAspect = (

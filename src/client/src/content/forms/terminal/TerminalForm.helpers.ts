@@ -1,9 +1,7 @@
 import { AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { useEffect, useState } from "react";
 import { DefaultValues, KeepStateOptions } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import { toast } from "../../../complib/data-display";
 import { useGetTerminal } from "../../../data/queries/tyle/queriesTerminal";
 import { FormTerminalLib, mapTerminalLibCmToFormTerminalLib } from "./types/formTerminalLib";
 
@@ -27,17 +25,6 @@ export const usePrefilledTerminalData = (
   }, [hasPrefilled, terminalQuery.isSuccess, terminalQuery.data, reset]);
 
   return [hasPrefilled, terminalQuery.isLoading];
-};
-
-export const useTerminalSubmissionToast = () => {
-  const { t } = useTranslation("translation", { keyPrefix: "terminal.processing" });
-
-  return (submissionPromise: Promise<unknown>) =>
-    toast.promise(submissionPromise, {
-      loading: t("loading"),
-      success: t("success"),
-      error: t("error"),
-    });
 };
 
 export const prepareAttributes = (attributes?: AttributeLibCm[]) => {
