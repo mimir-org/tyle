@@ -13,6 +13,7 @@ export { mapAttributeLibCmToAttributeItem } from "./mapAttributeLibCmToAttribute
 export { mapAttributeLibCmToAttributeLibAm } from "./mapAttributeLibCmToAttributeLibAm";
 
 export { mapTerminalLibCmToTerminalItem } from "./mapTerminalLibCmToTerminalItem";
+export { mapTerminalLibCmToTerminalLibAm } from "./mapTerminalLibCmToTerminalLibAm";
 
 export { mapTransportLibCmToTransportItem } from "./mapTransportLibCmToTransportItem";
 export { mapTransportLibCmToTransportLibAm } from "./mapTransportLibCmToTransportLibAm";

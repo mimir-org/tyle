@@ -1,7 +1,7 @@
 import { TerminalLibAm, TerminalLibCm } from "@mimirorg/typelibrary-types";
 import { UpdateEntity } from "../../../../data/types/updateEntity";
 import { createEmptyTerminalLibAm } from "../../../../models/tyle/application/terminalLibAm";
-import { mapTerminalLibCmToTerminalLibAm } from "../../../../utils/mappers/mapTerminalLibCmToTerminalLibAm";
+import { mapTerminalLibCmToTerminalLibAm } from "../../../../utils/mappers";
 import { ValueObject } from "../../types/valueObject";
 
 /**
