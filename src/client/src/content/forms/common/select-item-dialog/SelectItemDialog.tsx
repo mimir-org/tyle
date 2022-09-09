@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "../../../../complib/buttons";
 import { Dialog } from "../../../../complib/overlays";
 import { InfoItemCheckbox } from "../../../common/info-item";
-import { SearchField } from "../../../common/SearchField";
+import { SearchField } from "../../../common/search-field";
 import { InfoItem } from "../../../types/InfoItem";
 import { filterInfoItem, onSelectionChange } from "./SelectItemDialog.helpers";
 import { SelectContainer, SelectItemsContainer } from "./SelectItemDialog.styled";

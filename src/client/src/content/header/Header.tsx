@@ -2,7 +2,7 @@ import { Moon } from "@styled-icons/heroicons-outline";
 import { Checkbox } from "../../complib/inputs/checkbox/Checkbox";
 import { useGetCurrentUser } from "../../data/queries/auth/queriesUser";
 import { usePrefersTheme } from "../../hooks/usePrefersTheme";
-import { Logo } from "../common/Logo";
+import { Logo } from "../common/logo";
 import { UserMenu } from "./components/UserMenu";
 import { toggleDarkTheme } from "./components/UserMenu.helpers";
 import { UserMenuLabel } from "./components/UserMenu.styled";

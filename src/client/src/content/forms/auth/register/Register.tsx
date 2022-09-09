@@ -11,7 +11,7 @@ import { MotionText, Text } from "../../../../complib/text";
 import { getValidationStateFromServer } from "../../../../data/helpers/getValidationStateFromServer";
 import { useCreateUser } from "../../../../data/queries/auth/queriesUser";
 import { useValidationFromServer } from "../../../../hooks/useValidationFromServer";
-import { MotionLogo } from "../../../common/Logo";
+import { MotionLogo } from "../../../common/logo/Logo";
 import { UnauthenticatedFormContainer } from "../UnauthenticatedFormContainer";
 import { RegisterFinalize } from "./components/RegisterFinalize";
 import { RegisterProcessing } from "./components/RegisterProcessing";

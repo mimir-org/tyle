@@ -5,7 +5,7 @@ import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
 import { useCreateAttribute, useGetAttributesReference } from "../../../data/queries/tyle/queriesAttribute";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
-import { Loader } from "../../common/Loader";
+import { Loader } from "../../common/loader";
 import { FormReferences, HasReferences } from "../common/form-references/FormReferences";
 import { onSubmitForm } from "../common/utils/onSubmitForm";
 import { usePrefilledForm } from "../common/utils/usePrefilledForm";

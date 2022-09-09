@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
-import { Loader } from "../../common/Loader";
+import { Loader } from "../../common/loader";
 import { FormAttributes } from "../common/form-attributes/FormAttributes";
 import { onSubmitForm } from "../common/utils/onSubmitForm";
 import { prepareAttributesByAspect } from "../common/utils/prepareAttributesByAspect";

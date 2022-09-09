@@ -6,7 +6,7 @@ import { Token } from "../../../../complib/general";
 import { Flexbox, MotionFlexbox } from "../../../../complib/layouts";
 import { MotionText } from "../../../../complib/text";
 import { useDebounceState } from "../../../../hooks/useDebounceState";
-import { SearchField } from "../../../common/SearchField";
+import { SearchField } from "../../../common/search-field";
 import { SelectedInfo } from "../../types/selectedInfo";
 import { ExploreSection } from "../ExploreSection";
 import { ConditionalAttributeSearchItem } from "./components/attribute/ConditionalAttributeSearchItem";

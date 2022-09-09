@@ -1,5 +1,5 @@
-import { Input } from "../../complib/inputs";
-import { InputProps } from "../../complib/inputs/input/Input";
+import { Input } from "../../../complib/inputs";
+import { InputProps } from "../../../complib/inputs/input/Input";
 import { SearchFieldIcon } from "./SearchField.styled";
 
 export const SearchField = (props: InputProps) => (
