@@ -5,8 +5,8 @@ import { useTheme } from "styled-components/macro";
 import { Flexbox } from "../../../../complib/layouts";
 import { useGetUnits } from "../../../../data/queries/tyle/queriesUnit";
 import { InfoItemButton } from "../../../common/infoItem";
-import { FormSection } from "../../common/FormSection";
-import { SelectItemDialog } from "../../common/SelectItemDialog";
+import { FormSection } from "../../common/form-section/FormSection";
+import { SelectItemDialog } from "../../common/select-item-dialog/SelectItemDialog";
 import { FormAttributeLib } from "../types/formAttributeLib";
 import { getSelectItemsFromUnitsLibCms, onAddUnits } from "./AttributeFormUnits.helpers";
 

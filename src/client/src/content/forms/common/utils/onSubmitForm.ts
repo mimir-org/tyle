@@ -1,4 +1,4 @@
-import { UpdateEntity } from "../../../data/types/updateEntity";
+import { UpdateEntity } from "../../../../data/types/updateEntity";
 
 export const onSubmitForm = <TAm, TCm>(
   submittable: UpdateEntity<TAm>,

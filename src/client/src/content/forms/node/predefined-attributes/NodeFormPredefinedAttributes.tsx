@@ -6,7 +6,7 @@ import { FormField } from "../../../../complib/form";
 import { Input, Select } from "../../../../complib/inputs";
 import { Box, Grid } from "../../../../complib/layouts";
 import { useGetAttributesPredefined } from "../../../../data/queries/tyle/queriesAttribute";
-import { FormSection } from "../../common/FormSection";
+import { FormSection } from "../../common/form-section/FormSection";
 import { FormNodeLib } from "../types/formNodeLib";
 import { preparePredefinedAttributes } from "./NodeFormPredefinedAttributes.helpers";
 

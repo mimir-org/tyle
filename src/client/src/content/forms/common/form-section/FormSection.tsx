@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { Box, Flexbox } from "../../../complib/layouts";
-import { Text } from "../../../complib/text";
+import { Box, Flexbox } from "../../../../complib/layouts";
+import { Text } from "../../../../complib/text";
 
 interface FormSectionProps {
   title: string;

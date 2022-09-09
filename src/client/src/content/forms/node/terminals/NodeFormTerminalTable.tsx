@@ -10,7 +10,7 @@ import { useGetTerminals } from "../../../../data/queries/tyle/queriesTerminal";
 import { createEmptyNodeTerminalLibAm } from "../../../../models/tyle/application/nodeTerminalLibAm";
 import { getValueLabelObjectsFromEnum } from "../../../../utils/getValueLabelObjectsFromEnum";
 import { TerminalButton } from "../../../common/terminal";
-import { FormSection } from "../../common/FormSection";
+import { FormSection } from "../../common/form-section/FormSection";
 import { FormNodeLib } from "../types/formNodeLib";
 import { onTerminalAmountChange } from "./NodeFormTerminalTable.helpers";
 import { NodeFormTerminalTableAddButton } from "./NodeFormTerminalTableAddButton";

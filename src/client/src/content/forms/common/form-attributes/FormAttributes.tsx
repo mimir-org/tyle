@@ -3,14 +3,14 @@ import { Trash } from "@styled-icons/heroicons-outline";
 import { UseFormRegisterReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { Flexbox } from "../../../complib/layouts";
-import { useGetAttributes } from "../../../data/queries/tyle/queriesAttribute";
-import { UpdateEntity } from "../../../data/types/updateEntity";
-import { InfoItemButton } from "../../common/infoItem";
-import { ValueObject } from "../types/valueObject";
+import { Flexbox } from "../../../../complib/layouts";
+import { useGetAttributes } from "../../../../data/queries/tyle/queriesAttribute";
+import { UpdateEntity } from "../../../../data/types/updateEntity";
+import { InfoItemButton } from "../../../common/infoItem";
+import { ValueObject } from "../../types/valueObject";
+import { FormSection } from "../form-section/FormSection";
+import { SelectItemDialog } from "../select-item-dialog/SelectItemDialog";
 import { getSelectItemsFromAttributeLibCms, onAddValueObject } from "./FormAttributes.helpers";
-import { FormSection } from "./FormSection";
-import { SelectItemDialog } from "./SelectItemDialog";
 
 export interface FormAttributesProps {
   fields: UpdateEntity<ValueObject<string>>[];

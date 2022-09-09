@@ -4,9 +4,9 @@ import { useTheme } from "styled-components";
 import { FormField } from "../../../../complib/form";
 import { Input } from "../../../../complib/inputs";
 import { Flexbox } from "../../../../complib/layouts";
-import { FieldsCard } from "../../common/FieldsCard";
-import { FormAddButton } from "../../common/FormAddButton";
-import { FormSection } from "../../common/FormSection";
+import { FieldsCard } from "../../common/fields-card/FieldsCard";
+import { FormAddButton } from "../../common/form-add-button/FormAddButton";
+import { FormSection } from "../../common/form-section/FormSection";
 import { FormAttributeLib } from "../types/formAttributeLib";
 
 export interface AttributeFormValuesProps {

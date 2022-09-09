@@ -2,12 +2,12 @@ import { TypeReferenceAm, TypeReferenceCm } from "@mimirorg/typelibrary-types";
 import { Control, Controller, useFieldArray } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { FormField } from "../../../complib/form";
-import { Select } from "../../../complib/inputs";
-import { Flexbox } from "../../../complib/layouts";
-import { FieldsCard } from "./FieldsCard";
-import { FormAddButton } from "./FormAddButton";
-import { FormSection } from "./FormSection";
+import { FormField } from "../../../../complib/form";
+import { Select } from "../../../../complib/inputs";
+import { Flexbox } from "../../../../complib/layouts";
+import { FieldsCard } from "../fields-card/FieldsCard";
+import { FormAddButton } from "../form-add-button/FormAddButton";
+import { FormSection } from "../form-section/FormSection";
 
 export type HasReferences = { typeReferences?: TypeReferenceAm[] };
 
