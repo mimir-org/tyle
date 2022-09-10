@@ -2,10 +2,10 @@
 
 ## Purpose
 
-This directory houses logic for communicating with external resources, 
+This directory houses logic for communicating with external resources,
 and offers abstractions which makes it easier to consume APIs in a structured manner.
 
-___Tip: To apply global logic for api requests you can use 'interceptors'. Existing interceptors can be found in ./api/interceptors___ 
+**_Tip: To apply global logic for api requests you can use 'interceptors'. Existing interceptors can be found in ./api/interceptors_**
 
 ## Rules
 

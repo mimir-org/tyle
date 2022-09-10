@@ -12,7 +12,7 @@ template strings, splitting of translation files etc.
 
 ## Example usage
 
-Example translation file __"{someDirectory}/locales/en/translation.json"__
+Example translation file **"{someDirectory}/locales/en/translation.json"**
 
 ```json
 {
@@ -23,7 +23,7 @@ Example translation file __"{someDirectory}/locales/en/translation.json"__
 }
 ```
 
-Example translation file __"{someDirectory}/locales/no/translation.json"__
+Example translation file **"{someDirectory}/locales/no/translation.json"**
 
 ```json
 {
@@ -35,33 +35,33 @@ Example translation file __"{someDirectory}/locales/no/translation.json"__
 ```
 
 ```jsx
-  // Via i18next autodetection or by offering a language picker;
-  // this component is now able to resolve which text resource to use automatically.
-  export const MyLocalizedComponent = () => {
-      const { t } = useTranslation();
-    
-      return (
-        <div>        
-          <h1>{t("user.title")}</h1>
-          <h2>{t("user.subtitle")}</h2>
-        </div>
-      );
-  }; 
+// Via i18next autodetection or by offering a language picker;
+// this component is now able to resolve which text resource to use automatically.
+export const MyLocalizedComponent = () => {
+  const { t } = useTranslation();
+
+  return (
+    <div>
+      <h1>{t("user.title")}</h1>
+      <h2>{t("user.subtitle")}</h2>
+    </div>
+  );
+};
 ```
 
 ```jsx
-  // You can often shorten the localization tokens by using a prefix as shown below.
-  // The first parameter select a namespace, "translation" is the default.
-  export const MyLocalizedComponent = () => {
-      const { t } = useTranslation("translation", { keyPrefix: "user" });
-    
-      return (
-        <div>        
-          <h1>{t("title")}</h1>
-          <h2>{t("subtitle")}</h2>
-        </div>
-      );
-  }; 
+// You can often shorten the localization tokens by using a prefix as shown below.
+// The first parameter select a namespace, "translation" is the default.
+export const MyLocalizedComponent = () => {
+  const { t } = useTranslation("translation", { keyPrefix: "user" });
+
+  return (
+    <div>
+      <h1>{t("title")}</h1>
+      <h2>{t("subtitle")}</h2>
+    </div>
+  );
+};
 ```
 
 In addition to what is shown above there are more ways to translate your components, make sure to checkout https://react.i18next.com/guides/quick-start for more examples.
