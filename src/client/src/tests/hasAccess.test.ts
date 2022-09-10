@@ -9,7 +9,7 @@ test("manager has correct accesses", () => {
     email: "hans.hansen@runir.net",
     phoneNumber: "12345678",
     permissions: {
-      "1": 31,
+      "1": MimirorgPermission.Manage,
     },
   } as MimirorgUserCm;
 
@@ -28,7 +28,7 @@ test("approver has correct accesses", () => {
     email: "hans.hansen@runir.net",
     phoneNumber: "12345678",
     permissions: {
-      "1": 15,
+      "1": MimirorgPermission.Approve,
     },
   } as MimirorgUserCm;
 
@@ -47,7 +47,7 @@ test("delete has correct accesses", () => {
     email: "hans.hansen@runir.net",
     phoneNumber: "12345678",
     permissions: {
-      "1": 7,
+      "1": MimirorgPermission.Delete,
     },
   } as MimirorgUserCm;
 
@@ -66,7 +66,7 @@ test("write has correct accesses", () => {
     email: "hans.hansen@runir.net",
     phoneNumber: "12345678",
     permissions: {
-      "1": 3,
+      "1": MimirorgPermission.Write,
     },
   } as MimirorgUserCm;
 
@@ -85,7 +85,7 @@ test("read has correct accesses", () => {
     email: "hans.hansen@runir.net",
     phoneNumber: "12345678",
     permissions: {
-      "1": 1,
+      "1": MimirorgPermission.Read,
     },
   } as MimirorgUserCm;
 
