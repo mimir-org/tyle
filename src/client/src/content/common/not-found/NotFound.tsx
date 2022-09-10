@@ -1,8 +1,8 @@
 import { useTheme } from "styled-components";
-import { Button } from "../../complib/buttons";
-import { Box } from "../../complib/layouts";
-import { Heading, Text } from "../../complib/text";
-import { PlainLink } from "../utils/PlainLink";
+import { Button } from "../../../complib/buttons";
+import { Box } from "../../../complib/layouts";
+import { Heading, Text } from "../../../complib/text";
+import { PlainLink } from "../../utils/PlainLink";
 
 interface NotFoundProps {
   title: string;

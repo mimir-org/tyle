@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Route, Routes } from "react-router-dom";
-import { NotFound } from "../../../common/NotFound";
+import { NotFound } from "../../../common/not-found";
 import { Explore } from "../../../explore";
 import { AttributeForm } from "../../../forms/attribute/AttributeForm";
 import { InterfaceForm } from "../../../forms/interface/InterfaceForm";

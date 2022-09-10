@@ -1,3 +1,4 @@
+import { useTheme } from "styled-components";
 import { TextTypes } from "../../../complib/props";
 import { Text } from "../../../complib/text";
 import {
@@ -24,13 +25,14 @@ interface InterfacePreviewProps {
  * @constructor
  */
 export const InterfacePreview = ({ name, aspectColor, interfaceColor, variant = "small" }: InterfacePreviewProps) => {
+  const theme = useTheme();
   const headerTextVariant: TextTypes = variant == "small" ? "title-small" : "title-medium";
   const interfaceColorToDisplay = interfaceColor?.length ? interfaceColor : "rgba(0,0,0,0)";
 
   return (
     <InterfacePreviewContainer variant={variant}>
       <InterfacePreviewHeader bgColor={aspectColor}>
-        <Text variant={headerTextVariant} width={"100%"} useEllipsis>
+        <Text color={theme.tyle.color.ref.neutral["0"]} variant={headerTextVariant} width={"100%"} useEllipsis>
           {name}
         </Text>
       </InterfacePreviewHeader>

@@ -3,7 +3,7 @@ import { useTheme } from "styled-components";
 import { Token } from "../../../../../../complib/general";
 import { Flexbox, MotionBox } from "../../../../../../complib/layouts";
 import { Heading, Text } from "../../../../../../complib/text";
-import { InfoItemButton } from "../../../../../common/infoItem";
+import { InfoItemButton } from "../../../../../common/info-item";
 import { NodePreview } from "../../../../../common/node";
 import { TerminalTable } from "../../../../../common/terminal";
 import { NodeItem } from "../../../../../types/NodeItem";

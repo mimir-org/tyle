@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { mockInfoItem } from "../../../utils/mocks/mockInfoItem";
+import { mockInfoItem } from "../../../../utils/mocks";
 import { SelectItemDialog } from "./SelectItemDialog";
 
 const mockData = [...Array(20)].map((_) => mockInfoItem());

@@ -1,15 +1,24 @@
 import { DevTool } from "@hookform/devtools";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
-import { useCreateInterface, useUpdateInterface } from "../../../data/queries/tyle/queriesInterface";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
-import { Loader } from "../../common/Loader";
-import { FormAttributes } from "../common/FormAttributes";
-import { prepareAttributes, useInterfaceSubmissionToast, usePrefilledInterfaceData } from "./InterfaceForm.helpers";
+import { Loader } from "../../common/loader";
+import { FormAttributes } from "../common/form-attributes/FormAttributes";
+import { onSubmitForm } from "../common/utils/onSubmitForm";
+import { prepareAttributesByAspect } from "../common/utils/prepareAttributesByAspect";
+import { usePrefilledForm } from "../common/utils/usePrefilledForm";
+import { useSubmissionToast } from "../common/utils/useSubmissionToast";
+import { useInterfaceMutation, useInterfaceQuery } from "./InterfaceForm.helpers";
 import { InterfaceFormContainer } from "./InterfaceForm.styled";
 import { InterfaceFormBaseFields } from "./InterfaceFormBaseFields";
-import { createEmptyFormInterfaceLib, FormInterfaceLib, mapFormInterfaceLibToApiModel } from "./types/formInterfaceLib";
+import {
+  createEmptyFormInterfaceLib,
+  FormInterfaceLib,
+  mapFormInterfaceLibToApiModel,
+  mapInterfaceLibCmToFormInterfaceLib,
+} from "./types/formInterfaceLib";
 
 interface InterfaceFormProps {
   defaultValues?: FormInterfaceLib;
@@ -18,29 +27,24 @@ interface InterfaceFormProps {
 
 export const InterfaceForm = ({ defaultValues = createEmptyFormInterfaceLib(), isEdit }: InterfaceFormProps) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const { register, handleSubmit, control, setValue, reset, resetField } = useForm<FormInterfaceLib>({ defaultValues });
 
   const aspect = useWatch({ control, name: "aspect" });
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
-  const [hasPrefilledData, isLoading] = usePrefilledInterfaceData(reset);
+  const query = useInterfaceQuery();
+  const [isPrefilled, isLoading] = usePrefilledForm(query, mapInterfaceLibCmToFormInterfaceLib, reset);
 
-  const createMutation = useCreateInterface();
-  const updateMutation = useUpdateInterface();
-  const targetMutation = isEdit ? updateMutation : createMutation;
+  const toast = useSubmissionToast(t("interface.title"));
 
-  const toastNodeSubmission = useInterfaceSubmissionToast();
-  const onSubmit = (data: FormInterfaceLib) => {
-    const submittable = mapFormInterfaceLibToApiModel(data);
-    const submissionPromise = targetMutation.mutateAsync(submittable);
-    toastNodeSubmission(submissionPromise);
-    return submissionPromise;
-  };
-
-  useNavigateOnCriteria("/", targetMutation.isSuccess);
+  const mutation = useInterfaceMutation(isEdit);
+  useNavigateOnCriteria("/", mutation.isSuccess);
 
   return (
-    <InterfaceFormContainer onSubmit={handleSubmit((data) => onSubmit(data))}>
+    <InterfaceFormContainer
+      onSubmit={handleSubmit((data) => onSubmitForm(mapFormInterfaceLibToApiModel(data), mutation.mutateAsync, toast))}
+    >
       {isLoading && <Loader />}
       {!isLoading && (
         <>
@@ -49,7 +53,7 @@ export const InterfaceForm = ({ defaultValues = createEmptyFormInterfaceLib(), i
             register={register}
             resetField={resetField}
             setValue={setValue}
-            hasPrefilledData={hasPrefilledData}
+            isPrefilled={isPrefilled}
           />
 
           <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
@@ -58,7 +62,7 @@ export const InterfaceForm = ({ defaultValues = createEmptyFormInterfaceLib(), i
               fields={attributeFields.fields}
               append={attributeFields.append}
               remove={attributeFields.remove}
-              prepareAttributes={(attributes) => prepareAttributes(attributes, [aspect])}
+              preprocess={(attributes) => prepareAttributesByAspect(attributes, [aspect])}
             />
           </Box>
         </>

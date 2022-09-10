@@ -1,6 +1,6 @@
 import { AttributeLibCm } from "@mimirorg/typelibrary-types";
-import { mapAttributeLibCmsToInfoItems } from "../../../utils/mappers";
-import { ValueObject } from "../types/valueObject";
+import { mapAttributeLibCmsToInfoItems } from "../../../../utils/mappers";
+import { ValueObject } from "../../types/valueObject";
 
 export const onAddValueObject = (
   ids: string[],

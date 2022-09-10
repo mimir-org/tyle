@@ -26,7 +26,7 @@ interface InterfaceFormBaseFieldsProps {
   register: UseFormRegister<FormInterfaceLib>;
   resetField: UseFormResetField<FormInterfaceLib>;
   setValue: UseFormSetValue<FormInterfaceLib>;
-  hasPrefilledData?: boolean;
+  isPrefilled?: boolean;
 }
 
 /**
@@ -36,7 +36,7 @@ interface InterfaceFormBaseFieldsProps {
  * @param register
  * @param resetField
  * @param setValue
- * @param hasPrefilledData
+ * @param isPrefilled
  * @constructor
  */
 export const InterfaceFormBaseFields = ({
@@ -44,7 +44,7 @@ export const InterfaceFormBaseFields = ({
   register,
   resetField,
   setValue,
-  hasPrefilledData,
+  isPrefilled,
 }: InterfaceFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
@@ -90,7 +90,7 @@ export const InterfaceFormBaseFields = ({
           render={({ field: { value, onChange, ref, ...rest } }) => (
             <FormField label={t("interface.aspect")}>
               <ConditionalWrapper
-                condition={hasPrefilledData}
+                condition={isPrefilled}
                 wrapper={(c) => (
                   <Popover align={"start"} maxWidth={"225px"} content={t("interface.disabled.aspect")}>
                     <Box borderRadius={theme.tyle.border.radius.medium} tabIndex={0}>
@@ -110,7 +110,7 @@ export const InterfaceFormBaseFields = ({
                     onChange(x?.value);
                   }}
                   value={aspectOptions.find((x) => x.value === value)}
-                  isDisabled={hasPrefilledData}
+                  isDisabled={isPrefilled}
                 />
               </ConditionalWrapper>
             </FormField>

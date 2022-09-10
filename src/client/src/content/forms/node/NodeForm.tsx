@@ -1,15 +1,24 @@
 import { DevTool } from "@hookform/devtools";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Box } from "../../../complib/layouts";
-import { useCreateNode, useUpdateNode } from "../../../data/queries/tyle/queriesNode";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
-import { Loader } from "../../common/Loader";
-import { FormAttributes } from "../common/FormAttributes";
-import { getFormForAspect, prepareAttributes, useNodeSubmissionToast, usePrefilledNodeData } from "./NodeForm.helpers";
+import { Loader } from "../../common/loader";
+import { FormAttributes } from "../common/form-attributes/FormAttributes";
+import { onSubmitForm } from "../common/utils/onSubmitForm";
+import { prepareAttributesByAspect } from "../common/utils/prepareAttributesByAspect";
+import { usePrefilledForm } from "../common/utils/usePrefilledForm";
+import { useSubmissionToast } from "../common/utils/useSubmissionToast";
+import { getFormForAspect, useNodeMutation, useNodeQuery } from "./NodeForm.helpers";
 import { NodeFormContainer } from "./NodeForm.styled";
 import { NodeFormBaseFields } from "./NodeFormBaseFields";
-import { createEmptyFormNodeLib, FormNodeLib, mapFormNodeLibToApiModel } from "./types/formNodeLib";
+import {
+  createEmptyFormNodeLib,
+  FormNodeLib,
+  mapFormNodeLibToApiModel,
+  mapNodeLibCmToFormNodeLib,
+} from "./types/formNodeLib";
 
 interface NodeFormProps {
   defaultValues?: FormNodeLib;
@@ -18,27 +27,24 @@ interface NodeFormProps {
 
 export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: NodeFormProps) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const { register, handleSubmit, control, setValue, reset, resetField } = useForm<FormNodeLib>({ defaultValues });
-  const aspect = useWatch({ control, name: "aspect" });
 
-  const nodeUpdateMutation = useUpdateNode();
-  const nodeCreateMutation = useCreateNode();
-  const [hasPrefilledData, isLoading] = usePrefilledNodeData(reset);
+  const aspect = useWatch({ control, name: "aspect" });
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
-  const toastNodeSubmission = useNodeSubmissionToast();
-  const onSubmit = (data: FormNodeLib) => {
-    const mutation = isEdit ? nodeUpdateMutation.mutateAsync : nodeCreateMutation.mutateAsync;
-    const submittable = mapFormNodeLibToApiModel(data);
-    const submissionPromise = mutation(submittable);
-    toastNodeSubmission(submissionPromise);
-    return submissionPromise;
-  };
+  const query = useNodeQuery();
+  const [isPrefilled, isLoading] = usePrefilledForm(query, mapNodeLibCmToFormNodeLib, reset);
 
-  useNavigateOnCriteria("/", nodeCreateMutation.isSuccess || nodeUpdateMutation.isSuccess);
+  const toast = useSubmissionToast(t("node.title"));
+
+  const mutation = useNodeMutation(isEdit);
+  useNavigateOnCriteria("/", mutation.isSuccess);
 
   return (
-    <NodeFormContainer onSubmit={handleSubmit((data) => onSubmit(data))}>
+    <NodeFormContainer
+      onSubmit={handleSubmit((data) => onSubmitForm(mapFormNodeLibToApiModel(data), mutation.mutateAsync, toast))}
+    >
       {isLoading && <Loader />}
       {!isLoading && (
         <>
@@ -47,7 +53,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
             register={register}
             resetField={resetField}
             setValue={setValue}
-            hasPrefilledData={hasPrefilledData}
+            isPrefilled={isPrefilled}
           />
 
           <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
@@ -57,7 +63,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
               fields={attributeFields.fields}
               append={attributeFields.append}
               remove={attributeFields.remove}
-              prepareAttributes={(attributes) => prepareAttributes(attributes, [aspect])}
+              preprocess={(attributes) => prepareAttributesByAspect(attributes, [aspect])}
             />
           </Box>
         </>

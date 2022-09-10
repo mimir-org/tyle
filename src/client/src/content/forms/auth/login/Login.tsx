@@ -11,7 +11,7 @@ import { MotionText, Text } from "../../../../complib/text";
 import { getValidationStateFromServer } from "../../../../data/helpers/getValidationStateFromServer";
 import { useLogin } from "../../../../data/queries/auth/queriesAuthenticate";
 import { useValidationFromServer } from "../../../../hooks/useValidationFromServer";
-import { MotionLogo } from "../../../common/Logo";
+import { MotionLogo } from "../../../common/logo/Logo";
 import { UnauthenticatedFormContainer } from "../UnauthenticatedFormContainer";
 
 export const Login = () => {

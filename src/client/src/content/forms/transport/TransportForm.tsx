@@ -1,15 +1,24 @@
 import { DevTool } from "@hookform/devtools";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
-import { useCreateTransport, useUpdateTransport } from "../../../data/queries/tyle/queriesTransport";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
-import { Loader } from "../../common/Loader";
-import { FormAttributes } from "../common/FormAttributes";
-import { prepareAttributes, usePrefilledTransportData, useTransportSubmissionToast } from "./TransportForm.helpers";
+import { Loader } from "../../common/loader";
+import { FormAttributes } from "../common/form-attributes/FormAttributes";
+import { onSubmitForm } from "../common/utils/onSubmitForm";
+import { prepareAttributesByAspect } from "../common/utils/prepareAttributesByAspect";
+import { usePrefilledForm } from "../common/utils/usePrefilledForm";
+import { useSubmissionToast } from "../common/utils/useSubmissionToast";
+import { useTransportMutation, useTransportQuery } from "./TransportForm.helpers";
 import { TransportFormContainer } from "./TransportForm.styled";
 import { TransportFormBaseFields } from "./TransportFormBaseFields";
-import { createEmptyFormTransportLib, FormTransportLib, mapFormTransportLibToApiModel } from "./types/formTransportLib";
+import {
+  createEmptyFormTransportLib,
+  FormTransportLib,
+  mapFormTransportLibToApiModel,
+  mapTransportLibCmToFormTransportLib,
+} from "./types/formTransportLib";
 
 interface TransportFormProps {
   defaultValues?: FormTransportLib;
@@ -18,29 +27,24 @@ interface TransportFormProps {
 
 export const TransportForm = ({ defaultValues = createEmptyFormTransportLib(), isEdit }: TransportFormProps) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const { register, handleSubmit, control, setValue, reset, resetField } = useForm<FormTransportLib>({ defaultValues });
 
   const aspect = useWatch({ control, name: "aspect" });
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
-  const [hasPrefilledData, isLoading] = usePrefilledTransportData(reset);
+  const query = useTransportQuery();
+  const [isPrefilled, isLoading] = usePrefilledForm(query, mapTransportLibCmToFormTransportLib, reset);
 
-  const createMutation = useCreateTransport();
-  const updateMutation = useUpdateTransport();
-  const targetMutation = isEdit ? updateMutation : createMutation;
+  const toast = useSubmissionToast(t("transport.title"));
 
-  const toastNodeSubmission = useTransportSubmissionToast();
-  const onSubmit = (data: FormTransportLib) => {
-    const submittable = mapFormTransportLibToApiModel(data);
-    const submissionPromise = targetMutation.mutateAsync(submittable);
-    toastNodeSubmission(submissionPromise);
-    return submissionPromise;
-  };
-
-  useNavigateOnCriteria("/", targetMutation.isSuccess);
+  const mutation = useTransportMutation(isEdit);
+  useNavigateOnCriteria("/", mutation.isSuccess);
 
   return (
-    <TransportFormContainer onSubmit={handleSubmit((data) => onSubmit(data))}>
+    <TransportFormContainer
+      onSubmit={handleSubmit((data) => onSubmitForm(mapFormTransportLibToApiModel(data), mutation.mutateAsync, toast))}
+    >
       {isLoading && <Loader />}
       {!isLoading && (
         <>
@@ -49,7 +53,7 @@ export const TransportForm = ({ defaultValues = createEmptyFormTransportLib(), i
             register={register}
             resetField={resetField}
             setValue={setValue}
-            hasPrefilledData={hasPrefilledData}
+            isPrefilled={isPrefilled}
           />
 
           <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
@@ -58,7 +62,7 @@ export const TransportForm = ({ defaultValues = createEmptyFormTransportLib(), i
               fields={attributeFields.fields}
               append={attributeFields.append}
               remove={attributeFields.remove}
-              prepareAttributes={(attributes) => prepareAttributes(attributes, [aspect])}
+              preprocess={(attributes) => prepareAttributesByAspect(attributes, [aspect])}
             />
           </Box>
         </>

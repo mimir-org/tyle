@@ -12,7 +12,7 @@ import {
   mapTerminalLibCmToTerminalItem,
   mapTransportLibCmToTransportItem,
 } from "../../../../utils/mappers";
-import { Loader } from "../../../common/Loader";
+import { Loader } from "../../../common/loader";
 import { SelectedInfo } from "../../types/selectedInfo";
 import { ExploreSection } from "../ExploreSection";
 import { AboutPlaceholder } from "./components/AboutPlaceholder";

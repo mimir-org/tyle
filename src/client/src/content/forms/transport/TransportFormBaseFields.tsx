@@ -26,7 +26,7 @@ interface TransportFormBaseFieldsProps {
   register: UseFormRegister<FormTransportLib>;
   resetField: UseFormResetField<FormTransportLib>;
   setValue: UseFormSetValue<FormTransportLib>;
-  hasPrefilledData?: boolean;
+  isPrefilled?: boolean;
 }
 
 /**
@@ -36,7 +36,7 @@ interface TransportFormBaseFieldsProps {
  * @param register
  * @param resetField
  * @param setValue
- * @param hasPrefilledData
+ * @param isPrefilled
  * @constructor
  */
 export const TransportFormBaseFields = ({
@@ -44,7 +44,7 @@ export const TransportFormBaseFields = ({
   register,
   resetField,
   setValue,
-  hasPrefilledData,
+  isPrefilled,
 }: TransportFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
@@ -90,7 +90,7 @@ export const TransportFormBaseFields = ({
           render={({ field: { value, onChange, ref, ...rest } }) => (
             <FormField label={t("transport.aspect")}>
               <ConditionalWrapper
-                condition={hasPrefilledData}
+                condition={isPrefilled}
                 wrapper={(c) => (
                   <Popover align={"start"} maxWidth={"225px"} content={t("transport.disabled.aspect")}>
                     <Box borderRadius={theme.tyle.border.radius.medium} tabIndex={0}>
@@ -110,7 +110,7 @@ export const TransportFormBaseFields = ({
                     onChange(x?.value);
                   }}
                   value={aspectOptions.find((x) => x.value === value)}
-                  isDisabled={hasPrefilledData}
+                  isDisabled={isPrefilled}
                 />
               </ConditionalWrapper>
             </FormField>

@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import { ForwardedRef, forwardRef } from "react";
-import { TyleLogoDarkRedIcon, TyleLogoWhiteIcon } from "../../assets/icons/logo";
-import { Icon } from "../../complib/media";
-import { IconProps } from "../../complib/media/icon/Icon";
-import { usePrefersTheme } from "../../hooks/usePrefersTheme";
+import { TyleLogoDarkRedIcon, TyleLogoWhiteIcon } from "../../../assets/icons/logo";
+import { Icon } from "../../../complib/media";
+import { IconProps } from "../../../complib/media/icon/Icon";
+import { usePrefersTheme } from "../../../hooks/usePrefersTheme";
 
 type LogoProps = Omit<IconProps, "src"> & {
   inverse?: boolean;

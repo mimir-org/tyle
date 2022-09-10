@@ -1,32 +1,16 @@
-import { Aspect, AttributeLibCm } from "@mimirorg/typelibrary-types";
-import { useEffect, useState } from "react";
-import { DefaultValues, KeepStateOptions } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import { toast } from "../../../complib/data-display";
-import { useGetTransport } from "../../../data/queries/tyle/queriesTransport";
-import { FormTransportLib, mapTransportLibCmToFormTransportLib } from "./types/formTransportLib";
+import { useCreateTransport, useGetTransport, useUpdateTransport } from "../../../data/queries/tyle/queriesTransport";
+import { FormTransportLib } from "./types/formTransportLib";
 
-/**
- * Hook ties together params from react router, node data from react query and react hook form binding
- *
- * @param reset function which takes transport data as parameter and populates form
- */
-export const usePrefilledTransportData = (
-  reset: (values?: DefaultValues<FormTransportLib> | FormTransportLib, keepStateOptions?: KeepStateOptions) => void
-): [hasPrefilled: boolean, isLoading: boolean] => {
+export const useTransportQuery = () => {
   const { id } = useParams();
-  const transportQuery = useGetTransport(id);
-  const [hasPrefilled, setHasPrefilled] = useState(false);
+  return useGetTransport(id);
+};
 
-  useEffect(() => {
-    if (!hasPrefilled && transportQuery.isSuccess) {
-      setHasPrefilled(true);
-      reset(mapTransportLibCmToFormTransportLib(transportQuery.data), { keepDefaultValues: false });
-    }
-  }, [hasPrefilled, transportQuery.isSuccess, transportQuery.data, reset]);
-
-  return [hasPrefilled, transportQuery.isLoading];
+export const useTransportMutation = (isEdit?: boolean) => {
+  const createMutation = useCreateTransport();
+  const updateMutation = useUpdateTransport();
+  return isEdit ? updateMutation : createMutation;
 };
 
 /**
@@ -36,22 +20,4 @@ export const usePrefilledTransportData = (
  */
 export const resetSubform = (resetField: (value: keyof FormTransportLib) => void) => {
   resetField("attributeIdList");
-};
-
-export const useTransportSubmissionToast = () => {
-  const { t } = useTranslation("translation", { keyPrefix: "transport.processing" });
-
-  return (submissionPromise: Promise<unknown>) =>
-    toast.promise(submissionPromise, {
-      loading: t("loading"),
-      success: t("success"),
-      error: t("error"),
-    });
-};
-
-export const prepareAttributes = (attributes?: AttributeLibCm[], aspects?: Aspect[]) => {
-  if (!attributes || attributes.length == 0) return [];
-  if (!aspects || aspects.length == 0) return [];
-
-  return attributes.filter((a) => aspects.some((x) => x === a.aspect)).sort((a, b) => a.discipline - b.discipline);
 };

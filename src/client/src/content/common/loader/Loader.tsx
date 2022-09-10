@@ -1,6 +1,6 @@
 import { useTheme } from "styled-components";
-import { Spinner } from "../../complib/feedback";
-import { MotionFlexbox } from "../../complib/layouts";
+import { Spinner } from "../../../complib/feedback";
+import { MotionFlexbox } from "../../../complib/layouts";
 
 /**
  * A simple wrapper for the spinner component which adds fading and centers it within a flexbox

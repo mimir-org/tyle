@@ -1,15 +1,23 @@
 import { DevTool } from "@hookform/devtools";
 import { useFieldArray, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
-import { useCreateTerminal, useUpdateTerminal } from "../../../data/queries/tyle/queriesTerminal";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
-import { Loader } from "../../common/Loader";
-import { FormAttributes } from "../common/FormAttributes";
-import { prepareAttributes, usePrefilledTerminalData, useTerminalSubmissionToast } from "./TerminalForm.helpers";
+import { Loader } from "../../common/loader";
+import { FormAttributes } from "../common/form-attributes/FormAttributes";
+import { onSubmitForm } from "../common/utils/onSubmitForm";
+import { usePrefilledForm } from "../common/utils/usePrefilledForm";
+import { useSubmissionToast } from "../common/utils/useSubmissionToast";
+import { prepareAttributes, useTerminalMutation, useTerminalQuery } from "./TerminalForm.helpers";
 import { TerminalFormContainer } from "./TerminalForm.styled";
 import { TerminalFormBaseFields } from "./TerminalFormBaseFields";
-import { createEmptyFormTerminalLib, FormTerminalLib, mapFormTerminalLibToApiModel } from "./types/formTerminalLib";
+import {
+  createEmptyFormTerminalLib,
+  FormTerminalLib,
+  mapFormTerminalLibToApiModel,
+  mapTerminalLibCmToFormTerminalLib,
+} from "./types/formTerminalLib";
 
 interface TerminalFormProps {
   defaultValues?: FormTerminalLib;
@@ -18,27 +26,22 @@ interface TerminalFormProps {
 
 export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), isEdit }: TerminalFormProps) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const { register, handleSubmit, control, reset } = useForm<FormTerminalLib>({ defaultValues });
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
-  const [_, isLoading] = usePrefilledTerminalData(reset);
+  const query = useTerminalQuery();
+  const [_, isLoading] = usePrefilledForm(query, mapTerminalLibCmToFormTerminalLib, reset);
 
-  const createMutation = useCreateTerminal();
-  const updateMutation = useUpdateTerminal();
-  const targetMutation = isEdit ? updateMutation : createMutation;
+  const toast = useSubmissionToast(t("terminal.title"));
 
-  const toastNodeSubmission = useTerminalSubmissionToast();
-  const onSubmit = (data: FormTerminalLib) => {
-    const submittable = mapFormTerminalLibToApiModel(data);
-    const submissionPromise = targetMutation.mutateAsync(submittable);
-    toastNodeSubmission(submissionPromise);
-    return submissionPromise;
-  };
-
-  useNavigateOnCriteria("/", targetMutation.isSuccess);
+  const mutation = useTerminalMutation(isEdit);
+  useNavigateOnCriteria("/", mutation.isSuccess);
 
   return (
-    <TerminalFormContainer onSubmit={handleSubmit((data) => onSubmit(data))}>
+    <TerminalFormContainer
+      onSubmit={handleSubmit((data) => onSubmitForm(mapFormTerminalLibToApiModel(data), mutation.mutateAsync, toast))}
+    >
       {isLoading && <Loader />}
       {!isLoading && (
         <>
@@ -50,7 +53,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), isE
               fields={attributeFields.fields}
               append={attributeFields.append}
               remove={attributeFields.remove}
-              prepareAttributes={prepareAttributes}
+              preprocess={prepareAttributes}
             />
           </Box>
         </>
