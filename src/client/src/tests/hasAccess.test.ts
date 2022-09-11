@@ -1,5 +1,5 @@
-import { hasAccess } from "../utils/hasAccess";
-import { MimirorgPermission, MimirorgUserCm } from "@mimirorg/typelibrary-types";
+import { hasAccess, filterCompanyList } from "../utils/hasAccess";
+import { MimirorgCompanyCm, MimirorgPermission, MimirorgUserCm } from "@mimirorg/typelibrary-types";
 
 describe("hasAccess tests", () => {
   test("undefined user returns false", () => {
@@ -129,5 +129,128 @@ describe("hasAccess tests", () => {
     expect(hasAccess(user, 1, MimirorgPermission.Delete)).toBe(false);
     expect(hasAccess(user, 1, MimirorgPermission.Write)).toBe(false);
     expect(hasAccess(user, 1, MimirorgPermission.Read)).toBe(true);
+  });
+
+  test("filtered companies returns correct list for one company", () => {
+    const user = {
+      id: "12345",
+      firstName: "Hans",
+      lastName: "Hasen",
+      email: "hans.hansen@runir.net",
+      phoneNumber: "12345678",
+      permissions: {
+        "1": MimirorgPermission.Write,
+        "2": MimirorgPermission.Read,
+        "3": MimirorgPermission.Read,
+      },
+    } as MimirorgUserCm;
+
+    const companies = [
+      {
+        id: 1,
+        name: "Company A",
+      },
+      {
+        id: 2,
+        name: "Company B",
+      },
+      {
+        id: 3,
+        name: "Company C",
+      },
+    ] as MimirorgCompanyCm[];
+
+    expect(filterCompanyList(companies, user, MimirorgPermission.Write).length).toBe(1);
+    expect(filterCompanyList(companies, user, MimirorgPermission.Write).filter((x) => x.id === 1)[0].id).toBe(1);
+    expect(filterCompanyList(companies, user, MimirorgPermission.Write).filter((x) => x.id === 1)[0].name).toBe(
+      "Company A"
+    );
+  });
+
+  test("filtered companies returns correct list for two companies", () => {
+    const user = {
+      id: "12345",
+      firstName: "Hans",
+      lastName: "Hasen",
+      email: "hans.hansen@runir.net",
+      phoneNumber: "12345678",
+      permissions: {
+        "1": MimirorgPermission.Manage,
+        "2": MimirorgPermission.Approve,
+        "3": MimirorgPermission.Read,
+      },
+    } as MimirorgUserCm;
+
+    const companies = [
+      {
+        id: 1,
+        name: "Company A",
+      },
+      {
+        id: 2,
+        name: "Company B",
+      },
+      {
+        id: 3,
+        name: "Company C",
+      },
+    ] as MimirorgCompanyCm[];
+
+    expect(filterCompanyList(companies, user, MimirorgPermission.Approve).length).toBe(2);
+    expect(filterCompanyList(companies, user, MimirorgPermission.Approve).filter((x) => x.id === 1)[0].id).toBe(1);
+    expect(filterCompanyList(companies, user, MimirorgPermission.Approve).filter((x) => x.id === 2)[0].id).toBe(2);
+    expect(filterCompanyList(companies, user, MimirorgPermission.Write).filter((x) => x.id === 1)[0].name).toBe(
+      "Company A"
+    );
+    expect(filterCompanyList(companies, user, MimirorgPermission.Write).filter((x) => x.id === 2)[0].name).toBe(
+      "Company B"
+    );
+  });
+
+  test("filtered companies returns empty list with no permissions", () => {
+    const user = {
+      id: "12345",
+      firstName: "Hans",
+      lastName: "Hasen",
+      email: "hans.hansen@runir.net",
+      phoneNumber: "12345678",
+      permissions: {},
+    } as MimirorgUserCm;
+
+    const companies = [
+      {
+        id: 1,
+        name: "Company A",
+      },
+      {
+        id: 2,
+        name: "Company B",
+      },
+      {
+        id: 3,
+        name: "Company C",
+      },
+    ] as MimirorgCompanyCm[];
+
+    expect(filterCompanyList(companies, user, MimirorgPermission.Approve).length).toBe(0);
+  });
+
+  test("filtered companies returns empty list with no companies", () => {
+    const user = {
+      id: "12345",
+      firstName: "Hans",
+      lastName: "Hasen",
+      email: "hans.hansen@runir.net",
+      phoneNumber: "12345678",
+      permissions: {
+        "1": MimirorgPermission.Manage,
+        "2": MimirorgPermission.Approve,
+        "3": MimirorgPermission.Read,
+      },
+    } as MimirorgUserCm;
+
+    const companies = [] as MimirorgCompanyCm[];
+
+    expect(filterCompanyList(companies, user, MimirorgPermission.Approve).length).toBe(0);
   });
 });
