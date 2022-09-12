@@ -45,7 +45,6 @@ namespace Mimirorg.Integration.Tests.Services
                 RdsName = "RdsName",
                 RdsCode = "RdsCode",
                 PurposeName = "PurposeName",
-                Description = "Description",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
                 TerminalId = "8EBC5811473E87602FB0C18A100BD53C"
@@ -96,11 +95,11 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(transportAm.CompanyId, transportCm.CompanyId);
             Assert.Equal(transportAm.TerminalId, transportCm.TerminalId);
             Assert.Equal(transportAm.AttributeIdList.ToList().ConvertToString(), transportCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
-            Assert.Equal(transportAm.TypeReferences.First().Iri, transportAm.TypeReferences.First().Iri);
-            Assert.Equal(transportAm.TypeReferences.First().Name, transportAm.TypeReferences.First().Name);
-            Assert.Equal(transportAm.TypeReferences.First().Source, transportAm.TypeReferences.First().Source);
-            Assert.Equal(transportAm.TypeReferences.First().SubIri, transportAm.TypeReferences.First().SubIri);
-            Assert.Equal(transportAm.TypeReferences.First().SubName, transportAm.TypeReferences.First().SubName);
+            Assert.Equal(transportAm.TypeReferences.First().Iri, transportCm.TypeReferences.First().Iri);
+            Assert.Equal(transportAm.TypeReferences.First().Name, transportCm.TypeReferences.First().Name);
+            Assert.Equal(transportAm.TypeReferences.First().Source, transportCm.TypeReferences.First().Source);
+            Assert.Equal(transportAm.TypeReferences.First().SubIri, transportCm.TypeReferences.First().SubIri);
+            Assert.Equal(transportAm.TypeReferences.First().SubName, transportCm.TypeReferences.First().SubName);
             Assert.Equal(transportAm.ParentId, transportCm.ParentId);
         }
 

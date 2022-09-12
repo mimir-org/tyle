@@ -1,7 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Setup;
 using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Services.Contracts;
 using Xunit;
@@ -41,22 +43,49 @@ namespace Mimirorg.Integration.Tests.Services
         [Fact]
         public async Task Create_Interface_Create_Interface_When_Ok_Parameters()
         {
+            var interfaceParentAm = new InterfaceLibAm
+            {
+                Name = "InterfaceParent",
+                RdsName = "RdsName",
+                RdsCode = "RdsCode",
+                PurposeName = "PurposeName",
+                Aspect = Aspect.NotSet,
+                CompanyId = 1,
+                TerminalId = "8EBC5811473E87602FB0C18A100BD53C"
+            };
+
+            var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
+            var interfaceParentCm = await interfaceService.Create(interfaceParentAm, true);
+
             var interfaceAm = new InterfaceLibAm
             {
                 Name = "Interface2",
                 RdsName = "RdsName",
                 RdsCode = "RdsCode",
                 PurposeName = "PurposeName",
-                Description = "Description",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
+                TerminalId = "8EBC5811473E87602FB0C18A100BD53C",
                 AttributeIdList = new List<string>
                 {
                     "0646754DC953F5EDD4F6159CD993696D"
-                }
+                },
+                TypeReferences = new List<TypeReferenceAm>
+                {
+                    new()
+                    {
+                        Name = "TypeRef",
+                        Iri = "https://url.com/1234567890",
+                        Source = "https://source.com/1234567890",
+                        SubName = "SubName",
+                        SubIri = "https://subIri.com/1234567890",
+
+                    }
+                },
+                Description = "Description",
+                ParentId = interfaceParentCm.Id
             };
 
-            var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
             var interfaceCm = await interfaceService.Create(interfaceAm, true);
 
             Assert.NotNull(interfaceCm);
@@ -65,9 +94,17 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(interfaceAm.RdsName, interfaceCm.RdsName);
             Assert.Equal(interfaceAm.RdsCode, interfaceCm.RdsCode);
             Assert.Equal(interfaceAm.PurposeName, interfaceCm.PurposeName);
-            Assert.Equal(interfaceAm.Aspect, interfaceCm.Aspect);
             Assert.Equal(interfaceAm.Description, interfaceCm.Description);
+            Assert.Equal(interfaceAm.Aspect, interfaceCm.Aspect);
             Assert.Equal(interfaceAm.CompanyId, interfaceCm.CompanyId);
+            Assert.Equal(interfaceAm.TerminalId, interfaceCm.TerminalId);
+            Assert.Equal(interfaceAm.AttributeIdList.ToList().ConvertToString(), interfaceCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
+            Assert.Equal(interfaceAm.TypeReferences.First().Iri, interfaceAm.TypeReferences.First().Iri);
+            Assert.Equal(interfaceAm.TypeReferences.First().Name, interfaceAm.TypeReferences.First().Name);
+            Assert.Equal(interfaceAm.TypeReferences.First().Source, interfaceAm.TypeReferences.First().Source);
+            Assert.Equal(interfaceAm.TypeReferences.First().SubIri, interfaceAm.TypeReferences.First().SubIri);
+            Assert.Equal(interfaceAm.TypeReferences.First().SubName, interfaceAm.TypeReferences.First().SubName);
+            Assert.Equal(interfaceAm.ParentId, interfaceCm.ParentId);
         }
 
         [Fact]
