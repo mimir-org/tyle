@@ -8,9 +8,8 @@ import { Form, FormErrorBanner, FormField, FormFieldset, FormHeader } from "../.
 import { Input } from "../../../../complib/inputs";
 import { MotionFlexbox } from "../../../../complib/layouts";
 import { MotionText, Text } from "../../../../complib/text";
-import { getValidationStateFromServer } from "../../../../data/helpers/getValidationStateFromServer";
 import { useLogin } from "../../../../data/queries/auth/queriesAuthenticate";
-import { useValidationFromServer } from "../../../../hooks/useValidationFromServer";
+import { useServerValidation } from "../../../../hooks/useServerValidation";
 import { MotionLogo } from "../../../common/logo/Logo";
 import { UnauthenticatedFormContainer } from "../UnauthenticatedFormContainer";
 
@@ -21,17 +20,16 @@ export const Login = () => {
   const { register, handleSubmit, setError, formState } = useForm<MimirorgAuthenticateAm>();
   const { errors } = formState;
 
-  const loginMutation = useLogin();
-  const validationState = getValidationStateFromServer<MimirorgAuthenticateAm>(loginMutation.error);
-  useValidationFromServer<MimirorgAuthenticateAm>(setError, validationState?.errors);
+  const mutation = useLogin();
+  useServerValidation(mutation.error, setError);
 
   return (
     <UnauthenticatedFormContainer>
-      <Form onSubmit={handleSubmit((data) => loginMutation.mutate(data))}>
+      <Form onSubmit={handleSubmit((data) => mutation.mutate(data))}>
         <MotionLogo layout width={"100px"} height={"50px"} inverse alt="" />
         <FormHeader title={t("login.title")} subtitle={t("login.description")} />
 
-        {loginMutation.isError && <FormErrorBanner>{t("login.error")}</FormErrorBanner>}
+        {mutation.isError && <FormErrorBanner>{t("login.error")}</FormErrorBanner>}
 
         <FormFieldset>
           <FormField label={`${t("fields.email")} *`} error={errors.email}>

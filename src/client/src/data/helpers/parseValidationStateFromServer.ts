@@ -1,13 +1,14 @@
 import axios, { AxiosError } from "axios";
-import { ValidationState } from "../types/validationState";
 import { ServerValidationError } from "../types/serverValidationError";
+import { ValidationState } from "../types/validationState";
 
 /**
- * Takes an unknown error and returns a more general type
+ * Takes an unknown server error model and returns a more general type
+ *
  * @param error unknown type
  * @returns a more general formatted error, null if no error is supplied
  */
-export function getValidationStateFromServer<T>(error: unknown): ValidationState<T> | null {
+export const parseValidationStateFromServer = <T>(error: unknown): ValidationState<T> | null => {
   if (!error) return null;
 
   if (axios.isAxiosError(error)) {
@@ -22,4 +23,4 @@ export function getValidationStateFromServer<T>(error: unknown): ValidationState
   }
 
   return { message: "Unspecified client error has occurred." };
-}
+};

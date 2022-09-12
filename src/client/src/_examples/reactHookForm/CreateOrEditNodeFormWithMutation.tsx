@@ -4,9 +4,8 @@ import {
   FormNodeLib,
   mapFormNodeLibToApiModel,
 } from "../../content/forms/node/types/formNodeLib";
-import { getValidationStateFromServer } from "../../data/helpers/getValidationStateFromServer";
 import { useCreateNode } from "../../data/queries/tyle/queriesNode";
-import { useValidationFromServer } from "../../hooks/useValidationFromServer";
+import { useServerValidation } from "../../hooks/useServerValidation";
 
 interface Props {
   defaultValues?: FormNodeLib;
@@ -26,8 +25,7 @@ export const CreateOrEditNodeFormWithMutation = ({ defaultValues = createEmptyFo
     formState: { errors },
   } = useForm<FormNodeLib>({ defaultValues });
   const mutation = useCreateNode();
-  const validationState = getValidationStateFromServer<FormNodeLib>(mutation.error);
-  useValidationFromServer<FormNodeLib>(setError, validationState?.errors);
+  useServerValidation(mutation.error, setError);
 
   return (
     <div>
