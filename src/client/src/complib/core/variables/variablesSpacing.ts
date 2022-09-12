@@ -26,8 +26,11 @@ export const spacing: SpacingSystem = {
 };
 
 export const getSpacingsOnly = () => {
-  const {unit, multiple, ...spacings} = spacing;
-  return spacings;
+  const partialSpacingSystem: Partial<SpacingSystem> = {...spacing};
+  delete partialSpacingSystem.unit;
+  delete partialSpacingSystem.multiple;
+
+  return partialSpacingSystem;
 }
 
 export const variablesSpacing = css`
