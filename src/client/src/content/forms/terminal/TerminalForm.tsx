@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
+import { useServerValidation } from "../../../hooks/useServerValidation";
 import { Loader } from "../../common/loader";
 import { FormAttributes } from "../common/form-attributes/FormAttributes";
 import { onSubmitForm } from "../common/utils/onSubmitForm";
@@ -27,7 +28,7 @@ interface TerminalFormProps {
 export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), isEdit }: TerminalFormProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const { register, handleSubmit, control, reset } = useForm<FormTerminalLib>({ defaultValues });
+  const { register, handleSubmit, control, setError, reset, formState } = useForm<FormTerminalLib>({ defaultValues });
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
   const query = useTerminalQuery();
@@ -36,6 +37,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), isE
   const toast = useSubmissionToast(t("terminal.title"));
 
   const mutation = useTerminalMutation(isEdit);
+  useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
   return (
@@ -45,7 +47,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), isE
       {isLoading && <Loader />}
       {!isLoading && (
         <>
-          <TerminalFormBaseFields control={control} register={register} />
+          <TerminalFormBaseFields control={control} register={register} errors={formState.errors} />
 
           <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
             <FormAttributes

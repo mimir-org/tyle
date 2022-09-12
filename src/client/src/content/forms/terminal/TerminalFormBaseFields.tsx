@@ -1,5 +1,5 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { Control, Controller, UseFormRegister } from "react-hook-form";
+import { Control, Controller, FieldErrors, UseFormRegister } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Button } from "../../../complib/buttons";
@@ -15,6 +15,7 @@ import { FormTerminalLib } from "./types/formTerminalLib";
 interface TerminalFormBaseFieldsProps {
   control: Control<FormTerminalLib>;
   register: UseFormRegister<FormTerminalLib>;
+  errors: FieldErrors<FormTerminalLib>;
 }
 
 /**
@@ -22,9 +23,10 @@ interface TerminalFormBaseFieldsProps {
  *
  * @param control
  * @param register
+ * @param errors
  * @constructor
  */
-export const TerminalFormBaseFields = ({ control, register }: TerminalFormBaseFieldsProps) => {
+export const TerminalFormBaseFields = ({ control, register, errors }: TerminalFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -35,11 +37,11 @@ export const TerminalFormBaseFields = ({ control, register }: TerminalFormBaseFi
       <TerminalFormPreview control={control} />
 
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
-        <FormField label={t("terminal.name")}>
+        <FormField label={t("terminal.name")} error={errors.name}>
           <Input placeholder={t("terminal.placeholders.name")} {...register("name")} />
         </FormField>
 
-        <FormField label={t("terminal.color")}>
+        <FormField label={t("terminal.color")} error={errors.color}>
           <Input type={"color"} placeholder={t("terminal.placeholders.color")} {...register("color")} />
         </FormField>
 
@@ -47,7 +49,7 @@ export const TerminalFormBaseFields = ({ control, register }: TerminalFormBaseFi
           control={control}
           name={"companyId"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("terminal.owner")}>
+            <FormField label={t("terminal.owner")} error={errors.companyId}>
               <Select
                 {...rest}
                 selectRef={ref}
@@ -64,7 +66,7 @@ export const TerminalFormBaseFields = ({ control, register }: TerminalFormBaseFi
           )}
         />
 
-        <FormField label={t("terminal.description")}>
+        <FormField label={t("terminal.description")} error={errors.description}>
           <Textarea placeholder={t("terminal.placeholders.description")} {...register("description")} />
         </FormField>
       </Flexbox>
