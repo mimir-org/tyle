@@ -10,6 +10,7 @@ using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Http;
 using Mimirorg.Authentication.Extensions;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -26,8 +27,9 @@ namespace Mimirorg.Authentication.Services
         private readonly IMimirorgTemplateRepository _templateRepository;
         private readonly IMimirorgCompanyService _mimirorgCompanyService;
         private readonly IMimirorgAuthService _mimirorgAuthService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public MimirorgUserService(UserManager<MimirorgUser> userManager, IOptions<MimirorgAuthSettings> authSettings, IMimirorgTokenRepository tokenRepository, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IMimirorgCompanyService mimirorgCompanyService, IMimirorgAuthService mimirorgAuthService)
+        public MimirorgUserService(UserManager<MimirorgUser> userManager, IOptions<MimirorgAuthSettings> authSettings, IMimirorgTokenRepository tokenRepository, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IMimirorgCompanyService mimirorgCompanyService, IMimirorgAuthService mimirorgAuthService, IHttpContextAccessor httpContextAccessor)
         {
             _userManager = userManager;
             _tokenRepository = tokenRepository;
@@ -36,6 +38,7 @@ namespace Mimirorg.Authentication.Services
             _authSettings = authSettings?.Value;
             _mimirorgCompanyService = mimirorgCompanyService;
             _mimirorgAuthService = mimirorgAuthService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         /// <summary>
@@ -128,6 +131,22 @@ namespace Mimirorg.Authentication.Services
             var permissionDictionary = await ResolveCompanies(companies, permissions, user);
             userCm.Permissions = permissionDictionary;
             return userCm;
+        }
+
+        /// <summary>
+        /// Get companies that is registered for current logged in user
+        /// </summary>
+        /// <returns>A collection of registered companies</returns>
+        public async Task<ICollection<MimirorgCompanyCm>> GetUserFilteredCompanies()
+        {
+            var user = await GetUser(_httpContextAccessor.GetUser());
+
+            if (user == null)
+                return new List<MimirorgCompanyCm>();
+
+            var companies = (await _mimirorgCompanyService.GetAllCompanies()).ToList();
+            companies = companies.Where(x => user.Permissions.ContainsKey(x.Id)).ToList();
+            return companies;
         }
 
         /// <summary>
