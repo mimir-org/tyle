@@ -19,7 +19,7 @@ export const FormField = ({ label, error, children }: PropsWithChildren<FormFiel
   const theme = useTheme();
 
   return (
-    <MotionFlexbox layout={"position"} flexDirection={"column"} gap={theme.tyle.spacing.base}>
+    <MotionFlexbox layout flexDirection={"column"} gap={theme.tyle.spacing.s}>
       <Flexbox as={"label"} flexDirection={"column"} gap={theme.tyle.spacing.xs}>
         <Box borderLeft={"1px solid transparent"}>
           <Text
