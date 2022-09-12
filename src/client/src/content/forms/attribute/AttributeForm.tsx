@@ -5,6 +5,7 @@ import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
 import { useCreateAttribute, useGetAttributesReference } from "../../../data/queries/tyle/queriesAttribute";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
+import { useServerValidation } from "../../../hooks/useServerValidation";
 import { Loader } from "../../common/loader";
 import { FormReferences, HasReferences } from "../common/form-references/FormReferences";
 import { onSubmitForm } from "../common/utils/onSubmitForm";
@@ -30,7 +31,10 @@ interface AttributeFormProps {
 export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }: AttributeFormProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const { register, handleSubmit, control, reset, resetField } = useForm<FormAttributeLib>({ defaultValues });
+  const { register, handleSubmit, control, setError, reset, resetField, formState } = useForm<FormAttributeLib>({
+    defaultValues,
+  });
+
   const attributeSelect = useWatch({ control, name: "select" });
 
   const query = useAttributeQuery();
@@ -40,7 +44,7 @@ export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }:
   const attributeReferences = useGetAttributesReference();
 
   const toast = useSubmissionToast(t("attribute.title"));
-
+  useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
   return (
@@ -54,6 +58,7 @@ export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }:
             control={control}
             register={register}
             resetField={resetField}
+            errors={formState.errors}
             isPrefilled={isPrefilled}
           />
 
