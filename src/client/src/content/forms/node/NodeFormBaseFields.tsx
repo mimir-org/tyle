@@ -1,4 +1,4 @@
-import { Aspect } from "@mimirorg/typelibrary-types";
+import { Aspect, MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { Control, Controller, UseFormRegister, UseFormResetField, UseFormSetValue } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
@@ -10,12 +10,12 @@ import { Box, Flexbox } from "../../../complib/layouts";
 import { Icon } from "../../../complib/media";
 import { Text } from "../../../complib/text";
 import { ConditionalWrapper } from "../../../complib/utils";
-import { useGetCompanies } from "../../../data/queries/auth/queriesCompany";
 import { useGetPurposes } from "../../../data/queries/tyle/queriesPurpose";
 import { useGetRds } from "../../../data/queries/tyle/queriesRds";
 import { useGetSymbols } from "../../../data/queries/tyle/queriesSymbol";
 import { getValueLabelObjectsFromEnum } from "../../../utils/getValueLabelObjectsFromEnum";
 import { PlainLink } from "../../utils/PlainLink";
+import { useGetFilteredCompanies } from "../common/utils/useGetFilteredCompanies";
 import { resetSubform } from "./NodeForm.helpers";
 import { NodeFormBaseFieldsContainer } from "./NodeFormBaseFields.styled";
 import { NodeFormPreview } from "./NodeFormPreview";
@@ -52,8 +52,8 @@ export const NodeFormBaseFields = ({
   const rdsQuery = useGetRds();
   const symbolQuery = useGetSymbols();
   const purposeQuery = useGetPurposes();
-  const companyQuery = useGetCompanies();
   const aspectOptions = getValueLabelObjectsFromEnum<Aspect>(Aspect);
+  const companies = useGetFilteredCompanies(MimirorgPermission.Write);
 
   return (
     <NodeFormBaseFieldsContainer>
@@ -173,13 +173,13 @@ export const NodeFormBaseFields = ({
                 {...rest}
                 selectRef={ref}
                 placeholder={t("common.templates.select", { object: t("node.owner").toLowerCase() })}
-                options={companyQuery.data}
+                options={companies}
                 getOptionLabel={(x) => x.name}
                 getOptionValue={(x) => x.id.toString()}
                 onChange={(x) => {
                   onChange(x?.id);
                 }}
-                value={companyQuery.data?.find((x) => x.id === value)}
+                value={companies.find((x) => x.id === value)}
               />
             )}
           />

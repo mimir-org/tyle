@@ -1,4 +1,4 @@
-import { Aspect, Discipline, Select as AttributeSelect } from "@mimirorg/typelibrary-types";
+import { Aspect, Discipline, MimirorgPermission, Select as AttributeSelect } from "@mimirorg/typelibrary-types";
 import { Control, Controller, UseFormRegister, UseFormResetField } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
@@ -6,7 +6,6 @@ import { Button } from "../../../complib/buttons";
 import { FormField } from "../../../complib/form";
 import { Input, Select } from "../../../complib/inputs";
 import { Flexbox } from "../../../complib/layouts";
-import { useGetCompanies } from "../../../data/queries/auth/queriesCompany";
 import {
   useGetAttributesCondition,
   useGetAttributesFormat,
@@ -15,6 +14,7 @@ import {
 } from "../../../data/queries/tyle/queriesAttribute";
 import { getValueLabelObjectsFromEnum } from "../../../utils/getValueLabelObjectsFromEnum";
 import { PlainLink } from "../../utils/PlainLink";
+import { useGetFilteredCompanies } from "../common/utils/useGetFilteredCompanies";
 import { onChangeSelectType } from "./AttributeFormBaseFields.helpers";
 import { AttributeFormBaseFieldsContainer } from "./AttributeFormBaseFields.styled";
 import { AttributeFormPreview } from "./AttributeFormPreview";
@@ -45,7 +45,6 @@ export const AttributeFormBaseFields = ({
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const companyQuery = useGetCompanies();
   const attributeSourceQuery = useGetAttributesSource();
   const attributeFormatQuery = useGetAttributesFormat();
   const attributeQualifierQuery = useGetAttributesQualifier();
@@ -53,6 +52,7 @@ export const AttributeFormBaseFields = ({
   const aspectOptions = getValueLabelObjectsFromEnum<Aspect>(Aspect);
   const disciplineOptions = getValueLabelObjectsFromEnum<Discipline>(Discipline);
   const selectOptions = getValueLabelObjectsFromEnum<AttributeSelect>(AttributeSelect);
+  const companies = useGetFilteredCompanies(MimirorgPermission.Write);
 
   return (
     <AttributeFormBaseFieldsContainer>
@@ -109,13 +109,13 @@ export const AttributeFormBaseFields = ({
                 {...rest}
                 selectRef={ref}
                 placeholder={t("common.templates.select", { object: t("node.owner").toLowerCase() })}
-                options={companyQuery.data}
+                options={companies}
                 getOptionLabel={(x) => x.name}
                 getOptionValue={(x) => x.id.toString()}
                 onChange={(x) => {
                   onChange(x?.id);
                 }}
-                value={companyQuery.data?.find((x) => x.id === value)}
+                value={companies.find((x) => x.id === value)}
               />
             </FormField>
           )}
