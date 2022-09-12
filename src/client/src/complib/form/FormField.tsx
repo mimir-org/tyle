@@ -35,7 +35,7 @@ export const FormField = ({ label, error, children }: PropsWithChildren<FormFiel
       </Flexbox>
 
       {error && error.message && (
-        <MotionText color={theme.tyle.color.sys.error.base} {...theme.tyle.animation.fade}>
+        <MotionText variant={"label-medium"} color={theme.tyle.color.sys.error.base} {...theme.tyle.animation.fade}>
           {error.message}
         </MotionText>
       )}
