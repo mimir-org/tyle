@@ -40,7 +40,6 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// Get all registered companies for current user
         /// </summary>
         /// <returns>ICollection&lt;MimirorgCompanyCm&gt;</returns>
-        [Authorize]
         [HttpGet]
         [Route("")]
         [ProducesResponseType(typeof(ICollection<MimirorgCompanyCm>), 200)]
@@ -51,7 +50,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         {
             try
             {
-                var data = await _userService.GetUserFilteredCompanies();
+                var data = await _companyService.GetAllCompanies();
                 return Ok(data);
             }
             catch (Exception e)
