@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Box } from "../../../complib/layouts";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
+import { useServerValidation } from "../../../hooks/useServerValidation";
 import { Loader } from "../../common/loader";
 import { FormAttributes } from "../common/form-attributes/FormAttributes";
 import { onSubmitForm } from "../common/utils/onSubmitForm";
@@ -28,7 +29,9 @@ interface NodeFormProps {
 export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: NodeFormProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const { register, handleSubmit, control, setValue, reset, resetField } = useForm<FormNodeLib>({ defaultValues });
+  const { register, handleSubmit, control, setValue, setError, reset, resetField, formState } = useForm<FormNodeLib>({
+    defaultValues,
+  });
 
   const aspect = useWatch({ control, name: "aspect" });
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
@@ -39,6 +42,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
   const toast = useSubmissionToast(t("node.title"));
 
   const mutation = useNodeMutation(isEdit);
+  useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
   return (
@@ -53,6 +57,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
             register={register}
             resetField={resetField}
             setValue={setValue}
+            errors={formState.errors}
             isPrefilled={isPrefilled}
           />
 
