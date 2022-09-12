@@ -1,4 +1,4 @@
-import { MimirorgPermission, MimirorgUserCm, MimirorgCompanyCm } from "@mimirorg/typelibrary-types";
+import { MimirorgCompanyCm, MimirorgPermission, MimirorgUserCm } from "@mimirorg/typelibrary-types";
 
 /**
  * Check if user has access to a spesific company with given permission.
@@ -10,9 +10,9 @@ import { MimirorgPermission, MimirorgUserCm, MimirorgCompanyCm } from "@mimirorg
 export const hasAccess = (user: MimirorgUserCm, company: number, permission: MimirorgPermission): boolean => {
   if (!user) return false;
   if (company < 1) return false;
-  const companyPermission = user?.permissions[company] && (user?.permissions[company] as MimirorgPermission);
-  if ((companyPermission & permission) === permission) return true;
-  return false;
+  const companyPermission = user?.permissions[company];
+
+  return (companyPermission & permission) === permission;
 };
 
 /**
@@ -23,8 +23,8 @@ export const hasAccess = (user: MimirorgUserCm, company: number, permission: Mim
  * @returns {MimirorgCompanyCm[]} Returns a filtered list of companies
  */
 export const filterCompanyList = (
-  companies: MimirorgCompanyCm[],
-  user: MimirorgUserCm,
+  companies: MimirorgCompanyCm[] | undefined,
+  user: MimirorgUserCm | undefined,
   permission: MimirorgPermission
 ): MimirorgCompanyCm[] => {
   if (!user || !companies || !companies.some((x) => x)) return [] as MimirorgCompanyCm[];
