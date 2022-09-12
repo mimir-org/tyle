@@ -23,8 +23,8 @@ export const hasAccess = (user: MimirorgUserCm, company: number, permission: Mim
  * @returns {MimirorgCompanyCm[]} Returns a filtered list of companies
  */
 export const filterCompanyList = (
-  companies: MimirorgCompanyCm[],
-  user: MimirorgUserCm,
+  companies: MimirorgCompanyCm[] | undefined,
+  user: MimirorgUserCm | undefined,
   permission: MimirorgPermission
 ): MimirorgCompanyCm[] => {
   if (!user || !companies || !companies.some((x) => x)) return [] as MimirorgCompanyCm[];
