@@ -141,7 +141,7 @@
     "owner": "Owner",
     "description": "Description",
     "placeholders": {
-      "name": "Transport name",
+      "name": "Interface name",
       "description": "Additional information about this transport can be supplied here."
     },
     "disabled": {
