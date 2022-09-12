@@ -1,3 +1,4 @@
+import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { Control, Controller, UseFormRegister } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
@@ -5,8 +6,8 @@ import { Button } from "../../../complib/buttons";
 import { FormField } from "../../../complib/form";
 import { Input, Select, Textarea } from "../../../complib/inputs";
 import { Flexbox } from "../../../complib/layouts";
-import { useGetCompanies } from "../../../data/queries/auth/queriesCompany";
 import { PlainLink } from "../../utils/PlainLink";
+import { useGetFilteredCompanies } from "../common/utils/useGetFilteredCompanies";
 import { TerminalFormBaseFieldsContainer } from "./TerminalFormBaseFields.styled";
 import { TerminalFormPreview } from "./TerminalFormPreview";
 import { FormTerminalLib } from "./types/formTerminalLib";
@@ -27,7 +28,7 @@ export const TerminalFormBaseFields = ({ control, register }: TerminalFormBaseFi
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const companyQuery = useGetCompanies();
+  const companies = useGetFilteredCompanies(MimirorgPermission.Write);
 
   return (
     <TerminalFormBaseFieldsContainer>
@@ -51,13 +52,13 @@ export const TerminalFormBaseFields = ({ control, register }: TerminalFormBaseFi
                 {...rest}
                 selectRef={ref}
                 placeholder={t("common.templates.select", { object: t("terminal.owner").toLowerCase() })}
-                options={companyQuery.data}
+                options={companies}
                 getOptionLabel={(x) => x.name}
                 getOptionValue={(x) => x.id.toString()}
                 onChange={(x) => {
                   onChange(x?.id);
                 }}
-                value={companyQuery.data?.find((x) => x.id === value)}
+                value={companies.find((x) => x.id === value)}
               />
             </FormField>
           )}
