@@ -60,14 +60,14 @@ namespace TypeLibrary.Services.Services
 
         public async Task<IEnumerable<NodeLibCm>> GetAll(bool includeDeleted = false)
         {
-            var nodeLibDms = includeDeleted ? _nodeRepository.Get()?.ToList() : _nodeRepository.Get()?.Where(x => !x.Deleted).ToList();
+            var nodeLibDms = includeDeleted ? _nodeRepository.Get()?.ToList() : _nodeRepository.Get()?.Where(x => x.State != State.Deleted).ToList();
             var nodeLibCms = _mapper.Map<List<NodeLibCm>>(nodeLibDms);
             return await Task.FromResult(nodeLibCms);
         }
 
         public async Task<IEnumerable<NodeLibCm>> GetLatestVersions()
         {
-            var distinctFirstVersionIdDm = _nodeRepository.Get()?.Where(x => !x.Deleted).ToList().DistinctBy(x => x.FirstVersionId).ToList();
+            var distinctFirstVersionIdDm = _nodeRepository.Get()?.Where(x => x.State != State.Deleted).ToList().DistinctBy(x => x.FirstVersionId).ToList();
 
             if (distinctFirstVersionIdDm == null || !distinctFirstVersionIdDm.Any())
                 return await Task.FromResult(new List<NodeLibCm>());
@@ -115,7 +115,7 @@ namespace TypeLibrary.Services.Services
             if (nodeLibDm == null)
                 throw new MimirorgMappingException("NodeLibAm", "NodeLibDm");
 
-            await _nodeRepository.Create(nodeLibDm);
+            await _nodeRepository.Create(nodeLibDm, State.Draft);
             _nodeRepository.ClearAllChangeTrackers();
 
             var dm = await Get(nodeLibDm.Id);
@@ -142,7 +142,7 @@ namespace TypeLibrary.Services.Services
             if (nodeToUpdate.CreatedBy == _applicationSettings.System)
                 throw new MimirorgBadRequestException($"The node with id {id} is created by the system and can not be updated.");
 
-            if (nodeToUpdate.Deleted)
+            if (nodeToUpdate.State == State.Deleted)
                 throw new MimirorgBadRequestException($"The node with id {id} is deleted and can not be updated.");
 
             var latestNodeDm = await _versionService.GetLatestVersion(nodeToUpdate);

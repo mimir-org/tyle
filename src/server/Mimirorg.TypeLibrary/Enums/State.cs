@@ -4,22 +4,29 @@ namespace Mimirorg.TypeLibrary.Enums
 {
     public enum State
     {
+        //Draft
         [Display(Name = "Draft")]
         Draft = 0,
 
-        [Display(Name = "Deleted")]
-        Deleted = 1,
-
+        //Company
         [Display(Name = "Approve Company")]
-        ApproveCompany = 2,
+        ApproveCompany = 1,
 
+        [Display(Name = "Approved Company")]
+        ApprovedCompany = 2,
+
+        //Global
         [Display(Name = "Approve Global")]
         ApproveGlobal = 3,
 
-        [Display(Name = "Approved Company")]
-        ApprovedCompany = 4,
-
         [Display(Name = "Approved Global")]
-        ApprovedGlobal = 5
+        ApprovedGlobal = 4,
+
+        //Delete
+        [Display(Name = "Delete")]
+        Delete = 5,
+
+        [Display(Name = "Deleted")]
+        Deleted = 6
     }
 }

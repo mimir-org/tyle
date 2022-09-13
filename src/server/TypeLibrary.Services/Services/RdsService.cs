@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Models;
+using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
@@ -28,7 +29,7 @@ namespace TypeLibrary.Services.Services
 
         public IEnumerable<RdsLibCm> Get()
         {
-            var allRds = _rdsRepository.Get().ToList()
+            var allRds = _rdsRepository.Get().Where(x => x.State != State.Deleted).ToList()
                 .OrderBy(x => x.Id.Length).ThenBy(x => x.Id, StringComparer.InvariantCultureIgnoreCase).ToList();
 
             return _mapper.Map<List<RdsLibCm>>(allRds);
@@ -46,7 +47,7 @@ namespace TypeLibrary.Services.Services
             foreach (var data in notExisting)
                 data.CreatedBy = createdBySystem ? _applicationSettings.System : data.CreatedBy;
 
-            await _rdsRepository.Create(notExisting);
+            await _rdsRepository.Create(notExisting, createdBySystem ? State.ApprovedGlobal : State.Draft);
             _rdsRepository.ClearAllChangeTrackers();
         }
     }

@@ -110,6 +110,7 @@ namespace Mimirorg.Integration.Tests.Services
             var nodeCm = await nodeService.Create(nodeAm);
 
             Assert.NotNull(nodeCm);
+            Assert.True(nodeCm.State == State.Draft);
             Assert.Equal(nodeAm.Id, nodeCm.Id);
             Assert.Equal(nodeAm.Name, nodeCm.Name);
             Assert.Equal(nodeAm.RdsName, nodeCm.RdsName);

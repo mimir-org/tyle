@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
@@ -41,28 +42,28 @@ namespace TypeLibrary.Services.Services
             if (obj.GetType() == typeof(NodeLibDm) && (obj as NodeLibDm)?.Version != null)
             {
                 (existingDmVersions as List<NodeLibDm>)?.AddRange(_nodeRepository.Get()
-                    .Where(x => x.FirstVersionId == (obj as NodeLibDm)?.FirstVersionId && !x.Deleted).ToList()
+                    .Where(x => x.FirstVersionId == (obj as NodeLibDm)?.FirstVersionId && x.State != State.Deleted).ToList()
                     .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
             }
 
             else if (obj.GetType() == typeof(InterfaceLibDm) && (obj as InterfaceLibDm)?.Version != null)
             {
                 (existingDmVersions as List<InterfaceLibDm>)?.AddRange(_interfaceRepository.Get()
-                    .Where(x => x.FirstVersionId == (obj as InterfaceLibDm)?.FirstVersionId && !x.Deleted).ToList()
+                    .Where(x => x.FirstVersionId == (obj as InterfaceLibDm)?.FirstVersionId && x.State != State.Deleted).ToList()
                     .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
             }
 
             else if (obj.GetType() == typeof(TransportLibDm) && (obj as TransportLibDm)?.Version != null)
             {
                 (existingDmVersions as List<TransportLibDm>)?.AddRange(_transportRepository.Get()
-                    .Where(x => x.FirstVersionId == (obj as TransportLibDm)?.FirstVersionId && !x.Deleted).ToList()
+                    .Where(x => x.FirstVersionId == (obj as TransportLibDm)?.FirstVersionId && x.State != State.Deleted).ToList()
                     .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
             }
 
             else if (obj.GetType() == typeof(TerminalLibDm) && (obj as TerminalLibDm)?.Version != null)
             {
                 (existingDmVersions as List<TerminalLibDm>)?.AddRange(_terminalRepository.Get()
-                    .Where(x => x.FirstVersionId == (obj as TerminalLibDm)?.FirstVersionId && !x.Deleted).ToList()
+                    .Where(x => x.FirstVersionId == (obj as TerminalLibDm)?.FirstVersionId && x.State != State.Deleted).ToList()
                     .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
             }
 

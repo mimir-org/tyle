@@ -1,6 +1,8 @@
+using AngleSharp.Dom;
 using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Setup;
+using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Services.Contracts;
@@ -63,6 +65,7 @@ namespace Mimirorg.Integration.Tests.Services
             var terminalCm = await terminalService.Create(terminalAm, true);
 
             Assert.NotNull(terminalCm);
+            Assert.True(terminalCm.State == State.Draft);
             Assert.Equal(terminalAm.Id, terminalCm.Id);
             Assert.Equal(terminalAm.ParentId, terminalCm.ParentId);
 

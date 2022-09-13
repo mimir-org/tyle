@@ -1,3 +1,4 @@
+using AngleSharp.Dom;
 using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Setup;
 using Mimirorg.TypeLibrary.Enums;
@@ -68,19 +69,20 @@ namespace Mimirorg.Integration.Tests.Services
 
                     }
                 },
-                SelectValues = new List<string>{"value1", "VALUE2", "value3"},
+                SelectValues = new List<string> { "value1", "VALUE2", "value3" },
                 UnitIdList = new List<string>
                 {
                     unitCmList[0]?.Id,
                     unitCmList[1]?.Id,
                     unitCmList[2]?.Id
                 },
-                Tags = new HashSet<string>{"set1", "set2"}
+                Tags = new HashSet<string> { "set1", "set2" }
             };
 
             var attributeCm = await attributeService.Create(attributeAm);
 
             Assert.NotNull(attributeCm);
+            Assert.True(attributeCm.State == State.Draft);
             Assert.Equal(attributeAm.Id, attributeCm.Id);
             Assert.Equal(attributeAm.Name, attributeCm.Name);
             Assert.Equal(attributeAm.Aspect.ToString(), attributeCm.Aspect.ToString());
@@ -100,7 +102,7 @@ namespace Mimirorg.Integration.Tests.Services
 
             var amSelectValues = attributeAm.SelectValues.OrderBy(x => x, StringComparer.InvariantCulture).ToList();
             var cmSelectValues = attributeCm.SelectValues.OrderBy(x => x, StringComparer.InvariantCulture).ToList();
-            
+
             for (var i = 0; i < amSelectValues.Count; i++)
                 Assert.Equal(amSelectValues[i], cmSelectValues[i]);
 

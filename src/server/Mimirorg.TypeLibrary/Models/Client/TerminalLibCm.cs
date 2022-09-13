@@ -1,3 +1,5 @@
+using Mimirorg.TypeLibrary.Enums;
+
 namespace Mimirorg.TypeLibrary.Models.Client
 {
     public class TerminalLibCm
@@ -13,6 +15,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public ICollection<TypeReferenceCm> TypeReferences { get; set; }
         public string Color { get; set; }
         public string Description { get; set; }
+        public State State { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public int CompanyId { get; set; }

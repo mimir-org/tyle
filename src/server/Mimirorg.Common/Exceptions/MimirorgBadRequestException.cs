@@ -21,6 +21,8 @@ namespace Mimirorg.Common.Exceptions
             _validation.Message = message;
         }
 
+        //TODO override MimirorgBadRequestException
+
         public IEnumerable<MimirorgBadRequest> Errors()
         {
             if (_validation.IsValid)
