@@ -51,7 +51,7 @@ namespace TypeLibrary.Data.Repositories.Ef
             if (dataDm?.Attributes != null && dataDm.Attributes.Any())
                 _attributeRepository.SetUnchanged(dataDm.Attributes);
 
-            if(dataDm != null)
+            if (dataDm != null)
                 dataDm.State = state;
 
             await CreateAsync(dataDm);

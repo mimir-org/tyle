@@ -32,7 +32,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         {
             foreach (var item in items)
                 item.State = state;
-            
+
             Attach(items, EntityState.Added);
             await SaveAsync();
             Detach(items);

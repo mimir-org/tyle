@@ -68,7 +68,7 @@ namespace TypeLibrary.Services.Services
         public async Task<AttributeLibCm> Get(string id)
         {
             var item = await _attributeRepository.Get(id);
-            
+
             if (item == null)
                 return null;
 
@@ -115,7 +115,7 @@ namespace TypeLibrary.Services.Services
 
             var data = _mapper.Map<AttributeLibDm>(attribute);
             var exist = await _attributeRepository.Exist(data.Id);
-            
+
             if (exist)
                 throw new MimirorgBadRequestException($"The attribute with Id: {data.Id} already exist", new Validation
                 {
@@ -125,7 +125,7 @@ namespace TypeLibrary.Services.Services
                     {
                         new ValidationResult("A combination of these properties already exists.", new List<string>
                         {
-                            nameof(AttributeLibAm.Name), 
+                            nameof(AttributeLibAm.Name),
                             "Aspect",
                             "AttributeQualifier",
                             "AttributeSource",

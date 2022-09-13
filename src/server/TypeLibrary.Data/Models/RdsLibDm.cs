@@ -12,6 +12,6 @@ namespace TypeLibrary.Data.Models
         public State State { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-        
+
     }
 }

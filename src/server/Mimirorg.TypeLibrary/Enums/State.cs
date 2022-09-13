@@ -18,7 +18,7 @@ namespace Mimirorg.TypeLibrary.Enums
         //Global
         [Display(Name = "Approve Global")]
         ApproveGlobal = 3,
-        
+
         [Display(Name = "Approved Global")]
         ApprovedGlobal = 4,
 
