@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -113,8 +114,24 @@ namespace TypeLibrary.Services.Services
 
             var data = _mapper.Map<AttributeLibDm>(attribute);
             var exist = await _attributeRepository.Exist(data.Id);
+            
             if (exist)
-                throw new MimirorgDuplicateException($"The attribute with Id: {data.Id} already exist");
+                throw new MimirorgBadRequestException($"The attribute with Id: {data.Id} already exist", new Validation
+                {
+                    IsValid = false,
+                    Message = $"The attribute with Id: {data.Id} already exist.",
+                    Result = new List<ValidationResult>
+                    {
+                        new ValidationResult("A combination of these properties already exists.", new List<string>
+                        {
+                            nameof(AttributeLibAm.Name), 
+                            "Aspect",
+                            "AttributeQualifier",
+                            "AttributeSource",
+                            "AttributeCondition"
+                        })
+                    }
+                });
 
             await _attributeRepository.Create(data);
             var attrLibCm = _mapper.Map<AttributeLibCm>(data);
