@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
@@ -40,15 +41,18 @@ namespace TypeLibrary.Data.Repositories.Ef
                 .Include(x => x.Attributes)
                 .Include(x => x.Parent)
                 .AsSplitQuery()
-                .FirstOrDefaultAsync(x => !x.Deleted);
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             return item;
         }
 
-        public async Task Create(InterfaceLibDm dataDm)
+        public async Task Create(InterfaceLibDm dataDm, State state)
         {
             if (dataDm?.Attributes != null && dataDm.Attributes.Any())
                 _attributeRepository.SetUnchanged(dataDm.Attributes);
+
+            if(dataDm != null)
+                dataDm.State = state;
 
             await CreateAsync(dataDm);
             await SaveAsync();
@@ -71,7 +75,7 @@ namespace TypeLibrary.Data.Repositories.Ef
             if (dm.CreatedBy == _applicationSettings.System)
                 throw new MimirorgBadRequestException($"The interface with id {id} is created by the system and can not be deleted.");
 
-            dm.Deleted = true;
+            dm.State = State.Deleted;
             Context.Entry(dm).State = EntityState.Modified;
             return await Context.SaveChangesAsync() == 1;
         }

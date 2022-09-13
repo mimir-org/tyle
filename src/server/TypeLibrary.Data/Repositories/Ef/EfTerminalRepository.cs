@@ -3,10 +3,9 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Exceptions;
-using Mimirorg.Common.Models;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
@@ -16,12 +15,10 @@ namespace TypeLibrary.Data.Repositories.Ef
     public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, TerminalLibDm>, IEfTerminalRepository
     {
         private readonly IAttributeRepository _attributeRepository;
-        private readonly ApplicationSettings _applicationSettings;
 
-        public EfTerminalRepository(TypeLibraryDbContext dbContext, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings) : base(dbContext)
+        public EfTerminalRepository(TypeLibraryDbContext dbContext, IAttributeRepository attributeRepository) : base(dbContext)
         {
             _attributeRepository = attributeRepository;
-            _applicationSettings = applicationSettings?.Value;
         }
 
         public IEnumerable<TerminalLibDm> Get()
@@ -38,17 +35,19 @@ namespace TypeLibrary.Data.Repositories.Ef
             return terminal;
         }
 
-        public async Task Create(List<TerminalLibDm> items)
+        public async Task Create(List<TerminalLibDm> items, State state)
         {
             foreach (var item in items)
             {
-                await Create(item);
+                item.State = state;
+                await Create(item, state);
             }
         }
 
-        public async Task<TerminalLibDm> Create(TerminalLibDm terminal)
+        public async Task<TerminalLibDm> Create(TerminalLibDm terminal, State state)
         {
             _attributeRepository.SetUnchanged(terminal.Attributes);
+            terminal.State = state;
             await CreateAsync(terminal);
             await SaveAsync();
             _attributeRepository.SetDetached(terminal.Attributes);
@@ -58,7 +57,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         public IEnumerable<TerminalLibDm> GetVersions(string firstVersionId)
         {
             return GetAll()
-                .Where(x => x.FirstVersionId == firstVersionId && !x.Deleted).Include(x => x.Parent).Include(x => x.Attributes).ToList()
+                .Where(x => x.FirstVersionId == firstVersionId).Include(x => x.Parent).Include(x => x.Attributes).ToList()
                 .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList();
         }
 
@@ -72,7 +71,7 @@ namespace TypeLibrary.Data.Repositories.Ef
             //if (dm.CreatedBy == _applicationSettings.System)
             //    throw new MimirorgBadRequestException($"The terminal with id {id} is created by the system and can not be deleted.");
 
-            dm.Deleted = true;
+            dm.State = State.Deleted;
             Context.Entry(dm).State = EntityState.Modified;
             return await Context.SaveChangesAsync() == 1;
         }

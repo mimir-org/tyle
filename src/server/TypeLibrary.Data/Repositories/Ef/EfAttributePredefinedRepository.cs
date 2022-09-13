@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Mimirorg.Common.Abstract;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 
@@ -20,16 +20,18 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// <remarks>Only attributes that is not deleted will be returned</remarks>
         public IEnumerable<AttributePredefinedLibDm> GetPredefined()
         {
-            return GetAll().Where(x => !x.Deleted);
+            return GetAll();
         }
 
         /// <summary>
         /// Create a predefined attribute
         /// </summary>
         /// <param name="predefined">The attribute that should be created</param>
+        /// <param name="state"></param>
         /// <returns>An attribute</returns>
-        public async Task<AttributePredefinedLibDm> CreatePredefined(AttributePredefinedLibDm predefined)
+        public async Task<AttributePredefinedLibDm> CreatePredefined(AttributePredefinedLibDm predefined, State state)
         {
+            predefined.State = state;
             await CreateAsync(predefined);
             await SaveAsync();
             return predefined;

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts
@@ -27,8 +28,9 @@ namespace TypeLibrary.Data.Contracts
         /// Create a new attribute
         /// </summary>
         /// <param name="attribute">The attribute that should be created</param>
+        /// <param name="state"></param>
         /// <returns>An attribute</returns>
-        Task<AttributeLibDm> Create(AttributeLibDm attribute);
+        Task<AttributeLibDm> Create(AttributeLibDm attribute, State state);
 
         /// <summary>
         /// Check if an attribute already exist

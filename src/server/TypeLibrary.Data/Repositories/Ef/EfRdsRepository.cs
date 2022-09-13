@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 
@@ -16,19 +16,23 @@ namespace TypeLibrary.Data.Repositories.Ef
 
         public IEnumerable<RdsLibDm> Get()
         {
-            return GetAll().Where(x => !x.Deleted);
+            return GetAll();
         }
 
-        public async Task<RdsLibDm> Create(RdsLibDm rds)
+        public async Task<RdsLibDm> Create(RdsLibDm rds, State state)
         {
+            rds.State = state;
             await CreateAsync(rds);
             await SaveAsync();
             Detach(rds);
             return rds;
         }
 
-        public async Task Create(List<RdsLibDm> items)
+        public async Task Create(List<RdsLibDm> items, State state)
         {
+            foreach (var item in items)
+                item.State = state;
+            
             Attach(items, EntityState.Added);
             await SaveAsync();
             Detach(items);

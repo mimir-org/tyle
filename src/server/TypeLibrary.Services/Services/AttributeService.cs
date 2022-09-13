@@ -51,7 +51,7 @@ namespace TypeLibrary.Services.Services
         /// <returns>List of AttributeLibCm</returns>
         public IEnumerable<AttributeLibCm> Get(Aspect aspect)
         {
-            var attributes = _attributeRepository.Get().ToList()
+            var attributes = _attributeRepository.Get().Where(x => x.State != State.Deleted).ToList()
                 .OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
             if (aspect != Aspect.NotSet)
@@ -68,6 +68,7 @@ namespace TypeLibrary.Services.Services
         public async Task<AttributeLibCm> Get(string id)
         {
             var item = await _attributeRepository.Get(id);
+            
             if (item == null)
                 return null;
 
@@ -99,7 +100,7 @@ namespace TypeLibrary.Services.Services
             foreach (var attribute in notExisting)
             {
                 attribute.CreatedBy = createdBySystem ? _applicationSettings.System : attribute.CreatedBy;
-                await _attributeRepository.Create(attribute);
+                await _attributeRepository.Create(attribute, createdBySystem ? State.ApprovedGlobal : State.Draft);
             }
         }
 
@@ -133,7 +134,7 @@ namespace TypeLibrary.Services.Services
                     }
                 });
 
-            await _attributeRepository.Create(data);
+            await _attributeRepository.Create(data, State.Draft);
             var attrLibCm = _mapper.Map<AttributeLibCm>(data);
             return attrLibCm;
         }
@@ -148,7 +149,7 @@ namespace TypeLibrary.Services.Services
         /// <returns>List of AttributePredefinedLibCm</returns>
         public IEnumerable<AttributePredefinedLibCm> GetPredefined()
         {
-            var attributes = _attributePredefinedRepository.GetPredefined().ToList()
+            var attributes = _attributePredefinedRepository.GetPredefined().Where(x => x.State != State.Deleted).ToList()
                 .OrderBy(x => x.Aspect).ThenBy(x => x.Key, StringComparer.InvariantCultureIgnoreCase).ToList();
 
             return _mapper.Map<List<AttributePredefinedLibCm>>(attributes);
@@ -175,7 +176,7 @@ namespace TypeLibrary.Services.Services
             foreach (var attribute in notExisting)
             {
                 attribute.CreatedBy = createdBySystem ? _applicationSettings.System : attribute.CreatedBy;
-                await _attributePredefinedRepository.CreatePredefined(attribute);
+                await _attributePredefinedRepository.CreatePredefined(attribute, createdBySystem ? State.ApprovedGlobal : State.Draft);
             }
         }
 

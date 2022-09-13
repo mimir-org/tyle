@@ -60,7 +60,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<IEnumerable<TransportLibCm>> GetLatestVersions()
         {
-            var distinctFirstVersionIdDm = _transportRepository.Get()?.ToList().Where(x => !x.Deleted).DistinctBy(x => x.FirstVersionId).ToList();
+            var distinctFirstVersionIdDm = _transportRepository.Get()?.ToList().Where(x => x.State != State.Deleted).DistinctBy(x => x.FirstVersionId).ToList();
 
             if (distinctFirstVersionIdDm == null || !distinctFirstVersionIdDm.Any())
                 return await Task.FromResult(new List<TransportLibCm>());
@@ -104,7 +104,7 @@ namespace TypeLibrary.Services.Services
             if (transportLibDm == null)
                 throw new MimirorgMappingException("TransportLibAm", "TransportLibDm");
 
-            await _transportRepository.Create(transportLibDm);
+            await _transportRepository.Create(transportLibDm, State.Draft);
             _transportRepository.ClearAllChangeTrackers();
 
             var dm = await Get(transportLibDm.Id);
@@ -135,7 +135,7 @@ namespace TypeLibrary.Services.Services
                     throw new MimirorgBadRequestException($"Error when parsing version value '{transportLibDm.Version}' to double.");
 
                 transportLibDm.CreatedBy = createdBySystem ? _applicationSettings.System : transportLibDm.CreatedBy;
-                await _transportRepository.Create(transportLibDm);
+                await _transportRepository.Create(transportLibDm, createdBySystem ? State.ApprovedGlobal : State.Draft);
             }
 
             _transportRepository.ClearAllChangeTrackers();
@@ -161,7 +161,7 @@ namespace TypeLibrary.Services.Services
             if (transportToUpdate.CreatedBy == _applicationSettings.System)
                 throw new MimirorgBadRequestException($"The transport with id {id} is created by the system and can not be updated.");
 
-            if (transportToUpdate.Deleted)
+            if (transportToUpdate.State == State.Deleted)
                 throw new MimirorgBadRequestException($"The transport with id {id} is deleted and can not be updated.");
 
             var latestTransportDm = await _versionService.GetLatestVersion(transportToUpdate);

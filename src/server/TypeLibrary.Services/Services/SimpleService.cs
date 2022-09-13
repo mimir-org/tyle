@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
+using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
@@ -48,7 +49,7 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<SimpleLibCm>> Get()
         {
-            var simpleLibDms = _simpleRepository.Get().OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var simpleLibDms = _simpleRepository.Get().Where(x => x.State != State.Deleted).OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
             var simpleLibCms = _mapper.Map<IEnumerable<SimpleLibCm>>(simpleLibDms);
 
@@ -75,7 +76,7 @@ namespace TypeLibrary.Services.Services
             foreach (var simpleDm in simpleDmList)
             {
                 simpleDm.CreatedBy = createdBySystem ? _applicationSettings.System : simpleDm.CreatedBy;
-                await _simpleRepository.Create(simpleDm);
+                await _simpleRepository.Create(simpleDm, createdBySystem ? State.ApprovedGlobal : State.Draft);
             }
 
             _simpleRepository.ClearAllChangeTrackers();

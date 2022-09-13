@@ -27,14 +27,13 @@ namespace TypeLibrary.Data.Models
         public string RdsName { get; set; }
         public string PurposeName { get; set; }
         public Aspect Aspect { get; set; }
-        public State State { get; set; }
         public int CompanyId { get; set; }
         public string Symbol { get; set; }
         public virtual List<SelectedAttributePredefinedLibDm> SelectedAttributePredefined { get; set; }
         public string Description { get; set; }
+        public State State { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-        public bool Deleted { get; set; }
         public virtual ICollection<NodeLibDm> Children { get; set; }
         public virtual ICollection<NodeTerminalLibDm> NodeTerminals { get; set; }
         public virtual ICollection<AttributeLibDm> Attributes { get; set; }

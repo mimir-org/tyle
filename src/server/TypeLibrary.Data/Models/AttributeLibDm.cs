@@ -25,10 +25,10 @@ namespace TypeLibrary.Data.Models
         public Select Select { get; set; }
         public string SelectValuesString { get; set; }
         public string Units { get; set; }
+        public State State { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-        public bool Deleted { get; set; }
-
+        
         public virtual HashSet<string> Tags { get; set; }
 
         [NotMapped]

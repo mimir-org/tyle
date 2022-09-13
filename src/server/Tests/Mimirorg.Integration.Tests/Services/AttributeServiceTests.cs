@@ -1,3 +1,4 @@
+using AngleSharp.Dom;
 using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Setup;
 using Mimirorg.TypeLibrary.Enums;
@@ -81,6 +82,7 @@ namespace Mimirorg.Integration.Tests.Services
             var attributeCm = await attributeService.Create(attributeAm);
 
             Assert.NotNull(attributeCm);
+            Assert.True(attributeCm.State == State.Draft);
             Assert.Equal(attributeAm.Id, attributeCm.Id);
             Assert.Equal(attributeAm.Name, attributeCm.Name);
             Assert.Equal(attributeAm.Aspect.ToString(), attributeCm.Aspect.ToString());

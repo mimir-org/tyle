@@ -1,5 +1,5 @@
+using AngleSharp.Dom;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Setup;
 using Mimirorg.TypeLibrary.Enums;
@@ -89,6 +89,7 @@ namespace Mimirorg.Integration.Tests.Services
             var interfaceCm = await interfaceService.Create(interfaceAm, true);
 
             Assert.NotNull(interfaceCm);
+            Assert.True(interfaceCm.State == State.Draft);
             Assert.Equal(interfaceAm.Id, interfaceCm.Id);
             Assert.Equal(interfaceAm.Name, interfaceCm.Name);
             Assert.Equal(interfaceAm.RdsName, interfaceCm.RdsName);

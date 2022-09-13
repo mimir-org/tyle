@@ -85,6 +85,7 @@ namespace Mimirorg.Integration.Tests.Services
             var transportCm = await transportService.Create(transportAm, true);
 
             Assert.NotNull(transportCm);
+            Assert.True(transportCm.State == State.Draft);
             Assert.Equal(transportAm.Id, transportCm.Id);
             Assert.Equal(transportAm.Name, transportCm.Name);
             Assert.Equal(transportAm.RdsName, transportCm.RdsName);

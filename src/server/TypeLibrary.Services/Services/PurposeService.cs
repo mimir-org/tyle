@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Models;
+using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
@@ -28,7 +29,7 @@ namespace TypeLibrary.Services.Services
 
         public Task<IEnumerable<PurposeLibCm>> Get()
         {
-            var dataList = _purposeRepository.Get().ToList()
+            var dataList = _purposeRepository.Get().Where(x => x.State != State.Deleted).ToList()
                 .OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
             var dataAm = _mapper.Map<List<PurposeLibCm>>(dataList);
@@ -45,9 +46,12 @@ namespace TypeLibrary.Services.Services
                 return;
 
             foreach (var data in notExisting)
+            {
+                data.State = createdBySystem ? State.ApprovedGlobal : State.Draft;
                 data.CreatedBy = createdBySystem ? _applicationSettings.System : data.CreatedBy;
+            }
 
-            await _purposeRepository.Create(notExisting);
+            await _purposeRepository.Create(notExisting, createdBySystem ? State.ApprovedGlobal : State.Draft);
         }
     }
 }

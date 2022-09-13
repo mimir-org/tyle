@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
@@ -49,10 +50,13 @@ namespace TypeLibrary.Data.Repositories.Ef
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<NodeLibDm> Create(NodeLibDm node)
+        public async Task<NodeLibDm> Create(NodeLibDm node, State state)
         {
             _attributeRepository.SetUnchanged(node.Attributes);
             _simpleRepository.SetUnchanged(node.Simples);
+
+            node.State = state;
+
             await CreateAsync(node);
             await SaveAsync();
 
@@ -72,7 +76,7 @@ namespace TypeLibrary.Data.Repositories.Ef
             if (dm.CreatedBy == _applicationSettings.System)
                 throw new MimirorgBadRequestException($"The node with id {id} is created by the system and can not be deleted.");
 
-            dm.Deleted = true;
+            dm.State = State.Deleted;
             Context.Entry(dm).State = EntityState.Modified;
             return await Context.SaveChangesAsync() == 1;
         }

@@ -12,8 +12,9 @@ namespace TypeLibrary.Data.Models
         public bool IsMultiSelect { get; set; }
         public ICollection<string> ValueStringList { get; set; }
         public Aspect Aspect { get; set; }
+        public State State { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-        public bool Deleted { get; set; }
+
     }
 }

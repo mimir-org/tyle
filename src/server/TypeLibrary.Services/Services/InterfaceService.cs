@@ -60,7 +60,7 @@ namespace TypeLibrary.Services.Services
 
         public async Task<IEnumerable<InterfaceLibCm>> GetLatestVersions()
         {
-            var distinctFirstVersionIdDm = _interfaceRepository.Get()?.ToList().Where(x => !x.Deleted).DistinctBy(x => x.FirstVersionId).ToList();
+            var distinctFirstVersionIdDm = _interfaceRepository.Get()?.ToList().Where(x => x.State != State.Deleted).DistinctBy(x => x.FirstVersionId).ToList();
 
             if (distinctFirstVersionIdDm == null || !distinctFirstVersionIdDm.Any())
                 return await Task.FromResult(new List<InterfaceLibCm>());
@@ -104,7 +104,7 @@ namespace TypeLibrary.Services.Services
             if (interfaceLibDm == null)
                 throw new MimirorgMappingException("InterfaceLibAm", "InterfaceLibDm");
 
-            await _interfaceRepository.Create(interfaceLibDm);
+            await _interfaceRepository.Create(interfaceLibDm, State.Draft);
             _interfaceRepository.ClearAllChangeTrackers();
 
             var dm = await Get(interfaceLibDm.Id);
@@ -131,7 +131,7 @@ namespace TypeLibrary.Services.Services
             if (interfaceToUpdate.CreatedBy == _applicationSettings.System)
                 throw new MimirorgBadRequestException($"The interface with id {id} is created by the system and can not be updated.");
 
-            if (interfaceToUpdate.Deleted)
+            if (interfaceToUpdate.State == State.Deleted)
                 throw new MimirorgBadRequestException($"The interface with id {id} is deleted and can not be updated.");
 
             var latestInterfaceDm = await _versionService.GetLatestVersion(interfaceToUpdate);

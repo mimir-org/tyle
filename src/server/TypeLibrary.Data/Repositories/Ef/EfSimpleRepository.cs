@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
@@ -20,7 +21,7 @@ namespace TypeLibrary.Data.Repositories.Ef
 
         public Task<SimpleLibDm> Get(string id)
         {
-            return FindBy(x => x.Id == id && !x.Deleted).Include(x => x.Attributes).FirstOrDefaultAsync();
+            return FindBy(x => x.Id == id).Include(x => x.Attributes).FirstOrDefaultAsync();
         }
 
         public IEnumerable<SimpleLibDm> Get()
@@ -28,10 +29,12 @@ namespace TypeLibrary.Data.Repositories.Ef
             return GetAll().Include(x => x.Attributes);
         }
 
-        public async Task Create(SimpleLibDm simple)
+        public async Task Create(SimpleLibDm simple, State state)
         {
             if (simple.Attributes != null && simple.Attributes.Any())
                 _attributeRepository.SetUnchanged(simple.Attributes);
+
+            simple.State = state;
 
             await CreateAsync(simple);
             await SaveAsync();
