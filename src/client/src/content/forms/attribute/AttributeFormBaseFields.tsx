@@ -1,5 +1,5 @@
 import { Aspect, Discipline, MimirorgPermission, Select as AttributeSelect } from "@mimirorg/typelibrary-types";
-import { Control, Controller, FieldErrors, UseFormRegister, UseFormResetField } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Button } from "../../../complib/buttons";
@@ -21,32 +21,20 @@ import { AttributeFormPreview } from "./AttributeFormPreview";
 import { FormAttributeLib } from "./types/formAttributeLib";
 
 interface AttributeFormBaseFieldsProps {
-  control: Control<FormAttributeLib>;
-  register: UseFormRegister<FormAttributeLib>;
-  resetField: UseFormResetField<FormAttributeLib>;
-  errors: FieldErrors<FormAttributeLib>;
   isPrefilled?: boolean;
 }
 
 /**
  * Component which contains all shared fields for variations of the attribute form.
  *
- * @param control
- * @param register
- * @param resetField
- * @param errors
  * @param isPrefilled
  * @constructor
  */
-export const AttributeFormBaseFields = ({
-  control,
-  register,
-  resetField,
-  errors,
-  isPrefilled,
-}: AttributeFormBaseFieldsProps) => {
+export const AttributeFormBaseFields = ({ isPrefilled }: AttributeFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const { control, register, resetField, formState } = useFormContext<FormAttributeLib>();
+  const { errors } = formState;
 
   const attributeSourceQuery = useGetAttributesSource();
   const attributeFormatQuery = useGetAttributesFormat();

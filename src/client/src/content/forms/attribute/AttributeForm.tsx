@@ -1,5 +1,6 @@
 import { DevTool } from "@hookform/devtools";
-import { Control, useForm, useWatch } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
@@ -7,11 +8,11 @@ import { useCreateAttribute, useGetAttributesReference } from "../../../data/que
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { useServerValidation } from "../../../hooks/useServerValidation";
 import { Loader } from "../../common/loader";
-import { FormReferences, HasReferences } from "../common/form-references/FormReferences";
+import { FormReferences } from "../common/form-references/FormReferences";
 import { onSubmitForm } from "../common/utils/onSubmitForm";
 import { usePrefilledForm } from "../common/utils/usePrefilledForm";
 import { useSubmissionToast } from "../common/utils/useSubmissionToast";
-import { showSelectValues, useAttributeQuery } from "./AttributeForm.helpers";
+import { attributeSchema, showSelectValues, useAttributeQuery } from "./AttributeForm.helpers";
 import { AttributeFormContainer } from "./AttributeForm.styled";
 import { AttributeFormBaseFields } from "./AttributeFormBaseFields";
 import {
@@ -31,49 +32,47 @@ interface AttributeFormProps {
 export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }: AttributeFormProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const { register, handleSubmit, control, setError, reset, resetField, formState } = useForm<FormAttributeLib>({
-    defaultValues,
+
+  const formMethods = useForm<FormAttributeLib>({
+    defaultValues: defaultValues,
+    resolver: yupResolver(attributeSchema(t)),
   });
 
+  const { handleSubmit, control, setError, reset } = formMethods;
+
   const attributeSelect = useWatch({ control, name: "select" });
+  const attributeReferences = useGetAttributesReference();
 
   const query = useAttributeQuery();
   const [isPrefilled, isLoading] = usePrefilledForm(query, mapAttributeLibCmToFormAttributeLib, reset);
 
   const mutation = useCreateAttribute();
-  const attributeReferences = useGetAttributesReference();
-
-  const toast = useSubmissionToast(t("attribute.title"));
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
-  return (
-    <AttributeFormContainer
-      onSubmit={handleSubmit((data) => onSubmitForm(mapFormAttributeLibToApiModel(data), mutation.mutateAsync, toast))}
-    >
-      {isLoading && <Loader />}
-      {!isLoading && (
-        <>
-          <AttributeFormBaseFields
-            control={control}
-            register={register}
-            resetField={resetField}
-            errors={formState.errors}
-            isPrefilled={isPrefilled}
-          />
+  const toast = useSubmissionToast(t("attribute.title"));
 
-          <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
-            <AttributeFormUnits register={register} control={control} />
-            <FormReferences
-              control={control as unknown as Control<HasReferences>}
-              references={attributeReferences.data ?? []}
-              isLoading={attributeReferences.isLoading}
-            />
-            {showSelectValues(attributeSelect) && <AttributeFormValues control={control} />}
-          </Box>
-        </>
-      )}
-      <DevTool control={control} placement={"bottom-right"} />
-    </AttributeFormContainer>
+  return (
+    <FormProvider {...formMethods}>
+      <AttributeFormContainer
+        onSubmit={handleSubmit((data) =>
+          onSubmitForm(mapFormAttributeLibToApiModel(data), mutation.mutateAsync, toast)
+        )}
+      >
+        {isLoading && <Loader />}
+        {!isLoading && (
+          <>
+            <AttributeFormBaseFields isPrefilled={isPrefilled} />
+
+            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
+              <AttributeFormUnits />
+              <FormReferences references={attributeReferences.data ?? []} isLoading={attributeReferences.isLoading} />
+              {showSelectValues(attributeSelect) && <AttributeFormValues />}
+            </Box>
+          </>
+        )}
+        <DevTool control={control} placement={"bottom-right"} />
+      </AttributeFormContainer>
+    </FormProvider>
   );
 };

@@ -1,5 +1,5 @@
 import { TypeReferenceAm, TypeReferenceCm } from "@mimirorg/typelibrary-types";
-import { Control, Controller, useFieldArray } from "react-hook-form";
+import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { FormField } from "../../../../complib/form";
@@ -12,29 +12,23 @@ import { FormSection } from "../form-section/FormSection";
 export type HasReferences = { typeReferences?: TypeReferenceAm[] };
 
 export interface FormReferencesProps {
-  control: Control<HasReferences>;
   references: TypeReferenceCm[];
   isLoading: boolean;
 }
 
 /**
  * Reusable form section for adding references to models that support them
+ * Excepts to be used in a context of useForm<T> where T has a typeReference property
  *
- * @param control excepts a Control<T> where T has a typeReference property
  * @param references list of references which the user can pick from
  * @param isLoading fetch status of reference data
  * @constructor
- *
- * @example Controller type workaround by as casting
- * <FormReferences
- *   control={control as unknown as Control<HasReferences>}
- *   references={referenceQuery.data ?? []}
- *   isLoading={referenceQuery.isLoading}
- * />
  */
-export const FormReferences = ({ control, references, isLoading }: FormReferencesProps) => {
+export const FormReferences = ({ references, isLoading }: FormReferencesProps) => {
   const theme = useTheme();
   const { t } = useTranslation("translation");
+  const { control, formState } = useFormContext<HasReferences>();
+  const { errors } = formState;
 
   const referenceFields = useFieldArray({ control: control, name: "typeReferences" });
   const onRemove = (index: number) => referenceFields.remove(index);
@@ -61,7 +55,7 @@ export const FormReferences = ({ control, references, isLoading }: FormReference
               control={control}
               name={`typeReferences.${index}`}
               render={({ field: { value, ref, ...rest } }) => (
-                <FormField label={t("references.reference")}>
+                <FormField label={t("references.reference")} error={errors.typeReferences?.[index]?.name}>
                   <Select
                     {...rest}
                     selectRef={ref}
