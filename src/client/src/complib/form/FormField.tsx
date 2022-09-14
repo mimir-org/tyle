@@ -1,3 +1,4 @@
+import { ExclamationCircle } from "@styled-icons/heroicons-outline";
 import { PropsWithChildren } from "react";
 import { useTheme } from "styled-components";
 import { Box, Flexbox, MotionFlexbox } from "../layouts";
@@ -22,27 +23,29 @@ export const FormField = ({ label, error, children }: PropsWithChildren<FormFiel
   const hasLabel = !!label?.length;
 
   return (
-    <MotionFlexbox layout flexDirection={"column"} gap={theme.tyle.spacing.s}>
-      <ConditionalWrapper
-        condition={hasLabel}
-        wrapper={(c) => (
-          <Flexbox as={"label"} flexDirection={"column"} gap={theme.tyle.spacing.xs}>
-            <Box borderLeft={"1px solid transparent"}>
-              <Text
-                as={"span"}
-                variant={"label-large"}
-                color={theme.tyle.color.sys.surface.variant.on}
-                pl={theme.tyle.spacing.l}
-              >
-                {label}
-              </Text>
-            </Box>
-            {c}
-          </Flexbox>
-        )}
-      >
-        <>{children}</>
-      </ConditionalWrapper>
+    <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.s}>
+      <MotionFlexbox layout as={hasLabel ? "label" : "div"} flexDirection={"column"} gap={theme.tyle.spacing.xs}>
+        <ConditionalWrapper
+          condition={hasLabel}
+          wrapper={(c) => (
+            <>
+              <Box borderLeft={"1px solid transparent"}>
+                <Text
+                  as={"span"}
+                  variant={"label-large"}
+                  color={theme.tyle.color.sys.surface.variant.on}
+                  pl={theme.tyle.spacing.l}
+                >
+                  {label}
+                </Text>
+              </Box>
+              {c}
+            </>
+          )}
+        >
+          <>{children}</>
+        </ConditionalWrapper>
+      </MotionFlexbox>
 
       {error && error.message && (
         <Flexbox alignItems={"center"} gap={theme.tyle.spacing.s}>
@@ -55,6 +58,6 @@ export const FormField = ({ label, error, children }: PropsWithChildren<FormFiel
           </MotionText>
         </Flexbox>
       )}
-    </MotionFlexbox>
+    </Flexbox>
   );
 };
