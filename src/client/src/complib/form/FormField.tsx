@@ -2,7 +2,7 @@ import { ExclamationCircle } from "@styled-icons/heroicons-outline";
 import { PropsWithChildren } from "react";
 import { useTheme } from "styled-components";
 import { Box, Flexbox, MotionFlexbox } from "../layouts";
-import { MotionText, Text } from "../text";
+import { Text } from "../text";
 import { ConditionalWrapper } from "../utils";
 
 interface FormFieldProps {
@@ -48,15 +48,15 @@ export const FormField = ({ label, error, children }: PropsWithChildren<FormFiel
       </MotionFlexbox>
 
       {error && error.message && (
-        <Flexbox alignItems={"center"} gap={theme.tyle.spacing.s}>
+        <MotionFlexbox layout alignItems={"center"} gap={theme.tyle.spacing.s} {...theme.tyle.animation.fade}>
           <ExclamationCircle
             size={theme.tyle.typography.sys.roles.label.medium.size}
             color={theme.tyle.color.sys.error.base}
           />
-          <MotionText variant={"label-medium"} color={theme.tyle.color.sys.error.base} {...theme.tyle.animation.fade}>
+          <Text variant={"label-medium"} color={theme.tyle.color.sys.error.base}>
             {error.message}
-          </MotionText>
-        </Flexbox>
+          </Text>
+        </MotionFlexbox>
       )}
     </Flexbox>
   );
