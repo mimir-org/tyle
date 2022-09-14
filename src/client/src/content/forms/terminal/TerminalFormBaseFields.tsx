@@ -1,5 +1,5 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { Control, Controller, FieldErrors, UseFormRegister } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Button } from "../../../complib/buttons";
@@ -12,23 +12,14 @@ import { TerminalFormBaseFieldsContainer } from "./TerminalFormBaseFields.styled
 import { TerminalFormPreview } from "./TerminalFormPreview";
 import { FormTerminalLib } from "./types/formTerminalLib";
 
-interface TerminalFormBaseFieldsProps {
-  control: Control<FormTerminalLib>;
-  register: UseFormRegister<FormTerminalLib>;
-  errors: FieldErrors<FormTerminalLib>;
-}
-
 /**
  * Component which contains all simple value fields of the terminal form.
- *
- * @param control
- * @param register
- * @param errors
- * @constructor
  */
-export const TerminalFormBaseFields = ({ control, register, errors }: TerminalFormBaseFieldsProps) => {
+export const TerminalFormBaseFields = () => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const { control, register, formState } = useFormContext<FormTerminalLib>();
+  const { errors } = formState;
 
   const companies = useGetFilteredCompanies(MimirorgPermission.Write);
 

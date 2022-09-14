@@ -192,6 +192,31 @@
       "loading": "Submitting terminal",
       "success": "Your terminal has been submitted",
       "error": "An error occurred during terminal submission"
+    },
+    "validation": {
+      "name": {
+        "required": "Please enter a name",
+        "max": "The name can be at most 30 characters"
+      },
+      "color": {
+        "required": "Please select a color"
+      },
+      "companyId":{
+        "min": "Please select an owner"
+      },
+      "description": {
+        "max": "The description can be at most 500 characters"
+      },
+      "attributeIdList": {
+        "value":{
+          "required": "Please specify an attribute"
+        }
+      },
+      "typeReferences": {
+        "name": {
+          "required": "Please specify a reference"
+        }
+      }
     }
   },
   "transport": {
