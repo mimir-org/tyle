@@ -12,9 +12,10 @@ import { FormReferences } from "../common/form-references/FormReferences";
 import { onSubmitForm } from "../common/utils/onSubmitForm";
 import { usePrefilledForm } from "../common/utils/usePrefilledForm";
 import { useSubmissionToast } from "../common/utils/useSubmissionToast";
-import { attributeSchema, showSelectValues, useAttributeQuery } from "./AttributeForm.helpers";
+import { showSelectValues, useAttributeQuery } from "./AttributeForm.helpers";
 import { AttributeFormContainer } from "./AttributeForm.styled";
 import { AttributeFormBaseFields } from "./AttributeFormBaseFields";
+import { attributeSchema } from "./attributeSchema";
 import {
   createEmptyFormAttributeLib,
   FormAttributeLib,

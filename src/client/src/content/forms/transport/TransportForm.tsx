@@ -12,9 +12,10 @@ import { onSubmitForm } from "../common/utils/onSubmitForm";
 import { prepareAttributesByAspect } from "../common/utils/prepareAttributesByAspect";
 import { usePrefilledForm } from "../common/utils/usePrefilledForm";
 import { useSubmissionToast } from "../common/utils/useSubmissionToast";
-import { transportSchema, useTransportMutation, useTransportQuery } from "./TransportForm.helpers";
+import { useTransportMutation, useTransportQuery } from "./TransportForm.helpers";
 import { TransportFormContainer } from "./TransportForm.styled";
 import { TransportFormBaseFields } from "./TransportFormBaseFields";
+import { transportSchema } from "./transportSchema";
 import {
   createEmptyFormTransportLib,
   FormTransportLib,

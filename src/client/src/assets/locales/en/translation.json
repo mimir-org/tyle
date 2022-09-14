@@ -337,6 +337,18 @@
       }
     }
   },
+  "validation": {
+    "typeReferences": {
+      "name": {
+        "required": "Please specify a reference"
+      }
+    },
+    "attributeIdList": {
+      "value":{
+        "required": "Please specify an attribute"
+      }
+    }
+  },
   "processing": {
     "loading": "Submitting {{type}}",
     "success": "Your {{type}} has been submitted",

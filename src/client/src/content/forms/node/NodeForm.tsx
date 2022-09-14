@@ -12,9 +12,10 @@ import { onSubmitForm } from "../common/utils/onSubmitForm";
 import { prepareAttributesByAspect } from "../common/utils/prepareAttributesByAspect";
 import { usePrefilledForm } from "../common/utils/usePrefilledForm";
 import { useSubmissionToast } from "../common/utils/useSubmissionToast";
-import { getSubformForAspect, nodeSchema, useNodeMutation, useNodeQuery } from "./NodeForm.helpers";
+import { getSubformForAspect, useNodeMutation, useNodeQuery } from "./NodeForm.helpers";
 import { NodeFormContainer } from "./NodeForm.styled";
 import { NodeFormBaseFields } from "./NodeFormBaseFields";
+import { nodeSchema } from "./nodeSchema";
 import {
   createEmptyFormNodeLib,
   FormNodeLib,

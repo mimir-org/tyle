@@ -11,9 +11,10 @@ import { FormAttributes } from "../common/form-attributes/FormAttributes";
 import { onSubmitForm } from "../common/utils/onSubmitForm";
 import { usePrefilledForm } from "../common/utils/usePrefilledForm";
 import { useSubmissionToast } from "../common/utils/useSubmissionToast";
-import { prepareAttributes, terminalSchema, useTerminalMutation, useTerminalQuery } from "./TerminalForm.helpers";
+import { prepareAttributes, useTerminalMutation, useTerminalQuery } from "./TerminalForm.helpers";
 import { TerminalFormContainer } from "./TerminalForm.styled";
 import { TerminalFormBaseFields } from "./TerminalFormBaseFields";
+import { terminalSchema } from "./terminalSchema";
 import {
   createEmptyFormTerminalLib,
   FormTerminalLib,

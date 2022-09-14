@@ -12,9 +12,10 @@ import { onSubmitForm } from "../common/utils/onSubmitForm";
 import { prepareAttributesByAspect } from "../common/utils/prepareAttributesByAspect";
 import { usePrefilledForm } from "../common/utils/usePrefilledForm";
 import { useSubmissionToast } from "../common/utils/useSubmissionToast";
-import { interfaceSchema, useInterfaceMutation, useInterfaceQuery } from "./InterfaceForm.helpers";
+import { useInterfaceMutation, useInterfaceQuery } from "./InterfaceForm.helpers";
 import { InterfaceFormContainer } from "./InterfaceForm.styled";
 import { InterfaceFormBaseFields } from "./InterfaceFormBaseFields";
+import { interfaceSchema } from "./interfaceSchema";
 import {
   createEmptyFormInterfaceLib,
   FormInterfaceLib,
