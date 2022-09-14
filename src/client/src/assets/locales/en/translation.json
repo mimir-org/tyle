@@ -230,7 +230,6 @@
       "email": "E-mail",
       "password": "Password",
       "code": "Authentication code",
-      "phone": "Phone",
       "firstname": "First name",
       "lastname": "Last name"
     },

@@ -64,10 +64,6 @@ export const Register = () => {
               />
             </FormField>
 
-            <FormField label={t("forms.fields.phone")} error={errors.phoneNumber}>
-              <Input id="phoneNumber" type="tel" {...register("phoneNumber", { required: false })} />
-            </FormField>
-
             <FormField label={`${t("forms.fields.password")} *`} error={errors.password}>
               <Input
                 id="password"
