@@ -45,9 +45,15 @@ export const FormField = ({ label, error, children }: PropsWithChildren<FormFiel
       </ConditionalWrapper>
 
       {error && error.message && (
-        <MotionText variant={"label-medium"} color={theme.tyle.color.sys.error.base} {...theme.tyle.animation.fade}>
-          {error.message}
-        </MotionText>
+        <Flexbox alignItems={"center"} gap={theme.tyle.spacing.s}>
+          <ExclamationCircle
+            size={theme.tyle.typography.sys.roles.label.medium.size}
+            color={theme.tyle.color.sys.error.base}
+          />
+          <MotionText variant={"label-medium"} color={theme.tyle.color.sys.error.base} {...theme.tyle.animation.fade}>
+            {error.message}
+          </MotionText>
+        </Flexbox>
       )}
     </MotionFlexbox>
   );
