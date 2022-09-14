@@ -1,5 +1,5 @@
 import { Aspect, MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { Control, Controller, FieldErrors, UseFormRegister, UseFormResetField, UseFormSetValue } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Button } from "../../../complib/buttons";
@@ -22,35 +22,20 @@ import { TransportFormPreview } from "./TransportFormPreview";
 import { FormTransportLib } from "./types/formTransportLib";
 
 interface TransportFormBaseFieldsProps {
-  control: Control<FormTransportLib>;
-  register: UseFormRegister<FormTransportLib>;
-  resetField: UseFormResetField<FormTransportLib>;
-  setValue: UseFormSetValue<FormTransportLib>;
-  errors: FieldErrors<FormTransportLib>;
   isPrefilled?: boolean;
 }
 
 /**
  * Component which contains all simple value fields of the transport form.
  *
- * @param control
- * @param register
- * @param resetField
- * @param setValue
- * @param errors
  * @param isPrefilled
  * @constructor
  */
-export const TransportFormBaseFields = ({
-  control,
-  register,
-  resetField,
-  setValue,
-  errors,
-  isPrefilled,
-}: TransportFormBaseFieldsProps) => {
+export const TransportFormBaseFields = ({ isPrefilled }: TransportFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const { control, register, resetField, setValue, formState } = useFormContext<FormTransportLib>();
+  const { errors } = formState;
 
   const rdsQuery = useGetRds();
   const purposeQuery = useGetPurposes();
