@@ -1,5 +1,5 @@
 import { Aspect, MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { Control, Controller, UseFormRegister, UseFormResetField, UseFormSetValue } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Button } from "../../../complib/buttons";
@@ -22,32 +22,20 @@ import { TransportFormPreview } from "./TransportFormPreview";
 import { FormTransportLib } from "./types/formTransportLib";
 
 interface TransportFormBaseFieldsProps {
-  control: Control<FormTransportLib>;
-  register: UseFormRegister<FormTransportLib>;
-  resetField: UseFormResetField<FormTransportLib>;
-  setValue: UseFormSetValue<FormTransportLib>;
   isPrefilled?: boolean;
 }
 
 /**
  * Component which contains all simple value fields of the transport form.
  *
- * @param control
- * @param register
- * @param resetField
- * @param setValue
  * @param isPrefilled
  * @constructor
  */
-export const TransportFormBaseFields = ({
-  control,
-  register,
-  resetField,
-  setValue,
-  isPrefilled,
-}: TransportFormBaseFieldsProps) => {
+export const TransportFormBaseFields = ({ isPrefilled }: TransportFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const { control, register, resetField, setValue, formState } = useFormContext<FormTransportLib>();
+  const { errors } = formState;
 
   const rdsQuery = useGetRds();
   const purposeQuery = useGetPurposes();
@@ -60,7 +48,7 @@ export const TransportFormBaseFields = ({
       <TransportFormPreview control={control} />
 
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
-        <FormField label={t("transport.name")}>
+        <FormField label={t("transport.name")} error={errors.name}>
           <Input placeholder={t("transport.placeholders.name")} {...register("name")} />
         </FormField>
 
@@ -68,7 +56,7 @@ export const TransportFormBaseFields = ({
           control={control}
           name={"purposeName"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("transport.purpose")}>
+            <FormField label={t("transport.purpose")} error={errors.purposeName}>
               <Select
                 {...rest}
                 selectRef={ref}
@@ -88,7 +76,7 @@ export const TransportFormBaseFields = ({
           control={control}
           name={"aspect"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("transport.aspect")}>
+            <FormField label={t("transport.aspect")} error={errors.aspect}>
               <ConditionalWrapper
                 condition={isPrefilled}
                 wrapper={(c) => (
@@ -121,7 +109,7 @@ export const TransportFormBaseFields = ({
           control={control}
           name={`terminalId`}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("transport.terminal")}>
+            <FormField label={t("transport.terminal")} error={errors.terminalId}>
               <Select
                 {...rest}
                 selectRef={ref}
@@ -150,7 +138,7 @@ export const TransportFormBaseFields = ({
           control={control}
           name={"rdsName"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("transport.rds")}>
+            <FormField label={t("transport.rds")} error={errors.rdsName}>
               <Select
                 {...rest}
                 selectRef={ref}
@@ -175,7 +163,7 @@ export const TransportFormBaseFields = ({
           control={control}
           name={"companyId"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("transport.owner")}>
+            <FormField label={t("transport.owner")} error={errors.companyId}>
               <Select
                 {...rest}
                 selectRef={ref}
@@ -192,7 +180,7 @@ export const TransportFormBaseFields = ({
           )}
         />
 
-        <FormField label={t("transport.description")}>
+        <FormField label={t("transport.description")} error={errors.description}>
           <Textarea placeholder={t("transport.placeholders.description")} {...register("description")} />
         </FormField>
       </Flexbox>

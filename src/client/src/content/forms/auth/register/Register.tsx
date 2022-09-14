@@ -8,9 +8,8 @@ import { Form, FormErrorBanner, FormField, FormFieldset, FormHeader } from "../.
 import { Input } from "../../../../complib/inputs";
 import { MotionFlexbox } from "../../../../complib/layouts";
 import { MotionText, Text } from "../../../../complib/text";
-import { getValidationStateFromServer } from "../../../../data/helpers/getValidationStateFromServer";
 import { useCreateUser } from "../../../../data/queries/auth/queriesUser";
-import { useValidationFromServer } from "../../../../hooks/useValidationFromServer";
+import { useServerValidation } from "../../../../hooks/useServerValidation";
 import { MotionLogo } from "../../../common/logo/Logo";
 import { UnauthenticatedFormContainer } from "../UnauthenticatedFormContainer";
 import { RegisterFinalize } from "./components/RegisterFinalize";
@@ -23,20 +22,19 @@ export const Register = () => {
   const { register, handleSubmit, setError, formState } = useForm<MimirorgUserAm>();
   const { errors } = formState;
 
-  const createUserMutation = useCreateUser();
-  const validationState = getValidationStateFromServer<MimirorgUserAm>(createUserMutation.error);
-  useValidationFromServer<MimirorgUserAm>(setError, validationState?.errors);
+  const mutation = useCreateUser();
+  useServerValidation(mutation.error, setError);
 
   return (
     <UnauthenticatedFormContainer>
-      {createUserMutation.isLoading && <RegisterProcessing />}
-      {createUserMutation.isSuccess && <RegisterFinalize qrCodeBase64={createUserMutation?.data?.code} />}
-      {!createUserMutation.isSuccess && !createUserMutation.isLoading && (
-        <Form onSubmit={handleSubmit((data) => createUserMutation.mutate(data))}>
+      {mutation.isLoading && <RegisterProcessing />}
+      {mutation.isSuccess && <RegisterFinalize qrCodeBase64={mutation?.data?.code} />}
+      {!mutation.isSuccess && !mutation.isLoading && (
+        <Form onSubmit={handleSubmit((data) => mutation.mutate(data))}>
           <MotionLogo layout width={"100px"} height={"50px"} inverse alt="" />
           <FormHeader title={t("forms.register.title")} subtitle={t("forms.register.description")} />
 
-          {createUserMutation.isError && <FormErrorBanner>{t("forms.register.error")}</FormErrorBanner>}
+          {mutation.isError && <FormErrorBanner>{t("forms.register.error")}</FormErrorBanner>}
 
           <FormFieldset>
             <FormField label={`${t("forms.fields.email")} *`} error={formState.errors.email}>

@@ -66,6 +66,45 @@
       "loading": "Submitting node",
       "success": "Your node has been submitted",
       "error": "An error occurred during node submission"
+    },
+    "validation": {
+      "name": {
+        "required": "Please enter a name",
+        "max": "The name can be at most 60 characters"
+      },
+      "rdsName": {
+        "required": "Please select a RDS"
+      },
+      "rdsCode": {
+        "required": "Please specify a RDS code"
+      },
+      "purposeName": {
+        "required": "Please select a purpose"
+      },
+      "aspect": {
+        "required": "Please select an aspect"
+      },
+      "companyId":{
+        "min": "Please select an owner"
+      },
+      "description": {
+        "max": "The description can be at most 500 characters"
+      },
+      "nodeTerminals": {
+        "terminalId": {
+          "required": "Please specify a terminal"
+        }
+      },
+      "attributeIdList": {
+        "value":{
+          "required": "Please specify an attribute"
+        }
+      },
+      "typeReferences": {
+        "name": {
+          "required": "Please specify a reference"
+        }
+      }
     }
   },
   "attribute": {
@@ -90,6 +129,52 @@
       "loading": "Submitting attribute",
       "success": "Your attribute has been submitted",
       "error": "An error occurred during attribute submission"
+    },
+    "validation": {
+      "name": {
+        "required": "Please enter a name",
+        "max": "The name can be at most 30 characters"
+      },
+      "aspect": {
+        "required": "Please select an aspect"
+      },
+      "discipline": {
+        "required": "Please select a discipline"
+      },
+      "companyId":{
+        "min": "Please select an owner"
+      },
+      "select": {
+        "required": "Please specify a selection type"
+      },
+      "attributeQualifier": {
+        "required": "Please specify a selection qualifier"
+      },
+      "attributeSource": {
+        "required": "Please specify a selection source"
+      },
+      "attributeCondition": {
+        "required": "Please specify a selection condition"
+      },
+      "attributeFormat": {
+        "required": "Please specify a selection format"
+      },
+      "typeReferences": {
+        "name": {
+          "required": "Please specify a reference"
+        }
+      },
+      "unitIdList": {
+        "value": {
+          "required": "Please specify a value"
+        }
+      },
+      "selectValues": {
+        "min": "Please create one or more values to select from",
+        "value": {
+          "required": "Please specify a value"
+        }
+      }
     }
   },
   "terminal": {
@@ -107,6 +192,31 @@
       "loading": "Submitting terminal",
       "success": "Your terminal has been submitted",
       "error": "An error occurred during terminal submission"
+    },
+    "validation": {
+      "name": {
+        "required": "Please enter a name",
+        "max": "The name can be at most 30 characters"
+      },
+      "color": {
+        "required": "Please select a color"
+      },
+      "companyId":{
+        "min": "Please select an owner"
+      },
+      "description": {
+        "max": "The description can be at most 500 characters"
+      },
+      "attributeIdList": {
+        "value":{
+          "required": "Please specify an attribute"
+        }
+      },
+      "typeReferences": {
+        "name": {
+          "required": "Please specify a reference"
+        }
+      }
     }
   },
   "transport": {
@@ -129,6 +239,43 @@
       "loading": "Submitting transport",
       "success": "Your transport has been submitted",
       "error": "An error occurred during transport submission"
+    },
+    "validation": {
+      "name": {
+        "required": "Please enter a name",
+        "max": "The name can be at most 60 characters"
+      },
+      "rdsName": {
+        "required": "Please select a RDS"
+      },
+      "rdsCode": {
+        "required": "Please specify a RDS code"
+      },
+      "purposeName": {
+        "required": "Please select a purpose"
+      },
+      "aspect": {
+        "required": "Please select an aspect"
+      },
+      "companyId":{
+        "min": "Please select an owner"
+      },
+      "description": {
+        "max": "The description can be at most 500 characters"
+      },
+      "terminalId": {
+        "required": "Please select a terminal"
+      },
+      "attributeIdList": {
+        "value":{
+          "required": "Please specify an attribute"
+        }
+      },
+      "typeReferences": {
+        "name": {
+          "required": "Please specify a reference"
+        }
+      }
     }
   },
   "interface": {
@@ -151,6 +298,55 @@
       "loading": "Submitting interface",
       "success": "Your interface has been submitted",
       "error": "An error occurred during interface submission"
+    },
+    "validation": {
+      "name": {
+        "required": "Please enter a name",
+        "max": "The name can be at most 60 characters"
+      },
+      "rdsName": {
+        "required": "Please select a RDS"
+      },
+      "rdsCode": {
+        "required": "Please specify a RDS code"
+      },
+      "purposeName": {
+        "required": "Please select a purpose"
+      },
+      "aspect": {
+        "required": "Please select an aspect"
+      },
+      "companyId":{
+        "min": "Please select an owner"
+      },
+      "description": {
+        "max": "The description can be at most 500 characters"
+      },
+      "terminalId": {
+        "required": "Please select a terminal"
+      },
+      "attributeIdList": {
+        "value":{
+          "required": "Please specify an attribute"
+        }
+      },
+      "typeReferences": {
+        "name": {
+          "required": "Please specify a reference"
+        }
+      }
+    }
+  },
+  "validation": {
+    "typeReferences": {
+      "name": {
+        "required": "Please specify a reference"
+      }
+    },
+    "attributeIdList": {
+      "value":{
+        "required": "Please specify an attribute"
+      }
     }
   },
   "processing": {

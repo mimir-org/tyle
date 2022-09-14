@@ -1,9 +1,9 @@
 import { Aspect } from "@mimirorg/typelibrary-types";
-import { Control, UseFormRegister } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useCreateNode, useGetNode, useUpdateNode } from "../../../data/queries/tyle/queriesNode";
+import { NodeFormPredefinedAttributes } from "./predefined-attributes/NodeFormPredefinedAttributes";
+import { NodeFormTerminalTable } from "./terminals/NodeFormTerminalTable";
 import { FormNodeLib } from "./types/formNodeLib";
-import { FunctionNode, LocationNode, ProductNode } from "./variants";
 
 export const useNodeQuery = () => {
   const { id } = useParams();
@@ -27,18 +27,14 @@ export const resetSubform = (resetField: (value: keyof FormNodeLib) => void) => 
   resetField("attributeIdList");
 };
 
-export const getFormForAspect = (
-  aspect: Aspect,
-  control: Control<FormNodeLib>,
-  register: UseFormRegister<FormNodeLib>
-) => {
+export const getSubformForAspect = (aspect: Aspect) => {
   switch (aspect) {
     case Aspect.Function:
-      return <FunctionNode control={control} />;
+      return <NodeFormTerminalTable />;
     case Aspect.Product:
-      return <ProductNode control={control} />;
+      return <NodeFormTerminalTable />;
     case Aspect.Location:
-      return <LocationNode control={control} register={register} />;
+      return <NodeFormPredefinedAttributes aspects={[aspect]} />;
     default:
       return <></>;
   }

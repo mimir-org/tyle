@@ -1,5 +1,5 @@
 import { Aspect, MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { Control, Controller, UseFormRegister, UseFormResetField, UseFormSetValue } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Button } from "../../../complib/buttons";
@@ -22,32 +22,20 @@ import { InterfaceFormPreview } from "./InterfaceFormPreview";
 import { FormInterfaceLib } from "./types/formInterfaceLib";
 
 interface InterfaceFormBaseFieldsProps {
-  control: Control<FormInterfaceLib>;
-  register: UseFormRegister<FormInterfaceLib>;
-  resetField: UseFormResetField<FormInterfaceLib>;
-  setValue: UseFormSetValue<FormInterfaceLib>;
   isPrefilled?: boolean;
 }
 
 /**
  * Component which contains all simple value fields of the interface form.
  *
- * @param control
- * @param register
- * @param resetField
- * @param setValue
  * @param isPrefilled
  * @constructor
  */
-export const InterfaceFormBaseFields = ({
-  control,
-  register,
-  resetField,
-  setValue,
-  isPrefilled,
-}: InterfaceFormBaseFieldsProps) => {
+export const InterfaceFormBaseFields = ({ isPrefilled }: InterfaceFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const { control, register, resetField, setValue, formState } = useFormContext<FormInterfaceLib>();
+  const { errors } = formState;
 
   const rdsQuery = useGetRds();
   const purposeQuery = useGetPurposes();
@@ -60,7 +48,7 @@ export const InterfaceFormBaseFields = ({
       <InterfaceFormPreview control={control} />
 
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
-        <FormField label={t("interface.name")}>
+        <FormField label={t("interface.name")} error={errors.name}>
           <Input placeholder={t("interface.placeholders.name")} {...register("name")} />
         </FormField>
 
@@ -68,7 +56,7 @@ export const InterfaceFormBaseFields = ({
           control={control}
           name={"purposeName"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("interface.purpose")}>
+            <FormField label={t("interface.purpose")} error={errors.purposeName}>
               <Select
                 {...rest}
                 selectRef={ref}
@@ -88,7 +76,7 @@ export const InterfaceFormBaseFields = ({
           control={control}
           name={"aspect"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("interface.aspect")}>
+            <FormField label={t("interface.aspect")} error={errors.aspect}>
               <ConditionalWrapper
                 condition={isPrefilled}
                 wrapper={(c) => (
@@ -121,7 +109,7 @@ export const InterfaceFormBaseFields = ({
           control={control}
           name={`terminalId`}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("interface.terminal")}>
+            <FormField label={t("interface.terminal")} error={errors.terminalId}>
               <Select
                 {...rest}
                 selectRef={ref}
@@ -150,7 +138,7 @@ export const InterfaceFormBaseFields = ({
           control={control}
           name={"rdsName"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("interface.rds")}>
+            <FormField label={t("interface.rds")} error={errors.rdsName}>
               <Select
                 {...rest}
                 selectRef={ref}
@@ -175,7 +163,7 @@ export const InterfaceFormBaseFields = ({
           control={control}
           name={"companyId"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("interface.owner")}>
+            <FormField label={t("interface.owner")} error={errors.companyId}>
               <Select
                 {...rest}
                 selectRef={ref}
@@ -192,7 +180,7 @@ export const InterfaceFormBaseFields = ({
           )}
         />
 
-        <FormField label={t("interface.description")}>
+        <FormField label={t("interface.description")} error={errors.description}>
           <Textarea placeholder={t("interface.placeholders.description")} {...register("description")} />
         </FormField>
       </Flexbox>

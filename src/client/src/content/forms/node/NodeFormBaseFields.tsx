@@ -1,5 +1,5 @@
 import { Aspect, MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { Control, Controller, UseFormRegister, UseFormResetField, UseFormSetValue } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Button } from "../../../complib/buttons";
@@ -22,32 +22,20 @@ import { NodeFormPreview } from "./NodeFormPreview";
 import { FormNodeLib } from "./types/formNodeLib";
 
 interface NodeFormBaseFieldsProps {
-  control: Control<FormNodeLib>;
-  register: UseFormRegister<FormNodeLib>;
-  resetField: UseFormResetField<FormNodeLib>;
-  setValue: UseFormSetValue<FormNodeLib>;
   isPrefilled?: boolean;
 }
 
 /**
  * Component which contains all shared fields for variations of the node form.
  *
- * @param control
- * @param register
- * @param resetField
- * @param setValue
  * @param isPrefilled
  * @constructor
  */
-export const NodeFormBaseFields = ({
-  control,
-  register,
-  resetField,
-  setValue,
-  isPrefilled,
-}: NodeFormBaseFieldsProps) => {
+export const NodeFormBaseFields = ({ isPrefilled }: NodeFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const { control, register, resetField, setValue, formState } = useFormContext<FormNodeLib>();
+  const { errors } = formState;
 
   const rdsQuery = useGetRds();
   const symbolQuery = useGetSymbols();
@@ -60,10 +48,10 @@ export const NodeFormBaseFields = ({
       <NodeFormPreview control={control} />
 
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
-        <FormField label={t("node.name")}>
+        <FormField label={t("node.name")} error={errors.name}>
           <Input placeholder={t("node.placeholders.name")} {...register("name")} />
         </FormField>
-        <FormField label={t("node.purpose")}>
+        <FormField label={t("node.purpose")} error={errors.purposeName}>
           <Controller
             control={control}
             name={"purposeName"}
@@ -82,7 +70,7 @@ export const NodeFormBaseFields = ({
             )}
           />
         </FormField>
-        <FormField label={t("node.aspect")}>
+        <FormField label={t("node.aspect")} error={errors.aspect}>
           <Controller
             control={control}
             name={"aspect"}
@@ -114,7 +102,7 @@ export const NodeFormBaseFields = ({
             )}
           />
         </FormField>
-        <FormField label={t("node.symbol")}>
+        <FormField label={t("node.symbol")} error={errors.symbol}>
           <Controller
             control={control}
             name={"symbol"}
@@ -140,7 +128,7 @@ export const NodeFormBaseFields = ({
           />
         </FormField>
         <Input type={"hidden"} {...register("rdsCode")} />
-        <FormField label={t("node.rds")}>
+        <FormField label={t("node.rds")} error={errors.rdsName}>
           <Controller
             control={control}
             name={"rdsName"}
@@ -164,7 +152,7 @@ export const NodeFormBaseFields = ({
             )}
           />
         </FormField>
-        <FormField label={t("node.owner")}>
+        <FormField label={t("node.owner")} error={errors.companyId}>
           <Controller
             control={control}
             name={"companyId"}
@@ -184,7 +172,7 @@ export const NodeFormBaseFields = ({
             )}
           />
         </FormField>
-        <FormField label={t("node.description")}>
+        <FormField label={t("node.description")} error={errors.description}>
           <Textarea placeholder={t("node.placeholders.description")} {...register("description")} />
         </FormField>
       </Flexbox>
