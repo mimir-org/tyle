@@ -236,6 +236,43 @@
       "loading": "Submitting interface",
       "success": "Your interface has been submitted",
       "error": "An error occurred during interface submission"
+    },
+    "validation": {
+      "name": {
+        "required": "Please enter a name",
+        "max": "The name can be at most 60 characters"
+      },
+      "rdsName": {
+        "required": "Please select a RDS"
+      },
+      "rdsCode": {
+        "required": "Please specify a RDS code"
+      },
+      "purposeName": {
+        "required": "Please select a purpose"
+      },
+      "aspect": {
+        "required": "Please select an aspect"
+      },
+      "companyId":{
+        "min": "Please select an owner"
+      },
+      "description": {
+        "max": "The description can be at most 500 characters"
+      },
+      "terminalId": {
+        "required": "Please select a terminal"
+      },
+      "attributeIdList": {
+        "value":{
+          "required": "Please specify an attribute"
+        }
+      },
+      "typeReferences": {
+        "name": {
+          "required": "Please specify a reference"
+        }
+      }
     }
   },
   "processing": {

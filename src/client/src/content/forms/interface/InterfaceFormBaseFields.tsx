@@ -1,5 +1,5 @@
 import { Aspect, MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { Control, Controller, FieldErrors, UseFormRegister, UseFormResetField, UseFormSetValue } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Button } from "../../../complib/buttons";
@@ -22,35 +22,20 @@ import { InterfaceFormPreview } from "./InterfaceFormPreview";
 import { FormInterfaceLib } from "./types/formInterfaceLib";
 
 interface InterfaceFormBaseFieldsProps {
-  control: Control<FormInterfaceLib>;
-  register: UseFormRegister<FormInterfaceLib>;
-  resetField: UseFormResetField<FormInterfaceLib>;
-  setValue: UseFormSetValue<FormInterfaceLib>;
-  errors: FieldErrors<FormInterfaceLib>;
   isPrefilled?: boolean;
 }
 
 /**
  * Component which contains all simple value fields of the interface form.
  *
- * @param control
- * @param register
- * @param resetField
- * @param setValue
- * @param errors
  * @param isPrefilled
  * @constructor
  */
-export const InterfaceFormBaseFields = ({
-  control,
-  register,
-  resetField,
-  setValue,
-  errors,
-  isPrefilled,
-}: InterfaceFormBaseFieldsProps) => {
+export const InterfaceFormBaseFields = ({ isPrefilled }: InterfaceFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const { control, register, resetField, setValue, formState } = useFormContext<FormInterfaceLib>();
+  const { errors } = formState;
 
   const rdsQuery = useGetRds();
   const purposeQuery = useGetPurposes();
