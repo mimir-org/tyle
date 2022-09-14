@@ -1,5 +1,5 @@
 import { Aspect, MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { Control, Controller, FieldErrors, UseFormRegister, UseFormResetField, UseFormSetValue } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Button } from "../../../complib/buttons";
@@ -22,35 +22,20 @@ import { NodeFormPreview } from "./NodeFormPreview";
 import { FormNodeLib } from "./types/formNodeLib";
 
 interface NodeFormBaseFieldsProps {
-  control: Control<FormNodeLib>;
-  register: UseFormRegister<FormNodeLib>;
-  resetField: UseFormResetField<FormNodeLib>;
-  setValue: UseFormSetValue<FormNodeLib>;
-  errors: FieldErrors<FormNodeLib>;
   isPrefilled?: boolean;
 }
 
 /**
  * Component which contains all shared fields for variations of the node form.
  *
- * @param control
- * @param register
- * @param resetField
- * @param setValue
- * @param errors
  * @param isPrefilled
  * @constructor
  */
-export const NodeFormBaseFields = ({
-  control,
-  register,
-  resetField,
-  setValue,
-  errors,
-  isPrefilled,
-}: NodeFormBaseFieldsProps) => {
+export const NodeFormBaseFields = ({ isPrefilled }: NodeFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const { control, register, resetField, setValue, formState } = useFormContext<FormNodeLib>();
+  const { errors } = formState;
 
   const rdsQuery = useGetRds();
   const symbolQuery = useGetSymbols();
