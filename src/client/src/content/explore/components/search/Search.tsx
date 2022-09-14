@@ -6,15 +6,18 @@ import { Token } from "../../../../complib/general";
 import { Flexbox, MotionFlexbox } from "../../../../complib/layouts";
 import { MotionText } from "../../../../complib/text";
 import { useDebounceState } from "../../../../hooks/useDebounceState";
-import { SearchField } from "../../../common/SearchField";
+import { SearchField } from "../../../common/search-field";
 import { SelectedInfo } from "../../types/selectedInfo";
 import { ExploreSection } from "../ExploreSection";
 import { ConditionalAttributeSearchItem } from "./components/attribute/ConditionalAttributeSearchItem";
 import { FilterMenu } from "./components/filter/FilterMenu";
+import { ConditionalInterfaceSearchItem } from "./components/interface/ConditionalInterfaceSearchItem";
 import { ItemList } from "./components/item/ItemList";
 import { LinkMenu } from "./components/link/LinkMenu";
 import { ConditionalNodeSearchItem } from "./components/node/ConditionalNodeSearchItem";
 import { SearchPlaceholder } from "./components/SearchPlaceholder";
+import { ConditionalTerminalSearchItem } from "./components/terminal/ConditionalTerminalSearchItem";
+import { ConditionalTransportSearchItem } from "./components/transport/ConditionalTransportSearchItem";
 import { getCreateMenuLinks, useFilterState, useGetFilterGroups, useSearchResults } from "./Search.helpers";
 
 interface SearchProps {
@@ -97,6 +100,21 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
                 item={item}
                 isSelected={item.id == selected?.id}
                 setSelected={() => setSelected({ id: item.id, type: "attribute" })}
+              />
+              <ConditionalTerminalSearchItem
+                item={item}
+                isSelected={item.id == selected?.id}
+                setSelected={() => setSelected({ id: item.id, type: "terminal" })}
+              />
+              <ConditionalTransportSearchItem
+                item={item}
+                isSelected={item.id == selected?.id}
+                setSelected={() => setSelected({ id: item.id, type: "transport" })}
+              />
+              <ConditionalInterfaceSearchItem
+                item={item}
+                isSelected={item.id == selected?.id}
+                setSelected={() => setSelected({ id: item.id, type: "interface" })}
               />
             </Fragment>
           ))}

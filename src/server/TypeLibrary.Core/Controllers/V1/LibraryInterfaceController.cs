@@ -168,6 +168,40 @@ namespace TypeLibrary.Core.Controllers.V1
         }
 
         /// <summary>
+        /// Update interface with new state
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="id"></param>
+        /// <returns>InterfaceLibCm</returns>
+        [HttpPatch("state/{id}")]
+        [ProducesResponseType(typeof(InterfaceLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //TODO: *************************************
+        //TODO: Set correct authorization requirement
+        //TODO: *************************************
+        public async Task<IActionResult> UpdateState([FromBody] State state, [FromRoute] string id)
+        {
+            try
+            {
+                var data = await _interfaceService.UpdateState(id, state);
+                return Ok(data);
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(400, e.Message);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
         /// Delete an interface
         /// </summary>
         /// <param name="id"></param>

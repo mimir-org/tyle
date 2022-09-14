@@ -33,6 +33,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.ValueStringList, opt => opt.MapFrom(src => src.ValueStringList))
                 .ForMember(dest => dest.IsMultiSelect, opt => opt.MapFrom(src => src.IsMultiSelect))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
+                .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
         }

@@ -1,24 +1,23 @@
 import { Aspect } from "@mimirorg/typelibrary-types";
-import { Control, Controller, UseFormRegister } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { FormField } from "../../../../complib/form";
 import { Input, Select } from "../../../../complib/inputs";
 import { Box, Grid } from "../../../../complib/layouts";
 import { useGetAttributesPredefined } from "../../../../data/queries/tyle/queriesAttribute";
-import { FormSection } from "../../common/FormSection";
+import { FormSection } from "../../common/form-section/FormSection";
 import { FormNodeLib } from "../types/formNodeLib";
 import { preparePredefinedAttributes } from "./NodeFormPredefinedAttributes.helpers";
 
 export interface NodeFormPredefinedAttributesProps {
-  control: Control<FormNodeLib>;
-  register: UseFormRegister<FormNodeLib>;
   aspects?: Aspect[];
 }
 
-export const NodeFormPredefinedAttributes = ({ control, register, aspects }: NodeFormPredefinedAttributesProps) => {
+export const NodeFormPredefinedAttributes = ({ aspects }: NodeFormPredefinedAttributesProps) => {
   const theme = useTheme();
   const { t } = useTranslation("translation", { keyPrefix: "predefinedAttributes" });
+  const { control, register } = useFormContext<FormNodeLib>();
 
   const predefinedAttributesQuery = useGetAttributesPredefined();
   const predefinedAttributes = preparePredefinedAttributes(predefinedAttributesQuery.data, aspects);

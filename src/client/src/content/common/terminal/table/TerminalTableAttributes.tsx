@@ -2,10 +2,10 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Td } from "../../../../complib/data-display";
 import { Box } from "../../../../complib/layouts";
-import { TerminalItem } from "../../../types/TerminalItem";
-import { InfoItemButton } from "../../infoItem";
+import { NodeTerminalItem } from "../../../types/NodeTerminalItem";
+import { InfoItemButton } from "../../info-item";
 
-export const TerminalTableAttributes = ({ attributes }: Pick<TerminalItem, "attributes">) => {
+export const TerminalTableAttributes = ({ attributes }: Pick<NodeTerminalItem, "attributes">) => {
   const theme = useTheme();
   const { t } = useTranslation("translation", { keyPrefix: "terminals" });
 

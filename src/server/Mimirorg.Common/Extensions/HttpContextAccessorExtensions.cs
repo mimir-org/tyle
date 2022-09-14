@@ -35,5 +35,14 @@ namespace Mimirorg.Common.Extensions
             return user.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Email)?.Value ??
                    user.FindFirstValue(ClaimTypes.NameIdentifier);
         }
+        /// <summary>
+        /// Get the logged in user
+        /// </summary>
+        /// <param name="contextAccessor"></param>
+        /// <returns>The logged in user</returns>
+        public static ClaimsPrincipal GetUser(this IHttpContextAccessor contextAccessor)
+        {
+            return contextAccessor?.HttpContext?.User;
+        }
     }
 }

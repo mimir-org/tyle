@@ -14,7 +14,6 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -63,14 +62,14 @@ namespace TypeLibrary.Services.Services
 
         public async Task<IEnumerable<TerminalLibCm>> GetAll(bool includeDeleted = false)
         {
-            var terminalLibDms = includeDeleted ? _terminalRepository.Get()?.ToList() : _terminalRepository.Get()?.Where(x => !x.Deleted).ToList();
+            var terminalLibDms = includeDeleted ? _terminalRepository.Get()?.ToList() : _terminalRepository.Get()?.Where(x => x.State != State.Deleted).ToList();
             var terminalLibCms = _mapper.Map<List<TerminalLibCm>>(terminalLibDms);
             return await Task.FromResult(terminalLibCms);
         }
 
         public IEnumerable<TerminalLibCm> GetLatestVersions()
         {
-            var firstVersionIdsDistinct = _terminalRepository.Get().Where(x => !x.Deleted).Select(y => y.FirstVersionId).Distinct().ToList();
+            var firstVersionIdsDistinct = _terminalRepository.Get().Where(x => x.State != State.Deleted).Select(y => y.FirstVersionId).Distinct().ToList();
             var allTerminals = firstVersionIdsDistinct.Select(GetLatestTerminalVersion).ToList();
             var terminals = allTerminals.Where(x => x.ParentId != null).ToList();
             var topParents = allTerminals.Where(x => x.ParentId == null).OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
@@ -99,7 +98,7 @@ namespace TypeLibrary.Services.Services
             foreach (var entity in notExisting)
                 entity.CreatedBy = createdBySystem ? _applicationSettings.System : entity.CreatedBy;
 
-            await _terminalRepository.Create(notExisting);
+            await _terminalRepository.Create(notExisting, createdBySystem ? State.ApprovedGlobal : State.Draft);
             _terminalRepository.ClearAllChangeTrackers();
         }
 
@@ -127,7 +126,7 @@ namespace TypeLibrary.Services.Services
             if (!double.TryParse(terminalDm.Version, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out _))
                 throw new MimirorgBadRequestException($"The version number must be of format x.y. Number is invalid: '{terminalDm.Version}'.");
 
-            await _terminalRepository.Create(terminalDm);
+            await _terminalRepository.Create(terminalDm, State.Draft);
             _terminalRepository.ClearAllChangeTrackers();
 
             _hookService.HookQueue.Enqueue(CacheKey.Terminal);
@@ -150,7 +149,7 @@ namespace TypeLibrary.Services.Services
             if (terminalToUpdate.CreatedBy == _applicationSettings.System)
                 throw new MimirorgBadRequestException($"The terminal with id {id} is created by the system and can not be updated.");
 
-            if (terminalToUpdate.Deleted)
+            if (terminalToUpdate.State == State.Deleted)
                 throw new MimirorgBadRequestException($"The terminal with id {id} is deleted and can not be updated.");
 
             var latestTerminalDm = await _versionService.GetLatestVersion(terminalToUpdate);
@@ -186,6 +185,47 @@ namespace TypeLibrary.Services.Services
             };
 
             return await Create(terminal, false);
+        }
+
+        public async Task<TerminalLibCm> UpdateState(string id, State state)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                throw new MimirorgBadRequestException("Can't update a terminal without an id.");
+
+            var terminalToUpdate = await _terminalRepository.Get(id);
+
+            if (terminalToUpdate?.Id == null)
+                throw new MimirorgNotFoundException($"Terminal with id {id} does not exist, update is not possible.");
+
+            if (terminalToUpdate.CreatedBy == _applicationSettings.System)
+                throw new MimirorgBadRequestException($"The terminal with id {id} is created by the system and can not be updated.");
+
+            if (terminalToUpdate.State == State.Deleted)
+                throw new MimirorgBadRequestException($"The terminal with id {id} is deleted and can not be updated.");
+
+            var latestTerminalDm = await _versionService.GetLatestVersion(terminalToUpdate);
+
+            if (latestTerminalDm == null)
+                throw new MimirorgBadRequestException($"Latest terminal version for terminal with id {id} not found (null).");
+
+            if (string.IsNullOrWhiteSpace(latestTerminalDm.Version))
+                throw new MimirorgBadRequestException($"Latest version for node with id {id} has null or empty as version number.");
+
+            var latestTerminalVersion = double.Parse(latestTerminalDm.Version, CultureInfo.InvariantCulture);
+            var terminalToUpdateVersion = double.Parse(terminalToUpdate.Version, CultureInfo.InvariantCulture);
+
+            if (latestTerminalVersion > terminalToUpdateVersion)
+                throw new MimirorgBadRequestException($"Not allowed to update terminal with id {terminalToUpdate.Id} and version {terminalToUpdateVersion}. Latest version is node with id {latestTerminalDm.Id} and version {latestTerminalVersion}");
+
+            await _terminalRepository.UpdateState(id, state);
+            _terminalRepository.ClearAllChangeTrackers();
+
+            var cm = await Get(id);
+
+            if (cm != null)
+                _hookService.HookQueue.Enqueue(CacheKey.Terminal);
+
+            return cm;
         }
 
         public async Task<bool> Delete(string id)

@@ -21,10 +21,10 @@ namespace TypeLibrary.Data.Models
         public string TypeReferences { get; set; }
         public string Color { get; set; }
         public string Description { get; set; }
+        public int CompanyId { get; set; }
+        public State State { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-        public int CompanyId { get; set; }
-        public bool Deleted { get; set; }
         public ICollection<AttributeLibDm> Attributes { get; set; }
         public ICollection<TerminalLibDm> Children { get; set; }
         public ICollection<NodeTerminalLibDm> TerminalNodes { get; set; }
@@ -43,12 +43,11 @@ namespace TypeLibrary.Data.Models
             if (Name != other.Name)
                 validation.AddNotAllowToChange(nameof(Name));
 
-            if (Attributes != null && other.AttributeIdList != null)
+            Attributes ??= new List<AttributeLibDm>();
+            other.AttributeIdList ??= new List<string>();
+            if (Attributes.Select(y => y.Id).Any(id => other.AttributeIdList.All(x => x != id)))
             {
-                if (Attributes.Select(y => y.Id).Any(id => other.AttributeIdList.All(x => x != id)))
-                {
-                    validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove items from attributes");
-                }
+                validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove items from attributes");
             }
 
             if (ParentId != other.ParentId)
@@ -76,18 +75,18 @@ namespace TypeLibrary.Data.Models
             if (Color != other.Color)
                 minor = true;
 
-            if (Attributes != null && other.AttributeIdList != null)
-            {
-                if (!Attributes.Select(x => x.Id).SequenceEqual(other.AttributeIdList))
-                    major = true;
-            }
+            // Attributes
+            Attributes ??= new List<AttributeLibDm>();
+            other.AttributeIdList ??= new List<string>();
+            if (!Attributes.Select(x => x.Id).SequenceEqual(other.AttributeIdList))
+                major = true;
 
-            ICollection<TypeReferenceAm> references = null;
-
-            if (!string.IsNullOrEmpty(TypeReferences))
-                references = JsonConvert.DeserializeObject<ICollection<TypeReferenceAm>>(TypeReferences);
-
-            if (references != null && !references.SequenceEqual(other.TypeReferences))
+            // Type-references
+            var references = string.IsNullOrWhiteSpace(TypeReferences)
+                ? new List<TypeReferenceAm>()
+                : JsonConvert.DeserializeObject<ICollection<TypeReferenceAm>>(TypeReferences) ?? new List<TypeReferenceAm>();
+            other.TypeReferences ??= new List<TypeReferenceAm>();
+            if (!references.SequenceEqual(other.TypeReferences))
                 minor = true;
 
             return major ? VersionStatus.Major : minor ? VersionStatus.Minor : VersionStatus.NoChange;

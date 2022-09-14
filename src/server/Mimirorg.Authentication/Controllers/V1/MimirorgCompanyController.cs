@@ -20,6 +20,7 @@ namespace Mimirorg.Authentication.Controllers.V1
     public class MimirorgCompanyController : ControllerBase
     {
         private readonly IMimirorgCompanyService _companyService;
+        private readonly IMimirorgUserService _userService;
         private readonly ILogger<MimirorgCompanyController> _logger;
 
         /// <summary>
@@ -27,17 +28,18 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// </summary>
         /// <param name="companyService"></param>
         /// <param name="logger"></param>
-        public MimirorgCompanyController(IMimirorgCompanyService companyService, ILogger<MimirorgCompanyController> logger)
+        /// <param name="userService"></param>
+        public MimirorgCompanyController(IMimirorgCompanyService companyService, ILogger<MimirorgCompanyController> logger, IMimirorgUserService userService)
         {
             _companyService = companyService;
             _logger = logger;
+            _userService = userService;
         }
 
         /// <summary>
-        /// Get all registered companies
+        /// Get all registered companies for current user
         /// </summary>
         /// <returns>ICollection&lt;MimirorgCompanyCm&gt;</returns>
-        [AllowAnonymous]
         [HttpGet]
         [Route("")]
         [ProducesResponseType(typeof(ICollection<MimirorgCompanyCm>), 200)]
@@ -63,7 +65,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// </summary>
         /// <param name="id">int</param>
         /// <returns>MimirorgCompanyCm</returns>
-        [AllowAnonymous]
+        [MimirorgAuthorize(MimirorgPermission.Read, "id")]
         [HttpGet]
         [Route("{id:int}")]
         [ProducesResponseType(typeof(MimirorgCompanyCm), 200)]

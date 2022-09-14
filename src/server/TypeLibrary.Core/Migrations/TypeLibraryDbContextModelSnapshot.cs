@@ -159,12 +159,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("CreatedBy");
 
-                    b.Property<bool>("Deleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasColumnName("Deleted");
-
                     b.Property<string>("Discipline")
                         .IsRequired()
                         .HasMaxLength(63)
@@ -191,6 +185,12 @@ namespace TypeLibrary.Core.Migrations
                     b.Property<string>("SelectValuesString")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("SelectValuesString");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("State");
 
                     b.Property<string>("Tags")
                         .HasColumnType("nvarchar(max)")
@@ -232,12 +232,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("CreatedBy");
 
-                    b.Property<bool>("Deleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasColumnName("Deleted");
-
                     b.Property<string>("Iri")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
@@ -246,6 +240,12 @@ namespace TypeLibrary.Core.Migrations
                     b.Property<bool>("IsMultiSelect")
                         .HasColumnType("bit")
                         .HasColumnName("IsMultiSelect");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("State");
 
                     b.Property<string>("TypeReferences")
                         .HasColumnType("nvarchar(max)")
@@ -288,12 +288,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("CreatedBy");
-
-                    b.Property<bool>("Deleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasColumnName("Deleted");
 
                     b.Property<string>("Description")
                         .HasMaxLength(511)
@@ -399,12 +393,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("CreatedBy");
-
-                    b.Property<bool>("Deleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasColumnName("Deleted");
 
                     b.Property<string>("Description")
                         .HasMaxLength(511)
@@ -534,12 +522,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("CreatedBy");
 
-                    b.Property<bool>("Deleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasColumnName("Deleted");
-
                     b.Property<string>("Description")
                         .HasMaxLength(511)
                         .HasColumnType("nvarchar(511)")
@@ -556,6 +538,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Name");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("State");
 
                     b.Property<string>("TypeReferences")
                         .HasColumnType("nvarchar(max)")
@@ -582,12 +570,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("CreatedBy");
 
-                    b.Property<bool>("Deleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasColumnName("Deleted");
-
                     b.Property<string>("Iri")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -597,6 +579,12 @@ namespace TypeLibrary.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("State");
 
                     b.Property<string>("TypeReferences")
                         .HasColumnType("nvarchar(max)")
@@ -624,12 +612,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("CreatedBy");
 
-                    b.Property<bool>("Deleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasColumnName("Deleted");
-
                     b.Property<string>("Description")
                         .HasMaxLength(511)
                         .HasColumnType("nvarchar(511)")
@@ -645,6 +627,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Name");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("State");
 
                     b.Property<string>("TypeReferences")
                         .HasColumnType("nvarchar(max)")
@@ -677,12 +665,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Data");
 
-                    b.Property<bool>("Deleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasColumnName("Deleted");
-
                     b.Property<string>("Iri")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
@@ -693,6 +675,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Name");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("State");
 
                     b.Property<string>("TypeReferences")
                         .HasColumnType("nvarchar(max)")
@@ -728,12 +716,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("CreatedBy");
 
-                    b.Property<bool>("Deleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasColumnName("Deleted");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -758,6 +740,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("ParentId");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("State");
 
                     b.Property<string>("TypeReferences")
                         .HasColumnType("nvarchar(max)")
@@ -804,12 +792,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("CreatedBy");
-
-                    b.Property<bool>("Deleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasColumnName("Deleted");
 
                     b.Property<string>("Description")
                         .HasMaxLength(511)

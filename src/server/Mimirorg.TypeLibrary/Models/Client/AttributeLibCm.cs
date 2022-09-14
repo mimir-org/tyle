@@ -19,6 +19,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public ICollection<string> SelectValues { get; set; }
         public ICollection<UnitLibCm> Units { get; set; }
         public string Description => CreateDescription();
+        public State State { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public int CompanyId { get; set; }

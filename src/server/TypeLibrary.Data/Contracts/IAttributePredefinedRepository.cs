@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts
@@ -17,7 +18,8 @@ namespace TypeLibrary.Data.Contracts
         /// Create a predefined attribute
         /// </summary>
         /// <param name="attribute">The attribute that should be created</param>
+        /// <param name="state"></param>
         /// <returns>An attribute</returns>
-        Task<AttributePredefinedLibDm> CreatePredefined(AttributePredefinedLibDm attribute);
+        Task<AttributePredefinedLibDm> CreatePredefined(AttributePredefinedLibDm attribute, State state);
     }
 }

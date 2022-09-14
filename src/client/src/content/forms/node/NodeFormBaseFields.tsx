@@ -1,5 +1,5 @@
-import { Aspect } from "@mimirorg/typelibrary-types";
-import { Control, Controller, UseFormRegister, UseFormResetField, UseFormSetValue } from "react-hook-form";
+import { Aspect, MimirorgPermission } from "@mimirorg/typelibrary-types";
+import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Button } from "../../../complib/buttons";
@@ -10,60 +10,48 @@ import { Box, Flexbox } from "../../../complib/layouts";
 import { Icon } from "../../../complib/media";
 import { Text } from "../../../complib/text";
 import { ConditionalWrapper } from "../../../complib/utils";
-import { useGetCompanies } from "../../../data/queries/auth/queriesCompany";
 import { useGetPurposes } from "../../../data/queries/tyle/queriesPurpose";
 import { useGetRds } from "../../../data/queries/tyle/queriesRds";
 import { useGetSymbols } from "../../../data/queries/tyle/queriesSymbol";
 import { getValueLabelObjectsFromEnum } from "../../../utils/getValueLabelObjectsFromEnum";
 import { PlainLink } from "../../utils/PlainLink";
+import { useGetFilteredCompanies } from "../common/utils/useGetFilteredCompanies";
 import { resetSubform } from "./NodeForm.helpers";
 import { NodeFormBaseFieldsContainer } from "./NodeFormBaseFields.styled";
 import { NodeFormPreview } from "./NodeFormPreview";
 import { FormNodeLib } from "./types/formNodeLib";
 
 interface NodeFormBaseFieldsProps {
-  control: Control<FormNodeLib>;
-  register: UseFormRegister<FormNodeLib>;
-  resetField: UseFormResetField<FormNodeLib>;
-  setValue: UseFormSetValue<FormNodeLib>;
-  hasPrefilledData?: boolean;
+  isPrefilled?: boolean;
 }
 
 /**
  * Component which contains all shared fields for variations of the node form.
  *
- * @param control
- * @param register
- * @param resetField
- * @param setValue
- * @param hasPrefilledData
+ * @param isPrefilled
  * @constructor
  */
-export const NodeFormBaseFields = ({
-  control,
-  register,
-  resetField,
-  setValue,
-  hasPrefilledData,
-}: NodeFormBaseFieldsProps) => {
+export const NodeFormBaseFields = ({ isPrefilled }: NodeFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const { control, register, resetField, setValue, formState } = useFormContext<FormNodeLib>();
+  const { errors } = formState;
 
   const rdsQuery = useGetRds();
   const symbolQuery = useGetSymbols();
   const purposeQuery = useGetPurposes();
-  const companyQuery = useGetCompanies();
   const aspectOptions = getValueLabelObjectsFromEnum<Aspect>(Aspect);
+  const companies = useGetFilteredCompanies(MimirorgPermission.Write);
 
   return (
     <NodeFormBaseFieldsContainer>
       <NodeFormPreview control={control} />
 
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
-        <FormField label={t("node.name")}>
+        <FormField label={t("node.name")} error={errors.name}>
           <Input placeholder={t("node.placeholders.name")} {...register("name")} />
         </FormField>
-        <FormField label={t("node.purpose")}>
+        <FormField label={t("node.purpose")} error={errors.purposeName}>
           <Controller
             control={control}
             name={"purposeName"}
@@ -82,13 +70,13 @@ export const NodeFormBaseFields = ({
             )}
           />
         </FormField>
-        <FormField label={t("node.aspect")}>
+        <FormField label={t("node.aspect")} error={errors.aspect}>
           <Controller
             control={control}
             name={"aspect"}
             render={({ field: { value, onChange, ref, ...rest } }) => (
               <ConditionalWrapper
-                condition={hasPrefilledData}
+                condition={isPrefilled}
                 wrapper={(c) => (
                   <Popover align={"start"} maxWidth={"225px"} content={t("node.disabled.aspect")}>
                     <Box borderRadius={theme.tyle.border.radius.medium} tabIndex={0}>
@@ -108,13 +96,13 @@ export const NodeFormBaseFields = ({
                     onChange(x?.value);
                   }}
                   value={aspectOptions.find((x) => x.value === value)}
-                  isDisabled={hasPrefilledData}
+                  isDisabled={isPrefilled}
                 />
               </ConditionalWrapper>
             )}
           />
         </FormField>
-        <FormField label={t("node.symbol")}>
+        <FormField label={t("node.symbol")} error={errors.symbol}>
           <Controller
             control={control}
             name={"symbol"}
@@ -140,7 +128,7 @@ export const NodeFormBaseFields = ({
           />
         </FormField>
         <Input type={"hidden"} {...register("rdsCode")} />
-        <FormField label={t("node.rds")}>
+        <FormField label={t("node.rds")} error={errors.rdsName}>
           <Controller
             control={control}
             name={"rdsName"}
@@ -164,7 +152,7 @@ export const NodeFormBaseFields = ({
             )}
           />
         </FormField>
-        <FormField label={t("node.owner")}>
+        <FormField label={t("node.owner")} error={errors.companyId}>
           <Controller
             control={control}
             name={"companyId"}
@@ -173,18 +161,18 @@ export const NodeFormBaseFields = ({
                 {...rest}
                 selectRef={ref}
                 placeholder={t("common.templates.select", { object: t("node.owner").toLowerCase() })}
-                options={companyQuery.data}
+                options={companies}
                 getOptionLabel={(x) => x.name}
                 getOptionValue={(x) => x.id.toString()}
                 onChange={(x) => {
                   onChange(x?.id);
                 }}
-                value={companyQuery.data?.find((x) => x.id === value)}
+                value={companies.find((x) => x.id === value)}
               />
             )}
           />
         </FormField>
-        <FormField label={t("node.description")}>
+        <FormField label={t("node.description")} error={errors.description}>
           <Textarea placeholder={t("node.placeholders.description")} {...register("description")} />
         </FormField>
       </Flexbox>

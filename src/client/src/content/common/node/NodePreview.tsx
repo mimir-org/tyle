@@ -1,5 +1,5 @@
 import { Box } from "../../../complib/layouts";
-import { TerminalItem } from "../../types/TerminalItem";
+import { NodeTerminalItem } from "../../types/NodeTerminalItem";
 import { TerminalButtonVariant, Terminals } from "../terminal";
 import { Node } from "./Node";
 import { NodeVariant } from "./Node.styled";
@@ -9,7 +9,7 @@ export interface NodePreviewProps {
   name: string;
   color: string;
   img: string;
-  terminals: TerminalItem[];
+  terminals: NodeTerminalItem[];
   variant?: "small" | "large";
 }
 

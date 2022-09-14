@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
@@ -33,7 +34,6 @@ namespace TypeLibrary.Data.Repositories.Ef
                 .Include(x => x.Terminal)
                 .Include(x => x.Attributes)
                 .Include(x => x.Parent)
-                .Where(x => !x.Deleted)
                 .OrderBy(x => x.Name)
                 .AsSplitQuery();
         }
@@ -50,10 +50,27 @@ namespace TypeLibrary.Data.Repositories.Ef
             return item;
         }
 
-        public async Task Create(TransportLibDm dataDm)
+        public async Task UpdateState(string id, State state)
+        {
+            var dm = await FindBy(x => x.Id == id).FirstOrDefaultAsync();
+
+            if (dm == null)
+                throw new MimirorgNotFoundException($"Transport with id {id} not found.");
+
+            if (dm.State == state)
+                throw new MimirorgBadRequestException($"Not allowed. Same state. Current state is {dm.State} and new state is {state}");
+
+            dm.State = state;
+            Context.Entry(dm).State = EntityState.Modified;
+            await Context.SaveChangesAsync();
+        }
+
+        public async Task Create(TransportLibDm dataDm, State state)
         {
             if (dataDm.Attributes != null && dataDm.Attributes.Any())
                 _attributeRepository.SetUnchanged(dataDm.Attributes);
+
+            dataDm.State = state;
 
             await CreateAsync(dataDm);
             await SaveAsync();
@@ -74,7 +91,7 @@ namespace TypeLibrary.Data.Repositories.Ef
             if (dm.CreatedBy == _applicationSettings.System)
                 throw new MimirorgBadRequestException($"The transport with id {id} is created by the system and can not be deleted.");
 
-            dm.Deleted = true;
+            dm.State = State.Deleted;
             Context.Entry(dm).State = EntityState.Modified;
             return await Context.SaveChangesAsync() == 1;
         }

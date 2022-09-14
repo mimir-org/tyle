@@ -1,4 +1,3 @@
-using AngleSharp.Dom;
 using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Setup;
@@ -45,7 +44,6 @@ namespace Mimirorg.Integration.Tests.Services
                 RdsName = "RdsName",
                 RdsCode = "RdsCode",
                 PurposeName = "PurposeName",
-                Description = "Description",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
                 TerminalId = "8EBC5811473E87602FB0C18A100BD53C"
@@ -86,6 +84,7 @@ namespace Mimirorg.Integration.Tests.Services
             var transportCm = await transportService.Create(transportAm, true);
 
             Assert.NotNull(transportCm);
+            Assert.True(transportCm.State == State.Draft);
             Assert.Equal(transportAm.Id, transportCm.Id);
             Assert.Equal(transportAm.Name, transportCm.Name);
             Assert.Equal(transportAm.RdsName, transportCm.RdsName);
@@ -96,11 +95,11 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(transportAm.CompanyId, transportCm.CompanyId);
             Assert.Equal(transportAm.TerminalId, transportCm.TerminalId);
             Assert.Equal(transportAm.AttributeIdList.ToList().ConvertToString(), transportCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
-            Assert.Equal(transportAm.TypeReferences.First().Iri, transportAm.TypeReferences.First().Iri);
-            Assert.Equal(transportAm.TypeReferences.First().Name, transportAm.TypeReferences.First().Name);
-            Assert.Equal(transportAm.TypeReferences.First().Source, transportAm.TypeReferences.First().Source);
-            Assert.Equal(transportAm.TypeReferences.First().SubIri, transportAm.TypeReferences.First().SubIri);
-            Assert.Equal(transportAm.TypeReferences.First().SubName, transportAm.TypeReferences.First().SubName);
+            Assert.Equal(transportAm.TypeReferences.First().Iri, transportCm.TypeReferences.First().Iri);
+            Assert.Equal(transportAm.TypeReferences.First().Name, transportCm.TypeReferences.First().Name);
+            Assert.Equal(transportAm.TypeReferences.First().Source, transportCm.TypeReferences.First().Source);
+            Assert.Equal(transportAm.TypeReferences.First().SubIri, transportCm.TypeReferences.First().SubIri);
+            Assert.Equal(transportAm.TypeReferences.First().SubName, transportCm.TypeReferences.First().SubName);
             Assert.Equal(transportAm.ParentId, transportCm.ParentId);
         }
 
@@ -188,6 +187,33 @@ namespace Mimirorg.Integration.Tests.Services
 
             Assert.True(isDeleted);
             Assert.True(string.IsNullOrEmpty(allTransportsNotDeleted?.FirstOrDefault(x => x.Id == transportCm?.Id)?.Id));
+        }
+
+        [Fact]
+        public async Task Update_Transport_Status_Ok()
+        {
+            var transportAm = new TransportLibAm
+            {
+                Name = "Transport6",
+                RdsName = "RdsName",
+                RdsCode = "RdsCode",
+                PurposeName = "PurposeName",
+                Description = "Description",
+                Aspect = Aspect.NotSet,
+                CompanyId = 1,
+                AttributeIdList = new List<string>
+                {
+                    "0646754DC953F5EDD4F6159CD993696D"
+                }
+            };
+
+            var transportService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITransportService>();
+
+            var cm = await transportService.Create(transportAm, true);
+            var cmUpdated = await transportService.UpdateState(cm.Id, State.ApprovedCompany);
+
+            Assert.True(cm.State != cmUpdated.State);
+            Assert.True(cmUpdated.State == State.ApprovedCompany);
         }
     }
 }

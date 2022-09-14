@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This directory houses stories and components that can be consumed by the __:TYLE__ client and potentially others if extracted into its own package. 
+This directory houses stories and components that can be consumed by the **:TYLE** client and potentially others if extracted into its own package.
 By offering a collection of well-built components that conform to shared design tokens we can establish consistent styling and behaviour throughout the applications that utilizes them.
 
 ## Rules

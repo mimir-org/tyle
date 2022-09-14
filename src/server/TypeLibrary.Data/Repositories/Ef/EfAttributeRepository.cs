@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 
@@ -21,7 +21,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// <remarks>Only attributes that is not deleted will be returned</remarks>
         public IEnumerable<AttributeLibDm> Get()
         {
-            return GetAll().Where(x => !x.Deleted);
+            return GetAll();
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// <returns>If exist it returns the attribute, otherwise it returns null</returns>
         public async Task<AttributeLibDm> Get(string id)
         {
-            var item = await FindBy(x => x.Id == id && !x.Deleted).FirstOrDefaultAsync();
+            var item = await FindBy(x => x.Id == id).FirstOrDefaultAsync();
             return item;
         }
 
@@ -39,9 +39,11 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// Create a new attribute
         /// </summary>
         /// <param name="attribute">The attribute that should be created</param>
+        /// <param name="state"></param>
         /// <returns>An attribute</returns>
-        public async Task<AttributeLibDm> Create(AttributeLibDm attribute)
+        public async Task<AttributeLibDm> Create(AttributeLibDm attribute, State state)
         {
+            attribute.State = state;
             await CreateAsync(attribute);
             await SaveAsync();
             Detach(attribute);

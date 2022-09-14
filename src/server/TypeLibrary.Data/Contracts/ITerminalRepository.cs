@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts
@@ -8,8 +9,9 @@ namespace TypeLibrary.Data.Contracts
     {
         IEnumerable<TerminalLibDm> Get();
         Task<TerminalLibDm> Get(string id);
-        Task Create(List<TerminalLibDm> items);
-        Task<TerminalLibDm> Create(TerminalLibDm terminal);
+        Task UpdateState(string id, State state);
+        Task Create(List<TerminalLibDm> items, State state);
+        Task<TerminalLibDm> Create(TerminalLibDm terminal, State state);
         IEnumerable<TerminalLibDm> GetVersions(string firstVersionId);
         Task<bool> Remove(string id);
         void ClearAllChangeTrackers();

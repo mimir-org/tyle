@@ -1,13 +1,27 @@
 import { Aspect } from "@mimirorg/typelibrary-types";
 import { useState } from "react";
 import { useGetAttributes } from "../../../../data/queries/tyle/queriesAttribute";
+import { useGetInterfaces } from "../../../../data/queries/tyle/queriesInterface";
 import { useGetNodes } from "../../../../data/queries/tyle/queriesNode";
 import { useGetPurposes } from "../../../../data/queries/tyle/queriesPurpose";
+import { useGetTerminals } from "../../../../data/queries/tyle/queriesTerminal";
+import { useGetTransports } from "../../../../data/queries/tyle/queriesTransport";
 import { useFuse } from "../../../../hooks/useFuse";
 import { getValueLabelObjectsFromEnum } from "../../../../utils/getValueLabelObjectsFromEnum";
-import { isAttributeLibCm, isNodeLibCm } from "../../../../utils/guards";
-import { mapNodeLibCmToNodeItem } from "../../../../utils/mappers";
-import { mapAttributeLibCmToAttributeItem } from "../../../../utils/mappers/mapAttributeLibCmToAttributeItem";
+import {
+  isAttributeLibCm,
+  isInterfaceLibCm,
+  isNodeLibCm,
+  isTerminalLibCm,
+  isTransportLibCm,
+} from "../../../../utils/guards";
+import {
+  mapAttributeLibCmToAttributeItem,
+  mapInterfaceLibCmToInterfaceItem,
+  mapNodeLibCmToNodeItem,
+  mapTerminalLibCmToTerminalItem,
+  mapTransportLibCmToTransportItem,
+} from "../../../../utils/mappers";
 import { Filter } from "../../types/filter";
 import { FilterGroup } from "../../types/filterGroup";
 import { Link } from "../../types/link";
@@ -38,6 +52,18 @@ export const getCreateMenuLinks = (): Link[] => {
     {
       name: "Aspect object",
       path: "/form/node",
+    },
+    {
+      name: "Interface",
+      path: "/form/interface",
+    },
+    {
+      name: "Terminal",
+      path: "/form/terminal",
+    },
+    {
+      name: "Transport",
+      path: "/form/transport",
     },
   ];
 };
@@ -111,6 +137,21 @@ const getEntityFilters = (): FilterGroup => ({
       label: "Aspect object",
       value: "NodeLibCm",
     },
+    {
+      key: "kind",
+      label: "Interface",
+      value: "InterfaceLibCm",
+    },
+    {
+      key: "kind",
+      label: "Terminal",
+      value: "TerminalLibCm",
+    },
+    {
+      key: "kind",
+      label: "Transport",
+      value: "TransportLibCm",
+    },
   ],
 });
 
@@ -132,9 +173,25 @@ const filterSearchResults = (filters: Filter[], items: SearchResultRaw[]) => {
 
 const useSearchItems = (): [items: SearchResultRaw[], isLoading: boolean] => {
   const nodeQuery = useGetNodes();
+  const terminalQuery = useGetTerminals();
   const attributeQuery = useGetAttributes();
-  const isLoading = nodeQuery.isLoading || attributeQuery.isLoading;
-  const mergedItems = [...(nodeQuery.data ?? []), ...(attributeQuery.data ?? [])];
+  const transportQuery = useGetTransports();
+  const interfaceQuery = useGetInterfaces();
+
+  const isLoading =
+    nodeQuery.isLoading ||
+    terminalQuery.isLoading ||
+    attributeQuery.isLoading ||
+    transportQuery.isLoading ||
+    interfaceQuery.isLoading;
+
+  const mergedItems = [
+    ...(nodeQuery.data ?? []),
+    ...(terminalQuery.data ?? []),
+    ...(attributeQuery.data ?? []),
+    ...(transportQuery.data ?? []),
+    ...(interfaceQuery.data ?? []),
+  ];
 
   return [mergedItems, isLoading];
 };
@@ -145,6 +202,9 @@ const mapSearchResults = (items: SearchResultRaw[]) => {
   items.forEach((x) => {
     if (isNodeLibCm(x)) mappedSearchResults.push(mapNodeLibCmToNodeItem(x));
     else if (isAttributeLibCm(x)) mappedSearchResults.push(mapAttributeLibCmToAttributeItem(x));
+    else if (isTerminalLibCm(x)) mappedSearchResults.push(mapTerminalLibCmToTerminalItem(x));
+    else if (isTransportLibCm(x)) mappedSearchResults.push(mapTransportLibCmToTransportItem(x));
+    else if (isInterfaceLibCm(x)) mappedSearchResults.push(mapInterfaceLibCmToInterfaceItem(x));
   });
 
   return mappedSearchResults;

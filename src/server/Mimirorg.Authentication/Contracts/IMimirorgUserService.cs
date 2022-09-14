@@ -9,6 +9,7 @@ namespace Mimirorg.Authentication.Contracts
         Task<MimirorgQrCodeCm> CreateUser(MimirorgUserAm userAm);
         Task<MimirorgUserCm> GetUser(IPrincipal principal);
         Task<MimirorgUserCm> GetUser(string id);
+        Task<ICollection<MimirorgCompanyCm>> GetUserFilteredCompanies();
         Task<MimirorgUserCm> UpdateUser(string id, MimirorgUserAm userAm);
         Task<bool> DeleteUser(string id);
     }

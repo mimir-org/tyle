@@ -1,6 +1,7 @@
 # Mixins
 
 ## Purpose
+
 This directory houses mixins that implement common and reusable functionality for the purpose of styling components.
 
 Many of the mixins available you will find in the "mixins/props" directory, these implement the interfaces defined in the "complib/props" directory.  
@@ -9,6 +10,7 @@ As an example two components "Foo" and "Bar" would expose the same property "max
 By utilizing the same interfaces and mixins we avoid these components using different names for this property e.g. maxW, maximumWidth etc.
 
 ## Partial implementations
+
 Should you want to expose only parts of an interface to the consumer, then consider omitting or picking parts of a given interface.
 
 ### Example omit
@@ -22,10 +24,10 @@ interface MyOmittingInterface extends Omit<Sizing, "maxWidth" | "maxHeight"> {
 
 const OmittingComponent = styled.div<MyOmittingInterface>`
     ${sizingMixin};
-    
+
     // Some custom property might follow
     color: ${(props) => props.someAdditionalProperty};
-    
+
     // Other properties that are not exposed to the consumer could also be defined within
     font-size: 32px;
 `;
@@ -43,10 +45,10 @@ interface MyPickyInterface extends Typography, Pick<Sizing, "maxWidth" | "maxHei
 const PickyComponent = styled.div<MyPickyInterface>`
     ${typographyMixin};
     ${sizingMixin};
-    
+
     // Some custom property might follow
     color: ${(props) => props.someAdditionalProperty};
-    
+
     // Other properties that are not exposed to the consumer could also be defined within
     font-size: 32px;
 `;

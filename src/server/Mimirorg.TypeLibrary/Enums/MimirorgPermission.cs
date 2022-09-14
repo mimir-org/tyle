@@ -12,15 +12,15 @@ namespace Mimirorg.TypeLibrary.Enums
         Read = 1,
 
         [Display(Name = "Write")]
-        Write = 2,
-
-        [Display(Name = "Approve")]
-        Approve = 3,
+        Write = 2 | Read,
 
         [Display(Name = "Delete")]
-        Delete = 6,
+        Delete = 4 | Write | Read,
+
+        [Display(Name = "Approve")]
+        Approve = 8 | Delete | Write | Read,
 
         [Display(Name = "Manage")]
-        Manage = 12
+        Manage = 16 | Approve
     }
 }

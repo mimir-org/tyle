@@ -5,7 +5,7 @@ import { Button } from "../../../../../../complib/buttons";
 import { Popover } from "../../../../../../complib/data-display";
 import { Box } from "../../../../../../complib/layouts";
 import { Accordion } from "../../../../../../complib/surfaces";
-import { SearchField } from "../../../../../common/SearchField";
+import { SearchField } from "../../../../../common/search-field";
 import { FilterGroup } from "../../../../types/filterGroup";
 import { filterAvailableFilters } from "./FilterMenu.helpers";
 import { FilterMenuGroup, FilterMenuGroupProps } from "./FilterMenuGroup";

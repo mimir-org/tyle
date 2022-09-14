@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Models;
+using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
@@ -28,7 +29,7 @@ namespace TypeLibrary.Services.Services
 
         public IEnumerable<SymbolLibCm> Get()
         {
-            var symbolLibDms = _symbolRepository.Get().ToList()
+            var symbolLibDms = _symbolRepository.Get().Where(x => x.State != State.Deleted).ToList()
                 .OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
             return _mapper.Map<List<SymbolLibCm>>(symbolLibDms);
@@ -46,7 +47,7 @@ namespace TypeLibrary.Services.Services
             foreach (var data in notExisting)
                 data.CreatedBy = createdBySystem ? _applicationSettings.System : data.CreatedBy;
 
-            await _symbolRepository.Create(notExisting);
+            await _symbolRepository.Create(notExisting, createdBySystem ? State.ApprovedGlobal : State.Draft);
             _symbolRepository.ClearAllChangeTrackers();
         }
     }

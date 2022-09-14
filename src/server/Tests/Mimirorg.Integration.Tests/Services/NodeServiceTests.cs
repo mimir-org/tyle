@@ -110,6 +110,7 @@ namespace Mimirorg.Integration.Tests.Services
             var nodeCm = await nodeService.Create(nodeAm);
 
             Assert.NotNull(nodeCm);
+            Assert.True(nodeCm.State == State.Draft);
             Assert.Equal(nodeAm.Id, nodeCm.Id);
             Assert.Equal(nodeAm.Name, nodeCm.Name);
             Assert.Equal(nodeAm.RdsName, nodeCm.RdsName);
@@ -242,6 +243,33 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.True(isDeleted);
             Assert.True(string.IsNullOrEmpty(allNodesNotDeleted?.FirstOrDefault(x => x.Id == nodeCm?.Id)?.Id));
             Assert.True(!string.IsNullOrEmpty(allNodesIncludeDeleted?.FirstOrDefault(x => x.Id == nodeCm?.Id)?.Id));
+        }
+
+        [Fact]
+        public async Task Update_Node_State_Result_Ok()
+        {
+            var nodeAm = new NodeLibAm
+            {
+                Name = "Node6",
+                RdsName = "RdsName",
+                RdsCode = "RdsCode",
+                PurposeName = "PurposeName",
+                Description = "Description",
+                Aspect = Aspect.NotSet,
+                CompanyId = 1,
+                AttributeIdList = new List<string>
+                {
+                    "0646754DC953F5EDD4F6159CD993696D"
+                }
+            };
+
+            var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
+
+            var cm = await nodeService.Create(nodeAm, true);
+            var cmUpdated = await nodeService.UpdateState(cm.Id, State.ApprovedCompany);
+
+            Assert.True(cm.State != cmUpdated.State);
+            Assert.True(cmUpdated.State == State.ApprovedCompany);
         }
     }
 }

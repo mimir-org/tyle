@@ -7,4 +7,4 @@ These examples can be used as an inspiration/guidance for implementing features 
 
 ## Rules
 
-No part of the actual application should have a dependency upon _examples and/or its contents.
+No part of the actual application should have a dependency upon \_examples and/or its contents.

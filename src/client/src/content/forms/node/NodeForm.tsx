@@ -1,14 +1,27 @@
 import { DevTool } from "@hookform/devtools";
-import { useForm, useWatch } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Box } from "../../../complib/layouts";
-import { useCreateNode, useUpdateNode } from "../../../data/queries/tyle/queriesNode";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
-import { Loader } from "../../common/Loader";
-import { getFormForAspect, useNodeSubmissionToast, usePrefilledNodeData } from "./NodeForm.helpers";
+import { useServerValidation } from "../../../hooks/useServerValidation";
+import { Loader } from "../../common/loader";
+import { FormAttributes } from "../common/form-attributes/FormAttributes";
+import { onSubmitForm } from "../common/utils/onSubmitForm";
+import { prepareAttributesByAspect } from "../common/utils/prepareAttributesByAspect";
+import { usePrefilledForm } from "../common/utils/usePrefilledForm";
+import { useSubmissionToast } from "../common/utils/useSubmissionToast";
+import { getSubformForAspect, useNodeMutation, useNodeQuery } from "./NodeForm.helpers";
 import { NodeFormContainer } from "./NodeForm.styled";
 import { NodeFormBaseFields } from "./NodeFormBaseFields";
-import { createEmptyFormNodeLib, FormNodeLib, mapFormNodeLibToApiModel } from "./types/formNodeLib";
+import { nodeSchema } from "./nodeSchema";
+import {
+  createEmptyFormNodeLib,
+  FormNodeLib,
+  mapFormNodeLibToApiModel,
+  mapNodeLibCmToFormNodeLib,
+} from "./types/formNodeLib";
 
 interface NodeFormProps {
   defaultValues?: FormNodeLib;
@@ -17,43 +30,51 @@ interface NodeFormProps {
 
 export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: NodeFormProps) => {
   const theme = useTheme();
-  const { register, handleSubmit, control, setValue, reset, resetField } = useForm<FormNodeLib>({ defaultValues });
+  const { t } = useTranslation();
+
+  const formMethods = useForm<FormNodeLib>({
+    defaultValues: defaultValues,
+    resolver: yupResolver(nodeSchema(t)),
+  });
+
+  const { register, handleSubmit, control, setError, reset } = formMethods;
+
   const aspect = useWatch({ control, name: "aspect" });
+  const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
-  const nodeUpdateMutation = useUpdateNode();
-  const nodeCreateMutation = useCreateNode();
-  const [hasPrefilledData, isLoading] = usePrefilledNodeData(reset);
+  const query = useNodeQuery();
+  const [isPrefilled, isLoading] = usePrefilledForm(query, mapNodeLibCmToFormNodeLib, reset);
 
-  const toastNodeSubmission = useNodeSubmissionToast();
-  const onSubmit = (data: FormNodeLib) => {
-    const mutation = isEdit ? nodeUpdateMutation.mutateAsync : nodeCreateMutation.mutateAsync;
-    const submittable = mapFormNodeLibToApiModel(data);
-    const submissionPromise = mutation(submittable);
-    toastNodeSubmission(submissionPromise);
-    return submissionPromise;
-  };
+  const mutation = useNodeMutation(isEdit);
+  useServerValidation(mutation.error, setError);
+  useNavigateOnCriteria("/", mutation.isSuccess);
 
-  useNavigateOnCriteria("/", nodeCreateMutation.isSuccess || nodeUpdateMutation.isSuccess);
+  const toast = useSubmissionToast(t("node.title"));
 
   return (
-    <NodeFormContainer onSubmit={handleSubmit((data) => onSubmit(data))}>
-      {isLoading && <Loader />}
-      {!isLoading && (
-        <>
-          <NodeFormBaseFields
-            control={control}
-            register={register}
-            resetField={resetField}
-            setValue={setValue}
-            hasPrefilledData={hasPrefilledData}
-          />
+    <FormProvider {...formMethods}>
+      <NodeFormContainer
+        onSubmit={handleSubmit((data) => onSubmitForm(mapFormNodeLibToApiModel(data), mutation.mutateAsync, toast))}
+      >
+        {isLoading && <Loader />}
+        {!isLoading && (
+          <>
+            <NodeFormBaseFields isPrefilled={isPrefilled} />
 
-          <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
-            {getFormForAspect(aspect, control, register)}
-          </Box>
-        </>
-      )}
-      <DevTool control={control} placement={"bottom-right"} />
-    </NodeFormContainer>
+            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
+              {getSubformForAspect(aspect)}
+              <FormAttributes
+                register={(index) => register(`attributeIdList.${index}`)}
+                fields={attributeFields.fields}
+                append={attributeFields.append}
+                remove={attributeFields.remove}
+                preprocess={(attributes) => prepareAttributesByAspect(attributes, [aspect])}
+              />
+            </Box>
+          </>
+        )}
+        <DevTool control={control} placement={"bottom-right"} />
+      </NodeFormContainer>
+    </FormProvider>
   );
 };

@@ -1,10 +1,10 @@
-import { Fragment } from "react";
 import { useTheme } from "styled-components";
 import { Token } from "../../../../../../complib/general";
 import { Flexbox, MotionBox } from "../../../../../../complib/layouts";
 import { Heading, Text } from "../../../../../../complib/text";
 import { AttributePreview } from "../../../../../common/attribute";
 import { AttributeItem } from "../../../../../types/AttributeItem";
+import { PanelSection } from "../common/PanelSection";
 
 /**
  * Component that displays information about a given attribute.
@@ -42,18 +42,13 @@ export const AttributePanel = (props: AttributeItem) => {
 
       {showContentButtons &&
         props.contents.map((info, index) => (
-          <Fragment key={index}>
-            <Heading as={"h3"} variant={"body-large"} color={theme.tyle.color.sys.surface.on}>
-              {info.name}
-            </Heading>
-            <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.xl}>
-              {Object.keys(info.descriptors).map((k, i) => (
-                <Token key={i} variant={"secondary"}>
-                  {info.descriptors[k]}
-                </Token>
-              ))}
-            </Flexbox>
-          </Fragment>
+          <PanelSection key={index} title={info.name}>
+            {Object.keys(info.descriptors).map((k, i) => (
+              <Token key={i} variant={"secondary"}>
+                {info.descriptors[k]}
+              </Token>
+            ))}
+          </PanelSection>
         ))}
     </MotionBox>
   );

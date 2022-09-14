@@ -1,12 +1,11 @@
-import { Aspect, Discipline, Select as AttributeSelect } from "@mimirorg/typelibrary-types";
-import { Control, Controller, UseFormRegister, UseFormResetField } from "react-hook-form";
+import { Aspect, Discipline, MimirorgPermission, Select as AttributeSelect } from "@mimirorg/typelibrary-types";
+import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Button } from "../../../complib/buttons";
 import { FormField } from "../../../complib/form";
 import { Input, Select } from "../../../complib/inputs";
 import { Flexbox } from "../../../complib/layouts";
-import { useGetCompanies } from "../../../data/queries/auth/queriesCompany";
 import {
   useGetAttributesCondition,
   useGetAttributesFormat,
@@ -15,37 +14,28 @@ import {
 } from "../../../data/queries/tyle/queriesAttribute";
 import { getValueLabelObjectsFromEnum } from "../../../utils/getValueLabelObjectsFromEnum";
 import { PlainLink } from "../../utils/PlainLink";
+import { useGetFilteredCompanies } from "../common/utils/useGetFilteredCompanies";
 import { onChangeSelectType } from "./AttributeFormBaseFields.helpers";
 import { AttributeFormBaseFieldsContainer } from "./AttributeFormBaseFields.styled";
 import { AttributeFormPreview } from "./AttributeFormPreview";
 import { FormAttributeLib } from "./types/formAttributeLib";
 
 interface AttributeFormBaseFieldsProps {
-  control: Control<FormAttributeLib>;
-  register: UseFormRegister<FormAttributeLib>;
-  resetField: UseFormResetField<FormAttributeLib>;
-  hasPrefilledData?: boolean;
+  isPrefilled?: boolean;
 }
 
 /**
  * Component which contains all shared fields for variations of the attribute form.
  *
- * @param control
- * @param register
- * @param resetField
- * @param hasPrefilledData
+ * @param isPrefilled
  * @constructor
  */
-export const AttributeFormBaseFields = ({
-  control,
-  register,
-  resetField,
-  hasPrefilledData,
-}: AttributeFormBaseFieldsProps) => {
+export const AttributeFormBaseFields = ({ isPrefilled }: AttributeFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const { control, register, resetField, formState } = useFormContext<FormAttributeLib>();
+  const { errors } = formState;
 
-  const companyQuery = useGetCompanies();
   const attributeSourceQuery = useGetAttributesSource();
   const attributeFormatQuery = useGetAttributesFormat();
   const attributeQualifierQuery = useGetAttributesQualifier();
@@ -53,13 +43,14 @@ export const AttributeFormBaseFields = ({
   const aspectOptions = getValueLabelObjectsFromEnum<Aspect>(Aspect);
   const disciplineOptions = getValueLabelObjectsFromEnum<Discipline>(Discipline);
   const selectOptions = getValueLabelObjectsFromEnum<AttributeSelect>(AttributeSelect);
+  const companies = useGetFilteredCompanies(MimirorgPermission.Write);
 
   return (
     <AttributeFormBaseFieldsContainer>
       <AttributeFormPreview control={control} />
 
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
-        <FormField label={t("attribute.name")}>
+        <FormField label={t("attribute.name")} error={errors.name}>
           <Input placeholder={t("attribute.placeholders.name")} {...register("name")} />
         </FormField>
 
@@ -76,7 +67,7 @@ export const AttributeFormBaseFields = ({
                 getOptionLabel={(x) => x.label}
                 onChange={(x) => onChange(x?.value)}
                 value={aspectOptions.find((x) => x.value === value)}
-                isDisabled={hasPrefilledData}
+                isDisabled={isPrefilled}
               />
             </FormField>
           )}
@@ -86,7 +77,7 @@ export const AttributeFormBaseFields = ({
           control={control}
           name={"discipline"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("attribute.discipline")}>
+            <FormField label={t("attribute.discipline")} error={errors.discipline}>
               <Select
                 {...rest}
                 selectRef={ref}
@@ -104,18 +95,18 @@ export const AttributeFormBaseFields = ({
           control={control}
           name={"companyId"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("attribute.owner")}>
+            <FormField label={t("attribute.owner")} error={errors.companyId}>
               <Select
                 {...rest}
                 selectRef={ref}
                 placeholder={t("common.templates.select", { object: t("node.owner").toLowerCase() })}
-                options={companyQuery.data}
+                options={companies}
                 getOptionLabel={(x) => x.name}
                 getOptionValue={(x) => x.id.toString()}
                 onChange={(x) => {
                   onChange(x?.id);
                 }}
-                value={companyQuery.data?.find((x) => x.id === value)}
+                value={companies.find((x) => x.id === value)}
               />
             </FormField>
           )}
@@ -125,7 +116,7 @@ export const AttributeFormBaseFields = ({
           control={control}
           name={"select"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("attribute.select")}>
+            <FormField label={t("attribute.select")} error={errors.select}>
               <Select
                 {...rest}
                 selectRef={ref}
@@ -148,7 +139,7 @@ export const AttributeFormBaseFields = ({
           control={control}
           name={"attributeQualifier"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("attribute.qualifier")}>
+            <FormField label={t("attribute.qualifier")} error={errors.attributeQualifier}>
               <Select
                 {...rest}
                 selectRef={ref}
@@ -168,7 +159,7 @@ export const AttributeFormBaseFields = ({
           control={control}
           name={"attributeSource"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("attribute.source")}>
+            <FormField label={t("attribute.source")} error={errors.attributeSource}>
               <Select
                 {...rest}
                 selectRef={ref}
@@ -188,7 +179,7 @@ export const AttributeFormBaseFields = ({
           control={control}
           name={"attributeCondition"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("attribute.condition")}>
+            <FormField label={t("attribute.condition")} error={errors.attributeCondition}>
               <Select
                 {...rest}
                 selectRef={ref}
@@ -208,7 +199,7 @@ export const AttributeFormBaseFields = ({
           control={control}
           name={"attributeFormat"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("attribute.format")}>
+            <FormField label={t("attribute.format")} error={errors.attributeFormat}>
               <Select
                 {...rest}
                 selectRef={ref}

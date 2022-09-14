@@ -39,7 +39,7 @@ If using vscode, use the Prettier - Code formatter (by Prettier) extension to in
 1.  Ctrl + Shift + P to open vscode command prompt.
 2.  Select "Preferences: Open Settings (JSON)"
 3.  Set formatting on save to true
+
 ```txt
 "editor.formatOnSave": true
 ```
-

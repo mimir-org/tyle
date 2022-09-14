@@ -16,39 +16,63 @@ Here you will find an overview of the type scale system.
 <Canvas>
   <Box display="flex" flexDirection="column" gap={theme.spacing.xxl} p={theme.spacing.xl}>
     <Flexbox gap={theme.spacing.l}>
-      <Heading as={"h1"} variant={"display-large"}>H1</Heading>
+      <Heading as={"h1"} variant={"display-large"}>
+        H1
+      </Heading>
       <div>
-        <Heading as={"h1"} variant={"display-large"}>Main heading</Heading>
+        <Heading as={"h1"} variant={"display-large"}>
+          Main heading
+        </Heading>
       </div>
     </Flexbox>
     <Flexbox gap={theme.spacing.l}>
-      <Heading as={"h2"} variant={"display-medium"}>H2</Heading>
+      <Heading as={"h2"} variant={"display-medium"}>
+        H2
+      </Heading>
       <div>
-        <Heading as={"h2"} variant={"display-medium"}>Secondary heading</Heading>
+        <Heading as={"h2"} variant={"display-medium"}>
+          Secondary heading
+        </Heading>
       </div>
     </Flexbox>
     <Flexbox gap={theme.spacing.l}>
-      <Heading as={"h3"} variant={"display-small"}>H3</Heading>
+      <Heading as={"h3"} variant={"display-small"}>
+        H3
+      </Heading>
       <div>
-        <Heading as={"h3"} variant={"display-small"}>Tertiary heading</Heading>
+        <Heading as={"h3"} variant={"display-small"}>
+          Tertiary heading
+        </Heading>
       </div>
     </Flexbox>
     <Flexbox gap={theme.spacing.l}>
-      <Heading as={"h4"} variant={"headline-large"}>H4</Heading>
+      <Heading as={"h4"} variant={"headline-large"}>
+        H4
+      </Heading>
       <div>
-        <Heading as={"h4"} variant={"headline-large"}>Fourth heading</Heading>
+        <Heading as={"h4"} variant={"headline-large"}>
+          Fourth heading
+        </Heading>
       </div>
     </Flexbox>
     <Flexbox gap={theme.spacing.l}>
-      <Heading as={"h5"} variant={"headline-medium"}>H5</Heading>
+      <Heading as={"h5"} variant={"headline-medium"}>
+        H5
+      </Heading>
       <div>
-        <Heading as={"h5"} variant={"headline-medium"}>Fifth heading</Heading>
+        <Heading as={"h5"} variant={"headline-medium"}>
+          Fifth heading
+        </Heading>
       </div>
     </Flexbox>
     <Flexbox gap={theme.spacing.l}>
-      <Heading as={"h6"} variant={"headline-small"}>H6</Heading>
+      <Heading as={"h6"} variant={"headline-small"}>
+        H6
+      </Heading>
       <div>
-        <Heading as={"h6"} variant={"headline-small"}>Sixth heading</Heading>
+        <Heading as={"h6"} variant={"headline-small"}>
+          Sixth heading
+        </Heading>
       </div>
     </Flexbox>
   </Box>
@@ -59,16 +83,24 @@ Here you will find an overview of the type scale system.
 <Canvas>
   <Box display="flex" flexDirection="column" gap={theme.spacing.xxl} p={theme.spacing.xl}>
     <Flexbox gap={theme.spacing.l}>
-      <Text as={"p"} variant={"body-large"}>&lt;p&gt;</Text>
+      <Text as={"p"} variant={"body-large"}>
+        &lt;p&gt;
+      </Text>
       <div>
-        <Text as={"p"} variant={"body-large"}>Paragraph text</Text>
+        <Text as={"p"} variant={"body-large"}>
+          Paragraph text
+        </Text>
         <Text variant={"body-large"}>Used for general text</Text>
       </div>
     </Flexbox>
     <Flexbox gap={theme.spacing.l}>
-      <Text as={"a"} variant={"body-large"} href="/">Link</Text>
+      <Text as={"a"} variant={"body-large"} href="/">
+        Link
+      </Text>
       <div>
-        <Text as={"a"} variant={"body-large"} href="/">Link text</Text>
+        <Text as={"a"} variant={"body-large"} href="/">
+          Link text
+        </Text>
         <Text variant={"body-large"}>Used for navigation between views</Text>
       </div>
     </Flexbox>
@@ -76,9 +108,10 @@ Here you will find an overview of the type scale system.
 </Canvas>
 
 ## Text and heading variants
+
 There are 15 styles which make up the type scale, they fall into 4 different categories: _Display, Headline, Title, Label and Body_.
 These are meant to support a wide range of use cases and can be used in combination with multiple different html elements.
-The components "text" and "heading" support a variant parameter in the format of ___variant={"(category)-(size)"}___,
+The components "text" and "heading" support a variant parameter in the format of **_variant={"(category)-(size)"}_**,
 which will apply the type styles according to what is shown below. When this is used in combination with the polymorphic "as" parameter;
 it allows the consumer to use semantically correct html and apply the styling which best suits the given use case.
 
