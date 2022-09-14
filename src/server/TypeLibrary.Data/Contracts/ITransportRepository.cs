@@ -9,6 +9,7 @@ namespace TypeLibrary.Data.Contracts
     {
         IEnumerable<TransportLibDm> Get();
         Task<TransportLibDm> Get(string id);
+        Task UpdateState(string id, State state);
         Task Create(TransportLibDm dataDm, State state);
         Task<bool> Remove(string id);
         void ClearAllChangeTrackers();

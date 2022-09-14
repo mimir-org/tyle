@@ -46,6 +46,21 @@ namespace TypeLibrary.Data.Repositories.Ef
             return item;
         }
 
+        public async Task UpdateState(string id, State state)
+        {
+            var dm = await FindBy(x => x.Id == id).FirstOrDefaultAsync();
+
+            if (dm == null)
+                throw new MimirorgNotFoundException($"Interface with id {id} not found.");
+
+            if (dm.State == state)
+                throw new MimirorgBadRequestException($"Not allowed. Same state. Current state is {dm.State} and new state is {state}");
+
+            dm.State = state;
+            Context.Entry(dm).State = EntityState.Modified;
+            await Context.SaveChangesAsync();
+        }
+
         public async Task Create(InterfaceLibDm dataDm, State state)
         {
             if (dataDm?.Attributes != null && dataDm.Attributes.Any())

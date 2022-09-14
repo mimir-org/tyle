@@ -9,6 +9,7 @@ namespace TypeLibrary.Data.Contracts
     {
         IEnumerable<TerminalLibDm> Get();
         Task<TerminalLibDm> Get(string id);
+        Task UpdateState(string id, State state);
         Task Create(List<TerminalLibDm> items, State state);
         Task<TerminalLibDm> Create(TerminalLibDm terminal, State state);
         IEnumerable<TerminalLibDm> GetVersions(string firstVersionId);

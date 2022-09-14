@@ -1,4 +1,3 @@
-using AngleSharp.Dom;
 using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Setup;
@@ -137,6 +136,28 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.True(isDeleted);
             Assert.True(string.IsNullOrEmpty(allTerminalsNotDeleted?.FirstOrDefault(x => x.Id == terminalCm?.Id)?.Id));
             Assert.True(!string.IsNullOrEmpty(allTerminalsIncludeDeleted?.FirstOrDefault(x => x.Id == terminalCm?.Id)?.Id));
+        }
+
+        [Fact]
+        public async Task Update_Terminal_State_Result_Ok()
+        {
+            var terminalAm = new TerminalLibAm
+            {
+                Name = "TestTerminal5",
+                ParentId = "1234",
+                TypeReferences = null,
+                Color = "#123456",
+                Description = "Description1",
+                CompanyId = 1
+            };
+
+            var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
+
+            var cm = await terminalService.Create(terminalAm, true);
+            var cmUpdated = await terminalService.UpdateState(cm.Id, State.ApprovedCompany);
+
+            Assert.True(cm.State != cmUpdated.State);
+            Assert.True(cmUpdated.State == State.ApprovedCompany);
         }
     }
 }

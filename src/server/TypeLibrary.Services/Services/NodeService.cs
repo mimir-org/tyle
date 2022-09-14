@@ -14,6 +14,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -178,6 +179,47 @@ namespace TypeLibrary.Services.Services
             };
 
             return await Create(dataAm, false);
+        }
+
+        public async Task<NodeLibCm> UpdateState(string id, State state)
+        {
+            if (string.IsNullOrEmpty(id))
+                throw new MimirorgBadRequestException("Can't update a node without an id.");
+
+            var nodeToUpdate = await _nodeRepository.Get(id);
+
+            if (nodeToUpdate?.Id == null)
+                throw new MimirorgNotFoundException($"Node with id {id} does not exist, update is not possible.");
+
+            if (nodeToUpdate.CreatedBy == _applicationSettings.System)
+                throw new MimirorgBadRequestException($"The node with id {id} is created by the system and can not be updated.");
+
+            if (nodeToUpdate.State == State.Deleted)
+                throw new MimirorgBadRequestException($"The node with id {id} is deleted and can not be updated.");
+
+            var latestNodeDm = await _versionService.GetLatestVersion(nodeToUpdate);
+
+            if (latestNodeDm == null)
+                throw new MimirorgBadRequestException($"Latest node version for node with id {id} not found (null).");
+
+            if (string.IsNullOrWhiteSpace(latestNodeDm.Version))
+                throw new MimirorgBadRequestException($"Latest version for node with id {id} has null or empty as version number.");
+
+            var latestNodeVersion = double.Parse(latestNodeDm.Version, CultureInfo.InvariantCulture);
+            var nodeToUpdateVersion = double.Parse(nodeToUpdate.Version, CultureInfo.InvariantCulture);
+
+            if (latestNodeVersion > nodeToUpdateVersion)
+                throw new MimirorgBadRequestException($"Not allowed to update node with id {nodeToUpdate.Id} and version {nodeToUpdateVersion}. Latest version is node with id {latestNodeDm.Id} and version {latestNodeVersion}");
+
+            await _nodeRepository.UpdateState(id, state);
+            _nodeRepository.ClearAllChangeTrackers();
+
+            var cm = await Get(id);
+
+            if (cm != null)
+                _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
+
+            return cm;
         }
 
         public async Task<bool> Delete(string id)

@@ -192,5 +192,32 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.True(isDeleted);
             Assert.True(string.IsNullOrEmpty(allInterfacesNotDeleted?.FirstOrDefault(x => x.Id == interfaceCm?.Id)?.Id));
         }
+
+        [Fact]
+        public async Task Update_Interface_State_Result_Ok()
+        {
+            var interfaceAm = new InterfaceLibAm
+            {
+                Name = "Interface6",
+                RdsName = "RdsName",
+                RdsCode = "RdsCode",
+                PurposeName = "PurposeName",
+                Description = "Description",
+                Aspect = Aspect.NotSet,
+                CompanyId = 1,
+                AttributeIdList = new List<string>
+                {
+                    "0646754DC953F5EDD4F6159CD993696D"
+                }
+            };
+
+            var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
+
+            var cm = await interfaceService.Create(interfaceAm, true);
+            var cmUpdated = await interfaceService.UpdateState(cm.Id, State.ApprovedCompany);
+
+            Assert.True(cm.State != cmUpdated.State);
+            Assert.True(cmUpdated.State == State.ApprovedCompany);
+        }
     }
 }

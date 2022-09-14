@@ -199,6 +199,47 @@ namespace TypeLibrary.Services.Services
             return await Create(dataAm, false);
         }
 
+        public async Task<TransportLibCm> UpdateState(string id, State state)
+        {
+            if (string.IsNullOrEmpty(id))
+                throw new MimirorgBadRequestException("Can't update a transport without an id.");
+
+            var transportToUpdate = await _transportRepository.Get(id);
+
+            if (transportToUpdate?.Id == null)
+                throw new MimirorgNotFoundException($"Transport with id {id} does not exist, update is not possible.");
+
+            if (transportToUpdate.CreatedBy == _applicationSettings.System)
+                throw new MimirorgBadRequestException($"The transport with id {id} is created by the system and can not be updated.");
+
+            if (transportToUpdate.State == State.Deleted)
+                throw new MimirorgBadRequestException($"The transport with id {id} is deleted and can not be updated.");
+
+            var latestTransportDm = await _versionService.GetLatestVersion(transportToUpdate);
+
+            if (latestTransportDm == null)
+                throw new MimirorgBadRequestException($"Latest transport version for node with id {id} not found (null).");
+
+            if (string.IsNullOrWhiteSpace(latestTransportDm.Version))
+                throw new MimirorgBadRequestException($"Latest version for transport with id {id} has null or empty as version number.");
+
+            var latestTransportVersion = double.Parse(latestTransportDm.Version, CultureInfo.InvariantCulture);
+            var transportToUpdateVersion = double.Parse(transportToUpdate.Version, CultureInfo.InvariantCulture);
+
+            if (latestTransportVersion > transportToUpdateVersion)
+                throw new MimirorgBadRequestException($"Not allowed to update transport with id {transportToUpdate.Id} and version {transportToUpdateVersion}. Latest version is transport with id {latestTransportDm.Id} and version {latestTransportVersion}");
+
+            await _transportRepository.UpdateState(id, state);
+            _transportRepository.ClearAllChangeTrackers();
+
+            var cm = await Get(id);
+
+            if (cm != null)
+                _hookService.HookQueue.Enqueue(CacheKey.Transport);
+
+            return cm;
+        }
+
         public async Task<bool> Delete(string id)
         {
             var deleted = await _transportRepository.Remove(id);

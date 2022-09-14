@@ -187,6 +187,47 @@ namespace TypeLibrary.Services.Services
             return await Create(terminal, false);
         }
 
+        public async Task<TerminalLibCm> UpdateState(string id, State state)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                throw new MimirorgBadRequestException("Can't update a terminal without an id.");
+
+            var terminalToUpdate = await _terminalRepository.Get(id);
+
+            if (terminalToUpdate?.Id == null)
+                throw new MimirorgNotFoundException($"Terminal with id {id} does not exist, update is not possible.");
+
+            if (terminalToUpdate.CreatedBy == _applicationSettings.System)
+                throw new MimirorgBadRequestException($"The terminal with id {id} is created by the system and can not be updated.");
+
+            if (terminalToUpdate.State == State.Deleted)
+                throw new MimirorgBadRequestException($"The terminal with id {id} is deleted and can not be updated.");
+
+            var latestTerminalDm = await _versionService.GetLatestVersion(terminalToUpdate);
+
+            if (latestTerminalDm == null)
+                throw new MimirorgBadRequestException($"Latest terminal version for terminal with id {id} not found (null).");
+
+            if (string.IsNullOrWhiteSpace(latestTerminalDm.Version))
+                throw new MimirorgBadRequestException($"Latest version for node with id {id} has null or empty as version number.");
+
+            var latestTerminalVersion = double.Parse(latestTerminalDm.Version, CultureInfo.InvariantCulture);
+            var terminalToUpdateVersion = double.Parse(terminalToUpdate.Version, CultureInfo.InvariantCulture);
+
+            if (latestTerminalVersion > terminalToUpdateVersion)
+                throw new MimirorgBadRequestException($"Not allowed to update terminal with id {terminalToUpdate.Id} and version {terminalToUpdateVersion}. Latest version is node with id {latestTerminalDm.Id} and version {latestTerminalVersion}");
+
+            await _terminalRepository.UpdateState(id, state);
+            _terminalRepository.ClearAllChangeTrackers();
+
+            var cm = await Get(id);
+
+            if (cm != null)
+                _hookService.HookQueue.Enqueue(CacheKey.Terminal);
+
+            return cm;
+        }
+
         public async Task<bool> Delete(string id)
         {
             try

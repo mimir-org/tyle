@@ -169,6 +169,47 @@ namespace TypeLibrary.Services.Services
             return await Create(dataAm, false);
         }
 
+        public async Task<InterfaceLibCm> UpdateState(string id, State state)
+        {
+            if (string.IsNullOrEmpty(id))
+                throw new MimirorgBadRequestException("Can't update an interface without an id.");
+
+            var interfaceToUpdate = await _interfaceRepository.Get(id);
+
+            if (interfaceToUpdate?.Id == null)
+                throw new MimirorgNotFoundException($"Interface with id {id} does not exist, update is not possible.");
+
+            if (interfaceToUpdate.CreatedBy == _applicationSettings.System)
+                throw new MimirorgBadRequestException($"The interface with id {id} is created by the system and can not be updated.");
+
+            if (interfaceToUpdate.State == State.Deleted)
+                throw new MimirorgBadRequestException($"The interface with id {id} is deleted and can not be updated.");
+
+            var latestInterfaceDm = await _versionService.GetLatestVersion(interfaceToUpdate);
+
+            if (latestInterfaceDm == null)
+                throw new MimirorgBadRequestException($"Latest interface version for interface with id {id} not found (null).");
+
+            if (string.IsNullOrWhiteSpace(latestInterfaceDm.Version))
+                throw new MimirorgBadRequestException($"Latest version for interface with id {id} has null or empty as version number.");
+
+            var latestInterfaceVersion = double.Parse(latestInterfaceDm.Version, CultureInfo.InvariantCulture);
+            var interfaceToUpdateVersion = double.Parse(interfaceToUpdate.Version, CultureInfo.InvariantCulture);
+
+            if (latestInterfaceVersion > interfaceToUpdateVersion)
+                throw new MimirorgBadRequestException($"Not allowed to update interface with id {interfaceToUpdate.Id} and version {interfaceToUpdateVersion}. Latest version is interface with id {latestInterfaceDm.Id} and version {latestInterfaceVersion}");
+
+            await _interfaceRepository.UpdateState(id, state);
+            _interfaceRepository.ClearAllChangeTrackers();
+
+            var cm = await Get(id);
+
+            if (cm != null)
+                _hookService.HookQueue.Enqueue(CacheKey.Interface);
+
+            return cm;
+        }
+
         public async Task<bool> Delete(string id)
         {
             var deleted = await _interfaceRepository.Remove(id);

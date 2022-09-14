@@ -1,4 +1,3 @@
-using AngleSharp.Dom;
 using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Setup;
@@ -188,6 +187,33 @@ namespace Mimirorg.Integration.Tests.Services
 
             Assert.True(isDeleted);
             Assert.True(string.IsNullOrEmpty(allTransportsNotDeleted?.FirstOrDefault(x => x.Id == transportCm?.Id)?.Id));
+        }
+
+        [Fact]
+        public async Task Update_Transport_Status_Ok()
+        {
+            var transportAm = new TransportLibAm
+            {
+                Name = "Transport6",
+                RdsName = "RdsName",
+                RdsCode = "RdsCode",
+                PurposeName = "PurposeName",
+                Description = "Description",
+                Aspect = Aspect.NotSet,
+                CompanyId = 1,
+                AttributeIdList = new List<string>
+                {
+                    "0646754DC953F5EDD4F6159CD993696D"
+                }
+            };
+
+            var transportService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITransportService>();
+
+            var cm = await transportService.Create(transportAm, true);
+            var cmUpdated = await transportService.UpdateState(cm.Id, State.ApprovedCompany);
+
+            Assert.True(cm.State != cmUpdated.State);
+            Assert.True(cmUpdated.State == State.ApprovedCompany);
         }
     }
 }
