@@ -8,5 +8,8 @@ namespace Mimirorg.Authentication.Models.Domain
         public string LastName { get; set; }
         public string SecurityHash { get; set; }
         public List<MimirorgCompany> MangeCompanies { get; set; }
+        public int CompanyId { get; set; }
+        public string CompanyName { get; set; }
+        public string Purpose { get; set; }
     }
 }
