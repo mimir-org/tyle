@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Contracts;
 using Mimirorg.TypeLibrary.Enums;
+// ReSharper disable InconsistentNaming
 
 namespace TypeLibrary.Data.Models
 {

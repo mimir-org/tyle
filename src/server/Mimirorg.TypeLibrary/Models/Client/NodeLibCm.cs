@@ -19,6 +19,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public Aspect Aspect { get; set; }
         public State State { get; set; }
         public int CompanyId { get; set; }
+        public string CompanyName { get; set; }
         public string Symbol { get; set; }
         public string Description { get; set; }
         public DateTime Created { get; set; }

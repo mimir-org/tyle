@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Common.Abstract;
+using TypeLibrary.Core.Factories;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
@@ -85,6 +86,7 @@ namespace TypeLibrary.Core.Extensions
             // Factories
             services.AddScoped<IAttributeFactory, AttributeFactory>();
             services.AddScoped<IUnitFactory, UnitFactory>();
+            services.AddScoped<ICompanyFactory, CompanyFactory>();
 
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();

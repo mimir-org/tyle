@@ -6,15 +6,17 @@ using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Core.Factories;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Factories;
 using TypeLibrary.Data.Models;
+// ReSharper disable InconsistentNaming
 
 namespace TypeLibrary.Core.Profiles
 {
     public class AttributeProfile : Profile
     {
-        public AttributeProfile(IApplicationSettingsRepository settings, IUnitFactory unitFactory, IHttpContextAccessor contextAccessor)
+        public AttributeProfile(IApplicationSettingsRepository settings, IUnitFactory unitFactory, IHttpContextAccessor contextAccessor, ICompanyFactory companyFactory)
         {
             CreateMap<AttributeLibAm, AttributeLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -45,6 +47,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.AttributeCondition, opt => opt.MapFrom(src => src.AttributeCondition))
                 .ForMember(dest => dest.AttributeFormat, opt => opt.MapFrom(src => src.AttributeFormat))
                 .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
+                .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => companyFactory.GetCompanyName(src.CompanyId)))
                 .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags))
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
                 .ForMember(dest => dest.TypeReferences, opt => opt.MapFrom(src => src.TypeReferences.ConvertToObject<ICollection<TypeReferenceCm>>()))
