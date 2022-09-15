@@ -79,6 +79,30 @@ namespace Mimirorg.Authentication.Controllers.V1
                 return StatusCode(500, "Internal Server Error");
             }
         }
+        
+        /// <summary>
+        /// Logout a user
+        /// </summary>
+        /// <returns>bool</returns>
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("logout")]
+        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [SwaggerOperation("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            try
+            {
+                await RemoveRefreshCookies(HttpContext.Request, HttpContext.Response);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to logout. Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
 
         /// <summary>
         /// Authenticate an user with secret
