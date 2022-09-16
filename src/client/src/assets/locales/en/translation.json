@@ -84,7 +84,7 @@
       "aspect": {
         "required": "Please select an aspect"
       },
-      "companyId":{
+      "companyId": {
         "min": "Please select an owner"
       },
       "description": {
@@ -96,7 +96,7 @@
         }
       },
       "attributeIdList": {
-        "value":{
+        "value": {
           "required": "Please specify an attribute"
         }
       },
@@ -141,7 +141,7 @@
       "discipline": {
         "required": "Please select a discipline"
       },
-      "companyId":{
+      "companyId": {
         "min": "Please select an owner"
       },
       "select": {
@@ -201,14 +201,14 @@
       "color": {
         "required": "Please select a color"
       },
-      "companyId":{
+      "companyId": {
         "min": "Please select an owner"
       },
       "description": {
         "max": "The description can be at most 500 characters"
       },
       "attributeIdList": {
-        "value":{
+        "value": {
           "required": "Please specify an attribute"
         }
       },
@@ -257,7 +257,7 @@
       "aspect": {
         "required": "Please select an aspect"
       },
-      "companyId":{
+      "companyId": {
         "min": "Please select an owner"
       },
       "description": {
@@ -267,7 +267,7 @@
         "required": "Please select a terminal"
       },
       "attributeIdList": {
-        "value":{
+        "value": {
           "required": "Please specify an attribute"
         }
       },
@@ -316,7 +316,7 @@
       "aspect": {
         "required": "Please select an aspect"
       },
-      "companyId":{
+      "companyId": {
         "min": "Please select an owner"
       },
       "description": {
@@ -326,7 +326,7 @@
         "required": "Please select a terminal"
       },
       "attributeIdList": {
-        "value":{
+        "value": {
           "required": "Please specify an attribute"
         }
       },
@@ -344,7 +344,7 @@
       }
     },
     "attributeIdList": {
-      "value":{
+      "value": {
         "required": "Please specify an attribute"
       }
     }
