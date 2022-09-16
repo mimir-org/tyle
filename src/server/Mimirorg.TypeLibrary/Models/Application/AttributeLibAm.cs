@@ -42,7 +42,13 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public HashSet<string> Tags { get; set; }
 
         [TSExclude]
-        public string Id => ($"{Name}-{Aspect}-{AttributeQualifier}-{AttributeSource}-{AttributeCondition}").CreateMd5();
+        public string Version { get; set; } = "1.0";
+
+        [TSExclude]
+        public string FirstVersionId { get; set; }
+
+        [TSExclude]
+        public string Id => ($"{Name}-{Version}-{Aspect}-{AttributeQualifier}-{AttributeSource}-{AttributeCondition}").CreateMd5();
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
