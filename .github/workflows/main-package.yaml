@@ -1,6 +1,9 @@
 name: CI - Main Package
 
 on:
+  push:
+    branches: [dev]
+  
   workflow_dispatch:
 
 env:
