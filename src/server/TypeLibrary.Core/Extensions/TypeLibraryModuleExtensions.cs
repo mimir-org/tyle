@@ -5,7 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Abstract;
+using Mimirorg.Common.Models;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
@@ -81,6 +84,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IInterfaceService, InterfaceService>();
             services.AddScoped<ISimpleService, SimpleService>();
             services.AddScoped<IVersionService, VersionService>();
+            services.AddScoped<IModuleService, ModuleService>();
 
             // Factories
             services.AddScoped<IAttributeFactory, AttributeFactory>();
@@ -116,10 +120,19 @@ namespace TypeLibrary.Core.Extensions
             var context = serviceScope.ServiceProvider.GetRequiredService<TypeLibraryDbContext>();
             var seedingService = serviceScope.ServiceProvider.GetRequiredService<ISeedingService>();
             var seedingServiceLogger = serviceScope.ServiceProvider.GetRequiredService<ILogger<ISeedingService>>();
+            var logger = serviceScope.ServiceProvider.GetRequiredService<ILogger<IModuleService>>();
+
+            var applicationSettings = serviceScope.ServiceProvider.GetRequiredService<IOptions<ApplicationSettings>>();
+            logger.LogInformation(applicationSettings?.Value?.ToString());
+
+            var databaseConfigurations = serviceScope.ServiceProvider.GetRequiredService<IOptions<DatabaseConfiguration>>();
+            logger.LogInformation(databaseConfigurations?.Value?.ToString());
+
+            var authSettings = serviceScope.ServiceProvider.GetRequiredService<IOptions<MimirorgAuthSettings>>();
+            logger.LogInformation(authSettings?.Value?.ToString());
 
             if (context.Database.IsRelational())
                 context.Database.Migrate();
-
 
             var awaiter = seedingService.LoadDataFromFiles().ConfigureAwait(true).GetAwaiter();
             while (!awaiter.IsCompleted)
