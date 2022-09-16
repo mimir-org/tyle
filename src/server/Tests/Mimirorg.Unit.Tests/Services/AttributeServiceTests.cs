@@ -27,7 +27,9 @@ namespace Mimirorg.Unit.Tests.Services
                 fixture.AttributeFormatRepository.Object,
                 fixture.AttributeConditionRepository.Object,
                 fixture.AttributePredefinedRepository.Object,
-                fixture.AttributeReferenceRepository.Object);
+                fixture.AttributeReferenceRepository.Object,
+                fixture.VersionService.Object,
+                fixture.TimedHookService.Object);
         }
 
         [Theory]
