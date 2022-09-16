@@ -2,9 +2,9 @@ import { useTheme } from "styled-components";
 import { Flexbox } from "../../complib/layouts";
 import { useGetCurrentUser } from "../../data/queries/auth/queriesUser";
 import { Logo } from "../common/logo";
-import { LogoutButton } from "./components/LogoutButton";
-import { ThemeButton } from "./components/ThemeButton";
-import { UserMenu } from "./components/UserMenu";
+import { LogoutButton } from "./components/logout/LogoutButton";
+import { UserMenu } from "./components/menu/UserMenu";
+import { ThemeButton } from "./components/theme/ThemeButton";
 import { HeaderContainer } from "./Header.styles";
 
 export const Header = () => {
