@@ -1,0 +1,8 @@
+client:
+  - "src/client/**"
+server:
+  - "src/server/**"
+docker-client:
+  - "src/client/Dockerfile*"
+docker-server:
+  - "src/server/Dockerfile*"

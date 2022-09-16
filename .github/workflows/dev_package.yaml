@@ -1,9 +1,6 @@
-name: CI - DEV
+name: CI - Dev Package
 
 on:
-  push:
-    branches: [dev]
-
   workflow_dispatch:
 
 env:
@@ -17,7 +14,7 @@ jobs:
       raw_tag: ${{ steps.tag_version.outputs.raw_tag  }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Bump version and push tag
         id: tag_version
@@ -43,44 +40,12 @@ jobs:
           echo "Tag: ${{ steps.release.outputs.new_tag }}"
           echo "Version: ${{ steps.release.outputs.new_version }}"
 
-  build-client:
-    uses: mimir-org/mimir-actions/.github/workflows/docker-build-push-cached.yaml@main
-    with:
-      repository: typelibrary-client
-      tags: |
-        dev
-      context: ./src/client
-      file: ./src/client/Dockerfile
-      target: final
-      hash_files_template: "**/package-lock.json"
-      push: true
-    secrets:
-      REGISTRY_SERVER_URLS: ${{ secrets.REGISTRY_SERVER_URL }}
-      REGISTRY_USERNAMES: ${{ secrets.REGISTRY_USERNAME }}
-      REGISTRY_PASSWORDS: ${{ secrets.REGISTRY_PASSWORD }}
-
-  build-server:
-    uses: mimir-org/mimir-actions/.github/workflows/docker-build-push-cached.yaml@main
-    with:
-      repository: typelibrary-server
-      tags: |
-        dev
-      context: ./src/server
-      file: ./src/server/Dockerfile
-      target: final
-      hash_files_template: "**/*.csproj"
-      push: true
-    secrets:
-      REGISTRY_SERVER_URLS: ${{ secrets.REGISTRY_SERVER_URL }}
-      REGISTRY_USERNAMES: ${{ secrets.REGISTRY_USERNAME }}
-      REGISTRY_PASSWORDS: ${{ secrets.REGISTRY_PASSWORD }}
-
   npm-Typelibrary:
     runs-on: ubuntu-latest
     needs: create-prerelease
     if: needs.create-prerelease.outputs.raw_tag != ''
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Package typescript interfaces
         run: dotnet run
@@ -117,7 +82,7 @@ jobs:
       run:
         working-directory: src/server
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Build
         run: dotnet build -c Release ${{env.package_name}}
@@ -138,7 +103,7 @@ jobs:
       run:
         working-directory: src/server
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Build
         run: dotnet build -c Release ${{env.package_name}}
