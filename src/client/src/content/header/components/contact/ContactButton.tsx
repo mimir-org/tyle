@@ -1,4 +1,4 @@
-import { MimirorgCompanyCm, MimirorgPermission } from "@mimirorg/typelibrary-types";
+import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { Mail } from "@styled-icons/heroicons-outline";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -6,6 +6,7 @@ import { Select } from "../../../../complib/inputs";
 import { Box } from "../../../../complib/layouts";
 import { Dialog } from "../../../../complib/overlays";
 import { Text } from "../../../../complib/text";
+import { useGetCompany } from "../../../../data/queries/auth/queriesCompany";
 import { useGetFilteredCompanies } from "../../../../hooks/useGetFilteredCompanies";
 import { UserMenuButton } from "../menu/UserMenuButton";
 import { ContactCard } from "./ContactCard";
@@ -18,8 +19,10 @@ import { ContactCard } from "./ContactCard";
  */
 export const ContactButton = () => {
   const { t } = useTranslation("translation", { keyPrefix: "user.menu.contact" });
-  const [company, setCompany] = useState<MimirorgCompanyCm | null>();
+  const [selected, setSelected] = useState<number>();
+
   const companies = useGetFilteredCompanies(MimirorgPermission.Read);
+  const { data: company } = useGetCompany(selected);
 
   const manager = company?.manager;
   const managerName = `${company?.manager?.firstName} ${company?.manager?.lastName}`;
@@ -39,8 +42,8 @@ export const ContactButton = () => {
             placeholder={t("select")}
             options={companies}
             getOptionLabel={(x) => x.name}
-            onChange={(x) => setCompany(x)}
-            value={companies.find((x) => x.id === company?.id)}
+            onChange={(x) => setSelected(x?.id)}
+            value={companies.find((x) => x.id === selected)}
           />
 
           <Box display={"flex"} alignItems={"center"} minHeight={"70px"}>
