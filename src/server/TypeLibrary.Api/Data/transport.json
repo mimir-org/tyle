@@ -6,8 +6,8 @@
     "rdsName": "High Voltage Transport",
     "purposeName": "None",
     "attributeIdList": [
-      "44385AF5C56EFCAB77158EA3DFA68329", //Cross section
-      "A35B5FA0D0D4D06FD236A23917D4493F" //Voltage (Rating | Design | Nominal)
+      "36B17F9A88C1193941EE2939F344168E",
+      "A9E57EC78E8C58D8305A76CACBC8A874" 
     ],
     "terminalId": "3577A41665382436F52F48A0CC174301"
   },
@@ -18,8 +18,8 @@
     "rdsName": "Low Voltage Transport",
     "purposeName": "None",
     "attributeIdList": [
-      "44385AF5C56EFCAB77158EA3DFA68329", //Cross section
-      "A35B5FA0D0D4D06FD236A23917D4493F" //Voltage (Rating | Design | Nominal)
+      "36B17F9A88C1193941EE2939F344168E",
+      "A9E57EC78E8C58D8305A76CACBC8A874" 
     ],
     "terminalId": "8D2161850644ACED56BAD1F2117723B0"
   },
@@ -30,8 +30,8 @@
     "rdsName": "Low Voltage Transport",
     "purposeName": "None",
     "attributeIdList": [
-      "44385AF5C56EFCAB77158EA3DFA68329", //Cross section
-      "A35B5FA0D0D4D06FD236A23917D4493F" //Voltage (Rating | Design | Nominal)
+      "36B17F9A88C1193941EE2939F344168E",
+      "A9E57EC78E8C58D8305A76CACBC8A874" 
     ],
     "terminalId": "D167FCBA750305EFB6BB2AB5521777CB"
   },
@@ -42,7 +42,7 @@
     "rdsName": "Communication Transport",
     "purposeName": "None",
     "attributeIdList": [
-      "44385AF5C56EFCAB77158EA3DFA68329" //Cross section
+      "36B17F9A88C1193941EE2939F344168E" 
     ],
     "terminalId": "8EBC5811473E87602FB0C18A100BD53C"
   },
@@ -53,9 +53,9 @@
     "rdsName": "Fluid closed conduit Transport",
     "purposeName": "None",
     "attributeIdList": [
-      "B9C6BD307C06BC6CB7B7F32FF7072B55", //Slope, declining (Aspect:Product)
-      "2FE5BFF63AC615DBCEE65B3878A6D871", //Slope, declining (Aspect:Function)
-      "2934EC8FF97885913227C182298B6CE0" //Velocity (Operating | Calculated | Nominal | Aspect:Function)
+      "5C96C747BA599E62E3569A305EA454F8",
+      "4A571033984E3461316D15CEAAE719CD",
+      "C7FE4AD4FCEF13DE72F8DDEC04816C0F" 
     ],
     "terminalId": "192B021FE184AD62F8E05D61E9F71A43"
   },
@@ -66,9 +66,9 @@
     "rdsName": "Fluid closed conduit Transport",
     "purposeName": "None",
     "attributeIdList": [
-      "B9C6BD307C06BC6CB7B7F32FF7072B55", //Slope, declining (Aspect:Product)
-      "2FE5BFF63AC615DBCEE65B3878A6D871", //Slope, declining (Aspect:Function)
-      "2934EC8FF97885913227C182298B6CE0" //Velocity (Operating | Calculated | Nominal | Aspect:Function)
+      "5C96C747BA599E62E3569A305EA454F8",
+      "4A571033984E3461316D15CEAAE719CD",
+      "C7FE4AD4FCEF13DE72F8DDEC04816C0F" 
     ],
     "terminalId": "3270E68DB4454DBE465C62E7BFDFB970"
   },
@@ -79,9 +79,9 @@
     "rdsName": "Fluid closed conduit Transport",
     "purposeName": "None",
     "attributeIdList": [
-      "B9C6BD307C06BC6CB7B7F32FF7072B55", //Slope, declining (Aspect:Product)
-      "2FE5BFF63AC615DBCEE65B3878A6D871", //Slope, declining (Aspect:Function)
-      "2934EC8FF97885913227C182298B6CE0" //Velocity (Operating | Calculated | Nominal | Aspect:Function)
+      "5C96C747BA599E62E3569A305EA454F8",
+      "4A571033984E3461316D15CEAAE719CD",
+      "C7FE4AD4FCEF13DE72F8DDEC04816C0F" 
     ],
     "terminalId": "CA1DC54DE408386046C28E7F74CF32C5"
   },
@@ -92,9 +92,9 @@
     "rdsName": "Fluid closed conduit Transport",
     "purposeName": "None",
     "attributeIdList": [
-      "B9C6BD307C06BC6CB7B7F32FF7072B55", //Slope, declining (Aspect:Product)
-      "2FE5BFF63AC615DBCEE65B3878A6D871", //Slope, declining (Aspect:Function)
-      "2934EC8FF97885913227C182298B6CE0" //Velocity (Operating | Calculated | Nominal | Aspect:Function)
+      "5C96C747BA599E62E3569A305EA454F8",
+      "4A571033984E3461316D15CEAAE719CD",
+      "C7FE4AD4FCEF13DE72F8DDEC04816C0F" 
     ],
     "terminalId": "25698B803D6461F5120F1C6328D4F7DE"
   },
@@ -105,8 +105,8 @@
     "rdsName": "High Voltage Transport",
     "purposeName": "None",
     "attributeIdList": [
-      "44385AF5C56EFCAB77158EA3DFA68329", //Cross section
-      "A35B5FA0D0D4D06FD236A23917D4493F" //Voltage (Rating | Design | Nominal)
+      "36B17F9A88C1193941EE2939F344168E",
+      "A9E57EC78E8C58D8305A76CACBC8A874" 
     ],
     "terminalId": "3577A41665382436F52F48A0CC174301"
   },
@@ -117,8 +117,8 @@
     "rdsName": "Low Voltage Transport",
     "purposeName": "None",
     "attributeIdList": [
-      "44385AF5C56EFCAB77158EA3DFA68329", //Cross section
-      "A35B5FA0D0D4D06FD236A23917D4493F" //Voltage (Rating | Design | Nominal)
+      "36B17F9A88C1193941EE2939F344168E",
+      "A9E57EC78E8C58D8305A76CACBC8A874" 
     ],
     "terminalId": "8D2161850644ACED56BAD1F2117723B0"
   },
@@ -129,8 +129,8 @@
     "rdsName": "Low Voltage Transport",
     "purposeName": "None",
     "attributeIdList": [
-      "44385AF5C56EFCAB77158EA3DFA68329", //Cross section
-      "A35B5FA0D0D4D06FD236A23917D4493F" //Voltage (Rating | Design | Nominal)
+      "36B17F9A88C1193941EE2939F344168E",
+      "A9E57EC78E8C58D8305A76CACBC8A874" 
     ],
     "terminalId": "D167FCBA750305EFB6BB2AB5521777CB"
   },
@@ -141,7 +141,7 @@
     "rdsName": "Communication Transport",
     "purposeName": "None",
     "attributeIdList": [
-      "44385AF5C56EFCAB77158EA3DFA68329" //Cross section
+      "36B17F9A88C1193941EE2939F344168E" 
     ],
     "terminalId": "8EBC5811473E87602FB0C18A100BD53C"
   },
@@ -152,9 +152,9 @@
     "rdsName": "Fluid closed conduit Transport",
     "purposeName": "None",
     "attributeIdList": [
-      "B9C6BD307C06BC6CB7B7F32FF7072B55", //Slope, declining (Aspect:Product)
-      "2FE5BFF63AC615DBCEE65B3878A6D871", //Slope, declining (Aspect:Function)
-      "2934EC8FF97885913227C182298B6CE0" //Velocity (Operating | Calculated | Nominal | Aspect:Function)
+      "5C96C747BA599E62E3569A305EA454F8",
+      "4A571033984E3461316D15CEAAE719CD",
+      "C7FE4AD4FCEF13DE72F8DDEC04816C0F" 
     ],
     "terminalId": "192B021FE184AD62F8E05D61E9F71A43"
   },
@@ -165,9 +165,9 @@
     "rdsName": "Fluid closed conduit Transport",
     "purposeName": "None",
     "attributeIdList": [
-      "B9C6BD307C06BC6CB7B7F32FF7072B55", //Slope, declining (Aspect:Product)
-      "2FE5BFF63AC615DBCEE65B3878A6D871", //Slope, declining (Aspect:Function)
-      "2934EC8FF97885913227C182298B6CE0" //Velocity (Operating | Calculated | Nominal | Aspect:Function)
+      "5C96C747BA599E62E3569A305EA454F8",
+      "4A571033984E3461316D15CEAAE719CD",
+      "C7FE4AD4FCEF13DE72F8DDEC04816C0F" 
     ],
     "terminalId": "3270E68DB4454DBE465C62E7BFDFB970"
   },
@@ -178,9 +178,9 @@
     "rdsName": "Fluid closed conduit Transport",
     "purposeName": "None",
     "attributeIdList": [
-      "B9C6BD307C06BC6CB7B7F32FF7072B55", //Slope, declining (Aspect:Product)
-      "2FE5BFF63AC615DBCEE65B3878A6D871", //Slope, declining (Aspect:Function)
-      "2934EC8FF97885913227C182298B6CE0" //Velocity (Operating | Calculated | Nominal | Aspect:Function)
+      "5C96C747BA599E62E3569A305EA454F8",
+      "4A571033984E3461316D15CEAAE719CD",
+      "C7FE4AD4FCEF13DE72F8DDEC04816C0F" 
     ],
     "terminalId": "CA1DC54DE408386046C28E7F74CF32C5"
   },
@@ -191,9 +191,9 @@
     "rdsName": "Fluid closed conduit Transport",
     "purposeName": "None",
     "attributeIdList": [
-      "B9C6BD307C06BC6CB7B7F32FF7072B55", //Slope, declining (Aspect:Product)
-      "2FE5BFF63AC615DBCEE65B3878A6D871", //Slope, declining (Aspect:Function)
-      "2934EC8FF97885913227C182298B6CE0" //Velocity (Operating | Calculated | Nominal | Aspect:Function)
+      "5C96C747BA599E62E3569A305EA454F8",
+      "4A571033984E3461316D15CEAAE719CD",
+      "C7FE4AD4FCEF13DE72F8DDEC04816C0F" 
     ],
     "terminalId": "25698B803D6461F5120F1C6328D4F7DE"
   }

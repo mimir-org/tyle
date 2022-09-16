@@ -171,12 +171,12 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var attributeCm = await attributeService.Create(attributeAm);
-            
+
             Assert.True(attributeCm.Version == "1.0");
-            
+
             attributeAm.UnitIdList.Add(unitCmList[3]?.Id);
             var attributeCmUpdated = await attributeService.Update(attributeAm, attributeAm.Id);
-            
+
             Assert.True(attributeCm.Version == "1.0");
             Assert.True(attributeCmUpdated.Version == "2.0");
         }

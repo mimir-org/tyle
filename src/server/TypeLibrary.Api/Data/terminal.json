@@ -61,15 +61,15 @@
     "parentId": "0C943199E571EF8934999E9B018850E9",
     "companyId": 1,
     "attributeIdList": [
-      "15AFB308ABE00544A25CF35BE028B75D", //Flowrate, volumetric (Operating | Calculated | Nominal)
-      "71E2BFA908D978A0D64725596C6A7148", //Flowrate, volumetric (Operating | Calculated | Minimum)
-      "78DA261AA3BB5A192B9F693377632478", //Flowrate, volumetric (Operating | Calculated | Maximum)
-      "11845C1C348E28563B4EA4B2E960B04C", //Pressure, absolute (Operating | Calculated | Nominal)
-      "DFED2BB5DBDCD3A0031E0645F6523C7A", //Pressure, absolute (Operating | Calculated | Maximum)
-      "727F5CA7EDB0695E3D8CD451A111F2A0", //Pressure, absolute (Operating | Calculated | Minimum)
-      "54694D53D12C1F09DD96D67A5045CA6A", //Temperature (Rating | Required, Low | Minimum)
-      "F08BFA8DB2A624E99B91D169BF9C4B92", //Temperature (Rating | Required, High | Minimum)
-      "2F3F70BA9011E3D4C716AADF3B0193E2" //Oil in water (Operating | Calculated | Nominal)
+      "EAB891011296DABDB3B708AFFB18B36F",
+      "003F35CF40F34ECDE4E7EB589C7E0A00",
+      "DCB3675BAE7A5B66FAB203803EFD6409",
+      "7786FD2B5E7003EC1D605F81E1DA2E4E",
+      "675EBF78FA5842CEBA8D46E8FB805A41",
+      "E5CECF17E3C659B0B3C44CC74449A4FE",
+      "0FF24E2A0F8FCA3E8096AD2C45B0FE87",
+      "B5DFF3E57C5C49763F06C383FD944B75",
+      "498CE43DF772082A6E0DAACF7D2765A7" 
     ]
   },
 
@@ -79,15 +79,15 @@
     "parentId": "0C943199E571EF8934999E9B018850E9",
     "companyId": 1,
     "attributeIdList": [
-      "15AFB308ABE00544A25CF35BE028B75D", //Flowrate, volumetric (Operating | Calculated | Nominal)
-      "71E2BFA908D978A0D64725596C6A7148", //Flowrate, volumetric (Operating | Calculated | Minimum)
-      "78DA261AA3BB5A192B9F693377632478", //Flowrate, volumetric (Operating | Calculated | Maximum)
-      "11845C1C348E28563B4EA4B2E960B04C", //Pressure, absolute (Operating | Calculated | Nominal)
-      "DFED2BB5DBDCD3A0031E0645F6523C7A", //Pressure, absolute (Operating | Calculated | Maximum)
-      "727F5CA7EDB0695E3D8CD451A111F2A0", //Pressure, absolute (Operating | Calculated | Minimum)
-      "54694D53D12C1F09DD96D67A5045CA6A", //Temperature (Rating | Required, Low | Minimum)
-      "F08BFA8DB2A624E99B91D169BF9C4B92", //Temperature (Rating | Required, High | Minimum)
-      "2F3F70BA9011E3D4C716AADF3B0193E2"  //Oil in water (Operating | Calculated | Nominal)
+      "EAB891011296DABDB3B708AFFB18B36F",
+      "003F35CF40F34ECDE4E7EB589C7E0A00",
+      "DCB3675BAE7A5B66FAB203803EFD6409",
+      "7786FD2B5E7003EC1D605F81E1DA2E4E",
+      "675EBF78FA5842CEBA8D46E8FB805A41",
+      "E5CECF17E3C659B0B3C44CC74449A4FE",
+      "0FF24E2A0F8FCA3E8096AD2C45B0FE87",
+      "B5DFF3E57C5C49763F06C383FD944B75",
+      "498CE43DF772082A6E0DAACF7D2765A7"
     ]
   },
 
@@ -97,15 +97,15 @@
     "parentId": "0C943199E571EF8934999E9B018850E9",
     "companyId": 1,
     "attributeIdList": [
-      "15AFB308ABE00544A25CF35BE028B75D", //Flowrate, volumetric (Operating | Calculated | Nominal)
-      "71E2BFA908D978A0D64725596C6A7148", //Flowrate, volumetric (Operating | Calculated | Minimum)
-      "78DA261AA3BB5A192B9F693377632478", //Flowrate, volumetric (Operating | Calculated | Maximum)
-      "11845C1C348E28563B4EA4B2E960B04C", //Pressure, absolute (Operating | Calculated | Nominal)
-      "DFED2BB5DBDCD3A0031E0645F6523C7A", //Pressure, absolute (Operating | Calculated | Maximum)
-      "727F5CA7EDB0695E3D8CD451A111F2A0", //Pressure, absolute (Operating | Calculated | Minimum)
-      "54694D53D12C1F09DD96D67A5045CA6A", //Temperature (Rating | Required, Low | Minimum)
-      "F08BFA8DB2A624E99B91D169BF9C4B92", //Temperature (Rating | Required, High | Minimum)
-      "2F3F70BA9011E3D4C716AADF3B0193E2" //Oil in water (Operating | Calculated | Nominal)
+      "EAB891011296DABDB3B708AFFB18B36F",
+      "003F35CF40F34ECDE4E7EB589C7E0A00",
+      "DCB3675BAE7A5B66FAB203803EFD6409",
+      "7786FD2B5E7003EC1D605F81E1DA2E4E",
+      "675EBF78FA5842CEBA8D46E8FB805A41",
+      "E5CECF17E3C659B0B3C44CC74449A4FE",
+      "0FF24E2A0F8FCA3E8096AD2C45B0FE87",
+      "B5DFF3E57C5C49763F06C383FD944B75",
+      "498CE43DF772082A6E0DAACF7D2765A7"
     ]
   },
 
@@ -115,15 +115,15 @@
     "parentId": "0C943199E571EF8934999E9B018850E9",
     "companyId": 1,
     "attributeIdList": [
-      "15AFB308ABE00544A25CF35BE028B75D", //Flowrate, volumetric (Operating | Calculated | Nominal)
-      "71E2BFA908D978A0D64725596C6A7148", //Flowrate, volumetric (Operating | Calculated | Minimum)
-      "78DA261AA3BB5A192B9F693377632478", //Flowrate, volumetric (Operating | Calculated | Maximum)
-      "11845C1C348E28563B4EA4B2E960B04C", //Pressure, absolute (Operating | Calculated | Nominal)
-      "DFED2BB5DBDCD3A0031E0645F6523C7A", //Pressure, absolute (Operating | Calculated | Maximum)
-      "727F5CA7EDB0695E3D8CD451A111F2A0", //Pressure, absolute (Operating | Calculated | Minimum)
-      "54694D53D12C1F09DD96D67A5045CA6A", //Temperature (Rating | Required, Low | Minimum)
-      "F08BFA8DB2A624E99B91D169BF9C4B92", //Temperature (Rating | Required, High | Minimum)
-      "2F3F70BA9011E3D4C716AADF3B0193E2" //Oil in water (Operating | Calculated | Nominal)
+      "EAB891011296DABDB3B708AFFB18B36F",
+      "003F35CF40F34ECDE4E7EB589C7E0A00",
+      "DCB3675BAE7A5B66FAB203803EFD6409",
+      "7786FD2B5E7003EC1D605F81E1DA2E4E",
+      "675EBF78FA5842CEBA8D46E8FB805A41",
+      "E5CECF17E3C659B0B3C44CC74449A4FE",
+      "0FF24E2A0F8FCA3E8096AD2C45B0FE87",
+      "B5DFF3E57C5C49763F06C383FD944B75",
+      "498CE43DF772082A6E0DAACF7D2765A7"
     ]
   },
 

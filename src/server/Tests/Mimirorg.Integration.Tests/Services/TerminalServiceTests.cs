@@ -56,7 +56,7 @@ namespace Mimirorg.Integration.Tests.Services
                 },
                 Color = "#123456",
                 Description = "Description1",
-                AttributeIdList = new List<string> { "F302FA9BD63AA991A91C6B9A88CE9691", "0DE08DEEB00409D554DB4B6C31AA34CC" },
+                AttributeIdList = new List<string> { "003F35CF40F34ECDE4E7EB589C7E0A00", "015640ADCA6E63DDCFF7F6823FCCC784" },
                 CompanyId = 1
             };
 
@@ -96,7 +96,7 @@ namespace Mimirorg.Integration.Tests.Services
                 TypeReferences = null,
                 Color = "#123456",
                 Description = "Description v1.0",
-                AttributeIdList = new List<string> { "F302FA9BD63AA991A91C6B9A88CE9691", "0DE08DEEB00409D554DB4B6C31AA34CC" },
+                AttributeIdList = new List<string> { "003F35CF40F34ECDE4E7EB589C7E0A00", "015640ADCA6E63DDCFF7F6823FCCC784" },
                 CompanyId = 1
             };
 

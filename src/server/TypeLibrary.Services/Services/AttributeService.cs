@@ -58,8 +58,8 @@ namespace TypeLibrary.Services.Services
         /// <returns>List of AttributeLibCm</returns>
         public IEnumerable<AttributeLibCm> GetAll(Aspect aspect, bool includeDeleted = false)
         {
-            var attributes = includeDeleted 
-                ? _attributeRepository.Get().ToList().OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList() 
+            var attributes = includeDeleted
+                ? _attributeRepository.Get().ToList().OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList()
                 : _attributeRepository.Get().Where(x => x.State != State.Deleted).ToList().OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
             if (aspect != Aspect.NotSet)
