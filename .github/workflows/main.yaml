@@ -10,7 +10,7 @@ jobs:
     outputs:
       tag_name: ${{ steps.last_release.outputs.tag_name }}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - name: "call action"
         id: last_release
         uses: InsonusK/get-latest-release@v1.0.1
