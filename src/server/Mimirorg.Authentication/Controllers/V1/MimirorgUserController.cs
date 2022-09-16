@@ -99,9 +99,8 @@ namespace Mimirorg.Authentication.Controllers.V1
                 var currentUser = await _userService.GetUser(User);
                 return Ok(currentUser);
             }
-            catch (MimirorgNotFoundException e)
+            catch (MimirorgNotFoundException)
             {
-                _logger.LogError(e, $"An error occured while trying to get current user. Error: {e.Message}");
                 return StatusCode(204, null);
             }
             catch (Exception e)

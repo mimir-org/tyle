@@ -27,7 +27,7 @@ export const UserMenu = ({ name, children }: UserMenuProps) => {
       bgColor={theme.tyle.color.sys.background.base}
       color={theme.tyle.color.sys.background.on}
       content={
-        <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xl}>
+        <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xl} width={"170px"}>
           {children}
         </Box>
       }
@@ -35,7 +35,7 @@ export const UserMenu = ({ name, children }: UserMenuProps) => {
       <Button
         icon={<UserCircle size={24} />}
         iconPlacement={"left"}
-        textVariant={"body-medium"}
+        textVariant={"label-large"}
         mr={`-${theme.tyle.spacing.xl}`}
       >
         {name}
