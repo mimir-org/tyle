@@ -156,7 +156,9 @@ namespace TypeLibrary.Services.Services
 
         public async Task<IEnumerable<AttributeLibCm>> GetLatestVersions(Aspect aspect)
         {
-            var distinctFirstVersionIdDm = _attributeRepository.Get()?.Where(x => x.State != State.Deleted && x.Aspect == aspect).ToList().DistinctBy(x => x.FirstVersionId).ToList();
+            var distinctFirstVersionIdDm = aspect is Aspect.None or Aspect.NotSet ?
+                _attributeRepository.Get()?.Where(x => x.State != State.Deleted).ToList().DistinctBy(x => x.FirstVersionId).ToList() :
+                _attributeRepository.Get()?.Where(x => x.State != State.Deleted && x.Aspect == aspect).ToList().DistinctBy(x => x.FirstVersionId).ToList();
 
             if (distinctFirstVersionIdDm == null || !distinctFirstVersionIdDm.Any())
                 return await Task.FromResult(new List<AttributeLibCm>());
