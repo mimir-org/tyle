@@ -1,9 +1,9 @@
 import { UserCircle } from "@styled-icons/heroicons-outline";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { Button } from "../../../complib/buttons";
-import { Popover } from "../../../complib/data-display";
-import { Box } from "../../../complib/layouts";
+import { Button } from "../../../../complib/buttons";
+import { Popover } from "../../../../complib/data-display";
+import { Box } from "../../../../complib/layouts";
 
 interface UserMenuProps {
   name: string;

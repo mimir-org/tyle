@@ -1,8 +1,8 @@
 import { Moon, Sun } from "@styled-icons/heroicons-outline";
 import { useTranslation } from "react-i18next";
-import { usePrefersTheme } from "../../../hooks/usePrefersTheme";
-import { toggleDarkTheme } from "./UserMenu.helpers";
-import { UserMenuButton } from "./UserMenuButton";
+import { usePrefersTheme } from "../../../../hooks/usePrefersTheme";
+import { UserMenuButton } from "../menu/UserMenuButton";
+import { toggleDarkTheme } from "./ThemeButton.helpers";
 
 export const ThemeButton = () => {
   const { t } = useTranslation();
