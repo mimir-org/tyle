@@ -83,19 +83,23 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// <summary>
         /// Logout a user
         /// </summary>
-        /// <returns>bool</returns>
         [AllowAnonymous]
         [HttpPost]
         [Route("logout")]
-        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [SwaggerOperation("Logout")]
         public async Task<IActionResult> Logout()
         {
             try
             {
+                if (!HttpContext.Request.Cookies.TryGetValue(RefreshTokenCookie, out var token))
+                    return NoContent();
+
+                await _authService.Logout(token);
                 await RemoveRefreshCookies(HttpContext.Request, HttpContext.Response);
-                return Ok();
+
+                return NoContent();
             }
             catch (Exception e)
             {
