@@ -85,11 +85,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<AttributeLibCm>), StatusCodes.Status200OK)]
         [AllowAnonymous]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
-                var data = _attributeService.GetLatestVersions(Aspect.NotSet);
+                var data = await _attributeService.GetLatestVersions(Aspect.NotSet);
                 return Ok(data);
             }
             catch (Exception e)
@@ -124,11 +124,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("aspect/{aspect}")]
         [ProducesResponseType(typeof(ICollection<AttributeLibCm>), StatusCodes.Status200OK)]
         [AllowAnonymous]
-        public IActionResult GetLatestVersions(Aspect aspect)
+        public async Task<IActionResult> GetLatestVersions(Aspect aspect)
         {
             try
             {
-                var data = _attributeService.GetLatestVersions(aspect);
+                var data = await _attributeService.GetLatestVersions(aspect);
                 return Ok(data);
             }
             catch (Exception e)
