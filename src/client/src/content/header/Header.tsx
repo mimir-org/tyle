@@ -2,6 +2,7 @@ import { useTheme } from "styled-components";
 import { Flexbox } from "../../complib/layouts";
 import { useGetCurrentUser } from "../../data/queries/auth/queriesUser";
 import { Logo } from "../common/logo";
+import { ContactButton } from "./components/contact/ContactButton";
 import { LogoutButton } from "./components/logout/LogoutButton";
 import { UserMenu } from "./components/menu/UserMenu";
 import { ThemeButton } from "./components/theme/ThemeButton";
@@ -20,6 +21,7 @@ export const Header = () => {
         <UserMenu name={userInitials}>
           <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.base}>
             <ThemeButton />
+            <ContactButton />
             <LogoutButton />
           </Flexbox>
         </UserMenu>

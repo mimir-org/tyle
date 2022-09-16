@@ -13,7 +13,7 @@
       "contact": {
         "title": "Contact",
         "description": "Need any help? View your manager's contact information by selecting an organization below.",
-        "organization": "Organization",
+        "select": "Select organization",
         "notFound": "Sorry! No manager found."
       }
     }
