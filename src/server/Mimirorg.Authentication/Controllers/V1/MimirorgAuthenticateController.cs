@@ -79,7 +79,7 @@ namespace Mimirorg.Authentication.Controllers.V1
                 return StatusCode(500, "Internal Server Error");
             }
         }
-        
+
         /// <summary>
         /// Logout a user
         /// </summary>
