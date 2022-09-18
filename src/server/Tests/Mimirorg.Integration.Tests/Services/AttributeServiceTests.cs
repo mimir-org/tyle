@@ -2,8 +2,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Setup;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 using Xunit;
+// ReSharper disable InconsistentNaming
 
 namespace Mimirorg.Integration.Tests.Services
 {
@@ -14,36 +16,37 @@ namespace Mimirorg.Integration.Tests.Services
         }
 
         [Fact]
+        public async Task DatumDataReceiveOk()
+        {
+            using var scope = Factory.Server.Services.CreateScope();
+            var attributeService = scope.ServiceProvider.GetRequiredService<IAttributeService>();
+
+            var rangeSpecifying = await attributeService.GetQuantityDatumRangeSpecifying();
+            var regularitySpecified = await attributeService.GetQuantityDatumRegularitySpecified();
+            var specifiedProvenance = await attributeService.GetQuantityDatumSpecifiedProvenance();
+            var specifiedScope = await attributeService.GetQuantityDatumSpecifiedScope();
+
+            Assert.True(rangeSpecifying != null);
+            Assert.True(regularitySpecified != null);
+            Assert.True(specifiedProvenance != null);
+            Assert.True(specifiedScope != null);
+
+            Assert.True(rangeSpecifying.Any());
+            Assert.True(regularitySpecified.Any());
+            Assert.True(specifiedProvenance.Any());
+            Assert.True(specifiedScope.Any());
+        }
+
+        [Fact]
         public async Task Create_Attributes_Valid_Attributes_Created_Ok()
         {
             using var scope = Factory.Server.Services.CreateScope();
-
-            var unitService = scope.ServiceProvider.GetRequiredService<IUnitService>();
             var attributeService = scope.ServiceProvider.GetRequiredService<IAttributeService>();
+            var unitService = scope.ServiceProvider.GetRequiredService<IUnitService>();
+            var units = (await unitService.Get()).ToList();
 
-            var qualifiers = await attributeService.GetQualifiers();
-            var sources = await attributeService.GetSources();
-            var conditions = await attributeService.GetConditions();
-            var formats = await attributeService.GetFormats();
-            var units = await unitService.Get();
-
-            Assert.True(qualifiers != null);
-            Assert.True(sources != null);
-            Assert.True(conditions != null);
-            Assert.True(formats != null);
             Assert.True(units != null);
-
-            var qualifierCmList = qualifiers.ToList();
-            var sourceCmList = sources.ToList();
-            var conditionCmList = conditions.ToList();
-            var formatCmList = formats.ToList();
-            var unitCmList = units.ToList();
-
-            Assert.True(qualifierCmList.Any() && qualifierCmList.Count > 1);
-            Assert.True(sourceCmList.Any() && sourceCmList.Count > 1);
-            Assert.True(conditionCmList.Any() && conditionCmList.Count > 1);
-            Assert.True(formatCmList.Any() && formatCmList.Count > 1);
-            Assert.True(unitCmList.Any() && unitCmList.Count > 2);
+            Assert.True(units.Any());
 
             var attributeAm = new AttributeLibAm
             {
@@ -51,10 +54,10 @@ namespace Mimirorg.Integration.Tests.Services
                 Aspect = Aspect.Function,
                 Discipline = Discipline.Electrical,
                 Select = Select.MultiSelect,
-                AttributeQualifier = qualifierCmList[1]?.Name,
-                AttributeSource = sourceCmList[1]?.Name,
-                AttributeCondition = conditionCmList[1]?.Name,
-                AttributeFormat = formatCmList[1]?.Name,
+                QuantityDatumRangeSpecifying = "Normal",
+                QuantityDatumSpecifiedProvenance = "Calculated",
+                QuantityDatumRegularitySpecified = "Absolute",
+                QuantityDatumSpecifiedScope = "Design Datum",
                 CompanyId = 1,
                 TypeReferences = new List<TypeReferenceAm>
                 {
@@ -63,19 +66,22 @@ namespace Mimirorg.Integration.Tests.Services
                         Name = "TypeRef",
                         Iri = "https://url.com/1234567890",
                         Source = "https://source.com/1234567890",
-                        SubName = "SubName",
-                        SubIri = "https://subIri.com/1234567890",
+                        Subs = new List<TypeReferenceSub>
+                        {
+                            new()
+                            {
+                                Name = "SubName",
+                                Iri = "https://subIri.com/1234567890"
+                            }
+                        }
 
                     }
                 },
                 SelectValues = new List<string> { "value1", "VALUE2", "value3" },
                 UnitIdList = new List<string>
                 {
-                    unitCmList[0]?.Id,
-                    unitCmList[1]?.Id,
-                    unitCmList[2]?.Id
-                },
-                Tags = new HashSet<string> { "set1", "set2" }
+                    units[0]?.Id
+                }
             };
 
             var attributeCm = await attributeService.Create(attributeAm);
@@ -87,17 +93,18 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(attributeAm.Aspect.ToString(), attributeCm.Aspect.ToString());
             Assert.Equal(attributeAm.Discipline.ToString(), attributeCm.Discipline.ToString());
             Assert.Equal(attributeAm.Select.ToString(), attributeCm.Select.ToString());
-            Assert.Equal(attributeAm.AttributeQualifier, attributeCm.AttributeQualifier);
-            Assert.Equal(attributeAm.AttributeSource, attributeCm.AttributeSource);
-            Assert.Equal(attributeAm.AttributeCondition, attributeCm.AttributeCondition);
-            Assert.Equal(attributeAm.AttributeFormat, attributeCm.AttributeFormat);
+            Assert.Equal(attributeAm.QuantityDatumSpecifiedProvenance, attributeCm.QuantityDatumSpecifiedProvenance);
+            Assert.Equal(attributeAm.QuantityDatumRegularitySpecified, attributeCm.QuantityDatumRegularitySpecified);
+            Assert.Equal(attributeAm.QuantityDatumRangeSpecifying, attributeCm.QuantityDatumRangeSpecifying);
+            Assert.Equal(attributeAm.QuantityDatumSpecifiedScope, attributeCm.QuantityDatumSpecifiedScope);
             Assert.Equal(attributeAm.CompanyId, attributeCm.CompanyId);
 
             Assert.Equal(attributeAm.TypeReferences.First().Iri, attributeCm.TypeReferences.First().Iri);
             Assert.Equal(attributeAm.TypeReferences.First().Name, attributeCm.TypeReferences.First().Name);
             Assert.Equal(attributeAm.TypeReferences.First().Source, attributeCm.TypeReferences.First().Source);
-            Assert.Equal(attributeAm.TypeReferences.First().SubIri, attributeCm.TypeReferences.First().SubIri);
-            Assert.Equal(attributeAm.TypeReferences.First().SubName, attributeCm.TypeReferences.First().SubName);
+
+            Assert.Equal(attributeAm.TypeReferences.First().Subs.First().Name, attributeCm.TypeReferences.First().Subs.First().Name);
+            Assert.Equal(attributeAm.TypeReferences.First().Subs.First().Iri, attributeCm.TypeReferences.First().Subs.First().Iri);
 
             var amSelectValues = attributeAm.SelectValues.OrderBy(x => x, StringComparer.InvariantCulture).ToList();
             var cmSelectValues = attributeCm.SelectValues.OrderBy(x => x, StringComparer.InvariantCulture).ToList();
@@ -110,12 +117,6 @@ namespace Mimirorg.Integration.Tests.Services
 
             for (var i = 0; i < amUnitIdList.Count; i++)
                 Assert.Equal(amUnitIdList[i], cmUnitIdList[i]);
-
-            var amTagList = attributeAm.Tags.OrderBy(x => x, StringComparer.InvariantCulture).ToList();
-            var cmTagList = attributeCm.Tags.OrderBy(x => x, StringComparer.InvariantCulture).ToList();
-
-            for (var i = 0; i < amTagList.Count; i++)
-                Assert.Equal(amTagList[i], cmTagList[i]);
         }
 
         [Fact]
@@ -123,32 +124,9 @@ namespace Mimirorg.Integration.Tests.Services
         {
             using var scope = Factory.Server.Services.CreateScope();
 
-            var unitService = scope.ServiceProvider.GetRequiredService<IUnitService>();
             var attributeService = scope.ServiceProvider.GetRequiredService<IAttributeService>();
-
-            var qualifiers = await attributeService.GetQualifiers();
-            var sources = await attributeService.GetSources();
-            var conditions = await attributeService.GetConditions();
-            var formats = await attributeService.GetFormats();
-            var units = await unitService.Get();
-
-            Assert.True(qualifiers != null);
-            Assert.True(sources != null);
-            Assert.True(conditions != null);
-            Assert.True(formats != null);
-            Assert.True(units != null);
-
-            var qualifierCmList = qualifiers.ToList();
-            var sourceCmList = sources.ToList();
-            var conditionCmList = conditions.ToList();
-            var formatCmList = formats.ToList();
-            var unitCmList = units.ToList();
-
-            Assert.True(qualifierCmList.Any() && qualifierCmList.Count > 1);
-            Assert.True(sourceCmList.Any() && sourceCmList.Count > 1);
-            Assert.True(conditionCmList.Any() && conditionCmList.Count > 1);
-            Assert.True(formatCmList.Any() && formatCmList.Count > 1);
-            Assert.True(unitCmList.Any() && unitCmList.Count > 3);
+            var unitService = scope.ServiceProvider.GetRequiredService<IUnitService>();
+            var units = (await unitService.Get()).ToList();
 
             var attributeAm = new AttributeLibAm
             {
@@ -157,16 +135,14 @@ namespace Mimirorg.Integration.Tests.Services
                 Discipline = Discipline.Electrical,
                 Select = Select.MultiSelect,
                 SelectValues = new List<string> { "value1", "VALUE2", "value3" },
-                AttributeQualifier = qualifierCmList[1]?.Name,
-                AttributeSource = sourceCmList[1]?.Name,
-                AttributeCondition = conditionCmList[1]?.Name,
-                AttributeFormat = formatCmList[1]?.Name,
+                QuantityDatumRangeSpecifying = "Normal",
+                QuantityDatumSpecifiedProvenance = "Calculated",
+                QuantityDatumRegularitySpecified = "Absolute",
+                QuantityDatumSpecifiedScope = "Design Datum",
                 CompanyId = 1,
                 UnitIdList = new List<string>
                 {
-                    unitCmList[0]?.Id,
-                    unitCmList[1]?.Id,
-                    unitCmList[2]?.Id
+                    units[0]?.Id
                 }
             };
 
@@ -174,7 +150,7 @@ namespace Mimirorg.Integration.Tests.Services
 
             Assert.True(attributeCm.Version == "1.0");
 
-            attributeAm.UnitIdList.Add(unitCmList[3]?.Id);
+            attributeAm.UnitIdList.Add(units[0]?.Id);
             var attributeCmUpdated = await attributeService.Update(attributeAm, attributeAm.Id);
 
             Assert.True(attributeCm.Version == "1.0");
@@ -187,26 +163,6 @@ namespace Mimirorg.Integration.Tests.Services
             using var scope = Factory.Server.Services.CreateScope();
             var attributeService = scope.ServiceProvider.GetRequiredService<IAttributeService>();
 
-            var qualifiers = await attributeService.GetQualifiers();
-            var sources = await attributeService.GetSources();
-            var conditions = await attributeService.GetConditions();
-            var formats = await attributeService.GetFormats();
-
-            Assert.True(qualifiers != null);
-            Assert.True(sources != null);
-            Assert.True(conditions != null);
-            Assert.True(formats != null);
-
-            var qualifierCmList = qualifiers.ToList();
-            var sourceCmList = sources.ToList();
-            var conditionCmList = conditions.ToList();
-            var formatCmList = formats.ToList();
-
-            Assert.True(qualifierCmList.Any() && qualifierCmList.Count > 1);
-            Assert.True(sourceCmList.Any() && sourceCmList.Count > 1);
-            Assert.True(conditionCmList.Any() && conditionCmList.Count > 1);
-            Assert.True(formatCmList.Any() && formatCmList.Count > 1);
-
             var attributeAm = new AttributeLibAm
             {
                 Name = "attribute3",
@@ -214,10 +170,10 @@ namespace Mimirorg.Integration.Tests.Services
                 Discipline = Discipline.Electrical,
                 Select = Select.MultiSelect,
                 SelectValues = new List<string> { "value1", "VALUE2", "value3" },
-                AttributeQualifier = qualifierCmList[1]?.Name,
-                AttributeSource = sourceCmList[1]?.Name,
-                AttributeCondition = conditionCmList[1]?.Name,
-                AttributeFormat = formatCmList[1]?.Name,
+                QuantityDatumRangeSpecifying = "Normal",
+                QuantityDatumSpecifiedProvenance = "Calculated",
+                QuantityDatumRegularitySpecified = "Absolute",
+                QuantityDatumSpecifiedScope = "Design Datum",
                 CompanyId = 1
             };
 
@@ -238,26 +194,6 @@ namespace Mimirorg.Integration.Tests.Services
             using var scope = Factory.Server.Services.CreateScope();
             var attributeService = scope.ServiceProvider.GetRequiredService<IAttributeService>();
 
-            var qualifiers = await attributeService.GetQualifiers();
-            var sources = await attributeService.GetSources();
-            var conditions = await attributeService.GetConditions();
-            var formats = await attributeService.GetFormats();
-
-            Assert.True(qualifiers != null);
-            Assert.True(sources != null);
-            Assert.True(conditions != null);
-            Assert.True(formats != null);
-
-            var qualifierCmList = qualifiers.ToList();
-            var sourceCmList = sources.ToList();
-            var conditionCmList = conditions.ToList();
-            var formatCmList = formats.ToList();
-
-            Assert.True(qualifierCmList.Any() && qualifierCmList.Count > 1);
-            Assert.True(sourceCmList.Any() && sourceCmList.Count > 1);
-            Assert.True(conditionCmList.Any() && conditionCmList.Count > 1);
-            Assert.True(formatCmList.Any() && formatCmList.Count > 1);
-
             var attributeAm = new AttributeLibAm
             {
                 Name = "attribute4",
@@ -265,10 +201,10 @@ namespace Mimirorg.Integration.Tests.Services
                 Discipline = Discipline.Electrical,
                 Select = Select.MultiSelect,
                 SelectValues = new List<string> { "value1", "VALUE2", "value3" },
-                AttributeQualifier = qualifierCmList[1]?.Name,
-                AttributeSource = sourceCmList[1]?.Name,
-                AttributeCondition = conditionCmList[1]?.Name,
-                AttributeFormat = formatCmList[1]?.Name,
+                QuantityDatumRangeSpecifying = "Normal",
+                QuantityDatumSpecifiedProvenance = "Calculated",
+                QuantityDatumRegularitySpecified = "Absolute",
+                QuantityDatumSpecifiedScope = "Design Datum",
                 CompanyId = 1
             };
 

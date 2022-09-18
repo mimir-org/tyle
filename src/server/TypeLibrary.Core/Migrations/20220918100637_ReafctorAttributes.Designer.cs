@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TypeLibrary.Data;
 
@@ -11,9 +12,10 @@ using TypeLibrary.Data;
 namespace TypeLibrary.Core.Migrations
 {
     [DbContext(typeof(TypeLibraryDbContext))]
-    partial class TypeLibraryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220918100637_ReafctorAttributes")]
+    partial class ReafctorAttributes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -511,6 +513,96 @@ namespace TypeLibrary.Core.Migrations
                     b.HasIndex("TerminalId");
 
                     b.ToTable("Node_Terminal", (string)null);
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.PurposeLibDm", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("CreatedBy");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(511)
+                        .HasColumnType("nvarchar(511)")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("Iri")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("Iri");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("Name");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("State");
+
+                    b.Property<string>("TypeReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("TypeReferences");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Purpose", (string)null);
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.RdsLibDm", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("CreatedBy");
+
+                    b.Property<string>("Iri")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Iri");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Name");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("State");
+
+                    b.Property<string>("TypeReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("TypeReferences");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rds", (string)null);
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.SimpleLibDm", b =>

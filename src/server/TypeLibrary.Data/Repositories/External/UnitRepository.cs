@@ -13,8 +13,6 @@ namespace TypeLibrary.Data.Repositories.External
 {
     public class UnitRepository : IUnitRepository
     {
-        public const string UnitSalt = "Mb.Models.Data.Enums.Unit";
-
         private readonly IApplicationSettingsRepository _settings;
         private readonly ICacheRepository _cacheRepository;
 
@@ -68,7 +66,7 @@ namespace TypeLibrary.Data.Repositories.External
 
             foreach (var pcaUnit in data)
             {
-                var id = $"{pcaUnit.Uom_Label}-{UnitSalt}".CreateMd5();
+                var id = $"{pcaUnit.Uom_Label}".CreateMd5();
                 var iri = $"{_settings.ApplicationSemanticUrl}/unit/{id}";
 
                 var typeReferences = new List<TypeReferenceAm>

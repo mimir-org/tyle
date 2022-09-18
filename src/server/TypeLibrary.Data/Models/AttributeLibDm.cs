@@ -11,6 +11,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using Newtonsoft.Json;
 using TypeLibrary.Data.Contracts.Common;
+// ReSharper disable InconsistentNaming
 
 namespace TypeLibrary.Data.Models
 {
@@ -23,10 +24,10 @@ namespace TypeLibrary.Data.Models
         public string Iri { get; set; }
         public string TypeReferences { get; set; }
 
-        public string AttributeQualifier { get; set; }
-        public string AttributeSource { get; set; }
-        public string AttributeCondition { get; set; }
-        public string AttributeFormat { get; set; }
+        public string QuantityDatumSpecifiedScope { get; set; }
+        public string QuantityDatumSpecifiedProvenance { get; set; }
+        public string QuantityDatumRangeSpecifying { get; set; }
+        public string QuantityDatumRegularitySpecified { get; set; }
 
         public int CompanyId { get; set; }
         public Aspect Aspect { get; set; }
@@ -37,8 +38,6 @@ namespace TypeLibrary.Data.Models
         public State State { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-
-        public virtual HashSet<string> Tags { get; set; }
 
         [NotMapped]
         public ICollection<string> SelectValues => string.IsNullOrEmpty(SelectValuesString) ? null : SelectValuesString.ConvertToArray();
@@ -59,17 +58,17 @@ namespace TypeLibrary.Data.Models
             if (Name != other.Name)
                 validation.AddNotAllowToChange(nameof(Name));
 
-            if (AttributeQualifier != other.AttributeQualifier)
-                validation.AddNotAllowToChange(nameof(AttributeQualifier));
+            if (QuantityDatumSpecifiedScope != other.QuantityDatumSpecifiedScope)
+                validation.AddNotAllowToChange(nameof(QuantityDatumSpecifiedScope));
 
-            if (AttributeSource != other.AttributeSource)
-                validation.AddNotAllowToChange(nameof(AttributeSource));
+            if (QuantityDatumSpecifiedProvenance != other.QuantityDatumSpecifiedProvenance)
+                validation.AddNotAllowToChange(nameof(QuantityDatumSpecifiedProvenance));
 
-            if (AttributeCondition != other.AttributeCondition)
-                validation.AddNotAllowToChange(nameof(AttributeCondition));
+            if (QuantityDatumRangeSpecifying != other.QuantityDatumRangeSpecifying)
+                validation.AddNotAllowToChange(nameof(QuantityDatumRangeSpecifying));
 
-            if (AttributeFormat != other.AttributeFormat)
-                validation.AddNotAllowToChange(nameof(AttributeFormat));
+            if (QuantityDatumRegularitySpecified != other.QuantityDatumRegularitySpecified)
+                validation.AddNotAllowToChange(nameof(QuantityDatumRegularitySpecified));
 
             if (Aspect != other.Aspect)
                 validation.AddNotAllowToChange(nameof(Aspect));

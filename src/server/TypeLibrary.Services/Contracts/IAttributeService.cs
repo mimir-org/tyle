@@ -21,10 +21,30 @@ namespace TypeLibrary.Services.Contracts
 
         IEnumerable<AttributePredefinedLibCm> GetPredefined();
         Task CreatePredefined(List<AttributePredefinedLibAm> predefined, bool createdBySystem = false);
-        Task<IEnumerable<AttributeConditionLibCm>> GetConditions();
-        Task<IEnumerable<AttributeFormatLibCm>> GetFormats();
-        Task<IEnumerable<AttributeQualifierLibCm>> GetQualifiers();
-        Task<IEnumerable<AttributeSourceLibCm>> GetSources();
         Task<IEnumerable<TypeReferenceCm>> GetAttributeReferences();
+
+        /// <summary>
+        /// Get all quantity datum range specifying
+        /// </summary>
+        /// <returns>A collection of quantity datums</returns>
+        Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumRangeSpecifying();
+
+        /// <summary>
+        /// Get all quantity datum specified scopes
+        /// </summary>
+        /// <returns>A collection of quantity datums</returns>
+        Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumSpecifiedScope();
+
+        /// <summary>
+        /// Get all quantity datum with specified provenances
+        /// </summary>
+        /// <returns>A collection of quantity datums</returns>
+        Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumSpecifiedProvenance();
+
+        /// <summary>
+        /// Get all quantity datum regularity specified
+        /// </summary>
+        /// <returns>A collection of quantity datums</returns>
+        Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumRegularitySpecified();
     }
 }

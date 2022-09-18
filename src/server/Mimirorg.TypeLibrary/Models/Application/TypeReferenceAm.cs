@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Mimirorg.TypeLibrary.Models.Client;
 // ReSharper disable NonReadonlyMemberInGetHashCode
 
 namespace Mimirorg.TypeLibrary.Models.Application
@@ -14,10 +15,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public string Source { get; set; }
 
-        public string SubName { get; set; }
-
-        public string SubIri { get; set; }
-
+        public ICollection<TypeReferenceSub> Subs { get; set; }
 
         public bool Equals(TypeReferenceAm other)
         {

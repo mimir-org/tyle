@@ -4,6 +4,7 @@ using Mimirorg.Setup;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 using Xunit;
 
@@ -51,13 +52,10 @@ namespace Mimirorg.Integration.Tests.Services
                 Description = "Description",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
-                SimpleIdList = new List<string>
-                {
-                    "02FD503A1A6E80CA36A8F194C54144A6"
-                },
+                SimpleIdList = null,
                 AttributeIdList = new List<string>
                 {
-                    "003F35CF40F34ECDE4E7EB589C7E0A00"
+                    "CA20DF193D58238C3C557A0316C15533"
                 },
                 NodeTerminals = new List<NodeTerminalLibAm>{
                     new()
@@ -83,9 +81,14 @@ namespace Mimirorg.Integration.Tests.Services
                                 Name = "TypeRef",
                                 Iri = "https://url.com/1234567890",
                                 Source = "https://source.com/1234567890",
-                                SubName = "SubName",
-                                SubIri = "https://subIri.com/1234567890",
-
+                                Subs = new List<TypeReferenceSub>
+                                {
+                                    new()
+                                    {
+                                        Name = "SubName",
+                                        Iri = "https://subIri.com/1234567890"
+                                    }
+                                }
                             }
                         }
                     }
@@ -98,9 +101,14 @@ namespace Mimirorg.Integration.Tests.Services
                         Name = "TypeRef",
                         Iri = "https://url.com/1234567890",
                         Source = "https://source.com/1234567890",
-                        SubName = "SubName",
-                        SubIri = "https://subIri.com/1234567890",
-
+                        Subs = new List<TypeReferenceSub>
+                        {
+                            new()
+                            {
+                                Name = "SubName",
+                                Iri = "https://subIri.com/1234567890"
+                            }
+                        }
                     }
                 },
                 ParentId = "1234"
@@ -119,7 +127,6 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(nodeAm.Aspect, nodeCm.Aspect);
             Assert.Equal(nodeAm.Description, nodeCm.Description);
             Assert.Equal(nodeAm.CompanyId, nodeCm.CompanyId);
-            Assert.Equal(nodeAm.SimpleIdList.ToList().ConvertToString(), nodeCm.Simples.Select(x => x.Id).ToList().ConvertToString());
             Assert.Equal(nodeAm.AttributeIdList.ToList().ConvertToString(), nodeCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
 
             foreach (var am in nodeAm.NodeTerminals)
@@ -139,23 +146,16 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Iri, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Iri);
             Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Name, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Name);
             Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Source, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Source);
-            Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().SubIri, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().SubIri);
-            Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().SubName, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().SubName);
+            Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Subs.First().Name, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Subs.First().Name);
+            Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Subs.First().Iri, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Subs.First().Iri);
+
+            Assert.Equal(nodeAm.TypeReferences.First().Iri, nodeCm.TypeReferences.First().Iri);
+            Assert.Equal(nodeAm.TypeReferences.First().Name, nodeCm.TypeReferences.First().Name);
+            Assert.Equal(nodeAm.TypeReferences.First().Source, nodeCm.TypeReferences.First().Source);
+            Assert.Equal(nodeAm.TypeReferences.First().Subs.First().Name, nodeCm.TypeReferences.First().Subs.First().Name);
+            Assert.Equal(nodeAm.TypeReferences.First().Subs.First().Iri, nodeCm.TypeReferences.First().Subs.First().Iri);
 
             Assert.Equal(nodeAm.Symbol, nodeCm.Symbol);
-
-            foreach (var typeReferenceAm in nodeAm.TypeReferences.OrderBy(x => x.Name, StringComparer.InvariantCulture).ThenBy(x => x.SubName))
-            {
-                foreach (var typeReferenceCm in nodeCm.TypeReferences.OrderBy(x => x.Name, StringComparer.InvariantCulture).ThenBy(x => x.SubName))
-                {
-                    Assert.Equal(typeReferenceAm.Name, typeReferenceCm.Name);
-                    Assert.Equal(typeReferenceAm.Source, typeReferenceCm.Source);
-                    Assert.Equal(typeReferenceAm.Iri, typeReferenceCm.Iri);
-                    Assert.Equal(typeReferenceAm.SubIri, typeReferenceCm.SubIri);
-                    Assert.Equal(typeReferenceAm.SubName, typeReferenceCm.SubName);
-                }
-            }
-
             Assert.Equal(nodeAm.ParentId, nodeCm.ParentId);
         }
 
@@ -173,7 +173,7 @@ namespace Mimirorg.Integration.Tests.Services
                 CompanyId = 1,
                 AttributeIdList = new List<string>
                 {
-                    "003F35CF40F34ECDE4E7EB589C7E0A00"
+                    "CA20DF193D58238C3C557A0316C15533"
                 }
             };
 
@@ -198,7 +198,7 @@ namespace Mimirorg.Integration.Tests.Services
                 CompanyId = 1,
                 AttributeIdList = new List<string>
                 {
-                    "003F35CF40F34ECDE4E7EB589C7E0A00"
+                    "CA20DF193D58238C3C557A0316C15533"
                 }
             };
 
