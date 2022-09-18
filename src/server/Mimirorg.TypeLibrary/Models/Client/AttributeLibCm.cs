@@ -1,3 +1,4 @@
+using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Enums;
 // ReSharper disable InconsistentNaming
 
@@ -31,8 +32,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         private string CreateDescription()
         {
             var text = $"{Name} {QuantityDatumSpecifiedScope} {QuantityDatumSpecifiedProvenance} {QuantityDatumRangeSpecifying} {QuantityDatumRegularitySpecified}";
-            var list = text.Split(' ').Where(s => !string.IsNullOrWhiteSpace(s));
-            return string.Join(" ", list);
+            return text.RemoveWhitespaces();
         }
     }
 }
