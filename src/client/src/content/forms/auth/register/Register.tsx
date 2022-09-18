@@ -11,7 +11,6 @@ import { MotionText, Text } from "../../../../complib/text";
 import { useCreateUser } from "../../../../data/queries/auth/queriesUser";
 import { useServerValidation } from "../../../../hooks/useServerValidation";
 import { MotionLogo } from "../../../common/logo/Logo";
-import { UnauthenticatedFormContainer } from "../UnauthenticatedFormContainer";
 import { RegisterFinalize } from "./components/RegisterFinalize";
 import { RegisterProcessing } from "./components/RegisterProcessing";
 
@@ -26,7 +25,7 @@ export const Register = () => {
   useServerValidation(mutation.error, setError);
 
   return (
-    <UnauthenticatedFormContainer>
+    <>
       {mutation.isLoading && <RegisterProcessing />}
       {mutation.isSuccess && <RegisterFinalize qrCodeBase64={mutation?.data?.code} />}
       {!mutation.isSuccess && !mutation.isLoading && (
@@ -96,6 +95,6 @@ export const Register = () => {
           </MotionFlexbox>
         </Form>
       )}
-    </UnauthenticatedFormContainer>
+    </>
   );
 };

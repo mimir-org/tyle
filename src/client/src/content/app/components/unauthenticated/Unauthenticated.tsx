@@ -1,16 +1,7 @@
-import { Navigate, Route, Routes } from "react-router-dom";
-import { Login } from "../../../forms/auth/login";
-import { Register } from "../../../forms/auth/register";
-import { UnauthenticatedLayout } from "./Unauthenticated.styled";
+import { RouterProvider } from "react-router-dom";
+import { useUnauthenticatedRouter } from "./Unauthenticated.helpers";
 
 export const Unauthenticated = () => {
-  return (
-    <UnauthenticatedLayout>
-      <Routes>
-        <Route path={"/"} element={<Login />} />
-        <Route path={"/register"} element={<Register />} />
-        <Route path={"*"} element={<Navigate to={"/"} replace />} />
-      </Routes>
-    </UnauthenticatedLayout>
-  );
+  const router = useUnauthenticatedRouter();
+  return <RouterProvider router={router} />;
 };
