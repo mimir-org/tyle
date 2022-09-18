@@ -165,6 +165,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Discipline");
 
+                    b.Property<string>("FirstVersionId")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("FirstVersionId");
+
                     b.Property<string>("Iri")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
@@ -203,6 +209,12 @@ namespace TypeLibrary.Core.Migrations
                     b.Property<string>("Units")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Units");
+
+                    b.Property<string>("Version")
+                        .IsRequired()
+                        .HasMaxLength(7)
+                        .HasColumnType("nvarchar(7)")
+                        .HasColumnName("Version");
 
                     b.HasKey("Id");
 

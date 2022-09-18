@@ -1,3 +1,4 @@
+using System.Text;
 using Mimirorg.Common.Models;
 
 namespace Mimirorg.Authentication.Models.Domain
@@ -24,5 +25,24 @@ namespace Mimirorg.Authentication.Models.Domain
         public string EmailSecret { get; set; }
 
         public DatabaseConfiguration DatabaseConfiguration { get; set; }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine();
+            sb.AppendLine("###################### Auth settings ########################################");
+            sb.AppendLine($"{nameof(ApplicationName)}:          {ApplicationName}");
+            sb.AppendLine($"{nameof(ApplicationUrl)}:           {ApplicationUrl}");
+            sb.AppendLine($"{nameof(JwtExpireMinutes)}:         {JwtExpireMinutes}");
+            sb.AppendLine($"{nameof(JwtRefreshExpireMinutes)}:  {JwtRefreshExpireMinutes}");
+            sb.AppendLine($"{nameof(MaxFailedAccessAttempts)}:  {MaxFailedAccessAttempts}");
+            sb.AppendLine($"{nameof(RequireConfirmedAccount)}:  {RequireConfirmedAccount}");
+            sb.AppendLine($"{nameof(RequireDigit)}:             {RequireDigit}");
+            sb.AppendLine($"{nameof(RequireUppercase)}:         {RequireUppercase}");
+            sb.AppendLine($"{nameof(RequireNonAlphanumeric)}:   {RequireNonAlphanumeric}");
+            sb.AppendLine($"{nameof(RequiredLength)}:           {RequiredLength}");
+            sb.AppendLine("#############################################################################");
+            return sb.ToString();
+        }
     }
 }

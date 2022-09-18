@@ -4,7 +4,18 @@
   },
   "user": {
     "menu": {
-      "darkMode": "Enable dark mode"
+      "darkMode": "Enable dark mode",
+      "lightMode": "Enable light mode",
+      "logout": {
+        "title": "Logout",
+        "error": "Sorry! An error occurred during logout. Please contact support if the problem persists."
+      },
+      "contact": {
+        "title": "Contact",
+        "description": "Need any help? View your manager's contact information by selecting an organization below.",
+        "select": "Select organization",
+        "notFound": "Sorry! No manager found."
+      }
     }
   },
   "search": {
@@ -84,7 +95,7 @@
       "aspect": {
         "required": "Please select an aspect"
       },
-      "companyId":{
+      "companyId": {
         "min": "Please select an owner"
       },
       "description": {
@@ -96,7 +107,7 @@
         }
       },
       "attributeIdList": {
-        "value":{
+        "value": {
           "required": "Please specify an attribute"
         }
       },
@@ -141,7 +152,7 @@
       "discipline": {
         "required": "Please select a discipline"
       },
-      "companyId":{
+      "companyId": {
         "min": "Please select an owner"
       },
       "select": {
@@ -201,14 +212,14 @@
       "color": {
         "required": "Please select a color"
       },
-      "companyId":{
+      "companyId": {
         "min": "Please select an owner"
       },
       "description": {
         "max": "The description can be at most 500 characters"
       },
       "attributeIdList": {
-        "value":{
+        "value": {
           "required": "Please specify an attribute"
         }
       },
@@ -257,7 +268,7 @@
       "aspect": {
         "required": "Please select an aspect"
       },
-      "companyId":{
+      "companyId": {
         "min": "Please select an owner"
       },
       "description": {
@@ -267,7 +278,7 @@
         "required": "Please select a terminal"
       },
       "attributeIdList": {
-        "value":{
+        "value": {
           "required": "Please specify an attribute"
         }
       },
@@ -316,7 +327,7 @@
       "aspect": {
         "required": "Please select an aspect"
       },
-      "companyId":{
+      "companyId": {
         "min": "Please select an owner"
       },
       "description": {
@@ -326,7 +337,7 @@
         "required": "Please select a terminal"
       },
       "attributeIdList": {
-        "value":{
+        "value": {
           "required": "Please specify an attribute"
         }
       },
@@ -344,7 +355,7 @@
       }
     },
     "attributeIdList": {
-      "value":{
+      "value": {
         "required": "Please specify an attribute"
       }
     }
@@ -453,6 +464,12 @@
         "finish": "Finish registration"
       }
     }
+  },
+  "clientError": {
+    "title": "Oops!",
+    "subtitle": "An error occurred when loading the page. Please contact support if the problem persists.",
+    "status": "Error: Client",
+    "link": "Go back home"
   },
   "notFound": {
     "title": "Oops!",

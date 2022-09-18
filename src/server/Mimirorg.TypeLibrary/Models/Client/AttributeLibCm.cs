@@ -6,6 +6,8 @@ namespace Mimirorg.TypeLibrary.Models.Client
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        public string Version { get; set; }
+        public string FirstVersionId { get; set; }
         public string Iri { get; set; }
         public ICollection<TypeReferenceCm> TypeReferences { get; set; }
         public string AttributeQualifier { get; set; }

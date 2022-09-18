@@ -13,7 +13,7 @@ interface NotFoundProps {
 }
 
 /**
- * Simple not found component offering navigation via link/button
+ * Simple error message component offering navigation via link/button
  *
  * @param title
  * @param subtitle
@@ -22,11 +22,18 @@ interface NotFoundProps {
  * @param linkPath
  * @constructor
  */
-export const NotFound = ({ title, subtitle, status, linkText, linkPath }: NotFoundProps) => {
+export const ErrorMessage = ({ title, subtitle, status, linkText, linkPath }: NotFoundProps) => {
   const theme = useTheme();
 
   return (
-    <Box display={"flex"} flexWrap={"wrap"} alignItems={"center"} m={"0 auto"} p={theme.tyle.spacing.xxxl}>
+    <Box
+      display={"flex"}
+      justifyContent={"center"}
+      alignItems={"center"}
+      width={"100%"}
+      height={"100%"}
+      p={theme.tyle.spacing.xxxl}
+    >
       <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xxxl} maxWidth={"60ch"}>
         <Heading variant={"display-large"} fontWeight={theme.tyle.typography.ref.typeface.weights.bold}>
           {title}

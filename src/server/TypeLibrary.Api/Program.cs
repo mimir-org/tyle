@@ -1,3 +1,6 @@
+using Mimirorg.Common.Abstract;
+using Mimirorg.Common.Models;
+
 namespace TypeLibrary.Api
 {
     public class Program
@@ -21,7 +24,7 @@ namespace TypeLibrary.Api
                 .ConfigureLogging(logging =>
                 {
                     logging.ClearProviders();
-                    logging.AddConsole();
+                    logging.AddConsole().AddConsoleFormatter<CustomTimePrefixingFormatter, CustomWrappingConsoleFormatterOptions>();
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

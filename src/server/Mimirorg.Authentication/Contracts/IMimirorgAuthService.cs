@@ -34,6 +34,13 @@ namespace Mimirorg.Authentication.Contracts
         /// <exception cref="MimirorgInvalidOperationException"></exception>
         Task<bool> VerifyAccount(string token);
 
+        /// <summary>
+        /// Remove the current user's authentication tokens
+        /// </summary>
+        /// <param name="secret">string</param>
+        /// <returns></returns>
+        Task Logout(string secret);
+
         #endregion
 
         #region Authorization

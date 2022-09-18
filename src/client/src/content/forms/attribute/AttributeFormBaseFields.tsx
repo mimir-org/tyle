@@ -12,9 +12,9 @@ import {
   useGetAttributesQualifier,
   useGetAttributesSource,
 } from "../../../data/queries/tyle/queriesAttribute";
+import { useGetFilteredCompanies } from "../../../hooks/useGetFilteredCompanies";
 import { getValueLabelObjectsFromEnum } from "../../../utils/getValueLabelObjectsFromEnum";
 import { PlainLink } from "../../utils/PlainLink";
-import { useGetFilteredCompanies } from "../common/utils/useGetFilteredCompanies";
 import { onChangeSelectType } from "./AttributeFormBaseFields.helpers";
 import { AttributeFormBaseFieldsContainer } from "./AttributeFormBaseFields.styled";
 import { AttributeFormPreview } from "./AttributeFormPreview";

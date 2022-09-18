@@ -29,7 +29,7 @@ namespace Mimirorg.Integration.Tests.Services
                 CompanyId = 1,
                 AttributeIdList = new List<string>
                 {
-                    "0646754DC953F5EDD4F6159CD993696D"
+                    "003F35CF40F34ECDE4E7EB589C7E0A00"
                 }
             };
 
@@ -57,7 +57,7 @@ namespace Mimirorg.Integration.Tests.Services
                 },
                 AttributeIdList = new List<string>
                 {
-                    "0646754DC953F5EDD4F6159CD993696D"
+                    "003F35CF40F34ECDE4E7EB589C7E0A00"
                 },
                 NodeTerminals = new List<NodeTerminalLibAm>{
                     new()
@@ -173,7 +173,7 @@ namespace Mimirorg.Integration.Tests.Services
                 CompanyId = 1,
                 AttributeIdList = new List<string>
                 {
-                    "0646754DC953F5EDD4F6159CD993696D"
+                    "003F35CF40F34ECDE4E7EB589C7E0A00"
                 }
             };
 
@@ -198,7 +198,7 @@ namespace Mimirorg.Integration.Tests.Services
                 CompanyId = 1,
                 AttributeIdList = new List<string>
                 {
-                    "0646754DC953F5EDD4F6159CD993696D"
+                    "003F35CF40F34ECDE4E7EB589C7E0A00"
                 }
             };
 
@@ -229,7 +229,7 @@ namespace Mimirorg.Integration.Tests.Services
                 CompanyId = 1,
                 AttributeIdList = new List<string>
                 {
-                    "0646754DC953F5EDD4F6159CD993696D"
+                    "003F35CF40F34ECDE4E7EB589C7E0A00"
                 }
             };
 
@@ -259,7 +259,7 @@ namespace Mimirorg.Integration.Tests.Services
                 CompanyId = 1,
                 AttributeIdList = new List<string>
                 {
-                    "0646754DC953F5EDD4F6159CD993696D"
+                    "003F35CF40F34ECDE4E7EB589C7E0A00"
                 }
             };
 

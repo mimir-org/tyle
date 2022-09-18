@@ -1,10 +1,10 @@
 import { ComponentStory } from "@storybook/react";
-import { Checkbox } from "../../../complib/inputs/checkbox/Checkbox";
-import { Flexbox } from "../../../complib/layouts";
+import { Checkbox } from "../../../../complib/inputs/checkbox/Checkbox";
+import { Flexbox } from "../../../../complib/layouts";
 import { UserMenu } from "./UserMenu";
 
 export default {
-  title: "Content/Header/UserMenu",
+  title: "Content/Header/Menu/UserMenu",
   component: UserMenu,
 };
 

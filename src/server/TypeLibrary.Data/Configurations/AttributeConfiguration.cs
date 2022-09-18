@@ -17,6 +17,8 @@ namespace TypeLibrary.Data.Configurations
             builder.ToTable("Attribute");
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(127);
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(31);
+            builder.Property(p => p.Version).HasColumnName("Version").IsRequired().HasMaxLength(7);
+            builder.Property(p => p.FirstVersionId).HasColumnName("FirstVersionId").IsRequired().HasMaxLength(127);
             builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false).HasMaxLength(255);
             builder.Property(p => p.TypeReferences).HasColumnName("TypeReferences");
             builder.Property(p => p.Aspect).HasColumnName("Aspect").IsRequired().HasConversion<string>().HasMaxLength(31);
