@@ -1,11 +1,11 @@
 import {
   Aspect,
-  QuantityDatumCm,
   AttributeLibAm,
   AttributeLibCm,
   AttributePredefinedLibCm,
-  TypeReferenceCm,
+  QuantityDatumCm,
   QuantityDatumType,
+  TypeReferenceCm,
 } from "@mimirorg/typelibrary-types";
 import { apiClient } from "../apiClient";
 
@@ -27,25 +27,8 @@ export const apiAttribute = {
   getAttributesPredefined() {
     return apiClient.get<AttributePredefinedLibCm[]>(`${_basePath}/predefined`).then((r) => r.data);
   },
-  getQuantityDatumRangeSpecifying() {
-    return apiClient
-      .get<QuantityDatumCm[]>(`${_basePath}/datum/${QuantityDatumType.QuantityDatumRangeSpecifying}`)
-      .then((r) => r.data);
-  },
-  getQuantityDatumRegularitySpecified() {
-    return apiClient
-      .get<QuantityDatumCm[]>(`${_basePath}/datum/${QuantityDatumType.QuantityDatumRegularitySpecified}`)
-      .then((r) => r.data);
-  },
-  getQuantityDatumSpecifiedProvenance() {
-    return apiClient
-      .get<QuantityDatumCm[]>(`${_basePath}/datum/${QuantityDatumType.QuantityDatumSpecifiedProvenance}`)
-      .then((r) => r.data);
-  },
-  getQuantityDatumSpecifiedScope() {
-    return apiClient
-      .get<QuantityDatumCm[]>(`${_basePath}/datum/${QuantityDatumType.QuantityDatumSpecifiedScope}`)
-      .then((r) => r.data);
+  getQuantityDatum(datumType: QuantityDatumType) {
+    return apiClient.get<QuantityDatumCm[]>(`${_basePath}/datum/${datumType}`).then((r) => r.data);
   },
   getAttributesReference() {
     return apiClient.get<TypeReferenceCm[]>(`${_basePath}/reference`).then((r) => r.data);
