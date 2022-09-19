@@ -47,25 +47,20 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IEfTransportRepository, EfTransportRepository>();
             services.AddScoped<ILibraryTypeItemRepository, LibraryTypeItemRepository>();
             services.AddScoped<IEfAttributePredefinedRepository, EfAttributePredefinedRepository>();
-            services.AddScoped<IEfRdsRepository, EfRdsRepository>();
             services.AddSingleton<IFileRepository, JsonFileRepository>();
             services.AddScoped<IEfSymbolRepository, EfSymbolRepository>();
-            services.AddScoped<IEfPurposeRepository, EfPurposeRepository>();
             services.AddScoped<IDynamicSymbolDataProvider, EfSymbolRepository>();
 
             services.AddScoped<IAttributeRepository, EfAttributeRepository>();
-            services.AddScoped<IAttributeQualifierRepository, DatumRepository>();
-            services.AddScoped<IAttributeSourceRepository, DatumRepository>();
-            services.AddScoped<IAttributeFormatRepository, DatumRepository>();
-            services.AddScoped<IAttributeConditionRepository, DatumRepository>();
+            services.AddScoped<IQuantityDatumRepository, DatumRepository>();
             services.AddScoped<IAttributePredefinedRepository, EfAttributePredefinedRepository>();
             services.AddScoped<IUnitRepository, UnitRepository>();
             services.AddScoped<IInterfaceRepository, EfInterfaceRepository>();
-            services.AddScoped<IPurposeRepository, EfPurposeRepository>();
+            services.AddScoped<IPurposeRepository, PurposeRepository>();
             services.AddScoped<INodeRepository, EfNodeRepository>();
             services.AddScoped<ITransportRepository, EfTransportRepository>();
             services.AddScoped<ISimpleRepository, EfSimpleRepository>();
-            services.AddScoped<IRdsRepository, EfRdsRepository>();
+            services.AddScoped<IRdsRepository, RdsRepository>();
             services.AddScoped<ITerminalRepository, EfTerminalRepository>();
             services.AddScoped<ISymbolRepository, EfSymbolRepository>();
             services.AddScoped<IAttributeReferenceRepository, AttributeReferenceRepository>();
@@ -87,7 +82,6 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IModuleService, ModuleService>();
 
             // Factories
-            services.AddScoped<IAttributeFactory, AttributeFactory>();
             services.AddScoped<IUnitFactory, UnitFactory>();
 
             services.AddHttpContextAccessor();

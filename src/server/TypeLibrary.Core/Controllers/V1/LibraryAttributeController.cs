@@ -155,91 +155,6 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        [HttpGet("condition")]
-        [ProducesResponseType(typeof(ICollection<AttributeConditionLibCm>), StatusCodes.Status200OK)]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetConditions()
-        {
-            try
-            {
-                var data = await _attributeService.GetConditions();
-                return Ok(data);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        [HttpGet("format")]
-        [ProducesResponseType(typeof(ICollection<AttributeFormatLibCm>), StatusCodes.Status200OK)]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetFormats()
-        {
-            try
-            {
-                var data = await _attributeService.GetFormats();
-                return Ok(data);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        [HttpGet("qualifier")]
-        [ProducesResponseType(typeof(ICollection<AttributeQualifierLibCm>), StatusCodes.Status200OK)]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetQualifiers()
-        {
-            try
-            {
-                var data = await _attributeService.GetQualifiers();
-                return Ok(data);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        [HttpGet("source")]
-        [ProducesResponseType(typeof(ICollection<AttributeSourceLibCm>), StatusCodes.Status200OK)]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetSources()
-        {
-            try
-            {
-                var data = await _attributeService.GetSources();
-                return Ok(data);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        [HttpGet("reference")]
-        [ProducesResponseType(typeof(ICollection<TypeReferenceCm>), StatusCodes.Status200OK)]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetReferences()
-        {
-            try
-            {
-                var data = (await _attributeService.GetAttributeReferences()).ToList();
-                return Ok(data);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
         /// <summary>
         /// Update an attribute
         /// </summary>
@@ -363,6 +278,63 @@ namespace TypeLibrary.Core.Controllers.V1
             catch (MimirorgNotFoundException)
             {
                 return NoContent();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
+        /// Get all datums of a given type
+        /// </summary>
+        /// <param name="type">The type of the quantity datum you want to receive</param>
+        /// <returns>A collection of quantity datums</returns>
+        [HttpGet("datum/{type}")]
+        [ProducesResponseType(typeof(ICollection<QuantityDatumCm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetDatums(QuantityDatumType type)
+        {
+            try
+            {
+                var data = type switch
+                {
+                    QuantityDatumType.QuantityDatumRangeSpecifying => await _attributeService
+                        .GetQuantityDatumRangeSpecifying(),
+                    QuantityDatumType.QuantityDatumRegularitySpecified => await _attributeService
+                        .GetQuantityDatumRegularitySpecified(),
+                    QuantityDatumType.QuantityDatumSpecifiedProvenance => await _attributeService
+                        .GetQuantityDatumSpecifiedProvenance(),
+                    QuantityDatumType.QuantityDatumSpecifiedScope => await _attributeService
+                        .GetQuantityDatumSpecifiedScope(),
+                    _ => throw new ArgumentOutOfRangeException(nameof(type), type, $"Enum type ({nameof(QuantityDatumType)}): {type} is out of range.")
+                };
+
+                return Ok(data?.ToList());
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
+        /// Get all attribute type references
+        /// </summary>
+        /// <returns>A collection of references></returns>
+        [HttpGet("reference")]
+        [ProducesResponseType(typeof(ICollection<TypeReferenceCm>), StatusCodes.Status200OK)]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetReferences()
+        {
+            try
+            {
+                var data = (await _attributeService.GetAttributeReferences()).ToList();
+                return Ok(data);
             }
             catch (Exception e)
             {

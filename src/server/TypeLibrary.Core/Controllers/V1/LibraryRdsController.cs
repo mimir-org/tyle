@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,11 +39,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<RdsLibCm>), StatusCodes.Status200OK)]
         [AllowAnonymous]
-        public IActionResult GetRdsCodes()
+        public async Task<IActionResult> GetRdsCodes()
         {
             try
             {
-                var data = _rdsService.Get().ToList();
+                var data = await _rdsService.Get();
                 return Ok(data);
             }
             catch (Exception e)

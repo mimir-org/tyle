@@ -53,6 +53,9 @@ const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends Grou
     outline: state.isFocused ? `1px solid ${theme.color.sys.primary.base}` : "revert",
     outlineOffset: "1px",
     "&:hover": {},
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
   }),
   placeholder: (base) => ({
     ...base,

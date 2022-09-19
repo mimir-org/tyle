@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using Mimirorg.Common.Contracts;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Contracts;
@@ -11,10 +12,11 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using Newtonsoft.Json;
 using TypeLibrary.Data.Contracts.Common;
+// ReSharper disable InconsistentNaming
 
 namespace TypeLibrary.Data.Models
 {
-    public class AttributeLibDm : ILibraryType, IVersionable<AttributeLibAm>
+    public class AttributeLibDm : ILibraryType, IVersionable<AttributeLibAm>, IVersionObject
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -22,11 +24,12 @@ namespace TypeLibrary.Data.Models
         public string FirstVersionId { get; set; }
         public string Iri { get; set; }
         public string TypeReferences { get; set; }
+        public string Description { get; set; }
 
-        public string AttributeQualifier { get; set; }
-        public string AttributeSource { get; set; }
-        public string AttributeCondition { get; set; }
-        public string AttributeFormat { get; set; }
+        public string QuantityDatumSpecifiedScope { get; set; }
+        public string QuantityDatumSpecifiedProvenance { get; set; }
+        public string QuantityDatumRangeSpecifying { get; set; }
+        public string QuantityDatumRegularitySpecified { get; set; }
 
         public int CompanyId { get; set; }
         public Aspect Aspect { get; set; }
@@ -38,8 +41,6 @@ namespace TypeLibrary.Data.Models
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
 
-        public virtual HashSet<string> Tags { get; set; }
-
         [NotMapped]
         public ICollection<string> SelectValues => string.IsNullOrEmpty(SelectValuesString) ? null : SelectValuesString.ConvertToArray();
 
@@ -48,6 +49,8 @@ namespace TypeLibrary.Data.Models
         public virtual ICollection<NodeLibDm> Nodes { get; set; }
         public virtual ICollection<SimpleLibDm> Simple { get; set; }
         public virtual ICollection<TransportLibDm> Transports { get; set; }
+
+        #region IVersionable
 
         public Validation HasIllegalChanges(AttributeLibAm other)
         {
@@ -59,17 +62,17 @@ namespace TypeLibrary.Data.Models
             if (Name != other.Name)
                 validation.AddNotAllowToChange(nameof(Name));
 
-            if (AttributeQualifier != other.AttributeQualifier)
-                validation.AddNotAllowToChange(nameof(AttributeQualifier));
+            if (QuantityDatumSpecifiedScope != other.QuantityDatumSpecifiedScope)
+                validation.AddNotAllowToChange(nameof(QuantityDatumSpecifiedScope));
 
-            if (AttributeSource != other.AttributeSource)
-                validation.AddNotAllowToChange(nameof(AttributeSource));
+            if (QuantityDatumSpecifiedProvenance != other.QuantityDatumSpecifiedProvenance)
+                validation.AddNotAllowToChange(nameof(QuantityDatumSpecifiedProvenance));
 
-            if (AttributeCondition != other.AttributeCondition)
-                validation.AddNotAllowToChange(nameof(AttributeCondition));
+            if (QuantityDatumRangeSpecifying != other.QuantityDatumRangeSpecifying)
+                validation.AddNotAllowToChange(nameof(QuantityDatumRangeSpecifying));
 
-            if (AttributeFormat != other.AttributeFormat)
-                validation.AddNotAllowToChange(nameof(AttributeFormat));
+            if (QuantityDatumRegularitySpecified != other.QuantityDatumRegularitySpecified)
+                validation.AddNotAllowToChange(nameof(QuantityDatumRegularitySpecified));
 
             if (Aspect != other.Aspect)
                 validation.AddNotAllowToChange(nameof(Aspect));
@@ -77,7 +80,7 @@ namespace TypeLibrary.Data.Models
             if (Discipline != other.Discipline)
                 validation.AddNotAllowToChange(nameof(Discipline));
 
-            var unitsDm = Units.ConvertToObject<ICollection<UnitLibCm>>().Select(x => x.Id);
+            var unitsDm = Units?.ConvertToObject<ICollection<UnitLibCm>>().Select(x => x.Id) ?? new List<string>();
 
             if (unitsDm.Select(y => y).Any(id => other.UnitIdList.Select(x => x).All(x => x != id)))
                 validation.AddNotAllowToChange(nameof(Units), "It is not allowed to remove units from an attribute");
@@ -103,7 +106,10 @@ namespace TypeLibrary.Data.Models
                 minor = true;
 
             //SelectValuesString
-            if (SelectValuesString != other.SelectValues.ToString())
+            if (SelectValuesString != other.SelectValues?.ConvertToString())
+                minor = true;
+
+            if (Description != other.Description)
                 minor = true;
 
             // Type-references
@@ -115,10 +121,15 @@ namespace TypeLibrary.Data.Models
                 minor = true;
 
             //Units
-            if (Units.ConvertToObject<ICollection<UnitLibCm>>().Count < other.UnitIdList.Count)
+            var thisUnitCount = Units?.ConvertToObject<ICollection<UnitLibCm>>().Count ?? 0;
+            var otherUnitCount = other?.UnitIdList?.Count ?? 0;
+            if (thisUnitCount < otherUnitCount)
                 major = true;
 
             return major ? VersionStatus.Major : minor ? VersionStatus.Minor : VersionStatus.NoChange;
         }
+
+        #endregion IVersionable
+
     }
 }

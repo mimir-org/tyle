@@ -1,6 +1,4 @@
-import { motion } from "framer-motion";
 import styled, { css } from "styled-components/macro";
-import { Divider } from "../../../complib/data-display";
 import { Palette } from "../../../complib/props";
 
 export type AttributePreviewVariant = "small" | "large";
@@ -54,16 +52,4 @@ export const AttributeSpecificationContainer = styled.div`
   padding: ${(props) => props.theme.tyle.spacing.l};
   padding-left: ${(props) => props.theme.tyle.spacing.xl};
   padding-right: ${(props) => props.theme.tyle.spacing.xl};
-`;
-
-export const AttributeSpecificationGrid = styled(motion.div)`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: ${(props) => props.theme.tyle.spacing.s};
-  text-transform: capitalize;
-`;
-
-export const AttributeSpecificationGridDivider = styled(Divider)`
-  background-color: ${(props) => props.theme.tyle.color.sys.background.on};
-  grid-column: 1 / 4;
 `;

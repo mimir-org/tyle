@@ -35,8 +35,6 @@ namespace TypeLibrary.Services.Services
             _applicationSettings = applicationSettings?.Value;
         }
 
-
-
         public async Task<TerminalLibCm> Get(string id)
         {
             if (string.IsNullOrWhiteSpace(id))

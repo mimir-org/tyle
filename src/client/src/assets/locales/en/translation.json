@@ -124,10 +124,11 @@
     "aspect": "Aspect",
     "discipline": "Discipline",
     "select": "Selection",
-    "qualifier": "Qualifier",
-    "source": "Source",
-    "condition": "Condition",
-    "format": "Format",
+    "description": "Description",
+    "quantityDatumSpecifiedScope": "Quantity Scope",
+    "quantityDatumSpecifiedProvenance": "Quantity Provenance",
+    "quantityDatumRangeSpecifying": "Quantity Range",
+    "quantityDatumRegularitySpecified": "Quantity Regularity",
     "type": "Attribute type",
     "parent": "Attribute parent",
     "owner": "Owner",
@@ -157,18 +158,6 @@
       },
       "select": {
         "required": "Please specify a selection type"
-      },
-      "attributeQualifier": {
-        "required": "Please specify a selection qualifier"
-      },
-      "attributeSource": {
-        "required": "Please specify a selection source"
-      },
-      "attributeCondition": {
-        "required": "Please specify a selection condition"
-      },
-      "attributeFormat": {
-        "required": "Please specify a selection format"
       },
       "typeReferences": {
         "name": {
@@ -423,6 +412,9 @@
     "placeholders": {
       "value": "Enter selectable value"
     }
+  },
+  "datum": {
+    "title": "Datum"
   },
   "forms": {
     "placeholders": {
