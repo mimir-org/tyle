@@ -11,17 +11,11 @@ export const attributeSchema = (t: TFunction<"translation">) =>
     aspect: yup.number().required(t("attribute.validation.aspect.required")),
     discipline: yup.number().required(t("attribute.validation.discipline.required")),
     select: yup.string().required(t("attribute.validation.select.required")),
-    quantityDatumSpecifiedScope: yup.string().required(t("attribute.validation.quantityDatumSpecifiedScope.required")),
-    quantityDatumSpecifiedProvenance: yup
-      .string()
-      .required(t("attribute.validation.quantityDatumSpecifiedProvenance.required")),
-    quantityDatumRangeSpecifying: yup
-      .string()
-      .required(t("attribute.validation.quantityDatumRangeSpecifying.required")),
-    quantityDatumRegularitySpecified: yup
-      .string()
-      .required(t("attribute.validation.quantityDatumRegularitySpecified.required")),
     companyId: yup.number().min(1, t("attribute.validation.companyId.min")).required(),
+    quantityDatumSpecifiedScope: yup.string().nullable(),
+    quantityDatumSpecifiedProvenance: yup.string().nullable(),
+    quantityDatumRangeSpecifying: yup.string().nullable(),
+    quantityDatumRegularitySpecified: yup.string().nullable(),
     typeReferences: typeReferenceListSchema(t("validation.typeReferences.name.required")),
     selectValues: yup.array().when("select", {
       is: (selectValue: Select) => selectValue != Select.None,

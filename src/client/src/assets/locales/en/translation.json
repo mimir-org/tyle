@@ -158,18 +158,6 @@
       "select": {
         "required": "Please specify a selection type"
       },
-      "quantityDatumSpecifiedScope": {
-        "required": "Please specify a quantity scope"
-      },
-      "quantityDatumSpecifiedProvenance": {
-        "required": "Please specify a quantity provenance"
-      },
-      "quantityDatumRangeSpecifying": {
-        "required": "Please specify a quantity range"
-      },
-      "quantityDatumRegularitySpecified": {
-        "required": "Please specify a quantity regularity"
-      },
       "typeReferences": {
         "name": {
           "required": "Please specify a reference"
