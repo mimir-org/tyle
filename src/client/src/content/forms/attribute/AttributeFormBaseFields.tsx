@@ -153,6 +153,7 @@ export const AttributeFormBaseFields = ({ isPrefilled }: AttributeFormBaseFields
                 getOptionValue={(x) => x.name}
                 onChange={(x) => onChange(x?.name)}
                 value={specifiedScopeQuery.data?.find((x) => x.name === value)}
+                isClearable
               />
             </FormField>
           )}
@@ -178,6 +179,7 @@ export const AttributeFormBaseFields = ({ isPrefilled }: AttributeFormBaseFields
                 getOptionValue={(x) => x.name}
                 onChange={(x) => onChange(x?.name)}
                 value={specifiedProvenanceQuery.data?.find((x) => x.name === value)}
+                isClearable
               />
             </FormField>
           )}
@@ -200,6 +202,7 @@ export const AttributeFormBaseFields = ({ isPrefilled }: AttributeFormBaseFields
                 getOptionValue={(x) => x.name}
                 onChange={(x) => onChange(x?.name)}
                 value={rangeSpecifyingQuery.data?.find((x) => x.name === value)}
+                isClearable
               />
             </FormField>
           )}
@@ -225,6 +228,7 @@ export const AttributeFormBaseFields = ({ isPrefilled }: AttributeFormBaseFields
                 getOptionValue={(x) => x.name}
                 onChange={(x) => onChange(x?.name)}
                 value={regularitySpecifiedQuery.data?.find((x) => x.name === value)}
+                isClearable
               />
             </FormField>
           )}
