@@ -413,6 +413,9 @@
       "value": "Enter selectable value"
     }
   },
+  "datum": {
+    "title": "Datum"
+  },
   "forms": {
     "placeholders": {
       "email": "you@organization.com",
