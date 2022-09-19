@@ -12,6 +12,7 @@ export const attributeSchema = (t: TFunction<"translation">) =>
     discipline: yup.number().required(t("attribute.validation.discipline.required")),
     select: yup.string().required(t("attribute.validation.select.required")),
     companyId: yup.number().min(1, t("attribute.validation.companyId.min")).required(),
+    description: yup.string(),
     quantityDatumSpecifiedScope: yup.string().nullable(),
     quantityDatumSpecifiedProvenance: yup.string().nullable(),
     quantityDatumRangeSpecifying: yup.string().nullable(),

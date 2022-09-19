@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Button } from "../../../complib/buttons";
 import { FormField } from "../../../complib/form";
-import { Input, Select } from "../../../complib/inputs";
+import { Input, Select, Textarea } from "../../../complib/inputs";
 import { Flexbox } from "../../../complib/layouts";
 import { useGetQuantityDatum } from "../../../data/queries/tyle/queriesAttribute";
 import { useGetFilteredCompanies } from "../../../hooks/useGetFilteredCompanies";
@@ -229,6 +229,10 @@ export const AttributeFormBaseFields = ({ isPrefilled }: AttributeFormBaseFields
             </FormField>
           )}
         />
+
+        <FormField label={t("attribute.description")} error={errors.description}>
+          <Textarea placeholder={t("attribute.placeholders.description")} {...register("description")} />
+        </FormField>
       </Flexbox>
 
       <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>

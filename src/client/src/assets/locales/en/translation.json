@@ -124,6 +124,7 @@
     "aspect": "Aspect",
     "discipline": "Discipline",
     "select": "Selection",
+    "description": "Description",
     "quantityDatumSpecifiedScope": "Quantity Scope",
     "quantityDatumSpecifiedProvenance": "Quantity Provenance",
     "quantityDatumRangeSpecifying": "Quantity Range",
