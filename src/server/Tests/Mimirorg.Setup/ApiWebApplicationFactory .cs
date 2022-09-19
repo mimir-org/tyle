@@ -115,8 +115,7 @@ namespace Mimirorg.Setup
                     Color = "#00CC66",
                     ParentId = "201B169264C4F9249039054BCCDD4494",
                     CompanyId = 1,
-                    AttributeIdList = null
-                    //AttributeIdList = new List<string> {"CA20DF193D58238C3C557A0316C15533"}
+                    AttributeIdList = new List<string> {"CA20DF193D58238C3C557A0316C15533"}
                 }
             };
 

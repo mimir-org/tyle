@@ -39,7 +39,7 @@ export const FormReferences = ({ references, isLoading }: FormReferencesProps) =
       action={
         <FormAddButton
           buttonText={t("references.add")}
-          onClick={() => referenceFields.append({ name: "", iri: "", source: "", subIri: "", subName: "" })}
+          onClick={() => referenceFields.append({ name: "", iri: "", source: "", subs: [] })}
         />
       }
     >

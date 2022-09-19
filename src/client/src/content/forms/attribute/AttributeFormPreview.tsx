@@ -15,9 +15,10 @@ export const AttributeFormPreview = ({ control }: AttributeFormPreviewProps) => 
   const { t } = useTranslation();
   const name = useWatch({ control, name: "name" });
   const aspect = useWatch({ control, name: "aspect" });
-  const source = useWatch({ control, name: "attributeSource" });
-  const qualifier = useWatch({ control, name: "attributeQualifier" });
-  const condition = useWatch({ control, name: "attributeCondition" });
+  const quantityDatumSpecifiedScope = useWatch({ control, name: "quantityDatumSpecifiedScope" });
+  const quantityDatumSpecifiedProvenance = useWatch({ control, name: "quantityDatumSpecifiedProvenance" });
+  const quantityDatumRangeSpecifying = useWatch({ control, name: "quantityDatumRangeSpecifying" });
+  const quantityDatumRegularitySpecified = useWatch({ control, name: "quantityDatumRegularitySpecified" });
   const selectValues = useWatch({ control, name: "selectValues" });
   const typeReferences = useWatch({ control, name: "typeReferences" });
 
@@ -37,9 +38,10 @@ export const AttributeFormPreview = ({ control }: AttributeFormPreviewProps) => 
       variant={"large"}
       name={name ? name : t("attribute.name")}
       color={getColorFromAspect(aspect)}
-      qualifier={qualifier}
-      source={source}
-      condition={condition}
+      quantityDatumSpecifiedScope={quantityDatumSpecifiedScope}
+      quantityDatumSpecifiedProvenance={quantityDatumSpecifiedProvenance}
+      quantityDatumRangeSpecifying={quantityDatumRangeSpecifying}
+      quantityDatumRegularitySpecified={quantityDatumRegularitySpecified}
       contents={descriptors}
     />
   );

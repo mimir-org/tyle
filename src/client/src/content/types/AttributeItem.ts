@@ -5,9 +5,10 @@ export interface AttributeItem {
   name: string;
   description: string;
   color: string;
-  qualifier: string;
-  source: string;
-  condition: string;
+  quantityDatumSpecifiedScope: string;
+  quantityDatumSpecifiedProvenance: string;
+  quantityDatumRangeSpecifying: string;
+  quantityDatumRegularitySpecified: string;
   tokens: string[];
   contents: InfoItem[];
   kind: string;

@@ -5,9 +5,10 @@ export const mapAttributeLibCmToInfoItem = (attribute: AttributeLibCm): InfoItem
   id: attribute.id,
   name: attribute.name,
   descriptors: {
-    condition: attribute.attributeCondition,
-    qualifier: attribute.attributeQualifier,
-    source: attribute.attributeSource,
+    quantityDatumSpecifiedScope: attribute.quantityDatumSpecifiedScope,
+    quantityDatumSpecifiedProvenance: attribute.quantityDatumSpecifiedProvenance,
+    quantityDatumRangeSpecifying: attribute.quantityDatumRangeSpecifying,
+    quantityDatumRegularitySpecified: attribute.quantityDatumRegularitySpecified,
   },
 });
 

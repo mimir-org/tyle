@@ -124,10 +124,10 @@
     "aspect": "Aspect",
     "discipline": "Discipline",
     "select": "Selection",
-    "qualifier": "Qualifier",
-    "source": "Source",
-    "condition": "Condition",
-    "format": "Format",
+    "quantityDatumSpecifiedScope": "Quantity Scope",
+    "quantityDatumSpecifiedProvenance": "Quantity Provenance",
+    "quantityDatumRangeSpecifying": "Quantity Range",
+    "quantityDatumRegularitySpecified": "Quantity Regularity",
     "type": "Attribute type",
     "parent": "Attribute parent",
     "owner": "Owner",
@@ -158,17 +158,17 @@
       "select": {
         "required": "Please specify a selection type"
       },
-      "attributeQualifier": {
-        "required": "Please specify a selection qualifier"
+      "quantityDatumSpecifiedScope": {
+        "required": "Please specify a quantity scope"
       },
-      "attributeSource": {
-        "required": "Please specify a selection source"
+      "quantityDatumSpecifiedProvenance": {
+        "required": "Please specify a quantity provenance"
       },
-      "attributeCondition": {
-        "required": "Please specify a selection condition"
+      "quantityDatumRangeSpecifying": {
+        "required": "Please specify a quantity range"
       },
-      "attributeFormat": {
-        "required": "Please specify a selection format"
+      "quantityDatumRegularitySpecified": {
+        "required": "Please specify a quantity regularity"
       },
       "typeReferences": {
         "name": {

@@ -32,29 +32,43 @@ describe("attributeSchema tests", () => {
   });
 
   it("should reject without a qualifier", async () => {
-    const attributeWithoutQualifier: Partial<FormAttributeLib> = { attributeQualifier: "" };
-    await expect(attributeSchema(t).validateAt("attributeQualifier", attributeWithoutQualifier)).rejects.toBeTruthy();
+    const attributeWithoutQuantityDatumSpecifiedScope: Partial<FormAttributeLib> = { quantityDatumSpecifiedScope: "" };
+    await expect(
+      attributeSchema(t).validateAt("quantityDatumSpecifiedScope", attributeWithoutQuantityDatumSpecifiedScope)
+    ).rejects.toBeTruthy();
   });
 
   it("should reject without a source", async () => {
-    const attributeWithoutSource: Partial<FormAttributeLib> = {
-      attributeSource: "",
+    const attributeWithoutQuantityDatumSpecifiedProvenance: Partial<FormAttributeLib> = {
+      quantityDatumSpecifiedProvenance: "",
     };
-    await expect(attributeSchema(t).validateAt("attributeSource", attributeWithoutSource)).rejects.toBeTruthy();
+    await expect(
+      attributeSchema(t).validateAt(
+        "quantityDatumSpecifiedProvenance",
+        attributeWithoutQuantityDatumSpecifiedProvenance
+      )
+    ).rejects.toBeTruthy();
   });
 
   it("should reject without a condition", async () => {
-    const attributeWithoutCondition: Partial<FormAttributeLib> = {
-      attributeCondition: "",
+    const attributeWithoutQuantityDatumRangeSpecifying: Partial<FormAttributeLib> = {
+      quantityDatumRangeSpecifying: "",
     };
-    await expect(attributeSchema(t).validateAt("attributeCondition", attributeWithoutCondition)).rejects.toBeTruthy();
+    await expect(
+      attributeSchema(t).validateAt("quantityDatumRangeSpecifying", attributeWithoutQuantityDatumRangeSpecifying)
+    ).rejects.toBeTruthy();
   });
 
   it("should reject without a format", async () => {
-    const attributeWithoutFormat: Partial<FormAttributeLib> = {
-      attributeFormat: "",
+    const attributeWithoutQuantityDatumRegularitySpecified: Partial<FormAttributeLib> = {
+      quantityDatumRegularitySpecified: "",
     };
-    await expect(attributeSchema(t).validateAt("attributeFormat", attributeWithoutFormat)).rejects.toBeTruthy();
+    await expect(
+      attributeSchema(t).validateAt(
+        "quantityDatumRegularitySpecified",
+        attributeWithoutQuantityDatumRegularitySpecified
+      )
+    ).rejects.toBeTruthy();
   });
 
   it("should reject if select does not equal none and selectValues array is empty", async () => {

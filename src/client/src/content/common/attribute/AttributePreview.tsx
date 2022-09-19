@@ -17,9 +17,10 @@ import {
 interface AttributePreviewProps {
   name: string;
   color: string;
-  qualifier: string;
-  source: string;
-  condition: string;
+  quantityDatumSpecifiedScope: string;
+  quantityDatumSpecifiedProvenance: string;
+  quantityDatumRangeSpecifying: string;
+  quantityDatumRegularitySpecified: string;
   contents: InfoItem[];
   variant?: AttributePreviewVariant;
 }
@@ -40,9 +41,10 @@ interface AttributePreviewProps {
 export const AttributePreview = ({
   name,
   color,
-  source,
-  qualifier,
-  condition,
+  quantityDatumSpecifiedScope,
+  quantityDatumSpecifiedProvenance,
+  quantityDatumRangeSpecifying,
+  quantityDatumRegularitySpecified,
   contents,
   variant = "small",
 }: AttributePreviewProps) => {
@@ -62,13 +64,15 @@ export const AttributePreview = ({
 
       <AttributeSpecificationContainer>
         <AttributeSpecificationGrid layout={"position"}>
-          <Text variant={gridTitleTextVariant}>{t("qualifier")}</Text>
-          <Text variant={gridTitleTextVariant}>{t("source")}</Text>
-          <Text variant={gridTitleTextVariant}>{t("condition")}</Text>
+          <Text variant={gridTitleTextVariant}>{t("quantityDatumSpecifiedScope")}</Text>
+          <Text variant={gridTitleTextVariant}>{t("quantityDatumSpecifiedProvenance")}</Text>
+          <Text variant={gridTitleTextVariant}>{t("quantityDatumRangeSpecifying")}</Text>
+          <Text variant={gridTitleTextVariant}>{t("quantityDatumRegularitySpecified")}</Text>
           <AttributeSpecificationGridDivider />
-          <Text variant={"label-small"}>{qualifier}</Text>
-          <Text variant={"label-small"}>{source}</Text>
-          <Text variant={"label-small"}>{condition}</Text>
+          <Text variant={"label-small"}>{quantityDatumSpecifiedScope}</Text>
+          <Text variant={"label-small"}>{quantityDatumSpecifiedProvenance}</Text>
+          <Text variant={"label-small"}>{quantityDatumRangeSpecifying}</Text>
+          <Text variant={"label-small"}>{quantityDatumRegularitySpecified}</Text>
         </AttributeSpecificationGrid>
 
         {showContentButtons && (

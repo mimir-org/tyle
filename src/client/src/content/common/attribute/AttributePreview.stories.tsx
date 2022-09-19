@@ -13,9 +13,10 @@ export const Default = Template.bind({});
 Default.args = {
   name: "Attribute",
   color: faker.helpers.arrayElement(["#fef445", "#00f0ff", "#fa00ff"]),
-  qualifier: "Operating",
-  source: "Measured",
-  condition: "Nominal",
+  quantityDatumSpecifiedScope: "Design Datum",
+  quantityDatumSpecifiedProvenance: "Measured Datum",
+  quantityDatumRangeSpecifying: "Nominal Datum",
+  quantityDatumRegularitySpecified: "Absolute Datum",
   contents: [
     {
       name: "Values",

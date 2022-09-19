@@ -11,10 +11,16 @@ export const attributeSchema = (t: TFunction<"translation">) =>
     aspect: yup.number().required(t("attribute.validation.aspect.required")),
     discipline: yup.number().required(t("attribute.validation.discipline.required")),
     select: yup.string().required(t("attribute.validation.select.required")),
-    attributeQualifier: yup.string().required(t("attribute.validation.attributeQualifier.required")),
-    attributeSource: yup.string().required(t("attribute.validation.attributeSource.required")),
-    attributeCondition: yup.string().required(t("attribute.validation.attributeCondition.required")),
-    attributeFormat: yup.string().required(t("attribute.validation.attributeFormat.required")),
+    quantityDatumSpecifiedScope: yup.string().required(t("attribute.validation.quantityDatumSpecifiedScope.required")),
+    quantityDatumSpecifiedProvenance: yup
+      .string()
+      .required(t("attribute.validation.quantityDatumSpecifiedProvenance.required")),
+    quantityDatumRangeSpecifying: yup
+      .string()
+      .required(t("attribute.validation.quantityDatumRangeSpecifying.required")),
+    quantityDatumRegularitySpecified: yup
+      .string()
+      .required(t("attribute.validation.quantityDatumRegularitySpecified.required")),
     companyId: yup.number().min(1, t("attribute.validation.companyId.min")).required(),
     typeReferences: typeReferenceListSchema(t("validation.typeReferences.name.required")),
     selectValues: yup.array().when("select", {

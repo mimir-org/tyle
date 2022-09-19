@@ -41,12 +41,16 @@ export const useGetAttributesByAspect = (aspect: Aspect) =>
 
 export const useGetAttributesPredefined = () => useQuery(keys.predefinedLists(), apiAttribute.getAttributesPredefined);
 
-export const useGetAttributesCondition = () => useQuery(keys.conditionLists(), apiAttribute.getAttributesCondition);
+export const useGetQuantityDatumSpecifiedScope = () =>
+  useQuery(keys.conditionLists(), apiAttribute.getQuantityDatumSpecifiedScope);
 
-export const useGetAttributesFormat = () => useQuery(keys.formatLists(), apiAttribute.getAttributesFormat);
+export const useGetQuantityDatumSpecifiedProvenance = () =>
+  useQuery(keys.formatLists(), apiAttribute.getQuantityDatumSpecifiedProvenance);
 
-export const useGetAttributesQualifier = () => useQuery(keys.qualifierLists(), apiAttribute.getAttributesQualifier);
+export const useGetQuantityDatumRangeSpecifying = () =>
+  useQuery(keys.qualifierLists(), apiAttribute.getQuantityDatumRangeSpecifying);
 
-export const useGetAttributesSource = () => useQuery(keys.sourceLists(), apiAttribute.getAttributesSource);
+export const useGetQuantityDatumRegularitySpecified = () =>
+  useQuery(keys.sourceLists(), apiAttribute.getQuantityDatumRegularitySpecified);
 
 export const useGetAttributesReference = () => useQuery(keys.referenceLists(), apiAttribute.getAttributesReference);
