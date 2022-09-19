@@ -25,6 +25,9 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public Select Select { get; set; }
 
+        [Display(Name = "Description")]
+        public string Description { get; set; }
+
         [Display(Name = "Quantity Datum with specified Scope")]
         public string QuantityDatumSpecifiedScope { get; set; }
 

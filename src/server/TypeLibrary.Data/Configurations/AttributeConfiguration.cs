@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Mimirorg.Common.Converters;
 using TypeLibrary.Data.Models;
 // ReSharper disable InconsistentNaming
 
@@ -11,9 +10,6 @@ namespace TypeLibrary.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<AttributeLibDm> builder)
         {
-            var stringComparer = new StringHashSetValueComparer();
-            var stringConverter = new StringHashSetValueConverter();
-
             builder.HasKey(x => x.Id);
             builder.ToTable("Attribute");
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(127);
@@ -22,6 +18,7 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.FirstVersionId).HasColumnName("FirstVersionId").IsRequired().HasMaxLength(127);
             builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false).HasMaxLength(255);
             builder.Property(p => p.TypeReferences).HasColumnName("TypeReferences");
+            builder.Property(p => p.Description).HasColumnName("Description").HasDefaultValue(null).HasMaxLength(511);
             builder.Property(p => p.Aspect).HasColumnName("Aspect").IsRequired().HasConversion<string>().HasMaxLength(31);
             builder.Property(p => p.State).HasColumnName("State").IsRequired().HasConversion<string>().HasMaxLength(31);
             builder.Property(p => p.SelectValuesString).HasColumnName("SelectValuesString").IsRequired(false);

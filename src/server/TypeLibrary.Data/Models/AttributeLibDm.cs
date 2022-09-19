@@ -23,6 +23,7 @@ namespace TypeLibrary.Data.Models
         public string FirstVersionId { get; set; }
         public string Iri { get; set; }
         public string TypeReferences { get; set; }
+        public string Description { get; set; }
 
         public string QuantityDatumSpecifiedScope { get; set; }
         public string QuantityDatumSpecifiedProvenance { get; set; }
@@ -47,6 +48,8 @@ namespace TypeLibrary.Data.Models
         public virtual ICollection<NodeLibDm> Nodes { get; set; }
         public virtual ICollection<SimpleLibDm> Simple { get; set; }
         public virtual ICollection<TransportLibDm> Transports { get; set; }
+
+        #region IVersionable
 
         public Validation HasIllegalChanges(AttributeLibAm other)
         {
@@ -105,6 +108,9 @@ namespace TypeLibrary.Data.Models
             if (SelectValuesString != other.SelectValues.ToString())
                 minor = true;
 
+            if (Description != other.Description)
+                minor = true;
+
             // Type-references
             var references = string.IsNullOrWhiteSpace(TypeReferences)
                 ? new List<TypeReferenceAm>()
@@ -119,5 +125,8 @@ namespace TypeLibrary.Data.Models
 
             return major ? VersionStatus.Major : minor ? VersionStatus.Minor : VersionStatus.NoChange;
         }
+
+        #endregion IVersionable
+
     }
 }
