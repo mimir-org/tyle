@@ -152,24 +152,10 @@ namespace TypeLibrary.Services.Services
         public async Task<IEnumerable<AttributeLibCm>> GetLatestVersions(Aspect aspect)
         {
             var distinctFirstVersionIdDm = aspect is Aspect.None or Aspect.NotSet ?
-                _attributeRepository.Get()?.Where(x => x.State != State.Deleted).ToList().DistinctBy(x => x.FirstVersionId).ToList() :
-                _attributeRepository.Get()?.Where(x => x.State != State.Deleted && x.Aspect == aspect).ToList().DistinctBy(x => x.FirstVersionId).ToList();
+                _attributeRepository.Get().Where(x => x.State != State.Deleted).LatestVersion().ToList() :
+                _attributeRepository.Get().Where(x => x.State != State.Deleted && x.Aspect == aspect).LatestVersion().ToList();
 
-            if (distinctFirstVersionIdDm == null || !distinctFirstVersionIdDm.Any())
-                return await Task.FromResult(new List<AttributeLibCm>());
-
-            var attributes = new List<AttributeLibDm>();
-
-            foreach (var dm in distinctFirstVersionIdDm)
-                attributes.Add(await _versionService.GetLatestVersion(dm));
-
-            attributes = attributes.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
-
-            var attributeLibCms = _mapper.Map<List<AttributeLibCm>>(attributes);
-
-            if (attributes.Any() && (attributeLibCms == null || !attributeLibCms.Any()))
-                throw new MimirorgMappingException("List<AttributeLibDm>", "ICollection<AttributeLibAm>");
-
+            var attributeLibCms = _mapper.Map<List<AttributeLibCm>>(distinctFirstVersionIdDm);
             return await Task.FromResult(attributeLibCms ?? new List<AttributeLibCm>());
         }
 

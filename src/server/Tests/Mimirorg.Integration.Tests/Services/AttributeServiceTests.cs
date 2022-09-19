@@ -16,6 +16,55 @@ namespace Mimirorg.Integration.Tests.Services
         }
 
         [Fact]
+        public async Task Get_Latest_version_Attribute_Returns_Correct_Version()
+        {
+            using var scope = Factory.Server.Services.CreateScope();
+            var attributeService = scope.ServiceProvider.GetRequiredService<IAttributeService>();
+            var unitService = scope.ServiceProvider.GetRequiredService<IUnitService>();
+            var units = (await unitService.Get()).ToList();
+
+            var attribute = new AttributeLibAm
+            {
+                Name = "First_Version_Attribute_XXX",
+                Aspect = Aspect.Function,
+                Discipline = Discipline.Process,
+                Select = Select.None,
+                Description = "This is test a",
+                QuantityDatumRangeSpecifying = "Actual Datum",
+                QuantityDatumRegularitySpecified = "Absolute Datum",
+                QuantityDatumSpecifiedProvenance = "Calculated Datum",
+                QuantityDatumSpecifiedScope = "Design Datum",
+                CompanyId = 1,
+                UnitIdList = null,
+                Version = "1.0",
+                FirstVersionId = null
+            };
+
+            var createdAttribute = await attributeService.Create(attribute);
+            attribute.FirstVersionId = createdAttribute.FirstVersionId;
+            attribute.Description = "This is test b";
+
+            var updatedAttribute = await attributeService.Update(attribute, createdAttribute.Id);
+            attribute.UnitIdList = new List<string> { units.FirstOrDefault()?.Id };
+
+            var updatedAttribute2 = await attributeService.Update(attribute, updatedAttribute.Id);
+            attribute.Description = "This is test c";
+
+            var updatedAttribute3 = await attributeService.Update(attribute, updatedAttribute2.Id);
+
+            Assert.True(createdAttribute.Version == "1.0");
+            Assert.True(updatedAttribute.Version == "1.1");
+            Assert.True(updatedAttribute2.Version == "2.0");
+            Assert.True(updatedAttribute3.Version == "2.1");
+
+            var latestVersion = await attributeService.GetLatestVersions(Aspect.None);
+            var latestVersion2 = await attributeService.GetLatestVersions(Aspect.Function);
+
+            Assert.True(latestVersion.FirstOrDefault()?.Version == "2.1");
+            Assert.True(latestVersion2.FirstOrDefault()?.Version == "2.1");
+        }
+
+        [Fact]
         public async Task DatumDataReceiveOk()
         {
             using var scope = Factory.Server.Services.CreateScope();

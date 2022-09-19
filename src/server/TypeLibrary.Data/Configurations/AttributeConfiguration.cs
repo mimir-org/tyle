@@ -11,6 +11,9 @@ namespace TypeLibrary.Data.Configurations
         public void Configure(EntityTypeBuilder<AttributeLibDm> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.HasIndex(x => x.State).IsUnique(false);
+            builder.HasIndex(x => x.FirstVersionId).IsUnique(false);
+            builder.HasIndex(x => new { x.State, x.Aspect }).IsUnique(false);
             builder.ToTable("Attribute");
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(127);
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(31);

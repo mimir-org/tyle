@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using Mimirorg.Common.Contracts;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Contracts;
@@ -15,7 +16,7 @@ using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models
 {
-    public class AttributeLibDm : ILibraryType, IVersionable<AttributeLibAm>
+    public class AttributeLibDm : ILibraryType, IVersionable<AttributeLibAm>, IVersionObject
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -79,7 +80,7 @@ namespace TypeLibrary.Data.Models
             if (Discipline != other.Discipline)
                 validation.AddNotAllowToChange(nameof(Discipline));
 
-            var unitsDm = Units.ConvertToObject<ICollection<UnitLibCm>>().Select(x => x.Id);
+            var unitsDm = Units?.ConvertToObject<ICollection<UnitLibCm>>().Select(x => x.Id) ?? new List<string>();
 
             if (unitsDm.Select(y => y).Any(id => other.UnitIdList.Select(x => x).All(x => x != id)))
                 validation.AddNotAllowToChange(nameof(Units), "It is not allowed to remove units from an attribute");
@@ -105,7 +106,7 @@ namespace TypeLibrary.Data.Models
                 minor = true;
 
             //SelectValuesString
-            if (SelectValuesString != other.SelectValues.ToString())
+            if (SelectValuesString != other.SelectValues?.ConvertToString())
                 minor = true;
 
             if (Description != other.Description)
@@ -120,7 +121,9 @@ namespace TypeLibrary.Data.Models
                 minor = true;
 
             //Units
-            if (Units.ConvertToObject<ICollection<UnitLibCm>>().Count < other.UnitIdList.Count)
+            var thisUnitCount = Units?.ConvertToObject<ICollection<UnitLibCm>>().Count ?? 0;
+            var otherUnitCount = other?.UnitIdList?.Count ?? 0;
+            if (thisUnitCount < otherUnitCount)
                 major = true;
 
             return major ? VersionStatus.Major : minor ? VersionStatus.Minor : VersionStatus.NoChange;
