@@ -31,46 +31,6 @@ describe("attributeSchema tests", () => {
     await expect(attributeSchema(t).validateAt("companyId", attributeWithoutOwner)).rejects.toBeTruthy();
   });
 
-  it("should reject without a qualifier", async () => {
-    const attributeWithoutQuantityDatumSpecifiedScope: Partial<FormAttributeLib> = { quantityDatumSpecifiedScope: "" };
-    await expect(
-      attributeSchema(t).validateAt("quantityDatumSpecifiedScope", attributeWithoutQuantityDatumSpecifiedScope)
-    ).rejects.toBeTruthy();
-  });
-
-  it("should reject without a source", async () => {
-    const attributeWithoutQuantityDatumSpecifiedProvenance: Partial<FormAttributeLib> = {
-      quantityDatumSpecifiedProvenance: "",
-    };
-    await expect(
-      attributeSchema(t).validateAt(
-        "quantityDatumSpecifiedProvenance",
-        attributeWithoutQuantityDatumSpecifiedProvenance
-      )
-    ).rejects.toBeTruthy();
-  });
-
-  it("should reject without a condition", async () => {
-    const attributeWithoutQuantityDatumRangeSpecifying: Partial<FormAttributeLib> = {
-      quantityDatumRangeSpecifying: "",
-    };
-    await expect(
-      attributeSchema(t).validateAt("quantityDatumRangeSpecifying", attributeWithoutQuantityDatumRangeSpecifying)
-    ).rejects.toBeTruthy();
-  });
-
-  it("should reject without a format", async () => {
-    const attributeWithoutQuantityDatumRegularitySpecified: Partial<FormAttributeLib> = {
-      quantityDatumRegularitySpecified: "",
-    };
-    await expect(
-      attributeSchema(t).validateAt(
-        "quantityDatumRegularitySpecified",
-        attributeWithoutQuantityDatumRegularitySpecified
-      )
-    ).rejects.toBeTruthy();
-  });
-
   it("should reject if select does not equal none and selectValues array is empty", async () => {
     const attributeWithEmptySelectValues: Partial<FormAttributeLib> = {
       select: Select.SingleSelect,

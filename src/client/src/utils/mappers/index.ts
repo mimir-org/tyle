@@ -24,4 +24,5 @@ export { mapInterfaceLibCmToInterfaceLibAm } from "./mapInterfaceLibCmToInterfac
 export { mapListToDescriptors } from "./mapListToDescriptors";
 export { mapUnitLibCmsToDescriptors } from "./mapUnitLibCmsToDescriptors";
 export { mapValueObjectsToDescriptors } from "./mapValueObjectsToDescriptors";
-export { mapTypeReferenceCmsToDescriptors } from "./mapTypeReferenceCmsToDescriptors";
+export { mapTypeReferencesToDescriptors } from "./mapTypeReferencesToDescriptors";
+export { mapAttributeLibToQuantityDatumDescriptors } from "./mapAttributeLibToQuantityDatumDescriptors";

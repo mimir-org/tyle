@@ -2,8 +2,9 @@ import { AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { AttributeItem } from "../../content/types/AttributeItem";
 import { InfoItem } from "../../content/types/InfoItem";
 import { getColorFromAspect } from "../getColorFromAspect";
+import { mapAttributeLibToQuantityDatumDescriptors } from "./mapAttributeLibToQuantityDatumDescriptors";
 import { mapListToDescriptors } from "./mapListToDescriptors";
-import { mapTypeReferenceCmsToDescriptors } from "./mapTypeReferenceCmsToDescriptors";
+import { mapTypeReferencesToDescriptors } from "./mapTypeReferencesToDescriptors";
 import { mapUnitLibCmsToDescriptors } from "./mapUnitLibCmsToDescriptors";
 
 export const mapAttributeLibCmToAttributeItem = (attribute: AttributeLibCm): AttributeItem => {
@@ -23,10 +24,18 @@ export const mapAttributeLibCmToAttributeItem = (attribute: AttributeLibCm): Att
     });
   }
 
+  const quantityDatumDescriptors = mapAttributeLibToQuantityDatumDescriptors(attribute);
+  if (Object.keys(quantityDatumDescriptors).length > 0) {
+    contents.push({
+      name: "Datum",
+      descriptors: quantityDatumDescriptors,
+    });
+  }
+
   if (attribute.typeReferences.length > 0) {
     contents.push({
       name: "References",
-      descriptors: mapTypeReferenceCmsToDescriptors(attribute.typeReferences),
+      descriptors: mapTypeReferencesToDescriptors(attribute.typeReferences),
     });
   }
 
@@ -35,10 +44,6 @@ export const mapAttributeLibCmToAttributeItem = (attribute: AttributeLibCm): Att
     name: attribute.name,
     description: attribute.description,
     color: getColorFromAspect(attribute.aspect),
-    quantityDatumSpecifiedScope: attribute.quantityDatumSpecifiedScope,
-    quantityDatumSpecifiedProvenance: attribute.quantityDatumSpecifiedProvenance,
-    quantityDatumRangeSpecifying: attribute.quantityDatumRangeSpecifying,
-    quantityDatumRegularitySpecified: attribute.quantityDatumRegularitySpecified,
     tokens: [attribute.createdBy],
     contents: contents,
     kind: "AttributeItem",

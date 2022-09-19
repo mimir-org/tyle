@@ -5,6 +5,7 @@ export const createEmptyAttributeLibAm = (): AttributeLibAm => ({
   aspect: Aspect.None,
   discipline: Discipline.None,
   select: Select.None,
+  description: "",
   quantityDatumSpecifiedScope: "",
   quantityDatumSpecifiedProvenance: "",
   quantityDatumRangeSpecifying: "",

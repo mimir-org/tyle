@@ -13,11 +13,16 @@ export const Default = Template.bind({});
 Default.args = {
   name: "Attribute",
   color: faker.helpers.arrayElement(["#fef445", "#00f0ff", "#fa00ff"]),
-  quantityDatumSpecifiedScope: "Design Datum",
-  quantityDatumSpecifiedProvenance: "Measured Datum",
-  quantityDatumRangeSpecifying: "Nominal Datum",
-  quantityDatumRegularitySpecified: "Absolute Datum",
   contents: [
+    {
+      name: "Datum",
+      descriptors: {
+        "Quantity scope": "Design Datum",
+        "Quantity provenance": "Measured Datum",
+        "Quantity specifying": "Nominal Datum",
+        "Quantity regularity": "Absolute Datum",
+      },
+    },
     {
       name: "Values",
       descriptors: {
