@@ -1,13 +1,14 @@
 import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useTheme } from "styled-components";
 import { Button } from "../../../../complib/buttons";
 import { Form, FormErrorBanner, FormField, FormFieldset, FormHeader } from "../../../../complib/form";
-import { Input } from "../../../../complib/inputs";
+import { Input, Select, Textarea } from "../../../../complib/inputs";
 import { MotionFlexbox } from "../../../../complib/layouts";
 import { MotionText, Text } from "../../../../complib/text";
+import { useGetCompanies } from "../../../../data/queries/auth/queriesCompany";
 import { useCreateUser } from "../../../../data/queries/auth/queriesUser";
 import { useServerValidation } from "../../../../hooks/useServerValidation";
 import { MotionLogo } from "../../../common/logo/Logo";
@@ -18,8 +19,10 @@ export const Register = () => {
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const { register, handleSubmit, setError, formState } = useForm<MimirorgUserAm>();
+  const { register, control, handleSubmit, setError, formState } = useForm<MimirorgUserAm>();
   const { errors } = formState;
+
+  const companyQuery = useGetCompanies();
 
   const mutation = useCreateUser();
   useServerValidation(mutation.error, setError);
@@ -36,6 +39,28 @@ export const Register = () => {
           {mutation.isError && <FormErrorBanner>{t("forms.register.error")}</FormErrorBanner>}
 
           <FormFieldset>
+            <FormField label={`${t("forms.fields.company")} *`} error={errors.companyId}>
+              <Controller
+                control={control}
+                name={"companyId"}
+                rules={{ required: true }}
+                render={({ field: { value, onChange, ref, ...rest } }) => (
+                  <Select
+                    {...rest}
+                    selectRef={ref}
+                    placeholder={t("forms.placeholders.company")}
+                    options={companyQuery?.data}
+                    getOptionLabel={(x) => x.name}
+                    getOptionValue={(x) => x.id.toString()}
+                    onChange={(x) => {
+                      onChange(x?.id);
+                    }}
+                    value={companyQuery.data?.find((x) => x.id === value)}
+                  />
+                )}
+              />
+            </FormField>
+
             <FormField label={`${t("forms.fields.email")} *`} error={formState.errors.email}>
               <Input
                 id="email"
@@ -80,6 +105,10 @@ export const Register = () => {
                 placeholder={t("forms.placeholders.password")}
                 {...register("confirmPassword", { required: true })}
               />
+            </FormField>
+
+            <FormField label={`${t("forms.fields.purpose")} *`} error={errors.purpose}>
+              <Textarea placeholder={t("forms.placeholders.purpose")} {...register("purpose", { required: true })} />
             </FormField>
 
             <MotionText color={theme.tyle.color.sys.surface.variant.on} layout={"position"} as={"i"}>

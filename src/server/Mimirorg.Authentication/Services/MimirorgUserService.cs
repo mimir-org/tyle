@@ -66,6 +66,8 @@ namespace Mimirorg.Authentication.Services
             var user = userAm.ToDomainModel();
             var securityKey = $"{Guid.NewGuid()}{MimirorgSecurity.SecurityStamp}{Guid.NewGuid()}";
             user.SecurityHash = securityKey.CreateSha512();
+            var currentCompany = await _mimirorgCompanyService.GetCompanyById(userAm.CompanyId);
+            user.CompanyName = currentCompany?.DisplayName ?? currentCompany?.Name;
 
             var result = await _userManager.CreateAsync(user, userAm.Password);
             if (!result.Succeeded)
