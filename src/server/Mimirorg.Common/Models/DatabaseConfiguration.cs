@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace Mimirorg.Common.Models
 {
     public class DatabaseConfiguration
@@ -9,6 +11,20 @@ namespace Mimirorg.Common.Models
         public string Password { get; set; }
 
         public string ConnectionString => CreateConnectionString();
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine();
+            sb.AppendLine("########################## DatabaseConfiguration ############################");
+            sb.AppendLine("DataSource:              " + DataSource);
+            sb.AppendLine("Port:                    " + Port);
+            sb.AppendLine("InitialCatalog:          " + InitialCatalog);
+            sb.AppendLine("DbUser:                  " + DbUser);
+            sb.AppendLine("#############################################################################");
+
+            return sb.ToString();
+        }
 
         #region Private methods
 

@@ -13,7 +13,9 @@ describe("hasAccess tests", () => {
       firstName: "Hans",
       lastName: "Hasen",
       email: "hans.hansen@runir.net",
-      phoneNumber: "12345678",
+      companyId: 0,
+      companyName: "Mimirorg",
+      purpose: "",
       permissions: {},
     };
 
@@ -26,7 +28,9 @@ describe("hasAccess tests", () => {
       firstName: "Hans",
       lastName: "Hasen",
       email: "hans.hansen@runir.net",
-      phoneNumber: "12345678",
+      companyId: 0,
+      companyName: "Mimirorg",
+      purpose: "",
       permissions: {},
     };
 
@@ -43,7 +47,9 @@ describe("hasAccess tests", () => {
       firstName: "Hans",
       lastName: "Hasen",
       email: "hans.hansen@runir.net",
-      phoneNumber: "12345678",
+      companyId: 0,
+      companyName: "Mimirorg",
+      purpose: "",
       permissions: {
         "1": MimirorgPermission.Manage,
       },
@@ -62,7 +68,9 @@ describe("hasAccess tests", () => {
       firstName: "Hans",
       lastName: "Hasen",
       email: "hans.hansen@runir.net",
-      phoneNumber: "12345678",
+      companyId: 0,
+      companyName: "Mimirorg",
+      purpose: "",
       permissions: {
         "1": MimirorgPermission.Approve,
       },
@@ -81,7 +89,9 @@ describe("hasAccess tests", () => {
       firstName: "Hans",
       lastName: "Hasen",
       email: "hans.hansen@runir.net",
-      phoneNumber: "12345678",
+      companyId: 0,
+      companyName: "Mimirorg",
+      purpose: "",
       permissions: {
         "1": MimirorgPermission.Delete,
       },
@@ -100,7 +110,9 @@ describe("hasAccess tests", () => {
       firstName: "Hans",
       lastName: "Hasen",
       email: "hans.hansen@runir.net",
-      phoneNumber: "12345678",
+      companyId: 0,
+      companyName: "Mimirorg",
+      purpose: "",
       permissions: {
         "1": MimirorgPermission.Write,
       },
@@ -119,7 +131,9 @@ describe("hasAccess tests", () => {
       firstName: "Hans",
       lastName: "Hasen",
       email: "hans.hansen@runir.net",
-      phoneNumber: "12345678",
+      companyId: 0,
+      companyName: "Mimirorg",
+      purpose: "",
       permissions: {
         "1": MimirorgPermission.Read,
       },
@@ -138,7 +152,9 @@ describe("hasAccess tests", () => {
       firstName: "Hans",
       lastName: "Hasen",
       email: "hans.hansen@runir.net",
-      phoneNumber: "12345678",
+      companyId: 0,
+      companyName: "Mimirorg",
+      purpose: "",
       permissions: {
         "1": MimirorgPermission.Write,
         "2": MimirorgPermission.Read,
@@ -177,7 +193,9 @@ describe("hasAccess tests", () => {
       firstName: "Hans",
       lastName: "Hasen",
       email: "hans.hansen@runir.net",
-      phoneNumber: "12345678",
+      companyId: 0,
+      companyName: "Mimirorg",
+      purpose: "",
       permissions: {
         "1": MimirorgPermission.Manage,
         "2": MimirorgPermission.Approve,
@@ -220,7 +238,9 @@ describe("hasAccess tests", () => {
       firstName: "Hans",
       lastName: "Hasen",
       email: "hans.hansen@runir.net",
-      phoneNumber: "12345678",
+      companyId: 0,
+      companyName: "Mimirorg",
+      purpose: "",
       permissions: {},
     };
 
@@ -251,7 +271,9 @@ describe("hasAccess tests", () => {
       firstName: "Hans",
       lastName: "Hasen",
       email: "hans.hansen@runir.net",
-      phoneNumber: "12345678",
+      companyId: 0,
+      companyName: "Mimirorg",
+      purpose: "",
       permissions: {
         "1": MimirorgPermission.Manage,
         "2": MimirorgPermission.Approve,

@@ -1,14 +1,11 @@
 import { AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { InfoItem } from "../../content/types/InfoItem";
+import { mapAttributeLibToQuantityDatumDescriptors } from "./mapAttributeLibToQuantityDatumDescriptors";
 
 export const mapAttributeLibCmToInfoItem = (attribute: AttributeLibCm): InfoItem => ({
   id: attribute.id,
   name: attribute.name,
-  descriptors: {
-    condition: attribute.attributeCondition,
-    qualifier: attribute.attributeQualifier,
-    source: attribute.attributeSource,
-  },
+  descriptors: mapAttributeLibToQuantityDatumDescriptors(attribute),
 });
 
 export const mapAttributeLibCmsToInfoItems = (attributes: AttributeLibCm[]): InfoItem[] =>

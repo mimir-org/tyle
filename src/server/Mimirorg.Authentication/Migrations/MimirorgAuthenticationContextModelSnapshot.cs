@@ -52,21 +52,21 @@ namespace Mimirorg.Authentication.Migrations
                         new
                         {
                             Id = "b5d465b3-90cf-4408-a685-14ff462e549d",
-                            ConcurrencyStamp = "3dc8eaa7-de0a-48d0-a5a1-54591d4e17ba",
+                            ConcurrencyStamp = "1e3779fe-f5d7-493e-a25f-0a0cebcfa0a9",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "cabdda90-6e90-4b92-b309-4f5b3784c792",
-                            ConcurrencyStamp = "4dd38e47-926e-46d0-9a43-80b605c114da",
+                            ConcurrencyStamp = "6f8fed25-4653-4c54-80d3-e7d8673a2356",
                             Name = "Account Manager",
                             NormalizedName = "ACCOUNTMANAGER"
                         },
                         new
                         {
                             Id = "f6d7df3a-bc9f-4a79-a2a0-c001a83c2d6c",
-                            ConcurrencyStamp = "37a70606-05ec-4a65-b851-ec7765903c36",
+                            ConcurrencyStamp = "d70af7e6-beca-4779-b8c6-29dc1f33f8e0",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         });
@@ -323,6 +323,12 @@ namespace Mimirorg.Authentication.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -362,6 +368,9 @@ namespace Mimirorg.Authentication.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Purpose")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityHash")
                         .HasColumnType("nvarchar(max)");

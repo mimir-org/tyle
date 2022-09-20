@@ -1,7 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Common.Abstract;
+using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
@@ -10,8 +13,11 @@ namespace TypeLibrary.Data.Repositories.Ef
 {
     public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, AttributeLibDm>, IEfAttributeRepository
     {
-        public EfAttributeRepository(TypeLibraryDbContext dbContext) : base(dbContext)
+        private readonly ApplicationSettings _applicationSettings;
+
+        public EfAttributeRepository(TypeLibraryDbContext dbContext, IOptions<ApplicationSettings> applicationSettings) : base(dbContext)
         {
+            _applicationSettings = applicationSettings?.Value;
         }
 
         /// <summary>
@@ -36,6 +42,29 @@ namespace TypeLibrary.Data.Repositories.Ef
         }
 
         /// <summary>
+        /// Update state on an attribute
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        /// <exception cref="MimirorgNotFoundException"></exception>
+        /// <exception cref="MimirorgBadRequestException"></exception>
+        public async Task UpdateState(string id, State state)
+        {
+            var dm = await FindBy(x => x.Id == id).FirstOrDefaultAsync();
+
+            if (dm == null)
+                throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
+
+            if (dm.State == state)
+                throw new MimirorgBadRequestException($"Not allowed. Same state. Current state is {dm.State} and new state is {state}");
+
+            dm.State = state;
+            Context.Entry(dm).State = EntityState.Modified;
+            await Context.SaveChangesAsync();
+        }
+
+        /// <summary>
         /// Create a new attribute
         /// </summary>
         /// <param name="attribute">The attribute that should be created</param>
@@ -48,6 +77,21 @@ namespace TypeLibrary.Data.Repositories.Ef
             await SaveAsync();
             Detach(attribute);
             return attribute;
+        }
+
+        public async Task<bool> Remove(string id)
+        {
+            var dm = await Get(id);
+
+            if (dm == null)
+                throw new MimirorgNotFoundException($"Attribute with id {id} not found, delete failed.");
+
+            if (dm.CreatedBy == _applicationSettings.System)
+                throw new MimirorgBadRequestException($"The Attribute with id {id} is created by the system and can not be deleted.");
+
+            dm.State = State.Deleted;
+            Context.Entry(dm).State = EntityState.Modified;
+            return await Context.SaveChangesAsync() == 1;
         }
 
         /// <summary>

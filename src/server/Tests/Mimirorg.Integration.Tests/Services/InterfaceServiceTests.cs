@@ -4,6 +4,7 @@ using Mimirorg.Setup;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 using Xunit;
 
@@ -67,7 +68,7 @@ namespace Mimirorg.Integration.Tests.Services
                 TerminalId = "8EBC5811473E87602FB0C18A100BD53C",
                 AttributeIdList = new List<string>
                 {
-                    "0646754DC953F5EDD4F6159CD993696D"
+                    "CA20DF193D58238C3C557A0316C15533"
                 },
                 TypeReferences = new List<TypeReferenceAm>
                 {
@@ -76,9 +77,14 @@ namespace Mimirorg.Integration.Tests.Services
                         Name = "TypeRef",
                         Iri = "https://url.com/1234567890",
                         Source = "https://source.com/1234567890",
-                        SubName = "SubName",
-                        SubIri = "https://subIri.com/1234567890",
-
+                        Subs = new List<TypeReferenceSub>
+                        {
+                            new()
+                            {
+                                Name = "SubName",
+                                Iri = "https://subIri.com/1234567890"
+                            }
+                        }
                     }
                 },
                 Description = "Description",
@@ -99,11 +105,13 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(interfaceAm.CompanyId, interfaceCm.CompanyId);
             Assert.Equal(interfaceAm.TerminalId, interfaceCm.TerminalId);
             Assert.Equal(interfaceAm.AttributeIdList.ToList().ConvertToString(), interfaceCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
-            Assert.Equal(interfaceAm.TypeReferences.First().Iri, interfaceAm.TypeReferences.First().Iri);
-            Assert.Equal(interfaceAm.TypeReferences.First().Name, interfaceAm.TypeReferences.First().Name);
-            Assert.Equal(interfaceAm.TypeReferences.First().Source, interfaceAm.TypeReferences.First().Source);
-            Assert.Equal(interfaceAm.TypeReferences.First().SubIri, interfaceAm.TypeReferences.First().SubIri);
-            Assert.Equal(interfaceAm.TypeReferences.First().SubName, interfaceAm.TypeReferences.First().SubName);
+
+            Assert.Equal(interfaceAm.TypeReferences.First().Iri, interfaceCm.TypeReferences.First().Iri);
+            Assert.Equal(interfaceAm.TypeReferences.First().Name, interfaceCm.TypeReferences.First().Name);
+            Assert.Equal(interfaceAm.TypeReferences.First().Source, interfaceCm.TypeReferences.First().Source);
+
+            Assert.Equal(interfaceAm.TypeReferences.First().Subs.First().Name, interfaceCm.TypeReferences.First().Subs.First().Name);
+            Assert.Equal(interfaceAm.TypeReferences.First().Subs.First().Iri, interfaceCm.TypeReferences.First().Subs.First().Iri);
             Assert.Equal(interfaceAm.ParentId, interfaceCm.ParentId);
         }
 
@@ -121,7 +129,7 @@ namespace Mimirorg.Integration.Tests.Services
                 CompanyId = 1,
                 AttributeIdList = new List<string>
                 {
-                    "0646754DC953F5EDD4F6159CD993696D"
+                    "CA20DF193D58238C3C557A0316C15533"
                 }
             };
 
@@ -129,8 +137,6 @@ namespace Mimirorg.Integration.Tests.Services
             var interfaceCm = await interfaceService.Create(interfaceAm, true);
 
             Assert.Equal(interfaceAm.Id, interfaceCm?.Id);
-            Assert.Equal(interfaceAm.Id, interfaceCm?.Id);
-            Assert.Equal(interfaceAm.AttributeIdList.ElementAt(0), interfaceCm?.Attributes.ElementAt(0).Id);
             Assert.Equal(interfaceAm.AttributeIdList.ElementAt(0), interfaceCm?.Attributes.ElementAt(0).Id);
         }
 
@@ -148,7 +154,7 @@ namespace Mimirorg.Integration.Tests.Services
                 CompanyId = 1,
                 AttributeIdList = new List<string>
                 {
-                    "0646754DC953F5EDD4F6159CD993696D"
+                    "CA20DF193D58238C3C557A0316C15533"
                 }
             };
 
@@ -179,7 +185,7 @@ namespace Mimirorg.Integration.Tests.Services
                 CompanyId = 1,
                 AttributeIdList = new List<string>
                 {
-                    "0646754DC953F5EDD4F6159CD993696D"
+                    "003F35CF40F34ECDE4E7EB589C7E0A00"
                 }
             };
 
@@ -207,7 +213,7 @@ namespace Mimirorg.Integration.Tests.Services
                 CompanyId = 1,
                 AttributeIdList = new List<string>
                 {
-                    "0646754DC953F5EDD4F6159CD993696D"
+                    "003F35CF40F34ECDE4E7EB589C7E0A00"
                 }
             };
 

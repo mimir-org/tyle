@@ -81,6 +81,34 @@ namespace Mimirorg.Authentication.Controllers.V1
         }
 
         /// <summary>
+        /// Logout a user
+        /// </summary>
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("logout")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [SwaggerOperation("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            try
+            {
+                if (!HttpContext.Request.Cookies.TryGetValue(RefreshTokenCookie, out var token))
+                    return NoContent();
+
+                await _authService.Logout(token);
+                await RemoveRefreshCookies(HttpContext.Request, HttpContext.Response);
+
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to logout. Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
         /// Authenticate an user with secret
         /// </summary>
         /// <returns>ICollection&lt;MimirorgTokenCm&gt;</returns>

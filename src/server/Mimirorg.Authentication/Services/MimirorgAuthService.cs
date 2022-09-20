@@ -147,6 +147,27 @@ namespace Mimirorg.Authentication.Services
             return result.Succeeded;
         }
 
+        /// <summary>
+        /// Remove the current user's authentication tokens
+        /// </summary>
+        /// <param name="secret">string</param>
+        /// <returns></returns>
+        public async Task Logout(string secret)
+        {
+            if (string.IsNullOrWhiteSpace(secret))
+                return;
+
+            var refreshToken = await _tokenRepository.FindBy((x) => x.Secret == secret && x.TokenType == MimirorgTokenType.RefreshToken).FirstOrDefaultAsync();
+
+            if (refreshToken == null)
+                return;
+
+            await _tokenRepository.Delete(refreshToken.Id);
+            await _tokenRepository.SaveAsync();
+
+            await _signInManager.SignOutAsync();
+        }
+
         #endregion
 
         #region Authorization
