@@ -29,9 +29,12 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required(ErrorMessage = "{0} is required")]
         public string LastName { get; set; }
 
-        [Display(Name = "Phone Number")]
-        [MaxLength(8, ErrorMessage = "{0} has max length {1}")]
-        [RegularExpression("\\d*", ErrorMessage = "{0} must be numeric")]
-        public string PhoneNumber { get; set; }
+        [Display(Name = "CompanyId")]
+        [Required(ErrorMessage = "{0} is required")]
+        public int CompanyId { get; set; }
+
+        [Display(Name = "Purpose")]
+        [Required(ErrorMessage = "{0} is required")]
+        public string Purpose { get; set; }
     }
 }

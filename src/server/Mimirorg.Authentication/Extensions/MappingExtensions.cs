@@ -70,7 +70,8 @@ namespace Mimirorg.Authentication.Extensions
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                PhoneNumber = user.PhoneNumber,
+                CompanyId = user.CompanyId,
+                Purpose = user.Purpose,
                 TwoFactorEnabled = true
             };
         }
@@ -83,7 +84,9 @@ namespace Mimirorg.Authentication.Extensions
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                PhoneNumber = user.PhoneNumber
+                CompanyId = user.CompanyId,
+                CompanyName = user.CompanyName,
+                Purpose = user.Purpose
             };
         }
 
