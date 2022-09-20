@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Common;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Data.Models.External;
+// ReSharper disable InconsistentNaming
 
 namespace TypeLibrary.Data.Repositories.External
 {
@@ -47,17 +49,32 @@ namespace TypeLibrary.Data.Repositories.External
                 return Task.FromResult(attributes);
 
             data = data.OrderBy(x => x.Quantity_Label, StringComparer.CurrentCultureIgnoreCase).ToList();
+            var groups = data.GroupBy(x => x.Quantity).Select(group => group.ToList()).ToList();
 
-            foreach (var pcaUnit in data)
+            foreach (var group in groups)
             {
+                if (!group.Any())
+                    continue;
+
+                var firstElement = group.ElementAt(0);
+
                 var attributeReferenceDm = new TypeReferenceDm
                 {
-                    Name = pcaUnit.Quantity_Label,
-                    Iri = pcaUnit.Quantity,
+                    Name = firstElement?.Quantity_Label,
+                    Iri = firstElement?.Quantity,
                     Source = "PCA",
-                    SubName = pcaUnit.Default_Uom_Label,
-                    SubIri = pcaUnit.Default_Uom
+                    Subs = new List<TypeReferenceSub>()
                 };
+
+                foreach (var pcaUnit in group)
+                {
+                    attributeReferenceDm.Subs.Add(new TypeReferenceSub
+                    {
+                        Name = pcaUnit.Uom_Label,
+                        Iri = pcaUnit.Uom,
+                        IsDefault = !string.IsNullOrWhiteSpace(firstElement?.Default_Uom) && (pcaUnit.Uom == firstElement.Default_Uom)
+                    });
+                }
 
                 attributes.Add(attributeReferenceDm);
             }

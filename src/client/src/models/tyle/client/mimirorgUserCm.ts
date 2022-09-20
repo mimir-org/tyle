@@ -5,6 +5,9 @@ export const createEmptyMimirorgUserCm = (): MimirorgUserCm => ({
   email: "",
   firstName: "",
   lastName: "",
-  phoneNumber: "",
+  companyId: 0,
+  companyName: "",
+  purpose: "",
   permissions: {},
+  roles: [],
 });

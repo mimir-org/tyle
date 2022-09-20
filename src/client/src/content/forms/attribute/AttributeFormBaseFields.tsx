@@ -1,20 +1,21 @@
-import { Aspect, Discipline, MimirorgPermission, Select as AttributeSelect } from "@mimirorg/typelibrary-types";
+import {
+  Aspect,
+  Discipline,
+  MimirorgPermission,
+  QuantityDatumType,
+  Select as AttributeSelect,
+} from "@mimirorg/typelibrary-types";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Button } from "../../../complib/buttons";
 import { FormField } from "../../../complib/form";
-import { Input, Select } from "../../../complib/inputs";
+import { Input, Select, Textarea } from "../../../complib/inputs";
 import { Flexbox } from "../../../complib/layouts";
-import {
-  useGetAttributesCondition,
-  useGetAttributesFormat,
-  useGetAttributesQualifier,
-  useGetAttributesSource,
-} from "../../../data/queries/tyle/queriesAttribute";
+import { useGetQuantityDatum } from "../../../data/queries/tyle/queriesAttribute";
+import { useGetFilteredCompanies } from "../../../hooks/useGetFilteredCompanies";
 import { getValueLabelObjectsFromEnum } from "../../../utils/getValueLabelObjectsFromEnum";
 import { PlainLink } from "../../utils/PlainLink";
-import { useGetFilteredCompanies } from "../common/utils/useGetFilteredCompanies";
 import { onChangeSelectType } from "./AttributeFormBaseFields.helpers";
 import { AttributeFormBaseFieldsContainer } from "./AttributeFormBaseFields.styled";
 import { AttributeFormPreview } from "./AttributeFormPreview";
@@ -36,10 +37,10 @@ export const AttributeFormBaseFields = ({ isPrefilled }: AttributeFormBaseFields
   const { control, register, resetField, formState } = useFormContext<FormAttributeLib>();
   const { errors } = formState;
 
-  const attributeSourceQuery = useGetAttributesSource();
-  const attributeFormatQuery = useGetAttributesFormat();
-  const attributeQualifierQuery = useGetAttributesQualifier();
-  const attributeConditionQuery = useGetAttributesCondition();
+  const specifiedScopeQuery = useGetQuantityDatum(QuantityDatumType.QuantityDatumSpecifiedScope);
+  const rangeSpecifyingQuery = useGetQuantityDatum(QuantityDatumType.QuantityDatumRangeSpecifying);
+  const regularitySpecifiedQuery = useGetQuantityDatum(QuantityDatumType.QuantityDatumRegularitySpecified);
+  const specifiedProvenanceQuery = useGetQuantityDatum(QuantityDatumType.QuantityDatumSpecifiedProvenance);
   const aspectOptions = getValueLabelObjectsFromEnum<Aspect>(Aspect);
   const disciplineOptions = getValueLabelObjectsFromEnum<Discipline>(Discipline);
   const selectOptions = getValueLabelObjectsFromEnum<AttributeSelect>(AttributeSelect);
@@ -137,19 +138,22 @@ export const AttributeFormBaseFields = ({ isPrefilled }: AttributeFormBaseFields
 
         <Controller
           control={control}
-          name={"attributeQualifier"}
+          name={"quantityDatumSpecifiedScope"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("attribute.qualifier")} error={errors.attributeQualifier}>
+            <FormField label={t("attribute.quantityDatumSpecifiedScope")} error={errors.quantityDatumSpecifiedScope}>
               <Select
                 {...rest}
                 selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("attribute.qualifier").toLowerCase() })}
-                options={attributeQualifierQuery.data}
-                isLoading={attributeQualifierQuery.isLoading}
+                placeholder={t("common.templates.select", {
+                  object: t("attribute.quantityDatumSpecifiedScope").toLowerCase(),
+                })}
+                options={specifiedScopeQuery.data}
+                isLoading={specifiedScopeQuery.isLoading}
                 getOptionLabel={(x) => x.name}
                 getOptionValue={(x) => x.name}
                 onChange={(x) => onChange(x?.name)}
-                value={attributeQualifierQuery.data?.find((x) => x.name === value)}
+                value={specifiedScopeQuery.data?.find((x) => x.name === value)}
+                isClearable
               />
             </FormField>
           )}
@@ -157,19 +161,25 @@ export const AttributeFormBaseFields = ({ isPrefilled }: AttributeFormBaseFields
 
         <Controller
           control={control}
-          name={"attributeSource"}
+          name={"quantityDatumSpecifiedProvenance"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("attribute.source")} error={errors.attributeSource}>
+            <FormField
+              label={t("attribute.quantityDatumSpecifiedProvenance")}
+              error={errors.quantityDatumSpecifiedProvenance}
+            >
               <Select
                 {...rest}
                 selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("attribute.source").toLowerCase() })}
-                options={attributeSourceQuery.data}
-                isLoading={attributeSourceQuery.isLoading}
+                placeholder={t("common.templates.select", {
+                  object: t("attribute.quantityDatumSpecifiedProvenance").toLowerCase(),
+                })}
+                options={specifiedProvenanceQuery.data}
+                isLoading={specifiedProvenanceQuery.isLoading}
                 getOptionLabel={(x) => x.name}
                 getOptionValue={(x) => x.name}
                 onChange={(x) => onChange(x?.name)}
-                value={attributeSourceQuery.data?.find((x) => x.name === value)}
+                value={specifiedProvenanceQuery.data?.find((x) => x.name === value)}
+                isClearable
               />
             </FormField>
           )}
@@ -177,19 +187,22 @@ export const AttributeFormBaseFields = ({ isPrefilled }: AttributeFormBaseFields
 
         <Controller
           control={control}
-          name={"attributeCondition"}
+          name={"quantityDatumRangeSpecifying"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("attribute.condition")} error={errors.attributeCondition}>
+            <FormField label={t("attribute.quantityDatumRangeSpecifying")} error={errors.quantityDatumRangeSpecifying}>
               <Select
                 {...rest}
                 selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("attribute.condition").toLowerCase() })}
-                options={attributeConditionQuery.data}
-                isLoading={attributeConditionQuery.isLoading}
+                placeholder={t("common.templates.select", {
+                  object: t("attribute.quantityDatumRangeSpecifying").toLowerCase(),
+                })}
+                options={rangeSpecifyingQuery.data}
+                isLoading={rangeSpecifyingQuery.isLoading}
                 getOptionLabel={(x) => x.name}
                 getOptionValue={(x) => x.name}
                 onChange={(x) => onChange(x?.name)}
-                value={attributeConditionQuery.data?.find((x) => x.name === value)}
+                value={rangeSpecifyingQuery.data?.find((x) => x.name === value)}
+                isClearable
               />
             </FormField>
           )}
@@ -197,23 +210,33 @@ export const AttributeFormBaseFields = ({ isPrefilled }: AttributeFormBaseFields
 
         <Controller
           control={control}
-          name={"attributeFormat"}
+          name={"quantityDatumRegularitySpecified"}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("attribute.format")} error={errors.attributeFormat}>
+            <FormField
+              label={t("attribute.quantityDatumRegularitySpecified")}
+              error={errors.quantityDatumRegularitySpecified}
+            >
               <Select
                 {...rest}
                 selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("attribute.format").toLowerCase() })}
-                options={attributeFormatQuery.data}
-                isLoading={attributeFormatQuery.isLoading}
+                placeholder={t("common.templates.select", {
+                  object: t("attribute.quantityDatumRegularitySpecified").toLowerCase(),
+                })}
+                options={regularitySpecifiedQuery.data}
+                isLoading={regularitySpecifiedQuery.isLoading}
                 getOptionLabel={(x) => x.name}
                 getOptionValue={(x) => x.name}
                 onChange={(x) => onChange(x?.name)}
-                value={attributeFormatQuery.data?.find((x) => x.name === value)}
+                value={regularitySpecifiedQuery.data?.find((x) => x.name === value)}
+                isClearable
               />
             </FormField>
           )}
         />
+
+        <FormField label={t("attribute.description")} error={errors.description}>
+          <Textarea placeholder={t("attribute.placeholders.description")} {...register("description")} />
+        </FormField>
       </Flexbox>
 
       <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>

@@ -7,7 +7,7 @@ export const apiCompany = {
   getCompanies() {
     return apiClient.get<MimirorgCompanyCm[]>(_basePath).then((r) => r.data);
   },
-  getCompany(id: number) {
+  getCompany(id?: number) {
     return apiClient.get<MimirorgCompanyCm>(`${_basePath}/${id}`).then((r) => r.data);
   },
   postCompany(item: MimirorgCompanyAm) {

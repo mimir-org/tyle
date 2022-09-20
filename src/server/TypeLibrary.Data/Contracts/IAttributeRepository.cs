@@ -25,12 +25,27 @@ namespace TypeLibrary.Data.Contracts
         Task<AttributeLibDm> Get(string id);
 
         /// <summary>
+        /// Update Sate on an attribute
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="state"></param>
+        /// <returns>Void</returns>
+        Task UpdateState(string id, State state);
+
+        /// <summary>
         /// Create a new attribute
         /// </summary>
         /// <param name="attribute">The attribute that should be created</param>
         /// <param name="state"></param>
         /// <returns>An attribute</returns>
         Task<AttributeLibDm> Create(AttributeLibDm attribute, State state);
+
+        /// <summary>
+        /// Mark an attribute with State 'Deleted'
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<bool> Remove(string id);
 
         /// <summary>
         /// Check if an attribute already exist

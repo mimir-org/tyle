@@ -16,6 +16,14 @@ namespace Mimirorg.Unit.Tests.Extensions
         }
 
         [Fact]
+        public void RemoveWhitespaces_Returns_Correct_Values()
+        {
+            const string value = " A  B C   D  E";
+            var result = value.RemoveWhitespaces();
+            Assert.Equal("A B C D E", result);
+        }
+
+        [Fact]
         public void ResolveNormalizedName_Returns_Correct_Values()
         {
             const string name = "Account_Manager % - _123";

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Mimirorg.Common.Extensions;
@@ -8,14 +9,14 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Core.Factories;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Data.Contracts.Factories;
 using TypeLibrary.Data.Models;
+using static Mimirorg.TypeLibrary.Extensions.LibraryExtensions;
 
 namespace TypeLibrary.Core.Profiles
 {
     public class TerminalProfile : Profile
     {
-        public TerminalProfile(IApplicationSettingsRepository settings, IAttributeFactory attributeFactory, IHttpContextAccessor contextAccessor, ICompanyFactory companyFactory)
+        public TerminalProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor, ICompanyFactory companyFactory)
         {
             CreateMap<TerminalLibAm, TerminalLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -28,7 +29,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color))
                 .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.ParentId) ? null : src.ParentId))
                 .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
-                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => ResolveAttributes(src.AttributeIdList, attributeFactory)))
+                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => Convert<AttributeLibDm>(src.AttributeIdList).ToList()))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetEmail()) ? "Unknown" : contextAccessor.GetEmail()))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now.ToUniversalTime()));
 
@@ -51,28 +52,6 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
-        }
-
-        private IEnumerable<AttributeLibAm> ResolveAttributes(ICollection<string> attributeIdList, IAttributeFactory attributeFactory)
-        {
-            if (attributeIdList == null || attributeFactory == null)
-                yield break;
-
-            foreach (var id in attributeIdList)
-            {
-                var attribute = attributeFactory.Get(id);
-                if (attribute == null)
-                    continue;
-
-                yield return new AttributeLibAm
-                {
-                    Name = attribute.Name,
-                    AttributeCondition = attribute.AttributeCondition,
-                    AttributeQualifier = attribute.AttributeQualifier,
-                    AttributeSource = attribute.AttributeSource,
-                    Aspect = attribute.Aspect
-                };
-            }
         }
     }
 }

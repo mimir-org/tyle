@@ -39,14 +39,11 @@ namespace TypeLibrary.Core.Extensions
             cfg.AddProfile(new NodeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
             cfg.AddProfile(new InterfaceProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
             cfg.AddProfile(new TransportProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
-            cfg.AddProfile(new RdsProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-            cfg.AddProfile(new TerminalProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IAttributeFactory>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
-            cfg.AddProfile(new AttributeConditionProfile());
-            cfg.AddProfile(new AttributeFormatProfile());
-            cfg.AddProfile(new AttributeQualifierProfile());
-            cfg.AddProfile(new AttributeSourceProfile());
+            cfg.AddProfile(new RdsProfile());
+            cfg.AddProfile(new TerminalProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
+            cfg.AddProfile(new QuantityDatumProfile());
             cfg.AddProfile(new AttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
-            cfg.AddProfile(new PurposeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
+            cfg.AddProfile(new PurposeProfile());
             cfg.AddProfile(new UnitProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new SimpleProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
             cfg.AddProfile(new SelectedAttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>()));

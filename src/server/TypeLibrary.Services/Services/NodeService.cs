@@ -237,7 +237,6 @@ namespace TypeLibrary.Services.Services
                 Console.WriteLine(e);
                 throw;
             }
-
         }
 
         public async Task<bool> CompanyIsChanged(string nodeId, int companyId)
