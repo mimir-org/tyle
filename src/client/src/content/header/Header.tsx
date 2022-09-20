@@ -21,13 +21,14 @@ export const Header = () => {
 
   const userInitials = `${userQuery.data?.firstName?.[0]}${userQuery.data?.lastName?.[0]}`;
   const userFullName = `${userQuery.data?.firstName} ${userQuery.data?.lastName}`;
+  const userRoles = userQuery.data?.roles;
 
   return (
     <HeaderContainer>
       <Logo height={"100%"} width={"fit-content"} alt="" />
       {!userQuery.isLoading && (
         <UserMenu name={userInitials}>
-          <UserInfo name={userFullName} permissions={permissions} />
+          <UserInfo name={userFullName} permissions={permissions} roles={userRoles} />
           <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.base}>
             <ThemeButton />
             <ContactButton />

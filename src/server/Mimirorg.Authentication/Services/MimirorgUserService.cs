@@ -110,7 +110,9 @@ namespace Mimirorg.Authentication.Services
             var companies = (await _mimirorgCompanyService.GetAllCompanies()).ToList();
             var permissions = (await _mimirorgAuthService.GetAllPermissions()).ToList();
             var permissionDictionary = await ResolveCompanies(companies, permissions, user);
+            var roleDescriptions = await ResolveRoles(companies, permissions, user);
             userCm.Permissions = permissionDictionary;
+            userCm.Roles = roleDescriptions;
             return userCm;
         }
 
@@ -131,7 +133,9 @@ namespace Mimirorg.Authentication.Services
             var companies = (await _mimirorgCompanyService.GetAllCompanies()).ToList();
             var permissions = (await _mimirorgAuthService.GetAllPermissions()).ToList();
             var permissionDictionary = await ResolveCompanies(companies, permissions, user);
+            var roleDescriptions = await ResolveRoles(companies, permissions, user);
             userCm.Permissions = permissionDictionary;
+            userCm.Roles = roleDescriptions;
             return userCm;
         }
 
@@ -296,6 +300,49 @@ namespace Mimirorg.Authentication.Services
             {
                 // ignored
             }
+        }
+
+        private async Task<ICollection<string>> ResolveRoles(ICollection<MimirorgCompanyCm> companies, ICollection<MimirorgPermissionCm> permissions, MimirorgUser user)
+        {
+            var roleDescriptionList = new List<string>();
+
+            var roles = (await _userManager.GetRolesAsync(user)).ToList();
+            if (roles.Any(x => x is "Administrator"))
+            {
+                roleDescriptionList.Add("Global administrator");
+                return roleDescriptionList;
+            }
+
+            if (roles.Any(x => x is "Account Manager"))
+            {
+                roleDescriptionList.Add("Global account manager");
+                return roleDescriptionList;
+            }
+
+            if (roles.Any(x => x is "Moderator"))
+            {
+                roleDescriptionList.Add("Global moderator");
+                return roleDescriptionList;
+            }
+
+            if (!companies.Any())
+                return roleDescriptionList;
+
+            var claims = await _userManager.GetClaimsAsync(user);
+            claims = claims.Where(x => companies.Any(y => x.Type == y.Id.ToString())).ToList();
+
+            if (!claims.Any())
+                return roleDescriptionList;
+
+            foreach (var claim in claims)
+            {
+                var company = companies.FirstOrDefault(x => x.Id.ToString() == claim.Type);
+                var permission = permissions.FirstOrDefault(x => x.Name == claim.Value);
+                if (company != null && permission != null)
+                    roleDescriptionList.Add($"{company.DisplayName ?? company.Name} {(MimirorgPermission) permission.Id}");
+            }
+
+            return roleDescriptionList;
         }
 
         private async Task<Dictionary<int, MimirorgPermission>> ResolveCompanies(ICollection<MimirorgCompanyCm> companies, ICollection<MimirorgPermissionCm> permissions, MimirorgUser user)

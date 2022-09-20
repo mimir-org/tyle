@@ -9,4 +9,5 @@ export const createEmptyMimirorgUserCm = (): MimirorgUserCm => ({
   companyName: "",
   purpose: "",
   permissions: {},
+  roles: [],
 });
