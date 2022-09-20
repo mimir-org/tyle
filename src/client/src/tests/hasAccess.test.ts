@@ -1,5 +1,6 @@
 import { MimirorgCompanyCm, MimirorgPermission, MimirorgUserCm } from "@mimirorg/typelibrary-types";
 import { createEmptyMimirorgCompanyCm } from "../models/tyle/client/mimirorgCompanyCm";
+import { createEmptyMimirorgUserCm } from "../models/tyle/client/mimirorgUserCm";
 import { filterCompanyList, hasAccess } from "../utils/hasAccess";
 
 describe("hasAccess tests", () => {
@@ -9,13 +10,7 @@ describe("hasAccess tests", () => {
 
   test("missing company id returns false", () => {
     const user: MimirorgUserCm = {
-      id: "12345",
-      firstName: "Hans",
-      lastName: "Hasen",
-      email: "hans.hansen@runir.net",
-      companyId: 0,
-      companyName: "Mimirorg",
-      purpose: "",
+      ...createEmptyMimirorgUserCm(),
       permissions: {},
     };
 
@@ -24,13 +19,7 @@ describe("hasAccess tests", () => {
 
   test("empty permissions validates ok", () => {
     const user: MimirorgUserCm = {
-      id: "12345",
-      firstName: "Hans",
-      lastName: "Hasen",
-      email: "hans.hansen@runir.net",
-      companyId: 0,
-      companyName: "Mimirorg",
-      purpose: "",
+      ...createEmptyMimirorgUserCm(),
       permissions: {},
     };
 
@@ -43,13 +32,7 @@ describe("hasAccess tests", () => {
 
   test("manage validates ok", () => {
     const user: MimirorgUserCm = {
-      id: "12345",
-      firstName: "Hans",
-      lastName: "Hasen",
-      email: "hans.hansen@runir.net",
-      companyId: 0,
-      companyName: "Mimirorg",
-      purpose: "",
+      ...createEmptyMimirorgUserCm(),
       permissions: {
         "1": MimirorgPermission.Manage,
       },
@@ -64,13 +47,7 @@ describe("hasAccess tests", () => {
 
   test("approve validates ok", () => {
     const user: MimirorgUserCm = {
-      id: "12345",
-      firstName: "Hans",
-      lastName: "Hasen",
-      email: "hans.hansen@runir.net",
-      companyId: 0,
-      companyName: "Mimirorg",
-      purpose: "",
+      ...createEmptyMimirorgUserCm(),
       permissions: {
         "1": MimirorgPermission.Approve,
       },
@@ -85,13 +62,7 @@ describe("hasAccess tests", () => {
 
   test("delete validates ok", () => {
     const user: MimirorgUserCm = {
-      id: "12345",
-      firstName: "Hans",
-      lastName: "Hasen",
-      email: "hans.hansen@runir.net",
-      companyId: 0,
-      companyName: "Mimirorg",
-      purpose: "",
+      ...createEmptyMimirorgUserCm(),
       permissions: {
         "1": MimirorgPermission.Delete,
       },
@@ -106,13 +77,7 @@ describe("hasAccess tests", () => {
 
   test("write validates ok", () => {
     const user: MimirorgUserCm = {
-      id: "12345",
-      firstName: "Hans",
-      lastName: "Hasen",
-      email: "hans.hansen@runir.net",
-      companyId: 0,
-      companyName: "Mimirorg",
-      purpose: "",
+      ...createEmptyMimirorgUserCm(),
       permissions: {
         "1": MimirorgPermission.Write,
       },
@@ -127,13 +92,7 @@ describe("hasAccess tests", () => {
 
   test("read validates ok", () => {
     const user: MimirorgUserCm = {
-      id: "12345",
-      firstName: "Hans",
-      lastName: "Hasen",
-      email: "hans.hansen@runir.net",
-      companyId: 0,
-      companyName: "Mimirorg",
-      purpose: "",
+      ...createEmptyMimirorgUserCm(),
       permissions: {
         "1": MimirorgPermission.Read,
       },
@@ -148,13 +107,7 @@ describe("hasAccess tests", () => {
 
   test("filtered companies returns correct list for one company", () => {
     const user: MimirorgUserCm = {
-      id: "12345",
-      firstName: "Hans",
-      lastName: "Hasen",
-      email: "hans.hansen@runir.net",
-      companyId: 0,
-      companyName: "Mimirorg",
-      purpose: "",
+      ...createEmptyMimirorgUserCm(),
       permissions: {
         "1": MimirorgPermission.Write,
         "2": MimirorgPermission.Read,
@@ -189,13 +142,7 @@ describe("hasAccess tests", () => {
 
   test("filtered companies returns correct list for two companies", () => {
     const user: MimirorgUserCm = {
-      id: "12345",
-      firstName: "Hans",
-      lastName: "Hasen",
-      email: "hans.hansen@runir.net",
-      companyId: 0,
-      companyName: "Mimirorg",
-      purpose: "",
+      ...createEmptyMimirorgUserCm(),
       permissions: {
         "1": MimirorgPermission.Manage,
         "2": MimirorgPermission.Approve,
@@ -234,13 +181,7 @@ describe("hasAccess tests", () => {
 
   test("filtered companies returns empty list with no permissions", () => {
     const user: MimirorgUserCm = {
-      id: "12345",
-      firstName: "Hans",
-      lastName: "Hasen",
-      email: "hans.hansen@runir.net",
-      companyId: 0,
-      companyName: "Mimirorg",
-      purpose: "",
+      ...createEmptyMimirorgUserCm(),
       permissions: {},
     };
 
@@ -267,13 +208,7 @@ describe("hasAccess tests", () => {
 
   test("filtered companies returns empty list with no companies", () => {
     const user: MimirorgUserCm = {
-      id: "12345",
-      firstName: "Hans",
-      lastName: "Hasen",
-      email: "hans.hansen@runir.net",
-      companyId: 0,
-      companyName: "Mimirorg",
-      purpose: "",
+      ...createEmptyMimirorgUserCm(),
       permissions: {
         "1": MimirorgPermission.Manage,
         "2": MimirorgPermission.Approve,
