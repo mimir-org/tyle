@@ -423,14 +423,18 @@
       "code": "123456",
       "firstname": "Jane",
       "lastname": "Smith",
-      "required": "* Indicates a required field."
+      "required": "* Indicates a required field.",
+      "purpose": "Please explain why should have access to the application.",
+      "company": "Please select organization"
     },
     "fields": {
       "email": "E-mail",
       "password": "Password",
       "code": "Authentication code",
       "firstname": "First name",
-      "lastname": "Last name"
+      "lastname": "Last name",
+      "purpose": "Purpose",
+      "company": "Organizational affiliation"
     },
     "login": {
       "title": "Login",
