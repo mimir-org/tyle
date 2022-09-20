@@ -17,14 +17,10 @@ namespace TypeLibrary.Data.Repositories.Ef
     {
         private readonly IAttributeRepository _attributeRepository;
         private readonly ApplicationSettings _applicationSettings;
-        private readonly IRdsRepository _rdsRepository;
-        private readonly IPurposeRepository _purposeRepository;
 
-        public EfTransportRepository(TypeLibraryDbContext dbContext, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings, IRdsRepository rdsRepository, IPurposeRepository purposeRepository) : base(dbContext)
+        public EfTransportRepository(TypeLibraryDbContext dbContext, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings) : base(dbContext)
         {
             _attributeRepository = attributeRepository;
-            _rdsRepository = rdsRepository;
-            _purposeRepository = purposeRepository;
             _applicationSettings = applicationSettings?.Value;
         }
 
@@ -99,9 +95,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         public void ClearAllChangeTrackers()
         {
             Context?.ChangeTracker.Clear();
-            _rdsRepository.ClearAllChangeTrackers();
             _attributeRepository.ClearAllChangeTrackers();
-            _purposeRepository.ClearAllChangeTrackers();
         }
     }
 }

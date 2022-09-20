@@ -4,12 +4,10 @@ using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Mimirorg.Common.Extensions;
-using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Data.Contracts.Factories;
 using TypeLibrary.Data.Models;
 using static Mimirorg.TypeLibrary.Extensions.LibraryExtensions;
 

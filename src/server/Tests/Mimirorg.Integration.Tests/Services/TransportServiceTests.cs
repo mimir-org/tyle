@@ -4,6 +4,7 @@ using Mimirorg.Setup;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 using Xunit;
 
@@ -64,7 +65,7 @@ namespace Mimirorg.Integration.Tests.Services
                 TerminalId = "8EBC5811473E87602FB0C18A100BD53C",
                 AttributeIdList = new List<string>
                 {
-                    "0646754DC953F5EDD4F6159CD993696D"
+                    "CA20DF193D58238C3C557A0316C15533"
                 },
                 TypeReferences = new List<TypeReferenceAm>
                 {
@@ -73,8 +74,14 @@ namespace Mimirorg.Integration.Tests.Services
                         Name = "TypeRef",
                         Iri = "https://url.com/1234567890",
                         Source = "https://source.com/1234567890",
-                        SubName = "SubName",
-                        SubIri = "https://subIri.com/1234567890",
+                        Subs = new List<TypeReferenceSub>
+                        {
+                            new()
+                            {
+                                Name = "SubName",
+                                Iri = "https://subIri.com/1234567890"
+                            }
+                        }
 
                     }
                 },
@@ -98,8 +105,9 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(transportAm.TypeReferences.First().Iri, transportCm.TypeReferences.First().Iri);
             Assert.Equal(transportAm.TypeReferences.First().Name, transportCm.TypeReferences.First().Name);
             Assert.Equal(transportAm.TypeReferences.First().Source, transportCm.TypeReferences.First().Source);
-            Assert.Equal(transportAm.TypeReferences.First().SubIri, transportCm.TypeReferences.First().SubIri);
-            Assert.Equal(transportAm.TypeReferences.First().SubName, transportCm.TypeReferences.First().SubName);
+
+            Assert.Equal(transportAm.TypeReferences.First().Subs.First().Name, transportCm.TypeReferences.First().Subs.First().Name);
+            Assert.Equal(transportAm.TypeReferences.First().Subs.First().Iri, transportCm.TypeReferences.First().Subs.First().Iri);
             Assert.Equal(transportAm.ParentId, transportCm.ParentId);
         }
 
@@ -117,7 +125,7 @@ namespace Mimirorg.Integration.Tests.Services
                 CompanyId = 1,
                 AttributeIdList = new List<string>
                 {
-                    "0646754DC953F5EDD4F6159CD993696D"
+                    "CA20DF193D58238C3C557A0316C15533"
                 }
             };
 
@@ -125,8 +133,6 @@ namespace Mimirorg.Integration.Tests.Services
             var transportCm = await transportService.Create(transportAm, true);
 
             Assert.Equal(transportAm.Id, transportCm?.Id);
-            Assert.Equal(transportAm.Id, transportCm?.Id);
-            Assert.Equal(transportAm.AttributeIdList.ElementAt(0), transportCm?.Attributes.ElementAt(0).Id);
             Assert.Equal(transportAm.AttributeIdList.ElementAt(0), transportCm?.Attributes.ElementAt(0).Id);
         }
 
@@ -144,7 +150,7 @@ namespace Mimirorg.Integration.Tests.Services
                 CompanyId = 1,
                 AttributeIdList = new List<string>
                 {
-                    "0646754DC953F5EDD4F6159CD993696D"
+                    "CA20DF193D58238C3C557A0316C15533"
                 }
             };
 
@@ -175,7 +181,7 @@ namespace Mimirorg.Integration.Tests.Services
                 CompanyId = 1,
                 AttributeIdList = new List<string>
                 {
-                    "0646754DC953F5EDD4F6159CD993696D"
+                    "003F35CF40F34ECDE4E7EB589C7E0A00"
                 }
             };
 
@@ -203,7 +209,7 @@ namespace Mimirorg.Integration.Tests.Services
                 CompanyId = 1,
                 AttributeIdList = new List<string>
                 {
-                    "0646754DC953F5EDD4F6159CD993696D"
+                    "003F35CF40F34ECDE4E7EB589C7E0A00"
                 }
             };
 

@@ -4,6 +4,7 @@ using Mimirorg.Setup;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 using Xunit;
 
@@ -49,14 +50,20 @@ namespace Mimirorg.Integration.Tests.Services
                         Name = "TypeRef",
                         Iri = "https://url.com/1234567890",
                         Source = "https://source.com/1234567890",
-                        SubName = "SubName",
-                        SubIri = "https://subIri.com/1234567890",
+                        Subs = new List<TypeReferenceSub>
+                        {
+                            new()
+                            {
+                                Name = "SubName",
+                                Iri = "https://subIri.com/1234567890"
+                            }
+                        }
 
                     }
                 },
                 Color = "#123456",
                 Description = "Description1",
-                AttributeIdList = new List<string> { "F302FA9BD63AA991A91C6B9A88CE9691", "0DE08DEEB00409D554DB4B6C31AA34CC" },
+                AttributeIdList = new List<string> { "CA20DF193D58238C3C557A0316C15533" },
                 CompanyId = 1
             };
 
@@ -68,17 +75,12 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(terminalAm.Id, terminalCm.Id);
             Assert.Equal(terminalAm.ParentId, terminalCm.ParentId);
 
-            foreach (var typeReferenceAm in terminalAm.TypeReferences.OrderBy(x => x.Name, StringComparer.InvariantCulture).ThenBy(x => x.SubName))
-            {
-                foreach (var typeReferenceCm in terminalCm.TypeReferences.OrderBy(x => x.Name, StringComparer.InvariantCulture).ThenBy(x => x.SubName))
-                {
-                    Assert.Equal(typeReferenceAm.Name, typeReferenceCm.Name);
-                    Assert.Equal(typeReferenceAm.Source, typeReferenceCm.Source);
-                    Assert.Equal(typeReferenceAm.Iri, typeReferenceCm.Iri);
-                    Assert.Equal(typeReferenceAm.SubIri, typeReferenceCm.SubIri);
-                    Assert.Equal(typeReferenceAm.SubName, typeReferenceCm.SubName);
-                }
-            }
+            Assert.Equal(terminalAm.TypeReferences.First().Iri, terminalCm.TypeReferences.First().Iri);
+            Assert.Equal(terminalAm.TypeReferences.First().Name, terminalCm.TypeReferences.First().Name);
+            Assert.Equal(terminalAm.TypeReferences.First().Source, terminalCm.TypeReferences.First().Source);
+
+            Assert.Equal(terminalAm.TypeReferences.First().Subs.First().Name, terminalCm.TypeReferences.First().Subs.First().Name);
+            Assert.Equal(terminalAm.TypeReferences.First().Subs.First().Iri, terminalCm.TypeReferences.First().Subs.First().Iri);
 
             Assert.Equal(terminalAm.Color, terminalCm.Color);
             Assert.Equal(terminalAm.Description, terminalCm.Description);
@@ -96,7 +98,7 @@ namespace Mimirorg.Integration.Tests.Services
                 TypeReferences = null,
                 Color = "#123456",
                 Description = "Description v1.0",
-                AttributeIdList = new List<string> { "F302FA9BD63AA991A91C6B9A88CE9691", "0DE08DEEB00409D554DB4B6C31AA34CC" },
+                AttributeIdList = new List<string> { "CA20DF193D58238C3C557A0316C15533" },
                 CompanyId = 1
             };
 

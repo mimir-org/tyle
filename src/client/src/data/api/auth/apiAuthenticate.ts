@@ -10,4 +10,7 @@ export const apiAuthenticate = {
   postLoginSecret() {
     return apiCredentialClient.post<MimirorgTokenCm>(`${_basePath}/secret`).then((r) => r.data);
   },
+  postLogout() {
+    return apiCredentialClient.post<boolean>(`${_basePath}/logout`).then((r) => r.data);
+  },
 };

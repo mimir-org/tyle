@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
 import { TextTypes } from "../../../complib/props";
@@ -10,16 +9,11 @@ import {
   AttributePreviewHeader,
   AttributePreviewVariant,
   AttributeSpecificationContainer,
-  AttributeSpecificationGrid,
-  AttributeSpecificationGridDivider,
 } from "./AttributePreview.styled";
 
 interface AttributePreviewProps {
   name: string;
   color: string;
-  qualifier: string;
-  source: string;
-  condition: string;
   contents: InfoItem[];
   variant?: AttributePreviewVariant;
 }
@@ -30,27 +24,14 @@ interface AttributePreviewProps {
  *
  * @param name
  * @param color
- * @param source
- * @param qualifier
- * @param condition
  * @param contents
  * @param variant
  * @constructor
  */
-export const AttributePreview = ({
-  name,
-  color,
-  source,
-  qualifier,
-  condition,
-  contents,
-  variant = "small",
-}: AttributePreviewProps) => {
+export const AttributePreview = ({ name, color, contents, variant = "small" }: AttributePreviewProps) => {
   const theme = useTheme();
-  const { t } = useTranslation("translation", { keyPrefix: "attribute" });
   const showContentButtons = contents.length > 0;
   const headerTextVariant: TextTypes = variant == "small" ? "title-small" : "title-medium";
-  const gridTitleTextVariant: TextTypes = variant == "small" ? "label-small" : "label-medium";
 
   return (
     <AttributePreviewContainer variant={variant}>
@@ -61,16 +42,6 @@ export const AttributePreview = ({
       </AttributePreviewHeader>
 
       <AttributeSpecificationContainer>
-        <AttributeSpecificationGrid layout={"position"}>
-          <Text variant={gridTitleTextVariant}>{t("qualifier")}</Text>
-          <Text variant={gridTitleTextVariant}>{t("source")}</Text>
-          <Text variant={gridTitleTextVariant}>{t("condition")}</Text>
-          <AttributeSpecificationGridDivider />
-          <Text variant={"label-small"}>{qualifier}</Text>
-          <Text variant={"label-small"}>{source}</Text>
-          <Text variant={"label-small"}>{condition}</Text>
-        </AttributeSpecificationGrid>
-
         {showContentButtons && (
           <Box display={"flex"} flexWrap={"wrap"} justifyContent={"center"} gap={theme.tyle.spacing.s}>
             {contents.map((info, i) => {

@@ -31,32 +31,6 @@ describe("attributeSchema tests", () => {
     await expect(attributeSchema(t).validateAt("companyId", attributeWithoutOwner)).rejects.toBeTruthy();
   });
 
-  it("should reject without a qualifier", async () => {
-    const attributeWithoutQualifier: Partial<FormAttributeLib> = { attributeQualifier: "" };
-    await expect(attributeSchema(t).validateAt("attributeQualifier", attributeWithoutQualifier)).rejects.toBeTruthy();
-  });
-
-  it("should reject without a source", async () => {
-    const attributeWithoutSource: Partial<FormAttributeLib> = {
-      attributeSource: "",
-    };
-    await expect(attributeSchema(t).validateAt("attributeSource", attributeWithoutSource)).rejects.toBeTruthy();
-  });
-
-  it("should reject without a condition", async () => {
-    const attributeWithoutCondition: Partial<FormAttributeLib> = {
-      attributeCondition: "",
-    };
-    await expect(attributeSchema(t).validateAt("attributeCondition", attributeWithoutCondition)).rejects.toBeTruthy();
-  });
-
-  it("should reject without a format", async () => {
-    const attributeWithoutFormat: Partial<FormAttributeLib> = {
-      attributeFormat: "",
-    };
-    await expect(attributeSchema(t).validateAt("attributeFormat", attributeWithoutFormat)).rejects.toBeTruthy();
-  });
-
   it("should reject if select does not equal none and selectValues array is empty", async () => {
     const attributeWithEmptySelectValues: Partial<FormAttributeLib> = {
       select: Select.SingleSelect,

@@ -21,6 +21,10 @@ export const getCustomToasterStyles = (theme: TyleTheme): DefaultToastOptions =>
   },
   error: {
     icon: <XCircle size={24} />,
+    style: {
+      background: theme.color.sys.error.base,
+      color: theme.color.sys.error.on,
+    },
   },
 });
 

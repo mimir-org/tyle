@@ -13,9 +13,6 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Symbol { get; set; }
 
         [TSExclude]
-        private const string InternalType = "Mb.Models.Data.Enums.Unit";
-
-        [TSExclude]
-        public string Id => $"{Name}-{InternalType}".CreateMd5();
+        public string Id => $"{Name}".CreateMd5();
     }
 }

@@ -9,6 +9,7 @@ using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Factories;
 using TypeLibrary.Data.Models;
+// ReSharper disable InconsistentNaming
 
 namespace TypeLibrary.Core.Profiles
 {
@@ -19,15 +20,17 @@ namespace TypeLibrary.Core.Profiles
             CreateMap<AttributeLibAm, AttributeLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Version, opt => opt.MapFrom(src => !string.IsNullOrWhiteSpace(src.Version) ? src.Version : "1.0"))
+                .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => !string.IsNullOrWhiteSpace(src.FirstVersionId) ? src.FirstVersionId : src.Id))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
-                .ForMember(dest => dest.AttributeQualifier, opt => opt.MapFrom(src => src.AttributeQualifier))
-                .ForMember(dest => dest.AttributeSource, opt => opt.MapFrom(src => src.AttributeSource))
-                .ForMember(dest => dest.AttributeCondition, opt => opt.MapFrom(src => src.AttributeCondition))
-                .ForMember(dest => dest.AttributeFormat, opt => opt.MapFrom(src => src.AttributeFormat))
+                .ForMember(dest => dest.QuantityDatumSpecifiedScope, opt => opt.MapFrom(src => src.QuantityDatumSpecifiedScope))
+                .ForMember(dest => dest.QuantityDatumSpecifiedProvenance, opt => opt.MapFrom(src => src.QuantityDatumSpecifiedProvenance))
+                .ForMember(dest => dest.QuantityDatumRangeSpecifying, opt => opt.MapFrom(src => src.QuantityDatumRangeSpecifying))
+                .ForMember(dest => dest.QuantityDatumRegularitySpecified, opt => opt.MapFrom(src => src.QuantityDatumRegularitySpecified))
                 .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
-                .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags))
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => $"{settings.ApplicationSemanticUrl}/attribute/{src.Id}"))
                 .ForMember(dest => dest.TypeReferences, opt => opt.MapFrom(src => src.TypeReferences.ConvertToString()))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.Select, opt => opt.MapFrom(src => src.Select))
                 .ForMember(dest => dest.Discipline, opt => opt.MapFrom(src => src.Discipline))
                 .ForMember(dest => dest.Units, opt => opt.MapFrom(src => ResolveUnits(src.UnitIdList, unitFactory).ConvertToString()))
@@ -39,15 +42,17 @@ namespace TypeLibrary.Core.Profiles
             CreateMap<AttributeLibDm, AttributeLibCm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
+                .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.FirstVersionId))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
-                .ForMember(dest => dest.AttributeQualifier, opt => opt.MapFrom(src => src.AttributeQualifier))
-                .ForMember(dest => dest.AttributeSource, opt => opt.MapFrom(src => src.AttributeSource))
-                .ForMember(dest => dest.AttributeCondition, opt => opt.MapFrom(src => src.AttributeCondition))
-                .ForMember(dest => dest.AttributeFormat, opt => opt.MapFrom(src => src.AttributeFormat))
+                .ForMember(dest => dest.QuantityDatumSpecifiedScope, opt => opt.MapFrom(src => src.QuantityDatumSpecifiedScope))
+                .ForMember(dest => dest.QuantityDatumSpecifiedProvenance, opt => opt.MapFrom(src => src.QuantityDatumSpecifiedProvenance))
+                .ForMember(dest => dest.QuantityDatumRangeSpecifying, opt => opt.MapFrom(src => src.QuantityDatumRangeSpecifying))
+                .ForMember(dest => dest.QuantityDatumRegularitySpecified, opt => opt.MapFrom(src => src.QuantityDatumRegularitySpecified))
                 .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
-                .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags))
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
                 .ForMember(dest => dest.TypeReferences, opt => opt.MapFrom(src => src.TypeReferences.ConvertToObject<ICollection<TypeReferenceCm>>()))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.Select, opt => opt.MapFrom(src => src.Select))
                 .ForMember(dest => dest.Discipline, opt => opt.MapFrom(src => src.Discipline))
                 .ForMember(dest => dest.Units, opt => opt.MapFrom(src => src.Units.ConvertToObject<ICollection<UnitLibCm>>()))
