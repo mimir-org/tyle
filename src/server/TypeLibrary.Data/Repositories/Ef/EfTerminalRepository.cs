@@ -21,6 +21,11 @@ namespace TypeLibrary.Data.Repositories.Ef
             _attributeRepository = attributeRepository;
         }
 
+        public async Task<bool> Exist(string id)
+        {
+            return await Exist(x => x.Id == id);
+        }
+
         public IEnumerable<TerminalLibDm> Get()
         {
             return GetAll().Include(x => x.Attributes);
@@ -28,16 +33,13 @@ namespace TypeLibrary.Data.Repositories.Ef
 
         public async Task<TerminalLibDm> Get(string id)
         {
-            var terminal = await FindBy(x => x.Id == id)
-                .Include(x => x.Attributes)
-                .FirstOrDefaultAsync();
-
+            var terminal = await FindBy(x => x.Id == id).Include(x => x.Attributes).FirstOrDefaultAsync();
             return terminal;
         }
 
         public async Task UpdateState(string id, State state)
         {
-            var dm = await FindBy(x => x.Id == id).FirstOrDefaultAsync();
+            var dm = await Get(id);
 
             if (dm == null)
                 throw new MimirorgNotFoundException($"Terminal with id {id} not found.");

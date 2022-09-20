@@ -72,19 +72,19 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [AllowAnonymous]
-        public async Task<IActionResult> GetTerminal(string id)
+        public IActionResult GetTerminal(string id)
         {
             try
             {
-                var data = await _terminalService.Get(id);
+                var data = _terminalService.GetLatestVersion(id);
                 if (data == null)
                     return NotFound(id);
 
                 return Ok(data);
             }
-            catch (MimirorgNotFoundException)
+            catch (MimirorgNotFoundException e)
             {
-                return NotFound(id);
+                return NotFound(e.Message);
             }
             catch (Exception e)
             {
@@ -157,11 +157,11 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var companyIsChanged = await _terminalService.CompanyIsChanged(id, terminal.CompanyId);
+                var companyIsChanged = await _terminalService.CompanyIsChanged(terminal.Id, terminal.CompanyId);
                 if (companyIsChanged)
                     return StatusCode(StatusCodes.Status403Forbidden);
 
-                var data = await _terminalService.Update(terminal, id);
+                var data = await _terminalService.Update(terminal);
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)
@@ -234,7 +234,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var terminalLibCm = await _terminalService.Get(id);
+                var terminalLibCm = _terminalService.GetLatestVersion(id);
 
                 if (terminalLibCm == null)
                     return NotFound($"Can't find terminal with id: {id}");

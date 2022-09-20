@@ -31,6 +31,7 @@ export const createEmptyFormTerminalLib = (): FormTerminalLib => ({
 export const mapTerminalLibCmToFormTerminalLib = (terminalLibCm: TerminalLibCm): FormTerminalLib => ({
   ...mapTerminalLibCmToTerminalLibAm(terminalLibCm),
   id: terminalLibCm.id,
+  parentId: terminalLibCm.id,
   attributeIdList: terminalLibCm.attributes.map((x) => ({
     value: x.id,
   })),

@@ -67,23 +67,15 @@ namespace TypeLibrary.Services.Services
 
         public async Task<IEnumerable<NodeLibCm>> GetLatestVersions()
         {
-            var distinctFirstVersionIdDm = _nodeRepository.Get()?.Where(x => x.State != State.Deleted).ToList().DistinctBy(x => x.FirstVersionId).ToList();
+            var distinctFirstVersionIdDm = _nodeRepository.Get()
+                .Where(x => x.State != State.Deleted)
+                .LatestVersion()
+                .ToList()
+                .OrderBy(x => x.Aspect)
+                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase)
+                .ToList();
 
-            if (distinctFirstVersionIdDm == null || !distinctFirstVersionIdDm.Any())
-                return await Task.FromResult(new List<NodeLibCm>());
-
-            var nodes = new List<NodeLibDm>();
-
-            foreach (var dm in distinctFirstVersionIdDm)
-                nodes.Add(await _versionService.GetLatestVersion(dm));
-
-            nodes = nodes.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
-
-            var nodeLibCms = _mapper.Map<List<NodeLibCm>>(nodes);
-
-            if (nodes.Any() && (nodeLibCms == null || !nodeLibCms.Any()))
-                throw new MimirorgMappingException("List<NodeLibDm>", "ICollection<NodeLibAm>");
-
+            var nodeLibCms = _mapper.Map<List<NodeLibCm>>(distinctFirstVersionIdDm);
             return await Task.FromResult(nodeLibCms ?? new List<NodeLibCm>());
         }
 

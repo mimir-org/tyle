@@ -107,7 +107,7 @@ namespace Mimirorg.Integration.Tests.Services
 
             terminalAm.Description = "Description v1.1";
 
-            var terminalCmUpdated = await terminalService.Update(terminalAm, terminalAm.Id);
+            var terminalCmUpdated = await terminalService.Update(terminalAm);
 
             Assert.True(terminalLibCm?.Description == "Description v1.0");
             Assert.True(terminalLibCm.Version == "1.0");
@@ -132,8 +132,8 @@ namespace Mimirorg.Integration.Tests.Services
 
             var terminalCm = await terminalService.Create(terminalAm, true);
             var isDeleted = await terminalService.Delete(terminalCm?.Id);
-            var allTerminalsNotDeleted = await terminalService.GetAll();
-            var allTerminalsIncludeDeleted = await terminalService.GetAll(true);
+            var allTerminalsNotDeleted = terminalService.GetLatestVersions();
+            var allTerminalsIncludeDeleted = terminalService.GetLatestVersions(true);
 
             Assert.True(isDeleted);
             Assert.True(string.IsNullOrEmpty(allTerminalsNotDeleted?.FirstOrDefault(x => x.Id == terminalCm?.Id)?.Id));

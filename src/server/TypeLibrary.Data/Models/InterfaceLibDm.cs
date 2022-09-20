@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Mimirorg.Common.Contracts;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -9,7 +10,7 @@ using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models
 {
-    public class InterfaceLibDm : IVersionable<InterfaceLibAm>
+    public class InterfaceLibDm : IVersionable<InterfaceLibAm>, IVersionObject
     {
         public string Id { get; set; }
         public string ParentId { get; set; }

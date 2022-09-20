@@ -7,6 +7,7 @@ namespace TypeLibrary.Data.Contracts
 {
     public interface ITerminalRepository
     {
+        Task<bool> Exist(string id);
         IEnumerable<TerminalLibDm> Get();
         Task<TerminalLibDm> Get(string id);
         Task UpdateState(string id, State state);
