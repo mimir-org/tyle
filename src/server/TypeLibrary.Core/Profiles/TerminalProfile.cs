@@ -7,6 +7,7 @@ using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Core.Factories;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 using static Mimirorg.TypeLibrary.Extensions.LibraryExtensions;
@@ -15,7 +16,7 @@ namespace TypeLibrary.Core.Profiles
 {
     public class TerminalProfile : Profile
     {
-        public TerminalProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor)
+        public TerminalProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor, ICompanyFactory companyFactory)
         {
             CreateMap<TerminalLibAm, TerminalLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -45,6 +46,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.ParentIri, opt => opt.MapFrom(src => src.Parent != null ? src.Parent.Iri : null))
                 .ForMember(dest => dest.ParentName, opt => opt.MapFrom(src => src.Parent != null ? src.Parent.Name : null))
                 .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
+                .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => companyFactory.GetCompanyName(src.CompanyId)))
                 .ForMember(dest => dest.Children, opt => opt.MapFrom(src => src.Children))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes))
                 .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))

@@ -1,4 +1,3 @@
-using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Enums;
 // ReSharper disable InconsistentNaming
 
@@ -27,6 +26,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public int CompanyId { get; set; }
+        public string CompanyName { get; set; }
         public string Kind => nameof(AttributeLibCm);
     }
 }

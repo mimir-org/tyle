@@ -44,7 +44,7 @@ export const mapAttributeLibCmToAttributeItem = (attribute: AttributeLibCm): Att
     name: attribute.name,
     description: attribute.description,
     color: getColorFromAspect(attribute.aspect),
-    tokens: [attribute.createdBy],
+    tokens: [attribute.createdBy, attribute.companyName],
     contents: contents,
     kind: "AttributeItem",
   };

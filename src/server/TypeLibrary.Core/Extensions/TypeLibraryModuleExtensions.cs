@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Abstract;
+using TypeLibrary.Core.Factories;
 using Mimirorg.Common.Models;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
@@ -83,6 +84,7 @@ namespace TypeLibrary.Core.Extensions
 
             // Factories
             services.AddScoped<IUnitFactory, UnitFactory>();
+            services.AddScoped<ICompanyFactory, CompanyFactory>();
 
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();

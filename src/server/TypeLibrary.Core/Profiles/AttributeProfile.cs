@@ -6,6 +6,7 @@ using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Core.Factories;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Factories;
 using TypeLibrary.Data.Models;
@@ -15,7 +16,7 @@ namespace TypeLibrary.Core.Profiles
 {
     public class AttributeProfile : Profile
     {
-        public AttributeProfile(IApplicationSettingsRepository settings, IUnitFactory unitFactory, IHttpContextAccessor contextAccessor)
+        public AttributeProfile(IApplicationSettingsRepository settings, IUnitFactory unitFactory, IHttpContextAccessor contextAccessor, ICompanyFactory companyFactory)
         {
             CreateMap<AttributeLibAm, AttributeLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -50,6 +51,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.QuantityDatumRangeSpecifying, opt => opt.MapFrom(src => src.QuantityDatumRangeSpecifying))
                 .ForMember(dest => dest.QuantityDatumRegularitySpecified, opt => opt.MapFrom(src => src.QuantityDatumRegularitySpecified))
                 .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
+                .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => companyFactory.GetCompanyName(src.CompanyId)))
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
                 .ForMember(dest => dest.TypeReferences, opt => opt.MapFrom(src => src.TypeReferences.ConvertToObject<ICollection<TypeReferenceCm>>()))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))

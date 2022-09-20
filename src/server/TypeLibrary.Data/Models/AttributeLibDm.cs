@@ -12,6 +12,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using Newtonsoft.Json;
 using TypeLibrary.Data.Contracts.Common;
+
 // ReSharper disable InconsistentNaming
 
 namespace TypeLibrary.Data.Models
