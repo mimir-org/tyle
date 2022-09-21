@@ -1,0 +1,216 @@
+[
+  {
+    "name": "Cable System 80",
+    "aspect": "Function",
+    "rdsCode": "WB",
+    "rdsName": "High Voltage Transport",
+    "purposeName": "None",
+    "attributeIdList": [
+      "44385AF5C56EFCAB77158EA3DFA68329",
+      "A35B5FA0D0D4D06FD236A23917D4493F"
+    ],
+    "terminalId": "3577A41665382436F52F48A0CC174301",
+    "companyId": 1
+  },
+  {
+    "name": "Cable System 82",
+    "aspect": "Function",
+    "rdsCode": "WD",
+    "rdsName": "Low Voltage Transport",
+    "purposeName": "None",
+    "attributeIdList": [
+      "44385AF5C56EFCAB77158EA3DFA68329",
+      "A35B5FA0D0D4D06FD236A23917D4493F"
+    ],
+    "terminalId": "8D2161850644ACED56BAD1F2117723B0",
+    "companyId": 1
+  },
+  {
+    "name": "Cable System 85",
+    "aspect": "Function",
+    "rdsCode": "WD",
+    "rdsName": "Low Voltage Transport",
+    "purposeName": "None",
+    "attributeIdList": [
+      "44385AF5C56EFCAB77158EA3DFA68329",
+      "A35B5FA0D0D4D06FD236A23917D4493F"
+    ],
+    "terminalId": "D167FCBA750305EFB6BB2AB5521777CB",
+    "companyId": 1
+  },
+  {
+    "name": "Cable System 87",
+    "aspect": "Function",
+    "rdsCode": "WG",
+    "rdsName": "Communication Transport",
+    "purposeName": "None",
+    "attributeIdList": [
+      "44385AF5C56EFCAB77158EA3DFA68329"
+    ],
+    "terminalId": "8EBC5811473E87602FB0C18A100BD53C",
+    "companyId": 1
+  },
+  {
+    "name": "Chemicals",
+    "aspect": "Function",
+    "rdsCode": "WP",
+    "rdsName": "Fluid closed conduit Transport",
+    "purposeName": "None",
+    "attributeIdList": [
+      "B9C6BD307C06BC6CB7B7F32FF7072B55",
+      "2FE5BFF63AC615DBCEE65B3878A6D871",
+      "2934EC8FF97885913227C182298B6CE0"
+    ],
+    "terminalId": "192B021FE184AD62F8E05D61E9F71A43",
+    "companyId": 1
+  },
+  {
+    "name": "Process (HC)",
+    "aspect": "Function",
+    "rdsCode": "WP",
+    "rdsName": "Fluid closed conduit Transport",
+    "purposeName": "None",
+    "attributeIdList": [
+      "B9C6BD307C06BC6CB7B7F32FF7072B55",
+      "2FE5BFF63AC615DBCEE65B3878A6D871",
+      "2934EC8FF97885913227C182298B6CE0"
+    ],
+    "terminalId": "3270E68DB4454DBE465C62E7BFDFB970",
+    "companyId": 1
+  },
+  {
+    "name": "Utilities",
+    "aspect": "Function",
+    "rdsCode": "WP",
+    "rdsName": "Fluid closed conduit Transport",
+    "purposeName": "None",
+    "attributeIdList": [
+      "B9C6BD307C06BC6CB7B7F32FF7072B55",
+      "2FE5BFF63AC615DBCEE65B3878A6D871",
+      "2934EC8FF97885913227C182298B6CE0"
+    ],
+    "terminalId": "CA1DC54DE408386046C28E7F74CF32C5",
+    "companyId": 1
+  },
+  {
+    "name": "Water",
+    "aspect": "Function",
+    "rdsCode": "WP",
+    "rdsName": "Fluid closed conduit Transport",
+    "purposeName": "None",
+    "attributeIdList": [
+      "B9C6BD307C06BC6CB7B7F32FF7072B55",
+      "2FE5BFF63AC615DBCEE65B3878A6D871",
+      "2934EC8FF97885913227C182298B6CE0"
+    ],
+    "terminalId": "25698B803D6461F5120F1C6328D4F7DE",
+    "companyId": 1
+  },
+  {
+    "name": "Cable System 80",
+    "aspect": "Product",
+    "rdsCode": "WB",
+    "rdsName": "High Voltage Transport",
+    "purposeName": "None",
+    "attributeIdList": [
+      "44385AF5C56EFCAB77158EA3DFA68329",
+      "A35B5FA0D0D4D06FD236A23917D4493F"
+    ],
+    "terminalId": "3577A41665382436F52F48A0CC174301",
+    "companyId": 1
+  },
+  {
+    "name": "Cable System 82",
+    "aspect": "Product",
+    "rdsCode": "WD",
+    "rdsName": "Low Voltage Transport",
+    "purposeName": "None",
+    "attributeIdList": [
+      "44385AF5C56EFCAB77158EA3DFA68329",
+      "A35B5FA0D0D4D06FD236A23917D4493F"
+    ],
+    "terminalId": "8D2161850644ACED56BAD1F2117723B0",
+    "companyId": 1
+  },
+  {
+    "name": "Cable System 85",
+    "aspect": "Product",
+    "rdsCode": "WD",
+    "rdsName": "Low Voltage Transport",
+    "purposeName": "None",
+    "attributeIdList": [
+      "44385AF5C56EFCAB77158EA3DFA68329",
+      "A35B5FA0D0D4D06FD236A23917D4493F"
+    ],
+    "terminalId": "D167FCBA750305EFB6BB2AB5521777CB",
+    "companyId": 1
+  },
+  {
+    "name": "Cable System 87",
+    "aspect": "Product",
+    "rdsCode": "WG",
+    "rdsName": "Communication Transport",
+    "purposeName": "None",
+    "attributeIdList": [
+      "44385AF5C56EFCAB77158EA3DFA68329"
+    ],
+    "terminalId": "8EBC5811473E87602FB0C18A100BD53C",
+    "companyId": 1
+  },
+  {
+    "name": "Chemicals",
+    "aspect": "Product",
+    "rdsCode": "WP",
+    "rdsName": "Fluid closed conduit Transport",
+    "purposeName": "None",
+    "attributeIdList": [
+      "B9C6BD307C06BC6CB7B7F32FF7072B55",
+      "2FE5BFF63AC615DBCEE65B3878A6D871",
+      "2934EC8FF97885913227C182298B6CE0"
+    ],
+    "terminalId": "192B021FE184AD62F8E05D61E9F71A43",
+    "companyId": 1
+  },
+  {
+    "name": "Process (HC)",
+    "aspect": "Product",
+    "rdsCode": "WP",
+    "rdsName": "Fluid closed conduit Transport",
+    "purposeName": "None",
+    "attributeIdList": [
+      "B9C6BD307C06BC6CB7B7F32FF7072B55",
+      "2FE5BFF63AC615DBCEE65B3878A6D871",
+      "2934EC8FF97885913227C182298B6CE0"
+    ],
+    "terminalId": "3270E68DB4454DBE465C62E7BFDFB970",
+    "companyId": 1
+  },
+  {
+    "name": "Utilities",
+    "aspect": "Product",
+    "rdsCode": "WP",
+    "rdsName": "Fluid closed conduit Transport",
+    "purposeName": "None",
+    "attributeIdList": [
+      "B9C6BD307C06BC6CB7B7F32FF7072B55",
+      "2FE5BFF63AC615DBCEE65B3878A6D871",
+      "2934EC8FF97885913227C182298B6CE0"
+    ],
+    "terminalId": "CA1DC54DE408386046C28E7F74CF32C5",
+    "companyId": 1
+  },
+  {
+    "name": "Water",
+    "aspect": "Product",
+    "rdsCode": "WP",
+    "rdsName": "Fluid closed conduit Transport",
+    "purposeName": "None",
+    "attributeIdList": [
+      "B9C6BD307C06BC6CB7B7F32FF7072B55",
+      "2FE5BFF63AC615DBCEE65B3878A6D871",
+      "2934EC8FF97885913227C182298B6CE0"
+    ],
+    "terminalId": "25698B803D6461F5120F1C6328D4F7DE",
+    "companyId": 1
+  }
+]

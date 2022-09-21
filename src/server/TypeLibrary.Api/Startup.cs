@@ -49,8 +49,8 @@ namespace TypeLibrary.Api
 
             // Add modules
             //services.AddApplicationInsightsLoggingModule();
-            services.AddTypeLibraryModule(Configuration);
             services.AddMimirorgAuthenticationModule();
+            services.AddTypeLibraryModule(Configuration);
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)

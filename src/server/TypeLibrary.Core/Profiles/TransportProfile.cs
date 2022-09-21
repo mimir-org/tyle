@@ -7,6 +7,7 @@ using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Core.Factories;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 using static Mimirorg.TypeLibrary.Extensions.LibraryExtensions;
@@ -15,7 +16,7 @@ namespace TypeLibrary.Core.Profiles
 {
     public class TransportProfile : Profile
     {
-        public TransportProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor)
+        public TransportProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor, ICompanyFactory companyFactory)
         {
             CreateMap<TransportLibAm, TransportLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -54,6 +55,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
                 .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
+                .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => companyFactory.GetCompanyName(src.CompanyId)))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy))
