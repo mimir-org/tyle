@@ -122,6 +122,8 @@ namespace TypeLibrary.Services.Services
                 throw new MimirorgBadRequestException($"Terminal does not exist. Update is not possible.", validation);
             }
 
+            var oldVersionId = terminal.Id;
+
             // Get version
             validation = terminalToUpdate.HasIllegalChanges(terminal);
 
@@ -140,7 +142,8 @@ namespace TypeLibrary.Services.Services
                 _ => terminalToUpdate.Version
             };
 
-            return await Create(terminal, false);
+            var cm = await Create(terminal, false);
+            return GetLatestVersion(cm.Id);
         }
 
         public async Task<TerminalLibCm> UpdateState(string id, State state)
@@ -212,19 +215,5 @@ namespace TypeLibrary.Services.Services
 
             return Task.FromResult(terminal.CompanyId != companyId);
         }
-
-        #region Private
-
-        private TerminalLibDm GetLatestTerminalVersion(string firstVersionId)
-        {
-            var existingDmVersions = _terminalRepository.GetVersions(firstVersionId).ToList();
-
-            if (!existingDmVersions.Any())
-                throw new MimirorgBadRequestException($"No terminals with 'FirstVersionId' {firstVersionId} found.");
-
-            return existingDmVersions[^1];
-        }
-
-        #endregion Private
     }
 }
