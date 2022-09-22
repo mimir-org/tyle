@@ -1,16 +1,17 @@
 import { AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { useParams } from "react-router-dom";
 import { useCreateTerminal, useGetTerminal, useUpdateTerminal } from "../../../data/queries/tyle/queriesTerminal";
+import { TerminalFormMode } from "./types/terminalFormMode";
 
 export const useTerminalQuery = () => {
   const { id } = useParams();
   return useGetTerminal(id);
 };
 
-export const useTerminalMutation = (isEdit?: boolean) => {
+export const useTerminalMutation = (mode?: TerminalFormMode) => {
   const createMutation = useCreateTerminal();
   const updateMutation = useUpdateTerminal();
-  return isEdit ? updateMutation : createMutation;
+  return mode === "edit" ? updateMutation : createMutation;
 };
 
 export const prepareAttributes = (attributes?: AttributeLibCm[]) => {

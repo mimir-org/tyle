@@ -1,5 +1,6 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { InterfaceLibCm } from "@mimirorg/typelibrary-types";
 import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
@@ -22,13 +23,14 @@ import {
   mapFormInterfaceLibToApiModel,
   mapInterfaceLibCmToFormInterfaceLib,
 } from "./types/formInterfaceLib";
+import { InterfaceFormMode } from "./types/interfaceFormMode";
 
 interface InterfaceFormProps {
   defaultValues?: FormInterfaceLib;
-  isEdit?: boolean;
+  mode?: InterfaceFormMode;
 }
 
-export const InterfaceForm = ({ defaultValues = createEmptyFormInterfaceLib(), isEdit }: InterfaceFormProps) => {
+export const InterfaceForm = ({ defaultValues = createEmptyFormInterfaceLib(), mode }: InterfaceFormProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -45,7 +47,7 @@ export const InterfaceForm = ({ defaultValues = createEmptyFormInterfaceLib(), i
   const query = useInterfaceQuery();
   const [isPrefilled, isLoading] = usePrefilledForm(query, mapInterfaceLibCmToFormInterfaceLib, reset);
 
-  const mutation = useInterfaceMutation(isEdit);
+  const mutation = useInterfaceMutation(mode);
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 

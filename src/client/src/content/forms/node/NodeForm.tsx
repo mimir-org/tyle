@@ -1,5 +1,6 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { NodeLibCm } from "@mimirorg/typelibrary-types";
 import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
@@ -22,13 +23,14 @@ import {
   mapFormNodeLibToApiModel,
   mapNodeLibCmToFormNodeLib,
 } from "./types/formNodeLib";
+import { NodeFormMode } from "./types/nodeFormMode";
 
 interface NodeFormProps {
   defaultValues?: FormNodeLib;
-  isEdit?: boolean;
+  mode?: NodeFormMode;
 }
 
-export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: NodeFormProps) => {
+export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), mode }: NodeFormProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -45,7 +47,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), isEdit }: N
   const query = useNodeQuery();
   const [isPrefilled, isLoading] = usePrefilledForm(query, mapNodeLibCmToFormNodeLib, reset);
 
-  const mutation = useNodeMutation(isEdit);
+  const mutation = useNodeMutation(mode);
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
