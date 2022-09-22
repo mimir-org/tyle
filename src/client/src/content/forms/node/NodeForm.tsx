@@ -45,7 +45,8 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), mode }: Nod
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
   const query = useNodeQuery();
-  const [isPrefilled, isLoading] = usePrefilledForm(query, mapNodeLibCmToFormNodeLib, reset);
+  const mapper = (source: NodeLibCm) => mapNodeLibCmToFormNodeLib(source, mode);
+  const [isPrefilled, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useNodeMutation(mode);
   useServerValidation(mutation.error, setError);

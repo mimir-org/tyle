@@ -45,7 +45,8 @@ export const TransportForm = ({ defaultValues = createEmptyFormTransportLib(), m
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
   const query = useTransportQuery();
-  const [isPrefilled, isLoading] = usePrefilledForm(query, mapTransportLibCmToFormTransportLib, reset);
+  const mapper = (source: TransportLibCm) => mapTransportLibCmToFormTransportLib(source, mode);
+  const [isPrefilled, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useTransportMutation(mode);
   useServerValidation(mutation.error, setError);

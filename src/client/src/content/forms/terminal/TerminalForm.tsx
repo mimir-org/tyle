@@ -43,7 +43,8 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
   const query = useTerminalQuery();
-  const [_, isLoading] = usePrefilledForm(query, mapTerminalLibCmToFormTerminalLib, reset);
+  const mapper = (source: TerminalLibCm) => mapTerminalLibCmToFormTerminalLib(source, mode);
+  const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useTerminalMutation(mode);
   useServerValidation(mutation.error, setError);

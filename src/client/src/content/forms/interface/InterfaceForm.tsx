@@ -45,7 +45,8 @@ export const InterfaceForm = ({ defaultValues = createEmptyFormInterfaceLib(), m
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
   const query = useInterfaceQuery();
-  const [isPrefilled, isLoading] = usePrefilledForm(query, mapInterfaceLibCmToFormInterfaceLib, reset);
+  const mapper = (source: InterfaceLibCm) => mapInterfaceLibCmToFormInterfaceLib(source, mode);
+  const [isPrefilled, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useInterfaceMutation(mode);
   useServerValidation(mutation.error, setError);

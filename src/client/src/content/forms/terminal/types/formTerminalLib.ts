@@ -3,6 +3,7 @@ import { UpdateEntity } from "../../../../data/types/updateEntity";
 import { createEmptyTerminalLibAm } from "../../../../models/tyle/application/terminalLibAm";
 import { mapTerminalLibCmToTerminalLibAm } from "../../../../utils/mappers";
 import { ValueObject } from "../../types/valueObject";
+import { TerminalFormMode } from "./terminalFormMode";
 
 /**
  * This type functions as a layer between client needs and the backend model.
@@ -28,9 +29,13 @@ export const createEmptyFormTerminalLib = (): FormTerminalLib => ({
   color: "#f7f6ff",
 });
 
-export const mapTerminalLibCmToFormTerminalLib = (terminalLibCm: TerminalLibCm): FormTerminalLib => ({
+export const mapTerminalLibCmToFormTerminalLib = (
+  terminalLibCm: TerminalLibCm,
+  mode?: TerminalFormMode
+): FormTerminalLib => ({
   ...mapTerminalLibCmToTerminalLibAm(terminalLibCm),
   id: terminalLibCm.id,
+  parentId: mode === "clone" ? terminalLibCm.id : terminalLibCm.parentId,
   attributeIdList: terminalLibCm.attributes.map((x) => ({
     value: x.id,
   })),
