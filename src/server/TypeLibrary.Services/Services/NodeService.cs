@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
@@ -22,231 +21,165 @@ namespace TypeLibrary.Services.Services
     {
         private readonly IMapper _mapper;
         private readonly INodeRepository _nodeRepository;
-        private readonly IVersionService _versionService;
         private readonly ITimedHookService _hookService;
-        private readonly ApplicationSettings _applicationSettings;
 
-        public NodeService(IOptions<ApplicationSettings> applicationSettings, IVersionService versionService, IMapper mapper, INodeRepository nodeRepository, ITimedHookService hookService)
+        public NodeService(IMapper mapper, INodeRepository nodeRepository, ITimedHookService hookService)
         {
-            _versionService = versionService;
             _mapper = mapper;
             _nodeRepository = nodeRepository;
             _hookService = hookService;
-            _applicationSettings = applicationSettings?.Value;
         }
 
-        public async Task<NodeLibCm> Get(string id)
+        /// <summary>
+        /// Get the latest version of a node based on given id
+        /// </summary>
+        /// <param name="id">The id of the node</param>
+        /// <returns>The latest version of the node of given id</returns>
+        /// <exception cref="MimirorgNotFoundException">Throws if there is no node with the given id, and that node is at the latest version.</exception>
+        public NodeLibCm GetLatestVersion(string id)
         {
-            if (string.IsNullOrWhiteSpace(id))
-                throw new MimirorgBadRequestException("Can't get node. The id is missing value.");
+            var node = GetLatestVersions().FirstOrDefault(x => x.Id == id);
 
-            var nodeDm = await _nodeRepository.Get(id);
+            if (node == null)
+                throw new MimirorgNotFoundException($"There is no node with id {id}");
 
-            if (nodeDm == null)
-                throw new MimirorgNotFoundException($"There is no node with id: {id}");
-
-            var latestVersion = await _versionService.GetLatestVersion(nodeDm);
-
-            if (latestVersion != null && nodeDm.Id != latestVersion.Id)
-                throw new MimirorgBadRequestException($"The node with id {id} and version {nodeDm.Version} is older than latest version {latestVersion.Version}.");
-
-            var nodeLibCm = _mapper.Map<NodeLibCm>(nodeDm);
-
-            if (nodeLibCm == null)
-                throw new MimirorgMappingException("NodeLibDm", "NodeLibCm");
-
-            return nodeLibCm;
+            return node;
         }
 
-        public async Task<IEnumerable<NodeLibCm>> GetAll(bool includeDeleted = false)
+        /// <summary>
+        /// Get the latest node versions
+        /// </summary>
+        /// <returns>A collection of nodes</returns>
+        public IEnumerable<NodeLibCm> GetLatestVersions()
         {
-            var nodeLibDms = includeDeleted ? _nodeRepository.Get()?.ToList() : _nodeRepository.Get()?.Where(x => x.State != State.Deleted).ToList();
-            var nodeLibCms = _mapper.Map<List<NodeLibCm>>(nodeLibDms);
-            return await Task.FromResult(nodeLibCms);
-        }
-
-        public async Task<IEnumerable<NodeLibCm>> GetLatestVersions()
-        {
-            var distinctFirstVersionIdDm = _nodeRepository.Get()?.Where(x => x.State != State.Deleted).ToList().DistinctBy(x => x.FirstVersionId).ToList();
-
-            if (distinctFirstVersionIdDm == null || !distinctFirstVersionIdDm.Any())
-                return await Task.FromResult(new List<NodeLibCm>());
-
-            var nodes = new List<NodeLibDm>();
-
-            foreach (var dm in distinctFirstVersionIdDm)
-                nodes.Add(await _versionService.GetLatestVersion(dm));
-
+            var nodes = _nodeRepository.Get().LatestVersion().ToList();
             nodes = nodes.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
-            var nodeLibCms = _mapper.Map<List<NodeLibCm>>(nodes);
+            foreach (var node in nodes)
+                node.Children = nodes.Where(x => x.ParentId == node.Id).ToList();
 
-            if (nodes.Any() && (nodeLibCms == null || !nodeLibCms.Any()))
-                throw new MimirorgMappingException("List<NodeLibDm>", "ICollection<NodeLibAm>");
-
-            return await Task.FromResult(nodeLibCms ?? new List<NodeLibCm>());
+            return !nodes.Any() ? new List<NodeLibCm>() : _mapper.Map<List<NodeLibCm>>(nodes);
         }
 
-        public async Task<NodeLibCm> Create(NodeLibAm dataAm, bool resetVersion)
+        /// <summary>
+        /// Create a new node
+        /// </summary>
+        /// <param name="node">The node that should be created</param>
+        /// <param name="resetVersion">Would you reset version and first version id?</param>
+        /// <returns>The created node</returns>
+        /// <exception cref="MimirorgBadRequestException">Throws if node is not valid</exception>
+        /// <exception cref="MimirorgDuplicateException">Throws if node already exist</exception>
+        /// <remarks>Remember that creating a new node could be creating a new version of existing node.
+        /// They will have the same first version id, but have different version and id.</remarks>
+        public async Task<NodeLibCm> Create(NodeLibAm node, bool resetVersion)
         {
-            if (dataAm == null)
-                throw new MimirorgBadRequestException("Data object can not be null.");
+            if (node == null)
+                throw new ArgumentNullException(nameof(node));
 
-            var validate = dataAm.ValidateObject();
-            if (!validate.IsValid)
-                throw new MimirorgBadRequestException("Node is not valid.", validate);
+            var validation = node.ValidateObject();
+            if (!validation.IsValid)
+                throw new MimirorgBadRequestException("Node is not valid.", validation);
 
-            var existing = await _nodeRepository.Get(dataAm.Id);
-
-            if (existing != null)
-                throw new MimirorgDuplicateException($"Node '{existing.Name}' with RdsCode '{existing.RdsCode}', Aspect '{existing.Aspect}' and version '{existing.Version}' already exist in db.");
-
+            // Version is included in generating id. It must run before check of already exist. 
             if (resetVersion)
             {
-                dataAm.FirstVersionId = dataAm.Id;
-                dataAm.Version = "1.0";
+                node.FirstVersionId = node.Id;
+                node.Version = "1.0";
             }
 
-            var nodeLibDm = _mapper.Map<NodeLibDm>(dataAm);
+            if (await _nodeRepository.Exist(node.Id))
+                throw new MimirorgDuplicateException($"Node '{node.Name}' and version '{node.Version}' already exist.");
 
-            if (!double.TryParse(nodeLibDm.Version, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out _))
-                throw new MimirorgBadRequestException($"Error when parsing version value '{nodeLibDm.Version}' to double.");
+            var dm = _mapper.Map<NodeLibDm>(node);
+            dm.State = State.Draft;
 
-            if (nodeLibDm == null)
-                throw new MimirorgMappingException("NodeLibAm", "NodeLibDm");
-
-            await _nodeRepository.Create(nodeLibDm, State.Draft);
+            await _nodeRepository.Create(dm);
             _nodeRepository.ClearAllChangeTrackers();
 
-            var dm = await Get(nodeLibDm.Id);
-
-            if (dm != null)
-                _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
-
-            return dm;
+            _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
+            return GetLatestVersion(dm.Id);
         }
 
-        public async Task<NodeLibCm> Update(NodeLibAm dataAm, string id)
+        /// <summary>
+        /// Update a node if the data is allowed to be changed.
+        /// </summary>
+        /// <param name="node">The node to update</param>
+        /// <returns>The updated node</returns>
+        /// <exception cref="MimirorgBadRequestException">Throws if the node does not exist,
+        /// if it is not valid or there are not allowed changes.</exception>
+        /// <remarks>ParentId to old references will also be updated.</remarks>
+        public async Task<NodeLibCm> Update(NodeLibAm node)
         {
-            if (string.IsNullOrEmpty(id))
-                throw new MimirorgBadRequestException("Can't update a node without an id.");
+            var validation = node.ValidateObject();
+            if (!validation.IsValid)
+                throw new MimirorgBadRequestException("Node is not valid.", validation);
 
-            if (dataAm == null)
-                throw new MimirorgBadRequestException("Can't update a node when dataAm is null.");
+            var nodeToUpdate = _nodeRepository.Get()
+                .LatestVersion()
+                .FirstOrDefault(x => x.Id == node.Id);
 
-            var nodeToUpdate = await _nodeRepository.Get(id);
-
-            if (nodeToUpdate?.Id == null)
-                throw new MimirorgNotFoundException($"Node with id {id} does not exist, update is not possible.");
-
-            if (nodeToUpdate.CreatedBy == _applicationSettings.System)
-                throw new MimirorgBadRequestException($"The node with id {id} is created by the system and can not be updated.");
-
-            if (nodeToUpdate.State == State.Deleted)
-                throw new MimirorgBadRequestException($"The node with id {id} is deleted and can not be updated.");
-
-            var latestNodeDm = await _versionService.GetLatestVersion(nodeToUpdate);
-
-            if (latestNodeDm == null)
-                throw new MimirorgBadRequestException($"Latest node version for node with id {id} not found (null).");
-
-            if (string.IsNullOrWhiteSpace(latestNodeDm.Version))
-                throw new MimirorgBadRequestException($"Latest version for node with id {id} has null or empty as version number.");
-
-            var latestNodeVersion = double.Parse(latestNodeDm.Version, CultureInfo.InvariantCulture);
-            var nodeToUpdateVersion = double.Parse(nodeToUpdate.Version, CultureInfo.InvariantCulture);
-
-            if (latestNodeVersion > nodeToUpdateVersion)
-                throw new MimirorgBadRequestException($"Not allowed to update node with id {nodeToUpdate.Id} and version {nodeToUpdateVersion}. Latest version is node with id {latestNodeDm.Id} and version {latestNodeVersion}");
+            if (nodeToUpdate == null)
+            {
+                validation = new Validation(new List<string> { nameof(NodeLibAm.Name), nameof(NodeLibAm.Version) },
+                    $"Node with name {node.Name}, aspect {node.Aspect}, Rds Code {node.RdsCode}, id {node.Id} and version {node.Version} does not exist.");
+                throw new MimirorgBadRequestException("Node does not exist. Update is not possible.", validation);
+            }
 
             // Get version
-            var validation = latestNodeDm.HasIllegalChanges(dataAm);
+            validation = nodeToUpdate.HasIllegalChanges(node);
 
             if (!validation.IsValid)
                 throw new MimirorgBadRequestException(validation.Message, validation);
 
-            var versionStatus = latestNodeDm.CalculateVersionStatus(dataAm);
+            var versionStatus = nodeToUpdate.CalculateVersionStatus(node);
             if (versionStatus == VersionStatus.NoChange)
-                return await Get(latestNodeDm.Id);
+                return GetLatestVersion(nodeToUpdate.Id);
 
-            dataAm.FirstVersionId = latestNodeDm.FirstVersionId;
-            dataAm.Version = versionStatus switch
+            var oldId = node.Id;
+
+            node.FirstVersionId = nodeToUpdate.FirstVersionId;
+            node.Version = versionStatus switch
             {
-                VersionStatus.Minor => latestNodeDm.Version.IncrementMinorVersion(),
-                VersionStatus.Major => latestNodeDm.Version.IncrementMajorVersion(),
-                _ => latestNodeDm.Version
+                VersionStatus.Minor => nodeToUpdate.Version.IncrementMinorVersion(),
+                VersionStatus.Major => nodeToUpdate.Version.IncrementMajorVersion(),
+                _ => nodeToUpdate.Version
             };
 
-            return await Create(dataAm, false);
+            var cm = await Create(node, false);
+            await _nodeRepository.ChangeParentId(oldId, cm.Id);
+            _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
+            return GetLatestVersion(cm.Id);
         }
 
+        /// <summary>
+        /// Change node state
+        /// </summary>
+        /// <param name="id">The node id that should change the state</param>
+        /// <param name="state">The new node state</param>
+        /// <returns>Node with updated state</returns>
+        /// <exception cref="MimirorgNotFoundException">Throws if the node does not exist on latest version</exception>
         public async Task<NodeLibCm> UpdateState(string id, State state)
         {
-            if (string.IsNullOrEmpty(id))
-                throw new MimirorgBadRequestException("Can't update a node without an id.");
+            var nodeToUpdate = _nodeRepository.Get()
+                .LatestVersion()
+                .FirstOrDefault(x => x.Id == id);
 
-            var nodeToUpdate = await _nodeRepository.Get(id);
-
-            if (nodeToUpdate?.Id == null)
+            if (nodeToUpdate == null)
                 throw new MimirorgNotFoundException($"Node with id {id} does not exist, update is not possible.");
 
-            if (nodeToUpdate.CreatedBy == _applicationSettings.System)
-                throw new MimirorgBadRequestException($"The node with id {id} is created by the system and can not be updated.");
-
-            if (nodeToUpdate.State == State.Deleted)
-                throw new MimirorgBadRequestException($"The node with id {id} is deleted and can not be updated.");
-
-            var latestNodeDm = await _versionService.GetLatestVersion(nodeToUpdate);
-
-            if (latestNodeDm == null)
-                throw new MimirorgBadRequestException($"Latest node version for node with id {id} not found (null).");
-
-            if (string.IsNullOrWhiteSpace(latestNodeDm.Version))
-                throw new MimirorgBadRequestException($"Latest version for node with id {id} has null or empty as version number.");
-
-            var latestNodeVersion = double.Parse(latestNodeDm.Version, CultureInfo.InvariantCulture);
-            var nodeToUpdateVersion = double.Parse(nodeToUpdate.Version, CultureInfo.InvariantCulture);
-
-            if (latestNodeVersion > nodeToUpdateVersion)
-                throw new MimirorgBadRequestException($"Not allowed to update node with id {nodeToUpdate.Id} and version {nodeToUpdateVersion}. Latest version is node with id {latestNodeDm.Id} and version {latestNodeVersion}");
-
-            await _nodeRepository.UpdateState(id, state);
-            _nodeRepository.ClearAllChangeTrackers();
-
-            var cm = await Get(id);
-
-            if (cm != null)
-                _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
-
-            return cm;
+            await _nodeRepository.ChangeState(state, new List<string> { id });
+            _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
+            return state == State.Deleted ? null : GetLatestVersion(id);
         }
 
-        public async Task<bool> Delete(string id)
+        /// <summary>
+        /// Get node existing company id for terminal by id
+        /// </summary>
+        /// <param name="id">The node id</param>
+        /// <returns>Company id for node</returns>
+        public async Task<int> GetCompanyId(string id)
         {
-            try
-            {
-                var deleted = await _nodeRepository.Remove(id);
-
-                if (deleted)
-                    _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
-
-                return deleted;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
-        public async Task<bool> CompanyIsChanged(string nodeId, int companyId)
-        {
-            var node = await Get(nodeId);
-
-            if (node == null)
-                throw new MimirorgNotFoundException($"Couldn't find node with id: {nodeId}");
-
-            return node.CompanyId != companyId;
+            return await _nodeRepository.HasCompany(id);
         }
     }
 }

@@ -99,27 +99,26 @@ namespace Mimirorg.Setup
 
         private static async Task<bool> SeedTerminalData(ITerminalService terminalService)
         {
-            var terminals = new List<TerminalLibAm>
+            var terminalA = new TerminalLibAm
             {
-                new()
-                {
-                    Name = "Information",
-                    Color = "#006600",
-                    ParentId = null,
-                    CompanyId = 1,
-                    AttributeIdList = null
-                },
-                new()
-                {
-                    Name = "Automation System 87",
-                    Color = "#00CC66",
-                    ParentId = "201B169264C4F9249039054BCCDD4494",
-                    CompanyId = 1,
-                    AttributeIdList = new List<string> {"CA20DF193D58238C3C557A0316C15533"}
-                }
+                Name = "Information",
+                Color = "#006600",
+                ParentId = null,
+                CompanyId = 1,
+                AttributeIdList = null
             };
 
-            await terminalService.Create(terminals);
+            var terminalB = new TerminalLibAm
+            {
+                Name = "Automation System 87",
+                Color = "#00CC66",
+                ParentId = "201B169264C4F9249039054BCCDD4494",
+                CompanyId = 1,
+                AttributeIdList = new List<string> { "CA20DF193D58238C3C557A0316C15533" }
+            };
+
+            await terminalService.Create(terminalA, true);
+            await terminalService.Create(terminalB, true);
             return true;
         }
     }

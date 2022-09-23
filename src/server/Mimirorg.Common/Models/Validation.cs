@@ -20,7 +20,18 @@ namespace Mimirorg.Common.Models
             IsValid = isValid;
             Result = new List<ValidationResult>
             {
-                new ValidationResult(message, new List<string> {key})
+                new(message, new List<string> {key})
+            };
+        }
+
+        public Validation(IEnumerable<string> keys, string message, bool isValid = false)
+        {
+            Result = new List<ValidationResult>();
+            Message = message;
+            IsValid = isValid;
+            Result = new List<ValidationResult>
+            {
+                new(message, keys)
             };
         }
 

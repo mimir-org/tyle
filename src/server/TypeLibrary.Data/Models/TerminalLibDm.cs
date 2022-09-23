@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Mimirorg.Common.Contracts;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -9,7 +11,7 @@ using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models
 {
-    public class TerminalLibDm : IVersionable<TerminalLibAm>
+    public class TerminalLibDm : IVersionable<TerminalLibAm>, IVersionObject
     {
         public string Id { get; set; }
         public string ParentId { get; set; }

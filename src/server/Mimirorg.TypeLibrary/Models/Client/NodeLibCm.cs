@@ -1,3 +1,4 @@
+using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Client
@@ -24,6 +25,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string Description { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
+        public ICollection<NodeLibCm> Children { get; set; }
         public ICollection<NodeTerminalLibCm> NodeTerminals { get; set; }
         public ICollection<AttributeLibCm> Attributes { get; set; }
         public ICollection<SimpleLibCm> Simples { get; set; }

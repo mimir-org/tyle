@@ -10,6 +10,10 @@ namespace TypeLibrary.Data.Configurations
         public void Configure(EntityTypeBuilder<TransportLibDm> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.HasIndex(x => x.State).IsUnique(false);
+            builder.HasIndex(x => new { x.State, x.Aspect }).IsUnique(false);
+            builder.HasIndex(x => x.FirstVersionId).IsUnique(false);
+            builder.HasIndex(x => new { x.ParentId }).IsUnique(false);
             builder.ToTable("Transport");
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(127);
             builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired().HasMaxLength(255);

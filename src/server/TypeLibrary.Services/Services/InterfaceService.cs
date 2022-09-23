@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
@@ -60,23 +61,15 @@ namespace TypeLibrary.Services.Services
 
         public async Task<IEnumerable<InterfaceLibCm>> GetLatestVersions()
         {
-            var distinctFirstVersionIdDm = _interfaceRepository.Get()?.ToList().Where(x => x.State != State.Deleted).DistinctBy(x => x.FirstVersionId).ToList();
-
-            if (distinctFirstVersionIdDm == null || !distinctFirstVersionIdDm.Any())
-                return await Task.FromResult(new List<InterfaceLibCm>());
-
-            var interfaces = new List<InterfaceLibDm>();
-
-            foreach (var dm in distinctFirstVersionIdDm)
-                interfaces.Add(await _versionService.GetLatestVersion(dm));
-
-            interfaces = interfaces.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var interfaces = _interfaceRepository.Get()
+                .Where(x => x.State != State.Deleted)
+                .LatestVersion()
+                .ToList()
+                .OrderBy(x => x.Aspect)
+                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase)
+                .ToList();
 
             var interfaceLibCms = _mapper.Map<List<InterfaceLibCm>>(interfaces);
-
-            if (interfaces.Any() && (interfaceLibCms == null || !interfaceLibCms.Any()))
-                throw new MimirorgMappingException("List<InterfaceLibDm>", "ICollection<InterfaceLibAm>");
-
             return await Task.FromResult(interfaceLibCms ?? new List<InterfaceLibCm>());
         }
 

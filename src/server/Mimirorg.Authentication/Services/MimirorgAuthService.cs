@@ -2,9 +2,12 @@ using System.Security.Authentication;
 using System.Security.Claims;
 using AspNetCore.Totp;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Authentication.Contracts;
+using Mimirorg.Authentication.Extensions;
 using Mimirorg.Authentication.Models.Domain;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Enums;
@@ -20,13 +23,15 @@ namespace Mimirorg.Authentication.Services
         private readonly SignInManager<MimirorgUser> _signInManager;
         private readonly IMimirorgTokenRepository _tokenRepository;
         private readonly IMimirorgCompanyService _mimirorgCompanyService;
+        private readonly IActionContextAccessor _actionContextAccessor;
 
-        public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IMimirorgCompanyService mimirorgCompanyService)
+        public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IMimirorgCompanyService mimirorgCompanyService, IActionContextAccessor actionContextAccessor)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenRepository = tokenRepository;
             _mimirorgCompanyService = mimirorgCompanyService;
+            _actionContextAccessor = actionContextAccessor;
             _roleManager = roleManager;
         }
 
@@ -286,6 +291,26 @@ namespace Mimirorg.Authentication.Services
             status = await _userManager.AddClaimsAsync(user, newClaims);
             return status.Succeeded;
         }
+
+        public Task<bool> HasAccess(int companyId, State state)
+        {
+            var permission = state switch
+            {
+                State.Draft => MimirorgPermission.Write,
+                State.ApproveCompany => MimirorgPermission.Write,
+                State.ApproveGlobal => MimirorgPermission.Write,
+                State.Delete => MimirorgPermission.Write,
+                State.ApprovedCompany => MimirorgPermission.Approve,
+                State.ApprovedGlobal => MimirorgPermission.Approve,
+                State.Deleted => MimirorgPermission.Delete,
+                _ => throw new ArgumentOutOfRangeException(nameof(state), state, null)
+            };
+
+            var access = _actionContextAccessor.ActionContext?.HttpContext.HasPermission(permission, companyId.ToString());
+            return Task.FromResult(access ?? false);
+        }
+
+
 
         #endregion
     }

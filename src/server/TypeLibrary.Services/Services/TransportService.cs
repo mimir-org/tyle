@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
@@ -60,23 +61,14 @@ namespace TypeLibrary.Services.Services
 
         public async Task<IEnumerable<TransportLibCm>> GetLatestVersions()
         {
-            var distinctFirstVersionIdDm = _transportRepository.Get()?.ToList().Where(x => x.State != State.Deleted).DistinctBy(x => x.FirstVersionId).ToList();
-
-            if (distinctFirstVersionIdDm == null || !distinctFirstVersionIdDm.Any())
-                return await Task.FromResult(new List<TransportLibCm>());
-
-            var transports = new List<TransportLibDm>();
-
-            foreach (var dm in distinctFirstVersionIdDm)
-                transports.Add(await _versionService.GetLatestVersion(dm));
-
-            transports = transports.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var transports = _transportRepository.Get()
+                .Where(x => x.State != State.Deleted).LatestVersion()
+                .ToList()
+                .OrderBy(x => x.Aspect)
+                .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase)
+                .ToList();
 
             var transportLibCms = _mapper.Map<List<TransportLibCm>>(transports);
-
-            if (transports.Any() && (transportLibCms == null || !transportLibCms.Any()))
-                throw new MimirorgMappingException("List<TransportLibDm>", "ICollection<TransportLibAm>");
-
             return await Task.FromResult(transportLibCms ?? new List<TransportLibCm>());
         }
 

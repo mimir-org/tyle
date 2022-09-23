@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Mimirorg.Common.Contracts;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Setup;
 using Mimirorg.Setup.Fixtures;
@@ -41,6 +42,12 @@ namespace Mimirorg.Unit.Tests.Extensions
                 },
                 new DummyVersionObject
                 {
+                    State = State.Deleted,
+                    FirstVersionId = "123",
+                    Version = "5.0"
+                },
+                new DummyVersionObject
+                {
                     FirstVersionId = "123",
                     Version = "2.1"
                 },
@@ -59,6 +66,7 @@ namespace Mimirorg.Unit.Tests.Extensions
 
         protected internal class DummyVersionObject : IVersionObject
         {
+            public State State { get; set; }
             public string FirstVersionId { get; set; }
             public string Version { get; set; }
         }

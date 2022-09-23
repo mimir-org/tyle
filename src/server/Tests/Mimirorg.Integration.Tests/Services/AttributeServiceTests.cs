@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Mimirorg.Common.Enums;
 using Mimirorg.Setup;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -57,11 +58,12 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.True(updatedAttribute2.Version == "2.0");
             Assert.True(updatedAttribute3.Version == "2.1");
 
-            var latestVersion = await attributeService.GetLatestVersions(Aspect.None);
-            var latestVersion2 = await attributeService.GetLatestVersions(Aspect.Function);
+            var allObjects = await attributeService.GetLatestVersions(Aspect.None);
+            var actualObjects = allObjects.Where(x => x.Name == "First_Version_Attribute_XXX").ToList();
 
-            Assert.True(latestVersion.FirstOrDefault()?.Version == "2.1");
-            Assert.True(latestVersion2.FirstOrDefault()?.Version == "2.1");
+            Assert.NotNull(actualObjects);
+            Assert.True(actualObjects.Count == 1);
+            Assert.True(actualObjects.FirstOrDefault()?.Version == "2.1");
         }
 
         [Fact]

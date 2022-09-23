@@ -375,9 +375,15 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FirstVersionId");
+
                     b.HasIndex("ParentId");
 
+                    b.HasIndex("State");
+
                     b.HasIndex("TerminalId");
+
+                    b.HasIndex("State", "Aspect");
 
                     b.ToTable("Interface", (string)null);
                 });
@@ -485,7 +491,13 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FirstVersionId");
+
                     b.HasIndex("ParentId");
+
+                    b.HasIndex("State");
+
+                    b.HasIndex("State", "Aspect");
 
                     b.ToTable("Node", (string)null);
                 });
@@ -688,7 +700,11 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FirstVersionId");
+
                     b.HasIndex("ParentId");
+
+                    b.HasIndex("State");
 
                     b.ToTable("Terminal", (string)null);
                 });
@@ -789,9 +805,15 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FirstVersionId");
+
                     b.HasIndex("ParentId");
 
+                    b.HasIndex("State");
+
                     b.HasIndex("TerminalId");
+
+                    b.HasIndex("State", "Aspect");
 
                     b.ToTable("Transport", (string)null);
                 });

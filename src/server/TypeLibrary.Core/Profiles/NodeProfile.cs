@@ -63,6 +63,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Symbol, opt => opt.MapFrom(src => src.Symbol))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy))
+                .ForMember(dest => dest.Children, opt => opt.MapFrom(src => src.Children))
                 .ForMember(dest => dest.NodeTerminals, opt => opt.MapFrom(src => src.NodeTerminals))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes))
                 .ForMember(dest => dest.Simples, opt => opt.MapFrom(src => src.Simples))

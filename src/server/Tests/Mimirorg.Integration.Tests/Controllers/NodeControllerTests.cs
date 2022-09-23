@@ -78,7 +78,7 @@ namespace Mimirorg.Integration.Tests.Controllers
             }).CreateClient(new WebApplicationFactoryClientOptions());
 
             var response = await client.GetAsync(endpoint);
-            Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
     }
 }

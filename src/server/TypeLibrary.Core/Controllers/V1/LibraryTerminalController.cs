@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -32,12 +33,14 @@ namespace TypeLibrary.Core.Controllers.V1
         private readonly ILogger<LibraryTerminalController> _logger;
         private readonly ITerminalService _terminalService;
         private readonly IMimirorgUserService _userService;
+        private readonly IMimirorgAuthService _authService;
 
-        public LibraryTerminalController(ILogger<LibraryTerminalController> logger, ITerminalService terminalService, IMimirorgUserService userService)
+        public LibraryTerminalController(ILogger<LibraryTerminalController> logger, ITerminalService terminalService, IMimirorgUserService userService, IMimirorgAuthService authService)
         {
             _logger = logger;
             _terminalService = terminalService;
             _userService = userService;
+            _authService = authService;
         }
 
         /// <summary>
@@ -72,19 +75,19 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [AllowAnonymous]
-        public async Task<IActionResult> GetTerminal(string id)
+        public IActionResult GetTerminal(string id)
         {
             try
             {
-                var data = await _terminalService.Get(id);
+                var data = _terminalService.GetLatestVersion(id);
                 if (data == null)
                     return NotFound(id);
 
                 return Ok(data);
             }
-            catch (MimirorgNotFoundException)
+            catch (MimirorgNotFoundException e)
             {
-                return NotFound(id);
+                return NotFound(e.Message);
             }
             catch (Exception e)
             {
@@ -117,8 +120,6 @@ namespace TypeLibrary.Core.Controllers.V1
             }
             catch (MimirorgBadRequestException e)
             {
-                _logger.LogWarning(e, $"Warning error: {e.Message}");
-
                 foreach (var error in e.Errors().ToList())
                 {
                     ModelState.Remove(error.Key);
@@ -157,17 +158,19 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var companyIsChanged = await _terminalService.CompanyIsChanged(id, terminal.CompanyId);
-                if (companyIsChanged)
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                var companyId = await _terminalService.GetCompanyId(terminal.Id);
+
+                if (companyId != terminal.CompanyId)
                     return StatusCode(StatusCodes.Status403Forbidden);
 
-                var data = await _terminalService.Update(terminal, id);
+                var data = await _terminalService.Update(terminal);
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)
             {
-                _logger.LogWarning(e, $"Warning error: {e.Message}");
-
                 foreach (var error in e.Errors().ToList())
                 {
                     ModelState.Remove(error.Key);
@@ -195,75 +198,18 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //TODO: *************************************
-        //TODO: Set correct authorization requirement
-        //TODO: *************************************
+        [Authorize]
         public async Task<IActionResult> UpdateState([FromBody] State state, [FromRoute] string id)
         {
             try
             {
+                var companyId = await _terminalService.GetCompanyId(id);
+                var hasAccess = await _authService.HasAccess(companyId, state);
+                if (!hasAccess)
+                    return StatusCode(StatusCodes.Status403Forbidden);
+
                 var data = await _terminalService.UpdateState(id, state);
                 return Ok(data);
-            }
-            catch (MimirorgBadRequestException e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(400, e.Message);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        /// <summary>
-        /// Delete a terminal
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>200</returns>
-        [HttpDelete]
-        [Route("{id}")]
-        [ProducesResponseType(typeof(bool), 200)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [SwaggerOperation("Delete a terminal")]
-        [Authorize]
-        public async Task<IActionResult> Delete([FromRoute] string id)
-        {
-            try
-            {
-                var terminalLibCm = await _terminalService.Get(id);
-
-                if (terminalLibCm == null)
-                    return NotFound($"Can't find terminal with id: {id}");
-
-                var currentUser = await _userService.GetUser(HttpContext.User);
-                if (!currentUser.Permissions.TryGetValue(terminalLibCm.CompanyId, out var permission))
-                    return StatusCode(StatusCodes.Status403Forbidden);
-
-                if (!permission.HasFlag(MimirorgPermission.Delete))
-                    return StatusCode(StatusCodes.Status403Forbidden);
-
-                var data = await _terminalService.Delete(id);
-                return Ok(data);
-            }
-            catch (MimirorgBadRequestException e)
-            {
-                _logger.LogWarning(e, $"Warning error: {e.Message}");
-
-                foreach (var error in e.Errors().ToList())
-                {
-                    ModelState.Remove(error.Key);
-                    ModelState.TryAddModelError(error.Key, error.Error);
-                }
-
-                return BadRequest(ModelState);
-            }
-            catch (MimirorgNotFoundException)
-            {
-                return NoContent();
             }
             catch (Exception e)
             {

@@ -50,11 +50,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [AllowAnonymous]
-        public async Task<IActionResult> GetNode(string id)
+        public IActionResult GetNode(string id)
         {
             try
             {
-                var data = await _nodeService.Get(id);
+                var data = _nodeService.GetLatestVersion(id);
                 if (data == null)
                     return NoContent();
 

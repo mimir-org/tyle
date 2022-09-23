@@ -12,6 +12,7 @@ namespace Mimirorg.Common.Abstract
         IQueryable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate, bool noTracking = true);
         Task<TEntity> GetAsync(int id);
         Task<TEntity> GetAsync(string id);
+        Task<bool> Exist(Expression<Func<TEntity, bool>> predicate);
         Task<EntityEntry<TEntity>> CreateAsync(TEntity entity);
         void Update(TEntity entity);
         Task Delete(int id);

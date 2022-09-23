@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Mimirorg.TypeLibrary.Enums
+namespace Mimirorg.Common.Enums
 {
     public enum State
     {
