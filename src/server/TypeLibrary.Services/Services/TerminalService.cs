@@ -93,12 +93,12 @@ namespace TypeLibrary.Services.Services
 
             var dm = _mapper.Map<TerminalLibDm>(terminal);
             dm.State = State.Draft;
-            
+
             await _terminalRepository.Create(dm);
             _terminalRepository.ClearAllChangeTrackers();
 
             _hookService.HookQueue.Enqueue(CacheKey.Terminal);
-            return _mapper.Map<TerminalLibCm>(dm);
+            return GetLatestVersion(dm.Id);
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace TypeLibrary.Services.Services
             if (terminalToUpdate == null)
                 throw new MimirorgNotFoundException($"Terminal with id {id} does not exist, update is not possible.");
 
-            await _terminalRepository.ChangeState(state, new List<string> {id});
+            await _terminalRepository.ChangeState(state, new List<string> { id });
             _hookService.HookQueue.Enqueue(CacheKey.Terminal);
             return state == State.Deleted ? null : GetLatestVersion(id);
         }

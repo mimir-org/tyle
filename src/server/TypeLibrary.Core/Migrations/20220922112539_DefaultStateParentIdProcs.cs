@@ -52,7 +52,7 @@ namespace TypeLibrary.Core.Migrations
                     EXECUTE sp_executesql @SqlSelect                    
                 END
             ";
-            
+
             var hasCompany = @"CREATE OR ALTER PROCEDURE dbo.HasCompany @TableName VARCHAR(128), @Id VARCHAR(128)
                 AS
                 BEGIN

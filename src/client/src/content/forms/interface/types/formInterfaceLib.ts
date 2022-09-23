@@ -3,6 +3,7 @@ import { UpdateEntity } from "../../../../data/types/updateEntity";
 import { createEmptyInterfaceLibAm } from "../../../../models/tyle/application/interfaceLibAm";
 import { mapInterfaceLibCmToInterfaceLibAm } from "../../../../utils/mappers";
 import { ValueObject } from "../../types/valueObject";
+import { InterfaceFormMode } from "./interfaceFormMode";
 
 /**
  * This type functions as a layer between client needs and the backend model.
@@ -28,9 +29,13 @@ export const createEmptyFormInterfaceLib = (): FormInterfaceLib => ({
   attributeIdList: [],
 });
 
-export const mapInterfaceLibCmToFormInterfaceLib = (interfaceLibCm: InterfaceLibCm): FormInterfaceLib => ({
+export const mapInterfaceLibCmToFormInterfaceLib = (
+  interfaceLibCm: InterfaceLibCm,
+  mode?: InterfaceFormMode
+): FormInterfaceLib => ({
   ...mapInterfaceLibCmToInterfaceLibAm(interfaceLibCm),
   id: interfaceLibCm.id,
+  parentId: mode === "clone" ? interfaceLibCm.id : interfaceLibCm.parentId,
   attributeIdList: interfaceLibCm.attributes.map((x) => ({
     value: x.id,
   })),

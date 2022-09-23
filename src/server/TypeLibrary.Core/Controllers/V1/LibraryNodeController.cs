@@ -81,7 +81,7 @@ namespace TypeLibrary.Core.Controllers.V1
                     return BadRequest(ModelState);
 
                 var data = _nodeService.GetLatestVersion(id);
-                
+
                 if (data == null)
                     return NotFound(id);
 
@@ -156,7 +156,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [MimirorgAuthorize(MimirorgPermission.Write, "dataAm", "CompanyId")]
+        [MimirorgAuthorize(MimirorgPermission.Write, "node", "CompanyId")]
         public async Task<IActionResult> Update([FromBody] NodeLibAm node, [FromRoute] string id)
         {
             try

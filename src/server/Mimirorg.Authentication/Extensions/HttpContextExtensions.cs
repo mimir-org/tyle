@@ -21,7 +21,7 @@ namespace Mimirorg.Authentication.Extensions
             if (MimirorgPermission.Delete.HasFlag(permission) && context.User.IsInRole(MimirorgDefaultRoles.Moderator))
                 return true;
 
-            if(value == null)
+            if (value == null)
                 return false;
 
             var userPermission = GetUserPermission(context, value);

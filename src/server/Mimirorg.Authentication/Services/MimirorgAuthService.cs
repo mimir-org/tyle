@@ -310,7 +310,7 @@ namespace Mimirorg.Authentication.Services
             return Task.FromResult(access ?? false);
         }
 
-        
+
 
         #endregion
     }

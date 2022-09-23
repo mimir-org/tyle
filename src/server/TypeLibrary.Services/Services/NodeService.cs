@@ -54,7 +54,7 @@ namespace TypeLibrary.Services.Services
         {
             var nodes = _nodeRepository.Get().LatestVersion().ToList();
             nodes = nodes.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
-            
+
             foreach (var node in nodes)
                 node.Children = nodes.Where(x => x.ParentId == node.Id).ToList();
 
@@ -73,7 +73,7 @@ namespace TypeLibrary.Services.Services
         /// They will have the same first version id, but have different version and id.</remarks>
         public async Task<NodeLibCm> Create(NodeLibAm node, bool resetVersion)
         {
-            if(node == null) 
+            if (node == null)
                 throw new ArgumentNullException(nameof(node));
 
             var validation = node.ValidateObject();
@@ -97,7 +97,7 @@ namespace TypeLibrary.Services.Services
             _nodeRepository.ClearAllChangeTrackers();
 
             _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
-            return _mapper.Map<NodeLibCm>(dm);
+            return GetLatestVersion(dm.Id);
         }
 
         /// <summary>

@@ -41,7 +41,7 @@ namespace Mimirorg.Authentication.Models.Attributes
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var isAuthorized = !string.IsNullOrEmpty(context.HttpContext.User.Identity?.Name);
-            var propValue = GetClaimTypeValue(context);
+            var propValue = !string.IsNullOrWhiteSpace(_property) ? GetClaimTypeValue(context) : null;
 
             var hasPermission = context.HttpContext.HasPermission(_permission, propValue);
 

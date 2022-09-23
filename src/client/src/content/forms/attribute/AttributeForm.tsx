@@ -16,6 +16,7 @@ import { showSelectValues, useAttributeQuery } from "./AttributeForm.helpers";
 import { AttributeFormContainer } from "./AttributeForm.styled";
 import { AttributeFormBaseFields } from "./AttributeFormBaseFields";
 import { attributeSchema } from "./attributeSchema";
+import { AttributeFormMode } from "./types/attributeFormMode";
 import {
   createEmptyFormAttributeLib,
   FormAttributeLib,
@@ -27,7 +28,7 @@ import { AttributeFormValues } from "./values/AttributeFormValues";
 
 interface AttributeFormProps {
   defaultValues?: FormAttributeLib;
-  isEdit?: boolean;
+  mode?: AttributeFormMode;
 }
 
 export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }: AttributeFormProps) => {

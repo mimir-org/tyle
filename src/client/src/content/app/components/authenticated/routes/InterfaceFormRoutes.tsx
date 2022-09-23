@@ -3,6 +3,6 @@ import { InterfaceForm } from "../../../../forms/interface/InterfaceForm";
 
 export const interfaceFormRoutes: RouteObject[] = [
   { path: "form/interface", element: <InterfaceForm /> },
-  { path: "form/interface/clone/:id", element: <InterfaceForm /> },
-  { path: "form/interface/edit/:id", element: <InterfaceForm isEdit /> },
+  { path: "form/interface/clone/:id", element: <InterfaceForm mode={"clone"} /> },
+  { path: "form/interface/edit/:id", element: <InterfaceForm mode={"edit"} /> },
 ];

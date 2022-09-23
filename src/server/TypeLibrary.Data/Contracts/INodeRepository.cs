@@ -56,7 +56,7 @@ namespace TypeLibrary.Data.Contracts
         /// <param name="node">The node to be created</param>
         /// <returns>The created node</returns>
         Task<NodeLibDm> Create(NodeLibDm node);
-        
+
         /// <summary>
         /// Clear all entity framework change trackers
         /// </summary>

@@ -162,10 +162,10 @@ namespace TypeLibrary.Core.Controllers.V1
                     return BadRequest(ModelState);
 
                 var companyId = await _terminalService.GetCompanyId(terminal.Id);
-                
+
                 if (companyId != terminal.CompanyId)
                     return StatusCode(StatusCodes.Status403Forbidden);
-                
+
                 var data = await _terminalService.Update(terminal);
                 return Ok(data);
             }
@@ -205,7 +205,7 @@ namespace TypeLibrary.Core.Controllers.V1
             {
                 var companyId = await _terminalService.GetCompanyId(id);
                 var hasAccess = await _authService.HasAccess(companyId, state);
-                if(!hasAccess)
+                if (!hasAccess)
                     return StatusCode(StatusCodes.Status403Forbidden);
 
                 var data = await _terminalService.UpdateState(id, state);
