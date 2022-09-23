@@ -33,7 +33,7 @@ export const InfoItemDescription = ({
   return (
     <Box as={"section"} display={"flex"} flexDirection={"column"} width={"118px"} gap={theme.tyle.spacing.l}>
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.base}>
-        <Flexbox justifyContent={"space-between"} alignItems={"center"}>
+        <Flexbox gap={theme.tyle.spacing.s} justifyContent={"space-between"} alignItems={"center"}>
           <Text variant={"title-small"}>{name}</Text>
           {actionable && onAction && (
             <Button
@@ -42,6 +42,7 @@ export const InfoItemDescription = ({
               onClick={onAction}
               icon={actionIcon}
               iconOnly
+              flexShrink={"0"}
             >
               {actionText}
             </Button>
@@ -59,10 +60,10 @@ export const InfoItemDescription = ({
       >
         {descriptors &&
           Object.keys(descriptors).map((k, i) => (
-            <Text key={i} variant={"body-small"} textTransform={"capitalize"}>
-              <Box as={"span"} color={theme.tyle.color.sys.secondary.base}>
+            <Text key={i} variant={"body-small"} color={theme.tyle.color.sys.primary.on}>
+              <Text as={"span"} color={theme.tyle.color.sys.secondary.base} textTransform={"capitalize"}>
                 {k}:{" "}
-              </Box>
+              </Text>
               {descriptors[k]}
             </Text>
           ))}
