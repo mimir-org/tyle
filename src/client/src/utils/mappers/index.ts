@@ -6,6 +6,8 @@ export { mapNodeTerminalLibCmsToNodeTerminalItems } from "./mapNodeTerminalLibCm
 export { mapNodeTerminalLibCmToNodeTerminalLibAm } from "./mapNodeTerminalLibCmToNodeTerminalLibAm";
 export { mapNodeTerminalLibCmsToNodeTerminalLibAms } from "./mapNodeTerminalLibCmToNodeTerminalLibAm";
 
+export { mapUnitLibCmToInfoItem } from "./mapUnitLibCmToInfoItem";
+
 export { mapAttributeLibCmToInfoItem } from "./mapAttributeLibCmToInfoItem";
 export { mapAttributeLibCmsToInfoItems } from "./mapAttributeLibCmToInfoItem";
 
