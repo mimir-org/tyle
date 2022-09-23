@@ -3,6 +3,7 @@ import { UpdateEntity } from "../../../../data/types/updateEntity";
 import { createEmptyTransportLibAm } from "../../../../models/tyle/application/transportLibAm";
 import { mapTransportLibCmToTransportLibAm } from "../../../../utils/mappers";
 import { ValueObject } from "../../types/valueObject";
+import { TransportFormMode } from "./transportFormMode";
 
 /**
  * This type functions as a layer between client needs and the backend model.
@@ -28,9 +29,13 @@ export const createEmptyFormTransportLib = (): FormTransportLib => ({
   attributeIdList: [],
 });
 
-export const mapTransportLibCmToFormTransportLib = (transportLibCm: TransportLibCm): FormTransportLib => ({
+export const mapTransportLibCmToFormTransportLib = (
+  transportLibCm: TransportLibCm,
+  mode?: TransportFormMode
+): FormTransportLib => ({
   ...mapTransportLibCmToTransportLibAm(transportLibCm),
   id: transportLibCm.id,
+  parentId: mode === "clone" ? transportLibCm.id : transportLibCm.parentId,
   attributeIdList: transportLibCm.attributes.map((x) => ({
     value: x.id,
   })),

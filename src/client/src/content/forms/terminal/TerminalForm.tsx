@@ -1,5 +1,6 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { TerminalLibCm } from "@mimirorg/typelibrary-types";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
@@ -21,13 +22,14 @@ import {
   mapFormTerminalLibToApiModel,
   mapTerminalLibCmToFormTerminalLib,
 } from "./types/formTerminalLib";
+import { TerminalFormMode } from "./types/terminalFormMode";
 
 interface TerminalFormProps {
   defaultValues?: FormTerminalLib;
-  isEdit?: boolean;
+  mode?: TerminalFormMode;
 }
 
-export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), isEdit }: TerminalFormProps) => {
+export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mode }: TerminalFormProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -41,9 +43,10 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), isE
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
   const query = useTerminalQuery();
-  const [_, isLoading] = usePrefilledForm(query, mapTerminalLibCmToFormTerminalLib, reset);
+  const mapper = (source: TerminalLibCm) => mapTerminalLibCmToFormTerminalLib(source, mode);
+  const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
-  const mutation = useTerminalMutation(isEdit);
+  const mutation = useTerminalMutation(mode);
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 

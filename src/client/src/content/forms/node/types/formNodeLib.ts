@@ -7,6 +7,7 @@ import {
   FormSelectedAttributePredefinedLib,
   mapFormSelectedAttributePredefinedLibToApiModel,
 } from "./formSelectedAttributePredefinedLib";
+import { NodeFormMode } from "./nodeFormMode";
 
 /**
  * This type functions as a layer between client needs and the backend model.
@@ -36,9 +37,10 @@ export const createEmptyFormNodeLib = (): FormNodeLib => ({
   selectedAttributePredefined: [],
 });
 
-export const mapNodeLibCmToFormNodeLib = (nodeLibCm: NodeLibCm): FormNodeLib => ({
+export const mapNodeLibCmToFormNodeLib = (nodeLibCm: NodeLibCm, mode?: NodeFormMode): FormNodeLib => ({
   ...mapNodeLibCmToNodeLibAm(nodeLibCm),
   id: nodeLibCm.id,
+  parentId: mode === "clone" ? nodeLibCm.id : nodeLibCm.parentId,
   attributeIdList: nodeLibCm.attributes.map((x) => ({
     value: x.id,
   })),

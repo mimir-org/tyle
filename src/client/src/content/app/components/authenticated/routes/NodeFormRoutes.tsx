@@ -3,6 +3,6 @@ import { NodeForm } from "../../../../forms/node/NodeForm";
 
 export const nodeFormRoutes: RouteObject[] = [
   { path: "form/node", element: <NodeForm /> },
-  { path: "form/node/clone/:id", element: <NodeForm /> },
-  { path: "form/node/edit/:id", element: <NodeForm isEdit /> },
+  { path: "form/node/clone/:id", element: <NodeForm mode={"clone"} /> },
+  { path: "form/node/edit/:id", element: <NodeForm mode={"edit"} /> },
 ];
