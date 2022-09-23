@@ -9,6 +9,7 @@ import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { useServerValidation } from "../../../hooks/useServerValidation";
 import { Loader } from "../../common/loader";
 import { FormReferences } from "../common/form-references/FormReferences";
+import { FormUnits } from "../common/form-units/FormUnits";
 import { onSubmitForm } from "../common/utils/onSubmitForm";
 import { usePrefilledForm } from "../common/utils/usePrefilledForm";
 import { useSubmissionToast } from "../common/utils/useSubmissionToast";
@@ -23,7 +24,6 @@ import {
   mapAttributeLibCmToFormAttributeLib,
   mapFormAttributeLibToApiModel,
 } from "./types/formAttributeLib";
-import { AttributeFormUnits } from "./units/AttributeFormUnits";
 import { AttributeFormValues } from "./values/AttributeFormValues";
 
 interface AttributeFormProps {
@@ -67,8 +67,8 @@ export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }:
             <AttributeFormBaseFields isPrefilled={isPrefilled} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
-              <AttributeFormUnits />
               <FormReferences references={attributeReferences.data ?? []} isLoading={attributeReferences.isLoading} />
+              <FormUnits />
               {showSelectValues(attributeSelect) && <AttributeFormValues />}
             </Box>
           </>
