@@ -18,7 +18,7 @@ export interface FormReferencesProps {
 
 /**
  * Reusable form section for adding references to models that support them
- * Excepts to be used in a context of useForm<T> where T has a typeReference property
+ * Expects to be used in a context of useForm<T> where T has a typeReference property
  *
  * @param references list of references which the user can pick from
  * @param isLoading fetch status of reference data
