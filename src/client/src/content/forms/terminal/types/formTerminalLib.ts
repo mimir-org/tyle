@@ -35,6 +35,7 @@ export const mapTerminalLibCmToFormTerminalLib = (
 ): FormTerminalLib => ({
   ...mapTerminalLibCmToTerminalLibAm(terminalLibCm),
   id: terminalLibCm.id,
+  parentId: mode === "clone" ? terminalLibCm.id : terminalLibCm.parentId,
   attributeIdList: terminalLibCm.attributes.map((x) => ({
     value: x.id,
   })),
