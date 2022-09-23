@@ -1,4 +1,5 @@
 using System.Security.Authentication;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -83,6 +84,8 @@ namespace Mimirorg.Authentication.Contracts
         /// <exception cref="MimirorgBadRequestException"></exception>
         /// <exception cref="MimirorgNotFoundException"></exception>
         Task<bool> SetPermissions(MimirorgUserPermissionAm userPermission);
+
+        Task<bool> HasAccess(int companyId, State state);
 
         #endregion
     }

@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Setup;
-using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -131,13 +131,11 @@ namespace Mimirorg.Integration.Tests.Services
             var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
 
             var terminalCm = await terminalService.Create(terminalAm, true);
-            var isDeleted = await terminalService.Delete(terminalCm?.Id);
+            var deletedTerminal = await terminalService.UpdateState(terminalCm?.Id, State.Deleted);
             var allTerminalsNotDeleted = terminalService.GetLatestVersions();
-            var allTerminalsIncludeDeleted = terminalService.GetLatestVersions(true);
-
-            Assert.True(isDeleted);
+            
+            Assert.True(deletedTerminal == null);
             Assert.True(string.IsNullOrEmpty(allTerminalsNotDeleted?.FirstOrDefault(x => x.Id == terminalCm?.Id)?.Id));
-            Assert.True(!string.IsNullOrEmpty(allTerminalsIncludeDeleted?.FirstOrDefault(x => x.Id == terminalCm?.Id)?.Id));
         }
 
         [Fact]

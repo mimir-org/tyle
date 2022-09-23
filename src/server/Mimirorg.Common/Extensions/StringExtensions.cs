@@ -44,7 +44,7 @@ namespace Mimirorg.Common.Extensions
                 return null;
 
             var returnValue = values.Aggregate(string.Empty, (current, value) => current + $"{value},");
-            return returnValue.TrimEnd(',');
+            return returnValue.TrimEnd(',').RemoveWhitespaces().Trim();
         }
 
         public static string ConvertToUriString(this ICollection<string> values)

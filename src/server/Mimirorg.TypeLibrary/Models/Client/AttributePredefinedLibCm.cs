@@ -1,3 +1,4 @@
+using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Client

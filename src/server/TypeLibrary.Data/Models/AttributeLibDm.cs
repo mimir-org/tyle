@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using Mimirorg.Common.Contracts;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Contracts;

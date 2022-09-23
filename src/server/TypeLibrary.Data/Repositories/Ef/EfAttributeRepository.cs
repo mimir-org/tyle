@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Abstract;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
-using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 

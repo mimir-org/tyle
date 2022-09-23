@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.Common.Enums;
 using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts
 {
     public interface ITransportRepository
     {
+        Task<int> ChangeParentId(string oldId, string newId);
         IEnumerable<TransportLibDm> Get();
         Task<TransportLibDm> Get(string id);
         Task UpdateState(string id, State state);

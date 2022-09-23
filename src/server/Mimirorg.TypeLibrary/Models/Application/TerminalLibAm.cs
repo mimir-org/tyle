@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using Mimirorg.Common.Attributes;
 using Mimirorg.TypeLibrary.Extensions;
 using TypeScriptBuilder;
+// ReSharper disable InconsistentNaming
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {

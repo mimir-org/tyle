@@ -11,7 +11,6 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Api;
 using TypeLibrary.Data;
-using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace Mimirorg.Setup

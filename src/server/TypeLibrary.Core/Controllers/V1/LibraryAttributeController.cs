@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;

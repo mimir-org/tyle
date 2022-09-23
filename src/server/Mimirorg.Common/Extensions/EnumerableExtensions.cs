@@ -1,5 +1,6 @@
 using System.Globalization;
 using Mimirorg.Common.Contracts;
+using Mimirorg.Common.Enums;
 
 namespace Mimirorg.Common.Extensions
 {
@@ -18,7 +19,7 @@ namespace Mimirorg.Common.Extensions
 
         public static IEnumerable<T> LatestVersion<T>(this IEnumerable<T> collection) where T : IVersionObject
         {
-            return collection.OrderByDescending(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).DistinctBy(x => x.FirstVersionId);
+            return collection.Where(x => x.State != State.Deleted).OrderByDescending(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).DistinctBy(x => x.FirstVersionId);
         }
     }
 }

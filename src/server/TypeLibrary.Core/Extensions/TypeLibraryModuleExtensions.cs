@@ -38,6 +38,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddSingleton<ICacheRepository, InMemoryCacheRepository>();
 
             // Dependency Injection - Repositories
+            services.AddScoped<ITypeLibraryProcRepository, TypeLibraryProcRepository>();
             services.AddSingleton<IApplicationSettingsRepository, ApplicationSettingsRepository>();
             services.AddScoped<IEfAttributeRepository, EfAttributeRepository>();
             services.AddScoped<IEfSimpleRepository, EfSimpleRepository>();

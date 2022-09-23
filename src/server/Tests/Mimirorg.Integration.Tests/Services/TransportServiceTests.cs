@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Setup;
 using Mimirorg.TypeLibrary.Enums;

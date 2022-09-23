@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Contracts;
-using Mimirorg.TypeLibrary.Enums;
 
 namespace TypeLibrary.Data.Models
 {

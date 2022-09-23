@@ -1,5 +1,5 @@
-using Mimirorg.TypeLibrary.Enums;
 using System;
+using Mimirorg.Common.Enums;
 
 namespace TypeLibrary.Data.Models
 {

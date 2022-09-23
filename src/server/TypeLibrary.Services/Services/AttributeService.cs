@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;

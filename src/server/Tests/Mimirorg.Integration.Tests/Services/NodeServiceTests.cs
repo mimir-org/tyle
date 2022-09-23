@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Setup;
 using Mimirorg.TypeLibrary.Enums;
@@ -207,7 +208,7 @@ namespace Mimirorg.Integration.Tests.Services
 
             nodeAm.Description = "Description v1.1";
 
-            var nodeCmUpdated = await nodeService.Update(nodeAm, nodeAm.Id);
+            var nodeCmUpdated = await nodeService.Update(nodeAm);
 
             Assert.True(nodeCm?.Description == "Description");
             Assert.True(nodeCm.Version == "1.0");
@@ -236,13 +237,11 @@ namespace Mimirorg.Integration.Tests.Services
             var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
 
             var nodeCm = await nodeService.Create(nodeAm);
-            var isDeleted = await nodeService.Delete(nodeCm?.Id);
-            var allNodesNotDeleted = await nodeService.GetAll();
-            var allNodesIncludeDeleted = await nodeService.GetAll(true);
+            var deletedNode = await nodeService.UpdateState(nodeCm?.Id, State.Deleted);
+            var allNodesNotDeleted = nodeService.GetLatestVersions();
 
-            Assert.True(isDeleted);
+            Assert.True(deletedNode.State == State.Deleted);
             Assert.True(string.IsNullOrEmpty(allNodesNotDeleted?.FirstOrDefault(x => x.Id == nodeCm?.Id)?.Id));
-            Assert.True(!string.IsNullOrEmpty(allNodesIncludeDeleted?.FirstOrDefault(x => x.Id == nodeCm?.Id)?.Id));
         }
 
         [Fact]

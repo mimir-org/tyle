@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mimirorg.Common.Abstract;
-using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.Common.Enums;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 

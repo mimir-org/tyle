@@ -4,12 +4,14 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Abstract;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
-using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Models.Common;
 
 namespace TypeLibrary.Data.Repositories.Ef
 {
@@ -17,11 +19,29 @@ namespace TypeLibrary.Data.Repositories.Ef
     {
         private readonly IAttributeRepository _attributeRepository;
         private readonly ApplicationSettings _applicationSettings;
+        private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
 
-        public EfInterfaceRepository(TypeLibraryDbContext dbContext, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings) : base(dbContext)
+        public EfInterfaceRepository(TypeLibraryDbContext dbContext, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
         {
             _attributeRepository = attributeRepository;
+            _typeLibraryProcRepository = typeLibraryProcRepository;
             _applicationSettings = applicationSettings?.Value;
+        }
+
+        public async Task<int> ChangeParentId(string oldId, string newId)
+        {
+            if (string.IsNullOrWhiteSpace(oldId) || string.IsNullOrWhiteSpace(newId))
+                return 0;
+
+            var procParams = new Dictionary<string, object>
+            {
+                {"@TableName", "Interface"},
+                {"@OldId", oldId},
+                {"@NewId", newId}
+            };
+
+            var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlResultCount>("UpdateParentId", procParams);
+            return result?.FirstOrDefault()?.Number ?? 0;
         }
 
         public IEnumerable<InterfaceLibDm> Get()
