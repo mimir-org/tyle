@@ -10,20 +10,6 @@ import { mapUnitLibCmsToDescriptors } from "./mapUnitLibCmsToDescriptors";
 export const mapAttributeLibCmToAttributeItem = (attribute: AttributeLibCm): AttributeItem => {
   const contents: InfoItem[] = [];
 
-  if (attribute.units.length > 0) {
-    contents.push({
-      name: "Units",
-      descriptors: mapUnitLibCmsToDescriptors(attribute.units),
-    });
-  }
-
-  if (attribute.selectValues.length > 0) {
-    contents.push({
-      name: "Values",
-      descriptors: mapListToDescriptors(attribute.selectValues),
-    });
-  }
-
   const quantityDatumDescriptors = mapAttributeLibToQuantityDatumDescriptors(attribute);
   if (Object.keys(quantityDatumDescriptors).length > 0) {
     contents.push({
@@ -36,6 +22,20 @@ export const mapAttributeLibCmToAttributeItem = (attribute: AttributeLibCm): Att
     contents.push({
       name: "References",
       descriptors: mapTypeReferencesToDescriptors(attribute.typeReferences),
+    });
+  }
+
+  if (attribute.units.length > 0) {
+    contents.push({
+      name: "Units",
+      descriptors: mapUnitLibCmsToDescriptors(attribute.units),
+    });
+  }
+
+  if (attribute.selectValues.length > 0) {
+    contents.push({
+      name: "Values",
+      descriptors: mapListToDescriptors(attribute.selectValues),
     });
   }
 
