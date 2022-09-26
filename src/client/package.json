@@ -15,7 +15,7 @@
     "@radix-ui/react-visually-hidden": "^1.0.0",
     "@styled-icons/heroicons-outline": "^10.36.0",
     "axios": "^0.27.2",
-    "framer-motion": "^7.3.5",
+    "framer-motion": "^7.3.6",
     "fuse.js": "^6.6.2",
     "i18next": "^21.9.1",
     "i18next-browser-languagedetector": "^6.1.5",
