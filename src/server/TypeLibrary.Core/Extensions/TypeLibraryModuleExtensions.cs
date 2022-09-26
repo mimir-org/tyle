@@ -41,7 +41,6 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<ITypeLibraryProcRepository, TypeLibraryProcRepository>();
             services.AddSingleton<IApplicationSettingsRepository, ApplicationSettingsRepository>();
             services.AddScoped<IEfAttributeRepository, EfAttributeRepository>();
-            services.AddScoped<IEfSimpleRepository, EfSimpleRepository>();
             services.AddScoped<IEfInterfaceRepository, EfInterfaceRepository>();
             services.AddScoped<IEfNodeRepository, EfNodeRepository>();
             services.AddScoped<IEfNodeTerminalRepository, EfNodeTerminalRepository>();
@@ -61,7 +60,6 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IPurposeRepository, PurposeRepository>();
             services.AddScoped<INodeRepository, EfNodeRepository>();
             services.AddScoped<ITransportRepository, EfTransportRepository>();
-            services.AddScoped<ISimpleRepository, EfSimpleRepository>();
             services.AddScoped<IRdsRepository, RdsRepository>();
             services.AddScoped<ITerminalRepository, EfTerminalRepository>();
             services.AddScoped<ISymbolRepository, EfSymbolRepository>();
@@ -79,7 +77,6 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<ITransportService, TransportService>();
             services.AddScoped<INodeService, NodeService>();
             services.AddScoped<IInterfaceService, InterfaceService>();
-            services.AddScoped<ISimpleService, SimpleService>();
             services.AddScoped<IVersionService, VersionService>();
             services.AddScoped<IModuleService, ModuleService>();
 

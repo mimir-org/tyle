@@ -31,14 +31,13 @@ namespace Mimirorg.Unit.Tests.Models
             var dummy = _fixture.CreateNodeTestData();
 
             // Reset changes
-            dummy.am.SimpleIdList.Remove("123");
             dummy.am.AttributeIdList.Remove("123");
             dummy.am.NodeTerminals = dummy.am.NodeTerminals.Where(x => x.Id != $"123-{ConnectorDirection.Input}".CreateMd5()).ToList();
             dummy.am.SelectedAttributePredefined = dummy.am.SelectedAttributePredefined.Where(x => x.Key != "123").ToList();
 
             var status = dummy.dm.HasIllegalChanges(dummy.am);
             Assert.False(status.IsValid);
-            Assert.Equal(4, status.Result.Count);
+            Assert.Equal(3, status.Result.Count);
         }
 
         [Fact]

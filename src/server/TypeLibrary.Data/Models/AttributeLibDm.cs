@@ -49,7 +49,6 @@ namespace TypeLibrary.Data.Models
         public virtual ICollection<TerminalLibDm> Terminals { get; set; }
         public virtual ICollection<InterfaceLibDm> Interfaces { get; set; }
         public virtual ICollection<NodeLibDm> Nodes { get; set; }
-        public virtual ICollection<SimpleLibDm> Simple { get; set; }
         public virtual ICollection<TransportLibDm> Transports { get; set; }
 
         #region IVersionable

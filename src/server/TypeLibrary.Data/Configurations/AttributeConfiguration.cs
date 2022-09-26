@@ -48,17 +48,11 @@ namespace TypeLibrary.Data.Configurations
                 x => x.ToTable("Attribute_Transport")
             );
 
-            builder.HasMany(x => x.Simple).WithMany(y => y.Attributes).UsingEntity<Dictionary<string, object>>("Attribute_Simple",
-                x => x.HasOne<SimpleLibDm>().WithMany().HasForeignKey("SimpleId"),
-                x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),
-                x => x.ToTable("Attribute_Simple")
-            );
-
             builder.HasMany(x => x.Interfaces).WithMany(y => y.Attributes).UsingEntity<Dictionary<string, object>>("Attribute_Interface",
                 x => x.HasOne<InterfaceLibDm>().WithMany().HasForeignKey("InterfaceId"),
                 x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),
                 x => x.ToTable("Attribute_Interface")
-            );
+           );
         }
     }
 }
