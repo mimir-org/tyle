@@ -39,7 +39,6 @@ namespace TypeLibrary.Data.Models
         public virtual ICollection<NodeLibDm> Children { get; set; }
         public virtual ICollection<NodeTerminalLibDm> NodeTerminals { get; set; }
         public virtual ICollection<AttributeLibDm> Attributes { get; set; }
-        public virtual ICollection<SimpleLibDm> Simples { get; set; }
 
         #region Versionable
 
@@ -64,13 +63,6 @@ namespace TypeLibrary.Data.Models
 
             if (ParentId != other.ParentId)
                 validation.AddNotAllowToChange(nameof(ParentId));
-
-            Simples ??= new List<SimpleLibDm>();
-            other.SimpleIdList ??= new List<string>();
-            if (Simples.Select(y => y.Id).Any(id => other.SimpleIdList.All(x => x != id)))
-            {
-                validation.AddNotAllowToChange(nameof(Simples), "It is not allowed to remove items from simples");
-            }
 
             Attributes ??= new List<AttributeLibDm>();
             other.AttributeIdList ??= new List<string>();
@@ -112,11 +104,6 @@ namespace TypeLibrary.Data.Models
             if (CompanyId != other.CompanyId)
                 minor = true;
 
-            // Simples
-            Simples ??= new List<SimpleLibDm>();
-            other.SimpleIdList ??= new List<string>();
-            if (!Simples.Select(x => x.Id).SequenceEqual(other.SimpleIdList))
-                major = true;
 
             // Attributes
             Attributes ??= new List<AttributeLibDm>();

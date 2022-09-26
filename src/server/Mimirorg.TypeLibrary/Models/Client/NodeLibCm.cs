@@ -28,7 +28,6 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public ICollection<NodeLibCm> Children { get; set; }
         public ICollection<NodeTerminalLibCm> NodeTerminals { get; set; }
         public ICollection<AttributeLibCm> Attributes { get; set; }
-        public ICollection<SimpleLibCm> Simples { get; set; }
         public ICollection<SelectedAttributePredefinedLibCm> SelectedAttributePredefined { get; set; }
         public string Kind => nameof(NodeLibCm);
     }

@@ -45,7 +45,6 @@ namespace TypeLibrary.Core.Extensions
             cfg.AddProfile(new AttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
             cfg.AddProfile(new PurposeProfile());
             cfg.AddProfile(new UnitProfile(provider.GetService<IApplicationSettingsRepository>()));
-            cfg.AddProfile(new SimpleProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
             cfg.AddProfile(new SelectedAttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new NodeTerminalProfile());
             cfg.AddProfile(new TypeReferenceProfile());

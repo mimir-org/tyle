@@ -39,7 +39,6 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Children, opt => opt.Ignore())
                 .ForMember(dest => dest.NodeTerminals, opt => opt.MapFrom(src => CreateTerminals(src.NodeTerminals, src.Id).ToList()))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => Convert<AttributeLibDm>(src.AttributeIdList).ToList()))
-                .ForMember(dest => dest.Simples, opt => opt.MapFrom(src => Convert<SimpleLibDm>(src.SimpleIdList).ToList()))
                 .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
             CreateMap<NodeLibDm, NodeLibCm>()
@@ -66,7 +65,6 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Children, opt => opt.MapFrom(src => src.Children))
                 .ForMember(dest => dest.NodeTerminals, opt => opt.MapFrom(src => src.NodeTerminals))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes))
-                .ForMember(dest => dest.Simples, opt => opt.MapFrom(src => src.Simples))
                 .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
         }
 

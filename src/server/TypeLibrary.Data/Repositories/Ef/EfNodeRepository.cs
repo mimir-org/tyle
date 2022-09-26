@@ -19,14 +19,12 @@ namespace TypeLibrary.Data.Repositories.Ef
     public class EfNodeRepository : GenericRepository<TypeLibraryDbContext, NodeLibDm>, IEfNodeRepository
     {
         private readonly IAttributeRepository _attributeRepository;
-        private readonly ISimpleRepository _simpleRepository;
         private readonly ApplicationSettings _applicationSettings;
         private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
 
-        public EfNodeRepository(TypeLibraryDbContext dbContext, IAttributeRepository attributeRepository, ISimpleRepository simpleRepository, IOptions<ApplicationSettings> applicationSettings, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
+        public EfNodeRepository(TypeLibraryDbContext dbContext, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
         {
             _attributeRepository = attributeRepository;
-            _simpleRepository = simpleRepository;
             _typeLibraryProcRepository = typeLibraryProcRepository;
             _applicationSettings = applicationSettings?.Value;
         }
@@ -118,8 +116,6 @@ namespace TypeLibrary.Data.Repositories.Ef
                 .Include(x => x.NodeTerminals)
                     .ThenInclude(x => x.Terminal)
                     .ThenInclude(x => x.Attributes)
-                .Include(x => x.Simples)
-                    .ThenInclude(x => x.Attributes)
                 .AsSplitQuery();
         }
 
@@ -135,8 +131,6 @@ namespace TypeLibrary.Data.Repositories.Ef
                 .Include(x => x.NodeTerminals)
                     .ThenInclude(x => x.Terminal)
                     .ThenInclude(x => x.Attributes)
-                .Include(x => x.Simples)
-                    .ThenInclude(x => x.Attributes)
                 .AsSplitQuery()
                 .FirstOrDefaultAsync();
         }
@@ -149,12 +143,10 @@ namespace TypeLibrary.Data.Repositories.Ef
         public async Task<NodeLibDm> Create(NodeLibDm node)
         {
             _attributeRepository.SetUnchanged(node.Attributes);
-            _simpleRepository.SetUnchanged(node.Simples);
 
             await CreateAsync(node);
             await SaveAsync();
 
-            _simpleRepository.SetDetached(node.Simples);
             _attributeRepository.SetDetached(node.Attributes);
             Detach(node);
             return node;
@@ -180,7 +172,6 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// </summary>
         public void ClearAllChangeTrackers()
         {
-            _simpleRepository.ClearAllChangeTrackers();
             _attributeRepository.ClearAllChangeTrackers();
             Context?.ChangeTracker.Clear();
         }

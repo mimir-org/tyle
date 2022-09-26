@@ -102,13 +102,6 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                Simples = new List<SimpleLibDm>
-                {
-                    new()
-                    {
-                        Id = "123"
-                    }
-                },
                 Attributes = new List<AttributeLibDm>
                 {
                     new()
