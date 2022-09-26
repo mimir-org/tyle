@@ -33,34 +33,6 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
 
   ${focus};
 
-  ${({ variant, ...props }) => {
-    switch (variant) {
-      case "small": {
-        return css`
-          width: 15px;
-          height: 15px;
-        `;
-      }
-      case "medium": {
-        return css`
-          width: 18px;
-          height: 18px;
-        `;
-      }
-      case "large": {
-        return css`
-          width: 30px;
-          height: 30px;
-          padding: ${props.theme.tyle.spacing.s};
-
-          path {
-            stroke-width: 2;
-          }
-        `;
-      }
-    }
-  }};
-
   ${({ color, ...props }) => {
     const { color: colorSystem, state, elevation } = props.theme.tyle;
     const contentColor = meetsContrastGuidelines(colorSystem.sys.background.on, color).AAA
@@ -94,6 +66,34 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
         }
       }
     `;
+  }};
+
+  ${({ variant, ...props }) => {
+    switch (variant) {
+      case "small": {
+        return css`
+          width: 15px;
+          height: 15px;
+        `;
+      }
+      case "medium": {
+        return css`
+          width: 18px;
+          height: 18px;
+        `;
+      }
+      case "large": {
+        return css`
+          width: 30px;
+          height: 30px;
+          padding: ${props.theme.tyle.spacing.s};
+
+          path {
+            stroke-width: 2;
+          }
+        `;
+      }
+    }
   }};
 };
 `;

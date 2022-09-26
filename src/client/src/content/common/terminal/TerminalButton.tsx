@@ -1,5 +1,6 @@
-import { Plus, SwitchHorizontal } from "@styled-icons/heroicons-outline";
+import { ArrowSmLeft, ArrowSmRight, SwitchHorizontal } from "@styled-icons/heroicons-outline";
 import { ButtonHTMLAttributes, ElementType, forwardRef, ReactNode } from "react";
+import { EllipseIcon } from "../../../assets/icons/ellipse";
 import { Polymorphic } from "../../../complib/props";
 import { NodeTerminalItemDirection } from "../../types/NodeTerminalItem";
 import { TerminalButtonContainer } from "./TerminalButton.styled";
@@ -24,7 +25,10 @@ export const TerminalButton = forwardRef<HTMLButtonElement, TerminalButtonProps>
   ({ children, direction, ...delegated }, ref) => (
     <TerminalButtonContainer ref={ref} {...delegated}>
       {children}
-      {direction !== "Bidirectional" ? <Plus /> : <SwitchHorizontal />}
+      {direction === "Input" && <ArrowSmRight />}
+      {direction === "Output" && <ArrowSmLeft />}
+      {direction === "Bidirectional" && <SwitchHorizontal />}
+      {!direction && <EllipseIcon color={"#FFF"} />}
     </TerminalButtonContainer>
   )
 );
@@ -32,6 +36,5 @@ export const TerminalButton = forwardRef<HTMLButtonElement, TerminalButtonProps>
 TerminalButton.displayName = "TerminalButton";
 TerminalButton.defaultProps = {
   type: "button",
-  direction: "Input",
   variant: "medium",
 };
