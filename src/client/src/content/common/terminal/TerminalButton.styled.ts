@@ -12,7 +12,8 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
   white-space: nowrap;
   text-decoration: none;
   padding: ${(props) => props.theme.tyle.spacing.xs};
-  
+
+  border: ${(props) => (props.direction ? 0 : `1px solid ${props.theme.tyle.color.sys.outline.base}`)};
   border-radius: ${(props) => props.theme.tyle.border.radius.small};
 
   font: ${(props) => props.theme.tyle.typography.sys.roles.label.large.font};
@@ -40,7 +41,6 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
       : colorSystem.sys.background.inverse.on;
 
     return css`
-      border: 0;
       background-color: ${color};
       color: ${contentColor};
 
