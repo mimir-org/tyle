@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Mimirorg.Common.Attributes;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
@@ -11,14 +12,14 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         [Display(Name = "Password")]
         [Required(ErrorMessage = "{0} is required")]
-        [MinLength(10, ErrorMessage = "{0} has min length {1}")]
         [Compare("ConfirmPassword", ErrorMessage = "The passwords are not equal")]
+        [Password]
         public string Password { get; set; }
 
         [Display(Name = "Confirm password")]
         [Required(ErrorMessage = "{0} is required")]
-        [MinLength(10, ErrorMessage = "{0} has min length {1}")]
         [Compare("Password", ErrorMessage = "The passwords are not equal")]
+        [Password]
         public string ConfirmPassword { get; set; }
 
         [Display(Name = "Firstname")]

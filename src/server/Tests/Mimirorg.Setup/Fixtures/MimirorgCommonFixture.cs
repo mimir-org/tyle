@@ -14,6 +14,7 @@ namespace Mimirorg.Setup.Fixtures
     public class MimirorgCommonFixture : IDisposable
     {
         // Common
+        public MimirorgAuthSettings MimirorgAuthSettings = new();
         public ApplicationSettings ApplicationSettings = new();
         public Mock<IMapper> Mapper = new();
 
@@ -32,7 +33,11 @@ namespace Mimirorg.Setup.Fixtures
         {
             ApplicationSettings.ApplicationSemanticUrl = @"http://localhost:5001/v1/ont";
             ApplicationSettings.ApplicationUrl = @"http://localhost:5001";
-
+            MimirorgAuthSettings.ApplicationUrl = @"http://localhost:5001";
+            MimirorgAuthSettings.RequireDigit = true;
+            MimirorgAuthSettings.RequireNonAlphanumeric = true;
+            MimirorgAuthSettings.RequireUppercase = true;
+            MimirorgAuthSettings.RequiredLength = 10;
         }
 
         public (NodeLibAm am, NodeLibDm dm) CreateNodeTestData()

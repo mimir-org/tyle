@@ -1,7 +1,6 @@
 using System.Text;
-using Mimirorg.Common.Models;
 
-namespace Mimirorg.Authentication.Models.Domain
+namespace Mimirorg.Common.Models
 {
     public class MimirorgAuthSettings
     {
