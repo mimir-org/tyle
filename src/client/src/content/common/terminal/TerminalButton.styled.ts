@@ -12,7 +12,8 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
   white-space: nowrap;
   text-decoration: none;
   padding: ${(props) => props.theme.tyle.spacing.xs};
-  
+
+  border: ${(props) => (props.direction ? 0 : `1px solid ${props.theme.tyle.color.sys.outline.base}`)};
   border-radius: ${(props) => props.theme.tyle.border.radius.small};
 
   font: ${(props) => props.theme.tyle.typography.sys.roles.label.large.font};
@@ -32,6 +33,40 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
   }
 
   ${focus};
+
+  ${({ color, ...props }) => {
+    const { color: colorSystem, state, elevation } = props.theme.tyle;
+    const contentColor = meetsContrastGuidelines(colorSystem.sys.background.on, color).AAA
+      ? colorSystem.sys.background.on
+      : colorSystem.sys.background.inverse.on;
+
+    return css`
+      background-color: ${color};
+      color: ${contentColor};
+
+      :disabled {
+        background-color: ${translucify(colorSystem.sys.surface.on, state.disabled.container.opacity)};
+        color: ${translucify(colorSystem.sys.surface.on, state.disabled.content.opacity)};
+      }
+
+      :not(:disabled) {
+        :hover {
+          background: ${layer(
+            translucify(color, elevation.levels[1].opacity),
+            translucify(colorSystem.sys.primary.on, state.hover.opacity),
+            translucify(color, state.enabled.opacity)
+          )};
+        }
+
+        :active {
+          background: ${layer(
+            translucify(colorSystem.sys.primary.on, state.pressed.opacity),
+            translucify(color, state.enabled.opacity)
+          )};
+        }
+      }
+    `;
+  }};
 
   ${({ variant, ...props }) => {
     switch (variant) {
@@ -59,41 +94,6 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
         `;
       }
     }
-  }};
-
-  ${({ color, ...props }) => {
-    const { color: colorSystem, state, elevation } = props.theme.tyle;
-    const contentColor = meetsContrastGuidelines(colorSystem.sys.background.on, color).AAA
-      ? colorSystem.sys.background.on
-      : colorSystem.sys.background.inverse.on;
-
-    return css`
-      border: 0;
-      background-color: ${color};
-      color: ${contentColor};
-
-      :disabled {
-        background-color: ${translucify(colorSystem.sys.surface.on, state.disabled.container.opacity)};
-        color: ${translucify(colorSystem.sys.surface.on, state.disabled.content.opacity)};
-      }
-
-      :not(:disabled) {
-        :hover {
-          background: ${layer(
-            translucify(color, elevation.levels[1].opacity),
-            translucify(colorSystem.sys.primary.on, state.hover.opacity),
-            translucify(color, state.enabled.opacity)
-          )};
-        }
-
-        :active {
-          background: ${layer(
-            translucify(colorSystem.sys.primary.on, state.pressed.opacity),
-            translucify(color, state.enabled.opacity)
-          )};
-        }
-      }
-    `;
   }};
 };
 `;
