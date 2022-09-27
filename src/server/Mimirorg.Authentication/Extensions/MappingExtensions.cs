@@ -86,7 +86,8 @@ namespace Mimirorg.Authentication.Extensions
                 LastName = user.LastName,
                 CompanyId = user.CompanyId,
                 CompanyName = user.CompanyName,
-                Purpose = user.Purpose
+                Purpose = user.Purpose,
+                IsVerified = user.EmailConfirmed
             };
         }
 

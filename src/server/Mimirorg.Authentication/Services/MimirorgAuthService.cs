@@ -11,6 +11,7 @@ using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 
@@ -116,36 +117,37 @@ namespace Mimirorg.Authentication.Services
         }
 
         /// <summary>
-        /// Verify account from verify token
+        /// Verify email account from verify code
         /// </summary>
-        /// <param name="token">string</param>
+        /// <param name="email">User Email Address</param>
+        /// <param name="code">Email Code</param>
         /// <returns>bool</returns>
         /// <exception cref="MimirorgInvalidOperationException"></exception>
-        public async Task<bool> VerifyAccount(string token)
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="MimirorgNotFoundException"></exception>
+        public async Task<bool> VerifyEmailAccount(string email, string code)
         {
-            if (string.IsNullOrWhiteSpace(token))
-                return false;
+            if (string.IsNullOrWhiteSpace(email))
+                throw new ArgumentNullException(nameof(email));
 
-            var t = Uri.UnescapeDataString(token);
+            if (string.IsNullOrWhiteSpace(code))
+                throw new ArgumentNullException(nameof(code));
 
-            var regToken = await _tokenRepository.FindBy(x => x.Secret == t).FirstOrDefaultAsync();
+            var regToken = await _tokenRepository.FindBy(x => x.Secret == code && x.Email == email && x.TokenType == MimirorgTokenType.VerifyEmail).FirstOrDefaultAsync();
+
             if (regToken == null)
-                return false;
+                throw new MimirorgNotFoundException("Could not verify account");
 
             var user = await _userManager.FindByEmailAsync(regToken.Email);
             if (user == null)
-                return false;
+                throw new MimirorgNotFoundException("Could not verify account");
 
-            if (regToken.TokenType != MimirorgTokenType.VerifyEmail)
-                throw new MimirorgInvalidOperationException("Only email verify is supported");
-
-            var result = await _userManager.ConfirmEmailAsync(user, t);
-
-            if (regToken.TokenType == MimirorgTokenType.VerifyPhone)
-                result = await _userManager.ConfirmEmailAsync(user, t);
+            user.EmailConfirmed = true;
+            var result = await _userManager.UpdateAsync(user);
 
             if (!result.Succeeded)
-                return false;
+                throw new MimirorgInvalidOperationException($"Couldn't verify account by email. Error: {result.Errors.ConvertToString()}");
 
             _tokenRepository.Attach(regToken, EntityState.Deleted);
             await _tokenRepository.SaveAsync();

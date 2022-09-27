@@ -57,9 +57,9 @@ namespace Mimirorg.Authentication.Services
             if (_authSettings == null)
                 throw new MimirorgConfigurationException("Missing configuration for auth settings");
 
-            var validation = userAm.ValidateObject();
-            if (!validation.IsValid)
-                throw new MimirorgBadRequestException($"Couldn't register: {userAm.Email}", validation);
+            //var validation = userAm.ValidateObject();
+            //if (!validation.IsValid)
+            //    throw new MimirorgBadRequestException($"Couldn't register: {userAm.Email}", validation);
 
             var existingUser = await _userManager.FindByEmailAsync(userAm.Email);
             if (existingUser != null)
@@ -70,6 +70,7 @@ namespace Mimirorg.Authentication.Services
             user.SecurityHash = securityKey.CreateSha512();
             var currentCompany = await _mimirorgCompanyService.GetCompanyById(userAm.CompanyId);
             user.CompanyName = currentCompany?.DisplayName ?? currentCompany?.Name;
+            user.EmailConfirmed = !_authSettings.RequireConfirmedAccount;
 
             var result = await _userManager.CreateAsync(user, userAm.Password);
             if (!result.Succeeded)
@@ -211,7 +212,9 @@ namespace Mimirorg.Authentication.Services
 
         private async Task SendEmailConfirmation(MimirorgUser user)
         {
-            var secret = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var generator = new Random();
+            var secret = generator.Next(0, 1000000).ToString("D6");
+            
             var token = new MimirorgToken
             {
                 ClientId = user.Id,

@@ -21,8 +21,7 @@ namespace Mimirorg.Authentication.Repositories
         public Task<MimirorgMail> CreateEmailConfirmationTemplate(MimirorgUser user, MimirorgToken token)
         {
             var appBaseUrl = string.IsNullOrWhiteSpace(_authSettings?.ApplicationUrl) ? _httpContextAccessor.GetBaseUrl() : _authSettings?.ApplicationUrl;
-            var url = $"{appBaseUrl}/v1/mimirorgauthenticate/verify/{Uri.EscapeDataString(token.Secret)}";
-
+            
             var email = new MimirorgMail
             {
                 Subject = "You need to confirm your email address",
@@ -30,9 +29,16 @@ namespace Mimirorg.Authentication.Repositories
                 ToName = $"{user.FirstName} {user.LastName}",
                 FromEmail = "orgmimir@gmail.com",
                 // ReSharper disable once StringLiteralTypo
-                FromName = "Tyle",
+                FromName = "orgmimir@gmail.com",
                 HtmlContent = null,
-                PlainTextContent = $"Email activation link:\n\n\n {url}"
+                PlainTextContent = $@"
+                    Hi {user.FirstName} {user.LastName},
+
+                    Your email verification code is: {token.Secret}.
+
+                    If you did not request a code, you can ignore this email.
+                    The Mimirorg team
+                "
             };
 
             return Task.FromResult(email);
