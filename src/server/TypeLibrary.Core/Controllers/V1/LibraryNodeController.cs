@@ -117,7 +117,7 @@ namespace TypeLibrary.Core.Controllers.V1
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var cm = await _nodeService.Create(node, true);
+                var cm = await _nodeService.Create(node);
                 return Ok(cm);
             }
             catch (MimirorgBadRequestException e)
