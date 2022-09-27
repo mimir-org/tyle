@@ -150,21 +150,21 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// <summary>
         /// Verify account from token
         /// </summary>
-        /// <param name="token">string</param>
+        /// <param name="verifyEmail">string</param>
         /// <returns>bool</returns>
         [AllowAnonymous]
-        [HttpGet]
-        [Route("verify/{token}")]
+        [HttpPost]
+        [Route("verify")]
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [SwaggerOperation("Activate account")]
-        public async Task<IActionResult> VerifyAccount([FromRoute] string token)
+        public async Task<IActionResult> VerifyAccount([FromBody] VerifyEmailAm verifyEmail)
         {
             try
             {
-                var data = await _authService.VerifyAccount(token);
+                var data = await _authService.VerifyEmailAccount(verifyEmail.Email, verifyEmail.Code);
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)
