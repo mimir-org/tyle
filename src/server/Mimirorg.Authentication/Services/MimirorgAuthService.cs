@@ -134,7 +134,7 @@ namespace Mimirorg.Authentication.Services
             if (string.IsNullOrWhiteSpace(code))
                 throw new ArgumentNullException(nameof(code));
 
-            var regToken = await _tokenRepository.FindBy(x => x.Secret == code && x.Email == email && x.TokenType == MimirorgTokenType.VerifyEmail).FirstOrDefaultAsync();
+            var regToken = await _tokenRepository.FindBy(x => x.Secret == code && x.Email == email).FirstOrDefaultAsync(x => x.TokenType == MimirorgTokenType.VerifyEmail);
 
             if (regToken == null)
                 throw new MimirorgNotFoundException("Could not verify account");

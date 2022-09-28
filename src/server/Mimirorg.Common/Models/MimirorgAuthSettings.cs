@@ -20,6 +20,7 @@ namespace Mimirorg.Common.Models
         public bool RequireUppercase { get; set; } = true;
         public bool RequireNonAlphanumeric { get; set; } = false;
         public int RequiredLength { get; set; } = 10;
+        public string Email { get; set; }
         public string EmailKey { get; set; }
         public string EmailSecret { get; set; }
 

@@ -234,7 +234,7 @@ namespace Mimirorg.Authentication.Services
             await _tokenRepository.CreateAsync(token);
             await _tokenRepository.SaveAsync();
 
-            var email = await _templateRepository.CreateEmailConfirmationTemplate(user, token);
+            var email = await _templateRepository.CreateCodeVerificationMail(user, token);
             await _emailRepository.SendEmail(email);
         }
 

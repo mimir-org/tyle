@@ -1,15 +1,12 @@
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Flows;
-using Google.Apis.Auth.OAuth2.Responses;
-using Google.Apis.Util;
+using Google.Apis.Gmail.v1;
+using Google.Apis.Util.Store;
 using MailKit.Net.Smtp;
 using MailKit.Security;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using MimeKit.Text;
 using Mimirorg.Authentication.Contracts;
-using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
 
@@ -18,67 +15,45 @@ namespace Mimirorg.Authentication.Repositories
     public class MimirorgEmailRepository : IMimirorgEmailRepository
     {
         private readonly MimirorgAuthSettings _authSettings;
-        private readonly ILogger<MimirorgEmailRepository> _logger;
 
-        public MimirorgEmailRepository(IOptions<MimirorgAuthSettings> authSettings, ILogger<MimirorgEmailRepository> logger)
+        public MimirorgEmailRepository(IOptions<MimirorgAuthSettings> authSettings)
         {
-            _logger = logger;
             _authSettings = authSettings?.Value;
         }
 
-        public async Task SendEmail(MimirorgMail email)
+        public async Task SendEmail(MimeMessage email)
         {
-            if (_authSettings == null || string.IsNullOrEmpty(_authSettings.EmailKey) || string.IsNullOrEmpty(_authSettings.EmailSecret))
+            if (_authSettings == null || string.IsNullOrEmpty(_authSettings.EmailKey) || string.IsNullOrEmpty(_authSettings.EmailSecret) || string.IsNullOrEmpty(_authSettings.Email))
                 throw new MimirorgConfigurationException("Missing configuration for email");
 
-            var m = new MimeMessage();
-            m.From.Add(MailboxAddress.Parse(email.FromEmail));
-            m.To.Add(MailboxAddress.Parse(email.ToEmail));
-            m.Subject = email.Subject;
-            m.Body = new TextPart(TextFormat.Html) { Text = "<h1>Test Email</h1>" };
-
-            try
+            var codeFlow = new GoogleAuthorizationCodeFlow(new GoogleAuthorizationCodeFlow.Initializer
             {
-                var secrets = new ClientSecrets
+                DataStore = new FileDataStore(AppDomain.CurrentDomain.BaseDirectory),
+                Scopes = new[] { GmailService.Scope.MailGoogleCom },
+                ClientSecrets = new ClientSecrets
                 {
-                    ClientId = "841546746384-bgjdkduv88cvrn8sfakia6bqrl9thl8f.apps.googleusercontent.com",
-                    ClientSecret = "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"
-                };
-
-                var googleCredentials = await GoogleWebAuthorizationBroker.AuthorizeAsync(secrets, new List<string> { "https://mail.google.com/" }, email.FromEmail, CancellationToken.None);
-                if (googleCredentials.Token.IsExpired(SystemClock.Default))
-                {
-                    await googleCredentials.RefreshTokenAsync(CancellationToken.None);
+                    ClientId = _authSettings.EmailKey,
+                    ClientSecret = _authSettings.EmailSecret
                 }
+            });
 
-                using (var client = new SmtpClient())
-                {
-                    await client.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+            var codeReceiver = new LocalServerCodeReceiver();
+            var authCode = new AuthorizationCodeInstalledApp(codeFlow, codeReceiver);
+            var credential = await authCode.AuthorizeAsync(_authSettings.Email, CancellationToken.None);
 
-                    var oauth2 = new SaslMechanismOAuth2(googleCredentials.UserId, googleCredentials.Token.AccessToken);
-                    await client.AuthenticateAsync(oauth2);
-
-                    await client.SendAsync(m);
-                    await client.DisconnectAsync(true);
-                }
-
-                
-
-            }
-            catch (Exception e)
+            if (authCode.ShouldRequestAuthorizationCode(credential.Token))
             {
-                var test = e.Message;
-                throw;
+                await credential.RefreshTokenAsync(CancellationToken.None);
             }
 
-            //var client = new SendGridClient(_authSettings.EmailSecret);
-            //var from = new EmailAddress(email.FromEmail, email.FromName);
-            //var subject = email.Subject;
-            //var to = new EmailAddress(email.ToEmail, email.ToName);
-            //var plainTextContent = email.PlainTextContent;
-            //var htmlContent = email.HtmlContent;
-            //var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-            //var response = await client.SendEmailAsync(msg).ConfigureAwait(false);
+            using var client = new SmtpClient();
+            await client.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+
+            var oauth2 = new SaslMechanismOAuth2(credential.UserId, credential.Token.AccessToken);
+            await client.AuthenticateAsync(oauth2);
+
+            await client.SendAsync(email);
+            await client.DisconnectAsync(true);
         }
     }
 }
