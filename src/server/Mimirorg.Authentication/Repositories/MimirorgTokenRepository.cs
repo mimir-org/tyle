@@ -11,6 +11,7 @@ using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Client;
 

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Models;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 

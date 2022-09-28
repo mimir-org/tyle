@@ -12,7 +12,9 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Http;
 using Mimirorg.Authentication.Extensions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 
@@ -71,7 +73,7 @@ namespace Mimirorg.Authentication.Services
 
             var result = await _userManager.CreateAsync(user, userAm.Password);
             if (!result.Succeeded)
-                throw new MimirorgInvalidOperationException($"Couldn't register: {userAm.Email}.");
+                throw new MimirorgInvalidOperationException($"Couldn't register: {userAm.Email}. Error: {result.Errors.ConvertToString()}");
 
             // Create an email verification token and send email to user
             if (_authSettings.RequireConfirmedAccount)
