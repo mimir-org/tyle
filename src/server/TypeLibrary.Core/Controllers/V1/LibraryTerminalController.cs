@@ -32,14 +32,12 @@ namespace TypeLibrary.Core.Controllers.V1
     {
         private readonly ILogger<LibraryTerminalController> _logger;
         private readonly ITerminalService _terminalService;
-        private readonly IMimirorgUserService _userService;
         private readonly IMimirorgAuthService _authService;
 
-        public LibraryTerminalController(ILogger<LibraryTerminalController> logger, ITerminalService terminalService, IMimirorgUserService userService, IMimirorgAuthService authService)
+        public LibraryTerminalController(ILogger<LibraryTerminalController> logger, ITerminalService terminalService, IMimirorgAuthService authService)
         {
             _logger = logger;
             _terminalService = terminalService;
-            _userService = userService;
             _authService = authService;
         }
 
@@ -205,6 +203,7 @@ namespace TypeLibrary.Core.Controllers.V1
             {
                 var companyId = await _terminalService.GetCompanyId(id);
                 var hasAccess = await _authService.HasAccess(companyId, state);
+
                 if (!hasAccess)
                     return StatusCode(StatusCodes.Status403Forbidden);
 

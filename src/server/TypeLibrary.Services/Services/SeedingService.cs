@@ -41,7 +41,7 @@ namespace TypeLibrary.Services.Services
                 var attributesPredefined = _fileRepository.ReadAllFiles<AttributePredefinedLibAm>(attributePredefinedFiles).ToList();
                 var symbols = _fileRepository.ReadAllFiles<SymbolLibAm>(symbolFileNames).ToList();
 
-                await _attributeService.CreatePredefined(attributesPredefined, true);
+                await _attributeService.CreatePredefined(attributesPredefined);
                 await _symbolService.Create(symbols, true);
             }
             catch (Exception e)

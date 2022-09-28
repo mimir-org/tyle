@@ -148,28 +148,27 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <summary>
         /// Update node
         /// </summary>
-        /// <param name="node"></param>
-        /// <param name="id"></param>
+        /// <param name="nodeAm"></param>
         /// <returns>NodeLibCm</returns>
-        [HttpPut("{id}")]
+        [HttpPut]
         [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [MimirorgAuthorize(MimirorgPermission.Write, "node", "CompanyId")]
-        public async Task<IActionResult> Update([FromBody] NodeLibAm node, [FromRoute] string id)
+        public async Task<IActionResult> Update([FromBody] NodeLibAm nodeAm)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var companyId = await _nodeService.GetCompanyId(node.Id);
+                var companyId = await _nodeService.GetCompanyId(nodeAm.Id);
 
-                if (companyId != node.CompanyId)
+                if (companyId != nodeAm.CompanyId)
                     return StatusCode(StatusCodes.Status403Forbidden);
 
-                var data = await _nodeService.Update(node);
+                var data = await _nodeService.Update(nodeAm);
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)
@@ -202,16 +201,17 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
-        public async Task<IActionResult> UpdateState([FromBody] State state, [FromRoute] string id)
+        public async Task<IActionResult> ChangeState([FromBody] State state, [FromRoute] string id)
         {
             try
             {
                 var companyId = await _nodeService.GetCompanyId(id);
                 var hasAccess = await _authService.HasAccess(companyId, state);
+
                 if (!hasAccess)
                     return StatusCode(StatusCodes.Status403Forbidden);
 
-                var data = await _nodeService.UpdateState(id, state);
+                var data = await _nodeService.ChangeState(id, state);
                 return Ok(data);
             }
             catch (Exception e)

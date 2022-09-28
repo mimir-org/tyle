@@ -27,7 +27,7 @@ namespace TypeLibrary.Services.Contracts
         /// Create a new terminal
         /// </summary>
         /// <param name="terminal">The terminal that should be created</param>
-        /// <param name="resetVersion">Would you reset version and first version id?</param>
+        /// /// <param name="resetVersion">Would you reset version and first version id?</param>
         /// <returns></returns>
         /// <exception cref="MimirorgBadRequestException">Throws if terminal is not valid</exception>
         /// <exception cref="MimirorgDuplicateException">Throws if terminal already exist</exception>

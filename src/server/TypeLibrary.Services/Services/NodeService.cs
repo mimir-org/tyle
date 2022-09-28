@@ -38,12 +38,12 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if there is no node with the given id, and that node is at the latest version.</exception>
         public NodeLibCm GetLatestVersion(string id)
         {
-            var node = GetLatestVersions().FirstOrDefault(x => x.Id == id);
+            var nodeCm = GetLatestVersions().FirstOrDefault(x => x.Id == id);
 
-            if (node == null)
+            if (nodeCm == null)
                 throw new MimirorgNotFoundException($"There is no node with id {id}");
 
-            return node;
+            return nodeCm;
         }
 
         /// <summary>
@@ -139,13 +139,13 @@ namespace TypeLibrary.Services.Services
             var nodeDm = _mapper.Map<NodeLibDm>(nodeAm);
             nodeDm.State = State.Draft;
 
-            var cm = await _nodeRepository.Create(nodeDm);
+            var nodeCm = await _nodeRepository.Create(nodeDm);
             _nodeRepository.ClearAllChangeTrackers();
 
-            await _nodeRepository.ChangeParentId(nodeAm.Id, cm.Id);
+            await _nodeRepository.ChangeParentId(nodeAm.Id, nodeCm.Id);
             _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
 
-            return GetLatestVersion(cm.Id);
+            return GetLatestVersion(nodeCm.Id);
         }
 
         /// <summary>
@@ -155,11 +155,9 @@ namespace TypeLibrary.Services.Services
         /// <param name="state">The new node state</param>
         /// <returns>Node with updated state</returns>
         /// <exception cref="MimirorgNotFoundException">Throws if the node does not exist on latest version</exception>
-        public async Task<NodeLibCm> UpdateState(string id, State state)
+        public async Task<NodeLibCm> ChangeState(string id, State state)
         {
-            var nodeDmToUpdate = _nodeRepository.Get()
-                .LatestVersion()
-                .FirstOrDefault(x => x.Id == id);
+            var nodeDmToUpdate = _nodeRepository.Get().FirstOrDefault(x => x.Id == id);
 
             if (nodeDmToUpdate == null)
                 throw new MimirorgNotFoundException($"Node with id {id} does not exist, update is not possible.");

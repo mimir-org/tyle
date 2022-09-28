@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
@@ -27,13 +26,11 @@ namespace TypeLibrary.Core.Controllers.V1
     {
         private readonly ILogger<LibraryAttributeController> _logger;
         private readonly IAttributeService _attributeService;
-        private readonly IMimirorgUserService _userService;
 
-        public LibraryAttributeController(ILogger<LibraryAttributeController> logger, IAttributeService attributeService, IMimirorgUserService userService)
+        public LibraryAttributeController(ILogger<LibraryAttributeController> logger, IAttributeService attributeService)
         {
             _logger = logger;
             _attributeService = attributeService;
-            _userService = userService;
         }
 
         /// <summary>
@@ -47,7 +44,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
+        //[MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
         public async Task<IActionResult> Create([FromBody] AttributeLibAm attribute)
         {
             try
@@ -55,7 +52,7 @@ namespace TypeLibrary.Core.Controllers.V1
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var cm = await _attributeService.Create(attribute, true);
+                var cm = await _attributeService.Create(attribute);
                 return Ok(cm);
             }
             catch (MimirorgBadRequestException e)
@@ -86,11 +83,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet]
         [ProducesResponseType(typeof(ICollection<AttributeLibCm>), StatusCodes.Status200OK)]
         [AllowAnonymous]
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
             try
             {
-                var data = await _attributeService.GetLatestVersions(Aspect.NotSet);
+                var data = _attributeService.GetLatestVersions(Aspect.NotSet);
                 return Ok(data);
             }
             catch (Exception e)
@@ -105,11 +102,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAttributeById(string id)
+        public IActionResult GetAttributeById(string id)
         {
             try
             {
-                var data = await _attributeService.Get(id);
+                var data = _attributeService.GetLatestVersion(id);
                 if (data == null)
                     return NotFound();
 
@@ -125,11 +122,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("aspect/{aspect}")]
         [ProducesResponseType(typeof(ICollection<AttributeLibCm>), StatusCodes.Status200OK)]
         [AllowAnonymous]
-        public async Task<IActionResult> GetLatestVersions(Aspect aspect)
+        public IActionResult GetLatestVersions(Aspect aspect)
         {
             try
             {
-                var data = await _attributeService.GetLatestVersions(aspect);
+                var data = _attributeService.GetLatestVersions(aspect);
                 return Ok(data);
             }
             catch (Exception e)
@@ -159,30 +156,31 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <summary>
         /// Update an attribute
         /// </summary>
-        /// <param name="dataAm"></param>
-        /// <param name="id"></param>
+        /// <param name="attributeAm"></param>
         /// <returns>AttributeLibCm</returns>
-        [HttpPut("{id}")]
+        [HttpPut]
         [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [MimirorgAuthorize(MimirorgPermission.Write, "dataAm", "CompanyId")]
-        public async Task<IActionResult> Update([FromBody] AttributeLibAm dataAm, [FromRoute] string id)
+        [MimirorgAuthorize(MimirorgPermission.Write, "attributeAm", "CompanyId")]
+        public async Task<IActionResult> Update([FromBody] AttributeLibAm attributeAm)
         {
             try
             {
-                var companyIsChanged = await _attributeService.CompanyIsChanged(id, dataAm.CompanyId);
-                if (companyIsChanged)
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                var companyId = await _attributeService.GetCompanyId(attributeAm.Id);
+
+                if (companyId != attributeAm.CompanyId)
                     return StatusCode(StatusCodes.Status403Forbidden);
 
-                var data = await _attributeService.Update(dataAm, id);
+                var data = await _attributeService.Update(attributeAm);
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)
             {
-                _logger.LogWarning(e, $"Warning error: {e.Message}");
-
                 foreach (var error in e.Errors().ToList())
                 {
                     ModelState.Remove(error.Key);
@@ -210,75 +208,18 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //TODO: *************************************
-        //TODO: Set correct authorization requirement
-        //TODO: *************************************
-        public async Task<IActionResult> UpdateState([FromBody] State state, [FromRoute] string id)
+        //[Authorize]
+        public async Task<IActionResult> ChangeState([FromBody] State state, [FromRoute] string id)
         {
             try
             {
-                var data = await _attributeService.UpdateState(id, state);
+                var data = await _attributeService.ChangeState(id, state);
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)
             {
                 _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
                 return StatusCode(400, e.Message);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        /// <summary>
-        /// Delete an attribute
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>200</returns>
-        [HttpDelete]
-        [Route("{id}")]
-        [ProducesResponseType(typeof(bool), 200)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [SwaggerOperation("Delete an attribute")]
-        [Authorize]
-        public async Task<IActionResult> Delete([FromRoute] string id)
-        {
-            try
-            {
-                var node = await _attributeService.Get(id);
-
-                if (node == null)
-                    return NotFound($"Can't find attribute with id: {id}");
-
-                var currentUser = await _userService.GetUser(HttpContext.User);
-                if (!currentUser.Permissions.TryGetValue(node.CompanyId, out var permission))
-                    return StatusCode(StatusCodes.Status403Forbidden);
-
-                if (!permission.HasFlag(MimirorgPermission.Delete))
-                    return StatusCode(StatusCodes.Status403Forbidden);
-
-                var data = await _attributeService.Delete(id);
-                return Ok(data);
-            }
-            catch (MimirorgBadRequestException e)
-            {
-                _logger.LogWarning(e, $"Warning error: {e.Message}");
-
-                foreach (var error in e.Errors().ToList())
-                {
-                    ModelState.Remove(error.Key);
-                    ModelState.TryAddModelError(error.Key, error.Error);
-                }
-
-                return BadRequest(ModelState);
-            }
-            catch (MimirorgNotFoundException)
-            {
-                return NoContent();
             }
             catch (Exception e)
             {

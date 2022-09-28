@@ -1,23 +1,49 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
+using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Models.Common;
 
 namespace TypeLibrary.Data.Repositories.Ef
 {
     public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, AttributeLibDm>, IEfAttributeRepository
     {
         private readonly ApplicationSettings _applicationSettings;
+        private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
 
-        public EfAttributeRepository(TypeLibraryDbContext dbContext, IOptions<ApplicationSettings> applicationSettings) : base(dbContext)
+        public EfAttributeRepository(TypeLibraryDbContext dbContext, IOptions<ApplicationSettings> applicationSettings, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
         {
+            _typeLibraryProcRepository = typeLibraryProcRepository;
             _applicationSettings = applicationSettings?.Value;
+        }
+
+        /// <summary>
+        /// Get the registered company on given id
+        /// </summary>
+        /// <param name="id">The attribute id</param>
+        /// <returns>The company id of given attribute</returns>
+        public async Task<int> HasCompany(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                return 0;
+
+            var procParams = new Dictionary<string, object>
+            {
+                {"@TableName", "Attribute"},
+                {"@Id", id}
+            };
+
+            var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlCompanyId>("HasCompany", procParams);
+            return result?.FirstOrDefault()?.CompanyId ?? 0;
         }
 
         /// <summary>
@@ -42,37 +68,58 @@ namespace TypeLibrary.Data.Repositories.Ef
         }
 
         /// <summary>
-        /// Update state on an attribute
+        /// Change the state of the attribute on all listed id's
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="state"></param>
-        /// <returns></returns>
-        /// <exception cref="MimirorgNotFoundException"></exception>
-        /// <exception cref="MimirorgBadRequestException"></exception>
-        public async Task UpdateState(string id, State state)
+        /// <param name="state">The state to change to</param>
+        /// <param name="ids">A list of attribute id's</param>
+        /// <returns>The number of attributes in given state</returns>
+        public async Task<int> ChangeState(State state, ICollection<string> ids)
         {
-            var dm = await FindBy(x => x.Id == id).FirstOrDefaultAsync();
+            if (ids == null)
+                return 0;
 
-            if (dm == null)
-                throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
+            var idList = ids.ConvertToString();
 
-            if (dm.State == state)
-                throw new MimirorgBadRequestException($"Not allowed. Same state. Current state is {dm.State} and new state is {state}");
+            var procParams = new Dictionary<string, object>
+            {
+                {"@TableName", "Attribute"},
+                {"@State", state.ToString()},
+                {"@IdList", idList}
+            };
 
-            dm.State = state;
-            Context.Entry(dm).State = EntityState.Modified;
-            await Context.SaveChangesAsync();
+            var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlResultCount>("UpdateState", procParams);
+            return result?.FirstOrDefault()?.Number ?? 0;
+        }
+
+        /// <summary>
+        /// Change all parent id's on attributes from old id to the new id 
+        /// </summary>
+        /// <param name="oldId">Old attribute parent id</param>
+        /// <param name="newId">New attribute parent id</param>
+        /// <returns>The number of attributes with the new parent id</returns>
+        public async Task<int> ChangeParentId(string oldId, string newId)
+        {
+            if (string.IsNullOrWhiteSpace(oldId) || string.IsNullOrWhiteSpace(newId))
+                return 0;
+
+            var procParams = new Dictionary<string, object>
+            {
+                {"@TableName", "Attribute"},
+                {"@OldId", oldId},
+                {"@NewId", newId}
+            };
+
+            var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlResultCount>("UpdateParentId", procParams);
+            return result?.FirstOrDefault()?.Number ?? 0;
         }
 
         /// <summary>
         /// Create a new attribute
         /// </summary>
         /// <param name="attribute">The attribute that should be created</param>
-        /// <param name="state"></param>
         /// <returns>An attribute</returns>
-        public async Task<AttributeLibDm> Create(AttributeLibDm attribute, State state)
+        public async Task<AttributeLibDm> Create(AttributeLibDm attribute)
         {
-            attribute.State = state;
             await CreateAsync(attribute);
             await SaveAsync();
             Detach(attribute);

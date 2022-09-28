@@ -20,6 +20,6 @@ namespace TypeLibrary.Data.Contracts
         /// <param name="attribute">The attribute that should be created</param>
         /// <param name="state"></param>
         /// <returns>An attribute</returns>
-        Task<AttributePredefinedLibDm> CreatePredefined(AttributePredefinedLibDm attribute, State state);
+        Task<AttributePredefinedLibDm> CreatePredefined(AttributePredefinedLibDm attribute);
     }
 }
