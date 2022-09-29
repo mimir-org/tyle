@@ -48,7 +48,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [AllowAnonymous]
-        public IActionResult GetNodes()
+        public IActionResult GetLatestVersions()
         {
             try
             {
@@ -73,7 +73,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [AllowAnonymous]
-        public IActionResult GetNode([FromRoute] string id)
+        public IActionResult GetLatestVersion([FromRoute] string id)
         {
             try
             {

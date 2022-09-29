@@ -11,7 +11,7 @@ namespace TypeLibrary.Data.Contracts
         /// Get the registered company on given id
         /// </summary>
         /// <param name="id">The node id</param>
-        /// <returns>The company id of given terminal</returns>
+        /// <returns>The company id of given node</returns>
         Task<int> HasCompany(string id);
 
         /// <summary>

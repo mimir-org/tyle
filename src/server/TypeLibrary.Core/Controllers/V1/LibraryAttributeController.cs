@@ -44,7 +44,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        //[MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
+        [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
         public async Task<IActionResult> Create([FromBody] AttributeLibAm attribute)
         {
             try
@@ -208,7 +208,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> ChangeState([FromBody] State state, [FromRoute] string id)
         {
             try

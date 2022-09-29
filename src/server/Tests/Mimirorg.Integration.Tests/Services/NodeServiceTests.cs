@@ -45,7 +45,7 @@ namespace Mimirorg.Integration.Tests.Services
 
             var attributeAm = new AttributeLibAm
             {
-                Name = "attribute123456",
+                Name = "attribute12345678",
                 Aspect = Aspect.Function,
                 Discipline = Discipline.Electrical,
                 Select = Select.MultiSelect,

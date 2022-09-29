@@ -2,12 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Enums;
-using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
-using Mimirorg.Common.Models;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
@@ -19,14 +16,12 @@ namespace TypeLibrary.Data.Repositories.Ef
     public class EfNodeRepository : GenericRepository<TypeLibraryDbContext, NodeLibDm>, IEfNodeRepository
     {
         private readonly IAttributeRepository _attributeRepository;
-        private readonly ApplicationSettings _applicationSettings;
         private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
 
-        public EfNodeRepository(TypeLibraryDbContext dbContext, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
+        public EfNodeRepository(TypeLibraryDbContext dbContext, IAttributeRepository attributeRepository, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
         {
             _attributeRepository = attributeRepository;
             _typeLibraryProcRepository = typeLibraryProcRepository;
-            _applicationSettings = applicationSettings?.Value;
         }
 
         /// <summary>
@@ -96,10 +91,10 @@ namespace TypeLibrary.Data.Repositories.Ef
         }
 
         /// <summary>
-        /// Check if terminal exists
+        /// Check if node exists
         /// </summary>
-        /// <param name="id">The id of the terminal</param>
-        /// <returns>True if terminal exist</returns>
+        /// <param name="id">The id of the node</param>
+        /// <returns>True if node exist</returns>
         public async Task<bool> Exist(string id)
         {
             return await Exist(x => x.Id == id);
@@ -114,8 +109,8 @@ namespace TypeLibrary.Data.Repositories.Ef
             return GetAll()
                 .Include(x => x.Attributes)
                 .Include(x => x.NodeTerminals)
-                    .ThenInclude(x => x.Terminal)
-                    .ThenInclude(x => x.Attributes)
+                .ThenInclude(x => x.Terminal)
+                .ThenInclude(x => x.Attributes)
                 .AsSplitQuery();
         }
 
@@ -129,8 +124,8 @@ namespace TypeLibrary.Data.Repositories.Ef
             return await FindBy(x => x.Id == id)
                 .Include(x => x.Attributes)
                 .Include(x => x.NodeTerminals)
-                    .ThenInclude(x => x.Terminal)
-                    .ThenInclude(x => x.Attributes)
+                .ThenInclude(x => x.Terminal)
+                .ThenInclude(x => x.Attributes)
                 .AsSplitQuery()
                 .FirstOrDefaultAsync();
         }
@@ -150,21 +145,6 @@ namespace TypeLibrary.Data.Repositories.Ef
             _attributeRepository.SetDetached(node.Attributes);
             Detach(node);
             return node;
-        }
-
-        public async Task<bool> Remove(string id)
-        {
-            var dm = await Get(id);
-
-            if (dm == null)
-                throw new MimirorgNotFoundException($"Node with id {id} not found, delete failed.");
-
-            if (dm.CreatedBy == _applicationSettings.System)
-                throw new MimirorgBadRequestException($"The node with id {id} is created by the system and can not be deleted.");
-
-            dm.State = State.Deleted;
-            Context.Entry(dm).State = EntityState.Modified;
-            return await Context.SaveChangesAsync() == 1;
         }
 
         /// <summary>
