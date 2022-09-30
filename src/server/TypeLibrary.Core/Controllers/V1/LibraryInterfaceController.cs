@@ -103,7 +103,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [MimirorgAuthorize(MimirorgPermission.Write, "dataAm", "CompanyId")]
+        [MimirorgAuthorize(MimirorgPermission.Write, "interfaceAm", "CompanyId")]
         public async Task<IActionResult> Create([FromBody] InterfaceLibAm interfaceAm)
         {
             try

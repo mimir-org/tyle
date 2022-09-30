@@ -50,7 +50,7 @@ namespace Mimirorg.Integration.Tests.Controllers
 
             var terminalAm = new TerminalLibAm
             {
-                Name = "Terminal11001",
+                Name = "Terminal11hhh001",
                 Color = "#45678",
                 CompanyId = 1
             };
@@ -70,8 +70,6 @@ namespace Mimirorg.Integration.Tests.Controllers
                 Aspect = Aspect.NotSet,
                 CompanyId = 1
             };
-
-
 
             _ = await interfaceService.Create(interfaceToCreate);
 

@@ -112,7 +112,7 @@ namespace TypeLibrary.Services.Services
 
             if (interfaceToUpdate == null)
             {
-                validation = new Validation(new List<string> { nameof(NodeLibAm.Name), nameof(NodeLibAm.Version) },
+                validation = new Validation(new List<string> { nameof(InterfaceLibAm.Name), nameof(InterfaceLibAm.Version) },
                     $"Interface with name {interfaceAm.Name}, aspect {interfaceAm.Aspect}, Rds Code {interfaceAm.RdsCode}, id {interfaceAm.Id} and version {interfaceAm.Version} does not exist.");
 
                 throw new MimirorgBadRequestException("Interface does not exist. Update is not possible.", validation);

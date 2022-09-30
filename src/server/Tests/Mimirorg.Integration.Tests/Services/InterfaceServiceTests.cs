@@ -21,23 +21,6 @@ namespace Mimirorg.Integration.Tests.Services
         public async Task Create_Interface_Returns_MimirorgDuplicateException_When_Already_Exist()
         {
             var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
-            var attributeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IAttributeService>();
-            var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
-
-            var attributeAm = new AttributeLibAm
-            {
-                Name = "attribute123456111",
-                Aspect = Aspect.Function,
-                Discipline = Discipline.Electrical,
-                Select = Select.MultiSelect,
-                Description = "Description1",
-                SelectValues = new List<string> { "value1", "VALUE2", "value3" },
-                QuantityDatumRangeSpecifying = "Normal",
-                QuantityDatumSpecifiedProvenance = "Calculated",
-                QuantityDatumRegularitySpecified = "Absolute",
-                QuantityDatumSpecifiedScope = "Design Datum",
-                CompanyId = 1
-            };
 
             var terminalAm = new TerminalLibAm
             {
@@ -45,9 +28,6 @@ namespace Mimirorg.Integration.Tests.Services
                 Color = "#45678",
                 CompanyId = 1
             };
-
-            var attributeCm = await attributeService.Create(attributeAm);
-            var terminalCm = await terminalService.Create(terminalAm);
 
             var interfaceAm = new InterfaceLibAm
             {
@@ -212,7 +192,7 @@ namespace Mimirorg.Integration.Tests.Services
 
             var terminalAm = new TerminalLibAm
             {
-                Name = "Terminal108909990",
+                Name = "Terminal108909990x4",
                 Color = "#45678",
                 CompanyId = 1
             };

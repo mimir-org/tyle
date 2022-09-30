@@ -155,7 +155,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [MimirorgAuthorize(MimirorgPermission.Write, "node", "CompanyId")]
+        [MimirorgAuthorize(MimirorgPermission.Write, "nodeAm", "CompanyId")]
         public async Task<IActionResult> Update([FromBody] NodeLibAm nodeAm)
         {
             try
