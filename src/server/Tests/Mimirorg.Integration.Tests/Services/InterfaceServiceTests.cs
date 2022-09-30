@@ -1,4 +1,3 @@
-using AngleSharp.Dom;
 using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
@@ -48,7 +47,7 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var attributeCm = await attributeService.Create(attributeAm);
-            var terminalCm = await terminalService.Create(terminalAm, true);
+            var terminalCm = await terminalService.Create(terminalAm);
 
             var interfaceAm = new InterfaceLibAm
             {
@@ -109,7 +108,7 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var interfaceParentCm = await interfaceService.Create(interfaceParentAm);
-            var terminalCm = await terminalService.Create(terminalAm, true);
+            var terminalCm = await terminalService.Create(terminalAm);
 
             var interfaceAm = new InterfaceLibAm
             {
@@ -179,7 +178,7 @@ namespace Mimirorg.Integration.Tests.Services
                 CompanyId = 1
             };
 
-            var terminalCm = await terminalService.Create(terminalAm, true);
+            var terminalCm = await terminalService.Create(terminalAm);
 
             var interfaceAm = new InterfaceLibAm
             {
@@ -218,7 +217,7 @@ namespace Mimirorg.Integration.Tests.Services
                 CompanyId = 1
             };
 
-            var terminalCm = await terminalService.Create(terminalAm, true);
+            var terminalCm = await terminalService.Create(terminalAm);
 
             var interfaceAm = new InterfaceLibAm
             {

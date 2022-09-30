@@ -55,7 +55,7 @@ namespace Mimirorg.Integration.Tests.Controllers
                 CompanyId = 1
             };
 
-            var terminalCm = await terminalService.Create(terminalAm, true);
+            var terminalCm = await terminalService.Create(terminalAm);
 
             const string guid = "2f9e0813-1067-472e-86ea-7c0b47a4eb18";
 

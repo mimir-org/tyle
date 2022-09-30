@@ -49,7 +49,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(typeof(ICollection<TerminalLibCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [AllowAnonymous]
-        public IActionResult GetTerminals()
+        public IActionResult GetLatestVersions()
         {
             try
             {
@@ -73,7 +73,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [AllowAnonymous]
-        public IActionResult GetTerminal(string id)
+        public IActionResult GetLatestVersion(string id)
         {
             try
             {
@@ -113,7 +113,7 @@ namespace TypeLibrary.Core.Controllers.V1
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var cm = await _terminalService.Create(terminal, true);
+                var cm = await _terminalService.Create(terminal);
                 return Ok(cm);
             }
             catch (MimirorgBadRequestException e)
@@ -143,16 +143,15 @@ namespace TypeLibrary.Core.Controllers.V1
         /// Update terminal
         /// </summary>
         /// <param name="terminal">The terminal that should be updated</param>
-        /// <param name="id">The id of the terminal that should be updated</param>
         /// <returns>TerminalLibCm</returns>
-        [HttpPut("{id}")]
+        [HttpPut]
         [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
-        public async Task<IActionResult> Update([FromBody] TerminalLibAm terminal, [FromRoute] string id)
+        public async Task<IActionResult> Update([FromBody] TerminalLibAm terminal)
         {
             try
             {
@@ -197,7 +196,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
-        public async Task<IActionResult> UpdateState([FromBody] State state, [FromRoute] string id)
+        public async Task<IActionResult> ChangeState([FromBody] State state, [FromRoute] string id)
         {
             try
             {
@@ -207,7 +206,7 @@ namespace TypeLibrary.Core.Controllers.V1
                 if (!hasAccess)
                     return StatusCode(StatusCodes.Status403Forbidden);
 
-                var data = await _terminalService.UpdateState(id, state);
+                var data = await _terminalService.ChangeState(id, state);
                 return Ok(data);
             }
             catch (Exception e)

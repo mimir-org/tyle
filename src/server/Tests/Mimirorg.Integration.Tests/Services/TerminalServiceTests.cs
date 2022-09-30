@@ -31,8 +31,8 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
-            await terminalService.Create(terminalAm, true);
-            Task Act() => terminalService.Create(terminalAm, true);
+            await terminalService.Create(terminalAm);
+            Task Act() => terminalService.Create(terminalAm);
             _ = await Assert.ThrowsAsync<MimirorgDuplicateException>(Act);
         }
 
@@ -68,7 +68,7 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
-            var terminalCm = await terminalService.Create(terminalAm, true);
+            var terminalCm = await terminalService.Create(terminalAm);
 
             Assert.NotNull(terminalCm);
             Assert.True(terminalCm.State == State.Draft);
@@ -103,7 +103,7 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
-            var terminalLibCm = await terminalService.Create(terminalAm, true);
+            var terminalLibCm = await terminalService.Create(terminalAm);
 
             terminalAm.Description = "Description v1.1";
 
