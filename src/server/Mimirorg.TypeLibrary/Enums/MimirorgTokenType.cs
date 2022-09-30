@@ -17,6 +17,9 @@ namespace Mimirorg.TypeLibrary.Enums
         VerifyPhone = 3,
 
         [Display(Name = "Change password")]
-        ChangePassword = 4
+        ChangePassword = 4,
+
+        [Display(Name = "Change two factor")]
+        ChangeTwoFactor = 5
     }
 }

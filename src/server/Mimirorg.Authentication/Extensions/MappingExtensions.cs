@@ -71,8 +71,7 @@ namespace Mimirorg.Authentication.Extensions
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 CompanyId = user.CompanyId,
-                Purpose = user.Purpose,
-                TwoFactorEnabled = true
+                Purpose = user.Purpose
             };
         }
 
@@ -87,7 +86,7 @@ namespace Mimirorg.Authentication.Extensions
                 CompanyId = user.CompanyId,
                 CompanyName = user.CompanyName,
                 Purpose = user.Purpose,
-                IsVerified = user.EmailConfirmed
+                EmailConfirmed = user.EmailConfirmed
             };
         }
 

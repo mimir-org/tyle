@@ -1,6 +1,8 @@
 using System.Security.Authentication;
+using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 
@@ -19,6 +21,8 @@ namespace Mimirorg.Authentication.Contracts
         /// <exception cref="AuthenticationException"></exception>
         Task<ICollection<MimirorgTokenCm>> Authenticate(MimirorgAuthenticateAm authenticate);
 
+        bool ValidateSecurityCode(MimirorgUser user, string code);
+
         /// <summary>
         /// Create a token from refresh token
         /// </summary>
@@ -28,7 +32,7 @@ namespace Mimirorg.Authentication.Contracts
         Task<ICollection<MimirorgTokenCm>> Authenticate(string secret);
 
         
-        Task<bool> VerifyEmailAccount(string email, string code);
+        Task<bool> VerifyAccount(string email, string code, MimirorgTokenType tokenType);
 
         /// <summary>
         /// Remove the current user's authentication tokens

@@ -35,6 +35,19 @@ namespace Mimirorg.Authentication.Contracts
         Task<MimirorgUserCm> GetUser(string id);
 
         /// <summary>
+        /// Setup two factor 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="code"></param>
+        /// <returns>Returns QR code for two factor app</returns>
+        /// <exception cref="NotImplementedException"></exception>
+        /// <exception cref="MimirorgConfigurationException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="MimirorgNotFoundException"></exception>
+        /// <exception cref="MimirorgInvalidOperationException"></exception>
+        Task<MimirorgQrCodeCm> SetupTwoFactor(string email, string code);
+
+        /// <summary>
         /// Get companies that is registered for current logged in user
         /// </summary>
         /// <returns>A collection of registered companies</returns>
@@ -58,5 +71,7 @@ namespace Mimirorg.Authentication.Contracts
         /// <param name="id"></param>
         /// <returns></returns>
         Task<bool> DeleteUser(string id);
+
+        IEnumerable<MimirorgUserCm> GetUsersNotConfirmed();
     }
 }

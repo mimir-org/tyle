@@ -10,6 +10,7 @@ using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using System.Security.Cryptography;
 using System.Text;
+using AspNetCore.Totp.Interface.Models;
 using Microsoft.AspNetCore.Http;
 using Mimirorg.Authentication.Extensions;
 using Mimirorg.Common.Models;
@@ -57,20 +58,18 @@ namespace Mimirorg.Authentication.Services
             if (_authSettings == null)
                 throw new MimirorgConfigurationException("Missing configuration for auth settings");
 
-            //var validation = userAm.ValidateObject();
-            //if (!validation.IsValid)
-            //    throw new MimirorgBadRequestException($"Couldn't register: {userAm.Email}", validation);
-
             var existingUser = await _userManager.FindByEmailAsync(userAm.Email);
             if (existingUser != null)
                 throw new MimirorgDuplicateException($"Couldn't register: {userAm.Email}. There is already an user with same username");
 
             var user = userAm.ToDomainModel();
-            var securityKey = $"{Guid.NewGuid()}{MimirorgSecurity.SecurityStamp}{Guid.NewGuid()}";
-            user.SecurityHash = securityKey.CreateSha512();
+            
             var currentCompany = await _mimirorgCompanyService.GetCompanyById(userAm.CompanyId);
             user.CompanyName = currentCompany?.DisplayName ?? currentCompany?.Name;
             user.EmailConfirmed = !_authSettings.RequireConfirmedAccount;
+
+            // Create two factor register qr code
+            var totpSetup = CreateTotp(user);
 
             var result = await _userManager.CreateAsync(user, userAm.Password);
             if (!result.Succeeded)
@@ -78,10 +77,7 @@ namespace Mimirorg.Authentication.Services
 
             // Create an email verification token and send email to user
             if (_authSettings.RequireConfirmedAccount)
-                await SendEmailConfirmation(user);
-
-            var totpSetupGenerator = new TotpSetupGenerator();
-            var totpSetup = totpSetupGenerator.Generate(_authSettings.ApplicationName, user.Email, user.SecurityHash, _authSettings.QrWidth, _authSettings.QrHeight);
+                await SendEmailConfirmationCode(user, MimirorgTokenType.VerifyEmail);
 
             // If this is the first registered user and environment is Development, create a dummy organization
             await CreateDefaultUserData(user);
@@ -140,6 +136,53 @@ namespace Mimirorg.Authentication.Services
             userCm.Permissions = permissionDictionary;
             userCm.Roles = roleDescriptions;
             return userCm;
+        }
+
+        /// <summary>
+        /// Setup two factor 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="code"></param>
+        /// <returns>Returns QR code for two factor app</returns>
+        /// <exception cref="NotImplementedException"></exception>
+        /// <exception cref="MimirorgConfigurationException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="MimirorgNotFoundException"></exception>
+        /// <exception cref="MimirorgInvalidOperationException"></exception>
+        public async Task<MimirorgQrCodeCm> SetupTwoFactor(string email, string code)
+        {
+            if (_authSettings == null)
+                throw new MimirorgConfigurationException("Missing configuration for auth settings");
+
+            if (string.IsNullOrWhiteSpace(email))
+                throw new ArgumentNullException(nameof(email));
+
+            if (string.IsNullOrWhiteSpace(code))
+                throw new ArgumentNullException(nameof(code));
+
+            var regToken = await _tokenRepository.FindBy(x => x.Secret == code && x.Email == email).FirstOrDefaultAsync(x => x.TokenType == MimirorgTokenType.ChangeTwoFactor);
+            
+            if (regToken == null)
+                throw new MimirorgNotFoundException("Could not verify account");
+
+            var user = await _userManager.FindByEmailAsync(regToken.Email);
+            if (user == null)
+                throw new MimirorgNotFoundException("Could not verify account");
+
+            var totpSetup = CreateTotp(user);
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+                throw new MimirorgInvalidOperationException($"Couldn't verify account by email. Error: {result.Errors.ConvertToString()}");
+
+            _tokenRepository.Attach(regToken, EntityState.Deleted);
+            await _tokenRepository.SaveAsync();
+
+            return new MimirorgQrCodeCm
+            {
+                Code = totpSetup.QrCodeImage,
+                ManualCode = totpSetup.ManualSetupKey
+            };
         }
 
         /// <summary>
@@ -208,9 +251,15 @@ namespace Mimirorg.Authentication.Services
             return await _userManager.DeleteAsync(user) == IdentityResult.Success;
         }
 
+        public IEnumerable<MimirorgUserCm> GetUsersNotConfirmed()
+        {
+            throw new NotImplementedException();
+            //var users = _userManager.Users.Where(x => !x.EmailConfirmed && x.)
+        }
+
         #region Private methods
 
-        private async Task SendEmailConfirmation(MimirorgUser user)
+        private async Task SendEmailConfirmationCode(MimirorgUser user, MimirorgTokenType tokenType)
         {
             var generator = new Random();
             var secret = generator.Next(0, 1000000).ToString("D6");
@@ -220,11 +269,11 @@ namespace Mimirorg.Authentication.Services
                 ClientId = user.Id,
                 Email = user.Email,
                 Secret = secret,
-                TokenType = MimirorgTokenType.VerifyEmail,
+                TokenType = tokenType,
                 ValidTo = DateTime.Now.AddHours(1)
             };
 
-            var oldTokens = _tokenRepository.GetAll().Where(x => (x.ClientId == user.Id && x.TokenType == MimirorgTokenType.VerifyEmail) || DateTime.Now > x.ValidTo).ToList();
+            var oldTokens = _tokenRepository.GetAll().Where(x => (x.ClientId == user.Id && x.TokenType == tokenType) || DateTime.Now > x.ValidTo).ToList();
 
             foreach (var t in oldTokens)
             {
@@ -305,6 +354,19 @@ namespace Mimirorg.Authentication.Services
             {
                 // ignored
             }
+        }
+
+        private TotpSetup CreateTotp(MimirorgUser user)
+        {
+            if (_authSettings?.ApplicationName == null)
+                throw new MimirorgConfigurationException("Missing configuration for auth settings");
+
+            var securityKey = $"{Guid.NewGuid()}{MimirorgSecurity.SecurityStamp}{Guid.NewGuid()}";
+            user.SecurityHash = securityKey.CreateSha512();
+            user.TwoFactorEnabled = true;
+
+            var totpSetupGenerator = new TotpSetupGenerator();
+            return totpSetupGenerator.Generate(_authSettings.ApplicationName, user.Email, user.SecurityHash, _authSettings?.QrWidth ?? 300, _authSettings?.QrHeight ?? 300);
         }
 
         private async Task<ICollection<string>> ResolveRoles(ICollection<MimirorgCompanyCm> companies, ICollection<MimirorgPermissionCm> permissions, MimirorgUser user)

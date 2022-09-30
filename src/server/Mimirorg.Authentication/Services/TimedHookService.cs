@@ -60,6 +60,8 @@ namespace Mimirorg.Authentication.Services
             using var scope = _scopeFactory.CreateScope();
             var companyService = scope.ServiceProvider.GetRequiredService<IMimirorgCompanyService>();
             var allHooks = await companyService.GetAllHooksForCache(nextItem);
+            var userService = scope.ServiceProvider.GetRequiredService<IMimirorgUserService>();
+            var cleanUpUsers = userService.GetUsersNotConfirmed();
 
             foreach (var hook in allHooks)
             {

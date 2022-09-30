@@ -164,7 +164,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         {
             try
             {
-                var data = await _authService.VerifyEmailAccount(verifyEmail.Email, verifyEmail.Code);
+                var data = await _authService.VerifyAccount(verifyEmail.Email, verifyEmail.Code, MimirorgTokenType.VerifyEmail);
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)

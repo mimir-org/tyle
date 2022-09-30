@@ -58,25 +58,40 @@ namespace Mimirorg.Authentication.Services
             var userStatus = await _signInManager.CheckPasswordSignInAsync(user, authenticate.Password, true);
 
             if (!userStatus.Succeeded)
-                throw new AuthenticationException($"The user account with email {authenticate.Email} could not be signed in.");
+                throw new AuthenticationException($"The user account with email {authenticate.Email} could not be signed in. Have you forgot to activate the account?");
 
-            var validator = new TotpValidator(new TotpGenerator());
-
-            if (!authenticate.Code.All(char.IsDigit))
-                throw new AuthenticationException("Only digit is allowed in code");
-
-            if (!int.TryParse(authenticate.Code, out var codeInt))
-                throw new AuthenticationException("Only digit is allowed in code");
-
-            var hasCorrectPin = validator.Validate(user.SecurityHash, codeInt);
-
-            if (!hasCorrectPin)
+            // Validate security code if user has enabled two factor
+            if (!ValidateSecurityCode(user, authenticate.Code))
                 throw new AuthenticationException($"The user account with email {authenticate.Email} could not validate code.");
 
             var now = DateTime.Now;
             var accessToken = await _tokenRepository.CreateAccessToken(user, now);
             var refreshToken = await _tokenRepository.CreateRefreshToken(user, now);
             return new List<MimirorgTokenCm> { accessToken, refreshToken };
+        }
+
+        /// <summary>
+        /// Validate security code
+        /// </summary>
+        /// <param name="user">The user that should be validated</param>
+        /// <param name="code">The security code</param>
+        /// <remarks>If user is not set two factor to be enabled,
+        /// the method will return </remarks>
+        /// <returns></returns>
+        public bool ValidateSecurityCode(MimirorgUser user, string code)
+        {
+            if (!user.TwoFactorEnabled)
+                return true;
+
+            var validator = new TotpValidator(new TotpGenerator());
+
+            if (!code.All(char.IsDigit))
+                return false;
+
+            if (!int.TryParse(code, out var codeInt))
+                return false;
+
+            return validator.Validate(user.SecurityHash, codeInt);
         }
 
         /// <summary>
@@ -121,12 +136,13 @@ namespace Mimirorg.Authentication.Services
         /// </summary>
         /// <param name="email">User Email Address</param>
         /// <param name="code">Email Code</param>
+        /// <param name="tokenType">The type of token to validate</param>
         /// <returns>bool</returns>
         /// <exception cref="MimirorgInvalidOperationException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="MimirorgNotFoundException"></exception>
-        public async Task<bool> VerifyEmailAccount(string email, string code)
+        public async Task<bool> VerifyAccount(string email, string code, MimirorgTokenType tokenType)
         {
             if (string.IsNullOrWhiteSpace(email))
                 throw new ArgumentNullException(nameof(email));
@@ -134,7 +150,7 @@ namespace Mimirorg.Authentication.Services
             if (string.IsNullOrWhiteSpace(code))
                 throw new ArgumentNullException(nameof(code));
 
-            var regToken = await _tokenRepository.FindBy(x => x.Secret == code && x.Email == email).FirstOrDefaultAsync(x => x.TokenType == MimirorgTokenType.VerifyEmail);
+            var regToken = await _tokenRepository.FindBy(x => x.Secret == code && x.Email == email).FirstOrDefaultAsync(x => x.TokenType == tokenType);
 
             if (regToken == null)
                 throw new MimirorgNotFoundException("Could not verify account");
@@ -143,7 +159,15 @@ namespace Mimirorg.Authentication.Services
             if (user == null)
                 throw new MimirorgNotFoundException("Could not verify account");
 
-            user.EmailConfirmed = true;
+            switch (tokenType)
+            {
+                case MimirorgTokenType.VerifyEmail:
+                    user.EmailConfirmed = true;
+                    break;
+                
+            }
+
+
             var result = await _userManager.UpdateAsync(user);
 
             if (!result.Succeeded)
@@ -311,8 +335,6 @@ namespace Mimirorg.Authentication.Services
             var access = _actionContextAccessor.ActionContext?.HttpContext.HasPermission(permission, companyId.ToString());
             return Task.FromResult(access ?? false);
         }
-
-
 
         #endregion
     }

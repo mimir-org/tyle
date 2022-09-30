@@ -13,6 +13,6 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }
         public string Purpose { get; set; }
-        public bool IsVerified { get; set; }
+        public bool EmailConfirmed { get; set; }
     }
 }
