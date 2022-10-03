@@ -17,6 +17,6 @@ export const apiTransport = {
     return apiClient.put<TransportLibCm>(_basePath, item).then((r) => r.data);
   },
   patchTransportState(id: string, state: State) {
-    return apiClient.patch<TransportLibCm>(`${_basePath}/state/${id}`, state).then((r) => r.data);
+    return apiClient.patch<TransportLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
   },
 };

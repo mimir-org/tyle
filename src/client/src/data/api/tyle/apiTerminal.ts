@@ -17,6 +17,6 @@ export const apiTerminal = {
     return apiClient.put<TerminalLibCm>(_basePath, item).then((r) => r.data);
   },
   patchTerminalState(id: string, state: State) {
-    return apiClient.patch<TerminalLibCm>(`${_basePath}/state/${id}`, state).then((r) => r.data);
+    return apiClient.patch<TerminalLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
   },
 };

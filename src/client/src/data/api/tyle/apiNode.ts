@@ -17,6 +17,6 @@ export const apiNode = {
     return apiClient.put<NodeLibCm>(_basePath, item).then((r) => r.data);
   },
   patchLibraryNodeState(id: string, state: State) {
-    return apiClient.patch<NodeLibCm>(`${_basePath}/state/${id}`, state).then((r) => r.data);
+    return apiClient.patch<NodeLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
   },
 };
