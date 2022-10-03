@@ -167,10 +167,10 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if the attribute does not exist on latest version</exception>
         public async Task<AttributeLibCm> ChangeState(string id, State state)
         {
-            var dm = _attributeRepository.Get().FirstOrDefault(x => x.Id == id);
+            var dm = _attributeRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
 
             if (dm == null)
-                throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
+                throw new MimirorgNotFoundException($"Attribute with id {id} not found, or is not latest version.");
 
             await _attributeRepository.ChangeState(state, new List<string> { id });
             _hookService.HookQueue.Enqueue(CacheKey.Attribute);
