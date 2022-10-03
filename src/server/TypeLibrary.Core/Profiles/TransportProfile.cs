@@ -29,7 +29,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.ParentId) ? null : src.ParentId))
                 .ForMember(dest => dest.Parent, opt => opt.Ignore())
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => !string.IsNullOrWhiteSpace(src.Version) ? src.Version : "1.0"))
-                .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => !string.IsNullOrWhiteSpace(src.FirstVersionId) ? src.FirstVersionId : src.Id))
+                .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
                 .ForMember(dest => dest.TerminalId, opt => opt.MapFrom(src => src.TerminalId))

@@ -22,7 +22,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => !string.IsNullOrWhiteSpace(src.Version) ? src.Version : "1.0"))
-                .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => !string.IsNullOrWhiteSpace(src.FirstVersionId) ? src.FirstVersionId : src.Id))
+                .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.QuantityDatumSpecifiedScope, opt => opt.MapFrom(src => src.QuantityDatumSpecifiedScope))
                 .ForMember(dest => dest.QuantityDatumSpecifiedProvenance, opt => opt.MapFrom(src => src.QuantityDatumSpecifiedProvenance))
