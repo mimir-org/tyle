@@ -1,4 +1,4 @@
-import { camelCase } from "lodash";
+import camelCase from "lodash/camelCase";
 import { useEffect } from "react";
 import { FieldValues, Path, UseFormSetError } from "react-hook-form";
 import { parseValidationStateFromServer } from "../data/helpers/parseValidationStateFromServer";
