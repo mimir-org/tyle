@@ -158,10 +158,10 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if the interface does not exist on latest version</exception>
         public async Task<InterfaceLibCm> ChangeState(string id, State state)
         {
-            var dm = _interfaceRepository.Get().FirstOrDefault(x => x.Id == id);
+            var dm = _interfaceRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
 
             if (dm == null)
-                throw new MimirorgNotFoundException($"Interface with id {id} not found.");
+                throw new MimirorgNotFoundException($"Interface with id {id} not found, or is not latest version.");
 
             await _interfaceRepository.ChangeState(state, new List<string> { id });
             _hookService.HookQueue.Enqueue(CacheKey.Interface);

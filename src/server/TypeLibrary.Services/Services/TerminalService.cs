@@ -158,10 +158,10 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if the terminal does not exist on latest version</exception>
         public async Task<TerminalLibCm> ChangeState(string id, State state)
         {
-            var dm = _terminalRepository.Get().FirstOrDefault(x => x.Id == id);
+            var dm = _terminalRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
 
             if (dm == null)
-                throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
+                throw new MimirorgNotFoundException($"Terminal with id {id} not found, or is not latest version.");
 
             await _terminalRepository.ChangeState(state, new List<string> { id });
             _hookService.HookQueue.Enqueue(CacheKey.Terminal);
