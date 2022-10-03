@@ -66,15 +66,6 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public int CompanyId { get; set; }
 
         /// <summary>
-        /// A list of connected simple types
-        /// </summary>
-        /// <remarks>
-        /// It is not allowed to remove simple types
-        /// Adding simple types generates a major increase
-        /// </remarks>
-        public ICollection<string> SimpleIdList { get; set; }
-
-        /// <summary>
         /// A list of connected attributes
         /// </summary>
         /// <remarks>

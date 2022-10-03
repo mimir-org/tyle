@@ -69,7 +69,6 @@ namespace Mimirorg.Integration.Tests.Services
                 Description = "Description",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
-                SimpleIdList = null,
                 AttributeIdList = new List<string> { $"{attributeCm.Id}" },
                 NodeTerminals = new List<NodeTerminalLibAm>{
                     new()
