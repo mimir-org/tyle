@@ -157,7 +157,11 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if the node does not exist on latest version</exception>
         public async Task<NodeLibCm> ChangeState(string id, State state)
         {
-            GetLatestVersion(id);
+            var dm = _nodeRepository.Get().FirstOrDefault(x => x.Id == id);
+
+            if(dm == null)
+                throw new MimirorgNotFoundException($"Node with id {id} not found.");
+
             await _nodeRepository.ChangeState(state, new List<string> { id });
             _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
             return state == State.Deleted ? null : GetLatestVersion(id);
