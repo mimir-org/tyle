@@ -128,7 +128,6 @@ namespace TypeLibrary.Services.Services
             if (versionStatus == VersionStatus.NoChange)
                 return GetLatestVersion(nodeToUpdate.Id);
 
-            nodeAm.FirstVersionId = nodeToUpdate.FirstVersionId;
             nodeAm.Version = versionStatus switch
             {
                 VersionStatus.Minor => nodeToUpdate.Version.IncrementMinorVersion(),
@@ -137,6 +136,7 @@ namespace TypeLibrary.Services.Services
             };
 
             var nodeDm = _mapper.Map<NodeLibDm>(nodeAm);
+            nodeDm.FirstVersionId = nodeToUpdate.FirstVersionId;
             nodeDm.State = State.Draft;
 
             var nodeCm = await _nodeRepository.Create(nodeDm);

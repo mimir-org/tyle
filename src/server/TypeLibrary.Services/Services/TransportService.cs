@@ -128,7 +128,6 @@ namespace TypeLibrary.Services.Services
             if (versionStatus == VersionStatus.NoChange)
                 return GetLatestVersion(transportToUpdate.Id);
 
-            transportAm.FirstVersionId = transportToUpdate.FirstVersionId;
             transportAm.Version = versionStatus switch
             {
                 VersionStatus.Minor => transportToUpdate.Version.IncrementMinorVersion(),
@@ -137,6 +136,7 @@ namespace TypeLibrary.Services.Services
             };
 
             var transportDm = _mapper.Map<TransportLibDm>(transportAm);
+            transportDm.FirstVersionId = transportToUpdate.FirstVersionId;
             transportDm.State = State.Draft;
 
             var transportCm = await _transportRepository.Create(transportDm);

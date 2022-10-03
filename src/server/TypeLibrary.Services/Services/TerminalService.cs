@@ -128,7 +128,6 @@ namespace TypeLibrary.Services.Services
             if (versionStatus == VersionStatus.NoChange)
                 return GetLatestVersion(terminalToUpdate.Id);
 
-            terminalAm.FirstVersionId = terminalToUpdate.FirstVersionId;
             terminalAm.Version = versionStatus switch
             {
                 VersionStatus.Minor => terminalToUpdate.Version.IncrementMinorVersion(),
@@ -137,6 +136,7 @@ namespace TypeLibrary.Services.Services
             };
 
             var terminalDm = _mapper.Map<TerminalLibDm>(terminalAm);
+            terminalDm.FirstVersionId = terminalToUpdate.FirstVersionId;
             terminalDm.State = State.Draft;
 
             var terminalCm = await _terminalRepository.Create(terminalDm);

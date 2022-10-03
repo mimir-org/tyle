@@ -128,7 +128,6 @@ namespace TypeLibrary.Services.Services
             if (versionStatus == VersionStatus.NoChange)
                 return GetLatestVersion(interfaceToUpdate.Id);
 
-            interfaceAm.FirstVersionId = interfaceToUpdate.FirstVersionId;
             interfaceAm.Version = versionStatus switch
             {
                 VersionStatus.Minor => interfaceToUpdate.Version.IncrementMinorVersion(),
@@ -137,6 +136,7 @@ namespace TypeLibrary.Services.Services
             };
 
             var interfaceDm = _mapper.Map<InterfaceLibDm>(interfaceAm);
+            interfaceDm.FirstVersionId = interfaceToUpdate.FirstVersionId;
             interfaceDm.State = State.Draft;
 
             var interfaceCm = await _interfaceRepository.Create(interfaceDm);
