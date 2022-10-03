@@ -1,4 +1,4 @@
-import { InterfaceLibAm } from "@mimirorg/typelibrary-types";
+import { InterfaceLibAm, State } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiInterface } from "../../api/tyle/apiInterface";
 import { UpdateEntity } from "../../types/updateEntity";
@@ -30,10 +30,10 @@ export const useUpdateInterface = () => {
   });
 };
 
-export const useDeleteInterface = () => {
+export const usePatchInterfaceState = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((id: string) => apiInterface.deleteInterface(id), {
+  return useMutation((item: { id: string; state: State }) => apiInterface.patchInterfaceState(item.id, item.state), {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };

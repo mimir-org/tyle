@@ -1,4 +1,4 @@
-import { TerminalLibAm } from "@mimirorg/typelibrary-types";
+import { State, TerminalLibAm } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiTerminal } from "../../api/tyle/apiTerminal";
 import { UpdateEntity } from "../../types/updateEntity";
@@ -30,10 +30,10 @@ export const useUpdateTerminal = () => {
   });
 };
 
-export const useDeleteTerminal = () => {
+export const usePatchTerminalState = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((id: string) => apiTerminal.deleteTerminal(id), {
+  return useMutation((item: { id: string; state: State }) => apiTerminal.patchTerminalState(item.id, item.state), {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };

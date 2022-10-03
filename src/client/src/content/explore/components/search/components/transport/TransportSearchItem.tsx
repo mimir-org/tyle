@@ -1,9 +1,10 @@
+import { State } from "@mimirorg/typelibrary-types";
 import { Duplicate, PencilAlt, Trash } from "@styled-icons/heroicons-outline";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Button } from "../../../../../../complib/buttons";
 import { AlertDialog } from "../../../../../../complib/overlays/alert-dialog/AlertDialog";
-import { useDeleteTransport } from "../../../../../../data/queries/tyle/queriesTransport";
+import { usePatchTransportState } from "../../../../../../data/queries/tyle/queriesTransport";
 import { TransportPreview } from "../../../../../common/transport";
 import { TransportItem } from "../../../../../types/TransportItem";
 import { PlainLink } from "../../../../../utils/PlainLink";
@@ -36,10 +37,10 @@ const TransportSearchItemActions = ({ id, name, ...rest }: TransportItem) => {
   const theme = useTheme();
   const { t } = useTranslation("translation", { keyPrefix: "search.item" });
 
-  const deleteMutation = useDeleteTransport();
+  const deleteMutation = usePatchTransportState();
   const deleteAction = {
     name: t("delete"),
-    onAction: () => deleteMutation.mutate(id),
+    onAction: () => deleteMutation.mutate({ id, state: State.Delete }),
   };
 
   return (

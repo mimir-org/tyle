@@ -1,4 +1,4 @@
-import { NodeLibAm } from "@mimirorg/typelibrary-types";
+import { NodeLibAm, State } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiNode } from "../../api/tyle/apiNode";
 import { UpdateEntity } from "../../types/updateEntity";
@@ -30,10 +30,10 @@ export const useUpdateNode = () => {
   });
 };
 
-export const useDeleteNode = () => {
+export const usePatchNodeState = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((id: string) => apiNode.deleteLibraryNode(id), {
+  return useMutation((item: { id: string; state: State }) => apiNode.patchLibraryNodeState(item.id, item.state), {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };

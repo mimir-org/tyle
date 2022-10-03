@@ -1,4 +1,4 @@
-import { TransportLibAm } from "@mimirorg/typelibrary-types";
+import { State, TransportLibAm } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiTransport } from "../../api/tyle/apiTransport";
 import { UpdateEntity } from "../../types/updateEntity";
@@ -30,10 +30,10 @@ export const useUpdateTransport = () => {
   });
 };
 
-export const useDeleteTransport = () => {
+export const usePatchTransportState = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((id: string) => apiTransport.deleteTransport(id), {
+  return useMutation((item: { id: string; state: State }) => apiTransport.patchTransportState(item.id, item.state), {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };

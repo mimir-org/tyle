@@ -1,4 +1,4 @@
-import { TerminalLibAm, TerminalLibCm } from "@mimirorg/typelibrary-types";
+import { State, TerminalLibAm, TerminalLibCm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "../apiClient";
 
 const _basePath = "libraryterminal";
@@ -16,7 +16,7 @@ export const apiTerminal = {
   putTerminal(id: string, item: TerminalLibAm) {
     return apiClient.put<TerminalLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
   },
-  deleteTerminal(id: string) {
-    return apiClient.delete<boolean>(`${_basePath}/${id}`).then((r) => r.data);
+  patchTerminalState(id: string, state: State) {
+    return apiClient.patch<TerminalLibCm>(`${_basePath}/state/${id}`, state).then((r) => r.data);
   },
 };
