@@ -138,14 +138,15 @@ namespace TypeLibrary.Services.Services
             if (versionStatus == VersionStatus.NoChange)
                 return GetLatestVersion(attributeToUpdate.Id);
 
-            attributeAm.Version = versionStatus switch
+            var attributeDm = _mapper.Map<AttributeLibDm>(attributeAm);
+
+            attributeDm.Version = versionStatus switch
             {
                 VersionStatus.Minor => attributeToUpdate.Version.IncrementMinorVersion(),
                 VersionStatus.Major => attributeToUpdate.Version.IncrementMajorVersion(),
                 _ => attributeToUpdate.Version
             };
-
-            var attributeDm = _mapper.Map<AttributeLibDm>(attributeAm);
+            
             attributeDm.FirstVersionId = attributeToUpdate.FirstVersionId;
             attributeDm.State = State.Draft;
 

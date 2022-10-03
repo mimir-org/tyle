@@ -129,14 +129,15 @@ namespace TypeLibrary.Services.Services
             if (versionStatus == VersionStatus.NoChange)
                 return GetLatestVersion(terminalToUpdate.Id);
 
-            terminalAm.Version = versionStatus switch
+            var terminalDm = _mapper.Map<TerminalLibDm>(terminalAm);
+
+            terminalDm.Version = versionStatus switch
             {
                 VersionStatus.Minor => terminalToUpdate.Version.IncrementMinorVersion(),
                 VersionStatus.Major => terminalToUpdate.Version.IncrementMajorVersion(),
                 _ => terminalToUpdate.Version
             };
-
-            var terminalDm = _mapper.Map<TerminalLibDm>(terminalAm);
+            
             terminalDm.FirstVersionId = terminalToUpdate.FirstVersionId;
             terminalDm.State = State.Draft;
 

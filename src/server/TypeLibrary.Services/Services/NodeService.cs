@@ -128,14 +128,15 @@ namespace TypeLibrary.Services.Services
             if (versionStatus == VersionStatus.NoChange)
                 return GetLatestVersion(nodeToUpdate.Id);
 
-            nodeAm.Version = versionStatus switch
+            var nodeDm = _mapper.Map<NodeLibDm>(nodeAm);
+
+            nodeDm.Version = versionStatus switch
             {
                 VersionStatus.Minor => nodeToUpdate.Version.IncrementMinorVersion(),
                 VersionStatus.Major => nodeToUpdate.Version.IncrementMajorVersion(),
                 _ => nodeToUpdate.Version
             };
 
-            var nodeDm = _mapper.Map<NodeLibDm>(nodeAm);
             nodeDm.FirstVersionId = nodeToUpdate.FirstVersionId;
             nodeDm.State = State.Draft;
 
