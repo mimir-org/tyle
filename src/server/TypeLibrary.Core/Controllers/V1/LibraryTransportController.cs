@@ -190,14 +190,14 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="state"></param>
         /// <param name="id"></param>
         /// <returns>TransportLibCm</returns>
-        [HttpPatch("state/{id}")]
+        [HttpPatch("{id}/state/{state}")]
         [ProducesResponseType(typeof(TransportLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
-        public async Task<IActionResult> UpdateState([FromBody] State state, [FromRoute] string id)
+        public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
         {
             try
             {
