@@ -1,7 +1,6 @@
 import { InterfaceLibAm, State } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiInterface } from "../../api/tyle/apiInterface";
-import { UpdateEntity } from "../../types/updateEntity";
 
 const keys = {
   all: ["interfaces"] as const,
@@ -25,7 +24,7 @@ export const useCreateInterface = () => {
 export const useUpdateInterface = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: UpdateEntity<InterfaceLibAm>) => apiInterface.putInterface(item.id, item), {
+  return useMutation((item: InterfaceLibAm) => apiInterface.putInterface(item), {
     onSuccess: (unit) => queryClient.invalidateQueries(keys.interface(unit.id)),
   });
 };

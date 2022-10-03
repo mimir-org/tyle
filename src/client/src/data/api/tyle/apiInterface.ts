@@ -13,8 +13,8 @@ export const apiInterface = {
   postInterface(item: InterfaceLibAm) {
     return apiClient.post<InterfaceLibCm>(_basePath, item).then((r) => r.data);
   },
-  putInterface(id: string, item: InterfaceLibAm) {
-    return apiClient.put<InterfaceLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
+  putInterface(item: InterfaceLibAm) {
+    return apiClient.put<InterfaceLibCm>(_basePath, item).then((r) => r.data);
   },
   patchInterfaceState(id: string, state: State) {
     return apiClient.patch<InterfaceLibCm>(`${_basePath}/state/${id}`, state).then((r) => r.data);

@@ -1,7 +1,6 @@
 import { NodeLibAm, State } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiNode } from "../../api/tyle/apiNode";
-import { UpdateEntity } from "../../types/updateEntity";
 
 const keys = {
   all: ["nodes"] as const,
@@ -25,7 +24,7 @@ export const useCreateNode = () => {
 export const useUpdateNode = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: UpdateEntity<NodeLibAm>) => apiNode.putLibraryNode(item.id, item), {
+  return useMutation((item: NodeLibAm) => apiNode.putLibraryNode(item), {
     onSuccess: (unit) => queryClient.invalidateQueries(keys.node(unit.id)),
   });
 };

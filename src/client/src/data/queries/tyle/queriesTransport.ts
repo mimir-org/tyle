@@ -1,7 +1,6 @@
 import { State, TransportLibAm } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiTransport } from "../../api/tyle/apiTransport";
-import { UpdateEntity } from "../../types/updateEntity";
 
 const keys = {
   all: ["transports"] as const,
@@ -25,7 +24,7 @@ export const useCreateTransport = () => {
 export const useUpdateTransport = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: UpdateEntity<TransportLibAm>) => apiTransport.putTransport(item.id, item), {
+  return useMutation((item: TransportLibAm) => apiTransport.putTransport(item), {
     onSuccess: (unit) => queryClient.invalidateQueries(keys.transport(unit.id)),
   });
 };

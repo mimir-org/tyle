@@ -13,8 +13,8 @@ export const apiTransport = {
   postTransport(item: TransportLibAm) {
     return apiClient.post<TransportLibCm>(_basePath, item).then((r) => r.data);
   },
-  putTransport(id: string, item: TransportLibAm) {
-    return apiClient.put<TransportLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
+  putTransport(item: TransportLibAm) {
+    return apiClient.put<TransportLibCm>(_basePath, item).then((r) => r.data);
   },
   patchTransportState(id: string, state: State) {
     return apiClient.patch<TransportLibCm>(`${_basePath}/state/${id}`, state).then((r) => r.data);
