@@ -200,16 +200,16 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> ChangeState([FromBody] State state, [FromRoute] string id)
         {
             try
             {
-                var companyId = await _nodeService.GetCompanyId(id);
-                var hasAccess = await _authService.HasAccess(companyId, state);
+                //var companyId = await _nodeService.GetCompanyId(id);
+                //var hasAccess = await _authService.HasAccess(companyId, state);
 
-                if (!hasAccess)
-                    return StatusCode(StatusCodes.Status403Forbidden);
+                //if (!hasAccess)
+                //    return StatusCode(StatusCodes.Status403Forbidden);
 
                 var data = await _nodeService.ChangeState(id, state);
                 return Ok(data);

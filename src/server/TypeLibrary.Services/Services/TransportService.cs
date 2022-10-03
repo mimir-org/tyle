@@ -13,6 +13,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -157,12 +158,10 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if the transport does not exist on latest version</exception>
         public async Task<TransportLibCm> ChangeState(string id, State state)
         {
-            var transportToUpdate = _transportRepository.Get()
-                .LatestVersion()
-                .FirstOrDefault(x => x.Id == id);
+            var dm = _transportRepository.Get().FirstOrDefault(x => x.Id == id);
 
-            if (transportToUpdate == null)
-                throw new MimirorgNotFoundException($"Transport with id {id} does not exist, update is not possible.");
+            if (dm == null)
+                throw new MimirorgNotFoundException($"Transport with id {id} not found.");
 
             await _transportRepository.ChangeState(state, new List<string> { id });
             _hookService.HookQueue.Enqueue(CacheKey.Transport);

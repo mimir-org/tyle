@@ -14,6 +14,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -166,7 +167,11 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if the attribute does not exist on latest version</exception>
         public async Task<AttributeLibCm> ChangeState(string id, State state)
         {
-            GetLatestVersion(id);
+            var dm = _attributeRepository.Get().FirstOrDefault(x => x.Id == id);
+
+            if (dm == null)
+                throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
+
             await _attributeRepository.ChangeState(state, new List<string> { id });
             _hookService.HookQueue.Enqueue(CacheKey.Attribute);
             return state == State.Deleted ? null : GetLatestVersion(id);
