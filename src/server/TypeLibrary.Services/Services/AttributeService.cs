@@ -174,7 +174,9 @@ namespace TypeLibrary.Services.Services
             if (dm == null)
                 throw new MimirorgNotFoundException($"Attribute with id {id} not found, or is not latest version.");
 
-            await _attributeRepository.ChangeState(state, new List<string> { id });
+            var dmAllVersions = _attributeRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId).Select(x => x.Id).ToList();
+
+            await _attributeRepository.ChangeState(state, dmAllVersions);
             _hookService.HookQueue.Enqueue(CacheKey.Attribute);
             return state == State.Deleted ? null : GetLatestVersion(id);
         }

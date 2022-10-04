@@ -165,7 +165,9 @@ namespace TypeLibrary.Services.Services
             if (dm == null)
                 throw new MimirorgNotFoundException($"Transport with id {id} not found, or is not latest version");
 
-            await _transportRepository.ChangeState(state, new List<string> { id });
+            var dmAllVersions = _transportRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId).Select(x => x.Id).ToList();
+
+            await _transportRepository.ChangeState(state, dmAllVersions);
             _hookService.HookQueue.Enqueue(CacheKey.Transport);
             return state == State.Deleted ? null : GetLatestVersion(id);
         }

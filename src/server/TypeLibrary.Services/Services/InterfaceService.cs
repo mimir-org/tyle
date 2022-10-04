@@ -165,7 +165,9 @@ namespace TypeLibrary.Services.Services
             if (dm == null)
                 throw new MimirorgNotFoundException($"Interface with id {id} not found, or is not latest version.");
 
-            await _interfaceRepository.ChangeState(state, new List<string> { id });
+            var dmAllVersions = _interfaceRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId).Select(x => x.Id).ToList();
+
+            await _interfaceRepository.ChangeState(state, dmAllVersions);
             _hookService.HookQueue.Enqueue(CacheKey.Interface);
             return state == State.Deleted ? null : GetLatestVersion(id);
         }

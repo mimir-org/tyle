@@ -161,11 +161,13 @@ namespace TypeLibrary.Services.Services
         public async Task<NodeLibCm> ChangeState(string id, State state)
         {
             var dm = _nodeRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
-
+            
             if (dm == null)
                 throw new MimirorgNotFoundException($"Node with id {id} not found, or is not latest version.");
 
-            await _nodeRepository.ChangeState(state, new List<string> { id });
+            var dmAllVersions = _nodeRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId).Select(x => x.Id).ToList();
+
+            await _nodeRepository.ChangeState(state, dmAllVersions);
             _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
             return state == State.Deleted ? null : GetLatestVersion(id);
         }
