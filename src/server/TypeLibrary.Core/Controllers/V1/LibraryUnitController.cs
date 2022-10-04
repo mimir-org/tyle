@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Client;
-using TypeLibrary.Data.Contracts;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1
@@ -24,13 +23,11 @@ namespace TypeLibrary.Core.Controllers.V1
     {
         private readonly ILogger<LibraryUnitController> _logger;
         private readonly IUnitService _unitService;
-        private readonly IUnitRepository _unitRepository;
 
-        public LibraryUnitController(ILogger<LibraryUnitController> logger, IUnitService unitService, IUnitRepository unitRepository)
+        public LibraryUnitController(ILogger<LibraryUnitController> logger, IUnitService unitService)
         {
             _logger = logger;
             _unitService = unitService;
-            _unitRepository = unitRepository;
         }
 
         [HttpGet]

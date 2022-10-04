@@ -13,7 +13,6 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -86,7 +85,7 @@ namespace TypeLibrary.Services.Services
 
             terminal.Version = "1.0";
             var dm = _mapper.Map<TerminalLibDm>(terminal);
-            
+
             dm.State = State.Draft;
 
             await _terminalRepository.Create(dm);

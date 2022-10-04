@@ -162,7 +162,7 @@ namespace TypeLibrary.Services.Services
         {
             var dm = _nodeRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
 
-            if(dm == null)
+            if (dm == null)
                 throw new MimirorgNotFoundException($"Node with id {id} not found, or is not latest version.");
 
             await _nodeRepository.ChangeState(state, new List<string> { id });
