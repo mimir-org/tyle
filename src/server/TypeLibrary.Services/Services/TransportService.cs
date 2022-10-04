@@ -84,9 +84,9 @@ namespace TypeLibrary.Services.Services
             if (await _transportRepository.Exist(transportAm.Id))
                 throw new MimirorgDuplicateException($"Transport '{transportAm.Name}' and version '{transportAm.Version}' already exist.");
 
+            transportAm.Version = "1.0";
             var transportDm = _mapper.Map<TransportLibDm>(transportAm);
 
-            transportDm.Version = "1.0";
             transportDm.State = State.Draft;
 
             await _transportRepository.Create(transportDm);

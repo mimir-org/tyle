@@ -94,9 +94,9 @@ namespace TypeLibrary.Services.Services
             if (await _attributeRepository.Exist(attributeAm.Id))
                 throw new MimirorgDuplicateException($"Attribute '{attributeAm.Name}' and version '{attributeAm.Version}' already exist.");
 
+            attributeAm.Version = "1.0";
             var dm = _mapper.Map<AttributeLibDm>(attributeAm);
 
-            dm.Version = "1.0";
             dm.State = State.Draft;
 
             await _attributeRepository.Create(dm);

@@ -13,7 +13,6 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -84,9 +83,9 @@ namespace TypeLibrary.Services.Services
             if (await _interfaceRepository.Exist(interfaceAm.Id))
                 throw new MimirorgDuplicateException($"Interface '{interfaceAm.Name}' and version '{interfaceAm.Version}' already exist.");
 
+            interfaceAm.Version = "1.0";
             var interfaceDm = _mapper.Map<InterfaceLibDm>(interfaceAm);
 
-            interfaceDm.Version = "1.0";
             interfaceDm.State = State.Draft;
 
             await _interfaceRepository.Create(interfaceDm);

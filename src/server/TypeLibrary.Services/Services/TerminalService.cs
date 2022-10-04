@@ -84,9 +84,9 @@ namespace TypeLibrary.Services.Services
             if (await _terminalRepository.Exist(terminal.Id))
                 throw new MimirorgDuplicateException($"Terminal '{terminal.Name}' and version '{terminal.Version}' already exist.");
 
+            terminal.Version = "1.0";
             var dm = _mapper.Map<TerminalLibDm>(terminal);
-
-            dm.Version = "1.0";
+            
             dm.State = State.Draft;
 
             await _terminalRepository.Create(dm);

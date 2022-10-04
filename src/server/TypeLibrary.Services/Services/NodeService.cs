@@ -83,9 +83,9 @@ namespace TypeLibrary.Services.Services
             if (await _nodeRepository.Exist(nodeAm.Id))
                 throw new MimirorgDuplicateException($"Node '{nodeAm.Name}' and version '{nodeAm.Version}' already exist.");
 
+            nodeAm.Version = "1.0";
             var dm = _mapper.Map<NodeLibDm>(nodeAm);
 
-            dm.Version = "1.0";
             dm.State = State.Draft;
 
             await _nodeRepository.Create(dm);
