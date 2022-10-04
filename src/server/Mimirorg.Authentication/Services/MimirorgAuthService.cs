@@ -71,30 +71,6 @@ namespace Mimirorg.Authentication.Services
         }
 
         /// <summary>
-        /// Validate security code
-        /// </summary>
-        /// <param name="user">The user that should be validated</param>
-        /// <param name="code">The security code</param>
-        /// <remarks>If user is not set two factor to be enabled,
-        /// the method will return </remarks>
-        /// <returns></returns>
-        public bool ValidateSecurityCode(MimirorgUser user, string code)
-        {
-            if (!user.TwoFactorEnabled)
-                return true;
-
-            var validator = new TotpValidator(new TotpGenerator());
-
-            if (!code.All(char.IsDigit))
-                return false;
-
-            if (!int.TryParse(code, out var codeInt))
-                return false;
-
-            return validator.Validate(user.SecurityHash, codeInt);
-        }
-
-        /// <summary>
         /// Create a token from refresh token
         /// </summary>
         /// <param name="secret">string</param>
@@ -132,50 +108,27 @@ namespace Mimirorg.Authentication.Services
         }
 
         /// <summary>
-        /// Verify email account from verify code
+        /// Validate security code
         /// </summary>
-        /// <param name="email">User Email Address</param>
-        /// <param name="code">Email Code</param>
-        /// <param name="tokenType">The type of token to validate</param>
-        /// <returns>bool</returns>
-        /// <exception cref="MimirorgInvalidOperationException"></exception>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="MimirorgNotFoundException"></exception>
-        public async Task<bool> VerifyAccount(string email, string code, MimirorgTokenType tokenType)
+        /// <param name="user">The user that should be validated</param>
+        /// <param name="code">The security code</param>
+        /// <remarks>If user is not set two factor to be enabled,
+        /// the method will return </remarks>
+        /// <returns>Returns true if code is valid</returns>
+        public bool ValidateSecurityCode(MimirorgUser user, string code)
         {
-            if (string.IsNullOrWhiteSpace(email))
-                throw new ArgumentNullException(nameof(email));
+            if (!user.TwoFactorEnabled)
+                return true;
 
-            if (string.IsNullOrWhiteSpace(code))
-                throw new ArgumentNullException(nameof(code));
+            var validator = new TotpValidator(new TotpGenerator());
 
-            var regToken = await _tokenRepository.FindBy(x => x.Secret == code && x.Email == email).FirstOrDefaultAsync(x => x.TokenType == tokenType);
+            if (!code.All(char.IsDigit))
+                return false;
 
-            if (regToken == null)
-                throw new MimirorgNotFoundException("Could not verify account");
+            if (!int.TryParse(code, out var codeInt))
+                return false;
 
-            var user = await _userManager.FindByEmailAsync(regToken.Email);
-            if (user == null)
-                throw new MimirorgNotFoundException("Could not verify account");
-
-            switch (tokenType)
-            {
-                case MimirorgTokenType.VerifyEmail:
-                    user.EmailConfirmed = true;
-                    break;
-                
-            }
-
-
-            var result = await _userManager.UpdateAsync(user);
-
-            if (!result.Succeeded)
-                throw new MimirorgInvalidOperationException($"Couldn't verify account by email. Error: {result.Errors.ConvertToString()}");
-
-            _tokenRepository.Attach(regToken, EntityState.Deleted);
-            await _tokenRepository.SaveAsync();
-            return result.Succeeded;
+            return validator.Validate(user.SecurityHash, codeInt);
         }
 
         /// <summary>

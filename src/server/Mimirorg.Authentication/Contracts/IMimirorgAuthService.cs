@@ -2,7 +2,6 @@ using System.Security.Authentication;
 using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
-using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 
@@ -21,8 +20,6 @@ namespace Mimirorg.Authentication.Contracts
         /// <exception cref="AuthenticationException"></exception>
         Task<ICollection<MimirorgTokenCm>> Authenticate(MimirorgAuthenticateAm authenticate);
 
-        bool ValidateSecurityCode(MimirorgUser user, string code);
-
         /// <summary>
         /// Create a token from refresh token
         /// </summary>
@@ -31,8 +28,15 @@ namespace Mimirorg.Authentication.Contracts
         /// <exception cref="AuthenticationException"></exception>
         Task<ICollection<MimirorgTokenCm>> Authenticate(string secret);
 
-        
-        Task<bool> VerifyAccount(string email, string code, MimirorgTokenType tokenType);
+        /// <summary>
+        /// Validate security code
+        /// </summary>
+        /// <param name="user">The user that should be validated</param>
+        /// <param name="code">The security code</param>
+        /// <remarks>If user is not set two factor to be enabled,
+        /// the method will return </remarks>
+        /// <returns>Returns true if code is valid</returns>
+        bool ValidateSecurityCode(MimirorgUser user, string code);
 
         /// <summary>
         /// Remove the current user's authentication tokens

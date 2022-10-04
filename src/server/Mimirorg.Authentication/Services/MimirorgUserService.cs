@@ -53,7 +53,7 @@ namespace Mimirorg.Authentication.Services
         /// <exception cref="MimirorgBadRequestException"></exception>
         /// <exception cref="MimirorgInvalidOperationException"></exception>
         /// <exception cref="MimirorgDuplicateException"></exception>
-        public async Task<MimirorgQrCodeCm> CreateUser(MimirorgUserAm userAm)
+        public async Task<MimirorgUserCm> CreateUser(MimirorgUserAm userAm)
         {
             if (_authSettings == null)
                 throw new MimirorgConfigurationException("Missing configuration for auth settings");
@@ -68,25 +68,21 @@ namespace Mimirorg.Authentication.Services
             user.CompanyName = currentCompany?.DisplayName ?? currentCompany?.Name;
             user.EmailConfirmed = !_authSettings.RequireConfirmedAccount;
 
-            // Create two factor register qr code
-            var totpSetup = CreateTotp(user);
-
             var result = await _userManager.CreateAsync(user, userAm.Password);
             if (!result.Succeeded)
                 throw new MimirorgInvalidOperationException($"Couldn't register: {userAm.Email}. Error: {result.Errors.ConvertToString()}");
 
             // Create an email verification token and send email to user
             if (_authSettings.RequireConfirmedAccount)
-                await SendEmailConfirmationCode(user, MimirorgTokenType.VerifyEmail);
+            {
+                var secret = await CreateUserToken(user, new List<MimirorgTokenType> { MimirorgTokenType.VerifyEmail, MimirorgTokenType.ChangeTwoFactor });
+                var email = await _templateRepository.CreateCodeVerificationMail(user, secret);
+                await _emailRepository.SendEmail(email);
+            }
 
             // If this is the first registered user and environment is Development, create a dummy organization
             await CreateDefaultUserData(user);
-
-            return new MimirorgQrCodeCm
-            {
-                Code = totpSetup.QrCodeImage,
-                ManualCode = totpSetup.ManualSetupKey
-            };
+            return user.ToContentModel();
         }
 
         /// <summary>
@@ -141,26 +137,19 @@ namespace Mimirorg.Authentication.Services
         /// <summary>
         /// Setup two factor 
         /// </summary>
-        /// <param name="email"></param>
-        /// <param name="code"></param>
+        /// <param name="verifyEmail"></param>
         /// <returns>Returns QR code for two factor app</returns>
         /// <exception cref="NotImplementedException"></exception>
         /// <exception cref="MimirorgConfigurationException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="MimirorgNotFoundException"></exception>
         /// <exception cref="MimirorgInvalidOperationException"></exception>
-        public async Task<MimirorgQrCodeCm> SetupTwoFactor(string email, string code)
+        public async Task<MimirorgQrCodeCm> GenerateTwoFactor(MimirorgVerifyAm verifyEmail)
         {
             if (_authSettings == null)
                 throw new MimirorgConfigurationException("Missing configuration for auth settings");
 
-            if (string.IsNullOrWhiteSpace(email))
-                throw new ArgumentNullException(nameof(email));
-
-            if (string.IsNullOrWhiteSpace(code))
-                throw new ArgumentNullException(nameof(code));
-
-            var regToken = await _tokenRepository.FindBy(x => x.Secret == code && x.Email == email).FirstOrDefaultAsync(x => x.TokenType == MimirorgTokenType.ChangeTwoFactor);
+            var regToken = await _tokenRepository.FindBy(x => x.Secret == verifyEmail.Code && x.Email == verifyEmail.Email).FirstOrDefaultAsync(x => x.TokenType == MimirorgTokenType.ChangeTwoFactor);
             
             if (regToken == null)
                 throw new MimirorgNotFoundException("Could not verify account");
@@ -251,40 +240,130 @@ namespace Mimirorg.Authentication.Services
             return await _userManager.DeleteAsync(user) == IdentityResult.Success;
         }
 
+        /// <summary>
+        /// A method that generates a login code and sending the generated code to user as mail.
+        /// </summary>
+        /// <param name="generateSecret">Object information for generating secret</param>
+        /// <returns>A completed task</returns>
+        /// <exception cref="MimirorgBadRequestException">Throws if model is not valid</exception>
+        /// <exception cref="MimirorgInvalidOperationException">Throws if user does not exist</exception>
+        public async Task GenerateSecret(MimirorgGenerateSecretAm generateSecret)
+        {
+            var validation = generateSecret.ValidateObject();
+            if (!validation.IsValid)
+                throw new MimirorgBadRequestException("Couldn't generate secret", validation);
+
+            var user = await _userManager.FindByEmailAsync(generateSecret.Email);
+            if (user == null)
+                throw new MimirorgInvalidOperationException($"Couldn't generate secret for user with email: {generateSecret.Email}");
+
+            var secret = await CreateUserToken(user, new List<MimirorgTokenType> { generateSecret.TokenType });
+            var email = await _templateRepository.CreateCodeVerificationMail(user, secret);
+            await _emailRepository.SendEmail(email);
+        }
+
+        /// <summary>
+        /// Change the password on user
+        /// </summary>
+        /// <param name="changePassword">Object information for resetting password</param>
+        /// <returns>A completed task</returns>
+        /// <exception cref="MimirorgNotFoundException">Throws if user or token not exist</exception>
+        public async Task<bool> ChangePassword(MimirorgChangePasswordAm changePassword)
+        {
+            var regToken = await _tokenRepository.FindBy(x => 
+                x.Secret == changePassword.Code && 
+                x.Email == changePassword.Email)
+                .FirstOrDefaultAsync(x => x.TokenType == MimirorgTokenType.ChangePassword);
+
+            if (regToken == null)
+                throw new MimirorgNotFoundException("Could not verify account");
+
+            var user = await _userManager.FindByEmailAsync(regToken.Email);
+
+            if (user == null)
+                throw new MimirorgNotFoundException("Could not verify account");
+
+            if (user.PasswordHash != null)
+                await _userManager.RemovePasswordAsync(user);
+            
+            var result = await _userManager.AddPasswordAsync(user, changePassword.Password);
+            return result.Succeeded;
+        }
+
         public IEnumerable<MimirorgUserCm> GetUsersNotConfirmed()
         {
             throw new NotImplementedException();
             //var users = _userManager.Users.Where(x => !x.EmailConfirmed && x.)
         }
 
+        /// <summary>
+        /// Verify email account from verify code
+        /// </summary>
+        /// <param name="data">The email verify data</param>
+        /// <returns>bool</returns>
+        /// <exception cref="MimirorgInvalidOperationException"></exception>
+        /// <exception cref="MimirorgNotFoundException"></exception>
+        public async Task<bool> VerifyAccount(MimirorgVerifyAm data)
+        {
+            var regToken = await _tokenRepository.FindBy(x => x.Secret == data.Code && x.Email == data.Email).FirstOrDefaultAsync(x => x.TokenType == MimirorgTokenType.VerifyEmail);
+
+            if (regToken == null)
+                throw new MimirorgNotFoundException("Could not verify account");
+
+            var user = await _userManager.FindByEmailAsync(regToken.Email);
+            if (user == null)
+                throw new MimirorgNotFoundException("Could not verify account");
+
+            user.EmailConfirmed = true;
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+                throw new MimirorgInvalidOperationException($"Couldn't verify account by email. Error: {result.Errors.ConvertToString()}");
+
+            _tokenRepository.Attach(regToken, EntityState.Deleted);
+            await _tokenRepository.SaveAsync();
+            return result.Succeeded;
+        }
+
         #region Private methods
 
-        private async Task SendEmailConfirmationCode(MimirorgUser user, MimirorgTokenType tokenType)
+        private async Task<string> CreateUserToken(MimirorgUser user, IEnumerable<MimirorgTokenType> tokenTypes)
         {
+            
             var generator = new Random();
             var secret = generator.Next(0, 1000000).ToString("D6");
-            
-            var token = new MimirorgToken
+            try
             {
-                ClientId = user.Id,
-                Email = user.Email,
-                Secret = secret,
-                TokenType = tokenType,
-                ValidTo = DateTime.Now.AddHours(1)
-            };
+                var deleteTokens = _tokenRepository.GetAll()
+                    .Where(x => x.ClientId == user.Id || DateTime.Now > x.ValidTo).ToList();
 
-            var oldTokens = _tokenRepository.GetAll().Where(x => (x.ClientId == user.Id && x.TokenType == tokenType) || DateTime.Now > x.ValidTo).ToList();
+                foreach (var t in deleteTokens)
+                    _tokenRepository.Attach(t, EntityState.Deleted);
 
-            foreach (var t in oldTokens)
+                await _tokenRepository.SaveAsync();
+
+                foreach (var tokenType in tokenTypes)
+                {
+                    var token = new MimirorgToken
+                    {
+                        ClientId = user.Id,
+                        Email = user.Email,
+                        Secret = secret,
+                        TokenType = tokenType,
+                        ValidTo = DateTime.Now.AddHours(1)
+                    };
+                    _tokenRepository.Attach(token, EntityState.Added);
+                }
+
+                await _tokenRepository.SaveAsync();
+            }
+            catch (Exception e)
             {
-                _tokenRepository.Attach(t, EntityState.Deleted);
+                var test = e.Message;
             }
 
-            await _tokenRepository.CreateAsync(token);
-            await _tokenRepository.SaveAsync();
-
-            var email = await _templateRepository.CreateCodeVerificationMail(user, token);
-            await _emailRepository.SendEmail(email);
+            return secret;
         }
 
         private static string ComputeSha256Hash(string data)

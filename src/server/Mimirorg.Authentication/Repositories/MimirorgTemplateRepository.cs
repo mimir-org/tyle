@@ -17,7 +17,7 @@ namespace Mimirorg.Authentication.Repositories
             _authSettings = authSettings?.Value;
         }
 
-        public Task<MimeMessage> CreateCodeVerificationMail(MimirorgUser user, MimirorgToken token)
+        public Task<MimeMessage> CreateCodeVerificationMail(MimirorgUser user, string secret)
         {
             if (_authSettings == null || string.IsNullOrEmpty(_authSettings.EmailKey) || string.IsNullOrEmpty(_authSettings.EmailSecret) || string.IsNullOrEmpty(_authSettings.Email))
                 throw new MimirorgConfigurationException("Missing configuration for email");
@@ -33,7 +33,7 @@ namespace Mimirorg.Authentication.Repositories
                     <h1>Your verification code</h1>
                     <p>Hi {user.FirstName} {user.LastName},</p>
                     <br /><br />
-                    <p>Your code: {token.Secret}</p>                    
+                    <p>Your code: {secret}</p>                    
                 </div>
                 "
             };

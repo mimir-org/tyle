@@ -25,35 +25,29 @@ namespace Mimirorg.Authentication.Repositories
         {
             if (_authSettings == null || string.IsNullOrEmpty(_authSettings.EmailKey) || string.IsNullOrEmpty(_authSettings.EmailSecret) || string.IsNullOrEmpty(_authSettings.Email))
                 throw new MimirorgConfigurationException("Missing configuration for email");
-
-            var codeFlow = new GoogleAuthorizationCodeFlow(new GoogleAuthorizationCodeFlow.Initializer
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            var isDevelopment = !string.IsNullOrWhiteSpace(environment) && environment.ToLower() == "development";
+            if (isDevelopment)
             {
-                DataStore = new FileDataStore(AppDomain.CurrentDomain.BaseDirectory),
-                Scopes = new[] { GmailService.Scope.MailGoogleCom },
-                ClientSecrets = new ClientSecrets
-                {
-                    ClientId = _authSettings.EmailKey,
-                    ClientSecret = _authSettings.EmailSecret
-                }
-            });
-
-            var codeReceiver = new LocalServerCodeReceiver();
-            var authCode = new AuthorizationCodeInstalledApp(codeFlow, codeReceiver);
-            var credential = await authCode.AuthorizeAsync(_authSettings.Email, CancellationToken.None);
-
-            if (authCode.ShouldRequestAuthorizationCode(credential.Token))
-            {
-                await credential.RefreshTokenAsync(CancellationToken.None);
+                await SendToLocalFolder(email);
+                return;
             }
 
+            await SendMailServer(email);
+        }
+
+        public async Task SendMailServer(MimeMessage email)
+        {
             using var client = new SmtpClient();
-            await client.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
-
-            var oauth2 = new SaslMechanismOAuth2(credential.UserId, credential.Token.AccessToken);
-            await client.AuthenticateAsync(oauth2);
-
+            await client.ConnectAsync("localhost", 25);
             await client.SendAsync(email);
-            await client.DisconnectAsync(true);
+        }
+
+        private static async Task SendToLocalFolder(MimeMessage email)
+        {
+            var executingAssembly = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            var rootPath = $@"{Path.GetDirectoryName(executingAssembly)}/{Guid.NewGuid()}";
+            await email.WriteToAsync(rootPath);
         }
     }
 }

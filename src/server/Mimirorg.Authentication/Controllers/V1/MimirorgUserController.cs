@@ -30,12 +30,12 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// Create a new login user
         /// </summary>
         /// <param name="user"></param>
-        /// <returns>QrCode</returns>
+        /// <returns>The created user</returns>
         /// <remarks>Create user</remarks>
         [AllowAnonymous]
         [HttpPost]
         [Route("")]
-        [ProducesResponseType(typeof(MimirorgQrCodeCm), 200)]
+        [ProducesResponseType(typeof(MimirorgUserCm), 200)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [SwaggerOperation("Create a new user")]
@@ -106,6 +106,141 @@ namespace Mimirorg.Authentication.Controllers.V1
             catch (Exception e)
             {
                 _logger.LogError(e, $"An error occured while trying to get current user. Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
+        /// Verify account from token
+        /// </summary>
+        /// <param name="verifyEmail">string</param>
+        /// <returns>bool</returns>
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("verify")]
+        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [SwaggerOperation("Activate account")]
+        public async Task<IActionResult> VerifyAccount([FromBody] MimirorgVerifyAm verifyEmail)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                var data = await _userService.VerifyAccount(verifyEmail);
+                return Ok(data);
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                foreach (var error in e.Errors().ToList())
+                {
+                    ModelState.Remove(error.Key);
+                    ModelState.TryAddModelError(error.Key, error.Error);
+                }
+
+                return BadRequest(ModelState);
+            }
+            catch (MimirorgInvalidOperationException e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to verify account. The operation is invalid Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to verify account. Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
+        /// Generate QrCode for setup 2FA
+        /// </summary>
+        /// <param name="data">Verify data model</param>
+        /// <returns>bool</returns>
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("2fa")]
+        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [SwaggerOperation("Activate account")]
+        public async Task<IActionResult> VerifyTwoFactor([FromBody] MimirorgVerifyAm data)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                var qr = await _userService.GenerateTwoFactor(data);
+                return Ok(qr);
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                foreach (var error in e.Errors().ToList())
+                {
+                    ModelState.Remove(error.Key);
+                    ModelState.TryAddModelError(error.Key, error.Error);
+                }
+
+                return BadRequest(ModelState);
+            }
+            catch (MimirorgInvalidOperationException e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to verify account. The operation is invalid Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to verify account. Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
+        /// Change password
+        /// </summary>
+        /// <param name="changePassword">string</param>
+        /// <returns>bool</returns>
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("password")]
+        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [SwaggerOperation("Activate account")]
+        public async Task<IActionResult> ChangePassword([FromBody] MimirorgChangePasswordAm changePassword)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                var data = await _userService.ChangePassword(changePassword);
+                return Ok(data);
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                foreach (var error in e.Errors().ToList())
+                {
+                    ModelState.Remove(error.Key);
+                    ModelState.TryAddModelError(error.Key, error.Error);
+                }
+
+                return BadRequest(ModelState);
+            }
+            catch (MimirorgInvalidOperationException e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to verify account. The operation is invalid Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to verify account. Error: {e.Message}");
                 return StatusCode(500, "Internal Server Error");
             }
         }

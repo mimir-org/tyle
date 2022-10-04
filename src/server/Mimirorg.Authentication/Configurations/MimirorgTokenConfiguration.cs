@@ -10,7 +10,7 @@ namespace Mimirorg.Authentication.Configurations
         {
             builder.HasKey(x => x.Id);
             builder.HasIndex(x => x.ClientId).IsUnique(false);
-            builder.HasIndex(x => x.Secret).IsUnique();
+            builder.HasIndex(x => x.Secret).IsUnique(false);
             builder.ToTable("MimirorgToken");
             builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
             builder.Property(p => p.ClientId).HasColumnName("ClientId").IsRequired();

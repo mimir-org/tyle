@@ -5,6 +5,6 @@ namespace Mimirorg.Authentication.Contracts
 {
     public interface IMimirorgTemplateRepository
     {
-        Task<MimeMessage> CreateCodeVerificationMail(MimirorgUser user, MimirorgToken token);
+        Task<MimeMessage> CreateCodeVerificationMail(MimirorgUser user, string secret);
     }
 }

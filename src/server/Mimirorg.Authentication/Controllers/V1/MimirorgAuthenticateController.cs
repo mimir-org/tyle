@@ -22,11 +22,13 @@ namespace Mimirorg.Authentication.Controllers.V1
         private const string RefreshTokenCookie = "tyleToken";
         private readonly ILogger<MimirorgAuthenticateController> _logger;
         private readonly IMimirorgAuthService _authService;
+        private readonly IMimirorgUserService _userService;
 
-        public MimirorgAuthenticateController(ILogger<MimirorgAuthenticateController> logger, IMimirorgAuthService authService)
+        public MimirorgAuthenticateController(ILogger<MimirorgAuthenticateController> logger, IMimirorgAuthService authService, IMimirorgUserService userService)
         {
             _logger = logger;
             _authService = authService;
+            _userService = userService;
         }
 
         /// <summary>
@@ -40,7 +42,6 @@ namespace Mimirorg.Authentication.Controllers.V1
         [ProducesResponseType(typeof(MimirorgTokenCm), 200)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [SwaggerOperation("Login with username and password")]
         public async Task<IActionResult> Login([FromBody] MimirorgAuthenticateAm authenticate)
         {
@@ -118,7 +119,6 @@ namespace Mimirorg.Authentication.Controllers.V1
         [ProducesResponseType(typeof(MimirorgTokenCm), 200)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [SwaggerOperation("Login with secret")]
         public async Task<IActionResult> LoginSecret()
         {
@@ -148,47 +148,33 @@ namespace Mimirorg.Authentication.Controllers.V1
         }
 
         /// <summary>
-        /// Verify account from token
+        /// Generate a new secret
         /// </summary>
-        /// <param name="verifyEmail">string</param>
-        /// <returns>bool</returns>
+        /// <param name="secret"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
-        [Route("verify")]
-        [ProducesResponseType(typeof(bool), 200)]
+        [Route("secret/create")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [SwaggerOperation("Activate account")]
-        public async Task<IActionResult> VerifyAccount([FromBody] VerifyEmailAm verifyEmail)
+        public async Task<IActionResult> GenerateSecret(MimirorgGenerateSecretAm secret)
         {
             try
             {
-                var data = await _authService.VerifyAccount(verifyEmail.Email, verifyEmail.Code, MimirorgTokenType.VerifyEmail);
-                return Ok(data);
-            }
-            catch (MimirorgBadRequestException e)
-            {
-                foreach (var error in e.Errors().ToList())
-                {
-                    ModelState.Remove(error.Key);
-                    ModelState.TryAddModelError(error.Key, error.Error);
-                }
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-                return BadRequest(ModelState);
+                await _userService.GenerateSecret(secret);
+                return NoContent();
             }
-            catch (MimirorgInvalidOperationException e)
+            catch(Exception e)
             {
-                _logger.LogError(e, $"An error occurred while trying to verify account. The operation is invalid Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"An error occurred while trying to verify account. Error: {e.Message}");
+                _logger.LogError(e, $"An error occurred while trying to create secret. Error: {e.Message}");
                 return StatusCode(500, "Internal Server Error");
             }
         }
-
+        
         #region Private methods
 
         private Task AddRefreshTokenCookie(HttpRequest request, HttpResponse response, MimirorgTokenCm token)
