@@ -161,7 +161,7 @@ namespace TypeLibrary.Services.Services
         public async Task<NodeLibCm> ChangeState(string id, State state)
         {
             var dm = _nodeRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
-            
+
             if (dm == null)
                 throw new MimirorgNotFoundException($"Node with id {id} not found, or is not latest version.");
 
