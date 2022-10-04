@@ -85,6 +85,8 @@ namespace TypeLibrary.Services.Services
                 throw new MimirorgDuplicateException($"Interface '{interfaceAm.Name}' and version '{interfaceAm.Version}' already exist.");
 
             var interfaceDm = _mapper.Map<InterfaceLibDm>(interfaceAm);
+
+            interfaceDm.Version = "1.0";
             interfaceDm.State = State.Draft;
 
             await _interfaceRepository.Create(interfaceDm);
@@ -129,15 +131,15 @@ namespace TypeLibrary.Services.Services
             if (versionStatus == VersionStatus.NoChange)
                 return GetLatestVersion(interfaceToUpdate.Id);
 
-            var interfaceDm = _mapper.Map<InterfaceLibDm>(interfaceAm);
-
-            interfaceDm.Version = versionStatus switch
+            interfaceAm.Version = versionStatus switch
             {
                 VersionStatus.Minor => interfaceToUpdate.Version.IncrementMinorVersion(),
                 VersionStatus.Major => interfaceToUpdate.Version.IncrementMajorVersion(),
                 _ => interfaceToUpdate.Version
             };
-            
+
+            var interfaceDm = _mapper.Map<InterfaceLibDm>(interfaceAm);
+
             interfaceDm.FirstVersionId = interfaceToUpdate.FirstVersionId;
             interfaceDm.State = State.Draft;
 

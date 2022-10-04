@@ -84,6 +84,8 @@ namespace TypeLibrary.Services.Services
                 throw new MimirorgDuplicateException($"Node '{nodeAm.Name}' and version '{nodeAm.Version}' already exist.");
 
             var dm = _mapper.Map<NodeLibDm>(nodeAm);
+
+            dm.Version = "1.0";
             dm.State = State.Draft;
 
             await _nodeRepository.Create(dm);
@@ -128,14 +130,14 @@ namespace TypeLibrary.Services.Services
             if (versionStatus == VersionStatus.NoChange)
                 return GetLatestVersion(nodeToUpdate.Id);
 
-            var nodeDm = _mapper.Map<NodeLibDm>(nodeAm);
-
-            nodeDm.Version = versionStatus switch
+            nodeAm.Version = versionStatus switch
             {
                 VersionStatus.Minor => nodeToUpdate.Version.IncrementMinorVersion(),
                 VersionStatus.Major => nodeToUpdate.Version.IncrementMajorVersion(),
                 _ => nodeToUpdate.Version
             };
+
+            var nodeDm = _mapper.Map<NodeLibDm>(nodeAm);
 
             nodeDm.FirstVersionId = nodeToUpdate.FirstVersionId;
             nodeDm.State = State.Draft;

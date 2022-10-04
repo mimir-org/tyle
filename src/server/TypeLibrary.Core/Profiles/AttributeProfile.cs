@@ -21,7 +21,7 @@ namespace TypeLibrary.Core.Profiles
             CreateMap<AttributeLibAm, AttributeLibDm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Version, opt => opt.MapFrom(src => "1.0"))
+                .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.QuantityDatumSpecifiedScope, opt => opt.MapFrom(src => src.QuantityDatumSpecifiedScope))

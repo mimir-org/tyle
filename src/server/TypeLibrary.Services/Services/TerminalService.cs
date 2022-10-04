@@ -85,6 +85,8 @@ namespace TypeLibrary.Services.Services
                 throw new MimirorgDuplicateException($"Terminal '{terminal.Name}' and version '{terminal.Version}' already exist.");
 
             var dm = _mapper.Map<TerminalLibDm>(terminal);
+
+            dm.Version = "1.0";
             dm.State = State.Draft;
 
             await _terminalRepository.Create(dm);
@@ -129,15 +131,15 @@ namespace TypeLibrary.Services.Services
             if (versionStatus == VersionStatus.NoChange)
                 return GetLatestVersion(terminalToUpdate.Id);
 
-            var terminalDm = _mapper.Map<TerminalLibDm>(terminalAm);
-
-            terminalDm.Version = versionStatus switch
+            terminalAm.Version = versionStatus switch
             {
                 VersionStatus.Minor => terminalToUpdate.Version.IncrementMinorVersion(),
                 VersionStatus.Major => terminalToUpdate.Version.IncrementMajorVersion(),
                 _ => terminalToUpdate.Version
             };
-            
+
+            var terminalDm = _mapper.Map<TerminalLibDm>(terminalAm);
+
             terminalDm.FirstVersionId = terminalToUpdate.FirstVersionId;
             terminalDm.State = State.Draft;
 

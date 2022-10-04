@@ -95,6 +95,8 @@ namespace TypeLibrary.Services.Services
                 throw new MimirorgDuplicateException($"Attribute '{attributeAm.Name}' and version '{attributeAm.Version}' already exist.");
 
             var dm = _mapper.Map<AttributeLibDm>(attributeAm);
+
+            dm.Version = "1.0";
             dm.State = State.Draft;
 
             await _attributeRepository.Create(dm);
@@ -138,15 +140,15 @@ namespace TypeLibrary.Services.Services
             if (versionStatus == VersionStatus.NoChange)
                 return GetLatestVersion(attributeToUpdate.Id);
 
-            var attributeDm = _mapper.Map<AttributeLibDm>(attributeAm);
-
-            attributeDm.Version = versionStatus switch
+            attributeAm.Version = versionStatus switch
             {
                 VersionStatus.Minor => attributeToUpdate.Version.IncrementMinorVersion(),
                 VersionStatus.Major => attributeToUpdate.Version.IncrementMajorVersion(),
                 _ => attributeToUpdate.Version
             };
-            
+
+            var attributeDm = _mapper.Map<AttributeLibDm>(attributeAm);
+
             attributeDm.FirstVersionId = attributeToUpdate.FirstVersionId;
             attributeDm.State = State.Draft;
 
