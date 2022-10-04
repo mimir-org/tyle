@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Models;
 
 namespace Mimirorg.Authentication.Repositories
 {

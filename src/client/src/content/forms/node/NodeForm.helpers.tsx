@@ -4,16 +4,17 @@ import { useCreateNode, useGetNode, useUpdateNode } from "../../../data/queries/
 import { NodeFormPredefinedAttributes } from "./predefined-attributes/NodeFormPredefinedAttributes";
 import { NodeFormTerminalTable } from "./terminals/NodeFormTerminalTable";
 import { FormNodeLib } from "./types/formNodeLib";
+import { NodeFormMode } from "./types/nodeFormMode";
 
 export const useNodeQuery = () => {
   const { id } = useParams();
   return useGetNode(id);
 };
 
-export const useNodeMutation = (isEdit?: boolean) => {
+export const useNodeMutation = (mode?: NodeFormMode) => {
   const nodeUpdateMutation = useUpdateNode();
   const nodeCreateMutation = useCreateNode();
-  return isEdit ? nodeUpdateMutation : nodeCreateMutation;
+  return mode === "edit" ? nodeUpdateMutation : nodeCreateMutation;
 };
 
 /**

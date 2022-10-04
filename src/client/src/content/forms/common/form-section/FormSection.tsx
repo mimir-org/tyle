@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { Box, Flexbox } from "../../../../complib/layouts";
+import { Box, Flexbox, MotionBox } from "../../../../complib/layouts";
 import { MotionText, Text } from "../../../../complib/text";
 
 interface FormSectionProps {
@@ -23,7 +23,8 @@ export const FormSection = ({ title, action, children, error }: FormSectionProps
   const theme = useTheme();
 
   return (
-    <Box
+    <MotionBox
+      layout={"position"}
       as={"fieldset"}
       display={"flex"}
       flexDirection={"column"}
@@ -31,6 +32,7 @@ export const FormSection = ({ title, action, children, error }: FormSectionProps
       gap={theme.tyle.spacing.xxxl}
       border={0}
       p={"0"}
+      {...theme.tyle.animation.fade}
     >
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.s}>
         <Box display={"flex"} gap={theme.tyle.spacing.xl} alignItems={"center"}>
@@ -45,6 +47,6 @@ export const FormSection = ({ title, action, children, error }: FormSectionProps
         )}
       </Flexbox>
       {children}
-    </Box>
+    </MotionBox>
   );
 };

@@ -10,6 +10,9 @@ namespace TypeLibrary.Data.Configurations
         public void Configure(EntityTypeBuilder<TerminalLibDm> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.HasIndex(x => x.State).IsUnique(false);
+            builder.HasIndex(x => x.FirstVersionId).IsUnique(false);
+            builder.HasIndex(x => new { x.ParentId }).IsUnique(false);
             builder.ToTable("Terminal");
             builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(127);
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(63);

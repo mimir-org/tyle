@@ -12,7 +12,9 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Http;
 using Mimirorg.Authentication.Extensions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 
@@ -55,10 +57,6 @@ namespace Mimirorg.Authentication.Services
             if (_authSettings == null)
                 throw new MimirorgConfigurationException("Missing configuration for auth settings");
 
-            var validation = userAm.ValidateObject();
-            if (!validation.IsValid)
-                throw new MimirorgBadRequestException($"Couldn't register: {userAm.Email}", validation);
-
             var existingUser = await _userManager.FindByEmailAsync(userAm.Email);
             if (existingUser != null)
                 throw new MimirorgDuplicateException($"Couldn't register: {userAm.Email}. There is already an user with same username");
@@ -66,10 +64,12 @@ namespace Mimirorg.Authentication.Services
             var user = userAm.ToDomainModel();
             var securityKey = $"{Guid.NewGuid()}{MimirorgSecurity.SecurityStamp}{Guid.NewGuid()}";
             user.SecurityHash = securityKey.CreateSha512();
+            var currentCompany = await _mimirorgCompanyService.GetCompanyById(userAm.CompanyId);
+            user.CompanyName = currentCompany?.DisplayName ?? currentCompany?.Name;
 
             var result = await _userManager.CreateAsync(user, userAm.Password);
             if (!result.Succeeded)
-                throw new MimirorgInvalidOperationException($"Couldn't register: {userAm.Email}.");
+                throw new MimirorgInvalidOperationException($"Couldn't register: {userAm.Email}. Error: {result.Errors.ConvertToString()}");
 
             // Create an email verification token and send email to user
             if (_authSettings.RequireConfirmedAccount)
@@ -108,7 +108,9 @@ namespace Mimirorg.Authentication.Services
             var companies = (await _mimirorgCompanyService.GetAllCompanies()).ToList();
             var permissions = (await _mimirorgAuthService.GetAllPermissions()).ToList();
             var permissionDictionary = await ResolveCompanies(companies, permissions, user);
+            var roleDescriptions = await ResolveRoles(companies, permissions, user);
             userCm.Permissions = permissionDictionary;
+            userCm.Roles = roleDescriptions;
             return userCm;
         }
 
@@ -129,7 +131,9 @@ namespace Mimirorg.Authentication.Services
             var companies = (await _mimirorgCompanyService.GetAllCompanies()).ToList();
             var permissions = (await _mimirorgAuthService.GetAllPermissions()).ToList();
             var permissionDictionary = await ResolveCompanies(companies, permissions, user);
+            var roleDescriptions = await ResolveRoles(companies, permissions, user);
             userCm.Permissions = permissionDictionary;
+            userCm.Roles = roleDescriptions;
             return userCm;
         }
 
@@ -163,10 +167,6 @@ namespace Mimirorg.Authentication.Services
         {
             if (_authSettings == null)
                 throw new MimirorgConfigurationException("Missing configuration for auth settings");
-
-            var validation = userAm.ValidateObject();
-            if (!validation.IsValid)
-                throw new MimirorgBadRequestException($"Couldn't update: {userAm.Email}", validation);
 
             var user = await _userManager.FindByIdAsync(id);
             if (user == null)
@@ -294,6 +294,49 @@ namespace Mimirorg.Authentication.Services
             {
                 // ignored
             }
+        }
+
+        private async Task<ICollection<string>> ResolveRoles(ICollection<MimirorgCompanyCm> companies, ICollection<MimirorgPermissionCm> permissions, MimirorgUser user)
+        {
+            var roleDescriptionList = new List<string>();
+
+            var roles = (await _userManager.GetRolesAsync(user)).ToList();
+            if (roles.Any(x => x is "Administrator"))
+            {
+                roleDescriptionList.Add("Global administrator");
+                return roleDescriptionList;
+            }
+
+            if (roles.Any(x => x is "Account Manager"))
+            {
+                roleDescriptionList.Add("Global account manager");
+                return roleDescriptionList;
+            }
+
+            if (roles.Any(x => x is "Moderator"))
+            {
+                roleDescriptionList.Add("Global moderator");
+                return roleDescriptionList;
+            }
+
+            if (!companies.Any())
+                return roleDescriptionList;
+
+            var claims = await _userManager.GetClaimsAsync(user);
+            claims = claims.Where(x => companies.Any(y => x.Type == y.Id.ToString())).ToList();
+
+            if (!claims.Any())
+                return roleDescriptionList;
+
+            foreach (var claim in claims)
+            {
+                var company = companies.FirstOrDefault(x => x.Id.ToString() == claim.Type);
+                var permission = permissions.FirstOrDefault(x => x.Name == claim.Value);
+                if (company != null && permission != null)
+                    roleDescriptionList.Add($"{company.DisplayName ?? company.Name} {(MimirorgPermission) permission.Id}");
+            }
+
+            return roleDescriptionList;
         }
 
         private async Task<Dictionary<int, MimirorgPermission>> ResolveCompanies(ICollection<MimirorgCompanyCm> companies, ICollection<MimirorgPermissionCm> permissions, MimirorgUser user)

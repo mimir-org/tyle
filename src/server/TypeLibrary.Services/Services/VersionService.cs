@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
-using Mimirorg.TypeLibrary.Enums;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
@@ -16,21 +16,23 @@ namespace TypeLibrary.Services.Services
         private readonly ITransportRepository _transportRepository;
         private readonly IInterfaceRepository _interfaceRepository;
         private readonly ITerminalRepository _terminalRepository;
+        private readonly IAttributeRepository _attributeRepository;
 
-        public VersionService(INodeRepository nodeRepository, ITransportRepository transportRepository, IInterfaceRepository interfaceRepository, ITerminalRepository terminalRepository)
+        public VersionService(INodeRepository nodeRepository, ITransportRepository transportRepository, IInterfaceRepository interfaceRepository, ITerminalRepository terminalRepository, IAttributeRepository attributeRepository)
         {
             _nodeRepository = nodeRepository;
             _transportRepository = transportRepository;
             _interfaceRepository = interfaceRepository;
             _terminalRepository = terminalRepository;
+            _attributeRepository = attributeRepository;
         }
 
         /// <summary>
         /// Method will find and return the latest version.
         /// </summary>
-        /// <typeparam name="T">NodeLibDm, TransportLibDm, InterfaceLibDm or TerminalLibDm</typeparam>
-        /// <param name="obj">NodeLibDm, TransportLibDm, InterfaceLibDm or TerminalLibDm</param>
-        /// <returns>Latest version of NodeLibDm, TransportLibDm or InterfaceLibDm</returns>
+        /// <typeparam name="T">NodeLibDm, TransportLibDm, InterfaceLibDm, TerminalLibDm or AttributeLibDm</typeparam>
+        /// <param name="obj">NodeLibDm, TransportLibDm, InterfaceLibDm, TerminalLibDm or AttributeLibDm</param>
+        /// <returns>Latest version of NodeLibDm, TransportLibDm, TerminalLibDm or AttributeLibDm</returns>
         /// <exception cref="MimirorgBadRequestException"></exception>
         public async Task<T> GetLatestVersion<T>(T obj) where T : class
         {
@@ -64,6 +66,12 @@ namespace TypeLibrary.Services.Services
             {
                 (existingDmVersions as List<TerminalLibDm>)?.AddRange(_terminalRepository.Get()
                     .Where(x => x.FirstVersionId == (obj as TerminalLibDm)?.FirstVersionId && x.State != State.Deleted).ToList()
+                    .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
+            }
+            else if (obj.GetType() == typeof(AttributeLibDm) && (obj as AttributeLibDm)?.Version != null)
+            {
+                (existingDmVersions as List<AttributeLibDm>)?.AddRange(_attributeRepository.Get()
+                    .Where(x => x.FirstVersionId == (obj as AttributeLibDm)?.FirstVersionId && x.State != State.Deleted).ToList()
                     .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
             }
 

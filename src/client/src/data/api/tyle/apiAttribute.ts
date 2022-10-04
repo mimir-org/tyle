@@ -1,12 +1,11 @@
 import {
   Aspect,
-  AttributeConditionLibCm,
-  AttributeFormatLibCm,
   AttributeLibAm,
   AttributeLibCm,
   AttributePredefinedLibCm,
-  AttributeQualifierLibCm,
-  AttributeSourceLibCm,
+  QuantityDatumCm,
+  QuantityDatumType,
+  State,
   TypeReferenceCm,
 } from "@mimirorg/typelibrary-types";
 import { apiClient } from "../apiClient";
@@ -23,23 +22,20 @@ export const apiAttribute = {
   postLibraryAttribute(item: AttributeLibAm) {
     return apiClient.post<AttributeLibCm>(_basePath, item).then((r) => r.data);
   },
+  putLibraryAttribute(item: AttributeLibAm) {
+    return apiClient.put<AttributeLibCm>(_basePath, item).then((r) => r.data);
+  },
+  patchLibraryAttributeState(id: string, state: State) {
+    return apiClient.patch<AttributeLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
+  },
   getAttributesByAspect(aspect: Aspect) {
     return apiClient.get<AttributeLibCm[]>(`${_basePath}/aspect/${aspect}`).then((r) => r.data);
   },
   getAttributesPredefined() {
     return apiClient.get<AttributePredefinedLibCm[]>(`${_basePath}/predefined`).then((r) => r.data);
   },
-  getAttributesCondition() {
-    return apiClient.get<AttributeConditionLibCm[]>(`${_basePath}/condition`).then((r) => r.data);
-  },
-  getAttributesFormat() {
-    return apiClient.get<AttributeFormatLibCm[]>(`${_basePath}/format`).then((r) => r.data);
-  },
-  getAttributesQualifier() {
-    return apiClient.get<AttributeQualifierLibCm[]>(`${_basePath}/qualifier`).then((r) => r.data);
-  },
-  getAttributesSource() {
-    return apiClient.get<AttributeSourceLibCm[]>(`${_basePath}/source`).then((r) => r.data);
+  getQuantityDatum(datumType: QuantityDatumType) {
+    return apiClient.get<QuantityDatumCm[]>(`${_basePath}/datum/${datumType}`).then((r) => r.data);
   },
   getAttributesReference() {
     return apiClient.get<TypeReferenceCm[]>(`${_basePath}/reference`).then((r) => r.data);

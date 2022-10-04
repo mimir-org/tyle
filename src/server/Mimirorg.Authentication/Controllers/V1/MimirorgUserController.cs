@@ -61,13 +61,13 @@ namespace Mimirorg.Authentication.Controllers.V1
             }
             catch (MimirorgConfigurationException e)
             {
-                _logger.LogError(e, $"An error occurred while trying to register the user. Error: {e.Message}");
-                return StatusCode(500, e.Message);
+                _logger.LogCritical(e, $"An error occurred while trying to register the user. Error: {e.Message}");
+                return StatusCode(500, "Configuration Error");
             }
             catch (MimirorgInvalidOperationException e)
             {
                 _logger.LogError(e, $"An error occurred while trying to register the user. Error: {e.Message}");
-                return StatusCode(500, e.Message);
+                return StatusCode(500, "Internal Server Error");
             }
             catch (MimirorgDuplicateException e)
             {
@@ -99,9 +99,8 @@ namespace Mimirorg.Authentication.Controllers.V1
                 var currentUser = await _userService.GetUser(User);
                 return Ok(currentUser);
             }
-            catch (MimirorgNotFoundException e)
+            catch (MimirorgNotFoundException)
             {
-                _logger.LogError(e, $"An error occured while trying to get current user. Error: {e.Message}");
                 return StatusCode(204, null);
             }
             catch (Exception e)

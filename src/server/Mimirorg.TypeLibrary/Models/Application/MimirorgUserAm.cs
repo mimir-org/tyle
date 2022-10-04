@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Mimirorg.Common.Attributes;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
@@ -11,14 +12,14 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         [Display(Name = "Password")]
         [Required(ErrorMessage = "{0} is required")]
-        [MinLength(10, ErrorMessage = "{0} has min length {1}")]
         [Compare("ConfirmPassword", ErrorMessage = "The passwords are not equal")]
+        [Password]
         public string Password { get; set; }
 
         [Display(Name = "Confirm password")]
         [Required(ErrorMessage = "{0} is required")]
-        [MinLength(10, ErrorMessage = "{0} has min length {1}")]
         [Compare("Password", ErrorMessage = "The passwords are not equal")]
+        [Password]
         public string ConfirmPassword { get; set; }
 
         [Display(Name = "Firstname")]
@@ -29,9 +30,12 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required(ErrorMessage = "{0} is required")]
         public string LastName { get; set; }
 
-        [Display(Name = "Phone Number")]
-        [MaxLength(8, ErrorMessage = "{0} has max length {1}")]
-        [RegularExpression("\\d*", ErrorMessage = "{0} must be numeric")]
-        public string PhoneNumber { get; set; }
+        [Display(Name = "CompanyId")]
+        [Required(ErrorMessage = "{0} is required")]
+        public int CompanyId { get; set; }
+
+        [Display(Name = "Purpose")]
+        [Required(ErrorMessage = "{0} is required")]
+        public string Purpose { get; set; }
     }
 }

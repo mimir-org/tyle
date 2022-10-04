@@ -30,18 +30,7 @@ import { SearchResult, SearchResultRaw } from "../../types/searchResult";
 /**
  * Indexed fields that the fuzzy-search will try to match a query against
  */
-const searchKeys = [
-  "id",
-  "name",
-  "description",
-  "aspect",
-  "rdsName",
-  "purposeName",
-  "nodeTerminals.terminal.name",
-  "attributeQualifier",
-  "attributeSource",
-  "attributeCondition",
-];
+const searchKeys = ["id", "name", "description", "aspect", "nodeTerminals.terminal.name", "companyName"];
 
 export const getCreateMenuLinks = (): Link[] => {
   return [

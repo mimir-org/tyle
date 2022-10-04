@@ -5,7 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Abstract;
+using TypeLibrary.Core.Factories;
+using Mimirorg.Common.Models;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
@@ -34,9 +38,9 @@ namespace TypeLibrary.Core.Extensions
             services.AddSingleton<ICacheRepository, InMemoryCacheRepository>();
 
             // Dependency Injection - Repositories
+            services.AddScoped<ITypeLibraryProcRepository, TypeLibraryProcRepository>();
             services.AddSingleton<IApplicationSettingsRepository, ApplicationSettingsRepository>();
             services.AddScoped<IEfAttributeRepository, EfAttributeRepository>();
-            services.AddScoped<IEfSimpleRepository, EfSimpleRepository>();
             services.AddScoped<IEfInterfaceRepository, EfInterfaceRepository>();
             services.AddScoped<IEfNodeRepository, EfNodeRepository>();
             services.AddScoped<IEfNodeTerminalRepository, EfNodeTerminalRepository>();
@@ -44,25 +48,19 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IEfTransportRepository, EfTransportRepository>();
             services.AddScoped<ILibraryTypeItemRepository, LibraryTypeItemRepository>();
             services.AddScoped<IEfAttributePredefinedRepository, EfAttributePredefinedRepository>();
-            services.AddScoped<IEfRdsRepository, EfRdsRepository>();
             services.AddSingleton<IFileRepository, JsonFileRepository>();
             services.AddScoped<IEfSymbolRepository, EfSymbolRepository>();
-            services.AddScoped<IEfPurposeRepository, EfPurposeRepository>();
             services.AddScoped<IDynamicSymbolDataProvider, EfSymbolRepository>();
 
             services.AddScoped<IAttributeRepository, EfAttributeRepository>();
-            services.AddScoped<IAttributeQualifierRepository, DatumRepository>();
-            services.AddScoped<IAttributeSourceRepository, DatumRepository>();
-            services.AddScoped<IAttributeFormatRepository, DatumRepository>();
-            services.AddScoped<IAttributeConditionRepository, DatumRepository>();
+            services.AddScoped<IQuantityDatumRepository, DatumRepository>();
             services.AddScoped<IAttributePredefinedRepository, EfAttributePredefinedRepository>();
             services.AddScoped<IUnitRepository, UnitRepository>();
             services.AddScoped<IInterfaceRepository, EfInterfaceRepository>();
-            services.AddScoped<IPurposeRepository, EfPurposeRepository>();
+            services.AddScoped<IPurposeRepository, PurposeRepository>();
             services.AddScoped<INodeRepository, EfNodeRepository>();
             services.AddScoped<ITransportRepository, EfTransportRepository>();
-            services.AddScoped<ISimpleRepository, EfSimpleRepository>();
-            services.AddScoped<IRdsRepository, EfRdsRepository>();
+            services.AddScoped<IRdsRepository, RdsRepository>();
             services.AddScoped<ITerminalRepository, EfTerminalRepository>();
             services.AddScoped<ISymbolRepository, EfSymbolRepository>();
             services.AddScoped<IAttributeReferenceRepository, AttributeReferenceRepository>();
@@ -79,12 +77,12 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<ITransportService, TransportService>();
             services.AddScoped<INodeService, NodeService>();
             services.AddScoped<IInterfaceService, InterfaceService>();
-            services.AddScoped<ISimpleService, SimpleService>();
             services.AddScoped<IVersionService, VersionService>();
+            services.AddScoped<IModuleService, ModuleService>();
 
             // Factories
-            services.AddScoped<IAttributeFactory, AttributeFactory>();
             services.AddScoped<IUnitFactory, UnitFactory>();
+            services.AddScoped<ICompanyFactory, CompanyFactory>();
 
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
@@ -116,10 +114,19 @@ namespace TypeLibrary.Core.Extensions
             var context = serviceScope.ServiceProvider.GetRequiredService<TypeLibraryDbContext>();
             var seedingService = serviceScope.ServiceProvider.GetRequiredService<ISeedingService>();
             var seedingServiceLogger = serviceScope.ServiceProvider.GetRequiredService<ILogger<ISeedingService>>();
+            var logger = serviceScope.ServiceProvider.GetRequiredService<ILogger<IModuleService>>();
+
+            var applicationSettings = serviceScope.ServiceProvider.GetRequiredService<IOptions<ApplicationSettings>>();
+            logger.LogInformation(applicationSettings?.Value?.ToString());
+
+            var databaseConfigurations = serviceScope.ServiceProvider.GetRequiredService<IOptions<DatabaseConfiguration>>();
+            logger.LogInformation(databaseConfigurations?.Value?.ToString());
+
+            var authSettings = serviceScope.ServiceProvider.GetRequiredService<IOptions<MimirorgAuthSettings>>();
+            logger.LogInformation(authSettings?.Value?.ToString());
 
             if (context.Database.IsRelational())
                 context.Database.Migrate();
-
 
             var awaiter = seedingService.LoadDataFromFiles().ConfigureAwait(true).GetAwaiter();
             while (!awaiter.IsCompleted)

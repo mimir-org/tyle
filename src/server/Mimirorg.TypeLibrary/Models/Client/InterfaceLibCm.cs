@@ -1,3 +1,4 @@
+using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Client
@@ -19,6 +20,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public Aspect Aspect { get; set; }
         public State State { get; set; }
         public int CompanyId { get; set; }
+        public string CompanyName { get; set; }
         public string TerminalId { get; set; }
         public TerminalLibCm Terminal { get; set; }
         public string Description { get; set; }

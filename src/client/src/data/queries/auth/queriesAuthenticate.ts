@@ -1,6 +1,9 @@
 import { MimirorgAuthenticateAm } from "@mimirorg/typelibrary-types";
+import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
-import { setToken } from "../../../utils/token";
+import { useNavigate } from "react-router-dom";
+import { toast } from "../../../complib/data-display";
+import { removeToken, setToken } from "../../../utils/token";
 import { apiAuthenticate } from "../../api/auth/apiAuthenticate";
 import { userKeys } from "./queriesUser";
 
@@ -13,6 +16,23 @@ export const useLogin = () => {
         setToken(data);
         queryClient.invalidateQueries(userKeys.all);
       }
+    },
+  });
+};
+
+export const useLogout = () => {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const navigation = useNavigate();
+
+  return useMutation(() => apiAuthenticate.postLogout(), {
+    onSuccess: () => {
+      removeToken();
+      queryClient.invalidateQueries(userKeys.all);
+      navigation(0);
+    },
+    onError: () => {
+      toast.error(t("user.menu.logout.error"));
     },
   });
 };

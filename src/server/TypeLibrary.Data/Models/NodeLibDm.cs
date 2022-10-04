@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Mimirorg.Common.Contracts;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
@@ -13,7 +15,7 @@ namespace TypeLibrary.Data.Models
     /// <summary>
     /// Node domain model
     /// </summary>
-    public class NodeLibDm : IVersionable<NodeLibAm>
+    public class NodeLibDm : IVersionable<NodeLibAm>, IVersionObject
     {
         public string Id { get; set; }
         public string ParentId { get; set; }
@@ -37,7 +39,6 @@ namespace TypeLibrary.Data.Models
         public virtual ICollection<NodeLibDm> Children { get; set; }
         public virtual ICollection<NodeTerminalLibDm> NodeTerminals { get; set; }
         public virtual ICollection<AttributeLibDm> Attributes { get; set; }
-        public virtual ICollection<SimpleLibDm> Simples { get; set; }
 
         #region Versionable
 
@@ -62,13 +63,6 @@ namespace TypeLibrary.Data.Models
 
             if (ParentId != other.ParentId)
                 validation.AddNotAllowToChange(nameof(ParentId));
-
-            Simples ??= new List<SimpleLibDm>();
-            other.SimpleIdList ??= new List<string>();
-            if (Simples.Select(y => y.Id).Any(id => other.SimpleIdList.All(x => x != id)))
-            {
-                validation.AddNotAllowToChange(nameof(Simples), "It is not allowed to remove items from simples");
-            }
 
             Attributes ??= new List<AttributeLibDm>();
             other.AttributeIdList ??= new List<string>();
@@ -110,11 +104,6 @@ namespace TypeLibrary.Data.Models
             if (CompanyId != other.CompanyId)
                 minor = true;
 
-            // Simples
-            Simples ??= new List<SimpleLibDm>();
-            other.SimpleIdList ??= new List<string>();
-            if (!Simples.Select(x => x.Id).SequenceEqual(other.SimpleIdList))
-                major = true;
 
             // Attributes
             Attributes ??= new List<AttributeLibDm>();

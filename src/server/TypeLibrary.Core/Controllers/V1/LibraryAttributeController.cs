@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Models.Attributes;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -86,7 +87,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = _attributeService.Get(Aspect.NotSet).ToList();
+                var data = _attributeService.GetLatestVersions(Aspect.NotSet);
                 return Ok(data);
             }
             catch (Exception e)
@@ -101,11 +102,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAttributeById(string id)
+        public IActionResult GetAttributeById(string id)
         {
             try
             {
-                var data = await _attributeService.Get(id);
+                var data = _attributeService.GetLatestVersion(id);
                 if (data == null)
                     return NotFound();
 
@@ -121,11 +122,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [HttpGet("aspect/{aspect}")]
         [ProducesResponseType(typeof(ICollection<AttributeLibCm>), StatusCodes.Status200OK)]
         [AllowAnonymous]
-        public IActionResult Get(Aspect aspect)
+        public IActionResult GetLatestVersions(Aspect aspect)
         {
             try
             {
-                var data = _attributeService.Get(aspect).ToList();
+                var data = _attributeService.GetLatestVersions(aspect);
                 return Ok(data);
             }
             catch (Exception e)
@@ -152,15 +153,41 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        [HttpGet("condition")]
-        [ProducesResponseType(typeof(ICollection<AttributeConditionLibCm>), StatusCodes.Status200OK)]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetConditions()
+        /// <summary>
+        /// Update an attribute
+        /// </summary>
+        /// <param name="attributeAm"></param>
+        /// <returns>AttributeLibCm</returns>
+        [HttpPut]
+        [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [MimirorgAuthorize(MimirorgPermission.Write, "attributeAm", "CompanyId")]
+        public async Task<IActionResult> Update([FromBody] AttributeLibAm attributeAm)
         {
             try
             {
-                var data = await _attributeService.GetConditions();
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                var companyId = await _attributeService.GetCompanyId(attributeAm.Id);
+
+                if (companyId != attributeAm.CompanyId)
+                    return StatusCode(StatusCodes.Status403Forbidden);
+
+                var data = await _attributeService.Update(attributeAm);
                 return Ok(data);
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                foreach (var error in e.Errors().ToList())
+                {
+                    ModelState.Remove(error.Key);
+                    ModelState.TryAddModelError(error.Key, error.Error);
+                }
+
+                return BadRequest(ModelState);
             }
             catch (Exception e)
             {
@@ -169,15 +196,30 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        [HttpGet("format")]
-        [ProducesResponseType(typeof(ICollection<AttributeFormatLibCm>), StatusCodes.Status200OK)]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetFormats()
+        /// <summary>
+        /// Update attribute with new state
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="id"></param>
+        /// <returns>AttributeLibCm</returns>
+        [HttpPatch("{id}/state/{state}")]
+        [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
+        public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
         {
             try
             {
-                var data = await _attributeService.GetFormats();
+                var data = await _attributeService.ChangeState(id, state);
                 return Ok(data);
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(400, e.Message);
             }
             catch (Exception e)
             {
@@ -186,15 +228,34 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        [HttpGet("qualifier")]
-        [ProducesResponseType(typeof(ICollection<AttributeQualifierLibCm>), StatusCodes.Status200OK)]
+        /// <summary>
+        /// Get all datums of a given type
+        /// </summary>
+        /// <param name="type">The type of the quantity datum you want to receive</param>
+        /// <returns>A collection of quantity datums</returns>
+        [HttpGet("datum/{type}")]
+        [ProducesResponseType(typeof(ICollection<QuantityDatumCm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [AllowAnonymous]
-        public async Task<IActionResult> GetQualifiers()
+        public async Task<IActionResult> GetDatums(QuantityDatumType type)
         {
             try
             {
-                var data = await _attributeService.GetQualifiers();
-                return Ok(data);
+                var data = type switch
+                {
+                    QuantityDatumType.QuantityDatumRangeSpecifying => await _attributeService
+                        .GetQuantityDatumRangeSpecifying(),
+                    QuantityDatumType.QuantityDatumRegularitySpecified => await _attributeService
+                        .GetQuantityDatumRegularitySpecified(),
+                    QuantityDatumType.QuantityDatumSpecifiedProvenance => await _attributeService
+                        .GetQuantityDatumSpecifiedProvenance(),
+                    QuantityDatumType.QuantityDatumSpecifiedScope => await _attributeService
+                        .GetQuantityDatumSpecifiedScope(),
+                    _ => throw new ArgumentOutOfRangeException(nameof(type), type, $"Enum type ({nameof(QuantityDatumType)}): {type} is out of range.")
+                };
+
+                return Ok(data?.ToList());
             }
             catch (Exception e)
             {
@@ -203,23 +264,10 @@ namespace TypeLibrary.Core.Controllers.V1
             }
         }
 
-        [HttpGet("source")]
-        [ProducesResponseType(typeof(ICollection<AttributeSourceLibCm>), StatusCodes.Status200OK)]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetSources()
-        {
-            try
-            {
-                var data = await _attributeService.GetSources();
-                return Ok(data);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
+        /// <summary>
+        /// Get all attribute type references
+        /// </summary>
+        /// <returns>A collection of references></returns>
         [HttpGet("reference")]
         [ProducesResponseType(typeof(ICollection<TypeReferenceCm>), StatusCodes.Status200OK)]
         [AllowAnonymous]

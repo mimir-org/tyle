@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Enums;
+// ReSharper disable InconsistentNaming
 
 namespace TypeLibrary.Data.Models
 {

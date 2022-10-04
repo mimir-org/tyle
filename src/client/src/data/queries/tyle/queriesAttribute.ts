@@ -1,4 +1,4 @@
-import { Aspect, AttributeLibAm } from "@mimirorg/typelibrary-types";
+import { Aspect, AttributeLibAm, QuantityDatumType, State } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiAttribute } from "../../api/tyle/apiAttribute";
 
@@ -10,17 +10,11 @@ const keys = {
   predefinedLists: () => [...keys.allPredefined, "list"] as const,
   allAspect: ["attributesAspect"] as const,
   aspectLists: () => [...keys.allAspect, "list"] as const,
-  allCondition: ["attributesCondition"] as const,
-  conditionLists: () => [...keys.allCondition, "list"] as const,
-  allFormat: ["attributesFormat"] as const,
-  formatLists: () => [...keys.allFormat, "list"] as const,
-  allQualifier: ["attributesQualifier"] as const,
-  qualifierLists: () => [...keys.allQualifier, "list"] as const,
-  allSource: ["attributesSource"] as const,
-  sourceLists: () => [...keys.allSource, "list"] as const,
   allReference: ["attributesReference"] as const,
   referenceLists: () => [...keys.allReference, "list"] as const,
   attribute: (id?: string) => [...keys.attributeLists(), id] as const,
+  allQuantityDatum: ["quantityDatum"] as const,
+  quantityDatum: (datumType: QuantityDatumType) => [...keys.allQuantityDatum, datumType] as const,
 };
 
 export const useGetAttributes = () => useQuery(keys.attributeLists(), apiAttribute.getAttributes);
@@ -41,12 +35,26 @@ export const useGetAttributesByAspect = (aspect: Aspect) =>
 
 export const useGetAttributesPredefined = () => useQuery(keys.predefinedLists(), apiAttribute.getAttributesPredefined);
 
-export const useGetAttributesCondition = () => useQuery(keys.conditionLists(), apiAttribute.getAttributesCondition);
-
-export const useGetAttributesFormat = () => useQuery(keys.formatLists(), apiAttribute.getAttributesFormat);
-
-export const useGetAttributesQualifier = () => useQuery(keys.qualifierLists(), apiAttribute.getAttributesQualifier);
-
-export const useGetAttributesSource = () => useQuery(keys.sourceLists(), apiAttribute.getAttributesSource);
+export const useGetQuantityDatum = (datumType: QuantityDatumType) =>
+  useQuery(keys.quantityDatum(datumType), () => apiAttribute.getQuantityDatum(datumType));
 
 export const useGetAttributesReference = () => useQuery(keys.referenceLists(), apiAttribute.getAttributesReference);
+
+export const useUpdateAttribute = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation((item: AttributeLibAm) => apiAttribute.putLibraryAttribute(item), {
+    onSuccess: (response) => queryClient.invalidateQueries(keys.attribute(response.id)),
+  });
+};
+
+export const usePatchAttributeState = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    (item: { id: string; state: State }) => apiAttribute.patchLibraryAttributeState(item.id, item.state),
+    {
+      onSuccess: () => queryClient.invalidateQueries(keys.attributeLists()),
+    }
+  );
+};

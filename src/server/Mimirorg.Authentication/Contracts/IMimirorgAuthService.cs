@@ -1,4 +1,5 @@
 using System.Security.Authentication;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -33,6 +34,13 @@ namespace Mimirorg.Authentication.Contracts
         /// <returns>bool</returns>
         /// <exception cref="MimirorgInvalidOperationException"></exception>
         Task<bool> VerifyAccount(string token);
+
+        /// <summary>
+        /// Remove the current user's authentication tokens
+        /// </summary>
+        /// <param name="secret">string</param>
+        /// <returns></returns>
+        Task Logout(string secret);
 
         #endregion
 
@@ -76,6 +84,8 @@ namespace Mimirorg.Authentication.Contracts
         /// <exception cref="MimirorgBadRequestException"></exception>
         /// <exception cref="MimirorgNotFoundException"></exception>
         Task<bool> SetPermissions(MimirorgUserPermissionAm userPermission);
+
+        Task<bool> HasAccess(int companyId, State state);
 
         #endregion
     }

@@ -6,6 +6,15 @@ namespace Mimirorg.Common.Extensions
 {
     public static class StringExtensions
     {
+        public static string RemoveWhitespaces(this string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return value;
+
+            var list = value.Split(' ').Where(s => !string.IsNullOrWhiteSpace(s));
+            return string.Join(" ", list).Trim();
+        }
+
         public static bool HasDuplicateValues(this ICollection<string> values)
         {
             if (values == null)
@@ -35,7 +44,7 @@ namespace Mimirorg.Common.Extensions
                 return null;
 
             var returnValue = values.Aggregate(string.Empty, (current, value) => current + $"{value},");
-            return returnValue.TrimEnd(',');
+            return returnValue.TrimEnd(',').RemoveWhitespaces().Trim();
         }
 
         public static string ConvertToUriString(this ICollection<string> values)

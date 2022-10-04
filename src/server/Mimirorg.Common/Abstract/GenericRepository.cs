@@ -39,6 +39,11 @@ namespace Mimirorg.Common.Abstract
             return await DbSet.FindAsync(id);
         }
 
+        public async Task<bool> Exist(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await DbSet.AsNoTracking().AnyAsync(predicate);
+        }
+
         public virtual async Task<EntityEntry<TEntity>> CreateAsync(TEntity entity)
         {
             return await DbSet.AddAsync(entity);

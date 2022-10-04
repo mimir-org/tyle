@@ -14,16 +14,14 @@ namespace Mimirorg.Setup.Fixtures
     public class MimirorgCommonFixture : IDisposable
     {
         // Common
+        public MimirorgAuthSettings MimirorgAuthSettings = new();
         public ApplicationSettings ApplicationSettings = new();
         public Mock<IMapper> Mapper = new();
 
         // Repositories
         public Mock<INodeRepository> NodeRepository = new();
         public Mock<IAttributeRepository> AttributeRepository = new();
-        public Mock<IAttributeQualifierRepository> AttributeQualifierRepository = new();
-        public Mock<IAttributeSourceRepository> AttributeSourceRepository = new();
-        public Mock<IAttributeFormatRepository> AttributeFormatRepository = new();
-        public Mock<IAttributeConditionRepository> AttributeConditionRepository = new();
+        public Mock<IQuantityDatumRepository> DatumRepository = new();
         public Mock<IAttributePredefinedRepository> AttributePredefinedRepository = new();
         public Mock<IAttributeReferenceRepository> AttributeReferenceRepository = new();
 
@@ -35,7 +33,11 @@ namespace Mimirorg.Setup.Fixtures
         {
             ApplicationSettings.ApplicationSemanticUrl = @"http://localhost:5001/v1/ont";
             ApplicationSettings.ApplicationUrl = @"http://localhost:5001";
-
+            MimirorgAuthSettings.ApplicationUrl = @"http://localhost:5001";
+            MimirorgAuthSettings.RequireDigit = true;
+            MimirorgAuthSettings.RequireNonAlphanumeric = true;
+            MimirorgAuthSettings.RequireUppercase = true;
+            MimirorgAuthSettings.RequiredLength = 10;
         }
 
         public (NodeLibAm am, NodeLibDm dm) CreateNodeTestData()
@@ -55,11 +57,6 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                SimpleIdList = new List<string>
-                {
-                    "123",
-                    "555"
-                },
                 AttributeIdList = new List<string>
                 {
                     "123",
@@ -105,13 +102,6 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                Simples = new List<SimpleLibDm>
-                {
-                    new()
-                    {
-                        Id = "123"
-                    }
-                },
                 Attributes = new List<AttributeLibDm>
                 {
                     new()

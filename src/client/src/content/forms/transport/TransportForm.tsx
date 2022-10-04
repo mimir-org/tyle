@@ -1,5 +1,6 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { TransportLibCm } from "@mimirorg/typelibrary-types";
 import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
@@ -22,13 +23,14 @@ import {
   mapFormTransportLibToApiModel,
   mapTransportLibCmToFormTransportLib,
 } from "./types/formTransportLib";
+import { TransportFormMode } from "./types/transportFormMode";
 
 interface TransportFormProps {
   defaultValues?: FormTransportLib;
-  isEdit?: boolean;
+  mode?: TransportFormMode;
 }
 
-export const TransportForm = ({ defaultValues = createEmptyFormTransportLib(), isEdit }: TransportFormProps) => {
+export const TransportForm = ({ defaultValues = createEmptyFormTransportLib(), mode }: TransportFormProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -43,9 +45,10 @@ export const TransportForm = ({ defaultValues = createEmptyFormTransportLib(), i
   const attributeFields = useFieldArray({ control, name: "attributeIdList" });
 
   const query = useTransportQuery();
-  const [isPrefilled, isLoading] = usePrefilledForm(query, mapTransportLibCmToFormTransportLib, reset);
+  const mapper = (source: TransportLibCm) => mapTransportLibCmToFormTransportLib(source, mode);
+  const [isPrefilled, isLoading] = usePrefilledForm(query, mapper, reset);
 
-  const mutation = useTransportMutation(isEdit);
+  const mutation = useTransportMutation(mode);
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 

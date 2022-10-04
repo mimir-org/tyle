@@ -1,9 +1,11 @@
 using Microsoft.Extensions.DependencyInjection;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Setup;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 using Xunit;
 
@@ -18,30 +20,62 @@ namespace Mimirorg.Integration.Tests.Services
         [Fact]
         public async Task Create_Interface_Returns_MimirorgDuplicateException_When_Already_Exist()
         {
+            var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
+
+            var terminalAm = new TerminalLibAm
+            {
+                Name = "Terminal12525",
+                Color = "#45678",
+                CompanyId = 1
+            };
+
             var interfaceAm = new InterfaceLibAm
             {
-                Name = "Interface1",
+                Name = "Interface76867944",
                 RdsName = "RdsName",
                 RdsCode = "RdsCode",
                 PurposeName = "PurposeName",
-                Description = "Description",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
-                AttributeIdList = new List<string>
-                {
-                    "0646754DC953F5EDD4F6159CD993696D"
-                }
+                TerminalId = terminalAm.Id
             };
 
-            var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
-            await interfaceService.Create(interfaceAm, true);
-            Task Act() => interfaceService.Create(interfaceAm, true);
+            await interfaceService.Create(interfaceAm);
+            Task Act() => interfaceService.Create(interfaceAm);
             _ = await Assert.ThrowsAsync<MimirorgDuplicateException>(Act);
         }
 
         [Fact]
         public async Task Create_Interface_Create_Interface_When_Ok_Parameters()
         {
+            var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
+            var attributeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IAttributeService>();
+            var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
+
+            var attributeAm = new AttributeLibAm
+            {
+                Name = "attribute123456",
+                Aspect = Aspect.Function,
+                Discipline = Discipline.Electrical,
+                Select = Select.MultiSelect,
+                Description = "Description1",
+                SelectValues = new List<string> { "value1", "VALUE2", "value3" },
+                QuantityDatumRangeSpecifying = "Normal",
+                QuantityDatumSpecifiedProvenance = "Calculated",
+                QuantityDatumRegularitySpecified = "Absolute",
+                QuantityDatumSpecifiedScope = "Design Datum",
+                CompanyId = 1
+            };
+
+            var terminalAm = new TerminalLibAm
+            {
+                Name = "Terminal1",
+                Color = "#45678",
+                CompanyId = 1
+            };
+
+            var attributeCm = await attributeService.Create(attributeAm);
+
             var interfaceParentAm = new InterfaceLibAm
             {
                 Name = "InterfaceParent",
@@ -50,11 +84,11 @@ namespace Mimirorg.Integration.Tests.Services
                 PurposeName = "PurposeName",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
-                TerminalId = "8EBC5811473E87602FB0C18A100BD53C"
+                TerminalId = terminalAm.Id
             };
 
-            var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
-            var interfaceParentCm = await interfaceService.Create(interfaceParentAm, true);
+            var interfaceParentCm = await interfaceService.Create(interfaceParentAm);
+            var terminalCm = await terminalService.Create(terminalAm);
 
             var interfaceAm = new InterfaceLibAm
             {
@@ -64,11 +98,8 @@ namespace Mimirorg.Integration.Tests.Services
                 PurposeName = "PurposeName",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
-                TerminalId = "8EBC5811473E87602FB0C18A100BD53C",
-                AttributeIdList = new List<string>
-                {
-                    "0646754DC953F5EDD4F6159CD993696D"
-                },
+                TerminalId = terminalCm.Id,
+                AttributeIdList = new List<string> { $"{attributeCm.Id}" },
                 TypeReferences = new List<TypeReferenceAm>
                 {
                     new()
@@ -76,16 +107,21 @@ namespace Mimirorg.Integration.Tests.Services
                         Name = "TypeRef",
                         Iri = "https://url.com/1234567890",
                         Source = "https://source.com/1234567890",
-                        SubName = "SubName",
-                        SubIri = "https://subIri.com/1234567890",
-
+                        Subs = new List<TypeReferenceSub>
+                        {
+                            new()
+                            {
+                                Name = "SubName",
+                                Iri = "https://subIri.com/1234567890"
+                            }
+                        }
                     }
                 },
                 Description = "Description",
                 ParentId = interfaceParentCm.Id
             };
 
-            var interfaceCm = await interfaceService.Create(interfaceAm, true);
+            var interfaceCm = await interfaceService.Create(interfaceAm);
 
             Assert.NotNull(interfaceCm);
             Assert.True(interfaceCm.State == State.Draft);
@@ -99,44 +135,31 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(interfaceAm.CompanyId, interfaceCm.CompanyId);
             Assert.Equal(interfaceAm.TerminalId, interfaceCm.TerminalId);
             Assert.Equal(interfaceAm.AttributeIdList.ToList().ConvertToString(), interfaceCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
-            Assert.Equal(interfaceAm.TypeReferences.First().Iri, interfaceAm.TypeReferences.First().Iri);
-            Assert.Equal(interfaceAm.TypeReferences.First().Name, interfaceAm.TypeReferences.First().Name);
-            Assert.Equal(interfaceAm.TypeReferences.First().Source, interfaceAm.TypeReferences.First().Source);
-            Assert.Equal(interfaceAm.TypeReferences.First().SubIri, interfaceAm.TypeReferences.First().SubIri);
-            Assert.Equal(interfaceAm.TypeReferences.First().SubName, interfaceAm.TypeReferences.First().SubName);
+
+            Assert.Equal(interfaceAm.TypeReferences.First().Iri, interfaceCm.TypeReferences.First().Iri);
+            Assert.Equal(interfaceAm.TypeReferences.First().Name, interfaceCm.TypeReferences.First().Name);
+            Assert.Equal(interfaceAm.TypeReferences.First().Source, interfaceCm.TypeReferences.First().Source);
+
+            Assert.Equal(interfaceAm.TypeReferences.First().Subs.First().Name, interfaceCm.TypeReferences.First().Subs.First().Name);
+            Assert.Equal(interfaceAm.TypeReferences.First().Subs.First().Iri, interfaceCm.TypeReferences.First().Subs.First().Iri);
             Assert.Equal(interfaceAm.ParentId, interfaceCm.ParentId);
-        }
-
-        [Fact]
-        public async Task Create_Interface_Interface_With_Attributes_Result_Ok()
-        {
-            var interfaceAm = new InterfaceLibAm
-            {
-                Name = "Interface3",
-                RdsName = "RdsName",
-                RdsCode = "RdsCode",
-                PurposeName = "PurposeName",
-                Description = "Description",
-                Aspect = Aspect.NotSet,
-                CompanyId = 1,
-                AttributeIdList = new List<string>
-                {
-                    "0646754DC953F5EDD4F6159CD993696D"
-                }
-            };
-
-            var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
-            var interfaceCm = await interfaceService.Create(interfaceAm, true);
-
-            Assert.Equal(interfaceAm.Id, interfaceCm?.Id);
-            Assert.Equal(interfaceAm.Id, interfaceCm?.Id);
-            Assert.Equal(interfaceAm.AttributeIdList.ElementAt(0), interfaceCm?.Attributes.ElementAt(0).Id);
-            Assert.Equal(interfaceAm.AttributeIdList.ElementAt(0), interfaceCm?.Attributes.ElementAt(0).Id);
         }
 
         [Fact]
         public async Task GetLatestVersions_Interface_Result_Ok()
         {
+            var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
+            var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
+
+            var terminalAm = new TerminalLibAm
+            {
+                Name = "Terminal1009990",
+                Color = "#45678",
+                CompanyId = 1
+            };
+
+            var terminalCm = await terminalService.Create(terminalAm);
+
             var interfaceAm = new InterfaceLibAm
             {
                 Name = "Interface4",
@@ -146,18 +169,14 @@ namespace Mimirorg.Integration.Tests.Services
                 Description = "Description",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
-                AttributeIdList = new List<string>
-                {
-                    "0646754DC953F5EDD4F6159CD993696D"
-                }
+                TerminalId = terminalCm.Id
             };
 
-            var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
-            var interfaceCm = await interfaceService.Create(interfaceAm, true);
+            var interfaceCm = await interfaceService.Create(interfaceAm);
 
             interfaceAm.Description = "Description v1.1";
 
-            var interfaceCmUpdated = await interfaceService.Update(interfaceAm, interfaceAm.Id);
+            var interfaceCmUpdated = await interfaceService.Update(interfaceAm);
 
             Assert.True(interfaceCm?.Description == "Description");
             Assert.True(interfaceCm.Version == "1.0");
@@ -166,58 +185,40 @@ namespace Mimirorg.Integration.Tests.Services
         }
 
         [Fact]
-        public async Task Delete_Interface_Result_Ok()
+        public async Task Update_Interface_Result_Ok()
         {
-            var interfaceAm = new InterfaceLibAm
+            var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
+            var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
+
+            var terminalAm = new TerminalLibAm
             {
-                Name = "Interface5",
-                RdsName = "RdsName",
-                RdsCode = "RdsCode",
-                PurposeName = "PurposeName",
-                Description = "Description",
-                Aspect = Aspect.NotSet,
-                CompanyId = 1,
-                AttributeIdList = new List<string>
-                {
-                    "0646754DC953F5EDD4F6159CD993696D"
-                }
+                Name = "Terminal108909990x4",
+                Color = "#45678",
+                CompanyId = 1
             };
 
-            var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
-            var interfaceCm = await interfaceService.Create(interfaceAm, true);
+            var terminalCm = await terminalService.Create(terminalAm);
 
-            var isDeleted = await interfaceService.Delete(interfaceCm?.Id);
-            var allInterfacesNotDeleted = await interfaceService.GetLatestVersions();
-
-            Assert.True(isDeleted);
-            Assert.True(string.IsNullOrEmpty(allInterfacesNotDeleted?.FirstOrDefault(x => x.Id == interfaceCm?.Id)?.Id));
-        }
-
-        [Fact]
-        public async Task Update_Interface_State_Result_Ok()
-        {
             var interfaceAm = new InterfaceLibAm
             {
                 Name = "Interface6",
                 RdsName = "RdsName",
                 RdsCode = "RdsCode",
                 PurposeName = "PurposeName",
-                Description = "Description",
+                Description = "Description1",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
-                AttributeIdList = new List<string>
-                {
-                    "0646754DC953F5EDD4F6159CD993696D"
-                }
+                TerminalId = terminalCm.Id
             };
 
-            var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
 
-            var cm = await interfaceService.Create(interfaceAm, true);
-            var cmUpdated = await interfaceService.UpdateState(cm.Id, State.ApprovedCompany);
 
-            Assert.True(cm.State != cmUpdated.State);
-            Assert.True(cmUpdated.State == State.ApprovedCompany);
+            var cm = await interfaceService.Create(interfaceAm);
+            interfaceAm.Description = "Description2";
+            var cmUpdated = await interfaceService.Update(interfaceAm);
+
+            Assert.True(cm.Description == "Description1" && cm.Version == "1.0");
+            Assert.True(cmUpdated.Description == "Description2" && cmUpdated.Version == "1.1");
         }
     }
 }

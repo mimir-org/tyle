@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.Common.Enums;
 using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts
@@ -9,6 +9,13 @@ namespace TypeLibrary.Data.Contracts
     {
 
         #region Attribute
+
+        /// <summary>
+        /// Get the registered company on given id
+        /// </summary>
+        /// <param name="id">The attribute id</param>
+        /// <returns>The company id of given attribute</returns>
+        Task<int> HasCompany(string id);
 
         /// <summary>
         /// Get all attributes
@@ -25,12 +32,19 @@ namespace TypeLibrary.Data.Contracts
         Task<AttributeLibDm> Get(string id);
 
         /// <summary>
+        /// Change the state of the attribute on all listed id's
+        /// </summary>
+        /// <param name="state">The state to change to</param>
+        /// <param name="ids">A list of attribute id's</param>
+        /// <returns>The number of attributes in given state</returns>
+        Task<int> ChangeState(State state, ICollection<string> ids);
+
+        /// <summary>
         /// Create a new attribute
         /// </summary>
         /// <param name="attribute">The attribute that should be created</param>
-        /// <param name="state"></param>
         /// <returns>An attribute</returns>
-        Task<AttributeLibDm> Create(AttributeLibDm attribute, State state);
+        Task<AttributeLibDm> Create(AttributeLibDm attribute);
 
         /// <summary>
         /// Check if an attribute already exist

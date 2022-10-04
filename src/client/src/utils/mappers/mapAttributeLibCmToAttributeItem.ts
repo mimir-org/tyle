@@ -2,12 +2,28 @@ import { AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { AttributeItem } from "../../content/types/AttributeItem";
 import { InfoItem } from "../../content/types/InfoItem";
 import { getColorFromAspect } from "../getColorFromAspect";
+import { mapAttributeLibToQuantityDatumDescriptors } from "./mapAttributeLibToQuantityDatumDescriptors";
 import { mapListToDescriptors } from "./mapListToDescriptors";
-import { mapTypeReferenceCmsToDescriptors } from "./mapTypeReferenceCmsToDescriptors";
+import { mapTypeReferencesToDescriptors } from "./mapTypeReferencesToDescriptors";
 import { mapUnitLibCmsToDescriptors } from "./mapUnitLibCmsToDescriptors";
 
 export const mapAttributeLibCmToAttributeItem = (attribute: AttributeLibCm): AttributeItem => {
   const contents: InfoItem[] = [];
+
+  const quantityDatumDescriptors = mapAttributeLibToQuantityDatumDescriptors(attribute);
+  if (Object.keys(quantityDatumDescriptors).length > 0) {
+    contents.push({
+      name: "Datum",
+      descriptors: quantityDatumDescriptors,
+    });
+  }
+
+  if (attribute.typeReferences.length > 0) {
+    contents.push({
+      name: "References",
+      descriptors: mapTypeReferencesToDescriptors(attribute.typeReferences),
+    });
+  }
 
   if (attribute.units.length > 0) {
     contents.push({
@@ -23,22 +39,12 @@ export const mapAttributeLibCmToAttributeItem = (attribute: AttributeLibCm): Att
     });
   }
 
-  if (attribute.typeReferences.length > 0) {
-    contents.push({
-      name: "References",
-      descriptors: mapTypeReferenceCmsToDescriptors(attribute.typeReferences),
-    });
-  }
-
   return {
     id: attribute.id,
     name: attribute.name,
     description: attribute.description,
     color: getColorFromAspect(attribute.aspect),
-    qualifier: attribute.attributeQualifier,
-    source: attribute.attributeSource,
-    condition: attribute.attributeCondition,
-    tokens: [attribute.createdBy],
+    tokens: [attribute.createdBy, attribute.version, attribute.companyName],
     contents: contents,
     kind: "AttributeItem",
   };

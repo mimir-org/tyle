@@ -1,11 +1,15 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using MimeKit;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
@@ -28,14 +32,16 @@ namespace TypeLibrary.Core.Controllers.V1
         private readonly INodeService _nodeService;
         private readonly ITerminalService _terminalService;
         private readonly IUnitService _unitService;
+        private readonly MimirorgAuthSettings _authSettings;
 
-        public SemanticController(ILogger<SemanticController> logger, IAttributeService attributeService, INodeService nodeService, ITerminalService terminalService, IUnitService unitService)
+        public SemanticController(ILogger<SemanticController> logger, IAttributeService attributeService, INodeService nodeService, ITerminalService terminalService, IUnitService unitService, IOptions<MimirorgAuthSettings> authSettings)
         {
             _logger = logger;
             _attributeService = attributeService;
             _nodeService = nodeService;
             _terminalService = terminalService;
             _unitService = unitService;
+            _authSettings = authSettings?.Value;
         }
 
         /// <summary>
@@ -50,11 +56,11 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [AllowAnonymous]
-        public async Task<IActionResult> GetNode(string id)
+        public IActionResult GetNode(string id)
         {
             try
             {
-                var data = await _nodeService.Get(id);
+                var data = _nodeService.GetLatestVersion(id);
                 if (data == null)
                     return NoContent();
 
@@ -98,7 +104,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = _attributeService.Get(Aspect.NotSet).FirstOrDefault(x => x.Id == id);
+                var data = _attributeService.GetLatestVersions(Aspect.NotSet).FirstOrDefault(x => x.Id == id);
                 if (data == null)
                     return NoContent();
 
@@ -206,6 +212,44 @@ namespace TypeLibrary.Core.Controllers.V1
             }
             catch (MimirorgNotFoundException)
             {
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
+        /// Test email sending
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("mail")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [AllowAnonymous]
+        public async Task<IActionResult> SendMail()
+        {
+            try
+            {
+                if (_authSettings == null)
+                    return NoContent();
+
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Tyle", "noreply@runir.net"));
+                message.To.Add(new MailboxAddress("Reidar Liabø", "reidar.liabo@gmail.com"));
+                message.Subject = "Testing";
+                message.Body = new TextPart("plain")
+                {
+                    Text = @"Dette er en test."
+                };
+
+                using var smtp = new SmtpClient();
+                await smtp.ConnectAsync(_authSettings.EmailHost, _authSettings.EmailPort);
+                await smtp.SendAsync(message);
+
+
                 return NoContent();
             }
             catch (Exception e)

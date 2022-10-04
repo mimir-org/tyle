@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
@@ -16,27 +17,27 @@ namespace Mimirorg.Unit.Tests.Services
 
         public NodeServiceTests(MimirorgCommonFixture fixture) : base(fixture)
         {
-            _nodeService = new NodeService(Options.Create(fixture.ApplicationSettings), fixture.VersionService.Object, fixture.Mapper.Object, fixture.NodeRepository.Object, fixture.TimedHookService.Object);
+            _nodeService = new NodeService(fixture.Mapper.Object, fixture.NodeRepository.Object, fixture.TimedHookService.Object);
         }
 
         [Fact]
-        public async Task Get_Returns_MimirorgBadRequestException_On_Null_WhiteSpaceParam()
+        public void Get_Returns_MimirorgBadRequestException_On_Null_WhiteSpaceParam()
         {
-            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.Get(null));
-            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.Get(""));
-            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.Get(" "));
+            _ = Assert.Throws<MimirorgNotFoundException>(() => _nodeService.GetLatestVersion(null));
+            _ = Assert.Throws<MimirorgNotFoundException>(() => _nodeService.GetLatestVersion(""));
+            _ = Assert.Throws<MimirorgNotFoundException>(() => _nodeService.GetLatestVersion(" "));
         }
 
         [Fact]
-        public async Task GetNode_No_Matching_Id_Throws_MimirorgNotFoundException()
+        public void GetNode_No_Matching_Id_Throws_MimirorgNotFoundException()
         {
-            _ = await Assert.ThrowsAsync<MimirorgNotFoundException>(() => _nodeService.Get("Stupid_Fake"));
+            _ = Assert.Throws<MimirorgNotFoundException>(() => _nodeService.GetLatestVersion("Stupid_Fake"));
         }
 
         [Fact]
         public async Task Create_Node_Returns_MimirorgBadRequestException_When_Null_Parameters()
         {
-            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.Create(null, true));
+            _ = await Assert.ThrowsAsync<ArgumentNullException>(() => _nodeService.Create(null));
         }
 
         [Theory]
@@ -64,7 +65,7 @@ namespace Mimirorg.Unit.Tests.Services
                 CompanyId = 1
             };
 
-            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.Create(nodeToCreate, true));
+            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.Create(nodeToCreate));
         }
 
         [Theory]
@@ -82,7 +83,7 @@ namespace Mimirorg.Unit.Tests.Services
                 CompanyId = companyId
             };
 
-            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.Create(nodeToCreate, true));
+            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.Create(nodeToCreate));
         }
     }
 }

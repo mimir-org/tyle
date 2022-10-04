@@ -1,3 +1,7 @@
+using System.Globalization;
+using Mimirorg.Common.Contracts;
+using Mimirorg.Common.Enums;
+
 namespace Mimirorg.Common.Extensions
 {
     public static class EnumerableExtensions
@@ -11,6 +15,11 @@ namespace Mimirorg.Common.Extensions
         public static IDictionary<TKey, TValue> Merge<TKey, TValue>(this IDictionary<TKey, TValue> dictA, IDictionary<TKey, TValue> dictB) where TValue : class
         {
             return dictA.Keys.Union(dictB.Keys).ToDictionary(k => k, k => dictA.ContainsKey(k) ? dictA[k] : dictB[k]);
+        }
+
+        public static IEnumerable<T> LatestVersion<T>(this IEnumerable<T> collection) where T : IVersionObject
+        {
+            return collection.Where(x => x.State != State.Deleted).OrderByDescending(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).DistinctBy(x => x.FirstVersionId);
         }
     }
 }

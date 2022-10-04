@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
+using Mimirorg.Common.Attributes;
 using Mimirorg.TypeLibrary.Extensions;
 using TypeScriptBuilder;
+// ReSharper disable InconsistentNaming
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
@@ -74,6 +76,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         /// The value will be set on server
         /// </remarks>
         [TSExclude]
+        [Double]
         public string Version { get; set; } = "1.0";
 
         /// <summary>

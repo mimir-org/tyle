@@ -6,6 +6,8 @@ export { mapNodeTerminalLibCmsToNodeTerminalItems } from "./mapNodeTerminalLibCm
 export { mapNodeTerminalLibCmToNodeTerminalLibAm } from "./mapNodeTerminalLibCmToNodeTerminalLibAm";
 export { mapNodeTerminalLibCmsToNodeTerminalLibAms } from "./mapNodeTerminalLibCmToNodeTerminalLibAm";
 
+export { mapUnitLibCmToInfoItem } from "./mapUnitLibCmToInfoItem";
+
 export { mapAttributeLibCmToInfoItem } from "./mapAttributeLibCmToInfoItem";
 export { mapAttributeLibCmsToInfoItems } from "./mapAttributeLibCmToInfoItem";
 
@@ -24,4 +26,5 @@ export { mapInterfaceLibCmToInterfaceLibAm } from "./mapInterfaceLibCmToInterfac
 export { mapListToDescriptors } from "./mapListToDescriptors";
 export { mapUnitLibCmsToDescriptors } from "./mapUnitLibCmsToDescriptors";
 export { mapValueObjectsToDescriptors } from "./mapValueObjectsToDescriptors";
-export { mapTypeReferenceCmsToDescriptors } from "./mapTypeReferenceCmsToDescriptors";
+export { mapTypeReferencesToDescriptors } from "./mapTypeReferencesToDescriptors";
+export { mapAttributeLibToQuantityDatumDescriptors } from "./mapAttributeLibToQuantityDatumDescriptors";

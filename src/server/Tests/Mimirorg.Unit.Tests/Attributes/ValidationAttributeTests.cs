@@ -1,11 +1,24 @@
+using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Attributes;
 using Mimirorg.Common.Extensions;
+using Mimirorg.Setup;
+using Mimirorg.Setup.Fixtures;
+using System.ComponentModel.DataAnnotations;
+using Mimirorg.Common.Models;
+using Moq;
 using Xunit;
 
 namespace Mimirorg.Unit.Tests.Attributes
 {
-    public class ValidationAttributeTests
+    public class ValidationAttributeTests : UnitTest<MimirorgCommonFixture>
     {
+        private readonly MimirorgCommonFixture _fixture;
+
+        public ValidationAttributeTests(MimirorgCommonFixture fixture) : base(fixture)
+        {
+            _fixture = fixture;
+        }
+
         [Theory]
         [InlineData("https://rdf.runir.net/ID1234", true)]
         [InlineData("https://rdf.runir.net/", false)]
@@ -33,6 +46,42 @@ namespace Mimirorg.Unit.Tests.Attributes
             var model = new RequiredOneTestValidator { Id = value, Iri = dependent };
             var validation = model.ValidateObject();
             Assert.Equal(result, validation.IsValid);
+        }
+
+        [Theory]
+        [InlineData("1234", false)]
+        [InlineData("Passw0rd123!", true)]
+        [InlineData("Passw0rd123", false)]
+        [InlineData("passw0rd123!", false)]
+        [InlineData("passwKrdHHH!", false)]
+        [InlineData("Passw0rd1234", false)]
+        public void PasswordAttribute_Validates_Correctly(string value, bool result)
+        {
+            var validation = value.HasValidPassword(_fixture.MimirorgAuthSettings);
+            var isValid = validation?.ErrorMessage == null || validation.ErrorMessage?.Length <= 0;
+            Assert.Equal(result, isValid);
+        }
+
+        [Theory]
+        [InlineData("hhh", true)]
+        [InlineData("123", true)]
+        [InlineData("1", true)]
+        [InlineData("d", true)]
+        [InlineData("", false)]
+        [InlineData(" ", false)]
+        [InlineData(null, false)]
+        public void PasswordAttribute_Validates_Correctly_With_No_Rules(string value, bool result)
+        {
+            var settings = new MimirorgAuthSettings
+            {
+                RequireDigit = false,
+                RequireNonAlphanumeric = false,
+                RequireUppercase = false,
+                RequiredLength = 0,
+            };
+            var validation = value.HasValidPassword(settings);
+            var isValid = validation?.ErrorMessage == null || validation.ErrorMessage?.Length <= 0;
+            Assert.Equal(result, isValid);
         }
     }
 
