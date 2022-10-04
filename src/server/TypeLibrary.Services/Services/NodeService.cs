@@ -38,12 +38,12 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if there is no node with the given id, and that node is at the latest version.</exception>
         public NodeLibCm GetLatestVersion(string id)
         {
-            var nodeCm = GetLatestVersions().FirstOrDefault(x => x.Id == id);
+            var dm = _nodeRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
 
-            if (nodeCm == null)
-                throw new MimirorgNotFoundException($"There is no node with id {id}");
+            if (dm == null)
+                throw new MimirorgNotFoundException($"Node with id {id} not found.");
 
-            return nodeCm;
+            return _mapper.Map<NodeLibCm>(dm);
         }
 
         /// <summary>
@@ -52,13 +52,15 @@ namespace TypeLibrary.Services.Services
         /// <returns>A collection of nodes</returns>
         public IEnumerable<NodeLibCm> GetLatestVersions()
         {
-            var nodes = _nodeRepository.Get().LatestVersion().ToList();
-            nodes = nodes.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var dms = _nodeRepository.Get()?.LatestVersion()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
-            foreach (var node in nodes)
-                node.Children = nodes.Where(x => x.ParentId == node.Id).ToList();
+            if(dms == null)
+                throw new MimirorgNotFoundException("No nodes were found.");
 
-            return !nodes.Any() ? new List<NodeLibCm>() : _mapper.Map<List<NodeLibCm>>(nodes);
+            foreach (var dm in dms)
+                dm.Children = dms.Where(x => x.ParentId == dm.Id).ToList();
+
+            return !dms.Any() ? new List<NodeLibCm>() : _mapper.Map<List<NodeLibCm>>(dms);
         }
 
         /// <summary>

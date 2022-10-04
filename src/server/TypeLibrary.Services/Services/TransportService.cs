@@ -13,6 +13,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -38,12 +39,12 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if there is no transport with the given id, and that transport is at the latest version.</exception>
         public TransportLibCm GetLatestVersion(string id)
         {
-            var transportCm = GetLatestVersions().FirstOrDefault(x => x.Id == id);
+            var dm = _transportRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
 
-            if (transportCm == null)
-                throw new MimirorgNotFoundException($"There is no transport with id {id}");
+            if (dm == null)
+                throw new MimirorgNotFoundException($"Transport with id {id} not found.");
 
-            return transportCm;
+            return _mapper.Map<TransportLibCm>(dm);
         }
 
         /// <summary>
@@ -52,13 +53,15 @@ namespace TypeLibrary.Services.Services
         /// <returns>A collection of transport</returns>
         public IEnumerable<TransportLibCm> GetLatestVersions()
         {
-            var transportDmList = _transportRepository.Get().LatestVersion().ToList();
-            transportDmList = transportDmList.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var dms = _transportRepository.Get()?.LatestVersion()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
-            foreach (var transportLibDm in transportDmList)
-                transportLibDm.Children = transportDmList.Where(x => x.ParentId == transportLibDm.Id).ToList();
+            if (dms == null)
+                throw new MimirorgNotFoundException("No transports were found.");
 
-            return !transportDmList.Any() ? new List<TransportLibCm>() : _mapper.Map<List<TransportLibCm>>(transportDmList);
+            foreach (var transportLibDm in dms)
+                transportLibDm.Children = dms.Where(x => x.ParentId == transportLibDm.Id).ToList();
+
+            return !dms.Any() ? new List<TransportLibCm>() : _mapper.Map<List<TransportLibCm>>(dms);
         }
 
         /// <summary>

@@ -13,6 +13,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -38,12 +39,12 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if there is no interface with the given id, and that interface is at the latest version.</exception>
         public InterfaceLibCm GetLatestVersion(string id)
         {
-            var interfaceCm = GetLatestVersions().FirstOrDefault(x => x.Id == id);
+            var dm = _interfaceRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
 
-            if (interfaceCm == null)
-                throw new MimirorgNotFoundException($"There is no interface with id {id}");
+            if (dm == null)
+                throw new MimirorgNotFoundException($"Interface with id {id} not found.");
 
-            return interfaceCm;
+            return _mapper.Map<InterfaceLibCm>(dm);
         }
 
         /// <summary>
@@ -52,13 +53,15 @@ namespace TypeLibrary.Services.Services
         /// <returns>A collection of interface</returns>
         public IEnumerable<InterfaceLibCm> GetLatestVersions()
         {
-            var interfaceDmList = _interfaceRepository.Get().LatestVersion().ToList();
-            interfaceDmList = interfaceDmList.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var dms = _interfaceRepository.Get()?.LatestVersion()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
-            foreach (var interfaceDm in interfaceDmList)
-                interfaceDm.Children = interfaceDmList.Where(x => x.ParentId == interfaceDm.Id).ToList();
+            if (dms == null)
+                throw new MimirorgNotFoundException("No interfaces were found.");
 
-            return !interfaceDmList.Any() ? new List<InterfaceLibCm>() : _mapper.Map<List<InterfaceLibCm>>(interfaceDmList);
+            foreach (var interfaceDm in dms)
+                interfaceDm.Children = dms.Where(x => x.ParentId == interfaceDm.Id).ToList();
+
+            return !dms.Any() ? new List<InterfaceLibCm>() : _mapper.Map<List<InterfaceLibCm>>(dms);
         }
 
         /// <summary>

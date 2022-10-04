@@ -48,12 +48,12 @@ namespace TypeLibrary.Services.Services
         /// <returns>The attribute, otherwise return null</returns>
         public AttributeLibCm GetLatestVersion(string id)
         {
-            var attributeCm = GetLatestVersions(Aspect.NotSet).FirstOrDefault(x => x.Id == id);
+            var dm = _attributeRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
 
-            if (attributeCm == null)
-                throw new MimirorgNotFoundException($"There is no attribute with id {id}");
+            if (dm == null)
+                throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
 
-            return attributeCm;
+            return _mapper.Map<AttributeLibCm>(dm);
         }
 
         /// <summary>
@@ -63,12 +63,15 @@ namespace TypeLibrary.Services.Services
         /// <returns>List of AttributeLibCm</returns>
         public IEnumerable<AttributeLibCm> GetLatestVersions(Aspect aspect)
         {
-            var attributes = _attributeRepository.Get().LatestVersion().ToList().OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var dms = _attributeRepository.Get()?.LatestVersion()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
+            if (dms == null)
+                throw new MimirorgNotFoundException("No attributes were found.");
 
             if (aspect != Aspect.NotSet)
-                attributes = attributes.Where(x => x.Aspect.HasFlag(aspect)).ToList();
+                dms = dms.Where(x => x.Aspect.HasFlag(aspect)).ToList();
 
-            return !attributes.Any() ? new List<AttributeLibCm>() : _mapper.Map<List<AttributeLibCm>>(attributes);
+            return !dms.Any() ? new List<AttributeLibCm>() : _mapper.Map<List<AttributeLibCm>>(dms);
         }
 
         /// <summary>

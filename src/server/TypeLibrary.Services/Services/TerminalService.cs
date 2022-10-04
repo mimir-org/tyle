@@ -38,12 +38,12 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id, and that terminal is at the latest version.</exception>
         public TerminalLibCm GetLatestVersion(string id)
         {
-            var terminal = GetLatestVersions().FirstOrDefault(x => x.Id == id);
+            var dm = _terminalRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
 
-            if (terminal == null)
-                throw new MimirorgNotFoundException($"There is no terminal with id {id}");
+            if (dm == null)
+                throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
 
-            return terminal;
+            return _mapper.Map<TerminalLibCm>(dm);
         }
 
         /// <summary>
@@ -52,14 +52,15 @@ namespace TypeLibrary.Services.Services
         /// <returns>A collection of terminals</returns>
         public IEnumerable<TerminalLibCm> GetLatestVersions()
         {
-            var terminals = _terminalRepository.Get().LatestVersion().ToList();
+            var dms = _terminalRepository.Get()?.LatestVersion()?.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
-            terminals = terminals.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            if (dms == null)
+                throw new MimirorgNotFoundException("No terminals were found.");
 
-            foreach (var terminal in terminals)
-                terminal.Children = terminals.Where(x => x.ParentId == terminal.Id).ToList();
+            foreach (var terminal in dms)
+                terminal.Children = dms.Where(x => x.ParentId == terminal.Id).ToList();
 
-            return !terminals.Any() ? new List<TerminalLibCm>() : _mapper.Map<List<TerminalLibCm>>(terminals);
+            return !dms.Any() ? new List<TerminalLibCm>() : _mapper.Map<List<TerminalLibCm>>(dms);
         }
 
         /// <summary>
