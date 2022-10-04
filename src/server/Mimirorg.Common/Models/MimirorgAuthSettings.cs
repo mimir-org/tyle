@@ -22,6 +22,8 @@ namespace Mimirorg.Common.Models
         public int RequiredLength { get; set; } = 10;
         public string EmailKey { get; set; }
         public string EmailSecret { get; set; }
+        public string EmailHost { get; set; } = "localhost";
+        public int EmailPort { get; set; } = 25;
 
         public DatabaseConfiguration DatabaseConfiguration { get; set; }
 
