@@ -154,7 +154,6 @@ namespace TypeLibrary.Services.Services
             var attributeCm = await _attributeRepository.Create(attributeDm);
             _attributeRepository.ClearAllChangeTrackers();
 
-            await _attributeRepository.ChangeParentId(attributeAm.Id, attributeCm.Id);
             _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 
             return GetLatestVersion(attributeCm.Id);

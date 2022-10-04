@@ -1,4 +1,4 @@
-import { Aspect, AttributeLibAm, QuantityDatumType } from "@mimirorg/typelibrary-types";
+import { Aspect, AttributeLibAm, QuantityDatumType, State } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiAttribute } from "../../api/tyle/apiAttribute";
 
@@ -39,3 +39,22 @@ export const useGetQuantityDatum = (datumType: QuantityDatumType) =>
   useQuery(keys.quantityDatum(datumType), () => apiAttribute.getQuantityDatum(datumType));
 
 export const useGetAttributesReference = () => useQuery(keys.referenceLists(), apiAttribute.getAttributesReference);
+
+export const useUpdateAttribute = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation((item: AttributeLibAm) => apiAttribute.putLibraryAttribute(item), {
+    onSuccess: (response) => queryClient.invalidateQueries(keys.attribute(response.id)),
+  });
+};
+
+export const usePatchAttributeState = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    (item: { id: string; state: State }) => apiAttribute.patchLibraryAttributeState(item.id, item.state),
+    {
+      onSuccess: () => queryClient.invalidateQueries(keys.attributeLists()),
+    }
+  );
+};

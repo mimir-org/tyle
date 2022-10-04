@@ -4,7 +4,7 @@ import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
-import { useCreateAttribute, useGetAttributesReference } from "../../../data/queries/tyle/queriesAttribute";
+import { useGetAttributesReference } from "../../../data/queries/tyle/queriesAttribute";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { useServerValidation } from "../../../hooks/useServerValidation";
 import { Loader } from "../../common/loader";
@@ -13,7 +13,7 @@ import { FormUnits } from "../common/form-units/FormUnits";
 import { onSubmitForm } from "../common/utils/onSubmitForm";
 import { usePrefilledForm } from "../common/utils/usePrefilledForm";
 import { useSubmissionToast } from "../common/utils/useSubmissionToast";
-import { showSelectValues, useAttributeQuery } from "./AttributeForm.helpers";
+import { showSelectValues, useAttributeMutation, useAttributeQuery } from "./AttributeForm.helpers";
 import { AttributeFormContainer } from "./AttributeForm.styled";
 import { AttributeFormBaseFields } from "./AttributeFormBaseFields";
 import { attributeSchema } from "./attributeSchema";
@@ -31,7 +31,7 @@ interface AttributeFormProps {
   mode?: AttributeFormMode;
 }
 
-export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }: AttributeFormProps) => {
+export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib(), mode }: AttributeFormProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -48,7 +48,7 @@ export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }:
   const query = useAttributeQuery();
   const [isPrefilled, isLoading] = usePrefilledForm(query, mapAttributeLibCmToFormAttributeLib, reset);
 
-  const mutation = useCreateAttribute();
+  const mutation = useAttributeMutation(mode);
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
