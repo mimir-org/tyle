@@ -28,11 +28,7 @@ namespace Mimirorg.Integration.Tests.Services
                 PurposeName = "PurposeName",
                 Description = "Description",
                 Aspect = Aspect.NotSet,
-                CompanyId = 1,
-                AttributeIdList = new List<string>
-                {
-                    "003F35CF40F34ECDE4E7EB589C7E0A00"
-                }
+                CompanyId = 1
             };
 
             var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
@@ -44,6 +40,26 @@ namespace Mimirorg.Integration.Tests.Services
         [Fact]
         public async Task Create_Node_Create_Node_When_Ok_Parameters()
         {
+            var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
+            var attributeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IAttributeService>();
+
+            var attributeAm = new AttributeLibAm
+            {
+                Name = "attribute12345678",
+                Aspect = Aspect.Function,
+                Discipline = Discipline.Electrical,
+                Select = Select.MultiSelect,
+                Description = "Description1",
+                SelectValues = new List<string> { "value1", "VALUE2", "value3" },
+                QuantityDatumRangeSpecifying = "Normal",
+                QuantityDatumSpecifiedProvenance = "Calculated",
+                QuantityDatumRegularitySpecified = "Absolute",
+                QuantityDatumSpecifiedScope = "Design Datum",
+                CompanyId = 1
+            };
+
+            var attributeCm = await attributeService.Create(attributeAm);
+
             var nodeAm = new NodeLibAm
             {
                 Name = "Node2",
@@ -53,11 +69,7 @@ namespace Mimirorg.Integration.Tests.Services
                 Description = "Description",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
-                SimpleIdList = null,
-                AttributeIdList = new List<string>
-                {
-                    "CA20DF193D58238C3C557A0316C15533"
-                },
+                AttributeIdList = new List<string> { $"{attributeCm.Id}" },
                 NodeTerminals = new List<NodeTerminalLibAm>{
                     new()
                     {
@@ -115,7 +127,6 @@ namespace Mimirorg.Integration.Tests.Services
                 ParentId = "1234"
             };
 
-            var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
             var nodeCm = await nodeService.Create(nodeAm);
 
             Assert.NotNull(nodeCm);
@@ -161,31 +172,6 @@ namespace Mimirorg.Integration.Tests.Services
         }
 
         [Fact]
-        public async Task Create_Node_Node_With_Attributes_Result_Ok()
-        {
-            var nodeAm = new NodeLibAm
-            {
-                Name = "Node3",
-                RdsName = "RdsName",
-                RdsCode = "RdsCode",
-                PurposeName = "PurposeName",
-                Description = "Description",
-                Aspect = Aspect.NotSet,
-                CompanyId = 1,
-                AttributeIdList = new List<string>
-                {
-                    "CA20DF193D58238C3C557A0316C15533"
-                }
-            };
-
-            var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
-            var nodeCm = await nodeService.Create(nodeAm);
-
-            Assert.Equal(nodeAm.Id, nodeCm?.Id);
-            Assert.Equal(nodeAm.AttributeIdList.ElementAt(0), nodeCm?.Attributes.ElementAt(0).Id);
-        }
-
-        [Fact]
         public async Task GetLatestVersions_Nodes_Result_Ok()
         {
             var nodeAm = new NodeLibAm
@@ -196,11 +182,7 @@ namespace Mimirorg.Integration.Tests.Services
                 PurposeName = "PurposeName",
                 Description = "Description",
                 Aspect = Aspect.NotSet,
-                CompanyId = 1,
-                AttributeIdList = new List<string>
-                {
-                    "CA20DF193D58238C3C557A0316C15533"
-                }
+                CompanyId = 1
             };
 
             var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
@@ -216,60 +198,29 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.True(nodeCmUpdated.Version == "1.1");
         }
 
-        // TODO: This must be faked and can't be an integration test, Procs is not supported in InMemoryDatabase
-        //[Fact]
-        //public async Task Delete_Node_Result_Ok()
-        //{
-        //    var nodeAm = new NodeLibAm
-        //    {
-        //        Name = "Node5",
-        //        RdsName = "RdsName",
-        //        RdsCode = "RdsCode",
-        //        PurposeName = "PurposeName",
-        //        Description = "Description",
-        //        Aspect = Aspect.NotSet,
-        //        CompanyId = 1,
-        //        AttributeIdList = new List<string>
-        //        {
-        //            "003F35CF40F34ECDE4E7EB589C7E0A00"
-        //        }
-        //    };
 
-        //    var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
+        [Fact]
+        public async Task Update_Node_Result_Ok()
+        {
+            var nodeAm = new NodeLibAm
+            {
+                Name = "Node6",
+                RdsName = "RdsName",
+                RdsCode = "RdsCode",
+                PurposeName = "PurposeName",
+                Description = "Description1",
+                Aspect = Aspect.NotSet,
+                CompanyId = 1
+            };
 
-        //    var nodeCm = await nodeService.Create(nodeAm);
-        //    var deletedNode = await nodeService.UpdateState(nodeCm?.Id, State.Deleted);
-        //    var allNodesNotDeleted = nodeService.GetLatestVersions();
+            var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
 
-        //    Assert.True(deletedNode.State == State.Deleted);
-        //    Assert.True(string.IsNullOrEmpty(allNodesNotDeleted?.FirstOrDefault(x => x.Id == nodeCm?.Id)?.Id));
-        //}
+            var cm = await nodeService.Create(nodeAm);
+            nodeAm.Description = "Description2";
+            var cmUpdated = await nodeService.Update(nodeAm);
 
-        //[Fact]
-        //public async Task Update_Node_State_Result_Ok()
-        //{
-        //    var nodeAm = new NodeLibAm
-        //    {
-        //        Name = "Node6",
-        //        RdsName = "RdsName",
-        //        RdsCode = "RdsCode",
-        //        PurposeName = "PurposeName",
-        //        Description = "Description",
-        //        Aspect = Aspect.NotSet,
-        //        CompanyId = 1,
-        //        AttributeIdList = new List<string>
-        //        {
-        //            "003F35CF40F34ECDE4E7EB589C7E0A00"
-        //        }
-        //    };
-
-        //    var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
-
-        //    var cm = await nodeService.Create(nodeAm, true);
-        //    var cmUpdated = await nodeService.UpdateState(cm.Id, State.ApprovedCompany);
-
-        //    Assert.True(cm.State != cmUpdated.State);
-        //    Assert.True(cmUpdated.State == State.ApprovedCompany);
-        //}
+            Assert.True(cm.Description == "Description1" && cm.Version == "1.0");
+            Assert.True(cmUpdated.Description == "Description2" && cmUpdated.Version == "1.1");
+        }
     }
 }

@@ -32,14 +32,12 @@ namespace TypeLibrary.Core.Controllers.V1
     {
         private readonly ILogger<LibraryTerminalController> _logger;
         private readonly ITerminalService _terminalService;
-        private readonly IMimirorgUserService _userService;
         private readonly IMimirorgAuthService _authService;
 
-        public LibraryTerminalController(ILogger<LibraryTerminalController> logger, ITerminalService terminalService, IMimirorgUserService userService, IMimirorgAuthService authService)
+        public LibraryTerminalController(ILogger<LibraryTerminalController> logger, ITerminalService terminalService, IMimirorgAuthService authService)
         {
             _logger = logger;
             _terminalService = terminalService;
-            _userService = userService;
             _authService = authService;
         }
 
@@ -51,7 +49,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(typeof(ICollection<TerminalLibCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [AllowAnonymous]
-        public IActionResult GetTerminals()
+        public IActionResult GetLatestVersions()
         {
             try
             {
@@ -75,7 +73,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [AllowAnonymous]
-        public IActionResult GetTerminal(string id)
+        public IActionResult GetLatestVersion(string id)
         {
             try
             {
@@ -115,7 +113,7 @@ namespace TypeLibrary.Core.Controllers.V1
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var cm = await _terminalService.Create(terminal, true);
+                var cm = await _terminalService.Create(terminal);
                 return Ok(cm);
             }
             catch (MimirorgBadRequestException e)
@@ -145,16 +143,15 @@ namespace TypeLibrary.Core.Controllers.V1
         /// Update terminal
         /// </summary>
         /// <param name="terminal">The terminal that should be updated</param>
-        /// <param name="id">The id of the terminal that should be updated</param>
         /// <returns>TerminalLibCm</returns>
-        [HttpPut("{id}")]
+        [HttpPut]
         [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
-        public async Task<IActionResult> Update([FromBody] TerminalLibAm terminal, [FromRoute] string id)
+        public async Task<IActionResult> Update([FromBody] TerminalLibAm terminal)
         {
             try
             {
@@ -192,23 +189,24 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="state"></param>
         /// <param name="id"></param>
         /// <returns>TerminalLibCm</returns>
-        [HttpPatch("state/{id}")]
+        [HttpPatch("{id}/state/{state}")]
         [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
-        public async Task<IActionResult> UpdateState([FromBody] State state, [FromRoute] string id)
+        public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
         {
             try
             {
                 var companyId = await _terminalService.GetCompanyId(id);
                 var hasAccess = await _authService.HasAccess(companyId, state);
+
                 if (!hasAccess)
                     return StatusCode(StatusCodes.Status403Forbidden);
 
-                var data = await _terminalService.UpdateState(id, state);
+                var data = await _terminalService.ChangeState(id, state);
                 return Ok(data);
             }
             catch (Exception e)

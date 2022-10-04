@@ -98,7 +98,7 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = _attributeService.GetAll(Aspect.NotSet).FirstOrDefault(x => x.Id == id);
+                var data = _attributeService.GetLatestVersions(Aspect.NotSet).FirstOrDefault(x => x.Id == id);
                 if (data == null)
                     return NoContent();
 

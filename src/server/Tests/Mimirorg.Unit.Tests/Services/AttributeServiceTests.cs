@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
@@ -25,7 +24,6 @@ namespace Mimirorg.Unit.Tests.Services
                 Options.Create(fixture.ApplicationSettings),
                 fixture.AttributePredefinedRepository.Object,
                 fixture.AttributeReferenceRepository.Object,
-                fixture.VersionService.Object,
                 fixture.TimedHookService.Object,
                 fixture.DatumRepository.Object);
         }
@@ -56,7 +54,7 @@ namespace Mimirorg.Unit.Tests.Services
             };
 
             //Act
-            Task Act() => _attributeService.Create(new List<AttributeLibAm> { attribute });
+            Task Act() => _attributeService.Create(attribute);
 
             //Assert
             _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(Act);

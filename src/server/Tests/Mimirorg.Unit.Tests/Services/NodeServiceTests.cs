@@ -37,7 +37,7 @@ namespace Mimirorg.Unit.Tests.Services
         [Fact]
         public async Task Create_Node_Returns_MimirorgBadRequestException_When_Null_Parameters()
         {
-            _ = await Assert.ThrowsAsync<ArgumentNullException>(() => _nodeService.Create(null, true));
+            _ = await Assert.ThrowsAsync<ArgumentNullException>(() => _nodeService.Create(null));
         }
 
         [Theory]
@@ -65,7 +65,7 @@ namespace Mimirorg.Unit.Tests.Services
                 CompanyId = 1
             };
 
-            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.Create(nodeToCreate, true));
+            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.Create(nodeToCreate));
         }
 
         [Theory]
@@ -83,7 +83,7 @@ namespace Mimirorg.Unit.Tests.Services
                 CompanyId = companyId
             };
 
-            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.Create(nodeToCreate, true));
+            _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.Create(nodeToCreate));
         }
     }
 }

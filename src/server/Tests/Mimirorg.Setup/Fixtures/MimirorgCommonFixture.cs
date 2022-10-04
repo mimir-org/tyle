@@ -57,11 +57,6 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                SimpleIdList = new List<string>
-                {
-                    "123",
-                    "555"
-                },
                 AttributeIdList = new List<string>
                 {
                     "123",
