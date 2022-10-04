@@ -54,7 +54,7 @@ namespace TypeLibrary.Services.Services
         {
             var dms = _nodeRepository.Get()?.LatestVersion()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
-            if(dms == null)
+            if (dms == null)
                 throw new MimirorgNotFoundException("No nodes were found.");
 
             foreach (var dm in dms)
