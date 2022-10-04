@@ -1,1 +1,1 @@
-export type AttributeFormMode = "clone";
+export type AttributeFormMode = "edit" | "clone";

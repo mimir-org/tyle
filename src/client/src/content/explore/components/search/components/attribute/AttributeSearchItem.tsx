@@ -1,8 +1,10 @@
+import { State } from "@mimirorg/typelibrary-types";
 import { Duplicate, PencilAlt, Trash } from "@styled-icons/heroicons-outline";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Button } from "../../../../../../complib/buttons";
 import { AlertDialog } from "../../../../../../complib/overlays/alert-dialog/AlertDialog";
+import { usePatchAttributeState } from "../../../../../../data/queries/tyle/queriesAttribute";
 import { AttributePreview } from "../../../../../common/attribute";
 import { AttributeItem } from "../../../../../types/AttributeItem";
 import { PlainLink } from "../../../../../utils/PlainLink";
@@ -42,9 +44,11 @@ const AttributeSearchItemActions = ({ id, name, ...rest }: AttributeItem) => {
           {t("clone")}
         </Button>
       </PlainLink>
-      <Button icon={<PencilAlt />} iconOnly disabled>
-        {t("edit")}
-      </Button>
+      <PlainLink tabIndex={-1} to={`/form/attribute/edit/${id}`}>
+        <Button tabIndex={0} as={"span"} icon={<PencilAlt />} iconOnly>
+          {t("edit")}
+        </Button>
+      </PlainLink>
       <AlertDialog
         gap={theme.tyle.spacing.multiple(6)}
         actions={[]}
