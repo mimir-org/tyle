@@ -37,6 +37,12 @@ const AttributeSearchItemActions = ({ id, name, ...rest }: AttributeItem) => {
   const theme = useTheme();
   const { t } = useTranslation("translation", { keyPrefix: "search.item" });
 
+  const deleteAttributeMutation = usePatchAttributeState();
+  const deleteAction = {
+    name: t("delete"),
+    onAction: () => deleteAttributeMutation.mutate({ id, state: State.Delete }),
+  };
+
   return (
     <>
       <PlainLink tabIndex={-1} to={`/form/attribute/clone/${id}`}>
@@ -51,13 +57,13 @@ const AttributeSearchItemActions = ({ id, name, ...rest }: AttributeItem) => {
       </PlainLink>
       <AlertDialog
         gap={theme.tyle.spacing.multiple(6)}
-        actions={[]}
+        actions={[deleteAction]}
         title={t("templates.delete", { object: name })}
         description={t("deleteDescription")}
         hideDescription
         content={<AttributePreview name={name} {...rest} />}
       >
-        <Button icon={<Trash />} iconOnly disabled>
+        <Button icon={<Trash />} iconOnly>
           {t("delete")}
         </Button>
       </AlertDialog>
