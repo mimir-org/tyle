@@ -5,6 +5,7 @@ import {
   AttributePredefinedLibCm,
   QuantityDatumCm,
   QuantityDatumType,
+  State,
   TypeReferenceCm,
 } from "@mimirorg/typelibrary-types";
 import { apiClient } from "../apiClient";
@@ -20,6 +21,12 @@ export const apiAttribute = {
   },
   postLibraryAttribute(item: AttributeLibAm) {
     return apiClient.post<AttributeLibCm>(_basePath, item).then((r) => r.data);
+  },
+  putLibraryAttribute(item: AttributeLibAm) {
+    return apiClient.put<AttributeLibCm>(_basePath, item).then((r) => r.data);
+  },
+  patchLibraryAttributeState(id: string, state: State) {
+    return apiClient.patch<AttributeLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
   },
   getAttributesByAspect(aspect: Aspect) {
     return apiClient.get<AttributeLibCm[]>(`${_basePath}/aspect/${aspect}`).then((r) => r.data);
