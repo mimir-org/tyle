@@ -57,10 +57,6 @@ namespace Mimirorg.Authentication.Services
             if (_authSettings == null)
                 throw new MimirorgConfigurationException("Missing configuration for auth settings");
 
-            var validation = userAm.ValidateObject();
-            if (!validation.IsValid)
-                throw new MimirorgBadRequestException($"Couldn't register: {userAm.Email}", validation);
-
             var existingUser = await _userManager.FindByEmailAsync(userAm.Email);
             if (existingUser != null)
                 throw new MimirorgDuplicateException($"Couldn't register: {userAm.Email}. There is already an user with same username");
@@ -171,10 +167,6 @@ namespace Mimirorg.Authentication.Services
         {
             if (_authSettings == null)
                 throw new MimirorgConfigurationException("Missing configuration for auth settings");
-
-            var validation = userAm.ValidateObject();
-            if (!validation.IsValid)
-                throw new MimirorgBadRequestException($"Couldn't update: {userAm.Email}", validation);
 
             var user = await _userManager.FindByIdAsync(id);
             if (user == null)
