@@ -1,5 +1,4 @@
 import { NodeLibAm, NodeLibCm } from "@mimirorg/typelibrary-types";
-import { UpdateEntity } from "../../../../data/types/updateEntity";
 import { createEmptyNodeLibAm } from "../../../../models/tyle/application/nodeLibAm";
 import { mapNodeLibCmToNodeLibAm } from "../../../../utils/mappers";
 import { ValueObject } from "../../types/valueObject";
@@ -13,7 +12,7 @@ import { NodeFormMode } from "./nodeFormMode";
  * This type functions as a layer between client needs and the backend model.
  * It allows you to adapt the expected api model to fit client/form logic needs.
  */
-export interface FormNodeLib extends Omit<UpdateEntity<NodeLibAm>, "attributeIdList" | "selectedAttributePredefined"> {
+export interface FormNodeLib extends Omit<NodeLibAm, "attributeIdList" | "selectedAttributePredefined"> {
   attributeIdList: ValueObject<string>[];
   selectedAttributePredefined: FormSelectedAttributePredefinedLib[];
 }
@@ -22,7 +21,7 @@ export interface FormNodeLib extends Omit<UpdateEntity<NodeLibAm>, "attributeIdL
  * Maps the client-only model back to the model expected by the backend api
  * @param formNode client-only model
  */
-export const mapFormNodeLibToApiModel = (formNode: FormNodeLib): UpdateEntity<NodeLibAm> => ({
+export const mapFormNodeLibToApiModel = (formNode: FormNodeLib): NodeLibAm => ({
   ...formNode,
   attributeIdList: formNode.attributeIdList.map((x) => x.value),
   selectedAttributePredefined: formNode.selectedAttributePredefined.map((x) =>
@@ -32,14 +31,12 @@ export const mapFormNodeLibToApiModel = (formNode: FormNodeLib): UpdateEntity<No
 
 export const createEmptyFormNodeLib = (): FormNodeLib => ({
   ...createEmptyNodeLibAm(),
-  id: "",
   attributeIdList: [],
   selectedAttributePredefined: [],
 });
 
 export const mapNodeLibCmToFormNodeLib = (nodeLibCm: NodeLibCm, mode?: NodeFormMode): FormNodeLib => ({
   ...mapNodeLibCmToNodeLibAm(nodeLibCm),
-  id: nodeLibCm.id,
   parentId: mode === "clone" ? nodeLibCm.id : nodeLibCm.parentId,
   attributeIdList: nodeLibCm.attributes.map((x) => ({
     value: x.id,
