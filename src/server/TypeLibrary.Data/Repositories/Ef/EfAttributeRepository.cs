@@ -92,28 +92,6 @@ namespace TypeLibrary.Data.Repositories.Ef
         }
 
         /// <summary>
-        /// Change all parent id's on attributes from old id to the new id 
-        /// </summary>
-        /// <param name="oldId">Old attribute parent id</param>
-        /// <param name="newId">New attribute parent id</param>
-        /// <returns>The number of attributes with the new parent id</returns>
-        public async Task<int> ChangeParentId(string oldId, string newId)
-        {
-            if (string.IsNullOrWhiteSpace(oldId) || string.IsNullOrWhiteSpace(newId))
-                return 0;
-
-            var procParams = new Dictionary<string, object>
-            {
-                {"@TableName", "Attribute"},
-                {"@OldId", oldId},
-                {"@NewId", newId}
-            };
-
-            var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlResultCount>("UpdateParentId", procParams);
-            return result?.FirstOrDefault()?.Number ?? 0;
-        }
-
-        /// <summary>
         /// Create a new attribute
         /// </summary>
         /// <param name="attribute">The attribute that should be created</param>

@@ -40,14 +40,6 @@ namespace TypeLibrary.Data.Contracts
         Task<int> ChangeState(State state, ICollection<string> ids);
 
         /// <summary>
-        /// Change all parent id's on attributes from old id to the new id 
-        /// </summary>
-        /// <param name="oldId">Old attribute parent id</param>
-        /// <param name="newId">New attribute parent id</param>
-        /// <returns>The number of attributes with the new parent id</returns>
-        Task<int> ChangeParentId(string oldId, string newId);
-
-        /// <summary>
         /// Create a new attribute
         /// </summary>
         /// <param name="attribute">The attribute that should be created</param>
