@@ -16,8 +16,8 @@ namespace Mimirorg.Common.Models
         public int MaxFailedAccessAttempts { get; set; } = 5;
         public int DefaultLockoutMinutes { get; set; } = 1440;
         public bool RequireConfirmedAccount { get; set; } = true;
-        public bool RequireDigit { get; set; } = true;
-        public bool RequireUppercase { get; set; } = true;
+        public bool RequireDigit { get; set; } = false;
+        public bool RequireUppercase { get; set; } = false;
         public bool RequireNonAlphanumeric { get; set; } = false;
         public int RequiredLength { get; set; } = 10;
         public string Email { get; set; }
@@ -32,18 +32,33 @@ namespace Mimirorg.Common.Models
         {
             var sb = new StringBuilder();
             sb.AppendLine();
-            sb.AppendLine("###################### Auth settings ########################################");
+            sb.AppendLine("############################ Auth settings ####################################################");
             sb.AppendLine($"{nameof(ApplicationName)}:          {ApplicationName}");
             sb.AppendLine($"{nameof(ApplicationUrl)}:           {ApplicationUrl}");
             sb.AppendLine($"{nameof(JwtExpireMinutes)}:         {JwtExpireMinutes}");
             sb.AppendLine($"{nameof(JwtRefreshExpireMinutes)}:  {JwtRefreshExpireMinutes}");
             sb.AppendLine($"{nameof(MaxFailedAccessAttempts)}:  {MaxFailedAccessAttempts}");
+            sb.AppendLine("-----------------------------------------------------------------------------------------------");
             sb.AppendLine($"{nameof(RequireConfirmedAccount)}:  {RequireConfirmedAccount}");
             sb.AppendLine($"{nameof(RequireDigit)}:             {RequireDigit}");
             sb.AppendLine($"{nameof(RequireUppercase)}:         {RequireUppercase}");
             sb.AppendLine($"{nameof(RequireNonAlphanumeric)}:   {RequireNonAlphanumeric}");
             sb.AppendLine($"{nameof(RequiredLength)}:           {RequiredLength}");
-            sb.AppendLine("#############################################################################");
+            sb.AppendLine("-----------------------------------------------------------------------------------------------");
+            sb.AppendLine($"{nameof(Email)}:                    {Email}");
+            sb.AppendLine($"{nameof(EmailKey)}:                 {EmailKey}");
+            sb.AppendLine($"{nameof(EmailHost)}:                {EmailHost}");
+            sb.AppendLine($"{nameof(EmailPort)}:                {EmailPort}");
+            sb.AppendLine("-----------------------------------------------------------------------------------------------");
+            if (DatabaseConfiguration != null)
+            {
+                sb.AppendLine($"{nameof(DatabaseConfiguration.DataSource)}:               {DatabaseConfiguration.DataSource}");
+                sb.AppendLine($"{nameof(DatabaseConfiguration.Port)}:                     {DatabaseConfiguration.Port}");
+                sb.AppendLine($"{nameof(DatabaseConfiguration.InitialCatalog)}:           {DatabaseConfiguration.InitialCatalog}");
+                sb.AppendLine($"{nameof(DatabaseConfiguration.DbUser)}:                   {DatabaseConfiguration.DbUser}");
+            }
+
+            sb.AppendLine("############################ Auth settings ####################################################");
             return sb.ToString();
         }
     }
