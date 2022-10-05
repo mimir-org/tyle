@@ -49,7 +49,6 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public ICollection<string> SelectValues { get; set; }
         public ICollection<string> UnitIdList { get; set; }
 
-        [TSExclude]
         [Double]
         public string Version { get; set; }
 

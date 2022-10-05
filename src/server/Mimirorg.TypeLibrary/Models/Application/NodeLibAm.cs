@@ -129,9 +129,8 @@ namespace Mimirorg.TypeLibrary.Models.Application
         /// The node version
         /// </summary>
         /// <remarks>
-        /// The value will be set on server
+        /// The value will be set on server on create
         /// </remarks>
-        [TSExclude]
         [Double]
         public string Version { get; set; }
 
