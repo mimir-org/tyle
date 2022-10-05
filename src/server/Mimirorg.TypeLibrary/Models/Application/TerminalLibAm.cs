@@ -77,7 +77,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         /// </remarks>
         [TSExclude]
         [Double]
-        public string Version { get; set; } = "1.0";
+        public string Version { get; set; }
 
         /// <summary>
         /// The terminal id

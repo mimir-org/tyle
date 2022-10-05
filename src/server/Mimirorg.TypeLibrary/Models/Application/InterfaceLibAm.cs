@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Mimirorg.Common.Attributes;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using TypeScriptBuilder;
@@ -114,7 +115,8 @@ namespace Mimirorg.TypeLibrary.Models.Application
         /// The value will be set on server
         /// </remarks>
         [TSExclude]
-        public string Version { get; set; } = "1.0";
+        [Double]
+        public string Version { get; set; }
 
         /// <summary>
         /// The interface id

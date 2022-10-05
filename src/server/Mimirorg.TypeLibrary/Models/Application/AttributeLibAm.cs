@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Mimirorg.Common.Attributes;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using TypeScriptBuilder;
@@ -49,7 +50,8 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public ICollection<string> UnitIdList { get; set; }
 
         [TSExclude]
-        public string Version { get; set; } = "1.0";
+        [Double]
+        public string Version { get; set; }
 
         [TSExclude]
         public string Id => ($"{Name}-{Version}-{Aspect}-{QuantityDatumSpecifiedScope}{QuantityDatumSpecifiedProvenance}{QuantityDatumRangeSpecifying}{QuantityDatumRegularitySpecified}").CreateMd5();
