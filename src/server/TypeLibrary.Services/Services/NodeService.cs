@@ -89,6 +89,7 @@ namespace TypeLibrary.Services.Services
             var dm = _mapper.Map<NodeLibDm>(nodeAm);
 
             dm.State = State.Draft;
+            dm.FirstVersionId = dm.Id;
 
             await _nodeRepository.Create(dm);
             _nodeRepository.ClearAllChangeTrackers();
@@ -141,8 +142,8 @@ namespace TypeLibrary.Services.Services
 
             var nodeDm = _mapper.Map<NodeLibDm>(nodeAm);
 
-            nodeDm.FirstVersionId = nodeToUpdate.FirstVersionId;
             nodeDm.State = State.Draft;
+            nodeDm.FirstVersionId = nodeToUpdate.FirstVersionId;
 
             var nodeCm = await _nodeRepository.Create(nodeDm);
             _nodeRepository.ClearAllChangeTrackers();

@@ -90,6 +90,7 @@ namespace TypeLibrary.Services.Services
             var transportDm = _mapper.Map<TransportLibDm>(transportAm);
 
             transportDm.State = State.Draft;
+            transportDm.FirstVersionId = transportDm.Id;
 
             await _transportRepository.Create(transportDm);
             _transportRepository.ClearAllChangeTrackers();

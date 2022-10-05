@@ -90,6 +90,7 @@ namespace TypeLibrary.Services.Services
             var interfaceDm = _mapper.Map<InterfaceLibDm>(interfaceAm);
 
             interfaceDm.State = State.Draft;
+            interfaceDm.FirstVersionId = interfaceDm.Id;
 
             await _interfaceRepository.Create(interfaceDm);
             _interfaceRepository.ClearAllChangeTrackers();
@@ -142,9 +143,9 @@ namespace TypeLibrary.Services.Services
 
             var interfaceDm = _mapper.Map<InterfaceLibDm>(interfaceAm);
 
-            interfaceDm.FirstVersionId = interfaceToUpdate.FirstVersionId;
             interfaceDm.State = State.Draft;
-
+            interfaceDm.FirstVersionId = interfaceToUpdate.FirstVersionId;
+            
             var interfaceCm = await _interfaceRepository.Create(interfaceDm);
             _interfaceRepository.ClearAllChangeTrackers();
 

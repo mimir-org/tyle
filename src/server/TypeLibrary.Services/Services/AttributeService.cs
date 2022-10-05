@@ -100,7 +100,8 @@ namespace TypeLibrary.Services.Services
             var dm = _mapper.Map<AttributeLibDm>(attributeAm);
 
             dm.State = State.Draft;
-
+            dm.FirstVersionId = dm.Id;
+            
             await _attributeRepository.Create(dm);
             _attributeRepository.ClearAllChangeTrackers();
             _hookService.HookQueue.Enqueue(CacheKey.Attribute);
@@ -151,8 +152,8 @@ namespace TypeLibrary.Services.Services
 
             var attributeDm = _mapper.Map<AttributeLibDm>(attributeAm);
 
-            attributeDm.FirstVersionId = attributeToUpdate.FirstVersionId;
             attributeDm.State = State.Draft;
+            attributeDm.FirstVersionId = attributeToUpdate.FirstVersionId;
 
             var attributeCm = await _attributeRepository.Create(attributeDm);
             _attributeRepository.ClearAllChangeTrackers();

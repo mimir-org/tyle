@@ -134,16 +134,6 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Version { get; set; } = "1.0";
 
         /// <summary>
-        /// The node first version id
-        /// This is a reference to the first generated version of the node type
-        /// </summary>
-        /// <remarks>
-        /// The value will be set on server
-        /// </remarks>
-        [TSExclude]
-        public string FirstVersionId { get; set; }
-
-        /// <summary>
         /// The node id
         /// </summary>
         /// <remarks>

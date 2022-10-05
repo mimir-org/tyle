@@ -52,9 +52,6 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Version { get; set; } = "1.0";
 
         [TSExclude]
-        public string FirstVersionId { get; set; }
-
-        [TSExclude]
         public string Id => ($"{Name}-{Version}-{Aspect}-{QuantityDatumSpecifiedScope}{QuantityDatumSpecifiedProvenance}{QuantityDatumRangeSpecifying}{QuantityDatumRegularitySpecified}").CreateMd5();
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

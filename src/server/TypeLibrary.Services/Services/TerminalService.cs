@@ -88,6 +88,7 @@ namespace TypeLibrary.Services.Services
             var dm = _mapper.Map<TerminalLibDm>(terminal);
 
             dm.State = State.Draft;
+            dm.FirstVersionId = dm.Id;
 
             await _terminalRepository.Create(dm);
             _terminalRepository.ClearAllChangeTrackers();
@@ -140,9 +141,9 @@ namespace TypeLibrary.Services.Services
 
             var terminalDm = _mapper.Map<TerminalLibDm>(terminalAm);
 
-            terminalDm.FirstVersionId = terminalToUpdate.FirstVersionId;
             terminalDm.State = State.Draft;
-
+            terminalDm.FirstVersionId = terminalToUpdate.FirstVersionId;
+            
             var terminalCm = await _terminalRepository.Create(terminalDm);
             _terminalRepository.ClearAllChangeTrackers();
 
