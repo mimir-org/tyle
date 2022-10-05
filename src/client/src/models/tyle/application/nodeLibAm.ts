@@ -7,7 +7,6 @@ export const createEmptyNodeLibAm = (): NodeLibAm => ({
   purposeName: "",
   aspect: Aspect.None,
   companyId: 0,
-  simpleIdList: [],
   attributeIdList: [],
   nodeTerminals: [],
   selectedAttributePredefined: [],

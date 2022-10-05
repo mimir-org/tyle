@@ -1,9 +1,10 @@
+import { State } from "@mimirorg/typelibrary-types";
 import { Duplicate, PencilAlt, Trash } from "@styled-icons/heroicons-outline";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Button } from "../../../../../../complib/buttons";
 import { AlertDialog } from "../../../../../../complib/overlays/alert-dialog/AlertDialog";
-import { useDeleteTerminal } from "../../../../../../data/queries/tyle/queriesTerminal";
+import { usePatchTerminalState } from "../../../../../../data/queries/tyle/queriesTerminal";
 import { TerminalPreview } from "../../../../../common/terminal/TerminalPreview";
 import { TerminalItem } from "../../../../../types/TerminalItem";
 import { PlainLink } from "../../../../../utils/PlainLink";
@@ -36,10 +37,10 @@ const TerminalSearchItemActions = ({ id, name, ...rest }: TerminalItem) => {
   const theme = useTheme();
   const { t } = useTranslation("translation", { keyPrefix: "search.item" });
 
-  const deleteMutation = useDeleteTerminal();
+  const deleteMutation = usePatchTerminalState();
   const deleteAction = {
     name: t("delete"),
-    onAction: () => deleteMutation.mutate(id),
+    onAction: () => deleteMutation.mutate({ id, state: State.Delete }),
   };
 
   return (

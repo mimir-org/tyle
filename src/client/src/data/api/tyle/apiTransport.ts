@@ -1,4 +1,4 @@
-import { TransportLibAm, TransportLibCm } from "@mimirorg/typelibrary-types";
+import { State, TransportLibAm, TransportLibCm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "../apiClient";
 
 const _basePath = "librarytransport";
@@ -13,10 +13,10 @@ export const apiTransport = {
   postTransport(item: TransportLibAm) {
     return apiClient.post<TransportLibCm>(_basePath, item).then((r) => r.data);
   },
-  putTransport(id: string, item: TransportLibAm) {
-    return apiClient.put<TransportLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
+  putTransport(item: TransportLibAm) {
+    return apiClient.put<TransportLibCm>(_basePath, item).then((r) => r.data);
   },
-  deleteTransport(id: string) {
-    return apiClient.delete<boolean>(`${_basePath}/${id}`).then((r) => r.data);
+  patchTransportState(id: string, state: State) {
+    return apiClient.patch<TransportLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
   },
 };

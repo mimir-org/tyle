@@ -117,8 +117,8 @@ namespace Mimirorg.Setup
                 AttributeIdList = new List<string> { "CA20DF193D58238C3C557A0316C15533" }
             };
 
-            await terminalService.Create(terminalA, true);
-            await terminalService.Create(terminalB, true);
+            await terminalService.Create(terminalA);
+            await terminalService.Create(terminalB);
             return true;
         }
     }

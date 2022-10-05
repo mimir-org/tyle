@@ -205,10 +205,6 @@ namespace Mimirorg.Authentication.Services
             if (_authSettings == null)
                 throw new MimirorgConfigurationException("Missing configuration for auth settings");
 
-            var validation = userAm.ValidateObject();
-            if (!validation.IsValid)
-                throw new MimirorgBadRequestException($"Couldn't update: {userAm.Email}", validation);
-
             var user = await _userManager.FindByIdAsync(id);
             if (user == null)
                 throw new MimirorgNotFoundException($"Couldn't find user with id {id}");

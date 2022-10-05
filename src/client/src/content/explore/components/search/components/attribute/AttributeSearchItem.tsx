@@ -1,8 +1,10 @@
+import { State } from "@mimirorg/typelibrary-types";
 import { Duplicate, PencilAlt, Trash } from "@styled-icons/heroicons-outline";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Button } from "../../../../../../complib/buttons";
 import { AlertDialog } from "../../../../../../complib/overlays/alert-dialog/AlertDialog";
+import { usePatchAttributeState } from "../../../../../../data/queries/tyle/queriesAttribute";
 import { AttributePreview } from "../../../../../common/attribute";
 import { AttributeItem } from "../../../../../types/AttributeItem";
 import { PlainLink } from "../../../../../utils/PlainLink";
@@ -35,6 +37,12 @@ const AttributeSearchItemActions = ({ id, name, ...rest }: AttributeItem) => {
   const theme = useTheme();
   const { t } = useTranslation("translation", { keyPrefix: "search.item" });
 
+  const deleteAttributeMutation = usePatchAttributeState();
+  const deleteAction = {
+    name: t("delete"),
+    onAction: () => deleteAttributeMutation.mutate({ id, state: State.Delete }),
+  };
+
   return (
     <>
       <PlainLink tabIndex={-1} to={`/form/attribute/clone/${id}`}>
@@ -42,18 +50,20 @@ const AttributeSearchItemActions = ({ id, name, ...rest }: AttributeItem) => {
           {t("clone")}
         </Button>
       </PlainLink>
-      <Button icon={<PencilAlt />} iconOnly disabled>
-        {t("edit")}
-      </Button>
+      <PlainLink tabIndex={-1} to={`/form/attribute/edit/${id}`}>
+        <Button tabIndex={0} as={"span"} icon={<PencilAlt />} iconOnly>
+          {t("edit")}
+        </Button>
+      </PlainLink>
       <AlertDialog
         gap={theme.tyle.spacing.multiple(6)}
-        actions={[]}
+        actions={[deleteAction]}
         title={t("templates.delete", { object: name })}
         description={t("deleteDescription")}
         hideDescription
         content={<AttributePreview name={name} {...rest} />}
       >
-        <Button icon={<Trash />} iconOnly disabled>
+        <Button icon={<Trash />} iconOnly>
           {t("delete")}
         </Button>
       </AlertDialog>

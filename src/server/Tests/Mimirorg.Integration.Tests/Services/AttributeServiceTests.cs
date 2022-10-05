@@ -45,20 +45,20 @@ namespace Mimirorg.Integration.Tests.Services
             attribute.FirstVersionId = createdAttribute.FirstVersionId;
             attribute.Description = "This is test b";
 
-            var updatedAttribute = await attributeService.Update(attribute, createdAttribute.Id);
+            var updatedAttribute = await attributeService.Update(attribute);
             attribute.UnitIdList = new List<string> { units.FirstOrDefault()?.Id };
 
-            var updatedAttribute2 = await attributeService.Update(attribute, updatedAttribute.Id);
+            var updatedAttribute2 = await attributeService.Update(attribute);
             attribute.Description = "This is test c";
 
-            var updatedAttribute3 = await attributeService.Update(attribute, updatedAttribute2.Id);
+            var updatedAttribute3 = await attributeService.Update(attribute);
 
             Assert.True(createdAttribute.Version == "1.0");
             Assert.True(updatedAttribute.Version == "1.1");
             Assert.True(updatedAttribute2.Version == "2.0");
             Assert.True(updatedAttribute3.Version == "2.1");
 
-            var allObjects = await attributeService.GetLatestVersions(Aspect.None);
+            var allObjects = attributeService.GetLatestVersions(Aspect.NotSet);
             var actualObjects = allObjects.Where(x => x.Name == "First_Version_Attribute_XXX").ToList();
 
             Assert.NotNull(actualObjects);
@@ -202,45 +202,14 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.True(attributeCm.Version == "1.0");
 
             attributeAm.UnitIdList.Add(units[0]?.Id);
-            var attributeCmUpdated = await attributeService.Update(attributeAm, attributeAm.Id);
+            var attributeCmUpdated = await attributeService.Update(attributeAm);
 
             Assert.True(attributeCm.Version == "1.0");
             Assert.True(attributeCmUpdated.Version == "2.0");
         }
 
         [Fact]
-        public async Task Delete_Attribute_Result_Ok()
-        {
-            using var scope = Factory.Server.Services.CreateScope();
-            var attributeService = scope.ServiceProvider.GetRequiredService<IAttributeService>();
-
-            var attributeAm = new AttributeLibAm
-            {
-                Name = "attribute3",
-                Aspect = Aspect.Function,
-                Discipline = Discipline.Electrical,
-                Select = Select.MultiSelect,
-                SelectValues = new List<string> { "value1", "VALUE2", "value3" },
-                QuantityDatumRangeSpecifying = "Normal",
-                QuantityDatumSpecifiedProvenance = "Calculated",
-                QuantityDatumRegularitySpecified = "Absolute",
-                QuantityDatumSpecifiedScope = "Design Datum",
-                CompanyId = 1
-            };
-
-            var attributeCm = await attributeService.Create(attributeAm);
-
-            var isDeleted = await attributeService.Delete(attributeCm?.Id);
-            var allAttributesNotDeleted = attributeService.GetAll(Aspect.Function);
-            var allAttributesIncludeDeleted = attributeService.GetAll(Aspect.Function, true);
-
-            Assert.True(isDeleted);
-            Assert.True(string.IsNullOrEmpty(allAttributesNotDeleted?.FirstOrDefault(x => x.Id == attributeCm?.Id)?.Id));
-            Assert.True(!string.IsNullOrEmpty(allAttributesIncludeDeleted?.FirstOrDefault(x => x.Id == attributeCm?.Id)?.Id));
-        }
-
-        [Fact]
-        public async Task Update_Attribute_State_Result_Ok()
+        public async Task Update_Attribute_Result_Ok()
         {
             using var scope = Factory.Server.Services.CreateScope();
             var attributeService = scope.ServiceProvider.GetRequiredService<IAttributeService>();
@@ -251,6 +220,7 @@ namespace Mimirorg.Integration.Tests.Services
                 Aspect = Aspect.Function,
                 Discipline = Discipline.Electrical,
                 Select = Select.MultiSelect,
+                Description = "Description1",
                 SelectValues = new List<string> { "value1", "VALUE2", "value3" },
                 QuantityDatumRangeSpecifying = "Normal",
                 QuantityDatumSpecifiedProvenance = "Calculated",
@@ -260,10 +230,11 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var cm = await attributeService.Create(attributeAm);
-            var cmUpdated = await attributeService.UpdateState(cm.Id, State.ApprovedCompany);
+            attributeAm.Description = "Description2";
+            var cmUpdated = await attributeService.Update(attributeAm);
 
-            Assert.True(cm.State != cmUpdated.State);
-            Assert.True(cmUpdated.State == State.ApprovedCompany);
+            Assert.True(cm.Description == "Description1" && cm.Version == "1.0");
+            Assert.True(cmUpdated.Description == "Description2" && cmUpdated.Version == "1.1");
         }
     }
 }

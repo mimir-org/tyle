@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -17,7 +15,6 @@ using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
-// ReSharper disable InconsistentNaming
 
 namespace TypeLibrary.Services.Services
 {
@@ -29,16 +26,14 @@ namespace TypeLibrary.Services.Services
         private readonly IAttributePredefinedRepository _attributePredefinedRepository;
         private readonly IQuantityDatumRepository _datumRepository;
         private readonly IAttributeReferenceRepository _attributeReferenceRepository;
-        private readonly IVersionService _versionService;
         private readonly ITimedHookService _hookService;
 
-        public AttributeService(IMapper mapper, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings, IAttributePredefinedRepository attributePredefinedRepository, IAttributeReferenceRepository attributeReferenceRepository, IVersionService versionService, ITimedHookService hookService, IQuantityDatumRepository datumRepository)
+        public AttributeService(IMapper mapper, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings, IAttributePredefinedRepository attributePredefinedRepository, IAttributeReferenceRepository attributeReferenceRepository, ITimedHookService hookService, IQuantityDatumRepository datumRepository)
         {
             _mapper = mapper;
             _attributeRepository = attributeRepository;
             _attributePredefinedRepository = attributePredefinedRepository;
             _attributeReferenceRepository = attributeReferenceRepository;
-            _versionService = versionService;
             _hookService = hookService;
             _datumRepository = datumRepository;
             _applicationSettings = applicationSettings?.Value;
@@ -47,242 +42,155 @@ namespace TypeLibrary.Services.Services
         #region Attribute
 
         /// <summary>
-        /// Get all attributes by aspect
-        /// </summary>
-        /// <param name="aspect"></param>
-        /// <param name="includeDeleted"></param>
-        /// <returns>List of AttributeLibCm</returns>
-        public IEnumerable<AttributeLibCm> GetAll(Aspect aspect, bool includeDeleted = false)
-        {
-            var attributes = includeDeleted
-                ? _attributeRepository.Get().ToList().OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList()
-                : _attributeRepository.Get().Where(x => x.State != State.Deleted).ToList().OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
-
-            if (aspect != Aspect.NotSet)
-                attributes = attributes.Where(x => x.Aspect.HasFlag(aspect)).ToList();
-
-            return _mapper.Map<List<AttributeLibCm>>(attributes);
-        }
-
-        /// <summary>
         /// Find attribute by id
         /// </summary>
         /// <param name="id">The attribute id</param>
         /// <returns>The attribute, otherwise return null</returns>
-        public async Task<AttributeLibCm> Get(string id)
+        public AttributeLibCm GetLatestVersion(string id)
         {
-            var item = await _attributeRepository.Get(id);
+            var dm = _attributeRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
 
-            if (item == null)
-                return null;
+            if (dm == null)
+                throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
 
-            var attribute = _mapper.Map<AttributeLibCm>(item);
-            return attribute;
+            return _mapper.Map<AttributeLibCm>(dm);
         }
 
         /// <summary>
-        /// Create from a list of attributes
+        /// Get all attributes by aspect
         /// </summary>
-        /// <param name="attributes"></param>
-        /// <param name="createdBySystem"></param>
-        /// <returns></returns>
-        public async Task Create(List<AttributeLibAm> attributes, bool createdBySystem = false)
+        /// <param name="aspect"></param>
+        /// <returns>List of AttributeLibCm</returns>
+        public IEnumerable<AttributeLibCm> GetLatestVersions(Aspect aspect)
         {
-            if (attributes == null || !attributes.Any())
-                return;
+            var dms = _attributeRepository.Get()?.LatestVersion()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
-            if (attributes.ValidateObjects().Any(x => !x.IsValid))
-                throw new MimirorgBadRequestException("One or more attributes is not valid.");
+            if (dms == null)
+                throw new MimirorgNotFoundException("No attributes were found.");
 
-            var data = _mapper.Map<List<AttributeLibDm>>(attributes);
-            var existing = _attributeRepository.Get().ToList();
-            var notExisting = data.Exclude(existing, x => x.Id).ToList();
+            if (aspect != Aspect.NotSet)
+                dms = dms.Where(x => x.Aspect.HasFlag(aspect)).ToList();
 
-            if (!notExisting.Any())
-                return;
+            return !dms.Any() ? new List<AttributeLibCm>() : _mapper.Map<List<AttributeLibCm>>(dms);
+        }
 
-            foreach (var attribute in notExisting)
+        /// <summary>
+        /// Create an new attribute
+        /// </summary>
+        /// <param name="attributeAm">The attribute that should be created</param>
+        /// <returns>The created attribute</returns>
+        /// <exception cref="MimirorgBadRequestException">Throws if attribute is not valid</exception>
+        /// <exception cref="MimirorgDuplicateException">Throws if attribute already exist</exception>
+        /// <remarks>Remember that creating a new attribute could be creating a new version of existing attribute.
+        /// They will have the same first version id, but have different version and id.</remarks>
+        public async Task<AttributeLibCm> Create(AttributeLibAm attributeAm)
+        {
+            if (attributeAm == null)
+                throw new ArgumentNullException(nameof(attributeAm));
+
+            var validation = attributeAm.ValidateObject();
+
+            if (!validation.IsValid)
+                throw new MimirorgBadRequestException("Attribute is not valid.", validation);
+
+            if (await _attributeRepository.Exist(attributeAm.Id))
+                throw new MimirorgDuplicateException($"Attribute '{attributeAm.Name}' and version '{attributeAm.Version}' already exist.");
+
+            attributeAm.Version = "1.0";
+            var dm = _mapper.Map<AttributeLibDm>(attributeAm);
+
+            dm.State = State.Draft;
+
+            await _attributeRepository.Create(dm);
+            _attributeRepository.ClearAllChangeTrackers();
+            _hookService.HookQueue.Enqueue(CacheKey.Attribute);
+
+            return GetLatestVersion(dm.Id);
+        }
+
+        /// <summary>
+        /// Update an attribute if the data is allowed to be changed.
+        /// </summary>
+        /// <param name="attributeAm">The attribute to update</param>
+        /// <returns>The updated attribute</returns>
+        /// <exception cref="MimirorgBadRequestException">Throws if the attribute does not exist,
+        /// if it is not valid or there are not allowed changes.</exception>
+        /// <remarks>ParentId to old references will also be updated.</remarks>
+        public async Task<AttributeLibCm> Update(AttributeLibAm attributeAm)
+        {
+            var validation = attributeAm.ValidateObject();
+
+            if (!validation.IsValid)
+                throw new MimirorgBadRequestException("Attribute is not valid.", validation);
+
+            var attributeToUpdate = _attributeRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == attributeAm.Id);
+
+            if (attributeToUpdate == null)
             {
-                attribute.CreatedBy = createdBySystem ? _applicationSettings.System : attribute.CreatedBy;
-                await _attributeRepository.Create(attribute, createdBySystem ? State.ApprovedGlobal : State.Draft);
-            }
-        }
-
-        public async Task<AttributeLibCm> Create(AttributeLibAm attribute, bool resetVersion = false)
-        {
-            if (attribute == null)
-                throw new MimirorgBadRequestException("Can't create an attribute that is null.");
-
-            var status = attribute.ValidateObject();
-            if (!status.IsValid)
-                throw new MimirorgBadRequestException("The attribute is not valid.", status);
-
-            if (resetVersion)
-            {
-                attribute.FirstVersionId = attribute.Id;
-                attribute.Version = "1.0";
+                validation = new Validation(new List<string> { nameof(AttributeLibAm.Name), nameof(AttributeLibAm.Version) },
+                $"Attribute with name {attributeAm.Name}, aspect {attributeAm.Aspect}, QuantityDatumSpecifiedScope {attributeAm.QuantityDatumSpecifiedScope}, QuantityDatumSpecifiedProvenance {attributeAm.QuantityDatumSpecifiedProvenance}, QuantityDatumRangeSpecifying {attributeAm.QuantityDatumRangeSpecifying}, QuantityDatumRegularitySpecified {attributeAm.QuantityDatumRegularitySpecified}, id {attributeAm.Id} and version {attributeAm.Version} does not exist.");
+                throw new MimirorgBadRequestException("Attribute does not exist. Update is not possible.", validation);
             }
 
-            var data = _mapper.Map<AttributeLibDm>(attribute);
-
-            var exist = await _attributeRepository.Exist(data.Id);
-
-            if (exist)
-                throw new MimirorgBadRequestException($"The attribute with Id: {data.Id} already exist", new Validation
-                {
-                    IsValid = false,
-                    Message = $"The attribute with Id: {data.Id} already exist.",
-                    Result = new List<ValidationResult>
-                    {
-                        new ValidationResult("A combination of these properties already exists.", new List<string>
-                        {
-                            nameof(AttributeLibAm.Name),
-                            "Aspect",
-                            "AttributeQualifier",
-                            "AttributeSource",
-                            "AttributeCondition"
-                        })
-                    }
-                });
-
-            await _attributeRepository.Create(data, State.Draft);
-            var attrLibCm = _mapper.Map<AttributeLibCm>(data);
-            return attrLibCm;
-        }
-
-        public async Task<IEnumerable<AttributeLibCm>> GetLatestVersions(Aspect aspect)
-        {
-            var distinctFirstVersionIdDm = aspect is Aspect.None or Aspect.NotSet ?
-                _attributeRepository.Get().Where(x => x.State != State.Deleted).LatestVersion().ToList().OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList() :
-                _attributeRepository.Get().Where(x => x.State != State.Deleted && x.Aspect == aspect).LatestVersion().ToList().OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
-
-            distinctFirstVersionIdDm = distinctFirstVersionIdDm.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
-
-            var attributeLibCms = _mapper.Map<List<AttributeLibCm>>(distinctFirstVersionIdDm);
-            return await Task.FromResult(attributeLibCms ?? new List<AttributeLibCm>());
-        }
-
-        public async Task<AttributeLibCm> Update(AttributeLibAm dataAm, string id)
-        {
-            if (string.IsNullOrEmpty(id))
-                throw new MimirorgBadRequestException("Can't update an attribute without an id.");
-
-            if (dataAm == null)
-                throw new MimirorgBadRequestException("Can't update an attribute when dataAm is null.");
-
-            var attributeToUpdate = await _attributeRepository.Get(id);
-
-            if (attributeToUpdate?.Id == null)
-                throw new MimirorgNotFoundException($"Attribute with id {id} does not exist, update is not possible.");
-
-            if (attributeToUpdate.CreatedBy == _applicationSettings.System)
-                throw new MimirorgBadRequestException($"The attribute with id {id} is created by the system and can not be updated.");
-
-            if (attributeToUpdate.State == State.Deleted)
-                throw new MimirorgBadRequestException($"The attribute with id {id} is deleted and can not be updated.");
-
-            var latestAttributeDm = await _versionService.GetLatestVersion(attributeToUpdate);
-
-            if (latestAttributeDm == null)
-                throw new MimirorgBadRequestException($"Latest attribute version for attribute with id {id} not found (null).");
-
-            if (string.IsNullOrWhiteSpace(latestAttributeDm.Version))
-                throw new MimirorgBadRequestException($"Latest version for attribute with id {id} has null or empty as version number.");
-
-            var latestAttributeVersion = double.Parse(latestAttributeDm.Version, CultureInfo.InvariantCulture);
-            var attributeToUpdateVersion = double.Parse(attributeToUpdate.Version, CultureInfo.InvariantCulture);
-
-            if (latestAttributeVersion > attributeToUpdateVersion)
-                throw new MimirorgBadRequestException($"Not allowed to update attribute with id {attributeToUpdate.Id} and version {attributeToUpdateVersion}. Latest version is attribute with id {latestAttributeDm.Id} and version {latestAttributeVersion}");
-
-            // Get version
-            var validation = latestAttributeDm.HasIllegalChanges(dataAm);
+            validation = attributeToUpdate.HasIllegalChanges(attributeAm);
 
             if (!validation.IsValid)
                 throw new MimirorgBadRequestException(validation.Message, validation);
 
-            var versionStatus = latestAttributeDm.CalculateVersionStatus(dataAm);
-            if (versionStatus == VersionStatus.NoChange)
-                return await Get(latestAttributeDm.Id);
+            var versionStatus = attributeToUpdate.CalculateVersionStatus(attributeAm);
 
-            dataAm.FirstVersionId = latestAttributeDm.FirstVersionId;
-            dataAm.Version = versionStatus switch
+            if (versionStatus == VersionStatus.NoChange)
+                return GetLatestVersion(attributeToUpdate.Id);
+
+            attributeAm.Version = versionStatus switch
             {
-                VersionStatus.Minor => latestAttributeDm.Version.IncrementMinorVersion(),
-                VersionStatus.Major => latestAttributeDm.Version.IncrementMajorVersion(),
-                _ => latestAttributeDm.Version
+                VersionStatus.Minor => attributeToUpdate.Version.IncrementMinorVersion(),
+                VersionStatus.Major => attributeToUpdate.Version.IncrementMajorVersion(),
+                _ => attributeToUpdate.Version
             };
 
-            return await Create(dataAm);
-        }
+            var attributeDm = _mapper.Map<AttributeLibDm>(attributeAm);
 
-        public async Task<AttributeLibCm> UpdateState(string id, State state)
-        {
-            if (string.IsNullOrEmpty(id))
-                throw new MimirorgBadRequestException("Can't update an attribute without an id.");
+            attributeDm.FirstVersionId = attributeToUpdate.FirstVersionId;
+            attributeDm.State = State.Draft;
 
-            var attributeToUpdate = await _attributeRepository.Get(id);
-
-            if (attributeToUpdate?.Id == null)
-                throw new MimirorgNotFoundException($"Attribute with id {id} does not exist, update is not possible.");
-
-            if (attributeToUpdate.CreatedBy == _applicationSettings.System)
-                throw new MimirorgBadRequestException($"The attribute with id {id} is created by the system and can not be updated.");
-
-            if (attributeToUpdate.State == State.Deleted)
-                throw new MimirorgBadRequestException($"The attribute with id {id} is deleted and can not be updated.");
-
-            var latestAttributeDm = await _versionService.GetLatestVersion(attributeToUpdate);
-
-            if (latestAttributeDm == null)
-                throw new MimirorgBadRequestException($"Latest attribute version for attribute with id {id} not found (null).");
-
-            if (string.IsNullOrWhiteSpace(latestAttributeDm.Version))
-                throw new MimirorgBadRequestException($"Latest version for attribute with id {id} has null or empty as version number.");
-
-            var latestAttributeVersion = double.Parse(latestAttributeDm.Version, CultureInfo.InvariantCulture);
-            var attributeToUpdateVersion = double.Parse(attributeToUpdate.Version, CultureInfo.InvariantCulture);
-
-            if (latestAttributeVersion > attributeToUpdateVersion)
-                throw new MimirorgBadRequestException($"Not allowed to update attribute with id {attributeToUpdate.Id} and version {attributeToUpdateVersion}. Latest version is attribute with id {latestAttributeDm.Id} and version {latestAttributeVersion}");
-
-            await _attributeRepository.UpdateState(id, state);
+            var attributeCm = await _attributeRepository.Create(attributeDm);
             _attributeRepository.ClearAllChangeTrackers();
 
-            var cm = await Get(id);
+            _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 
-            if (cm != null)
-                _hookService.HookQueue.Enqueue(CacheKey.Attribute);
-
-            return cm;
+            return GetLatestVersion(attributeCm.Id);
         }
 
-        public async Task<bool> Delete(string id)
+        /// <summary>
+        /// Change attribute state
+        /// </summary>
+        /// <param name="id">The attribute id that should change the state</param>
+        /// <param name="state">The new attribute state</param>
+        /// <returns>Attribute with updated state</returns>
+        /// <exception cref="MimirorgNotFoundException">Throws if the attribute does not exist on latest version</exception>
+        public async Task<AttributeLibCm> ChangeState(string id, State state)
         {
-            try
-            {
-                var deleted = await _attributeRepository.Remove(id);
+            var dm = _attributeRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
 
-                if (deleted)
-                    _hookService.HookQueue.Enqueue(CacheKey.Attribute);
+            if (dm == null)
+                throw new MimirorgNotFoundException($"Attribute with id {id} not found, or is not latest version.");
 
-                return deleted;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            var dmAllVersions = _attributeRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId).Select(x => x.Id).ToList();
+
+            await _attributeRepository.ChangeState(state, dmAllVersions);
+            _hookService.HookQueue.Enqueue(CacheKey.Attribute);
+            return state == State.Deleted ? null : GetLatestVersion(id);
         }
 
-        public async Task<bool> CompanyIsChanged(string nodeId, int companyId)
+        /// <summary>
+        /// Get attribute existing company id
+        /// </summary>
+        /// <param name="id">The attribute id</param>
+        /// <returns>Company id for attribute</returns>
+        public async Task<int> GetCompanyId(string id)
         {
-            var node = await Get(nodeId);
-
-            if (node == null)
-                throw new MimirorgNotFoundException($"Couldn't find node with id: {nodeId}");
-
-            return node.CompanyId != companyId;
+            return await _attributeRepository.HasCompany(id);
         }
 
         #endregion Attribute
@@ -305,9 +213,8 @@ namespace TypeLibrary.Services.Services
         /// Create Predefined attributePredefinedList from a list
         /// </summary>
         /// <param name="predefined"></param>
-        /// <param name="createdBySystem"></param>
         /// <returns></returns>
-        public async Task CreatePredefined(List<AttributePredefinedLibAm> predefined, bool createdBySystem = false)
+        public async Task CreatePredefined(List<AttributePredefinedLibAm> predefined)
         {
             if (predefined == null || !predefined.Any())
                 return;
@@ -321,8 +228,9 @@ namespace TypeLibrary.Services.Services
 
             foreach (var attribute in notExisting)
             {
-                attribute.CreatedBy = createdBySystem ? _applicationSettings.System : attribute.CreatedBy;
-                await _attributePredefinedRepository.CreatePredefined(attribute, createdBySystem ? State.ApprovedGlobal : State.Draft);
+                attribute.CreatedBy = _applicationSettings.System;
+                attribute.State = State.ApproveGlobal;
+                await _attributePredefinedRepository.CreatePredefined(attribute);
             }
         }
 
@@ -330,6 +238,10 @@ namespace TypeLibrary.Services.Services
 
         #region AttributeReferences
 
+        /// <summary>
+        /// Get attribute references
+        /// </summary>
+        /// <returns>A List of attribute references</returns>
         public async Task<IEnumerable<TypeReferenceCm>> GetAttributeReferences()
         {
             var dataSet = await _attributeReferenceRepository.Get();
