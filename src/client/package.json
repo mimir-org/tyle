@@ -77,7 +77,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^7.5.0",
-    "@mimirorg/typelibrary-types": "^0.14.0",
+    "@mimirorg/typelibrary-types": "^1.0.0-preview.244",
     "@storybook/addon-a11y": "^6.5.10",
     "@storybook/addon-actions": "^6.5.10",
     "@storybook/addon-essentials": "^6.5.12",
@@ -94,7 +94,7 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^29.0.3",
     "@types/lodash.camelcase": "^4.3.7",
-    "@types/node": "^18.7.18",
+    "@types/node": "^18.8.2",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "@types/styled-components": "^5.1.26",
