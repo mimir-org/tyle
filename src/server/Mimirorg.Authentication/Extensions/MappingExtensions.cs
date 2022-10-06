@@ -75,6 +75,15 @@ namespace Mimirorg.Authentication.Extensions
             };
         }
 
+        public static MimirorgUser UpdateDomainModel(this MimirorgUser self, MimirorgUserAm update)
+        {
+            self.FirstName = update.FirstName;
+            self.LastName = update.LastName;
+            self.CompanyId = update.CompanyId;
+            self.Purpose = update.Purpose;
+            return self;
+        }
+
         public static MimirorgUserCm ToContentModel(this MimirorgUser user)
         {
             return new MimirorgUserCm

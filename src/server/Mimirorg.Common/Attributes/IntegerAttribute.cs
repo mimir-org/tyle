@@ -12,8 +12,8 @@ namespace Mimirorg.Common.Attributes
 
             var list = s.ToCharArray();
 
-            return list.Any(x => !char.IsDigit(x)) ? 
-                new ValidationResult($"Property {validationContext.MemberName} must only contain digits") : 
+            return list.Any(x => !char.IsDigit(x)) ?
+                new ValidationResult($"Property {validationContext.MemberName} must only contain digits") :
                 ValidationResult.Success;
         }
     }

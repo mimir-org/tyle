@@ -53,25 +53,6 @@ namespace Mimirorg.Authentication.Contracts
         Task<ICollection<MimirorgCompanyCm>> GetUserFilteredCompanies();
 
         /// <summary>
-        /// Update an user by id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="userAm"></param>
-        /// <returns></returns>
-        /// <exception cref="MimirorgConfigurationException"></exception>
-        /// <exception cref="MimirorgBadRequestException"></exception>
-        /// <exception cref="MimirorgNotFoundException"></exception>
-        /// <exception cref="MimirorgInvalidOperationException"></exception>
-        Task<MimirorgUserCm> UpdateUser(string id, MimirorgUserAm userAm);
-
-        /// <summary>
-        /// Delete an user
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<bool> DeleteUser(string id);
-
-        /// <summary>
         /// A method that generates a login code and sending the generated code to user as mail.
         /// </summary>
         /// <param name="generateSecret">Object information for generating secret</param>
