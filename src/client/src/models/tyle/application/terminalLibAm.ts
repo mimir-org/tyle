@@ -8,4 +8,5 @@ export const createEmptyTerminalLibAm = (): TerminalLibAm => ({
   description: "",
   attributeIdList: [],
   companyId: 0,
+  version: "1.0",
 });

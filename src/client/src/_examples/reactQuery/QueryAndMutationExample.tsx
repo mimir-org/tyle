@@ -41,6 +41,7 @@ export const QueryAndMutationExample = () => {
     ],
     selectedAttributePredefined: [],
     typeReferences: [],
+    version: "1.0",
   };
 
   return (
