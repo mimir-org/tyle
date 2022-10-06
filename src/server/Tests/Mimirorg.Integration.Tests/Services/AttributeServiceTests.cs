@@ -130,7 +130,8 @@ namespace Mimirorg.Integration.Tests.Services
                 UnitIdList = new List<string>
                 {
                     units[0]?.Id
-                }
+                },
+                Version = "1.0"
             };
 
             var attributeCm = await attributeService.Create(attributeAm);
@@ -192,7 +193,8 @@ namespace Mimirorg.Integration.Tests.Services
                 UnitIdList = new List<string>
                 {
                     units[0]?.Id
-                }
+                },
+                Version = "1.0"
             };
 
             var attributeCm = await attributeService.Create(attributeAm);
@@ -224,7 +226,8 @@ namespace Mimirorg.Integration.Tests.Services
                 QuantityDatumSpecifiedProvenance = "Calculated",
                 QuantityDatumRegularitySpecified = "Absolute",
                 QuantityDatumSpecifiedScope = "Design Datum",
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var cm = await attributeService.Create(attributeAm);

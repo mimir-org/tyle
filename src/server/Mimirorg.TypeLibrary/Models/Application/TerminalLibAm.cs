@@ -72,9 +72,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         /// <summary>
         /// The terminal version
         /// </summary>
-        /// <remarks>
-        /// The value will be set on server on create
-        /// </remarks>
+        [Required]
         [Double]
         public string Version { get; set; }
 
