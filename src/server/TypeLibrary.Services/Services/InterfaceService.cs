@@ -13,7 +13,6 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -145,7 +144,7 @@ namespace TypeLibrary.Services.Services
 
             interfaceDm.State = State.Draft;
             interfaceDm.FirstVersionId = interfaceToUpdate.FirstVersionId;
-            
+
             var interfaceCm = await _interfaceRepository.Create(interfaceDm);
             _interfaceRepository.ClearAllChangeTrackers();
 

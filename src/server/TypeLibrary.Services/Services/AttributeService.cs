@@ -101,7 +101,7 @@ namespace TypeLibrary.Services.Services
 
             dm.State = State.Draft;
             dm.FirstVersionId = dm.Id;
-            
+
             await _attributeRepository.Create(dm);
             _attributeRepository.ClearAllChangeTrackers();
             _hookService.HookQueue.Enqueue(CacheKey.Attribute);

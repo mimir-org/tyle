@@ -143,7 +143,7 @@ namespace TypeLibrary.Services.Services
 
             terminalDm.State = State.Draft;
             terminalDm.FirstVersionId = terminalToUpdate.FirstVersionId;
-            
+
             var terminalCm = await _terminalRepository.Create(terminalDm);
             _terminalRepository.ClearAllChangeTrackers();
 
