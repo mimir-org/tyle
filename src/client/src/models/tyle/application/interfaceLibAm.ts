@@ -12,4 +12,5 @@ export const createEmptyInterfaceLibAm = (): InterfaceLibAm => ({
   description: "",
   typeReferences: [],
   parentId: "",
+  version: "1.0",
 });

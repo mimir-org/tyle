@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Mimirorg.Common.Attributes;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using TypeScriptBuilder;
@@ -110,21 +111,9 @@ namespace Mimirorg.TypeLibrary.Models.Application
         /// <summary>
         /// The transport version
         /// </summary>
-        /// <remarks>
-        /// The value will be set on server
-        /// </remarks>
-        [TSExclude]
-        public string Version { get; set; } = "1.0";
-
-        /// <summary>
-        /// The transport first version id
-        /// This is a reference to the first generated version of the transport type
-        /// </summary>
-        /// <remarks>
-        /// The value will be set on server
-        /// </remarks>
-        [TSExclude]
-        public string FirstVersionId { get; set; }
+        [Required]
+        [Double]
+        public string Version { get; set; }
 
         /// <summary>
         /// The transport id

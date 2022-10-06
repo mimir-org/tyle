@@ -14,4 +14,5 @@ export const createEmptyNodeLibAm = (): NodeLibAm => ({
   symbol: "",
   typeReferences: [],
   parentId: "",
+  version: "1.0",
 });

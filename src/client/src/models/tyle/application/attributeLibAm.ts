@@ -14,4 +14,5 @@ export const createEmptyAttributeLibAm = (): AttributeLibAm => ({
   typeReferences: [],
   selectValues: [],
   unitIdList: [],
+  version: "1.0",
 });
