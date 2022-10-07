@@ -25,7 +25,8 @@ namespace Mimirorg.Unit.Tests.Services
                 fixture.AttributePredefinedRepository.Object,
                 fixture.AttributeReferenceRepository.Object,
                 fixture.TimedHookService.Object,
-                fixture.DatumRepository.Object);
+                fixture.DatumRepository.Object,
+                fixture.LogService.Object);
         }
 
         [Theory]

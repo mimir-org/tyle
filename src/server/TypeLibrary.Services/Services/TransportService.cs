@@ -23,12 +23,14 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly ITransportRepository _transportRepository;
         private readonly ITimedHookService _hookService;
+        private readonly ILogService _logService;
 
-        public TransportService(IMapper mapper, ITransportRepository transportRepository, ITimedHookService hookService)
+        public TransportService(IMapper mapper, ITransportRepository transportRepository, ITimedHookService hookService, ILogService logService)
         {
             _mapper = mapper;
             _transportRepository = transportRepository;
             _hookService = hookService;
+            _logService = logService;
         }
 
         /// <summary>
@@ -87,16 +89,18 @@ namespace TypeLibrary.Services.Services
                 throw new MimirorgDuplicateException($"Transport '{transportAm.Name}' and version '{transportAm.Version}' already exist.");
 
             transportAm.Version = "1.0";
-            var transportDm = _mapper.Map<TransportLibDm>(transportAm);
+            var dm = _mapper.Map<TransportLibDm>(transportAm);
 
-            transportDm.State = State.Draft;
-            transportDm.FirstVersionId = transportDm.Id;
+            dm.State = State.Draft;
+            dm.FirstVersionId = dm.Id;
 
-            await _transportRepository.Create(transportDm);
+            await _transportRepository.Create(dm);
             _transportRepository.ClearAllChangeTrackers();
+            await _logService.CreateLog(dm, LogType.Create, dm.Version, null);
+            await _logService.CreateLog(dm, LogType.State, dm.State.ToString(), null);
             _hookService.HookQueue.Enqueue(CacheKey.Transport);
 
-            return GetLatestVersion(transportDm.Id);
+            return GetLatestVersion(dm.Id);
         }
 
         /// <summary>
@@ -141,18 +145,18 @@ namespace TypeLibrary.Services.Services
                 _ => transportToUpdate.Version
             };
 
-            var transportDm = _mapper.Map<TransportLibDm>(transportAm);
+            var dm = _mapper.Map<TransportLibDm>(transportAm);
 
-            transportDm.FirstVersionId = transportToUpdate.FirstVersionId;
-            transportDm.State = State.Draft;
+            dm.FirstVersionId = transportToUpdate.FirstVersionId;
+            dm.State = State.Draft;
 
-            var transportCm = await _transportRepository.Create(transportDm);
+            await _transportRepository.Create(dm);
             _transportRepository.ClearAllChangeTrackers();
-
-            await _transportRepository.ChangeParentId(transportAm.Id, transportCm.Id);
+            await _transportRepository.ChangeParentId(transportAm.Id, dm.Id);
+            await _logService.CreateLog(dm, LogType.Update, dm.Version, null);
             _hookService.HookQueue.Enqueue(CacheKey.Transport);
 
-            return GetLatestVersion(transportCm.Id);
+            return GetLatestVersion(dm.Id);
         }
 
         /// <summary>
@@ -167,12 +171,17 @@ namespace TypeLibrary.Services.Services
             var dm = _transportRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
 
             if (dm == null)
-                throw new MimirorgNotFoundException($"Transport with id {id} not found, or is not latest version");
+                throw new MimirorgNotFoundException($"Transport with id {id} not found, or is not latest version.");
 
-            var dmAllVersions = _transportRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId).Select(x => x.Id).ToList();
+            var newStateDms = _transportRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId && x.State != state).ToList();
 
-            await _transportRepository.ChangeState(state, dmAllVersions);
+            if (!newStateDms.Any())
+                return null;
+
+            await _transportRepository.ChangeState(state, newStateDms.Select(x => x.Id).ToList());
+            await _logService.CreateLogs(newStateDms, LogType.State, state.ToString(), null);
             _hookService.HookQueue.Enqueue(CacheKey.Transport);
+
             return state == State.Deleted ? null : GetLatestVersion(id);
         }
 

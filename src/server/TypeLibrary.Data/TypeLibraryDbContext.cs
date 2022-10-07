@@ -34,6 +34,7 @@ namespace TypeLibrary.Data
             modelBuilder.ApplyConfiguration(new TerminalConfiguration());
             modelBuilder.ApplyConfiguration(new TransportConfiguration());
             modelBuilder.ApplyConfiguration(new NodeConfiguration());
+            modelBuilder.ApplyConfiguration(new LogConfiguration());
         }
     }
 }
