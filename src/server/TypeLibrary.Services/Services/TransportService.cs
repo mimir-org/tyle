@@ -96,8 +96,7 @@ namespace TypeLibrary.Services.Services
 
             await _transportRepository.Create(dm);
             _transportRepository.ClearAllChangeTrackers();
-            await _logService.CreateLog(dm, LogType.Create, dm.Version, null);
-            await _logService.CreateLog(dm, LogType.State, dm.State.ToString(), null);
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), LogType.Create.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Transport);
 
             return GetLatestVersion(dm.Id);
@@ -153,7 +152,7 @@ namespace TypeLibrary.Services.Services
             await _transportRepository.Create(dm);
             _transportRepository.ClearAllChangeTrackers();
             await _transportRepository.ChangeParentId(transportAm.Id, dm.Id);
-            await _logService.CreateLog(dm, LogType.Update, dm.Version, null);
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), LogType.Update.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Transport);
 
             return GetLatestVersion(dm.Id);
@@ -179,7 +178,7 @@ namespace TypeLibrary.Services.Services
                 return null;
 
             await _transportRepository.ChangeState(state, newStateDms.Select(x => x.Id).ToList());
-            await _logService.CreateLogs(newStateDms, LogType.State, state.ToString(), null);
+            await _logService.CreateLogs(newStateDms, LogType.State, state.ToString(), LogType.State.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Transport);
 
             return state == State.Deleted ? null : GetLatestVersion(id);
