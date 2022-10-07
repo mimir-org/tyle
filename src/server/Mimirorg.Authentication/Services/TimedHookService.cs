@@ -54,15 +54,16 @@ namespace Mimirorg.Authentication.Services
         /// <param name="state"></param>
         private async void DoWork(object state)
         {
+            using var scope = _scopeFactory.CreateScope();
+            await CleanUpUsers();
+
             if (!HookQueue.TryDequeue(out var nextItem))
                 return;
 
-            using var scope = _scopeFactory.CreateScope();
             var companyService = scope.ServiceProvider.GetRequiredService<IMimirorgCompanyService>();
             var allHooks = await companyService.GetAllHooksForCache(nextItem);
-            var userService = scope.ServiceProvider.GetRequiredService<IMimirorgUserService>();
-            //var cleanUpUsers = userService.GetUsersNotConfirmed();
-
+            
+            
             foreach (var hook in allHooks)
             {
                 var data = new CacheInvalidation
@@ -82,6 +83,14 @@ namespace Mimirorg.Authentication.Services
                     _logger.LogInformation($"Can't send CacheInvalidation data to {hook.Iri}. Message: {e.Message}");
                 }
             }
+        }
+
+        private Task CleanUpUsers()
+        {
+            using var scope = _scopeFactory.CreateScope();
+            var userService = scope.ServiceProvider.GetRequiredService<IMimirorgUserService>();
+            userService.RemoveUnconfirmedUsersAndTokens();
+            return Task.CompletedTask;
         }
 
         #region Disposable

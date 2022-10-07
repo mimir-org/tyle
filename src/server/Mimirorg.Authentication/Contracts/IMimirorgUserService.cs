@@ -69,7 +69,8 @@ namespace Mimirorg.Authentication.Contracts
         /// <exception cref="MimirorgNotFoundException">Throws if user or token not exist</exception>
         Task<bool> ChangePassword(MimirorgChangePasswordAm changePassword);
 
-        IEnumerable<MimirorgUserCm> GetUsersNotConfirmed();
+
+        Task RemoveUnconfirmedUsersAndTokens();
 
         /// <summary>
         /// Verify email account from verify code

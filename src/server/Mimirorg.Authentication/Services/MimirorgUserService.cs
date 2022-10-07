@@ -227,10 +227,33 @@ namespace Mimirorg.Authentication.Services
             return result.Succeeded;
         }
 
-        public IEnumerable<MimirorgUserCm> GetUsersNotConfirmed()
+        
+        public async Task RemoveUnconfirmedUsersAndTokens()
         {
-            throw new NotImplementedException();
-            //var users = _userManager.Users.Where(x => !x.EmailConfirmed && x.)
+            var allVerifyTokens = _tokenRepository.GetAll(false).Where(x => x.TokenType == MimirorgTokenType.VerifyEmail).ToList();
+            var allNotConfirmedUsers = _userManager.Users.Where(x => !x.EmailConfirmed).ToList();
+
+            foreach (var user in allNotConfirmedUsers)
+            {
+                try
+                {
+                    var hasValidToken = allVerifyTokens.Any(x => x.ClientId == user.Id && x.ValidTo > DateTime.Now);
+                    if (hasValidToken)
+                        continue;
+
+                    foreach (var token in allVerifyTokens)
+                    {
+                        _tokenRepository.Attach(token, EntityState.Deleted);
+                    }
+
+                    await _tokenRepository.SaveAsync();
+                    await _userManager.DeleteAsync(user);
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
+            }
         }
 
         /// <summary>
@@ -265,44 +288,50 @@ namespace Mimirorg.Authentication.Services
 
         #region Private methods
 
+        /// <summary>
+        /// Create user token
+        /// </summary>
+        /// <param name="user">Actual user</param>
+        /// <param name="tokenTypes">Token type</param>
+        /// <returns>Token string</returns>
+        /// <remarks>Generates a 6 long digit for verification code token</remarks>
         private async Task<string> CreateUserToken(MimirorgUser user, IEnumerable<MimirorgTokenType> tokenTypes)
         {
 
             var generator = new Random();
             var secret = generator.Next(0, 1000000).ToString("D6");
-            try
+
+            var deleteTokens = _tokenRepository.GetAll()
+                .Where(x => x.ClientId == user.Id || DateTime.Now > x.ValidTo).ToList();
+
+            foreach (var t in deleteTokens)
+                _tokenRepository.Attach(t, EntityState.Deleted);
+
+            await _tokenRepository.SaveAsync();
+
+            foreach (var tokenType in tokenTypes)
             {
-                var deleteTokens = _tokenRepository.GetAll()
-                    .Where(x => x.ClientId == user.Id || DateTime.Now > x.ValidTo).ToList();
-
-                foreach (var t in deleteTokens)
-                    _tokenRepository.Attach(t, EntityState.Deleted);
-
-                await _tokenRepository.SaveAsync();
-
-                foreach (var tokenType in tokenTypes)
+                var token = new MimirorgToken
                 {
-                    var token = new MimirorgToken
-                    {
-                        ClientId = user.Id,
-                        Email = user.Email,
-                        Secret = secret,
-                        TokenType = tokenType,
-                        ValidTo = DateTime.Now.AddHours(1)
-                    };
-                    _tokenRepository.Attach(token, EntityState.Added);
-                }
+                    ClientId = user.Id,
+                    Email = user.Email,
+                    Secret = secret,
+                    TokenType = tokenType,
+                    ValidTo = DateTime.Now.AddHours(1)
+                };
+                _tokenRepository.Attach(token, EntityState.Added);
+            }
 
-                await _tokenRepository.SaveAsync();
-            }
-            catch (Exception e)
-            {
-                var test = e.Message;
-            }
+            await _tokenRepository.SaveAsync();
 
             return secret;
         }
 
+        /// <summary>
+        /// Create a Sha256Hash
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         private static string ComputeSha256Hash(string data)
         {
             // Create a SHA256   
@@ -320,6 +349,12 @@ namespace Mimirorg.Authentication.Services
             return builder.ToString();
         }
 
+        /// <summary>
+        /// Create default user data
+        /// </summary>
+        /// <param name="user">Actual user</param>
+        /// <returns>Completed task</returns>
+        /// <remarks>Create default data for user, if the user is the first registered user, and is in development environment.</remarks>
         private async Task CreateDefaultUserData(MimirorgUser user)
         {
             // If this is the first registered user and environment is Development, create a dummy organization
@@ -443,6 +478,14 @@ namespace Mimirorg.Authentication.Services
             await _emailRepository.SendEmail(email);
         }
 
+        /// <summary>
+        /// Create a totp
+        /// </summary>
+        /// <param name="user">The user you want to create totp for</param>
+        /// <returns>Totp setup object</returns>
+        /// <exception cref="MimirorgConfigurationException">Throws if exception is thrown</exception>
+        /// <remarks>This method will generate and set the Security Hash on the object.
+        /// It will also set TwoFactorEnabled as true on the user object</remarks>
         private TotpSetup CreateTotp(MimirorgUser user)
         {
             if (_authSettings?.ApplicationName == null)
@@ -456,6 +499,13 @@ namespace Mimirorg.Authentication.Services
             return totpSetupGenerator.Generate(_authSettings.ApplicationName, user.Email, user.SecurityHash, _authSettings?.QrWidth ?? 300, _authSettings?.QrHeight ?? 300);
         }
 
+        /// <summary>
+        /// Resolves the role names for the current user object 
+        /// </summary>
+        /// <param name="companies">A collection of all the registered companies</param>
+        /// <param name="permissions">A collection of all permissions</param>
+        /// <param name="user">Actual user</param>
+        /// <returns>A collection of role names</returns>
         private async Task<ICollection<string>> ResolveRoles(ICollection<MimirorgCompanyCm> companies, ICollection<MimirorgPermissionCm> permissions, MimirorgUser user)
         {
             var roleDescriptionList = new List<string>();
@@ -499,6 +549,13 @@ namespace Mimirorg.Authentication.Services
             return roleDescriptionList;
         }
 
+        /// <summary>
+        /// Resolve companies for user
+        /// </summary>
+        /// <param name="companies">A collection of all the registered companies</param>
+        /// <param name="permissions">A collection of all permissions</param>
+        /// <param name="user">Actual user</param>
+        /// <returns>A collection of permission names</returns>
         private async Task<Dictionary<int, MimirorgPermission>> ResolveCompanies(ICollection<MimirorgCompanyCm> companies, ICollection<MimirorgPermissionCm> permissions, MimirorgUser user)
         {
             var companyList = new Dictionary<int, MimirorgPermission>();

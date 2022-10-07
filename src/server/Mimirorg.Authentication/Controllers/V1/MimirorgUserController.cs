@@ -27,6 +27,35 @@ namespace Mimirorg.Authentication.Controllers.V1
         }
 
         /// <summary>
+        /// Get current authenticated user
+        /// </summary>
+        /// <returns>User</returns>
+        //[Authorize]
+        [HttpGet]
+        [Route("")]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [SwaggerOperation("Get current authenticated user")]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            try
+            {
+                var currentUser = await _userService.GetUser(User);
+                return Ok(currentUser);
+            }
+            catch (MimirorgNotFoundException)
+            {
+                return StatusCode(204, null);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"An error occured while trying to get current user. Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
         /// Create a new login user
         /// </summary>
         /// <param name="user"></param>
@@ -82,35 +111,6 @@ namespace Mimirorg.Authentication.Controllers.V1
         }
 
         /// <summary>
-        /// Get current authenticated user
-        /// </summary>
-        /// <returns>User</returns>
-        //[Authorize]
-        [HttpGet]
-        [Route("")]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [SwaggerOperation("Get current authenticated user")]
-        public async Task<IActionResult> GetCurrentUser()
-        {
-            try
-            {
-                var currentUser = await _userService.GetUser(User);
-                return Ok(currentUser);
-            }
-            catch (MimirorgNotFoundException)
-            {
-                return StatusCode(204, null);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"An error occured while trying to get current user. Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        /// <summary>
         /// Verify account from token
         /// </summary>
         /// <param name="verifyEmail">string</param>
@@ -121,7 +121,6 @@ namespace Mimirorg.Authentication.Controllers.V1
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [SwaggerOperation("Activate account")]
         public async Task<IActionResult> VerifyAccount([FromBody] MimirorgVerifyAm verifyEmail)
         {
@@ -163,10 +162,9 @@ namespace Mimirorg.Authentication.Controllers.V1
         [AllowAnonymous]
         [HttpPost]
         [Route("2fa")]
-        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(typeof(MimirorgQrCodeCm), 200)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [SwaggerOperation("Activate account")]
         public async Task<IActionResult> VerifyTwoFactor([FromBody] MimirorgVerifyAm data)
         {
@@ -211,7 +209,6 @@ namespace Mimirorg.Authentication.Controllers.V1
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [SwaggerOperation("Activate account")]
         public async Task<IActionResult> ChangePassword([FromBody] MimirorgChangePasswordAm changePassword)
         {
