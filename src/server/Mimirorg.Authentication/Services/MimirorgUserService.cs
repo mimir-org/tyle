@@ -11,7 +11,6 @@ using Mimirorg.Common.Extensions;
 using System.Security.Cryptography;
 using System.Text;
 using AspNetCore.Totp.Interface.Models;
-using Microsoft.AspNetCore.Http;
 using Mimirorg.Authentication.Extensions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
@@ -30,9 +29,8 @@ namespace Mimirorg.Authentication.Services
         private readonly IMimirorgTemplateRepository _templateRepository;
         private readonly IMimirorgCompanyService _mimirorgCompanyService;
         private readonly IMimirorgAuthService _mimirorgAuthService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public MimirorgUserService(UserManager<MimirorgUser> userManager, IOptions<MimirorgAuthSettings> authSettings, IMimirorgTokenRepository tokenRepository, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IMimirorgCompanyService mimirorgCompanyService, IMimirorgAuthService mimirorgAuthService, IHttpContextAccessor httpContextAccessor)
+        public MimirorgUserService(UserManager<MimirorgUser> userManager, IOptions<MimirorgAuthSettings> authSettings, IMimirorgTokenRepository tokenRepository, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IMimirorgCompanyService mimirorgCompanyService, IMimirorgAuthService mimirorgAuthService)
         {
             _userManager = userManager;
             _tokenRepository = tokenRepository;
@@ -41,7 +39,6 @@ namespace Mimirorg.Authentication.Services
             _authSettings = authSettings?.Value;
             _mimirorgCompanyService = mimirorgCompanyService;
             _mimirorgAuthService = mimirorgAuthService;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         /// <summary>
@@ -111,7 +108,7 @@ namespace Mimirorg.Authentication.Services
             if (existingUser == null)
                 return await CreateNewUser(userAm);
 
-            if (!existingUser.EmailConfirmed || !existingUser.TwoFactorEnabled)
+            if (!existingUser.EmailConfirmed)
             {
                 return await UpdateTempUser(userAm, existingUser);
             }
@@ -142,7 +139,7 @@ namespace Mimirorg.Authentication.Services
             if (user == null)
                 throw new MimirorgNotFoundException("Could not verify account");
 
-            if (!user.TwoFactorEnabled)
+            if (!user.EmailConfirmed)
                 throw new MimirorgInvalidOperationException("Could not enable two factor auth before user is confirmed");
 
             var totpSetup = CreateTotp(user);
@@ -162,41 +159,25 @@ namespace Mimirorg.Authentication.Services
         }
 
         /// <summary>
-        /// Get companies that is registered for current logged in user
+        /// A method that generates change password secrets and sending the generated code to user as mail.
         /// </summary>
-        /// <returns>A collection of registered companies</returns>
-        public async Task<ICollection<MimirorgCompanyCm>> GetUserFilteredCompanies()
-        {
-            var user = await GetUser(_httpContextAccessor.GetUser());
-
-            if (user == null)
-                return new List<MimirorgCompanyCm>();
-
-            var companies = (await _mimirorgCompanyService.GetAllCompanies()).ToList();
-            companies = companies.Where(x => user.Permissions.ContainsKey(x.Id)).ToList();
-            return companies;
-        }
-
-        /// <summary>
-        /// A method that generates a login code and sending the generated code to user as mail.
-        /// </summary>
-        /// <param name="generateSecret">Object information for generating secret</param>
+        /// <param name="email">The email address for the user secret token</param>
         /// <returns>A completed task</returns>
-        /// <exception cref="MimirorgBadRequestException">Throws if model is not valid</exception>
         /// <exception cref="MimirorgInvalidOperationException">Throws if user does not exist</exception>
-        public async Task GenerateSecret(MimirorgGenerateSecretAm generateSecret)
+        public async Task GenerateChangePasswordSecret(string email)
         {
-            var validation = generateSecret.ValidateObject();
-            if (!validation.IsValid)
-                throw new MimirorgBadRequestException("Couldn't generate secret", validation);
-
-            var user = await _userManager.FindByEmailAsync(generateSecret.Email);
+            var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
-                throw new MimirorgInvalidOperationException($"Couldn't generate secret for user with email: {generateSecret.Email}");
+                throw new MimirorgInvalidOperationException($"Couldn't generate secret for user with email: {email}");
 
-            var secret = await CreateUserToken(user, new List<MimirorgTokenType> { generateSecret.TokenType });
-            var email = await _templateRepository.CreateCodeVerificationMail(user, secret);
-            await _emailRepository.SendEmail(email);
+            var alreadyExistToken = await _tokenRepository.Exist(x => x.TokenType == MimirorgTokenType.ChangePassword);
+
+            if (alreadyExistToken)
+                throw new MimirorgInvalidOperationException($"You can't create multiple change password secrets with same email: {email}");
+
+            var secret = await CreateUserToken(user, new List<MimirorgTokenType> { MimirorgTokenType.ChangePassword, MimirorgTokenType.ChangeTwoFactor });
+            var emailTemplate = await _templateRepository.CreateCodeVerificationMail(user, secret);
+            await _emailRepository.SendEmail(emailTemplate);
         }
 
         /// <summary>
@@ -220,6 +201,9 @@ namespace Mimirorg.Authentication.Services
             if (user == null)
                 throw new MimirorgNotFoundException("Could not verify account");
 
+            _tokenRepository.Attach(regToken, EntityState.Deleted);
+            await _tokenRepository.SaveAsync();
+
             if (user.PasswordHash != null)
                 await _userManager.RemovePasswordAsync(user);
 
@@ -227,33 +211,34 @@ namespace Mimirorg.Authentication.Services
             return result.Succeeded;
         }
 
-        
-        public async Task RemoveUnconfirmedUsersAndTokens()
+        /// <summary>
+        /// Cleanup tokens and not confirmed users
+        /// </summary>
+        /// <remarks>All users that has not any valid verify token and is not confirmed will be deleted,
+        /// with all the user tokens. Also invalid tokens will be deleted.</remarks>
+        /// <returns>The number of deleted users and tokens</returns>
+        public async Task<(int deletedUsers, int deletedTokens)> RemoveUnconfirmedUsersAndTokens()
         {
-            var allVerifyTokens = _tokenRepository.GetAll(false).Where(x => x.TokenType == MimirorgTokenType.VerifyEmail).ToList();
+            var allTokens = _tokenRepository.GetAll().ToList();
             var allNotConfirmedUsers = _userManager.Users.Where(x => !x.EmailConfirmed).ToList();
+            var allNotConfirmedUsersWithValidToken = allNotConfirmedUsers.Where(x => allTokens.Any(y => y.ClientId == x.Id && y.ValidTo > DateTime.Now && y.TokenType == MimirorgTokenType.VerifyEmail)).ToList();
 
-            foreach (var user in allNotConfirmedUsers)
-            {
-                try
-                {
-                    var hasValidToken = allVerifyTokens.Any(x => x.ClientId == user.Id && x.ValidTo > DateTime.Now);
-                    if (hasValidToken)
-                        continue;
+            // This users should be deleted
+            var deleteUsers = allNotConfirmedUsers.Where(x => allNotConfirmedUsersWithValidToken.All(y => x.Id != y.Id)).ToList();
+            var deleteUserTokens = allTokens.Where(x => deleteUsers.Any(y => y.Id == x.ClientId)).ToList();
+            var deleteInvalidTokens = allTokens.Where(x => x.ValidTo < DateTime.Now).ToList();
 
-                    foreach (var token in allVerifyTokens)
-                    {
-                        _tokenRepository.Attach(token, EntityState.Deleted);
-                    }
+            var deleteTokens = deleteUserTokens.Union(deleteInvalidTokens).ToList();
 
-                    await _tokenRepository.SaveAsync();
-                    await _userManager.DeleteAsync(user);
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-            }
+            foreach (var token in deleteTokens)
+                _tokenRepository.Attach(token, EntityState.Deleted);
+
+            await _tokenRepository.SaveAsync();
+
+            foreach (var user in deleteUsers)
+                await _userManager.DeleteAsync(user);
+
+            return (deleteUsers.Count, deleteTokens.Count);
         }
 
         /// <summary>
@@ -448,6 +433,7 @@ namespace Mimirorg.Authentication.Services
             var currentCompany = await _mimirorgCompanyService.GetCompanyById(userAm.CompanyId);
             user.CompanyName = currentCompany?.DisplayName ?? currentCompany?.Name;
             user.EmailConfirmed = !_authSettings.RequireConfirmedAccount;
+            user.TwoFactorEnabled = !_authSettings.RequireConfirmedAccount;
 
             var result = await _userManager.CreateAsync(user, userAm.Password);
             if (!result.Succeeded)

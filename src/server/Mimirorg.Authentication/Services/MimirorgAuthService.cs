@@ -4,14 +4,15 @@ using AspNetCore.Totp;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Extensions;
 using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 
@@ -25,14 +26,16 @@ namespace Mimirorg.Authentication.Services
         private readonly IMimirorgTokenRepository _tokenRepository;
         private readonly IMimirorgCompanyService _mimirorgCompanyService;
         private readonly IActionContextAccessor _actionContextAccessor;
+        private readonly MimirorgAuthSettings _authSettings;
 
-        public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IMimirorgCompanyService mimirorgCompanyService, IActionContextAccessor actionContextAccessor)
+        public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IMimirorgCompanyService mimirorgCompanyService, IActionContextAccessor actionContextAccessor, IOptions<MimirorgAuthSettings> authSettings)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenRepository = tokenRepository;
             _mimirorgCompanyService = mimirorgCompanyService;
             _actionContextAccessor = actionContextAccessor;
+            _authSettings = authSettings?.Value;
             _roleManager = roleManager;
         }
 
@@ -105,30 +108,6 @@ namespace Mimirorg.Authentication.Services
             var refreshToken = await _tokenRepository.CreateRefreshToken(user, now);
 
             return new List<MimirorgTokenCm> { accessToken, refreshToken };
-        }
-
-        /// <summary>
-        /// Validate security code
-        /// </summary>
-        /// <param name="user">The user that should be validated</param>
-        /// <param name="code">The security code</param>
-        /// <remarks>If user is not set two factor to be enabled,
-        /// the method will return </remarks>
-        /// <returns>Returns true if code is valid</returns>
-        public bool ValidateSecurityCode(MimirorgUser user, string code)
-        {
-            if (!user.TwoFactorEnabled)
-                return true;
-
-            var validator = new TotpValidator(new TotpGenerator());
-
-            if (!code.All(char.IsDigit))
-                return false;
-
-            if (!int.TryParse(code, out var codeInt))
-                return false;
-
-            return validator.Validate(user.SecurityHash, codeInt);
         }
 
         /// <summary>
@@ -287,6 +266,41 @@ namespace Mimirorg.Authentication.Services
 
             var access = _actionContextAccessor.ActionContext?.HttpContext.HasPermission(permission, companyId.ToString());
             return Task.FromResult(access ?? false);
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Validate security code
+        /// </summary>
+        /// <param name="user">The user that should be validated</param>
+        /// <param name="code">The security code</param>
+        /// <remarks>If user is not set two factor to be enabled,
+        /// the method will return </remarks>
+        /// <returns>Returns true if code is valid</returns>
+        /// <exception cref="AuthenticationException">Throws if configuration has error</exception>
+        private bool ValidateSecurityCode(MimirorgUser user, string code)
+        {
+            if (_authSettings == null)
+                throw new MimirorgConfigurationException("Application settings failure");
+
+            if (!_authSettings.RequireConfirmedAccount)
+                return true;
+
+            if (!user.TwoFactorEnabled)
+                return false;
+
+            var validator = new TotpValidator(new TotpGenerator());
+
+            if (!code.All(char.IsDigit))
+                return false;
+
+            if (!int.TryParse(code, out var codeInt))
+                return false;
+
+            return validator.Validate(user.SecurityHash, codeInt);
         }
 
         #endregion

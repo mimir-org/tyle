@@ -113,7 +113,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// <summary>
         /// Verify account from token
         /// </summary>
-        /// <param name="verifyEmail">string</param>
+        /// <param name="verifyEmail">Verify data model</param>
         /// <returns>bool</returns>
         [AllowAnonymous]
         [HttpPost]
@@ -121,7 +121,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [SwaggerOperation("Activate account")]
+        [SwaggerOperation("VerifyAccount")]
         public async Task<IActionResult> VerifyAccount([FromBody] MimirorgVerifyAm verifyEmail)
         {
             try
@@ -165,7 +165,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         [ProducesResponseType(typeof(MimirorgQrCodeCm), 200)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [SwaggerOperation("Activate account")]
+        [SwaggerOperation("VerifyTwoFactor")]
         public async Task<IActionResult> VerifyTwoFactor([FromBody] MimirorgVerifyAm data)
         {
             try
@@ -199,9 +199,38 @@ namespace Mimirorg.Authentication.Controllers.V1
         }
 
         /// <summary>
+        /// Generate change password secret
+        /// </summary>
+        /// <param name="email">The user email address</param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("password/secret/create")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [SwaggerOperation("Generate change password secret")]
+        public async Task<IActionResult> GenerateChangePasswordSecret([FromBody] string email)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                await _userService.GenerateChangePasswordSecret(email);
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to create secret. Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
         /// Change password
         /// </summary>
-        /// <param name="changePassword">string</param>
+        /// <param name="changePassword">Change password data</param>
         /// <returns>bool</returns>
         [AllowAnonymous]
         [HttpPost]
@@ -209,7 +238,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         [ProducesResponseType(typeof(bool), 200)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [SwaggerOperation("Activate account")]
+        [SwaggerOperation("Change password")]
         public async Task<IActionResult> ChangePassword([FromBody] MimirorgChangePasswordAm changePassword)
         {
             try

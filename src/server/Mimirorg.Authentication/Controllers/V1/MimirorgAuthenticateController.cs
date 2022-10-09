@@ -147,34 +147,6 @@ namespace Mimirorg.Authentication.Controllers.V1
             }
         }
 
-        /// <summary>
-        /// Generate a new secret
-        /// </summary>
-        /// <param name="secret"></param>
-        /// <returns></returns>
-        [AllowAnonymous]
-        [HttpPost]
-        [Route("secret/create")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GenerateSecret(MimirorgGenerateSecretAm secret)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
-
-                await _userService.GenerateSecret(secret);
-                return NoContent();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"An error occurred while trying to create secret. Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
         #region Private methods
 
         private Task AddRefreshTokenCookie(HttpRequest request, HttpResponse response, MimirorgTokenCm token)

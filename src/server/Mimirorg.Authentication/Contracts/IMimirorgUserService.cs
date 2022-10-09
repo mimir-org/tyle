@@ -47,19 +47,12 @@ namespace Mimirorg.Authentication.Contracts
         Task<MimirorgQrCodeCm> GenerateTwoFactor(MimirorgVerifyAm verifyEmail);
 
         /// <summary>
-        /// Get companies that is registered for current logged in user
-        /// </summary>
-        /// <returns>A collection of registered companies</returns>
-        Task<ICollection<MimirorgCompanyCm>> GetUserFilteredCompanies();
-
-        /// <summary>
         /// A method that generates a login code and sending the generated code to user as mail.
         /// </summary>
-        /// <param name="generateSecret">Object information for generating secret</param>
+        /// <param name="email">The email address for the user secret token</param>
         /// <returns>A completed task</returns>
-        /// <exception cref="MimirorgBadRequestException">Throws if model is not valid</exception>
         /// <exception cref="MimirorgInvalidOperationException">Throws if user does not exist</exception>
-        Task GenerateSecret(MimirorgGenerateSecretAm generateSecret);
+        Task GenerateChangePasswordSecret(string email);
 
         /// <summary>
         /// Change the password on user
@@ -70,7 +63,7 @@ namespace Mimirorg.Authentication.Contracts
         Task<bool> ChangePassword(MimirorgChangePasswordAm changePassword);
 
 
-        Task RemoveUnconfirmedUsersAndTokens();
+        Task<(int deletedUsers, int deletedTokens)> RemoveUnconfirmedUsersAndTokens();
 
         /// <summary>
         /// Verify email account from verify code

@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Abstract;
 using TypeLibrary.Core.Factories;
 using Mimirorg.Common.Models;

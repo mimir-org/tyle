@@ -12,6 +12,7 @@ namespace Mimirorg.Authentication.Services
     {
         private bool _disposedValue;
         private Timer _timer = null!;
+        private Timer _cleanupTimer = null!;
         private readonly ILogger<TimedHookService> _logger;
         private readonly IServiceScopeFactory _scopeFactory;
         private readonly HttpClient _httpClient;
@@ -33,6 +34,7 @@ namespace Mimirorg.Authentication.Services
         public Task StartAsync(CancellationToken cancellationToken)
         {
             _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+            _cleanupTimer = new Timer(CleanUpUsers, null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
             _logger.LogInformation("Timed hook service started.");
             return Task.CompletedTask;
         }
@@ -54,16 +56,14 @@ namespace Mimirorg.Authentication.Services
         /// <param name="state"></param>
         private async void DoWork(object state)
         {
-            using var scope = _scopeFactory.CreateScope();
-            await CleanUpUsers();
-
             if (!HookQueue.TryDequeue(out var nextItem))
                 return;
 
+            using var scope = _scopeFactory.CreateScope();
             var companyService = scope.ServiceProvider.GetRequiredService<IMimirorgCompanyService>();
             var allHooks = await companyService.GetAllHooksForCache(nextItem);
-            
-            
+
+
             foreach (var hook in allHooks)
             {
                 var data = new CacheInvalidation
@@ -85,12 +85,15 @@ namespace Mimirorg.Authentication.Services
             }
         }
 
-        private Task CleanUpUsers()
+        /// <summary>
+        /// Cleanup users and tokens
+        /// </summary>
+        /// <param name="state"></param>
+        private async void CleanUpUsers(object state)
         {
             using var scope = _scopeFactory.CreateScope();
             var userService = scope.ServiceProvider.GetRequiredService<IMimirorgUserService>();
-            userService.RemoveUnconfirmedUsersAndTokens();
-            return Task.CompletedTask;
+            await userService.RemoveUnconfirmedUsersAndTokens();
         }
 
         #region Disposable
