@@ -22,7 +22,7 @@ namespace TypeLibrary.Services.Contracts
         /// <param name="logTypeValue"></param>
         /// <param name="comment"></param>
         /// <returns>Completed task</returns>
-        Task CreateLog(ILogable logObject, LogType logType, string logTypeValue, string comment);
+        Task CreateLog(ILogable logObject, LogType logType, string logTypeValue, string comment = null);
 
         /// <summary>
         /// Create log entries
@@ -32,6 +32,6 @@ namespace TypeLibrary.Services.Contracts
         /// <param name="logTypeValue"></param>
         /// <param name="comment"></param>
         /// <returns>Completed task</returns>
-        Task CreateLogs(IEnumerable<ILogable> logObjects, LogType logType, string logTypeValue, string comment);
+        Task CreateLogs(IEnumerable<ILogable> logObjects, LogType logType, string logTypeValue, string comment = null);
     }
 }

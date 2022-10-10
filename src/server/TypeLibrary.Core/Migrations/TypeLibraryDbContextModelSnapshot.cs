@@ -389,6 +389,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("LogTypeValue");
 
+                    b.Property<string>("ObjectFirstVersionId")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("ObjectFirstVersionId");
+
                     b.Property<string>("ObjectId")
                         .IsRequired()
                         .HasMaxLength(127)
@@ -407,6 +413,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("ObjectType");
 
+                    b.Property<string>("ObjectVersion")
+                        .IsRequired()
+                        .HasMaxLength(7)
+                        .HasColumnType("nvarchar(7)")
+                        .HasColumnName("ObjectVersion");
+
                     b.Property<string>("User")
                         .IsRequired()
                         .HasMaxLength(63)
@@ -417,11 +429,13 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasIndex("LogType");
 
+                    b.HasIndex("ObjectFirstVersionId");
+
                     b.HasIndex("ObjectId");
 
                     b.HasIndex("ObjectType");
 
-                    b.HasIndex("ObjectId", "ObjectType", "LogType");
+                    b.HasIndex("ObjectId", "ObjectFirstVersionId", "ObjectType", "LogType");
 
                     b.ToTable("Log", (string)null);
                 });
