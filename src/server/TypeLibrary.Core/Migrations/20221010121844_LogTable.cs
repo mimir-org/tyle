@@ -16,8 +16,10 @@ namespace TypeLibrary.Core.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ObjectId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
-                    ObjectType = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    ObjectFirstVersionId = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
                     ObjectName = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    ObjectVersion = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
+                    ObjectType = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
                     LogType = table.Column<string>(type: "nvarchar(31)", maxLength: 31, nullable: false),
                     LogTypeValue = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(511)", maxLength: 511, nullable: true),
@@ -35,14 +37,19 @@ namespace TypeLibrary.Core.Migrations
                 column: "LogType");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Log_ObjectFirstVersionId",
+                table: "Log",
+                column: "ObjectFirstVersionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Log_ObjectId",
                 table: "Log",
                 column: "ObjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Log_ObjectId_ObjectType_LogType",
+                name: "IX_Log_ObjectId_ObjectFirstVersionId_ObjectType_LogType",
                 table: "Log",
-                columns: new[] { "ObjectId", "ObjectType", "LogType" });
+                columns: new[] { "ObjectId", "ObjectFirstVersionId", "ObjectType", "LogType" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Log_ObjectType",

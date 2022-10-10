@@ -106,7 +106,7 @@ namespace TypeLibrary.Services.Services
 
             await _attributeRepository.Create(dm);
             _attributeRepository.ClearAllChangeTrackers();
-            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), dm.Version);
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 
             return GetLatestVersion(dm.Id);
@@ -160,7 +160,7 @@ namespace TypeLibrary.Services.Services
 
             var attributeCm = await _attributeRepository.Create(dm);
             _attributeRepository.ClearAllChangeTrackers();
-            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), dm.Version);
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 
             return GetLatestVersion(attributeCm.Id);
@@ -188,7 +188,7 @@ namespace TypeLibrary.Services.Services
             await _attributeRepository.ChangeState(state, newStateDms.Select(x => x.Id).ToList());
 
             foreach (var newStateDm in newStateDms)
-                await _logService.CreateLog(newStateDm, LogType.State, state.ToString(), newStateDm.Version);
+                await _logService.CreateLog(newStateDm, LogType.State, state.ToString());
 
             _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 

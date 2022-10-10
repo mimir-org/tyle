@@ -40,7 +40,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(typeof(ICollection<LogLibCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [MimirorgAuthorize(MimirorgPermission.Manage)]
+        //[MimirorgAuthorize(MimirorgPermission.Manage)]
         public IActionResult Get()
         {
             try

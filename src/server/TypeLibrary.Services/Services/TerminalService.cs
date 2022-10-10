@@ -94,7 +94,7 @@ namespace TypeLibrary.Services.Services
 
             await _terminalRepository.Create(dm);
             _terminalRepository.ClearAllChangeTrackers();
-            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), dm.Version);
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
             return GetLatestVersion(dm.Id);
@@ -150,7 +150,7 @@ namespace TypeLibrary.Services.Services
             var terminalCm = await _terminalRepository.Create(dm);
             _terminalRepository.ClearAllChangeTrackers();
             await _terminalRepository.ChangeParentId(terminalAm.Id, terminalCm.Id);
-            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), dm.Version);
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
             return GetLatestVersion(terminalCm.Id);
@@ -178,7 +178,7 @@ namespace TypeLibrary.Services.Services
             await _terminalRepository.ChangeState(state, newStateDms.Select(x => x.Id).ToList());
 
             foreach (var newStateDm in newStateDms)
-                await _logService.CreateLog(newStateDm, LogType.State, state.ToString(), newStateDm.Version);
+                await _logService.CreateLog(newStateDm, LogType.State, state.ToString());
 
             _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 

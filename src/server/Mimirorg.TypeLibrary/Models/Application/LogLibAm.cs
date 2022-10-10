@@ -8,13 +8,18 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public string ObjectId { get; set; }
         [Required]
-        public string ObjectType { get; set; }
+        public string ObjectFirstVersionId { get; set; }
         [Required]
         public string ObjectName { get; set; }
+        [Required]
+        public string ObjectVersion { get; set; }
+        [Required]
+        public string ObjectType { get; set; }
         [Required]
         public LogType LogType { get; set; }
         [Required]
         public string LogTypeValue { get; set; }
+
         public string Comment { get; set; }
     }
 }

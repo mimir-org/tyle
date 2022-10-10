@@ -116,8 +116,10 @@ namespace TypeLibrary.Data.Models
             return new LogLibAm
             {
                 ObjectId = Id,
+                ObjectFirstVersionId = FirstVersionId,
                 ObjectType = nameof(InterfaceLibDm),
                 ObjectName = Name,
+                ObjectVersion = Version,
                 LogType = logType,
                 LogTypeValue = logTypeValue,
                 Comment = comment
