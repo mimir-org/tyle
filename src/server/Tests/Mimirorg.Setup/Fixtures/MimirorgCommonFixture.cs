@@ -26,8 +26,8 @@ namespace Mimirorg.Setup.Fixtures
         public Mock<IAttributeReferenceRepository> AttributeReferenceRepository = new();
 
         // Services
-        public Mock<IVersionService> VersionService = new();
         public Mock<ITimedHookService> TimedHookService = new();
+        public Mock<ILogService> LogService = new();
 
         public MimirorgCommonFixture()
         {

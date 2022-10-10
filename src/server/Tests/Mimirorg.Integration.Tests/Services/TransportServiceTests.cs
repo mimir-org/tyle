@@ -27,7 +27,8 @@ namespace Mimirorg.Integration.Tests.Services
             {
                 Name = "Terminal1078vb09990",
                 Color = "#45678",
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var terminalCm = await terminalService.Create(terminalAm);
@@ -40,7 +41,8 @@ namespace Mimirorg.Integration.Tests.Services
                 PurposeName = "PurposeName",
                 Description = "Description1",
                 Aspect = Aspect.NotSet,
-                CompanyId = 1, TerminalId = terminalCm.Id
+                CompanyId = 1, TerminalId = terminalCm.Id,
+                Version = "1.0"
             };
 
             await transportService.Create(transportAm);
@@ -59,7 +61,8 @@ namespace Mimirorg.Integration.Tests.Services
                 PurposeName = "PurposeName",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
-                TerminalId = "8EBC5811473E87602FB0C18A100BD53C"
+                TerminalId = "8EBC5811473E87602FB0C18A100BD53C",
+                Version = "1.0"
             };
 
             var transportService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITransportService>();
@@ -97,7 +100,8 @@ namespace Mimirorg.Integration.Tests.Services
 
                     }
                 },
-                ParentId = transportParentCm.Id
+                ParentId = transportParentCm.Id,
+                Version = "1.0"
             };
 
             var transportCm = await transportService.Create(transportAm);
@@ -133,7 +137,8 @@ namespace Mimirorg.Integration.Tests.Services
             {
                 Name = "Terminal107809990",
                 Color = "#45678",
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var terminalCm = await terminalService.Create(terminalAm);
@@ -146,7 +151,8 @@ namespace Mimirorg.Integration.Tests.Services
                 PurposeName = "PurposeName",
                 Description = "Description1",
                 Aspect = Aspect.NotSet,
-                CompanyId = 1, TerminalId = terminalCm.Id
+                CompanyId = 1, TerminalId = terminalCm.Id,
+                Version = "1.0"
             };
 
 
@@ -173,7 +179,8 @@ namespace Mimirorg.Integration.Tests.Services
             {
                 Name = "Terminal5108909990",
                 Color = "#45678",
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var terminalCm = await terminalService.Create(terminalAm);
@@ -187,7 +194,8 @@ namespace Mimirorg.Integration.Tests.Services
                 Description = "Description1",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
-                TerminalId = terminalCm.Id
+                TerminalId = terminalCm.Id,
+                Version = "1.0"
             };
 
             var cm = await transportService.Create(transportAm);

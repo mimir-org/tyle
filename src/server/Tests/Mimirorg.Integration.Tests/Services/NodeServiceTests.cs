@@ -28,7 +28,8 @@ namespace Mimirorg.Integration.Tests.Services
                 PurposeName = "PurposeName",
                 Description = "Description",
                 Aspect = Aspect.NotSet,
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
@@ -55,7 +56,8 @@ namespace Mimirorg.Integration.Tests.Services
                 QuantityDatumSpecifiedProvenance = "Calculated",
                 QuantityDatumRegularitySpecified = "Absolute",
                 QuantityDatumSpecifiedScope = "Design Datum",
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var attributeCm = await attributeService.Create(attributeAm);
@@ -124,7 +126,8 @@ namespace Mimirorg.Integration.Tests.Services
                         }
                     }
                 },
-                ParentId = "1234"
+                ParentId = "1234",
+                Version = "1.0"
             };
 
             var nodeCm = await nodeService.Create(nodeAm);
@@ -182,7 +185,8 @@ namespace Mimirorg.Integration.Tests.Services
                 PurposeName = "PurposeName",
                 Description = "Description",
                 Aspect = Aspect.NotSet,
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
@@ -210,7 +214,8 @@ namespace Mimirorg.Integration.Tests.Services
                 PurposeName = "PurposeName",
                 Description = "Description1",
                 Aspect = Aspect.NotSet,
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();

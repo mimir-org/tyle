@@ -12,4 +12,5 @@ export const createEmptyTransportLibAm = (): TransportLibAm => ({
   description: "",
   typeReferences: [],
   parentId: "",
+  version: "1.0",
 });

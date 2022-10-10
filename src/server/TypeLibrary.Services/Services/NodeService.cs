@@ -22,12 +22,14 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly INodeRepository _nodeRepository;
         private readonly ITimedHookService _hookService;
+        private readonly ILogService _logService;
 
-        public NodeService(IMapper mapper, INodeRepository nodeRepository, ITimedHookService hookService)
+        public NodeService(IMapper mapper, INodeRepository nodeRepository, ITimedHookService hookService, ILogService logService)
         {
             _mapper = mapper;
             _nodeRepository = nodeRepository;
             _hookService = hookService;
+            _logService = logService;
         }
 
         /// <summary>
@@ -89,9 +91,11 @@ namespace TypeLibrary.Services.Services
             var dm = _mapper.Map<NodeLibDm>(nodeAm);
 
             dm.State = State.Draft;
+            dm.FirstVersionId = dm.Id;
 
             await _nodeRepository.Create(dm);
             _nodeRepository.ClearAllChangeTrackers();
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), dm.Version);
             _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
 
             return GetLatestVersion(dm.Id);
@@ -139,15 +143,15 @@ namespace TypeLibrary.Services.Services
                 _ => nodeToUpdate.Version
             };
 
-            var nodeDm = _mapper.Map<NodeLibDm>(nodeAm);
+            var dm = _mapper.Map<NodeLibDm>(nodeAm);
 
-            nodeDm.FirstVersionId = nodeToUpdate.FirstVersionId;
-            nodeDm.State = State.Draft;
+            dm.State = State.Draft;
+            dm.FirstVersionId = nodeToUpdate.FirstVersionId;
 
-            var nodeCm = await _nodeRepository.Create(nodeDm);
+            var nodeCm = await _nodeRepository.Create(dm);
             _nodeRepository.ClearAllChangeTrackers();
-
             await _nodeRepository.ChangeParentId(nodeAm.Id, nodeCm.Id);
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), dm.Version);
             _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
 
             return GetLatestVersion(nodeCm.Id);
@@ -167,10 +171,18 @@ namespace TypeLibrary.Services.Services
             if (dm == null)
                 throw new MimirorgNotFoundException($"Node with id {id} not found, or is not latest version.");
 
-            var dmAllVersions = _nodeRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId).Select(x => x.Id).ToList();
+            var newStateDms = _nodeRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId && x.State != state).ToList();
 
-            await _nodeRepository.ChangeState(state, dmAllVersions);
+            if (!newStateDms.Any())
+                return null;
+
+            await _nodeRepository.ChangeState(state, newStateDms.Select(x => x.Id).ToList());
+
+            foreach (var newStateDm in newStateDms)
+                await _logService.CreateLog(newStateDm, LogType.State, state.ToString(), newStateDm.Version);
+
             _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
+
             return state == State.Deleted ? null : GetLatestVersion(id);
         }
 

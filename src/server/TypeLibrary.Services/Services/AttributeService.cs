@@ -27,8 +27,9 @@ namespace TypeLibrary.Services.Services
         private readonly IQuantityDatumRepository _datumRepository;
         private readonly IAttributeReferenceRepository _attributeReferenceRepository;
         private readonly ITimedHookService _hookService;
+        private readonly ILogService _logService;
 
-        public AttributeService(IMapper mapper, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings, IAttributePredefinedRepository attributePredefinedRepository, IAttributeReferenceRepository attributeReferenceRepository, ITimedHookService hookService, IQuantityDatumRepository datumRepository)
+        public AttributeService(IMapper mapper, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings, IAttributePredefinedRepository attributePredefinedRepository, IAttributeReferenceRepository attributeReferenceRepository, ITimedHookService hookService, IQuantityDatumRepository datumRepository, ILogService logService)
         {
             _mapper = mapper;
             _attributeRepository = attributeRepository;
@@ -36,6 +37,7 @@ namespace TypeLibrary.Services.Services
             _attributeReferenceRepository = attributeReferenceRepository;
             _hookService = hookService;
             _datumRepository = datumRepository;
+            _logService = logService;
             _applicationSettings = applicationSettings?.Value;
         }
 
@@ -100,9 +102,11 @@ namespace TypeLibrary.Services.Services
             var dm = _mapper.Map<AttributeLibDm>(attributeAm);
 
             dm.State = State.Draft;
+            dm.FirstVersionId = dm.Id;
 
             await _attributeRepository.Create(dm);
             _attributeRepository.ClearAllChangeTrackers();
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), dm.Version);
             _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 
             return GetLatestVersion(dm.Id);
@@ -149,14 +153,14 @@ namespace TypeLibrary.Services.Services
                 _ => attributeToUpdate.Version
             };
 
-            var attributeDm = _mapper.Map<AttributeLibDm>(attributeAm);
+            var dm = _mapper.Map<AttributeLibDm>(attributeAm);
 
-            attributeDm.FirstVersionId = attributeToUpdate.FirstVersionId;
-            attributeDm.State = State.Draft;
+            dm.State = State.Draft;
+            dm.FirstVersionId = attributeToUpdate.FirstVersionId;
 
-            var attributeCm = await _attributeRepository.Create(attributeDm);
+            var attributeCm = await _attributeRepository.Create(dm);
             _attributeRepository.ClearAllChangeTrackers();
-
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), dm.Version);
             _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 
             return GetLatestVersion(attributeCm.Id);
@@ -176,10 +180,18 @@ namespace TypeLibrary.Services.Services
             if (dm == null)
                 throw new MimirorgNotFoundException($"Attribute with id {id} not found, or is not latest version.");
 
-            var dmAllVersions = _attributeRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId).Select(x => x.Id).ToList();
+            var newStateDms = _attributeRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId && x.State != state).ToList();
 
-            await _attributeRepository.ChangeState(state, dmAllVersions);
+            if (!newStateDms.Any())
+                return null;
+
+            await _attributeRepository.ChangeState(state, newStateDms.Select(x => x.Id).ToList());
+
+            foreach (var newStateDm in newStateDms)
+                await _logService.CreateLog(newStateDm, LogType.State, state.ToString(), newStateDm.Version);
+
             _hookService.HookQueue.Enqueue(CacheKey.Attribute);
+
             return state == State.Deleted ? null : GetLatestVersion(id);
         }
 

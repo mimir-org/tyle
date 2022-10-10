@@ -1,8 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Configurations;
 using TypeLibrary.Data.Models;
-// ReSharper disable UnusedMember.Global
-// ReSharper disable InconsistentNaming
 
 namespace TypeLibrary.Data
 {
@@ -16,6 +14,7 @@ namespace TypeLibrary.Data
         public virtual DbSet<TerminalLibDm> Terminal { get; set; }
         public virtual DbSet<TransportLibDm> Transport { get; set; }
         public virtual DbSet<NodeLibDm> Node { get; set; }
+        public virtual DbSet<LogLibDm> Log { get; set; }
 
         public TypeLibraryDbContext(DbContextOptions<TypeLibraryDbContext> options) : base(options)
         {
@@ -34,6 +33,7 @@ namespace TypeLibrary.Data
             modelBuilder.ApplyConfiguration(new TerminalConfiguration());
             modelBuilder.ApplyConfiguration(new TransportConfiguration());
             modelBuilder.ApplyConfiguration(new NodeConfiguration());
+            modelBuilder.ApplyConfiguration(new LogConfiguration());
         }
     }
 }
