@@ -113,6 +113,7 @@ namespace Mimirorg.Authentication.Services
             if (disposing)
             {
                 _timer?.Dispose();
+                _cleanupTimer?.Dispose();
             }
 
             _disposedValue = true;
