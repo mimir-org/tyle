@@ -24,7 +24,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.IsMultiSelect, opt => opt.MapFrom(src => src.IsMultiSelect))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetEmail()) ? "Unknown" : contextAccessor.GetEmail()))
-                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now.ToUniversalTime()));
+                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow));
 
             CreateMap<AttributePredefinedLibDm, AttributePredefinedLibCm>()
                 .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.Key))

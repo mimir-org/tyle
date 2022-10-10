@@ -67,7 +67,7 @@ namespace Mimirorg.Authentication.Services
             if (!ValidateSecurityCode(user, authenticate.Code))
                 throw new AuthenticationException($"The user account with email {authenticate.Email} could not validate code.");
 
-            var now = DateTime.Now;
+            var now = DateTime.UtcNow;
             var accessToken = await _tokenRepository.CreateAccessToken(user, now);
             var refreshToken = await _tokenRepository.CreateRefreshToken(user, now);
             return new List<MimirorgTokenCm> { accessToken, refreshToken };
@@ -88,7 +88,7 @@ namespace Mimirorg.Authentication.Services
                 throw new AuthenticationException("Can't find any valid refresh token.");
             }
 
-            if (token.ValidTo < DateTime.Now.ToUniversalTime())
+            if (token.ValidTo < DateTime.UtcNow)
             {
                 await _tokenRepository.Delete(token.Id);
                 await _tokenRepository.SaveAsync();
@@ -103,7 +103,7 @@ namespace Mimirorg.Authentication.Services
                 throw new AuthenticationException("Can't find any connected user for token.");
             }
 
-            var now = DateTime.Now.ToUniversalTime();
+            var now = DateTime.UtcNow;
             var accessToken = await _tokenRepository.CreateAccessToken(user, now);
             var refreshToken = await _tokenRepository.CreateRefreshToken(user, now);
 

@@ -221,12 +221,12 @@ namespace Mimirorg.Authentication.Services
         {
             var allTokens = _tokenRepository.GetAll().ToList();
             var allNotConfirmedUsers = _userManager.Users.Where(x => !x.EmailConfirmed).ToList();
-            var allNotConfirmedUsersWithValidToken = allNotConfirmedUsers.Where(x => allTokens.Any(y => y.ClientId == x.Id && y.ValidTo > DateTime.Now && y.TokenType == MimirorgTokenType.VerifyEmail)).ToList();
+            var allNotConfirmedUsersWithValidToken = allNotConfirmedUsers.Where(x => allTokens.Any(y => y.ClientId == x.Id && y.ValidTo > DateTime.UtcNow && y.TokenType == MimirorgTokenType.VerifyEmail)).ToList();
 
             // This users should be deleted
             var deleteUsers = allNotConfirmedUsers.Where(x => allNotConfirmedUsersWithValidToken.All(y => x.Id != y.Id)).ToList();
             var deleteUserTokens = allTokens.Where(x => deleteUsers.Any(y => y.Id == x.ClientId)).ToList();
-            var deleteInvalidTokens = allTokens.Where(x => x.ValidTo < DateTime.Now).ToList();
+            var deleteInvalidTokens = allTokens.Where(x => x.ValidTo < DateTime.UtcNow).ToList();
 
             var deleteTokens = deleteUserTokens.Union(deleteInvalidTokens).ToList();
 
@@ -287,7 +287,7 @@ namespace Mimirorg.Authentication.Services
             var secret = generator.Next(0, 1000000).ToString("D6");
 
             var deleteTokens = _tokenRepository.GetAll()
-                .Where(x => x.ClientId == user.Id || DateTime.Now > x.ValidTo).ToList();
+                .Where(x => x.ClientId == user.Id || DateTime.UtcNow > x.ValidTo).ToList();
 
             foreach (var t in deleteTokens)
                 _tokenRepository.Attach(t, EntityState.Deleted);
@@ -302,7 +302,7 @@ namespace Mimirorg.Authentication.Services
                     Email = user.Email,
                     Secret = secret,
                     TokenType = tokenType,
-                    ValidTo = DateTime.Now.AddHours(1)
+                    ValidTo = DateTime.UtcNow.AddHours(1)
                 };
                 _tokenRepository.Attach(token, EntityState.Added);
             }

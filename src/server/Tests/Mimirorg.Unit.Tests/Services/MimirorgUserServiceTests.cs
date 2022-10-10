@@ -42,7 +42,7 @@ namespace Mimirorg.Unit.Tests.Services
                     Id = 1,
                     ClientId = "User_Confirmed_1",
                     TokenType = MimirorgTokenType.VerifyEmail,
-                    ValidTo = DateTime.Now.AddDays(1),
+                    ValidTo = DateTime.UtcNow.AddDays(1),
                     Email = "UserConfirmed@test.com",
                     Secret = "232323"
                 },
@@ -51,7 +51,7 @@ namespace Mimirorg.Unit.Tests.Services
                     Id = 2,
                     ClientId = "User_Confirmed_1",
                     TokenType = MimirorgTokenType.VerifyEmail,
-                    ValidTo = DateTime.Now.AddDays(-1),
+                    ValidTo = DateTime.UtcNow.AddDays(-1),
                     Email = "UserConfirmed@test.com",
                     Secret = "232323"
                 }
@@ -83,7 +83,7 @@ namespace Mimirorg.Unit.Tests.Services
                     Id = 2,
                     ClientId = "User_Confirmed_1",
                     TokenType = MimirorgTokenType.VerifyEmail,
-                    ValidTo = DateTime.Now.AddDays(-1),
+                    ValidTo = DateTime.UtcNow.AddDays(-1),
                     Email = "UserConfirmed@test.com",
                     Secret = "232323"
                 }
@@ -115,7 +115,7 @@ namespace Mimirorg.Unit.Tests.Services
                     Id = 1,
                     ClientId = "User_Confirmed_1",
                     TokenType = MimirorgTokenType.VerifyEmail,
-                    ValidTo = DateTime.Now.AddDays(1),
+                    ValidTo = DateTime.UtcNow.AddDays(1),
                     Email = "UserConfirmed@test.com",
                     Secret = "232323"
                 },
@@ -124,7 +124,7 @@ namespace Mimirorg.Unit.Tests.Services
                     Id = 2,
                     ClientId = "User_Confirmed_1",
                     TokenType = MimirorgTokenType.VerifyEmail,
-                    ValidTo = DateTime.Now.AddDays(-1),
+                    ValidTo = DateTime.UtcNow.AddDays(-1),
                     Email = "UserConfirmed@test.com",
                     Secret = "232323"
                 }
@@ -156,7 +156,7 @@ namespace Mimirorg.Unit.Tests.Services
                     Id = 1,
                     ClientId = "User_Confirmed_1",
                     TokenType = MimirorgTokenType.VerifyEmail,
-                    ValidTo = DateTime.Now.AddDays(-1),
+                    ValidTo = DateTime.UtcNow.AddDays(-1),
                     Email = "UserConfirmed@test.com",
                     Secret = "232323"
                 },
@@ -165,7 +165,7 @@ namespace Mimirorg.Unit.Tests.Services
                     Id = 2,
                     ClientId = "User_Confirmed_1",
                     TokenType = MimirorgTokenType.VerifyEmail,
-                    ValidTo = DateTime.Now.AddDays(-1),
+                    ValidTo = DateTime.UtcNow.AddDays(-1),
                     Email = "UserConfirmed@test.com",
                     Secret = "232323"
                 }
@@ -203,7 +203,7 @@ namespace Mimirorg.Unit.Tests.Services
                     Id = 1,
                     ClientId = "User_Confirmed_1",
                     TokenType = MimirorgTokenType.VerifyEmail,
-                    ValidTo = DateTime.Now.AddDays(-1),
+                    ValidTo = DateTime.UtcNow.AddDays(-1),
                     Email = "UserConfirmed@test.com",
                     Secret = "232323"
                 },
@@ -212,7 +212,7 @@ namespace Mimirorg.Unit.Tests.Services
                     Id = 2,
                     ClientId = "User_Confirmed_1",
                     TokenType = MimirorgTokenType.VerifyEmail,
-                    ValidTo = DateTime.Now.AddDays(-1),
+                    ValidTo = DateTime.UtcNow.AddDays(-1),
                     Email = "UserConfirmed@test.com",
                     Secret = "232323"
                 },
@@ -221,7 +221,7 @@ namespace Mimirorg.Unit.Tests.Services
                     Id = 3,
                     ClientId = "User_Confirmed_1",
                     TokenType = MimirorgTokenType.ChangePassword,
-                    ValidTo = DateTime.Now.AddDays(-1),
+                    ValidTo = DateTime.UtcNow.AddDays(-1),
                     Email = "UserConfirmed@test.com",
                     Secret = "232323"
                 },
@@ -230,7 +230,7 @@ namespace Mimirorg.Unit.Tests.Services
                     Id = 4,
                     ClientId = "User_Confirmed_2",
                     TokenType = MimirorgTokenType.AccessToken,
-                    ValidTo = DateTime.Now.AddDays(-1),
+                    ValidTo = DateTime.UtcNow.AddDays(-1),
                     Email = "UserConfirmed@test.com",
                     Secret = "232323"
                 },
@@ -239,7 +239,7 @@ namespace Mimirorg.Unit.Tests.Services
                     Id = 5,
                     ClientId = "User_Confirmed_1",
                     TokenType = MimirorgTokenType.ChangeTwoFactor,
-                    ValidTo = DateTime.Now.AddDays(-1),
+                    ValidTo = DateTime.UtcNow.AddDays(-1),
                     Email = "UserConfirmed@test.com",
                     Secret = "232323"
                 },
@@ -248,7 +248,7 @@ namespace Mimirorg.Unit.Tests.Services
                     Id = 6,
                     ClientId = "User_Confirmed_1",
                     TokenType = MimirorgTokenType.RefreshToken,
-                    ValidTo = DateTime.Now.AddDays(-1),
+                    ValidTo = DateTime.UtcNow.AddDays(-1),
                     Email = "UserConfirmed@test.com",
                     Secret = "232323"
                 }
@@ -280,7 +280,7 @@ namespace Mimirorg.Unit.Tests.Services
                     Id = 1,
                     ClientId = "User_Confirmed_1",
                     TokenType = MimirorgTokenType.VerifyEmail,
-                    ValidTo = DateTime.Now.AddDays(-1),
+                    ValidTo = DateTime.UtcNow.AddDays(-1),
                     Email = "UserConfirmed@test.com",
                     Secret = "232323"
                 },
@@ -289,7 +289,7 @@ namespace Mimirorg.Unit.Tests.Services
                     Id = 2,
                     ClientId = "User_Confirmed_1",
                     TokenType = MimirorgTokenType.ChangeTwoFactor,
-                    ValidTo = DateTime.Now.AddDays(1),
+                    ValidTo = DateTime.UtcNow.AddDays(1),
                     Email = "UserConfirmed@test.com",
                     Secret = "232323"
                 }
