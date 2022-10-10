@@ -17,6 +17,7 @@ namespace Mimirorg.Authentication.Services
         private readonly IServiceScopeFactory _scopeFactory;
         private readonly HttpClient _httpClient;
         public Queue<CacheKey> HookQueue { get; set; }
+        public bool IsMigrationFinished { get; set; }
 
         public TimedHookService(ILogger<TimedHookService> logger, IServiceScopeFactory scopeFactory)
         {
@@ -91,6 +92,8 @@ namespace Mimirorg.Authentication.Services
         /// <param name="state"></param>
         private async void CleanUpUsers(object state)
         {
+            if (!IsMigrationFinished) return;
+
             using var scope = _scopeFactory.CreateScope();
             var userService = scope.ServiceProvider.GetRequiredService<IMimirorgUserService>();
             await userService.RemoveUnconfirmedUsersAndTokens();

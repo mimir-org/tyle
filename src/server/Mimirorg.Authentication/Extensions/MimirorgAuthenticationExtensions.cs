@@ -213,7 +213,12 @@ namespace Mimirorg.Authentication.Extensions
             // Migrate database
             var context = serviceScope.ServiceProvider.GetRequiredService<MimirorgAuthenticationContext>();
             if (context.Database.IsRelational())
+            {
                 context.Database.Migrate();
+            }
+            
+            var timedHookService = serviceScope.ServiceProvider.GetRequiredService<ITimedHookService>();
+            timedHookService.IsMigrationFinished = true;
         }
     }
 }
