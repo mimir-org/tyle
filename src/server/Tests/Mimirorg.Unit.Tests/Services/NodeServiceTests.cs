@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Setup;
 using Mimirorg.Setup.Fixtures;
@@ -17,7 +16,7 @@ namespace Mimirorg.Unit.Tests.Services
 
         public NodeServiceTests(MimirorgCommonFixture fixture) : base(fixture)
         {
-            _nodeService = new NodeService(fixture.Mapper.Object, fixture.NodeRepository.Object, fixture.TimedHookService.Object);
+            _nodeService = new NodeService(fixture.Mapper.Object, fixture.NodeRepository.Object, fixture.TimedHookService.Object, fixture.LogService.Object);
         }
 
         [Fact]

@@ -11,7 +11,7 @@ using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models
 {
-    public class TransportLibDm : IVersionable<TransportLibAm>, IVersionObject
+    public class TransportLibDm : IVersionable<TransportLibAm>, IVersionObject, ILogable
     {
         public string Id { get; set; }
         public string ParentId { get; set; }
@@ -35,7 +35,7 @@ namespace TypeLibrary.Data.Models
         public virtual ICollection<TransportLibDm> Children { get; set; }
         public virtual ICollection<AttributeLibDm> Attributes { get; set; }
 
-        #region Versionable
+        #region IVersionable
 
         public Validation HasIllegalChanges(TransportLibAm other)
         {
@@ -107,6 +107,23 @@ namespace TypeLibrary.Data.Models
             return major ? VersionStatus.Major : minor ? VersionStatus.Minor : VersionStatus.NoChange;
         }
 
-        #endregion
+        #endregion IVersionable
+
+        #region ILogable
+
+        public LogLibAm CreateLog(LogType logType, string logTypeValue, string comment)
+        {
+            return new LogLibAm
+            {
+                ObjectId = Id,
+                ObjectType = nameof(TransportLibDm),
+                ObjectName = Name,
+                LogType = logType,
+                LogTypeValue = logTypeValue,
+                Comment = comment
+            };
+        }
+
+        #endregion ILogable
     }
 }

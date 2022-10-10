@@ -22,12 +22,14 @@ namespace TypeLibrary.Services.Services
         private readonly ITerminalRepository _terminalRepository;
         private readonly IMapper _mapper;
         private readonly ITimedHookService _hookService;
+        private readonly ILogService _logService;
 
-        public TerminalService(ITerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService)
+        public TerminalService(ITerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService, ILogService logService)
         {
             _terminalRepository = terminalRepository;
             _mapper = mapper;
             _hookService = hookService;
+            _logService = logService;
         }
 
         /// <summary>
@@ -92,6 +94,7 @@ namespace TypeLibrary.Services.Services
 
             await _terminalRepository.Create(dm);
             _terminalRepository.ClearAllChangeTrackers();
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), dm.Version);
             _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
             return GetLatestVersion(dm.Id);
@@ -139,15 +142,15 @@ namespace TypeLibrary.Services.Services
                 _ => terminalToUpdate.Version
             };
 
-            var terminalDm = _mapper.Map<TerminalLibDm>(terminalAm);
+            var dm = _mapper.Map<TerminalLibDm>(terminalAm);
 
-            terminalDm.State = State.Draft;
-            terminalDm.FirstVersionId = terminalToUpdate.FirstVersionId;
+            dm.State = State.Draft;
+            dm.FirstVersionId = terminalToUpdate.FirstVersionId;
 
-            var terminalCm = await _terminalRepository.Create(terminalDm);
+            var terminalCm = await _terminalRepository.Create(dm);
             _terminalRepository.ClearAllChangeTrackers();
-
             await _terminalRepository.ChangeParentId(terminalAm.Id, terminalCm.Id);
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), dm.Version);
             _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
             return GetLatestVersion(terminalCm.Id);
@@ -167,10 +170,18 @@ namespace TypeLibrary.Services.Services
             if (dm == null)
                 throw new MimirorgNotFoundException($"Terminal with id {id} not found, or is not latest version.");
 
-            var dmAllVersions = _terminalRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId).Select(x => x.Id).ToList();
+            var newStateDms = _terminalRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId && x.State != state).ToList();
 
-            await _terminalRepository.ChangeState(state, dmAllVersions);
+            if (!newStateDms.Any())
+                return null;
+
+            await _terminalRepository.ChangeState(state, newStateDms.Select(x => x.Id).ToList());
+
+            foreach (var newStateDm in newStateDms)
+                await _logService.CreateLog(newStateDm, LogType.State, state.ToString(), newStateDm.Version);
+
             _hookService.HookQueue.Enqueue(CacheKey.Terminal);
+
             return state == State.Deleted ? null : GetLatestVersion(id);
         }
 

@@ -22,12 +22,14 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly IInterfaceRepository _interfaceRepository;
         private readonly ITimedHookService _hookService;
+        private readonly ILogService _logService;
 
-        public InterfaceService(IMapper mapper, IInterfaceRepository interfaceRepository, ITimedHookService hookService)
+        public InterfaceService(IMapper mapper, IInterfaceRepository interfaceRepository, ITimedHookService hookService, ILogService logService)
         {
             _mapper = mapper;
             _interfaceRepository = interfaceRepository;
             _hookService = hookService;
+            _logService = logService;
         }
 
         /// <summary>
@@ -86,16 +88,17 @@ namespace TypeLibrary.Services.Services
                 throw new MimirorgDuplicateException($"Interface '{interfaceAm.Name}' and version '{interfaceAm.Version}' already exist.");
 
             interfaceAm.Version = "1.0";
-            var interfaceDm = _mapper.Map<InterfaceLibDm>(interfaceAm);
+            var dm = _mapper.Map<InterfaceLibDm>(interfaceAm);
 
-            interfaceDm.State = State.Draft;
-            interfaceDm.FirstVersionId = interfaceDm.Id;
+            dm.State = State.Draft;
+            dm.FirstVersionId = dm.Id;
 
-            await _interfaceRepository.Create(interfaceDm);
+            await _interfaceRepository.Create(dm);
             _interfaceRepository.ClearAllChangeTrackers();
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), dm.Version);
             _hookService.HookQueue.Enqueue(CacheKey.Interface);
 
-            return GetLatestVersion(interfaceDm.Id);
+            return GetLatestVersion(dm.Id);
         }
 
         /// <summary>
@@ -140,15 +143,15 @@ namespace TypeLibrary.Services.Services
                 _ => interfaceToUpdate.Version
             };
 
-            var interfaceDm = _mapper.Map<InterfaceLibDm>(interfaceAm);
+            var dm = _mapper.Map<InterfaceLibDm>(interfaceAm);
 
-            interfaceDm.State = State.Draft;
-            interfaceDm.FirstVersionId = interfaceToUpdate.FirstVersionId;
+            dm.State = State.Draft;
+            dm.FirstVersionId = interfaceToUpdate.FirstVersionId;
 
-            var interfaceCm = await _interfaceRepository.Create(interfaceDm);
+            var interfaceCm = await _interfaceRepository.Create(dm);
             _interfaceRepository.ClearAllChangeTrackers();
-
             await _interfaceRepository.ChangeParentId(interfaceAm.Id, interfaceCm.Id);
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), dm.Version);
             _hookService.HookQueue.Enqueue(CacheKey.Interface);
 
             return GetLatestVersion(interfaceCm.Id);
@@ -168,10 +171,18 @@ namespace TypeLibrary.Services.Services
             if (dm == null)
                 throw new MimirorgNotFoundException($"Interface with id {id} not found, or is not latest version.");
 
-            var dmAllVersions = _interfaceRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId).Select(x => x.Id).ToList();
+            var newStateDms = _interfaceRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId && x.State != state).ToList();
 
-            await _interfaceRepository.ChangeState(state, dmAllVersions);
+            if (!newStateDms.Any())
+                return null;
+
+            await _interfaceRepository.ChangeState(state, newStateDms.Select(x => x.Id).ToList());
+
+            foreach (var newStateDm in newStateDms)
+                await _logService.CreateLog(newStateDm, LogType.State, state.ToString(), newStateDm.Version);
+
             _hookService.HookQueue.Enqueue(CacheKey.Interface);
+
             return state == State.Deleted ? null : GetLatestVersion(id);
         }
 
