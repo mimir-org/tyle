@@ -95,7 +95,7 @@ namespace TypeLibrary.Services.Services
 
             await _interfaceRepository.Create(dm);
             _interfaceRepository.ClearAllChangeTrackers();
-            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), LogType.Create.ToString());
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), dm.Version);
             _hookService.HookQueue.Enqueue(CacheKey.Interface);
 
             return GetLatestVersion(dm.Id);
@@ -151,7 +151,7 @@ namespace TypeLibrary.Services.Services
             var interfaceCm = await _interfaceRepository.Create(dm);
             _interfaceRepository.ClearAllChangeTrackers();
             await _interfaceRepository.ChangeParentId(interfaceAm.Id, interfaceCm.Id);
-            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), LogType.Update.ToString());
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), dm.Version);
             _hookService.HookQueue.Enqueue(CacheKey.Interface);
 
             return GetLatestVersion(interfaceCm.Id);
@@ -177,7 +177,10 @@ namespace TypeLibrary.Services.Services
                 return null;
 
             await _interfaceRepository.ChangeState(state, newStateDms.Select(x => x.Id).ToList());
-            await _logService.CreateLogs(newStateDms, LogType.State, state.ToString(), LogType.State.ToString());
+
+            foreach (var newStateDm in newStateDms)
+                await _logService.CreateLog(newStateDm, LogType.State, state.ToString(), newStateDm.Version);
+
             _hookService.HookQueue.Enqueue(CacheKey.Interface);
 
             return state == State.Deleted ? null : GetLatestVersion(id);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace TypeLibrary.Services.Services
         /// <returns>A collection of all logs</returns>
         public IEnumerable<LogLibCm> Get()
         {
-            var dms = _logRepository.Get().ToList();
+            var dms = _logRepository.Get().OrderBy(x => x.ObjectName, StringComparer.CurrentCultureIgnoreCase).ThenBy(x => x.Comment).ToList();
             return _mapper.Map<List<LogLibCm>>(dms);
         }
 

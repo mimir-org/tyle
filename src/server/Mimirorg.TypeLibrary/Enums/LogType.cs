@@ -6,9 +6,5 @@ namespace Mimirorg.TypeLibrary.Enums
     {
         [Display(Name = "State")]
         State = 0,
-        [Display(Name = "Create")]
-        Create = 1,
-        [Display(Name = "Update")]
-        Update = 2,
     }
 }
