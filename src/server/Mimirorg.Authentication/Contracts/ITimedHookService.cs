@@ -9,7 +9,7 @@ namespace Mimirorg.Authentication.Contracts
         /// Send message to all clients that have registered a key 
         /// </summary>
         Queue<CacheKey> HookQueue { get; set; }
-        
+
         bool IsMigrationFinished { get; set; }
     }
 }

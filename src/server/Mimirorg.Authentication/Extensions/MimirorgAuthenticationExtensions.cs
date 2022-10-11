@@ -216,7 +216,7 @@ namespace Mimirorg.Authentication.Extensions
             {
                 context.Database.Migrate();
             }
-            
+
             var timedHookService = serviceScope.ServiceProvider.GetRequiredService<ITimedHookService>();
             timedHookService.IsMigrationFinished = true;
         }
