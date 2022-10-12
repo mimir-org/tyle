@@ -7,6 +7,7 @@ using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
+using TypeLibrary.Services.Services;
 using Xunit;
 
 namespace Mimirorg.Integration.Tests.Services
@@ -125,6 +126,21 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(transportAm.TypeReferences.First().Subs.First().Name, transportCm.TypeReferences.First().Subs.First().Name);
             Assert.Equal(transportAm.TypeReferences.First().Subs.First().Iri, transportCm.TypeReferences.First().Subs.First().Iri);
             Assert.Equal(transportAm.ParentId, transportCm.ParentId);
+
+            var logService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ILogService>();
+            var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == transportCm.Id);
+
+            Assert.True(logCm != null);
+            Assert.Equal(transportCm.Id, logCm.ObjectId);
+            Assert.Equal(transportCm.FirstVersionId, logCm.ObjectFirstVersionId);
+            Assert.Equal(transportCm.Name, logCm.ObjectName);
+            Assert.Equal(transportCm.Version, logCm.ObjectVersion);
+            Assert.Equal(transportCm.GetType().Name.Remove(transportCm.GetType().Name.Length - 2, 2) + "Dm", logCm.ObjectType);
+            Assert.Equal(LogType.State.ToString(), logCm.LogType.ToString());
+            Assert.Equal(State.Draft.ToString(), logCm.LogTypeValue);
+            Assert.NotNull(logCm.User);
+            Assert.Equal("System.DateTime", logCm.Created.GetType().ToString());
+            Assert.True(logCm.Created.Kind == DateTimeKind.Utc);
         }
 
         [Fact]
