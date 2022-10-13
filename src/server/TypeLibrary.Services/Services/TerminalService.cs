@@ -170,16 +170,8 @@ namespace TypeLibrary.Services.Services
             if (dm == null)
                 throw new MimirorgNotFoundException($"Terminal with id {id} not found, or is not latest version.");
 
-            var newStateDms = _terminalRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId && x.State != state).ToList();
-
-            if (!newStateDms.Any())
-                return null;
-
-            await _terminalRepository.ChangeState(state, newStateDms.Select(x => x.Id).ToList());
-
-            foreach (var newStateDm in newStateDms)
-                await _logService.CreateLog(newStateDm, LogType.State, state.ToString());
-
+            await _terminalRepository.ChangeState(state, new List<string> { dm.Id });
+            await _logService.CreateLog(dm, LogType.State, state.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
             return state == State.Deleted ? null : GetLatestVersion(id);

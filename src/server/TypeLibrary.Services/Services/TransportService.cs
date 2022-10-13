@@ -13,7 +13,6 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -172,16 +171,8 @@ namespace TypeLibrary.Services.Services
             if (dm == null)
                 throw new MimirorgNotFoundException($"Transport with id {id} not found, or is not latest version.");
 
-            var newStateDms = _transportRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId && x.State != state).ToList();
-
-            if (!newStateDms.Any())
-                return null;
-
-            await _transportRepository.ChangeState(state, newStateDms.Select(x => x.Id).ToList());
-
-            foreach (var newStateDm in newStateDms)
-                await _logService.CreateLog(newStateDm, LogType.State, state.ToString());
-
+            await _transportRepository.ChangeState(state, new List<string> { dm.Id });
+            await _logService.CreateLog(dm, LogType.State, state.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Transport);
 
             return state == State.Deleted ? null : GetLatestVersion(id);

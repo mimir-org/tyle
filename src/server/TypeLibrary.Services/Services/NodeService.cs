@@ -171,16 +171,8 @@ namespace TypeLibrary.Services.Services
             if (dm == null)
                 throw new MimirorgNotFoundException($"Node with id {id} not found, or is not latest version.");
 
-            var newStateDms = _nodeRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId && x.State != state).ToList();
-
-            if (!newStateDms.Any())
-                return null;
-
-            await _nodeRepository.ChangeState(state, newStateDms.Select(x => x.Id).ToList());
-
-            foreach (var newStateDm in newStateDms)
-                await _logService.CreateLog(newStateDm, LogType.State, state.ToString());
-
+            await _nodeRepository.ChangeState(state, new List<string> { dm.Id });
+            await _logService.CreateLog(dm, LogType.State, state.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
 
             return state == State.Deleted ? null : GetLatestVersion(id);

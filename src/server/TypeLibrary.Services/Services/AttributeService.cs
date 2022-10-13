@@ -180,16 +180,8 @@ namespace TypeLibrary.Services.Services
             if (dm == null)
                 throw new MimirorgNotFoundException($"Attribute with id {id} not found, or is not latest version.");
 
-            var newStateDms = _attributeRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId && x.State != state).ToList();
-
-            if (!newStateDms.Any())
-                return null;
-
-            await _attributeRepository.ChangeState(state, newStateDms.Select(x => x.Id).ToList());
-
-            foreach (var newStateDm in newStateDms)
-                await _logService.CreateLog(newStateDm, LogType.State, state.ToString());
-
+            await _attributeRepository.ChangeState(state, new List<string>{ dm.Id });
+            await _logService.CreateLog(dm, LogType.State, state.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 
             return state == State.Deleted ? null : GetLatestVersion(id);
