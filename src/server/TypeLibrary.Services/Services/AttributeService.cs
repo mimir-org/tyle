@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -152,6 +153,27 @@ namespace TypeLibrary.Services.Services
                 VersionStatus.Major => attributeToUpdate.Version.IncrementMajorVersion(),
                 _ => attributeToUpdate.Version
             };
+
+            var allDeletedVersions = _attributeRepository.Get().LatestVersion(true)
+                .Where(x => x.FirstVersionId == attributeToUpdate.FirstVersionId)
+                .OrderByDescending(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList();
+
+            var latestDeletedVersion = allDeletedVersions.FirstOrDefault();
+
+            //Is there a deleted version with the same or a higher version number?
+            if (latestDeletedVersion != null 
+                && double.Parse(latestDeletedVersion.Version, CultureInfo.InvariantCulture) 
+                >= double.Parse(attributeAm.Version, CultureInfo.InvariantCulture))
+            {
+                attributeToUpdate.Version = latestDeletedVersion.Version;
+                attributeAm.Version = versionStatus switch
+                {
+                    VersionStatus.Minor => attributeToUpdate.Version.IncrementMinorVersion(),
+                    VersionStatus.Major => attributeToUpdate.Version.IncrementMajorVersion(),
+                    _ => attributeToUpdate.Version
+                };
+
+            }
 
             var dm = _mapper.Map<AttributeLibDm>(attributeAm);
 

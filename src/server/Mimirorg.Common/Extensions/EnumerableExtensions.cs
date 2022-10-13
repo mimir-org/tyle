@@ -17,9 +17,11 @@ namespace Mimirorg.Common.Extensions
             return dictA.Keys.Union(dictB.Keys).ToDictionary(k => k, k => dictA.ContainsKey(k) ? dictA[k] : dictB[k]);
         }
 
-        public static IEnumerable<T> LatestVersion<T>(this IEnumerable<T> collection) where T : IVersionObject
+        public static IEnumerable<T> LatestVersion<T>(this IEnumerable<T> collection, bool includeDeleted = false) where T : IVersionObject
         {
-            return collection.Where(x => x.State != State.Deleted).OrderByDescending(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).DistinctBy(x => x.FirstVersionId);
+            return includeDeleted 
+                ? collection.OrderByDescending(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).DistinctBy(x => x.FirstVersionId) 
+                : collection.Where(x => x.State != State.Deleted).OrderByDescending(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).DistinctBy(x => x.FirstVersionId);
         }
     }
 }
