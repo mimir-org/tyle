@@ -51,7 +51,7 @@ namespace TypeLibrary.Services.Services
         /// <returns>The attribute, otherwise return null</returns>
         public AttributeLibCm GetLatestVersion(string id)
         {
-            var dm = _attributeRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
+            var dm = _attributeRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
             if (dm == null)
                 throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
@@ -66,7 +66,7 @@ namespace TypeLibrary.Services.Services
         /// <returns>List of AttributeLibCm</returns>
         public IEnumerable<AttributeLibCm> GetLatestVersions(Aspect aspect)
         {
-            var dms = _attributeRepository.Get()?.LatestVersion()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var dms = _attributeRepository.Get()?.LatestVersionsExcludeDeleted()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
             if (dms == null)
                 throw new MimirorgNotFoundException("No attributes were found.");
@@ -128,13 +128,13 @@ namespace TypeLibrary.Services.Services
             if (!validation.IsValid)
                 throw new MimirorgBadRequestException("Attribute is not valid.", validation);
 
-            var attributeToUpdate = _attributeRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == attributeAm.Id);
+            var attributeToUpdate = _attributeRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == attributeAm.Id);
 
             if (attributeToUpdate == null)
             {
                 validation = new Validation(new List<string> { nameof(AttributeLibAm.Name), nameof(AttributeLibAm.Version) },
                 $"Attribute with name {attributeAm.Name}, aspect {attributeAm.Aspect}, QuantityDatumSpecifiedScope {attributeAm.QuantityDatumSpecifiedScope}, QuantityDatumSpecifiedProvenance {attributeAm.QuantityDatumSpecifiedProvenance}, QuantityDatumRangeSpecifying {attributeAm.QuantityDatumRangeSpecifying}, QuantityDatumRegularitySpecified {attributeAm.QuantityDatumRegularitySpecified}, id {attributeAm.Id} and version {attributeAm.Version} does not exist.");
-                throw new MimirorgBadRequestException("Attribute does not exist. Update is not possible.", validation);
+                throw new MimirorgBadRequestException("Attribute does not exist or is flagged as deleted. Update is not possible.", validation);
             }
 
             validation = attributeToUpdate.HasIllegalChanges(attributeAm);
@@ -147,33 +147,16 @@ namespace TypeLibrary.Services.Services
             if (versionStatus == VersionStatus.NoChange)
                 return GetLatestVersion(attributeToUpdate.Id);
 
+            //We need to take into account that there exist a higher version that has state 'Deleted'.
+            //Therefore we need to increment minor/major from the latest version, including those with state 'Deleted'.
+            attributeToUpdate.Version = _attributeRepository.Get().LatestVersionIncludeDeleted(attributeToUpdate.FirstVersionId).Version;
+            
             attributeAm.Version = versionStatus switch
             {
                 VersionStatus.Minor => attributeToUpdate.Version.IncrementMinorVersion(),
                 VersionStatus.Major => attributeToUpdate.Version.IncrementMajorVersion(),
                 _ => attributeToUpdate.Version
             };
-
-            var allDeletedVersions = _attributeRepository.Get().LatestVersion(true)
-                .Where(x => x.FirstVersionId == attributeToUpdate.FirstVersionId)
-                .OrderByDescending(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList();
-
-            var latestDeletedVersion = allDeletedVersions.FirstOrDefault();
-
-            //Is there a deleted version with the same or a higher version number?
-            if (latestDeletedVersion != null 
-                && double.Parse(latestDeletedVersion.Version, CultureInfo.InvariantCulture) 
-                >= double.Parse(attributeAm.Version, CultureInfo.InvariantCulture))
-            {
-                attributeToUpdate.Version = latestDeletedVersion.Version;
-                attributeAm.Version = versionStatus switch
-                {
-                    VersionStatus.Minor => attributeToUpdate.Version.IncrementMinorVersion(),
-                    VersionStatus.Major => attributeToUpdate.Version.IncrementMajorVersion(),
-                    _ => attributeToUpdate.Version
-                };
-
-            }
 
             var dm = _mapper.Map<AttributeLibDm>(attributeAm);
 
@@ -197,7 +180,7 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if the attribute does not exist on latest version</exception>
         public async Task<AttributeLibCm> ChangeState(string id, State state)
         {
-            var dm = _attributeRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
+            var dm = _attributeRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
             if (dm == null)
                 throw new MimirorgNotFoundException($"Attribute with id {id} not found, or is not latest version.");

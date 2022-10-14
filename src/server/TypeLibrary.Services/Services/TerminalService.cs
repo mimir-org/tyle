@@ -40,7 +40,7 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id, and that terminal is at the latest version.</exception>
         public TerminalLibCm GetLatestVersion(string id)
         {
-            var dm = _terminalRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
+            var dm = _terminalRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
             if (dm == null)
                 throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
@@ -54,7 +54,7 @@ namespace TypeLibrary.Services.Services
         /// <returns>A collection of terminals</returns>
         public IEnumerable<TerminalLibCm> GetLatestVersions()
         {
-            var dms = _terminalRepository.Get()?.LatestVersion()?.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var dms = _terminalRepository.Get()?.LatestVersionsExcludeDeleted()?.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
             if (dms == null)
                 throw new MimirorgNotFoundException("No terminals were found.");
@@ -111,29 +111,32 @@ namespace TypeLibrary.Services.Services
         public async Task<TerminalLibCm> Update(TerminalLibAm terminalAm)
         {
             var validation = terminalAm.ValidateObject();
+
             if (!validation.IsValid)
                 throw new MimirorgBadRequestException("Terminal is not valid.", validation);
 
-            var terminalToUpdate = _terminalRepository.Get()
-                .LatestVersion()
-                .FirstOrDefault(x => x.Id == terminalAm.Id);
+            var terminalToUpdate = _terminalRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == terminalAm.Id);
 
             if (terminalToUpdate == null)
             {
                 validation = new Validation(new List<string> { nameof(TerminalLibAm.Name), nameof(TerminalLibAm.Version) },
                     $"Terminal with name {terminalAm.Name}, id {terminalAm.Id} and version {terminalAm.Version} does not exist.");
-                throw new MimirorgBadRequestException("Terminal does not exist. Update is not possible.", validation);
+                throw new MimirorgBadRequestException("Terminal does not exist or is flagged as deleted. Update is not possible.", validation);
             }
 
-            // Get version
             validation = terminalToUpdate.HasIllegalChanges(terminalAm);
 
             if (!validation.IsValid)
                 throw new MimirorgBadRequestException(validation.Message, validation);
 
             var versionStatus = terminalToUpdate.CalculateVersionStatus(terminalAm);
+
             if (versionStatus == VersionStatus.NoChange)
                 return GetLatestVersion(terminalToUpdate.Id);
+
+            //We need to take into account that there exist a higher version that has state 'Deleted'.
+            //Therefore we need to increment minor/major from the latest version, including those with state 'Deleted'.
+            terminalToUpdate.Version = _terminalRepository.Get().LatestVersionIncludeDeleted(terminalToUpdate.FirstVersionId).Version;
 
             terminalAm.Version = versionStatus switch
             {
@@ -165,7 +168,7 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if the terminal does not exist on latest version</exception>
         public async Task<TerminalLibCm> ChangeState(string id, State state)
         {
-            var dm = _terminalRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
+            var dm = _terminalRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
             if (dm == null)
                 throw new MimirorgNotFoundException($"Terminal with id {id} not found, or is not latest version.");
