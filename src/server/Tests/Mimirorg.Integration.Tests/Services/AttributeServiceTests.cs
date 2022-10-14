@@ -92,6 +92,7 @@ namespace Mimirorg.Integration.Tests.Services
             using var scope = Factory.Server.Services.CreateScope();
             var attributeService = scope.ServiceProvider.GetRequiredService<IAttributeService>();
             var unitService = scope.ServiceProvider.GetRequiredService<IUnitService>();
+            var logService = scope.ServiceProvider.GetRequiredService<ILogService>();
             var units = (await unitService.Get()).ToList();
 
             Assert.True(units != null);
@@ -167,6 +168,20 @@ namespace Mimirorg.Integration.Tests.Services
 
             for (var i = 0; i < amUnitIdList.Count; i++)
                 Assert.Equal(amUnitIdList[i], cmUnitIdList[i]);
+
+            var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == attributeCm.Id);
+
+            Assert.True(logCm != null);
+            Assert.Equal(attributeCm.Id, logCm.ObjectId);
+            Assert.Equal(attributeCm.FirstVersionId, logCm.ObjectFirstVersionId);
+            Assert.Equal(attributeCm.Name, logCm.ObjectName);
+            Assert.Equal(attributeCm.Version, logCm.ObjectVersion);
+            Assert.Equal(attributeCm.GetType().Name.Remove(attributeCm.GetType().Name.Length - 2, 2) + "Dm", logCm.ObjectType);
+            Assert.Equal(LogType.State.ToString(), logCm.LogType.ToString());
+            Assert.Equal(State.Draft.ToString(), logCm.LogTypeValue);
+            Assert.NotNull(logCm.User);
+            Assert.Equal("System.DateTime", logCm.Created.GetType().ToString());
+            Assert.True(logCm.Created.Kind == DateTimeKind.Utc);
         }
 
         [Fact]
