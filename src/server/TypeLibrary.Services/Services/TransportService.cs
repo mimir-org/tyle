@@ -13,7 +13,6 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -151,7 +150,7 @@ namespace TypeLibrary.Services.Services
 
             dm.State = State.Draft;
             dm.FirstVersionId = transportToUpdate.FirstVersionId;
-            
+
             await _transportRepository.Create(dm);
             _transportRepository.ClearAllChangeTrackers();
             await _transportRepository.ChangeParentId(transportAm.Id, dm.Id);

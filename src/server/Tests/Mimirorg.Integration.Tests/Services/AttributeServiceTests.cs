@@ -69,7 +69,7 @@ namespace Mimirorg.Integration.Tests.Services
         {
             using var scope = Factory.Server.Services.CreateScope();
             var attributeService = scope.ServiceProvider.GetRequiredService<IAttributeService>();
-            
+
             var rangeSpecifying = await attributeService.GetQuantityDatumRangeSpecifying();
             var regularitySpecified = await attributeService.GetQuantityDatumRegularitySpecified();
             var specifiedProvenance = await attributeService.GetQuantityDatumSpecifiedProvenance();

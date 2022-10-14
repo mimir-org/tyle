@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -150,7 +149,7 @@ namespace TypeLibrary.Services.Services
             //We need to take into account that there exist a higher version that has state 'Deleted'.
             //Therefore we need to increment minor/major from the latest version, including those with state 'Deleted'.
             attributeToUpdate.Version = _attributeRepository.Get().LatestVersionIncludeDeleted(attributeToUpdate.FirstVersionId).Version;
-            
+
             attributeAm.Version = versionStatus switch
             {
                 VersionStatus.Minor => attributeToUpdate.Version.IncrementMinorVersion(),
@@ -185,7 +184,7 @@ namespace TypeLibrary.Services.Services
             if (dm == null)
                 throw new MimirorgNotFoundException($"Attribute with id {id} not found, or is not latest version.");
 
-            await _attributeRepository.ChangeState(state, new List<string>{ dm.Id });
+            await _attributeRepository.ChangeState(state, new List<string> { dm.Id });
             await _logService.CreateLog(dm, LogType.State, state.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 

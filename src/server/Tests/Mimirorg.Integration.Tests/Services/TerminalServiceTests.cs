@@ -73,7 +73,7 @@ namespace Mimirorg.Integration.Tests.Services
 
             var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
             var logService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ILogService>();
-            
+
             var terminalCm = await terminalService.Create(terminalAm);
 
             Assert.NotNull(terminalCm);
