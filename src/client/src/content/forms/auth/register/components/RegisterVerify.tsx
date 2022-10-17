@@ -64,11 +64,7 @@ export const RegisterVerify = ({ email, setQrCodeInfo, cancel, complete }: Regis
                 {cancel.actionText}
               </Button>
             )}
-            {complete?.actionable && (
-              <Button type={"submit"} onClick={complete.onAction}>
-                {complete.actionText}
-              </Button>
-            )}
+            {complete?.actionable && <Button type={"submit"}>{complete.actionText}</Button>}
           </Flexbox>
         </Flexbox>
       )}
