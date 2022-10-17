@@ -11,7 +11,7 @@ import {
 } from "./UnauthenticatedContent.styled";
 import { UnauthenticatedContentHeader, UnauthenticatedContentHeaderProps } from "./UnauthenticatedContentHeader";
 
-type UnauthenticatedContentProps = Partial<Actionable> &
+export type UnauthenticatedContentProps = Partial<Actionable> &
   UnauthenticatedContentHeaderProps & {
     children?: ReactNode;
     infoTitle?: string;

@@ -416,50 +416,38 @@
   "datum": {
     "title": "Datum"
   },
-  "forms": {
-    "placeholders": {
-      "email": "you@organization.com",
-      "password": "**********",
-      "code": "123456",
-      "firstname": "Jane",
-      "lastname": "Smith",
-      "required": "* Indicates a required field.",
-      "purpose": "Please explain why should have access to the application.",
-      "company": "Please select organization"
-    },
-    "fields": {
-      "email": "E-mail",
-      "password": "Password",
-      "code": "Authentication code",
-      "firstname": "First name",
-      "lastname": "Last name",
-      "purpose": "Purpose",
-      "company": "Organizational affiliation"
-    },
-    "login": {
-      "title": "Login",
-      "description": "View, create and edit types!",
-      "submit": "Login",
-      "altLead": "Don't have an account?",
-      "altLink": "Sign up",
-      "error": "Incorrect username, password or authentication code."
-    },
-    "register": {
+  "register": {
+    "details": {
       "title": "Register",
       "description": "Create an account to collaborate with your organization!",
       "submit": "Create account",
       "altLead": "Have an account?",
       "altLink": "Log in",
       "error": "An error occurred when trying to create your user.",
-      "processing": "Registering your user",
-      "finalize": {
-        "verification": "Please verify your email",
-        "verificationDescription": "You're almost there! We have sent you an email to verify your registration. Just click on the link in that email to complete your signup. If you don't see it, you may need to check your spam folder.",
-        "mfa": "Multi-factor authentication",
-        "mfaDescription": "Scan the QR code below in your authenticator app of choice. The code shown in the app can then be used during login.",
-        "finish": "Finish registration"
+      "info": {
+        "title": "Happy to have you! Remember that...",
+        "text": "Your next step will be to verify your e-mail and activate 2-factor authentication. Without this, you cannot access :Tyle."
       }
-    }
+    },
+    "verify": {
+      "title": "Verify",
+      "info": {
+        "title": "Please verify your e-mail",
+        "text": "We have sent a six-digit code to your email. Please enter the code within 1 hour, or the code will expire and you will have to restart the registration. Make sure to check your spam/junk folder for the email."
+      }
+    },
+    "mfa": {
+      "title": "Multifactor authentication",
+      "scan": "Scan the QR code",
+      "info": {
+        "title": "Activate 2-factor authentication",
+        "text": "In order to use :Tyle, you must activate 2-factor authentication using an authenticator app. This is to ensure the quality fo the data created and stored in :Tyle. If this process fails, please restart the registration process via Account Recovery on the main page."
+      }
+    },
+    "complete": {
+      "description": "Your authenticator is ready for use. Return to the main page to log on."
+    },
+    "processing": "Processing"
   },
   "login": {
     "title": "Login",
