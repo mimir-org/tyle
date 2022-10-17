@@ -46,7 +46,7 @@ export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps
       infoTitle={t("register.details.info.title")}
       infoText={t("register.details.info.text")}
     >
-      {mutation.isLoading && <RegisterProcessing />}
+      {mutation.isLoading && <RegisterProcessing>{t("register.processing")}</RegisterProcessing>}
       {!mutation.isSuccess && !mutation.isLoading && (
         <Form onSubmit={handleSubmit((data) => onSubmit(data))}>
           {mutation.isError && <FormErrorBanner>{t("register.details.error")}</FormErrorBanner>}

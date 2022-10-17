@@ -1,12 +1,14 @@
-import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Spinner } from "../../../../../complib/feedback";
 import { Flexbox } from "../../../../../complib/layouts";
 import { Text } from "../../../../../complib/text";
 
-export const RegisterProcessing = () => {
+interface RegisterProcessingProps {
+  children?: string;
+}
+
+export const RegisterProcessing = ({ children }: RegisterProcessingProps) => {
   const theme = useTheme();
-  const { t } = useTranslation();
 
   return (
     <Flexbox
@@ -16,7 +18,7 @@ export const RegisterProcessing = () => {
       alignItems={"center"}
       gap={theme.tyle.spacing.xl}
     >
-      <Text variant={"title-medium"}>{t("register.processing")}</Text>
+      <Text variant={"title-medium"}>{children}</Text>
       <Spinner />
     </Flexbox>
   );

@@ -40,7 +40,9 @@ export const RegisterVerify = ({ email, setQrCodeInfo, cancel, complete }: Regis
       infoTitle={t("register.verify.info.title")}
       infoText={t("register.verify.info.text")}
     >
-      {(verificationMutation.isLoading || generateMfaMutation.isLoading) && <RegisterProcessing />}
+      {(verificationMutation.isLoading || generateMfaMutation.isLoading) && (
+        <RegisterProcessing>{t("register.processing")}</RegisterProcessing>
+      )}
       {!verificationMutation.isSuccess && !verificationMutation.isLoading && (
         <Flexbox
           as={"form"}
