@@ -427,6 +427,29 @@
       "info": {
         "title": "Happy to have you! Remember that...",
         "text": "Your next step will be to verify your e-mail and activate 2-factor authentication. Without this, you cannot access :Tyle."
+      },
+      "validation": {
+        "email": {
+          "email": "Please ensure that the email is formatted correctly",
+          "required": "Please specify an email"
+        },
+        "password": {
+          "min": "The password must be at least 10 characters long",
+          "required": "Please enter a password"
+        },
+        "confirmPassword": {
+          "match": "The password does not match the one previously entered",
+          "required": "Please re-enter the password you have chosen"
+        },
+        "firstName": {
+          "required": "Please enter your first name"
+        },
+        "lastName": {
+          "required": "Please enter your last name"
+        },
+        "purpose": {
+          "required": "Please explain your purpose for creating this account"
+        }
       }
     },
     "verify": {

@@ -1,4 +1,5 @@
 import { DevTool } from "@hookform/devtools";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -15,6 +16,7 @@ import { useCreateUser } from "../../../../../data/queries/auth/queriesUser";
 import { useExecuteOnCriteria } from "../../../../../hooks/useExecuteOnCriteria";
 import { useServerValidation } from "../../../../../hooks/useServerValidation";
 import { UnauthenticatedContent } from "../../../../app/components/unauthenticated/layout/UnauthenticatedContent";
+import { registerDetailsSchema } from "./registerDetailsSchema";
 import { RegisterProcessing } from "./RegisterProcessing";
 
 interface RegisterDetailsProps {
@@ -25,7 +27,12 @@ interface RegisterDetailsProps {
 export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const { register, control, handleSubmit, setError, formState } = useForm<MimirorgUserAm>();
+
+  const formMethods = useForm<MimirorgUserAm>({
+    resolver: yupResolver(registerDetailsSchema(t)),
+  });
+
+  const { register, control, handleSubmit, setError, formState } = formMethods;
   const { errors } = formState;
 
   const companyQuery = useGetCompanies();
