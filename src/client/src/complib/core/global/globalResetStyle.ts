@@ -52,6 +52,5 @@ export const globalResetStyle = css`
 
   #root {
     isolation: isolate;
-    height: 100%;
   }
 `;
