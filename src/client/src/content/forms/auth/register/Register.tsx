@@ -67,6 +67,7 @@ export const Register = () => {
       {stage === "COMPLETE" && (
         <RegisterComplete
           text={t("register.complete.description")}
+          actionable
           actionText={t("common.return")}
           onAction={() => navigate("/")}
         />
