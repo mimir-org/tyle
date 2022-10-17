@@ -6,9 +6,9 @@ import { useEffect } from "react";
  * @param executable function to call if criteria are true
  * @param criteria which decides if navigation should take place
  */
-export const useExecuteOnCriteria = (executable: () => void, ...criteria: boolean[]) => {
+export const useExecuteOnCriteria = (executable?: () => void, ...criteria: boolean[]) => {
   useEffect(() => {
-    if (criteria.every((c) => c)) {
+    if (criteria.every((c) => c) && executable) {
       executable();
     }
   }, [criteria, executable]);
