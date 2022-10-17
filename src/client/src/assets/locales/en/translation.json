@@ -461,6 +461,14 @@
       }
     }
   },
+  "login": {
+    "title": "Login",
+    "description": "View, create and edit types!",
+    "submit": "Login",
+    "altLead": "Don't have an account?",
+    "altLink": "Sign up",
+    "error": "Incorrect username, password or authentication code."
+  },
   "clientError": {
     "title": "Oops!",
     "subtitle": "An error occurred when loading the page. Please contact support if the problem persists.",
@@ -478,8 +486,30 @@
     "submit": "Submit",
     "confirm": "Confirm",
     "select": "Select",
+    "back": "Back",
+    "next": "Next",
+    "return": "Return",
     "templates": {
       "select": "Select {{object}}"
+    },
+    "placeholders": {
+      "email": "you@organization.com",
+      "password": "**********",
+      "code": "123456",
+      "firstname": "Jane",
+      "lastname": "Smith",
+      "required": "* Indicates a required field.",
+      "purpose": "Please explain why should have access to the application.",
+      "company": "Please select organization"
+    },
+    "fields": {
+      "email": "E-mail",
+      "password": "Password",
+      "code": "Authentication code",
+      "firstname": "First name",
+      "lastname": "Last name",
+      "purpose": "Purpose",
+      "company": "Organizational affiliation"
     }
   }
 }
