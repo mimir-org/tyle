@@ -61,7 +61,6 @@ export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps
                   <Controller
                     control={control}
                     name={"companyId"}
-                    rules={{ required: true }}
                     render={({ field: { value, onChange, ref, ...rest } }) => (
                       <Select
                         {...rest}
@@ -80,28 +79,15 @@ export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps
                 </FormField>
 
                 <FormField label={`${t("common.fields.email")} *`} error={formState.errors.email}>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder={t("common.placeholders.email")}
-                    {...register("email", { required: true })}
-                  />
+                  <Input id="email" type="email" placeholder={t("common.placeholders.email")} {...register("email")} />
                 </FormField>
 
                 <FormField label={`${t("common.fields.firstname")} *`} error={errors.firstName}>
-                  <Input
-                    id="firstName"
-                    placeholder={t("common.placeholders.firstname")}
-                    {...register("firstName", { required: true })}
-                  />
+                  <Input id="firstName" placeholder={t("common.placeholders.firstname")} {...register("firstName")} />
                 </FormField>
 
                 <FormField label={`${t("common.fields.lastname")} *`} error={errors.lastName}>
-                  <Input
-                    id="lastName"
-                    placeholder={t("common.placeholders.lastname")}
-                    {...register("lastName", { required: true })}
-                  />
+                  <Input id="lastName" placeholder={t("common.placeholders.lastname")} {...register("lastName")} />
                 </FormField>
 
                 <FormField label={`${t("common.fields.password")} *`} error={errors.password}>
@@ -109,7 +95,7 @@ export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps
                     id="password"
                     type="password"
                     placeholder={t("common.placeholders.password")}
-                    {...register("password", { required: true })}
+                    {...register("password")}
                   />
                 </FormField>
 
@@ -121,15 +107,12 @@ export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps
                     id="confirmPassword"
                     type="password"
                     placeholder={t("common.placeholders.password")}
-                    {...register("confirmPassword", { required: true })}
+                    {...register("confirmPassword")}
                   />
                 </FormField>
 
                 <FormField label={`${t("common.fields.purpose")} *`} error={errors.purpose}>
-                  <Textarea
-                    placeholder={t("common.placeholders.purpose")}
-                    {...register("purpose", { required: true })}
-                  />
+                  <Textarea placeholder={t("common.placeholders.purpose")} {...register("purpose")} />
                 </FormField>
 
                 <MotionText color={theme.tyle.color.sys.surface.variant.on} layout={"position"} as={"i"}>
