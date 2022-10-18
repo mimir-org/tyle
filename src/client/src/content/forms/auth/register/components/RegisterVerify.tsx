@@ -4,6 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Button } from "../../../../../complib/buttons";
+import { FormErrorBanner } from "../../../../../complib/form";
 import { Digits, Input } from "../../../../../complib/inputs";
 import { Flexbox } from "../../../../../complib/layouts";
 import { Actionable } from "../../../../../complib/types";
@@ -11,6 +12,7 @@ import { useGenerateMfa, useVerification } from "../../../../../data/queries/aut
 import { useExecuteOnCriteria } from "../../../../../hooks/useExecuteOnCriteria";
 import { UnauthenticatedContent } from "../../../../app/components/unauthenticated/layout/UnauthenticatedContent";
 import { RegisterProcessing } from "./RegisterProcessing";
+import { MotionRegisterVerifyForm } from "./RegisterVerify.styled";
 
 type RegisterVerifyProps = Pick<MimirorgVerifyAm, "email"> & {
   setQrCodeInfo: (info: MimirorgQrCodeCm) => void;
@@ -26,6 +28,10 @@ export const RegisterVerify = ({ email, setQrCodeInfo, cancel, complete }: Regis
   const generateMfaMutation = useGenerateMfa();
   const verificationMutation = useVerification();
 
+  const showError = generateMfaMutation.isError || verificationMutation.isError;
+  const showProcessing = verificationMutation.isLoading || generateMfaMutation.isLoading;
+  const showInput = !verificationMutation.isSuccess && !verificationMutation.isLoading;
+
   const onSubmit = async (data: MimirorgVerifyAm) => {
     const verified = await verificationMutation.mutateAsync(data);
     const qrCodeInfo = await generateMfaMutation.mutateAsync(data);
@@ -40,18 +46,10 @@ export const RegisterVerify = ({ email, setQrCodeInfo, cancel, complete }: Regis
       infoTitle={t("register.verify.info.title")}
       infoText={t("register.verify.info.text")}
     >
-      {(verificationMutation.isLoading || generateMfaMutation.isLoading) && (
-        <RegisterProcessing>{t("register.processing")}</RegisterProcessing>
-      )}
-      {!verificationMutation.isSuccess && !verificationMutation.isLoading && (
-        <Flexbox
-          as={"form"}
-          flex={1}
-          flexDirection={"column"}
-          justifyContent={"space-evenly"}
-          alignItems={"center"}
-          onSubmit={handleSubmit((data) => onSubmit(data))}
-        >
+      {showProcessing && <RegisterProcessing>{t("register.processing")}</RegisterProcessing>}
+      {showError && <FormErrorBanner>{t("register.verify.error")}</FormErrorBanner>}
+      {showInput && (
+        <MotionRegisterVerifyForm onSubmit={handleSubmit((data) => onSubmit(data))} layout>
           <Input type={"hidden"} value={email} {...register("email")} />
           <Controller
             control={control}
@@ -66,7 +64,7 @@ export const RegisterVerify = ({ email, setQrCodeInfo, cancel, complete }: Regis
             )}
             {complete?.actionable && <Button type={"submit"}>{complete.actionText}</Button>}
           </Flexbox>
-        </Flexbox>
+        </MotionRegisterVerifyForm>
       )}
 
       <DevTool control={control} placement={"bottom-right"} />

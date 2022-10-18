@@ -454,6 +454,7 @@
     },
     "verify": {
       "title": "Verify",
+      "error": "An error occurred when trying to verify your user.",
       "info": {
         "title": "Please verify your e-mail",
         "text": "We have sent a six-digit code to your email. Please enter the code within 1 hour, or the code will expire and you will have to restart the registration. Make sure to check your spam/junk folder for the email."
