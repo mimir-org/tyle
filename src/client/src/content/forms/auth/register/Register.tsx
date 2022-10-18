@@ -47,7 +47,6 @@ export const Register = () => {
       {stage === "MFA" && (
         <RegisterMfa
           title={t("register.mfa.title")}
-          infoTitle={t("register.mfa.info.title")}
           infoText={t("register.mfa.info.text")}
           codeTitle={t("register.mfa.scan")}
           code={qrCodeInfo.code}
@@ -66,7 +65,8 @@ export const Register = () => {
       )}
       {stage === "COMPLETE" && (
         <RegisterComplete
-          text={t("register.complete.description")}
+          title={t("register.complete.title")}
+          infoText={t("register.complete.info.text")}
           actionable
           actionText={t("common.return")}
           onAction={() => navigate("/")}

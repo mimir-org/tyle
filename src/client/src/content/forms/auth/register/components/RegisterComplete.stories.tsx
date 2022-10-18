@@ -10,7 +10,8 @@ const Template: ComponentStory<typeof RegisterComplete> = (args) => <RegisterCom
 
 export const Default = Template.bind({});
 Default.args = {
-  text: "You just completed the registration process",
+  title: "Register",
+  infoText: "You just completed the registration process",
 };
 
 export const WithAction = Template.bind({});

@@ -50,100 +50,110 @@ export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps
     <UnauthenticatedContent
       title={t("register.details.title")}
       subtitle={t("register.details.description")}
-      infoTitle={t("register.details.info.title")}
-      infoText={t("register.details.info.text")}
-    >
-      {mutation.isLoading && <RegisterProcessing>{t("register.processing")}</RegisterProcessing>}
-      {!mutation.isSuccess && !mutation.isLoading && (
-        <Form onSubmit={handleSubmit((data) => onSubmit(data))}>
-          {mutation.isError && <FormErrorBanner>{t("register.details.error")}</FormErrorBanner>}
-          <FormFieldset>
-            <FormField label={`${t("common.fields.company")} *`} error={errors.companyId}>
-              <Controller
-                control={control}
-                name={"companyId"}
-                rules={{ required: true }}
-                render={({ field: { value, onChange, ref, ...rest } }) => (
-                  <Select
-                    {...rest}
-                    selectRef={ref}
-                    placeholder={t("common.placeholders.company")}
-                    options={companyQuery?.data}
-                    getOptionLabel={(x) => x.name}
-                    getOptionValue={(x) => x.id.toString()}
-                    onChange={(x) => {
-                      onChange(x?.id);
-                    }}
-                    value={companyQuery.data?.find((x) => x.id === value)}
+      firstRow={
+        <>
+          {mutation.isLoading && <RegisterProcessing>{t("register.processing")}</RegisterProcessing>}
+          {!mutation.isSuccess && !mutation.isLoading && (
+            <Form id={"details-form"} onSubmit={handleSubmit((data) => onSubmit(data))}>
+              {mutation.isError && <FormErrorBanner>{t("register.details.error")}</FormErrorBanner>}
+              <FormFieldset>
+                <FormField label={`${t("common.fields.company")} *`} error={errors.companyId}>
+                  <Controller
+                    control={control}
+                    name={"companyId"}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange, ref, ...rest } }) => (
+                      <Select
+                        {...rest}
+                        selectRef={ref}
+                        placeholder={t("common.placeholders.company")}
+                        options={companyQuery?.data}
+                        getOptionLabel={(x) => x.name}
+                        getOptionValue={(x) => x.id.toString()}
+                        onChange={(x) => {
+                          onChange(x?.id);
+                        }}
+                        value={companyQuery.data?.find((x) => x.id === value)}
+                      />
+                    )}
                   />
-                )}
-              />
-            </FormField>
+                </FormField>
 
-            <FormField label={`${t("common.fields.email")} *`} error={formState.errors.email}>
-              <Input
-                id="email"
-                type="email"
-                placeholder={t("common.placeholders.email")}
-                {...register("email", { required: true })}
-              />
-            </FormField>
+                <FormField label={`${t("common.fields.email")} *`} error={formState.errors.email}>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder={t("common.placeholders.email")}
+                    {...register("email", { required: true })}
+                  />
+                </FormField>
 
-            <FormField label={`${t("common.fields.firstname")} *`} error={errors.firstName}>
-              <Input
-                id="firstName"
-                placeholder={t("common.placeholders.firstname")}
-                {...register("firstName", { required: true })}
-              />
-            </FormField>
+                <FormField label={`${t("common.fields.firstname")} *`} error={errors.firstName}>
+                  <Input
+                    id="firstName"
+                    placeholder={t("common.placeholders.firstname")}
+                    {...register("firstName", { required: true })}
+                  />
+                </FormField>
 
-            <FormField label={`${t("common.fields.lastname")} *`} error={errors.lastName}>
-              <Input
-                id="lastName"
-                placeholder={t("common.placeholders.lastname")}
-                {...register("lastName", { required: true })}
-              />
-            </FormField>
+                <FormField label={`${t("common.fields.lastname")} *`} error={errors.lastName}>
+                  <Input
+                    id="lastName"
+                    placeholder={t("common.placeholders.lastname")}
+                    {...register("lastName", { required: true })}
+                  />
+                </FormField>
 
-            <FormField label={`${t("common.fields.password")} *`} error={errors.password}>
-              <Input
-                id="password"
-                type="password"
-                placeholder={t("common.placeholders.password")}
-                {...register("password", { required: true })}
-              />
-            </FormField>
+                <FormField label={`${t("common.fields.password")} *`} error={errors.password}>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder={t("common.placeholders.password")}
+                    {...register("password", { required: true })}
+                  />
+                </FormField>
 
-            <FormField
-              label={`${t("common.confirm")} ${t("common.fields.password").toLowerCase()} *`}
-              error={errors.confirmPassword}
-            >
-              <Input
-                id="confirmPassword"
-                type="password"
-                placeholder={t("common.placeholders.password")}
-                {...register("confirmPassword", { required: true })}
-              />
-            </FormField>
+                <FormField
+                  label={`${t("common.confirm")} ${t("common.fields.password").toLowerCase()} *`}
+                  error={errors.confirmPassword}
+                >
+                  <Input
+                    id="confirmPassword"
+                    type="password"
+                    placeholder={t("common.placeholders.password")}
+                    {...register("confirmPassword", { required: true })}
+                  />
+                </FormField>
 
-            <FormField label={`${t("common.fields.purpose")} *`} error={errors.purpose}>
-              <Textarea placeholder={t("common.placeholders.purpose")} {...register("purpose", { required: true })} />
-            </FormField>
+                <FormField label={`${t("common.fields.purpose")} *`} error={errors.purpose}>
+                  <Textarea
+                    placeholder={t("common.placeholders.purpose")}
+                    {...register("purpose", { required: true })}
+                  />
+                </FormField>
 
-            <MotionText color={theme.tyle.color.sys.surface.variant.on} layout={"position"} as={"i"}>
-              {t("common.placeholders.required")}
-            </MotionText>
-          </FormFieldset>
-
+                <MotionText color={theme.tyle.color.sys.surface.variant.on} layout={"position"} as={"i"}>
+                  {t("common.placeholders.required")}
+                </MotionText>
+              </FormFieldset>
+            </Form>
+          )}
+          <DevTool control={control} placement={"bottom-right"} />
+        </>
+      }
+      secondRow={
+        <>
+          <Text textAlign={"center"}>{t("register.details.info.text")}</Text>
           <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.xxl}>
-            <Button type={"submit"}>{complete?.actionText}</Button>
+            <Button type={"submit"} form={"details-form"}>
+              {complete?.actionText}
+            </Button>
             <Text color={theme.tyle.color.sys.surface.variant.on}>
               {t("register.details.altLead")} <Link to="/">{t("register.details.altLink")}</Link>
             </Text>
           </MotionFlexbox>
-        </Form>
-      )}
-      <DevTool control={control} placement={"bottom-right"} />
-    </UnauthenticatedContent>
+        </>
+      }
+    />
   );
 };

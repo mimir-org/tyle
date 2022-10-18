@@ -14,7 +14,6 @@ const Template: ComponentStory<typeof RegisterMfa> = (args) => <RegisterMfa {...
 export const Default = Template.bind({});
 Default.args = {
   title: "Multifactor authentication",
-  infoTitle: "Activate 2-factor authentication",
   infoText:
     "In order to use :Tyle, you must activate 2-factor authentication using an authenticator app. This is to ensure the quality fo the data created and stored in :Tyle. If this process fails, please restart the registration process via Account Recovery on the main page.",
   codeTitle: "Scan the QR code",

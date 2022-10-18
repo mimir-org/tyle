@@ -6,26 +6,29 @@ import { Actionable } from "../../../../../complib/types";
 import { UnauthenticatedContent } from "../../../../app/components/unauthenticated/layout/UnauthenticatedContent";
 
 type RegisterCompleteProps = Partial<Actionable> & {
-  text: string;
+  title: string;
+  infoText: string;
 };
 
-export const RegisterComplete = ({ text, actionable, actionText, onAction }: RegisterCompleteProps) => {
+export const RegisterComplete = ({ title, infoText, actionable, actionText, onAction }: RegisterCompleteProps) => {
   const theme = useTheme();
 
   return (
-    <UnauthenticatedContent>
-      <Box
-        flex={1}
-        display={"flex"}
-        flexDirection={"column"}
-        gap={theme.tyle.spacing.xxxl}
-        justifyContent={"center"}
-        alignItems={"center"}
-        maxWidth={"300px"}
-      >
-        <Text textAlign={"center"}>{text}</Text>
-        {actionable && <Button onClick={onAction}>{actionText}</Button>}
-      </Box>
-    </UnauthenticatedContent>
+    <UnauthenticatedContent
+      title={title}
+      firstRow={
+        <Box
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"center"}
+          alignSelf={"center"}
+          gap={theme.tyle.spacing.xxxl}
+          maxWidth={"300px"}
+        >
+          <Text textAlign={"center"}>{infoText}</Text>
+          {actionable && <Button onClick={onAction}>{actionText}</Button>}
+        </Box>
+      }
+    />
   );
 };

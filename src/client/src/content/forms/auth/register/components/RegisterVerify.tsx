@@ -7,6 +7,7 @@ import { Button } from "../../../../../complib/buttons";
 import { FormErrorBanner } from "../../../../../complib/form";
 import { Digits, Input } from "../../../../../complib/inputs";
 import { Flexbox } from "../../../../../complib/layouts";
+import { Text } from "../../../../../complib/text";
 import { Actionable } from "../../../../../complib/types";
 import { useGenerateMfa, useVerification } from "../../../../../data/queries/auth/queriesUser";
 import { useExecuteOnCriteria } from "../../../../../hooks/useExecuteOnCriteria";
@@ -43,31 +44,41 @@ export const RegisterVerify = ({ email, setQrCodeInfo, cancel, complete }: Regis
   return (
     <UnauthenticatedContent
       title={t("register.verify.title")}
-      infoTitle={t("register.verify.info.title")}
-      infoText={t("register.verify.info.text")}
-    >
-      {showProcessing && <RegisterProcessing>{t("register.processing")}</RegisterProcessing>}
-      {showError && <FormErrorBanner>{t("register.verify.error")}</FormErrorBanner>}
-      {showInput && (
-        <MotionRegisterVerifyForm onSubmit={handleSubmit((data) => onSubmit(data))} layout>
-          <Input type={"hidden"} value={email} {...register("email")} />
-          <Controller
-            control={control}
-            name={"code"}
-            render={({ field: { value, onChange } }) => <Digits value={value} onChange={onChange} />}
-          />
+      firstRow={
+        <>
+          {showProcessing && <RegisterProcessing>{t("register.processing")}</RegisterProcessing>}
+          {showError && <FormErrorBanner>{t("register.verify.error")}</FormErrorBanner>}
+          {showInput && (
+            <MotionRegisterVerifyForm id={"verify-form"} onSubmit={handleSubmit((data) => onSubmit(data))} layout>
+              <Input type={"hidden"} value={email} {...register("email")} />
+              <Controller
+                control={control}
+                name={"code"}
+                render={({ field: { value, onChange } }) => <Digits value={value} onChange={onChange} />}
+              />
+            </MotionRegisterVerifyForm>
+          )}
+
+          <DevTool control={control} placement={"bottom-right"} />
+        </>
+      }
+      secondRow={
+        <>
+          <Text textAlign={"center"}>{t("register.verify.info.text")}</Text>
           <Flexbox gap={theme.tyle.spacing.xxl} alignSelf={"center"}>
             {cancel?.actionable && (
               <Button variant={"outlined"} onClick={cancel.onAction}>
                 {cancel.actionText}
               </Button>
             )}
-            {complete?.actionable && <Button type={"submit"}>{complete.actionText}</Button>}
+            {complete?.actionable && (
+              <Button type={"submit"} form={"verify-form"}>
+                {complete.actionText}
+              </Button>
+            )}
           </Flexbox>
-        </MotionRegisterVerifyForm>
-      )}
-
-      <DevTool control={control} placement={"bottom-right"} />
-    </UnauthenticatedContent>
+        </>
+      }
+    />
   );
 };

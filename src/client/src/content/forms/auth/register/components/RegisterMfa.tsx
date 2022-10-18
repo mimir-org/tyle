@@ -5,35 +5,40 @@ import { Flexbox } from "../../../../../complib/layouts";
 import { Icon } from "../../../../../complib/media";
 import { Text } from "../../../../../complib/text";
 import { Actionable } from "../../../../../complib/types";
-import {
-  UnauthenticatedContent,
-  UnauthenticatedContentProps,
-} from "../../../../app/components/unauthenticated/layout/UnauthenticatedContent";
+import { UnauthenticatedContent } from "../../../../app/components/unauthenticated/layout/UnauthenticatedContent";
 
-type RegisterMfaProps = Pick<UnauthenticatedContentProps, "title" | "infoTitle" | "infoText"> &
-  MimirorgQrCodeCm & {
-    codeTitle?: string;
-    cancel?: Partial<Actionable>;
-    complete?: Partial<Actionable>;
-  };
+type RegisterMfaProps = MimirorgQrCodeCm & {
+  title?: string;
+  infoText?: string;
+  codeTitle?: string;
+  cancel?: Partial<Actionable>;
+  complete?: Partial<Actionable>;
+};
 
 export const RegisterMfa = (props: RegisterMfaProps) => {
   const theme = useTheme();
-  const { title, infoTitle, infoText } = props;
+  const { title, infoText } = props;
   const { codeTitle, code, manualCode } = props;
   const { cancel, complete } = props;
 
   const showQrDialog = code && manualCode;
 
   return (
-    <UnauthenticatedContent title={title} infoTitle={infoTitle} infoText={infoText}>
-      {showQrDialog && (
-        <Flexbox flex={1} flexDirection={"column"} justifyContent={"space-evenly"}>
-          <Flexbox as={"section"} flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.base}>
-            <Text variant={"headline-small"}>{codeTitle}</Text>
-            <Icon size={180} src={code} alt="" />
-          </Flexbox>
-
+    <UnauthenticatedContent
+      title={title}
+      firstRow={
+        <>
+          {showQrDialog && (
+            <Flexbox as={"section"} flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.base}>
+              <Text variant={"headline-small"}>{codeTitle}</Text>
+              <Icon size={180} src={code} alt="" />
+            </Flexbox>
+          )}
+        </>
+      }
+      secondRow={
+        <>
+          <Text textAlign={"center"}>{infoText}</Text>
           <Flexbox gap={theme.tyle.spacing.xxl} alignSelf={"center"}>
             {cancel?.actionable && (
               <Button variant={"outlined"} onClick={cancel.onAction}>
@@ -46,8 +51,8 @@ export const RegisterMfa = (props: RegisterMfaProps) => {
               </Button>
             )}
           </Flexbox>
-        </Flexbox>
-      )}
-    </UnauthenticatedContent>
+        </>
+      }
+    />
   );
 };

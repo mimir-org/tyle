@@ -425,8 +425,7 @@
       "altLink": "Log in",
       "error": "An error occurred when trying to create your user.",
       "info": {
-        "title": "Happy to have you! Remember that...",
-        "text": "Your next step will be to verify your e-mail and activate 2-factor authentication. Without this, you cannot access :Tyle."
+        "text": "Your next step will be to verify your e-mail and activate 2-factor authentication. Without these, you cannot access :Tyle. If this process is interrupted or you do not complete registration within 1 hour, you will have to start the registration process over again."
       },
       "validation": {
         "email": {
@@ -453,23 +452,24 @@
       }
     },
     "verify": {
-      "title": "Verify",
+      "title": "Verify E-mail",
       "error": "An error occurred when trying to verify your user.",
       "info": {
-        "title": "Please verify your e-mail",
         "text": "We have sent a six-digit code to your email. Please enter the code within 1 hour, or the code will expire and you will have to restart the registration. Make sure to check your spam/junk folder for the email."
       }
     },
     "mfa": {
-      "title": "Multifactor authentication",
+      "title": "Register authenticator",
       "scan": "Scan the QR code",
       "info": {
-        "title": "Activate 2-factor authentication",
-        "text": "In order to use :Tyle, you must activate 2-factor authentication using an authenticator app. This is to ensure the quality fo the data created and stored in :Tyle. If this process fails, please restart the registration process via Account Recovery on the main page."
+        "text": "In order to use :Tyle, you must activate 2-factor authentication using an authenticator app. This is to ensure the quality fo the data created and stored in :Tyle."
       }
     },
     "complete": {
-      "description": "Your authenticator is ready for use. Return to the main page to log on."
+      "title": "Register",
+      "info": {
+        "text": "Account creation complete. Please return to the main page and log in."
+      }
     },
     "processing": "Processing"
   },
@@ -479,7 +479,11 @@
     "submit": "Login",
     "altLead": "Don't have an account?",
     "altLink": "Sign up",
-    "error": "Incorrect username, password or authentication code."
+    "error": "Incorrect username, password or authentication code.",
+    "info": {
+      "text": "If you have forgotten your password, follow the instruction below for account recovery. You will need to re-verify your email and authenticator. You will not lose the data you have created in :Tyle",
+      "action": "Account Recovery"
+    }
   },
   "clientError": {
     "title": "Oops!",

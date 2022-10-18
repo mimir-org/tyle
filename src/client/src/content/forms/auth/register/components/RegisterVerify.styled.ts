@@ -7,6 +7,8 @@ export const RegisterVerifyForm = styled.form`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+
+  gap: ${(props) => props.theme.tyle.spacing.xxxl};
 `;
 
 export const MotionRegisterVerifyForm = motion(RegisterVerifyForm);
