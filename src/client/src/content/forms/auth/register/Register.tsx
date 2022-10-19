@@ -48,7 +48,9 @@ export const Register = () => {
         <RegisterMfa
           title={t("register.mfa.title")}
           infoText={t("register.mfa.info.text")}
-          codeTitle={t("register.mfa.scan")}
+          codeTitle={t("register.mfa.code.title")}
+          manualCodeTitle={t("register.mfa.manual.title")}
+          manualCodeDescription={t("register.mfa.manual.description")}
           code={qrCodeInfo.code}
           manualCode={qrCodeInfo.manualCode}
           complete={{

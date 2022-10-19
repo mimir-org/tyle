@@ -460,7 +460,13 @@
     },
     "mfa": {
       "title": "Register authenticator",
-      "scan": "Scan the QR code",
+      "code": {
+        "title": "Scan the QR code"
+      },
+      "manual": {
+        "title": "Can't scan image?",
+        "description": "Copy this code into your authenticator app of choice"
+      },
       "info": {
         "text": "In order to use :Tyle, you must activate 2-factor authentication using an authenticator app. This is to ensure the quality fo the data created and stored in :Tyle."
       }
