@@ -103,7 +103,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// <returns>A collection of terminals</returns>
         public IEnumerable<TerminalLibDm> Get()
         {
-            return GetAll().Include(x => x.Attributes);
+            return GetAll();
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// <returns>Terminal if found</returns>
         public async Task<TerminalLibDm> Get(string id)
         {
-            var terminal = await FindBy(x => x.Id == id).Include(x => x.Attributes).FirstOrDefaultAsync();
+            var terminal = await FindBy(x => x.Id == id).FirstOrDefaultAsync();
             return terminal;
         }
 

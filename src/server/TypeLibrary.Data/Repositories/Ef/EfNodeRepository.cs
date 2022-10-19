@@ -104,10 +104,8 @@ namespace TypeLibrary.Data.Repositories.Ef
         public IEnumerable<NodeLibDm> Get()
         {
             return GetAll()
-                .Include(x => x.Attributes)
                 .Include(x => x.NodeTerminals)
                 .ThenInclude(x => x.Terminal)
-                .ThenInclude(x => x.Attributes)
                 .AsSplitQuery();
         }
 
@@ -119,10 +117,8 @@ namespace TypeLibrary.Data.Repositories.Ef
         public async Task<NodeLibDm> Get(string id)
         {
             return await FindBy(x => x.Id == id)
-                .Include(x => x.Attributes)
                 .Include(x => x.NodeTerminals)
                 .ThenInclude(x => x.Terminal)
-                .ThenInclude(x => x.Attributes)
                 .AsSplitQuery()
                 .FirstOrDefaultAsync();
         }

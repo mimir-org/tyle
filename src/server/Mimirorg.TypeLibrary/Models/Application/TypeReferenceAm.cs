@@ -1,13 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeScriptBuilder;
+
 // ReSharper disable NonReadonlyMemberInGetHashCode
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
     public class TypeReferenceAm : IEquatable<TypeReferenceAm>
     {
-        public string Id => Iri?.Substring(Iri.LastIndexOf('/') + 1);
-
         [Required]
         public string Name { get; set; }
 
@@ -18,6 +18,9 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Source { get; set; }
 
         public ICollection<TypeReferenceSub> Units { get; set; }
+
+        [TSExclude]
+        public string Id => Iri?[(Iri.LastIndexOf('/') + 1)..];
 
         public bool Equals(TypeReferenceAm other)
         {

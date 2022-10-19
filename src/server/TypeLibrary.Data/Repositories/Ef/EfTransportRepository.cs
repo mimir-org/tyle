@@ -105,7 +105,6 @@ namespace TypeLibrary.Data.Repositories.Ef
         {
             return GetAll()
                 .Include(x => x.Terminal)
-                .Include(x => x.Attributes)
                 .Include(x => x.Parent)
                 .OrderBy(x => x.Name)
                 .AsSplitQuery();
@@ -120,7 +119,6 @@ namespace TypeLibrary.Data.Repositories.Ef
         {
             var item = await FindBy(x => x.Id == id)
                 .Include(x => x.Terminal)
-                .Include(x => x.Attributes)
                 .Include(x => x.Parent)
                 .AsSplitQuery()
                 .FirstOrDefaultAsync();

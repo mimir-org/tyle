@@ -7,6 +7,7 @@ using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using Newtonsoft.Json;
 using TypeLibrary.Data.Contracts.Common;
 
@@ -46,11 +47,22 @@ namespace TypeLibrary.Data.Models
             if (Name != other.Name)
                 validation.AddNotAllowToChange(nameof(Name));
 
-            var attributes = Attributes?.ConvertToObject<ICollection<TypeReferenceDm>>() ?? new List<TypeReferenceDm>();
-            other.Attributes ??= new List<TypeReferenceAm>();
+            //Attributes
+            var attributeAms = new List<TypeReferenceAm>();
+            var attributeDms = new List<TypeReferenceDm>();
+            var attributeAmUnits = new List<TypeReferenceSub>();
+            var attributeDmUnits = new List<TypeReferenceSub>();
 
-            if (attributes.Select(y => y.Id).Any(id => other.Attributes.Select(x => x.Id).All(x => x != id)))
-                validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove items from attributes");
+            attributeAms.AddRange(other.Attributes ?? new List<TypeReferenceAm>());
+            attributeDms.AddRange(Attributes?.ConvertToObject<ICollection<TypeReferenceDm>>() ?? new List<TypeReferenceDm>());
+            attributeAmUnits.AddRange(attributeAms.SelectMany(x => x.Units));
+            attributeDmUnits.AddRange(attributeDms.SelectMany(x => x.Units));
+
+            if (attributeDms.Select(y => y.Id).Any(id => attributeAms.Select(x => x.Id).All(x => x != id)))
+                validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove or change attributes");
+
+            if (attributeDmUnits.Select(y => y.Id).Any(id => attributeAmUnits.Select(x => x.Id).All(x => x != id)))
+                validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove or change units from attributes");
 
             if (ParentId != other.ParentId)
                 validation.AddNotAllowToChange(nameof(ParentId));
@@ -77,17 +89,28 @@ namespace TypeLibrary.Data.Models
             if (Color != other.Color)
                 minor = true;
 
-            // Attributes
-            var attributes = Attributes?.ConvertToObject<ICollection<TypeReferenceDm>>() ?? new List<TypeReferenceDm>();
-            other.Attributes ??= new List<TypeReferenceAm>();
+            //Attributes
+            var attributeAms = new List<TypeReferenceAm>();
+            var attributeDms = new List<TypeReferenceDm>();
+            var attributeAmUnits = new List<TypeReferenceSub>();
+            var attributeDmUnits = new List<TypeReferenceSub>();
 
-            if (!attributes.Select(x => x.Id).SequenceEqual(other.Attributes.Select(x => x.Id)))
+            attributeAms.AddRange(other.Attributes ?? new List<TypeReferenceAm>());
+            attributeDms.AddRange(Attributes?.ConvertToObject<ICollection<TypeReferenceDm>>() ?? new List<TypeReferenceDm>());
+            attributeAmUnits.AddRange(attributeAms.SelectMany(x => x.Units));
+            attributeDmUnits.AddRange(attributeDms.SelectMany(x => x.Units));
+
+            if (!attributeDms.Select(x => x.Id).SequenceEqual(attributeAms.Select(x => x.Id)) ||
+                !attributeDmUnits.Select(x => x.Id).SequenceEqual(attributeAmUnits.Select(x => x.Id)))
+            {
                 major = true;
-
+            }
+            
             // Type-references
             var references = string.IsNullOrWhiteSpace(TypeReferences)
                 ? new List<TypeReferenceAm>()
                 : JsonConvert.DeserializeObject<ICollection<TypeReferenceAm>>(TypeReferences) ?? new List<TypeReferenceAm>();
+            
             other.TypeReferences ??= new List<TypeReferenceAm>();
             if (!references.SequenceEqual(other.TypeReferences))
                 minor = true;
