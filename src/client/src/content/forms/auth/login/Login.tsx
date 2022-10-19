@@ -19,10 +19,10 @@ export const Login = () => {
   const { t } = useTranslation();
 
   const formMethods = useForm<MimirorgAuthenticateAm>({
-    resolver: yupResolver(loginSchema(t))
+    resolver: yupResolver(loginSchema(t)),
   });
 
-  const { register, handleSubmit, setError, formState } = formMethods
+  const { register, handleSubmit, setError, formState } = formMethods;
   const { errors } = formState;
 
   const mutation = useLogin();
@@ -33,17 +33,12 @@ export const Login = () => {
       title={t("login.title")}
       subtitle={t("login.description")}
       firstRow={
-        <Form onSubmit={handleSubmit((data) => mutation.mutate(data))}>
+        <Form id={"login-form"} onSubmit={handleSubmit((data) => mutation.mutate(data))}>
           {mutation.isError && <FormErrorBanner>{t("login.error")}</FormErrorBanner>}
 
           <FormFieldset>
             <FormField label={`${t("common.fields.email")} *`} error={errors.email}>
-              <Input
-                id="email"
-                type="email"
-                placeholder={t("common.placeholders.email")}
-                {...register("email")}
-              />
+              <Input id="email" type="email" placeholder={t("common.placeholders.email")} {...register("email")} />
             </FormField>
 
             <FormField label={`${t("common.fields.password")} *`} error={errors.password}>
@@ -69,13 +64,17 @@ export const Login = () => {
               {t("common.placeholders.required")}
             </MotionText>
           </FormFieldset>
-          <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.xxl}>
-            <Button type={"submit"}>{t("login.submit")}</Button>
-            <Text color={theme.tyle.color.sys.surface.variant.on}>
-              {t("login.altLead")} <Link to="/register">{t("login.altLink")}</Link>
-            </Text>
-          </MotionFlexbox>
         </Form>
+      }
+      secondRow={
+        <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.xxl}>
+          <Button type={"submit"} form={"login-form"}>
+            {t("login.submit")}
+          </Button>
+          <Text color={theme.tyle.color.sys.surface.variant.on}>
+            {t("login.altLead")} <Link to="/register">{t("login.altLink")}</Link>
+          </Text>
+        </MotionFlexbox>
       }
     />
   );
