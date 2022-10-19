@@ -1,3 +1,4 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { MimirorgAuthenticateAm } from "@mimirorg/typelibrary-types";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -11,12 +12,17 @@ import { MotionText, Text } from "../../../../complib/text";
 import { useLogin } from "../../../../data/queries/auth/queriesAuthenticate";
 import { useServerValidation } from "../../../../hooks/useServerValidation";
 import { UnauthenticatedContent } from "../../../app/components/unauthenticated/layout/UnauthenticatedContent";
+import { loginSchema } from "./loginSchema";
 
 export const Login = () => {
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const { register, handleSubmit, setError, formState } = useForm<MimirorgAuthenticateAm>();
+  const formMethods = useForm<MimirorgAuthenticateAm>({
+    resolver: yupResolver(loginSchema(t))
+  });
+
+  const { register, handleSubmit, setError, formState } = formMethods
   const { errors } = formState;
 
   const mutation = useLogin();
@@ -36,7 +42,7 @@ export const Login = () => {
                 id="email"
                 type="email"
                 placeholder={t("common.placeholders.email")}
-                {...register("email", { required: true })}
+                {...register("email")}
               />
             </FormField>
 
@@ -45,7 +51,7 @@ export const Login = () => {
                 id="password"
                 type="password"
                 placeholder={t("common.placeholders.password")}
-                {...register("password", { required: true })}
+                {...register("password")}
               />
             </FormField>
 
@@ -53,10 +59,9 @@ export const Login = () => {
               <Input
                 id="code"
                 type="tel"
-                pattern="[0-9]*"
                 autoComplete="off"
                 placeholder={t("common.placeholders.code")}
-                {...register("code", { required: true, valueAsNumber: true })}
+                {...register("code")}
               />
             </FormField>
 

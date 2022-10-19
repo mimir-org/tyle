@@ -483,6 +483,19 @@
     "info": {
       "text": "If you have forgotten your password, follow the instruction below for account recovery. You will need to re-verify your email and authenticator. You will not lose the data you have created in :Tyle",
       "action": "Account Recovery"
+    },
+    "validation": {
+      "email": {
+        "email": "Please ensure that the email is formatted correctly",
+        "required": "Please specify an email"
+      },
+      "password": {
+        "required": "Please enter a password"
+      },
+      "code": {
+        "matches": "Please ensure that there are only digits in your code",
+        "required": "Please specify an authentication code"
+      }
     }
   },
   "clientError": {
