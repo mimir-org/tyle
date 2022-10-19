@@ -9,4 +9,3 @@ export default {
 const Template: ComponentStory<typeof Digits> = (args) => <Digits {...args} />;
 
 export const Default = Template.bind({});
-
