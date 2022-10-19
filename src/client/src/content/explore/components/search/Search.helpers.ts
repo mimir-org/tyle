@@ -1,6 +1,5 @@
 import { Aspect } from "@mimirorg/typelibrary-types";
 import { useState } from "react";
-import { useGetAttributes } from "../../../../data/queries/tyle/queriesAttribute";
 import { useGetInterfaces } from "../../../../data/queries/tyle/queriesInterface";
 import { useGetNodes } from "../../../../data/queries/tyle/queriesNode";
 import { useGetPurposes } from "../../../../data/queries/tyle/queriesPurpose";
@@ -8,15 +7,8 @@ import { useGetTerminals } from "../../../../data/queries/tyle/queriesTerminal";
 import { useGetTransports } from "../../../../data/queries/tyle/queriesTransport";
 import { useFuse } from "../../../../hooks/useFuse";
 import { getValueLabelObjectsFromEnum } from "../../../../utils/getValueLabelObjectsFromEnum";
+import { isInterfaceLibCm, isNodeLibCm, isTerminalLibCm, isTransportLibCm } from "../../../../utils/guards";
 import {
-  isAttributeLibCm,
-  isInterfaceLibCm,
-  isNodeLibCm,
-  isTerminalLibCm,
-  isTransportLibCm,
-} from "../../../../utils/guards";
-import {
-  mapAttributeLibCmToAttributeItem,
   mapInterfaceLibCmToInterfaceItem,
   mapNodeLibCmToNodeItem,
   mapTerminalLibCmToTerminalItem,
@@ -34,10 +26,6 @@ const searchKeys = ["id", "name", "description", "aspect", "nodeTerminals.termin
 
 export const getCreateMenuLinks = (): Link[] => {
   return [
-    {
-      name: "Attribute",
-      path: "/form/attribute",
-    },
     {
       name: "Aspect object",
       path: "/form/node",
@@ -118,11 +106,6 @@ const getEntityFilters = (): FilterGroup => ({
   filters: [
     {
       key: "kind",
-      label: "Attribute",
-      value: "AttributeLibCm",
-    },
-    {
-      key: "kind",
       label: "Aspect object",
       value: "NodeLibCm",
     },
@@ -163,21 +146,15 @@ const filterSearchResults = (filters: Filter[], items: SearchResultRaw[]) => {
 const useSearchItems = (): [items: SearchResultRaw[], isLoading: boolean] => {
   const nodeQuery = useGetNodes();
   const terminalQuery = useGetTerminals();
-  const attributeQuery = useGetAttributes();
   const transportQuery = useGetTransports();
   const interfaceQuery = useGetInterfaces();
 
   const isLoading =
-    nodeQuery.isLoading ||
-    terminalQuery.isLoading ||
-    attributeQuery.isLoading ||
-    transportQuery.isLoading ||
-    interfaceQuery.isLoading;
+    nodeQuery.isLoading || terminalQuery.isLoading || transportQuery.isLoading || interfaceQuery.isLoading;
 
   const mergedItems = [
     ...(nodeQuery.data ?? []),
     ...(terminalQuery.data ?? []),
-    ...(attributeQuery.data ?? []),
     ...(transportQuery.data ?? []),
     ...(interfaceQuery.data ?? []),
   ];
@@ -190,7 +167,6 @@ const mapSearchResults = (items: SearchResultRaw[]) => {
 
   items.forEach((x) => {
     if (isNodeLibCm(x)) mappedSearchResults.push(mapNodeLibCmToNodeItem(x));
-    else if (isAttributeLibCm(x)) mappedSearchResults.push(mapAttributeLibCmToAttributeItem(x));
     else if (isTerminalLibCm(x)) mappedSearchResults.push(mapTerminalLibCmToTerminalItem(x));
     else if (isTransportLibCm(x)) mappedSearchResults.push(mapTransportLibCmToTransportItem(x));
     else if (isInterfaceLibCm(x)) mappedSearchResults.push(mapInterfaceLibCmToInterfaceItem(x));

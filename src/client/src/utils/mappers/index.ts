@@ -11,9 +11,6 @@ export { mapUnitLibCmToInfoItem } from "./mapUnitLibCmToInfoItem";
 export { mapAttributeLibCmToInfoItem } from "./mapAttributeLibCmToInfoItem";
 export { mapAttributeLibCmsToInfoItems } from "./mapAttributeLibCmToInfoItem";
 
-export { mapAttributeLibCmToAttributeItem } from "./mapAttributeLibCmToAttributeItem";
-export { mapAttributeLibCmToAttributeLibAm } from "./mapAttributeLibCmToAttributeLibAm";
-
 export { mapTerminalLibCmToTerminalItem } from "./mapTerminalLibCmToTerminalItem";
 export { mapTerminalLibCmToTerminalLibAm } from "./mapTerminalLibCmToTerminalLibAm";
 

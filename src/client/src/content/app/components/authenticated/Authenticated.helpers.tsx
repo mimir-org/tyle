@@ -3,7 +3,6 @@ import { createBrowserRouter } from "react-router-dom";
 import { ErrorMessage } from "../../../common/error";
 import { Explore } from "../../../explore";
 import { AuthenticatedLayout } from "./layout/AuthenticatedLayout";
-import { attributeFormRoutes } from "./routes/AttributeFormRoutes";
 import { interfaceFormRoutes } from "./routes/InterfaceFormRoutes";
 import { nodeFormRoutes } from "./routes/NodeFormRoutes";
 import { terminalFormRoutes } from "./routes/TerminalFormRoutes";
@@ -34,7 +33,6 @@ export const useAuthenticatedRouter = () => {
         ...terminalFormRoutes,
         ...transportFormRoutes,
         ...interfaceFormRoutes,
-        ...attributeFormRoutes,
         {
           path: "*",
           element: (

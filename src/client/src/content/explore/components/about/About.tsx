@@ -1,12 +1,10 @@
 import { AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { useGetAttribute } from "../../../../data/queries/tyle/queriesAttribute";
 import { useGetInterface } from "../../../../data/queries/tyle/queriesInterface";
 import { useGetNode } from "../../../../data/queries/tyle/queriesNode";
 import { useGetTerminal } from "../../../../data/queries/tyle/queriesTerminal";
 import { useGetTransport } from "../../../../data/queries/tyle/queriesTransport";
 import {
-  mapAttributeLibCmToAttributeItem,
   mapInterfaceLibCmToInterfaceItem,
   mapNodeLibCmToNodeItem,
   mapTerminalLibCmToTerminalItem,
@@ -16,7 +14,6 @@ import { Loader } from "../../../common/loader";
 import { SelectedInfo } from "../../types/selectedInfo";
 import { ExploreSection } from "../ExploreSection";
 import { AboutPlaceholder } from "./components/AboutPlaceholder";
-import { AttributePanel } from "./components/attribute/AttributePanel";
 import { InterfacePanel } from "./components/interface/InterfacePanel";
 import { NodePanel } from "./components/node/NodePanel";
 import { TerminalPanel } from "./components/terminal/TerminalPanel";
@@ -38,9 +35,6 @@ export const About = ({ selected }: AboutProps) => {
   const nodeQuery = useGetNode(selected?.type == "node" ? selected?.id : "");
   const showNodePanel = nodeQuery.isSuccess && nodeQuery.data;
 
-  const attributeQuery = useGetAttribute(selected?.type == "attribute" ? selected?.id : "");
-  const showAttributePanel = attributeQuery.isSuccess && attributeQuery.data;
-
   const terminalQuery = useGetTerminal(selected?.type == "terminal" ? selected?.id : "");
   const showTerminalPanel = terminalQuery.isSuccess && terminalQuery.data;
 
@@ -50,7 +44,7 @@ export const About = ({ selected }: AboutProps) => {
   const interfaceQuery = useGetInterface(selected?.type == "interface" ? selected?.id : "");
   const showInterfacePanel = interfaceQuery.isSuccess && interfaceQuery.data;
 
-  const allQueries = [nodeQuery, attributeQuery, terminalQuery, transportQuery, interfaceQuery];
+  const allQueries = [nodeQuery, terminalQuery, transportQuery, interfaceQuery];
 
   const showLoading = allQueries.some((x) => x.isLoading);
   const showPlaceHolder = allQueries.every((x) => x.isIdle);
@@ -61,9 +55,6 @@ export const About = ({ selected }: AboutProps) => {
         {showLoading && <Loader />}
         {showPlaceHolder && <AboutPlaceholder text={t("placeholders.item")} />}
         {showNodePanel && <NodePanel key={nodeQuery.data.id} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />}
-        {showAttributePanel && (
-          <AttributePanel key={attributeQuery.data.id} {...mapAttributeLibCmToAttributeItem(attributeQuery.data)} />
-        )}
         {showTerminalPanel && (
           <TerminalPanel key={terminalQuery.data.id} {...mapTerminalLibCmToTerminalItem(terminalQuery.data)} />
         )}
