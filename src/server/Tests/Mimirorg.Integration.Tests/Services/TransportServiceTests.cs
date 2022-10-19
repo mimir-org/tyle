@@ -78,10 +78,10 @@ namespace Mimirorg.Integration.Tests.Services
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
                 TerminalId = "8EBC5811473E87602FB0C18A100BD53C",
-                AttributeIdList = new List<string>
-                {
-                    "CA20DF193D58238C3C557A0316C15533"
-                },
+                //AttributeIdList = new List<string>
+                //{
+                //    "CA20DF193D58238C3C557A0316C15533"
+                //},
                 TypeReferences = new List<TypeReferenceAm>
                 {
                     new()
@@ -89,7 +89,7 @@ namespace Mimirorg.Integration.Tests.Services
                         Name = "TypeRef",
                         Iri = "https://url.com/1234567890",
                         Source = "https://source.com/1234567890",
-                        Subs = new List<TypeReferenceSub>
+                        Units = new List<TypeReferenceSub>
                         {
                             new()
                             {
@@ -117,13 +117,13 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(transportAm.Aspect, transportCm.Aspect);
             Assert.Equal(transportAm.CompanyId, transportCm.CompanyId);
             Assert.Equal(transportAm.TerminalId, transportCm.TerminalId);
-            Assert.Equal(transportAm.AttributeIdList.ToList().ConvertToString(), transportCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
+            //Assert.Equal(transportAm.AttributeIdList.ToList().ConvertToString(), transportCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
             Assert.Equal(transportAm.TypeReferences.First().Iri, transportCm.TypeReferences.First().Iri);
             Assert.Equal(transportAm.TypeReferences.First().Name, transportCm.TypeReferences.First().Name);
             Assert.Equal(transportAm.TypeReferences.First().Source, transportCm.TypeReferences.First().Source);
 
-            Assert.Equal(transportAm.TypeReferences.First().Subs.First().Name, transportCm.TypeReferences.First().Subs.First().Name);
-            Assert.Equal(transportAm.TypeReferences.First().Subs.First().Iri, transportCm.TypeReferences.First().Subs.First().Iri);
+            Assert.Equal(transportAm.TypeReferences.First().Units.First().Name, transportCm.TypeReferences.First().Units.First().Name);
+            Assert.Equal(transportAm.TypeReferences.First().Units.First().Iri, transportCm.TypeReferences.First().Units.First().Iri);
             Assert.Equal(transportAm.ParentId, transportCm.ParentId);
         }
 

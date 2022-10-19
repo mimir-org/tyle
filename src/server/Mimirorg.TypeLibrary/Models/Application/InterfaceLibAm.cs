@@ -76,13 +76,13 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string TerminalId { get; set; }
 
         /// <summary>
-        /// A list of connected attributes
+        /// A list of attributes
         /// </summary>
         /// <remarks>
         /// It is not allowed to remove attributes
         /// Adding attributes generates a major increase
         /// </remarks>
-        public ICollection<string> AttributeIdList { get; set; }
+        public ICollection<TypeReferenceAm> Attributes { get; set; }
 
         /// <summary>
         /// A list of references to other ontologies

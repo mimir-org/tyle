@@ -63,12 +63,12 @@ namespace TypeLibrary.Data.Repositories.External
                     Name = firstElement?.Quantity_Label,
                     Iri = firstElement?.Quantity,
                     Source = "PCA",
-                    Subs = new List<TypeReferenceSub>()
+                    Units = new List<TypeReferenceSub>()
                 };
 
                 foreach (var pcaUnit in group)
                 {
-                    attributeReferenceDm.Subs.Add(new TypeReferenceSub
+                    attributeReferenceDm.Units.Add(new TypeReferenceSub
                     {
                         Name = pcaUnit.Uom_Label,
                         Iri = pcaUnit.Uom,

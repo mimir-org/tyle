@@ -60,41 +60,41 @@ namespace Mimirorg.Setup
 
         private static async Task<bool> SeedAttributeData(IAttributeService attributeService)
         {
-            var attribute = new AttributeLibAm
-            {
-                Name = "Pressure, absolute",
-                Aspect = Aspect.Product,
-                Discipline = Discipline.Process,
-                Select = Select.None,
-                SelectValues = null,
-                UnitIdList = null,
-                TypeReferences = new List<TypeReferenceAm>
-                {
-                    new()
-                    {
-                        Name = "pressure",
-                        Iri = @"http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003596",
-                        Source = "PCA",
-                        Subs = new List<TypeReferenceSub>
-                        {
-                            new()
-                            {
-                                Name = "pascal",
-                                Iri = @"http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003716",
-                                IsDefault = true
-                            }
-                        }
-                    }
-                },
-                QuantityDatumSpecifiedScope = "Design Datum",
-                QuantityDatumSpecifiedProvenance = "Calculated Datum",
-                QuantityDatumRangeSpecifying = "Maximum Datum",
-                QuantityDatumRegularitySpecified = "Absolute Datum",
-                CompanyId = 1,
-                Version = "1.0"
-            };
+            //var attribute = new AttributeLibAm
+            //{
+            //    Name = "Pressure, absolute",
+            //    Aspect = Aspect.Product,
+            //    Discipline = Discipline.Process,
+            //    Select = Select.None,
+            //    SelectValues = null,
+            //    UnitIdList = null,
+            //    TypeReferences = new List<TypeReferenceAm>
+            //    {
+            //        new()
+            //        {
+            //            Name = "pressure",
+            //            Iri = @"http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003596",
+            //            Source = "PCA",
+            //            Subs = new List<TypeReferenceSub>
+            //            {
+            //                new()
+            //                {
+            //                    Name = "pascal",
+            //                    Iri = @"http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003716",
+            //                    IsDefault = true
+            //                }
+            //            }
+            //        }
+            //    },
+            //    QuantityDatumSpecifiedScope = "Design Datum",
+            //    QuantityDatumSpecifiedProvenance = "Calculated Datum",
+            //    QuantityDatumRangeSpecifying = "Maximum Datum",
+            //    QuantityDatumRegularitySpecified = "Absolute Datum",
+            //    CompanyId = 1,
+            //    Version = "1.0"
+            //};
 
-            await attributeService.Create(attribute);
+            //await attributeService.Create(attribute);
             return true;
         }
 
@@ -106,7 +106,7 @@ namespace Mimirorg.Setup
                 Color = "#006600",
                 ParentId = null,
                 CompanyId = 1,
-                AttributeIdList = null,
+                //AttributeIdList = null,
                 Version = "1.0"
             };
 
@@ -116,7 +116,7 @@ namespace Mimirorg.Setup
                 Color = "#00CC66",
                 ParentId = "201B169264C4F9249039054BCCDD4494",
                 CompanyId = 1,
-                AttributeIdList = new List<string> { "CA20DF193D58238C3C557A0316C15533" },
+                //AttributeIdList = new List<string> { "CA20DF193D58238C3C557A0316C15533" },
                 Version = "1.0"
             };
 

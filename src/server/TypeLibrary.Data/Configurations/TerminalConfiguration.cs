@@ -25,13 +25,9 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.State).HasColumnName("State").IsRequired().HasConversion<string>().HasMaxLength(31);
             builder.Property(p => p.CreatedBy).HasColumnName("CreatedBy").IsRequired().HasMaxLength(31);
             builder.Property(p => p.Created).HasColumnName("Created").IsRequired();
-            builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
+            builder.Property(p => p.Attributes).HasColumnName("Attributes").HasDefaultValue(null);
 
-            builder.HasMany(x => x.Attributes).WithMany(y => y.Terminals).UsingEntity<Dictionary<string, object>>("Terminal_Attribute",
-                x => x.HasOne<AttributeLibDm>().WithMany().HasForeignKey("AttributeId"),
-                x => x.HasOne<TerminalLibDm>().WithMany().HasForeignKey("TerminalId"),
-                x => x.ToTable("Terminal_Attribute")
-            );
+            builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

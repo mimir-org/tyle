@@ -30,7 +30,7 @@ namespace Mimirorg.Unit.Tests.Models
             var dummy = _fixture.CreateTransportTestData();
 
             // Reset changes
-            dummy.am.AttributeIdList.Remove("123");
+            //dummy.am.AttributeIdList.Remove("123");
 
             var status = dummy.dm.HasIllegalChanges(dummy.am);
             Assert.False(status.IsValid);
@@ -59,7 +59,7 @@ namespace Mimirorg.Unit.Tests.Models
             var dummy = _fixture.CreateTransportTestData();
 
             // Reset changes
-            dummy.am.AttributeIdList.Remove("555");
+            //dummy.am.AttributeIdList.Remove("555");
 
             var status = dummy.dm.CalculateVersionStatus(dummy.am);
             Assert.Equal(VersionStatus.NoChange, status);
@@ -71,7 +71,7 @@ namespace Mimirorg.Unit.Tests.Models
             var dummy = _fixture.CreateTransportTestData();
 
             // Reset changes
-            dummy.am.AttributeIdList.Remove("555");
+            //dummy.am.AttributeIdList.Remove("555");
 
             // Trigger minor
             dummy.am.PurposeName = "x";

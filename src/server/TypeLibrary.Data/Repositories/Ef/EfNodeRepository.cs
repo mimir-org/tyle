@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Extensions;
-using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
@@ -15,12 +14,10 @@ namespace TypeLibrary.Data.Repositories.Ef
 {
     public class EfNodeRepository : GenericRepository<TypeLibraryDbContext, NodeLibDm>, IEfNodeRepository
     {
-        private readonly IAttributeRepository _attributeRepository;
         private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
 
-        public EfNodeRepository(TypeLibraryDbContext dbContext, IAttributeRepository attributeRepository, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
+        public EfNodeRepository(TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
         {
-            _attributeRepository = attributeRepository;
             _typeLibraryProcRepository = typeLibraryProcRepository;
         }
 
@@ -137,13 +134,10 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// <returns>The created node</returns>
         public async Task<NodeLibDm> Create(NodeLibDm node)
         {
-            _attributeRepository.SetUnchanged(node.Attributes);
-
             await CreateAsync(node);
             await SaveAsync();
-
-            _attributeRepository.SetDetached(node.Attributes);
             Detach(node);
+
             return node;
         }
 
@@ -152,7 +146,6 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// </summary>
         public void ClearAllChangeTrackers()
         {
-            _attributeRepository.ClearAllChangeTrackers();
             Context?.ChangeTracker.Clear();
         }
     }

@@ -26,7 +26,7 @@ namespace Mimirorg.Integration.Tests.Services
                 TypeReferences = null,
                 Color = "#123456",
                 Description = "Description1",
-                AttributeIdList = null,
+                //AttributeIdList = null,
                 CompanyId = 1,
                 Version = "1.0"
             };
@@ -51,7 +51,7 @@ namespace Mimirorg.Integration.Tests.Services
                         Name = "TypeRef",
                         Iri = "https://url.com/1234567890",
                         Source = "https://source.com/1234567890",
-                        Subs = new List<TypeReferenceSub>
+                        Units = new List<TypeReferenceSub>
                         {
                             new()
                             {
@@ -64,7 +64,7 @@ namespace Mimirorg.Integration.Tests.Services
                 },
                 Color = "#123456",
                 Description = "Description1",
-                AttributeIdList = new List<string> { "CA20DF193D58238C3C557A0316C15533" },
+                //AttributeIdList = new List<string> { "CA20DF193D58238C3C557A0316C15533" },
                 CompanyId = 1,
                 Version = "1.0"
             };
@@ -81,12 +81,12 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(terminalAm.TypeReferences.First().Name, terminalCm.TypeReferences.First().Name);
             Assert.Equal(terminalAm.TypeReferences.First().Source, terminalCm.TypeReferences.First().Source);
 
-            Assert.Equal(terminalAm.TypeReferences.First().Subs.First().Name, terminalCm.TypeReferences.First().Subs.First().Name);
-            Assert.Equal(terminalAm.TypeReferences.First().Subs.First().Iri, terminalCm.TypeReferences.First().Subs.First().Iri);
+            Assert.Equal(terminalAm.TypeReferences.First().Units.First().Name, terminalCm.TypeReferences.First().Units.First().Name);
+            Assert.Equal(terminalAm.TypeReferences.First().Units.First().Iri, terminalCm.TypeReferences.First().Units.First().Iri);
 
             Assert.Equal(terminalAm.Color, terminalCm.Color);
             Assert.Equal(terminalAm.Description, terminalCm.Description);
-            Assert.Equal(terminalAm.AttributeIdList.ToList().ConvertToString(), terminalCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
+            //Assert.Equal(terminalAm.AttributeIdList.ToList().ConvertToString(), terminalCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
             Assert.Equal(terminalAm.CompanyId, terminalCm.CompanyId);
         }
 
@@ -100,7 +100,7 @@ namespace Mimirorg.Integration.Tests.Services
                 TypeReferences = null,
                 Color = "#123456",
                 Description = "Description v1.0",
-                AttributeIdList = new List<string> { "CA20DF193D58238C3C557A0316C15533" },
+                //AttributeIdList = new List<string> { "CA20DF193D58238C3C557A0316C15533" },
                 CompanyId = 1,
                 Version = "1.0"
             };

@@ -31,7 +31,7 @@ namespace Mimirorg.Unit.Tests.Models
             var dummy = _fixture.CreateNodeTestData();
 
             // Reset changes
-            dummy.am.AttributeIdList.Remove("123");
+            //dummy.am.AttributeIdList.Remove("123");
             dummy.am.NodeTerminals = dummy.am.NodeTerminals.Where(x => x.Id != $"123-{ConnectorDirection.Input}".CreateMd5()).ToList();
             dummy.am.SelectedAttributePredefined = dummy.am.SelectedAttributePredefined.Where(x => x.Key != "123").ToList();
 
@@ -62,7 +62,7 @@ namespace Mimirorg.Unit.Tests.Models
             var dummy = _fixture.CreateNodeTestData();
 
             // Reset changes
-            dummy.am.AttributeIdList.Remove("555");
+            //dummy.am.AttributeIdList.Remove("555");
             dummy.am.NodeTerminals = dummy.am.NodeTerminals.Where(x => x.Id != $"555-{ConnectorDirection.Input}".CreateMd5()).ToList();
             dummy.am.SelectedAttributePredefined = dummy.am.SelectedAttributePredefined.Where(x => x.Key != "555").ToList();
 
@@ -76,7 +76,7 @@ namespace Mimirorg.Unit.Tests.Models
             var dummy = _fixture.CreateNodeTestData();
 
             // Reset changes
-            dummy.am.AttributeIdList.Remove("555");
+            //dummy.am.AttributeIdList.Remove("555");
             dummy.am.NodeTerminals = dummy.am.NodeTerminals.Where(x => x.Id != $"555-{ConnectorDirection.Input}".CreateMd5()).ToList();
             dummy.am.SelectedAttributePredefined = dummy.am.SelectedAttributePredefined.Where(x => x.Key != "555").ToList();
 

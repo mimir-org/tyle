@@ -5,6 +5,7 @@ using Mimirorg.Common.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Newtonsoft.Json;
 using TypeLibrary.Data.Contracts.Common;
@@ -33,7 +34,7 @@ namespace TypeLibrary.Data.Models
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public virtual ICollection<InterfaceLibDm> Children { get; set; }
-        public virtual ICollection<AttributeLibDm> Attributes { get; set; }
+        public string Attributes { get; set; }
 
         #region IVersionable
 
@@ -62,12 +63,11 @@ namespace TypeLibrary.Data.Models
             if (ParentId != other.ParentId)
                 validation.AddNotAllowToChange(nameof(ParentId));
 
-            Attributes ??= new List<AttributeLibDm>();
-            other.AttributeIdList ??= new List<string>();
-            if (Attributes.Select(y => y.Id).Any(id => other.AttributeIdList.All(x => x != id)))
-            {
+            var attributes = Attributes?.ConvertToObject<ICollection<TypeReferenceDm>>() ?? new List<TypeReferenceDm>();
+            other.Attributes ??= new List<TypeReferenceAm>();
+
+            if (attributes.Select(y => y.Id).Any(id => other.Attributes.Select(x => x.Id).All(x => x != id)))
                 validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove items from attributes");
-            }
 
             validation.IsValid = !validation.Result.Any();
             return validation;
@@ -91,9 +91,10 @@ namespace TypeLibrary.Data.Models
                 minor = true;
 
             // Attributes
-            Attributes ??= new List<AttributeLibDm>();
-            other.AttributeIdList ??= new List<string>();
-            if (!Attributes.Select(x => x.Id).SequenceEqual(other.AttributeIdList))
+            var attributes = Attributes?.ConvertToObject<ICollection<TypeReferenceDm>>() ?? new List<TypeReferenceDm>();
+            other.Attributes ??= new List<TypeReferenceAm>();
+
+            if (!attributes.Select(x => x.Id).SequenceEqual(other.Attributes.Select(x => x.Id)))
                 major = true;
 
             // Type-references

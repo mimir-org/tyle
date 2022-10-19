@@ -5,6 +5,7 @@ using Mimirorg.Common.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Newtonsoft.Json;
 using TypeLibrary.Data.Contracts.Common;
@@ -27,7 +28,7 @@ namespace TypeLibrary.Data.Models
         public State State { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-        public ICollection<AttributeLibDm> Attributes { get; set; }
+        public string Attributes { get; set; }
         public ICollection<TerminalLibDm> Children { get; set; }
         public ICollection<NodeTerminalLibDm> TerminalNodes { get; set; }
         public ICollection<InterfaceLibDm> Interfaces { get; set; }
@@ -45,12 +46,11 @@ namespace TypeLibrary.Data.Models
             if (Name != other.Name)
                 validation.AddNotAllowToChange(nameof(Name));
 
-            Attributes ??= new List<AttributeLibDm>();
-            other.AttributeIdList ??= new List<string>();
-            if (Attributes.Select(y => y.Id).Any(id => other.AttributeIdList.All(x => x != id)))
-            {
+            var attributes = Attributes?.ConvertToObject<ICollection<TypeReferenceDm>>() ?? new List<TypeReferenceDm>();
+            other.Attributes ??= new List<TypeReferenceAm>();
+
+            if (attributes.Select(y => y.Id).Any(id => other.Attributes.Select(x => x.Id).All(x => x != id)))
                 validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove items from attributes");
-            }
 
             if (ParentId != other.ParentId)
                 validation.AddNotAllowToChange(nameof(ParentId));
@@ -78,9 +78,10 @@ namespace TypeLibrary.Data.Models
                 minor = true;
 
             // Attributes
-            Attributes ??= new List<AttributeLibDm>();
-            other.AttributeIdList ??= new List<string>();
-            if (!Attributes.Select(x => x.Id).SequenceEqual(other.AttributeIdList))
+            var attributes = Attributes?.ConvertToObject<ICollection<TypeReferenceDm>>() ?? new List<TypeReferenceDm>();
+            other.Attributes ??= new List<TypeReferenceAm>();
+
+            if (!attributes.Select(x => x.Id).SequenceEqual(other.Attributes.Select(x => x.Id)))
                 major = true;
 
             // Type-references

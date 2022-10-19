@@ -54,21 +54,21 @@ namespace Mimirorg.Integration.Tests.Services
             var attributeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IAttributeService>();
             var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
 
-            var attributeAm = new AttributeLibAm
-            {
-                Name = "attribute123456",
-                Aspect = Aspect.Function,
-                Discipline = Discipline.Electrical,
-                Select = Select.MultiSelect,
-                Description = "Description1",
-                SelectValues = new List<string> { "value1", "VALUE2", "value3" },
-                QuantityDatumRangeSpecifying = "Normal",
-                QuantityDatumSpecifiedProvenance = "Calculated",
-                QuantityDatumRegularitySpecified = "Absolute",
-                QuantityDatumSpecifiedScope = "Design Datum",
-                CompanyId = 1,
-                Version = "1.0"
-            };
+            //var attributeAm = new AttributeLibAm
+            //{
+            //    Name = "attribute123456",
+            //    Aspect = Aspect.Function,
+            //    Discipline = Discipline.Electrical,
+            //    Select = Select.MultiSelect,
+            //    Description = "Description1",
+            //    SelectValues = new List<string> { "value1", "VALUE2", "value3" },
+            //    QuantityDatumRangeSpecifying = "Normal",
+            //    QuantityDatumSpecifiedProvenance = "Calculated",
+            //    QuantityDatumRegularitySpecified = "Absolute",
+            //    QuantityDatumSpecifiedScope = "Design Datum",
+            //    CompanyId = 1,
+            //    Version = "1.0"
+            //};
 
             var terminalAm = new TerminalLibAm
             {
@@ -78,7 +78,7 @@ namespace Mimirorg.Integration.Tests.Services
                 Version = "1.0"
             };
 
-            var attributeCm = await attributeService.Create(attributeAm);
+            //var attributeCm = await attributeService.Create(attributeAm);
 
             var interfaceParentAm = new InterfaceLibAm
             {
@@ -104,7 +104,7 @@ namespace Mimirorg.Integration.Tests.Services
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
                 TerminalId = terminalCm.Id,
-                AttributeIdList = new List<string> { $"{attributeCm.Id}" },
+                //AttributeIdList = new List<string> { $"{attributeCm.Id}" },
                 TypeReferences = new List<TypeReferenceAm>
                 {
                     new()
@@ -112,7 +112,7 @@ namespace Mimirorg.Integration.Tests.Services
                         Name = "TypeRef",
                         Iri = "https://url.com/1234567890",
                         Source = "https://source.com/1234567890",
-                        Subs = new List<TypeReferenceSub>
+                        Units = new List<TypeReferenceSub>
                         {
                             new()
                             {
@@ -140,14 +140,14 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(interfaceAm.Aspect, interfaceCm.Aspect);
             Assert.Equal(interfaceAm.CompanyId, interfaceCm.CompanyId);
             Assert.Equal(interfaceAm.TerminalId, interfaceCm.TerminalId);
-            Assert.Equal(interfaceAm.AttributeIdList.ToList().ConvertToString(), interfaceCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
+            //Assert.Equal(interfaceAm.AttributeIdList.ToList().ConvertToString(), interfaceCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
 
             Assert.Equal(interfaceAm.TypeReferences.First().Iri, interfaceCm.TypeReferences.First().Iri);
             Assert.Equal(interfaceAm.TypeReferences.First().Name, interfaceCm.TypeReferences.First().Name);
             Assert.Equal(interfaceAm.TypeReferences.First().Source, interfaceCm.TypeReferences.First().Source);
 
-            Assert.Equal(interfaceAm.TypeReferences.First().Subs.First().Name, interfaceCm.TypeReferences.First().Subs.First().Name);
-            Assert.Equal(interfaceAm.TypeReferences.First().Subs.First().Iri, interfaceCm.TypeReferences.First().Subs.First().Iri);
+            Assert.Equal(interfaceAm.TypeReferences.First().Units.First().Name, interfaceCm.TypeReferences.First().Units.First().Name);
+            Assert.Equal(interfaceAm.TypeReferences.First().Units.First().Iri, interfaceCm.TypeReferences.First().Units.First().Iri);
             Assert.Equal(interfaceAm.ParentId, interfaceCm.ParentId);
         }
 

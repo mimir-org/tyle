@@ -20,7 +20,6 @@ namespace Mimirorg.Setup.Fixtures
 
         // Repositories
         public Mock<INodeRepository> NodeRepository = new();
-        public Mock<IAttributeRepository> AttributeRepository = new();
         public Mock<IQuantityDatumRepository> DatumRepository = new();
         public Mock<IAttributePredefinedRepository> AttributePredefinedRepository = new();
         public Mock<IAttributeReferenceRepository> AttributeReferenceRepository = new();
@@ -57,11 +56,11 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                AttributeIdList = new List<string>
-                {
-                    "123",
-                    "555"
-                },
+                //AttributeIdList = new List<string>
+                //{
+                //    "123",
+                //    "555"
+                //},
                 NodeTerminals = new List<NodeTerminalLibAm>
                 {
                     new()
@@ -102,13 +101,13 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                Attributes = new List<AttributeLibDm>
-                {
-                    new()
-                    {
-                        Id = "123"
-                    }
-                },
+                //Attributes = new List<AttributeLibDm>
+                //{
+                //    new()
+                //    {
+                //        Id = "123"
+                //    }
+                //},
                 NodeTerminals = new List<NodeTerminalLibDm>
                 {
                     new()
@@ -150,11 +149,11 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                AttributeIdList = new List<string>
-                {
-                    "123",
-                    "555"
-                },
+                //AttributeIdList = new List<string>
+                //{
+                //    "123",
+                //    "555"
+                //},
                 ParentId = "123",
                 TypeReferences = typeRefs
             };
@@ -165,13 +164,13 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                Attributes = new List<AttributeLibDm>
-                {
-                    new()
-                    {
-                        Id = "123"
-                    }
-                },
+                //Attributes = new List<AttributeLibDm>
+                //{
+                //    new()
+                //    {
+                //        Id = "123"
+                //    }
+                //},
                 ParentId = "123",
                 TypeReferences = typeRefs.ConvertToString()
             };
@@ -196,11 +195,11 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                AttributeIdList = new List<string>
-                {
-                    "123",
-                    "555"
-                },
+                //AttributeIdList = new List<string>
+                //{
+                //    "123",
+                //    "555"
+                //},
                 ParentId = "123",
                 TypeReferences = typeRefs
             };
@@ -211,13 +210,13 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                Attributes = new List<AttributeLibDm>
-                {
-                    new()
-                    {
-                        Id = "123"
-                    }
-                },
+                //Attributes = new List<AttributeLibDm>
+                //{
+                //    new()
+                //    {
+                //        Id = "123"
+                //    }
+                //},
                 ParentId = "123",
                 TypeReferences = typeRefs.ConvertToString()
             };

@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Extensions;
-using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
@@ -15,12 +14,10 @@ namespace TypeLibrary.Data.Repositories.Ef
 {
     public class EfInterfaceRepository : GenericRepository<TypeLibraryDbContext, InterfaceLibDm>, IEfInterfaceRepository
     {
-        private readonly IAttributeRepository _attributeRepository;
         private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
 
-        public EfInterfaceRepository(TypeLibraryDbContext dbContext, IAttributeRepository attributeRepository, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
+        public EfInterfaceRepository(TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
         {
-            _attributeRepository = attributeRepository;
             _typeLibraryProcRepository = typeLibraryProcRepository;
         }
 
@@ -138,15 +135,8 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// <returns>The created interface</returns>
         public async Task<InterfaceLibDm> Create(InterfaceLibDm interfaceDm)
         {
-            if (interfaceDm?.Attributes != null && interfaceDm.Attributes.Any())
-                _attributeRepository.SetUnchanged(interfaceDm.Attributes);
-
             await CreateAsync(interfaceDm);
             await SaveAsync();
-
-            if (interfaceDm?.Attributes != null && interfaceDm.Attributes.Any())
-                _attributeRepository.SetDetached(interfaceDm.Attributes);
-
             Detach(interfaceDm);
 
             return interfaceDm;
@@ -154,7 +144,6 @@ namespace TypeLibrary.Data.Repositories.Ef
 
         public void ClearAllChangeTrackers()
         {
-            _attributeRepository.ClearAllChangeTrackers();
             Context?.ChangeTracker.Clear();
         }
     }

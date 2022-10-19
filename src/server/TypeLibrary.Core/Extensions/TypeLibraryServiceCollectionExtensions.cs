@@ -12,7 +12,6 @@ using TypeLibrary.Core.Factories;
 using TypeLibrary.Core.Profiles;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Data.Contracts.Factories;
 
 namespace TypeLibrary.Core.Extensions
 {
@@ -34,7 +33,6 @@ namespace TypeLibrary.Core.Extensions
         {
             var provider = serviceCollection.BuildServiceProvider();
             var cfg = new MapperConfigurationExpression();
-            cfg.AddProfile(new AttributeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IUnitFactory>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
             cfg.AddProfile(new SymbolProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<IOptions<ApplicationSettings>>()));
             cfg.AddProfile(new NodeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
             cfg.AddProfile(new InterfaceProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));

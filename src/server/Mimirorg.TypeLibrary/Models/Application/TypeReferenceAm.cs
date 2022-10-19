@@ -6,6 +6,8 @@ namespace Mimirorg.TypeLibrary.Models.Application
 {
     public class TypeReferenceAm : IEquatable<TypeReferenceAm>
     {
+        public string Id => Iri?.Substring(Iri.LastIndexOf('/') + 1);
+
         [Required]
         public string Name { get; set; }
 
@@ -15,7 +17,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         public string Source { get; set; }
 
-        public ICollection<TypeReferenceSub> Subs { get; set; }
+        public ICollection<TypeReferenceSub> Units { get; set; }
 
         public bool Equals(TypeReferenceAm other)
         {
