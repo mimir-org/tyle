@@ -485,7 +485,7 @@
   },
   "recover": {
     "details": {
-      "title": "Register",
+      "title": "Account recovery",
       "submit": "Continue",
       "error": "An error occurred when trying to start recovery.",
       "info": {
@@ -552,7 +552,7 @@
     "error": "Incorrect username, password or authentication code.",
     "info": {
       "text": "If you have forgotten your password, follow the instruction below for account recovery. You will need to re-verify your email and authenticator. You will not lose the data you have created in :Tyle",
-      "action": "Account Recovery"
+      "action": "Account recovery"
     },
     "validation": {
       "email": {
