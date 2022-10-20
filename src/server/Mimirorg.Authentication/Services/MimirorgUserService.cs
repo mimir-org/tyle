@@ -430,8 +430,12 @@ namespace Mimirorg.Authentication.Services
         {
             var user = userAm.ToDomainModel();
 
-            var currentCompany = await _mimirorgCompanyService.GetCompanyById(userAm.CompanyId);
-            user.CompanyName = currentCompany?.DisplayName ?? currentCompany?.Name;
+            if (userAm.CompanyId > 0)
+            {
+                var currentCompany = await _mimirorgCompanyService.GetCompanyById(userAm.CompanyId);
+                user.CompanyName = currentCompany?.DisplayName ?? currentCompany?.Name;
+            }
+
             user.EmailConfirmed = !_authSettings.RequireConfirmedAccount;
             user.TwoFactorEnabled = !_authSettings.RequireConfirmedAccount;
 
