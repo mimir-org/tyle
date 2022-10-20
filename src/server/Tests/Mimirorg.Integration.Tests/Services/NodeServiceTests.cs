@@ -41,25 +41,28 @@ namespace Mimirorg.Test.Integration.Services
         public async Task Create_Node_Create_Node_When_Ok_Parameters()
         {
             var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
-            var attributeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IAttributeService>();
-
-            //var attributeAm = new AttributeLibAm
-            //{
-            //    Name = "attribute12345678",
-            //    Aspect = Aspect.Function,
-            //    Discipline = Discipline.Electrical,
-            //    Select = Select.MultiSelect,
-            //    Description = "Description1",
-            //    SelectValues = new List<string> { "value1", "VALUE2", "value3" },
-            //    QuantityDatumRangeSpecifying = "Normal",
-            //    QuantityDatumSpecifiedProvenance = "Calculated",
-            //    QuantityDatumRegularitySpecified = "Absolute",
-            //    QuantityDatumSpecifiedScope = "Design Datum",
-            //    CompanyId = 1,
-            //    Version = "1.0"
-            //};
-
-            //var attributeCm = await attributeService.Create(attributeAm);
+            
+            var newAttribute = new TypeReferenceAm
+            {
+                Name = "a11",
+                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a11",
+                Source = "PCA",
+                Units = new List<TypeReferenceSub>
+                {
+                    new()
+                    {
+                        Name = "u11",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u11",
+                        IsDefault = true
+                    },
+                    new()
+                    {
+                        Name = "u22",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u22",
+                        IsDefault = false
+                    }
+                }
+            };
 
             var nodeAm = new NodeLibAm
             {
@@ -70,7 +73,7 @@ namespace Mimirorg.Test.Integration.Services
                 Description = "Description",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
-                //AttributeIdList = new List<string> { $"{attributeCm.Id}" },
+                Attributes = new List<TypeReferenceAm> { newAttribute },
                 NodeTerminals = new List<NodeTerminalLibAm>{
                     new()
                     {
@@ -141,7 +144,7 @@ namespace Mimirorg.Test.Integration.Services
             Assert.Equal(nodeAm.Aspect, nodeCm.Aspect);
             Assert.Equal(nodeAm.Description, nodeCm.Description);
             Assert.Equal(nodeAm.CompanyId, nodeCm.CompanyId);
-            //Assert.Equal(nodeAm.AttributeIdList.ToList().ConvertToString(), nodeCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
+            Assert.Equal(nodeAm.Attributes.ToList()[0].Id, nodeCm.Attributes.ToList()[0].Id);
 
             foreach (var am in nodeAm.NodeTerminals)
             {

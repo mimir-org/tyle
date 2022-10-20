@@ -25,7 +25,6 @@ namespace Mimirorg.Test.Integration.Services
                 TypeReferences = null,
                 Color = "#123456",
                 Description = "Description1",
-                //AttributeIdList = null,
                 CompanyId = 1,
                 Version = "1.0"
             };
@@ -39,6 +38,28 @@ namespace Mimirorg.Test.Integration.Services
         [Fact]
         public async Task Create_Terminal_Create_Terminal_When_Ok_Parameters()
         {
+            var newAttribute = new TypeReferenceAm
+            {
+                Name = "a11",
+                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a11",
+                Source = "PCA",
+                Units = new List<TypeReferenceSub>
+                {
+                    new()
+                    {
+                        Name = "u11",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u11",
+                        IsDefault = true
+                    },
+                    new()
+                    {
+                        Name = "u22",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u22",
+                        IsDefault = false
+                    }
+                }
+            };
+
             var terminalAm = new TerminalLibAm
             {
                 Name = "TestTerminal2",
@@ -63,7 +84,7 @@ namespace Mimirorg.Test.Integration.Services
                 },
                 Color = "#123456",
                 Description = "Description1",
-                //AttributeIdList = new List<string> { "CA20DF193D58238C3C557A0316C15533" },
+                Attributes = new List<TypeReferenceAm>{newAttribute},
                 CompanyId = 1,
                 Version = "1.0"
             };
@@ -85,7 +106,7 @@ namespace Mimirorg.Test.Integration.Services
 
             Assert.Equal(terminalAm.Color, terminalCm.Color);
             Assert.Equal(terminalAm.Description, terminalCm.Description);
-            //Assert.Equal(terminalAm.AttributeIdList.ToList().ConvertToString(), terminalCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
+            Assert.Equal(terminalAm.Attributes.ToList()[0].Id, terminalCm.Attributes.ToList()[0].Id);
             Assert.Equal(terminalAm.CompanyId, terminalCm.CompanyId);
         }
 
@@ -99,7 +120,6 @@ namespace Mimirorg.Test.Integration.Services
                 TypeReferences = null,
                 Color = "#123456",
                 Description = "Description v1.0",
-                //AttributeIdList = new List<string> { "CA20DF193D58238C3C557A0316C15533" },
                 CompanyId = 1,
                 Version = "1.0"
             };

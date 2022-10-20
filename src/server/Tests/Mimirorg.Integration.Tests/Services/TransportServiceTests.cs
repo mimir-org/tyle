@@ -52,6 +52,28 @@ namespace Mimirorg.Test.Integration.Services
         [Fact]
         public async Task Create_Transport_Create_Transport_When_Ok_Parameters()
         {
+            var newAttribute = new TypeReferenceAm
+            {
+                Name = "a11",
+                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a11",
+                Source = "PCA",
+                Units = new List<TypeReferenceSub>
+                {
+                    new()
+                    {
+                        Name = "u11",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u11",
+                        IsDefault = true
+                    },
+                    new()
+                    {
+                        Name = "u22",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u22",
+                        IsDefault = false
+                    }
+                }
+            };
+
             var transportParentAm = new TransportLibAm
             {
                 Name = "TransportParent",
@@ -77,10 +99,7 @@ namespace Mimirorg.Test.Integration.Services
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
                 TerminalId = "8EBC5811473E87602FB0C18A100BD53C",
-                //AttributeIdList = new List<string>
-                //{
-                //    "CA20DF193D58238C3C557A0316C15533"
-                //},
+                Attributes = new List<TypeReferenceAm>{newAttribute},
                 TypeReferences = new List<TypeReferenceAm>
                 {
                     new()
@@ -116,7 +135,7 @@ namespace Mimirorg.Test.Integration.Services
             Assert.Equal(transportAm.Aspect, transportCm.Aspect);
             Assert.Equal(transportAm.CompanyId, transportCm.CompanyId);
             Assert.Equal(transportAm.TerminalId, transportCm.TerminalId);
-            //Assert.Equal(transportAm.AttributeIdList.ToList().ConvertToString(), transportCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
+            Assert.Equal(transportAm.Attributes.ToList()[0].Id, transportCm.Attributes.ToList()[0].Id);
             Assert.Equal(transportAm.TypeReferences.First().Iri, transportCm.TypeReferences.First().Iri);
             Assert.Equal(transportAm.TypeReferences.First().Name, transportCm.TypeReferences.First().Name);
             Assert.Equal(transportAm.TypeReferences.First().Source, transportCm.TypeReferences.First().Source);
