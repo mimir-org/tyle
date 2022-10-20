@@ -9,12 +9,12 @@
     <PackageReference Include="AspNetCore.Totp" Version="2.3.0" />
     <PackageReference Include="MailKit" Version="3.4.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
     <PackageReference Include="Microsoft.Identity.Web" Version="1.25.3" />
     <PackageReference Include="SendGrid" Version="9.28.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />

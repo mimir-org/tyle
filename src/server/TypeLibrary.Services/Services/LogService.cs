@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,7 +29,8 @@ namespace TypeLibrary.Services.Services
         /// <returns>A collection of all logs</returns>
         public IEnumerable<LogLibCm> Get()
         {
-            var dms = _logRepository.Get().OrderBy(x => x.ObjectName, StringComparer.CurrentCultureIgnoreCase).ThenBy(x => x.Comment).ToList();
+            var dms = _logRepository.Get().OrderBy(x => x.ObjectFirstVersionId).ThenBy(x => x.Created).ToList();
+
             return _mapper.Map<List<LogLibCm>>(dms);
         }
 
@@ -42,7 +42,7 @@ namespace TypeLibrary.Services.Services
         /// <param name="logTypeValue"></param>
         /// <param name="comment"></param>
         /// /// <returns>Completed task</returns>
-        public async Task CreateLog(ILogable logObject, LogType logType, string logTypeValue, string comment)
+        public async Task CreateLog(ILogable logObject, LogType logType, string logTypeValue, string comment = null)
         {
             var logAm = logObject.CreateLog(logType, logTypeValue, comment);
 
@@ -57,7 +57,7 @@ namespace TypeLibrary.Services.Services
         /// <param name="logTypeValue"></param>
         /// <param name="comment"></param>
         /// /// <returns>Completed task</returns>
-        public async Task CreateLogs(IEnumerable<ILogable> logObjects, LogType logType, string logTypeValue, string comment)
+        public async Task CreateLogs(IEnumerable<ILogable> logObjects, LogType logType, string logTypeValue, string comment = null)
         {
             var logAms = logObjects.Select(x => x.CreateLog(logType, logTypeValue, comment)).ToList();
 

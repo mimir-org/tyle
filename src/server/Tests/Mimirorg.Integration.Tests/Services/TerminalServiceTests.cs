@@ -2,10 +2,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Setup;
+using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
+using TypeLibrary.Services.Services;
 using Xunit;
 
 namespace Mimirorg.Integration.Tests.Services
@@ -70,6 +72,8 @@ namespace Mimirorg.Integration.Tests.Services
             };
 
             var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
+            var logService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ILogService>();
+
             var terminalCm = await terminalService.Create(terminalAm);
 
             Assert.NotNull(terminalCm);
@@ -88,6 +92,20 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(terminalAm.Description, terminalCm.Description);
             Assert.Equal(terminalAm.AttributeIdList.ToList().ConvertToString(), terminalCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
             Assert.Equal(terminalAm.CompanyId, terminalCm.CompanyId);
+
+            var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == terminalCm.Id);
+
+            Assert.True(logCm != null);
+            Assert.Equal(terminalCm.Id, logCm.ObjectId);
+            Assert.Equal(terminalCm.FirstVersionId, logCm.ObjectFirstVersionId);
+            Assert.Equal(terminalCm.Name, logCm.ObjectName);
+            Assert.Equal(terminalCm.Version, logCm.ObjectVersion);
+            Assert.Equal(terminalCm.GetType().Name.Remove(terminalCm.GetType().Name.Length - 2, 2) + "Dm", logCm.ObjectType);
+            Assert.Equal(LogType.State.ToString(), logCm.LogType.ToString());
+            Assert.Equal(State.Draft.ToString(), logCm.LogTypeValue);
+            Assert.NotNull(logCm.User);
+            Assert.Equal("System.DateTime", logCm.Created.GetType().ToString());
+            Assert.True(logCm.Created.Kind == DateTimeKind.Utc);
         }
 
         [Fact]
