@@ -264,6 +264,61 @@ namespace Mimirorg.Test.Setup.Fixtures
             return (transportLibAm, transportLibDm);
         }
 
+        public (TerminalLibAm am, TerminalLibDm dm) CreateTerminalTestData()
+        {
+            var typeRefs = new List<TypeReferenceAm>
+            {
+                new()
+                {
+                    Iri = "https://tyle.com",
+                    Name = "XX"
+                }
+            };
+
+            var terminalLibAm = new TerminalLibAm
+            {
+                Name = "AA",
+                TypeReferences = typeRefs,
+                Color = "#123",
+                Attributes = new List<TypeReferenceAm>
+                {
+                    new()
+                    {
+                        Name = "a1",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
+                        Source = "PCA",
+                        Units = new List<TypeReferenceSub>
+                        {
+                            new()
+                            {
+                                Name = "u1",
+                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u1",
+                                IsDefault = true
+                            },
+                            new()
+                            {
+                                Name = "u2",
+                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u2",
+                                IsDefault = false
+                            }
+                        }
+                    }
+                },
+                Version = "1.0"
+            };
+
+            var terminalLibDm = new TerminalLibDm
+            {
+                Name = "AA",
+                Color = "#123",
+                Attributes = terminalLibAm.Attributes.ConvertToString(),
+                Version = "1.0",
+                TypeReferences = typeRefs.ConvertToString()
+            };
+
+            return (terminalLibAm, terminalLibDm);
+        }
+
         public void Dispose()
         {
 
