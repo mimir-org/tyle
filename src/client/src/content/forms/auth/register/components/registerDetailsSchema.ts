@@ -19,7 +19,7 @@ export const registerDetailsSchema = (t: TFunction<"translation">, companiesAreA
       .required(t("register.details.validation.confirmPassword.required")),
     firstName: yup.string().required(t("register.details.validation.firstName.required")),
     lastName: yup.string().required(t("register.details.validation.lastName.required")),
-    purpose: yup.string().required(t("register.details.validation.purpose.required")),
+    purpose: yup.string().nullable().notRequired(),
     companyId: yup.number().nullable().notRequired(),
   });
 
