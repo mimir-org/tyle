@@ -12,6 +12,7 @@ import { MotionText, Text } from "../../../../complib/text";
 import { useLogin } from "../../../../data/queries/auth/queriesAuthenticate";
 import { useServerValidation } from "../../../../hooks/useServerValidation";
 import { UnauthenticatedContent } from "../../../app/components/unauthenticated/layout/UnauthenticatedContent";
+import { RegisterPath } from "../register/Register";
 import { loginSchema } from "./loginSchema";
 
 export const Login = () => {
@@ -72,7 +73,7 @@ export const Login = () => {
             {t("login.submit")}
           </Button>
           <Text color={theme.tyle.color.sys.surface.variant.on}>
-            {t("login.altLead")} <Link to="/register">{t("login.altLink")}</Link>
+            {t("login.altLead")} <Link to={RegisterPath}>{t("login.altLink")}</Link>
           </Text>
         </MotionFlexbox>
       }

@@ -12,16 +12,17 @@ import { Actionable } from "../../../../../complib/types";
 import { useGenerateMfa, useVerification } from "../../../../../data/queries/auth/queriesUser";
 import { useExecuteOnCriteria } from "../../../../../hooks/useExecuteOnCriteria";
 import { UnauthenticatedContent } from "../../../../app/components/unauthenticated/layout/UnauthenticatedContent";
-import { RegisterProcessing } from "./RegisterProcessing";
-import { MotionRegisterVerifyForm } from "./RegisterVerify.styled";
+import { Processing } from "../../common/Processing";
+import { MotionVerifyForm } from "../../common/Verification";
+import { onSubmitForm } from "./RegisterVerification.helpers";
 
-type RegisterVerifyProps = Pick<MimirorgVerifyAm, "email"> & {
-  setQrCodeInfo: (info: MimirorgQrCodeCm) => void;
+type VerificationProps = Pick<MimirorgVerifyAm, "email"> & {
+  setMfaInfo: (info: MimirorgQrCodeCm) => void;
   cancel?: Partial<Actionable>;
   complete?: Partial<Actionable>;
 };
 
-export const RegisterVerify = ({ email, setQrCodeInfo, cancel, complete }: RegisterVerifyProps) => {
+export const RegisterVerification = ({ email, setMfaInfo, cancel, complete }: VerificationProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const { control, register, handleSubmit } = useForm<MimirorgVerifyAm>();
@@ -33,12 +34,6 @@ export const RegisterVerify = ({ email, setQrCodeInfo, cancel, complete }: Regis
   const showProcessing = verificationMutation.isLoading || generateMfaMutation.isLoading;
   const showInput = !verificationMutation.isSuccess && !verificationMutation.isLoading;
 
-  const onSubmit = async (data: MimirorgVerifyAm) => {
-    const verified = await verificationMutation.mutateAsync(data);
-    const qrCodeInfo = await generateMfaMutation.mutateAsync(data);
-    verified && qrCodeInfo && setQrCodeInfo(qrCodeInfo);
-  };
-
   useExecuteOnCriteria(complete?.onAction, verificationMutation.isSuccess && generateMfaMutation.isSuccess);
 
   return (
@@ -46,19 +41,24 @@ export const RegisterVerify = ({ email, setQrCodeInfo, cancel, complete }: Regis
       title={t("register.verify.title")}
       firstRow={
         <>
-          {showProcessing && <RegisterProcessing>{t("register.processing")}</RegisterProcessing>}
+          {showProcessing && <Processing>{t("register.processing")}</Processing>}
           {showError && <FormErrorBanner>{t("register.verify.error")}</FormErrorBanner>}
           {showInput && (
-            <MotionRegisterVerifyForm id={"verify-form"} onSubmit={handleSubmit((data) => onSubmit(data))} layout>
+            <MotionVerifyForm
+              id={"verify-form"}
+              onSubmit={handleSubmit((data) =>
+                onSubmitForm(data, verificationMutation.mutateAsync, generateMfaMutation.mutateAsync, setMfaInfo)
+              )}
+              layout
+            >
               <Input type={"hidden"} value={email} {...register("email")} />
               <Controller
                 control={control}
                 name={"code"}
                 render={({ field: { value, onChange } }) => <Digits value={value} onChange={onChange} />}
               />
-            </MotionRegisterVerifyForm>
+            </MotionVerifyForm>
           )}
-
           <DevTool control={control} placement={"bottom-right"} />
         </>
       }
