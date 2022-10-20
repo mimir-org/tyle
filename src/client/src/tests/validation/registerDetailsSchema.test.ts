@@ -41,4 +41,9 @@ describe("registerDetailsSchema tests", () => {
     const userForm: Partial<MimirorgUserAm> = { purpose: "" };
     await expect(registerDetailsSchema(t).validateAt("purpose", userForm)).rejects.toBeTruthy();
   });
+
+  it("should reject without an organization if there are any available", async () => {
+    const userForm: Partial<MimirorgUserAm> = {};
+    await expect(registerDetailsSchema(t, true).validateAt("companyId", userForm)).rejects.toBeTruthy();
+  });
 });

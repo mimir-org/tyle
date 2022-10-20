@@ -28,15 +28,16 @@ export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps
   const theme = useTheme();
   const { t } = useTranslation();
 
+  const mutation = useCreateUser();
+  const companyQuery = useGetCompanies();
+  const companiesAreAvailable = (companyQuery.data && companyQuery.data.length > 0) ?? false;
+
   const formMethods = useForm<MimirorgUserAm>({
-    resolver: yupResolver(registerDetailsSchema(t)),
+    resolver: yupResolver(registerDetailsSchema(t, companiesAreAvailable)),
   });
 
   const { register, control, handleSubmit, setError, formState } = formMethods;
   const { errors } = formState;
-
-  const companyQuery = useGetCompanies();
-  const mutation = useCreateUser();
 
   const onSubmit = (data: MimirorgUserAm) => {
     setUserEmail(data.email);

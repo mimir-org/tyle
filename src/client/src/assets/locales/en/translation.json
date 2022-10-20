@@ -448,6 +448,10 @@
         },
         "purpose": {
           "required": "Please explain your purpose for creating this account"
+        },
+        "companyId": {
+          "min": "Please select an organization",
+          "required": "Please select an organization"
         }
       }
     },
