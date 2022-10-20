@@ -1,15 +1,14 @@
 using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
-using Mimirorg.Setup;
+using Mimirorg.Test.Setup;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 using Xunit;
 
-namespace Mimirorg.Integration.Tests.Services
+namespace Mimirorg.Test.Integration.Services
 {
     public class InterfaceServiceTests : IntegrationTest
     {

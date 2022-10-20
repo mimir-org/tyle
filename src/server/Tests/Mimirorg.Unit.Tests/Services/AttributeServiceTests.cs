@@ -1,15 +1,11 @@
-using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using Mimirorg.Common.Exceptions;
-using Mimirorg.Setup;
-using Mimirorg.Setup.Fixtures;
-using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.Test.Setup;
+using Mimirorg.Test.Setup.Fixtures;
 using TypeLibrary.Services.Services;
-using Xunit;
+
 // ReSharper disable InconsistentNaming
 
-namespace Mimirorg.Unit.Tests.Services
+namespace Mimirorg.Test.Unit.Services
 {
     public class AttributeServiceTests : UnitTest<MimirorgCommonFixture>
     {

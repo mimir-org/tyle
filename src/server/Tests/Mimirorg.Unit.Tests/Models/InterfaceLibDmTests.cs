@@ -1,11 +1,11 @@
 using System.Linq;
-using Mimirorg.Setup;
-using Mimirorg.Setup.Fixtures;
+using Mimirorg.Test.Setup;
+using Mimirorg.Test.Setup.Fixtures;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Xunit;
 
-namespace Mimirorg.Unit.Tests.Models
+namespace Mimirorg.Test.Unit.Models
 {
     public class InterfaceLibDmTests : UnitTest<MimirorgCommonFixture>
     {

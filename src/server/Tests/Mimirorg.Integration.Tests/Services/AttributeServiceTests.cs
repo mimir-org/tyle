@@ -1,14 +1,11 @@
 using Microsoft.Extensions.DependencyInjection;
-using Mimirorg.Common.Enums;
-using Mimirorg.Setup;
-using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
+using Mimirorg.Test.Setup;
 using TypeLibrary.Services.Contracts;
 using Xunit;
+
 // ReSharper disable InconsistentNaming
 
-namespace Mimirorg.Integration.Tests.Services
+namespace Mimirorg.Test.Integration.Services
 {
     public class AttributeServiceTests : IntegrationTest
     {

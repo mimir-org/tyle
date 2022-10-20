@@ -1,14 +1,11 @@
-using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Attributes;
 using Mimirorg.Common.Extensions;
-using Mimirorg.Setup;
-using Mimirorg.Setup.Fixtures;
-using System.ComponentModel.DataAnnotations;
 using Mimirorg.Common.Models;
-using Moq;
+using Mimirorg.Test.Setup;
+using Mimirorg.Test.Setup.Fixtures;
 using Xunit;
 
-namespace Mimirorg.Unit.Tests.Attributes
+namespace Mimirorg.Test.Unit.Attributes
 {
     public class ValidationAttributeTests : UnitTest<MimirorgCommonFixture>
     {

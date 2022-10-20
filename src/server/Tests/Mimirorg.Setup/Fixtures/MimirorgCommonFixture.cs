@@ -4,12 +4,13 @@ using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using Moq;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
-namespace Mimirorg.Setup.Fixtures
+namespace Mimirorg.Test.Setup.Fixtures
 {
     public class MimirorgCommonFixture : IDisposable
     {
@@ -56,11 +57,30 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                //AttributeIdList = new List<string>
-                //{
-                //    "123",
-                //    "555"
-                //},
+                Attributes = new List<TypeReferenceAm>
+                {
+                    new()
+                    {
+                        Name = "a1",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
+                        Source = "PCA",
+                        Units = new List<TypeReferenceSub>
+                        {
+                            new()
+                            {
+                                Name = "u1",
+                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u1",
+                                IsDefault = true
+                            },
+                            new()
+                            {
+                                Name = "u2",
+                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u2",
+                                IsDefault = false
+                            }
+                        }
+                    }
+                },
                 NodeTerminals = new List<NodeTerminalLibAm>
                 {
                     new()
@@ -101,13 +121,7 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                //Attributes = new List<AttributeLibDm>
-                //{
-                //    new()
-                //    {
-                //        Id = "123"
-                //    }
-                //},
+                Attributes = nodeLibAm.Attributes.ConvertToString(),
                 NodeTerminals = new List<NodeTerminalLibDm>
                 {
                     new()
@@ -149,11 +163,30 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                //AttributeIdList = new List<string>
-                //{
-                //    "123",
-                //    "555"
-                //},
+                Attributes = new List<TypeReferenceAm>
+                {
+                    new()
+                    {
+                        Name = "a1",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
+                        Source = "PCA",
+                        Units = new List<TypeReferenceSub>
+                        {
+                            new()
+                            {
+                                Name = "u1",
+                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u1",
+                                IsDefault = true
+                            },
+                            new()
+                            {
+                                Name = "u2",
+                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u2",
+                                IsDefault = false
+                            }
+                        }
+                    }
+                },
                 ParentId = "123",
                 TypeReferences = typeRefs
             };
@@ -164,13 +197,7 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                //Attributes = new List<AttributeLibDm>
-                //{
-                //    new()
-                //    {
-                //        Id = "123"
-                //    }
-                //},
+                Attributes = interfaceLibAm.Attributes.ConvertToString(),
                 ParentId = "123",
                 TypeReferences = typeRefs.ConvertToString()
             };
@@ -195,11 +222,30 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                //AttributeIdList = new List<string>
-                //{
-                //    "123",
-                //    "555"
-                //},
+                Attributes = new List<TypeReferenceAm>
+                {
+                    new()
+                    {
+                        Name = "a1",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
+                        Source = "PCA",
+                        Units = new List<TypeReferenceSub>
+                        {
+                            new()
+                            {
+                                Name = "u1",
+                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u1",
+                                IsDefault = true
+                            },
+                            new()
+                            {
+                                Name = "u2",
+                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u2",
+                                IsDefault = false
+                            }
+                        }
+                    }
+                },
                 ParentId = "123",
                 TypeReferences = typeRefs
             };
@@ -210,13 +256,7 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                //Attributes = new List<AttributeLibDm>
-                //{
-                //    new()
-                //    {
-                //        Id = "123"
-                //    }
-                //},
+                Attributes = transportLibAm.Attributes.ConvertToString(),
                 ParentId = "123",
                 TypeReferences = typeRefs.ConvertToString()
             };

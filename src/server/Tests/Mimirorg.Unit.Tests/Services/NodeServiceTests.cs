@@ -1,14 +1,14 @@
 using System;
 using System.Threading.Tasks;
 using Mimirorg.Common.Exceptions;
-using Mimirorg.Setup;
-using Mimirorg.Setup.Fixtures;
+using Mimirorg.Test.Setup;
+using Mimirorg.Test.Setup.Fixtures;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Services.Services;
 using Xunit;
 
-namespace Mimirorg.Unit.Tests.Services
+namespace Mimirorg.Test.Unit.Services
 {
     public class NodeServiceTests : UnitTest<MimirorgCommonFixture>
     {

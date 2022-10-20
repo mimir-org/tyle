@@ -6,14 +6,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication;
-using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Api;
 using TypeLibrary.Data;
 using TypeLibrary.Services.Contracts;
 
-namespace Mimirorg.Setup
+namespace Mimirorg.Test.Setup
 {
     public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
     {
