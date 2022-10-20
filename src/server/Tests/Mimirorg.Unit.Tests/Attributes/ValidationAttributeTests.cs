@@ -1,11 +1,8 @@
-using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Attributes;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Setup;
 using Mimirorg.Setup.Fixtures;
-using System.ComponentModel.DataAnnotations;
 using Mimirorg.Common.Models;
-using Moq;
 using Xunit;
 
 namespace Mimirorg.Unit.Tests.Attributes

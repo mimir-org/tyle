@@ -37,7 +37,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.SelectValues, opt => opt.Ignore())
                 .ForMember(dest => dest.SelectValuesString, opt => opt.MapFrom(src => src.SelectValues.ConvertToString()))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetEmail()) ? "Unknown" : contextAccessor.GetEmail()))
-                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now.ToUniversalTime()));
+                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow));
 
             CreateMap<AttributeLibDm, AttributeLibCm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

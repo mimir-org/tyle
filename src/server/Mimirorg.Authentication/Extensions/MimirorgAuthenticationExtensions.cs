@@ -38,9 +38,8 @@ namespace Mimirorg.Authentication.Extensions
             serviceCollection.AddScoped<IMimirorgAuthService, MimirorgAuthService>();
             serviceCollection.AddScoped<IMimirorgUserService, MimirorgUserService>();
             serviceCollection.AddScoped<IMimirorgCompanyService, MimirorgCompanyService>();
-            serviceCollection.AddScoped<IMimirorgEmailRepository, MimirorgEmailRepository>();
-            serviceCollection.AddScoped<IMimirorgTemplateRepository, MimirorgTemplateRepository>();
 
+            serviceCollection.AddScoped<IMimirorgTemplateRepository, MimirorgTemplateRepository>();
             serviceCollection.AddSingleton<IMimirorgAuthFactory, MimirorgAuthFactory>();
 
             serviceCollection.AddHttpContextAccessor();
@@ -48,6 +47,12 @@ namespace Mimirorg.Authentication.Extensions
 
             // Get current environment
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            var isDevelopment = !string.IsNullOrWhiteSpace(environment) && environment.ToLower() == "development";
+
+            if (isDevelopment)
+                serviceCollection.AddScoped<IMimirorgEmailRepository, SendLocalRepository>();
+            else
+                serviceCollection.AddScoped<IMimirorgEmailRepository, SendGridRepository>();
 
             // Configuration files
             var builder = new ConfigurationBuilder()
@@ -208,7 +213,12 @@ namespace Mimirorg.Authentication.Extensions
             // Migrate database
             var context = serviceScope.ServiceProvider.GetRequiredService<MimirorgAuthenticationContext>();
             if (context.Database.IsRelational())
+            {
                 context.Database.Migrate();
+            }
+
+            var timedHookService = serviceScope.ServiceProvider.GetRequiredService<ITimedHookService>();
+            timedHookService.IsMigrationFinished = true;
         }
     }
 }

@@ -1,41 +1,37 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Domain;
-using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
+using Mimirorg.TypeLibrary.Models.Application;
 
 namespace Mimirorg.Authentication.Repositories
 {
     public class MimirorgTemplateRepository : IMimirorgTemplateRepository
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly MimirorgAuthSettings _authSettings;
 
-        public MimirorgTemplateRepository(IHttpContextAccessor httpContextAccessor, IOptions<MimirorgAuthSettings> authSettings)
+        public MimirorgTemplateRepository(IOptions<MimirorgAuthSettings> authSettings)
         {
-            _httpContextAccessor = httpContextAccessor;
             _authSettings = authSettings?.Value;
         }
 
-        public Task<MimirorgMail> CreateEmailConfirmationTemplate(MimirorgUser user, MimirorgToken token)
+        public Task<MimirorgMailAm> CreateCodeVerificationMail(MimirorgUser user, string secret)
         {
-            var appBaseUrl = string.IsNullOrWhiteSpace(_authSettings?.ApplicationUrl) ? _httpContextAccessor.GetBaseUrl() : _authSettings?.ApplicationUrl;
-            var url = $"{appBaseUrl}/v1/mimirorgauthenticate/verify/{Uri.EscapeDataString(token.Secret)}";
+            if (_authSettings == null || string.IsNullOrEmpty(_authSettings.EmailKey) || string.IsNullOrEmpty(_authSettings.EmailSecret) || string.IsNullOrEmpty(_authSettings.Email))
+                throw new MimirorgConfigurationException("Missing configuration for email");
 
-            var email = new MimirorgMail
+            var mail = new MimirorgMailAm
             {
-                Subject = "You need to confirm your email address",
+                FromEmail = _authSettings.Email,
+                FromName = _authSettings.ApplicationName,
                 ToEmail = user.Email,
                 ToName = $"{user.FirstName} {user.LastName}",
-                FromEmail = "orgmimir@gmail.com",
-                // ReSharper disable once StringLiteralTypo
-                FromName = "Tyle",
-                HtmlContent = null,
-                PlainTextContent = $"Email activation link:\n\n\n {url}"
+                Subject = "Your verification code",
+                HtmlContent = $@"<div><h1>Your verification code</h1><p>Hi {user.FirstName} {user.LastName},</p><br /><br /><p>Your code: {secret}</p></div>"
             };
 
-            return Task.FromResult(email);
+            return Task.FromResult(mail);
         }
     }
 }

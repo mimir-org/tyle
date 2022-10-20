@@ -48,7 +48,6 @@ namespace TypeLibrary.Api
             services.AddRouting(o => o.LowercaseUrls = true);
 
             // Add modules
-            //services.AddApplicationInsightsLoggingModule();
             services.AddMimirorgAuthenticationModule();
             services.AddTypeLibraryModule(Configuration);
         }

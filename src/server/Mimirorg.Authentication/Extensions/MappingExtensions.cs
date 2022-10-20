@@ -71,9 +71,17 @@ namespace Mimirorg.Authentication.Extensions
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 CompanyId = user.CompanyId,
-                Purpose = user.Purpose,
-                TwoFactorEnabled = true
+                Purpose = user.Purpose
             };
+        }
+
+        public static MimirorgUser UpdateDomainModel(this MimirorgUser self, MimirorgUserAm update)
+        {
+            self.FirstName = update.FirstName;
+            self.LastName = update.LastName;
+            self.CompanyId = update.CompanyId;
+            self.Purpose = update.Purpose;
+            return self;
         }
 
         public static MimirorgUserCm ToContentModel(this MimirorgUser user)
