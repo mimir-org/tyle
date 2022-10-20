@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { MimirorgAuthenticateAm } from "@mimirorg/typelibrary-types";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "styled-components";
 import { Button } from "../../../../complib/buttons";
 import { Form, FormErrorBanner, FormField, FormFieldset } from "../../../../complib/form";
@@ -13,11 +13,13 @@ import { useLogin } from "../../../../data/queries/auth/queriesAuthenticate";
 import { useServerValidation } from "../../../../hooks/useServerValidation";
 import { UnauthenticatedContent } from "../../../app/components/unauthenticated/layout/UnauthenticatedContent";
 import { RegisterPath } from "../register/Register";
+import { RecoverPath } from "../restore/Recover";
 import { loginSchema } from "./loginSchema";
 
 export const Login = () => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const formMethods = useForm<MimirorgAuthenticateAm>({
     resolver: yupResolver(loginSchema(t)),
@@ -34,7 +36,7 @@ export const Login = () => {
       title={t("login.title")}
       subtitle={t("login.description")}
       firstRow={
-        <Form id={"login-form"} onSubmit={handleSubmit((data) => mutation.mutate(data))}>
+        <Form onSubmit={handleSubmit((data) => mutation.mutate(data))}>
           {mutation.isError && <FormErrorBanner>{t("login.error")}</FormErrorBanner>}
 
           <FormFieldset>
@@ -65,17 +67,21 @@ export const Login = () => {
               {t("common.placeholders.required")}
             </MotionText>
           </FormFieldset>
+          <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.xxl}>
+            <Button type={"submit"}>{t("login.submit")}</Button>
+            <Text color={theme.tyle.color.sys.surface.variant.on}>
+              {t("login.altLead")} <Link to={RegisterPath}>{t("login.altLink")}</Link>
+            </Text>
+          </MotionFlexbox>
         </Form>
       }
       secondRow={
-        <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.xxl}>
-          <Button type={"submit"} form={"login-form"}>
-            {t("login.submit")}
+        <>
+          <Text textAlign={"center"}>{t("login.info.text")}</Text>
+          <Button variant={"outlined"} alignSelf={"center"} onClick={() => navigate(RecoverPath)}>
+            {t("login.info.action")}
           </Button>
-          <Text color={theme.tyle.color.sys.surface.variant.on}>
-            {t("login.altLead")} <Link to={RegisterPath}>{t("login.altLink")}</Link>
-          </Text>
-        </MotionFlexbox>
+        </>
       }
     />
   );
