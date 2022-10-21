@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Button } from "../../../../../complib/buttons";
-import { Form, FormErrorBanner, FormField, FormFieldset } from "../../../../../complib/form";
+import { Form, FormField, FormFieldset } from "../../../../../complib/form";
 import { Input } from "../../../../../complib/inputs";
 import { Flexbox } from "../../../../../complib/layouts";
 import { Text } from "../../../../../complib/text";
@@ -14,6 +14,7 @@ import { useChangePassword } from "../../../../../data/queries/auth/queriesUser"
 import { useExecuteOnCriteria } from "../../../../../hooks/useExecuteOnCriteria";
 import { useServerValidation } from "../../../../../hooks/useServerValidation";
 import { UnauthenticatedContent } from "../../../../app/components/unauthenticated/layout/UnauthenticatedContent";
+import { Error } from "../../common/Error";
 import { Processing } from "../../common/Processing";
 import { recoverPasswordSchema } from "./recoverPasswordSchema";
 
@@ -47,7 +48,7 @@ export const RecoverPassword = ({ verificationInfo, cancel, complete }: RecoverP
           {mutation.isLoading && <Processing>{t("recover.processing")}</Processing>}
           {!mutation.isSuccess && !mutation.isLoading && (
             <Form id={"password-form"} onSubmit={handleSubmit((data) => mutation.mutate(data))}>
-              {mutation.isError && <FormErrorBanner>{t("recover.password.error")}</FormErrorBanner>}
+              {mutation.isError && <Error>{t("recover.password.error")}</Error>}
               <FormFieldset>
                 <Input type={"hidden"} value={verificationInfo.email} {...register("email")} />
                 <Input type={"hidden"} value={verificationInfo.code} {...register("code")} />

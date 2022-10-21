@@ -487,7 +487,7 @@
     "details": {
       "title": "Account recovery",
       "submit": "Continue",
-      "error": "An error occurred when trying to start recovery.",
+      "error": "We were not able to start the recovery process. Please try again in about a minute. If the issue persists, ",
       "info": {
         "text": "Your next step will be to verify your e-mail and activate 2-factor authentication. Without these, you cannot access :Tyle. If this process is interrupted or you do not complete registration within 1 hour, you will have to start the recovery process over again."
       },
@@ -499,15 +499,15 @@
       }
     },
     "verify": {
-      "title": "Verify E-mail",
-      "error": "An error occurred when trying to verify your user.",
+      "title": "Verify e-mail",
+      "error": "We were not able verify your ownership of this email. Please try again in about a minute. If the issue persist, ",
       "info": {
         "text": "We have sent a six-digit code to your email. Please enter the code within 1 hour, or the code will expire and you will have to restart the recovery process. Make sure to check your spam/junk folder for the email."
       }
     },
     "password": {
       "title": "Choose a new password",
-      "error": "An error occurred when requesting the password change.",
+      "error": "We were not able to change your password at this time. Please try again in about a minute. If the issue persist, ",
       "info": {
         "text": "Enter the desired password for this account."
       },
@@ -588,6 +588,10 @@
     "back": "Back",
     "next": "Next",
     "return": "Return",
+    "support": {
+      "email": "orgmimir@gmail.com",
+      "text": "contact support."
+    },
     "templates": {
       "select": "Select {{object}}"
     },

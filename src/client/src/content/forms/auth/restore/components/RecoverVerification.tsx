@@ -4,7 +4,6 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Button } from "../../../../../complib/buttons";
-import { FormErrorBanner } from "../../../../../complib/form";
 import { Digits, Input } from "../../../../../complib/inputs";
 import { Flexbox } from "../../../../../complib/layouts";
 import { Text } from "../../../../../complib/text";
@@ -12,6 +11,7 @@ import { Actionable } from "../../../../../complib/types";
 import { useGenerateMfa } from "../../../../../data/queries/auth/queriesUser";
 import { useExecuteOnCriteria } from "../../../../../hooks/useExecuteOnCriteria";
 import { UnauthenticatedContent } from "../../../../app/components/unauthenticated/layout/UnauthenticatedContent";
+import { Error } from "../../common/Error";
 import { Processing } from "../../common/Processing";
 import { MotionVerifyForm } from "../../common/Verification";
 import { onSubmitForm } from "./RecoverVerification.helpers";
@@ -44,11 +44,11 @@ export const RecoverVerification = ({
 
   return (
     <UnauthenticatedContent
-      title={t("register.verify.title")}
+      title={t("recover.verify.title")}
       firstRow={
         <>
-          {showProcessing && <Processing>{t("register.processing")}</Processing>}
-          {showError && <FormErrorBanner>{t("register.verify.error")}</FormErrorBanner>}
+          {showProcessing && <Processing>{t("recover.processing")}</Processing>}
+          {showError && <Error>{t("recover.verify.error")}</Error>}
           {showInput && (
             <MotionVerifyForm
               id={"verify-form"}
@@ -70,7 +70,7 @@ export const RecoverVerification = ({
       }
       secondRow={
         <>
-          <Text textAlign={"center"}>{t("register.verify.info.text")}</Text>
+          <Text textAlign={"center"}>{t("recover.verify.info.text")}</Text>
           <Flexbox gap={theme.tyle.spacing.xxl} alignSelf={"center"}>
             {cancel?.actionable && (
               <Button variant={"outlined"} onClick={cancel.onAction}>
