@@ -429,8 +429,8 @@
       },
       "validation": {
         "email": {
-          "email": "Please ensure that the email is formatted correctly",
-          "required": "Please specify an email"
+          "email": "Please ensure that the e-mail is formatted correctly",
+          "required": "Please specify an e-mail"
         },
         "password": {
           "min": "The password must be at least 10 characters long",
@@ -456,10 +456,10 @@
       }
     },
     "verify": {
-      "title": "Verify E-mail",
+      "title": "Verify e-mail",
       "error": "An error occurred when trying to verify your user.",
       "info": {
-        "text": "We have sent a six-digit code to your email. Please enter the code within 1 hour, or the code will expire and you will have to restart the registration. Make sure to check your spam/junk folder for the email."
+        "text": "We have sent a six-digit code to your e-mail. Please enter the code within 1 hour, or the code will expire and you will have to restart the registration. Make sure to check your spam/junk folder for the e-mail."
       }
     },
     "mfa": {
@@ -551,13 +551,13 @@
     "altLink": "Sign up",
     "error": "Incorrect username, password or authentication code.",
     "info": {
-      "text": "If you have forgotten your password, follow the instruction below for account recovery. You will need to re-verify your email and authenticator. You will not lose the data you have created in :Tyle",
+      "text": "If you have forgotten your password, follow the instruction below for account recovery. You will need to re-verify your e-mail and authenticator. You will not lose the data you have created in :Tyle",
       "action": "Account recovery"
     },
     "validation": {
       "email": {
-        "email": "Please ensure that the email is formatted correctly",
-        "required": "Please specify an email"
+        "email": "Please ensure that the e-mail is formatted correctly",
+        "required": "Please specify an e-mail"
       },
       "password": {
         "required": "Please enter a password"
