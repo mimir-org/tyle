@@ -4,67 +4,73 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Button } from "../../../../../complib/buttons";
-import { FormErrorBanner } from "../../../../../complib/form";
 import { Digits, Input } from "../../../../../complib/inputs";
 import { Flexbox } from "../../../../../complib/layouts";
 import { Text } from "../../../../../complib/text";
 import { Actionable } from "../../../../../complib/types";
-import { useGenerateMfa, useVerification } from "../../../../../data/queries/auth/queriesUser";
+import { useGenerateMfa } from "../../../../../data/queries/auth/queriesUser";
 import { useExecuteOnCriteria } from "../../../../../hooks/useExecuteOnCriteria";
 import { UnauthenticatedContent } from "../../../../app/components/unauthenticated/layout/UnauthenticatedContent";
-import { RegisterProcessing } from "./RegisterProcessing";
-import { MotionRegisterVerifyForm } from "./RegisterVerify.styled";
+import { Error } from "../../common/Error";
+import { Processing } from "../../common/Processing";
+import { MotionVerifyForm } from "../../common/Verification";
+import { onSubmitForm } from "./RecoverVerification.helpers";
 
-type RegisterVerifyProps = Pick<MimirorgVerifyAm, "email"> & {
-  setQrCodeInfo: (info: MimirorgQrCodeCm) => void;
+type VerificationProps = Pick<MimirorgVerifyAm, "email"> & {
+  setMfaInfo: (info: MimirorgQrCodeCm) => void;
+  setVerificationInfo?: (info: MimirorgVerifyAm) => void;
   cancel?: Partial<Actionable>;
   complete?: Partial<Actionable>;
 };
 
-export const RegisterVerify = ({ email, setQrCodeInfo, cancel, complete }: RegisterVerifyProps) => {
+export const RecoverVerification = ({
+  email,
+  setMfaInfo,
+  setVerificationInfo,
+  cancel,
+  complete,
+}: VerificationProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const { control, register, handleSubmit } = useForm<MimirorgVerifyAm>();
 
   const generateMfaMutation = useGenerateMfa();
-  const verificationMutation = useVerification();
 
-  const showError = generateMfaMutation.isError || verificationMutation.isError;
-  const showProcessing = verificationMutation.isLoading || generateMfaMutation.isLoading;
-  const showInput = !verificationMutation.isSuccess && !verificationMutation.isLoading;
+  const showProcessing = generateMfaMutation.isLoading;
+  const showError = generateMfaMutation.isError;
+  const showInput = !showProcessing;
 
-  const onSubmit = async (data: MimirorgVerifyAm) => {
-    const verified = await verificationMutation.mutateAsync(data);
-    const qrCodeInfo = await generateMfaMutation.mutateAsync(data);
-    verified && qrCodeInfo && setQrCodeInfo(qrCodeInfo);
-  };
-
-  useExecuteOnCriteria(complete?.onAction, verificationMutation.isSuccess && generateMfaMutation.isSuccess);
+  useExecuteOnCriteria(complete?.onAction, generateMfaMutation.isSuccess);
 
   return (
     <UnauthenticatedContent
-      title={t("register.verify.title")}
+      title={t("recover.verify.title")}
       firstRow={
         <>
-          {showProcessing && <RegisterProcessing>{t("register.processing")}</RegisterProcessing>}
-          {showError && <FormErrorBanner>{t("register.verify.error")}</FormErrorBanner>}
+          {showProcessing && <Processing>{t("recover.processing")}</Processing>}
+          {showError && <Error>{t("recover.verify.error")}</Error>}
           {showInput && (
-            <MotionRegisterVerifyForm id={"verify-form"} onSubmit={handleSubmit((data) => onSubmit(data))} layout>
+            <MotionVerifyForm
+              id={"verify-form"}
+              onSubmit={handleSubmit((data) =>
+                onSubmitForm(data, generateMfaMutation.mutateAsync, setMfaInfo, setVerificationInfo)
+              )}
+              layout
+            >
               <Input type={"hidden"} value={email} {...register("email")} />
               <Controller
                 control={control}
                 name={"code"}
                 render={({ field: { value, onChange } }) => <Digits value={value} onChange={onChange} />}
               />
-            </MotionRegisterVerifyForm>
+            </MotionVerifyForm>
           )}
-
           <DevTool control={control} placement={"bottom-right"} />
         </>
       }
       secondRow={
         <>
-          <Text textAlign={"center"}>{t("register.verify.info.text")}</Text>
+          <Text textAlign={"center"}>{t("recover.verify.info.text")}</Text>
           <Flexbox gap={theme.tyle.spacing.xxl} alignSelf={"center"}>
             {cancel?.actionable && (
               <Button variant={"outlined"} onClick={cancel.onAction}>

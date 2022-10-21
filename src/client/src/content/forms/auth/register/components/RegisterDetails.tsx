@@ -17,7 +17,7 @@ import { useExecuteOnCriteria } from "../../../../../hooks/useExecuteOnCriteria"
 import { useServerValidation } from "../../../../../hooks/useServerValidation";
 import { UnauthenticatedContent } from "../../../../app/components/unauthenticated/layout/UnauthenticatedContent";
 import { registerDetailsSchema } from "./registerDetailsSchema";
-import { RegisterProcessing } from "./RegisterProcessing";
+import { Processing } from "../../common/Processing";
 
 interface RegisterDetailsProps {
   setUserEmail: (email: string) => void;
@@ -53,7 +53,7 @@ export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps
       subtitle={t("register.details.description")}
       firstRow={
         <>
-          {mutation.isLoading && <RegisterProcessing>{t("register.processing")}</RegisterProcessing>}
+          {mutation.isLoading && <Processing>{t("register.processing")}</Processing>}
           {!mutation.isSuccess && !mutation.isLoading && (
             <Form id={"details-form"} onSubmit={handleSubmit((data) => onSubmit(data))}>
               {mutation.isError && <FormErrorBanner>{t("register.details.error")}</FormErrorBanner>}

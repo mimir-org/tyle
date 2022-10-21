@@ -1,14 +1,15 @@
 import { MimirorgQrCodeCm } from "@mimirorg/typelibrary-types";
 import { useTheme } from "styled-components";
-import { Button } from "../../../../../complib/buttons";
-import { Popover } from "../../../../../complib/data-display";
-import { Box, Flexbox } from "../../../../../complib/layouts";
-import { Icon } from "../../../../../complib/media";
-import { Text } from "../../../../../complib/text";
-import { Actionable } from "../../../../../complib/types";
-import { UnauthenticatedContent } from "../../../../app/components/unauthenticated/layout/UnauthenticatedContent";
+import { Button } from "../../../../complib/buttons";
+import { Popover } from "../../../../complib/data-display";
+import { Box, Flexbox } from "../../../../complib/layouts";
+import { Icon } from "../../../../complib/media";
+import { Text } from "../../../../complib/text";
+import { Actionable } from "../../../../complib/types";
+import { UnauthenticatedContent } from "../../../app/components/unauthenticated/layout/UnauthenticatedContent";
 
-type RegisterMfaProps = MimirorgQrCodeCm & {
+interface MultiFactorAuthenticationProps {
+  mfaInfo: MimirorgQrCodeCm;
   title?: string;
   infoText?: string;
   codeTitle?: string;
@@ -16,15 +17,16 @@ type RegisterMfaProps = MimirorgQrCodeCm & {
   manualCodeDescription?: string;
   cancel?: Partial<Actionable>;
   complete?: Partial<Actionable>;
-};
+}
 
-export const RegisterMfa = (props: RegisterMfaProps) => {
+export const MultiFactorAuthentication = (props: MultiFactorAuthenticationProps) => {
   const theme = useTheme();
   const { title, infoText } = props;
-  const { codeTitle, code, manualCodeTitle, manualCodeDescription, manualCode } = props;
+  const { codeTitle, manualCodeTitle, manualCodeDescription } = props;
   const { cancel, complete } = props;
+  const { mfaInfo } = props;
 
-  const showQrDialog = code && manualCode;
+  const showQrDialog = mfaInfo.code && mfaInfo.manualCode;
 
   return (
     <UnauthenticatedContent
@@ -34,12 +36,12 @@ export const RegisterMfa = (props: RegisterMfaProps) => {
           {showQrDialog && (
             <Flexbox as={"section"} flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.base}>
               <Text variant={"headline-small"}>{codeTitle}</Text>
-              <Icon size={180} src={code} alt="" />
+              <Icon size={180} src={mfaInfo.code} alt="" />
               <Popover
                 content={
                   <Box width={"230px"}>
                     <Text variant={"title-medium"}>{manualCodeDescription}</Text>
-                    <Text variant={"body-medium"}>{manualCode}</Text>
+                    <Text variant={"body-medium"}>{mfaInfo.manualCode}</Text>
                   </Box>
                 }
               >

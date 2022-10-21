@@ -10,7 +10,7 @@ export const UnauthenticatedContentContainer = styled.div`
   width: 550px;
   min-height: 600px;
 
-  padding: ${(props) => props.theme.tyle.spacing.multiple(6)};
+  padding: min(${(props) => props.theme.tyle.spacing.multiple(6)}, 5vw);
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
   background-color: ${(props) => props.theme.tyle.color.sys.surface.base};
 `;

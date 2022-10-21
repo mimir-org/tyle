@@ -26,6 +26,8 @@ export const apiUser = {
     return apiClient.post<boolean>(`${_basePath}/password`, item).then((r) => r.data);
   },
   postGenerateChangePasswordSecret(email: string) {
-    return apiClient.post(`${_basePath}/password/secret/create`, email).then((r) => r.data);
+    return apiClient
+      .post(`${_basePath}/password/secret/create`, email, { headers: { "Content-Type": "application/json" } })
+      .then((r) => r.data);
   },
 };
