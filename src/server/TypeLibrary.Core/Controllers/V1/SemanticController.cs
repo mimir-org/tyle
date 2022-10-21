@@ -104,7 +104,7 @@ namespace TypeLibrary.Core.Controllers.V1
             try
             {
                 var data = _attributeService.Get().Result.ToList().FirstOrDefault(x => x.Id == id);
-                
+
                 if (data == null)
                     return NoContent();
 

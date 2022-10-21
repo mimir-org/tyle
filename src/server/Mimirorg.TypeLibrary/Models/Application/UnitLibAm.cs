@@ -9,7 +9,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Name { get; set; }
         [Required]
         public string Iri { get; set; }
-        
+
         public string Symbol { get; set; }
 
         [TSExclude]

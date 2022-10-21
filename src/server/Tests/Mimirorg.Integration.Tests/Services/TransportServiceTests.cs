@@ -98,7 +98,7 @@ namespace Mimirorg.Test.Integration.Services
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
                 TerminalId = "8EBC5811473E87602FB0C18A100BD53C",
-                Attributes = new List<AttributeLibAm>{newAttribute},
+                Attributes = new List<AttributeLibAm> { newAttribute },
                 TypeReferences = new List<TypeReferenceAm>
                 {
                     new()

@@ -56,7 +56,7 @@ namespace Mimirorg.Test.Setup
             });
         }
 
-        private static async Task<bool> SeedAttributeData(IAttributeService attributeService)
+        private static Task<bool> SeedAttributeData(IAttributeService attributeService)
         {
             //var attribute = new AttributeLibAm
             //{
@@ -93,7 +93,7 @@ namespace Mimirorg.Test.Setup
             //};
 
             //await attributeService.Create(attribute);
-            return true;
+            return Task.FromResult(true);
         }
 
         private static async Task<bool> SeedTerminalData(ITerminalService terminalService)

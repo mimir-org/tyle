@@ -40,7 +40,7 @@ namespace Mimirorg.Test.Integration.Services
         public async Task Create_Node_Create_Node_When_Ok_Parameters()
         {
             var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
-            
+
             var newAttribute = new AttributeLibAm
             {
                 Name = "a11",

@@ -74,7 +74,7 @@ namespace Mimirorg.Test.Integration.Services
                 },
                 Color = "#123456",
                 Description = "Description1",
-                Attributes = new List<AttributeLibAm>{newAttribute},
+                Attributes = new List<AttributeLibAm> { newAttribute },
                 CompanyId = 1,
                 Version = "1.0"
             };
