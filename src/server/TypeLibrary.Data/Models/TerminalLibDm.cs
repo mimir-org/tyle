@@ -11,7 +11,7 @@ using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models
 {
-    public class TerminalLibDm : IVersionable<TerminalLibAm>, IVersionObject
+    public class TerminalLibDm : IVersionable<TerminalLibAm>, IVersionObject, ILogable
     {
         public string Id { get; set; }
         public string ParentId { get; set; }
@@ -33,7 +33,7 @@ namespace TypeLibrary.Data.Models
         public ICollection<InterfaceLibDm> Interfaces { get; set; }
         public ICollection<TransportLibDm> Transports { get; set; }
 
-        #region Versionable
+        #region IVersionable
 
         public Validation HasIllegalChanges(TerminalLibAm other)
         {
@@ -95,6 +95,25 @@ namespace TypeLibrary.Data.Models
 
         }
 
-        #endregion Versionable
+        #endregion IVersionable
+
+        #region ILogable
+
+        public LogLibAm CreateLog(LogType logType, string logTypeValue, string comment)
+        {
+            return new LogLibAm
+            {
+                ObjectId = Id,
+                ObjectFirstVersionId = FirstVersionId,
+                ObjectType = nameof(TerminalLibDm),
+                ObjectName = Name,
+                ObjectVersion = Version,
+                LogType = logType,
+                LogTypeValue = logTypeValue,
+                Comment = comment
+            };
+        }
+
+        #endregion ILogable
     }
 }

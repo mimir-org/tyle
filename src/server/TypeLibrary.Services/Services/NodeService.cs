@@ -22,12 +22,14 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly INodeRepository _nodeRepository;
         private readonly ITimedHookService _hookService;
+        private readonly ILogService _logService;
 
-        public NodeService(IMapper mapper, INodeRepository nodeRepository, ITimedHookService hookService)
+        public NodeService(IMapper mapper, INodeRepository nodeRepository, ITimedHookService hookService, ILogService logService)
         {
             _mapper = mapper;
             _nodeRepository = nodeRepository;
             _hookService = hookService;
+            _logService = logService;
         }
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if there is no node with the given id, and that node is at the latest version.</exception>
         public NodeLibCm GetLatestVersion(string id)
         {
-            var dm = _nodeRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
+            var dm = _nodeRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
             if (dm == null)
                 throw new MimirorgNotFoundException($"Node with id {id} not found.");
@@ -52,7 +54,7 @@ namespace TypeLibrary.Services.Services
         /// <returns>A collection of nodes</returns>
         public IEnumerable<NodeLibCm> GetLatestVersions()
         {
-            var dms = _nodeRepository.Get()?.LatestVersion()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var dms = _nodeRepository.Get()?.LatestVersionsExcludeDeleted()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
             if (dms == null)
                 throw new MimirorgNotFoundException("No nodes were found.");
@@ -89,9 +91,11 @@ namespace TypeLibrary.Services.Services
             var dm = _mapper.Map<NodeLibDm>(nodeAm);
 
             dm.State = State.Draft;
+            dm.FirstVersionId = dm.Id;
 
             await _nodeRepository.Create(dm);
             _nodeRepository.ClearAllChangeTrackers();
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
 
             return GetLatestVersion(dm.Id);
@@ -112,14 +116,13 @@ namespace TypeLibrary.Services.Services
             if (!validation.IsValid)
                 throw new MimirorgBadRequestException("Node is not valid.", validation);
 
-            var nodeToUpdate = _nodeRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == nodeAm.Id);
+            var nodeToUpdate = _nodeRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == nodeAm.Id);
 
             if (nodeToUpdate == null)
             {
                 validation = new Validation(new List<string> { nameof(NodeLibAm.Name), nameof(NodeLibAm.Version) },
                     $"Node with name {nodeAm.Name}, aspect {nodeAm.Aspect}, Rds Code {nodeAm.RdsCode}, id {nodeAm.Id} and version {nodeAm.Version} does not exist.");
-
-                throw new MimirorgBadRequestException("Node does not exist. Update is not possible.", validation);
+                throw new MimirorgBadRequestException("Node does not exist or is flagged as deleted. Update is not possible.", validation);
             }
 
             validation = nodeToUpdate.HasIllegalChanges(nodeAm);
@@ -132,6 +135,10 @@ namespace TypeLibrary.Services.Services
             if (versionStatus == VersionStatus.NoChange)
                 return GetLatestVersion(nodeToUpdate.Id);
 
+            //We need to take into account that there exist a higher version that has state 'Deleted'.
+            //Therefore we need to increment minor/major from the latest version, including those with state 'Deleted'.
+            nodeToUpdate.Version = _nodeRepository.Get().LatestVersionIncludeDeleted(nodeToUpdate.FirstVersionId).Version;
+
             nodeAm.Version = versionStatus switch
             {
                 VersionStatus.Minor => nodeToUpdate.Version.IncrementMinorVersion(),
@@ -139,15 +146,15 @@ namespace TypeLibrary.Services.Services
                 _ => nodeToUpdate.Version
             };
 
-            var nodeDm = _mapper.Map<NodeLibDm>(nodeAm);
+            var dm = _mapper.Map<NodeLibDm>(nodeAm);
 
-            nodeDm.FirstVersionId = nodeToUpdate.FirstVersionId;
-            nodeDm.State = State.Draft;
+            dm.State = State.Draft;
+            dm.FirstVersionId = nodeToUpdate.FirstVersionId;
 
-            var nodeCm = await _nodeRepository.Create(nodeDm);
+            var nodeCm = await _nodeRepository.Create(dm);
             _nodeRepository.ClearAllChangeTrackers();
-
             await _nodeRepository.ChangeParentId(nodeAm.Id, nodeCm.Id);
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
 
             return GetLatestVersion(nodeCm.Id);
@@ -162,15 +169,15 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if the node does not exist on latest version</exception>
         public async Task<NodeLibCm> ChangeState(string id, State state)
         {
-            var dm = _nodeRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
+            var dm = _nodeRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
             if (dm == null)
                 throw new MimirorgNotFoundException($"Node with id {id} not found, or is not latest version.");
 
-            var dmAllVersions = _nodeRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId).Select(x => x.Id).ToList();
-
-            await _nodeRepository.ChangeState(state, dmAllVersions);
+            await _nodeRepository.ChangeState(state, new List<string> { dm.Id });
+            await _logService.CreateLog(dm, LogType.State, state.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
+
             return state == State.Deleted ? null : GetLatestVersion(id);
         }
 

@@ -2,10 +2,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Setup;
+using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
+using TypeLibrary.Services.Services;
 using Xunit;
 
 namespace Mimirorg.Integration.Tests.Services
@@ -27,7 +29,8 @@ namespace Mimirorg.Integration.Tests.Services
                 Color = "#123456",
                 Description = "Description1",
                 AttributeIdList = null,
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
@@ -64,10 +67,13 @@ namespace Mimirorg.Integration.Tests.Services
                 Color = "#123456",
                 Description = "Description1",
                 AttributeIdList = new List<string> { "CA20DF193D58238C3C557A0316C15533" },
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
+            var logService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ILogService>();
+
             var terminalCm = await terminalService.Create(terminalAm);
 
             Assert.NotNull(terminalCm);
@@ -86,6 +92,20 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(terminalAm.Description, terminalCm.Description);
             Assert.Equal(terminalAm.AttributeIdList.ToList().ConvertToString(), terminalCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
             Assert.Equal(terminalAm.CompanyId, terminalCm.CompanyId);
+
+            var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == terminalCm.Id);
+
+            Assert.True(logCm != null);
+            Assert.Equal(terminalCm.Id, logCm.ObjectId);
+            Assert.Equal(terminalCm.FirstVersionId, logCm.ObjectFirstVersionId);
+            Assert.Equal(terminalCm.Name, logCm.ObjectName);
+            Assert.Equal(terminalCm.Version, logCm.ObjectVersion);
+            Assert.Equal(terminalCm.GetType().Name.Remove(terminalCm.GetType().Name.Length - 2, 2) + "Dm", logCm.ObjectType);
+            Assert.Equal(LogType.State.ToString(), logCm.LogType.ToString());
+            Assert.Equal(State.Draft.ToString(), logCm.LogTypeValue);
+            Assert.NotNull(logCm.User);
+            Assert.Equal("System.DateTime", logCm.Created.GetType().ToString());
+            Assert.True(logCm.Created.Kind == DateTimeKind.Utc);
         }
 
         [Fact]
@@ -99,7 +119,8 @@ namespace Mimirorg.Integration.Tests.Services
                 Color = "#123456",
                 Description = "Description v1.0",
                 AttributeIdList = new List<string> { "CA20DF193D58238C3C557A0316C15533" },
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
@@ -114,51 +135,5 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.True(terminalCmUpdated?.Description == "Description v1.1");
             Assert.True(terminalCmUpdated.Version == "1.1");
         }
-
-        // TODO: This must be faked and can't be an integration test, Procs is not supported in InMemoryDatabase
-        //[Fact]
-        //public async Task Delete_Terminal_Result_Ok()
-        //{
-        //    var terminalAm = new TerminalLibAm
-        //    {
-        //        Name = "TestTerminal4",
-        //        ParentId = "1234",
-        //        TypeReferences = null,
-        //        Color = "#123456",
-        //        Description = "Description1",
-        //        CompanyId = 1
-        //    };
-
-        //    var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
-
-        //    var terminalCm = await terminalService.Create(terminalAm, true);
-        //    var deletedTerminal = await terminalService.UpdateState(terminalCm?.Id, State.Deleted);
-        //    var allTerminalsNotDeleted = terminalService.GetLatestVersions();
-
-        //    Assert.True(deletedTerminal == null);
-        //    Assert.True(string.IsNullOrEmpty(allTerminalsNotDeleted?.FirstOrDefault(x => x.Id == terminalCm?.Id)?.Id));
-        //}
-
-        //[Fact]
-        //public async Task Update_Terminal_State_Result_Ok()
-        //{
-        //    var terminalAm = new TerminalLibAm
-        //    {
-        //        Name = "TestTerminal5",
-        //        ParentId = "1234",
-        //        TypeReferences = null,
-        //        Color = "#123456",
-        //        Description = "Description1",
-        //        CompanyId = 1
-        //    };
-
-        //    var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
-
-        //    var cm = await terminalService.Create(terminalAm, true);
-        //    var cmUpdated = await terminalService.UpdateState(cm.Id, State.ApprovedCompany);
-
-        //    Assert.True(cm.State != cmUpdated.State);
-        //    Assert.True(cmUpdated.State == State.ApprovedCompany);
-        //}
     }
 }

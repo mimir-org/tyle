@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Abstract;
 using TypeLibrary.Core.Factories;
 using Mimirorg.Common.Models;
@@ -51,6 +50,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddSingleton<IFileRepository, JsonFileRepository>();
             services.AddScoped<IEfSymbolRepository, EfSymbolRepository>();
             services.AddScoped<IDynamicSymbolDataProvider, EfSymbolRepository>();
+            services.AddScoped<IEfLogRepository, EfLogRepository>();
 
             services.AddScoped<IAttributeRepository, EfAttributeRepository>();
             services.AddScoped<IQuantityDatumRepository, DatumRepository>();
@@ -64,6 +64,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<ITerminalRepository, EfTerminalRepository>();
             services.AddScoped<ISymbolRepository, EfSymbolRepository>();
             services.AddScoped<IAttributeReferenceRepository, AttributeReferenceRepository>();
+            services.AddScoped<ILogRepository, EfLogRepository>();
 
             // Dependency Injection - Services
             services.AddScoped<ITerminalService, TerminalService>();
@@ -79,6 +80,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IInterfaceService, InterfaceService>();
             services.AddScoped<IVersionService, VersionService>();
             services.AddScoped<IModuleService, ModuleService>();
+            services.AddScoped<ILogService, LogService>();
 
             // Factories
             services.AddScoped<IUnitFactory, UnitFactory>();

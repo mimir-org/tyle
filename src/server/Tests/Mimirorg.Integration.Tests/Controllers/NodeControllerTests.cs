@@ -54,7 +54,8 @@ namespace Mimirorg.Integration.Tests.Controllers
                 RdsCode = $"{guid}_dummy_rds_code",
                 PurposeName = $"{guid}_dummy_purpose_name",
                 Aspect = Aspect.NotSet,
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             using var scope = Factory.Server.Services.CreateScope();

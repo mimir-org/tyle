@@ -4,8 +4,8 @@ namespace Mimirorg.Common.Models
 {
     public class DatabaseConfiguration
     {
-        public string DataSource { get; set; }
-        public int Port { get; set; }
+        public string DataSource { get; set; } = "127.0.0.1";
+        public int Port { get; set; } = 1433;
         public string InitialCatalog { get; set; }
         public string DbUser { get; set; }
         public string Password { get; set; }

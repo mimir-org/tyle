@@ -18,7 +18,7 @@ using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models
 {
-    public class AttributeLibDm : ILibraryType, IVersionable<AttributeLibAm>, IVersionObject
+    public class AttributeLibDm : ILibraryType, IVersionable<AttributeLibAm>, IVersionObject, ILogable
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -123,7 +123,7 @@ namespace TypeLibrary.Data.Models
 
             //Units
             var thisUnitCount = Units?.ConvertToObject<ICollection<UnitLibCm>>().Count ?? 0;
-            var otherUnitCount = other?.UnitIdList?.Count ?? 0;
+            var otherUnitCount = other.UnitIdList?.Count ?? 0;
             if (thisUnitCount < otherUnitCount)
                 major = true;
 
@@ -132,5 +132,23 @@ namespace TypeLibrary.Data.Models
 
         #endregion IVersionable
 
+        #region ILogable
+
+        public LogLibAm CreateLog(LogType logType, string logTypeValue, string comment)
+        {
+            return new LogLibAm
+            {
+                ObjectId = Id,
+                ObjectFirstVersionId = FirstVersionId,
+                ObjectType = nameof(AttributeLibDm),
+                ObjectName = Name,
+                ObjectVersion = Version,
+                LogType = logType,
+                LogTypeValue = logTypeValue,
+                Comment = comment
+            };
+        }
+
+        #endregion ILogable
     }
 }

@@ -1,9 +1,9 @@
-using Mimirorg.Authentication.Models.Domain;
+using Mimirorg.TypeLibrary.Models.Application;
 
 namespace Mimirorg.Authentication.Contracts
 {
     public interface IMimirorgEmailRepository
     {
-        Task SendEmail(MimirorgMail email);
+        Task SendEmail(MimirorgMailAm email);
     }
 }

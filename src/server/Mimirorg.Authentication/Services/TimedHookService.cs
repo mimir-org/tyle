@@ -12,10 +12,12 @@ namespace Mimirorg.Authentication.Services
     {
         private bool _disposedValue;
         private Timer _timer = null!;
+        private Timer _cleanupTimer = null!;
         private readonly ILogger<TimedHookService> _logger;
         private readonly IServiceScopeFactory _scopeFactory;
         private readonly HttpClient _httpClient;
         public Queue<CacheKey> HookQueue { get; set; }
+        public bool IsMigrationFinished { get; set; }
 
         public TimedHookService(ILogger<TimedHookService> logger, IServiceScopeFactory scopeFactory)
         {
@@ -33,6 +35,7 @@ namespace Mimirorg.Authentication.Services
         public Task StartAsync(CancellationToken cancellationToken)
         {
             _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+            _cleanupTimer = new Timer(CleanUpUsers, null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
             _logger.LogInformation("Timed hook service started.");
             return Task.CompletedTask;
         }
@@ -61,6 +64,7 @@ namespace Mimirorg.Authentication.Services
             var companyService = scope.ServiceProvider.GetRequiredService<IMimirorgCompanyService>();
             var allHooks = await companyService.GetAllHooksForCache(nextItem);
 
+
             foreach (var hook in allHooks)
             {
                 var data = new CacheInvalidation
@@ -82,6 +86,19 @@ namespace Mimirorg.Authentication.Services
             }
         }
 
+        /// <summary>
+        /// Cleanup users and tokens
+        /// </summary>
+        /// <param name="state"></param>
+        private async void CleanUpUsers(object state)
+        {
+            if (!IsMigrationFinished) return;
+
+            using var scope = _scopeFactory.CreateScope();
+            var userService = scope.ServiceProvider.GetRequiredService<IMimirorgUserService>();
+            await userService.RemoveUnconfirmedUsersAndTokens();
+        }
+
         #region Disposable
 
         /// <summary>
@@ -96,6 +113,7 @@ namespace Mimirorg.Authentication.Services
             if (disposing)
             {
                 _timer?.Dispose();
+                _cleanupTimer?.Dispose();
             }
 
             _disposedValue = true;

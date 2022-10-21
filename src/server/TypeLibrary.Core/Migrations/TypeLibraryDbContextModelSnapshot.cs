@@ -358,6 +358,88 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Interface", (string)null);
                 });
 
+            modelBuilder.Entity("TypeLibrary.Data.Models.LogLibDm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Comment")
+                        .HasMaxLength(511)
+                        .HasColumnType("nvarchar(511)")
+                        .HasColumnName("Comment");
+
+                    b.Property<DateTime>("Created")
+                        .HasMaxLength(63)
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
+
+                    b.Property<string>("LogType")
+                        .IsRequired()
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("LogType");
+
+                    b.Property<string>("LogTypeValue")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("LogTypeValue");
+
+                    b.Property<string>("ObjectFirstVersionId")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("ObjectFirstVersionId");
+
+                    b.Property<string>("ObjectId")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("ObjectId");
+
+                    b.Property<string>("ObjectName")
+                        .IsRequired()
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("ObjectName");
+
+                    b.Property<string>("ObjectType")
+                        .IsRequired()
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("ObjectType");
+
+                    b.Property<string>("ObjectVersion")
+                        .IsRequired()
+                        .HasMaxLength(7)
+                        .HasColumnType("nvarchar(7)")
+                        .HasColumnName("ObjectVersion");
+
+                    b.Property<string>("User")
+                        .IsRequired()
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("User");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LogType");
+
+                    b.HasIndex("ObjectFirstVersionId");
+
+                    b.HasIndex("ObjectId");
+
+                    b.HasIndex("ObjectType");
+
+                    b.HasIndex("ObjectId", "ObjectFirstVersionId", "ObjectType", "LogType");
+
+                    b.ToTable("Log", (string)null);
+                });
+
             modelBuilder.Entity("TypeLibrary.Data.Models.NodeLibDm", b =>
                 {
                     b.Property<string>("Id")

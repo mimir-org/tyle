@@ -26,7 +26,8 @@ namespace Mimirorg.Integration.Tests.Services
             {
                 Name = "Terminal12525",
                 Color = "#45678",
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var interfaceAm = new InterfaceLibAm
@@ -37,7 +38,8 @@ namespace Mimirorg.Integration.Tests.Services
                 PurposeName = "PurposeName",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
-                TerminalId = terminalAm.Id
+                TerminalId = terminalAm.Id,
+                Version = "1.0"
             };
 
             await interfaceService.Create(interfaceAm);
@@ -51,6 +53,7 @@ namespace Mimirorg.Integration.Tests.Services
             var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
             var attributeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IAttributeService>();
             var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
+            var logService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ILogService>();
 
             var attributeAm = new AttributeLibAm
             {
@@ -64,14 +67,16 @@ namespace Mimirorg.Integration.Tests.Services
                 QuantityDatumSpecifiedProvenance = "Calculated",
                 QuantityDatumRegularitySpecified = "Absolute",
                 QuantityDatumSpecifiedScope = "Design Datum",
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var terminalAm = new TerminalLibAm
             {
                 Name = "Terminal1",
                 Color = "#45678",
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var attributeCm = await attributeService.Create(attributeAm);
@@ -84,7 +89,8 @@ namespace Mimirorg.Integration.Tests.Services
                 PurposeName = "PurposeName",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
-                TerminalId = terminalAm.Id
+                TerminalId = terminalAm.Id,
+                Version = "1.0"
             };
 
             var interfaceParentCm = await interfaceService.Create(interfaceParentAm);
@@ -118,7 +124,8 @@ namespace Mimirorg.Integration.Tests.Services
                     }
                 },
                 Description = "Description",
-                ParentId = interfaceParentCm.Id
+                ParentId = interfaceParentCm.Id,
+                Version = "1.0"
             };
 
             var interfaceCm = await interfaceService.Create(interfaceAm);
@@ -143,6 +150,20 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(interfaceAm.TypeReferences.First().Subs.First().Name, interfaceCm.TypeReferences.First().Subs.First().Name);
             Assert.Equal(interfaceAm.TypeReferences.First().Subs.First().Iri, interfaceCm.TypeReferences.First().Subs.First().Iri);
             Assert.Equal(interfaceAm.ParentId, interfaceCm.ParentId);
+
+            var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == interfaceCm.Id);
+
+            Assert.True(logCm != null);
+            Assert.Equal(interfaceCm.Id, logCm.ObjectId);
+            Assert.Equal(interfaceCm.FirstVersionId, logCm.ObjectFirstVersionId);
+            Assert.Equal(interfaceCm.Name, logCm.ObjectName);
+            Assert.Equal(interfaceCm.Version, logCm.ObjectVersion);
+            Assert.Equal(interfaceCm.GetType().Name.Remove(interfaceCm.GetType().Name.Length - 2, 2) + "Dm", logCm.ObjectType);
+            Assert.Equal(LogType.State.ToString(), logCm.LogType.ToString());
+            Assert.Equal(State.Draft.ToString(), logCm.LogTypeValue);
+            Assert.NotNull(logCm.User);
+            Assert.Equal("System.DateTime", logCm.Created.GetType().ToString());
+            Assert.True(logCm.Created.Kind == DateTimeKind.Utc);
         }
 
         [Fact]
@@ -155,7 +176,8 @@ namespace Mimirorg.Integration.Tests.Services
             {
                 Name = "Terminal1009990",
                 Color = "#45678",
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var terminalCm = await terminalService.Create(terminalAm);
@@ -169,7 +191,8 @@ namespace Mimirorg.Integration.Tests.Services
                 Description = "Description",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
-                TerminalId = terminalCm.Id
+                TerminalId = terminalCm.Id,
+                Version = "1.0"
             };
 
             var interfaceCm = await interfaceService.Create(interfaceAm);
@@ -194,7 +217,8 @@ namespace Mimirorg.Integration.Tests.Services
             {
                 Name = "Terminal108909990x4",
                 Color = "#45678",
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var terminalCm = await terminalService.Create(terminalAm);
@@ -208,7 +232,8 @@ namespace Mimirorg.Integration.Tests.Services
                 Description = "Description1",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
-                TerminalId = terminalCm.Id
+                TerminalId = terminalCm.Id,
+                Version = "1.0"
             };
 
 

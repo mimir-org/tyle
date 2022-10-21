@@ -22,7 +22,6 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
-                .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.QuantityDatumSpecifiedScope, opt => opt.MapFrom(src => src.QuantityDatumSpecifiedScope))
                 .ForMember(dest => dest.QuantityDatumSpecifiedProvenance, opt => opt.MapFrom(src => src.QuantityDatumSpecifiedProvenance))
@@ -38,7 +37,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.SelectValues, opt => opt.Ignore())
                 .ForMember(dest => dest.SelectValuesString, opt => opt.MapFrom(src => src.SelectValues.ConvertToString()))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetEmail()) ? "Unknown" : contextAccessor.GetEmail()))
-                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now.ToUniversalTime()));
+                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow));
 
             CreateMap<AttributeLibDm, AttributeLibCm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

@@ -416,48 +416,155 @@
   "datum": {
     "title": "Datum"
   },
-  "forms": {
-    "placeholders": {
-      "email": "you@organization.com",
-      "password": "**********",
-      "code": "123456",
-      "firstname": "Jane",
-      "lastname": "Smith",
-      "required": "* Indicates a required field.",
-      "purpose": "Please explain why should have access to the application.",
-      "company": "Please select organization"
-    },
-    "fields": {
-      "email": "E-mail",
-      "password": "Password",
-      "code": "Authentication code",
-      "firstname": "First name",
-      "lastname": "Last name",
-      "purpose": "Purpose",
-      "company": "Organizational affiliation"
-    },
-    "login": {
-      "title": "Login",
-      "description": "View, create and edit types!",
-      "submit": "Login",
-      "altLead": "Don't have an account?",
-      "altLink": "Sign up",
-      "error": "Incorrect username, password or authentication code."
-    },
-    "register": {
+  "register": {
+    "details": {
       "title": "Register",
       "description": "Create an account to collaborate with your organization!",
       "submit": "Create account",
       "altLead": "Have an account?",
       "altLink": "Log in",
-      "error": "An error occurred when trying to create your user.",
-      "processing": "Registering your user",
-      "finalize": {
-        "verification": "Please verify your email",
-        "verificationDescription": "You're almost there! We have sent you an email to verify your registration. Just click on the link in that email to complete your signup. If you don't see it, you may need to check your spam folder.",
-        "mfa": "Multi-factor authentication",
-        "mfaDescription": "Scan the QR code below in your authenticator app of choice. The code shown in the app can then be used during login.",
-        "finish": "Finish registration"
+      "error": "We were not able to create your user at this moment. Please try again in about a minute. If the problem persists, ",
+      "info": {
+        "text": "Your next step will be to verify your e-mail and activate 2-factor authentication. Without these, you cannot access :Tyle. If this process is interrupted or you do not complete registration within 1 hour, you will have to start the registration process over again."
+      },
+      "validation": {
+        "email": {
+          "email": "Please ensure that the e-mail is formatted correctly",
+          "required": "Please specify an e-mail"
+        },
+        "password": {
+          "min": "The password must be at least 10 characters long",
+          "required": "Please enter a password"
+        },
+        "confirmPassword": {
+          "match": "The password does not match the one previously entered",
+          "required": "Please re-enter the password you have chosen"
+        },
+        "firstName": {
+          "required": "Please enter your first name"
+        },
+        "lastName": {
+          "required": "Please enter your last name"
+        },
+        "purpose": {
+          "required": "Please explain your purpose for creating this account"
+        },
+        "companyId": {
+          "min": "Please select an organization",
+          "required": "Please select an organization"
+        }
+      }
+    },
+    "verify": {
+      "title": "Verify e-mail",
+      "error": "We were not able verify your ownership of this email. Verify that that you have entered the correct code and please try again in about a minute. If the issue persist, ",
+      "info": {
+        "text": "We have sent a six-digit code to your e-mail. Please enter the code within 1 hour, or the code will expire and you will have to restart the registration. Make sure to check your spam/junk folder for the e-mail."
+      }
+    },
+    "mfa": {
+      "title": "Register authenticator",
+      "code": {
+        "title": "Scan the QR code"
+      },
+      "manual": {
+        "title": "Can't scan image?",
+        "description": "Copy this code into your authenticator app of choice"
+      },
+      "info": {
+        "text": "In order to use :Tyle, you must activate 2-factor authentication using an authenticator app. This is to ensure the quality fo the data created and stored in :Tyle."
+      }
+    },
+    "complete": {
+      "title": "Register",
+      "info": {
+        "text": "Account creation complete. Please return to the main page and log in."
+      }
+    },
+    "processing": "Processing"
+  },
+  "recover": {
+    "details": {
+      "title": "Account recovery",
+      "submit": "Continue",
+      "error": "We were not able to start the recovery process. Please try again in about a minute. If the issue persists, ",
+      "info": {
+        "text": "Your next step will be to verify your e-mail and activate 2-factor authentication. Without these, you cannot access :Tyle. If this process is interrupted or you do not complete registration within 1 hour, you will have to start the recovery process over again."
+      },
+      "validation": {
+        "email": {
+          "email": "Please ensure that the email is formatted correctly",
+          "required": "Please specify an email"
+        }
+      }
+    },
+    "verify": {
+      "title": "Verify e-mail",
+      "error": "We were not able verify your ownership of this email. Verify that that you have entered the correct code and please try again in about a minute. If the issue persist, ",
+      "info": {
+        "text": "We have sent a six-digit code to your email. Please enter the code within 1 hour, or the code will expire and you will have to restart the recovery process. Make sure to check your spam/junk folder for the email."
+      }
+    },
+    "password": {
+      "title": "Choose a new password",
+      "error": "We were not able to change your password at this time. Please try again in about a minute. If the issue persist, ",
+      "info": {
+        "text": "Enter the desired password for this account."
+      },
+      "validation": {
+        "password": {
+          "min": "The password must be at least 10 characters long",
+          "required": "Please enter a password"
+        },
+        "confirmPassword": {
+          "match": "The password does not match the one previously entered",
+          "required": "Please re-enter the password you have chosen"
+        }
+      }
+    },
+    "mfa": {
+      "title": "Register authenticator",
+      "code": {
+        "title": "Scan the QR code"
+      },
+      "manual": {
+        "title": "Can't scan image?",
+        "description": "Copy this code into your authenticator app of choice"
+      },
+      "info": {
+        "text": "In order to use :Tyle, you must activate 2-factor authentication using an authenticator app. This is to ensure the quality fo the data created and stored in :Tyle."
+      }
+    },
+    "complete": {
+      "title": "Account recovery",
+      "info": {
+        "text": "Account recovery complete. Please return to the main page and log in."
+      }
+    },
+    "processing": "Processing"
+  },
+  "login": {
+    "title": "Login",
+    "description": "View, create and edit types!",
+    "submit": "Login",
+    "altLead": "Don't have an account?",
+    "altLink": "Sign up",
+    "error": "Incorrect username, password or authentication code.",
+    "info": {
+      "text": "If you have forgotten your password, follow the instruction below for account recovery. You will need to re-verify your e-mail and authenticator. You will not lose the data you have created in :Tyle",
+      "action": "Account recovery"
+    },
+    "validation": {
+      "email": {
+        "email": "Please ensure that the e-mail is formatted correctly",
+        "required": "Please specify an e-mail"
+      },
+      "password": {
+        "required": "Please enter a password"
+      },
+      "code": {
+        "matches": "Please ensure that there are only digits in your code",
+        "required": "Please specify an authentication code"
       }
     }
   },
@@ -478,8 +585,34 @@
     "submit": "Submit",
     "confirm": "Confirm",
     "select": "Select",
+    "back": "Back",
+    "next": "Next",
+    "return": "Return",
+    "support": {
+      "email": "orgmimir@gmail.com",
+      "text": "contact support."
+    },
     "templates": {
       "select": "Select {{object}}"
+    },
+    "placeholders": {
+      "email": "you@organization.com",
+      "password": "**********",
+      "code": "123456",
+      "firstname": "Jane",
+      "lastname": "Smith",
+      "required": "* Indicates a required field.",
+      "purpose": "Please explain why should have access to the application.",
+      "company": "Please select organization"
+    },
+    "fields": {
+      "email": "E-mail",
+      "password": "Password",
+      "code": "Authentication code",
+      "firstname": "First name",
+      "lastname": "Last name",
+      "purpose": "Purpose",
+      "company": "Organizational affiliation"
     }
   }
 }

@@ -90,7 +90,8 @@ namespace Mimirorg.Setup
                 QuantityDatumSpecifiedProvenance = "Calculated Datum",
                 QuantityDatumRangeSpecifying = "Maximum Datum",
                 QuantityDatumRegularitySpecified = "Absolute Datum",
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             await attributeService.Create(attribute);
@@ -105,7 +106,8 @@ namespace Mimirorg.Setup
                 Color = "#006600",
                 ParentId = null,
                 CompanyId = 1,
-                AttributeIdList = null
+                AttributeIdList = null,
+                Version = "1.0"
             };
 
             var terminalB = new TerminalLibAm
@@ -114,7 +116,8 @@ namespace Mimirorg.Setup
                 Color = "#00CC66",
                 ParentId = "201B169264C4F9249039054BCCDD4494",
                 CompanyId = 1,
-                AttributeIdList = new List<string> { "CA20DF193D58238C3C557A0316C15533" }
+                AttributeIdList = new List<string> { "CA20DF193D58238C3C557A0316C15533" },
+                Version = "1.0"
             };
 
             await terminalService.Create(terminalA);

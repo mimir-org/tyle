@@ -3,6 +3,9 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import { ErrorMessage } from "../../../common/error";
 import { Login } from "../../../forms/auth/login";
 import { Register } from "../../../forms/auth/register";
+import { RegisterPath } from "../../../forms/auth/register/Register";
+import { Recover } from "../../../forms/auth/restore";
+import { RecoverPath } from "../../../forms/auth/restore/Recover";
 import { UnauthenticatedLayout } from "./layout/UnauthenticatedLayout";
 
 export const useUnauthenticatedRouter = () => {
@@ -23,8 +26,9 @@ export const useUnauthenticatedRouter = () => {
       ),
       children: [
         { path: "", element: <Login /> },
-        { path: "/register", element: <Register /> },
         { path: "*", element: <Navigate to={"/"} replace /> },
+        { path: RegisterPath, element: <Register /> },
+        { path: RecoverPath, element: <Recover /> },
       ],
     },
   ]);

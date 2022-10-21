@@ -37,12 +37,10 @@ namespace Mimirorg.Integration.Tests.Services
                 QuantityDatumSpecifiedScope = "Design Datum",
                 CompanyId = 1,
                 UnitIdList = null,
-                Version = "1.0",
-                FirstVersionId = null
+                Version = "1.0"
             };
 
             var createdAttribute = await attributeService.Create(attribute);
-            attribute.FirstVersionId = createdAttribute.FirstVersionId;
             attribute.Description = "This is test b";
 
             var updatedAttribute = await attributeService.Update(attribute);
@@ -94,6 +92,7 @@ namespace Mimirorg.Integration.Tests.Services
             using var scope = Factory.Server.Services.CreateScope();
             var attributeService = scope.ServiceProvider.GetRequiredService<IAttributeService>();
             var unitService = scope.ServiceProvider.GetRequiredService<IUnitService>();
+            var logService = scope.ServiceProvider.GetRequiredService<ILogService>();
             var units = (await unitService.Get()).ToList();
 
             Assert.True(units != null);
@@ -132,7 +131,8 @@ namespace Mimirorg.Integration.Tests.Services
                 UnitIdList = new List<string>
                 {
                     units[0]?.Id
-                }
+                },
+                Version = "1.0"
             };
 
             var attributeCm = await attributeService.Create(attributeAm);
@@ -168,6 +168,20 @@ namespace Mimirorg.Integration.Tests.Services
 
             for (var i = 0; i < amUnitIdList.Count; i++)
                 Assert.Equal(amUnitIdList[i], cmUnitIdList[i]);
+
+            var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == attributeCm.Id);
+
+            Assert.True(logCm != null);
+            Assert.Equal(attributeCm.Id, logCm.ObjectId);
+            Assert.Equal(attributeCm.FirstVersionId, logCm.ObjectFirstVersionId);
+            Assert.Equal(attributeCm.Name, logCm.ObjectName);
+            Assert.Equal(attributeCm.Version, logCm.ObjectVersion);
+            Assert.Equal(attributeCm.GetType().Name.Remove(attributeCm.GetType().Name.Length - 2, 2) + "Dm", logCm.ObjectType);
+            Assert.Equal(LogType.State.ToString(), logCm.LogType.ToString());
+            Assert.Equal(State.Draft.ToString(), logCm.LogTypeValue);
+            Assert.NotNull(logCm.User);
+            Assert.Equal("System.DateTime", logCm.Created.GetType().ToString());
+            Assert.True(logCm.Created.Kind == DateTimeKind.Utc);
         }
 
         [Fact]
@@ -194,7 +208,8 @@ namespace Mimirorg.Integration.Tests.Services
                 UnitIdList = new List<string>
                 {
                     units[0]?.Id
-                }
+                },
+                Version = "1.0"
             };
 
             var attributeCm = await attributeService.Create(attributeAm);
@@ -226,7 +241,8 @@ namespace Mimirorg.Integration.Tests.Services
                 QuantityDatumSpecifiedProvenance = "Calculated",
                 QuantityDatumRegularitySpecified = "Absolute",
                 QuantityDatumSpecifiedScope = "Design Datum",
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var cm = await attributeService.Create(attributeAm);

@@ -25,13 +25,12 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.TypeReferences, opt => opt.MapFrom(src => src.TypeReferences.ConvertToString()))
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => $"{settings.ApplicationSemanticUrl}/terminal/{src.Id}"))
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
-                .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color))
                 .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.ParentId) ? null : src.ParentId))
                 .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => Convert<AttributeLibDm>(src.AttributeIdList).ToList()))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetEmail()) ? "Unknown" : contextAccessor.GetEmail()))
-                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now.ToUniversalTime()));
+                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow));
 
             CreateMap<TerminalLibDm, TerminalLibCm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

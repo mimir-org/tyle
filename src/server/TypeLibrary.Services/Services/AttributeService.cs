@@ -27,8 +27,9 @@ namespace TypeLibrary.Services.Services
         private readonly IQuantityDatumRepository _datumRepository;
         private readonly IAttributeReferenceRepository _attributeReferenceRepository;
         private readonly ITimedHookService _hookService;
+        private readonly ILogService _logService;
 
-        public AttributeService(IMapper mapper, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings, IAttributePredefinedRepository attributePredefinedRepository, IAttributeReferenceRepository attributeReferenceRepository, ITimedHookService hookService, IQuantityDatumRepository datumRepository)
+        public AttributeService(IMapper mapper, IAttributeRepository attributeRepository, IOptions<ApplicationSettings> applicationSettings, IAttributePredefinedRepository attributePredefinedRepository, IAttributeReferenceRepository attributeReferenceRepository, ITimedHookService hookService, IQuantityDatumRepository datumRepository, ILogService logService)
         {
             _mapper = mapper;
             _attributeRepository = attributeRepository;
@@ -36,6 +37,7 @@ namespace TypeLibrary.Services.Services
             _attributeReferenceRepository = attributeReferenceRepository;
             _hookService = hookService;
             _datumRepository = datumRepository;
+            _logService = logService;
             _applicationSettings = applicationSettings?.Value;
         }
 
@@ -48,7 +50,7 @@ namespace TypeLibrary.Services.Services
         /// <returns>The attribute, otherwise return null</returns>
         public AttributeLibCm GetLatestVersion(string id)
         {
-            var dm = _attributeRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
+            var dm = _attributeRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
             if (dm == null)
                 throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
@@ -63,7 +65,7 @@ namespace TypeLibrary.Services.Services
         /// <returns>List of AttributeLibCm</returns>
         public IEnumerable<AttributeLibCm> GetLatestVersions(Aspect aspect)
         {
-            var dms = _attributeRepository.Get()?.LatestVersion()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var dms = _attributeRepository.Get()?.LatestVersionsExcludeDeleted()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
             if (dms == null)
                 throw new MimirorgNotFoundException("No attributes were found.");
@@ -100,9 +102,11 @@ namespace TypeLibrary.Services.Services
             var dm = _mapper.Map<AttributeLibDm>(attributeAm);
 
             dm.State = State.Draft;
+            dm.FirstVersionId = dm.Id;
 
             await _attributeRepository.Create(dm);
             _attributeRepository.ClearAllChangeTrackers();
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 
             return GetLatestVersion(dm.Id);
@@ -123,13 +127,13 @@ namespace TypeLibrary.Services.Services
             if (!validation.IsValid)
                 throw new MimirorgBadRequestException("Attribute is not valid.", validation);
 
-            var attributeToUpdate = _attributeRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == attributeAm.Id);
+            var attributeToUpdate = _attributeRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == attributeAm.Id);
 
             if (attributeToUpdate == null)
             {
                 validation = new Validation(new List<string> { nameof(AttributeLibAm.Name), nameof(AttributeLibAm.Version) },
                 $"Attribute with name {attributeAm.Name}, aspect {attributeAm.Aspect}, QuantityDatumSpecifiedScope {attributeAm.QuantityDatumSpecifiedScope}, QuantityDatumSpecifiedProvenance {attributeAm.QuantityDatumSpecifiedProvenance}, QuantityDatumRangeSpecifying {attributeAm.QuantityDatumRangeSpecifying}, QuantityDatumRegularitySpecified {attributeAm.QuantityDatumRegularitySpecified}, id {attributeAm.Id} and version {attributeAm.Version} does not exist.");
-                throw new MimirorgBadRequestException("Attribute does not exist. Update is not possible.", validation);
+                throw new MimirorgBadRequestException("Attribute does not exist or is flagged as deleted. Update is not possible.", validation);
             }
 
             validation = attributeToUpdate.HasIllegalChanges(attributeAm);
@@ -142,6 +146,10 @@ namespace TypeLibrary.Services.Services
             if (versionStatus == VersionStatus.NoChange)
                 return GetLatestVersion(attributeToUpdate.Id);
 
+            //We need to take into account that there exist a higher version that has state 'Deleted'.
+            //Therefore we need to increment minor/major from the latest version, including those with state 'Deleted'.
+            attributeToUpdate.Version = _attributeRepository.Get().LatestVersionIncludeDeleted(attributeToUpdate.FirstVersionId).Version;
+
             attributeAm.Version = versionStatus switch
             {
                 VersionStatus.Minor => attributeToUpdate.Version.IncrementMinorVersion(),
@@ -149,14 +157,14 @@ namespace TypeLibrary.Services.Services
                 _ => attributeToUpdate.Version
             };
 
-            var attributeDm = _mapper.Map<AttributeLibDm>(attributeAm);
+            var dm = _mapper.Map<AttributeLibDm>(attributeAm);
 
-            attributeDm.FirstVersionId = attributeToUpdate.FirstVersionId;
-            attributeDm.State = State.Draft;
+            dm.State = State.Draft;
+            dm.FirstVersionId = attributeToUpdate.FirstVersionId;
 
-            var attributeCm = await _attributeRepository.Create(attributeDm);
+            var attributeCm = await _attributeRepository.Create(dm);
             _attributeRepository.ClearAllChangeTrackers();
-
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 
             return GetLatestVersion(attributeCm.Id);
@@ -171,15 +179,15 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if the attribute does not exist on latest version</exception>
         public async Task<AttributeLibCm> ChangeState(string id, State state)
         {
-            var dm = _attributeRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
+            var dm = _attributeRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
             if (dm == null)
                 throw new MimirorgNotFoundException($"Attribute with id {id} not found, or is not latest version.");
 
-            var dmAllVersions = _attributeRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId).Select(x => x.Id).ToList();
-
-            await _attributeRepository.ChangeState(state, dmAllVersions);
+            await _attributeRepository.ChangeState(state, new List<string> { dm.Id });
+            await _logService.CreateLog(dm, LogType.State, state.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Attribute);
+
             return state == State.Deleted ? null : GetLatestVersion(id);
         }
 

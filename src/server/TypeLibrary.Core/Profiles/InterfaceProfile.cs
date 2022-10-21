@@ -29,13 +29,12 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.ParentId) ? null : src.ParentId))
                 .ForMember(dest => dest.Parent, opt => opt.Ignore())
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
-                .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
                 .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
                 .ForMember(dest => dest.TerminalId, opt => opt.MapFrom(src => src.TerminalId))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetEmail()) ? "Unknown" : contextAccessor.GetEmail()))
-                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now.ToUniversalTime()))
+                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow))
                 .ForMember(dest => dest.Children, opt => opt.Ignore())
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => Convert<AttributeLibDm>(src.AttributeIdList).ToList()));
 

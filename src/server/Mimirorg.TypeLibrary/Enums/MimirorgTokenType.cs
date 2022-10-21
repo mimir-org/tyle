@@ -13,10 +13,10 @@ namespace Mimirorg.TypeLibrary.Enums
         [Display(Name = "Verify Email")]
         VerifyEmail = 2,
 
-        [Display(Name = "Verify Phone")]
-        VerifyPhone = 3,
-
         [Display(Name = "Change password")]
-        ChangePassword = 4
+        ChangePassword = 4,
+
+        [Display(Name = "Change two factor")]
+        ChangeTwoFactor = 5
     }
 }

@@ -28,7 +28,8 @@ namespace Mimirorg.Integration.Tests.Services
                 PurposeName = "PurposeName",
                 Description = "Description",
                 Aspect = Aspect.NotSet,
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
@@ -42,6 +43,7 @@ namespace Mimirorg.Integration.Tests.Services
         {
             var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
             var attributeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IAttributeService>();
+            var logService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ILogService>();
 
             var attributeAm = new AttributeLibAm
             {
@@ -55,7 +57,8 @@ namespace Mimirorg.Integration.Tests.Services
                 QuantityDatumSpecifiedProvenance = "Calculated",
                 QuantityDatumRegularitySpecified = "Absolute",
                 QuantityDatumSpecifiedScope = "Design Datum",
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var attributeCm = await attributeService.Create(attributeAm);
@@ -124,7 +127,8 @@ namespace Mimirorg.Integration.Tests.Services
                         }
                     }
                 },
-                ParentId = "1234"
+                ParentId = "1234",
+                Version = "1.0"
             };
 
             var nodeCm = await nodeService.Create(nodeAm);
@@ -169,6 +173,20 @@ namespace Mimirorg.Integration.Tests.Services
 
             Assert.Equal(nodeAm.Symbol, nodeCm.Symbol);
             Assert.Equal(nodeAm.ParentId, nodeCm.ParentId);
+
+            var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == nodeCm.Id);
+
+            Assert.True(logCm != null);
+            Assert.Equal(nodeCm.Id, logCm.ObjectId);
+            Assert.Equal(nodeCm.FirstVersionId, logCm.ObjectFirstVersionId);
+            Assert.Equal(nodeCm.Name, logCm.ObjectName);
+            Assert.Equal(nodeCm.Version, logCm.ObjectVersion);
+            Assert.Equal(nodeCm.GetType().Name.Remove(nodeCm.GetType().Name.Length - 2, 2) + "Dm", logCm.ObjectType);
+            Assert.Equal(LogType.State.ToString(), logCm.LogType.ToString());
+            Assert.Equal(State.Draft.ToString(), logCm.LogTypeValue);
+            Assert.NotNull(logCm.User);
+            Assert.Equal("System.DateTime", logCm.Created.GetType().ToString());
+            Assert.True(logCm.Created.Kind == DateTimeKind.Utc);
         }
 
         [Fact]
@@ -182,7 +200,8 @@ namespace Mimirorg.Integration.Tests.Services
                 PurposeName = "PurposeName",
                 Description = "Description",
                 Aspect = Aspect.NotSet,
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
@@ -210,7 +229,8 @@ namespace Mimirorg.Integration.Tests.Services
                 PurposeName = "PurposeName",
                 Description = "Description1",
                 Aspect = Aspect.NotSet,
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();

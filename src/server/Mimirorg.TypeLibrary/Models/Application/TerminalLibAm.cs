@@ -72,22 +72,9 @@ namespace Mimirorg.TypeLibrary.Models.Application
         /// <summary>
         /// The terminal version
         /// </summary>
-        /// <remarks>
-        /// The value will be set on server
-        /// </remarks>
-        [TSExclude]
+        [Required]
         [Double]
-        public string Version { get; set; } = "1.0";
-
-        /// <summary>
-        /// The terminal first version id
-        /// This is a reference to the first generated version of the terminal type
-        /// </summary>
-        /// <remarks>
-        /// The value will be set on server
-        /// </remarks>
-        [TSExclude]
-        public string FirstVersionId { get; set; }
+        public string Version { get; set; }
 
         /// <summary>
         /// The terminal id

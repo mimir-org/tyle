@@ -13,7 +13,6 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services
@@ -23,12 +22,14 @@ namespace TypeLibrary.Services.Services
         private readonly IMapper _mapper;
         private readonly ITransportRepository _transportRepository;
         private readonly ITimedHookService _hookService;
+        private readonly ILogService _logService;
 
-        public TransportService(IMapper mapper, ITransportRepository transportRepository, ITimedHookService hookService)
+        public TransportService(IMapper mapper, ITransportRepository transportRepository, ITimedHookService hookService, ILogService logService)
         {
             _mapper = mapper;
             _transportRepository = transportRepository;
             _hookService = hookService;
+            _logService = logService;
         }
 
         /// <summary>
@@ -39,7 +40,7 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if there is no transport with the given id, and that transport is at the latest version.</exception>
         public TransportLibCm GetLatestVersion(string id)
         {
-            var dm = _transportRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
+            var dm = _transportRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
             if (dm == null)
                 throw new MimirorgNotFoundException($"Transport with id {id} not found.");
@@ -53,7 +54,7 @@ namespace TypeLibrary.Services.Services
         /// <returns>A collection of transport</returns>
         public IEnumerable<TransportLibCm> GetLatestVersions()
         {
-            var dms = _transportRepository.Get()?.LatestVersion()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var dms = _transportRepository.Get()?.LatestVersionsExcludeDeleted()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
             if (dms == null)
                 throw new MimirorgNotFoundException("No transports were found.");
@@ -87,15 +88,17 @@ namespace TypeLibrary.Services.Services
                 throw new MimirorgDuplicateException($"Transport '{transportAm.Name}' and version '{transportAm.Version}' already exist.");
 
             transportAm.Version = "1.0";
-            var transportDm = _mapper.Map<TransportLibDm>(transportAm);
+            var dm = _mapper.Map<TransportLibDm>(transportAm);
 
-            transportDm.State = State.Draft;
+            dm.State = State.Draft;
+            dm.FirstVersionId = dm.Id;
 
-            await _transportRepository.Create(transportDm);
+            await _transportRepository.Create(dm);
             _transportRepository.ClearAllChangeTrackers();
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Transport);
 
-            return GetLatestVersion(transportDm.Id);
+            return GetLatestVersion(dm.Id);
         }
 
         /// <summary>
@@ -113,14 +116,13 @@ namespace TypeLibrary.Services.Services
             if (!validation.IsValid)
                 throw new MimirorgBadRequestException("Transport is not valid.", validation);
 
-            var transportToUpdate = _transportRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == transportAm.Id);
+            var transportToUpdate = _transportRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == transportAm.Id);
 
             if (transportToUpdate == null)
             {
                 validation = new Validation(new List<string> { nameof(TransportLibAm.Name), nameof(TransportLibAm.Version) },
                     $"Transport with name {transportAm.Name}, aspect {transportAm.Aspect}, Rds Code {transportAm.RdsCode}, id {transportAm.Id} and version {transportAm.Version} does not exist.");
-
-                throw new MimirorgBadRequestException("Transport does not exist. Update is not possible.", validation);
+                throw new MimirorgBadRequestException("Transport does not exist or is flagged as deleted. Update is not possible.", validation);
             }
 
             validation = transportToUpdate.HasIllegalChanges(transportAm);
@@ -133,6 +135,10 @@ namespace TypeLibrary.Services.Services
             if (versionStatus == VersionStatus.NoChange)
                 return GetLatestVersion(transportToUpdate.Id);
 
+            //We need to take into account that there exist a higher version that has state 'Deleted'.
+            //Therefore we need to increment minor/major from the latest version, including those with state 'Deleted'.
+            transportToUpdate.Version = _transportRepository.Get().LatestVersionIncludeDeleted(transportToUpdate.FirstVersionId).Version;
+
             transportAm.Version = versionStatus switch
             {
                 VersionStatus.Minor => transportToUpdate.Version.IncrementMinorVersion(),
@@ -140,18 +146,18 @@ namespace TypeLibrary.Services.Services
                 _ => transportToUpdate.Version
             };
 
-            var transportDm = _mapper.Map<TransportLibDm>(transportAm);
+            var dm = _mapper.Map<TransportLibDm>(transportAm);
 
-            transportDm.FirstVersionId = transportToUpdate.FirstVersionId;
-            transportDm.State = State.Draft;
+            dm.State = State.Draft;
+            dm.FirstVersionId = transportToUpdate.FirstVersionId;
 
-            var transportCm = await _transportRepository.Create(transportDm);
+            await _transportRepository.Create(dm);
             _transportRepository.ClearAllChangeTrackers();
-
-            await _transportRepository.ChangeParentId(transportAm.Id, transportCm.Id);
+            await _transportRepository.ChangeParentId(transportAm.Id, dm.Id);
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Transport);
 
-            return GetLatestVersion(transportCm.Id);
+            return GetLatestVersion(dm.Id);
         }
 
         /// <summary>
@@ -163,15 +169,15 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if the transport does not exist on latest version</exception>
         public async Task<TransportLibCm> ChangeState(string id, State state)
         {
-            var dm = _transportRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
+            var dm = _transportRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
             if (dm == null)
-                throw new MimirorgNotFoundException($"Transport with id {id} not found, or is not latest version");
+                throw new MimirorgNotFoundException($"Transport with id {id} not found, or is not latest version.");
 
-            var dmAllVersions = _transportRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId).Select(x => x.Id).ToList();
-
-            await _transportRepository.ChangeState(state, dmAllVersions);
+            await _transportRepository.ChangeState(state, new List<string> { dm.Id });
+            await _logService.CreateLog(dm, LogType.State, state.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Transport);
+
             return state == State.Deleted ? null : GetLatestVersion(id);
         }
 

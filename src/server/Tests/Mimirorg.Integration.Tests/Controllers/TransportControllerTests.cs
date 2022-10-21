@@ -52,7 +52,8 @@ namespace Mimirorg.Integration.Tests.Controllers
             {
                 Name = "Terminal11001",
                 Color = "#45678",
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             var terminalCm = await terminalService.Create(terminalAm);
@@ -68,7 +69,8 @@ namespace Mimirorg.Integration.Tests.Controllers
                 PurposeName = $"{guid}_dummy_purpose_name",
                 TerminalId = terminalCm.Id,
                 Aspect = Aspect.NotSet,
-                CompanyId = 1
+                CompanyId = 1,
+                Version = "1.0"
             };
 
             _ = await transportService.Create(transportToCreate);

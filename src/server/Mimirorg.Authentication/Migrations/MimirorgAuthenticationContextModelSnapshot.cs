@@ -17,7 +17,7 @@ namespace Mimirorg.Authentication.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.8")
+                .HasAnnotation("ProductVersion", "6.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -52,21 +52,21 @@ namespace Mimirorg.Authentication.Migrations
                         new
                         {
                             Id = "b5d465b3-90cf-4408-a685-14ff462e549d",
-                            ConcurrencyStamp = "1e3779fe-f5d7-493e-a25f-0a0cebcfa0a9",
+                            ConcurrencyStamp = "38b5034a-86be-4076-95f7-591f05af5b2f",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "cabdda90-6e90-4b92-b309-4f5b3784c792",
-                            ConcurrencyStamp = "6f8fed25-4653-4c54-80d3-e7d8673a2356",
+                            ConcurrencyStamp = "48f9b5fd-d285-4580-b809-58e4c4915817",
                             Name = "Account Manager",
                             NormalizedName = "ACCOUNTMANAGER"
                         },
                         new
                         {
                             Id = "f6d7df3a-bc9f-4a79-a2a0-c001a83c2d6c",
-                            ConcurrencyStamp = "d70af7e6-beca-4779-b8c6-29dc1f33f8e0",
+                            ConcurrencyStamp = "f51e36af-b921-44f2-b9a9-06bced4a8005",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         });
@@ -309,8 +309,7 @@ namespace Mimirorg.Authentication.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.HasIndex("Secret")
-                        .IsUnique();
+                    b.HasIndex("Secret");
 
                     b.ToTable("MimirorgToken", (string)null);
                 });

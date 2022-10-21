@@ -16,7 +16,7 @@ namespace Mimirorg.Authentication.Contracts
         /// <exception cref="MimirorgBadRequestException"></exception>
         /// <exception cref="MimirorgInvalidOperationException"></exception>
         /// <exception cref="MimirorgDuplicateException"></exception>
-        Task<MimirorgQrCodeCm> CreateUser(MimirorgUserAm userAm);
+        Task<MimirorgUserCm> CreateUser(MimirorgUserAm userAm);
 
         /// <summary>
         /// Get user from principal
@@ -35,28 +35,43 @@ namespace Mimirorg.Authentication.Contracts
         Task<MimirorgUserCm> GetUser(string id);
 
         /// <summary>
-        /// Get companies that is registered for current logged in user
+        /// Setup two factor 
         /// </summary>
-        /// <returns>A collection of registered companies</returns>
-        Task<ICollection<MimirorgCompanyCm>> GetUserFilteredCompanies();
-
-        /// <summary>
-        /// Update an user by id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="userAm"></param>
-        /// <returns></returns>
+        /// <param name="verifyEmail"></param>
+        /// <returns>Returns QR code for two factor app</returns>
+        /// <exception cref="NotImplementedException"></exception>
         /// <exception cref="MimirorgConfigurationException"></exception>
-        /// <exception cref="MimirorgBadRequestException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="MimirorgNotFoundException"></exception>
         /// <exception cref="MimirorgInvalidOperationException"></exception>
-        Task<MimirorgUserCm> UpdateUser(string id, MimirorgUserAm userAm);
+        Task<MimirorgQrCodeCm> GenerateTwoFactor(MimirorgVerifyAm verifyEmail);
 
         /// <summary>
-        /// Delete an user
+        /// A method that generates a login code and sending the generated code to user as mail.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<bool> DeleteUser(string id);
+        /// <param name="email">The email address for the user secret token</param>
+        /// <returns>A completed task</returns>
+        /// <exception cref="MimirorgInvalidOperationException">Throws if user does not exist</exception>
+        Task GenerateChangePasswordSecret(string email);
+
+        /// <summary>
+        /// Change the password on user
+        /// </summary>
+        /// <param name="changePassword">Object information for resetting password</param>
+        /// <returns>A completed task</returns>
+        /// <exception cref="MimirorgNotFoundException">Throws if user or token not exist</exception>
+        Task<bool> ChangePassword(MimirorgChangePasswordAm changePassword);
+
+
+        Task<(int deletedUsers, int deletedTokens)> RemoveUnconfirmedUsersAndTokens();
+
+        /// <summary>
+        /// Verify email account from verify code
+        /// </summary>
+        /// <param name="verifyEmail">The email verify data</param>
+        /// <returns>bool</returns>
+        /// <exception cref="MimirorgInvalidOperationException"></exception>
+        /// <exception cref="MimirorgNotFoundException"></exception>
+        Task<bool> VerifyAccount(MimirorgVerifyAm verifyEmail);
     }
 }
