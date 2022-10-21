@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useTheme } from "styled-components";
 import { Button } from "../../../../../complib/buttons";
-import { Form, FormErrorBanner, FormField, FormFieldset } from "../../../../../complib/form";
+import { Form, FormField, FormFieldset } from "../../../../../complib/form";
 import { Input, Select, Textarea } from "../../../../../complib/inputs";
 import { MotionFlexbox } from "../../../../../complib/layouts";
 import { MotionText, Text } from "../../../../../complib/text";
@@ -16,8 +16,9 @@ import { useCreateUser } from "../../../../../data/queries/auth/queriesUser";
 import { useExecuteOnCriteria } from "../../../../../hooks/useExecuteOnCriteria";
 import { useServerValidation } from "../../../../../hooks/useServerValidation";
 import { UnauthenticatedContent } from "../../../../app/components/unauthenticated/layout/UnauthenticatedContent";
-import { registerDetailsSchema } from "./registerDetailsSchema";
+import { Error } from "../../common/Error";
 import { Processing } from "../../common/Processing";
+import { registerDetailsSchema } from "./registerDetailsSchema";
 
 interface RegisterDetailsProps {
   setUserEmail: (email: string) => void;
@@ -56,7 +57,7 @@ export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps
           {mutation.isLoading && <Processing>{t("register.processing")}</Processing>}
           {!mutation.isSuccess && !mutation.isLoading && (
             <Form id={"details-form"} onSubmit={handleSubmit((data) => onSubmit(data))}>
-              {mutation.isError && <FormErrorBanner>{t("register.details.error")}</FormErrorBanner>}
+              {mutation.isError && <Error>{t("register.details.error")}</Error>}
               <FormFieldset>
                 <FormField label={`${t("common.fields.company")} *`} error={errors.companyId}>
                   <Controller

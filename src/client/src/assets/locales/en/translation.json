@@ -423,7 +423,7 @@
       "submit": "Create account",
       "altLead": "Have an account?",
       "altLink": "Log in",
-      "error": "An error occurred when trying to create your user.",
+      "error": "We were not able to create your user at this moment. Please try again in about a minute. If the problem persists, ",
       "info": {
         "text": "Your next step will be to verify your e-mail and activate 2-factor authentication. Without these, you cannot access :Tyle. If this process is interrupted or you do not complete registration within 1 hour, you will have to start the registration process over again."
       },
@@ -457,7 +457,7 @@
     },
     "verify": {
       "title": "Verify e-mail",
-      "error": "An error occurred when trying to verify your user.",
+      "error": "We were not able verify your ownership of this email. Verify that that you have entered the correct code and please try again in about a minute. If the issue persist, ",
       "info": {
         "text": "We have sent a six-digit code to your e-mail. Please enter the code within 1 hour, or the code will expire and you will have to restart the registration. Make sure to check your spam/junk folder for the e-mail."
       }

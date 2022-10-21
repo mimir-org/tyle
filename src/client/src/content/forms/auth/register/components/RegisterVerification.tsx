@@ -4,7 +4,6 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Button } from "../../../../../complib/buttons";
-import { FormErrorBanner } from "../../../../../complib/form";
 import { Digits, Input } from "../../../../../complib/inputs";
 import { Flexbox } from "../../../../../complib/layouts";
 import { Text } from "../../../../../complib/text";
@@ -12,6 +11,7 @@ import { Actionable } from "../../../../../complib/types";
 import { useGenerateMfa, useVerification } from "../../../../../data/queries/auth/queriesUser";
 import { useExecuteOnCriteria } from "../../../../../hooks/useExecuteOnCriteria";
 import { UnauthenticatedContent } from "../../../../app/components/unauthenticated/layout/UnauthenticatedContent";
+import { Error } from "../../common/Error";
 import { Processing } from "../../common/Processing";
 import { MotionVerifyForm } from "../../common/Verification";
 import { onSubmitForm } from "./RegisterVerification.helpers";
@@ -42,7 +42,7 @@ export const RegisterVerification = ({ email, setMfaInfo, cancel, complete }: Ve
       firstRow={
         <>
           {showProcessing && <Processing>{t("register.processing")}</Processing>}
-          {showError && <FormErrorBanner>{t("register.verify.error")}</FormErrorBanner>}
+          {showError && <Error>{t("register.verify.error")}</Error>}
           {showInput && (
             <MotionVerifyForm
               id={"verify-form"}
