@@ -34,13 +34,13 @@ namespace TypeLibrary.Core.Controllers.V1
         /// </summary>
         /// <returns>A collection of attributes and their units></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(ICollection<TypeReferenceCm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ICollection<AttributeLibCm>), StatusCodes.Status200OK)]
         [AllowAnonymous]
         public async Task<IActionResult> Get()
         {
             try
             {
-                var data = (await _attributeService.Get()).ToList();
+                var data = await _attributeService.Get();
                 return Ok(data);
             }
             catch (Exception e)

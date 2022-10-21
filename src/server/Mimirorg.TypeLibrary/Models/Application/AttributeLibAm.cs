@@ -3,20 +3,16 @@ using TypeScriptBuilder;
 
 namespace Mimirorg.TypeLibrary.Models.Application
 {
-    public class UnitLibAm
+    public class AttributeLibAm
     {
         [Required]
         public string Name { get; set; }
         [Required]
         public string Iri { get; set; }
-        
-        public string Symbol { get; set; }
-
-        [TSExclude]
+        [Required]
         public string Source { get; set; }
 
-        [TSExclude]
-        public bool IsDefault { get; set; }
+        public ICollection<UnitLibAm> Units { get; set; }
 
         [TSExclude]
         public string Id => Iri?[(Iri.LastIndexOf('/') + 1)..];

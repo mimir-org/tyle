@@ -4,7 +4,6 @@ using Mimirorg.Common.Exceptions;
 using Mimirorg.Test.Setup;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 using Xunit;
 
@@ -42,12 +41,12 @@ namespace Mimirorg.Test.Integration.Services
         {
             var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
             
-            var newAttribute = new TypeReferenceAm
+            var newAttribute = new AttributeLibAm
             {
                 Name = "a11",
                 Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a11",
                 Source = "PCA",
-                Units = new List<TypeReferenceSub>
+                Units = new List<UnitLibAm>
                 {
                     new()
                     {
@@ -73,7 +72,7 @@ namespace Mimirorg.Test.Integration.Services
                 Description = "Description",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
-                Attributes = new List<TypeReferenceAm> { newAttribute },
+                Attributes = new List<AttributeLibAm> { newAttribute },
                 NodeTerminals = new List<NodeTerminalLibAm>{
                     new()
                     {
@@ -98,14 +97,6 @@ namespace Mimirorg.Test.Integration.Services
                                 Name = "TypeRef",
                                 Iri = "https://url.com/1234567890",
                                 Source = "https://source.com/1234567890",
-                                Units = new List<TypeReferenceSub>
-                                {
-                                    new()
-                                    {
-                                        Name = "SubName",
-                                        Iri = "https://subIri.com/1234567890"
-                                    }
-                                }
                             }
                         }
                     }
@@ -117,15 +108,7 @@ namespace Mimirorg.Test.Integration.Services
                     {
                         Name = "TypeRef",
                         Iri = "https://url.com/1234567890",
-                        Source = "https://source.com/1234567890",
-                        Units = new List<TypeReferenceSub>
-                        {
-                            new()
-                            {
-                                Name = "SubName",
-                                Iri = "https://subIri.com/1234567890"
-                            }
-                        }
+                        Source = "https://source.com/1234567890"
                     }
                 },
                 ParentId = "1234",
@@ -163,14 +146,10 @@ namespace Mimirorg.Test.Integration.Services
             Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Iri, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Iri);
             Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Name, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Name);
             Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Source, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Source);
-            Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Units.First().Name, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Units.First().Name);
-            Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Units.First().Iri, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Units.First().Iri);
 
             Assert.Equal(nodeAm.TypeReferences.First().Iri, nodeCm.TypeReferences.First().Iri);
             Assert.Equal(nodeAm.TypeReferences.First().Name, nodeCm.TypeReferences.First().Name);
             Assert.Equal(nodeAm.TypeReferences.First().Source, nodeCm.TypeReferences.First().Source);
-            Assert.Equal(nodeAm.TypeReferences.First().Units.First().Name, nodeCm.TypeReferences.First().Units.First().Name);
-            Assert.Equal(nodeAm.TypeReferences.First().Units.First().Iri, nodeCm.TypeReferences.First().Units.First().Iri);
 
             Assert.Equal(nodeAm.Symbol, nodeCm.Symbol);
             Assert.Equal(nodeAm.ParentId, nodeCm.ParentId);

@@ -7,7 +7,6 @@ using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using Newtonsoft.Json;
 using TypeLibrary.Data.Contracts.Common;
 
@@ -66,13 +65,13 @@ namespace TypeLibrary.Data.Models
                 validation.AddNotAllowToChange(nameof(ParentId));
 
             //Attributes
-            var attributeAms = new List<TypeReferenceAm>();
-            var attributeDms = new List<TypeReferenceDm>();
-            var attributeAmUnits = new List<TypeReferenceSub>();
-            var attributeDmUnits = new List<TypeReferenceSub>();
+            var attributeAms = new List<AttributeLibAm>();
+            var attributeDms = new List<AttributeLibDm>();
+            var attributeAmUnits = new List<UnitLibAm>();
+            var attributeDmUnits = new List<UnitLibDm>();
 
-            attributeAms.AddRange(other.Attributes ?? new List<TypeReferenceAm>());
-            attributeDms.AddRange(Attributes?.ConvertToObject<ICollection<TypeReferenceDm>>() ?? new List<TypeReferenceDm>());
+            attributeAms.AddRange(other.Attributes ?? new List<AttributeLibAm>());
+            attributeDms.AddRange(Attributes?.ConvertToObject<ICollection<AttributeLibDm>>() ?? new List<AttributeLibDm>());
             attributeAmUnits.AddRange(attributeAms.SelectMany(x => x.Units));
             attributeDmUnits.AddRange(attributeDms.SelectMany(x => x.Units));
 
@@ -115,15 +114,14 @@ namespace TypeLibrary.Data.Models
             if (CompanyId != other.CompanyId)
                 minor = true;
 
-
             //Attributes
-            var attributeAms = new List<TypeReferenceAm>();
-            var attributeDms = new List<TypeReferenceDm>();
-            var attributeAmUnits = new List<TypeReferenceSub>();
-            var attributeDmUnits = new List<TypeReferenceSub>();
+            var attributeAms = new List<AttributeLibAm>();
+            var attributeDms = new List<AttributeLibDm>();
+            var attributeAmUnits = new List<UnitLibAm>();
+            var attributeDmUnits = new List<UnitLibDm>();
 
-            attributeAms.AddRange(other.Attributes ?? new List<TypeReferenceAm>());
-            attributeDms.AddRange(Attributes?.ConvertToObject<ICollection<TypeReferenceDm>>() ?? new List<TypeReferenceDm>());
+            attributeAms.AddRange(other.Attributes ?? new List<AttributeLibAm>());
+            attributeDms.AddRange(Attributes?.ConvertToObject<ICollection<AttributeLibDm>>() ?? new List<AttributeLibDm>());
             attributeAmUnits.AddRange(attributeAms.SelectMany(x => x.Units));
             attributeDmUnits.AddRange(attributeDms.SelectMany(x => x.Units));
 

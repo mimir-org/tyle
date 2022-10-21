@@ -42,11 +42,12 @@ namespace TypeLibrary.Core.Extensions
             cfg.AddProfile(new QuantityDatumProfile());
             cfg.AddProfile(new AttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
             cfg.AddProfile(new PurposeProfile());
-            cfg.AddProfile(new UnitProfile(provider.GetService<IApplicationSettingsRepository>()));
+            cfg.AddProfile(new UnitProfile());
             cfg.AddProfile(new SelectedAttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>()));
             cfg.AddProfile(new NodeTerminalProfile());
             cfg.AddProfile(new TypeReferenceProfile());
             cfg.AddProfile(new LogProfile(provider.GetService<IHttpContextAccessor>()));
+            cfg.AddProfile(new AttributeProfile());
 
             var mapperConfig = new MapperConfiguration(cfg);
             serviceCollection.AddSingleton(_ => mapperConfig.CreateMapper());

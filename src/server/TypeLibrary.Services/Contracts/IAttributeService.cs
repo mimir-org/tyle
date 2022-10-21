@@ -11,7 +11,7 @@ namespace TypeLibrary.Services.Contracts
         /// Get all attributes and their units
         /// </summary>
         /// <returns>List of attributes and their units></returns>
-        Task<IEnumerable<TypeReferenceCm>> Get();
+        Task<ICollection<AttributeLibCm>> Get();
 
         /// <summary>
         /// Get predefined attributes

@@ -36,10 +36,10 @@ namespace TypeLibrary.Services.Services
         /// Get all attributes and their units
         /// </summary>
         /// <returns>List of attributes and their units></returns>
-        public async Task<IEnumerable<TypeReferenceCm>> Get()
+        public async Task<ICollection<AttributeLibCm>> Get()
         {
             var dataSet = await _attributeReferenceRepository.Get();
-            return _mapper.Map<List<TypeReferenceCm>>(dataSet);
+            return _mapper.Map<List<AttributeLibCm>>(dataSet);
         }
 
         /// <summary>

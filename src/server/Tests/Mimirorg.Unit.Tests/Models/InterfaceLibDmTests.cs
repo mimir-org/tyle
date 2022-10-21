@@ -4,7 +4,6 @@ using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using Xunit;
 
 namespace Mimirorg.Test.Unit.Models
@@ -101,12 +100,12 @@ namespace Mimirorg.Test.Unit.Models
                 Iri = "http://xxx.com",
                 Name = "AA"
             });
-            var newAttribute = new TypeReferenceAm
+            var newAttribute = new AttributeLibAm
             {
                 Name = "a11",
                 Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a11",
                 Source = "PCA",
-                Units = new List<TypeReferenceSub>
+                Units = new List<UnitLibAm>
                 {
                     new()
                     {

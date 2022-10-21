@@ -3,7 +3,6 @@ using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Test.Setup;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 using Xunit;
 
@@ -38,12 +37,12 @@ namespace Mimirorg.Test.Integration.Services
         [Fact]
         public async Task Create_Terminal_Create_Terminal_When_Ok_Parameters()
         {
-            var newAttribute = new TypeReferenceAm
+            var newAttribute = new AttributeLibAm
             {
                 Name = "a11",
                 Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a11",
                 Source = "PCA",
-                Units = new List<TypeReferenceSub>
+                Units = new List<UnitLibAm>
                 {
                     new()
                     {
@@ -71,20 +70,11 @@ namespace Mimirorg.Test.Integration.Services
                         Name = "TypeRef",
                         Iri = "https://url.com/1234567890",
                         Source = "https://source.com/1234567890",
-                        Units = new List<TypeReferenceSub>
-                        {
-                            new()
-                            {
-                                Name = "SubName",
-                                Iri = "https://subIri.com/1234567890"
-                            }
-                        }
-
                     }
                 },
                 Color = "#123456",
                 Description = "Description1",
-                Attributes = new List<TypeReferenceAm>{newAttribute},
+                Attributes = new List<AttributeLibAm>{newAttribute},
                 CompanyId = 1,
                 Version = "1.0"
             };
@@ -100,9 +90,6 @@ namespace Mimirorg.Test.Integration.Services
             Assert.Equal(terminalAm.TypeReferences.First().Iri, terminalCm.TypeReferences.First().Iri);
             Assert.Equal(terminalAm.TypeReferences.First().Name, terminalCm.TypeReferences.First().Name);
             Assert.Equal(terminalAm.TypeReferences.First().Source, terminalCm.TypeReferences.First().Source);
-
-            Assert.Equal(terminalAm.TypeReferences.First().Units.First().Name, terminalCm.TypeReferences.First().Units.First().Name);
-            Assert.Equal(terminalAm.TypeReferences.First().Units.First().Iri, terminalCm.TypeReferences.First().Units.First().Iri);
 
             Assert.Equal(terminalAm.Color, terminalCm.Color);
             Assert.Equal(terminalAm.Description, terminalCm.Description);

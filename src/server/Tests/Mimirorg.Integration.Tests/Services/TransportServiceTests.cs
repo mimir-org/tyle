@@ -4,7 +4,6 @@ using Mimirorg.Common.Exceptions;
 using Mimirorg.Test.Setup;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 using Xunit;
 
@@ -52,12 +51,12 @@ namespace Mimirorg.Test.Integration.Services
         [Fact]
         public async Task Create_Transport_Create_Transport_When_Ok_Parameters()
         {
-            var newAttribute = new TypeReferenceAm
+            var newAttribute = new AttributeLibAm
             {
                 Name = "a11",
                 Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a11",
                 Source = "PCA",
-                Units = new List<TypeReferenceSub>
+                Units = new List<UnitLibAm>
                 {
                     new()
                     {
@@ -99,23 +98,14 @@ namespace Mimirorg.Test.Integration.Services
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
                 TerminalId = "8EBC5811473E87602FB0C18A100BD53C",
-                Attributes = new List<TypeReferenceAm>{newAttribute},
+                Attributes = new List<AttributeLibAm>{newAttribute},
                 TypeReferences = new List<TypeReferenceAm>
                 {
                     new()
                     {
                         Name = "TypeRef",
                         Iri = "https://url.com/1234567890",
-                        Source = "https://source.com/1234567890",
-                        Units = new List<TypeReferenceSub>
-                        {
-                            new()
-                            {
-                                Name = "SubName",
-                                Iri = "https://subIri.com/1234567890"
-                            }
-                        }
-
+                        Source = "https://source.com/1234567890"
                     }
                 },
                 ParentId = transportParentCm.Id,
@@ -140,8 +130,6 @@ namespace Mimirorg.Test.Integration.Services
             Assert.Equal(transportAm.TypeReferences.First().Name, transportCm.TypeReferences.First().Name);
             Assert.Equal(transportAm.TypeReferences.First().Source, transportCm.TypeReferences.First().Source);
 
-            Assert.Equal(transportAm.TypeReferences.First().Units.First().Name, transportCm.TypeReferences.First().Units.First().Name);
-            Assert.Equal(transportAm.TypeReferences.First().Units.First().Iri, transportCm.TypeReferences.First().Units.First().Iri);
             Assert.Equal(transportAm.ParentId, transportCm.ParentId);
         }
 

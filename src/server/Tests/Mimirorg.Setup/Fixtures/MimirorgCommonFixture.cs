@@ -4,7 +4,6 @@ using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using Moq;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
@@ -57,14 +56,14 @@ namespace Mimirorg.Test.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                Attributes = new List<TypeReferenceAm>
+                Attributes = new List<AttributeLibAm>
                 {
                     new()
                     {
                         Name = "a1",
                         Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
                         Source = "PCA",
-                        Units = new List<TypeReferenceSub>
+                        Units = new List<UnitLibAm>
                         {
                             new()
                             {
@@ -163,14 +162,14 @@ namespace Mimirorg.Test.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                Attributes = new List<TypeReferenceAm>
+                Attributes = new List<AttributeLibAm>
                 {
                     new()
                     {
                         Name = "a1",
                         Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
                         Source = "PCA",
-                        Units = new List<TypeReferenceSub>
+                        Units = new List<UnitLibAm>
                         {
                             new()
                             {
@@ -222,14 +221,14 @@ namespace Mimirorg.Test.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                Attributes = new List<TypeReferenceAm>
+                Attributes = new List<AttributeLibAm>
                 {
                     new()
                     {
                         Name = "a1",
                         Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
                         Source = "PCA",
-                        Units = new List<TypeReferenceSub>
+                        Units = new List<UnitLibAm>
                         {
                             new()
                             {
@@ -280,14 +279,14 @@ namespace Mimirorg.Test.Setup.Fixtures
                 Name = "AA",
                 TypeReferences = typeRefs,
                 Color = "#123",
-                Attributes = new List<TypeReferenceAm>
+                Attributes = new List<AttributeLibAm>
                 {
                     new()
                     {
                         Name = "a1",
                         Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
                         Source = "PCA",
-                        Units = new List<TypeReferenceSub>
+                        Units = new List<UnitLibAm>
                         {
                             new()
                             {

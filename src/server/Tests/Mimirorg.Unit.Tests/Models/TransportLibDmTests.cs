@@ -3,9 +3,7 @@ using System.Linq;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using Xunit;
 
 namespace Mimirorg.Test.Unit.Models
@@ -31,7 +29,7 @@ namespace Mimirorg.Test.Unit.Models
         public void HasIllegalChanges_Valid_False_When_Remove_Data_From_Lists()
         {
             var dummy = _fixture.CreateTransportTestData();
-            dummy.am.Attributes = new List<TypeReferenceAm>();
+            dummy.am.Attributes = new List<AttributeLibAm>();
 
             var status = dummy.dm.HasIllegalChanges(dummy.am);
             Assert.False(status.IsValid);
@@ -94,12 +92,12 @@ namespace Mimirorg.Test.Unit.Models
         {
             var dummy = _fixture.CreateTransportTestData();
 
-            var newAttribute = new TypeReferenceAm
+            var newAttribute = new AttributeLibAm
             {
                 Name = "a11",
                 Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a11",
                 Source = "PCA",
-                Units = new List<TypeReferenceSub>
+                Units = new List<UnitLibAm>
                 {
                     new()
                     {

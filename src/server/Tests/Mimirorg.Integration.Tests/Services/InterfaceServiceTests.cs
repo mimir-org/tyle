@@ -4,7 +4,6 @@ using Mimirorg.Common.Exceptions;
 using Mimirorg.Test.Setup;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 using Xunit;
 
@@ -52,12 +51,12 @@ namespace Mimirorg.Test.Integration.Services
             var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
             var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
 
-            var newAttribute = new TypeReferenceAm
+            var newAttribute = new AttributeLibAm
             {
                 Name = "a11",
                 Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a11",
                 Source = "PCA",
-                Units = new List<TypeReferenceSub>
+                Units = new List<UnitLibAm>
                 {
                     new()
                     {
@@ -106,22 +105,14 @@ namespace Mimirorg.Test.Integration.Services
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
                 TerminalId = terminalCm.Id,
-                Attributes = new List<TypeReferenceAm>{newAttribute},
+                Attributes = new List<AttributeLibAm>{newAttribute},
                 TypeReferences = new List<TypeReferenceAm>
                 {
                     new()
                     {
                         Name = "TypeRef",
                         Iri = "https://url.com/1234567890",
-                        Source = "https://source.com/1234567890",
-                        Units = new List<TypeReferenceSub>
-                        {
-                            new()
-                            {
-                                Name = "SubName",
-                                Iri = "https://subIri.com/1234567890"
-                            }
-                        }
+                        Source = "https://source.com/1234567890"
                     }
                 },
                 Description = "Description",
@@ -148,8 +139,6 @@ namespace Mimirorg.Test.Integration.Services
             Assert.Equal(interfaceAm.TypeReferences.First().Name, interfaceCm.TypeReferences.First().Name);
             Assert.Equal(interfaceAm.TypeReferences.First().Source, interfaceCm.TypeReferences.First().Source);
 
-            Assert.Equal(interfaceAm.TypeReferences.First().Units.First().Name, interfaceCm.TypeReferences.First().Units.First().Name);
-            Assert.Equal(interfaceAm.TypeReferences.First().Units.First().Iri, interfaceCm.TypeReferences.First().Units.First().Iri);
             Assert.Equal(interfaceAm.ParentId, interfaceCm.ParentId);
         }
 
