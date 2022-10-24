@@ -10,9 +10,10 @@ import { useServerValidation } from "../../../hooks/useServerValidation";
 import { Loader } from "../../common/loader";
 import { FormAttributes } from "../common/form-attributes/FormAttributes";
 import { onSubmitForm } from "../common/utils/onSubmitForm";
+import { prepareAttributes } from "../common/utils/prepareAttributes";
 import { usePrefilledForm } from "../common/utils/usePrefilledForm";
 import { useSubmissionToast } from "../common/utils/useSubmissionToast";
-import { prepareAttributes, useTerminalMutation, useTerminalQuery } from "./TerminalForm.helpers";
+import { useTerminalMutation, useTerminalQuery } from "./TerminalForm.helpers";
 import { TerminalFormContainer } from "./TerminalForm.styled";
 import { TerminalFormBaseFields } from "./TerminalFormBaseFields";
 import { terminalSchema } from "./terminalSchema";
@@ -39,8 +40,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
   });
 
   const { register, handleSubmit, control, setError, reset } = formMethods;
-
-  const attributeFields = useFieldArray({ control, name: "attributeIdList" });
+  const attributeFields = useFieldArray({ control, name: "attributes" });
 
   const query = useTerminalQuery();
   const mapper = (source: TerminalLibCm) => mapTerminalLibCmToFormTerminalLib(source, mode);
@@ -64,7 +64,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
               <FormAttributes
-                register={(index) => register(`attributeIdList.${index}`)}
+                register={(index) => register(`attributes.${index}`)}
                 fields={attributeFields.fields}
                 append={attributeFields.append}
                 remove={attributeFields.remove}

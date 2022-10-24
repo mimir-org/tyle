@@ -1,7 +1,6 @@
 import { TFunction } from "react-i18next";
 import * as yup from "yup";
 import { typeReferenceListSchema } from "../common/validation/typeReferenceListSchema";
-import { valueObjectListSchema } from "../common/validation/valueObjectListSchema";
 import { YupShape } from "../types/yupShape";
 import { FormNodeLib } from "./types/formNodeLib";
 
@@ -21,6 +20,6 @@ export const nodeSchema = (t: TFunction<"translation">) =>
         terminalId: yup.string().required(t("node.validation.nodeTerminals.terminalId.required")),
       })
     ),
-    attributeIdList: valueObjectListSchema(t("validation.attributeIdList.value.required")),
+    attributes: yup.array().nullable(),
     typeReferences: typeReferenceListSchema(t("validation.typeReferences.name.required")),
   });

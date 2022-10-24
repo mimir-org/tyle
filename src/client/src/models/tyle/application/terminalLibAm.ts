@@ -6,7 +6,7 @@ export const createEmptyTerminalLibAm = (): TerminalLibAm => ({
   typeReferences: [],
   color: "",
   description: "",
-  attributeIdList: [],
+  attributes: [],
   companyId: 0,
   version: "1.0",
 });

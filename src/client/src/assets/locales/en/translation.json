@@ -106,11 +106,6 @@
           "required": "Please specify a terminal"
         }
       },
-      "attributeIdList": {
-        "value": {
-          "required": "Please specify an attribute"
-        }
-      },
       "typeReferences": {
         "name": {
           "required": "Please specify a reference"
@@ -207,11 +202,6 @@
       "description": {
         "max": "The description can be at most 500 characters"
       },
-      "attributeIdList": {
-        "value": {
-          "required": "Please specify an attribute"
-        }
-      },
       "typeReferences": {
         "name": {
           "required": "Please specify a reference"
@@ -265,11 +255,6 @@
       },
       "terminalId": {
         "required": "Please select a terminal"
-      },
-      "attributeIdList": {
-        "value": {
-          "required": "Please specify an attribute"
-        }
       },
       "typeReferences": {
         "name": {
@@ -325,11 +310,6 @@
       "terminalId": {
         "required": "Please select a terminal"
       },
-      "attributeIdList": {
-        "value": {
-          "required": "Please specify an attribute"
-        }
-      },
       "typeReferences": {
         "name": {
           "required": "Please specify a reference"
@@ -341,11 +321,6 @@
     "typeReferences": {
       "name": {
         "required": "Please specify a reference"
-      }
-    },
-    "attributeIdList": {
-      "value": {
-        "required": "Please specify an attribute"
       }
     }
   },

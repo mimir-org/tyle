@@ -1,19 +1,26 @@
-import { AttributeLibCm } from "@mimirorg/typelibrary-types";
+import { AttributeLibAm, AttributeLibCm } from "@mimirorg/typelibrary-types";
+import { UpdateEntity } from "../../../../data/types/updateEntity";
 import { mapAttributeLibCmsToInfoItems } from "../../../../utils/mappers";
 import { ValueObject } from "../../types/valueObject";
 
-export const onAddValueObject = (
-  ids: string[],
-  fields: ValueObject<string>[],
-  append: (item: ValueObject<string>) => void
+export const onAddAttributes = (
+  selectedIds: string[],
+  availableAttributes: AttributeLibCm[],
+  fields: ValueObject<UpdateEntity<AttributeLibAm>>[],
+  append: (item: ValueObject<UpdateEntity<AttributeLibAm>>) => void
 ) => {
-  ids.forEach((id) => {
-    const objectHasNotBeenAdded = !fields.some((f) => f.value === id);
-    if (objectHasNotBeenAdded) append({ value: id });
+  selectedIds.forEach((id) => {
+    const attributeHasNotBeenAdded = !fields.some((x) => x.value.id === id);
+    if (attributeHasNotBeenAdded) {
+      const targetAttribute = availableAttributes.find((x) => x.id === id);
+      if (targetAttribute) {
+        append({ value: targetAttribute });
+      }
+    }
   });
 };
 
-export const getSelectItemsFromAttributeLibCms = (attributes?: AttributeLibCm[]) => {
+export const getInfoItemsFromAttributeLibCms = (attributes?: AttributeLibCm[]) => {
   if (!attributes || attributes.length == 0) return [];
 
   return mapAttributeLibCmsToInfoItems(attributes);

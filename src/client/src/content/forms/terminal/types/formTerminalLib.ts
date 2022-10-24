@@ -1,6 +1,6 @@
-import { TerminalLibAm, TerminalLibCm } from "@mimirorg/typelibrary-types";
+import { AttributeLibAm, TerminalLibAm, TerminalLibCm } from "@mimirorg/typelibrary-types";
+import { UpdateEntity } from "../../../../data/types/updateEntity";
 import { createEmptyTerminalLibAm } from "../../../../models/tyle/application/terminalLibAm";
-import { mapTerminalLibCmToTerminalLibAm } from "../../../../utils/mappers";
 import { ValueObject } from "../../types/valueObject";
 import { TerminalFormMode } from "./terminalFormMode";
 
@@ -8,8 +8,8 @@ import { TerminalFormMode } from "./terminalFormMode";
  * This type functions as a layer between client needs and the backend model.
  * It allows you to adapt the expected api model to fit client/form logic needs.
  */
-export interface FormTerminalLib extends Omit<TerminalLibAm, "attributeIdList"> {
-  attributeIdList: ValueObject<string>[];
+export interface FormTerminalLib extends Omit<TerminalLibAm, "attributes"> {
+  attributes: ValueObject<UpdateEntity<AttributeLibAm>>[];
 }
 
 /**
@@ -18,12 +18,12 @@ export interface FormTerminalLib extends Omit<TerminalLibAm, "attributeIdList"> 
  */
 export const mapFormTerminalLibToApiModel = (formTerminal: FormTerminalLib): TerminalLibAm => ({
   ...formTerminal,
-  attributeIdList: formTerminal.attributeIdList.map((x) => x.value),
+  attributes: formTerminal.attributes.map((x) => x.value),
 });
 
 export const createEmptyFormTerminalLib = (): FormTerminalLib => ({
   ...createEmptyTerminalLibAm(),
-  attributeIdList: [],
+  attributes: [],
   color: "#f7f6ff",
 });
 
@@ -31,9 +31,7 @@ export const mapTerminalLibCmToFormTerminalLib = (
   terminalLibCm: TerminalLibCm,
   mode?: TerminalFormMode
 ): FormTerminalLib => ({
-  ...mapTerminalLibCmToTerminalLibAm(terminalLibCm),
+  ...terminalLibCm,
   parentId: mode === "clone" ? terminalLibCm.id : terminalLibCm.parentId,
-  attributeIdList: terminalLibCm.attributes.map((x) => ({
-    value: x.id,
-  })),
+  attributes: terminalLibCm.attributes.map((x) => ({ value: x })),
 });

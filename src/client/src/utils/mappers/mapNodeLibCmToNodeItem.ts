@@ -1,9 +1,9 @@
-import { NodeLibCm } from "@mimirorg/typelibrary-types";
+import { ConnectorDirection, NodeLibCm, NodeTerminalLibCm } from "@mimirorg/typelibrary-types";
 import { NodeItem } from "../../content/types/NodeItem";
+import { NodeTerminalItem } from "../../content/types/NodeTerminalItem";
 import { getColorFromAspect } from "../getColorFromAspect";
 import { sortInfoItems, sortNodeTerminals } from "../sorters";
 import { mapAttributeLibCmsToInfoItems } from "./mapAttributeLibCmToInfoItem";
-import { mapNodeTerminalLibCmsToNodeTerminalItems } from "./mapNodeTerminalLibCmToNodeTerminalItem";
 
 export const mapNodeLibCmToNodeItem = (node: NodeLibCm): NodeItem => ({
   id: node.id,
@@ -16,3 +16,12 @@ export const mapNodeLibCmToNodeItem = (node: NodeLibCm): NodeItem => ({
   attributes: sortInfoItems(mapAttributeLibCmsToInfoItems(node.attributes)),
   kind: "NodeItem",
 });
+
+const mapNodeTerminalLibCmsToNodeTerminalItems = (terminals: NodeTerminalLibCm[]): NodeTerminalItem[] =>
+  terminals.map((x) => ({
+    name: x.terminal.name,
+    color: x.terminal.color,
+    amount: x.quantity,
+    direction: ConnectorDirection[x.connectorDirection] as keyof typeof ConnectorDirection,
+    attributes: sortInfoItems(mapAttributeLibCmsToInfoItems(x.terminal.attributes)),
+  }));

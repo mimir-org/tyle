@@ -1,6 +1,6 @@
-import { TransportLibAm, TransportLibCm } from "@mimirorg/typelibrary-types";
+import { AttributeLibAm, TransportLibAm, TransportLibCm } from "@mimirorg/typelibrary-types";
+import { UpdateEntity } from "../../../../data/types/updateEntity";
 import { createEmptyTransportLibAm } from "../../../../models/tyle/application/transportLibAm";
-import { mapTransportLibCmToTransportLibAm } from "../../../../utils/mappers";
 import { ValueObject } from "../../types/valueObject";
 import { TransportFormMode } from "./transportFormMode";
 
@@ -8,8 +8,8 @@ import { TransportFormMode } from "./transportFormMode";
  * This type functions as a layer between client needs and the backend model.
  * It allows you to adapt the expected api model to fit client/form logic needs.
  */
-export interface FormTransportLib extends Omit<TransportLibAm, "attributeIdList"> {
-  attributeIdList: ValueObject<string>[];
+export interface FormTransportLib extends Omit<TransportLibAm, "attributes"> {
+  attributes: ValueObject<UpdateEntity<AttributeLibAm>>[];
   terminalColor?: string;
 }
 
@@ -19,22 +19,20 @@ export interface FormTransportLib extends Omit<TransportLibAm, "attributeIdList"
  */
 export const mapFormTransportLibToApiModel = (formTransport: FormTransportLib): TransportLibAm => ({
   ...formTransport,
-  attributeIdList: formTransport.attributeIdList.map((x) => x.value),
+  attributes: formTransport.attributes.map((x) => x.value),
 });
 
 export const createEmptyFormTransportLib = (): FormTransportLib => ({
   ...createEmptyTransportLibAm(),
-  attributeIdList: [],
+  attributes: [],
 });
 
 export const mapTransportLibCmToFormTransportLib = (
   transportLibCm: TransportLibCm,
   mode?: TransportFormMode
 ): FormTransportLib => ({
-  ...mapTransportLibCmToTransportLibAm(transportLibCm),
+  ...transportLibCm,
   parentId: mode === "clone" ? transportLibCm.id : transportLibCm.parentId,
-  attributeIdList: transportLibCm.attributes.map((x) => ({
-    value: x.id,
-  })),
+  attributes: transportLibCm.attributes.map((x) => ({ value: x })),
   terminalColor: transportLibCm.terminal.color,
 });

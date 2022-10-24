@@ -26,7 +26,7 @@ export const QueryAndMutationExample = () => {
     companyId: 0,
     description: "A description goes here",
     symbol: "http://localhost:5001/symbol/018120B75674ABF18AB2F07691D1865C.svg",
-    attributeIdList: ["07AFF47B9870A2D1B697F6F319A7185C", "11845C1C348E28563B4EA4B2E960B04C"],
+    attributes: [],
     nodeTerminals: [
       {
         terminalId: "BFB27765A609F27FD3A2DF59C4E4D63D",

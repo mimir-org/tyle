@@ -20,5 +20,5 @@ export const useTransportMutation = (mode?: TransportFormMode) => {
  * @param resetField
  */
 export const resetSubform = (resetField: (value: keyof FormTransportLib) => void) => {
-  resetField("attributeIdList");
+  resetField("attributes");
 };

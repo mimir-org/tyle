@@ -1,27 +1,6 @@
 export { mapNodeLibCmToNodeItem } from "./mapNodeLibCmToNodeItem";
-export { mapNodeLibCmToNodeLibAm } from "./mapNodeLibCmToNodeLibAm";
-
-export { mapNodeTerminalLibCmToNodeTerminalItem } from "./mapNodeTerminalLibCmToNodeTerminalItem";
-export { mapNodeTerminalLibCmsToNodeTerminalItems } from "./mapNodeTerminalLibCmToNodeTerminalItem";
-export { mapNodeTerminalLibCmToNodeTerminalLibAm } from "./mapNodeTerminalLibCmToNodeTerminalLibAm";
-export { mapNodeTerminalLibCmsToNodeTerminalLibAms } from "./mapNodeTerminalLibCmToNodeTerminalLibAm";
-
-export { mapUnitLibCmToInfoItem } from "./mapUnitLibCmToInfoItem";
-
 export { mapAttributeLibCmToInfoItem } from "./mapAttributeLibCmToInfoItem";
 export { mapAttributeLibCmsToInfoItems } from "./mapAttributeLibCmToInfoItem";
-
 export { mapTerminalLibCmToTerminalItem } from "./mapTerminalLibCmToTerminalItem";
-export { mapTerminalLibCmToTerminalLibAm } from "./mapTerminalLibCmToTerminalLibAm";
-
 export { mapTransportLibCmToTransportItem } from "./mapTransportLibCmToTransportItem";
-export { mapTransportLibCmToTransportLibAm } from "./mapTransportLibCmToTransportLibAm";
-
 export { mapInterfaceLibCmToInterfaceItem } from "./mapInterfaceLibCmToInterfaceItem";
-export { mapInterfaceLibCmToInterfaceLibAm } from "./mapInterfaceLibCmToInterfaceLibAm";
-
-export { mapListToDescriptors } from "./mapListToDescriptors";
-export { mapUnitLibCmsToDescriptors } from "./mapUnitLibCmsToDescriptors";
-export { mapValueObjectsToDescriptors } from "./mapValueObjectsToDescriptors";
-export { mapTypeReferencesToDescriptors } from "./mapTypeReferencesToDescriptors";
-export { mapAttributeLibToQuantityDatumDescriptors } from "./mapAttributeLibToQuantityDatumDescriptors";
