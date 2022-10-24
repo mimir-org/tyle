@@ -31,11 +31,9 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string LastName { get; set; }
 
         [Display(Name = "CompanyId")]
-        [Required(ErrorMessage = "{0} is required")]
         public int CompanyId { get; set; }
 
         [Display(Name = "Purpose")]
-        [Required(ErrorMessage = "{0} is required")]
         public string Purpose { get; set; }
     }
 }

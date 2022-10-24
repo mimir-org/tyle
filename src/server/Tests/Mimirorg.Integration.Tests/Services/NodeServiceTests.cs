@@ -40,6 +40,7 @@ namespace Mimirorg.Test.Integration.Services
         public async Task Create_Node_Create_Node_When_Ok_Parameters()
         {
             var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
+            var logService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ILogService>();
 
             var newAttribute = new AttributeLibAm
             {
@@ -153,6 +154,20 @@ namespace Mimirorg.Test.Integration.Services
 
             Assert.Equal(nodeAm.Symbol, nodeCm.Symbol);
             Assert.Equal(nodeAm.ParentId, nodeCm.ParentId);
+
+            var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == nodeCm.Id);
+
+            Assert.True(logCm != null);
+            Assert.Equal(nodeCm.Id, logCm.ObjectId);
+            Assert.Equal(nodeCm.FirstVersionId, logCm.ObjectFirstVersionId);
+            Assert.Equal(nodeCm.Name, logCm.ObjectName);
+            Assert.Equal(nodeCm.Version, logCm.ObjectVersion);
+            Assert.Equal(nodeCm.GetType().Name.Remove(nodeCm.GetType().Name.Length - 2, 2) + "Dm", logCm.ObjectType);
+            Assert.Equal(LogType.State.ToString(), logCm.LogType.ToString());
+            Assert.Equal(State.Draft.ToString(), logCm.LogTypeValue);
+            Assert.NotNull(logCm.User);
+            Assert.Equal("System.DateTime", logCm.Created.GetType().ToString());
+            Assert.True(logCm.Created.Kind == DateTimeKind.Utc);
         }
 
         [Fact]

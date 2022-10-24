@@ -1,10 +1,8 @@
 import { Outlet } from "react-router-dom";
-import { UnauthenticatedContainer, UnauthenticatedContentContainer } from "./UnauthenticatedLayout.styled";
+import { UnauthenticatedLayoutContainer } from "./UnauthenticatedLayout.styled";
 
 export const UnauthenticatedLayout = () => (
-  <UnauthenticatedContainer>
-    <UnauthenticatedContentContainer>
-      <Outlet />
-    </UnauthenticatedContentContainer>
-  </UnauthenticatedContainer>
+  <UnauthenticatedLayoutContainer>
+    <Outlet />
+  </UnauthenticatedLayoutContainer>
 );

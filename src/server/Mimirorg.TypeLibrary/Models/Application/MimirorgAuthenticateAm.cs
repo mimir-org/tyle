@@ -13,7 +13,6 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Password { get; set; }
 
         [Display(Name = "Code")]
-        [Required(ErrorMessage = "{0} is required")]
         public string Code { get; set; }
     }
 }

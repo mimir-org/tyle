@@ -7,6 +7,6 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: ${(props) => props.theme.tyle.spacing.multiple(6)};
+  gap: ${(props) => props.theme.tyle.spacing.xxxl};
   width: 100%;
 `;

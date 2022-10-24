@@ -28,14 +28,6 @@ namespace Mimirorg.Authentication.Contracts
         Task<ICollection<MimirorgTokenCm>> Authenticate(string secret);
 
         /// <summary>
-        /// Verify account from verify token
-        /// </summary>
-        /// <param name="token">string</param>
-        /// <returns>bool</returns>
-        /// <exception cref="MimirorgInvalidOperationException"></exception>
-        Task<bool> VerifyAccount(string token);
-
-        /// <summary>
         /// Remove the current user's authentication tokens
         /// </summary>
         /// <param name="secret">string</param>

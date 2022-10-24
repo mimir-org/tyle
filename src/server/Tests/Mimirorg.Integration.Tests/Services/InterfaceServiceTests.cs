@@ -50,6 +50,7 @@ namespace Mimirorg.Test.Integration.Services
         {
             var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
             var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
+            var logService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ILogService>();
 
             var newAttribute = new AttributeLibAm
             {
@@ -140,6 +141,20 @@ namespace Mimirorg.Test.Integration.Services
             Assert.Equal(interfaceAm.TypeReferences.First().Source, interfaceCm.TypeReferences.First().Source);
 
             Assert.Equal(interfaceAm.ParentId, interfaceCm.ParentId);
+
+            var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == interfaceCm.Id);
+
+            Assert.True(logCm != null);
+            Assert.Equal(interfaceCm.Id, logCm.ObjectId);
+            Assert.Equal(interfaceCm.FirstVersionId, logCm.ObjectFirstVersionId);
+            Assert.Equal(interfaceCm.Name, logCm.ObjectName);
+            Assert.Equal(interfaceCm.Version, logCm.ObjectVersion);
+            Assert.Equal(interfaceCm.GetType().Name.Remove(interfaceCm.GetType().Name.Length - 2, 2) + "Dm", logCm.ObjectType);
+            Assert.Equal(LogType.State.ToString(), logCm.LogType.ToString());
+            Assert.Equal(State.Draft.ToString(), logCm.LogTypeValue);
+            Assert.NotNull(logCm.User);
+            Assert.Equal("System.DateTime", logCm.Created.GetType().ToString());
+            Assert.True(logCm.Created.Kind == DateTimeKind.Utc);
         }
 
         [Fact]

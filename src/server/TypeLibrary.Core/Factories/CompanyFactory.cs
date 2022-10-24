@@ -7,15 +7,18 @@ namespace TypeLibrary.Core.Factories
 {
     public class CompanyFactory : ICompanyFactory
     {
-        private readonly ICollection<MimirorgCompanyCm> _companies;
+        private ICollection<MimirorgCompanyCm> _companies;
+        private readonly IMimirorgCompanyService _mimirorgCompanyService;
 
         public CompanyFactory(IMimirorgCompanyService mimirorgCompanyService)
         {
-            _companies = mimirorgCompanyService.GetAllCompanies().Result;
+            _mimirorgCompanyService = mimirorgCompanyService;
         }
 
         public string GetCompanyName(int companyId)
         {
+            _companies ??= _mimirorgCompanyService.GetAllCompanies().Result;
+
             var company = _companies.FirstOrDefault(x => x.Id == companyId);
             return company?.Name;
         }

@@ -58,7 +58,7 @@ namespace Mimirorg.Test.Unit.Extensions
                 }
             };
 
-            var latest = list.LatestVersion().ToList();
+            var latest = list.LatestVersionsExcludeDeleted().ToList();
             Assert.Equal(2, latest.Count);
             Assert.NotNull(latest.FirstOrDefault(x => x.FirstVersionId == "123" && x.Version == "3.0"));
             Assert.NotNull(latest.FirstOrDefault(x => x.FirstVersionId == "567" && x.Version == "1.0"));

@@ -4,12 +4,14 @@ using AspNetCore.Totp;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Extensions;
 using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -24,14 +26,16 @@ namespace Mimirorg.Authentication.Services
         private readonly IMimirorgTokenRepository _tokenRepository;
         private readonly IMimirorgCompanyService _mimirorgCompanyService;
         private readonly IActionContextAccessor _actionContextAccessor;
+        private readonly MimirorgAuthSettings _authSettings;
 
-        public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IMimirorgCompanyService mimirorgCompanyService, IActionContextAccessor actionContextAccessor)
+        public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IMimirorgCompanyService mimirorgCompanyService, IActionContextAccessor actionContextAccessor, IOptions<MimirorgAuthSettings> authSettings)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenRepository = tokenRepository;
             _mimirorgCompanyService = mimirorgCompanyService;
             _actionContextAccessor = actionContextAccessor;
+            _authSettings = authSettings?.Value;
             _roleManager = roleManager;
         }
 
@@ -57,22 +61,13 @@ namespace Mimirorg.Authentication.Services
             var userStatus = await _signInManager.CheckPasswordSignInAsync(user, authenticate.Password, true);
 
             if (!userStatus.Succeeded)
-                throw new AuthenticationException($"The user account with email {authenticate.Email} could not be signed in.");
+                throw new AuthenticationException($"The user account with email {authenticate.Email} could not be signed in. Have you forgot to activate the account?");
 
-            var validator = new TotpValidator(new TotpGenerator());
-
-            if (!authenticate.Code.All(char.IsDigit))
-                throw new AuthenticationException("Only digit is allowed in code");
-
-            if (!int.TryParse(authenticate.Code, out var codeInt))
-                throw new AuthenticationException("Only digit is allowed in code");
-
-            var hasCorrectPin = validator.Validate(user.SecurityHash, codeInt);
-
-            if (!hasCorrectPin)
+            // Validate security code if user has enabled two factor
+            if (!ValidateSecurityCode(user, authenticate.Code))
                 throw new AuthenticationException($"The user account with email {authenticate.Email} could not validate code.");
 
-            var now = DateTime.Now;
+            var now = DateTime.UtcNow;
             var accessToken = await _tokenRepository.CreateAccessToken(user, now);
             var refreshToken = await _tokenRepository.CreateRefreshToken(user, now);
             return new List<MimirorgTokenCm> { accessToken, refreshToken };
@@ -93,7 +88,7 @@ namespace Mimirorg.Authentication.Services
                 throw new AuthenticationException("Can't find any valid refresh token.");
             }
 
-            if (token.ValidTo < DateTime.Now.ToUniversalTime())
+            if (token.ValidTo < DateTime.UtcNow)
             {
                 await _tokenRepository.Delete(token.Id);
                 await _tokenRepository.SaveAsync();
@@ -108,48 +103,11 @@ namespace Mimirorg.Authentication.Services
                 throw new AuthenticationException("Can't find any connected user for token.");
             }
 
-            var now = DateTime.Now.ToUniversalTime();
+            var now = DateTime.UtcNow;
             var accessToken = await _tokenRepository.CreateAccessToken(user, now);
             var refreshToken = await _tokenRepository.CreateRefreshToken(user, now);
 
             return new List<MimirorgTokenCm> { accessToken, refreshToken };
-        }
-
-        /// <summary>
-        /// Verify account from verify token
-        /// </summary>
-        /// <param name="token">string</param>
-        /// <returns>bool</returns>
-        /// <exception cref="MimirorgInvalidOperationException"></exception>
-        public async Task<bool> VerifyAccount(string token)
-        {
-            if (string.IsNullOrWhiteSpace(token))
-                return false;
-
-            var t = Uri.UnescapeDataString(token);
-
-            var regToken = await _tokenRepository.FindBy(x => x.Secret == t).FirstOrDefaultAsync();
-            if (regToken == null)
-                return false;
-
-            var user = await _userManager.FindByEmailAsync(regToken.Email);
-            if (user == null)
-                return false;
-
-            if (regToken.TokenType != MimirorgTokenType.VerifyEmail)
-                throw new MimirorgInvalidOperationException("Only email verify is supported");
-
-            var result = await _userManager.ConfirmEmailAsync(user, t);
-
-            if (regToken.TokenType == MimirorgTokenType.VerifyPhone)
-                result = await _userManager.ConfirmEmailAsync(user, t);
-
-            if (!result.Succeeded)
-                return false;
-
-            _tokenRepository.Attach(regToken, EntityState.Deleted);
-            await _tokenRepository.SaveAsync();
-            return result.Succeeded;
         }
 
         /// <summary>
@@ -310,7 +268,40 @@ namespace Mimirorg.Authentication.Services
             return Task.FromResult(access ?? false);
         }
 
+        #endregion
 
+        #region Private Methods
+
+        /// <summary>
+        /// Validate security code
+        /// </summary>
+        /// <param name="user">The user that should be validated</param>
+        /// <param name="code">The security code</param>
+        /// <remarks>If user is not set two factor to be enabled,
+        /// the method will return </remarks>
+        /// <returns>Returns true if code is valid</returns>
+        /// <exception cref="AuthenticationException">Throws if configuration has error</exception>
+        private bool ValidateSecurityCode(MimirorgUser user, string code)
+        {
+            if (_authSettings == null)
+                throw new MimirorgConfigurationException("Application settings failure");
+
+            if (!_authSettings.RequireConfirmedAccount)
+                return true;
+
+            if (!user.TwoFactorEnabled)
+                return false;
+
+            var validator = new TotpValidator(new TotpGenerator());
+
+            if (!code.All(char.IsDigit))
+                return false;
+
+            if (!int.TryParse(code, out var codeInt))
+                return false;
+
+            return validator.Validate(user.SecurityHash, codeInt);
+        }
 
         #endregion
     }

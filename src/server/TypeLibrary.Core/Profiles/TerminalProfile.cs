@@ -28,7 +28,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes.ConvertToString()))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetEmail()) ? "Unknown" : contextAccessor.GetEmail()))
-                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now.ToUniversalTime()));
+                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow));
 
             CreateMap<TerminalLibDm, TerminalLibCm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

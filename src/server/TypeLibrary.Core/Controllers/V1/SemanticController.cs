@@ -1,13 +1,11 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using MimeKit;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -212,44 +210,6 @@ namespace TypeLibrary.Core.Controllers.V1
             }
             catch (MimirorgNotFoundException)
             {
-                return NoContent();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        /// <summary>
-        /// Test email sending
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("mail")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [AllowAnonymous]
-        public async Task<IActionResult> SendMail()
-        {
-            try
-            {
-                if (_authSettings == null)
-                    return NoContent();
-
-                var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("Tyle", "noreply@runir.net"));
-                message.To.Add(new MailboxAddress("Reidar Liabø", "reidar.liabo@gmail.com"));
-                message.Subject = "Testing";
-                message.Body = new TextPart("plain")
-                {
-                    Text = @"Dette er en test."
-                };
-
-                using var smtp = new SmtpClient();
-                await smtp.ConnectAsync(_authSettings.EmailHost, _authSettings.EmailPort);
-                await smtp.SendAsync(message);
-
-
                 return NoContent();
             }
             catch (Exception e)

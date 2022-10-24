@@ -17,9 +17,36 @@ namespace Mimirorg.Common.Extensions
             return dictA.Keys.Union(dictB.Keys).ToDictionary(k => k, k => dictA.ContainsKey(k) ? dictA[k] : dictB[k]);
         }
 
-        public static IEnumerable<T> LatestVersion<T>(this IEnumerable<T> collection) where T : IVersionObject
+        public static IEnumerable<T> LatestVersionsExcludeDeleted<T>(this IEnumerable<T> collection) where T : IVersionObject
         {
-            return collection.Where(x => x.State != State.Deleted).OrderByDescending(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).DistinctBy(x => x.FirstVersionId);
+            return collection
+                .Where(x => x.State != State.Deleted)
+                .OrderByDescending(x => double.Parse(x.Version, CultureInfo.InvariantCulture))
+                .DistinctBy(x => x.FirstVersionId);
         }
+
+        public static IEnumerable<T> LatestVersionsIncludeDeleted<T>(this IEnumerable<T> collection) where T : IVersionObject
+        {
+            return collection
+                .OrderByDescending(x => double.Parse(x.Version, CultureInfo.InvariantCulture))
+                .DistinctBy(x => x.FirstVersionId);
+        }
+
+        public static T LatestVersionExcludeDeleted<T>(this IEnumerable<T> collection, string firstVersionId) where T : IVersionObject
+        {
+            return collection
+                .Where(x => x.FirstVersionId == firstVersionId && x.State != State.Deleted)
+                .OrderByDescending(x => double.Parse(x.Version, CultureInfo.InvariantCulture))
+                .FirstOrDefault();
+        }
+
+        public static T LatestVersionIncludeDeleted<T>(this IEnumerable<T> collection, string firstVersionId) where T : IVersionObject
+        {
+            return collection
+                .Where(x => x.FirstVersionId == firstVersionId)
+                .OrderByDescending(x => double.Parse(x.Version, CultureInfo.InvariantCulture))
+                .FirstOrDefault();
+        }
+
     }
 }

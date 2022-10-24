@@ -40,7 +40,7 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if there is no interface with the given id, and that interface is at the latest version.</exception>
         public InterfaceLibCm GetLatestVersion(string id)
         {
-            var dm = _interfaceRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
+            var dm = _interfaceRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
             if (dm == null)
                 throw new MimirorgNotFoundException($"Interface with id {id} not found.");
@@ -54,7 +54,7 @@ namespace TypeLibrary.Services.Services
         /// <returns>A collection of interface</returns>
         public IEnumerable<InterfaceLibCm> GetLatestVersions()
         {
-            var dms = _interfaceRepository.Get()?.LatestVersion()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            var dms = _interfaceRepository.Get()?.LatestVersionsExcludeDeleted()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
             if (dms == null)
                 throw new MimirorgNotFoundException("No interfaces were found.");
@@ -116,14 +116,13 @@ namespace TypeLibrary.Services.Services
             if (!validation.IsValid)
                 throw new MimirorgBadRequestException("Interface is not valid.", validation);
 
-            var interfaceToUpdate = _interfaceRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == interfaceAm.Id);
+            var interfaceToUpdate = _interfaceRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == interfaceAm.Id);
 
             if (interfaceToUpdate == null)
             {
                 validation = new Validation(new List<string> { nameof(InterfaceLibAm.Name), nameof(InterfaceLibAm.Version) },
                     $"Interface with name {interfaceAm.Name}, aspect {interfaceAm.Aspect}, Rds Code {interfaceAm.RdsCode}, id {interfaceAm.Id} and version {interfaceAm.Version} does not exist.");
-
-                throw new MimirorgBadRequestException("Interface does not exist. Update is not possible.", validation);
+                throw new MimirorgBadRequestException("Interface does not exist or is flagged as deleted. Update is not possible.", validation);
             }
 
             validation = interfaceToUpdate.HasIllegalChanges(interfaceAm);
@@ -135,6 +134,10 @@ namespace TypeLibrary.Services.Services
 
             if (versionStatus == VersionStatus.NoChange)
                 return GetLatestVersion(interfaceToUpdate.Id);
+
+            //We need to take into account that there exist a higher version that has state 'Deleted'.
+            //Therefore we need to increment minor/major from the latest version, including those with state 'Deleted'.
+            interfaceToUpdate.Version = _interfaceRepository.Get().LatestVersionIncludeDeleted(interfaceToUpdate.FirstVersionId).Version;
 
             interfaceAm.Version = versionStatus switch
             {
@@ -166,21 +169,13 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgNotFoundException">Throws if the interface does not exist on latest version</exception>
         public async Task<InterfaceLibCm> ChangeState(string id, State state)
         {
-            var dm = _interfaceRepository.Get().LatestVersion().FirstOrDefault(x => x.Id == id);
+            var dm = _interfaceRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
             if (dm == null)
                 throw new MimirorgNotFoundException($"Interface with id {id} not found, or is not latest version.");
 
-            var newStateDms = _interfaceRepository.Get().Where(x => x.FirstVersionId == dm.FirstVersionId && x.State != state).ToList();
-
-            if (!newStateDms.Any())
-                return null;
-
-            await _interfaceRepository.ChangeState(state, newStateDms.Select(x => x.Id).ToList());
-
-            foreach (var newStateDm in newStateDms)
-                await _logService.CreateLog(newStateDm, LogType.State, state.ToString());
-
+            await _interfaceRepository.ChangeState(state, new List<string> { dm.Id });
+            await _logService.CreateLog(dm, LogType.State, state.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Interface);
 
             return state == State.Deleted ? null : GetLatestVersion(id);
