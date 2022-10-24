@@ -58,7 +58,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy))
                 .ForMember(dest => dest.TerminalId, opt => opt.MapFrom(src => src.TerminalId))
                 .ForMember(dest => dest.Terminal, opt => opt.MapFrom(src => src.Terminal))
-                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes.ConvertToObject<ICollection<TypeReferenceCm>>()));
+                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes.ConvertToObject<ICollection<AttributeLibCm>>()));
         }
     }
 }

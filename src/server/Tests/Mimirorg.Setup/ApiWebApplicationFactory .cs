@@ -40,13 +40,11 @@ namespace Mimirorg.Test.Setup
                 var db = scopedServices.GetRequiredService<TypeLibraryDbContext>();
                 var logger = scopedServices.GetRequiredService<ILogger<ApiWebApplicationFactory>>();
 
-                var attributeService = scopedServices.GetRequiredService<IAttributeService>();
                 var terminalService = scopedServices.GetRequiredService<ITerminalService>();
                 db.Database.EnsureCreated();
 
                 try
                 {
-                    _ = SeedAttributeData(attributeService).Result;
                     _ = SeedTerminalData(terminalService).Result;
                 }
                 catch (Exception e)
@@ -54,46 +52,6 @@ namespace Mimirorg.Test.Setup
                     logger.LogError($"An error occurred seeding the database with test data. Error: {e.Message}");
                 }
             });
-        }
-
-        private static Task<bool> SeedAttributeData(IAttributeService attributeService)
-        {
-            //var attribute = new AttributeLibAm
-            //{
-            //    Name = "Pressure, absolute",
-            //    Aspect = Aspect.Product,
-            //    Discipline = Discipline.Process,
-            //    Select = Select.None,
-            //    SelectValues = null,
-            //    UnitIdList = null,
-            //    TypeReferences = new List<TypeReferenceAm>
-            //    {
-            //        new()
-            //        {
-            //            Name = "pressure",
-            //            Iri = @"http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003596",
-            //            Source = "PCA",
-            //            Subs = new List<TypeReferenceSub>
-            //            {
-            //                new()
-            //                {
-            //                    Name = "pascal",
-            //                    Iri = @"http://rds.posccaesar.org/ontology/plm/rdl/PCA_100003716",
-            //                    IsDefault = true
-            //                }
-            //            }
-            //        }
-            //    },
-            //    QuantityDatumSpecifiedScope = "Design Datum",
-            //    QuantityDatumSpecifiedProvenance = "Calculated Datum",
-            //    QuantityDatumRangeSpecifying = "Maximum Datum",
-            //    QuantityDatumRegularitySpecified = "Absolute Datum",
-            //    CompanyId = 1,
-            //    Version = "1.0"
-            //};
-
-            //await attributeService.Create(attribute);
-            return Task.FromResult(true);
         }
 
         private static async Task<bool> SeedTerminalData(ITerminalService terminalService)
