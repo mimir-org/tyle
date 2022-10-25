@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import { TerminalForm } from "../../../../forms/terminal/TerminalForm";
+import { TerminalForm } from "./TerminalForm";
 
 export const terminalFormRoutes: RouteObject[] = [
   { path: "form/terminal", element: <TerminalForm /> },

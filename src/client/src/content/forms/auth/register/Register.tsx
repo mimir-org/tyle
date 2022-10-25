@@ -7,8 +7,6 @@ import { MultiFactorAuthentication } from "../common/MultiFactorAuthentication";
 import { RegisterVerification } from "./components/RegisterVerification";
 import { RegisterDetails } from "./components/RegisterDetails";
 
-export const RegisterPath = "/register";
-
 export type RegisterSteps = "DETAILS" | "VERIFY" | "MFA" | "COMPLETE";
 
 export const Register = () => {

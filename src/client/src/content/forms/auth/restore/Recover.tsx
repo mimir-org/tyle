@@ -8,8 +8,6 @@ import { RecoverDetails } from "./components/RecoverDetails";
 import { RecoverPassword } from "./components/RecoverPassword";
 import { RecoverVerification } from "./components/RecoverVerification";
 
-export const RecoverPath = "/recover";
-
 export type RecoverySteps = "DETAILS" | "VERIFY" | "PASSWORD" | "MFA" | "COMPLETE";
 
 export const Recover = () => {

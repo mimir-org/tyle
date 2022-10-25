@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import { InterfaceForm } from "../../../../forms/interface/InterfaceForm";
+import { InterfaceForm } from "./InterfaceForm";
 
 export const interfaceFormRoutes: RouteObject[] = [
   { path: "form/interface", element: <InterfaceForm /> },

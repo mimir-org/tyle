@@ -12,8 +12,8 @@ import { MotionText, Text } from "../../../../complib/text";
 import { useLogin } from "../../../../data/queries/auth/queriesAuthenticate";
 import { useServerValidation } from "../../../../hooks/useServerValidation";
 import { UnauthenticatedContent } from "../../../app/components/unauthenticated/layout/UnauthenticatedContent";
-import { RegisterPath } from "../register/Register";
-import { RecoverPath } from "../restore/Recover";
+import { RegisterPath } from "../register/RegisterRoutes";
+import { RecoverPath } from "../restore/RecoverRoutes";
 import { loginSchema } from "./loginSchema";
 
 export const Login = () => {

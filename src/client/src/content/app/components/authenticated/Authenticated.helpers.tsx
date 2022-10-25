@@ -1,12 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { createBrowserRouter } from "react-router-dom";
 import { ErrorMessage } from "../../../common/error";
-import { Explore } from "../../../explore";
+import { exploreRoutes } from "../../../explore/ExploreRoutes";
+import { interfaceFormRoutes } from "../../../forms/interface/InterfaceFormRoutes";
+import { nodeFormRoutes } from "../../../forms/node/NodeFormRoutes";
+import { terminalFormRoutes } from "../../../forms/terminal/TerminalFormRoutes";
+import { transportFormRoutes } from "../../../forms/transport/TransportFormRoutes";
 import { AuthenticatedLayout } from "./layout/AuthenticatedLayout";
-import { interfaceFormRoutes } from "./routes/InterfaceFormRoutes";
-import { nodeFormRoutes } from "./routes/NodeFormRoutes";
-import { terminalFormRoutes } from "./routes/TerminalFormRoutes";
-import { transportFormRoutes } from "./routes/TransportFormRoutes";
 
 export const useAuthenticatedRouter = () => {
   const { t } = useTranslation();
@@ -25,10 +25,7 @@ export const useAuthenticatedRouter = () => {
         />
       ),
       children: [
-        {
-          path: "",
-          element: <Explore />,
-        },
+        ...exploreRoutes,
         ...nodeFormRoutes,
         ...terminalFormRoutes,
         ...transportFormRoutes,

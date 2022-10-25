@@ -1,11 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { ErrorMessage } from "../../../common/error";
-import { Login } from "../../../forms/auth/login";
-import { Register } from "../../../forms/auth/register";
-import { RegisterPath } from "../../../forms/auth/register/Register";
-import { Recover } from "../../../forms/auth/restore";
-import { RecoverPath } from "../../../forms/auth/restore/Recover";
+import { loginRoutes } from "../../../forms/auth/login/LoginRoutes";
+import { registerRoutes } from "../../../forms/auth/register/RegisterRoutes";
+import { recoverRoutes } from "../../../forms/auth/restore/RecoverRoutes";
 import { UnauthenticatedLayout } from "./layout/UnauthenticatedLayout";
 
 export const useUnauthenticatedRouter = () => {
@@ -25,10 +23,10 @@ export const useUnauthenticatedRouter = () => {
         />
       ),
       children: [
-        { path: "", element: <Login /> },
+        ...loginRoutes,
+        ...registerRoutes,
+        ...recoverRoutes,
         { path: "*", element: <Navigate to={"/"} replace /> },
-        { path: RegisterPath, element: <Register /> },
-        { path: RecoverPath, element: <Recover /> },
       ],
     },
   ]);

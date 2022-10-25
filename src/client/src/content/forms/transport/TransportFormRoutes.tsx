@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import { TransportForm } from "../../../../forms/transport/TransportForm";
+import { TransportForm } from "./TransportForm";
 
 export const transportFormRoutes: RouteObject[] = [
   { path: "form/transport", element: <TransportForm /> },
