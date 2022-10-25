@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
-import { useServerValidation } from "../../../hooks/useServerValidation";
+import { useServerValidation } from "../../../hooks/server-validation/useServerValidation";
 import { Loader } from "../../common/loader";
 import { FormAttributes } from "../common/form-attributes/FormAttributes";
 import { onSubmitForm } from "../common/utils/onSubmitForm";

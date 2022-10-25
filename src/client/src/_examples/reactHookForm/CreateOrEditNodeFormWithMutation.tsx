@@ -5,7 +5,7 @@ import {
   mapFormNodeLibToApiModel,
 } from "../../content/forms/node/types/formNodeLib";
 import { useCreateNode } from "../../data/queries/tyle/queriesNode";
-import { useServerValidation } from "../../hooks/useServerValidation";
+import { useServerValidation } from "../../hooks/server-validation/useServerValidation";
 
 interface Props {
   defaultValues?: FormNodeLib;

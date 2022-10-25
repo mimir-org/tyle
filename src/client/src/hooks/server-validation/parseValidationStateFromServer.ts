@@ -1,6 +1,4 @@
 import axios, { AxiosError } from "axios";
-import { ServerValidationError } from "../types/serverValidationError";
-import { ValidationState } from "../types/validationState";
 
 /**
  * Takes an unknown server error model and returns a more general type
@@ -24,3 +22,16 @@ export const parseValidationStateFromServer = <T>(error: unknown): ValidationSta
 
   return { message: "Unspecified client error has occurred." };
 };
+
+interface ValidationState<T> {
+  message: string;
+  errors?: Record<keyof T, string[]>;
+}
+
+interface ServerValidationError<T> {
+  errors: Record<keyof T, string[]>;
+  type: string;
+  title: string;
+  status: number;
+  traceId: string;
+}

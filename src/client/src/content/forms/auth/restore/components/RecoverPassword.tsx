@@ -12,7 +12,7 @@ import { Text } from "../../../../../complib/text";
 import { Actionable } from "../../../../../complib/types";
 import { useChangePassword } from "../../../../../data/queries/auth/queriesUser";
 import { useExecuteOnCriteria } from "../../../../../hooks/useExecuteOnCriteria";
-import { useServerValidation } from "../../../../../hooks/useServerValidation";
+import { useServerValidation } from "../../../../../hooks/server-validation/useServerValidation";
 import { UnauthenticatedContent } from "../../../../app/components/unauthenticated/layout/UnauthenticatedContent";
 import { Error } from "../../common/Error";
 import { Processing } from "../../common/Processing";
