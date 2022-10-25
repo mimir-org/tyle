@@ -2,7 +2,7 @@ import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { useTheme } from "styled-components";
 import { Flexbox } from "../../complib/layouts";
 import { useGetCurrentUser } from "../../data/queries/auth/queriesUser";
-import { useGetFilteredCompanies } from "../../hooks/useGetFilteredCompanies";
+import { useGetFilteredCompanies } from "../../hooks/filter-companies/useGetFilteredCompanies";
 import { Logo } from "../common/logo";
 import { ContactButton } from "./components/contact/ContactButton";
 import { UserInfo } from "./components/info/UserInfo";

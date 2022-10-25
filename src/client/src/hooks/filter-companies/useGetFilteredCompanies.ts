@@ -1,7 +1,7 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { useGetCompanies } from "../data/queries/auth/queriesCompany";
-import { useGetCurrentUser } from "../data/queries/auth/queriesUser";
-import { filterCompanyList } from "../utils/hasAccess";
+import { useGetCompanies } from "../../data/queries/auth/queriesCompany";
+import { useGetCurrentUser } from "../../data/queries/auth/queriesUser";
+import { filterCompanyList } from "./hasAccess";
 
 /**
  * Returns companies available for the current user given a certain permission level

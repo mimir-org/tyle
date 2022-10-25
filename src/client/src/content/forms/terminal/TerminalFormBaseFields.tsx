@@ -6,7 +6,7 @@ import { Button } from "../../../complib/buttons";
 import { FormField } from "../../../complib/form";
 import { Input, Select, Textarea } from "../../../complib/inputs";
 import { Flexbox } from "../../../complib/layouts";
-import { useGetFilteredCompanies } from "../../../hooks/useGetFilteredCompanies";
+import { useGetFilteredCompanies } from "../../../hooks/filter-companies/useGetFilteredCompanies";
 import { PlainLink } from "../../utils/PlainLink";
 import { TerminalFormBaseFieldsContainer } from "./TerminalFormBaseFields.styled";
 import { TerminalFormPreview } from "./TerminalFormPreview";

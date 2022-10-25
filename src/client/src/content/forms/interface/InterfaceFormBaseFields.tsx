@@ -12,7 +12,7 @@ import { ConditionalWrapper } from "../../../complib/utils";
 import { useGetPurposes } from "../../../data/queries/tyle/queriesPurpose";
 import { useGetRds } from "../../../data/queries/tyle/queriesRds";
 import { useGetTerminals } from "../../../data/queries/tyle/queriesTerminal";
-import { useGetFilteredCompanies } from "../../../hooks/useGetFilteredCompanies";
+import { useGetFilteredCompanies } from "../../../hooks/filter-companies/useGetFilteredCompanies";
 import { getValueLabelObjectsFromEnum } from "../../../utils/getValueLabelObjectsFromEnum";
 import { TerminalButton } from "../../common/terminal";
 import { PlainLink } from "../../utils/PlainLink";
