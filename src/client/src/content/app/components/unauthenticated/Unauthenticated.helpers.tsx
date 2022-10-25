@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import { ErrorMessage } from "../../../common/error";
 import { loginRoutes } from "../../../forms/auth/login/LoginRoutes";
 import { registerRoutes } from "../../../forms/auth/register/RegisterRoutes";
 import { recoverRoutes } from "../../../forms/auth/restore/RecoverRoutes";
+import { ErrorMessage } from "../common/ErrorMessage";
 import { UnauthenticatedLayout } from "./layout/UnauthenticatedLayout";
 
 export const useUnauthenticatedRouter = () => {
