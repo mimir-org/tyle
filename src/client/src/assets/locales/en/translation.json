@@ -113,65 +113,6 @@
       }
     }
   },
-  "attribute": {
-    "title": "Attribute",
-    "name": "Name",
-    "aspect": "Aspect",
-    "discipline": "Discipline",
-    "select": "Selection",
-    "description": "Description",
-    "quantityDatumSpecifiedScope": "Quantity Scope",
-    "quantityDatumSpecifiedProvenance": "Quantity Provenance",
-    "quantityDatumRangeSpecifying": "Quantity Range",
-    "quantityDatumRegularitySpecified": "Quantity Regularity",
-    "type": "Attribute type",
-    "parent": "Attribute parent",
-    "owner": "Owner",
-    "placeholders": {
-      "name": "Attribute name",
-      "description": "Additional information about this attribute can be supplied here.",
-      "select": "type"
-    },
-    "processing": {
-      "loading": "Submitting attribute",
-      "success": "Your attribute has been submitted",
-      "error": "An error occurred during attribute submission"
-    },
-    "validation": {
-      "name": {
-        "required": "Please enter a name",
-        "max": "The name can be at most 30 characters"
-      },
-      "aspect": {
-        "required": "Please select an aspect"
-      },
-      "discipline": {
-        "required": "Please select a discipline"
-      },
-      "companyId": {
-        "min": "Please select an owner"
-      },
-      "select": {
-        "required": "Please specify a selection type"
-      },
-      "typeReferences": {
-        "name": {
-          "required": "Please specify a reference"
-        }
-      },
-      "unitIdList": {
-        "value": {
-          "required": "Please specify a value"
-        }
-      },
-      "selectValues": {
-        "min": "Please create one or more values to select from",
-        "value": {
-          "required": "Please specify a value"
-        }
-      }
-    }
-  },
   "terminal": {
     "title": "Terminal",
     "name": "Name",
