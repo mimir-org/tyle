@@ -21,7 +21,7 @@ export type InterfaceSearchItemProps = InterfaceItem & {
  *
  * @param isSelected
  * @param setSelected
- * @param attribute
+ * @param interfaceItem
  * @constructor
  */
 export const InterfaceSearchItem = ({ isSelected, setSelected, ...interfaceItem }: InterfaceSearchItemProps) => (

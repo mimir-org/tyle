@@ -21,7 +21,7 @@ export type TransportSearchItemProps = TransportItem & {
  *
  * @param isSelected
  * @param setSelected
- * @param attribute
+ * @param transport
  * @constructor
  */
 export const TransportSearchItem = ({ isSelected, setSelected, ...transport }: TransportSearchItemProps) => (
