@@ -2,7 +2,7 @@ import { ConnectorDirection, NodeLibCm, NodeTerminalLibCm } from "@mimirorg/type
 import { NodeItem } from "../../content/types/NodeItem";
 import { NodeTerminalItem } from "../../content/types/NodeTerminalItem";
 import { getColorFromAspect } from "../getColorFromAspect";
-import { sortInfoItems, sortNodeTerminals } from "../sorters";
+import { sortInfoItems } from "../sorters";
 import { mapAttributeLibCmsToInfoItems } from "./mapAttributeLibCmToInfoItem";
 
 export const mapNodeLibCmToNodeItem = (node: NodeLibCm): NodeItem => ({
@@ -25,3 +25,6 @@ const mapNodeTerminalLibCmsToNodeTerminalItems = (terminals: NodeTerminalLibCm[]
     direction: ConnectorDirection[x.connectorDirection] as keyof typeof ConnectorDirection,
     attributes: sortInfoItems(mapAttributeLibCmsToInfoItems(x.terminal.attributes)),
   }));
+
+const sortNodeTerminals = (terminals: NodeTerminalItem[]) =>
+  [...terminals].sort((a, b) => a.direction.localeCompare(b.direction) || a.name.localeCompare(b.name));
