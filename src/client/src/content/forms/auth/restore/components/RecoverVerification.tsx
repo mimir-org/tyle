@@ -10,7 +10,7 @@ import { Text } from "../../../../../complib/text";
 import { Actionable } from "../../../../../complib/types";
 import { useGenerateMfa } from "../../../../../data/queries/auth/queriesUser";
 import { useExecuteOnCriteria } from "../../../../../hooks/useExecuteOnCriteria";
-import { UnauthenticatedContent } from "../../../../app/components/unauthenticated/layout/UnauthenticatedContent";
+import { UnauthenticatedContent } from "../../../../../features/ui/unauthenticated/layout/UnauthenticatedContent";
 import { Error } from "../../common/Error";
 import { Processing } from "../../common/Processing";
 import { MotionVerifyForm } from "../../common/Verification";

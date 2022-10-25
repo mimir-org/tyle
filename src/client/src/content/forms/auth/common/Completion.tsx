@@ -3,7 +3,7 @@ import { Button } from "../../../../complib/buttons";
 import { Box } from "../../../../complib/layouts";
 import { Text } from "../../../../complib/text";
 import { Actionable } from "../../../../complib/types";
-import { UnauthenticatedContent } from "../../../app/components/unauthenticated/layout/UnauthenticatedContent";
+import { UnauthenticatedContent } from "../../../../features/ui/unauthenticated/layout/UnauthenticatedContent";
 
 type CompletionProps = Partial<Actionable> & {
   title: string;

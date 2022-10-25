@@ -11,7 +11,7 @@ import { MotionFlexbox } from "../../../../complib/layouts";
 import { MotionText, Text } from "../../../../complib/text";
 import { useLogin } from "../../../../data/queries/auth/queriesAuthenticate";
 import { useServerValidation } from "../../../../hooks/server-validation/useServerValidation";
-import { UnauthenticatedContent } from "../../../app/components/unauthenticated/layout/UnauthenticatedContent";
+import { UnauthenticatedContent } from "../../../../features/ui/unauthenticated/layout/UnauthenticatedContent";
 import { RegisterPath } from "../register/RegisterRoutes";
 import { RecoverPath } from "../restore/RecoverRoutes";
 import { loginSchema } from "./loginSchema";

@@ -6,7 +6,7 @@ import { Box, Flexbox } from "../../../../complib/layouts";
 import { Icon } from "../../../../complib/media";
 import { Text } from "../../../../complib/text";
 import { Actionable } from "../../../../complib/types";
-import { UnauthenticatedContent } from "../../../app/components/unauthenticated/layout/UnauthenticatedContent";
+import { UnauthenticatedContent } from "../../../../features/ui/unauthenticated/layout/UnauthenticatedContent";
 
 interface MultiFactorAuthenticationProps {
   mfaInfo: MimirorgQrCodeCm;

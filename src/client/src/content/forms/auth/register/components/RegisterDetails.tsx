@@ -15,7 +15,7 @@ import { useGetCompanies } from "../../../../../data/queries/auth/queriesCompany
 import { useCreateUser } from "../../../../../data/queries/auth/queriesUser";
 import { useExecuteOnCriteria } from "../../../../../hooks/useExecuteOnCriteria";
 import { useServerValidation } from "../../../../../hooks/server-validation/useServerValidation";
-import { UnauthenticatedContent } from "../../../../app/components/unauthenticated/layout/UnauthenticatedContent";
+import { UnauthenticatedContent } from "../../../../../features/ui/unauthenticated/layout/UnauthenticatedContent";
 import { Error } from "../../common/Error";
 import { Processing } from "../../common/Processing";
 import { registerDetailsSchema } from "./registerDetailsSchema";
