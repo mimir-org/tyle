@@ -1,6 +1,5 @@
-import { AttributeLibAm, InterfaceLibAm, InterfaceLibCm } from "@mimirorg/typelibrary-types";
+import { Aspect, AttributeLibAm, InterfaceLibAm, InterfaceLibCm } from "@mimirorg/typelibrary-types";
 import { UpdateEntity } from "../../../../data/types/updateEntity";
-import { createEmptyInterfaceLibAm } from "../../../../models/tyle/application/interfaceLibAm";
 import { ValueObject } from "../../types/valueObject";
 import { InterfaceFormMode } from "./interfaceFormMode";
 
@@ -22,11 +21,6 @@ export const mapFormInterfaceLibToApiModel = (formInterface: FormInterfaceLib): 
   attributes: formInterface.attributes.map((x) => x.value),
 });
 
-export const createEmptyFormInterfaceLib = (): FormInterfaceLib => ({
-  ...createEmptyInterfaceLibAm(),
-  attributes: [],
-});
-
 export const mapInterfaceLibCmToFormInterfaceLib = (
   interfaceLibCm: InterfaceLibCm,
   mode?: InterfaceFormMode
@@ -36,3 +30,23 @@ export const mapInterfaceLibCmToFormInterfaceLib = (
   attributes: interfaceLibCm.attributes.map((x) => ({ value: x })),
   terminalColor: interfaceLibCm.terminal.color,
 });
+
+export const createEmptyFormInterfaceLib = (): FormInterfaceLib => ({
+  ...emptyInterfaceLibAm,
+  attributes: [],
+});
+
+const emptyInterfaceLibAm: InterfaceLibAm = {
+  name: "",
+  rdsName: "",
+  rdsCode: "",
+  purposeName: "",
+  aspect: Aspect.None,
+  companyId: 0,
+  terminalId: "",
+  attributes: [],
+  description: "",
+  typeReferences: [],
+  parentId: "",
+  version: "1.0",
+};

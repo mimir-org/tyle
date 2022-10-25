@@ -1,6 +1,5 @@
 import { AttributeLibAm, TerminalLibAm, TerminalLibCm } from "@mimirorg/typelibrary-types";
 import { UpdateEntity } from "../../../../data/types/updateEntity";
-import { createEmptyTerminalLibAm } from "../../../../models/tyle/application/terminalLibAm";
 import { ValueObject } from "../../types/valueObject";
 import { TerminalFormMode } from "./terminalFormMode";
 
@@ -21,12 +20,6 @@ export const mapFormTerminalLibToApiModel = (formTerminal: FormTerminalLib): Ter
   attributes: formTerminal.attributes.map((x) => x.value),
 });
 
-export const createEmptyFormTerminalLib = (): FormTerminalLib => ({
-  ...createEmptyTerminalLibAm(),
-  attributes: [],
-  color: "#f7f6ff",
-});
-
 export const mapTerminalLibCmToFormTerminalLib = (
   terminalLibCm: TerminalLibCm,
   mode?: TerminalFormMode
@@ -35,3 +28,20 @@ export const mapTerminalLibCmToFormTerminalLib = (
   parentId: mode === "clone" ? terminalLibCm.id : terminalLibCm.parentId,
   attributes: terminalLibCm.attributes.map((x) => ({ value: x })),
 });
+
+export const createEmptyFormTerminalLib = (): FormTerminalLib => ({
+  ...emptyTerminalLibAm,
+  attributes: [],
+  color: "#f7f6ff",
+});
+
+const emptyTerminalLibAm: TerminalLibAm = {
+  name: "",
+  parentId: "",
+  typeReferences: [],
+  color: "",
+  description: "",
+  attributes: [],
+  companyId: 0,
+  version: "1.0",
+};

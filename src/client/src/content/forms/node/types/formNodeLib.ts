@@ -1,10 +1,9 @@
-import { AttributeLibAm, NodeLibAm, NodeLibCm } from "@mimirorg/typelibrary-types";
+import { Aspect, AttributeLibAm, NodeLibAm, NodeLibCm } from "@mimirorg/typelibrary-types";
 import { UpdateEntity } from "../../../../data/types/updateEntity";
-import { createEmptyNodeLibAm } from "../../../../models/tyle/application/nodeLibAm";
 import { ValueObject } from "../../types/valueObject";
 import {
   FormSelectedAttributePredefinedLib,
-  mapFormSelectedAttributePredefinedLibToApiModel
+  mapFormSelectedAttributePredefinedLibToApiModel,
 } from "./formSelectedAttributePredefinedLib";
 import { NodeFormMode } from "./nodeFormMode";
 
@@ -29,12 +28,6 @@ export const mapFormNodeLibToApiModel = (formNode: FormNodeLib): NodeLibAm => ({
   ),
 });
 
-export const createEmptyFormNodeLib = (): FormNodeLib => ({
-  ...createEmptyNodeLibAm(),
-  attributes: [],
-  selectedAttributePredefined: [],
-});
-
 export const mapNodeLibCmToFormNodeLib = (nodeLibCm: NodeLibCm, mode?: NodeFormMode): FormNodeLib => ({
   ...mapNodeLibCmToNodeLibAm(nodeLibCm),
   parentId: mode === "clone" ? nodeLibCm.id : nodeLibCm.parentId,
@@ -52,3 +45,26 @@ const mapNodeLibCmToNodeLibAm = (node: NodeLibCm): NodeLibAm => ({
     terminalId: x.terminal.id,
   })),
 });
+
+export const createEmptyFormNodeLib = (): FormNodeLib => ({
+  ...emptyNodeLibAm,
+  attributes: [],
+  selectedAttributePredefined: [],
+});
+
+const emptyNodeLibAm: NodeLibAm = {
+  name: "",
+  rdsName: "",
+  rdsCode: "",
+  purposeName: "",
+  aspect: Aspect.None,
+  companyId: 0,
+  attributes: [],
+  nodeTerminals: [],
+  selectedAttributePredefined: [],
+  description: "",
+  symbol: "",
+  typeReferences: [],
+  parentId: "",
+  version: "1.0",
+};

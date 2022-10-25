@@ -1,7 +1,6 @@
 import { MimirorgCompanyCm, MimirorgPermission, MimirorgUserCm } from "@mimirorg/typelibrary-types";
-import { createEmptyMimirorgCompanyCm } from "../models/tyle/client/mimirorgCompanyCm";
-import { createEmptyMimirorgUserCm } from "../models/tyle/client/mimirorgUserCm";
 import { filterCompanyList, hasAccess } from "../utils/hasAccess";
+import { createEmptyMimirorgCompanyCm, createEmptyMimirorgUserCm } from "./hasAccess.test.helpers";
 
 describe("hasAccess tests", () => {
   test("undefined user returns false", () => {

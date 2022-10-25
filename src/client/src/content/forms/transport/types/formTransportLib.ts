@@ -1,6 +1,5 @@
-import { AttributeLibAm, TransportLibAm, TransportLibCm } from "@mimirorg/typelibrary-types";
+import { Aspect, AttributeLibAm, TransportLibAm, TransportLibCm } from "@mimirorg/typelibrary-types";
 import { UpdateEntity } from "../../../../data/types/updateEntity";
-import { createEmptyTransportLibAm } from "../../../../models/tyle/application/transportLibAm";
 import { ValueObject } from "../../types/valueObject";
 import { TransportFormMode } from "./transportFormMode";
 
@@ -22,11 +21,6 @@ export const mapFormTransportLibToApiModel = (formTransport: FormTransportLib): 
   attributes: formTransport.attributes.map((x) => x.value),
 });
 
-export const createEmptyFormTransportLib = (): FormTransportLib => ({
-  ...createEmptyTransportLibAm(),
-  attributes: [],
-});
-
 export const mapTransportLibCmToFormTransportLib = (
   transportLibCm: TransportLibCm,
   mode?: TransportFormMode
@@ -36,3 +30,23 @@ export const mapTransportLibCmToFormTransportLib = (
   attributes: transportLibCm.attributes.map((x) => ({ value: x })),
   terminalColor: transportLibCm.terminal.color,
 });
+
+export const createEmptyFormTransportLib = (): FormTransportLib => ({
+  ...emptyTransportLibAm,
+  attributes: [],
+});
+
+const emptyTransportLibAm: TransportLibAm = {
+  name: "",
+  rdsName: "",
+  rdsCode: "",
+  purposeName: "",
+  aspect: Aspect.None,
+  companyId: 0,
+  terminalId: "",
+  attributes: [],
+  description: "",
+  typeReferences: [],
+  parentId: "",
+  version: "1.0",
+};
