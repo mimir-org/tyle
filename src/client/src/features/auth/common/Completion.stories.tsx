@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Completion } from "./Completion";
 
 export default {
-  title: "Content/Forms/Auth/Common/Completion",
+  title: "Auth/Common/Completion",
   component: Completion,
 } as ComponentMeta<typeof Completion>;
 

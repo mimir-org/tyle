@@ -1,7 +1,7 @@
 import { useTheme } from "styled-components";
-import { Spinner } from "../../../../complib/feedback";
-import { Flexbox } from "../../../../complib/layouts";
-import { Text } from "../../../../complib/text";
+import { Spinner } from "../../../complib/feedback";
+import { Flexbox } from "../../../complib/layouts";
+import { Text } from "../../../complib/text";
 
 interface RegisterProcessingProps {
   children?: string;

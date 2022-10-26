@@ -1,5 +1,5 @@
 import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
-import { registerDetailsSchema } from "../../content/forms/auth/register/components/registerDetailsSchema";
+import { registerDetailsSchema } from "../../features/auth/register/components/registerDetailsSchema";
 
 describe("registerDetailsSchema tests", () => {
   const t = (key: string) => key;

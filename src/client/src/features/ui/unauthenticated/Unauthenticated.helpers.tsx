@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import { loginRoutes } from "../../../content/forms/auth/login/LoginRoutes";
-import { registerRoutes } from "../../../content/forms/auth/register/RegisterRoutes";
-import { recoverRoutes } from "../../../content/forms/auth/restore/RecoverRoutes";
+import { loginRoutes } from "../../auth/login/LoginRoutes";
+import { registerRoutes } from "../../auth/register/RegisterRoutes";
+import { recoverRoutes } from "../../auth/restore/RecoverRoutes";
 import { ErrorMessage } from "../common/ErrorMessage";
 import { UnauthenticatedLayout } from "./layout/UnauthenticatedLayout";
 

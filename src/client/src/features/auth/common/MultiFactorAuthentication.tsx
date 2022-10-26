@@ -1,12 +1,12 @@
 import { MimirorgQrCodeCm } from "@mimirorg/typelibrary-types";
 import { useTheme } from "styled-components";
-import { Button } from "../../../../complib/buttons";
-import { Popover } from "../../../../complib/data-display";
-import { Box, Flexbox } from "../../../../complib/layouts";
-import { Icon } from "../../../../complib/media";
-import { Text } from "../../../../complib/text";
-import { Actionable } from "../../../../complib/types";
-import { UnauthenticatedContent } from "../../../../features/ui/unauthenticated/layout/UnauthenticatedContent";
+import { Button } from "../../../complib/buttons";
+import { Popover } from "../../../complib/data-display";
+import { Box, Flexbox } from "../../../complib/layouts";
+import { Icon } from "../../../complib/media";
+import { Text } from "../../../complib/text";
+import { Actionable } from "../../../complib/types";
+import { UnauthenticatedContent } from "../../ui/unauthenticated/layout/UnauthenticatedContent";
 
 interface MultiFactorAuthenticationProps {
   mfaInfo: MimirorgQrCodeCm;
