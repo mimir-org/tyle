@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { FormAddButton } from "./FormAddButton";
 
 export default {
-  title: "Content/Forms/Common/FormAddButton",
+  title: "Entities/Common/FormAddButton",
   component: FormAddButton,
 } as ComponentMeta<typeof FormAddButton>;
 

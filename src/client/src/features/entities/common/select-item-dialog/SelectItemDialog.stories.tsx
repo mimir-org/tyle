@@ -5,10 +5,15 @@ import { SelectItemDialog } from "./SelectItemDialog";
 const mockData = [...Array(20)].map((_) => mockInfoItem());
 
 export default {
-  title: "Content/Forms/Common/SelectItemDialog",
+  title: "Entities/Common/SelectItemDialog",
   component: SelectItemDialog,
   args: {
-    attributes: mockData,
+    title: "Select item(s)",
+    description: "This dialog support selecting various entities",
+    searchFieldText: "Search for the item you want",
+    addItemsButtonText: "Add",
+    openDialogButtonText: "Open item dialog",
+    items: mockData,
     onAdd: () => alert("[STORYBOOK] SelectItemDialog.Add"),
   },
 } as ComponentMeta<typeof SelectItemDialog>;

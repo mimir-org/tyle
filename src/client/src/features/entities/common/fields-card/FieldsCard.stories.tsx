@@ -3,7 +3,7 @@ import { Input } from "../../../../complib/inputs";
 import { FieldsCard } from "./FieldsCard";
 
 export default {
-  title: "Content/Forms/Common/FieldsCard",
+  title: "Entities/Common/FieldsCard",
   component: FieldsCard,
 } as ComponentMeta<typeof FieldsCard>;
 

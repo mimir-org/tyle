@@ -6,7 +6,7 @@ import { Default as SelectItemInfoButton } from "../../../../common/components/i
 import { FormSection } from "./FormSection";
 
 export default {
-  title: "Content/Forms/Common/FormSection",
+  title: "Entities/Common/FormSection",
   component: FormSection,
 } as ComponentMeta<typeof FormSection>;
 
