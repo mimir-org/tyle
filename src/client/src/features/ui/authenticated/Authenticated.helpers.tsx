@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { createBrowserRouter } from "react-router-dom";
-import { exploreRoutes } from "../../../content/explore/ExploreRoutes";
+import { exploreRoutes } from "../../explore/ExploreRoutes";
 import { interfaceFormRoutes } from "../../../content/forms/interface/InterfaceFormRoutes";
 import { nodeFormRoutes } from "../../../content/forms/node/NodeFormRoutes";
 import { terminalFormRoutes } from "../../../content/forms/terminal/TerminalFormRoutes";
