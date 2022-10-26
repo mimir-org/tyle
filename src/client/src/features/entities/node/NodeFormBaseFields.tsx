@@ -15,7 +15,7 @@ import { useGetRds } from "../../../data/queries/tyle/queriesRds";
 import { useGetSymbols } from "../../../data/queries/tyle/queriesSymbol";
 import { useGetFilteredCompanies } from "../../../hooks/filter-companies/useGetFilteredCompanies";
 import { getValueLabelObjectsFromEnum } from "../../../utils/getValueLabelObjectsFromEnum";
-import { PlainLink } from "../../../content/utils/PlainLink";
+import { PlainLink } from "../../../content/common/plain-link";
 import { resetSubform } from "./NodeForm.helpers";
 import { NodeFormBaseFieldsContainer } from "./NodeFormBaseFields.styled";
 import { NodeFormPreview } from "./NodeFormPreview";

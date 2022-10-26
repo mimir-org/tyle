@@ -7,7 +7,7 @@ import { AlertDialog } from "../../../../../../complib/overlays/alert-dialog/Ale
 import { usePatchNodeState } from "../../../../../../data/queries/tyle/queriesNode";
 import { NodePreview } from "../../../../../../content/common/node";
 import { NodeItem } from "../../../../../../content/types/NodeItem";
-import { PlainLink } from "../../../../../../content/utils/PlainLink";
+import { PlainLink } from "../../../../../../content/common/plain-link";
 import { Item } from "../item/Item";
 import { ItemDescription } from "../item/ItemDescription";
 

@@ -15,7 +15,7 @@ import { useGetTerminals } from "../../../data/queries/tyle/queriesTerminal";
 import { useGetFilteredCompanies } from "../../../hooks/filter-companies/useGetFilteredCompanies";
 import { getValueLabelObjectsFromEnum } from "../../../utils/getValueLabelObjectsFromEnum";
 import { TerminalButton } from "../../../content/common/terminal";
-import { PlainLink } from "../../../content/utils/PlainLink";
+import { PlainLink } from "../../../content/common/plain-link";
 import { resetSubform } from "./InterfaceForm.helpers";
 import { InterfaceFormBaseFieldsContainer } from "./InterfaceFormBaseFields.styled";
 import { InterfaceFormPreview } from "./InterfaceFormPreview";

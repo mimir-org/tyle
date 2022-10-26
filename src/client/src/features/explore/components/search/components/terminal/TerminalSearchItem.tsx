@@ -7,7 +7,7 @@ import { AlertDialog } from "../../../../../../complib/overlays/alert-dialog/Ale
 import { usePatchTerminalState } from "../../../../../../data/queries/tyle/queriesTerminal";
 import { TerminalPreview } from "../../../../../../content/common/terminal/TerminalPreview";
 import { TerminalItem } from "../../../../../../content/types/TerminalItem";
-import { PlainLink } from "../../../../../../content/utils/PlainLink";
+import { PlainLink } from "../../../../../../content/common/plain-link";
 import { Item } from "../item/Item";
 import { ItemDescription } from "../item/ItemDescription";
 

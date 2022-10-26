@@ -7,7 +7,7 @@ import { AlertDialog } from "../../../../../../complib/overlays/alert-dialog/Ale
 import { usePatchInterfaceState } from "../../../../../../data/queries/tyle/queriesInterface";
 import { InterfacePreview } from "../../../../../../content/common/interface";
 import { InterfaceItem } from "../../../../../../content/types/InterfaceItem";
-import { PlainLink } from "../../../../../../content/utils/PlainLink";
+import { PlainLink } from "../../../../../../content/common/plain-link";
 import { Item } from "../item/Item";
 import { ItemDescription } from "../item/ItemDescription";
 
