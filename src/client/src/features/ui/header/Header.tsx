@@ -4,11 +4,11 @@ import { Flexbox } from "../../../complib/layouts";
 import { useGetCurrentUser } from "../../../data/queries/auth/queriesUser";
 import { useGetFilteredCompanies } from "../../../hooks/filter-companies/useGetFilteredCompanies";
 import { Logo } from "../../../common/components/logo";
-import { ContactButton } from "./components/contact/ContactButton";
-import { UserInfo } from "./components/info/UserInfo";
-import { LogoutButton } from "./components/logout/LogoutButton";
-import { UserMenu } from "./components/menu/UserMenu";
-import { ThemeButton } from "./components/theme/ThemeButton";
+import { ContactButton } from "./contact/ContactButton";
+import { UserInfo } from "./user-info/UserInfo";
+import { LogoutButton } from "./logout-button/LogoutButton";
+import { UserMenu } from "./user-menu/UserMenu";
+import { ThemeButton } from "./theme-button/ThemeButton";
 import { mapPermissionDescriptions } from "./Header.helpers";
 import { HeaderContainer } from "./Header.styles";
 

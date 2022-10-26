@@ -2,7 +2,7 @@ import { ComponentStory } from "@storybook/react";
 import { UserInfo } from "./UserInfo";
 
 export default {
-  title: "UI/Header/Info/UserInfo",
+  title: "UI/Header/UserInfo",
   component: UserInfo,
 };
 

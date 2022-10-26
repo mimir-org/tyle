@@ -2,13 +2,13 @@ import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { Mail } from "@styled-icons/heroicons-outline";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Select } from "../../../../../complib/inputs";
-import { Box } from "../../../../../complib/layouts";
-import { Dialog } from "../../../../../complib/overlays";
-import { Text } from "../../../../../complib/text";
-import { useGetCompany } from "../../../../../data/queries/auth/queriesCompany";
-import { useGetFilteredCompanies } from "../../../../../hooks/filter-companies/useGetFilteredCompanies";
-import { UserMenuButton } from "../menu/UserMenuButton";
+import { Select } from "../../../../complib/inputs";
+import { Box } from "../../../../complib/layouts";
+import { Dialog } from "../../../../complib/overlays";
+import { Text } from "../../../../complib/text";
+import { useGetCompany } from "../../../../data/queries/auth/queriesCompany";
+import { useGetFilteredCompanies } from "../../../../hooks/filter-companies/useGetFilteredCompanies";
+import { UserMenuButton } from "../user-menu/UserMenuButton";
 import { ContactCard } from "./ContactCard";
 
 /**

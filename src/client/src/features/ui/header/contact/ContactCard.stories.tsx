@@ -2,7 +2,7 @@ import { ComponentStory } from "@storybook/react";
 import { ContactCard } from "./ContactCard";
 
 export default {
-  title: "UI/Header/Contact/ContactCard",
+  title: "UI/Header/ContactCard",
   component: ContactCard,
 };
 

@@ -1,6 +1,6 @@
 import { useTheme } from "styled-components";
-import { Flexbox } from "../../../../../complib/layouts";
-import { Text } from "../../../../../complib/text";
+import { Flexbox } from "../../../../complib/layouts";
+import { Text } from "../../../../complib/text";
 
 interface UserInfoProps {
   name: string;
