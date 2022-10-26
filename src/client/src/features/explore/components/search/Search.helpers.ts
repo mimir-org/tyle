@@ -7,7 +7,7 @@ import { useGetTerminals } from "../../../../data/queries/tyle/queriesTerminal";
 import { useGetTransports } from "../../../../data/queries/tyle/queriesTransport";
 import { useFuse } from "../../../../hooks/useFuse";
 import { getValueLabelObjectsFromEnum } from "../../../../utils/getValueLabelObjectsFromEnum";
-import { isInterfaceLibCm, isNodeLibCm, isTerminalLibCm, isTransportLibCm } from "../../../../utils/guards";
+import { isInterfaceLibCm, isNodeLibCm, isTerminalLibCm, isTransportLibCm } from "./guards";
 import {
   mapInterfaceLibCmToInterfaceItem,
   mapNodeLibCmToNodeItem,

@@ -1,4 +1,4 @@
-import { isInterfaceItem } from "../../../../../../utils/guards";
+import { isInterfaceItem } from "../../guards";
 import { ConditionalSearchItem } from "../../../../types/conditionalSearchItem";
 import { InterfaceSearchItem, InterfaceSearchItemProps } from "./InterfaceSearchItem";
 

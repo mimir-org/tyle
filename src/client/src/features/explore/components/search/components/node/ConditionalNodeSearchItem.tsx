@@ -1,4 +1,4 @@
-import { isNodeItem } from "../../../../../../utils/guards";
+import { isNodeItem } from "../../guards";
 import { ConditionalSearchItem } from "../../../../types/conditionalSearchItem";
 import { NodeSearchItem, NodeSearchItemProps } from "./NodeSearchItem";
 

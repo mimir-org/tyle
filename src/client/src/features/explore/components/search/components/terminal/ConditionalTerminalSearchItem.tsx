@@ -1,4 +1,4 @@
-import { isTerminalItem } from "../../../../../../utils/guards";
+import { isTerminalItem } from "../../guards";
 import { ConditionalSearchItem } from "../../../../types/conditionalSearchItem";
 import { TerminalSearchItem, TerminalSearchItemProps } from "./TerminalSearchItem";
 

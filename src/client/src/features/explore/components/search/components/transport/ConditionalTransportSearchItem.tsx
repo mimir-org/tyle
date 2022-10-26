@@ -1,4 +1,4 @@
-import { isTransportItem } from "../../../../../../utils/guards";
+import { isTransportItem } from "../../guards";
 import { ConditionalSearchItem } from "../../../../types/conditionalSearchItem";
 import { TransportSearchItem, TransportSearchItemProps } from "./TransportSearchItem";
 
