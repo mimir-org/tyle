@@ -1,65 +1,66 @@
 import { Aspect, MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useTheme } from "styled-components/macro";
+import { useTheme } from "styled-components";
 import { Button } from "../../../complib/buttons";
 import { Popover } from "../../../complib/data-display";
 import { FormField } from "../../../complib/form";
 import { Input, Select, Textarea } from "../../../complib/inputs";
 import { Box, Flexbox } from "../../../complib/layouts";
-import { Icon } from "../../../complib/media";
 import { Text } from "../../../complib/text";
 import { ConditionalWrapper } from "../../../complib/utils";
 import { useGetPurposes } from "../../../data/queries/tyle/queriesPurpose";
 import { useGetRds } from "../../../data/queries/tyle/queriesRds";
-import { useGetSymbols } from "../../../data/queries/tyle/queriesSymbol";
+import { useGetTerminals } from "../../../data/queries/tyle/queriesTerminal";
 import { useGetFilteredCompanies } from "../../../hooks/filter-companies/useGetFilteredCompanies";
 import { getValueLabelObjectsFromEnum } from "../../../utils/getValueLabelObjectsFromEnum";
-import { PlainLink } from "../../utils/PlainLink";
-import { resetSubform } from "./NodeForm.helpers";
-import { NodeFormBaseFieldsContainer } from "./NodeFormBaseFields.styled";
-import { NodeFormPreview } from "./NodeFormPreview";
-import { FormNodeLib } from "./types/formNodeLib";
+import { TerminalButton } from "../../../content/common/terminal";
+import { PlainLink } from "../../../content/utils/PlainLink";
+import { resetSubform } from "./InterfaceForm.helpers";
+import { InterfaceFormBaseFieldsContainer } from "./InterfaceFormBaseFields.styled";
+import { InterfaceFormPreview } from "./InterfaceFormPreview";
+import { FormInterfaceLib } from "./types/formInterfaceLib";
 
-interface NodeFormBaseFieldsProps {
+interface InterfaceFormBaseFieldsProps {
   isPrefilled?: boolean;
 }
 
 /**
- * Component which contains all shared fields for variations of the node form.
+ * Component which contains all simple value fields of the interface form.
  *
  * @param isPrefilled
  * @constructor
  */
-export const NodeFormBaseFields = ({ isPrefilled }: NodeFormBaseFieldsProps) => {
+export const InterfaceFormBaseFields = ({ isPrefilled }: InterfaceFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const { control, register, resetField, setValue, formState } = useFormContext<FormNodeLib>();
+  const { control, register, resetField, setValue, formState } = useFormContext<FormInterfaceLib>();
   const { errors } = formState;
 
   const rdsQuery = useGetRds();
-  const symbolQuery = useGetSymbols();
   const purposeQuery = useGetPurposes();
+  const terminalQuery = useGetTerminals();
   const aspectOptions = getValueLabelObjectsFromEnum<Aspect>(Aspect);
   const companies = useGetFilteredCompanies(MimirorgPermission.Write);
 
   return (
-    <NodeFormBaseFieldsContainer>
-      <NodeFormPreview control={control} />
+    <InterfaceFormBaseFieldsContainer>
+      <InterfaceFormPreview control={control} />
 
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
-        <FormField label={t("node.name")} error={errors.name}>
-          <Input placeholder={t("node.placeholders.name")} {...register("name")} />
+        <FormField label={t("interface.name")} error={errors.name}>
+          <Input placeholder={t("interface.placeholders.name")} {...register("name")} />
         </FormField>
-        <FormField label={t("node.purpose")} error={errors.purposeName}>
-          <Controller
-            control={control}
-            name={"purposeName"}
-            render={({ field: { value, onChange, ref, ...rest } }) => (
+
+        <Controller
+          control={control}
+          name={"purposeName"}
+          render={({ field: { value, onChange, ref, ...rest } }) => (
+            <FormField label={t("interface.purpose")} error={errors.purposeName}>
               <Select
                 {...rest}
                 selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("node.purpose").toLowerCase() })}
+                placeholder={t("common.templates.select", { object: t("interface.purpose").toLowerCase() })}
                 options={purposeQuery.data}
                 isLoading={purposeQuery.isLoading}
                 getOptionLabel={(x) => x.name}
@@ -67,18 +68,19 @@ export const NodeFormBaseFields = ({ isPrefilled }: NodeFormBaseFieldsProps) => 
                 onChange={(x) => onChange(x?.name)}
                 value={purposeQuery.data?.find((x) => x.name === value)}
               />
-            )}
-          />
-        </FormField>
-        <FormField label={t("node.aspect")} error={errors.aspect}>
-          <Controller
-            control={control}
-            name={"aspect"}
-            render={({ field: { value, onChange, ref, ...rest } }) => (
+            </FormField>
+          )}
+        />
+
+        <Controller
+          control={control}
+          name={"aspect"}
+          render={({ field: { value, onChange, ref, ...rest } }) => (
+            <FormField label={t("interface.aspect")} error={errors.aspect}>
               <ConditionalWrapper
                 condition={isPrefilled}
                 wrapper={(c) => (
-                  <Popover align={"start"} maxWidth={"225px"} content={t("node.disabled.aspect")}>
+                  <Popover align={"start"} maxWidth={"225px"} content={t("interface.disabled.aspect")}>
                     <Box borderRadius={theme.tyle.border.radius.medium} tabIndex={0}>
                       {c}
                     </Box>
@@ -88,7 +90,7 @@ export const NodeFormBaseFields = ({ isPrefilled }: NodeFormBaseFieldsProps) => 
                 <Select
                   {...rest}
                   selectRef={ref}
-                  placeholder={t("common.templates.select", { object: t("node.aspect").toLowerCase() })}
+                  placeholder={t("common.templates.select", { object: t("interface.aspect").toLowerCase() })}
                   options={aspectOptions}
                   getOptionLabel={(x) => x.label}
                   onChange={(x) => {
@@ -99,44 +101,48 @@ export const NodeFormBaseFields = ({ isPrefilled }: NodeFormBaseFieldsProps) => 
                   isDisabled={isPrefilled}
                 />
               </ConditionalWrapper>
-            )}
-          />
-        </FormField>
-        <FormField label={t("node.symbol")} error={errors.symbol}>
-          <Controller
-            control={control}
-            name={"symbol"}
-            render={({ field: { value, onChange, ref, ...rest } }) => (
+            </FormField>
+          )}
+        />
+
+        <Controller
+          control={control}
+          name={`terminalId`}
+          render={({ field: { value, onChange, ref, ...rest } }) => (
+            <FormField label={t("interface.terminal")} error={errors.terminalId}>
               <Select
                 {...rest}
                 selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("node.symbol").toLowerCase() })}
-                options={symbolQuery.data}
-                isLoading={symbolQuery.isLoading}
+                placeholder={t("common.templates.select", { object: t("terminals.name").toLowerCase() })}
+                options={terminalQuery.data}
+                isLoading={terminalQuery.isLoading}
                 getOptionLabel={(x) => x.name}
-                getOptionValue={(x) => x.data}
-                onChange={(x) => onChange(x?.data)}
-                value={symbolQuery.data?.find((x) => x.data === value)}
+                getOptionValue={(x) => x.id}
+                onChange={(x) => {
+                  setValue("terminalColor", x?.color, { shouldDirty: true });
+                  onChange(x?.id);
+                }}
+                value={terminalQuery.data?.find((x) => x.id === value)}
                 formatOptionLabel={(x) => (
                   <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
-                    <Icon src={x.data} />
+                    {x.color && <TerminalButton as={"span"} variant={"small"} color={x.color} />}
                     <Text>{x.name}</Text>
                   </Flexbox>
                 )}
               />
-            )}
-          />
-        </FormField>
-        <Input type={"hidden"} {...register("rdsCode")} />
-        <FormField label={t("node.rds")} error={errors.rdsName}>
-          <Controller
-            control={control}
-            name={"rdsName"}
-            render={({ field: { value, onChange, ref, ...rest } }) => (
+            </FormField>
+          )}
+        />
+
+        <Controller
+          control={control}
+          name={"rdsName"}
+          render={({ field: { value, onChange, ref, ...rest } }) => (
+            <FormField label={t("interface.rds")} error={errors.rdsName}>
               <Select
                 {...rest}
                 selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("node.rds").toLowerCase() })}
+                placeholder={t("common.templates.select", { object: t("interface.rds").toLowerCase() })}
                 options={rdsQuery.data}
                 isLoading={rdsQuery.isLoading}
                 getOptionLabel={(x) => `${x.id} - ${x.name}`}
@@ -149,18 +155,19 @@ export const NodeFormBaseFields = ({ isPrefilled }: NodeFormBaseFieldsProps) => 
                   }
                 }}
               />
-            )}
-          />
-        </FormField>
-        <FormField label={t("node.owner")} error={errors.companyId}>
-          <Controller
-            control={control}
-            name={"companyId"}
-            render={({ field: { value, onChange, ref, ...rest } }) => (
+            </FormField>
+          )}
+        />
+
+        <Controller
+          control={control}
+          name={"companyId"}
+          render={({ field: { value, onChange, ref, ...rest } }) => (
+            <FormField label={t("interface.owner")} error={errors.companyId}>
               <Select
                 {...rest}
                 selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("node.owner").toLowerCase() })}
+                placeholder={t("common.templates.select", { object: t("interface.owner").toLowerCase() })}
                 options={companies}
                 getOptionLabel={(x) => x.name}
                 getOptionValue={(x) => x.id.toString()}
@@ -169,11 +176,12 @@ export const NodeFormBaseFields = ({ isPrefilled }: NodeFormBaseFieldsProps) => 
                 }}
                 value={companies.find((x) => x.id === value)}
               />
-            )}
-          />
-        </FormField>
-        <FormField label={t("node.description")} error={errors.description}>
-          <Textarea placeholder={t("node.placeholders.description")} {...register("description")} />
+            </FormField>
+          )}
+        />
+
+        <FormField label={t("interface.description")} error={errors.description}>
+          <Textarea placeholder={t("interface.placeholders.description")} {...register("description")} />
         </FormField>
       </Flexbox>
 
@@ -185,6 +193,6 @@ export const NodeFormBaseFields = ({ isPrefilled }: NodeFormBaseFieldsProps) => 
         </PlainLink>
         <Button type={"submit"}>{t("common.submit")}</Button>
       </Flexbox>
-    </NodeFormBaseFieldsContainer>
+    </InterfaceFormBaseFieldsContainer>
   );
 };

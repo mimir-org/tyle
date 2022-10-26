@@ -6,7 +6,7 @@ import { useTheme } from "styled-components/macro";
 import { Flexbox } from "../../../../complib/layouts";
 import { useGetAttributes } from "../../../../data/queries/tyle/queriesAttribute";
 import { UpdateEntity } from "../../../../data/types/updateEntity";
-import { InfoItemButton } from "../../../common/info-item";
+import { InfoItemButton } from "../../../../content/common/info-item";
 import { ValueObject } from "../../types/valueObject";
 import { FormSection } from "../form-section/FormSection";
 import { SelectItemDialog } from "../select-item-dialog/SelectItemDialog";

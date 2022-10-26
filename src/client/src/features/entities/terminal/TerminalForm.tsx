@@ -1,70 +1,68 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { NodeLibCm } from "@mimirorg/typelibrary-types";
-import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
+import { TerminalLibCm } from "@mimirorg/typelibrary-types";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useTheme } from "styled-components/macro";
+import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { useServerValidation } from "../../../hooks/server-validation/useServerValidation";
-import { Loader } from "../../common/loader";
+import { Loader } from "../../../content/common/loader";
 import { FormAttributes } from "../common/form-attributes/FormAttributes";
 import { onSubmitForm } from "../common/utils/onSubmitForm";
 import { prepareAttributes } from "../common/utils/prepareAttributes";
 import { usePrefilledForm } from "../common/utils/usePrefilledForm";
 import { useSubmissionToast } from "../common/utils/useSubmissionToast";
-import { getSubformForAspect, useNodeMutation, useNodeQuery } from "./NodeForm.helpers";
-import { NodeFormContainer } from "./NodeForm.styled";
-import { NodeFormBaseFields } from "./NodeFormBaseFields";
-import { nodeSchema } from "./nodeSchema";
+import { useTerminalMutation, useTerminalQuery } from "./TerminalForm.helpers";
+import { TerminalFormContainer } from "./TerminalForm.styled";
+import { TerminalFormBaseFields } from "./TerminalFormBaseFields";
+import { terminalSchema } from "./terminalSchema";
 import {
-  createEmptyFormNodeLib,
-  FormNodeLib,
-  mapFormNodeLibToApiModel,
-  mapNodeLibCmToFormNodeLib,
-} from "./types/formNodeLib";
-import { NodeFormMode } from "./types/nodeFormMode";
+  createEmptyFormTerminalLib,
+  FormTerminalLib,
+  mapFormTerminalLibToApiModel,
+  mapTerminalLibCmToFormTerminalLib,
+} from "./types/formTerminalLib";
+import { TerminalFormMode } from "./types/terminalFormMode";
 
-interface NodeFormProps {
-  defaultValues?: FormNodeLib;
-  mode?: NodeFormMode;
+interface TerminalFormProps {
+  defaultValues?: FormTerminalLib;
+  mode?: TerminalFormMode;
 }
 
-export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), mode }: NodeFormProps) => {
+export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mode }: TerminalFormProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const formMethods = useForm<FormNodeLib>({
+  const formMethods = useForm<FormTerminalLib>({
     defaultValues: defaultValues,
-    resolver: yupResolver(nodeSchema(t)),
+    resolver: yupResolver(terminalSchema(t)),
   });
 
   const { register, handleSubmit, control, setError, reset } = formMethods;
-  const aspect = useWatch({ control, name: "aspect" });
   const attributeFields = useFieldArray({ control, name: "attributes" });
 
-  const query = useNodeQuery();
-  const mapper = (source: NodeLibCm) => mapNodeLibCmToFormNodeLib(source, mode);
-  const [isPrefilled, isLoading] = usePrefilledForm(query, mapper, reset);
+  const query = useTerminalQuery();
+  const mapper = (source: TerminalLibCm) => mapTerminalLibCmToFormTerminalLib(source, mode);
+  const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
-  const mutation = useNodeMutation(mode);
+  const mutation = useTerminalMutation(mode);
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
-  const toast = useSubmissionToast(t("node.title"));
+  const toast = useSubmissionToast(t("terminal.title"));
 
   return (
     <FormProvider {...formMethods}>
-      <NodeFormContainer
-        onSubmit={handleSubmit((data) => onSubmitForm(mapFormNodeLibToApiModel(data), mutation.mutateAsync, toast))}
+      <TerminalFormContainer
+        onSubmit={handleSubmit((data) => onSubmitForm(mapFormTerminalLibToApiModel(data), mutation.mutateAsync, toast))}
       >
         {isLoading && <Loader />}
         {!isLoading && (
           <>
-            <NodeFormBaseFields isPrefilled={isPrefilled} />
+            <TerminalFormBaseFields />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
-              {getSubformForAspect(aspect)}
               <FormAttributes
                 register={(index) => register(`attributes.${index}`)}
                 fields={attributeFields.fields}
@@ -76,7 +74,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), mode }: Nod
           </>
         )}
         <DevTool control={control} placement={"bottom-right"} />
-      </NodeFormContainer>
+      </TerminalFormContainer>
     </FormProvider>
   );
 };

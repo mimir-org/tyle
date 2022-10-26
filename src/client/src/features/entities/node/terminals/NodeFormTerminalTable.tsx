@@ -9,7 +9,7 @@ import { Flexbox } from "../../../../complib/layouts";
 import { Text } from "../../../../complib/text";
 import { useGetTerminals } from "../../../../data/queries/tyle/queriesTerminal";
 import { getValueLabelObjectsFromEnum } from "../../../../utils/getValueLabelObjectsFromEnum";
-import { TerminalButton } from "../../../common/terminal";
+import { TerminalButton } from "../../../../content/common/terminal";
 import { FormSection } from "../../common/form-section/FormSection";
 import { FormNodeLib } from "../types/formNodeLib";
 import { createEmptyNodeTerminalLibAm, onTerminalAmountChange } from "./NodeFormTerminalTable.helpers";

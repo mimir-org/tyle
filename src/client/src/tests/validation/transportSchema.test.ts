@@ -1,5 +1,5 @@
-import { transportSchema } from "../../content/forms/transport/transportSchema";
-import { FormTransportLib } from "../../content/forms/transport/types/formTransportLib";
+import { transportSchema } from "../../features/entities/transport/transportSchema";
+import { FormTransportLib } from "../../features/entities/transport/types/formTransportLib";
 
 describe("transportSchema tests", () => {
   const t = (key: string) => key;

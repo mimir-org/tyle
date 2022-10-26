@@ -5,7 +5,7 @@ import { Td } from "../../../../complib/data-display";
 import { Box } from "../../../../complib/layouts";
 import { useMediaQuery } from "../../../../hooks/useMediaQuery";
 import { mapAttributeLibCmToInfoItem } from "../../../../utils/mappers";
-import { InfoItemButton } from "../../../common/info-item";
+import { InfoItemButton } from "../../../../content/common/info-item";
 
 export const NodeFormTerminalTableAttributes = ({ attributes }: Pick<TerminalLibCm, "attributes">) => {
   const theme = useTheme();

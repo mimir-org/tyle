@@ -3,7 +3,7 @@ import {
   createEmptyFormNodeLib,
   FormNodeLib,
   mapFormNodeLibToApiModel,
-} from "../../content/forms/node/types/formNodeLib";
+} from "../../features/entities/node/types/formNodeLib";
 import { useCreateNode } from "../../data/queries/tyle/queriesNode";
 import { useServerValidation } from "../../hooks/server-validation/useServerValidation";
 

@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { createEmptyFormNodeLib, FormNodeLib } from "../../content/forms/node/types/formNodeLib";
+import { createEmptyFormNodeLib, FormNodeLib } from "../../features/entities/node/types/formNodeLib";
 
 interface Props {
   defaultValues?: FormNodeLib;

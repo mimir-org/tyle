@@ -3,9 +3,9 @@ import { PlusSm } from "@styled-icons/heroicons-outline";
 import { useState } from "react";
 import { Button } from "../../../../complib/buttons";
 import { Dialog } from "../../../../complib/overlays";
-import { InfoItemCheckbox } from "../../../common/info-item";
-import { SearchField } from "../../../common/search-field";
-import { InfoItem } from "../../../types/InfoItem";
+import { InfoItemCheckbox } from "../../../../content/common/info-item";
+import { SearchField } from "../../../../content/common/search-field";
+import { InfoItem } from "../../../../content/types/InfoItem";
 import { filterInfoItem, onSelectionChange } from "./SelectItemDialog.helpers";
 import { SelectContainer, SelectItemsContainer } from "./SelectItemDialog.styled";
 

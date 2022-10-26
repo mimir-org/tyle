@@ -1,6 +1,6 @@
-import { terminalSchema } from "../../content/forms/terminal/terminalSchema";
-import { FormTerminalLib } from "../../content/forms/terminal/types/formTerminalLib";
-import { FormTransportLib } from "../../content/forms/transport/types/formTransportLib";
+import { terminalSchema } from "../../features/entities/terminal/terminalSchema";
+import { FormTerminalLib } from "../../features/entities/terminal/types/formTerminalLib";
+import { FormTransportLib } from "../../features/entities/transport/types/formTransportLib";
 
 describe("terminalSchema tests", () => {
   const t = (key: string) => key;

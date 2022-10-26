@@ -1,5 +1,5 @@
-import { interfaceSchema } from "../../content/forms/interface/interfaceSchema";
-import { FormInterfaceLib } from "../../content/forms/interface/types/formInterfaceLib";
+import { interfaceSchema } from "../../features/entities/interface/interfaceSchema";
+import { FormInterfaceLib } from "../../features/entities/interface/types/formInterfaceLib";
 
 describe("interfaceSchema tests", () => {
   const t = (key: string) => key;

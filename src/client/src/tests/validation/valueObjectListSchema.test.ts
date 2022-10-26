@@ -1,5 +1,5 @@
-import { valueObjectListSchema } from "../../content/forms/common/validation/valueObjectListSchema";
-import { ValueObject } from "../../content/forms/types/valueObject";
+import { valueObjectListSchema } from "../../features/entities/common/validation/valueObjectListSchema";
+import { ValueObject } from "../../features/entities/types/valueObject";
 
 describe("valueObjectListSchema tests", () => {
   it("should reject empty value objects", async () => {

@@ -1,70 +1,70 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TransportLibCm } from "@mimirorg/typelibrary-types";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { NodeLibCm } from "@mimirorg/typelibrary-types";
+import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useTheme } from "styled-components";
+import { useTheme } from "styled-components/macro";
 import { Box } from "../../../complib/layouts";
 import { useNavigateOnCriteria } from "../../../hooks/useNavigateOnCriteria";
 import { useServerValidation } from "../../../hooks/server-validation/useServerValidation";
-import { Loader } from "../../common/loader";
+import { Loader } from "../../../content/common/loader";
 import { FormAttributes } from "../common/form-attributes/FormAttributes";
 import { onSubmitForm } from "../common/utils/onSubmitForm";
 import { prepareAttributes } from "../common/utils/prepareAttributes";
 import { usePrefilledForm } from "../common/utils/usePrefilledForm";
 import { useSubmissionToast } from "../common/utils/useSubmissionToast";
-import { useTransportMutation, useTransportQuery } from "./TransportForm.helpers";
-import { TransportFormContainer } from "./TransportForm.styled";
-import { TransportFormBaseFields } from "./TransportFormBaseFields";
-import { transportSchema } from "./transportSchema";
+import { getSubformForAspect, useNodeMutation, useNodeQuery } from "./NodeForm.helpers";
+import { NodeFormContainer } from "./NodeForm.styled";
+import { NodeFormBaseFields } from "./NodeFormBaseFields";
+import { nodeSchema } from "./nodeSchema";
 import {
-  createEmptyFormTransportLib,
-  FormTransportLib,
-  mapFormTransportLibToApiModel,
-  mapTransportLibCmToFormTransportLib,
-} from "./types/formTransportLib";
-import { TransportFormMode } from "./types/transportFormMode";
+  createEmptyFormNodeLib,
+  FormNodeLib,
+  mapFormNodeLibToApiModel,
+  mapNodeLibCmToFormNodeLib,
+} from "./types/formNodeLib";
+import { NodeFormMode } from "./types/nodeFormMode";
 
-interface TransportFormProps {
-  defaultValues?: FormTransportLib;
-  mode?: TransportFormMode;
+interface NodeFormProps {
+  defaultValues?: FormNodeLib;
+  mode?: NodeFormMode;
 }
 
-export const TransportForm = ({ defaultValues = createEmptyFormTransportLib(), mode }: TransportFormProps) => {
+export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), mode }: NodeFormProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const formMethods = useForm<FormTransportLib>({
+  const formMethods = useForm<FormNodeLib>({
     defaultValues: defaultValues,
-    resolver: yupResolver(transportSchema(t)),
+    resolver: yupResolver(nodeSchema(t)),
   });
 
   const { register, handleSubmit, control, setError, reset } = formMethods;
+  const aspect = useWatch({ control, name: "aspect" });
   const attributeFields = useFieldArray({ control, name: "attributes" });
 
-  const query = useTransportQuery();
-  const mapper = (source: TransportLibCm) => mapTransportLibCmToFormTransportLib(source, mode);
+  const query = useNodeQuery();
+  const mapper = (source: NodeLibCm) => mapNodeLibCmToFormNodeLib(source, mode);
   const [isPrefilled, isLoading] = usePrefilledForm(query, mapper, reset);
 
-  const mutation = useTransportMutation(mode);
+  const mutation = useNodeMutation(mode);
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
-  const toast = useSubmissionToast(t("transport.title"));
+  const toast = useSubmissionToast(t("node.title"));
 
   return (
     <FormProvider {...formMethods}>
-      <TransportFormContainer
-        onSubmit={handleSubmit((data) =>
-          onSubmitForm(mapFormTransportLibToApiModel(data), mutation.mutateAsync, toast)
-        )}
+      <NodeFormContainer
+        onSubmit={handleSubmit((data) => onSubmitForm(mapFormNodeLibToApiModel(data), mutation.mutateAsync, toast))}
       >
         {isLoading && <Loader />}
         {!isLoading && (
           <>
-            <TransportFormBaseFields isPrefilled={isPrefilled} />
+            <NodeFormBaseFields isPrefilled={isPrefilled} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
+              {getSubformForAspect(aspect)}
               <FormAttributes
                 register={(index) => register(`attributes.${index}`)}
                 fields={attributeFields.fields}
@@ -76,7 +76,7 @@ export const TransportForm = ({ defaultValues = createEmptyFormTransportLib(), m
           </>
         )}
         <DevTool control={control} placement={"bottom-right"} />
-      </TransportFormContainer>
+      </NodeFormContainer>
     </FormProvider>
   );
 };

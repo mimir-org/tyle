@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { createBrowserRouter } from "react-router-dom";
 import { exploreRoutes } from "../../explore/ExploreRoutes";
-import { interfaceFormRoutes } from "../../../content/forms/interface/InterfaceFormRoutes";
-import { nodeFormRoutes } from "../../../content/forms/node/NodeFormRoutes";
-import { terminalFormRoutes } from "../../../content/forms/terminal/TerminalFormRoutes";
-import { transportFormRoutes } from "../../../content/forms/transport/TransportFormRoutes";
+import { interfaceFormRoutes } from "../../entities/interface/InterfaceFormRoutes";
+import { nodeFormRoutes } from "../../entities/node/NodeFormRoutes";
+import { terminalFormRoutes } from "../../entities/terminal/TerminalFormRoutes";
+import { transportFormRoutes } from "../../entities/transport/TransportFormRoutes";
 import { ErrorMessage } from "../common/ErrorMessage";
 import { AuthenticatedLayout } from "./layout/AuthenticatedLayout";
 

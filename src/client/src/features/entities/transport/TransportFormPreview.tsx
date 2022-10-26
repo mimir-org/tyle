@@ -1,7 +1,7 @@
 import { Control, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { getColorFromAspect } from "../../../utils/getColorFromAspect";
-import { TransportPreview } from "../../common/transport";
+import { TransportPreview } from "../../../content/common/transport";
 import { FormTransportLib } from "./types/formTransportLib";
 
 interface TransportFormPreviewProps {
