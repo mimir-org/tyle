@@ -1,6 +1,6 @@
 import styled from "styled-components/macro";
 
-export const UnauthenticatedContentContainer = styled.div`
+export const AuthContentContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -15,7 +15,7 @@ export const UnauthenticatedContentContainer = styled.div`
   background-color: ${(props) => props.theme.tyle.color.sys.surface.base};
 `;
 
-export const UnauthenticatedContentSection = styled.div`
+export const AuthContentSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${(props) => props.theme.tyle.spacing.xxxl};

@@ -11,7 +11,7 @@ import { MotionFlexbox } from "../../../complib/layouts";
 import { MotionText, Text } from "../../../complib/text";
 import { useLogin } from "../../../data/queries/auth/queriesAuthenticate";
 import { useServerValidation } from "../../../hooks/server-validation/useServerValidation";
-import { UnauthenticatedContent } from "../../ui/unauthenticated/layout/UnauthenticatedContent";
+import { AuthContent } from "../common/auth-content/AuthContent";
 import { RegisterPath } from "../register/RegisterRoutes";
 import { RecoverPath } from "../restore/RecoverRoutes";
 import { loginSchema } from "./loginSchema";
@@ -32,7 +32,7 @@ export const Login = () => {
   useServerValidation(mutation.error, setError);
 
   return (
-    <UnauthenticatedContent
+    <AuthContent
       title={t("login.title")}
       subtitle={t("login.description")}
       firstRow={

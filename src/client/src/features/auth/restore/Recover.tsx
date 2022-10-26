@@ -2,8 +2,8 @@ import { MimirorgQrCodeCm, MimirorgVerifyAm } from "@mimirorg/typelibrary-types"
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { Completion } from "../common/Completion";
-import { MultiFactorAuthentication } from "../common/MultiFactorAuthentication";
+import { Completion } from "../common/completion/Completion";
+import { MultiFactorAuthentication } from "../common/mfa/MultiFactorAuthentication";
 import { RecoverDetails } from "./components/RecoverDetails";
 import { RecoverPassword } from "./components/RecoverPassword";
 import { RecoverVerification } from "./components/RecoverVerification";

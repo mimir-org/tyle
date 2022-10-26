@@ -1,9 +1,9 @@
 import { useTheme } from "styled-components";
-import { Button } from "../../../complib/buttons";
-import { Box } from "../../../complib/layouts";
-import { Text } from "../../../complib/text";
-import { Actionable } from "../../../complib/types";
-import { UnauthenticatedContent } from "../../ui/unauthenticated/layout/UnauthenticatedContent";
+import { Button } from "../../../../complib/buttons";
+import { Box } from "../../../../complib/layouts";
+import { Text } from "../../../../complib/text";
+import { Actionable } from "../../../../complib/types";
+import { AuthContent } from "../auth-content/AuthContent";
 
 type CompletionProps = Partial<Actionable> & {
   title: string;
@@ -15,7 +15,7 @@ export const Completion = ({ title, infoText, complete }: CompletionProps) => {
   const theme = useTheme();
 
   return (
-    <UnauthenticatedContent
+    <AuthContent
       title={title}
       firstRow={
         <Box

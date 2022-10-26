@@ -10,10 +10,10 @@ import { Text } from "../../../../complib/text";
 import { Actionable } from "../../../../complib/types";
 import { useGenerateMfa } from "../../../../data/queries/auth/queriesUser";
 import { useExecuteOnCriteria } from "../../../../hooks/useExecuteOnCriteria";
-import { UnauthenticatedContent } from "../../../ui/unauthenticated/layout/UnauthenticatedContent";
-import { Error } from "../../common/Error";
-import { Processing } from "../../common/Processing";
-import { MotionVerifyForm } from "../../common/Verification";
+import { AuthContent } from "../../common/auth-content/AuthContent";
+import { Error } from "../../common/error/Error";
+import { Processing } from "../../common/processing/Processing";
+import { MotionVerifyForm } from "../../common/verification/Verification";
 import { onSubmitForm } from "./RecoverVerification.helpers";
 
 type VerificationProps = Pick<MimirorgVerifyAm, "email"> & {
@@ -43,7 +43,7 @@ export const RecoverVerification = ({
   useExecuteOnCriteria(complete?.onAction, generateMfaMutation.isSuccess);
 
   return (
-    <UnauthenticatedContent
+    <AuthContent
       title={t("recover.verify.title")}
       firstRow={
         <>

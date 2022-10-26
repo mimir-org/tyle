@@ -1,12 +1,12 @@
 import { MimirorgQrCodeCm } from "@mimirorg/typelibrary-types";
 import { useTheme } from "styled-components";
-import { Button } from "../../../complib/buttons";
-import { Popover } from "../../../complib/data-display";
-import { Box, Flexbox } from "../../../complib/layouts";
-import { Icon } from "../../../complib/media";
-import { Text } from "../../../complib/text";
-import { Actionable } from "../../../complib/types";
-import { UnauthenticatedContent } from "../../ui/unauthenticated/layout/UnauthenticatedContent";
+import { Button } from "../../../../complib/buttons";
+import { Popover } from "../../../../complib/data-display";
+import { Box, Flexbox } from "../../../../complib/layouts";
+import { Icon } from "../../../../complib/media";
+import { Text } from "../../../../complib/text";
+import { Actionable } from "../../../../complib/types";
+import { AuthContent } from "../auth-content/AuthContent";
 
 interface MultiFactorAuthenticationProps {
   mfaInfo: MimirorgQrCodeCm;
@@ -29,7 +29,7 @@ export const MultiFactorAuthentication = (props: MultiFactorAuthenticationProps)
   const showQrDialog = mfaInfo.code && mfaInfo.manualCode;
 
   return (
-    <UnauthenticatedContent
+    <AuthContent
       title={title}
       firstRow={
         <>

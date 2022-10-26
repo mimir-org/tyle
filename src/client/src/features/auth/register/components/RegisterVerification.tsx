@@ -10,10 +10,10 @@ import { Text } from "../../../../complib/text";
 import { Actionable } from "../../../../complib/types";
 import { useGenerateMfa, useVerification } from "../../../../data/queries/auth/queriesUser";
 import { useExecuteOnCriteria } from "../../../../hooks/useExecuteOnCriteria";
-import { UnauthenticatedContent } from "../../../ui/unauthenticated/layout/UnauthenticatedContent";
-import { Error } from "../../common/Error";
-import { Processing } from "../../common/Processing";
-import { MotionVerifyForm } from "../../common/Verification";
+import { AuthContent } from "../../common/auth-content/AuthContent";
+import { Error } from "../../common/error/Error";
+import { Processing } from "../../common/processing/Processing";
+import { MotionVerifyForm } from "../../common/verification/Verification";
 import { onSubmitForm } from "./RegisterVerification.helpers";
 
 type VerificationProps = Pick<MimirorgVerifyAm, "email"> & {
@@ -37,7 +37,7 @@ export const RegisterVerification = ({ email, setMfaInfo, cancel, complete }: Ve
   useExecuteOnCriteria(complete?.onAction, verificationMutation.isSuccess && generateMfaMutation.isSuccess);
 
   return (
-    <UnauthenticatedContent
+    <AuthContent
       title={t("register.verify.title")}
       firstRow={
         <>

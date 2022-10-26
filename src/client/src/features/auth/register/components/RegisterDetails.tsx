@@ -15,9 +15,9 @@ import { useGetCompanies } from "../../../../data/queries/auth/queriesCompany";
 import { useCreateUser } from "../../../../data/queries/auth/queriesUser";
 import { useExecuteOnCriteria } from "../../../../hooks/useExecuteOnCriteria";
 import { useServerValidation } from "../../../../hooks/server-validation/useServerValidation";
-import { UnauthenticatedContent } from "../../../ui/unauthenticated/layout/UnauthenticatedContent";
-import { Error } from "../../common/Error";
-import { Processing } from "../../common/Processing";
+import { AuthContent } from "../../common/auth-content/AuthContent";
+import { Error } from "../../common/error/Error";
+import { Processing } from "../../common/processing/Processing";
 import { registerDetailsSchema } from "./registerDetailsSchema";
 
 interface RegisterDetailsProps {
@@ -49,7 +49,7 @@ export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps
   useExecuteOnCriteria(complete?.onAction, mutation.isSuccess);
 
   return (
-    <UnauthenticatedContent
+    <AuthContent
       title={t("register.details.title")}
       subtitle={t("register.details.description")}
       firstRow={

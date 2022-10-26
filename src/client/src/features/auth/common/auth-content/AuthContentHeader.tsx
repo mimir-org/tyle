@@ -3,12 +3,12 @@ import { Box, MotionFlexbox } from "../../../../complib/layouts";
 import { Heading, Text } from "../../../../complib/text";
 import { MotionLogo } from "../../../../common/components/logo/Logo";
 
-export interface UnauthenticatedContentHeaderProps {
+export interface AuthContentHeaderProps {
   title?: string;
   subtitle?: string;
 }
 
-export const UnauthenticatedContentHeader = ({ title, subtitle }: UnauthenticatedContentHeaderProps) => {
+export const AuthContentHeader = ({ title, subtitle }: AuthContentHeaderProps) => {
   const theme = useTheme();
 
   return (

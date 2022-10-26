@@ -13,9 +13,9 @@ import { Actionable } from "../../../../complib/types";
 import { useChangePassword } from "../../../../data/queries/auth/queriesUser";
 import { useExecuteOnCriteria } from "../../../../hooks/useExecuteOnCriteria";
 import { useServerValidation } from "../../../../hooks/server-validation/useServerValidation";
-import { UnauthenticatedContent } from "../../../ui/unauthenticated/layout/UnauthenticatedContent";
-import { Error } from "../../common/Error";
-import { Processing } from "../../common/Processing";
+import { AuthContent } from "../../common/auth-content/AuthContent";
+import { Error } from "../../common/error/Error";
+import { Processing } from "../../common/processing/Processing";
 import { recoverPasswordSchema } from "./recoverPasswordSchema";
 
 interface RecoverPasswordProps {
@@ -41,7 +41,7 @@ export const RecoverPassword = ({ verificationInfo, cancel, complete }: RecoverP
   useExecuteOnCriteria(complete?.onAction, mutation.isSuccess);
 
   return (
-    <UnauthenticatedContent
+    <AuthContent
       title={t("recover.password.title")}
       firstRow={
         <>
