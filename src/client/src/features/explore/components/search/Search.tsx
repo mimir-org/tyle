@@ -5,8 +5,8 @@ import { useTheme } from "styled-components";
 import { Token } from "../../../../complib/general";
 import { Flexbox, MotionFlexbox } from "../../../../complib/layouts";
 import { MotionText } from "../../../../complib/text";
-import { useDebounceState } from "../../../../hooks/useDebounceState";
 import { SearchField } from "../../../../content/common/search-field";
+import { useDebounceState } from "../../../../hooks/useDebounceState";
 import { SelectedInfo } from "../../types/selectedInfo";
 import { ExploreSection } from "../ExploreSection";
 import { FilterMenu } from "./components/filter/FilterMenu";
@@ -17,7 +17,10 @@ import { ConditionalNodeSearchItem } from "./components/node/ConditionalNodeSear
 import { SearchPlaceholder } from "./components/SearchPlaceholder";
 import { ConditionalTerminalSearchItem } from "./components/terminal/ConditionalTerminalSearchItem";
 import { ConditionalTransportSearchItem } from "./components/transport/ConditionalTransportSearchItem";
-import { getCreateMenuLinks, useFilterState, useGetFilterGroups, useSearchResults } from "./Search.helpers";
+import { getCreateMenuLinks } from "./Search.helpers";
+import { useFilterState } from "./useFilterState";
+import { useGetFilterGroups } from "./useGetFilterGroups";
+import { useSearchResults } from "./useSearchResults";
 
 interface SearchProps {
   selected?: SelectedInfo;
