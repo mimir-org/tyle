@@ -1,7 +1,7 @@
 import { ConnectorDirection } from "@mimirorg/typelibrary-types";
-import { nodeSchema } from "../../features/entities/node/nodeSchema";
-import { FormNodeLib } from "../../features/entities/node/types/formNodeLib";
-import { FormTransportLib } from "../../features/entities/transport/types/formTransportLib";
+import { nodeSchema } from "./nodeSchema";
+import { FormNodeLib } from "./types/formNodeLib";
+import { FormTransportLib } from "../transport/types/formTransportLib";
 
 describe("nodeSchema tests", () => {
   const t = (key: string) => key;

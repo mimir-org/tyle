@@ -1,5 +1,5 @@
 import { MimirorgCompanyCm, MimirorgPermission, MimirorgUserCm } from "@mimirorg/typelibrary-types";
-import { filterCompanyList, hasAccess } from "../hooks/filter-companies/hasAccess";
+import { filterCompanyList, hasAccess } from "./hasAccess";
 import { createEmptyMimirorgCompanyCm, createEmptyMimirorgUserCm } from "./hasAccess.test.helpers";
 
 describe("hasAccess tests", () => {

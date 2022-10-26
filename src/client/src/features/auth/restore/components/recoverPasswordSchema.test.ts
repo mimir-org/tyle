@@ -1,5 +1,5 @@
 import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
-import { recoverPasswordSchema } from "../../features/auth/restore/components/recoverPasswordSchema";
+import { recoverPasswordSchema } from "./recoverPasswordSchema";
 
 describe("recoverPasswordSchema tests", () => {
   const t = (key: string) => key;

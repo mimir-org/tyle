@@ -1,5 +1,5 @@
 import { TypeReferenceAm } from "@mimirorg/typelibrary-types";
-import { typeReferenceListSchema } from "../../features/entities/common/validation/typeReferenceListSchema";
+import { typeReferenceListSchema } from "./typeReferenceListSchema";
 
 describe("typeReferenceListSchema tests", () => {
   it("should reject typeReferences without a name", async () => {
