@@ -1,10 +1,10 @@
 import axios from "axios";
-import Config from "../../models/Config";
+import config from "../../utils/config";
 import { injectBearerToken } from "./interceptors/injectBearerToken";
 import { refreshExpiredToken } from "./interceptors/refreshExpiredToken";
 
 export const apiClient = axios.create({
-  baseURL: Config.API_BASE_URL,
+  baseURL: config.API_BASE_URL,
 });
 
 apiClient.interceptors.request.use(injectBearerToken);
