@@ -6,9 +6,7 @@ export default {
   component: AuthContentHeader,
 } as ComponentMeta<typeof AuthContentHeader>;
 
-const Template: ComponentStory<typeof AuthContentHeader> = (args) => (
-  <AuthContentHeader {...args} />
-);
+const Template: ComponentStory<typeof AuthContentHeader> = (args) => <AuthContentHeader {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
