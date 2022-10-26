@@ -13,7 +13,7 @@ import { useLogin } from "../../../data/queries/auth/queriesAuthenticate";
 import { useServerValidation } from "../../../hooks/server-validation/useServerValidation";
 import { AuthContent } from "../common/auth-content/AuthContent";
 import { RegisterPath } from "../register/RegisterRoutes";
-import { RecoverPath } from "../restore/RecoverRoutes";
+import { RecoverPath } from "../recover/RecoverRoutes";
 import { loginSchema } from "./loginSchema";
 
 export const Login = () => {

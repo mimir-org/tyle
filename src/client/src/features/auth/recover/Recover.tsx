@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Completion } from "../common/completion/Completion";
 import { MultiFactorAuthentication } from "../common/mfa/MultiFactorAuthentication";
-import { RecoverDetails } from "./components/RecoverDetails";
-import { RecoverPassword } from "./components/RecoverPassword";
-import { RecoverVerification } from "./components/RecoverVerification";
+import { RecoverDetails } from "./details/RecoverDetails";
+import { RecoverPassword } from "./password/RecoverPassword";
+import { RecoverVerification } from "./verification/RecoverVerification";
 
 export type RecoverySteps = "DETAILS" | "VERIFY" | "PASSWORD" | "MFA" | "COMPLETE";
 
