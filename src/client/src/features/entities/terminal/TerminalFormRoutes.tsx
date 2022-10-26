@@ -1,8 +1,10 @@
 import { RouteObject } from "react-router-dom";
 import { TerminalForm } from "./TerminalForm";
 
+export const terminalFormBasePath = "form/terminal";
+
 export const terminalFormRoutes: RouteObject[] = [
-  { path: "form/terminal", element: <TerminalForm /> },
-  { path: "form/terminal/clone/:id", element: <TerminalForm mode={"clone"} /> },
-  { path: "form/terminal/edit/:id", element: <TerminalForm mode={"edit"} /> },
+  { path: terminalFormBasePath, element: <TerminalForm /> },
+  { path: `${terminalFormBasePath}/clone/:id`, element: <TerminalForm mode={"clone"} /> },
+  { path: `${terminalFormBasePath}/edit/:id`, element: <TerminalForm mode={"edit"} /> },
 ];
