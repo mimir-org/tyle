@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { mockTerminalItem } from "../../../../../../utils/mocks/mockTerminalItem";
+import { mockTerminalItem } from "../../../../../../common/utils/mocks/mockTerminalItem";
 import { TerminalPanel } from "./TerminalPanel";
 
 export default {

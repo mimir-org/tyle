@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { mockInterfaceItem } from "../../../../../../utils/mocks";
+import { mockInterfaceItem } from "../../../../../../common/utils/mocks";
 import { InterfacePanel } from "./InterfacePanel";
 
 export default {

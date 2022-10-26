@@ -5,7 +5,7 @@ import { GlobalStyle, themeBuilder, TyleThemeProvider } from "../complib/core";
 import { queryClient } from "../data/queries/queryClient";
 import { App } from "./ui/App";
 import { usePrefersTheme } from "../hooks/usePrefersTheme";
-import { isProduction } from "../utils/config";
+import { isProduction } from "../common/utils/config";
 
 export const Root = () => {
   const [colorTheme] = usePrefersTheme("light");

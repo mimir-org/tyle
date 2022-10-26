@@ -1,4 +1,4 @@
-import { InfoItem } from "../../../../content/types/InfoItem";
+import { InfoItem } from "../../../../common/types/infoItem";
 
 /**
  * Simple filtration of an item which tries to match an item's name and descriptors against tokens in search query.

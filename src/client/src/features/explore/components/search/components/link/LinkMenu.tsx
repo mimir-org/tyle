@@ -3,7 +3,7 @@ import { useTheme } from "styled-components";
 import { Button } from "../../../../../../complib/buttons";
 import { Popover } from "../../../../../../complib/data-display";
 import { Box } from "../../../../../../complib/layouts";
-import { PlainLink } from "../../../../../../content/common/plain-link";
+import { PlainLink } from "../../../../../../common/components/plain-link";
 import { Link } from "../../../../types/link";
 
 interface LinkMenuProps {

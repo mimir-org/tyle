@@ -1,3 +1,3 @@
-import { InterfaceItem } from "../../../../../content/types/InterfaceItem";
+import { InterfaceItem } from "../../../../../common/types/interfaceItem";
 
 export const isInterfaceItem = (item: unknown): item is InterfaceItem => (<InterfaceItem>item).kind === "InterfaceItem";

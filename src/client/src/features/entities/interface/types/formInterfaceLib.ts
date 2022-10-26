@@ -1,5 +1,5 @@
 import { Aspect, AttributeLibAm, InterfaceLibAm, InterfaceLibCm } from "@mimirorg/typelibrary-types";
-import { UpdateEntity } from "../../../../data/types/updateEntity";
+import { UpdateEntity } from "../../../../common/types/updateEntity";
 import { ValueObject } from "../../types/valueObject";
 import { InterfaceFormMode } from "./interfaceFormMode";
 

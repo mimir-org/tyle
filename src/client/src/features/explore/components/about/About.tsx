@@ -9,8 +9,8 @@ import {
   mapNodeLibCmToNodeItem,
   mapTerminalLibCmToTerminalItem,
   mapTransportLibCmToTransportItem,
-} from "../../../../utils/mappers";
-import { Loader } from "../../../../content/common/loader";
+} from "../../../../common/utils/mappers";
+import { Loader } from "../../../../common/components/loader";
 import { SelectedInfo } from "../../types/selectedInfo";
 import { ExploreSection } from "../ExploreSection";
 import { AboutPlaceholder } from "./components/AboutPlaceholder";

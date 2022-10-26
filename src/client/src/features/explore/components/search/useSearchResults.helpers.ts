@@ -7,7 +7,7 @@ import {
   mapNodeLibCmToNodeItem,
   mapTerminalLibCmToTerminalItem,
   mapTransportLibCmToTransportItem,
-} from "../../../../utils/mappers";
+} from "../../../../common/utils/mappers";
 import { Filter } from "../../types/filter";
 import { SearchResult, SearchResultRaw } from "../../types/searchResult";
 import { isInterfaceLibCm, isNodeLibCm, isTerminalLibCm, isTransportLibCm } from "./guards";

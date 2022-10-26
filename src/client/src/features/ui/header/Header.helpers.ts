@@ -1,5 +1,5 @@
 import { MimirorgCompanyCm, MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { getValueLabelObjectsFromEnum } from "../../../utils/getValueLabelObjectsFromEnum";
+import { getValueLabelObjectsFromEnum } from "../../../common/utils/getValueLabelObjectsFromEnum";
 
 /**
  * Creates descriptions of user permissions by mapping the permissions

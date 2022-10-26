@@ -4,8 +4,8 @@ import { useTheme } from "styled-components";
 import { Td } from "../../../../complib/data-display";
 import { Box } from "../../../../complib/layouts";
 import { useMediaQuery } from "../../../../hooks/useMediaQuery";
-import { mapAttributeLibCmToInfoItem } from "../../../../utils/mappers";
-import { InfoItemButton } from "../../../../content/common/info-item";
+import { mapAttributeLibCmToInfoItem } from "../../../../common/utils/mappers";
+import { InfoItemButton } from "../../../../common/components/info-item";
 
 export const NodeFormTerminalTableAttributes = ({ attributes }: Pick<TerminalLibCm, "attributes">) => {
   const theme = useTheme();

@@ -5,7 +5,7 @@ import { useTheme } from "styled-components";
 import { Token } from "../../../../complib/general";
 import { Flexbox, MotionFlexbox } from "../../../../complib/layouts";
 import { MotionText } from "../../../../complib/text";
-import { SearchField } from "../../../../content/common/search-field";
+import { SearchField } from "../../../../common/components/search-field";
 import { useDebounceState } from "../../../../hooks/useDebounceState";
 import { SelectedInfo } from "../../types/selectedInfo";
 import { ExploreSection } from "../ExploreSection";

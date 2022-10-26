@@ -1,5 +1,5 @@
 import axios from "axios";
-import config from "../../utils/config";
+import config from "../../common/utils/config";
 
 /**
  * Only used for authentication api endpoints, where cookies should be sent together with request

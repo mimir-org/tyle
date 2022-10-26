@@ -5,9 +5,9 @@ import { useTheme } from "styled-components";
 import { Button } from "../../../../../../complib/buttons";
 import { AlertDialog } from "../../../../../../complib/overlays/alert-dialog/AlertDialog";
 import { usePatchNodeState } from "../../../../../../data/queries/tyle/queriesNode";
-import { NodePreview } from "../../../../../../content/common/node";
-import { NodeItem } from "../../../../../../content/types/NodeItem";
-import { PlainLink } from "../../../../../../content/common/plain-link";
+import { NodePreview } from "../../../../../../common/components/node";
+import { NodeItem } from "../../../../../../common/types/nodeItem";
+import { PlainLink } from "../../../../../../common/components/plain-link";
 import { Item } from "../item/Item";
 import { ItemDescription } from "../item/ItemDescription";
 

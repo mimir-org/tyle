@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Button } from "../../../../../../complib/buttons";
-import { NodeProps } from "../../../../../../content/common/node/Node";
-import { Default as Node } from "../../../../../../content/common/node/Node.stories";
+import { NodeProps } from "../../../../../../common/components/node/Node";
+import { Default as Node } from "../../../../../../common/components/node/Node.stories";
 import { Default as ItemDescription } from "./ItemDescription.stories";
 import { Item } from "./Item";
 import { ItemDescriptionProps } from "./ItemDescription";

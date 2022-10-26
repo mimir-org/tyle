@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Box } from "../../../complib/layouts";
 import { Text } from "../../../complib/text";
-import { SearchField } from "../../../content/common/search-field";
+import { SearchField } from "../../../common/components/search-field";
 import { ExploreSection } from "./ExploreSection";
 import { ItemListProps } from "./search/components/item/ItemList";
 import { Default as ItemList } from "./search/components/item/ItemList.stories";

@@ -5,9 +5,9 @@ import { useTheme } from "styled-components";
 import { Button } from "../../../../../../complib/buttons";
 import { AlertDialog } from "../../../../../../complib/overlays/alert-dialog/AlertDialog";
 import { usePatchTransportState } from "../../../../../../data/queries/tyle/queriesTransport";
-import { TransportPreview } from "../../../../../../content/common/transport";
-import { TransportItem } from "../../../../../../content/types/TransportItem";
-import { PlainLink } from "../../../../../../content/common/plain-link";
+import { TransportPreview } from "../../../../../../common/components/transport";
+import { TransportItem } from "../../../../../../common/types/transportItem";
+import { PlainLink } from "../../../../../../common/components/plain-link";
 import { Item } from "../item/Item";
 import { ItemDescription } from "../item/ItemDescription";
 

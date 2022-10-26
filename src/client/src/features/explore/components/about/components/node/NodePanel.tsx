@@ -3,10 +3,10 @@ import { useTheme } from "styled-components";
 import { Token } from "../../../../../../complib/general";
 import { Flexbox, MotionBox } from "../../../../../../complib/layouts";
 import { Heading, Text } from "../../../../../../complib/text";
-import { InfoItemButton } from "../../../../../../content/common/info-item";
-import { NodePreview } from "../../../../../../content/common/node";
-import { TerminalTable } from "../../../../../../content/common/terminal";
-import { NodeItem } from "../../../../../../content/types/NodeItem";
+import { InfoItemButton } from "../../../../../../common/components/info-item";
+import { NodePreview } from "../../../../../../common/components/node";
+import { TerminalTable } from "../../../../../../common/components/terminal";
+import { NodeItem } from "../../../../../../common/types/nodeItem";
 import { PanelPropertiesContainer } from "../common/PanelPropertiesContainer";
 import { PanelSection } from "../common/PanelSection";
 

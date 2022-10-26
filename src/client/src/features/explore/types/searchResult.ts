@@ -1,8 +1,8 @@
 import { InterfaceLibCm, NodeLibCm, TerminalLibCm, TransportLibCm } from "@mimirorg/typelibrary-types";
-import { InterfaceItem } from "../../../content/types/InterfaceItem";
-import { NodeItem } from "../../../content/types/NodeItem";
-import { TerminalItem } from "../../../content/types/TerminalItem";
-import { TransportItem } from "../../../content/types/TransportItem";
+import { InterfaceItem } from "../../../common/types/interfaceItem";
+import { NodeItem } from "../../../common/types/nodeItem";
+import { TerminalItem } from "../../../common/types/terminalItem";
+import { TransportItem } from "../../../common/types/transportItem";
 
 export type SearchResult = NodeItem | TerminalItem | TransportItem | InterfaceItem;
 

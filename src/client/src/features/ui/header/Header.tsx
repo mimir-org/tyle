@@ -3,7 +3,7 @@ import { useTheme } from "styled-components";
 import { Flexbox } from "../../../complib/layouts";
 import { useGetCurrentUser } from "../../../data/queries/auth/queriesUser";
 import { useGetFilteredCompanies } from "../../../hooks/filter-companies/useGetFilteredCompanies";
-import { Logo } from "../../../content/common/logo";
+import { Logo } from "../../../common/components/logo";
 import { ContactButton } from "./components/contact/ContactButton";
 import { UserInfo } from "./components/info/UserInfo";
 import { LogoutButton } from "./components/logout/LogoutButton";

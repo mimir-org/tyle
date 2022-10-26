@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { mockNodeItem } from "../../../../../../utils/mocks";
+import { mockNodeItem } from "../../../../../../common/utils/mocks";
 import { NodePanel } from "./NodePanel";
 
 export default {

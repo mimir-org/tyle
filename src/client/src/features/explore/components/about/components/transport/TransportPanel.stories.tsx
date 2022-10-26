@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { mockTransportItem } from "../../../../../../utils/mocks";
+import { mockTransportItem } from "../../../../../../common/utils/mocks";
 import { TransportPanel } from "./TransportPanel";
 
 export default {
