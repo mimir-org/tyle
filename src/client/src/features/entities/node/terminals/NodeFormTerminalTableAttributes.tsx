@@ -1,11 +1,11 @@
 import { TerminalLibCm } from "@mimirorg/typelibrary-types";
+import { useMediaQuery } from "common/hooks/useMediaQuery";
 import { Td } from "complib/data-display";
 import { Box } from "complib/layouts";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { InfoItemButton } from "../../../../common/components/info-item";
 import { mapAttributeLibCmToInfoItem } from "../../../../common/utils/mappers";
-import { useMediaQuery } from "../../../../hooks/useMediaQuery";
 
 export const NodeFormTerminalTableAttributes = ({ attributes }: Pick<TerminalLibCm, "attributes">) => {
   const theme = useTheme();

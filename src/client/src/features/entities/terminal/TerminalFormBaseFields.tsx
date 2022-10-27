@@ -1,4 +1,5 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
+import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { Button } from "complib/buttons";
 import { FormField } from "complib/form";
 import { Input, Select, Textarea } from "complib/inputs";
@@ -7,7 +8,6 @@ import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { PlainLink } from "../../../common/components/plain-link";
-import { useGetFilteredCompanies } from "../../../hooks/filter-companies/useGetFilteredCompanies";
 import { TerminalFormBaseFieldsContainer } from "./TerminalFormBaseFields.styled";
 import { TerminalFormPreview } from "./TerminalFormPreview";
 import { FormTerminalLib } from "./types/formTerminalLib";

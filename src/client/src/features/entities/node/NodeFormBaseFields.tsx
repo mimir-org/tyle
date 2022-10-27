@@ -1,4 +1,5 @@
 import { Aspect, MimirorgPermission } from "@mimirorg/typelibrary-types";
+import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { Button } from "complib/buttons";
 import { Popover } from "complib/data-display";
 import { FormField } from "complib/form";
@@ -15,7 +16,6 @@ import { getValueLabelObjectsFromEnum } from "../../../common/utils/getValueLabe
 import { useGetPurposes } from "../../../data/queries/tyle/queriesPurpose";
 import { useGetRds } from "../../../data/queries/tyle/queriesRds";
 import { useGetSymbols } from "../../../data/queries/tyle/queriesSymbol";
-import { useGetFilteredCompanies } from "../../../hooks/filter-companies/useGetFilteredCompanies";
 import { resetSubform } from "./NodeForm.helpers";
 import { NodeFormBaseFieldsContainer } from "./NodeFormBaseFields.styled";
 import { NodeFormPreview } from "./NodeFormPreview";

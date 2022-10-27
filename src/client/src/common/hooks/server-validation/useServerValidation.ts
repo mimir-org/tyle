@@ -1,7 +1,7 @@
+import { parseValidationStateFromServer } from "common/hooks/server-validation/parseValidationStateFromServer";
 import camelCase from "lodash/camelCase";
 import { useEffect } from "react";
 import { FieldValues, Path, UseFormSetError } from "react-hook-form";
-import { parseValidationStateFromServer } from "./parseValidationStateFromServer";
 
 /**
  * Shorthand hook for parsing a server error model and binding it against the react-hook-form error-structure

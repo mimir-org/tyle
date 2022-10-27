@@ -1,10 +1,10 @@
+import { usePrefersTheme } from "common/hooks/usePrefersTheme";
 import { GlobalStyle, themeBuilder, TyleThemeProvider } from "complib/core";
 import { StrictMode } from "react";
 import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { isProduction } from "../common/utils/config";
 import { queryClient } from "../data/queries/queryClient";
-import { usePrefersTheme } from "../hooks/usePrefersTheme";
 import { App } from "./ui/App";
 
 export const Root = () => {

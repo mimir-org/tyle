@@ -1,9 +1,9 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
+import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { Flexbox } from "complib/layouts";
 import { useTheme } from "styled-components";
 import { Logo } from "../../../common/components/logo";
 import { useGetCurrentUser } from "../../../data/queries/auth/queriesUser";
-import { useGetFilteredCompanies } from "../../../hooks/filter-companies/useGetFilteredCompanies";
 import { ContactButton } from "./contact/ContactButton";
 import { mapPermissionDescriptions } from "./Header.helpers";
 import { HeaderContainer } from "./Header.styles";

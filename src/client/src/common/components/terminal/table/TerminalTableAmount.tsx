@@ -1,6 +1,6 @@
 import { Td } from "complib/data-display";
 import { useTranslation } from "react-i18next";
-import { useMediaQuery } from "../../../../hooks/useMediaQuery";
+import { useMediaQuery } from "../../../hooks/useMediaQuery";
 import { NodeTerminalItem } from "../../../types/nodeTerminalItem";
 
 export const TerminalTableAmount = ({ amount }: Pick<NodeTerminalItem, "amount">) => {

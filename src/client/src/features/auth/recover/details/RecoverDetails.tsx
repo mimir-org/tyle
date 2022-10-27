@@ -1,5 +1,7 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
+import { useExecuteOnCriteria } from "common/hooks/useExecuteOnCriteria";
 import { Button } from "complib/buttons";
 import { Form, FormField } from "complib/form";
 import { Input } from "complib/inputs";
@@ -8,8 +10,6 @@ import { Actionable } from "complib/types";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useGenerateChangePasswordSecret } from "../../../../data/queries/auth/queriesUser";
-import { useServerValidation } from "../../../../hooks/server-validation/useServerValidation";
-import { useExecuteOnCriteria } from "../../../../hooks/useExecuteOnCriteria";
 import { AuthContent } from "../../common/auth-content/AuthContent";
 import { Error } from "../../common/error/Error";
 import { Processing } from "../../common/processing/Processing";

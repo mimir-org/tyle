@@ -1,5 +1,6 @@
 import { DevTool } from "@hookform/devtools";
 import { MimirorgQrCodeCm, MimirorgVerifyAm } from "@mimirorg/typelibrary-types";
+import { useExecuteOnCriteria } from "common/hooks/useExecuteOnCriteria";
 import { Button } from "complib/buttons";
 import { Digits, Input } from "complib/inputs";
 import { Flexbox } from "complib/layouts";
@@ -9,7 +10,6 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { useGenerateMfa, useVerification } from "../../../../data/queries/auth/queriesUser";
-import { useExecuteOnCriteria } from "../../../../hooks/useExecuteOnCriteria";
 import { AuthContent } from "../../common/auth-content/AuthContent";
 import { Error } from "../../common/error/Error";
 import { Processing } from "../../common/processing/Processing";
