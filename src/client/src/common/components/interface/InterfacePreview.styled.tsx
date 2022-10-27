@@ -1,6 +1,6 @@
+import { Palette } from "complib/props";
 import styled, { css } from "styled-components/macro";
 import { InterfaceIcon } from "../../../assets/icons/interface";
-import { Palette } from "../../../complib/props";
 
 export type InterfacePreviewVariant = "small" | "large";
 

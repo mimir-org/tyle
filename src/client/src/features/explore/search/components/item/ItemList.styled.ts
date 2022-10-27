@@ -1,6 +1,6 @@
+import { hideScrollbar } from "complib/mixins";
 import { motion } from "framer-motion";
 import styled from "styled-components/macro";
-import { hideScrollbar } from "../../../../../complib/mixins";
 
 const ItemListContainer = styled.div`
   position: relative;

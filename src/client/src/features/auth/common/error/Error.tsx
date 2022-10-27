@@ -1,7 +1,7 @@
+import { FormErrorBanner } from "complib/form";
+import { Text } from "complib/text";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { FormErrorBanner } from "../../../../complib/form";
-import { Text } from "../../../../complib/text";
 
 interface ErrorProps {
   children: string;

@@ -1,8 +1,8 @@
 import { MimirorgAuthenticateAm } from "@mimirorg/typelibrary-types";
+import { toast } from "complib/data-display";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { toast } from "../../../complib/data-display";
 import { removeToken, setToken } from "../../../common/utils/token";
 import { apiAuthenticate } from "../../api/auth/apiAuthenticate";
 import { userKeys } from "./queriesUser";

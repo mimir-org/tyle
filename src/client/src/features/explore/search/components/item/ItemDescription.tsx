@@ -1,4 +1,4 @@
-import { Text } from "../../../../../complib/text";
+import { Text } from "complib/text";
 import { ItemDescriptionContainer } from "./ItemDescription.styled";
 
 export interface ItemDescriptionProps {

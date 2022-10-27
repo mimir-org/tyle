@@ -1,7 +1,7 @@
+import { Box } from "complib/layouts";
+import { MotionCard } from "complib/surfaces";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { Box } from "../../../../../complib/layouts";
-import { MotionCard } from "../../../../../complib/surfaces";
 import { ItemActionContainer } from "./Item.styled";
 
 export interface ItemProps {

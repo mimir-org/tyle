@@ -1,6 +1,6 @@
+import { MotionFlexbox } from "complib/layouts";
+import { Text } from "complib/text";
 import { useTheme } from "styled-components";
-import { MotionFlexbox } from "../../../../complib/layouts";
-import { Text } from "../../../../complib/text";
 
 interface SearchPlaceholderProps {
   title: string;

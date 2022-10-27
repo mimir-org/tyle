@@ -1,4 +1,4 @@
-import { Box } from "../../../complib/layouts";
+import { Box } from "complib/layouts";
 import { NodeTerminalItem } from "../../types/nodeTerminalItem";
 import { TerminalButtonVariant, Terminals } from "../terminal";
 import { Node } from "./Node";

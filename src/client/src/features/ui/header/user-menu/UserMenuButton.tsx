@@ -1,5 +1,5 @@
+import { Button } from "complib/buttons";
 import styled from "styled-components/macro";
-import { Button } from "../../../../complib/buttons";
 
 export const UserMenuButton = styled(Button).attrs(() => ({
   variant: "text",

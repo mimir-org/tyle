@@ -1,7 +1,7 @@
+import { Th, Tr } from "complib/data-display";
+import { Text } from "complib/text";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { Th, Tr } from "../../../../complib/data-display";
-import { Text } from "../../../../complib/text";
 import { useMediaQuery } from "../../../../hooks/useMediaQuery";
 
 export const NodeFormTerminalTableHeader = () => {

@@ -1,6 +1,6 @@
+import { Box, MotionFlexbox } from "complib/layouts";
+import { Heading, Text } from "complib/text";
 import { useTheme } from "styled-components";
-import { Box, MotionFlexbox } from "../../../../complib/layouts";
-import { Heading, Text } from "../../../../complib/text";
 import { MotionLogo } from "../../../../common/components/logo/Logo";
 
 export interface AuthContentHeaderProps {

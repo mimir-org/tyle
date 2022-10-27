@@ -1,5 +1,5 @@
+import { Td } from "complib/data-display";
 import { useTranslation } from "react-i18next";
-import { Td } from "../../../../complib/data-display";
 import { useMediaQuery } from "../../../../hooks/useMediaQuery";
 import { NodeTerminalItem } from "../../../types/nodeTerminalItem";
 

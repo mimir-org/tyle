@@ -1,8 +1,8 @@
+import { Button } from "complib/buttons";
+import { Box } from "complib/layouts";
+import { Text } from "complib/text";
+import { Actionable } from "complib/types";
 import { useTheme } from "styled-components";
-import { Button } from "../../../../complib/buttons";
-import { Box } from "../../../../complib/layouts";
-import { Text } from "../../../../complib/text";
-import { Actionable } from "../../../../complib/types";
 import { AuthContent } from "../auth-content/AuthContent";
 
 type CompletionProps = Partial<Actionable> & {

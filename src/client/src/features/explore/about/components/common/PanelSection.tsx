@@ -1,7 +1,7 @@
+import { Flexbox } from "complib/layouts";
+import { Heading } from "complib/text";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { Flexbox } from "../../../../../complib/layouts";
-import { Heading } from "../../../../../complib/text";
 
 interface PanelSectionProps {
   title: string;

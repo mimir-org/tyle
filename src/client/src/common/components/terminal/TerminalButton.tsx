@@ -1,7 +1,7 @@
 import { ArrowSmRight, SwitchHorizontal } from "@styled-icons/heroicons-outline";
+import { Polymorphic } from "complib/props";
 import { ButtonHTMLAttributes, ElementType, forwardRef, ReactNode } from "react";
 import { EllipseIcon } from "../../../assets/icons/ellipse";
-import { Polymorphic } from "../../../complib/props";
 import { NodeTerminalItemDirection } from "../../types/nodeTerminalItem";
 import { TerminalButtonContainer } from "./TerminalButton.styled";
 

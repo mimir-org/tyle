@@ -1,10 +1,10 @@
 import { PlusSm } from "@styled-icons/heroicons-outline";
+import { Button } from "complib/buttons";
+import { Popover } from "complib/data-display";
+import { Box } from "complib/layouts";
+import { Accordion } from "complib/surfaces";
 import { useState } from "react";
 import { useTheme } from "styled-components";
-import { Button } from "../../../../../complib/buttons";
-import { Popover } from "../../../../../complib/data-display";
-import { Box } from "../../../../../complib/layouts";
-import { Accordion } from "../../../../../complib/surfaces";
 import { SearchField } from "../../../../../common/components/search-field";
 import { FilterGroup } from "../../types/filterGroup";
 import { filterAvailableFilters } from "./FilterMenu.helpers";

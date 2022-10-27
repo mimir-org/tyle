@@ -1,13 +1,13 @@
 import { DevTool } from "@hookform/devtools";
 import { MimirorgQrCodeCm, MimirorgVerifyAm } from "@mimirorg/typelibrary-types";
+import { Button } from "complib/buttons";
+import { Digits, Input } from "complib/inputs";
+import { Flexbox } from "complib/layouts";
+import { Text } from "complib/text";
+import { Actionable } from "complib/types";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { Button } from "../../../../complib/buttons";
-import { Digits, Input } from "../../../../complib/inputs";
-import { Flexbox } from "../../../../complib/layouts";
-import { Text } from "../../../../complib/text";
-import { Actionable } from "../../../../complib/types";
 import { useGenerateMfa } from "../../../../data/queries/auth/queriesUser";
 import { useExecuteOnCriteria } from "../../../../hooks/useExecuteOnCriteria";
 import { AuthContent } from "../../common/auth-content/AuthContent";

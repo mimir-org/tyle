@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Input } from "../../../../complib/inputs";
+import { Input } from "complib/inputs";
 import { FieldsCard } from "./FieldsCard";
 
 export default {

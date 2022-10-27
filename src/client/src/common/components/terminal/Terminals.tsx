@@ -1,5 +1,5 @@
+import { Box } from "complib/layouts";
 import { useTheme } from "styled-components";
-import { Box } from "../../../complib/layouts";
 import { NodeTerminalItem } from "../../types/nodeTerminalItem";
 import { TerminalButtonProps } from "./TerminalButton";
 import { TerminalCollection } from "./TerminalCollection";

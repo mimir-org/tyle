@@ -1,8 +1,8 @@
+import { Checkbox } from "complib/inputs/checkbox/Checkbox";
+import { Box } from "complib/layouts";
+import { AccordionContent, AccordionItem, AccordionTrigger } from "complib/surfaces";
+import { Text } from "complib/text";
 import { useTheme } from "styled-components";
-import { Checkbox } from "../../../../../complib/inputs/checkbox/Checkbox";
-import { Box } from "../../../../../complib/layouts";
-import { AccordionContent, AccordionItem, AccordionTrigger } from "../../../../../complib/surfaces";
-import { Text } from "../../../../../complib/text";
 import { Filter } from "../../types/filter";
 import { FilterMenuGroupLabel } from "./FilterMenuGroup.styled";
 

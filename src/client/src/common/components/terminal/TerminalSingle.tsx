@@ -1,7 +1,7 @@
+import { Tooltip } from "complib/data-display";
+import { Flexbox } from "complib/layouts";
+import { Text } from "complib/text";
 import { useTheme } from "styled-components";
-import { Tooltip } from "../../../complib/data-display";
-import { Flexbox } from "../../../complib/layouts";
-import { Text } from "../../../complib/text";
 import { NodeTerminalItem } from "../../types/nodeTerminalItem";
 import { TerminalButton, TerminalButtonProps } from "./TerminalButton";
 

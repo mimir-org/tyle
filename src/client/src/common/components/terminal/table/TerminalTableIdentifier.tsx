@@ -1,7 +1,7 @@
+import { Td } from "complib/data-display";
+import { Flexbox } from "complib/layouts";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { Td } from "../../../../complib/data-display";
-import { Flexbox } from "../../../../complib/layouts";
 import { NodeTerminalItem } from "../../../types/nodeTerminalItem";
 import { TerminalButton } from "../TerminalButton";
 

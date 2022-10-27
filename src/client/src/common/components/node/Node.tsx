@@ -1,7 +1,7 @@
+import { Icon } from "complib/media";
+import { TextTypes } from "complib/props";
+import { Text } from "complib/text";
 import { useTheme } from "styled-components";
-import { Icon } from "../../../complib/media";
-import { TextTypes } from "../../../complib/props";
-import { Text } from "../../../complib/text";
 import { NodeContainer, NodeContainerProps } from "./Node.styled";
 
 export type NodeProps = NodeContainerProps & {

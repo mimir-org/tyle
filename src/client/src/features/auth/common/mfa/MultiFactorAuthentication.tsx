@@ -1,11 +1,11 @@
 import { MimirorgQrCodeCm } from "@mimirorg/typelibrary-types";
+import { Button } from "complib/buttons";
+import { Popover } from "complib/data-display";
+import { Box, Flexbox } from "complib/layouts";
+import { Icon } from "complib/media";
+import { Text } from "complib/text";
+import { Actionable } from "complib/types";
 import { useTheme } from "styled-components";
-import { Button } from "../../../../complib/buttons";
-import { Popover } from "../../../../complib/data-display";
-import { Box, Flexbox } from "../../../../complib/layouts";
-import { Icon } from "../../../../complib/media";
-import { Text } from "../../../../complib/text";
-import { Actionable } from "../../../../complib/types";
 import { AuthContent } from "../auth-content/AuthContent";
 
 interface MultiFactorAuthenticationProps {

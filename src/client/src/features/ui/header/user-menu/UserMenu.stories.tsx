@@ -1,6 +1,6 @@
 import { ComponentStory } from "@storybook/react";
-import { Checkbox } from "../../../../complib/inputs/checkbox/Checkbox";
-import { Flexbox } from "../../../../complib/layouts";
+import { Checkbox } from "complib/inputs/checkbox/Checkbox";
+import { Flexbox } from "complib/layouts";
 import { UserMenu } from "./UserMenu";
 
 export default {

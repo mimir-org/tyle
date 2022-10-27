@@ -1,4 +1,4 @@
-import { Table, Tbody, Thead, Tr } from "../../../../complib/data-display";
+import { Table, Tbody, Thead, Tr } from "complib/data-display";
 import { NodeTerminalItem } from "../../../types/nodeTerminalItem";
 import { TerminalTableAmount } from "./TerminalTableAmount";
 import { TerminalTableAttributes } from "./TerminalTableAttributes";

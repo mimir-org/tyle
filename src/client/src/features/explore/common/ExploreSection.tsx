@@ -1,7 +1,7 @@
+import { Box } from "complib/layouts";
+import { Text } from "complib/text";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { Box } from "../../../complib/layouts";
-import { Text } from "../../../complib/text";
 
 interface ExploreSectionProps {
   title: string;

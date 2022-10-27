@@ -1,14 +1,14 @@
 import { XCircle } from "@styled-icons/heroicons-outline";
+import { Token } from "complib/general";
+import { Flexbox, MotionFlexbox } from "complib/layouts";
+import { MotionText } from "complib/text";
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { Token } from "../../../complib/general";
-import { Flexbox, MotionFlexbox } from "../../../complib/layouts";
-import { MotionText } from "../../../complib/text";
 import { SearchField } from "../../../common/components/search-field";
 import { useDebounceState } from "../../../hooks/useDebounceState";
-import { SelectedInfo } from "../common/selectedInfo";
 import { ExploreSection } from "../common/ExploreSection";
+import { SelectedInfo } from "../common/selectedInfo";
 import { FilterMenu } from "./components/filter/FilterMenu";
 import { ConditionalInterfaceSearchItem } from "./components/interface/ConditionalInterfaceSearchItem";
 import { ItemList } from "./components/item/ItemList";
@@ -17,10 +17,10 @@ import { ConditionalNodeSearchItem } from "./components/node/ConditionalNodeSear
 import { SearchPlaceholder } from "./components/SearchPlaceholder";
 import { ConditionalTerminalSearchItem } from "./components/terminal/ConditionalTerminalSearchItem";
 import { ConditionalTransportSearchItem } from "./components/transport/ConditionalTransportSearchItem";
-import { getCreateMenuLinks } from "./Search.helpers";
 import { useFilterState } from "./hooks/useFilterState";
 import { useGetFilterGroups } from "./hooks/useGetFilterGroups";
 import { useSearchResults } from "./hooks/useSearchResults";
+import { getCreateMenuLinks } from "./Search.helpers";
 
 interface SearchProps {
   selected?: SelectedInfo;

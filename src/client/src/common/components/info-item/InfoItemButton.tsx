@@ -1,6 +1,6 @@
+import { Popover } from "complib/data-display";
+import { TokenButton, TokenButtonProps } from "complib/general";
 import { ForwardedRef, forwardRef, useState } from "react";
-import { Popover } from "../../../complib/data-display";
-import { TokenButton, TokenButtonProps } from "../../../complib/general";
 import { InfoItemDescription, InfoItemDescriptionProps } from "./InfoItemDescription";
 
 export type InfoItemButtonProps = TokenButtonProps & InfoItemDescriptionProps;

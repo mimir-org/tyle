@@ -1,5 +1,5 @@
+import { focus } from "complib/mixins";
 import styled from "styled-components/macro";
-import { focus } from "../../../../../complib/mixins";
 
 export const ItemDescriptionContainer = styled.button`
   border: 0;

@@ -1,13 +1,13 @@
 import { State } from "@mimirorg/typelibrary-types";
 import { Duplicate, PencilAlt, Trash } from "@styled-icons/heroicons-outline";
+import { Button } from "complib/buttons";
+import { AlertDialog } from "complib/overlays/alert-dialog/AlertDialog";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { Button } from "../../../../../complib/buttons";
-import { AlertDialog } from "../../../../../complib/overlays/alert-dialog/AlertDialog";
-import { usePatchTerminalState } from "../../../../../data/queries/tyle/queriesTerminal";
+import { PlainLink } from "../../../../../common/components/plain-link";
 import { TerminalPreview } from "../../../../../common/components/terminal/TerminalPreview";
 import { TerminalItem } from "../../../../../common/types/terminalItem";
-import { PlainLink } from "../../../../../common/components/plain-link";
+import { usePatchTerminalState } from "../../../../../data/queries/tyle/queriesTerminal";
 import { Item } from "../item/Item";
 import { ItemDescription } from "../item/ItemDescription";
 

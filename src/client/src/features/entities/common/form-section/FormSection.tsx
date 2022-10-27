@@ -1,7 +1,7 @@
+import { Box, Flexbox, MotionBox } from "complib/layouts";
+import { MotionText, Text } from "complib/text";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { Box, Flexbox, MotionBox } from "../../../../complib/layouts";
-import { MotionText, Text } from "../../../../complib/text";
 
 interface FormSectionProps {
   title: string;

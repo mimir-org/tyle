@@ -1,6 +1,6 @@
+import { focus, layer, translucify } from "complib/mixins";
 import { meetsContrastGuidelines } from "polished";
 import styled, { css } from "styled-components/macro";
-import { focus, layer, translucify } from "../../../complib/mixins";
 import { TerminalButtonProps } from "./TerminalButton";
 
 export const TerminalButtonContainer = styled.button<TerminalButtonProps>`

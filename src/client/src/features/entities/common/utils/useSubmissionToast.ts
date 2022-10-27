@@ -1,5 +1,5 @@
+import { toast } from "complib/data-display";
 import { useTranslation } from "react-i18next";
-import { toast } from "../../../../complib/data-display";
 
 export const useSubmissionToast = (type: string) => {
   const { t } = useTranslation("translation", { keyPrefix: "processing" });

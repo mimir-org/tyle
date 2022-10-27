@@ -1,5 +1,5 @@
-import { Tooltip } from "../../../complib/data-display";
-import { TokenCheckbox, TokenCheckboxProps } from "../../../complib/general";
+import { Tooltip } from "complib/data-display";
+import { TokenCheckbox, TokenCheckboxProps } from "complib/general";
 import { InfoItem } from "../../types/infoItem";
 import { InfoItemDescription } from "./InfoItemDescription";
 

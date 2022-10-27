@@ -1,6 +1,6 @@
+import { TextTypes } from "complib/props";
+import { Text } from "complib/text";
 import { useTheme } from "styled-components";
-import { TextTypes } from "../../../complib/props";
-import { Text } from "../../../complib/text";
 import {
   Interface,
   InterfacePreviewContainer,

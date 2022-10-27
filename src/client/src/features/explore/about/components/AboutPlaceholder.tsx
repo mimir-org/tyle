@@ -1,6 +1,6 @@
+import { MotionFlexbox } from "complib/layouts";
+import { Text } from "complib/text";
 import { useTheme } from "styled-components";
-import { MotionFlexbox } from "../../../../complib/layouts";
-import { Text } from "../../../../complib/text";
 
 /**
  * Component for presenting content while the user has not selected any item to display information about.

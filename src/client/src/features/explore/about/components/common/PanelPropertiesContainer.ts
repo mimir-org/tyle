@@ -1,5 +1,5 @@
+import { hideScrollbar } from "complib/mixins";
 import styled from "styled-components/macro";
-import { hideScrollbar } from "../../../../../complib/mixins";
 
 export const PanelPropertiesContainer = styled.div`
   flex: 1;

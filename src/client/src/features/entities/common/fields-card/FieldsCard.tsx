@@ -1,9 +1,9 @@
 import { Trash } from "@styled-icons/heroicons-outline";
+import { Button } from "complib/buttons";
+import { Box, Flexbox } from "complib/layouts";
+import { Text } from "complib/text";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { Button } from "../../../../complib/buttons";
-import { Box, Flexbox } from "../../../../complib/layouts";
-import { Text } from "../../../../complib/text";
 import { FieldsCardContainer } from "./FieldsCard.styled";
 
 interface FieldsCardProps {

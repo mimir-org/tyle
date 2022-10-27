@@ -1,5 +1,5 @@
-import { TextTypes } from "../../../complib/props";
-import { Text } from "../../../complib/text";
+import { TextTypes } from "complib/props";
+import { Text } from "complib/text";
 import { TerminalButton } from "./TerminalButton";
 import { TerminalPreviewContainer, TerminalPreviewVariant } from "./TerminalPreview.styled";
 

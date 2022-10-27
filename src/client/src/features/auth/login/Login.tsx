@@ -1,19 +1,19 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { MimirorgAuthenticateAm } from "@mimirorg/typelibrary-types";
+import { Button } from "complib/buttons";
+import { Form, FormErrorBanner, FormField, FormFieldset } from "complib/form";
+import { Input } from "complib/inputs";
+import { MotionFlexbox } from "complib/layouts";
+import { MotionText, Text } from "complib/text";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "styled-components";
-import { Button } from "../../../complib/buttons";
-import { Form, FormErrorBanner, FormField, FormFieldset } from "../../../complib/form";
-import { Input } from "../../../complib/inputs";
-import { MotionFlexbox } from "../../../complib/layouts";
-import { MotionText, Text } from "../../../complib/text";
 import { useLogin } from "../../../data/queries/auth/queriesAuthenticate";
 import { useServerValidation } from "../../../hooks/server-validation/useServerValidation";
 import { AuthContent } from "../common/auth-content/AuthContent";
-import { RegisterPath } from "../register/RegisterRoutes";
 import { RecoverPath } from "../recover/RecoverRoutes";
+import { RegisterPath } from "../register/RegisterRoutes";
 import { loginSchema } from "./loginSchema";
 
 export const Login = () => {

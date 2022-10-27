@@ -1,16 +1,16 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
+import { Flexbox } from "complib/layouts";
 import { useTheme } from "styled-components";
-import { Flexbox } from "../../../complib/layouts";
+import { Logo } from "../../../common/components/logo";
 import { useGetCurrentUser } from "../../../data/queries/auth/queriesUser";
 import { useGetFilteredCompanies } from "../../../hooks/filter-companies/useGetFilteredCompanies";
-import { Logo } from "../../../common/components/logo";
 import { ContactButton } from "./contact/ContactButton";
-import { UserInfo } from "./user-info/UserInfo";
-import { LogoutButton } from "./logout-button/LogoutButton";
-import { UserMenu } from "./user-menu/UserMenu";
-import { ThemeButton } from "./theme-button/ThemeButton";
 import { mapPermissionDescriptions } from "./Header.helpers";
 import { HeaderContainer } from "./Header.styles";
+import { LogoutButton } from "./logout-button/LogoutButton";
+import { ThemeButton } from "./theme-button/ThemeButton";
+import { UserInfo } from "./user-info/UserInfo";
+import { UserMenu } from "./user-menu/UserMenu";
 
 export const Header = () => {
   const theme = useTheme();

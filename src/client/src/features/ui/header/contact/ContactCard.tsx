@@ -1,7 +1,7 @@
 import { User } from "@styled-icons/heroicons-outline";
+import { Box, MotionBox } from "complib/layouts";
+import { Text } from "complib/text";
 import { useTheme } from "styled-components";
-import { Box, MotionBox } from "../../../../complib/layouts";
-import { Text } from "../../../../complib/text";
 
 interface ContactCardProps {
   name?: string;

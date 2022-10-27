@@ -1,9 +1,9 @@
+import { VisuallyHidden } from "complib/accessibility";
+import { Divider, Popover } from "complib/data-display";
+import { Box, Flexbox } from "complib/layouts";
+import { Text } from "complib/text";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { VisuallyHidden } from "../../../complib/accessibility";
-import { Divider, Popover } from "../../../complib/data-display";
-import { Box, Flexbox } from "../../../complib/layouts";
-import { Text } from "../../../complib/text";
 import { NodeTerminalItem } from "../../types/nodeTerminalItem";
 import { TerminalButton } from "./TerminalButton";
 import { TerminalDescription } from "./TerminalSingle";

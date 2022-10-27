@@ -1,8 +1,8 @@
 import { DialogClose } from "@radix-ui/react-dialog";
 import { PlusSm } from "@styled-icons/heroicons-outline";
+import { Button } from "complib/buttons";
+import { Dialog } from "complib/overlays";
 import { useState } from "react";
-import { Button } from "../../../../complib/buttons";
-import { Dialog } from "../../../../complib/overlays";
 import { InfoItemCheckbox } from "../../../../common/components/info-item";
 import { SearchField } from "../../../../common/components/search-field";
 import { InfoItem } from "../../../../common/types/infoItem";
