@@ -1,11 +1,11 @@
 import { AttributeLibAm, AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { Trash } from "@styled-icons/heroicons-outline";
+import { InfoItemButton } from "common/components/info-item";
 import { UpdateEntity } from "common/types/updateEntity";
 import { Flexbox } from "complib/layouts";
 import { UseFormRegisterReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { InfoItemButton } from "../../../../common/components/info-item";
 import { useGetAttributes } from "../../../../data/queries/tyle/queriesAttribute";
 import { ValueObject } from "../../types/valueObject";
 import { FormSection } from "../form-section/FormSection";

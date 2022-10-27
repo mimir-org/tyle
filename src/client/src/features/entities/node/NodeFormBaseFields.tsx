@@ -1,4 +1,5 @@
 import { Aspect, MimirorgPermission } from "@mimirorg/typelibrary-types";
+import { PlainLink } from "common/components/plain-link";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { getValueLabelObjectsFromEnum } from "common/utils/getValueLabelObjectsFromEnum";
 import { Button } from "complib/buttons";
@@ -12,7 +13,6 @@ import { ConditionalWrapper } from "complib/utils";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { PlainLink } from "../../../common/components/plain-link";
 import { useGetPurposes } from "../../../data/queries/tyle/queriesPurpose";
 import { useGetRds } from "../../../data/queries/tyle/queriesRds";
 import { useGetSymbols } from "../../../data/queries/tyle/queriesSymbol";

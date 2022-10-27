@@ -1,8 +1,8 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { InfoItemButtonProps } from "common/components/info-item/InfoItemButton";
+import { Default as SelectItemInfoButton } from "common/components/info-item/InfoItemButton.stories";
 import { Button } from "complib/buttons";
 import { Flexbox } from "complib/layouts";
-import { InfoItemButtonProps } from "../../../../common/components/info-item/InfoItemButton";
-import { Default as SelectItemInfoButton } from "../../../../common/components/info-item/InfoItemButton.stories";
 import { FormSection } from "./FormSection";
 
 export default {

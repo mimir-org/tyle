@@ -1,3 +1,4 @@
+import { Loader } from "common/components/loader";
 import {
   mapInterfaceLibCmToInterfaceItem,
   mapNodeLibCmToNodeItem,
@@ -6,7 +7,6 @@ import {
 } from "common/utils/mappers";
 import { AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { Loader } from "../../../common/components/loader";
 import { useGetInterface } from "../../../data/queries/tyle/queriesInterface";
 import { useGetNode } from "../../../data/queries/tyle/queriesNode";
 import { useGetTerminal } from "../../../data/queries/tyle/queriesTerminal";

@@ -1,12 +1,12 @@
+import { InfoItemButton } from "common/components/info-item";
+import { NodePreview } from "common/components/node";
+import { TerminalTable } from "common/components/terminal";
 import { NodeItem } from "common/types/nodeItem";
 import { Token } from "complib/general";
 import { Flexbox, MotionBox } from "complib/layouts";
 import { Heading, Text } from "complib/text";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { InfoItemButton } from "../../../../../common/components/info-item";
-import { NodePreview } from "../../../../../common/components/node";
-import { TerminalTable } from "../../../../../common/components/terminal";
 import { PanelPropertiesContainer } from "../common/PanelPropertiesContainer";
 import { PanelSection } from "../common/PanelSection";
 

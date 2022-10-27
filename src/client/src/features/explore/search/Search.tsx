@@ -1,4 +1,5 @@
 import { XCircle } from "@styled-icons/heroicons-outline";
+import { SearchField } from "common/components/search-field";
 import { useDebounceState } from "common/hooks/useDebounceState";
 import { Token } from "complib/general";
 import { Flexbox, MotionFlexbox } from "complib/layouts";
@@ -6,7 +7,6 @@ import { MotionText } from "complib/text";
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { SearchField } from "../../../common/components/search-field";
 import { ExploreSection } from "../common/ExploreSection";
 import { SelectedInfo } from "../common/selectedInfo";
 import { FilterMenu } from "./components/filter/FilterMenu";
