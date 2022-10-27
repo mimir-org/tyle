@@ -53,7 +53,7 @@ module.exports = {
     "import/resolver": {
       node: {
         paths: ["src"],
-        extensions: ["d.ts", ".ts", ".tsx"],
+        extensions: ["d.ts", ".ts", ".tsx", ".js", ".jsx"],
       },
     },
   },
