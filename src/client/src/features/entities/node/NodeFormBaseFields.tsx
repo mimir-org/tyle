@@ -1,5 +1,6 @@
 import { Aspect, MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
+import { getValueLabelObjectsFromEnum } from "common/utils/getValueLabelObjectsFromEnum";
 import { Button } from "complib/buttons";
 import { Popover } from "complib/data-display";
 import { FormField } from "complib/form";
@@ -12,7 +13,6 @@ import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { PlainLink } from "../../../common/components/plain-link";
-import { getValueLabelObjectsFromEnum } from "../../../common/utils/getValueLabelObjectsFromEnum";
 import { useGetPurposes } from "../../../data/queries/tyle/queriesPurpose";
 import { useGetRds } from "../../../data/queries/tyle/queriesRds";
 import { useGetSymbols } from "../../../data/queries/tyle/queriesSymbol";

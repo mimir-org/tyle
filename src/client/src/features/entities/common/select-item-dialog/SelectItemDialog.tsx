@@ -1,11 +1,11 @@
 import { DialogClose } from "@radix-ui/react-dialog";
 import { PlusSm } from "@styled-icons/heroicons-outline";
+import { InfoItem } from "common/types/infoItem";
 import { Button } from "complib/buttons";
 import { Dialog } from "complib/overlays";
 import { useState } from "react";
 import { InfoItemCheckbox } from "../../../../common/components/info-item";
 import { SearchField } from "../../../../common/components/search-field";
-import { InfoItem } from "../../../../common/types/infoItem";
 import { filterInfoItem, onSelectionChange } from "./SelectItemDialog.helpers";
 import { SelectContainer, SelectItemsContainer } from "./SelectItemDialog.styled";
 

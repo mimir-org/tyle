@@ -1,3 +1,4 @@
+import { InterfaceItem } from "common/types/interfaceItem";
 import { Token } from "complib/general";
 import { Flexbox, MotionBox } from "complib/layouts";
 import { Heading, Text } from "complib/text";
@@ -6,7 +7,6 @@ import { useTheme } from "styled-components";
 import { InfoItemButton } from "../../../../../common/components/info-item";
 import { InterfacePreview } from "../../../../../common/components/interface";
 import { TerminalPreview } from "../../../../../common/components/terminal/TerminalPreview";
-import { InterfaceItem } from "../../../../../common/types/interfaceItem";
 import { PanelPropertiesContainer } from "../common/PanelPropertiesContainer";
 import { PanelSection } from "../common/PanelSection";
 

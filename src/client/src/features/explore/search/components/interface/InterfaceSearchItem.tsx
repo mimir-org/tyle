@@ -1,12 +1,12 @@
 import { State } from "@mimirorg/typelibrary-types";
 import { Duplicate, PencilAlt, Trash } from "@styled-icons/heroicons-outline";
+import { InterfaceItem } from "common/types/interfaceItem";
 import { Button } from "complib/buttons";
 import { AlertDialog } from "complib/overlays/alert-dialog/AlertDialog";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { InterfacePreview } from "../../../../../common/components/interface";
 import { PlainLink } from "../../../../../common/components/plain-link";
-import { InterfaceItem } from "../../../../../common/types/interfaceItem";
 import { usePatchInterfaceState } from "../../../../../data/queries/tyle/queriesInterface";
 import { Item } from "../item/Item";
 import { ItemDescription } from "../item/ItemDescription";

@@ -1,7 +1,7 @@
 import { MimirorgCompanyAm } from "@mimirorg/typelibrary-types";
+import { UpdateEntity } from "common/types/updateEntity";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiCompany } from "../../api/auth/apiCompany";
-import { UpdateEntity } from "../../../common/types/updateEntity";
 
 const keys = {
   all: ["companies"] as const,

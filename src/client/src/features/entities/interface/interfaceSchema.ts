@@ -1,6 +1,6 @@
+import { YupShape } from "common/types/yupShape";
 import { TFunction } from "react-i18next";
 import * as yup from "yup";
-import { YupShape } from "../../../common/types/yupShape";
 import { typeReferenceListSchema } from "../common/validation/typeReferenceListSchema";
 import { FormInterfaceLib } from "./types/formInterfaceLib";
 

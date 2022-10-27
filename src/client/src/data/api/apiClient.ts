@@ -1,5 +1,5 @@
 import axios from "axios";
-import config from "../../common/utils/config";
+import config from "common/utils/config";
 import { injectBearerToken } from "./interceptors/injectBearerToken";
 import { refreshExpiredToken } from "./interceptors/refreshExpiredToken";
 

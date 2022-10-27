@@ -1,18 +1,18 @@
-import { AnimatePresence } from "framer-motion";
-import { useTranslation } from "react-i18next";
-import { useGetInterface } from "../../../data/queries/tyle/queriesInterface";
-import { useGetNode } from "../../../data/queries/tyle/queriesNode";
-import { useGetTerminal } from "../../../data/queries/tyle/queriesTerminal";
-import { useGetTransport } from "../../../data/queries/tyle/queriesTransport";
 import {
   mapInterfaceLibCmToInterfaceItem,
   mapNodeLibCmToNodeItem,
   mapTerminalLibCmToTerminalItem,
   mapTransportLibCmToTransportItem,
-} from "../../../common/utils/mappers";
+} from "common/utils/mappers";
+import { AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { Loader } from "../../../common/components/loader";
-import { SelectedInfo } from "../common/selectedInfo";
+import { useGetInterface } from "../../../data/queries/tyle/queriesInterface";
+import { useGetNode } from "../../../data/queries/tyle/queriesNode";
+import { useGetTerminal } from "../../../data/queries/tyle/queriesTerminal";
+import { useGetTransport } from "../../../data/queries/tyle/queriesTransport";
 import { ExploreSection } from "../common/ExploreSection";
+import { SelectedInfo } from "../common/selectedInfo";
 import { AboutPlaceholder } from "./components/AboutPlaceholder";
 import { InterfacePanel } from "./components/interface/InterfacePanel";
 import { NodePanel } from "./components/node/NodePanel";

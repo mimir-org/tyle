@@ -1,5 +1,5 @@
 import { Aspect, AttributeLibAm, TransportLibAm, TransportLibCm } from "@mimirorg/typelibrary-types";
-import { UpdateEntity } from "../../../../common/types/updateEntity";
+import { UpdateEntity } from "common/types/updateEntity";
 import { ValueObject } from "../../types/valueObject";
 import { TransportFormMode } from "./transportFormMode";
 

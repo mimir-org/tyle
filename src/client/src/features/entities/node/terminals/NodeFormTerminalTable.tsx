@@ -1,4 +1,5 @@
 import { ConnectorDirection } from "@mimirorg/typelibrary-types";
+import { getValueLabelObjectsFromEnum } from "common/utils/getValueLabelObjectsFromEnum";
 import { Table, Tbody, Td, Thead, Tr } from "complib/data-display";
 import { FormField } from "complib/form";
 import { Counter, Select } from "complib/inputs";
@@ -8,7 +9,6 @@ import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { TerminalButton } from "../../../../common/components/terminal";
-import { getValueLabelObjectsFromEnum } from "../../../../common/utils/getValueLabelObjectsFromEnum";
 import { useGetTerminals } from "../../../../data/queries/tyle/queriesTerminal";
 import { FormSection } from "../../common/form-section/FormSection";
 import { FormNodeLib } from "../types/formNodeLib";

@@ -1,16 +1,16 @@
-import { useGetInterfaces } from "../../../../data/queries/tyle/queriesInterface";
-import { useGetNodes } from "../../../../data/queries/tyle/queriesNode";
-import { useGetTerminals } from "../../../../data/queries/tyle/queriesTerminal";
-import { useGetTransports } from "../../../../data/queries/tyle/queriesTransport";
 import {
   mapInterfaceLibCmToInterfaceItem,
   mapNodeLibCmToNodeItem,
   mapTerminalLibCmToTerminalItem,
-  mapTransportLibCmToTransportItem,
-} from "../../../../common/utils/mappers";
+  mapTransportLibCmToTransportItem
+} from "common/utils/mappers";
+import { useGetInterfaces } from "../../../../data/queries/tyle/queriesInterface";
+import { useGetNodes } from "../../../../data/queries/tyle/queriesNode";
+import { useGetTerminals } from "../../../../data/queries/tyle/queriesTerminal";
+import { useGetTransports } from "../../../../data/queries/tyle/queriesTransport";
+import { isInterfaceLibCm, isNodeLibCm, isTerminalLibCm, isTransportLibCm } from "../guards";
 import { Filter } from "../types/filter";
 import { SearchResult, SearchResultRaw } from "../types/searchResult";
-import { isInterfaceLibCm, isNodeLibCm, isTerminalLibCm, isTransportLibCm } from "../guards";
 
 /**
  * Filters items with AND-logic if there are any filters available, returns items sorted by date if not.

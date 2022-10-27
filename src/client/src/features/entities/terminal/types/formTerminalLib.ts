@@ -1,5 +1,5 @@
 import { AttributeLibAm, TerminalLibAm, TerminalLibCm } from "@mimirorg/typelibrary-types";
-import { UpdateEntity } from "../../../../common/types/updateEntity";
+import { UpdateEntity } from "common/types/updateEntity";
 import { ValueObject } from "../../types/valueObject";
 import { TerminalFormMode } from "./terminalFormMode";
 

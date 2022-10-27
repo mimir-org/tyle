@@ -1,5 +1,5 @@
 import { ConnectorDirection, NodeTerminalLibAm, TerminalLibCm } from "@mimirorg/typelibrary-types";
-import { NodeTerminalItem } from "../../../common/types/nodeTerminalItem";
+import { NodeTerminalItem } from "common/types/nodeTerminalItem";
 
 export const getTerminalItemsFromFormData = (formTerminals: NodeTerminalLibAm[], sourceTerminals?: TerminalLibCm[]) => {
   if (!sourceTerminals || sourceTerminals.length < 1) {

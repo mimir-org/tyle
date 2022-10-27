@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from "axios";
-import { getToken } from "../../../common/utils/token";
+import { getToken } from "common/utils/token";
 
 /**
  * This middleware checks if there's an access token available in localstorage,

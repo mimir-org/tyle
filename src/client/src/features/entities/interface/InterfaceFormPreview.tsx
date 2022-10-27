@@ -1,6 +1,6 @@
+import { getColorFromAspect } from "common/utils/getColorFromAspect";
 import { Control, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { getColorFromAspect } from "../../../common/utils/getColorFromAspect";
 import { InterfacePreview } from "../../../common/components/interface";
 import { FormInterfaceLib } from "./types/formInterfaceLib";
 
