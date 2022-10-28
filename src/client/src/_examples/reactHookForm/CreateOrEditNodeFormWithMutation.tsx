@@ -1,6 +1,6 @@
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
+import { useCreateNode } from "external/sources/node/node.queries";
 import { useForm } from "react-hook-form";
-import { useCreateNode } from "../../data/queries/tyle/queriesNode";
 import {
   createEmptyFormNodeLib,
   FormNodeLib,

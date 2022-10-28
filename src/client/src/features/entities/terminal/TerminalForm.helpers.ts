@@ -1,5 +1,5 @@
+import { useCreateTerminal, useGetTerminal, useUpdateTerminal } from "external/sources/terminal/terminal.queries";
 import { useParams } from "react-router-dom";
-import { useCreateTerminal, useGetTerminal, useUpdateTerminal } from "../../../data/queries/tyle/queriesTerminal";
 import { TerminalFormMode } from "./types/terminalFormMode";
 
 export const useTerminalQuery = () => {

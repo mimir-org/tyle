@@ -1,5 +1,5 @@
 import { Aspect, NodeLibAm } from "@mimirorg/typelibrary-types";
-import { useCreateNode, useGetNodes } from "../../data/queries/tyle/queriesNode";
+import { useCreateNode, useGetNodes } from "external/sources/node/node.queries";
 import {
   ButtonContainer,
   JsonContent,

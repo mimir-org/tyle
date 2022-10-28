@@ -1,6 +1,6 @@
 import { Aspect } from "@mimirorg/typelibrary-types";
+import { useCreateNode, useGetNode, useUpdateNode } from "external/sources/node/node.queries";
 import { useParams } from "react-router-dom";
-import { useCreateNode, useGetNode, useUpdateNode } from "../../../data/queries/tyle/queriesNode";
 import { NodeFormPredefinedAttributes } from "./predefined-attributes/NodeFormPredefinedAttributes";
 import { NodeFormTerminalTable } from "./terminals/NodeFormTerminalTable";
 import { FormNodeLib } from "./types/formNodeLib";

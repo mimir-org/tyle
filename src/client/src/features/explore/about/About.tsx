@@ -5,12 +5,12 @@ import {
   mapTerminalLibCmToTerminalItem,
   mapTransportLibCmToTransportItem,
 } from "common/utils/mappers";
+import { useGetInterface } from "external/sources/interface/interface.queries";
+import { useGetNode } from "external/sources/node/node.queries";
+import { useGetTerminal } from "external/sources/terminal/terminal.queries";
+import { useGetTransport } from "external/sources/transport/transport.queries";
 import { AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { useGetInterface } from "../../../data/queries/tyle/queriesInterface";
-import { useGetNode } from "../../../data/queries/tyle/queriesNode";
-import { useGetTerminal } from "../../../data/queries/tyle/queriesTerminal";
-import { useGetTransport } from "../../../data/queries/tyle/queriesTransport";
 import { ExploreSection } from "../common/ExploreSection";
 import { SelectedInfo } from "../common/selectedInfo";
 import { AboutPlaceholder } from "./components/AboutPlaceholder";

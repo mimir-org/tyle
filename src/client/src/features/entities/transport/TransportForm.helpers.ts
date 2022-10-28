@@ -1,5 +1,5 @@
+import { useCreateTransport, useGetTransport, useUpdateTransport } from "external/sources/transport/transport.queries";
 import { useParams } from "react-router-dom";
-import { useCreateTransport, useGetTransport, useUpdateTransport } from "../../../data/queries/tyle/queriesTransport";
 import { FormTransportLib } from "./types/formTransportLib";
 import { TransportFormMode } from "./types/transportFormMode";
 

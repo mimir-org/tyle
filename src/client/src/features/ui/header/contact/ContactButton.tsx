@@ -5,9 +5,9 @@ import { Select } from "complib/inputs";
 import { Box } from "complib/layouts";
 import { Dialog } from "complib/overlays";
 import { Text } from "complib/text";
+import { useGetCompany } from "external/sources/company/company.queries";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useGetCompany } from "../../../../data/queries/auth/queriesCompany";
 import { UserMenuButton } from "../user-menu/UserMenuButton";
 import { ContactCard } from "./ContactCard";
 

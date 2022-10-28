@@ -3,7 +3,7 @@ import { UpdateEntity } from "common/types/updateEntity";
 import { ValueObject } from "../../types/valueObject";
 import {
   FormSelectedAttributePredefinedLib,
-  mapFormSelectedAttributePredefinedLibToApiModel
+  mapFormSelectedAttributePredefinedLibToApiModel,
 } from "./formSelectedAttributePredefinedLib";
 import { NodeFormMode } from "./nodeFormMode";
 

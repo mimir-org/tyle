@@ -1,5 +1,5 @@
+import { useCreateInterface, useGetInterface, useUpdateInterface } from "external/sources/interface/interface.queries";
 import { useParams } from "react-router-dom";
-import { useCreateInterface, useGetInterface, useUpdateInterface } from "../../../data/queries/tyle/queriesInterface";
 import { FormInterfaceLib } from "./types/formInterfaceLib";
 import { InterfaceFormMode } from "./types/interfaceFormMode";
 

@@ -2,12 +2,12 @@ import {
   mapInterfaceLibCmToInterfaceItem,
   mapNodeLibCmToNodeItem,
   mapTerminalLibCmToTerminalItem,
-  mapTransportLibCmToTransportItem
+  mapTransportLibCmToTransportItem,
 } from "common/utils/mappers";
-import { useGetInterfaces } from "../../../../data/queries/tyle/queriesInterface";
-import { useGetNodes } from "../../../../data/queries/tyle/queriesNode";
-import { useGetTerminals } from "../../../../data/queries/tyle/queriesTerminal";
-import { useGetTransports } from "../../../../data/queries/tyle/queriesTransport";
+import { useGetInterfaces } from "external/sources/interface/interface.queries";
+import { useGetNodes } from "external/sources/node/node.queries";
+import { useGetTerminals } from "external/sources/terminal/terminal.queries";
+import { useGetTransports } from "external/sources/transport/transport.queries";
 import { isInterfaceLibCm, isNodeLibCm, isTerminalLibCm, isTransportLibCm } from "../guards";
 import { Filter } from "../types/filter";
 import { SearchResult, SearchResultRaw } from "../types/searchResult";

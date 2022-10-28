@@ -5,9 +5,9 @@ import { PlainLink } from "common/components/plain-link";
 import { InterfaceItem } from "common/types/interfaceItem";
 import { Button } from "complib/buttons";
 import { AlertDialog } from "complib/overlays/alert-dialog/AlertDialog";
+import { usePatchInterfaceState } from "external/sources/interface/interface.queries";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { usePatchInterfaceState } from "../../../../../data/queries/tyle/queriesInterface";
 import { Item } from "../item/Item";
 import { ItemDescription } from "../item/ItemDescription";
 

@@ -1,6 +1,6 @@
 import { FullPageSpinner } from "complib/feedback";
+import { useGetCurrentUser } from "external/sources/user/user.queries";
 import { useTranslation } from "react-i18next";
-import { useGetCurrentUser } from "../../data/queries/auth/queriesUser";
 import { Authenticated } from "./authenticated/Authenticated";
 import { Unauthenticated } from "./unauthenticated/Unauthenticated";
 

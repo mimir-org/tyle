@@ -5,9 +5,9 @@ import { TransportPreview } from "common/components/transport";
 import { TransportItem } from "common/types/transportItem";
 import { Button } from "complib/buttons";
 import { AlertDialog } from "complib/overlays/alert-dialog/AlertDialog";
+import { usePatchTransportState } from "external/sources/transport/transport.queries";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { usePatchTransportState } from "../../../../../data/queries/tyle/queriesTransport";
 import { Item } from "../item/Item";
 import { ItemDescription } from "../item/ItemDescription";
 
