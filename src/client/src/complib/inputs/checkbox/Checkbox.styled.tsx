@@ -1,8 +1,8 @@
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { motion } from "framer-motion";
 import styled from "styled-components/macro";
-import { CheckboxCheckedIcon } from "../../../assets/icons/checkmark";
 import { focus } from "../../mixins";
+import { CheckboxCheckedIcon } from "./assets";
 
 export const CheckboxRoot = styled(CheckboxPrimitive.Root)`
   all: unset;

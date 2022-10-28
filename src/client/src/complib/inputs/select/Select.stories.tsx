@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { LibraryIcon } from "../../../assets/icons/modules";
+import { LibraryIcon } from "complib/assets";
 import { Flexbox } from "../../layouts";
 import { Icon } from "../../media";
 import { Text } from "../../text";

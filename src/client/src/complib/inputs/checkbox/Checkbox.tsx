@@ -1,7 +1,7 @@
 import { CheckboxProps } from "@radix-ui/react-checkbox";
 import { ForwardedRef, forwardRef } from "react";
 import { useTheme } from "styled-components";
-import { CheckboxEmptyIcon } from "../../../assets/icons/checkmark";
+import { CheckboxEmptyIcon } from "./assets";
 import { CheckboxChecked, CheckboxIndicator, MotionCheckboxRoot } from "./Checkbox.styled";
 
 /**

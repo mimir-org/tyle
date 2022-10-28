@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { LibraryIcon } from "../../../assets/icons/modules";
+import { LibraryIcon } from "complib/assets";
 import { mockNodeTerminalItem } from "../../utils/mocks";
 import { NodePreview } from "./NodePreview";
 

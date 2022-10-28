@@ -1,6 +1,6 @@
 import { Palette } from "complib/props";
 import styled, { css } from "styled-components/macro";
-import { TransportIcon } from "../../../assets/icons/transport";
+import { TransportIcon } from "./assets";
 
 export type TransportPreviewVariant = "small" | "large";
 

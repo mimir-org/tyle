@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { LibraryIcon } from "../../../assets/icons/modules";
+import { LibraryIcon } from "complib/assets";
 import { NodeItem } from "../../types/nodeItem";
 import { mockInfoItem } from "./mockInfoItem";
 import { mockNodeTerminalItem } from "./mockNodeTerminalItem";

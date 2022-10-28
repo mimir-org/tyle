@@ -1,6 +1,6 @@
-import { Icon } from "./Icon";
-import { LibraryIcon } from "../../../assets/icons/modules";
 import { ComponentStory } from "@storybook/react";
+import { LibraryIcon } from "complib/assets";
+import { Icon } from "./Icon";
 
 export default {
   title: "Media/Icon",
