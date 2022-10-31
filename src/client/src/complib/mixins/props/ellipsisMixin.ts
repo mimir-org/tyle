@@ -1,5 +1,5 @@
+import { Ellipsis } from "complib/props";
 import { css } from "styled-components/macro";
-import { Ellipsis } from "../../props/ellipsis";
 
 export const ellipsisMixin = css<Ellipsis>`
   ${({ useEllipsis, ellipsisMaxLines }) => {

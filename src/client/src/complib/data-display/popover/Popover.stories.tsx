@@ -1,9 +1,9 @@
 import { ComponentMeta } from "@storybook/react";
-import { Button } from "../../buttons";
-import { Box } from "../../layouts";
-import { Text } from "../../text";
-import { Divider } from "../divider/Divider";
-import { Popover } from "./Popover";
+import { Button } from "complib/buttons";
+import { Divider } from "complib/data-display/divider/Divider";
+import { Popover } from "complib/data-display/popover/Popover";
+import { Box } from "complib/layouts";
+import { Text } from "complib/text";
 
 export default {
   title: "Data display/Popover",

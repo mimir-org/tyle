@@ -1,8 +1,8 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Button } from "../../buttons";
-import { Token } from "../../general";
-import { Box } from "../../layouts";
-import { Dialog } from "./Dialog";
+import { Button } from "complib/buttons";
+import { Token } from "complib/general";
+import { Box } from "complib/layouts";
+import { Dialog } from "complib/overlays/dialog/Dialog";
 
 export default {
   title: "Overlays/Dialog",

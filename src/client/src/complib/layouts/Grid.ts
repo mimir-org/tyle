@@ -1,8 +1,8 @@
+import { gridMixin } from "complib/mixins";
+import { Grid as GridInterface, Polymorphic } from "complib/props";
 import { motion } from "framer-motion";
 import { ElementType } from "react";
 import styled from "styled-components/macro";
-import { gridMixin } from "../mixins";
-import { Grid as GridInterface, Polymorphic } from "../props";
 
 type GridProps = GridInterface & Polymorphic<ElementType>;
 

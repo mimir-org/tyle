@@ -1,5 +1,5 @@
+import { Positions } from "complib/props";
 import { css } from "styled-components/macro";
-import { Positions } from "../../props";
 
 export const positionsMixin = css<Positions>`
   position: ${(props) => props.position};

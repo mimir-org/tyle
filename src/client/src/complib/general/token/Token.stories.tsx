@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { LibraryIcon } from "../../../assets/icons/modules";
-import { Token } from "./Token";
+import { LibraryIcon } from "complib/assets";
+import { Token } from "complib/general/token/Token";
 
 export default {
   title: "General/Token",

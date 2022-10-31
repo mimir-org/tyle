@@ -1,5 +1,5 @@
 import { ComponentStory } from "@storybook/react";
-import { Heading } from "./Heading";
+import { Heading } from "complib/text/Heading";
 
 export default {
   title: "Text/Heading",

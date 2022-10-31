@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Textarea } from "./Textarea";
+import { Textarea } from "complib/inputs/textarea/Textarea";
 
 export default {
   title: "Inputs/Textarea",

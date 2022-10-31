@@ -1,12 +1,16 @@
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
+import { Box } from "complib/layouts";
+import {
+  AlertDialogContent,
+  AlertDialogContentProps,
+  AlertDialogOverlay,
+} from "complib/overlays/alert-dialog/AlertDialog.styled";
+import { AlertDialogAction, AlertDialogActionItem } from "complib/overlays/alert-dialog/components/AlertDialogAction";
+import { AlertDialogCancel } from "complib/overlays/alert-dialog/components/AlertDialogCancel";
+import { AlertDialogDescription } from "complib/overlays/alert-dialog/components/AlertDialogDescription";
+import { AlertDialogTitle } from "complib/overlays/alert-dialog/components/AlertDialogTitle";
 import { PropsWithChildren, ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { Box } from "../../layouts";
-import { AlertDialogContent, AlertDialogContentProps, AlertDialogOverlay } from "./AlertDialog.styled";
-import { AlertDialogAction, AlertDialogActionItem } from "./components/AlertDialogAction";
-import { AlertDialogCancel } from "./components/AlertDialogCancel";
-import { AlertDialogDescription } from "./components/AlertDialogDescription";
-import { AlertDialogTitle } from "./components/AlertDialogTitle";
 
 type AlertDialogProps = AlertDialogContentProps & {
   content?: ReactNode;

@@ -1,9 +1,9 @@
 import { TooltipProvider } from "@radix-ui/react-tooltip";
+import { TyleTheme } from "complib/core/theme/theme";
+import { Toaster } from "complib/data-display";
 import { MotionConfig } from "framer-motion";
 import { PropsWithChildren } from "react";
 import { ThemeProvider } from "styled-components/macro";
-import { Toaster } from "../../data-display";
-import { TyleTheme } from "./theme";
 
 interface TyleThemeProviderProps {
   theme: TyleTheme;

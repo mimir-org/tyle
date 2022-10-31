@@ -1,5 +1,5 @@
+import { NumberProps } from "complib/inputs/counter/Counter";
 import { useEffect } from "react";
-import { NumberProps } from "./Counter";
 
 export const useOnChangeCallback = (onChange: NumberProps["onChange"], value: number) =>
   useEffect(() => {

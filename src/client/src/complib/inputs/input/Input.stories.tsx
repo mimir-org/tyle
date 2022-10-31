@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { LibraryIcon } from "../../../assets/icons/modules";
-import { Input } from "./Input";
+import { LibraryIcon } from "complib/assets";
+import { Input } from "complib/inputs/input/Input";
 
 export default {
   title: "Inputs/Input",

@@ -1,6 +1,6 @@
+import { sizingMixin } from "complib/mixins";
+import { AccordionProps } from "complib/surfaces/accordion/Accordion";
 import styled from "styled-components/macro";
-import { sizingMixin } from "../../mixins";
-import { AccordionProps } from "./Accordion";
 
 export const StyledAccordionRoot = styled.div<Pick<AccordionProps, "type">>`
   display: flex;

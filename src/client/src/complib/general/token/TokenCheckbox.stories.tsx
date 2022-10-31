@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { TokenCheckbox } from "./TokenCheckbox";
+import { TokenCheckbox } from "complib/general/token/TokenCheckbox";
 
 export default {
   title: "General/TokenCheckbox",

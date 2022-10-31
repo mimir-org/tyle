@@ -1,7 +1,7 @@
+import { getTextRole, sizingMixin, typographyMixin } from "complib/mixins";
+import { Sizing, Typography } from "complib/props";
 import { hideVisually } from "polished";
 import styled, { css } from "styled-components/macro";
-import { getTextRole, sizingMixin, typographyMixin } from "../../mixins";
-import { Sizing, Typography } from "../../props";
 
 type TableProps = Sizing & {
   borders?: boolean;

@@ -1,6 +1,6 @@
 import { Item } from "@radix-ui/react-accordion";
+import { focusRaw } from "complib/mixins";
 import styled, { css } from "styled-components/macro";
-import { focusRaw } from "../../../mixins";
 
 /**
  * Container component for item(s) inside an accordion

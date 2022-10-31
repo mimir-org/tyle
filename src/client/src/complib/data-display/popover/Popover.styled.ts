@@ -1,7 +1,7 @@
+import { focus, paletteMixin, sizingMixin, translucify } from "complib/mixins";
+import { Palette, Sizing } from "complib/props";
 import { motion } from "framer-motion";
 import styled from "styled-components/macro";
-import { focus, paletteMixin, sizingMixin, translucify } from "../../mixins";
-import { Palette, Sizing } from "../../props";
 
 export type PopoverContentProps = Sizing & Palette;
 

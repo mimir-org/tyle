@@ -1,5 +1,5 @@
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
-import { Button } from "../../../buttons";
+import { Button } from "complib/buttons";
 
 export interface AlertDialogActionItem {
   name: string;

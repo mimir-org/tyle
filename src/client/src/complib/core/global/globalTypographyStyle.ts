@@ -1,6 +1,6 @@
+import { TyleTheme } from "complib/core/theme/theme";
+import { getTextRole } from "complib/mixins";
 import { css } from "styled-components/macro";
-import { getTextRole } from "../../mixins";
-import { TyleTheme } from "../theme/theme";
 
 /**
  * TYPOGRAPHY SPECIFIC GLOBALS

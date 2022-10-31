@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { FormField } from "./FormField";
-import { Text } from "../inputs/input/Input.stories";
+import { FormField } from "complib/form/FormField";
+import { Text } from "complib/inputs/input/Input.stories";
 
 export default {
   title: "Form/FormField",

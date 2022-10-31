@@ -1,8 +1,8 @@
+import { MotionBox } from "complib/layouts";
+import { flexMixin, sizingMixin, translucify } from "complib/mixins";
+import { Flex, Sizing } from "complib/props";
 import { motion } from "framer-motion";
 import styled from "styled-components/macro";
-import { MotionBox } from "../../layouts";
-import { flexMixin, sizingMixin, translucify } from "../../mixins";
-import { Flex, Sizing } from "../../props";
 
 export type DialogContentProps = Sizing & Flex;
 

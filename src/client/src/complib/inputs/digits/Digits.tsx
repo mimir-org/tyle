@@ -1,5 +1,5 @@
+import { DigitsInput, DigitsInputContainer } from "complib/inputs/digits/Digits.styled";
 import useDigitInput from "react-digit-input";
-import { DigitsInput, DigitsInputContainer } from "./Digits.styled";
 
 interface DigitsProps {
   length?: number;

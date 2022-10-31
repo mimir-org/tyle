@@ -1,11 +1,11 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { Box } from "complib/layouts";
+import { DialogDescription } from "complib/overlays/dialog/components/DialogDescription";
+import { DialogExit } from "complib/overlays/dialog/components/DialogExit";
+import { DialogTitle } from "complib/overlays/dialog/components/DialogTitle";
+import { DialogContent, DialogContentProps, DialogOverlay } from "complib/overlays/dialog/Dialog.styled";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { Box } from "../../layouts";
-import { DialogDescription } from "./components/DialogDescription";
-import { DialogExit } from "./components/DialogExit";
-import { DialogTitle } from "./components/DialogTitle";
-import { DialogContent, DialogContentProps, DialogOverlay } from "./Dialog.styled";
 
 export type DialogProps = DialogContentProps & {
   children?: ReactNode;

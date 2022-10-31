@@ -1,6 +1,6 @@
+import { InputProps } from "complib/inputs/input/Input";
+import { focus, getTextRole, placeholder, sizingMixin } from "complib/mixins";
 import styled from "styled-components";
-import { focus, getTextRole, placeholder, sizingMixin } from "../../mixins";
-import { InputProps } from "./Input";
 
 export const InputContainer = styled.input<InputProps>`
   height: 100%;

@@ -1,5 +1,5 @@
+import { Spacing } from "complib/props";
 import { css } from "styled-components/macro";
-import { Spacing } from "../../props";
 
 export const spacingMixin = css<Spacing>`
   padding: ${(props) => props.p};

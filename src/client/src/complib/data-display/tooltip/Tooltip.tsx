@@ -1,9 +1,9 @@
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
+import { MotionTooltipContent, TooltipContentProps } from "complib/data-display/tooltip/Tooltip.styled";
+import { Text } from "complib/text";
 import { AnimatePresence } from "framer-motion";
 import { PropsWithChildren, ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { Text } from "../../text";
-import { MotionTooltipContent, TooltipContentProps } from "./Tooltip.styled";
 
 type Props = TooltipContentProps & {
   content: ReactNode;

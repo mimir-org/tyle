@@ -1,10 +1,10 @@
+import { VisuallyHidden } from "complib/accessibility";
+import { ButtonContainerProps, MotionButtonContainer } from "complib/buttons/Button.styled";
+import { Icon } from "complib/media";
+import { TextTypes } from "complib/props";
+import { Text } from "complib/text";
 import { ForwardedRef, forwardRef, isValidElement, ReactElement, ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { VisuallyHidden } from "../accessibility";
-import { Icon } from "../media";
-import { TextTypes } from "../props";
-import { Text } from "../text";
-import { ButtonContainerProps, MotionButtonContainer } from "./Button.styled";
 
 type ButtonProps = ButtonContainerProps & {
   children: ReactNode;

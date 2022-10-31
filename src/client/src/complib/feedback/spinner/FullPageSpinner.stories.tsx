@@ -1,6 +1,6 @@
-import { Spinner } from "./Spinner";
-import { FullPageSpinner } from "./FullPageSpinner";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { FullPageSpinner } from "complib/feedback/spinner/FullPageSpinner";
+import { Spinner } from "complib/feedback/spinner/Spinner";
 
 export default {
   title: "Feedback/FullPageSpinner",

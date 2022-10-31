@@ -1,19 +1,19 @@
+import { TypefaceReference, typefaceReference } from "complib/core/variables/typography/reference/typefaceReference";
+import { typeScaleReference } from "complib/core/variables/typography/reference/typeScaleReference";
+import { body, display, headline, label, title } from "complib/core/variables/typography/system/roles";
+import { typeScaleSystem } from "complib/core/variables/typography/system/typeScaleSystem";
+import { TypeScaleSpecification, TypographyRoles } from "complib/core/variables/typography/types";
 import { css } from "styled-components/macro";
-import { TypeScaleSpecification, TypographyRoles } from "./types";
-import { TypefaceReference, typefaceReference } from "./reference/typefaceReference";
-import { typeScaleSystem } from "./system/typeScaleSystem";
-import { body, display, headline, label, title } from "./system/roles";
-import { typeScaleReference } from "./reference/typeScaleReference";
 
 export interface TypographySystem {
   ref: {
     typeface: TypefaceReference,
     typeScale: TypeScaleSpecification<number>
-  }
+  };
   sys: {
     typeScale: TypeScaleSpecification<string>,
     roles: TypographyRoles
-  }
+  };
 }
 
 export const typography: TypographySystem = {
@@ -28,10 +28,10 @@ export const typography: TypographySystem = {
       headline: headline,
       title: title,
       body: body,
-      label: label,
+      label: label
     }
   }
-}
+};
 
 export const variablesTypography = css`
   :root {
@@ -103,7 +103,7 @@ export const variablesTypography = css`
     --tl-sys-typescale-display-large-tracking: ${typography.sys.roles.display.large.tracking};
     --tl-sys-typescale-display-large-spacing: ${typography.sys.roles.display.large.letterSpacing};
     --tl-sys-typescale-display-large-line-height: ${typography.sys.roles.display.large.lineHeight};
-    
+
     --tl-sys-typescale-display-medium: ${typography.sys.roles.display.medium.font};
     --tl-sys-typescale-display-medium-font: ${typography.sys.roles.display.medium.family};
     --tl-sys-typescale-display-medium-size: ${typography.sys.roles.display.medium.size};
@@ -111,7 +111,7 @@ export const variablesTypography = css`
     --tl-sys-typescale-display-medium-tracking: ${typography.sys.roles.display.medium.tracking};
     --tl-sys-typescale-display-medium-spacing: ${typography.sys.roles.display.medium.letterSpacing};
     --tl-sys-typescale-display-medium-line-height: ${typography.sys.roles.display.medium.lineHeight};
-    
+
     --tl-sys-typescale-display-small: ${typography.sys.roles.display.small.font};
     --tl-sys-typescale-display-small-font: ${typography.sys.roles.display.small.family};
     --tl-sys-typescale-display-small-size: ${typography.sys.roles.display.small.size};
@@ -128,7 +128,7 @@ export const variablesTypography = css`
     --tl-sys-typescale-headline-large-tracking: ${typography.sys.roles.headline.large.tracking};
     --tl-sys-typescale-headline-large-spacing: ${typography.sys.roles.headline.large.letterSpacing};
     --tl-sys-typescale-headline-large-line-height: ${typography.sys.roles.headline.large.lineHeight};
-    
+
     --tl-sys-typescale-headline-medium: ${typography.sys.roles.headline.medium.font};
     --tl-sys-typescale-headline-medium-font: ${typography.sys.roles.headline.medium.family};
     --tl-sys-typescale-headline-medium-size: ${typography.sys.roles.headline.medium.size};
@@ -136,7 +136,7 @@ export const variablesTypography = css`
     --tl-sys-typescale-headline-medium-tracking: ${typography.sys.roles.headline.medium.tracking};
     --tl-sys-typescale-headline-medium-spacing: ${typography.sys.roles.headline.medium.letterSpacing};
     --tl-sys-typescale-headline-medium-line-height: ${typography.sys.roles.headline.medium.lineHeight};
-    
+
     --tl-sys-typescale-headline-small: ${typography.sys.roles.headline.small.font};
     --tl-sys-typescale-headline-small-font: ${typography.sys.roles.headline.small.family};
     --tl-sys-typescale-headline-small-size: ${typography.sys.roles.headline.small.size};
@@ -153,7 +153,7 @@ export const variablesTypography = css`
     --tl-sys-typescale-title-large-tracking: ${typography.sys.roles.title.large.tracking};
     --tl-sys-typescale-title-large-spacing: ${typography.sys.roles.title.large.letterSpacing};
     --tl-sys-typescale-title-large-line-height: ${typography.sys.roles.title.large.lineHeight};
-    
+
     --tl-sys-typescale-title-medium: ${typography.sys.roles.title.medium.font};
     --tl-sys-typescale-title-medium-font: ${typography.sys.roles.title.medium.family};
     --tl-sys-typescale-title-medium-size: ${typography.sys.roles.title.medium.size};
@@ -161,7 +161,7 @@ export const variablesTypography = css`
     --tl-sys-typescale-title-medium-tracking: ${typography.sys.roles.title.medium.tracking};
     --tl-sys-typescale-title-medium-spacing: ${typography.sys.roles.title.medium.letterSpacing};
     --tl-sys-typescale-title-medium-line-height: ${typography.sys.roles.title.medium.lineHeight};
-    
+
     --tl-sys-typescale-title-small: ${typography.sys.roles.title.small.font};
     --tl-sys-typescale-title-small-font: ${typography.sys.roles.title.small.family};
     --tl-sys-typescale-title-small-size: ${typography.sys.roles.title.small.size};
@@ -178,7 +178,7 @@ export const variablesTypography = css`
     --tl-sys-typescale-body-large-tracking: ${typography.sys.roles.body.large.tracking};
     --tl-sys-typescale-body-large-spacing: ${typography.sys.roles.body.large.letterSpacing};
     --tl-sys-typescale-body-large-line-height: ${typography.sys.roles.body.large.lineHeight};
-    
+
     --tl-sys-typescale-body-medium: ${typography.sys.roles.body.medium.font};
     --tl-sys-typescale-body-medium-font: ${typography.sys.roles.body.medium.family};
     --tl-sys-typescale-body-medium-size: ${typography.sys.roles.body.medium.size};
@@ -186,7 +186,7 @@ export const variablesTypography = css`
     --tl-sys-typescale-body-medium-tracking: ${typography.sys.roles.body.medium.tracking};
     --tl-sys-typescale-body-medium-spacing: ${typography.sys.roles.body.medium.letterSpacing};
     --tl-sys-typescale-body-medium-line-height: ${typography.sys.roles.body.medium.lineHeight};
-    
+
     --tl-sys-typescale-body-small: ${typography.sys.roles.body.small.font};
     --tl-sys-typescale-body-small-font: ${typography.sys.roles.body.small.family};
     --tl-sys-typescale-body-small-size: ${typography.sys.roles.body.small.size};
@@ -203,7 +203,7 @@ export const variablesTypography = css`
     --tl-sys-typescale-label-large-tracking: ${typography.sys.roles.label.large.tracking};
     --tl-sys-typescale-label-large-spacing: ${typography.sys.roles.label.large.letterSpacing};
     --tl-sys-typescale-label-large-line-height: ${typography.sys.roles.label.large.lineHeight};
-    
+
     --tl-sys-typescale-label-medium: ${typography.sys.roles.label.medium.font};
     --tl-sys-typescale-label-medium-font: ${typography.sys.roles.label.medium.family};
     --tl-sys-typescale-label-medium-size: ${typography.sys.roles.label.medium.size};
@@ -211,7 +211,7 @@ export const variablesTypography = css`
     --tl-sys-typescale-label-medium-tracking: ${typography.sys.roles.label.medium.tracking};
     --tl-sys-typescale-label-medium-spacing: ${typography.sys.roles.label.medium.letterSpacing};
     --tl-sys-typescale-label-medium-line-height: ${typography.sys.roles.label.medium.lineHeight};
-    
+
     --tl-sys-typescale-label-small: ${typography.sys.roles.label.small.font};
     --tl-sys-typescale-label-small-font: ${typography.sys.roles.label.small.family};
     --tl-sys-typescale-label-small-size: ${typography.sys.roles.label.small.size};

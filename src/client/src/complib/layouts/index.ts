@@ -1,6 +1,6 @@
-export { Flexbox } from "./Flexbox";
-export { MotionFlexbox } from "./Flexbox";
-export { Grid } from "./Grid";
-export { MotionGrid } from "./Grid";
-export { Box } from "./Box";
-export { MotionBox } from "./Box";
+export { Flexbox } from "complib/layouts/Flexbox";
+export { MotionFlexbox } from "complib/layouts/Flexbox";
+export { Grid } from "complib/layouts/Grid";
+export { MotionGrid } from "complib/layouts/Grid";
+export { Box } from "complib/layouts/Box";
+export { MotionBox } from "complib/layouts/Box";

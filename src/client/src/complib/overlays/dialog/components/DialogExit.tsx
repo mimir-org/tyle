@@ -1,8 +1,8 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "@styled-icons/heroicons-outline";
+import { Button } from "complib/buttons";
+import { Box } from "complib/layouts";
 import { useTheme } from "styled-components";
-import { Button } from "../../../buttons";
-import { Box } from "../../../layouts";
 
 export const DialogExit = ({ closeText }: { closeText?: string }) => {
   const theme = useTheme();

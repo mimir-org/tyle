@@ -1,4 +1,4 @@
-import { Accent } from "./accent";
+import { Accent } from "complib/core/variables/color/types/accent";
 
 export interface ColorTheme {
   primary: Accent,
