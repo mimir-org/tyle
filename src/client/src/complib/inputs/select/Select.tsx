@@ -1,9 +1,9 @@
+import { TyleTheme } from "complib/core";
+import { translucify } from "complib/mixins";
 import { Ref } from "react";
 import ReactSelect, { GroupBase, Props, StylesConfig } from "react-select";
 import { default as ReactSelectType } from "react-select/base";
 import { useTheme } from "styled-components";
-import { TyleTheme } from "../../core";
-import { translucify } from "../../mixins";
 
 /**
  * Select component built on top of react-select. Offers a generic api to allow for using almost any data-structure as options.

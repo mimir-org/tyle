@@ -1,7 +1,7 @@
 import { Root } from "@radix-ui/react-accordion";
+import { Sizing } from "complib/props";
+import { StyledAccordionRoot } from "complib/surfaces/accordion/Accordion.styled";
 import { ReactNode } from "react";
-import { Sizing } from "../../props";
-import { StyledAccordionRoot } from "./Accordion.styled";
 
 export type AccordionProps = Sizing & {
   type?: "single" | "multiple";

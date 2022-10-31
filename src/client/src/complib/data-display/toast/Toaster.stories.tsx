@@ -1,11 +1,11 @@
 import { ComponentMeta } from "@storybook/react";
+import { Button } from "complib/buttons";
+import { toast } from "complib/data-display/toast/toast";
+import { Toaster } from "complib/data-display/toast/Toaster";
+import { Flexbox } from "complib/layouts";
+import { MotionCard } from "complib/surfaces";
+import { Text } from "complib/text";
 import { useTheme } from "styled-components";
-import { Button } from "../../buttons";
-import { Flexbox } from "../../layouts";
-import { MotionCard } from "../../surfaces";
-import { Text } from "../../text";
-import { toast } from "./toast";
-import { Toaster } from "./Toaster";
 
 export default {
   title: "Data display/Toaster",

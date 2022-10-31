@@ -1,9 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { LibraryIcon } from "complib/assets";
-import { Flexbox } from "../../layouts";
-import { Icon } from "../../media";
-import { Text } from "../../text";
-import { Select } from "./Select";
+import { Select } from "complib/inputs/select/Select";
+import { Flexbox } from "complib/layouts";
+import { Icon } from "complib/media";
+import { Text } from "complib/text";
 
 const mockData = [
   { label: "Item A", value: "Value A" },

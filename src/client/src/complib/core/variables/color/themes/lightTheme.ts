@@ -1,10 +1,10 @@
-import { colorReference } from "../reference/colorReference";
-import { ColorTheme } from "../types/colorTheme";
+import { colorReference } from "complib/core/variables/color/reference/colorReference";
+import { ColorTheme } from "complib/core/variables/color/types/colorTheme";
 
 export const lightTheme: ColorTheme = {
   primary: {
     base: colorReference.primary[10],
-    on: colorReference.primary[100],
+    on: colorReference.primary[100]
   },
   secondary: {
     base: colorReference.secondary[80],
@@ -24,7 +24,7 @@ export const lightTheme: ColorTheme = {
   },
   error: {
     base: colorReference.error[40],
-    on: colorReference.error[100],
+    on: colorReference.error[100]
   },
   outline: {
     base: colorReference.neutralVariant[60]
@@ -34,26 +34,26 @@ export const lightTheme: ColorTheme = {
     on: colorReference.neutral[10],
     inverse: {
       base: colorReference.neutral[10],
-      on: colorReference.neutral[99],
-    },
+      on: colorReference.neutral[99]
+    }
   },
   surface: {
     base: colorReference.neutral[95],
     on: colorReference.neutral[10],
     variant: {
       base: colorReference.neutralVariant[90],
-      on: colorReference.neutralVariant[30],
+      on: colorReference.neutralVariant[30]
     },
     inverse: {
       base: colorReference.neutral[10],
-      on: colorReference.neutral[95],
+      on: colorReference.neutral[95]
     },
     tint: {
       base: colorReference.primary[10]
     }
   },
   shadow: {
-    base: colorReference.neutral[0],
+    base: colorReference.neutral[0]
   },
   pure: {
     base: colorReference.neutral[100],

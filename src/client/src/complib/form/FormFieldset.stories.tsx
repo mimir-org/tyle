@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { FormFieldset } from "./FormFieldset";
-import { Default as FormField, WithError as FormFieldWithError } from "./FormField.stories";
+import { Default as FormField, WithError as FormFieldWithError } from "complib/form/FormField.stories";
+import { FormFieldset } from "complib/form/FormFieldset";
 
 export default {
   title: "Form/FormFieldset",

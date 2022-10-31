@@ -1,3 +1,4 @@
+import { Borders, Display, Flex, Grid, Palette, Polymorphic, Positions, Shadows, Sizing, Spacing } from "complib/props";
 import { motion } from "framer-motion";
 import { ElementType } from "react";
 import styled from "styled-components/macro";
@@ -13,7 +14,6 @@ import {
   sizingMixin,
   spacingMixin,
 } from "../mixins";
-import { Borders, Display, Flex, Grid, Palette, Polymorphic, Positions, Shadows, Sizing, Spacing } from "../props";
 
 type BoxProps = Display &
   Positions &

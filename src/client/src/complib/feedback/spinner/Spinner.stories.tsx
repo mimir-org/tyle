@@ -1,4 +1,4 @@
-import { Spinner } from "./Spinner";
+import { Spinner } from "complib/feedback/spinner/Spinner";
 
 export default {
   title: "Feedback/Spinner",

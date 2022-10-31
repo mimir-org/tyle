@@ -1,8 +1,8 @@
+import { colorReference } from "complib/core/variables/color/reference/colorReference";
+import { darkTheme } from "complib/core/variables/color/themes/darkTheme";
+import { lightTheme } from "complib/core/variables/color/themes/lightTheme";
+import { ColorSystem } from "complib/core/variables/color/types/colorSystem";
 import { css } from "styled-components/macro";
-import { colorReference } from "./reference/colorReference";
-import { darkTheme } from "./themes/darkTheme";
-import { lightTheme } from "./themes/lightTheme";
-import { ColorSystem } from "./types/colorSystem";
 
 export const color: ColorSystem = {
   ref: colorReference,
@@ -25,7 +25,7 @@ export const variablesColor = css`
     --tl-ref-color-primary-95: ${colorReference.primary["95"]};
     --tl-ref-color-primary-99: ${colorReference.primary["99"]};
     --tl-ref-color-primary-100: ${colorReference.primary["100"]};
-    
+
     --tl-ref-color-secondary-0: ${colorReference.secondary["0"]};
     --tl-ref-color-secondary-10: ${colorReference.secondary["10"]};
     --tl-ref-color-secondary-20: ${colorReference.secondary["20"]};
@@ -39,63 +39,63 @@ export const variablesColor = css`
     --tl-ref-color-secondary-95: ${colorReference.secondary["95"]};
     --tl-ref-color-secondary-99: ${colorReference.secondary["99"]};
     --tl-ref-color-secondary-100: ${colorReference.secondary["100"]};
-    
-    --tl-ref-color-tertiary-0: ${colorReference.tertiary["0"]};         
-    --tl-ref-color-tertiary-10: ${colorReference.tertiary["10"]};       
-    --tl-ref-color-tertiary-20: ${colorReference.tertiary["20"]};       
-    --tl-ref-color-tertiary-30: ${colorReference.tertiary["30"]};       
-    --tl-ref-color-tertiary-40: ${colorReference.tertiary["40"]};       
-    --tl-ref-color-tertiary-50: ${colorReference.tertiary["50"]};       
-    --tl-ref-color-tertiary-60: ${colorReference.tertiary["60"]};       
-    --tl-ref-color-tertiary-70: ${colorReference.tertiary["70"]};       
-    --tl-ref-color-tertiary-80: ${colorReference.tertiary["80"]};       
-    --tl-ref-color-tertiary-90: ${colorReference.tertiary["90"]};       
-    --tl-ref-color-tertiary-95: ${colorReference.tertiary["95"]};       
-    --tl-ref-color-tertiary-99: ${colorReference.tertiary["99"]};       
-    --tl-ref-color-tertiary-100: ${colorReference.tertiary["100"]};     
-    
-    --tl-ref-color-error-0: ${colorReference.error["0"]};         
-    --tl-ref-color-error-10: ${colorReference.error["10"]};       
-    --tl-ref-color-error-20: ${colorReference.error["20"]};       
-    --tl-ref-color-error-30: ${colorReference.error["30"]};       
-    --tl-ref-color-error-40: ${colorReference.error["40"]};       
-    --tl-ref-color-error-50: ${colorReference.error["50"]};       
-    --tl-ref-color-error-60: ${colorReference.error["60"]};       
-    --tl-ref-color-error-70: ${colorReference.error["70"]};       
-    --tl-ref-color-error-80: ${colorReference.error["80"]};       
-    --tl-ref-color-error-90: ${colorReference.error["90"]};       
-    --tl-ref-color-error-95: ${colorReference.error["95"]};       
-    --tl-ref-color-error-99: ${colorReference.error["99"]};       
-    --tl-ref-color-error-100: ${colorReference.error["100"]};     
-    
-    --tl-ref-color-neutral-0: ${colorReference.neutral["0"]};         
-    --tl-ref-color-neutral-10: ${colorReference.neutral["10"]};       
-    --tl-ref-color-neutral-20: ${colorReference.neutral["20"]};       
-    --tl-ref-color-neutral-30: ${colorReference.neutral["30"]};       
-    --tl-ref-color-neutral-40: ${colorReference.neutral["40"]};       
-    --tl-ref-color-neutral-50: ${colorReference.neutral["50"]};       
-    --tl-ref-color-neutral-60: ${colorReference.neutral["60"]};       
-    --tl-ref-color-neutral-70: ${colorReference.neutral["70"]};       
-    --tl-ref-color-neutral-80: ${colorReference.neutral["80"]};       
-    --tl-ref-color-neutral-90: ${colorReference.neutral["90"]};       
-    --tl-ref-color-neutral-95: ${colorReference.neutral["95"]};       
-    --tl-ref-color-neutral-99: ${colorReference.neutral["99"]};       
-    --tl-ref-color-neutral-100: ${colorReference.neutral["100"]};     
-    
-    --tl-ref-color-neutralVariant-0: ${colorReference.neutralVariant["0"]};         
-    --tl-ref-color-neutralVariant-10: ${colorReference.neutralVariant["10"]};       
-    --tl-ref-color-neutralVariant-20: ${colorReference.neutralVariant["20"]};       
-    --tl-ref-color-neutralVariant-30: ${colorReference.neutralVariant["30"]};       
-    --tl-ref-color-neutralVariant-40: ${colorReference.neutralVariant["40"]};       
-    --tl-ref-color-neutralVariant-50: ${colorReference.neutralVariant["50"]};       
-    --tl-ref-color-neutralVariant-60: ${colorReference.neutralVariant["60"]};       
-    --tl-ref-color-neutralVariant-70: ${colorReference.neutralVariant["70"]};       
-    --tl-ref-color-neutralVariant-80: ${colorReference.neutralVariant["80"]};       
-    --tl-ref-color-neutralVariant-90: ${colorReference.neutralVariant["90"]};       
-    --tl-ref-color-neutralVariant-95: ${colorReference.neutralVariant["95"]};       
-    --tl-ref-color-neutralVariant-99: ${colorReference.neutralVariant["99"]};       
-    --tl-ref-color-neutralVariant-100: ${colorReference.neutralVariant["100"]};     
-    
+
+    --tl-ref-color-tertiary-0: ${colorReference.tertiary["0"]};
+    --tl-ref-color-tertiary-10: ${colorReference.tertiary["10"]};
+    --tl-ref-color-tertiary-20: ${colorReference.tertiary["20"]};
+    --tl-ref-color-tertiary-30: ${colorReference.tertiary["30"]};
+    --tl-ref-color-tertiary-40: ${colorReference.tertiary["40"]};
+    --tl-ref-color-tertiary-50: ${colorReference.tertiary["50"]};
+    --tl-ref-color-tertiary-60: ${colorReference.tertiary["60"]};
+    --tl-ref-color-tertiary-70: ${colorReference.tertiary["70"]};
+    --tl-ref-color-tertiary-80: ${colorReference.tertiary["80"]};
+    --tl-ref-color-tertiary-90: ${colorReference.tertiary["90"]};
+    --tl-ref-color-tertiary-95: ${colorReference.tertiary["95"]};
+    --tl-ref-color-tertiary-99: ${colorReference.tertiary["99"]};
+    --tl-ref-color-tertiary-100: ${colorReference.tertiary["100"]};
+
+    --tl-ref-color-error-0: ${colorReference.error["0"]};
+    --tl-ref-color-error-10: ${colorReference.error["10"]};
+    --tl-ref-color-error-20: ${colorReference.error["20"]};
+    --tl-ref-color-error-30: ${colorReference.error["30"]};
+    --tl-ref-color-error-40: ${colorReference.error["40"]};
+    --tl-ref-color-error-50: ${colorReference.error["50"]};
+    --tl-ref-color-error-60: ${colorReference.error["60"]};
+    --tl-ref-color-error-70: ${colorReference.error["70"]};
+    --tl-ref-color-error-80: ${colorReference.error["80"]};
+    --tl-ref-color-error-90: ${colorReference.error["90"]};
+    --tl-ref-color-error-95: ${colorReference.error["95"]};
+    --tl-ref-color-error-99: ${colorReference.error["99"]};
+    --tl-ref-color-error-100: ${colorReference.error["100"]};
+
+    --tl-ref-color-neutral-0: ${colorReference.neutral["0"]};
+    --tl-ref-color-neutral-10: ${colorReference.neutral["10"]};
+    --tl-ref-color-neutral-20: ${colorReference.neutral["20"]};
+    --tl-ref-color-neutral-30: ${colorReference.neutral["30"]};
+    --tl-ref-color-neutral-40: ${colorReference.neutral["40"]};
+    --tl-ref-color-neutral-50: ${colorReference.neutral["50"]};
+    --tl-ref-color-neutral-60: ${colorReference.neutral["60"]};
+    --tl-ref-color-neutral-70: ${colorReference.neutral["70"]};
+    --tl-ref-color-neutral-80: ${colorReference.neutral["80"]};
+    --tl-ref-color-neutral-90: ${colorReference.neutral["90"]};
+    --tl-ref-color-neutral-95: ${colorReference.neutral["95"]};
+    --tl-ref-color-neutral-99: ${colorReference.neutral["99"]};
+    --tl-ref-color-neutral-100: ${colorReference.neutral["100"]};
+
+    --tl-ref-color-neutralVariant-0: ${colorReference.neutralVariant["0"]};
+    --tl-ref-color-neutralVariant-10: ${colorReference.neutralVariant["10"]};
+    --tl-ref-color-neutralVariant-20: ${colorReference.neutralVariant["20"]};
+    --tl-ref-color-neutralVariant-30: ${colorReference.neutralVariant["30"]};
+    --tl-ref-color-neutralVariant-40: ${colorReference.neutralVariant["40"]};
+    --tl-ref-color-neutralVariant-50: ${colorReference.neutralVariant["50"]};
+    --tl-ref-color-neutralVariant-60: ${colorReference.neutralVariant["60"]};
+    --tl-ref-color-neutralVariant-70: ${colorReference.neutralVariant["70"]};
+    --tl-ref-color-neutralVariant-80: ${colorReference.neutralVariant["80"]};
+    --tl-ref-color-neutralVariant-90: ${colorReference.neutralVariant["90"]};
+    --tl-ref-color-neutralVariant-95: ${colorReference.neutralVariant["95"]};
+    --tl-ref-color-neutralVariant-99: ${colorReference.neutralVariant["99"]};
+    --tl-ref-color-neutralVariant-100: ${colorReference.neutralVariant["100"]};
+
     // Light theme  
     --tl-sys-color-primary-light: ${lightTheme.primary.base};
     --tl-sys-color-on-primary-light: ${lightTheme.primary.on};
@@ -143,28 +143,28 @@ export const variablesColor = css`
     --tl-sys-color-shadow-dark: ${darkTheme.shadow.base};
 
     @media (prefers-color-scheme: light) {
-        --tl-sys-color-primary: var(--tl-sys-color-primary-light);
-        --tl-sys-color-on-primary: var(--tl-sys-color-on-primary-light);
-        --tl-sys-color-secondary: var(--tl-sys-color-secondary-light);
-        --tl-sys-color-on-secondary: var(--tl-sys-color-on-secondary-light);
-        --tl-sys-color-tertiary: var(--tl-sys-color-tertiary-light);
-        --tl-sys-color-on-tertiary: var(--tl-sys-color-on-tertiary-light);
-        --tl-sys-color-tertiary-container: var(--tl-sys-color-tertiary-container-light);
-        --tl-sys-color-on-tertiary-container: var(--tl-sys-color-on-tertiary-container-light);
-        --tl-sys-color-error: var(--tl-sys-color-error-light);
-        --tl-sys-color-on-error: var(--tl-sys-color-on-error-light);
-        --tl-sys-color-outline: var(--tl-sys-color-outline-light);
-        --tl-sys-color-background: var(--tl-sys-color-background-light);
-        --tl-sys-color-on-background: var(--tl-sys-color-on-background-light);
-        --tl-sys-color-surface: var(--tl-sys-color-surface-light);
-        --tl-sys-color-surface-tint: var(--tl-sys-color-surface-tint-light);
-        --tl-sys-color-on-surface: var(--tl-sys-color-on-surface-light);
-        --tl-sys-color-surface-variant: var(--tl-sys-color-surface-variant-light);
-        --tl-sys-color-on-surface-variant: var(--tl-sys-color-on-surface-variant-light);
-        --tl-sys-color-inverse-surface: var(--tl-sys-color-inverse-surface-light);
-        --tl-sys-color-inverse-on-surface: var(--tl-sys-color-inverse-on-surface-light);
-        --tl-sys-color-shadow: var(--tl-sys-color-shadow-light);
-      
+      --tl-sys-color-primary: var(--tl-sys-color-primary-light);
+      --tl-sys-color-on-primary: var(--tl-sys-color-on-primary-light);
+      --tl-sys-color-secondary: var(--tl-sys-color-secondary-light);
+      --tl-sys-color-on-secondary: var(--tl-sys-color-on-secondary-light);
+      --tl-sys-color-tertiary: var(--tl-sys-color-tertiary-light);
+      --tl-sys-color-on-tertiary: var(--tl-sys-color-on-tertiary-light);
+      --tl-sys-color-tertiary-container: var(--tl-sys-color-tertiary-container-light);
+      --tl-sys-color-on-tertiary-container: var(--tl-sys-color-on-tertiary-container-light);
+      --tl-sys-color-error: var(--tl-sys-color-error-light);
+      --tl-sys-color-on-error: var(--tl-sys-color-on-error-light);
+      --tl-sys-color-outline: var(--tl-sys-color-outline-light);
+      --tl-sys-color-background: var(--tl-sys-color-background-light);
+      --tl-sys-color-on-background: var(--tl-sys-color-on-background-light);
+      --tl-sys-color-surface: var(--tl-sys-color-surface-light);
+      --tl-sys-color-surface-tint: var(--tl-sys-color-surface-tint-light);
+      --tl-sys-color-on-surface: var(--tl-sys-color-on-surface-light);
+      --tl-sys-color-surface-variant: var(--tl-sys-color-surface-variant-light);
+      --tl-sys-color-on-surface-variant: var(--tl-sys-color-on-surface-variant-light);
+      --tl-sys-color-inverse-surface: var(--tl-sys-color-inverse-surface-light);
+      --tl-sys-color-inverse-on-surface: var(--tl-sys-color-inverse-on-surface-light);
+      --tl-sys-color-shadow: var(--tl-sys-color-shadow-light);
+
       .dark-theme {
         --tl-sys-color-primary: var(--tl-sys-color-primary-dark);
         --tl-sys-color-on-primary: var(--tl-sys-color-on-primary-dark);
@@ -191,28 +191,28 @@ export const variablesColor = css`
     }
 
     @media (prefers-color-scheme: dark) {
-        --tl-sys-color-primary: var(--tl-sys-color-primary-dark);
-        --tl-sys-color-on-primary: var(--tl-sys-color-on-primary-dark);
-        --tl-sys-color-secondary: var(--tl-sys-color-secondary-dark);
-        --tl-sys-color-on-secondary: var(--tl-sys-color-on-secondary-dark);
-        --tl-sys-color-tertiary: var(--tl-sys-color-tertiary-dark);
-        --tl-sys-color-on-tertiary: var(--tl-sys-color-on-tertiary-dark);
-        --tl-sys-color-tertiary-container: var(--tl-sys-color-tertiary-container-dark);
-        --tl-sys-color-on-tertiary-container: var(--tl-sys-color-on-tertiary-container-dark);
-        --tl-sys-color-error: var(--tl-sys-color-error-dark);
-        --tl-sys-color-on-error: var(--tl-sys-color-on-error-dark);
-        --tl-sys-color-outline: var(--tl-sys-color-outline-dark);
-        --tl-sys-color-background: var(--tl-sys-color-background-dark);
-        --tl-sys-color-on-background: var(--tl-sys-color-on-background-dark);
-        --tl-sys-color-surface: var(--tl-sys-color-surface-dark);
-        --tl-sys-color-surface-tint: var(--tl-sys-color-surface-tint-dark);
-        --tl-sys-color-on-surface: var(--tl-sys-color-on-surface-dark);
-        --tl-sys-color-surface-variant: var(--tl-sys-color-surface-variant-dark);
-        --tl-sys-color-on-surface-variant: var(--tl-sys-color-on-surface-variant-dark);
-        --tl-sys-color-inverse-surface: var(--tl-sys-color-inverse-surface-dark);
-        --tl-sys-color-inverse-on-surface: var(--tl-sys-color-inverse-on-surface-dark);
-        --tl-sys-color-shadow: var(--tl-sys-color-shadow-dark);
-      
+      --tl-sys-color-primary: var(--tl-sys-color-primary-dark);
+      --tl-sys-color-on-primary: var(--tl-sys-color-on-primary-dark);
+      --tl-sys-color-secondary: var(--tl-sys-color-secondary-dark);
+      --tl-sys-color-on-secondary: var(--tl-sys-color-on-secondary-dark);
+      --tl-sys-color-tertiary: var(--tl-sys-color-tertiary-dark);
+      --tl-sys-color-on-tertiary: var(--tl-sys-color-on-tertiary-dark);
+      --tl-sys-color-tertiary-container: var(--tl-sys-color-tertiary-container-dark);
+      --tl-sys-color-on-tertiary-container: var(--tl-sys-color-on-tertiary-container-dark);
+      --tl-sys-color-error: var(--tl-sys-color-error-dark);
+      --tl-sys-color-on-error: var(--tl-sys-color-on-error-dark);
+      --tl-sys-color-outline: var(--tl-sys-color-outline-dark);
+      --tl-sys-color-background: var(--tl-sys-color-background-dark);
+      --tl-sys-color-on-background: var(--tl-sys-color-on-background-dark);
+      --tl-sys-color-surface: var(--tl-sys-color-surface-dark);
+      --tl-sys-color-surface-tint: var(--tl-sys-color-surface-tint-dark);
+      --tl-sys-color-on-surface: var(--tl-sys-color-on-surface-dark);
+      --tl-sys-color-surface-variant: var(--tl-sys-color-surface-variant-dark);
+      --tl-sys-color-on-surface-variant: var(--tl-sys-color-on-surface-variant-dark);
+      --tl-sys-color-inverse-surface: var(--tl-sys-color-inverse-surface-dark);
+      --tl-sys-color-inverse-on-surface: var(--tl-sys-color-inverse-on-surface-dark);
+      --tl-sys-color-shadow: var(--tl-sys-color-shadow-dark);
+
       .light-theme {
         --tl-sys-color-primary: var(--tl-sys-color-primary-light);
         --tl-sys-color-on-primary: var(--tl-sys-color-on-primary-light);
@@ -236,5 +236,5 @@ export const variablesColor = css`
         --tl-sys-color-inverse-on-surface: var(--tl-sys-color-inverse-on-surface-light);
         --tl-sys-color-shadow: var(--tl-sys-color-shadow-light);
       }
-  }
+    }
 `;

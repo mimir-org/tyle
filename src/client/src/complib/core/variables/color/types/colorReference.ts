@@ -1,4 +1,4 @@
-import { Palette } from "./palette";
+import { Palette } from "complib/core/variables/color/types/palette";
 
 export interface ColorReference {
   primary: Palette;

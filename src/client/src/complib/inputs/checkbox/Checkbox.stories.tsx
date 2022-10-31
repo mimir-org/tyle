@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Checkbox } from "./Checkbox";
+import { Checkbox } from "complib/inputs/checkbox/Checkbox";
 
 export default {
   title: "Inputs/Checkbox",

@@ -1,8 +1,8 @@
+import { flexMixin, focus } from "complib/mixins";
+import { Flex, Polymorphic } from "complib/props";
 import { motion } from "framer-motion";
 import { ElementType } from "react";
 import styled from "styled-components/macro";
-import { flexMixin, focus } from "../mixins";
-import { Flex, Polymorphic } from "../props";
 
 type FlexboxProps = Flex & Polymorphic<ElementType>;
 

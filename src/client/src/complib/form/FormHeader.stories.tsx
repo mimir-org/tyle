@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { FormHeader } from "./FormHeader";
+import { FormHeader } from "complib/form/FormHeader";
 
 export default {
   title: "Form/FormHeader",

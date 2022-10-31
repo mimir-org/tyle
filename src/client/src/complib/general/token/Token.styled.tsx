@@ -1,9 +1,9 @@
+import { TokenBaseProps } from "complib/general/token/Token";
+import { primaryToken } from "complib/general/token/variants/primaryToken";
+import { secondaryToken } from "complib/general/token/variants/secondaryToken";
+import { focus } from "complib/mixins";
 import { motion } from "framer-motion";
 import styled, { css } from "styled-components/macro";
-import { focus } from "../../mixins";
-import { TokenBaseProps } from "./Token";
-import { primaryToken } from "./variants/primaryToken";
-import { secondaryToken } from "./variants/secondaryToken";
 
 export const tokenBaseStyle = css<TokenBaseProps>`
   display: flex;

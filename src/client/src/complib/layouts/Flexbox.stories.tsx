@@ -1,7 +1,7 @@
 import { ComponentStory } from "@storybook/react";
-import { theme } from "../core";
-import { Flexbox } from "./Flexbox";
-import { Box } from "./Box";
+import { theme } from "complib/core";
+import { Box } from "complib/layouts/Box";
+import { Flexbox } from "complib/layouts/Flexbox";
 
 export default {
   title: "Layouts/Flexbox",

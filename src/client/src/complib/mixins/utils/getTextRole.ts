@@ -1,6 +1,6 @@
+import { NominalScale, theme, TypographyRoles } from "complib/core";
+import { TextTypes } from "complib/props";
 import { css } from "styled-components/macro";
-import { NominalScale, theme, TypographyRoles } from "../../core";
-import { TextTypes } from "../../props";
 
 export const getTextRole = (variant?: TextTypes) => {
   if (!variant) return "";

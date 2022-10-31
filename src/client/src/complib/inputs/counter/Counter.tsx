@@ -1,9 +1,9 @@
 import { MinusSm, PlusSm } from "@styled-icons/heroicons-outline";
+import { Button } from "complib/buttons";
+import { useOnChangeCallback } from "complib/inputs/counter/Counter.helpers";
+import { CounterContainer, CounterInput } from "complib/inputs/counter/Counter.styled";
+import { Sizing } from "complib/props";
 import { ForwardedRef, forwardRef, useEffect, useState } from "react";
-import { Button } from "../../buttons";
-import { Sizing } from "../../props";
-import { useOnChangeCallback } from "./Counter.helpers";
-import { CounterContainer, CounterInput } from "./Counter.styled";
 
 export type NumberProps = Sizing & {
   id?: string;

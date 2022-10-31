@@ -1,2 +1,2 @@
-export { Icon } from "./icon/Icon";
-export { MotionIcon } from "./icon/Icon";
+export { Icon } from "complib/media/icon/Icon";
+export { MotionIcon } from "complib/media/icon/Icon";

@@ -1,6 +1,6 @@
 import { ComponentStory } from "@storybook/react";
-import { Box } from "./Box";
-import { theme } from "../core";
+import { theme } from "complib/core";
+import { Box } from "complib/layouts/Box";
 
 export default {
   title: "Layouts/Box",

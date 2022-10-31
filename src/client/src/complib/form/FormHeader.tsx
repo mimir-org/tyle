@@ -1,5 +1,5 @@
-import { Text } from "../text";
-import { MotionFlexbox } from "../layouts";
+import { MotionFlexbox } from "complib/layouts";
+import { Text } from "complib/text";
 
 interface Props {
   title?: string;

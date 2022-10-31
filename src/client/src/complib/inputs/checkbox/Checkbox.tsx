@@ -1,8 +1,8 @@
 import { CheckboxProps } from "@radix-ui/react-checkbox";
+import { CheckboxEmptyIcon } from "complib/inputs/checkbox/assets";
+import { CheckboxChecked, CheckboxIndicator, MotionCheckboxRoot } from "complib/inputs/checkbox/Checkbox.styled";
 import { ForwardedRef, forwardRef } from "react";
 import { useTheme } from "styled-components";
-import { CheckboxEmptyIcon } from "./assets";
-import { CheckboxChecked, CheckboxIndicator, MotionCheckboxRoot } from "./Checkbox.styled";
 
 /**
  * A simple checkbox wrapper, with styling that follows library conventions.

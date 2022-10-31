@@ -1,5 +1,5 @@
+import { Borders } from "complib/props";
 import { css } from "styled-components/macro";
-import { Borders } from "../../props";
 
 export const bordersMixin = css<Borders>`
   border: ${(props) => props.border};

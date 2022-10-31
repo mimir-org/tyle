@@ -1,4 +1,4 @@
-import { TypeScaleSpecification } from "../types";
+import { TypeScaleSpecification } from "complib/core/variables/typography/types";
 
 /**
  * A collection of px units for size and line-height
@@ -16,7 +16,7 @@ export const typeScaleReference: TypeScaleSpecification<number> = {
     p4: 32,
     p5: 36,
     p6: 45,
-    p7: 57,
+    p7: 57
   },
   lineHeight: {
     base: 24,
@@ -29,6 +29,6 @@ export const typeScaleReference: TypeScaleSpecification<number> = {
     p4: 40,
     p5: 44,
     p6: 52,
-    p7: 64,
+    p7: 64
   }
-}
+};

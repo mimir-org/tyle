@@ -1,8 +1,8 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Button } from "../../buttons";
-import { Box, Flexbox } from "../../layouts";
-import { Heading, Text } from "../../text";
-import { Card } from "./Card";
+import { Button } from "complib/buttons";
+import { Box, Flexbox } from "complib/layouts";
+import { Card } from "complib/surfaces/card/Card";
+import { Heading, Text } from "complib/text";
 
 export default {
   title: "Surfaces/Card",

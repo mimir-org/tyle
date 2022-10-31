@@ -1,1 +1,1 @@
-export { VisuallyHidden } from "./hidden/VisuallyHidden";
+export { VisuallyHidden } from "complib/accessibility/hidden/VisuallyHidden";

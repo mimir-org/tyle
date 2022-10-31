@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { LibraryIcon } from "complib/assets";
-import { Button } from "./Button";
+import { Button } from "complib/buttons/Button";
 
 export default {
   title: "Buttons/Text",

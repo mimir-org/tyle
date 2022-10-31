@@ -1,9 +1,9 @@
 import * as PopoverPrimitive from "@radix-ui/react-popover";
+import { MotionPopoverContent, PopoverContentProps } from "complib/data-display/popover/Popover.styled";
+import { Text } from "complib/text";
 import { AnimatePresence } from "framer-motion";
 import { PropsWithChildren, ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { Text } from "../../text";
-import { MotionPopoverContent, PopoverContentProps } from "./Popover.styled";
 
 type Props = PopoverContentProps & {
   content: ReactNode;

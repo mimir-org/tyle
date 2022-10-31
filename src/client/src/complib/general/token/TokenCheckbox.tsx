@@ -1,9 +1,9 @@
 import { CheckboxProps } from "@radix-ui/react-checkbox";
+import { TokenBaseProps } from "complib/general/token/Token";
+import { MotionTokenCheckboxContainer } from "complib/general/token/TokenCheckbox.styled";
+import { Text } from "complib/text";
 import { ForwardedRef, forwardRef } from "react";
 import { useTheme } from "styled-components";
-import { Text } from "../../text";
-import { TokenBaseProps } from "./Token";
-import { MotionTokenCheckboxContainer } from "./TokenCheckbox.styled";
 
 export type TokenCheckboxProps = CheckboxProps & Omit<TokenBaseProps, "interactive">;
 

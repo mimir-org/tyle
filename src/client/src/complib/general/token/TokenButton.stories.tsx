@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { TokenButton } from "./TokenButton";
+import { TokenButton } from "complib/general/token/TokenButton";
 
 export default {
   title: "General/TokenButton",
