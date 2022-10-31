@@ -1,5 +1,5 @@
 import { ComponentStory } from "@storybook/react";
-import { SearchPlaceholder } from "./SearchPlaceholder";
+import { SearchPlaceholder } from "features/explore/search/components/SearchPlaceholder";
 
 export default {
   title: "Explore/Search/SearchPlaceholder",

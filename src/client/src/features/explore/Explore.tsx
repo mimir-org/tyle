@@ -1,8 +1,8 @@
+import { About } from "features/explore/about/About";
+import { SelectedInfo } from "features/explore/common/selectedInfo";
+import { ExploreContainer } from "features/explore/Explore.styled";
+import { Search } from "features/explore/search/Search";
 import { useState } from "react";
-import { About } from "./about/About";
-import { Search } from "./search/Search";
-import { ExploreContainer } from "./Explore.styled";
-import { SelectedInfo } from "./common/selectedInfo";
 
 export const Explore = () => {
   const [selected, setSelected] = useState<SelectedInfo>({ id: "" });

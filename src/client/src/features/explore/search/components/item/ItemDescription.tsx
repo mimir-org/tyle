@@ -1,5 +1,5 @@
 import { Text } from "complib/text";
-import { ItemDescriptionContainer } from "./ItemDescription.styled";
+import { ItemDescriptionContainer } from "features/explore/search/components/item/ItemDescription.styled";
 
 export interface ItemDescriptionProps {
   name: string;

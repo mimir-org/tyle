@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { AuthContentHeader } from "./AuthContentHeader";
+import { AuthContentHeader } from "features/auth/common/auth-content/AuthContentHeader";
 
 export default {
   title: "Auth/Common/AuthContentHeader",

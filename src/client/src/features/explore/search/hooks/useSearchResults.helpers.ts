@@ -8,9 +8,9 @@ import { useGetInterfaces } from "external/sources/interface/interface.queries";
 import { useGetNodes } from "external/sources/node/node.queries";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
 import { useGetTransports } from "external/sources/transport/transport.queries";
-import { isInterfaceLibCm, isNodeLibCm, isTerminalLibCm, isTransportLibCm } from "../guards";
-import { Filter } from "../types/filter";
-import { SearchResult, SearchResultRaw } from "../types/searchResult";
+import { isInterfaceLibCm, isNodeLibCm, isTerminalLibCm, isTransportLibCm } from "features/explore/search/guards";
+import { Filter } from "features/explore/search/types/filter";
+import { SearchResult, SearchResultRaw } from "features/explore/search/types/searchResult";
 
 /**
  * Filters items with AND-logic if there are any filters available, returns items sorted by date if not.

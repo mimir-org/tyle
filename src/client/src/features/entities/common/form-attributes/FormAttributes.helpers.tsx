@@ -1,7 +1,7 @@
 import { AttributeLibAm, AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { UpdateEntity } from "common/types/updateEntity";
 import { mapAttributeLibCmsToInfoItems } from "common/utils/mappers";
-import { ValueObject } from "../../types/valueObject";
+import { ValueObject } from "features/entities/types/valueObject";
 
 export const onAddAttributes = (
   selectedIds: string[],

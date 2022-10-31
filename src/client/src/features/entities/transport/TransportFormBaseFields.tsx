@@ -13,13 +13,13 @@ import { ConditionalWrapper } from "complib/utils";
 import { useGetPurposes } from "external/sources/purpose/purpose.queries";
 import { useGetRds } from "external/sources/rds/rds.queries";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
+import { resetSubform } from "features/entities/transport/TransportForm.helpers";
+import { TransportFormBaseFieldsContainer } from "features/entities/transport/TransportFormBaseFields.styled";
+import { TransportFormPreview } from "features/entities/transport/TransportFormPreview";
+import { FormTransportLib } from "features/entities/transport/types/formTransportLib";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { resetSubform } from "./TransportForm.helpers";
-import { TransportFormBaseFieldsContainer } from "./TransportFormBaseFields.styled";
-import { TransportFormPreview } from "./TransportFormPreview";
-import { FormTransportLib } from "./types/formTransportLib";
 
 interface TransportFormBaseFieldsProps {
   isPrefilled?: boolean;

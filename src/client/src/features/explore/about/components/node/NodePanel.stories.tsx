@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { mockNodeItem } from "common/utils/mocks";
-import { NodePanel } from "./NodePanel";
+import { NodePanel } from "features/explore/about/components/node/NodePanel";
 
 export default {
   title: "Explore/About/NodePanel",

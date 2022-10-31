@@ -1,8 +1,8 @@
 import { Box } from "complib/layouts";
 import { MotionCard } from "complib/surfaces";
+import { ItemActionContainer } from "features/explore/search/components/item/Item.styled";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { ItemActionContainer } from "./Item.styled";
 
 export interface ItemProps {
   isSelected?: boolean;

@@ -1,5 +1,5 @@
 import { ComponentStory } from "@storybook/react";
-import { ContactCard } from "./ContactCard";
+import { ContactCard } from "features/ui/header/contact/ContactCard";
 
 export default {
   title: "UI/Header/ContactCard",

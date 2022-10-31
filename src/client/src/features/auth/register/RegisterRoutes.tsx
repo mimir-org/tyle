@@ -1,5 +1,5 @@
+import { Register } from "features/auth/register/Register";
 import { RouteObject } from "react-router-dom";
-import { Register } from "./Register";
 
 export const RegisterPath = "/register";
 

@@ -4,12 +4,12 @@ import { PlainLink } from "common/components/plain-link";
 import { TerminalPreview } from "common/components/terminal/TerminalPreview";
 import { TerminalItem } from "common/types/terminalItem";
 import { Button } from "complib/buttons";
-import { AlertDialog } from "complib/overlays/alert-dialog/AlertDialog";
+import { AlertDialog } from "complib/overlays";
 import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
+import { Item } from "features/explore/search/components/item/Item";
+import { ItemDescription } from "features/explore/search/components/item/ItemDescription";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { Item } from "../item/Item";
-import { ItemDescription } from "../item/ItemDescription";
 
 export type TerminalSearchItemProps = TerminalItem & {
   isSelected?: boolean;

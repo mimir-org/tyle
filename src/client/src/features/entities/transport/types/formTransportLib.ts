@@ -1,7 +1,7 @@
 import { Aspect, AttributeLibAm, TransportLibAm, TransportLibCm } from "@mimirorg/typelibrary-types";
 import { UpdateEntity } from "common/types/updateEntity";
-import { ValueObject } from "../../types/valueObject";
-import { TransportFormMode } from "./transportFormMode";
+import { TransportFormMode } from "features/entities/transport/types/transportFormMode";
+import { ValueObject } from "features/entities/types/valueObject";
 
 /**
  * This type functions as a layer between client needs and the backend model.

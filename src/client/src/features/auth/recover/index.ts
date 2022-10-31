@@ -1,1 +1,1 @@
-export { Recover } from "./Recover";
+export { Recover } from "features/auth/recover/Recover";

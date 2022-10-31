@@ -9,15 +9,15 @@ import { useGetInterface } from "external/sources/interface/interface.queries";
 import { useGetNode } from "external/sources/node/node.queries";
 import { useGetTerminal } from "external/sources/terminal/terminal.queries";
 import { useGetTransport } from "external/sources/transport/transport.queries";
+import { AboutPlaceholder } from "features/explore/about/components/AboutPlaceholder";
+import { InterfacePanel } from "features/explore/about/components/interface/InterfacePanel";
+import { NodePanel } from "features/explore/about/components/node/NodePanel";
+import { TerminalPanel } from "features/explore/about/components/terminal/TerminalPanel";
+import { TransportPanel } from "features/explore/about/components/transport/TransportPanel";
+import { ExploreSection } from "features/explore/common/ExploreSection";
+import { SelectedInfo } from "features/explore/common/selectedInfo";
 import { AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { ExploreSection } from "../common/ExploreSection";
-import { SelectedInfo } from "../common/selectedInfo";
-import { AboutPlaceholder } from "./components/AboutPlaceholder";
-import { InterfacePanel } from "./components/interface/InterfacePanel";
-import { NodePanel } from "./components/node/NodePanel";
-import { TerminalPanel } from "./components/terminal/TerminalPanel";
-import { TransportPanel } from "./components/transport/TransportPanel";
 
 interface AboutProps {
   selected?: SelectedInfo;

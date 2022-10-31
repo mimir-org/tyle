@@ -1,6 +1,9 @@
-import { isTerminalItem } from "../../guards";
-import { ConditionalSearchItem } from "../../types/conditionalSearchItem";
-import { TerminalSearchItem, TerminalSearchItemProps } from "./TerminalSearchItem";
+import {
+  TerminalSearchItem,
+  TerminalSearchItemProps,
+} from "features/explore/search/components/terminal/TerminalSearchItem";
+import { isTerminalItem } from "features/explore/search/guards";
+import { ConditionalSearchItem } from "features/explore/search/types/conditionalSearchItem";
 
 type Props = ConditionalSearchItem & Pick<TerminalSearchItemProps, "isSelected" | "setSelected">;
 

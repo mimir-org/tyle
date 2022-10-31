@@ -1,7 +1,7 @@
 import { Aspect, AttributeLibAm, InterfaceLibAm, InterfaceLibCm } from "@mimirorg/typelibrary-types";
 import { UpdateEntity } from "common/types/updateEntity";
-import { ValueObject } from "../../types/valueObject";
-import { InterfaceFormMode } from "./interfaceFormMode";
+import { InterfaceFormMode } from "features/entities/interface/types/interfaceFormMode";
+import { ValueObject } from "features/entities/types/valueObject";
 
 /**
  * This type functions as a layer between client needs and the backend model.

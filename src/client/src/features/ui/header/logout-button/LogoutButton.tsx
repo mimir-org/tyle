@@ -1,7 +1,7 @@
 import { Logout } from "@styled-icons/heroicons-outline";
 import { useLogout } from "external/sources/authenticate/authenticate.queries";
+import { UserMenuButton } from "features/ui/header/user-menu/UserMenuButton";
 import { useTranslation } from "react-i18next";
-import { UserMenuButton } from "../user-menu/UserMenuButton";
 
 export const LogoutButton = () => {
   const { t } = useTranslation();

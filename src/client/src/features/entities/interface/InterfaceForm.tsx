@@ -5,25 +5,25 @@ import { Loader } from "common/components/loader";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { Box } from "complib/layouts";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { useTheme } from "styled-components";
-import { FormAttributes } from "../common/form-attributes/FormAttributes";
-import { onSubmitForm } from "../common/utils/onSubmitForm";
-import { prepareAttributes } from "../common/utils/prepareAttributes";
-import { usePrefilledForm } from "../common/utils/usePrefilledForm";
-import { useSubmissionToast } from "../common/utils/useSubmissionToast";
-import { useInterfaceMutation, useInterfaceQuery } from "./InterfaceForm.helpers";
-import { InterfaceFormContainer } from "./InterfaceForm.styled";
-import { InterfaceFormBaseFields } from "./InterfaceFormBaseFields";
-import { interfaceSchema } from "./interfaceSchema";
+import { FormAttributes } from "features/entities/common/form-attributes/FormAttributes";
+import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
+import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";
+import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
+import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
+import { useInterfaceMutation, useInterfaceQuery } from "features/entities/interface/InterfaceForm.helpers";
+import { InterfaceFormContainer } from "features/entities/interface/InterfaceForm.styled";
+import { InterfaceFormBaseFields } from "features/entities/interface/InterfaceFormBaseFields";
+import { interfaceSchema } from "features/entities/interface/interfaceSchema";
 import {
   createEmptyFormInterfaceLib,
   FormInterfaceLib,
   mapFormInterfaceLibToApiModel,
   mapInterfaceLibCmToFormInterfaceLib,
-} from "./types/formInterfaceLib";
-import { InterfaceFormMode } from "./types/interfaceFormMode";
+} from "features/entities/interface/types/formInterfaceLib";
+import { InterfaceFormMode } from "features/entities/interface/types/interfaceFormMode";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "styled-components";
 
 interface InterfaceFormProps {
   defaultValues?: FormInterfaceLib;

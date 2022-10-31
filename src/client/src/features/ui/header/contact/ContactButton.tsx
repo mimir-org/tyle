@@ -6,10 +6,10 @@ import { Box } from "complib/layouts";
 import { Dialog } from "complib/overlays";
 import { Text } from "complib/text";
 import { useGetCompany } from "external/sources/company/company.queries";
+import { ContactCard } from "features/ui/header/contact/ContactCard";
+import { UserMenuButton } from "features/ui/header/user-menu/UserMenuButton";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { UserMenuButton } from "../user-menu/UserMenuButton";
-import { ContactCard } from "./ContactCard";
 
 /**
  * Component that displays a button with a dialog for finding contact information about

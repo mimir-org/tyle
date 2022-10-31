@@ -5,9 +5,15 @@ import { SearchField } from "common/components/search-field";
 import { InfoItem } from "common/types/infoItem";
 import { Button } from "complib/buttons";
 import { Dialog } from "complib/overlays";
+import {
+  filterInfoItem,
+  onSelectionChange,
+} from "features/entities/common/select-item-dialog/SelectItemDialog.helpers";
+import {
+  SelectContainer,
+  SelectItemsContainer,
+} from "features/entities/common/select-item-dialog/SelectItemDialog.styled";
 import { useState } from "react";
-import { filterInfoItem, onSelectionChange } from "./SelectItemDialog.helpers";
-import { SelectContainer, SelectItemsContainer } from "./SelectItemDialog.styled";
 
 interface SelectItemDialogProps {
   title: string;

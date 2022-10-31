@@ -1,5 +1,5 @@
 import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
-import { recoverDetailsSchema } from "./recoverDetailsSchema";
+import { recoverDetailsSchema } from "features/auth/recover/details/recoverDetailsSchema";
 
 describe("recoverDetailsSchema tests", () => {
   const t = (key: string) => key;

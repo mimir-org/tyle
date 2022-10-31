@@ -3,7 +3,7 @@ import { InfoItemButtonProps } from "common/components/info-item/InfoItemButton"
 import { Default as SelectItemInfoButton } from "common/components/info-item/InfoItemButton.stories";
 import { Button } from "complib/buttons";
 import { Flexbox } from "complib/layouts";
-import { FormSection } from "./FormSection";
+import { FormSection } from "features/entities/common/form-section/FormSection";
 
 export default {
   title: "Entities/Common/FormSection",

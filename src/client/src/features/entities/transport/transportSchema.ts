@@ -1,8 +1,8 @@
 import { YupShape } from "common/types/yupShape";
+import { typeReferenceListSchema } from "features/entities/common/validation/typeReferenceListSchema";
+import { FormTransportLib } from "features/entities/transport/types/formTransportLib";
 import { TFunction } from "react-i18next";
 import * as yup from "yup";
-import { typeReferenceListSchema } from "../common/validation/typeReferenceListSchema";
-import { FormTransportLib } from "./types/formTransportLib";
 
 export const transportSchema = (t: TFunction<"translation">) =>
   yup.object<YupShape<FormTransportLib>>({

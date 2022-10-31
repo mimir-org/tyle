@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Processing } from "./Processing";
+import { Processing } from "features/auth/common/processing/Processing";
 
 export default {
   title: "Auth/Common/Processing",

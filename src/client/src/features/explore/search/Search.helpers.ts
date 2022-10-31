@@ -1,8 +1,8 @@
-import { interfaceFormBasePath } from "../../entities/interface/InterfaceFormRoutes";
-import { nodeFormBasePath } from "../../entities/node/NodeFormRoutes";
-import { terminalFormBasePath } from "../../entities/terminal/TerminalFormRoutes";
-import { transportFormBasePath } from "../../entities/transport/TransportFormRoutes";
-import { Link } from "./types/link";
+import { interfaceFormBasePath } from "features/entities/interface/InterfaceFormRoutes";
+import { nodeFormBasePath } from "features/entities/node/NodeFormRoutes";
+import { terminalFormBasePath } from "features/entities/terminal/TerminalFormRoutes";
+import { transportFormBasePath } from "features/entities/transport/TransportFormRoutes";
+import { Link } from "features/explore/search/types/link";
 
 export const getCreateMenuLinks = (): Link[] => {
   return [

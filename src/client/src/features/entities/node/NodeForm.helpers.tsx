@@ -1,10 +1,10 @@
 import { Aspect } from "@mimirorg/typelibrary-types";
 import { useCreateNode, useGetNode, useUpdateNode } from "external/sources/node/node.queries";
+import { NodeFormPredefinedAttributes } from "features/entities/node/predefined-attributes/NodeFormPredefinedAttributes";
+import { NodeFormTerminalTable } from "features/entities/node/terminals/NodeFormTerminalTable";
+import { FormNodeLib } from "features/entities/node/types/formNodeLib";
+import { NodeFormMode } from "features/entities/node/types/nodeFormMode";
 import { useParams } from "react-router-dom";
-import { NodeFormPredefinedAttributes } from "./predefined-attributes/NodeFormPredefinedAttributes";
-import { NodeFormTerminalTable } from "./terminals/NodeFormTerminalTable";
-import { FormNodeLib } from "./types/formNodeLib";
-import { NodeFormMode } from "./types/nodeFormMode";
 
 export const useNodeQuery = () => {
   const { id } = useParams();

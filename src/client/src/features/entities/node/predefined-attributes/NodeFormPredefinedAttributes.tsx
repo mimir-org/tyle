@@ -3,12 +3,12 @@ import { FormField } from "complib/form";
 import { Input, Select } from "complib/inputs";
 import { Box, Grid } from "complib/layouts";
 import { useGetAttributesPredefined } from "external/sources/attribute/attribute.queries";
+import { FormSection } from "features/entities/common/form-section/FormSection";
+import { preparePredefinedAttributes } from "features/entities/node/predefined-attributes/NodeFormPredefinedAttributes.helpers";
+import { FormNodeLib } from "features/entities/node/types/formNodeLib";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { FormSection } from "../../common/form-section/FormSection";
-import { FormNodeLib } from "../types/formNodeLib";
-import { preparePredefinedAttributes } from "./NodeFormPredefinedAttributes.helpers";
 
 export interface NodeFormPredefinedAttributesProps {
   aspects?: Aspect[];

@@ -1,7 +1,7 @@
 import { useCreateInterface, useGetInterface, useUpdateInterface } from "external/sources/interface/interface.queries";
+import { FormInterfaceLib } from "features/entities/interface/types/formInterfaceLib";
+import { InterfaceFormMode } from "features/entities/interface/types/interfaceFormMode";
 import { useParams } from "react-router-dom";
-import { FormInterfaceLib } from "./types/formInterfaceLib";
-import { InterfaceFormMode } from "./types/interfaceFormMode";
 
 export const useInterfaceQuery = () => {
   const { id } = useParams();

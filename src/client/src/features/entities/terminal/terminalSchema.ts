@@ -1,8 +1,8 @@
 import { YupShape } from "common/types/yupShape";
+import { typeReferenceListSchema } from "features/entities/common/validation/typeReferenceListSchema";
+import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";
 import { TFunction } from "react-i18next";
 import * as yup from "yup";
-import { typeReferenceListSchema } from "../common/validation/typeReferenceListSchema";
-import { FormTerminalLib } from "./types/formTerminalLib";
 
 export const terminalSchema = (t: TFunction<"translation">) =>
   yup.object<YupShape<FormTerminalLib>>({

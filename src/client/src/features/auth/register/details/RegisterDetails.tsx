@@ -11,14 +11,14 @@ import { MotionText, Text } from "complib/text";
 import { Actionable } from "complib/types";
 import { useGetCompanies } from "external/sources/company/company.queries";
 import { useCreateUser } from "external/sources/user/user.queries";
+import { AuthContent } from "features/auth/common/auth-content/AuthContent";
+import { Error } from "features/auth/common/error/Error";
+import { Processing } from "features/auth/common/processing/Processing";
+import { registerDetailsSchema } from "features/auth/register/details/registerDetailsSchema";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useTheme } from "styled-components";
-import { AuthContent } from "../../common/auth-content/AuthContent";
-import { Error } from "../../common/error/Error";
-import { Processing } from "../../common/processing/Processing";
-import { registerDetailsSchema } from "./registerDetailsSchema";
 
 interface RegisterDetailsProps {
   setUserEmail: (email: string) => void;

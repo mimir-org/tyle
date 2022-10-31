@@ -1,7 +1,7 @@
 import { YupShape } from "common/types/yupShape";
+import { typeReferenceListSchema } from "features/entities/common/validation/typeReferenceListSchema";
 import { TFunction } from "react-i18next";
 import * as yup from "yup";
-import { typeReferenceListSchema } from "../common/validation/typeReferenceListSchema";
 import { FormNodeLib } from "./types/formNodeLib";
 
 export const nodeSchema = (t: TFunction<"translation">) =>

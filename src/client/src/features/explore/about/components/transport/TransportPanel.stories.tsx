@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { mockTransportItem } from "common/utils/mocks";
-import { TransportPanel } from "./TransportPanel";
+import { TransportPanel } from "features/explore/about/components/transport/TransportPanel";
 
 export default {
   title: "Explore/About/TransportPanel",

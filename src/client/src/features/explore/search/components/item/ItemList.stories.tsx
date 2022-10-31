@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { ItemProps } from "./Item";
-import { Default as Item } from "./Item.stories";
-import { ItemList } from "./ItemList";
+import { ItemProps } from "features/explore/search/components/item/Item";
+import { Default as Item } from "features/explore/search/components/item/Item.stories";
+import { ItemList } from "features/explore/search/components/item/ItemList";
 
 const mockData = [...Array(10)].map((_, i) => <Item key={i} {...(Item.args as ItemProps)} />);
 

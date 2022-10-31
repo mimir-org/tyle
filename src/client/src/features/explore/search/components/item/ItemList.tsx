@@ -1,7 +1,7 @@
+import { MotionItemListContainer } from "features/explore/search/components/item/ItemList.styled";
 import { AnimatePresence } from "framer-motion";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { MotionItemListContainer } from "./ItemList.styled";
 
 export interface ItemListProps {
   children: ReactNode;

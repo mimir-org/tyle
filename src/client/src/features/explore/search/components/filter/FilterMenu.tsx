@@ -4,11 +4,11 @@ import { Button } from "complib/buttons";
 import { Popover } from "complib/data-display";
 import { Box } from "complib/layouts";
 import { Accordion } from "complib/surfaces";
+import { filterAvailableFilters } from "features/explore/search/components/filter/FilterMenu.helpers";
+import { FilterMenuGroup, FilterMenuGroupProps } from "features/explore/search/components/filter/FilterMenuGroup";
+import { FilterGroup } from "features/explore/search/types/filterGroup";
 import { useState } from "react";
 import { useTheme } from "styled-components";
-import { FilterGroup } from "../../types/filterGroup";
-import { filterAvailableFilters } from "./FilterMenu.helpers";
-import { FilterMenuGroup, FilterMenuGroupProps } from "./FilterMenuGroup";
 
 export type FilterMenuProps = Omit<FilterMenuGroupProps, "name" | "filters"> & {
   name: string;

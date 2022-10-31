@@ -1,5 +1,5 @@
+import { TransportForm } from "features/entities/transport/TransportForm";
 import { RouteObject } from "react-router-dom";
-import { TransportForm } from "./TransportForm";
 
 export const transportFormBasePath = "form/transport";
 

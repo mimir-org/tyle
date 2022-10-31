@@ -3,14 +3,14 @@ import { Logo } from "common/components/logo";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { Flexbox } from "complib/layouts";
 import { useGetCurrentUser } from "external/sources/user/user.queries";
+import { ContactButton } from "features/ui/header/contact/ContactButton";
+import { mapPermissionDescriptions } from "features/ui/header/Header.helpers";
+import { HeaderContainer } from "features/ui/header/Header.styles";
+import { LogoutButton } from "features/ui/header/logout-button/LogoutButton";
+import { ThemeButton } from "features/ui/header/theme-button/ThemeButton";
+import { UserInfo } from "features/ui/header/user-info/UserInfo";
+import { UserMenu } from "features/ui/header/user-menu/UserMenu";
 import { useTheme } from "styled-components";
-import { ContactButton } from "./contact/ContactButton";
-import { mapPermissionDescriptions } from "./Header.helpers";
-import { HeaderContainer } from "./Header.styles";
-import { LogoutButton } from "./logout-button/LogoutButton";
-import { ThemeButton } from "./theme-button/ThemeButton";
-import { UserInfo } from "./user-info/UserInfo";
-import { UserMenu } from "./user-menu/UserMenu";
 
 export const Header = () => {
   const theme = useTheme();

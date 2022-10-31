@@ -1,5 +1,5 @@
+import { Filter } from "features/explore/search/types/filter";
 import { useState } from "react";
-import { Filter } from "../types/filter";
 
 export const useFilterState = (initial: Filter[]): [filters: Filter[], toggleFilter: (filter: Filter) => void] => {
   const [filters, setFilters] = useState<Filter[]>(initial);

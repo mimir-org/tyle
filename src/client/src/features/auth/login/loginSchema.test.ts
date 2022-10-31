@@ -1,5 +1,5 @@
 import { MimirorgAuthenticateAm } from "@mimirorg/typelibrary-types";
-import { loginSchema } from "./loginSchema";
+import { loginSchema } from "features/auth/login/loginSchema";
 
 describe("loginSchema tests", () => {
   const t = (key: string) => key;

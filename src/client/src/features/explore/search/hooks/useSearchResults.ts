@@ -1,7 +1,11 @@
-import { Filter } from "../types/filter";
-import { SearchResult } from "../types/searchResult";
-import { useFuse } from "./useFuse";
-import { filterSearchResults, mapSearchResults, useSearchItems } from "./useSearchResults.helpers";
+import { useFuse } from "features/explore/search/hooks/useFuse";
+import {
+  filterSearchResults,
+  mapSearchResults,
+  useSearchItems,
+} from "features/explore/search/hooks/useSearchResults.helpers";
+import { Filter } from "features/explore/search/types/filter";
+import { SearchResult } from "features/explore/search/types/searchResult";
 
 /**
  * Indexed fields that the fuzzy-search will try to match a query against

@@ -1,8 +1,8 @@
 import { InterfacePreview } from "common/components/interface";
 import { getColorFromAspect } from "common/utils/getColorFromAspect";
+import { FormInterfaceLib } from "features/entities/interface/types/formInterfaceLib";
 import { Control, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { FormInterfaceLib } from "./types/formInterfaceLib";
 
 interface InterfaceFormPreviewProps {
   control: Control<FormInterfaceLib>;

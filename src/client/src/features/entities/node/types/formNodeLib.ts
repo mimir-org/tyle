@@ -1,11 +1,11 @@
 import { Aspect, AttributeLibAm, NodeLibAm, NodeLibCm } from "@mimirorg/typelibrary-types";
 import { UpdateEntity } from "common/types/updateEntity";
-import { ValueObject } from "../../types/valueObject";
 import {
   FormSelectedAttributePredefinedLib,
   mapFormSelectedAttributePredefinedLibToApiModel,
-} from "./formSelectedAttributePredefinedLib";
-import { NodeFormMode } from "./nodeFormMode";
+} from "features/entities/node/types/formSelectedAttributePredefinedLib";
+import { NodeFormMode } from "features/entities/node/types/nodeFormMode";
+import { ValueObject } from "features/entities/types/valueObject";
 
 /**
  * This type functions as a layer between client needs and the backend model.

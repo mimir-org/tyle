@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { FormAddButton } from "./FormAddButton";
+import { FormAddButton } from "features/entities/common/form-add-button/FormAddButton";
 
 export default {
   title: "Entities/Common/FormAddButton",

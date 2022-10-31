@@ -1,1 +1,1 @@
-export { Register } from "./Register";
+export { Register } from "features/auth/register/Register";

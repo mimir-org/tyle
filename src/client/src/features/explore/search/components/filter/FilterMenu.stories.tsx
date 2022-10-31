@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Filter } from "../../types/filter";
-import { FilterMenu } from "./FilterMenu";
-import { FilterMenuGroup } from "./FilterMenuGroup";
+import { FilterMenu } from "features/explore/search/components/filter/FilterMenu";
+import { FilterMenuGroup } from "features/explore/search/components/filter/FilterMenuGroup";
+import { Filter } from "features/explore/search/types/filter";
 
 export default {
   title: "Explore/Search/Filter/FilterMenu",

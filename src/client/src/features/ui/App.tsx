@@ -1,8 +1,8 @@
 import { FullPageSpinner } from "complib/feedback";
 import { useGetCurrentUser } from "external/sources/user/user.queries";
+import { Authenticated } from "features/ui/authenticated/Authenticated";
+import { Unauthenticated } from "features/ui/unauthenticated/Unauthenticated";
 import { useTranslation } from "react-i18next";
-import { Authenticated } from "./authenticated/Authenticated";
-import { Unauthenticated } from "./unauthenticated/Unauthenticated";
 
 export const App = () => {
   const { t } = useTranslation();

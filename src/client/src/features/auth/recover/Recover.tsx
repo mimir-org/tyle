@@ -1,12 +1,12 @@
 import { MimirorgQrCodeCm, MimirorgVerifyAm } from "@mimirorg/typelibrary-types";
+import { Completion } from "features/auth/common/completion/Completion";
+import { MultiFactorAuthentication } from "features/auth/common/mfa/MultiFactorAuthentication";
+import { RecoverDetails } from "features/auth/recover/details/RecoverDetails";
+import { RecoverPassword } from "features/auth/recover/password/RecoverPassword";
+import { RecoverVerification } from "features/auth/recover/verification/RecoverVerification";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { Completion } from "../common/completion/Completion";
-import { MultiFactorAuthentication } from "../common/mfa/MultiFactorAuthentication";
-import { RecoverDetails } from "./details/RecoverDetails";
-import { RecoverPassword } from "./password/RecoverPassword";
-import { RecoverVerification } from "./verification/RecoverVerification";
 
 export type RecoverySteps = "DETAILS" | "VERIFY" | "PASSWORD" | "MFA" | "COMPLETE";
 

@@ -1,5 +1,5 @@
 import { ComponentStory } from "@storybook/react";
-import { AboutPlaceholder } from "./AboutPlaceholder";
+import { AboutPlaceholder } from "features/explore/about/components/AboutPlaceholder";
 
 export default {
   title: "Explore/About/AboutPlaceholder",

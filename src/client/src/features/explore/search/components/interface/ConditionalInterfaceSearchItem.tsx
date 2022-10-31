@@ -1,6 +1,9 @@
-import { isInterfaceItem } from "../../guards";
-import { ConditionalSearchItem } from "../../types/conditionalSearchItem";
-import { InterfaceSearchItem, InterfaceSearchItemProps } from "./InterfaceSearchItem";
+import {
+  InterfaceSearchItem,
+  InterfaceSearchItemProps,
+} from "features/explore/search/components/interface/InterfaceSearchItem";
+import { isInterfaceItem } from "features/explore/search/guards";
+import { ConditionalSearchItem } from "features/explore/search/types/conditionalSearchItem";
 
 type Props = ConditionalSearchItem & Pick<InterfaceSearchItemProps, "isSelected" | "setSelected">;
 

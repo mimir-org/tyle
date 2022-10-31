@@ -5,25 +5,25 @@ import { Loader } from "common/components/loader";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { Box } from "complib/layouts";
-import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { useTheme } from "styled-components/macro";
-import { FormAttributes } from "../common/form-attributes/FormAttributes";
-import { onSubmitForm } from "../common/utils/onSubmitForm";
-import { prepareAttributes } from "../common/utils/prepareAttributes";
-import { usePrefilledForm } from "../common/utils/usePrefilledForm";
-import { useSubmissionToast } from "../common/utils/useSubmissionToast";
-import { getSubformForAspect, useNodeMutation, useNodeQuery } from "./NodeForm.helpers";
-import { NodeFormContainer } from "./NodeForm.styled";
-import { NodeFormBaseFields } from "./NodeFormBaseFields";
-import { nodeSchema } from "./nodeSchema";
+import { FormAttributes } from "features/entities/common/form-attributes/FormAttributes";
+import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
+import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";
+import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
+import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
+import { getSubformForAspect, useNodeMutation, useNodeQuery } from "features/entities/node/NodeForm.helpers";
+import { NodeFormContainer } from "features/entities/node/NodeForm.styled";
+import { NodeFormBaseFields } from "features/entities/node/NodeFormBaseFields";
+import { nodeSchema } from "features/entities/node/nodeSchema";
 import {
   createEmptyFormNodeLib,
   FormNodeLib,
   mapFormNodeLibToApiModel,
   mapNodeLibCmToFormNodeLib,
-} from "./types/formNodeLib";
-import { NodeFormMode } from "./types/nodeFormMode";
+} from "features/entities/node/types/formNodeLib";
+import { NodeFormMode } from "features/entities/node/types/nodeFormMode";
+import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "styled-components/macro";
 
 interface NodeFormProps {
   defaultValues?: FormNodeLib;

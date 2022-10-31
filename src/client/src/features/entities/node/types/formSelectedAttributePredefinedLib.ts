@@ -1,5 +1,5 @@
 import { SelectedAttributePredefinedLibAm } from "@mimirorg/typelibrary-types";
-import { ValueObject } from "../../types/valueObject";
+import { ValueObject } from "features/entities/types/valueObject";
 
 /**
  * This type functions as a layer between client needs and the backend model.

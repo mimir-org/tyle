@@ -5,25 +5,25 @@ import { Loader } from "common/components/loader";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { Box } from "complib/layouts";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { useTheme } from "styled-components";
-import { FormAttributes } from "../common/form-attributes/FormAttributes";
-import { onSubmitForm } from "../common/utils/onSubmitForm";
-import { prepareAttributes } from "../common/utils/prepareAttributes";
-import { usePrefilledForm } from "../common/utils/usePrefilledForm";
-import { useSubmissionToast } from "../common/utils/useSubmissionToast";
-import { useTerminalMutation, useTerminalQuery } from "./TerminalForm.helpers";
-import { TerminalFormContainer } from "./TerminalForm.styled";
-import { TerminalFormBaseFields } from "./TerminalFormBaseFields";
-import { terminalSchema } from "./terminalSchema";
+import { FormAttributes } from "features/entities/common/form-attributes/FormAttributes";
+import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
+import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";
+import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
+import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
+import { useTerminalMutation, useTerminalQuery } from "features/entities/terminal/TerminalForm.helpers";
+import { TerminalFormContainer } from "features/entities/terminal/TerminalForm.styled";
+import { TerminalFormBaseFields } from "features/entities/terminal/TerminalFormBaseFields";
+import { terminalSchema } from "features/entities/terminal/terminalSchema";
 import {
   createEmptyFormTerminalLib,
   FormTerminalLib,
   mapFormTerminalLibToApiModel,
   mapTerminalLibCmToFormTerminalLib,
-} from "./types/formTerminalLib";
-import { TerminalFormMode } from "./types/terminalFormMode";
+} from "features/entities/terminal/types/formTerminalLib";
+import { TerminalFormMode } from "features/entities/terminal/types/terminalFormMode";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "styled-components";
 
 interface TerminalFormProps {
   defaultValues?: FormTerminalLib;

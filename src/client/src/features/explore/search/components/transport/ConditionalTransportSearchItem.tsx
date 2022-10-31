@@ -1,6 +1,9 @@
-import { isTransportItem } from "../../guards";
-import { ConditionalSearchItem } from "../../types/conditionalSearchItem";
-import { TransportSearchItem, TransportSearchItemProps } from "./TransportSearchItem";
+import {
+  TransportSearchItem,
+  TransportSearchItemProps,
+} from "features/explore/search/components/transport/TransportSearchItem";
+import { isTransportItem } from "features/explore/search/guards";
+import { ConditionalSearchItem } from "features/explore/search/types/conditionalSearchItem";
 
 type Props = ConditionalSearchItem & Pick<TransportSearchItemProps, "isSelected" | "setSelected">;
 

@@ -1,5 +1,5 @@
+import { UnauthenticatedLayoutContainer } from "features/ui/unauthenticated/layout/UnauthenticatedLayout.styled";
 import { Outlet } from "react-router-dom";
-import { UnauthenticatedLayoutContainer } from "./UnauthenticatedLayout.styled";
 
 export const UnauthenticatedLayout = () => (
   <UnauthenticatedLayoutContainer>

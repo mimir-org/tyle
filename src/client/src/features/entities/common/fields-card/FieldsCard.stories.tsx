@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Input } from "complib/inputs";
-import { FieldsCard } from "./FieldsCard";
+import { FieldsCard } from "features/entities/common/fields-card/FieldsCard";
 
 export default {
   title: "Entities/Common/FieldsCard",

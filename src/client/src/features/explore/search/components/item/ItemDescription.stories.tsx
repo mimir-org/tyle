@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { ItemDescription } from "./ItemDescription";
+import { ItemDescription } from "features/explore/search/components/item/ItemDescription";
 
 export default {
   title: "Explore/Search/Item/ItemDescription",

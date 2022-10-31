@@ -1,7 +1,7 @@
 import { Aspect } from "@mimirorg/typelibrary-types";
 import { getValueLabelObjectsFromEnum } from "common/utils/getValueLabelObjectsFromEnum";
 import { useGetPurposes } from "external/sources/purpose/purpose.queries";
-import { FilterGroup } from "../types/filterGroup";
+import { FilterGroup } from "features/explore/search/types/filterGroup";
 
 export const useGetFilterGroups = (): FilterGroup[] => [getEntityFilters(), getAspectFilters(), useGetPurposeFilters()];
 

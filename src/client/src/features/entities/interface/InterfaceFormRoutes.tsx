@@ -1,5 +1,5 @@
+import { InterfaceForm } from "features/entities/interface/InterfaceForm";
 import { RouteObject } from "react-router-dom";
-import { InterfaceForm } from "./InterfaceForm";
 
 export const interfaceFormBasePath = "form/interface";
 

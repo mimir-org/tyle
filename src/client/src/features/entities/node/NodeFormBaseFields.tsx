@@ -13,13 +13,13 @@ import { ConditionalWrapper } from "complib/utils";
 import { useGetPurposes } from "external/sources/purpose/purpose.queries";
 import { useGetRds } from "external/sources/rds/rds.queries";
 import { useGetSymbols } from "external/sources/symbol/symbol.queries";
+import { resetSubform } from "features/entities/node/NodeForm.helpers";
+import { NodeFormBaseFieldsContainer } from "features/entities/node/NodeFormBaseFields.styled";
+import { NodeFormPreview } from "features/entities/node/NodeFormPreview";
+import { FormNodeLib } from "features/entities/node/types/formNodeLib";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { resetSubform } from "./NodeForm.helpers";
-import { NodeFormBaseFieldsContainer } from "./NodeFormBaseFields.styled";
-import { NodeFormPreview } from "./NodeFormPreview";
-import { FormNodeLib } from "./types/formNodeLib";
 
 interface NodeFormBaseFieldsProps {
   isPrefilled?: boolean;

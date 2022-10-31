@@ -5,8 +5,8 @@ import { Box, Flexbox } from "complib/layouts";
 import { Icon } from "complib/media";
 import { Text } from "complib/text";
 import { Actionable } from "complib/types";
+import { AuthContent } from "features/auth/common/auth-content/AuthContent";
 import { useTheme } from "styled-components";
-import { AuthContent } from "../auth-content/AuthContent";
 
 interface MultiFactorAuthenticationProps {
   mfaInfo: MimirorgQrCodeCm;

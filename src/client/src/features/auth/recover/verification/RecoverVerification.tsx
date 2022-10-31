@@ -7,14 +7,14 @@ import { Flexbox } from "complib/layouts";
 import { Text } from "complib/text";
 import { Actionable } from "complib/types";
 import { useGenerateMfa } from "external/sources/user/user.queries";
+import { AuthContent } from "features/auth/common/auth-content/AuthContent";
+import { Error } from "features/auth/common/error/Error";
+import { Processing } from "features/auth/common/processing/Processing";
+import { MotionVerifyForm } from "features/auth/common/verification/Verification";
+import { onSubmitForm } from "features/auth/recover/verification/RecoverVerification.helpers";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { AuthContent } from "../../common/auth-content/AuthContent";
-import { Error } from "../../common/error/Error";
-import { Processing } from "../../common/processing/Processing";
-import { MotionVerifyForm } from "../../common/verification/Verification";
-import { onSubmitForm } from "./RecoverVerification.helpers";
 
 type VerificationProps = Pick<MimirorgVerifyAm, "email"> & {
   setMfaInfo: (info: MimirorgQrCodeCm) => void;

@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { mockInterfaceItem } from "common/utils/mocks";
-import { InterfacePanel } from "./InterfacePanel";
+import { InterfacePanel } from "features/explore/about/components/interface/InterfacePanel";
 
 export default {
   title: "Explore/About/InterfacePanel",

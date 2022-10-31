@@ -1,12 +1,12 @@
+import { interfaceFormRoutes } from "features/entities/interface/InterfaceFormRoutes";
+import { nodeFormRoutes } from "features/entities/node/NodeFormRoutes";
+import { terminalFormRoutes } from "features/entities/terminal/TerminalFormRoutes";
+import { transportFormRoutes } from "features/entities/transport/TransportFormRoutes";
+import { exploreRoutes } from "features/explore/ExploreRoutes";
+import { AuthenticatedLayout } from "features/ui/authenticated/layout/AuthenticatedLayout";
+import { ErrorMessage } from "features/ui/common/ErrorMessage";
 import { useTranslation } from "react-i18next";
 import { createBrowserRouter } from "react-router-dom";
-import { exploreRoutes } from "../../explore/ExploreRoutes";
-import { interfaceFormRoutes } from "../../entities/interface/InterfaceFormRoutes";
-import { nodeFormRoutes } from "../../entities/node/NodeFormRoutes";
-import { terminalFormRoutes } from "../../entities/terminal/TerminalFormRoutes";
-import { transportFormRoutes } from "../../entities/transport/TransportFormRoutes";
-import { ErrorMessage } from "../common/ErrorMessage";
-import { AuthenticatedLayout } from "./layout/AuthenticatedLayout";
 
 export const useAuthenticatedRouter = () => {
   const { t } = useTranslation();

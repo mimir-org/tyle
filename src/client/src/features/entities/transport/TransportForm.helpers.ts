@@ -1,7 +1,7 @@
 import { useCreateTransport, useGetTransport, useUpdateTransport } from "external/sources/transport/transport.queries";
+import { FormTransportLib } from "features/entities/transport/types/formTransportLib";
+import { TransportFormMode } from "features/entities/transport/types/transportFormMode";
 import { useParams } from "react-router-dom";
-import { FormTransportLib } from "./types/formTransportLib";
-import { TransportFormMode } from "./types/transportFormMode";
 
 export const useTransportQuery = () => {
   const { id } = useParams();

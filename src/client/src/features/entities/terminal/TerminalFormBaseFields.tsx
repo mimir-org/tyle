@@ -5,12 +5,12 @@ import { Button } from "complib/buttons";
 import { FormField } from "complib/form";
 import { Input, Select, Textarea } from "complib/inputs";
 import { Flexbox } from "complib/layouts";
+import { TerminalFormBaseFieldsContainer } from "features/entities/terminal/TerminalFormBaseFields.styled";
+import { TerminalFormPreview } from "features/entities/terminal/TerminalFormPreview";
+import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { TerminalFormBaseFieldsContainer } from "./TerminalFormBaseFields.styled";
-import { TerminalFormPreview } from "./TerminalFormPreview";
-import { FormTerminalLib } from "./types/formTerminalLib";
 
 /**
  * Component which contains all simple value fields of the terminal form.

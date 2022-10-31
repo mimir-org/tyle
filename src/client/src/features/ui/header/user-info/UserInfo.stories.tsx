@@ -1,5 +1,5 @@
 import { ComponentStory } from "@storybook/react";
-import { UserInfo } from "./UserInfo";
+import { UserInfo } from "features/ui/header/user-info/UserInfo";
 
 export default {
   title: "UI/Header/UserInfo",

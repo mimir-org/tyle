@@ -1,4 +1,4 @@
-import { Filter } from "./filter";
+import { Filter } from "features/explore/search/types/filter";
 
 export interface FilterGroup {
   name: string;

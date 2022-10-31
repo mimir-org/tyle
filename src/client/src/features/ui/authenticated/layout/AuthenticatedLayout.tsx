@@ -1,6 +1,9 @@
+import {
+  AuthenticatedContainer,
+  AuthenticatedContentContainer,
+} from "features/ui/authenticated/layout/AuthenticatedLayout.styled";
+import { Header } from "features/ui/header/Header";
 import { Outlet } from "react-router-dom";
-import { Header } from "../../header/Header";
-import { AuthenticatedContainer, AuthenticatedContentContainer } from "./AuthenticatedLayout.styled";
 
 export const AuthenticatedLayout = () => (
   <AuthenticatedContainer>

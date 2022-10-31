@@ -1,5 +1,5 @@
+import { NodeForm } from "features/entities/node/NodeForm";
 import { RouteObject } from "react-router-dom";
-import { NodeForm } from "./NodeForm";
 
 export const nodeFormBasePath = "form/node";
 

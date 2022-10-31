@@ -7,15 +7,18 @@ import { Counter, Select } from "complib/inputs";
 import { Flexbox } from "complib/layouts";
 import { Text } from "complib/text";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
+import { FormSection } from "features/entities/common/form-section/FormSection";
+import {
+  createEmptyNodeTerminalLibAm,
+  onTerminalAmountChange,
+} from "features/entities/node/terminals/NodeFormTerminalTable.helpers";
+import { NodeFormTerminalTableAddButton } from "features/entities/node/terminals/NodeFormTerminalTableAddButton";
+import { NodeFormTerminalTableAttributes } from "features/entities/node/terminals/NodeFormTerminalTableAttributes";
+import { NodeFormTerminalTableHeader } from "features/entities/node/terminals/NodeFormTerminalTableHeader";
+import { FormNodeLib } from "features/entities/node/types/formNodeLib";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { FormSection } from "../../common/form-section/FormSection";
-import { FormNodeLib } from "../types/formNodeLib";
-import { createEmptyNodeTerminalLibAm, onTerminalAmountChange } from "./NodeFormTerminalTable.helpers";
-import { NodeFormTerminalTableAddButton } from "./NodeFormTerminalTableAddButton";
-import { NodeFormTerminalTableAttributes } from "./NodeFormTerminalTableAttributes";
-import { NodeFormTerminalTableHeader } from "./NodeFormTerminalTableHeader";
 
 export const NodeFormTerminalTable = () => {
   const theme = useTheme();

@@ -1,6 +1,6 @@
 import { useCreateTerminal, useGetTerminal, useUpdateTerminal } from "external/sources/terminal/terminal.queries";
+import { TerminalFormMode } from "features/entities/terminal/types/terminalFormMode";
 import { useParams } from "react-router-dom";
-import { TerminalFormMode } from "./types/terminalFormMode";
 
 export const useTerminalQuery = () => {
   const { id } = useParams();

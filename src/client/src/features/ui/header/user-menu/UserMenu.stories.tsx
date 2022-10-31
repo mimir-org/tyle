@@ -1,7 +1,7 @@
 import { ComponentStory } from "@storybook/react";
 import { Checkbox } from "complib/inputs/checkbox/Checkbox";
 import { Flexbox } from "complib/layouts";
-import { UserMenu } from "./UserMenu";
+import { UserMenu } from "features/ui/header/user-menu/UserMenu";
 
 export default {
   title: "UI/Header/UserMenu",

@@ -1,5 +1,5 @@
+import { TerminalForm } from "features/entities/terminal/TerminalForm";
 import { RouteObject } from "react-router-dom";
-import { TerminalForm } from "./TerminalForm";
 
 export const terminalFormBasePath = "form/terminal";
 

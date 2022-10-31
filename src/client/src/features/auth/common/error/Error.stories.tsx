@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Error } from "./Error";
+import { Error } from "features/auth/common/error/Error";
 
 export default {
   title: "Auth/Common/Error",

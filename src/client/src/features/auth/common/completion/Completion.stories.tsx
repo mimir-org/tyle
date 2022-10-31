@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Completion } from "./Completion";
+import { Completion } from "features/auth/common/completion/Completion";
 
 export default {
   title: "Auth/Common/Completion",

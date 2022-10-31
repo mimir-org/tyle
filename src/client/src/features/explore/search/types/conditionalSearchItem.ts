@@ -1,4 +1,4 @@
-import { SearchResult } from "./searchResult";
+import { SearchResult } from "features/explore/search/types/searchResult";
 
 export interface ConditionalSearchItem {
   item: SearchResult;

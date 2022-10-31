@@ -4,13 +4,16 @@ import { InfoItemButton } from "common/components/info-item";
 import { UpdateEntity } from "common/types/updateEntity";
 import { Flexbox } from "complib/layouts";
 import { useGetAttributes } from "external/sources/attribute/attribute.queries";
+import {
+  getInfoItemsFromAttributeLibCms,
+  onAddAttributes,
+} from "features/entities/common/form-attributes/FormAttributes.helpers";
+import { FormSection } from "features/entities/common/form-section/FormSection";
+import { SelectItemDialog } from "features/entities/common/select-item-dialog/SelectItemDialog";
+import { ValueObject } from "features/entities/types/valueObject";
 import { UseFormRegisterReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { ValueObject } from "../../types/valueObject";
-import { FormSection } from "../form-section/FormSection";
-import { SelectItemDialog } from "../select-item-dialog/SelectItemDialog";
-import { getInfoItemsFromAttributeLibCms, onAddAttributes } from "./FormAttributes.helpers";
 
 export interface FormAttributesProps {
   fields: ValueObject<UpdateEntity<AttributeLibAm>>[];

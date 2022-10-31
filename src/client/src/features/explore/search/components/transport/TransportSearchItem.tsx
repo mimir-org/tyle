@@ -4,12 +4,12 @@ import { PlainLink } from "common/components/plain-link";
 import { TransportPreview } from "common/components/transport";
 import { TransportItem } from "common/types/transportItem";
 import { Button } from "complib/buttons";
-import { AlertDialog } from "complib/overlays/alert-dialog/AlertDialog";
+import { AlertDialog } from "complib/overlays";
 import { usePatchTransportState } from "external/sources/transport/transport.queries";
+import { Item } from "features/explore/search/components/item/Item";
+import { ItemDescription } from "features/explore/search/components/item/ItemDescription";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { Item } from "../item/Item";
-import { ItemDescription } from "../item/ItemDescription";
 
 export type TransportSearchItemProps = TransportItem & {
   isSelected?: boolean;

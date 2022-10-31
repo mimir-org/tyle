@@ -1,6 +1,6 @@
-import { isNodeItem } from "../../guards";
-import { ConditionalSearchItem } from "../../types/conditionalSearchItem";
-import { NodeSearchItem, NodeSearchItemProps } from "./NodeSearchItem";
+import { NodeSearchItem, NodeSearchItemProps } from "features/explore/search/components/node/NodeSearchItem";
+import { isNodeItem } from "features/explore/search/guards";
+import { ConditionalSearchItem } from "features/explore/search/types/conditionalSearchItem";
 
 type Props = ConditionalSearchItem & Pick<NodeSearchItemProps, "isSelected" | "setSelected">;
 

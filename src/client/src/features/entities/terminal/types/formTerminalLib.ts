@@ -1,7 +1,7 @@
 import { AttributeLibAm, TerminalLibAm, TerminalLibCm } from "@mimirorg/typelibrary-types";
 import { UpdateEntity } from "common/types/updateEntity";
-import { ValueObject } from "../../types/valueObject";
-import { TerminalFormMode } from "./terminalFormMode";
+import { TerminalFormMode } from "features/entities/terminal/types/terminalFormMode";
+import { ValueObject } from "features/entities/types/valueObject";
 
 /**
  * This type functions as a layer between client needs and the backend model.
