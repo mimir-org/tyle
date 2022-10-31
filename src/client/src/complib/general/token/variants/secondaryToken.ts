@@ -1,5 +1,5 @@
+import { ColorTheme, SpacingSystem } from "complib/core";
 import { css } from "styled-components/macro";
-import { ColorTheme, SpacingSystem } from "../../../core";
 
 export const secondaryToken = (color: ColorTheme, spacing: SpacingSystem) =>
   css`

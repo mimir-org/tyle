@@ -1,7 +1,7 @@
+import { FullPageSpinnerContainer } from "complib/feedback/spinner/FullPageSpinner.styled";
+import { Spinner } from "complib/feedback/spinner/Spinner";
+import { Heading } from "complib/text";
 import { useTheme } from "styled-components";
-import { FullPageSpinnerContainer } from "./FullPageSpinner.styled";
-import { Spinner } from "./Spinner";
-import { Heading } from "../../text";
 
 interface Props {
   text?: string;

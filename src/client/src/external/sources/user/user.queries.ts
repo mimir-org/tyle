@@ -1,0 +1,26 @@
+import { MimirorgChangePasswordAm, MimirorgUserAm, MimirorgVerifyAm } from "@mimirorg/typelibrary-types";
+import { userApi } from "external/sources/user/user.api";
+import { useMutation, useQuery } from "react-query";
+
+export const userKeys = {
+  all: ["user"] as const,
+};
+
+export const useGetCurrentUser = () => {
+  return useQuery(userKeys.all, userApi.getCurrentUser, {
+    retry: 0,
+    refetchOnWindowFocus: false,
+  });
+};
+
+export const useCreateUser = () => useMutation((item: MimirorgUserAm) => userApi.postUser(item));
+
+export const useVerification = () => useMutation((item: MimirorgVerifyAm) => userApi.postVerification(item));
+
+export const useGenerateMfa = () => useMutation((item: MimirorgVerifyAm) => userApi.postGenerateMfa(item));
+
+export const useChangePassword = () =>
+  useMutation((item: MimirorgChangePasswordAm) => userApi.postChangePassword(item));
+
+export const useGenerateChangePasswordSecret = () =>
+  useMutation((email: string) => userApi.postGenerateChangePasswordSecret(email));

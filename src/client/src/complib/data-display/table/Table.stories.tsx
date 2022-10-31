@@ -1,8 +1,8 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Token } from "../../general";
-import { Input, Select } from "../../inputs";
-import { Box, Flexbox } from "../../layouts";
-import { Text } from "../../text";
+import { Token } from "complib/general";
+import { Input, Select } from "complib/inputs";
+import { Box, Flexbox } from "complib/layouts";
+import { Text } from "complib/text";
 import { Table, Tbody, Td, Th, Thead, Tr } from "./Table";
 
 export default {

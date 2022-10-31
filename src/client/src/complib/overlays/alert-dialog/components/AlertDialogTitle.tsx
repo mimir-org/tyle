@@ -1,8 +1,8 @@
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
+import { VisuallyHidden } from "complib/accessibility";
+import { Text } from "complib/text";
+import { ConditionalWrapper } from "complib/utils";
 import { ReactNode } from "react";
-import { VisuallyHidden } from "../../../accessibility";
-import { Text } from "../../../text";
-import { ConditionalWrapper } from "../../../utils";
 
 interface DialogTitleProps {
   children: ReactNode;

@@ -1,9 +1,9 @@
 import { ExclamationCircle } from "@styled-icons/heroicons-outline";
+import { Box, Flexbox, MotionFlexbox } from "complib/layouts";
+import { Text } from "complib/text";
+import { ConditionalWrapper } from "complib/utils";
 import { PropsWithChildren } from "react";
 import { useTheme } from "styled-components";
-import { Box, Flexbox, MotionFlexbox } from "../layouts";
-import { Text } from "../text";
-import { ConditionalWrapper } from "../utils";
 
 interface FormFieldProps {
   label?: string;

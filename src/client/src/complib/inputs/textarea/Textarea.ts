@@ -1,5 +1,5 @@
+import { focus, getTextRole, placeholder } from "complib/mixins";
 import styled from "styled-components/macro";
-import { focus, getTextRole, placeholder } from "../../mixins";
 
 /**
  * A simple wrapper over the textarea-tag, with styling that follows library conventions.

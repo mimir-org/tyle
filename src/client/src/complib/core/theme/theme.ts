@@ -1,15 +1,15 @@
-import { darkTheme } from "../variables/color/themes/darkTheme";
-import { lightTheme } from "../variables/color/themes/lightTheme";
-import { ColorSystem } from "../variables/color/types/colorSystem";
-import { color } from "../variables/color/variablesColor";
-import { typography, TypographySystem } from "../variables/typography/variablesTypography";
-import { animation, AnimationSystem } from "../variables/variablesAnimation";
-import { border, BorderSystem } from "../variables/variablesBorder";
-import { elevation, ElevationSystem } from "../variables/variablesElevation";
-import { queries, QuerySystem } from "../variables/variablesQueries";
-import { shadow, ShadowSystem } from "../variables/variablesShadow";
-import { spacing, SpacingSystem } from "../variables/variablesSpacing";
-import { state, StateSystem } from "../variables/variablesState";
+import { darkTheme } from "complib/core/variables/color/themes/darkTheme";
+import { lightTheme } from "complib/core/variables/color/themes/lightTheme";
+import { ColorSystem } from "complib/core/variables/color/types/colorSystem";
+import { color } from "complib/core/variables/color/variablesColor";
+import { typography, TypographySystem } from "complib/core/variables/typography/variablesTypography";
+import { animation, AnimationSystem } from "complib/core/variables/variablesAnimation";
+import { border, BorderSystem } from "complib/core/variables/variablesBorder";
+import { elevation, ElevationSystem } from "complib/core/variables/variablesElevation";
+import { queries, QuerySystem } from "complib/core/variables/variablesQueries";
+import { shadow, ShadowSystem } from "complib/core/variables/variablesShadow";
+import { spacing, SpacingSystem } from "complib/core/variables/variablesSpacing";
+import { state, StateSystem } from "complib/core/variables/variablesState";
 
 /**
  * Exposes all theme variables through a typed object.

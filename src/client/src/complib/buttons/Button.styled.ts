@@ -1,11 +1,11 @@
+import { filledButton } from "complib/buttons/variants/filledButton";
+import { outlinedButton } from "complib/buttons/variants/outlinedButton";
+import { textButton } from "complib/buttons/variants/textButton";
+import { flexMixin, focus, sizingMixin, spacingMixin } from "complib/mixins";
+import { Flex, Polymorphic, Sizing, Spacing } from "complib/props";
 import { motion } from "framer-motion";
 import { ButtonHTMLAttributes, ElementType } from "react";
 import styled, { css } from "styled-components/macro";
-import { flexMixin, focus, sizingMixin, spacingMixin } from "../mixins";
-import { Flex, Polymorphic, Sizing, Spacing } from "../props";
-import { filledButton } from "./variants/filledButton";
-import { outlinedButton } from "./variants/outlinedButton";
-import { textButton } from "./variants/textButton";
 
 export type ButtonContainerProps = Flex &
   Sizing &

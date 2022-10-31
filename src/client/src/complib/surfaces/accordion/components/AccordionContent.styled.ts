@@ -1,6 +1,6 @@
 import { Content } from "@radix-ui/react-accordion";
+import { getTextRole } from "complib/mixins";
 import styled, { css, keyframes } from "styled-components/macro";
-import { getTextRole } from "../../../mixins";
 
 const emptyState = css`
   padding-top: 0;

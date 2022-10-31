@@ -1,8 +1,8 @@
+import { TokenBaseProps } from "complib/general/token/Token";
+import { MotionTokenContainer } from "complib/general/token/Token.styled";
+import { Text } from "complib/text";
 import { ButtonHTMLAttributes, ForwardedRef, forwardRef } from "react";
 import { useTheme } from "styled-components";
-import { Text } from "../../text";
-import { TokenBaseProps } from "./Token";
-import { MotionTokenContainer } from "./Token.styled";
 
 export type TokenButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & Omit<TokenBaseProps, "interactive">;
 

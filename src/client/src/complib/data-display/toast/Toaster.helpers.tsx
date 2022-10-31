@@ -1,8 +1,8 @@
 import { CheckCircle, XCircle } from "@styled-icons/heroicons-outline";
+import { TyleTheme } from "complib/core";
+import { translucify } from "complib/mixins";
 import { CSSProperties } from "react";
 import { DefaultToastOptions } from "react-hot-toast";
-import { TyleTheme } from "../../core";
-import { translucify } from "../../mixins";
 
 export const getCustomToasterStyles = (theme: TyleTheme): DefaultToastOptions => ({
   style: {

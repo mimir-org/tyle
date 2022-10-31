@@ -1,5 +1,5 @@
+import { focusRaw, getTextRole, sizingMixin } from "complib/mixins";
 import styled from "styled-components/macro";
-import { focusRaw, getTextRole, sizingMixin } from "../../mixins";
 
 export const CounterContainer = styled.div`
   display: flex;

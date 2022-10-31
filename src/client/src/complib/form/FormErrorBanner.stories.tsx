@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { FormErrorBanner } from "./FormErrorBanner";
+import { FormErrorBanner } from "complib/form/FormErrorBanner";
 
 export default {
   title: "Form/FormErrorBanner",

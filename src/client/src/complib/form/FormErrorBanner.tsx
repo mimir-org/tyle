@@ -1,6 +1,6 @@
+import { MotionBox } from "complib/layouts";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { MotionBox } from "../layouts";
 
 interface FormErrorBannerProps {
   children?: ReactNode;

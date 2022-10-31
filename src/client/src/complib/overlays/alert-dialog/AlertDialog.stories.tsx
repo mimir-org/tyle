@@ -1,8 +1,8 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Button } from "../../buttons";
-import { Token } from "../../general";
-import { Box } from "../../layouts";
-import { AlertDialog } from "./AlertDialog";
+import { Button } from "complib/buttons";
+import { Token } from "complib/general";
+import { Box } from "complib/layouts";
+import { AlertDialog } from "complib/overlays/alert-dialog/AlertDialog";
 
 export default {
   title: "Overlays/AlertDialog",

@@ -1,8 +1,8 @@
 import { ComponentMeta } from "@storybook/react";
-import { Tooltip } from "./Tooltip";
-import { Button } from "../../buttons";
-import { Box, Flexbox } from "../../layouts";
-import { Text } from "../../text";
+import { Button } from "complib/buttons";
+import { Tooltip } from "complib/data-display/tooltip/Tooltip";
+import { Box, Flexbox } from "complib/layouts";
+import { Text } from "complib/text";
 
 export default {
   title: "Data display/Tooltip",

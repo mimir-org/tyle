@@ -1,5 +1,5 @@
+import { StyledAccordionContent } from "complib/surfaces/accordion/components/AccordionContent.styled";
 import { ForwardedRef, forwardRef, ReactNode } from "react";
-import { StyledAccordionContent } from "./AccordionContent.styled";
 
 interface AccordionContentProps {
   children: ReactNode;

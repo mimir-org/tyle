@@ -1,8 +1,8 @@
+import { ColorSystem } from "complib/core";
+import { Elevation, Polymorphic } from "complib/props";
 import { motion } from "framer-motion";
 import { ElementType } from "react";
 import styled, { css } from "styled-components/macro";
-import { ColorSystem } from "../../core/";
-import { Elevation, Polymorphic } from "../../props";
 
 type CardProps = Elevation &
   Polymorphic<ElementType> & {

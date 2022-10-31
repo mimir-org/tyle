@@ -1,5 +1,5 @@
+import { ColorTheme } from "complib/core";
 import { css } from "styled-components/macro";
-import { ColorTheme } from "../../core";
 
 export const textButton = (color: ColorTheme) =>
   css`
