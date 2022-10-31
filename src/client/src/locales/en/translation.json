@@ -120,7 +120,7 @@
     "owner": "Owner",
     "description": "Description",
     "placeholders": {
-      "name": "Attribute name",
+      "name": "Terminal name",
       "color": "Select color",
       "description": "Additional information about this terminal can be supplied here."
     },
