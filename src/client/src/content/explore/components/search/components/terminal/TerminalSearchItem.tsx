@@ -21,7 +21,7 @@ export type TerminalSearchItemProps = TerminalItem & {
  *
  * @param isSelected
  * @param setSelected
- * @param attribute
+ * @param terminal
  * @constructor
  */
 export const TerminalSearchItem = ({ isSelected, setSelected, ...terminal }: TerminalSearchItemProps) => (

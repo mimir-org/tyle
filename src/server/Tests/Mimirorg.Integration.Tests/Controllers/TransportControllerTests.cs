@@ -1,13 +1,13 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
-using Mimirorg.Setup;
+using Mimirorg.Test.Setup;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Services.Contracts;
 using Xunit;
 
-namespace Mimirorg.Integration.Tests.Controllers
+namespace Mimirorg.Test.Integration.Controllers
 {
     public class TransportControllerTests : IntegrationTest
     {

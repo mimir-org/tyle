@@ -1,7 +1,7 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TransportLibCm } from "@mimirorg/typelibrary-types";
-import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Box } from "../../../complib/layouts";
@@ -10,7 +10,7 @@ import { useServerValidation } from "../../../hooks/useServerValidation";
 import { Loader } from "../../common/loader";
 import { FormAttributes } from "../common/form-attributes/FormAttributes";
 import { onSubmitForm } from "../common/utils/onSubmitForm";
-import { prepareAttributesByAspect } from "../common/utils/prepareAttributesByAspect";
+import { prepareAttributes } from "../common/utils/prepareAttributes";
 import { usePrefilledForm } from "../common/utils/usePrefilledForm";
 import { useSubmissionToast } from "../common/utils/useSubmissionToast";
 import { useTransportMutation, useTransportQuery } from "./TransportForm.helpers";
@@ -40,9 +40,7 @@ export const TransportForm = ({ defaultValues = createEmptyFormTransportLib(), m
   });
 
   const { register, handleSubmit, control, setError, reset } = formMethods;
-
-  const aspect = useWatch({ control, name: "aspect" });
-  const attributeFields = useFieldArray({ control, name: "attributeIdList" });
+  const attributeFields = useFieldArray({ control, name: "attributes" });
 
   const query = useTransportQuery();
   const mapper = (source: TransportLibCm) => mapTransportLibCmToFormTransportLib(source, mode);
@@ -68,11 +66,11 @@ export const TransportForm = ({ defaultValues = createEmptyFormTransportLib(), m
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
               <FormAttributes
-                register={(index) => register(`attributeIdList.${index}`)}
+                register={(index) => register(`attributes.${index}`)}
                 fields={attributeFields.fields}
                 append={attributeFields.append}
                 remove={attributeFields.remove}
-                preprocess={(attributes) => prepareAttributesByAspect(attributes, [aspect])}
+                preprocess={prepareAttributes}
               />
             </Box>
           </>

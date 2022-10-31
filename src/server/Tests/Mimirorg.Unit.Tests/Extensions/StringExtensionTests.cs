@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Mimirorg.Common.Extensions;
-using Mimirorg.Setup;
-using Mimirorg.Setup.Fixtures;
+using Mimirorg.Test.Setup;
+using Mimirorg.Test.Setup.Fixtures;
 using Xunit;
 
 // ReSharper disable StringLiteralTypo
 
-namespace Mimirorg.Unit.Tests.Extensions
+namespace Mimirorg.Test.Unit.Extensions
 {
     public class StringExtensionTests : UnitTest<MimirorgCommonFixture>
     {

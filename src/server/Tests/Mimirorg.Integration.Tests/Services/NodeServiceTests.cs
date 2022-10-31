@@ -1,15 +1,13 @@
 using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
-using Mimirorg.Setup;
+using Mimirorg.Test.Setup;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 using Xunit;
 
-namespace Mimirorg.Integration.Tests.Services
+namespace Mimirorg.Test.Integration.Services
 {
     public class NodeServiceTests : IntegrationTest
     {
@@ -42,26 +40,29 @@ namespace Mimirorg.Integration.Tests.Services
         public async Task Create_Node_Create_Node_When_Ok_Parameters()
         {
             var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
-            var attributeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IAttributeService>();
             var logService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ILogService>();
 
-            var attributeAm = new AttributeLibAm
+            var newAttribute = new AttributeLibAm
             {
-                Name = "attribute12345678",
-                Aspect = Aspect.Function,
-                Discipline = Discipline.Electrical,
-                Select = Select.MultiSelect,
-                Description = "Description1",
-                SelectValues = new List<string> { "value1", "VALUE2", "value3" },
-                QuantityDatumRangeSpecifying = "Normal",
-                QuantityDatumSpecifiedProvenance = "Calculated",
-                QuantityDatumRegularitySpecified = "Absolute",
-                QuantityDatumSpecifiedScope = "Design Datum",
-                CompanyId = 1,
-                Version = "1.0"
+                Name = "a11",
+                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a11",
+                Source = "PCA",
+                Units = new List<UnitLibAm>
+                {
+                    new()
+                    {
+                        Name = "u11",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u11",
+                        IsDefault = true
+                    },
+                    new()
+                    {
+                        Name = "u22",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u22",
+                        IsDefault = false
+                    }
+                }
             };
-
-            var attributeCm = await attributeService.Create(attributeAm);
 
             var nodeAm = new NodeLibAm
             {
@@ -72,7 +73,7 @@ namespace Mimirorg.Integration.Tests.Services
                 Description = "Description",
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
-                AttributeIdList = new List<string> { $"{attributeCm.Id}" },
+                Attributes = new List<AttributeLibAm> { newAttribute },
                 NodeTerminals = new List<NodeTerminalLibAm>{
                     new()
                     {
@@ -97,14 +98,6 @@ namespace Mimirorg.Integration.Tests.Services
                                 Name = "TypeRef",
                                 Iri = "https://url.com/1234567890",
                                 Source = "https://source.com/1234567890",
-                                Subs = new List<TypeReferenceSub>
-                                {
-                                    new()
-                                    {
-                                        Name = "SubName",
-                                        Iri = "https://subIri.com/1234567890"
-                                    }
-                                }
                             }
                         }
                     }
@@ -116,15 +109,7 @@ namespace Mimirorg.Integration.Tests.Services
                     {
                         Name = "TypeRef",
                         Iri = "https://url.com/1234567890",
-                        Source = "https://source.com/1234567890",
-                        Subs = new List<TypeReferenceSub>
-                        {
-                            new()
-                            {
-                                Name = "SubName",
-                                Iri = "https://subIri.com/1234567890"
-                            }
-                        }
+                        Source = "https://source.com/1234567890"
                     }
                 },
                 ParentId = "1234",
@@ -143,7 +128,7 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(nodeAm.Aspect, nodeCm.Aspect);
             Assert.Equal(nodeAm.Description, nodeCm.Description);
             Assert.Equal(nodeAm.CompanyId, nodeCm.CompanyId);
-            Assert.Equal(nodeAm.AttributeIdList.ToList().ConvertToString(), nodeCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
+            Assert.Equal(nodeAm.Attributes.ToList()[0].Id, nodeCm.Attributes.ToList()[0].Id);
 
             foreach (var am in nodeAm.NodeTerminals)
             {
@@ -162,14 +147,10 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Iri, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Iri);
             Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Name, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Name);
             Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Source, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Source);
-            Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Subs.First().Name, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Subs.First().Name);
-            Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Subs.First().Iri, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Subs.First().Iri);
 
             Assert.Equal(nodeAm.TypeReferences.First().Iri, nodeCm.TypeReferences.First().Iri);
             Assert.Equal(nodeAm.TypeReferences.First().Name, nodeCm.TypeReferences.First().Name);
             Assert.Equal(nodeAm.TypeReferences.First().Source, nodeCm.TypeReferences.First().Source);
-            Assert.Equal(nodeAm.TypeReferences.First().Subs.First().Name, nodeCm.TypeReferences.First().Subs.First().Name);
-            Assert.Equal(nodeAm.TypeReferences.First().Subs.First().Iri, nodeCm.TypeReferences.First().Subs.First().Iri);
 
             Assert.Equal(nodeAm.Symbol, nodeCm.Symbol);
             Assert.Equal(nodeAm.ParentId, nodeCm.ParentId);

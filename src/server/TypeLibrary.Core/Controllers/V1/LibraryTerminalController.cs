@@ -105,7 +105,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
+        //[MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
         public async Task<IActionResult> Create([FromBody] TerminalLibAm terminal)
         {
             try
@@ -150,7 +150,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
+        //[MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
         public async Task<IActionResult> Update([FromBody] TerminalLibAm terminal)
         {
             try

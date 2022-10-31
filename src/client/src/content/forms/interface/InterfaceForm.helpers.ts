@@ -20,5 +20,5 @@ export const useInterfaceMutation = (mode?: InterfaceFormMode) => {
  * @param resetField
  */
 export const resetSubform = (resetField: (value: keyof FormInterfaceLib) => void) => {
-  resetField("attributeIdList");
+  resetField("attributes");
 };

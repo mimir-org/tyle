@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Extensions;
-using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
@@ -15,12 +14,10 @@ namespace TypeLibrary.Data.Repositories.Ef
 {
     public class EfTransportRepository : GenericRepository<TypeLibraryDbContext, TransportLibDm>, IEfTransportRepository
     {
-        private readonly IAttributeRepository _attributeRepository;
         private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
 
-        public EfTransportRepository(TypeLibraryDbContext dbContext, IAttributeRepository attributeRepository, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
+        public EfTransportRepository(TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
         {
-            _attributeRepository = attributeRepository;
             _typeLibraryProcRepository = typeLibraryProcRepository;
         }
 
@@ -108,7 +105,6 @@ namespace TypeLibrary.Data.Repositories.Ef
         {
             return GetAll()
                 .Include(x => x.Terminal)
-                .Include(x => x.Attributes)
                 .Include(x => x.Parent)
                 .OrderBy(x => x.Name)
                 .AsSplitQuery();
@@ -123,7 +119,6 @@ namespace TypeLibrary.Data.Repositories.Ef
         {
             var item = await FindBy(x => x.Id == id)
                 .Include(x => x.Terminal)
-                .Include(x => x.Attributes)
                 .Include(x => x.Parent)
                 .AsSplitQuery()
                 .FirstOrDefaultAsync();
@@ -138,15 +133,8 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// <returns>The created transport</returns>
         public async Task<TransportLibDm> Create(TransportLibDm transportDm)
         {
-            if (transportDm.Attributes != null && transportDm.Attributes.Any())
-                _attributeRepository.SetUnchanged(transportDm.Attributes);
-
             await CreateAsync(transportDm);
             await SaveAsync();
-
-            if (transportDm.Attributes != null && transportDm.Attributes.Any())
-                _attributeRepository.SetDetached(transportDm.Attributes);
-
             Detach(transportDm);
 
             return transportDm;
@@ -155,7 +143,6 @@ namespace TypeLibrary.Data.Repositories.Ef
         public void ClearAllChangeTrackers()
         {
             Context?.ChangeTracker.Clear();
-            _attributeRepository.ClearAllChangeTrackers();
         }
     }
 }

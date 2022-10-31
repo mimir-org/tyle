@@ -10,7 +10,6 @@ using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Core.Factories;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
-using static Mimirorg.TypeLibrary.Extensions.LibraryExtensions;
 
 namespace TypeLibrary.Core.Profiles
 {
@@ -37,7 +36,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow))
                 .ForMember(dest => dest.Children, opt => opt.Ignore())
                 .ForMember(dest => dest.NodeTerminals, opt => opt.MapFrom(src => CreateTerminals(src.NodeTerminals, src.Id).ToList()))
-                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => Convert<AttributeLibDm>(src.AttributeIdList).ToList()))
+                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes.ConvertToString()))
                 .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
             CreateMap<NodeLibDm, NodeLibCm>()
@@ -63,7 +62,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy))
                 .ForMember(dest => dest.Children, opt => opt.MapFrom(src => src.Children))
                 .ForMember(dest => dest.NodeTerminals, opt => opt.MapFrom(src => src.NodeTerminals))
-                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes))
+                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes.ConvertToObject<ICollection<AttributeLibCm>>()))
                 .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
         }
 

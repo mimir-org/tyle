@@ -1,6 +1,6 @@
-import { NodeLibAm, NodeLibCm } from "@mimirorg/typelibrary-types";
+import { AttributeLibAm, NodeLibAm, NodeLibCm } from "@mimirorg/typelibrary-types";
+import { UpdateEntity } from "../../../../data/types/updateEntity";
 import { createEmptyNodeLibAm } from "../../../../models/tyle/application/nodeLibAm";
-import { mapNodeLibCmToNodeLibAm } from "../../../../utils/mappers";
 import { ValueObject } from "../../types/valueObject";
 import {
   FormSelectedAttributePredefinedLib,
@@ -12,8 +12,8 @@ import { NodeFormMode } from "./nodeFormMode";
  * This type functions as a layer between client needs and the backend model.
  * It allows you to adapt the expected api model to fit client/form logic needs.
  */
-export interface FormNodeLib extends Omit<NodeLibAm, "attributeIdList" | "selectedAttributePredefined"> {
-  attributeIdList: ValueObject<string>[];
+export interface FormNodeLib extends Omit<NodeLibAm, "attributes" | "selectedAttributePredefined"> {
+  attributes: ValueObject<UpdateEntity<AttributeLibAm>>[];
   selectedAttributePredefined: FormSelectedAttributePredefinedLib[];
 }
 
@@ -23,7 +23,7 @@ export interface FormNodeLib extends Omit<NodeLibAm, "attributeIdList" | "select
  */
 export const mapFormNodeLibToApiModel = (formNode: FormNodeLib): NodeLibAm => ({
   ...formNode,
-  attributeIdList: formNode.attributeIdList.map((x) => x.value),
+  attributes: formNode.attributes.map((x) => x.value),
   selectedAttributePredefined: formNode.selectedAttributePredefined.map((x) =>
     mapFormSelectedAttributePredefinedLibToApiModel(x)
   ),
@@ -31,18 +31,24 @@ export const mapFormNodeLibToApiModel = (formNode: FormNodeLib): NodeLibAm => ({
 
 export const createEmptyFormNodeLib = (): FormNodeLib => ({
   ...createEmptyNodeLibAm(),
-  attributeIdList: [],
+  attributes: [],
   selectedAttributePredefined: [],
 });
 
 export const mapNodeLibCmToFormNodeLib = (nodeLibCm: NodeLibCm, mode?: NodeFormMode): FormNodeLib => ({
   ...mapNodeLibCmToNodeLibAm(nodeLibCm),
   parentId: mode === "clone" ? nodeLibCm.id : nodeLibCm.parentId,
-  attributeIdList: nodeLibCm.attributes.map((x) => ({
-    value: x.id,
-  })),
+  attributes: nodeLibCm.attributes.map((x) => ({ value: x })),
   selectedAttributePredefined: nodeLibCm.selectedAttributePredefined.map((x) => ({
     ...x,
     values: Object.keys(x.values).map((y) => ({ value: y })),
+  })),
+});
+
+const mapNodeLibCmToNodeLibAm = (node: NodeLibCm): NodeLibAm => ({
+  ...node,
+  nodeTerminals: node.nodeTerminals.map((x) => ({
+    ...x,
+    terminalId: x.terminal.id,
   })),
 });

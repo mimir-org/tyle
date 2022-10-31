@@ -1,11 +1,11 @@
 using Mimirorg.Common.Attributes;
 using Mimirorg.Common.Extensions;
-using Mimirorg.Setup;
-using Mimirorg.Setup.Fixtures;
 using Mimirorg.Common.Models;
+using Mimirorg.Test.Setup;
+using Mimirorg.Test.Setup.Fixtures;
 using Xunit;
 
-namespace Mimirorg.Unit.Tests.Attributes
+namespace Mimirorg.Test.Unit.Attributes
 {
     public class ValidationAttributeTests : UnitTest<MimirorgCommonFixture>
     {

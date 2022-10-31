@@ -26,7 +26,7 @@
         <ProjectReference Include="..\..\TypeLibrary.Api\TypeLibrary.Api.csproj" />
         <ProjectReference Include="..\..\TypeLibrary.Data\TypeLibrary.Data.csproj" />
         <ProjectReference Include="..\..\TypeLibrary.Services\TypeLibrary.Services.csproj" />
-        <ProjectReference Include="..\Mimirorg.Setup\Mimirorg.Setup.csproj" />
+        <ProjectReference Include="..\Mimirorg.Setup\Mimirorg.Test.Setup.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
-using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
 using TypeLibrary.Services.Contracts;
@@ -93,7 +92,7 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("attribute/{id}")]
-        [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(TypeReferenceCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -102,7 +101,8 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
-                var data = _attributeService.GetLatestVersions(Aspect.NotSet).FirstOrDefault(x => x.Id == id);
+                var data = _attributeService.Get().Result.ToList().FirstOrDefault(x => x.Id == id);
+
                 if (data == null)
                     return NoContent();
 

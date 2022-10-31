@@ -9,7 +9,6 @@ import { useDebounceState } from "../../../../hooks/useDebounceState";
 import { SearchField } from "../../../common/search-field";
 import { SelectedInfo } from "../../types/selectedInfo";
 import { ExploreSection } from "../ExploreSection";
-import { ConditionalAttributeSearchItem } from "./components/attribute/ConditionalAttributeSearchItem";
 import { FilterMenu } from "./components/filter/FilterMenu";
 import { ConditionalInterfaceSearchItem } from "./components/interface/ConditionalInterfaceSearchItem";
 import { ItemList } from "./components/item/ItemList";
@@ -95,11 +94,6 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
                 item={item}
                 isSelected={item.id == selected?.id}
                 setSelected={() => setSelected({ id: item.id, type: "node" })}
-              />
-              <ConditionalAttributeSearchItem
-                item={item}
-                isSelected={item.id == selected?.id}
-                setSelected={() => setSelected({ id: item.id, type: "attribute" })}
               />
               <ConditionalTerminalSearchItem
                 item={item}

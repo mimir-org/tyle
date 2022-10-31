@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Mimirorg.Common.Extensions;
@@ -10,7 +9,6 @@ using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Core.Factories;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
-using static Mimirorg.TypeLibrary.Extensions.LibraryExtensions;
 
 namespace TypeLibrary.Core.Profiles
 {
@@ -28,7 +26,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color))
                 .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.ParentId) ? null : src.ParentId))
                 .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
-                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => Convert<AttributeLibDm>(src.AttributeIdList).ToList()))
+                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes.ConvertToString()))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetEmail()) ? "Unknown" : contextAccessor.GetEmail()))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow));
 
@@ -47,7 +45,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
                 .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => companyFactory.GetCompanyName(src.CompanyId)))
                 .ForMember(dest => dest.Children, opt => opt.MapFrom(src => src.Children))
-                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes))
+                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes.ConvertToObject<ICollection<AttributeLibCm>>()))
                 .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));

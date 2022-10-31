@@ -1,4 +1,4 @@
-import { AttributeLibCm } from "@mimirorg/typelibrary-types";
+import { AttributeLibAm, AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { Trash } from "@styled-icons/heroicons-outline";
 import { UseFormRegisterReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -10,11 +10,11 @@ import { InfoItemButton } from "../../../common/info-item";
 import { ValueObject } from "../../types/valueObject";
 import { FormSection } from "../form-section/FormSection";
 import { SelectItemDialog } from "../select-item-dialog/SelectItemDialog";
-import { getSelectItemsFromAttributeLibCms, onAddValueObject } from "./FormAttributes.helpers";
+import { getInfoItemsFromAttributeLibCms, onAddAttributes } from "./FormAttributes.helpers";
 
 export interface FormAttributesProps {
-  fields: UpdateEntity<ValueObject<string>>[];
-  append: (item: ValueObject<string>) => void;
+  fields: ValueObject<UpdateEntity<AttributeLibAm>>[];
+  append: (item: ValueObject<UpdateEntity<AttributeLibAm>>) => void;
   remove: (index: number) => void;
   register: (index: number) => UseFormRegisterReturn;
   preprocess?: (attributes: AttributeLibCm[]) => AttributeLibCm[];
@@ -34,8 +34,8 @@ export const FormAttributes = ({ fields, append, remove, register, preprocess }:
   const theme = useTheme();
   const { t } = useTranslation("translation", { keyPrefix: "attributes" });
   const attributeQuery = useGetAttributes();
-  const attributes = preprocess ? preprocess(attributeQuery.data ?? []) : attributeQuery.data;
-  const attributeItems = getSelectItemsFromAttributeLibCms(attributes);
+  const attributes = preprocess ? preprocess(attributeQuery.data ?? []) : attributeQuery.data ?? [];
+  const attributeInfoItems = getInfoItemsFromAttributeLibCms(attributes);
 
   return (
     <FormSection
@@ -47,18 +47,18 @@ export const FormAttributes = ({ fields, append, remove, register, preprocess }:
           searchFieldText={t("dialog.search")}
           addItemsButtonText={t("dialog.add")}
           openDialogButtonText={t("open")}
-          items={attributeItems}
-          onAdd={(ids) => onAddValueObject(ids, fields, append)}
+          items={attributeInfoItems}
+          onAdd={(ids) => onAddAttributes(ids, attributes, fields, append)}
         />
       }
     >
       <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.xl}>
         {fields.map((field, index) => {
-          const attribute = attributeItems.find((x) => x.id === field.value);
+          const attribute = attributeInfoItems.find((x) => x.id === field.value.id);
           return (
             attribute && (
               <InfoItemButton
-                key={field.id}
+                key={field.value.id}
                 {...register(index)}
                 {...attribute}
                 actionable

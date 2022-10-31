@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Mimirorg.TypeLibrary.Extensions;
-using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Data.Common;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
@@ -69,24 +68,12 @@ namespace TypeLibrary.Data.Repositories.External
                 var id = $"{pcaUnit.Uom_Label}".CreateMd5();
                 var iri = $"{_settings.ApplicationSemanticUrl}/unit/{id}";
 
-                var typeReferences = new List<TypeReferenceAm>
-                {
-                    new()
-                    {
-                        Iri = pcaUnit.Uom,
-                        Name = pcaUnit.Uom_Label,
-                        Source = "PCA"
-                    }
-                };
-
                 var unit = new UnitLibDm
                 {
-                    Id = id,
-                    Iri = iri,
                     Name = pcaUnit.Uom_Label,
-                    Description = $"{pcaUnit.Default_Uom_Symbol}",
-                    TypeReferences = typeReferences.ConvertToString(),
-                    Symbol = pcaUnit.Default_Uom_Symbol
+                    Iri = iri,
+                    Symbol = pcaUnit.Default_Uom_Symbol,
+                    Source = "PCA"
                 };
 
                 units.Add(unit);

@@ -25,7 +25,7 @@ export const useNodeMutation = (mode?: NodeFormMode) => {
 export const resetSubform = (resetField: (value: keyof FormNodeLib) => void) => {
   resetField("selectedAttributePredefined");
   resetField("nodeTerminals");
-  resetField("attributeIdList");
+  resetField("attributes");
 };
 
 export const getSubformForAspect = (aspect: Aspect) => {

@@ -8,7 +8,7 @@ export const createEmptyInterfaceLibAm = (): InterfaceLibAm => ({
   aspect: Aspect.None,
   companyId: 0,
   terminalId: "",
-  attributeIdList: [],
+  attributes: [],
   description: "",
   typeReferences: [],
   parentId: "",

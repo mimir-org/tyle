@@ -9,7 +9,7 @@ using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
-namespace Mimirorg.Setup.Fixtures
+namespace Mimirorg.Test.Setup.Fixtures
 {
     public class MimirorgCommonFixture : IDisposable
     {
@@ -20,7 +20,6 @@ namespace Mimirorg.Setup.Fixtures
 
         // Repositories
         public Mock<INodeRepository> NodeRepository = new();
-        public Mock<IAttributeRepository> AttributeRepository = new();
         public Mock<IQuantityDatumRepository> DatumRepository = new();
         public Mock<IAttributePredefinedRepository> AttributePredefinedRepository = new();
         public Mock<IAttributeReferenceRepository> AttributeReferenceRepository = new();
@@ -57,10 +56,29 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                AttributeIdList = new List<string>
+                Attributes = new List<AttributeLibAm>
                 {
-                    "123",
-                    "555"
+                    new()
+                    {
+                        Name = "a1",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
+                        Source = "PCA",
+                        Units = new List<UnitLibAm>
+                        {
+                            new()
+                            {
+                                Name = "u1",
+                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u1",
+                                IsDefault = true
+                            },
+                            new()
+                            {
+                                Name = "u2",
+                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u2",
+                                IsDefault = false
+                            }
+                        }
+                    }
                 },
                 NodeTerminals = new List<NodeTerminalLibAm>
                 {
@@ -102,13 +120,7 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                Attributes = new List<AttributeLibDm>
-                {
-                    new()
-                    {
-                        Id = "123"
-                    }
-                },
+                Attributes = nodeLibAm.Attributes.ConvertToString(),
                 NodeTerminals = new List<NodeTerminalLibDm>
                 {
                     new()
@@ -150,10 +162,29 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                AttributeIdList = new List<string>
+                Attributes = new List<AttributeLibAm>
                 {
-                    "123",
-                    "555"
+                    new()
+                    {
+                        Name = "a1",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
+                        Source = "PCA",
+                        Units = new List<UnitLibAm>
+                        {
+                            new()
+                            {
+                                Name = "u1",
+                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u1",
+                                IsDefault = true
+                            },
+                            new()
+                            {
+                                Name = "u2",
+                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u2",
+                                IsDefault = false
+                            }
+                        }
+                    }
                 },
                 ParentId = "123",
                 TypeReferences = typeRefs
@@ -165,13 +196,7 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                Attributes = new List<AttributeLibDm>
-                {
-                    new()
-                    {
-                        Id = "123"
-                    }
-                },
+                Attributes = interfaceLibAm.Attributes.ConvertToString(),
                 ParentId = "123",
                 TypeReferences = typeRefs.ConvertToString()
             };
@@ -196,10 +221,29 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                AttributeIdList = new List<string>
+                Attributes = new List<AttributeLibAm>
                 {
-                    "123",
-                    "555"
+                    new()
+                    {
+                        Name = "a1",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
+                        Source = "PCA",
+                        Units = new List<UnitLibAm>
+                        {
+                            new()
+                            {
+                                Name = "u1",
+                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u1",
+                                IsDefault = true
+                            },
+                            new()
+                            {
+                                Name = "u2",
+                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u2",
+                                IsDefault = false
+                            }
+                        }
+                    }
                 },
                 ParentId = "123",
                 TypeReferences = typeRefs
@@ -211,18 +255,67 @@ namespace Mimirorg.Setup.Fixtures
                 RdsName = "AA",
                 RdsCode = "AA",
                 Aspect = Aspect.Function,
-                Attributes = new List<AttributeLibDm>
-                {
-                    new()
-                    {
-                        Id = "123"
-                    }
-                },
+                Attributes = transportLibAm.Attributes.ConvertToString(),
                 ParentId = "123",
                 TypeReferences = typeRefs.ConvertToString()
             };
 
             return (transportLibAm, transportLibDm);
+        }
+
+        public (TerminalLibAm am, TerminalLibDm dm) CreateTerminalTestData()
+        {
+            var typeRefs = new List<TypeReferenceAm>
+            {
+                new()
+                {
+                    Iri = "https://tyle.com",
+                    Name = "XX"
+                }
+            };
+
+            var terminalLibAm = new TerminalLibAm
+            {
+                Name = "AA",
+                TypeReferences = typeRefs,
+                Color = "#123",
+                Attributes = new List<AttributeLibAm>
+                {
+                    new()
+                    {
+                        Name = "a1",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
+                        Source = "PCA",
+                        Units = new List<UnitLibAm>
+                        {
+                            new()
+                            {
+                                Name = "u1",
+                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u1",
+                                IsDefault = true
+                            },
+                            new()
+                            {
+                                Name = "u2",
+                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u2",
+                                IsDefault = false
+                            }
+                        }
+                    }
+                },
+                Version = "1.0"
+            };
+
+            var terminalLibDm = new TerminalLibDm
+            {
+                Name = "AA",
+                Color = "#123",
+                Attributes = terminalLibAm.Attributes.ConvertToString(),
+                Version = "1.0",
+                TypeReferences = typeRefs.ConvertToString()
+            };
+
+            return (terminalLibAm, terminalLibDm);
         }
 
         public void Dispose()

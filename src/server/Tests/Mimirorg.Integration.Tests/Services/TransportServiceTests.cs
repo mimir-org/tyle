@@ -1,16 +1,14 @@
 using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
-using Mimirorg.Setup;
+using Mimirorg.Test.Setup;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 using TypeLibrary.Services.Services;
 using Xunit;
 
-namespace Mimirorg.Integration.Tests.Services
+namespace Mimirorg.Test.Integration.Services
 {
     public class TransportServiceTests : IntegrationTest
     {
@@ -54,6 +52,28 @@ namespace Mimirorg.Integration.Tests.Services
         [Fact]
         public async Task Create_Transport_Create_Transport_When_Ok_Parameters()
         {
+            var newAttribute = new AttributeLibAm
+            {
+                Name = "a11",
+                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a11",
+                Source = "PCA",
+                Units = new List<UnitLibAm>
+                {
+                    new()
+                    {
+                        Name = "u11",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u11",
+                        IsDefault = true
+                    },
+                    new()
+                    {
+                        Name = "u22",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u22",
+                        IsDefault = false
+                    }
+                }
+            };
+
             var transportParentAm = new TransportLibAm
             {
                 Name = "TransportParent",
@@ -79,26 +99,14 @@ namespace Mimirorg.Integration.Tests.Services
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
                 TerminalId = "8EBC5811473E87602FB0C18A100BD53C",
-                AttributeIdList = new List<string>
-                {
-                    "CA20DF193D58238C3C557A0316C15533"
-                },
+                Attributes = new List<AttributeLibAm> { newAttribute },
                 TypeReferences = new List<TypeReferenceAm>
                 {
                     new()
                     {
                         Name = "TypeRef",
                         Iri = "https://url.com/1234567890",
-                        Source = "https://source.com/1234567890",
-                        Subs = new List<TypeReferenceSub>
-                        {
-                            new()
-                            {
-                                Name = "SubName",
-                                Iri = "https://subIri.com/1234567890"
-                            }
-                        }
-
+                        Source = "https://source.com/1234567890"
                     }
                 },
                 ParentId = transportParentCm.Id,
@@ -118,13 +126,11 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(transportAm.Aspect, transportCm.Aspect);
             Assert.Equal(transportAm.CompanyId, transportCm.CompanyId);
             Assert.Equal(transportAm.TerminalId, transportCm.TerminalId);
-            Assert.Equal(transportAm.AttributeIdList.ToList().ConvertToString(), transportCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
+            Assert.Equal(transportAm.Attributes.ToList()[0].Id, transportCm.Attributes.ToList()[0].Id);
             Assert.Equal(transportAm.TypeReferences.First().Iri, transportCm.TypeReferences.First().Iri);
             Assert.Equal(transportAm.TypeReferences.First().Name, transportCm.TypeReferences.First().Name);
             Assert.Equal(transportAm.TypeReferences.First().Source, transportCm.TypeReferences.First().Source);
 
-            Assert.Equal(transportAm.TypeReferences.First().Subs.First().Name, transportCm.TypeReferences.First().Subs.First().Name);
-            Assert.Equal(transportAm.TypeReferences.First().Subs.First().Iri, transportCm.TypeReferences.First().Subs.First().Iri);
             Assert.Equal(transportAm.ParentId, transportCm.ParentId);
 
             var logService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ILogService>();

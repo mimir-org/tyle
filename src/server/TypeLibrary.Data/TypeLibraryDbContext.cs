@@ -6,7 +6,6 @@ namespace TypeLibrary.Data
 {
     public class TypeLibraryDbContext : DbContext
     {
-        public virtual DbSet<AttributeLibDm> Attribute { get; set; }
         public virtual DbSet<SymbolLibDm> Symbol { get; set; }
         public virtual DbSet<InterfaceLibDm> Interface { get; set; }
         public virtual DbSet<NodeTerminalLibDm> TerminalNode { get; set; }
@@ -24,7 +23,6 @@ namespace TypeLibrary.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration(new AttributeConfiguration());
             modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());
             modelBuilder.ApplyConfiguration(new SymbolConfiguration());
             modelBuilder.ApplyConfiguration(new InterfaceConfiguration());

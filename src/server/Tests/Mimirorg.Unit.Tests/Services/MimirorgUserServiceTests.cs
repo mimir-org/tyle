@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Identity;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Authentication.Services;
-using Mimirorg.Setup;
-using Mimirorg.Setup.Fixtures;
+using Mimirorg.Test.Setup;
+using Mimirorg.Test.Setup.Fixtures;
 using Mimirorg.TypeLibrary.Enums;
 using Moq;
 using Xunit;
 
-namespace Mimirorg.Unit.Tests.Services
+namespace Mimirorg.Test.Unit.Services
 {
     public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
     {

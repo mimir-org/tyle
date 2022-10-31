@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Extensions;
-using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
@@ -15,12 +14,10 @@ namespace TypeLibrary.Data.Repositories.Ef
 {
     public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, TerminalLibDm>, IEfTerminalRepository
     {
-        private readonly IAttributeRepository _attributeRepository;
         private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
 
-        public EfTerminalRepository(TypeLibraryDbContext dbContext, IAttributeRepository attributeRepository, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
+        public EfTerminalRepository(TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
         {
-            _attributeRepository = attributeRepository;
             _typeLibraryProcRepository = typeLibraryProcRepository;
         }
 
@@ -106,7 +103,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// <returns>A collection of terminals</returns>
         public IEnumerable<TerminalLibDm> Get()
         {
-            return GetAll().Include(x => x.Attributes);
+            return GetAll();
         }
 
         /// <summary>
@@ -116,7 +113,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// <returns>Terminal if found</returns>
         public async Task<TerminalLibDm> Get(string id)
         {
-            var terminal = await FindBy(x => x.Id == id).Include(x => x.Attributes).FirstOrDefaultAsync();
+            var terminal = await FindBy(x => x.Id == id).FirstOrDefaultAsync();
             return terminal;
         }
 
@@ -127,10 +124,8 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// <returns>The created terminal</returns>
         public async Task<TerminalLibDm> Create(TerminalLibDm terminal)
         {
-            _attributeRepository.SetUnchanged(terminal.Attributes);
             await CreateAsync(terminal);
             await SaveAsync();
-            _attributeRepository.SetDetached(terminal.Attributes);
             return terminal;
         }
 
@@ -139,7 +134,6 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// </summary>
         public void ClearAllChangeTrackers()
         {
-            _attributeRepository.ClearAllChangeTrackers();
             Context?.ChangeTracker.Clear();
         }
     }

@@ -13,14 +13,5 @@ namespace Mimirorg.TypeLibrary.Extensions
             if (!permissions.Any(x => x.Id == permission.Id && x.Name == permission.Name))
                 yield return new ValidationResult("There is no permission with current id or name", new[] { "Id", "Name" });
         }
-
-        public static IEnumerable<ValidationResult> ValidateAttribute(this AttributeLibAm attribute)
-        {
-            if (attribute.Select == Select.None && (attribute.SelectValues != null && attribute.SelectValues.Any()))
-                yield return new ValidationResult($"There should not be any values in {nameof(attribute.SelectValues)}, when Select is different from SingleSelect or MultiSelect", attribute.SelectValues);
-
-            if (attribute.Select != Select.None && (attribute.SelectValues == null || !attribute.SelectValues.Any()))
-                yield return new ValidationResult($"There should values in {nameof(attribute.SelectValues)}, when Select is SingleSelect or MultiSelect", attribute.SelectValues);
-        }
     }
 }
