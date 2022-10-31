@@ -13,12 +13,6 @@ export const mapInterfaceLibCmToInterfaceItem = (interfaceLibCm: InterfaceLibCm)
   interfaceColor: interfaceLibCm.terminal.color,
   attributes: sortInfoItems(mapAttributeLibCmsToInfoItems(interfaceLibCm.attributes)),
   terminal: mapTerminalLibCmToTerminalItem(interfaceLibCm.terminal),
-  tokens: [
-    interfaceLibCm.rdsName,
-    interfaceLibCm.purposeName,
-    interfaceLibCm.createdBy,
-    interfaceLibCm.version,
-    interfaceLibCm.companyName,
-  ],
+  tokens: [interfaceLibCm.version, interfaceLibCm.companyName, interfaceLibCm.rdsName, interfaceLibCm.purposeName],
   kind: "InterfaceItem",
 });

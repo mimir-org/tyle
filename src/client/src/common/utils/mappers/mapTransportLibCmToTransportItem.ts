@@ -13,6 +13,6 @@ export const mapTransportLibCmToTransportItem = (transport: TransportLibCm): Tra
   transportColor: transport.terminal.color,
   attributes: sortInfoItems(mapAttributeLibCmsToInfoItems(transport.attributes)),
   terminal: mapTerminalLibCmToTerminalItem(transport.terminal),
-  tokens: [transport.rdsName, transport.purposeName, transport.createdBy, transport.version, transport.companyName],
+  tokens: [transport.version, transport.companyName, transport.rdsName, transport.purposeName],
   kind: "TransportItem",
 });

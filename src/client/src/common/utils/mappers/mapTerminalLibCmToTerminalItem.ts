@@ -9,6 +9,6 @@ export const mapTerminalLibCmToTerminalItem = (terminal: TerminalLibCm): Termina
   description: terminal.description,
   color: terminal.color,
   attributes: sortInfoItems(mapAttributeLibCmsToInfoItems(terminal.attributes)),
-  tokens: [terminal.createdBy, terminal.version, terminal.companyName],
+  tokens: [terminal.version, terminal.companyName],
   kind: "TerminalItem",
 });
