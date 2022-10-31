@@ -1,8 +1,8 @@
 import { faker } from "@faker-js/faker";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { NodePreview } from "common/components/node/NodePreview";
+import { mockNodeTerminalItem } from "common/utils/mocks";
 import { LibraryIcon } from "complib/assets";
-import { mockNodeTerminalItem } from "../../utils/mocks";
-import { NodePreview } from "./NodePreview";
 
 export default {
   title: "Common/Node/NodePreview",

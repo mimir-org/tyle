@@ -1,5 +1,5 @@
 import { ComponentStory } from "@storybook/react";
-import { SearchField } from "./SearchField";
+import { SearchField } from "common/components/search-field/SearchField";
 
 export default {
   title: "Common/SearchField",

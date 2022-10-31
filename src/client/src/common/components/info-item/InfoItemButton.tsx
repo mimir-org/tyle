@@ -1,7 +1,7 @@
+import { InfoItemDescription, InfoItemDescriptionProps } from "common/components/info-item/InfoItemDescription";
 import { Popover } from "complib/data-display";
 import { TokenButton, TokenButtonProps } from "complib/general";
 import { ForwardedRef, forwardRef, useState } from "react";
-import { InfoItemDescription, InfoItemDescriptionProps } from "./InfoItemDescription";
 
 export type InfoItemButtonProps = TokenButtonProps & InfoItemDescriptionProps;
 

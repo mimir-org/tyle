@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { mockNodeTerminalItem } from "../../../utils/mocks";
-import { TerminalTable } from "./TerminalTable";
+import { TerminalTable } from "common/components/terminal/table/TerminalTable";
+import { mockNodeTerminalItem } from "common/utils/mocks";
 
 export default {
   title: "Common/Terminal/TerminalTable",

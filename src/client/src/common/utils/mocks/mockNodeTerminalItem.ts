@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
-import { NodeTerminalItem } from "../../types/nodeTerminalItem";
-import { mockInfoItem } from "./mockInfoItem";
+import { NodeTerminalItem } from "common/types/nodeTerminalItem";
+import { mockInfoItem } from "common/utils/mocks/mockInfoItem";
 
 export const mockNodeTerminalItem = (): NodeTerminalItem => ({
   name: `Terminal ${faker.random.alpha({ count: 3, casing: "upper" })}`,

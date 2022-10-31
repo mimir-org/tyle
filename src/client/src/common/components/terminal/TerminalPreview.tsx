@@ -1,7 +1,7 @@
+import { TerminalButton } from "common/components/terminal/TerminalButton";
+import { TerminalPreviewContainer, TerminalPreviewVariant } from "common/components/terminal/TerminalPreview.styled";
 import { TextTypes } from "complib/props";
 import { Text } from "complib/text";
-import { TerminalButton } from "./TerminalButton";
-import { TerminalPreviewContainer, TerminalPreviewVariant } from "./TerminalPreview.styled";
 
 interface AttributePreviewProps {
   name: string;

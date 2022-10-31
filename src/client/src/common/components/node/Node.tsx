@@ -1,8 +1,8 @@
+import { NodeContainer, NodeContainerProps } from "common/components/node/Node.styled";
 import { Icon } from "complib/media";
 import { TextTypes } from "complib/props";
 import { Text } from "complib/text";
 import { useTheme } from "styled-components";
-import { NodeContainer, NodeContainerProps } from "./Node.styled";
 
 export type NodeProps = NodeContainerProps & {
   name: string;

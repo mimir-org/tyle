@@ -1,9 +1,9 @@
+import { TerminalButton, TerminalButtonProps } from "common/components/terminal/TerminalButton";
+import { NodeTerminalItem } from "common/types/nodeTerminalItem";
 import { Tooltip } from "complib/data-display";
 import { Flexbox } from "complib/layouts";
 import { Text } from "complib/text";
 import { useTheme } from "styled-components";
-import { NodeTerminalItem } from "../../types/nodeTerminalItem";
-import { TerminalButton, TerminalButtonProps } from "./TerminalButton";
 
 /**
  * Component which shows a single terminal for a given node in addition to its name and amount in a tooltip.

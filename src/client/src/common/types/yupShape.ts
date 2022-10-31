@@ -1,4 +1,4 @@
-import * as yup from "yup";
+import { AnySchema } from "yup";
 
 /**
  * Helper for strongly typing yup schemas
@@ -11,4 +11,4 @@ import * as yup from "yup";
  *   });
  * };
  */
-export type YupShape<T> = Partial<Record<keyof T, yup.AnySchema>>;
+export type YupShape<T> = Partial<Record<keyof T, AnySchema>>;

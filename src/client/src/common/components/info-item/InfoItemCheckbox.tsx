@@ -1,7 +1,7 @@
+import { InfoItemDescription } from "common/components/info-item/InfoItemDescription";
+import { InfoItem } from "common/types/infoItem";
 import { Tooltip } from "complib/data-display";
 import { TokenCheckbox, TokenCheckboxProps } from "complib/general";
-import { InfoItem } from "../../types/infoItem";
-import { InfoItemDescription } from "./InfoItemDescription";
 
 type InfoItemCheckboxProps = TokenCheckboxProps & Omit<InfoItem, "id">;
 

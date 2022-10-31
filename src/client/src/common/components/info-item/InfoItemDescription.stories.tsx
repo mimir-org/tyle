@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { InfoItemDescription } from "common/components/info-item/InfoItemDescription";
 import { LibraryIcon } from "complib/assets";
-import { InfoItemDescription } from "./InfoItemDescription";
 
 export default {
   title: "Common/InfoItem/InfoItemDescription",

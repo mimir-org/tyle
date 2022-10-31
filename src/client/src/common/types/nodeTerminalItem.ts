@@ -1,4 +1,4 @@
-import { InfoItem } from "./infoItem";
+import { InfoItem } from "common/types/infoItem";
 
 export type NodeTerminalItemDirection = "Input" | "Output" | "Bidirectional";
 

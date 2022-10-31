@@ -1,7 +1,7 @@
+import { useMediaQuery } from "common/hooks/useMediaQuery";
+import { NodeTerminalItem } from "common/types/nodeTerminalItem";
 import { Td } from "complib/data-display";
 import { useTranslation } from "react-i18next";
-import { useMediaQuery } from "../../../hooks/useMediaQuery";
-import { NodeTerminalItem } from "../../../types/nodeTerminalItem";
 
 export const TerminalTableAmount = ({ amount }: Pick<NodeTerminalItem, "amount">) => {
   const adjustAmountAlignment = useMediaQuery("screen and (min-width: 1500px)");

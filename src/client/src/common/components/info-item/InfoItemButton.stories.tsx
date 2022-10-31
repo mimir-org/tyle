@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { InfoItemButton } from "common/components/info-item/InfoItemButton";
 import { LibraryIcon } from "complib/assets";
-import { InfoItemButton } from "./InfoItemButton";
 
 export default {
   title: "Common/InfoItem/InfoItemButton",

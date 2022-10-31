@@ -1,7 +1,7 @@
+import { TerminalButtonProps } from "common/components/terminal/TerminalButton";
 import { focus, layer, translucify } from "complib/mixins";
 import { meetsContrastGuidelines } from "polished";
 import styled, { css } from "styled-components/macro";
-import { TerminalButtonProps } from "./TerminalButton";
 
 export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
   flex-shrink: 0;
@@ -95,7 +95,9 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
       }
     }
   }};
-};
+}
+
+;
 `;
 
 TerminalButtonContainer.defaultProps = {

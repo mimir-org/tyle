@@ -1,5 +1,5 @@
-import { InfoItem } from "./infoItem";
-import { NodeTerminalItem } from "./nodeTerminalItem";
+import { InfoItem } from "common/types/infoItem";
+import { NodeTerminalItem } from "common/types/nodeTerminalItem";
 
 export interface NodeItem {
   id: string;

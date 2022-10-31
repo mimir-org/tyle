@@ -1,12 +1,12 @@
-import { TextTypes } from "complib/props";
-import { Text } from "complib/text";
-import { useTheme } from "styled-components";
 import {
   Transport,
   TransportPreviewContainer,
   TransportPreviewHeader,
   TransportPreviewVariant,
-} from "./TransportPreview.styled";
+} from "common/components/transport/TransportPreview.styled";
+import { TextTypes } from "complib/props";
+import { Text } from "complib/text";
+import { useTheme } from "styled-components";
 
 interface TransportPreviewProps {
   name: string;

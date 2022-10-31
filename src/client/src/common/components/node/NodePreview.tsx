@@ -1,9 +1,9 @@
+import { Node } from "common/components/node/Node";
+import { NodeVariant } from "common/components/node/Node.styled";
+import { meetsInputCriteria, meetsOutputCriteria } from "common/components/node/NodePreview.helpers";
 import { Box } from "complib/layouts";
 import { NodeTerminalItem } from "../../types/nodeTerminalItem";
 import { TerminalButtonVariant, Terminals } from "../terminal";
-import { Node } from "./Node";
-import { NodeVariant } from "./Node.styled";
-import { meetsInputCriteria, meetsOutputCriteria } from "./NodePreview.helpers";
 
 export interface NodePreviewProps {
   name: string;

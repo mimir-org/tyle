@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { TerminalCollection } from "./TerminalCollection";
+import { TerminalCollection } from "common/components/terminal/TerminalCollection";
 
 export default {
   title: "Common/Terminal/TerminalCollection",

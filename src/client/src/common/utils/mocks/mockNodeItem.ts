@@ -1,8 +1,8 @@
 import { faker } from "@faker-js/faker";
+import { NodeItem } from "common/types/nodeItem";
+import { mockInfoItem } from "common/utils/mocks/mockInfoItem";
+import { mockNodeTerminalItem } from "common/utils/mocks/mockNodeTerminalItem";
 import { LibraryIcon } from "complib/assets";
-import { NodeItem } from "../../types/nodeItem";
-import { mockInfoItem } from "./mockInfoItem";
-import { mockNodeTerminalItem } from "./mockNodeTerminalItem";
 
 export const mockNodeItem = (): NodeItem => ({
   id: faker.random.numeric(),

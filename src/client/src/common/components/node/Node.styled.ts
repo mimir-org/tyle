@@ -1,6 +1,6 @@
+import { largeNode } from "common/components/node/variants/largeNode";
+import { smallNode } from "common/components/node/variants/smallNode";
 import styled, { css } from "styled-components/macro";
-import { largeNode } from "./variants/largeNode";
-import { smallNode } from "./variants/smallNode";
 
 export type NodeVariant = "small" | "large";
 

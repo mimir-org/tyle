@@ -1,1 +1,1 @@
-export { InterfacePreview } from "./InterfacePreview";
+export { InterfacePreview } from "common/components/interface/InterfacePreview";

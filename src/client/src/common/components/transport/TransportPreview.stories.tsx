@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { TransportPreview } from "./TransportPreview";
+import { TransportPreview } from "common/components/transport/TransportPreview";
 
 export default {
   title: "Common/Transport/TransportPreview",

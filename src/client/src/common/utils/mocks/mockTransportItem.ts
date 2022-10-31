@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
-import { TransportItem } from "../../types/transportItem";
-import { mockInfoItem } from "./mockInfoItem";
-import { mockTerminalItem } from "./mockTerminalItem";
+import { TransportItem } from "common/types/transportItem";
+import { mockInfoItem } from "common/utils/mocks/mockInfoItem";
+import { mockTerminalItem } from "common/utils/mocks/mockTerminalItem";
 
 export const mockTransportItem = (): TransportItem => ({
   id: faker.random.alphaNumeric(),

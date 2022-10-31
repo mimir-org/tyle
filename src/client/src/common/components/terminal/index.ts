@@ -1,5 +1,5 @@
-export { TerminalButton } from "./TerminalButton";
-export type { TerminalButtonVariant, TerminalButtonProps } from "./TerminalButton";
-export { TerminalCollection } from "./TerminalCollection";
-export { TerminalTable } from "./table/TerminalTable";
-export { Terminals } from "./Terminals";
+export { TerminalButton } from "common/components/terminal/TerminalButton";
+export type { TerminalButtonVariant, TerminalButtonProps } from "common/components/terminal/TerminalButton";
+export { TerminalCollection } from "common/components/terminal/TerminalCollection";
+export { TerminalTable } from "common/components/terminal/table/TerminalTable";
+export { Terminals } from "common/components/terminal/Terminals";

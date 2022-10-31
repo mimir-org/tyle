@@ -1,5 +1,5 @@
-import { InfoItem } from "./infoItem";
-import { TerminalItem } from "./terminalItem";
+import { InfoItem } from "common/types/infoItem";
+import { TerminalItem } from "common/types/terminalItem";
 
 export interface TransportItem {
   id: string;

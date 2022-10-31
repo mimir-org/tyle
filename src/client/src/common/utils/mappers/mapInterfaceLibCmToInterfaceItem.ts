@@ -1,9 +1,9 @@
 import { InterfaceLibCm } from "@mimirorg/typelibrary-types";
-import { InterfaceItem } from "../../types/interfaceItem";
-import { getColorFromAspect } from "../getColorFromAspect";
-import { sortInfoItems } from "../sorters";
-import { mapAttributeLibCmsToInfoItems } from "./mapAttributeLibCmToInfoItem";
-import { mapTerminalLibCmToTerminalItem } from "./mapTerminalLibCmToTerminalItem";
+import { InterfaceItem } from "common/types/interfaceItem";
+import { getColorFromAspect } from "common/utils/getColorFromAspect";
+import { mapAttributeLibCmsToInfoItems } from "common/utils/mappers/mapAttributeLibCmToInfoItem";
+import { mapTerminalLibCmToTerminalItem } from "common/utils/mappers/mapTerminalLibCmToTerminalItem";
+import { sortInfoItems } from "common/utils/sorters";
 
 export const mapInterfaceLibCmToInterfaceItem = (interfaceLibCm: InterfaceLibCm): InterfaceItem => ({
   id: interfaceLibCm.id,

@@ -1,5 +1,5 @@
-export { mockNodeItem } from "./mockNodeItem";
-export { mockNodeTerminalItem } from "./mockNodeTerminalItem";
-export { mockTransportItem } from "./mockTransportItem";
-export { mockInterfaceItem } from "./mockInterfaceItem";
-export { mockInfoItem } from "./mockInfoItem";
+export { mockNodeItem } from "common/utils/mocks/mockNodeItem";
+export { mockNodeTerminalItem } from "common/utils/mocks/mockNodeTerminalItem";
+export { mockTransportItem } from "common/utils/mocks/mockTransportItem";
+export { mockInterfaceItem } from "common/utils/mocks/mockInterfaceItem";
+export { mockInfoItem } from "common/utils/mocks/mockInfoItem";

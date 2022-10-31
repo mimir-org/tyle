@@ -1,9 +1,9 @@
 import { ArrowLeft, ArrowRight, SwitchHorizontal } from "@styled-icons/heroicons-outline";
+import { NodeTerminalItem } from "common/types/nodeTerminalItem";
 import { Td } from "complib/data-display";
 import { Flexbox } from "complib/layouts";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { NodeTerminalItem } from "../../../types/nodeTerminalItem";
 
 export const TerminalTableDirection = ({ direction }: Pick<NodeTerminalItem, "direction">) => {
   const theme = useTheme();

@@ -1,9 +1,9 @@
 import { ConnectorDirection, NodeLibCm, NodeTerminalLibCm } from "@mimirorg/typelibrary-types";
-import { NodeItem } from "../../types/nodeItem";
-import { NodeTerminalItem } from "../../types/nodeTerminalItem";
-import { getColorFromAspect } from "../getColorFromAspect";
-import { sortInfoItems } from "../sorters";
-import { mapAttributeLibCmsToInfoItems } from "./mapAttributeLibCmToInfoItem";
+import { NodeItem } from "common/types/nodeItem";
+import { NodeTerminalItem } from "common/types/nodeTerminalItem";
+import { getColorFromAspect } from "common/utils/getColorFromAspect";
+import { mapAttributeLibCmsToInfoItems } from "common/utils/mappers/mapAttributeLibCmToInfoItem";
+import { sortInfoItems } from "common/utils/sorters";
 
 export const mapNodeLibCmToNodeItem = (node: NodeLibCm): NodeItem => ({
   id: node.id,

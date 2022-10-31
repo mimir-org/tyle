@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
-import { TerminalItem } from "../../types/terminalItem";
-import { mockInfoItem } from "./mockInfoItem";
+import { TerminalItem } from "common/types/terminalItem";
+import { mockInfoItem } from "common/utils/mocks/mockInfoItem";
 
 export const mockTerminalItem = (): TerminalItem => ({
   id: faker.random.alphaNumeric(),

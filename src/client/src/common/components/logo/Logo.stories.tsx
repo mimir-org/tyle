@@ -1,5 +1,5 @@
 import { ComponentStory } from "@storybook/react";
-import { Logo } from "./Logo";
+import { Logo } from "common/components/logo/Logo";
 
 export default {
   title: "Common/Logo",

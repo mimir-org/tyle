@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { InfoItemCheckbox } from "./InfoItemCheckbox";
+import { InfoItemCheckbox } from "common/components/info-item/InfoItemCheckbox";
 
 export default {
   title: "Common/InfoItem/InfoItemCheckbox",

@@ -1,9 +1,9 @@
+import { TyleLogoDarkRedIcon, TyleLogoWhiteIcon } from "common/components/logo/assets";
+import { usePrefersTheme } from "common/hooks/usePrefersTheme";
 import { Icon } from "complib/media";
 import { IconProps } from "complib/media/icon/Icon";
 import { motion } from "framer-motion";
 import { ForwardedRef, forwardRef } from "react";
-import { usePrefersTheme } from "../../hooks/usePrefersTheme";
-import { TyleLogoDarkRedIcon, TyleLogoWhiteIcon } from "./assets";
 
 type LogoProps = Omit<IconProps, "src"> & {
   inverse?: boolean;

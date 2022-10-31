@@ -1,7 +1,7 @@
 import { TerminalLibCm } from "@mimirorg/typelibrary-types";
-import { TerminalItem } from "../../types/terminalItem";
-import { sortInfoItems } from "../sorters";
-import { mapAttributeLibCmsToInfoItems } from "./mapAttributeLibCmToInfoItem";
+import { TerminalItem } from "common/types/terminalItem";
+import { mapAttributeLibCmsToInfoItems } from "common/utils/mappers/mapAttributeLibCmToInfoItem";
+import { sortInfoItems } from "common/utils/sorters";
 
 export const mapTerminalLibCmToTerminalItem = (terminal: TerminalLibCm): TerminalItem => ({
   id: terminal.id,

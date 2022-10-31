@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { InterfacePreview } from "./InterfacePreview";
+import { InterfacePreview } from "common/components/interface/InterfacePreview";
 
 export default {
   title: "Common/Interface/InterfacePreview",

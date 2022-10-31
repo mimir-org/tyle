@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { InfoItem } from "../../types/infoItem";
+import { InfoItem } from "common/types/infoItem";
 
 export const mockInfoItem = (): InfoItem => {
   return {

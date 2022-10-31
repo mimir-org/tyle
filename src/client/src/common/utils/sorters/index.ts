@@ -1,1 +1,1 @@
-export { sortInfoItems } from "./sortInfoItems";
+export { sortInfoItems } from "common/utils/sorters/sortInfoItems";

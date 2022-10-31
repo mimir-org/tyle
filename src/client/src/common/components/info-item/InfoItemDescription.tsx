@@ -1,10 +1,10 @@
+import { InfoItem } from "common/types/infoItem";
 import { Button } from "complib/buttons";
 import { Divider } from "complib/data-display";
 import { Box, Flexbox } from "complib/layouts";
 import { Text } from "complib/text";
 import { Actionable } from "complib/types";
 import { useTheme } from "styled-components";
-import { InfoItem } from "../../types/infoItem";
 
 export type InfoItemDescriptionProps = Omit<InfoItem, "id"> & Partial<Actionable>;
 

@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Node } from "common/components/node/Node";
 import { LibraryIcon } from "complib/assets";
-import { Node } from "./Node";
 
 export default {
   title: "Common/Node/Node",

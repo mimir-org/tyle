@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { TerminalButton } from "./TerminalButton";
+import { TerminalButton } from "common/components/terminal/TerminalButton";
 
 export default {
   title: "Common/Terminal/TerminalButton",

@@ -1,9 +1,9 @@
+import { TerminalButtonProps } from "common/components/terminal/TerminalButton";
+import { TerminalCollection } from "common/components/terminal/TerminalCollection";
+import { TerminalSingle } from "common/components/terminal/TerminalSingle";
+import { NodeTerminalItem } from "common/types/nodeTerminalItem";
 import { Box } from "complib/layouts";
 import { useTheme } from "styled-components";
-import { NodeTerminalItem } from "../../types/nodeTerminalItem";
-import { TerminalButtonProps } from "./TerminalButton";
-import { TerminalCollection } from "./TerminalCollection";
-import { TerminalSingle } from "./TerminalSingle";
 
 export type TerminalsProps = Pick<TerminalButtonProps, "variant"> & {
   terminals: NodeTerminalItem[];

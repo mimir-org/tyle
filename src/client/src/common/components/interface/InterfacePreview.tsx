@@ -1,12 +1,12 @@
-import { TextTypes } from "complib/props";
-import { Text } from "complib/text";
-import { useTheme } from "styled-components";
 import {
   Interface,
   InterfacePreviewContainer,
   InterfacePreviewHeader,
   InterfacePreviewVariant,
-} from "./InterfacePreview.styled";
+} from "common/components/interface/InterfacePreview.styled";
+import { TextTypes } from "complib/props";
+import { Text } from "complib/text";
+import { useTheme } from "styled-components";
 
 interface InterfacePreviewProps {
   name: string;

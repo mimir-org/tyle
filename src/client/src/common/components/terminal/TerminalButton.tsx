@@ -1,9 +1,9 @@
 import { ArrowSmRight, SwitchHorizontal } from "@styled-icons/heroicons-outline";
 import { EllipseIcon } from "common/components/terminal/assets";
+import { TerminalButtonContainer } from "common/components/terminal/TerminalButton.styled";
+import { NodeTerminalItemDirection } from "common/types/nodeTerminalItem";
 import { Polymorphic } from "complib/props";
 import { ButtonHTMLAttributes, ElementType, forwardRef, ReactNode } from "react";
-import { NodeTerminalItemDirection } from "../../types/nodeTerminalItem";
-import { TerminalButtonContainer } from "./TerminalButton.styled";
 
 export type TerminalButtonVariant = "small" | "medium" | "large";
 

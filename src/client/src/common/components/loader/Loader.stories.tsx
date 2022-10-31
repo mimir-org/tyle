@@ -1,5 +1,5 @@
 import { ComponentStory } from "@storybook/react";
-import { Loader } from "./Loader";
+import { Loader } from "common/components/loader/Loader";
 
 export default {
   title: "Common/Loader",

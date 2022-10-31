@@ -1,1 +1,1 @@
-export { TransportPreview } from "./TransportPreview";
+export { TransportPreview } from "common/components/transport/TransportPreview";

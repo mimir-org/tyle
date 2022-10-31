@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { TerminalSingle } from "./TerminalSingle";
+import { TerminalSingle } from "common/components/terminal/TerminalSingle";
 
 export default {
   title: "Common/Terminal/TerminalSingle",
