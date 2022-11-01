@@ -23,7 +23,7 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.ParentId).HasColumnName("ParentId").IsRequired(false).HasMaxLength(127);
             builder.Property(p => p.CompanyId).HasColumnName("CompanyId").IsRequired().HasMaxLength(127);
             builder.Property(p => p.State).HasColumnName("State").IsRequired().HasConversion<string>().HasMaxLength(31);
-            builder.Property(p => p.CreatedBy).HasColumnName("CreatedBy").IsRequired().HasMaxLength(31);
+            builder.Property(p => p.CreatedBy).HasColumnName("CreatedBy").IsRequired().HasMaxLength(127);
             builder.Property(p => p.Created).HasColumnName("Created").IsRequired();
             builder.Property(p => p.Attributes).HasColumnName("Attributes").HasDefaultValue(null);
 

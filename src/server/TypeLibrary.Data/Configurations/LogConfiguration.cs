@@ -24,7 +24,7 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.LogType).HasColumnName("LogType").IsRequired().HasConversion<string>().HasMaxLength(31);
             builder.Property(p => p.LogTypeValue).HasColumnName("LogTypeValue").IsRequired().HasMaxLength(255);
             builder.Property(p => p.Comment).HasColumnName("Comment").HasDefaultValue(null).HasMaxLength(511);
-            builder.Property(p => p.User).HasColumnName("User").IsRequired().HasMaxLength(63);
+            builder.Property(p => p.User).HasColumnName("User").IsRequired().HasMaxLength(127);
             builder.Property(p => p.Created).HasColumnName("Created").IsRequired().HasMaxLength(63);
         }
     }

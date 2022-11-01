@@ -20,7 +20,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.ObjectVersion, opt => opt.MapFrom(src => src.ObjectVersion))
                 .ForMember(dest => dest.LogType, opt => opt.MapFrom(src => src.LogType))
                 .ForMember(dest => dest.LogTypeValue, opt => opt.MapFrom(src => src.LogTypeValue))
-                .ForMember(dest => dest.User, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetEmail()) ? "Unknown" : contextAccessor.GetEmail()))
+                .ForMember(dest => dest.User, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? "Unknown" : contextAccessor.GetUserId()))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now.ToUniversalTime()));
 
             CreateMap<LogLibDm, LogLibCm>()

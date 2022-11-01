@@ -16,7 +16,7 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.TypeReferences).HasColumnName("TypeReferences");
             builder.Property(p => p.State).HasColumnName("State").IsRequired().HasConversion<string>().HasMaxLength(31);
             builder.Property(p => p.Data).HasColumnName("Data").IsRequired();
-            builder.Property(p => p.CreatedBy).HasColumnName("CreatedBy").IsRequired().HasMaxLength(31);
+            builder.Property(p => p.CreatedBy).HasColumnName("CreatedBy").IsRequired().HasMaxLength(127);
             builder.Property(p => p.Created).HasColumnName("Created").IsRequired();
         }
     }

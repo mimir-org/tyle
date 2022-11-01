@@ -26,15 +26,21 @@ namespace Mimirorg.Common.Extensions
         /// </summary>
         /// <param name="contextAccessor"></param>
         /// <returns>The email of current logged in user</returns>
-        public static string GetEmail(this IHttpContextAccessor contextAccessor)
+        public static string GetUserEmail(this IHttpContextAccessor contextAccessor)
         {
-            if (contextAccessor?.HttpContext?.User == null)
-                return null;
-
-            var user = contextAccessor.HttpContext.User;
-            return user.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Email)?.Value ??
-                   user.FindFirstValue(ClaimTypes.NameIdentifier);
+            return contextAccessor?.HttpContext?.User.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Email)?.Value;
         }
+
+        /// <summary>
+        /// Get the logged in user's database id
+        /// </summary>
+        /// <param name="contextAccessor"></param>
+        /// <returns>The database id of current logged in user</returns>
+        public static string GetUserId(this IHttpContextAccessor contextAccessor)
+        {
+            return contextAccessor?.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        }
+
         /// <summary>
         /// Get the logged in user
         /// </summary>
