@@ -9,6 +9,8 @@ import axios, { AxiosError } from "axios";
 export const parseValidationStateFromServer = <T>(error: unknown): ValidationState<T> | null => {
   if (!error) return null;
 
+  // internal axios bug causes eslint warning
+  // eslint-disable-next-line import/no-named-as-default-member
   if (axios.isAxiosError(error)) {
     return {
       message: "server",
