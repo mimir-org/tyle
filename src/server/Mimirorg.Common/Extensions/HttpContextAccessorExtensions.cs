@@ -13,12 +13,7 @@ namespace Mimirorg.Common.Extensions
         /// <returns>The name of current logged in user</returns>
         public static string GetName(this IHttpContextAccessor contextAccessor)
         {
-            if (contextAccessor?.HttpContext?.User == null)
-                return null;
-
-            var user = contextAccessor.HttpContext.User;
-            return user.Claims.FirstOrDefault(x => x.Type == "name")?.Value ??
-                   user.FindFirstValue(ClaimTypes.NameIdentifier);
+            return contextAccessor?.HttpContext?.User.Claims.FirstOrDefault(x => x.Type == "name")?.Value;
         }
 
         /// <summary>
