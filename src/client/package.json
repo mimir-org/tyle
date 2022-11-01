@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@hookform/devtools": "^4.2.2",
-    "@hookform/resolvers": "^2.9.8",
+    "@hookform/devtools": "^4.2.3",
+    "@hookform/resolvers": "^2.9.10",
     "@radix-ui/react-accordion": "^1.0.1",
     "@radix-ui/react-alert-dialog": "^1.0.2",
     "@radix-ui/react-checkbox": "^1.0.1",
