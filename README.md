@@ -1,7 +1,7 @@
 <div align="center">
   <br/>
   
-  <img src="src/client/src/assets/icons/logo/logoWhite.svg" alt="logo" width="200" height="auto" />
+  <img src="src/client/src/common/components/logo/assets/logoWhite.svg" alt="logo" width="200" height="auto" />
   
   <br/>
   <br/>
@@ -38,9 +38,6 @@
   <div>
     <a href="https://github.com/mimir-org/typelibrary/actions/workflows/main.yaml">
       <img src="https://github.com/mimir-org/typelibrary/actions/workflows/main.yaml/badge.svg?branch=main" alt="build status" />
-    </a>
-    <a href="https://github.com/mimir-org/typelibrary/actions/workflows/dev.yaml">
-      <img src="https://github.com/mimir-org/typelibrary/actions/workflows/dev.yaml/badge.svg?branch=dev" alt="build status" />
     </a>
   </div>
   
