@@ -14,6 +14,7 @@ export const CheckboxRoot = styled(CheckboxPrimitive.Root)`
 
   :disabled {
     color: ${(props) => props.theme.tyle.color.sys.surface.variant.on};
+    cursor: not-allowed;
   }
 
   :not(:disabled) {
