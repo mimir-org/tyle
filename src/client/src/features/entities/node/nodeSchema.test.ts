@@ -48,7 +48,9 @@ describe("nodeSchema tests", () => {
 
   it("should reject if there are any terminals without an id", async () => {
     const nodeWithEmptyTerminals: Partial<FormNodeLib> = {
-      nodeTerminals: [{ terminalId: "", quantity: 0, connectorDirection: ConnectorDirection.Input }],
+      nodeTerminals: [
+        { terminalId: "", quantity: 0, connectorDirection: ConnectorDirection.Input, hasMaxLimit: false },
+      ],
     };
     await expect(nodeSchema(t).validateAt("nodeTerminals", nodeWithEmptyTerminals)).rejects.toBeTruthy();
   });

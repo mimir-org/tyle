@@ -1,4 +1,4 @@
-import { Aspect, AttributeLibAm, NodeLibAm, NodeLibCm } from "@mimirorg/typelibrary-types";
+import { Aspect, AttributeLibAm, NodeLibAm, NodeLibCm, NodeTerminalLibAm } from "@mimirorg/typelibrary-types";
 import { UpdateEntity } from "common/types/updateEntity";
 import {
   FormSelectedAttributePredefinedLib,
@@ -11,9 +11,17 @@ import { ValueObject } from "features/entities/types/valueObject";
  * This type functions as a layer between client needs and the backend model.
  * It allows you to adapt the expected api model to fit client/form logic needs.
  */
-export interface FormNodeLib extends Omit<NodeLibAm, "attributes" | "selectedAttributePredefined"> {
+export interface FormNodeLib extends Omit<NodeLibAm, "attributes" | "selectedAttributePredefined" | "nodeTerminals"> {
   attributes: ValueObject<UpdateEntity<AttributeLibAm>>[];
   selectedAttributePredefined: FormSelectedAttributePredefinedLib[];
+  nodeTerminals: FormNodeTerminalLib[];
+}
+
+/**
+ * TODO: Remove "faked" limit property after backend completion
+ */
+export interface FormNodeTerminalLib extends NodeTerminalLibAm {
+  hasMaxLimit: boolean;
 }
 
 /**
@@ -30,6 +38,11 @@ export const mapFormNodeLibToApiModel = (formNode: FormNodeLib): NodeLibAm => ({
 
 export const mapNodeLibCmToFormNodeLib = (nodeLibCm: NodeLibCm, mode?: NodeFormMode): FormNodeLib => ({
   ...mapNodeLibCmToNodeLibAm(nodeLibCm),
+  nodeTerminals: nodeLibCm.nodeTerminals.map((x) => ({
+    ...x,
+    terminalId: x.terminal.id,
+    hasMaxLimit: false,
+  })),
   parentId: mode === "clone" ? nodeLibCm.id : nodeLibCm.parentId,
   attributes: nodeLibCm.attributes.map((x) => ({ value: x })),
   selectedAttributePredefined: nodeLibCm.selectedAttributePredefined.map((x) => ({
@@ -50,6 +63,7 @@ export const createEmptyFormNodeLib = (): FormNodeLib => ({
   ...emptyNodeLibAm,
   attributes: [],
   selectedAttributePredefined: [],
+  nodeTerminals: [],
 });
 
 const emptyNodeLibAm: NodeLibAm = {

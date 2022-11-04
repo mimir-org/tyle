@@ -273,7 +273,8 @@
   "terminals": {
     "title": "Terminals",
     "name": "Name",
-    "amount": "Amount",
+    "limit": "Limit",
+    "amount": "Max amount",
     "direction": "Direction",
     "attributes": "Attributes",
     "add": "Add terminal",

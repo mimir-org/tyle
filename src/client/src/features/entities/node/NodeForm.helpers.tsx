@@ -1,7 +1,7 @@
 import { Aspect } from "@mimirorg/typelibrary-types";
 import { useCreateNode, useGetNode, useUpdateNode } from "external/sources/node/node.queries";
 import { NodeFormPredefinedAttributes } from "features/entities/node/predefined-attributes/NodeFormPredefinedAttributes";
-import { NodeFormTerminalTable } from "features/entities/node/terminals/NodeFormTerminalTable";
+import { NodeFormTerminals } from "features/entities/node/terminals/NodeFormTerminals";
 import { FormNodeLib } from "features/entities/node/types/formNodeLib";
 import { NodeFormMode } from "features/entities/node/types/nodeFormMode";
 import { useParams } from "react-router-dom";
@@ -31,9 +31,9 @@ export const resetSubform = (resetField: (value: keyof FormNodeLib) => void) => 
 export const getSubformForAspect = (aspect: Aspect) => {
   switch (aspect) {
     case Aspect.Function:
-      return <NodeFormTerminalTable />;
+      return <NodeFormTerminals />;
     case Aspect.Product:
-      return <NodeFormTerminalTable />;
+      return <NodeFormTerminals />;
     case Aspect.Location:
       return <NodeFormPredefinedAttributes aspects={[aspect]} />;
     default:
