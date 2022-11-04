@@ -39,7 +39,8 @@ export const Counter = forwardRef((props: NumberProps, ref: ForwardedRef<HTMLInp
   useOnChangeCallback(onChange, fieldValue);
 
   return (
-    <CounterContainer {...delegated}>
+    <CounterContainer {...delegated} disabled={disabled}>
+
       <Button
         tabIndex={-1}
         onClick={() => setFieldValue(fieldValue - 1)}

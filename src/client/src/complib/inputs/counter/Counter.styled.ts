@@ -1,7 +1,11 @@
-import { focusRaw, getTextRole, sizingMixin } from "complib/mixins";
-import styled from "styled-components/macro";
+import { focusRaw, getTextRole, sizingMixin, translucify } from "complib/mixins";
+import styled, { css } from "styled-components/macro";
 
-export const CounterContainer = styled.div`
+interface CounterContainerProps {
+  disabled?: boolean;
+}
+
+export const CounterContainer = styled.div<CounterContainerProps>`
   display: flex;
   align-items: center;
   gap: ${(props) => props.theme.tyle.spacing.l};
@@ -14,6 +18,12 @@ export const CounterContainer = styled.div`
   padding: ${(props) => props.theme.tyle.spacing.base};
 
   background-color: ${(props) => props.theme.tyle.color.sys.pure.base};
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      background-color: ${(props) => translucify(props.theme.tyle.color.sys.surface.on, 0.08)};
+    `}
 
   :focus-within {
     ${focusRaw};
@@ -32,6 +42,10 @@ export const CounterInput = styled.input`
   ::-webkit-inner-spin-button,
   ::-webkit-outer-spin-button {
     -webkit-appearance: none;
+  }
+
+  :disabled {
+    color: ${(props) => props.theme.tyle.color.sys.surface.variant.on};
   }
 
   text-align: center;
