@@ -1,5 +1,4 @@
 import { TyleTheme } from "complib/core";
-import { translucify } from "complib/mixins";
 import { Ref } from "react";
 import ReactSelect, { GroupBase, Props, StylesConfig } from "react-select";
 import { default as ReactSelectType } from "react-select/base";
@@ -49,7 +48,7 @@ const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends Grou
     borderWidth: "1px",
     borderStyle: "solid",
     borderColor: theme.color.sys.outline.base,
-    backgroundColor: state.isDisabled ? translucify(theme.color.sys.surface.on, 0.08) : theme.color.sys.pure.base,
+    backgroundColor: state.isDisabled ? theme.color.sys.outline.base : theme.color.sys.pure.base,
     outline: state.isFocused ? `1px solid ${theme.color.sys.primary.base}` : "revert",
     outlineOffset: "1px",
     "&:hover": {},
@@ -82,18 +81,24 @@ const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends Grou
     paddingTop: theme.spacing.xs,
     paddingBottom: theme.spacing.xs,
   }),
-  singleValue: (base) => ({
+  dropdownIndicator: (base, state) => ({
+    ...base,
+    color: state.isDisabled ? theme.color.sys.surface.variant.on : theme.color.sys.outline.base,
+  }),
+  singleValue: (base, state) => ({
     ...base,
     margin: 0,
-    color: theme.color.sys.background.on,
+    color: state.isDisabled ? theme.color.sys.surface.variant.on : theme.color.sys.background.on,
     font: theme.typography.sys.roles.body.large.font,
     letterSpacing: theme.typography.sys.roles.body.large.letterSpacing,
     lineHeight: theme.typography.sys.roles.body.large.lineHeight,
   }),
-  multiValue: (base) => ({
+  multiValue: (base, state) => ({
     ...base,
-    color: theme.color.sys.secondary.on,
-    backgroundColor: theme.color.sys.secondary.container?.base,
+    color: state.isDisabled ? theme.color.sys.surface.variant.on : theme.color.sys.background.on,
+    backgroundColor: state.isDisabled
+      ? theme.color.sys.surface.variant.base
+      : theme.color.sys.secondary.container?.base,
     borderRadius: theme.border.radius.small,
     font: theme.typography.sys.roles.label.large.font,
     letterSpacing: theme.typography.sys.roles.label.large.letterSpacing,
