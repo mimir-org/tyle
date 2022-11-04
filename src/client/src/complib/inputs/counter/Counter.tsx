@@ -40,18 +40,6 @@ export const Counter = forwardRef((props: NumberProps, ref: ForwardedRef<HTMLInp
 
   return (
     <CounterContainer {...delegated} disabled={disabled}>
-
-      <Button
-        tabIndex={-1}
-        onClick={() => setFieldValue(fieldValue - 1)}
-        variant={"text"}
-        icon={<MinusSm size={24} />}
-        iconOnly
-        disabled={disabled}
-      >
-        {decreaseText ?? "Decrease value"}
-      </Button>
-
       <CounterInput
         ref={ref}
         id={id}
@@ -64,6 +52,18 @@ export const Counter = forwardRef((props: NumberProps, ref: ForwardedRef<HTMLInp
           numberValue && setFieldValue(numberValue);
         }}
       />
+
+      <Button
+        order={"-1"}
+        tabIndex={-1}
+        onClick={() => setFieldValue(fieldValue - 1)}
+        variant={"text"}
+        icon={<MinusSm size={24} />}
+        iconOnly
+        disabled={disabled}
+      >
+        {decreaseText ?? "Decrease value"}
+      </Button>
 
       <Button
         tabIndex={-1}
