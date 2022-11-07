@@ -78,7 +78,8 @@ namespace Mimirorg.Test.Integration.Services
                     new()
                     {
                         TerminalId = "8EBC5811473E87602FB0C18A100BD53C",
-                        Quantity = 1,
+                        MinQuantity = 1,
+                        MaxQuantity = int.MaxValue,
                         ConnectorDirection = ConnectorDirection.Output
                     }
                 },
@@ -135,7 +136,8 @@ namespace Mimirorg.Test.Integration.Services
                 foreach (var cm in nodeCm.NodeTerminals)
                 {
                     Assert.Equal(am.TerminalId, cm.Terminal.Id);
-                    Assert.Equal(am.Quantity, cm.Quantity);
+                    Assert.Equal(am.MinQuantity, cm.MinQuantity);
+                    Assert.Equal(am.MaxQuantity, cm.MaxQuantity);
                     Assert.Equal(am.ConnectorDirection.ToString(), cm.ConnectorDirection.ToString());
                 }
             }

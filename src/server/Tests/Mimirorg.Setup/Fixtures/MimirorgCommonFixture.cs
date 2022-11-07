@@ -85,13 +85,15 @@ namespace Mimirorg.Test.Setup.Fixtures
                     new()
                     {
                         ConnectorDirection = ConnectorDirection.Input,
-                        Quantity = 1,
+                        MinQuantity = 1,
+                        MaxQuantity = int.MaxValue,
                         TerminalId = "123"
                     },
                     new()
                     {
                         ConnectorDirection = ConnectorDirection.Input,
-                        Quantity = 1,
+                        MinQuantity = 1,
+                        MaxQuantity = int.MaxValue,
                         TerminalId = "555"
                     }
                 },
@@ -126,7 +128,8 @@ namespace Mimirorg.Test.Setup.Fixtures
                     new()
                     {
                         ConnectorDirection = ConnectorDirection.Input,
-                        Quantity = 1,
+                        MinQuantity = 1,
+                        MaxQuantity = int.MaxValue,
                         TerminalId = "123",
                         Id = $"{terminalId}-{id}".CreateMd5()
                     }
