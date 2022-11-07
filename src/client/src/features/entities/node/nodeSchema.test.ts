@@ -54,4 +54,14 @@ describe("nodeSchema tests", () => {
     };
     await expect(nodeSchema(t).validateAt("nodeTerminals", nodeWithEmptyTerminals)).rejects.toBeTruthy();
   });
+
+  it("should reject if there are duplicate terminals with the same name and direction", async () => {
+    const nodeWithEmptyTerminals: Partial<FormNodeLib> = {
+      nodeTerminals: [
+        { terminalId: "terminal_a", quantity: 0, connectorDirection: ConnectorDirection.Input, hasMaxLimit: false },
+        { terminalId: "terminal_a", quantity: 0, connectorDirection: ConnectorDirection.Input, hasMaxLimit: false },
+      ],
+    };
+    await expect(nodeSchema(t).validateAt("nodeTerminals", nodeWithEmptyTerminals)).rejects.toBeTruthy();
+  });
 });

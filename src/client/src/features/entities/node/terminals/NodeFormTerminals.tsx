@@ -16,6 +16,7 @@ export const NodeFormTerminals = () => {
   return (
     <FormSection
       title={t("terminals.title")}
+      error={errors.nodeTerminals}
       action={<NodeFormTerminalsAddButton onClick={() => terminalFields.append(createEmptyNodeTerminalLibAm())} />}
     >
       {terminalFields.fields.map((field, index) => (
