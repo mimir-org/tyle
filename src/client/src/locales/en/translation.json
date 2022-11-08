@@ -111,7 +111,10 @@
         "direction": {
           "required": "Please specify a direction"
         },
-        "quantity": {
+        "maxQuantity": {
+          "min": "Please specify a non-negative amount"
+        },
+        "minQuantity": {
           "min": "Please specify a non-negative amount"
         }
       },
@@ -284,6 +287,7 @@
     "name": "Name",
     "limit": "Limit",
     "amount": "Max amount",
+    "infinite": "Infinite",
     "direction": "Direction",
     "attributes": "Attributes",
     "add": "Add terminal",

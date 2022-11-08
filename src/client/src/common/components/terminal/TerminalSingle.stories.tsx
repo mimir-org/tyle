@@ -7,7 +7,7 @@ export default {
   args: {
     name: "Example",
     color: "grey",
-    amount: 2,
+    maxQuantity: 2,
     direction: "Bidirectional",
   },
 } as ComponentMeta<typeof TerminalSingle>;

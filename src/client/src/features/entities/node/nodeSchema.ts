@@ -21,11 +21,8 @@ export const nodeSchema = (t: TFunction<"translation">) =>
         yup.object().shape({
           terminalId: yup.string().required(t("node.validation.nodeTerminals.terminalId.required")),
           connectorDirection: yup.number().required(t("node.validation.nodeTerminals.direction.required")),
-          hasMaxLimit: yup.boolean().nullable(),
-          quantity: yup.number().when("hasMaxLimit", {
-            is: (hasMaxLimit: boolean) => hasMaxLimit,
-            then: yup.number().min(1, t("node.validation.nodeTerminals.quantity.min")),
-          }),
+          maxQuantity: yup.number().min(0, t("node.validation.nodeTerminals.maxQuantity.min")),
+          minQuantity: yup.number().min(0, t("node.validation.nodeTerminals.minQuantity.min")),
         })
       )
       .test("Uniqueness", t("node.validation.nodeTerminals.array.unique"), (terminals) => {

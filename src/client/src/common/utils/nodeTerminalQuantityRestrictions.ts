@@ -1,0 +1,2 @@
+export const MINIMUM_TERMINAL_QUANTITY_VALUE = 0;
+export const MAXIMUM_TERMINAL_QUANTITY_VALUE = Math.pow(2, 31) - 1;

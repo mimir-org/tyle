@@ -18,7 +18,7 @@ import {
   createEmptyFormNodeLib,
   FormNodeLib,
   mapFormNodeLibToApiModel,
-  mapNodeLibCmToFormNodeLib,
+  mapNodeLibCmToClientModel,
 } from "features/entities/node/types/formNodeLib";
 import { NodeFormMode } from "features/entities/node/types/nodeFormMode";
 import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
@@ -44,7 +44,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), mode }: Nod
   const attributeFields = useFieldArray({ control, name: "attributes" });
 
   const query = useNodeQuery();
-  const mapper = (source: NodeLibCm) => mapNodeLibCmToFormNodeLib(source, mode);
+  const mapper = (source: NodeLibCm) => mapNodeLibCmToClientModel(source, mode);
   const [isPrefilled, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useNodeMutation(mode);

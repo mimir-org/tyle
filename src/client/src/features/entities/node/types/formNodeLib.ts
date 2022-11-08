@@ -1,9 +1,14 @@
-import { Aspect, AttributeLibAm, NodeLibAm, NodeLibCm, NodeTerminalLibAm } from "@mimirorg/typelibrary-types";
+import { Aspect, AttributeLibAm, NodeLibAm, NodeLibCm } from "@mimirorg/typelibrary-types";
 import { UpdateEntity } from "common/types/updateEntity";
 import {
-  FormSelectedAttributePredefinedLib,
-  mapFormSelectedAttributePredefinedLibToApiModel,
-} from "features/entities/node/types/formSelectedAttributePredefinedLib";
+  FormAttributePredefinedLib,
+  mapAttributePredefinedLibCmToClientModel,
+  mapFormAttributePredefinedLibToApiModel,
+} from "features/entities/node/types/formAttributePredefinedLib";
+import {
+  FormNodeTerminalLib,
+  mapNodeTerminalLibCmToClientModel,
+} from "features/entities/node/types/formNodeTerminalLib";
 import { NodeFormMode } from "features/entities/node/types/nodeFormMode";
 import { ValueObject } from "features/entities/types/valueObject";
 
@@ -13,15 +18,8 @@ import { ValueObject } from "features/entities/types/valueObject";
  */
 export interface FormNodeLib extends Omit<NodeLibAm, "attributes" | "selectedAttributePredefined" | "nodeTerminals"> {
   attributes: ValueObject<UpdateEntity<AttributeLibAm>>[];
-  selectedAttributePredefined: FormSelectedAttributePredefinedLib[];
+  selectedAttributePredefined: FormAttributePredefinedLib[];
   nodeTerminals: FormNodeTerminalLib[];
-}
-
-/**
- * TODO: Remove "faked" limit property after backend completion
- */
-export interface FormNodeTerminalLib extends NodeTerminalLibAm {
-  hasMaxLimit: boolean;
 }
 
 /**
@@ -32,31 +30,16 @@ export const mapFormNodeLibToApiModel = (formNode: FormNodeLib): NodeLibAm => ({
   ...formNode,
   attributes: formNode.attributes.map((x) => x.value),
   selectedAttributePredefined: formNode.selectedAttributePredefined.map((x) =>
-    mapFormSelectedAttributePredefinedLibToApiModel(x)
+    mapFormAttributePredefinedLibToApiModel(x)
   ),
 });
 
-export const mapNodeLibCmToFormNodeLib = (nodeLibCm: NodeLibCm, mode?: NodeFormMode): FormNodeLib => ({
-  ...mapNodeLibCmToNodeLibAm(nodeLibCm),
-  nodeTerminals: nodeLibCm.nodeTerminals.map((x) => ({
-    ...x,
-    terminalId: x.terminal.id,
-    hasMaxLimit: false,
-  })),
-  parentId: mode === "clone" ? nodeLibCm.id : nodeLibCm.parentId,
-  attributes: nodeLibCm.attributes.map((x) => ({ value: x })),
-  selectedAttributePredefined: nodeLibCm.selectedAttributePredefined.map((x) => ({
-    ...x,
-    values: Object.keys(x.values).map((y) => ({ value: y })),
-  })),
-});
-
-const mapNodeLibCmToNodeLibAm = (node: NodeLibCm): NodeLibAm => ({
+export const mapNodeLibCmToClientModel = (node: NodeLibCm, mode?: NodeFormMode): FormNodeLib => ({
   ...node,
-  nodeTerminals: node.nodeTerminals.map((x) => ({
-    ...x,
-    terminalId: x.terminal.id,
-  })),
+  parentId: mode === "clone" ? node.id : node.parentId,
+  attributes: node.attributes.map((x) => ({ value: x })),
+  nodeTerminals: node.nodeTerminals.map(mapNodeTerminalLibCmToClientModel),
+  selectedAttributePredefined: node.selectedAttributePredefined.map(mapAttributePredefinedLibCmToClientModel),
 });
 
 export const createEmptyFormNodeLib = (): FormNodeLib => ({

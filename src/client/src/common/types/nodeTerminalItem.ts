@@ -4,7 +4,7 @@ export type NodeTerminalItemDirection = "Input" | "Output" | "Bidirectional";
 
 export interface NodeTerminalItem {
   name: string;
-  amount: number;
+  maxQuantity: number;
   color: string;
   direction: NodeTerminalItemDirection;
   attributes?: InfoItem[];

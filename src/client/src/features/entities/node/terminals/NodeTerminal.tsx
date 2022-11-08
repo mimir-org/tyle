@@ -2,6 +2,10 @@ import { Aspect, ConnectorDirection } from "@mimirorg/typelibrary-types";
 import { Trash } from "@styled-icons/heroicons-outline";
 import { TerminalButton } from "common/components/terminal";
 import { getValueLabelObjectsFromEnum } from "common/utils/getValueLabelObjectsFromEnum";
+import {
+  MAXIMUM_TERMINAL_QUANTITY_VALUE,
+  MINIMUM_TERMINAL_QUANTITY_VALUE,
+} from "common/utils/nodeTerminalQuantityRestrictions";
 import { Button } from "complib/buttons";
 import { FormField } from "complib/form";
 import { Counter, Select } from "complib/inputs";
@@ -9,14 +13,13 @@ import { Checkbox } from "complib/inputs/checkbox/Checkbox";
 import { Box, Flexbox } from "complib/layouts";
 import { Text } from "complib/text";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
-import { onTerminalAmountChange } from "features/entities/node/terminals/NodeTerminal.helpers";
 import {
   NodeTerminalContainer,
   NodeTerminalInputContainer,
 } from "features/entities/node/terminals/NodeTerminal.styled";
 import { NodeTerminalAttributes } from "features/entities/node/terminals/NodeTerminalAttributes";
 import { FormNodeLib } from "features/entities/node/types/formNodeLib";
-import { Control, Controller, FieldArrayWithId, FieldErrors, useWatch } from "react-hook-form";
+import { Control, Controller, FieldArrayWithId, FieldErrors, UseFormSetValue, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 
@@ -25,10 +28,11 @@ interface NodeTerminalProps {
   control: Control<FormNodeLib>;
   field: FieldArrayWithId<FormNodeLib, "nodeTerminals">;
   errors: FieldErrors<FormNodeLib>;
+  setValue: UseFormSetValue<FormNodeLib>;
   onRemove: () => void;
 }
 
-export const NodeTerminal = ({ index, control, field, errors, onRemove }: NodeTerminalProps) => {
+export const NodeTerminal = ({ index, control, field, errors, setValue, onRemove }: NodeTerminalProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -36,7 +40,7 @@ export const NodeTerminal = ({ index, control, field, errors, onRemove }: NodeTe
   const connectorDirectionOptions = getValueLabelObjectsFromEnum<ConnectorDirection>(ConnectorDirection);
 
   const aspect = useWatch({ control, name: "aspect" });
-  const terminalHasLimit = useWatch({ control, name: `nodeTerminals.${index}.hasMaxLimit` });
+  const terminalHasMaxQuantity = useWatch({ control, name: `nodeTerminals.${index}.hasMaxQuantity` });
   const terminalCanHaveLimit = aspect === Aspect.Product;
 
   const sourceTerminal = terminalQuery.data?.find((x) => x.id === field.terminalId);
@@ -79,7 +83,11 @@ export const NodeTerminal = ({ index, control, field, errors, onRemove }: NodeTe
           control={control}
           name={`nodeTerminals.${index}.connectorDirection`}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField indent={false} label={t("terminals.direction")} error={errors.nodeTerminals?.[index]?.connectorDirection}>
+            <FormField
+              indent={false}
+              label={t("terminals.direction")}
+              error={errors.nodeTerminals?.[index]?.connectorDirection}
+            >
               <Select
                 {...rest}
                 selectRef={ref}
@@ -94,26 +102,50 @@ export const NodeTerminal = ({ index, control, field, errors, onRemove }: NodeTe
         <NodeTerminalInputContainer>
           <Controller
             control={control}
-            name={`nodeTerminals.${index}.hasMaxLimit`}
+            name={`nodeTerminals.${index}.hasMaxQuantity`}
             render={({ field: { onChange, value, ...rest } }) => (
-              <FormField indent={false} label={t("terminals.limit")} error={errors.nodeTerminals?.[index]?.hasMaxLimit}>
+              <FormField
+                indent={false}
+                label={t("terminals.limit")}
+                error={errors.nodeTerminals?.[index]?.hasMaxQuantity}
+              >
                 <Box display={"flex"} justifyContent={"center"} alignItems={"center"} height={"40px"}>
-                  <Checkbox {...rest} onCheckedChange={onChange} checked={value} disabled={!terminalCanHaveLimit} />
+                  <Checkbox
+                    {...rest}
+                    onCheckedChange={(checked) => {
+                      !checked &&
+                        setValue(`nodeTerminals.${index}.maxQuantity`, MAXIMUM_TERMINAL_QUANTITY_VALUE, {
+                          shouldDirty: true,
+                        });
+                      checked &&
+                        setValue(`nodeTerminals.${index}.maxQuantity`, MINIMUM_TERMINAL_QUANTITY_VALUE, {
+                          shouldDirty: true,
+                        });
+                      onChange(checked);
+                    }}
+                    checked={value}
+                    disabled={!terminalCanHaveLimit}
+                  />
                 </Box>
               </FormField>
             )}
           />
           <Controller
             control={control}
-            name={`nodeTerminals.${index}.quantity`}
-            render={({ field: { onChange, value, ...rest } }) => (
-              <FormField indent={false} label={t("terminals.amount")} error={errors.nodeTerminals?.[index]?.quantity}>
+            name={`nodeTerminals.${index}.maxQuantity`}
+            render={({ field: { value, ...rest } }) => (
+              <FormField
+                indent={false}
+                label={t("terminals.amount")}
+                error={errors.nodeTerminals?.[index]?.maxQuantity}
+              >
                 <Counter
                   {...rest}
                   id={field.id}
-                  value={value}
-                  disabled={!terminalHasLimit}
-                  onChange={(val) => onTerminalAmountChange(val, onChange)}
+                  min={MINIMUM_TERMINAL_QUANTITY_VALUE}
+                  max={MAXIMUM_TERMINAL_QUANTITY_VALUE}
+                  value={!terminalHasMaxQuantity ? 0 : value}
+                  disabled={!terminalHasMaxQuantity}
                 />
               </FormField>
             )}

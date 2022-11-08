@@ -1,14 +1,14 @@
 import { FormSection } from "features/entities/common/form-section/FormSection";
-import { createEmptyNodeTerminalLibAm } from "features/entities/node/terminals/NodeFormTerminals.helpers";
 import { NodeFormTerminalsAddButton } from "features/entities/node/terminals/NodeFormTerminalsAddButton";
 import { NodeTerminal } from "features/entities/node/terminals/NodeTerminal";
 import { FormNodeLib } from "features/entities/node/types/formNodeLib";
+import { createEmptyFormNodeTerminalLib } from "features/entities/node/types/formNodeTerminalLib";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 export const NodeFormTerminals = () => {
   const { t } = useTranslation();
-  const { control, formState } = useFormContext<FormNodeLib>();
+  const { control, setValue, formState } = useFormContext<FormNodeLib>();
   const { errors } = formState;
 
   const terminalFields = useFieldArray({ control, name: "nodeTerminals" });
@@ -17,7 +17,7 @@ export const NodeFormTerminals = () => {
     <FormSection
       title={t("terminals.title")}
       error={errors.nodeTerminals}
-      action={<NodeFormTerminalsAddButton onClick={() => terminalFields.append(createEmptyNodeTerminalLibAm())} />}
+      action={<NodeFormTerminalsAddButton onClick={() => terminalFields.append(createEmptyFormNodeTerminalLib())} />}
     >
       {terminalFields.fields.map((field, index) => (
         <NodeTerminal
@@ -26,6 +26,7 @@ export const NodeFormTerminals = () => {
           control={control}
           field={field}
           errors={errors}
+          setValue={setValue}
           onRemove={() => terminalFields.remove(index)}
         />
       ))}

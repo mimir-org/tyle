@@ -21,7 +21,7 @@ const mapNodeTerminalLibCmsToNodeTerminalItems = (terminals: NodeTerminalLibCm[]
   terminals.map((x) => ({
     name: x.terminal.name,
     color: x.terminal.color,
-    amount: x.quantity,
+    maxQuantity: x.maxQuantity,
     direction: ConnectorDirection[x.connectorDirection] as keyof typeof ConnectorDirection,
     attributes: sortInfoItems(mapAttributeLibCmsToInfoItems(x.terminal.attributes)),
   }));
