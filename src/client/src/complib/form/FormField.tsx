@@ -27,7 +27,12 @@ export const FormField = ({ label, error, indent = true, children }: PropsWithCh
 
   return (
     <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.s}>
-      <MotionFlexbox layout as={hasLabel ? "label" : "div"} flexDirection={"column"} gap={theme.tyle.spacing.xs}>
+      <MotionFlexbox
+        layout={"preserve-aspect"}
+        as={hasLabel ? "label" : "div"}
+        flexDirection={"column"}
+        gap={theme.tyle.spacing.xs}
+      >
         <ConditionalWrapper
           condition={hasLabel}
           wrapper={(c) => (
