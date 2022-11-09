@@ -48,9 +48,11 @@ export const NodeTerminal = ({ index, control, field, errors, setValue, onRemove
   return (
     <NodeTerminalContainer>
       <Flexbox justifyContent={"space-between"} alignItems={"center"}>
-        <Text variant={"label-large"}>Terminal #{index + 1}</Text>
+        <Text variant={"label-large"}>
+          {t("terminal.title")} #{index + 1}
+        </Text>
         <Button variant={"text"} alignSelf={"end"} icon={<Trash />} iconOnly onClick={() => onRemove()}>
-          Remove terminal
+          {t("terminals.remove")}
         </Button>
       </Flexbox>
       <NodeTerminalInputContainer>
