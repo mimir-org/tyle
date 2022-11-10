@@ -9,6 +9,7 @@ using Mimirorg.Authentication;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Api;
 using TypeLibrary.Data;
+using TypeLibrary.Data.Contracts;
 using TypeLibrary.Services.Contracts;
 
 namespace Mimirorg.Test.Setup
@@ -31,7 +32,7 @@ namespace Mimirorg.Test.Setup
 
                 services.AddDbContext<TypeLibraryDbContext>(options => options.UseInMemoryDatabase("TestDB"));
                 services.AddDbContext<MimirorgAuthenticationContext>(options => options.UseInMemoryDatabase("TestDBAuth"));
-                services.AddAuthentication("IntegrationUser").AddScheme<AuthenticationSchemeOptions, IntegrationTestAuthenticationHandler>("IntegrationUser", options => { });
+                services.AddAuthentication("IntegrationUser").AddScheme<AuthenticationSchemeOptions, IntegrationTestAuthenticationHandler>("IntegrationUser", _ => { });
 
                 var sp = services.BuildServiceProvider();
 
@@ -41,11 +42,12 @@ namespace Mimirorg.Test.Setup
                 var logger = scopedServices.GetRequiredService<ILogger<ApiWebApplicationFactory>>();
 
                 var terminalService = scopedServices.GetRequiredService<ITerminalService>();
+                var terminalRepository = scopedServices.GetRequiredService<ITerminalRepository>();
                 db.Database.EnsureCreated();
 
                 try
                 {
-                    _ = SeedTerminalData(terminalService).Result;
+                    _ = SeedTerminalData(terminalService, terminalRepository).Result;
                 }
                 catch (Exception e)
                 {
@@ -54,7 +56,7 @@ namespace Mimirorg.Test.Setup
             });
         }
 
-        private static async Task<bool> SeedTerminalData(ITerminalService terminalService)
+        private static async Task<bool> SeedTerminalData(ITerminalService terminalService, ITerminalRepository terminalRepository)
         {
             var terminalA = new TerminalLibAm
             {
@@ -62,7 +64,6 @@ namespace Mimirorg.Test.Setup
                 Color = "#006600",
                 ParentId = null,
                 CompanyId = 1,
-                //AttributeIdList = null,
                 Version = "1.0"
             };
 
@@ -72,12 +73,15 @@ namespace Mimirorg.Test.Setup
                 Color = "#00CC66",
                 ParentId = "201B169264C4F9249039054BCCDD4494",
                 CompanyId = 1,
-                //AttributeIdList = new List<string> { "CA20DF193D58238C3C557A0316C15533" },
                 Version = "1.0"
             };
 
-            await terminalService.Create(terminalA);
-            await terminalService.Create(terminalB);
+            if (!(await terminalRepository.Exist(terminalA.Id)))
+                await terminalService.Create(terminalA);
+
+            if (!(await terminalRepository.Exist(terminalB.Id)))
+                await terminalService.Create(terminalB);
+
             return true;
         }
     }
