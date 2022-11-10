@@ -33,26 +33,23 @@ export const About = ({ selected }: AboutProps) => {
   const { t } = useTranslation("translation", { keyPrefix: "about" });
 
   const nodeQuery = useGetNode(selected?.type == "node" ? selected?.id : "");
-  const showNodePanel = nodeQuery.isSuccess && nodeQuery.data;
-
   const terminalQuery = useGetTerminal(selected?.type == "terminal" ? selected?.id : "");
-  const showTerminalPanel = terminalQuery.isSuccess && terminalQuery.data;
-
   const transportQuery = useGetTransport(selected?.type == "transport" ? selected?.id : "");
-  const showTransportPanel = transportQuery.isSuccess && transportQuery.data;
-
   const interfaceQuery = useGetInterface(selected?.type == "interface" ? selected?.id : "");
-  const showInterfacePanel = interfaceQuery.isSuccess && interfaceQuery.data;
-
   const allQueries = [nodeQuery, terminalQuery, transportQuery, interfaceQuery];
 
-  const showLoading = allQueries.some((x) => x.isLoading);
-  const showPlaceHolder = allQueries.every((x) => x.isIdle);
+  const showLoader = allQueries.some((x) => x.isFetching);
+  const showPlaceHolder = !showLoader && allQueries.every((x) => !x.isFetched);
+
+  const showNodePanel = !showLoader && nodeQuery.isSuccess;
+  const showTerminalPanel = !showLoader && terminalQuery.isSuccess;
+  const showTransportPanel = !showLoader && transportQuery.isSuccess;
+  const showInterfacePanel = !showLoader && interfaceQuery.isSuccess;
 
   return (
     <ExploreSection title={t("title")}>
       <AnimatePresence mode={"wait"}>
-        {showLoading && <Loader />}
+        {showLoader && <Loader />}
         {showPlaceHolder && <AboutPlaceholder text={t("placeholders.item")} />}
         {showNodePanel && <NodePanel key={nodeQuery.data.id} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />}
         {showTerminalPanel && (
