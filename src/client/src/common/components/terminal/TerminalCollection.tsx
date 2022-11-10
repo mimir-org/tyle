@@ -40,14 +40,20 @@ interface TerminalCollectionDescriptionProps {
 const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescriptionProps) => {
   const theme = useTheme();
   const { t } = useTranslation("translation", { keyPrefix: "terminals.summary" });
-  const totalTerminalAmount = terminals.reduce((sum, terminal) => sum + terminal.amount, 0);
+  const totalTerminalAmount = terminals.reduce((sum, terminal) => sum + terminal.maxQuantity, 0);
 
   return (
     <Box display={"flex"} gap={theme.tyle.spacing.l} flexDirection={"column"} maxWidth={"250px"}>
       <Text variant={"title-small"}>{t("title")}</Text>
       <Box display={"flex"} gap={theme.tyle.spacing.l} flexDirection={"column"} maxHeight={"250px"} overflow={"auto"}>
         {terminals.map((x) => (
-          <TerminalDescription key={x.name} name={x.name} amount={x.amount} color={x.color} direction={x.direction} />
+          <TerminalDescription
+            key={x.name}
+            name={x.name}
+            maxQuantity={x.maxQuantity}
+            color={x.color}
+            direction={x.direction}
+          />
         ))}
       </Box>
       <Divider />

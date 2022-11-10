@@ -1,7 +1,11 @@
 import { focusRaw, getTextRole, sizingMixin } from "complib/mixins";
-import styled from "styled-components/macro";
+import styled, { css } from "styled-components/macro";
 
-export const CounterContainer = styled.div`
+interface CounterContainerProps {
+  disabled?: boolean;
+}
+
+export const CounterContainer = styled.div<CounterContainerProps>`
   display: flex;
   align-items: center;
   gap: ${(props) => props.theme.tyle.spacing.l};
@@ -14,6 +18,13 @@ export const CounterContainer = styled.div`
   padding: ${(props) => props.theme.tyle.spacing.base};
 
   background-color: ${(props) => props.theme.tyle.color.sys.pure.base};
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      color: ${(props) => props.theme.tyle.color.sys.surface.variant.on};
+      background-color: ${(props) => props.theme.tyle.color.sys.outline.base};
+    `};
 
   :focus-within {
     ${focusRaw};

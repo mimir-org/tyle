@@ -1,11 +1,11 @@
-import { SelectedAttributePredefinedLibAm } from "@mimirorg/typelibrary-types";
+import { SelectedAttributePredefinedLibAm, SelectedAttributePredefinedLibCm } from "@mimirorg/typelibrary-types";
 import { ValueObject } from "features/entities/types/valueObject";
 
 /**
  * This type functions as a layer between client needs and the backend model.
  * It allows you to adapt the expected api model to fit client/form logic needs.
  */
-export interface FormSelectedAttributePredefinedLib extends Omit<SelectedAttributePredefinedLibAm, "values"> {
+export interface FormAttributePredefinedLib extends Omit<SelectedAttributePredefinedLibAm, "values"> {
   values: ValueObject<string>[];
 }
 
@@ -13,8 +13,8 @@ export interface FormSelectedAttributePredefinedLib extends Omit<SelectedAttribu
  * Maps the client-only model back to the model expected by the backend api
  * @param formSelectedAttribute client-only model
  */
-export const mapFormSelectedAttributePredefinedLibToApiModel = (
-  formSelectedAttribute: FormSelectedAttributePredefinedLib
+export const mapFormAttributePredefinedLibToApiModel = (
+  formSelectedAttribute: FormAttributePredefinedLib
 ): SelectedAttributePredefinedLibAm => {
   const predefinedAttributesMap: { [key: string]: boolean } = {};
   formSelectedAttribute.values?.forEach((x) => (predefinedAttributesMap[x.value] = true));
@@ -24,3 +24,10 @@ export const mapFormSelectedAttributePredefinedLibToApiModel = (
     values: predefinedAttributesMap,
   };
 };
+
+export const mapAttributePredefinedLibCmToClientModel = (
+  attribute: SelectedAttributePredefinedLibCm
+): FormAttributePredefinedLib => ({
+  ...attribute,
+  values: Object.keys(attribute.values).map((y) => ({ value: y })),
+});

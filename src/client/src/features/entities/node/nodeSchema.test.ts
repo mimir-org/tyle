@@ -46,10 +46,76 @@ describe("nodeSchema tests", () => {
     await expect(nodeSchema(t).validateAt("description", nodeWithLongDescription)).rejects.toBeTruthy();
   });
 
+  it("should reject if there are any terminals with a negative minQuantity", async () => {
+    const nodeWithNegativeTerminalMinQuantity: Partial<FormNodeLib> = {
+      nodeTerminals: [
+        {
+          terminalId: "",
+          hasMaxQuantity: false,
+          minQuantity: -1,
+          maxQuantity: 1,
+          connectorDirection: ConnectorDirection.Input,
+        },
+      ],
+    };
+
+    await expect(
+      nodeSchema(t).validateAt("nodeTerminals.minQuantity", nodeWithNegativeTerminalMinQuantity)
+    ).rejects.toBeTruthy();
+  });
+
+  it("should reject if there are any terminals with a negative maxQuantity", async () => {
+    const nodeWithNegativeTerminalMinQuantity: Partial<FormNodeLib> = {
+      nodeTerminals: [
+        {
+          terminalId: "",
+          hasMaxQuantity: true,
+          minQuantity: 1,
+          maxQuantity: -1,
+          connectorDirection: ConnectorDirection.Input,
+        },
+      ],
+    };
+
+    await expect(
+      nodeSchema(t).validateAt("nodeTerminals.maxQuantity", nodeWithNegativeTerminalMinQuantity)
+    ).rejects.toBeTruthy();
+  });
+
   it("should reject if there are any terminals without an id", async () => {
     const nodeWithEmptyTerminals: Partial<FormNodeLib> = {
-      nodeTerminals: [{ terminalId: "", quantity: 0, connectorDirection: ConnectorDirection.Input }],
+      nodeTerminals: [
+        {
+          terminalId: "",
+          minQuantity: 1,
+          maxQuantity: 10,
+          connectorDirection: ConnectorDirection.Input,
+          hasMaxQuantity: true,
+        },
+      ],
     };
     await expect(nodeSchema(t).validateAt("nodeTerminals", nodeWithEmptyTerminals)).rejects.toBeTruthy();
+  });
+
+  it("should reject if there are duplicate terminals with the same name and direction", async () => {
+    const nodeWithDuplicateTerminals: Partial<FormNodeLib> = {
+      nodeTerminals: [
+        {
+          terminalId: "terminal_a",
+          minQuantity: 1,
+          maxQuantity: 10,
+          connectorDirection: ConnectorDirection.Input,
+          hasMaxQuantity: true,
+        },
+        {
+          terminalId: "terminal_a",
+          minQuantity: 1,
+          maxQuantity: 10,
+          connectorDirection: ConnectorDirection.Input,
+          hasMaxQuantity: true,
+        },
+      ],
+    };
+    await expect(nodeSchema(t).validateAt("nodeTerminals", nodeWithDuplicateTerminals)).rejects.toBeTruthy();
   });
 });

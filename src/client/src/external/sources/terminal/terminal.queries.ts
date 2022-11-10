@@ -1,6 +1,6 @@
 import { State, TerminalLibAm } from "@mimirorg/typelibrary-types";
 import { terminalApi } from "external/sources/terminal/terminal.api";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient, UseQueryOptions } from "react-query";
 
 const keys = {
   all: ["terminals"] as const,
@@ -8,7 +8,8 @@ const keys = {
   terminal: (id?: string) => [...keys.lists(), id] as const,
 };
 
-export const useGetTerminals = () => useQuery(keys.lists(), terminalApi.getTerminals);
+export const useGetTerminals = (options?: Pick<UseQueryOptions, "staleTime">) =>
+  useQuery(keys.lists(), terminalApi.getTerminals, options);
 
 export const useGetTerminal = (id?: string) =>
   useQuery(keys.terminal(id), () => terminalApi.getTerminal(id), { enabled: !!id, retry: false });

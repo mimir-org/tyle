@@ -6,9 +6,9 @@ export default {
   component: TerminalCollection,
   args: {
     terminals: [
-      { name: "Example A", color: "grey", amount: 1, direction: "Input" },
-      { name: "Example B", color: "red", amount: 2, direction: "Output" },
-      { name: "Example C", color: "orange", amount: 3, direction: "Bidirectional" },
+      { name: "Example A", color: "grey", maxQuantity: 1, direction: "Input" },
+      { name: "Example B", color: "red", maxQuantity: 2, direction: "Output" },
+      { name: "Example C", color: "orange", maxQuantity: 3, direction: "Bidirectional" },
     ],
   },
 } as ComponentMeta<typeof TerminalCollection>;

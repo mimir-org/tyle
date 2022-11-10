@@ -30,12 +30,14 @@ export const QueryAndMutationExample = () => {
     nodeTerminals: [
       {
         terminalId: "BFB27765A609F27FD3A2DF59C4E4D63D",
-        quantity: 1,
+        minQuantity: 1,
+        maxQuantity: 1,
         connectorDirection: 0,
       },
       {
         terminalId: "54CC2AB379D04FA1B6A6B83A962B0CF2",
-        quantity: 1,
+        minQuantity: 1,
+        maxQuantity: 1,
         connectorDirection: 1,
       },
     ],

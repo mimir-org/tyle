@@ -17,26 +17,28 @@ import { useTheme } from "styled-components";
  */
 export const TerminalSingle = ({
   name,
-  amount,
+  maxQuantity,
   color,
   direction,
   variant,
 }: NodeTerminalItem & Pick<TerminalButtonProps, "variant">) => {
   return (
-    <Tooltip content={<TerminalDescription name={name} amount={amount} color={color} direction={direction} />}>
+    <Tooltip
+      content={<TerminalDescription name={name} maxQuantity={maxQuantity} color={color} direction={direction} />}
+    >
       <TerminalButton color={color} direction={direction} variant={variant} />
     </Tooltip>
   );
 };
 
-export const TerminalDescription = ({ name, amount, color, direction }: NodeTerminalItem) => {
+export const TerminalDescription = ({ name, maxQuantity, color, direction }: NodeTerminalItem) => {
   const theme = useTheme();
 
   return (
     <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
       <TerminalButton as={"div"} color={color} direction={direction} />
       <Text variant={"body-small"}>{`${name}`}</Text>
-      <Text ml={"auto"} variant={"body-small"}>{`x${amount}`}</Text>
+      <Text ml={"auto"} variant={"body-small"}>{`x${maxQuantity}`}</Text>
     </Flexbox>
   );
 };

@@ -76,21 +76,30 @@ namespace TypeLibrary.Core.Profiles
             foreach (var item in terminals)
             {
                 var existingSortedTerminalType = sortedTerminalTypes.FirstOrDefault(x => x.TerminalId == item.TerminalId && x.ConnectorDirection == item.ConnectorDirection);
+
                 if (existingSortedTerminalType == null)
+                {
                     sortedTerminalTypes.Add(item);
+                }
+
                 else
-                    existingSortedTerminalType.Quantity += item.Quantity;
+                {
+                    existingSortedTerminalType.MinQuantity += item.MinQuantity;
+                    existingSortedTerminalType.MaxQuantity += item.MaxQuantity;
+                }
             }
 
             foreach (var item in sortedTerminalTypes)
             {
                 var key = $"{item.Id}-{nodeId}";
+
                 yield return new NodeTerminalLibDm
                 {
                     Id = key.CreateMd5(),
                     NodeId = nodeId,
                     TerminalId = item.TerminalId,
-                    Quantity = item.Quantity,
+                    MinQuantity = item.MinQuantity,
+                    MaxQuantity = item.MaxQuantity,
                     ConnectorDirection = item.ConnectorDirection
                 };
             }

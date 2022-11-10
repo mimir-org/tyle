@@ -102,8 +102,20 @@
         "max": "The description can be at most 500 characters"
       },
       "nodeTerminals": {
+        "array": {
+          "unique": "Two or more terminals cannot share the same name and direction"
+        },
         "terminalId": {
           "required": "Please specify a terminal"
+        },
+        "direction": {
+          "required": "Please specify a direction"
+        },
+        "maxQuantity": {
+          "min": "Please specify a non-negative amount"
+        },
+        "minQuantity": {
+          "min": "Please specify a non-negative amount"
         }
       },
       "typeReferences": {
@@ -273,10 +285,13 @@
   "terminals": {
     "title": "Terminals",
     "name": "Name",
-    "amount": "Amount",
+    "limit": "Limit",
+    "amount": "Max amount",
+    "infinite": "Infinite",
     "direction": "Direction",
     "attributes": "Attributes",
     "add": "Add terminal",
+    "remove": "Remove terminal",
     "summary": {
       "title": "Summary",
       "open": "Open terminal summary",

@@ -15,6 +15,11 @@ export const InputContainer = styled.input<InputProps>`
   background-color: ${(props) => props.theme.tyle.color.sys.pure.base};
   color: ${(props) => props.theme.tyle.color.sys.background.on};
 
+  :disabled {
+    color: ${(props) => props.theme.tyle.color.sys.surface.variant.on};
+    background-color: ${(props) => props.theme.tyle.color.sys.outline.base};
+  }
+
   ${getTextRole("body-large")};
   ${sizingMixin};
   ${placeholder};
