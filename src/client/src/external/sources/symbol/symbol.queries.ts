@@ -1,5 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
 import { symbolApi } from "external/sources/symbol/symbol.api";
-import { useQuery } from "react-query";
 
 const keys = {
   all: ["symbols"] as const,

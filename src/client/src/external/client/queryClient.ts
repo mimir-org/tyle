@@ -1,4 +1,4 @@
-import { QueryClient } from "react-query";
+import { QueryClient } from "@tanstack/react-query";
 
 /**
  * A single instance of the QueryClient should be provided to the application's QueryClientProvider wrapper.

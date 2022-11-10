@@ -1,6 +1,6 @@
 import { State, TransportLibAm } from "@mimirorg/typelibrary-types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { transportApi } from "external/sources/transport/transport.api";
-import { useMutation, useQuery, useQueryClient } from "react-query";
 
 const keys = {
   all: ["transports"] as const,

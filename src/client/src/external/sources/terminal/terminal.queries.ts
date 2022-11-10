@@ -1,6 +1,6 @@
 import { State, TerminalLibAm } from "@mimirorg/typelibrary-types";
+import { useMutation, useQuery, useQueryClient, UseQueryOptions } from "@tanstack/react-query";
 import { terminalApi } from "external/sources/terminal/terminal.api";
-import { useMutation, useQuery, useQueryClient, UseQueryOptions } from "react-query";
 
 const keys = {
   all: ["terminals"] as const,

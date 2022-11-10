@@ -1,6 +1,6 @@
 import { QuantityDatumType } from "@mimirorg/typelibrary-types";
+import { useQuery } from "@tanstack/react-query";
 import { attributeApi } from "external/sources/attribute/attribute.api";
-import { useQuery } from "react-query";
 
 const keys = {
   allAttributes: ["attributes"] as const,
