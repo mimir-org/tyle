@@ -1,5 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
 import { rdsApi } from "external/sources/rds/rds.api";
-import { useQuery } from "react-query";
 
 const keys = {
   all: ["rds"] as const,

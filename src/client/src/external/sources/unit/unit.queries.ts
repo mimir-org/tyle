@@ -1,5 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
 import { unitApi } from "external/sources/unit/unit.api";
-import { useQuery } from "react-query";
 
 const keys = {
   all: ["units"] as const,

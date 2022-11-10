@@ -1,6 +1,6 @@
 import { MimirorgChangePasswordAm, MimirorgUserAm, MimirorgVerifyAm } from "@mimirorg/typelibrary-types";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { userApi } from "external/sources/user/user.api";
-import { useMutation, useQuery } from "react-query";
 
 export const userKeys = {
   all: ["user"] as const,

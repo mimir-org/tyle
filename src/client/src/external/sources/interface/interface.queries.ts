@@ -1,6 +1,6 @@
 import { InterfaceLibAm, State } from "@mimirorg/typelibrary-types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { interfaceApi } from "external/sources/interface/interface.api";
-import { useMutation, useQuery, useQueryClient } from "react-query";
 
 const keys = {
   all: ["interfaces"] as const,

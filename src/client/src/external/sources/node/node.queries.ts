@@ -1,6 +1,6 @@
 import { NodeLibAm, State } from "@mimirorg/typelibrary-types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { nodeApi } from "external/sources/node/node.api";
-import { useMutation, useQuery, useQueryClient } from "react-query";
 
 const keys = {
   all: ["nodes"] as const,

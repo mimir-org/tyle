@@ -1,6 +1,6 @@
+import { UseQueryResult } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { DefaultValues, KeepStateOptions } from "react-hook-form";
-import { UseQueryResult } from "react-query";
 
 /**
  * Hook ties together data from react query and react hook form binding

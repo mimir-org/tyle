@@ -1,5 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
 import { purposeApi } from "external/sources/purpose/purpose.api";
-import { useQuery } from "react-query";
 
 const keys = {
   all: ["purposes"] as const,
