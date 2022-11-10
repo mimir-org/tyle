@@ -4,12 +4,12 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts
 {
-    public interface IAttributeReferenceRepository
+    public interface IPurposeReferenceRepository
     {
         /// <summary>
-        /// Get all attributes
+        /// Get all purposes
         /// </summary>
-        /// <returns>A collection of attributes</returns>
-        Task<List<AttributeLibDm>> Get();
+        /// <returns>List of purpose sorted by name></returns>
+        Task<List<PurposeLibDm>> Get();
     }
 }

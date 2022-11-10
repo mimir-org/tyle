@@ -55,7 +55,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IAttributePredefinedRepository, EfAttributePredefinedRepository>();
             services.AddScoped<IUnitRepository, UnitRepository>();
             services.AddScoped<IInterfaceRepository, EfInterfaceRepository>();
-            services.AddScoped<IPurposeRepository, PurposeRepository>();
+            services.AddScoped<IPurposeReferenceRepository, PurposeReferenceRepository>();
             services.AddScoped<INodeRepository, EfNodeRepository>();
             services.AddScoped<ITransportRepository, EfTransportRepository>();
             services.AddScoped<IRdsRepository, RdsRepository>();
