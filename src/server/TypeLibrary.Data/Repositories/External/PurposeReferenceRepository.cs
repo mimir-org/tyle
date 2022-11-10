@@ -52,8 +52,8 @@ namespace TypeLibrary.Data.Repositories.External
 
             purposes.AddRange(pcaPurposes.Select(pcaPurpose => new PurposeLibDm
             {
-                Name = pcaPurpose.Label, 
-                Iri = pcaPurpose.Imf_purpose, 
+                Name = pcaPurpose.Label,
+                Iri = pcaPurpose.Imf_purpose,
                 Source = "PCA"
             }));
 
