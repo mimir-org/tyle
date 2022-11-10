@@ -5,23 +5,23 @@ import { DefaultValues, KeepStateOptions } from "react-hook-form";
 /**
  * Hook ties together data from react query and react hook form binding
  *
- * @param fromDataQuery query which returns data to fill the form
- * @param mapDataToFormModel function which takes det response type of the data query and maps it to the form type
- * @param populateForm function which takes terminal data as parameter and populates the form
+ * @param query returns data to fill the form
+ * @param mapQueryDataToFormModel takes the response type of the data query and maps it to the form type
+ * @param populateForm populates the form with the provided data
  */
 export const usePrefilledForm = <TIn, TOut>(
-  fromDataQuery: UseQueryResult<TIn>,
-  mapDataToFormModel: (data: TIn) => TOut,
+  query: UseQueryResult<TIn>,
+  mapQueryDataToFormModel: (data: TIn) => TOut,
   populateForm: (values?: DefaultValues<TOut> | TOut, keepStateOptions?: KeepStateOptions) => void
 ): [isPrefilled: boolean, isLoading: boolean] => {
   const [isPrefilled, setIsPrefilled] = useState(false);
 
   useEffect(() => {
-    if (!isPrefilled && fromDataQuery.isSuccess) {
+    if (!isPrefilled && query.isSuccess) {
       setIsPrefilled(true);
-      populateForm(mapDataToFormModel(fromDataQuery.data), { keepDefaultValues: false });
+      populateForm(mapQueryDataToFormModel(query.data), { keepDefaultValues: false });
     }
-  }, [fromDataQuery.data, fromDataQuery.isSuccess, populateForm, isPrefilled, mapDataToFormModel]);
+  }, [query.data, query.isSuccess, populateForm, isPrefilled, mapQueryDataToFormModel]);
 
-  return [isPrefilled, fromDataQuery.isLoading];
+  return [isPrefilled, query.isInitialLoading];
 };
