@@ -24,6 +24,10 @@ namespace TypeLibrary.Data.Repositories.External
 
         #region Public 
 
+        /// <summary>
+        /// Get all attributes
+        /// </summary>
+        /// <returns>A collection of attributes</returns>
         public async Task<List<AttributeLibDm>> Get()
         {
             var data = await _cacheRepository.GetOrCreateAsync("pca_attributes", async () => await FetchAttributesFromPca());
@@ -32,8 +36,7 @@ namespace TypeLibrary.Data.Repositories.External
 
         #endregion Public
 
-
-        #region Private methods
+        #region Private
 
         private Task<List<AttributeLibDm>> FetchAttributesFromPca()
         {
@@ -86,6 +89,6 @@ namespace TypeLibrary.Data.Repositories.External
             return Task.FromResult(attributes);
         }
 
-        #endregion
+        #endregion Private
     }
 }

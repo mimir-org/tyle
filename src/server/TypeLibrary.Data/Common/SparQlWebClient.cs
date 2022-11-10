@@ -39,6 +39,9 @@ namespace TypeLibrary.Data.Common
             }
             order by ?quantity_label";
 
+        //TODO
+        public const string PcaPurposeAllQuery = @"";
+
         public const string QuantityDatumRangeSpecifying = @"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
             PREFIX lis: <http://rds.posccaesar.org/ontology/lis14/rdl/>

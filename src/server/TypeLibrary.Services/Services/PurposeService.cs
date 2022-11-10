@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -10,18 +12,23 @@ namespace TypeLibrary.Services.Services
     public class PurposeService : IPurposeService
     {
         private readonly IMapper _mapper;
-        private readonly IPurposeRepository _purposeRepository;
+        private readonly IPurposeReferenceRepository _purposeReferenceRepository;
 
-        public PurposeService(IMapper mapper, IPurposeRepository purposeRepository)
+        public PurposeService(IMapper mapper, IPurposeReferenceRepository purposeReferenceRepository)
         {
             _mapper = mapper;
-            _purposeRepository = purposeRepository;
+            _purposeReferenceRepository = purposeReferenceRepository;
         }
 
+        /// <summary>
+        /// Get all purposes
+        /// </summary>
+        /// <returns>List of purposes sorted by name></returns>
         public async Task<ICollection<PurposeLibCm>> Get()
         {
-            var dataList = await _purposeRepository.Get();
-            return _mapper.Map<List<PurposeLibCm>>(dataList);
+            var dataSet = await _purposeReferenceRepository.Get();
+            dataSet = dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+            return _mapper.Map<List<PurposeLibCm>>(dataSet);
         }
     }
 }
