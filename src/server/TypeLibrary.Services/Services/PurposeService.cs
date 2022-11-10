@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -23,11 +21,10 @@ namespace TypeLibrary.Services.Services
         /// <summary>
         /// Get all purposes
         /// </summary>
-        /// <returns>List of purposes sorted by name></returns>
+        /// <returns>List of purposes></returns>
         public async Task<ICollection<PurposeLibCm>> Get()
         {
             var dataSet = await _purposeReferenceRepository.Get();
-            dataSet = dataSet.OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
             return _mapper.Map<List<PurposeLibCm>>(dataSet);
         }
     }

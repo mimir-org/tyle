@@ -3,7 +3,7 @@ namespace TypeLibrary.Data.Models.External
 {
     public class PcaPurpose
     {
-        public string Quantity { get; set; }
-        public string Quantity_Label { get; set; }
+        public string Imf_purpose { get; set; }
+        public string Label { get; set; }
     }
 }

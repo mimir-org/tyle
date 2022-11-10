@@ -42,7 +42,7 @@ namespace TypeLibrary.Data.Repositories.External
         {
             var client = new SparQlWebClient
             {
-                EndPoint = SparQlWebClient.PcaEndPoint,
+                EndPoint = SparQlWebClient.PcaEndPointProduction,
                 Query = SparQlWebClient.PcaAttributeAllQuery
             };
 

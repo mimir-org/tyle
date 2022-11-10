@@ -21,6 +21,10 @@ namespace TypeLibrary.Data.Repositories.External
 
         #region Public
 
+        /// <summary>
+        /// Get all purposes
+        /// </summary>
+        /// <returns>List of purpose sorted by name></returns>
         public async Task<List<PurposeLibDm>> Get()
         {
             var data = await _cacheRepository.GetOrCreateAsync("pca_purposes", async () => await FetchPurposesFromPca());
@@ -33,38 +37,25 @@ namespace TypeLibrary.Data.Repositories.External
 
         private Task<List<PurposeLibDm>> FetchPurposesFromPca()
         {
-
             var client = new SparQlWebClient
             {
-                EndPoint = SparQlWebClient.PcaEndPoint,
+                //TODO: Endpoint should be PcaEndPointProduction (when available)
+                EndPoint = SparQlWebClient.PcaEndPointStaging,
                 Query = SparQlWebClient.PcaPurposeAllQuery
             };
 
             var purposes = new List<PurposeLibDm>();
-            var pcaPurposes = client.Get<PcaPurpose>().ToList();
+            var pcaPurposes = client.Get<PcaPurpose>()?.OrderBy(x => x.Label, StringComparer.CurrentCultureIgnoreCase).ToList();
 
-            if (!pcaPurposes.Any())
+            if (pcaPurposes == null || !pcaPurposes.Any())
                 return Task.FromResult(purposes);
 
-            pcaPurposes = pcaPurposes.OrderBy(x => x.Quantity_Label, StringComparer.CurrentCultureIgnoreCase).ToList();
-            var groups = pcaPurposes.GroupBy(x => x.Quantity).Select(group => group.ToList()).ToList();
-
-            foreach (var group in groups)
+            purposes.AddRange(pcaPurposes.Select(pcaPurpose => new PurposeLibDm
             {
-                if (!group.Any())
-                    continue;
-
-                var firstElement = group.ElementAt(0);
-
-                var purposeDm = new PurposeLibDm
-                {
-                    Name = firstElement?.Quantity_Label,
-                    Iri = firstElement?.Quantity,
-                    Source = "PCA",
-                };
-
-                purposes.Add(purposeDm);
-            }
+                Name = pcaPurpose.Label, 
+                Iri = pcaPurpose.Imf_purpose, 
+                Source = "PCA"
+            }));
 
             return Task.FromResult(purposes);
         }

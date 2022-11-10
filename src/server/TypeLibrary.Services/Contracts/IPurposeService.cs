@@ -9,7 +9,7 @@ namespace TypeLibrary.Services.Contracts
         /// <summary>
         /// Get all purposes
         /// </summary>
-        /// <returns>List of purposes sorted by name></returns>
+        /// <returns>List of purposes></returns>
         Task<ICollection<PurposeLibCm>> Get();
     }
 }
