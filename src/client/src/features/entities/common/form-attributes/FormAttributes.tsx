@@ -5,8 +5,8 @@ import { UpdateEntity } from "common/types/updateEntity";
 import { Flexbox } from "complib/layouts";
 import { useGetAttributes } from "external/sources/attribute/attribute.queries";
 import {
-  getInfoItemsFromAttributeLibCms,
   onAddAttributes,
+  resolveSelectedAndAvailableAttributes,
 } from "features/entities/common/form-attributes/FormAttributes.helpers";
 import { FormSection } from "features/entities/common/form-section/FormSection";
 import { SelectItemDialog } from "features/entities/common/select-item-dialog/SelectItemDialog";
@@ -20,7 +20,7 @@ export interface FormAttributesProps {
   append: (item: ValueObject<UpdateEntity<AttributeLibAm>>) => void;
   remove: (index: number) => void;
   register: (index: number) => UseFormRegisterReturn;
-  preprocess?: (attributes: AttributeLibCm[]) => AttributeLibCm[];
+  preprocess?: (attributes?: AttributeLibCm[]) => AttributeLibCm[];
 }
 
 /**
@@ -36,9 +36,10 @@ export interface FormAttributesProps {
 export const FormAttributes = ({ fields, append, remove, register, preprocess }: FormAttributesProps) => {
   const theme = useTheme();
   const { t } = useTranslation("translation", { keyPrefix: "attributes" });
+
   const attributeQuery = useGetAttributes();
-  const attributes = preprocess ? preprocess(attributeQuery.data ?? []) : attributeQuery.data ?? [];
-  const attributeInfoItems = getInfoItemsFromAttributeLibCms(attributes);
+  const attributes = preprocess ? preprocess(attributeQuery.data) : attributeQuery.data ?? [];
+  const [available, selected] = resolveSelectedAndAvailableAttributes(fields, attributes);
 
   return (
     <FormSection
@@ -50,14 +51,14 @@ export const FormAttributes = ({ fields, append, remove, register, preprocess }:
           searchFieldText={t("dialog.search")}
           addItemsButtonText={t("dialog.add")}
           openDialogButtonText={t("open")}
-          items={attributeInfoItems}
-          onAdd={(ids) => onAddAttributes(ids, attributes, fields, append)}
+          items={available}
+          onAdd={(ids) => onAddAttributes(ids, attributes, append)}
         />
       }
     >
       <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.xl}>
         {fields.map((field, index) => {
-          const attribute = attributeInfoItems.find((x) => x.id === field.value.id);
+          const attribute = selected.find((x) => x.id === field.value.id);
           return (
             attribute && (
               <InfoItemButton
