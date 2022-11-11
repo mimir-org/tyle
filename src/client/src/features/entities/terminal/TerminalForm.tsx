@@ -60,7 +60,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
         {isLoading && <Loader />}
         {!isLoading && (
           <>
-            <TerminalFormBaseFields />
+            <TerminalFormBaseFields mode={mode} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
               <FormAttributes
@@ -69,6 +69,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
                 append={attributeFields.append}
                 remove={attributeFields.remove}
                 preprocess={prepareAttributes}
+                canRemoveAttributes={mode !== "edit"}
               />
             </Box>
           </>
