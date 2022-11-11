@@ -21,6 +21,8 @@ export interface FormAttributesProps {
   remove: (index: number) => void;
   register: (index: number) => UseFormRegisterReturn;
   preprocess?: (attributes?: AttributeLibCm[]) => AttributeLibCm[];
+  canAddAttributes?: boolean;
+  canRemoveAttributes?: boolean;
 }
 
 /**
@@ -31,9 +33,19 @@ export interface FormAttributesProps {
  * @param remove
  * @param register
  * @param preprocess pass a function to alter the attribute data before it is shown to the user
+ * @param canAddAttributes controls if the add action is shown
+ * @param canRemoveAttributes controls if the remove action is shown
  * @constructor
  */
-export const FormAttributes = ({ fields, append, remove, register, preprocess }: FormAttributesProps) => {
+export const FormAttributes = ({
+  fields,
+  append,
+  remove,
+  register,
+  preprocess,
+  canAddAttributes = true,
+  canRemoveAttributes = true,
+}: FormAttributesProps) => {
   const theme = useTheme();
   const { t } = useTranslation("translation", { keyPrefix: "attributes" });
 
@@ -45,15 +57,17 @@ export const FormAttributes = ({ fields, append, remove, register, preprocess }:
     <FormSection
       title={t("title")}
       action={
-        <SelectItemDialog
-          title={t("dialog.title")}
-          description={t("dialog.description")}
-          searchFieldText={t("dialog.search")}
-          addItemsButtonText={t("dialog.add")}
-          openDialogButtonText={t("open")}
-          items={available}
-          onAdd={(ids) => onAddAttributes(ids, attributes, append)}
-        />
+        canAddAttributes && (
+          <SelectItemDialog
+            title={t("dialog.title")}
+            description={t("dialog.description")}
+            searchFieldText={t("dialog.search")}
+            addItemsButtonText={t("dialog.add")}
+            openDialogButtonText={t("open")}
+            items={available}
+            onAdd={(ids) => onAddAttributes(ids, attributes, append)}
+          />
+        )
       }
     >
       <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.xl}>
@@ -65,7 +79,7 @@ export const FormAttributes = ({ fields, append, remove, register, preprocess }:
                 key={field.value.id}
                 {...register(index)}
                 {...attribute}
-                actionable
+                actionable={canRemoveAttributes}
                 actionIcon={<Trash />}
                 actionText={t("remove")}
                 onAction={() => remove(index)}
