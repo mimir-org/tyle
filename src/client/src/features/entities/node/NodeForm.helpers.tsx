@@ -28,12 +28,12 @@ export const resetSubform = (resetField: (value: keyof FormNodeLib) => void) => 
   resetField("attributes");
 };
 
-export const getSubformForAspect = (aspect: Aspect) => {
+export const getSubformForAspect = (aspect: Aspect, mode?: NodeFormMode) => {
   switch (aspect) {
     case Aspect.Function:
-      return <NodeFormTerminals />;
+      return <NodeFormTerminals canRemoveTerminals={mode !== "edit"} />;
     case Aspect.Product:
-      return <NodeFormTerminals />;
+      return <NodeFormTerminals canRemoveTerminals={mode !== "edit"} />;
     case Aspect.Location:
       return <NodeFormPredefinedAttributes aspects={[aspect]} />;
     default:

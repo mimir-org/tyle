@@ -17,21 +17,22 @@ import { resetSubform } from "features/entities/node/NodeForm.helpers";
 import { NodeFormBaseFieldsContainer } from "features/entities/node/NodeFormBaseFields.styled";
 import { NodeFormPreview } from "features/entities/node/NodeFormPreview";
 import { FormNodeLib } from "features/entities/node/types/formNodeLib";
+import { NodeFormMode } from "features/entities/node/types/nodeFormMode";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 
 interface NodeFormBaseFieldsProps {
-  isPrefilled?: boolean;
+  mode?: NodeFormMode;
 }
 
 /**
  * Component which contains all shared fields for variations of the node form.
  *
- * @param isPrefilled
+ * @param mode
  * @constructor
  */
-export const NodeFormBaseFields = ({ isPrefilled }: NodeFormBaseFieldsProps) => {
+export const NodeFormBaseFields = ({ mode }: NodeFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const { control, register, resetField, setValue, formState } = useFormContext<FormNodeLib>();
@@ -49,7 +50,7 @@ export const NodeFormBaseFields = ({ isPrefilled }: NodeFormBaseFieldsProps) => 
 
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
         <FormField label={t("node.name")} error={errors.name}>
-          <Input placeholder={t("node.placeholders.name")} {...register("name")} />
+          <Input placeholder={t("node.placeholders.name")} {...register("name")} disabled={mode === "edit"} />
         </FormField>
         <FormField label={t("node.purpose")} error={errors.purposeName}>
           <Controller
@@ -76,7 +77,7 @@ export const NodeFormBaseFields = ({ isPrefilled }: NodeFormBaseFieldsProps) => 
             name={"aspect"}
             render={({ field: { value, onChange, ref, ...rest } }) => (
               <ConditionalWrapper
-                condition={isPrefilled}
+                condition={mode === "edit"}
                 wrapper={(c) => (
                   <Popover align={"start"} maxWidth={"225px"} content={t("node.disabled.aspect")}>
                     <Box borderRadius={theme.tyle.border.radius.medium} tabIndex={0}>
@@ -96,7 +97,7 @@ export const NodeFormBaseFields = ({ isPrefilled }: NodeFormBaseFieldsProps) => 
                     onChange(x?.value);
                   }}
                   value={aspectOptions.find((x) => x.value === value)}
-                  isDisabled={isPrefilled}
+                  isDisabled={mode === "edit"}
                 />
               </ConditionalWrapper>
             )}
@@ -148,6 +149,7 @@ export const NodeFormBaseFields = ({ isPrefilled }: NodeFormBaseFieldsProps) => 
                     onChange(rds.name);
                   }
                 }}
+                isDisabled={mode === "edit"}
               />
             )}
           />
