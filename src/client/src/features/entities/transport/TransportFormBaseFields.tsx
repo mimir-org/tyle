@@ -17,21 +17,22 @@ import { resetSubform } from "features/entities/transport/TransportForm.helpers"
 import { TransportFormBaseFieldsContainer } from "features/entities/transport/TransportFormBaseFields.styled";
 import { TransportFormPreview } from "features/entities/transport/TransportFormPreview";
 import { FormTransportLib } from "features/entities/transport/types/formTransportLib";
+import { TransportFormMode } from "features/entities/transport/types/transportFormMode";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 
 interface TransportFormBaseFieldsProps {
-  isPrefilled?: boolean;
+  mode?: TransportFormMode;
 }
 
 /**
  * Component which contains all simple value fields of the transport form.
  *
- * @param isPrefilled
+ * @param mode
  * @constructor
  */
-export const TransportFormBaseFields = ({ isPrefilled }: TransportFormBaseFieldsProps) => {
+export const TransportFormBaseFields = ({ mode }: TransportFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const { control, register, resetField, setValue, formState } = useFormContext<FormTransportLib>();
@@ -49,7 +50,7 @@ export const TransportFormBaseFields = ({ isPrefilled }: TransportFormBaseFields
 
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
         <FormField label={t("transport.name")} error={errors.name}>
-          <Input placeholder={t("transport.placeholders.name")} {...register("name")} />
+          <Input placeholder={t("transport.placeholders.name")} {...register("name")} disabled={mode === "edit"} />
         </FormField>
 
         <Controller
@@ -78,7 +79,7 @@ export const TransportFormBaseFields = ({ isPrefilled }: TransportFormBaseFields
           render={({ field: { value, onChange, ref, ...rest } }) => (
             <FormField label={t("transport.aspect")} error={errors.aspect}>
               <ConditionalWrapper
-                condition={isPrefilled}
+                condition={mode === "edit"}
                 wrapper={(c) => (
                   <Popover align={"start"} maxWidth={"225px"} content={t("transport.disabled.aspect")}>
                     <Box borderRadius={theme.tyle.border.radius.medium} tabIndex={0}>
@@ -98,7 +99,7 @@ export const TransportFormBaseFields = ({ isPrefilled }: TransportFormBaseFields
                     onChange(x?.value);
                   }}
                   value={aspectOptions.find((x) => x.value === value)}
-                  isDisabled={isPrefilled}
+                  isDisabled={mode === "edit"}
                 />
               </ConditionalWrapper>
             </FormField>
@@ -154,6 +155,7 @@ export const TransportFormBaseFields = ({ isPrefilled }: TransportFormBaseFields
                     onChange(rds.name);
                   }
                 }}
+                isDisabled={mode === "edit"}
               />
             </FormField>
           )}

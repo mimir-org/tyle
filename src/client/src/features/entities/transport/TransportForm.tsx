@@ -44,7 +44,7 @@ export const TransportForm = ({ defaultValues = createEmptyFormTransportLib(), m
 
   const query = useTransportQuery();
   const mapper = (source: TransportLibCm) => mapTransportLibCmToFormTransportLib(source, mode);
-  const [isPrefilled, isLoading] = usePrefilledForm(query, mapper, reset);
+  const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useTransportMutation(mode);
   useServerValidation(mutation.error, setError);
@@ -62,7 +62,7 @@ export const TransportForm = ({ defaultValues = createEmptyFormTransportLib(), m
         {isLoading && <Loader />}
         {!isLoading && (
           <>
-            <TransportFormBaseFields isPrefilled={isPrefilled} />
+            <TransportFormBaseFields mode={mode} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
               <FormAttributes
@@ -71,6 +71,7 @@ export const TransportForm = ({ defaultValues = createEmptyFormTransportLib(), m
                 append={attributeFields.append}
                 remove={attributeFields.remove}
                 preprocess={prepareAttributes}
+                canRemoveAttributes={mode !== "edit"}
               />
             </Box>
           </>
