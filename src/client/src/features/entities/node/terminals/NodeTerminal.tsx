@@ -144,7 +144,7 @@ export const NodeTerminal = ({
                           shouldDirty: true,
                         });
                       checked &&
-                        setValue(`nodeTerminals.${index}.maxQuantity`, MINIMUM_TERMINAL_QUANTITY_VALUE, {
+                        setValue(`nodeTerminals.${index}.maxQuantity`, 1, {
                           shouldDirty: true,
                         });
                       onChange(checked);
