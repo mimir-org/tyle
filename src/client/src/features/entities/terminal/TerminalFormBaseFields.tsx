@@ -8,14 +8,22 @@ import { Flexbox } from "complib/layouts";
 import { TerminalFormBaseFieldsContainer } from "features/entities/terminal/TerminalFormBaseFields.styled";
 import { TerminalFormPreview } from "features/entities/terminal/TerminalFormPreview";
 import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";
+import { TerminalFormMode } from "features/entities/terminal/types/terminalFormMode";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 
+interface TerminalFormBaseFieldsProps {
+  mode?: TerminalFormMode;
+}
+
 /**
  * Component which contains all simple value fields of the terminal form.
+ *
+ * @param mode
+ * @constructor
  */
-export const TerminalFormBaseFields = () => {
+export const TerminalFormBaseFields = ({ mode }: TerminalFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const { control, register, formState } = useFormContext<FormTerminalLib>();
@@ -29,7 +37,7 @@ export const TerminalFormBaseFields = () => {
 
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
         <FormField label={t("terminal.name")} error={errors.name}>
-          <Input placeholder={t("terminal.placeholders.name")} {...register("name")} />
+          <Input placeholder={t("terminal.placeholders.name")} {...register("name")} disabled={mode === "edit"} />
         </FormField>
 
         <FormField label={t("terminal.color")} error={errors.color}>

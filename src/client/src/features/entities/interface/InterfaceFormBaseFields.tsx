@@ -17,21 +17,22 @@ import { resetSubform } from "features/entities/interface/InterfaceForm.helpers"
 import { InterfaceFormBaseFieldsContainer } from "features/entities/interface/InterfaceFormBaseFields.styled";
 import { InterfaceFormPreview } from "features/entities/interface/InterfaceFormPreview";
 import { FormInterfaceLib } from "features/entities/interface/types/formInterfaceLib";
+import { InterfaceFormMode } from "features/entities/interface/types/interfaceFormMode";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 
 interface InterfaceFormBaseFieldsProps {
-  isPrefilled?: boolean;
+  mode?: InterfaceFormMode;
 }
 
 /**
  * Component which contains all simple value fields of the interface form.
  *
- * @param isPrefilled
+ * @param mode
  * @constructor
  */
-export const InterfaceFormBaseFields = ({ isPrefilled }: InterfaceFormBaseFieldsProps) => {
+export const InterfaceFormBaseFields = ({ mode }: InterfaceFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const { control, register, resetField, setValue, formState } = useFormContext<FormInterfaceLib>();
@@ -49,7 +50,7 @@ export const InterfaceFormBaseFields = ({ isPrefilled }: InterfaceFormBaseFields
 
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
         <FormField label={t("interface.name")} error={errors.name}>
-          <Input placeholder={t("interface.placeholders.name")} {...register("name")} />
+          <Input placeholder={t("interface.placeholders.name")} {...register("name")} disabled={mode === "edit"} />
         </FormField>
 
         <Controller
@@ -78,7 +79,7 @@ export const InterfaceFormBaseFields = ({ isPrefilled }: InterfaceFormBaseFields
           render={({ field: { value, onChange, ref, ...rest } }) => (
             <FormField label={t("interface.aspect")} error={errors.aspect}>
               <ConditionalWrapper
-                condition={isPrefilled}
+                condition={mode === "edit"}
                 wrapper={(c) => (
                   <Popover align={"start"} maxWidth={"225px"} content={t("interface.disabled.aspect")}>
                     <Box borderRadius={theme.tyle.border.radius.medium} tabIndex={0}>
@@ -98,7 +99,7 @@ export const InterfaceFormBaseFields = ({ isPrefilled }: InterfaceFormBaseFields
                     onChange(x?.value);
                   }}
                   value={aspectOptions.find((x) => x.value === value)}
-                  isDisabled={isPrefilled}
+                  isDisabled={mode === "edit"}
                 />
               </ConditionalWrapper>
             </FormField>
@@ -154,6 +155,7 @@ export const InterfaceFormBaseFields = ({ isPrefilled }: InterfaceFormBaseFields
                     onChange(rds.name);
                   }
                 }}
+                isDisabled={mode === "edit"}
               />
             </FormField>
           )}

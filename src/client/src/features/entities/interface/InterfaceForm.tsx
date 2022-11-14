@@ -44,7 +44,7 @@ export const InterfaceForm = ({ defaultValues = createEmptyFormInterfaceLib(), m
 
   const query = useInterfaceQuery();
   const mapper = (source: InterfaceLibCm) => mapInterfaceLibCmToFormInterfaceLib(source, mode);
-  const [isPrefilled, isLoading] = usePrefilledForm(query, mapper, reset);
+  const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useInterfaceMutation(mode);
   useServerValidation(mutation.error, setError);
@@ -62,7 +62,7 @@ export const InterfaceForm = ({ defaultValues = createEmptyFormInterfaceLib(), m
         {isLoading && <Loader />}
         {!isLoading && (
           <>
-            <InterfaceFormBaseFields isPrefilled={isPrefilled} />
+            <InterfaceFormBaseFields mode={mode} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
               <FormAttributes
@@ -71,6 +71,7 @@ export const InterfaceForm = ({ defaultValues = createEmptyFormInterfaceLib(), m
                 append={attributeFields.append}
                 remove={attributeFields.remove}
                 preprocess={prepareAttributes}
+                canRemoveAttributes={mode !== "edit"}
               />
             </Box>
           </>

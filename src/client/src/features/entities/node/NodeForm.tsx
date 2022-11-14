@@ -45,7 +45,7 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), mode }: Nod
 
   const query = useNodeQuery();
   const mapper = (source: NodeLibCm) => mapNodeLibCmToClientModel(source, mode);
-  const [isPrefilled, isLoading] = usePrefilledForm(query, mapper, reset);
+  const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useNodeMutation(mode);
   useServerValidation(mutation.error, setError);
@@ -61,16 +61,17 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), mode }: Nod
         {isLoading && <Loader />}
         {!isLoading && (
           <>
-            <NodeFormBaseFields isPrefilled={isPrefilled} />
+            <NodeFormBaseFields mode={mode} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
-              {getSubformForAspect(aspect)}
+              {getSubformForAspect(aspect, mode)}
               <FormAttributes
                 register={(index) => register(`attributes.${index}`)}
                 fields={attributeFields.fields}
                 append={attributeFields.append}
                 remove={attributeFields.remove}
                 preprocess={prepareAttributes}
+                canRemoveAttributes={mode !== "edit"}
               />
             </Box>
           </>

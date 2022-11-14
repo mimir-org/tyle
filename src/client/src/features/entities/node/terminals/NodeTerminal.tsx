@@ -29,10 +29,32 @@ interface NodeTerminalProps {
   field: FieldArrayWithId<FormNodeLib, "nodeTerminals">;
   errors: FieldErrors<FormNodeLib>;
   setValue: UseFormSetValue<FormNodeLib>;
+  removable: boolean;
   onRemove: () => void;
 }
 
-export const NodeTerminal = ({ index, control, field, errors, setValue, onRemove }: NodeTerminalProps) => {
+/**
+ * Component which represents a single terminal for a given node.
+ * Displays the various input fields that the terminal model supports.
+ *
+ * @param index
+ * @param control
+ * @param field
+ * @param errors
+ * @param setValue
+ * @param removable
+ * @param onRemove
+ * @constructor
+ */
+export const NodeTerminal = ({
+  index,
+  control,
+  field,
+  errors,
+  setValue,
+  removable = true,
+  onRemove,
+}: NodeTerminalProps) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -51,9 +73,11 @@ export const NodeTerminal = ({ index, control, field, errors, setValue, onRemove
         <Text variant={"label-large"}>
           {t("terminal.title")} #{index + 1}
         </Text>
-        <Button variant={"text"} alignSelf={"end"} icon={<Trash />} iconOnly onClick={() => onRemove()}>
-          {t("terminals.remove")}
-        </Button>
+        {removable && (
+          <Button variant={"text"} alignSelf={"end"} icon={<Trash />} iconOnly onClick={() => onRemove()}>
+            {t("terminals.remove")}
+          </Button>
+        )}
       </Flexbox>
       <NodeTerminalInputContainer>
         <Controller
@@ -120,7 +144,7 @@ export const NodeTerminal = ({ index, control, field, errors, setValue, onRemove
                           shouldDirty: true,
                         });
                       checked &&
-                        setValue(`nodeTerminals.${index}.maxQuantity`, MINIMUM_TERMINAL_QUANTITY_VALUE, {
+                        setValue(`nodeTerminals.${index}.maxQuantity`, 1, {
                           shouldDirty: true,
                         });
                       onChange(checked);
