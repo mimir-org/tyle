@@ -9,8 +9,8 @@ import { MotionText, Text } from "complib/text";
 import { useLogin } from "external/sources/authenticate/authenticate.queries";
 import { AuthContent } from "features/auth/common/auth-content/AuthContent";
 import { loginSchema } from "features/auth/login/loginSchema";
-import { RecoverPath } from "features/auth/recover/RecoverRoutes";
-import { RegisterPath } from "features/auth/register/RegisterRoutes";
+import { recoverBasePath } from "features/auth/recover/RecoverRoutes";
+import { registerBasePath } from "features/auth/register/RegisterRoutes";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
@@ -70,7 +70,7 @@ export const Login = () => {
           <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.xxl}>
             <Button type={"submit"}>{t("login.submit")}</Button>
             <Text color={theme.tyle.color.sys.surface.variant.on}>
-              {t("login.altLead")} <Link to={RegisterPath}>{t("login.altLink")}</Link>
+              {t("login.altLead")} <Link to={registerBasePath}>{t("login.altLink")}</Link>
             </Text>
           </MotionFlexbox>
         </Form>
@@ -78,7 +78,7 @@ export const Login = () => {
       secondRow={
         <>
           <Text textAlign={"center"}>{t("login.info.text")}</Text>
-          <Button variant={"outlined"} alignSelf={"center"} onClick={() => navigate(RecoverPath)}>
+          <Button variant={"outlined"} alignSelf={"center"} onClick={() => navigate(recoverBasePath)}>
             {t("login.info.action")}
           </Button>
         </>
