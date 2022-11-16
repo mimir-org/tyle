@@ -34,6 +34,8 @@ namespace Mimirorg.Authentication.Contracts
         /// <exception cref="MimirorgNotFoundException"></exception>
         Task<MimirorgUserCm> GetUser(string id);
 
+        IEnumerable<MimirorgUserCm> GetPendingUsers(int company);
+
         /// <summary>
         /// Setup two factor 
         /// </summary>
@@ -62,7 +64,12 @@ namespace Mimirorg.Authentication.Contracts
         /// <exception cref="MimirorgNotFoundException">Throws if user or token not exist</exception>
         Task<bool> ChangePassword(MimirorgChangePasswordAm changePassword);
 
-
+        /// <summary>
+        /// Cleanup tokens and not confirmed users
+        /// </summary>
+        /// <remarks>All users that has not any valid verify token and is not confirmed will be deleted,
+        /// with all the user tokens. Also invalid tokens will be deleted.</remarks>
+        /// <returns>The number of deleted users and tokens</returns>
         Task<(int deletedUsers, int deletedTokens)> RemoveUnconfirmedUsersAndTokens();
 
         /// <summary>
