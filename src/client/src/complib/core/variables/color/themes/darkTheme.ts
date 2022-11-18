@@ -3,8 +3,8 @@ import { ColorTheme } from "complib/core/variables/color/types/colorTheme";
 
 export const darkTheme: ColorTheme = {
   primary: {
-    base: colorReference.primary[70],
-    on: colorReference.primary[100]
+    base: colorReference.primary[60],
+    on: colorReference.primary[99]
   },
   secondary: {
     base: colorReference.secondary[70],
@@ -15,10 +15,10 @@ export const darkTheme: ColorTheme = {
     }
   },
   tertiary: {
-    base: colorReference.tertiary[20],
+    base: colorReference.tertiary[10],
     on: colorReference.primary[90],
     container: {
-      base: colorReference.tertiary[40],
+      base: colorReference.tertiary[30],
       on: colorReference.primary[0]
     }
   },
@@ -34,16 +34,16 @@ export const darkTheme: ColorTheme = {
     base: colorReference.neutralVariant[40]
   },
   background: {
-    base: colorReference.neutral[10],
-    on: colorReference.neutral[99],
+    base: colorReference.neutral[0],
+    on: colorReference.neutral[90],
     inverse: {
       base: colorReference.neutral[99],
       on: colorReference.neutral[10]
     }
   },
   surface: {
-    base: colorReference.neutral[20],
-    on: colorReference.neutral[80],
+    base: colorReference.neutral[10],
+    on: colorReference.neutral[95],
     variant: {
       base: colorReference.neutralVariant[30],
       on: colorReference.neutralVariant[80]
