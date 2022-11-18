@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import styled, { css } from "styled-components/macro";
 
 export const SidebarContainer = styled.aside`
+  flex: 1;
   display: flex;
   flex-direction: column;
-  width: 250px;
+  max-width: 350px;
+  min-width: 200px;
   gap: ${(props) => props.theme.tyle.spacing.xxxl};
 `;
 

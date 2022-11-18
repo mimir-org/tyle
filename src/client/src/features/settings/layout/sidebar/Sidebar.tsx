@@ -2,7 +2,7 @@ import { LinkGroup } from "common/types/linkGroup";
 import { Divider } from "complib/data-display";
 import { Flexbox } from "complib/layouts";
 import { Heading } from "complib/text";
-import { SidebarContainer, SidebarLink } from "features/settings/sidebar/Sidebar.styled";
+import { SidebarContainer, SidebarLink } from "features/settings/layout/sidebar/Sidebar.styled";
 import { Fragment } from "react";
 import { useLocation } from "react-router-dom";
 import { useTheme } from "styled-components";

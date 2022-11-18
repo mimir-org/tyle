@@ -3,11 +3,9 @@ import { Heading } from "complib/text";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
 
-interface FormSectionProps {
+interface SettingsSectionProps {
   title: string;
-  action?: ReactNode;
   children?: ReactNode;
-  error?: { message?: string };
 }
 
 /**
@@ -17,11 +15,11 @@ interface FormSectionProps {
  * @param children elements which are wrapped by this layout component
  * @constructor
  */
-export const SettingsSection = ({ title, children }: FormSectionProps) => {
+export const SettingsSection = ({ title, children }: SettingsSectionProps) => {
   const theme = useTheme();
 
   return (
-    <MotionBox as={"section"} {...theme.tyle.animation.fade}>
+    <MotionBox as={"section"} flex={1} {...theme.tyle.animation.fade}>
       <Heading as={"h2"} variant={"headline-medium"}>
         {title}
       </Heading>
