@@ -3,6 +3,7 @@ import { nodeFormRoutes } from "features/entities/node/NodeFormRoutes";
 import { terminalFormRoutes } from "features/entities/terminal/TerminalFormRoutes";
 import { transportFormRoutes } from "features/entities/transport/TransportFormRoutes";
 import { exploreRoutes } from "features/explore/ExploreRoutes";
+import { settingsRoutes } from "features/settings/SettingsRoutes";
 import { AuthenticatedLayout } from "features/ui/authenticated/layout/AuthenticatedLayout";
 import { ErrorMessage } from "features/ui/common/ErrorMessage";
 import { useTranslation } from "react-i18next";
@@ -30,6 +31,7 @@ export const useAuthenticatedRouter = () => {
         ...terminalFormRoutes,
         ...transportFormRoutes,
         ...interfaceFormRoutes,
+        settingsRoutes,
         {
           path: "*",
           element: (

@@ -499,6 +499,9 @@
       }
     }
   },
+  "settings": {
+    "title": "Settings"
+  },
   "clientError": {
     "title": "Oops!",
     "subtitle": "An error occurred when loading the page. Please contact support if the problem persists.",
