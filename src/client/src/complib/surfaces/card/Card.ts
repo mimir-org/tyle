@@ -9,7 +9,7 @@ type CardProps = Polymorphic<ElementType> & {
 };
 
 export const Card = styled.div<CardProps>`
-  padding: ${(props) => props.theme.tyle.spacing.xxxl} ${(props) => props.theme.tyle.spacing.xl};
+  padding: ${(props) => props.theme.tyle.spacing.xxxl};
   background-color: ${(props) => props.theme.tyle.color.sys.surface.base};
   box-shadow: ${(props) => props.theme.tyle.shadow.small};
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
