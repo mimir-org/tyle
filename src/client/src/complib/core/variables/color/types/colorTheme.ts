@@ -5,6 +5,7 @@ export interface ColorTheme {
   secondary: Accent,
   tertiary: Accent,
   error: Accent,
+  warning: Accent,
   outline: Pick<Accent, "base">,
   background: Pick<Accent, "base" | "on"> & {
     inverse: Pick<Accent, "base" | "on">

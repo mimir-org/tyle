@@ -26,6 +26,10 @@ export const darkTheme: ColorTheme = {
     base: colorReference.error[80],
     on: colorReference.error[20]
   },
+  warning: {
+    base: colorReference.warning[90],
+    on: colorReference.warning[10]
+  },
   outline: {
     base: colorReference.neutralVariant[40]
   },
