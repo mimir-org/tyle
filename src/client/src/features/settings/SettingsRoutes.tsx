@@ -1,11 +1,14 @@
-import { accessRoutes } from "features/settings/access/AccessRoutes";
+import { accessBasePath, accessRoutes } from "features/settings/access/AccessRoutes";
 import { SettingsLayout } from "features/settings/layout/SettingsLayout";
-import { RouteObject } from "react-router-dom";
+import { Navigate, RouteObject } from "react-router-dom";
 
-export const SettingsPath = "/settings";
+export const settingsBasePath = "/settings";
 
 export const settingsRoutes: RouteObject = {
-  path: SettingsPath,
+  path: settingsBasePath,
   element: <SettingsLayout />,
-  children: [...accessRoutes],
+  children: [
+    ...accessRoutes,
+    { path: settingsBasePath, element: <Navigate to={`${settingsBasePath}/${accessBasePath}`} replace /> },
+  ],
 };

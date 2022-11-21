@@ -1,12 +1,13 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { Logo } from "common/components/logo";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { Flexbox } from "complib/layouts";
 import { useGetCurrentUser } from "external/sources/user/user.queries";
 import { ContactButton } from "features/ui/header/contact/ContactButton";
 import { mapPermissionDescriptions } from "features/ui/header/Header.helpers";
 import { HeaderContainer } from "features/ui/header/Header.styles";
+import { HeaderHomeLink } from "features/ui/header/home-link/HeaderHomeLink";
 import { LogoutButton } from "features/ui/header/logout-button/LogoutButton";
+import { SettingsButton } from "features/ui/header/settings-button/SettingsButton";
 import { ThemeButton } from "features/ui/header/theme-button/ThemeButton";
 import { UserInfo } from "features/ui/header/user-info/UserInfo";
 import { UserMenu } from "features/ui/header/user-menu/UserMenu";
@@ -25,13 +26,14 @@ export const Header = () => {
 
   return (
     <HeaderContainer>
-      <Logo height={"100%"} width={"fit-content"} alt="" />
+      <HeaderHomeLink />
       {!userQuery.isLoading && (
         <UserMenu name={userInitials}>
           <UserInfo name={userFullName} permissions={permissions} roles={userRoles} />
           <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.base}>
             <ThemeButton />
             <ContactButton />
+            <SettingsButton />
             <LogoutButton />
           </Flexbox>
         </UserMenu>
