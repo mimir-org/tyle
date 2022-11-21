@@ -519,16 +519,15 @@
         "users": "No new users have requested access"
       },
       "processing": {
-        "loading": "Granting permission to {{name}}",
-        "success": "Permission has been granted to {{name}}",
-        "error": "An error occurred while granting permission to {{name}}"
+        "loading": "Granting \"{{permission}}\" permission to {{name}}",
+        "success": "Permission \"{{permission}}\" has been granted to {{name}}",
+        "error": "An error occurred while granting \"{{permission}}\" permission to {{name}}"
       },
       "undo": {
         "action": "Undo",
-        "state": " was granted the \"{{permission}}\" permission",
-        "loading": "Removing permission from {{name}}",
-        "success": "Permission was removed from {{name}}",
-        "error": "An error occurred while removing permission from {{name}}"
+        "loading": "Removing \"{{permission}}\" permission from {{name}}",
+        "success": "Permission \"{{permission}}\" was removed from {{name}}",
+        "error": "An error occurred while removing \"{{permission}}\" permission from {{name}}"
       },
       "validation": {
         "userId": {

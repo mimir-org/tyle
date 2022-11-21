@@ -31,12 +31,14 @@ export const AccessCardForm = ({ user }: AccessCardFormProps) => {
   });
 
   const mutation = useAddUserPermission();
-  const toast = usePermissionToasts(user.firstName);
+  const toast = usePermissionToasts();
 
   return (
     <Form
       alignItems={"center"}
-      onSubmit={handleSubmit((data) => toast(data, mutation.mutateAsync(mapFormUserPermissionToApiModel(data))))}
+      onSubmit={handleSubmit((data) =>
+        toast(user.firstName, data, mutation.mutateAsync(mapFormUserPermissionToApiModel(data)))
+      )}
     >
       <Input type={"hidden"} {...register("userId")} />
       <Input type={"hidden"} {...register("companyId")} />
