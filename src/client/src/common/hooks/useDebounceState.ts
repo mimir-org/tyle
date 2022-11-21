@@ -1,5 +1,5 @@
-import { useDebounce } from "common/hooks/useDebounce";
 import { Dispatch, useState } from "react";
+import { useDebounce } from "usehooks-ts";
 
 /**
  * Hook for combining useState and useDebounce.

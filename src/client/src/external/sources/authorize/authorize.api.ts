@@ -1,7 +1,7 @@
 import {
-  MimirorgPermissionAm,
   MimirorgPermissionCm,
   MimirorgRoleCm,
+  MimirorgUserPermissionAm,
   MimirorgUserRoleAm,
 } from "@mimirorg/typelibrary-types";
 import { apiClient } from "external/client/apiClient";
@@ -21,7 +21,10 @@ export const authorizeApi = {
   getPermissions() {
     return apiClient.get<MimirorgPermissionCm>(`${_basePath}/permission`).then((r) => r.data);
   },
-  postUserPermission(item: MimirorgPermissionAm) {
-    return apiClient.post<boolean>(`${_basePath}/permission`, item).then((r) => r.data);
+  postAddUserPermission(item: MimirorgUserPermissionAm) {
+    return apiClient.post<boolean>(`${_basePath}/permission/add`, item).then((r) => r.data);
+  },
+  postRemoveUserPermission(item: MimirorgUserPermissionAm) {
+    return apiClient.post<boolean>(`${_basePath}/permission/remove`, item).then((r) => r.data);
   },
 };

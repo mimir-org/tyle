@@ -16,6 +16,9 @@ export const userApi = {
   postUser(item: MimirorgUserAm) {
     return apiClient.post<MimirorgQrCodeCm>(_basePath, item).then((r) => r.data);
   },
+  getPendingUsers(companyId?: string) {
+    return apiClient.get<MimirorgUserCm[]>(`${_basePath}/pending/${companyId}`).then((r) => r.data);
+  },
   postVerification(item: MimirorgVerifyAm) {
     return apiClient.post<boolean>(`${_basePath}/verify`, item).then((r) => r.data);
   },

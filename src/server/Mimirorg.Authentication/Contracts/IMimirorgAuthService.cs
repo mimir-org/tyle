@@ -69,14 +69,30 @@ namespace Mimirorg.Authentication.Contracts
         Task<ICollection<MimirorgPermissionCm>> GetAllPermissions();
 
         /// <summary>
-        /// Set user permission for a specific company and user.
+        /// Set user permission for a specific company.
         /// </summary>
-        /// <paramref name="userPermission"></paramref>
-        /// <returns>Return a boolean status value</returns>
+        /// <param name="userPermission">MimirorgUserPermissionAm</param>
+        /// <returns>Completed task</returns>
         /// <exception cref="MimirorgBadRequestException"></exception>
         /// <exception cref="MimirorgNotFoundException"></exception>
-        Task<bool> SetPermissions(MimirorgUserPermissionAm userPermission);
+        Task SetPermission(MimirorgUserPermissionAm userPermission);
 
+        /// <summary>
+        /// Remove user permission for a specific company.
+        /// </summary>
+        /// <param name="userPermission">MimirorgUserPermissionAm</param>
+        /// <returns>Completed task</returns>
+        /// <exception cref="MimirorgBadRequestException"></exception>
+        /// <exception cref="MimirorgNotFoundException"></exception>
+        Task RemovePermission(MimirorgUserPermissionAm userPermission);
+
+        /// <summary>
+        /// Check if user has permission to change the state for a given company
+        /// </summary>
+        /// <param name="companyId">The id of the company</param>
+        /// <param name="state">The state to check for permission</param>
+        /// <returns>True if has access, otherwise it returns false</returns>
+        /// <exception cref="ArgumentOutOfRangeException">If not a valid state</exception>
         Task<bool> HasAccess(int companyId, State state);
 
         #endregion

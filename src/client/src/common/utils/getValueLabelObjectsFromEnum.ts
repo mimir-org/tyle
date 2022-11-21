@@ -1,4 +1,4 @@
-interface ValueLabelObject<T> {
+export interface ValueLabelObject<T> {
   value: T;
   label: string;
 }

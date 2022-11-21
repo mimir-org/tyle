@@ -1,9 +1,9 @@
 import { ArrowSmRight } from "@styled-icons/heroicons-outline";
 import { PlainLink } from "common/components/plain-link";
+import { Link } from "common/types/link";
 import { Button } from "complib/buttons";
 import { Popover } from "complib/data-display";
 import { Box } from "complib/layouts";
-import { Link } from "features/explore/search/types/link";
 import { useTheme } from "styled-components";
 
 interface LinkMenuProps {

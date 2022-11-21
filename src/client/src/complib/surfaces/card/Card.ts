@@ -1,16 +1,15 @@
 import { ColorSystem } from "complib/core";
-import { Elevation, Polymorphic } from "complib/props";
+import { Polymorphic } from "complib/props";
 import { motion } from "framer-motion";
 import { ElementType } from "react";
 import styled, { css } from "styled-components/macro";
 
-type CardProps = Elevation &
-  Polymorphic<ElementType> & {
-    variant?: "selected" | "filled";
-  };
+type CardProps = Polymorphic<ElementType> & {
+  variant?: "selected" | "filled";
+};
 
 export const Card = styled.div<CardProps>`
-  padding: ${(props) => props.theme.tyle.spacing.xxxl} ${(props) => props.theme.tyle.spacing.xl};
+  padding: ${(props) => props.theme.tyle.spacing.xxxl};
   background-color: ${(props) => props.theme.tyle.color.sys.surface.base};
   box-shadow: ${(props) => props.theme.tyle.shadow.small};
   border-radius: ${(props) => props.theme.tyle.border.radius.large};

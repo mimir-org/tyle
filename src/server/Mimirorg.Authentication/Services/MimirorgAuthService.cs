@@ -214,13 +214,13 @@ namespace Mimirorg.Authentication.Services
         }
 
         /// <summary>
-        /// Set user permission for a specific company and user.
+        /// Set user permission for a specific company.
         /// </summary>
         /// <param name="userPermission">MimirorgUserPermissionAm</param>
-        /// <returns>bool</returns>
+        /// <returns>Completed task</returns>
         /// <exception cref="MimirorgBadRequestException"></exception>
         /// <exception cref="MimirorgNotFoundException"></exception>
-        public async Task<bool> SetPermissions(MimirorgUserPermissionAm userPermission)
+        public async Task SetPermission(MimirorgUserPermissionAm userPermission)
         {
             var validation = userPermission.ValidateObject();
             if (!validation.IsValid)
@@ -234,22 +234,56 @@ namespace Mimirorg.Authentication.Services
             if (company == null)
                 throw new MimirorgNotFoundException($"Set permissions error. Couldn't find company with id {userPermission.CompanyId}");
 
-            var newClaims = userPermission.Permissions
-                .Select(x => (MimirorgPermission) x.Id)
-                .Select(y => new Claim(company.Id.ToString(), y.ToString()))
-                .ToList();
+            var newClaim = new Claim(company.Id.ToString(), userPermission.Permission.ToString());
 
             var currentClaimsForUser = await _userManager.GetClaimsAsync(user);
             currentClaimsForUser = currentClaimsForUser.Where(x => x.Type.Equals(company.Id.ToString())).ToList();
 
             var status = await _userManager.RemoveClaimsAsync(user, currentClaimsForUser);
             if (!status.Succeeded)
-                return status.Succeeded;
+                throw new MimirorgNotFoundException("Couldn't remove old permission for user");
 
-            status = await _userManager.AddClaimsAsync(user, newClaims);
-            return status.Succeeded;
+            status = await _userManager.AddClaimsAsync(user, new List<Claim> { newClaim });
+            if (!status.Succeeded)
+                throw new MimirorgNotFoundException("Couldn't add new permission for user");
         }
 
+        /// <summary>
+        /// Remove user permission for a specific company.
+        /// </summary>
+        /// <param name="userPermission">MimirorgUserPermissionAm</param>
+        /// <returns>Completed task</returns>
+        /// <exception cref="MimirorgBadRequestException"></exception>
+        /// <exception cref="MimirorgNotFoundException"></exception>
+        public async Task RemovePermission(MimirorgUserPermissionAm userPermission)
+        {
+            var validation = userPermission.ValidateObject();
+            if (!validation.IsValid)
+                throw new MimirorgBadRequestException($"Set permissions error. Couldn't set permission for user {userPermission?.UserId}", validation);
+
+            var user = await _userManager.FindByIdAsync(userPermission.UserId);
+            if (user == null)
+                throw new MimirorgNotFoundException($"Set permissions error. Couldn't find user with id {userPermission.UserId}");
+
+            var company = await _mimirorgCompanyService.GetCompanyById(userPermission.CompanyId);
+            if (company == null)
+                throw new MimirorgNotFoundException($"Set permissions error. Couldn't find company with id {userPermission.CompanyId}");
+
+            var currentClaimsForUser = await _userManager.GetClaimsAsync(user);
+            currentClaimsForUser = currentClaimsForUser.Where(x => x.Type.Equals(company.Id.ToString()) && x.Value == userPermission.Permission.ToString()).ToList();
+
+            var status = await _userManager.RemoveClaimsAsync(user, currentClaimsForUser);
+            if (!status.Succeeded)
+                throw new MimirorgNotFoundException("Couldn't remove permission for user");
+        }
+
+        /// <summary>
+        /// Check if user has permission to change the state for a given company
+        /// </summary>
+        /// <param name="companyId">The id of the company</param>
+        /// <param name="state">The state to check for permission</param>
+        /// <returns>True if has access, otherwise it returns false</returns>
+        /// <exception cref="ArgumentOutOfRangeException">If not a valid state</exception>
         public Task<bool> HasAccess(int companyId, State state)
         {
             var permission = state switch

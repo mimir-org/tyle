@@ -174,27 +174,71 @@ namespace Mimirorg.Authentication.Controllers.V1
         }
 
         /// <summary>
-        /// Set user permissions for given company and user
+        /// Set user permission for given company
         /// </summary>
-        /// <returns>A boolean value, true if ok</returns>
+        /// <returns>No content</returns>
         /// <remarks>Authenticate</remarks>
         [MimirorgAuthorize(MimirorgPermission.Manage, "userPermission", "CompanyId")]
         [HttpPost]
-        [Route("permission")]
-        [ProducesResponseType(typeof(bool), 200)]
+        [Route("permission/add")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [SwaggerOperation("Set user permissions for given company and user")]
-        public async Task<IActionResult> SetUserPermissions(MimirorgUserPermissionAm userPermission)
+        public async Task<IActionResult> SetUserPermission(MimirorgUserPermissionAm userPermission)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var data = await _authService.SetPermissions(userPermission);
-                return Ok(data);
+                await _authService.SetPermission(userPermission);
+                return NoContent();
+            }
+            catch (MimirorgNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (MimirorgBadRequestException e)
+            {
+                foreach (var error in e.Errors().ToList())
+                {
+                    ModelState.Remove(error.Key);
+                    ModelState.TryAddModelError(error.Key, error.Error);
+                }
+
+                return BadRequest(ModelState);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to get all roles. Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
+        /// Remove user permission for given company
+        /// </summary>
+        /// <returns>No content</returns>
+        /// <remarks>Authenticate</remarks>
+        [MimirorgAuthorize(MimirorgPermission.Manage, "userPermission", "CompanyId")]
+        [HttpPost]
+        [Route("permission/remove")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [SwaggerOperation("Set user permissions for given company and user")]
+        public async Task<IActionResult> RemoveUserPermission(MimirorgUserPermissionAm userPermission)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                await _authService.RemovePermission(userPermission);
+                return NoContent();
             }
             catch (MimirorgNotFoundException)
             {

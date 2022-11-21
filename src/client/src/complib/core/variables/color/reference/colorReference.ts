@@ -61,6 +61,21 @@ export const colorReference: ColorReference = {
     99: "#fcfcfc",
     100: "#ffffff"
   },
+  warning: {
+    0: "#000000",
+    10: "#221B00",
+    20: "#3B2F00",
+    30: "#554500",
+    40: "#715D00",
+    50: "#8D7500",
+    60: "#AB8E12",
+    70: "#C7A930",
+    80: "#E4C44A",
+    90: "#FFE175",
+    95: "#FFF3D4",
+    99: "#FFFBFF",
+    100: "#ffffff"
+  },
   neutral: {
     0: "#000000",
     10: "#13131c",
