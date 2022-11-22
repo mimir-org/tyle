@@ -62,7 +62,7 @@
     - [:scroll: Code of Conduct](#scroll-code-of-conduct)
   - [:warning: License](#warning-license)
   - [:handshake: Contact](#handshake-contact)
-  
+
 ## :star2: About the Project
 
 ### :space_invader: Tech Stack
@@ -154,16 +154,19 @@ To set environment variables for client in development, edit the .env file. For 
 To set environment variables for server in development, edit the appsettings.json file. For production build, you have to set the environment variables into the application container itself. You can override the appsettings.json with a appsettings.local.json file. This file is not included in git repo. \* is required.
 
 #### General
+
 \* `ASPNETCORE_ENVIRONMENT` - Set .NET core environment
 
 \* `CorsConfiguration__ValidOrigins` - Comma separated string of valid origins for CORS. E.g. http://localhost:3000,https://mimirorg.com
 
 #### Application settings
+
 \* `ApplicationSetting__ApplicationSemanticUrl` - The root semantic url for types.
 
 \* `ApplicationSetting__ApplicationUrl` - The root url for current application.
 
 #### Authentication settings
+
 \* `MimirorgAuthSettings___ApplicationName` - The name of the auth application. Used for auth apps title.
 
 \* `MimirorgAuthSettings__JwtKey` - The secret used for generating jwt keys, 64 characters.
@@ -192,9 +195,9 @@ To set environment variables for server in development, edit the appsettings.jso
 
 `MimirorgAuthSettings__RequiredLength` - Require length of password. Default 10.
 
-`MimirorgAuthSettings__EmailKey` - The sendgrid email key. Required if MimirorgAuthSettings__RequireConfirmedAccount.
+`MimirorgAuthSettings__EmailKey` - The sendgrid email key. Required if MimirorgAuthSettings\_\_RequireConfirmedAccount.
 
-`MimirorgAuthSettings__EmailSecret` - The sendgrid email secret. Required if MimirorgAuthSettings__RequireConfirmedAccount.
+`MimirorgAuthSettings__EmailSecret` - The sendgrid email secret. Required if MimirorgAuthSettings\_\_RequireConfirmedAccount.
 
 `MimirorgAuthSettings__QrWidth` - The width of the Qr Code. Default 300.
 
@@ -211,6 +214,7 @@ To set environment variables for server in development, edit the appsettings.jso
 \* `MimirorgAuthSettings__DatabaseConfiguration__Password` - Server application auth database password.
 
 #### Database settings
+
 \* `DatabaseConfiguration__DataSource` - Identifier for database server
 
 \* `DatabaseConfiguration__Port` - Port of database server. E.g. 1443
@@ -244,10 +248,10 @@ cd ./typelibrary
 
 ### :running: Running
 
-|                         | Client      | Server      |
-| ----------------------- | ----------- | ----------- |
-| :gear: Installation     | ```cd src/client``` <br /> ```npm install```   | ```cd src/server``` <br /> ```dotnet build```      |
-| :running: Run Locally   | ```cd src/client``` <br /> ```npm run start``` | ```cd src/server/TypeLibrary.Api``` <br /> ```dotnet run```      
+|                       | Client                                 | Server                                              |
+| --------------------- | -------------------------------------- | --------------------------------------------------- |
+| :gear: Installation   | `cd src/client` <br /> `npm install`   | `cd src/server` <br /> `dotnet build`               |
+| :running: Run Locally | `cd src/client` <br /> `npm run start` | `cd src/server/TypeLibrary.Api` <br /> `dotnet run` |
 
 ## :wave: Contributing
 
@@ -270,5 +274,3 @@ Distributed under the MIT License. See [license](./LICENSE) for more information
 Mimir-org - orgmimir@gmail.com
 
 Project Link: [https://github.com/mimir-org/typelibrary](https://github.com/mimir-org/typelibrary)
-
-
