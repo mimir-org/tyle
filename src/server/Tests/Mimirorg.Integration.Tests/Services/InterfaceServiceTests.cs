@@ -1,15 +1,13 @@
 using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
-using Mimirorg.Setup;
+using Mimirorg.Test.Setup;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 using Xunit;
 
-namespace Mimirorg.Integration.Tests.Services
+namespace Mimirorg.Test.Integration.Services
 {
     public class InterfaceServiceTests : IntegrationTest
     {
@@ -51,24 +49,29 @@ namespace Mimirorg.Integration.Tests.Services
         public async Task Create_Interface_Create_Interface_When_Ok_Parameters()
         {
             var interfaceService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IInterfaceService>();
-            var attributeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IAttributeService>();
             var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
             var logService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ILogService>();
 
-            var attributeAm = new AttributeLibAm
+            var newAttribute = new AttributeLibAm
             {
-                Name = "attribute123456",
-                Aspect = Aspect.Function,
-                Discipline = Discipline.Electrical,
-                Select = Select.MultiSelect,
-                Description = "Description1",
-                SelectValues = new List<string> { "value1", "VALUE2", "value3" },
-                QuantityDatumRangeSpecifying = "Normal",
-                QuantityDatumSpecifiedProvenance = "Calculated",
-                QuantityDatumRegularitySpecified = "Absolute",
-                QuantityDatumSpecifiedScope = "Design Datum",
-                CompanyId = 1,
-                Version = "1.0"
+                Name = "a11",
+                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a11",
+                Source = "PCA",
+                Units = new List<UnitLibAm>
+                {
+                    new()
+                    {
+                        Name = "u11",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u11",
+                        IsDefault = true
+                    },
+                    new()
+                    {
+                        Name = "u22",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u22",
+                        IsDefault = false
+                    }
+                }
             };
 
             var terminalAm = new TerminalLibAm
@@ -78,8 +81,6 @@ namespace Mimirorg.Integration.Tests.Services
                 CompanyId = 1,
                 Version = "1.0"
             };
-
-            var attributeCm = await attributeService.Create(attributeAm);
 
             var interfaceParentAm = new InterfaceLibAm
             {
@@ -105,22 +106,14 @@ namespace Mimirorg.Integration.Tests.Services
                 Aspect = Aspect.NotSet,
                 CompanyId = 1,
                 TerminalId = terminalCm.Id,
-                AttributeIdList = new List<string> { $"{attributeCm.Id}" },
+                Attributes = new List<AttributeLibAm> { newAttribute },
                 TypeReferences = new List<TypeReferenceAm>
                 {
                     new()
                     {
                         Name = "TypeRef",
                         Iri = "https://url.com/1234567890",
-                        Source = "https://source.com/1234567890",
-                        Subs = new List<TypeReferenceSub>
-                        {
-                            new()
-                            {
-                                Name = "SubName",
-                                Iri = "https://subIri.com/1234567890"
-                            }
-                        }
+                        Source = "https://source.com/1234567890"
                     }
                 },
                 Description = "Description",
@@ -141,14 +134,12 @@ namespace Mimirorg.Integration.Tests.Services
             Assert.Equal(interfaceAm.Aspect, interfaceCm.Aspect);
             Assert.Equal(interfaceAm.CompanyId, interfaceCm.CompanyId);
             Assert.Equal(interfaceAm.TerminalId, interfaceCm.TerminalId);
-            Assert.Equal(interfaceAm.AttributeIdList.ToList().ConvertToString(), interfaceCm.Attributes.Select(x => x.Id).ToList().ConvertToString());
+            Assert.Equal(interfaceAm.Attributes.ToList()[0].Id, interfaceCm.Attributes.ToList()[0].Id);
 
             Assert.Equal(interfaceAm.TypeReferences.First().Iri, interfaceCm.TypeReferences.First().Iri);
             Assert.Equal(interfaceAm.TypeReferences.First().Name, interfaceCm.TypeReferences.First().Name);
             Assert.Equal(interfaceAm.TypeReferences.First().Source, interfaceCm.TypeReferences.First().Source);
 
-            Assert.Equal(interfaceAm.TypeReferences.First().Subs.First().Name, interfaceCm.TypeReferences.First().Subs.First().Name);
-            Assert.Equal(interfaceAm.TypeReferences.First().Subs.First().Iri, interfaceCm.TypeReferences.First().Subs.First().Iri);
             Assert.Equal(interfaceAm.ParentId, interfaceCm.ParentId);
 
             var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == interfaceCm.Id);

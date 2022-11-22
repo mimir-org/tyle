@@ -1,6 +1,6 @@
+import { InputProps } from "complib/inputs/input/Input";
+import { focus, getTextRole, placeholder, sizingMixin } from "complib/mixins";
 import styled from "styled-components";
-import { focus, getTextRole, placeholder, sizingMixin } from "../../mixins";
-import { InputProps } from "./Input";
 
 export const InputContainer = styled.input<InputProps>`
   height: 100%;
@@ -14,6 +14,11 @@ export const InputContainer = styled.input<InputProps>`
 
   background-color: ${(props) => props.theme.tyle.color.sys.pure.base};
   color: ${(props) => props.theme.tyle.color.sys.background.on};
+
+  :disabled {
+    color: ${(props) => props.theme.tyle.color.sys.surface.variant.on};
+    background-color: ${(props) => props.theme.tyle.color.sys.outline.base};
+  }
 
   ${getTextRole("body-large")};
   ${sizingMixin};

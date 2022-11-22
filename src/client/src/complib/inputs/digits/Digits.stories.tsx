@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Digits } from "./Digits";
+import { Digits } from "complib/inputs/digits/Digits";
 
 export default {
   title: "Inputs/Digits",

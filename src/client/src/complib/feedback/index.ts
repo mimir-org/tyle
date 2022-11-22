@@ -1,2 +1,2 @@
-export { Spinner } from "./spinner/Spinner";
-export { FullPageSpinner } from "./spinner/FullPageSpinner";
+export { Spinner } from "complib/feedback/spinner/Spinner";
+export { FullPageSpinner } from "complib/feedback/spinner/FullPageSpinner";

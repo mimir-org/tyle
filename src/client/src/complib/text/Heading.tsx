@@ -1,6 +1,3 @@
-import { motion } from "framer-motion";
-import { ElementType } from "react";
-import styled from "styled-components/macro";
 import {
   displayMixin,
   ellipsisMixin,
@@ -9,9 +6,11 @@ import {
   sizingMixin,
   spacingMixin,
   typographyMixin,
-} from "../mixins";
-import { Display, Palette, Polymorphic, Sizing, Spacing, TextVariant, Typography } from "../props";
-import { Ellipsis } from "../props/ellipsis";
+} from "complib/mixins";
+import { Display, Ellipsis, Palette, Polymorphic, Sizing, Spacing, TextVariant, Typography } from "complib/props";
+import { motion } from "framer-motion";
+import { ElementType } from "react";
+import styled from "styled-components/macro";
 
 type HeadingProps = Spacing &
   Sizing &
@@ -35,13 +34,13 @@ type HeadingProps = Spacing &
  * @constructor
  */
 export const Heading = styled.h1<HeadingProps>`
-  ${({ variant }) => getTextRole(variant)}};
-  ${paletteMixin};
-  ${displayMixin};
-  ${spacingMixin};
-  ${ellipsisMixin};
-  ${typographyMixin};
-  ${sizingMixin};
+  ${({ variant }) => getTextRole(variant)}
+  ${paletteMixin}
+  ${displayMixin}
+  ${spacingMixin}
+  ${ellipsisMixin}
+  ${typographyMixin}
+  ${sizingMixin}
 `;
 
 Heading.defaultProps = {

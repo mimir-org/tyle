@@ -5,6 +5,7 @@ using Mimirorg.Common.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Newtonsoft.Json;
 using TypeLibrary.Data.Contracts.Common;
@@ -33,7 +34,7 @@ namespace TypeLibrary.Data.Models
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public virtual ICollection<TransportLibDm> Children { get; set; }
-        public virtual ICollection<AttributeLibDm> Attributes { get; set; }
+        public string Attributes { get; set; }
 
         #region IVersionable
 
@@ -62,12 +63,22 @@ namespace TypeLibrary.Data.Models
             if (ParentId != other.ParentId)
                 validation.AddNotAllowToChange(nameof(ParentId));
 
-            Attributes ??= new List<AttributeLibDm>();
-            other.AttributeIdList ??= new List<string>();
-            if (Attributes.Select(y => y.Id).Any(id => other.AttributeIdList.All(x => x != id)))
-            {
-                validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove items from attributes");
-            }
+            //Attributes
+            var attributeAms = new List<AttributeLibAm>();
+            var attributeDms = new List<AttributeLibDm>();
+            var attributeAmUnits = new List<UnitLibAm>();
+            var attributeDmUnits = new List<UnitLibDm>();
+
+            attributeAms.AddRange(other.Attributes ?? new List<AttributeLibAm>());
+            attributeDms.AddRange(Attributes?.ConvertToObject<ICollection<AttributeLibDm>>() ?? new List<AttributeLibDm>());
+            attributeAmUnits.AddRange(attributeAms.SelectMany(x => x.Units));
+            attributeDmUnits.AddRange(attributeDms.SelectMany(x => x.Units));
+
+            if (attributeDms.Select(y => y.Id).Any(id => attributeAms.Select(x => x.Id).All(x => x != id)))
+                validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove or change attributes");
+
+            if (attributeDmUnits.Select(y => y.Id).Any(id => attributeAmUnits.Select(x => x.Id).All(x => x != id)))
+                validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove or change units from attributes");
 
             validation.IsValid = !validation.Result.Any();
             return validation;
@@ -90,11 +101,22 @@ namespace TypeLibrary.Data.Models
             if (Description != other.Description)
                 minor = true;
 
-            // Attributes
-            Attributes ??= new List<AttributeLibDm>();
-            other.AttributeIdList ??= new List<string>();
-            if (!Attributes.Select(x => x.Id).SequenceEqual(other.AttributeIdList))
+            //Attributes
+            var attributeAms = new List<AttributeLibAm>();
+            var attributeDms = new List<AttributeLibDm>();
+            var attributeAmUnits = new List<UnitLibAm>();
+            var attributeDmUnits = new List<UnitLibDm>();
+
+            attributeAms.AddRange(other.Attributes ?? new List<AttributeLibAm>());
+            attributeDms.AddRange(Attributes?.ConvertToObject<ICollection<AttributeLibDm>>() ?? new List<AttributeLibDm>());
+            attributeAmUnits.AddRange(attributeAms.SelectMany(x => x.Units));
+            attributeDmUnits.AddRange(attributeDms.SelectMany(x => x.Units));
+
+            if (!attributeDms.Select(x => x.Id).SequenceEqual(attributeAms.Select(x => x.Id)) ||
+                !attributeDmUnits.Select(x => x.Id).SequenceEqual(attributeAmUnits.Select(x => x.Id)))
+            {
                 major = true;
+            }
 
             // Type-references
             var references = string.IsNullOrWhiteSpace(TypeReferences)

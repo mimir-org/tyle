@@ -1,4 +1,4 @@
-import { NominalScale } from "./nominalScale";
+import { NominalScale } from "complib/core/variables/typography/types/nominalScale";
 
 export interface TypographyRoles {
   display: NominalScale,

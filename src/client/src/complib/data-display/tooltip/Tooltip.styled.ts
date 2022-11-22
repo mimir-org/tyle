@@ -1,7 +1,7 @@
+import { sizingMixin, translucify } from "complib/mixins";
+import { Sizing } from "complib/props";
 import { motion } from "framer-motion";
 import styled from "styled-components/macro";
-import { sizingMixin, translucify } from "../../mixins";
-import { Sizing } from "../../props";
 
 export type TooltipContentProps = Sizing;
 

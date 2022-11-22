@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Common;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
@@ -15,15 +14,21 @@ namespace TypeLibrary.Data.Repositories.External
     public class AttributeReferenceRepository : IAttributeReferenceRepository
     {
         private readonly ICacheRepository _cacheRepository;
+        private readonly IUnitRepository _unitRepository;
 
-        public AttributeReferenceRepository(ICacheRepository cacheRepository)
+        public AttributeReferenceRepository(ICacheRepository cacheRepository, IUnitRepository unitRepository)
         {
             _cacheRepository = cacheRepository;
+            _unitRepository = unitRepository;
         }
 
         #region Public 
 
-        public async Task<List<TypeReferenceDm>> Get()
+        /// <summary>
+        /// Get all attributes
+        /// </summary>
+        /// <returns>A collection of attributes</returns>
+        public async Task<List<AttributeLibDm>> Get()
         {
             var data = await _cacheRepository.GetOrCreateAsync("pca_attributes", async () => await FetchAttributesFromPca());
             return data;
@@ -31,25 +36,25 @@ namespace TypeLibrary.Data.Repositories.External
 
         #endregion Public
 
+        #region Private
 
-        #region Private methods
-
-        private Task<List<TypeReferenceDm>> FetchAttributesFromPca()
+        private Task<List<AttributeLibDm>> FetchAttributesFromPca()
         {
             var client = new SparQlWebClient
             {
-                EndPoint = SparQlWebClient.PcaEndPoint,
+                EndPoint = SparQlWebClient.PcaEndPointProduction,
                 Query = SparQlWebClient.PcaAttributeAllQuery
             };
 
-            var attributes = new List<TypeReferenceDm>();
-            var data = client.Get<PcaAttribute>().ToList();
+            var attributes = new List<AttributeLibDm>();
+            var pcaAttributes = client.Get<PcaAttribute>().ToList();
+            var pcaUnits = _unitRepository.Get().Result;
 
-            if (!data.Any())
+            if (!pcaAttributes.Any())
                 return Task.FromResult(attributes);
 
-            data = data.OrderBy(x => x.Quantity_Label, StringComparer.CurrentCultureIgnoreCase).ToList();
-            var groups = data.GroupBy(x => x.Quantity).Select(group => group.ToList()).ToList();
+            pcaAttributes = pcaAttributes.OrderBy(x => x.Quantity_Label, StringComparer.CurrentCultureIgnoreCase).ToList();
+            var groups = pcaAttributes.GroupBy(x => x.Quantity).Select(group => group.ToList()).ToList();
 
             foreach (var group in groups)
             {
@@ -58,30 +63,32 @@ namespace TypeLibrary.Data.Repositories.External
 
                 var firstElement = group.ElementAt(0);
 
-                var attributeReferenceDm = new TypeReferenceDm
+                var attributeDm = new AttributeLibDm
                 {
                     Name = firstElement?.Quantity_Label,
                     Iri = firstElement?.Quantity,
                     Source = "PCA",
-                    Subs = new List<TypeReferenceSub>()
+                    Units = new List<UnitLibDm>()
                 };
 
                 foreach (var pcaUnit in group)
                 {
-                    attributeReferenceDm.Subs.Add(new TypeReferenceSub
+                    attributeDm.Units.Add(new UnitLibDm
                     {
                         Name = pcaUnit.Uom_Label,
                         Iri = pcaUnit.Uom,
+                        Symbol = pcaUnits.FirstOrDefault(x => x.Iri == pcaUnit.Uom)?.Symbol,
+                        Source = "PCA",
                         IsDefault = !string.IsNullOrWhiteSpace(firstElement?.Default_Uom) && (pcaUnit.Uom == firstElement.Default_Uom)
                     });
                 }
 
-                attributes.Add(attributeReferenceDm);
+                attributes.Add(attributeDm);
             }
 
             return Task.FromResult(attributes);
         }
 
-        #endregion
+        #endregion Private
     }
 }

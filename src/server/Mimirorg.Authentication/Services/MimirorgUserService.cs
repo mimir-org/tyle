@@ -42,29 +42,6 @@ namespace Mimirorg.Authentication.Services
         }
 
         /// <summary>
-        /// Get user from id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>UserCm</returns>
-        /// <exception cref="MimirorgNotFoundException"></exception>
-        public async Task<MimirorgUserCm> GetUser(string id)
-        {
-            var user = await _userManager.FindByIdAsync(id);
-            if (user == null)
-                throw new MimirorgNotFoundException($"Couldn't find user with id {id}");
-
-            var userCm = user.ToContentModel();
-
-            var companies = (await _mimirorgCompanyService.GetAllCompanies()).ToList();
-            var permissions = (await _mimirorgAuthService.GetAllPermissions()).ToList();
-            var permissionDictionary = await ResolveCompanies(companies, permissions, user);
-            var roleDescriptions = await ResolveRoles(companies, permissions, user);
-            userCm.Permissions = permissionDictionary;
-            userCm.Roles = roleDescriptions;
-            return userCm;
-        }
-
-        /// <summary>
         /// Get user from principal
         /// </summary>
         /// <param name="principal"></param>
@@ -88,6 +65,53 @@ namespace Mimirorg.Authentication.Services
             userCm.Permissions = permissionDictionary;
             userCm.Roles = roleDescriptions;
             return userCm;
+        }
+
+        /// <summary>
+        /// Get user from id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>UserCm</returns>
+        /// <exception cref="MimirorgNotFoundException"></exception>
+        public async Task<MimirorgUserCm> GetUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+                throw new MimirorgNotFoundException($"Couldn't find user with id {id}");
+
+            var userCm = user.ToContentModel();
+
+            var companies = (await _mimirorgCompanyService.GetAllCompanies()).ToList();
+            var permissions = (await _mimirorgAuthService.GetAllPermissions()).ToList();
+            var permissionDictionary = await ResolveCompanies(companies, permissions, user);
+            var roleDescriptions = await ResolveRoles(companies, permissions, user);
+            userCm.Permissions = permissionDictionary;
+            userCm.Roles = roleDescriptions;
+            return userCm;
+        }
+
+        public IEnumerable<MimirorgUserCm> GetPendingUsers(int company)
+        {
+            var users = _userManager.Users.Where(x => x.CompanyId == company).ToList();
+            if (!users.Any())
+                yield break;
+
+            var companies = _mimirorgCompanyService.GetAllCompanies().Result;
+            var permissions = _mimirorgAuthService.GetAllPermissions().Result;
+
+            foreach (var user in users)
+            {
+                var claims = _userManager.GetClaimsAsync(user).Result;
+                if (claims.Any(x => x.Type == company.ToString()))
+                    continue;
+
+                var permissionDictionary = ResolveCompanies(companies, permissions, user).Result;
+                var roleDescriptions = ResolveRoles(companies, permissions, user).Result;
+                var userCm = user.ToContentModel();
+                userCm.Permissions = permissionDictionary;
+                userCm.Roles = roleDescriptions;
+                yield return userCm;
+            }
         }
 
         /// <summary>

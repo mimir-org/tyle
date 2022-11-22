@@ -1,11 +1,12 @@
+using System.Collections.Generic;
 using System.Linq;
-using Mimirorg.Setup;
-using Mimirorg.Setup.Fixtures;
+using Mimirorg.Test.Setup;
+using Mimirorg.Test.Setup.Fixtures;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Xunit;
 
-namespace Mimirorg.Unit.Tests.Models
+namespace Mimirorg.Test.Unit.Models
 {
     public class InterfaceLibDmTests : UnitTest<MimirorgCommonFixture>
     {
@@ -28,13 +29,11 @@ namespace Mimirorg.Unit.Tests.Models
         public void HasIllegalChanges_Valid_False_When_Remove_Data_From_Lists()
         {
             var dummy = _fixture.CreateInterfaceTestData();
-
-            // Reset changes
-            dummy.am.AttributeIdList.Remove("123");
+            dummy.am.Attributes = null;
 
             var status = dummy.dm.HasIllegalChanges(dummy.am);
             Assert.False(status.IsValid);
-            Assert.Single(status.Result);
+            Assert.True(status.Result.Count == 2);
         }
 
         [Fact]
@@ -59,7 +58,7 @@ namespace Mimirorg.Unit.Tests.Models
             var dummy = _fixture.CreateInterfaceTestData();
 
             // Reset changes
-            dummy.am.AttributeIdList.Remove("555");
+            //dummy.am.AttributeIdList.Remove("555");
 
             var status = dummy.dm.CalculateVersionStatus(dummy.am);
             Assert.Equal(VersionStatus.NoChange, status);
@@ -71,7 +70,7 @@ namespace Mimirorg.Unit.Tests.Models
             var dummy = _fixture.CreateInterfaceTestData();
 
             // Reset changes
-            dummy.am.AttributeIdList.Remove("555");
+            //dummy.am.AttributeIdList.Remove("555");
 
             // Trigger minor
             dummy.am.PurposeName = "x";
@@ -93,16 +92,38 @@ namespace Mimirorg.Unit.Tests.Models
         {
             var dummy = _fixture.CreateInterfaceTestData();
 
-            // Trigger minor
             dummy.am.PurposeName = "x";
             dummy.am.CompanyId = 10;
-            dummy.am.Description = "x";
             dummy.am.TypeReferences = dummy.am.TypeReferences.Where(x => x.Name != "XX").ToList();
             dummy.am.TypeReferences.Add(new TypeReferenceAm
             {
                 Iri = "http://xxx.com",
                 Name = "AA"
             });
+            var newAttribute = new AttributeLibAm
+            {
+                Name = "a11",
+                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a11",
+                Source = "PCA",
+                Units = new List<UnitLibAm>
+                {
+                    new()
+                    {
+                        Name = "u11",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u11",
+                        IsDefault = true
+                    },
+                    new()
+                    {
+                        Name = "u22",
+                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u22",
+                        IsDefault = false
+                    }
+                }
+            };
+
+            dummy.am.Description = "x";
+            dummy.am.Attributes.Add(newAttribute);
 
             var status = dummy.dm.CalculateVersionStatus(dummy.am);
             Assert.Equal(VersionStatus.Major, status);

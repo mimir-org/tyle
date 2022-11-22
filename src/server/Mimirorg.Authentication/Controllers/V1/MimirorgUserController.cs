@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
+using Mimirorg.Authentication.Models.Attributes;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
@@ -30,9 +32,9 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// Get current authenticated user
         /// </summary>
         /// <returns>User</returns>
-        //[Authorize]
         [HttpGet]
         [Route("")]
+        [ProducesResponseType(typeof(MimirorgUserCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -50,7 +52,33 @@ namespace Mimirorg.Authentication.Controllers.V1
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"An error occured while trying to get current user. Error: {e.Message}");
+                _logger.LogError(e, $"An error occurred while trying to get current user. Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
+        /// Get pending users
+        /// </summary>
+        /// <returns>Pending users</returns>
+        [MimirorgAuthorize(MimirorgPermission.Manage, "companyId")]
+        [HttpGet]
+        [Route("pending/{companyId}")]
+        [ProducesResponseType(typeof(ICollection<MimirorgUserCm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [SwaggerOperation("Get current authenticated user")]
+        public IActionResult GetPendingUsers([FromRoute] int companyId)
+        {
+            try
+            {
+                var users = _userService.GetPendingUsers(companyId).ToList();
+                return Ok(users);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to get pending users. Error: {e.Message}");
                 return StatusCode(500, "Internal Server Error");
             }
         }

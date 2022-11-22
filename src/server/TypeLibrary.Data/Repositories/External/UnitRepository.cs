@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Mimirorg.TypeLibrary.Extensions;
-using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Data.Common;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
@@ -13,12 +11,10 @@ namespace TypeLibrary.Data.Repositories.External
 {
     public class UnitRepository : IUnitRepository
     {
-        private readonly IApplicationSettingsRepository _settings;
         private readonly ICacheRepository _cacheRepository;
 
-        public UnitRepository(IApplicationSettingsRepository settings, ICacheRepository cacheRepository)
+        public UnitRepository(ICacheRepository cacheRepository)
         {
-            _settings = settings;
             _cacheRepository = cacheRepository;
         }
 
@@ -54,7 +50,7 @@ namespace TypeLibrary.Data.Repositories.External
         {
             var client = new SparQlWebClient
             {
-                EndPoint = SparQlWebClient.PcaEndPoint,
+                EndPoint = SparQlWebClient.PcaEndPointProduction,
                 Query = SparQlWebClient.PcaUnitAllQuery
             };
 
@@ -66,27 +62,12 @@ namespace TypeLibrary.Data.Repositories.External
 
             foreach (var pcaUnit in data)
             {
-                var id = $"{pcaUnit.Uom_Label}".CreateMd5();
-                var iri = $"{_settings.ApplicationSemanticUrl}/unit/{id}";
-
-                var typeReferences = new List<TypeReferenceAm>
-                {
-                    new()
-                    {
-                        Iri = pcaUnit.Uom,
-                        Name = pcaUnit.Uom_Label,
-                        Source = "PCA"
-                    }
-                };
-
                 var unit = new UnitLibDm
                 {
-                    Id = id,
-                    Iri = iri,
                     Name = pcaUnit.Uom_Label,
-                    Description = $"{pcaUnit.Default_Uom_Symbol}",
-                    TypeReferences = typeReferences.ConvertToString(),
-                    Symbol = pcaUnit.Default_Uom_Symbol
+                    Iri = pcaUnit.Uom,
+                    Symbol = pcaUnit.Default_Uom_Symbol,
+                    Source = "PCA"
                 };
 
                 units.Add(unit);

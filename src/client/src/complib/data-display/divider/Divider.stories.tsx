@@ -1,5 +1,5 @@
-import { Divider } from "./Divider";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Divider } from "complib/data-display/divider/Divider";
 
 export default {
   title: "Data display/Divider",

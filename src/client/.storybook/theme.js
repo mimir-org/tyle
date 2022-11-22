@@ -1,5 +1,5 @@
 import { create } from "@storybook/theming";
-import { TyleLogoDarkRedIcon } from "../src/assets/icons/logo";
+import { TyleLogoDarkRedIcon } from "../src/common/components/logo/assets";
 
 export default create({
   base: "light",

@@ -1,8 +1,8 @@
+import { Button } from "complib/buttons";
+import { TokenContainer } from "complib/general/token/Token.styled";
+import { Text } from "complib/text";
+import { Actionable } from "complib/types";
 import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode } from "react";
-import { Button } from "../../buttons";
-import { Text } from "../../text";
-import { Actionable } from "../../types";
-import { TokenContainer } from "./Token.styled";
 
 export type TokenBaseProps = Partial<Actionable> & {
   children?: ReactNode;

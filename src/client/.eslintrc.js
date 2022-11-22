@@ -50,5 +50,11 @@ module.exports = {
       pragma: "React",
       version: "detect",
     },
+    "import/resolver": {
+      node: {
+        paths: ["src"],
+        extensions: ["d.ts", ".ts", ".tsx", ".js", ".jsx"],
+      },
+    },
   },
 };

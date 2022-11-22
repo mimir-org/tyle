@@ -7,9 +7,9 @@ namespace TypeLibrary.Data.Contracts
     public interface IAttributeReferenceRepository
     {
         /// <summary>
-        /// Get all attribute references
+        /// Get all attributes
         /// </summary>
-        /// <returns>A collection of attribute references</returns>
-        Task<List<TypeReferenceDm>> Get();
+        /// <returns>A collection of attributes</returns>
+        Task<List<AttributeLibDm>> Get();
     }
 }

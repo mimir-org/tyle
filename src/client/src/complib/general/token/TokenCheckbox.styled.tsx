@@ -1,8 +1,8 @@
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
+import { TokenBaseProps } from "complib/general/token/Token";
+import { tokenBaseStyle } from "complib/general/token/Token.styled";
 import { motion } from "framer-motion";
 import styled from "styled-components/macro";
-import { TokenBaseProps } from "./Token";
-import { tokenBaseStyle } from "./Token.styled";
 
 export const TokenCheckboxContainer = styled(CheckboxPrimitive.Root)<TokenBaseProps>`
   ${tokenBaseStyle};

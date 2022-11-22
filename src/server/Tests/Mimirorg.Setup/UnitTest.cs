@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace Mimirorg.Setup
+namespace Mimirorg.Test.Setup
 {
     [Trait("Category", "Unit")]
     public abstract class UnitTest<TFixture> : IClassFixture<TFixture> where TFixture : class, new()

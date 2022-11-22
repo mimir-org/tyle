@@ -1,13 +1,19 @@
+import { focus, getTextRole, placeholder, sizingMixin } from "complib/mixins";
+import { Sizing } from "complib/props";
+import { TextareaHTMLAttributes } from "react";
 import styled from "styled-components/macro";
-import { focus, getTextRole, placeholder } from "../../mixins";
 
 /**
  * A simple wrapper over the textarea-tag, with styling that follows library conventions.
  */
-export const Textarea = styled.textarea`
+
+type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & Sizing;
+
+export const Textarea = styled.textarea<TextareaProps>`
   border: 1px solid ${(props) => props.theme.tyle.color.sys.outline.base};
   border-radius: ${(props) => props.theme.tyle.border.radius.medium};
   min-height: 150px;
+  width: 100%;
   padding: ${(props) => props.theme.tyle.spacing.base};
   color: ${(props) => props.theme.tyle.color.sys.surface.on};
 
@@ -17,4 +23,5 @@ export const Textarea = styled.textarea`
   ${getTextRole("body-large")};
   ${focus};
   ${placeholder};
+  ${sizingMixin};
 `;

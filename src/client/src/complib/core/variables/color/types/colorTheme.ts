@@ -1,10 +1,11 @@
-import { Accent } from "./accent";
+import { Accent } from "complib/core/variables/color/types/accent";
 
 export interface ColorTheme {
   primary: Accent,
   secondary: Accent,
   tertiary: Accent,
   error: Accent,
+  warning: Accent,
   outline: Pick<Accent, "base">,
   background: Pick<Accent, "base" | "on"> & {
     inverse: Pick<Accent, "base" | "on">

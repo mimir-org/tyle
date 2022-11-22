@@ -1,7 +1,7 @@
-import { ConditionalWrapper } from "./ConditionalWrapper";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Card } from "../../surfaces";
-import { Button } from "../../buttons";
+import { Button } from "complib/buttons";
+import { Card } from "complib/surfaces";
+import { ConditionalWrapper } from "./ConditionalWrapper";
 
 export default {
   title: "Utils/ConditionalWrapper",

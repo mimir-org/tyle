@@ -1,8 +1,8 @@
+import { InputContainer, InputIconContainer } from "complib/inputs/input/Input.styled";
+import { Box } from "complib/layouts";
+import { Icon } from "complib/media";
+import { Sizing } from "complib/props";
 import { ForwardedRef, forwardRef, InputHTMLAttributes, isValidElement, ReactElement } from "react";
-import { Box } from "../../layouts";
-import { Icon } from "../../media";
-import { Sizing } from "../../props";
-import { InputContainer, InputIconContainer } from "./Input.styled";
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement> &
   Omit<Sizing, "boxSizing"> & {

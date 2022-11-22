@@ -1,5 +1,5 @@
+import { Flex } from "complib/props";
 import { css } from "styled-components/macro";
-import { Flex } from "../../props";
 
 export const flexMixin = css<Flex>`
   flex: ${(props) => props.flex};

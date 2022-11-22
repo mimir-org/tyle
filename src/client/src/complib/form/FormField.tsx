@@ -1,13 +1,15 @@
 import { ExclamationCircle } from "@styled-icons/heroicons-outline";
+import { FormFieldLabelText } from "complib/form/FormField.styled";
+import { Flexbox, MotionFlexbox } from "complib/layouts";
+import { Text } from "complib/text";
+import { ConditionalWrapper } from "complib/utils";
 import { PropsWithChildren } from "react";
 import { useTheme } from "styled-components";
-import { Box, Flexbox, MotionFlexbox } from "../layouts";
-import { Text } from "../text";
-import { ConditionalWrapper } from "../utils";
 
 interface FormFieldProps {
   label?: string;
   error?: { message?: string };
+  indent?: boolean;
 }
 
 /**
@@ -15,30 +17,27 @@ interface FormFieldProps {
  *
  * @param label describing the input
  * @param error message for the given input
+ * @param indent if the label should be indented
  * @param children
  * @constructor
  */
-export const FormField = ({ label, error, children }: PropsWithChildren<FormFieldProps>) => {
+export const FormField = ({ label, error, indent = true, children }: PropsWithChildren<FormFieldProps>) => {
   const theme = useTheme();
   const hasLabel = !!label?.length;
 
   return (
     <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.s}>
-      <MotionFlexbox layout as={hasLabel ? "label" : "div"} flexDirection={"column"} gap={theme.tyle.spacing.xs}>
+      <MotionFlexbox
+        layout={"preserve-aspect"}
+        as={hasLabel ? "label" : "div"}
+        flexDirection={"column"}
+        gap={theme.tyle.spacing.xs}
+      >
         <ConditionalWrapper
           condition={hasLabel}
           wrapper={(c) => (
             <>
-              <Box borderLeft={"1px solid transparent"}>
-                <Text
-                  as={"span"}
-                  variant={"label-large"}
-                  color={theme.tyle.color.sys.surface.variant.on}
-                  pl={theme.tyle.spacing.l}
-                >
-                  {label}
-                </Text>
-              </Box>
+              <FormFieldLabelText indent={indent}>{label}</FormFieldLabelText>
               {c}
             </>
           )}

@@ -1,8 +1,8 @@
 import { CheckCircle, XCircle } from "@styled-icons/heroicons-outline";
+import { TyleTheme } from "complib/core";
+import { translucify } from "complib/mixins";
 import { CSSProperties } from "react";
 import { DefaultToastOptions } from "react-hot-toast";
-import { TyleTheme } from "../../core";
-import { translucify } from "../../mixins";
 
 export const getCustomToasterStyles = (theme: TyleTheme): DefaultToastOptions => ({
   style: {
@@ -17,10 +17,10 @@ export const getCustomToasterStyles = (theme: TyleTheme): DefaultToastOptions =>
     lineHeight: theme.typography.sys.roles.label.large.lineHeight,
   },
   success: {
-    icon: <CheckCircle size={24} />,
+    icon: <CheckCircle size={24} style={{ flexShrink: 0 }} />,
   },
   error: {
-    icon: <XCircle size={24} />,
+    icon: <XCircle size={24} style={{ flexShrink: 0 }} />,
     style: {
       background: theme.color.sys.error.base,
       color: theme.color.sys.error.on,

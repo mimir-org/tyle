@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using Mimirorg.TypeLibrary.Extensions;
 using TypeScriptBuilder;
 
 namespace Mimirorg.TypeLibrary.Models.Application
@@ -8,11 +7,18 @@ namespace Mimirorg.TypeLibrary.Models.Application
     {
         [Required]
         public string Name { get; set; }
-        public ICollection<TypeReferenceAm> TypeReferences { get; set; }
-        public string Description { get; set; }
+        [Required]
+        public string Iri { get; set; }
+
         public string Symbol { get; set; }
 
         [TSExclude]
-        public string Id => $"{Name}".CreateMd5();
+        public string Source { get; set; }
+
+        [TSExclude]
+        public bool IsDefault { get; set; }
+
+        [TSExclude]
+        public string Id => Iri?[(Iri.LastIndexOf('/') + 1)..];
     }
 }

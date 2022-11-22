@@ -1,1 +1,1 @@
-export { ConditionalWrapper } from "./conditional/ConditionalWrapper";
+export { ConditionalWrapper } from "complib/utils/conditional/ConditionalWrapper";

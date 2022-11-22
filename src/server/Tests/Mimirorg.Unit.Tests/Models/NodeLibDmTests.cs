@@ -1,12 +1,12 @@
 using System.Linq;
-using Mimirorg.Setup;
-using Mimirorg.Setup.Fixtures;
+using Mimirorg.Test.Setup;
+using Mimirorg.Test.Setup.Fixtures;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Xunit;
 
-namespace Mimirorg.Unit.Tests.Models
+namespace Mimirorg.Test.Unit.Models
 {
     public class NodeLibDmTests : UnitTest<MimirorgCommonFixture>
     {
@@ -31,13 +31,12 @@ namespace Mimirorg.Unit.Tests.Models
             var dummy = _fixture.CreateNodeTestData();
 
             // Reset changes
-            dummy.am.AttributeIdList.Remove("123");
             dummy.am.NodeTerminals = dummy.am.NodeTerminals.Where(x => x.Id != $"123-{ConnectorDirection.Input}".CreateMd5()).ToList();
             dummy.am.SelectedAttributePredefined = dummy.am.SelectedAttributePredefined.Where(x => x.Key != "123").ToList();
 
             var status = dummy.dm.HasIllegalChanges(dummy.am);
             Assert.False(status.IsValid);
-            Assert.Equal(3, status.Result.Count);
+            Assert.Equal(2, status.Result.Count);
         }
 
         [Fact]
@@ -62,7 +61,7 @@ namespace Mimirorg.Unit.Tests.Models
             var dummy = _fixture.CreateNodeTestData();
 
             // Reset changes
-            dummy.am.AttributeIdList.Remove("555");
+            //dummy.am.AttributeIdList.Remove("555");
             dummy.am.NodeTerminals = dummy.am.NodeTerminals.Where(x => x.Id != $"555-{ConnectorDirection.Input}".CreateMd5()).ToList();
             dummy.am.SelectedAttributePredefined = dummy.am.SelectedAttributePredefined.Where(x => x.Key != "555").ToList();
 
@@ -76,7 +75,7 @@ namespace Mimirorg.Unit.Tests.Models
             var dummy = _fixture.CreateNodeTestData();
 
             // Reset changes
-            dummy.am.AttributeIdList.Remove("555");
+            //dummy.am.AttributeIdList.Remove("555");
             dummy.am.NodeTerminals = dummy.am.NodeTerminals.Where(x => x.Id != $"555-{ConnectorDirection.Input}".CreateMd5()).ToList();
             dummy.am.SelectedAttributePredefined = dummy.am.SelectedAttributePredefined.Where(x => x.Key != "555").ToList();
 

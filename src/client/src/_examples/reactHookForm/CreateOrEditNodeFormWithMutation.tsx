@@ -1,11 +1,11 @@
-import { useForm } from "react-hook-form";
+import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
+import { useCreateNode } from "external/sources/node/node.queries";
 import {
   createEmptyFormNodeLib,
   FormNodeLib,
   mapFormNodeLibToApiModel,
-} from "../../content/forms/node/types/formNodeLib";
-import { useCreateNode } from "../../data/queries/tyle/queriesNode";
-import { useServerValidation } from "../../hooks/useServerValidation";
+} from "features/entities/node/types/formNodeLib";
+import { useForm } from "react-hook-form";
 
 interface Props {
   defaultValues?: FormNodeLib;

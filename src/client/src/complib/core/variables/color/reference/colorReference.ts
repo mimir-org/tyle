@@ -1,4 +1,4 @@
-import { ColorReference } from "../types/colorReference";
+import { ColorReference } from "complib/core/variables/color/types/colorReference";
 
 export const colorReference: ColorReference = {
   primary: {
@@ -14,7 +14,7 @@ export const colorReference: ColorReference = {
     90: "#d8b8ce",
     95: "#efe2eb",
     99: "#f6eff5",
-    100: "#ffffff",
+    100: "#ffffff"
   },
   secondary: {
     0: "#000000",
@@ -29,7 +29,7 @@ export const colorReference: ColorReference = {
     90: "#e0f9cd",
     95: "#f3fdeb",
     99: "#f3ffec",
-    100: "#ffffff",
+    100: "#ffffff"
   },
   tertiary: {
     0: "#000000",
@@ -44,7 +44,7 @@ export const colorReference: ColorReference = {
     90: "#d7e2ff",
     95: "#ecf0ff",
     99: "#fdfbff",
-    100: "#ffffff",
+    100: "#ffffff"
   },
   error: {
     0: "#000000",
@@ -59,7 +59,22 @@ export const colorReference: ColorReference = {
     90: "#ffdad4",
     95: "#ffede9",
     99: "#fcfcfc",
-    100: "#ffffff",
+    100: "#ffffff"
+  },
+  warning: {
+    0: "#000000",
+    10: "#221B00",
+    20: "#3B2F00",
+    30: "#554500",
+    40: "#715D00",
+    50: "#8D7500",
+    60: "#AB8E12",
+    70: "#C7A930",
+    80: "#E4C44A",
+    90: "#FFE175",
+    95: "#FFF3D4",
+    99: "#FFFBFF",
+    100: "#ffffff"
   },
   neutral: {
     0: "#000000",
@@ -74,7 +89,7 @@ export const colorReference: ColorReference = {
     90: "#eeeefa",
     95: "#f7f6ff",
     99: "#fdfbff",
-    100: "#ffffff",
+    100: "#ffffff"
   },
   neutralVariant: {
     0: "#000000",
@@ -89,7 +104,7 @@ export const colorReference: ColorReference = {
     90: "#f7f7f7",
     95: "#fcfcfc",
     99: "#fefefe",
-    100: "#ffffff",
+    100: "#ffffff"
 
-  },
-}
+  }
+};

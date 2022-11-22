@@ -1,8 +1,8 @@
+import { getCustomToastBarStyles, getCustomToasterStyles } from "complib/data-display/toast/Toaster.helpers";
+import { MotionToastBarWrapper } from "complib/data-display/toast/Toaster.styled";
 import { AnimatePresence } from "framer-motion";
 import * as ReactHotToast from "react-hot-toast";
 import { useTheme } from "styled-components";
-import { getCustomToastBarStyles, getCustomToasterStyles } from "./Toaster.helpers";
-import { MotionToastBarWrapper } from "./Toaster.styled";
 
 /**
  * Wrapper around react-hot-toast's provider.

@@ -67,13 +67,13 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public int CompanyId { get; set; }
 
         /// <summary>
-        /// A list of connected attributes
+        /// A list of attributes
         /// </summary>
         /// <remarks>
         /// It is not allowed to remove attributes
         /// Adding attributes generates a major increase
         /// </remarks>
-        public ICollection<string> AttributeIdList { get; set; }
+        public ICollection<AttributeLibAm> Attributes { get; set; }
 
         /// <summary>
         /// A list of connected terminals

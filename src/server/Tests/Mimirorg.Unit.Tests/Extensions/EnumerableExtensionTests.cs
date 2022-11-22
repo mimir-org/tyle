@@ -3,11 +3,11 @@ using System.Linq;
 using Mimirorg.Common.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Extensions;
-using Mimirorg.Setup;
-using Mimirorg.Setup.Fixtures;
+using Mimirorg.Test.Setup;
+using Mimirorg.Test.Setup.Fixtures;
 using Xunit;
 
-namespace Mimirorg.Unit.Tests.Extensions
+namespace Mimirorg.Test.Unit.Extensions
 {
     public class EnumerableExtensionTests : UnitTest<MimirorgCommonFixture>
     {

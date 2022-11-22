@@ -1,5 +1,5 @@
+import { Grid } from "complib/props";
 import { css } from "styled-components/macro";
-import { Grid } from "../../props";
 
 export const gridMixin = css<Grid>`
   gap: ${(props) => props.gap};

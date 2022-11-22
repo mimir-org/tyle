@@ -1,1 +1,1 @@
-export type { Actionable } from "./Actionable";
+export type { Actionable } from "complib/types/Actionable";

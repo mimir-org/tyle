@@ -1,0 +1,592 @@
+{
+  "global": {
+    "loading": "Loading application"
+  },
+  "header": {
+    "home": "Link to startpage"
+  },
+  "user": {
+    "menu": {
+      "darkMode": "Enable dark mode",
+      "lightMode": "Enable light mode",
+      "logout": {
+        "title": "Logout",
+        "error": "Sorry! An error occurred during logout. Please contact support if the problem persists."
+      },
+      "contact": {
+        "title": "Contact",
+        "description": "Need any help? View your manager's contact information by selecting an organization below.",
+        "select": "Select organization",
+        "notFound": "Sorry! No manager found."
+      },
+      "settings": {
+        "title": "Settings"
+      }
+    }
+  },
+  "search": {
+    "title": "Search",
+    "placeholders": {
+      "search": "Search for types"
+    },
+    "templates": {
+      "hits": "Showing {{shown}} of {{total}} results found"
+    },
+    "item": {
+      "clone": "Clone",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteDescription": "When you delete this item it cannot be recovered.",
+      "templates": {
+        "delete": "Do you want to delete “{{object}}”?"
+      }
+    },
+    "help": {
+      "subtitle": "Search help",
+      "tip1": "Check your search for typos",
+      "tip2": "Use more generic search terms",
+      "tip3": "The type you are searching for might not have been added yet",
+      "templates": {
+        "query": "We are sorry, there are no results for “{{query}}”"
+      }
+    },
+    "filter": {
+      "title": "Filter",
+      "templates": {
+        "remove": "Remove {{object}} filter"
+      }
+    }
+  },
+  "about": {
+    "title": "About",
+    "placeholders": {
+      "item": "Select an item to view its properties"
+    }
+  },
+  "node": {
+    "title": "Aspect object",
+    "name": "Name",
+    "purpose": "Purpose",
+    "aspect": "Aspect",
+    "symbol": "Symbol",
+    "rds": "RDS",
+    "owner": "Owner",
+    "description": "Description",
+    "placeholders": {
+      "name": "Aspect object name",
+      "description": "Additional information about this aspect object can be supplied here."
+    },
+    "disabled": {
+      "aspect": "It is not possible to change the aspect of the current type. We recommend that you select a different type with the desired aspect."
+    },
+    "processing": {
+      "loading": "Submitting node",
+      "success": "Your node has been submitted",
+      "error": "An error occurred during node submission"
+    },
+    "validation": {
+      "name": {
+        "required": "Please enter a name",
+        "max": "The name can be at most 60 characters"
+      },
+      "rdsName": {
+        "required": "Please select a RDS"
+      },
+      "rdsCode": {
+        "required": "Please specify a RDS code"
+      },
+      "purposeName": {
+        "required": "Please select a purpose"
+      },
+      "aspect": {
+        "required": "Please select an aspect"
+      },
+      "companyId": {
+        "min": "Please select an owner"
+      },
+      "description": {
+        "max": "The description can be at most 500 characters"
+      },
+      "nodeTerminals": {
+        "array": {
+          "unique": "Two or more terminals cannot share the same name and direction"
+        },
+        "terminalId": {
+          "required": "Please specify a terminal"
+        },
+        "direction": {
+          "required": "Please specify a direction"
+        },
+        "maxQuantity": {
+          "min": "Please specify a non-negative amount"
+        },
+        "minQuantity": {
+          "min": "Please specify a non-negative amount"
+        }
+      },
+      "typeReferences": {
+        "name": {
+          "required": "Please specify a reference"
+        }
+      }
+    }
+  },
+  "terminal": {
+    "title": "Terminal",
+    "name": "Name",
+    "color": "Color",
+    "owner": "Owner",
+    "description": "Description",
+    "placeholders": {
+      "name": "Terminal name",
+      "color": "Select color",
+      "description": "Additional information about this terminal can be supplied here."
+    },
+    "processing": {
+      "loading": "Submitting terminal",
+      "success": "Your terminal has been submitted",
+      "error": "An error occurred during terminal submission"
+    },
+    "validation": {
+      "name": {
+        "required": "Please enter a name",
+        "max": "The name can be at most 30 characters"
+      },
+      "color": {
+        "required": "Please select a color"
+      },
+      "companyId": {
+        "min": "Please select an owner"
+      },
+      "description": {
+        "max": "The description can be at most 500 characters"
+      },
+      "typeReferences": {
+        "name": {
+          "required": "Please specify a reference"
+        }
+      }
+    }
+  },
+  "transport": {
+    "title": "Transport",
+    "name": "Name",
+    "terminal": "Associated terminal",
+    "purpose": "Purpose",
+    "aspect": "Aspect",
+    "rds": "RDS",
+    "owner": "Owner",
+    "description": "Description",
+    "placeholders": {
+      "name": "Transport name",
+      "description": "Additional information about this transport can be supplied here."
+    },
+    "disabled": {
+      "aspect": "It is not possible to change the aspect of the current type. We recommend that you select a different type with the desired aspect."
+    },
+    "processing": {
+      "loading": "Submitting transport",
+      "success": "Your transport has been submitted",
+      "error": "An error occurred during transport submission"
+    },
+    "validation": {
+      "name": {
+        "required": "Please enter a name",
+        "max": "The name can be at most 60 characters"
+      },
+      "rdsName": {
+        "required": "Please select a RDS"
+      },
+      "rdsCode": {
+        "required": "Please specify a RDS code"
+      },
+      "purposeName": {
+        "required": "Please select a purpose"
+      },
+      "aspect": {
+        "required": "Please select an aspect"
+      },
+      "companyId": {
+        "min": "Please select an owner"
+      },
+      "description": {
+        "max": "The description can be at most 500 characters"
+      },
+      "terminalId": {
+        "required": "Please select a terminal"
+      },
+      "typeReferences": {
+        "name": {
+          "required": "Please specify a reference"
+        }
+      }
+    }
+  },
+  "interface": {
+    "title": "Interface",
+    "name": "Name",
+    "terminal": "Associated terminal",
+    "purpose": "Purpose",
+    "aspect": "Aspect",
+    "rds": "RDS",
+    "owner": "Owner",
+    "description": "Description",
+    "placeholders": {
+      "name": "Interface name",
+      "description": "Additional information about this transport can be supplied here."
+    },
+    "disabled": {
+      "aspect": "It is not possible to change the aspect of the current type. We recommend that you select a different type with the desired aspect."
+    },
+    "processing": {
+      "loading": "Submitting interface",
+      "success": "Your interface has been submitted",
+      "error": "An error occurred during interface submission"
+    },
+    "validation": {
+      "name": {
+        "required": "Please enter a name",
+        "max": "The name can be at most 60 characters"
+      },
+      "rdsName": {
+        "required": "Please select a RDS"
+      },
+      "rdsCode": {
+        "required": "Please specify a RDS code"
+      },
+      "purposeName": {
+        "required": "Please select a purpose"
+      },
+      "aspect": {
+        "required": "Please select an aspect"
+      },
+      "companyId": {
+        "min": "Please select an owner"
+      },
+      "description": {
+        "max": "The description can be at most 500 characters"
+      },
+      "terminalId": {
+        "required": "Please select a terminal"
+      },
+      "typeReferences": {
+        "name": {
+          "required": "Please specify a reference"
+        }
+      }
+    }
+  },
+  "validation": {
+    "typeReferences": {
+      "name": {
+        "required": "Please specify a reference"
+      }
+    }
+  },
+  "processing": {
+    "loading": "Submitting {{type}}",
+    "success": "Your {{type}} has been submitted",
+    "error": "An error occurred during {{type}} submission"
+  },
+  "terminals": {
+    "title": "Terminals",
+    "name": "Name",
+    "limit": "Limit",
+    "amount": "Max amount",
+    "infinite": "Infinite",
+    "direction": "Direction",
+    "attributes": "Attributes",
+    "add": "Add terminal",
+    "remove": "Remove terminal",
+    "summary": {
+      "title": "Summary",
+      "open": "Open terminal summary",
+      "total": "Total terminals:"
+    },
+    "templates": {
+      "terminal": "Terminal {{object}}"
+    }
+  },
+  "attributes": {
+    "title": "Attributes",
+    "open": "Open attribute(s) selection dialog",
+    "remove": "Remove attribute",
+    "dialog": {
+      "title": "Select attributes(s)",
+      "description": "The attributes that are listed below can be reused across multiple entities.",
+      "search": "Search",
+      "add": "Add"
+    }
+  },
+  "units": {
+    "title": "Units",
+    "open": "Open unit(s) selection dialog",
+    "remove": "Remove unit",
+    "dialog": {
+      "title": "Select unit(s)",
+      "description": "The units listed below are predefined and can be reused across multiple attributes.",
+      "search": "Search",
+      "add": "Add"
+    }
+  },
+  "references": {
+    "title": "References",
+    "add": "Add reference",
+    "remove": "Remove reference",
+    "reference": "Reference"
+  },
+  "predefinedAttributes": {
+    "title": "Predefined attributes",
+    "placeholders": {
+      "attribute": "Select value(s)"
+    }
+  },
+  "values": {
+    "title": "Values",
+    "add": "Add value",
+    "remove": "Remove value",
+    "value": "Value",
+    "placeholders": {
+      "value": "Enter selectable value"
+    }
+  },
+  "datum": {
+    "title": "Datum"
+  },
+  "register": {
+    "details": {
+      "title": "Register",
+      "description": "Create an account to collaborate with your organization!",
+      "submit": "Create account",
+      "altLead": "Have an account?",
+      "altLink": "Log in",
+      "error": "We were not able to create your user at this moment. Please try again in about a minute. If the problem persists, ",
+      "info": {
+        "text": "Your next step will be to verify your e-mail and activate 2-factor authentication. Without these, you cannot access :Tyle. If this process is interrupted or you do not complete registration within 1 hour, you will have to start the registration process over again."
+      },
+      "validation": {
+        "email": {
+          "email": "Please ensure that the e-mail is formatted correctly",
+          "required": "Please specify an e-mail"
+        },
+        "password": {
+          "min": "The password must be at least 10 characters long",
+          "required": "Please enter a password"
+        },
+        "confirmPassword": {
+          "match": "The password does not match the one previously entered",
+          "required": "Please re-enter the password you have chosen"
+        },
+        "firstName": {
+          "required": "Please enter your first name"
+        },
+        "lastName": {
+          "required": "Please enter your last name"
+        },
+        "purpose": {
+          "required": "Please explain your purpose for creating this account"
+        },
+        "companyId": {
+          "min": "Please select an organization",
+          "required": "Please select an organization"
+        }
+      }
+    },
+    "verify": {
+      "title": "Verify e-mail",
+      "error": "We were not able verify your ownership of this email. Verify that that you have entered the correct code and please try again in about a minute. If the issue persist, ",
+      "info": {
+        "text": "We have sent a six-digit code to your e-mail. Please enter the code within 1 hour, or the code will expire and you will have to restart the registration. Make sure to check your spam/junk folder for the e-mail."
+      }
+    },
+    "mfa": {
+      "title": "Register authenticator",
+      "code": {
+        "title": "Scan the QR code"
+      },
+      "manual": {
+        "title": "Can't scan image?",
+        "description": "Copy this code into your authenticator app of choice"
+      },
+      "info": {
+        "text": "In order to use :Tyle, you must activate 2-factor authentication using an authenticator app. This is to ensure the quality fo the data created and stored in :Tyle."
+      }
+    },
+    "complete": {
+      "title": "Register",
+      "info": {
+        "text": "Account creation complete. Please return to the main page and log in."
+      }
+    },
+    "processing": "Processing"
+  },
+  "recover": {
+    "details": {
+      "title": "Account recovery",
+      "submit": "Continue",
+      "error": "We were not able to start the recovery process. Please try again in about a minute. If the issue persists, ",
+      "info": {
+        "text": "Your next step will be to verify your e-mail and activate 2-factor authentication. Without these, you cannot access :Tyle. If this process is interrupted or you do not complete registration within 1 hour, you will have to start the recovery process over again."
+      },
+      "validation": {
+        "email": {
+          "email": "Please ensure that the email is formatted correctly",
+          "required": "Please specify an email"
+        }
+      }
+    },
+    "verify": {
+      "title": "Verify e-mail",
+      "error": "We were not able verify your ownership of this email. Verify that that you have entered the correct code and please try again in about a minute. If the issue persist, ",
+      "info": {
+        "text": "We have sent a six-digit code to your email. Please enter the code within 1 hour, or the code will expire and you will have to restart the recovery process. Make sure to check your spam/junk folder for the email."
+      }
+    },
+    "password": {
+      "title": "Choose a new password",
+      "error": "We were not able to change your password at this time. Please try again in about a minute. If the issue persist, ",
+      "info": {
+        "text": "Enter the desired password for this account."
+      },
+      "validation": {
+        "password": {
+          "min": "The password must be at least 10 characters long",
+          "required": "Please enter a password"
+        },
+        "confirmPassword": {
+          "match": "The password does not match the one previously entered",
+          "required": "Please re-enter the password you have chosen"
+        }
+      }
+    },
+    "mfa": {
+      "title": "Register authenticator",
+      "code": {
+        "title": "Scan the QR code"
+      },
+      "manual": {
+        "title": "Can't scan image?",
+        "description": "Copy this code into your authenticator app of choice"
+      },
+      "info": {
+        "text": "In order to use :Tyle, you must activate 2-factor authentication using an authenticator app. This is to ensure the quality fo the data created and stored in :Tyle."
+      }
+    },
+    "complete": {
+      "title": "Account recovery",
+      "info": {
+        "text": "Account recovery complete. Please return to the main page and log in."
+      }
+    },
+    "processing": "Processing"
+  },
+  "login": {
+    "title": "Login",
+    "description": "View, create and edit types!",
+    "submit": "Login",
+    "altLead": "Don't have an account?",
+    "altLink": "Sign up",
+    "error": "Incorrect username, password or authentication code.",
+    "info": {
+      "text": "If you have forgotten your password, follow the instruction below for account recovery. You will need to re-verify your e-mail and authenticator. You will not lose the data you have created in :Tyle",
+      "action": "Account recovery"
+    },
+    "validation": {
+      "email": {
+        "email": "Please ensure that the e-mail is formatted correctly",
+        "required": "Please specify an e-mail"
+      },
+      "password": {
+        "required": "Please enter a password"
+      },
+      "code": {
+        "matches": "Please ensure that there are only digits in your code",
+        "required": "Please specify an authentication code"
+      }
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "access": {
+      "title": "Access",
+      "users": "New users",
+      "organization": "Organization",
+      "email": "E-mail",
+      "purpose": "Purpose",
+      "permission": "Permission",
+      "submit": "Approve",
+      "placeholders": {
+        "users": "No new users have requested access"
+      },
+      "processing": {
+        "loading": "Granting \"{{permission}}\" permission to {{name}}",
+        "success": "Permission \"{{permission}}\" has been granted to {{name}}",
+        "error": "An error occurred while granting \"{{permission}}\" permission to {{name}}"
+      },
+      "undo": {
+        "action": "Undo",
+        "loading": "Removing \"{{permission}}\" permission from {{name}}",
+        "success": "Permission \"{{permission}}\" was removed from {{name}}",
+        "error": "An error occurred while removing \"{{permission}}\" permission from {{name}}"
+      },
+      "validation": {
+        "userId": {
+          "required": "A user must be specified"
+        },
+        "companyId": {
+          "required": "A company must be specified"
+        },
+        "permission": {
+          "required": "Please select a permission"
+        }
+      }
+    }
+  },
+  "clientError": {
+    "title": "Oops!",
+    "subtitle": "An error occurred when loading the page. Please contact support if the problem persists.",
+    "status": "Error: Client",
+    "link": "Go back home"
+  },
+  "notFound": {
+    "title": "Oops!",
+    "subtitle": "We can't seem to find the page you're looking for.",
+    "status": "Error code: 404",
+    "link": "Go back home"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "confirm": "Confirm",
+    "select": "Select",
+    "back": "Back",
+    "next": "Next",
+    "return": "Return",
+    "support": {
+      "email": "orgmimir@gmail.com",
+      "text": "contact support."
+    },
+    "templates": {
+      "select": "Select {{object}}"
+    },
+    "placeholders": {
+      "email": "you@organization.com",
+      "password": "**********",
+      "code": "123456",
+      "firstname": "Jane",
+      "lastname": "Smith",
+      "required": "* Indicates a required field.",
+      "purpose": "Please explain why should have access to the application.",
+      "company": "Please select organization"
+    },
+    "fields": {
+      "email": "E-mail",
+      "password": "Password",
+      "code": "Authentication code",
+      "firstname": "First name",
+      "lastname": "Last name",
+      "purpose": "Purpose",
+      "company": "Organizational affiliation"
+    }
+  }
+}

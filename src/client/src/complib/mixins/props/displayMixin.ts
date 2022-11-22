@@ -1,5 +1,5 @@
+import { Display } from "complib/props";
 import { css } from "styled-components/macro";
-import { Display } from "../../props";
 
 export const displayMixin = css<Display>`
   display: ${(props) => props.display};

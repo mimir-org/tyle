@@ -1,8 +1,8 @@
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
+import { CheckboxCheckedIcon } from "complib/inputs/checkbox/assets";
+import { focus } from "complib/mixins";
 import { motion } from "framer-motion";
 import styled from "styled-components/macro";
-import { CheckboxCheckedIcon } from "../../../assets/icons/checkmark";
-import { focus } from "../../mixins";
 
 export const CheckboxRoot = styled(CheckboxPrimitive.Root)`
   all: unset;
@@ -14,6 +14,7 @@ export const CheckboxRoot = styled(CheckboxPrimitive.Root)`
 
   :disabled {
     color: ${(props) => props.theme.tyle.color.sys.surface.variant.on};
+    cursor: not-allowed;
   }
 
   :not(:disabled) {

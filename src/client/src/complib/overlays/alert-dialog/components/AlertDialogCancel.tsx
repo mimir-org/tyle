@@ -1,5 +1,5 @@
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
-import { Button } from "../../../buttons";
+import { Button } from "complib/buttons";
 
 export const AlertDialogCancel = ({ cancelText }: { cancelText?: string }) => (
   <AlertDialogPrimitive.Cancel asChild>

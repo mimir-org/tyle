@@ -1,9 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Button } from "../../buttons";
-import { Accordion } from "./Accordion";
-import { AccordionContent } from "./components/AccordionContent";
-import { AccordionItem } from "./components/AccordionItem";
-import { AccordionTrigger } from "./components/AccordionTrigger";
+import { Button } from "complib/buttons";
+import { Accordion } from "complib/surfaces/accordion/Accordion";
+import { AccordionContent } from "complib/surfaces/accordion/components/AccordionContent";
+import { AccordionItem } from "complib/surfaces/accordion/components/AccordionItem";
+import { AccordionTrigger } from "complib/surfaces/accordion/components/AccordionTrigger";
 
 export default {
   title: "Surfaces/Accordion",

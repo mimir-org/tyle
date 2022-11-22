@@ -12,14 +12,12 @@ namespace TypeLibrary.Core.Profiles
             CreateMap<TypeReferenceDm, TypeReferenceCm>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
-                .ForMember(dest => dest.Source, opt => opt.MapFrom(src => src.Source))
-                .ForMember(dest => dest.Subs, opt => opt.MapFrom(src => src.Subs));
+                .ForMember(dest => dest.Source, opt => opt.MapFrom(src => src.Source));
 
             CreateMap<TypeReferenceAm, TypeReferenceDm>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
-                .ForMember(dest => dest.Source, opt => opt.MapFrom(src => src.Source))
-                .ForMember(dest => dest.Subs, opt => opt.MapFrom(src => src.Subs));
+                .ForMember(dest => dest.Source, opt => opt.MapFrom(src => src.Source));
         }
     }
 }

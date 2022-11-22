@@ -10,7 +10,8 @@ namespace TypeLibrary.Data.Common
     {
         #region Constants
 
-        public const string PcaEndPoint = @"https://rds.posccaesar.org/ontology/fuseki/ontology/sparql";
+        public const string PcaEndPointProduction = @"https://rds.posccaesar.org/ontology/fuseki/ontology/sparql";
+        public const string PcaEndPointStaging = @"https://staging-imf.posccaesar.org/dataset/sparql";
 
         public const string PcaUnitAllQuery = @"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -38,6 +39,18 @@ namespace TypeLibrary.Data.Common
                 ?uom rdfs:label ?uom_label ; a [ a owl:Restriction ; owl:allValuesFrom ?datum_type ; owl:onProperty [ owl:inverseOf  lis:datumUOM ] ] .
             }
             order by ?quantity_label";
+
+        //TODO
+        public const string PcaPurposeAllQuery = @"prefix rdl: <http://rds.posccaesar.org/ontology/plm/rdl/>
+            prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            prefix skos: <http://www.w3.org/2004/02/skos/core#>
+            SELECT DISTINCT ?imf_purpose ?label ?comment
+            WHERE
+            {
+              rdl:PCA_100006805 skos:member ?imf_purpose .
+              OPTIONAL { ?imf_purpose rdfs:label ?label }
+              OPTIONAL { ?imf_purpose rdfs:comment ?comment }
+            }";
 
         public const string QuantityDatumRangeSpecifying = @"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
             PREFIX owl: <http://www.w3.org/2002/07/owl#>

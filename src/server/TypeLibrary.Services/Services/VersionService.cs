@@ -16,15 +16,13 @@ namespace TypeLibrary.Services.Services
         private readonly ITransportRepository _transportRepository;
         private readonly IInterfaceRepository _interfaceRepository;
         private readonly ITerminalRepository _terminalRepository;
-        private readonly IAttributeRepository _attributeRepository;
 
-        public VersionService(INodeRepository nodeRepository, ITransportRepository transportRepository, IInterfaceRepository interfaceRepository, ITerminalRepository terminalRepository, IAttributeRepository attributeRepository)
+        public VersionService(INodeRepository nodeRepository, ITransportRepository transportRepository, IInterfaceRepository interfaceRepository, ITerminalRepository terminalRepository)
         {
             _nodeRepository = nodeRepository;
             _transportRepository = transportRepository;
             _interfaceRepository = interfaceRepository;
             _terminalRepository = terminalRepository;
-            _attributeRepository = attributeRepository;
         }
 
         /// <summary>
@@ -66,12 +64,6 @@ namespace TypeLibrary.Services.Services
             {
                 (existingDmVersions as List<TerminalLibDm>)?.AddRange(_terminalRepository.Get()
                     .Where(x => x.FirstVersionId == (obj as TerminalLibDm)?.FirstVersionId && x.State != State.Deleted).ToList()
-                    .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
-            }
-            else if (obj.GetType() == typeof(AttributeLibDm) && (obj as AttributeLibDm)?.Version != null)
-            {
-                (existingDmVersions as List<AttributeLibDm>)?.AddRange(_attributeRepository.Get()
-                    .Where(x => x.FirstVersionId == (obj as AttributeLibDm)?.FirstVersionId && x.State != State.Deleted).ToList()
                     .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
             }
 

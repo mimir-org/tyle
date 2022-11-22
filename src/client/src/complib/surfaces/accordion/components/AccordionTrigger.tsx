@@ -1,6 +1,6 @@
+import { Text } from "complib/text";
 import { ForwardedRef, forwardRef } from "react";
 import { useTheme } from "styled-components";
-import { Text } from "../../../text";
 import { StyledAccordionChevron, StyledAccordionHeader, StyledAccordionTrigger } from "./AccordionTrigger.styled";
 
 interface AccordionTriggerProps {

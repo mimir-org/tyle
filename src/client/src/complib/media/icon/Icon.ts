@@ -1,8 +1,8 @@
+import { sizingMixin } from "complib/mixins";
+import { Sizing } from "complib/props";
 import { motion } from "framer-motion";
 import { ImgHTMLAttributes } from "react";
 import styled from "styled-components";
-import { sizingMixin } from "../../mixins";
-import { Sizing } from "../../props";
 
 export type IconProps = ImgHTMLAttributes<HTMLImageElement> &
   Sizing & {

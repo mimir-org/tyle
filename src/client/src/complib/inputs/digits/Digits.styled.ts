@@ -1,5 +1,5 @@
+import { focus, getTextRole } from "complib/mixins";
 import styled from "styled-components/macro";
-import { focus, getTextRole } from "../../mixins";
 
 export const DigitsInputContainer = styled.div`
   display: flex;

@@ -18,7 +18,7 @@ namespace Mimirorg.Authentication.Repositories
 
         public Task<MimirorgMailAm> CreateCodeVerificationMail(MimirorgUser user, string secret)
         {
-            if (_authSettings == null || string.IsNullOrEmpty(_authSettings.EmailKey) || string.IsNullOrEmpty(_authSettings.EmailSecret) || string.IsNullOrEmpty(_authSettings.Email))
+            if (_authSettings == null || string.IsNullOrEmpty(_authSettings.Email))
                 throw new MimirorgConfigurationException("Missing configuration for email");
 
             var mail = new MimirorgMailAm

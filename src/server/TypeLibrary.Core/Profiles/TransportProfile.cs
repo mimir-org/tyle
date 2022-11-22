@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Mimirorg.Common.Extensions;
@@ -10,7 +9,6 @@ using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Core.Factories;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
-using static Mimirorg.TypeLibrary.Extensions.LibraryExtensions;
 
 namespace TypeLibrary.Core.Profiles
 {
@@ -33,10 +31,10 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
                 .ForMember(dest => dest.TerminalId, opt => opt.MapFrom(src => src.TerminalId))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetEmail()) ? "Unknown" : contextAccessor.GetEmail()))
+                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? "Unknown" : contextAccessor.GetUserId()))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow))
                 .ForMember(dest => dest.Children, opt => opt.Ignore())
-                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => Convert<AttributeLibDm>(src.AttributeIdList).ToList()));
+                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes.ConvertToString()));
 
             CreateMap<TransportLibDm, TransportLibCm>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -60,7 +58,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy))
                 .ForMember(dest => dest.TerminalId, opt => opt.MapFrom(src => src.TerminalId))
                 .ForMember(dest => dest.Terminal, opt => opt.MapFrom(src => src.Terminal))
-                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes));
+                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes.ConvertToObject<ICollection<AttributeLibCm>>()));
         }
     }
 }

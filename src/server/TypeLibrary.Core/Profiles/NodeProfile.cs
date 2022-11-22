@@ -10,7 +10,6 @@ using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Core.Factories;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
-using static Mimirorg.TypeLibrary.Extensions.LibraryExtensions;
 
 namespace TypeLibrary.Core.Profiles
 {
@@ -33,11 +32,11 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.Symbol, opt => opt.MapFrom(src => src.Symbol))
-                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetEmail()) ? "Unknown" : contextAccessor.GetEmail()))
+                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? "Unknown" : contextAccessor.GetUserId()))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow))
                 .ForMember(dest => dest.Children, opt => opt.Ignore())
                 .ForMember(dest => dest.NodeTerminals, opt => opt.MapFrom(src => CreateTerminals(src.NodeTerminals, src.Id).ToList()))
-                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => Convert<AttributeLibDm>(src.AttributeIdList).ToList()))
+                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes.ConvertToString()))
                 .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
             CreateMap<NodeLibDm, NodeLibCm>()
@@ -63,7 +62,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy))
                 .ForMember(dest => dest.Children, opt => opt.MapFrom(src => src.Children))
                 .ForMember(dest => dest.NodeTerminals, opt => opt.MapFrom(src => src.NodeTerminals))
-                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes))
+                .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes.ConvertToObject<ICollection<AttributeLibCm>>()))
                 .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
         }
 
@@ -77,21 +76,30 @@ namespace TypeLibrary.Core.Profiles
             foreach (var item in terminals)
             {
                 var existingSortedTerminalType = sortedTerminalTypes.FirstOrDefault(x => x.TerminalId == item.TerminalId && x.ConnectorDirection == item.ConnectorDirection);
+
                 if (existingSortedTerminalType == null)
+                {
                     sortedTerminalTypes.Add(item);
+                }
+
                 else
-                    existingSortedTerminalType.Quantity += item.Quantity;
+                {
+                    existingSortedTerminalType.MinQuantity += item.MinQuantity;
+                    existingSortedTerminalType.MaxQuantity += item.MaxQuantity;
+                }
             }
 
             foreach (var item in sortedTerminalTypes)
             {
                 var key = $"{item.Id}-{nodeId}";
+
                 yield return new NodeTerminalLibDm
                 {
                     Id = key.CreateMd5(),
                     NodeId = nodeId,
                     TerminalId = item.TerminalId,
-                    Quantity = item.Quantity,
+                    MinQuantity = item.MinQuantity,
+                    MaxQuantity = item.MaxQuantity,
                     ConnectorDirection = item.ConnectorDirection
                 };
             }
