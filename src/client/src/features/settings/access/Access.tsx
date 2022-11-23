@@ -1,6 +1,7 @@
 import { Flexbox } from "complib/layouts";
 import { Text } from "complib/text";
-import { useGetCurrentUser, useGetPendingUsers } from "external/sources/user/user.queries";
+import { useGetCompanyPendingUsers } from "external/sources/company/company.queries";
+import { useGetCurrentUser } from "external/sources/user/user.queries";
 import { AccessCard } from "features/settings/access/card/AccessCard";
 import { AccessPlaceholder } from "features/settings/access/placeholder/AccessPlaceholder";
 import { SettingsSection } from "features/settings/common/settings-section/SettingsSection";
@@ -12,7 +13,7 @@ export const Access = () => {
   const { t } = useTranslation();
   const currentUserQuery = useGetCurrentUser();
   const currentUserCompany = currentUserQuery.data?.companyId;
-  const pendingUsersQuery = useGetPendingUsers(String(currentUserCompany));
+  const pendingUsersQuery = useGetCompanyPendingUsers(String(currentUserCompany));
 
   const users = pendingUsersQuery.data ?? [];
   const showPlaceholder = users && users.length === 0;

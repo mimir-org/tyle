@@ -1,4 +1,4 @@
-import { MimirorgCompanyAm, MimirorgCompanyCm } from "@mimirorg/typelibrary-types";
+import { MimirorgCompanyAm, MimirorgCompanyCm, MimirorgUserCm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "external/client/apiClient";
 
 const _basePath = "mimirorgcompany";
@@ -18,5 +18,11 @@ export const companyApi = {
   },
   deleteCompany(id: string) {
     return apiClient.delete<boolean>(`${_basePath}/${id}`).then((r) => r.data);
+  },
+  getCompanyUsers(companyId?: string) {
+    return apiClient.get<MimirorgUserCm[]>(`${_basePath}/${companyId}/users`).then((r) => r.data);
+  },
+  getCompanyPendingUsers(companyId?: string) {
+    return apiClient.get<MimirorgUserCm[]>(`${_basePath}/${companyId}/users/pending`).then((r) => r.data);
   },
 };

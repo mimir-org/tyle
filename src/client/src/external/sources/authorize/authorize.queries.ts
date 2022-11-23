@@ -1,7 +1,7 @@
 import { MimirorgUserPermissionAm, MimirorgUserRoleAm } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { authorizeApi } from "external/sources/authorize/authorize.api";
-import { userKeys } from "external/sources/user/user.queries";
+import { companyKeys } from "external/sources/company/company.queries";
 
 const keys = {
   all: ["authorize"] as const,
@@ -21,7 +21,7 @@ export const useAddUserPermission = () => {
   const queryClient = useQueryClient();
 
   return useMutation((item: MimirorgUserPermissionAm) => authorizeApi.postAddUserPermission(item), {
-    onSuccess: () => queryClient.invalidateQueries(userKeys.pendingLists()),
+    onSuccess: () => queryClient.invalidateQueries(companyKeys.userPendingLists()),
   });
 };
 
@@ -29,6 +29,6 @@ export const useRemoveUserPermission = () => {
   const queryClient = useQueryClient();
 
   return useMutation((item: MimirorgUserPermissionAm) => authorizeApi.postRemoveUserPermission(item), {
-    onSuccess: () => queryClient.invalidateQueries(userKeys.pendingLists()),
+    onSuccess: () => queryClient.invalidateQueries(companyKeys.userPendingLists()),
   });
 };
