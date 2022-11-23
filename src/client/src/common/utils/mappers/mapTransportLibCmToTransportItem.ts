@@ -1,13 +1,13 @@
 import { State, TransportLibCm } from "@mimirorg/typelibrary-types";
 import { TransportItem } from "common/types/transportItem";
 import { getColorFromAspect } from "common/utils/getColorFromAspect";
-import { getValueLabelObjectsFromEnum } from "common/utils/getValueLabelObjectsFromEnum";
+import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { mapAttributeLibCmsToInfoItems } from "common/utils/mappers/mapAttributeLibCmToInfoItem";
 import { mapTerminalLibCmToTerminalItem } from "common/utils/mappers/mapTerminalLibCmToTerminalItem";
 import { sortInfoItems } from "common/utils/sorters";
 
 export const mapTransportLibCmToTransportItem = (transport: TransportLibCm): TransportItem => {
-  const states = getValueLabelObjectsFromEnum(State);
+  const states = getOptionsFromEnum(State);
   const currentStateLabel = states[transport.state].label;
 
   return {

@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { getValueLabelObjectsFromEnum } from "common/utils/getValueLabelObjectsFromEnum";
+import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { Button } from "complib/buttons";
 import { Form, FormField } from "complib/form";
 import { Input, Select } from "complib/inputs";
@@ -20,7 +20,7 @@ type AccessCardFormProps = AccessCardProps;
 export const AccessCardForm = ({ user }: AccessCardFormProps) => {
   const { t } = useTranslation();
 
-  const permissions = getValueLabelObjectsFromEnum<MimirorgPermission>(MimirorgPermission);
+  const permissions = getOptionsFromEnum<MimirorgPermission>(MimirorgPermission);
   const { register, control, handleSubmit, formState } = useForm<FormUserPermission>({
     resolver: yupResolver(accessSchema(t)),
     defaultValues: {

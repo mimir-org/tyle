@@ -1,4 +1,4 @@
-export interface ValueLabelObject<T> {
+export interface Option<T> {
   value: T;
   label: string;
 }
@@ -16,7 +16,7 @@ type EnumObject = { [key: string]: string | number };
  * 	Bidirectional = 2,
  * }
  *
- * const objects = getValueLabelObjectsFromEnum<ConnectorDirection>(ConnectorDirection);
+ * const objects = getOptionsFromEnum<ConnectorDirection>(ConnectorDirection);
  *
  * // { value: 0, label: "Input" }
  * // { value: 1, label: "Output" }
@@ -24,7 +24,7 @@ type EnumObject = { [key: string]: string | number };
  *
  * @param enumObject
  */
-export const getValueLabelObjectsFromEnum = <T>(enumObject: EnumObject): ValueLabelObject<T>[] => {
+export const getOptionsFromEnum = <T>(enumObject: EnumObject): Option<T>[] => {
   return Object.keys(enumObject)
     .filter((v) => isNaN(Number(v)))
     .map((k) => ({ value: enumObject[k] as unknown as T, label: k }));

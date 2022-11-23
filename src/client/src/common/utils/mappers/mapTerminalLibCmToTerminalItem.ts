@@ -1,11 +1,11 @@
 import { State, TerminalLibCm } from "@mimirorg/typelibrary-types";
 import { TerminalItem } from "common/types/terminalItem";
-import { getValueLabelObjectsFromEnum } from "common/utils/getValueLabelObjectsFromEnum";
+import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { mapAttributeLibCmsToInfoItems } from "common/utils/mappers/mapAttributeLibCmToInfoItem";
 import { sortInfoItems } from "common/utils/sorters";
 
 export const mapTerminalLibCmToTerminalItem = (terminal: TerminalLibCm): TerminalItem => {
-  const states = getValueLabelObjectsFromEnum(State);
+  const states = getOptionsFromEnum(State);
   const currentStateLabel = states[terminal.state].label;
 
   return {

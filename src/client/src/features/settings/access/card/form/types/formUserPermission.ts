@@ -1,12 +1,12 @@
 import { MimirorgPermission, MimirorgUserPermissionAm } from "@mimirorg/typelibrary-types";
-import { ValueLabelObject } from "common/utils/getValueLabelObjectsFromEnum";
+import { Option } from "common/utils/getOptionsFromEnum";
 
 /**
  * This type functions as a layer between client needs and the backend model.
  * It allows you to adapt the expected api model to fit client/form logic needs.
  */
 export interface FormUserPermission extends Omit<MimirorgUserPermissionAm, "permission"> {
-  permission: ValueLabelObject<MimirorgPermission>;
+  permission: Option<MimirorgPermission>;
 }
 
 /**
