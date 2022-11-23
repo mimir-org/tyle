@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Extensions;
+using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
@@ -16,12 +18,14 @@ namespace Mimirorg.Authentication.Services
         private readonly IMimirorgCompanyRepository _mimirorgCompanyRepository;
         private readonly IMimirorgHookRepository _mimirorgHookRepository;
         private readonly ApplicationSettings _applicationSettings;
+        private readonly UserManager<MimirorgUser> _userManager;
 
-        public MimirorgCompanyService(IMimirorgCompanyRepository mimirorgCompanyRepository, IMimirorgHookRepository mimirorgHookRepository, IOptions<ApplicationSettings> applicationSettings)
+        public MimirorgCompanyService(IMimirorgCompanyRepository mimirorgCompanyRepository, IMimirorgHookRepository mimirorgHookRepository, IOptions<ApplicationSettings> applicationSettings, UserManager<MimirorgUser> userManager)
         {
             _mimirorgCompanyRepository = mimirorgCompanyRepository;
             _mimirorgHookRepository = mimirorgHookRepository;
             _applicationSettings = applicationSettings?.Value;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -150,6 +154,39 @@ namespace Mimirorg.Authentication.Services
             await _mimirorgCompanyRepository.Delete(id);
             var status = await _mimirorgCompanyRepository.SaveAsync();
             return status == 1;
+        }
+        
+        public async Task<ICollection<MimirorgUserCm>> GetCompanyUsers(int id)
+        {
+            var users = _userManager.Users.Where(x => x.CompanyId == id).ToList();
+            if (!users.Any())
+            {
+                return Array.Empty<MimirorgUserCm>();
+            }
+
+            var companies = await GetAllCompanies();
+            var permissions = MimirorgPermissionCm.FromPermissionEnum();
+
+            var mappedUsers = new List<MimirorgUserCm>();
+
+            foreach (var user in users)
+            {
+                var claims = await _userManager.GetClaimsAsync(user);
+                var roles = await _userManager.GetRolesAsync(user);
+                
+                var userCm = user.ToContentModel();
+                userCm.ResolvePermissions(roles, claims, companies, permissions);
+                userCm.ResolveRoles(roles, claims, companies, permissions);
+                mappedUsers.Add(userCm);
+            }
+
+            return mappedUsers;
+        }
+        
+        public async Task<ICollection<MimirorgUserCm>> GetCompanyPendingUsers(int id)
+        {
+            var allCompanyUsers = await GetCompanyUsers(id);
+            return allCompanyUsers.Where(x => !x.Permissions.Any()).ToList();
         }
 
         /// <summary>

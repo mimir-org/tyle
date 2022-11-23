@@ -146,16 +146,6 @@ namespace Mimirorg.Authentication.Services
         }
 
         /// <summary>
-        /// Get all permissions
-        /// </summary>
-        /// <returns>ICollection&lt;MimirorgPermissionCm&gt;</returns>
-        public async Task<ICollection<MimirorgPermissionCm>> GetAllPermissions()
-        {
-            var permissions = ((MimirorgPermission[]) Enum.GetValues(typeof(MimirorgPermission))).Select(c => new MimirorgPermissionCm { Id = (int) c, Name = c.GetDisplayName() }).ToList();
-            return await Task.FromResult(permissions);
-        }
-
-        /// <summary>
         /// Add an user to a role
         /// </summary>
         /// <param name="userRole">MimirorgUserRoleAm</param>
@@ -211,6 +201,15 @@ namespace Mimirorg.Authentication.Services
             }
 
             return true;
+        }
+        
+        /// <summary>
+        /// Get all permissions
+        /// </summary>
+        /// <returns>ICollection&lt;MimirorgPermissionCm&gt;</returns>
+        public Task<ICollection<MimirorgPermissionCm>> GetAllPermissions()
+        {
+            return Task.FromResult(MimirorgPermissionCm.FromPermissionEnum());
         }
 
         /// <summary>

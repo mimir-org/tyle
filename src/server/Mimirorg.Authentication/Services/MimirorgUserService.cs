@@ -58,12 +58,13 @@ namespace Mimirorg.Authentication.Services
 
             var userCm = user.ToContentModel();
 
-            var companies = (await _mimirorgCompanyService.GetAllCompanies()).ToList();
-            var permissions = (await _mimirorgAuthService.GetAllPermissions()).ToList();
-            var permissionDictionary = await ResolveCompanies(companies, permissions, user);
-            var roleDescriptions = await ResolveRoles(companies, permissions, user);
-            userCm.Permissions = permissionDictionary;
-            userCm.Roles = roleDescriptions;
+            var companies = await _mimirorgCompanyService.GetAllCompanies();
+            var permissions = await _mimirorgAuthService.GetAllPermissions();
+            var roles = await _userManager.GetRolesAsync(user);
+            var claims = await _userManager.GetClaimsAsync(user);
+            userCm.ResolvePermissions(roles, claims, companies, permissions);
+            userCm.ResolveRoles(roles, claims, companies, permissions);
+            
             return userCm;
         }
 
@@ -81,37 +82,14 @@ namespace Mimirorg.Authentication.Services
 
             var userCm = user.ToContentModel();
 
-            var companies = (await _mimirorgCompanyService.GetAllCompanies()).ToList();
-            var permissions = (await _mimirorgAuthService.GetAllPermissions()).ToList();
-            var permissionDictionary = await ResolveCompanies(companies, permissions, user);
-            var roleDescriptions = await ResolveRoles(companies, permissions, user);
-            userCm.Permissions = permissionDictionary;
-            userCm.Roles = roleDescriptions;
+            var companies = await _mimirorgCompanyService.GetAllCompanies();
+            var permissions = await _mimirorgAuthService.GetAllPermissions();
+            var roles = await _userManager.GetRolesAsync(user);
+            var claims = await _userManager.GetClaimsAsync(user);
+            userCm.ResolvePermissions(roles, claims, companies, permissions);
+            userCm.ResolveRoles(roles, claims, companies, permissions);
+            
             return userCm;
-        }
-
-        public IEnumerable<MimirorgUserCm> GetPendingUsers(int company)
-        {
-            var users = _userManager.Users.Where(x => x.CompanyId == company).ToList();
-            if (!users.Any())
-                yield break;
-
-            var companies = _mimirorgCompanyService.GetAllCompanies().Result;
-            var permissions = _mimirorgAuthService.GetAllPermissions().Result;
-
-            foreach (var user in users)
-            {
-                var claims = _userManager.GetClaimsAsync(user).Result;
-                if (claims.Any(x => x.Type == company.ToString()))
-                    continue;
-
-                var permissionDictionary = ResolveCompanies(companies, permissions, user).Result;
-                var roleDescriptions = ResolveRoles(companies, permissions, user).Result;
-                var userCm = user.ToContentModel();
-                userCm.Permissions = permissionDictionary;
-                userCm.Roles = roleDescriptions;
-                yield return userCm;
-            }
         }
 
         /// <summary>
@@ -511,108 +489,6 @@ namespace Mimirorg.Authentication.Services
 
             var totpSetupGenerator = new TotpSetupGenerator();
             return totpSetupGenerator.Generate(_authSettings.ApplicationName, user.Email, user.SecurityHash, _authSettings?.QrWidth ?? 300, _authSettings?.QrHeight ?? 300);
-        }
-
-        /// <summary>
-        /// Resolves the role names for the current user object 
-        /// </summary>
-        /// <param name="companies">A collection of all the registered companies</param>
-        /// <param name="permissions">A collection of all permissions</param>
-        /// <param name="user">Actual user</param>
-        /// <returns>A collection of role names</returns>
-        private async Task<ICollection<string>> ResolveRoles(ICollection<MimirorgCompanyCm> companies, ICollection<MimirorgPermissionCm> permissions, MimirorgUser user)
-        {
-            var roleDescriptionList = new List<string>();
-
-            var roles = (await _userManager.GetRolesAsync(user)).ToList();
-            if (roles.Any(x => x is "Administrator"))
-            {
-                roleDescriptionList.Add("Global administrator");
-                return roleDescriptionList;
-            }
-
-            if (roles.Any(x => x is "Account Manager"))
-            {
-                roleDescriptionList.Add("Global account manager");
-                return roleDescriptionList;
-            }
-
-            if (roles.Any(x => x is "Moderator"))
-            {
-                roleDescriptionList.Add("Global moderator");
-                return roleDescriptionList;
-            }
-
-            if (!companies.Any())
-                return roleDescriptionList;
-
-            var claims = await _userManager.GetClaimsAsync(user);
-            claims = claims.Where(x => companies.Any(y => x.Type == y.Id.ToString())).ToList();
-
-            if (!claims.Any())
-                return roleDescriptionList;
-
-            foreach (var claim in claims)
-            {
-                var company = companies.FirstOrDefault(x => x.Id.ToString() == claim.Type);
-                var permission = permissions.FirstOrDefault(x => x.Name == claim.Value);
-                if (company != null && permission != null)
-                    roleDescriptionList.Add($"{company.DisplayName ?? company.Name} {(MimirorgPermission) permission.Id}");
-            }
-
-            return roleDescriptionList;
-        }
-
-        /// <summary>
-        /// Resolve companies for user
-        /// </summary>
-        /// <param name="companies">A collection of all the registered companies</param>
-        /// <param name="permissions">A collection of all permissions</param>
-        /// <param name="user">Actual user</param>
-        /// <returns>A collection of permission names</returns>
-        private async Task<Dictionary<int, MimirorgPermission>> ResolveCompanies(ICollection<MimirorgCompanyCm> companies, ICollection<MimirorgPermissionCm> permissions, MimirorgUser user)
-        {
-            var companyList = new Dictionary<int, MimirorgPermission>();
-
-            if (!companies.Any())
-                return companyList;
-
-            var claims = await _userManager.GetClaimsAsync(user);
-            claims = claims.Where(x => companies.Any(y => x.Type == y.Id.ToString())).ToList();
-
-            var roles = (await _userManager.GetRolesAsync(user)).ToList();
-
-            // Administrator or Account Manager role should give full permission to all companies
-            if (roles.Any(x => x is "Administrator" or "Account Manager"))
-            {
-                foreach (var company in companies)
-                {
-                    companyList.Add(company.Id, MimirorgPermission.Manage);
-                }
-
-                return companyList;
-            }
-
-            // Moderator role should give delete permission to all companies
-            if (roles.Any(x => x is "Moderator"))
-            {
-                foreach (var company in companies)
-                {
-                    companyList.Add(company.Id, MimirorgPermission.Delete);
-                }
-
-                return companyList;
-            }
-
-            foreach (var claim in claims)
-            {
-                var company = companies.FirstOrDefault(x => x.Id.ToString() == claim.Type);
-                var permission = permissions.FirstOrDefault(x => x.Name == claim.Value);
-                if (company != null && permission != null && companyList.All(x => x.Key != company.Id))
-                    companyList.Add(company.Id, (MimirorgPermission) permission.Id);
-            }
-
-            return companyList;
         }
 
         #endregion

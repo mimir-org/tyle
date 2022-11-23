@@ -34,8 +34,6 @@ namespace Mimirorg.Authentication.Contracts
         /// <exception cref="MimirorgNotFoundException"></exception>
         Task<MimirorgUserCm> GetUser(string id);
 
-        IEnumerable<MimirorgUserCm> GetPendingUsers(int company);
-
         /// <summary>
         /// Setup two factor 
         /// </summary>
