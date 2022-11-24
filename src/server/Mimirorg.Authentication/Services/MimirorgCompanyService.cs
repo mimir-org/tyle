@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -172,6 +173,11 @@ namespace Mimirorg.Authentication.Services
             foreach (var user in users)
             {
                 var claims = await _userManager.GetClaimsAsync(user);
+                if (!claims.Any())
+                {
+                    continue;
+                }
+                
                 var roles = await _userManager.GetRolesAsync(user);
                 
                 var userCm = user.ToContentModel();
@@ -185,8 +191,34 @@ namespace Mimirorg.Authentication.Services
         
         public async Task<ICollection<MimirorgUserCm>> GetCompanyPendingUsers(int id)
         {
-            var allCompanyUsers = await GetCompanyUsers(id);
-            return allCompanyUsers.Where(x => !x.Permissions.Any()).ToList();
+            var users = _userManager.Users.Where(x => x.CompanyId == id).ToList();
+            if (!users.Any())
+            {
+                return Array.Empty<MimirorgUserCm>();
+            }
+
+            var companies = await GetAllCompanies();
+            var permissions = MimirorgPermissionCm.FromPermissionEnum();
+
+            var mappedUsers = new List<MimirorgUserCm>();
+
+            foreach (var user in users)
+            {
+                var claims = await _userManager.GetClaimsAsync(user);
+                if (claims.Any())
+                {
+                    continue;
+                }
+                
+                var roles = await _userManager.GetRolesAsync(user);
+                
+                var userCm = user.ToContentModel();
+                userCm.ResolvePermissions(roles, claims, companies, permissions);
+                userCm.ResolveRoles(roles, claims, companies, permissions);
+                mappedUsers.Add(userCm);
+            }
+
+            return mappedUsers;
         }
 
         /// <summary>

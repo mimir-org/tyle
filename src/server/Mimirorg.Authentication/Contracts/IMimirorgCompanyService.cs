@@ -59,6 +59,7 @@ namespace Mimirorg.Authentication.Contracts
 
         /// <summary>
         /// Get all users of a given company
+        /// These are users with a claim to the company.
         /// </summary>
         /// <param name="id"></param>
         /// <returns>ICollection&lt;MimirorgCompanyCm&gt;</returns>
@@ -66,7 +67,7 @@ namespace Mimirorg.Authentication.Contracts
         
         /// <summary>
         /// Get the pending users of a company.
-        /// These are users without a claim.
+        /// These are users without a claim to the company.
         /// </summary>
         /// <param name="id"></param>
         /// <returns>ICollection&lt;MimirorgCompanyCm&gt;</returns>
