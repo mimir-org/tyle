@@ -525,9 +525,9 @@
       },
       "undo": {
         "action": "Undo",
-        "loading": "Removing \"{{permission}}\" permission from {{name}}",
-        "success": "Permission \"{{permission}}\" was removed from {{name}}",
-        "error": "An error occurred while removing \"{{permission}}\" permission from {{name}}"
+        "loading": "Reverting permission change for {{name}}",
+        "success": "Permission change was reverted for {{name}}",
+        "error": "An error occurred while reverting permission change for {{name}}"
       },
       "validation": {
         "userId": {
@@ -539,6 +539,19 @@
         "permission": {
           "required": "Please select a permission"
         }
+      }
+    },
+    "permissions": {
+      "title": "Permissions",
+      "organization": "Organization",
+      "permission": "Permission",
+      "users": "Users",
+      "dialog": {
+        "title": "Editing",
+        "description": "Change the user's permission level",
+        "trigger": "Edit {{name}}",
+        "submit": "Submit",
+        "cancel": "Cancel"
       }
     }
   },

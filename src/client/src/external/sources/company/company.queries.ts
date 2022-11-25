@@ -2,23 +2,26 @@ import { MimirorgCompanyAm } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { UpdateEntity } from "common/types/updateEntity";
 import { companyApi } from "external/sources/company/company.api";
+import { userKeys } from "external/sources/user/user.queries";
 
-const keys = {
+export const companyKeys = {
   all: ["companies"] as const,
-  lists: () => [...keys.all, "list"] as const,
-  company: (id?: number) => [...keys.all, { id }] as const,
+  lists: () => [...companyKeys.all, "list"] as const,
+  company: (id?: number) => [...companyKeys.all, { id }] as const,
+  userLists: [...userKeys.all, "list"] as const,
+  userPendingLists: () => [...companyKeys.userLists, "pending"] as const,
 };
 
-export const useGetCompanies = () => useQuery(keys.lists(), companyApi.getCompanies);
+export const useGetCompanies = () => useQuery(companyKeys.lists(), companyApi.getCompanies);
 
 export const useGetCompany = (id?: number) =>
-  useQuery(keys.company(id), () => companyApi.getCompany(id), { enabled: !!id, retry: false });
+  useQuery(companyKeys.company(id), () => companyApi.getCompany(id), { enabled: !!id, retry: false });
 
 export const useCreateCompany = () => {
   const queryClient = useQueryClient();
 
   return useMutation((item: MimirorgCompanyAm) => companyApi.postCompany(item), {
-    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
+    onSuccess: () => queryClient.invalidateQueries(companyKeys.lists()),
   });
 };
 
@@ -26,7 +29,7 @@ export const useUpdateCompany = () => {
   const queryClient = useQueryClient();
 
   return useMutation((update: UpdateEntity<MimirorgCompanyAm>) => companyApi.putCompany(update.id, update), {
-    onSuccess: (data) => queryClient.invalidateQueries(keys.company(data.id)),
+    onSuccess: (data) => queryClient.invalidateQueries(companyKeys.company(data.id)),
   });
 };
 
@@ -34,6 +37,15 @@ export const useDeleteCompany = () => {
   const queryClient = useQueryClient();
 
   return useMutation((id: string) => companyApi.deleteCompany(id), {
-    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
+    onSuccess: () => queryClient.invalidateQueries(companyKeys.lists()),
   });
 };
+
+export const useGetCompanyUsers = (companyId?: string) =>
+  useQuery(companyKeys.userLists, () => companyApi.getCompanyUsers(companyId), { enabled: !!companyId, retry: false });
+
+export const useGetCompanyPendingUsers = (companyId?: string) =>
+  useQuery(companyKeys.userPendingLists(), () => companyApi.getCompanyPendingUsers(companyId), {
+    enabled: !!companyId,
+    retry: false,
+  });

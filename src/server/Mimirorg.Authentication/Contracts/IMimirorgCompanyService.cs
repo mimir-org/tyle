@@ -58,6 +58,22 @@ namespace Mimirorg.Authentication.Contracts
         Task<bool> DeleteCompany(int id);
 
         /// <summary>
+        /// Get all users of a given company
+        /// These are users with a claim to the company.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>ICollection&lt;MimirorgCompanyCm&gt;</returns>
+        Task<ICollection<MimirorgUserCm>> GetCompanyUsers(int id);
+
+        /// <summary>
+        /// Get the pending users of a company.
+        /// These are users without a claim to the company.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>ICollection&lt;MimirorgCompanyCm&gt;</returns>
+        Task<ICollection<MimirorgUserCm>> GetCompanyPendingUsers(int id);
+
+        /// <summary>
         /// Get all registered hooks for given cache key
         /// </summary>
         /// <param name="key">The cache key to search for</param>

@@ -16,8 +16,6 @@ type InfoItemCheckboxProps = TokenCheckboxProps & Omit<InfoItem, "id">;
  */
 export const InfoItemCheckbox = ({ name, descriptors, ...delegated }: InfoItemCheckboxProps) => (
   <Tooltip content={<InfoItemDescription name={name} descriptors={descriptors} />}>
-    <TokenCheckbox variant={"secondary"} {...delegated}>
-      {name}
-    </TokenCheckbox>
+    <TokenCheckbox {...delegated}>{name}</TokenCheckbox>
   </Tooltip>
 );

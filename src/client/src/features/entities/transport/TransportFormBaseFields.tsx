@@ -2,7 +2,7 @@ import { Aspect, MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { PlainLink } from "common/components/plain-link";
 import { TerminalButton } from "common/components/terminal";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
-import { getValueLabelObjectsFromEnum } from "common/utils/getValueLabelObjectsFromEnum";
+import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { Button } from "complib/buttons";
 import { Popover } from "complib/data-display";
 import { FormField } from "complib/form";
@@ -41,7 +41,7 @@ export const TransportFormBaseFields = ({ mode }: TransportFormBaseFieldsProps) 
   const rdsQuery = useGetRds();
   const purposeQuery = useGetPurposes();
   const terminalQuery = useGetTerminals();
-  const aspectOptions = getValueLabelObjectsFromEnum<Aspect>(Aspect);
+  const aspectOptions = getOptionsFromEnum<Aspect>(Aspect);
   const companies = useGetFilteredCompanies(MimirorgPermission.Write);
 
   return (

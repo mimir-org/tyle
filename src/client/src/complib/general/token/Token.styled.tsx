@@ -54,6 +54,10 @@ export const tokenBaseStyle = css<TokenBaseProps>`
     css`
       background-color: ${props.theme.tyle.color.sys.tertiary.container?.base};
     `};
+
+  &[aria-checked="true"] {
+    background-color: ${(props) => props.theme.tyle.color.sys.tertiary.container?.base};
+  }
 `;
 
 export const TokenContainer = styled.span<TokenBaseProps>`

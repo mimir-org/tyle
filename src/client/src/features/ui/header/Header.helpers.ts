@@ -1,5 +1,5 @@
 import { MimirorgCompanyCm, MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { getValueLabelObjectsFromEnum } from "common/utils/getValueLabelObjectsFromEnum";
+import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 
 /**
  * Creates descriptions of user permissions by mapping the permissions
@@ -12,7 +12,7 @@ export const mapPermissionDescriptions = (
   permissions: { [index: number]: MimirorgPermission },
   companies: MimirorgCompanyCm[]
 ) => {
-  const permissionsValueObjects = getValueLabelObjectsFromEnum(MimirorgPermission);
+  const permissionsValueObjects = getOptionsFromEnum(MimirorgPermission);
 
   const permissionDescriptions = Object.keys(permissions).map((k) => {
     const permissionEnum = permissions[Number(k)];

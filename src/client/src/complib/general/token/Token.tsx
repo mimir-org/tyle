@@ -4,14 +4,14 @@ import { Text } from "complib/text";
 import { Actionable } from "complib/types";
 import { ForwardedRef, forwardRef, HTMLAttributes, ReactNode } from "react";
 
-export type TokenBaseProps = Partial<Actionable> & {
+export type TokenBaseProps = {
   children?: ReactNode;
   variant?: "primary" | "secondary";
   $interactive?: boolean;
   $selected?: boolean;
 };
 
-export type TokenProps = HTMLAttributes<HTMLSpanElement> & TokenBaseProps;
+export type TokenProps = HTMLAttributes<HTMLSpanElement> & TokenBaseProps & Partial<Actionable>;
 
 /**
  * A component for representing a piece of data.
