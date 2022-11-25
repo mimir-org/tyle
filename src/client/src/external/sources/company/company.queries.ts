@@ -8,8 +8,9 @@ export const companyKeys = {
   all: ["companies"] as const,
   lists: () => [...companyKeys.all, "list"] as const,
   company: (id?: number) => [...companyKeys.all, { id }] as const,
-  userLists: [...userKeys.all, "list"] as const,
-  userPendingLists: () => [...companyKeys.userLists, "pending"] as const,
+  allCompanyUsersLists: [...userKeys.all, "list"] as const,
+  companyUsers: (id?: string) => [...companyKeys.allCompanyUsersLists, { id }] as const,
+  companyPendingUsers: (id?: string) => [...companyKeys.allCompanyUsersLists, { id }, "pending"] as const,
 };
 
 export const useGetCompanies = () => useQuery(companyKeys.lists(), companyApi.getCompanies);
@@ -42,10 +43,13 @@ export const useDeleteCompany = () => {
 };
 
 export const useGetCompanyUsers = (companyId?: string) =>
-  useQuery(companyKeys.userLists, () => companyApi.getCompanyUsers(companyId), { enabled: !!companyId, retry: false });
+  useQuery(companyKeys.companyUsers(companyId), () => companyApi.getCompanyUsers(companyId), {
+    enabled: !!companyId,
+    retry: false,
+  });
 
 export const useGetCompanyPendingUsers = (companyId?: string) =>
-  useQuery(companyKeys.userPendingLists(), () => companyApi.getCompanyPendingUsers(companyId), {
+  useQuery(companyKeys.companyPendingUsers(companyId), () => companyApi.getCompanyPendingUsers(companyId), {
     enabled: !!companyId,
     retry: false,
   });

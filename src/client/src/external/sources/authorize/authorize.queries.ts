@@ -21,7 +21,7 @@ export const useAddUserPermission = () => {
   const queryClient = useQueryClient();
 
   return useMutation((item: MimirorgUserPermissionAm) => authorizeApi.postAddUserPermission(item), {
-    onSuccess: () => queryClient.invalidateQueries(companyKeys.userLists),
+    onSuccess: () => queryClient.invalidateQueries(companyKeys.allCompanyUsersLists),
   });
 };
 
@@ -29,6 +29,6 @@ export const useRemoveUserPermission = () => {
   const queryClient = useQueryClient();
 
   return useMutation((item: MimirorgUserPermissionAm) => authorizeApi.postRemoveUserPermission(item), {
-    onSuccess: () => queryClient.invalidateQueries(companyKeys.userLists),
+    onSuccess: () => queryClient.invalidateQueries(companyKeys.allCompanyUsersLists),
   });
 };
