@@ -1,11 +1,10 @@
-import { CheckboxProps } from "@radix-ui/react-checkbox";
-import { TokenBaseProps } from "complib/general/token/Token";
-import { MotionTokenCheckboxContainer } from "complib/general/token/TokenCheckbox.styled";
+import { CheckboxProps, Root as CheckboxRoot } from "@radix-ui/react-checkbox";
+import { MotionTokenContainer } from "complib/general/token/Token.styled";
 import { Text } from "complib/text";
 import { ForwardedRef, forwardRef } from "react";
 import { useTheme } from "styled-components";
 
-export type TokenCheckboxProps = CheckboxProps & Omit<TokenBaseProps, "interactive">;
+export type TokenCheckboxProps = Omit<CheckboxProps, "asChild">;
 
 /**
  * A checkbox wrapper for the Token component.
@@ -14,7 +13,6 @@ export type TokenCheckboxProps = CheckboxProps & Omit<TokenBaseProps, "interacti
  * @see https://www.radix-ui.com/docs/primitives/components/checkbox
  *
  * @param children text to be displayed inside token
- * @param variant controls style of the token
  * @constructor
  */
 export const TokenCheckbox = forwardRef((props: TokenCheckboxProps, ref: ForwardedRef<HTMLButtonElement>) => {
@@ -22,11 +20,19 @@ export const TokenCheckbox = forwardRef((props: TokenCheckboxProps, ref: Forward
   const { children, ...delegated } = props;
 
   return (
-    <MotionTokenCheckboxContainer ref={ref} $interactive {...theme.tyle.animation.checkboxTap} {...delegated}>
-      <Text variant={"label-small"} useEllipsis ellipsisMaxLines={1}>
-        {children}
-      </Text>
-    </MotionTokenCheckboxContainer>
+    <CheckboxRoot asChild {...delegated}>
+      <MotionTokenContainer
+        as={"button"}
+        ref={ref}
+        variant={"secondary"}
+        $interactive
+        {...theme.tyle.animation.checkboxTap}
+      >
+        <Text variant={"label-small"} useEllipsis ellipsisMaxLines={1}>
+          {children}
+        </Text>
+      </MotionTokenContainer>
+    </CheckboxRoot>
   );
 });
 
