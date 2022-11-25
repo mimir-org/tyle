@@ -93,6 +93,25 @@ namespace Mimirorg.Authentication.Services
         }
 
         /// <summary>
+        /// Gets all companies that the principal can access given a specific permission level
+        /// </summary>
+        /// <param name="principal"></param>
+        /// <param name="permission"></param>
+        /// <returns>A collection of company ids</returns>
+        /// <exception cref="MimirorgNotFoundException"></exception>
+        public async Task<ICollection<int>> GetCompaniesForUser(IPrincipal principal, MimirorgPermission permission)
+        {
+            if (principal?.Identity?.Name == null)
+                throw new MimirorgNotFoundException("Couldn't find current user");
+
+            var user = await GetUser(principal);
+            var userPermissions = user.Permissions.Where(x => x.Value == permission);
+            var userCompanies = userPermissions.Select(x => x.Key);
+
+            return userCompanies.ToList();
+        }
+
+        /// <summary>
         /// Register an user
         /// </summary>
         /// <param name="userAm"></param>

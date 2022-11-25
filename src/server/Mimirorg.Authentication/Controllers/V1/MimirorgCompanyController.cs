@@ -20,6 +20,7 @@ namespace Mimirorg.Authentication.Controllers.V1
     public class MimirorgCompanyController : ControllerBase
     {
         private readonly IMimirorgCompanyService _companyService;
+        private readonly IMimirorgUserService _userService;
         private readonly ILogger<MimirorgCompanyController> _logger;
 
         /// <summary>
@@ -27,9 +28,10 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// </summary>
         /// <param name="companyService"></param>
         /// <param name="logger"></param>
-        public MimirorgCompanyController(IMimirorgCompanyService companyService, ILogger<MimirorgCompanyController> logger)
+        public MimirorgCompanyController(IMimirorgCompanyService companyService, IMimirorgUserService userService, ILogger<MimirorgCompanyController> logger)
         {
             _companyService = companyService;
+            _userService = userService;
             _logger = logger;
         }
 
@@ -276,22 +278,24 @@ namespace Mimirorg.Authentication.Controllers.V1
         }
 
         /// <summary>
-        /// Get the pending users for a company
+        /// Get all pending users that the requesting entity can manage
         /// </summary>
-        /// <returns>ICollection&lt;MimirorgCompanyCm&gt;</returns>
-        [MimirorgAuthorize(MimirorgPermission.Manage, "id")]
+        /// <returns>A list of users</returns>
+        [Authorize]
         [HttpGet]
-        [Route("{id:int}/users/pending")]
+        [Route("users/pending")]
         [ProducesResponseType(typeof(ICollection<MimirorgUserCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [SwaggerOperation("Get the pending users for a company")]
-        public async Task<IActionResult> GetPendingUsers([FromRoute] int id)
+        [SwaggerOperation("Get all pending users that the requesting entity can manage")]
+        public async Task<IActionResult> GetPendingUsers()
         {
             try
             {
-                var users = await _companyService.GetCompanyPendingUsers(id);
+                var userCompanyIds = await _userService.GetCompaniesForUser(User, MimirorgPermission.Manage);
+                var users = await _companyService.GetCompanyPendingUsers(userCompanyIds);
+
                 return Ok(users);
             }
             catch (Exception e)

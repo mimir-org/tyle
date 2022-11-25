@@ -66,12 +66,11 @@ namespace Mimirorg.Authentication.Contracts
         Task<ICollection<MimirorgUserCm>> GetCompanyUsers(int id);
 
         /// <summary>
-        /// Get the pending users of a company.
-        /// These are users without a claim to the company.
+        /// Gets all pending users that belongs to the given company ids.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns>ICollection&lt;MimirorgCompanyCm&gt;</returns>
-        Task<ICollection<MimirorgUserCm>> GetCompanyPendingUsers(int id);
+        /// <param name="companyIds"></param>
+        /// <returns>A list of users</returns>
+        Task<ICollection<MimirorgUserCm>> GetCompanyPendingUsers(ICollection<int> companyIds);
 
         /// <summary>
         /// Get all registered hooks for given cache key

@@ -189,9 +189,15 @@ namespace Mimirorg.Authentication.Services
             return mappedUsers;
         }
 
-        public async Task<ICollection<MimirorgUserCm>> GetCompanyPendingUsers(int id)
+
+        /// <summary>
+        /// Gets all pending users that belongs to the given company ids.
+        /// </summary>
+        /// <param name="companyIds"></param>
+        /// <returns>A list of users</returns>
+        public async Task<ICollection<MimirorgUserCm>> GetCompanyPendingUsers(ICollection<int> companyIds)
         {
-            var users = _userManager.Users.Where(x => x.CompanyId == id).ToList();
+            var users = _userManager.Users.Where(x => companyIds.Any(y => y == x.CompanyId)).ToList();
             if (!users.Any())
             {
                 return Array.Empty<MimirorgUserCm>();
