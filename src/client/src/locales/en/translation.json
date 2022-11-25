@@ -540,6 +540,19 @@
           "required": "Please select a permission"
         }
       }
+    },
+    "permissions": {
+      "title": "Permissions",
+      "organization": "Organization",
+      "permission": "Permission",
+      "users": "Users",
+      "dialog": {
+        "title": "Editing",
+        "description": "Change the user's permission level",
+        "trigger": "Edit {{name}}",
+        "submit": "Submit",
+        "cancel": "Cancel"
+      }
     }
   },
   "clientError": {
