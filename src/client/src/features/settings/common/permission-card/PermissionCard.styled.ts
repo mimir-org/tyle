@@ -2,7 +2,7 @@ import { Card } from "complib/surfaces";
 import { motion } from "framer-motion";
 import styled from "styled-components/macro";
 
-const AccessCardContainer = styled(Card).attrs(() => ({
+const PermissionCardContainer = styled(Card).attrs(() => ({
   as: "article",
 }))`
   flex: 1;
@@ -12,4 +12,4 @@ const AccessCardContainer = styled(Card).attrs(() => ({
   max-width: 350px;
 `;
 
-export const MotionAccessCardContainer = motion(AccessCardContainer);
+export const MotionPermissionCardContainer = motion(PermissionCardContainer);

@@ -1,6 +1,6 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { accessSchema } from "features/settings/access/card/form/accessSchema";
-import { FormUserPermission } from "features/settings/access/card/form/types/formUserPermission";
+import { permissionSchema } from "features/settings/common/permission-card/card-form/permissionSchema";
+import { FormUserPermission } from "features/settings/common/permission-card/card-form/types/formUserPermission";
 
 describe("accessSchema tests", () => {
   const t = (key: string) => key;
@@ -10,7 +10,7 @@ describe("accessSchema tests", () => {
       companyId: 0,
       permission: { value: MimirorgPermission.None, label: "None" },
     };
-    await expect(accessSchema(t).validateAt("userId", userPermission)).rejects.toBeTruthy();
+    await expect(permissionSchema(t).validateAt("userId", userPermission)).rejects.toBeTruthy();
   });
 
   it("should reject without a company", async () => {
@@ -18,7 +18,7 @@ describe("accessSchema tests", () => {
       userId: "someId",
       permission: { value: MimirorgPermission.None, label: "None" },
     };
-    await expect(accessSchema(t).validateAt("companyId", userPermission)).rejects.toBeTruthy();
+    await expect(permissionSchema(t).validateAt("companyId", userPermission)).rejects.toBeTruthy();
   });
 
   it("should reject without a permission", async () => {
@@ -26,6 +26,6 @@ describe("accessSchema tests", () => {
       userId: "someId",
       companyId: 0,
     };
-    await expect(accessSchema(t).validateAt("permission", userPermission)).rejects.toBeTruthy();
+    await expect(permissionSchema(t).validateAt("permission", userPermission)).rejects.toBeTruthy();
   });
 });

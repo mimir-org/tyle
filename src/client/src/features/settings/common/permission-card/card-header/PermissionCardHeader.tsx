@@ -3,11 +3,11 @@ import { Box } from "complib/layouts";
 import { Text } from "complib/text";
 import { useTheme } from "styled-components";
 
-interface AccessCardHeaderProps {
+interface PermissionCardHeaderProps {
   children: string;
 }
 
-export const AccessCardHeader = ({ children }: AccessCardHeaderProps) => {
+export const PermissionCardHeader = ({ children }: PermissionCardHeaderProps) => {
   const theme = useTheme();
 
   return (
