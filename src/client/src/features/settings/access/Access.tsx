@@ -1,8 +1,7 @@
 import { mapMimirorgUserCmToUserItem } from "common/utils/mappers/mapMimirorgUserCmToUserItem";
 import { Flexbox } from "complib/layouts";
 import { Text } from "complib/text";
-import { useGetCompanyPendingUsers } from "external/sources/company/company.queries";
-import { useGetCurrentUser } from "external/sources/user/user.queries";
+import { useGetPendingUsers } from "external/sources/company/company.queries";
 import { AccessPlaceholder } from "features/settings/access/placeholder/AccessPlaceholder";
 import { PermissionCard } from "features/settings/common/permission-card/PermissionCard";
 import { SettingsSection } from "features/settings/common/settings-section/SettingsSection";
@@ -12,9 +11,7 @@ import { useTheme } from "styled-components";
 export const Access = () => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const currentUserQuery = useGetCurrentUser();
-  const currentUserCompany = currentUserQuery.data?.companyId;
-  const pendingUsersQuery = useGetCompanyPendingUsers(String(currentUserCompany));
+  const pendingUsersQuery = useGetPendingUsers();
 
   const users = pendingUsersQuery.data ?? [];
   const showPlaceholder = users && users.length === 0;
