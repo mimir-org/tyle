@@ -105,7 +105,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
 
                 return;
             }
-            
+
             var userCompanyClaims = claims.Where(x => companies.Any(y => x.Type == y.Id.ToString())).ToList();
             foreach (var claim in userCompanyClaims)
             {

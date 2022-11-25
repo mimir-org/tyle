@@ -156,7 +156,7 @@ namespace Mimirorg.Authentication.Services
             var status = await _mimirorgCompanyRepository.SaveAsync();
             return status == 1;
         }
-        
+
         public async Task<ICollection<MimirorgUserCm>> GetCompanyUsers(int id)
         {
             var users = _userManager.Users.Where(x => x.CompanyId == id).ToList();
@@ -177,9 +177,9 @@ namespace Mimirorg.Authentication.Services
                 {
                     continue;
                 }
-                
+
                 var roles = await _userManager.GetRolesAsync(user);
-                
+
                 var userCm = user.ToContentModel();
                 userCm.ResolvePermissions(roles, claims, companies, permissions);
                 userCm.ResolveRoles(roles, claims, companies, permissions);
@@ -188,7 +188,7 @@ namespace Mimirorg.Authentication.Services
 
             return mappedUsers;
         }
-        
+
         public async Task<ICollection<MimirorgUserCm>> GetCompanyPendingUsers(int id)
         {
             var users = _userManager.Users.Where(x => x.CompanyId == id).ToList();
@@ -209,9 +209,9 @@ namespace Mimirorg.Authentication.Services
                 {
                     continue;
                 }
-                
+
                 var roles = await _userManager.GetRolesAsync(user);
-                
+
                 var userCm = user.ToContentModel();
                 userCm.ResolvePermissions(roles, claims, companies, permissions);
                 userCm.ResolveRoles(roles, claims, companies, permissions);

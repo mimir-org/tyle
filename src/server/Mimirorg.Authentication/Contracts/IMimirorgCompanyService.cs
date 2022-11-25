@@ -64,7 +64,7 @@ namespace Mimirorg.Authentication.Contracts
         /// <param name="id"></param>
         /// <returns>ICollection&lt;MimirorgCompanyCm&gt;</returns>
         Task<ICollection<MimirorgUserCm>> GetCompanyUsers(int id);
-        
+
         /// <summary>
         /// Get the pending users of a company.
         /// These are users without a claim to the company.

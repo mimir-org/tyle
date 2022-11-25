@@ -64,7 +64,7 @@ namespace Mimirorg.Authentication.Services
             var claims = await _userManager.GetClaimsAsync(user);
             userCm.ResolvePermissions(roles, claims, companies, permissions);
             userCm.ResolveRoles(roles, claims, companies, permissions);
-            
+
             return userCm;
         }
 
@@ -88,7 +88,7 @@ namespace Mimirorg.Authentication.Services
             var claims = await _userManager.GetClaimsAsync(user);
             userCm.ResolvePermissions(roles, claims, companies, permissions);
             userCm.ResolveRoles(roles, claims, companies, permissions);
-            
+
             return userCm;
         }
 

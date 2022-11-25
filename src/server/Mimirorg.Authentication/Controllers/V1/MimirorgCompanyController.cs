@@ -248,7 +248,7 @@ namespace Mimirorg.Authentication.Controllers.V1
                 return StatusCode(500, "Internal Server Error");
             }
         }
-        
+
         /// <summary>
         /// Get the users for a company
         /// </summary>
@@ -274,7 +274,7 @@ namespace Mimirorg.Authentication.Controllers.V1
                 return StatusCode(500, "Internal Server Error");
             }
         }
-        
+
         /// <summary>
         /// Get the pending users for a company
         /// </summary>

@@ -202,7 +202,7 @@ namespace Mimirorg.Authentication.Services
 
             return true;
         }
-        
+
         /// <summary>
         /// Get all permissions
         /// </summary>
