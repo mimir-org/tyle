@@ -6,7 +6,7 @@ import {
   AlertDialogOverlay,
 } from "complib/overlays/alert-dialog/AlertDialog.styled";
 import { AlertDialogAction, AlertDialogActionItem } from "complib/overlays/alert-dialog/components/AlertDialogAction";
-import { AlertDialogCancel } from "complib/overlays/alert-dialog/components/AlertDialogCancel";
+import { AlertDialogCancel, AlertDialogCancelItem } from "complib/overlays/alert-dialog/components/AlertDialogCancel";
 import { AlertDialogDescription } from "complib/overlays/alert-dialog/components/AlertDialogDescription";
 import { AlertDialogTitle } from "complib/overlays/alert-dialog/components/AlertDialogTitle";
 import { PropsWithChildren, ReactNode } from "react";
@@ -16,11 +16,11 @@ type AlertDialogProps = Pick<AlertDialogPrimitive.AlertDialogProps, "open" | "on
   AlertDialogContentProps & {
     content?: ReactNode;
     actions: AlertDialogActionItem[];
+    cancelAction?: AlertDialogCancelItem;
     title: string;
     description?: string;
     hideTitle?: boolean;
     hideDescription?: boolean;
-    cancelText?: string;
   };
 
 /**
@@ -79,7 +79,7 @@ export const AlertDialog = ({
               gap={theme.tyle.spacing.base}
               minWidth={"236px"}
             >
-              <AlertDialogCancel cancelText={cancelText} />
+              <AlertDialogCancel name={cancelAction?.name} onAction={cancelAction?.onAction} />
               {actions?.map((a) => (
                 <AlertDialogAction key={a.name} {...a} />
               ))}

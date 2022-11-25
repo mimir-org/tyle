@@ -1,8 +1,15 @@
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 import { Button } from "complib/buttons";
 
-export const AlertDialogCancel = ({ cancelText }: { cancelText?: string }) => (
+export interface AlertDialogCancelItem {
+  name?: string;
+  onAction?: () => void;
+}
+
+export const AlertDialogCancel = ({ name, onAction }: AlertDialogCancelItem) => (
   <AlertDialogPrimitive.Cancel asChild>
-    <Button variant={"outlined"}>{cancelText ?? "Cancel"}</Button>
+    <Button variant={"outlined"} onClick={onAction}>
+      {name ?? "Cancel"}
+    </Button>
   </AlertDialogPrimitive.Cancel>
 );
