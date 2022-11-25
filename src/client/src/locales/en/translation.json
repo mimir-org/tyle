@@ -525,9 +525,9 @@
       },
       "undo": {
         "action": "Undo",
-        "loading": "Removing \"{{permission}}\" permission from {{name}}",
-        "success": "Permission \"{{permission}}\" was removed from {{name}}",
-        "error": "An error occurred while removing \"{{permission}}\" permission from {{name}}"
+        "loading": "Reverting permission change for {{name}}",
+        "success": "Permission change was reverted for {{name}}",
+        "error": "An error occurred while reverting permission change for {{name}}"
       },
       "validation": {
         "userId": {

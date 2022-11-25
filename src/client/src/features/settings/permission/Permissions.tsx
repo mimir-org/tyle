@@ -1,6 +1,7 @@
 import { Flexbox } from "complib/layouts";
 import { RadioFilters } from "features/settings/common/radio-filters/RadioFilters";
 import { SettingsSection } from "features/settings/common/settings-section/SettingsSection";
+import { PermissionDialog } from "features/settings/permission/permission-dialog/PermissionDialog";
 import {
   getPermissionOptions,
   useCompanyOptions,
@@ -44,7 +45,12 @@ export const Permissions = () => {
         />
         <UserList title={t("settings.permissions.users")}>
           {users.map((user) => (
-            <UserListItem key={user.id} name={user.name} trait={user.permissions[user.company.id]?.label} />
+            <UserListItem
+              key={user.id}
+              name={user.name}
+              trait={user.permissions[user.company.id]?.label}
+              action={<PermissionDialog user={user} />}
+            />
           ))}
         </UserList>
       </Flexbox>
