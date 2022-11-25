@@ -5,7 +5,11 @@ import {
   getPermissionOptions,
   useCompanyOptions,
   useDefaultCompanyOptions,
+  useFilteredUsers,
 } from "features/settings/permission/Permissions.helpers";
+import { UserItemPermission } from "features/settings/permission/types/userItemPermission";
+import { UserList } from "features/settings/permission/user-list/UserList";
+import { UserListItem } from "features/settings/permission/user-list/UserListItem";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
@@ -20,6 +24,8 @@ export const Permissions = () => {
 
   const permissions = getPermissionOptions();
   const [selectedPermission, setSelectedPermission] = useState(permissions[0]?.value);
+
+  const users = useFilteredUsers(selectedCompany, selectedPermission as unknown as UserItemPermission);
 
   return (
     <SettingsSection title={t("settings.permissions.title")}>
@@ -36,6 +42,11 @@ export const Permissions = () => {
           value={selectedPermission}
           onChange={(x) => setSelectedPermission(x)}
         />
+        <UserList title={t("settings.permissions.users")}>
+          {users.map((user) => (
+            <UserListItem key={user.id} name={user.name} trait={user.permissions[user.company.id]?.label} />
+          ))}
+        </UserList>
       </Flexbox>
     </SettingsSection>
   );

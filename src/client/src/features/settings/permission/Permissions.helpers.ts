@@ -1,6 +1,10 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
+import { UserItem } from "common/types/userItem";
 import { getOptionsFromEnum, Option } from "common/utils/getOptionsFromEnum";
+import { mapMimirorgUserCmToUserItem } from "common/utils/mappers/mapMimirorgUserCmToUserItem";
+import { useGetCompanyUsers } from "external/sources/company/company.queries";
+import { MimirorgPermissionExtended, UserItemPermission } from "features/settings/permission/types/userItemPermission";
 import { useEffect } from "react";
 
 export const useCompanyOptions = (): Option<string>[] => {
@@ -32,4 +36,15 @@ export const getPermissionOptions = (): Option<string>[] => {
   }));
 
   return [{ value: "-1", label: "All" }, ...regularPermissionsMapped];
+};
+
+export const useFilteredUsers = (companyId: string, permission: UserItemPermission): UserItem[] => {
+  const userQuery = useGetCompanyUsers(companyId);
+  const users = userQuery.data?.map((x) => mapMimirorgUserCmToUserItem(x)) ?? [];
+
+  if (permission == MimirorgPermissionExtended.All) {
+    return users;
+  }
+
+  return users.filter((user) => user.permissions[companyId]?.value == permission);
 };
