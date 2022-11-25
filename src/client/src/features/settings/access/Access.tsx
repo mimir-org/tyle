@@ -20,7 +20,7 @@ export const Access = () => {
 
   return (
     <SettingsSection title={t("settings.access.title")}>
-      <Text variant={"title-medium"} mt={theme.tyle.spacing.xxxl} mb={theme.tyle.spacing.l}>
+      <Text variant={"title-medium"} mb={theme.tyle.spacing.l}>
         {t("settings.access.users")}
       </Text>
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
