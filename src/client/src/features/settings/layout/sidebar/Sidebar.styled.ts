@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled, { css } from "styled-components/macro";
 
 export const SidebarContainer = styled.aside`
+  flex: 1;
   display: flex;
   flex-direction: column;
   max-width: 350px;
