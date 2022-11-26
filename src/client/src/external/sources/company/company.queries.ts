@@ -10,7 +10,7 @@ export const companyKeys = {
   company: (id?: number) => [...companyKeys.all, { id }] as const,
   allCompanyUsersLists: [...userKeys.all, "list"] as const,
   companyUsers: (id?: string) => [...companyKeys.allCompanyUsersLists, { id }] as const,
-  companyPendingUsers: () =>  [...companyKeys.allCompanyUsersLists, "pending"] as const,
+  companyPendingUsers: () => [...companyKeys.allCompanyUsersLists, "pending"] as const,
 };
 
 export const useGetCompanies = () => useQuery(companyKeys.lists(), companyApi.getCompanies);
@@ -48,5 +48,4 @@ export const useGetCompanyUsers = (companyId?: string) =>
     retry: false,
   });
 
-export const useGetPendingUsers = () =>
-  useQuery(companyKeys.companyPendingUsers(), () => companyApi.getPendingUsers());
+export const useGetPendingUsers = () => useQuery(companyKeys.companyPendingUsers(), () => companyApi.getPendingUsers());
