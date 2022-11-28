@@ -13,7 +13,7 @@ export const Access = () => {
   const { t } = useTranslation();
   const pendingUsersQuery = useGetPendingUsers();
 
-  const users = pendingUsersQuery.data ?? [];
+  const users = pendingUsersQuery.data?.sort((a, b) => a.firstName.localeCompare(b.firstName)) ?? [];
   const showPlaceholder = users && users.length === 0;
 
   return (
