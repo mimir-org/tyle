@@ -41,8 +41,8 @@ export const PermissionCardForm = ({ user, formId, onSubmit, showSubmitButton = 
       alignItems={"center"}
       onSubmit={handleSubmit((data) => toast(user.name, data).then(() => onSubmit && onSubmit()))}
     >
-      <Input type={"hidden"} {...register("userId")} />
-      <Input type={"hidden"} {...register("companyId")} />
+      <Input type={"hidden"} value={user.id} {...register("userId")} />
+      <Input type={"hidden"} value={user.company?.id} {...register("companyId")} />
       <Controller
         control={control}
         name={"permission"}

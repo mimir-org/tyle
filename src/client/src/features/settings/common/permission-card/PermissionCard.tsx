@@ -36,6 +36,7 @@ export const PermissionCard = ({ user, selected, ...delegated }: AccessCardProps
 
   return (
     <MotionPermissionCardContainer
+      key={user.id}
       ref={cardRef}
       variant={showSelectedStyle ? "selected" : "filled"}
       layout={"position"}

@@ -23,8 +23,8 @@ export const Access = () => {
       </Text>
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
         {showPlaceholder && <AccessPlaceholder text={t("settings.access.placeholders.users")} />}
-        {users.map((x, i) => (
-          <PermissionCard key={i} user={mapMimirorgUserCmToUserItem(x)} />
+        {users.map((user) => (
+          <PermissionCard key={user.id} user={mapMimirorgUserCmToUserItem(user)} />
         ))}
       </Flexbox>
     </SettingsSection>
