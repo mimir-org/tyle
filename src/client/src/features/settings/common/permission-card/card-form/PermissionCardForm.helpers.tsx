@@ -6,7 +6,7 @@ import { Text } from "complib/text";
 import { useAddUserPermission, useRemoveUserPermission } from "external/sources/authorize/authorize.queries";
 import {
   FormUserPermission,
-  mapFormUserPermissionToApiModel
+  mapFormUserPermissionToApiModel,
 } from "features/settings/common/permission-card/card-form/types/formUserPermission";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
