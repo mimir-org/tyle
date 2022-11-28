@@ -22,7 +22,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         private const string RefreshTokenCookie = "tyleToken";
         private readonly ILogger<MimirorgAuthenticateController> _logger;
         private readonly IMimirorgAuthService _authService;
-        
+
         public MimirorgAuthenticateController(ILogger<MimirorgAuthenticateController> logger, IMimirorgAuthService authService)
         {
             _logger = logger;
