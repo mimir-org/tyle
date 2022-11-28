@@ -9,7 +9,6 @@ import { useUserDescriptors } from "features/settings/common/permission-card/Per
 import { MotionPermissionCardContainer } from "features/settings/common/permission-card/PermissionCard.styled";
 import { useRef } from "react";
 import { useTheme } from "styled-components";
-import { useHover } from "usehooks-ts";
 
 export type AccessCardProps = PermissionCardFormProps & {
   user: UserItem;
@@ -28,9 +27,7 @@ export type AccessCardProps = PermissionCardFormProps & {
 export const PermissionCard = ({ user, selected, ...delegated }: AccessCardProps) => {
   const theme = useTheme();
   const cardRef = useRef(null);
-  const isHovered = useHover(cardRef);
   const userDescriptors = useUserDescriptors(user);
-  const showSelectedStyle = isHovered || selected;
 
   const { formId, onSubmit, showSubmitButton } = delegated;
 
@@ -38,9 +35,9 @@ export const PermissionCard = ({ user, selected, ...delegated }: AccessCardProps
     <MotionPermissionCardContainer
       key={user.id}
       ref={cardRef}
-      variant={showSelectedStyle ? "selected" : "filled"}
+      variant={selected ? "selected" : "filled"}
       layout={"position"}
-      {...theme.tyle.animation.fade}
+      {...theme.tyle.animation.selectHover}
     >
       <PermissionCardHeader>{user.name}</PermissionCardHeader>
       <PermissionCardDetails descriptors={userDescriptors} />
