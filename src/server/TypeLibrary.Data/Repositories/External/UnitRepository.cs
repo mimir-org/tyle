@@ -12,10 +12,12 @@ namespace TypeLibrary.Data.Repositories.External
     public class UnitRepository : IUnitRepository
     {
         private readonly ICacheRepository _cacheRepository;
+        private readonly ISparQlWebClient _client;
 
-        public UnitRepository(ICacheRepository cacheRepository)
+        public UnitRepository(ICacheRepository cacheRepository, ISparQlWebClient client)
         {
             _cacheRepository = cacheRepository;
+            _client = client;
         }
 
         #region Public methods
@@ -48,14 +50,8 @@ namespace TypeLibrary.Data.Repositories.External
 
         private Task<List<UnitLibDm>> FetchUnitsFromPca()
         {
-            var client = new SparQlWebClient
-            {
-                EndPoint = SparQlWebClient.PcaEndPointProduction,
-                Query = SparQlWebClient.PcaUnitAllQuery
-            };
-
             var units = new List<UnitLibDm>();
-            var data = client.Get<PcaUnit>().ToList();
+            var data = _client.Get<PcaUnit>(SparQlWebClient.PcaEndPointProduction, SparQlWebClient.PcaUnitAllQuery).ToList();
 
             if (!data.Any())
                 return Task.FromResult(units);

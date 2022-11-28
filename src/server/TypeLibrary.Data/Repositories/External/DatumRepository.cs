@@ -13,10 +13,12 @@ namespace TypeLibrary.Data.Repositories.External
     public class DatumRepository : IQuantityDatumRepository
     {
         private readonly ICacheRepository _cacheRepository;
+        private readonly ISparQlWebClient _client;
 
-        public DatumRepository(ICacheRepository cacheRepository)
+        public DatumRepository(ICacheRepository cacheRepository, ISparQlWebClient client)
         {
             _cacheRepository = cacheRepository;
+            _client = client;
         }
 
         /// <summary>
@@ -61,15 +63,9 @@ namespace TypeLibrary.Data.Repositories.External
 
         #region Private methods
 
-        private static Task<IEnumerable<QuantityDatumDm>> FetchDatums(string query, QuantityDatumType type)
+        private Task<IEnumerable<QuantityDatumDm>> FetchDatums(string query, QuantityDatumType type)
         {
-            var client = new SparQlWebClient
-            {
-                EndPoint = SparQlWebClient.PcaEndPointProduction,
-                Query = query
-            };
-
-            var data = client.Get<PcaDatum>().ToList();
+            var data = _client.Get<PcaDatum>(SparQlWebClient.PcaEndPointProduction, query).ToList();
             var datums = data.Select(datum => new QuantityDatumDm { Iri = datum.Datum, Description = null, Name = datum.Datum_Label, QuantityDatumType = type, Source = "PCA" });
 
             return Task.FromResult(datums);
