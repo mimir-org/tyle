@@ -166,8 +166,7 @@ namespace Mimirorg.Authentication.Services
             }
 
             var companies = await GetAllCompanies();
-            var permissions = MimirorgPermissionCm.FromPermissionEnum();
-
+            var permissions = MimirorgPermissionCm.FromPermissionEnum().ToList();
             var mappedUsers = new List<MimirorgUserCm>();
 
             foreach (var user in users)
@@ -204,8 +203,7 @@ namespace Mimirorg.Authentication.Services
             }
 
             var companies = await GetAllCompanies();
-            var permissions = MimirorgPermissionCm.FromPermissionEnum();
-
+            var permissions = MimirorgPermissionCm.FromPermissionEnum().ToList();
             var mappedUsers = new List<MimirorgUserCm>();
 
             foreach (var user in users)

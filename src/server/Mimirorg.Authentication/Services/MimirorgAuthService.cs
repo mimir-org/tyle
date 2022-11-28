@@ -207,9 +207,10 @@ namespace Mimirorg.Authentication.Services
         /// Get all permissions
         /// </summary>
         /// <returns>ICollection&lt;MimirorgPermissionCm&gt;</returns>
-        public Task<ICollection<MimirorgPermissionCm>> GetAllPermissions()
+        public async Task<ICollection<MimirorgPermissionCm>> GetAllPermissions()
         {
-            return Task.FromResult(MimirorgPermissionCm.FromPermissionEnum());
+            var permissions = MimirorgPermissionCm.FromPermissionEnum().ToList();
+            return await Task.FromResult(permissions);
         }
 
         /// <summary>
