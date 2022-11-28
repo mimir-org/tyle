@@ -1,7 +1,7 @@
-import { PlainLink } from "common/components/plain-link";
 import { Button } from "complib/buttons";
 import { Box } from "complib/layouts";
 import { Heading, Text } from "complib/text";
+import { PlainLink } from "features/common/plain-link";
 import { useTheme } from "styled-components";
 
 interface NotFoundProps {

@@ -1,6 +1,4 @@
 import { Aspect, MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { PlainLink } from "common/components/plain-link";
-import { TerminalButton } from "common/components/terminal";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { Button } from "complib/buttons";
@@ -13,6 +11,8 @@ import { ConditionalWrapper } from "complib/utils";
 import { useGetPurposes } from "external/sources/purpose/purpose.queries";
 import { useGetRds } from "external/sources/rds/rds.queries";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
+import { PlainLink } from "features/common/plain-link";
+import { TerminalButton } from "features/common/terminal";
 import { resetSubform } from "features/entities/transport/TransportForm.helpers";
 import { TransportFormBaseFieldsContainer } from "features/entities/transport/TransportFormBaseFields.styled";
 import { TransportFormPreview } from "features/entities/transport/TransportFormPreview";

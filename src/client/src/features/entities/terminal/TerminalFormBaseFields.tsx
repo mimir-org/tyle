@@ -1,10 +1,10 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { PlainLink } from "common/components/plain-link";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { Button } from "complib/buttons";
 import { FormField } from "complib/form";
 import { Input, Select, Textarea } from "complib/inputs";
 import { Flexbox } from "complib/layouts";
+import { PlainLink } from "features/common/plain-link";
 import { TerminalFormBaseFieldsContainer } from "features/entities/terminal/TerminalFormBaseFields.styled";
 import { TerminalFormPreview } from "features/entities/terminal/TerminalFormPreview";
 import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";

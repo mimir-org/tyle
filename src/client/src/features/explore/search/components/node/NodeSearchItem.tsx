@@ -1,11 +1,11 @@
 import { State } from "@mimirorg/typelibrary-types";
 import { Duplicate, PencilAlt, Trash } from "@styled-icons/heroicons-outline";
-import { NodePreview } from "common/components/node";
-import { PlainLink } from "common/components/plain-link";
 import { NodeItem } from "common/types/nodeItem";
 import { Button } from "complib/buttons";
 import { AlertDialog } from "complib/overlays";
 import { usePatchNodeState } from "external/sources/node/node.queries";
+import { NodePreview } from "features/common/node";
+import { PlainLink } from "features/common/plain-link";
 import { Item } from "features/explore/search/components/item/Item";
 import { ItemDescription } from "features/explore/search/components/item/ItemDescription";
 import { useTranslation } from "react-i18next";

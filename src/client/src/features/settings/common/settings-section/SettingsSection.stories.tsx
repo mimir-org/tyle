@@ -4,7 +4,7 @@ import { Text } from "complib/text";
 import { SettingsSection } from "features/settings/common/settings-section/SettingsSection";
 
 export default {
-  title: "Settings/Common/SettingsSection",
+  title: "Features/Settings/Common/SettingsSection",
   component: SettingsSection,
 };
 

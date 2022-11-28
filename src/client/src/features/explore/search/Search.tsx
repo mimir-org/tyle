@@ -1,9 +1,9 @@
 import { XCircle } from "@styled-icons/heroicons-outline";
-import { SearchField } from "common/components/search-field";
 import { useDebounceState } from "common/hooks/useDebounceState";
 import { Token } from "complib/general";
 import { Flexbox, MotionFlexbox } from "complib/layouts";
 import { MotionText } from "complib/text";
+import { SearchField } from "features/common/search-field";
 import { ExploreSection } from "features/explore/common/ExploreSection";
 import { SelectedInfo } from "features/explore/common/selectedInfo";
 import { FilterMenu } from "features/explore/search/components/filter/FilterMenu";

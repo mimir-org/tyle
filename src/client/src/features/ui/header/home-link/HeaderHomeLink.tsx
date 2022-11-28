@@ -1,5 +1,5 @@
-import { Logo } from "common/components/logo";
-import { PlainLink } from "common/components/plain-link";
+import { Logo } from "features/common/logo";
+import { PlainLink } from "features/common/plain-link";
 import { useTranslation } from "react-i18next";
 
 export const HeaderHomeLink = () => {

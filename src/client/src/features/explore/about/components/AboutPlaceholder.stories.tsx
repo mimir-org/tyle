@@ -2,7 +2,7 @@ import { ComponentStory } from "@storybook/react";
 import { AboutPlaceholder } from "features/explore/about/components/AboutPlaceholder";
 
 export default {
-  title: "Explore/About/AboutPlaceholder",
+  title: "Features/Explore/About/AboutPlaceholder",
   component: AboutPlaceholder,
 };
 

@@ -1,5 +1,4 @@
 import { Aspect, MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { PlainLink } from "common/components/plain-link";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { Button } from "complib/buttons";
@@ -13,6 +12,7 @@ import { ConditionalWrapper } from "complib/utils";
 import { useGetPurposes } from "external/sources/purpose/purpose.queries";
 import { useGetRds } from "external/sources/rds/rds.queries";
 import { useGetSymbols } from "external/sources/symbol/symbol.queries";
+import { PlainLink } from "features/common/plain-link";
 import { resetSubform } from "features/entities/node/NodeForm.helpers";
 import { NodeFormBaseFieldsContainer } from "features/entities/node/NodeFormBaseFields.styled";
 import { NodeFormPreview } from "features/entities/node/NodeFormPreview";

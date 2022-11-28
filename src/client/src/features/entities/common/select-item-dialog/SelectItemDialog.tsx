@@ -1,10 +1,10 @@
 import { DialogClose } from "@radix-ui/react-dialog";
 import { PlusSm } from "@styled-icons/heroicons-outline";
-import { InfoItemCheckbox } from "common/components/info-item";
-import { SearchField } from "common/components/search-field";
 import { InfoItem } from "common/types/infoItem";
 import { Button } from "complib/buttons";
 import { Dialog } from "complib/overlays";
+import { InfoItemCheckbox } from "features/common/info-item";
+import { SearchField } from "features/common/search-field";
 import {
   filterInfoItem,
   onSelectionChange,

@@ -4,7 +4,7 @@ import { Button } from "complib/buttons";
 import { UserListItem } from "features/settings/permission/user-list/UserListItem";
 
 export default {
-  title: "Settings/Permission/UserListItem",
+  title: "Features/Settings/Permission/UserListItem",
   component: UserListItem,
 };
 

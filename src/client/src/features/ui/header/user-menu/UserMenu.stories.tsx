@@ -4,7 +4,7 @@ import { Flexbox } from "complib/layouts";
 import { UserMenu } from "features/ui/header/user-menu/UserMenu";
 
 export default {
-  title: "UI/Header/UserMenu",
+  title: "Features/UI/Header/UserMenu",
   component: UserMenu,
 };
 
