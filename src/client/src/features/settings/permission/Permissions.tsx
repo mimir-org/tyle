@@ -17,7 +17,7 @@ import { useTheme } from "styled-components";
 
 export const Permissions = () => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("settings");
 
   const companies = useCompanyOptions();
   const [selectedCompany, setSelectedCompany] = useState(companies[0]?.value);
@@ -29,21 +29,21 @@ export const Permissions = () => {
   const users = useFilteredUsers(selectedCompany, selectedPermission as unknown as UserItemPermission);
 
   return (
-    <SettingsSection title={t("settings.permissions.title")}>
+    <SettingsSection title={t("permissions.title")}>
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xxl}>
         <RadioFilters
-          title={t("settings.permissions.organization")}
+          title={t("permissions.organization")}
           filters={companies}
           value={selectedCompany}
           onChange={(x) => setSelectedCompany(String(x))}
         />
         <RadioFilters
-          title={t("settings.permissions.permission")}
+          title={t("permissions.permission")}
           filters={permissions}
           value={selectedPermission}
           onChange={(x) => setSelectedPermission(x)}
         />
-        <UserList title={t("settings.permissions.users")}>
+        <UserList title={t("permissions.users")}>
           {users.map((user) => (
             <UserListItem
               key={user.id}

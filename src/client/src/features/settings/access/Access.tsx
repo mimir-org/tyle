@@ -10,19 +10,19 @@ import { useTheme } from "styled-components";
 
 export const Access = () => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("settings");
   const pendingUsersQuery = useGetPendingUsers();
 
   const users = pendingUsersQuery.data?.sort((a, b) => a.firstName.localeCompare(b.firstName)) ?? [];
   const showPlaceholder = users && users.length === 0;
 
   return (
-    <SettingsSection title={t("settings.access.title")}>
+    <SettingsSection title={t("access.title")}>
       <Text variant={"title-medium"} mb={theme.tyle.spacing.l}>
-        {t("settings.access.users")}
+        {t("access.users")}
       </Text>
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xxxl}>
-        {showPlaceholder && <AccessPlaceholder text={t("settings.access.placeholders.users")} />}
+        {showPlaceholder && <AccessPlaceholder text={t("access.placeholders.users")} />}
         {users.map((user) => (
           <PermissionCard key={user.id} user={mapMimirorgUserCmToUserItem(user)} />
         ))}
