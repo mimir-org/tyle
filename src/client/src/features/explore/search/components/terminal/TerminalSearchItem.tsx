@@ -1,11 +1,11 @@
 import { State } from "@mimirorg/typelibrary-types";
 import { Duplicate, PencilAlt, Trash } from "@styled-icons/heroicons-outline";
-import { PlainLink } from "common/components/plain-link";
-import { TerminalPreview } from "common/components/terminal/TerminalPreview";
 import { TerminalItem } from "common/types/terminalItem";
 import { Button } from "complib/buttons";
 import { AlertDialog } from "complib/overlays";
 import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
+import { PlainLink } from "features/common/plain-link";
+import { TerminalPreview } from "features/common/terminal/TerminalPreview";
 import { Item } from "features/explore/search/components/item/Item";
 import { ItemDescription } from "features/explore/search/components/item/ItemDescription";
 import { useTranslation } from "react-i18next";

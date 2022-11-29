@@ -4,7 +4,7 @@ import { FilterMenuGroup } from "features/explore/search/components/filter/Filte
 import { Filter } from "features/explore/search/types/filter";
 
 export default {
-  title: "Explore/Search/Filter/FilterMenu",
+  title: "Features/Explore/Search/Filter/FilterMenu",
   component: FilterMenu,
   subcomponents: { FilterMenuGroup },
 } as ComponentMeta<typeof FilterMenu>;

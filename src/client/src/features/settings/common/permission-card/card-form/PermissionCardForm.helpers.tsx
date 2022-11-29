@@ -19,7 +19,7 @@ import { useTheme } from "styled-components";
  */
 export const usePermissionToasts = (oldPermission?: Option<MimirorgPermission>) => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("settings");
   const addMutation = useAddUserPermission();
   const undoToast = useUndoPermissionToast(oldPermission);
 
@@ -30,16 +30,16 @@ export const usePermissionToasts = (oldPermission?: Option<MimirorgPermission>) 
     return toast.promise(
       mutationPromise,
       {
-        loading: t("settings.access.processing.loading", { name, permission }),
+        loading: t("common.permission.processing.loading", { name, permission }),
         success: (
           <>
-            <Text variant={"label-large"}>{t("settings.access.processing.success", { name, permission })}</Text>
+            <Text variant={"label-large"}>{t("common.permission.processing.success", { name, permission })}</Text>
             <Button variant={"outlined"} onClick={() => undoToast(name, submission)}>
-              {t("settings.access.undo.action")}
+              {t("common.permission.undo.action")}
             </Button>
           </>
         ),
-        error: t("settings.access.processing.error", { name, permission }),
+        error: t("common.permission.processing.error", { name, permission }),
       },
       {
         success: {
@@ -61,7 +61,7 @@ export const usePermissionToasts = (oldPermission?: Option<MimirorgPermission>) 
  * @param oldPermission permission that the user had before being assigned a new one
  */
 const useUndoPermissionToast = (oldPermission?: Option<MimirorgPermission>) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("settings");
   const addMutation = useAddUserPermission();
   const removeMutation = useRemoveUserPermission();
   const shouldRevertToOldPermission = !!oldPermission;
@@ -72,9 +72,9 @@ const useUndoPermissionToast = (oldPermission?: Option<MimirorgPermission>) => {
     const mutationPromise = targetMutation.mutateAsync(mapFormUserPermissionToApiModel(targetSubmission));
 
     return toast.promise(mutationPromise, {
-      loading: t("settings.access.undo.loading", { name }),
-      success: t("settings.access.undo.success", { name }),
-      error: t("settings.access.undo.error", { name }),
+      loading: t("common.permission.undo.loading", { name }),
+      success: t("common.permission.undo.success", { name }),
+      error: t("common.permission.undo.error", { name }),
     });
   };
 };

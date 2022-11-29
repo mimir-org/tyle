@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Processing } from "features/auth/common/processing/Processing";
 
 export default {
-  title: "Auth/Common/Processing",
+  title: "Features/Auth/Common/Processing",
   component: Processing,
 } as ComponentMeta<typeof Processing>;
 

@@ -1,13 +1,13 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { SearchField } from "common/components/search-field";
 import { Box } from "complib/layouts";
 import { Text } from "complib/text";
+import { SearchField } from "features/common/search-field";
 import { ExploreSection } from "features/explore/common/ExploreSection";
 import { ItemListProps } from "features/explore/search/components/item/ItemList";
 import { Default as ItemList } from "features/explore/search/components/item/ItemList.stories";
 
 export default {
-  title: "Explore/Common/ExploreSection",
+  title: "Features/Explore/Common/ExploreSection",
   component: ExploreSection,
 } as ComponentMeta<typeof ExploreSection>;
 

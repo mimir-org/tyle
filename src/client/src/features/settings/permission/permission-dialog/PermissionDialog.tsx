@@ -21,7 +21,7 @@ interface PermissionDialogProps {
  * @constructor
  */
 export const PermissionDialog = ({ user }: PermissionDialogProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("settings");
   const [open, setOpen] = useState(false);
   const formId = "changeUserPermission";
 
@@ -29,26 +29,26 @@ export const PermissionDialog = ({ user }: PermissionDialogProps) => {
     <PermissionCard selected user={user} formId={formId} onSubmit={() => setOpen(false)} showSubmitButton={false} />
   );
   const dialogOverriddenSubmitAction: AlertDialogActionItem = {
-    name: t("settings.permissions.dialog.submit"),
+    name: t("permissions.dialog.submit"),
     form: formId,
     type: "submit",
   };
   const dialogOverriddenCancelAction: AlertDialogCancelItem = {
-    name: t("settings.permissions.dialog.cancel"),
+    name: t("permissions.dialog.cancel"),
     onAction: () => setOpen(false),
   };
 
   return (
     <AlertDialog
       open={open}
-      title={t("settings.permissions.dialog.title")}
-      description={t("settings.permissions.dialog.description")}
+      title={t("permissions.dialog.title")}
+      description={t("permissions.dialog.description")}
       content={dialogContent}
       actions={[dialogOverriddenSubmitAction]}
       cancelAction={dialogOverriddenCancelAction}
     >
       <Button variant={"text"} icon={<PencilAlt />} iconOnly onClick={() => setOpen(true)}>
-        {t("settings.permissions.dialog.trigger", { name: user.name })}
+        {t("permissions.dialog.trigger", { name: user.name })}
       </Button>
     </AlertDialog>
   );

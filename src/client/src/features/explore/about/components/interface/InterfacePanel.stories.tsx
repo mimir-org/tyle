@@ -3,7 +3,7 @@ import { mockInterfaceItem } from "common/utils/mocks";
 import { InterfacePanel } from "features/explore/about/components/interface/InterfacePanel";
 
 export default {
-  title: "Explore/About/InterfacePanel",
+  title: "Features/Explore/About/InterfacePanel",
   component: InterfacePanel,
   args: {
     ...mockInterfaceItem(),

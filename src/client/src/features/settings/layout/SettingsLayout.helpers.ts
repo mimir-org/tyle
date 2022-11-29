@@ -11,15 +11,15 @@ export const useSettingsLinkGroups = (): LinkGroup[] => {
 };
 
 const useAdministerLinks = (): Link[] => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("settings");
 
   return [
     {
-      name: t("settings.access.title"),
+      name: t("access.title"),
       path: accessBasePath,
     },
     {
-      name: t("settings.permissions.title"),
+      name: t("permissions.title"),
       path: permissionsBasePath,
     },
   ];

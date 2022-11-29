@@ -2,7 +2,7 @@ import { ComponentStory } from "@storybook/react";
 import { PermissionCardHeader } from "features/settings/common/permission-card/card-header/PermissionCardHeader";
 
 export default {
-  title: "Settings/Common/PermissionCardHeader",
+  title: "Features/Settings/Common/PermissionCardHeader",
   component: PermissionCardHeader,
 };
 

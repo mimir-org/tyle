@@ -5,7 +5,7 @@ import { SelectItemDialog } from "features/entities/common/select-item-dialog/Se
 const mockData = [...Array(20)].map((_) => mockInfoItem());
 
 export default {
-  title: "Entities/Common/SelectItemDialog",
+  title: "Features/Entities/Common/SelectItemDialog",
   component: SelectItemDialog,
   args: {
     title: "Select item(s)",

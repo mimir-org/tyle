@@ -1,10 +1,10 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TransportLibCm } from "@mimirorg/typelibrary-types";
-import { Loader } from "common/components/loader";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { Box } from "complib/layouts";
+import { Loader } from "features/common/loader";
 import { FormAttributes } from "features/entities/common/form-attributes/FormAttributes";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
 import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";

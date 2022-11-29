@@ -5,7 +5,6 @@ import styled from "styled-components/macro";
 const PermissionCardContainer = styled(Card).attrs(() => ({
   as: "article",
 }))`
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: ${(props) => props.theme.tyle.spacing.xl};

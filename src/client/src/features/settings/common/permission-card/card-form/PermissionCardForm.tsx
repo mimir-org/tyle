@@ -19,7 +19,7 @@ export interface PermissionCardFormProps {
 }
 
 export const PermissionCardForm = ({ user, formId, onSubmit, showSubmitButton = true }: PermissionCardFormProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(["settings", "translation"]);
 
   const permissionOptions = getOptionsFromEnum<MimirorgPermission>(MimirorgPermission);
   const currentPermission = permissionOptions.find((x) => x.value == user.permissions[user.company.id]?.value);
@@ -41,24 +41,24 @@ export const PermissionCardForm = ({ user, formId, onSubmit, showSubmitButton = 
       alignItems={"center"}
       onSubmit={handleSubmit((data) => toast(user.name, data).then(() => onSubmit && onSubmit()))}
     >
-      <Input type={"hidden"} {...register("userId")} />
-      <Input type={"hidden"} {...register("companyId")} />
+      <Input type={"hidden"} value={user.id} {...register("userId")} />
+      <Input type={"hidden"} value={user.company?.id} {...register("companyId")} />
       <Controller
         control={control}
         name={"permission"}
         render={({ field: { value, ref, ...rest } }) => (
-          <FormField label={t("settings.access.permission")} error={formState.errors.permission} indent={false}>
+          <FormField label={t("common.permission.permission")} error={formState.errors.permission} indent={false}>
             <Select
               {...rest}
               selectRef={ref}
-              placeholder={t("common.templates.select", { object: t("settings.access.permission").toLowerCase() })}
+              placeholder={t("common.templates.select", { object: t("common.permission.permission").toLowerCase() })}
               options={permissionOptions}
               value={permissionOptions.find((x) => x.value === value.value)}
             />
           </FormField>
         )}
       />
-      {showSubmitButton && <Button type={"submit"}>{t("settings.access.submit")}</Button>}
+      {showSubmitButton && <Button type={"submit"}>{t("common.permission.submit")}</Button>}
     </Form>
   );
 };

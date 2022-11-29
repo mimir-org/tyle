@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Error } from "features/auth/common/error/Error";
 
 export default {
-  title: "Auth/Common/Error",
+  title: "Features/Auth/Common/Error",
   component: Error,
 } as ComponentMeta<typeof Error>;
 

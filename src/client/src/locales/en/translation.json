@@ -505,56 +505,6 @@
       }
     }
   },
-  "settings": {
-    "title": "Settings",
-    "access": {
-      "title": "Access",
-      "users": "New users",
-      "organization": "Organization",
-      "email": "E-mail",
-      "purpose": "Purpose",
-      "permission": "Permission",
-      "submit": "Approve",
-      "placeholders": {
-        "users": "No new users have requested access"
-      },
-      "processing": {
-        "loading": "Granting \"{{permission}}\" permission to {{name}}",
-        "success": "Permission \"{{permission}}\" has been granted to {{name}}",
-        "error": "An error occurred while granting \"{{permission}}\" permission to {{name}}"
-      },
-      "undo": {
-        "action": "Undo",
-        "loading": "Reverting permission change for {{name}}",
-        "success": "Permission change was reverted for {{name}}",
-        "error": "An error occurred while reverting permission change for {{name}}"
-      },
-      "validation": {
-        "userId": {
-          "required": "A user must be specified"
-        },
-        "companyId": {
-          "required": "A company must be specified"
-        },
-        "permission": {
-          "required": "Please select a permission"
-        }
-      }
-    },
-    "permissions": {
-      "title": "Permissions",
-      "organization": "Organization",
-      "permission": "Permission",
-      "users": "Users",
-      "dialog": {
-        "title": "Editing",
-        "description": "Change the user's permission level",
-        "trigger": "Edit {{name}}",
-        "submit": "Submit",
-        "cancel": "Cancel"
-      }
-    }
-  },
   "clientError": {
     "title": "Oops!",
     "subtitle": "An error occurred when loading the page. Please contact support if the problem persists.",

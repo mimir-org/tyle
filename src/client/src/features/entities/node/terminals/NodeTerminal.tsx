@@ -1,6 +1,5 @@
 import { Aspect, ConnectorDirection } from "@mimirorg/typelibrary-types";
 import { Trash } from "@styled-icons/heroicons-outline";
-import { TerminalButton } from "common/components/terminal";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import {
   MAXIMUM_TERMINAL_QUANTITY_VALUE,
@@ -13,6 +12,7 @@ import { Checkbox } from "complib/inputs/checkbox/Checkbox";
 import { Box, Flexbox } from "complib/layouts";
 import { Text } from "complib/text";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
+import { TerminalButton } from "features/common/terminal";
 import {
   NodeTerminalContainer,
   NodeTerminalInputContainer,

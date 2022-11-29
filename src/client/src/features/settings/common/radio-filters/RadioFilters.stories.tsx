@@ -2,7 +2,7 @@ import { ComponentStory } from "@storybook/react";
 import { RadioFilters } from "features/settings/common/radio-filters/RadioFilters";
 
 export default {
-  title: "Settings/Common/RadioFilters",
+  title: "Features/Settings/Common/RadioFilters",
   component: RadioFilters,
 };
 

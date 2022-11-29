@@ -3,7 +3,7 @@ import { mockTerminalItem } from "common/utils/mocks/mockTerminalItem";
 import { TerminalPanel } from "features/explore/about/components/terminal/TerminalPanel";
 
 export default {
-  title: "Explore/About/TerminalPanel",
+  title: "Features/Explore/About/TerminalPanel",
   component: TerminalPanel,
   args: {
     ...mockTerminalItem(),

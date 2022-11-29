@@ -4,7 +4,7 @@ import { UserListItem, UserListItemProps } from "features/settings/permission/us
 import { Default as UserListItemStory } from "features/settings/permission/user-list/UserListItem.stories";
 
 export default {
-  title: "Settings/Permission/UserList",
+  title: "Features/Settings/Permission/UserList",
   component: UserList,
   subcomponents: { UserListItem },
 };
