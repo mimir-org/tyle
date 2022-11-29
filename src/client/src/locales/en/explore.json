@@ -1,0 +1,51 @@
+{
+  "search": {
+    "title": "Search",
+    "placeholders": {
+      "search": "Search for types"
+    },
+    "templates": {
+      "hits": "Showing {{shown}} of {{total}} results found"
+    },
+    "item": {
+      "clone": "Clone",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteDescription": "When you delete this item it cannot be recovered.",
+      "templates": {
+        "delete": "Do you want to delete “{{object}}”?"
+      }
+    },
+    "help": {
+      "subtitle": "Search help",
+      "tip1": "Check your search for typos",
+      "tip2": "Use more generic search terms",
+      "tip3": "The type you are searching for might not have been added yet",
+      "templates": {
+        "query": "We are sorry, there are no results for “{{query}}”"
+      }
+    },
+    "filter": {
+      "title": "Filter",
+      "templates": {
+        "remove": "Remove {{object}} filter"
+      }
+    },
+    "create": {
+      "title": "Create",
+      "aspectObject": "Aspect object",
+      "interface": "Interface",
+      "terminal": "Terminal",
+      "transport": "Transport"
+    }
+  },
+  "about": {
+    "title": "About",
+    "attributes": "Attributes",
+    "terminals": "Terminals",
+    "terminal": "Associated terminal",
+    "placeholders": {
+      "item": "Select an item to view its properties"
+    }
+  }
+}

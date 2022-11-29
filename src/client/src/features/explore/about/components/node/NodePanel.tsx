@@ -24,7 +24,7 @@ import { useTheme } from "styled-components";
  */
 export const NodePanel = ({ name, description, img, color, tokens, terminals, attributes }: NodeItem) => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("explore");
   const showTerminals = terminals && terminals.length > 0;
   const showAttributes = attributes && attributes.length > 0;
 
@@ -54,14 +54,14 @@ export const NodePanel = ({ name, description, img, color, tokens, terminals, at
 
       <PanelPropertiesContainer>
         {showAttributes && (
-          <PanelSection title={t("attributes.title")}>
+          <PanelSection title={t("about.attributes")}>
             {attributes.map((a, i) => (
               <InfoItemButton key={i} {...a} />
             ))}
           </PanelSection>
         )}
         {showTerminals && (
-          <PanelSection title={t("terminals.title")}>
+          <PanelSection title={t("about.terminals")}>
             <TerminalTable terminals={terminals} />
           </PanelSection>
         )}

@@ -1,6 +1,7 @@
 import { isProduction } from "common/utils/config";
 import i18next from "i18next";
 import I18nextBrowserLanguageDetector from "i18next-browser-languagedetector";
+import enExplore from "locales/en/explore.json";
 import enSettings from "locales/en/settings.json";
 import enRoot from "locales/en/translation.json";
 import { initReactI18next } from "react-i18next";
@@ -8,6 +9,7 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: enRoot,
+    explore: enExplore,
     settings: enSettings,
   },
 };

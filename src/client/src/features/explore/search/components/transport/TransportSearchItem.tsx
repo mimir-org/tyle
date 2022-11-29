@@ -35,11 +35,11 @@ export const TransportSearchItem = ({ isSelected, setSelected, ...transport }: T
 
 const TransportSearchItemActions = ({ id, name, ...rest }: TransportItem) => {
   const theme = useTheme();
-  const { t } = useTranslation("translation", { keyPrefix: "search.item" });
+  const { t } = useTranslation("explore");
 
   const deleteMutation = usePatchTransportState();
   const deleteAction = {
-    name: t("delete"),
+    name: t("search.item.delete"),
     onAction: () => deleteMutation.mutate({ id, state: State.Delete }),
   };
 
@@ -47,24 +47,24 @@ const TransportSearchItemActions = ({ id, name, ...rest }: TransportItem) => {
     <>
       <PlainLink tabIndex={-1} to={`/form/transport/clone/${id}`}>
         <Button tabIndex={0} as={"span"} icon={<Duplicate />} iconOnly>
-          {t("clone")}
+          {t("search.item.clone")}
         </Button>
       </PlainLink>
       <PlainLink tabIndex={-1} to={`/form/transport/edit/${id}`}>
         <Button tabIndex={0} as={"span"} icon={<PencilAlt />} iconOnly>
-          {t("edit")}
+          {t("search.item.edit")}
         </Button>
       </PlainLink>
       <AlertDialog
         gap={theme.tyle.spacing.multiple(6)}
         actions={[deleteAction]}
-        title={t("templates.delete", { object: name })}
-        description={t("deleteDescription")}
+        title={t("search.item.templates.delete", { object: name })}
+        description={t("search.item.deleteDescription")}
         hideDescription
         content={<TransportPreview name={name} {...rest} />}
       >
         <Button icon={<Trash />} iconOnly>
-          {t("delete")}
+          {t("search.item.delete")}
         </Button>
       </AlertDialog>
     </>
