@@ -265,13 +265,13 @@ namespace Mimirorg.Authentication.Services
         /// <summary>
         /// Verify email account from verify code
         /// </summary>
-        /// <param name="data">The email verify data</param>
+        /// <param name="verifyEmail">The email verify data</param>
         /// <returns>bool</returns>
         /// <exception cref="MimirorgInvalidOperationException"></exception>
         /// <exception cref="MimirorgNotFoundException"></exception>
-        public async Task<bool> VerifyAccount(MimirorgVerifyAm data)
+        public async Task<bool> VerifyAccount(MimirorgVerifyAm verifyEmail)
         {
-            var regToken = await _tokenRepository.FindBy(x => x.Secret == data.Code && x.Email == data.Email).FirstOrDefaultAsync(x => x.TokenType == MimirorgTokenType.VerifyEmail);
+            var regToken = await _tokenRepository.FindBy(x => x.Secret == verifyEmail.Code && x.Email == verifyEmail.Email).FirstOrDefaultAsync(x => x.TokenType == MimirorgTokenType.VerifyEmail);
 
             if (regToken == null)
                 throw new MimirorgNotFoundException("Could not verify account");
