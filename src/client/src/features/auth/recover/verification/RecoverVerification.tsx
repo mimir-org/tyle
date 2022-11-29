@@ -31,7 +31,7 @@ export const RecoverVerification = ({
   complete,
 }: VerificationProps) => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("auth");
   const { control, register, handleSubmit } = useForm<MimirorgVerifyAm>();
 
   const generateMfaMutation = useGenerateMfa();

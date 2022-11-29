@@ -53,7 +53,11 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
   return (
     <ExploreSection title={t("search.title")}>
       <Flexbox gap={theme.tyle.spacing.xxxl} alignItems={"center"}>
-        <SearchField value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t("search.placeholders.search")} />
+        <SearchField
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder={t("search.placeholders.search")}
+        />
         <FilterMenu
           name={t("search.filter.title")}
           filterGroups={useGetFilterGroups()}

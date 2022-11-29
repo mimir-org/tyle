@@ -16,13 +16,13 @@ interface ErrorProps {
  */
 export const Error = ({ children }: ErrorProps) => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("auth");
 
   return (
     <FormErrorBanner>
       {children}
-      <Text as={"a"} href={`mailto:${t("common.support.email")}`} color={theme.tyle.color.sys.error.on}>
-        {t("common.support.text")}
+      <Text as={"a"} href={`mailto:${t("support.email")}`} color={theme.tyle.color.sys.error.on}>
+        {t("support.text")}
       </Text>
     </FormErrorBanner>
   );

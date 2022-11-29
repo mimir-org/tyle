@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 export type RegisterSteps = "DETAILS" | "VERIFY" | "MFA" | "COMPLETE";
 
 export const Register = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("auth");
   const [stage, setStage] = useState<RegisterSteps>("DETAILS");
   const [email, setEmail] = useState("");
   const [mfaInfo, setMfaInfo] = useState<MimirorgQrCodeCm>({ code: "", manualCode: "" });
@@ -34,12 +34,12 @@ export const Register = () => {
           setMfaInfo={setMfaInfo}
           complete={{
             actionable: true,
-            actionText: t("common.next"),
+            actionText: t("register.next"),
             onAction: () => setStage("MFA"),
           }}
           cancel={{
             actionable: true,
-            actionText: t("common.back"),
+            actionText: t("register.back"),
             onAction: () => setStage("DETAILS"),
           }}
         />
@@ -54,12 +54,12 @@ export const Register = () => {
           manualCodeDescription={t("register.mfa.manual.description")}
           complete={{
             actionable: true,
-            actionText: t("common.next"),
+            actionText: t("register.next"),
             onAction: () => setStage("COMPLETE"),
           }}
           cancel={{
             actionable: true,
-            actionText: t("common.back"),
+            actionText: t("register.back"),
             onAction: () => setStage("DETAILS"),
           }}
         />
@@ -70,7 +70,7 @@ export const Register = () => {
           infoText={t("register.complete.info.text")}
           complete={{
             actionable: true,
-            actionText: t("common.return"),
+            actionText: t("register.complete.return"),
             onAction: () => navigate("/"),
           }}
         />

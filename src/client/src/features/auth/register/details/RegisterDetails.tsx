@@ -27,7 +27,7 @@ interface RegisterDetailsProps {
 
 export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps) => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("auth");
 
   const mutation = useCreateUser();
   const companyQuery = useGetCompanies();
@@ -59,7 +59,7 @@ export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps
             <Form id={"details-form"} onSubmit={handleSubmit((data) => onSubmit(data))}>
               {mutation.isError && <Error>{t("register.details.error")}</Error>}
               <FormFieldset>
-                <FormField label={`${t("common.fields.company")} *`} error={errors.companyId}>
+                <FormField label={`${t("register.details.company")} *`} error={errors.companyId}>
                   <Controller
                     control={control}
                     name={"companyId"}
@@ -67,7 +67,7 @@ export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps
                       <Select
                         {...rest}
                         selectRef={ref}
-                        placeholder={t("common.placeholders.company")}
+                        placeholder={t("register.details.placeholders.company")}
                         options={companyQuery?.data}
                         getOptionLabel={(x) => x.name}
                         getOptionValue={(x) => x.id.toString()}
@@ -80,45 +80,55 @@ export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps
                   />
                 </FormField>
 
-                <FormField label={`${t("common.fields.email")} *`} error={formState.errors.email}>
-                  <Input id="email" type="email" placeholder={t("common.placeholders.email")} {...register("email")} />
+                <FormField label={`${t("register.details.email")} *`} error={formState.errors.email}>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder={t("register.details.placeholders.email")}
+                    {...register("email")}
+                  />
                 </FormField>
 
-                <FormField label={`${t("common.fields.firstname")} *`} error={errors.firstName}>
-                  <Input id="firstName" placeholder={t("common.placeholders.firstname")} {...register("firstName")} />
+                <FormField label={`${t("register.details.firstname")} *`} error={errors.firstName}>
+                  <Input
+                    id="firstName"
+                    placeholder={t("register.details.placeholders.firstname")}
+                    {...register("firstName")}
+                  />
                 </FormField>
 
-                <FormField label={`${t("common.fields.lastname")} *`} error={errors.lastName}>
-                  <Input id="lastName" placeholder={t("common.placeholders.lastname")} {...register("lastName")} />
+                <FormField label={`${t("register.details.lastname")} *`} error={errors.lastName}>
+                  <Input
+                    id="lastName"
+                    placeholder={t("register.details.placeholders.lastname")}
+                    {...register("lastName")}
+                  />
                 </FormField>
 
-                <FormField label={`${t("common.fields.password")} *`} error={errors.password}>
+                <FormField label={`${t("register.details.password")} *`} error={errors.password}>
                   <Input
                     id="password"
                     type="password"
-                    placeholder={t("common.placeholders.password")}
+                    placeholder={t("register.details.placeholders.password")}
                     {...register("password")}
                   />
                 </FormField>
 
-                <FormField
-                  label={`${t("common.confirm")} ${t("common.fields.password").toLowerCase()} *`}
-                  error={errors.confirmPassword}
-                >
+                <FormField label={`${t("register.details.confirmPassword")} *`} error={errors.confirmPassword}>
                   <Input
                     id="confirmPassword"
                     type="password"
-                    placeholder={t("common.placeholders.password")}
+                    placeholder={t("register.details.placeholders.password")}
                     {...register("confirmPassword")}
                   />
                 </FormField>
 
-                <FormField label={`${t("common.fields.purpose")} *`} error={errors.purpose}>
-                  <Textarea placeholder={t("common.placeholders.purpose")} {...register("purpose")} />
+                <FormField label={`${t("register.details.purpose")} *`} error={errors.purpose}>
+                  <Textarea placeholder={t("register.details.placeholders.purpose")} {...register("purpose")} />
                 </FormField>
 
                 <MotionText color={theme.tyle.color.sys.surface.variant.on} layout={"position"} as={"i"}>
-                  {t("common.placeholders.required")}
+                  {t("register.details.placeholders.required")}
                 </MotionText>
               </FormFieldset>
             </Form>

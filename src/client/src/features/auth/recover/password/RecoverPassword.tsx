@@ -26,7 +26,7 @@ interface RecoverPasswordProps {
 
 export const RecoverPassword = ({ verificationInfo, cancel, complete }: RecoverPasswordProps) => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("auth");
 
   const formMethods = useForm<MimirorgChangePasswordAm>({
     resolver: yupResolver(recoverPasswordSchema(t)),
@@ -53,23 +53,20 @@ export const RecoverPassword = ({ verificationInfo, cancel, complete }: RecoverP
                 <Input type={"hidden"} value={verificationInfo.email} {...register("email")} />
                 <Input type={"hidden"} value={verificationInfo.code} {...register("code")} />
 
-                <FormField label={`${t("common.fields.password")} *`} error={errors.password}>
+                <FormField label={`${t("recover.password.password")} *`} error={errors.password}>
                   <Input
                     id="password"
                     type="password"
-                    placeholder={t("common.placeholders.password")}
+                    placeholder={t("recover.password.placeholders.password")}
                     {...register("password")}
                   />
                 </FormField>
 
-                <FormField
-                  label={`${t("common.confirm")} ${t("common.fields.password").toLowerCase()} *`}
-                  error={errors.confirmPassword}
-                >
+                <FormField label={`${t("recover.password.confirmPassword")} *`} error={errors.confirmPassword}>
                   <Input
                     id="confirmPassword"
                     type="password"
-                    placeholder={t("common.placeholders.password")}
+                    placeholder={t("recover.password.placeholders.password")}
                     {...register("confirmPassword")}
                   />
                 </FormField>
