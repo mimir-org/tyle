@@ -1,6 +1,5 @@
 using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Enums;
-using TypeScriptBuilder;
 
 namespace Mimirorg.TypeLibrary.Models.Client
 {
@@ -19,13 +18,17 @@ namespace Mimirorg.TypeLibrary.Models.Client
             Name = enumValue.GetDisplayName();
         }
 
-        public static IEnumerable<MimirorgPermissionCm> FromPermissionEnum()
+        public static ICollection<MimirorgPermissionCm> FromPermissionEnum()
         {
             var permissionValues = Enum.GetValues<MimirorgPermission>();
+            var permissions = new List<MimirorgPermissionCm>();
+
             foreach (var permission in permissionValues)
             {
-                yield return new MimirorgPermissionCm(permission);
+                permissions.Add(new MimirorgPermissionCm(permission));
             }
+
+            return permissions;
         }
     }
 }
