@@ -1,9 +1,9 @@
 import { PlusSm } from "@styled-icons/heroicons-outline";
-import { SearchField } from "common/components/search-field";
 import { Button } from "complib/buttons";
 import { Popover } from "complib/data-display";
 import { Box } from "complib/layouts";
 import { Accordion } from "complib/surfaces";
+import { SearchField } from "features/common/search-field";
 import { filterAvailableFilters } from "features/explore/search/components/filter/FilterMenu.helpers";
 import { FilterMenuGroup, FilterMenuGroupProps } from "features/explore/search/components/filter/FilterMenuGroup";
 import { FilterGroup } from "features/explore/search/types/filterGroup";

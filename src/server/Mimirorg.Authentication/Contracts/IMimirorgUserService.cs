@@ -1,5 +1,6 @@
 using System.Security.Principal;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 
@@ -34,7 +35,15 @@ namespace Mimirorg.Authentication.Contracts
         /// <exception cref="MimirorgNotFoundException"></exception>
         Task<MimirorgUserCm> GetUser(string id);
 
-        IEnumerable<MimirorgUserCm> GetPendingUsers(int company);
+
+        /// <summary>
+        /// Gets all companies that the principal can access given a specific permission level
+        /// </summary>
+        /// <param name="principal"></param>
+        /// <param name="permission"></param>
+        /// <returns>A collection of company ids</returns>
+        /// <exception cref="MimirorgNotFoundException"></exception>
+        Task<ICollection<int>> GetCompaniesForUser(IPrincipal principal, MimirorgPermission permission);
 
         /// <summary>
         /// Setup two factor 

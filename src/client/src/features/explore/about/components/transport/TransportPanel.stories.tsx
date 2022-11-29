@@ -3,7 +3,7 @@ import { mockTransportItem } from "common/utils/mocks";
 import { TransportPanel } from "features/explore/about/components/transport/TransportPanel";
 
 export default {
-  title: "Explore/About/TransportPanel",
+  title: "Features/Explore/About/TransportPanel",
   component: TransportPanel,
   args: {
     ...mockTransportItem(),

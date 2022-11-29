@@ -15,11 +15,13 @@ namespace TypeLibrary.Data.Repositories.External
     {
         private readonly ICacheRepository _cacheRepository;
         private readonly IUnitRepository _unitRepository;
+        private readonly ISparQlWebClient _client;
 
-        public AttributeReferenceRepository(ICacheRepository cacheRepository, IUnitRepository unitRepository)
+        public AttributeReferenceRepository(ICacheRepository cacheRepository, IUnitRepository unitRepository, ISparQlWebClient client)
         {
             _cacheRepository = cacheRepository;
             _unitRepository = unitRepository;
+            _client = client;
         }
 
         #region Public 
@@ -40,14 +42,8 @@ namespace TypeLibrary.Data.Repositories.External
 
         private Task<List<AttributeLibDm>> FetchAttributesFromPca()
         {
-            var client = new SparQlWebClient
-            {
-                EndPoint = SparQlWebClient.PcaEndPointProduction,
-                Query = SparQlWebClient.PcaAttributeAllQuery
-            };
-
             var attributes = new List<AttributeLibDm>();
-            var pcaAttributes = client.Get<PcaAttribute>().ToList();
+            var pcaAttributes = _client.Get<PcaAttribute>(SparQlWebClient.PcaEndPointProduction, SparQlWebClient.PcaAttributeAllQuery).ToList();
             var pcaUnits = _unitRepository.Get().Result;
 
             if (!pcaAttributes.Any())

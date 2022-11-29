@@ -2,12 +2,12 @@ import { ConnectorDirection, NodeLibCm, NodeTerminalLibCm, State } from "@mimiro
 import { NodeItem } from "common/types/nodeItem";
 import { NodeTerminalItem } from "common/types/nodeTerminalItem";
 import { getColorFromAspect } from "common/utils/getColorFromAspect";
-import { getValueLabelObjectsFromEnum } from "common/utils/getValueLabelObjectsFromEnum";
+import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { mapAttributeLibCmsToInfoItems } from "common/utils/mappers/mapAttributeLibCmToInfoItem";
 import { sortInfoItems } from "common/utils/sorters";
 
 export const mapNodeLibCmToNodeItem = (node: NodeLibCm): NodeItem => {
-  const states = getValueLabelObjectsFromEnum(State);
+  const states = getOptionsFromEnum(State);
   const currentStateLabel = states[node.state].label;
 
   return {

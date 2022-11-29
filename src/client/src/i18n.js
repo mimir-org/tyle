@@ -1,12 +1,14 @@
 import { isProduction } from "common/utils/config";
 import i18next from "i18next";
 import I18nextBrowserLanguageDetector from "i18next-browser-languagedetector";
-import en from "locales/en/translation.json";
+import enSettings from "locales/en/settings.json";
+import enRoot from "locales/en/translation.json";
 import { initReactI18next } from "react-i18next";
 
 const resources = {
   en: {
-    translation: en,
+    translation: enRoot,
+    settings: enSettings,
   },
 };
 

@@ -10,6 +10,7 @@
     "@radix-ui/react-checkbox": "^1.0.1",
     "@radix-ui/react-dialog": "^1.0.2",
     "@radix-ui/react-popover": "^1.0.2",
+    "@radix-ui/react-radio-group": "^1.1.0",
     "@radix-ui/react-separator": "^1.0.1",
     "@radix-ui/react-tooltip": "^1.0.2",
     "@radix-ui/react-visually-hidden": "^1.0.1",
@@ -80,7 +81,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
-    "@mimirorg/typelibrary-types": "^0.18.0",
+    "@mimirorg/typelibrary-types": "^0.21.0",
     "@storybook/addon-a11y": "^6.5.13",
     "@storybook/addon-actions": "^6.5.13",
     "@storybook/addon-essentials": "^6.5.13",

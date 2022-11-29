@@ -1,4 +1,4 @@
-import { TerminalPreview } from "common/components/terminal/TerminalPreview";
+import { TerminalPreview } from "features/common/terminal/TerminalPreview";
 import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";
 import { Control, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";

@@ -13,10 +13,12 @@ namespace TypeLibrary.Data.Repositories.External
     public class PurposeReferenceRepository : IPurposeReferenceRepository
     {
         private readonly ICacheRepository _cacheRepository;
+        private readonly ISparQlWebClient _client;
 
-        public PurposeReferenceRepository(ICacheRepository cacheRepository)
+        public PurposeReferenceRepository(ICacheRepository cacheRepository, ISparQlWebClient client)
         {
             _cacheRepository = cacheRepository;
+            _client = client;
         }
 
         #region Public
@@ -37,15 +39,8 @@ namespace TypeLibrary.Data.Repositories.External
 
         private Task<List<PurposeLibDm>> FetchPurposesFromPca()
         {
-            var client = new SparQlWebClient
-            {
-                //TODO: Endpoint should be PcaEndPointProduction (when available)
-                EndPoint = SparQlWebClient.PcaEndPointStaging,
-                Query = SparQlWebClient.PcaPurposeAllQuery
-            };
-
             var purposes = new List<PurposeLibDm>();
-            var pcaPurposes = client.Get<PcaPurpose>()?.OrderBy(x => x.Label, StringComparer.CurrentCultureIgnoreCase).ToList();
+            var pcaPurposes = _client.Get<PcaPurpose>(SparQlWebClient.PcaEndPointStaging, SparQlWebClient.PcaPurposeAllQuery)?.OrderBy(x => x.Label, StringComparer.CurrentCultureIgnoreCase).ToList();
 
             if (pcaPurposes == null || !pcaPurposes.Any())
                 return Task.FromResult(purposes);

@@ -1,10 +1,10 @@
-import { InfoItemButton } from "common/components/info-item";
-import { TerminalPreview } from "common/components/terminal/TerminalPreview";
-import { TransportPreview } from "common/components/transport";
 import { TransportItem } from "common/types/transportItem";
 import { Token } from "complib/general";
 import { Flexbox, MotionBox } from "complib/layouts";
 import { Heading, Text } from "complib/text";
+import { InfoItemButton } from "features/common/info-item";
+import { TerminalPreview } from "features/common/terminal/TerminalPreview";
+import { TransportPreview } from "features/common/transport";
 import { PanelPropertiesContainer } from "features/explore/about/components/common/PanelPropertiesContainer";
 import { PanelSection } from "features/explore/about/components/common/PanelSection";
 import { useTranslation } from "react-i18next";

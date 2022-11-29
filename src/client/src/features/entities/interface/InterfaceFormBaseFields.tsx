@@ -1,8 +1,6 @@
 import { Aspect, MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { PlainLink } from "common/components/plain-link";
-import { TerminalButton } from "common/components/terminal";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
-import { getValueLabelObjectsFromEnum } from "common/utils/getValueLabelObjectsFromEnum";
+import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { Button } from "complib/buttons";
 import { Popover } from "complib/data-display";
 import { FormField } from "complib/form";
@@ -13,6 +11,8 @@ import { ConditionalWrapper } from "complib/utils";
 import { useGetPurposes } from "external/sources/purpose/purpose.queries";
 import { useGetRds } from "external/sources/rds/rds.queries";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
+import { PlainLink } from "features/common/plain-link";
+import { TerminalButton } from "features/common/terminal";
 import { resetSubform } from "features/entities/interface/InterfaceForm.helpers";
 import { InterfaceFormBaseFieldsContainer } from "features/entities/interface/InterfaceFormBaseFields.styled";
 import { InterfaceFormPreview } from "features/entities/interface/InterfaceFormPreview";
@@ -41,7 +41,7 @@ export const InterfaceFormBaseFields = ({ mode }: InterfaceFormBaseFieldsProps) 
   const rdsQuery = useGetRds();
   const purposeQuery = useGetPurposes();
   const terminalQuery = useGetTerminals();
-  const aspectOptions = getValueLabelObjectsFromEnum<Aspect>(Aspect);
+  const aspectOptions = getOptionsFromEnum<Aspect>(Aspect);
   const companies = useGetFilteredCompanies(MimirorgPermission.Write);
 
   return (

@@ -4,19 +4,20 @@ export interface AnimationSystem {
   selectHover: Record<string, unknown>,
   buttonTap: Record<string, unknown>,
   checkboxTap: Record<string, unknown>,
+  radioButtonTap: Record<string, unknown>,
   from: (direction: "top" | "right" | "bottom" | "left", distance?: number) => Record<string, unknown>
 }
 
 export const animation: AnimationSystem = {
   fade: {
     initial: {
-      opacity: 0,
+      opacity: 0
     },
     animate: {
-      opacity: 1,
+      opacity: 1
     },
     exit: {
-      opacity: 0,
+      opacity: 0
     },
     transition: {
       type: "tween",
@@ -25,14 +26,14 @@ export const animation: AnimationSystem = {
   },
   scale: {
     initial: {
-      scale: 0.8,
+      scale: 0.8
     },
     animate: {
-      scale: 1,
+      scale: 1
     },
     exit: {
-      scale: 0.8,
-    },
+      scale: 0.8
+    }
   },
   selectHover: {
     whileHover: {
@@ -45,6 +46,11 @@ export const animation: AnimationSystem = {
     }
   },
   checkboxTap: {
+    whileTap: {
+      scale: 0.8
+    }
+  },
+  radioButtonTap: {
     whileTap: {
       scale: 0.8
     }
@@ -63,15 +69,15 @@ export const animation: AnimationSystem = {
       left: {
         x: `-${distance}px`
       }
-    }
+    };
 
     return {
       initial: fromToMap[direction],
       animate: {
         x: 0,
-        y: 0,
+        y: 0
       },
       exit: fromToMap[direction]
-    }
-  },
-}
+    };
+  }
+};

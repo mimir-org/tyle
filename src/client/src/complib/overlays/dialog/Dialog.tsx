@@ -7,24 +7,28 @@ import { DialogContent, DialogContentProps, DialogOverlay } from "complib/overla
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
 
-export type DialogProps = DialogContentProps & {
-  children?: ReactNode;
-  content: ReactNode;
-  title: string;
-  description?: string;
-  hideTitle?: boolean;
-  hideDescription?: boolean;
-  closeText?: string;
-};
+export type DialogProps = Pick<DialogPrimitive.DialogProps, "open" | "onOpenChange"> &
+  DialogContentProps & {
+    children?: ReactNode;
+    content: ReactNode;
+    title: string;
+    description?: string;
+    hideTitle?: boolean;
+    hideDescription?: boolean;
+    closeText?: string;
+  };
 
 /**
  * Component which is overlaid the primary window, rendering the content underneath inert.
+ * Can operate in both a controlled and uncontrolled mode by utilizing open and onOpenChange properties.
  *
  * See documentation link below for details.
  * @see https://www.radix-ui.com/docs/primitives/components/dialog
  *
  * @param children component that triggers dialog visibility
  * @param content shown inside the dialog itself
+ * @param open property for overriding the open state of the dialog
+ * @param onOpenChange event handler called when the open state of the dialog changes
  * @param title required title of dialog (can be hidden visually with hideTitle prop)
  * @param description optional description of dialog
  * @param hideTitle hides the title from view while remaining readable by screen-readers
@@ -36,6 +40,8 @@ export type DialogProps = DialogContentProps & {
 export const Dialog = ({
   children,
   content,
+  open,
+  onOpenChange,
   title,
   hideTitle,
   description,
@@ -46,7 +52,7 @@ export const Dialog = ({
   const theme = useTheme();
 
   return (
-    <DialogPrimitive.Root>
+    <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
       <DialogPrimitive.Trigger asChild>{children}</DialogPrimitive.Trigger>
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay asChild>

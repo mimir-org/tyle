@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 using Mimirorg.Common.Models;
+using TypeLibrary.Data.Contracts.Common;
 using VDS.RDF.Query;
 
 namespace TypeLibrary.Data.Common
 {
-    public class SparQlWebClient
+    public class SparQlWebClient : ISparQlWebClient
     {
         #region Constants
 
@@ -90,16 +92,30 @@ namespace TypeLibrary.Data.Common
 
         #endregion
 
-        public string EndPoint { get; set; }
-        public string Query { get; set; }
+        private readonly ILogger<SparQlWebClient> _logger;
 
-        public IEnumerable<T> Get<T>() where T : class, new()
+        public SparQlWebClient(ILogger<SparQlWebClient> logger)
         {
-            if (string.IsNullOrEmpty(EndPoint) || string.IsNullOrEmpty(Query))
+            _logger = logger;
+        }
+
+        public IEnumerable<T> Get<T>(string url, string query) where T : class, new()
+        {
+            if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(query))
                 yield break;
 
-            var endpoint = new SparqlRemoteEndpoint(new Uri(EndPoint));
-            var results = endpoint.QueryWithResultSet(Query);
+            var endpoint = new SparqlRemoteEndpoint(new Uri(url));
+            SparqlResultSet results;
+
+            try
+            {
+                results = endpoint.QueryWithResultSet(query);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.ToString());
+                throw;
+            }
 
             if (results == null || !results.Any())
                 yield break;

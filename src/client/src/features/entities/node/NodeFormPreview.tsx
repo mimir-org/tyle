@@ -1,6 +1,6 @@
-import { NodePreview } from "common/components/node";
 import { getColorFromAspect } from "common/utils/getColorFromAspect";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
+import { NodePreview } from "features/common/node";
 import { getTerminalItemsFromFormData } from "features/entities/node/NodeFormPreview.helpers";
 import { FormNodeLib } from "features/entities/node/types/formNodeLib";
 import { Control, useWatch } from "react-hook-form";

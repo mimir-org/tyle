@@ -5,6 +5,13 @@
   
   <br/>
   <br/>
+
+  <h4>
+  <a href="https://tyleclient.azurewebsites.net/">Tyle - Production Environment</a>
+  </h4> 
+
+  <br/>
+  <br/>
   
   <p>A tool for building semantically supported templates!</p>
 
@@ -48,17 +55,20 @@
 
 # :notebook_with_decorative_cover: Table of Contents
 
-- [:notebook_with_decorative_cover: Table of Contents](#notebook_with_decorative_cover-table-of-contents)
+- [:notebook\_with\_decorative\_cover: Table of Contents](#notebook_with_decorative_cover-table-of-contents)
   - [:star2: About the Project](#star2-about-the-project)
-    - [:space_invader: Tech Stack](#space_invader-tech-stack)
+    - [:space\_invader: Tech Stack](#space_invader-tech-stack)
     - [:art: Design System](#art-design-system)
     - [:key: Environment Variables](#key-environment-variables)
-      - [Client](#client)
-      - [Server](#server)
+      - [General](#general)
+      - [Application settings](#application-settings)
+      - [Authentication settings](#authentication-settings)
+      - [Database settings](#database-settings)
   - [:toolbox: Getting Started](#toolbox-getting-started)
     - [:bangbang: Prerequisites](#bangbang-prerequisites)
     - [:running: Running](#running-running)
   - [:wave: Contributing](#wave-contributing)
+  - [:department\_store: Architecture](#department_store-architecture)
     - [:scroll: Code of Conduct](#scroll-code-of-conduct)
   - [:warning: License](#warning-license)
   - [:handshake: Contact](#handshake-contact)

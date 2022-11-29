@@ -1,5 +1,5 @@
 import { Aspect } from "@mimirorg/typelibrary-types";
-import { getValueLabelObjectsFromEnum } from "common/utils/getValueLabelObjectsFromEnum";
+import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { useGetPurposes } from "external/sources/purpose/purpose.queries";
 import { FilterGroup } from "features/explore/search/types/filterGroup";
 
@@ -15,7 +15,7 @@ const useGetPurposeFilters = (): FilterGroup => {
 };
 
 const getAspectFilters = (): FilterGroup => {
-  const aspectOptions = getValueLabelObjectsFromEnum<Aspect>(Aspect);
+  const aspectOptions = getOptionsFromEnum<Aspect>(Aspect);
 
   return {
     name: "Aspect",

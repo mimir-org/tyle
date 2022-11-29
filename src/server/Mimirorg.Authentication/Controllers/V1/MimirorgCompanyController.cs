@@ -28,12 +28,11 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// </summary>
         /// <param name="companyService"></param>
         /// <param name="logger"></param>
-        /// <param name="userService"></param>
-        public MimirorgCompanyController(IMimirorgCompanyService companyService, ILogger<MimirorgCompanyController> logger, IMimirorgUserService userService)
+        public MimirorgCompanyController(IMimirorgCompanyService companyService, IMimirorgUserService userService, ILogger<MimirorgCompanyController> logger)
         {
             _companyService = companyService;
-            _logger = logger;
             _userService = userService;
+            _logger = logger;
         }
 
         /// <summary>
@@ -248,6 +247,60 @@ namespace Mimirorg.Authentication.Controllers.V1
             catch (Exception e)
             {
                 _logger.LogError(e, $"An error occurred while trying to update a company. Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
+        /// Get the users for a company
+        /// </summary>
+        /// <returns>ICollection&lt;MimirorgCompanyCm&gt;</returns>
+        [MimirorgAuthorize(MimirorgPermission.Manage, "id")]
+        [HttpGet]
+        [Route("{id:int}/users")]
+        [ProducesResponseType(typeof(ICollection<MimirorgUserCm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [SwaggerOperation("Get users that belong to a company")]
+        public async Task<IActionResult> GetUsers([FromRoute] int id)
+        {
+            try
+            {
+                var users = await _companyService.GetCompanyUsers(id);
+                return Ok(users);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to get users. Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
+        /// Get all pending users that the requesting entity can manage
+        /// </summary>
+        /// <returns>A list of users</returns>
+        [Authorize]
+        [HttpGet]
+        [Route("users/pending")]
+        [ProducesResponseType(typeof(ICollection<MimirorgUserCm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [SwaggerOperation("Get all pending users that the requesting entity can manage")]
+        public async Task<IActionResult> GetPendingUsers()
+        {
+            try
+            {
+                var userCompanyIds = await _userService.GetCompaniesForUser(User, MimirorgPermission.Manage);
+                var users = await _companyService.GetCompanyPendingUsers(userCompanyIds);
+
+                return Ok(users);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to get pending users. Error: {e.Message}");
                 return StatusCode(500, "Internal Server Error");
             }
         }

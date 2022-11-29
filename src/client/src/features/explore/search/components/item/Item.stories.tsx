@@ -1,13 +1,13 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { NodeProps } from "common/components/node/Node";
-import { Default as Node } from "common/components/node/Node.stories";
 import { Button } from "complib/buttons";
+import { NodeProps } from "features/common/node/Node";
+import { Default as Node } from "features/common/node/Node.stories";
 import { Item } from "features/explore/search/components/item/Item";
 import { ItemDescriptionProps } from "features/explore/search/components/item/ItemDescription";
 import { Default as ItemDescription } from "features/explore/search/components/item/ItemDescription.stories";
 
 export default {
-  title: "Explore/Search/Item/Item",
+  title: "Features/Explore/Search/Item/Item",
   component: Item,
 } as ComponentMeta<typeof Item>;
 

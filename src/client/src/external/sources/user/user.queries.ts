@@ -4,8 +4,6 @@ import { userApi } from "external/sources/user/user.api";
 
 export const userKeys = {
   all: ["user"] as const,
-  allPending: ["usersPending"] as const,
-  pendingLists: () => [...userKeys.allPending, "list"] as const,
 };
 
 export const useGetCurrentUser = () =>
@@ -15,9 +13,6 @@ export const useGetCurrentUser = () =>
   });
 
 export const useCreateUser = () => useMutation((item: MimirorgUserAm) => userApi.postUser(item), {});
-
-export const useGetPendingUsers = (companyId?: string) =>
-  useQuery(userKeys.pendingLists(), () => userApi.getPendingUsers(companyId), { enabled: !!companyId, retry: false });
 
 export const useVerification = () => useMutation((item: MimirorgVerifyAm) => userApi.postVerification(item));
 

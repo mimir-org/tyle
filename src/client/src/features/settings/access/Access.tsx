@@ -1,31 +1,30 @@
+import { mapMimirorgUserCmToUserItem } from "common/utils/mappers/mapMimirorgUserCmToUserItem";
 import { Flexbox } from "complib/layouts";
 import { Text } from "complib/text";
-import { useGetCurrentUser, useGetPendingUsers } from "external/sources/user/user.queries";
-import { AccessCard } from "features/settings/access/card/AccessCard";
+import { useGetPendingUsers } from "external/sources/company/company.queries";
 import { AccessPlaceholder } from "features/settings/access/placeholder/AccessPlaceholder";
+import { PermissionCard } from "features/settings/common/permission-card/PermissionCard";
 import { SettingsSection } from "features/settings/common/settings-section/SettingsSection";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 
 export const Access = () => {
   const theme = useTheme();
-  const { t } = useTranslation();
-  const currentUserQuery = useGetCurrentUser();
-  const currentUserCompany = currentUserQuery.data?.companyId;
-  const pendingUsersQuery = useGetPendingUsers(String(currentUserCompany));
+  const { t } = useTranslation("settings");
+  const pendingUsersQuery = useGetPendingUsers();
 
-  const users = pendingUsersQuery.data ?? [];
+  const users = pendingUsersQuery.data?.sort((a, b) => a.firstName.localeCompare(b.firstName)) ?? [];
   const showPlaceholder = users && users.length === 0;
 
   return (
-    <SettingsSection title={t("settings.access.title")}>
-      <Text variant={"title-medium"} mt={theme.tyle.spacing.xxxl} mb={theme.tyle.spacing.l}>
-        {t("settings.access.users")}
+    <SettingsSection title={t("access.title")}>
+      <Text variant={"title-medium"} mb={theme.tyle.spacing.l}>
+        {t("access.users")}
       </Text>
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
-        {showPlaceholder && <AccessPlaceholder text={t("settings.access.placeholders.users")} />}
-        {users.map((x, i) => (
-          <AccessCard key={i} user={x} />
+      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xxxl}>
+        {showPlaceholder && <AccessPlaceholder text={t("access.placeholders.users")} />}
+        {users.map((user) => (
+          <PermissionCard key={user.id} user={mapMimirorgUserCmToUserItem(user)} />
         ))}
       </Flexbox>
     </SettingsSection>

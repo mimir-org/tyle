@@ -2,7 +2,7 @@ import { ComponentStory } from "@storybook/react";
 import { AccessPlaceholder } from "features/settings/access/placeholder/AccessPlaceholder";
 
 export default {
-  title: "Settings/Access/AccessPlaceholder",
+  title: "Features/Settings/Access/AccessPlaceholder",
   component: AccessPlaceholder,
 };
 

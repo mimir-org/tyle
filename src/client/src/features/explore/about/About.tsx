@@ -1,4 +1,3 @@
-import { Loader } from "common/components/loader";
 import {
   mapInterfaceLibCmToInterfaceItem,
   mapNodeLibCmToNodeItem,
@@ -9,6 +8,7 @@ import { useGetInterface } from "external/sources/interface/interface.queries";
 import { useGetNode } from "external/sources/node/node.queries";
 import { useGetTerminal } from "external/sources/terminal/terminal.queries";
 import { useGetTransport } from "external/sources/transport/transport.queries";
+import { Loader } from "features/common/loader";
 import { AboutPlaceholder } from "features/explore/about/components/AboutPlaceholder";
 import { InterfacePanel } from "features/explore/about/components/interface/InterfacePanel";
 import { NodePanel } from "features/explore/about/components/node/NodePanel";

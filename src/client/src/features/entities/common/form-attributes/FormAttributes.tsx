@@ -1,9 +1,9 @@
 import { AttributeLibAm, AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { Trash } from "@styled-icons/heroicons-outline";
-import { InfoItemButton } from "common/components/info-item";
 import { UpdateEntity } from "common/types/updateEntity";
 import { Flexbox } from "complib/layouts";
 import { useGetAttributes } from "external/sources/attribute/attribute.queries";
+import { InfoItemButton } from "features/common/info-item";
 import {
   onAddAttributes,
   resolveSelectedAndAvailableAttributes,

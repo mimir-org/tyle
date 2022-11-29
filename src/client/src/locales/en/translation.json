@@ -505,43 +505,6 @@
       }
     }
   },
-  "settings": {
-    "title": "Settings",
-    "access": {
-      "title": "Access",
-      "users": "New users",
-      "organization": "Organization",
-      "email": "E-mail",
-      "purpose": "Purpose",
-      "permission": "Permission",
-      "submit": "Approve",
-      "placeholders": {
-        "users": "No new users have requested access"
-      },
-      "processing": {
-        "loading": "Granting \"{{permission}}\" permission to {{name}}",
-        "success": "Permission \"{{permission}}\" has been granted to {{name}}",
-        "error": "An error occurred while granting \"{{permission}}\" permission to {{name}}"
-      },
-      "undo": {
-        "action": "Undo",
-        "loading": "Removing \"{{permission}}\" permission from {{name}}",
-        "success": "Permission \"{{permission}}\" was removed from {{name}}",
-        "error": "An error occurred while removing \"{{permission}}\" permission from {{name}}"
-      },
-      "validation": {
-        "userId": {
-          "required": "A user must be specified"
-        },
-        "companyId": {
-          "required": "A company must be specified"
-        },
-        "permission": {
-          "required": "Please select a permission"
-        }
-      }
-    }
-  },
   "clientError": {
     "title": "Oops!",
     "subtitle": "An error occurred when loading the page. Please contact support if the problem persists.",

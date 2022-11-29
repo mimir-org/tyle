@@ -19,8 +19,8 @@ export const SettingsSection = ({ title, children }: SettingsSectionProps) => {
   const theme = useTheme();
 
   return (
-    <MotionBox as={"section"} flex={1} {...theme.tyle.animation.fade}>
-      <Heading as={"h2"} variant={"headline-medium"}>
+    <MotionBox as={"section"} {...theme.tyle.animation.fade}>
+      <Heading as={"h2"} variant={"headline-medium"} mb={theme.tyle.spacing.xxxl}>
         {title}
       </Heading>
       {children}

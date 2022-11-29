@@ -1,0 +1,18 @@
+import { UserItem } from "common/types/userItem";
+import { useTranslation } from "react-i18next";
+
+export const useUserDescriptors = (user: UserItem): { [key: string]: string } => {
+  const { t } = useTranslation("settings");
+  const descriptors: { [key: string]: string } = {};
+
+  descriptors[t("common.permission.email")] = user.email;
+
+  if (user.company) {
+    descriptors[t("common.permission.organization")] = user.company.name;
+  }
+  if (user.purpose) {
+    descriptors[t("common.permission.purpose")] = user.purpose;
+  }
+
+  return descriptors;
+};

@@ -10,6 +10,7 @@ using Mimirorg.Common.Abstract;
 using TypeLibrary.Core.Factories;
 using Mimirorg.Common.Models;
 using TypeLibrary.Data;
+using TypeLibrary.Data.Common;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
@@ -35,6 +36,9 @@ namespace TypeLibrary.Core.Extensions
             // Cache
             services.AddMemoryCache();
             services.AddSingleton<ICacheRepository, InMemoryCacheRepository>();
+
+            // Common
+            services.AddScoped<ISparQlWebClient, SparQlWebClient>();
 
             // Dependency Injection - Repositories
             services.AddScoped<ITypeLibraryProcRepository, TypeLibraryProcRepository>();

@@ -1,7 +1,6 @@
 import { Aspect, ConnectorDirection } from "@mimirorg/typelibrary-types";
 import { Trash } from "@styled-icons/heroicons-outline";
-import { TerminalButton } from "common/components/terminal";
-import { getValueLabelObjectsFromEnum } from "common/utils/getValueLabelObjectsFromEnum";
+import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import {
   MAXIMUM_TERMINAL_QUANTITY_VALUE,
   MINIMUM_TERMINAL_QUANTITY_VALUE,
@@ -13,6 +12,7 @@ import { Checkbox } from "complib/inputs/checkbox/Checkbox";
 import { Box, Flexbox } from "complib/layouts";
 import { Text } from "complib/text";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
+import { TerminalButton } from "features/common/terminal";
 import {
   NodeTerminalContainer,
   NodeTerminalInputContainer,
@@ -59,7 +59,7 @@ export const NodeTerminal = ({
   const { t } = useTranslation();
 
   const terminalQuery = useGetTerminals({ staleTime: 60 * 1000 });
-  const connectorDirectionOptions = getValueLabelObjectsFromEnum<ConnectorDirection>(ConnectorDirection);
+  const connectorDirectionOptions = getOptionsFromEnum<ConnectorDirection>(ConnectorDirection);
 
   const aspect = useWatch({ control, name: "aspect" });
   const terminalHasMaxQuantity = useWatch({ control, name: `nodeTerminals.${index}.hasMaxQuantity` });
