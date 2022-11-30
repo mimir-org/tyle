@@ -40,7 +40,7 @@ namespace TypeLibrary.Data.Repositories.External
         private Task<List<PurposeLibDm>> FetchPurposesFromPca()
         {
             var purposes = new List<PurposeLibDm>();
-            var pcaPurposes = _client.Get<PcaPurpose>(SparQlWebClient.PcaEndPointStaging, SparQlWebClient.PcaPurposeAllQuery)?.OrderBy(x => x.Label, StringComparer.CurrentCultureIgnoreCase).ToList();
+            var pcaPurposes = _client.Get<PcaPurpose>(SparQlWebClient.PcaEndPointProduction, SparQlWebClient.PcaPurposeAllQuery)?.OrderBy(x => x.Label, StringComparer.CurrentCultureIgnoreCase).ToList();
 
             if (pcaPurposes == null || !pcaPurposes.Any())
                 return Task.FromResult(purposes);
