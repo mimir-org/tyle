@@ -107,11 +107,7 @@
       "attributes": "Attributes",
       "add": "Add terminal",
       "remove": "Remove terminal",
-      "summary": {
-        "title": "Summary",
-        "open": "Open terminal summary",
-        "total": "Total terminals:"
-      },
+
       "templates": {
         "terminal": "Terminal {{object}}"
       }

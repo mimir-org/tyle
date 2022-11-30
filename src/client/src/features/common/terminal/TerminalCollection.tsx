@@ -7,6 +7,7 @@ import { TerminalButton } from "features/common/terminal/TerminalButton";
 import { TerminalDescription } from "features/common/terminal/TerminalSingle";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { MAXIMUM_TERMINAL_QUANTITY_VALUE } from "../../../common/utils/nodeTerminalQuantityRestrictions";
 
 interface TerminalCollectionProps {
   terminals: NodeTerminalItem[];
@@ -22,12 +23,12 @@ interface TerminalCollectionProps {
  */
 export const TerminalCollection = ({ terminals, placement }: TerminalCollectionProps) => {
   const theme = useTheme();
-  const { t } = useTranslation("translation", { keyPrefix: "terminals.summary" });
+  const { t } = useTranslation("common");
 
   return (
     <Popover placement={placement} content={<TerminalCollectionDescription terminals={terminals} />}>
       <TerminalButton variant={"large"} color={theme.tyle.color.ref.primary["40"]}>
-        <VisuallyHidden>{t("open")}</VisuallyHidden>
+        <VisuallyHidden>{t("terminal.summary.open")}</VisuallyHidden>
       </TerminalButton>
     </Popover>
   );
@@ -39,12 +40,14 @@ interface TerminalCollectionDescriptionProps {
 
 const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescriptionProps) => {
   const theme = useTheme();
-  const { t } = useTranslation("translation", { keyPrefix: "terminals.summary" });
+  const { t } = useTranslation("common");
   const totalTerminalAmount = terminals.reduce((sum, terminal) => sum + terminal.maxQuantity, 0);
+  const shownTerminalAmount =
+    totalTerminalAmount >= MAXIMUM_TERMINAL_QUANTITY_VALUE ? t("terminal.infinite") : totalTerminalAmount;
 
   return (
     <Box display={"flex"} gap={theme.tyle.spacing.l} flexDirection={"column"} maxWidth={"250px"}>
-      <Text variant={"title-small"}>{t("title")}</Text>
+      <Text variant={"title-small"}>{t("terminal.summary.title")}</Text>
       <Box display={"flex"} gap={theme.tyle.spacing.l} flexDirection={"column"} maxHeight={"250px"} overflow={"auto"}>
         {terminals.map((x) => (
           <TerminalDescription
@@ -58,8 +61,8 @@ const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescript
       </Box>
       <Divider />
       <Flexbox gap={theme.tyle.spacing.base} justifyContent={"space-between"}>
-        <Text variant={"body-medium"}>{t("total")}</Text>
-        <Text variant={"body-medium"}>{totalTerminalAmount}</Text>
+        <Text variant={"body-medium"}>{t("terminal.summary.total")}</Text>
+        <Text variant={"body-medium"}>{shownTerminalAmount}</Text>
       </Flexbox>
     </Box>
   );
