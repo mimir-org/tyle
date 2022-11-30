@@ -3,23 +3,26 @@ import { interfaceFormBasePath } from "features/entities/interface/InterfaceForm
 import { nodeFormBasePath } from "features/entities/node/NodeFormRoutes";
 import { terminalFormBasePath } from "features/entities/terminal/TerminalFormRoutes";
 import { transportFormBasePath } from "features/entities/transport/TransportFormRoutes";
+import { useTranslation } from "react-i18next";
 
-export const getCreateMenuLinks = (): Link[] => {
+export const useCreateMenuLinks = (): Link[] => {
+  const { t } = useTranslation("explore");
+
   return [
     {
-      name: "Aspect object",
+      name: t("search.create.aspectObject"),
       path: nodeFormBasePath,
     },
     {
-      name: "Interface",
+      name: t("search.create.interface"),
       path: interfaceFormBasePath,
     },
     {
-      name: "Terminal",
+      name: t("search.create.terminal"),
       path: terminalFormBasePath,
     },
     {
-      name: "Transport",
+      name: t("search.create.transport"),
       path: transportFormBasePath,
     },
   ];

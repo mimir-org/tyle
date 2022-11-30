@@ -1,10 +1,10 @@
 import { NodeTerminalItem } from "common/types/nodeTerminalItem";
 import { Table, Tbody, Thead, Tr } from "complib/data-display";
-import { TerminalTableAmount } from "features/common/terminal/table/TerminalTableAmount";
-import { TerminalTableAttributes } from "features/common/terminal/table/TerminalTableAttributes";
-import { TerminalTableDirection } from "features/common/terminal/table/TerminalTableDirection";
-import { TerminalTableHeader } from "features/common/terminal/table/TerminalTableHeader";
-import { TerminalTableIdentifier } from "features/common/terminal/table/TerminalTableIdentifier";
+import { TerminalTableAmount } from "features/explore/about/components/node/terminal-table/TerminalTableAmount";
+import { TerminalTableAttributes } from "features/explore/about/components/node/terminal-table/TerminalTableAttributes";
+import { TerminalTableDirection } from "features/explore/about/components/node/terminal-table/TerminalTableDirection";
+import { TerminalTableHeader } from "features/explore/about/components/node/terminal-table/TerminalTableHeader";
+import { TerminalTableIdentifier } from "features/explore/about/components/node/terminal-table/TerminalTableIdentifier";
 
 /**
  * Components which lists terminals in a table and presents their most important features.

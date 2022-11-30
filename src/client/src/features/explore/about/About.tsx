@@ -30,7 +30,7 @@ interface AboutProps {
  * @constructor
  */
 export const About = ({ selected }: AboutProps) => {
-  const { t } = useTranslation("translation", { keyPrefix: "about" });
+  const { t } = useTranslation("explore");
 
   const nodeQuery = useGetNode(selected?.type == "node" ? selected?.id : "");
   const terminalQuery = useGetTerminal(selected?.type == "terminal" ? selected?.id : "");
@@ -47,10 +47,10 @@ export const About = ({ selected }: AboutProps) => {
   const showInterfacePanel = !showLoader && interfaceQuery.isSuccess;
 
   return (
-    <ExploreSection title={t("title")}>
+    <ExploreSection title={t("about.title")}>
       <AnimatePresence mode={"wait"}>
         {showLoader && <Loader />}
-        {showPlaceHolder && <AboutPlaceholder text={t("placeholders.item")} />}
+        {showPlaceHolder && <AboutPlaceholder text={t("about.placeholders.item")} />}
         {showNodePanel && <NodePanel key={nodeQuery.data.id} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />}
         {showTerminalPanel && (
           <TerminalPanel key={terminalQuery.data.id} {...mapTerminalLibCmToTerminalItem(terminalQuery.data)} />

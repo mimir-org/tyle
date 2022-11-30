@@ -9,7 +9,7 @@ interface TransportFormPreviewProps {
 }
 
 export const TransportFormPreview = ({ control }: TransportFormPreviewProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("entities");
   const name = useWatch({ control, name: "name" });
   const aspect = useWatch({ control, name: "aspect" });
   const aspectColor = getColorFromAspect(aspect);

@@ -41,11 +41,11 @@ const NodeSearchItemActions = ({
   terminals,
 }: Pick<NodeItem, "id" | "name" | "color" | "img" | "terminals">) => {
   const theme = useTheme();
-  const { t } = useTranslation("translation", { keyPrefix: "search.item" });
+  const { t } = useTranslation("explore");
 
   const deleteNodeMutation = usePatchNodeState();
   const deleteAction = {
-    name: t("delete"),
+    name: t("search.item.delete"),
     onAction: () => deleteNodeMutation.mutate({ id, state: State.Delete }),
   };
 
@@ -53,24 +53,24 @@ const NodeSearchItemActions = ({
     <>
       <PlainLink tabIndex={-1} to={`/form/node/clone/${id}`}>
         <Button tabIndex={0} as={"span"} icon={<Duplicate />} iconOnly>
-          {t("clone")}
+          {t("search.item.clone")}
         </Button>
       </PlainLink>
       <PlainLink tabIndex={-1} to={`/form/node/edit/${id}`}>
         <Button tabIndex={0} as={"span"} icon={<PencilAlt />} iconOnly>
-          {t("edit")}
+          {t("search.item.edit")}
         </Button>
       </PlainLink>
       <AlertDialog
         gap={theme.tyle.spacing.multiple(6)}
         actions={[deleteAction]}
-        title={t("templates.delete", { object: name })}
-        description={t("deleteDescription")}
+        title={t("search.item.templates.delete", { object: name })}
+        description={t("search.item.deleteDescription")}
         hideDescription
         content={<NodePreview name={name} color={color} img={img} terminals={terminals} />}
       >
         <Button icon={<Trash />} iconOnly>
-          {t("delete")}
+          {t("search.item.delete")}
         </Button>
       </AlertDialog>
     </>

@@ -7,11 +7,11 @@ import { useTheme } from "styled-components";
 
 export const TerminalTableDirection = ({ direction }: Pick<NodeTerminalItem, "direction">) => {
   const theme = useTheme();
-  const { t } = useTranslation("translation", { keyPrefix: "terminals" });
+  const { t } = useTranslation("explore");
   const directionIconSize = 20;
 
   return (
-    <Td data-label={t("templates.terminal", { object: t("direction").toLowerCase() })}>
+    <Td data-label={t("about.terminals.templates.terminal", { object: t("about.terminals.direction").toLowerCase() })}>
       <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
         {direction === "Input" && <ArrowRight color={theme.tyle.color.sys.primary.base} size={directionIconSize} />}
         {direction === "Output" && <ArrowLeft color={theme.tyle.color.sys.primary.base} size={directionIconSize} />}

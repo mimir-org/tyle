@@ -9,7 +9,7 @@ interface InterfaceFormPreviewProps {
 }
 
 export const InterfaceFormPreview = ({ control }: InterfaceFormPreviewProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("entities");
   const name = useWatch({ control, name: "name" });
   const aspect = useWatch({ control, name: "aspect" });
   const aspectColor = getColorFromAspect(aspect);

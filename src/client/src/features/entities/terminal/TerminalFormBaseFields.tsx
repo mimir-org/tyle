@@ -25,7 +25,7 @@ interface TerminalFormBaseFieldsProps {
  */
 export const TerminalFormBaseFields = ({ mode }: TerminalFormBaseFieldsProps) => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("entities");
   const { control, register, formState } = useFormContext<FormTerminalLib>();
   const { errors } = formState;
 

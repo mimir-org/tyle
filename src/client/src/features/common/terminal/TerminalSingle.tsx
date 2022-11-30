@@ -3,7 +3,9 @@ import { Tooltip } from "complib/data-display";
 import { Flexbox } from "complib/layouts";
 import { Text } from "complib/text";
 import { TerminalButton, TerminalButtonProps } from "features/common/terminal/TerminalButton";
+import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { MAXIMUM_TERMINAL_QUANTITY_VALUE } from "../../../common/utils/nodeTerminalQuantityRestrictions";
 
 /**
  * Component which shows a single terminal for a given node in addition to its name and amount in a tooltip.
@@ -33,12 +35,14 @@ export const TerminalSingle = ({
 
 export const TerminalDescription = ({ name, maxQuantity, color, direction }: NodeTerminalItem) => {
   const theme = useTheme();
+  const { t } = useTranslation("common");
+  const shownQuantity = maxQuantity === MAXIMUM_TERMINAL_QUANTITY_VALUE ? t("terminal.infinite") : maxQuantity;
 
   return (
     <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
       <TerminalButton as={"div"} color={color} direction={direction} />
       <Text variant={"body-small"}>{`${name}`}</Text>
-      <Text ml={"auto"} variant={"body-small"}>{`x${maxQuantity}`}</Text>
+      <Text ml={"auto"} variant={"body-small"}>{`x ${shownQuantity}`}</Text>
     </Flexbox>
   );
 };

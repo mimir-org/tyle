@@ -17,7 +17,7 @@ import { useTheme } from "styled-components";
  */
 export const TerminalPanel = ({ name, description, color, attributes, tokens }: TerminalItem) => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("explore");
   const showAttributes = attributes && attributes.length > 0;
 
   return (
@@ -46,7 +46,7 @@ export const TerminalPanel = ({ name, description, color, attributes, tokens }: 
 
       <PanelPropertiesContainer>
         {showAttributes && (
-          <PanelSection title={t("attributes.title")}>
+          <PanelSection title={t("about.attributes")}>
             {attributes.map((a, i) => (
               <InfoItemButton key={i} {...a} />
             ))}

@@ -3,7 +3,7 @@ import { PlainLink } from "features/common/plain-link";
 import { useTranslation } from "react-i18next";
 
 export const HeaderHomeLink = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("ui");
 
   return (
     <PlainLink to={"/"} height={"100%"}>

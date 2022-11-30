@@ -6,7 +6,7 @@ import { useMediaQuery } from "usehooks-ts";
 
 export const TerminalTableHeader = () => {
   const theme = useTheme();
-  const { t } = useTranslation("translation", { keyPrefix: "terminals" });
+  const { t } = useTranslation("explore", { keyPrefix: "about.terminals" });
   const adjustAmountAlignment = useMediaQuery("screen and (min-width: 1500px)");
   const textColor = theme.tyle.color.sys.primary.base;
 

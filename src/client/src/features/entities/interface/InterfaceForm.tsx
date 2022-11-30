@@ -32,7 +32,7 @@ interface InterfaceFormProps {
 
 export const InterfaceForm = ({ defaultValues = createEmptyFormInterfaceLib(), mode }: InterfaceFormProps) => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("entities");
 
   const formMethods = useForm<FormInterfaceLib>({
     defaultValues: defaultValues,

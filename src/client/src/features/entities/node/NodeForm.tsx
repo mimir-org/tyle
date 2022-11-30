@@ -32,7 +32,7 @@ interface NodeFormProps {
 
 export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), mode }: NodeFormProps) => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("entities");
 
   const formMethods = useForm<FormNodeLib>({
     defaultValues: defaultValues,

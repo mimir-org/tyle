@@ -12,5 +12,5 @@ export const terminalSchema = (t: TFunction<"translation">) =>
     description: yup.string().max(500, t("terminal.validation.description.max")),
     parentId: yup.string().nullable(),
     attributes: yup.array().nullable(),
-    typeReferences: typeReferenceListSchema(t("validation.typeReferences.name.required")),
+    typeReferences: typeReferenceListSchema(t("common.validation.typeReferences.name.required")),
   });

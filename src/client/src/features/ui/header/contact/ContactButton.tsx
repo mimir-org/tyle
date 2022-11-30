@@ -18,7 +18,7 @@ import { useTranslation } from "react-i18next";
  * @constructor
  */
 export const ContactButton = () => {
-  const { t } = useTranslation("translation", { keyPrefix: "user.menu.contact" });
+  const { t } = useTranslation("ui");
   const [selected, setSelected] = useState<number>();
 
   const companies = useGetFilteredCompanies(MimirorgPermission.Read);
@@ -33,13 +33,13 @@ export const ContactButton = () => {
 
   return (
     <Dialog
-      title={t("title")}
-      description={t("description")}
+      title={t("header.menu.contact.title")}
+      description={t("header.menu.contact.description")}
       width={"500px"}
       content={
         <>
           <Select
-            placeholder={t("select")}
+            placeholder={t("header.menu.contact.select")}
             options={companies}
             getOptionLabel={(x) => x.name}
             onChange={(x) => setSelected(x?.id)}
@@ -48,12 +48,12 @@ export const ContactButton = () => {
 
           <Box display={"flex"} alignItems={"center"} minHeight={"70px"}>
             {showManager && <ContactCard name={managerName} email={managerEmail} />}
-            {showNotFound && <Text>{t("notFound")}</Text>}
+            {showNotFound && <Text>{t("header.menu.contact.notFound")}</Text>}
           </Box>
         </>
       }
     >
-      <UserMenuButton icon={<Mail size={24} />}>{t("title")}</UserMenuButton>
+      <UserMenuButton icon={<Mail size={24} />}>{t("header.menu.contact.title")}</UserMenuButton>
     </Dialog>
   );
 };

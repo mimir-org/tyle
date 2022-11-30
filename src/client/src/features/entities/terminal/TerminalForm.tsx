@@ -32,7 +32,7 @@ interface TerminalFormProps {
 
 export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mode }: TerminalFormProps) => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("entities");
 
   const formMethods = useForm<FormTerminalLib>({
     defaultValues: defaultValues,

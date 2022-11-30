@@ -17,7 +17,7 @@ import { ConditionalTransportSearchItem } from "features/explore/search/componen
 import { useFilterState } from "features/explore/search/hooks/useFilterState";
 import { useGetFilterGroups } from "features/explore/search/hooks/useGetFilterGroups";
 import { useSearchResults } from "features/explore/search/hooks/useSearchResults";
-import { getCreateMenuLinks } from "features/explore/search/Search.helpers";
+import { useCreateMenuLinks } from "features/explore/search/Search.helpers";
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
@@ -38,7 +38,8 @@ interface SearchProps {
  */
 export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) => {
   const theme = useTheme();
-  const { t } = useTranslation("translation", { keyPrefix: "search" });
+  const { t } = useTranslation("explore");
+  const createMenuLinks = useCreateMenuLinks();
   const [activeFilters, toggleFilter] = useFilterState([]);
   const [query, setQuery, debouncedQuery] = useDebounceState("");
   const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit);
@@ -50,16 +51,20 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
   const shown = totalHits < pageLimit ? totalHits : pageLimit;
 
   return (
-    <ExploreSection title={t("title")}>
+    <ExploreSection title={t("search.title")}>
       <Flexbox gap={theme.tyle.spacing.xxxl} alignItems={"center"}>
-        <SearchField value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t("placeholders.search")} />
+        <SearchField
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder={t("search.placeholders.search")}
+        />
         <FilterMenu
-          name={t("filter.title")}
+          name={t("search.filter.title")}
           filterGroups={useGetFilterGroups()}
           activeFilters={activeFilters}
           toggleFilter={toggleFilter}
         />
-        <LinkMenu name={"Create"} links={getCreateMenuLinks()} />
+        <LinkMenu name={t("search.create.title")} links={createMenuLinks} />
       </Flexbox>
 
       {showFilterTokens && (
@@ -68,7 +73,7 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
             <Token
               key={i}
               actionable
-              actionText={t("filter.templates.remove", { object: x.label })}
+              actionText={t("search.filter.templates.remove", { object: x.label })}
               actionIcon={<XCircle />}
               onAction={() => toggleFilter(x)}
             >
@@ -85,7 +90,7 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
           color={theme.tyle.color.sys.surface.variant.on}
           {...theme.tyle.animation.fade}
         >
-          {t("templates.hits", { shown: shown, total: totalHits })}
+          {t("search.templates.hits", { shown: shown, total: totalHits })}
         </MotionText>
       )}
 
@@ -120,9 +125,9 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
 
       {showPlaceholder && (
         <SearchPlaceholder
-          title={t("help.templates.query", { query })}
-          subtitle={t("help.subtitle")}
-          tips={[t("help.tip1"), t("help.tip2"), t("help.tip3")]}
+          title={t("search.help.templates.query", { query })}
+          subtitle={t("search.help.subtitle")}
+          tips={[t("search.help.tip1"), t("search.help.tip2"), t("search.help.tip3")]}
         />
       )}
     </ExploreSection>

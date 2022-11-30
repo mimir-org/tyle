@@ -21,6 +21,9 @@
     }
   },
   "common": {
+    "templates": {
+      "select": "Select {{object}}"
+    },
     "permission": {
       "organization": "Organization",
       "email": "E-mail",

@@ -1,0 +1,252 @@
+{
+  "common": {
+    "attributes": {
+      "title": "Attributes",
+      "open": "Open attribute(s) selection dialog",
+      "remove": "Remove attribute",
+      "dialog": {
+        "title": "Select attributes(s)",
+        "description": "The attributes that are listed below can be reused across multiple entities.",
+        "search": "Search",
+        "add": "Add"
+      }
+    },
+    "references": {
+      "title": "References",
+      "add": "Add reference",
+      "remove": "Remove reference",
+      "reference": "Reference"
+    },
+    "processing": {
+      "loading": "Submitting {{type}}",
+      "success": "Your {{type}} has been submitted",
+      "error": "An error occurred during {{type}} submission"
+    },
+    "validation": {
+      "typeReferences": {
+        "name": {
+          "required": "Please specify a reference"
+        }
+      }
+    },
+    "templates": {
+      "select": "Select {{object}}"
+    },
+    "cancel": "Cancel",
+    "submit": "Submit"
+  },
+  "node": {
+    "title": "Aspect object",
+    "name": "Name",
+    "purpose": "Purpose",
+    "aspect": "Aspect",
+    "symbol": "Symbol",
+    "rds": "RDS",
+    "owner": "Owner",
+    "description": "Description",
+    "placeholders": {
+      "name": "Aspect object name",
+      "description": "Additional information about this aspect object can be supplied here."
+    },
+    "disabled": {
+      "aspect": "It is not possible to change the aspect of the current type. We recommend that you select a different type with the desired aspect."
+    },
+    "processing": {
+      "loading": "Submitting node",
+      "success": "Your node has been submitted",
+      "error": "An error occurred during node submission"
+    },
+    "validation": {
+      "name": {
+        "required": "Please enter a name",
+        "max": "The name can be at most 60 characters"
+      },
+      "rdsName": {
+        "required": "Please select a RDS"
+      },
+      "rdsCode": {
+        "required": "Please specify a RDS code"
+      },
+      "purposeName": {
+        "required": "Please select a purpose"
+      },
+      "aspect": {
+        "required": "Please select an aspect"
+      },
+      "companyId": {
+        "min": "Please select an owner"
+      },
+      "description": {
+        "max": "The description can be at most 500 characters"
+      },
+      "nodeTerminals": {
+        "array": {
+          "unique": "Two or more terminals cannot share the same name and direction"
+        },
+        "terminalId": {
+          "required": "Please specify a terminal"
+        },
+        "direction": {
+          "required": "Please specify a direction"
+        },
+        "maxQuantity": {
+          "min": "Please specify a non-negative amount"
+        },
+        "minQuantity": {
+          "min": "Please specify a non-negative amount"
+        }
+      }
+    },
+    "terminals": {
+      "title": "Terminals",
+      "name": "Name",
+      "limit": "Limit",
+      "amount": "Max amount",
+      "infinite": "Infinite",
+      "direction": "Direction",
+      "attributes": "Attributes",
+      "add": "Add terminal",
+      "remove": "Remove terminal",
+
+      "templates": {
+        "terminal": "Terminal {{object}}"
+      }
+    },
+    "predefinedAttributes": {
+      "title": "Predefined attributes",
+      "placeholders": {
+        "attribute": "Select value(s)"
+      }
+    }
+  },
+  "interface": {
+    "title": "Interface",
+    "name": "Name",
+    "terminal": "Associated terminal",
+    "purpose": "Purpose",
+    "aspect": "Aspect",
+    "rds": "RDS",
+    "owner": "Owner",
+    "description": "Description",
+    "placeholders": {
+      "name": "Interface name",
+      "description": "Additional information about this transport can be supplied here."
+    },
+    "disabled": {
+      "aspect": "It is not possible to change the aspect of the current type. We recommend that you select a different type with the desired aspect."
+    },
+    "processing": {
+      "loading": "Submitting interface",
+      "success": "Your interface has been submitted",
+      "error": "An error occurred during interface submission"
+    },
+    "validation": {
+      "name": {
+        "required": "Please enter a name",
+        "max": "The name can be at most 60 characters"
+      },
+      "rdsName": {
+        "required": "Please select a RDS"
+      },
+      "rdsCode": {
+        "required": "Please specify a RDS code"
+      },
+      "purposeName": {
+        "required": "Please select a purpose"
+      },
+      "aspect": {
+        "required": "Please select an aspect"
+      },
+      "companyId": {
+        "min": "Please select an owner"
+      },
+      "description": {
+        "max": "The description can be at most 500 characters"
+      },
+      "terminalId": {
+        "required": "Please select a terminal"
+      }
+    }
+  },
+  "terminal": {
+    "title": "Terminal",
+    "name": "Name",
+    "color": "Color",
+    "owner": "Owner",
+    "description": "Description",
+    "placeholders": {
+      "name": "Terminal name",
+      "color": "Select color",
+      "description": "Additional information about this terminal can be supplied here."
+    },
+    "processing": {
+      "loading": "Submitting terminal",
+      "success": "Your terminal has been submitted",
+      "error": "An error occurred during terminal submission"
+    },
+    "validation": {
+      "name": {
+        "required": "Please enter a name",
+        "max": "The name can be at most 30 characters"
+      },
+      "color": {
+        "required": "Please select a color"
+      },
+      "companyId": {
+        "min": "Please select an owner"
+      },
+      "description": {
+        "max": "The description can be at most 500 characters"
+      }
+    }
+  },
+  "transport": {
+    "title": "Transport",
+    "name": "Name",
+    "terminal": "Associated terminal",
+    "purpose": "Purpose",
+    "aspect": "Aspect",
+    "rds": "RDS",
+    "owner": "Owner",
+    "description": "Description",
+    "placeholders": {
+      "name": "Transport name",
+      "description": "Additional information about this transport can be supplied here."
+    },
+    "disabled": {
+      "aspect": "It is not possible to change the aspect of the current type. We recommend that you select a different type with the desired aspect."
+    },
+    "processing": {
+      "loading": "Submitting transport",
+      "success": "Your transport has been submitted",
+      "error": "An error occurred during transport submission"
+    },
+    "validation": {
+      "name": {
+        "required": "Please enter a name",
+        "max": "The name can be at most 60 characters"
+      },
+      "rdsName": {
+        "required": "Please select a RDS"
+      },
+      "rdsCode": {
+        "required": "Please specify a RDS code"
+      },
+      "purposeName": {
+        "required": "Please select a purpose"
+      },
+      "aspect": {
+        "required": "Please select an aspect"
+      },
+      "companyId": {
+        "min": "Please select an owner"
+      },
+      "description": {
+        "max": "The description can be at most 500 characters"
+      },
+      "terminalId": {
+        "required": "Please select a terminal"
+      }
+    }
+  }
+}

@@ -16,14 +16,14 @@ export interface NodeFormPredefinedAttributesProps {
 
 export const NodeFormPredefinedAttributes = ({ aspects }: NodeFormPredefinedAttributesProps) => {
   const theme = useTheme();
-  const { t } = useTranslation("translation", { keyPrefix: "predefinedAttributes" });
+  const { t } = useTranslation("entities");
   const { control, register } = useFormContext<FormNodeLib>();
 
   const predefinedAttributesQuery = useGetAttributesPredefined();
   const predefinedAttributes = preparePredefinedAttributes(predefinedAttributesQuery.data, aspects);
 
   return (
-    <FormSection title={t("title")}>
+    <FormSection title={t("node.predefinedAttributes.title")}>
       <Grid gridTemplateColumns={"repeat(auto-fill, 300px)"} gap={theme.tyle.spacing.xl}>
         {predefinedAttributes.map((x, index) => {
           return (
@@ -37,7 +37,7 @@ export const NodeFormPredefinedAttributes = ({ aspects }: NodeFormPredefinedAttr
                     <Select
                       {...rest}
                       selectRef={ref}
-                      placeholder={t("placeholders.attribute")}
+                      placeholder={t("node.predefinedAttributes.placeholders.attribute")}
                       options={x.valueStringList.map((y) => ({ value: y }))}
                       getOptionLabel={(y) => y.value}
                       isLoading={predefinedAttributesQuery.isLoading}

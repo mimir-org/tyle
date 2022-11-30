@@ -26,7 +26,7 @@ export interface FormReferencesProps {
  */
 export const FormReferences = ({ references, isLoading }: FormReferencesProps) => {
   const theme = useTheme();
-  const { t } = useTranslation("translation");
+  const { t } = useTranslation("entities");
   const { control, formState } = useFormContext<HasReferences>();
   const { errors } = formState;
 
@@ -35,10 +35,10 @@ export const FormReferences = ({ references, isLoading }: FormReferencesProps) =
 
   return (
     <FormSection
-      title={t("references.title")}
+      title={t("common.references.title")}
       action={
         <FormAddButton
-          buttonText={t("references.add")}
+          buttonText={t("common.references.add")}
           onClick={() => referenceFields.append({ name: "", iri: "", source: "" })}
         />
       }
@@ -48,18 +48,20 @@ export const FormReferences = ({ references, isLoading }: FormReferencesProps) =
           <FieldsCard
             key={field.id}
             index={index + 1}
-            removeText={t("references.remove")}
+            removeText={t("common.references.remove")}
             onRemove={() => onRemove(index)}
           >
             <Controller
               control={control}
               name={`typeReferences.${index}`}
               render={({ field: { value, ref, ...rest } }) => (
-                <FormField label={t("references.reference")} error={errors.typeReferences?.[index]?.name}>
+                <FormField label={t("common.references.reference")} error={errors.typeReferences?.[index]?.name}>
                   <Select
                     {...rest}
                     selectRef={ref}
-                    placeholder={t("common.templates.select", { object: t("references.reference").toLowerCase() })}
+                    placeholder={t("common.templates.select", {
+                      object: t("common.reference.reference").toLowerCase(),
+                    })}
                     options={references}
                     isLoading={isLoading}
                     getOptionLabel={(x) => x.name}

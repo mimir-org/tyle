@@ -5,7 +5,7 @@ import { Unauthenticated } from "features/ui/unauthenticated/Unauthenticated";
 import { useTranslation } from "react-i18next";
 
 export const App = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("ui");
   const { data: user, isSuccess, isLoading } = useGetCurrentUser();
   const isLoggedIn = isSuccess && user;
 

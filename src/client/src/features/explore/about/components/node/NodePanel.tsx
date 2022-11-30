@@ -4,11 +4,11 @@ import { Flexbox, MotionBox } from "complib/layouts";
 import { Heading, Text } from "complib/text";
 import { InfoItemButton } from "features/common/info-item";
 import { NodePreview } from "features/common/node";
-import { TerminalTable } from "features/common/terminal";
 import { PanelPropertiesContainer } from "features/explore/about/components/common/PanelPropertiesContainer";
 import { PanelSection } from "features/explore/about/components/common/PanelSection";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { TerminalTable } from "./terminal-table/TerminalTable";
 
 /**
  * Component that displays information about a given node.
@@ -24,7 +24,7 @@ import { useTheme } from "styled-components";
  */
 export const NodePanel = ({ name, description, img, color, tokens, terminals, attributes }: NodeItem) => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("explore");
   const showTerminals = terminals && terminals.length > 0;
   const showAttributes = attributes && attributes.length > 0;
 
@@ -54,14 +54,14 @@ export const NodePanel = ({ name, description, img, color, tokens, terminals, at
 
       <PanelPropertiesContainer>
         {showAttributes && (
-          <PanelSection title={t("attributes.title")}>
+          <PanelSection title={t("about.attributes")}>
             {attributes.map((a, i) => (
               <InfoItemButton key={i} {...a} />
             ))}
           </PanelSection>
         )}
         {showTerminals && (
-          <PanelSection title={t("terminals.title")}>
+          <PanelSection title={t("about.terminals.title")}>
             <TerminalTable terminals={terminals} />
           </PanelSection>
         )}

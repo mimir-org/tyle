@@ -19,7 +19,7 @@ export interface PermissionCardFormProps {
 }
 
 export const PermissionCardForm = ({ user, formId, onSubmit, showSubmitButton = true }: PermissionCardFormProps) => {
-  const { t } = useTranslation(["settings", "translation"]);
+  const { t } = useTranslation(["settings"]);
 
   const permissionOptions = getOptionsFromEnum<MimirorgPermission>(MimirorgPermission);
   const currentPermission = permissionOptions.find((x) => x.value == user.permissions[user.company.id]?.value);

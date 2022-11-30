@@ -23,7 +23,7 @@ interface RecoverDetailsProps {
 type RecoverModel = { email: string };
 
 export const RecoverDetails = ({ complete, setUserEmail }: RecoverDetailsProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("auth");
 
   const formMethods = useForm<RecoverModel>({
     resolver: yupResolver(recoverDetailsSchema(t)),
@@ -52,8 +52,13 @@ export const RecoverDetails = ({ complete, setUserEmail }: RecoverDetailsProps) 
               })}
             >
               {mutation.isError && <Error>{t("recover.details.error")}</Error>}
-              <FormField label={`${t("common.fields.email")} *`} error={errors.email}>
-                <Input id="email" type="email" placeholder={t("common.placeholders.email")} {...register("email")} />
+              <FormField label={`${t("recover.details.email")} *`} error={errors.email}>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder={t("recover.details.placeholders.email")}
+                  {...register("email")}
+                />
               </FormField>
             </Form>
           )}

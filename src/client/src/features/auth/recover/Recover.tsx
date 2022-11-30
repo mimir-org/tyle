@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 export type RecoverySteps = "DETAILS" | "VERIFY" | "PASSWORD" | "MFA" | "COMPLETE";
 
 export const Recover = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("auth");
   const [stage, setStage] = useState<RecoverySteps>("DETAILS");
   const [email, setEmail] = useState("");
   const [mfaInfo, setMfaInfo] = useState<MimirorgQrCodeCm>({ code: "", manualCode: "" });
@@ -37,12 +37,12 @@ export const Recover = () => {
           setMfaInfo={setMfaInfo}
           complete={{
             actionable: true,
-            actionText: t("common.next"),
+            actionText: t("recover.next"),
             onAction: () => setStage("PASSWORD"),
           }}
           cancel={{
             actionable: true,
-            actionText: t("common.back"),
+            actionText: t("recover.back"),
             onAction: () => setStage("DETAILS"),
           }}
         />
@@ -52,12 +52,12 @@ export const Recover = () => {
           verificationInfo={verificationInfo}
           complete={{
             actionable: true,
-            actionText: t("common.next"),
+            actionText: t("recover.next"),
             onAction: () => setStage("MFA"),
           }}
           cancel={{
             actionable: true,
-            actionText: t("common.back"),
+            actionText: t("recover.back"),
             onAction: () => setStage("DETAILS"),
           }}
         />
@@ -72,12 +72,12 @@ export const Recover = () => {
           mfaInfo={mfaInfo}
           complete={{
             actionable: true,
-            actionText: t("common.next"),
+            actionText: t("recover.next"),
             onAction: () => setStage("COMPLETE"),
           }}
           cancel={{
             actionable: true,
-            actionText: t("common.back"),
+            actionText: t("recover.back"),
             onAction: () => setStage("DETAILS"),
           }}
         />
@@ -88,7 +88,7 @@ export const Recover = () => {
           infoText={t("recover.complete.info.text")}
           complete={{
             actionable: true,
-            actionText: t("common.return"),
+            actionText: t("recover.complete.return"),
             onAction: () => navigate("/"),
           }}
         />

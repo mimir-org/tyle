@@ -32,7 +32,7 @@ interface TransportFormProps {
 
 export const TransportForm = ({ defaultValues = createEmptyFormTransportLib(), mode }: TransportFormProps) => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("entities");
 
   const formMethods = useForm<FormTransportLib>({
     defaultValues: defaultValues,

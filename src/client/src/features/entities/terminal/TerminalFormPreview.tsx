@@ -8,7 +8,7 @@ interface TerminalFormPreviewProps {
 }
 
 export const TerminalFormPreview = ({ control }: TerminalFormPreviewProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("entities");
   const name = useWatch({ control, name: "name" });
   const color = useWatch({ control, name: "color" });
 

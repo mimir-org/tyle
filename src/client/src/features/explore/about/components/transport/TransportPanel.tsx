@@ -26,7 +26,7 @@ export const TransportPanel = ({
   tokens,
 }: TransportItem) => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("explore");
   const showAttributes = attributes && attributes.length > 0;
 
   return (
@@ -55,13 +55,13 @@ export const TransportPanel = ({
 
       <PanelPropertiesContainer>
         {showAttributes && (
-          <PanelSection title={t("attributes.title")}>
+          <PanelSection title={t("about.attributes")}>
             {attributes.map((a, i) => (
               <InfoItemButton key={i} {...a} />
             ))}
           </PanelSection>
         )}
-        <PanelSection title={t("transport.terminal")}>
+        <PanelSection title={t("about.terminal")}>
           <TerminalPreview name={terminal.name} color={terminal.color} />
         </PanelSection>
       </PanelPropertiesContainer>

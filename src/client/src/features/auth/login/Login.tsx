@@ -18,7 +18,7 @@ import { useTheme } from "styled-components";
 
 export const Login = () => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("auth");
   const navigate = useNavigate();
 
   const formMethods = useForm<MimirorgAuthenticateAm>({
@@ -40,31 +40,31 @@ export const Login = () => {
           {mutation.isError && <FormErrorBanner>{t("login.error")}</FormErrorBanner>}
 
           <FormFieldset>
-            <FormField label={`${t("common.fields.email")} *`} error={errors.email}>
-              <Input id="email" type="email" placeholder={t("common.placeholders.email")} {...register("email")} />
+            <FormField label={`${t("login.email")} *`} error={errors.email}>
+              <Input id="email" type="email" placeholder={t("login.placeholders.email")} {...register("email")} />
             </FormField>
 
-            <FormField label={`${t("common.fields.password")} *`} error={errors.password}>
+            <FormField label={`${t("login.password")} *`} error={errors.password}>
               <Input
                 id="password"
                 type="password"
-                placeholder={t("common.placeholders.password")}
+                placeholder={t("login.placeholders.password")}
                 {...register("password")}
               />
             </FormField>
 
-            <FormField label={`${t("common.fields.code")} *`} error={errors.code}>
+            <FormField label={`${t("login.code")} *`} error={errors.code}>
               <Input
                 id="code"
                 type="tel"
                 autoComplete="off"
-                placeholder={t("common.placeholders.code")}
+                placeholder={t("login.placeholders.code")}
                 {...register("code")}
               />
             </FormField>
 
             <MotionText color={theme.tyle.color.sys.surface.variant.on} layout={"position"} as={"i"}>
-              {t("common.placeholders.required")}
+              {t("login.placeholders.required")}
             </MotionText>
           </FormFieldset>
           <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.xxl}>

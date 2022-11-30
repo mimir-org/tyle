@@ -56,7 +56,7 @@ export const NodeTerminal = ({
   onRemove,
 }: NodeTerminalProps) => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("entities");
 
   const terminalQuery = useGetTerminals({ staleTime: 60 * 1000 });
   const connectorDirectionOptions = getOptionsFromEnum<ConnectorDirection>(ConnectorDirection);
@@ -75,7 +75,7 @@ export const NodeTerminal = ({
         </Text>
         {removable && (
           <Button variant={"text"} alignSelf={"end"} icon={<Trash />} iconOnly onClick={() => onRemove()}>
-            {t("terminals.remove")}
+            {t("node.terminals.remove")}
           </Button>
         )}
       </Flexbox>
@@ -84,11 +84,15 @@ export const NodeTerminal = ({
           control={control}
           name={`nodeTerminals.${index}.terminalId`}
           render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField indent={false} label={t("terminals.name")} error={errors.nodeTerminals?.[index]?.terminalId}>
+            <FormField
+              indent={false}
+              label={t("node.terminals.name")}
+              error={errors.nodeTerminals?.[index]?.terminalId}
+            >
               <Select
                 {...rest}
                 selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("terminals.name").toLowerCase() })}
+                placeholder={t("common.templates.select", { object: t("node.terminals.name").toLowerCase() })}
                 options={terminalQuery.data}
                 isLoading={terminalQuery.isLoading}
                 getOptionLabel={(x) => x.name}
@@ -111,13 +115,13 @@ export const NodeTerminal = ({
           render={({ field: { value, onChange, ref, ...rest } }) => (
             <FormField
               indent={false}
-              label={t("terminals.direction")}
+              label={t("node.terminals.direction")}
               error={errors.nodeTerminals?.[index]?.connectorDirection}
             >
               <Select
                 {...rest}
                 selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("terminals.direction").toLowerCase() })}
+                placeholder={t("common.templates.select", { object: t("node.terminals.direction").toLowerCase() })}
                 options={connectorDirectionOptions}
                 onChange={(x) => onChange(x?.value)}
                 value={connectorDirectionOptions.find((x) => x.value === value)}
@@ -132,7 +136,7 @@ export const NodeTerminal = ({
             render={({ field: { onChange, value, ...rest } }) => (
               <FormField
                 indent={false}
-                label={t("terminals.limit")}
+                label={t("node.terminals.limit")}
                 error={errors.nodeTerminals?.[index]?.hasMaxQuantity}
               >
                 <Box display={"flex"} justifyContent={"center"} alignItems={"center"} height={"40px"}>
@@ -162,7 +166,7 @@ export const NodeTerminal = ({
             render={({ field: { value, ...rest } }) => (
               <FormField
                 indent={false}
-                label={t("terminals.amount")}
+                label={t("node.terminals.amount")}
                 error={errors.nodeTerminals?.[index]?.maxQuantity}
               >
                 <Counter

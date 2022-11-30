@@ -34,7 +34,7 @@ interface NodeFormBaseFieldsProps {
  */
 export const NodeFormBaseFields = ({ mode }: NodeFormBaseFieldsProps) => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("entities");
   const { control, register, resetField, setValue, formState } = useFormContext<FormNodeLib>();
   const { errors } = formState;
 
