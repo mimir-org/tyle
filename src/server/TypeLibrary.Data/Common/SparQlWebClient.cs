@@ -42,7 +42,6 @@ namespace TypeLibrary.Data.Common
             }
             order by ?quantity_label";
 
-        //TODO
         public const string PcaPurposeAllQuery = @"prefix rdl: <http://rds.posccaesar.org/ontology/plm/rdl/>
             prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
             prefix skos: <http://www.w3.org/2004/02/skos/core#>
