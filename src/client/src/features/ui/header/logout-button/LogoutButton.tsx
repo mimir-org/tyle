@@ -4,12 +4,12 @@ import { UserMenuButton } from "features/ui/header/user-menu/UserMenuButton";
 import { useTranslation } from "react-i18next";
 
 export const LogoutButton = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("ui");
   const mutation = useLogout();
 
   return (
     <UserMenuButton icon={<Logout size={24} />} onClick={() => mutation.mutate()}>
-      {t("user.menu.logout.title")}
+      {t("header.menu.logout.title")}
     </UserMenuButton>
   );
 };

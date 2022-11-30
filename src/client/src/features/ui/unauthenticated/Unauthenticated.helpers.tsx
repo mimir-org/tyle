@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
 export const useUnauthenticatedRouter = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("ui");
 
   return createBrowserRouter([
     {
@@ -15,10 +15,10 @@ export const useUnauthenticatedRouter = () => {
       element: <UnauthenticatedLayout />,
       errorElement: (
         <ErrorMessage
-          title={t("clientError.title")}
-          subtitle={t("clientError.subtitle")}
-          status={t("clientError.status")}
-          linkText={t("clientError.link")}
+          title={t("global.clientError.title")}
+          subtitle={t("global.clientError.subtitle")}
+          status={t("global.clientError.status")}
+          linkText={t("global.clientError.link")}
           linkPath={"/"}
         />
       ),

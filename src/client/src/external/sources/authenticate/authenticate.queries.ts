@@ -21,7 +21,7 @@ export const useLogin = () => {
 };
 
 export const useLogout = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("ui");
   const queryClient = useQueryClient();
   const navigation = useNavigate();
 
@@ -32,7 +32,7 @@ export const useLogout = () => {
       navigation(0);
     },
     onError: () => {
-      toast.error(t("user.menu.logout.error"));
+      toast.error(t("header.menu.logout.error"));
     },
   });
 };

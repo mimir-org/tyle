@@ -6,13 +6,13 @@ import { UserMenuButton } from "features/ui/header/user-menu/UserMenuButton";
 import { useTranslation } from "react-i18next";
 
 export const SettingsButton = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("ui");
 
   return (
     <PopoverClose asChild>
       <PlainLink tabIndex={-1} to={settingsBasePath}>
         <UserMenuButton tabIndex={0} icon={<Cog size={24} />}>
-          {t("user.menu.settings.title")}
+          {t("header.menu.settings.title")}
         </UserMenuButton>
       </PlainLink>
     </PopoverClose>

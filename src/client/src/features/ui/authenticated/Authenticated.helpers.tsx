@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { createBrowserRouter } from "react-router-dom";
 
 export const useAuthenticatedRouter = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("ui");
 
   return createBrowserRouter([
     {
@@ -18,10 +18,10 @@ export const useAuthenticatedRouter = () => {
       element: <AuthenticatedLayout />,
       errorElement: (
         <ErrorMessage
-          title={t("clientError.title")}
-          subtitle={t("clientError.subtitle")}
-          status={t("clientError.status")}
-          linkText={t("clientError.link")}
+          title={t("global.clientError.title")}
+          subtitle={t("global.clientError.subtitle")}
+          status={t("global.clientError.status")}
+          linkText={t("global.clientError.link")}
           linkPath={"/"}
         />
       ),
@@ -36,10 +36,10 @@ export const useAuthenticatedRouter = () => {
           path: "*",
           element: (
             <ErrorMessage
-              title={t("notFound.title")}
-              subtitle={t("notFound.subtitle")}
-              status={t("notFound.status")}
-              linkText={t("notFound.link")}
+              title={t("global.notFound.title")}
+              subtitle={t("global.notFound.subtitle")}
+              status={t("global.notFound.status")}
+              linkText={t("global.notFound.link")}
               linkPath={"/"}
             />
           ),
