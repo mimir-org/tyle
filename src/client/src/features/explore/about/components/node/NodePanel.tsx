@@ -4,11 +4,11 @@ import { Flexbox, MotionBox } from "complib/layouts";
 import { Heading, Text } from "complib/text";
 import { InfoItemButton } from "features/common/info-item";
 import { NodePreview } from "features/common/node";
-import { TerminalTable } from "features/common/terminal";
 import { PanelPropertiesContainer } from "features/explore/about/components/common/PanelPropertiesContainer";
 import { PanelSection } from "features/explore/about/components/common/PanelSection";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { TerminalTable } from "./terminal-table/TerminalTable";
 
 /**
  * Component that displays information about a given node.
@@ -61,7 +61,7 @@ export const NodePanel = ({ name, description, img, color, tokens, terminals, at
           </PanelSection>
         )}
         {showTerminals && (
-          <PanelSection title={t("about.terminals")}>
+          <PanelSection title={t("about.terminals.title")}>
             <TerminalTable terminals={terminals} />
           </PanelSection>
         )}

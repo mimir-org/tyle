@@ -11,7 +11,7 @@ interface NodeFormPreviewProps {
 }
 
 export const NodeFormPreview = ({ control }: NodeFormPreviewProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("entities");
   const terminalQuery = useGetTerminals();
 
   const name = useWatch({ control, name: "name" });

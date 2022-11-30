@@ -7,10 +7,10 @@ import { useTheme } from "styled-components";
 
 export const TerminalTableAttributes = ({ attributes }: Pick<NodeTerminalItem, "attributes">) => {
   const theme = useTheme();
-  const { t } = useTranslation("translation", { keyPrefix: "terminals" });
+  const { t } = useTranslation("explore");
 
   return (
-    <Td data-label={t("templates.terminal", { object: t("attributes").toLowerCase() })}>
+    <Td data-label={t("about.terminals.templates.terminal", { object: t("about.terminals.attributes").toLowerCase() })}>
       <Box display={"flex"} flexWrap={"wrap"} minWidth={"200px"} gap={theme.tyle.spacing.base}>
         {attributes?.map((a, index) => (
           <InfoItemButton key={index} {...a} />

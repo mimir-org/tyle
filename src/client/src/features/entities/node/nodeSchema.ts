@@ -32,5 +32,5 @@ export const nodeSchema = (t: TFunction<"translation">) =>
         return terminals?.length === uniqueTerminalAndDirectionCombinations.size;
       }),
     attributes: yup.array().nullable(),
-    typeReferences: typeReferenceListSchema(t("validation.typeReferences.name.required")),
+    typeReferences: typeReferenceListSchema(t("common.validation.typeReferences.name.required")),
   });

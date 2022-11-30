@@ -1,4 +1,40 @@
 {
+  "common": {
+    "attributes": {
+      "title": "Attributes",
+      "open": "Open attribute(s) selection dialog",
+      "remove": "Remove attribute",
+      "dialog": {
+        "title": "Select attributes(s)",
+        "description": "The attributes that are listed below can be reused across multiple entities.",
+        "search": "Search",
+        "add": "Add"
+      }
+    },
+    "references": {
+      "title": "References",
+      "add": "Add reference",
+      "remove": "Remove reference",
+      "reference": "Reference"
+    },
+    "processing": {
+      "loading": "Submitting {{type}}",
+      "success": "Your {{type}} has been submitted",
+      "error": "An error occurred during {{type}} submission"
+    },
+    "validation": {
+      "typeReferences": {
+        "name": {
+          "required": "Please specify a reference"
+        }
+      }
+    },
+    "templates": {
+      "select": "Select {{object}}"
+    },
+    "cancel": "Cancel",
+    "submit": "Submit"
+  },
   "node": {
     "title": "Aspect object",
     "name": "Name",
@@ -59,102 +95,31 @@
         "minQuantity": {
           "min": "Please specify a non-negative amount"
         }
-      },
-      "typeReferences": {
-        "name": {
-          "required": "Please specify a reference"
-        }
       }
-    }
-  },
-  "terminal": {
-    "title": "Terminal",
-    "name": "Name",
-    "color": "Color",
-    "owner": "Owner",
-    "description": "Description",
-    "placeholders": {
-      "name": "Terminal name",
-      "color": "Select color",
-      "description": "Additional information about this terminal can be supplied here."
     },
-    "processing": {
-      "loading": "Submitting terminal",
-      "success": "Your terminal has been submitted",
-      "error": "An error occurred during terminal submission"
-    },
-    "validation": {
-      "name": {
-        "required": "Please enter a name",
-        "max": "The name can be at most 30 characters"
+    "terminals": {
+      "title": "Terminals",
+      "name": "Name",
+      "limit": "Limit",
+      "amount": "Max amount",
+      "infinite": "Infinite",
+      "direction": "Direction",
+      "attributes": "Attributes",
+      "add": "Add terminal",
+      "remove": "Remove terminal",
+      "summary": {
+        "title": "Summary",
+        "open": "Open terminal summary",
+        "total": "Total terminals:"
       },
-      "color": {
-        "required": "Please select a color"
-      },
-      "companyId": {
-        "min": "Please select an owner"
-      },
-      "description": {
-        "max": "The description can be at most 500 characters"
-      },
-      "typeReferences": {
-        "name": {
-          "required": "Please specify a reference"
-        }
+      "templates": {
+        "terminal": "Terminal {{object}}"
       }
-    }
-  },
-  "transport": {
-    "title": "Transport",
-    "name": "Name",
-    "terminal": "Associated terminal",
-    "purpose": "Purpose",
-    "aspect": "Aspect",
-    "rds": "RDS",
-    "owner": "Owner",
-    "description": "Description",
-    "placeholders": {
-      "name": "Transport name",
-      "description": "Additional information about this transport can be supplied here."
     },
-    "disabled": {
-      "aspect": "It is not possible to change the aspect of the current type. We recommend that you select a different type with the desired aspect."
-    },
-    "processing": {
-      "loading": "Submitting transport",
-      "success": "Your transport has been submitted",
-      "error": "An error occurred during transport submission"
-    },
-    "validation": {
-      "name": {
-        "required": "Please enter a name",
-        "max": "The name can be at most 60 characters"
-      },
-      "rdsName": {
-        "required": "Please select a RDS"
-      },
-      "rdsCode": {
-        "required": "Please specify a RDS code"
-      },
-      "purposeName": {
-        "required": "Please select a purpose"
-      },
-      "aspect": {
-        "required": "Please select an aspect"
-      },
-      "companyId": {
-        "min": "Please select an owner"
-      },
-      "description": {
-        "max": "The description can be at most 500 characters"
-      },
-      "terminalId": {
-        "required": "Please select a terminal"
-      },
-      "typeReferences": {
-        "name": {
-          "required": "Please specify a reference"
-        }
+    "predefinedAttributes": {
+      "title": "Predefined attributes",
+      "placeholders": {
+        "attribute": "Select value(s)"
       }
     }
   },
@@ -204,97 +169,88 @@
       },
       "terminalId": {
         "required": "Please select a terminal"
-      },
-      "typeReferences": {
-        "name": {
-          "required": "Please specify a reference"
-        }
       }
     }
   },
-  "validation": {
-    "typeReferences": {
-      "name": {
-        "required": "Please specify a reference"
-      }
-    }
-  },
-  "processing": {
-    "loading": "Submitting {{type}}",
-    "success": "Your {{type}} has been submitted",
-    "error": "An error occurred during {{type}} submission"
-  },
-  "terminals": {
-    "title": "Terminals",
+  "terminal": {
+    "title": "Terminal",
     "name": "Name",
-    "limit": "Limit",
-    "amount": "Max amount",
-    "infinite": "Infinite",
-    "direction": "Direction",
-    "attributes": "Attributes",
-    "add": "Add terminal",
-    "remove": "Remove terminal",
-    "summary": {
-      "title": "Summary",
-      "open": "Open terminal summary",
-      "total": "Total terminals:"
+    "color": "Color",
+    "owner": "Owner",
+    "description": "Description",
+    "placeholders": {
+      "name": "Terminal name",
+      "color": "Select color",
+      "description": "Additional information about this terminal can be supplied here."
     },
-    "templates": {
-      "terminal": "Terminal {{object}}"
+    "processing": {
+      "loading": "Submitting terminal",
+      "success": "Your terminal has been submitted",
+      "error": "An error occurred during terminal submission"
+    },
+    "validation": {
+      "name": {
+        "required": "Please enter a name",
+        "max": "The name can be at most 30 characters"
+      },
+      "color": {
+        "required": "Please select a color"
+      },
+      "companyId": {
+        "min": "Please select an owner"
+      },
+      "description": {
+        "max": "The description can be at most 500 characters"
+      }
     }
   },
-  "attributes": {
-    "title": "Attributes",
-    "open": "Open attribute(s) selection dialog",
-    "remove": "Remove attribute",
-    "dialog": {
-      "title": "Select attributes(s)",
-      "description": "The attributes that are listed below can be reused across multiple entities.",
-      "search": "Search",
-      "add": "Add"
-    }
-  },
-  "units": {
-    "title": "Units",
-    "open": "Open unit(s) selection dialog",
-    "remove": "Remove unit",
-    "dialog": {
-      "title": "Select unit(s)",
-      "description": "The units listed below are predefined and can be reused across multiple attributes.",
-      "search": "Search",
-      "add": "Add"
-    }
-  },
-  "references": {
-    "title": "References",
-    "add": "Add reference",
-    "remove": "Remove reference",
-    "reference": "Reference"
-  },
-  "predefinedAttributes": {
-    "title": "Predefined attributes",
+  "transport": {
+    "title": "Transport",
+    "name": "Name",
+    "terminal": "Associated terminal",
+    "purpose": "Purpose",
+    "aspect": "Aspect",
+    "rds": "RDS",
+    "owner": "Owner",
+    "description": "Description",
     "placeholders": {
-      "attribute": "Select value(s)"
-    }
-  },
-  "values": {
-    "title": "Values",
-    "add": "Add value",
-    "remove": "Remove value",
-    "value": "Value",
-    "placeholders": {
-      "value": "Enter selectable value"
-    }
-  },
-  "datum": {
-    "title": "Datum"
-  },
-  "common": {
-    "cancel": "Cancel",
-    "submit": "Submit",
-    "select": "Select",
-    "templates": {
-      "select": "Select {{object}}"
+      "name": "Transport name",
+      "description": "Additional information about this transport can be supplied here."
+    },
+    "disabled": {
+      "aspect": "It is not possible to change the aspect of the current type. We recommend that you select a different type with the desired aspect."
+    },
+    "processing": {
+      "loading": "Submitting transport",
+      "success": "Your transport has been submitted",
+      "error": "An error occurred during transport submission"
+    },
+    "validation": {
+      "name": {
+        "required": "Please enter a name",
+        "max": "The name can be at most 60 characters"
+      },
+      "rdsName": {
+        "required": "Please select a RDS"
+      },
+      "rdsCode": {
+        "required": "Please specify a RDS code"
+      },
+      "purposeName": {
+        "required": "Please select a purpose"
+      },
+      "aspect": {
+        "required": "Please select an aspect"
+      },
+      "companyId": {
+        "min": "Please select an owner"
+      },
+      "description": {
+        "max": "The description can be at most 500 characters"
+      },
+      "terminalId": {
+        "required": "Please select a terminal"
+      }
     }
   }
 }

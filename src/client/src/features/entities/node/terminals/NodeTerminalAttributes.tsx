@@ -8,13 +8,13 @@ import { useTheme } from "styled-components";
 
 export const NodeTerminalAttributes = ({ attributes }: Pick<TerminalLibCm, "attributes">) => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("entities");
   const showAttributes = attributes && attributes.length > 0;
 
   return (
     <>
       {showAttributes && (
-        <FormField indent={false} label={t("terminals.attributes")}>
+        <FormField indent={false} label={t("node.terminals.attributes")}>
           <Box
             display={"flex"}
             flexWrap={"wrap"}

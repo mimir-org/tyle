@@ -11,10 +11,10 @@ export const TerminalTableIdentifier = ({
   direction,
 }: Pick<NodeTerminalItem, "name" | "color" | "direction">) => {
   const theme = useTheme();
-  const { t } = useTranslation("translation", { keyPrefix: "terminals" });
+  const { t } = useTranslation("explore");
 
   return (
-    <Td data-label={t("templates.terminal", { object: t("name").toLowerCase() })}>
+    <Td data-label={t("about.terminals.templates.terminal", { object: t("about.terminals.name").toLowerCase() })}>
       <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
         <TerminalButton variant={"small"} as={"div"} color={color} direction={direction} />
         {name}

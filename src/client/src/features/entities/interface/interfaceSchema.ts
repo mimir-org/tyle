@@ -16,5 +16,5 @@ export const interfaceSchema = (t: TFunction<"translation">) =>
     description: yup.string().max(500, t("interface.validation.description.max")),
     parentId: yup.string().nullable(),
     attributes: yup.array().nullable(),
-    typeReferences: typeReferenceListSchema(t("validation.typeReferences.name.required")),
+    typeReferences: typeReferenceListSchema(t("common.validation.typeReferences.name.required")),
   });

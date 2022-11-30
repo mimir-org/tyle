@@ -42,7 +42,18 @@
   "about": {
     "title": "About",
     "attributes": "Attributes",
-    "terminals": "Terminals",
+    "terminals": {
+      "title": "Terminals",
+      "name": "Name",
+      "limit": "Limit",
+      "amount": "Max amount",
+      "infinite": "Infinite",
+      "direction": "Direction",
+      "attributes": "Attributes",
+      "templates": {
+        "terminal": "Terminal {{object}}"
+      }
+    },
     "terminal": "Associated terminal",
     "placeholders": {
       "item": "Select an item to view its properties"

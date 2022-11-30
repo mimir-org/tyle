@@ -47,7 +47,7 @@ export const FormAttributes = ({
   canRemoveAttributes = true,
 }: FormAttributesProps) => {
   const theme = useTheme();
-  const { t } = useTranslation("translation", { keyPrefix: "attributes" });
+  const { t } = useTranslation("entities");
 
   const attributeQuery = useGetAttributes();
   const attributes = preprocess ? preprocess(attributeQuery.data) : attributeQuery.data ?? [];
@@ -55,15 +55,15 @@ export const FormAttributes = ({
 
   return (
     <FormSection
-      title={t("title")}
+      title={t("common.attributes.title")}
       action={
         canAddAttributes && (
           <SelectItemDialog
-            title={t("dialog.title")}
-            description={t("dialog.description")}
-            searchFieldText={t("dialog.search")}
-            addItemsButtonText={t("dialog.add")}
-            openDialogButtonText={t("open")}
+            title={t("common.attributes.dialog.title")}
+            description={t("common.attributes.dialog.description")}
+            searchFieldText={t("common.attributes.dialog.search")}
+            addItemsButtonText={t("common.attributes.dialog.add")}
+            openDialogButtonText={t("common.attributes.open")}
             items={available}
             onAdd={(ids) => onAddAttributes(ids, attributes, append)}
           />
@@ -81,7 +81,7 @@ export const FormAttributes = ({
                 {...attribute}
                 actionable={canRemoveAttributes}
                 actionIcon={<Trash />}
-                actionText={t("remove")}
+                actionText={t("common.attributes.remove")}
                 onAction={() => remove(index)}
               />
             )

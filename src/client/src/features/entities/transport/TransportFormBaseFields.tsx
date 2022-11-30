@@ -34,7 +34,7 @@ interface TransportFormBaseFieldsProps {
  */
 export const TransportFormBaseFields = ({ mode }: TransportFormBaseFieldsProps) => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation("entities");
   const { control, register, resetField, setValue, formState } = useFormContext<FormTransportLib>();
   const { errors } = formState;
 
@@ -114,7 +114,7 @@ export const TransportFormBaseFields = ({ mode }: TransportFormBaseFieldsProps) 
               <Select
                 {...rest}
                 selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("terminals.name").toLowerCase() })}
+                placeholder={t("common.templates.select", { object: t("terminal.title").toLowerCase() })}
                 options={terminalQuery.data}
                 isLoading={terminalQuery.isLoading}
                 getOptionLabel={(x) => x.name}

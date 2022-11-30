@@ -19,7 +19,7 @@ interface NodeFormTerminalsProps {
  * @constructor
  */
 export const NodeFormTerminals = ({ canAddTerminals = true, canRemoveTerminals = true }: NodeFormTerminalsProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("entities");
   const { control, setValue, formState } = useFormContext<FormNodeLib>();
   const { errors } = formState;
 
@@ -27,7 +27,7 @@ export const NodeFormTerminals = ({ canAddTerminals = true, canRemoveTerminals =
 
   return (
     <FormSection
-      title={t("terminals.title")}
+      title={t("node.terminals.title")}
       error={errors.nodeTerminals}
       action={
         canAddTerminals && (

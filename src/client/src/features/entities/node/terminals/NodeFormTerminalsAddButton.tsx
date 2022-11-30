@@ -3,11 +3,11 @@ import { Button } from "complib/buttons";
 import { useTranslation } from "react-i18next";
 
 export const NodeFormTerminalsAddButton = ({ onClick }: { onClick: () => void }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("entities");
 
   return (
     <Button icon={<PlusSm />} iconOnly onClick={onClick}>
-      {t("terminals.add")}
+      {t("node.terminals.add")}
     </Button>
   );
 };
