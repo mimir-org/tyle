@@ -11,9 +11,13 @@
       "clone": "Clone",
       "edit": "Edit",
       "delete": "Delete",
-      "deleteDescription": "When you delete this item it cannot be recovered.",
+      "deleteDescription": "Someone has to accept this scope change.",
+      "approveDescription": "Someone has to accept this scope change.",
+      "approve": "Approve",
       "templates": {
-        "delete": "Do you want to delete “{{object}}”?"
+        "delete": "Do you want to delete this type?",
+        "approveCompany": "Do you want to approve to company scope?",
+        "approveGlobal": "Do you want to approve to global scope?"      
       }
     },
     "help": {

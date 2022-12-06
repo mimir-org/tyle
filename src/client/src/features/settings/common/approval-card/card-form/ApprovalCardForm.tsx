@@ -1,0 +1,66 @@
+import { yupResolver } from "@hookform/resolvers/yup";
+import { State } from "@mimirorg/typelibrary-types";
+import { ApprovalCm } from "common/types/approvalCm";
+import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
+import { Button } from "complib/buttons";
+import { Form, FormField } from "complib/form";
+import { Input, Select } from "complib/inputs";
+import { Controller, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { useApprovalToasts } from "./PermissionCardForm.helpers";
+import { approvalSchema } from "features/settings/common/approval-card/card-form/types/approvalSchema";
+import { FormApproval } from "features/settings/common/approval-card/card-form/types/formApproval";
+
+export interface ApprovalCardFormProps {
+  item: ApprovalCm;
+  formId?: string;
+  onSubmit?: () => void;
+  showSubmitButton?: boolean;
+}
+
+export const ApprovalCardForm = ({ item, formId, onSubmit, showSubmitButton = true }: ApprovalCardFormProps) => {
+  const { t } = useTranslation(["settings"]);
+
+  const stateOptions = getOptionsFromEnum<State>(State);
+  const currentState = stateOptions.find((x) => x.value == item.state);
+
+  const { register, control, handleSubmit, formState } = useForm<FormApproval>({
+    resolver: yupResolver(approvalSchema(t)),
+    defaultValues: {
+      id: item.id,
+      objectType: item.objectType,
+      state: currentState ?? stateOptions[0],
+      companyId: item.companyId,
+    },
+  });
+
+  const toast = useApprovalToasts(currentState);
+
+  return (
+    <Form
+      id={formId}
+      alignItems={"center"}
+      onSubmit={handleSubmit((data) => toast(item.id, data).then(() => onSubmit && onSubmit()))}
+    >
+      <Input type={"hidden"} value={item.id} {...register("id")} />
+      <Input type={"hidden"} value={item.objectType} {...register("objectType")} />
+      <Input type={"hidden"} value={item.companyId} {...register("companyId")} />
+      <Controller
+        control={control}
+        name={"state"}
+        render={({ field: { value, ref, ...rest } }) => (
+          <FormField label={t("common.permission.permission")} error={formState.errors.state} indent={false}>
+            <Select
+              {...rest}
+              selectRef={ref}
+              placeholder={t("common.templates.select", { object: t("common.permission.permission").toLowerCase() })}
+              options={stateOptions}
+              value={stateOptions.find((x) => x.value === value.value)}
+            />
+          </FormField>
+        )}
+      />
+      {showSubmitButton && <Button type={"submit"}>{t("common.permission.submit")}</Button>}
+    </Form>
+  );
+};

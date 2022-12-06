@@ -20,6 +20,13 @@
       "cancel": "Cancel"
     }
   },
+    "approval": {
+      "title": "Approval",
+      "subtitle": "Types ready for approval or deletion",
+      "placeholders": {
+        "emptyApproval": "There is no types ready for approval"
+      }
+  },
   "common": {
     "templates": {
       "select": "Select {{object}}"

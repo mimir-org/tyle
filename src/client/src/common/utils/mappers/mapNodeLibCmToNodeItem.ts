@@ -20,6 +20,8 @@ export const mapNodeLibCmToNodeItem = (node: NodeLibCm): NodeItem => {
     terminals: sortNodeTerminals(mapNodeTerminalLibCmsToNodeTerminalItems(node.nodeTerminals)),
     attributes: sortInfoItems(mapAttributeLibCmsToInfoItems(node.attributes)),
     kind: "NodeItem",
+    state: node.state,
+    companyId: node.companyId
   };
 };
 

@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Mimirorg.Authentication.Models.Attributes;
-using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
 using TypeLibrary.Services.Contracts;
@@ -25,11 +23,13 @@ namespace TypeLibrary.Core.Controllers.V1
     {
         private readonly ILogger<LibraryLogController> _logger;
         private readonly ILogService _logService;
+        private readonly IApprovalService _approvalService;
 
-        public LibraryLogController(ILogger<LibraryLogController> logger, ILogService logService)
+        public LibraryLogController(ILogger<LibraryLogController> logger, ILogService logService, IApprovalService approvalService)
         {
             _logger = logger;
             _logService = logService;
+            _approvalService = approvalService;
         }
 
         /// <summary>
@@ -47,6 +47,29 @@ namespace TypeLibrary.Core.Controllers.V1
             {
                 var cm = _logService.Get().ToList();
                 return Ok(cm);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Get all approvals
+        /// </summary>
+        /// <returns>A collection of all approvals</returns>
+        [HttpGet("approvals")]
+        [ProducesResponseType(typeof(ICollection<ApprovalCm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //[MimirorgAuthorize(MimirorgPermission.Manage)]
+        public async Task<IActionResult> GetApprovals()
+        {
+            try
+            {
+                var approvals = await _approvalService.GetApprovals();
+                return Ok(approvals);
             }
             catch (Exception e)
             {

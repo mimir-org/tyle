@@ -83,6 +83,7 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IVersionService, VersionService>();
             services.AddScoped<IModuleService, ModuleService>();
             services.AddScoped<ILogService, LogService>();
+            services.AddScoped<IApprovalService, ApprovalService>();
 
             // Factories
             services.AddScoped<IUnitFactory, UnitFactory>();

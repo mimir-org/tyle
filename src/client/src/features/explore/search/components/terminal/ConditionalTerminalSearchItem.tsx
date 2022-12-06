@@ -14,11 +14,12 @@ type Props = ConditionalSearchItem & Pick<TerminalSearchItemProps, "isSelected" 
  * @param item
  * @param isSelected
  * @param setSelected
+ * @param user
  * @constructor
  */
-export const ConditionalTerminalSearchItem = ({ item, isSelected, setSelected }: Props) => {
+export const ConditionalTerminalSearchItem = ({ item, isSelected, setSelected, user }: Props) => {
   if (isTerminalItem(item)) {
-    return <TerminalSearchItem key={item.id} isSelected={isSelected} setSelected={setSelected} {...item} />;
+    return <TerminalSearchItem key={item.id} isSelected={isSelected} setSelected={setSelected} user={user} {...item} />;
   }
 
   return <></>;
