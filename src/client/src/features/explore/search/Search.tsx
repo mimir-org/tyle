@@ -1,8 +1,10 @@
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useDebounceState } from "common/hooks/useDebounceState";
+import { mapMimirorgUserCmToUserItem } from "common/utils/mappers/mapMimirorgUserCmToUserItem";
 import { Token } from "complib/general";
 import { Flexbox, MotionFlexbox } from "complib/layouts";
 import { MotionText } from "complib/text";
+import { useGetCurrentUser } from "external/sources/user/user.queries";
 import { SearchField } from "features/common/search-field";
 import { ExploreSection } from "features/explore/common/ExploreSection";
 import { SelectedInfo } from "features/explore/common/selectedInfo";
@@ -43,6 +45,8 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
   const [activeFilters, toggleFilter] = useFilterState([]);
   const [query, setQuery, debouncedQuery] = useDebounceState("");
   const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit);
+  const userQuery = useGetCurrentUser();
+  const user = userQuery?.data != null ? mapMimirorgUserCmToUserItem(userQuery.data) : null;
 
   const showSearchText = !isLoading;
   const showResults = results.length > 0;
@@ -94,7 +98,7 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
         </MotionText>
       )}
 
-      {showResults && (
+      {showResults && user && (
         <ItemList>
           {results.map((item) => (
             <Fragment key={item.id}>
@@ -102,21 +106,25 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
                 item={item}
                 isSelected={item.id == selected?.id}
                 setSelected={() => setSelected({ id: item.id, type: "node" })}
+                user={user}
               />
               <ConditionalTerminalSearchItem
                 item={item}
                 isSelected={item.id == selected?.id}
                 setSelected={() => setSelected({ id: item.id, type: "terminal" })}
+                user={user}
               />
               <ConditionalTransportSearchItem
                 item={item}
                 isSelected={item.id == selected?.id}
                 setSelected={() => setSelected({ id: item.id, type: "transport" })}
+                user={user}
               />
               <ConditionalInterfaceSearchItem
                 item={item}
                 isSelected={item.id == selected?.id}
                 setSelected={() => setSelected({ id: item.id, type: "interface" })}
+                user={user}
               />
             </Fragment>
           ))}

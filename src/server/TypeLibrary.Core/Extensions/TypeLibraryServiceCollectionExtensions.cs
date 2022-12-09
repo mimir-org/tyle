@@ -70,11 +70,11 @@ namespace TypeLibrary.Core.Extensions
                 {
                     options.UseSqlServer(dbConfig.ConnectionString,
                         sqlOptions => sqlOptions.MigrationsAssembly("TypeLibrary.Core"));
-                });
+                }, ServiceLifetime.Transient);
             }
             else
             {
-                serviceCollection.AddDbContext<TypeLibraryDbContext>(options => options.UseInMemoryDatabase("TestDB"));
+                serviceCollection.AddDbContext<TypeLibraryDbContext>(options => options.UseInMemoryDatabase("TestDB"), ServiceLifetime.Transient);
             }
 
             return serviceCollection;

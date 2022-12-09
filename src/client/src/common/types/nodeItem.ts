@@ -1,7 +1,8 @@
 import { InfoItem } from "common/types/infoItem";
 import { NodeTerminalItem } from "common/types/nodeTerminalItem";
+import { StateItem } from "common/types/stateItem";
 
-export interface NodeItem {
+export interface NodeItem extends StateItem {
   id: string;
   name: string;
   description: string;

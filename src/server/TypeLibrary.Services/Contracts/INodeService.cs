@@ -51,7 +51,7 @@ namespace TypeLibrary.Services.Contracts
         /// <param name="state">The new node state</param>
         /// <returns>Node with updated state</returns>
         /// <exception cref="MimirorgNotFoundException">Throws if the node does not exist on latest version</exception>
-        Task<NodeLibCm> ChangeState(string id, State state);
+        Task<ApprovalDataCm> ChangeState(string id, State state);
 
         /// <summary>
         /// Get node existing company id for terminal by id

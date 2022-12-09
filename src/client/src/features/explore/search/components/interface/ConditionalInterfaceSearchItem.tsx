@@ -14,11 +14,14 @@ type Props = ConditionalSearchItem & Pick<InterfaceSearchItemProps, "isSelected"
  * @param item
  * @param isSelected
  * @param setSelected
+ * @param user
  * @constructor
  */
-export const ConditionalInterfaceSearchItem = ({ item, isSelected, setSelected }: Props) => {
+export const ConditionalInterfaceSearchItem = ({ item, isSelected, setSelected, user }: Props) => {
   if (isInterfaceItem(item)) {
-    return <InterfaceSearchItem key={item.id} isSelected={isSelected} setSelected={setSelected} {...item} />;
+    return (
+      <InterfaceSearchItem key={item.id} isSelected={isSelected} setSelected={setSelected} user={user} {...item} />
+    );
   }
 
   return <></>;

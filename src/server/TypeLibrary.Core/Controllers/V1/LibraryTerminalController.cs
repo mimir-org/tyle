@@ -14,6 +14,7 @@ using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 // ReSharper disable StringLiteralTypo
@@ -33,12 +34,14 @@ namespace TypeLibrary.Core.Controllers.V1
         private readonly ILogger<LibraryTerminalController> _logger;
         private readonly ITerminalService _terminalService;
         private readonly IMimirorgAuthService _authService;
+        private readonly ILogService _logService;
 
-        public LibraryTerminalController(ILogger<LibraryTerminalController> logger, ITerminalService terminalService, IMimirorgAuthService authService)
+        public LibraryTerminalController(ILogger<LibraryTerminalController> logger, ITerminalService terminalService, IMimirorgAuthService authService, ILogService logService)
         {
             _logger = logger;
             _terminalService = terminalService;
             _authService = authService;
+            _logService = logService;
         }
 
         /// <summary>
@@ -207,6 +210,39 @@ namespace TypeLibrary.Core.Controllers.V1
                     return StatusCode(StatusCodes.Status403Forbidden);
 
                 var data = await _terminalService.ChangeState(id, state);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
+        /// Revert state to previous version
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>NodeLibCm</returns>
+        [HttpPatch("{id}/state/reject")]
+        [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
+        public async Task<IActionResult> RejectChangeState([FromRoute] string id)
+        {
+            try
+            {
+                var companyId = await _terminalService.GetCompanyId(id);
+                var previousState = await _logService.GetPreviousState(id, nameof(TerminalLibDm));
+                var hasAccess = await _authService.HasAccess(companyId, previousState);
+
+                if (!hasAccess)
+                    return StatusCode(StatusCodes.Status403Forbidden);
+
+                var data = await _terminalService.ChangeState(id, previousState);
                 return Ok(data);
             }
             catch (Exception e)

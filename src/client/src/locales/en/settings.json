@@ -20,6 +20,13 @@
       "cancel": "Cancel"
     }
   },
+  "approval": {
+    "title": "Approval",
+    "subtitle": "Types ready for approval or deletion",
+    "placeholders": {
+      "emptyApproval": "There is no types ready for approval or deletion"
+    }
+  },
   "common": {
     "templates": {
       "select": "Select {{object}}"
@@ -50,6 +57,40 @@
         },
         "permission": {
           "required": "Please select a permission"
+        }
+      }
+    },
+    "approval": {
+      "company": "Company",
+      "objectType": "Type",
+      "userName": "User",
+      "stateName": "State",
+      "stateDropdown": "Set new state",
+      "submit": "Approve state",
+      "reject": "Reject",
+      "processing": {
+        "loading": "Approving state",
+        "success": "State approved",
+        "error": "An error occurred"
+      },
+      "undo": {
+        "action": "Undo",
+        "loading": "Undo approving",
+        "success": "State reverted",
+        "error": "An error occurred"
+      },
+      "validation": {
+        "id": {
+          "required": "An approval must have an id"
+        },
+        "objectType": {
+          "required": "An approval must be of a type"
+        },
+        "state": {
+          "required": "An approval must have a state"
+        },
+        "companyId": {
+          "required": "An approval must have a company id"
         }
       }
     }

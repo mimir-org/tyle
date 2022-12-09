@@ -2,6 +2,7 @@ import { Link } from "common/types/link";
 import { LinkGroup } from "common/types/linkGroup";
 import { accessBasePath } from "features/settings/access/AccessRoutes";
 import { permissionsBasePath } from "features/settings/permission/PermissionsRoutes";
+import { approvalBasePath } from "features/settings/approval/ApprovalRoutes";
 import { useTranslation } from "react-i18next";
 
 export const useSettingsLinkGroups = (): LinkGroup[] => {
@@ -21,6 +22,10 @@ const useAdministerLinks = (): Link[] => {
     {
       name: t("permissions.title"),
       path: permissionsBasePath,
+    },
+    {
+      name: t("approval.title"),
+      path: approvalBasePath,
     },
   ];
 };

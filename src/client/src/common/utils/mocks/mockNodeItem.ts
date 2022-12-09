@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import { State } from "@mimirorg/typelibrary-types";
 import { NodeItem } from "common/types/nodeItem";
 import { mockInfoItem } from "common/utils/mocks/mockInfoItem";
 import { mockNodeTerminalItem } from "common/utils/mocks/mockNodeTerminalItem";
@@ -14,4 +15,6 @@ export const mockNodeItem = (): NodeItem => ({
   color: faker.helpers.arrayElement(["#fef445", "#00f0ff", "#fa00ff"]),
   img: LibraryIcon,
   kind: "NodeItem",
+  state: State.Draft,
+  companyId: 1,
 });

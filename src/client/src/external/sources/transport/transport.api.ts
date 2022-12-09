@@ -1,4 +1,5 @@
 import { State, TransportLibAm, TransportLibCm } from "@mimirorg/typelibrary-types";
+import { ApprovalDataCm } from "common/types/approvalDataCm";
 import { apiClient } from "external/client/apiClient";
 
 const _basePath = "librarytransport";
@@ -18,5 +19,8 @@ export const transportApi = {
   },
   patchTransportState(id: string, state: State) {
     return apiClient.patch<TransportLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
+  },
+  patchTransportStateReject(id: string) {
+    return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/reject`).then((r) => r.data);
   },
 };
