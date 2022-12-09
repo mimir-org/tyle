@@ -9,6 +9,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string Description { get; set; }
         public string ObjectType { get; set; }
         public State State { get; set; }
+        public string StateName { get; set; }
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }
         public string UserId { get; set; }

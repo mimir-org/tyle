@@ -16,7 +16,7 @@ import { useButtonStateFilter } from "features/explore/search/hooks/useButtonFil
 export type NodeSearchItemProps = NodeItem & {
   isSelected?: boolean;
   setSelected?: () => void;
-  user: UserItem
+  user: UserItem;
 };
 
 /**
@@ -38,7 +38,7 @@ export const NodeSearchItem = ({ isSelected, setSelected, user, ...node }: NodeS
 );
 
 type NodeSearchItemActionProps = {
-  user: UserItem
+  user: UserItem;
   node?: NodeItem;
 };
 
@@ -48,9 +48,8 @@ const NodeSearchItemActions = ({ user, node }: NodeSearchItemActionProps) => {
   const patcMutation = usePatchNodeState();
   const btnFilter = useButtonStateFilter(node ?? null, user);
 
-  if(user == null || node == null)
-    return(<></>);
-      
+  if (user == null || node == null) return <></>;
+
   const deleteAction = {
     name: t("search.item.delete"),
     onAction: () => patcMutation.mutate({ id: node.id, state: State.Delete }),
@@ -68,16 +67,28 @@ const NodeSearchItemActions = ({ user, node }: NodeSearchItemActionProps) => {
 
   const cloneLink = btnFilter.clone ? `/form/node/clone/${node.id}` : "#";
   const editLink = btnFilter.edit ? `/form/node/edit/${node.id}` : "#";
-  
+
   return (
     <>
       <PlainLink tabIndex={-1} to={cloneLink}>
-        <Button disabled={!btnFilter.clone} tabIndex={0} as={!btnFilter.clone ? "button" : "span"} icon={<Duplicate />} iconOnly>
+        <Button
+          disabled={!btnFilter.clone}
+          tabIndex={0}
+          as={!btnFilter.clone ? "button" : "span"}
+          icon={<Duplicate />}
+          iconOnly
+        >
           {t("search.item.clone")}
         </Button>
       </PlainLink>
       <PlainLink tabIndex={-1} to={editLink}>
-        <Button disabled={!btnFilter.edit} tabIndex={0} as={!btnFilter.edit ? "button" : "span"} icon={<PencilAlt />} iconOnly>
+        <Button
+          disabled={!btnFilter.edit}
+          tabIndex={0}
+          as={!btnFilter.edit ? "button" : "span"}
+          icon={<PencilAlt />}
+          iconOnly
+        >
           {t("search.item.edit")}
         </Button>
       </PlainLink>
@@ -89,7 +100,14 @@ const NodeSearchItemActions = ({ user, node }: NodeSearchItemActionProps) => {
         hideDescription
         content={<NodePreview name={node.name} color={node.color} img={node.img} terminals={node.terminals} />}
       >
-        <Button disabled={!btnFilter.delete} icon={<Trash />} iconOnly>{t("search.item.delete")}</Button>
+        <Button
+          disabled={!btnFilter.delete}
+          variant={btnFilter.deleted ? "outlined" : "filled"}
+          icon={<Trash />}
+          iconOnly
+        >
+          {t("search.item.delete")}
+        </Button>
       </AlertDialog>
 
       <AlertDialog
@@ -100,7 +118,14 @@ const NodeSearchItemActions = ({ user, node }: NodeSearchItemActionProps) => {
         hideDescription
         content={<NodePreview name={node.name} color={node.color} img={node.img} terminals={node.terminals} />}
       >
-        <Button disabled={!btnFilter.approveCompany} icon={<ChevronUp />} iconOnly>{t("search.item.approve")}</Button>
+        <Button
+          disabled={!btnFilter.approveCompany}
+          variant={btnFilter.approvedComapny ? "outlined" : "filled"}
+          icon={<ChevronUp />}
+          iconOnly
+        >
+          {t("search.item.approve")}
+        </Button>
       </AlertDialog>
 
       <AlertDialog
@@ -111,7 +136,14 @@ const NodeSearchItemActions = ({ user, node }: NodeSearchItemActionProps) => {
         hideDescription
         content={<NodePreview name={node.name} color={node.color} img={node.img} terminals={node.terminals} />}
       >
-        <Button disabled={!btnFilter.approveGlobal} icon={<ChevronDoubleUp />} iconOnly>{t("search.item.approve")}</Button>
+        <Button
+          disabled={!btnFilter.approveGlobal}
+          variant={btnFilter.approvedGlobal ? "outlined" : "filled"}
+          icon={<ChevronDoubleUp />}
+          iconOnly
+        >
+          {t("search.item.approve")}
+        </Button>
       </AlertDialog>
     </>
   );

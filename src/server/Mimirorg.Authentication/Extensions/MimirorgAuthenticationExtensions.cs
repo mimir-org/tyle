@@ -81,11 +81,11 @@ namespace Mimirorg.Authentication.Extensions
             {
                 serviceCollection.AddDbContext<MimirorgAuthenticationContext>(options =>
                     options.UseSqlServer(dbConfig.ConnectionString, sqlOptions =>
-                        sqlOptions.MigrationsAssembly("Mimirorg.Authentication")));
+                        sqlOptions.MigrationsAssembly("Mimirorg.Authentication")), ServiceLifetime.Transient);
             }
             else
             {
-                serviceCollection.AddDbContext<MimirorgAuthenticationContext>(options => options.UseInMemoryDatabase("TestDBAuth"));
+                serviceCollection.AddDbContext<MimirorgAuthenticationContext>(options => options.UseInMemoryDatabase("TestDBAuth"), ServiceLifetime.Transient);
             }
 
             // Auth options

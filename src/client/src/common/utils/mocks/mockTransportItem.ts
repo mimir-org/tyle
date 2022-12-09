@@ -15,5 +15,5 @@ export const mockTransportItem = (): TransportItem => ({
   tokens: [...Array(5)].map((_) => faker.commerce.productAdjective()),
   kind: "TransportItem",
   state: State.Draft,
-  companyId: 1
+  companyId: 1,
 });

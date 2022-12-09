@@ -18,7 +18,6 @@ export const PlainLink = styled(Link)<PlainLinkProps>`
     color: inherit;
     text-decoration: inherit;
   }
-  
+
   ${sizingMixin};
 `;
-

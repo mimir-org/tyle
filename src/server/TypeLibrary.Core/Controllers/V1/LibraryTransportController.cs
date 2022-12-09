@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
@@ -13,6 +14,7 @@ using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1
@@ -29,11 +31,15 @@ namespace TypeLibrary.Core.Controllers.V1
     {
         private readonly ILogger<LibraryTransportController> _logger;
         private readonly ITransportService _transportService;
+        private readonly IMimirorgAuthService _authService;
+        private readonly ILogService _logService;
 
-        public LibraryTransportController(ILogger<LibraryTransportController> logger, ITransportService transportService)
+        public LibraryTransportController(ILogger<LibraryTransportController> logger, ITransportService transportService, IMimirorgAuthService authService, ILogService logService)
         {
             _logger = logger;
             _transportService = transportService;
+            _authService = authService;
+            _logService = logService;
         }
 
         /// <summary>
@@ -201,6 +207,12 @@ namespace TypeLibrary.Core.Controllers.V1
         {
             try
             {
+                var companyId = await _transportService.GetCompanyId(id);
+                var hasAccess = await _authService.HasAccess(companyId, state);
+
+                if (!hasAccess)
+                    return StatusCode(StatusCodes.Status403Forbidden);
+
                 var data = await _transportService.ChangeState(id, state);
                 return Ok(data);
             }
@@ -208,6 +220,39 @@ namespace TypeLibrary.Core.Controllers.V1
             {
                 _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
                 return StatusCode(400, e.Message);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
+        /// Reject and revert state
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>NodeLibCm</returns>
+        [HttpPatch("{id}/state/reject")]
+        [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize]
+        public async Task<IActionResult> RejectChangeState([FromRoute] string id)
+        {
+            try
+            {
+                var companyId = await _transportService.GetCompanyId(id);
+                var previousState = await _logService.GetPreviousState(id, nameof(TransportLibDm));
+                var hasAccess = await _authService.HasAccess(companyId, previousState);
+
+                if (!hasAccess)
+                    return StatusCode(StatusCodes.Status403Forbidden);
+
+                var data = await _transportService.ChangeState(id, previousState);
+                return Ok(data);
             }
             catch (Exception e)
             {

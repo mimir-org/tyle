@@ -17,9 +17,11 @@ type Props = ConditionalSearchItem & Pick<TransportSearchItemProps, "isSelected"
  * @param user
  * @constructor
  */
-export const ConditionalTransportSearchItem = ({ item, isSelected, setSelected, user}: Props) => {
+export const ConditionalTransportSearchItem = ({ item, isSelected, setSelected, user }: Props) => {
   if (isTransportItem(item)) {
-    return <TransportSearchItem key={item.id} isSelected={isSelected} setSelected={setSelected} user={user} {...item} />;
+    return (
+      <TransportSearchItem key={item.id} isSelected={isSelected} setSelected={setSelected} user={user} {...item} />
+    );
   }
 
   return <></>;

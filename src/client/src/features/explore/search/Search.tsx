@@ -1,6 +1,5 @@
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useDebounceState } from "common/hooks/useDebounceState";
-import { UserItem } from "common/types/userItem";
 import { mapMimirorgUserCmToUserItem } from "common/utils/mappers/mapMimirorgUserCmToUserItem";
 import { Token } from "complib/general";
 import { Flexbox, MotionFlexbox } from "complib/layouts";
@@ -99,7 +98,7 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
         </MotionText>
       )}
 
-      {showResults && user  && (
+      {showResults && user && (
         <ItemList>
           {results.map((item) => (
             <Fragment key={item.id}>

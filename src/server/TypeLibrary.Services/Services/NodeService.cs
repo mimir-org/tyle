@@ -167,7 +167,7 @@ namespace TypeLibrary.Services.Services
         /// <param name="state">The new node state</param>
         /// <returns>Node with updated state</returns>
         /// <exception cref="MimirorgNotFoundException">Throws if the node does not exist on latest version</exception>
-        public async Task<NodeLibCm> ChangeState(string id, State state)
+        public async Task<ApprovalDataCm> ChangeState(string id, State state)
         {
             var dm = _nodeRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
@@ -178,7 +178,11 @@ namespace TypeLibrary.Services.Services
             await _logService.CreateLog(dm, LogType.State, state.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
 
-            return state == State.Deleted ? null : GetLatestVersion(id);
+            return new ApprovalDataCm
+            {
+                Id = id,
+                State = state
+            };
         }
 
         /// <summary>

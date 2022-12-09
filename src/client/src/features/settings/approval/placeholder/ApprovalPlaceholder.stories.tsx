@@ -6,7 +6,9 @@ export default {
   component: ApprovalPlaceholder,
 };
 
-const Template: ComponentStory<typeof ApprovalPlaceholder> = (args) => <ApprovalPlaceholder {...args}></ApprovalPlaceholder>;
+const Template: ComponentStory<typeof ApprovalPlaceholder> = (args) => (
+  <ApprovalPlaceholder {...args}></ApprovalPlaceholder>
+);
 
 export const Default = Template.bind({});
 Default.args = {

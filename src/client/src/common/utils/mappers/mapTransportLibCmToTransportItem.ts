@@ -21,6 +21,6 @@ export const mapTransportLibCmToTransportItem = (transport: TransportLibCm): Tra
     tokens: [transport.version, transport.companyName, currentStateLabel, transport.rdsName, transport.purposeName],
     kind: "TransportItem",
     state: transport.state,
-    companyId: transport.companyId
+    companyId: transport.companyId,
   };
 };

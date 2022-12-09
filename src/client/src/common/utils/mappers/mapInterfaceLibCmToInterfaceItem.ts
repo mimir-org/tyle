@@ -27,6 +27,6 @@ export const mapInterfaceLibCmToInterfaceItem = (interfaceLibCm: InterfaceLibCm)
     ],
     kind: "InterfaceItem",
     state: interfaceLibCm.state,
-    companyId: interfaceLibCm.companyId
+    companyId: interfaceLibCm.companyId,
   };
 };

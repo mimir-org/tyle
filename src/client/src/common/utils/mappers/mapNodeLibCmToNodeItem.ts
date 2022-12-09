@@ -21,7 +21,7 @@ export const mapNodeLibCmToNodeItem = (node: NodeLibCm): NodeItem => {
     attributes: sortInfoItems(mapAttributeLibCmsToInfoItems(node.attributes)),
     kind: "NodeItem",
     state: node.state,
-    companyId: node.companyId
+    companyId: node.companyId,
   };
 };
 

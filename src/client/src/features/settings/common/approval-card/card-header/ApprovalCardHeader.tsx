@@ -1,4 +1,4 @@
-import { UserCircle } from "@styled-icons/heroicons-outline";
+import { Share } from "@styled-icons/heroicons-outline";
 import { Box } from "complib/layouts";
 import { Text } from "complib/text";
 import { useTheme } from "styled-components";
@@ -12,7 +12,7 @@ export const ApprovalCardHeader = ({ children }: ApprovalCardHeaderProps) => {
 
   return (
     <Box display={"flex"} gap={theme.tyle.spacing.s}>
-      {/* <UserCircle size={24} color={theme.tyle.color.sys.primary.base} /> */}
+      <Share size={24} color={theme.tyle.color.sys.primary.base} />
       <Text variant={"title-large"}>{children}</Text>
     </Box>
   );

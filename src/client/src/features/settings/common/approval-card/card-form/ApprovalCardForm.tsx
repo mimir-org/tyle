@@ -7,22 +7,36 @@ import { Form, FormField } from "complib/form";
 import { Input, Select } from "complib/inputs";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useApprovalToasts } from "./PermissionCardForm.helpers";
-import { approvalSchema } from "features/settings/common/approval-card/card-form/types/approvalSchema";
+import {
+  useApprovalToasts,
+  findNextState,
+} from "features/settings/common/approval-card/card-form/ApprovalCardForm.helpers";
+import { approvalSchema } from "features/settings/common/approval-card/card-form/approvalSchema";
 import { FormApproval } from "features/settings/common/approval-card/card-form/types/formApproval";
+import { Flexbox } from "../../../../../complib/layouts/Flexbox";
+import { theme } from "../../../../../complib/core/theme/theme";
 
 export interface ApprovalCardFormProps {
   item: ApprovalCm;
   formId?: string;
   onSubmit?: () => void;
+  onReject?: (id: string, state: State, objectType: string) => void;
   showSubmitButton?: boolean;
 }
 
-export const ApprovalCardForm = ({ item, formId, onSubmit, showSubmitButton = true }: ApprovalCardFormProps) => {
+export const ApprovalCardForm = ({
+  item,
+  formId,
+  onSubmit,
+  onReject,
+  showSubmitButton = true,
+}: ApprovalCardFormProps) => {
   const { t } = useTranslation(["settings"]);
 
   const stateOptions = getOptionsFromEnum<State>(State);
-  const currentState = stateOptions.find((x) => x.value == item.state);
+  const nextState = findNextState(item.state);
+  const currentState = stateOptions.find((x) => x.value == nextState);
+  const oldState = stateOptions.find((x) => x.value == item.state);
 
   const { register, control, handleSubmit, formState } = useForm<FormApproval>({
     resolver: yupResolver(approvalSchema(t)),
@@ -34,7 +48,7 @@ export const ApprovalCardForm = ({ item, formId, onSubmit, showSubmitButton = tr
     },
   });
 
-  const toast = useApprovalToasts(currentState);
+  const toast = useApprovalToasts(oldState);
 
   return (
     <Form
@@ -49,18 +63,29 @@ export const ApprovalCardForm = ({ item, formId, onSubmit, showSubmitButton = tr
         control={control}
         name={"state"}
         render={({ field: { value, ref, ...rest } }) => (
-          <FormField label={t("common.permission.permission")} error={formState.errors.state} indent={false}>
+          <FormField label={t("common.approval.stateDropdown")} error={formState.errors.state} indent={false}>
             <Select
               {...rest}
               selectRef={ref}
-              placeholder={t("common.templates.select", { object: t("common.permission.permission").toLowerCase() })}
+              placeholder={t("common.templates.select", { object: t("common.approval.stateDropdown").toLowerCase() })}
               options={stateOptions}
               value={stateOptions.find((x) => x.value === value.value)}
             />
           </FormField>
         )}
       />
-      {showSubmitButton && <Button type={"submit"}>{t("common.permission.submit")}</Button>}
+      <Flexbox flexFlow="row" gap={theme.spacing.base}>
+        {onReject && (
+          <>
+            {showSubmitButton && (
+              <Button type={"button"} onClick={() => onReject(item.id, item.state, item.objectType)}>
+                {t("common.approval.reject")}
+              </Button>
+            )}
+          </>
+        )}
+        {showSubmitButton && <Button type={"submit"}>{t("common.approval.submit")}</Button>}
+      </Flexbox>
     </Form>
   );
 };

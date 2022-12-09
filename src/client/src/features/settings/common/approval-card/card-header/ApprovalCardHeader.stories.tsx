@@ -10,5 +10,5 @@ const Template: ComponentStory<typeof ApprovalCardHeader> = (args) => <ApprovalC
 
 export const Default = Template.bind({});
 Default.args = {
-  children: "Jane Smith",
+  children: "Pump system",
 };

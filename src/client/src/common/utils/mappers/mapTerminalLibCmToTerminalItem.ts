@@ -17,6 +17,6 @@ export const mapTerminalLibCmToTerminalItem = (terminal: TerminalLibCm): Termina
     tokens: [terminal.version, terminal.companyName, currentStateLabel],
     kind: "TerminalItem",
     state: terminal.state,
-    companyId: terminal.companyId
+    companyId: terminal.companyId,
   };
 };

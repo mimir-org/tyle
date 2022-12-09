@@ -36,3 +36,11 @@ export const usePatchNodeState = () => {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };
+
+export const usePatchNodeStateReject = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation((item: { id: string }) => nodeApi.patchLibraryNodeStateReject(item.id), {
+    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
+  });
+};

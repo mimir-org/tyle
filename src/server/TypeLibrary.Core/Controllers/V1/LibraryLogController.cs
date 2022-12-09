@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Mimirorg.Authentication.Models.Attributes;
+using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
 using TypeLibrary.Services.Contracts;
@@ -40,7 +43,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(typeof(ICollection<LogLibCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[MimirorgAuthorize(MimirorgPermission.Manage)]
+        [MimirorgAuthorize(MimirorgPermission.Manage)]
         public IActionResult Get()
         {
             try
@@ -63,7 +66,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(typeof(ICollection<ApprovalCm>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[MimirorgAuthorize(MimirorgPermission.Manage)]
+        [Authorize]
         public async Task<IActionResult> GetApprovals()
         {
             try

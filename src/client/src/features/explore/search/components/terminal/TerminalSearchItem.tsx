@@ -38,7 +38,7 @@ export const TerminalSearchItem = ({ isSelected, setSelected, user, ...terminal 
 );
 
 type TerminalSearchItemActionProps = {
-  user: UserItem
+  user: UserItem;
   terminal?: TerminalItem;
 };
 
@@ -48,10 +48,8 @@ const TerminalSearchItemActions = ({ user, terminal }: TerminalSearchItemActionP
   const patcMutation = usePatchTerminalState();
   const btnFilter = useButtonStateFilter(terminal ?? null, user);
 
-  if(user == null || terminal == null)
-    return(<></>);
+  if (user == null || terminal == null) return <></>;
 
-  
   const deleteAction = {
     name: t("search.item.delete"),
     onAction: () => patcMutation.mutate({ id: terminal.id, state: State.Delete }),
@@ -68,17 +66,29 @@ const TerminalSearchItemActions = ({ user, terminal }: TerminalSearchItemActionP
   };
 
   const cloneLink = btnFilter.clone ? `/form/terminal/clone/${terminal.id}` : "#";
-  const editLink = btnFilter.edit ? `/form/terminal/edit/${terminal.id}` : "#";  
+  const editLink = btnFilter.edit ? `/form/terminal/edit/${terminal.id}` : "#";
 
   return (
     <>
       <PlainLink tabIndex={-1} to={cloneLink}>
-        <Button disabled={!btnFilter.clone} tabIndex={0} as={!btnFilter.clone ? "button" : "span"} icon={<Duplicate />} iconOnly>
+        <Button
+          disabled={!btnFilter.clone}
+          tabIndex={0}
+          as={!btnFilter.clone ? "button" : "span"}
+          icon={<Duplicate />}
+          iconOnly
+        >
           {t("search.item.clone")}
         </Button>
       </PlainLink>
       <PlainLink tabIndex={-1} to={editLink}>
-        <Button disabled={!btnFilter.edit} tabIndex={0} as={!btnFilter.edit ? "button" : "span"} icon={<PencilAlt />} iconOnly>
+        <Button
+          disabled={!btnFilter.edit}
+          tabIndex={0}
+          as={!btnFilter.edit ? "button" : "span"}
+          icon={<PencilAlt />}
+          iconOnly
+        >
           {t("search.item.edit")}
         </Button>
       </PlainLink>
@@ -90,7 +100,12 @@ const TerminalSearchItemActions = ({ user, terminal }: TerminalSearchItemActionP
         hideDescription
         content={<TerminalPreview name={terminal.name} color={terminal.color} />}
       >
-        <Button disabled={!btnFilter.delete} icon={<Trash />} iconOnly>
+        <Button
+          disabled={!btnFilter.delete}
+          variant={btnFilter.deleted ? "outlined" : "filled"}
+          icon={<Trash />}
+          iconOnly
+        >
           {t("search.item.delete")}
         </Button>
       </AlertDialog>
@@ -103,7 +118,14 @@ const TerminalSearchItemActions = ({ user, terminal }: TerminalSearchItemActionP
         hideDescription
         content={<TerminalPreview name={terminal.name} color={terminal.color} />}
       >
-        <Button disabled={!btnFilter.approveCompany} icon={<ChevronUp />} iconOnly>{t("search.item.approve")}</Button>
+        <Button
+          disabled={!btnFilter.approveCompany}
+          variant={btnFilter.approvedComapny ? "outlined" : "filled"}
+          icon={<ChevronUp />}
+          iconOnly
+        >
+          {t("search.item.approve")}
+        </Button>
       </AlertDialog>
 
       <AlertDialog
@@ -114,7 +136,14 @@ const TerminalSearchItemActions = ({ user, terminal }: TerminalSearchItemActionP
         hideDescription
         content={<TerminalPreview name={terminal.name} color={terminal.color} />}
       >
-        <Button disabled={!btnFilter.approveGlobal} icon={<ChevronDoubleUp />} iconOnly>{t("search.item.approve")}</Button>
+        <Button
+          disabled={!btnFilter.approveGlobal}
+          variant={btnFilter.approvedGlobal ? "outlined" : "filled"}
+          icon={<ChevronDoubleUp />}
+          iconOnly
+        >
+          {t("search.item.approve")}
+        </Button>
       </AlertDialog>
     </>
   );

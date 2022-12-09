@@ -15,5 +15,5 @@ export const mockInterfaceItem = (): InterfaceItem => ({
   tokens: [...Array(5)].map((_) => faker.commerce.productAdjective()),
   kind: "InterfaceItem",
   state: State.Draft,
-  companyId: 1
+  companyId: 1,
 });

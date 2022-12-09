@@ -71,6 +71,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.ObjectType, opt => opt.MapFrom(src => "Node"))
                 .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
+                .ForMember(dest => dest.StateName, opt => opt.MapFrom(src => src.State.ToString()))
                 .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
                 .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => companyFactory.GetCompanyName(src.CompanyId)))
                 .ForMember(dest => dest.UserId, opt => opt.Ignore())

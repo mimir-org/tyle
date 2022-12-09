@@ -1,17 +1,34 @@
 import { useTranslation } from "react-i18next";
+import { ApprovalCm } from "common/types/approvalCm";
+import { State } from "@mimirorg/typelibrary-types";
 
-export const useApprovalDescriptors = (): { [key: string]: string } => {
+export const useApprovalDescriptors = (approval: ApprovalCm): { [key: string]: string } => {
   const { t } = useTranslation("settings");
   const descriptors: { [key: string]: string } = {};
 
-  descriptors[t("common.permission.email")] = "Dette er en test";
+  if (approval.companyName) {
+    descriptors[t("common.approval.company")] = approval.companyName;
+  }
 
-//   if (user.company) {
-//     descriptors[t("common.permission.organization")] = user.company.name;
-//   }
-//   if (user.purpose) {
-//     descriptors[t("common.permission.purpose")] = user.purpose;
-//   }
+  if (approval.objectType) {
+    descriptors[t("common.approval.objectType")] = approval.objectType;
+  }
+
+  if (approval.userName) {
+    descriptors[t("common.approval.userName")] = approval.userName;
+  }
+
+  if (approval.stateName) {
+    descriptors[t("common.approval.stateName")] = approval.stateName;
+  }
 
   return descriptors;
+};
+
+export const approvalFilter = (approval: ApprovalCm): boolean => {
+  if (approval == null) return false;
+
+  return (
+    approval.state === State.ApproveCompany || approval.state === State.ApproveGlobal || approval.state === State.Delete
+  );
 };

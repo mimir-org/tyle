@@ -1,10 +1,13 @@
 import { useApprovalDescriptors } from "features/settings/common/approval-card/ApprovalCard.helpers";
-import { MotionPermissionCardContainer } from "features/settings/common/permission-card/PermissionCard.styled";
+import { MotionApprovalCardContainer } from "features/settings/common/approval-card/ApprovalCard.styled";
 import { useRef } from "react";
 import { useTheme } from "styled-components";
 import { ApprovalCardHeader } from "features/settings/common/approval-card/card-header/ApprovalCardHeader";
-import { ApprovalCardDetails} from "features/settings/common/approval-card/card-details/ApprovalCardDetails";
-import { ApprovalCardForm, ApprovalCardFormProps } from "features/settings/common/approval-card/card-form/ApprovalCardForm";
+import { ApprovalCardDetails } from "features/settings/common/approval-card/card-details/ApprovalCardDetails";
+import {
+  ApprovalCardForm,
+  ApprovalCardFormProps,
+} from "features/settings/common/approval-card/card-form/ApprovalCardForm";
 import { ApprovalCm } from "common/types/approvalCm";
 
 export type ApprovalCardProps = ApprovalCardFormProps & {
@@ -23,14 +26,13 @@ export type ApprovalCardProps = ApprovalCardFormProps & {
 export const ApprovalCard = ({ item, selected, ...delegated }: ApprovalCardProps) => {
   const theme = useTheme();
   const cardRef = useRef(null);
-  const approvalDescriptors = useApprovalDescriptors();
+  const approvalDescriptors = useApprovalDescriptors(item);
+  const { formId, onSubmit, onReject, showSubmitButton } = delegated;
 
-const { formId, onSubmit, showSubmitButton } = delegated;
-if(item == null)
-  return(<></>);
+  if (item == null) return <></>;
 
   return (
-    <MotionPermissionCardContainer
+    <MotionApprovalCardContainer
       key={item.id}
       ref={cardRef}
       variant={selected ? "selected" : "filled"}
@@ -39,7 +41,13 @@ if(item == null)
     >
       <ApprovalCardHeader>{item.name}</ApprovalCardHeader>
       <ApprovalCardDetails descriptors={approvalDescriptors} />
-      <ApprovalCardForm item={item} formId={formId} onSubmit={onSubmit} showSubmitButton={showSubmitButton} />
-    </MotionPermissionCardContainer>
+      <ApprovalCardForm
+        item={item}
+        formId={formId}
+        onSubmit={onSubmit}
+        onReject={onReject}
+        showSubmitButton={showSubmitButton}
+      />
+    </MotionApprovalCardContainer>
   );
 };

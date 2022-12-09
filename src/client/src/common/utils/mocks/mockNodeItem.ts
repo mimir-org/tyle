@@ -16,5 +16,5 @@ export const mockNodeItem = (): NodeItem => ({
   img: LibraryIcon,
   kind: "NodeItem",
   state: State.Draft,
-  companyId: 1
+  companyId: 1,
 });

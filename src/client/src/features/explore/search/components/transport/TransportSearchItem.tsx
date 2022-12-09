@@ -38,7 +38,7 @@ export const TransportSearchItem = ({ isSelected, setSelected, user, ...transpor
 );
 
 type TransportSearchItemActionProps = {
-  user: UserItem
+  user: UserItem;
   transport?: TransportItem;
 };
 
@@ -48,8 +48,7 @@ const TransportSearchItemActions = ({ user, transport }: TransportSearchItemActi
   const patcMutation = usePatchTransportState();
   const btnFilter = useButtonStateFilter(transport ?? null, user);
 
-  if(user == null || transport == null)
-    return(<></>);
+  if (user == null || transport == null) return <></>;
 
   const deleteAction = {
     name: t("search.item.delete"),
@@ -65,19 +64,31 @@ const TransportSearchItemActions = ({ user, transport }: TransportSearchItemActi
     name: t("search.item.approve"),
     onAction: () => patcMutation.mutate({ id: transport.id, state: State.ApproveGlobal }),
   };
-  
+
   const cloneLink = btnFilter.clone ? `/form/transport/clone/${transport.id}` : "#";
   const editLink = btnFilter.edit ? `/form/transport/edit/${transport.id}` : "#";
 
   return (
     <>
       <PlainLink tabIndex={-1} to={cloneLink}>
-        <Button disabled={!btnFilter.clone} tabIndex={0} as={!btnFilter.clone ? "button" : "span"} icon={<Duplicate />} iconOnly>
+        <Button
+          disabled={!btnFilter.clone}
+          tabIndex={0}
+          as={!btnFilter.clone ? "button" : "span"}
+          icon={<Duplicate />}
+          iconOnly
+        >
           {t("search.item.clone")}
         </Button>
       </PlainLink>
       <PlainLink tabIndex={-1} to={editLink}>
-        <Button disabled={!btnFilter.edit} tabIndex={0} as={!btnFilter.edit ? "button" : "span"} icon={<PencilAlt />} iconOnly>
+        <Button
+          disabled={!btnFilter.edit}
+          tabIndex={0}
+          as={!btnFilter.edit ? "button" : "span"}
+          icon={<PencilAlt />}
+          iconOnly
+        >
           {t("search.item.edit")}
         </Button>
       </PlainLink>
@@ -87,9 +98,20 @@ const TransportSearchItemActions = ({ user, transport }: TransportSearchItemActi
         title={t("search.item.templates.delete", { object: name })}
         description={t("search.item.deleteDescription")}
         hideDescription
-        content={<TransportPreview name={transport.name} aspectColor={transport.aspectColor} transportColor={transport.transportColor} />}
+        content={
+          <TransportPreview
+            name={transport.name}
+            aspectColor={transport.aspectColor}
+            transportColor={transport.transportColor}
+          />
+        }
       >
-        <Button disabled={!btnFilter.delete} icon={<Trash />} iconOnly>
+        <Button
+          disabled={!btnFilter.delete}
+          variant={btnFilter.deleted ? "outlined" : "filled"}
+          icon={<Trash />}
+          iconOnly
+        >
           {t("search.item.delete")}
         </Button>
       </AlertDialog>
@@ -100,9 +122,22 @@ const TransportSearchItemActions = ({ user, transport }: TransportSearchItemActi
         title={t("search.item.templates.approveCompany")}
         description={t("search.item.approveDescription")}
         hideDescription
-        content={<TransportPreview name={transport.name} aspectColor={transport.aspectColor} transportColor={transport.transportColor} />}
+        content={
+          <TransportPreview
+            name={transport.name}
+            aspectColor={transport.aspectColor}
+            transportColor={transport.transportColor}
+          />
+        }
       >
-        <Button disabled={!btnFilter.approveCompany} icon={<ChevronUp />} iconOnly>{t("search.item.approve")}</Button>
+        <Button
+          disabled={!btnFilter.approveCompany}
+          variant={btnFilter.approvedComapny ? "outlined" : "filled"}
+          icon={<ChevronUp />}
+          iconOnly
+        >
+          {t("search.item.approve")}
+        </Button>
       </AlertDialog>
 
       <AlertDialog
@@ -111,9 +146,22 @@ const TransportSearchItemActions = ({ user, transport }: TransportSearchItemActi
         title={t("search.item.templates.approveGlobal")}
         description={t("search.item.approveDescription")}
         hideDescription
-        content={<TransportPreview name={transport.name} aspectColor={transport.aspectColor} transportColor={transport.transportColor} />}
+        content={
+          <TransportPreview
+            name={transport.name}
+            aspectColor={transport.aspectColor}
+            transportColor={transport.transportColor}
+          />
+        }
       >
-        <Button disabled={!btnFilter.approveGlobal} icon={<ChevronDoubleUp />} iconOnly>{t("search.item.approve")}</Button>
+        <Button
+          disabled={!btnFilter.approveGlobal}
+          variant={btnFilter.approvedGlobal ? "outlined" : "filled"}
+          icon={<ChevronDoubleUp />}
+          iconOnly
+        >
+          {t("search.item.approve")}
+        </Button>
       </AlertDialog>
     </>
   );

@@ -1,6 +1,6 @@
 import { State } from "@mimirorg/typelibrary-types";
 
-export interface StateItem {
-  companyId: number;
+export interface ApprovalDataCm {
+  id: string;
   state: State;
 }

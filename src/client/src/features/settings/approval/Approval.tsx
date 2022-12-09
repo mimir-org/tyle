@@ -5,42 +5,64 @@ import { ApprovalCard } from "features/settings/common/approval-card/ApprovalCar
 import { SettingsSection } from "features/settings/common/settings-section/SettingsSection";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { ApprovalCm } from "common/types/approvalCm";
+import { useQueryClient } from "@tanstack/react-query";
+import { approvalKeys, useGetApprovals } from "external/sources/approval/approval.queries";
 import { State } from "@mimirorg/typelibrary-types";
+import { usePatchNodeStateReject } from "external/sources/node/node.queries";
+import { ApprovalDataCm } from "common/types/approvalDataCm";
+import { usePatchTerminalStateReject } from "external/sources/terminal/terminal.queries";
+import { usePatchTransportStateReject } from "external/sources/transport/transport.queries";
+import { usePatchInterfaceStateReject } from "external/sources/interface/interface.queries";
 
 export const Approval = () => {
+  const queryClient = useQueryClient();
   const theme = useTheme();
   const { t } = useTranslation("settings");
-  // const pendingUsersQuery = useGetPendingUsers();
+  const approvals = useGetApprovals();
+  const patcMutationRejectNode = usePatchNodeStateReject();
+  const patcMutationRejectTerminal = usePatchTerminalStateReject();
+  const patcMutationRejectTransport = usePatchTransportStateReject();
+  const patcMutationRejectInterface = usePatchInterfaceStateReject();
+  const showPlaceholder = approvals?.data && approvals.data.length === 0;
 
-  // const users = pendingUsersQuery.data?.sort((a, b) => a.firstName.localeCompare(b.firstName)) ?? [];
-
-  const approvals = [] as ApprovalCm[];
-  const approval: ApprovalCm = {
-    id: "fdrertfg",
-    name: "Test approval",
-    description: "Approval description",
-    objectType: "Node",
-    state: State.ApproveCompany,
-    companyId: 1,
-    companyName: "Mimirorg Company",
-    userId: "",
-    userName: ""
+  const onSubmit = () => {
+    setTimeout(() => {
+      queryClient.invalidateQueries(approvalKeys.lists());
+    }, 500);
   };
 
-  approvals.push(approval);
+  const onReject = (id: string, state: State, objectType: string) => {
+    const data: ApprovalDataCm = { id: id, state: state };
 
-  const showPlaceholder = approvals && approvals.length === 0;
+    switch (objectType) {
+      case "Node":
+        patcMutationRejectNode.mutateAsync(data);
+        break;
+      case "Terminal":
+        patcMutationRejectTerminal.mutateAsync(data);
+        break;
+      case "Interface":
+        patcMutationRejectInterface.mutateAsync(data);
+        break;
+      case "Transport":
+        patcMutationRejectTransport.mutateAsync(data);
+        break;
+    }
+
+    setTimeout(() => {
+      queryClient.invalidateQueries(approvalKeys.lists());
+    }, 500);
+  };
 
   return (
     <SettingsSection title={t("approval.title")}>
       <Text variant={"title-medium"} mb={theme.tyle.spacing.l}>
         {t("approval.subtitle")}
       </Text>
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xxxl}>
+      <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.tyle.spacing.xxxl}>
         {showPlaceholder && <ApprovalPlaceholder text={t("approval.placeholders.emptyApproval")} />}
-        {approvals.map((approval) => (
-          <ApprovalCard key={approval.id} item={approval} />      
+        {approvals.data?.map((approval) => (
+          <ApprovalCard key={approval.id} item={approval} onSubmit={onSubmit} onReject={onReject} />
         ))}
       </Flexbox>
     </SettingsSection>

@@ -38,7 +38,7 @@ export const InterfaceSearchItem = ({ isSelected, setSelected, user, ...interfac
 );
 
 type InterfaceSearchItemActionProps = {
-  user: UserItem
+  user: UserItem;
   iface?: InterfaceItem;
 };
 
@@ -47,9 +47,8 @@ const InterfaceSearchItemActions = ({ user, iface }: InterfaceSearchItemActionPr
   const { t } = useTranslation("explore");
   const patcMutation = usePatchInterfaceState();
   const btnFilter = useButtonStateFilter(iface ?? null, user);
-  
-  if(user == null || iface == null)
-  return(<></>);
+
+  if (user == null || iface == null) return <></>;
 
   const deleteAction = {
     name: t("search.item.delete"),
@@ -72,12 +71,24 @@ const InterfaceSearchItemActions = ({ user, iface }: InterfaceSearchItemActionPr
   return (
     <>
       <PlainLink tabIndex={-1} to={cloneLink}>
-        <Button disabled={!btnFilter.clone} tabIndex={0} as={!btnFilter.clone ? "button" : "span"} icon={<Duplicate />} iconOnly>
+        <Button
+          disabled={!btnFilter.clone}
+          tabIndex={0}
+          as={!btnFilter.clone ? "button" : "span"}
+          icon={<Duplicate />}
+          iconOnly
+        >
           {t("search.item.clone")}
         </Button>
       </PlainLink>
       <PlainLink tabIndex={-1} to={editLink}>
-        <Button disabled={!btnFilter.edit} tabIndex={0} as={!btnFilter.edit ? "button" : "span"} icon={<PencilAlt />} iconOnly>
+        <Button
+          disabled={!btnFilter.edit}
+          tabIndex={0}
+          as={!btnFilter.edit ? "button" : "span"}
+          icon={<PencilAlt />}
+          iconOnly
+        >
           {t("search.item.edit")}
         </Button>
       </PlainLink>
@@ -87,9 +98,16 @@ const InterfaceSearchItemActions = ({ user, iface }: InterfaceSearchItemActionPr
         title={t("search.item.templates.delete", { object: name })}
         description={t("search.item.deleteDescription")}
         hideDescription
-        content={<InterfacePreview name={iface.name} aspectColor={iface.aspectColor} interfaceColor={iface.interfaceColor} />}
+        content={
+          <InterfacePreview name={iface.name} aspectColor={iface.aspectColor} interfaceColor={iface.interfaceColor} />
+        }
       >
-        <Button disabled={!btnFilter.delete} icon={<Trash />} iconOnly>
+        <Button
+          disabled={!btnFilter.delete}
+          variant={btnFilter.deleted ? "outlined" : "filled"}
+          icon={<Trash />}
+          iconOnly
+        >
           {t("search.item.delete")}
         </Button>
       </AlertDialog>
@@ -100,9 +118,18 @@ const InterfaceSearchItemActions = ({ user, iface }: InterfaceSearchItemActionPr
         title={t("search.item.templates.approveCompany")}
         description={t("search.item.approveDescription")}
         hideDescription
-        content={<InterfacePreview name={iface.name} aspectColor={iface.aspectColor} interfaceColor={iface.interfaceColor} />}
+        content={
+          <InterfacePreview name={iface.name} aspectColor={iface.aspectColor} interfaceColor={iface.interfaceColor} />
+        }
       >
-        <Button disabled={!btnFilter.approveCompany} icon={<ChevronUp />} iconOnly>{t("search.item.approve")}</Button>
+        <Button
+          disabled={!btnFilter.approveCompany}
+          variant={btnFilter.approvedComapny ? "outlined" : "filled"}
+          icon={<ChevronUp />}
+          iconOnly
+        >
+          {t("search.item.approve")}
+        </Button>
       </AlertDialog>
 
       <AlertDialog
@@ -111,9 +138,18 @@ const InterfaceSearchItemActions = ({ user, iface }: InterfaceSearchItemActionPr
         title={t("search.item.templates.approveGlobal")}
         description={t("search.item.approveDescription")}
         hideDescription
-        content={<InterfacePreview name={iface.name} aspectColor={iface.aspectColor} interfaceColor={iface.interfaceColor} />}
+        content={
+          <InterfacePreview name={iface.name} aspectColor={iface.aspectColor} interfaceColor={iface.interfaceColor} />
+        }
       >
-        <Button disabled={!btnFilter.approveGlobal} icon={<ChevronDoubleUp />} iconOnly>{t("search.item.approve")}</Button>
+        <Button
+          disabled={!btnFilter.approveGlobal}
+          variant={btnFilter.approvedGlobal ? "outlined" : "filled"}
+          icon={<ChevronDoubleUp />}
+          iconOnly
+        >
+          {t("search.item.approve")}
+        </Button>
       </AlertDialog>
     </>
   );
