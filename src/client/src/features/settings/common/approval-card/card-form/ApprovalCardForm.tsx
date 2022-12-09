@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { State } from "@mimirorg/typelibrary-types";
-import { ApprovalCm } from "common/types/approvalCm";
+import { ApprovalCm, State } from "@mimirorg/typelibrary-types";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { Button } from "complib/buttons";
 import { Form, FormField } from "complib/form";

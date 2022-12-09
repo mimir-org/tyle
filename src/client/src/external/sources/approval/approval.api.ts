@@ -1,4 +1,4 @@
-import { ApprovalCm } from "common/types/approvalCm";
+import { ApprovalCm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "external/client/apiClient";
 
 const _basePath = "librarylog";

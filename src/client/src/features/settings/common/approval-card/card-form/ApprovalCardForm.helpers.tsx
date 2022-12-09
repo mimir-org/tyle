@@ -1,4 +1,4 @@
-import { State } from "@mimirorg/typelibrary-types";
+import { ApprovalDataCm, State } from "@mimirorg/typelibrary-types";
 import { Option } from "common/utils/getOptionsFromEnum";
 import { Button } from "complib/buttons";
 import { toast } from "complib/data-display";
@@ -14,7 +14,6 @@ import { usePatchTerminalState } from "external/sources/terminal/terminal.querie
 import { usePatchTransportState } from "external/sources/transport/transport.queries";
 import { usePatchInterfaceState } from "external/sources/interface/interface.queries";
 import { usePatchNodeState } from "external/sources/node/node.queries";
-import { ApprovalDataCm } from "common/types/approvalDataCm";
 
 /**
  * Shows a toast while a approval is sent to server.

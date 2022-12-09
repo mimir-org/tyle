@@ -8,7 +8,7 @@ import {
   ApprovalCardForm,
   ApprovalCardFormProps,
 } from "features/settings/common/approval-card/card-form/ApprovalCardForm";
-import { ApprovalCm } from "common/types/approvalCm";
+import { ApprovalCm } from "@mimirorg/typelibrary-types";
 
 export type ApprovalCardProps = ApprovalCardFormProps & {
   item: ApprovalCm;

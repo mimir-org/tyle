@@ -1,5 +1,4 @@
-import { State, TerminalLibAm, TerminalLibCm } from "@mimirorg/typelibrary-types";
-import { ApprovalDataCm } from "common/types/approvalDataCm";
+import { ApprovalDataCm, State, TerminalLibAm, TerminalLibCm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "external/client/apiClient";
 
 const _basePath = "libraryterminal";

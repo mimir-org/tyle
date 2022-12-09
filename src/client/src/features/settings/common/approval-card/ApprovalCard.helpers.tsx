@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { ApprovalCm } from "common/types/approvalCm";
-import { State } from "@mimirorg/typelibrary-types";
+import { ApprovalCm, State } from "@mimirorg/typelibrary-types";
 
 export const useApprovalDescriptors = (approval: ApprovalCm): { [key: string]: string } => {
   const { t } = useTranslation("settings");

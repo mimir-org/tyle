@@ -1,5 +1,4 @@
-import { NodeLibAm, NodeLibCm, State } from "@mimirorg/typelibrary-types";
-import { ApprovalDataCm } from "common/types/approvalDataCm";
+import { NodeLibAm, NodeLibCm, State, ApprovalDataCm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "external/client/apiClient";
 
 const _basePath = "librarynode";
