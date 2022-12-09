@@ -36,3 +36,11 @@ export const usePatchTransportState = () => {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };
+
+export const usePatchTransportStateReject = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation((item: { id: string }) => transportApi.patchTransportStateReject(item.id), {
+    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
+  });
+};

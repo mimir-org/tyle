@@ -1,4 +1,4 @@
-import { InterfaceLibAm, InterfaceLibCm, State } from "@mimirorg/typelibrary-types";
+import { InterfaceLibAm, InterfaceLibCm, State, ApprovalDataCm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "external/client/apiClient";
 
 const _basePath = "libraryinterface";
@@ -17,6 +17,10 @@ export const interfaceApi = {
     return apiClient.put<InterfaceLibCm>(_basePath, item).then((r) => r.data);
   },
   patchInterfaceState(id: string, state: State) {
+    console.log(id, state);
     return apiClient.patch<InterfaceLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
+  },
+  patchInterfaceStateReject(id: string) {
+    return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/reject`).then((r) => r.data);
   },
 };

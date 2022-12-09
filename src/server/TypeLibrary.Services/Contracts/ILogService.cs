@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Mimirorg.Common.Enums;
+using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts.Common;
@@ -33,5 +35,14 @@ namespace TypeLibrary.Services.Contracts
         /// <param name="comment"></param>
         /// <returns>Completed task</returns>
         Task CreateLogs(IEnumerable<ILogable> logObjects, LogType logType, string logTypeValue, string comment = null);
+
+        /// <summary>
+        /// Find last log - state - from object id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="objectType"></param>
+        /// <returns>Return the state from last log-entry</returns>
+        /// <exception cref="MimirorgNotFoundException"></exception>
+        Task<State> GetPreviousState(string id, string objectType);
     }
 }

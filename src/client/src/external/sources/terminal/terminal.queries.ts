@@ -37,3 +37,11 @@ export const usePatchTerminalState = () => {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };
+
+export const usePatchTerminalStateReject = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation((item: { id: string }) => terminalApi.patchhTerminalStateReject(item.id), {
+    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
+  });
+};

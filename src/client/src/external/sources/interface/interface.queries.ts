@@ -36,3 +36,11 @@ export const usePatchInterfaceState = () => {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };
+
+export const usePatchInterfaceStateReject = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation((item: { id: string }) => interfaceApi.patchInterfaceStateReject(item.id), {
+    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
+  });
+};

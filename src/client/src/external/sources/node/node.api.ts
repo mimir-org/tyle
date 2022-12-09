@@ -1,4 +1,4 @@
-import { NodeLibAm, NodeLibCm, State } from "@mimirorg/typelibrary-types";
+import { NodeLibAm, NodeLibCm, State, ApprovalDataCm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "external/client/apiClient";
 
 const _basePath = "librarynode";
@@ -17,6 +17,9 @@ export const nodeApi = {
     return apiClient.put<NodeLibCm>(_basePath, item).then((r) => r.data);
   },
   patchLibraryNodeState(id: string, state: State) {
-    return apiClient.patch<NodeLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
+    return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
+  },
+  patchLibraryNodeStateReject(id: string) {
+    return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/reject`).then((r) => r.data);
   },
 };

@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import { State } from "@mimirorg/typelibrary-types";
 import { TransportItem } from "common/types/transportItem";
 import { mockInfoItem } from "common/utils/mocks/mockInfoItem";
 import { mockTerminalItem } from "common/utils/mocks/mockTerminalItem";
@@ -13,4 +14,6 @@ export const mockTransportItem = (): TransportItem => ({
   terminal: mockTerminalItem(),
   tokens: [...Array(5)].map((_) => faker.commerce.productAdjective()),
   kind: "TransportItem",
+  state: State.Draft,
+  companyId: 1,
 });

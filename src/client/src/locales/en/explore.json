@@ -10,10 +10,14 @@
     "item": {
       "clone": "Clone",
       "edit": "Edit",
-      "delete": "Delete",
-      "deleteDescription": "When you delete this item it cannot be recovered.",
+      "delete": "Send approval",
+      "deleteDescription": "Someone has to accept this scope change.",
+      "approveDescription": "Someone has to accept this scope change.",
+      "approve": "Send approval",
       "templates": {
-        "delete": "Do you want to delete “{{object}}”?"
+        "delete": "Do you want to send delete approval?",
+        "approveCompany": "Do you want to send company approval?",
+        "approveGlobal": "Do you want to send global approval?"
       }
     },
     "help": {
