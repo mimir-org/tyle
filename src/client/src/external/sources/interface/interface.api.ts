@@ -17,7 +17,6 @@ export const interfaceApi = {
     return apiClient.put<InterfaceLibCm>(_basePath, item).then((r) => r.data);
   },
   patchInterfaceState(id: string, state: State) {
-    console.log(id, state);
     return apiClient.patch<InterfaceLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
   },
   patchInterfaceStateReject(id: string) {

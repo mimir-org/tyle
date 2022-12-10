@@ -21,11 +21,7 @@
     "framer-motion": "^7.6.19",
     "fuse.js": "^6.6.2",
     "i18next": "^22.1.5",
-<<<<<<< HEAD
-    "i18next-browser-languagedetector": "^6.1.8",
-=======
     "i18next-browser-languagedetector": "^7.0.1",
->>>>>>> 6116f47ca71fb64aa50370ee26ba8702d9e0ac3a
     "lodash.camelcase": "^4.3.0",
     "polished": "^4.2.2",
     "react": "^18.2.0",
