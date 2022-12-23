@@ -61,7 +61,7 @@ namespace Mimirorg.Common.Extensions
 
         public static T DeepCopy<T>(this T self)
         {
-            var settings  = new JsonSerializerSettings
+            var settings = new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
