@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Mimirorg.Common.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Mimirorg.Common.Extensions
 {
@@ -60,8 +61,14 @@ namespace Mimirorg.Common.Extensions
 
         public static T DeepCopy<T>(this T self)
         {
-            var serialized = JsonConvert.SerializeObject(self);
-            return JsonConvert.DeserializeObject<T>(serialized);
+            var settings  = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                TypeNameHandling = TypeNameHandling.All
+            };
+            var serialized = JsonConvert.SerializeObject(self, settings);
+            return JsonConvert.DeserializeObject<T>(serialized, settings);
         }
 
         public static object GetPropValue(this object obj, string name)
