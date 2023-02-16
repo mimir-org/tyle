@@ -3,14 +3,14 @@
 # In order to restore and properly cache all dependencies, ALL csproj need to be copied into container.
 # Docker does not offer good support for glob pattern, so the csproj files are all copied in cwd, and a inline script is used to recreate correct folder structure for restore.
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS base
+FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS base
 COPY */*.csproj ./
 RUN for file in $(ls *.csproj); do mkdir -p ${file%.*}/ && mv $file ${file%.*}/; done
 RUN dotnet restore TypeLibrary.Api/TypeLibrary.Api.csproj
 COPY . .
 
 FROM base as format
-RUN dotnet format . --verify-no-changes --verbosity diagnostic --no-restore
+RUN dotnet format --verify-no-changes --verbosity diagnostic --no-restore
 
 FROM base as build
 RUN dotnet test -c Release
@@ -23,7 +23,7 @@ RUN dotnet publish TypeLibrary.Api/TypeLibrary.Api.csproj -c Release --no-restor
 # see: https://github.com/dotnet/dotnet-docker/blob/main/samples/selecting-tags.md#alpine-globalization and https://github.com/dotnet/dotnet-docker/blob/main/samples/dotnetapp/Dockerfile.alpine-x64#L19
 # This need to be added, because of globalization issues.
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS final
+FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine AS final
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
