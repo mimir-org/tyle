@@ -8,12 +8,6 @@ namespace Mimirorg.TypeLibrary.Enums
         NotSet = 0,
 
         [Display(Name = "Object Block")]
-        ObjectBlock = 1,
-
-        [Display(Name = "Transport")]
-        Transport = 2,
-
-        [Display(Name = "Interface")]
-        Interface = 3,
+        ObjectBlock = 1
     }
 }
