@@ -8,9 +8,9 @@ namespace TypeLibrary.Services.Contracts
         /// <summary>
         /// Method will find and return the latest version.
         /// </summary>
-        /// <typeparam name="T">NodeLibDm, TransportLibDm, InterfaceLibDm or TerminalLibDm</typeparam>
-        /// <param name="obj">NodeLibDm, TransportLibDm, InterfaceLibDm or TerminalLibDm</param>
-        /// <returns>Latest version of NodeLibDm, TransportLibDm or InterfaceLibDm</returns>
+        /// <typeparam name="T">NodeLibDm or TerminalLibDm</typeparam>
+        /// <param name="obj">NodeLibDm or TerminalLibDm</param>
+        /// <returns>Latest version of NodeLibDm</returns>
         /// <exception cref="MimirorgBadRequestException"></exception>
         Task<T> GetLatestVersion<T>(T obj) where T : class;
     }

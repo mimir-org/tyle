@@ -24,9 +24,9 @@ namespace TypeLibrary.Services.Services
         /// <summary>
         /// Method will find and return the latest version.
         /// </summary>
-        /// <typeparam name="T">NodeLibDm, TransportLibDm, InterfaceLibDm, TerminalLibDm or AttributeLibDm</typeparam>
-        /// <param name="obj">NodeLibDm, TransportLibDm, InterfaceLibDm, TerminalLibDm or AttributeLibDm</param>
-        /// <returns>Latest version of NodeLibDm, TransportLibDm, TerminalLibDm or AttributeLibDm</returns>
+        /// <typeparam name="T">NodeLibDm, TerminalLibDm or AttributeLibDm</typeparam>
+        /// <param name="obj">NodeLibDm, TerminalLibDm or AttributeLibDm</param>
+        /// <returns>Latest version of NodeLibDm, TerminalLibDm or AttributeLibDm</returns>
         /// <exception cref="MimirorgBadRequestException"></exception>
         public async Task<T> GetLatestVersion<T>(T obj) where T : class
         {
