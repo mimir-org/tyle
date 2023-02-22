@@ -7,11 +7,9 @@ namespace TypeLibrary.Data
     public class TypeLibraryDbContext : DbContext
     {
         public virtual DbSet<SymbolLibDm> Symbol { get; set; }
-        public virtual DbSet<InterfaceLibDm> Interface { get; set; }
         public virtual DbSet<NodeTerminalLibDm> TerminalNode { get; set; }
         public virtual DbSet<AttributePredefinedLibDm> AttributePredefined { get; set; }
         public virtual DbSet<TerminalLibDm> Terminal { get; set; }
-        public virtual DbSet<TransportLibDm> Transport { get; set; }
         public virtual DbSet<NodeLibDm> Node { get; set; }
         public virtual DbSet<LogLibDm> Log { get; set; }
 
@@ -25,11 +23,9 @@ namespace TypeLibrary.Data
 
             modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());
             modelBuilder.ApplyConfiguration(new SymbolConfiguration());
-            modelBuilder.ApplyConfiguration(new InterfaceConfiguration());
             modelBuilder.ApplyConfiguration(new NodeTerminalConfiguration());
             modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());
             modelBuilder.ApplyConfiguration(new TerminalConfiguration());
-            modelBuilder.ApplyConfiguration(new TransportConfiguration());
             modelBuilder.ApplyConfiguration(new NodeConfiguration());
             modelBuilder.ApplyConfiguration(new LogConfiguration());
         }
