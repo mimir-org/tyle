@@ -43,11 +43,9 @@ namespace TypeLibrary.Core.Extensions
             // Dependency Injection - Repositories
             services.AddScoped<ITypeLibraryProcRepository, TypeLibraryProcRepository>();
             services.AddSingleton<IApplicationSettingsRepository, ApplicationSettingsRepository>();
-            services.AddScoped<IEfInterfaceRepository, EfInterfaceRepository>();
             services.AddScoped<IEfNodeRepository, EfNodeRepository>();
             services.AddScoped<IEfNodeTerminalRepository, EfNodeTerminalRepository>();
             services.AddScoped<IEfTerminalRepository, EfTerminalRepository>();
-            services.AddScoped<IEfTransportRepository, EfTransportRepository>();
             services.AddScoped<ILibraryTypeItemRepository, LibraryTypeItemRepository>();
             services.AddScoped<IEfAttributePredefinedRepository, EfAttributePredefinedRepository>();
             services.AddSingleton<IFileRepository, JsonFileRepository>();
@@ -58,10 +56,8 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IQuantityDatumRepository, DatumRepository>();
             services.AddScoped<IAttributePredefinedRepository, EfAttributePredefinedRepository>();
             services.AddScoped<IUnitRepository, UnitRepository>();
-            services.AddScoped<IInterfaceRepository, EfInterfaceRepository>();
             services.AddScoped<IPurposeReferenceRepository, PurposeReferenceRepository>();
             services.AddScoped<INodeRepository, EfNodeRepository>();
-            services.AddScoped<ITransportRepository, EfTransportRepository>();
             services.AddScoped<IRdsRepository, RdsRepository>();
             services.AddScoped<ITerminalRepository, EfTerminalRepository>();
             services.AddScoped<ISymbolRepository, EfSymbolRepository>();
@@ -70,16 +66,13 @@ namespace TypeLibrary.Core.Extensions
 
             // Dependency Injection - Services
             services.AddScoped<ITerminalService, TerminalService>();
-            services.AddScoped<IFileService, FileService>();
             services.AddScoped<IAttributeService, AttributeService>();
             services.AddScoped<IRdsService, RdsService>();
             services.AddScoped<ISeedingService, SeedingService>();
             services.AddScoped<ISymbolService, SymbolService>();
             services.AddScoped<IPurposeService, PurposeService>();
             services.AddScoped<IUnitService, UnitService>();
-            services.AddScoped<ITransportService, TransportService>();
             services.AddScoped<INodeService, NodeService>();
-            services.AddScoped<IInterfaceService, InterfaceService>();
             services.AddScoped<IVersionService, VersionService>();
             services.AddScoped<IModuleService, ModuleService>();
             services.AddScoped<ILogService, LogService>();
