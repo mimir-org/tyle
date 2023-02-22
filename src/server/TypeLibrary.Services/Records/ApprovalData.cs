@@ -13,13 +13,11 @@ namespace TypeLibrary.Services.Records
     public record ApprovalData
     {
         private List<ApprovalCm> Nodes { get; } = new();
-        private List<ApprovalCm> Transports { get; } = new();
-        private List<ApprovalCm> Interfaces { get; } = new();
         private List<ApprovalCm> Terminals { get; } = new();
 
         public ICollection<ApprovalCm> GetAllData()
         {
-            return Nodes.Union(Transports).Union(Interfaces).Union(Terminals).ToList();
+            return Nodes.Union(Terminals).ToList();
         }
 
         public Task ResolveNodes(INodeService nodeService, IMapper mapper, IMimirorgAuthService authService)
@@ -28,24 +26,6 @@ namespace TypeLibrary.Services.Records
             data = data.Where(x => authService.HasAccess(x.CompanyId, NextStateMapper(x.State)).Result).ToList();
             var mappedData = mapper.Map<ICollection<ApprovalCm>>(data);
             Nodes.AddRange(mappedData);
-            return Task.CompletedTask;
-        }
-
-        public Task ResolveTransports(ITransportService transportService, IMapper mapper, IMimirorgAuthService authService)
-        {
-            var data = transportService.GetLatestVersions().Where(x => x.State is State.ApproveCompany or State.ApproveGlobal or State.Delete).ToList();
-            data = data.Where(x => authService.HasAccess(x.CompanyId, NextStateMapper(x.State)).Result).ToList();
-            var mappedData = mapper.Map<ICollection<ApprovalCm>>(data);
-            Transports.AddRange(mappedData);
-            return Task.CompletedTask;
-        }
-
-        public Task ResolveInterfaces(IInterfaceService interfaceService, IMapper mapper, IMimirorgAuthService authService)
-        {
-            var data = interfaceService.GetLatestVersions().Where(x => x.State is State.ApproveCompany or State.ApproveGlobal or State.Delete).ToList();
-            data = data.Where(x => authService.HasAccess(x.CompanyId, NextStateMapper(x.State)).Result).ToList();
-            var mappedData = mapper.Map<ICollection<ApprovalCm>>(data);
-            Interfaces.AddRange(mappedData);
             return Task.CompletedTask;
         }
 
