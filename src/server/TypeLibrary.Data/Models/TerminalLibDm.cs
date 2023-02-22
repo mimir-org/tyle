@@ -31,8 +31,6 @@ namespace TypeLibrary.Data.Models
         public string Attributes { get; set; }
         public ICollection<TerminalLibDm> Children { get; set; }
         public ICollection<NodeTerminalLibDm> TerminalNodes { get; set; }
-        public ICollection<InterfaceLibDm> Interfaces { get; set; }
-        public ICollection<TransportLibDm> Transports { get; set; }
 
         #region IVersionable
 
