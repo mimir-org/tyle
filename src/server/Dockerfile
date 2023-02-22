@@ -10,7 +10,7 @@ RUN dotnet restore TypeLibrary.Api/TypeLibrary.Api.csproj
 COPY . .
 
 FROM base as format
-RUN dotnet-format --verify-no-changes --verbosity diagnostic --no-restore
+RUN dotnet format --verify-no-changes --verbosity diagnostic --no-restore
 
 FROM base as build
 RUN dotnet test -c Release
