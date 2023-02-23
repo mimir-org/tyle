@@ -38,9 +38,7 @@
     "create": {
       "title": "Create",
       "aspectObject": "Aspect object",
-      "interface": "Interface",
-      "terminal": "Terminal",
-      "transport": "Transport"
+      "terminal": "Terminal"
     }
   },
   "about": {
