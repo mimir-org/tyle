@@ -1,7 +1,5 @@
-import { interfaceFormRoutes } from "features/entities/interface/InterfaceFormRoutes";
 import { nodeFormRoutes } from "features/entities/node/NodeFormRoutes";
 import { terminalFormRoutes } from "features/entities/terminal/TerminalFormRoutes";
-import { transportFormRoutes } from "features/entities/transport/TransportFormRoutes";
 import { exploreRoutes } from "features/explore/ExploreRoutes";
 import { settingsRoutes } from "features/settings/SettingsRoutes";
 import { AuthenticatedLayout } from "features/ui/authenticated/layout/AuthenticatedLayout";
@@ -29,8 +27,6 @@ export const useAuthenticatedRouter = () => {
         ...exploreRoutes,
         ...nodeFormRoutes,
         ...terminalFormRoutes,
-        ...transportFormRoutes,
-        ...interfaceFormRoutes,
         settingsRoutes,
         {
           path: "*",

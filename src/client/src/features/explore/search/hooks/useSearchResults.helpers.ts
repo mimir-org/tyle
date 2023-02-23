@@ -1,14 +1,10 @@
 import {
-  mapInterfaceLibCmToInterfaceItem,
   mapNodeLibCmToNodeItem,
   mapTerminalLibCmToTerminalItem,
-  mapTransportLibCmToTransportItem,
 } from "common/utils/mappers";
-import { useGetInterfaces } from "external/sources/interface/interface.queries";
 import { useGetNodes } from "external/sources/node/node.queries";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
-import { useGetTransports } from "external/sources/transport/transport.queries";
-import { isInterfaceLibCm, isNodeLibCm, isTerminalLibCm, isTransportLibCm } from "features/explore/search/guards";
+import { isNodeLibCm, isTerminalLibCm } from "features/explore/search/guards";
 import { Filter } from "features/explore/search/types/filter";
 import { SearchResult, SearchResultRaw } from "features/explore/search/types/searchResult";
 
@@ -31,17 +27,13 @@ const sortItemsByDate = (items: SearchResultRaw[]) =>
 export const useSearchItems = (): [items: SearchResultRaw[], isLoading: boolean] => {
   const nodeQuery = useGetNodes();
   const terminalQuery = useGetTerminals();
-  const transportQuery = useGetTransports();
-  const interfaceQuery = useGetInterfaces();
 
   const isLoading =
-    nodeQuery.isLoading || terminalQuery.isLoading || transportQuery.isLoading || interfaceQuery.isLoading;
+    nodeQuery.isLoading || terminalQuery.isLoading;
 
   const mergedItems = [
     ...(nodeQuery.data ?? []),
     ...(terminalQuery.data ?? []),
-    ...(transportQuery.data ?? []),
-    ...(interfaceQuery.data ?? []),
   ];
 
   return [mergedItems, isLoading];
@@ -53,8 +45,6 @@ export const mapSearchResults = (items: SearchResultRaw[]) => {
   items.forEach((x) => {
     if (isNodeLibCm(x)) mappedSearchResults.push(mapNodeLibCmToNodeItem(x));
     else if (isTerminalLibCm(x)) mappedSearchResults.push(mapTerminalLibCmToTerminalItem(x));
-    else if (isTransportLibCm(x)) mappedSearchResults.push(mapTransportLibCmToTransportItem(x));
-    else if (isInterfaceLibCm(x)) mappedSearchResults.push(mapInterfaceLibCmToInterfaceItem(x));
   });
 
   return mappedSearchResults;

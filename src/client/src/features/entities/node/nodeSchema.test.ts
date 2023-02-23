@@ -1,7 +1,6 @@
 import { ConnectorDirection } from "@mimirorg/typelibrary-types";
 import { nodeSchema } from "features/entities/node/nodeSchema";
 import { FormNodeLib } from "features/entities/node/types/formNodeLib";
-import { FormTransportLib } from "features/entities/transport/types/formTransportLib";
 
 describe("nodeSchema tests", () => {
   const t = (key: string) => key;
@@ -12,7 +11,7 @@ describe("nodeSchema tests", () => {
   });
 
   it("should reject with a name longer than 60 characters", async () => {
-    const nodeWithLongName: Partial<FormTransportLib> = { name: "c".repeat(61) };
+    const nodeWithLongName: Partial<FormNodeLib> = { name: "c".repeat(61) };
     await expect(nodeSchema(t).validateAt("name", nodeWithLongName)).rejects.toBeTruthy();
   });
 

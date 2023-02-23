@@ -1,6 +1,5 @@
 import { terminalSchema } from "features/entities/terminal/terminalSchema";
 import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";
-import { FormTransportLib } from "features/entities/transport/types/formTransportLib";
 
 describe("terminalSchema tests", () => {
   const t = (key: string) => key;
@@ -11,7 +10,7 @@ describe("terminalSchema tests", () => {
   });
 
   it("should reject with a name longer than 60 characters", async () => {
-    const transportWithLongName: Partial<FormTransportLib> = { name: "c".repeat(61) };
+    const transportWithLongName: Partial<FormTerminalLib> = { name: "c".repeat(61) };
     await expect(terminalSchema(t).validateAt("name", transportWithLongName)).rejects.toBeTruthy();
   });
 
