@@ -17,6 +17,7 @@ import { TransportPanel } from "features/explore/about/components/transport/Tran
 import { ExploreSection } from "features/explore/common/ExploreSection";
 import { SelectedInfo } from "features/explore/common/selectedInfo";
 import { AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 interface AboutProps {
@@ -36,17 +37,22 @@ export const About = ({ selected }: AboutProps) => {
   const terminalQuery = useGetTerminal(selected?.type == "terminal" ? selected?.id : "");
   const transportQuery = useGetTransport(selected?.type == "transport" ? selected?.id : "");
   const interfaceQuery = useGetInterface(selected?.type == "interface" ? selected?.id : "");
-  const allQueries = [nodeQuery, terminalQuery, transportQuery, interfaceQuery];
 
-  const showLoader = allQueries.some((x) => x.isFetching);
-  const showPlaceHolder = !showLoader && allQueries.every((x) => !x.isFetched);
+  const [showLoader, setShowLoader] = useState(true);
 
-  const showNodePanel = !showLoader && nodeQuery.isSuccess;
-  const showTerminalPanel = !showLoader && terminalQuery.isSuccess;
-  const showTransportPanel = !showLoader && transportQuery.isSuccess;
-  const showInterfacePanel = !showLoader && interfaceQuery.isSuccess;
+  useEffect(() => {
+    const allQueries = [nodeQuery, terminalQuery, transportQuery, interfaceQuery]
+    setShowLoader(allQueries.some((x) => x.isFetching));
+  }, [nodeQuery, terminalQuery, transportQuery, interfaceQuery]);
+
+  const showPlaceHolder = !showLoader && selected?.type === undefined
+  const showNodePanel = !showLoader && selected?.type === "node" && nodeQuery.isSuccess;
+  const showTerminalPanel = !showLoader && selected?.type === "terminal" && terminalQuery.isSuccess;
+  const showTransportPanel = !showLoader && selected?.type === "transport" && transportQuery.isSuccess;
+  const showInterfacePanel = !showLoader && selected?.type === "interface" && interfaceQuery.isSuccess;
 
   return (
+    
     <ExploreSection title={t("about.title")}>
       <AnimatePresence mode={"wait"}>
         {showLoader && <Loader />}
