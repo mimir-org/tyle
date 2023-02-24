@@ -16,7 +16,6 @@ import { TerminalPanel } from "features/explore/about/components/terminal/Termin
 import { TransportPanel } from "features/explore/about/components/transport/TransportPanel";
 import { ExploreSection } from "features/explore/common/ExploreSection";
 import { SelectedInfo } from "features/explore/common/selectedInfo";
-import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
