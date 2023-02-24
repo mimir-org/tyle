@@ -33,6 +33,8 @@ interface AboutProps {
 export const About = ({ selected }: AboutProps) => {
   const { t } = useTranslation("explore");
 
+  console.log(selected)
+
   const nodeQuery = useGetNode(selected?.type == "node" ? selected?.id : "");
   const terminalQuery = useGetTerminal(selected?.type == "terminal" ? selected?.id : "");
   const transportQuery = useGetTransport(selected?.type == "transport" ? selected?.id : "");
@@ -54,20 +56,18 @@ export const About = ({ selected }: AboutProps) => {
   return (
     
     <ExploreSection title={t("about.title")}>
-      <AnimatePresence mode={"wait"}>
-        {showLoader && <Loader />}
-        {showPlaceHolder && <AboutPlaceholder text={t("about.placeholders.item")} />}
-        {showNodePanel && <NodePanel key={nodeQuery.data.id} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />}
-        {showTerminalPanel && (
-          <TerminalPanel key={terminalQuery.data.id} {...mapTerminalLibCmToTerminalItem(terminalQuery.data)} />
-        )}
-        {showTransportPanel && (
-          <TransportPanel key={transportQuery.data.id} {...mapTransportLibCmToTransportItem(transportQuery.data)} />
-        )}
-        {showInterfacePanel && (
-          <InterfacePanel key={interfaceQuery.data.id} {...mapInterfaceLibCmToInterfaceItem(interfaceQuery.data)} />
-        )}
-      </AnimatePresence>
+      {showLoader && <Loader />}
+      {showPlaceHolder && <AboutPlaceholder text={t("about.placeholders.item")} />}
+      {showNodePanel && <NodePanel key={nodeQuery.data.id} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />}
+      {showTerminalPanel && (
+        <TerminalPanel key={terminalQuery.data.id} {...mapTerminalLibCmToTerminalItem(terminalQuery.data)} />
+      )}
+      {showTransportPanel && (
+        <TransportPanel key={transportQuery.data.id} {...mapTransportLibCmToTransportItem(transportQuery.data)} />
+      )}
+      {showInterfacePanel && (
+        <InterfacePanel key={interfaceQuery.data.id} {...mapInterfaceLibCmToInterfaceItem(interfaceQuery.data)} />
+      )}
     </ExploreSection>
   );
 };
