@@ -1,7 +1,4 @@
-import {
-  mapNodeLibCmToNodeItem,
-  mapTerminalLibCmToTerminalItem,
-} from "common/utils/mappers";
+import { mapNodeLibCmToNodeItem, mapTerminalLibCmToTerminalItem } from "common/utils/mappers";
 import { useGetNode } from "external/sources/node/node.queries";
 import { useGetTerminal } from "external/sources/terminal/terminal.queries";
 import { Loader } from "features/common/loader";
@@ -10,7 +7,7 @@ import { NodePanel } from "features/explore/about/components/node/NodePanel";
 import { TerminalPanel } from "features/explore/about/components/terminal/TerminalPanel";
 import { ExploreSection } from "features/explore/common/ExploreSection";
 import { SelectedInfo } from "features/explore/common/selectedInfo";
-import { AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 interface AboutProps {
@@ -28,24 +25,26 @@ export const About = ({ selected }: AboutProps) => {
 
   const nodeQuery = useGetNode(selected?.type == "node" ? selected?.id : "");
   const terminalQuery = useGetTerminal(selected?.type == "terminal" ? selected?.id : "");
-  const allQueries = [nodeQuery, terminalQuery];
 
-  const showLoader = allQueries.some((x) => x.isFetching);
-  const showPlaceHolder = !showLoader && allQueries.every((x) => !x.isFetched);
+  const [showLoader, setShowLoader] = useState(true);
 
-  const showNodePanel = !showLoader && nodeQuery.isSuccess;
-  const showTerminalPanel = !showLoader && terminalQuery.isSuccess;
+  useEffect(() => {
+    const allQueries = [nodeQuery, terminalQuery];
+    setShowLoader(allQueries.some((x) => x.isFetching));
+  }, [nodeQuery, terminalQuery]);
+
+  const showPlaceHolder = !showLoader && selected?.type === undefined;
+  const showNodePanel = !showLoader && selected?.type === "node" && nodeQuery.isSuccess;
+  const showTerminalPanel = !showLoader && selected?.type === "terminal" && terminalQuery.isSuccess;
 
   return (
     <ExploreSection title={t("about.title")}>
-      <AnimatePresence mode={"wait"}>
-        {showLoader && <Loader />}
-        {showPlaceHolder && <AboutPlaceholder text={t("about.placeholders.item")} />}
-        {showNodePanel && <NodePanel key={nodeQuery.data.id} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />}
-        {showTerminalPanel && (
-          <TerminalPanel key={terminalQuery.data.id} {...mapTerminalLibCmToTerminalItem(terminalQuery.data)} />
-        )}
-      </AnimatePresence>
+      {showLoader && <Loader />}
+      {showPlaceHolder && <AboutPlaceholder text={t("about.placeholders.item")} />}
+      {showNodePanel && <NodePanel key={nodeQuery.data.id} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />}
+      {showTerminalPanel && (
+        <TerminalPanel key={terminalQuery.data.id} {...mapTerminalLibCmToTerminalItem(terminalQuery.data)} />
+      )}
     </ExploreSection>
   );
 };

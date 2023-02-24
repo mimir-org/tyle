@@ -1,7 +1,4 @@
-import {
-  mapNodeLibCmToNodeItem,
-  mapTerminalLibCmToTerminalItem,
-} from "common/utils/mappers";
+import { mapNodeLibCmToNodeItem, mapTerminalLibCmToTerminalItem } from "common/utils/mappers";
 import { useGetNodes } from "external/sources/node/node.queries";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
 import { isNodeLibCm, isTerminalLibCm } from "features/explore/search/guards";
@@ -28,13 +25,9 @@ export const useSearchItems = (): [items: SearchResultRaw[], isLoading: boolean]
   const nodeQuery = useGetNodes();
   const terminalQuery = useGetTerminals();
 
-  const isLoading =
-    nodeQuery.isLoading || terminalQuery.isLoading;
+  const isLoading = nodeQuery.isLoading || terminalQuery.isLoading;
 
-  const mergedItems = [
-    ...(nodeQuery.data ?? []),
-    ...(terminalQuery.data ?? []),
-  ];
+  const mergedItems = [...(nodeQuery.data ?? []), ...(terminalQuery.data ?? [])];
 
   return [mergedItems, isLoading];
 };
