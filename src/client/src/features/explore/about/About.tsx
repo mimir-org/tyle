@@ -32,8 +32,6 @@ interface AboutProps {
 export const About = ({ selected }: AboutProps) => {
   const { t } = useTranslation("explore");
 
-  console.log(selected)
-
   const nodeQuery = useGetNode(selected?.type == "node" ? selected?.id : "");
   const terminalQuery = useGetTerminal(selected?.type == "terminal" ? selected?.id : "");
   const transportQuery = useGetTransport(selected?.type == "transport" ? selected?.id : "");
@@ -42,18 +40,17 @@ export const About = ({ selected }: AboutProps) => {
   const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
-    const allQueries = [nodeQuery, terminalQuery, transportQuery, interfaceQuery]
+    const allQueries = [nodeQuery, terminalQuery, transportQuery, interfaceQuery];
     setShowLoader(allQueries.some((x) => x.isFetching));
   }, [nodeQuery, terminalQuery, transportQuery, interfaceQuery]);
 
-  const showPlaceHolder = !showLoader && selected?.type === undefined
+  const showPlaceHolder = !showLoader && selected?.type === undefined;
   const showNodePanel = !showLoader && selected?.type === "node" && nodeQuery.isSuccess;
   const showTerminalPanel = !showLoader && selected?.type === "terminal" && terminalQuery.isSuccess;
   const showTransportPanel = !showLoader && selected?.type === "transport" && transportQuery.isSuccess;
   const showInterfacePanel = !showLoader && selected?.type === "interface" && interfaceQuery.isSuccess;
 
   return (
-    
     <ExploreSection title={t("about.title")}>
       {showLoader && <Loader />}
       {showPlaceHolder && <AboutPlaceholder text={t("about.placeholders.item")} />}
