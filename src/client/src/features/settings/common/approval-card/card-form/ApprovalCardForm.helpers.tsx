@@ -11,8 +11,6 @@ import {
 } from "features/settings/common/approval-card/card-form/types/formApproval";
 import { Flexbox } from "complib/layouts/Flexbox";
 import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
-import { usePatchTransportState } from "external/sources/transport/transport.queries";
-import { usePatchInterfaceState } from "external/sources/interface/interface.queries";
 import { usePatchNodeState } from "external/sources/node/node.queries";
 
 /**
@@ -27,8 +25,6 @@ export const useApprovalToasts = (oldState?: Option<State>) => {
   const undoToast = useUndoApprovalToast(oldState);
   const patcMutationNode = usePatchNodeState();
   const patcMutationTerminal = usePatchTerminalState();
-  const patcMutationTransport = usePatchTransportState();
-  const patcMutationInterface = usePatchInterfaceState();
 
   let mutationPromise = {} as Promise<ApprovalDataCm>;
 
@@ -39,12 +35,6 @@ export const useApprovalToasts = (oldState?: Option<State>) => {
         break;
       case "Terminal":
         mutationPromise = patcMutationTerminal.mutateAsync(mapFormApprovalToApiModel(submission));
-        break;
-      case "Interface":
-        mutationPromise = patcMutationInterface.mutateAsync(mapFormApprovalToApiModel(submission));
-        break;
-      case "Transport":
-        mutationPromise = patcMutationTransport.mutateAsync(mapFormApprovalToApiModel(submission));
         break;
       default:
         throw new Error("Can't");
@@ -89,8 +79,6 @@ const useUndoApprovalToast = (oldState?: Option<State>) => {
   const { t } = useTranslation("settings");
   const patcMutationNode = usePatchNodeState();
   const patcMutationTerminal = usePatchTerminalState();
-  const patcMutationTransport = usePatchTransportState();
-  const patcMutationInterface = usePatchInterfaceState();
   const shouldRevertToOldApproval = !!oldState;
 
   return (name: string, submission: FormApproval) => {
@@ -103,12 +91,6 @@ const useUndoApprovalToast = (oldState?: Option<State>) => {
         break;
       case "Terminal":
         mutationPromise = patcMutationTerminal.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
-        break;
-      case "Interface":
-        mutationPromise = patcMutationInterface.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
-        break;
-      case "Transport":
-        mutationPromise = patcMutationTransport.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
         break;
       default:
         throw new Error("Can't");

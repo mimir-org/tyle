@@ -9,13 +9,11 @@ import { SearchField } from "features/common/search-field";
 import { ExploreSection } from "features/explore/common/ExploreSection";
 import { SelectedInfo } from "features/explore/common/selectedInfo";
 import { FilterMenu } from "features/explore/search/components/filter/FilterMenu";
-import { ConditionalInterfaceSearchItem } from "features/explore/search/components/interface/ConditionalInterfaceSearchItem";
 import { ItemList } from "features/explore/search/components/item/ItemList";
 import { LinkMenu } from "features/explore/search/components/link/LinkMenu";
 import { ConditionalNodeSearchItem } from "features/explore/search/components/node/ConditionalNodeSearchItem";
 import { SearchPlaceholder } from "features/explore/search/components/SearchPlaceholder";
 import { ConditionalTerminalSearchItem } from "features/explore/search/components/terminal/ConditionalTerminalSearchItem";
-import { ConditionalTransportSearchItem } from "features/explore/search/components/transport/ConditionalTransportSearchItem";
 import { useFilterState } from "features/explore/search/hooks/useFilterState";
 import { useGetFilterGroups } from "features/explore/search/hooks/useGetFilterGroups";
 import { useSearchResults } from "features/explore/search/hooks/useSearchResults";
@@ -112,18 +110,6 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
                 item={item}
                 isSelected={item.id == selected?.id}
                 setSelected={() => setSelected({ id: item.id, type: "terminal" })}
-                user={user}
-              />
-              <ConditionalTransportSearchItem
-                item={item}
-                isSelected={item.id == selected?.id}
-                setSelected={() => setSelected({ id: item.id, type: "transport" })}
-                user={user}
-              />
-              <ConditionalInterfaceSearchItem
-                item={item}
-                isSelected={item.id == selected?.id}
-                setSelected={() => setSelected({ id: item.id, type: "interface" })}
                 user={user}
               />
             </Fragment>

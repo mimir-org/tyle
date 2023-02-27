@@ -1,19 +1,10 @@
-import {
-  mapInterfaceLibCmToInterfaceItem,
-  mapNodeLibCmToNodeItem,
-  mapTerminalLibCmToTerminalItem,
-  mapTransportLibCmToTransportItem,
-} from "common/utils/mappers";
-import { useGetInterface } from "external/sources/interface/interface.queries";
+import { mapNodeLibCmToNodeItem, mapTerminalLibCmToTerminalItem } from "common/utils/mappers";
 import { useGetNode } from "external/sources/node/node.queries";
 import { useGetTerminal } from "external/sources/terminal/terminal.queries";
-import { useGetTransport } from "external/sources/transport/transport.queries";
 import { Loader } from "features/common/loader";
 import { AboutPlaceholder } from "features/explore/about/components/AboutPlaceholder";
-import { InterfacePanel } from "features/explore/about/components/interface/InterfacePanel";
 import { NodePanel } from "features/explore/about/components/node/NodePanel";
 import { TerminalPanel } from "features/explore/about/components/terminal/TerminalPanel";
-import { TransportPanel } from "features/explore/about/components/transport/TransportPanel";
 import { ExploreSection } from "features/explore/common/ExploreSection";
 import { SelectedInfo } from "features/explore/common/selectedInfo";
 import { useEffect, useState } from "react";
@@ -34,21 +25,17 @@ export const About = ({ selected }: AboutProps) => {
 
   const nodeQuery = useGetNode(selected?.type == "node" ? selected?.id : "");
   const terminalQuery = useGetTerminal(selected?.type == "terminal" ? selected?.id : "");
-  const transportQuery = useGetTransport(selected?.type == "transport" ? selected?.id : "");
-  const interfaceQuery = useGetInterface(selected?.type == "interface" ? selected?.id : "");
 
   const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
-    const allQueries = [nodeQuery, terminalQuery, transportQuery, interfaceQuery];
+    const allQueries = [nodeQuery, terminalQuery];
     setShowLoader(allQueries.some((x) => x.isFetching));
-  }, [nodeQuery, terminalQuery, transportQuery, interfaceQuery]);
+  }, [nodeQuery, terminalQuery]);
 
   const showPlaceHolder = !showLoader && selected?.type === undefined;
   const showNodePanel = !showLoader && selected?.type === "node" && nodeQuery.isSuccess;
   const showTerminalPanel = !showLoader && selected?.type === "terminal" && terminalQuery.isSuccess;
-  const showTransportPanel = !showLoader && selected?.type === "transport" && transportQuery.isSuccess;
-  const showInterfacePanel = !showLoader && selected?.type === "interface" && interfaceQuery.isSuccess;
 
   return (
     <ExploreSection title={t("about.title")}>
@@ -57,12 +44,6 @@ export const About = ({ selected }: AboutProps) => {
       {showNodePanel && <NodePanel key={nodeQuery.data.id} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />}
       {showTerminalPanel && (
         <TerminalPanel key={terminalQuery.data.id} {...mapTerminalLibCmToTerminalItem(terminalQuery.data)} />
-      )}
-      {showTransportPanel && (
-        <TransportPanel key={transportQuery.data.id} {...mapTransportLibCmToTransportItem(transportQuery.data)} />
-      )}
-      {showInterfacePanel && (
-        <InterfacePanel key={interfaceQuery.data.id} {...mapInterfaceLibCmToInterfaceItem(interfaceQuery.data)} />
       )}
     </ExploreSection>
   );

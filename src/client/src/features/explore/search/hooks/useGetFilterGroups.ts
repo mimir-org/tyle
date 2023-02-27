@@ -37,18 +37,8 @@ const getEntityFilters = (): FilterGroup => ({
     },
     {
       key: "kind",
-      label: "Interface",
-      value: "InterfaceLibCm",
-    },
-    {
-      key: "kind",
       label: "Terminal",
       value: "TerminalLibCm",
-    },
-    {
-      key: "kind",
-      label: "Transport",
-      value: "TransportLibCm",
     },
   ],
 });

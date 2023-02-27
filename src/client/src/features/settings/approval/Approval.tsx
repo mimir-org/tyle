@@ -10,8 +10,6 @@ import { approvalKeys, useGetApprovals } from "external/sources/approval/approva
 import { ApprovalDataCm, State } from "@mimirorg/typelibrary-types";
 import { usePatchNodeStateReject } from "external/sources/node/node.queries";
 import { usePatchTerminalStateReject } from "external/sources/terminal/terminal.queries";
-import { usePatchTransportStateReject } from "external/sources/transport/transport.queries";
-import { usePatchInterfaceStateReject } from "external/sources/interface/interface.queries";
 
 export const Approval = () => {
   const queryClient = useQueryClient();
@@ -20,8 +18,6 @@ export const Approval = () => {
   const approvals = useGetApprovals();
   const patcMutationRejectNode = usePatchNodeStateReject();
   const patcMutationRejectTerminal = usePatchTerminalStateReject();
-  const patcMutationRejectTransport = usePatchTransportStateReject();
-  const patcMutationRejectInterface = usePatchInterfaceStateReject();
   const showPlaceholder = approvals?.data && approvals.data.length === 0;
 
   const onSubmit = () => {
@@ -39,12 +35,6 @@ export const Approval = () => {
         break;
       case "Terminal":
         patcMutationRejectTerminal.mutateAsync(data);
-        break;
-      case "Interface":
-        patcMutationRejectInterface.mutateAsync(data);
-        break;
-      case "Transport":
-        patcMutationRejectTransport.mutateAsync(data);
         break;
     }
 

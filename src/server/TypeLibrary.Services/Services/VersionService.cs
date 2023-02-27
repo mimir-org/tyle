@@ -13,24 +13,20 @@ namespace TypeLibrary.Services.Services
     public class VersionService : IVersionService
     {
         private readonly INodeRepository _nodeRepository;
-        private readonly ITransportRepository _transportRepository;
-        private readonly IInterfaceRepository _interfaceRepository;
         private readonly ITerminalRepository _terminalRepository;
 
-        public VersionService(INodeRepository nodeRepository, ITransportRepository transportRepository, IInterfaceRepository interfaceRepository, ITerminalRepository terminalRepository)
+        public VersionService(INodeRepository nodeRepository, ITerminalRepository terminalRepository)
         {
             _nodeRepository = nodeRepository;
-            _transportRepository = transportRepository;
-            _interfaceRepository = interfaceRepository;
             _terminalRepository = terminalRepository;
         }
 
         /// <summary>
         /// Method will find and return the latest version.
         /// </summary>
-        /// <typeparam name="T">NodeLibDm, TransportLibDm, InterfaceLibDm, TerminalLibDm or AttributeLibDm</typeparam>
-        /// <param name="obj">NodeLibDm, TransportLibDm, InterfaceLibDm, TerminalLibDm or AttributeLibDm</param>
-        /// <returns>Latest version of NodeLibDm, TransportLibDm, TerminalLibDm or AttributeLibDm</returns>
+        /// <typeparam name="T">NodeLibDm, TerminalLibDm or AttributeLibDm</typeparam>
+        /// <param name="obj">NodeLibDm, TerminalLibDm or AttributeLibDm</param>
+        /// <returns>Latest version of NodeLibDm, TerminalLibDm or AttributeLibDm</returns>
         /// <exception cref="MimirorgBadRequestException"></exception>
         public async Task<T> GetLatestVersion<T>(T obj) where T : class
         {
@@ -43,20 +39,6 @@ namespace TypeLibrary.Services.Services
             {
                 (existingDmVersions as List<NodeLibDm>)?.AddRange(_nodeRepository.Get()
                     .Where(x => x.FirstVersionId == (obj as NodeLibDm)?.FirstVersionId && x.State != State.Deleted).ToList()
-                    .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
-            }
-
-            else if (obj.GetType() == typeof(InterfaceLibDm) && (obj as InterfaceLibDm)?.Version != null)
-            {
-                (existingDmVersions as List<InterfaceLibDm>)?.AddRange(_interfaceRepository.Get()
-                    .Where(x => x.FirstVersionId == (obj as InterfaceLibDm)?.FirstVersionId && x.State != State.Deleted).ToList()
-                    .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
-            }
-
-            else if (obj.GetType() == typeof(TransportLibDm) && (obj as TransportLibDm)?.Version != null)
-            {
-                (existingDmVersions as List<TransportLibDm>)?.AddRange(_transportRepository.Get()
-                    .Where(x => x.FirstVersionId == (obj as TransportLibDm)?.FirstVersionId && x.State != State.Deleted).ToList()
                     .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
             }
 

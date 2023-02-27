@@ -2,5 +2,3 @@ export { mapNodeLibCmToNodeItem } from "common/utils/mappers/mapNodeLibCmToNodeI
 export { mapAttributeLibCmToInfoItem } from "common/utils/mappers/mapAttributeLibCmToInfoItem";
 export { mapAttributeLibCmsToInfoItems } from "common/utils/mappers/mapAttributeLibCmToInfoItem";
 export { mapTerminalLibCmToTerminalItem } from "common/utils/mappers/mapTerminalLibCmToTerminalItem";
-export { mapTransportLibCmToTransportItem } from "common/utils/mappers/mapTransportLibCmToTransportItem";
-export { mapInterfaceLibCmToInterfaceItem } from "common/utils/mappers/mapInterfaceLibCmToInterfaceItem";
