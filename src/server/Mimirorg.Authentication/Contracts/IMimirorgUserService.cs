@@ -35,6 +35,17 @@ namespace Mimirorg.Authentication.Contracts
         /// <exception cref="MimirorgNotFoundException"></exception>
         Task<MimirorgUserCm> GetUser(string id);
 
+        /// <summary>
+        /// Update user
+        /// </summary>
+        /// <param name="id">Id of user to update</param>
+        /// <param name="firstName">New first name</param>
+        /// <param name="lastName">New last name</param>
+        /// <returns>UserCm</returns>
+        /// <exception cref="MimirorgNotFoundException"></exception>
+        /// <exception cref="MimirorgInvalidOperationException"></exception>
+        Task<MimirorgUserCm> UpdateUser(string id, string firstName, string lastName);
+
 
         /// <summary>
         /// Gets all companies that the principal can access given a specific permission level

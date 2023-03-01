@@ -110,6 +110,41 @@ namespace Mimirorg.Authentication.Controllers.V1
             }
         }
 
+        [HttpPatch]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(MimirorgUserCm), 200)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [SwaggerOperation("Update a user")]
+        [Authorize]
+        public async Task<IActionResult> UpdateUser(string id, string firstName, string lastName)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                var updatedUser = await _userService.UpdateUser(id, firstName, lastName);
+
+                return Ok(updatedUser);
+            }
+            catch (MimirorgNotFoundException e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to update the user. Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+            catch (MimirorgInvalidOperationException e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to update the user. Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to update the user. Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
         /// <summary>
         /// Verify account from token
         /// </summary>
