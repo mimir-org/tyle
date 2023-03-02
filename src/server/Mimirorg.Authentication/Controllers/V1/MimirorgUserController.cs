@@ -111,7 +111,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         }
 
         [HttpPatch]
-        [Route("{id}")]
+        [Route("")]
         [ProducesResponseType(typeof(MimirorgUserCm), 200)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
