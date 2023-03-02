@@ -101,15 +101,15 @@ namespace Mimirorg.Authentication.Services
         /// <returns>UserCm</returns>
         /// <exception cref="MimirorgNotFoundException"></exception>
         /// <exception cref="MimirorgInvalidOperationException"></exception>
-        public async Task<MimirorgUserCm> UpdateUser(string id, string firstName, string lastName)
+        public async Task<MimirorgUserCm> UpdateUser(MimirorgUserAm userAm)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByEmailAsync(userAm.Email);
 
             if (user == null)
                 throw new MimirorgNotFoundException("The user was not found");
 
-            user.FirstName = firstName;
-            user.LastName = lastName;
+            user.FirstName = userAm.FirstName;
+            user.LastName = userAm.LastName;
 
             var result = await _userManager.UpdateAsync(user);
 

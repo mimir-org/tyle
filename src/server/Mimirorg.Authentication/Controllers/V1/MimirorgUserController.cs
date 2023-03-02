@@ -117,14 +117,14 @@ namespace Mimirorg.Authentication.Controllers.V1
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [SwaggerOperation("Update a user")]
         [Authorize]
-        public async Task<IActionResult> UpdateUser(string id, string firstName, string lastName)
+        public async Task<IActionResult> UpdateUser([FromBody] MimirorgUserAm user)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var updatedUser = await _userService.UpdateUser(id, firstName, lastName);
+                var updatedUser = await _userService.UpdateUser(user);
 
                 return Ok(updatedUser);
             }

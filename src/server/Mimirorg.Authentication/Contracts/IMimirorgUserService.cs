@@ -44,7 +44,7 @@ namespace Mimirorg.Authentication.Contracts
         /// <returns>UserCm</returns>
         /// <exception cref="MimirorgNotFoundException"></exception>
         /// <exception cref="MimirorgInvalidOperationException"></exception>
-        Task<MimirorgUserCm> UpdateUser(string id, string firstName, string lastName);
+        Task<MimirorgUserCm> UpdateUser(MimirorgUserAm userAm);
 
 
         /// <summary>
