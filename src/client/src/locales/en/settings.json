@@ -27,6 +27,31 @@
       "emptyApproval": "There is no types ready for approval or deletion"
     }
   },
+  "usersettings": {
+    "title": "User settings",
+    "validation": {
+      "firstName": {
+        "required": "Please enter a first name"
+      },
+      "lastName": {
+        "required": "Please enter a last name"
+      }
+    },
+    "updating": {
+      "loading": "Updating user settings",
+      "success": "Your user settings have been updated",
+      "error": "An error occured while updating your user settings"
+    },
+    "labels": {
+      "firstName": "First name",
+      "lastName": "Last name"
+    },
+    "placeholders": {
+      "firstName": "Enter first name",
+      "lastName": "Enter last name"
+    },
+    "submit": "Update user settings"
+  },
   "common": {
     "templates": {
       "select": "Select {{object}}"
