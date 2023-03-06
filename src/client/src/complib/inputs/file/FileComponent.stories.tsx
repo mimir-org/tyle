@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { FileComponent, FileInfo } from "./FileComponent";
+import { FileComponent } from "./FileComponent";
 
 export default {
   title: "Inputs/File",
