@@ -5,6 +5,7 @@ import {
   createEmptyFormMimirorgCompany,
   FormMimirorgCompany,
   mapFormCompanyToCompanyAm,
+  useCreatingToast,
 } from "features/settings/company/CreateCompanyForm.helpers";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { companySchema } from "features/settings/company/companySchema";
@@ -17,7 +18,6 @@ import { Input, Textarea } from "complib/inputs";
 import { toast } from "complib/data-display";
 import { Button } from "complib/buttons";
 import { DevTool } from "@hookform/devtools";
-import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
 
 export const CreateCompanyForm = () => {
   const { t } = useTranslation("settings");
@@ -35,7 +35,7 @@ export const CreateCompanyForm = () => {
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
-  const creationToast = useSubmissionToast(t("createCompany.company"));
+  const creationToast = useCreatingToast();
 
   const onSubmit = (data: FormMimirorgCompany) => {
     if (userQuery.isSuccess)

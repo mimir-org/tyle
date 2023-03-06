@@ -55,6 +55,11 @@
   "createCompany": {
     "title": "Create new company",
     "company": "company",
+    "creating": {
+      "loading": "Creating new company",
+      "success": "The new company has been created successfully",
+      "error": "An error occured while trying to create the new company"
+    },
     "labels": {
       "name": "Name",
       "displayName": "Display name",
