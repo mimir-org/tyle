@@ -5,6 +5,7 @@ import { permissionsBasePath } from "features/settings/permission/PermissionsRou
 import { approvalBasePath } from "features/settings/approval/ApprovalRoutes";
 import { useTranslation } from "react-i18next";
 import { usersettingsBasePath } from "../usersettings/UserSettingsRoutes";
+import { companyBasePath } from "features/settings/company/CompanyRoutes";
 
 export const useSettingsLinkGroups = (): LinkGroup[] => {
   const admLinks = useAdministerLinks();
@@ -31,6 +32,10 @@ const useAdministerLinks = (): Link[] => {
     {
       name: t("usersettings.title"),
       path: usersettingsBasePath,
+    },
+    {
+      name: t("createCompany.title"),
+      path: companyBasePath,
     },
   ];
 };

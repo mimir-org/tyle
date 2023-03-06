@@ -52,6 +52,9 @@
     },
     "submit": "Update user settings"
   },
+  "createCompany": {
+    "title": "Create new company"
+  },
   "common": {
     "templates": {
       "select": "Select {{object}}"
