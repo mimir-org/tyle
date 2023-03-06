@@ -28,10 +28,10 @@ export const FileItemComponent = ({ fileInfo, onRemove, tooltip }: Props) => {
                   />
                 </Tooltip>
               </Box>
-              <Text as="h3" useEllipsis>
+              <Text as="p" useEllipsis>
                 {fileInfo.fileName}
               </Text>
-              <Text as="h5" useEllipsis>
+              <Text as="p" useEllipsis>
                 {fileInfo.fileSize} byte
               </Text>
           </Flexbox>

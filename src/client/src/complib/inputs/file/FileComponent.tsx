@@ -13,7 +13,6 @@ export interface FileInfo {
 }
 
 interface Props {
-  value: FileInfo;
   onChange?: (file: FileInfo) => void;
   tooltip?: string;
 }
@@ -32,9 +31,14 @@ export const toBase64 = (file: File) =>
   });
 
 export const FileComponent = forwardRef(
-  ({ value, onChange, tooltip }: Props, ref: ForwardedRef<HTMLDivElement>) => {
+  ({ onChange, tooltip }: Props, ref: ForwardedRef<HTMLDivElement>) => {
     const inputFile = useRef<HTMLInputElement | null>(null);
-    const [file, setFile] = useState<FileInfo>(value);
+    const [file, setFile] = useState<FileInfo>({
+      fileName: "",
+      fileSize: 0,
+      file: null,
+      contentType: ""
+    });
 
     useEffect(() => {
       if (onChange != null) onChange(file);
