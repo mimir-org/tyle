@@ -18,6 +18,7 @@ import { Input, Textarea } from "complib/inputs";
 import { toast } from "complib/data-display";
 import { Button } from "complib/buttons";
 import { DevTool } from "@hookform/devtools";
+import { FileComponent } from "complib/inputs/file/FileComponent";
 
 export const CreateCompanyForm = () => {
   const { t } = useTranslation("settings");
@@ -59,7 +60,7 @@ export const CreateCompanyForm = () => {
             <Input placeholder={t("createCompany.placeholders.domain")} {...register("domain")} />
         </FormField>
         <FormField label={t("createCompany.labels.logo")} error={formState.errors.logo}>
-            <Input placeholder={t("createCompany.placeholders.logo")} {...register("logo")} />
+            <FileComponent />
         </FormField>
         <FormField label={t("createCompany.labels.homePage")} error={formState.errors.homePage}>
             <Input placeholder={t("createCompany.placeholders.homePage")} {...register("homePage")} />
