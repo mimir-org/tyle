@@ -6,7 +6,7 @@ const _basePath = "mimirorguser";
 
 export const UserSettings = () => {
   const { t } = useTranslation("settings");
-  
+
   return (
     <SettingsSection title={t("usersettings.title")}>
       <UserSettingsForm />
