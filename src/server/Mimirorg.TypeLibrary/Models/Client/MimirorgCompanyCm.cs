@@ -15,6 +15,5 @@ namespace Mimirorg.TypeLibrary.Models.Client
         public string Domain { get; set; }
         public string Logo { get; set; }
         public string HomePage { get; set; }
-        public ICollection<string> Iris { get; set; }
     }
 }
