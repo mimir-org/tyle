@@ -93,6 +93,33 @@ namespace Mimirorg.Authentication.Services
         }
 
         /// <summary>
+        /// Update user
+        /// </summary>
+        /// <param name="id">Id of user to update</param>
+        /// <param name="firstName">New first name</param>
+        /// <param name="lastName">New last name</param>
+        /// <returns>UserCm</returns>
+        /// <exception cref="MimirorgNotFoundException"></exception>
+        /// <exception cref="MimirorgInvalidOperationException"></exception>
+        public async Task<MimirorgUserCm> UpdateUser(MimirorgUserAm userAm)
+        {
+            var user = await _userManager.FindByEmailAsync(userAm.Email);
+
+            if (user == null)
+                throw new MimirorgNotFoundException("The user was not found");
+
+            user.FirstName = userAm.FirstName;
+            user.LastName = userAm.LastName;
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+                throw new MimirorgInvalidOperationException($"Couldn't update user with username {user.UserName}. Error: {result.Errors.ConvertToString()}");
+
+            return user.ToContentModel();
+        }
+
+        /// <summary>
         /// Gets all companies that the principal can access given a specific permission level
         /// </summary>
         /// <param name="principal"></param>
