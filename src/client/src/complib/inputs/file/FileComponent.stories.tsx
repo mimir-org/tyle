@@ -1,7 +1,12 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { FileComponent, FileInfo } from "./FileComponent";
 
-const files = [] as FileInfo[];
+const file = {
+  fileName: "",
+  fileSize: 0,
+  file: null,
+  contentType: ""
+} as FileInfo;
 
 export default {
   title: "Inputs/File",
@@ -12,7 +17,6 @@ const Template: ComponentStory<typeof FileComponent> = (args) => <FileComponent 
 
 export const Default = Template.bind({});
 Default.args = {
-  value: files,
-  placeholder: "This is the placeholder",
+  value: file,
   tooltip: "This is the tooltip",
 };
