@@ -53,7 +53,24 @@
     "submit": "Update user settings"
   },
   "createCompany": {
-    "title": "Create new company"
+    "title": "Create new company",
+    "company": "company",
+    "labels": {
+      "name": "Name",
+      "displayName": "Display name",
+      "description": "Description",
+      "domain": "Domain name",
+      "logo": "Logo (SVG)",
+      "homePage": "Home page"
+    },
+    "placeholders": {
+      "name": "Name",
+      "displayName": "Display name",
+      "description": "Description",
+      "domain": "Domain name",
+      "homePage": "Home page"
+    },
+    "submit": "Create new company"
   },
   "common": {
     "templates": {
