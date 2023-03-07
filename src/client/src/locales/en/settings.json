@@ -67,9 +67,6 @@
       "displayName": {
         "required": "Please enter a company display name"
       },
-      "description": {
-        "required": "Please enter a company description"
-      },
       "domain": {
         "required": "Please enter a company domain name"
       }
