@@ -15,8 +15,9 @@ export interface FileInfo {
 
 interface Props {
   accept?: string;
-  onChange?: (file: FileInfo) => void;
+  onChange?: (file: FileInfo | null) => void;
   tooltip?: string;
+  value: FileInfo | null;
 }
 
 /**
@@ -33,14 +34,9 @@ export const toBase64 = (file: File) =>
   });
 
 export const FileComponent = forwardRef(
-  ({ accept, onChange, tooltip }: Props, ref: ForwardedRef<HTMLDivElement>) => {
+  ({ accept, onChange, tooltip, value }: Props, ref: ForwardedRef<HTMLDivElement>) => {
     const inputFile = useRef<HTMLInputElement | null>(null);
-    const [file, setFile] = useState<FileInfo>({
-      fileName: "",
-      fileSize: 0,
-      file: null,
-      contentType: ""
-    });
+    const [file, setFile] = useState<FileInfo | null>(value);
 
     useEffect(() => {
       if (onChange != null) onChange(file);
@@ -51,7 +47,7 @@ export const FileComponent = forwardRef(
       event.stopPropagation();
       event.preventDefault();
       const files = event.currentTarget.files;
-      if (files == null) return;
+      if (files == null || files.length <= 0) return;
 
       const addedFile = files[0];
 
@@ -72,6 +68,7 @@ export const FileComponent = forwardRef(
 
         if (!correctFiletype) {
           toast.error(`Incorrect filetype: ${contentType}`);
+          onFileRemove();
           return;
         }
       }
@@ -88,15 +85,8 @@ export const FileComponent = forwardRef(
     }
 
     const onFileRemove = () => {
-      setFile({
-        fileName: "",
-        fileSize: 0,
-        file: null,
-        contentType: ""
-      });
-      
-      if (inputFile.current != null)
-        inputFile.current.value = "";
+      setFile(null);
+      if (inputFile?.current?.value != null) inputFile.current.value = '';
     };
 
     const acceptedFiletypes = accept ? { accept: accept } : {}

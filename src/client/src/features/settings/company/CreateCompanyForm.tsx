@@ -1,5 +1,5 @@
 import { Form, FormField } from "complib/form";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
   createEmptyFormMimirorgCompany,
@@ -59,9 +59,20 @@ export const CreateCompanyForm = () => {
         <FormField label={t("createCompany.labels.domain")} error={formState.errors.domain}>
             <Input placeholder={t("createCompany.placeholders.domain")} {...register("domain")} />
         </FormField>
-        <FormField label={t("createCompany.labels.logo")} error={formState.errors.logo}>
-            <FileComponent accept=".svg,image/svg+xml" />
-        </FormField>
+        <FormField label={t("createCompany.labels.logo")} error={formState.errors.logo}></FormField>
+        <Controller
+          control={control}
+          name={"logo"}
+          render={({ field: { value, onChange, ref, ...rest } }) => (
+            <FileComponent
+              {...rest}
+              accept=".svg,image/svg+xml"
+              ref={ref}
+              value={value}
+              onChange={onChange}
+            />
+          )}
+        />
         <FormField label={t("createCompany.labels.homePage")} error={formState.errors.homePage}>
             <Input placeholder={t("createCompany.placeholders.homePage")} {...register("homePage")} />
         </FormField>
