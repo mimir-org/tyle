@@ -60,6 +60,20 @@
       "success": "The new company has been created successfully",
       "error": "An error occured while trying to create the new company"
     },
+    "validation": {
+      "name": {
+        "required": "Please enter a company name"
+      },
+      "displayName": {
+        "required": "Please enter a company display name"
+      },
+      "description": {
+        "required": "Please enter a company description"
+      },
+      "domain": {
+        "required": "Please enter a company domain name"
+      }
+    },
     "labels": {
       "name": "Name",
       "displayName": "Display name",
