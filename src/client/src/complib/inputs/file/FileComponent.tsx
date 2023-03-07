@@ -4,6 +4,7 @@ import { Button } from "complib/buttons";
 import { FileInputContainer } from "./components/FileInput.styled";
 import { FileItemComponent } from "./components/FileItemComponent";
 import { FileComponentContainer } from "./FileComponent.styled";
+import { toast } from "complib/data-display";
 
 export interface FileInfo {
   fileName: string;
@@ -13,6 +14,7 @@ export interface FileInfo {
 }
 
 interface Props {
+  accept?: string;
   onChange?: (file: FileInfo) => void;
   tooltip?: string;
 }
@@ -31,7 +33,7 @@ export const toBase64 = (file: File) =>
   });
 
 export const FileComponent = forwardRef(
-  ({ onChange, tooltip }: Props, ref: ForwardedRef<HTMLDivElement>) => {
+  ({ accept, onChange, tooltip }: Props, ref: ForwardedRef<HTMLDivElement>) => {
     const inputFile = useRef<HTMLInputElement | null>(null);
     const [file, setFile] = useState<FileInfo>({
       fileName: "",
@@ -57,6 +59,23 @@ export const FileComponent = forwardRef(
     };
 
     const encodeAndSetFile = async (addedFile: File) => {
+      if (accept) {
+        const acceptArray = accept.split(",");
+        const contentType = addedFile.type;
+        const filenameExtension = addedFile.name.split(".").length > 1 ? addedFile.name.split(".").slice(-1) : "";
+
+        let correctFiletype = false;
+        acceptArray.forEach(x => {
+          if (x.startsWith(".") && x == `.${filenameExtension}`) correctFiletype = true;
+          else if (x == contentType) correctFiletype = true;
+        });
+
+        if (!correctFiletype) {
+          toast.error(`Incorrect filetype: ${contentType}`);
+          return;
+        }
+      }
+
       const bytes = await toBase64(addedFile);
       const fileToBeAdded: FileInfo = {
         fileName: addedFile.name,
@@ -64,7 +83,7 @@ export const FileComponent = forwardRef(
         file: bytes != null ? bytes.toString(): null,
         contentType: addedFile.type,
       };
-
+      
       setFile(fileToBeAdded);
     }
 
@@ -80,10 +99,13 @@ export const FileComponent = forwardRef(
         inputFile.current.value = "";
     };
 
+    const acceptedFiletypes = accept ? { accept: accept } : {}
+
     return (
       <FileComponentContainer ref={ref}>
         <FileInputContainer>
           <input
+            { ...acceptedFiletypes }
             type={"file"}
             onChange={onFileChange.bind(this)}
             ref={inputFile}
