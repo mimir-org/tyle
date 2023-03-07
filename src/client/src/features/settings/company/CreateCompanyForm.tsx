@@ -60,7 +60,7 @@ export const CreateCompanyForm = () => {
             <Input placeholder={t("createCompany.placeholders.domain")} {...register("domain")} />
         </FormField>
         <FormField label={t("createCompany.labels.logo")} error={formState.errors.logo}>
-            <FileComponent />
+            <FileComponent accept=".svg,image/svg+xml" />
         </FormField>
         <FormField label={t("createCompany.labels.homePage")} error={formState.errors.homePage}>
             <Input placeholder={t("createCompany.placeholders.homePage")} {...register("homePage")} />
