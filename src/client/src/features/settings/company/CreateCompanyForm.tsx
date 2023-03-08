@@ -19,8 +19,11 @@ import { toast } from "complib/data-display";
 import { Button } from "complib/buttons";
 import { DevTool } from "@hookform/devtools";
 import { FileComponent } from "complib/inputs/file/FileComponent";
+import { useTheme } from "styled-components";
+import { Flexbox } from "complib/layouts";
 
 export const CreateCompanyForm = () => {
+  const theme = useTheme();
   const { t } = useTranslation("settings");
 
   const formMethods = useForm<FormMimirorgCompany>({
@@ -59,20 +62,22 @@ export const CreateCompanyForm = () => {
         <FormField label={t("createCompany.labels.domain")} error={formState.errors.domain}>
             <Input placeholder={t("createCompany.placeholders.domain")} {...register("domain")} />
         </FormField>
-        <FormField label={t("createCompany.labels.logo")} error={formState.errors.logo}></FormField>
-        <Controller
-          control={control}
-          name={"logo"}
-          render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FileComponent
-              {...rest}
-              accept=".svg,image/svg+xml"
-              ref={ref}
-              value={value}
-              onChange={onChange}
-            />
-          )}
-        />
+        <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
+          <FormField label={t("createCompany.labels.logo")} error={formState.errors.logo}></FormField>
+          <Controller
+            control={control}
+            name={"logo"}
+            render={({ field: { value, onChange, ref, ...rest } }) => (
+              <FileComponent
+                {...rest}
+                accept=".svg,image/svg+xml"
+                ref={ref}
+                value={value}
+                onChange={onChange}
+              />
+            )}
+          />
+        </Flexbox>
         <FormField label={t("createCompany.labels.homePage")} error={formState.errors.homePage}>
             <Input placeholder={t("createCompany.placeholders.homePage")} {...register("homePage")} />
         </FormField>
