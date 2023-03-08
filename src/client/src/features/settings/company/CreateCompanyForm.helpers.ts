@@ -3,14 +3,15 @@ import { toast } from "complib/data-display";
 import { FileInfo } from "complib/inputs/file/FileComponent";
 import { useTranslation } from "react-i18next";
 
-export interface FormMimirorgCompany extends Omit<MimirorgCompanyAm, "managerId" | "secret" | "logo"> {
-  logo: FileInfo | null
+export interface FormMimirorgCompany extends Omit<MimirorgCompanyAm, "managerId" | "logo"> {
+  logo: FileInfo | null;
 }
 
 export const createEmptyFormMimirorgCompany = (): FormMimirorgCompany => ({
   name: "",
   displayName: "",
   description: "",
+  secret: "",
   domain: "",
   logo: null,
   homePage: "",
@@ -21,25 +22,36 @@ export const mapFormCompanyToCompanyAm = (formCompany: FormMimirorgCompany, user
 
   if (formCompany.logo?.file) {
     const index = formCompany.logo.file.indexOf("base64,") + "base64,".length;
-    if (index != -1)
-      logo = formCompany.logo.file.slice(index);
+    if (index != -1) logo = formCompany.logo.file.slice(index);
   }
 
   return {
     ...formCompany,
     logo: logo,
     managerId: userId,
-    secret: "hush"
-  }
+  };
 };
 
 export const useCreatingToast = () => {
-    const { t } = useTranslation("settings");
-  
-    return (updatingPromise: Promise<unknown>) =>
-      toast.promise(updatingPromise, {
-        loading: t("createCompany.creating.loading"),
-        success: t("createCompany.creating.success"),
-        error: t("createCompany.creating.error"),
-      });
-  };
+  const { t } = useTranslation("settings");
+
+  return (updatingPromise: Promise<unknown>) =>
+    toast.promise(updatingPromise, {
+      loading: t("createCompany.creating.loading"),
+      success: t("createCompany.creating.success"),
+      error: t("createCompany.creating.error"),
+    });
+};
+
+export const createSecret = (length: number): string => {
+  const availableCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!()?[];:#@%+=";
+
+  let secret = "";
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex: number = Math.floor(Math.random() * availableCharacters.length);
+    secret += availableCharacters[randomIndex];
+  }
+
+  return secret;
+};
