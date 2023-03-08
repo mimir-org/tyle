@@ -45,13 +45,13 @@ export const useCreatingToast = () => {
 
 export const createSecret = (length: number): string => {
   const availableCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!()?[];:#@%+=";
-
   let secret = "";
-
-  for (let i = 0; i < length; i++) {
-    const randomIndex: number = Math.floor(Math.random() * availableCharacters.length);
-    secret += availableCharacters[randomIndex];
-  }
+  
+  const numArray = new Uint32Array(length);
+  crypto.getRandomValues(numArray);
+  numArray.forEach(x => {
+    secret += availableCharacters[x % availableCharacters.length];
+  });
 
   return secret;
 };
