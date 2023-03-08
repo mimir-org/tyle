@@ -46,12 +46,17 @@ export const useCreatingToast = () => {
 export const createSecret = (length: number): string => {
   const availableCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!()?[];:#@%+=";
   let secret = "";
-  
+
   const numArray = new Uint32Array(length);
   crypto.getRandomValues(numArray);
-  numArray.forEach(x => {
+  numArray.forEach((x) => {
     secret += availableCharacters[x % availableCharacters.length];
   });
 
   return secret;
+};
+
+export const copySecret = (secret: string, toastText: string): void => {
+  navigator.clipboard.writeText(secret);
+  toast.success(toastText);
 };

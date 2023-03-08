@@ -75,7 +75,7 @@
       "name": "Name",
       "displayName": "Display name",
       "description": "Description",
-      "secret": "Secret (must be written down for later use)",
+      "secret": "Secret (must be kept for later use)",
       "domain": "Domain name",
       "logo": "Logo (SVG)",
       "homePage": "Home page"
@@ -87,7 +87,11 @@
       "domain": "Domain name",
       "homePage": "Home page"
     },
-    "submit": "Create new company"
+    "submit": "Create new company",
+    "toasts": {
+      "userdataError": "Could not fetch user data, please try again",
+      "copySecret": "Secret copied to clipboard"
+    }
   },
   "common": {
     "templates": {
