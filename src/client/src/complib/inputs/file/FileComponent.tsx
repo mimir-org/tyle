@@ -61,7 +61,7 @@ export const FileComponent = forwardRef(
         const filenameExtension = addedFile.name.split(".").length > 1 ? addedFile.name.split(".").slice(-1) : "";
 
         let correctFiletype = false;
-        acceptArray.forEach(x => {
+        acceptArray.forEach((x) => {
           if (x.startsWith(".") && x == `.${filenameExtension}`) correctFiletype = true;
           else if (x == contentType) correctFiletype = true;
         });
@@ -77,25 +77,25 @@ export const FileComponent = forwardRef(
       const fileToBeAdded: FileInfo = {
         fileName: addedFile.name,
         fileSize: addedFile.size,
-        file: bytes != null ? bytes.toString(): null,
+        file: bytes != null ? bytes.toString() : null,
         contentType: addedFile.type,
       };
-      
+
       setFile(fileToBeAdded);
-    }
+    };
 
     const onFileRemove = () => {
       setFile(null);
-      if (inputFile?.current?.value != null) inputFile.current.value = '';
+      if (inputFile?.current?.value != null) inputFile.current.value = "";
     };
 
-    const acceptedFiletypes = accept ? { accept: accept } : {}
+    const acceptedFiletypes = accept ? { accept: accept } : {};
 
     return (
       <FileComponentContainer ref={ref}>
         <FileInputContainer>
           <input
-            { ...acceptedFiletypes }
+            {...acceptedFiletypes}
             type={"file"}
             onChange={onFileChange.bind(this)}
             ref={inputFile}
@@ -106,15 +106,10 @@ export const FileComponent = forwardRef(
           </Button>
         </FileInputContainer>
         {file && (
-            <div>
-              <FileItemComponent
-                fileInfo={file}
-                onRemove={onFileRemove}
-                tooltip={tooltip}
-              />
-            </div>
-          )
-        }
+          <div>
+            <FileItemComponent fileInfo={file} onRemove={onFileRemove} tooltip={tooltip} />
+          </div>
+        )}
       </FileComponentContainer>
     );
   }

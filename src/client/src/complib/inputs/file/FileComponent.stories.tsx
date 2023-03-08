@@ -11,5 +11,5 @@ const Template: ComponentStory<typeof FileComponent> = (args) => <FileComponent 
 export const Default = Template.bind({});
 Default.args = {
   tooltip: "This is the tooltip",
-  value: null
+  value: null,
 };
