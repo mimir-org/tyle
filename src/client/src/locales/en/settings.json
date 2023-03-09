@@ -90,6 +90,8 @@
     "submit": "Create new company",
     "toasts": {
       "userdataError": "Could not fetch user data, please try again",
+      "companyNameError": "A company with that name already exists",
+      "companyDomainError": "A company with that domain name already exists",
       "copySecret": "Secret copied to clipboard"
     }
   },

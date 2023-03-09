@@ -25,6 +25,7 @@ import { useTheme } from "styled-components";
 import { Flexbox } from "complib/layouts";
 import { useState } from "react";
 import { ClipboardCopy } from "@styled-icons/heroicons-outline";
+import { isAxiosError } from "axios";
 
 export const CreateCompanyForm = () => {
   const [secret, _] = useState(createSecret(50));
@@ -47,9 +48,18 @@ export const CreateCompanyForm = () => {
 
   const creationToast = useCreatingToast();
 
-  const onSubmit = (data: FormMimirorgCompany) => {
-    if (userQuery.isSuccess)
-      onSubmitForm(mapFormCompanyToCompanyAm(data, userQuery.data?.id), mutation.mutateAsync, creationToast);
+  const onSubmit = async (data: FormMimirorgCompany) => {
+    if (userQuery.isSuccess) {
+      try {
+        await onSubmitForm(mapFormCompanyToCompanyAm(data, userQuery.data?.id), mutation.mutateAsync, creationToast);
+      }
+      catch (e) {
+        if (isAxiosError(e) && e.response?.status == 400) {
+          if (e.response?.data.Name) toast.error(t("createCompany.toasts.companyNameError"));
+          if (e.response?.data.Domain) toast.error(t("createCompany.toasts.companyDomainError"));
+        }
+      }
+    }
     else toast.error(t("createCompany.toasts.userdataError"));
   };
 
