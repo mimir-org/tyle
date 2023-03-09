@@ -52,15 +52,13 @@ export const CreateCompanyForm = () => {
     if (userQuery.isSuccess) {
       try {
         await onSubmitForm(mapFormCompanyToCompanyAm(data, userQuery.data?.id), mutation.mutateAsync, creationToast);
-      }
-      catch (e) {
+      } catch (e) {
         if (isAxiosError(e) && e.response?.status == 400) {
           if (e.response?.data.Name) toast.error(t("createCompany.toasts.companyNameError"));
           if (e.response?.data.Domain) toast.error(t("createCompany.toasts.companyDomainError"));
         }
       }
-    }
-    else toast.error(t("createCompany.toasts.userdataError"));
+    } else toast.error(t("createCompany.toasts.userdataError"));
   };
 
   return (
