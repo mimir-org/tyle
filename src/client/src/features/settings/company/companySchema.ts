@@ -9,6 +9,6 @@ export const companySchema = (t: TFunction<"translation">) =>
     displayName: yup.string().required(t("createCompany.validation.displayName.required")),
     description: yup.string(),
     domain: yup.string().required(t("createCompany.validation.domain.required")),
-    logo: yup.object(),
+    logo: yup.object().nullable().required(t("createCompany.validation.logo.required")),
     homePage: yup.string(),
   });
