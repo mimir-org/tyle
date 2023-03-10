@@ -19,6 +19,7 @@ namespace Mimirorg.Authentication.Controllers.V1
     [SwaggerTag("Mimirorg company services")]
     public class MimirorgCompanyController : ControllerBase
     {
+        private readonly IMimirorgAuthService _authService;
         private readonly IMimirorgCompanyService _companyService;
         private readonly IMimirorgUserService _userService;
         private readonly ILogger<MimirorgCompanyController> _logger;
@@ -28,8 +29,9 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// </summary>
         /// <param name="companyService"></param>
         /// <param name="logger"></param>
-        public MimirorgCompanyController(IMimirorgCompanyService companyService, IMimirorgUserService userService, ILogger<MimirorgCompanyController> logger)
+        public MimirorgCompanyController(IMimirorgAuthService authService, IMimirorgCompanyService companyService, IMimirorgUserService userService, ILogger<MimirorgCompanyController> logger)
         {
+            _authService = authService;
             _companyService = companyService;
             _userService = userService;
             _logger = logger;
@@ -153,6 +155,15 @@ namespace Mimirorg.Authentication.Controllers.V1
                     return BadRequest(ModelState);
 
                 var data = await _companyService.CreateCompany(company);
+
+                var manageCompanyPermission = new MimirorgUserPermissionAm
+                {
+                    CompanyId = data.Id,
+                    UserId = data.Manager.Id,
+                    Permission = MimirorgPermission.Manage
+                };
+                await _authService.SetPermission(manageCompanyPermission);
+
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)
