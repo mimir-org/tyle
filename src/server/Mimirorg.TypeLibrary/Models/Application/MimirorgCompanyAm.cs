@@ -31,8 +31,5 @@ namespace Mimirorg.TypeLibrary.Models.Application
 
         [Display(Name = "HomePage")]
         public string HomePage { get; set; }
-
-        [Display(Name = "Iris")]
-        public ICollection<string> Iris { get; set; }
     }
 }

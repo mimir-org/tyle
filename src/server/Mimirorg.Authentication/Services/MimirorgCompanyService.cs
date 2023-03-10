@@ -45,6 +45,9 @@ namespace Mimirorg.Authentication.Services
             if (_mimirorgCompanyRepository.FindBy(x => x.Name != null && x.Name.ToLower() == company.Name.ToLower()).Any())
                 throw new MimirorgBadRequestException($"{nameof(company.Name)} must be unique", new Validation(nameof(company.Name), $"{nameof(company.Name)} must be unique"));
 
+            if (_mimirorgCompanyRepository.FindBy(x => x.Domain != null && x.Domain.ToLower() == company.Domain.ToLower()).Any())
+                throw new MimirorgBadRequestException($"{nameof(company.Domain)} must be unique", new Validation(nameof(company.Domain), $"{nameof(company.Domain)} must be unique"));
+
 
             var domainCompany = company.ToDomainModel();
             await _mimirorgCompanyRepository.CreateAsync(domainCompany);

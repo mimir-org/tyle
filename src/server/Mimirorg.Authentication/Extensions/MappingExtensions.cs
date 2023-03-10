@@ -18,8 +18,7 @@ namespace Mimirorg.Authentication.Extensions
                 Secret = company.Secret,
                 Domain = company.Domain,
                 Logo = company.Logo,
-                HomePage = company.HomePage,
-                Iris = company.Iris?.ConvertToString()
+                HomePage = company.HomePage
             };
         }
 
@@ -35,8 +34,7 @@ namespace Mimirorg.Authentication.Extensions
                 Secret = company.Secret,
                 Domain = company.Domain,
                 Logo = company.Logo,
-                HomePage = company.HomePage,
-                Iris = company.Iris?.ConvertToArray()
+                HomePage = company.HomePage
             };
         }
 

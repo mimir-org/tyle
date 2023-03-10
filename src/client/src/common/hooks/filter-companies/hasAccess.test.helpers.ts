@@ -10,7 +10,6 @@ export const createEmptyMimirorgCompanyCm = (): MimirorgCompanyCm => ({
   domain: "",
   logo: "",
   homePage: "",
-  iris: [],
 });
 
 export const createEmptyMimirorgUserCm = (): MimirorgUserCm => ({
