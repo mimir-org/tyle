@@ -19,6 +19,7 @@ namespace Mimirorg.Authentication.Controllers.V1
     [SwaggerTag("Mimirorg company services")]
     public class MimirorgCompanyController : ControllerBase
     {
+        private readonly IMimirorgAuthService _authService;
         private readonly IMimirorgCompanyService _companyService;
         private readonly IMimirorgUserService _userService;
         private readonly ILogger<MimirorgCompanyController> _logger;
@@ -28,8 +29,9 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// </summary>
         /// <param name="companyService"></param>
         /// <param name="logger"></param>
-        public MimirorgCompanyController(IMimirorgCompanyService companyService, IMimirorgUserService userService, ILogger<MimirorgCompanyController> logger)
+        public MimirorgCompanyController(IMimirorgAuthService authService, IMimirorgCompanyService companyService, IMimirorgUserService userService, ILogger<MimirorgCompanyController> logger)
         {
+            _authService = authService;
             _companyService = companyService;
             _userService = userService;
             _logger = logger;
@@ -138,7 +140,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// </summary>
         /// <param name="company">MimirorgCompanyAm</param>
         /// <returns>MimirorgCompanyCm</returns>
-        [MimirorgAuthorize(MimirorgPermission.Manage)]
+        [Authorize]
         [HttpPost]
         [Route("")]
         [ProducesResponseType(typeof(MimirorgCompanyCm), 200)]
@@ -153,6 +155,15 @@ namespace Mimirorg.Authentication.Controllers.V1
                     return BadRequest(ModelState);
 
                 var data = await _companyService.CreateCompany(company);
+
+                var manageCompanyPermission = new MimirorgUserPermissionAm
+                {
+                    CompanyId = data.Id,
+                    UserId = data.Manager.Id,
+                    Permission = MimirorgPermission.Manage
+                };
+                await _authService.SetPermission(manageCompanyPermission);
+
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)
@@ -268,6 +279,32 @@ namespace Mimirorg.Authentication.Controllers.V1
             try
             {
                 var users = await _companyService.GetCompanyUsers(id);
+                return Ok(users);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to get users. Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
+        /// Get the users that have access claims connected to a company
+        /// </summary>
+        /// <returns>ICollection&lt;MimirorgCompanyCm&gt;</returns>
+        [MimirorgAuthorize(MimirorgPermission.Manage, "id")]
+        [HttpGet]
+        [Route("{id:int}/authusers")]
+        [ProducesResponseType(typeof(ICollection<MimirorgUserCm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [SwaggerOperation("Get users that have access claims connected to a company")]
+        public async Task<IActionResult> GetAuthorizedUsers([FromRoute] int id)
+        {
+            try
+            {
+                var users = await _companyService.GetAuthorizedCompanyUsers(id);
                 return Ok(users);
             }
             catch (Exception e)

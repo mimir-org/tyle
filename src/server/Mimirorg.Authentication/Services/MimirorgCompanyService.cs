@@ -191,6 +191,31 @@ namespace Mimirorg.Authentication.Services
             return mappedUsers;
         }
 
+        public async Task<ICollection<MimirorgUserCm>> GetAuthorizedCompanyUsers(int id)
+        {
+            var allUsers = _userManager.Users.ToList();
+
+            var companies = await GetAllCompanies();
+            var permissions = MimirorgPermissionCm.FromPermissionEnum().ToList();
+            var mappedUsers = new List<MimirorgUserCm>();
+
+            foreach (var user in allUsers)
+            {
+                var claims = await _userManager.GetClaimsAsync(user);
+                var roles = await _userManager.GetRolesAsync(user);
+                if (!claims.Any() && !roles.Any())
+                {
+                    continue;
+                }
+
+                var userCm = user.ToContentModel();
+                userCm.ResolvePermissions(roles, claims, companies, permissions);
+                userCm.ResolveRoles(roles, claims, companies, permissions);
+                mappedUsers.Add(userCm);
+            }
+
+            return mappedUsers;
+        }
 
         /// <summary>
         /// Gets all pending users that belongs to the given company ids.

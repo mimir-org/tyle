@@ -22,6 +22,9 @@ export const companyApi = {
   getCompanyUsers(companyId?: string) {
     return apiClient.get<MimirorgUserCm[]>(`${_basePath}/${companyId}/users`).then((r) => r.data);
   },
+  getAuthCompanyUsers(companyId?: string) {
+    return apiClient.get<MimirorgUserCm[]>(`${_basePath}/${companyId}/authusers`).then((r) => r.data);
+  },
   getPendingUsers() {
     return apiClient.get<MimirorgUserCm[]>(`${_basePath}/users/pending`).then((r) => r.data);
   },
