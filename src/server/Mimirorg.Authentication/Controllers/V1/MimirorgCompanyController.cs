@@ -140,7 +140,7 @@ namespace Mimirorg.Authentication.Controllers.V1
         /// </summary>
         /// <param name="company">MimirorgCompanyAm</param>
         /// <returns>MimirorgCompanyCm</returns>
-        [MimirorgAuthorize(MimirorgPermission.Manage)]
+        [Authorize]
         [HttpPost]
         [Route("")]
         [ProducesResponseType(typeof(MimirorgCompanyCm), 200)]
