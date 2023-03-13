@@ -58,12 +58,18 @@ namespace Mimirorg.Authentication.Contracts
         Task<bool> DeleteCompany(int id);
 
         /// <summary>
-        /// Get all users of a given company
-        /// These are users with a claim to the company.
+        /// Get all users that belong to a company.
         /// </summary>
         /// <param name="id"></param>
         /// <returns>ICollection&lt;MimirorgCompanyCm&gt;</returns>
         Task<ICollection<MimirorgUserCm>> GetCompanyUsers(int id);
+
+        /// <summary>
+        /// Get all users with a claim to the company.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>ICollection&lt;MimirorgCompanyCm&gt;</returns>
+        Task<ICollection<MimirorgUserCm>> GetAuthorizedCompanyUsers(int id);
 
         /// <summary>
         /// Gets all pending users that belongs to the given company ids.

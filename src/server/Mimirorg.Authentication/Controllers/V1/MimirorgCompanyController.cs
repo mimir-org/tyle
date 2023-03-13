@@ -289,6 +289,32 @@ namespace Mimirorg.Authentication.Controllers.V1
         }
 
         /// <summary>
+        /// Get the users that have access claims connected to a company
+        /// </summary>
+        /// <returns>ICollection&lt;MimirorgCompanyCm&gt;</returns>
+        [MimirorgAuthorize(MimirorgPermission.Manage, "id")]
+        [HttpGet]
+        [Route("{id:int}/authusers")]
+        [ProducesResponseType(typeof(ICollection<MimirorgUserCm>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [SwaggerOperation("Get users that have access claims connected to a company")]
+        public async Task<IActionResult> GetAuthorizedUsers([FromRoute] int id)
+        {
+            try
+            {
+                var users = await _companyService.GetAuthorizedCompanyUsers(id);
+                return Ok(users);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"An error occurred while trying to get users. Error: {e.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
         /// Get all pending users that the requesting entity can manage
         /// </summary>
         /// <returns>A list of users</returns>
