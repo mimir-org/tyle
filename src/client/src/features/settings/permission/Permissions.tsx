@@ -48,7 +48,7 @@ export const Permissions = () => {
             <UserListItem
               key={user.id}
               name={user.name}
-              trait={user.permissions[user.company.id]?.label}
+              trait={user.permissions[selectedCompany]?.label}
               action={<PermissionDialog user={user} />}
             />
           ))}
