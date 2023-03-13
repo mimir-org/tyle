@@ -99,8 +99,6 @@ namespace Mimirorg.TypeLibrary.Extensions
                 {
                     resolvedPermissions.Add(company.Id, MimirorgPermission.Delete);
                 }
-
-                return resolvedPermissions;
             }
 
             var userCompanyClaims = claims.Where(x => companies.Any(y => x.Type == y.Id.ToString())).ToList();
@@ -108,8 +106,18 @@ namespace Mimirorg.TypeLibrary.Extensions
             {
                 var company = companies.FirstOrDefault(x => x.Id.ToString() == claim.Type);
                 var permission = permissions.FirstOrDefault(x => x.Name == claim.Value);
-                if (company != null && permission != null && resolvedPermissions.All(x => x.Key != company.Id))
+
+                if (company == null || permission == null) continue;
+
+                if (resolvedPermissions.All(x => x.Key != company.Id))
+                {
                     resolvedPermissions.Add(company.Id, (MimirorgPermission) permission.Id);
+                }
+                else if (resolvedPermissions.FirstOrDefault(x => x.Key == company.Id).Value < (MimirorgPermission) permission.Id)
+                {
+                    resolvedPermissions.Remove(company.Id);
+                    resolvedPermissions.Add(company.Id, (MimirorgPermission) permission.Id);
+                }
             }
 
             return resolvedPermissions;
