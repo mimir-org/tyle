@@ -48,7 +48,7 @@ export const useGetCompanyUsers = (companyId?: string) =>
     retry: false,
   });
 
-  export const useGetAuthCompanyUsers = (companyId?: string) =>
+export const useGetAuthCompanyUsers = (companyId?: string) =>
   useQuery(companyKeys.companyUsers(companyId), () => companyApi.getAuthCompanyUsers(companyId), {
     enabled: !!companyId,
     retry: false,
