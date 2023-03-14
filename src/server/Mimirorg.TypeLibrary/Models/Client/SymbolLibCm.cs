@@ -4,7 +4,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
 {
     public class SymbolLibCm
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Iri { get; set; }
         public ICollection<TypeReferenceCm> TypeReferences { get; set; }

@@ -17,8 +17,8 @@ namespace TypeLibrary.Data.Models
     /// </summary>
     public class NodeLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogable
     {
-        public string Id { get; set; }
-        public string ParentId { get; set; }
+        public int Id { get; set; }
+        public int ParentId { get; set; }
         public NodeLibDm Parent { get; set; }
         public string Name { get; set; }
         public string Version { get; set; }
@@ -83,7 +83,7 @@ namespace TypeLibrary.Data.Models
 
             NodeTerminals ??= new List<NodeTerminalLibDm>();
             other.NodeTerminals ??= new List<NodeTerminalLibAm>();
-            var otherTerminals = other.NodeTerminals.Select(x => $"{x.Id}-{Id}".CreateMd5());
+            var otherTerminals = other.NodeTerminals.Select(x => x.TerminalId);
             if (NodeTerminals.Select(y => y.Id).Any(id => otherTerminals.Select(x => x).All(x => x != id)))
             {
                 validation.AddNotAllowToChange(nameof(NodeTerminals), "It is not allowed to remove items from terminals");

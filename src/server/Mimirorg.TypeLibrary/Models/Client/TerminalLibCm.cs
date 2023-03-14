@@ -4,8 +4,8 @@ namespace Mimirorg.TypeLibrary.Models.Client
 {
     public class TerminalLibCm
     {
-        public string Id { get; set; }
-        public string ParentId { get; set; }
+        public int Id { get; set; }
+        public int ParentId { get; set; }
         public string ParentName { get; set; }
         public string ParentIri { get; set; }
         public string Name { get; set; }

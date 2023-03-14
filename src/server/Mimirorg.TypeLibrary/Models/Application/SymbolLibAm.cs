@@ -13,8 +13,5 @@ namespace Mimirorg.TypeLibrary.Models.Application
         public string Data { get; set; }
 
         public ICollection<TypeReferenceAm> TypeReferences { get; set; }
-
-        [TSExclude]
-        public virtual string Id => $"{Name}".CreateMd5();
     }
 }

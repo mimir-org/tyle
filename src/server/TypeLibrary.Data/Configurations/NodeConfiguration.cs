@@ -16,7 +16,7 @@ namespace TypeLibrary.Data.Configurations
             builder.HasIndex(x => x.FirstVersionId).IsUnique(false);
             builder.HasIndex(x => new { x.ParentId }).IsUnique(false);
             builder.ToTable("Node");
-            builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(127);
+            builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
             builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired().HasMaxLength(255);
             builder.Property(p => p.TypeReferences).HasColumnName("TypeReferences");
             builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(63);

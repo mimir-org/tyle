@@ -123,7 +123,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         /// <remarks>
         /// The parent id is not allowed to change
         /// </remarks>
-        public string ParentId { get; set; }
+        public int ParentId { get; set; }
 
         /// <summary>
         /// The node version
@@ -131,14 +131,5 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         [Double]
         public string Version { get; set; }
-
-        /// <summary>
-        /// The node id
-        /// </summary>
-        /// <remarks>
-        /// The value will be set on server
-        /// </remarks>
-        [TSExclude]
-        public string Id => $"{Name}-{RdsCode}-{Aspect}-{Version}".CreateMd5();
     }
 }

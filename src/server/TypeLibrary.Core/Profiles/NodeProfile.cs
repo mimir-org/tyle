@@ -103,11 +103,8 @@ namespace TypeLibrary.Core.Profiles
 
             foreach (var item in sortedTerminalTypes)
             {
-                var key = $"{item.Id}-{nodeId}";
-
                 yield return new NodeTerminalLibDm
                 {
-                    Id = key.CreateMd5(),
                     NodeId = nodeId,
                     TerminalId = item.TerminalId,
                     MinQuantity = item.MinQuantity,
