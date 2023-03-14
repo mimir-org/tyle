@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, ArrowsRightLeft} from "@styled-icons/heroicons-outline";
+import { ArrowLeft, ArrowRight, ArrowsRightLeft } from "@styled-icons/heroicons-outline";
 import { NodeTerminalItem } from "common/types/nodeTerminalItem";
 import { Td } from "complib/data-display";
 import { Flexbox } from "complib/layouts";

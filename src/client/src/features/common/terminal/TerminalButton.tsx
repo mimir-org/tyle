@@ -1,4 +1,4 @@
-import { ArrowSmallRight, ArrowsRightLeft} from "@styled-icons/heroicons-outline";
+import { ArrowSmallRight, ArrowsRightLeft } from "@styled-icons/heroicons-outline";
 import { NodeTerminalItemDirection } from "common/types/nodeTerminalItem";
 import { Polymorphic } from "complib/props";
 import { EllipseIcon } from "features/common/terminal/assets";
