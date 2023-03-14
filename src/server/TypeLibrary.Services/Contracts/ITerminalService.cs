@@ -15,7 +15,7 @@ namespace TypeLibrary.Services.Contracts
         /// <param name="id">The id of the terminal</param>
         /// <returns>The latest version of the terminal of given id</returns>
         /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id, and that terminal is at the latest version.</exception>
-        TerminalLibCm GetLatestVersion(string id);
+        TerminalLibCm GetLatestVersion(int id);
 
         /// <summary>
         /// Get the latest terminal versions
@@ -37,12 +37,13 @@ namespace TypeLibrary.Services.Contracts
         /// <summary>
         /// Update a terminal if the data is allowed to be changed.
         /// </summary>
+        /// <param name="id">The id of the terminal to update</param>
         /// <param name="terminalAm">The terminal to update</param>
         /// <returns>The updated terminal</returns>
         /// <exception cref="MimirorgBadRequestException">Throws if the terminal does not exist,
         /// if it is not valid or there are not allowed changes.</exception>
         /// <remarks>ParentId to old references will also be updated.</remarks>
-        Task<TerminalLibCm> Update(TerminalLibAm terminalAm);
+        Task<TerminalLibCm> Update(int id, TerminalLibAm terminalAm);
 
         /// <summary>
         /// Change terminal state
@@ -51,13 +52,13 @@ namespace TypeLibrary.Services.Contracts
         /// <param name="state">The new terminal state</param>
         /// <returns>Terminal with updated state</returns>
         /// <exception cref="MimirorgNotFoundException">Throws if the terminal does not exist on latest version</exception>
-        Task<TerminalLibCm> ChangeState(string id, State state);
+        Task<TerminalLibCm> ChangeState(int id, State state);
 
         /// <summary>
         /// Get terminal existing company id for terminal by id
         /// </summary>
         /// <param name="id">The terminal id</param>
         /// <returns>Company id for terminal</returns>
-        Task<int> GetCompanyId(string id);
+        Task<int> GetCompanyId(int id);
     }
 }

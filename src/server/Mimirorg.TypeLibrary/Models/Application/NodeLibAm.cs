@@ -123,7 +123,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         /// <remarks>
         /// The parent id is not allowed to change
         /// </remarks>
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }
 
         /// <summary>
         /// The node version

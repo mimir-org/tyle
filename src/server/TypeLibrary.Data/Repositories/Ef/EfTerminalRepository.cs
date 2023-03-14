@@ -26,11 +26,8 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// </summary>
         /// <param name="id">The terminal id</param>
         /// <returns>The company id of given terminal</returns>
-        public async Task<int> HasCompany(string id)
+        public async Task<int> HasCompany(int id)
         {
-            if (string.IsNullOrWhiteSpace(id))
-                return 0;
-
             var procParams = new Dictionary<string, object>
             {
                 {"@TableName", "Terminal"},
@@ -47,7 +44,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// <param name="state">The state to change to</param>
         /// <param name="ids">A list of terminal id's</param>
         /// <returns>The number of terminals in given state</returns>
-        public async Task<int> ChangeState(State state, ICollection<string> ids)
+        public async Task<int> ChangeState(State state, ICollection<int> ids)
         {
             if (ids == null)
                 return 0;
@@ -71,11 +68,8 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// <param name="oldId">Old terminal parent id</param>
         /// <param name="newId">New terminal parent id</param>
         /// <returns>The number of terminal with the new parent id</returns>
-        public async Task<int> ChangeParentId(string oldId, string newId)
+        public async Task<int> ChangeParentId(int oldId, int newId)
         {
-            if (string.IsNullOrWhiteSpace(oldId) || string.IsNullOrWhiteSpace(newId))
-                return 0;
-
             var procParams = new Dictionary<string, object>
             {
                 {"@TableName", "Terminal"},
@@ -92,7 +86,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// </summary>
         /// <param name="id">The id of the terminal</param>
         /// <returns>True if terminal exist</returns>
-        public async Task<bool> Exist(string id)
+        public async Task<bool> Exist(int id)
         {
             return await Exist(x => x.Id == id);
         }
@@ -111,7 +105,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// </summary>
         /// <param name="id">The terminal id</param>
         /// <returns>Terminal if found</returns>
-        public async Task<TerminalLibDm> Get(string id)
+        public async Task<TerminalLibDm> Get(int id)
         {
             var terminal = await FindBy(x => x.Id == id).FirstOrDefaultAsync();
             return terminal;

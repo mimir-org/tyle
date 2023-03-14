@@ -6,8 +6,8 @@ namespace TypeLibrary.Data.Models
     public class LogLibDm
     {
         public int Id { get; set; }
-        public string ObjectId { get; set; }
-        public string ObjectFirstVersionId { get; set; }
+        public int ObjectId { get; set; }
+        public int ObjectFirstVersionId { get; set; }
         public string ObjectName { get; set; }
         public string ObjectVersion { get; set; }
         public string ObjectType { get; set; }

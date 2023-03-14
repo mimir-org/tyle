@@ -38,7 +38,7 @@ namespace TypeLibrary.Services.Services
         /// <param name="id">The id of the node</param>
         /// <returns>The latest version of the node of given id</returns>
         /// <exception cref="MimirorgNotFoundException">Throws if there is no node with the given id, and that node is at the latest version.</exception>
-        public NodeLibCm GetLatestVersion(string id)
+        public NodeLibCm GetLatestVersion(int id)
         {
             var dm = _nodeRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
@@ -84,9 +84,6 @@ namespace TypeLibrary.Services.Services
             if (!validation.IsValid)
                 throw new MimirorgBadRequestException("Node is not valid.", validation);
 
-            if (await _nodeRepository.Exist(nodeAm.Id))
-                throw new MimirorgDuplicateException($"Node '{nodeAm.Name}' and version '{nodeAm.Version}' already exist.");
-
             nodeAm.Version = "1.0";
             var dm = _mapper.Map<NodeLibDm>(nodeAm);
 
@@ -109,19 +106,19 @@ namespace TypeLibrary.Services.Services
         /// <exception cref="MimirorgBadRequestException">Throws if the node does not exist,
         /// if it is not valid or there are not allowed changes.</exception>
         /// <remarks>ParentId to old references will also be updated.</remarks>
-        public async Task<NodeLibCm> Update(NodeLibAm nodeAm)
+        public async Task<NodeLibCm> Update(int id, NodeLibAm nodeAm)
         {
             var validation = nodeAm.ValidateObject();
 
             if (!validation.IsValid)
                 throw new MimirorgBadRequestException("Node is not valid.", validation);
 
-            var nodeToUpdate = _nodeRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == nodeAm.Id);
+            var nodeToUpdate = _nodeRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
             if (nodeToUpdate == null)
             {
                 validation = new Validation(new List<string> { nameof(NodeLibAm.Name), nameof(NodeLibAm.Version) },
-                    $"Node with name {nodeAm.Name}, aspect {nodeAm.Aspect}, Rds Code {nodeAm.RdsCode}, id {nodeAm.Id} and version {nodeAm.Version} does not exist.");
+                    $"Node with name {nodeAm.Name}, aspect {nodeAm.Aspect}, Rds Code {nodeAm.RdsCode}, id {id} and version {nodeAm.Version} does not exist.");
                 throw new MimirorgBadRequestException("Node does not exist or is flagged as deleted. Update is not possible.", validation);
             }
 
@@ -153,7 +150,7 @@ namespace TypeLibrary.Services.Services
 
             var nodeCm = await _nodeRepository.Create(dm);
             _nodeRepository.ClearAllChangeTrackers();
-            await _nodeRepository.ChangeParentId(nodeAm.Id, nodeCm.Id);
+            await _nodeRepository.ChangeParentId(id, nodeCm.Id);
             await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
 
@@ -167,14 +164,14 @@ namespace TypeLibrary.Services.Services
         /// <param name="state">The new node state</param>
         /// <returns>Node with updated state</returns>
         /// <exception cref="MimirorgNotFoundException">Throws if the node does not exist on latest version</exception>
-        public async Task<ApprovalDataCm> ChangeState(string id, State state)
+        public async Task<ApprovalDataCm> ChangeState(int id, State state)
         {
             var dm = _nodeRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
             if (dm == null)
                 throw new MimirorgNotFoundException($"Node with id {id} not found, or is not latest version.");
 
-            await _nodeRepository.ChangeState(state, new List<string> { dm.Id });
+            await _nodeRepository.ChangeState(state, new List<int> { dm.Id });
             await _logService.CreateLog(dm, LogType.State, state.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
 
@@ -190,7 +187,7 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="id">The node id</param>
         /// <returns>Company id for node</returns>
-        public async Task<int> GetCompanyId(string id)
+        public async Task<int> GetCompanyId(int id)
         {
             return await _nodeRepository.HasCompany(id);
         }

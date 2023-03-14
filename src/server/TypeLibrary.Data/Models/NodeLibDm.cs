@@ -18,11 +18,11 @@ namespace TypeLibrary.Data.Models
     public class NodeLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogable
     {
         public int Id { get; set; }
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }
         public NodeLibDm Parent { get; set; }
         public string Name { get; set; }
         public string Version { get; set; }
-        public string FirstVersionId { get; set; }
+        public int FirstVersionId { get; set; }
         public string Iri { get; set; }
         public string TypeReferences { get; set; }
         public string RdsCode { get; set; }
@@ -142,7 +142,7 @@ namespace TypeLibrary.Data.Models
             // Node Terminals
             NodeTerminals ??= new List<NodeTerminalLibDm>();
             other.NodeTerminals ??= new List<NodeTerminalLibAm>();
-            var otherTerminals = other.NodeTerminals.Select(x => $"{x.Id}-{Id}".CreateMd5());
+            var otherTerminals = other.NodeTerminals.Select(x => x.TerminalId);
             if (!NodeTerminals.Select(x => x.Id).SequenceEqual(otherTerminals))
                 major = true;
 

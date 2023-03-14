@@ -25,7 +25,7 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.PurposeName).HasColumnName("PurposeName").IsRequired().HasMaxLength(127);
             builder.Property(p => p.ParentId).HasColumnName("ParentId").HasMaxLength(127);
             builder.Property(p => p.Version).HasColumnName("Version").IsRequired().HasMaxLength(7);
-            builder.Property(p => p.FirstVersionId).HasColumnName("FirstVersionId").IsRequired().HasMaxLength(127);
+            builder.Property(p => p.FirstVersionId).HasColumnName("FirstVersionId").IsRequired();
             builder.Property(p => p.Aspect).HasColumnName("Aspect").IsRequired().HasConversion<string>().HasMaxLength(31);
             builder.Property(p => p.State).HasColumnName("State").IsRequired().HasConversion<string>().HasMaxLength(31);
             builder.Property(p => p.CompanyId).HasColumnName("CompanyId").IsRequired().HasMaxLength(127);

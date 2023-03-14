@@ -6,9 +6,9 @@ namespace Mimirorg.TypeLibrary.Models.Application
     public class LogLibAm
     {
         [Required]
-        public string ObjectId { get; set; }
+        public int ObjectId { get; set; }
         [Required]
-        public string ObjectFirstVersionId { get; set; }
+        public int ObjectFirstVersionId { get; set; }
         [Required]
         public string ObjectName { get; set; }
         [Required]

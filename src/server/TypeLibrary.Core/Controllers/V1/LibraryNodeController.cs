@@ -76,7 +76,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [AllowAnonymous]
-        public IActionResult GetLatestVersion([FromRoute] string id)
+        public IActionResult GetLatestVersion([FromRoute] int id)
         {
             try
             {
@@ -159,19 +159,19 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [MimirorgAuthorize(MimirorgPermission.Write, "nodeAm", "CompanyId")]
-        public async Task<IActionResult> Update([FromBody] NodeLibAm nodeAm)
+        public async Task<IActionResult> Update(int id, [FromBody] NodeLibAm nodeAm)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var companyId = await _nodeService.GetCompanyId(nodeAm.Id);
+                var companyId = await _nodeService.GetCompanyId(id);
 
                 if (companyId != nodeAm.CompanyId)
                     return StatusCode(StatusCodes.Status403Forbidden);
 
-                var data = await _nodeService.Update(nodeAm);
+                var data = await _nodeService.Update(id, nodeAm);
                 return Ok(data);
             }
             catch (MimirorgBadRequestException e)
@@ -204,7 +204,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
-        public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
+        public async Task<IActionResult> ChangeState([FromRoute] int id, [FromRoute] State state)
         {
             try
             {
@@ -236,7 +236,7 @@ namespace TypeLibrary.Core.Controllers.V1
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize]
-        public async Task<IActionResult> RejectChangeState([FromRoute] string id)
+        public async Task<IActionResult> RejectChangeState([FromRoute] int id)
         {
             try
             {

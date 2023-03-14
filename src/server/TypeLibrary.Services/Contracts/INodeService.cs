@@ -15,7 +15,7 @@ namespace TypeLibrary.Services.Contracts
         /// <param name="id">The id of the node</param>
         /// <returns>The latest version of the node of given id</returns>
         /// <exception cref="MimirorgNotFoundException">Throws if there is no node with the given id, and that node is at the latest version.</exception>
-        NodeLibCm GetLatestVersion(string id);
+        NodeLibCm GetLatestVersion(int id);
 
         /// <summary>
         /// Get the latest node versions
@@ -37,12 +37,13 @@ namespace TypeLibrary.Services.Contracts
         /// <summary>
         /// Update a node if the data is allowed to be changed.
         /// </summary>
+        /// <param name="id">The id of the node to update</param>
         /// <param name="nodeAm">The node to update</param>
         /// <returns>The updated node</returns>
         /// <exception cref="MimirorgBadRequestException">Throws if the node does not exist,
         /// if it is not valid or there are not allowed changes.</exception>
         /// <remarks>ParentId to old references will also be updated.</remarks>
-        Task<NodeLibCm> Update(NodeLibAm nodeAm);
+        Task<NodeLibCm> Update(int id, NodeLibAm nodeAm);
 
         /// <summary>
         /// Change node state
@@ -51,13 +52,13 @@ namespace TypeLibrary.Services.Contracts
         /// <param name="state">The new node state</param>
         /// <returns>Node with updated state</returns>
         /// <exception cref="MimirorgNotFoundException">Throws if the node does not exist on latest version</exception>
-        Task<ApprovalDataCm> ChangeState(string id, State state);
+        Task<ApprovalDataCm> ChangeState(int id, State state);
 
         /// <summary>
         /// Get node existing company id for terminal by id
         /// </summary>
         /// <param name="id">The node id</param>
         /// <returns>Company id for node</returns>
-        Task<int> GetCompanyId(string id);
+        Task<int> GetCompanyId(int id);
     }
 }

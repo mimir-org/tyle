@@ -12,7 +12,7 @@ namespace TypeLibrary.Data.Contracts
         /// </summary>
         /// <param name="id">The terminal id</param>
         /// <returns>The company id of given terminal</returns>
-        Task<int> HasCompany(string id);
+        Task<int> HasCompany(int id);
 
         /// <summary>
         /// Change the state of the terminal on all listed id's
@@ -20,7 +20,7 @@ namespace TypeLibrary.Data.Contracts
         /// <param name="state">The state to change to</param>
         /// <param name="ids">A list of terminal id's</param>
         /// <returns>The number of terminals in given state</returns>
-        Task<int> ChangeState(State state, ICollection<string> ids);
+        Task<int> ChangeState(State state, ICollection<int> ids);
 
         /// <summary>
         /// Change all parent id's on terminals from old id to the new id 
@@ -28,14 +28,14 @@ namespace TypeLibrary.Data.Contracts
         /// <param name="oldId">Old terminal parent id</param>
         /// <param name="newId">New terminal parent id</param>
         /// <returns>The number of terminal with the new parent id</returns>
-        Task<int> ChangeParentId(string oldId, string newId);
+        Task<int> ChangeParentId(int oldId, int newId);
 
         /// <summary>
         /// Check if terminal exists
         /// </summary>
         /// <param name="id">The id of the terminal</param>
         /// <returns>True if terminal exist</returns>
-        Task<bool> Exist(string id);
+        Task<bool> Exist(int id);
 
         /// <summary>
         /// Get all terminals
@@ -48,7 +48,7 @@ namespace TypeLibrary.Data.Contracts
         /// </summary>
         /// <param name="id">The terminal id</param>
         /// <returns>Terminal if found</returns>
-        Task<TerminalLibDm> Get(string id);
+        Task<TerminalLibDm> Get(int id);
 
         /// <summary>
         /// Create a terminal in database

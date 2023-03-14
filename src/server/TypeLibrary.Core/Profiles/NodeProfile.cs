@@ -18,14 +18,14 @@ namespace TypeLibrary.Core.Profiles
         public NodeProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor, ICompanyFactory companyFactory)
         {
             CreateMap<NodeLibAm, NodeLibDm>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => $"{settings.ApplicationSemanticUrl}/aspectnode/{src.Id}"))
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.Iri, opt => opt.Ignore())
                 .ForMember(dest => dest.TypeReferences, opt => opt.MapFrom(src => src.TypeReferences.ConvertToString()))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.RdsCode, opt => opt.MapFrom(src => src.RdsCode))
                 .ForMember(dest => dest.RdsName, opt => opt.MapFrom(src => src.RdsName))
                 .ForMember(dest => dest.PurposeName, opt => opt.MapFrom(src => src.PurposeName))
-                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.ParentId) ? null : src.ParentId))
+                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.Parent, opt => opt.Ignore())
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
@@ -78,7 +78,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.UserName, opt => opt.Ignore());
         }
 
-        private static IEnumerable<NodeTerminalLibDm> CreateTerminals(ICollection<NodeTerminalLibAm> terminals, string nodeId)
+        private static IEnumerable<NodeTerminalLibDm> CreateTerminals(ICollection<NodeTerminalLibAm> terminals, int nodeId)
         {
             if (terminals == null || !terminals.Any())
                 yield break;

@@ -43,6 +43,6 @@ namespace TypeLibrary.Services.Contracts
         /// <param name="objectType"></param>
         /// <returns>Return the state from last log-entry</returns>
         /// <exception cref="MimirorgNotFoundException"></exception>
-        Task<State> GetPreviousState(string id, string objectType);
+        Task<State> GetPreviousState(int id, string objectType);
     }
 }

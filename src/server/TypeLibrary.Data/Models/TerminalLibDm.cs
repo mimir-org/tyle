@@ -15,11 +15,11 @@ namespace TypeLibrary.Data.Models
     public class TerminalLibDm : IVersionable<TerminalLibAm>, IVersionObject, ILogable
     {
         public int Id { get; set; }
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }
         public TerminalLibDm Parent { get; set; }
         public string Name { get; set; }
         public string Version { get; set; }
-        public string FirstVersionId { get; set; }
+        public int FirstVersionId { get; set; }
         public string Iri { get; set; }
         public string TypeReferences { get; set; }
         public string Color { get; set; }
