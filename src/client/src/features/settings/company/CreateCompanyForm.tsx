@@ -24,7 +24,7 @@ import { FileComponent } from "complib/inputs/file/FileComponent";
 import { useTheme } from "styled-components";
 import { Flexbox } from "complib/layouts";
 import { useState } from "react";
-import { ClipboardCopy } from "@styled-icons/heroicons-outline";
+import { DocumentDuplicate } from "@styled-icons/heroicons-outline";
 import { isAxiosError } from "axios";
 
 export const CreateCompanyForm = () => {
@@ -79,7 +79,7 @@ export const CreateCompanyForm = () => {
           readOnly
           icon={
             <Button
-              icon={<ClipboardCopy size={24} />}
+              icon={<DocumentDuplicate size={24} />}
               onClick={() => copySecret(secret, t("createCompany.toasts.copySecret"))}
             >
               {""}

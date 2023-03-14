@@ -1,4 +1,4 @@
-import { PencilAlt } from "@styled-icons/heroicons-outline";
+import { PencilSquare } from "@styled-icons/heroicons-outline";
 import { UserItem } from "common/types/userItem";
 import { Button } from "complib/buttons";
 import { AlertDialog, AlertDialogCancelItem } from "complib/overlays";
@@ -47,7 +47,7 @@ export const PermissionDialog = ({ user }: PermissionDialogProps) => {
       actions={[dialogOverriddenSubmitAction]}
       cancelAction={dialogOverriddenCancelAction}
     >
-      <Button variant={"text"} icon={<PencilAlt />} iconOnly onClick={() => setOpen(true)}>
+      <Button variant={"text"} icon={<PencilSquare />} iconOnly onClick={() => setOpen(true)}>
         {t("permissions.dialog.trigger", { name: user.name })}
       </Button>
     </AlertDialog>

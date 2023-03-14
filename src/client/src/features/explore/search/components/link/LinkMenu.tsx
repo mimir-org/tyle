@@ -1,4 +1,4 @@
-import { ArrowSmRight } from "@styled-icons/heroicons-outline";
+import { ArrowSmallRight } from "@styled-icons/heroicons-outline";
 import { Link } from "common/types/link";
 import { Button } from "complib/buttons";
 import { Popover } from "complib/data-display";
@@ -35,7 +35,7 @@ export const LinkMenu = ({ name, links }: LinkMenuProps) => {
                 as={"span"}
                 variant={"text"}
                 textVariant={"label-large"}
-                icon={<ArrowSmRight size={24} />}
+                icon={<ArrowSmallRight size={24} />}
                 width={"100%"}
               >
                 {link.name}

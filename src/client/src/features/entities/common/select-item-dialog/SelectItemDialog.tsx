@@ -1,5 +1,5 @@
 import { DialogClose } from "@radix-ui/react-dialog";
-import { PlusSm } from "@styled-icons/heroicons-outline";
+import { PlusSmall } from "@styled-icons/heroicons-outline";
 import { InfoItem } from "common/types/infoItem";
 import { Button } from "complib/buttons";
 import { Dialog } from "complib/overlays";
@@ -87,7 +87,7 @@ export const SelectItemDialog = ({
         </SelectContainer>
       }
     >
-      <Button icon={<PlusSm />} iconOnly>
+      <Button icon={<PlusSmall />} iconOnly>
         {openDialogButtonText}
       </Button>
     </Dialog>
