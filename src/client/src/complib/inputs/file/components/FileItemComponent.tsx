@@ -3,7 +3,7 @@ import { Box, Flexbox } from "complib/layouts";
 import { Text } from "complib/text";
 import { FileInfo } from "../FileComponent";
 import { FileItemContainer } from "./FileItemComponent.styled";
-import { Photograph, MinusCircle } from "@styled-icons/heroicons-outline";
+import { Photo, MinusCircle } from "@styled-icons/heroicons-outline";
 
 interface Props {
   fileInfo?: FileInfo;
@@ -19,9 +19,9 @@ export const FileItemComponent = ({ fileInfo, onRemove, tooltip }: Props) => {
           <Flexbox alignContent="center" alignItems="center" flexDirection="row" justifyContent="space-between">
             <Box display="flex">
               {fileInfo.contentType.startsWith("image") ? (
-                <img src={fileInfo.file} style={{ maxWidth: "192px", maxHeight: "96px" }} />
+                <img src={fileInfo.file} style={{ maxWidth: "192px", maxHeight: "96px" }} alt="" />
               ) : (
-                <Photograph size={48} />
+                <Photo size={48} />
               )}
               <Tooltip content={tooltip ?? "Remove file"}>
                 <MinusCircle className="fileitem-delete" size={20} color={"red"} onClick={() => onRemove()} />

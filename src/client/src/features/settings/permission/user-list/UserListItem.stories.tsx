@@ -1,5 +1,5 @@
 import { ComponentStory } from "@storybook/react";
-import { PencilAlt } from "@styled-icons/heroicons-outline";
+import { PencilSquare } from "@styled-icons/heroicons-outline";
 import { Button } from "complib/buttons";
 import { UserListItem } from "features/settings/permission/user-list/UserListItem";
 
@@ -15,7 +15,7 @@ Default.args = {
   name: "Jane Smith",
   trait: "Approve",
   action: (
-    <Button variant={"text"} icon={<PencilAlt />} iconOnly>
+    <Button variant={"text"} icon={<PencilSquare />} iconOnly>
       Edit
     </Button>
   ),

@@ -1,4 +1,4 @@
-import { PlusSm } from "@styled-icons/heroicons-outline";
+import { PlusSmall } from "@styled-icons/heroicons-outline";
 import { Button } from "complib/buttons";
 import { Popover } from "complib/data-display";
 import { Box } from "complib/layouts";
@@ -48,7 +48,7 @@ export const FilterMenu = ({ name, filterGroups, ...delegated }: FilterMenuProps
         </Box>
       }
     >
-      <Button icon={<PlusSm size={24} />} flexShrink={"0"}>
+      <Button icon={<PlusSmall size={24} />} flexShrink={"0"}>
         {name}
       </Button>
     </Popover>
