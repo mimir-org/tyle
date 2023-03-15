@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Extensions;
+using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
@@ -14,10 +16,12 @@ namespace TypeLibrary.Data.Repositories.Ef
 {
     public class EfNodeRepository : GenericRepository<TypeLibraryDbContext, NodeLibDm>, IEfNodeRepository
     {
+        private readonly IApplicationSettingsRepository _settings;
         private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
 
-        public EfNodeRepository(TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
+        public EfNodeRepository(IApplicationSettingsRepository settings, TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
         {
+            _settings = settings;
             _typeLibraryProcRepository = typeLibraryProcRepository;
         }
 
@@ -126,6 +130,11 @@ namespace TypeLibrary.Data.Repositories.Ef
         {
             await CreateAsync(node);
             await SaveAsync();
+
+            if (node.FirstVersionId == 0) node.FirstVersionId = node.Id;
+            node.Iri = $"{_settings.ApplicationSemanticUrl}/aspectnode/{node.Id}";
+            await SaveAsync();
+
             Detach(node);
 
             return node;

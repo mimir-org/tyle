@@ -88,14 +88,13 @@ namespace TypeLibrary.Services.Services
             var dm = _mapper.Map<NodeLibDm>(nodeAm);
 
             dm.State = State.Draft;
-            dm.FirstVersionId = dm.Id;
 
-            await _nodeRepository.Create(dm);
+            var createdNode = await _nodeRepository.Create(dm);
             _nodeRepository.ClearAllChangeTrackers();
-            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
+            await _logService.CreateLog(createdNode, LogType.State, State.Draft.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
 
-            return GetLatestVersion(dm.Id);
+            return GetLatestVersion(createdNode.Id);
         }
 
         /// <summary>

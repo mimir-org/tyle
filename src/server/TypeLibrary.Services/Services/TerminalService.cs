@@ -87,14 +87,13 @@ namespace TypeLibrary.Services.Services
             var dm = _mapper.Map<TerminalLibDm>(terminal);
 
             dm.State = State.Draft;
-            dm.FirstVersionId = dm.Id;
 
-            await _terminalRepository.Create(dm);
+            var createdTerminal = await _terminalRepository.Create(dm);
             _terminalRepository.ClearAllChangeTrackers();
-            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
+            await _logService.CreateLog(createdTerminal, LogType.State, State.Draft.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
-            return GetLatestVersion(dm.Id);
+            return GetLatestVersion(createdTerminal.Id);
         }
 
         /// <summary>
