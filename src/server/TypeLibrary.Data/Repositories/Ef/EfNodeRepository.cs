@@ -133,6 +133,8 @@ namespace TypeLibrary.Data.Repositories.Ef
 
             if (node.FirstVersionId == 0) node.FirstVersionId = node.Id;
             node.Iri = $"{_settings.ApplicationSemanticUrl}/aspectnode/{node.Id}";
+            foreach (var nodeTerminal in node.NodeTerminals)
+                nodeTerminal.NodeId = node.Id;
             await SaveAsync();
 
             Detach(node);

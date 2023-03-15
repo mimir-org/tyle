@@ -35,7 +35,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? "Unknown" : contextAccessor.GetUserId()))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow))
                 .ForMember(dest => dest.Children, opt => opt.Ignore())
-                .ForMember(dest => dest.NodeTerminals, opt => opt.MapFrom(src => CreateTerminals(src.NodeTerminals, src.Id).ToList()))
+                .ForMember(dest => dest.NodeTerminals, opt => opt.MapFrom(src => CreateTerminals(src.NodeTerminals).ToList()))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes.ConvertToString()))
                 .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
@@ -78,7 +78,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.UserName, opt => opt.Ignore());
         }
 
-        private static IEnumerable<NodeTerminalLibDm> CreateTerminals(ICollection<NodeTerminalLibAm> terminals, int nodeId)
+        private static IEnumerable<NodeTerminalLibDm> CreateTerminals(ICollection<NodeTerminalLibAm> terminals)
         {
             if (terminals == null || !terminals.Any())
                 yield break;
@@ -105,7 +105,6 @@ namespace TypeLibrary.Core.Profiles
             {
                 yield return new NodeTerminalLibDm
                 {
-                    NodeId = nodeId,
                     TerminalId = item.TerminalId,
                     MinQuantity = item.MinQuantity,
                     MaxQuantity = item.MaxQuantity,
