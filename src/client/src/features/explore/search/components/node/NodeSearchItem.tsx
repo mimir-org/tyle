@@ -1,5 +1,5 @@
 import { State } from "@mimirorg/typelibrary-types";
-import { Duplicate, PencilAlt, Trash, ChevronUp, ChevronDoubleUp } from "@styled-icons/heroicons-outline";
+import { DocumentDuplicate, PencilSquare, Trash, ChevronUp, ChevronDoubleUp } from "@styled-icons/heroicons-outline";
 import { NodeItem } from "common/types/nodeItem";
 import { UserItem } from "common/types/userItem";
 import { Button } from "complib/buttons";
@@ -75,7 +75,7 @@ const NodeSearchItemActions = ({ user, node }: NodeSearchItemActionProps) => {
           disabled={!btnFilter.clone}
           tabIndex={0}
           as={!btnFilter.clone ? "button" : "span"}
-          icon={<Duplicate />}
+          icon={<DocumentDuplicate />}
           iconOnly
         >
           {t("search.item.clone")}
@@ -86,7 +86,7 @@ const NodeSearchItemActions = ({ user, node }: NodeSearchItemActionProps) => {
           disabled={!btnFilter.edit}
           tabIndex={0}
           as={!btnFilter.edit ? "button" : "span"}
-          icon={<PencilAlt />}
+          icon={<PencilSquare />}
           iconOnly
         >
           {t("search.item.edit")}

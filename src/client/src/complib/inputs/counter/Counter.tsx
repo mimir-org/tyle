@@ -1,4 +1,4 @@
-import { MinusSm, PlusSm } from "@styled-icons/heroicons-outline";
+import { MinusSmall, PlusSmall } from "@styled-icons/heroicons-outline";
 import { Button } from "complib/buttons";
 import { onChangeCounterValue, useOnChangeCallback } from "complib/inputs/counter/Counter.helpers";
 import { CounterContainer, CounterInput } from "complib/inputs/counter/Counter.styled";
@@ -58,7 +58,7 @@ export const Counter = forwardRef((props: NumberProps, ref: ForwardedRef<HTMLInp
         tabIndex={-1}
         onClick={() => onChangeCounterValue(fieldValue - 1, setFieldValue, { min, max })}
         variant={"text"}
-        icon={<MinusSm size={24} />}
+        icon={<MinusSmall size={24} />}
         iconOnly
         disabled={disabled}
       >
@@ -69,7 +69,7 @@ export const Counter = forwardRef((props: NumberProps, ref: ForwardedRef<HTMLInp
         tabIndex={-1}
         onClick={() => onChangeCounterValue(fieldValue + 1, setFieldValue, { min, max })}
         variant={"text"}
-        icon={<PlusSm size={24} />}
+        icon={<PlusSmall size={24} />}
         iconOnly
         disabled={disabled}
       >

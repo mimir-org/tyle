@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, SwitchHorizontal } from "@styled-icons/heroicons-outline";
+import { ArrowLeft, ArrowRight, ArrowsRightLeft } from "@styled-icons/heroicons-outline";
 import { NodeTerminalItem } from "common/types/nodeTerminalItem";
 import { Td } from "complib/data-display";
 import { Flexbox } from "complib/layouts";
@@ -16,7 +16,7 @@ export const TerminalTableDirection = ({ direction }: Pick<NodeTerminalItem, "di
         {direction === "Input" && <ArrowRight color={theme.tyle.color.sys.primary.base} size={directionIconSize} />}
         {direction === "Output" && <ArrowLeft color={theme.tyle.color.sys.primary.base} size={directionIconSize} />}
         {direction === "Bidirectional" && (
-          <SwitchHorizontal color={theme.tyle.color.sys.primary.base} size={directionIconSize} />
+          <ArrowsRightLeft color={theme.tyle.color.sys.primary.base} size={directionIconSize} />
         )}
         {direction}
       </Flexbox>

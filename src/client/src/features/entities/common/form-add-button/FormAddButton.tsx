@@ -1,4 +1,4 @@
-import { PlusSm } from "@styled-icons/heroicons-outline";
+import { PlusSmall } from "@styled-icons/heroicons-outline";
 import { Button } from "complib/buttons";
 
 interface FormAddButtonProps {
@@ -14,7 +14,7 @@ interface FormAddButtonProps {
  * @constructor
  */
 export const FormAddButton = ({ buttonText, onClick }: FormAddButtonProps) => (
-  <Button icon={<PlusSm />} iconOnly onClick={onClick}>
+  <Button icon={<PlusSmall />} iconOnly onClick={onClick}>
     {buttonText}
   </Button>
 );
