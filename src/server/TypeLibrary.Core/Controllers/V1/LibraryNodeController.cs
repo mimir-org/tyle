@@ -151,9 +151,10 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <summary>
         /// Update node
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="nodeAm"></param>
         /// <returns>NodeLibCm</returns>
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

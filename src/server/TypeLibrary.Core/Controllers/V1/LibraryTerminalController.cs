@@ -145,9 +145,10 @@ namespace TypeLibrary.Core.Controllers.V1
         /// <summary>
         /// Update terminal
         /// </summary>
+        /// <param name="id">The id of the terminal that should be updated</param>
         /// <param name="terminal">The terminal that should be updated</param>
         /// <returns>TerminalLibCm</returns>
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
