@@ -37,7 +37,7 @@ namespace Mimirorg.Common.Middleware
 
                 if (path.Value != null && IsImagePath(path) && path.Value.Contains(PathSymbolCondition))
                 {
-                    var id = Path.GetFileName(path).Split(".")[0];
+                    var id = int.Parse(Path.GetFileName(path).Split(".")[0]);
                     var symbol = await dataProvider.GetSymbolDataAsync(id);
                     await CreateResponse(symbol, path, context);
                 }

@@ -14,7 +14,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         {
         }
 
-        public async Task<string> GetSymbolDataAsync(string id)
+        public async Task<string> GetSymbolDataAsync(int id)
         {
             var symbol = await GetAsync(id);
             return symbol?.Data;
