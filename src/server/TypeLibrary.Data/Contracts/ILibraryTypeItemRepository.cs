@@ -7,7 +7,7 @@ namespace TypeLibrary.Data.Contracts
     public interface ILibraryTypeItemRepository
     {
         Task<IEnumerable<NodeLibCm>> GetNodes(string searchString = null);
-        Task<T> GetLibraryItem<T>(string id) where T : class, new();
+        Task<T> GetLibraryItem<T>(int id) where T : class, new();
         void ClearAllChangeTracker();
     }
 }

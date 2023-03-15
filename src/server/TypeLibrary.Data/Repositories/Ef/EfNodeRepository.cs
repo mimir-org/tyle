@@ -49,7 +49,7 @@ namespace TypeLibrary.Data.Repositories.Ef
             if (ids == null)
                 return 0;
 
-            var idList = ids.ConvertToString();
+            var idList = string.Join(",", ids.Select(i => i.ToString()));
 
             var procParams = new Dictionary<string, object>
             {

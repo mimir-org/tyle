@@ -29,7 +29,7 @@ namespace TypeLibrary.Data.Repositories.Application
             return Task.FromResult(mappedItems);
         }
 
-        public async Task<T> GetLibraryItem<T>(string id) where T : class, new()
+        public async Task<T> GetLibraryItem<T>(int id) where T : class, new()
         {
             if (typeof(NodeLibCm).IsAssignableFrom(typeof(T)))
             {
