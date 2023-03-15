@@ -197,7 +197,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("FirstVersionId");
 
                     b.Property<string>("Iri")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("Iri");
