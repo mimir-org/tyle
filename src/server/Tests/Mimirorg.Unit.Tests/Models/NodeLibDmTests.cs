@@ -31,7 +31,7 @@ namespace Mimirorg.Test.Unit.Models
             var dummy = _fixture.CreateNodeTestData();
 
             // Reset changes
-            dummy.am.NodeTerminals = dummy.am.NodeTerminals.Where(x => x.Id != $"123-{ConnectorDirection.Input}".CreateMd5()).ToList();
+            dummy.am.NodeTerminals = dummy.am.NodeTerminals.Where(x => x.TerminalId != 123).ToList();
             dummy.am.SelectedAttributePredefined = dummy.am.SelectedAttributePredefined.Where(x => x.Key != "123").ToList();
 
             var status = dummy.dm.HasIllegalChanges(dummy.am);
@@ -48,7 +48,7 @@ namespace Mimirorg.Test.Unit.Models
             dummy.am.RdsName = "x";
             dummy.am.RdsCode = "x";
             dummy.am.Aspect = Aspect.NotSet;
-            dummy.am.ParentId = "x";
+            dummy.am.ParentId = 1;
 
             var status = dummy.dm.HasIllegalChanges(dummy.am);
             Assert.False(status.IsValid);
@@ -62,7 +62,7 @@ namespace Mimirorg.Test.Unit.Models
 
             // Reset changes
             //dummy.am.AttributeIdList.Remove("555");
-            dummy.am.NodeTerminals = dummy.am.NodeTerminals.Where(x => x.Id != $"555-{ConnectorDirection.Input}".CreateMd5()).ToList();
+            dummy.am.NodeTerminals = dummy.am.NodeTerminals.Where(x => x.TerminalId != 555).ToList();
             dummy.am.SelectedAttributePredefined = dummy.am.SelectedAttributePredefined.Where(x => x.Key != "555").ToList();
 
             var status = dummy.dm.CalculateVersionStatus(dummy.am);
@@ -76,7 +76,7 @@ namespace Mimirorg.Test.Unit.Models
 
             // Reset changes
             //dummy.am.AttributeIdList.Remove("555");
-            dummy.am.NodeTerminals = dummy.am.NodeTerminals.Where(x => x.Id != $"555-{ConnectorDirection.Input}".CreateMd5()).ToList();
+            dummy.am.NodeTerminals = dummy.am.NodeTerminals.Where(x => x.TerminalId != 555).ToList();
             dummy.am.SelectedAttributePredefined = dummy.am.SelectedAttributePredefined.Where(x => x.Key != "555").ToList();
 
             // Trigger minor

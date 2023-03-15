@@ -87,14 +87,14 @@ namespace Mimirorg.Test.Setup.Fixtures
                         ConnectorDirection = ConnectorDirection.Input,
                         MinQuantity = 1,
                         MaxQuantity = int.MaxValue,
-                        TerminalId = "123"
+                        TerminalId = 123
                     },
                     new()
                     {
                         ConnectorDirection = ConnectorDirection.Input,
                         MinQuantity = 1,
                         MaxQuantity = int.MaxValue,
-                        TerminalId = "555"
+                        TerminalId = 555
                     }
                 },
                 SelectedAttributePredefined = new List<SelectedAttributePredefinedLibAm>
@@ -108,16 +108,13 @@ namespace Mimirorg.Test.Setup.Fixtures
                         Key = "555"
                     }
                 },
-                ParentId = "123",
+                ParentId = 123,
                 TypeReferences = typeRefs
             };
 
-            var id = $"AA-AA-{Aspect.Function}-1.0".CreateMd5();
-            var terminalId = $"123-{ConnectorDirection.Input}".CreateMd5();
-
             var nodeLibDm = new NodeLibDm
             {
-                Id = $"AA-AA-{Aspect.Function}-1.0".CreateMd5(),
+                Id = 68313,
                 Name = "AA",
                 RdsName = "AA",
                 RdsCode = "AA",
@@ -130,8 +127,8 @@ namespace Mimirorg.Test.Setup.Fixtures
                         ConnectorDirection = ConnectorDirection.Input,
                         MinQuantity = 1,
                         MaxQuantity = int.MaxValue,
-                        TerminalId = "123",
-                        Id = $"{terminalId}-{id}".CreateMd5()
+                        TerminalId = 123,
+                        Id = 74853
                     }
                 },
                 SelectedAttributePredefined = new List<SelectedAttributePredefinedLibDm>
@@ -141,7 +138,7 @@ namespace Mimirorg.Test.Setup.Fixtures
                         Key = "123"
                     }
                 },
-                ParentId = "123",
+                ParentId = 123,
                 TypeReferences = typeRefs.ConvertToString()
             };
 

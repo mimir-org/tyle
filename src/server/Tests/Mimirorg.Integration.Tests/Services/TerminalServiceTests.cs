@@ -21,7 +21,7 @@ namespace Mimirorg.Test.Integration.Services
             var terminalAm = new TerminalLibAm
             {
                 Name = "TestTerminal1",
-                ParentId = "1234",
+                ParentId = 1234,
                 TypeReferences = null,
                 Color = "#123456",
                 Description = "Description1",
@@ -63,7 +63,7 @@ namespace Mimirorg.Test.Integration.Services
             var terminalAm = new TerminalLibAm
             {
                 Name = "TestTerminal2",
-                ParentId = "1234",
+                ParentId = 1234,
                 TypeReferences = new List<TypeReferenceAm>
                 {
                     new()
@@ -87,7 +87,6 @@ namespace Mimirorg.Test.Integration.Services
 
             Assert.NotNull(terminalCm);
             Assert.True(terminalCm.State == State.Draft);
-            Assert.Equal(terminalAm.Id, terminalCm.Id);
             Assert.Equal(terminalAm.ParentId, terminalCm.ParentId);
 
             Assert.Equal(terminalAm.TypeReferences.First().Iri, terminalCm.TypeReferences.First().Iri);
@@ -120,7 +119,7 @@ namespace Mimirorg.Test.Integration.Services
             var terminalAm = new TerminalLibAm
             {
                 Name = "TestTerminal3",
-                ParentId = "1234",
+                ParentId = 1234,
                 TypeReferences = null,
                 Color = "#123456",
                 Description = "Description v1.0",
@@ -133,7 +132,7 @@ namespace Mimirorg.Test.Integration.Services
 
             terminalAm.Description = "Description v1.1";
 
-            var terminalCmUpdated = await terminalService.Update(terminalAm);
+            var terminalCmUpdated = await terminalService.Update(terminalLibCm.Id, terminalAm);
 
             Assert.True(terminalLibCm?.Description == "Description v1.0");
             Assert.True(terminalLibCm.Version == "1.0");
