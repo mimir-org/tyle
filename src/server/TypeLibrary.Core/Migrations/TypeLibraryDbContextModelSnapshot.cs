@@ -104,16 +104,12 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("LogTypeValue");
 
-                    b.Property<string>("ObjectFirstVersionId")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
+                    b.Property<int>("ObjectFirstVersionId")
+                        .HasColumnType("int")
                         .HasColumnName("ObjectFirstVersionId");
 
-                    b.Property<string>("ObjectId")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
+                    b.Property<int>("ObjectId")
+                        .HasColumnType("int")
                         .HasColumnName("ObjectId");
 
                     b.Property<string>("ObjectName")
@@ -157,10 +153,12 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("TypeLibrary.Data.Models.NodeLibDm", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Aspect")
                         .IsRequired()
@@ -173,7 +171,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("Attributes");
 
                     b.Property<int>("CompanyId")
-                        .HasMaxLength(127)
                         .HasColumnType("int")
                         .HasColumnName("CompanyId");
 
@@ -195,10 +192,8 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(511)")
                         .HasColumnName("Description");
 
-                    b.Property<string>("FirstVersionId")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
+                    b.Property<int>("FirstVersionId")
+                        .HasColumnType("int")
                         .HasColumnName("FirstVersionId");
 
                     b.Property<string>("Iri")
@@ -213,9 +208,8 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Name");
 
-                    b.Property<string>("ParentId")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int")
                         .HasColumnName("ParentId");
 
                     b.Property<string>("PurposeName")
@@ -275,10 +269,12 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("TypeLibrary.Data.Models.NodeTerminalLibDm", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ConnectorDirection")
                         .IsRequired()
@@ -298,11 +294,11 @@ namespace TypeLibrary.Core.Migrations
                         .HasDefaultValue(1)
                         .HasColumnName("MinQuantity");
 
-                    b.Property<string>("NodeId")
-                        .HasColumnType("nvarchar(127)");
+                    b.Property<int>("NodeId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("TerminalId")
-                        .HasColumnType("nvarchar(127)");
+                    b.Property<int>("TerminalId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -315,10 +311,12 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("TypeLibrary.Data.Models.SymbolLibDm", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
@@ -363,10 +361,12 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Attributes")
                         .HasColumnType("nvarchar(max)")
@@ -376,7 +376,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CompanyId")
-                        .HasMaxLength(127)
                         .HasColumnType("int")
                         .HasColumnName("CompanyId");
 
@@ -393,10 +392,8 @@ namespace TypeLibrary.Core.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FirstVersionId")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
+                    b.Property<int>("FirstVersionId")
+                        .HasColumnType("int")
                         .HasColumnName("FirstVersionId");
 
                     b.Property<string>("Iri")
@@ -410,9 +407,8 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Name");
 
-                    b.Property<string>("ParentId")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int")
                         .HasColumnName("ParentId");
 
                     b.Property<string>("State")
@@ -457,12 +453,14 @@ namespace TypeLibrary.Core.Migrations
                     b.HasOne("TypeLibrary.Data.Models.NodeLibDm", "Node")
                         .WithMany("NodeTerminals")
                         .HasForeignKey("NodeId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", "Terminal")
                         .WithMany("TerminalNodes")
                         .HasForeignKey("TerminalId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Node");
 
