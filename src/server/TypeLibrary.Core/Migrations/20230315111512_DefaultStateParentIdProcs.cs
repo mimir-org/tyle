@@ -17,10 +17,10 @@ namespace TypeLibrary.Core.Migrations
                     DECLARE @Sql NVARCHAR(MAX);
                     DECLARE @SqlSelect NVARCHAR(MAX);
 
-                    SET @Sql = N'UPDATE ' + QUOTENAME(@TableName) + N' SET State = @State WHERE Id IN (SELECT CAST(value AS INT) FROM STRING_SPLIT(@IdList, '',''))';
-                    SET @SqlSelect = N'SELECT COUNT(*) AS Number FROM ' + QUOTENAME(@TableName) + N' WHERE State = @State';
+                    SET @Sql = N'UPDATE ' + QUOTENAME(@TableName) + N' SET State = ''' + @State + N''' WHERE Id IN (SELECT CAST(value AS INT) FROM STRING_SPLIT(''' + @IdList + N''', '',''));';
+                    SET @SqlSelect = N'SELECT COUNT(*) AS Number FROM ' + QUOTENAME(@TableName) + N' WHERE State = ''' + @State + N''';';
 
-                    EXECUTE sp_executesql @Sql, N'@State VARCHAR(31)', @State = @State;
+                    EXECUTE sp_executesql @Sql;
 
                     EXECUTE sp_executesql @SqlSelect;
 
