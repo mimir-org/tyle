@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 export const useTerminalQuery = () => {
   const { id } = useParams();
-  return useGetTerminal(id);
+  return useGetTerminal(id ? Number.parseInt(id) : 0);
 };
 
 export const useTerminalMutation = (mode?: TerminalFormMode) => {

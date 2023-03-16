@@ -12,14 +12,14 @@ import {
 } from "features/settings/common/approval-card/card-form/ApprovalCardForm.helpers";
 import { approvalSchema } from "features/settings/common/approval-card/card-form/approvalSchema";
 import { FormApproval } from "features/settings/common/approval-card/card-form/types/formApproval";
-import { Flexbox } from "../../../../../complib/layouts/Flexbox";
-import { theme } from "../../../../../complib/core/theme/theme";
+import { Flexbox } from "../../../../../complib/layouts";
+import { theme } from "../../../../../complib/core";
 
 export interface ApprovalCardFormProps {
   item: ApprovalCm;
   formId?: string;
   onSubmit?: () => void;
-  onReject?: (id: string, state: State, objectType: string) => void;
+  onReject?: (id: number, state: State, objectType: string) => void;
   showSubmitButton?: boolean;
 }
 

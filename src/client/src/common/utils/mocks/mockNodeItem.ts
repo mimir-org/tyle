@@ -6,7 +6,7 @@ import { mockNodeTerminalItem } from "common/utils/mocks/mockNodeTerminalItem";
 import { LibraryIcon } from "complib/assets";
 
 export const mockNodeItem = (): NodeItem => ({
-  id: faker.random.numeric(),
+  id: Number.parseInt(faker.random.numeric()),
   name: faker.commerce.productName(),
   description: faker.commerce.productDescription(),
   terminals: [...Array(7)].map((_) => mockNodeTerminalItem()),

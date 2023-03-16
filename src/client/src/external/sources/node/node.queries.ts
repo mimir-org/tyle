@@ -5,12 +5,12 @@ import { nodeApi } from "external/sources/node/node.api";
 const keys = {
   all: ["nodes"] as const,
   lists: () => [...keys.all, "list"] as const,
-  node: (id?: string) => [...keys.lists(), id] as const,
+  node: (id?: number) => [...keys.lists(), id] as const,
 };
 
 export const useGetNodes = () => useQuery(keys.lists(), nodeApi.getLibraryNodes);
 
-export const useGetNode = (id?: string) =>
+export const useGetNode = (id?: number) =>
   useQuery(keys.node(id), () => nodeApi.getLibraryNode(id), { enabled: !!id, retry: false });
 
 export const useCreateNode = () => {
@@ -32,7 +32,7 @@ export const useUpdateNode = () => {
 export const usePatchNodeState = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: { id: string; state: State }) => nodeApi.patchLibraryNodeState(item.id, item.state), {
+  return useMutation((item: { id: number; state: State }) => nodeApi.patchLibraryNodeState(item.id, item.state), {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };
@@ -40,7 +40,7 @@ export const usePatchNodeState = () => {
 export const usePatchNodeStateReject = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: { id: string }) => nodeApi.patchLibraryNodeStateReject(item.id), {
+  return useMutation((item: { id: number }) => nodeApi.patchLibraryNodeStateReject(item.id), {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };

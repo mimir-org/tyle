@@ -23,8 +23,8 @@ interface AboutProps {
 export const About = ({ selected }: AboutProps) => {
   const { t } = useTranslation("explore");
 
-  const nodeQuery = useGetNode(selected?.type == "node" ? selected?.id : "");
-  const terminalQuery = useGetTerminal(selected?.type == "terminal" ? selected?.id : "");
+  const nodeQuery = useGetNode(selected?.type === "node" ? selected?.id : undefined);
+  const terminalQuery = useGetTerminal(selected?.type == "terminal" ? selected?.id : undefined);
 
   const [showLoader, setShowLoader] = useState(true);
 
