@@ -22,10 +22,10 @@ export const useCreateTerminal = () => {
   });
 };
 
-export const useUpdateTerminal = () => {
+export const useUpdateTerminal = (id?: number) => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: TerminalLibAm) => terminalApi.putTerminal(item), {
+  return useMutation((item: TerminalLibAm) => terminalApi.putTerminal(item, id), {
     onSuccess: (unit) => queryClient.invalidateQueries(keys.terminal(unit.id)),
   });
 };

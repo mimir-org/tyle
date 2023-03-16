@@ -13,8 +13,8 @@ export const nodeApi = {
   postLibraryNode(item: NodeLibAm) {
     return apiClient.post<NodeLibCm>(_basePath, item).then((r) => r.data);
   },
-  putLibraryNode(item: NodeLibAm) {
-    return apiClient.put<NodeLibCm>(_basePath, item).then((r) => r.data);
+  putLibraryNode(item: NodeLibAm, id?: number) {
+    return apiClient.put<NodeLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
   },
   patchLibraryNodeState(id: number, state: State) {
     return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);

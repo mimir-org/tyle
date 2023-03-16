@@ -21,10 +21,10 @@ export const useCreateNode = () => {
   });
 };
 
-export const useUpdateNode = () => {
+export const useUpdateNode = (id?: number) => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: NodeLibAm) => nodeApi.putLibraryNode(item), {
+  return useMutation((item: NodeLibAm) => nodeApi.putLibraryNode(item, id), {
     onSuccess: (unit) => queryClient.invalidateQueries(keys.node(unit.id)),
   });
 };

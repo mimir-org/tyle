@@ -47,7 +47,8 @@ export const NodeForm = ({ defaultValues = createEmptyFormNodeLib(), mode }: Nod
   const mapper = (source: NodeLibCm) => mapNodeLibCmToClientModel(source, mode);
   const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
-  const mutation = useNodeMutation(mode);
+  const mutation = useNodeMutation(query.data?.id, mode);
+
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 

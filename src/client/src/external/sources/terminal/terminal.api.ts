@@ -13,8 +13,8 @@ export const terminalApi = {
   postTerminal(item: TerminalLibAm) {
     return apiClient.post<TerminalLibCm>(_basePath, item).then((r) => r.data);
   },
-  putTerminal(item: TerminalLibAm) {
-    return apiClient.put<TerminalLibCm>(_basePath, item).then((r) => r.data);
+  putTerminal(item: TerminalLibAm, id?: number) {
+    return apiClient.put<TerminalLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
   },
   patchTerminalState(id: number, state: State) {
     return apiClient.patch<TerminalLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
