@@ -36,9 +36,9 @@ export const FilterMenu = ({ name, filterGroups, ...delegated }: FilterMenuProps
         <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xl} width={"260px"}>
           <SearchField placeholder={"Search"} value={filterQuery} onChange={(e) => setFilterQuery(e.target.value)} />
           <Accordion>
-            {filterGroups.map((x) => (
+            {filterGroups.map((x, i) => (
               <FilterMenuGroup
-                key={x.name}
+                key={`${i},${x.name}`}
                 name={x.name}
                 filters={filterAvailableFilters(filterQuery, x.filters)}
                 {...delegated}

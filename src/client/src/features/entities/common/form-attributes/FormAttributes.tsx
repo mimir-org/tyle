@@ -76,7 +76,7 @@ export const FormAttributes = ({
           return (
             attribute && (
               <InfoItemButton
-                key={field.value.id}
+                key={`${index},${field.value.id}`}
                 {...register(index)}
                 {...attribute}
                 actionable={canRemoveAttributes}

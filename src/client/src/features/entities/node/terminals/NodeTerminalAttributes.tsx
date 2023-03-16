@@ -22,7 +22,7 @@ export const NodeTerminalAttributes = ({ attributes }: Pick<TerminalLibCm, "attr
             gap={theme.tyle.spacing.base}
             minHeight={"40px"}
           >
-            {attributes.map((x) => x && <InfoItemButton key={x.id} {...mapAttributeLibCmToInfoItem(x)} />)}
+            {attributes.map((x, i) => x && <InfoItemButton key={`${i},${x.id}`} {...mapAttributeLibCmToInfoItem(x)} />)}
           </Box>
         </FormField>
       )}

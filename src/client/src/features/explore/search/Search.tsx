@@ -99,7 +99,7 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
       {showResults && user && (
         <ItemList>
           {results.map((item) => (
-            <Fragment key={item.id}>
+            <Fragment key={item.id + item.kind}>
               <ConditionalNodeSearchItem
                 item={item}
                 isSelected={item.id == selected?.id}

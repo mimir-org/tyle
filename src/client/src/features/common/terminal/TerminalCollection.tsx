@@ -49,9 +49,9 @@ const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescript
     <Box display={"flex"} gap={theme.tyle.spacing.l} flexDirection={"column"} maxWidth={"250px"}>
       <Text variant={"title-small"}>{t("terminal.summary.title")}</Text>
       <Box display={"flex"} gap={theme.tyle.spacing.l} flexDirection={"column"} maxHeight={"250px"} overflow={"auto"}>
-        {terminals.map((x) => (
+        {terminals.map((x, i) => (
           <TerminalDescription
-            key={x.name}
+            key={i}
             name={x.name}
             maxQuantity={x.maxQuantity}
             color={x.color}

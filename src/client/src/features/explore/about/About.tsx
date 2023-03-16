@@ -41,9 +41,9 @@ export const About = ({ selected }: AboutProps) => {
     <ExploreSection title={t("about.title")}>
       {showLoader && <Loader />}
       {showPlaceHolder && <AboutPlaceholder text={t("about.placeholders.item")} />}
-      {showNodePanel && <NodePanel key={nodeQuery.data.id} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />}
+      {showNodePanel && <NodePanel key={nodeQuery.data.id + nodeQuery.data.kind} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />}
       {showTerminalPanel && (
-        <TerminalPanel key={terminalQuery.data.id} {...mapTerminalLibCmToTerminalItem(terminalQuery.data)} />
+        <TerminalPanel key={terminalQuery.data.id + terminalQuery.data.kind} {...mapTerminalLibCmToTerminalItem(terminalQuery.data)} />
       )}
     </ExploreSection>
   );

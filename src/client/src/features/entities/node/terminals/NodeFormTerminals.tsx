@@ -37,7 +37,7 @@ export const NodeFormTerminals = ({ canAddTerminals = true, canRemoveTerminals =
     >
       {terminalFields.fields.map((field, index) => (
         <NodeTerminal
-          key={field.id}
+          key={`${index},${field.id}`}
           index={index}
           control={control}
           field={field}

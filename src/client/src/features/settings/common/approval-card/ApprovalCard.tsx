@@ -33,7 +33,7 @@ export const ApprovalCard = ({ item, selected, ...delegated }: ApprovalCardProps
 
   return (
     <MotionApprovalCardContainer
-      key={item.id}
+      key={item.id + item.objectType}
       ref={cardRef}
       variant={selected ? "selected" : "filled"}
       layout={"position"}
