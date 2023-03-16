@@ -49,7 +49,7 @@ describe("nodeSchema tests", () => {
     const nodeWithNegativeTerminalMinQuantity: Partial<FormNodeLib> = {
       nodeTerminals: [
         {
-          terminalId: "",
+          terminalId: 0,
           hasMaxQuantity: false,
           minQuantity: -1,
           maxQuantity: 1,
@@ -67,7 +67,7 @@ describe("nodeSchema tests", () => {
     const nodeWithNegativeTerminalMinQuantity: Partial<FormNodeLib> = {
       nodeTerminals: [
         {
-          terminalId: "",
+          terminalId: 0,
           hasMaxQuantity: true,
           minQuantity: 1,
           maxQuantity: -1,
@@ -85,7 +85,7 @@ describe("nodeSchema tests", () => {
     const nodeWithEmptyTerminals: Partial<FormNodeLib> = {
       nodeTerminals: [
         {
-          terminalId: "",
+          terminalId: 0,
           minQuantity: 1,
           maxQuantity: 10,
           connectorDirection: ConnectorDirection.Input,
@@ -100,14 +100,14 @@ describe("nodeSchema tests", () => {
     const nodeWithDuplicateTerminals: Partial<FormNodeLib> = {
       nodeTerminals: [
         {
-          terminalId: "terminal_a",
+          terminalId: 0,
           minQuantity: 1,
           maxQuantity: 10,
           connectorDirection: ConnectorDirection.Input,
           hasMaxQuantity: true,
         },
         {
-          terminalId: "terminal_a",
+          terminalId: 0,
           minQuantity: 1,
           maxQuantity: 10,
           connectorDirection: ConnectorDirection.Input,

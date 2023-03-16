@@ -62,6 +62,6 @@ const emptyNodeLibAm: NodeLibAm = {
   description: "",
   symbol: "",
   typeReferences: [],
-  parentId: "",
+  parentId: 0,
   version: "1.0",
 };

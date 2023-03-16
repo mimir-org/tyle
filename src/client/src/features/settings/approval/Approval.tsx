@@ -26,7 +26,7 @@ export const Approval = () => {
     }, 500);
   };
 
-  const onReject = (id: string, state: State, objectType: string) => {
+  const onReject = (id: number, state: State, objectType: string) => {
     const data: ApprovalDataCm = { id: id, state: state };
 
     switch (objectType) {
