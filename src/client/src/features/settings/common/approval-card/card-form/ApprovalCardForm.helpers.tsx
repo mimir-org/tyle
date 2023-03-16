@@ -14,27 +14,27 @@ import { usePatchTerminalState } from "external/sources/terminal/terminal.querie
 import { usePatchNodeState } from "external/sources/node/node.queries";
 
 /**
- * Shows a toast while a approval is sent to server.
+ * Shows a toast while an approval is sent to server.
  * Shows an undo action on the toast after the approval is sent.
  *
- * @param oldState state that the approval had before beeing approved
+ * @param oldState state that the approval had before being approved
  */
 export const useApprovalToasts = (oldState?: Option<State>) => {
   const theme = useTheme();
   const { t } = useTranslation("settings");
   const undoToast = useUndoApprovalToast(oldState);
-  const patcMutationNode = usePatchNodeState();
-  const patcMutationTerminal = usePatchTerminalState();
+  const patchMutationNode = usePatchNodeState();
+  const patchMutationTerminal = usePatchTerminalState();
 
   let mutationPromise = {} as Promise<ApprovalDataCm>;
 
   return async (name: number, submission: FormApproval) => {
     switch (submission.objectType) {
       case "Node":
-        mutationPromise = patcMutationNode.mutateAsync(mapFormApprovalToApiModel(submission));
+        mutationPromise = patchMutationNode.mutateAsync(mapFormApprovalToApiModel(submission));
         break;
       case "Terminal":
-        mutationPromise = patcMutationTerminal.mutateAsync(mapFormApprovalToApiModel(submission));
+        mutationPromise = patchMutationTerminal.mutateAsync(mapFormApprovalToApiModel(submission));
         break;
       default:
         throw new Error("Can't");
@@ -73,12 +73,12 @@ export const useApprovalToasts = (oldState?: Option<State>) => {
  * Reverts the approval.
  * Reverts back to the old approval.
  *
- * @param oldState state that the approval had before beeing approved
+ * @param oldState state that the approval had before being approved
  */
 const useUndoApprovalToast = (oldState?: Option<State>) => {
   const { t } = useTranslation("settings");
-  const patcMutationNode = usePatchNodeState();
-  const patcMutationTerminal = usePatchTerminalState();
+  const patchMutationNode = usePatchNodeState();
+  const patchMutationTerminal = usePatchTerminalState();
   const shouldRevertToOldApproval = !!oldState;
 
   return (name: number, submission: FormApproval) => {
@@ -87,10 +87,10 @@ const useUndoApprovalToast = (oldState?: Option<State>) => {
 
     switch (submission.objectType) {
       case "Node":
-        mutationPromise = patcMutationNode.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
+        mutationPromise = patchMutationNode.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
         break;
       case "Terminal":
-        mutationPromise = patcMutationTerminal.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
+        mutationPromise = patchMutationTerminal.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
         break;
       default:
         throw new Error("Can't");
