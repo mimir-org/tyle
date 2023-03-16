@@ -88,6 +88,9 @@ namespace TypeLibrary.Services.Services
 
             dm.State = State.Draft;
 
+            // TODO: This is a temporary fix, since the TS types are not built correctly for nullable ints
+            if (dm.ParentId == 0) dm.ParentId = null;
+
             var createdTerminal = await _terminalRepository.Create(dm);
             _terminalRepository.ClearAllChangeTrackers();
             await _logService.CreateLog(createdTerminal, LogType.State, State.Draft.ToString());
