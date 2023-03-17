@@ -83,8 +83,8 @@ namespace TypeLibrary.Data.Models
 
             NodeTerminals ??= new List<NodeTerminalLibDm>();
             other.NodeTerminals ??= new List<NodeTerminalLibAm>();
-            var otherTerminals = other.NodeTerminals.Select(x => x.TerminalId);
-            if (NodeTerminals.Select(y => y.Id).Any(id => otherTerminals.Select(x => x).All(x => x != id)))
+            var otherTerminals = other.NodeTerminals.Select(x => (x.TerminalId, x.ConnectorDirection));
+            if (NodeTerminals.Select(y => (y.TerminalId, y.ConnectorDirection)).Any(identifier => otherTerminals.Select(x => x).All(x => x != identifier)))
             {
                 validation.AddNotAllowToChange(nameof(NodeTerminals), "It is not allowed to remove items from terminals");
             }
@@ -142,8 +142,8 @@ namespace TypeLibrary.Data.Models
             // Node Terminals
             NodeTerminals ??= new List<NodeTerminalLibDm>();
             other.NodeTerminals ??= new List<NodeTerminalLibAm>();
-            var otherTerminals = other.NodeTerminals.Select(x => x.TerminalId);
-            if (!NodeTerminals.Select(x => x.Id).SequenceEqual(otherTerminals))
+            var otherTerminals = other.NodeTerminals.Select(x => (x.TerminalId, x.ConnectorDirection));
+            if (!NodeTerminals.Select(x => (x.TerminalId, x.ConnectorDirection)).SequenceEqual(otherTerminals))
                 major = true;
 
             // Attribute Predefined
