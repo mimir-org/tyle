@@ -28,7 +28,7 @@ export const useApprovalToasts = (oldState?: Option<State>) => {
 
   let mutationPromise = {} as Promise<ApprovalDataCm>;
 
-  return async (name: number, submission: FormApproval) => {
+  return async (id: number, submission: FormApproval) => {
     switch (submission.objectType) {
       case "Node":
         mutationPromise = patchMutationNode.mutateAsync(mapFormApprovalToApiModel(submission));
@@ -49,7 +49,7 @@ export const useApprovalToasts = (oldState?: Option<State>) => {
             <Text variant={"label-large"} mr={theme.tyle.spacing.base}>
               {t("common.approval.processing.success")}
             </Text>
-            <Button variant={"outlined"} onClick={() => undoToast(name, submission)}>
+            <Button variant={"outlined"} onClick={() => undoToast(id, submission)}>
               {t("common.approval.undo.action")}
             </Button>
           </Flexbox>
