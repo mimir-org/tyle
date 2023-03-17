@@ -102,13 +102,13 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
             <Fragment key={item.id + item.kind}>
               <ConditionalNodeSearchItem
                 item={item}
-                isSelected={item.id == selected?.id}
+                isSelected={item.id === selected?.id && selected.type === "node"}
                 setSelected={() => setSelected({ id: item.id, type: "node" })}
                 user={user}
               />
               <ConditionalTerminalSearchItem
                 item={item}
-                isSelected={item.id == selected?.id}
+                isSelected={item.id === selected?.id && selected.type === "terminal"}
                 setSelected={() => setSelected({ id: item.id, type: "terminal" })}
                 user={user}
               />
