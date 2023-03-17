@@ -4,11 +4,11 @@ import { useParams } from "react-router-dom";
 
 export const useTerminalQuery = () => {
   const { id } = useParams();
-  return useGetTerminal(id);
+  return useGetTerminal(id ? Number.parseInt(id) : 0);
 };
 
-export const useTerminalMutation = (mode?: TerminalFormMode) => {
+export const useTerminalMutation = (id?: number, mode?: TerminalFormMode) => {
   const createMutation = useCreateTerminal();
-  const updateMutation = useUpdateTerminal();
+  const updateMutation = useUpdateTerminal(id);
   return mode === "edit" ? updateMutation : createMutation;
 };

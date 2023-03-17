@@ -169,6 +169,7 @@ export const NodeFormBaseFields = ({ mode }: NodeFormBaseFieldsProps) => {
                 onChange={(x) => {
                   onChange(x?.id);
                 }}
+                isDisabled={mode === "edit"}
                 value={companies.find((x) => x.id === value)}
               />
             )}

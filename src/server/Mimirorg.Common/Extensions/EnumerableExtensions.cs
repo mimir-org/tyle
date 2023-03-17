@@ -32,7 +32,7 @@ namespace Mimirorg.Common.Extensions
                 .DistinctBy(x => x.FirstVersionId);
         }
 
-        public static T LatestVersionExcludeDeleted<T>(this IEnumerable<T> collection, string firstVersionId) where T : IVersionObject
+        public static T LatestVersionExcludeDeleted<T>(this IEnumerable<T> collection, int firstVersionId) where T : IVersionObject
         {
             return collection
                 .Where(x => x.FirstVersionId == firstVersionId && x.State != State.Deleted)
@@ -40,7 +40,7 @@ namespace Mimirorg.Common.Extensions
                 .FirstOrDefault();
         }
 
-        public static T LatestVersionIncludeDeleted<T>(this IEnumerable<T> collection, string firstVersionId) where T : IVersionObject
+        public static T LatestVersionIncludeDeleted<T>(this IEnumerable<T> collection, int firstVersionId) where T : IVersionObject
         {
             return collection
                 .Where(x => x.FirstVersionId == firstVersionId)

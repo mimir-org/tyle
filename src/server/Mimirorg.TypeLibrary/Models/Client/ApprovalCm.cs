@@ -4,7 +4,7 @@ namespace Mimirorg.TypeLibrary.Models.Client
 {
     public class ApprovalCm
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string ObjectType { get; set; }

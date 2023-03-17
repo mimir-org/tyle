@@ -7,6 +7,6 @@ type SelectedInfoType = "node" | "terminal";
  * @property type describes what type of object the id belongs to
  */
 export interface SelectedInfo {
-  id?: string;
+  id?: number;
   type?: SelectedInfoType;
 }

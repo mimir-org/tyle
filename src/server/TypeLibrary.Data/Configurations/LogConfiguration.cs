@@ -16,8 +16,8 @@ namespace TypeLibrary.Data.Configurations
             builder.HasIndex(x => new { x.ObjectId, x.ObjectFirstVersionId, x.ObjectType, x.LogType }).IsUnique(false);
             builder.ToTable("Log");
             builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
-            builder.Property(p => p.ObjectId).HasColumnName("ObjectId").IsRequired().HasMaxLength(127);
-            builder.Property(p => p.ObjectFirstVersionId).HasColumnName("ObjectFirstVersionId").IsRequired().HasMaxLength(127);
+            builder.Property(p => p.ObjectId).HasColumnName("ObjectId").IsRequired();
+            builder.Property(p => p.ObjectFirstVersionId).HasColumnName("ObjectFirstVersionId").IsRequired();
             builder.Property(p => p.ObjectName).HasColumnName("ObjectName").IsRequired().HasMaxLength(63);
             builder.Property(p => p.ObjectVersion).HasColumnName("ObjectVersion").IsRequired().HasMaxLength(7);
             builder.Property(p => p.ObjectType).HasColumnName("ObjectType").IsRequired().HasMaxLength(63);

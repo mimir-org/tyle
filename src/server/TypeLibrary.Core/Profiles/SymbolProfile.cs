@@ -18,10 +18,10 @@ namespace TypeLibrary.Core.Profiles
         public SymbolProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
         {
             CreateMap<SymbolLibAm, SymbolLibDm>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.TypeReferences, opt => opt.MapFrom(src => src.TypeReferences.ConvertToString()))
-                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => $"{settings.ApplicationSemanticUrl}/symbol/{src.Id}"))
+                .ForMember(dest => dest.Iri, opt => opt.Ignore())
                 .ForMember(dest => dest.Data, opt => opt.MapFrom(src => src.Data))
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? "Unknown" : contextAccessor.GetUserId()))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow));

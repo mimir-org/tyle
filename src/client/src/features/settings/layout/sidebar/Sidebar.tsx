@@ -22,8 +22,8 @@ export const Sidebar = ({ title, groups }: SidebarProps) => {
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.base}>
         {groups.map((group, i) => (
           <Fragment key={i}>
-            {group.links.map((link) => (
-              <SidebarLink key={link.name} to={link.path} selected={location.pathname.includes(link.path)}>
+            {group.links.map((link, i) => (
+              <SidebarLink key={`${i},${link.name}`} to={link.path} selected={location.pathname.includes(link.path)}>
                 {link.name}
               </SidebarLink>
             ))}

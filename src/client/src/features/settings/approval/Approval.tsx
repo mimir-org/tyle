@@ -26,7 +26,7 @@ export const Approval = () => {
     }, 500);
   };
 
-  const onReject = (id: string, state: State, objectType: string) => {
+  const onReject = (id: number, state: State, objectType: string) => {
     const data: ApprovalDataCm = { id: id, state: state };
 
     switch (objectType) {
@@ -50,8 +50,8 @@ export const Approval = () => {
       </Text>
       <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.tyle.spacing.xxxl}>
         {showPlaceholder && <ApprovalPlaceholder text={t("approval.placeholders.emptyApproval")} />}
-        {approvals.data?.map((approval) => (
-          <ApprovalCard key={approval.id} item={approval} onSubmit={onSubmit} onReject={onReject} />
+        {approvals.data?.map((approval, index) => (
+          <ApprovalCard key={`${index},${approval.id}`} item={approval} onSubmit={onSubmit} onReject={onReject} />
         ))}
       </Flexbox>
     </SettingsSection>

@@ -40,7 +40,7 @@ namespace Mimirorg.Test.Unit.Models
             var dummy = _fixture.CreateTerminalTestData();
 
             dummy.am.Name = "x";
-            dummy.am.ParentId = "x";
+            dummy.am.ParentId = 1;
 
             var status = dummy.dm.HasIllegalChanges(dummy.am);
             Assert.False(status.IsValid);

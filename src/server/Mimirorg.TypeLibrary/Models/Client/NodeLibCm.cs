@@ -5,13 +5,13 @@ namespace Mimirorg.TypeLibrary.Models.Client
 {
     public class NodeLibCm
     {
-        public string Id { get; set; }
-        public string ParentId { get; set; }
+        public int Id { get; set; }
+        public int? ParentId { get; set; }
         public string ParentName { get; set; }
         public string ParentIri { get; set; }
         public string Name { get; set; }
         public string Version { get; set; }
-        public string FirstVersionId { get; set; }
+        public int FirstVersionId { get; set; }
         public string Iri { get; set; }
         public ICollection<TypeReferenceCm> TypeReferences { get; set; }
         public string RdsCode { get; set; }

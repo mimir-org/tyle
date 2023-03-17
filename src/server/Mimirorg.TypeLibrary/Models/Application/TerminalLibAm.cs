@@ -23,7 +23,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         /// <remarks>
         /// The parent id is not allowed to change
         /// </remarks>
-        public string ParentId { get; set; }
+        public int? ParentId { get; set; }
 
         /// <summary>
         /// A list of references to other ontologies
@@ -75,14 +75,5 @@ namespace Mimirorg.TypeLibrary.Models.Application
         [Required]
         [Double]
         public string Version { get; set; }
-
-        /// <summary>
-        /// The terminal id
-        /// </summary>
-        /// <remarks>
-        /// The value will be set on server
-        /// </remarks>
-        [TSExclude]
-        public string Id => $"{Name}-{Version}".CreateMd5();
     }
 }

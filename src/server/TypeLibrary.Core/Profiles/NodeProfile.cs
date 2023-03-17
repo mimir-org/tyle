@@ -18,14 +18,14 @@ namespace TypeLibrary.Core.Profiles
         public NodeProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor, ICompanyFactory companyFactory)
         {
             CreateMap<NodeLibAm, NodeLibDm>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => $"{settings.ApplicationSemanticUrl}/aspectnode/{src.Id}"))
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.Iri, opt => opt.Ignore())
                 .ForMember(dest => dest.TypeReferences, opt => opt.MapFrom(src => src.TypeReferences.ConvertToString()))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.RdsCode, opt => opt.MapFrom(src => src.RdsCode))
                 .ForMember(dest => dest.RdsName, opt => opt.MapFrom(src => src.RdsName))
                 .ForMember(dest => dest.PurposeName, opt => opt.MapFrom(src => src.PurposeName))
-                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.ParentId) ? null : src.ParentId))
+                .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
                 .ForMember(dest => dest.Parent, opt => opt.Ignore())
                 .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
                 .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
@@ -35,7 +35,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? "Unknown" : contextAccessor.GetUserId()))
                 .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow))
                 .ForMember(dest => dest.Children, opt => opt.Ignore())
-                .ForMember(dest => dest.NodeTerminals, opt => opt.MapFrom(src => CreateTerminals(src.NodeTerminals, src.Id).ToList()))
+                .ForMember(dest => dest.NodeTerminals, opt => opt.MapFrom(src => CreateTerminals(src.NodeTerminals).ToList()))
                 .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes.ConvertToString()))
                 .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
@@ -78,7 +78,7 @@ namespace TypeLibrary.Core.Profiles
                 .ForMember(dest => dest.UserName, opt => opt.Ignore());
         }
 
-        private static IEnumerable<NodeTerminalLibDm> CreateTerminals(ICollection<NodeTerminalLibAm> terminals, string nodeId)
+        private static IEnumerable<NodeTerminalLibDm> CreateTerminals(ICollection<NodeTerminalLibAm> terminals)
         {
             if (terminals == null || !terminals.Any())
                 yield break;
@@ -103,12 +103,8 @@ namespace TypeLibrary.Core.Profiles
 
             foreach (var item in sortedTerminalTypes)
             {
-                var key = $"{item.Id}-{nodeId}";
-
                 yield return new NodeTerminalLibDm
                 {
-                    Id = key.CreateMd5(),
-                    NodeId = nodeId,
                     TerminalId = item.TerminalId,
                     MinQuantity = item.MinQuantity,
                     MaxQuantity = item.MaxQuantity,

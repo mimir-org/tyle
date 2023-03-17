@@ -46,7 +46,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
   const mapper = (source: TerminalLibCm) => mapTerminalLibCmToFormTerminalLib(source, mode);
   const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
-  const mutation = useTerminalMutation(mode);
+  const mutation = useTerminalMutation(query.data?.id, mode);
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 

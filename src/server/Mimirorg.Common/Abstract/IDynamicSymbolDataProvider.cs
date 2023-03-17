@@ -7,6 +7,6 @@ namespace Mimirorg.Common.Abstract
         /// </summary>
         /// <param name="id">The id that resolves the image symbol</param>
         /// <returns>A base64 string value</returns>
-        Task<string> GetSymbolDataAsync(string id);
+        Task<string> GetSymbolDataAsync(int id);
     }
 }

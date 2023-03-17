@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Extensions;
+using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
@@ -14,10 +16,12 @@ namespace TypeLibrary.Data.Repositories.Ef
 {
     public class EfNodeRepository : GenericRepository<TypeLibraryDbContext, NodeLibDm>, IEfNodeRepository
     {
+        private readonly IApplicationSettingsRepository _settings;
         private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
 
-        public EfNodeRepository(TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
+        public EfNodeRepository(IApplicationSettingsRepository settings, TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
         {
+            _settings = settings;
             _typeLibraryProcRepository = typeLibraryProcRepository;
         }
 
@@ -26,11 +30,8 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// </summary>
         /// <param name="id">The node id</param>
         /// <returns>The company id of given terminal</returns>
-        public async Task<int> HasCompany(string id)
+        public async Task<int> HasCompany(int id)
         {
-            if (string.IsNullOrWhiteSpace(id))
-                return 0;
-
             var procParams = new Dictionary<string, object>
             {
                 {"@TableName", "Node"},
@@ -47,12 +48,12 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// <param name="state">The state to change to</param>
         /// <param name="ids">A list of node id's</param>
         /// <returns>The number of nodes in given state</returns>
-        public async Task<int> ChangeState(State state, ICollection<string> ids)
+        public async Task<int> ChangeState(State state, ICollection<int> ids)
         {
             if (ids == null)
                 return 0;
 
-            var idList = ids.ConvertToString();
+            var idList = string.Join(",", ids.Select(i => i.ToString()));
 
             var procParams = new Dictionary<string, object>
             {
@@ -71,11 +72,8 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// <param name="oldId">Old node parent id</param>
         /// <param name="newId">New node parent id</param>
         /// <returns>The number of nodes with the new parent id</returns>
-        public async Task<int> ChangeParentId(string oldId, string newId)
+        public async Task<int> ChangeParentId(int oldId, int newId)
         {
-            if (string.IsNullOrWhiteSpace(oldId) || string.IsNullOrWhiteSpace(newId))
-                return 0;
-
             var procParams = new Dictionary<string, object>
             {
                 {"@TableName", "Node"},
@@ -92,7 +90,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// </summary>
         /// <param name="id">The id of the node</param>
         /// <returns>True if node exist</returns>
-        public async Task<bool> Exist(string id)
+        public async Task<bool> Exist(int id)
         {
             return await Exist(x => x.Id == id);
         }
@@ -114,7 +112,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// </summary>
         /// <param name="id">The node id</param>
         /// <returns>Node if found</returns>
-        public async Task<NodeLibDm> Get(string id)
+        public async Task<NodeLibDm> Get(int id)
         {
             return await FindBy(x => x.Id == id)
                 .Include(x => x.NodeTerminals)
@@ -132,6 +130,13 @@ namespace TypeLibrary.Data.Repositories.Ef
         {
             await CreateAsync(node);
             await SaveAsync();
+
+            if (node.FirstVersionId == 0) node.FirstVersionId = node.Id;
+            node.Iri = $"{_settings.ApplicationSemanticUrl}/aspectnode/{node.Id}";
+            foreach (var nodeTerminal in node.NodeTerminals)
+                nodeTerminal.NodeId = node.Id;
+            await SaveAsync();
+
             Detach(node);
 
             return node;

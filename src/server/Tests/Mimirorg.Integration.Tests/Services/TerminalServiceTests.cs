@@ -16,26 +16,6 @@ namespace Mimirorg.Test.Integration.Services
         }
 
         [Fact]
-        public async Task Create_Terminal_Returns_MimirorgDuplicateException_When_Already_Exist()
-        {
-            var terminalAm = new TerminalLibAm
-            {
-                Name = "TestTerminal1",
-                ParentId = "1234",
-                TypeReferences = null,
-                Color = "#123456",
-                Description = "Description1",
-                CompanyId = 1,
-                Version = "1.0"
-            };
-
-            var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
-            await terminalService.Create(terminalAm);
-            Task Act() => terminalService.Create(terminalAm);
-            _ = await Assert.ThrowsAsync<MimirorgDuplicateException>(Act);
-        }
-
-        [Fact]
         public async Task Create_Terminal_Create_Terminal_When_Ok_Parameters()
         {
             var newAttribute = new AttributeLibAm
@@ -63,7 +43,7 @@ namespace Mimirorg.Test.Integration.Services
             var terminalAm = new TerminalLibAm
             {
                 Name = "TestTerminal2",
-                ParentId = "1234",
+                ParentId = 1234,
                 TypeReferences = new List<TypeReferenceAm>
                 {
                     new()
@@ -87,7 +67,6 @@ namespace Mimirorg.Test.Integration.Services
 
             Assert.NotNull(terminalCm);
             Assert.True(terminalCm.State == State.Draft);
-            Assert.Equal(terminalAm.Id, terminalCm.Id);
             Assert.Equal(terminalAm.ParentId, terminalCm.ParentId);
 
             Assert.Equal(terminalAm.TypeReferences.First().Iri, terminalCm.TypeReferences.First().Iri);
@@ -120,7 +99,7 @@ namespace Mimirorg.Test.Integration.Services
             var terminalAm = new TerminalLibAm
             {
                 Name = "TestTerminal3",
-                ParentId = "1234",
+                ParentId = 1234,
                 TypeReferences = null,
                 Color = "#123456",
                 Description = "Description v1.0",
@@ -133,7 +112,7 @@ namespace Mimirorg.Test.Integration.Services
 
             terminalAm.Description = "Description v1.1";
 
-            var terminalCmUpdated = await terminalService.Update(terminalAm);
+            var terminalCmUpdated = await terminalService.Update(terminalLibCm.Id, terminalAm);
 
             Assert.True(terminalLibCm?.Description == "Description v1.0");
             Assert.True(terminalLibCm.Version == "1.0");

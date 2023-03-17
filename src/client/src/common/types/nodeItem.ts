@@ -3,7 +3,7 @@ import { NodeTerminalItem } from "common/types/nodeTerminalItem";
 import { StateItem } from "common/types/stateItem";
 
 export interface NodeItem extends StateItem {
-  id: string;
+  id: number;
   name: string;
   description: string;
   img: string;

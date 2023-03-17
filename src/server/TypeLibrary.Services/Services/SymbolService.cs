@@ -39,7 +39,7 @@ namespace TypeLibrary.Services.Services
         {
             var dataList = _mapper.Map<List<SymbolLibDm>>(symbolLibAmList);
             var existing = _symbolRepository.Get().ToList();
-            var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Id)).ToList();
+            var notExisting = dataList.Where(x => existing.All(y => y.Name != x.Name)).ToList();
 
             if (!notExisting.Any())
                 return;

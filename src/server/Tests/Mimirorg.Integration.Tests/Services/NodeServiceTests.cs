@@ -16,27 +16,6 @@ namespace Mimirorg.Test.Integration.Services
         }
 
         [Fact]
-        public async Task Create_Node_Returns_MimirorgDuplicateException_When_Already_Exist()
-        {
-            var nodeAm = new NodeLibAm
-            {
-                Name = "Node1",
-                RdsName = "RdsName",
-                RdsCode = "RdsCode",
-                PurposeName = "PurposeName",
-                Description = "Description",
-                Aspect = Aspect.NotSet,
-                CompanyId = 1,
-                Version = "1.0"
-            };
-
-            var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
-            await nodeService.Create(nodeAm);
-            Task Act() => nodeService.Create(nodeAm);
-            _ = await Assert.ThrowsAsync<MimirorgDuplicateException>(Act);
-        }
-
-        [Fact]
         public async Task Create_Node_Create_Node_When_Ok_Parameters()
         {
             var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
@@ -77,7 +56,7 @@ namespace Mimirorg.Test.Integration.Services
                 NodeTerminals = new List<NodeTerminalLibAm>{
                     new()
                     {
-                        TerminalId = "8EBC5811473E87602FB0C18A100BD53C",
+                        TerminalId = 60427,
                         MinQuantity = 1,
                         MaxQuantity = int.MaxValue,
                         ConnectorDirection = ConnectorDirection.Output
@@ -113,7 +92,7 @@ namespace Mimirorg.Test.Integration.Services
                         Source = "https://source.com/1234567890"
                     }
                 },
-                ParentId = "1234",
+                ParentId = 1234,
                 Version = "1.0"
             };
 
@@ -121,7 +100,6 @@ namespace Mimirorg.Test.Integration.Services
 
             Assert.NotNull(nodeCm);
             Assert.True(nodeCm.State == State.Draft);
-            Assert.Equal(nodeAm.Id, nodeCm.Id);
             Assert.Equal(nodeAm.Name, nodeCm.Name);
             Assert.Equal(nodeAm.RdsName, nodeCm.RdsName);
             Assert.Equal(nodeAm.RdsCode, nodeCm.RdsCode);
@@ -157,7 +135,7 @@ namespace Mimirorg.Test.Integration.Services
             Assert.Equal(nodeAm.Symbol, nodeCm.Symbol);
             Assert.Equal(nodeAm.ParentId, nodeCm.ParentId);
 
-            var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == nodeCm.Id);
+            var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == nodeCm.Id && x.ObjectType == "NodeLibDm");
 
             Assert.True(logCm != null);
             Assert.Equal(nodeCm.Id, logCm.ObjectId);
@@ -192,7 +170,7 @@ namespace Mimirorg.Test.Integration.Services
 
             nodeAm.Description = "Description v1.1";
 
-            var nodeCmUpdated = await nodeService.Update(nodeAm);
+            var nodeCmUpdated = await nodeService.Update(nodeCm.Id, nodeAm);
 
             Assert.True(nodeCm?.Description == "Description");
             Assert.True(nodeCm.Version == "1.0");
@@ -220,7 +198,7 @@ namespace Mimirorg.Test.Integration.Services
 
             var cm = await nodeService.Create(nodeAm);
             nodeAm.Description = "Description2";
-            var cmUpdated = await nodeService.Update(nodeAm);
+            var cmUpdated = await nodeService.Update(cm.Id, nodeAm);
 
             Assert.True(cm.Description == "Description1" && cm.Version == "1.0");
             Assert.True(cmUpdated.Description == "Description2" && cmUpdated.Version == "1.1");

@@ -46,7 +46,7 @@ export const FormReferences = ({ references, isLoading }: FormReferencesProps) =
       <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.xl}>
         {referenceFields.fields.map((field, index) => (
           <FieldsCard
-            key={field.id}
+            key={`${index},${field.id}`}
             index={index + 1}
             removeText={t("common.references.remove")}
             onRemove={() => onRemove(index)}

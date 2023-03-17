@@ -96,7 +96,7 @@ export const NodeTerminal = ({
                 options={terminalQuery.data}
                 isLoading={terminalQuery.isLoading}
                 getOptionLabel={(x) => x.name}
-                getOptionValue={(x) => x.id}
+                getOptionValue={(x) => x.id.toString()}
                 onChange={(x) => onChange(x?.id)}
                 value={terminalQuery.data?.find((x) => x.id === value)}
                 formatOptionLabel={(x) => (

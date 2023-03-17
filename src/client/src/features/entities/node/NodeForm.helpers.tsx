@@ -8,11 +8,11 @@ import { useParams } from "react-router-dom";
 
 export const useNodeQuery = () => {
   const { id } = useParams();
-  return useGetNode(id);
+  return useGetNode(id ? Number.parseInt(id) : 0);
 };
 
-export const useNodeMutation = (mode?: NodeFormMode) => {
-  const nodeUpdateMutation = useUpdateNode();
+export const useNodeMutation = (id?: number, mode?: NodeFormMode) => {
+  const nodeUpdateMutation = useUpdateNode(id);
   const nodeCreateMutation = useCreateNode();
   return mode === "edit" ? nodeUpdateMutation : nodeCreateMutation;
 };

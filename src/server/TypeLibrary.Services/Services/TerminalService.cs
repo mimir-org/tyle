@@ -38,7 +38,7 @@ namespace TypeLibrary.Services.Services
         /// <param name="id">The id of the terminal</param>
         /// <returns>The latest version of the terminal of given id</returns>
         /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id, and that terminal is at the latest version.</exception>
-        public TerminalLibCm GetLatestVersion(string id)
+        public TerminalLibCm GetLatestVersion(int id)
         {
             var dm = _terminalRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
@@ -83,44 +83,44 @@ namespace TypeLibrary.Services.Services
             if (!validation.IsValid)
                 throw new MimirorgBadRequestException("Terminal is not valid.", validation);
 
-            if (await _terminalRepository.Exist(terminal.Id))
-                throw new MimirorgDuplicateException($"Terminal '{terminal.Name}' and version '{terminal.Version}' already exist.");
-
             terminal.Version = "1.0";
             var dm = _mapper.Map<TerminalLibDm>(terminal);
 
             dm.State = State.Draft;
-            dm.FirstVersionId = dm.Id;
 
-            await _terminalRepository.Create(dm);
+            // TODO: This is a temporary fix, since the TS types are not built correctly for nullable ints
+            if (dm.ParentId == 0) dm.ParentId = null;
+
+            var createdTerminal = await _terminalRepository.Create(dm);
             _terminalRepository.ClearAllChangeTrackers();
-            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
+            await _logService.CreateLog(createdTerminal, LogType.State, State.Draft.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
-            return GetLatestVersion(dm.Id);
+            return GetLatestVersion(createdTerminal.Id);
         }
 
         /// <summary>
         /// Update a terminal if the data is allowed to be changed.
         /// </summary>
+        /// <param name="id">The id of the terminal to update</param>
         /// <param name="terminalAm">The terminal to update</param>
         /// <returns>The updated terminal</returns>
         /// <exception cref="MimirorgBadRequestException">Throws if the terminal does not exist,
         /// if it is not valid or there are not allowed changes.</exception>
         /// <remarks>ParentId to old references will also be updated.</remarks>
-        public async Task<TerminalLibCm> Update(TerminalLibAm terminalAm)
+        public async Task<TerminalLibCm> Update(int id, TerminalLibAm terminalAm)
         {
             var validation = terminalAm.ValidateObject();
 
             if (!validation.IsValid)
                 throw new MimirorgBadRequestException("Terminal is not valid.", validation);
 
-            var terminalToUpdate = _terminalRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == terminalAm.Id);
+            var terminalToUpdate = _terminalRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
             if (terminalToUpdate == null)
             {
                 validation = new Validation(new List<string> { nameof(TerminalLibAm.Name), nameof(TerminalLibAm.Version) },
-                    $"Terminal with name {terminalAm.Name}, id {terminalAm.Id} and version {terminalAm.Version} does not exist.");
+                    $"Terminal with name {terminalAm.Name}, id {id} and version {terminalAm.Version} does not exist.");
                 throw new MimirorgBadRequestException("Terminal does not exist or is flagged as deleted. Update is not possible.", validation);
             }
 
@@ -152,7 +152,7 @@ namespace TypeLibrary.Services.Services
 
             var terminalCm = await _terminalRepository.Create(dm);
             _terminalRepository.ClearAllChangeTrackers();
-            await _terminalRepository.ChangeParentId(terminalAm.Id, terminalCm.Id);
+            await _terminalRepository.ChangeParentId(id, terminalCm.Id);
             await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
@@ -166,14 +166,14 @@ namespace TypeLibrary.Services.Services
         /// <param name="state">The new terminal state</param>
         /// <returns>Terminal with updated state</returns>
         /// <exception cref="MimirorgNotFoundException">Throws if the terminal does not exist on latest version</exception>
-        public async Task<TerminalLibCm> ChangeState(string id, State state)
+        public async Task<TerminalLibCm> ChangeState(int id, State state)
         {
             var dm = _terminalRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
             if (dm == null)
                 throw new MimirorgNotFoundException($"Terminal with id {id} not found, or is not latest version.");
 
-            await _terminalRepository.ChangeState(state, new List<string> { dm.Id });
+            await _terminalRepository.ChangeState(state, new List<int> { dm.Id });
             await _logService.CreateLog(dm, LogType.State, state.ToString());
             _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
@@ -185,7 +185,7 @@ namespace TypeLibrary.Services.Services
         /// </summary>
         /// <param name="id">The terminal id</param>
         /// <returns>Company id for terminal</returns>
-        public async Task<int> GetCompanyId(string id)
+        public async Task<int> GetCompanyId(int id)
         {
             return await _terminalRepository.HasCompany(id);
         }

@@ -32,7 +32,7 @@ export const createEmptyFormNodeTerminalLib = (): FormNodeTerminalLib => ({
 });
 
 const emptyNodeTerminalLibAm: NodeTerminalLibAm = {
-  terminalId: "",
+  terminalId: 0,
   minQuantity: 0,
   maxQuantity: 0,
   connectorDirection: ConnectorDirection.Input,

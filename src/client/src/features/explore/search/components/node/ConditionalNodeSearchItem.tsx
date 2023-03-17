@@ -16,7 +16,15 @@ type Props = ConditionalSearchItem & Pick<NodeSearchItemProps, "isSelected" | "s
  */
 export const ConditionalNodeSearchItem = ({ item, isSelected, setSelected, user }: Props) => {
   if (isNodeItem(item)) {
-    return <NodeSearchItem key={item.id} isSelected={isSelected} setSelected={setSelected} user={user} {...item} />;
+    return (
+      <NodeSearchItem
+        key={item.id + item.kind}
+        isSelected={isSelected}
+        setSelected={setSelected}
+        user={user}
+        {...item}
+      />
+    );
   }
 
   return <></>;

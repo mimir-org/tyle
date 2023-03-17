@@ -22,52 +22,52 @@ namespace Mimirorg.Test.Unit.Extensions
             {
                 new DummyVersionObject
                 {
-                    FirstVersionId = "123",
+                    FirstVersionId = 123,
                     Version = "1.0"
                 },
                 new DummyVersionObject
                 {
-                    FirstVersionId = "123",
+                    FirstVersionId = 123,
                     Version = "1.1"
                 },
                 new DummyVersionObject
                 {
-                    FirstVersionId = "567",
+                    FirstVersionId = 567,
                     Version = "1.0"
                 },
                 new DummyVersionObject
                 {
-                    FirstVersionId = "123",
+                    FirstVersionId = 123,
                     Version = "3.0"
                 },
                 new DummyVersionObject
                 {
                     State = State.Deleted,
-                    FirstVersionId = "123",
+                    FirstVersionId = 123,
                     Version = "5.0"
                 },
                 new DummyVersionObject
                 {
-                    FirstVersionId = "123",
+                    FirstVersionId = 123,
                     Version = "2.1"
                 },
                 new DummyVersionObject
                 {
-                    FirstVersionId = "123",
+                    FirstVersionId = 123,
                     Version = "2.2"
                 }
             };
 
             var latest = list.LatestVersionsExcludeDeleted().ToList();
             Assert.Equal(2, latest.Count);
-            Assert.NotNull(latest.FirstOrDefault(x => x.FirstVersionId == "123" && x.Version == "3.0"));
-            Assert.NotNull(latest.FirstOrDefault(x => x.FirstVersionId == "567" && x.Version == "1.0"));
+            Assert.NotNull(latest.FirstOrDefault(x => x.FirstVersionId == 123 && x.Version == "3.0"));
+            Assert.NotNull(latest.FirstOrDefault(x => x.FirstVersionId == 567 && x.Version == "1.0"));
         }
 
         protected internal class DummyVersionObject : IVersionObject
         {
             public State State { get; set; }
-            public string FirstVersionId { get; set; }
+            public int FirstVersionId { get; set; }
             public string Version { get; set; }
         }
 

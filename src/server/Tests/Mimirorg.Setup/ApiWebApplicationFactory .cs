@@ -71,16 +71,14 @@ namespace Mimirorg.Test.Setup
             {
                 Name = "Automation System 87",
                 Color = "#00CC66",
-                ParentId = "201B169264C4F9249039054BCCDD4494",
+                ParentId = 39689,
                 CompanyId = 1,
                 Version = "1.0"
             };
 
-            if (!(await terminalRepository.Exist(terminalA.Id)))
-                await terminalService.Create(terminalA);
+            await terminalService.Create(terminalA);
 
-            if (!(await terminalRepository.Exist(terminalB.Id)))
-                await terminalService.Create(terminalB);
+            await terminalService.Create(terminalB);
 
             return true;
         }

@@ -23,8 +23,8 @@ interface AboutProps {
 export const About = ({ selected }: AboutProps) => {
   const { t } = useTranslation("explore");
 
-  const nodeQuery = useGetNode(selected?.type == "node" ? selected?.id : "");
-  const terminalQuery = useGetTerminal(selected?.type == "terminal" ? selected?.id : "");
+  const nodeQuery = useGetNode(selected?.type === "node" ? selected?.id : undefined);
+  const terminalQuery = useGetTerminal(selected?.type == "terminal" ? selected?.id : undefined);
 
   const [showLoader, setShowLoader] = useState(true);
 
@@ -41,9 +41,14 @@ export const About = ({ selected }: AboutProps) => {
     <ExploreSection title={t("about.title")}>
       {showLoader && <Loader />}
       {showPlaceHolder && <AboutPlaceholder text={t("about.placeholders.item")} />}
-      {showNodePanel && <NodePanel key={nodeQuery.data.id} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />}
+      {showNodePanel && (
+        <NodePanel key={nodeQuery.data.id + nodeQuery.data.kind} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />
+      )}
       {showTerminalPanel && (
-        <TerminalPanel key={terminalQuery.data.id} {...mapTerminalLibCmToTerminalItem(terminalQuery.data)} />
+        <TerminalPanel
+          key={terminalQuery.data.id + terminalQuery.data.kind}
+          {...mapTerminalLibCmToTerminalItem(terminalQuery.data)}
+        />
       )}
     </ExploreSection>
   );

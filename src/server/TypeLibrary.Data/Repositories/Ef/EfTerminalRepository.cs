@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -5,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Extensions;
+using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
@@ -14,10 +16,12 @@ namespace TypeLibrary.Data.Repositories.Ef
 {
     public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, TerminalLibDm>, IEfTerminalRepository
     {
+        private readonly IApplicationSettingsRepository _settings;
         private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
 
-        public EfTerminalRepository(TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
+        public EfTerminalRepository(IApplicationSettingsRepository settings, TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
         {
+            _settings = settings;
             _typeLibraryProcRepository = typeLibraryProcRepository;
         }
 
@@ -26,11 +30,8 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// </summary>
         /// <param name="id">The terminal id</param>
         /// <returns>The company id of given terminal</returns>
-        public async Task<int> HasCompany(string id)
+        public async Task<int> HasCompany(int id)
         {
-            if (string.IsNullOrWhiteSpace(id))
-                return 0;
-
             var procParams = new Dictionary<string, object>
             {
                 {"@TableName", "Terminal"},
@@ -47,12 +48,12 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// <param name="state">The state to change to</param>
         /// <param name="ids">A list of terminal id's</param>
         /// <returns>The number of terminals in given state</returns>
-        public async Task<int> ChangeState(State state, ICollection<string> ids)
+        public async Task<int> ChangeState(State state, ICollection<int> ids)
         {
             if (ids == null)
                 return 0;
 
-            var idList = ids.ConvertToString();
+            var idList = string.Join(",", ids.Select(i => i.ToString()));
 
             var procParams = new Dictionary<string, object>
             {
@@ -71,11 +72,8 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// <param name="oldId">Old terminal parent id</param>
         /// <param name="newId">New terminal parent id</param>
         /// <returns>The number of terminal with the new parent id</returns>
-        public async Task<int> ChangeParentId(string oldId, string newId)
+        public async Task<int> ChangeParentId(int oldId, int newId)
         {
-            if (string.IsNullOrWhiteSpace(oldId) || string.IsNullOrWhiteSpace(newId))
-                return 0;
-
             var procParams = new Dictionary<string, object>
             {
                 {"@TableName", "Terminal"},
@@ -92,7 +90,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// </summary>
         /// <param name="id">The id of the terminal</param>
         /// <returns>True if terminal exist</returns>
-        public async Task<bool> Exist(string id)
+        public async Task<bool> Exist(int id)
         {
             return await Exist(x => x.Id == id);
         }
@@ -111,7 +109,7 @@ namespace TypeLibrary.Data.Repositories.Ef
         /// </summary>
         /// <param name="id">The terminal id</param>
         /// <returns>Terminal if found</returns>
-        public async Task<TerminalLibDm> Get(string id)
+        public async Task<TerminalLibDm> Get(int id)
         {
             var terminal = await FindBy(x => x.Id == id).FirstOrDefaultAsync();
             return terminal;
@@ -126,6 +124,11 @@ namespace TypeLibrary.Data.Repositories.Ef
         {
             await CreateAsync(terminal);
             await SaveAsync();
+
+            if (terminal.FirstVersionId == 0) terminal.FirstVersionId = terminal.Id;
+            terminal.Iri = $"{_settings.ApplicationSemanticUrl}/terminal/{terminal.Id}";
+            await SaveAsync();
+
             return terminal;
         }
 

@@ -5,7 +5,7 @@ import { Search } from "features/explore/search/Search";
 import { useState } from "react";
 
 export const Explore = () => {
-  const [selected, setSelected] = useState<SelectedInfo>({ id: "" });
+  const [selected, setSelected] = useState<SelectedInfo>({ id: undefined });
 
   return (
     <ExploreContainer>
