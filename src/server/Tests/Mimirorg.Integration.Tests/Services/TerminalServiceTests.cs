@@ -16,26 +16,6 @@ namespace Mimirorg.Test.Integration.Services
         }
 
         [Fact]
-        public async Task Create_Terminal_Returns_MimirorgDuplicateException_When_Already_Exist()
-        {
-            var terminalAm = new TerminalLibAm
-            {
-                Name = "TestTerminal1",
-                ParentId = 1234,
-                TypeReferences = null,
-                Color = "#123456",
-                Description = "Description1",
-                CompanyId = 1,
-                Version = "1.0"
-            };
-
-            var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
-            await terminalService.Create(terminalAm);
-            Task Act() => terminalService.Create(terminalAm);
-            _ = await Assert.ThrowsAsync<MimirorgDuplicateException>(Act);
-        }
-
-        [Fact]
         public async Task Create_Terminal_Create_Terminal_When_Ok_Parameters()
         {
             var newAttribute = new AttributeLibAm

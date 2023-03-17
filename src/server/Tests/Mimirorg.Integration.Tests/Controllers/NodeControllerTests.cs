@@ -33,7 +33,7 @@ namespace Mimirorg.Test.Integration.Controllers
         }
 
         [Theory]
-        [InlineData("/v1/librarynode/AB01BBCDA5B2CC285A922F90DA6E836D")]
+        [InlineData("/v1/librarynode/1")]
         public async Task GET_Id_Retrieves_Status_Ok(string endpoint)
         {
             var client = Factory.WithWebHostBuilder(builder =>

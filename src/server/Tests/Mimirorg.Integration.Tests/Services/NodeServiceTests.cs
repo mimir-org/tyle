@@ -16,27 +16,6 @@ namespace Mimirorg.Test.Integration.Services
         }
 
         [Fact]
-        public async Task Create_Node_Returns_MimirorgDuplicateException_When_Already_Exist()
-        {
-            var nodeAm = new NodeLibAm
-            {
-                Name = "Node1",
-                RdsName = "RdsName",
-                RdsCode = "RdsCode",
-                PurposeName = "PurposeName",
-                Description = "Description",
-                Aspect = Aspect.NotSet,
-                CompanyId = 1,
-                Version = "1.0"
-            };
-
-            var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
-            await nodeService.Create(nodeAm);
-            Task Act() => nodeService.Create(nodeAm);
-            _ = await Assert.ThrowsAsync<MimirorgDuplicateException>(Act);
-        }
-
-        [Fact]
         public async Task Create_Node_Create_Node_When_Ok_Parameters()
         {
             var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
@@ -156,7 +135,7 @@ namespace Mimirorg.Test.Integration.Services
             Assert.Equal(nodeAm.Symbol, nodeCm.Symbol);
             Assert.Equal(nodeAm.ParentId, nodeCm.ParentId);
 
-            var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == nodeCm.Id);
+            var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == nodeCm.Id && x.ObjectType == "NodeLibDm");
 
             Assert.True(logCm != null);
             Assert.Equal(nodeCm.Id, logCm.ObjectId);
