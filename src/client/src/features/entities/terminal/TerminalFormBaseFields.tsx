@@ -60,6 +60,7 @@ export const TerminalFormBaseFields = ({ mode }: TerminalFormBaseFieldsProps) =>
                   onChange(x?.id);
                 }}
                 value={companies.find((x) => x.id === value)}
+                isDisabled={mode === "edit"}
               />
             </FormField>
           )}
