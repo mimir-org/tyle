@@ -1,8 +1,7 @@
-namespace TypeLibrary.Data.Contracts
+namespace TypeLibrary.Data.Contracts;
+
+public interface IApplicationSettingsRepository
 {
-    public interface IApplicationSettingsRepository
-    {
-        string ApplicationSemanticUrl { get; }
-        string ApplicationUrl { get; }
-    }
+    string ApplicationSemanticUrl { get; }
+    string ApplicationUrl { get; }
 }

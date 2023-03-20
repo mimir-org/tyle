@@ -1,13 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Mimirorg.TypeLibrary.Enums
-{
-    public enum ObjectType
-    {
-        [Display(Name = "Not set")]
-        NotSet = 0,
+namespace Mimirorg.TypeLibrary.Enums;
 
-        [Display(Name = "Object Block")]
-        ObjectBlock = 1
-    }
+public enum ObjectType
+{
+    [Display(Name = "Not set")]
+    NotSet = 0,
+
+    [Display(Name = "Object Block")]
+    ObjectBlock = 1
 }

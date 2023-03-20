@@ -1,9 +1,8 @@
 using Mimirorg.Common.Abstract;
 using TypeLibrary.Data.Models;
 
-namespace TypeLibrary.Data.Contracts.Ef
+namespace TypeLibrary.Data.Contracts.Ef;
+
+public interface IEfUnitRepository : IGenericRepository<TypeLibraryDbContext, UnitLibDm>, IUnitRepository
 {
-    public interface IEfUnitRepository : IGenericRepository<TypeLibraryDbContext, UnitLibDm>, IUnitRepository
-    {
-    }
 }

@@ -2,14 +2,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TypeLibrary.Data.Models;
 
-namespace TypeLibrary.Data.Contracts
+namespace TypeLibrary.Data.Contracts;
+
+public interface IAttributeReferenceRepository
 {
-    public interface IAttributeReferenceRepository
-    {
-        /// <summary>
-        /// Get all attributes
-        /// </summary>
-        /// <returns>A collection of attributes</returns>
-        Task<List<AttributeLibDm>> Get();
-    }
+    /// <summary>
+    /// Get all attributes
+    /// </summary>
+    /// <returns>A collection of attributes</returns>
+    Task<List<AttributeLibDm>> Get();
 }

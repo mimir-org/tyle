@@ -1,18 +1,18 @@
 using System.Text;
 
-namespace Mimirorg.Common.Models
-{
-    public class ApplicationSettings
-    {
-        public string ApplicationSemanticUrl { get; set; }
-        public string ApplicationUrl { get; set; }
-        public string System => "System";
+namespace Mimirorg.Common.Models;
 
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine();
-            sb.AppendLine(@"
+public class ApplicationSettings
+{
+    public string ApplicationSemanticUrl { get; set; }
+    public string ApplicationUrl { get; set; }
+    public string System => "System";
+
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine();
+        sb.AppendLine(@"
         TTTTTTTTTTTTTTTTTTTTTTYYYYYYY       YYYYYYLLLLLLLLLLL            EEEEEEEEEEEEEEEEEEEEEE
         T:::::::::::::::::::::Y:::::Y       Y:::::L:::::::::L            E::::::::::::::::::::E
         T:::::::::::::::::::::Y:::::Y       Y:::::L:::::::::L            E::::::::::::::::::::E
@@ -30,11 +30,10 @@ namespace Mimirorg.Common.Models
               T:::::::::T         Y:::::::::::Y   L::::::::::::::::::::::E::::::::::::::::::::E
               TTTTTTTTTTT         YYYYYYYYYYYYY   LLLLLLLLLLLLLLLLLLLLLLLEEEEEEEEEEEEEEEEEEEEEE
 ");
-            sb.AppendLine("############################ Tyle Application settings #######################################");
-            sb.AppendLine($"{nameof(ApplicationSemanticUrl)}:   {ApplicationSemanticUrl}");
-            sb.AppendLine($"{nameof(ApplicationUrl)}:           {ApplicationUrl}");
-            sb.AppendLine("############################ Tyle Application settings #######################################");
-            return sb.ToString();
-        }
+        sb.AppendLine("############################ Tyle Application settings #######################################");
+        sb.AppendLine($"{nameof(ApplicationSemanticUrl)}:   {ApplicationSemanticUrl}");
+        sb.AppendLine($"{nameof(ApplicationUrl)}:           {ApplicationUrl}");
+        sb.AppendLine("############################ Tyle Application settings #######################################");
+        return sb.ToString();
     }
 }

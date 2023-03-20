@@ -23,9 +23,9 @@ namespace TypeLibrary.Data
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new SymbolConfiguration());
             modelBuilder.ApplyConfiguration(new NodeTerminalConfiguration());

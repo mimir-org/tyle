@@ -1,10 +1,9 @@
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 
-namespace TypeLibrary.Data.Contracts.Common
+namespace TypeLibrary.Data.Contracts.Common;
+
+public interface ILogable
 {
-    public interface ILogable
-    {
-        LogLibAm CreateLog(LogType logType, string logTypeValue, string comment);
-    }
+    LogLibAm CreateLog(LogType logType, string logTypeValue, string comment);
 }

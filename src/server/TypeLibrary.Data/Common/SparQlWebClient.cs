@@ -6,16 +6,16 @@ using Mimirorg.Common.Models;
 using TypeLibrary.Data.Contracts.Common;
 using VDS.RDF.Query;
 
-namespace TypeLibrary.Data.Common
+namespace TypeLibrary.Data.Common;
+
+public class SparQlWebClient : ISparQlWebClient
 {
-    public class SparQlWebClient : ISparQlWebClient
-    {
-        #region Constants
+    #region Constants
 
-        public const string PcaEndPointProduction = @"https://rds.posccaesar.org/ontology/fuseki/ontology/sparql";
-        public const string PcaEndPointStaging = @"https://staging-imf.posccaesar.org/dataset/sparql";
+    public const string PcaEndPointProduction = @"https://rds.posccaesar.org/ontology/fuseki/ontology/sparql";
+    public const string PcaEndPointStaging = @"https://staging-imf.posccaesar.org/dataset/sparql";
 
-        public const string PcaUnitAllQuery = @"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    public const string PcaUnitAllQuery = @"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
             PREFIX lis: <http://rds.posccaesar.org/ontology/lis14/rdl/>
             PREFIX rdl:   <http://rds.posccaesar.org/ontology/plm/rdl/>
@@ -25,7 +25,7 @@ namespace TypeLibrary.Data.Common
             }
             order by ?uom_label";
 
-        public const string PcaAttributeAllQuery = @"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    public const string PcaAttributeAllQuery = @"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
             PREFIX owl:  <http://www.w3.org/2002/07/owl#>
             PREFIX lis:  <http://rds.posccaesar.org/ontology/lis14/rdl/>
             PREFIX rdl:  <http://rds.posccaesar.org/ontology/plm/rdl/>
@@ -42,7 +42,7 @@ namespace TypeLibrary.Data.Common
             }
             order by ?quantity_label";
 
-        public const string PcaPurposeAllQuery = @"prefix rdl: <http://rds.posccaesar.org/ontology/plm/rdl/>
+    public const string PcaPurposeAllQuery = @"prefix rdl: <http://rds.posccaesar.org/ontology/plm/rdl/>
             prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
             prefix skos: <http://www.w3.org/2004/02/skos/core#>
             SELECT DISTINCT ?imf_purpose ?label ?comment
@@ -53,7 +53,7 @@ namespace TypeLibrary.Data.Common
               OPTIONAL { ?imf_purpose rdfs:comment ?comment }
             }";
 
-        public const string QuantityDatumRangeSpecifying = @"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    public const string QuantityDatumRangeSpecifying = @"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
             PREFIX lis: <http://rds.posccaesar.org/ontology/lis14/rdl/>
             PREFIX rdl:   <http://rds.posccaesar.org/ontology/plm/rdl/>
@@ -62,7 +62,7 @@ namespace TypeLibrary.Data.Common
             }
             order by ?datum_label";
 
-        public const string QuantityDatumSpecifiedScope = @"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    public const string QuantityDatumSpecifiedScope = @"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
             PREFIX lis: <http://rds.posccaesar.org/ontology/lis14/rdl/>
             PREFIX rdl:   <http://rds.posccaesar.org/ontology/plm/rdl/>
@@ -71,7 +71,7 @@ namespace TypeLibrary.Data.Common
             }
             order by ?datum_label";
 
-        public const string QuantityDatumSpecifiedProvenance = @"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    public const string QuantityDatumSpecifiedProvenance = @"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
             PREFIX lis: <http://rds.posccaesar.org/ontology/lis14/rdl/>
             PREFIX rdl:   <http://rds.posccaesar.org/ontology/plm/rdl/>
@@ -80,7 +80,7 @@ namespace TypeLibrary.Data.Common
             }
             order by ?datum_label";
 
-        public const string QuantityDatumRegularitySpecified = @"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    public const string QuantityDatumRegularitySpecified = @"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
             PREFIX lis: <http://rds.posccaesar.org/ontology/lis14/rdl/>
             PREFIX rdl:   <http://rds.posccaesar.org/ontology/plm/rdl/>
@@ -89,54 +89,53 @@ namespace TypeLibrary.Data.Common
             }
             order by ?datum_label";
 
-        #endregion
+    #endregion
 
-        private readonly ILogger<SparQlWebClient> _logger;
+    private readonly ILogger<SparQlWebClient> _logger;
 
-        public SparQlWebClient(ILogger<SparQlWebClient> logger)
+    public SparQlWebClient(ILogger<SparQlWebClient> logger)
+    {
+        _logger = logger;
+    }
+
+    public IEnumerable<T> Get<T>(string url, string query) where T : class, new()
+    {
+        if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(query))
+            yield break;
+
+        var endpoint = new SparqlRemoteEndpoint(new Uri(url));
+        SparqlResultSet results;
+
+        try
         {
-            _logger = logger;
+            results = endpoint.QueryWithResultSet(query);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.ToString());
+            throw;
         }
 
-        public IEnumerable<T> Get<T>(string url, string query) where T : class, new()
+        if (results == null || !results.Any())
+            yield break;
+
+        var propertyFinder = new GenericPropertyFinder<T>();
+        var model = new T();
+        var props = propertyFinder.Get(model).ToList();
+
+        foreach (var result in results)
         {
-            if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(query))
-                yield break;
+            var obj = new T();
 
-            var endpoint = new SparqlRemoteEndpoint(new Uri(url));
-            SparqlResultSet results;
-
-            try
+            foreach (var prop in props)
             {
-                results = endpoint.QueryWithResultSet(query);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e.ToString());
-                throw;
-            }
-
-            if (results == null || !results.Any())
-                yield break;
-
-            var propertyFinder = new GenericPropertyFinder<T>();
-            var model = new T();
-            var props = propertyFinder.Get(model).ToList();
-
-            foreach (var result in results)
-            {
-                var obj = new T();
-
-                foreach (var prop in props)
+                if (result.TryGetValue(prop.ToLower(), out var node))
                 {
-                    if (result.TryGetValue(prop.ToLower(), out var node))
-                    {
-                        obj.GetType().GetProperty(prop)?.SetValue(obj, node?.ToString());
-                    }
+                    obj.GetType().GetProperty(prop)?.SetValue(obj, node?.ToString());
                 }
-
-                yield return obj;
             }
+
+            yield return obj;
         }
     }
 }

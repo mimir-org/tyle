@@ -9,42 +9,41 @@ using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 
-namespace TypeLibrary.Core.Controllers.V1
+namespace TypeLibrary.Core.Controllers.V1;
+
+/// <summary>
+/// TypeCm file services
+/// </summary>
+[Produces("application/json")]
+[ApiController]
+[ApiVersion("1.0")]
+[Route("V{version:apiVersion}/[controller]")]
+[SwaggerTag("Unit services")]
+public class LibraryUnitController : ControllerBase
 {
-    /// <summary>
-    /// TypeCm file services
-    /// </summary>
-    [Produces("application/json")]
-    [ApiController]
-    [ApiVersion("1.0")]
-    [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("Unit services")]
-    public class LibraryUnitController : ControllerBase
+    private readonly ILogger<LibraryUnitController> _logger;
+    private readonly IUnitService _unitService;
+
+    public LibraryUnitController(ILogger<LibraryUnitController> logger, IUnitService unitService)
     {
-        private readonly ILogger<LibraryUnitController> _logger;
-        private readonly IUnitService _unitService;
+        _logger = logger;
+        _unitService = unitService;
+    }
 
-        public LibraryUnitController(ILogger<LibraryUnitController> logger, IUnitService unitService)
+    [HttpGet]
+    [ProducesResponseType(typeof(ICollection<UnitLibCm>), StatusCodes.Status200OK)]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetUnits()
+    {
+        try
         {
-            _logger = logger;
-            _unitService = unitService;
+            var data = await _unitService.Get();
+            return Ok(data);
         }
-
-        [HttpGet]
-        [ProducesResponseType(typeof(ICollection<UnitLibCm>), StatusCodes.Status200OK)]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetUnits()
+        catch (Exception e)
         {
-            try
-            {
-                var data = await _unitService.Get();
-                return Ok(data);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
         }
     }
 }

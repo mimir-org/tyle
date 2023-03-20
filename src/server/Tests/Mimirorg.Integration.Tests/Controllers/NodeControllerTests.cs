@@ -7,79 +7,78 @@ using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Services.Contracts;
 using Xunit;
 
-namespace Mimirorg.Test.Integration.Controllers
+namespace Mimirorg.Test.Integration.Controllers;
+
+public class NodeControllerTests : IntegrationTest
 {
-    public class NodeControllerTests : IntegrationTest
+    public NodeControllerTests(ApiWebApplicationFactory factory) : base(factory)
     {
-        public NodeControllerTests(ApiWebApplicationFactory factory) : base(factory)
+    }
+
+    [Theory]
+    [InlineData("/v1/librarynode")]
+    public async Task GET_Retrieves_Status_Ok(string endpoint)
+    {
+        var client = Factory.WithWebHostBuilder(builder =>
         {
-        }
+            builder.ConfigureServices(_ =>
+            {
 
-        [Theory]
-        [InlineData("/v1/librarynode")]
-        public async Task GET_Retrieves_Status_Ok(string endpoint)
+            });
+        }).CreateClient(new WebApplicationFactoryClientOptions());
+
+
+        var response = await client.GetAsync(endpoint);
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
+
+    [Theory]
+    [InlineData("/v1/librarynode/1")]
+    public async Task GET_Id_Retrieves_Status_Ok(string endpoint)
+    {
+        var client = Factory.WithWebHostBuilder(builder =>
         {
-            var client = Factory.WithWebHostBuilder(builder =>
+            builder.ConfigureServices(_ =>
             {
-                builder.ConfigureServices(_ =>
-                {
 
-                });
-            }).CreateClient(new WebApplicationFactoryClientOptions());
+            });
+        }).CreateClient(new WebApplicationFactoryClientOptions());
 
+        const string guid = "2f9e0813-1067-472e-86ea-7c0b47a4eb18";
 
-            var response = await client.GetAsync(endpoint);
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        }
-
-        [Theory]
-        [InlineData("/v1/librarynode/1")]
-        public async Task GET_Id_Retrieves_Status_Ok(string endpoint)
+        // Ensure node in fake database
+        var nodeToCreate = new NodeLibAm
         {
-            var client = Factory.WithWebHostBuilder(builder =>
-            {
-                builder.ConfigureServices(_ =>
-                {
+            Name = $"{guid}_dummy_name",
+            RdsName = $"{guid}_dummy_rds_name",
+            RdsCode = $"{guid}_dummy_rds_code",
+            PurposeName = $"{guid}_dummy_purpose_name",
+            Aspect = Aspect.NotSet,
+            CompanyId = 1,
+            Version = "1.0"
+        };
 
-                });
-            }).CreateClient(new WebApplicationFactoryClientOptions());
+        using var scope = Factory.Server.Services.CreateScope();
+        var nodeService = scope.ServiceProvider.GetRequiredService<INodeService>();
+        _ = await nodeService.Create(nodeToCreate);
 
-            const string guid = "2f9e0813-1067-472e-86ea-7c0b47a4eb18";
+        var response = await client.GetAsync(endpoint);
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
 
-            // Ensure node in fake database
-            var nodeToCreate = new NodeLibAm
-            {
-                Name = $"{guid}_dummy_name",
-                RdsName = $"{guid}_dummy_rds_name",
-                RdsCode = $"{guid}_dummy_rds_code",
-                PurposeName = $"{guid}_dummy_purpose_name",
-                Aspect = Aspect.NotSet,
-                CompanyId = 1,
-                Version = "1.0"
-            };
-
-            using var scope = Factory.Server.Services.CreateScope();
-            var nodeService = scope.ServiceProvider.GetRequiredService<INodeService>();
-            _ = await nodeService.Create(nodeToCreate);
-
-            var response = await client.GetAsync(endpoint);
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        }
-
-        [Theory]
-        [InlineData("/v1/librarynode/666666")]
-        public async Task GET_Id_Retrieves_Status_No_Content(string endpoint)
+    [Theory]
+    [InlineData("/v1/librarynode/666666")]
+    public async Task GET_Id_Retrieves_Status_No_Content(string endpoint)
+    {
+        var client = Factory.WithWebHostBuilder(builder =>
         {
-            var client = Factory.WithWebHostBuilder(builder =>
+            builder.ConfigureServices(_ =>
             {
-                builder.ConfigureServices(_ =>
-                {
 
-                });
-            }).CreateClient(new WebApplicationFactoryClientOptions());
+            });
+        }).CreateClient(new WebApplicationFactoryClientOptions());
 
-            var response = await client.GetAsync(endpoint);
-            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
-        }
+        var response = await client.GetAsync(endpoint);
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
 }

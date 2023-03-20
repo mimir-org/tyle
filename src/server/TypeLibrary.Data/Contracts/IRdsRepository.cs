@@ -2,10 +2,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TypeLibrary.Data.Models;
 
-namespace TypeLibrary.Data.Contracts
+namespace TypeLibrary.Data.Contracts;
+
+public interface IRdsRepository
 {
-    public interface IRdsRepository
-    {
-        Task<IEnumerable<RdsLibDm>> Get();
-    }
+    Task<IEnumerable<RdsLibDm>> Get();
 }

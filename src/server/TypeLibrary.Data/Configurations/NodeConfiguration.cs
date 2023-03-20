@@ -35,7 +35,6 @@ namespace TypeLibrary.Data.Configurations
             builder.Property(p => p.Symbol).HasColumnName("Symbol").HasMaxLength(127);
             builder.Property(p => p.SelectedAttributePredefined).HasJsonConversion();
 
-            builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
-        }
+        builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
     }
 }
