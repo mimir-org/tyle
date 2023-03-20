@@ -66,7 +66,7 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
           activeFilters={activeFilters}
           toggleFilter={toggleFilter}
         />
-        <LinkMenu name={t("search.create.title")} links={createMenuLinks} />
+        <LinkMenu name={t("search.create.title")} links={createMenuLinks} justifyContent={"space-between"} />
       </Flexbox>
 
       {showFilterTokens && (

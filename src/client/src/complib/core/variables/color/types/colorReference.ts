@@ -8,4 +8,5 @@ export interface ColorReference {
   warning: Palette;
   neutral: Palette;
   neutralVariant: Palette;
+  dangerousAction: Palette;
 }

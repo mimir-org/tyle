@@ -43,7 +43,7 @@ export const NodeFormTerminals = ({ canAddTerminals = true, canRemoveTerminals =
           field={field}
           errors={errors}
           setValue={setValue}
-          removable={canRemoveTerminals}
+          removable={field.terminalId !== 0 || canRemoveTerminals}
           onRemove={() => terminalFields.remove(index)}
         />
       ))}

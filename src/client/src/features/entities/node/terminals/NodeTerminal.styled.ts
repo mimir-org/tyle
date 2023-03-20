@@ -9,6 +9,7 @@ export const NodeTerminalContainer = styled.div`
   padding: ${(props) => props.theme.tyle.spacing.xl};
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
   background-color: ${(props) => props.theme.tyle.color.sys.surface.base};
+  border: 1px solid ${(props) => props.theme.tyle.color.sys.tertiary.base};
 `;
 
 export const NodeTerminalInputContainer = styled.div`

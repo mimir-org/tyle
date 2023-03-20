@@ -73,11 +73,17 @@ export const NodeTerminal = ({
         <Text variant={"label-large"}>
           {t("terminal.title")} #{index + 1}
         </Text>
-        {removable && (
-          <Button variant={"text"} alignSelf={"end"} icon={<Trash />} iconOnly onClick={() => onRemove()}>
-            {t("node.terminals.remove")}
-          </Button>
-        )}
+        <Button
+          variant={"text"}
+          dangerousAction
+          disabled={removable}
+          alignSelf={"end"}
+          icon={<Trash />}
+          iconOnly
+          onClick={() => onRemove()}
+        >
+          {t("node.terminals.remove")}
+        </Button>
       </Flexbox>
       <NodeTerminalInputContainer>
         <Controller

@@ -76,6 +76,21 @@ export const colorReference: ColorReference = {
     99: "#FFFBFF",
     100: "#ffffff"
   },
+  dangerousAction: {
+    0: "#000000",
+    10: "#A20021",
+    20: "#b13236",
+    30: "#be4e4c",
+    40: "#cb6963",
+    50: "#d7827b",
+    60: "#e19a94",
+    70: "#eab3ae",
+    80: "#f2ccc8",
+    90: "#f5d5d2",
+    95: "#f9e6e3",
+    99: "#fbeae8",
+    100: "#ffffff"
+  },
   neutral: {
     0: "#000000",
     10: "#13131c",
