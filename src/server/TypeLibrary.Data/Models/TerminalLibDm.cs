@@ -5,32 +5,31 @@ using Mimirorg.Common.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Newtonsoft.Json;
 using TypeLibrary.Data.Contracts.Common;
 
-namespace TypeLibrary.Data.Models
+namespace TypeLibrary.Data.Models;
+
+public class TerminalLibDm : IVersionable<TerminalLibAm>, IVersionObject, ILogable
 {
-    public class TerminalLibDm : IVersionable<TerminalLibAm>, IVersionObject, ILogable
-    {
-        public int Id { get; set; }
-        public int? ParentId { get; set; }
-        public TerminalLibDm Parent { get; set; }
-        public string Name { get; set; }
-        public string Version { get; set; }
-        public int FirstVersionId { get; set; }
-        public string Iri { get; set; }
-        public string TypeReferences { get; set; }
-        public string Color { get; set; }
-        public string Description { get; set; }
-        public int CompanyId { get; set; }
-        public State State { get; set; }
-        public DateTime Created { get; set; }
-        public string CreatedBy { get; set; }
-        public ICollection<TerminalAttributeLibDm> TerminalAttributes { get; set; }
-        public ICollection<TerminalLibDm> Children { get; set; }
-        public ICollection<NodeTerminalLibDm> TerminalNodes { get; set; }
+    public int Id { get; set; }
+    public int? ParentId { get; set; }
+    public TerminalLibDm Parent { get; set; }
+    public string Name { get; set; }
+    public string Version { get; set; }
+    public int FirstVersionId { get; set; }
+    public string Iri { get; set; }
+    public string TypeReferences { get; set; }
+    public string Color { get; set; }
+    public string Description { get; set; }
+    public int CompanyId { get; set; }
+    public State State { get; set; }
+    public DateTime Created { get; set; }
+    public string CreatedBy { get; set; }
+    public ICollection<TerminalAttributeLibDm> TerminalAttributes { get; set; }
+    public ICollection<TerminalLibDm> Children { get; set; }
+    public ICollection<NodeTerminalLibDm> TerminalNodes { get; set; }
 
     #region IVersionable
 

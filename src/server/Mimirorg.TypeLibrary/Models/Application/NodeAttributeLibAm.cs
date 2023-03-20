@@ -1,7 +1,6 @@
-namespace Mimirorg.TypeLibrary.Models.Application
+namespace Mimirorg.TypeLibrary.Models.Application;
+
+public class NodeAttributeLibAm
 {
-    public class NodeAttributeLibAm
-    {
-        public int AttributeId { get; set; }
-    }
+    public int AttributeId { get; set; }
 }

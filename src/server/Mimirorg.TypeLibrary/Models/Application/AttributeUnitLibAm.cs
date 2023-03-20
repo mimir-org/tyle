@@ -1,8 +1,7 @@
-namespace Mimirorg.TypeLibrary.Models.Application
+namespace Mimirorg.TypeLibrary.Models.Application;
+
+public class AttributeUnitLibAm
 {
-    public class AttributeUnitLibAm
-    {
-        public int UnitId { get; set; }
-        public bool IsDefault { get; set; }
-    }
+    public int UnitId { get; set; }
+    public bool IsDefault { get; set; }
 }
