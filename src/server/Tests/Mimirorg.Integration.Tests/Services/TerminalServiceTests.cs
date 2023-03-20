@@ -1,6 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Enums;
-using Mimirorg.Common.Exceptions;
 using Mimirorg.Test.Setup;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
