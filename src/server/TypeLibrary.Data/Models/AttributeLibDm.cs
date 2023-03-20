@@ -15,5 +15,7 @@ namespace TypeLibrary.Data.Models
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public ICollection<AttributeUnitLibDm> AttributeUnits { get; set; }
+        public ICollection<NodeAttributeLibDm> AttributeNodes { get; set; }
+        public ICollection<TerminalAttributeLibDm> AttributeTerminals { get; set; }
     }
 }

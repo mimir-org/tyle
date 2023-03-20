@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace TypeLibrary.Data.Models
 {
@@ -14,5 +15,6 @@ namespace TypeLibrary.Data.Models
         public string Description { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
+        public ICollection<AttributeUnitLibDm> UnitAttributes { get; set; }
     }
 }
