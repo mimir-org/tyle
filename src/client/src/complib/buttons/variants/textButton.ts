@@ -1,11 +1,11 @@
 import { ColorTheme } from "complib/core";
 import { css } from "styled-components/macro";
 
-export const textButton = (color: ColorTheme) =>
+export const textButton = (color: ColorTheme, dangerousAction?: boolean) =>
   css`
     border: 0;
     background-color: transparent;
-    color: ${color.primary.base};
+    color: ${dangerousAction ? color.dangerousAction.on : color.primary.base};
 
     :disabled {
       color: ${color.surface.variant.on};
@@ -13,7 +13,7 @@ export const textButton = (color: ColorTheme) =>
 
     :not(:disabled) {
       :hover {
-        background-color: ${color.secondary.base};
+        background-color: ${dangerousAction? color.dangerousAction.on: color.secondary.base};
       }
 
       :active {
