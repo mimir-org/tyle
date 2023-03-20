@@ -73,7 +73,7 @@ namespace Mimirorg.TypeLibrary.Models.Application
         /// It is not allowed to remove attributes
         /// Adding attributes generates a major increase
         /// </remarks>
-        public ICollection<AttributeLibAm> Attributes { get; set; }
+        public ICollection<NodeAttributeLibAm> NodeAttributes { get; set; }
 
         /// <summary>
         /// A list of connected terminals
