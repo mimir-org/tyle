@@ -6,7 +6,7 @@ export const outlinedButton = (color: ColorTheme, dangerousAction?: boolean) =>
     outline: 0;
     background-color: transparent;
     border: 1px solid ${dangerousAction ? color.dangerousAction.on : color.primary.base};
-    color: ${dangerousAction ? color.dangerousAction.on: color.primary.base};
+    color: ${dangerousAction ? color.dangerousAction.on : color.primary.base};
 
     :disabled {
       color: ${color.surface.variant.on};
@@ -15,8 +15,8 @@ export const outlinedButton = (color: ColorTheme, dangerousAction?: boolean) =>
 
     :not(:disabled) {
       :hover {
-        background-color: ${dangerousAction ? color.dangerousAction.on: color.secondary.base};
-        color: ${dangerousAction ? color.dangerousAction.base: color.primary.base};
+        background-color: ${dangerousAction ? color.dangerousAction.on : color.secondary.base};
+        color: ${dangerousAction ? color.dangerousAction.base : color.primary.base};
       }
 
       :active {

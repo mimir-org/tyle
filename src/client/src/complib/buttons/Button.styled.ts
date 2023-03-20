@@ -15,7 +15,7 @@ export type ButtonContainerProps = Flex &
     variant?: "filled" | "outlined" | "text";
     iconPlacement?: "left" | "right";
     iconOnly?: boolean;
-    dangerousAction? :boolean;
+    dangerousAction?: boolean;
   };
 
 export const ButtonContainer = styled.button<ButtonContainerProps>`
