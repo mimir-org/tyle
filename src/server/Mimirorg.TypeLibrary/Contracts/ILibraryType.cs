@@ -1,7 +1,6 @@
-namespace Mimirorg.TypeLibrary.Contracts
+namespace Mimirorg.TypeLibrary.Contracts;
+
+public interface ILibraryType
 {
-    public interface ILibraryType
-    {
-        string Id { get; set; }
-    }
+    string Id { get; set; }
 }

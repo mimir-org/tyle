@@ -1,10 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Mimirorg.TypeLibrary.Enums
+namespace Mimirorg.TypeLibrary.Enums;
+
+public enum LogType
 {
-    public enum LogType
-    {
-        [Display(Name = "State")]
-        State = 0,
-    }
+    [Display(Name = "State")]
+    State = 0,
 }

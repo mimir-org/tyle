@@ -9,46 +9,45 @@ using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 
-namespace TypeLibrary.Core.Controllers.V1
+namespace TypeLibrary.Core.Controllers.V1;
+
+/// <summary>
+/// TypeCm file services
+/// </summary>
+[Produces("application/json")]
+[ApiController]
+[ApiVersion("1.0")]
+[Route("V{version:apiVersion}/[controller]")]
+[SwaggerTag("RDS services")]
+public class LibraryRdsController : ControllerBase
 {
-    /// <summary>
-    /// TypeCm file services
-    /// </summary>
-    [Produces("application/json")]
-    [ApiController]
-    [ApiVersion("1.0")]
-    [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("RDS services")]
-    public class LibraryRdsController : ControllerBase
+    private readonly ILogger<LibraryRdsController> _logger;
+    private readonly IRdsService _rdsService;
+
+    public LibraryRdsController(ILogger<LibraryRdsController> logger, IRdsService rdsService)
     {
-        private readonly ILogger<LibraryRdsController> _logger;
-        private readonly IRdsService _rdsService;
+        _logger = logger;
+        _rdsService = rdsService;
+    }
 
-        public LibraryRdsController(ILogger<LibraryRdsController> logger, IRdsService rdsService)
+    /// <summary>
+    /// Get all RDS codes
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    [ProducesResponseType(typeof(ICollection<RdsLibCm>), StatusCodes.Status200OK)]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetRdsCodes()
+    {
+        try
         {
-            _logger = logger;
-            _rdsService = rdsService;
+            var data = await _rdsService.Get();
+            return Ok(data);
         }
-
-        /// <summary>
-        /// Get all RDS codes
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [ProducesResponseType(typeof(ICollection<RdsLibCm>), StatusCodes.Status200OK)]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetRdsCodes()
+        catch (Exception e)
         {
-            try
-            {
-                var data = await _rdsService.Get();
-                return Ok(data);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
         }
     }
 }

@@ -1,8 +1,7 @@
 using TypeLibrary.Services.Contracts;
 
-namespace TypeLibrary.Services.Services
+namespace TypeLibrary.Services.Services;
+
+public class ModuleService : IModuleService
 {
-    public class ModuleService : IModuleService
-    {
-    }
 }

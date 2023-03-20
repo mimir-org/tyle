@@ -2,29 +2,28 @@ using Mimirorg.Test.Setup;
 
 // ReSharper disable StringLiteralTypo
 
-namespace Mimirorg.Test.Integration.Controllers
+namespace Mimirorg.Test.Integration.Controllers;
+
+public class LibraryPurposeControllerTests : IntegrationTest
 {
-    public class LibraryPurposeControllerTests : IntegrationTest
+    public LibraryPurposeControllerTests(ApiWebApplicationFactory fixture) : base(fixture)
     {
-        public LibraryPurposeControllerTests(ApiWebApplicationFactory fixture) : base(fixture)
-        {
 
-        }
-
-        //[Theory]
-        //[InlineData("/v1/librarypurpose")]
-        //public async Task GET_Retrieves_Status_Ok(string endpoint)
-        //{
-        //    var client = Factory.WithWebHostBuilder(builder =>
-        //    {
-        //        builder.ConfigureServices(_ =>
-        //        {
-        //        });
-        //    }).CreateClient(new WebApplicationFactoryClientOptions());
-
-
-        //    var response = await client.GetAsync(endpoint);
-        //    Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        //}
     }
+
+    //[Theory]
+    //[InlineData("/v1/librarypurpose")]
+    //public async Task GET_Retrieves_Status_Ok(string endpoint)
+    //{
+    //    var client = Factory.WithWebHostBuilder(builder =>
+    //    {
+    //        builder.ConfigureServices(_ =>
+    //        {
+    //        });
+    //    }).CreateClient(new WebApplicationFactoryClientOptions());
+
+
+    //    var response = await client.GetAsync(endpoint);
+    //    Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    //}
 }

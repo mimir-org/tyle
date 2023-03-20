@@ -1,9 +1,8 @@
-namespace Mimirorg.TypeLibrary.Enums
+namespace Mimirorg.TypeLibrary.Enums;
+
+public enum VersionStatus
 {
-    public enum VersionStatus
-    {
-        NoChange = 0,
-        Minor = 1,
-        Major = 2
-    }
+    NoChange = 0,
+    Minor = 1,
+    Major = 2
 }

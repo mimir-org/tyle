@@ -5,46 +5,45 @@ using Xunit;
 
 // ReSharper disable InconsistentNaming
 
-namespace Mimirorg.Test.Integration.Services
+namespace Mimirorg.Test.Integration.Services;
+
+public class AttributeServiceTests : IntegrationTest
 {
-    public class AttributeServiceTests : IntegrationTest
+    public AttributeServiceTests(ApiWebApplicationFactory factory) : base(factory)
     {
-        public AttributeServiceTests(ApiWebApplicationFactory factory) : base(factory)
-        {
-        }
+    }
 
-        [Fact]
-        public async Task DatumDataReceiveOk()
-        {
-            using var scope = Factory.Server.Services.CreateScope();
-            var attributeService = scope.ServiceProvider.GetRequiredService<IAttributeService>();
+    [Fact]
+    public async Task DatumDataReceiveOk()
+    {
+        using var scope = Factory.Server.Services.CreateScope();
+        var attributeService = scope.ServiceProvider.GetRequiredService<IAttributeService>();
 
-            var rangeSpecifying = await attributeService.GetQuantityDatumRangeSpecifying();
-            var regularitySpecified = await attributeService.GetQuantityDatumRegularitySpecified();
-            var specifiedProvenance = await attributeService.GetQuantityDatumSpecifiedProvenance();
-            var specifiedScope = await attributeService.GetQuantityDatumSpecifiedScope();
+        var rangeSpecifying = await attributeService.GetQuantityDatumRangeSpecifying();
+        var regularitySpecified = await attributeService.GetQuantityDatumRegularitySpecified();
+        var specifiedProvenance = await attributeService.GetQuantityDatumSpecifiedProvenance();
+        var specifiedScope = await attributeService.GetQuantityDatumSpecifiedScope();
 
-            Assert.True(rangeSpecifying != null);
-            Assert.True(regularitySpecified != null);
-            Assert.True(specifiedProvenance != null);
-            Assert.True(specifiedScope != null);
+        Assert.True(rangeSpecifying != null);
+        Assert.True(regularitySpecified != null);
+        Assert.True(specifiedProvenance != null);
+        Assert.True(specifiedScope != null);
 
-            Assert.True(rangeSpecifying.Any());
-            Assert.True(regularitySpecified.Any());
-            Assert.True(specifiedProvenance.Any());
-            Assert.True(specifiedScope.Any());
-        }
+        Assert.True(rangeSpecifying.Any());
+        Assert.True(regularitySpecified.Any());
+        Assert.True(specifiedProvenance.Any());
+        Assert.True(specifiedScope.Any());
+    }
 
-        [Fact]
-        public async Task AttributeDataReceiveOk()
-        {
-            using var scope = Factory.Server.Services.CreateScope();
-            var attributeService = scope.ServiceProvider.GetRequiredService<IAttributeService>();
+    [Fact]
+    public async Task AttributeDataReceiveOk()
+    {
+        using var scope = Factory.Server.Services.CreateScope();
+        var attributeService = scope.ServiceProvider.GetRequiredService<IAttributeService>();
 
-            var attributesPca = await attributeService.Get();
+        var attributesPca = await attributeService.Get();
 
-            Assert.True(attributesPca != null);
-            Assert.True(attributesPca.Any());
-        }
+        Assert.True(attributesPca != null);
+        Assert.True(attributesPca.Any());
     }
 }

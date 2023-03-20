@@ -1,8 +1,7 @@
-namespace Mimirorg.Common.Models
+namespace Mimirorg.Common.Models;
+
+public class SwaggerContact
 {
-    public class SwaggerContact
-    {
-        public string Name { get; set; }
-        public string Email { get; set; }
-    }
+    public string Name { get; set; }
+    public string Email { get; set; }
 }

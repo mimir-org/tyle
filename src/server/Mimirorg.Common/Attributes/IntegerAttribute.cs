@@ -1,20 +1,19 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Mimirorg.Common.Attributes
+namespace Mimirorg.Common.Attributes;
+
+[AttributeUsage(AttributeTargets.Property)]
+public class DigitAttribute : ValidationAttribute
 {
-    [AttributeUsage(AttributeTargets.Property)]
-    public class DigitAttribute : ValidationAttribute
+    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            if (value is not string s)
-                return new ValidationResult("This validation attribute could only be used on a string object");
+        if (value is not string s)
+            return new ValidationResult("This validation attribute could only be used on a string object");
 
-            var list = s.ToCharArray();
+        var list = s.ToCharArray();
 
-            return list.Any(x => !char.IsDigit(x)) ?
-                new ValidationResult($"Property {validationContext.MemberName} must only contain digits") :
-                ValidationResult.Success;
-        }
+        return list.Any(x => !char.IsDigit(x)) ?
+            new ValidationResult($"Property {validationContext.MemberName} must only contain digits") :
+            ValidationResult.Success;
     }
 }

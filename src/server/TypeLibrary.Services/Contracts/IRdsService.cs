@@ -2,10 +2,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mimirorg.TypeLibrary.Models.Client;
 
-namespace TypeLibrary.Services.Contracts
+namespace TypeLibrary.Services.Contracts;
+
+public interface IRdsService
 {
-    public interface IRdsService
-    {
-        Task<ICollection<RdsLibCm>> Get();
-    }
+    Task<ICollection<RdsLibCm>> Get();
 }

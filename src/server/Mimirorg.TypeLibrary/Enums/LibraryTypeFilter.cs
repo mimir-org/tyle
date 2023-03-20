@@ -1,10 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Mimirorg.TypeLibrary.Enums
+namespace Mimirorg.TypeLibrary.Enums;
+
+public enum LibraryTypeFilter
 {
-    public enum LibraryTypeFilter
-    {
-        [Display(Name = "Node")]
-        Node = 0
-    }
+    [Display(Name = "Node")]
+    Node = 0
 }

@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
 
-namespace TypeLibrary.Services.Contracts
+namespace TypeLibrary.Services.Contracts;
+
+public interface ISeedingService
 {
-    public interface ISeedingService
-    {
-        Task LoadDataFromFiles();
-    }
+    Task LoadDataFromFiles();
 }
