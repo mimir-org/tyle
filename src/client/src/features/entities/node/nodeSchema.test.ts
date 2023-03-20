@@ -82,7 +82,8 @@ describe("nodeSchema tests", () => {
   });
 
   // TODO: When nullable ints are implemented this test can be uncommented.
-  /*  it("should reject if there are any terminals without an id", async () => {
+  /*
+  it("should reject if there are any terminals without an id", async () => {
     const nodeWithEmptyTerminals: Partial<FormNodeLib> = {
       nodeTerminals: [
         {
@@ -95,5 +96,6 @@ describe("nodeSchema tests", () => {
       ],
     };
     await expect(nodeSchema(t).validateAt("nodeTerminals", nodeWithEmptyTerminals)).rejects.toBeTruthy();
-  });*/
+  });
+  */
 });
