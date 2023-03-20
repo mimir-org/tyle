@@ -46,7 +46,6 @@ namespace TypeLibrary.Core.Extensions
             services.AddScoped<IEfNodeRepository, EfNodeRepository>();
             services.AddScoped<IEfNodeTerminalRepository, EfNodeTerminalRepository>();
             services.AddScoped<IEfTerminalRepository, EfTerminalRepository>();
-            services.AddScoped<ILibraryTypeItemRepository, LibraryTypeItemRepository>();
             services.AddScoped<IEfAttributePredefinedRepository, EfAttributePredefinedRepository>();
             services.AddSingleton<IFileRepository, JsonFileRepository>();
             services.AddScoped<IEfSymbolRepository, EfSymbolRepository>();
