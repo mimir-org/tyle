@@ -38,7 +38,7 @@ namespace TypeLibrary.Data.Models
         public string CreatedBy { get; set; }
         public virtual ICollection<NodeLibDm> Children { get; set; }
         public virtual ICollection<NodeTerminalLibDm> NodeTerminals { get; set; }
-        public string Attributes { get; set; }
+        public ICollection<NodeAttributeLibDm> NodeAttributes { get; set; }
 
         #region IVersionable
 

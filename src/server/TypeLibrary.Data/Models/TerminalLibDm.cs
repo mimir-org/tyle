@@ -28,7 +28,7 @@ namespace TypeLibrary.Data.Models
         public State State { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
-        public string Attributes { get; set; }
+        public ICollection<TerminalAttributeLibDm> TerminalAttributes { get; set; }
         public ICollection<TerminalLibDm> Children { get; set; }
         public ICollection<NodeTerminalLibDm> TerminalNodes { get; set; }
 
