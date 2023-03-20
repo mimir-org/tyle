@@ -14,6 +14,7 @@ export const textButton = (color: ColorTheme, dangerousAction?: boolean) =>
     :not(:disabled) {
       :hover {
         background-color: ${dangerousAction? color.dangerousAction.on: color.secondary.base};
+        color: ${dangerousAction ? color.dangerousAction.base : color.primary.base};
       }
 
       :active {
