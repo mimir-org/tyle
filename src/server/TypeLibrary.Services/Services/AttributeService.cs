@@ -22,12 +22,14 @@ public class AttributeService : IAttributeService
     private readonly IAttributePredefinedRepository _attributePredefinedRepository;
     private readonly IQuantityDatumRepository _datumRepository;
     private readonly IAttributeReferenceRepository _attributeReferenceRepository;
+    private readonly IAttributeRepository _attributeRepository;
 
-    public AttributeService(IMapper mapper, IOptions<ApplicationSettings> applicationSettings, IAttributePredefinedRepository attributePredefinedRepository, IAttributeReferenceRepository attributeReferenceRepository, IQuantityDatumRepository datumRepository)
+    public AttributeService(IMapper mapper, IOptions<ApplicationSettings> applicationSettings, IAttributePredefinedRepository attributePredefinedRepository, IAttributeReferenceRepository attributeReferenceRepository, IAttributeRepository attributeRepository, IQuantityDatumRepository datumRepository)
     {
         _mapper = mapper;
         _attributePredefinedRepository = attributePredefinedRepository;
         _attributeReferenceRepository = attributeReferenceRepository;
+        _attributeRepository = attributeRepository;
         _datumRepository = datumRepository;
         _applicationSettings = applicationSettings?.Value;
     }
@@ -36,9 +38,9 @@ public class AttributeService : IAttributeService
     /// Get all attributes and their units
     /// </summary>
     /// <returns>List of attributes and their units></returns>
-    public async Task<ICollection<AttributeLibCm>> Get()
+    public IEnumerable<AttributeLibCm> Get()
     {
-        var dataSet = await _attributeReferenceRepository.Get();
+        var dataSet = _attributeRepository.Get();
         return _mapper.Map<List<AttributeLibCm>>(dataSet);
     }
 

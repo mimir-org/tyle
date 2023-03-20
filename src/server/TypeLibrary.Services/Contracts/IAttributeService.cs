@@ -11,7 +11,7 @@ public interface IAttributeService
     /// Get all attributes and their units
     /// </summary>
     /// <returns>List of attributes and their units></returns>
-    Task<ICollection<AttributeLibCm>> Get();
+    IEnumerable<AttributeLibCm> Get();
 
     /// <summary>
     /// Get predefined attributes
