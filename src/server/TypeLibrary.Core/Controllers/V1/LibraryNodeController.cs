@@ -17,245 +17,244 @@ using Swashbuckle.AspNetCore.Annotations;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
-namespace TypeLibrary.Core.Controllers.V1
+namespace TypeLibrary.Core.Controllers.V1;
+
+/// <summary>
+/// Library services
+/// </summary>
+[Produces("application/json")]
+[ApiController]
+[ApiVersion("1.0")]
+[Route("V{version:apiVersion}/[controller]")]
+[SwaggerTag("Library Node Services")]
+public class LibraryNodeController : ControllerBase
 {
-    /// <summary>
-    /// Library services
-    /// </summary>
-    [Produces("application/json")]
-    [ApiController]
-    [ApiVersion("1.0")]
-    [Route("V{version:apiVersion}/[controller]")]
-    [SwaggerTag("Library Node Services")]
-    public class LibraryNodeController : ControllerBase
+    private readonly ILogger<LibraryNodeController> _logger;
+    private readonly INodeService _nodeService;
+    private readonly IMimirorgAuthService _authService;
+    private readonly ILogService _logService;
+
+    public LibraryNodeController(ILogger<LibraryNodeController> logger, INodeService nodeService, IMimirorgAuthService authService, ILogService logService)
     {
-        private readonly ILogger<LibraryNodeController> _logger;
-        private readonly INodeService _nodeService;
-        private readonly IMimirorgAuthService _authService;
-        private readonly ILogService _logService;
+        _logger = logger;
+        _nodeService = nodeService;
+        _authService = authService;
+        _logService = logService;
+    }
 
-        public LibraryNodeController(ILogger<LibraryNodeController> logger, INodeService nodeService, IMimirorgAuthService authService, ILogService logService)
+    /// <summary>
+    /// Get all nodes
+    /// </summary>
+    /// <returns>A collection of nodes</returns>
+    [HttpGet]
+    [ProducesResponseType(typeof(ICollection<NodeLibCm>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [AllowAnonymous]
+    public IActionResult GetLatestVersions()
+    {
+        try
         {
-            _logger = logger;
-            _nodeService = nodeService;
-            _authService = authService;
-            _logService = logService;
+            var cm = _nodeService.GetLatestVersions().ToList();
+            return Ok(cm);
         }
-
-        /// <summary>
-        /// Get all nodes
-        /// </summary>
-        /// <returns>A collection of nodes</returns>
-        [HttpGet]
-        [ProducesResponseType(typeof(ICollection<NodeLibCm>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [AllowAnonymous]
-        public IActionResult GetLatestVersions()
+        catch (Exception e)
         {
-            try
-            {
-                var cm = _nodeService.GetLatestVersions().ToList();
-                return Ok(cm);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, e.Message);
-            }
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, e.Message);
         }
+    }
 
-        /// <summary>
-        /// Get node by id
-        /// </summary>
-        /// <param name="id">node id</param>
-        /// <returns>The content if exist or </returns>
-        [HttpGet("{id}")]
-        [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [AllowAnonymous]
-        public IActionResult GetLatestVersion([FromRoute] int id)
+    /// <summary>
+    /// Get node by id
+    /// </summary>
+    /// <param name="id">node id</param>
+    /// <returns>The content if exist or </returns>
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [AllowAnonymous]
+    public IActionResult GetLatestVersion([FromRoute] int id)
+    {
+        try
         {
-            try
-            {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
-
-                var data = _nodeService.GetLatestVersion(id);
-
-                if (data == null)
-                    return NotFound(id);
-
-                return Ok(data);
-            }
-            catch (MimirorgNotFoundException e)
-            {
-                return NotFound(e.Message);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, e.Message);
-            }
-        }
-
-        /// <summary>
-        /// Create a node
-        /// </summary>
-        /// <param name="node">The node that should be created</param>
-        /// <returns>The created node</returns>
-        [HttpPost]
-        [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [MimirorgAuthorize(MimirorgPermission.Write, "node", "CompanyId")]
-        public async Task<IActionResult> Create([FromBody] NodeLibAm node)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
-
-                var cm = await _nodeService.Create(node);
-                return Ok(cm);
-            }
-            catch (MimirorgBadRequestException e)
-            {
-                _logger.LogWarning(e, $"Warning error: {e.Message}");
-
-                foreach (var error in e.Errors().ToList())
-                {
-                    ModelState.Remove(error.Key);
-                    ModelState.TryAddModelError(error.Key, error.Error);
-                }
-
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            }
-            catch (MimirorgDuplicateException e)
-            {
-                ModelState.Remove("Id");
-                ModelState.TryAddModelError("Id", e.Message);
+
+            var data = _nodeService.GetLatestVersion(id);
+
+            if (data == null)
+                return NotFound(id);
+
+            return Ok(data);
+        }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, e.Message);
+        }
+    }
+
+    /// <summary>
+    /// Create a node
+    /// </summary>
+    /// <param name="node">The node that should be created</param>
+    /// <returns>The created node</returns>
+    [HttpPost]
+    [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [MimirorgAuthorize(MimirorgPermission.Write, "node", "CompanyId")]
+    public async Task<IActionResult> Create([FromBody] NodeLibAm node)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, e.Message);
-            }
+
+            var cm = await _nodeService.Create(node);
+            return Ok(cm);
         }
-
-        /// <summary>
-        /// Update node
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="nodeAm"></param>
-        /// <returns>NodeLibCm</returns>
-        [HttpPut("{id}")]
-        [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [MimirorgAuthorize(MimirorgPermission.Write, "nodeAm", "CompanyId")]
-        public async Task<IActionResult> Update(int id, [FromBody] NodeLibAm nodeAm)
+        catch (MimirorgBadRequestException e)
         {
-            try
+            _logger.LogWarning(e, $"Warning error: {e.Message}");
+
+            foreach (var error in e.Errors().ToList())
             {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
-
-                var companyId = await _nodeService.GetCompanyId(id);
-
-                if (companyId != nodeAm.CompanyId)
-                    return StatusCode(StatusCodes.Status403Forbidden);
-
-                var data = await _nodeService.Update(id, nodeAm);
-                return Ok(data);
+                ModelState.Remove(error.Key);
+                ModelState.TryAddModelError(error.Key, error.Error);
             }
-            catch (MimirorgBadRequestException e)
-            {
-                foreach (var error in e.Errors().ToList())
-                {
-                    ModelState.Remove(error.Key);
-                    ModelState.TryAddModelError(error.Key, error.Error);
-                }
 
+            return BadRequest(ModelState);
+        }
+        catch (MimirorgDuplicateException e)
+        {
+            ModelState.Remove("Id");
+            ModelState.TryAddModelError("Id", e.Message);
+            return BadRequest(ModelState);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, e.Message);
+        }
+    }
+
+    /// <summary>
+    /// Update node
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="nodeAm"></param>
+    /// <returns>NodeLibCm</returns>
+    [HttpPut("{id}")]
+    [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [MimirorgAuthorize(MimirorgPermission.Write, "nodeAm", "CompanyId")]
+    public async Task<IActionResult> Update(int id, [FromBody] NodeLibAm nodeAm)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
+
+            var companyId = await _nodeService.GetCompanyId(id);
+
+            if (companyId != nodeAm.CompanyId)
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            var data = await _nodeService.Update(id, nodeAm);
+            return Ok(data);
         }
-
-        /// <summary>
-        /// Update node with new state
-        /// </summary>
-        /// <param name="state"></param>
-        /// <param name="id"></param>
-        /// <returns>NodeLibCm</returns>
-        [HttpPatch("{id}/state/{state}")]
-        [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize]
-        public async Task<IActionResult> ChangeState([FromRoute] int id, [FromRoute] State state)
+        catch (MimirorgBadRequestException e)
         {
-            try
+            foreach (var error in e.Errors().ToList())
             {
-                var companyId = await _nodeService.GetCompanyId(id);
-                var hasAccess = await _authService.HasAccess(companyId, state);
-
-                if (!hasAccess)
-                    return StatusCode(StatusCodes.Status403Forbidden);
-
-                var data = await _nodeService.ChangeState(id, state);
-                return Ok(data);
+                ModelState.Remove(error.Key);
+                ModelState.TryAddModelError(error.Key, error.Error);
             }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
+
+            return BadRequest(ModelState);
         }
-
-        /// <summary>
-        /// Reject and revert state
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>NodeLibCm</returns>
-        [HttpPatch("{id}/state/reject")]
-        [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize]
-        public async Task<IActionResult> RejectChangeState([FromRoute] int id)
+        catch (Exception e)
         {
-            try
-            {
-                var companyId = await _nodeService.GetCompanyId(id);
-                var previousState = await _logService.GetPreviousState(id, nameof(NodeLibDm));
-                var hasAccess = await _authService.HasAccess(companyId, previousState);
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
 
-                if (!hasAccess)
-                    return StatusCode(StatusCodes.Status403Forbidden);
+    /// <summary>
+    /// Update node with new state
+    /// </summary>
+    /// <param name="state"></param>
+    /// <param name="id"></param>
+    /// <returns>NodeLibCm</returns>
+    [HttpPatch("{id}/state/{state}")]
+    [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [Authorize]
+    public async Task<IActionResult> ChangeState([FromRoute] int id, [FromRoute] State state)
+    {
+        try
+        {
+            var companyId = await _nodeService.GetCompanyId(id);
+            var hasAccess = await _authService.HasAccess(companyId, state);
 
-                var data = await _nodeService.ChangeState(id, previousState);
-                return Ok(data);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
+            if (!hasAccess)
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            var data = await _nodeService.ChangeState(id, state);
+            return Ok(data);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
+    /// Reject and revert state
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>NodeLibCm</returns>
+    [HttpPatch("{id}/state/reject")]
+    [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [Authorize]
+    public async Task<IActionResult> RejectChangeState([FromRoute] int id)
+    {
+        try
+        {
+            var companyId = await _nodeService.GetCompanyId(id);
+            var previousState = await _logService.GetPreviousState(id, nameof(NodeLibDm));
+            var hasAccess = await _authService.HasAccess(companyId, previousState);
+
+            if (!hasAccess)
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            var data = await _nodeService.ChangeState(id, previousState);
+            return Ok(data);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
         }
     }
 }

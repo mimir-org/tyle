@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 
-namespace TypeLibrary.Data.Contracts.Common
+namespace TypeLibrary.Data.Contracts.Common;
+
+public interface ISparQlWebClient
 {
-    public interface ISparQlWebClient
-    {
-        IEnumerable<T> Get<T>(string url, string query) where T : class, new();
-    }
+    IEnumerable<T> Get<T>(string url, string query) where T : class, new();
 }

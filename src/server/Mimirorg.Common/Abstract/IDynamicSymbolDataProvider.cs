@@ -1,12 +1,11 @@
-namespace Mimirorg.Common.Abstract
+namespace Mimirorg.Common.Abstract;
+
+public interface IDynamicSymbolDataProvider
 {
-    public interface IDynamicSymbolDataProvider
-    {
-        /// <summary>
-        /// Get symbol by id
-        /// </summary>
-        /// <param name="id">The id that resolves the image symbol</param>
-        /// <returns>A base64 string value</returns>
-        Task<string> GetSymbolDataAsync(int id);
-    }
+    /// <summary>
+    /// Get symbol by id
+    /// </summary>
+    /// <param name="id">The id that resolves the image symbol</param>
+    /// <returns>A base64 string value</returns>
+    Task<string> GetSymbolDataAsync(int id);
 }

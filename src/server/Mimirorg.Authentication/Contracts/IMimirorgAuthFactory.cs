@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace Mimirorg.Authentication.Contracts
+namespace Mimirorg.Authentication.Contracts;
+
+public interface IMimirorgAuthFactory
 {
-    public interface IMimirorgAuthFactory
-    {
-        ICollection<IdentityRole> DefaultRoles { get; }
-    }
+    ICollection<IdentityRole> DefaultRoles { get; }
 }

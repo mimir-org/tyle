@@ -1,7 +1,6 @@
-namespace TypeLibrary.Data.Models.Common
+namespace TypeLibrary.Data.Models.Common;
+
+public class SqlResultCount
 {
-    public class SqlResultCount
-    {
-        public int Number { get; set; }
-    }
+    public int Number { get; set; }
 }
