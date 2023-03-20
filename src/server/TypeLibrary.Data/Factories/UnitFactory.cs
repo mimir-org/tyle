@@ -16,7 +16,7 @@ namespace TypeLibrary.Data.Factories
             _unitRepository = unitRepository;
         }
 
-        public UnitLibDm Get(string id)
+        public UnitLibDm Get(int id)
         {
             if (AllUnits == null || !AllUnits.Any())
                 AllUnits = _unitRepository.Get().Result;

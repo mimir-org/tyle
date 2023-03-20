@@ -9,7 +9,7 @@ namespace TypeLibrary.Data.Configurations
         public void Configure(EntityTypeBuilder<TerminalAttributeLibDm> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.ToTable("Node_Attribute");
+            builder.ToTable("Terminal_Attribute");
             builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
 
             builder.HasOne(x => x.Terminal).WithMany(y => y.TerminalAttributes).HasForeignKey(x => x.TerminalId).OnDelete(DeleteBehavior.NoAction);
