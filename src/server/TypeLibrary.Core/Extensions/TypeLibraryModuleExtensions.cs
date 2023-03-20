@@ -51,10 +51,13 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IEfSymbolRepository, EfSymbolRepository>();
         services.AddScoped<IDynamicSymbolDataProvider, EfSymbolRepository>();
         services.AddScoped<IEfLogRepository, EfLogRepository>();
+        services.AddScoped<IEfAttributeRepository, EfAttributeRepository>();
+        services.AddScoped<IEfUnitRepository, EfUnitRepository>();
 
         services.AddScoped<IQuantityDatumRepository, DatumRepository>();
         services.AddScoped<IAttributePredefinedRepository, EfAttributePredefinedRepository>();
-        services.AddScoped<IUnitRepository, UnitRepository>();
+        services.AddScoped<IUnitRepository, EfUnitRepository>();
+        services.AddScoped<IAttributeRepository, EfAttributeRepository>();
         services.AddScoped<IPurposeReferenceRepository, PurposeReferenceRepository>();
         services.AddScoped<INodeRepository, EfNodeRepository>();
         services.AddScoped<IRdsRepository, RdsRepository>();
