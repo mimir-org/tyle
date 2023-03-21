@@ -22,6 +22,7 @@ import { FormNodeLib } from "features/entities/node/types/formNodeLib";
 import { Control, Controller, FieldArrayWithId, FieldErrors, UseFormSetValue, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../../../../complib/surfaces";
 
 interface NodeTerminalProps {
   index: number;
@@ -68,127 +69,126 @@ export const NodeTerminal = ({
   const sourceTerminal = terminalQuery.data?.find((x) => x.id === field.terminalId);
 
   return (
-    <NodeTerminalContainer>
-      <Flexbox justifyContent={"space-between"} alignItems={"center"}>
-        <Text variant={"label-large"}>
-          {t("terminal.title")} #{index + 1}
-        </Text>
-        <Button
-          variant={"text"}
-          dangerousAction
-          disabled={removable}
-          alignSelf={"end"}
-          icon={<Trash />}
-          iconOnly
-          onClick={() => onRemove()}
-        >
-          {t("node.terminals.remove")}
-        </Button>
-      </Flexbox>
-      <NodeTerminalInputContainer>
-        <Controller
-          control={control}
-          name={`nodeTerminals.${index}.terminalId`}
-          render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField
-              indent={false}
-              label={t("node.terminals.name")}
-              error={errors.nodeTerminals?.[index]?.terminalId}
-            >
-              <Select
-                {...rest}
-                selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("node.terminals.name").toLowerCase() })}
-                options={terminalQuery.data}
-                isLoading={terminalQuery.isLoading}
-                getOptionLabel={(x) => x.name}
-                getOptionValue={(x) => x.id.toString()}
-                onChange={(x) => onChange(x?.id)}
-                value={terminalQuery.data?.find((x) => x.id === value)}
-                formatOptionLabel={(x) => (
-                  <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
-                    {x.color && <TerminalButton as={"span"} variant={"small"} color={x.color} />}
-                    <Text>{x.name}</Text>
-                  </Flexbox>
-                )}
-              />
-            </FormField>
-          )}
-        />
-        <Controller
-          control={control}
-          name={`nodeTerminals.${index}.connectorDirection`}
-          render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField
-              indent={false}
-              label={t("node.terminals.direction")}
-              error={errors.nodeTerminals?.[index]?.connectorDirection}
-            >
-              <Select
-                {...rest}
-                selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("node.terminals.direction").toLowerCase() })}
-                options={connectorDirectionOptions}
-                onChange={(x) => onChange(x?.value)}
-                value={connectorDirectionOptions.find((x) => x.value === value)}
-              />
-            </FormField>
-          )}
-        />
+    <Flexbox gap={"24px"} alignItems={"center"}>
+      <Text variant={"title-large"}>{index + 1}</Text>
+      <NodeTerminalContainer>
         <NodeTerminalInputContainer>
           <Controller
             control={control}
-            name={`nodeTerminals.${index}.hasMaxQuantity`}
-            render={({ field: { onChange, value, ...rest } }) => (
+            name={`nodeTerminals.${index}.terminalId`}
+            render={({ field: { value, onChange, ref, ...rest } }) => (
               <FormField
                 indent={false}
-                label={t("node.terminals.limit")}
-                error={errors.nodeTerminals?.[index]?.hasMaxQuantity}
+                label={t("node.terminals.name")}
+                error={errors.nodeTerminals?.[index]?.terminalId}
               >
-                <Box display={"flex"} justifyContent={"center"} alignItems={"center"} height={"40px"}>
-                  <Checkbox
-                    {...rest}
-                    onCheckedChange={(checked) => {
-                      !checked &&
-                        setValue(`nodeTerminals.${index}.maxQuantity`, MAXIMUM_TERMINAL_QUANTITY_VALUE, {
-                          shouldDirty: true,
-                        });
-                      checked &&
-                        setValue(`nodeTerminals.${index}.maxQuantity`, 1, {
-                          shouldDirty: true,
-                        });
-                      onChange(checked);
-                    }}
-                    checked={value}
-                    disabled={!terminalCanHaveLimit}
-                  />
-                </Box>
-              </FormField>
-            )}
-          />
-          <Controller
-            control={control}
-            name={`nodeTerminals.${index}.maxQuantity`}
-            render={({ field: { value, ...rest } }) => (
-              <FormField
-                indent={false}
-                label={t("node.terminals.amount")}
-                error={errors.nodeTerminals?.[index]?.maxQuantity}
-              >
-                <Counter
+                <Select
                   {...rest}
-                  id={field.id}
-                  min={MINIMUM_TERMINAL_QUANTITY_VALUE}
-                  max={MAXIMUM_TERMINAL_QUANTITY_VALUE}
-                  value={!terminalHasMaxQuantity ? 0 : value}
-                  disabled={!terminalHasMaxQuantity}
+                  selectRef={ref}
+                  placeholder={t("common.templates.select", { object: t("node.terminals.name").toLowerCase() })}
+                  options={terminalQuery.data}
+                  isLoading={terminalQuery.isLoading}
+                  getOptionLabel={(x) => x.name}
+                  getOptionValue={(x) => x.id.toString()}
+                  onChange={(x) => onChange(x?.id)}
+                  value={terminalQuery.data?.find((x) => x.id === value)}
+                  formatOptionLabel={(x) => (
+                    <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
+                      {x.color && <TerminalButton as={"span"} variant={"small"} color={x.color} />}
+                      <Text>{x.name}</Text>
+                    </Flexbox>
+                  )}
                 />
               </FormField>
             )}
           />
+          <Controller
+            control={control}
+            name={`nodeTerminals.${index}.connectorDirection`}
+            render={({ field: { value, onChange, ref, ...rest } }) => (
+              <FormField
+                indent={false}
+                label={t("node.terminals.direction")}
+                error={errors.nodeTerminals?.[index]?.connectorDirection}
+              >
+                <Select
+                  {...rest}
+                  selectRef={ref}
+                  placeholder={t("common.templates.select", { object: t("node.terminals.direction").toLowerCase() })}
+                  options={connectorDirectionOptions}
+                  onChange={(x) => onChange(x?.value)}
+                  value={connectorDirectionOptions.find((x) => x.value === value)}
+                />
+              </FormField>
+            )}
+          />
+          <NodeTerminalInputContainer>
+            <Controller
+              control={control}
+              name={`nodeTerminals.${index}.hasMaxQuantity`}
+              render={({ field: { onChange, value, ...rest } }) => (
+                <FormField
+                  indent={false}
+                  label={t("node.terminals.limit")}
+                  error={errors.nodeTerminals?.[index]?.hasMaxQuantity}
+                >
+                  <Box display={"flex"} justifyContent={"center"} alignItems={"center"} height={"40px"}>
+                    <Checkbox
+                      {...rest}
+                      onCheckedChange={(checked) => {
+                        !checked &&
+                          setValue(`nodeTerminals.${index}.maxQuantity`, MAXIMUM_TERMINAL_QUANTITY_VALUE, {
+                            shouldDirty: true,
+                          });
+                        checked &&
+                          setValue(`nodeTerminals.${index}.maxQuantity`, 1, {
+                            shouldDirty: true,
+                          });
+                        onChange(checked);
+                      }}
+                      checked={value}
+                      disabled={!terminalCanHaveLimit}
+                    />
+                  </Box>
+                </FormField>
+              )}
+            />
+            <Controller
+              control={control}
+              name={`nodeTerminals.${index}.maxQuantity`}
+              render={({ field: { value, ...rest } }) => (
+                <FormField
+                  indent={false}
+                  label={t("node.terminals.amount")}
+                  error={errors.nodeTerminals?.[index]?.maxQuantity}
+                >
+                  <Counter
+                    {...rest}
+                    id={field.id}
+                    min={MINIMUM_TERMINAL_QUANTITY_VALUE}
+                    max={MAXIMUM_TERMINAL_QUANTITY_VALUE}
+                    value={!terminalHasMaxQuantity ? 0 : value}
+                    disabled={!terminalHasMaxQuantity}
+                  />
+                </FormField>
+              )}
+            />
+          </NodeTerminalInputContainer>
         </NodeTerminalInputContainer>
-      </NodeTerminalInputContainer>
-      <NodeTerminalAttributes attributes={sourceTerminal?.attributes ?? []} />
-    </NodeTerminalContainer>
+        <Accordion>
+          <AccordionItem value={"Attributes"}>
+            <AccordionTrigger>{t("node.terminals.attributes")}</AccordionTrigger>
+            <AccordionContent>
+              <NodeTerminalAttributes hideLabel attributes={sourceTerminal?.attributes ?? []} />
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </NodeTerminalContainer>
+      <Box>
+        <Button variant={"outlined"} dangerousAction disabled={removable} alignSelf={"end"} onClick={() => onRemove()}>
+          <Trash size={48} />
+        </Button>
+      </Box>
+    </Flexbox>
   );
 };
