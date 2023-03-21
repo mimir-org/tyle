@@ -3,8 +3,8 @@ import { ColorTheme } from "complib/core/variables/color/types/colorTheme";
 
 export const darkTheme: ColorTheme = {
   primary: {
-    base: colorReference.primary[60],
-    on: colorReference.primary[99]
+    base: colorReference.neutral[50],
+    on: colorReference.primary[0]
   },
   secondary: {
     base: colorReference.secondary[70],
@@ -15,10 +15,10 @@ export const darkTheme: ColorTheme = {
     }
   },
   tertiary: {
-    base: colorReference.tertiary[10],
-    on: colorReference.primary[90],
+    base: colorReference.tertiary[20],
+    on: colorReference.primary[99],
     container: {
-      base: colorReference.tertiary[30],
+      base: colorReference.tertiary[50],
       on: colorReference.primary[0]
     }
   },
@@ -31,40 +31,40 @@ export const darkTheme: ColorTheme = {
     on: colorReference.warning[10]
   },
   dangerousAction: {
-    base: colorReference.dangerousAction[90],
-    on: colorReference.dangerousAction[10]
+    base: colorReference.dangerousAction[10],
+    on: colorReference.dangerousAction[60]
   },
   outline: {
-    base: colorReference.neutralVariant[40]
+    base: colorReference.neutralVariant[30]
   },
   background: {
-    base: colorReference.neutral[0],
+    base: colorReference.neutral[10],
     on: colorReference.neutral[90],
     inverse: {
-      base: colorReference.neutral[99],
-      on: colorReference.neutral[10]
+      base: colorReference.neutral[90],
+      on: colorReference.neutral[20]
     }
   },
   surface: {
-    base: colorReference.neutral[10],
-    on: colorReference.neutral[95],
+    base: colorReference.neutral[20],
+    on: colorReference.neutral[80],
     variant: {
       base: colorReference.neutralVariant[30],
-      on: colorReference.neutralVariant[80]
+      on: colorReference.neutralVariant[50]
     },
     inverse: {
-      base: colorReference.neutral[99],
-      on: colorReference.neutral[10]
+      base: colorReference.neutral[90],
+      on: colorReference.neutral[20]
     },
     tint: {
       base: colorReference.primary[80]
     }
   },
   shadow: {
-    base: colorReference.neutral[0]
+    base: colorReference.neutral[50]
   },
   pure: {
-    base: colorReference.neutral[0],
+    base: colorReference.neutral[20],
     on: colorReference.neutral[100]
   }
 };
