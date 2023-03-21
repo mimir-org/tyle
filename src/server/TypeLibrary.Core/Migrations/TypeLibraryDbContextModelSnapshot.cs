@@ -17,10 +17,66 @@ namespace TypeLibrary.Core.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.3")
+                .HasAnnotation("ProductVersion", "7.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int")
+                        .HasColumnName("CompanyId");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("CreatedBy");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(511)
+                        .HasColumnType("nvarchar(511)")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("Iri")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("Iri");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("Name");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("State");
+
+                    b.Property<string>("TypeReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("TypeReferences");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("State");
+
+                    b.ToTable("Attribute", (string)null);
+                });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributePredefinedLibDm", b =>
                 {
@@ -71,6 +127,34 @@ namespace TypeLibrary.Core.Migrations
                     b.HasKey("Key");
 
                     b.ToTable("AttributePredefined", (string)null);
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeUnitLibDm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AttributeId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit")
+                        .HasColumnName("IsDefault");
+
+                    b.Property<int>("UnitId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttributeId");
+
+                    b.HasIndex("UnitId");
+
+                    b.ToTable("Attribute_Unit", (string)null);
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.LogLibDm", b =>
@@ -151,6 +235,30 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Log", (string)null);
                 });
 
+            modelBuilder.Entity("TypeLibrary.Data.Models.NodeAttributeLibDm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AttributeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NodeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttributeId");
+
+                    b.HasIndex("NodeId");
+
+                    b.ToTable("Node_Attribute", (string)null);
+                });
+
             modelBuilder.Entity("TypeLibrary.Data.Models.NodeLibDm", b =>
                 {
                     b.Property<int>("Id")
@@ -165,10 +273,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(31)
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("Aspect");
-
-                    b.Property<string>("Attributes")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Attributes");
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int")
@@ -358,7 +462,7 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Symbol", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalAttributeLibDm", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -367,9 +471,29 @@ namespace TypeLibrary.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Attributes")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Attributes");
+                    b.Property<int>("AttributeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TerminalId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttributeId");
+
+                    b.HasIndex("TerminalId");
+
+                    b.ToTable("Terminal_Attribute", (string)null);
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Color")
                         .HasColumnType("nvarchar(max)");
@@ -437,6 +561,105 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Terminal", (string)null);
                 });
 
+            modelBuilder.Entity("TypeLibrary.Data.Models.UnitLibDm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int")
+                        .HasColumnName("CompanyId");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("CreatedBy");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(511)
+                        .HasColumnType("nvarchar(511)")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("Iri")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("Iri");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("Name");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("State");
+
+                    b.Property<string>("Symbol")
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("Symbol");
+
+                    b.Property<string>("TypeReferences")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("TypeReferences");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("State");
+
+                    b.ToTable("Unit", (string)null);
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeUnitLibDm", b =>
+                {
+                    b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", "Attribute")
+                        .WithMany("AttributeUnits")
+                        .HasForeignKey("AttributeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("TypeLibrary.Data.Models.UnitLibDm", "Unit")
+                        .WithMany("UnitAttributes")
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Attribute");
+
+                    b.Navigation("Unit");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.NodeAttributeLibDm", b =>
+                {
+                    b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", "Attribute")
+                        .WithMany("AttributeNodes")
+                        .HasForeignKey("AttributeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("TypeLibrary.Data.Models.NodeLibDm", "Node")
+                        .WithMany("NodeAttributes")
+                        .HasForeignKey("NodeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Attribute");
+
+                    b.Navigation("Node");
+                });
+
             modelBuilder.Entity("TypeLibrary.Data.Models.NodeLibDm", b =>
                 {
                     b.HasOne("TypeLibrary.Data.Models.NodeLibDm", "Parent")
@@ -466,6 +689,25 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Terminal");
                 });
 
+            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalAttributeLibDm", b =>
+                {
+                    b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", "Attribute")
+                        .WithMany("AttributeTerminals")
+                        .HasForeignKey("AttributeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", "Terminal")
+                        .WithMany("TerminalAttributes")
+                        .HasForeignKey("TerminalId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Attribute");
+
+                    b.Navigation("Terminal");
+                });
+
             modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>
                 {
                     b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", "Parent")
@@ -476,9 +718,20 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Parent");
                 });
 
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>
+                {
+                    b.Navigation("AttributeNodes");
+
+                    b.Navigation("AttributeTerminals");
+
+                    b.Navigation("AttributeUnits");
+                });
+
             modelBuilder.Entity("TypeLibrary.Data.Models.NodeLibDm", b =>
                 {
                     b.Navigation("Children");
+
+                    b.Navigation("NodeAttributes");
 
                     b.Navigation("NodeTerminals");
                 });
@@ -487,7 +740,14 @@ namespace TypeLibrary.Core.Migrations
                 {
                     b.Navigation("Children");
 
+                    b.Navigation("TerminalAttributes");
+
                     b.Navigation("TerminalNodes");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.UnitLibDm", b =>
+                {
+                    b.Navigation("UnitAttributes");
                 });
 #pragma warning restore 612, 618
         }
