@@ -175,14 +175,18 @@ export const NodeTerminal = ({
             />
           </NodeTerminalInputContainer>
         </NodeTerminalInputContainer>
-        <Accordion>
-          <AccordionItem value={"Attributes"}>
-            <AccordionTrigger>{t("node.terminals.attributes")}</AccordionTrigger>
-            <AccordionContent>
-              <NodeTerminalAttributes hideLabel attributes={sourceTerminal?.attributes ?? []} />
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+        {sourceTerminal && sourceTerminal.attributes.length >= 4 ? (
+          <Accordion>
+            <AccordionItem value={"attributes"}>
+              <AccordionTrigger>{t("node.terminals.attributes")}</AccordionTrigger>
+              <AccordionContent>
+                <NodeTerminalAttributes hideLabel attributes={sourceTerminal?.attributes ?? []} />
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        ) : (
+          <NodeTerminalAttributes hideLabel attributes={sourceTerminal?.attributes ?? []} />
+        )}
       </NodeTerminalContainer>
       <Box>
         <Button variant={"outlined"} dangerousAction disabled={removable} alignSelf={"end"} onClick={() => onRemove()}>
