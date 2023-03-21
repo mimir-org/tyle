@@ -40,7 +40,7 @@ public class AttributeService : IAttributeService
     /// <returns>List of attributes and their units></returns>
     public IEnumerable<AttributeLibCm> Get()
     {
-        var dataSet = _attributeRepository.Get();
+        var dataSet = _attributeRepository.Get().ToList();
         return _mapper.Map<List<AttributeLibCm>>(dataSet);
     }
 

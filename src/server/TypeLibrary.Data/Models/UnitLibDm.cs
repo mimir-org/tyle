@@ -1,5 +1,9 @@
+using Mimirorg.Common.Enums;
+using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Models.Application;
 using System;
 using System.Collections.Generic;
+using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models;
 
@@ -10,7 +14,7 @@ public class UnitLibDm
     public string Iri { get; set; }
     public string TypeReferences { get; set; }
     public string Symbol { get; set; }
-    public string State { get; set; }
+    public State State { get; set; }
     public int CompanyId { get; set; }
     public string Description { get; set; }
     public DateTime Created { get; set; }
