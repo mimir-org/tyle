@@ -82,7 +82,6 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IApprovalService, ApprovalService>();
 
         // Factories
-        services.AddScoped<IUnitFactory, UnitFactory>();
         services.AddScoped<ICompanyFactory, CompanyFactory>();
 
         services.AddHttpContextAccessor();
