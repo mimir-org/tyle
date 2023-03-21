@@ -7,7 +7,7 @@ using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models;
 
-public class UnitLibDm
+public class UnitLibDm : ILogable
 {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -20,4 +20,19 @@ public class UnitLibDm
     public DateTime Created { get; set; }
     public string CreatedBy { get; set; }
     public ICollection<AttributeUnitLibDm> UnitAttributes { get; set; }
+
+    public LogLibAm CreateLog(LogType logType, string logTypeValue, string comment)
+    {
+        return new LogLibAm
+        {
+            ObjectId = Id,
+            ObjectFirstVersionId = Id,
+            ObjectType = nameof(UnitLibDm),
+            ObjectName = Name,
+            ObjectVersion = null,
+            LogType = logType,
+            LogTypeValue = logTypeValue,
+            Comment = comment
+        };
+    }
 }

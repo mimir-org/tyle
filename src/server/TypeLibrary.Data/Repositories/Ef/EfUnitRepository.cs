@@ -1,19 +1,55 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Mimirorg.Common.Abstract;
+using Mimirorg.Common.Enums;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Models.Common;
 
 namespace TypeLibrary.Data.Repositories.Ef;
 
 public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibDm>, IEfUnitRepository
 {
     private readonly IApplicationSettingsRepository _settings;
+    private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
 
-    public EfUnitRepository(IApplicationSettingsRepository settings, TypeLibraryDbContext dbContext) : base(dbContext)
+    public EfUnitRepository(IApplicationSettingsRepository settings, TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
     {
         _settings = settings;
+        _typeLibraryProcRepository = typeLibraryProcRepository;
+    }
+
+    public async Task<int> HasCompany(int id)
+    {
+        var procParams = new Dictionary<string, object>
+        {
+            {"@TableName", "Unit"},
+            {"@Id", id}
+        };
+
+        var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlCompanyId>("HasCompany", procParams);
+        return result?.FirstOrDefault()?.CompanyId ?? 0;
+    }
+
+    public async Task<int> ChangeState(State state, ICollection<int> ids)
+    {
+        if (ids == null)
+            return 0;
+
+        var idList = string.Join(",", ids.Select(i => i.ToString()));
+
+        var procParams = new Dictionary<string, object>
+        {
+            {"@TableName", "Unit"},
+            {"@State", state.ToString()},
+            {"@IdList", idList}
+        };
+
+        var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlResultCount>("UpdateState", procParams);
+        return result?.FirstOrDefault()?.Number ?? 0;
     }
 
     public IEnumerable<UnitLibDm> Get()
