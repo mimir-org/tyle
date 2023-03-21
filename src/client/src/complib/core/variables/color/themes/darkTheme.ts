@@ -10,7 +10,7 @@ export const darkTheme: ColorTheme = {
     base: colorReference.secondary[70],
     on: colorReference.secondary[0],
     container: {
-      base: colorReference.secondary[20],
+      base: colorReference.secondary[10],
       on: colorReference.secondary[0]
     }
   },
