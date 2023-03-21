@@ -7,9 +7,6 @@ public class AttributeLibAm
     [Required]
     public string Name { get; set; }
         
-    [Required]
-    public string Iri { get; set; }
-        
     public ICollection<TypeReferenceAm> TypeReferences { get; set; }
         
     [Display(Name = "CompanyId")]

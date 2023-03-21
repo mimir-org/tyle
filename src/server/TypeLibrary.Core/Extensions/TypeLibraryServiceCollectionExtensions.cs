@@ -45,7 +45,8 @@ public static class TypeLibraryServiceCollectionExtensions
         cfg.AddProfile(new NodeTerminalProfile());
         cfg.AddProfile(new TypeReferenceProfile());
         cfg.AddProfile(new LogProfile(provider.GetService<IHttpContextAccessor>()));
-        cfg.AddProfile(new AttributeProfile());
+        cfg.AddProfile(new AttributeProfile(provider.GetService<IHttpContextAccessor>()));
+        cfg.AddProfile(new AttributeUnitProfile());
 
         var mapperConfig = new MapperConfiguration(cfg);
         serviceCollection.AddSingleton(_ => mapperConfig.CreateMapper());
