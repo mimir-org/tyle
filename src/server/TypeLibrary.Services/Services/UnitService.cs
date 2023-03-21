@@ -19,17 +19,17 @@ public class UnitService : IUnitService
         _unitRepository = unitRepository;
     }
 
-    public async Task<IEnumerable<UnitLibCm>> Get()
+    public IEnumerable<UnitLibCm> Get()
     {
-        var dataList = await _unitRepository.Get();
+        var dataList = _unitRepository.Get();
 
         var dataAm = _mapper.Map<List<UnitLibCm>>(dataList);
         return dataAm.AsEnumerable();
     }
 
-    public async Task<UnitLibCm> Get(string id)
+    public UnitLibCm Get(int id)
     {
-        var unit = (await _unitRepository.Get()).FirstOrDefault(x => x.Id == id);
+        var unit = (_unitRepository.Get()).FirstOrDefault(x => x.Id == id);
         if (unit == null)
             return null;
 

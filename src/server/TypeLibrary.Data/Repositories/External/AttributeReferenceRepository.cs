@@ -44,7 +44,7 @@ public class AttributeReferenceRepository : IAttributeReferenceRepository
     {
         var attributes = new List<AttributeLibDm>();
         var pcaAttributes = _client.Get<PcaAttribute>(SparQlWebClient.PcaEndPointProduction, SparQlWebClient.PcaAttributeAllQuery).ToList();
-        var pcaUnits = _unitRepository.Get().Result;
+        var pcaUnits = _unitRepository.Get();
 
         if (!pcaAttributes.Any())
             return Task.FromResult(attributes);
@@ -63,21 +63,20 @@ public class AttributeReferenceRepository : IAttributeReferenceRepository
             {
                 Name = firstElement?.Quantity_Label,
                 Iri = firstElement?.Quantity,
-                Source = "PCA",
-                Units = new List<UnitLibDm>()
+                TypeReferences = "PCA"
             };
 
-            foreach (var pcaUnit in group)
+            /*foreach (var pcaUnit in group)
             {
                 attributeDm.Units.Add(new UnitLibDm
                 {
                     Name = pcaUnit.Uom_Label,
                     Iri = pcaUnit.Uom,
                     Symbol = pcaUnits.FirstOrDefault(x => x.Iri == pcaUnit.Uom)?.Symbol,
-                    Source = "PCA",
+                    TypeReferences = "PCA",
                     IsDefault = !string.IsNullOrWhiteSpace(firstElement?.Default_Uom) && (pcaUnit.Uom == firstElement.Default_Uom)
                 });
-            }
+            }*/
 
             attributes.Add(attributeDm);
         }

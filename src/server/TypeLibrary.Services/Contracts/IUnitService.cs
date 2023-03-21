@@ -6,6 +6,6 @@ namespace TypeLibrary.Services.Contracts;
 
 public interface IUnitService
 {
-    Task<IEnumerable<UnitLibCm>> Get();
-    Task<UnitLibCm> Get(string id);
+    IEnumerable<UnitLibCm> Get();
+    UnitLibCm Get(int id);
 }

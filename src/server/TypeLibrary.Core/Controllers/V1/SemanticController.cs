@@ -97,11 +97,11 @@ public class SemanticController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult GetAttribute(string id)
+    public IActionResult GetAttribute(int id)
     {
         try
         {
-            var data = _attributeService.Get().Result.ToList().FirstOrDefault(x => x.Id == id);
+            var data = _attributeService.Get().ToList().FirstOrDefault(x => x.Id == id);
 
             if (data == null)
                 return NoContent();
@@ -186,11 +186,11 @@ public class SemanticController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public async Task<IActionResult> GetUnit(string id)
+    public IActionResult GetUnit(int id)
     {
         try
         {
-            var data = await _unitService.Get(id);
+            var data = _unitService.Get(id);
             if (data == null)
                 return NoContent();
 

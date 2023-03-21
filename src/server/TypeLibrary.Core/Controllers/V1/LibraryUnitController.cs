@@ -33,11 +33,11 @@ public class LibraryUnitController : ControllerBase
     [HttpGet]
     [ProducesResponseType(typeof(ICollection<UnitLibCm>), StatusCodes.Status200OK)]
     [AllowAnonymous]
-    public async Task<IActionResult> GetUnits()
+    public IActionResult GetUnits()
     {
         try
         {
-            var data = await _unitService.Get();
+            var data = _unitService.Get();
             return Ok(data);
         }
         catch (Exception e)
