@@ -64,22 +64,16 @@ public class NodeLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogable
             validation.AddNotAllowToChange(nameof(ParentId));
 
         //Attributes
-        var attributeAms = new List<AttributeLibAm>();
-        var attributeDms = new List<AttributeLibDm>();
-        var attributeAmUnits = new List<UnitLibAm>();
-        var attributeDmUnits = new List<UnitLibDm>();
+        var nodeAttributeAms = new List<NodeAttributeLibAm>();
+        var nodeAttributeDms = new List<NodeAttributeLibDm>();
 
-        attributeAms.AddRange(other.Attributes ?? new List<AttributeLibAm>());
-        attributeDms.AddRange(Attributes?.ConvertToObject<ICollection<AttributeLibDm>>() ?? new List<AttributeLibDm>());
-        attributeAmUnits.AddRange(attributeAms.SelectMany(x => x.Units));
-        attributeDmUnits.AddRange(attributeDms.SelectMany(x => x.Units));
+        nodeAttributeAms.AddRange(other.NodeAttributes ?? new List<NodeAttributeLibAm>());
+        nodeAttributeDms.AddRange(NodeAttributes ?? new List<NodeAttributeLibDm>());
 
-        if (attributeDms.Select(y => y.Id).Any(id => attributeAms.Select(x => x.Id).All(x => x != id)))
-            validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove or change attributes");
+        if (nodeAttributeDms.Select(y => y.AttributeId).Any(id => nodeAttributeAms.Select(x => x.AttributeId).All(x => x != id)))
+            validation.AddNotAllowToChange(nameof(NodeAttributes), "It is not allowed to remove or change attributes");
 
-        if (attributeDmUnits.Select(y => y.Id).Any(id => attributeAmUnits.Select(x => x.Id).All(x => x != id)))
-            validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove or change units from attributes");
-
+        //Terminals
         NodeTerminals ??= new List<NodeTerminalLibDm>();
         other.NodeTerminals ??= new List<NodeTerminalLibAm>();
         var otherTerminals = other.NodeTerminals.Select(x => (x.TerminalId, x.ConnectorDirection));
@@ -88,6 +82,7 @@ public class NodeLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogable
             validation.AddNotAllowToChange(nameof(NodeTerminals), "It is not allowed to remove items from terminals");
         }
 
+        //Predefined attributes
         SelectedAttributePredefined ??= new List<SelectedAttributePredefinedLibDm>();
         other.SelectedAttributePredefined ??= new List<SelectedAttributePredefinedLibAm>();
         if (SelectedAttributePredefined.Select(y => y.Key).Any(key => other.SelectedAttributePredefined.Select(x => x.Key).All(x => x != key)))
@@ -114,18 +109,13 @@ public class NodeLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogable
             minor = true;
 
         //Attributes
-        var attributeAms = new List<AttributeLibAm>();
-        var attributeDms = new List<AttributeLibDm>();
-        var attributeAmUnits = new List<UnitLibAm>();
-        var attributeDmUnits = new List<UnitLibDm>();
+        var nodeAttributeAms = new List<NodeAttributeLibAm>();
+        var nodeAttributeDms = new List<NodeAttributeLibDm>();
 
-        attributeAms.AddRange(other.Attributes ?? new List<AttributeLibAm>());
-        attributeDms.AddRange(Attributes?.ConvertToObject<ICollection<AttributeLibDm>>() ?? new List<AttributeLibDm>());
-        attributeAmUnits.AddRange(attributeAms.SelectMany(x => x.Units));
-        attributeDmUnits.AddRange(attributeDms.SelectMany(x => x.Units));
+        nodeAttributeAms.AddRange(other.NodeAttributes ?? new List<NodeAttributeLibAm>());
+        nodeAttributeDms.AddRange(NodeAttributes ?? new List<NodeAttributeLibDm>());
 
-        if (!attributeDms.Select(x => x.Id).SequenceEqual(attributeAms.Select(x => x.Id)) ||
-            !attributeDmUnits.Select(x => x.Id).SequenceEqual(attributeAmUnits.Select(x => x.Id)))
+        if (!nodeAttributeDms.Select(x => x.AttributeId).SequenceEqual(nodeAttributeAms.Select(x => x.AttributeId)))
         {
             major = true;
         }

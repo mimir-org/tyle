@@ -14,8 +14,6 @@ using TypeLibrary.Data.Common;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
-using TypeLibrary.Data.Contracts.Factories;
-using TypeLibrary.Data.Factories;
 using TypeLibrary.Data.Repositories.Application;
 using TypeLibrary.Data.Repositories.Common;
 using TypeLibrary.Data.Repositories.Ef;

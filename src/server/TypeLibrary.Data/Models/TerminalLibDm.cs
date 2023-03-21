@@ -44,21 +44,14 @@ public class TerminalLibDm : IVersionable<TerminalLibAm>, IVersionObject, ILogab
             validation.AddNotAllowToChange(nameof(Name));
 
         //Attributes
-        var attributeAms = new List<AttributeLibAm>();
-        var attributeDms = new List<AttributeLibDm>();
-        var attributeAmUnits = new List<UnitLibAm>();
-        var attributeDmUnits = new List<UnitLibDm>();
+        var terminalAttributeAms = new List<TerminalAttributeLibAm>();
+        var terminalAttributeDms = new List<TerminalAttributeLibDm>();
 
-        attributeAms.AddRange(other.Attributes ?? new List<AttributeLibAm>());
-        attributeDms.AddRange(Attributes?.ConvertToObject<ICollection<AttributeLibDm>>() ?? new List<AttributeLibDm>());
-        attributeAmUnits.AddRange(attributeAms.SelectMany(x => x.Units));
-        attributeDmUnits.AddRange(attributeDms.SelectMany(x => x.Units));
+        terminalAttributeAms.AddRange(other.TerminalAttributes ?? new List<TerminalAttributeLibAm>());
+        terminalAttributeDms.AddRange(TerminalAttributes ?? new List<TerminalAttributeLibDm>());
 
-        if (attributeDms.Select(y => y.Id).Any(id => attributeAms.Select(x => x.Id).All(x => x != id)))
-            validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove or change attributes");
-
-        if (attributeDmUnits.Select(y => y.Id).Any(id => attributeAmUnits.Select(x => x.Id).All(x => x != id)))
-            validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove or change units from attributes");
+        if (terminalAttributeDms.Select(y => y.AttributeId).Any(id => terminalAttributeAms.Select(x => x.AttributeId).All(x => x != id)))
+            validation.AddNotAllowToChange(nameof(TerminalAttributes), "It is not allowed to remove or change attributes");
 
         if (ParentId != other.ParentId)
             validation.AddNotAllowToChange(nameof(ParentId));
@@ -86,18 +79,13 @@ public class TerminalLibDm : IVersionable<TerminalLibAm>, IVersionObject, ILogab
             minor = true;
 
         //Attributes
-        var attributeAms = new List<AttributeLibAm>();
-        var attributeDms = new List<AttributeLibDm>();
-        var attributeAmUnits = new List<UnitLibAm>();
-        var attributeDmUnits = new List<UnitLibDm>();
+        var terminalAttributeAms = new List<TerminalAttributeLibAm>();
+        var terminalAttributeDms = new List<TerminalAttributeLibDm>();
 
-        attributeAms.AddRange(other.Attributes ?? new List<AttributeLibAm>());
-        attributeDms.AddRange(Attributes?.ConvertToObject<ICollection<AttributeLibDm>>() ?? new List<AttributeLibDm>());
-        attributeAmUnits.AddRange(attributeAms.SelectMany(x => x.Units));
-        attributeDmUnits.AddRange(attributeDms.SelectMany(x => x.Units));
+        terminalAttributeAms.AddRange(other.TerminalAttributes ?? new List<TerminalAttributeLibAm>());
+        terminalAttributeDms.AddRange(TerminalAttributes ?? new List<TerminalAttributeLibDm>());
 
-        if (!attributeDms.Select(x => x.Id).SequenceEqual(attributeAms.Select(x => x.Id)) ||
-            !attributeDmUnits.Select(x => x.Id).SequenceEqual(attributeAmUnits.Select(x => x.Id)))
+        if (!terminalAttributeDms.Select(x => x.AttributeId).SequenceEqual(terminalAttributeDms.Select(x => x.AttributeId)))
         {
             major = true;
         }
