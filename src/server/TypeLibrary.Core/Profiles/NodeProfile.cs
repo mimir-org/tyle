@@ -36,7 +36,7 @@ public class NodeProfile : Profile
             .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow))
             .ForMember(dest => dest.Children, opt => opt.Ignore())
             .ForMember(dest => dest.NodeTerminals, opt => opt.MapFrom(src => CreateTerminals(src.NodeTerminals).ToList()))
-            .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes.ConvertToString()))
+            .ForMember(dest => dest.NodeAttributes, opt => opt.MapFrom(src => src.NodeAttributes))
             .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
         CreateMap<NodeLibDm, NodeLibCm>()
@@ -62,7 +62,7 @@ public class NodeProfile : Profile
             .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy))
             .ForMember(dest => dest.Children, opt => opt.MapFrom(src => src.Children))
             .ForMember(dest => dest.NodeTerminals, opt => opt.MapFrom(src => src.NodeTerminals))
-            .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes.ConvertToObject<ICollection<AttributeLibCm>>()))
+            .ForMember(dest => dest.NodeAttributes, opt => opt.MapFrom(src => src.NodeAttributes))
             .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
         CreateMap<NodeLibCm, ApprovalCm>()
