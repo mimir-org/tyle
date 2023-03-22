@@ -10,6 +10,13 @@ using Mimirorg.TypeLibrary.Enums;
 using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
+using Mimirorg.Common.Exceptions;
+using Mimirorg.Authentication.Models.Attributes;
+using Mimirorg.TypeLibrary.Models.Application;
+using TypeLibrary.Services.Services;
+using TypeLibrary.Data.Models;
+using Mimirorg.Common.Enums;
+using Mimirorg.Authentication.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1;
 
@@ -22,11 +29,15 @@ public class LibraryAttributeController : ControllerBase
 {
     private readonly ILogger<LibraryAttributeController> _logger;
     private readonly IAttributeService _attributeService;
+    private readonly IMimirorgAuthService _authService;
+    private readonly ILogService _logService;
 
-    public LibraryAttributeController(ILogger<LibraryAttributeController> logger, IAttributeService attributeService)
+    public LibraryAttributeController(ILogger<LibraryAttributeController> logger, IAttributeService attributeService, IMimirorgAuthService authService, ILogService logService)
     {
         _logger = logger;
         _attributeService = attributeService;
+        _authService = authService;
+        _logService = logService;
     }
 
     /// <summary>
@@ -47,6 +58,61 @@ public class LibraryAttributeController : ControllerBase
         {
             _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [AllowAnonymous]
+    public IActionResult GetAttribute([FromRoute] int id)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var data = _attributeService.Get(id);
+
+            if (data == null)
+                return NotFound(id);
+
+            return Ok(data);
+        }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, e.Message);
+        }
+    }
+
+    [HttpPost]
+    [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    //[MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
+    public async Task<IActionResult> Create([FromBody] AttributeLibAm attribute)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var cm = await _attributeService.Create(attribute);
+            return Ok(cm);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, e.Message);
         }
     }
 
@@ -91,6 +157,61 @@ public class LibraryAttributeController : ControllerBase
             };
 
             return Ok(data?.ToList());
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    [HttpPatch("{id}/state/{state}")]
+    [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [Authorize]
+    public async Task<IActionResult> ChangeState([FromRoute] int id, [FromRoute] State state)
+    {
+        try
+        {
+            var companyId = await _attributeService.GetCompanyId(id);
+            var hasAccess = await _authService.HasAccess(companyId, state);
+
+            if (!hasAccess)
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            var data = await _attributeService.ChangeState(id, state);
+            return Ok(data);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    [HttpPatch("{id}/state/reject")]
+    [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [Authorize]
+    public async Task<IActionResult> RejectChangeState([FromRoute] int id)
+    {
+        try
+        {
+            var companyId = await _attributeService.GetCompanyId(id);
+            var previousState = await _logService.GetPreviousState(id, nameof(AttributeLibDm));
+            var hasAccess = await _authService.HasAccess(companyId, previousState);
+
+            if (!hasAccess)
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            var data = await _attributeService.ChangeState(id, previousState);
+            return Ok(data);
         }
         catch (Exception e)
         {

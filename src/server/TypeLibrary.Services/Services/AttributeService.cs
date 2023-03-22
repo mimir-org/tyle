@@ -4,13 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
+using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
+using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
+using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;
@@ -23,8 +27,10 @@ public class AttributeService : IAttributeService
     private readonly IQuantityDatumRepository _datumRepository;
     private readonly IAttributeReferenceRepository _attributeReferenceRepository;
     private readonly IAttributeRepository _attributeRepository;
+    private readonly ITimedHookService _hookService;
+    private readonly ILogService _logService;
 
-    public AttributeService(IMapper mapper, IOptions<ApplicationSettings> applicationSettings, IAttributePredefinedRepository attributePredefinedRepository, IAttributeReferenceRepository attributeReferenceRepository, IAttributeRepository attributeRepository, IQuantityDatumRepository datumRepository)
+    public AttributeService(IMapper mapper, IOptions<ApplicationSettings> applicationSettings, IAttributePredefinedRepository attributePredefinedRepository, IAttributeReferenceRepository attributeReferenceRepository, IAttributeRepository attributeRepository, IQuantityDatumRepository datumRepository, ITimedHookService hookService, ILogService logService)
     {
         _mapper = mapper;
         _attributePredefinedRepository = attributePredefinedRepository;
@@ -32,6 +38,8 @@ public class AttributeService : IAttributeService
         _attributeRepository = attributeRepository;
         _datumRepository = datumRepository;
         _applicationSettings = applicationSettings?.Value;
+        _hookService = hookService;
+        _logService = logService;
     }
 
     /// <summary>
@@ -42,6 +50,42 @@ public class AttributeService : IAttributeService
     {
         var dataSet = _attributeRepository.Get().ToList();
         return _mapper.Map<List<AttributeLibCm>>(dataSet);
+    }
+
+    /// <summary>
+    /// Get an attribute and its units
+    /// </summary>
+    /// <returns>Attribute and its units></returns>
+    public AttributeLibCm Get(int id)
+    {
+        var dm = _attributeRepository.Get().FirstOrDefault(x => x.Id == id);
+
+        if (dm == null)
+            throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
+
+        return _mapper.Map<AttributeLibCm>(dm);
+    }
+
+    /// <summary>
+    /// Create a new attribute
+    /// </summary>
+    /// <param name="nodeAm">The attribute that should be created</param>
+    /// <returns>The created attribute</returns>
+    public async Task<AttributeLibCm> Create(AttributeLibAm attributeAm)
+    {
+        if (attributeAm == null)
+            throw new ArgumentNullException(nameof(attributeAm));
+
+        var dm = _mapper.Map<AttributeLibDm>(attributeAm);
+
+        dm.State = State.Draft;
+
+        var createdAttribute = await _attributeRepository.Create(dm);
+        _attributeRepository.ClearAllChangeTrackers();
+        await _logService.CreateLog(createdAttribute, LogType.State, State.Draft.ToString());
+        _hookService.HookQueue.Enqueue(CacheKey.Attribute);
+
+        return _mapper.Map<AttributeLibCm>(createdAttribute);
     }
 
     /// <summary>
@@ -123,5 +167,29 @@ public class AttributeService : IAttributeService
         var dataSet = await _datumRepository.GetQuantityDatumRegularitySpecified();
         var dataCmList = _mapper.Map<List<QuantityDatumCm>>(dataSet);
         return dataCmList.AsEnumerable();
+    }
+
+    public async Task<ApprovalDataCm> ChangeState(int id, State state)
+    {
+        var dm = _attributeRepository.Get().FirstOrDefault(x => x.Id == id);
+
+        if (dm == null)
+            throw new MimirorgNotFoundException($"Attribute with id {id} not found, or is not latest version.");
+
+        await _attributeRepository.ChangeState(state, new List<int> { dm.Id });
+        await _logService.CreateLog(dm, LogType.State, state.ToString());
+        _hookService.HookQueue.Enqueue(CacheKey.Attribute);
+
+        return new ApprovalDataCm
+        {
+            Id = id,
+            State = state
+
+        };
+    }
+
+    public async Task<int> GetCompanyId(int id)
+    {
+        return await _attributeRepository.HasCompany(id);
     }
 }

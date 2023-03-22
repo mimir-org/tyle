@@ -112,7 +112,7 @@ public class LibraryNodeController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "node", "CompanyId")]
+    //[MimirorgAuthorize(MimirorgPermission.Write, "node", "CompanyId")]
     public async Task<IActionResult> Create([FromBody] NodeLibAm node)
     {
         try

@@ -29,7 +29,7 @@ public class UnitLibDm : ILogable
             ObjectFirstVersionId = Id,
             ObjectType = nameof(UnitLibDm),
             ObjectName = Name,
-            ObjectVersion = null,
+            ObjectVersion = "",
             LogType = logType,
             LogTypeValue = logTypeValue,
             Comment = comment

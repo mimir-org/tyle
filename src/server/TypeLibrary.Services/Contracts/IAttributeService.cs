@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 
@@ -12,6 +13,14 @@ public interface IAttributeService
     /// </summary>
     /// <returns>List of attributes and their units></returns>
     IEnumerable<AttributeLibCm> Get();
+
+    /// <summary>
+    /// Get an attribute and its units
+    /// </summary>
+    /// <returns>Attribute and its units></returns>
+    AttributeLibCm Get(int id);
+
+    Task<AttributeLibCm> Create(AttributeLibAm attributeAm);
 
     /// <summary>
     /// Get predefined attributes
@@ -49,4 +58,7 @@ public interface IAttributeService
     /// </summary>
     /// <returns>List of quantity datums</returns>
     Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumRegularitySpecified();
+
+    Task<ApprovalDataCm> ChangeState(int id, State state);
+    Task<int> GetCompanyId(int id);
 }
