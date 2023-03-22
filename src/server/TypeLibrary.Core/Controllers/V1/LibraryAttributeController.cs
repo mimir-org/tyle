@@ -11,12 +11,11 @@ using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 using Mimirorg.Common.Exceptions;
-using Mimirorg.Authentication.Models.Attributes;
 using Mimirorg.TypeLibrary.Models.Application;
-using TypeLibrary.Services.Services;
 using TypeLibrary.Data.Models;
 using Mimirorg.Common.Enums;
 using Mimirorg.Authentication.Contracts;
+using Mimirorg.Authentication.Models.Attributes;
 
 namespace TypeLibrary.Core.Controllers.V1;
 
@@ -41,9 +40,9 @@ public class LibraryAttributeController : ControllerBase
     }
 
     /// <summary>
-    /// Get all attributes and their units
+    /// Get all attributes
     /// </summary>
-    /// <returns>A collection of attributes and their units></returns>
+    /// <returns>A collection of attributes</returns>
     [HttpGet]
     [ProducesResponseType(typeof(ICollection<AttributeLibCm>), StatusCodes.Status200OK)]
     [AllowAnonymous]
@@ -61,13 +60,18 @@ public class LibraryAttributeController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Get attribute by id
+    /// </summary>
+    /// <param name="id">The id of the attribute to get</param>
+    /// <returns>The requested attribute</returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult GetAttribute([FromRoute] int id)
+    public IActionResult Get([FromRoute] int id)
     {
         try
         {
@@ -92,13 +96,18 @@ public class LibraryAttributeController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Create an attribute
+    /// </summary>
+    /// <param name="attribute">The attribute that should be created</param>
+    /// <returns>The created attribute</returns>
     [HttpPost]
     [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    //[MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
+    [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
     public async Task<IActionResult> Create([FromBody] AttributeLibAm attribute)
     {
         try
@@ -116,6 +125,76 @@ public class LibraryAttributeController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Update an attribute with a new state
+    /// </summary>
+    /// <param name="id">The id of the attribute to be updated</param>
+    /// <param name="state">The new state</param>
+    /// <returns>An approval data object containing the id of the attribute and the new state</returns>
+    [HttpPatch("{id}/state/{state}")]
+    [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [Authorize]
+    public async Task<IActionResult> ChangeState([FromRoute] int id, [FromRoute] State state)
+    {
+        try
+        {
+            var companyId = await _attributeService.GetCompanyId(id);
+            var hasAccess = await _authService.HasAccess(companyId, state);
+
+            if (!hasAccess)
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            var data = await _attributeService.ChangeState(id, state);
+            return Ok(data);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
+    /// Reject a state change request and revert the attribute to its previous state
+    /// </summary>
+    /// <param name="id">The id of the attribute with the requested state change</param>
+    /// <returns>An approval data object containing the id of the attribute and the reverted state</returns>
+    [HttpPatch("{id}/state/reject")]
+    [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [Authorize]
+    public async Task<IActionResult> RejectChangeState([FromRoute] int id)
+    {
+        try
+        {
+            var companyId = await _attributeService.GetCompanyId(id);
+            var previousState = await _logService.GetPreviousState(id, nameof(AttributeLibDm));
+            var hasAccess = await _authService.HasAccess(companyId, previousState);
+
+            if (!hasAccess)
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            var data = await _attributeService.ChangeState(id, previousState);
+            return Ok(data);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
+    /// Get all predefined attributes
+    /// </summary>
+    /// <returns>A collection of predefined attributes</returns>
     [HttpGet("predefined")]
     [ProducesResponseType(typeof(ICollection<AttributePredefinedLibCm>), StatusCodes.Status200OK)]
     [AllowAnonymous]
@@ -157,61 +236,6 @@ public class LibraryAttributeController : ControllerBase
             };
 
             return Ok(data?.ToList());
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
-        }
-    }
-
-    [HttpPatch("{id}/state/{state}")]
-    [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [Authorize]
-    public async Task<IActionResult> ChangeState([FromRoute] int id, [FromRoute] State state)
-    {
-        try
-        {
-            var companyId = await _attributeService.GetCompanyId(id);
-            var hasAccess = await _authService.HasAccess(companyId, state);
-
-            if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);
-
-            var data = await _attributeService.ChangeState(id, state);
-            return Ok(data);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
-        }
-    }
-
-    [HttpPatch("{id}/state/reject")]
-    [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [Authorize]
-    public async Task<IActionResult> RejectChangeState([FromRoute] int id)
-    {
-        try
-        {
-            var companyId = await _attributeService.GetCompanyId(id);
-            var previousState = await _logService.GetPreviousState(id, nameof(AttributeLibDm));
-            var hasAccess = await _authService.HasAccess(companyId, previousState);
-
-            if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);
-
-            var data = await _attributeService.ChangeState(id, previousState);
-            return Ok(data);
         }
         catch (Exception e)
         {

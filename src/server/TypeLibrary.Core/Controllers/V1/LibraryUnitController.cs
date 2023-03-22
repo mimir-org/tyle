@@ -13,14 +13,10 @@ using Mimirorg.Authentication.Models.Attributes;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Services.Services;
 using Mimirorg.Common.Enums;
 
 namespace TypeLibrary.Core.Controllers.V1;
 
-/// <summary>
-/// TypeCm file services
-/// </summary>
 [Produces("application/json")]
 [ApiController]
 [ApiVersion("1.0")]
@@ -41,10 +37,14 @@ public class LibraryUnitController : ControllerBase
         _logService = logService;
     }
 
+    /// <summary>
+    /// Get all units
+    /// </summary>
+    /// <returns>A collection of units</returns>
     [HttpGet]
     [ProducesResponseType(typeof(ICollection<UnitLibCm>), StatusCodes.Status200OK)]
     [AllowAnonymous]
-    public IActionResult GetUnits()
+    public IActionResult Get()
     {
         try
         {
@@ -58,13 +58,18 @@ public class LibraryUnitController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Get unit by id
+    /// </summary>
+    /// <param name="id">The id of the unit to get</param>
+    /// <returns>The requested unit</returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(UnitLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult GetUnit([FromRoute] int id)
+    public IActionResult Get([FromRoute] int id)
     {
         try
         {
@@ -85,6 +90,11 @@ public class LibraryUnitController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Create a unit
+    /// </summary>
+    /// <param name="unit">The unit that should be created</param>
+    /// <returns>The created unit</returns>
     [HttpPost]
     [ProducesResponseType(typeof(UnitLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -109,6 +119,12 @@ public class LibraryUnitController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Update a unit with a new state
+    /// </summary>
+    /// <param name="id">The id of the unit to be updated</param>
+    /// <param name="state">The new state</param>
+    /// <returns>An approval data object containing the id of the unit and the new state</returns>
     [HttpPatch("{id}/state/{state}")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -136,6 +152,11 @@ public class LibraryUnitController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Reject a state change request and revert the unit to its previous state
+    /// </summary>
+    /// <param name="id">The id of the unit with the requested state change</param>
+    /// <returns>An approval data object containing the id of the unit and the reverted state</returns>
     [HttpPatch("{id}/state/reject")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -21,9 +21,6 @@ using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1;
 
-/// <summary>
-/// Terminal typeDm services
-/// </summary>
 [Produces("application/json")]
 [ApiController]
 [ApiVersion("1.0")]
@@ -45,9 +42,9 @@ public class LibraryTerminalController : ControllerBase
     }
 
     /// <summary>
-    /// Get terminal types
+    /// Get all terminals
     /// </summary>
-    /// <returns></returns>
+    /// <returns>A collection of terminals</returns>
     [HttpGet]
     [ProducesResponseType(typeof(ICollection<TerminalLibCm>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -67,10 +64,10 @@ public class LibraryTerminalController : ControllerBase
     }
 
     /// <summary>
-    /// Get terminal type
+    /// Get terminal by id
     /// </summary>
-    /// <param name="id">The id of the terminal that should be returned</param>
-    /// <returns></returns>
+    /// <param name="id">The id of the terminal to get</param>
+    /// <returns>The requested terminal</returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -143,11 +140,11 @@ public class LibraryTerminalController : ControllerBase
     }
 
     /// <summary>
-    /// Update terminal
+    /// Update a terminal
     /// </summary>
     /// <param name="id">The id of the terminal that should be updated</param>
-    /// <param name="terminal">The terminal that should be updated</param>
-    /// <returns>TerminalLibCm</returns>
+    /// <param name="terminal">The new values of the terminal</param>
+    /// <returns>The updated terminal</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -188,11 +185,11 @@ public class LibraryTerminalController : ControllerBase
     }
 
     /// <summary>
-    /// Update terminal with new state
+    /// Update a terminal with a new state
     /// </summary>
-    /// <param name="state"></param>
-    /// <param name="id"></param>
-    /// <returns>TerminalLibCm</returns>
+    /// <param name="id">The id of the terminal to be updated</param>
+    /// <param name="state">The new state</param>
+    /// <returns>An approval data object containing the id of the terminal and the new state</returns>
     [HttpPatch("{id}/state/{state}")]
     [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -221,10 +218,10 @@ public class LibraryTerminalController : ControllerBase
     }
 
     /// <summary>
-    /// Revert state to previous version
+    /// Reject a state change request and revert the terminal to its previous state
     /// </summary>
-    /// <param name="id"></param>
-    /// <returns>NodeLibCm</returns>
+    /// <param name="id">The id of the terminal with the requested state change</param>
+    /// <returns>An approval data object containing the id of the terminal and the reverted state</returns>
     [HttpPatch("{id}/state/reject")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
