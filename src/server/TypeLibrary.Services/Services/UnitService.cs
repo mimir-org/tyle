@@ -72,7 +72,7 @@ public class UnitService : IUnitService
         if (dm == null)
             throw new MimirorgNotFoundException($"Unit with id {id} not found, or is not latest version.");
 
-        await _unitRepository.ChangeState(state, new List<int> {dm.Id});
+        await _unitRepository.ChangeState(state, new List<int> { dm.Id });
         await _logService.CreateLog(dm, LogType.State, state.ToString());
         _hookService.HookQueue.Enqueue(CacheKey.Unit);
 

@@ -64,14 +64,14 @@ public class NodeLibAm
     [Range(1, int.MaxValue, ErrorMessage = "{0} must be greater than 0")]
     public int CompanyId { get; set; }
 
-        /// <summary>
-        /// A list of attributes
-        /// </summary>
-        /// <remarks>
-        /// It is not allowed to remove attributes
-        /// Adding attributes generates a major increase
-        /// </remarks>
-        public ICollection<NodeAttributeLibAm> NodeAttributes { get; set; }
+    /// <summary>
+    /// A list of attributes
+    /// </summary>
+    /// <remarks>
+    /// It is not allowed to remove attributes
+    /// Adding attributes generates a major increase
+    /// </remarks>
+    public ICollection<NodeAttributeLibAm> NodeAttributes { get; set; }
 
     /// <summary>
     /// A list of connected terminals

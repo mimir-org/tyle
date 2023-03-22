@@ -49,14 +49,14 @@ public class TerminalLibAm
     /// </remarks>
     public string Description { get; set; }
 
-        /// <summary>
-        /// A list of connected attributes
-        /// </summary>
-        /// <remarks>
-        /// It is not allowed to remove attributes
-        /// Adding attributes generates a major increase
-        /// </remarks>
-        public ICollection<TerminalAttributeLibAm> TerminalAttributes { get; set; }
+    /// <summary>
+    /// A list of connected attributes
+    /// </summary>
+    /// <remarks>
+    /// It is not allowed to remove attributes
+    /// Adding attributes generates a major increase
+    /// </remarks>
+    public ICollection<TerminalAttributeLibAm> TerminalAttributes { get; set; }
 
     /// <summary>
     /// The owner of the terminal type
