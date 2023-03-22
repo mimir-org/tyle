@@ -10,18 +10,18 @@ namespace TypeLibrary.Services.Contracts;
 public interface ITerminalService
 {
     /// <summary>
+    /// Get the latest terminal versions
+    /// </summary>
+    /// <returns>A collection of terminals</returns>
+    IEnumerable<TerminalLibCm> GetLatestVersions();
+
+    /// <summary>
     /// Get the latest version of a terminal based on given id
     /// </summary>
     /// <param name="id">The id of the terminal</param>
     /// <returns>The latest version of the terminal of given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id, and that terminal is at the latest version.</exception>
     TerminalLibCm GetLatestVersion(int id);
-
-    /// <summary>
-    /// Get the latest terminal versions
-    /// </summary>
-    /// <returns>A collection of terminals</returns>
-    IEnumerable<TerminalLibCm> GetLatestVersions();
 
     /// <summary>
     /// Create a new terminal
@@ -55,9 +55,9 @@ public interface ITerminalService
     Task<TerminalLibCm> ChangeState(int id, State state);
 
     /// <summary>
-    /// Get terminal existing company id for terminal by id
+    /// Get the company id of a terminal
     /// </summary>
     /// <param name="id">The terminal id</param>
-    /// <returns>Company id for terminal</returns>
+    /// <returns>Company id for the terminal</returns>
     Task<int> GetCompanyId(int id);
 }

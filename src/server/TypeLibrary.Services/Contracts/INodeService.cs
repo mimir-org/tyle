@@ -10,18 +10,18 @@ namespace TypeLibrary.Services.Contracts;
 public interface INodeService
 {
     /// <summary>
+    /// Get the latest node versions
+    /// </summary>
+    /// <returns>A collection of nodes</returns>
+    IEnumerable<NodeLibCm> GetLatestVersions();
+
+    /// <summary>
     /// Get the latest version of a node based on given id
     /// </summary>
     /// <param name="id">The id of the node</param>
     /// <returns>The latest version of the node of given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no node with the given id, and that node is at the latest version.</exception>
     NodeLibCm GetLatestVersion(int id);
-
-    /// <summary>
-    /// Get the latest node versions
-    /// </summary>
-    /// <returns>A collection of nodes</returns>
-    IEnumerable<NodeLibCm> GetLatestVersions();
 
     /// <summary>
     /// Create a new node
@@ -55,9 +55,9 @@ public interface INodeService
     Task<ApprovalDataCm> ChangeState(int id, State state);
 
     /// <summary>
-    /// Get node existing company id for terminal by id
+    /// Get the company id of a node
     /// </summary>
     /// <param name="id">The node id</param>
-    /// <returns>Company id for node</returns>
+    /// <returns>Company id for the node</returns>
     Task<int> GetCompanyId(int id);
 }
