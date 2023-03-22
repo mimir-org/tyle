@@ -9,7 +9,7 @@ public class TerminalAttributeProfile : Profile
 {
     public TerminalAttributeProfile()
     {
-        CreateMap<TerminalAttributeLibDm, TerminalAttributeLibAm>()
+        CreateMap<TerminalAttributeLibAm, TerminalAttributeLibDm>()
             .ForMember(dest => dest.AttributeId, opt => opt.MapFrom(src => src.AttributeId));
 
         CreateMap<TerminalAttributeLibDm, TerminalAttributeLibCm>()

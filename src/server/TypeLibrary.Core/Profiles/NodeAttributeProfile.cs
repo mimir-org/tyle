@@ -9,7 +9,7 @@ public class NodeAttributeProfile : Profile
 {
     public NodeAttributeProfile()
     {
-        CreateMap<NodeAttributeLibDm, NodeAttributeLibAm>()
+        CreateMap<NodeAttributeLibAm, NodeAttributeLibDm>()
             .ForMember(dest => dest.AttributeId, opt => opt.MapFrom(src => src.AttributeId));
 
         CreateMap<NodeAttributeLibDm, NodeAttributeLibCm>()

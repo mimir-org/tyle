@@ -99,7 +99,10 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
     /// <returns>A collection of terminals</returns>
     public IEnumerable<TerminalLibDm> Get()
     {
-        return GetAll();
+        return GetAll()
+            .Include(x => x.TerminalAttributes)
+            .ThenInclude(x => x.Attribute)
+            .AsSplitQuery();
     }
 
     /// <summary>
@@ -109,7 +112,11 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
     /// <returns>Terminal if found</returns>
     public async Task<TerminalLibDm> Get(int id)
     {
-        var terminal = await FindBy(x => x.Id == id).FirstOrDefaultAsync();
+        var terminal = await FindBy(x => x.Id == id)
+            .Include(x => x.TerminalAttributes)
+            .ThenInclude(x => x.Attribute)
+            .AsSplitQuery()
+            .FirstOrDefaultAsync();
         return terminal;
     }
 
