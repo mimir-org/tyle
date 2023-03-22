@@ -20,28 +20,6 @@ public class NodeServiceTests : IntegrationTest
         var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
         var logService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ILogService>();
 
-        var newAttribute = new AttributeLibAm
-        {
-            Name = "a11",
-            Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a11",
-            Source = "PCA",
-            Units = new List<UnitLibAm>
-            {
-                new()
-                {
-                    Name = "u11",
-                    Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u11",
-                    IsDefault = true
-                },
-                new()
-                {
-                    Name = "u22",
-                    Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u22",
-                    IsDefault = false
-                }
-            }
-        };
-
         var nodeAm = new NodeLibAm
         {
             Name = "Node2",
@@ -51,7 +29,6 @@ public class NodeServiceTests : IntegrationTest
             Description = "Description",
             Aspect = Aspect.NotSet,
             CompanyId = 1,
-            Attributes = new List<AttributeLibAm> { newAttribute },
             NodeTerminals = new List<NodeTerminalLibAm>{
                 new()
                 {
@@ -106,7 +83,6 @@ public class NodeServiceTests : IntegrationTest
         Assert.Equal(nodeAm.Aspect, nodeCm.Aspect);
         Assert.Equal(nodeAm.Description, nodeCm.Description);
         Assert.Equal(nodeAm.CompanyId, nodeCm.CompanyId);
-        Assert.Equal(nodeAm.Attributes.ToList()[0].Id, nodeCm.Attributes.ToList()[0].Id);
 
         foreach (var am in nodeAm.NodeTerminals)
         {

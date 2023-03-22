@@ -56,30 +56,6 @@ public class MimirorgCommonFixture : IDisposable
             RdsName = "AA",
             RdsCode = "AA",
             Aspect = Aspect.Function,
-            Attributes = new List<AttributeLibAm>
-            {
-                new()
-                {
-                    Name = "a1",
-                    Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
-                    Source = "PCA",
-                    Units = new List<UnitLibAm>
-                    {
-                        new()
-                        {
-                            Name = "u1",
-                            Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u1",
-                            IsDefault = true
-                        },
-                        new()
-                        {
-                            Name = "u2",
-                            Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u2",
-                            IsDefault = false
-                        }
-                    }
-                }
-            },
             NodeTerminals = new List<NodeTerminalLibAm>
             {
                 new()
@@ -119,7 +95,6 @@ public class MimirorgCommonFixture : IDisposable
             RdsName = "AA",
             RdsCode = "AA",
             Aspect = Aspect.Function,
-            Attributes = nodeLibAm.Attributes.ConvertToString(),
             NodeTerminals = new List<NodeTerminalLibDm>
             {
                 new()
@@ -161,30 +136,7 @@ public class MimirorgCommonFixture : IDisposable
             Name = "AA",
             TypeReferences = typeRefs,
             Color = "#123",
-            Attributes = new List<AttributeLibAm>
-            {
-                new()
-                {
-                    Name = "a1",
-                    Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
-                    Source = "PCA",
-                    Units = new List<UnitLibAm>
-                    {
-                        new()
-                        {
-                            Name = "u1",
-                            Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u1",
-                            IsDefault = true
-                        },
-                        new()
-                        {
-                            Name = "u2",
-                            Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u2",
-                            IsDefault = false
-                        }
-                    }
-                }
-            },
+            TerminalAttributes = new List<TerminalAttributeLibAm>(),
             Version = "1.0"
         };
 
@@ -192,7 +144,7 @@ public class MimirorgCommonFixture : IDisposable
         {
             Name = "AA",
             Color = "#123",
-            Attributes = terminalLibAm.Attributes.ConvertToString(),
+            TerminalAttributes = new List<TerminalAttributeLibDm>(),
             Version = "1.0",
             TypeReferences = typeRefs.ConvertToString()
         };

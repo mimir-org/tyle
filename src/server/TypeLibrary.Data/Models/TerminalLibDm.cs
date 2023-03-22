@@ -85,7 +85,7 @@ public class TerminalLibDm : IVersionable<TerminalLibAm>, IVersionObject, ILogab
         terminalAttributeAms.AddRange(other.TerminalAttributes ?? new List<TerminalAttributeLibAm>());
         terminalAttributeDms.AddRange(TerminalAttributes ?? new List<TerminalAttributeLibDm>());
 
-        if (!terminalAttributeDms.Select(x => x.AttributeId).SequenceEqual(terminalAttributeDms.Select(x => x.AttributeId)))
+        if (!terminalAttributeDms.Select(x => x.AttributeId).SequenceEqual(terminalAttributeAms.Select(x => x.AttributeId)))
         {
             major = true;
         }

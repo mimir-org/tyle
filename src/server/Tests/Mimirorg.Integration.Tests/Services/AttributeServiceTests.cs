@@ -34,16 +34,4 @@ public class AttributeServiceTests : IntegrationTest
         Assert.True(specifiedProvenance.Any());
         Assert.True(specifiedScope.Any());
     }
-
-    [Fact]
-    public async Task AttributeDataReceiveOk()
-    {
-        using var scope = Factory.Server.Services.CreateScope();
-        var attributeService = scope.ServiceProvider.GetRequiredService<IAttributeService>();
-
-        var attributesPca = await attributeService.Get();
-
-        Assert.True(attributesPca != null);
-        Assert.True(attributesPca.Any());
-    }
 }
