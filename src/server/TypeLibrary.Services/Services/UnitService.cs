@@ -30,6 +30,7 @@ public class UnitService : IUnitService
         _logService = logService;
     }
 
+    /// <inheritdoc />
     public IEnumerable<UnitLibCm> Get()
     {
         var dataList = _unitRepository.Get();
@@ -38,6 +39,7 @@ public class UnitService : IUnitService
         return dataAm.AsEnumerable();
     }
 
+    /// <inheritdoc />
     public UnitLibCm Get(int id)
     {
         var unit = _unitRepository.Get().FirstOrDefault(x => x.Id == id);
@@ -48,6 +50,7 @@ public class UnitService : IUnitService
         return data;
     }
 
+    /// <inheritdoc />
     public async Task<UnitLibCm> Create(UnitLibAm unitAm)
     {
         if (unitAm == null)
@@ -65,6 +68,7 @@ public class UnitService : IUnitService
         return _mapper.Map<UnitLibCm>(createdUnit);
     }
 
+    /// <inheritdoc />
     public async Task<ApprovalDataCm> ChangeState(int id, State state)
     {
         var dm = _unitRepository.Get().FirstOrDefault(x => x.Id == id);
@@ -84,6 +88,7 @@ public class UnitService : IUnitService
         };
     }
 
+    /// <inheritdoc />
     public async Task<int> GetCompanyId(int id)
     {
         return await _unitRepository.HasCompany(id);

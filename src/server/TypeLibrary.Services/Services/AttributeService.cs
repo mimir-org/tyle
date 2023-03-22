@@ -14,7 +14,6 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;
@@ -69,7 +68,7 @@ public class AttributeService : IAttributeService
     /// <summary>
     /// Create a new attribute
     /// </summary>
-    /// <param name="nodeAm">The attribute that should be created</param>
+    /// <param name="attributeAm">The attribute that should be created</param>
     /// <returns>The created attribute</returns>
     public async Task<AttributeLibCm> Create(AttributeLibAm attributeAm)
     {
@@ -86,6 +85,32 @@ public class AttributeService : IAttributeService
         _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 
         return _mapper.Map<AttributeLibCm>(createdAttribute);
+    }
+
+    /// <inheritdoc />
+    public async Task<ApprovalDataCm> ChangeState(int id, State state)
+    {
+        var dm = _attributeRepository.Get().FirstOrDefault(x => x.Id == id);
+
+        if (dm == null)
+            throw new MimirorgNotFoundException($"Attribute with id {id} not found, or is not latest version.");
+
+        await _attributeRepository.ChangeState(state, new List<int> { dm.Id });
+        await _logService.CreateLog(dm, LogType.State, state.ToString());
+        _hookService.HookQueue.Enqueue(CacheKey.Attribute);
+
+        return new ApprovalDataCm
+        {
+            Id = id,
+            State = state
+
+        };
+    }
+
+    /// <inheritdoc />
+    public async Task<int> GetCompanyId(int id)
+    {
+        return await _attributeRepository.HasCompany(id);
     }
 
     /// <summary>
@@ -167,29 +192,5 @@ public class AttributeService : IAttributeService
         var dataSet = await _datumRepository.GetQuantityDatumRegularitySpecified();
         var dataCmList = _mapper.Map<List<QuantityDatumCm>>(dataSet);
         return dataCmList.AsEnumerable();
-    }
-
-    public async Task<ApprovalDataCm> ChangeState(int id, State state)
-    {
-        var dm = _attributeRepository.Get().FirstOrDefault(x => x.Id == id);
-
-        if (dm == null)
-            throw new MimirorgNotFoundException($"Attribute with id {id} not found, or is not latest version.");
-
-        await _attributeRepository.ChangeState(state, new List<int> { dm.Id });
-        await _logService.CreateLog(dm, LogType.State, state.ToString());
-        _hookService.HookQueue.Enqueue(CacheKey.Attribute);
-
-        return new ApprovalDataCm
-        {
-            Id = id,
-            State = state
-
-        };
-    }
-
-    public async Task<int> GetCompanyId(int id)
-    {
-        return await _attributeRepository.HasCompany(id);
     }
 }
