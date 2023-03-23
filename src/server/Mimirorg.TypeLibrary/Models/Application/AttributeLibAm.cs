@@ -11,7 +11,7 @@ public class AttributeLibAm
 
     [Display(Name = "CompanyId")]
     [Range(1, int.MaxValue, ErrorMessage = "{0} must be greater than 0")]
-    public int CompanyId { get; set; }
+    public int? CompanyId { get; set; }
 
     public string Description { get; set; }
 

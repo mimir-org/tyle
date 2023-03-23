@@ -16,7 +16,7 @@ public class UnitConfiguration : IEntityTypeConfiguration<UnitLibDm>
         builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false).HasMaxLength(255);
         builder.Property(p => p.TypeReferences).HasColumnName("TypeReferences");
         builder.Property(p => p.Symbol).HasColumnName("Symbol").HasMaxLength(31);
-        builder.Property(p => p.CompanyId).HasColumnName("CompanyId").IsRequired();
+        builder.Property(p => p.CompanyId).HasColumnName("CompanyId");
         builder.Property(p => p.State).HasColumnName("State").IsRequired().HasConversion<string>().HasMaxLength(31);
         builder.Property(p => p.Description).HasColumnName("Description").HasDefaultValue(null).HasMaxLength(511);
         builder.Property(p => p.CreatedBy).HasColumnName("CreatedBy").IsRequired().HasMaxLength(127);

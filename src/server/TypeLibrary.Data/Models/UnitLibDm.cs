@@ -3,11 +3,12 @@ using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using System;
 using System.Collections.Generic;
+using Mimirorg.TypeLibrary.Extensions;
 using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models;
 
-public class UnitLibDm : ILogable
+public class UnitLibDm : ILogable, IEquatable<UnitLibDm>
 {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -15,7 +16,7 @@ public class UnitLibDm : ILogable
     public string TypeReferences { get; set; }
     public string Symbol { get; set; }
     public State State { get; set; }
-    public int CompanyId { get; set; }
+    public int? CompanyId { get; set; }
     public string Description { get; set; }
     public DateTime Created { get; set; }
     public string CreatedBy { get; set; }
@@ -34,5 +35,11 @@ public class UnitLibDm : ILogable
             LogTypeValue = logTypeValue,
             Comment = comment
         };
+    }
+
+    public bool Equals(UnitLibDm other)
+    {
+        if (other == null) return false;
+        return this.Name == other.Name && this.Symbol == other.Symbol;
     }
 }

@@ -15,8 +15,10 @@ public class CompanyFactory : ICompanyFactory
         _mimirorgCompanyService = mimirorgCompanyService;
     }
 
-    public string GetCompanyName(int companyId)
+    public string GetCompanyName(int? companyId)
     {
+        if (companyId == null) return null;
+
         _companies ??= _mimirorgCompanyService.GetAllCompanies().Result;
 
         var company = _companies.FirstOrDefault(x => x.Id == companyId);

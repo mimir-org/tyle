@@ -31,7 +31,7 @@ namespace TypeLibrary.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CompanyId")
+                    b.Property<int?>("CompanyId")
                         .HasColumnType("int")
                         .HasColumnName("CompanyId");
 
@@ -570,7 +570,7 @@ namespace TypeLibrary.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CompanyId")
+                    b.Property<int?>("CompanyId")
                         .HasColumnType("int")
                         .HasColumnName("CompanyId");
 

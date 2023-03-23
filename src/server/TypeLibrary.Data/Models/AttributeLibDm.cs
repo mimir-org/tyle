@@ -14,7 +14,7 @@ public class AttributeLibDm : ILogable
     public string Iri { get; set; }
     public string TypeReferences { get; set; }
     public State State { get; set; }
-    public int CompanyId { get; set; }
+    public int? CompanyId { get; set; }
     public string Description { get; set; }
     public DateTime Created { get; set; }
     public string CreatedBy { get; set; }
