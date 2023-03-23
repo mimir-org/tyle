@@ -113,7 +113,7 @@ public class NodeLibAm
     /// <remarks>
     /// It is allowed to change the list. Changing will generate a minor increase
     /// </remarks>
-    public ICollection<TypeReferenceAm> TypeReferences { get; set; }
+    public string TypeReference { get; set; }
 
     /// <summary>
     /// The parent id for the node type

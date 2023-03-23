@@ -7,7 +7,7 @@ public class UnitLibCm
     public int Id { get; set; }
     public string Name { get; set; }
     public string Iri { get; set; }
-    public ICollection<TypeReferenceCm> TypeReferences { get; set; }
+    public string TypeReference { get; set; }
     public string Symbol { get; set; }
     public State State { get; set; }
     public int? CompanyId { get; set; }

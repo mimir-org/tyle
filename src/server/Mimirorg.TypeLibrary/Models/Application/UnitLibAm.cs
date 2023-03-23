@@ -7,7 +7,7 @@ public class UnitLibAm
     [Required]
     public string Name { get; set; }
 
-    public ICollection<TypeReferenceAm> TypeReferences { get; set; }
+    public string TypeReference { get; set; }
 
     public string Symbol { get; set; }
 

@@ -12,7 +12,7 @@ public class TerminalLibCm
     public string Version { get; set; }
     public int FirstVersionId { get; set; }
     public string Iri { get; set; }
-    public ICollection<TypeReferenceCm> TypeReferences { get; set; }
+    public string TypeReference { get; set; }
     public string Color { get; set; }
     public string Description { get; set; }
     public State State { get; set; }

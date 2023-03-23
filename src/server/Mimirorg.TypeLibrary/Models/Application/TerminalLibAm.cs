@@ -30,7 +30,7 @@ public class TerminalLibAm
     /// <remarks>
     /// It is allowed to change the list. Changing will generate a minor increase
     /// </remarks>
-    public ICollection<TypeReferenceAm> TypeReferences { get; set; }
+    public string TypeReference { get; set; }
 
     /// <summary>
     /// The color of the terminal

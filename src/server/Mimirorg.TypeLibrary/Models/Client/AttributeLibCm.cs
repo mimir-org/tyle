@@ -7,7 +7,7 @@ public class AttributeLibCm
     public int Id { get; set; }
     public string Name { get; set; }
     public string Iri { get; set; }
-    public ICollection<TypeReferenceCm> TypeReferences { get; set; }
+    public string TypeReference { get; set; }
     public State State { get; set; }
     public int? CompanyId { get; set; }
     public string CompanyName { get; set; }
