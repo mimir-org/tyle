@@ -16,7 +16,7 @@ public class TerminalConfiguration : IEntityTypeConfiguration<TerminalLibDm>
         builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
         builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(63);
         builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false).HasMaxLength(255);
-        builder.Property(p => p.TypeReferences).HasColumnName("TypeReferences");
+        builder.Property(p => p.TypeReference).HasColumnName("TypeReference").HasMaxLength(255);
         builder.Property(p => p.Version).HasColumnName("Version").IsRequired().HasMaxLength(7);
         builder.Property(p => p.FirstVersionId).HasColumnName("FirstVersionId").IsRequired();
         builder.Property(p => p.ParentId).HasColumnName("ParentId").IsRequired(false);

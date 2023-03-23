@@ -18,7 +18,7 @@ public class NodeConfiguration : IEntityTypeConfiguration<NodeLibDm>
         builder.ToTable("Node");
         builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
         builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false).HasMaxLength(255);
-        builder.Property(p => p.TypeReferences).HasColumnName("TypeReferences");
+        builder.Property(p => p.TypeReference).HasColumnName("TypeReference").HasMaxLength(255);
         builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(63);
         builder.Property(p => p.RdsCode).HasColumnName("RdsCode").IsRequired().HasMaxLength(127);
         builder.Property(p => p.RdsName).HasColumnName("RdsName").IsRequired().HasMaxLength(127);
