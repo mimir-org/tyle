@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Abstract;
@@ -36,7 +37,7 @@ public static class TypeLibraryModuleExtensions
         services.AddSingleton<ICacheRepository, InMemoryCacheRepository>();
 
         // Common
-        services.AddScoped<ISparQlWebClient, SparQlWebClient>();
+        services.AddSingleton<ISparQlWebClient, SparQlWebClient>();
 
         // Dependency Injection - Repositories
         services.AddScoped<ITypeLibraryProcRepository, TypeLibraryProcRepository>();
@@ -62,6 +63,7 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<ITerminalRepository, EfTerminalRepository>();
         services.AddScoped<ISymbolRepository, EfSymbolRepository>();
         services.AddScoped<IAttributeReferenceRepository, AttributeReferenceRepository>();
+        services.AddSingleton<IUnitReferenceRepository, UnitPcaRepository>();
         services.AddScoped<ILogRepository, EfLogRepository>();
 
         // Dependency Injection - Services
@@ -78,6 +80,9 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IModuleService, ModuleService>();
         services.AddScoped<ILogService, LogService>();
         services.AddScoped<IApprovalService, ApprovalService>();
+
+        // Hosted services
+        services.AddHostedService<TimedPcaSyncingService>();
 
         // Factories
         services.AddScoped<ICompanyFactory, CompanyFactory>();
