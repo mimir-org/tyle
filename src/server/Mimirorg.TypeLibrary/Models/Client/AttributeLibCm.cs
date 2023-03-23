@@ -10,7 +10,7 @@ public class AttributeLibCm
     public ICollection<TypeReferenceCm> TypeReferences { get; set; }
     public State State { get; set; }
     public int? CompanyId { get; set; }
-    public string? CompanyName { get; set; }
+    public string CompanyName { get; set; }
     public string Description { get; set; }
     public DateTime Created { get; set; }
     public string CreatedBy { get; set; }
