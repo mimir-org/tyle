@@ -73,11 +73,11 @@ public class LibraryTerminalController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult GetLatestVersion(int id)
+    public IActionResult Get(int id)
     {
         try
         {
-            var data = _terminalService.GetLatestVersion(id);
+            var data = _terminalService.Get(id);
             if (data == null)
                 return NotFound(id);
 

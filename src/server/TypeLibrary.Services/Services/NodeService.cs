@@ -38,9 +38,9 @@ public class NodeService : INodeService
     /// <param name="id">The id of the node</param>
     /// <returns>The latest version of the node of given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no node with the given id, and that node is at the latest version.</exception>
-    public NodeLibCm GetLatestVersion(int id)
+    public NodeLibCm Get(int id)
     {
-        var dm = _nodeRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
+        var dm = _nodeRepository.Get(id);
 
         if (dm == null)
             throw new MimirorgNotFoundException($"Node with id {id} not found.");

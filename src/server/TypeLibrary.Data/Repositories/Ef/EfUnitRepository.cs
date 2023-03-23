@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Enums;
 using TypeLibrary.Data.Contracts;
@@ -55,6 +56,11 @@ public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibD
     public IEnumerable<UnitLibDm> Get()
     {
         return GetAll();
+    }
+
+    public UnitLibDm Get(int id)
+    {
+        return FindBy(x => x.Id == id).FirstOrDefault();
     }
 
     public async Task<UnitLibDm> Create(UnitLibDm unit)

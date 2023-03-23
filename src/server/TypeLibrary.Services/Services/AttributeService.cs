@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
@@ -48,7 +49,11 @@ public class AttributeService : IAttributeService
     public IEnumerable<AttributeLibCm> Get()
     {
         var dataSet = _attributeRepository.Get().ToList();
-        return _mapper.Map<List<AttributeLibCm>>(dataSet);
+
+        if (dataSet == null)
+            throw new MimirorgNotFoundException("No attributes were found.");
+
+        return !dataSet.Any() ? new List<AttributeLibCm>() : _mapper.Map<List<AttributeLibCm>>(dataSet);
     }
 
     /// <summary>
@@ -57,7 +62,7 @@ public class AttributeService : IAttributeService
     /// <returns>Attribute and its units></returns>
     public AttributeLibCm Get(int id)
     {
-        var dm = _attributeRepository.Get().FirstOrDefault(x => x.Id == id);
+        var dm = _attributeRepository.Get(id);
 
         if (dm == null)
             throw new MimirorgNotFoundException($"Attribute with id {id} not found.");

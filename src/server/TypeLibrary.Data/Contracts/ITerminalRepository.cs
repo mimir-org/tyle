@@ -48,7 +48,7 @@ public interface ITerminalRepository
     /// </summary>
     /// <param name="id">The terminal id</param>
     /// <returns>Terminal if found</returns>
-    Task<TerminalLibDm> Get(int id);
+    TerminalLibDm Get(int id);
 
     /// <summary>
     /// Create a terminal in database

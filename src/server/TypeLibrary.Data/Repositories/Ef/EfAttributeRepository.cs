@@ -61,6 +61,15 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
             .AsSplitQuery();
     }
 
+    public AttributeLibDm Get(int id)
+    {
+        return FindBy(x => x.Id == id)
+            .Include(x => x.AttributeUnits)
+            .ThenInclude(x => x.Unit)
+            .AsSplitQuery()
+            .FirstOrDefault();
+    }
+
     /// <summary>
     /// Create an attribute
     /// </summary>

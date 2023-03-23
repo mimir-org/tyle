@@ -17,6 +17,8 @@ public interface IUnitRepository
     /// <returns>A collection of units</returns>
     IEnumerable<UnitLibDm> Get();
 
+    UnitLibDm Get(int id);
+
     Task<UnitLibDm> Create(UnitLibDm unit);
 
     void ClearAllChangeTrackers();

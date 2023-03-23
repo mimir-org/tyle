@@ -110,13 +110,13 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
     /// </summary>
     /// <param name="id">The terminal id</param>
     /// <returns>Terminal if found</returns>
-    public async Task<TerminalLibDm> Get(int id)
+    public TerminalLibDm Get(int id)
     {
-        var terminal = await FindBy(x => x.Id == id)
+        var terminal = FindBy(x => x.Id == id)
             .Include(x => x.TerminalAttributes)
             .ThenInclude(x => x.Attribute)
             .AsSplitQuery()
-            .FirstOrDefaultAsync();
+            .FirstOrDefault();
         return terminal;
     }
 

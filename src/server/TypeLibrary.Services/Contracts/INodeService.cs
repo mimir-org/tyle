@@ -21,7 +21,7 @@ public interface INodeService
     /// <param name="id">The id of the node</param>
     /// <returns>The latest version of the node of given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no node with the given id, and that node is at the latest version.</exception>
-    NodeLibCm GetLatestVersion(int id);
+    NodeLibCm Get(int id);
 
     /// <summary>
     /// Create a new node

@@ -18,11 +18,18 @@ public interface IAttributeRepository
     IEnumerable<AttributeLibDm> Get();
 
     /// <summary>
-    /// Create a node
+    /// Get a specific attribute by id
     /// </summary>
-    /// <param name="node">The node to be created</param>
-    /// <returns>The created node</returns>
-    Task<AttributeLibDm> Create(AttributeLibDm node);
+    /// <param name="id">The id of the attribute to get</param>
+    /// <returns>The attribute with the given id</returns>
+    AttributeLibDm Get(int id);
+
+    /// <summary>
+    /// Create an attribute
+    /// </summary>
+    /// <param name="attribute">The attribute to be created</param>
+    /// <returns>The created attribute</returns>
+    Task<AttributeLibDm> Create(AttributeLibDm attribute);
 
     /// <summary>
     /// Clear all entity framework change trackers

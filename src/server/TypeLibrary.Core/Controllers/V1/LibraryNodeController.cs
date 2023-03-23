@@ -73,14 +73,14 @@ public class LibraryNodeController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult GetLatestVersion([FromRoute] int id)
+    public IActionResult Get([FromRoute] int id)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var data = _nodeService.GetLatestVersion(id);
+            var data = _nodeService.Get(id);
 
             if (data == null)
                 return NotFound(id);

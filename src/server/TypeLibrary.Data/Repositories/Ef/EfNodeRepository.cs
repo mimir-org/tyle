@@ -112,15 +112,15 @@ public class EfNodeRepository : GenericRepository<TypeLibraryDbContext, NodeLibD
     /// </summary>
     /// <param name="id">The node id</param>
     /// <returns>Node if found</returns>
-    public async Task<NodeLibDm> Get(int id)
+    public NodeLibDm Get(int id)
     {
-        return await FindBy(x => x.Id == id)
+        return FindBy(x => x.Id == id)
             .Include(x => x.NodeTerminals)
             .ThenInclude(x => x.Terminal)
             .Include(x => x.NodeAttributes)
             .ThenInclude(x => x.Attribute)
             .AsSplitQuery()
-            .FirstOrDefaultAsync();
+            .FirstOrDefault();
     }
 
     /// <summary>

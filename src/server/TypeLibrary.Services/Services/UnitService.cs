@@ -33,18 +33,20 @@ public class UnitService : IUnitService
     /// <inheritdoc />
     public IEnumerable<UnitLibCm> Get()
     {
-        var dataList = _unitRepository.Get();
+        var dataList = _unitRepository.Get().ToList();
 
-        var dataAm = _mapper.Map<List<UnitLibCm>>(dataList);
-        return dataAm.AsEnumerable();
+        if (dataList == null)
+            throw new MimirorgNotFoundException("No units were found.");
+
+        return !dataList.Any() ? new List<UnitLibCm>() : _mapper.Map<List<UnitLibCm>>(dataList);
     }
 
     /// <inheritdoc />
     public UnitLibCm Get(int id)
     {
-        var unit = _unitRepository.Get().FirstOrDefault(x => x.Id == id);
+        var unit = _unitRepository.Get(id);
         if (unit == null)
-            return null;
+            throw new MimirorgNotFoundException($"Unit with id {id} not found.");
 
         var data = _mapper.Map<UnitLibCm>(unit);
         return data;

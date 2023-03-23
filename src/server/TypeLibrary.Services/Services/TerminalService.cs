@@ -38,9 +38,9 @@ public class TerminalService : ITerminalService
     /// <param name="id">The id of the terminal</param>
     /// <returns>The latest version of the terminal of given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id, and that terminal is at the latest version.</exception>
-    public TerminalLibCm GetLatestVersion(int id)
+    public TerminalLibCm Get(int id)
     {
-        var dm = _terminalRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
+        var dm = _terminalRepository.Get(id);
 
         if (dm == null)
             throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
