@@ -3,7 +3,6 @@ using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using System;
 using System.Collections.Generic;
-using Mimirorg.TypeLibrary.Extensions;
 using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models;
