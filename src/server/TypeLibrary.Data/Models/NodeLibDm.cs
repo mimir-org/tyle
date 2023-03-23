@@ -23,7 +23,7 @@ public class NodeLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogable
     public string Version { get; set; }
     public int FirstVersionId { get; set; }
     public string Iri { get; set; }
-    public string TypeReferences { get; set; }
+    public string TypeReference { get; set; }
     public string RdsCode { get; set; }
     public string RdsName { get; set; }
     public string PurposeName { get; set; }

@@ -20,7 +20,7 @@ public class TerminalLibDm : IVersionable<TerminalLibAm>, IVersionObject, ILogab
     public string Version { get; set; }
     public int FirstVersionId { get; set; }
     public string Iri { get; set; }
-    public string TypeReferences { get; set; }
+    public string TypeReference { get; set; }
     public string Color { get; set; }
     public string Description { get; set; }
     public int CompanyId { get; set; }
