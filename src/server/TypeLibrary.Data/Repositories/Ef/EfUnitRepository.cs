@@ -23,6 +23,7 @@ public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibD
         _typeLibraryProcRepository = typeLibraryProcRepository;
     }
 
+    /// <inheritdoc />
     public async Task<int> HasCompany(int id)
     {
         var procParams = new Dictionary<string, object>
@@ -35,6 +36,7 @@ public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibD
         return result?.FirstOrDefault()?.CompanyId ?? 0;
     }
 
+    /// <inheritdoc />
     public async Task<int> ChangeState(State state, ICollection<int> ids)
     {
         if (ids == null)
@@ -53,16 +55,19 @@ public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibD
         return result?.FirstOrDefault()?.Number ?? 0;
     }
 
+    /// <inheritdoc />
     public IEnumerable<UnitLibDm> Get()
     {
         return GetAll();
     }
 
+    /// <inheritdoc />
     public UnitLibDm Get(int id)
     {
         return FindBy(x => x.Id == id).FirstOrDefault();
     }
 
+    /// <inheritdoc />
     public async Task<UnitLibDm> Create(UnitLibDm unit)
     {
         await CreateAsync(unit);
@@ -76,6 +81,7 @@ public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibD
         return unit;
     }
 
+    /// <inheritdoc />
     public void ClearAllChangeTrackers()
     {
         Context?.ChangeTracker.Clear();

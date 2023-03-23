@@ -23,6 +23,7 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
         _typeLibraryProcRepository = typeLibraryProcRepository;
     }
 
+    /// <inheritdoc />
     public async Task<int> HasCompany(int id)
     {
         var procParams = new Dictionary<string, object>
@@ -35,6 +36,7 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
         return result?.FirstOrDefault()?.CompanyId ?? 0;
     }
 
+    /// <inheritdoc />
     public async Task<int> ChangeState(State state, ICollection<int> ids)
     {
         if (ids == null)
@@ -53,6 +55,7 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
         return result?.FirstOrDefault()?.Number ?? 0;
     }
 
+    /// <inheritdoc />
     public IEnumerable<AttributeLibDm> Get()
     {
         return GetAll()
@@ -61,6 +64,7 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
             .AsSplitQuery();
     }
 
+    /// <inheritdoc />
     public AttributeLibDm Get(int id)
     {
         return FindBy(x => x.Id == id)
@@ -70,11 +74,7 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
             .FirstOrDefault();
     }
 
-    /// <summary>
-    /// Create an attribute
-    /// </summary>
-    /// <param name="attribute">The attribute to be created</param>
-    /// <returns>The created attribute</returns>
+    /// <inheritdoc />
     public async Task<AttributeLibDm> Create(AttributeLibDm attribute)
     {
         await CreateAsync(attribute);
@@ -90,9 +90,7 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
         return attribute;
     }
 
-    /// <summary>
-    /// Clear all entity framework change trackers
-    /// </summary>
+    /// <inheritdoc />
     public void ClearAllChangeTrackers()
     {
         Context?.ChangeTracker.Clear();
