@@ -57,7 +57,7 @@ public class SemanticController : ControllerBase
     {
         try
         {
-            var data = _nodeService.GetLatestVersion(id);
+            var data = _nodeService.Get(id);
             if (data == null)
                 return NoContent();
 

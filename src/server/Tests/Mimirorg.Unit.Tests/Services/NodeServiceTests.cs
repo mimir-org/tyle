@@ -22,13 +22,13 @@ public class NodeServiceTests : UnitTest<MimirorgCommonFixture>
     [Fact]
     public void Get_Returns_MimirorgBadRequestException_On_ZeroParam()
     {
-        _ = Assert.Throws<MimirorgNotFoundException>(() => _nodeService.GetLatestVersion(0));
+        _ = Assert.Throws<MimirorgNotFoundException>(() => _nodeService.Get(0));
     }
 
     [Fact]
     public void GetNode_No_Matching_Id_Throws_MimirorgNotFoundException()
     {
-        _ = Assert.Throws<MimirorgNotFoundException>(() => _nodeService.GetLatestVersion(6666666));
+        _ = Assert.Throws<MimirorgNotFoundException>(() => _nodeService.Get(6666666));
     }
 
     [Fact]
