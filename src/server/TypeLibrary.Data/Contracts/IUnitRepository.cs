@@ -43,6 +43,13 @@ public interface IUnitRepository
     Task<UnitLibDm> Create(UnitLibDm unit);
 
     /// <summary>
+    /// Create all units in a collection
+    /// </summary>
+    /// <param name="units">A collection of units to create</param>
+    /// <returns>A list of the created units</returns>
+    Task<ICollection<UnitLibDm>> Create(ICollection<UnitLibDm> units);
+
+    /// <summary>
     /// Clear all entity framework change trackers
     /// </summary>
     void ClearAllChangeTrackers();

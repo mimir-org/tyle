@@ -80,6 +80,21 @@ public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibD
         return unit;
     }
 
+    public async Task<ICollection<UnitLibDm>> Create(ICollection<UnitLibDm> units)
+    {
+        foreach (var unit in units)
+            await CreateAsync(unit);
+        await SaveAsync();
+
+        foreach (var unit in units)
+            unit.Iri = $"{_settings.ApplicationSemanticUrl}/unit/{unit.Id}";
+        await SaveAsync();
+
+        Detach(units);
+
+        return units;
+    }
+
     /// <inheritdoc />
     public void ClearAllChangeTrackers()
     {
