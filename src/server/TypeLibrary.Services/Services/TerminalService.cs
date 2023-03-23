@@ -96,7 +96,7 @@ public class TerminalService : ITerminalService
         await _logService.CreateLog(createdTerminal, LogType.State, State.Draft.ToString());
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
-        return GetLatestVersion(createdTerminal.Id);
+        return Get(createdTerminal.Id);
     }
 
     /// <summary>
@@ -132,7 +132,7 @@ public class TerminalService : ITerminalService
         var versionStatus = terminalToUpdate.CalculateVersionStatus(terminalAm);
 
         if (versionStatus == VersionStatus.NoChange)
-            return GetLatestVersion(terminalToUpdate.Id);
+            return Get(terminalToUpdate.Id);
 
         //We need to take into account that there exist a higher version that has state 'Deleted'.
         //Therefore we need to increment minor/major from the latest version, including those with state 'Deleted'.
@@ -156,7 +156,7 @@ public class TerminalService : ITerminalService
         await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
-        return GetLatestVersion(terminalCm.Id);
+        return Get(terminalCm.Id);
     }
 
     /// <summary>
@@ -177,7 +177,7 @@ public class TerminalService : ITerminalService
         await _logService.CreateLog(dm, LogType.State, state.ToString());
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
-        return state == State.Deleted ? null : GetLatestVersion(id);
+        return state == State.Deleted ? null : Get(id);
     }
 
     /// <summary>
