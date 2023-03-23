@@ -131,7 +131,7 @@ public class SparQlWebClient : ISparQlWebClient
             {
                 if (result.TryGetValue(prop.ToLower(), out var node))
                 {
-                    obj.GetType().GetProperty(prop)?.SetValue(obj, node?.ToString());
+                    obj.GetType().GetProperty(prop)?.SetValue(obj, node?.ToString().Split('^')[0]);
                 }
             }
 
