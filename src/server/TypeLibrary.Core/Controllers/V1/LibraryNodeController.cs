@@ -132,12 +132,6 @@ public class LibraryNodeController : ControllerBase
 
             return BadRequest(ModelState);
         }
-        catch (MimirorgDuplicateException e)
-        {
-            ModelState.Remove("Id");
-            ModelState.TryAddModelError("Id", e.Message);
-            return BadRequest(ModelState);
-        }
         catch (Exception e)
         {
             _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
