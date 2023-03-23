@@ -50,7 +50,7 @@ public class LibraryAttributeController : ControllerBase
     {
         try
         {
-            var data = _attributeService.Get();
+            var data = _attributeService.Get().ToList();
             return Ok(data);
         }
         catch (Exception e)
