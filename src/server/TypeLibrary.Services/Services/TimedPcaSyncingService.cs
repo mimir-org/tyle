@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -55,19 +56,17 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         var dbUnitReferences = new Dictionary<string, int>();
         foreach (var unit in dbUnits)
         {
-            if (unit.TypeReferences == null) continue;
+            if (unit.TypeReference == null) continue;
 
-            var typeReferences = unit.TypeReferences.ConvertToObject<ICollection<TypeReferenceCm>>();
-            foreach (var typeReference in typeReferences)
+            if (unit.TypeReference.Contains("posccaesar.org"))
             {
-                if (typeReference.Source != "PCA") continue;
-                if (dbUnitReferences.ContainsKey(typeReference.Iri))
+                if (dbUnitReferences.ContainsKey(unit.TypeReference))
                 {
                     _logger.LogError("Duplicate PCA type references in Unit table.");
                 }
                 else
                 {
-                    dbUnitReferences.Add(typeReference.Iri, unit.Id);
+                    dbUnitReferences.Add(unit.TypeReference, unit.Id);
                 }
             }
         }
@@ -80,10 +79,9 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
         foreach (var pcaUnit in pcaUnits)
         {
-            var pcaIri = pcaUnit.TypeReferences.ConvertToObject<ICollection<TypeReferenceCm>>().ToList()[0].Iri;
-            if (dbUnitReferences.ContainsKey(pcaIri))
+            if (dbUnitReferences.ContainsKey(pcaUnit.TypeReference))
             {
-                var storedUnit = unitRepository.Get(dbUnitReferences[pcaIri]);
+                var storedUnit = unitRepository.Get(dbUnitReferences[pcaUnit.TypeReference]);
 
                 if (storedUnit.Equals(pcaUnit)) continue;
 

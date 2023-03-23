@@ -72,6 +72,9 @@ public class TerminalLibDm : IVersionable<TerminalLibAm>, IVersionObject, ILogab
         if (CompanyId != other.CompanyId)
             minor = true;
 
+        if (TypeReference != other.TypeReference)
+            minor = true;
+
         if (Description != other.Description)
             minor = true;
 
@@ -89,15 +92,6 @@ public class TerminalLibDm : IVersionable<TerminalLibAm>, IVersionObject, ILogab
         {
             major = true;
         }
-
-        // Type-references
-        var references = string.IsNullOrWhiteSpace(TypeReferences)
-            ? new List<TypeReferenceAm>()
-            : JsonConvert.DeserializeObject<ICollection<TypeReferenceAm>>(TypeReferences) ?? new List<TypeReferenceAm>();
-
-        other.TypeReferences ??= new List<TypeReferenceAm>();
-        if (!references.SequenceEqual(other.TypeReferences))
-            minor = true;
 
         return major ? VersionStatus.Major : minor ? VersionStatus.Minor : VersionStatus.NoChange;
 

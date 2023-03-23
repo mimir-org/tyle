@@ -63,7 +63,7 @@ public class AttributeReferenceRepository : IAttributeReferenceRepository
             {
                 Name = firstElement?.Quantity_Label,
                 Iri = firstElement?.Quantity,
-                TypeReferences = "PCA"
+                TypeReference = "PCA"
             };
 
             /*foreach (var pcaUnit in group)

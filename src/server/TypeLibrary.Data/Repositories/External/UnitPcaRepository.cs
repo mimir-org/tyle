@@ -31,19 +31,10 @@ public class UnitPcaRepository : IUnitReferenceRepository
 
         foreach (var pcaUnit in data)
         {
-            var typeReference = new List<TypeReferenceAm>
-            {
-                new TypeReferenceAm
-                {
-                    Name = "PCA Type Reference",
-                    Iri = pcaUnit.Uom,
-                    Source = "PCA"
-                }
-            };
             var unit = new UnitLibDm
             {
                 Name = pcaUnit.Uom_Label,
-                TypeReferences = typeReference.ConvertToString(),
+                TypeReference = pcaUnit.Uom,
                 Symbol = pcaUnit.Default_Uom_Symbol,
                 State = State.ApprovedGlobal,
                 Description = $"Unit recovered from PCA at {DateTime.UtcNow.ToString(System.Globalization.CultureInfo.InvariantCulture)} (UTC).",

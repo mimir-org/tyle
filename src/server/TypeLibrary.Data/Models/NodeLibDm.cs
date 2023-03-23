@@ -120,14 +120,6 @@ public class NodeLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogable
             major = true;
         }
 
-        // Type-references
-        var references = string.IsNullOrWhiteSpace(TypeReferences)
-            ? new List<TypeReferenceAm>()
-            : JsonConvert.DeserializeObject<ICollection<TypeReferenceAm>>(TypeReferences) ?? new List<TypeReferenceAm>();
-        other.TypeReferences ??= new List<TypeReferenceAm>();
-        if (!references.SequenceEqual(other.TypeReferences))
-            minor = true;
-
         // Node Terminals
         NodeTerminals ??= new List<NodeTerminalLibDm>();
         other.NodeTerminals ??= new List<NodeTerminalLibAm>();
@@ -140,6 +132,9 @@ public class NodeLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogable
         other.SelectedAttributePredefined ??= new List<SelectedAttributePredefinedLibAm>();
         if (!SelectedAttributePredefined.Select(x => x.Key).SequenceEqual(other.SelectedAttributePredefined.Select(x => x.Key)))
             major = true;
+
+        if (TypeReference != other.TypeReference)
+            minor = true;
 
         if (Description != other.Description)
             minor = true;
