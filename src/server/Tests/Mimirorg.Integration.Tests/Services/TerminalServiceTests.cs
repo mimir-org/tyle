@@ -21,15 +21,7 @@ public class TerminalServiceTests : IntegrationTest
         {
             Name = "TestTerminal2",
             ParentId = 1234,
-            TypeReferences = new List<TypeReferenceAm>
-            {
-                new()
-                {
-                    Name = "TypeRef",
-                    Iri = "https://url.com/1234567890",
-                    Source = "https://source.com/1234567890",
-                }
-            },
+            TypeReference = "https://url.com/1234567890",
             Color = "#123456",
             Description = "Description1",
             CompanyId = 1,
@@ -45,9 +37,7 @@ public class TerminalServiceTests : IntegrationTest
         Assert.True(terminalCm.State == State.Draft);
         Assert.Equal(terminalAm.ParentId, terminalCm.ParentId);
 
-        Assert.Equal(terminalAm.TypeReferences.First().Iri, terminalCm.TypeReferences.First().Iri);
-        Assert.Equal(terminalAm.TypeReferences.First().Name, terminalCm.TypeReferences.First().Name);
-        Assert.Equal(terminalAm.TypeReferences.First().Source, terminalCm.TypeReferences.First().Source);
+        Assert.Equal(terminalAm.TypeReference, terminalCm.TypeReference);
 
         Assert.Equal(terminalAm.Color, terminalCm.Color);
         Assert.Equal(terminalAm.Description, terminalCm.Description);
@@ -75,7 +65,7 @@ public class TerminalServiceTests : IntegrationTest
         {
             Name = "TestTerminal3",
             ParentId = 1234,
-            TypeReferences = null,
+            TypeReference = null,
             Color = "#123456",
             Description = "Description v1.0",
             CompanyId = 1,

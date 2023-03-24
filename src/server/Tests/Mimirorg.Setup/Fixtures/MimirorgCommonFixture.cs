@@ -41,15 +41,6 @@ public class MimirorgCommonFixture : IDisposable
 
     public (NodeLibAm am, NodeLibDm dm) CreateNodeTestData()
     {
-        var typeRefs = new List<TypeReferenceAm>
-        {
-            new()
-            {
-                Iri = "https://tyle.com",
-                Name = "XX"
-            }
-        };
-
         var nodeLibAm = new NodeLibAm
         {
             Name = "AA",
@@ -85,7 +76,7 @@ public class MimirorgCommonFixture : IDisposable
                 }
             },
             ParentId = 123,
-            TypeReferences = typeRefs
+            TypeReference = "https://www.tyle.com/"
         };
 
         var nodeLibDm = new NodeLibDm
@@ -114,7 +105,7 @@ public class MimirorgCommonFixture : IDisposable
                 }
             },
             ParentId = 123,
-            TypeReferences = typeRefs.ConvertToString()
+            TypeReference = "https://www.tyle.com/"
         };
 
         return (nodeLibAm, nodeLibDm);
@@ -122,19 +113,10 @@ public class MimirorgCommonFixture : IDisposable
 
     public (TerminalLibAm am, TerminalLibDm dm) CreateTerminalTestData()
     {
-        var typeRefs = new List<TypeReferenceAm>
-        {
-            new()
-            {
-                Iri = "https://tyle.com",
-                Name = "XX"
-            }
-        };
-
         var terminalLibAm = new TerminalLibAm
         {
             Name = "AA",
-            TypeReferences = typeRefs,
+            TypeReference = "https://www.tyle.com/",
             Color = "#123",
             TerminalAttributes = new List<TerminalAttributeLibAm>(),
             Version = "1.0"
@@ -146,7 +128,7 @@ public class MimirorgCommonFixture : IDisposable
             Color = "#123",
             TerminalAttributes = new List<TerminalAttributeLibDm>(),
             Version = "1.0",
-            TypeReferences = typeRefs.ConvertToString()
+            TypeReference = "https://www.tyle.com/"
         };
 
         return (terminalLibAm, terminalLibDm);

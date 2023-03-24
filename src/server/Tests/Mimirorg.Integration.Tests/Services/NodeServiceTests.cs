@@ -47,27 +47,11 @@ public class NodeServiceTests : IntegrationTest
                     {
                         {"56789", true}
                     },
-                    TypeReferences = new List<TypeReferenceAm>
-                    {
-                        new()
-                        {
-                            Name = "TypeRef",
-                            Iri = "https://url.com/1234567890",
-                            Source = "https://source.com/1234567890",
-                        }
-                    }
+                    TypeReference = "https://url.com/1234567890"
                 }
             },
             Symbol = "symbol",
-            TypeReferences = new List<TypeReferenceAm>
-            {
-                new()
-                {
-                    Name = "TypeRef",
-                    Iri = "https://url.com/1234567890",
-                    Source = "https://source.com/1234567890"
-                }
-            },
+            TypeReference = "https://url.com/1234567890",
             ParentId = 1234,
             Version = "1.0"
         };
@@ -99,13 +83,9 @@ public class NodeServiceTests : IntegrationTest
         Assert.Equal(nodeAm.SelectedAttributePredefined.First().IsMultiSelect, nodeCm.SelectedAttributePredefined.First().IsMultiSelect);
         Assert.Equal(nodeAm.SelectedAttributePredefined.First().Values.ToString(), nodeCm.SelectedAttributePredefined.First().Values.ToString());
 
-        Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Iri, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Iri);
-        Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Name, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Name);
-        Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Source, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Source);
+        Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReference, nodeCm.SelectedAttributePredefined.First().TypeReference);
 
-        Assert.Equal(nodeAm.TypeReferences.First().Iri, nodeCm.TypeReferences.First().Iri);
-        Assert.Equal(nodeAm.TypeReferences.First().Name, nodeCm.TypeReferences.First().Name);
-        Assert.Equal(nodeAm.TypeReferences.First().Source, nodeCm.TypeReferences.First().Source);
+        Assert.Equal(nodeAm.TypeReference, nodeCm.TypeReference);
 
         Assert.Equal(nodeAm.Symbol, nodeCm.Symbol);
         Assert.Equal(nodeAm.ParentId, nodeCm.ParentId);

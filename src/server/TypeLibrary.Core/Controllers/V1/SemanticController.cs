@@ -91,7 +91,7 @@ public class SemanticController : ControllerBase
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("attribute/{id}")]
-    [ProducesResponseType(typeof(TypeReferenceCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -100,24 +100,12 @@ public class SemanticController : ControllerBase
     {
         try
         {
-            var data = _attributeService.Get().ToList().FirstOrDefault(x => x.Id == id);
+            var data = _attributeService.Get(id);
 
             if (data == null)
                 return NoContent();
 
             return Ok(data);
-        }
-        catch (MimirorgBadRequestException e)
-        {
-            _logger.LogWarning(e, $"Warning error: {e.Message}");
-
-            foreach (var error in e.Errors().ToList())
-            {
-                ModelState.Remove(error.Key);
-                ModelState.TryAddModelError(error.Key, error.Error);
-            }
-
-            return BadRequest(ModelState);
         }
         catch (MimirorgNotFoundException)
         {
