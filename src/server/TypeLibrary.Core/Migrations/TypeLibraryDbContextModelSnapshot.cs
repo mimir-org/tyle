@@ -67,9 +67,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("State");
 
-                    b.Property<string>("TypeReferences")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("TypeReferences");
+                    b.Property<string>("TypeReference")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("TypeReference");
 
                     b.HasKey("Id");
 
@@ -116,9 +117,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("State");
 
-                    b.Property<string>("TypeReferences")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("TypeReferences");
+                    b.Property<string>("TypeReference")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("TypeReference");
 
                     b.Property<string>("ValueStringList")
                         .HasColumnType("nvarchar(max)")
@@ -347,9 +349,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(127)")
                         .HasColumnName("Symbol");
 
-                    b.Property<string>("TypeReferences")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("TypeReferences");
+                    b.Property<string>("TypeReference")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("TypeReference");
 
                     b.Property<string>("Version")
                         .IsRequired()
@@ -453,9 +456,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("State");
 
-                    b.Property<string>("TypeReferences")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("TypeReferences");
+                    b.Property<string>("TypeReference")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("TypeReference");
 
                     b.HasKey("Id");
 
@@ -540,9 +544,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("State");
 
-                    b.Property<string>("TypeReferences")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("TypeReferences");
+                    b.Property<string>("TypeReference")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("TypeReference");
 
                     b.Property<string>("Version")
                         .IsRequired()
@@ -611,9 +616,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("Symbol");
 
-                    b.Property<string>("TypeReferences")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("TypeReferences");
+                    b.Property<string>("TypeReference")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("TypeReference");
 
                     b.HasKey("Id");
 
