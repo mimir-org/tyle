@@ -8,7 +8,7 @@ export const LogoutButton = () => {
   const mutation = useLogout();
 
   return (
-    <UserMenuButton icon={<ArrowLeftOnRectangle size={24} />} onClick={() => mutation.mutate()}>
+    <UserMenuButton dangerousAction icon={<ArrowLeftOnRectangle size={24} />} onClick={() => mutation.mutate()}>
       {t("header.menu.logout.title")}
     </UserMenuButton>
   );

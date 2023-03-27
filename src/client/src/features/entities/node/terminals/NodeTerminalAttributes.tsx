@@ -1,4 +1,4 @@
-import { TerminalLibCm } from "@mimirorg/typelibrary-types";
+import { AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { mapAttributeLibCmToInfoItem } from "common/utils/mappers";
 import { FormField } from "complib/form";
 import { Box } from "complib/layouts";
@@ -6,7 +6,11 @@ import { InfoItemButton } from "features/common/info-item";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 
-export const NodeTerminalAttributes = ({ attributes }: Pick<TerminalLibCm, "attributes">) => {
+interface NodeTerminalAttributesProps {
+  attributes: AttributeLibCm[];
+  hideLabel?: boolean;
+}
+export const NodeTerminalAttributes = ({ attributes, hideLabel }: NodeTerminalAttributesProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
   const showAttributes = attributes && attributes.length > 0;
@@ -14,7 +18,7 @@ export const NodeTerminalAttributes = ({ attributes }: Pick<TerminalLibCm, "attr
   return (
     <>
       {showAttributes && (
-        <FormField indent={false} label={t("node.terminals.attributes")}>
+        <FormField indent={false} label={!hideLabel ? t("node.terminals.attributes") : undefined}>
           <Box
             display={"flex"}
             flexWrap={"wrap"}
