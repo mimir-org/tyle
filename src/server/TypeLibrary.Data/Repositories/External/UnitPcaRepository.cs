@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Mimirorg.Common.Enums;
-using Mimirorg.TypeLibrary.Extensions;
+using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Data.Common;
 using TypeLibrary.Data.Contracts.Common;
-using TypeLibrary.Data.Models;
 using TypeLibrary.Data.Models.External;
 using TypeLibrary.Data.Contracts;
 
@@ -21,9 +19,9 @@ public class UnitPcaRepository : IUnitReferenceRepository
         _client = client;
     }
     
-    public Task<List<UnitLibDm>> FetchUnitsFromReference()
+    public Task<List<UnitLibAm>> FetchUnitsFromReference()
     {
-        var units = new List<UnitLibDm>();
+        var units = new List<UnitLibAm>();
         var data = _client.Get<PcaUnit>(SparQlWebClient.PcaEndPointProduction, SparQlWebClient.PcaUnitAllQuery).ToList();
 
         if (!data.Any())
@@ -31,15 +29,12 @@ public class UnitPcaRepository : IUnitReferenceRepository
 
         foreach (var pcaUnit in data)
         {
-            var unit = new UnitLibDm
+            var unit = new UnitLibAm
             {
                 Name = pcaUnit.Uom_Label,
                 TypeReference = pcaUnit.Uom,
                 Symbol = pcaUnit.Default_Uom_Symbol,
-                State = State.ApprovedGlobal,
-                Description = $"Unit recovered from PCA at {DateTime.UtcNow.ToString(System.Globalization.CultureInfo.InvariantCulture)} (UTC).",
-                Created = DateTime.UtcNow,
-                CreatedBy = "PCA sync"
+                Description = $"Unit received from PCA at {DateTime.UtcNow.ToString(System.Globalization.CultureInfo.InvariantCulture)} (UTC)."
             };
 
             units.Add(unit);

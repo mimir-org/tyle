@@ -91,6 +91,26 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     }
 
     /// <inheritdoc />
+    public async Task<ICollection<AttributeLibDm>> Create(ICollection<AttributeLibDm> attributes)
+    {
+        foreach (var attribute in attributes)
+            await CreateAsync(attribute);
+        await SaveAsync();
+
+        foreach (var attribute in attributes)
+        {
+            attribute.Iri = $"{_settings.ApplicationSemanticUrl}/unit/{attribute.Id}";
+            foreach (var attributeUnit in attribute.AttributeUnits)
+                attributeUnit.AttributeId = attribute.Id;
+        }
+        await SaveAsync();
+
+        Detach(attributes);
+
+        return attributes;
+    }
+
+    /// <inheritdoc />
     public void ClearAllChangeTrackers()
     {
         Context?.ChangeTracker.Clear();

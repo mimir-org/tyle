@@ -36,6 +36,13 @@ public interface IUnitRepository
     UnitLibDm Get(int id);
 
     /// <summary>
+    /// Get a specific unit by type reference
+    /// </summary>
+    /// <param name="typeReference">The type reference of the unit to get</param>
+    /// <returns>The unit with the given type reference</returns>
+    UnitLibDm GetByTypeReference(string typeReference);
+
+    /// <summary>
     /// Create a unit
     /// </summary>
     /// <param name="unit">The unit to be created</param>

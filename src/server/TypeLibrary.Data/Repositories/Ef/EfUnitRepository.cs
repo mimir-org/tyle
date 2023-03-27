@@ -67,6 +67,12 @@ public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibD
     }
 
     /// <inheritdoc />
+    public UnitLibDm GetByTypeReference(string typeReference)
+    {
+        return FindBy(x => x.TypeReference == typeReference).FirstOrDefault();
+    }
+
+    /// <inheritdoc />
     public async Task<UnitLibDm> Create(UnitLibDm unit)
     {
         await CreateAsync(unit);
@@ -80,6 +86,7 @@ public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibD
         return unit;
     }
 
+    /// <inheritdoc />
     public async Task<ICollection<UnitLibDm>> Create(ICollection<UnitLibDm> units)
     {
         foreach (var unit in units)

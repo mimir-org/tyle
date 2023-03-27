@@ -1,9 +1,10 @@
 using System;
+using Mimirorg.Common.Contracts;
 using Mimirorg.Common.Enums;
 
 namespace TypeLibrary.Data.Models;
 
-public class SymbolLibDm
+public class SymbolLibDm : IStatefulObject
 {
     public int Id { get; set; }
     public string Name { get; set; }

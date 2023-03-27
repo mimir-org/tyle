@@ -61,7 +61,7 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IRdsRepository, RdsRepository>();
         services.AddScoped<ITerminalRepository, EfTerminalRepository>();
         services.AddScoped<ISymbolRepository, EfSymbolRepository>();
-        services.AddScoped<IAttributeReferenceRepository, AttributeReferenceRepository>();
+        services.AddSingleton<IAttributeReferenceRepository, AttributePcaRepository>();
         services.AddSingleton<IUnitReferenceRepository, UnitPcaRepository>();
         services.AddScoped<ILogRepository, EfLogRepository>();
 

@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Mimirorg.Common.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Enums;
 // ReSharper disable InconsistentNaming
 
 namespace TypeLibrary.Data.Models;
 
-public class AttributePredefinedLibDm
+public class AttributePredefinedLibDm : IStatefulObject
 {
     public string Key { get; set; }
     public string Iri { get; set; }

@@ -3,11 +3,12 @@ using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using System;
 using System.Collections.Generic;
+using Mimirorg.Common.Contracts;
 using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models;
 
-public class AttributeLibDm : ILogable
+public class AttributeLibDm : ILogable, IStatefulObject
 {
     public int Id { get; set; }
     public string Name { get; set; }

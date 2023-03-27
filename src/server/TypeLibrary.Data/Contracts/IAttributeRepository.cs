@@ -43,6 +43,13 @@ public interface IAttributeRepository
     Task<AttributeLibDm> Create(AttributeLibDm attribute);
 
     /// <summary>
+    /// Create all attributes in a collection
+    /// </summary>
+    /// <param name="attributes">A collection of attributes to create</param>
+    /// <returns>A list of the created attributes</returns>
+    Task<ICollection<AttributeLibDm>> Create(ICollection<AttributeLibDm> attributes);
+
+    /// <summary>
     /// Clear all entity framework change trackers
     /// </summary>
     void ClearAllChangeTrackers();
