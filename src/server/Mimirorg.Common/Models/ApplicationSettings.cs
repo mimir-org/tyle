@@ -6,6 +6,7 @@ public class ApplicationSettings
 {
     public string ApplicationSemanticUrl { get; set; }
     public string ApplicationUrl { get; set; }
+    public string PcaSyncTime { get; set; }
     public string System => "System";
 
     public override string ToString()
@@ -33,6 +34,7 @@ public class ApplicationSettings
         sb.AppendLine("############################ Tyle Application settings #######################################");
         sb.AppendLine($"{nameof(ApplicationSemanticUrl)}:   {ApplicationSemanticUrl}");
         sb.AppendLine($"{nameof(ApplicationUrl)}:           {ApplicationUrl}");
+        sb.AppendLine($"{nameof(PcaSyncTime)}:              {PcaSyncTime}");
         sb.AppendLine("############################ Tyle Application settings #######################################");
         return sb.ToString();
     }

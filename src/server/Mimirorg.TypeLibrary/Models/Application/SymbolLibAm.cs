@@ -10,5 +10,5 @@ public class SymbolLibAm
     [Required]
     public string Data { get; set; }
 
-    public ICollection<TypeReferenceAm> TypeReferences { get; set; }
+    public string TypeReference { get; set; }
 }

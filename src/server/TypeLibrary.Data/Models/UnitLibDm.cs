@@ -1,12 +1,45 @@
+using Mimirorg.Common.Enums;
+using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Models.Application;
+using System;
+using System.Collections.Generic;
+using Mimirorg.Common.Contracts;
+using TypeLibrary.Data.Contracts.Common;
+
 namespace TypeLibrary.Data.Models;
 
-public class UnitLibDm
+public class UnitLibDm : ILogable, IEquatable<UnitLibAm>, IStatefulObject
 {
+    public int Id { get; set; }
     public string Name { get; set; }
     public string Iri { get; set; }
+    public string TypeReference { get; set; }
     public string Symbol { get; set; }
-    public string Source { get; set; }
-    public bool IsDefault { get; set; }
+    public State State { get; set; }
+    public int? CompanyId { get; set; }
+    public string Description { get; set; }
+    public DateTime Created { get; set; }
+    public string CreatedBy { get; set; }
+    public ICollection<AttributeUnitLibDm> UnitAttributes { get; set; }
 
-    public string Id => Iri?[(Iri.LastIndexOf('/') + 1)..];
+    public LogLibAm CreateLog(LogType logType, string logTypeValue, string comment)
+    {
+        return new LogLibAm
+        {
+            ObjectId = Id,
+            ObjectFirstVersionId = Id,
+            ObjectType = nameof(UnitLibDm),
+            ObjectName = Name,
+            ObjectVersion = "",
+            LogType = logType,
+            LogTypeValue = logTypeValue,
+            Comment = comment
+        };
+    }
+
+    public bool Equals(UnitLibAm other)
+    {
+        if (other == null) return false;
+        return this.Name == other.Name && this.Symbol == other.Symbol;
+    }
 }

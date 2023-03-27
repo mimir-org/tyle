@@ -1,10 +1,7 @@
-using Mimirorg.Common.Enums;
-
 namespace Mimirorg.Common.Contracts;
 
-public interface IVersionObject
+public interface IVersionObject : IStatefulObject
 {
-    State State { get; set; }
     int FirstVersionId { get; set; }
     string Version { get; set; }
 }

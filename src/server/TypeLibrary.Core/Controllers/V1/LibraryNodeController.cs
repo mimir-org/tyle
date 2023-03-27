@@ -19,14 +19,11 @@ using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1;
 
-/// <summary>
-/// Library services
-/// </summary>
 [Produces("application/json")]
 [ApiController]
 [ApiVersion("1.0")]
 [Route("V{version:apiVersion}/[controller]")]
-[SwaggerTag("Library Node Services")]
+[SwaggerTag("Node Services")]
 public class LibraryNodeController : ControllerBase
 {
     private readonly ILogger<LibraryNodeController> _logger;
@@ -68,22 +65,22 @@ public class LibraryNodeController : ControllerBase
     /// <summary>
     /// Get node by id
     /// </summary>
-    /// <param name="id">node id</param>
-    /// <returns>The content if exist or </returns>
+    /// <param name="id">The id of the node to get</param>
+    /// <returns>The requested node</returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult GetLatestVersion([FromRoute] int id)
+    public IActionResult Get([FromRoute] int id)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var data = _nodeService.GetLatestVersion(id);
+            var data = _nodeService.Get(id);
 
             if (data == null)
                 return NotFound(id);
@@ -135,12 +132,6 @@ public class LibraryNodeController : ControllerBase
 
             return BadRequest(ModelState);
         }
-        catch (MimirorgDuplicateException e)
-        {
-            ModelState.Remove("Id");
-            ModelState.TryAddModelError("Id", e.Message);
-            return BadRequest(ModelState);
-        }
         catch (Exception e)
         {
             _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
@@ -149,11 +140,11 @@ public class LibraryNodeController : ControllerBase
     }
 
     /// <summary>
-    /// Update node
+    /// Update a node
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="nodeAm"></param>
-    /// <returns>NodeLibCm</returns>
+    /// <param name="id">The id of the node that should be updated</param>
+    /// <param name="node">The new values of the node</param>
+    /// <returns>The updated node</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -193,11 +184,11 @@ public class LibraryNodeController : ControllerBase
     }
 
     /// <summary>
-    /// Update node with new state
+    /// Update a node with a new state
     /// </summary>
-    /// <param name="state"></param>
-    /// <param name="id"></param>
-    /// <returns>NodeLibCm</returns>
+    /// <param name="id">The id of the node to be updated</param>
+    /// <param name="state">The new state</param>
+    /// <returns>An approval data object containing the id of the node and the new state</returns>
     [HttpPatch("{id}/state/{state}")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -226,10 +217,10 @@ public class LibraryNodeController : ControllerBase
     }
 
     /// <summary>
-    /// Reject and revert state
+    /// Reject a state change request and revert the node to its previous state
     /// </summary>
-    /// <param name="id"></param>
-    /// <returns>NodeLibCm</returns>
+    /// <param name="id">The id of the node with the requested state change</param>
+    /// <returns>An approval data object containing the id of the node and the reverted state</returns>
     [HttpPatch("{id}/state/reject")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

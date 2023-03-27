@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using TypeScriptBuilder;
 
 namespace Mimirorg.TypeLibrary.Models.Application;
 
@@ -7,13 +6,14 @@ public class AttributeLibAm
 {
     [Required]
     public string Name { get; set; }
-    [Required]
-    public string Iri { get; set; }
-    [Required]
-    public string Source { get; set; }
 
-    public ICollection<UnitLibAm> Units { get; set; }
+    public string TypeReference { get; set; }
 
-    [TSExclude]
-    public string Id => Iri?[(Iri.LastIndexOf('/') + 1)..];
+    [Display(Name = "CompanyId")]
+    [Range(1, int.MaxValue, ErrorMessage = "{0} must be greater than 0")]
+    public int? CompanyId { get; set; }
+
+    public string Description { get; set; }
+
+    public ICollection<AttributeUnitLibAm> AttributeUnits { get; set; }
 }

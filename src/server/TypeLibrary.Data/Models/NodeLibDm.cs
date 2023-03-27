@@ -5,9 +5,7 @@ using Mimirorg.Common.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
-using Newtonsoft.Json;
 using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models;
@@ -24,7 +22,7 @@ public class NodeLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogable
     public string Version { get; set; }
     public int FirstVersionId { get; set; }
     public string Iri { get; set; }
-    public string TypeReferences { get; set; }
+    public string TypeReference { get; set; }
     public string RdsCode { get; set; }
     public string RdsName { get; set; }
     public string PurposeName { get; set; }
@@ -38,7 +36,7 @@ public class NodeLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogable
     public string CreatedBy { get; set; }
     public virtual ICollection<NodeLibDm> Children { get; set; }
     public virtual ICollection<NodeTerminalLibDm> NodeTerminals { get; set; }
-    public string Attributes { get; set; }
+    public ICollection<NodeAttributeLibDm> NodeAttributes { get; set; }
 
     #region IVersionable
 
@@ -65,22 +63,16 @@ public class NodeLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogable
             validation.AddNotAllowToChange(nameof(ParentId));
 
         //Attributes
-        var attributeAms = new List<AttributeLibAm>();
-        var attributeDms = new List<AttributeLibDm>();
-        var attributeAmUnits = new List<UnitLibAm>();
-        var attributeDmUnits = new List<UnitLibDm>();
+        var nodeAttributeAms = new List<NodeAttributeLibAm>();
+        var nodeAttributeDms = new List<NodeAttributeLibDm>();
 
-        attributeAms.AddRange(other.Attributes ?? new List<AttributeLibAm>());
-        attributeDms.AddRange(Attributes?.ConvertToObject<ICollection<AttributeLibDm>>() ?? new List<AttributeLibDm>());
-        attributeAmUnits.AddRange(attributeAms.SelectMany(x => x.Units));
-        attributeDmUnits.AddRange(attributeDms.SelectMany(x => x.Units));
+        nodeAttributeAms.AddRange(other.NodeAttributes ?? new List<NodeAttributeLibAm>());
+        nodeAttributeDms.AddRange(NodeAttributes ?? new List<NodeAttributeLibDm>());
 
-        if (attributeDms.Select(y => y.Id).Any(id => attributeAms.Select(x => x.Id).All(x => x != id)))
-            validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove or change attributes");
+        if (nodeAttributeDms.Select(y => y.AttributeId).Any(id => nodeAttributeAms.Select(x => x.AttributeId).All(x => x != id)))
+            validation.AddNotAllowToChange(nameof(NodeAttributes), "It is not allowed to remove or change attributes");
 
-        if (attributeDmUnits.Select(y => y.Id).Any(id => attributeAmUnits.Select(x => x.Id).All(x => x != id)))
-            validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove or change units from attributes");
-
+        //Terminals
         NodeTerminals ??= new List<NodeTerminalLibDm>();
         other.NodeTerminals ??= new List<NodeTerminalLibAm>();
         var otherTerminals = other.NodeTerminals.Select(x => (x.TerminalId, x.ConnectorDirection));
@@ -89,6 +81,7 @@ public class NodeLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogable
             validation.AddNotAllowToChange(nameof(NodeTerminals), "It is not allowed to remove items from terminals");
         }
 
+        //Predefined attributes
         SelectedAttributePredefined ??= new List<SelectedAttributePredefinedLibDm>();
         other.SelectedAttributePredefined ??= new List<SelectedAttributePredefinedLibAm>();
         if (SelectedAttributePredefined.Select(y => y.Key).Any(key => other.SelectedAttributePredefined.Select(x => x.Key).All(x => x != key)))
@@ -115,29 +108,16 @@ public class NodeLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogable
             minor = true;
 
         //Attributes
-        var attributeAms = new List<AttributeLibAm>();
-        var attributeDms = new List<AttributeLibDm>();
-        var attributeAmUnits = new List<UnitLibAm>();
-        var attributeDmUnits = new List<UnitLibDm>();
+        var nodeAttributeAms = new List<NodeAttributeLibAm>();
+        var nodeAttributeDms = new List<NodeAttributeLibDm>();
 
-        attributeAms.AddRange(other.Attributes ?? new List<AttributeLibAm>());
-        attributeDms.AddRange(Attributes?.ConvertToObject<ICollection<AttributeLibDm>>() ?? new List<AttributeLibDm>());
-        attributeAmUnits.AddRange(attributeAms.SelectMany(x => x.Units));
-        attributeDmUnits.AddRange(attributeDms.SelectMany(x => x.Units));
+        nodeAttributeAms.AddRange(other.NodeAttributes ?? new List<NodeAttributeLibAm>());
+        nodeAttributeDms.AddRange(NodeAttributes ?? new List<NodeAttributeLibDm>());
 
-        if (!attributeDms.Select(x => x.Id).SequenceEqual(attributeAms.Select(x => x.Id)) ||
-            !attributeDmUnits.Select(x => x.Id).SequenceEqual(attributeAmUnits.Select(x => x.Id)))
+        if (!nodeAttributeDms.Select(x => x.AttributeId).SequenceEqual(nodeAttributeAms.Select(x => x.AttributeId)))
         {
             major = true;
         }
-
-        // Type-references
-        var references = string.IsNullOrWhiteSpace(TypeReferences)
-            ? new List<TypeReferenceAm>()
-            : JsonConvert.DeserializeObject<ICollection<TypeReferenceAm>>(TypeReferences) ?? new List<TypeReferenceAm>();
-        other.TypeReferences ??= new List<TypeReferenceAm>();
-        if (!references.SequenceEqual(other.TypeReferences))
-            minor = true;
 
         // Node Terminals
         NodeTerminals ??= new List<NodeTerminalLibDm>();
@@ -151,6 +131,9 @@ public class NodeLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogable
         other.SelectedAttributePredefined ??= new List<SelectedAttributePredefinedLibAm>();
         if (!SelectedAttributePredefined.Select(x => x.Key).SequenceEqual(other.SelectedAttributePredefined.Select(x => x.Key)))
             major = true;
+
+        if (TypeReference != other.TypeReference)
+            minor = true;
 
         if (Description != other.Description)
             minor = true;

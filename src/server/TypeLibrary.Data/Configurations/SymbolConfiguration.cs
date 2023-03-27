@@ -13,7 +13,7 @@ public class SymbolConfiguration : IEntityTypeConfiguration<SymbolLibDm>
         builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
         builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(63);
         builder.Property(p => p.Iri).HasColumnName("Iri").HasMaxLength(255);
-        builder.Property(p => p.TypeReferences).HasColumnName("TypeReferences");
+        builder.Property(p => p.TypeReference).HasColumnName("TypeReference").HasMaxLength(255);
         builder.Property(p => p.State).HasColumnName("State").IsRequired().HasConversion<string>().HasMaxLength(31);
         builder.Property(p => p.Data).HasColumnName("Data").IsRequired();
         builder.Property(p => p.CreatedBy).HasColumnName("CreatedBy").IsRequired().HasMaxLength(127);

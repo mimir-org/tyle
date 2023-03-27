@@ -102,6 +102,8 @@ public class EfNodeRepository : GenericRepository<TypeLibraryDbContext, NodeLibD
         return GetAll()
             .Include(x => x.NodeTerminals)
             .ThenInclude(x => x.Terminal)
+            .Include(x => x.NodeAttributes)
+            .ThenInclude(x => x.Attribute)
             .AsSplitQuery();
     }
 
@@ -110,13 +112,15 @@ public class EfNodeRepository : GenericRepository<TypeLibraryDbContext, NodeLibD
     /// </summary>
     /// <param name="id">The node id</param>
     /// <returns>Node if found</returns>
-    public async Task<NodeLibDm> Get(int id)
+    public NodeLibDm Get(int id)
     {
-        return await FindBy(x => x.Id == id)
+        return FindBy(x => x.Id == id)
             .Include(x => x.NodeTerminals)
             .ThenInclude(x => x.Terminal)
+            .Include(x => x.NodeAttributes)
+            .ThenInclude(x => x.Attribute)
             .AsSplitQuery()
-            .FirstOrDefaultAsync();
+            .FirstOrDefault();
     }
 
     /// <summary>
@@ -133,6 +137,8 @@ public class EfNodeRepository : GenericRepository<TypeLibraryDbContext, NodeLibD
         node.Iri = $"{_settings.ApplicationSemanticUrl}/aspectnode/{node.Id}";
         foreach (var nodeTerminal in node.NodeTerminals)
             nodeTerminal.NodeId = node.Id;
+        foreach (var nodeAttribute in node.NodeAttributes)
+            nodeAttribute.NodeId = node.Id;
         await SaveAsync();
 
         Detach(node);

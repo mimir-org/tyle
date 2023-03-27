@@ -71,7 +71,7 @@ public class NodeLibAm
     /// It is not allowed to remove attributes
     /// Adding attributes generates a major increase
     /// </remarks>
-    public ICollection<AttributeLibAm> Attributes { get; set; }
+    public ICollection<NodeAttributeLibAm> NodeAttributes { get; set; }
 
     /// <summary>
     /// A list of connected terminals
@@ -113,7 +113,7 @@ public class NodeLibAm
     /// <remarks>
     /// It is allowed to change the list. Changing will generate a minor increase
     /// </remarks>
-    public ICollection<TypeReferenceAm> TypeReferences { get; set; }
+    public string TypeReference { get; set; }
 
     /// <summary>
     /// The parent id for the node type

@@ -13,5 +13,5 @@ public class SelectedAttributePredefinedLibAm
     [Required]
     public Dictionary<string, bool> Values { get; set; }
 
-    public ICollection<TypeReferenceAm> TypeReferences { get; set; }
+    public string TypeReference { get; set; }
 }

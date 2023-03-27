@@ -17,6 +17,11 @@ public static class EnumerableExtensions
         return dictA.Keys.Union(dictB.Keys).ToDictionary(k => k, k => dictA.ContainsKey(k) ? dictA[k] : dictB[k]);
     }
 
+    public static IEnumerable<T> ExcludeDeleted<T>(this IEnumerable<T> collection) where T : IStatefulObject
+    {
+        return collection.Where(x => x.State != State.Deleted);
+    }
+
     public static IEnumerable<T> LatestVersionsExcludeDeleted<T>(this IEnumerable<T> collection) where T : IVersionObject
     {
         return collection

@@ -2,7 +2,6 @@ using AutoMapper;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Moq;
 using TypeLibrary.Data.Contracts;
@@ -41,45 +40,12 @@ public class MimirorgCommonFixture : IDisposable
 
     public (NodeLibAm am, NodeLibDm dm) CreateNodeTestData()
     {
-        var typeRefs = new List<TypeReferenceAm>
-        {
-            new()
-            {
-                Iri = "https://tyle.com",
-                Name = "XX"
-            }
-        };
-
         var nodeLibAm = new NodeLibAm
         {
             Name = "AA",
             RdsName = "AA",
             RdsCode = "AA",
             Aspect = Aspect.Function,
-            Attributes = new List<AttributeLibAm>
-            {
-                new()
-                {
-                    Name = "a1",
-                    Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
-                    Source = "PCA",
-                    Units = new List<UnitLibAm>
-                    {
-                        new()
-                        {
-                            Name = "u1",
-                            Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u1",
-                            IsDefault = true
-                        },
-                        new()
-                        {
-                            Name = "u2",
-                            Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u2",
-                            IsDefault = false
-                        }
-                    }
-                }
-            },
             NodeTerminals = new List<NodeTerminalLibAm>
             {
                 new()
@@ -109,7 +75,7 @@ public class MimirorgCommonFixture : IDisposable
                 }
             },
             ParentId = 123,
-            TypeReferences = typeRefs
+            TypeReference = "https://www.tyle.com/"
         };
 
         var nodeLibDm = new NodeLibDm
@@ -119,7 +85,6 @@ public class MimirorgCommonFixture : IDisposable
             RdsName = "AA",
             RdsCode = "AA",
             Aspect = Aspect.Function,
-            Attributes = nodeLibAm.Attributes.ConvertToString(),
             NodeTerminals = new List<NodeTerminalLibDm>
             {
                 new()
@@ -139,7 +104,7 @@ public class MimirorgCommonFixture : IDisposable
                 }
             },
             ParentId = 123,
-            TypeReferences = typeRefs.ConvertToString()
+            TypeReference = "https://www.tyle.com/"
         };
 
         return (nodeLibAm, nodeLibDm);
@@ -147,44 +112,12 @@ public class MimirorgCommonFixture : IDisposable
 
     public (TerminalLibAm am, TerminalLibDm dm) CreateTerminalTestData()
     {
-        var typeRefs = new List<TypeReferenceAm>
-        {
-            new()
-            {
-                Iri = "https://tyle.com",
-                Name = "XX"
-            }
-        };
-
         var terminalLibAm = new TerminalLibAm
         {
             Name = "AA",
-            TypeReferences = typeRefs,
+            TypeReference = "https://www.tyle.com/",
             Color = "#123",
-            Attributes = new List<AttributeLibAm>
-            {
-                new()
-                {
-                    Name = "a1",
-                    Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
-                    Source = "PCA",
-                    Units = new List<UnitLibAm>
-                    {
-                        new()
-                        {
-                            Name = "u1",
-                            Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u1",
-                            IsDefault = true
-                        },
-                        new()
-                        {
-                            Name = "u2",
-                            Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u2",
-                            IsDefault = false
-                        }
-                    }
-                }
-            },
+            TerminalAttributes = new List<TerminalAttributeLibAm>(),
             Version = "1.0"
         };
 
@@ -192,9 +125,9 @@ public class MimirorgCommonFixture : IDisposable
         {
             Name = "AA",
             Color = "#123",
-            Attributes = terminalLibAm.Attributes.ConvertToString(),
+            TerminalAttributes = new List<TerminalAttributeLibDm>(),
             Version = "1.0",
-            TypeReferences = typeRefs.ConvertToString()
+            TypeReference = "https://www.tyle.com/"
         };
 
         return (terminalLibAm, terminalLibDm);

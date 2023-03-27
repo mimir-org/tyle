@@ -12,6 +12,12 @@ public class TypeLibraryDbContext : DbContext
     public virtual DbSet<TerminalLibDm> Terminal { get; set; }
     public virtual DbSet<NodeLibDm> Node { get; set; }
     public virtual DbSet<LogLibDm> Log { get; set; }
+    public virtual DbSet<AttributeLibDm> Attribute { get; set; }
+    public virtual DbSet<UnitLibDm> Unit { get; set; }
+    public virtual DbSet<AttributeUnitLibDm> AttributeUnit { get; set; }
+    public virtual DbSet<NodeAttributeLibDm> NodeAttribute { get; set; }
+    public virtual DbSet<TerminalAttributeLibDm> TerminalAttribute { get; set; }
+
 
     public TypeLibraryDbContext(DbContextOptions<TypeLibraryDbContext> options) : base(options)
     {
@@ -21,12 +27,16 @@ public class TypeLibraryDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());
         modelBuilder.ApplyConfiguration(new SymbolConfiguration());
         modelBuilder.ApplyConfiguration(new NodeTerminalConfiguration());
         modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());
         modelBuilder.ApplyConfiguration(new TerminalConfiguration());
         modelBuilder.ApplyConfiguration(new NodeConfiguration());
         modelBuilder.ApplyConfiguration(new LogConfiguration());
+        modelBuilder.ApplyConfiguration(new AttributeConfiguration());
+        modelBuilder.ApplyConfiguration(new UnitConfiguration());
+        modelBuilder.ApplyConfiguration(new AttributeUnitConfiguration());
+        modelBuilder.ApplyConfiguration(new NodeAttributeConfiguration());
+        modelBuilder.ApplyConfiguration(new TerminalAttributeConfiguration());
     }
 }

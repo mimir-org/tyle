@@ -2,7 +2,6 @@ using System.Linq;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Models.Application;
 using Xunit;
 
 namespace Mimirorg.Test.Unit.Models;
@@ -83,12 +82,7 @@ public class NodeLibDmTests : UnitTest<MimirorgCommonFixture>
         dummy.am.CompanyId = 10;
         dummy.am.Description = "x";
         dummy.am.Symbol = "x";
-        dummy.am.TypeReferences = dummy.am.TypeReferences.Where(x => x.Name != "XX").ToList();
-        dummy.am.TypeReferences.Add(new TypeReferenceAm
-        {
-            Iri = "http://xxx.com",
-            Name = "AA"
-        });
+        dummy.am.TypeReference = "x";
 
         var status = dummy.dm.CalculateVersionStatus(dummy.am);
         Assert.Equal(VersionStatus.Minor, status);
@@ -104,12 +98,7 @@ public class NodeLibDmTests : UnitTest<MimirorgCommonFixture>
         dummy.am.CompanyId = 10;
         dummy.am.Description = "x";
         dummy.am.Symbol = "x";
-        dummy.am.TypeReferences = dummy.am.TypeReferences.Where(x => x.Name != "XX").ToList();
-        dummy.am.TypeReferences.Add(new TypeReferenceAm
-        {
-            Iri = "http://xxx.com",
-            Name = "AA"
-        });
+        dummy.am.TypeReference = "x";
 
         var status = dummy.dm.CalculateVersionStatus(dummy.am);
         Assert.Equal(VersionStatus.Major, status);

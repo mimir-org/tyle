@@ -48,7 +48,7 @@ public interface INodeRepository
     /// </summary>
     /// <param name="id">The node id</param>
     /// <returns>Node if found</returns>
-    Task<NodeLibDm> Get(int id);
+    NodeLibDm Get(int id);
 
     /// <summary>
     /// Create a node

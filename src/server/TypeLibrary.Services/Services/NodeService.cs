@@ -38,9 +38,9 @@ public class NodeService : INodeService
     /// <param name="id">The id of the node</param>
     /// <returns>The latest version of the node of given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no node with the given id, and that node is at the latest version.</exception>
-    public NodeLibCm GetLatestVersion(int id)
+    public NodeLibCm Get(int id)
     {
-        var dm = _nodeRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
+        var dm = _nodeRepository.Get(id);
 
         if (dm == null)
             throw new MimirorgNotFoundException($"Node with id {id} not found.");
@@ -97,12 +97,13 @@ public class NodeService : INodeService
         await _logService.CreateLog(createdNode, LogType.State, State.Draft.ToString());
         _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
 
-        return GetLatestVersion(createdNode.Id);
+        return Get(createdNode.Id);
     }
 
     /// <summary>
     /// Update a node if the data is allowed to be changed.
     /// </summary>
+    /// <param name="id">The id of the node to update</param>
     /// <param name="nodeAm">The node to update</param>
     /// <returns>The updated node</returns>
     /// <exception cref="MimirorgBadRequestException">Throws if the node does not exist,
@@ -132,7 +133,7 @@ public class NodeService : INodeService
         var versionStatus = nodeToUpdate.CalculateVersionStatus(nodeAm);
 
         if (versionStatus == VersionStatus.NoChange)
-            return GetLatestVersion(nodeToUpdate.Id);
+            return Get(nodeToUpdate.Id);
 
         //We need to take into account that there exist a higher version that has state 'Deleted'.
         //Therefore we need to increment minor/major from the latest version, including those with state 'Deleted'.
@@ -156,7 +157,7 @@ public class NodeService : INodeService
         await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
         _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
 
-        return GetLatestVersion(nodeCm.Id);
+        return Get(nodeCm.Id);
     }
 
     /// <summary>

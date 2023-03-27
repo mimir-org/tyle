@@ -14,8 +14,6 @@ using TypeLibrary.Data.Common;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
-using TypeLibrary.Data.Contracts.Factories;
-using TypeLibrary.Data.Factories;
 using TypeLibrary.Data.Repositories.Application;
 using TypeLibrary.Data.Repositories.Common;
 using TypeLibrary.Data.Repositories.Ef;
@@ -38,7 +36,7 @@ public static class TypeLibraryModuleExtensions
         services.AddSingleton<ICacheRepository, InMemoryCacheRepository>();
 
         // Common
-        services.AddScoped<ISparQlWebClient, SparQlWebClient>();
+        services.AddSingleton<ISparQlWebClient, SparQlWebClient>();
 
         // Dependency Injection - Repositories
         services.AddScoped<ITypeLibraryProcRepository, TypeLibraryProcRepository>();
@@ -51,16 +49,20 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IEfSymbolRepository, EfSymbolRepository>();
         services.AddScoped<IDynamicSymbolDataProvider, EfSymbolRepository>();
         services.AddScoped<IEfLogRepository, EfLogRepository>();
+        services.AddScoped<IEfAttributeRepository, EfAttributeRepository>();
+        services.AddScoped<IEfUnitRepository, EfUnitRepository>();
 
         services.AddScoped<IQuantityDatumRepository, DatumRepository>();
         services.AddScoped<IAttributePredefinedRepository, EfAttributePredefinedRepository>();
-        services.AddScoped<IUnitRepository, UnitRepository>();
+        services.AddScoped<IUnitRepository, EfUnitRepository>();
+        services.AddScoped<IAttributeRepository, EfAttributeRepository>();
         services.AddScoped<IPurposeReferenceRepository, PurposeReferenceRepository>();
         services.AddScoped<INodeRepository, EfNodeRepository>();
         services.AddScoped<IRdsRepository, RdsRepository>();
         services.AddScoped<ITerminalRepository, EfTerminalRepository>();
         services.AddScoped<ISymbolRepository, EfSymbolRepository>();
-        services.AddScoped<IAttributeReferenceRepository, AttributeReferenceRepository>();
+        services.AddSingleton<IAttributeReferenceRepository, AttributePcaRepository>();
+        services.AddSingleton<IUnitReferenceRepository, UnitPcaRepository>();
         services.AddScoped<ILogRepository, EfLogRepository>();
 
         // Dependency Injection - Services
@@ -78,8 +80,10 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<ILogService, LogService>();
         services.AddScoped<IApprovalService, ApprovalService>();
 
+        // Hosted services
+        services.AddHostedService<TimedPcaSyncingService>();
+
         // Factories
-        services.AddScoped<IUnitFactory, UnitFactory>();
         services.AddScoped<ICompanyFactory, CompanyFactory>();
 
         services.AddHttpContextAccessor();

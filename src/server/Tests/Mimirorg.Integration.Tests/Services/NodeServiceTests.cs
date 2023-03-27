@@ -20,28 +20,6 @@ public class NodeServiceTests : IntegrationTest
         var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
         var logService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ILogService>();
 
-        var newAttribute = new AttributeLibAm
-        {
-            Name = "a11",
-            Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a11",
-            Source = "PCA",
-            Units = new List<UnitLibAm>
-            {
-                new()
-                {
-                    Name = "u11",
-                    Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u11",
-                    IsDefault = true
-                },
-                new()
-                {
-                    Name = "u22",
-                    Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u22",
-                    IsDefault = false
-                }
-            }
-        };
-
         var nodeAm = new NodeLibAm
         {
             Name = "Node2",
@@ -51,7 +29,6 @@ public class NodeServiceTests : IntegrationTest
             Description = "Description",
             Aspect = Aspect.NotSet,
             CompanyId = 1,
-            Attributes = new List<AttributeLibAm> { newAttribute },
             NodeTerminals = new List<NodeTerminalLibAm>{
                 new()
                 {
@@ -70,27 +47,11 @@ public class NodeServiceTests : IntegrationTest
                     {
                         {"56789", true}
                     },
-                    TypeReferences = new List<TypeReferenceAm>
-                    {
-                        new()
-                        {
-                            Name = "TypeRef",
-                            Iri = "https://url.com/1234567890",
-                            Source = "https://source.com/1234567890",
-                        }
-                    }
+                    TypeReference = "https://url.com/1234567890"
                 }
             },
             Symbol = "symbol",
-            TypeReferences = new List<TypeReferenceAm>
-            {
-                new()
-                {
-                    Name = "TypeRef",
-                    Iri = "https://url.com/1234567890",
-                    Source = "https://source.com/1234567890"
-                }
-            },
+            TypeReference = "https://url.com/1234567890",
             ParentId = 1234,
             Version = "1.0"
         };
@@ -106,7 +67,6 @@ public class NodeServiceTests : IntegrationTest
         Assert.Equal(nodeAm.Aspect, nodeCm.Aspect);
         Assert.Equal(nodeAm.Description, nodeCm.Description);
         Assert.Equal(nodeAm.CompanyId, nodeCm.CompanyId);
-        Assert.Equal(nodeAm.Attributes.ToList()[0].Id, nodeCm.Attributes.ToList()[0].Id);
 
         foreach (var am in nodeAm.NodeTerminals)
         {
@@ -123,13 +83,9 @@ public class NodeServiceTests : IntegrationTest
         Assert.Equal(nodeAm.SelectedAttributePredefined.First().IsMultiSelect, nodeCm.SelectedAttributePredefined.First().IsMultiSelect);
         Assert.Equal(nodeAm.SelectedAttributePredefined.First().Values.ToString(), nodeCm.SelectedAttributePredefined.First().Values.ToString());
 
-        Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Iri, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Iri);
-        Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Name, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Name);
-        Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReferences.First().Source, nodeCm.SelectedAttributePredefined.First().TypeReferences.First().Source);
+        Assert.Equal(nodeAm.SelectedAttributePredefined.First().TypeReference, nodeCm.SelectedAttributePredefined.First().TypeReference);
 
-        Assert.Equal(nodeAm.TypeReferences.First().Iri, nodeCm.TypeReferences.First().Iri);
-        Assert.Equal(nodeAm.TypeReferences.First().Name, nodeCm.TypeReferences.First().Name);
-        Assert.Equal(nodeAm.TypeReferences.First().Source, nodeCm.TypeReferences.First().Source);
+        Assert.Equal(nodeAm.TypeReference, nodeCm.TypeReference);
 
         Assert.Equal(nodeAm.Symbol, nodeCm.Symbol);
         Assert.Equal(nodeAm.ParentId, nodeCm.ParentId);

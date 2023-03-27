@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
 using Mimirorg.TypeLibrary.Enums;
@@ -72,30 +71,12 @@ public class TerminalLibDmTests : UnitTest<MimirorgCommonFixture>
     {
         var dummy = _fixture.CreateTerminalTestData();
 
-        var newAttribute = new AttributeLibAm
-        {
-            Name = "a11",
-            Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a11",
-            Source = "PCA",
-            Units = new List<UnitLibAm>
-            {
-                new()
-                {
-                    Name = "u11",
-                    Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u11",
-                    IsDefault = true
-                },
-                new()
-                {
-                    Name = "u22",
-                    Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u22",
-                    IsDefault = false
-                }
-            }
-        };
-
         dummy.am.Description = "x";
-        dummy.am.Attributes.Add(newAttribute);
+
+        dummy.am.TerminalAttributes.Add(new TerminalAttributeLibAm
+        {
+            AttributeId = 10635
+        });
 
         var status = dummy.dm.CalculateVersionStatus(dummy.am);
         Assert.Equal(VersionStatus.Major, status);

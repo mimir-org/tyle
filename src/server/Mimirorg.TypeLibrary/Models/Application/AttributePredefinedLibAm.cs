@@ -17,5 +17,5 @@ public class AttributePredefinedLibAm
     [Required]
     public Aspect Aspect { get; set; }
 
-    public ICollection<TypeReferenceAm> TypeReferences { get; set; }
+    public string TypeReference { get; set; }
 }
