@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -10,13 +9,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Extensions;
-using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
-using Org.BouncyCastle.Asn1.Cms;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;

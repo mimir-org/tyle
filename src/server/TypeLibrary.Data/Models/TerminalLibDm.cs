@@ -6,7 +6,6 @@ using Mimirorg.Common.Enums;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
-using Newtonsoft.Json;
 using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models;

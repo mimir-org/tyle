@@ -2,7 +2,6 @@ using AutoMapper;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Moq;
 using TypeLibrary.Data.Contracts;

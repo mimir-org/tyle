@@ -8,9 +8,8 @@ using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Data.Common;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
-using TypeLibrary.Data.Models;
 using TypeLibrary.Data.Models.External;
-using TypeLibrary.Data.Repositories.Ef;
+
 // ReSharper disable InconsistentNaming
 
 namespace TypeLibrary.Data.Repositories.External;
@@ -32,7 +31,7 @@ public class AttributePcaRepository : IAttributeReferenceRepository
     {
         var attributes = new List<AttributeLibAm>();
         var pcaAttributes = _client.Get<PcaAttribute>(SparQlWebClient.PcaEndPointProduction, SparQlWebClient.PcaAttributeAllQuery).ToList();
-        
+
         if (!pcaAttributes.Any())
             return Task.FromResult(attributes);
 
