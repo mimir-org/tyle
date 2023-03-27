@@ -8,7 +8,7 @@ public class ApplicationSettingsRepository : IApplicationSettingsRepository
 {
     public string ApplicationSemanticUrl { get; }
     public string ApplicationUrl { get; }
-    public string PcaSyncTime { get;  }
+    public string PcaSyncTime { get; }
 
     public ApplicationSettingsRepository(IOptions<ApplicationSettings> applicationSettings)
     {

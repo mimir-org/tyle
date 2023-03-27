@@ -47,7 +47,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
             nextSyncTime = nextSyncTime.AddDays(1);
 
         _timer = new Timer(Sync, null, TimeSpan.FromSeconds((nextSyncTime - now).TotalSeconds), TimeSpan.FromDays(1));
-        
+
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
         InitialSync();
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
