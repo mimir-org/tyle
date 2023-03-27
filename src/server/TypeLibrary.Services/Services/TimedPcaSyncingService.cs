@@ -23,30 +23,51 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
     private readonly ILogger<TimedPcaSyncingService> _logger;
     private readonly IMapper _mapper;
     private readonly IServiceProvider _serviceProvider;
+    private readonly IApplicationSettingsRepository _settings;
     private Timer _timer = null;
     private readonly IAttributeReferenceRepository _attributeReferenceRepository;
     private readonly IUnitReferenceRepository _unitReferenceRepository;
 
-    public TimedPcaSyncingService(ILogger<TimedPcaSyncingService> logger, IMapper mapper, IServiceProvider serviceProvider, IAttributeReferenceRepository attributeReferenceReferenceRepository, IUnitReferenceRepository unitReferenceRepository)
+    public TimedPcaSyncingService(ILogger<TimedPcaSyncingService> logger, IMapper mapper, IServiceProvider serviceProvider, IApplicationSettingsRepository settings, IAttributeReferenceRepository attributeReferenceReferenceRepository, IUnitReferenceRepository unitReferenceRepository)
     {
         _logger = logger;
         _mapper = mapper;
         _serviceProvider = serviceProvider;
+        _settings = settings;
         _attributeReferenceRepository = attributeReferenceReferenceRepository;
         _unitReferenceRepository = unitReferenceRepository;
     }
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        _timer = new Timer(Sync, null, TimeSpan.FromSeconds(10), TimeSpan.FromDays(1));
-        _logger.LogInformation("Timed PCA syncing service started.");
+        var now = DateTime.Now;
+        var settingsSyncTime = DateTime.Parse(_settings.PcaSyncTime);
+        var nextSyncTime = new DateTime(now.Year, now.Month, now.Day, settingsSyncTime.Hour, settingsSyncTime.Minute, settingsSyncTime.Second, settingsSyncTime.Millisecond);
+        if (now > nextSyncTime)
+            nextSyncTime = nextSyncTime.AddDays(1);
+
+        _timer = new Timer(Sync, null, TimeSpan.FromSeconds((nextSyncTime - now).TotalSeconds), TimeSpan.FromDays(1));
+        
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+        InitialSync();
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+
         return Task.CompletedTask;
+    }
+
+    private async Task InitialSync()
+    {
+        await Task.Delay(10000);
+        _logger.LogInformation("Timed PCA syncing service started.");
+        _logger.LogInformation($"After initial sync, syncing will be performed every day at {_settings.PcaSyncTime}");
+        _logger.LogInformation("Performing initial PCA sync...");
+        Sync(null);
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
         _timer?.Change(Timeout.Infinite, 0);
-        _logger.LogInformation("Timed PCA syncing service started.");
+        _logger.LogInformation("Timed PCA syncing service stopped.");
         return Task.CompletedTask;
     }
 
