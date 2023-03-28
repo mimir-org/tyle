@@ -211,36 +211,4 @@ public class LibraryAttributeController : ControllerBase
             return StatusCode(500, "Internal Server Error");
         }
     }
-
-    /// <summary>
-    /// Get all datums of a given type
-    /// </summary>
-    /// <param name="type">The type of the quantity datum you want to receive</param>
-    /// <returns>A collection of quantity datums</returns>
-    [HttpGet("datum/{type}")]
-    [ProducesResponseType(typeof(ICollection<QuantityDatumLibCm>), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [AllowAnonymous]
-    public async Task<IActionResult> GetDatums(QuantityDatumType type)
-    {
-        try
-        {
-            var data = type switch
-            {
-                QuantityDatumType.QuantityDatumRangeSpecifying => await _attributeService.GetQuantityDatumRangeSpecifying(),
-                QuantityDatumType.QuantityDatumRegularitySpecified => await _attributeService.GetQuantityDatumRegularitySpecified(),
-                QuantityDatumType.QuantityDatumSpecifiedProvenance => await _attributeService.GetQuantityDatumSpecifiedProvenance(),
-                QuantityDatumType.QuantityDatumSpecifiedScope => await _attributeService.GetQuantityDatumSpecifiedScope(),
-                _ => throw new ArgumentOutOfRangeException(nameof(type), type, $"Enum type ({nameof(QuantityDatumType)}): {type} out of range.")
-            };
-
-            return Ok(data?.ToList());
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
-        }
-    }
 }
