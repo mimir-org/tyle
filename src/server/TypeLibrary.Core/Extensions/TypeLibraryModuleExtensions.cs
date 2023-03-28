@@ -79,6 +79,7 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IModuleService, ModuleService>();
         services.AddScoped<ILogService, LogService>();
         services.AddScoped<IApprovalService, ApprovalService>();
+        services.AddScoped<IQuantityDatumService, QuantityDatumService>();
 
         // Hosted services
         services.AddHostedService<TimedPcaSyncingService>();
