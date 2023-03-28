@@ -10,7 +10,7 @@ using TypeLibrary.Data.Models.External;
 
 namespace TypeLibrary.Data.Repositories.External;
 
-public class DatumRepository : IQuantityDatumRepository
+public class DatumRepository
 {
     private readonly ICacheRepository _cacheRepository;
     private readonly ISparQlWebClient _client;
@@ -66,7 +66,7 @@ public class DatumRepository : IQuantityDatumRepository
     private Task<IEnumerable<QuantityDatumLibDm>> FetchDatums(string query, QuantityDatumType type)
     {
         var data = _client.Get<PcaDatum>(SparQlWebClient.PcaEndPointProduction, query).ToList();
-        var datums = data.Select(datum => new QuantityDatumLibDm { Iri = datum.Datum, Description = null, Name = datum.Datum_Label, QuantityDatumType = type, Source = "PCA" });
+        var datums = data.Select(datum => new QuantityDatumLibDm { Iri = datum.Datum, Description = null, Name = datum.Datum_Label, QuantityDatumType = type });
 
         return Task.FromResult(datums);
     }
