@@ -39,6 +39,6 @@ public class TypeLibraryDbContext : DbContext
         modelBuilder.ApplyConfiguration(new AttributeUnitConfiguration());
         modelBuilder.ApplyConfiguration(new NodeAttributeConfiguration());
         modelBuilder.ApplyConfiguration(new TerminalAttributeConfiguration());
-        modelBuilder.ApplyConfiguration(new QuantityBuilderConfiguration());
+        modelBuilder.ApplyConfiguration(new QuantityDatumConfiguration());
     }
 }
