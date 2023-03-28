@@ -10,13 +10,10 @@ using Mimirorg.TypeLibrary.Enums;
 using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
-using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Models.Application;
-using TypeLibrary.Data.Models;
 using Mimirorg.Common.Enums;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
-using TypeLibrary.Services.Services;
 
 namespace TypeLibrary.Core.Controllers.V1;
 
@@ -71,16 +68,16 @@ public class LibraryQuantityDatumController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public async Task<IActionResult> Get(QuantityDatumType type)
+    public IActionResult Get(QuantityDatumType type)
     {
         try
         {
             var data = type switch
             {
-                QuantityDatumType.QuantityDatumRangeSpecifying => await _quantityDatumService.GetQuantityDatumRangeSpecifying(),
-                QuantityDatumType.QuantityDatumRegularitySpecified => await _quantityDatumService.GetQuantityDatumRegularitySpecified(),
-                QuantityDatumType.QuantityDatumSpecifiedProvenance => await _quantityDatumService.GetQuantityDatumSpecifiedProvenance(),
-                QuantityDatumType.QuantityDatumSpecifiedScope => await _quantityDatumService.GetQuantityDatumSpecifiedScope(),
+                QuantityDatumType.QuantityDatumRangeSpecifying => _quantityDatumService.GetQuantityDatumRangeSpecifying(),
+                QuantityDatumType.QuantityDatumRegularitySpecified => _quantityDatumService.GetQuantityDatumRegularitySpecified(),
+                QuantityDatumType.QuantityDatumSpecifiedProvenance => _quantityDatumService.GetQuantityDatumSpecifiedProvenance(),
+                QuantityDatumType.QuantityDatumSpecifiedScope => _quantityDatumService.GetQuantityDatumSpecifiedScope(),
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, $"Enum type ({nameof(QuantityDatumType)}): {type} out of range.")
             };
 
