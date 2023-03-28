@@ -64,6 +64,7 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<ISymbolRepository, EfSymbolRepository>();
         services.AddSingleton<IAttributeReferenceRepository, AttributePcaRepository>();
         services.AddSingleton<IUnitReferenceRepository, UnitPcaRepository>();
+        services.AddSingleton<IQuantityDatumReferenceRepository, QuantityDatumPcaRepository>();
         services.AddScoped<ILogRepository, EfLogRepository>();
 
         // Dependency Injection - Services

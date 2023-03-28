@@ -14,6 +14,13 @@ public interface IQuantityDatumRepository
     IEnumerable<QuantityDatumLibDm> Get();
 
     /// <summary>
+    /// Get a specific quantity datum by id
+    /// </summary>
+    /// <param name="id">The id of the quantity datum to get</param>
+    /// <returns>The quantity datum with the given id</returns>
+    QuantityDatumLibDm Get(int id);
+
+    /// <summary>
     /// Get all quantity datum range specifying
     /// </summary>
     /// <returns>A collection of quantity datums</returns>
@@ -43,6 +50,13 @@ public interface IQuantityDatumRepository
     /// <param name="quantityDatum">The quantity datum to be created</param>
     /// <returns>The created quantity datum</returns>
     Task<QuantityDatumLibDm> Create(QuantityDatumLibDm quantityDatum);
+
+    /// <summary>
+    /// Create all quantity datums in a collection
+    /// </summary>
+    /// <param name="quantityDatums">A collection of quantity datums to create</param>
+    /// <returns>A list of the created quantity datums</returns>
+    Task<ICollection<QuantityDatumLibDm>> Create(ICollection<QuantityDatumLibDm> quantityDatums);
 
     /// <summary>
     /// Get the registered company on given id

@@ -62,6 +62,12 @@ public class EfQuantityDatumRepository : GenericRepository<TypeLibraryDbContext,
     }
 
     /// <inheritdoc />
+    public QuantityDatumLibDm Get(int id)
+    {
+        return FindBy(x => x.Id == id).FirstOrDefault();
+    }
+
+    /// <inheritdoc />
     public IEnumerable<QuantityDatumLibDm> GetQuantityDatumRangeSpecifying()
     {
         return GetAll().Where(x => x.QuantityDatumType == QuantityDatumType.QuantityDatumRangeSpecifying);
@@ -97,6 +103,22 @@ public class EfQuantityDatumRepository : GenericRepository<TypeLibraryDbContext,
         Detach(quantityDatum);
 
         return quantityDatum;
+    }
+
+    /// <inheritdoc />
+    public async Task<ICollection<QuantityDatumLibDm>> Create(ICollection<QuantityDatumLibDm> quantityDatums)
+    {
+        foreach (var quantityDatum in quantityDatums)
+            await CreateAsync(quantityDatum);
+        await SaveAsync();
+
+        foreach (var quantityDatum in quantityDatums)
+            quantityDatum.Iri = $"{_settings.ApplicationSemanticUrl}/quantitydatum/{quantityDatum.Id}";
+        await SaveAsync();
+
+        Detach(quantityDatums);
+
+        return quantityDatums;
     }
 
     /// <inheritdoc />

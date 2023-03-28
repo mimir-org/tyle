@@ -26,15 +26,17 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
     private readonly IApplicationSettingsRepository _settings;
     private Timer _timer = null;
     private readonly IAttributeReferenceRepository _attributeReferenceRepository;
+    private readonly IQuantityDatumReferenceRepository _quantityDatumReferenceRepository;
     private readonly IUnitReferenceRepository _unitReferenceRepository;
 
-    public TimedPcaSyncingService(ILogger<TimedPcaSyncingService> logger, IMapper mapper, IServiceProvider serviceProvider, IApplicationSettingsRepository settings, IAttributeReferenceRepository attributeReferenceReferenceRepository, IUnitReferenceRepository unitReferenceRepository)
+    public TimedPcaSyncingService(ILogger<TimedPcaSyncingService> logger, IMapper mapper, IServiceProvider serviceProvider, IApplicationSettingsRepository settings, IAttributeReferenceRepository attributeReferenceReferenceRepository, IQuantityDatumReferenceRepository quantityDatumReferenceRepository, IUnitReferenceRepository unitReferenceRepository)
     {
         _logger = logger;
         _mapper = mapper;
         _serviceProvider = serviceProvider;
         _settings = settings;
         _attributeReferenceRepository = attributeReferenceReferenceRepository;
+        _quantityDatumReferenceRepository = quantityDatumReferenceRepository;
         _unitReferenceRepository = unitReferenceRepository;
     }
 
@@ -78,6 +80,8 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         await SyncUnits();
         _logger.LogInformation("--------------------------------------------------");
         await SyncAttributes();
+        _logger.LogInformation("--------------------------------------------------");
+        await SyncQuantityDatums();
         _logger.LogInformation("--------------------------------------------------");
         _logger.LogInformation("PCA sync completed.");
     }
@@ -222,6 +226,63 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         externalUnits.Sort();
 
         return storedUnits.SequenceEqual(externalUnits);
+    }
+
+    private async Task SyncQuantityDatums()
+    {
+        var pcaQuantityDatumsFetch = _quantityDatumReferenceRepository.FetchQuantityDatumsFromReference();
+        using var scope = _serviceProvider.CreateScope();
+        var quantityDatumRepository = scope.ServiceProvider.GetService<IQuantityDatumRepository>();
+        var dbQuantityDatums = quantityDatumRepository.Get().ExcludeDeleted().ToList();
+
+        var dbQuantityDatumsReferences = new Dictionary<string, int>();
+        foreach (var quantityDatum in dbQuantityDatums)
+        {
+            if (quantityDatum.TypeReference == null) continue;
+
+            if (!quantityDatum.TypeReference.Contains("posccaesar.org")) continue;
+
+            if (dbQuantityDatumsReferences.ContainsKey(quantityDatum.TypeReference))
+            {
+                _logger.LogError("Duplicate PCA type references in QuantityDatum table.");
+            }
+            else
+            {
+                dbQuantityDatumsReferences.Add(quantityDatum.TypeReference, quantityDatum.Id);
+            }
+        }
+
+        var pcaQuantityDatums = await pcaQuantityDatumsFetch;
+        _logger.LogInformation("Retrieved quantity datum data from PCA...");
+
+        var idsOfQuantityDatumsToDelete = new List<int>();
+        var quantityDatumsToCreateAm = new List<QuantityDatumLibAm>();
+
+        foreach (var pcaQuantityDatum in pcaQuantityDatums)
+        {
+            if (dbQuantityDatumsReferences.ContainsKey(pcaQuantityDatum.TypeReference))
+            {
+                var storedQuantityDatum = quantityDatumRepository.Get(dbQuantityDatumsReferences[pcaQuantityDatum.TypeReference]);
+
+                if (storedQuantityDatum.Equals(pcaQuantityDatum)) continue;
+
+                idsOfQuantityDatumsToDelete.Add(storedQuantityDatum.Id);
+            }
+            quantityDatumsToCreateAm.Add(pcaQuantityDatum);
+        }
+
+        var deleteTask = quantityDatumRepository.ChangeState(State.Deleted, idsOfQuantityDatumsToDelete);
+
+        var quantityDatumsToCreate = _mapper.Map<List<QuantityDatumLibDm>>(quantityDatumsToCreateAm);
+        foreach (var quantityDatum in quantityDatumsToCreate)
+            quantityDatum.State = State.ApprovedGlobal;
+
+        await deleteTask;
+        await quantityDatumRepository.Create(quantityDatumsToCreate);
+
+        _logger.LogInformation("Quantity datum sync from PCA completed.");
+        _logger.LogInformation($"Number of updated quantity datums: {idsOfQuantityDatumsToDelete.Count}");
+        _logger.LogInformation($"Number of new quantity datums: {quantityDatumsToCreate.Count - idsOfQuantityDatumsToDelete.Count}");
     }
 
     protected virtual void Dispose(bool disposing)
