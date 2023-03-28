@@ -15,7 +15,7 @@ public class QuantityDatumLibCm
     public string Description { get; set; }
     public QuantityDatumType QuantityDatumType { get; set; }
     public DateTime Created { get; set; }
-    public string CreatedBy { get; set;  }
+    public string CreatedBy { get; set; }
 
     public string Kind => nameof(QuantityDatumLibCm);
 }
