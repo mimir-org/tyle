@@ -63,7 +63,7 @@ public class LibraryQuantityDatumController : ControllerBase
     /// </summary>
     /// <param name="type">The type of the quantity datum you want to receive</param>
     /// <returns>A collection of quantity datums</returns>
-    [HttpGet("datum/{type}")]
+    [HttpGet("{type}")]
     [ProducesResponseType(typeof(ICollection<QuantityDatumLibCm>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
