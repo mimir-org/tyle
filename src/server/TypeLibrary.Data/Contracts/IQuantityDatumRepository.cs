@@ -10,23 +10,23 @@ public interface IQuantityDatumRepository
     /// Get all quantity datum range specifying
     /// </summary>
     /// <returns>A collection of quantity datums</returns>
-    Task<List<QuantityDatumDm>> GetQuantityDatumRangeSpecifying();
+    Task<List<QuantityDatumLibDm>> GetQuantityDatumRangeSpecifying();
 
     /// <summary>
     /// Get all quantity datum specified scopes
     /// </summary>
     /// <returns>A collection of quantity datums</returns>
-    Task<List<QuantityDatumDm>> GetQuantityDatumSpecifiedScope();
+    Task<List<QuantityDatumLibDm>> GetQuantityDatumSpecifiedScope();
 
     /// <summary>
     /// Get all quantity datum with specified provenances
     /// </summary>
     /// <returns>A collection of quantity datums</returns>
-    Task<List<QuantityDatumDm>> GetQuantityDatumSpecifiedProvenance();
+    Task<List<QuantityDatumLibDm>> GetQuantityDatumSpecifiedProvenance();
 
     /// <summary>
     /// Get all quantity datum regularity specified
     /// </summary>
     /// <returns>A collection of quantity datums</returns>
-    Task<List<QuantityDatumDm>> GetQuantityDatumRegularitySpecified();
+    Task<List<QuantityDatumLibDm>> GetQuantityDatumRegularitySpecified();
 }

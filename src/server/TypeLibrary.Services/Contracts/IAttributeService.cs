@@ -59,23 +59,23 @@ public interface IAttributeService
     /// Get all quantity datum range specifying
     /// </summary>
     /// <returns>List of quantity datums</returns>
-    Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumRangeSpecifying();
+    Task<IEnumerable<QuantityDatumLibCm>> GetQuantityDatumRangeSpecifying();
 
     /// <summary>
     /// Get all quantity datum specified scopes
     /// </summary>
     /// <returns>List of quantity datums</returns>
-    Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumSpecifiedScope();
+    Task<IEnumerable<QuantityDatumLibCm>> GetQuantityDatumSpecifiedScope();
 
     /// <summary>
     /// Get all quantity datum with specified provenances
     /// </summary>
     /// <returns>List of quantity datums</returns>
-    Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumSpecifiedProvenance();
+    Task<IEnumerable<QuantityDatumLibCm>> GetQuantityDatumSpecifiedProvenance();
 
     /// <summary>
     /// Get all quantity datum regularity specified
     /// </summary>
     /// <returns>List of quantity datums</returns>
-    Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumRegularitySpecified();
+    Task<IEnumerable<QuantityDatumLibCm>> GetQuantityDatumRegularitySpecified();
 }

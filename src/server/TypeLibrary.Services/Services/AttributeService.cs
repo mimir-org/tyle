@@ -158,10 +158,10 @@ public class AttributeService : IAttributeService
     /// Get all quantity datum range specifying
     /// </summary>
     /// <returns>List of quantity datums</returns>
-    public async Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumRangeSpecifying()
+    public async Task<IEnumerable<QuantityDatumLibCm>> GetQuantityDatumRangeSpecifying()
     {
         var dataSet = await _datumRepository.GetQuantityDatumRangeSpecifying();
-        var dataCmList = _mapper.Map<List<QuantityDatumCm>>(dataSet);
+        var dataCmList = _mapper.Map<List<QuantityDatumLibCm>>(dataSet);
         return dataCmList.AsEnumerable();
     }
 
@@ -169,10 +169,10 @@ public class AttributeService : IAttributeService
     /// Get all quantity datum specified scopes
     /// </summary>
     /// <returns>List of quantity datums</returns>
-    public async Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumSpecifiedScope()
+    public async Task<IEnumerable<QuantityDatumLibCm>> GetQuantityDatumSpecifiedScope()
     {
         var dataSet = await _datumRepository.GetQuantityDatumSpecifiedScope();
-        var dataCmList = _mapper.Map<List<QuantityDatumCm>>(dataSet);
+        var dataCmList = _mapper.Map<List<QuantityDatumLibCm>>(dataSet);
         return dataCmList.AsEnumerable();
     }
 
@@ -180,10 +180,10 @@ public class AttributeService : IAttributeService
     /// Get all quantity datum with specified provenances
     /// </summary>
     /// <returns>List of quantity datums</returns>
-    public async Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumSpecifiedProvenance()
+    public async Task<IEnumerable<QuantityDatumLibCm>> GetQuantityDatumSpecifiedProvenance()
     {
         var dataSet = await _datumRepository.GetQuantityDatumSpecifiedProvenance();
-        var dataCmList = _mapper.Map<List<QuantityDatumCm>>(dataSet);
+        var dataCmList = _mapper.Map<List<QuantityDatumLibCm>>(dataSet);
         return dataCmList.AsEnumerable();
     }
 
@@ -191,10 +191,10 @@ public class AttributeService : IAttributeService
     /// Get all quantity datum regularity specified
     /// </summary>
     /// <returns>List of quantity datums</returns>
-    public async Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumRegularitySpecified()
+    public async Task<IEnumerable<QuantityDatumLibCm>> GetQuantityDatumRegularitySpecified()
     {
         var dataSet = await _datumRepository.GetQuantityDatumRegularitySpecified();
-        var dataCmList = _mapper.Map<List<QuantityDatumCm>>(dataSet);
+        var dataCmList = _mapper.Map<List<QuantityDatumLibCm>>(dataSet);
         return dataCmList.AsEnumerable();
     }
 }

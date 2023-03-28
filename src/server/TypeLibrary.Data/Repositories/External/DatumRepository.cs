@@ -25,7 +25,7 @@ public class DatumRepository : IQuantityDatumRepository
     /// Get all quantity datum range specifying
     /// </summary>
     /// <returns>A collection of quantity datums</returns>
-    public async Task<List<QuantityDatumDm>> GetQuantityDatumRangeSpecifying()
+    public async Task<List<QuantityDatumLibDm>> GetQuantityDatumRangeSpecifying()
     {
         var data = await _cacheRepository.GetOrCreateAsync("pca_quantity_datum_range_specifying", async () => await FetchDatums(SparQlWebClient.QuantityDatumRangeSpecifying, QuantityDatumType.QuantityDatumRangeSpecifying));
         return data.ToList();
@@ -35,7 +35,7 @@ public class DatumRepository : IQuantityDatumRepository
     /// Get all quantity datum specified scopes
     /// </summary>
     /// <returns>A collection of quantity datums</returns>
-    public async Task<List<QuantityDatumDm>> GetQuantityDatumSpecifiedScope()
+    public async Task<List<QuantityDatumLibDm>> GetQuantityDatumSpecifiedScope()
     {
         var data = await _cacheRepository.GetOrCreateAsync("pca_quantity_datum_specified_scope", async () => await FetchDatums(SparQlWebClient.QuantityDatumSpecifiedScope, QuantityDatumType.QuantityDatumSpecifiedScope));
         return data.ToList();
@@ -45,7 +45,7 @@ public class DatumRepository : IQuantityDatumRepository
     /// Get all quantity datum with specified provenances
     /// </summary>
     /// <returns>A collection of quantity datums</returns>
-    public async Task<List<QuantityDatumDm>> GetQuantityDatumSpecifiedProvenance()
+    public async Task<List<QuantityDatumLibDm>> GetQuantityDatumSpecifiedProvenance()
     {
         var data = await _cacheRepository.GetOrCreateAsync("pca_quantity_datum_specified_provenance", async () => await FetchDatums(SparQlWebClient.QuantityDatumSpecifiedProvenance, QuantityDatumType.QuantityDatumSpecifiedProvenance));
         return data.ToList();
@@ -55,7 +55,7 @@ public class DatumRepository : IQuantityDatumRepository
     /// Get all quantity datum regularity specified
     /// </summary>
     /// <returns>A collection of quantity datums</returns>
-    public async Task<List<QuantityDatumDm>> GetQuantityDatumRegularitySpecified()
+    public async Task<List<QuantityDatumLibDm>> GetQuantityDatumRegularitySpecified()
     {
         var data = await _cacheRepository.GetOrCreateAsync("pca_quantity_datum_regularity_specified", async () => await FetchDatums(SparQlWebClient.QuantityDatumRegularitySpecified, QuantityDatumType.QuantityDatumRegularitySpecified));
         return data.ToList();
@@ -63,10 +63,10 @@ public class DatumRepository : IQuantityDatumRepository
 
     #region Private methods
 
-    private Task<IEnumerable<QuantityDatumDm>> FetchDatums(string query, QuantityDatumType type)
+    private Task<IEnumerable<QuantityDatumLibDm>> FetchDatums(string query, QuantityDatumType type)
     {
         var data = _client.Get<PcaDatum>(SparQlWebClient.PcaEndPointProduction, query).ToList();
-        var datums = data.Select(datum => new QuantityDatumDm { Iri = datum.Datum, Description = null, Name = datum.Datum_Label, QuantityDatumType = type, Source = "PCA" });
+        var datums = data.Select(datum => new QuantityDatumLibDm { Iri = datum.Datum, Description = null, Name = datum.Datum_Label, QuantityDatumType = type, Source = "PCA" });
 
         return Task.FromResult(datums);
     }
