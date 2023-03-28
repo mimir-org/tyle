@@ -37,7 +37,7 @@ public static class TypeLibraryServiceCollectionExtensions
         cfg.AddProfile(new NodeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
         cfg.AddProfile(new RdsProfile());
         cfg.AddProfile(new TerminalProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
-        cfg.AddProfile(new QuantityDatumProfile());
+        cfg.AddProfile(new QuantityDatumProfile(provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
         cfg.AddProfile(new AttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
         cfg.AddProfile(new PurposeProfile());
         cfg.AddProfile(new UnitProfile(provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
