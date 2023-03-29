@@ -27,13 +27,13 @@ public class AttributePcaRepository : IAttributeReferenceRepository
         _serviceProvider = serviceProvider;
     }
 
-    public Task<List<AttributeLibAm>> FetchAttributesFromReference()
+    public async Task<List<AttributeLibAm>> FetchAttributesFromReference()
     {
         var attributes = new List<AttributeLibAm>();
-        var pcaAttributes = _client.Get<PcaAttribute>(SparQlWebClient.PcaEndPointProduction, SparQlWebClient.PcaAttributeAllQuery).ToList();
+        var pcaAttributes = await _client.Get<PcaAttribute>(SparQlWebClient.PcaEndPointProduction, SparQlWebClient.PcaAttributeAllQuery);
 
         if (!pcaAttributes.Any())
-            return Task.FromResult(attributes);
+            return attributes;
 
         pcaAttributes = pcaAttributes.OrderBy(x => x.Quantity_Label, StringComparer.CurrentCultureIgnoreCase).ToList();
         var groups = pcaAttributes.GroupBy(x => x.Quantity).Select(group => group.ToList()).ToList();
@@ -76,6 +76,6 @@ public class AttributePcaRepository : IAttributeReferenceRepository
             attributes.Add(attribute);
         }
 
-        return Task.FromResult(attributes);
+        return attributes;
     }
 }

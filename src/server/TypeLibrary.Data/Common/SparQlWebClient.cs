@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Common.Models;
 using TypeLibrary.Data.Contracts.Common;
@@ -98,17 +100,19 @@ public class SparQlWebClient : ISparQlWebClient
         _logger = logger;
     }
 
-    public IEnumerable<T> Get<T>(string url, string query) where T : class, new()
+    public async Task<List<T>> Get<T>(string url, string query) where T : class, new()
     {
-        if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(query))
-            yield break;
+        var listToReturn = new List<T>();
 
-        var endpoint = new SparqlRemoteEndpoint(new Uri(url));
+        if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(query))
+            return listToReturn;
+
+        var endpoint = new SparqlQueryClient(new HttpClient(), new Uri(url));
         SparqlResultSet results;
 
         try
         {
-            results = endpoint.QueryWithResultSet(query);
+            results = await endpoint.QueryWithResultSetAsync(query);
         }
         catch (Exception e)
         {
@@ -117,7 +121,7 @@ public class SparQlWebClient : ISparQlWebClient
         }
 
         if (results == null || !results.Any())
-            yield break;
+            return listToReturn;
 
         var propertyFinder = new GenericPropertyFinder<T>();
         var model = new T();
@@ -135,7 +139,9 @@ public class SparQlWebClient : ISparQlWebClient
                 }
             }
 
-            yield return obj;
+            listToReturn.Add(obj);
         }
+
+        return listToReturn;
     }
 }

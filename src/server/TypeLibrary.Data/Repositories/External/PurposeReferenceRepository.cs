@@ -29,7 +29,7 @@ public class PurposeReferenceRepository : IPurposeReferenceRepository
     /// <returns>List of purpose sorted by name></returns>
     public async Task<List<PurposeLibDm>> Get()
     {
-        var data = await _cacheRepository.GetOrCreateAsync("pca_purposes", async () => await FetchPurposesFromPca());
+        var data = await _cacheRepository.GetOrCreateAsync("pca_purposes", FetchPurposesFromPca);
         return data;
     }
 
@@ -37,13 +37,15 @@ public class PurposeReferenceRepository : IPurposeReferenceRepository
 
     #region Private
 
-    private Task<List<PurposeLibDm>> FetchPurposesFromPca()
+    private async Task<List<PurposeLibDm>> FetchPurposesFromPca()
     {
         var purposes = new List<PurposeLibDm>();
-        var pcaPurposes = _client.Get<PcaPurpose>(SparQlWebClient.PcaEndPointProduction, SparQlWebClient.PcaPurposeAllQuery)?.OrderBy(x => x.Label, StringComparer.CurrentCultureIgnoreCase).ToList();
+        var pcaPurposes = await _client.Get<PcaPurpose>(SparQlWebClient.PcaEndPointProduction, SparQlWebClient.PcaPurposeAllQuery);
 
         if (pcaPurposes == null || !pcaPurposes.Any())
-            return Task.FromResult(purposes);
+            return purposes;
+
+        pcaPurposes = pcaPurposes.OrderBy(x => x.Label, StringComparer.CurrentCultureIgnoreCase).ToList();
 
         purposes.AddRange(pcaPurposes.Select(pcaPurpose => new PurposeLibDm
         {
@@ -52,7 +54,7 @@ public class PurposeReferenceRepository : IPurposeReferenceRepository
             Source = "PCA"
         }));
 
-        return Task.FromResult(purposes);
+        return purposes;
     }
 
     #endregion Private

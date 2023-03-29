@@ -7,7 +7,6 @@ using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Data.Common;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
-using TypeLibrary.Data.Models;
 using TypeLibrary.Data.Models.External;
 
 namespace TypeLibrary.Data.Repositories.External;
@@ -21,7 +20,7 @@ public class QuantityDatumPcaRepository : IQuantityDatumReferenceRepository
         _client = client;
     }
 
-    public Task<List<QuantityDatumLibAm>> FetchQuantityDatumsFromReference()
+    public async Task<List<QuantityDatumLibAm>> FetchQuantityDatumsFromReference()
     {
         var quantityDatums = new List<QuantityDatumLibAm>();
         var quantityDatumQueries = new List<string>
@@ -41,7 +40,7 @@ public class QuantityDatumPcaRepository : IQuantityDatumReferenceRepository
 
         for (var i = 0; i < quantityDatumQueries.Count; i++)
         {
-            var data = _client.Get<PcaDatum>(SparQlWebClient.PcaEndPointProduction, quantityDatumQueries[i]).ToList();
+            var data = await _client.Get<PcaDatum>(SparQlWebClient.PcaEndPointProduction, quantityDatumQueries[i]);
             quantityDatums.AddRange(data.Select(datum => new QuantityDatumLibAm
             {
                 Name = datum.Datum_Label,
@@ -51,6 +50,6 @@ public class QuantityDatumPcaRepository : IQuantityDatumReferenceRepository
             }));
         }
 
-        return Task.FromResult(quantityDatums);
+        return quantityDatums;
     }
 }

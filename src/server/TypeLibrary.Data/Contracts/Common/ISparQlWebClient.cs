@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace TypeLibrary.Data.Contracts.Common;
 
 public interface ISparQlWebClient
 {
-    IEnumerable<T> Get<T>(string url, string query) where T : class, new();
+    Task<List<T>> Get<T>(string url, string query) where T : class, new();
 }
