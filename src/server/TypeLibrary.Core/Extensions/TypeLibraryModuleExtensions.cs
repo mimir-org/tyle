@@ -69,7 +69,6 @@ public static class TypeLibraryModuleExtensions
 
         // Dependency Injection - Services
         services.AddScoped<ITerminalService, TerminalService>();
-        services.AddScoped<IFileService, FileService>();
         services.AddScoped<IAttributeService, AttributeService>();
         services.AddScoped<IRdsService, RdsService>();
         services.AddScoped<ISeedingService, SeedingService>();
