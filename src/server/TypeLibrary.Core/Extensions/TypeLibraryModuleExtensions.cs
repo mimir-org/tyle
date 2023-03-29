@@ -42,7 +42,6 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<ITypeLibraryProcRepository, TypeLibraryProcRepository>();
         services.AddSingleton<IApplicationSettingsRepository, ApplicationSettingsRepository>();
         services.AddScoped<IEfNodeRepository, EfNodeRepository>();
-        services.AddScoped<IEfNodeTerminalRepository, EfNodeTerminalRepository>();
         services.AddScoped<IEfTerminalRepository, EfTerminalRepository>();
         services.AddScoped<IEfAttributePredefinedRepository, EfAttributePredefinedRepository>();
         services.AddSingleton<IFileRepository, JsonFileRepository>();
