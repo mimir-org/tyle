@@ -16,5 +16,6 @@ public class QuantityDatumLibAm
 
     public string Description { get; set; }
 
+    [Required]
     public QuantityDatumType QuantityDatumType { get; set; }
 }
