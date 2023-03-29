@@ -19,13 +19,10 @@ public class UnitPcaRepository : IUnitReferenceRepository
         _client = client;
     }
 
-    public Task<List<UnitLibAm>> FetchUnitsFromReference()
+    public async Task<List<UnitLibAm>> FetchUnitsFromReference()
     {
         var units = new List<UnitLibAm>();
-        var data = _client.Get<PcaUnit>(SparQlWebClient.PcaEndPointProduction, SparQlWebClient.PcaUnitAllQuery).ToList();
-
-        if (!data.Any())
-            return Task.FromResult(units);
+        var data = await _client.Get<PcaUnit>(SparQlWebClient.PcaEndPointProduction, SparQlWebClient.PcaUnitAllQuery);
 
         foreach (var pcaUnit in data)
         {
@@ -40,6 +37,6 @@ public class UnitPcaRepository : IUnitReferenceRepository
             units.Add(unit);
         }
 
-        return Task.FromResult(units);
+        return units;
     }
 }
