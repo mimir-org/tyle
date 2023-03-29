@@ -7,6 +7,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Data.Common;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
+using TypeLibrary.Data.Models;
 using TypeLibrary.Data.Models.External;
 
 namespace TypeLibrary.Data.Repositories.External;
