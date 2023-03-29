@@ -44,5 +44,8 @@ public enum CacheKey
     AttributePredefined = 12,
 
     [Display(Name = "Symbol")]
-    Symbol = 13
+    Symbol = 13,
+
+    [Display(Name = "Quantity Datum")]
+    QuantityDatum = 14
 }

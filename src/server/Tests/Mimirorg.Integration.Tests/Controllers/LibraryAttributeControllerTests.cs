@@ -17,10 +17,6 @@ public class LibraryAttributeControllerTests : IntegrationTest
     [Theory]
     [InlineData("/v1/libraryattribute")]
     [InlineData("/v1/libraryattribute/predefined")]
-    [InlineData("/v1/libraryattribute/datum/0")]
-    [InlineData("/v1/libraryattribute/datum/1")]
-    [InlineData("/v1/libraryattribute/datum/2")]
-    [InlineData("/v1/libraryattribute/datum/3")]
     public async Task GET_Retrieves_Status_Ok(string endpoint)
     {
         var client = Factory.WithWebHostBuilder(builder =>

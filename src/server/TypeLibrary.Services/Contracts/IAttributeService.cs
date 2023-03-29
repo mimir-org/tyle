@@ -54,28 +54,4 @@ public interface IAttributeService
     /// <param name="predefined"></param>
     /// <returns>Created predefined attribute</returns>
     Task CreatePredefined(List<AttributePredefinedLibAm> predefined);
-
-    /// <summary>
-    /// Get all quantity datum range specifying
-    /// </summary>
-    /// <returns>List of quantity datums</returns>
-    Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumRangeSpecifying();
-
-    /// <summary>
-    /// Get all quantity datum specified scopes
-    /// </summary>
-    /// <returns>List of quantity datums</returns>
-    Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumSpecifiedScope();
-
-    /// <summary>
-    /// Get all quantity datum with specified provenances
-    /// </summary>
-    /// <returns>List of quantity datums</returns>
-    Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumSpecifiedProvenance();
-
-    /// <summary>
-    /// Get all quantity datum regularity specified
-    /// </summary>
-    /// <returns>List of quantity datums</returns>
-    Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumRegularitySpecified();
 }

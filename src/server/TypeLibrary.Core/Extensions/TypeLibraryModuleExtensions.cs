@@ -51,8 +51,9 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IEfLogRepository, EfLogRepository>();
         services.AddScoped<IEfAttributeRepository, EfAttributeRepository>();
         services.AddScoped<IEfUnitRepository, EfUnitRepository>();
+        services.AddScoped<IEfQuantityDatumRepository, EfQuantityDatumRepository>();
 
-        services.AddScoped<IQuantityDatumRepository, DatumRepository>();
+        services.AddScoped<IQuantityDatumRepository, EfQuantityDatumRepository>();
         services.AddScoped<IAttributePredefinedRepository, EfAttributePredefinedRepository>();
         services.AddScoped<IUnitRepository, EfUnitRepository>();
         services.AddScoped<IAttributeRepository, EfAttributeRepository>();
@@ -63,6 +64,7 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<ISymbolRepository, EfSymbolRepository>();
         services.AddSingleton<IAttributeReferenceRepository, AttributePcaRepository>();
         services.AddSingleton<IUnitReferenceRepository, UnitPcaRepository>();
+        services.AddSingleton<IQuantityDatumReferenceRepository, QuantityDatumPcaRepository>();
         services.AddScoped<ILogRepository, EfLogRepository>();
 
         // Dependency Injection - Services
@@ -79,6 +81,7 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IModuleService, ModuleService>();
         services.AddScoped<ILogService, LogService>();
         services.AddScoped<IApprovalService, ApprovalService>();
+        services.AddScoped<IQuantityDatumService, QuantityDatumService>();
 
         // Hosted services
         services.AddHostedService<TimedPcaSyncingService>();

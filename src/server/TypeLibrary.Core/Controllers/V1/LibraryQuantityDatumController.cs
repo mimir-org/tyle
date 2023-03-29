@@ -10,9 +10,7 @@ using Mimirorg.TypeLibrary.Enums;
 using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
-using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Models.Application;
-using TypeLibrary.Data.Models;
 using Mimirorg.Common.Enums;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
@@ -23,34 +21,34 @@ namespace TypeLibrary.Core.Controllers.V1;
 [ApiController]
 [ApiVersion("1.0")]
 [Route("V{version:apiVersion}/[controller]")]
-[SwaggerTag("Attribute services")]
-public class LibraryAttributeController : ControllerBase
+[SwaggerTag("Quantity datum services")]
+public class LibraryQuantityDatumController : ControllerBase
 {
-    private readonly ILogger<LibraryAttributeController> _logger;
-    private readonly IAttributeService _attributeService;
+    private readonly ILogger<LibraryQuantityDatumController> _logger;
+    private readonly IQuantityDatumService _quantityDatumService;
     private readonly IMimirorgAuthService _authService;
     private readonly ILogService _logService;
 
-    public LibraryAttributeController(ILogger<LibraryAttributeController> logger, IAttributeService attributeService, IMimirorgAuthService authService, ILogService logService)
+    public LibraryQuantityDatumController(ILogger<LibraryQuantityDatumController> logger, IQuantityDatumService quantityDatumService, IMimirorgAuthService authService, ILogService logService)
     {
         _logger = logger;
-        _attributeService = attributeService;
+        _quantityDatumService = quantityDatumService;
         _authService = authService;
         _logService = logService;
     }
 
     /// <summary>
-    /// Get all attributes
+    /// Get all quantity datums
     /// </summary>
-    /// <returns>A collection of attributes</returns>
+    /// <returns>A collection of quantity datums</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<AttributeLibCm>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<QuantityDatumLibCm>), StatusCodes.Status200OK)]
     [AllowAnonymous]
     public IActionResult Get()
     {
         try
         {
-            var data = _attributeService.Get().ToList();
+            var data = _quantityDatumService.Get().ToList();
             return Ok(data);
         }
         catch (Exception e)
@@ -61,61 +59,57 @@ public class LibraryAttributeController : ControllerBase
     }
 
     /// <summary>
-    /// Get attribute by id
+    /// Get all quantity datums of a given type
     /// </summary>
-    /// <param name="id">The id of the attribute to get</param>
-    /// <returns>The requested attribute</returns>
-    [HttpGet("{id}")]
-    [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    /// <param name="type">The type of the quantity datum you want to receive</param>
+    /// <returns>A collection of quantity datums</returns>
+    [HttpGet("{type}")]
+    [ProducesResponseType(typeof(ICollection<QuantityDatumLibCm>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult Get([FromRoute] int id)
+    public IActionResult Get(QuantityDatumType type)
     {
         try
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            var data = type switch
+            {
+                QuantityDatumType.QuantityDatumRangeSpecifying => _quantityDatumService.GetQuantityDatumRangeSpecifying(),
+                QuantityDatumType.QuantityDatumRegularitySpecified => _quantityDatumService.GetQuantityDatumRegularitySpecified(),
+                QuantityDatumType.QuantityDatumSpecifiedProvenance => _quantityDatumService.GetQuantityDatumSpecifiedProvenance(),
+                QuantityDatumType.QuantityDatumSpecifiedScope => _quantityDatumService.GetQuantityDatumSpecifiedScope(),
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, $"Enum type ({nameof(QuantityDatumType)}): {type} out of range.")
+            };
 
-            var data = _attributeService.Get(id);
-
-            if (data == null)
-                return NotFound(id);
-
-            return Ok(data);
-        }
-        catch (MimirorgNotFoundException e)
-        {
-            return NotFound(e.Message);
+            return Ok(data?.ToList());
         }
         catch (Exception e)
         {
             _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-            return StatusCode(500, e.Message);
+            return StatusCode(500, "Internal Server Error");
         }
     }
 
     /// <summary>
-    /// Create an attribute
+    /// Create a quantity datum
     /// </summary>
-    /// <param name="attribute">The attribute that should be created</param>
-    /// <returns>The created attribute</returns>
+    /// <param name="quantityDatum">The quantity datum that should be created</param>
+    /// <returns>The created quantity datum</returns>
     [HttpPost]
-    [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(QuantityDatumLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
-    public async Task<IActionResult> Create([FromBody] AttributeLibAm attribute)
+    [MimirorgAuthorize(MimirorgPermission.Write, "quantityDatum", "CompanyId")]
+    public async Task<IActionResult> Create([FromBody] QuantityDatumLibAm quantityDatum)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var cm = await _attributeService.Create(attribute);
+            var cm = await _quantityDatumService.Create(quantityDatum);
             return Ok(cm);
         }
         catch (Exception e)
@@ -126,11 +120,11 @@ public class LibraryAttributeController : ControllerBase
     }
 
     /// <summary>
-    /// Update an attribute with a new state
+    /// Update a quantity datum with a new state
     /// </summary>
-    /// <param name="id">The id of the attribute to be updated</param>
+    /// <param name="id">The id of the quantity datum to update</param>
     /// <param name="state">The new state</param>
-    /// <returns>An approval data object containing the id of the attribute and the new state</returns>
+    /// <returns>An approval data object containing the id of the quantity datum and the new state</returns>
     [HttpPatch("{id}/state/{state}")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -142,13 +136,13 @@ public class LibraryAttributeController : ControllerBase
     {
         try
         {
-            var companyId = await _attributeService.GetCompanyId(id);
+            var companyId = await _quantityDatumService.GetCompanyId(id);
             var hasAccess = await _authService.HasAccess(companyId, state);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _attributeService.ChangeState(id, state);
+            var data = await _quantityDatumService.ChangeState(id, state);
             return Ok(data);
         }
         catch (Exception e)
@@ -159,10 +153,10 @@ public class LibraryAttributeController : ControllerBase
     }
 
     /// <summary>
-    /// Reject a state change request and revert the attribute to its previous state
+    /// Reject a state change request and revert the quantity datum to its previous state
     /// </summary>
-    /// <param name="id">The id of the attribute with the requested state change</param>
-    /// <returns>An approval data object containing the id of the attribute and the reverted state</returns>
+    /// <param name="id">The id of the quantity datum with the requested state change</param>
+    /// <returns>An approval data object containing the id of the quantity datum and the reverted state</returns>
     [HttpPatch("{id}/state/reject")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -174,35 +168,14 @@ public class LibraryAttributeController : ControllerBase
     {
         try
         {
-            var companyId = await _attributeService.GetCompanyId(id);
-            var previousState = await _logService.GetPreviousState(id, nameof(AttributeLibDm));
+            var companyId = await _quantityDatumService.GetCompanyId(id);
+            var previousState = await _logService.GetPreviousState(id, nameof(QuantityDatumLibAm));
             var hasAccess = await _authService.HasAccess(companyId, previousState);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _attributeService.ChangeState(id, previousState);
-            return Ok(data);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
-        }
-    }
-
-    /// <summary>
-    /// Get all predefined attributes
-    /// </summary>
-    /// <returns>A collection of predefined attributes</returns>
-    [HttpGet("predefined")]
-    [ProducesResponseType(typeof(ICollection<AttributePredefinedLibCm>), StatusCodes.Status200OK)]
-    [AllowAnonymous]
-    public IActionResult GetPredefined()
-    {
-        try
-        {
-            var data = _attributeService.GetPredefined().ToList();
+            var data = await _quantityDatumService.ChangeState(id, previousState);
             return Ok(data);
         }
         catch (Exception e)

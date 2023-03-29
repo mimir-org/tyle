@@ -415,6 +415,69 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Node_Terminal", (string)null);
                 });
 
+            modelBuilder.Entity("TypeLibrary.Data.Models.QuantityDatumLibDm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int")
+                        .HasColumnName("CompanyId");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("CreatedBy");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(511)
+                        .HasColumnType("nvarchar(511)")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("Iri")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("Iri");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("Name");
+
+                    b.Property<string>("QuantityDatumType")
+                        .IsRequired()
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("QuantityDatumType");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("State");
+
+                    b.Property<string>("TypeReference")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("TypeReference");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("State");
+
+                    b.ToTable("QuantityDatum", (string)null);
+                });
+
             modelBuilder.Entity("TypeLibrary.Data.Models.SymbolLibDm", b =>
                 {
                     b.Property<int>("Id")

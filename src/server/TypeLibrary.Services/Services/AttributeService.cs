@@ -153,48 +153,4 @@ public class AttributeService : IAttributeService
             await _attributePredefinedRepository.CreatePredefined(attribute);
         }
     }
-
-    /// <summary>
-    /// Get all quantity datum range specifying
-    /// </summary>
-    /// <returns>List of quantity datums</returns>
-    public async Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumRangeSpecifying()
-    {
-        var dataSet = await _datumRepository.GetQuantityDatumRangeSpecifying();
-        var dataCmList = _mapper.Map<List<QuantityDatumCm>>(dataSet);
-        return dataCmList.AsEnumerable();
-    }
-
-    /// <summary>
-    /// Get all quantity datum specified scopes
-    /// </summary>
-    /// <returns>List of quantity datums</returns>
-    public async Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumSpecifiedScope()
-    {
-        var dataSet = await _datumRepository.GetQuantityDatumSpecifiedScope();
-        var dataCmList = _mapper.Map<List<QuantityDatumCm>>(dataSet);
-        return dataCmList.AsEnumerable();
-    }
-
-    /// <summary>
-    /// Get all quantity datum with specified provenances
-    /// </summary>
-    /// <returns>List of quantity datums</returns>
-    public async Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumSpecifiedProvenance()
-    {
-        var dataSet = await _datumRepository.GetQuantityDatumSpecifiedProvenance();
-        var dataCmList = _mapper.Map<List<QuantityDatumCm>>(dataSet);
-        return dataCmList.AsEnumerable();
-    }
-
-    /// <summary>
-    /// Get all quantity datum regularity specified
-    /// </summary>
-    /// <returns>List of quantity datums</returns>
-    public async Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumRegularitySpecified()
-    {
-        var dataSet = await _datumRepository.GetQuantityDatumRegularitySpecified();
-        var dataCmList = _mapper.Map<List<QuantityDatumCm>>(dataSet);
-        return dataCmList.AsEnumerable();
-    }
 }
