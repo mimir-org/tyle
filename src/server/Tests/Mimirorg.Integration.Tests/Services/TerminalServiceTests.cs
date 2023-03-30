@@ -35,7 +35,7 @@ public class TerminalServiceTests : IntegrationTest
 
         Assert.NotNull(terminalCm);
         Assert.True(terminalCm.State == State.Draft);
-        Assert.Equal(terminalAm.ParentId, terminalCm.ParentId);
+        Assert.Equal(terminalAm.ParentId.ToString(), terminalCm.ParentId);
 
         Assert.Equal(terminalAm.TypeReference, terminalCm.TypeReference);
 

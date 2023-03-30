@@ -88,7 +88,7 @@ public class NodeServiceTests : IntegrationTest
         Assert.Equal(nodeAm.TypeReference, nodeCm.TypeReference);
 
         Assert.Equal(nodeAm.Symbol, nodeCm.Symbol);
-        Assert.Equal(nodeAm.ParentId, nodeCm.ParentId);
+        Assert.Equal(nodeAm.ParentId.ToString(), nodeCm.ParentId);
 
         var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == nodeCm.Id && x.ObjectType == "NodeLibDm");
 
