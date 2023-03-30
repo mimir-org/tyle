@@ -133,7 +133,7 @@ public class SemanticController : ControllerBase
     {
         try
         {
-            var data = _terminalService.GetLatestVersions().FirstOrDefault(x => x.Id == id);
+            var data = _terminalService.Get(id);
             if (data == null)
                 return NoContent();
 

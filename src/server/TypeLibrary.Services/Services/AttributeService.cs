@@ -105,7 +105,7 @@ public class AttributeService : IAttributeService
 
         return new ApprovalDataCm
         {
-            Id = id,
+            Id = id.ToString(),
             State = state
 
         };

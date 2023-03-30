@@ -105,7 +105,7 @@ public class QuantityDatumService : IQuantityDatumService
 
         return new ApprovalDataCm
         {
-            Id = id,
+            Id = id.ToString(),
             State = state
 
         };

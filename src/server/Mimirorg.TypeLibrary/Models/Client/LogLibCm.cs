@@ -5,8 +5,8 @@ namespace Mimirorg.TypeLibrary.Models.Client;
 public class LogLibCm
 {
     public string Id { get; set; }
-    public int ObjectId { get; set; }
-    public int ObjectFirstVersionId { get; set; }
+    public string ObjectId { get; set; }
+    public string ObjectFirstVersionId { get; set; }
     public string ObjectName { get; set; }
     public string ObjectVersion { get; set; }
     public string ObjectType { get; set; }

@@ -4,6 +4,6 @@ namespace Mimirorg.TypeLibrary.Models.Client;
 
 public class ApprovalDataCm
 {
-    public int Id { get; set; }
+    public string Id { get; set; }
     public State State { get; set; }
 }

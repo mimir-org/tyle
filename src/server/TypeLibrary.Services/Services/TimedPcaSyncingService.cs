@@ -182,7 +182,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
                 if (AttributeIsUnchanged(storedAttribute, pcaAttribute)) continue;
 
-                idsOfAttributesToDelete.Add(storedAttribute.Id);
+                idsOfAttributesToDelete.Add(int.Parse(storedAttribute.Id));
             }
             attributesToCreateAm.Add(pcaAttribute);
         }
@@ -214,13 +214,13 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
             {
                 return false;
             }
-            if (storedDefaultUnit.Unit.Id != externalDefaultUnit.UnitId)
+            if (storedDefaultUnit.Unit.Id != externalDefaultUnit.UnitId.ToString())
             {
                 return false;
             }
         }
 
-        var storedUnits = stored.AttributeUnits.Select(x => x.Unit.Id).ToList();
+        var storedUnits = stored.AttributeUnits.Select(x => int.Parse(x.Unit.Id)).ToList();
         storedUnits.Sort();
         var externalUnits = external.AttributeUnits.Select(x => x.UnitId).ToList();
         externalUnits.Sort();

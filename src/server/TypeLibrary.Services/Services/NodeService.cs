@@ -180,7 +180,7 @@ public class NodeService : INodeService
 
         return new ApprovalDataCm
         {
-            Id = id,
+            Id = id.ToString(),
             State = state
         };
     }
