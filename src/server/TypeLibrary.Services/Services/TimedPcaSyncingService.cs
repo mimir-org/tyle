@@ -147,7 +147,6 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
     {
         var pcaAttributesFetch = _attributeReferenceRepository.FetchAttributesFromReference();
         using var scope = _serviceProvider.CreateScope();
-        var attributeService = scope.ServiceProvider.GetService<IAttributeService>();
         var attributeRepository = scope.ServiceProvider.GetService<IAttributeRepository>();
         var dbAttributes = attributeRepository.Get().ExcludeDeleted().ToList();
 
@@ -178,11 +177,11 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         {
             if (dbAttributeReferences.ContainsKey(pcaAttribute.TypeReference))
             {
-                var storedAttribute = attributeService.Get(dbAttributeReferences[pcaAttribute.TypeReference]);
+                var storedAttribute = attributeRepository.Get(dbAttributeReferences[pcaAttribute.TypeReference]);
 
                 if (AttributeIsUnchanged(storedAttribute, pcaAttribute)) continue;
 
-                idsOfAttributesToDelete.Add(int.Parse(storedAttribute.Id));
+                idsOfAttributesToDelete.Add(storedAttribute.Id);
             }
             attributesToCreateAm.Add(pcaAttribute);
         }
@@ -201,7 +200,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         _logger.LogInformation($"Number of new attributes: {attributesToCreate.Count - idsOfAttributesToDelete.Count}");
     }
 
-    private static bool AttributeIsUnchanged(AttributeLibCm stored, AttributeLibAm external)
+    private static bool AttributeIsUnchanged(AttributeLibDm stored, AttributeLibAm external)
     {
         if (stored.Name != external.Name) return false;
 
@@ -214,13 +213,13 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
             {
                 return false;
             }
-            if (storedDefaultUnit.Unit.Id != externalDefaultUnit.UnitId.ToString())
+            if (storedDefaultUnit.Unit.Id != externalDefaultUnit.UnitId)
             {
                 return false;
             }
         }
 
-        var storedUnits = stored.AttributeUnits.Select(x => int.Parse(x.Unit.Id)).ToList();
+        var storedUnits = stored.AttributeUnits.Select(x => x.Unit.Id).ToList();
         storedUnits.Sort();
         var externalUnits = external.AttributeUnits.Select(x => x.UnitId).ToList();
         externalUnits.Sort();
