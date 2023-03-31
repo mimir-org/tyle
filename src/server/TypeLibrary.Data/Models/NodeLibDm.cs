@@ -37,7 +37,7 @@ public class NodeLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogable
     public virtual ICollection<NodeTerminalLibDm> NodeTerminals { get; set; }
     public ICollection<NodeAttributeLibDm> NodeAttributes { get; set; }
     public virtual List<SelectedAttributePredefinedLibDm> SelectedAttributePredefined { get; set; }
-    
+
     #region IVersionable
 
     public Validation HasIllegalChanges(NodeLibAm other)
