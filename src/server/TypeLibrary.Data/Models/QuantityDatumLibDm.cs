@@ -38,6 +38,6 @@ public class QuantityDatumLibDm : ILogable, IStatefulObject, IEquatable<Quantity
     public bool Equals(QuantityDatumLibAm other)
     {
         if (other == null) return false;
-        return this.Name == other.Name;
+        return this.Name == other.Name && this.QuantityDatumType == other.QuantityDatumType;
     }
 }
