@@ -22,8 +22,8 @@ public class TerminalLibDm : IVersionable<TerminalLibAm>, IVersionObject, ILogab
     public string CreatedBy { get; set; }
     public int CompanyId { get; set; }
     public State State { get; set; }
-    public string Description { get; set; }
     public string Color { get; set; }
+    public string Description { get; set; }
     public int? ParentId { get; set; }
     public TerminalLibDm Parent { get; set; }
     public ICollection<TerminalLibDm> Children { get; set; }

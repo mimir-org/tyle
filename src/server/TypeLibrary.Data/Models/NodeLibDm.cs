@@ -25,12 +25,12 @@ public class NodeLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogable
     public string CreatedBy { get; set; }
     public int CompanyId { get; set; }
     public State State { get; set; }
-    public string Description { get; set; }
     public Aspect Aspect { get; set; }
     public string PurposeName { get; set; }
     public string RdsCode { get; set; }
     public string RdsName { get; set; }
     public string Symbol { get; set; }
+    public string Description { get; set; }
     public int? ParentId { get; set; }
     public NodeLibDm Parent { get; set; }
     public virtual ICollection<NodeLibDm> Children { get; set; }

@@ -17,20 +17,29 @@ public class TerminalLibAm
     public string Name { get; set; }
 
     /// <summary>
-    /// The parent terminal id
-    /// </summary>
-    /// <remarks>
-    /// The parent id is not allowed to change
-    /// </remarks>
-    public int? ParentId { get; set; }
-
-    /// <summary>
     /// A list of references to other ontologies
     /// </summary>
     /// <remarks>
     /// It is allowed to change the list. Changing will generate a minor increase
     /// </remarks>
     public string TypeReference { get; set; }
+
+    /// <summary>
+    /// The terminal version
+    /// </summary>
+    [Required]
+    [Double]
+    public string Version { get; set; }
+
+    /// <summary>
+    /// The owner of the terminal type
+    /// </summary>
+    /// <remarks>
+    /// A company id change, will trigger a minor version increase
+    /// </remarks>
+    [Display(Name = "CompanyId")]
+    [Range(1, int.MaxValue, ErrorMessage = "{0} must be greater than 0")]
+    public int CompanyId { get; set; }
 
     /// <summary>
     /// The color of the terminal
@@ -50,6 +59,14 @@ public class TerminalLibAm
     public string Description { get; set; }
 
     /// <summary>
+    /// The parent terminal id
+    /// </summary>
+    /// <remarks>
+    /// The parent id is not allowed to change
+    /// </remarks>
+    public int? ParentId { get; set; }
+
+    /// <summary>
     /// A list of connected attributes
     /// </summary>
     /// <remarks>
@@ -57,21 +74,4 @@ public class TerminalLibAm
     /// Adding attributes generates a major increase
     /// </remarks>
     public ICollection<TerminalAttributeLibAm> TerminalAttributes { get; set; }
-
-    /// <summary>
-    /// The owner of the terminal type
-    /// </summary>
-    /// <remarks>
-    /// A company id change, will trigger a minor version increase
-    /// </remarks>
-    [Display(Name = "CompanyId")]
-    [Range(1, int.MaxValue, ErrorMessage = "{0} must be greater than 0")]
-    public int CompanyId { get; set; }
-
-    /// <summary>
-    /// The terminal version
-    /// </summary>
-    [Required]
-    [Double]
-    public string Version { get; set; }
 }

@@ -17,9 +17,9 @@ public class QuantityDatumLibDm : ILogable, IStatefulObject, IEquatable<Quantity
     public string CreatedBy { get; set; }
     public int? CompanyId { get; set; }
     public State State { get; set; }
-    public string Description { get; set; }
     public QuantityDatumType QuantityDatumType { get; set; }
-    
+    public string Description { get; set; }
+
 
     public LogLibAm CreateLog(LogType logType, string logTypeValue, string comment)
     {
