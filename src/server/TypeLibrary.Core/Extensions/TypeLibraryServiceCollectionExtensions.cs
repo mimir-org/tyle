@@ -50,6 +50,7 @@ public static class TypeLibraryServiceCollectionExtensions
         cfg.AddProfile(new TerminalAttributeProfile());
 
         var mapperConfig = new MapperConfiguration(cfg);
+        mapperConfig.AssertConfigurationIsValid();
         serviceCollection.AddSingleton(_ => mapperConfig.CreateMapper());
         return serviceCollection;
     }

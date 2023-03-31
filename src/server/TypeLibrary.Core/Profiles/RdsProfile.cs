@@ -11,7 +11,6 @@ public class RdsProfile : Profile
         CreateMap<RdsLibDm, RdsLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
-            .ForMember(dest => dest.Kind, opt => opt.Ignore());
+            .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri));
     }
 }

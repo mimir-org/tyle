@@ -11,9 +11,11 @@ public class AttributeUnitProfile : Profile
     {
         CreateMap<AttributeUnitLibAm, AttributeUnitLibDm>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.IsDefault, opt => opt.MapFrom(src => src.IsDefault))
             .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
+            .ForMember(dest => dest.Attribute, opt => opt.Ignore())
             .ForMember(dest => dest.UnitId, opt => opt.MapFrom(src => src.UnitId))
-            .ForMember(dest => dest.IsDefault, opt => opt.MapFrom(src => src.IsDefault));
+            .ForMember(dest => dest.Unit, opt => opt.Ignore());
 
         CreateMap<AttributeUnitLibDm, AttributeUnitLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
