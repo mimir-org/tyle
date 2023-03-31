@@ -13,12 +13,13 @@ public class QuantityDatumLibDm : ILogable, IStatefulObject, IEquatable<Quantity
     public string Name { get; set; }
     public string Iri { get; set; }
     public string TypeReference { get; set; }
-    public State State { get; set; }
-    public int? CompanyId { get; set; }
-    public string Description { get; set; }
-    public QuantityDatumType QuantityDatumType { get; set; }
     public DateTime Created { get; set; }
     public string CreatedBy { get; set; }
+    public int? CompanyId { get; set; }
+    public State State { get; set; }
+    public string Description { get; set; }
+    public QuantityDatumType QuantityDatumType { get; set; }
+    
 
     public LogLibAm CreateLog(LogType logType, string logTypeValue, string comment)
     {
