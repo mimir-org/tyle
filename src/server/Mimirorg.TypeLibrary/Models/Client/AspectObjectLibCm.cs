@@ -27,7 +27,7 @@ public class NodeLibCm
     public string ParentIri { get; set; }
     public ICollection<NodeLibCm> Children { get; set; }
     public ICollection<NodeTerminalLibCm> NodeTerminals { get; set; }
-    public ICollection<NodeAttributeLibCm> NodeAttributes { get; set; }
+    public ICollection<AspectObjectAttributeLibCm> NodeAttributes { get; set; }
     public ICollection<SelectedAttributePredefinedLibCm> SelectedAttributePredefined { get; set; }
     public string Kind => nameof(NodeLibCm);
 }

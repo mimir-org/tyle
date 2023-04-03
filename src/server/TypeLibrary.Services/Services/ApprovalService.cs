@@ -11,14 +11,14 @@ namespace TypeLibrary.Services.Services;
 public class ApprovalService : IApprovalService
 {
     private readonly IMapper _mapper;
-    private readonly INodeService _nodeService;
+    private readonly IAspectObjectService _aspectObjectService;
     private readonly ITerminalService _terminalService;
     private readonly IMimirorgAuthService _authService;
 
-    public ApprovalService(IMapper mapper, INodeService nodeService, ITerminalService terminalService, IMimirorgAuthService authService)
+    public ApprovalService(IMapper mapper, IAspectObjectService aspectObjectService, ITerminalService terminalService, IMimirorgAuthService authService)
     {
         _mapper = mapper;
-        _nodeService = nodeService;
+        _aspectObjectService = aspectObjectService;
         _terminalService = terminalService;
         _authService = authService;
     }
@@ -33,7 +33,7 @@ public class ApprovalService : IApprovalService
 
         var tasks = new List<Task>
         {
-            Task.Run(() => data.ResolveNodes(_nodeService, _mapper, _authService)),
+            Task.Run(() => data.ResolveNodes(_aspectObjectService, _mapper, _authService)),
             Task.Run(() => data.ResolveTerminals(_terminalService, _mapper, _authService))
         };
 

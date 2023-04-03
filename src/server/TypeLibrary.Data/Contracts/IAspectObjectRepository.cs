@@ -41,21 +41,21 @@ public interface INodeRepository
     /// Get all nodes
     /// </summary>
     /// <returns>A collection of nodes</returns>
-    IEnumerable<NodeLibDm> Get();
+    IEnumerable<AspectObjectLibDm> Get();
 
     /// <summary>
     /// Get node by id
     /// </summary>
     /// <param name="id">The node id</param>
     /// <returns>Node if found</returns>
-    NodeLibDm Get(int id);
+    AspectObjectLibDm Get(int id);
 
     /// <summary>
     /// Create a node
     /// </summary>
-    /// <param name="node">The node to be created</param>
+    /// <param name="aspectObject">The node to be created</param>
     /// <returns>The created node</returns>
-    Task<NodeLibDm> Create(NodeLibDm node);
+    Task<AspectObjectLibDm> Create(AspectObjectLibDm aspectObject);
 
     /// <summary>
     /// Clear all entity framework change trackers

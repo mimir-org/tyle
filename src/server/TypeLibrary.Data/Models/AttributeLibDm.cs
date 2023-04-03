@@ -20,7 +20,7 @@ public class AttributeLibDm : ILogable, IStatefulObject
     public State State { get; set; }
     public string Description { get; set; }
     public ICollection<AttributeUnitLibDm> AttributeUnits { get; set; }
-    public ICollection<NodeAttributeLibDm> AttributeNodes { get; set; }
+    public ICollection<AspectObjectAttributeLibDm> AttributeNodes { get; set; }
     public ICollection<TerminalAttributeLibDm> AttributeTerminals { get; set; }
 
     public LogLibAm CreateLog(LogType logType, string logTypeValue, string comment)

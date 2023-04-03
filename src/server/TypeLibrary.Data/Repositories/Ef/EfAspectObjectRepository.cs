@@ -12,12 +12,12 @@ using TypeLibrary.Data.Models.Common;
 
 namespace TypeLibrary.Data.Repositories.Ef;
 
-public class EfNodeRepository : GenericRepository<TypeLibraryDbContext, NodeLibDm>, IEfNodeRepository
+public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, AspectObjectLibDm>, IEfNodeRepository
 {
     private readonly IApplicationSettingsRepository _settings;
     private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
 
-    public EfNodeRepository(IApplicationSettingsRepository settings, TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
+    public EfAspectObjectRepository(IApplicationSettingsRepository settings, TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
     {
         _settings = settings;
         _typeLibraryProcRepository = typeLibraryProcRepository;
@@ -97,7 +97,7 @@ public class EfNodeRepository : GenericRepository<TypeLibraryDbContext, NodeLibD
     /// Get all nodes
     /// </summary>
     /// <returns>A collection of nodes</returns>
-    public IEnumerable<NodeLibDm> Get()
+    public IEnumerable<AspectObjectLibDm> Get()
     {
         return GetAll()
             .Include(x => x.NodeTerminals)
@@ -112,7 +112,7 @@ public class EfNodeRepository : GenericRepository<TypeLibraryDbContext, NodeLibD
     /// </summary>
     /// <param name="id">The node id</param>
     /// <returns>Node if found</returns>
-    public NodeLibDm Get(int id)
+    public AspectObjectLibDm Get(int id)
     {
         return FindBy(x => x.Id == id)
             .Include(x => x.NodeTerminals)
@@ -126,24 +126,24 @@ public class EfNodeRepository : GenericRepository<TypeLibraryDbContext, NodeLibD
     /// <summary>
     /// Create a node
     /// </summary>
-    /// <param name="node">The node to be created</param>
+    /// <param name="aspectObject">The node to be created</param>
     /// <returns>The created node</returns>
-    public async Task<NodeLibDm> Create(NodeLibDm node)
+    public async Task<AspectObjectLibDm> Create(AspectObjectLibDm aspectObject)
     {
-        await CreateAsync(node);
+        await CreateAsync(aspectObject);
         await SaveAsync();
 
-        if (node.FirstVersionId == 0) node.FirstVersionId = node.Id;
-        node.Iri = $"{_settings.ApplicationSemanticUrl}/aspectnode/{node.Id}";
-        foreach (var nodeTerminal in node.NodeTerminals)
-            nodeTerminal.NodeId = node.Id;
-        foreach (var nodeAttribute in node.NodeAttributes)
-            nodeAttribute.NodeId = node.Id;
+        if (aspectObject.FirstVersionId == 0) aspectObject.FirstVersionId = aspectObject.Id;
+        aspectObject.Iri = $"{_settings.ApplicationSemanticUrl}/aspectnode/{aspectObject.Id}";
+        foreach (var nodeTerminal in aspectObject.NodeTerminals)
+            nodeTerminal.NodeId = aspectObject.Id;
+        foreach (var nodeAttribute in aspectObject.NodeAttributes)
+            nodeAttribute.NodeId = aspectObject.Id;
         await SaveAsync();
 
-        Detach(node);
+        Detach(aspectObject);
 
-        return node;
+        return aspectObject;
     }
 
     /// <summary>

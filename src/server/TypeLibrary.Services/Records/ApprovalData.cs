@@ -20,9 +20,9 @@ public record ApprovalData
         return Nodes.Union(Terminals).ToList();
     }
 
-    public Task ResolveNodes(INodeService nodeService, IMapper mapper, IMimirorgAuthService authService)
+    public Task ResolveNodes(IAspectObjectService aspectObjectService, IMapper mapper, IMimirorgAuthService authService)
     {
-        var data = nodeService.GetLatestVersions().Where(x => x.State is State.ApproveCompany or State.ApproveGlobal or State.Delete).ToList();
+        var data = aspectObjectService.GetLatestVersions().Where(x => x.State is State.ApproveCompany or State.ApproveGlobal or State.Delete).ToList();
         data = data.Where(x => authService.HasAccess(x.CompanyId, NextStateMapper(x.State)).Result).ToList();
         var mappedData = mapper.Map<ICollection<ApprovalCm>>(data);
         Nodes.AddRange(mappedData);

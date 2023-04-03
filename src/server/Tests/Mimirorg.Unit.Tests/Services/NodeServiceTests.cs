@@ -12,29 +12,29 @@ namespace Mimirorg.Test.Unit.Services;
 
 public class NodeServiceTests : UnitTest<MimirorgCommonFixture>
 {
-    private readonly NodeService _nodeService;
+    private readonly AspectObjectService _aspectObjectService;
 
     public NodeServiceTests(MimirorgCommonFixture fixture) : base(fixture)
     {
-        _nodeService = new NodeService(fixture.Mapper.Object, fixture.NodeRepository.Object, fixture.TimedHookService.Object, fixture.LogService.Object);
+        _aspectObjectService = new AspectObjectService(fixture.Mapper.Object, fixture.NodeRepository.Object, fixture.TimedHookService.Object, fixture.LogService.Object);
     }
 
     [Fact]
     public void Get_Returns_MimirorgBadRequestException_On_ZeroParam()
     {
-        _ = Assert.Throws<MimirorgNotFoundException>(() => _nodeService.Get(0));
+        _ = Assert.Throws<MimirorgNotFoundException>(() => _aspectObjectService.Get(0));
     }
 
     [Fact]
     public void GetNode_No_Matching_Id_Throws_MimirorgNotFoundException()
     {
-        _ = Assert.Throws<MimirorgNotFoundException>(() => _nodeService.Get(6666666));
+        _ = Assert.Throws<MimirorgNotFoundException>(() => _aspectObjectService.Get(6666666));
     }
 
     [Fact]
     public async Task Create_Node_Returns_MimirorgBadRequestException_When_Null_Parameters()
     {
-        _ = await Assert.ThrowsAsync<ArgumentNullException>(() => _nodeService.Create(null));
+        _ = await Assert.ThrowsAsync<ArgumentNullException>(() => _aspectObjectService.Create(null));
     }
 
     [Theory]
@@ -52,7 +52,7 @@ public class NodeServiceTests : UnitTest<MimirorgCommonFixture>
     [InlineData("Invalid_Node_Object", "Fake_RdsName", null, "Fake_PurposeName")]
     public async Task Create_Node_Returns_MimirorgBadRequestException_When_Missing_Parameters(string name, string rdsName, string rdsCode, string purposeName)
     {
-        var nodeToCreate = new NodeLibAm
+        var nodeToCreate = new AspectObjectLibAm
         {
             Name = name,
             RdsName = rdsName,
@@ -62,7 +62,7 @@ public class NodeServiceTests : UnitTest<MimirorgCommonFixture>
             CompanyId = 1
         };
 
-        _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.Create(nodeToCreate));
+        _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _aspectObjectService.Create(nodeToCreate));
     }
 
     [Theory]
@@ -70,7 +70,7 @@ public class NodeServiceTests : UnitTest<MimirorgCommonFixture>
     [InlineData(0)]
     public async Task Create_Node_Returns_MimirorgBadRequestException_When_CompanyId_Is_Not_Greater_Than_Zero(int companyId)
     {
-        var nodeToCreate = new NodeLibAm
+        var nodeToCreate = new AspectObjectLibAm
         {
             Name = "Invalid_Node_Object",
             RdsName = "Fake_RdsName",
@@ -80,6 +80,6 @@ public class NodeServiceTests : UnitTest<MimirorgCommonFixture>
             CompanyId = companyId
         };
 
-        _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _nodeService.Create(nodeToCreate));
+        _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _aspectObjectService.Create(nodeToCreate));
     }
 }

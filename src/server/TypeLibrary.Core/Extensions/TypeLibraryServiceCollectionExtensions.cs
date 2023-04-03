@@ -34,7 +34,7 @@ public static class TypeLibraryServiceCollectionExtensions
         var provider = serviceCollection.BuildServiceProvider();
         var cfg = new MapperConfigurationExpression();
         cfg.AddProfile(new SymbolProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<IOptions<ApplicationSettings>>()));
-        cfg.AddProfile(new NodeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
+        cfg.AddProfile(new AspectObjectProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
         cfg.AddProfile(new RdsProfile());
         cfg.AddProfile(new TerminalProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
         cfg.AddProfile(new QuantityDatumProfile(provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
@@ -42,11 +42,11 @@ public static class TypeLibraryServiceCollectionExtensions
         cfg.AddProfile(new PurposeProfile());
         cfg.AddProfile(new UnitProfile(provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
         cfg.AddProfile(new SelectedAttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>()));
-        cfg.AddProfile(new NodeTerminalProfile());
+        cfg.AddProfile(new AspectObjectTerminalProfile());
         cfg.AddProfile(new LogProfile(provider.GetService<IHttpContextAccessor>()));
         cfg.AddProfile(new AttributeProfile(provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
         cfg.AddProfile(new AttributeUnitProfile());
-        cfg.AddProfile(new NodeAttributeProfile());
+        cfg.AddProfile(new AspectObjectAttributeProfile());
         cfg.AddProfile(new TerminalAttributeProfile());
 
         var mapperConfig = new MapperConfiguration(cfg);

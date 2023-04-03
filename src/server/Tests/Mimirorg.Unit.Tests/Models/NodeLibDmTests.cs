@@ -125,7 +125,7 @@ public class NodeLibDmTests : UnitTest<MimirorgCommonFixture>
         dummy.am.TypeReference = "x";
 
         // Trigger major
-        dummy.am.NodeAttributes = new List<NodeAttributeLibAm>
+        dummy.am.NodeAttributes = new List<AspectObjectAttributeLibAm>
         {
             new()
             {

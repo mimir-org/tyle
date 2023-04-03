@@ -4,9 +4,9 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Configurations;
 
-public class NodeTerminalConfiguration : IEntityTypeConfiguration<NodeTerminalLibDm>
+public class NodeTerminalConfiguration : IEntityTypeConfiguration<AspectObjectTerminalLibDm>
 {
-    public void Configure(EntityTypeBuilder<NodeTerminalLibDm> builder)
+    public void Configure(EntityTypeBuilder<AspectObjectTerminalLibDm> builder)
     {
         builder.HasKey(x => x.Id);
         builder.ToTable("Node_Terminal");
@@ -16,6 +16,6 @@ public class NodeTerminalConfiguration : IEntityTypeConfiguration<NodeTerminalLi
         builder.Property(p => p.ConnectorDirection).HasColumnName("ConnectorDirection").IsRequired().HasConversion<string>().HasMaxLength(31);
 
         builder.HasOne(x => x.Terminal).WithMany(y => y.TerminalNodes).HasForeignKey(x => x.TerminalId).OnDelete(DeleteBehavior.NoAction);
-        builder.HasOne(x => x.Node).WithMany(y => y.NodeTerminals).HasForeignKey(x => x.NodeId).OnDelete(DeleteBehavior.NoAction);
+        builder.HasOne(x => x.AspectObject).WithMany(y => y.NodeTerminals).HasForeignKey(x => x.NodeId).OnDelete(DeleteBehavior.NoAction);
     }
 }

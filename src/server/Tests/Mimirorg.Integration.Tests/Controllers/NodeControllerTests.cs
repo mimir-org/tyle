@@ -47,7 +47,7 @@ public class NodeControllerTests : IntegrationTest
         const string guid = "2f9e0813-1067-472e-86ea-7c0b47a4eb18";
 
         // Ensure node in fake database
-        var nodeToCreate = new NodeLibAm
+        var nodeToCreate = new AspectObjectLibAm
         {
             Name = $"{guid}_dummy_name",
             RdsName = $"{guid}_dummy_rds_name",
@@ -59,7 +59,7 @@ public class NodeControllerTests : IntegrationTest
         };
 
         using var scope = Factory.Server.Services.CreateScope();
-        var nodeService = scope.ServiceProvider.GetRequiredService<INodeService>();
+        var nodeService = scope.ServiceProvider.GetRequiredService<IAspectObjectService>();
         _ = await nodeService.Create(nodeToCreate);
 
         var response = await client.GetAsync(endpoint);

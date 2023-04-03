@@ -18,7 +18,7 @@ public class MimirorgCommonFixture : IDisposable
     public Mock<IMapper> Mapper = new();
 
     // Repositories
-    public Mock<INodeRepository> NodeRepository = new();
+    public Mock<IAspectObjectRepository> NodeRepository = new();
     public Mock<IQuantityDatumRepository> DatumRepository = new();
     public Mock<IAttributePredefinedRepository> AttributePredefinedRepository = new();
     public Mock<IAttributeReferenceRepository> AttributeReferenceRepository = new();
@@ -38,15 +38,15 @@ public class MimirorgCommonFixture : IDisposable
         MimirorgAuthSettings.RequiredLength = 10;
     }
 
-    public (NodeLibAm am, NodeLibDm dm) CreateNodeTestData()
+    public (AspectObjectLibAm am, AspectObjectLibDm dm) CreateNodeTestData()
     {
-        var nodeLibAm = new NodeLibAm
+        var nodeLibAm = new AspectObjectLibAm
         {
             Name = "AA",
             RdsName = "AA",
             RdsCode = "AA",
             Aspect = Aspect.Function,
-            NodeTerminals = new List<NodeTerminalLibAm>
+            NodeTerminals = new List<AspectObjectTerminalLibAm>
             {
                 new()
                 {
@@ -78,14 +78,14 @@ public class MimirorgCommonFixture : IDisposable
             TypeReference = "https://www.tyle.com/"
         };
 
-        var nodeLibDm = new NodeLibDm
+        var nodeLibDm = new AspectObjectLibDm
         {
             Id = 68313,
             Name = "AA",
             RdsName = "AA",
             RdsCode = "AA",
             Aspect = Aspect.Function,
-            NodeTerminals = new List<NodeTerminalLibDm>
+            NodeTerminals = new List<AspectObjectTerminalLibDm>
             {
                 new()
                 {

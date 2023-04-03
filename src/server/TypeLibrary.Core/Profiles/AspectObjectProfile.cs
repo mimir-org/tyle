@@ -16,7 +16,7 @@ public class NodeProfile : Profile
 {
     public NodeProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor, ICompanyFactory companyFactory)
     {
-        CreateMap<NodeLibAm, NodeLibDm>()
+        CreateMap<NodeLibAm, AspectObjectLibDm>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Iri, opt => opt.Ignore())
@@ -40,7 +40,7 @@ public class NodeProfile : Profile
             .ForMember(dest => dest.NodeAttributes, opt => opt.MapFrom(src => src.NodeAttributes))
             .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
-        CreateMap<NodeLibDm, NodeLibCm>()
+        CreateMap<AspectObjectLibDm, NodeLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
@@ -79,7 +79,7 @@ public class NodeProfile : Profile
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
     }
 
-    private static IEnumerable<NodeTerminalLibDm> CreateTerminals(ICollection<NodeTerminalLibAm> terminals)
+    private static IEnumerable<AspectObjectTerminalLibDm> CreateTerminals(ICollection<NodeTerminalLibAm> terminals)
     {
         if (terminals == null || !terminals.Any())
             yield break;
@@ -104,7 +104,7 @@ public class NodeProfile : Profile
 
         foreach (var item in sortedTerminalTypes)
         {
-            yield return new NodeTerminalLibDm
+            yield return new AspectObjectTerminalLibDm
             {
                 TerminalId = item.TerminalId,
                 MinQuantity = item.MinQuantity,

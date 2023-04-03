@@ -27,7 +27,7 @@ public class TerminalLibDm : IVersionable<TerminalLibAm>, IVersionObject, ILogab
     public int? ParentId { get; set; }
     public TerminalLibDm Parent { get; set; }
     public ICollection<TerminalLibDm> Children { get; set; }
-    public ICollection<NodeTerminalLibDm> TerminalNodes { get; set; }
+    public ICollection<AspectObjectTerminalLibDm> TerminalNodes { get; set; }
     public ICollection<TerminalAttributeLibDm> TerminalAttributes { get; set; }
 
     #region IVersionable

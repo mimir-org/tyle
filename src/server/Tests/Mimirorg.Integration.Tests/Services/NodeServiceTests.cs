@@ -17,10 +17,10 @@ public class NodeServiceTests : IntegrationTest
     [Fact]
     public async Task Create_Node_Create_Node_When_Ok_Parameters()
     {
-        var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
+        var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IAspectObjectService>();
         var logService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ILogService>();
 
-        var nodeAm = new NodeLibAm
+        var nodeAm = new AspectObjectLibAm
         {
             Name = "Node2",
             RdsName = "RdsName",
@@ -29,7 +29,7 @@ public class NodeServiceTests : IntegrationTest
             Description = "Description",
             Aspect = Aspect.NotSet,
             CompanyId = 1,
-            NodeTerminals = new List<NodeTerminalLibAm>{
+            NodeTerminals = new List<AspectObjectTerminalLibAm>{
                 new()
                 {
                     TerminalId = 60427,
@@ -108,7 +108,7 @@ public class NodeServiceTests : IntegrationTest
     [Fact]
     public async Task GetLatestVersions_Nodes_Result_Ok()
     {
-        var nodeAm = new NodeLibAm
+        var nodeAm = new AspectObjectLibAm
         {
             Name = "Node4",
             RdsName = "RdsName",
@@ -120,7 +120,7 @@ public class NodeServiceTests : IntegrationTest
             Version = "1.0"
         };
 
-        var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
+        var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IAspectObjectService>();
         var nodeCm = await nodeService.Create(nodeAm);
 
         nodeAm.Description = "Description v1.1";
@@ -137,7 +137,7 @@ public class NodeServiceTests : IntegrationTest
     [Fact]
     public async Task Update_Node_Result_Ok()
     {
-        var nodeAm = new NodeLibAm
+        var nodeAm = new AspectObjectLibAm
         {
             Name = "Node6",
             RdsName = "RdsName",
@@ -149,7 +149,7 @@ public class NodeServiceTests : IntegrationTest
             Version = "1.0"
         };
 
-        var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<INodeService>();
+        var nodeService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IAspectObjectService>();
 
         var cm = await nodeService.Create(nodeAm);
         nodeAm.Description = "Description2";

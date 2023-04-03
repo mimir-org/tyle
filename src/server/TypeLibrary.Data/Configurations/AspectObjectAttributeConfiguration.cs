@@ -4,15 +4,15 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Configurations;
 
-public class NodeAttributeConfiguration : IEntityTypeConfiguration<NodeAttributeLibDm>
+public class AspectObjectAttributeConfiguration : IEntityTypeConfiguration<AspectObjectAttributeLibDm>
 {
-    public void Configure(EntityTypeBuilder<NodeAttributeLibDm> builder)
+    public void Configure(EntityTypeBuilder<AspectObjectAttributeLibDm> builder)
     {
         builder.HasKey(x => x.Id);
         builder.ToTable("Node_Attribute");
         builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
 
-        builder.HasOne(x => x.Node).WithMany(y => y.NodeAttributes).HasForeignKey(x => x.NodeId).OnDelete(DeleteBehavior.NoAction);
+        builder.HasOne(x => x.AspectObject).WithMany(y => y.NodeAttributes).HasForeignKey(x => x.NodeId).OnDelete(DeleteBehavior.NoAction);
         builder.HasOne(x => x.Attribute).WithMany(y => y.AttributeNodes).HasForeignKey(x => x.AttributeId).OnDelete(DeleteBehavior.NoAction);
     }
 }

@@ -12,12 +12,12 @@ namespace TypeLibrary.Services.Services;
 
 public class VersionService : IVersionService
 {
-    private readonly INodeRepository _nodeRepository;
+    private readonly IAspectObjectRepository _aspectObjectRepository;
     private readonly ITerminalRepository _terminalRepository;
 
-    public VersionService(INodeRepository nodeRepository, ITerminalRepository terminalRepository)
+    public VersionService(IAspectObjectRepository aspectObjectRepository, ITerminalRepository terminalRepository)
     {
-        _nodeRepository = nodeRepository;
+        _aspectObjectRepository = aspectObjectRepository;
         _terminalRepository = terminalRepository;
     }
 
@@ -35,10 +35,10 @@ public class VersionService : IVersionService
 
         var existingDmVersions = new List<T>();
 
-        if (obj.GetType() == typeof(NodeLibDm) && (obj as NodeLibDm)?.Version != null)
+        if (obj.GetType() == typeof(AspectObjectLibDm) && (obj as AspectObjectLibDm)?.Version != null)
         {
-            (existingDmVersions as List<NodeLibDm>)?.AddRange(_nodeRepository.Get()
-                .Where(x => x.FirstVersionId == (obj as NodeLibDm)?.FirstVersionId && x.State != State.Deleted).ToList()
+            (existingDmVersions as List<AspectObjectLibDm>)?.AddRange(_aspectObjectRepository.Get()
+                .Where(x => x.FirstVersionId == (obj as AspectObjectLibDm)?.FirstVersionId && x.State != State.Deleted).ToList()
                 .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
         }
 

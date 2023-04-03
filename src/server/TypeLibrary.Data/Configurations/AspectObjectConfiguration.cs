@@ -6,9 +6,9 @@ using Mimirorg.Common.Converters;
 
 namespace TypeLibrary.Data.Configurations;
 
-public class NodeConfiguration : IEntityTypeConfiguration<NodeLibDm>
+public class NodeConfiguration : IEntityTypeConfiguration<AspectObjectLibDm>
 {
-    public void Configure(EntityTypeBuilder<NodeLibDm> builder)
+    public void Configure(EntityTypeBuilder<AspectObjectLibDm> builder)
     {
         builder.HasKey(x => x.Id);
         builder.HasIndex(x => x.FirstVersionId).IsUnique(false);
