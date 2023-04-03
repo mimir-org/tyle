@@ -18,11 +18,14 @@ public class AttributeProfile : Profile
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Iri, opt => opt.Ignore())
             .ForMember(dest => dest.TypeReference, opt => opt.MapFrom(src => src.TypeReference))
-            .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
-            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow))
             .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? "Unknown" : contextAccessor.GetUserId()))
-            .ForMember(dest => dest.AttributeUnits, opt => opt.MapFrom(src => src.AttributeUnits));
+            .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
+            .ForMember(dest => dest.State, opt => opt.Ignore())
+            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+            .ForMember(dest => dest.AttributeUnits, opt => opt.MapFrom(src => src.AttributeUnits))
+            .ForMember(dest => dest.AttributeNodes, opt => opt.Ignore())
+            .ForMember(dest => dest.AttributeTerminals, opt => opt.Ignore());
 
         CreateMap<AttributeLibDm, AttributeLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -30,13 +33,13 @@ public class AttributeProfile : Profile
             .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
             .ForMember(dest => dest.TypeReference,
                 opt => opt.MapFrom(src => src.TypeReference))
-            .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
+            .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
+            .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy))
             .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
             .ForMember(dest => dest.CompanyName,
                 opt => opt.MapFrom(src => companyFactory.GetCompanyName(src.CompanyId)))
+            .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-            .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
-            .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy))
             .ForMember(dest => dest.AttributeUnits, opt => opt.MapFrom(src => src.AttributeUnits));
     }
 }

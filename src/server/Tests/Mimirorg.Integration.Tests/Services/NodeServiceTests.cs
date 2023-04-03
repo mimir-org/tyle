@@ -72,7 +72,7 @@ public class NodeServiceTests : IntegrationTest
         {
             foreach (var cm in nodeCm.NodeTerminals)
             {
-                Assert.Equal(am.TerminalId, cm.Terminal.Id);
+                Assert.Equal(am.TerminalId.ToString(), cm.Terminal.Id);
                 Assert.Equal(am.MinQuantity, cm.MinQuantity);
                 Assert.Equal(am.MaxQuantity, cm.MaxQuantity);
                 Assert.Equal(am.ConnectorDirection.ToString(), cm.ConnectorDirection.ToString());
@@ -88,7 +88,7 @@ public class NodeServiceTests : IntegrationTest
         Assert.Equal(nodeAm.TypeReference, nodeCm.TypeReference);
 
         Assert.Equal(nodeAm.Symbol, nodeCm.Symbol);
-        Assert.Equal(nodeAm.ParentId, nodeCm.ParentId);
+        Assert.Equal(nodeAm.ParentId.ToString(), nodeCm.ParentId);
 
         var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == nodeCm.Id && x.ObjectType == "NodeLibDm");
 
@@ -125,7 +125,7 @@ public class NodeServiceTests : IntegrationTest
 
         nodeAm.Description = "Description v1.1";
 
-        var nodeCmUpdated = await nodeService.Update(nodeCm.Id, nodeAm);
+        var nodeCmUpdated = await nodeService.Update(int.Parse(nodeCm.Id), nodeAm);
 
         Assert.True(nodeCm?.Description == "Description");
         Assert.True(nodeCm.Version == "1.0");
@@ -153,7 +153,7 @@ public class NodeServiceTests : IntegrationTest
 
         var cm = await nodeService.Create(nodeAm);
         nodeAm.Description = "Description2";
-        var cmUpdated = await nodeService.Update(cm.Id, nodeAm);
+        var cmUpdated = await nodeService.Update(int.Parse(cm.Id), nodeAm);
 
         Assert.True(cm.Description == "Description1" && cm.Version == "1.0");
         Assert.True(cmUpdated.Description == "Description2" && cmUpdated.Version == "1.1");

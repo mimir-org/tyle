@@ -35,7 +35,7 @@ public class TerminalServiceTests : IntegrationTest
 
         Assert.NotNull(terminalCm);
         Assert.True(terminalCm.State == State.Draft);
-        Assert.Equal(terminalAm.ParentId, terminalCm.ParentId);
+        Assert.Equal(terminalAm.ParentId.ToString(), terminalCm.ParentId);
 
         Assert.Equal(terminalAm.TypeReference, terminalCm.TypeReference);
 
@@ -77,7 +77,7 @@ public class TerminalServiceTests : IntegrationTest
 
         terminalAm.Description = "Description v1.1";
 
-        var terminalCmUpdated = await terminalService.Update(terminalLibCm.Id, terminalAm);
+        var terminalCmUpdated = await terminalService.Update(int.Parse(terminalLibCm.Id), terminalAm);
 
         Assert.True(terminalLibCm?.Description == "Description v1.0");
         Assert.True(terminalLibCm.Version == "1.0");

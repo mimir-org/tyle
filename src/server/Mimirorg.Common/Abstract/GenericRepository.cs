@@ -62,6 +62,9 @@ public abstract class GenericRepository<TContext, TEntity> : IGenericRepository<
     public virtual async Task Delete(int id)
     {
         var entityToDelete = await DbSet.FindAsync(id);
+        if (entityToDelete == null)
+            return;
+
         if (Context.Entry(entityToDelete).State == EntityState.Detached)
         {
             DbSet.Attach(entityToDelete);

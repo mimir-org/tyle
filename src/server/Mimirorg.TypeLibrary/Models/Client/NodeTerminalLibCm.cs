@@ -4,7 +4,7 @@ namespace Mimirorg.TypeLibrary.Models.Client;
 
 public class NodeTerminalLibCm
 {
-    public int Id { get; set; }
+    public string Id { get; set; }
     public int MinQuantity { get; set; }
     public int MaxQuantity { get; set; }
     public ConnectorDirection ConnectorDirection { get; set; }

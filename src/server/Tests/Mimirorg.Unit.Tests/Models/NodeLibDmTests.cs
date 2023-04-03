@@ -1,7 +1,10 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
 using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Models.Application;
 using Xunit;
 
 namespace Mimirorg.Test.Unit.Models;
@@ -102,5 +105,58 @@ public class NodeLibDmTests : UnitTest<MimirorgCommonFixture>
 
         var status = dummy.dm.CalculateVersionStatus(dummy.am);
         Assert.Equal(VersionStatus.Major, status);
+    }
+
+    [Fact]
+    public void CalculateVersionStatus_Validates_Correct_Major_Version_On_Attribute_Add()
+    {
+        var dummy = _fixture.CreateNodeTestData();
+
+        // Reset changes
+        //dummy.am.AttributeIdList.Remove("555");
+        dummy.am.NodeTerminals = dummy.am.NodeTerminals.Where(x => x.TerminalId != 555).ToList();
+        dummy.am.SelectedAttributePredefined = dummy.am.SelectedAttributePredefined.Where(x => x.Key != "555").ToList();
+
+        // Trigger minor
+        dummy.am.PurposeName = "x";
+        dummy.am.CompanyId = 10;
+        dummy.am.Description = "x";
+        dummy.am.Symbol = "x";
+        dummy.am.TypeReference = "x";
+
+        // Trigger major
+        dummy.am.NodeAttributes = new List<NodeAttributeLibAm>
+        {
+            new()
+            {
+                AttributeId = 123456
+            }
+        };
+
+        var status = dummy.dm.CalculateVersionStatus(dummy.am);
+        Assert.Equal(VersionStatus.Major, status);
+    }
+
+    [Fact]
+    public void CalculateVersionStatus_Throws_Exception_On_Null()
+    {
+        var dummy = _fixture.CreateNodeTestData();
+
+        Assert.Throws<ArgumentNullException>(() => dummy.dm.CalculateVersionStatus(null));
+    }
+
+    [Fact]
+    public void CalculateVersionStatus_Handles_Null_Terminals_SelectedAttributes()
+    {
+        var dummy = _fixture.CreateNodeTestData();
+
+        dummy.am.NodeTerminals = null;
+        dummy.am.SelectedAttributePredefined = null;
+
+        dummy.dm.NodeTerminals = null;
+        dummy.dm.SelectedAttributePredefined = null;
+
+        var status = dummy.dm.CalculateVersionStatus(dummy.am);
+        Assert.Equal(VersionStatus.NoChange, status);
     }
 }

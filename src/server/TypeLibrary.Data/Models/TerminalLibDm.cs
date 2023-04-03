@@ -13,22 +13,22 @@ namespace TypeLibrary.Data.Models;
 public class TerminalLibDm : IVersionable<TerminalLibAm>, IVersionObject, ILogable
 {
     public int Id { get; set; }
-    public int? ParentId { get; set; }
-    public TerminalLibDm Parent { get; set; }
     public string Name { get; set; }
-    public string Version { get; set; }
-    public int FirstVersionId { get; set; }
     public string Iri { get; set; }
     public string TypeReference { get; set; }
-    public string Color { get; set; }
-    public string Description { get; set; }
-    public int CompanyId { get; set; }
-    public State State { get; set; }
+    public string Version { get; set; }
+    public int FirstVersionId { get; set; }
     public DateTime Created { get; set; }
     public string CreatedBy { get; set; }
-    public ICollection<TerminalAttributeLibDm> TerminalAttributes { get; set; }
+    public int CompanyId { get; set; }
+    public State State { get; set; }
+    public string Color { get; set; }
+    public string Description { get; set; }
+    public int? ParentId { get; set; }
+    public TerminalLibDm Parent { get; set; }
     public ICollection<TerminalLibDm> Children { get; set; }
     public ICollection<NodeTerminalLibDm> TerminalNodes { get; set; }
+    public ICollection<TerminalAttributeLibDm> TerminalAttributes { get; set; }
 
     #region IVersionable
 

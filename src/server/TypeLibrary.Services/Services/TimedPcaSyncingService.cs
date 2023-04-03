@@ -147,7 +147,6 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
     {
         var pcaAttributesFetch = _attributeReferenceRepository.FetchAttributesFromReference();
         using var scope = _serviceProvider.CreateScope();
-        var attributeService = scope.ServiceProvider.GetService<IAttributeService>();
         var attributeRepository = scope.ServiceProvider.GetService<IAttributeRepository>();
         var dbAttributes = attributeRepository.Get().ExcludeDeleted().ToList();
 
@@ -178,7 +177,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         {
             if (dbAttributeReferences.ContainsKey(pcaAttribute.TypeReference))
             {
-                var storedAttribute = attributeService.Get(dbAttributeReferences[pcaAttribute.TypeReference]);
+                var storedAttribute = attributeRepository.Get(dbAttributeReferences[pcaAttribute.TypeReference]);
 
                 if (AttributeIsUnchanged(storedAttribute, pcaAttribute)) continue;
 
@@ -201,7 +200,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         _logger.LogInformation($"Number of new attributes: {attributesToCreate.Count - idsOfAttributesToDelete.Count}");
     }
 
-    private static bool AttributeIsUnchanged(AttributeLibCm stored, AttributeLibAm external)
+    private static bool AttributeIsUnchanged(AttributeLibDm stored, AttributeLibAm external)
     {
         if (stored.Name != external.Name) return false;
 
