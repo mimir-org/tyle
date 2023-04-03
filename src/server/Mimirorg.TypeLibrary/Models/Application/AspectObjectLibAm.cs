@@ -7,7 +7,7 @@ namespace Mimirorg.TypeLibrary.Models.Application;
 /// <summary>
 /// Object used to create or update a node
 /// </summary>
-public class NodeLibAm
+public class AspectObjectLibAm
 {
     /// <summary>
     /// The name of the node
@@ -110,7 +110,7 @@ public class NodeLibAm
     /// It is not allowed to remove terminals
     /// Adding terminals generates a major increase
     /// </remarks>
-    public ICollection<NodeTerminalLibAm> NodeTerminals { get; set; }
+    public ICollection<AspectObjectTerminalLibAm> NodeTerminals { get; set; }
 
     /// <summary>
     /// A list of attributes

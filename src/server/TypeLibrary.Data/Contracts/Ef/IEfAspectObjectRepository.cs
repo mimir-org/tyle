@@ -3,7 +3,7 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts.Ef;
 
-public interface IEfNodeRepository : IGenericRepository<TypeLibraryDbContext, AspectObjectLibDm>, INodeRepository
+public interface IEfAspectObjectRepository : IGenericRepository<TypeLibraryDbContext, AspectObjectLibDm>, IAspectObjectRepository
 {
 
 }

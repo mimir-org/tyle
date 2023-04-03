@@ -6,7 +6,7 @@ using Mimirorg.Common.Converters;
 
 namespace TypeLibrary.Data.Configurations;
 
-public class NodeConfiguration : IEntityTypeConfiguration<AspectObjectLibDm>
+public class AspectObjectConfiguration : IEntityTypeConfiguration<AspectObjectLibDm>
 {
     public void Configure(EntityTypeBuilder<AspectObjectLibDm> builder)
     {

@@ -5,7 +5,7 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Contracts;
 
-public interface INodeRepository
+public interface IAspectObjectRepository
 {
     /// <summary>
     /// Get the registered company on given id

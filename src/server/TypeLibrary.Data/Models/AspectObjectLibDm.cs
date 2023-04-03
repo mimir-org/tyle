@@ -13,7 +13,7 @@ namespace TypeLibrary.Data.Models;
 /// <summary>
 /// Node domain model
 /// </summary>
-public class AspectObjectLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogable
+public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject, ILogable
 {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -40,7 +40,7 @@ public class AspectObjectLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogab
 
     #region IVersionable
 
-    public Validation HasIllegalChanges(NodeLibAm other)
+    public Validation HasIllegalChanges(AspectObjectLibAm other)
     {
         if (other == null)
             throw new ArgumentNullException(nameof(other));
@@ -63,10 +63,10 @@ public class AspectObjectLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogab
             validation.AddNotAllowToChange(nameof(ParentId));
 
         //Attributes
-        var nodeAttributeAms = new List<NodeAttributeLibAm>();
+        var nodeAttributeAms = new List<AspectObjectAttributeLibAm>();
         var nodeAttributeDms = new List<AspectObjectAttributeLibDm>();
 
-        nodeAttributeAms.AddRange(other.NodeAttributes ?? new List<NodeAttributeLibAm>());
+        nodeAttributeAms.AddRange(other.NodeAttributes ?? new List<AspectObjectAttributeLibAm>());
         nodeAttributeDms.AddRange(NodeAttributes ?? new List<AspectObjectAttributeLibDm>());
 
         if (nodeAttributeDms.Select(y => y.AttributeId).Any(id => nodeAttributeAms.Select(x => x.AttributeId).All(x => x != id)))
@@ -74,7 +74,7 @@ public class AspectObjectLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogab
 
         //Terminals
         NodeTerminals ??= new List<AspectObjectTerminalLibDm>();
-        other.NodeTerminals ??= new List<NodeTerminalLibAm>();
+        other.NodeTerminals ??= new List<AspectObjectTerminalLibAm>();
         var otherTerminals = other.NodeTerminals.Select(x => (x.TerminalId, x.ConnectorDirection));
         if (NodeTerminals.Select(y => (y.TerminalId, y.ConnectorDirection)).Any(identifier => otherTerminals.Select(x => x).All(x => x != identifier)))
         {
@@ -93,7 +93,7 @@ public class AspectObjectLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogab
         return validation;
     }
 
-    public VersionStatus CalculateVersionStatus(NodeLibAm other)
+    public VersionStatus CalculateVersionStatus(AspectObjectLibAm other)
     {
         if (other == null)
             throw new ArgumentNullException(nameof(other));
@@ -108,10 +108,10 @@ public class AspectObjectLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogab
             minor = true;
 
         //Attributes
-        var nodeAttributeAms = new List<NodeAttributeLibAm>();
+        var nodeAttributeAms = new List<AspectObjectAttributeLibAm>();
         var nodeAttributeDms = new List<AspectObjectAttributeLibDm>();
 
-        nodeAttributeAms.AddRange(other.NodeAttributes ?? new List<NodeAttributeLibAm>());
+        nodeAttributeAms.AddRange(other.NodeAttributes ?? new List<AspectObjectAttributeLibAm>());
         nodeAttributeDms.AddRange(NodeAttributes ?? new List<AspectObjectAttributeLibDm>());
 
         if (!nodeAttributeDms.Select(x => x.AttributeId).SequenceEqual(nodeAttributeAms.Select(x => x.AttributeId)))
@@ -121,7 +121,7 @@ public class AspectObjectLibDm : IVersionable<NodeLibAm>, IVersionObject, ILogab
 
         // Node Terminals
         NodeTerminals ??= new List<AspectObjectTerminalLibDm>();
-        other.NodeTerminals ??= new List<NodeTerminalLibAm>();
+        other.NodeTerminals ??= new List<AspectObjectTerminalLibAm>();
         var otherTerminals = other.NodeTerminals.Select(x => (x.TerminalId, x.ConnectorDirection));
         if (!NodeTerminals.Select(x => (x.TerminalId, x.ConnectorDirection)).SequenceEqual(otherTerminals))
             major = true;

@@ -4,7 +4,7 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Configurations;
 
-public class NodeTerminalConfiguration : IEntityTypeConfiguration<AspectObjectTerminalLibDm>
+public class AspectObjectTerminalConfiguration : IEntityTypeConfiguration<AspectObjectTerminalLibDm>
 {
     public void Configure(EntityTypeBuilder<AspectObjectTerminalLibDm> builder)
     {

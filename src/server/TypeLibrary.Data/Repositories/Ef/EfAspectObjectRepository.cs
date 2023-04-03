@@ -12,7 +12,7 @@ using TypeLibrary.Data.Models.Common;
 
 namespace TypeLibrary.Data.Repositories.Ef;
 
-public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, AspectObjectLibDm>, IEfNodeRepository
+public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, AspectObjectLibDm>, IEfAspectObjectRepository
 {
     private readonly IApplicationSettingsRepository _settings;
     private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;

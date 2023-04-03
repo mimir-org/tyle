@@ -4,7 +4,7 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Repositories.Ef;
 
-public class EfAspectObjectTerminalRepository : GenericRepository<TypeLibraryDbContext, AspectObjectTerminalLibDm>, IEfNodeTerminalRepository
+public class EfAspectObjectTerminalRepository : GenericRepository<TypeLibraryDbContext, AspectObjectTerminalLibDm>, IEfAspectObjectTerminalRepository
 {
     public EfAspectObjectTerminalRepository(TypeLibraryDbContext dbContext) : base(dbContext)
     {

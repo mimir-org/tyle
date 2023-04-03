@@ -2,7 +2,7 @@ using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Application;
 
-public class NodeTerminalLibAm
+public class AspectObjectTerminalLibAm
 {
     public int MinQuantity { get; set; }
     public int MaxQuantity { get; set; }

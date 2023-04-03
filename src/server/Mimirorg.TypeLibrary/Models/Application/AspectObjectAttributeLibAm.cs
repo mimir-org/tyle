@@ -1,6 +1,6 @@
 namespace Mimirorg.TypeLibrary.Models.Application;
 
-public class NodeAttributeLibAm
+public class AspectObjectAttributeLibAm
 {
     public int AttributeId { get; set; }
 }

@@ -24,14 +24,14 @@ namespace TypeLibrary.Core.Controllers.V1;
 [ApiVersion("1.0")]
 [Route("V{version:apiVersion}/[controller]")]
 [SwaggerTag("Node Services")]
-public class LibraryNodeController : ControllerBase
+public class LibraryAspectObjectController : ControllerBase
 {
-    private readonly ILogger<LibraryNodeController> _logger;
+    private readonly ILogger<LibraryAspectObjectController> _logger;
     private readonly IAspectObjectService _aspectObjectService;
     private readonly IMimirorgAuthService _authService;
     private readonly ILogService _logService;
 
-    public LibraryNodeController(ILogger<LibraryNodeController> logger, IAspectObjectService aspectObjectService, IMimirorgAuthService authService, ILogService logService)
+    public LibraryAspectObjectController(ILogger<LibraryAspectObjectController> logger, IAspectObjectService aspectObjectService, IMimirorgAuthService authService, ILogService logService)
     {
         _logger = logger;
         _aspectObjectService = aspectObjectService;
@@ -44,7 +44,7 @@ public class LibraryNodeController : ControllerBase
     /// </summary>
     /// <returns>A collection of nodes</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<NodeLibCm>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<AspectObjectLibCm>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
@@ -68,7 +68,7 @@ public class LibraryNodeController : ControllerBase
     /// <param name="id">The id of the node to get</param>
     /// <returns>The requested node</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(AspectObjectLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -101,23 +101,23 @@ public class LibraryNodeController : ControllerBase
     /// <summary>
     /// Create a node
     /// </summary>
-    /// <param name="node">The node that should be created</param>
+    /// <param name="aspectObject">The node that should be created</param>
     /// <returns>The created node</returns>
     [HttpPost]
-    [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(AspectObjectLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [MimirorgAuthorize(MimirorgPermission.Write, "node", "CompanyId")]
-    public async Task<IActionResult> Create([FromBody] NodeLibAm node)
+    public async Task<IActionResult> Create([FromBody] AspectObjectLibAm aspectObject)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var cm = await _aspectObjectService.Create(node);
+            var cm = await _aspectObjectService.Create(aspectObject);
             return Ok(cm);
         }
         catch (MimirorgBadRequestException e)
@@ -146,12 +146,12 @@ public class LibraryNodeController : ControllerBase
     /// <param name="node">The new values of the node</param>
     /// <returns>The updated node</returns>
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(AspectObjectLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [MimirorgAuthorize(MimirorgPermission.Write, "nodeAm", "CompanyId")]
-    public async Task<IActionResult> Update(int id, [FromBody] NodeLibAm nodeAm)
+    public async Task<IActionResult> Update(int id, [FromBody] AspectObjectLibAm aspectObjectAm)
     {
         try
         {
@@ -160,10 +160,10 @@ public class LibraryNodeController : ControllerBase
 
             var companyId = await _aspectObjectService.GetCompanyId(id);
 
-            if (companyId != nodeAm.CompanyId)
+            if (companyId != aspectObjectAm.CompanyId)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _aspectObjectService.Update(id, nodeAm);
+            var data = await _aspectObjectService.Update(id, aspectObjectAm);
             return Ok(data);
         }
         catch (MimirorgBadRequestException e)
