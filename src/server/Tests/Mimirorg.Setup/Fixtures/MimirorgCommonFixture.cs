@@ -18,7 +18,7 @@ public class MimirorgCommonFixture : IDisposable
     public Mock<IMapper> Mapper = new();
 
     // Repositories
-    public Mock<IAspectObjectRepository> NodeRepository = new();
+    public Mock<IAspectObjectRepository> AspectObjectRepository = new();
     public Mock<IQuantityDatumRepository> DatumRepository = new();
     public Mock<IAttributePredefinedRepository> AttributePredefinedRepository = new();
     public Mock<IAttributeReferenceRepository> AttributeReferenceRepository = new();
@@ -38,15 +38,15 @@ public class MimirorgCommonFixture : IDisposable
         MimirorgAuthSettings.RequiredLength = 10;
     }
 
-    public (AspectObjectLibAm am, AspectObjectLibDm dm) CreateNodeTestData()
+    public (AspectObjectLibAm am, AspectObjectLibDm dm) CreateAspectObjectTestData()
     {
-        var nodeLibAm = new AspectObjectLibAm
+        var aspectObjectLibAm = new AspectObjectLibAm
         {
             Name = "AA",
             RdsName = "AA",
             RdsCode = "AA",
             Aspect = Aspect.Function,
-            NodeTerminals = new List<AspectObjectTerminalLibAm>
+            AspectObjectTerminals = new List<AspectObjectTerminalLibAm>
             {
                 new()
                 {
@@ -78,14 +78,14 @@ public class MimirorgCommonFixture : IDisposable
             TypeReference = "https://www.tyle.com/"
         };
 
-        var nodeLibDm = new AspectObjectLibDm
+        var aspectObjectLibDm = new AspectObjectLibDm
         {
             Id = 68313,
             Name = "AA",
             RdsName = "AA",
             RdsCode = "AA",
             Aspect = Aspect.Function,
-            NodeTerminals = new List<AspectObjectTerminalLibDm>
+            AspectObjectTerminals = new List<AspectObjectTerminalLibDm>
             {
                 new()
                 {
@@ -107,7 +107,7 @@ public class MimirorgCommonFixture : IDisposable
             TypeReference = "https://www.tyle.com/"
         };
 
-        return (nodeLibAm, nodeLibDm);
+        return (aspectObjectLibAm, aspectObjectLibDm);
     }
 
     public (TerminalLibAm am, TerminalLibDm dm) CreateTerminalTestData()
