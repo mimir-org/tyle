@@ -7,15 +7,15 @@ namespace TypeLibrary.Data;
 public class TypeLibraryDbContext : DbContext
 {
     public virtual DbSet<SymbolLibDm> Symbol { get; set; }
-    public virtual DbSet<AspectObjectTerminalLibDm> TerminalNode { get; set; }
+    public virtual DbSet<AspectObjectTerminalLibDm> AspectObjectTerminal { get; set; }
     public virtual DbSet<AttributePredefinedLibDm> AttributePredefined { get; set; }
     public virtual DbSet<TerminalLibDm> Terminal { get; set; }
-    public virtual DbSet<AspectObjectLibDm> Node { get; set; }
+    public virtual DbSet<AspectObjectLibDm> AspectObject { get; set; }
     public virtual DbSet<LogLibDm> Log { get; set; }
     public virtual DbSet<AttributeLibDm> Attribute { get; set; }
     public virtual DbSet<UnitLibDm> Unit { get; set; }
     public virtual DbSet<AttributeUnitLibDm> AttributeUnit { get; set; }
-    public virtual DbSet<AspectObjectAttributeLibDm> NodeAttribute { get; set; }
+    public virtual DbSet<AspectObjectAttributeLibDm> AspectObjectAttribute { get; set; }
     public virtual DbSet<TerminalAttributeLibDm> TerminalAttribute { get; set; }
     public virtual DbSet<QuantityDatumLibDm> QuantityDatum { get; set; }
 

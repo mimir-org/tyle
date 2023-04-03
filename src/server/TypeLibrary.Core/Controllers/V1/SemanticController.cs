@@ -41,18 +41,18 @@ public class SemanticController : ControllerBase
     }
 
     /// <summary>
-    /// Get node ontology
+    /// Get aspect object ontology
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
     // ReSharper disable once StringLiteralTypo
-    [HttpGet("aspectnode/{id}")]
+    [HttpGet("aspectobject/{id}")]
     [ProducesResponseType(typeof(AspectObjectLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult GetNode(int id)
+    public IActionResult GetAspectObject(int id)
     {
         try
         {

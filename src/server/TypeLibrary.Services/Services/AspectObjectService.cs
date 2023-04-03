@@ -33,31 +33,31 @@ public class AspectObjectService : IAspectObjectService
     }
 
     /// <summary>
-    /// Get the latest version of a node based on given id
+    /// Get the latest version of an aspect object based on given id
     /// </summary>
-    /// <param name="id">The id of the node</param>
-    /// <returns>The latest version of the node of given id</returns>
-    /// <exception cref="MimirorgNotFoundException">Throws if there is no node with the given id, and that node is at the latest version.</exception>
+    /// <param name="id">The id of the aspect object</param>
+    /// <returns>The latest version of the aspect object of given id</returns>
+    /// <exception cref="MimirorgNotFoundException">Throws if there is no aspect object with the given id, and that aspect object is at the latest version.</exception>
     public AspectObjectLibCm Get(int id)
     {
         var dm = _aspectObjectRepository.Get(id);
 
         if (dm == null)
-            throw new MimirorgNotFoundException($"Node with id {id} not found.");
+            throw new MimirorgNotFoundException($"Aspect object with id {id} not found.");
 
         return _mapper.Map<AspectObjectLibCm>(dm);
     }
 
     /// <summary>
-    /// Get the latest node versions
+    /// Get the latest aspect object versions
     /// </summary>
-    /// <returns>A collection of nodes</returns>
+    /// <returns>A collection of aspect objects</returns>
     public IEnumerable<AspectObjectLibCm> GetLatestVersions()
     {
         var dms = _aspectObjectRepository.Get()?.LatestVersionsExcludeDeleted()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
         if (dms == null)
-            throw new MimirorgNotFoundException("No nodes were found.");
+            throw new MimirorgNotFoundException("No aspect objects were found.");
 
         foreach (var dm in dms)
             dm.Children = dms.Where(x => x.ParentId == dm.Id).ToList();
@@ -66,13 +66,13 @@ public class AspectObjectService : IAspectObjectService
     }
 
     /// <summary>
-    /// Create a new node
+    /// Create a new aspect object
     /// </summary>
-    /// <param name="aspectObjectAm">The node that should be created</param>
-    /// <returns>The created node</returns>
-    /// <exception cref="MimirorgBadRequestException">Throws if node is not valid</exception>
-    /// <exception cref="MimirorgDuplicateException">Throws if node already exist</exception>
-    /// <remarks>Remember that creating a new node could be creating a new version of existing node.
+    /// <param name="aspectObjectAm">The aspect object that should be created</param>
+    /// <returns>The created aspect object</returns>
+    /// <exception cref="MimirorgBadRequestException">Throws if aspect object is not valid</exception>
+    /// <exception cref="MimirorgDuplicateException">Throws if aspect object already exist</exception>
+    /// <remarks>Remember that creating a new aspect object could be creating a new version of existing aspect object.
     /// They will have the same first version id, but have different version and id.</remarks>
     public async Task<AspectObjectLibCm> Create(AspectObjectLibAm aspectObjectAm)
     {
@@ -82,7 +82,7 @@ public class AspectObjectService : IAspectObjectService
         var validation = aspectObjectAm.ValidateObject();
 
         if (!validation.IsValid)
-            throw new MimirorgBadRequestException("Node is not valid.", validation);
+            throw new MimirorgBadRequestException("Aspect object is not valid.", validation);
 
         aspectObjectAm.Version = "1.0";
         var dm = _mapper.Map<AspectObjectLibDm>(aspectObjectAm);
@@ -92,21 +92,21 @@ public class AspectObjectService : IAspectObjectService
         // TODO: This is a temporary fix, since the TS types are not built correctly for nullable ints
         if (dm.ParentId == 0) dm.ParentId = null;
 
-        var createdNode = await _aspectObjectRepository.Create(dm);
+        var createdAspectObject = await _aspectObjectRepository.Create(dm);
         _aspectObjectRepository.ClearAllChangeTrackers();
-        await _logService.CreateLog(createdNode, LogType.State, State.Draft.ToString());
-        _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
+        await _logService.CreateLog(createdAspectObject, LogType.State, State.Draft.ToString());
+        _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
 
-        return Get(createdNode.Id);
+        return Get(createdAspectObject.Id);
     }
 
     /// <summary>
-    /// Update a node if the data is allowed to be changed.
+    /// Update an aspect object if the data is allowed to be changed.
     /// </summary>
-    /// <param name="id">The id of the node to update</param>
-    /// <param name="aspectObjectAm">The node to update</param>
-    /// <returns>The updated node</returns>
-    /// <exception cref="MimirorgBadRequestException">Throws if the node does not exist,
+    /// <param name="id">The id of the aspect object to update</param>
+    /// <param name="aspectObjectAm">The aspect object to update</param>
+    /// <returns>The updated aspect object</returns>
+    /// <exception cref="MimirorgBadRequestException">Throws if the aspect object does not exist,
     /// if it is not valid or there are not allowed changes.</exception>
     /// <remarks>ParentId to old references will also be updated.</remarks>
     public async Task<AspectObjectLibCm> Update(int id, AspectObjectLibAm aspectObjectAm)
@@ -114,69 +114,69 @@ public class AspectObjectService : IAspectObjectService
         var validation = aspectObjectAm.ValidateObject();
 
         if (!validation.IsValid)
-            throw new MimirorgBadRequestException("Node is not valid.", validation);
+            throw new MimirorgBadRequestException("Aspect object is not valid.", validation);
 
-        var nodeToUpdate = _aspectObjectRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
+        var aspectObjectToUpdate = _aspectObjectRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
-        if (nodeToUpdate == null)
+        if (aspectObjectToUpdate == null)
         {
             validation = new Validation(new List<string> { nameof(AspectObjectLibAm.Name), nameof(AspectObjectLibAm.Version) },
-                $"Node with name {aspectObjectAm.Name}, aspect {aspectObjectAm.Aspect}, Rds Code {aspectObjectAm.RdsCode}, id {id} and version {aspectObjectAm.Version} does not exist.");
-            throw new MimirorgBadRequestException("Node does not exist or is flagged as deleted. Update is not possible.", validation);
+                $"Aspect object with name {aspectObjectAm.Name}, aspect {aspectObjectAm.Aspect}, Rds Code {aspectObjectAm.RdsCode}, id {id} and version {aspectObjectAm.Version} does not exist.");
+            throw new MimirorgBadRequestException("Aspect object does not exist or is flagged as deleted. Update is not possible.", validation);
         }
 
-        validation = nodeToUpdate.HasIllegalChanges(aspectObjectAm);
+        validation = aspectObjectToUpdate.HasIllegalChanges(aspectObjectAm);
 
         if (!validation.IsValid)
             throw new MimirorgBadRequestException(validation.Message, validation);
 
-        var versionStatus = nodeToUpdate.CalculateVersionStatus(aspectObjectAm);
+        var versionStatus = aspectObjectToUpdate.CalculateVersionStatus(aspectObjectAm);
 
         if (versionStatus == VersionStatus.NoChange)
-            return Get(nodeToUpdate.Id);
+            return Get(aspectObjectToUpdate.Id);
 
         //We need to take into account that there exist a higher version that has state 'Deleted'.
         //Therefore we need to increment minor/major from the latest version, including those with state 'Deleted'.
-        nodeToUpdate.Version = _aspectObjectRepository.Get().LatestVersionIncludeDeleted(nodeToUpdate.FirstVersionId).Version;
+        aspectObjectToUpdate.Version = _aspectObjectRepository.Get().LatestVersionIncludeDeleted(aspectObjectToUpdate.FirstVersionId).Version;
 
         aspectObjectAm.Version = versionStatus switch
         {
-            VersionStatus.Minor => nodeToUpdate.Version.IncrementMinorVersion(),
-            VersionStatus.Major => nodeToUpdate.Version.IncrementMajorVersion(),
-            _ => nodeToUpdate.Version
+            VersionStatus.Minor => aspectObjectToUpdate.Version.IncrementMinorVersion(),
+            VersionStatus.Major => aspectObjectToUpdate.Version.IncrementMajorVersion(),
+            _ => aspectObjectToUpdate.Version
         };
 
         var dm = _mapper.Map<AspectObjectLibDm>(aspectObjectAm);
 
         dm.State = State.Draft;
-        dm.FirstVersionId = nodeToUpdate.FirstVersionId;
+        dm.FirstVersionId = aspectObjectToUpdate.FirstVersionId;
 
-        var nodeCm = await _aspectObjectRepository.Create(dm);
+        var aspectObjectCm = await _aspectObjectRepository.Create(dm);
         _aspectObjectRepository.ClearAllChangeTrackers();
-        await _aspectObjectRepository.ChangeParentId(id, nodeCm.Id);
+        await _aspectObjectRepository.ChangeParentId(id, aspectObjectCm.Id);
         await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
-        _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
+        _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
 
-        return Get(nodeCm.Id);
+        return Get(aspectObjectCm.Id);
     }
 
     /// <summary>
-    /// Change node state
+    /// Change aspect object state
     /// </summary>
-    /// <param name="id">The node id that should change the state</param>
-    /// <param name="state">The new node state</param>
-    /// <returns>Node with updated state</returns>
-    /// <exception cref="MimirorgNotFoundException">Throws if the node does not exist on latest version</exception>
+    /// <param name="id">The aspect object id that should change the state</param>
+    /// <param name="state">The new aspect object state</param>
+    /// <returns>Aspect objects with updated state</returns>
+    /// <exception cref="MimirorgNotFoundException">Throws if the aspect object does not exist on latest version</exception>
     public async Task<ApprovalDataCm> ChangeState(int id, State state)
     {
         var dm = _aspectObjectRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
         if (dm == null)
-            throw new MimirorgNotFoundException($"Node with id {id} not found, or is not latest version.");
+            throw new MimirorgNotFoundException($"Aspect object with id {id} not found, or is not latest version.");
 
         await _aspectObjectRepository.ChangeState(state, new List<int> { dm.Id });
         await _logService.CreateLog(dm, LogType.State, state.ToString());
-        _hookService.HookQueue.Enqueue(CacheKey.AspectNode);
+        _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
 
         return new ApprovalDataCm
         {
@@ -186,10 +186,10 @@ public class AspectObjectService : IAspectObjectService
     }
 
     /// <summary>
-    /// Get node existing company id for terminal by id
+    /// Get aspect object existing company id for terminal by id
     /// </summary>
-    /// <param name="id">The node id</param>
-    /// <returns>Company id for node</returns>
+    /// <param name="id">The aspect object id</param>
+    /// <returns>Company id for aspect object</returns>
     public async Task<int> GetCompanyId(int id)
     {
         return await _aspectObjectRepository.HasCompany(id);

@@ -10,54 +10,54 @@ namespace TypeLibrary.Services.Contracts;
 public interface IAspectObjectService
 {
     /// <summary>
-    /// Get the latest node versions
+    /// Get the latest aspect object versions
     /// </summary>
-    /// <returns>A collection of nodes</returns>
+    /// <returns>A collection of aspect objects</returns>
     IEnumerable<AspectObjectLibCm> GetLatestVersions();
 
     /// <summary>
-    /// Get the latest version of a node based on given id
+    /// Get the latest version of an aspect object based on given id
     /// </summary>
-    /// <param name="id">The id of the node</param>
-    /// <returns>The latest version of the node of given id</returns>
-    /// <exception cref="MimirorgNotFoundException">Throws if there is no node with the given id, and that node is at the latest version.</exception>
+    /// <param name="id">The id of the aspect object</param>
+    /// <returns>The latest version of the aspect object of given id</returns>
+    /// <exception cref="MimirorgNotFoundException">Throws if there is no aspect object with the given id, and that aspect object is at the latest version.</exception>
     AspectObjectLibCm Get(int id);
 
     /// <summary>
-    /// Create a new node
+    /// Create a new aspect object
     /// </summary>
-    /// <param name="aspectObjectAm">The node that should be created</param>
-    /// <returns>The created node</returns>
-    /// <exception cref="MimirorgBadRequestException">Throws if node is not valid</exception>
-    /// <exception cref="MimirorgDuplicateException">Throws if node already exist</exception>
-    /// <remarks>Remember that creating a new node could be creating a new version of existing node.
+    /// <param name="aspectObjectAm">The aspect object that should be created</param>
+    /// <returns>The created aspect object</returns>
+    /// <exception cref="MimirorgBadRequestException">Throws if aspect object is not valid</exception>
+    /// <exception cref="MimirorgDuplicateException">Throws if aspect object already exist</exception>
+    /// <remarks>Remember that creating a new aspect object could be creating a new version of existing aspect object.
     /// They will have the same first version id, but have different version and id.</remarks>
     Task<AspectObjectLibCm> Create(AspectObjectLibAm aspectObjectAm);
 
     /// <summary>
-    /// Update a node if the data is allowed to be changed.
+    /// Update an aspect object if the data is allowed to be changed.
     /// </summary>
-    /// <param name="id">The id of the node to update</param>
-    /// <param name="aspectObjectAm">The node to update</param>
-    /// <returns>The updated node</returns>
-    /// <exception cref="MimirorgBadRequestException">Throws if the node does not exist,
+    /// <param name="id">The id of the aspect object to update</param>
+    /// <param name="aspectObjectAm">The aspect object to update</param>
+    /// <returns>The updated aspect object</returns>
+    /// <exception cref="MimirorgBadRequestException">Throws if the aspect object does not exist,
     /// if it is not valid or there are not allowed changes.</exception>
     /// <remarks>ParentId to old references will also be updated.</remarks>
     Task<AspectObjectLibCm> Update(int id, AspectObjectLibAm aspectObjectAm);
 
     /// <summary>
-    /// Change node state
+    /// Change aspect object state
     /// </summary>
-    /// <param name="id">The node id that should change the state</param>
-    /// <param name="state">The new node state</param>
-    /// <returns>Node with updated state</returns>
-    /// <exception cref="MimirorgNotFoundException">Throws if the node does not exist on latest version</exception>
+    /// <param name="id">The aspect object id that should change the state</param>
+    /// <param name="state">The new aspect object state</param>
+    /// <returns>Aspect object with updated state</returns>
+    /// <exception cref="MimirorgNotFoundException">Throws if the aspect object does not exist on latest version</exception>
     Task<ApprovalDataCm> ChangeState(int id, State state);
 
     /// <summary>
-    /// Get the company id of a node
+    /// Get the company id of an aspect object
     /// </summary>
-    /// <param name="id">The node id</param>
-    /// <returns>Company id for the node</returns>
+    /// <param name="id">The aspect object id</param>
+    /// <returns>Company id for the aspect object</returns>
     Task<int> GetCompanyId(int id);
 }

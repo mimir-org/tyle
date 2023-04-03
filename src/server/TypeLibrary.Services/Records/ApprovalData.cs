@@ -12,20 +12,20 @@ namespace TypeLibrary.Services.Records;
 
 public record ApprovalData
 {
-    private List<ApprovalCm> Nodes { get; } = new();
+    private List<ApprovalCm> AspectObjects { get; } = new();
     private List<ApprovalCm> Terminals { get; } = new();
 
     public ICollection<ApprovalCm> GetAllData()
     {
-        return Nodes.Union(Terminals).ToList();
+        return AspectObjects.Union(Terminals).ToList();
     }
 
-    public Task ResolveNodes(IAspectObjectService aspectObjectService, IMapper mapper, IMimirorgAuthService authService)
+    public Task ResolveAspectObjects(IAspectObjectService aspectObjectService, IMapper mapper, IMimirorgAuthService authService)
     {
         var data = aspectObjectService.GetLatestVersions().Where(x => x.State is State.ApproveCompany or State.ApproveGlobal or State.Delete).ToList();
         data = data.Where(x => authService.HasAccess(x.CompanyId, NextStateMapper(x.State)).Result).ToList();
         var mappedData = mapper.Map<ICollection<ApprovalCm>>(data);
-        Nodes.AddRange(mappedData);
+        AspectObjects.AddRange(mappedData);
         return Task.CompletedTask;
     }
 

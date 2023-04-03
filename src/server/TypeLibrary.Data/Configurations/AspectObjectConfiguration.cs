@@ -15,7 +15,7 @@ public class AspectObjectConfiguration : IEntityTypeConfiguration<AspectObjectLi
         builder.HasIndex(x => x.State).IsUnique(false);
         builder.HasIndex(x => new { x.State, x.Aspect }).IsUnique(false);
         builder.HasIndex(x => new { x.ParentId }).IsUnique(false);
-        builder.ToTable("Node");
+        builder.ToTable("AspectObject");
         builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
         builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(63);
         builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false).HasMaxLength(255);

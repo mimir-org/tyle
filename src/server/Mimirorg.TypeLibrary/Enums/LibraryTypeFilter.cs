@@ -4,6 +4,6 @@ namespace Mimirorg.TypeLibrary.Enums;
 
 public enum LibraryTypeFilter
 {
-    [Display(Name = "Node")]
-    Node = 0
+    [Display(Name = "Aspect Object")]
+    AspectObject = 0
 }

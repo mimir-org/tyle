@@ -33,7 +33,7 @@ public class ApprovalService : IApprovalService
 
         var tasks = new List<Task>
         {
-            Task.Run(() => data.ResolveNodes(_aspectObjectService, _mapper, _authService)),
+            Task.Run(() => data.ResolveAspectObjects(_aspectObjectService, _mapper, _authService)),
             Task.Run(() => data.ResolveTerminals(_terminalService, _mapper, _authService))
         };
 

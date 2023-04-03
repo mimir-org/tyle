@@ -24,9 +24,9 @@ public class VersionService : IVersionService
     /// <summary>
     /// Method will find and return the latest version.
     /// </summary>
-    /// <typeparam name="T">NodeLibDm, TerminalLibDm or AttributeLibDm</typeparam>
-    /// <param name="obj">NodeLibDm, TerminalLibDm or AttributeLibDm</param>
-    /// <returns>Latest version of NodeLibDm, TerminalLibDm or AttributeLibDm</returns>
+    /// <typeparam name="T">AspectObjectLibDm, TerminalLibDm or AttributeLibDm</typeparam>
+    /// <param name="obj">AspectObjectLibDm, TerminalLibDm or AttributeLibDm</param>
+    /// <returns>Latest version of AspectObjectLibDm, TerminalLibDm or AttributeLibDm</returns>
     /// <exception cref="MimirorgBadRequestException"></exception>
     public async Task<T> GetLatestVersion<T>(T obj) where T : class
     {

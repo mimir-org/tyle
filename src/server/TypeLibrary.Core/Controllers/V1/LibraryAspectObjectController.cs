@@ -23,7 +23,7 @@ namespace TypeLibrary.Core.Controllers.V1;
 [ApiController]
 [ApiVersion("1.0")]
 [Route("V{version:apiVersion}/[controller]")]
-[SwaggerTag("Node Services")]
+[SwaggerTag("Aspect Object Services")]
 public class LibraryAspectObjectController : ControllerBase
 {
     private readonly ILogger<LibraryAspectObjectController> _logger;
@@ -40,9 +40,9 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
-    /// Get all nodes
+    /// Get all aspect objects
     /// </summary>
-    /// <returns>A collection of nodes</returns>
+    /// <returns>A collection of aspect objects</returns>
     [HttpGet]
     [ProducesResponseType(typeof(ICollection<AspectObjectLibCm>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -63,10 +63,10 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
-    /// Get node by id
+    /// Get aspect object by id
     /// </summary>
-    /// <param name="id">The id of the node to get</param>
-    /// <returns>The requested node</returns>
+    /// <param name="id">The id of the aspect object to get</param>
+    /// <returns>The requested aspect object</returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(AspectObjectLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -99,17 +99,17 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
-    /// Create a node
+    /// Create an aspect object
     /// </summary>
-    /// <param name="aspectObject">The node that should be created</param>
-    /// <returns>The created node</returns>
+    /// <param name="aspectObject">The aspect object that should be created</param>
+    /// <returns>The created aspect object</returns>
     [HttpPost]
     [ProducesResponseType(typeof(AspectObjectLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "node", "CompanyId")]
+    [MimirorgAuthorize(MimirorgPermission.Write, "aspectObject", "CompanyId")]
     public async Task<IActionResult> Create([FromBody] AspectObjectLibAm aspectObject)
     {
         try
@@ -140,17 +140,17 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
-    /// Update a node
+    /// Update an aspect object
     /// </summary>
-    /// <param name="id">The id of the node that should be updated</param>
-    /// <param name="node">The new values of the node</param>
-    /// <returns>The updated node</returns>
+    /// <param name="id">The id of the aspect object that should be updated</param>
+    /// <param name="aspectObjectAm">The new values of the aspect object</param>
+    /// <returns>The updated aspect object</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(AspectObjectLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "nodeAm", "CompanyId")]
+    [MimirorgAuthorize(MimirorgPermission.Write, "aspectObjectAm", "CompanyId")]
     public async Task<IActionResult> Update(int id, [FromBody] AspectObjectLibAm aspectObjectAm)
     {
         try
@@ -184,11 +184,11 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
-    /// Update a node with a new state
+    /// Update an aspect object with a new state
     /// </summary>
-    /// <param name="id">The id of the node to be updated</param>
+    /// <param name="id">The id of the aspect object to be updated</param>
     /// <param name="state">The new state</param>
-    /// <returns>An approval data object containing the id of the node and the new state</returns>
+    /// <returns>An approval data object containing the id of the aspect object and the new state</returns>
     [HttpPatch("{id}/state/{state}")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -217,10 +217,10 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
-    /// Reject a state change request and revert the node to its previous state
+    /// Reject a state change request and revert the aspect object to its previous state
     /// </summary>
-    /// <param name="id">The id of the node with the requested state change</param>
-    /// <returns>An approval data object containing the id of the node and the reverted state</returns>
+    /// <param name="id">The id of the aspect object with the requested state change</param>
+    /// <returns>An approval data object containing the id of the aspect object and the reverted state</returns>
     [HttpPatch("{id}/state/reject")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -36,8 +36,8 @@ public class AspectObjectProfile : Profile
             .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
             .ForMember(dest => dest.Parent, opt => opt.Ignore())
             .ForMember(dest => dest.Children, opt => opt.Ignore())
-            .ForMember(dest => dest.NodeTerminals, opt => opt.MapFrom(src => CreateTerminals(src.NodeTerminals).ToList()))
-            .ForMember(dest => dest.NodeAttributes, opt => opt.MapFrom(src => src.NodeAttributes))
+            .ForMember(dest => dest.AspectObjectTerminals, opt => opt.MapFrom(src => CreateTerminals(src.AspectObjectTerminals).ToList()))
+            .ForMember(dest => dest.AspectObjectAttributes, opt => opt.MapFrom(src => src.AspectObjectAttributes))
             .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
         CreateMap<AspectObjectLibDm, AspectObjectLibCm>()
@@ -62,8 +62,8 @@ public class AspectObjectProfile : Profile
             .ForMember(dest => dest.ParentName, opt => opt.MapFrom(src => src.Parent != null ? src.Parent.Name : null))
             .ForMember(dest => dest.ParentIri, opt => opt.MapFrom(src => src.Parent != null ? src.Parent.Iri : null))
             .ForMember(dest => dest.Children, opt => opt.MapFrom(src => src.Children))
-            .ForMember(dest => dest.NodeTerminals, opt => opt.MapFrom(src => src.NodeTerminals))
-            .ForMember(dest => dest.NodeAttributes, opt => opt.MapFrom(src => src.NodeAttributes))
+            .ForMember(dest => dest.AspectObjectTerminals, opt => opt.MapFrom(src => src.AspectObjectTerminals))
+            .ForMember(dest => dest.AspectObjectAttributes, opt => opt.MapFrom(src => src.AspectObjectAttributes))
             .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
         CreateMap<AspectObjectLibCm, ApprovalCm>()
@@ -75,7 +75,7 @@ public class AspectObjectProfile : Profile
             .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => companyFactory.GetCompanyName(src.CompanyId)))
             .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
             .ForMember(dest => dest.StateName, opt => opt.MapFrom(src => src.State.ToString()))
-            .ForMember(dest => dest.ObjectType, opt => opt.MapFrom(src => "Node"))
+            .ForMember(dest => dest.ObjectType, opt => opt.MapFrom(src => "AspectObject"))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
     }
 

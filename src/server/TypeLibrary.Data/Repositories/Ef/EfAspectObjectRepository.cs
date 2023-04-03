@@ -26,13 +26,13 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     /// <summary>
     /// Get the registered company on given id
     /// </summary>
-    /// <param name="id">The node id</param>
+    /// <param name="id">The aspect object id</param>
     /// <returns>The company id of given terminal</returns>
     public async Task<int> HasCompany(int id)
     {
         var procParams = new Dictionary<string, object>
         {
-            {"@TableName", "Node"},
+            {"@TableName", "AspectObject"},
             {"@Id", id}
         };
 
@@ -41,11 +41,11 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     }
 
     /// <summary>
-    /// Change the state of the node on all listed id's
+    /// Change the state of the aspect object on all listed id's
     /// </summary>
     /// <param name="state">The state to change to</param>
-    /// <param name="ids">A list of node id's</param>
-    /// <returns>The number of nodes in given state</returns>
+    /// <param name="ids">A list of aspect object id's</param>
+    /// <returns>The number of aspect objects in given state</returns>
     public async Task<int> ChangeState(State state, ICollection<int> ids)
     {
         if (ids == null)
@@ -55,7 +55,7 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
 
         var procParams = new Dictionary<string, object>
         {
-            {"@TableName", "Node"},
+            {"@TableName", "AspectObject"},
             {"@State", state.ToString()},
             {"@IdList", idList}
         };
@@ -65,16 +65,16 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     }
 
     /// <summary>
-    /// Change all parent id's on nodes from old id to the new id 
+    /// Change all parent id's on aspect objects from old id to the new id 
     /// </summary>
-    /// <param name="oldId">Old node parent id</param>
-    /// <param name="newId">New node parent id</param>
-    /// <returns>The number of nodes with the new parent id</returns>
+    /// <param name="oldId">Old aspect object parent id</param>
+    /// <param name="newId">New aspect object parent id</param>
+    /// <returns>The number of aspect objects with the new parent id</returns>
     public async Task<int> ChangeParentId(int oldId, int newId)
     {
         var procParams = new Dictionary<string, object>
         {
-            {"@TableName", "Node"},
+            {"@TableName", "AspectObject"},
             {"@OldId", oldId},
             {"@NewId", newId}
         };
@@ -84,61 +84,61 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     }
 
     /// <summary>
-    /// Check if node exists
+    /// Check if aspect object exists
     /// </summary>
-    /// <param name="id">The id of the node</param>
-    /// <returns>True if node exist</returns>
+    /// <param name="id">The id of the aspect object</param>
+    /// <returns>True if aspect object exist</returns>
     public async Task<bool> Exist(int id)
     {
         return await Exist(x => x.Id == id);
     }
 
     /// <summary>
-    /// Get all nodes
+    /// Get all aspect objects
     /// </summary>
-    /// <returns>A collection of nodes</returns>
+    /// <returns>A collection of aspect objects</returns>
     public IEnumerable<AspectObjectLibDm> Get()
     {
         return GetAll()
-            .Include(x => x.NodeTerminals)
+            .Include(x => x.AspectObjectTerminals)
             .ThenInclude(x => x.Terminal)
-            .Include(x => x.NodeAttributes)
+            .Include(x => x.AspectObjectAttributes)
             .ThenInclude(x => x.Attribute)
             .AsSplitQuery();
     }
 
     /// <summary>
-    /// Get node by id
+    /// Get aspect object by id
     /// </summary>
-    /// <param name="id">The node id</param>
-    /// <returns>Node if found</returns>
+    /// <param name="id">The aspect object id</param>
+    /// <returns>Aspect object if found</returns>
     public AspectObjectLibDm Get(int id)
     {
         return FindBy(x => x.Id == id)
-            .Include(x => x.NodeTerminals)
+            .Include(x => x.AspectObjectTerminals)
             .ThenInclude(x => x.Terminal)
-            .Include(x => x.NodeAttributes)
+            .Include(x => x.AspectObjectAttributes)
             .ThenInclude(x => x.Attribute)
             .AsSplitQuery()
             .FirstOrDefault();
     }
 
     /// <summary>
-    /// Create a node
+    /// Create an aspect object
     /// </summary>
-    /// <param name="aspectObject">The node to be created</param>
-    /// <returns>The created node</returns>
+    /// <param name="aspectObject">The aspect object to be created</param>
+    /// <returns>The created aspect object</returns>
     public async Task<AspectObjectLibDm> Create(AspectObjectLibDm aspectObject)
     {
         await CreateAsync(aspectObject);
         await SaveAsync();
 
         if (aspectObject.FirstVersionId == 0) aspectObject.FirstVersionId = aspectObject.Id;
-        aspectObject.Iri = $"{_settings.ApplicationSemanticUrl}/aspectnode/{aspectObject.Id}";
-        foreach (var nodeTerminal in aspectObject.NodeTerminals)
-            nodeTerminal.NodeId = aspectObject.Id;
-        foreach (var nodeAttribute in aspectObject.NodeAttributes)
-            nodeAttribute.NodeId = aspectObject.Id;
+        aspectObject.Iri = $"{_settings.ApplicationSemanticUrl}/aspectobject/{aspectObject.Id}";
+        foreach (var aspectObjectTerminal in aspectObject.AspectObjectTerminals)
+            aspectObjectTerminal.AspectObjectId = aspectObject.Id;
+        foreach (var aspectObjectAttribute in aspectObject.AspectObjectAttributes)
+            aspectObjectAttribute.AspectObjectId = aspectObject.Id;
         await SaveAsync();
 
         Detach(aspectObject);

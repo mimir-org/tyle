@@ -5,12 +5,12 @@ using Mimirorg.TypeLibrary.Enums;
 namespace Mimirorg.TypeLibrary.Models.Application;
 
 /// <summary>
-/// Object used to create or update a node
+/// Object used to create or update a aspect object
 /// </summary>
 public class AspectObjectLibAm
 {
     /// <summary>
-    /// The name of the node
+    /// The name of the aspect object
     /// </summary>
     /// <remarks>
     /// The name is not allowed to change
@@ -27,14 +27,14 @@ public class AspectObjectLibAm
     public string TypeReference { get; set; }
 
     /// <summary>
-    /// The node version
+    /// The aspect object version
     /// </summary>
     [Required]
     [Double]
     public string Version { get; set; }
 
     /// <summary>
-    /// The owner of the node type
+    /// The owner of the aspect object type
     /// </summary>
     /// <remarks>
     /// A company id change, will trigger a minor version increase
@@ -44,7 +44,7 @@ public class AspectObjectLibAm
     public int CompanyId { get; set; }
 
     /// <summary>
-    /// The aspect of the node
+    /// The aspect of the aspect object
     /// </summary>
     /// <remarks>
     /// The aspect is not allowed to change
@@ -53,7 +53,7 @@ public class AspectObjectLibAm
     public Aspect Aspect { get; set; }
 
     /// <summary>
-    /// The purpose name of the node
+    /// The purpose name of the aspect object
     /// </summary>
     /// <remarks>
     /// A purpose name change will trigger a minor version increase
@@ -62,7 +62,7 @@ public class AspectObjectLibAm
     public string PurposeName { get; set; }
 
     /// <summary>
-    /// The RDS code of the node
+    /// The RDS code of the aspect object
     /// </summary>
     /// <remarks>
     /// The RDS code is not allowed to change
@@ -71,7 +71,7 @@ public class AspectObjectLibAm
     public string RdsCode { get; set; }
 
     /// <summary>
-    /// The RDS name of the node
+    /// The RDS name of the aspect object
     /// </summary>
     /// <remarks>
     /// The RDS name is not allowed to change
@@ -80,7 +80,7 @@ public class AspectObjectLibAm
     public string RdsName { get; set; }
 
     /// <summary>
-    /// The symbol of the node type
+    /// The symbol of the aspect object type
     /// </summary>
     /// <remarks>
     /// A symbol change, will trigger a minor version increase
@@ -88,7 +88,7 @@ public class AspectObjectLibAm
     public string Symbol { get; set; }
 
     /// <summary>
-    /// The description of the node type
+    /// The description of the aspect object type
     /// </summary>
     /// <remarks>
     /// A description change, will trigger a minor version increase
@@ -96,7 +96,7 @@ public class AspectObjectLibAm
     public string Description { get; set; }
 
     /// <summary>
-    /// The parent id for the node type
+    /// The parent id for the aspect object type
     /// </summary>
     /// <remarks>
     /// The parent id is not allowed to change
@@ -110,7 +110,7 @@ public class AspectObjectLibAm
     /// It is not allowed to remove terminals
     /// Adding terminals generates a major increase
     /// </remarks>
-    public ICollection<AspectObjectTerminalLibAm> NodeTerminals { get; set; }
+    public ICollection<AspectObjectTerminalLibAm> AspectObjectTerminals { get; set; }
 
     /// <summary>
     /// A list of attributes
@@ -119,7 +119,7 @@ public class AspectObjectLibAm
     /// It is not allowed to remove attributes
     /// Adding attributes generates a major increase
     /// </remarks>
-    public ICollection<AspectObjectAttributeLibAm> NodeAttributes { get; set; }
+    public ICollection<AspectObjectAttributeLibAm> AspectObjectAttributes { get; set; }
 
     /// <summary>
     /// A list of selected predefined attributes

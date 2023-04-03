@@ -30,7 +30,7 @@ public class TerminalProfile : Profile
             .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
             .ForMember(dest => dest.Parent, opt => opt.Ignore())
             .ForMember(dest => dest.Children, opt => opt.Ignore())
-            .ForMember(dest => dest.TerminalNodes, opt => opt.Ignore())
+            .ForMember(dest => dest.TerminalAspectObjects, opt => opt.Ignore())
             .ForMember(dest => dest.TerminalAttributes, opt => opt.MapFrom(src => src.TerminalAttributes));
 
         CreateMap<TerminalLibDm, TerminalLibCm>()

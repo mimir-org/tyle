@@ -11,7 +11,7 @@ using TypeLibrary.Data.Contracts.Common;
 namespace TypeLibrary.Data.Models;
 
 /// <summary>
-/// Node domain model
+/// Aspect object domain model
 /// </summary>
 public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject, ILogable
 {
@@ -34,8 +34,8 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
     public int? ParentId { get; set; }
     public AspectObjectLibDm Parent { get; set; }
     public virtual ICollection<AspectObjectLibDm> Children { get; set; }
-    public virtual ICollection<AspectObjectTerminalLibDm> NodeTerminals { get; set; }
-    public ICollection<AspectObjectAttributeLibDm> NodeAttributes { get; set; }
+    public virtual ICollection<AspectObjectTerminalLibDm> AspectObjectTerminals { get; set; }
+    public ICollection<AspectObjectAttributeLibDm> AspectObjectAttributes { get; set; }
     public virtual List<SelectedAttributePredefinedLibDm> SelectedAttributePredefined { get; set; }
 
     #region IVersionable
@@ -63,22 +63,22 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
             validation.AddNotAllowToChange(nameof(ParentId));
 
         //Attributes
-        var nodeAttributeAms = new List<AspectObjectAttributeLibAm>();
-        var nodeAttributeDms = new List<AspectObjectAttributeLibDm>();
+        var aspectObjectAttributeAms = new List<AspectObjectAttributeLibAm>();
+        var aspectObjectAttributeDms = new List<AspectObjectAttributeLibDm>();
 
-        nodeAttributeAms.AddRange(other.NodeAttributes ?? new List<AspectObjectAttributeLibAm>());
-        nodeAttributeDms.AddRange(NodeAttributes ?? new List<AspectObjectAttributeLibDm>());
+        aspectObjectAttributeAms.AddRange(other.AspectObjectAttributes ?? new List<AspectObjectAttributeLibAm>());
+        aspectObjectAttributeDms.AddRange(AspectObjectAttributes ?? new List<AspectObjectAttributeLibDm>());
 
-        if (nodeAttributeDms.Select(y => y.AttributeId).Any(id => nodeAttributeAms.Select(x => x.AttributeId).All(x => x != id)))
-            validation.AddNotAllowToChange(nameof(NodeAttributes), "It is not allowed to remove or change attributes");
+        if (aspectObjectAttributeDms.Select(y => y.AttributeId).Any(id => aspectObjectAttributeAms.Select(x => x.AttributeId).All(x => x != id)))
+            validation.AddNotAllowToChange(nameof(AspectObjectAttributes), "It is not allowed to remove or change attributes");
 
         //Terminals
-        NodeTerminals ??= new List<AspectObjectTerminalLibDm>();
-        other.NodeTerminals ??= new List<AspectObjectTerminalLibAm>();
-        var otherTerminals = other.NodeTerminals.Select(x => (x.TerminalId, x.ConnectorDirection));
-        if (NodeTerminals.Select(y => (y.TerminalId, y.ConnectorDirection)).Any(identifier => otherTerminals.Select(x => x).All(x => x != identifier)))
+        AspectObjectTerminals ??= new List<AspectObjectTerminalLibDm>();
+        other.AspectObjectTerminals ??= new List<AspectObjectTerminalLibAm>();
+        var otherTerminals = other.AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection));
+        if (AspectObjectTerminals.Select(y => (y.TerminalId, y.ConnectorDirection)).Any(identifier => otherTerminals.Select(x => x).All(x => x != identifier)))
         {
-            validation.AddNotAllowToChange(nameof(NodeTerminals), "It is not allowed to remove items from terminals");
+            validation.AddNotAllowToChange(nameof(AspectObjectTerminals), "It is not allowed to remove items from terminals");
         }
 
         //Predefined attributes
@@ -108,22 +108,22 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
             minor = true;
 
         //Attributes
-        var nodeAttributeAms = new List<AspectObjectAttributeLibAm>();
-        var nodeAttributeDms = new List<AspectObjectAttributeLibDm>();
+        var aspectObjectAttributeAms = new List<AspectObjectAttributeLibAm>();
+        var aspectObjectAttributeDms = new List<AspectObjectAttributeLibDm>();
 
-        nodeAttributeAms.AddRange(other.NodeAttributes ?? new List<AspectObjectAttributeLibAm>());
-        nodeAttributeDms.AddRange(NodeAttributes ?? new List<AspectObjectAttributeLibDm>());
+        aspectObjectAttributeAms.AddRange(other.AspectObjectAttributes ?? new List<AspectObjectAttributeLibAm>());
+        aspectObjectAttributeDms.AddRange(AspectObjectAttributes ?? new List<AspectObjectAttributeLibDm>());
 
-        if (!nodeAttributeDms.Select(x => x.AttributeId).SequenceEqual(nodeAttributeAms.Select(x => x.AttributeId)))
+        if (!aspectObjectAttributeDms.Select(x => x.AttributeId).SequenceEqual(aspectObjectAttributeAms.Select(x => x.AttributeId)))
         {
             major = true;
         }
 
-        // Node Terminals
-        NodeTerminals ??= new List<AspectObjectTerminalLibDm>();
-        other.NodeTerminals ??= new List<AspectObjectTerminalLibAm>();
-        var otherTerminals = other.NodeTerminals.Select(x => (x.TerminalId, x.ConnectorDirection));
-        if (!NodeTerminals.Select(x => (x.TerminalId, x.ConnectorDirection)).SequenceEqual(otherTerminals))
+        // Aspect Object Terminals
+        AspectObjectTerminals ??= new List<AspectObjectTerminalLibDm>();
+        other.AspectObjectTerminals ??= new List<AspectObjectTerminalLibAm>();
+        var otherTerminals = other.AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection));
+        if (!AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection)).SequenceEqual(otherTerminals))
             major = true;
 
         // Attribute Predefined

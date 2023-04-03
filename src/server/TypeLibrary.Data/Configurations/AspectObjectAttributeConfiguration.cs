@@ -9,10 +9,10 @@ public class AspectObjectAttributeConfiguration : IEntityTypeConfiguration<Aspec
     public void Configure(EntityTypeBuilder<AspectObjectAttributeLibDm> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.ToTable("Node_Attribute");
+        builder.ToTable("AspectObject_Attribute");
         builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
 
-        builder.HasOne(x => x.AspectObject).WithMany(y => y.NodeAttributes).HasForeignKey(x => x.NodeId).OnDelete(DeleteBehavior.NoAction);
-        builder.HasOne(x => x.Attribute).WithMany(y => y.AttributeNodes).HasForeignKey(x => x.AttributeId).OnDelete(DeleteBehavior.NoAction);
+        builder.HasOne(x => x.AspectObject).WithMany(y => y.AspectObjectAttributes).HasForeignKey(x => x.AspectObjectId).OnDelete(DeleteBehavior.NoAction);
+        builder.HasOne(x => x.Attribute).WithMany(y => y.AttributeAspectObjects).HasForeignKey(x => x.AttributeId).OnDelete(DeleteBehavior.NoAction);
     }
 }
