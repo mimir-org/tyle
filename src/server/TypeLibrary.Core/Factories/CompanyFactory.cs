@@ -22,18 +22,15 @@ public class CompanyFactory : ICompanyFactory
     {
         if (companyId == null) return null;
 
-        string companyName = null;
-
         try
         {
-            companyName = _companyCache.GetOrCreateAsync($"company-{companyId}",
+            return _companyCache.GetOrCreateAsync($"company-{companyId}",
                 async () => await _mimirorgCompanyService.GetCompanyById(companyId.Value)).Result.Name;
         }
         catch (MimirorgNotFoundException exception)
         {
             _logger.LogError($"Error when getting company name: {exception.Message}");
+            return null;
         }
-
-        return companyName;
     }
 }
