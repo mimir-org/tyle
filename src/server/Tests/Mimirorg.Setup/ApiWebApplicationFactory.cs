@@ -53,20 +53,20 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
 
             try
             {
-                _ = SeedTerminalData(terminalService, terminalRepository).Result;
-            }
-            catch (Exception e)
-            {
-                logger.LogError($"An error occurred seeding the database with test data. Error: {e.Message}");
-            }
-
-            try
-            {
                 _ = SeedCompanyData(companyService, companyRepository).Result;
             }
             catch (Exception e)
             {
                 logger.LogError($"An error occurred seeding the database with test company. Error: {e.Message}");
+            }
+
+            try
+            {
+                _ = SeedTerminalData(terminalService, terminalRepository).Result;
+            }
+            catch (Exception e)
+            {
+                logger.LogError($"An error occurred seeding the database with test data. Error: {e.Message}");
             }
         });
     }
