@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Api;
-using TypeLibrary.Core.Factories;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Services.Contracts;
@@ -35,8 +34,6 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
             services.AddDbContext<TypeLibraryDbContext>(options => options.UseInMemoryDatabase("TestDB"), ServiceLifetime.Transient);
             services.AddDbContext<MimirorgAuthenticationContext>(options => options.UseInMemoryDatabase("TestDBAuth"), ServiceLifetime.Transient);
             services.AddAuthentication("IntegrationUser").AddScheme<AuthenticationSchemeOptions, IntegrationTestAuthenticationHandler>("IntegrationUser", _ => { });
-
-            services.AddScoped<ICompanyFactory, TestCompanyFactory>();
 
             var sp = services.BuildServiceProvider();
 
@@ -85,13 +82,5 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
         await terminalService.Create(terminalB);
 
         return true;
-    }
-}
-
-public class TestCompanyFactory : ICompanyFactory
-{
-    public string GetCompanyName(int? companyId)
-    {
-        return companyId == null ? null : "TestCompany";
     }
 }

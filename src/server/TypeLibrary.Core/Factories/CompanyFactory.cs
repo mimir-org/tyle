@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Exceptions;
@@ -31,6 +32,12 @@ public class CompanyFactory : ICompanyFactory
         {
             _logger.LogError($"Error when getting company name: {exception.Message}");
             return null;
+        }
+        catch (AggregateException exception)
+        {
+            if (exception.InnerException is MimirorgNotFoundException) return null;
+
+            throw;
         }
     }
 }
