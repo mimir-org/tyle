@@ -104,8 +104,12 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
         {
             Name = "Test company",
             DisplayName = "TC",
+            Description = "...",
             ManagerId = "Manager",
-            Domain = "test.com"
+            Secret = "...",
+            Domain = "test.com",
+            Logo = "...",
+            HomePage = "test.com"
         };
 
         await companyService.CreateCompany(company);
