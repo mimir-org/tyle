@@ -1,17 +1,21 @@
-using System.Collections.Generic;
-using System.Linq;
+using System;
+using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
-using Mimirorg.TypeLibrary.Models.Client;
+using Mimirorg.Common.Exceptions;
+using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Core.Factories;
 
 public class CompanyFactory : ICompanyFactory
 {
-    private ICollection<MimirorgCompanyCm> _companies;
+    private readonly ICacheRepository _companyCache;
+    private readonly ILogger<CompanyFactory> _logger;
     private readonly IMimirorgCompanyService _mimirorgCompanyService;
 
-    public CompanyFactory(IMimirorgCompanyService mimirorgCompanyService)
+    public CompanyFactory(ICacheRepository companyCache, ILogger<CompanyFactory> logger, IMimirorgCompanyService mimirorgCompanyService)
     {
+        _companyCache = companyCache;
+        _logger = logger;
         _mimirorgCompanyService = mimirorgCompanyService;
     }
 
@@ -19,9 +23,21 @@ public class CompanyFactory : ICompanyFactory
     {
         if (companyId == null) return null;
 
-        _companies ??= _mimirorgCompanyService.GetAllCompanies().Result;
+        try
+        {
+            return _companyCache.GetOrCreateAsync($"company-{companyId}",
+                async () => await _mimirorgCompanyService.GetCompanyById(companyId.Value)).Result.Name;
+        }
+        catch (MimirorgNotFoundException exception)
+        {
+            _logger.LogError($"Error when getting company name: {exception.Message}");
+            return null;
+        }
+        catch (AggregateException exception)
+        {
+            if (exception.InnerException is MimirorgNotFoundException) return null;
 
-        var company = _companies.FirstOrDefault(x => x.Id == companyId);
-        return company?.Name;
+            throw;
+        }
     }
 }
