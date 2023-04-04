@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication;
-using Mimirorg.Authentication.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Api;
 using TypeLibrary.Data;
@@ -41,15 +40,11 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
             using var scope = sp.CreateScope();
             var scopedServices = scope.ServiceProvider;
             var db = scopedServices.GetRequiredService<TypeLibraryDbContext>();
-            var dbAuth = scopedServices.GetRequiredService<MimirorgAuthenticationContext>();
             var logger = scopedServices.GetRequiredService<ILogger<ApiWebApplicationFactory>>();
 
             var terminalService = scopedServices.GetRequiredService<ITerminalService>();
             var terminalRepository = scopedServices.GetRequiredService<ITerminalRepository>();
-            var companyService = scopedServices.GetRequiredService<IMimirorgCompanyService>();
-            var companyRepository = scopedServices.GetRequiredService<IMimirorgCompanyRepository>();
             db.Database.EnsureCreated();
-            dbAuth.Database.EnsureCreated();
 
             try
             {
@@ -58,15 +53,6 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
             catch (Exception e)
             {
                 logger.LogError($"An error occurred seeding the database with test data. Error: {e.Message}");
-            }
-
-            try
-            {
-                _ = SeedCompanyData(companyService, companyRepository).Result;
-            }
-            catch (Exception e)
-            {
-                logger.LogError($"An error occurred seeding the database with test company. Error: {e.Message}");
             }
         });
     }
@@ -94,21 +80,6 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
         await terminalService.Create(terminalA);
 
         await terminalService.Create(terminalB);
-
-        return true;
-    }
-
-    private static async Task<bool> SeedCompanyData(IMimirorgCompanyService companyService, IMimirorgCompanyRepository companyRepository)
-    {
-        var company = new MimirorgCompanyAm
-        {
-            Name = "Test company",
-            DisplayName = "TC",
-            ManagerId = "Manager",
-            Domain = "test.com"
-        };
-
-        await companyService.CreateCompany(company);
 
         return true;
     }
