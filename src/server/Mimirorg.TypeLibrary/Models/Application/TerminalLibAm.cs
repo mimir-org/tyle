@@ -64,7 +64,7 @@ public class TerminalLibAm
     /// <remarks>
     /// The parent id is not allowed to change
     /// </remarks>
-    public int? ParentId { get; set; }
+    public string ParentId { get; set; }
 
     /// <summary>
     /// A list of connected attributes
