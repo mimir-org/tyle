@@ -10,6 +10,7 @@ public class UnitConfiguration : IEntityTypeConfiguration<UnitLibDm>
     {
         builder.HasKey(x => x.Id);
         builder.HasIndex(x => x.State).IsUnique(false);
+        builder.HasIndex(x => x.TypeReference);
         builder.ToTable("Unit");
         builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(31);
         builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(127);
