@@ -14,12 +14,10 @@ namespace TypeLibrary.Data.Repositories.Ef;
 
 public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, AspectObjectLibDm>, IEfAspectObjectRepository
 {
-    private readonly IApplicationSettingsRepository _settings;
     private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
 
-    public EfAspectObjectRepository(IApplicationSettingsRepository settings, TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
+    public EfAspectObjectRepository(TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
     {
-        _settings = settings;
         _typeLibraryProcRepository = typeLibraryProcRepository;
     }
 
@@ -131,14 +129,6 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     public async Task<AspectObjectLibDm> Create(AspectObjectLibDm aspectObject)
     {
         await CreateAsync(aspectObject);
-        await SaveAsync();
-
-        if (aspectObject.FirstVersionId == 0) aspectObject.FirstVersionId = aspectObject.Id;
-        aspectObject.Iri = $"{_settings.ApplicationSemanticUrl}/aspectobject/{aspectObject.Id}";
-        foreach (var aspectObjectTerminal in aspectObject.AspectObjectTerminals)
-            aspectObjectTerminal.AspectObjectId = aspectObject.Id;
-        foreach (var aspectObjectAttribute in aspectObject.AspectObjectAttributes)
-            aspectObjectAttribute.AspectObjectId = aspectObject.Id;
         await SaveAsync();
 
         Detach(aspectObject);

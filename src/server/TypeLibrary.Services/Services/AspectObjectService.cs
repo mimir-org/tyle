@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
@@ -21,15 +23,21 @@ public class AspectObjectService : IAspectObjectService
 {
     private readonly IMapper _mapper;
     private readonly IAspectObjectRepository _aspectObjectRepository;
+    private readonly IAttributeRepository _attributeRepository;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
+    private readonly ILogger<AspectObjectService> _logger;
+    private readonly IApplicationSettingsRepository _settings;
 
-    public AspectObjectService(IMapper mapper, IAspectObjectRepository aspectObjectRepository, ITimedHookService hookService, ILogService logService)
+    public AspectObjectService(IMapper mapper, IAspectObjectRepository aspectObjectRepository, IAttributeRepository attributeRepository, ITimedHookService hookService, ILogService logService, ILogger<AspectObjectService> logger, IApplicationSettingsRepository settings)
     {
         _mapper = mapper;
         _aspectObjectRepository = aspectObjectRepository;
+        _attributeRepository = attributeRepository;
         _hookService = hookService;
         _logService = logService;
+        _logger = logger;
+        _settings = settings;
     }
 
     /// <summary>
@@ -87,11 +95,25 @@ public class AspectObjectService : IAspectObjectService
         aspectObjectAm.Version = "1.0";
         var dm = _mapper.Map<AspectObjectLibDm>(aspectObjectAm);
 
+        dm.Id = Guid.NewGuid().ToString();
+        dm.Iri = $"{_settings.ApplicationSemanticUrl}/aspectobject/{dm.Id}";
+        dm.FirstVersionId ??= dm.Id;
         dm.State = State.Draft;
 
-        // TODO: This is a temporary fix, since the TS types are not built correctly for nullable ints
-        if (dm.ParentId == 0) dm.ParentId = null;
+        foreach (var aspectObjectTerminal in dm.AspectObjectTerminals)
+            aspectObjectTerminal.AspectObjectId = dm.Id;
 
+        dm.Attributes = new List<AttributeLibDm>();
+        foreach (var attributeId in aspectObjectAm.Attributes)
+        {
+            var attribute = _attributeRepository.Get(attributeId);
+            if (attribute == null)
+                _logger.LogError(
+                    $"Could not add attribute with id {attributeId} to aspect object with id {dm.Id}, attribute not found.");
+            else
+                dm.Attributes.Add(attribute);
+        }
+        
         var createdAspectObject = await _aspectObjectRepository.Create(dm);
         _aspectObjectRepository.ClearAllChangeTrackers();
         await _logService.CreateLog(createdAspectObject, LogType.State, State.Draft.ToString());
