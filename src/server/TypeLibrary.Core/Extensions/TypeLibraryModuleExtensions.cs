@@ -42,7 +42,6 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<ITypeLibraryProcRepository, TypeLibraryProcRepository>();
         services.AddSingleton<IApplicationSettingsRepository, ApplicationSettingsRepository>();
         services.AddScoped<IEfAspectObjectRepository, EfAspectObjectRepository>();
-        services.AddScoped<IEfAspectObjectTerminalRepository, EfAspectObjectTerminalRepository>();
         services.AddScoped<IEfTerminalRepository, EfTerminalRepository>();
         services.AddScoped<IEfAttributePredefinedRepository, EfAttributePredefinedRepository>();
         services.AddSingleton<IFileRepository, JsonFileRepository>();
@@ -69,7 +68,6 @@ public static class TypeLibraryModuleExtensions
 
         // Dependency Injection - Services
         services.AddScoped<ITerminalService, TerminalService>();
-        services.AddScoped<IFileService, FileService>();
         services.AddScoped<IAttributeService, AttributeService>();
         services.AddScoped<IRdsService, RdsService>();
         services.AddScoped<ISeedingService, SeedingService>();
