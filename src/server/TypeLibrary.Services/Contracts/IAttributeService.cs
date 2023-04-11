@@ -18,7 +18,7 @@ public interface IAttributeService
     /// Get an attribute by id
     /// </summary>
     /// <returns>The attribute with the given id</returns>
-    AttributeLibCm Get(int id);
+    AttributeLibCm Get(string id);
 
     /// <summary>
     /// Create a new attribute
@@ -33,14 +33,14 @@ public interface IAttributeService
     /// <param name="id">The attribute id that should change state</param>
     /// <param name="state">The new attribute state</param>
     /// <returns>Attribute with updated state</returns>
-    Task<ApprovalDataCm> ChangeState(int id, State state);
+    Task<ApprovalDataCm> ChangeState(string id, State state);
 
     /// <summary>
     /// Get the company id of an attribute
     /// </summary>
     /// <param name="id">The attribute id</param>
     /// <returns>Company id for the attribute</returns>
-    Task<int> GetCompanyId(int id);
+    Task<int> GetCompanyId(string id);
 
     /// <summary>
     /// Get predefined attributes

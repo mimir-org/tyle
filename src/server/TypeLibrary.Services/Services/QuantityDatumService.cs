@@ -92,7 +92,7 @@ public class QuantityDatumService : IQuantityDatumService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(int id, State state)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state)
     {
         var dm = _quantityDatumRepository.Get().FirstOrDefault(x => x.Id == id);
 
@@ -112,7 +112,7 @@ public class QuantityDatumService : IQuantityDatumService
     }
 
     /// <inheritdoc />
-    public async Task<int> GetCompanyId(int id)
+    public async Task<int> GetCompanyId(string id)
     {
         return await _quantityDatumRepository.HasCompany(id);
     }

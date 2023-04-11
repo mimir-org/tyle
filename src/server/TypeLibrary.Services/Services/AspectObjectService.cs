@@ -46,7 +46,7 @@ public class AspectObjectService : IAspectObjectService
     /// <param name="id">The id of the aspect object</param>
     /// <returns>The latest version of the aspect object of given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no aspect object with the given id, and that aspect object is at the latest version.</exception>
-    public AspectObjectLibCm Get(int id)
+    public AspectObjectLibCm Get(string id)
     {
         var dm = _aspectObjectRepository.Get(id);
 
@@ -131,7 +131,7 @@ public class AspectObjectService : IAspectObjectService
     /// <exception cref="MimirorgBadRequestException">Throws if the aspect object does not exist,
     /// if it is not valid or there are not allowed changes.</exception>
     /// <remarks>ParentId to old references will also be updated.</remarks>
-    public async Task<AspectObjectLibCm> Update(int id, AspectObjectLibAm aspectObjectAm)
+    public async Task<AspectObjectLibCm> Update(string id, AspectObjectLibAm aspectObjectAm)
     {
         var validation = aspectObjectAm.ValidateObject();
 
@@ -189,7 +189,7 @@ public class AspectObjectService : IAspectObjectService
     /// <param name="state">The new aspect object state</param>
     /// <returns>Aspect objects with updated state</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if the aspect object does not exist on latest version</exception>
-    public async Task<ApprovalDataCm> ChangeState(int id, State state)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state)
     {
         var dm = _aspectObjectRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
@@ -212,7 +212,7 @@ public class AspectObjectService : IAspectObjectService
     /// </summary>
     /// <param name="id">The aspect object id</param>
     /// <returns>Company id for aspect object</returns>
-    public async Task<int> GetCompanyId(int id)
+    public async Task<int> GetCompanyId(string id)
     {
         return await _aspectObjectRepository.HasCompany(id);
     }

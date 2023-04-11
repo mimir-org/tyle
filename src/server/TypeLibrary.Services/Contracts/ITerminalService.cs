@@ -21,7 +21,7 @@ public interface ITerminalService
     /// <param name="id">The id of the terminal</param>
     /// <returns>The latest version of the terminal of given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id, and that terminal is at the latest version.</exception>
-    TerminalLibCm Get(int id);
+    TerminalLibCm Get(string id);
 
     /// <summary>
     /// Create a new terminal
@@ -43,7 +43,7 @@ public interface ITerminalService
     /// <exception cref="MimirorgBadRequestException">Throws if the terminal does not exist,
     /// if it is not valid or there are not allowed changes.</exception>
     /// <remarks>ParentId to old references will also be updated.</remarks>
-    Task<TerminalLibCm> Update(int id, TerminalLibAm terminalAm);
+    Task<TerminalLibCm> Update(string id, TerminalLibAm terminalAm);
 
     /// <summary>
     /// Change terminal state
@@ -52,12 +52,12 @@ public interface ITerminalService
     /// <param name="state">The new terminal state</param>
     /// <returns>Terminal with updated state</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if the terminal does not exist on latest version</exception>
-    Task<TerminalLibCm> ChangeState(int id, State state);
+    Task<TerminalLibCm> ChangeState(string id, State state);
 
     /// <summary>
     /// Get the company id of a terminal
     /// </summary>
     /// <param name="id">The terminal id</param>
     /// <returns>Company id for the terminal</returns>
-    Task<int> GetCompanyId(int id);
+    Task<int> GetCompanyId(string id);
 }

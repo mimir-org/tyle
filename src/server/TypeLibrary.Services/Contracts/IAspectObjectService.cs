@@ -21,7 +21,7 @@ public interface IAspectObjectService
     /// <param name="id">The id of the aspect object</param>
     /// <returns>The latest version of the aspect object of given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no aspect object with the given id, and that aspect object is at the latest version.</exception>
-    AspectObjectLibCm Get(int id);
+    AspectObjectLibCm Get(string id);
 
     /// <summary>
     /// Create a new aspect object
@@ -43,7 +43,7 @@ public interface IAspectObjectService
     /// <exception cref="MimirorgBadRequestException">Throws if the aspect object does not exist,
     /// if it is not valid or there are not allowed changes.</exception>
     /// <remarks>ParentId to old references will also be updated.</remarks>
-    Task<AspectObjectLibCm> Update(int id, AspectObjectLibAm aspectObjectAm);
+    Task<AspectObjectLibCm> Update(string id, AspectObjectLibAm aspectObjectAm);
 
     /// <summary>
     /// Change aspect object state
@@ -52,12 +52,12 @@ public interface IAspectObjectService
     /// <param name="state">The new aspect object state</param>
     /// <returns>Aspect object with updated state</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if the aspect object does not exist on latest version</exception>
-    Task<ApprovalDataCm> ChangeState(int id, State state);
+    Task<ApprovalDataCm> ChangeState(string id, State state);
 
     /// <summary>
     /// Get the company id of an aspect object
     /// </summary>
     /// <param name="id">The aspect object id</param>
     /// <returns>Company id for the aspect object</returns>
-    Task<int> GetCompanyId(int id);
+    Task<int> GetCompanyId(string id);
 }

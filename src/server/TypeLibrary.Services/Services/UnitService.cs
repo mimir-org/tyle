@@ -42,7 +42,7 @@ public class UnitService : IUnitService
     }
 
     /// <inheritdoc />
-    public UnitLibCm Get(int id)
+    public UnitLibCm Get(string id)
     {
         var unit = _unitRepository.Get(id);
         if (unit == null)
@@ -71,7 +71,7 @@ public class UnitService : IUnitService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(int id, State state)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state)
     {
         var dm = _unitRepository.Get().FirstOrDefault(x => x.Id == id);
 
@@ -91,7 +91,7 @@ public class UnitService : IUnitService
     }
 
     /// <inheritdoc />
-    public async Task<int> GetCompanyId(int id)
+    public async Task<int> GetCompanyId(string id)
     {
         return await _unitRepository.HasCompany(id);
     }

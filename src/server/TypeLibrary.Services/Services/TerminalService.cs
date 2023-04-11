@@ -38,7 +38,7 @@ public class TerminalService : ITerminalService
     /// <param name="id">The id of the terminal</param>
     /// <returns>The latest version of the terminal of given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id, and that terminal is at the latest version.</exception>
-    public TerminalLibCm Get(int id)
+    public TerminalLibCm Get(string id)
     {
         var dm = _terminalRepository.Get(id);
 
@@ -108,7 +108,7 @@ public class TerminalService : ITerminalService
     /// <exception cref="MimirorgBadRequestException">Throws if the terminal does not exist,
     /// if it is not valid or there are not allowed changes.</exception>
     /// <remarks>ParentId to old references will also be updated.</remarks>
-    public async Task<TerminalLibCm> Update(int id, TerminalLibAm terminalAm)
+    public async Task<TerminalLibCm> Update(string id, TerminalLibAm terminalAm)
     {
         var validation = terminalAm.ValidateObject();
 
@@ -166,7 +166,7 @@ public class TerminalService : ITerminalService
     /// <param name="state">The new terminal state</param>
     /// <returns>Terminal with updated state</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if the terminal does not exist on latest version</exception>
-    public async Task<TerminalLibCm> ChangeState(int id, State state)
+    public async Task<TerminalLibCm> ChangeState(string id, State state)
     {
         var dm = _terminalRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
@@ -185,7 +185,7 @@ public class TerminalService : ITerminalService
     /// </summary>
     /// <param name="id">The terminal id</param>
     /// <returns>Company id for terminal</returns>
-    public async Task<int> GetCompanyId(int id)
+    public async Task<int> GetCompanyId(string id)
     {
         return await _terminalRepository.HasCompany(id);
     }

@@ -59,7 +59,7 @@ public class AttributeService : IAttributeService
     /// Get an attribute and its units
     /// </summary>
     /// <returns>Attribute and its units></returns>
-    public AttributeLibCm Get(int id)
+    public AttributeLibCm Get(string id)
     {
         var dm = _attributeRepository.Get(id);
 
@@ -92,7 +92,7 @@ public class AttributeService : IAttributeService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(int id, State state)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state)
     {
         var dm = _attributeRepository.Get().FirstOrDefault(x => x.Id == id);
 
@@ -112,7 +112,7 @@ public class AttributeService : IAttributeService
     }
 
     /// <inheritdoc />
-    public async Task<int> GetCompanyId(int id)
+    public async Task<int> GetCompanyId(string id)
     {
         return await _attributeRepository.HasCompany(id);
     }

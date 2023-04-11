@@ -74,7 +74,7 @@ public class LogService : ILogService
     /// <param name="objectType"></param>
     /// <returns>Return the state from last log-entry</returns>
     /// <exception cref="MimirorgNotFoundException"></exception>
-    public Task<State> GetPreviousState(int id, string objectType)
+    public Task<State> GetPreviousState(string id, string objectType)
     {
         var logEntry = _logRepository.Get()
             .Where(x =>
