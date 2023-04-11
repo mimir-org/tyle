@@ -10,7 +10,7 @@ public class AttributeUnitConfiguration : IEntityTypeConfiguration<AttributeUnit
     {
         builder.HasKey(x => x.Id);
         builder.ToTable("Attribute_Unit");
-        builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
+        builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(31);
         builder.Property(p => p.IsDefault).HasColumnName("IsDefault").IsRequired();
 
         builder.HasOne(x => x.Unit).WithMany(y => y.UnitAttributes).HasForeignKey(x => x.UnitId).OnDelete(DeleteBehavior.NoAction);

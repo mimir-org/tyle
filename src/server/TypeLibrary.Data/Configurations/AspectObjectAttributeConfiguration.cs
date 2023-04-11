@@ -10,7 +10,7 @@ public class AspectObjectAttributeConfiguration : IEntityTypeConfiguration<Aspec
     {
         builder.HasKey(x => x.Id);
         builder.ToTable("AspectObject_Attribute");
-        builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
+        builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(31);
 
         builder.HasOne(x => x.AspectObject).WithMany(y => y.AspectObjectAttributes).HasForeignKey(x => x.AspectObjectId).OnDelete(DeleteBehavior.NoAction);
         builder.HasOne(x => x.Attribute).WithMany(y => y.AttributeAspectObjects).HasForeignKey(x => x.AttributeId).OnDelete(DeleteBehavior.NoAction);
