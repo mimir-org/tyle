@@ -37,7 +37,7 @@ public class AspectObjectProfile : Profile
             .ForMember(dest => dest.Parent, opt => opt.Ignore())
             .ForMember(dest => dest.Children, opt => opt.Ignore())
             .ForMember(dest => dest.AspectObjectTerminals, opt => opt.MapFrom(src => CreateTerminals(src.AspectObjectTerminals).ToList()))
-            .ForMember(dest => dest.AspectObjectAttributes, opt => opt.MapFrom(src => src.AspectObjectAttributes))
+            .ForMember(dest => dest.Attributes, opt => opt.Ignore())
             .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
         CreateMap<AspectObjectLibDm, AspectObjectLibCm>()
@@ -63,7 +63,7 @@ public class AspectObjectProfile : Profile
             .ForMember(dest => dest.ParentIri, opt => opt.MapFrom(src => src.Parent != null ? src.Parent.Iri : null))
             .ForMember(dest => dest.Children, opt => opt.MapFrom(src => src.Children))
             .ForMember(dest => dest.AspectObjectTerminals, opt => opt.MapFrom(src => src.AspectObjectTerminals))
-            .ForMember(dest => dest.AspectObjectAttributes, opt => opt.MapFrom(src => src.AspectObjectAttributes))
+            .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes))
             .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
         CreateMap<AspectObjectLibCm, ApprovalCm>()

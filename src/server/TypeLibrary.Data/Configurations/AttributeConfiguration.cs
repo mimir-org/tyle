@@ -20,5 +20,8 @@ public class AttributeConfiguration : IEntityTypeConfiguration<AttributeLibDm>
         builder.Property(p => p.CompanyId).HasColumnName("CompanyId");
         builder.Property(p => p.State).HasColumnName("State").IsRequired().HasConversion<string>().HasMaxLength(31);
         builder.Property(p => p.Description).HasColumnName("Description").HasDefaultValue(null).HasMaxLength(511);
+
+        builder.HasMany(x => x.AspectObjects).WithMany(y => y.Attributes);
+        builder.HasMany(x => x.Terminals).WithMany(y => y.Attributes);
     }
 }

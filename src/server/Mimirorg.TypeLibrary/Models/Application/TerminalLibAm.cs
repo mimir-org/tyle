@@ -67,11 +67,11 @@ public class TerminalLibAm
     public string ParentId { get; set; }
 
     /// <summary>
-    /// A list of connected attributes
+    /// A list of attribute ids
     /// </summary>
     /// <remarks>
     /// It is not allowed to remove attributes
     /// Adding attributes generates a major increase
     /// </remarks>
-    public ICollection<TerminalAttributeLibAm> TerminalAttributes { get; set; }
+    public ICollection<string> Attributes { get; set; }
 }

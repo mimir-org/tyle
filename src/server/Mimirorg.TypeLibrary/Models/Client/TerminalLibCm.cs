@@ -21,6 +21,6 @@ public class TerminalLibCm
     public string ParentName { get; set; }
     public string ParentIri { get; set; }
     public ICollection<TerminalLibCm> Children { get; set; }
-    public ICollection<TerminalAttributeLibCm> TerminalAttributes { get; set; }
+    public ICollection<AttributeLibCm> Attributes { get; set; }
     public string Kind => nameof(TerminalLibCm);
 }

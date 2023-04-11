@@ -27,7 +27,7 @@ public class AspectObjectLibCm
     public string ParentIri { get; set; }
     public ICollection<AspectObjectLibCm> Children { get; set; }
     public ICollection<AspectObjectTerminalLibCm> AspectObjectTerminals { get; set; }
-    public ICollection<AspectObjectAttributeLibCm> AspectObjectAttributes { get; set; }
+    public ICollection<AttributeLibCm> Attributes { get; set; }
     public ICollection<SelectedAttributePredefinedLibCm> SelectedAttributePredefined { get; set; }
     public string Kind => nameof(AspectObjectLibCm);
 }

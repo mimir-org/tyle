@@ -31,7 +31,7 @@ public class TerminalProfile : Profile
             .ForMember(dest => dest.Parent, opt => opt.Ignore())
             .ForMember(dest => dest.Children, opt => opt.Ignore())
             .ForMember(dest => dest.TerminalAspectObjects, opt => opt.Ignore())
-            .ForMember(dest => dest.TerminalAttributes, opt => opt.MapFrom(src => src.TerminalAttributes));
+            .ForMember(dest => dest.Attributes, opt => opt.Ignore());
 
         CreateMap<TerminalLibDm, TerminalLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -51,7 +51,7 @@ public class TerminalProfile : Profile
             .ForMember(dest => dest.ParentName, opt => opt.MapFrom(src => src.Parent != null ? src.Parent.Name : null))
             .ForMember(dest => dest.ParentIri, opt => opt.MapFrom(src => src.Parent != null ? src.Parent.Iri : null))
             .ForMember(dest => dest.Children, opt => opt.MapFrom(src => src.Children))
-            .ForMember(dest => dest.TerminalAttributes, opt => opt.MapFrom(src => src.TerminalAttributes));
+            .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes));
 
         CreateMap<TerminalLibCm, ApprovalCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
