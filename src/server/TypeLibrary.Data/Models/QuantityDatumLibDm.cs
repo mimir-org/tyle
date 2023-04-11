@@ -9,7 +9,7 @@ namespace TypeLibrary.Data.Models;
 
 public class QuantityDatumLibDm : ILogable, IStatefulObject, IEquatable<QuantityDatumLibAm>
 {
-    public int Id { get; set; }
+    public string Id { get; set; }
     public string Name { get; set; }
     public string Iri { get; set; }
     public string TypeReference { get; set; }

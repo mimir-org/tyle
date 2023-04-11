@@ -4,12 +4,12 @@ namespace TypeLibrary.Data.Models;
 
 public class AspectObjectTerminalLibDm
 {
-    public int Id { get; set; }
+    public string Id { get; set; }
     public int MinQuantity { get; set; }
     public int MaxQuantity { get; set; }
     public ConnectorDirection ConnectorDirection { get; set; }
-    public int AspectObjectId { get; set; }
+    public string AspectObjectId { get; set; }
     public AspectObjectLibDm AspectObject { get; set; }
-    public int TerminalId { get; set; }
+    public string TerminalId { get; set; }
     public TerminalLibDm Terminal { get; set; }
 }

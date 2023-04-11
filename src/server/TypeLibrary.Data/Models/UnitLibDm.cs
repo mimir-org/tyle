@@ -10,7 +10,7 @@ namespace TypeLibrary.Data.Models;
 
 public class UnitLibDm : ILogable, IEquatable<UnitLibAm>, IStatefulObject
 {
-    public int Id { get; set; }
+    public string Id { get; set; }
     public string Name { get; set; }
     public string Iri { get; set; }
     public string TypeReference { get; set; }
