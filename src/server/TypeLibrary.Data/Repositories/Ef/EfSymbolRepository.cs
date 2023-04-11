@@ -18,7 +18,7 @@ public class EfSymbolRepository : GenericRepository<TypeLibraryDbContext, Symbol
         _settings = settings;
     }
 
-    public async Task<string> GetSymbolDataAsync(int id)
+    public async Task<string> GetSymbolDataAsync(string id)
     {
         var symbol = await GetAsync(id);
         return symbol?.Data;

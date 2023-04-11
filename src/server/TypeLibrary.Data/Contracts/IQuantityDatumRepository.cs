@@ -18,7 +18,7 @@ public interface IQuantityDatumRepository
     /// </summary>
     /// <param name="id">The id of the quantity datum to get</param>
     /// <returns>The quantity datum with the given id</returns>
-    QuantityDatumLibDm Get(int id);
+    QuantityDatumLibDm Get(string id);
 
     /// <summary>
     /// Get all quantity datum range specifying
@@ -63,7 +63,7 @@ public interface IQuantityDatumRepository
     /// </summary>
     /// <param name="id">The quantity datum id</param>
     /// <returns>The company id of given quantity datum</returns>
-    Task<int> HasCompany(int id);
+    Task<int> HasCompany(string id);
 
     /// <summary>
     /// Change the state of the quantity datum on all listed id's
@@ -71,7 +71,7 @@ public interface IQuantityDatumRepository
     /// <param name="state">The state to change to</param>
     /// <param name="ids">A list of quantity datum id's</param>
     /// <returns>The number of quantity datums in given state</returns>
-    Task<int> ChangeState(State state, ICollection<int> ids);
+    Task<int> ChangeState(State state, ICollection<string> ids);
 
     /// <summary>
     /// Clear all entity framework change trackers

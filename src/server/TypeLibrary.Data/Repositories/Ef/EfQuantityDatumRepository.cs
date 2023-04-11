@@ -24,7 +24,7 @@ public class EfQuantityDatumRepository : GenericRepository<TypeLibraryDbContext,
     }
 
     /// <inheritdoc />
-    public async Task<int> HasCompany(int id)
+    public async Task<int> HasCompany(string id)
     {
         var procParams = new Dictionary<string, object>
         {
@@ -37,7 +37,7 @@ public class EfQuantityDatumRepository : GenericRepository<TypeLibraryDbContext,
     }
 
     /// <inheritdoc />
-    public async Task<int> ChangeState(State state, ICollection<int> ids)
+    public async Task<int> ChangeState(State state, ICollection<string> ids)
     {
         if (ids == null)
             return 0;
@@ -62,7 +62,7 @@ public class EfQuantityDatumRepository : GenericRepository<TypeLibraryDbContext,
     }
 
     /// <inheritdoc />
-    public QuantityDatumLibDm Get(int id)
+    public QuantityDatumLibDm Get(string id)
     {
         return FindBy(x => x.Id == id).FirstOrDefault();
     }

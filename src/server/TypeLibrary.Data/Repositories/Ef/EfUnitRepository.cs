@@ -23,7 +23,7 @@ public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibD
     }
 
     /// <inheritdoc />
-    public async Task<int> HasCompany(int id)
+    public async Task<int> HasCompany(string id)
     {
         var procParams = new Dictionary<string, object>
         {
@@ -36,7 +36,7 @@ public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibD
     }
 
     /// <inheritdoc />
-    public async Task<int> ChangeState(State state, ICollection<int> ids)
+    public async Task<int> ChangeState(State state, ICollection<string> ids)
     {
         if (ids == null)
             return 0;
@@ -61,7 +61,7 @@ public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibD
     }
 
     /// <inheritdoc />
-    public UnitLibDm Get(int id)
+    public UnitLibDm Get(string id)
     {
         return FindBy(x => x.Id == id).FirstOrDefault();
     }

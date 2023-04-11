@@ -26,7 +26,7 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     /// </summary>
     /// <param name="id">The aspect object id</param>
     /// <returns>The company id of given terminal</returns>
-    public async Task<int> HasCompany(int id)
+    public async Task<int> HasCompany(string id)
     {
         var procParams = new Dictionary<string, object>
         {
@@ -44,7 +44,7 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     /// <param name="state">The state to change to</param>
     /// <param name="ids">A list of aspect object id's</param>
     /// <returns>The number of aspect objects in given state</returns>
-    public async Task<int> ChangeState(State state, ICollection<int> ids)
+    public async Task<int> ChangeState(State state, ICollection<string> ids)
     {
         if (ids == null)
             return 0;
@@ -68,7 +68,7 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     /// <param name="oldId">Old aspect object parent id</param>
     /// <param name="newId">New aspect object parent id</param>
     /// <returns>The number of aspect objects with the new parent id</returns>
-    public async Task<int> ChangeParentId(int oldId, int newId)
+    public async Task<int> ChangeParentId(string oldId, string newId)
     {
         var procParams = new Dictionary<string, object>
         {
@@ -86,7 +86,7 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     /// </summary>
     /// <param name="id">The id of the aspect object</param>
     /// <returns>True if aspect object exist</returns>
-    public async Task<bool> Exist(int id)
+    public async Task<bool> Exist(string id)
     {
         return await Exist(x => x.Id == id);
     }
@@ -110,7 +110,7 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     /// </summary>
     /// <param name="id">The aspect object id</param>
     /// <returns>Aspect object if found</returns>
-    public AspectObjectLibDm Get(int id)
+    public AspectObjectLibDm Get(string id)
     {
         return FindBy(x => x.Id == id)
             .Include(x => x.AspectObjectTerminals)

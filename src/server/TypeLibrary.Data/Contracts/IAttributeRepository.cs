@@ -12,7 +12,7 @@ public interface IAttributeRepository
     /// </summary>
     /// <param name="id">The attribute id</param>
     /// <returns>The company id of given attribute</returns>
-    Task<int> HasCompany(int id);
+    Task<int> HasCompany(string id);
 
     /// <summary>
     /// Change the state of the attribute on all listed id's
@@ -20,7 +20,7 @@ public interface IAttributeRepository
     /// <param name="state">The state to change to</param>
     /// <param name="ids">A list of attribute id's</param>
     /// <returns>The number of attributes in given state</returns>
-    Task<int> ChangeState(State state, ICollection<int> ids);
+    Task<int> ChangeState(State state, ICollection<string> ids);
 
     /// <summary>
     /// Get all attributes
@@ -33,7 +33,7 @@ public interface IAttributeRepository
     /// </summary>
     /// <param name="id">The id of the attribute to get</param>
     /// <returns>The attribute with the given id</returns>
-    AttributeLibDm Get(int id);
+    AttributeLibDm Get(string id);
 
     /// <summary>
     /// Create an attribute

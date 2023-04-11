@@ -12,7 +12,7 @@ public interface IUnitRepository
     /// </summary>
     /// <param name="id">The unit id</param>
     /// <returns>The company id of given unit</returns>
-    Task<int> HasCompany(int id);
+    Task<int> HasCompany(string id);
 
     /// <summary>
     /// Change the state of the unit on all listed id's
@@ -20,7 +20,7 @@ public interface IUnitRepository
     /// <param name="state">The state to change to</param>
     /// <param name="ids">A list of unit id's</param>
     /// <returns>The number of units in given state</returns>
-    Task<int> ChangeState(State state, ICollection<int> ids);
+    Task<int> ChangeState(State state, ICollection<string> ids);
 
     /// <summary>
     /// Get all units
@@ -33,7 +33,7 @@ public interface IUnitRepository
     /// </summary>
     /// <param name="id">The id of the unit to get</param>
     /// <returns>The unit with the given id</returns>
-    UnitLibDm Get(int id);
+    UnitLibDm Get(string id);
 
     /// <summary>
     /// Get a specific unit by type reference

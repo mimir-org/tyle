@@ -24,7 +24,7 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     }
 
     /// <inheritdoc />
-    public async Task<int> HasCompany(int id)
+    public async Task<int> HasCompany(string id)
     {
         var procParams = new Dictionary<string, object>
         {
@@ -37,7 +37,7 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     }
 
     /// <inheritdoc />
-    public async Task<int> ChangeState(State state, ICollection<int> ids)
+    public async Task<int> ChangeState(State state, ICollection<string> ids)
     {
         if (ids == null)
             return 0;
@@ -65,7 +65,7 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     }
 
     /// <inheritdoc />
-    public AttributeLibDm Get(int id)
+    public AttributeLibDm Get(string id)
     {
         return FindBy(x => x.Id == id)
             .Include(x => x.AttributeUnits)
