@@ -24,7 +24,7 @@ public class AttributeProfile : Profile
             .ForMember(dest => dest.State, opt => opt.Ignore())
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.AttributeUnits, opt => opt.MapFrom(src => src.AttributeUnits))
-            .ForMember(dest => dest.AttributeNodes, opt => opt.Ignore())
+            .ForMember(dest => dest.AttributeAspectObjects, opt => opt.Ignore())
             .ForMember(dest => dest.AttributeTerminals, opt => opt.Ignore());
 
         CreateMap<AttributeLibDm, AttributeLibCm>()

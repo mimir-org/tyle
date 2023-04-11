@@ -4,8 +4,8 @@ namespace Mimirorg.TypeLibrary.Enums;
 
 public enum CacheKey
 {
-    [Display(Name = "Aspect Node")]
-    AspectNode = 0,
+    [Display(Name = "Aspect Object")]
+    AspectObject = 0,
 
     [Display(Name = "Attribute Qualifier")]
     AttributeQualifier = 1,
