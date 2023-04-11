@@ -25,38 +25,38 @@ public class SemanticController : ControllerBase
 {
     private readonly ILogger<SemanticController> _logger;
     private readonly IAttributeService _attributeService;
-    private readonly INodeService _nodeService;
+    private readonly IAspectObjectService _aspectObjectService;
     private readonly ITerminalService _terminalService;
     private readonly IUnitService _unitService;
     private readonly MimirorgAuthSettings _authSettings;
 
-    public SemanticController(ILogger<SemanticController> logger, IAttributeService attributeService, INodeService nodeService, ITerminalService terminalService, IUnitService unitService, IOptions<MimirorgAuthSettings> authSettings)
+    public SemanticController(ILogger<SemanticController> logger, IAttributeService attributeService, IAspectObjectService aspectObjectService, ITerminalService terminalService, IUnitService unitService, IOptions<MimirorgAuthSettings> authSettings)
     {
         _logger = logger;
         _attributeService = attributeService;
-        _nodeService = nodeService;
+        _aspectObjectService = aspectObjectService;
         _terminalService = terminalService;
         _unitService = unitService;
         _authSettings = authSettings?.Value;
     }
 
     /// <summary>
-    /// Get node ontology
+    /// Get aspect object ontology
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
     // ReSharper disable once StringLiteralTypo
-    [HttpGet("aspectnode/{id}")]
-    [ProducesResponseType(typeof(NodeLibCm), StatusCodes.Status200OK)]
+    [HttpGet("aspectobject/{id}")]
+    [ProducesResponseType(typeof(AspectObjectLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult GetNode(int id)
+    public IActionResult GetAspectObject(int id)
     {
         try
         {
-            var data = _nodeService.Get(id);
+            var data = _aspectObjectService.Get(id);
             if (data == null)
                 return NoContent();
 

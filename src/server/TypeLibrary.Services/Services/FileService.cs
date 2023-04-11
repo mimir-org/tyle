@@ -53,7 +53,7 @@ public class FileService : IFileService
     //    {
     //        LibraryTypeLibDm libraryTypeDm = createLibraryType.ObjectType switch
     //        {
-    //            ObjectType.ObjectBlock => _mapper.Map<NodeLibDm>(createLibraryType),
+    //            ObjectType.ObjectBlock => _mapper.Map<AspectObjectLibDm>(createLibraryType),
     //            ObjectType.Interface => _mapper.Map<InterfaceLibDm>(createLibraryType),
     //            ObjectType.Transport => _mapper.Map<TransportLibDm>(createLibraryType),
     //            _ => null

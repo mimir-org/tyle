@@ -12,11 +12,11 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Core.Profiles;
 
-public class NodeProfile : Profile
+public class AspectObjectProfile : Profile
 {
-    public NodeProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor, ICompanyFactory companyFactory)
+    public AspectObjectProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor, ICompanyFactory companyFactory)
     {
-        CreateMap<NodeLibAm, NodeLibDm>()
+        CreateMap<AspectObjectLibAm, AspectObjectLibDm>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Iri, opt => opt.Ignore())
@@ -36,11 +36,11 @@ public class NodeProfile : Profile
             .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
             .ForMember(dest => dest.Parent, opt => opt.Ignore())
             .ForMember(dest => dest.Children, opt => opt.Ignore())
-            .ForMember(dest => dest.NodeTerminals, opt => opt.MapFrom(src => CreateTerminals(src.NodeTerminals).ToList()))
-            .ForMember(dest => dest.NodeAttributes, opt => opt.MapFrom(src => src.NodeAttributes))
+            .ForMember(dest => dest.AspectObjectTerminals, opt => opt.MapFrom(src => CreateTerminals(src.AspectObjectTerminals).ToList()))
+            .ForMember(dest => dest.AspectObjectAttributes, opt => opt.MapFrom(src => src.AspectObjectAttributes))
             .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
-        CreateMap<NodeLibDm, NodeLibCm>()
+        CreateMap<AspectObjectLibDm, AspectObjectLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
@@ -62,11 +62,11 @@ public class NodeProfile : Profile
             .ForMember(dest => dest.ParentName, opt => opt.MapFrom(src => src.Parent != null ? src.Parent.Name : null))
             .ForMember(dest => dest.ParentIri, opt => opt.MapFrom(src => src.Parent != null ? src.Parent.Iri : null))
             .ForMember(dest => dest.Children, opt => opt.MapFrom(src => src.Children))
-            .ForMember(dest => dest.NodeTerminals, opt => opt.MapFrom(src => src.NodeTerminals))
-            .ForMember(dest => dest.NodeAttributes, opt => opt.MapFrom(src => src.NodeAttributes))
+            .ForMember(dest => dest.AspectObjectTerminals, opt => opt.MapFrom(src => src.AspectObjectTerminals))
+            .ForMember(dest => dest.AspectObjectAttributes, opt => opt.MapFrom(src => src.AspectObjectAttributes))
             .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
-        CreateMap<NodeLibCm, ApprovalCm>()
+        CreateMap<AspectObjectLibCm, ApprovalCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.UserId, opt => opt.Ignore())
@@ -75,16 +75,16 @@ public class NodeProfile : Profile
             .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => companyFactory.GetCompanyName(src.CompanyId)))
             .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
             .ForMember(dest => dest.StateName, opt => opt.MapFrom(src => src.State.ToString()))
-            .ForMember(dest => dest.ObjectType, opt => opt.MapFrom(src => "Node"))
+            .ForMember(dest => dest.ObjectType, opt => opt.MapFrom(src => "AspectObject"))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
     }
 
-    private static IEnumerable<NodeTerminalLibDm> CreateTerminals(ICollection<NodeTerminalLibAm> terminals)
+    private static IEnumerable<AspectObjectTerminalLibDm> CreateTerminals(ICollection<AspectObjectTerminalLibAm> terminals)
     {
         if (terminals == null || !terminals.Any())
             yield break;
 
-        var sortedTerminalTypes = new List<NodeTerminalLibAm>();
+        var sortedTerminalTypes = new List<AspectObjectTerminalLibAm>();
 
         foreach (var item in terminals)
         {
@@ -104,7 +104,7 @@ public class NodeProfile : Profile
 
         foreach (var item in sortedTerminalTypes)
         {
-            yield return new NodeTerminalLibDm
+            yield return new AspectObjectTerminalLibDm
             {
                 TerminalId = item.TerminalId,
                 MinQuantity = item.MinQuantity,

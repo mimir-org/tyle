@@ -3,7 +3,7 @@ using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Client;
 
-public class NodeLibCm
+public class AspectObjectLibCm
 {
     public string Id { get; set; }
     public string Name { get; set; }
@@ -25,9 +25,9 @@ public class NodeLibCm
     public string ParentId { get; set; }
     public string ParentName { get; set; }
     public string ParentIri { get; set; }
-    public ICollection<NodeLibCm> Children { get; set; }
-    public ICollection<NodeTerminalLibCm> NodeTerminals { get; set; }
-    public ICollection<NodeAttributeLibCm> NodeAttributes { get; set; }
+    public ICollection<AspectObjectLibCm> Children { get; set; }
+    public ICollection<AspectObjectTerminalLibCm> AspectObjectTerminals { get; set; }
+    public ICollection<AspectObjectAttributeLibCm> AspectObjectAttributes { get; set; }
     public ICollection<SelectedAttributePredefinedLibCm> SelectedAttributePredefined { get; set; }
-    public string Kind => nameof(NodeLibCm);
+    public string Kind => nameof(AspectObjectLibCm);
 }
