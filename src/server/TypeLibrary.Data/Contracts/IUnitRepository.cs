@@ -15,12 +15,19 @@ public interface IUnitRepository
     int HasCompany(string id);
 
     /// <summary>
-    /// Change the state of the unit on all listed id's
+    /// Change the state of the unit with the given id
     /// </summary>
     /// <param name="state">The state to change to</param>
-    /// <param name="ids">A list of unit id's</param>
+    /// <param name="id">The unit id</param>
+    Task ChangeState(State state, string id);
+
+    /// <summary>
+    /// Change the state of the unit on all listed ids
+    /// </summary>
+    /// <param name="state">The state to change to</param>
+    /// <param name="ids">A list of unit ids</param>
     /// <returns>The number of units in given state</returns>
-    Task<int> ChangeState(State state, string id);
+    Task<int> ChangeState(State state, ICollection<string> ids);
 
     /// <summary>
     /// Get all units

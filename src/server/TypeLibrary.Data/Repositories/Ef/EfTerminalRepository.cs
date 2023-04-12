@@ -14,52 +14,40 @@ namespace TypeLibrary.Data.Repositories.Ef;
 
 public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, TerminalLibDm>, IEfTerminalRepository
 {
-    private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
-
-    public EfTerminalRepository(IApplicationSettingsRepository settings, TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
+    public EfTerminalRepository(TypeLibraryDbContext dbContext) : base(dbContext)
     {
-        _typeLibraryProcRepository = typeLibraryProcRepository;
     }
 
-    /// <summary>
-    /// Get the registered company on given id
-    /// </summary>
-    /// <param name="id">The terminal id</param>
-    /// <returns>The company id of given terminal</returns>
-    public async Task<int> HasCompany(string id)
+    /// <inheritdoc />
+    public int HasCompany(string id)
     {
-        var procParams = new Dictionary<string, object>
-        {
-            {"@TableName", "Terminal"},
-            {"@Id", id}
-        };
-
-        var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlCompanyId>("HasCompany", procParams);
-        return result?.FirstOrDefault()?.CompanyId ?? 0;
+        return Get(id).CompanyId;
     }
 
-    /// <summary>
-    /// Change the state of the terminal on all listed id's
-    /// </summary>
-    /// <param name="state">The state to change to</param>
-    /// <param name="ids">A list of terminal id's</param>
-    /// <returns>The number of terminals in given state</returns>
+    /// <inheritdoc />
+    public async Task ChangeState(State state, string id)
+    {
+        var terminal = await GetAsync(id);
+        terminal.State = state;
+        await SaveAsync();
+        Detach(terminal);
+    }
+
+    /// <inheritdoc />
     public async Task<int> ChangeState(State state, ICollection<string> ids)
     {
-        if (ids == null)
-            return 0;
-
-        var idList = string.Join(",", ids.Select(i => i.ToString()));
-
-        var procParams = new Dictionary<string, object>
+        var terminalsToChange = new List<TerminalLibDm>();
+        foreach (var id in ids)
         {
-            {"@TableName", "Terminal"},
-            {"@State", state.ToString()},
-            {"@IdList", idList}
-        };
+            var terminal = await GetAsync(id);
+            terminal.State = state;
+            terminalsToChange.Add(terminal);
+        }
 
-        var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlResultCount>("UpdateState", procParams);
-        return result?.FirstOrDefault()?.Number ?? 0;
+        await SaveAsync();
+        Detach(terminalsToChange);
+
+        return terminalsToChange.Count;
     }
 
     /// <summary>
