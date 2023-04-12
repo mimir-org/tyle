@@ -15,6 +15,13 @@ public interface IQuantityDatumService
     IEnumerable<QuantityDatumLibCm> Get();
 
     /// <summary>
+    /// Get quantity datum by id
+    /// </summary>
+    /// <param name="id">The id of the quantity datum to get</param>
+    /// <returns>The quantity datum with the given id</returns>
+    QuantityDatumLibCm Get(string id);
+
+    /// <summary>
     /// Get all quantity datum range specifying
     /// </summary>
     /// <returns>List of quantity datums</returns>

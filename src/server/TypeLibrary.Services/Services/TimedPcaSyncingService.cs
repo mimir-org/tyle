@@ -90,8 +90,8 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
     {
         var pcaUnitsFetch = _unitReferenceRepository.FetchUnitsFromReference();
         using var scope = _serviceProvider.CreateScope();
-        var unitRepository = scope.ServiceProvider.GetService<IUnitRepository>();
-        var dbUnits = unitRepository.Get().ExcludeDeleted().ToList();
+        var unitService = scope.ServiceProvider.GetService<IUnitService>();
+        var dbUnits = unitService.Get().ExcludeDeleted().ToList();
 
         var dbUnitReferences = new Dictionary<string, string>();
         foreach (var unit in dbUnits)
@@ -114,29 +114,31 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         _logger.LogInformation("Retrieved unit data from PCA...");
 
         var idsOfUnitsToDelete = new List<string>();
-        var unitsToCreateAm = new List<UnitLibAm>();
+        var unitsToCreate = new List<UnitLibAm>();
 
         foreach (var pcaUnit in pcaUnits)
         {
             if (dbUnitReferences.ContainsKey(pcaUnit.TypeReference))
             {
-                var storedUnit = unitRepository.Get(dbUnitReferences[pcaUnit.TypeReference]);
+                var storedUnit = unitService.Get(dbUnitReferences[pcaUnit.TypeReference]);
 
                 if (storedUnit.Equals(pcaUnit)) continue;
 
                 idsOfUnitsToDelete.Add(storedUnit.Id);
             }
-            unitsToCreateAm.Add(pcaUnit);
+            unitsToCreate.Add(pcaUnit);
         }
 
-        var deleteTask = unitRepository.ChangeState(State.Deleted, idsOfUnitsToDelete);
+        foreach (var id in idsOfUnitsToDelete)
+        {
+            await unitService.ChangeState(id, State.Deleted);
+        }
 
-        var unitsToCreate = _mapper.Map<List<UnitLibDm>>(unitsToCreateAm);
         foreach (var unit in unitsToCreate)
-            unit.State = State.ApprovedGlobal;
-
-        await deleteTask;
-        await unitRepository.Create(unitsToCreate);
+        {
+            var createdUnit = await unitService.Create(unit);
+            await unitService.ChangeState(createdUnit.Id, State.ApprovedGlobal);
+        }
 
         _logger.LogInformation("Unit sync from PCA completed.");
         _logger.LogInformation($"Number of updated units: {idsOfUnitsToDelete.Count}");
@@ -147,8 +149,8 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
     {
         var pcaAttributesFetch = _attributeReferenceRepository.FetchAttributesFromReference();
         using var scope = _serviceProvider.CreateScope();
-        var attributeRepository = scope.ServiceProvider.GetService<IAttributeRepository>();
-        var dbAttributes = attributeRepository.Get().ExcludeDeleted().ToList();
+        var attributeService = scope.ServiceProvider.GetService<IAttributeService>();
+        var dbAttributes = attributeService.Get().ExcludeDeleted().ToList();
 
         var dbAttributeReferences = new Dictionary<string, string>();
         foreach (var attribute in dbAttributes)
@@ -171,36 +173,38 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         _logger.LogInformation("Retrieved attribute data from PCA...");
 
         var idsOfAttributesToDelete = new List<string>();
-        var attributesToCreateAm = new List<AttributeLibAm>();
+        var attributesToCreate = new List<AttributeLibAm>();
 
         foreach (var pcaAttribute in pcaAttributes)
         {
             if (dbAttributeReferences.ContainsKey(pcaAttribute.TypeReference))
             {
-                var storedAttribute = attributeRepository.Get(dbAttributeReferences[pcaAttribute.TypeReference]);
+                var storedAttribute = attributeService.Get(dbAttributeReferences[pcaAttribute.TypeReference]);
 
                 if (AttributeIsUnchanged(storedAttribute, pcaAttribute)) continue;
 
                 idsOfAttributesToDelete.Add(storedAttribute.Id);
             }
-            attributesToCreateAm.Add(pcaAttribute);
+            attributesToCreate.Add(pcaAttribute);
         }
 
-        var deleteTask = attributeRepository.ChangeState(State.Deleted, idsOfAttributesToDelete);
+        foreach (var id in idsOfAttributesToDelete)
+        {
+            await attributeService.ChangeState(id, State.Deleted);
+        }
 
-        var attributesToCreate = _mapper.Map<List<AttributeLibDm>>(attributesToCreateAm);
         foreach (var attribute in attributesToCreate)
-            attribute.State = State.ApprovedGlobal;
-
-        await deleteTask;
-        await attributeRepository.Create(attributesToCreate);
+        {
+            var createdAttribute = await attributeService.Create(attribute);
+            await attributeService.ChangeState(createdAttribute.Id, State.ApprovedGlobal);
+        }
 
         _logger.LogInformation("Attribute sync from PCA completed.");
         _logger.LogInformation($"Number of updated attributes: {idsOfAttributesToDelete.Count}");
         _logger.LogInformation($"Number of new attributes: {attributesToCreate.Count - idsOfAttributesToDelete.Count}");
     }
 
-    private static bool AttributeIsUnchanged(AttributeLibDm stored, AttributeLibAm external)
+    private static bool AttributeIsUnchanged(AttributeLibCm stored, AttributeLibAm external)
     {
         if (stored.Name != external.Name) return false;
 
@@ -231,8 +235,8 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
     {
         var pcaQuantityDatumsFetch = _quantityDatumReferenceRepository.FetchQuantityDatumsFromReference();
         using var scope = _serviceProvider.CreateScope();
-        var quantityDatumRepository = scope.ServiceProvider.GetService<IQuantityDatumRepository>();
-        var dbQuantityDatums = quantityDatumRepository.Get().ExcludeDeleted().ToList();
+        var quantityDatumService = scope.ServiceProvider.GetService<IQuantityDatumService>();
+        var dbQuantityDatums = quantityDatumService.Get().ExcludeDeleted().ToList();
 
         var dbQuantityDatumsReferences = new Dictionary<string, string>();
         foreach (var quantityDatum in dbQuantityDatums)
@@ -255,29 +259,31 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         _logger.LogInformation("Retrieved quantity datum data from PCA...");
 
         var idsOfQuantityDatumsToDelete = new List<string>();
-        var quantityDatumsToCreateAm = new List<QuantityDatumLibAm>();
+        var quantityDatumsToCreate = new List<QuantityDatumLibAm>();
 
         foreach (var pcaQuantityDatum in pcaQuantityDatums)
         {
             if (dbQuantityDatumsReferences.ContainsKey(pcaQuantityDatum.TypeReference))
             {
-                var storedQuantityDatum = quantityDatumRepository.Get(dbQuantityDatumsReferences[pcaQuantityDatum.TypeReference]);
+                var storedQuantityDatum = quantityDatumService.Get(dbQuantityDatumsReferences[pcaQuantityDatum.TypeReference]);
 
                 if (storedQuantityDatum.Equals(pcaQuantityDatum)) continue;
 
                 idsOfQuantityDatumsToDelete.Add(storedQuantityDatum.Id);
             }
-            quantityDatumsToCreateAm.Add(pcaQuantityDatum);
+            quantityDatumsToCreate.Add(pcaQuantityDatum);
         }
 
-        var deleteTask = quantityDatumRepository.ChangeState(State.Deleted, idsOfQuantityDatumsToDelete);
+        foreach (var id in idsOfQuantityDatumsToDelete)
+        {
+            await quantityDatumService.ChangeState(id, State.Deleted);
+        }
 
-        var quantityDatumsToCreate = _mapper.Map<List<QuantityDatumLibDm>>(quantityDatumsToCreateAm);
         foreach (var quantityDatum in quantityDatumsToCreate)
-            quantityDatum.State = State.ApprovedGlobal;
-
-        await deleteTask;
-        await quantityDatumRepository.Create(quantityDatumsToCreate);
+        {
+            var createdQuantityDatum = await quantityDatumService.Create(quantityDatum);
+            await quantityDatumService.ChangeState(createdQuantityDatum.Id, State.ApprovedGlobal);
+        }
 
         _logger.LogInformation("Quantity datum sync from PCA completed.");
         _logger.LogInformation($"Number of updated quantity datums: {idsOfQuantityDatumsToDelete.Count}");

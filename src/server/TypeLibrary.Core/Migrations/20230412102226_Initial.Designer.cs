@@ -12,7 +12,7 @@ using TypeLibrary.Data;
 namespace TypeLibrary.Core.Migrations
 {
     [DbContext(typeof(TypeLibraryDbContext))]
-    [Migration("20230412100111_Initial")]
+    [Migration("20230412102226_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -28,10 +28,10 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("AspectObject_Attribute", b =>
                 {
                     b.Property<string>("AspectObjectsId")
-                        .HasColumnType("nvarchar(31)");
+                        .HasColumnType("nvarchar(63)");
 
                     b.Property<string>("AttributesId")
-                        .HasColumnType("nvarchar(31)");
+                        .HasColumnType("nvarchar(63)");
 
                     b.HasKey("AspectObjectsId", "AttributesId");
 
@@ -43,10 +43,10 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("Terminal_Attribute", b =>
                 {
                     b.Property<string>("AttributesId")
-                        .HasColumnType("nvarchar(31)");
+                        .HasColumnType("nvarchar(63)");
 
                     b.Property<string>("TerminalsId")
-                        .HasColumnType("nvarchar(31)");
+                        .HasColumnType("nvarchar(63)");
 
                     b.HasKey("AttributesId", "TerminalsId");
 
@@ -58,8 +58,8 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("TypeLibrary.Data.Models.AspectObjectLibDm", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
                     b.Property<string>("Aspect")
@@ -92,8 +92,8 @@ namespace TypeLibrary.Core.Migrations
 
                     b.Property<string>("FirstVersionId")
                         .IsRequired()
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("FirstVersionId");
 
                     b.Property<string>("Iri")
@@ -108,8 +108,8 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("Name");
 
                     b.Property<string>("ParentId")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("ParentId");
 
                     b.Property<string>("PurposeName")
@@ -171,12 +171,12 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("TypeLibrary.Data.Models.AspectObjectTerminalLibDm", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
                     b.Property<string>("AspectObjectId")
-                        .HasColumnType("nvarchar(31)");
+                        .HasColumnType("nvarchar(63)");
 
                     b.Property<string>("ConnectorDirection")
                         .IsRequired()
@@ -197,7 +197,7 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("MinQuantity");
 
                     b.Property<string>("TerminalId")
-                        .HasColumnType("nvarchar(31)");
+                        .HasColumnType("nvarchar(63)");
 
                     b.HasKey("Id");
 
@@ -211,8 +211,8 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
                     b.Property<int?>("CompanyId")
@@ -318,19 +318,19 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeUnitLibDm", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
                     b.Property<string>("AttributeId")
-                        .HasColumnType("nvarchar(31)");
+                        .HasColumnType("nvarchar(63)");
 
                     b.Property<bool>("IsDefault")
                         .HasColumnType("bit")
                         .HasColumnName("IsDefault");
 
                     b.Property<string>("UnitId")
-                        .HasColumnType("nvarchar(31)");
+                        .HasColumnType("nvarchar(63)");
 
                     b.HasKey("Id");
 
@@ -344,8 +344,8 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("TypeLibrary.Data.Models.LogLibDm", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
                     b.Property<string>("Comment")
@@ -372,14 +372,14 @@ namespace TypeLibrary.Core.Migrations
 
                     b.Property<string>("ObjectFirstVersionId")
                         .IsRequired()
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("ObjectFirstVersionId");
 
                     b.Property<string>("ObjectId")
                         .IsRequired()
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("ObjectId");
 
                     b.Property<string>("ObjectName")
@@ -424,8 +424,8 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("TypeLibrary.Data.Models.QuantityDatumLibDm", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
                     b.Property<int?>("CompanyId")
@@ -485,8 +485,8 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("TypeLibrary.Data.Models.SymbolLibDm", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
                     b.Property<DateTime>("Created")
@@ -534,8 +534,8 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
                     b.Property<string>("Color")
@@ -575,8 +575,8 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("Name");
 
                     b.Property<string>("ParentId")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("ParentId");
 
                     b.Property<string>("State")
@@ -602,8 +602,8 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("TypeLibrary.Data.Models.UnitLibDm", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
                     b.Property<int?>("CompanyId")

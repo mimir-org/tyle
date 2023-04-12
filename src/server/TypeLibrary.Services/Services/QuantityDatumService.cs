@@ -12,6 +12,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;
@@ -42,6 +43,17 @@ public class QuantityDatumService : IQuantityDatumService
             throw new MimirorgNotFoundException("No quantity datums were found.");
 
         return !dataSet.Any() ? new List<QuantityDatumLibCm>() : _mapper.Map<List<QuantityDatumLibCm>>(dataSet);
+    }
+
+    /// <inheritdoc />
+    public QuantityDatumLibCm Get(string id)
+    {
+        var quantityDatum = _quantityDatumRepository.Get(id);
+        if (quantityDatum == null)
+            throw new MimirorgNotFoundException($"Quantity datum with id {id} not found.");
+
+        var data = _mapper.Map<QuantityDatumLibCm>(quantityDatum);
+        return data;
     }
 
     /// <inheritdoc />

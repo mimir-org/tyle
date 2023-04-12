@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
@@ -19,12 +20,14 @@ public class SymbolService : ISymbolService
     private readonly IMapper _mapper;
     private readonly ISymbolRepository _symbolRepository;
     private readonly ApplicationSettings _applicationSettings;
+    private readonly IApplicationSettingsRepository _settings;
 
-    public SymbolService(IMapper mapper, ISymbolRepository symbolRepository, IOptions<ApplicationSettings> applicationSettings)
+    public SymbolService(IMapper mapper, ISymbolRepository symbolRepository, IOptions<ApplicationSettings> applicationSettings, IApplicationSettingsRepository settings)
     {
         _mapper = mapper;
         _symbolRepository = symbolRepository;
         _applicationSettings = applicationSettings?.Value;
+        _settings = settings;
     }
 
     public IEnumerable<SymbolLibCm> Get()
@@ -45,7 +48,11 @@ public class SymbolService : ISymbolService
             return;
 
         foreach (var data in notExisting)
+        {
+            data.Id = Guid.NewGuid().ToString();
+            data.Iri = $"{_settings.ApplicationSemanticUrl}/symbol/{data.Id}";
             data.CreatedBy = createdBySystem ? _applicationSettings.System : data.CreatedBy;
+        }
 
         await _symbolRepository.Create(notExisting, createdBySystem ? State.ApprovedGlobal : State.Draft);
         _symbolRepository.ClearAllChangeTrackers();

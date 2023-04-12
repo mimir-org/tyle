@@ -89,7 +89,7 @@ public class UnitService : IUnitService
 
         return new ApprovalDataCm
         {
-            Id = id.ToString(),
+            Id = id,
             State = state
 
         };

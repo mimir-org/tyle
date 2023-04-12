@@ -85,7 +85,10 @@ public class AttributeService : IAttributeService
         dm.State = State.Draft;
 
         foreach (var attributeUnit in dm.AttributeUnits)
+        {
+            attributeUnit.Id = Guid.NewGuid().ToString();
             attributeUnit.AttributeId = dm.Id;
+        }
 
         var createdAttribute = await _attributeRepository.Create(dm);
         _attributeRepository.ClearAllChangeTrackers();

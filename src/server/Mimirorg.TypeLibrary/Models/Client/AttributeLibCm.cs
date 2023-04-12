@@ -1,8 +1,9 @@
+using Mimirorg.Common.Contracts;
 using Mimirorg.Common.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Client;
 
-public class AttributeLibCm
+public class AttributeLibCm : IStatefulObject
 {
     public string Id { get; set; }
     public string Name { get; set; }

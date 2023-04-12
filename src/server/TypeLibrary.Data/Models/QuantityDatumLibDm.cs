@@ -7,7 +7,7 @@ using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models;
 
-public class QuantityDatumLibDm : ILogable, IStatefulObject, IEquatable<QuantityDatumLibAm>
+public class QuantityDatumLibDm : ILogable, IStatefulObject
 {
     public string Id { get; set; }
     public string Name { get; set; }
@@ -34,11 +34,5 @@ public class QuantityDatumLibDm : ILogable, IStatefulObject, IEquatable<Quantity
             LogTypeValue = logTypeValue,
             Comment = comment
         };
-    }
-
-    public bool Equals(QuantityDatumLibAm other)
-    {
-        if (other == null) return false;
-        return this.Name == other.Name && this.QuantityDatumType == other.QuantityDatumType;
     }
 }
