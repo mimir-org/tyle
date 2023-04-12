@@ -13,43 +13,27 @@ namespace TypeLibrary.Data.Repositories.Ef;
 
 public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibDm>, IEfUnitRepository
 {
-    private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
-
-    public EfUnitRepository(TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
+    public EfUnitRepository(TypeLibraryDbContext dbContext) : base(dbContext)
     {
-        _typeLibraryProcRepository = typeLibraryProcRepository;
     }
 
     /// <inheritdoc />
-    public async Task<int> HasCompany(string id)
+    public int HasCompany(string id)
     {
-        var procParams = new Dictionary<string, object>
-        {
-            {"@TableName", "Unit"},
-            {"@Id", id}
-        };
-
-        var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlCompanyId>("HasCompany", procParams);
-        return result?.FirstOrDefault()?.CompanyId ?? 0;
+        return Get(id).CompanyId ?? 0;
     }
 
     /// <inheritdoc />
-    public async Task<int> ChangeState(State state, ICollection<string> ids)
+    public async Task<int> ChangeState(State state, string id)
     {
-        if (ids == null)
-            return 0;
+        var unit = Get(id);
 
-        var idList = string.Join(",", ids.Select(i => i.ToString()));
+        if (unit == null) return 0;
 
-        var procParams = new Dictionary<string, object>
-        {
-            {"@TableName", "Unit"},
-            {"@State", state.ToString()},
-            {"@IdList", idList}
-        };
+        unit.State = state;
+        await SaveAsync();
 
-        var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlResultCount>("UpdateState", procParams);
-        return result?.FirstOrDefault()?.Number ?? 0;
+        return 1;
     }
 
     /// <inheritdoc />
@@ -79,22 +63,6 @@ public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibD
         Detach(unit);
 
         return unit;
-    }
-
-    /// <inheritdoc />
-    public async Task<ICollection<UnitLibDm>> Create(ICollection<UnitLibDm> units)
-    {
-        foreach (var unit in units)
-            await CreateAsync(unit);
-        await SaveAsync();
-
-        foreach (var unit in units)
-            unit.Iri = $"{_settings.ApplicationSemanticUrl}/unit/{unit.Id}";
-        await SaveAsync();
-
-        Detach(units);
-
-        return units;
     }
 
     /// <inheritdoc />
