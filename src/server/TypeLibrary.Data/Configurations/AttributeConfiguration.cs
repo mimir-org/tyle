@@ -11,7 +11,7 @@ public class AttributeConfiguration : IEntityTypeConfiguration<AttributeLibDm>
         builder.HasKey(x => x.Id);
         builder.HasIndex(x => x.State).IsUnique(false);
         builder.ToTable("Attribute");
-        builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(31);
+        builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(63);
         builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(127);
         builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false).HasMaxLength(255);
         builder.Property(p => p.TypeReference).HasColumnName("TypeReference").HasMaxLength(255);

@@ -10,7 +10,7 @@ public class AspectObjectTerminalConfiguration : IEntityTypeConfiguration<Aspect
     {
         builder.HasKey(x => x.Id);
         builder.ToTable("AspectObject_Terminal");
-        builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(31);
+        builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(63);
         builder.Property(p => p.MinQuantity).HasColumnName("MinQuantity").IsRequired().HasDefaultValue(1);
         builder.Property(p => p.MaxQuantity).HasColumnName("MaxQuantity").IsRequired().HasDefaultValue(int.MaxValue);
         builder.Property(p => p.ConnectorDirection).HasColumnName("ConnectorDirection").IsRequired().HasConversion<string>().HasMaxLength(31);
