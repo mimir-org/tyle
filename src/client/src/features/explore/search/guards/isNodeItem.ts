@@ -1,3 +1,3 @@
-import { NodeItem } from "common/types/nodeItem";
+import { AspectObjectItem } from "common/types/aspectObjectItem";
 
-export const isNodeItem = (item: unknown): item is NodeItem => (<NodeItem>item).kind === "NodeItem";
+export const isAspectObjectItem = (item: unknown): item is AspectObjectItem => (<AspectObjectItem>item).kind === "AspectObjectItem";

@@ -1,7 +1,7 @@
-import { mapNodeLibCmToNodeItem, mapTerminalLibCmToTerminalItem } from "common/utils/mappers";
-import { useGetNodes } from "external/sources/node/node.queries";
+import { mapAspectObjectLibCmToAspectObjectItem, mapTerminalLibCmToTerminalItem } from "common/utils/mappers";
+import { useGetAspectObjects } from "external/sources/aspectobject/aspectObject.queries";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
-import { isNodeLibCm, isTerminalLibCm } from "features/explore/search/guards";
+import { isAspectObjectLibCm, isTerminalLibCm } from "features/explore/search/guards";
 import { Filter } from "features/explore/search/types/filter";
 import { SearchResult, SearchResultRaw } from "features/explore/search/types/searchResult";
 
@@ -22,12 +22,12 @@ const sortItemsByDate = (items: SearchResultRaw[]) =>
   [...items].sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
 
 export const useSearchItems = (): [items: SearchResultRaw[], isLoading: boolean] => {
-  const nodeQuery = useGetNodes();
+  const aspectObjectQuery = useGetAspectObjects();
   const terminalQuery = useGetTerminals();
 
-  const isLoading = nodeQuery.isLoading || terminalQuery.isLoading;
+  const isLoading = aspectObjectQuery.isLoading || terminalQuery.isLoading;
 
-  const mergedItems = [...(nodeQuery.data ?? []), ...(terminalQuery.data ?? [])];
+  const mergedItems = [...(aspectObjectQuery.data ?? []), ...(terminalQuery.data ?? [])];
 
   return [mergedItems, isLoading];
 };
@@ -36,7 +36,7 @@ export const mapSearchResults = (items: SearchResultRaw[]) => {
   const mappedSearchResults: SearchResult[] = [];
 
   items.forEach((x) => {
-    if (isNodeLibCm(x)) mappedSearchResults.push(mapNodeLibCmToNodeItem(x));
+    if (isAspectObjectLibCm(x)) mappedSearchResults.push(mapAspectObjectLibCmToAspectObjectItem(x));
     else if (isTerminalLibCm(x)) mappedSearchResults.push(mapTerminalLibCmToTerminalItem(x));
   });
 

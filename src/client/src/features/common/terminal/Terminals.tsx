@@ -1,4 +1,4 @@
-import { NodeTerminalItem } from "common/types/nodeTerminalItem";
+import { AspectObjectTerminalItem } from "common/types/aspectObjectTerminalItem";
 import { Box } from "complib/layouts";
 import { TerminalButtonProps } from "features/common/terminal/TerminalButton";
 import { TerminalCollection } from "features/common/terminal/TerminalCollection";
@@ -6,7 +6,7 @@ import { TerminalSingle } from "features/common/terminal/TerminalSingle";
 import { useTheme } from "styled-components";
 
 export type TerminalsProps = Pick<TerminalButtonProps, "variant"> & {
-  terminals: NodeTerminalItem[];
+  terminals: AspectObjectTerminalItem[];
   placement?: "left" | "right";
   showCollectionLimit?: number;
 };

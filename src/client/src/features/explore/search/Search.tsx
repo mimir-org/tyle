@@ -11,7 +11,7 @@ import { SelectedInfo } from "features/explore/common/selectedInfo";
 import { FilterMenu } from "features/explore/search/components/filter/FilterMenu";
 import { ItemList } from "features/explore/search/components/item/ItemList";
 import { LinkMenu } from "features/explore/search/components/link/LinkMenu";
-import { ConditionalNodeSearchItem } from "features/explore/search/components/node/ConditionalNodeSearchItem";
+import { ConditionalAspectObjectSearchItem } from "features/explore/search/components/aspectobject/ConditionalAspectObjectSearchItem";
 import { SearchPlaceholder } from "features/explore/search/components/SearchPlaceholder";
 import { ConditionalTerminalSearchItem } from "features/explore/search/components/terminal/ConditionalTerminalSearchItem";
 import { useFilterState } from "features/explore/search/hooks/useFilterState";
@@ -100,10 +100,10 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
         <ItemList>
           {results.map((item) => (
             <Fragment key={item.id + item.kind}>
-              <ConditionalNodeSearchItem
+              <ConditionalAspectObjectSearchItem
                 item={item}
-                isSelected={item.id === selected?.id && selected.type === "node"}
-                setSelected={() => setSelected({ id: item.id, type: "node" })}
+                isSelected={item.id === selected?.id && selected.type === "aspectObject"}
+                setSelected={() => setSelected({ id: item.id, type: "aspectObject" })}
                 user={user}
               />
               <ConditionalTerminalSearchItem

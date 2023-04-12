@@ -1,3 +1,3 @@
-import { NodeLibCm } from "@mimirorg/typelibrary-types";
+import { AspectObjectLibCm } from "@mimirorg/typelibrary-types";
 
-export const isNodeLibCm = (item: unknown): item is NodeLibCm => (<NodeLibCm>item).kind === "NodeLibCm";
+export const isAspectObjectLibCm = (item: unknown): item is AspectObjectLibCm => (<AspectObjectLibCm>item).kind === "AspectObjectLibCm";

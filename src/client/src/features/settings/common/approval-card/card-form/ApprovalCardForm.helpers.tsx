@@ -11,7 +11,7 @@ import {
 } from "features/settings/common/approval-card/card-form/types/formApproval";
 import { Flexbox } from "complib/layouts/Flexbox";
 import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
-import { usePatchNodeState } from "external/sources/node/node.queries";
+import { usePatchAspectObjectState } from "external/sources/aspectobject/aspectObject.queries";
 
 /**
  * Shows a toast while an approval is sent to server.
@@ -23,15 +23,15 @@ export const useApprovalToasts = (oldState?: Option<State>) => {
   const theme = useTheme();
   const { t } = useTranslation("settings");
   const undoToast = useUndoApprovalToast(oldState);
-  const patchMutationNode = usePatchNodeState();
+  const patchMutationAspectObject = usePatchAspectObjectState();
   const patchMutationTerminal = usePatchTerminalState();
 
   let mutationPromise = {} as Promise<ApprovalDataCm>;
 
   return async (id: number, submission: FormApproval) => {
     switch (submission.objectType) {
-      case "Node":
-        mutationPromise = patchMutationNode.mutateAsync(mapFormApprovalToApiModel(submission));
+      case "AspectObject":
+        mutationPromise = patchMutationAspectObject.mutateAsync(mapFormApprovalToApiModel(submission));
         break;
       case "Terminal":
         mutationPromise = patchMutationTerminal.mutateAsync(mapFormApprovalToApiModel(submission));
@@ -77,7 +77,7 @@ export const useApprovalToasts = (oldState?: Option<State>) => {
  */
 const useUndoApprovalToast = (oldState?: Option<State>) => {
   const { t } = useTranslation("settings");
-  const patchMutationNode = usePatchNodeState();
+  const patchMutationAspectObject = usePatchAspectObjectState();
   const patchMutationTerminal = usePatchTerminalState();
   const shouldRevertToOldApproval = !!oldState;
 
@@ -86,8 +86,8 @@ const useUndoApprovalToast = (oldState?: Option<State>) => {
     let mutationPromise = {} as Promise<ApprovalDataCm>;
 
     switch (submission.objectType) {
-      case "Node":
-        mutationPromise = patchMutationNode.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
+      case "AspectObject":
+        mutationPromise = patchMutationAspectObject.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
         break;
       case "Terminal":
         mutationPromise = patchMutationTerminal.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
