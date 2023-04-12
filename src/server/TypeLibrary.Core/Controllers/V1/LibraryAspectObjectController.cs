@@ -73,7 +73,7 @@ public class LibraryAspectObjectController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult Get([FromRoute] int id)
+    public IActionResult Get([FromRoute] string id)
     {
         try
         {
@@ -151,7 +151,7 @@ public class LibraryAspectObjectController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [MimirorgAuthorize(MimirorgPermission.Write, "aspectObjectAm", "CompanyId")]
-    public async Task<IActionResult> Update(int id, [FromBody] AspectObjectLibAm aspectObjectAm)
+    public async Task<IActionResult> Update(string id, [FromBody] AspectObjectLibAm aspectObjectAm)
     {
         try
         {
@@ -196,7 +196,7 @@ public class LibraryAspectObjectController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
-    public async Task<IActionResult> ChangeState([FromRoute] int id, [FromRoute] State state)
+    public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
     {
         try
         {
@@ -228,7 +228,7 @@ public class LibraryAspectObjectController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
-    public async Task<IActionResult> RejectChangeState([FromRoute] int id)
+    public async Task<IActionResult> RejectChangeState([FromRoute] string id)
     {
         try
         {

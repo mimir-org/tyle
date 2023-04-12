@@ -14,12 +14,10 @@ namespace TypeLibrary.Data.Repositories.Ef;
 
 public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, TerminalLibDm>, IEfTerminalRepository
 {
-    private readonly IApplicationSettingsRepository _settings;
     private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
 
     public EfTerminalRepository(IApplicationSettingsRepository settings, TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
     {
-        _settings = settings;
         _typeLibraryProcRepository = typeLibraryProcRepository;
     }
 
@@ -128,10 +126,6 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
     public async Task<TerminalLibDm> Create(TerminalLibDm terminal)
     {
         await CreateAsync(terminal);
-        await SaveAsync();
-
-        if (terminal.FirstVersionId == 0) terminal.FirstVersionId = terminal.Id;
-        terminal.Iri = $"{_settings.ApplicationSemanticUrl}/terminal/{terminal.Id}";
         await SaveAsync();
 
         return terminal;

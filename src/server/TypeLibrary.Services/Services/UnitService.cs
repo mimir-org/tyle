@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime;
 using System.Threading.Tasks;
 using AutoMapper;
 using Mimirorg.Authentication.Contracts;
@@ -21,13 +22,15 @@ public class UnitService : IUnitService
     private readonly IUnitRepository _unitRepository;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
+    private readonly IApplicationSettingsRepository _settings;
 
-    public UnitService(IMapper mapper, IUnitRepository unitRepository, ITimedHookService hookService, ILogService logService)
+    public UnitService(IMapper mapper, IUnitRepository unitRepository, ITimedHookService hookService, ILogService logService, IApplicationSettingsRepository settings)
     {
         _mapper = mapper;
         _unitRepository = unitRepository;
         _hookService = hookService;
         _logService = logService;
+        _settings = settings;
     }
 
     /// <inheritdoc />
@@ -60,6 +63,8 @@ public class UnitService : IUnitService
 
         var dm = _mapper.Map<UnitLibDm>(unitAm);
 
+        dm.Id = Guid.NewGuid().ToString();
+        dm.Iri = $"{_settings.ApplicationSemanticUrl}/unit/{dm.Id}";
         dm.State = State.Draft;
 
         var createdUnit = await _unitRepository.Create(dm);

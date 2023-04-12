@@ -80,11 +80,6 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
         await CreateAsync(attribute);
         await SaveAsync();
 
-        attribute.Iri = $"{_settings.ApplicationSemanticUrl}/attribute/{attribute.Id}";
-        foreach (var attributeUnit in attribute.AttributeUnits)
-            attributeUnit.AttributeId = attribute.Id;
-        await SaveAsync();
-
         Detach(attribute);
 
         return attribute;
@@ -96,6 +91,8 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
         foreach (var attribute in attributes)
             await CreateAsync(attribute);
         await SaveAsync();
+
+        fixThisLater;
 
         foreach (var attribute in attributes)
         {

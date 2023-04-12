@@ -73,7 +73,7 @@ public class LibraryTerminalController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult Get(int id)
+    public IActionResult Get(string id)
     {
         try
         {
@@ -146,7 +146,7 @@ public class LibraryTerminalController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
-    public async Task<IActionResult> Update(int id, [FromBody] TerminalLibAm terminal)
+    public async Task<IActionResult> Update(string id, [FromBody] TerminalLibAm terminal)
     {
         try
         {
@@ -191,7 +191,7 @@ public class LibraryTerminalController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
-    public async Task<IActionResult> ChangeState([FromRoute] int id, [FromRoute] State state)
+    public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
     {
         try
         {
@@ -223,7 +223,7 @@ public class LibraryTerminalController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
-    public async Task<IActionResult> RejectChangeState([FromRoute] int id)
+    public async Task<IActionResult> RejectChangeState([FromRoute] string id)
     {
         try
         {

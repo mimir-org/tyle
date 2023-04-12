@@ -70,7 +70,7 @@ public class LibraryUnitController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult Get([FromRoute] int id)
+    public IActionResult Get([FromRoute] string id)
     {
         try
         {
@@ -133,7 +133,7 @@ public class LibraryUnitController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
-    public async Task<IActionResult> ChangeState([FromRoute] int id, [FromRoute] State state)
+    public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
     {
         try
         {
@@ -165,7 +165,7 @@ public class LibraryUnitController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
-    public async Task<IActionResult> RejectChangeState([FromRoute] int id)
+    public async Task<IActionResult> RejectChangeState([FromRoute] string id)
     {
         try
         {

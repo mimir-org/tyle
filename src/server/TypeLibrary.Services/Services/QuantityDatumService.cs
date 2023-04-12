@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime;
 using System.Threading.Tasks;
 using AutoMapper;
 using Mimirorg.Authentication.Contracts;
@@ -21,13 +22,15 @@ public class QuantityDatumService : IQuantityDatumService
     private readonly IQuantityDatumRepository _quantityDatumRepository;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
+    private readonly IApplicationSettingsRepository _settings;
 
-    public QuantityDatumService(IMapper mapper, IQuantityDatumRepository quantityDatumRepository, ITimedHookService hookService, ILogService logService)
+    public QuantityDatumService(IMapper mapper, IQuantityDatumRepository quantityDatumRepository, ITimedHookService hookService, ILogService logService, IApplicationSettingsRepository settings)
     {
         _mapper = mapper;
         _quantityDatumRepository = quantityDatumRepository;
         _hookService = hookService;
         _logService = logService;
+        _settings = settings;
     }
 
     /// <inheritdoc />
@@ -81,6 +84,8 @@ public class QuantityDatumService : IQuantityDatumService
 
         var dm = _mapper.Map<QuantityDatumLibDm>(quantityDatumAm);
 
+        dm.Id = Guid.NewGuid().ToString();
+        dm.Iri = $"{_settings.ApplicationSemanticUrl}/quantitydatum/{dm.Id}";
         dm.State = State.Draft;
 
         var createdQuantityDatum = await _quantityDatumRepository.Create(dm);

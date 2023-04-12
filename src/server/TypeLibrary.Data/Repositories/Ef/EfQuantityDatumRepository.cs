@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Enums;
-using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
@@ -14,12 +13,10 @@ namespace TypeLibrary.Data.Repositories.Ef;
 
 public class EfQuantityDatumRepository : GenericRepository<TypeLibraryDbContext, QuantityDatumLibDm>, IEfQuantityDatumRepository
 {
-    private readonly IApplicationSettingsRepository _settings;
     private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
 
-    public EfQuantityDatumRepository(IApplicationSettingsRepository settings, TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
+    public EfQuantityDatumRepository(TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
     {
-        _settings = settings;
         _typeLibraryProcRepository = typeLibraryProcRepository;
     }
 
@@ -95,9 +92,6 @@ public class EfQuantityDatumRepository : GenericRepository<TypeLibraryDbContext,
     public async Task<QuantityDatumLibDm> Create(QuantityDatumLibDm quantityDatum)
     {
         await CreateAsync(quantityDatum);
-        await SaveAsync();
-
-        quantityDatum.Iri = $"{_settings.ApplicationSemanticUrl}/quantitydatum/{quantityDatum.Id}";
         await SaveAsync();
 
         Detach(quantityDatum);

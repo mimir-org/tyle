@@ -13,12 +13,10 @@ namespace TypeLibrary.Data.Repositories.Ef;
 
 public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibDm>, IEfUnitRepository
 {
-    private readonly IApplicationSettingsRepository _settings;
     private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
 
-    public EfUnitRepository(IApplicationSettingsRepository settings, TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
+    public EfUnitRepository(TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
     {
-        _settings = settings;
         _typeLibraryProcRepository = typeLibraryProcRepository;
     }
 
@@ -76,9 +74,6 @@ public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibD
     public async Task<UnitLibDm> Create(UnitLibDm unit)
     {
         await CreateAsync(unit);
-        await SaveAsync();
-
-        unit.Iri = $"{_settings.ApplicationSemanticUrl}/unit/{unit.Id}";
         await SaveAsync();
 
         Detach(unit);

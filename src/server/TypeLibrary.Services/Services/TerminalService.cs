@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
@@ -13,6 +15,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;
@@ -23,13 +26,19 @@ public class TerminalService : ITerminalService
     private readonly IMapper _mapper;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
+    private readonly IApplicationSettingsRepository _settings;
+    private readonly ILogger<TerminalService> _logger;
+    private readonly IAttributeRepository _attributeRepository;
 
-    public TerminalService(ITerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService, ILogService logService)
+    public TerminalService(ITerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService, ILogService logService, IApplicationSettingsRepository settings, ILogger<TerminalService> logger, IAttributeRepository attributeRepository)
     {
         _terminalRepository = terminalRepository;
         _mapper = mapper;
         _hookService = hookService;
         _logService = logService;
+        _settings = settings;
+        _logger = logger;
+        _attributeRepository = attributeRepository;
     }
 
     /// <summary>
@@ -86,10 +95,21 @@ public class TerminalService : ITerminalService
         terminal.Version = "1.0";
         var dm = _mapper.Map<TerminalLibDm>(terminal);
 
+        dm.Id = Guid.NewGuid().ToString();
+        dm.Iri = $"{_settings.ApplicationSemanticUrl}/terminal/{dm.Id}";
         dm.State = State.Draft;
+        dm.FirstVersionId ??= dm.Id;
 
-        // TODO: This is a temporary fix, since the TS types are not built correctly for nullable ints
-        if (dm.ParentId == 0) dm.ParentId = null;
+        dm.Attributes = new List<AttributeLibDm>();
+        foreach (var attributeId in terminal.Attributes)
+        {
+            var attribute = _attributeRepository.Get(attributeId);
+            if (attribute == null)
+                _logger.LogError(
+                    $"Could not add attribute with id {attributeId} to aspect object with id {dm.Id}, attribute not found.");
+            else
+                dm.Attributes.Add(attribute);
+        }
 
         var createdTerminal = await _terminalRepository.Create(dm);
         _terminalRepository.ClearAllChangeTrackers();
