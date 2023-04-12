@@ -12,14 +12,21 @@ public interface IAttributeRepository
     /// </summary>
     /// <param name="id">The attribute id</param>
     /// <returns>The company id of given attribute</returns>
-    Task<int> HasCompany(string id);
+    int HasCompany(string id);
 
     /// <summary>
-    /// Change the state of the attribute on all listed id's
+    /// Change the state of the attribute with the given id
     /// </summary>
     /// <param name="state">The state to change to</param>
-    /// <param name="ids">A list of attribute id's</param>
-    /// <returns>The number of attributes in given state</returns>
+    /// <param name="id">The attribute id</param>
+    Task ChangeState(State state, string id);
+
+    /// <summary>
+    /// Change the state of the attribute on all listed ids
+    /// </summary>
+    /// <param name="state">The state to change to</param>
+    /// <param name="ids">A list of attribute ids</param>
+    /// <returns>The number of attributes with changed state</returns>
     Task<int> ChangeState(State state, ICollection<string> ids);
 
     /// <summary>
@@ -41,13 +48,6 @@ public interface IAttributeRepository
     /// <param name="attribute">The attribute to be created</param>
     /// <returns>The created attribute</returns>
     Task<AttributeLibDm> Create(AttributeLibDm attribute);
-
-    /// <summary>
-    /// Create all attributes in a collection
-    /// </summary>
-    /// <param name="attributes">A collection of attributes to create</param>
-    /// <returns>A list of the created attributes</returns>
-    Task<ICollection<AttributeLibDm>> Create(ICollection<AttributeLibDm> attributes);
 
     /// <summary>
     /// Clear all entity framework change trackers

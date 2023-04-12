@@ -14,71 +14,61 @@ namespace TypeLibrary.Data.Repositories.Ef;
 
 public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, AspectObjectLibDm>, IEfAspectObjectRepository
 {
-    private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
-
-    public EfAspectObjectRepository(TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
+    public EfAspectObjectRepository(TypeLibraryDbContext dbContext) : base(dbContext)
     {
-        _typeLibraryProcRepository = typeLibraryProcRepository;
     }
 
-    /// <summary>
-    /// Get the registered company on given id
-    /// </summary>
-    /// <param name="id">The aspect object id</param>
-    /// <returns>The company id of given terminal</returns>
-    public async Task<int> HasCompany(string id)
+    /// <inheritdoc />
+    public int HasCompany(string id)
     {
-        var procParams = new Dictionary<string, object>
-        {
-            {"@TableName", "AspectObject"},
-            {"@Id", id}
-        };
-
-        var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlCompanyId>("HasCompany", procParams);
-        return result?.FirstOrDefault()?.CompanyId ?? 0;
+        return Get(id).CompanyId;
     }
 
-    /// <summary>
-    /// Change the state of the aspect object on all listed id's
-    /// </summary>
-    /// <param name="state">The state to change to</param>
-    /// <param name="ids">A list of aspect object id's</param>
-    /// <returns>The number of aspect objects in given state</returns>
+    /// <inheritdoc />
+    public async Task ChangeState(State state, string id)
+    {
+        var aspectObject = await GetAsync(id);
+        aspectObject.State = state;
+        await SaveAsync();
+        Detach(aspectObject);
+    }
+
+    /// <inheritdoc />
     public async Task<int> ChangeState(State state, ICollection<string> ids)
     {
-        if (ids == null)
-            return 0;
-
-        var idList = string.Join(",", ids.Select(i => i.ToString()));
-
-        var procParams = new Dictionary<string, object>
+        var aspectObjectsToChange = new List<AspectObjectLibDm>();
+        foreach (var id in ids)
         {
-            {"@TableName", "AspectObject"},
-            {"@State", state.ToString()},
-            {"@IdList", idList}
-        };
+            var aspectObject = await GetAsync(id);
+            aspectObject.State = state;
+            aspectObjectsToChange.Add(aspectObject);
+        }
 
-        var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlResultCount>("UpdateState", procParams);
-        return result?.FirstOrDefault()?.Number ?? 0;
+        await SaveAsync();
+        Detach(aspectObjectsToChange);
+
+        return aspectObjectsToChange.Count;
     }
 
     /// <summary>
-    /// Change all parent id's on aspect objects from old id to the new id 
+    /// Change all parent id's on terminals from old id to the new id 
     /// </summary>
-    /// <param name="oldId">Old aspect object parent id</param>
-    /// <param name="newId">New aspect object parent id</param>
-    /// <returns>The number of aspect objects with the new parent id</returns>
+    /// <param name="oldId">Old terminal parent id</param>
+    /// <param name="newId">New terminal parent id</param>
+    /// <returns>The number of terminal with the new parent id</returns>
     public async Task<int> ChangeParentId(string oldId, string newId)
     {
-        var procParams = new Dictionary<string, object>
-        {
-            {"@TableName", "AspectObject"},
-            {"@OldId", oldId},
-            {"@NewId", newId}
-        };
+        var affectedAspectObjects = FindBy(x => x.ParentId == oldId);
 
-        var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlResultCount>("UpdateParentId", procParams);
-        return result?.FirstOrDefault()?.Number ?? 0;
+        foreach (var aspectObject in affectedAspectObjects)
+        {
+            aspectObject.ParentId = newId;
+        }
+
+        await SaveAsync();
+        Detach(affectedAspectObjects.ToList());
+
+        return affectedAspectObjects.Count();
     }
 
     /// <summary>

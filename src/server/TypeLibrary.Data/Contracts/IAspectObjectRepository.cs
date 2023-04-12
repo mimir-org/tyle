@@ -12,18 +12,25 @@ public interface IAspectObjectRepository
     /// </summary>
     /// <param name="id">The aspect object id</param>
     /// <returns>The company id of given aspect object</returns>
-    Task<int> HasCompany(string id);
+    int HasCompany(string id);
 
     /// <summary>
-    /// Change the state of the aspect object on all listed id's
+    /// Change the state of the aspect object with the given id
     /// </summary>
     /// <param name="state">The state to change to</param>
-    /// <param name="ids">A list of aspect object id's</param>
-    /// <returns>The number of aspect objects in given state</returns>
+    /// <param name="id">The aspect object id</param>
+    Task ChangeState(State state, string id);
+
+    /// <summary>
+    /// Change the state of the aspect object on all listed ids
+    /// </summary>
+    /// <param name="state">The state to change to</param>
+    /// <param name="ids">A list of aspect object ids</param>
+    /// <returns>The number of aspect objects with changed state</returns>
     Task<int> ChangeState(State state, ICollection<string> ids);
 
     /// <summary>
-    /// Change all parent id's on aspect objects from old id to the new id 
+    /// Change all parent ids on aspect objects from old id to the new id 
     /// </summary>
     /// <param name="oldId">Old aspect object parent id</param>
     /// <param name="newId">New aspect object parent id</param>

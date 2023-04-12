@@ -26,11 +26,11 @@ public interface ITerminalRepository
     /// </summary>
     /// <param name="state">The state to change to</param>
     /// <param name="ids">A list of terminal ids</param>
-    /// <returns>The number of units in given state</returns>
+    /// <returns>The number of terminals with changed state</returns>
     Task<int> ChangeState(State state, ICollection<string> ids);
 
     /// <summary>
-    /// Change all parent id's on terminals from old id to the new id 
+    /// Change all parent ids on terminals from old id to the new id 
     /// </summary>
     /// <param name="oldId">Old terminal parent id</param>
     /// <param name="newId">New terminal parent id</param>

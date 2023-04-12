@@ -63,14 +63,21 @@ public interface IQuantityDatumRepository
     /// </summary>
     /// <param name="id">The quantity datum id</param>
     /// <returns>The company id of given quantity datum</returns>
-    Task<int> HasCompany(string id);
+    int HasCompany(string id);
 
     /// <summary>
-    /// Change the state of the quantity datum on all listed id's
+    /// Change the state of the quantity datum with the given id
     /// </summary>
     /// <param name="state">The state to change to</param>
-    /// <param name="ids">A list of quantity datum id's</param>
-    /// <returns>The number of quantity datums in given state</returns>
+    /// <param name="id">The quantity datum id</param>
+    Task ChangeState(State state, string id);
+
+    /// <summary>
+    /// Change the state of the quantity datums on all listed ids
+    /// </summary>
+    /// <param name="state">The state to change to</param>
+    /// <param name="ids">A list of quantity datum ids</param>
+    /// <returns>The number of quantity datums with changed state</returns>
     Task<int> ChangeState(State state, ICollection<string> ids);
 
     /// <summary>

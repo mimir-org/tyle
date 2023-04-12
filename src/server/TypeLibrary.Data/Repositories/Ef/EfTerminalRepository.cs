@@ -58,15 +58,17 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
     /// <returns>The number of terminal with the new parent id</returns>
     public async Task<int> ChangeParentId(string oldId, string newId)
     {
-        var procParams = new Dictionary<string, object>
-        {
-            {"@TableName", "Terminal"},
-            {"@OldId", oldId},
-            {"@NewId", newId}
-        };
+        var affectedTerminals = FindBy(x => x.ParentId == oldId);
 
-        var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlResultCount>("UpdateParentId", procParams);
-        return result?.FirstOrDefault()?.Number ?? 0;
+        foreach (var terminal in affectedTerminals)
+        {
+            terminal.ParentId = newId;
+        }
+
+        await SaveAsync();
+        Detach(affectedTerminals.ToList());
+
+        return affectedTerminals.Count();
     }
 
     /// <summary>
