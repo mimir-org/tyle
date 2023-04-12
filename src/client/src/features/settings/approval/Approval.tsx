@@ -8,7 +8,7 @@ import { useTheme } from "styled-components";
 import { useQueryClient } from "@tanstack/react-query";
 import { approvalKeys, useGetApprovals } from "external/sources/approval/approval.queries";
 import { ApprovalDataCm, State } from "@mimirorg/typelibrary-types";
-import { usePatchNodeStateReject } from "external/sources/node/node.queries";
+import { usePatchAspectObjectStateReject } from "external/sources/aspectobject/aspectObject.queries";
 import { usePatchTerminalStateReject } from "external/sources/terminal/terminal.queries";
 
 export const Approval = () => {
@@ -16,7 +16,7 @@ export const Approval = () => {
   const theme = useTheme();
   const { t } = useTranslation("settings");
   const approvals = useGetApprovals();
-  const patcMutationRejectNode = usePatchNodeStateReject();
+  const patcMutationRejectAspectObject = usePatchAspectObjectStateReject();
   const patcMutationRejectTerminal = usePatchTerminalStateReject();
   const showPlaceholder = approvals?.data && approvals.data.length === 0;
 
@@ -30,8 +30,8 @@ export const Approval = () => {
     const data: ApprovalDataCm = { id: id, state: state };
 
     switch (objectType) {
-      case "Node":
-        patcMutationRejectNode.mutateAsync(data);
+      case "AspectObject":
+        patcMutationRejectAspectObject.mutateAsync(data);
         break;
       case "Terminal":
         patcMutationRejectTerminal.mutateAsync(data);

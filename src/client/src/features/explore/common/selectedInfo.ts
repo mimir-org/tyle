@@ -1,4 +1,4 @@
-type SelectedInfoType = "node" | "terminal";
+type SelectedInfoType = "aspectObject" | "terminal";
 
 /**
  * Interface for describing the currently selected item in the search list.

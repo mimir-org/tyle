@@ -1,9 +1,9 @@
-import { mapNodeLibCmToNodeItem, mapTerminalLibCmToTerminalItem } from "common/utils/mappers";
-import { useGetNode } from "external/sources/node/node.queries";
+import { mapAspectObjectLibCmToAspectObjectItem, mapTerminalLibCmToTerminalItem } from "common/utils/mappers";
+import { useGetAspectObject } from "external/sources/aspectobject/aspectObject.queries";
 import { useGetTerminal } from "external/sources/terminal/terminal.queries";
 import { Loader } from "features/common/loader";
 import { AboutPlaceholder } from "features/explore/about/components/AboutPlaceholder";
-import { NodePanel } from "features/explore/about/components/node/NodePanel";
+import { AspectObjectPanel } from "features/explore/about/components/aspectobject/AspectObjectPanel";
 import { TerminalPanel } from "features/explore/about/components/terminal/TerminalPanel";
 import { ExploreSection } from "features/explore/common/ExploreSection";
 import { SelectedInfo } from "features/explore/common/selectedInfo";
@@ -23,26 +23,26 @@ interface AboutProps {
 export const About = ({ selected }: AboutProps) => {
   const { t } = useTranslation("explore");
 
-  const nodeQuery = useGetNode(selected?.type === "node" ? selected?.id : undefined);
+  const aspectObjectQuery = useGetAspectObject(selected?.type === "aspectObject" ? selected?.id : undefined);
   const terminalQuery = useGetTerminal(selected?.type == "terminal" ? selected?.id : undefined);
 
   const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
-    const allQueries = [nodeQuery, terminalQuery];
+    const allQueries = [aspectObjectQuery, terminalQuery];
     setShowLoader(allQueries.some((x) => x.isFetching));
-  }, [nodeQuery, terminalQuery]);
+  }, [aspectObjectQuery, terminalQuery]);
 
   const showPlaceHolder = !showLoader && selected?.type === undefined;
-  const showNodePanel = !showLoader && selected?.type === "node" && nodeQuery.isSuccess;
+  const showAspectObjectPanel = !showLoader && selected?.type === "aspectObject" && aspectObjectQuery.isSuccess;
   const showTerminalPanel = !showLoader && selected?.type === "terminal" && terminalQuery.isSuccess;
 
   return (
     <ExploreSection title={t("about.title")}>
       {showLoader && <Loader />}
       {showPlaceHolder && <AboutPlaceholder text={t("about.placeholders.item")} />}
-      {showNodePanel && (
-        <NodePanel key={nodeQuery.data.id + nodeQuery.data.kind} {...mapNodeLibCmToNodeItem(nodeQuery.data)} />
+      {showAspectObjectPanel && (
+        <AspectObjectPanel key={aspectObjectQuery.data.id + aspectObjectQuery.data.kind} {...mapAspectObjectLibCmToAspectObjectItem(aspectObjectQuery.data)} />
       )}
       {showTerminalPanel && (
         <TerminalPanel

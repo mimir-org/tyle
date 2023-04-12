@@ -35,7 +35,7 @@
     "cancel": "Cancel",
     "submit": "Submit"
   },
-  "node": {
+  "aspectObject": {
     "title": "Aspect object",
     "name": "Name",
     "purpose": "Purpose",
@@ -52,9 +52,9 @@
       "aspect": "It is not possible to change the aspect of the current type. We recommend that you select a different type with the desired aspect."
     },
     "processing": {
-      "loading": "Submitting node",
-      "success": "Your node has been submitted",
-      "error": "An error occurred during node submission"
+      "loading": "Submitting aspect object",
+      "success": "Your aspect object has been submitted",
+      "error": "An error occurred during aspect object submission"
     },
     "validation": {
       "name": {
@@ -79,7 +79,7 @@
       "description": {
         "max": "The description can be at most 500 characters"
       },
-      "nodeTerminals": {
+      "aspectObjectTerminals": {
         "array": {
           "unique": "Two or more terminals cannot share the same name and direction"
         },

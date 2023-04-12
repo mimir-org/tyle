@@ -1,4 +1,4 @@
-import { nodeFormRoutes } from "features/entities/node/NodeFormRoutes";
+import { aspectObjectFormRoutes } from "features/entities/aspectobject/AspectObjectFormRoutes";
 import { terminalFormRoutes } from "features/entities/terminal/TerminalFormRoutes";
 import { exploreRoutes } from "features/explore/ExploreRoutes";
 import { settingsRoutes } from "features/settings/SettingsRoutes";
@@ -25,7 +25,7 @@ export const useAuthenticatedRouter = () => {
       ),
       children: [
         ...exploreRoutes,
-        ...nodeFormRoutes,
+        ...aspectObjectFormRoutes,
         ...terminalFormRoutes,
         settingsRoutes,
         {
