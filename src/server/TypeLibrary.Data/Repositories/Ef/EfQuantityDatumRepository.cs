@@ -4,10 +4,8 @@ using System.Threading.Tasks;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Enums;
-using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Data.Models.Common;
 
 namespace TypeLibrary.Data.Repositories.Ef;
 

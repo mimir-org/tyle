@@ -3,11 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Enums;
-using TypeLibrary.Data.Contracts;
-using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Data.Models.Common;
 
 namespace TypeLibrary.Data.Repositories.Ef;
 
@@ -81,7 +78,7 @@ public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibD
     /// <inheritdoc />
     public async Task<ICollection<UnitLibDm>> Create(ICollection<UnitLibDm> units)
     {
-        foreach(var unit in units)
+        foreach (var unit in units)
             await CreateAsync(unit);
         await SaveAsync();
 

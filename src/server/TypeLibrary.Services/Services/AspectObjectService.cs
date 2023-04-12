@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
@@ -113,7 +112,7 @@ public class AspectObjectService : IAspectObjectService
             else
                 dm.Attributes.Add(attribute);
         }
-        
+
         var createdAspectObject = await _aspectObjectRepository.Create(dm);
         _aspectObjectRepository.ClearAllChangeTrackers();
         await _logService.CreateLog(createdAspectObject, LogType.State, State.Draft.ToString());

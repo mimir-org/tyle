@@ -4,7 +4,6 @@ using System.Linq;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Models.Application;
 using Xunit;
 
 namespace Mimirorg.Test.Unit.Models;

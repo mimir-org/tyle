@@ -18,7 +18,7 @@ public class MimirorgCommonFixture : IDisposable
     public MimirorgAuthSettings MimirorgAuthSettings = new();
     public ApplicationSettings ApplicationSettings = new();
     public Mock<IMapper> Mapper = new();
-    
+
     // Loggers
     public Mock<ILogger<AspectObjectService>> AspectObjectServiceLogger = new();
 
