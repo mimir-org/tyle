@@ -64,17 +64,15 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
             Name = "Information",
             Color = "#006600",
             ParentId = null,
-            CompanyId = 1,
-            Version = "1.0"
+            CompanyId = 1
         };
 
         var terminalB = new TerminalLibAm
         {
             Name = "Automation System 87",
             Color = "#00CC66",
-            ParentId = 39689,
-            CompanyId = 1,
-            Version = "1.0"
+            ParentId = "39689",
+            CompanyId = 1
         };
 
         await terminalService.Create(terminalA);

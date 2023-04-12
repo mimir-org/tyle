@@ -39,7 +39,6 @@ public static class TypeLibraryModuleExtensions
         services.AddSingleton<ISparQlWebClient, SparQlWebClient>();
 
         // Dependency Injection - Repositories
-        services.AddScoped<ITypeLibraryProcRepository, TypeLibraryProcRepository>();
         services.AddSingleton<IApplicationSettingsRepository, ApplicationSettingsRepository>();
         services.AddScoped<IEfAspectObjectRepository, EfAspectObjectRepository>();
         services.AddScoped<IEfTerminalRepository, EfTerminalRepository>();

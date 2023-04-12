@@ -59,5 +59,5 @@ public interface IAspectObjectService
     /// </summary>
     /// <param name="id">The aspect object id</param>
     /// <returns>Company id for the aspect object</returns>
-    Task<int> GetCompanyId(string id);
+    int GetCompanyId(string id);
 }

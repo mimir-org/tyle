@@ -196,7 +196,7 @@ public class AspectObjectService : IAspectObjectService
         if (dm == null)
             throw new MimirorgNotFoundException($"Aspect object with id {id} not found, or is not latest version.");
 
-        await _aspectObjectRepository.ChangeState(state, new List<int> { dm.Id });
+        await _aspectObjectRepository.ChangeState(state, dm.Id);
         await _logService.CreateLog(dm, LogType.State, state.ToString());
         _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
 
@@ -212,8 +212,8 @@ public class AspectObjectService : IAspectObjectService
     /// </summary>
     /// <param name="id">The aspect object id</param>
     /// <returns>Company id for aspect object</returns>
-    public async Task<int> GetCompanyId(string id)
+    public int GetCompanyId(string id)
     {
-        return await _aspectObjectRepository.HasCompany(id);
+        return _aspectObjectRepository.HasCompany(id);
     }
 }

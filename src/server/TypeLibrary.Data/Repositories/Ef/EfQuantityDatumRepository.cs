@@ -103,10 +103,6 @@ public class EfQuantityDatumRepository : GenericRepository<TypeLibraryDbContext,
             await CreateAsync(quantityDatum);
         await SaveAsync();
 
-        foreach (var quantityDatum in quantityDatums)
-            quantityDatum.Iri = $"{_settings.ApplicationSemanticUrl}/quantitydatum/{quantityDatum.Id}";
-        await SaveAsync();
-
         Detach(quantityDatums);
 
         return quantityDatums;

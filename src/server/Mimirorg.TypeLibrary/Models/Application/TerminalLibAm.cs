@@ -25,13 +25,6 @@ public class TerminalLibAm
     public string TypeReference { get; set; }
 
     /// <summary>
-    /// The terminal version
-    /// </summary>
-    [Required]
-    [Double]
-    public string Version { get; set; }
-
-    /// <summary>
     /// The owner of the terminal type
     /// </summary>
     /// <remarks>

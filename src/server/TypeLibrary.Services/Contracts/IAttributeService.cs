@@ -40,7 +40,7 @@ public interface IAttributeService
     /// </summary>
     /// <param name="id">The attribute id</param>
     /// <returns>Company id for the attribute</returns>
-    Task<int> GetCompanyId(string id);
+    int GetCompanyId(string id);
 
     /// <summary>
     /// Get predefined attributes

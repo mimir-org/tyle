@@ -142,7 +142,7 @@ public class LibraryAttributeController : ControllerBase
     {
         try
         {
-            var companyId = await _attributeService.GetCompanyId(id);
+            var companyId = _attributeService.GetCompanyId(id);
             var hasAccess = await _authService.HasAccess(companyId, state);
 
             if (!hasAccess)
@@ -174,7 +174,7 @@ public class LibraryAttributeController : ControllerBase
     {
         try
         {
-            var companyId = await _attributeService.GetCompanyId(id);
+            var companyId = _attributeService.GetCompanyId(id);
             var previousState = await _logService.GetPreviousState(id, nameof(AttributeLibDm));
             var hasAccess = await _authService.HasAccess(companyId, previousState);
 

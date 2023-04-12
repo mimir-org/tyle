@@ -136,7 +136,7 @@ public class LibraryQuantityDatumController : ControllerBase
     {
         try
         {
-            var companyId = await _quantityDatumService.GetCompanyId(id);
+            var companyId = _quantityDatumService.GetCompanyId(id);
             var hasAccess = await _authService.HasAccess(companyId, state);
 
             if (!hasAccess)
@@ -168,7 +168,7 @@ public class LibraryQuantityDatumController : ControllerBase
     {
         try
         {
-            var companyId = await _quantityDatumService.GetCompanyId(id);
+            var companyId = _quantityDatumService.GetCompanyId(id);
             var previousState = await _logService.GetPreviousState(id, nameof(QuantityDatumLibAm));
             var hasAccess = await _authService.HasAccess(companyId, previousState);
 

@@ -50,6 +50,13 @@ public interface IAttributeRepository
     Task<AttributeLibDm> Create(AttributeLibDm attribute);
 
     /// <summary>
+    /// Create all attributes in a list
+    /// </summary>
+    /// <param name="attributes">The attributes to be created</param>
+    /// <returns>The created attributes</returns>
+    Task<List<AttributeLibDm>> Create(List<AttributeLibDm> attribute);
+
+    /// <summary>
     /// Clear all entity framework change trackers
     /// </summary>
     void ClearAllChangeTrackers();

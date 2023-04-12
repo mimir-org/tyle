@@ -83,7 +83,7 @@ public class UnitService : IUnitService
         if (dm == null)
             throw new MimirorgNotFoundException($"Unit with id {id} not found, or is not latest version.");
 
-        await _unitRepository.ChangeState(state, new List<int> { dm.Id });
+        await _unitRepository.ChangeState(state, dm.Id);
         await _logService.CreateLog(dm, LogType.State, state.ToString());
         _hookService.HookQueue.Enqueue(CacheKey.Unit);
 
@@ -96,8 +96,8 @@ public class UnitService : IUnitService
     }
 
     /// <inheritdoc />
-    public async Task<int> GetCompanyId(string id)
+    public int GetCompanyId(string id)
     {
-        return await _unitRepository.HasCompany(id);
+        return _unitRepository.HasCompany(id);
     }
 }

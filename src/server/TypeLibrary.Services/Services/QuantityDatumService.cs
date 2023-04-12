@@ -104,7 +104,7 @@ public class QuantityDatumService : IQuantityDatumService
         if (dm == null)
             throw new MimirorgNotFoundException($"Quantity datum with id {id} not found.");
 
-        await _quantityDatumRepository.ChangeState(state, new List<int> { dm.Id });
+        await _quantityDatumRepository.ChangeState(state, dm.Id);
         await _logService.CreateLog(dm, LogType.State, state.ToString());
         _hookService.HookQueue.Enqueue(CacheKey.QuantityDatum);
 
@@ -117,8 +117,8 @@ public class QuantityDatumService : IQuantityDatumService
     }
 
     /// <inheritdoc />
-    public async Task<int> GetCompanyId(string id)
+    public int GetCompanyId(string id)
     {
-        return await _quantityDatumRepository.HasCompany(id);
+        return _quantityDatumRepository.HasCompany(id);
     }
 }

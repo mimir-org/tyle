@@ -58,5 +58,5 @@ public interface IQuantityDatumService
     /// </summary>
     /// <param name="id">The quantity datum id</param>
     /// <returns>Company id for the quantity datum</returns>
-    Task<int> GetCompanyId(string id);
+    int GetCompanyId(string id);
 }

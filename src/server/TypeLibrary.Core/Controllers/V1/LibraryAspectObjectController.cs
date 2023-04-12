@@ -158,7 +158,7 @@ public class LibraryAspectObjectController : ControllerBase
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var companyId = await _aspectObjectService.GetCompanyId(id);
+            var companyId = _aspectObjectService.GetCompanyId(id);
 
             if (companyId != aspectObjectAm.CompanyId)
                 return StatusCode(StatusCodes.Status403Forbidden);
@@ -200,7 +200,7 @@ public class LibraryAspectObjectController : ControllerBase
     {
         try
         {
-            var companyId = await _aspectObjectService.GetCompanyId(id);
+            var companyId = _aspectObjectService.GetCompanyId(id);
             var hasAccess = await _authService.HasAccess(companyId, state);
 
             if (!hasAccess)
@@ -232,7 +232,7 @@ public class LibraryAspectObjectController : ControllerBase
     {
         try
         {
-            var companyId = await _aspectObjectService.GetCompanyId(id);
+            var companyId = _aspectObjectService.GetCompanyId(id);
             var previousState = await _logService.GetPreviousState(id, nameof(AspectObjectLibDm));
             var hasAccess = await _authService.HasAccess(companyId, previousState);
 

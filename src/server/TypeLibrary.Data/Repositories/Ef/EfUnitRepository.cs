@@ -79,6 +79,18 @@ public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibD
     }
 
     /// <inheritdoc />
+    public async Task<ICollection<UnitLibDm>> Create(ICollection<UnitLibDm> units)
+    {
+        foreach(var unit in units)
+            await CreateAsync(unit);
+        await SaveAsync();
+
+        Detach(units);
+
+        return units;
+    }
+
+    /// <inheritdoc />
     public void ClearAllChangeTrackers()
     {
         Context?.ChangeTracker.Clear();

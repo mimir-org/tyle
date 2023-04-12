@@ -16,19 +16,19 @@ public class AspectObjectServiceTests : UnitTest<MimirorgCommonFixture>
 
     public AspectObjectServiceTests(MimirorgCommonFixture fixture) : base(fixture)
     {
-        _aspectObjectService = new AspectObjectService(fixture.Mapper.Object, fixture.AspectObjectRepository.Object, fixture.TimedHookService.Object, fixture.LogService.Object);
+        _aspectObjectService = new AspectObjectService(fixture.Mapper.Object, fixture.AspectObjectRepository.Object, fixture.AttributeRepository.Object, fixture.TimedHookService.Object, fixture.LogService.Object, fixture.AspectObjectServiceLogger.Object, fixture.ApplicationSettingsRepository.Object);
     }
 
     [Fact]
-    public void Get_Returns_MimirorgBadRequestException_On_ZeroParam()
+    public void Get_Returns_MimirorgBadRequestException_On_NullParam()
     {
-        _ = Assert.Throws<MimirorgNotFoundException>(() => _aspectObjectService.Get(0));
+        _ = Assert.Throws<MimirorgNotFoundException>(() => _aspectObjectService.Get(null));
     }
 
     [Fact]
     public void GetAspectObject_No_Matching_Id_Throws_MimirorgNotFoundException()
     {
-        _ = Assert.Throws<MimirorgNotFoundException>(() => _aspectObjectService.Get(6666666));
+        _ = Assert.Throws<MimirorgNotFoundException>(() => _aspectObjectService.Get("6666666"));
     }
 
     [Fact]

@@ -32,7 +32,7 @@ public class AspectObjectServiceTests : IntegrationTest
             AspectObjectTerminals = new List<AspectObjectTerminalLibAm>{
                 new()
                 {
-                    TerminalId = 60427,
+                    TerminalId = "60427",
                     MinQuantity = 1,
                     MaxQuantity = int.MaxValue,
                     ConnectorDirection = ConnectorDirection.Output
@@ -52,7 +52,7 @@ public class AspectObjectServiceTests : IntegrationTest
             },
             Symbol = "symbol",
             TypeReference = "https://url.com/1234567890",
-            ParentId = 1234,
+            ParentId = "1234",
             Version = "1.0"
         };
 
@@ -125,7 +125,7 @@ public class AspectObjectServiceTests : IntegrationTest
 
         aspectObjectAm.Description = "Description v1.1";
 
-        var aspectObjectCmUpdated = await aspectObjectService.Update(int.Parse(aspectObjectCm.Id), aspectObjectAm);
+        var aspectObjectCmUpdated = await aspectObjectService.Update(aspectObjectCm.Id, aspectObjectAm);
 
         Assert.True(aspectObjectCm?.Description == "Description");
         Assert.True(aspectObjectCm.Version == "1.0");
@@ -153,7 +153,7 @@ public class AspectObjectServiceTests : IntegrationTest
 
         var cm = await aspectObjectService.Create(aspectObjectAm);
         aspectObjectAm.Description = "Description2";
-        var cmUpdated = await aspectObjectService.Update(int.Parse(cm.Id), aspectObjectAm);
+        var cmUpdated = await aspectObjectService.Update(cm.Id, aspectObjectAm);
 
         Assert.True(cm.Description == "Description1" && cm.Version == "1.0");
         Assert.True(cmUpdated.Description == "Description2" && cmUpdated.Version == "1.1");

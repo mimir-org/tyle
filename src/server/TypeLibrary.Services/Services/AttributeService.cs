@@ -116,9 +116,9 @@ public class AttributeService : IAttributeService
     }
 
     /// <inheritdoc />
-    public async Task<int> GetCompanyId(string id)
+    public int GetCompanyId(string id)
     {
-        return await _attributeRepository.HasCompany(id);
+        return _attributeRepository.HasCompany(id);
     }
 
     /// <summary>

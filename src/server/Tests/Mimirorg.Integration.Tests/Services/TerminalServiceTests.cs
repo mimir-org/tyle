@@ -20,12 +20,11 @@ public class TerminalServiceTests : IntegrationTest
         var terminalAm = new TerminalLibAm
         {
             Name = "TestTerminal2",
-            ParentId = 1234,
+            ParentId = "1234",
             TypeReference = "https://url.com/1234567890",
             Color = "#123456",
             Description = "Description1",
-            CompanyId = 1,
-            Version = "1.0"
+            CompanyId = 1
         };
 
         var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
@@ -47,9 +46,7 @@ public class TerminalServiceTests : IntegrationTest
 
         Assert.True(logCm != null);
         Assert.Equal(terminalCm.Id, logCm.ObjectId);
-        Assert.Equal(terminalCm.FirstVersionId, logCm.ObjectFirstVersionId);
         Assert.Equal(terminalCm.Name, logCm.ObjectName);
-        Assert.Equal(terminalCm.Version, logCm.ObjectVersion);
         Assert.Equal(terminalCm.GetType().Name.Remove(terminalCm.GetType().Name.Length - 2, 2) + "Dm", logCm.ObjectType);
         Assert.Equal(LogType.State.ToString(), logCm.LogType.ToString());
         Assert.Equal(State.Draft.ToString(), logCm.LogTypeValue);
@@ -64,12 +61,11 @@ public class TerminalServiceTests : IntegrationTest
         var terminalAm = new TerminalLibAm
         {
             Name = "TestTerminal3",
-            ParentId = 1234,
+            ParentId = "1234",
             TypeReference = null,
             Color = "#123456",
             Description = "Description v1.0",
-            CompanyId = 1,
-            Version = "1.0"
+            CompanyId = 1
         };
 
         var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
@@ -77,11 +73,9 @@ public class TerminalServiceTests : IntegrationTest
 
         terminalAm.Description = "Description v1.1";
 
-        var terminalCmUpdated = await terminalService.Update(int.Parse(terminalLibCm.Id), terminalAm);
+        var terminalCmUpdated = await terminalService.Update(terminalLibCm.Id, terminalAm);
 
         Assert.True(terminalLibCm?.Description == "Description v1.0");
-        Assert.True(terminalLibCm.Version == "1.0");
         Assert.True(terminalCmUpdated?.Description == "Description v1.1");
-        Assert.True(terminalCmUpdated.Version == "1.1");
     }
 }

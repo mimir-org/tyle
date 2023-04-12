@@ -88,9 +88,7 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
     public IEnumerable<TerminalLibDm> Get()
     {
         return GetAll()
-            .Include(x => x.TerminalAttributes)
-            .ThenInclude(x => x.Attribute)
-            .AsSplitQuery();
+            .Include(x => x.Attributes);
     }
 
     /// <summary>
@@ -101,9 +99,7 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
     public TerminalLibDm Get(string id)
     {
         var terminal = FindBy(x => x.Id == id)
-            .Include(x => x.TerminalAttributes)
-            .ThenInclude(x => x.Attribute)
-            .AsSplitQuery()
+            .Include(x => x.Attributes)
             .FirstOrDefault();
         return terminal;
     }

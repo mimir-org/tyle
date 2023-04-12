@@ -93,7 +93,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         var unitRepository = scope.ServiceProvider.GetService<IUnitRepository>();
         var dbUnits = unitRepository.Get().ExcludeDeleted().ToList();
 
-        var dbUnitReferences = new Dictionary<string, int>();
+        var dbUnitReferences = new Dictionary<string, string>();
         foreach (var unit in dbUnits)
         {
             if (unit.TypeReference == null) continue;
@@ -113,7 +113,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         var pcaUnits = await pcaUnitsFetch;
         _logger.LogInformation("Retrieved unit data from PCA...");
 
-        var idsOfUnitsToDelete = new List<int>();
+        var idsOfUnitsToDelete = new List<string>();
         var unitsToCreateAm = new List<UnitLibAm>();
 
         foreach (var pcaUnit in pcaUnits)
@@ -150,7 +150,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         var attributeRepository = scope.ServiceProvider.GetService<IAttributeRepository>();
         var dbAttributes = attributeRepository.Get().ExcludeDeleted().ToList();
 
-        var dbAttributeReferences = new Dictionary<string, int>();
+        var dbAttributeReferences = new Dictionary<string, string>();
         foreach (var attribute in dbAttributes)
         {
             if (attribute.TypeReference == null) continue;
@@ -170,7 +170,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         var pcaAttributes = await pcaAttributesFetch;
         _logger.LogInformation("Retrieved attribute data from PCA...");
 
-        var idsOfAttributesToDelete = new List<int>();
+        var idsOfAttributesToDelete = new List<string>();
         var attributesToCreateAm = new List<AttributeLibAm>();
 
         foreach (var pcaAttribute in pcaAttributes)
@@ -234,7 +234,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         var quantityDatumRepository = scope.ServiceProvider.GetService<IQuantityDatumRepository>();
         var dbQuantityDatums = quantityDatumRepository.Get().ExcludeDeleted().ToList();
 
-        var dbQuantityDatumsReferences = new Dictionary<string, int>();
+        var dbQuantityDatumsReferences = new Dictionary<string, string>();
         foreach (var quantityDatum in dbQuantityDatums)
         {
             if (quantityDatum.TypeReference == null) continue;
@@ -254,7 +254,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         var pcaQuantityDatums = await pcaQuantityDatumsFetch;
         _logger.LogInformation("Retrieved quantity datum data from PCA...");
 
-        var idsOfQuantityDatumsToDelete = new List<int>();
+        var idsOfQuantityDatumsToDelete = new List<string>();
         var quantityDatumsToCreateAm = new List<QuantityDatumLibAm>();
 
         foreach (var pcaQuantityDatum in pcaQuantityDatums)

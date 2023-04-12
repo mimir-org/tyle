@@ -81,6 +81,18 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     }
 
     /// <inheritdoc />
+    public async Task<List<AttributeLibDm>> Create(List<AttributeLibDm> attributes)
+    {
+        foreach (var attribute in attributes)
+            await CreateAsync(attribute);
+        await SaveAsync();
+
+        Detach(attributes);
+
+        return attributes;
+    }
+
+    /// <inheritdoc />
     public void ClearAllChangeTrackers()
     {
         Context?.ChangeTracker.Clear();

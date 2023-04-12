@@ -137,7 +137,7 @@ public class LibraryUnitController : ControllerBase
     {
         try
         {
-            var companyId = await _unitService.GetCompanyId(id);
+            var companyId = _unitService.GetCompanyId(id);
             var hasAccess = await _authService.HasAccess(companyId, state);
 
             if (!hasAccess)
@@ -169,7 +169,7 @@ public class LibraryUnitController : ControllerBase
     {
         try
         {
-            var companyId = await _unitService.GetCompanyId(id);
+            var companyId = _unitService.GetCompanyId(id);
             var previousState = await _logService.GetPreviousState(id, nameof(UnitLibDm));
             var hasAccess = await _authService.HasAccess(companyId, previousState);
 

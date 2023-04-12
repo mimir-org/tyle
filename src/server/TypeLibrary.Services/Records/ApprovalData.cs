@@ -31,7 +31,7 @@ public record ApprovalData
 
     public Task ResolveTerminals(ITerminalService terminalService, IMapper mapper, IMimirorgAuthService authService)
     {
-        var data = terminalService.GetLatestVersions().Where(x => x.State is State.ApproveCompany or State.ApproveGlobal or State.Delete).ToList();
+        var data = terminalService.Get().Where(x => x.State is State.ApproveCompany or State.ApproveGlobal or State.Delete).ToList();
         data = data.Where(x => authService.HasAccess(x.CompanyId, NextStateMapper(x.State)).Result).ToList();
         var mappedData = mapper.Map<ICollection<ApprovalCm>>(data);
         Terminals.AddRange(mappedData);

@@ -41,5 +41,5 @@ public interface IUnitService
     /// </summary>
     /// <param name="id">The unit id</param>
     /// <returns>Company id for the unit</returns>
-    Task<int> GetCompanyId(string id);
+    int GetCompanyId(string id);
 }
