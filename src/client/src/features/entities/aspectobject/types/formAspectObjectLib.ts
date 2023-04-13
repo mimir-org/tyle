@@ -1,5 +1,4 @@
-import { Aspect, AttributeLibAm, AspectObjectLibAm, AspectObjectLibCm } from "@mimirorg/typelibrary-types";
-import { UpdateEntity } from "common/types/updateEntity";
+import { Aspect, AspectObjectLibAm, AspectObjectLibCm } from "@mimirorg/typelibrary-types";
 import {
   FormAttributePredefinedLib,
   mapAttributePredefinedLibCmToClientModel,
@@ -17,7 +16,7 @@ import { ValueObject } from "features/entities/types/valueObject";
  * It allows you to adapt the expected api model to fit client/form logic needs.
  */
 export interface FormAspectObjectLib extends Omit<AspectObjectLibAm, "attributes" | "selectedAttributePredefined" | "aspectObjectTerminals"> {
-  attributes: ValueObject<UpdateEntity<AttributeLibAm>>[];
+  attributes: ValueObject<string>[];
   selectedAttributePredefined: FormAttributePredefinedLib[];
   aspectObjectTerminals: FormAspectObjectTerminalLib[];
 }
@@ -37,7 +36,7 @@ export const mapFormAspectObjectLibToApiModel = (formAspectObject: FormAspectObj
 export const mapAspectObjectLibCmToClientModel = (aspectObject: AspectObjectLibCm, mode?: AspectObjectFormMode): FormAspectObjectLib => ({
   ...aspectObject,
   parentId: mode === "clone" ? aspectObject.id : aspectObject.parentId,
-  attributes: aspectObject.attributes.map((x) => ({ value: x })),
+  attributes: aspectObject.attributes.map((x) => ({ value: x.id })),
   aspectObjectTerminals: aspectObject.aspectObjectTerminals.map(mapAspectObjectTerminalLibCmToClientModel),
   selectedAttributePredefined: aspectObject.selectedAttributePredefined.map(mapAttributePredefinedLibCmToClientModel),
 });

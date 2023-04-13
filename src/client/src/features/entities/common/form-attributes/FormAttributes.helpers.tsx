@@ -6,27 +6,27 @@ import { ValueObject } from "features/entities/types/valueObject";
 export const onAddAttributes = (
   selectedIds: string[],
   allAttributes: AttributeLibCm[],
-  append: (item: ValueObject<UpdateEntity<AttributeLibAm>>) => void
+  append: (item: ValueObject<string>) => void
 ) => {
   selectedIds.forEach((id) => {
     const targetAttribute = allAttributes.find((x) => x.id === id);
     if (targetAttribute) {
-      append({ value: targetAttribute });
+      append({ value: targetAttribute.id });
     }
   });
 };
 
 export const resolveSelectedAndAvailableAttributes = (
-  fieldAttributes: ValueObject<UpdateEntity<AttributeLibAm>>[],
+  fieldAttributes: ValueObject<string>[],
   allAttributes: AttributeLibCm[]
 ) => {
   const selectedSet = new Set<string>();
-  fieldAttributes.forEach((x) => selectedSet.add(x.value.iri));
+  fieldAttributes.forEach((x) => selectedSet.add(x.value));
 
   const selected: AttributeLibCm[] = [];
   const available: AttributeLibCm[] = [];
   allAttributes.forEach((x) => {
-    selectedSet.has(x.iri) ? selected.push(x) : available.push(x);
+    selectedSet.has(x.id) ? selected.push(x) : available.push(x);
   });
 
   return [mapAttributeLibCmsToInfoItems(available), mapAttributeLibCmsToInfoItems(selected)];

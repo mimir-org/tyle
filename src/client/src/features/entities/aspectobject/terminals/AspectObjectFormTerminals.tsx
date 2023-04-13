@@ -43,7 +43,7 @@ export const AspectObjectFormTerminals = ({ canAddTerminals = true, canRemoveTer
           field={field}
           errors={errors}
           setValue={setValue}
-          removable={field.terminalId !== 0 || canRemoveTerminals}
+          removable={canRemoveTerminals}
           onRemove={() => terminalFields.remove(index)}
         />
       ))}

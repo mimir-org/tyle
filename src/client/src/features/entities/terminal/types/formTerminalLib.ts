@@ -8,7 +8,7 @@ import { ValueObject } from "features/entities/types/valueObject";
  * It allows you to adapt the expected api model to fit client/form logic needs.
  */
 export interface FormTerminalLib extends Omit<TerminalLibAm, "attributes"> {
-  attributes: ValueObject<UpdateEntity<AttributeLibAm>>[];
+  attributes: ValueObject<string>[];
 }
 
 /**
@@ -26,7 +26,7 @@ export const mapTerminalLibCmToFormTerminalLib = (
 ): FormTerminalLib => ({
   ...terminalLibCm,
   parentId: mode === "clone" ? terminalLibCm.id : terminalLibCm.parentId,
-  attributes: terminalLibCm.attributes.map((x) => ({ value: x })),
+  attributes: terminalLibCm.attributes.map((x) => ({ value: x.id })),
 });
 
 export const createEmptyFormTerminalLib = (): FormTerminalLib => ({
