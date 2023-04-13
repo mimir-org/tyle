@@ -25,6 +25,7 @@ public class TerminalLibDm : IStatefulObject, ILogable
     public ICollection<TerminalLibDm> Children { get; set; }
     public ICollection<AspectObjectTerminalLibDm> TerminalAspectObjects { get; set; }
     public ICollection<AttributeLibDm> Attributes { get; set; }
+    public ICollection<TerminalAttributeLibDm> TerminalAttributes { get; set; }
 
     #region ILogable
 

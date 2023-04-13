@@ -36,6 +36,7 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
     public virtual ICollection<AspectObjectLibDm> Children { get; set; }
     public virtual ICollection<AspectObjectTerminalLibDm> AspectObjectTerminals { get; set; }
     public ICollection<AttributeLibDm> Attributes { get; set; }
+    public virtual ICollection<AspectObjectAttributeLibDm> AspectObjectAttributes { get; set; }
     public virtual List<SelectedAttributePredefinedLibDm> SelectedAttributePredefined { get; set; }
 
     #region IVersionable

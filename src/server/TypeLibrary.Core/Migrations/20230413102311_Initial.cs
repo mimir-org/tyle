@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -191,24 +191,23 @@ namespace TypeLibrary.Core.Migrations
                 name: "AspectObject_Attribute",
                 columns: table => new
                 {
-                    AspectObjectsId = table.Column<string>(type: "nvarchar(63)", nullable: false),
-                    AttributesId = table.Column<string>(type: "nvarchar(63)", nullable: false)
+                    Id = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    AspectObjectId = table.Column<string>(type: "nvarchar(63)", nullable: true),
+                    AttributeId = table.Column<string>(type: "nvarchar(63)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspectObject_Attribute", x => new { x.AspectObjectsId, x.AttributesId });
+                    table.PrimaryKey("PK_AspectObject_Attribute", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspectObject_Attribute_AspectObject_AspectObjectsId",
-                        column: x => x.AspectObjectsId,
+                        name: "FK_AspectObject_Attribute_AspectObject_AspectObjectId",
+                        column: x => x.AspectObjectId,
                         principalTable: "AspectObject",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_AspectObject_Attribute_Attribute_AttributesId",
-                        column: x => x.AttributesId,
+                        name: "FK_AspectObject_Attribute_Attribute_AttributeId",
+                        column: x => x.AttributeId,
                         principalTable: "Attribute",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -241,24 +240,23 @@ namespace TypeLibrary.Core.Migrations
                 name: "Terminal_Attribute",
                 columns: table => new
                 {
-                    AttributesId = table.Column<string>(type: "nvarchar(63)", nullable: false),
-                    TerminalsId = table.Column<string>(type: "nvarchar(63)", nullable: false)
+                    Id = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    TerminalId = table.Column<string>(type: "nvarchar(63)", nullable: true),
+                    AttributeId = table.Column<string>(type: "nvarchar(63)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Terminal_Attribute", x => new { x.AttributesId, x.TerminalsId });
+                    table.PrimaryKey("PK_Terminal_Attribute", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Terminal_Attribute_Attribute_AttributesId",
-                        column: x => x.AttributesId,
+                        name: "FK_Terminal_Attribute_Attribute_AttributeId",
+                        column: x => x.AttributeId,
                         principalTable: "Attribute",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Terminal_Attribute_Terminal_TerminalsId",
-                        column: x => x.TerminalsId,
+                        name: "FK_Terminal_Attribute_Terminal_TerminalId",
+                        column: x => x.TerminalId,
                         principalTable: "Terminal",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -306,9 +304,14 @@ namespace TypeLibrary.Core.Migrations
                 columns: new[] { "State", "Aspect" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspectObject_Attribute_AttributesId",
+                name: "IX_AspectObject_Attribute_AspectObjectId",
                 table: "AspectObject_Attribute",
-                column: "AttributesId");
+                column: "AspectObjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspectObject_Attribute_AttributeId",
+                table: "AspectObject_Attribute",
+                column: "AttributeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspectObject_Terminal_AspectObjectId",
@@ -376,9 +379,14 @@ namespace TypeLibrary.Core.Migrations
                 column: "State");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Terminal_Attribute_TerminalsId",
+                name: "IX_Terminal_Attribute_AttributeId",
                 table: "Terminal_Attribute",
-                column: "TerminalsId");
+                column: "AttributeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Terminal_Attribute_TerminalId",
+                table: "Terminal_Attribute",
+                column: "TerminalId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Unit_State",

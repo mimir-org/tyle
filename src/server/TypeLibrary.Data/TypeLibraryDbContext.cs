@@ -16,6 +16,8 @@ public class TypeLibraryDbContext : DbContext
     public virtual DbSet<UnitLibDm> Unit { get; set; }
     public virtual DbSet<AttributeUnitLibDm> AttributeUnit { get; set; }
     public virtual DbSet<QuantityDatumLibDm> QuantityDatum { get; set; }
+    public virtual DbSet<AspectObjectAttributeLibDm> AspectObjectAttribute { get; set; }
+    public virtual DbSet<TerminalAttributeLibDm> TerminalAttribute { get; set; }
 
 
     public TypeLibraryDbContext(DbContextOptions<TypeLibraryDbContext> options) : base(options)
@@ -36,5 +38,7 @@ public class TypeLibraryDbContext : DbContext
         modelBuilder.ApplyConfiguration(new UnitConfiguration());
         modelBuilder.ApplyConfiguration(new AttributeUnitConfiguration());
         modelBuilder.ApplyConfiguration(new QuantityDatumConfiguration());
+        modelBuilder.ApplyConfiguration(new AspectObjectAttributeConfiguration());
+        modelBuilder.ApplyConfiguration(new TerminalAttributeConfiguration());
     }
 }

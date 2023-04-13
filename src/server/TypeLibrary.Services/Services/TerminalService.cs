@@ -84,7 +84,7 @@ public class TerminalService : ITerminalService
         dm.Iri = $"{_settings.ApplicationSemanticUrl}/terminal/{dm.Id}";
         dm.State = State.Draft;
 
-        dm.Attributes = new List<AttributeLibDm>();
+        dm.TerminalAttributes = new List<TerminalAttributeLibDm>();
         if (terminal.Attributes != null)
         {
             foreach (var attributeId in terminal.Attributes)
@@ -94,7 +94,12 @@ public class TerminalService : ITerminalService
                     _logger.LogError(
                         $"Could not add attribute with id {attributeId} to terminal with id {dm.Id}, attribute not found.");
                 else
-                    dm.Attributes.Add(attribute);
+                    dm.TerminalAttributes.Add(new TerminalAttributeLibDm()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        TerminalId = dm.Id,
+                        AttributeId = attribute.Id
+                    });
             }
         }
 
