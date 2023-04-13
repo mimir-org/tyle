@@ -86,7 +86,8 @@ namespace TypeLibrary.Core.Migrations
                 name: "Log",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ObjectId = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
                     ObjectName = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
                     ObjectVersion = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
@@ -191,7 +192,8 @@ namespace TypeLibrary.Core.Migrations
                 name: "AspectObject_Attribute",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     AspectObjectId = table.Column<string>(type: "nvarchar(63)", nullable: true),
                     AttributeId = table.Column<string>(type: "nvarchar(63)", nullable: true)
                 },
@@ -240,7 +242,8 @@ namespace TypeLibrary.Core.Migrations
                 name: "Terminal_Attribute",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TerminalId = table.Column<string>(type: "nvarchar(63)", nullable: true),
                     AttributeId = table.Column<string>(type: "nvarchar(63)", nullable: true)
                 },
