@@ -134,51 +134,6 @@ public class LibraryTerminalController : ControllerBase
     }
 
     /// <summary>
-    /// Update a terminal
-    /// </summary>
-    /// <param name="id">The id of the terminal that should be updated</param>
-    /// <param name="terminal">The new values of the terminal</param>
-    /// <returns>The updated terminal</returns>
-    [HttpPut("{id}")]
-    [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
-    public async Task<IActionResult> Update(string id, [FromBody] TerminalLibAm terminal)
-    {
-        try
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var companyId = _terminalService.GetCompanyId(id);
-
-            if (companyId != terminal.CompanyId)
-                return StatusCode(StatusCodes.Status403Forbidden);
-
-            var data = await _terminalService.Update(id, terminal);
-            return Ok(data);
-        }
-        catch (MimirorgBadRequestException e)
-        {
-            foreach (var error in e.Errors().ToList())
-            {
-                ModelState.Remove(error.Key);
-                ModelState.TryAddModelError(error.Key, error.Error);
-            }
-
-            return BadRequest(ModelState);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
-        }
-    }
-
-    /// <summary>
     /// Update a terminal with a new state
     /// </summary>
     /// <param name="id">The id of the terminal to be updated</param>

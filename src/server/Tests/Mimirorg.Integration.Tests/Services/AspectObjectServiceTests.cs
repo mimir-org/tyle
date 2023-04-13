@@ -18,7 +18,11 @@ public class AspectObjectServiceTests : IntegrationTest
     public async Task Create_AspectObject_Create_AspectObject_When_Ok_Parameters()
     {
         var aspectObjectService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IAspectObjectService>();
+        var terminalService =
+            Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
         var logService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ILogService>();
+
+        var terminal = terminalService.Get().ToList()[0];
 
         var aspectObjectAm = new AspectObjectLibAm
         {
@@ -32,7 +36,7 @@ public class AspectObjectServiceTests : IntegrationTest
             AspectObjectTerminals = new List<AspectObjectTerminalLibAm>{
                 new()
                 {
-                    TerminalId = "60427",
+                    TerminalId = terminal.Id,
                     MinQuantity = 1,
                     MaxQuantity = int.MaxValue,
                     ConnectorDirection = ConnectorDirection.Output
@@ -72,7 +76,7 @@ public class AspectObjectServiceTests : IntegrationTest
         {
             foreach (var cm in aspectObjectCm.AspectObjectTerminals)
             {
-                Assert.Equal(am.TerminalId.ToString(), cm.Terminal.Id);
+                Assert.Equal(am.TerminalId, cm.Terminal.Id);
                 Assert.Equal(am.MinQuantity, cm.MinQuantity);
                 Assert.Equal(am.MaxQuantity, cm.MaxQuantity);
                 Assert.Equal(am.ConnectorDirection.ToString(), cm.ConnectorDirection.ToString());
@@ -88,7 +92,7 @@ public class AspectObjectServiceTests : IntegrationTest
         Assert.Equal(aspectObjectAm.TypeReference, aspectObjectCm.TypeReference);
 
         Assert.Equal(aspectObjectAm.Symbol, aspectObjectCm.Symbol);
-        Assert.Equal(aspectObjectAm.ParentId.ToString(), aspectObjectCm.ParentId);
+        Assert.Equal(aspectObjectAm.ParentId, aspectObjectCm.ParentId);
 
         var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == aspectObjectCm.Id && x.ObjectType == "AspectObjectLibDm");
 

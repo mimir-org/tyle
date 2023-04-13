@@ -85,14 +85,17 @@ public class TerminalService : ITerminalService
         dm.State = State.Draft;
 
         dm.Attributes = new List<AttributeLibDm>();
-        foreach (var attributeId in terminal.Attributes)
+        if (terminal.Attributes != null)
         {
-            var attribute = _attributeRepository.Get(attributeId);
-            if (attribute == null)
-                _logger.LogError(
-                    $"Could not add attribute with id {attributeId} to aspect object with id {dm.Id}, attribute not found.");
-            else
-                dm.Attributes.Add(attribute);
+            foreach (var attributeId in terminal.Attributes)
+            {
+                var attribute = _attributeRepository.Get(attributeId);
+                if (attribute == null)
+                    _logger.LogError(
+                        $"Could not add attribute with id {attributeId} to terminal with id {dm.Id}, attribute not found.");
+                else
+                    dm.Attributes.Add(attribute);
+            }
         }
 
         var createdTerminal = await _terminalRepository.Create(dm);
@@ -101,45 +104,6 @@ public class TerminalService : ITerminalService
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
         return Get(createdTerminal.Id);
-    }
-
-    /// <summary>
-    /// Update a terminal if the data is allowed to be changed.
-    /// </summary>
-    /// <param name="id">The id of the terminal to update</param>
-    /// <param name="terminalAm">The terminal to update</param>
-    /// <returns>The updated terminal</returns>
-    /// <exception cref="MimirorgBadRequestException">Throws if the terminal does not exist,
-    /// if it is not valid or there are not allowed changes.</exception>
-    /// <remarks>ParentId to old references will also be updated.</remarks>
-    public async Task<TerminalLibCm> Update(string id, TerminalLibAm terminalAm)
-    {
-        var validation = terminalAm.ValidateObject();
-
-        if (!validation.IsValid)
-            throw new MimirorgBadRequestException("Terminal is not valid.", validation);
-
-        var terminalToUpdate = _terminalRepository.Get().FirstOrDefault(x => x.Id == id);
-
-        if (terminalToUpdate == null)
-        {
-            throw new MimirorgBadRequestException("Terminal does not exist or is flagged as deleted. Update is not possible.");
-        }
-
-        if (!validation.IsValid)
-            throw new MimirorgBadRequestException(validation.Message, validation);
-
-        var dm = _mapper.Map<TerminalLibDm>(terminalAm);
-
-        dm.State = State.Draft;
-
-        var terminalCm = await _terminalRepository.Create(dm);
-        _terminalRepository.ClearAllChangeTrackers();
-        await _terminalRepository.ChangeParentId(id, terminalCm.Id);
-        await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
-        _hookService.HookQueue.Enqueue(CacheKey.Terminal);
-
-        return Get(terminalCm.Id);
     }
 
     /// <summary>

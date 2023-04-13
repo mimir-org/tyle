@@ -33,7 +33,7 @@ public class AspectObjectControllerTests : IntegrationTest
     }
 
     [Theory]
-    [InlineData("/v1/libraryaspectobject/1")]
+    [InlineData("/v1/libraryaspectobject/")]
     public async Task GET_Id_Retrieves_Status_Ok(string endpoint)
     {
         var client = Factory.WithWebHostBuilder(builder =>
@@ -60,9 +60,9 @@ public class AspectObjectControllerTests : IntegrationTest
 
         using var scope = Factory.Server.Services.CreateScope();
         var aspectObjectService = scope.ServiceProvider.GetRequiredService<IAspectObjectService>();
-        _ = await aspectObjectService.Create(aspectObjectToCreate);
+        var createdAspectObject = await aspectObjectService.Create(aspectObjectToCreate);
 
-        var response = await client.GetAsync(endpoint);
+        var response = await client.GetAsync(endpoint + createdAspectObject.Id);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 
