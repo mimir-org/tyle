@@ -35,17 +35,6 @@ public interface ITerminalService
     Task<TerminalLibCm> Create(TerminalLibAm terminal);
 
     /// <summary>
-    /// Update a terminal if the data is allowed to be changed.
-    /// </summary>
-    /// <param name="id">The id of the terminal to update</param>
-    /// <param name="terminalAm">The terminal to update</param>
-    /// <returns>The updated terminal</returns>
-    /// <exception cref="MimirorgBadRequestException">Throws if the terminal does not exist,
-    /// if it is not valid or there are not allowed changes.</exception>
-    /// <remarks>ParentId to old references will also be updated.</remarks>
-    Task<TerminalLibCm> Update(string id, TerminalLibAm terminalAm);
-
-    /// <summary>
     /// Change terminal state
     /// </summary>
     /// <param name="id">The terminal id that should change the state</param>
