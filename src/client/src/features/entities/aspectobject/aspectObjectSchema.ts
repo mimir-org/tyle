@@ -5,7 +5,10 @@ import { FormAspectObjectLib } from "./types/formAspectObjectLib";
 
 export const aspectObjectSchema = (t: TFunction<"translation">) =>
   yup.object<YupShape<FormAspectObjectLib>>({
-    name: yup.string().max(60, t("aspectObject.validation.name.max")).required(t("aspectObject.validation.name.required")),
+    name: yup
+      .string()
+      .max(60, t("aspectObject.validation.name.max"))
+      .required(t("aspectObject.validation.name.required")),
     rdsName: yup.string().required(t("aspectObject.validation.rdsName.required")),
     rdsCode: yup.string().required(t("aspectObject.validation.rdsCode.required")),
     purposeName: yup.string().required(t("aspectObject.validation.purposeName.required")),
@@ -19,7 +22,9 @@ export const aspectObjectSchema = (t: TFunction<"translation">) =>
       .of(
         yup.object().shape({
           terminalId: yup.string().required(t("aspectObject.validation.aspectObjectTerminals.terminalId.required")),
-          connectorDirection: yup.number().required(t("aspectObject.validation.aspectObjectTerminals.direction.required")),
+          connectorDirection: yup
+            .number()
+            .required(t("aspectObject.validation.aspectObjectTerminals.direction.required")),
           maxQuantity: yup.number().min(0, t("aspectObject.validation.aspectObjectTerminals.maxQuantity.min")),
           minQuantity: yup.number().min(0, t("aspectObject.validation.aspectObjectTerminals.minQuantity.min")),
         })

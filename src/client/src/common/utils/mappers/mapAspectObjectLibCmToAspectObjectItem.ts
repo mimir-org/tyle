@@ -16,8 +16,16 @@ export const mapAspectObjectLibCmToAspectObjectItem = (aspectObject: AspectObjec
     img: aspectObject.symbol,
     description: aspectObject.description,
     color: getColorFromAspect(aspectObject.aspect),
-    tokens: [aspectObject.version, aspectObject.companyName, currentStateLabel, aspectObject.rdsName, aspectObject.purposeName],
-    terminals: sortAspectObjectTerminals(mapAspectObjectTerminalLibCmsToAspectObjectTerminalItems(aspectObject.aspectObjectTerminals)),
+    tokens: [
+      aspectObject.version,
+      aspectObject.companyName,
+      currentStateLabel,
+      aspectObject.rdsName,
+      aspectObject.purposeName,
+    ],
+    terminals: sortAspectObjectTerminals(
+      mapAspectObjectTerminalLibCmsToAspectObjectTerminalItems(aspectObject.aspectObjectTerminals)
+    ),
     attributes: sortInfoItems(mapAttributeLibCmsToInfoItems(aspectObject.attributes)),
     kind: "AspectObjectItem",
     state: aspectObject.state,
@@ -25,7 +33,9 @@ export const mapAspectObjectLibCmToAspectObjectItem = (aspectObject: AspectObjec
   };
 };
 
-const mapAspectObjectTerminalLibCmsToAspectObjectTerminalItems = (terminals: AspectObjectTerminalLibCm[]): AspectObjectTerminalItem[] =>
+const mapAspectObjectTerminalLibCmsToAspectObjectTerminalItems = (
+  terminals: AspectObjectTerminalLibCm[]
+): AspectObjectTerminalItem[] =>
   terminals.map((x) => ({
     name: x.terminal.name,
     color: x.terminal.color,

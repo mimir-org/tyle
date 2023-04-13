@@ -83,7 +83,9 @@ export const QueryAndMutationExample = () => {
 
       <ButtonContainer>
         <button onClick={() => mutation.mutate(exampleAspectObject)}>Add valid aspect object ✅</button>
-        <button onClick={() => mutation.mutate({ ...exampleAspectObject, parentId: "INVALID_ID" })}>Add invalid aspect object ❌</button>
+        <button onClick={() => mutation.mutate({ ...exampleAspectObject, parentId: "INVALID_ID" })}>
+          Add invalid aspect object ❌
+        </button>
       </ButtonContainer>
     </QueryAndMutationExampleContainer>
   );

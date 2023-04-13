@@ -10,7 +10,11 @@ import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
 import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";
 import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
-import { getSubformForAspect, useAspectObjectMutation, useAspectObjectQuery } from "features/entities/aspectobject/AspectObjectForm.helpers";
+import {
+  getSubformForAspect,
+  useAspectObjectMutation,
+  useAspectObjectQuery,
+} from "features/entities/aspectobject/AspectObjectForm.helpers";
 import { AspectObjectFormContainer } from "features/entities/aspectobject/AspectObjectForm.styled";
 import { AspectObjectFormBaseFields } from "features/entities/aspectobject/AspectObjectFormBaseFields";
 import { aspectObjectSchema } from "features/entities/aspectobject/aspectObjectSchema";
@@ -57,7 +61,9 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
   return (
     <FormProvider {...formMethods}>
       <AspectObjectFormContainer
-        onSubmit={handleSubmit((data) => onSubmitForm(mapFormAspectObjectLibToApiModel(data), mutation.mutateAsync, toast))}
+        onSubmit={handleSubmit((data) =>
+          onSubmitForm(mapFormAspectObjectLibToApiModel(data), mutation.mutateAsync, toast)
+        )}
       >
         {isLoading && <Loader />}
         {!isLoading && (

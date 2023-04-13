@@ -1,4 +1,7 @@
-import { AspectObjectSearchItem, AspectObjectSearchItemProps } from "features/explore/search/components/aspectobject/AspectObjectSearchItem";
+import {
+  AspectObjectSearchItem,
+  AspectObjectSearchItemProps,
+} from "features/explore/search/components/aspectobject/AspectObjectSearchItem";
 import { isAspectObjectItem } from "features/explore/search/guards";
 import { ConditionalSearchItem } from "features/explore/search/types/conditionalSearchItem";
 

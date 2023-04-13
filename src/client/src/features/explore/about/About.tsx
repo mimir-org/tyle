@@ -42,7 +42,10 @@ export const About = ({ selected }: AboutProps) => {
       {showLoader && <Loader />}
       {showPlaceHolder && <AboutPlaceholder text={t("about.placeholders.item")} />}
       {showAspectObjectPanel && (
-        <AspectObjectPanel key={aspectObjectQuery.data.id + aspectObjectQuery.data.kind} {...mapAspectObjectLibCmToAspectObjectItem(aspectObjectQuery.data)} />
+        <AspectObjectPanel
+          key={aspectObjectQuery.data.id + aspectObjectQuery.data.kind}
+          {...mapAspectObjectLibCmToAspectObjectItem(aspectObjectQuery.data)}
+        />
       )}
       {showTerminalPanel && (
         <TerminalPanel

@@ -14,14 +14,18 @@ export interface FormAspectObjectTerminalLib extends AspectObjectTerminalLibAm {
   hasMaxQuantity: boolean;
 }
 
-export const mapAspectObjectTerminalLibCmToClientModel = (aspectObjectTerminalLibCm: AspectObjectTerminalLibCm): FormAspectObjectTerminalLib => ({
+export const mapAspectObjectTerminalLibCmToClientModel = (
+  aspectObjectTerminalLibCm: AspectObjectTerminalLibCm
+): FormAspectObjectTerminalLib => ({
   ...mapAspectObjectTerminalLibCmToAspectObjectTerminalLibAm(aspectObjectTerminalLibCm),
   hasMaxQuantity:
     aspectObjectTerminalLibCm.maxQuantity > MINIMUM_TERMINAL_QUANTITY_VALUE &&
     aspectObjectTerminalLibCm.maxQuantity < MAXIMUM_TERMINAL_QUANTITY_VALUE,
 });
 
-const mapAspectObjectTerminalLibCmToAspectObjectTerminalLibAm = (terminal: AspectObjectTerminalLibCm): AspectObjectTerminalLibAm => ({
+const mapAspectObjectTerminalLibCmToAspectObjectTerminalLibAm = (
+  terminal: AspectObjectTerminalLibCm
+): AspectObjectTerminalLibAm => ({
   ...terminal,
   terminalId: terminal.terminal.id,
 });

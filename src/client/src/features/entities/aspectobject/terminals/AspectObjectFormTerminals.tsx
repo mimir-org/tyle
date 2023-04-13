@@ -18,7 +18,10 @@ interface AspectObjectFormTerminalsProps {
  * @param canRemoveTerminals controls if the remove action is shown
  * @constructor
  */
-export const AspectObjectFormTerminals = ({ canAddTerminals = true, canRemoveTerminals = true }: AspectObjectFormTerminalsProps) => {
+export const AspectObjectFormTerminals = ({
+  canAddTerminals = true,
+  canRemoveTerminals = true,
+}: AspectObjectFormTerminalsProps) => {
   const { t } = useTranslation("entities");
   const { control, setValue, formState } = useFormContext<FormAspectObjectLib>();
   const { errors } = formState;
@@ -31,7 +34,9 @@ export const AspectObjectFormTerminals = ({ canAddTerminals = true, canRemoveTer
       error={errors.aspectObjectTerminals}
       action={
         canAddTerminals && (
-          <AspectObjectFormTerminalsAddButton onClick={() => terminalFields.append(createEmptyFormAspectObjectTerminalLib())} />
+          <AspectObjectFormTerminalsAddButton
+            onClick={() => terminalFields.append(createEmptyFormAspectObjectTerminalLib())}
+          />
         )
       }
     >

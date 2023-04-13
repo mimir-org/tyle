@@ -36,7 +36,12 @@ export const AspectObjectPreview = ({ name, color, img, terminals, variant = "sm
         placement={"left"}
         variant={variantSpecs.terminals.variant as TerminalButtonVariant}
       />
-      <AspectObject name={name} color={color} img={img} variant={variantSpecs.aspectObject.variant as AspectObjectVariant} />
+      <AspectObject
+        name={name}
+        color={color}
+        img={img}
+        variant={variantSpecs.aspectObject.variant as AspectObjectVariant}
+      />
       <Terminals
         terminals={outputSideTerminals}
         placement={"right"}

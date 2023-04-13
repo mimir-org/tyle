@@ -22,7 +22,15 @@ import { TerminalTable } from "./terminal-table/TerminalTable";
  * @param attributes
  * @constructor
  */
-export const AspectObjectPanel = ({ name, description, img, color, tokens, terminals, attributes }: AspectObjectItem) => {
+export const AspectObjectPanel = ({
+  name,
+  description,
+  img,
+  color,
+  tokens,
+  terminals,
+  attributes,
+}: AspectObjectItem) => {
   const theme = useTheme();
   const { t } = useTranslation("explore");
   const showTerminals = terminals && terminals.length > 0;

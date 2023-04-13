@@ -32,9 +32,12 @@ export const useUpdateAspectObject = (id?: string) => {
 export const usePatchAspectObjectState = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: { id: string; state: State }) => aspectObjectApi.patchLibraryAspectObjectState(item.id, item.state), {
-    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
-  });
+  return useMutation(
+    (item: { id: string; state: State }) => aspectObjectApi.patchLibraryAspectObjectState(item.id, item.state),
+    {
+      onSuccess: () => queryClient.invalidateQueries(keys.lists()),
+    }
+  );
 };
 
 export const usePatchAspectObjectStateReject = () => {

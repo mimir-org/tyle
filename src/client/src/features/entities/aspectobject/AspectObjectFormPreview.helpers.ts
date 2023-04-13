@@ -1,7 +1,10 @@
 import { ConnectorDirection, AspectObjectTerminalLibAm, TerminalLibCm } from "@mimirorg/typelibrary-types";
 import { AspectObjectTerminalItem } from "common/types/aspectObjectTerminalItem";
 
-export const getTerminalItemsFromFormData = (formTerminals: AspectObjectTerminalLibAm[], sourceTerminals?: TerminalLibCm[]) => {
+export const getTerminalItemsFromFormData = (
+  formTerminals: AspectObjectTerminalLibAm[],
+  sourceTerminals?: TerminalLibCm[]
+) => {
   if (!sourceTerminals || sourceTerminals.length < 1) {
     return [];
   }

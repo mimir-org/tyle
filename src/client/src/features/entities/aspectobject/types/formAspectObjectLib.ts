@@ -15,7 +15,8 @@ import { ValueObject } from "features/entities/types/valueObject";
  * This type functions as a layer between client needs and the backend model.
  * It allows you to adapt the expected api model to fit client/form logic needs.
  */
-export interface FormAspectObjectLib extends Omit<AspectObjectLibAm, "attributes" | "selectedAttributePredefined" | "aspectObjectTerminals"> {
+export interface FormAspectObjectLib
+  extends Omit<AspectObjectLibAm, "attributes" | "selectedAttributePredefined" | "aspectObjectTerminals"> {
   attributes: ValueObject<string>[];
   selectedAttributePredefined: FormAttributePredefinedLib[];
   aspectObjectTerminals: FormAspectObjectTerminalLib[];
@@ -33,7 +34,10 @@ export const mapFormAspectObjectLibToApiModel = (formAspectObject: FormAspectObj
   ),
 });
 
-export const mapAspectObjectLibCmToClientModel = (aspectObject: AspectObjectLibCm, mode?: AspectObjectFormMode): FormAspectObjectLib => ({
+export const mapAspectObjectLibCmToClientModel = (
+  aspectObject: AspectObjectLibCm,
+  mode?: AspectObjectFormMode
+): FormAspectObjectLib => ({
   ...aspectObject,
   parentId: mode === "clone" ? aspectObject.id : aspectObject.parentId,
   attributes: aspectObject.attributes.map((x) => ({ value: x.id })),

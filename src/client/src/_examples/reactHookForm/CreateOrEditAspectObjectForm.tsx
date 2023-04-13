@@ -1,4 +1,7 @@
-import { createEmptyFormAspectObjectLib, FormAspectObjectLib } from "features/entities/aspectobject/types/formAspectObjectLib";
+import {
+  createEmptyFormAspectObjectLib,
+  FormAspectObjectLib,
+} from "features/entities/aspectobject/types/formAspectObjectLib";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 interface Props {

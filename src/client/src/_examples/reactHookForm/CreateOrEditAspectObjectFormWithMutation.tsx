@@ -17,7 +17,9 @@ interface Props {
  * @param defaultValues
  * @constructor
  */
-export const CreateOrEditAspectObjectFormWithMutation = ({ defaultValues = createEmptyFormAspectObjectLib() }: Props) => {
+export const CreateOrEditAspectObjectFormWithMutation = ({
+  defaultValues = createEmptyFormAspectObjectLib(),
+}: Props) => {
   const {
     register,
     handleSubmit,

@@ -28,7 +28,12 @@ export type AspectObjectSearchItemProps = AspectObjectItem & {
  * @param user
  * @constructor
  */
-export const AspectObjectSearchItem = ({ isSelected, setSelected, user, ...aspectObject }: AspectObjectSearchItemProps) => (
+export const AspectObjectSearchItem = ({
+  isSelected,
+  setSelected,
+  user,
+  ...aspectObject
+}: AspectObjectSearchItemProps) => (
   <Item
     isSelected={isSelected}
     preview={<AspectObjectPreview {...aspectObject} />}
@@ -98,7 +103,14 @@ const AspectObjectSearchItemActions = ({ user, aspectObject }: AspectObjectSearc
         title={t("search.item.templates.delete")}
         description={t("search.item.deleteDescription")}
         hideDescription
-        content={<AspectObjectPreview name={aspectObject.name} color={aspectObject.color} img={aspectObject.img} terminals={aspectObject.terminals} />}
+        content={
+          <AspectObjectPreview
+            name={aspectObject.name}
+            color={aspectObject.color}
+            img={aspectObject.img}
+            terminals={aspectObject.terminals}
+          />
+        }
       >
         <Button
           disabled={!btnFilter.delete}
@@ -116,7 +128,14 @@ const AspectObjectSearchItemActions = ({ user, aspectObject }: AspectObjectSearc
         title={t("search.item.templates.approveCompany")}
         description={t("search.item.approveDescription")}
         hideDescription
-        content={<AspectObjectPreview name={aspectObject.name} color={aspectObject.color} img={aspectObject.img} terminals={aspectObject.terminals} />}
+        content={
+          <AspectObjectPreview
+            name={aspectObject.name}
+            color={aspectObject.color}
+            img={aspectObject.img}
+            terminals={aspectObject.terminals}
+          />
+        }
       >
         <Button
           disabled={!btnFilter.approveCompany}
@@ -134,7 +153,14 @@ const AspectObjectSearchItemActions = ({ user, aspectObject }: AspectObjectSearc
         title={t("search.item.templates.approveGlobal")}
         description={t("search.item.approveDescription")}
         hideDescription
-        content={<AspectObjectPreview name={aspectObject.name} color={aspectObject.color} img={aspectObject.img} terminals={aspectObject.terminals} />}
+        content={
+          <AspectObjectPreview
+            name={aspectObject.name}
+            color={aspectObject.color}
+            img={aspectObject.img}
+            terminals={aspectObject.terminals}
+          />
+        }
       >
         <Button
           disabled={!btnFilter.approveGlobal}

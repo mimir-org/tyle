@@ -1,5 +1,9 @@
 import { Aspect } from "@mimirorg/typelibrary-types";
-import { useCreateAspectObject, useGetAspectObject, useUpdateAspectObject } from "external/sources/aspectobject/aspectObject.queries";
+import {
+  useCreateAspectObject,
+  useGetAspectObject,
+  useUpdateAspectObject,
+} from "external/sources/aspectobject/aspectObject.queries";
 import { AspectObjectFormPredefinedAttributes } from "features/entities/aspectobject/predefined-attributes/AspectObjectFormPredefinedAttributes";
 import { AspectObjectFormTerminals } from "features/entities/aspectobject/terminals/AspectObjectFormTerminals";
 import { FormAspectObjectLib } from "features/entities/aspectobject/types/formAspectObjectLib";

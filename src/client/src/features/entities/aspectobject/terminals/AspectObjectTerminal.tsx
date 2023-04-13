@@ -114,7 +114,9 @@ export const AspectObjectTerminal = ({
                 <Select
                   {...rest}
                   selectRef={ref}
-                  placeholder={t("common.templates.select", { object: t("aspectObject.terminals.direction").toLowerCase() })}
+                  placeholder={t("common.templates.select", {
+                    object: t("aspectObject.terminals.direction").toLowerCase(),
+                  })}
                   options={connectorDirectionOptions}
                   onChange={(x) => onChange(x?.value)}
                   value={connectorDirectionOptions.find((x) => x.value === value)}
