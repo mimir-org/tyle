@@ -19,7 +19,7 @@ public interface IUnitService
     /// </summary>
     /// <param name="id">The id of the unit</param>
     /// <returns>The unit with the given id</returns>
-    UnitLibCm Get(int id);
+    UnitLibCm Get(string id);
 
     /// <summary>
     /// Create a new unit
@@ -34,12 +34,12 @@ public interface IUnitService
     /// <param name="id">The unit id that should change state</param>
     /// <param name="state">The new unit state</param>
     /// <returns>Unit with updated state</returns>
-    Task<ApprovalDataCm> ChangeState(int id, State state);
+    Task<ApprovalDataCm> ChangeState(string id, State state);
 
     /// <summary>
     /// Get the company id of a unit
     /// </summary>
     /// <param name="id">The unit id</param>
     /// <returns>Company id for the unit</returns>
-    Task<int> GetCompanyId(int id);
+    int GetCompanyId(string id);
 }

@@ -8,9 +8,9 @@ using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models;
 
-public class UnitLibDm : ILogable, IEquatable<UnitLibAm>, IStatefulObject
+public class UnitLibDm : ILogable, IStatefulObject
 {
-    public int Id { get; set; }
+    public string Id { get; set; }
     public string Name { get; set; }
     public string Iri { get; set; }
     public string TypeReference { get; set; }
@@ -35,11 +35,5 @@ public class UnitLibDm : ILogable, IEquatable<UnitLibAm>, IStatefulObject
             LogTypeValue = logTypeValue,
             Comment = comment
         };
-    }
-
-    public bool Equals(UnitLibAm other)
-    {
-        if (other == null) return false;
-        return this.Name == other.Name && this.Symbol == other.Symbol;
     }
 }

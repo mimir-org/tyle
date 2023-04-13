@@ -4,83 +4,68 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Enums;
-using TypeLibrary.Data.Contracts;
-using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Data.Models.Common;
 
 namespace TypeLibrary.Data.Repositories.Ef;
 
 public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, AspectObjectLibDm>, IEfAspectObjectRepository
 {
-    private readonly IApplicationSettingsRepository _settings;
-    private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
-
-    public EfAspectObjectRepository(IApplicationSettingsRepository settings, TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
+    public EfAspectObjectRepository(TypeLibraryDbContext dbContext) : base(dbContext)
     {
-        _settings = settings;
-        _typeLibraryProcRepository = typeLibraryProcRepository;
+    }
+
+    /// <inheritdoc />
+    public int HasCompany(string id)
+    {
+        return Get(id).CompanyId;
+    }
+
+    /// <inheritdoc />
+    public async Task ChangeState(State state, string id)
+    {
+        var aspectObject = await GetAsync(id);
+        aspectObject.State = state;
+        await SaveAsync();
+        Detach(aspectObject);
+    }
+
+    /// <inheritdoc />
+    public async Task<int> ChangeState(State state, ICollection<string> ids)
+    {
+        var aspectObjectsToChange = new List<AspectObjectLibDm>();
+        foreach (var id in ids)
+        {
+            var aspectObject = await GetAsync(id);
+            aspectObject.State = state;
+            aspectObjectsToChange.Add(aspectObject);
+        }
+
+        await SaveAsync();
+        Detach(aspectObjectsToChange);
+
+        return aspectObjectsToChange.Count;
     }
 
     /// <summary>
-    /// Get the registered company on given id
+    /// Change all parent id's on terminals from old id to the new id 
     /// </summary>
-    /// <param name="id">The aspect object id</param>
-    /// <returns>The company id of given terminal</returns>
-    public async Task<int> HasCompany(int id)
+    /// <param name="oldId">Old terminal parent id</param>
+    /// <param name="newId">New terminal parent id</param>
+    /// <returns>The number of terminal with the new parent id</returns>
+    public async Task<int> ChangeParentId(string oldId, string newId)
     {
-        var procParams = new Dictionary<string, object>
+        var affectedAspectObjects = FindBy(x => x.ParentId == oldId);
+
+        foreach (var aspectObject in affectedAspectObjects)
         {
-            {"@TableName", "AspectObject"},
-            {"@Id", id}
-        };
+            aspectObject.ParentId = newId;
+        }
 
-        var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlCompanyId>("HasCompany", procParams);
-        return result?.FirstOrDefault()?.CompanyId ?? 0;
-    }
+        await SaveAsync();
+        Detach(affectedAspectObjects.ToList());
 
-    /// <summary>
-    /// Change the state of the aspect object on all listed id's
-    /// </summary>
-    /// <param name="state">The state to change to</param>
-    /// <param name="ids">A list of aspect object id's</param>
-    /// <returns>The number of aspect objects in given state</returns>
-    public async Task<int> ChangeState(State state, ICollection<int> ids)
-    {
-        if (ids == null)
-            return 0;
-
-        var idList = string.Join(",", ids.Select(i => i.ToString()));
-
-        var procParams = new Dictionary<string, object>
-        {
-            {"@TableName", "AspectObject"},
-            {"@State", state.ToString()},
-            {"@IdList", idList}
-        };
-
-        var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlResultCount>("UpdateState", procParams);
-        return result?.FirstOrDefault()?.Number ?? 0;
-    }
-
-    /// <summary>
-    /// Change all parent id's on aspect objects from old id to the new id 
-    /// </summary>
-    /// <param name="oldId">Old aspect object parent id</param>
-    /// <param name="newId">New aspect object parent id</param>
-    /// <returns>The number of aspect objects with the new parent id</returns>
-    public async Task<int> ChangeParentId(int oldId, int newId)
-    {
-        var procParams = new Dictionary<string, object>
-        {
-            {"@TableName", "AspectObject"},
-            {"@OldId", oldId},
-            {"@NewId", newId}
-        };
-
-        var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlResultCount>("UpdateParentId", procParams);
-        return result?.FirstOrDefault()?.Number ?? 0;
+        return affectedAspectObjects.Count();
     }
 
     /// <summary>
@@ -88,7 +73,7 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     /// </summary>
     /// <param name="id">The id of the aspect object</param>
     /// <returns>True if aspect object exist</returns>
-    public async Task<bool> Exist(int id)
+    public async Task<bool> Exist(string id)
     {
         return await Exist(x => x.Id == id);
     }
@@ -102,8 +87,7 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
         return GetAll()
             .Include(x => x.AspectObjectTerminals)
             .ThenInclude(x => x.Terminal)
-            .Include(x => x.AspectObjectAttributes)
-            .ThenInclude(x => x.Attribute)
+            .Include(x => x.Attributes)
             .AsSplitQuery();
     }
 
@@ -112,13 +96,12 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     /// </summary>
     /// <param name="id">The aspect object id</param>
     /// <returns>Aspect object if found</returns>
-    public AspectObjectLibDm Get(int id)
+    public AspectObjectLibDm Get(string id)
     {
         return FindBy(x => x.Id == id)
             .Include(x => x.AspectObjectTerminals)
             .ThenInclude(x => x.Terminal)
-            .Include(x => x.AspectObjectAttributes)
-            .ThenInclude(x => x.Attribute)
+            .Include(x => x.Attributes)
             .AsSplitQuery()
             .FirstOrDefault();
     }
@@ -131,14 +114,6 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     public async Task<AspectObjectLibDm> Create(AspectObjectLibDm aspectObject)
     {
         await CreateAsync(aspectObject);
-        await SaveAsync();
-
-        if (aspectObject.FirstVersionId == 0) aspectObject.FirstVersionId = aspectObject.Id;
-        aspectObject.Iri = $"{_settings.ApplicationSemanticUrl}/aspectobject/{aspectObject.Id}";
-        foreach (var aspectObjectTerminal in aspectObject.AspectObjectTerminals)
-            aspectObjectTerminal.AspectObjectId = aspectObject.Id;
-        foreach (var aspectObjectAttribute in aspectObject.AspectObjectAttributes)
-            aspectObjectAttribute.AspectObjectId = aspectObject.Id;
         await SaveAsync();
 
         Detach(aspectObject);

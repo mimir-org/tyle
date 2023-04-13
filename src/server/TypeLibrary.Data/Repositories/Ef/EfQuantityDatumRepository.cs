@@ -4,55 +4,47 @@ using System.Threading.Tasks;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Enums;
-using TypeLibrary.Data.Contracts;
-using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Data.Models.Common;
 
 namespace TypeLibrary.Data.Repositories.Ef;
 
 public class EfQuantityDatumRepository : GenericRepository<TypeLibraryDbContext, QuantityDatumLibDm>, IEfQuantityDatumRepository
 {
-    private readonly IApplicationSettingsRepository _settings;
-    private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
-
-    public EfQuantityDatumRepository(IApplicationSettingsRepository settings, TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
+    public EfQuantityDatumRepository(TypeLibraryDbContext dbContext) : base(dbContext)
     {
-        _settings = settings;
-        _typeLibraryProcRepository = typeLibraryProcRepository;
     }
 
     /// <inheritdoc />
-    public async Task<int> HasCompany(int id)
+    public int HasCompany(string id)
     {
-        var procParams = new Dictionary<string, object>
-        {
-            {"@TableName", "QuantityDatum"},
-            {"@Id", id}
-        };
-
-        var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlCompanyId>("HasCompany", procParams);
-        return result?.FirstOrDefault()?.CompanyId ?? 0;
+        return Get(id).CompanyId ?? 0;
     }
 
     /// <inheritdoc />
-    public async Task<int> ChangeState(State state, ICollection<int> ids)
+    public async Task ChangeState(State state, string id)
     {
-        if (ids == null)
-            return 0;
+        var quantityDatum = await GetAsync(id);
+        quantityDatum.State = state;
+        await SaveAsync();
+        Detach(quantityDatum);
+    }
 
-        var idList = string.Join(",", ids.Select(i => i.ToString()));
-
-        var procParams = new Dictionary<string, object>
+    /// <inheritdoc />
+    public async Task<int> ChangeState(State state, ICollection<string> ids)
+    {
+        var quantityDatumsToChange = new List<QuantityDatumLibDm>();
+        foreach (var id in ids)
         {
-            {"@TableName", "QuantityDatum"},
-            {"@State", state.ToString()},
-            {"@IdList", idList}
-        };
+            var quantityDatum = await GetAsync(id);
+            quantityDatum.State = state;
+            quantityDatumsToChange.Add(quantityDatum);
+        }
 
-        var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlResultCount>("UpdateState", procParams);
-        return result?.FirstOrDefault()?.Number ?? 0;
+        await SaveAsync();
+        Detach(quantityDatumsToChange);
+
+        return quantityDatumsToChange.Count;
     }
 
     /// <inheritdoc />
@@ -62,7 +54,7 @@ public class EfQuantityDatumRepository : GenericRepository<TypeLibraryDbContext,
     }
 
     /// <inheritdoc />
-    public QuantityDatumLibDm Get(int id)
+    public QuantityDatumLibDm Get(string id)
     {
         return FindBy(x => x.Id == id).FirstOrDefault();
     }
@@ -97,9 +89,6 @@ public class EfQuantityDatumRepository : GenericRepository<TypeLibraryDbContext,
         await CreateAsync(quantityDatum);
         await SaveAsync();
 
-        quantityDatum.Iri = $"{_settings.ApplicationSemanticUrl}/quantitydatum/{quantityDatum.Id}";
-        await SaveAsync();
-
         Detach(quantityDatum);
 
         return quantityDatum;
@@ -110,10 +99,6 @@ public class EfQuantityDatumRepository : GenericRepository<TypeLibraryDbContext,
     {
         foreach (var quantityDatum in quantityDatums)
             await CreateAsync(quantityDatum);
-        await SaveAsync();
-
-        foreach (var quantityDatum in quantityDatums)
-            quantityDatum.Iri = $"{_settings.ApplicationSemanticUrl}/quantitydatum/{quantityDatum.Id}";
         await SaveAsync();
 
         Detach(quantityDatums);

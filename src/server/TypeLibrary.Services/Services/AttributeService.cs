@@ -23,22 +23,20 @@ public class AttributeService : IAttributeService
     private readonly IMapper _mapper;
     private readonly ApplicationSettings _applicationSettings;
     private readonly IAttributePredefinedRepository _attributePredefinedRepository;
-    private readonly IQuantityDatumRepository _datumRepository;
-    private readonly IAttributeReferenceRepository _attributeReferenceRepository;
     private readonly IAttributeRepository _attributeRepository;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
+    private readonly IApplicationSettingsRepository _settings;
 
-    public AttributeService(IMapper mapper, IOptions<ApplicationSettings> applicationSettings, IAttributePredefinedRepository attributePredefinedRepository, IAttributeReferenceRepository attributeReferenceRepository, IAttributeRepository attributeRepository, IQuantityDatumRepository datumRepository, ITimedHookService hookService, ILogService logService)
+    public AttributeService(IMapper mapper, IOptions<ApplicationSettings> applicationSettings, IAttributePredefinedRepository attributePredefinedRepository, IAttributeRepository attributeRepository, ITimedHookService hookService, ILogService logService, IApplicationSettingsRepository settings)
     {
         _mapper = mapper;
         _attributePredefinedRepository = attributePredefinedRepository;
-        _attributeReferenceRepository = attributeReferenceRepository;
         _attributeRepository = attributeRepository;
-        _datumRepository = datumRepository;
         _applicationSettings = applicationSettings?.Value;
         _hookService = hookService;
         _logService = logService;
+        _settings = settings;
     }
 
     /// <summary>
@@ -59,7 +57,7 @@ public class AttributeService : IAttributeService
     /// Get an attribute and its units
     /// </summary>
     /// <returns>Attribute and its units></returns>
-    public AttributeLibCm Get(int id)
+    public AttributeLibCm Get(string id)
     {
         var dm = _attributeRepository.Get(id);
 
@@ -81,7 +79,15 @@ public class AttributeService : IAttributeService
 
         var dm = _mapper.Map<AttributeLibDm>(attributeAm);
 
+        dm.Id = Guid.NewGuid().ToString();
+        dm.Iri = $"{_settings.ApplicationSemanticUrl}/attribute/{dm.Id}";
         dm.State = State.Draft;
+
+        foreach (var attributeUnit in dm.AttributeUnits)
+        {
+            attributeUnit.Id = Guid.NewGuid().ToString();
+            attributeUnit.AttributeId = dm.Id;
+        }
 
         var createdAttribute = await _attributeRepository.Create(dm);
         _attributeRepository.ClearAllChangeTrackers();
@@ -92,29 +98,29 @@ public class AttributeService : IAttributeService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(int id, State state)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state)
     {
         var dm = _attributeRepository.Get().FirstOrDefault(x => x.Id == id);
 
         if (dm == null)
             throw new MimirorgNotFoundException($"Attribute with id {id} not found, or is not latest version.");
 
-        await _attributeRepository.ChangeState(state, new List<int> { dm.Id });
+        await _attributeRepository.ChangeState(state, new List<string> { dm.Id });
         await _logService.CreateLog(dm, LogType.State, state.ToString());
         _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 
         return new ApprovalDataCm
         {
-            Id = id.ToString(),
+            Id = id,
             State = state
 
         };
     }
 
     /// <inheritdoc />
-    public async Task<int> GetCompanyId(int id)
+    public int GetCompanyId(string id)
     {
-        return await _attributeRepository.HasCompany(id);
+        return _attributeRepository.HasCompany(id);
     }
 
     /// <summary>

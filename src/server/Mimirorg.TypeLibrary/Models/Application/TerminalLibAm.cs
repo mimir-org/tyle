@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using Mimirorg.Common.Attributes;
 
 // ReSharper disable InconsistentNaming
 
@@ -23,13 +22,6 @@ public class TerminalLibAm
     /// It is allowed to change the list. Changing will generate a minor increase
     /// </remarks>
     public string TypeReference { get; set; }
-
-    /// <summary>
-    /// The terminal version
-    /// </summary>
-    [Required]
-    [Double]
-    public string Version { get; set; }
 
     /// <summary>
     /// The owner of the terminal type
@@ -64,14 +56,14 @@ public class TerminalLibAm
     /// <remarks>
     /// The parent id is not allowed to change
     /// </remarks>
-    public int? ParentId { get; set; }
+    public string ParentId { get; set; }
 
     /// <summary>
-    /// A list of connected attributes
+    /// A list of attribute ids
     /// </summary>
     /// <remarks>
     /// It is not allowed to remove attributes
     /// Adding attributes generates a major increase
     /// </remarks>
-    public ICollection<TerminalAttributeLibAm> TerminalAttributes { get; set; }
+    public ICollection<string> Attributes { get; set; }
 }

@@ -70,7 +70,7 @@ public class LibraryUnitController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult Get([FromRoute] int id)
+    public IActionResult Get([FromRoute] string id)
     {
         try
         {
@@ -133,11 +133,11 @@ public class LibraryUnitController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
-    public async Task<IActionResult> ChangeState([FromRoute] int id, [FromRoute] State state)
+    public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
     {
         try
         {
-            var companyId = await _unitService.GetCompanyId(id);
+            var companyId = _unitService.GetCompanyId(id);
             var hasAccess = await _authService.HasAccess(companyId, state);
 
             if (!hasAccess)
@@ -165,11 +165,11 @@ public class LibraryUnitController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
-    public async Task<IActionResult> RejectChangeState([FromRoute] int id)
+    public async Task<IActionResult> RejectChangeState([FromRoute] string id)
     {
         try
         {
-            var companyId = await _unitService.GetCompanyId(id);
+            var companyId = _unitService.GetCompanyId(id);
             var previousState = await _logService.GetPreviousState(id, nameof(UnitLibDm));
             var hasAccess = await _authService.HasAccess(companyId, previousState);
 

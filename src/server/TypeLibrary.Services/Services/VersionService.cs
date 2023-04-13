@@ -42,13 +42,6 @@ public class VersionService : IVersionService
                 .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
         }
 
-        else if (obj.GetType() == typeof(TerminalLibDm) && (obj as TerminalLibDm)?.Version != null)
-        {
-            (existingDmVersions as List<TerminalLibDm>)?.AddRange(_terminalRepository.Get()
-                .Where(x => x.FirstVersionId == (obj as TerminalLibDm)?.FirstVersionId && x.State != State.Deleted).ToList()
-                .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
-        }
-
         else
             throw new MimirorgBadRequestException($"GetLatestVersion<T> Parameter T '{obj.GetType()}' not supported.");
 

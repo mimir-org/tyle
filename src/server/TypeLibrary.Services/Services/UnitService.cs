@@ -21,13 +21,15 @@ public class UnitService : IUnitService
     private readonly IUnitRepository _unitRepository;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
+    private readonly IApplicationSettingsRepository _settings;
 
-    public UnitService(IMapper mapper, IUnitRepository unitRepository, ITimedHookService hookService, ILogService logService)
+    public UnitService(IMapper mapper, IUnitRepository unitRepository, ITimedHookService hookService, ILogService logService, IApplicationSettingsRepository settings)
     {
         _mapper = mapper;
         _unitRepository = unitRepository;
         _hookService = hookService;
         _logService = logService;
+        _settings = settings;
     }
 
     /// <inheritdoc />
@@ -42,7 +44,7 @@ public class UnitService : IUnitService
     }
 
     /// <inheritdoc />
-    public UnitLibCm Get(int id)
+    public UnitLibCm Get(string id)
     {
         var unit = _unitRepository.Get(id);
         if (unit == null)
@@ -60,6 +62,8 @@ public class UnitService : IUnitService
 
         var dm = _mapper.Map<UnitLibDm>(unitAm);
 
+        dm.Id = Guid.NewGuid().ToString();
+        dm.Iri = $"{_settings.ApplicationSemanticUrl}/unit/{dm.Id}";
         dm.State = State.Draft;
 
         var createdUnit = await _unitRepository.Create(dm);
@@ -71,28 +75,28 @@ public class UnitService : IUnitService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(int id, State state)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state)
     {
         var dm = _unitRepository.Get().FirstOrDefault(x => x.Id == id);
 
         if (dm == null)
             throw new MimirorgNotFoundException($"Unit with id {id} not found, or is not latest version.");
 
-        await _unitRepository.ChangeState(state, new List<int> { dm.Id });
+        await _unitRepository.ChangeState(state, dm.Id);
         await _logService.CreateLog(dm, LogType.State, state.ToString());
         _hookService.HookQueue.Enqueue(CacheKey.Unit);
 
         return new ApprovalDataCm
         {
-            Id = id.ToString(),
+            Id = id,
             State = state
 
         };
     }
 
     /// <inheritdoc />
-    public async Task<int> GetCompanyId(int id)
+    public int GetCompanyId(string id)
     {
-        return await _unitRepository.HasCompany(id);
+        return _unitRepository.HasCompany(id);
     }
 }

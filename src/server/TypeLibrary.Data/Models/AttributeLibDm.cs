@@ -10,7 +10,7 @@ namespace TypeLibrary.Data.Models;
 
 public class AttributeLibDm : ILogable, IStatefulObject
 {
-    public int Id { get; set; }
+    public string Id { get; set; }
     public string Name { get; set; }
     public string Iri { get; set; }
     public string TypeReference { get; set; }
@@ -20,8 +20,8 @@ public class AttributeLibDm : ILogable, IStatefulObject
     public State State { get; set; }
     public string Description { get; set; }
     public ICollection<AttributeUnitLibDm> AttributeUnits { get; set; }
-    public ICollection<AspectObjectAttributeLibDm> AttributeAspectObjects { get; set; }
-    public ICollection<TerminalAttributeLibDm> AttributeTerminals { get; set; }
+    public ICollection<AspectObjectLibDm> AspectObjects { get; set; }
+    public ICollection<TerminalLibDm> Terminals { get; set; }
 
     public LogLibAm CreateLog(LogType logType, string logTypeValue, string comment)
     {

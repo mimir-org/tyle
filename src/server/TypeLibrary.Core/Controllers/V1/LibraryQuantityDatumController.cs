@@ -132,11 +132,11 @@ public class LibraryQuantityDatumController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
-    public async Task<IActionResult> ChangeState([FromRoute] int id, [FromRoute] State state)
+    public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
     {
         try
         {
-            var companyId = await _quantityDatumService.GetCompanyId(id);
+            var companyId = _quantityDatumService.GetCompanyId(id);
             var hasAccess = await _authService.HasAccess(companyId, state);
 
             if (!hasAccess)
@@ -164,11 +164,11 @@ public class LibraryQuantityDatumController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
-    public async Task<IActionResult> RejectChangeState([FromRoute] int id)
+    public async Task<IActionResult> RejectChangeState([FromRoute] string id)
     {
         try
         {
-            var companyId = await _quantityDatumService.GetCompanyId(id);
+            var companyId = _quantityDatumService.GetCompanyId(id);
             var previousState = await _logService.GetPreviousState(id, nameof(QuantityDatumLibAm));
             var hasAccess = await _authService.HasAccess(companyId, previousState);
 

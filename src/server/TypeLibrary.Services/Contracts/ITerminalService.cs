@@ -10,18 +10,18 @@ namespace TypeLibrary.Services.Contracts;
 public interface ITerminalService
 {
     /// <summary>
-    /// Get the latest terminal versions
+    /// Get all terminals
     /// </summary>
     /// <returns>A collection of terminals</returns>
-    IEnumerable<TerminalLibCm> GetLatestVersions();
+    IEnumerable<TerminalLibCm> Get();
 
     /// <summary>
-    /// Get the latest version of a terminal based on given id
+    /// Get a terminal based on given id
     /// </summary>
     /// <param name="id">The id of the terminal</param>
-    /// <returns>The latest version of the terminal of given id</returns>
-    /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id, and that terminal is at the latest version.</exception>
-    TerminalLibCm Get(int id);
+    /// <returns>The terminal of given id</returns>
+    /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id.</exception>
+    TerminalLibCm Get(string id);
 
     /// <summary>
     /// Create a new terminal
@@ -35,29 +35,18 @@ public interface ITerminalService
     Task<TerminalLibCm> Create(TerminalLibAm terminal);
 
     /// <summary>
-    /// Update a terminal if the data is allowed to be changed.
-    /// </summary>
-    /// <param name="id">The id of the terminal to update</param>
-    /// <param name="terminalAm">The terminal to update</param>
-    /// <returns>The updated terminal</returns>
-    /// <exception cref="MimirorgBadRequestException">Throws if the terminal does not exist,
-    /// if it is not valid or there are not allowed changes.</exception>
-    /// <remarks>ParentId to old references will also be updated.</remarks>
-    Task<TerminalLibCm> Update(int id, TerminalLibAm terminalAm);
-
-    /// <summary>
     /// Change terminal state
     /// </summary>
     /// <param name="id">The terminal id that should change the state</param>
     /// <param name="state">The new terminal state</param>
     /// <returns>Terminal with updated state</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if the terminal does not exist on latest version</exception>
-    Task<TerminalLibCm> ChangeState(int id, State state);
+    Task<TerminalLibCm> ChangeState(string id, State state);
 
     /// <summary>
     /// Get the company id of a terminal
     /// </summary>
     /// <param name="id">The terminal id</param>
     /// <returns>Company id for the terminal</returns>
-    Task<int> GetCompanyId(int id);
+    int GetCompanyId(string id);
 }

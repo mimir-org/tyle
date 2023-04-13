@@ -7,5 +7,5 @@ public interface IDynamicSymbolDataProvider
     /// </summary>
     /// <param name="id">The id that resolves the image symbol</param>
     /// <returns>A base64 string value</returns>
-    Task<string> GetSymbolDataAsync(int id);
+    Task<string> GetSymbolDataAsync(string id);
 }

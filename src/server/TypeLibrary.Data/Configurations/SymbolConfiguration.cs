@@ -10,7 +10,7 @@ public class SymbolConfiguration : IEntityTypeConfiguration<SymbolLibDm>
     {
         builder.HasKey(x => x.Id);
         builder.ToTable("Symbol");
-        builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
+        builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(63);
         builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(63);
         builder.Property(p => p.Iri).HasColumnName("Iri").HasMaxLength(255);
         builder.Property(p => p.TypeReference).HasColumnName("TypeReference").HasMaxLength(255);

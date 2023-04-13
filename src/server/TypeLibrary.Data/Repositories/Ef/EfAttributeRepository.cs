@@ -4,55 +4,47 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
 using Mimirorg.Common.Enums;
-using TypeLibrary.Data.Contracts;
-using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Data.Models.Common;
 
 namespace TypeLibrary.Data.Repositories.Ef;
 
 public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, AttributeLibDm>, IEfAttributeRepository
 {
-    private readonly IApplicationSettingsRepository _settings;
-    private readonly ITypeLibraryProcRepository _typeLibraryProcRepository;
-
-    public EfAttributeRepository(IApplicationSettingsRepository settings, TypeLibraryDbContext dbContext, ITypeLibraryProcRepository typeLibraryProcRepository) : base(dbContext)
+    public EfAttributeRepository(TypeLibraryDbContext dbContext) : base(dbContext)
     {
-        _settings = settings;
-        _typeLibraryProcRepository = typeLibraryProcRepository;
     }
 
     /// <inheritdoc />
-    public async Task<int> HasCompany(int id)
+    public int HasCompany(string id)
     {
-        var procParams = new Dictionary<string, object>
-        {
-            {"@TableName", "Attribute"},
-            {"@Id", id}
-        };
-
-        var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlCompanyId>("HasCompany", procParams);
-        return result?.FirstOrDefault()?.CompanyId ?? 0;
+        return Get(id).CompanyId ?? 0;
     }
 
     /// <inheritdoc />
-    public async Task<int> ChangeState(State state, ICollection<int> ids)
+    public async Task ChangeState(State state, string id)
     {
-        if (ids == null)
-            return 0;
+        var attribute = await GetAsync(id);
+        attribute.State = state;
+        await SaveAsync();
+        Detach(attribute);
+    }
 
-        var idList = string.Join(",", ids.Select(i => i.ToString()));
-
-        var procParams = new Dictionary<string, object>
+    /// <inheritdoc />
+    public async Task<int> ChangeState(State state, ICollection<string> ids)
+    {
+        var attributesToChange = new List<AttributeLibDm>();
+        foreach (var id in ids)
         {
-            {"@TableName", "Attribute"},
-            {"@State", state.ToString()},
-            {"@IdList", idList}
-        };
+            var attribute = await GetAsync(id);
+            attribute.State = state;
+            attributesToChange.Add(attribute);
+        }
 
-        var result = await _typeLibraryProcRepository.ExecuteStoredProc<SqlResultCount>("UpdateState", procParams);
-        return result?.FirstOrDefault()?.Number ?? 0;
+        await SaveAsync();
+        Detach(attributesToChange);
+
+        return attributesToChange.Count;
     }
 
     /// <inheritdoc />
@@ -65,7 +57,7 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     }
 
     /// <inheritdoc />
-    public AttributeLibDm Get(int id)
+    public AttributeLibDm Get(string id)
     {
         return FindBy(x => x.Id == id)
             .Include(x => x.AttributeUnits)
@@ -80,29 +72,16 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
         await CreateAsync(attribute);
         await SaveAsync();
 
-        attribute.Iri = $"{_settings.ApplicationSemanticUrl}/attribute/{attribute.Id}";
-        foreach (var attributeUnit in attribute.AttributeUnits)
-            attributeUnit.AttributeId = attribute.Id;
-        await SaveAsync();
-
         Detach(attribute);
 
         return attribute;
     }
 
     /// <inheritdoc />
-    public async Task<ICollection<AttributeLibDm>> Create(ICollection<AttributeLibDm> attributes)
+    public async Task<List<AttributeLibDm>> Create(List<AttributeLibDm> attributes)
     {
         foreach (var attribute in attributes)
             await CreateAsync(attribute);
-        await SaveAsync();
-
-        foreach (var attribute in attributes)
-        {
-            attribute.Iri = $"{_settings.ApplicationSemanticUrl}/unit/{attribute.Id}";
-            foreach (var attributeUnit in attribute.AttributeUnits)
-                attributeUnit.AttributeId = attribute.Id;
-        }
         await SaveAsync();
 
         Detach(attributes);

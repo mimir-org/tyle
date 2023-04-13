@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mimirorg.Common.Abstract;
@@ -29,6 +30,7 @@ public class EfLogRepository : GenericRepository<TypeLibraryDbContext, LogLibDm>
     {
         foreach (var dm in logDms)
         {
+            dm.Id = Guid.NewGuid().ToString();
             await CreateAsync(dm);
         }
 

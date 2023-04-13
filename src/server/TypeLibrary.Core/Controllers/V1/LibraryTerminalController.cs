@@ -49,11 +49,11 @@ public class LibraryTerminalController : ControllerBase
     [ProducesResponseType(typeof(ICollection<TerminalLibCm>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult GetLatestVersions()
+    public IActionResult Get()
     {
         try
         {
-            var data = _terminalService.GetLatestVersions().ToList();
+            var data = _terminalService.Get().ToList();
             return Ok(data);
         }
         catch (Exception e)
@@ -73,7 +73,7 @@ public class LibraryTerminalController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult Get(int id)
+    public IActionResult Get(string id)
     {
         try
         {
@@ -134,51 +134,6 @@ public class LibraryTerminalController : ControllerBase
     }
 
     /// <summary>
-    /// Update a terminal
-    /// </summary>
-    /// <param name="id">The id of the terminal that should be updated</param>
-    /// <param name="terminal">The new values of the terminal</param>
-    /// <returns>The updated terminal</returns>
-    [HttpPut("{id}")]
-    [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
-    public async Task<IActionResult> Update(int id, [FromBody] TerminalLibAm terminal)
-    {
-        try
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var companyId = await _terminalService.GetCompanyId(id);
-
-            if (companyId != terminal.CompanyId)
-                return StatusCode(StatusCodes.Status403Forbidden);
-
-            var data = await _terminalService.Update(id, terminal);
-            return Ok(data);
-        }
-        catch (MimirorgBadRequestException e)
-        {
-            foreach (var error in e.Errors().ToList())
-            {
-                ModelState.Remove(error.Key);
-                ModelState.TryAddModelError(error.Key, error.Error);
-            }
-
-            return BadRequest(ModelState);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
-        }
-    }
-
-    /// <summary>
     /// Update a terminal with a new state
     /// </summary>
     /// <param name="id">The id of the terminal to be updated</param>
@@ -191,11 +146,11 @@ public class LibraryTerminalController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
-    public async Task<IActionResult> ChangeState([FromRoute] int id, [FromRoute] State state)
+    public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
     {
         try
         {
-            var companyId = await _terminalService.GetCompanyId(id);
+            var companyId = _terminalService.GetCompanyId(id);
             var hasAccess = await _authService.HasAccess(companyId, state);
 
             if (!hasAccess)
@@ -223,11 +178,11 @@ public class LibraryTerminalController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
-    public async Task<IActionResult> RejectChangeState([FromRoute] int id)
+    public async Task<IActionResult> RejectChangeState([FromRoute] string id)
     {
         try
         {
-            var companyId = await _terminalService.GetCompanyId(id);
+            var companyId = _terminalService.GetCompanyId(id);
             var previousState = await _logService.GetPreviousState(id, nameof(TerminalLibDm));
             var hasAccess = await _authService.HasAccess(companyId, previousState);
 

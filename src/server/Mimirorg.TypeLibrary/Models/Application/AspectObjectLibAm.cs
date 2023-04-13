@@ -101,7 +101,7 @@ public class AspectObjectLibAm
     /// <remarks>
     /// The parent id is not allowed to change
     /// </remarks>
-    public int? ParentId { get; set; }
+    public string ParentId { get; set; }
 
     /// <summary>
     /// A list of connected terminals
@@ -113,13 +113,13 @@ public class AspectObjectLibAm
     public ICollection<AspectObjectTerminalLibAm> AspectObjectTerminals { get; set; }
 
     /// <summary>
-    /// A list of attributes
+    /// A list of attribute ids
     /// </summary>
     /// <remarks>
     /// It is not allowed to remove attributes
     /// Adding attributes generates a major increase
     /// </remarks>
-    public ICollection<AspectObjectAttributeLibAm> AspectObjectAttributes { get; set; }
+    public ICollection<string> Attributes { get; set; }
 
     /// <summary>
     /// A list of selected predefined attributes

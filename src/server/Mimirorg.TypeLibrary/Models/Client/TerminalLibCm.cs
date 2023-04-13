@@ -8,8 +8,6 @@ public class TerminalLibCm
     public string Name { get; set; }
     public string Iri { get; set; }
     public string TypeReference { get; set; }
-    public string Version { get; set; }
-    public string FirstVersionId { get; set; }
     public DateTime Created { get; set; }
     public string CreatedBy { get; set; }
     public int CompanyId { get; set; }
@@ -21,6 +19,6 @@ public class TerminalLibCm
     public string ParentName { get; set; }
     public string ParentIri { get; set; }
     public ICollection<TerminalLibCm> Children { get; set; }
-    public ICollection<TerminalAttributeLibCm> TerminalAttributes { get; set; }
+    public ICollection<AttributeLibCm> Attributes { get; set; }
     public string Kind => nameof(TerminalLibCm);
 }

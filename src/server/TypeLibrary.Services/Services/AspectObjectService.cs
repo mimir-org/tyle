@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
@@ -21,15 +22,21 @@ public class AspectObjectService : IAspectObjectService
 {
     private readonly IMapper _mapper;
     private readonly IAspectObjectRepository _aspectObjectRepository;
+    private readonly IAttributeRepository _attributeRepository;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
+    private readonly ILogger<AspectObjectService> _logger;
+    private readonly IApplicationSettingsRepository _settings;
 
-    public AspectObjectService(IMapper mapper, IAspectObjectRepository aspectObjectRepository, ITimedHookService hookService, ILogService logService)
+    public AspectObjectService(IMapper mapper, IAspectObjectRepository aspectObjectRepository, IAttributeRepository attributeRepository, ITimedHookService hookService, ILogService logService, ILogger<AspectObjectService> logger, IApplicationSettingsRepository settings)
     {
         _mapper = mapper;
         _aspectObjectRepository = aspectObjectRepository;
+        _attributeRepository = attributeRepository;
         _hookService = hookService;
         _logService = logService;
+        _logger = logger;
+        _settings = settings;
     }
 
     /// <summary>
@@ -38,7 +45,7 @@ public class AspectObjectService : IAspectObjectService
     /// <param name="id">The id of the aspect object</param>
     /// <returns>The latest version of the aspect object of given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no aspect object with the given id, and that aspect object is at the latest version.</exception>
-    public AspectObjectLibCm Get(int id)
+    public AspectObjectLibCm Get(string id)
     {
         var dm = _aspectObjectRepository.Get(id);
 
@@ -87,10 +94,30 @@ public class AspectObjectService : IAspectObjectService
         aspectObjectAm.Version = "1.0";
         var dm = _mapper.Map<AspectObjectLibDm>(aspectObjectAm);
 
+        dm.Id = Guid.NewGuid().ToString();
+        dm.Iri = $"{_settings.ApplicationSemanticUrl}/aspectobject/{dm.Id}";
+        dm.FirstVersionId ??= dm.Id;
         dm.State = State.Draft;
 
-        // TODO: This is a temporary fix, since the TS types are not built correctly for nullable ints
-        if (dm.ParentId == 0) dm.ParentId = null;
+        foreach (var aspectObjectTerminal in dm.AspectObjectTerminals)
+        {
+            aspectObjectTerminal.Id = Guid.NewGuid().ToString();
+            aspectObjectTerminal.AspectObjectId = dm.Id;
+        }
+
+        dm.Attributes = new List<AttributeLibDm>();
+        if (aspectObjectAm.Attributes != null)
+        {
+            foreach (var attributeId in aspectObjectAm.Attributes)
+            {
+                var attribute = _attributeRepository.Get(attributeId);
+                if (attribute == null)
+                    _logger.LogError(
+                        $"Could not add attribute with id {attributeId} to aspect object with id {dm.Id}, attribute not found.");
+                else
+                    dm.Attributes.Add(attribute);
+            }
+        }
 
         var createdAspectObject = await _aspectObjectRepository.Create(dm);
         _aspectObjectRepository.ClearAllChangeTrackers();
@@ -109,7 +136,8 @@ public class AspectObjectService : IAspectObjectService
     /// <exception cref="MimirorgBadRequestException">Throws if the aspect object does not exist,
     /// if it is not valid or there are not allowed changes.</exception>
     /// <remarks>ParentId to old references will also be updated.</remarks>
-    public async Task<AspectObjectLibCm> Update(int id, AspectObjectLibAm aspectObjectAm)
+    public async Task<AspectObjectLibCm>
+        Update(string id, AspectObjectLibAm aspectObjectAm)
     {
         var validation = aspectObjectAm.ValidateObject();
 
@@ -148,8 +176,30 @@ public class AspectObjectService : IAspectObjectService
 
         var dm = _mapper.Map<AspectObjectLibDm>(aspectObjectAm);
 
+        dm.Id = Guid.NewGuid().ToString();
+        dm.Iri = $"{_settings.ApplicationSemanticUrl}/aspectobject/{dm.Id}";
         dm.State = State.Draft;
         dm.FirstVersionId = aspectObjectToUpdate.FirstVersionId;
+
+        foreach (var aspectObjectTerminal in dm.AspectObjectTerminals)
+        {
+            aspectObjectTerminal.Id = Guid.NewGuid().ToString();
+            aspectObjectTerminal.AspectObjectId = dm.Id;
+        }
+
+        dm.Attributes = new List<AttributeLibDm>();
+        if (aspectObjectAm.Attributes != null)
+        {
+            foreach (var attributeId in aspectObjectAm.Attributes)
+            {
+                var attribute = _attributeRepository.Get(attributeId);
+                if (attribute == null)
+                    _logger.LogError(
+                        $"Could not add attribute with id {attributeId} to aspect object with id {dm.Id}, attribute not found.");
+                else
+                    dm.Attributes.Add(attribute);
+            }
+        }
 
         var aspectObjectCm = await _aspectObjectRepository.Create(dm);
         _aspectObjectRepository.ClearAllChangeTrackers();
@@ -167,14 +217,14 @@ public class AspectObjectService : IAspectObjectService
     /// <param name="state">The new aspect object state</param>
     /// <returns>Aspect objects with updated state</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if the aspect object does not exist on latest version</exception>
-    public async Task<ApprovalDataCm> ChangeState(int id, State state)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state)
     {
         var dm = _aspectObjectRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
         if (dm == null)
             throw new MimirorgNotFoundException($"Aspect object with id {id} not found, or is not latest version.");
 
-        await _aspectObjectRepository.ChangeState(state, new List<int> { dm.Id });
+        await _aspectObjectRepository.ChangeState(state, dm.Id);
         await _logService.CreateLog(dm, LogType.State, state.ToString());
         _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
 
@@ -190,8 +240,8 @@ public class AspectObjectService : IAspectObjectService
     /// </summary>
     /// <param name="id">The aspect object id</param>
     /// <returns>Company id for aspect object</returns>
-    public async Task<int> GetCompanyId(int id)
+    public int GetCompanyId(string id)
     {
-        return await _aspectObjectRepository.HasCompany(id);
+        return _aspectObjectRepository.HasCompany(id);
     }
 }

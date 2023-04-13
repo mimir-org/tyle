@@ -15,6 +15,13 @@ public interface IQuantityDatumService
     IEnumerable<QuantityDatumLibCm> Get();
 
     /// <summary>
+    /// Get quantity datum by id
+    /// </summary>
+    /// <param name="id">The id of the quantity datum to get</param>
+    /// <returns>The quantity datum with the given id</returns>
+    QuantityDatumLibCm Get(string id);
+
+    /// <summary>
     /// Get all quantity datum range specifying
     /// </summary>
     /// <returns>List of quantity datums</returns>
@@ -51,12 +58,12 @@ public interface IQuantityDatumService
     /// <param name="id">The quantity datum id that should change state</param>
     /// <param name="state">The new quantity datum state</param>
     /// <returns>Quantity datum with updated state</returns>
-    Task<ApprovalDataCm> ChangeState(int id, State state);
+    Task<ApprovalDataCm> ChangeState(string id, State state);
 
     /// <summary>
     /// Get the company id of a quantity datum
     /// </summary>
     /// <param name="id">The quantity datum id</param>
     /// <returns>Company id for the quantity datum</returns>
-    Task<int> GetCompanyId(int id);
+    int GetCompanyId(string id);
 }

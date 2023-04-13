@@ -21,13 +21,15 @@ public class QuantityDatumService : IQuantityDatumService
     private readonly IQuantityDatumRepository _quantityDatumRepository;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
+    private readonly IApplicationSettingsRepository _settings;
 
-    public QuantityDatumService(IMapper mapper, IQuantityDatumRepository quantityDatumRepository, ITimedHookService hookService, ILogService logService)
+    public QuantityDatumService(IMapper mapper, IQuantityDatumRepository quantityDatumRepository, ITimedHookService hookService, ILogService logService, IApplicationSettingsRepository settings)
     {
         _mapper = mapper;
         _quantityDatumRepository = quantityDatumRepository;
         _hookService = hookService;
         _logService = logService;
+        _settings = settings;
     }
 
     /// <inheritdoc />
@@ -39,6 +41,17 @@ public class QuantityDatumService : IQuantityDatumService
             throw new MimirorgNotFoundException("No quantity datums were found.");
 
         return !dataSet.Any() ? new List<QuantityDatumLibCm>() : _mapper.Map<List<QuantityDatumLibCm>>(dataSet);
+    }
+
+    /// <inheritdoc />
+    public QuantityDatumLibCm Get(string id)
+    {
+        var quantityDatum = _quantityDatumRepository.Get(id);
+        if (quantityDatum == null)
+            throw new MimirorgNotFoundException($"Quantity datum with id {id} not found.");
+
+        var data = _mapper.Map<QuantityDatumLibCm>(quantityDatum);
+        return data;
     }
 
     /// <inheritdoc />
@@ -81,6 +94,8 @@ public class QuantityDatumService : IQuantityDatumService
 
         var dm = _mapper.Map<QuantityDatumLibDm>(quantityDatumAm);
 
+        dm.Id = Guid.NewGuid().ToString();
+        dm.Iri = $"{_settings.ApplicationSemanticUrl}/quantitydatum/{dm.Id}";
         dm.State = State.Draft;
 
         var createdQuantityDatum = await _quantityDatumRepository.Create(dm);
@@ -92,14 +107,14 @@ public class QuantityDatumService : IQuantityDatumService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(int id, State state)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state)
     {
         var dm = _quantityDatumRepository.Get().FirstOrDefault(x => x.Id == id);
 
         if (dm == null)
             throw new MimirorgNotFoundException($"Quantity datum with id {id} not found.");
 
-        await _quantityDatumRepository.ChangeState(state, new List<int> { dm.Id });
+        await _quantityDatumRepository.ChangeState(state, dm.Id);
         await _logService.CreateLog(dm, LogType.State, state.ToString());
         _hookService.HookQueue.Enqueue(CacheKey.QuantityDatum);
 
@@ -112,8 +127,8 @@ public class QuantityDatumService : IQuantityDatumService
     }
 
     /// <inheritdoc />
-    public async Task<int> GetCompanyId(int id)
+    public int GetCompanyId(string id)
     {
-        return await _quantityDatumRepository.HasCompany(id);
+        return _quantityDatumRepository.HasCompany(id);
     }
 }

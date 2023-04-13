@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
@@ -7,6 +8,7 @@ using Moq;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
+using TypeLibrary.Services.Services;
 
 namespace Mimirorg.Test.Setup.Fixtures;
 
@@ -17,15 +19,17 @@ public class MimirorgCommonFixture : IDisposable
     public ApplicationSettings ApplicationSettings = new();
     public Mock<IMapper> Mapper = new();
 
+    // Loggers
+    public Mock<ILogger<AspectObjectService>> AspectObjectServiceLogger = new();
+
     // Repositories
     public Mock<IAspectObjectRepository> AspectObjectRepository = new();
-    public Mock<IQuantityDatumRepository> DatumRepository = new();
-    public Mock<IAttributePredefinedRepository> AttributePredefinedRepository = new();
-    public Mock<IAttributeReferenceRepository> AttributeReferenceRepository = new();
+    public Mock<IAttributeRepository> AttributeRepository = new();
 
     // Services
     public Mock<ITimedHookService> TimedHookService = new();
     public Mock<ILogService> LogService = new();
+    public Mock<IApplicationSettingsRepository> ApplicationSettingsRepository = new();
 
     public MimirorgCommonFixture()
     {
@@ -53,14 +57,14 @@ public class MimirorgCommonFixture : IDisposable
                     ConnectorDirection = ConnectorDirection.Input,
                     MinQuantity = 1,
                     MaxQuantity = int.MaxValue,
-                    TerminalId = 123
+                    TerminalId = "123"
                 },
                 new()
                 {
                     ConnectorDirection = ConnectorDirection.Input,
                     MinQuantity = 1,
                     MaxQuantity = int.MaxValue,
-                    TerminalId = 555
+                    TerminalId = "555"
                 }
             },
             SelectedAttributePredefined = new List<SelectedAttributePredefinedLibAm>
@@ -74,13 +78,13 @@ public class MimirorgCommonFixture : IDisposable
                     Key = "555"
                 }
             },
-            ParentId = 123,
+            ParentId = "123",
             TypeReference = "https://www.tyle.com/"
         };
 
         var aspectObjectLibDm = new AspectObjectLibDm
         {
-            Id = 68313,
+            Id = "68313",
             Name = "AA",
             RdsName = "AA",
             RdsCode = "AA",
@@ -92,8 +96,8 @@ public class MimirorgCommonFixture : IDisposable
                     ConnectorDirection = ConnectorDirection.Input,
                     MinQuantity = 1,
                     MaxQuantity = int.MaxValue,
-                    TerminalId = 123,
-                    Id = 74853
+                    TerminalId = "123",
+                    Id = "74853"
                 }
             },
             SelectedAttributePredefined = new List<SelectedAttributePredefinedLibDm>
@@ -103,7 +107,7 @@ public class MimirorgCommonFixture : IDisposable
                     Key = "123"
                 }
             },
-            ParentId = 123,
+            ParentId = "123",
             TypeReference = "https://www.tyle.com/"
         };
 
@@ -117,16 +121,14 @@ public class MimirorgCommonFixture : IDisposable
             Name = "AA",
             TypeReference = "https://www.tyle.com/",
             Color = "#123",
-            TerminalAttributes = new List<TerminalAttributeLibAm>(),
-            Version = "1.0"
+            Attributes = new List<string>()
         };
 
         var terminalLibDm = new TerminalLibDm
         {
             Name = "AA",
             Color = "#123",
-            TerminalAttributes = new List<TerminalAttributeLibDm>(),
-            Version = "1.0",
+            Attributes = new List<AttributeLibDm>(),
             TypeReference = "https://www.tyle.com/"
         };
 

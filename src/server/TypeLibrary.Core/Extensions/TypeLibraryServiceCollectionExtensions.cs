@@ -46,8 +46,6 @@ public static class TypeLibraryServiceCollectionExtensions
         cfg.AddProfile(new LogProfile(provider.GetService<IHttpContextAccessor>()));
         cfg.AddProfile(new AttributeProfile(provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
         cfg.AddProfile(new AttributeUnitProfile());
-        cfg.AddProfile(new AspectObjectAttributeProfile());
-        cfg.AddProfile(new TerminalAttributeProfile());
 
         var mapperConfig = new MapperConfiguration(cfg);
         mapperConfig.AssertConfigurationIsValid();
