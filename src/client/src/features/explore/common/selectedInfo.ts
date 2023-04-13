@@ -1,4 +1,4 @@
-type SelectedInfoType = "node" | "terminal";
+type SelectedInfoType = "aspectObject" | "terminal";
 
 /**
  * Interface for describing the currently selected item in the search list.
@@ -7,6 +7,6 @@ type SelectedInfoType = "node" | "terminal";
  * @property type describes what type of object the id belongs to
  */
 export interface SelectedInfo {
-  id?: number;
+  id?: string;
   type?: SelectedInfoType;
 }

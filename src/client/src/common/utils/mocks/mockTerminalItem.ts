@@ -4,7 +4,7 @@ import { TerminalItem } from "common/types/terminalItem";
 import { mockInfoItem } from "common/utils/mocks/mockInfoItem";
 
 export const mockTerminalItem = (): TerminalItem => ({
-  id: Number.parseInt(faker.random.alphaNumeric()),
+  id: faker.random.alphaNumeric(36),
   name: `Terminal ${faker.random.alpha({ count: 3, casing: "upper" })}`,
   color: faker.internet.color(),
   description: faker.commerce.productDescription(),

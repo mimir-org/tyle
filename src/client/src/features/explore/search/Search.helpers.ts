@@ -1,5 +1,5 @@
 import { Link } from "common/types/link";
-import { nodeFormBasePath } from "features/entities/node/NodeFormRoutes";
+import { aspectObjectFormBasePath } from "features/entities/aspectobject/AspectObjectFormRoutes";
 import { terminalFormBasePath } from "features/entities/terminal/TerminalFormRoutes";
 import { useTranslation } from "react-i18next";
 
@@ -9,7 +9,7 @@ export const useCreateMenuLinks = (): Link[] => {
   return [
     {
       name: t("search.create.aspectObject"),
-      path: nodeFormBasePath,
+      path: aspectObjectFormBasePath,
     },
     {
       name: t("search.create.terminal"),

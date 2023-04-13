@@ -25,11 +25,12 @@ public class TerminalProfile : Profile
             .ForMember(dest => dest.State, opt => opt.Ignore())
             .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-            .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
+            .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.ParentId) ? null : src.ParentId))
             .ForMember(dest => dest.Parent, opt => opt.Ignore())
             .ForMember(dest => dest.Children, opt => opt.Ignore())
             .ForMember(dest => dest.TerminalAspectObjects, opt => opt.Ignore())
-            .ForMember(dest => dest.Attributes, opt => opt.Ignore());
+            .ForMember(dest => dest.Attributes, opt => opt.Ignore())
+            .ForMember(dest => dest.TerminalAttributes, opt => opt.Ignore());
 
         CreateMap<TerminalLibDm, TerminalLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

@@ -1,3 +1,3 @@
-export { mockNodeItem } from "common/utils/mocks/mockNodeItem";
-export { mockNodeTerminalItem } from "common/utils/mocks/mockNodeTerminalItem";
+export { mockAspectObjectItem } from "common/utils/mocks/mockAspectObjectItem";
+export { mockAspectObjectTerminalItem } from "common/utils/mocks/mockAspectObjectTerminalItem";
 export { mockInfoItem } from "common/utils/mocks/mockInfoItem";

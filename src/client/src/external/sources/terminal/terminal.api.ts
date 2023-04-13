@@ -7,19 +7,19 @@ export const terminalApi = {
   getTerminals() {
     return apiClient.get<TerminalLibCm[]>(_basePath).then((r) => r.data);
   },
-  getTerminal(id?: number) {
+  getTerminal(id?: string) {
     return apiClient.get<TerminalLibCm>(`${_basePath}/${id}`).then((r) => r.data);
   },
   postTerminal(item: TerminalLibAm) {
     return apiClient.post<TerminalLibCm>(_basePath, item).then((r) => r.data);
   },
-  putTerminal(item: TerminalLibAm, id?: number) {
+  putTerminal(item: TerminalLibAm, id?: string) {
     return apiClient.put<TerminalLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
   },
-  patchTerminalState(id: number, state: State) {
+  patchTerminalState(id: string, state: State) {
     return apiClient.patch<TerminalLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
   },
-  patchhTerminalStateReject(id: number) {
+  patchhTerminalStateReject(id: string) {
     return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/reject`).then((r) => r.data);
   },
 };

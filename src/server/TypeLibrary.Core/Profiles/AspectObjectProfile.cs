@@ -33,11 +33,12 @@ public class AspectObjectProfile : Profile
             .ForMember(dest => dest.RdsName, opt => opt.MapFrom(src => src.RdsName))
             .ForMember(dest => dest.Symbol, opt => opt.MapFrom(src => src.Symbol))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-            .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
+            .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.ParentId) ? null : src.ParentId))
             .ForMember(dest => dest.Parent, opt => opt.Ignore())
             .ForMember(dest => dest.Children, opt => opt.Ignore())
             .ForMember(dest => dest.AspectObjectTerminals, opt => opt.MapFrom(src => CreateTerminals(src.AspectObjectTerminals).ToList()))
             .ForMember(dest => dest.Attributes, opt => opt.Ignore())
+            .ForMember(dest => dest.AspectObjectAttributes, opt => opt.Ignore())
             .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
         CreateMap<AspectObjectLibDm, AspectObjectLibCm>()

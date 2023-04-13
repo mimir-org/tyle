@@ -33,7 +33,7 @@ const getEntityFilters = (): FilterGroup => ({
     {
       key: "kind",
       label: "Aspect object",
-      value: "NodeLibCm",
+      value: "AspectObjectLibCm",
     },
     {
       key: "kind",

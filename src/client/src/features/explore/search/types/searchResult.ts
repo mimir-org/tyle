@@ -1,7 +1,7 @@
-import { NodeLibCm, TerminalLibCm } from "@mimirorg/typelibrary-types";
-import { NodeItem } from "common/types/nodeItem";
+import { AspectObjectLibCm, TerminalLibCm } from "@mimirorg/typelibrary-types";
+import { AspectObjectItem } from "common/types/aspectObjectItem";
 import { TerminalItem } from "common/types/terminalItem";
 
-export type SearchResult = NodeItem | TerminalItem;
+export type SearchResult = AspectObjectItem | TerminalItem;
 
-export type SearchResultRaw = NodeLibCm | TerminalLibCm;
+export type SearchResultRaw = AspectObjectLibCm | TerminalLibCm;

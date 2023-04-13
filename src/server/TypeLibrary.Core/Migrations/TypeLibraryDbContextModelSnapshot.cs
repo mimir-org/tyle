@@ -22,34 +22,26 @@ namespace TypeLibrary.Core.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AspectObject_Attribute", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.AspectObjectAttributeLibDm", b =>
                 {
-                    b.Property<string>("AspectObjectsId")
+                    b.Property<string>("Id")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("Id");
+
+                    b.Property<string>("AspectObjectId")
                         .HasColumnType("nvarchar(63)");
 
-                    b.Property<string>("AttributesId")
+                    b.Property<string>("AttributeId")
                         .HasColumnType("nvarchar(63)");
 
-                    b.HasKey("AspectObjectsId", "AttributesId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("AttributesId");
+                    b.HasIndex("AspectObjectId");
 
-                    b.ToTable("AspectObject_Attribute");
-                });
+                    b.HasIndex("AttributeId");
 
-            modelBuilder.Entity("Terminal_Attribute", b =>
-                {
-                    b.Property<string>("AttributesId")
-                        .HasColumnType("nvarchar(63)");
-
-                    b.Property<string>("TerminalsId")
-                        .HasColumnType("nvarchar(63)");
-
-                    b.HasKey("AttributesId", "TerminalsId");
-
-                    b.HasIndex("TerminalsId");
-
-                    b.ToTable("Terminal_Attribute");
+                    b.ToTable("AspectObject_Attribute", (string)null);
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AspectObjectLibDm", b =>
@@ -528,6 +520,28 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Symbol", (string)null);
                 });
 
+            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalAttributeLibDm", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("Id");
+
+                    b.Property<string>("AttributeId")
+                        .HasColumnType("nvarchar(63)");
+
+                    b.Property<string>("TerminalId")
+                        .HasColumnType("nvarchar(63)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttributeId");
+
+                    b.HasIndex("TerminalId");
+
+                    b.ToTable("Terminal_Attribute", (string)null);
+                });
+
             modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>
                 {
                     b.Property<string>("Id")
@@ -658,34 +672,19 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Unit", (string)null);
                 });
 
-            modelBuilder.Entity("AspectObject_Attribute", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.AspectObjectAttributeLibDm", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.AspectObjectLibDm", null)
-                        .WithMany()
-                        .HasForeignKey("AspectObjectsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("TypeLibrary.Data.Models.AspectObjectLibDm", "AspectObject")
+                        .WithMany("AspectObjectAttributes")
+                        .HasForeignKey("AspectObjectId");
 
-                    b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", null)
+                    b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", "Attribute")
                         .WithMany()
-                        .HasForeignKey("AttributesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                        .HasForeignKey("AttributeId");
 
-            modelBuilder.Entity("Terminal_Attribute", b =>
-                {
-                    b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", null)
-                        .WithMany()
-                        .HasForeignKey("AttributesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("AspectObject");
 
-                    b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", null)
-                        .WithMany()
-                        .HasForeignKey("TerminalsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Attribute");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AspectObjectLibDm", b =>
@@ -732,6 +731,21 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Unit");
                 });
 
+            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalAttributeLibDm", b =>
+                {
+                    b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", "Attribute")
+                        .WithMany()
+                        .HasForeignKey("AttributeId");
+
+                    b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", "Terminal")
+                        .WithMany("TerminalAttributes")
+                        .HasForeignKey("TerminalId");
+
+                    b.Navigation("Attribute");
+
+                    b.Navigation("Terminal");
+                });
+
             modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>
                 {
                     b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", "Parent")
@@ -744,6 +758,8 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AspectObjectLibDm", b =>
                 {
+                    b.Navigation("AspectObjectAttributes");
+
                     b.Navigation("AspectObjectTerminals");
 
                     b.Navigation("Children");
@@ -759,6 +775,8 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Children");
 
                     b.Navigation("TerminalAspectObjects");
+
+                    b.Navigation("TerminalAttributes");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.UnitLibDm", b =>

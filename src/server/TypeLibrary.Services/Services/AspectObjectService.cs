@@ -105,7 +105,7 @@ public class AspectObjectService : IAspectObjectService
             aspectObjectTerminal.AspectObjectId = dm.Id;
         }
 
-        dm.Attributes = new List<AttributeLibDm>();
+        dm.AspectObjectAttributes = new List<AspectObjectAttributeLibDm>();
         if (aspectObjectAm.Attributes != null)
         {
             foreach (var attributeId in aspectObjectAm.Attributes)
@@ -115,7 +115,12 @@ public class AspectObjectService : IAspectObjectService
                     _logger.LogError(
                         $"Could not add attribute with id {attributeId} to aspect object with id {dm.Id}, attribute not found.");
                 else
-                    dm.Attributes.Add(attribute);
+                    dm.AspectObjectAttributes.Add(new AspectObjectAttributeLibDm()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        AspectObjectId = dm.Id,
+                        AttributeId = attribute.Id
+                    });
             }
         }
 
@@ -136,8 +141,7 @@ public class AspectObjectService : IAspectObjectService
     /// <exception cref="MimirorgBadRequestException">Throws if the aspect object does not exist,
     /// if it is not valid or there are not allowed changes.</exception>
     /// <remarks>ParentId to old references will also be updated.</remarks>
-    public async Task<AspectObjectLibCm>
-        Update(string id, AspectObjectLibAm aspectObjectAm)
+    public async Task<AspectObjectLibCm> Update(string id, AspectObjectLibAm aspectObjectAm)
     {
         var validation = aspectObjectAm.ValidateObject();
 

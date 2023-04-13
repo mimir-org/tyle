@@ -22,14 +22,14 @@ export const mapAttributeLibCmToInfoItem = (attribute: AttributeLibCm): InfoItem
     },
   };
 
-  const attributeHasAttributes = attribute.units && attribute.units.length > 0;
+  const attributeHasAttributes = attribute.attributeUnits && attribute.attributeUnits.length > 0;
   if (attributeHasAttributes) {
     return {
       ...infoItem,
       descriptors: {
         ...infoItem.descriptors,
-        Units: attribute.units
-          .map((x) => x.name)
+        Units: attribute.attributeUnits
+          .map((x) => x.unit.name)
           .sort((a, b) => a.localeCompare(b))
           .join(", "),
       },

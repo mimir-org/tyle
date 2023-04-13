@@ -19,7 +19,7 @@ export interface ApprovalCardFormProps {
   item: ApprovalCm;
   formId?: string;
   onSubmit?: () => void;
-  onReject?: (id: number, state: State, objectType: string) => void;
+  onReject?: (id: string, state: State, objectType: string) => void;
   showSubmitButton?: boolean;
 }
 
