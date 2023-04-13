@@ -10,6 +10,6 @@ public class AspectObjectAttributeConfiguration : IEntityTypeConfiguration<Aspec
     {
         builder.HasKey(x => x.Id);
         builder.ToTable("AspectObject_Attribute");
-        builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(63);
+        builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
     }
 }

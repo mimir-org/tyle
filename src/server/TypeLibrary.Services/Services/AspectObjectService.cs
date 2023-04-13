@@ -117,7 +117,6 @@ public class AspectObjectService : IAspectObjectService
                 else
                     dm.AspectObjectAttributes.Add(new AspectObjectAttributeLibDm()
                     {
-                        Id = Guid.NewGuid().ToString(),
                         AspectObjectId = dm.Id,
                         AttributeId = attribute.Id
                     });

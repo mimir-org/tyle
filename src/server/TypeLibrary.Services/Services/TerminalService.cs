@@ -96,7 +96,6 @@ public class TerminalService : ITerminalService
                 else
                     dm.TerminalAttributes.Add(new TerminalAttributeLibDm()
                     {
-                        Id = Guid.NewGuid().ToString(),
                         TerminalId = dm.Id,
                         AttributeId = attribute.Id
                     });

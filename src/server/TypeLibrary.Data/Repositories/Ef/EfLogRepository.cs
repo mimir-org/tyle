@@ -29,10 +29,7 @@ public class EfLogRepository : GenericRepository<TypeLibraryDbContext, LogLibDm>
     public async Task Create(ICollection<LogLibDm> logDms)
     {
         foreach (var dm in logDms)
-        {
-            dm.Id = Guid.NewGuid().ToString();
             await CreateAsync(dm);
-        }
 
         await SaveAsync();
     }
