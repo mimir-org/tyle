@@ -15,7 +15,7 @@ public class LogConfiguration : IEntityTypeConfiguration<LogLibDm>
         builder.HasIndex(x => x.LogType).IsUnique(false);
         builder.HasIndex(x => new { x.ObjectId, x.ObjectFirstVersionId, x.ObjectType, x.LogType }).IsUnique(false);
         builder.ToTable("Log");
-        builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(63);
+        builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
         builder.Property(p => p.ObjectId).HasColumnName("ObjectId").IsRequired().HasMaxLength(63);
         builder.Property(p => p.ObjectName).HasColumnName("ObjectName").IsRequired().HasMaxLength(63);
         builder.Property(p => p.ObjectVersion).HasColumnName("ObjectVersion").IsRequired().HasMaxLength(7);
