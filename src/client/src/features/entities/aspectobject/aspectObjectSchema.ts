@@ -1,5 +1,4 @@
 import { YupShape } from "common/types/yupShape";
-import { typeReferenceListSchema } from "features/entities/common/validation/typeReferenceListSchema";
 import { TFunction } from "react-i18next";
 import * as yup from "yup";
 import { FormAspectObjectLib } from "./types/formAspectObjectLib";
@@ -32,5 +31,5 @@ export const aspectObjectSchema = (t: TFunction<"translation">) =>
         return terminals?.length === uniqueTerminalAndDirectionCombinations.size;
       }),
     attributes: yup.array().nullable(),
-    typeReferences: typeReferenceListSchema(t("common.validation.typeReferences.name.required")),
+    typeReference: yup.string(),
   });

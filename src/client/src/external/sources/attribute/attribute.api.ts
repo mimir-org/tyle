@@ -1,7 +1,7 @@
 import {
   AttributeLibCm,
   AttributePredefinedLibCm,
-  QuantityDatumCm,
+  QuantityDatumLibCm,
   QuantityDatumType,
 } from "@mimirorg/typelibrary-types";
 import { apiClient } from "external/client/apiClient";
@@ -16,6 +16,6 @@ export const attributeApi = {
     return apiClient.get<AttributePredefinedLibCm[]>(`${_basePath}/predefined`).then((r) => r.data);
   },
   getQuantityDatum(datumType: QuantityDatumType) {
-    return apiClient.get<QuantityDatumCm[]>(`${_basePath}/datum/${datumType}`).then((r) => r.data);
+    return apiClient.get<QuantityDatumLibCm[]>(`${_basePath}/datum/${datumType}`).then((r) => r.data);
   },
 };

@@ -3,7 +3,7 @@ import { AspectObjectTerminalItem } from "common/types/aspectObjectTerminalItem"
 import { StateItem } from "common/types/stateItem";
 
 export interface AspectObjectItem extends StateItem {
-  id: number;
+  id: string;
   name: string;
   description: string;
   img: string;

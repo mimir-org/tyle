@@ -8,10 +8,10 @@ import { useParams } from "react-router-dom";
 
 export const useAspectObjectQuery = () => {
   const { id } = useParams();
-  return useGetAspectObject(id ? Number.parseInt(id) : 0);
+  return useGetAspectObject(id);
 };
 
-export const useAspectObjectMutation = (id?: number, mode?: AspectObjectFormMode) => {
+export const useAspectObjectMutation = (id?: string, mode?: AspectObjectFormMode) => {
   const aspectObjectUpdateMutation = useUpdateAspectObject(id);
   const aspectObjectCreateMutation = useCreateAspectObject();
   return mode === "edit" ? aspectObjectUpdateMutation : aspectObjectCreateMutation;

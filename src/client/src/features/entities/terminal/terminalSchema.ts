@@ -1,5 +1,4 @@
 import { YupShape } from "common/types/yupShape";
-import { typeReferenceListSchema } from "features/entities/common/validation/typeReferenceListSchema";
 import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";
 import { TFunction } from "react-i18next";
 import * as yup from "yup";
@@ -12,5 +11,5 @@ export const terminalSchema = (t: TFunction<"translation">) =>
     description: yup.string().max(500, t("terminal.validation.description.max")),
     parentId: yup.string().nullable(),
     attributes: yup.array().nullable(),
-    typeReferences: typeReferenceListSchema(t("common.validation.typeReferences.name.required")),
+    typeReference: yup.string(),
   });

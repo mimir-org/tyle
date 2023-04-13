@@ -28,7 +28,7 @@ export const useApprovalToasts = (oldState?: Option<State>) => {
 
   let mutationPromise = {} as Promise<ApprovalDataCm>;
 
-  return async (id: number, submission: FormApproval) => {
+  return async (id: string, submission: FormApproval) => {
     switch (submission.objectType) {
       case "AspectObject":
         mutationPromise = patchMutationAspectObject.mutateAsync(mapFormApprovalToApiModel(submission));
@@ -81,7 +81,7 @@ const useUndoApprovalToast = (oldState?: Option<State>) => {
   const patchMutationTerminal = usePatchTerminalState();
   const shouldRevertToOldApproval = !!oldState;
 
-  return (name: number, submission: FormApproval) => {
+  return (name: string, submission: FormApproval) => {
     const targetSubmission = shouldRevertToOldApproval ? { ...submission, state: oldState } : submission;
     let mutationPromise = {} as Promise<ApprovalDataCm>;
 

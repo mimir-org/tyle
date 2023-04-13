@@ -37,11 +37,10 @@ export const createEmptyFormTerminalLib = (): FormTerminalLib => ({
 
 const emptyTerminalLibAm: TerminalLibAm = {
   name: "",
-  parentId: 0,
-  typeReferences: [],
+  parentId: "",
+  typeReference: "",
   color: "",
   description: "",
   attributes: [],
   companyId: 0,
-  version: "1.0",
 };

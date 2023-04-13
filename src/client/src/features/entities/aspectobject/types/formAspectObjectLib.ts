@@ -61,7 +61,7 @@ const emptyAspectObjectLibAm: AspectObjectLibAm = {
   selectedAttributePredefined: [],
   description: "",
   symbol: "",
-  typeReferences: [],
-  parentId: 0,
+  typeReference: "",
+  parentId: "",
   version: "1.0",
 };

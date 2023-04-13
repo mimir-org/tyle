@@ -49,7 +49,7 @@ describe("aspectObjectSchema tests", () => {
     const aspectObjectWithNegativeTerminalMinQuantity: Partial<FormAspectObjectLib> = {
       aspectObjectTerminals: [
         {
-          terminalId: 0,
+          terminalId: "",
           hasMaxQuantity: false,
           minQuantity: -1,
           maxQuantity: 1,
@@ -67,7 +67,7 @@ describe("aspectObjectSchema tests", () => {
     const aspectObjectWithNegativeTerminalMinQuantity: Partial<FormAspectObjectLib> = {
       aspectObjectTerminals: [
         {
-          terminalId: 0,
+          terminalId: "",
           hasMaxQuantity: true,
           minQuantity: 1,
           maxQuantity: -1,

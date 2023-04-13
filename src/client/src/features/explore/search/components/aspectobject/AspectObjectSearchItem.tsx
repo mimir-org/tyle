@@ -5,7 +5,7 @@ import { UserItem } from "common/types/userItem";
 import { Button } from "complib/buttons";
 import { AlertDialog } from "complib/overlays";
 import { usePatchAspectObjectState } from "external/sources/aspectobject/aspectObject.queries";
-import { AspectObjectPreview } from "features/common/aspectObject";
+import { AspectObjectPreview } from "features/common/aspectobject";
 import { PlainLink } from "features/common/plain-link";
 import { Item } from "features/explore/search/components/item/Item";
 import { ItemDescription } from "features/explore/search/components/item/ItemDescription";

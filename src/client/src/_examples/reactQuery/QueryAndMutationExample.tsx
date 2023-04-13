@@ -21,7 +21,7 @@ export const QueryAndMutationExample = () => {
     rdsCode: "A",
     rdsName: "Drilling system",
     purposeName: "Heat (Electrical)",
-    parentId: null,
+    parentId: "",
     aspect: Aspect.Function,
     companyId: 0,
     description: "A description goes here",
@@ -29,20 +29,20 @@ export const QueryAndMutationExample = () => {
     attributes: [],
     aspectObjectTerminals: [
       {
-        terminalId: 0,
+        terminalId: "",
         minQuantity: 1,
         maxQuantity: 1,
         connectorDirection: 0,
       },
       {
-        terminalId: 0,
+        terminalId: "",
         minQuantity: 1,
         maxQuantity: 1,
         connectorDirection: 1,
       },
     ],
     selectedAttributePredefined: [],
-    typeReferences: [],
+    typeReference: "",
     version: "1.0",
   };
 
@@ -83,7 +83,7 @@ export const QueryAndMutationExample = () => {
 
       <ButtonContainer>
         <button onClick={() => mutation.mutate(exampleAspectObject)}>Add valid aspect object ✅</button>
-        <button onClick={() => mutation.mutate({ ...exampleAspectObject, parentId: 0 })}>Add invalid aspect object ❌</button>
+        <button onClick={() => mutation.mutate({ ...exampleAspectObject, parentId: "INVALID_ID" })}>Add invalid aspect object ❌</button>
       </ButtonContainer>
     </QueryAndMutationExampleContainer>
   );

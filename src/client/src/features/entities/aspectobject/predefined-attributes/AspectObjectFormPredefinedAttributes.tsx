@@ -5,7 +5,7 @@ import { Box, Grid } from "complib/layouts";
 import { useGetAttributesPredefined } from "external/sources/attribute/attribute.queries";
 import { FormSection } from "features/entities/common/form-section/FormSection";
 import { preparePredefinedAttributes } from "features/entities/aspectobject/predefined-attributes/AspectObjectFormPredefinedAttributes.helpers";
-import { FormApectObjectLib } from "features/entities/aspectobject/types/formAspectObjectLib";
+import { FormAspectObjectLib } from "features/entities/aspectobject/types/formAspectObjectLib";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";

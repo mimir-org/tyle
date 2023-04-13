@@ -7,6 +7,6 @@ type SelectedInfoType = "aspectObject" | "terminal";
  * @property type describes what type of object the id belongs to
  */
 export interface SelectedInfo {
-  id?: number;
+  id?: string;
   type?: SelectedInfoType;
 }

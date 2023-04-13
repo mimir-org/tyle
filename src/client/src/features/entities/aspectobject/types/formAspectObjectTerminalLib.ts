@@ -32,7 +32,7 @@ export const createEmptyFormAspectObjectTerminalLib = (): FormAspectObjectTermin
 });
 
 const emptyAspectObjectTerminalLibAm: AspectObjectTerminalLibAm = {
-  terminalId: 0,
+  terminalId: "",
   minQuantity: 0,
   maxQuantity: 0,
   connectorDirection: ConnectorDirection.Input,

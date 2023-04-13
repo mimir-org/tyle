@@ -6,7 +6,7 @@ import { mockAspectObjectTerminalItem } from "common/utils/mocks/mockAspectObjec
 import { LibraryIcon } from "complib/assets";
 
 export const mockAspectObjectItem = (): AspectObjectItem => ({
-  id: Number.parseInt(faker.random.numeric()),
+  id: faker.random.alphaNumeric(36),
   name: faker.commerce.productName(),
   description: faker.commerce.productDescription(),
   terminals: [...Array(7)].map((_) => mockAspectObjectTerminalItem()),
