@@ -48,8 +48,6 @@ public class SymbolService : ISymbolService
 
         foreach (var data in notExisting)
         {
-            data.Id = Guid.NewGuid().ToString();
-            data.Iri = $"{_settings.ApplicationSemanticUrl}/symbol/{data.Id}";
             data.CreatedBy = createdBySystem ? _applicationSettings.System : data.CreatedBy;
         }
 

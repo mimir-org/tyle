@@ -94,8 +94,6 @@ public class QuantityDatumService : IQuantityDatumService
 
         var dm = _mapper.Map<QuantityDatumLibDm>(quantityDatumAm);
 
-        dm.Id = Guid.NewGuid().ToString();
-        dm.Iri = $"{_settings.ApplicationSemanticUrl}/quantitydatum/{dm.Id}";
         dm.State = State.Draft;
 
         var createdQuantityDatum = await _quantityDatumRepository.Create(dm);

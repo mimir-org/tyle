@@ -79,13 +79,10 @@ public class AttributeService : IAttributeService
 
         var dm = _mapper.Map<AttributeLibDm>(attributeAm);
 
-        dm.Id = Guid.NewGuid().ToString();
-        dm.Iri = $"{_settings.ApplicationSemanticUrl}/attribute/{dm.Id}";
         dm.State = State.Draft;
 
         foreach (var attributeUnit in dm.AttributeUnits)
         {
-            attributeUnit.Id = Guid.NewGuid().ToString();
             attributeUnit.AttributeId = dm.Id;
         }
 

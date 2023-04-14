@@ -94,14 +94,11 @@ public class AspectObjectService : IAspectObjectService
         aspectObjectAm.Version = "1.0";
         var dm = _mapper.Map<AspectObjectLibDm>(aspectObjectAm);
 
-        dm.Id = Guid.NewGuid().ToString();
-        dm.Iri = $"{_settings.ApplicationSemanticUrl}/aspectobject/{dm.Id}";
         dm.FirstVersionId ??= dm.Id;
         dm.State = State.Draft;
 
         foreach (var aspectObjectTerminal in dm.AspectObjectTerminals)
         {
-            aspectObjectTerminal.Id = Guid.NewGuid().ToString();
             aspectObjectTerminal.AspectObjectId = dm.Id;
         }
 
@@ -179,18 +176,15 @@ public class AspectObjectService : IAspectObjectService
 
         var dm = _mapper.Map<AspectObjectLibDm>(aspectObjectAm);
 
-        dm.Id = Guid.NewGuid().ToString();
-        dm.Iri = $"{_settings.ApplicationSemanticUrl}/aspectobject/{dm.Id}";
         dm.State = State.Draft;
         dm.FirstVersionId = aspectObjectToUpdate.FirstVersionId;
 
         foreach (var aspectObjectTerminal in dm.AspectObjectTerminals)
         {
-            aspectObjectTerminal.Id = Guid.NewGuid().ToString();
             aspectObjectTerminal.AspectObjectId = dm.Id;
         }
 
-        dm.Attributes = new List<AttributeLibDm>();
+        dm.AspectObjectAttributes = new List<AspectObjectAttributeLibDm>();
         if (aspectObjectAm.Attributes != null)
         {
             foreach (var attributeId in aspectObjectAm.Attributes)
@@ -200,7 +194,11 @@ public class AspectObjectService : IAspectObjectService
                     _logger.LogError(
                         $"Could not add attribute with id {attributeId} to aspect object with id {dm.Id}, attribute not found.");
                 else
-                    dm.Attributes.Add(attribute);
+                    dm.AspectObjectAttributes.Add(new AspectObjectAttributeLibDm()
+                    {
+                        AspectObjectId = dm.Id,
+                        AttributeId = attribute.Id
+                    });
             }
         }
 

@@ -62,8 +62,6 @@ public class UnitService : IUnitService
 
         var dm = _mapper.Map<UnitLibDm>(unitAm);
 
-        dm.Id = Guid.NewGuid().ToString();
-        dm.Iri = $"{_settings.ApplicationSemanticUrl}/unit/{dm.Id}";
         dm.State = State.Draft;
 
         var createdUnit = await _unitRepository.Create(dm);

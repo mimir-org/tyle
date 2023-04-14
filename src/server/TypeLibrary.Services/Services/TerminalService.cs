@@ -80,8 +80,6 @@ public class TerminalService : ITerminalService
 
         var dm = _mapper.Map<TerminalLibDm>(terminal);
 
-        dm.Id = Guid.NewGuid().ToString();
-        dm.Iri = $"{_settings.ApplicationSemanticUrl}/terminal/{dm.Id}";
         dm.State = State.Draft;
 
         dm.TerminalAttributes = new List<TerminalAttributeLibDm>();
