@@ -126,6 +126,50 @@ public class LibraryAttributeController : ControllerBase
     }
 
     /// <summary>
+    /// Update an attribute object
+    /// </summary>
+    /// <param name="id">The id of the attribute object that should be updated</param>
+    /// <param name="attributeAm">The new values of the attribute</param>
+    /// <returns>The updated attribute</returns>
+    [HttpPut("{id}")]
+    [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [MimirorgAuthorize(MimirorgPermission.Write, "attributeAm", "CompanyId")]
+    public async Task<IActionResult> Update(string id, [FromBody] AttributeLibAm attributeAm)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var companyId = _attributeService.GetCompanyId(id);
+
+            if (companyId != attributeAm.CompanyId)
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            var data = await _attributeService.Update(id, attributeAm);
+            return Ok(data);
+        }
+        catch (MimirorgBadRequestException e)
+        {
+            foreach (var error in e.Errors().ToList())
+            {
+                ModelState.Remove(error.Key);
+                ModelState.TryAddModelError(error.Key, error.Error);
+            }
+
+            return BadRequest(ModelState);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
     /// Update an attribute with a new state
     /// </summary>
     /// <param name="id">The id of the attribute to be updated</param>

@@ -8,10 +8,12 @@ using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -19,21 +21,19 @@ namespace TypeLibrary.Services.Services;
 
 public class TerminalService : ITerminalService
 {
-    private readonly ITerminalRepository _terminalRepository;
+    private readonly IEfTerminalRepository _terminalRepository;
     private readonly IMapper _mapper;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
-    private readonly IApplicationSettingsRepository _settings;
     private readonly ILogger<TerminalService> _logger;
     private readonly IAttributeRepository _attributeRepository;
 
-    public TerminalService(ITerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService, ILogService logService, IApplicationSettingsRepository settings, ILogger<TerminalService> logger, IAttributeRepository attributeRepository)
+    public TerminalService(IEfTerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService, ILogService logService, ILogger<TerminalService> logger, IAttributeRepository attributeRepository)
     {
         _terminalRepository = terminalRepository;
         _mapper = mapper;
         _hookService = hookService;
         _logService = logService;
-        _settings = settings;
         _logger = logger;
         _attributeRepository = attributeRepository;
     }
@@ -80,8 +80,6 @@ public class TerminalService : ITerminalService
 
         var dm = _mapper.Map<TerminalLibDm>(terminal);
 
-        dm.Id = Guid.NewGuid().ToString();
-        dm.Iri = $"{_settings.ApplicationSemanticUrl}/terminal/{dm.Id}";
         dm.State = State.Draft;
 
         dm.TerminalAttributes = new List<TerminalAttributeLibDm>();
@@ -108,6 +106,35 @@ public class TerminalService : ITerminalService
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
         return Get(createdTerminal.Id);
+    }
+
+    /// <inheritdoc />
+    public async Task<TerminalLibCm> Update(string id, TerminalLibAm terminalAm)
+    {
+        var validation = terminalAm.ValidateObject();
+
+        if (!validation.IsValid)
+            throw new MimirorgBadRequestException("Terminal is not valid.", validation);
+
+        var terminalToUpdate = _terminalRepository.Get(id);
+
+        if (terminalToUpdate == null)
+        {
+            validation = new Validation(new List<string> { nameof(TerminalLibAm.Name) },
+                $"Terminal with name {terminalAm.Name} and id {id} does not exist.");
+            throw new MimirorgBadRequestException("Terminal does not exist or is flagged as deleted. Update is not possible.", validation);
+        }
+
+        terminalToUpdate.Color = terminalAm.Color;
+        terminalToUpdate.Description = terminalAm.Description;
+
+        _terminalRepository.Update(terminalToUpdate);
+        await _terminalRepository.SaveAsync();
+
+        _terminalRepository.ClearAllChangeTrackers();
+        _hookService.HookQueue.Enqueue(CacheKey.Terminal);
+
+        return Get(terminalToUpdate.Id);
     }
 
     /// <summary>

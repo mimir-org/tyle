@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -10,7 +11,7 @@ public class AttributeUnitProfile : Profile
     public AttributeUnitProfile()
     {
         CreateMap<AttributeUnitLibAm, AttributeUnitLibDm>()
-            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid().ToString()))
             .ForMember(dest => dest.IsDefault, opt => opt.MapFrom(src => src.IsDefault))
             .ForMember(dest => dest.AttributeId, opt => opt.Ignore())
             .ForMember(dest => dest.Attribute, opt => opt.Ignore())

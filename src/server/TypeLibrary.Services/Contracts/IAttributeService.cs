@@ -28,6 +28,14 @@ public interface IAttributeService
     Task<AttributeLibCm> Create(AttributeLibAm attributeAm);
 
     /// <summary>
+    /// Update an existing attribute
+    /// </summary>
+    /// <param name="id">The id of the attribute that should be updated</param>
+    /// <param name="attributeAm">The new attribute values</param>
+    /// <returns>The updated attribute</returns>
+    Task<AttributeLibCm> Update(string id, AttributeLibAm attributeAm);
+
+    /// <summary>
     /// Change attribute state
     /// </summary>
     /// <param name="id">The attribute id that should change state</param>

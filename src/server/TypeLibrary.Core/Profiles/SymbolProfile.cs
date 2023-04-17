@@ -6,6 +6,7 @@ using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using TypeLibrary.Core.Profiles.Resolvers;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 
@@ -16,9 +17,9 @@ public class SymbolProfile : Profile
     public SymbolProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor, IOptions<ApplicationSettings> applicationSettings)
     {
         CreateMap<SymbolLibAm, SymbolLibDm>()
-            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid().ToString()))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(dest => dest.Iri, opt => opt.Ignore())
+            .ForMember(dest => dest.Iri, opt => opt.MapFrom(new SymbolIriResolver(settings)))
             .ForMember(dest => dest.TypeReference, opt => opt.MapFrom(src => src.TypeReference))
             .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow))
             .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? "Unknown" : contextAccessor.GetUserId()))

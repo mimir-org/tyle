@@ -29,7 +29,6 @@ public class MimirorgCommonFixture : IDisposable
     // Services
     public Mock<ITimedHookService> TimedHookService = new();
     public Mock<ILogService> LogService = new();
-    public Mock<IApplicationSettingsRepository> ApplicationSettingsRepository = new();
 
     public MimirorgCommonFixture()
     {

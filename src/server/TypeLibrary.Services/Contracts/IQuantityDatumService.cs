@@ -53,6 +53,14 @@ public interface IQuantityDatumService
     Task<QuantityDatumLibCm> Create(QuantityDatumLibAm quantityDatumAm);
 
     /// <summary>
+    /// Update an existing quantity datum
+    /// </summary>
+    /// <param name="id">The id of the quantity datum that should be updated</param>
+    /// <param name="quantityDatumAm">The new quantity datum values</param>
+    /// <returns>The updated quantity datum</returns>
+    Task<QuantityDatumLibCm> Update(string id, QuantityDatumLibAm quantityDatumAm);
+
+    /// <summary>
     /// Change quantity datum state
     /// </summary>
     /// <param name="id">The quantity datum id that should change state</param>
