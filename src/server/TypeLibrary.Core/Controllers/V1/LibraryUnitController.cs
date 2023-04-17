@@ -134,7 +134,7 @@ public class LibraryUnitController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [MimirorgAuthorize(MimirorgPermission.Write, "unitAm", "CompanyId")]
-    public async Task<IActionResult> Update(string id, [FromBody] QuantityDatumLibAm unitAm)
+    public async Task<IActionResult> Update(string id, [FromBody] UnitLibAm unitAm)
     {
         try
         {
