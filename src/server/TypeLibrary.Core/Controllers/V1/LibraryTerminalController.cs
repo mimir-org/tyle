@@ -16,7 +16,6 @@ using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
-using TypeLibrary.Services.Services;
 
 // ReSharper disable StringLiteralTypo
 

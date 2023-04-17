@@ -26,9 +26,8 @@ public class AspectObjectService : IAspectObjectService
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
     private readonly ILogger<AspectObjectService> _logger;
-    private readonly IApplicationSettingsRepository _settings;
 
-    public AspectObjectService(IMapper mapper, IAspectObjectRepository aspectObjectRepository, IAttributeRepository attributeRepository, ITimedHookService hookService, ILogService logService, ILogger<AspectObjectService> logger, IApplicationSettingsRepository settings)
+    public AspectObjectService(IMapper mapper, IAspectObjectRepository aspectObjectRepository, IAttributeRepository attributeRepository, ITimedHookService hookService, ILogService logService, ILogger<AspectObjectService> logger)
     {
         _mapper = mapper;
         _aspectObjectRepository = aspectObjectRepository;
@@ -36,7 +35,6 @@ public class AspectObjectService : IAspectObjectService
         _hookService = hookService;
         _logService = logService;
         _logger = logger;
-        _settings = settings;
     }
 
     /// <summary>
@@ -231,7 +229,7 @@ public class AspectObjectService : IAspectObjectService
 
         return new ApprovalDataCm
         {
-            Id = id.ToString(),
+            Id = id,
             State = state
         };
     }

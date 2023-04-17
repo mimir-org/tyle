@@ -19,14 +19,12 @@ public class SymbolService : ISymbolService
     private readonly IMapper _mapper;
     private readonly ISymbolRepository _symbolRepository;
     private readonly ApplicationSettings _applicationSettings;
-    private readonly IApplicationSettingsRepository _settings;
 
-    public SymbolService(IMapper mapper, ISymbolRepository symbolRepository, IOptions<ApplicationSettings> applicationSettings, IApplicationSettingsRepository settings)
+    public SymbolService(IMapper mapper, ISymbolRepository symbolRepository, IOptions<ApplicationSettings> applicationSettings)
     {
         _mapper = mapper;
         _symbolRepository = symbolRepository;
         _applicationSettings = applicationSettings?.Value;
-        _settings = settings;
     }
 
     public IEnumerable<SymbolLibCm> Get()

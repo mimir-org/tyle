@@ -11,10 +11,8 @@ using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
-using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;
@@ -25,15 +23,13 @@ public class QuantityDatumService : IQuantityDatumService
     private readonly IEfQuantityDatumRepository _quantityDatumRepository;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
-    private readonly IApplicationSettingsRepository _settings;
 
-    public QuantityDatumService(IMapper mapper, IEfQuantityDatumRepository quantityDatumRepository, ITimedHookService hookService, ILogService logService, IApplicationSettingsRepository settings)
+    public QuantityDatumService(IMapper mapper, IEfQuantityDatumRepository quantityDatumRepository, ITimedHookService hookService, ILogService logService)
     {
         _mapper = mapper;
         _quantityDatumRepository = quantityDatumRepository;
         _hookService = hookService;
         _logService = logService;
-        _settings = settings;
     }
 
     /// <inheritdoc />
@@ -150,7 +146,7 @@ public class QuantityDatumService : IQuantityDatumService
 
         return new ApprovalDataCm
         {
-            Id = id.ToString(),
+            Id = id,
             State = state
 
         };
