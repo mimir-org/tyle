@@ -6,10 +6,12 @@ using AutoMapper;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
-using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -18,18 +20,16 @@ namespace TypeLibrary.Services.Services;
 public class QuantityDatumService : IQuantityDatumService
 {
     private readonly IMapper _mapper;
-    private readonly IQuantityDatumRepository _quantityDatumRepository;
+    private readonly IEfQuantityDatumRepository _quantityDatumRepository;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
-    private readonly IApplicationSettingsRepository _settings;
 
-    public QuantityDatumService(IMapper mapper, IQuantityDatumRepository quantityDatumRepository, ITimedHookService hookService, ILogService logService, IApplicationSettingsRepository settings)
+    public QuantityDatumService(IMapper mapper, IEfQuantityDatumRepository quantityDatumRepository, ITimedHookService hookService, ILogService logService)
     {
         _mapper = mapper;
         _quantityDatumRepository = quantityDatumRepository;
         _hookService = hookService;
         _logService = logService;
-        _settings = settings;
     }
 
     /// <inheritdoc />
@@ -94,8 +94,6 @@ public class QuantityDatumService : IQuantityDatumService
 
         var dm = _mapper.Map<QuantityDatumLibDm>(quantityDatumAm);
 
-        dm.Id = Guid.NewGuid().ToString();
-        dm.Iri = $"{_settings.ApplicationSemanticUrl}/quantitydatum/{dm.Id}";
         dm.State = State.Draft;
 
         var createdQuantityDatum = await _quantityDatumRepository.Create(dm);
@@ -104,6 +102,34 @@ public class QuantityDatumService : IQuantityDatumService
         _hookService.HookQueue.Enqueue(CacheKey.QuantityDatum);
 
         return _mapper.Map<QuantityDatumLibCm>(createdQuantityDatum);
+    }
+
+    /// <inheritdoc />
+    public async Task<QuantityDatumLibCm> Update(string id, QuantityDatumLibAm quantityDatumAm)
+    {
+        var validation = quantityDatumAm.ValidateObject();
+
+        if (!validation.IsValid)
+            throw new MimirorgBadRequestException("Quantity datum is not valid.", validation);
+
+        var quantityDatumToUpdate = _quantityDatumRepository.Get(id);
+
+        if (quantityDatumToUpdate == null)
+        {
+            validation = new Validation(new List<string> { nameof(QuantityDatumLibAm.Name) },
+                $"Quantity datum with name {quantityDatumAm.Name} and id {id} does not exist.");
+            throw new MimirorgBadRequestException("Quantity datum does not exist or is flagged as deleted. Update is not possible.", validation);
+        }
+
+        quantityDatumToUpdate.Description = quantityDatumAm.Description;
+
+        _quantityDatumRepository.Update(quantityDatumToUpdate);
+        await _quantityDatumRepository.SaveAsync();
+
+        _quantityDatumRepository.ClearAllChangeTrackers();
+        _hookService.HookQueue.Enqueue(CacheKey.QuantityDatum);
+
+        return Get(quantityDatumToUpdate.Id);
     }
 
     /// <inheritdoc />
@@ -120,7 +146,7 @@ public class QuantityDatumService : IQuantityDatumService
 
         return new ApprovalDataCm
         {
-            Id = id.ToString(),
+            Id = id,
             State = state
 
         };

@@ -55,7 +55,7 @@ public class TerminalServiceTests : IntegrationTest
         Assert.True(logCm.Created.Kind == DateTimeKind.Utc);
     }
 
-    [Fact(Skip = "Waiting to implement new update")]
+    [Fact]
     public async Task GetLatestVersions_Terminal_Result_Ok()
     {
         var terminalAm = new TerminalLibAm
@@ -73,9 +73,9 @@ public class TerminalServiceTests : IntegrationTest
 
         terminalAm.Description = "Description v1.1";
 
-        //var terminalCmUpdated = await terminalService.Update(terminalLibCm.Id, terminalAm);
+        var terminalCmUpdated = await terminalService.Update(terminalLibCm.Id, terminalAm);
 
-        //Assert.True(terminalLibCm?.Description == "Description v1.0");
-        //Assert.True(terminalCmUpdated?.Description == "Description v1.1");
+        Assert.True(terminalLibCm?.Description == "Description v1.0");
+        Assert.True(terminalCmUpdated?.Description == "Description v1.1");
     }
 }

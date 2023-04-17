@@ -14,6 +14,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.Common.Enums;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
+using Mimirorg.Common.Exceptions;
 
 namespace TypeLibrary.Core.Controllers.V1;
 
@@ -116,6 +117,50 @@ public class LibraryQuantityDatumController : ControllerBase
         {
             _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
             return StatusCode(500, e.Message);
+        }
+    }
+
+    /// <summary>
+    /// Update a quantity datum
+    /// </summary>
+    /// <param name="id">The id of the quantity datum that should be updated</param>
+    /// <param name="quantityDatumAm">The new values of the quantity datum</param>
+    /// <returns>The updated quantity datum</returns>
+    [HttpPut("{id}")]
+    [ProducesResponseType(typeof(QuantityDatumLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [MimirorgAuthorize(MimirorgPermission.Write, "quantityDatumAm", "CompanyId")]
+    public async Task<IActionResult> Update(string id, [FromBody] QuantityDatumLibAm quantityDatumAm)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var companyId = _quantityDatumService.GetCompanyId(id);
+
+            if (companyId != quantityDatumAm.CompanyId)
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            var data = await _quantityDatumService.Update(id, quantityDatumAm);
+            return Ok(data);
+        }
+        catch (MimirorgBadRequestException e)
+        {
+            foreach (var error in e.Errors().ToList())
+            {
+                ModelState.Remove(error.Key);
+                ModelState.TryAddModelError(error.Key, error.Error);
+            }
+
+            return BadRequest(ModelState);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
         }
     }
 

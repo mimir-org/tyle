@@ -29,6 +29,14 @@ public interface IUnitService
     Task<UnitLibCm> Create(UnitLibAm unitAm);
 
     /// <summary>
+    /// Update an existing unit
+    /// </summary>
+    /// <param name="id">The id of the unit that should be updated</param>
+    /// <param name="unitAm">The new unit values</param>
+    /// <returns>The updated unit</returns>
+    Task<UnitLibCm> Update(string id, UnitLibAm unitAm);
+
+    /// <summary>
     /// Change unit state
     /// </summary>
     /// <param name="id">The unit id that should change state</param>

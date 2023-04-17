@@ -7,6 +7,7 @@ using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Core.Factories;
+using TypeLibrary.Core.Profiles.Resolvers;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 
@@ -17,9 +18,9 @@ public class AspectObjectProfile : Profile
     public AspectObjectProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor, ICompanyFactory companyFactory)
     {
         CreateMap<AspectObjectLibAm, AspectObjectLibDm>()
-            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid().ToString()))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(dest => dest.Iri, opt => opt.Ignore())
+            .ForMember(dest => dest.Iri, opt => opt.MapFrom(new AspectObjectIriResolver(settings)))
             .ForMember(dest => dest.TypeReference, opt => opt.MapFrom(src => src.TypeReference))
             .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
             .ForMember(dest => dest.FirstVersionId, opt => opt.Ignore())
@@ -36,7 +37,7 @@ public class AspectObjectProfile : Profile
             .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.ParentId) ? null : src.ParentId))
             .ForMember(dest => dest.Parent, opt => opt.Ignore())
             .ForMember(dest => dest.Children, opt => opt.Ignore())
-            .ForMember(dest => dest.AspectObjectTerminals, opt => opt.MapFrom(src => CreateTerminals(src.AspectObjectTerminals).ToList()))
+            .ForMember(dest => dest.AspectObjectTerminals, opt => opt.MapFrom(src => CreateTerminals(src.AspectObjectTerminals)))
             .ForMember(dest => dest.Attributes, opt => opt.Ignore())
             .ForMember(dest => dest.AspectObjectAttributes, opt => opt.Ignore())
             .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
@@ -80,7 +81,7 @@ public class AspectObjectProfile : Profile
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
     }
 
-    private static IEnumerable<AspectObjectTerminalLibDm> CreateTerminals(ICollection<AspectObjectTerminalLibAm> terminals)
+    private static IEnumerable<AspectObjectTerminalLibAm> CreateTerminals(ICollection<AspectObjectTerminalLibAm> terminals)
     {
         if (terminals == null || !terminals.Any())
             yield break;
@@ -105,13 +106,7 @@ public class AspectObjectProfile : Profile
 
         foreach (var item in sortedTerminalTypes)
         {
-            yield return new AspectObjectTerminalLibDm
-            {
-                TerminalId = item.TerminalId,
-                MinQuantity = item.MinQuantity,
-                MaxQuantity = item.MaxQuantity,
-                ConnectorDirection = item.ConnectorDirection
-            };
+            yield return item;
         }
     }
 }
