@@ -18,13 +18,15 @@ public class SeedingService : ISeedingService
     private readonly ISymbolService _symbolService;
     private readonly IFileRepository _fileRepository;
     private readonly ILogger<SeedingService> _logger;
+    private readonly IRdsService _rdsService;
 
-    public SeedingService(IAttributeService attributeService, ISymbolService symbolService, IFileRepository fileRepository, ILogger<SeedingService> logger)
+    public SeedingService(IAttributeService attributeService, ISymbolService symbolService, IFileRepository fileRepository, ILogger<SeedingService> logger, IRdsService rdsService)
     {
         _attributeService = attributeService;
         _symbolService = symbolService;
         _fileRepository = fileRepository;
         _logger = logger;
+        _rdsService = rdsService;
     }
 
     public async Task LoadDataFromFiles()
@@ -43,6 +45,7 @@ public class SeedingService : ISeedingService
 
             await _attributeService.CreatePredefined(attributesPredefined);
             await _symbolService.Create(symbols, true);
+            await _rdsService.Initialize();
         }
         catch (Exception e)
         {
