@@ -65,8 +65,7 @@ public class AspectObjectServiceTests : IntegrationTest
         Assert.NotNull(aspectObjectCm);
         Assert.True(aspectObjectCm.State == State.Draft);
         Assert.Equal(aspectObjectAm.Name, aspectObjectCm.Name);
-        Assert.Equal(aspectObjectAm.RdsName, aspectObjectCm.RdsName);
-        Assert.Equal(aspectObjectAm.RdsCode, aspectObjectCm.RdsCode);
+        Assert.Equal(aspectObjectAm.RdsId, aspectObjectCm.RdsId);
         Assert.Equal(aspectObjectAm.PurposeName, aspectObjectCm.PurposeName);
         Assert.Equal(aspectObjectAm.Aspect, aspectObjectCm.Aspect);
         Assert.Equal(aspectObjectAm.Description, aspectObjectCm.Description);
