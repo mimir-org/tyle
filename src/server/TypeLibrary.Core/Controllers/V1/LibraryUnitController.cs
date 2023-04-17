@@ -15,6 +15,8 @@ using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Data.Models;
 using Mimirorg.Common.Enums;
+using Mimirorg.Common.Exceptions;
+using TypeLibrary.Services.Services;
 
 namespace TypeLibrary.Core.Controllers.V1;
 
@@ -117,6 +119,50 @@ public class LibraryUnitController : ControllerBase
         {
             _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
             return StatusCode(500, e.Message);
+        }
+    }
+
+    /// <summary>
+    /// Update a unit
+    /// </summary>
+    /// <param name="id">The id of the unit that should be updated</param>
+    /// <param name="unitAm">The new values of the unit</param>
+    /// <returns>The updated unit</returns>
+    [HttpPut("{id}")]
+    [ProducesResponseType(typeof(UnitLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [MimirorgAuthorize(MimirorgPermission.Write, "unitAm", "CompanyId")]
+    public async Task<IActionResult> Update(string id, [FromBody] QuantityDatumLibAm unitAm)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var companyId = _unitService.GetCompanyId(id);
+
+            if (companyId != unitAm.CompanyId)
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            var data = await _unitService.Update(id, unitAm);
+            return Ok(data);
+        }
+        catch (MimirorgBadRequestException e)
+        {
+            foreach (var error in e.Errors().ToList())
+            {
+                ModelState.Remove(error.Key);
+                ModelState.TryAddModelError(error.Key, error.Error);
+            }
+
+            return BadRequest(ModelState);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
         }
     }
 

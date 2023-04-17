@@ -6,10 +6,12 @@ using AutoMapper;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
-using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -18,18 +20,16 @@ namespace TypeLibrary.Services.Services;
 public class UnitService : IUnitService
 {
     private readonly IMapper _mapper;
-    private readonly IUnitRepository _unitRepository;
+    private readonly IEfUnitRepository _unitRepository;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
-    private readonly IApplicationSettingsRepository _settings;
 
-    public UnitService(IMapper mapper, IUnitRepository unitRepository, ITimedHookService hookService, ILogService logService, IApplicationSettingsRepository settings)
+    public UnitService(IMapper mapper, IEfUnitRepository unitRepository, ITimedHookService hookService, ILogService logService)
     {
         _mapper = mapper;
         _unitRepository = unitRepository;
         _hookService = hookService;
         _logService = logService;
-        _settings = settings;
     }
 
     /// <inheritdoc />
@@ -70,6 +70,34 @@ public class UnitService : IUnitService
         _hookService.HookQueue.Enqueue(CacheKey.Unit);
 
         return _mapper.Map<UnitLibCm>(createdUnit);
+    }
+
+    /// <inheritdoc />
+    public async Task<UnitLibCm> Update(string id, UnitLibAm unitAm)
+    {
+        var validation = unitAm.ValidateObject();
+
+        if (!validation.IsValid)
+            throw new MimirorgBadRequestException("Unit is not valid.", validation);
+
+        var unitToUpdate = _unitRepository.Get(id);
+
+        if (unitToUpdate == null)
+        {
+            validation = new Validation(new List<string> { nameof(UnitLibAm.Name) },
+                $"Unit with name {unitAm.Name} and id {id} does not exist.");
+            throw new MimirorgBadRequestException("Unit does not exist or is flagged as deleted. Update is not possible.", validation);
+        }
+
+        unitToUpdate.Description = unitAm.Description;
+
+        _unitRepository.Update(unitToUpdate);
+        await _unitRepository.SaveAsync();
+
+        _unitRepository.ClearAllChangeTrackers();
+        _hookService.HookQueue.Enqueue(CacheKey.Unit);
+
+        return Get(unitToUpdate.Id);
     }
 
     /// <inheritdoc />
