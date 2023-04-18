@@ -7,12 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication;
-using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Api;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace Mimirorg.Test.Setup;
@@ -55,29 +53,6 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
             catch (Exception e)
             {
                 logger.LogError($"An error occurred seeding the database with test data. Error: {e.Message}");
-            }
-
-            try
-            {
-                db.Category.AddAsync(new CategoryLibDm
-                {
-                    Id = "category-id",
-                    Name = "category-name"
-                });
-                db.Rds.AddAsync(new RdsLibDm
-                {
-                    Id = "rds-id",
-                    RdsCode = "A",
-                    Name = "Rds A",
-                    Created = DateTime.UtcNow,
-                    CreatedBy = "Unknown",
-                    State = State.ApprovedGlobal,
-                    CategoryId = "category-id"
-                });
-            }
-            catch (Exception e)
-            {
-                logger.LogError($"An error occurred while creating test RDS data. Error: {e.Message}");
             }
         });
     }
