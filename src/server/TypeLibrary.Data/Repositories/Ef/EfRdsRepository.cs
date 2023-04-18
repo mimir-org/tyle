@@ -82,7 +82,7 @@ public class EfRdsRepository : GenericRepository<TypeLibraryDbContext, RdsLibDm>
                 rds.Iri = $"{_settings.ApplicationSemanticUrl}/rds/{rds.Id}";
                 rds.Created = DateTime.UtcNow;
                 rds.CreatedBy = "System";
-                rds.State = State.ApprovedGlobal;
+                rds.State = State.Approved;
                 rds.CategoryId = categoryId;
 
                 await CreateAsync(rds);

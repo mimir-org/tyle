@@ -173,7 +173,7 @@ public class AttributeService : IAttributeService
         foreach (var attribute in notExisting)
         {
             attribute.CreatedBy = _applicationSettings.System;
-            attribute.State = State.ApproveGlobal;
+            attribute.State = State.Approved;
             await _attributePredefinedRepository.CreatePredefined(attribute);
         }
     }
