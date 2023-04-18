@@ -18,6 +18,7 @@ public class AspectObjectLibCm
     public State State { get; set; }
     public Aspect Aspect { get; set; }
     public string PurposeName { get; set; }
+    public string RdsId { get; set; }
     public string RdsCode { get; set; }
     public string RdsName { get; set; }
     public string Symbol { get; set; }

@@ -28,13 +28,12 @@ public class AspectObjectConfiguration : IEntityTypeConfiguration<AspectObjectLi
         builder.Property(p => p.State).HasColumnName("State").IsRequired().HasConversion<string>().HasMaxLength(31);
         builder.Property(p => p.Aspect).HasColumnName("Aspect").IsRequired().HasConversion<string>().HasMaxLength(31);
         builder.Property(p => p.PurposeName).HasColumnName("PurposeName").IsRequired().HasMaxLength(127);
-        builder.Property(p => p.RdsCode).HasColumnName("RdsCode").IsRequired().HasMaxLength(127);
-        builder.Property(p => p.RdsName).HasColumnName("RdsName").IsRequired().HasMaxLength(127);
         builder.Property(p => p.Symbol).HasColumnName("Symbol").HasMaxLength(127);
         builder.Property(p => p.Description).HasColumnName("Description").HasDefaultValue(null).HasMaxLength(511);
         builder.Property(p => p.ParentId).HasColumnName("ParentId").HasMaxLength(63);
         builder.Property(p => p.SelectedAttributePredefined).HasJsonConversion();
 
         builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
+        builder.HasOne(x => x.Rds).WithMany().HasForeignKey(x => x.RdsId).OnDelete(DeleteBehavior.NoAction).IsRequired();
     }
 }

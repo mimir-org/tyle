@@ -27,8 +27,8 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
     public State State { get; set; }
     public Aspect Aspect { get; set; }
     public string PurposeName { get; set; }
-    public string RdsCode { get; set; }
-    public string RdsName { get; set; }
+    public string RdsId { get; set; }
+    public RdsLibDm Rds { get; set; }
     public string Symbol { get; set; }
     public string Description { get; set; }
     public string ParentId { get; set; }
@@ -51,11 +51,8 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
         if (Name != other.Name)
             validation.AddNotAllowToChange(nameof(Name));
 
-        if (RdsName != other.RdsName)
-            validation.AddNotAllowToChange(nameof(RdsName));
-
-        if (RdsCode != other.RdsCode)
-            validation.AddNotAllowToChange(nameof(RdsCode));
+        if (RdsId != other.RdsId)
+            validation.AddNotAllowToChange(nameof(RdsId));
 
         if (Aspect != other.Aspect)
             validation.AddNotAllowToChange(nameof(Aspect));

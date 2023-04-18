@@ -50,8 +50,7 @@ public class AspectObjectControllerTests : IntegrationTest
         var aspectObjectToCreate = new AspectObjectLibAm
         {
             Name = $"{guid}_dummy_name",
-            RdsName = $"{guid}_dummy_rds_name",
-            RdsCode = $"{guid}_dummy_rds_code",
+            RdsId = $"{guid}_dummy_rds_id",
             PurposeName = $"{guid}_dummy_purpose_name",
             Aspect = Aspect.NotSet,
             CompanyId = 1,

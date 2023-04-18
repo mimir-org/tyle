@@ -147,7 +147,7 @@ public class AspectObjectService : IAspectObjectService
         if (aspectObjectToUpdate == null)
         {
             validation = new Validation(new List<string> { nameof(AspectObjectLibAm.Name), nameof(AspectObjectLibAm.Version) },
-                $"Aspect object with name {aspectObjectAm.Name}, aspect {aspectObjectAm.Aspect}, Rds Code {aspectObjectAm.RdsCode}, id {id} and version {aspectObjectAm.Version} does not exist.");
+                $"Aspect object with name {aspectObjectAm.Name}, aspect {aspectObjectAm.Aspect}, Rds Id {aspectObjectAm.RdsId}, id {id} and version {aspectObjectAm.Version} does not exist.");
             throw new MimirorgBadRequestException("Aspect object does not exist or is flagged as deleted. Update is not possible.", validation);
         }
 

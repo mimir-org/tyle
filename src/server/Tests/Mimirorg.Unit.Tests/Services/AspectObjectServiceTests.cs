@@ -38,25 +38,21 @@ public class AspectObjectServiceTests : UnitTest<MimirorgCommonFixture>
     }
 
     [Theory]
-    [InlineData("", "Fake_RdsName", "Fake_RdsCode", "Fake_PurposeName")]
-    [InlineData(" ", "Fake_RdsName", "Fake_RdsCode", "Fake_PurposeName")]
-    [InlineData(null, "Fake_RdsName", "Fake_RdsCode", "Fake_PurposeName")]
-    [InlineData("Invalid_Aspect_Object", "", "Fake_RdsCode", "Fake_PurposeName")]
-    [InlineData("Invalid_Aspect_Object", " ", "Fake_RdsCode", "Fake_PurposeName")]
-    [InlineData("Invalid_Aspect_Object", null, "Fake_RdsCode", "Fake_PurposeName")]
-    [InlineData("Invalid_Aspect_Object", "Fake_RdsName", "Fake_RdsCode", "")]
-    [InlineData("Invalid_Aspect_Object", "Fake_RdsName", "Fake_RdsCode", " ")]
-    [InlineData("Invalid_Aspect_Object", "Fake_RdsName", "Fake_RdsCode", null)]
-    [InlineData("Invalid_Aspect_Object", "Fake_RdsName", "", "Fake_PurposeName")]
-    [InlineData("Invalid_Aspect_Object", "Fake_RdsName", " ", "Fake_PurposeName")]
-    [InlineData("Invalid_Aspect_Object", "Fake_RdsName", null, "Fake_PurposeName")]
-    public async Task Create_AspectObject_Returns_MimirorgBadRequestException_When_Missing_Parameters(string name, string rdsName, string rdsCode, string purposeName)
+    [InlineData("", "Fake_RdsId", "Fake_PurposeName")]
+    [InlineData(" ", "Fake_RdsId", "Fake_PurposeName")]
+    [InlineData(null, "Fake_RdsId", "Fake_PurposeName")]
+    [InlineData("Invalid_Aspect_Object", "", "Fake_PurposeName")]
+    [InlineData("Invalid_Aspect_Object", " ", "Fake_PurposeName")]
+    [InlineData("Invalid_Aspect_Object", null, "Fake_PurposeName")]
+    [InlineData("Invalid_Aspect_Object", "Fake_RdsId", "")]
+    [InlineData("Invalid_Aspect_Object", "Fake_RdsId", " ")]
+    [InlineData("Invalid_Aspect_Object", "Fake_RdsId", null)]
+    public async Task Create_AspectObject_Returns_MimirorgBadRequestException_When_Missing_Parameters(string name, string rdsId, string purposeName)
     {
         var aspectObjectToCreate = new AspectObjectLibAm
         {
             Name = name,
-            RdsName = rdsName,
-            RdsCode = rdsCode,
+            RdsId = rdsId,
             PurposeName = purposeName,
             Aspect = Aspect.NotSet,
             CompanyId = 1
@@ -73,8 +69,7 @@ public class AspectObjectServiceTests : UnitTest<MimirorgCommonFixture>
         var aspectObjectToCreate = new AspectObjectLibAm
         {
             Name = "Invalid_Aspect_Object",
-            RdsName = "Fake_RdsName",
-            RdsCode = "Fake_RdsCode",
+            RdsId = "Fake_RdsId",
             PurposeName = "Fake_PurposeName",
             Aspect = Aspect.NotSet,
             CompanyId = companyId

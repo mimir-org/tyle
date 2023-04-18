@@ -45,14 +45,13 @@ public class AspectObjectLibDmTests : UnitTest<MimirorgCommonFixture>
         var dummy = _fixture.CreateAspectObjectTestData();
 
         dummy.am.Name = "x";
-        dummy.am.RdsName = "x";
-        dummy.am.RdsCode = "x";
+        dummy.am.RdsId = "x";
         dummy.am.Aspect = Aspect.NotSet;
         dummy.am.ParentId = "1";
 
         var status = dummy.dm.HasIllegalChanges(dummy.am);
         Assert.False(status.IsValid);
-        Assert.Equal(5, status.Result.Count);
+        Assert.Equal(4, status.Result.Count);
     }
 
     [Fact]

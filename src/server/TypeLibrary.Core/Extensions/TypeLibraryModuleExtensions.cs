@@ -50,6 +50,7 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IEfAttributeRepository, EfAttributeRepository>();
         services.AddScoped<IEfUnitRepository, EfUnitRepository>();
         services.AddScoped<IEfQuantityDatumRepository, EfQuantityDatumRepository>();
+        services.AddScoped<IEfRdsRepository, EfRdsRepository>();
 
         services.AddScoped<IQuantityDatumRepository, EfQuantityDatumRepository>();
         services.AddScoped<IAttributePredefinedRepository, EfAttributePredefinedRepository>();
@@ -57,7 +58,7 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IAttributeRepository, EfAttributeRepository>();
         services.AddScoped<IPurposeReferenceRepository, PurposeReferenceRepository>();
         services.AddScoped<IAspectObjectRepository, EfAspectObjectRepository>();
-        services.AddScoped<IRdsRepository, RdsRepository>();
+        services.AddScoped<IRdsRepository, EfRdsRepository>();
         services.AddScoped<ITerminalRepository, EfTerminalRepository>();
         services.AddScoped<ISymbolRepository, EfSymbolRepository>();
         services.AddSingleton<IAttributeReferenceRepository, AttributePcaRepository>();
