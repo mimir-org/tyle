@@ -17,7 +17,7 @@ namespace TypeLibrary.Core.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.4")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -98,11 +98,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Name");
 
-                    b.Property<string>("ParentId")
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
-                        .HasColumnName("ParentId");
-
                     b.Property<string>("PurposeName")
                         .IsRequired()
                         .HasMaxLength(127)
@@ -141,8 +136,6 @@ namespace TypeLibrary.Core.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FirstVersionId");
-
-                    b.HasIndex("ParentId");
 
                     b.HasIndex("RdsId");
 
@@ -672,11 +665,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Name");
 
-                    b.Property<string>("ParentId")
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
-                        .HasColumnName("ParentId");
-
                     b.Property<string>("State")
                         .IsRequired()
                         .HasMaxLength(31)
@@ -689,8 +677,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("TypeReference");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ParentId");
 
                     b.HasIndex("State");
 
@@ -776,18 +762,11 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AspectObjectLibDm", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.AspectObjectLibDm", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
                     b.HasOne("TypeLibrary.Data.Models.RdsLibDm", "Rds")
                         .WithMany()
                         .HasForeignKey("RdsId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Parent");
 
                     b.Navigation("Rds");
                 });
@@ -852,23 +831,11 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Terminal");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>
-                {
-                    b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Parent");
-                });
-
             modelBuilder.Entity("TypeLibrary.Data.Models.AspectObjectLibDm", b =>
                 {
                     b.Navigation("AspectObjectAttributes");
 
                     b.Navigation("AspectObjectTerminals");
-
-                    b.Navigation("Children");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>
@@ -878,8 +845,6 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>
                 {
-                    b.Navigation("Children");
-
                     b.Navigation("TerminalAspectObjects");
 
                     b.Navigation("TerminalAttributes");
