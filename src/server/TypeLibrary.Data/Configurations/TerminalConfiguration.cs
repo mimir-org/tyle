@@ -10,7 +10,6 @@ public class TerminalConfiguration : IEntityTypeConfiguration<TerminalLibDm>
     {
         builder.HasKey(x => x.Id);
         builder.HasIndex(x => x.State).IsUnique(false);
-        builder.HasIndex(x => new { x.ParentId }).IsUnique(false);
         builder.ToTable("Terminal");
         builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(63);
         builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(63);
@@ -22,8 +21,5 @@ public class TerminalConfiguration : IEntityTypeConfiguration<TerminalLibDm>
         builder.Property(p => p.State).HasColumnName("State").IsRequired().HasConversion<string>().HasMaxLength(31);
         builder.Property(p => p.Color).HasColumnName("Color").IsRequired().HasMaxLength(7);
         builder.Property(p => p.Description).HasColumnName("Description").HasDefaultValue(null).HasMaxLength(511);
-        builder.Property(p => p.ParentId).HasColumnName("ParentId").IsRequired(false).HasMaxLength(63);
-
-        builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
     }
 }
