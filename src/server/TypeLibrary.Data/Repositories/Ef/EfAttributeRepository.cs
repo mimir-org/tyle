@@ -16,12 +16,6 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     }
 
     /// <inheritdoc />
-    public int HasCompany(string id)
-    {
-        return Get(id).CompanyId ?? 0;
-    }
-
-    /// <inheritdoc />
     public async Task ChangeState(State state, string id)
     {
         var attribute = await GetAsync(id);

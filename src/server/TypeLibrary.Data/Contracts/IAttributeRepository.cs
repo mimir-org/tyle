@@ -8,13 +8,6 @@ namespace TypeLibrary.Data.Contracts;
 public interface IAttributeRepository
 {
     /// <summary>
-    /// Get the registered company on given id
-    /// </summary>
-    /// <param name="id">The attribute id</param>
-    /// <returns>The company id of given attribute</returns>
-    int HasCompany(string id);
-
-    /// <summary>
     /// Change the state of the attribute with the given id
     /// </summary>
     /// <param name="state">The state to change to</param>

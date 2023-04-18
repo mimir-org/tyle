@@ -59,13 +59,6 @@ public interface IQuantityDatumRepository
     Task<ICollection<QuantityDatumLibDm>> Create(ICollection<QuantityDatumLibDm> quantityDatums);
 
     /// <summary>
-    /// Get the registered company on given id
-    /// </summary>
-    /// <param name="id">The quantity datum id</param>
-    /// <returns>The company id of given quantity datum</returns>
-    int HasCompany(string id);
-
-    /// <summary>
     /// Change the state of the quantity datum with the given id
     /// </summary>
     /// <param name="state">The state to change to</param>
