@@ -141,12 +141,6 @@ public class AttributeService : IAttributeService
         };
     }
 
-    /// <inheritdoc />
-    public int GetCompanyId(string id)
-    {
-        return _attributeRepository.HasCompany(id);
-    }
-
     /// <summary>
     /// Get predefined attributes
     /// </summary>

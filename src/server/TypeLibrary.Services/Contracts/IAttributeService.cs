@@ -44,13 +44,6 @@ public interface IAttributeService
     Task<ApprovalDataCm> ChangeState(string id, State state);
 
     /// <summary>
-    /// Get the company id of an attribute
-    /// </summary>
-    /// <param name="id">The attribute id</param>
-    /// <returns>Company id for the attribute</returns>
-    int GetCompanyId(string id);
-
-    /// <summary>
     /// Get predefined attributes
     /// </summary>
     /// <returns>List of predefined attributes</returns>

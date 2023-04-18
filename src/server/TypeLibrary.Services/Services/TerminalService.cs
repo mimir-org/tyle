@@ -157,14 +157,4 @@ public class TerminalService : ITerminalService
 
         return state == State.Deleted ? null : Get(id);
     }
-
-    /// <summary>
-    /// Get terminal existing company id for terminal by id
-    /// </summary>
-    /// <param name="id">The terminal id</param>
-    /// <returns>Company id for terminal</returns>
-    public int GetCompanyId(string id)
-    {
-        return _terminalRepository.HasCompany(id);
-    }
 }

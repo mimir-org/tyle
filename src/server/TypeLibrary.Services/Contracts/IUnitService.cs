@@ -43,11 +43,4 @@ public interface IUnitService
     /// <param name="state">The new unit state</param>
     /// <returns>Unit with updated state</returns>
     Task<ApprovalDataCm> ChangeState(string id, State state);
-
-    /// <summary>
-    /// Get the company id of a unit
-    /// </summary>
-    /// <param name="id">The unit id</param>
-    /// <returns>Company id for the unit</returns>
-    int GetCompanyId(string id);
 }

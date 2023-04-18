@@ -67,11 +67,4 @@ public interface IQuantityDatumService
     /// <param name="state">The new quantity datum state</param>
     /// <returns>Quantity datum with updated state</returns>
     Task<ApprovalDataCm> ChangeState(string id, State state);
-
-    /// <summary>
-    /// Get the company id of a quantity datum
-    /// </summary>
-    /// <param name="id">The quantity datum id</param>
-    /// <returns>Company id for the quantity datum</returns>
-    int GetCompanyId(string id);
 }

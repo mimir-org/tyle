@@ -151,10 +151,4 @@ public class QuantityDatumService : IQuantityDatumService
 
         };
     }
-
-    /// <inheritdoc />
-    public int GetCompanyId(string id)
-    {
-        return _quantityDatumRepository.HasCompany(id);
-    }
 }

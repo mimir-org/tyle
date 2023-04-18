@@ -120,12 +120,6 @@ public class RdsService : IRdsService
     }
 
     /// <inheritdoc />
-    public int GetCompanyId(string id)
-    {
-        return _rdsRepository.HasCompany(id);
-    }
-
-    /// <inheritdoc />
     public async Task Initialize()
     {
         await _rdsRepository.InitializeDb();

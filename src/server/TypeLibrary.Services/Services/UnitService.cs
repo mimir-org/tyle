@@ -119,10 +119,4 @@ public class UnitService : IUnitService
 
         };
     }
-
-    /// <inheritdoc />
-    public int GetCompanyId(string id)
-    {
-        return _unitRepository.HasCompany(id);
-    }
 }
