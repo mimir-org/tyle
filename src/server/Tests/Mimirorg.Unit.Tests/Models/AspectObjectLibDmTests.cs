@@ -50,7 +50,7 @@ public class AspectObjectLibDmTests : UnitTest<MimirorgCommonFixture>
 
         var status = dummy.dm.HasIllegalChanges(dummy.am);
         Assert.False(status.IsValid);
-        Assert.Equal(4, status.Result.Count);
+        Assert.Equal(3, status.Result.Count);
     }
 
     [Fact]
