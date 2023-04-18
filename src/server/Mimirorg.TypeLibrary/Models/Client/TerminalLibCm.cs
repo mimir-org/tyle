@@ -10,8 +10,6 @@ public class TerminalLibCm
     public string TypeReference { get; set; }
     public DateTime Created { get; set; }
     public string CreatedBy { get; set; }
-    public int CompanyId { get; set; }
-    public string CompanyName { get; set; }
     public State State { get; set; }
     public string Color { get; set; }
     public string Description { get; set; }
