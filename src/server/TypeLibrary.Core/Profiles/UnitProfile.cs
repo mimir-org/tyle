@@ -37,5 +37,17 @@ public class UnitProfile : Profile
             .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
             .ForMember(dest => dest.Symbol, opt => opt.MapFrom(src => src.Symbol))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
+
+        CreateMap<UnitLibCm, ApprovalCm>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+            .ForMember(dest => dest.UserId, opt => opt.Ignore())
+            .ForMember(dest => dest.UserName, opt => opt.Ignore())
+            .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => 0))
+            .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => ""))
+            .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
+            .ForMember(dest => dest.StateName, opt => opt.MapFrom(src => src.State.ToString()))
+            .ForMember(dest => dest.ObjectType, opt => opt.MapFrom(src => "Unit"))
+            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
     }
 }
