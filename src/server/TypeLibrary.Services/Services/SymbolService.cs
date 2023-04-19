@@ -49,7 +49,7 @@ public class SymbolService : ISymbolService
             data.CreatedBy = createdBySystem ? _applicationSettings.System : data.CreatedBy;
         }
 
-        await _symbolRepository.Create(notExisting, createdBySystem ? State.ApprovedGlobal : State.Draft);
+        await _symbolRepository.Create(notExisting, createdBySystem ? State.Approved : State.Draft);
         _symbolRepository.ClearAllChangeTrackers();
     }
 }
