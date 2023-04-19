@@ -106,7 +106,11 @@ public class UnitService : IUnitService
         var dm = _unitRepository.Get().FirstOrDefault(x => x.Id == id);
 
         if (dm == null)
-            throw new MimirorgNotFoundException($"Unit with id {id} not found, or is not latest version.");
+            throw new MimirorgNotFoundException($"Unit with id {id} not found.");
+
+        if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException(
+                $"State change on approved unit with id {id} is not allowed.");
 
         await _unitRepository.ChangeState(state, dm.Id);
         await _logService.CreateLog(dm, LogType.State, state.ToString());

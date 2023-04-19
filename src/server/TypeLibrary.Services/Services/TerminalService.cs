@@ -149,7 +149,11 @@ public class TerminalService : ITerminalService
         var dm = _terminalRepository.Get().FirstOrDefault(x => x.Id == id);
 
         if (dm == null)
-            throw new MimirorgNotFoundException($"Terminal with id {id} not found, or is not latest version.");
+            throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
+
+        if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException(
+                $"State change on approved terminal with id {id} is not allowed.");
 
         await _terminalRepository.ChangeState(state, dm.Id);
         await _logService.CreateLog(dm, LogType.State, state.ToString());
