@@ -16,6 +16,8 @@ using TypeLibrary.Data.Models;
 using Mimirorg.Common.Enums;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
+using TypeLibrary.Core.Factories;
+using TypeLibrary.Services.Constants;
 
 namespace TypeLibrary.Core.Controllers.V1;
 
@@ -129,27 +131,22 @@ public class LibraryAttributeController : ControllerBase
     /// Update an attribute object
     /// </summary>
     /// <param name="id">The id of the attribute object that should be updated</param>
-    /// <param name="attributeAm">The new values of the attribute</param>
+    /// <param name="attribute">The new values of the attribute</param>
     /// <returns>The updated attribute</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(AttributeLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "attributeAm", "CompanyId")]
-    public async Task<IActionResult> Update(string id, [FromBody] AttributeLibAm attributeAm)
+    [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
+    public async Task<IActionResult> Update(string id, [FromBody] AttributeLibAm attribute)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var companyId = _attributeService.GetCompanyId(id);
-
-            if (companyId != attributeAm.CompanyId)
-                return StatusCode(StatusCodes.Status403Forbidden);
-
-            var data = await _attributeService.Update(id, attributeAm);
+            var data = await _attributeService.Update(id, attribute);
             return Ok(data);
         }
         catch (MimirorgBadRequestException e)
@@ -186,8 +183,7 @@ public class LibraryAttributeController : ControllerBase
     {
         try
         {
-            var companyId = _attributeService.GetCompanyId(id);
-            var hasAccess = await _authService.HasAccess(companyId, state);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
@@ -218,9 +214,8 @@ public class LibraryAttributeController : ControllerBase
     {
         try
         {
-            var companyId = _attributeService.GetCompanyId(id);
             var previousState = await _logService.GetPreviousState(id, nameof(AttributeLibDm));
-            var hasAccess = await _authService.HasAccess(companyId, previousState);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, previousState);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);

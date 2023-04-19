@@ -15,6 +15,8 @@ using Mimirorg.Common.Enums;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
 using Mimirorg.Common.Exceptions;
+using TypeLibrary.Core.Factories;
+using TypeLibrary.Services.Constants;
 
 namespace TypeLibrary.Core.Controllers.V1;
 
@@ -124,27 +126,22 @@ public class LibraryQuantityDatumController : ControllerBase
     /// Update a quantity datum
     /// </summary>
     /// <param name="id">The id of the quantity datum that should be updated</param>
-    /// <param name="quantityDatumAm">The new values of the quantity datum</param>
+    /// <param name="quantityDatum">The new values of the quantity datum</param>
     /// <returns>The updated quantity datum</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(QuantityDatumLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "quantityDatumAm", "CompanyId")]
-    public async Task<IActionResult> Update(string id, [FromBody] QuantityDatumLibAm quantityDatumAm)
+    [MimirorgAuthorize(MimirorgPermission.Write, "quantityDatum", "CompanyId")]
+    public async Task<IActionResult> Update(string id, [FromBody] QuantityDatumLibAm quantityDatum)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var companyId = _quantityDatumService.GetCompanyId(id);
-
-            if (companyId != quantityDatumAm.CompanyId)
-                return StatusCode(StatusCodes.Status403Forbidden);
-
-            var data = await _quantityDatumService.Update(id, quantityDatumAm);
+            var data = await _quantityDatumService.Update(id, quantityDatum);
             return Ok(data);
         }
         catch (MimirorgBadRequestException e)
@@ -181,8 +178,7 @@ public class LibraryQuantityDatumController : ControllerBase
     {
         try
         {
-            var companyId = _quantityDatumService.GetCompanyId(id);
-            var hasAccess = await _authService.HasAccess(companyId, state);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
@@ -213,9 +209,8 @@ public class LibraryQuantityDatumController : ControllerBase
     {
         try
         {
-            var companyId = _quantityDatumService.GetCompanyId(id);
             var previousState = await _logService.GetPreviousState(id, nameof(QuantityDatumLibAm));
-            var hasAccess = await _authService.HasAccess(companyId, previousState);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, previousState);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
