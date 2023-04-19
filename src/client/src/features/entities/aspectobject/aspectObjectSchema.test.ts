@@ -17,7 +17,7 @@ describe("aspectObjectSchema tests", () => {
 
   it("should reject without a RDS id", async () => {
     const aspectObjectWithoutRDSId: Partial<FormAspectObjectLib> = { rdsId: "" };
-    await expect(aspectObjectSchema(t).validateAt("rdsCode", aspectObjectWithoutRDSId)).rejects.toBeTruthy();
+    await expect(aspectObjectSchema(t).validateAt("rdsId", aspectObjectWithoutRDSId)).rejects.toBeTruthy();
   });
 
   it("should reject without a purpose name", async () => {

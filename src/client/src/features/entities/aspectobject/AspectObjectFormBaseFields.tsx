@@ -35,7 +35,7 @@ interface AspectObjectFormBaseFieldsProps {
 export const AspectObjectFormBaseFields = ({ mode }: AspectObjectFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
-  const { control, register, resetField, setValue, formState } = useFormContext<FormAspectObjectLib>();
+  const { control, register, resetField, formState } = useFormContext<FormAspectObjectLib>();
   const { errors } = formState;
 
   const rdsQuery = useGetRds();
