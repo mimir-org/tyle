@@ -9,8 +9,7 @@ export const aspectObjectSchema = (t: TFunction<"translation">) =>
       .string()
       .max(60, t("aspectObject.validation.name.max"))
       .required(t("aspectObject.validation.name.required")),
-    rdsName: yup.string().required(t("aspectObject.validation.rdsName.required")),
-    rdsCode: yup.string().required(t("aspectObject.validation.rdsCode.required")),
+    rdsId: yup.string().required(t("aspectObject.validation.rdsId.required")),
     purposeName: yup.string().required(t("aspectObject.validation.purposeName.required")),
     aspect: yup.number().required(t("aspectObject.validation.aspect.required")),
     companyId: yup.number().min(1, t("aspectObject.validation.companyId.min")).required(),

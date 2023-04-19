@@ -61,11 +61,8 @@
         "required": "Please enter a name",
         "max": "The name can be at most 60 characters"
       },
-      "rdsName": {
+      "rdsId": {
         "required": "Please select a RDS"
-      },
-      "rdsCode": {
-        "required": "Please specify a RDS code"
       },
       "purposeName": {
         "required": "Please select a purpose"
