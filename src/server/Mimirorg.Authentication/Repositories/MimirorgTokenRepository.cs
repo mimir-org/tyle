@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Mimirorg.Authentication.Contracts;
@@ -14,6 +15,7 @@ using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Client;
+using Newtonsoft.Json.Linq;
 
 namespace Mimirorg.Authentication.Repositories;
 
@@ -52,7 +54,8 @@ public class MimirorgTokenRepository : GenericRepository<MimirorgAuthenticationC
             new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
             new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim("name", $"{user.FirstName} {user.LastName}")
+            new Claim("name", $"{user.FirstName} {user.LastName}"),
+            new Claim("0", GetHighestCompanyPermission(userClaims))
         }.Union(userClaims);
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authSettings.JwtKey));
@@ -76,6 +79,18 @@ public class MimirorgTokenRepository : GenericRepository<MimirorgAuthenticationC
             Secret = accessToken,
             TokenType = MimirorgTokenType.AccessToken
         };
+    }
+
+    private string GetHighestCompanyPermission(List<Claim> userClaims)
+    {
+        var claimsPermissions = new List<MimirorgPermission>();
+        foreach (var claim in userClaims)
+        {
+            if (int.TryParse(claim.Type, out _) && Enum.TryParse(claim.Value, out MimirorgPermission p))
+                claimsPermissions.Add(p);
+        }
+
+        return claimsPermissions.ConvertToFlag().ToString();
     }
 
     /// <summary>

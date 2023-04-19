@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Mimirorg.Authentication.Extensions;
+using Mimirorg.Common.Contracts;
 using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Enums;
 
@@ -64,6 +65,11 @@ public class MimirorgAuthorizeActionFilter : IAsyncActionFilter
 
         if (string.IsNullOrEmpty(_member))
             return propValue.ToString();
+
+        if (propValue is not ICompanyObject && _member == "CompanyId")
+        {
+            return "0";
+        }
 
         var memberValue = propValue.GetPropValue(_member);
 
