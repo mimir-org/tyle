@@ -15,14 +15,9 @@ describe("aspectObjectSchema tests", () => {
     await expect(aspectObjectSchema(t).validateAt("name", aspectObjectWithLongName)).rejects.toBeTruthy();
   });
 
-  it("should reject without a RDS name", async () => {
-    const aspectObjectWithoutRDSName: Partial<FormAspectObjectLib> = { rdsName: "" };
-    await expect(aspectObjectSchema(t).validateAt("rdsName", aspectObjectWithoutRDSName)).rejects.toBeTruthy();
-  });
-
-  it("should reject without a RDS code", async () => {
-    const aspectObjectWithoutRDSCode: Partial<FormAspectObjectLib> = { rdsCode: "" };
-    await expect(aspectObjectSchema(t).validateAt("rdsCode", aspectObjectWithoutRDSCode)).rejects.toBeTruthy();
+  it("should reject without a RDS id", async () => {
+    const aspectObjectWithoutRDSId: Partial<FormAspectObjectLib> = { rdsId: "" };
+    await expect(aspectObjectSchema(t).validateAt("rdsCode", aspectObjectWithoutRDSId)).rejects.toBeTruthy();
   });
 
   it("should reject without a purpose name", async () => {

@@ -18,8 +18,7 @@ export const QueryAndMutationExample = () => {
 
   const exampleAspectObject: AspectObjectLibAm = {
     name: "Test aspect object",
-    rdsCode: "A",
-    rdsName: "Drilling system",
+    rdsId: "A",
     purposeName: "Heat (Electrical)",
     parentId: "",
     aspect: Aspect.Function,
