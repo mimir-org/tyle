@@ -104,7 +104,7 @@ public class QuantityDatumService : IQuantityDatumService
         {
             dm.State = State.Draft;
         }
-        
+
         var createdQuantityDatum = await _quantityDatumRepository.Create(dm);
         _quantityDatumRepository.ClearAllChangeTrackers();
         await _logService.CreateLog(createdQuantityDatum, LogType.State, State.Draft.ToString());
