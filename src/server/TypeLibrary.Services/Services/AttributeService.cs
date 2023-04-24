@@ -64,19 +64,23 @@ public class AttributeService : IAttributeService
         return _mapper.Map<AttributeLibCm>(dm);
     }
 
-    /// <summary>
-    /// Create a new attribute
-    /// </summary>
-    /// <param name="attributeAm">The attribute that should be created</param>
-    /// <returns>The created attribute</returns>
-    public async Task<AttributeLibCm> Create(AttributeLibAm attributeAm)
+    /// <inheritdoc />
+    public async Task<AttributeLibCm> Create(AttributeLibAm attributeAm, bool createdBySync = false)
     {
         if (attributeAm == null)
             throw new ArgumentNullException(nameof(attributeAm));
 
         var dm = _mapper.Map<AttributeLibDm>(attributeAm);
 
-        dm.State = State.Draft;
+        if (createdBySync)
+        {
+            dm.CreatedBy = CreatedByConstants.Synchronization;
+            dm.State = State.ApprovedGlobal;
+        }
+        else
+        {
+            dm.State = State.Draft;
+        }
 
         foreach (var attributeUnit in dm.AttributeUnits)
         {

@@ -13,6 +13,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Services.Constants;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;
@@ -87,15 +88,23 @@ public class QuantityDatumService : IQuantityDatumService
     }
 
     /// <inheritdoc />
-    public async Task<QuantityDatumLibCm> Create(QuantityDatumLibAm quantityDatumAm)
+    public async Task<QuantityDatumLibCm> Create(QuantityDatumLibAm quantityDatumAm, bool createdBySync = false)
     {
         if (quantityDatumAm == null)
             throw new ArgumentNullException(nameof(quantityDatumAm));
 
         var dm = _mapper.Map<QuantityDatumLibDm>(quantityDatumAm);
 
-        dm.State = State.Draft;
-
+        if (createdBySync)
+        {
+            dm.CreatedBy = CreatedByConstants.Synchronization;
+            dm.State = State.ApprovedGlobal;
+        }
+        else
+        {
+            dm.State = State.Draft;
+        }
+        
         var createdQuantityDatum = await _quantityDatumRepository.Create(dm);
         _quantityDatumRepository.ClearAllChangeTrackers();
         await _logService.CreateLog(createdQuantityDatum, LogType.State, State.Draft.ToString());

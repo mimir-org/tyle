@@ -49,8 +49,9 @@ public interface IQuantityDatumService
     /// Create a new quantity datum
     /// </summary>
     /// <param name="quantityDatumAm">The quantity datum that should be created</param>
+    /// <param name="createdBySync">Set to true if the quantity datum is created by a sync job</param>
     /// <returns>The created quantity datum</returns>
-    Task<QuantityDatumLibCm> Create(QuantityDatumLibAm quantityDatumAm);
+    Task<QuantityDatumLibCm> Create(QuantityDatumLibAm quantityDatumAm, bool createdBySync = false);
 
     /// <summary>
     /// Update an existing quantity datum

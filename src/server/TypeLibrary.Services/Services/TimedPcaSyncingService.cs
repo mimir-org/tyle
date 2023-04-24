@@ -135,8 +135,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
         foreach (var unit in unitsToCreate)
         {
-            var createdUnit = await unitService.Create(unit);
-            await unitService.ChangeState(createdUnit.Id, State.ApprovedGlobal);
+            await unitService.Create(unit, true);
         }
 
         _logger.LogInformation("Unit sync from PCA completed.");
@@ -194,8 +193,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
         foreach (var attribute in attributesToCreate)
         {
-            var createdAttribute = await attributeService.Create(attribute);
-            await attributeService.ChangeState(createdAttribute.Id, State.ApprovedGlobal);
+            await attributeService.Create(attribute, true);
         }
 
         _logger.LogInformation("Attribute sync from PCA completed.");
@@ -280,8 +278,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
         foreach (var quantityDatum in quantityDatumsToCreate)
         {
-            var createdQuantityDatum = await quantityDatumService.Create(quantityDatum);
-            await quantityDatumService.ChangeState(createdQuantityDatum.Id, State.ApprovedGlobal);
+            await quantityDatumService.Create(quantityDatum);
         }
 
         _logger.LogInformation("Quantity datum sync from PCA completed.");

@@ -25,8 +25,9 @@ public interface IUnitService
     /// Create a new unit
     /// </summary>
     /// <param name="unitAm">The unit that should be created</param>
+    /// <param name="createdBySync">Set to true if the unit is created by a sync job</param>
     /// <returns>The created unit</returns>
-    Task<UnitLibCm> Create(UnitLibAm unitAm);
+    Task<UnitLibCm> Create(UnitLibAm unitAm, bool createdBySync = false);
 
     /// <summary>
     /// Update an existing unit

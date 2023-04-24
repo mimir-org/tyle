@@ -24,8 +24,9 @@ public interface IAttributeService
     /// Create a new attribute
     /// </summary>
     /// <param name="attributeAm">The attribute that should be created</param>
+    /// <param name="createdBySync">Set to true if the attribute is created by a sync job</param>
     /// <returns>The created attribute</returns>
-    Task<AttributeLibCm> Create(AttributeLibAm attributeAm);
+    Task<AttributeLibCm> Create(AttributeLibAm attributeAm, bool createdBySync = false);
 
     /// <summary>
     /// Update an existing attribute
