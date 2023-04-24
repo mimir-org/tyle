@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.Extensions.Options;
 using Mimirorg.Common.Enums;
-using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Services.Constants;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;
@@ -18,13 +17,11 @@ public class SymbolService : ISymbolService
 {
     private readonly IMapper _mapper;
     private readonly ISymbolRepository _symbolRepository;
-    private readonly ApplicationSettings _applicationSettings;
 
-    public SymbolService(IMapper mapper, ISymbolRepository symbolRepository, IOptions<ApplicationSettings> applicationSettings)
+    public SymbolService(IMapper mapper, ISymbolRepository symbolRepository)
     {
         _mapper = mapper;
         _symbolRepository = symbolRepository;
-        _applicationSettings = applicationSettings?.Value;
     }
 
     public IEnumerable<SymbolLibCm> Get()
@@ -46,7 +43,7 @@ public class SymbolService : ISymbolService
 
         foreach (var data in notExisting)
         {
-            data.CreatedBy = createdBySystem ? _applicationSettings.System : data.CreatedBy;
+            data.CreatedBy = createdBySystem ? CreatedByConstants.System : data.CreatedBy;
         }
 
         await _symbolRepository.Create(notExisting, createdBySystem ? State.ApprovedGlobal : State.Draft);

@@ -8,6 +8,7 @@ using TypeLibrary.Core.Factories;
 using TypeLibrary.Core.Profiles.Resolvers;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Services.Constants;
 
 namespace TypeLibrary.Core.Profiles;
 
@@ -24,7 +25,7 @@ public class RdsProfile : Profile
             .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow))
             .ForMember(dest => dest.CreatedBy,
                 opt => opt.MapFrom(src =>
-                    string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? "Unknown" : contextAccessor.GetUserId()))
+                    string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? CreatedByConstants.Unknown : contextAccessor.GetUserId()))
             .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
             .ForMember(dest => dest.State, opt => opt.Ignore())
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))

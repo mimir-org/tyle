@@ -7,6 +7,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Services.Constants;
 
 namespace TypeLibrary.Core.Profiles;
 
@@ -23,7 +24,7 @@ public class AttributePredefinedProfile : Profile
             .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow))
             .ForMember(dest => dest.CreatedBy,
                 opt => opt.MapFrom(src =>
-                    string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? "Unknown" : contextAccessor.GetUserId()))
+                    string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? CreatedByConstants.Unknown : contextAccessor.GetUserId()))
             .ForMember(dest => dest.State, opt => opt.Ignore())
             .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
             .ForMember(dest => dest.IsMultiSelect, opt => opt.MapFrom(src => src.IsMultiSelect))

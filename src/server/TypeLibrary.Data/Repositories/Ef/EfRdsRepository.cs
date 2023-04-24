@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 using Mimirorg.Common.Abstract;
@@ -9,6 +8,7 @@ using Mimirorg.Common.Enums;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Services.Constants;
 
 namespace TypeLibrary.Data.Repositories.Ef;
 
@@ -87,7 +87,7 @@ public class EfRdsRepository : GenericRepository<TypeLibraryDbContext, RdsLibDm>
                 rds.Id = Guid.NewGuid().ToString();
                 rds.Iri = $"{_settings.ApplicationSemanticUrl}/rds/{rds.Id}";
                 rds.Created = DateTime.UtcNow;
-                rds.CreatedBy = "System";
+                rds.CreatedBy = CreatedByConstants.System;
                 rds.State = State.ApprovedGlobal;
                 rds.CategoryId = categoryId;
 
