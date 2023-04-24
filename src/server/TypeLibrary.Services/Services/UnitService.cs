@@ -55,14 +55,22 @@ public class UnitService : IUnitService
     }
 
     /// <inheritdoc />
-    public async Task<UnitLibCm> Create(UnitLibAm unitAm)
+    public async Task<UnitLibCm> Create(UnitLibAm unitAm, string createdBy = null)
     {
         if (unitAm == null)
             throw new ArgumentNullException(nameof(unitAm));
 
         var dm = _mapper.Map<UnitLibDm>(unitAm);
 
-        dm.State = State.Draft;
+        if (!string.IsNullOrEmpty(createdBy))
+        {
+            dm.CreatedBy = createdBy;
+            dm.State = State.ApprovedGlobal;
+        }
+        else
+        {
+            dm.State = State.Draft;
+        }
 
         var createdUnit = await _unitRepository.Create(dm);
         _unitRepository.ClearAllChangeTrackers();

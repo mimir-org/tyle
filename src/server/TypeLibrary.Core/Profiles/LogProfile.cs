@@ -5,6 +5,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Services.Constants;
 
 namespace TypeLibrary.Core.Profiles;
 
@@ -20,7 +21,7 @@ public class LogProfile : Profile
             .ForMember(dest => dest.ObjectVersion, opt => opt.MapFrom(src => src.ObjectVersion))
             .ForMember(dest => dest.ObjectFirstVersionId, opt => opt.MapFrom(src => src.ObjectFirstVersionId))
             .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now.ToUniversalTime()))
-            .ForMember(dest => dest.User, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? "Unknown" : contextAccessor.GetUserId()))
+            .ForMember(dest => dest.User, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? CreatedByConstants.Unknown : contextAccessor.GetUserId()))
             .ForMember(dest => dest.ObjectType, opt => opt.MapFrom(src => src.ObjectType))
             .ForMember(dest => dest.LogType, opt => opt.MapFrom(src => src.LogType))
             .ForMember(dest => dest.LogTypeValue, opt => opt.MapFrom(src => src.LogTypeValue))
