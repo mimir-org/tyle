@@ -13,7 +13,6 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Services.Constants;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;
@@ -56,16 +55,16 @@ public class UnitService : IUnitService
     }
 
     /// <inheritdoc />
-    public async Task<UnitLibCm> Create(UnitLibAm unitAm, bool createdBySync = false)
+    public async Task<UnitLibCm> Create(UnitLibAm unitAm, string createdBy = null)
     {
         if (unitAm == null)
             throw new ArgumentNullException(nameof(unitAm));
 
         var dm = _mapper.Map<UnitLibDm>(unitAm);
 
-        if (createdBySync)
+        if (!string.IsNullOrEmpty(createdBy))
         {
-            dm.CreatedBy = CreatedByConstants.Synchronization;
+            dm.CreatedBy = createdBy;
             dm.State = State.ApprovedGlobal;
         }
         else

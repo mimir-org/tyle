@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using TypeLibrary.Data.Contracts;
 using Mimirorg.TypeLibrary.Models.Application;
+using TypeLibrary.Services.Constants;
 using TypeLibrary.Services.Contracts;
 // ReSharper disable InconsistentNaming
 
@@ -44,7 +45,7 @@ public class SeedingService : ISeedingService
             var symbols = _fileRepository.ReadAllFiles<SymbolLibAm>(symbolFileNames).ToList();
 
             await _attributeService.CreatePredefined(attributesPredefined);
-            await _symbolService.Create(symbols, true);
+            await _symbolService.Create(symbols, CreatedByConstants.System);
             await _rdsService.Initialize();
         }
         catch (Exception e)

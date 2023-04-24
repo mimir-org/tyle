@@ -8,7 +8,6 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Services.Constants;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;
@@ -32,7 +31,7 @@ public class SymbolService : ISymbolService
         return _mapper.Map<List<SymbolLibCm>>(symbolLibDms);
     }
 
-    public async Task Create(IEnumerable<SymbolLibAm> symbolLibAmList, bool createdBySystem = false)
+    public async Task Create(IEnumerable<SymbolLibAm> symbolLibAmList, string createdBy = null)
     {
         var dataList = _mapper.Map<List<SymbolLibDm>>(symbolLibAmList);
         var existing = _symbolRepository.Get().ToList();
@@ -43,10 +42,10 @@ public class SymbolService : ISymbolService
 
         foreach (var data in notExisting)
         {
-            data.CreatedBy = createdBySystem ? CreatedByConstants.System : data.CreatedBy;
+            data.CreatedBy = string.IsNullOrEmpty(createdBy) ? data.CreatedBy : createdBy;
         }
 
-        await _symbolRepository.Create(notExisting, createdBySystem ? State.ApprovedGlobal : State.Draft);
+        await _symbolRepository.Create(notExisting, string.IsNullOrEmpty(createdBy) ? State.Draft : State.ApprovedGlobal);
         _symbolRepository.ClearAllChangeTrackers();
     }
 }

@@ -65,16 +65,16 @@ public class AttributeService : IAttributeService
     }
 
     /// <inheritdoc />
-    public async Task<AttributeLibCm> Create(AttributeLibAm attributeAm, bool createdBySync = false)
+    public async Task<AttributeLibCm> Create(AttributeLibAm attributeAm, string createdBy = null)
     {
         if (attributeAm == null)
             throw new ArgumentNullException(nameof(attributeAm));
 
         var dm = _mapper.Map<AttributeLibDm>(attributeAm);
 
-        if (createdBySync)
+        if (!string.IsNullOrEmpty(createdBy))
         {
-            dm.CreatedBy = CreatedByConstants.Synchronization;
+            dm.CreatedBy = createdBy;
             dm.State = State.ApprovedGlobal;
         }
         else

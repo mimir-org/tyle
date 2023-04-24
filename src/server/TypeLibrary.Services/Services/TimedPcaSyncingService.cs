@@ -12,6 +12,7 @@ using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Services.Constants;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;
@@ -135,7 +136,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
         foreach (var unit in unitsToCreate)
         {
-            await unitService.Create(unit, true);
+            await unitService.Create(unit, CreatedByConstants.Synchronization);
         }
 
         _logger.LogInformation("Unit sync from PCA completed.");
@@ -193,7 +194,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
         foreach (var attribute in attributesToCreate)
         {
-            await attributeService.Create(attribute, true);
+            await attributeService.Create(attribute, CreatedByConstants.Synchronization);
         }
 
         _logger.LogInformation("Attribute sync from PCA completed.");
@@ -278,7 +279,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
         foreach (var quantityDatum in quantityDatumsToCreate)
         {
-            await quantityDatumService.Create(quantityDatum);
+            await quantityDatumService.Create(quantityDatum, CreatedByConstants.Synchronization);
         }
 
         _logger.LogInformation("Quantity datum sync from PCA completed.");
