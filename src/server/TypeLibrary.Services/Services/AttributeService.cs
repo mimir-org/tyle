@@ -42,7 +42,7 @@ public class AttributeService : IAttributeService
     /// <returns>List of attributes and their units></returns>
     public IEnumerable<AttributeLibCm> Get()
     {
-        var dataSet = _attributeRepository.Get().ToList();
+        var dataSet = _attributeRepository.Get().ExcludeDeleted().ToList();
 
         if (dataSet == null)
             throw new MimirorgNotFoundException("No attributes were found.");

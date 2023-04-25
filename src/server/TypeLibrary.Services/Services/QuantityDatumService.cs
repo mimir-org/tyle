@@ -35,7 +35,7 @@ public class QuantityDatumService : IQuantityDatumService
     /// <inheritdoc />
     public IEnumerable<QuantityDatumLibCm> Get()
     {
-        var dataSet = _quantityDatumRepository.Get().ToList();
+        var dataSet = _quantityDatumRepository.Get().ExcludeDeleted().ToList();
 
         if (dataSet == null)
             throw new MimirorgNotFoundException("No quantity datums were found.");
