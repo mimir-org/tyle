@@ -35,7 +35,7 @@ public class UnitService : IUnitService
     /// <inheritdoc />
     public IEnumerable<UnitLibCm> Get()
     {
-        var dataList = _unitRepository.Get().ToList();
+        var dataList = _unitRepository.Get().ExcludeDeleted().ToList();
 
         if (dataList == null)
             throw new MimirorgNotFoundException("No units were found.");

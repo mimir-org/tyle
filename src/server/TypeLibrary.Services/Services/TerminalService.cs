@@ -52,7 +52,7 @@ public class TerminalService : ITerminalService
     /// <inheritdoc />
     public IEnumerable<TerminalLibCm> Get()
     {
-        var dataSet = _terminalRepository.Get().ToList();
+        var dataSet = _terminalRepository.Get().ExcludeDeleted().ToList();
 
         if (dataSet == null)
             throw new MimirorgNotFoundException("No terminals were found.");
