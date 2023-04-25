@@ -1,24 +1,18 @@
-import { AttributeLibAm, AttributeUnitLibAm, AttributeLibCm } from "@mimirorg/typelibrary-types";
-import { ValueObject } from "../../types/valueObject";
-import { UpdateUnitEntity } from "../../../../common/types/updateEntity";
+import { AttributeLibAm, AttributeLibCm } from "@mimirorg/typelibrary-types";
 
-export interface FormAttributeLib extends Omit<AttributeLibAm, "attributeUnits"> {
-  attributeUnits: ValueObject<UpdateUnitEntity<AttributeUnitLibAm>>[];
-}
-
-export const mapFormAttributeLibToApiModel = (formAttribute: FormAttributeLib): AttributeLibAm => ({
+export const mapFormAttributeLibToApiModel = (formAttribute: AttributeLibAm): AttributeLibAm => ({
   ...formAttribute,
-  attributeUnits: formAttribute.attributeUnits.map((x) => x.value),
+  attributeUnits: formAttribute.attributeUnits.map((x) => x),
 });
 
-export const createEmptyFormAttributeLib = (): FormAttributeLib => ({
+export const createEmptyFormAttributeLib = (): AttributeLibAm => ({
   ...emptyAttributeLib,
   attributeUnits: [],
 });
 
-export const mapAttributeLibCmToFormAttributeLib = (attribute: AttributeLibCm): FormAttributeLib => ({
+export const mapAttributeLibCmToFormAttributeLib = (attribute: AttributeLibCm): AttributeLibAm => ({
   ...attribute,
-  attributeUnits: attribute.attributeUnits.map((x) => ({ value: { unitId: x.unit.id, isDefault: x.isDefault } })),
+  attributeUnits: attribute.attributeUnits.map((x) => ({ unitId: x.unit.id, isDefault: x.isDefault })),
   companyId: attribute.companyId,
   description: attribute.description,
   name: attribute.name,

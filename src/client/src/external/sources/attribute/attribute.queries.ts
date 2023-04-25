@@ -29,3 +29,19 @@ export const useUpdateAttributes = (id?: string) => {
     onSuccess: (unit) => queryClient.invalidateQueries(keys.attribute(unit.id)),
   });
 };
+
+export const useCreateAttribute = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation((item: AttributeLibAm) => attributeApi.postAttribute(item), {
+    onSuccess: () => queryClient.invalidateQueries(keys.allAttributes),
+  });
+};
+
+export const useUpdateAttribute = (id?: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation((item: AttributeLibAm) => attributeApi.putAttribute(item, id), {
+    onSuccess: (unit) => queryClient.invalidateQueries(keys.attribute(unit.id)),
+  });
+};

@@ -25,4 +25,7 @@ export const attributeApi = {
   putAttribute(item: AttributeLibAm, id?: string) {
     return apiClient.put<AttributeLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
   },
+  postAttribute(item: AttributeLibAm) {
+    return apiClient.post<AttributeLibCm>(`${_basePath}`, item).then((r) => r.data);
+  },
 };

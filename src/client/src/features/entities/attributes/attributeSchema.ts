@@ -1,9 +1,16 @@
-import { TFunction } from "react-i18next";
-import * as yup from "yup";
-import { YupShape } from "../../../common/types/yupShape";
-import { FormAttributeLib } from "./types/formAttributeLib";
+import { object, string, number, array, boolean, InferType } from "yup";
 
-export const attributeSchema = (t: TFunction<"translation">) =>
-  yup.object<YupShape<FormAttributeLib>>({
-    name: yup.string().max(60, t("attribute.validation.name.max")).required(t("attribute.validation.name.required")),
-  });
+export const attributeSchema = object({
+  name: string().max(60).required(),
+  companyId: number().min(1).required(),
+  description: string().max(500).required(),
+  attributeUnits: array().of(
+    object({
+      unitId: string().required(),
+      isDefault: boolean().required(),
+      description: string().max(500).required(),
+    })
+  ),
+});
+
+export type AttributeSchema = InferType<typeof attributeSchema>;
