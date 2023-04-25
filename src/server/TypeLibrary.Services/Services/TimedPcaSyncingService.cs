@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,8 +6,13 @@ using Mimirorg.Common.Enums;
 using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
-using TypeLibrary.Services.Constants;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;
@@ -136,7 +136,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
         foreach (var unit in unitsToCreate)
         {
-            await unitService.Create(unit, CreatedByConstants.Synchronization);
+            await unitService.Create(unit, CreatedBy.PcaSyncJob);
         }
 
         _logger.LogInformation("Unit sync from PCA completed.");
@@ -194,7 +194,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
         foreach (var attribute in attributesToCreate)
         {
-            await attributeService.Create(attribute, CreatedByConstants.Synchronization);
+            await attributeService.Create(attribute, CreatedBy.PcaSyncJob);
         }
 
         _logger.LogInformation("Attribute sync from PCA completed.");
@@ -279,7 +279,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
         foreach (var quantityDatum in quantityDatumsToCreate)
         {
-            await quantityDatumService.Create(quantityDatum, CreatedByConstants.Synchronization);
+            await quantityDatumService.Create(quantityDatum, CreatedBy.PcaSyncJob);
         }
 
         _logger.LogInformation("Quantity datum sync from PCA completed.");

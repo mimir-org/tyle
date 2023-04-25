@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
@@ -11,10 +7,14 @@ using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
-using TypeLibrary.Services.Constants;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;
@@ -180,7 +180,7 @@ public class AttributeService : IAttributeService
 
         foreach (var attribute in notExisting)
         {
-            attribute.CreatedBy = CreatedByConstants.System;
+            attribute.CreatedBy = CreatedBy.Seeding;
             attribute.State = State.ApproveGlobal;
             await _attributePredefinedRepository.CreatePredefined(attribute);
         }
