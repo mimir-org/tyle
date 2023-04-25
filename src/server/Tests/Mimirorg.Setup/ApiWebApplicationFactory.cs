@@ -7,10 +7,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication;
+using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Api;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
 namespace Mimirorg.Test.Setup;
@@ -43,21 +45,46 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
             var logger = scopedServices.GetRequiredService<ILogger<ApiWebApplicationFactory>>();
 
             var terminalService = scopedServices.GetRequiredService<ITerminalService>();
-            var terminalRepository = scopedServices.GetRequiredService<ITerminalRepository>();
+            var rdsRepository = scopedServices.GetRequiredService<IRdsRepository>();
             db.Database.EnsureCreated();
 
             try
             {
-                _ = SeedTerminalData(terminalService, terminalRepository).Result;
+                _ = SeedTerminalData(terminalService).Result;
             }
             catch (Exception e)
             {
                 logger.LogError($"An error occurred seeding the database with test data. Error: {e.Message}");
             }
+            try
+            {
+                var categoryId = rdsRepository.Get().ToList().FirstOrDefault().CategoryId;
+
+                var rds = new RdsLibDm
+                {
+                    Id = "rds-id",
+                    RdsCode = "XXXXX",
+                    Name = "Test RDS",
+                    CategoryId = categoryId,
+                    Iri = "",
+                    TypeReference = "",
+                    Created = DateTime.UtcNow,
+                    CreatedBy = "",
+                    CompanyId = null,
+                    State = State.Draft,
+                    Description = ""
+                };
+
+                rdsRepository.Create(rds);
+            }
+            catch (Exception e)
+            {
+                logger.LogError($"An error occurred seeding the database with test rds data. Error: {e.Message}");
+            }
         });
     }
 
-    private static async Task<bool> SeedTerminalData(ITerminalService terminalService, ITerminalRepository terminalRepository)
+    private static async Task<bool> SeedTerminalData(ITerminalService terminalService)
     {
         var terminalA = new TerminalLibAm
         {
