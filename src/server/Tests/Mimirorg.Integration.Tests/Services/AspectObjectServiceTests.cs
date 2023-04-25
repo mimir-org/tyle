@@ -27,7 +27,7 @@ public class AspectObjectServiceTests : IntegrationTest
         var aspectObjectAm = new AspectObjectLibAm
         {
             Name = "AspectObject2",
-            RdsId = "RdsId",
+            RdsId = "rds-id",
             PurposeName = "PurposeName",
             Description = "Description",
             Aspect = Aspect.NotSet,
@@ -113,7 +113,7 @@ public class AspectObjectServiceTests : IntegrationTest
         var aspectObjectAm = new AspectObjectLibAm
         {
             Name = "AspectObject4",
-            RdsId = "RdsId",
+            RdsId = "rds-id",
             PurposeName = "PurposeName",
             Description = "Description",
             Aspect = Aspect.NotSet,
@@ -141,7 +141,7 @@ public class AspectObjectServiceTests : IntegrationTest
         var aspectObjectAm = new AspectObjectLibAm
         {
             Name = "AspectObject6",
-            RdsId = "RdsId",
+            RdsId = "rds-id",
             PurposeName = "PurposeName",
             Description = "Description1",
             Aspect = Aspect.NotSet,
