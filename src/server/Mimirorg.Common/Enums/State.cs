@@ -7,7 +7,7 @@ public enum State
     //Draft
     [Display(Name = "Draft")]
     Draft = 0,
-    
+
     //Approve
     [Display(Name = "Approve")]
     Approve = 1,
