@@ -65,7 +65,7 @@ public class UnitService : IUnitService
         if (!string.IsNullOrEmpty(createdBy))
         {
             dm.CreatedBy = createdBy;
-            dm.State = State.ApprovedGlobal;
+            dm.State = State.Approved;
         }
         else
         {

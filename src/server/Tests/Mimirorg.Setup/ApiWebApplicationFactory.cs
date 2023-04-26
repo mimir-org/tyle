@@ -70,7 +70,6 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
                     TypeReference = "",
                     Created = DateTime.UtcNow,
                     CreatedBy = "",
-                    CompanyId = null,
                     State = State.Draft,
                     Description = ""
                 };
