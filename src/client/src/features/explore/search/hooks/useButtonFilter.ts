@@ -58,8 +58,6 @@ const allowClone = (item: StateItem | null, user: UserItem | null): boolean => {
 const allowEditDelete = (item: StateItem | null, user: UserItem | null): boolean => {
   if (item == null || user == null) return false;
 
-  console.log(user.permissions);
-
   let permissionForCompany: MimirorgPermission;
   if (isAspectObjectItem(item)) {
     permissionForCompany = user.permissions[item.companyId]?.value;
