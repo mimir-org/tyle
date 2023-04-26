@@ -8,3 +8,8 @@
 export type UpdateEntity<T> = T & {
   id: string;
 };
+
+export type UpdateUnitEntity<T> = T & {
+  unitId: string;
+  isDefault: boolean;
+};
