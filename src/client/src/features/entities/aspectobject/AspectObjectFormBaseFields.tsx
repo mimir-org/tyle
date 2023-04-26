@@ -35,7 +35,7 @@ interface AspectObjectFormBaseFieldsProps {
 export const AspectObjectFormBaseFields = ({ mode }: AspectObjectFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
-  const { control, register, resetField, setValue, formState } = useFormContext<FormAspectObjectLib>();
+  const { control, register, resetField, formState } = useFormContext<FormAspectObjectLib>();
   const { errors } = formState;
 
   const rdsQuery = useGetRds();
@@ -128,11 +128,11 @@ export const AspectObjectFormBaseFields = ({ mode }: AspectObjectFormBaseFieldsP
             )}
           />
         </FormField>
-        <Input type={"hidden"} {...register("rdsCode")} />
-        <FormField label={t("aspectObject.rds")} error={errors.rdsName}>
+        <Input type={"hidden"} {...register("rdsId")} />
+        <FormField label={t("aspectObject.rds")} error={errors.rdsId}>
           <Controller
             control={control}
-            name={"rdsName"}
+            name={"rdsId"}
             render={({ field: { value, onChange, ref, ...rest } }) => (
               <Select
                 {...rest}
@@ -140,14 +140,11 @@ export const AspectObjectFormBaseFields = ({ mode }: AspectObjectFormBaseFieldsP
                 placeholder={t("common.templates.select", { object: t("aspectObject.rds").toLowerCase() })}
                 options={rdsQuery.data}
                 isLoading={rdsQuery.isLoading}
-                getOptionLabel={(x) => `${x.id} - ${x.name}`}
+                getOptionLabel={(x) => `${x.rdsCode} - ${x.name}`}
                 getOptionValue={(x) => x.id}
-                value={rdsQuery.data?.find((x) => x.name === value)}
+                value={rdsQuery.data?.find((x) => x.id === value)}
                 onChange={(rds) => {
-                  if (rds) {
-                    setValue("rdsCode", rds.id, { shouldDirty: true });
-                    onChange(rds.name);
-                  }
+                  onChange(rds?.id);
                 }}
                 isDisabled={mode === "edit"}
               />

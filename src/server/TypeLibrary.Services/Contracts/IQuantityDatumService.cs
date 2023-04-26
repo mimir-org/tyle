@@ -49,8 +49,9 @@ public interface IQuantityDatumService
     /// Create a new quantity datum
     /// </summary>
     /// <param name="quantityDatumAm">The quantity datum that should be created</param>
+    /// <param name="createdBy">Used to set created by value for instances where objects are not created by the user</param>
     /// <returns>The created quantity datum</returns>
-    Task<QuantityDatumLibCm> Create(QuantityDatumLibAm quantityDatumAm);
+    Task<QuantityDatumLibCm> Create(QuantityDatumLibAm quantityDatumAm, string createdBy = null);
 
     /// <summary>
     /// Update an existing quantity datum

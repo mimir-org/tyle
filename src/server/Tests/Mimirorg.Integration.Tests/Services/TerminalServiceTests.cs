@@ -20,7 +20,6 @@ public class TerminalServiceTests : IntegrationTest
         var terminalAm = new TerminalLibAm
         {
             Name = "TestTerminal2",
-            ParentId = "1234",
             TypeReference = "https://url.com/1234567890",
             Color = "#123456",
             Description = "Description1"
@@ -33,7 +32,6 @@ public class TerminalServiceTests : IntegrationTest
 
         Assert.NotNull(terminalCm);
         Assert.True(terminalCm.State == State.Draft);
-        Assert.Equal(terminalAm.ParentId, terminalCm.ParentId);
 
         Assert.Equal(terminalAm.TypeReference, terminalCm.TypeReference);
 
@@ -59,7 +57,6 @@ public class TerminalServiceTests : IntegrationTest
         var terminalAm = new TerminalLibAm
         {
             Name = "TestTerminal3",
-            ParentId = "1234",
             TypeReference = null,
             Color = "#123456",
             Description = "Description v1.0"

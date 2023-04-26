@@ -23,10 +23,6 @@ public class AspectObjectLibCm
     public string RdsName { get; set; }
     public string Symbol { get; set; }
     public string Description { get; set; }
-    public string ParentId { get; set; }
-    public string ParentName { get; set; }
-    public string ParentIri { get; set; }
-    public ICollection<AspectObjectLibCm> Children { get; set; }
     public ICollection<AspectObjectTerminalLibCm> AspectObjectTerminals { get; set; }
     public ICollection<AttributeLibCm> Attributes { get; set; }
     public ICollection<SelectedAttributePredefinedLibCm> SelectedAttributePredefined { get; set; }

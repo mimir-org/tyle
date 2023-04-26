@@ -88,14 +88,6 @@ public class AspectObjectLibAm : ICompanyObject
     public string Description { get; set; }
 
     /// <summary>
-    /// The parent id for the aspect object type
-    /// </summary>
-    /// <remarks>
-    /// The parent id is not allowed to change
-    /// </remarks>
-    public string ParentId { get; set; }
-
-    /// <summary>
     /// A list of connected terminals
     /// </summary>
     /// <remarks>

@@ -76,7 +76,6 @@ public class MimirorgCommonFixture : IDisposable
                     Key = "555"
                 }
             },
-            ParentId = "123",
             TypeReference = "https://www.tyle.com/"
         };
 
@@ -104,7 +103,6 @@ public class MimirorgCommonFixture : IDisposable
                     Key = "123"
                 }
             },
-            ParentId = "123",
             TypeReference = "https://www.tyle.com/"
         };
 

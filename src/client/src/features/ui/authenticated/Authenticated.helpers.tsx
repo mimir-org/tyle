@@ -6,6 +6,7 @@ import { AuthenticatedLayout } from "features/ui/authenticated/layout/Authentica
 import { ErrorMessage } from "features/ui/common/ErrorMessage";
 import { useTranslation } from "react-i18next";
 import { createBrowserRouter } from "react-router-dom";
+import { attributeFormRoutes } from "../../entities/attributes/AttributeFormRoutes";
 
 export const useAuthenticatedRouter = () => {
   const { t } = useTranslation("ui");
@@ -27,6 +28,7 @@ export const useAuthenticatedRouter = () => {
         ...exploreRoutes,
         ...aspectObjectFormRoutes,
         ...terminalFormRoutes,
+        ...attributeFormRoutes,
         settingsRoutes,
         {
           path: "*",

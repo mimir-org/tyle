@@ -48,7 +48,7 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
   const attributeFields = useFieldArray({ control, name: "attributes" });
 
   const query = useAspectObjectQuery();
-  const mapper = (source: AspectObjectLibCm) => mapAspectObjectLibCmToClientModel(source, mode);
+  const mapper = (source: AspectObjectLibCm) => mapAspectObjectLibCmToClientModel(source);
   const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useAspectObjectMutation(query.data?.id, mode);

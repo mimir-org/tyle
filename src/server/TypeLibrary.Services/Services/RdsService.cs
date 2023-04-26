@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Mimirorg.Authentication.Contracts;
@@ -34,7 +36,7 @@ public class RdsService : IRdsService
 
     public ICollection<RdsLibCm> Get()
     {
-        var dataList = _rdsRepository.Get().ToList();
+        var dataList = _rdsRepository.Get().ToList().OrderBy(x => x.RdsCode.Length).ThenBy(x => x.RdsCode, StringComparer.InvariantCultureIgnoreCase);
 
         if (dataList == null)
             throw new MimirorgNotFoundException("No RDS objects were found.");

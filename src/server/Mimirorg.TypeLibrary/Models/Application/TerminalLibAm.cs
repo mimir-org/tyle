@@ -41,14 +41,6 @@ public class TerminalLibAm
     public string Description { get; set; }
 
     /// <summary>
-    /// The parent terminal id
-    /// </summary>
-    /// <remarks>
-    /// The parent id is not allowed to change
-    /// </remarks>
-    public string ParentId { get; set; }
-
-    /// <summary>
     /// A list of attribute ids
     /// </summary>
     /// <remarks>

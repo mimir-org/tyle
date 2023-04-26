@@ -1,4 +1,4 @@
-type SelectedInfoType = "aspectObject" | "terminal";
+type SelectedInfoType = "aspectObject" | "terminal" | "attribute";
 
 /**
  * Interface for describing the currently selected item in the search list.

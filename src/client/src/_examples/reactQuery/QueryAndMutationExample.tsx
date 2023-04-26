@@ -18,10 +18,8 @@ export const QueryAndMutationExample = () => {
 
   const exampleAspectObject: AspectObjectLibAm = {
     name: "Test aspect object",
-    rdsCode: "A",
-    rdsName: "Drilling system",
+    rdsId: "A",
     purposeName: "Heat (Electrical)",
-    parentId: "",
     aspect: Aspect.Function,
     companyId: 0,
     description: "A description goes here",
@@ -83,7 +81,7 @@ export const QueryAndMutationExample = () => {
 
       <ButtonContainer>
         <button onClick={() => mutation.mutate(exampleAspectObject)}>Add valid aspect object ✅</button>
-        <button onClick={() => mutation.mutate({ ...exampleAspectObject, parentId: "INVALID_ID" })}>
+        <button onClick={() => mutation.mutate({ ...exampleAspectObject, rdsId: "INVALID_ID" })}>
           Add invalid aspect object ❌
         </button>
       </ButtonContainer>

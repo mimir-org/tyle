@@ -48,27 +48,6 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     }
 
     /// <summary>
-    /// Change all parent id's on terminals from old id to the new id 
-    /// </summary>
-    /// <param name="oldId">Old terminal parent id</param>
-    /// <param name="newId">New terminal parent id</param>
-    /// <returns>The number of terminal with the new parent id</returns>
-    public async Task<int> ChangeParentId(string oldId, string newId)
-    {
-        var affectedAspectObjects = FindBy(x => x.ParentId == oldId);
-
-        foreach (var aspectObject in affectedAspectObjects)
-        {
-            aspectObject.ParentId = newId;
-        }
-
-        await SaveAsync();
-        Detach(affectedAspectObjects.ToList());
-
-        return affectedAspectObjects.Count();
-    }
-
-    /// <summary>
     /// Check if aspect object exists
     /// </summary>
     /// <param name="id">The id of the aspect object</param>
@@ -88,6 +67,7 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
             .Include(x => x.AspectObjectTerminals)
             .ThenInclude(x => x.Terminal)
             .Include(x => x.Attributes)
+            .Include(x => x.Rds)
             .AsSplitQuery();
     }
 
@@ -102,6 +82,7 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
             .Include(x => x.AspectObjectTerminals)
             .ThenInclude(x => x.Terminal)
             .Include(x => x.Attributes)
+            .Include(x => x.Rds)
             .AsSplitQuery()
             .FirstOrDefault();
     }
