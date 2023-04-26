@@ -1,3 +1,20 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Mimirorg.Authentication;
+using Mimirorg.Common.Enums;
+using Mimirorg.TypeLibrary.Models.Application;
+using TypeLibrary.Api;
+using TypeLibrary.Data;
+using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Models;
+using TypeLibrary.Services.Contracts;
+
 namespace Mimirorg.Test.Setup;
 
 public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
@@ -41,7 +58,7 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
             }
             try
             {
-                var categoryId = rdsRepository.Get().ToList().FirstOrDefault().CategoryId;
+                var categoryId = rdsRepository.Get().ToList().FirstOrDefault()?.CategoryId;
 
                 var rds = new RdsLibDm
                 {
