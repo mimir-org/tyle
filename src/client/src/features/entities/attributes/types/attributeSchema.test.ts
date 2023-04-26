@@ -1,8 +1,5 @@
 import { AttributeSchema, attributeSchema } from "../attributeSchema";
-import { AttributeLibAm } from "@mimirorg/typelibrary-types";
 describe("attributeSchema tests", () => {
-  const t = (key: string) => key;
-
   it("should reject without a name", async () => {
     const attributeWithoutName: Partial<AttributeSchema> = { name: "" };
     await expect(attributeSchema.validateAt("name", attributeWithoutName)).rejects.toBeTruthy();
