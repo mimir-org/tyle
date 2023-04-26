@@ -37,7 +37,7 @@ export const AttributeFormBaseFields = () => {
           <Textarea placeholder={t("attribute.placeholders.description")} {...register("description")} />
         </FormField>
 
-        <FormField label={t("attribute.title")} error={errors.attributeUnits}>
+        <FormField label={t("unit.defaultUnitTitle")} error={errors.attributeUnits}>
           <Controller
             control={control}
             name={"attributeUnits"}
