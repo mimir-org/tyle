@@ -28,6 +28,6 @@ export const approvalFilter = (approval: ApprovalCm): boolean => {
   if (approval == null) return false;
 
   return (
-    approval.state === State.ApproveCompany || approval.state === State.ApproveGlobal || approval.state === State.Delete
+    approval.state === State.Approve || approval.state === State.Delete
   );
 };

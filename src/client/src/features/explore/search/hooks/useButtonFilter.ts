@@ -2,16 +2,15 @@ import { StateItem } from "common/types/stateItem";
 import { UserItem } from "common/types/userItem";
 import { useEffect, useState } from "react";
 import { MimirorgPermission, State } from "@mimirorg/typelibrary-types";
+import { isAspectObjectItem } from "../guards";
 
 export interface ButtonState {
   clone: boolean;
   edit: boolean;
   delete: boolean;
-  approveCompany: boolean;
-  approveGlobal: boolean;
+  approve: boolean;
   deleted: boolean;
-  approvedComapny: boolean;
-  approvedGlobal: boolean;
+  approved: boolean;
 }
 
 /**
@@ -24,11 +23,9 @@ export const useButtonStateFilter = (item: StateItem | null, user: UserItem | nu
     clone: false,
     edit: false,
     delete: false,
-    approveCompany: false,
-    approveGlobal: false,
+    approve: false,
     deleted: false,
-    approvedComapny: false,
-    approvedGlobal: false,
+    approved: false,
   };
 
   const [buttonState, setButtonState] = useState<ButtonState>(initialState);
@@ -38,11 +35,9 @@ export const useButtonStateFilter = (item: StateItem | null, user: UserItem | nu
       clone: allowClone(item ?? null, user),
       edit: allowEditDelete(item ?? null, user),
       delete: allowEditDelete(item ?? null, user),
-      approveCompany: allowApproveCompany(item ?? null, user),
-      approveGlobal: allowApproveGlobal(item ?? null, user),
+      approve: allowApprove(item ?? null, user),
       deleted: item?.state === State.Deleted,
-      approvedComapny: item?.state === State.ApprovedCompany,
-      approvedGlobal: item?.state === State.ApprovedGlobal,
+      approved: item?.state === State.Approved,
     };
 
     setButtonState(currentButtonState);
@@ -63,17 +58,29 @@ const allowClone = (item: StateItem | null, user: UserItem | null): boolean => {
 const allowEditDelete = (item: StateItem | null, user: UserItem | null): boolean => {
   if (item == null || user == null) return false;
 
-  const permissionForCompany = user.permissions[item.companyId]?.value;
+console.log(user.permissions);
+
+  let permissionForCompany : MimirorgPermission;
+  if (isAspectObjectItem(item)) {
+    permissionForCompany = user.permissions[item.companyId]?.value;
+  } else {
+    permissionForCompany = user.permissions[0].value;
+  }
   if (permissionForCompany == null) return false;
 
   const hasMinimumWrite = (permissionForCompany & MimirorgPermission.Write) === MimirorgPermission.Write;
   return hasMinimumWrite && item.state !== State.Delete && item.state !== State.Deleted;
 };
 
-const allowApproveCompany = (item: StateItem | null, user: UserItem | null): boolean => {
+const allowApprove = (item: StateItem | null, user: UserItem | null): boolean => {
   if (item == null || user == null) return false;
 
-  const permissionForCompany = user.permissions[item.companyId]?.value;
+  let permissionForCompany : MimirorgPermission;
+  if (isAspectObjectItem(item)) {
+    permissionForCompany = user.permissions[item.companyId]?.value;
+  } else {
+    permissionForCompany = user.permissions[0].value;
+  }
   if (permissionForCompany == null) return false;
 
   const hasMinimumWrite = (permissionForCompany & MimirorgPermission.Write) === MimirorgPermission.Write;
@@ -81,25 +88,6 @@ const allowApproveCompany = (item: StateItem | null, user: UserItem | null): boo
     hasMinimumWrite &&
     item.state !== State.Delete &&
     item.state !== State.Deleted &&
-    item.state !== State.ApproveCompany &&
-    item.state !== State.ApprovedCompany
-  );
-};
-
-const allowApproveGlobal = (item: StateItem | null, user: UserItem | null): boolean => {
-  if (item == null || user == null) return false;
-
-  const permissionForCompany = user.permissions[item.companyId]?.value;
-  if (permissionForCompany == null) return false;
-
-  const anyWrite = Object.values(user.permissions).some(
-    (x) => (x.value & MimirorgPermission.Write) === MimirorgPermission.Write
-  );
-  return (
-    anyWrite &&
-    item.state !== State.Delete &&
-    item.state !== State.Deleted &&
-    item.state !== State.ApproveGlobal &&
-    item.state !== State.ApprovedGlobal
+    item.state !== State.Approve
   );
 };
