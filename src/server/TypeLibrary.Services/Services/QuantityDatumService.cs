@@ -35,7 +35,7 @@ public class QuantityDatumService : IQuantityDatumService
     /// <inheritdoc />
     public IEnumerable<QuantityDatumLibCm> Get()
     {
-        var dataSet = _quantityDatumRepository.Get().ToList();
+        var dataSet = _quantityDatumRepository.Get().ExcludeDeleted().ToList();
 
         if (dataSet == null)
             throw new MimirorgNotFoundException("No quantity datums were found.");
@@ -87,14 +87,22 @@ public class QuantityDatumService : IQuantityDatumService
     }
 
     /// <inheritdoc />
-    public async Task<QuantityDatumLibCm> Create(QuantityDatumLibAm quantityDatumAm)
+    public async Task<QuantityDatumLibCm> Create(QuantityDatumLibAm quantityDatumAm, string createdBy = null)
     {
         if (quantityDatumAm == null)
             throw new ArgumentNullException(nameof(quantityDatumAm));
 
         var dm = _mapper.Map<QuantityDatumLibDm>(quantityDatumAm);
 
-        dm.State = State.Draft;
+        if (!string.IsNullOrEmpty(createdBy))
+        {
+            dm.CreatedBy = createdBy;
+            dm.State = State.ApprovedGlobal;
+        }
+        else
+        {
+            dm.State = State.Draft;
+        }
 
         var createdQuantityDatum = await _quantityDatumRepository.Create(dm);
         _quantityDatumRepository.ClearAllChangeTrackers();

@@ -7,7 +7,6 @@ public class ApplicationSettings
     public string ApplicationSemanticUrl { get; set; }
     public string ApplicationUrl { get; set; }
     public string PcaSyncTime { get; set; }
-    public string System => "System";
 
     public override string ToString()
     {
