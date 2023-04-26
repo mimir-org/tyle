@@ -44,7 +44,7 @@ public class TerminalServiceTests : IntegrationTest
         Assert.Equal(terminalCm.Id, logCm.ObjectId);
         Assert.Equal(terminalCm.Name, logCm.ObjectName);
         Assert.Equal(terminalCm.GetType().Name.Remove(terminalCm.GetType().Name.Length - 2, 2) + "Dm", logCm.ObjectType);
-        Assert.Equal(LogType.State.ToString(), logCm.LogType.ToString());
+        Assert.Equal(LogType.Create.ToString(), logCm.LogType.ToString());
         Assert.Equal(State.Draft.ToString(), logCm.LogTypeValue);
         Assert.NotNull(logCm.CreatedBy);
         Assert.Equal("System.DateTime", logCm.Created.GetType().ToString());
@@ -71,5 +71,9 @@ public class TerminalServiceTests : IntegrationTest
 
         Assert.True(terminalLibCm?.Description == "Description v1.0");
         Assert.True(terminalCmUpdated?.Description == "Description v1.1");
+
+        var logService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ILogService>();
+        var logCm = logService.Get().LastOrDefault(x => x.ObjectId == terminalLibCm.Id && x.ObjectType == "TerminalLibDm");
+        Assert.Equal(LogType.Update.ToString(), logCm?.LogType.ToString());
     }
 }
