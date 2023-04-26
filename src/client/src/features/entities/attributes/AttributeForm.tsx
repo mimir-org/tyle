@@ -41,7 +41,7 @@ export const AttributeForm = ({ defaultValues = createEmptyAttribute() }: Attrib
     <FormProvider {...formMethods}>
       <AttributeFormContainer
         onSubmit={handleSubmit((data) => {
-          console.log("this is the data from the form", data), onSubmitForm(data, mutation.mutateAsync, toast);
+          onSubmitForm(data, mutation.mutateAsync, toast);
         })}
       >
         {isLoading ? (
