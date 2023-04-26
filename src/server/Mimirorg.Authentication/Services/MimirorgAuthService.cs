@@ -280,7 +280,7 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// <summary>
     /// Check if user has permission to change the state for a given company
     /// </summary>
-    /// <param name="companyId">The id of the company</param>
+    /// <param name="companyId">The id of the company, or 0 for non-company objects</param>
     /// <param name="state">The state to check for permission</param>
     /// <returns>True if has access, otherwise it returns false</returns>
     /// <exception cref="ArgumentOutOfRangeException">If not a valid state</exception>
@@ -289,11 +289,9 @@ public class MimirorgAuthService : IMimirorgAuthService
         var permission = state switch
         {
             State.Draft => MimirorgPermission.Write,
-            State.ApproveCompany => MimirorgPermission.Write,
-            State.ApproveGlobal => MimirorgPermission.Write,
+            State.Approve => MimirorgPermission.Write,
             State.Delete => MimirorgPermission.Write,
-            State.ApprovedCompany => MimirorgPermission.Approve,
-            State.ApprovedGlobal => MimirorgPermission.Approve,
+            State.Approved => MimirorgPermission.Approve,
             State.Deleted => MimirorgPermission.Delete,
             _ => throw new ArgumentOutOfRangeException(nameof(state), state, null)
         };

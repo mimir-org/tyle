@@ -1,5 +1,5 @@
 import { State } from "@mimirorg/typelibrary-types";
-import { DocumentDuplicate, PencilSquare, Trash, ChevronUp, ChevronDoubleUp } from "@styled-icons/heroicons-outline";
+import { DocumentDuplicate, PencilSquare, Trash, ChevronUp } from "@styled-icons/heroicons-outline";
 import { AspectObjectItem } from "common/types/aspectObjectItem";
 import { UserItem } from "common/types/userItem";
 import { Button } from "complib/buttons";
@@ -60,14 +60,9 @@ const AspectObjectSearchItemActions = ({ user, aspectObject }: AspectObjectSearc
     onAction: () => patcMutation.mutate({ id: aspectObject.id, state: State.Delete }),
   };
 
-  const approveCompanyAction = {
+  const approveAction = {
     name: t("search.item.approve"),
-    onAction: () => patcMutation.mutate({ id: aspectObject.id, state: State.ApproveCompany }),
-  };
-
-  const approveGlobalAction = {
-    name: t("search.item.approve"),
-    onAction: () => patcMutation.mutate({ id: aspectObject.id, state: State.ApproveGlobal }),
+    onAction: () => patcMutation.mutate({ id: aspectObject.id, state: State.Approve }),
   };
 
   const cloneLink = btnFilter.clone ? `/form/aspectObject/clone/${aspectObject.id}` : "#";
@@ -124,8 +119,8 @@ const AspectObjectSearchItemActions = ({ user, aspectObject }: AspectObjectSearc
 
       <AlertDialog
         gap={theme.tyle.spacing.multiple(6)}
-        actions={[approveCompanyAction]}
-        title={t("search.item.templates.approveCompany")}
+        actions={[approveAction]}
+        title={t("search.item.templates.approve")}
         description={t("search.item.approveDescription")}
         hideDescription
         content={
@@ -138,34 +133,9 @@ const AspectObjectSearchItemActions = ({ user, aspectObject }: AspectObjectSearc
         }
       >
         <Button
-          disabled={!btnFilter.approveCompany}
-          variant={btnFilter.approvedComapny ? "outlined" : "filled"}
+          disabled={!btnFilter.approve}
+          variant={btnFilter.approved ? "outlined" : "filled"}
           icon={<ChevronUp />}
-          iconOnly
-        >
-          {t("search.item.approve")}
-        </Button>
-      </AlertDialog>
-
-      <AlertDialog
-        gap={theme.tyle.spacing.multiple(6)}
-        actions={[approveGlobalAction]}
-        title={t("search.item.templates.approveGlobal")}
-        description={t("search.item.approveDescription")}
-        hideDescription
-        content={
-          <AspectObjectPreview
-            name={aspectObject.name}
-            color={aspectObject.color}
-            img={aspectObject.img}
-            terminals={aspectObject.terminals}
-          />
-        }
-      >
-        <Button
-          disabled={!btnFilter.approveGlobal}
-          variant={btnFilter.approvedGlobal ? "outlined" : "filled"}
-          icon={<ChevronDoubleUp />}
           iconOnly
         >
           {t("search.item.approve")}

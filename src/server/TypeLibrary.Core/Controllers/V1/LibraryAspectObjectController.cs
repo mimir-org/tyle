@@ -143,15 +143,15 @@ public class LibraryAspectObjectController : ControllerBase
     /// Update an aspect object
     /// </summary>
     /// <param name="id">The id of the aspect object that should be updated</param>
-    /// <param name="aspectObjectAm">The new values of the aspect object</param>
+    /// <param name="aspectObject">The new values of the aspect object</param>
     /// <returns>The updated aspect object</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(AspectObjectLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "aspectObjectAm", "CompanyId")]
-    public async Task<IActionResult> Update(string id, [FromBody] AspectObjectLibAm aspectObjectAm)
+    [MimirorgAuthorize(MimirorgPermission.Write, "aspectObject", "CompanyId")]
+    public async Task<IActionResult> Update(string id, [FromBody] AspectObjectLibAm aspectObject)
     {
         try
         {
@@ -160,10 +160,10 @@ public class LibraryAspectObjectController : ControllerBase
 
             var companyId = _aspectObjectService.GetCompanyId(id);
 
-            if (companyId != aspectObjectAm.CompanyId)
+            if (companyId != aspectObject.CompanyId)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _aspectObjectService.Update(id, aspectObjectAm);
+            var data = await _aspectObjectService.Update(id, aspectObject);
             return Ok(data);
         }
         catch (MimirorgBadRequestException e)

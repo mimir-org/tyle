@@ -15,13 +15,9 @@ public class TerminalLibDm : IStatefulObject, ILogable
     public string TypeReference { get; set; }
     public DateTime Created { get; set; }
     public string CreatedBy { get; set; }
-    public int CompanyId { get; set; }
     public State State { get; set; }
     public string Color { get; set; }
     public string Description { get; set; }
-    public string ParentId { get; set; }
-    public TerminalLibDm Parent { get; set; }
-    public ICollection<TerminalLibDm> Children { get; set; }
     public ICollection<AspectObjectTerminalLibDm> TerminalAspectObjects { get; set; }
     public ICollection<AttributeLibDm> Attributes { get; set; }
     public ICollection<TerminalAttributeLibDm> TerminalAttributes { get; set; }

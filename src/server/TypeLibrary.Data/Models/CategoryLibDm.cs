@@ -1,5 +1,3 @@
-using J2N.Collections.Generic;
-
 namespace TypeLibrary.Data.Models;
 
 public class CategoryLibDm

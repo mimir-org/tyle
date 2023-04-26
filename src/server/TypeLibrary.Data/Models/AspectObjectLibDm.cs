@@ -31,9 +31,6 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
     public RdsLibDm Rds { get; set; }
     public string Symbol { get; set; }
     public string Description { get; set; }
-    public string ParentId { get; set; }
-    public AspectObjectLibDm Parent { get; set; }
-    public virtual ICollection<AspectObjectLibDm> Children { get; set; }
     public virtual ICollection<AspectObjectTerminalLibDm> AspectObjectTerminals { get; set; }
     public ICollection<AttributeLibDm> Attributes { get; set; }
     public virtual ICollection<AspectObjectAttributeLibDm> AspectObjectAttributes { get; set; }
@@ -56,9 +53,6 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
 
         if (Aspect != other.Aspect)
             validation.AddNotAllowToChange(nameof(Aspect));
-
-        if (ParentId != other.ParentId)
-            validation.AddNotAllowToChange(nameof(ParentId));
 
         //Attributes
         var attributeAmIds = new List<string>();

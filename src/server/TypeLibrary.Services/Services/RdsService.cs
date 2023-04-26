@@ -113,6 +113,10 @@ public class RdsService : IRdsService
         if (dm == null)
             throw new MimirorgNotFoundException($"RDS with id {id} not found.");
 
+        if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException(
+                $"State change on approved RDS with id {id} is not allowed.");
+
         await _rdsRepository.ChangeState(state, dm.Id);
 
         await _logService.CreateLog(
@@ -128,12 +132,6 @@ public class RdsService : IRdsService
             Id = id,
             State = state
         };
-    }
-
-    /// <inheritdoc />
-    public int GetCompanyId(string id)
-    {
-        return _rdsRepository.HasCompany(id);
     }
 
     /// <inheritdoc />

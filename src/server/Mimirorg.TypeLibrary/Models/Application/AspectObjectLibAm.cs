@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Mimirorg.Common.Attributes;
+using Mimirorg.Common.Contracts;
 using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Application;
@@ -7,7 +8,7 @@ namespace Mimirorg.TypeLibrary.Models.Application;
 /// <summary>
 /// Object used to create or update a aspect object
 /// </summary>
-public class AspectObjectLibAm
+public class AspectObjectLibAm : ICompanyObject
 {
     /// <summary>
     /// The name of the aspect object
@@ -85,14 +86,6 @@ public class AspectObjectLibAm
     /// A description change, will trigger a minor version increase
     /// </remarks>
     public string Description { get; set; }
-
-    /// <summary>
-    /// The parent id for the aspect object type
-    /// </summary>
-    /// <remarks>
-    /// The parent id is not allowed to change
-    /// </remarks>
-    public string ParentId { get; set; }
 
     /// <summary>
     /// A list of connected terminals

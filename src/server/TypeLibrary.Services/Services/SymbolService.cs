@@ -48,12 +48,12 @@ public class SymbolService : ISymbolService
             data.CreatedBy = string.IsNullOrEmpty(createdBy) ? data.CreatedBy : createdBy;
         }
 
-        await _symbolRepository.Create(notExisting, string.IsNullOrEmpty(createdBy) ? State.Draft : State.ApprovedGlobal);
+        await _symbolRepository.Create(notExisting, string.IsNullOrEmpty(createdBy) ? State.Draft : State.Approved);
 
         await _logService.CreateLogs(
             notExisting,
             LogType.Create,
-            string.IsNullOrEmpty(createdBy) ? State.Draft.ToString() : State.ApprovedGlobal.ToString(), notExisting[0]?.CreatedBy);
+            string.IsNullOrEmpty(createdBy) ? State.Draft.ToString() : State.Approved.ToString(), notExisting[0]?.CreatedBy);
 
         _symbolRepository.ClearAllChangeTrackers();
     }

@@ -30,14 +30,6 @@ public interface IAspectObjectRepository
     Task<int> ChangeState(State state, ICollection<string> ids);
 
     /// <summary>
-    /// Change all parent ids on aspect objects from old id to the new id 
-    /// </summary>
-    /// <param name="oldId">Old aspect object parent id</param>
-    /// <param name="newId">New aspect object parent id</param>
-    /// <returns>The number of aspect objects with the new parent id</returns>
-    Task<int> ChangeParentId(string oldId, string newId);
-
-    /// <summary>
     /// Check if aspect object exists
     /// </summary>
     /// <param name="id">The id of the aspect object</param>

@@ -16,6 +16,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Data.Models;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.TypeLibrary.Constants;
 
 namespace TypeLibrary.Core.Controllers.V1;
 
@@ -125,27 +126,22 @@ public class LibraryUnitController : ControllerBase
     /// Update a unit
     /// </summary>
     /// <param name="id">The id of the unit that should be updated</param>
-    /// <param name="unitAm">The new values of the unit</param>
+    /// <param name="unit">The new values of the unit</param>
     /// <returns>The updated unit</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(UnitLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "unitAm", "CompanyId")]
-    public async Task<IActionResult> Update(string id, [FromBody] UnitLibAm unitAm)
+    [MimirorgAuthorize(MimirorgPermission.Write, "unit", "CompanyId")]
+    public async Task<IActionResult> Update(string id, [FromBody] UnitLibAm unit)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var companyId = _unitService.GetCompanyId(id);
-
-            if (companyId != unitAm.CompanyId)
-                return StatusCode(StatusCodes.Status403Forbidden);
-
-            var data = await _unitService.Update(id, unitAm);
+            var data = await _unitService.Update(id, unit);
             return Ok(data);
         }
         catch (MimirorgBadRequestException e)
@@ -182,8 +178,7 @@ public class LibraryUnitController : ControllerBase
     {
         try
         {
-            var companyId = _unitService.GetCompanyId(id);
-            var hasAccess = await _authService.HasAccess(companyId, state);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
@@ -214,9 +209,8 @@ public class LibraryUnitController : ControllerBase
     {
         try
         {
-            var companyId = _unitService.GetCompanyId(id);
             var previousState = await _logService.GetPreviousState(id, nameof(UnitLibDm));
-            var hasAccess = await _authService.HasAccess(companyId, previousState);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, previousState);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);

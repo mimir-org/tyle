@@ -12,4 +12,5 @@ export interface AspectObjectItem extends StateItem {
   terminals: AspectObjectTerminalItem[];
   attributes: InfoItem[];
   kind: string;
+  companyId: number;
 }

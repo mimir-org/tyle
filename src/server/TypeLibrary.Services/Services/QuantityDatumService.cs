@@ -101,7 +101,7 @@ public class QuantityDatumService : IQuantityDatumService
         if (!string.IsNullOrEmpty(createdBy))
         {
             dm.CreatedBy = createdBy;
-            dm.State = State.ApprovedGlobal;
+            dm.State = State.Approved;
         }
         else
         {
@@ -154,6 +154,10 @@ public class QuantityDatumService : IQuantityDatumService
         if (dm == null)
             throw new MimirorgNotFoundException($"Quantity datum with id {id} not found.");
 
+        if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException(
+                $"State change on approved quantity datum with id {id} is not allowed.");
+
         await _quantityDatumRepository.ChangeState(state, dm.Id);
 
         await _logService.CreateLog(
@@ -170,11 +174,5 @@ public class QuantityDatumService : IQuantityDatumService
             State = state
 
         };
-    }
-
-    /// <inheritdoc />
-    public int GetCompanyId(string id)
-    {
-        return _quantityDatumRepository.HasCompany(id);
     }
 }

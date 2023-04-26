@@ -8,7 +8,6 @@ import {
   FormAspectObjectTerminalLib,
   mapAspectObjectTerminalLibCmToClientModel,
 } from "features/entities/aspectobject/types/formAspectObjectTerminalLib";
-import { AspectObjectFormMode } from "features/entities/aspectobject/types/aspectObjectFormMode";
 import { ValueObject } from "features/entities/types/valueObject";
 
 /**
@@ -34,12 +33,8 @@ export const mapFormAspectObjectLibToApiModel = (formAspectObject: FormAspectObj
   ),
 });
 
-export const mapAspectObjectLibCmToClientModel = (
-  aspectObject: AspectObjectLibCm,
-  mode?: AspectObjectFormMode
-): FormAspectObjectLib => ({
+export const mapAspectObjectLibCmToClientModel = (aspectObject: AspectObjectLibCm): FormAspectObjectLib => ({
   ...aspectObject,
-  parentId: mode === "clone" ? aspectObject.id : aspectObject.parentId,
   attributes: aspectObject.attributes.map((x) => ({ value: x.id })),
   aspectObjectTerminals: aspectObject.aspectObjectTerminals.map(mapAspectObjectTerminalLibCmToClientModel),
   selectedAttributePredefined: aspectObject.selectedAttributePredefined.map(mapAttributePredefinedLibCmToClientModel),
@@ -64,6 +59,5 @@ const emptyAspectObjectLibAm: AspectObjectLibAm = {
   description: "",
   symbol: "",
   typeReference: "",
-  parentId: "",
   version: "1.0",
 };

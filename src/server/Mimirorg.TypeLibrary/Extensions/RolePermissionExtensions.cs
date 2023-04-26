@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Client;
 
@@ -88,12 +89,10 @@ public static class RolePermissionExtensions
             {
                 resolvedPermissions.Add(company.Id, MimirorgPermission.Manage);
             }
-
-            return resolvedPermissions;
         }
 
         // Moderator role should give delete permission to all companies
-        if (roles.Any(x => x is "Moderator"))
+        else if (roles.Any(x => x is "Moderator"))
         {
             foreach (var company in companies)
             {
@@ -119,6 +118,9 @@ public static class RolePermissionExtensions
                 resolvedPermissions.Add(company.Id, (MimirorgPermission) permission.Id);
             }
         }
+
+        var highestPermission = resolvedPermissions.Values.Max();
+        resolvedPermissions.Add(CompanyConstants.AnyCompanyId, highestPermission);
 
         return resolvedPermissions;
     }

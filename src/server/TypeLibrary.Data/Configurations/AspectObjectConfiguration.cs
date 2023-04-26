@@ -14,7 +14,6 @@ public class AspectObjectConfiguration : IEntityTypeConfiguration<AspectObjectLi
         builder.HasIndex(x => x.FirstVersionId).IsUnique(false);
         builder.HasIndex(x => x.State).IsUnique(false);
         builder.HasIndex(x => new { x.State, x.Aspect }).IsUnique(false);
-        builder.HasIndex(x => new { x.ParentId }).IsUnique(false);
         builder.ToTable("AspectObject");
         builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(63);
         builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(63);
@@ -30,10 +29,8 @@ public class AspectObjectConfiguration : IEntityTypeConfiguration<AspectObjectLi
         builder.Property(p => p.PurposeName).HasColumnName("PurposeName").IsRequired().HasMaxLength(127);
         builder.Property(p => p.Symbol).HasColumnName("Symbol").HasMaxLength(127);
         builder.Property(p => p.Description).HasColumnName("Description").HasDefaultValue(null).HasMaxLength(511);
-        builder.Property(p => p.ParentId).HasColumnName("ParentId").HasMaxLength(63);
         builder.Property(p => p.SelectedAttributePredefined).HasJsonConversion();
 
-        builder.HasOne(x => x.Parent).WithMany(y => y.Children).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
         builder.HasOne(x => x.Rds).WithMany().HasForeignKey(x => x.RdsId).OnDelete(DeleteBehavior.NoAction).IsRequired();
     }
 }

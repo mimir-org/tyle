@@ -52,11 +52,4 @@ public interface ITerminalService
     /// <returns>Terminal with updated state</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if the terminal does not exist on latest version</exception>
     Task<TerminalLibCm> ChangeState(string id, State state);
-
-    /// <summary>
-    /// Get the company id of a terminal
-    /// </summary>
-    /// <param name="id">The terminal id</param>
-    /// <returns>Company id for the terminal</returns>
-    int GetCompanyId(string id);
 }

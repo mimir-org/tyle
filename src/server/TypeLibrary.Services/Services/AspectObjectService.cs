@@ -64,9 +64,6 @@ public class AspectObjectService : IAspectObjectService
         if (dms == null)
             throw new MimirorgNotFoundException("No aspect objects were found.");
 
-        foreach (var dm in dms)
-            dm.Children = dms.Where(x => x.ParentId == dm.Id).ToList();
-
         return !dms.Any() ? new List<AspectObjectLibCm>() : _mapper.Map<List<AspectObjectLibCm>>(dms);
     }
 
@@ -202,7 +199,6 @@ public class AspectObjectService : IAspectObjectService
 
         var createdAspectObject = await _aspectObjectRepository.Create(dm);
         _aspectObjectRepository.ClearAllChangeTrackers();
-        await _aspectObjectRepository.ChangeParentId(id, createdAspectObject?.Id);
         await _logService.CreateLog(createdAspectObject, LogType.State, createdAspectObject?.State.ToString(), createdAspectObject?.CreatedBy);
         _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
 
@@ -222,6 +218,10 @@ public class AspectObjectService : IAspectObjectService
 
         if (dm == null)
             throw new MimirorgNotFoundException($"Aspect object with id {id} not found, or is not latest version.");
+
+        if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException(
+                $"State change on approved aspect object with id {id} is not allowed.");
 
         await _aspectObjectRepository.ChangeState(state, dm.Id);
         await _logService.CreateLog(dm, LogType.State, state.ToString(), dm.CreatedBy);

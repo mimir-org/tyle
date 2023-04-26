@@ -17,12 +17,6 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
     }
 
     /// <inheritdoc />
-    public int HasCompany(string id)
-    {
-        return Get(id).CompanyId;
-    }
-
-    /// <inheritdoc />
     public async Task ChangeState(State state, string id)
     {
         var terminal = await GetAsync(id);
@@ -46,27 +40,6 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
         Detach(terminalsToChange);
 
         return terminalsToChange.Count;
-    }
-
-    /// <summary>
-    /// Change all parent id's on terminals from old id to the new id 
-    /// </summary>
-    /// <param name="oldId">Old terminal parent id</param>
-    /// <param name="newId">New terminal parent id</param>
-    /// <returns>The number of terminal with the new parent id</returns>
-    public async Task<int> ChangeParentId(string oldId, string newId)
-    {
-        var affectedTerminals = FindBy(x => x.ParentId == oldId);
-
-        foreach (var terminal in affectedTerminals)
-        {
-            terminal.ParentId = newId;
-        }
-
-        await SaveAsync();
-        Detach(affectedTerminals.ToList());
-
-        return affectedTerminals.Count();
     }
 
     /// <summary>

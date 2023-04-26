@@ -16,6 +16,7 @@ using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Data.Models;
+using Mimirorg.TypeLibrary.Constants;
 
 namespace TypeLibrary.Core.Controllers.V1;
 
@@ -128,27 +129,22 @@ public class LibraryRdsController : ControllerBase
     /// Update a RDS object
     /// </summary>
     /// <param name="id">The id of the RDS that should be updated</param>
-    /// <param name="rdsAm">The new values of the RDS</param>
+    /// <param name="rds">The new values of the RDS</param>
     /// <returns>The updated RDS</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(RdsLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "rdsAm", "CompanyId")]
-    public async Task<IActionResult> Update(string id, [FromBody] RdsLibAm rdsAm)
+    [MimirorgAuthorize(MimirorgPermission.Write, "rds", "CompanyId")]
+    public async Task<IActionResult> Update(string id, [FromBody] RdsLibAm rds)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var companyId = _rdsService.GetCompanyId(id);
-
-            if (companyId != rdsAm.CompanyId)
-                return StatusCode(StatusCodes.Status403Forbidden);
-
-            var data = await _rdsService.Update(id, rdsAm);
+            var data = await _rdsService.Update(id, rds);
             return Ok(data);
         }
         catch (MimirorgBadRequestException e)
@@ -185,8 +181,7 @@ public class LibraryRdsController : ControllerBase
     {
         try
         {
-            var companyId = _rdsService.GetCompanyId(id);
-            var hasAccess = await _authService.HasAccess(companyId, state);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
@@ -217,9 +212,8 @@ public class LibraryRdsController : ControllerBase
     {
         try
         {
-            var companyId = _rdsService.GetCompanyId(id);
             var previousState = await _logService.GetPreviousState(id, nameof(RdsLibDm));
-            var hasAccess = await _authService.HasAccess(companyId, previousState);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, previousState);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);

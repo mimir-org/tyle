@@ -1,17 +1,5 @@
 using System;
 using System.IO;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using Mimirorg.Common.Models;
-using TypeLibrary.Core.Factories;
-using TypeLibrary.Core.Profiles;
-using TypeLibrary.Data;
-using TypeLibrary.Data.Contracts;
 
 namespace TypeLibrary.Core.Extensions;
 
@@ -35,16 +23,16 @@ public static class TypeLibraryServiceCollectionExtensions
         var cfg = new MapperConfigurationExpression();
         cfg.AddProfile(new SymbolProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<IOptions<ApplicationSettings>>()));
         cfg.AddProfile(new AspectObjectProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
-        cfg.AddProfile(new RdsProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
-        cfg.AddProfile(new TerminalProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
-        cfg.AddProfile(new QuantityDatumProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
+        cfg.AddProfile(new RdsProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
+        cfg.AddProfile(new TerminalProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
+        cfg.AddProfile(new QuantityDatumProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
         cfg.AddProfile(new AttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
         cfg.AddProfile(new PurposeProfile());
-        cfg.AddProfile(new UnitProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
+        cfg.AddProfile(new UnitProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
         cfg.AddProfile(new SelectedAttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>()));
         cfg.AddProfile(new AspectObjectTerminalProfile());
+        cfg.AddProfile(new AttributeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
         cfg.AddProfile(new LogProfile());
-        cfg.AddProfile(new AttributeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
         cfg.AddProfile(new AttributeUnitProfile());
 
         var mapperConfig = new MapperConfiguration(cfg);

@@ -45,13 +45,6 @@ public interface IRdsService
     Task<ApprovalDataCm> ChangeState(string id, State state);
 
     /// <summary>
-    /// Get the company id of a RDS object
-    /// </summary>
-    /// <param name="id">The RDS id</param>
-    /// <returns>Company id for the RDS</returns>
-    int GetCompanyId(string id);
-
-    /// <summary>
     /// Initializes the database with RDS
     /// </summary>
     Task Initialize();

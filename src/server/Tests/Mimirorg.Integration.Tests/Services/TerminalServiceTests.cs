@@ -20,11 +20,9 @@ public class TerminalServiceTests : IntegrationTest
         var terminalAm = new TerminalLibAm
         {
             Name = "TestTerminal2",
-            ParentId = "1234",
             TypeReference = "https://url.com/1234567890",
             Color = "#123456",
-            Description = "Description1",
-            CompanyId = 1
+            Description = "Description1"
         };
 
         var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();
@@ -34,13 +32,11 @@ public class TerminalServiceTests : IntegrationTest
 
         Assert.NotNull(terminalCm);
         Assert.True(terminalCm.State == State.Draft);
-        Assert.Equal(terminalAm.ParentId, terminalCm.ParentId);
 
         Assert.Equal(terminalAm.TypeReference, terminalCm.TypeReference);
 
         Assert.Equal(terminalAm.Color, terminalCm.Color);
         Assert.Equal(terminalAm.Description, terminalCm.Description);
-        Assert.Equal(terminalAm.CompanyId, terminalCm.CompanyId);
 
         var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == terminalCm.Id && x.ObjectType == "TerminalLibDm");
 
@@ -61,11 +57,9 @@ public class TerminalServiceTests : IntegrationTest
         var terminalAm = new TerminalLibAm
         {
             Name = "TestTerminal3",
-            ParentId = "1234",
             TypeReference = null,
             Color = "#123456",
-            Description = "Description v1.0",
-            CompanyId = 1
+            Description = "Description v1.0"
         };
 
         var terminalService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ITerminalService>();

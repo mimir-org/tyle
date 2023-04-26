@@ -78,7 +78,7 @@ public class AttributeService : IAttributeService
         if (!string.IsNullOrEmpty(createdBy))
         {
             dm.CreatedBy = createdBy;
-            dm.State = State.ApprovedGlobal;
+            dm.State = State.Approved;
         }
         else
         {
@@ -134,7 +134,11 @@ public class AttributeService : IAttributeService
         var dm = _attributeRepository.Get().FirstOrDefault(x => x.Id == id);
 
         if (dm == null)
-            throw new MimirorgNotFoundException($"Attribute with id {id} not found, or is not latest version.");
+            throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
+
+        if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException(
+                $"State change on approved attribute with id {id} is not allowed.");
 
         await _attributeRepository.ChangeState(state, new List<string> { dm.Id });
 
@@ -152,12 +156,6 @@ public class AttributeService : IAttributeService
             State = state
 
         };
-    }
-
-    /// <inheritdoc />
-    public int GetCompanyId(string id)
-    {
-        return _attributeRepository.HasCompany(id);
     }
 
     /// <summary>
@@ -192,7 +190,7 @@ public class AttributeService : IAttributeService
         foreach (var attribute in notExisting)
         {
             attribute.CreatedBy = CreatedBy.Seeding;
-            attribute.State = State.ApproveGlobal;
+            attribute.State = State.Approved;
             await _attributePredefinedRepository.CreatePredefined(attribute);
             await _logService.CreateLog(attribute, LogType.Create, attribute.State.ToString(), attribute.CreatedBy);
         }

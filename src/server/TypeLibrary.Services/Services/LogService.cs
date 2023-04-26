@@ -79,8 +79,7 @@ public class LogService : ILogService
                 x.LogType == LogType.State &&
                 x.ObjectType == objectType &&
                 x.LogTypeValue != State.Delete.ToString() &&
-                x.LogTypeValue != State.ApproveCompany.ToString() &&
-                x.LogTypeValue != State.ApproveGlobal.ToString())
+                x.LogTypeValue != State.Approve.ToString())
             .MaxBy(x => x.Id);
 
         if (logEntry == null)

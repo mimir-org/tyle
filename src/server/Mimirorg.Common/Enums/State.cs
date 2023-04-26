@@ -8,24 +8,17 @@ public enum State
     [Display(Name = "Draft")]
     Draft = 0,
 
-    //Company
-    [Display(Name = "Approve Company")]
-    ApproveCompany = 1,
+    //Approve
+    [Display(Name = "Approve")]
+    Approve = 1,
 
-    [Display(Name = "Approved Company")]
-    ApprovedCompany = 2,
-
-    //Global
-    [Display(Name = "Approve Global")]
-    ApproveGlobal = 3,
-
-    [Display(Name = "Approved Global")]
-    ApprovedGlobal = 4,
+    [Display(Name = "Approved")]
+    Approved = 2,
 
     //Delete
     [Display(Name = "Delete")]
-    Delete = 5,
+    Delete = 3,
 
     [Display(Name = "Deleted")]
-    Deleted = 6
+    Deleted = 4
 }

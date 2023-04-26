@@ -24,12 +24,6 @@ public class EfRdsRepository : GenericRepository<TypeLibraryDbContext, RdsLibDm>
     }
 
     /// <inheritdoc />
-    public int HasCompany(string id)
-    {
-        return Get(id).CompanyId ?? 0;
-    }
-
-    /// <inheritdoc />
     public async Task ChangeState(State state, string id)
     {
         var rds = await GetAsync(id);
@@ -88,7 +82,7 @@ public class EfRdsRepository : GenericRepository<TypeLibraryDbContext, RdsLibDm>
                 rds.Iri = $"{_settings.ApplicationSemanticUrl}/rds/{rds.Id}";
                 rds.Created = DateTime.UtcNow;
                 rds.CreatedBy = CreatedBy.Seeding;
-                rds.State = State.ApprovedGlobal;
+                rds.State = State.Approved;
                 rds.CategoryId = categoryId;
 
                 await CreateAsync(rds);

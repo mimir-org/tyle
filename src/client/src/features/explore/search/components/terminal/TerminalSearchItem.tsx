@@ -1,5 +1,5 @@
 import { State } from "@mimirorg/typelibrary-types";
-import { DocumentDuplicate, PencilSquare, Trash, ChevronUp, ChevronDoubleUp } from "@styled-icons/heroicons-outline";
+import { DocumentDuplicate, PencilSquare, Trash, ChevronUp } from "@styled-icons/heroicons-outline";
 import { TerminalItem } from "common/types/terminalItem";
 import { UserItem } from "common/types/userItem";
 import { Button } from "complib/buttons";
@@ -55,14 +55,9 @@ const TerminalSearchItemActions = ({ user, terminal }: TerminalSearchItemActionP
     onAction: () => patcMutation.mutate({ id: terminal.id, state: State.Delete }),
   };
 
-  const approveCompanyAction = {
+  const approveAction = {
     name: t("search.item.approve"),
-    onAction: () => patcMutation.mutate({ id: terminal.id, state: State.ApproveCompany }),
-  };
-
-  const approveGlobalAction = {
-    name: t("search.item.approve"),
-    onAction: () => patcMutation.mutate({ id: terminal.id, state: State.ApproveGlobal }),
+    onAction: () => patcMutation.mutate({ id: terminal.id, state: State.Approve }),
   };
 
   const cloneLink = btnFilter.clone ? `/form/terminal/clone/${terminal.id}` : "#";
@@ -112,34 +107,16 @@ const TerminalSearchItemActions = ({ user, terminal }: TerminalSearchItemActionP
 
       <AlertDialog
         gap={theme.tyle.spacing.multiple(6)}
-        actions={[approveCompanyAction]}
-        title={t("search.item.templates.approveCompany")}
+        actions={[approveAction]}
+        title={t("search.item.templates.approve")}
         description={t("search.item.approveDescription")}
         hideDescription
         content={<TerminalPreview name={terminal.name} color={terminal.color} />}
       >
         <Button
-          disabled={!btnFilter.approveCompany}
-          variant={btnFilter.approvedComapny ? "outlined" : "filled"}
+          disabled={!btnFilter.approve}
+          variant={btnFilter.approved ? "outlined" : "filled"}
           icon={<ChevronUp />}
-          iconOnly
-        >
-          {t("search.item.approve")}
-        </Button>
-      </AlertDialog>
-
-      <AlertDialog
-        gap={theme.tyle.spacing.multiple(6)}
-        actions={[approveGlobalAction]}
-        title={t("search.item.templates.approveGlobal")}
-        description={t("search.item.approveDescription")}
-        hideDescription
-        content={<TerminalPreview name={terminal.name} color={terminal.color} />}
-      >
-        <Button
-          disabled={!btnFilter.approveGlobal}
-          variant={btnFilter.approvedGlobal ? "outlined" : "filled"}
-          icon={<ChevronDoubleUp />}
           iconOnly
         >
           {t("search.item.approve")}

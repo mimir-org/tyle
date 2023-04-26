@@ -69,7 +69,7 @@ public class UnitService : IUnitService
         if (!string.IsNullOrEmpty(createdBy))
         {
             dm.CreatedBy = createdBy;
-            dm.State = State.ApprovedGlobal;
+            dm.State = State.Approved;
         }
         else
         {
@@ -120,7 +120,11 @@ public class UnitService : IUnitService
         var dm = _unitRepository.Get().FirstOrDefault(x => x.Id == id);
 
         if (dm == null)
-            throw new MimirorgNotFoundException($"Unit with id {id} not found, or is not latest version.");
+            throw new MimirorgNotFoundException($"Unit with id {id} not found.");
+
+        if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException(
+                $"State change on approved unit with id {id} is not allowed.");
 
         await _unitRepository.ChangeState(state, dm.Id);
 
@@ -138,11 +142,5 @@ public class UnitService : IUnitService
             State = state
 
         };
-    }
-
-    /// <inheritdoc />
-    public int GetCompanyId(string id)
-    {
-        return _unitRepository.HasCompany(id);
     }
 }

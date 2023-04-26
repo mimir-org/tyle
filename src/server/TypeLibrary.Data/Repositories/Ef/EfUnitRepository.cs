@@ -15,12 +15,6 @@ public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibD
     }
 
     /// <inheritdoc />
-    public int HasCompany(string id)
-    {
-        return Get(id).CompanyId ?? 0;
-    }
-
-    /// <inheritdoc />
     public async Task ChangeState(State state, string id)
     {
         var unit = await GetAsync(id);

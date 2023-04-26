@@ -24,16 +24,6 @@ public class TerminalLibAm
     public string TypeReference { get; set; }
 
     /// <summary>
-    /// The owner of the terminal type
-    /// </summary>
-    /// <remarks>
-    /// A company id change, will trigger a minor version increase
-    /// </remarks>
-    [Display(Name = "CompanyId")]
-    [Range(1, int.MaxValue, ErrorMessage = "{0} must be greater than 0")]
-    public int CompanyId { get; set; }
-
-    /// <summary>
     /// The color of the terminal
     /// </summary>
     /// <remarks>
@@ -49,14 +39,6 @@ public class TerminalLibAm
     /// It is allowed to change the description. Changing will generate a minor increase
     /// </remarks>
     public string Description { get; set; }
-
-    /// <summary>
-    /// The parent terminal id
-    /// </summary>
-    /// <remarks>
-    /// The parent id is not allowed to change
-    /// </remarks>
-    public string ParentId { get; set; }
 
     /// <summary>
     /// A list of attribute ids

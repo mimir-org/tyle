@@ -10,15 +10,9 @@ public class TerminalLibCm
     public string TypeReference { get; set; }
     public DateTime Created { get; set; }
     public string CreatedBy { get; set; }
-    public int CompanyId { get; set; }
-    public string CompanyName { get; set; }
     public State State { get; set; }
     public string Color { get; set; }
     public string Description { get; set; }
-    public string ParentId { get; set; }
-    public string ParentName { get; set; }
-    public string ParentIri { get; set; }
-    public ICollection<TerminalLibCm> Children { get; set; }
     public ICollection<AttributeLibCm> Attributes { get; set; }
     public string Kind => nameof(TerminalLibCm);
 }
