@@ -58,9 +58,9 @@ const allowClone = (item: StateItem | null, user: UserItem | null): boolean => {
 const allowEditDelete = (item: StateItem | null, user: UserItem | null): boolean => {
   if (item == null || user == null) return false;
 
-console.log(user.permissions);
+  console.log(user.permissions);
 
-  let permissionForCompany : MimirorgPermission;
+  let permissionForCompany: MimirorgPermission;
   if (isAspectObjectItem(item)) {
     permissionForCompany = user.permissions[item.companyId]?.value;
   } else {
@@ -75,7 +75,7 @@ console.log(user.permissions);
 const allowApprove = (item: StateItem | null, user: UserItem | null): boolean => {
   if (item == null || user == null) return false;
 
-  let permissionForCompany : MimirorgPermission;
+  let permissionForCompany: MimirorgPermission;
   if (isAspectObjectItem(item)) {
     permissionForCompany = user.permissions[item.companyId]?.value;
   } else {
@@ -84,10 +84,5 @@ const allowApprove = (item: StateItem | null, user: UserItem | null): boolean =>
   if (permissionForCompany == null) return false;
 
   const hasMinimumWrite = (permissionForCompany & MimirorgPermission.Write) === MimirorgPermission.Write;
-  return (
-    hasMinimumWrite &&
-    item.state !== State.Delete &&
-    item.state !== State.Deleted &&
-    item.state !== State.Approve
-  );
+  return hasMinimumWrite && item.state !== State.Delete && item.state !== State.Deleted && item.state !== State.Approve;
 };

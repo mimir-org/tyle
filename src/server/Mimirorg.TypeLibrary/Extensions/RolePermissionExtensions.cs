@@ -121,7 +121,7 @@ public static class RolePermissionExtensions
 
         var highestPermission = resolvedPermissions.Values.Max();
         resolvedPermissions.Add(CompanyConstants.AnyCompanyId, highestPermission);
-        
+
         return resolvedPermissions;
     }
 }
