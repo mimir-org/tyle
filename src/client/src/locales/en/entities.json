@@ -148,6 +148,10 @@
       }
     }
   },
+  "unit": {
+    "title": "Unit",
+    "defaultUnitTitle": "Default unit"
+  },
   "terminal": {
     "title": "Terminal",
     "name": "Name",

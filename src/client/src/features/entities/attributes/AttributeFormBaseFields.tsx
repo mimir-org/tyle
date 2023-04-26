@@ -7,7 +7,6 @@ import { PlainLink } from "features/common/plain-link";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { AttributeFormContainer } from "./AttributeFormContainer.styled";
 import { useGetUnits } from "../../../external/sources/unit/unit.queries";
 import FormUnitSelector from "../../../complib/form/FormUnitSelector";
 import { useState } from "react";
@@ -38,21 +37,21 @@ export const AttributeFormBaseFields = () => {
           <Textarea placeholder={t("attribute.placeholders.description")} {...register("description")} />
         </FormField>
 
-        <FormField label={t("attributeUnits")} error={errors.attributeUnits}>
+        <FormField label={t("attribute.title")} error={errors.attributeUnits}>
           <Controller
             control={control}
             name={"attributeUnits"}
-            render={({ field: { value, onChange, ref, ...rest } }) => (
+            render={({ field: { value: _, onChange, ref, ...rest } }) => (
               <Select
                 {...rest}
-                placeholder={t("common.templates.select", { object: t("unitId") })}
+                placeholder={t("common.templates.select", { object: t("unit.defaultUnitTitle").toLowerCase() })}
                 options={units}
                 isLoading={unitQuery.isLoading}
                 selectRef={ref}
                 getOptionLabel={(x) => x.name}
                 getOptionValue={(x) => x.id.toString()}
                 onChange={(x) => {
-                  onChange([{unitId: x?.id, isDefault: true}]);
+                  onChange([{ unitId: x?.id, isDefault: true }]);
                   setDefaultUnit(x);
                 }}
               />
