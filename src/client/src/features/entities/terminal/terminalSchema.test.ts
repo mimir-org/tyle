@@ -19,11 +19,6 @@ describe("terminalSchema tests", () => {
     await expect(terminalSchema(t).validateAt("name", terminalWithoutColor)).rejects.toBeTruthy();
   });
 
-  it("should reject without an owner", async () => {
-    const terminalWithoutOwner: Partial<FormTerminalLib> = { companyId: 0 };
-    await expect(terminalSchema(t).validateAt("companyId", terminalWithoutOwner)).rejects.toBeTruthy();
-  });
-
   it("should reject with a description longer than 500 characters", async () => {
     const terminalWithLongDescription: Partial<FormTerminalLib> = { description: "c".repeat(501) };
     await expect(terminalSchema(t).validateAt("description", terminalWithLongDescription)).rejects.toBeTruthy();

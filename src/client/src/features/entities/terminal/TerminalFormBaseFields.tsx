@@ -44,28 +44,6 @@ export const TerminalFormBaseFields = ({ mode }: TerminalFormBaseFieldsProps) =>
           <Input type={"color"} placeholder={t("terminal.placeholders.color")} {...register("color")} />
         </FormField>
 
-        <Controller
-          control={control}
-          name={"companyId"}
-          render={({ field: { value, onChange, ref, ...rest } }) => (
-            <FormField label={t("terminal.owner")} error={errors.companyId}>
-              <Select
-                {...rest}
-                selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("terminal.owner").toLowerCase() })}
-                options={companies}
-                getOptionLabel={(x) => x.name}
-                getOptionValue={(x) => x.id.toString()}
-                onChange={(x) => {
-                  onChange(x?.id);
-                }}
-                value={companies.find((x) => x.id === value)}
-                isDisabled={mode === "edit"}
-              />
-            </FormField>
-          )}
-        />
-
         <FormField label={t("terminal.description")} error={errors.description}>
           <Textarea placeholder={t("terminal.placeholders.description")} {...register("description")} />
         </FormField>
