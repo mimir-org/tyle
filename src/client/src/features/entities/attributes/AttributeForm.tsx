@@ -33,7 +33,6 @@ export const AttributeForm = ({ defaultValues = createEmptyAttribute() }: Attrib
   const mutation = useAttributeMutation(query.data?.id, true);
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
-  console.log(mutation);
 
   const toast = useSubmissionToast(t("attribute.title"));
 
