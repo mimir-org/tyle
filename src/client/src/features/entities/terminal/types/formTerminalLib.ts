@@ -1,5 +1,4 @@
 import { TerminalLibAm, TerminalLibCm } from "@mimirorg/typelibrary-types";
-import { TerminalFormMode } from "features/entities/terminal/types/terminalFormMode";
 import { ValueObject } from "features/entities/types/valueObject";
 
 /**

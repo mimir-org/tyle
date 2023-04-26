@@ -8,7 +8,6 @@ import {
   FormAspectObjectTerminalLib,
   mapAspectObjectTerminalLibCmToClientModel,
 } from "features/entities/aspectobject/types/formAspectObjectTerminalLib";
-import { AspectObjectFormMode } from "features/entities/aspectobject/types/aspectObjectFormMode";
 import { ValueObject } from "features/entities/types/valueObject";
 
 /**
