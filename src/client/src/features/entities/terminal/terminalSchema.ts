@@ -9,7 +9,6 @@ export const terminalSchema = (t: TFunction<"translation">) =>
     color: yup.string().required(t("terminal.validation.color.required")),
     companyId: yup.number().min(1, t("terminal.validation.companyId.min")).required(),
     description: yup.string().max(500, t("terminal.validation.description.max")),
-    parentId: yup.string().nullable(),
     attributes: yup.array().nullable(),
     typeReference: yup.string(),
   });

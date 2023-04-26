@@ -19,12 +19,8 @@ export const mapFormTerminalLibToApiModel = (formTerminal: FormTerminalLib): Ter
   attributes: formTerminal.attributes.map((x) => x.value),
 });
 
-export const mapTerminalLibCmToFormTerminalLib = (
-  terminalLibCm: TerminalLibCm,
-  mode?: TerminalFormMode
-): FormTerminalLib => ({
+export const mapTerminalLibCmToFormTerminalLib = (terminalLibCm: TerminalLibCm): FormTerminalLib => ({
   ...terminalLibCm,
-  parentId: mode === "clone" ? terminalLibCm.id : terminalLibCm.parentId,
   attributes: terminalLibCm.attributes.map((x) => ({ value: x.id })),
 });
 
@@ -36,7 +32,6 @@ export const createEmptyFormTerminalLib = (): FormTerminalLib => ({
 
 const emptyTerminalLibAm: TerminalLibAm = {
   name: "",
-  parentId: "",
   typeReference: "",
   color: "",
   description: "",

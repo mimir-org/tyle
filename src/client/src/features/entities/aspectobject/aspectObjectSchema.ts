@@ -15,7 +15,6 @@ export const aspectObjectSchema = (t: TFunction<"translation">) =>
     companyId: yup.number().min(1, t("aspectObject.validation.companyId.min")).required(),
     description: yup.string().max(500, t("aspectObject.validation.description.max")),
     symbol: yup.string(),
-    parentId: yup.string().nullable(),
     aspectObjectTerminals: yup
       .array()
       .of(
