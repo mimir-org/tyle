@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
@@ -11,6 +8,11 @@ using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
@@ -23,13 +25,15 @@ public class QuantityDatumService : IQuantityDatumService
     private readonly IEfQuantityDatumRepository _quantityDatumRepository;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
+    private readonly IHttpContextAccessor _contextAccessor;
 
-    public QuantityDatumService(IMapper mapper, IEfQuantityDatumRepository quantityDatumRepository, ITimedHookService hookService, ILogService logService)
+    public QuantityDatumService(IMapper mapper, IEfQuantityDatumRepository quantityDatumRepository, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor)
     {
         _mapper = mapper;
         _quantityDatumRepository = quantityDatumRepository;
         _hookService = hookService;
         _logService = logService;
+        _contextAccessor = contextAccessor;
     }
 
     /// <inheritdoc />
@@ -106,7 +110,7 @@ public class QuantityDatumService : IQuantityDatumService
 
         var createdQuantityDatum = await _quantityDatumRepository.Create(dm);
         _quantityDatumRepository.ClearAllChangeTrackers();
-        await _logService.CreateLog(createdQuantityDatum, LogType.State, State.Draft.ToString());
+        await _logService.CreateLog(createdQuantityDatum, LogType.Create, createdQuantityDatum.State.ToString(), createdQuantityDatum.CreatedBy);
         _hookService.HookQueue.Enqueue(CacheKey.QuantityDatum);
 
         return _mapper.Map<QuantityDatumLibCm>(createdQuantityDatum);
@@ -133,6 +137,8 @@ public class QuantityDatumService : IQuantityDatumService
 
         _quantityDatumRepository.Update(quantityDatumToUpdate);
         await _quantityDatumRepository.SaveAsync();
+        var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
+        await _logService.CreateLog(quantityDatumToUpdate, LogType.Update, quantityDatumToUpdate.State.ToString(), updatedBy);
 
         _quantityDatumRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.QuantityDatum);
@@ -153,7 +159,13 @@ public class QuantityDatumService : IQuantityDatumService
                 $"State change on approved quantity datum with id {id} is not allowed.");
 
         await _quantityDatumRepository.ChangeState(state, dm.Id);
-        await _logService.CreateLog(dm, LogType.State, state.ToString());
+
+        await _logService.CreateLog(
+            dm,
+            LogType.State,
+            state.ToString(),
+            !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown);
+
         _hookService.HookQueue.Enqueue(CacheKey.QuantityDatum);
 
         return new ApprovalDataCm

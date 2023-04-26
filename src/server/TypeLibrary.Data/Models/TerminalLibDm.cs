@@ -1,9 +1,8 @@
-using System;
-using System.Collections.Generic;
 using Mimirorg.Common.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Models.Application;
+using System;
+using System.Collections.Generic;
 using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models;
@@ -25,18 +24,19 @@ public class TerminalLibDm : IStatefulObject, ILogable
 
     #region ILogable
 
-    public LogLibAm CreateLog(LogType logType, string logTypeValue, string comment)
+    public LogLibDm CreateLog(LogType logType, string logTypeValue, string createdBy)
     {
-        return new LogLibAm
+        return new LogLibDm
         {
             ObjectId = Id,
-            ObjectFirstVersionId = Id,
+            ObjectFirstVersionId = null,
             ObjectType = nameof(TerminalLibDm),
             ObjectName = Name,
-            ObjectVersion = "",
+            ObjectVersion = null,
             LogType = logType,
             LogTypeValue = logTypeValue,
-            Comment = comment
+            Created = DateTime.UtcNow,
+            CreatedBy = createdBy
         };
     }
 

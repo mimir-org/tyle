@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
@@ -11,6 +8,11 @@ using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
@@ -23,13 +25,15 @@ public class RdsService : IRdsService
     private readonly IEfRdsRepository _rdsRepository;
     private readonly ILogService _logService;
     private readonly ITimedHookService _hookService;
+    private readonly IHttpContextAccessor _contextAccessor;
 
-    public RdsService(IMapper mapper, IEfRdsRepository rdsRepository, ILogService logService, ITimedHookService hookService)
+    public RdsService(IMapper mapper, IEfRdsRepository rdsRepository, ILogService logService, ITimedHookService hookService, IHttpContextAccessor contextAccessor)
     {
         _mapper = mapper;
         _rdsRepository = rdsRepository;
         _logService = logService;
         _hookService = hookService;
+        _contextAccessor = contextAccessor;
     }
 
     public ICollection<RdsLibCm> Get()
@@ -65,7 +69,7 @@ public class RdsService : IRdsService
 
         var createdRds = await _rdsRepository.Create(dm);
         _rdsRepository.ClearAllChangeTrackers();
-        await _logService.CreateLog(createdRds, LogType.State, State.Draft.ToString());
+        await _logService.CreateLog(createdRds, LogType.Create, createdRds.State.ToString(), createdRds.CreatedBy);
         _hookService.HookQueue.Enqueue(CacheKey.Rds);
 
         return _mapper.Map<RdsLibCm>(createdRds);
@@ -92,6 +96,8 @@ public class RdsService : IRdsService
 
         _rdsRepository.Update(rdsToUpdate);
         await _rdsRepository.SaveAsync();
+        var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
+        await _logService.CreateLog(rdsToUpdate, LogType.Update, rdsToUpdate.State.ToString(), updatedBy);
 
         _rdsRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.Rds);
@@ -112,14 +118,19 @@ public class RdsService : IRdsService
                 $"State change on approved RDS with id {id} is not allowed.");
 
         await _rdsRepository.ChangeState(state, dm.Id);
-        await _logService.CreateLog(dm, LogType.State, state.ToString());
+
+        await _logService.CreateLog(
+            dm,
+            LogType.State,
+            state.ToString(),
+            !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown);
+
         _hookService.HookQueue.Enqueue(CacheKey.Rds);
 
         return new ApprovalDataCm
         {
             Id = id,
             State = state
-
         };
     }
 

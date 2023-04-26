@@ -1,11 +1,12 @@
+using AutoMapper;
+using Mimirorg.Common.Enums;
+using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using Mimirorg.Common.Enums;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
@@ -16,11 +17,13 @@ public class SymbolService : ISymbolService
 {
     private readonly IMapper _mapper;
     private readonly ISymbolRepository _symbolRepository;
+    private readonly ILogService _logService;
 
-    public SymbolService(IMapper mapper, ISymbolRepository symbolRepository)
+    public SymbolService(IMapper mapper, ISymbolRepository symbolRepository, ILogService logService)
     {
         _mapper = mapper;
         _symbolRepository = symbolRepository;
+        _logService = logService;
     }
 
     public IEnumerable<SymbolLibCm> Get()
@@ -46,6 +49,12 @@ public class SymbolService : ISymbolService
         }
 
         await _symbolRepository.Create(notExisting, string.IsNullOrEmpty(createdBy) ? State.Draft : State.Approved);
+
+        await _logService.CreateLogs(
+            notExisting,
+            LogType.Create,
+            string.IsNullOrEmpty(createdBy) ? State.Draft.ToString() : State.Approved.ToString(), notExisting[0]?.CreatedBy);
+
         _symbolRepository.ClearAllChangeTrackers();
     }
 }

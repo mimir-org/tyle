@@ -17,14 +17,13 @@ public class LogConfiguration : IEntityTypeConfiguration<LogLibDm>
         builder.ToTable("Log");
         builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
         builder.Property(p => p.ObjectId).HasColumnName("ObjectId").IsRequired().HasMaxLength(63);
-        builder.Property(p => p.ObjectName).HasColumnName("ObjectName").IsRequired().HasMaxLength(63);
-        builder.Property(p => p.ObjectVersion).HasColumnName("ObjectVersion").IsRequired().HasMaxLength(7);
-        builder.Property(p => p.ObjectFirstVersionId).HasColumnName("ObjectFirstVersionId").IsRequired().HasMaxLength(63);
-        builder.Property(p => p.Created).HasColumnName("Created").IsRequired().HasMaxLength(63);
-        builder.Property(p => p.User).HasColumnName("User").IsRequired().HasMaxLength(127);
+        builder.Property(p => p.ObjectFirstVersionId).HasColumnName("ObjectFirstVersionId").IsRequired(false).HasMaxLength(63);
+        builder.Property(p => p.ObjectVersion).HasColumnName("ObjectVersion").IsRequired(false).HasMaxLength(7);
         builder.Property(p => p.ObjectType).HasColumnName("ObjectType").IsRequired().HasMaxLength(63);
+        builder.Property(p => p.ObjectName).HasColumnName("ObjectName").IsRequired().HasMaxLength(63);
+        builder.Property(p => p.Created).HasColumnName("Created").IsRequired().HasMaxLength(63);
+        builder.Property(p => p.CreatedBy).HasColumnName("User").IsRequired().HasMaxLength(127);
         builder.Property(p => p.LogType).HasColumnName("LogType").IsRequired().HasConversion<string>().HasMaxLength(31);
         builder.Property(p => p.LogTypeValue).HasColumnName("LogTypeValue").IsRequired().HasMaxLength(255);
-        builder.Property(p => p.Comment).HasColumnName("Comment").HasDefaultValue(null).HasMaxLength(511);
     }
 }

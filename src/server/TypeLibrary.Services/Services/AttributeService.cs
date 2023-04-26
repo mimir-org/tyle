@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
@@ -26,14 +27,16 @@ public class AttributeService : IAttributeService
     private readonly IEfAttributeRepository _attributeRepository;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
+    private readonly IHttpContextAccessor _contextAccessor;
 
-    public AttributeService(IMapper mapper, IAttributePredefinedRepository attributePredefinedRepository, IEfAttributeRepository attributeRepository, ITimedHookService hookService, ILogService logService)
+    public AttributeService(IMapper mapper, IAttributePredefinedRepository attributePredefinedRepository, IEfAttributeRepository attributeRepository, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor)
     {
         _mapper = mapper;
         _attributePredefinedRepository = attributePredefinedRepository;
         _attributeRepository = attributeRepository;
         _hookService = hookService;
         _logService = logService;
+        _contextAccessor = contextAccessor;
     }
 
     /// <summary>
@@ -89,7 +92,7 @@ public class AttributeService : IAttributeService
 
         var createdAttribute = await _attributeRepository.Create(dm);
         _attributeRepository.ClearAllChangeTrackers();
-        await _logService.CreateLog(createdAttribute, LogType.State, State.Draft.ToString());
+        await _logService.CreateLog(createdAttribute, LogType.Create, createdAttribute?.State.ToString(), createdAttribute?.CreatedBy);
         _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 
         return _mapper.Map<AttributeLibCm>(createdAttribute);
@@ -116,6 +119,8 @@ public class AttributeService : IAttributeService
 
         _attributeRepository.Update(attributeToUpdate);
         await _attributeRepository.SaveAsync();
+        var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
+        await _logService.CreateLog(attributeToUpdate, LogType.Update, attributeToUpdate.State.ToString(), updatedBy);
 
         _attributeRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.Attribute);
@@ -136,7 +141,13 @@ public class AttributeService : IAttributeService
                 $"State change on approved attribute with id {id} is not allowed.");
 
         await _attributeRepository.ChangeState(state, new List<string> { dm.Id });
-        await _logService.CreateLog(dm, LogType.State, state.ToString());
+
+        await _logService.CreateLog(
+            dm,
+            LogType.State,
+            state.ToString(),
+            !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown);
+
         _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 
         return new ApprovalDataCm
@@ -181,6 +192,7 @@ public class AttributeService : IAttributeService
             attribute.CreatedBy = CreatedBy.Seeding;
             attribute.State = State.Approved;
             await _attributePredefinedRepository.CreatePredefined(attribute);
+            await _logService.CreateLog(attribute, LogType.Create, attribute.State.ToString(), attribute.CreatedBy);
         }
     }
 }

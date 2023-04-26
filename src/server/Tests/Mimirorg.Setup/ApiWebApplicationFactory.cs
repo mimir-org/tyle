@@ -58,7 +58,7 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
             }
             try
             {
-                var categoryId = rdsRepository.Get().ToList().FirstOrDefault().CategoryId;
+                var categoryId = rdsRepository.Get().ToList().FirstOrDefault()?.CategoryId;
 
                 var rds = new RdsLibDm
                 {
