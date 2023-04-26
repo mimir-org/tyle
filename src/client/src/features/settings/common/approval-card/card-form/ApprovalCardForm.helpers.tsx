@@ -110,10 +110,8 @@ const useUndoApprovalToast = (oldState?: Option<State>) => {
  */
 export const findNextState = (state: State): State => {
   switch (state) {
-    case State.ApproveCompany:
-      return State.ApprovedCompany;
-    case State.ApproveGlobal:
-      return State.ApprovedGlobal;
+    case State.Approve:
+      return State.Approved;
     case State.Delete:
       return State.Deleted;
     default:

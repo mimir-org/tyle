@@ -8,13 +8,6 @@ namespace TypeLibrary.Data.Contracts;
 public interface IRdsRepository
 {
     /// <summary>
-    /// Get the registered company on given id
-    /// </summary>
-    /// <param name="id">The RDS id</param>
-    /// <returns>The company id of given RDS</returns>
-    int HasCompany(string id);
-
-    /// <summary>
     /// Change the state of the RDS with the given id
     /// </summary>
     /// <param name="state">The state to change to</param>

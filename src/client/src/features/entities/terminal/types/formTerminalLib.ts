@@ -35,5 +35,4 @@ const emptyTerminalLibAm: TerminalLibAm = {
   color: "",
   description: "",
   attributes: [],
-  companyId: 0,
 };

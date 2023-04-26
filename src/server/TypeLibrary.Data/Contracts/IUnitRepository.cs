@@ -8,13 +8,6 @@ namespace TypeLibrary.Data.Contracts;
 public interface IUnitRepository
 {
     /// <summary>
-    /// Get the registered company on given id
-    /// </summary>
-    /// <param name="id">The unit id</param>
-    /// <returns>The company id of given unit</returns>
-    int HasCompany(string id);
-
-    /// <summary>
     /// Change the state of the unit with the given id
     /// </summary>
     /// <param name="state">The state to change to</param>

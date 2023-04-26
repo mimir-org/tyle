@@ -17,12 +17,6 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
     }
 
     /// <inheritdoc />
-    public int HasCompany(string id)
-    {
-        return Get(id).CompanyId;
-    }
-
-    /// <inheritdoc />
     public async Task ChangeState(State state, string id)
     {
         var terminal = await GetAsync(id);

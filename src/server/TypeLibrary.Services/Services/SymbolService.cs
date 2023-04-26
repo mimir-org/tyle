@@ -45,7 +45,7 @@ public class SymbolService : ISymbolService
             data.CreatedBy = string.IsNullOrEmpty(createdBy) ? data.CreatedBy : createdBy;
         }
 
-        await _symbolRepository.Create(notExisting, string.IsNullOrEmpty(createdBy) ? State.Draft : State.ApprovedGlobal);
+        await _symbolRepository.Create(notExisting, string.IsNullOrEmpty(createdBy) ? State.Draft : State.Approved);
         _symbolRepository.ClearAllChangeTrackers();
     }
 }

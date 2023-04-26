@@ -16,12 +16,6 @@ public class EfQuantityDatumRepository : GenericRepository<TypeLibraryDbContext,
     }
 
     /// <inheritdoc />
-    public int HasCompany(string id)
-    {
-        return Get(id).CompanyId ?? 0;
-    }
-
-    /// <inheritdoc />
     public async Task ChangeState(State state, string id)
     {
         var quantityDatum = await GetAsync(id);

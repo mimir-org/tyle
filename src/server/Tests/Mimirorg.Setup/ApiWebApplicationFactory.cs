@@ -70,7 +70,6 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
                     TypeReference = "",
                     Created = DateTime.UtcNow,
                     CreatedBy = "",
-                    CompanyId = null,
                     State = State.Draft,
                     Description = ""
                 };
@@ -89,15 +88,13 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
         var terminalA = new TerminalLibAm
         {
             Name = "Information",
-            Color = "#006600",
-            CompanyId = 1
+            Color = "#006600"
         };
 
         var terminalB = new TerminalLibAm
         {
             Name = "Automation System 87",
-            Color = "#00CC66",
-            CompanyId = 1
+            Color = "#00CC66"
         };
 
         await terminalService.Create(terminalA);

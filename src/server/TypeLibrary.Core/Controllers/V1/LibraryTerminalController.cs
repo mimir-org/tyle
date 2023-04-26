@@ -15,6 +15,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Models;
+using Mimirorg.TypeLibrary.Constants;
 using TypeLibrary.Services.Contracts;
 
 // ReSharper disable StringLiteralTypo
@@ -137,27 +138,22 @@ public class LibraryTerminalController : ControllerBase
     /// Update a terminal object
     /// </summary>
     /// <param name="id">The id of the terminal object that should be updated</param>
-    /// <param name="terminalAm">The new values of the terminal</param>
+    /// <param name="terminal">The new values of the terminal</param>
     /// <returns>The updated terminal</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "terminalAm", "CompanyId")]
-    public async Task<IActionResult> Update(string id, [FromBody] TerminalLibAm terminalAm)
+    [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
+    public async Task<IActionResult> Update(string id, [FromBody] TerminalLibAm terminal)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var companyId = _terminalService.GetCompanyId(id);
-
-            if (companyId != terminalAm.CompanyId)
-                return StatusCode(StatusCodes.Status403Forbidden);
-
-            var data = await _terminalService.Update(id, terminalAm);
+            var data = await _terminalService.Update(id, terminal);
             return Ok(data);
         }
         catch (MimirorgBadRequestException e)
@@ -194,8 +190,7 @@ public class LibraryTerminalController : ControllerBase
     {
         try
         {
-            var companyId = _terminalService.GetCompanyId(id);
-            var hasAccess = await _authService.HasAccess(companyId, state);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
@@ -226,9 +221,8 @@ public class LibraryTerminalController : ControllerBase
     {
         try
         {
-            var companyId = _terminalService.GetCompanyId(id);
             var previousState = await _logService.GetPreviousState(id, nameof(TerminalLibDm));
-            var hasAccess = await _authService.HasAccess(companyId, previousState);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, previousState);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);

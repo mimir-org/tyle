@@ -8,13 +8,6 @@ namespace TypeLibrary.Data.Contracts;
 public interface ITerminalRepository
 {
     /// <summary>
-    /// Get the registered company on given id
-    /// </summary>
-    /// <param name="id">The terminal id</param>
-    /// <returns>The company id of given terminal</returns>
-    int HasCompany(string id);
-
-    /// <summary>
     /// Change the state of the terminal with the given id
     /// </summary>
     /// <param name="state">The state to change to</param>

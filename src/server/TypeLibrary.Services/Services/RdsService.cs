@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Mimirorg.Authentication.Contracts;
@@ -109,6 +107,10 @@ public class RdsService : IRdsService
         if (dm == null)
             throw new MimirorgNotFoundException($"RDS with id {id} not found.");
 
+        if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException(
+                $"State change on approved RDS with id {id} is not allowed.");
+
         await _rdsRepository.ChangeState(state, dm.Id);
         await _logService.CreateLog(dm, LogType.State, state.ToString());
         _hookService.HookQueue.Enqueue(CacheKey.Rds);
@@ -119,12 +121,6 @@ public class RdsService : IRdsService
             State = state
 
         };
-    }
-
-    /// <inheritdoc />
-    public int GetCompanyId(string id)
-    {
-        return _rdsRepository.HasCompany(id);
     }
 
     /// <inheritdoc />

@@ -193,10 +193,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("int")
-                        .HasColumnName("CompanyId");
-
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
                         .HasColumnName("Created");
@@ -426,10 +422,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("int")
-                        .HasColumnName("CompanyId");
-
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
                         .HasColumnName("Created");
@@ -490,10 +482,6 @@ namespace TypeLibrary.Core.Migrations
                     b.Property<string>("CategoryId")
                         .IsRequired()
                         .HasColumnType("nvarchar(63)");
-
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("int")
-                        .HasColumnName("CompanyId");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
@@ -635,10 +623,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(7)")
                         .HasColumnName("Color");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int")
-                        .HasColumnName("CompanyId");
-
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
                         .HasColumnName("Created");
@@ -689,10 +673,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
-
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("int")
-                        .HasColumnName("CompanyId");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")

@@ -219,6 +219,10 @@ public class AspectObjectService : IAspectObjectService
         if (dm == null)
             throw new MimirorgNotFoundException($"Aspect object with id {id} not found, or is not latest version.");
 
+        if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException(
+                $"State change on approved aspect object with id {id} is not allowed.");
+
         await _aspectObjectRepository.ChangeState(state, dm.Id);
         await _logService.CreateLog(dm, LogType.State, state.ToString());
         _hookService.HookQueue.Enqueue(CacheKey.AspectObject);

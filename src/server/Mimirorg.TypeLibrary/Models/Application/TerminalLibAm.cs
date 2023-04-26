@@ -24,16 +24,6 @@ public class TerminalLibAm
     public string TypeReference { get; set; }
 
     /// <summary>
-    /// The owner of the terminal type
-    /// </summary>
-    /// <remarks>
-    /// A company id change, will trigger a minor version increase
-    /// </remarks>
-    [Display(Name = "CompanyId")]
-    [Range(1, int.MaxValue, ErrorMessage = "{0} must be greater than 0")]
-    public int CompanyId { get; set; }
-
-    /// <summary>
     /// The color of the terminal
     /// </summary>
     /// <remarks>
