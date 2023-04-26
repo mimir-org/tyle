@@ -1,4 +1,4 @@
-namespace TypeLibrary.Services.Constants;
+namespace Mimirorg.TypeLibrary.Constants;
 
 public static class CompanyConstants
 {

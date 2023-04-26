@@ -16,7 +16,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Data.Models;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
-using TypeLibrary.Services.Constants;
+using Mimirorg.TypeLibrary.Constants;
 
 namespace TypeLibrary.Core.Controllers.V1;
 

@@ -6,7 +6,7 @@ using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Models.Client;
-using TypeLibrary.Services.Constants;
+using Mimirorg.TypeLibrary.Constants;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Records;

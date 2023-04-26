@@ -15,7 +15,7 @@ using Mimirorg.Common.Enums;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
 using Mimirorg.Common.Exceptions;
-using TypeLibrary.Services.Constants;
+using Mimirorg.TypeLibrary.Constants;
 
 namespace TypeLibrary.Core.Controllers.V1;
 
