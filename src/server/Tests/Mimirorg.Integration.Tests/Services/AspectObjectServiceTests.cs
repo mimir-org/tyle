@@ -102,7 +102,7 @@ public class AspectObjectServiceTests : IntegrationTest
         Assert.Equal(aspectObjectCm.GetType().Name.Remove(aspectObjectCm.GetType().Name.Length - 2, 2) + "Dm", logCm.ObjectType);
         Assert.Equal(LogType.State.ToString(), logCm.LogType.ToString());
         Assert.Equal(State.Draft.ToString(), logCm.LogTypeValue);
-        Assert.NotNull(logCm.User);
+        Assert.NotNull(logCm.CreatedBy);
         Assert.Equal("System.DateTime", logCm.Created.GetType().ToString());
         Assert.True(logCm.Created.Kind == DateTimeKind.Utc);
     }

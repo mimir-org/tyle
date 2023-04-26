@@ -50,7 +50,7 @@ public class TerminalServiceTests : IntegrationTest
         Assert.Equal(terminalCm.GetType().Name.Remove(terminalCm.GetType().Name.Length - 2, 2) + "Dm", logCm.ObjectType);
         Assert.Equal(LogType.State.ToString(), logCm.LogType.ToString());
         Assert.Equal(State.Draft.ToString(), logCm.LogTypeValue);
-        Assert.NotNull(logCm.User);
+        Assert.NotNull(logCm.CreatedBy);
         Assert.Equal("System.DateTime", logCm.Created.GetType().ToString());
         Assert.True(logCm.Created.Kind == DateTimeKind.Utc);
     }

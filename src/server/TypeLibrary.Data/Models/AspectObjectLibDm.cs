@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Mimirorg.Common.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models;
@@ -146,9 +146,9 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
 
     #region ILogable
 
-    public LogLibAm CreateLog(LogType logType, string logTypeValue, string comment)
+    public LogLibDm CreateLog(LogType logType, string logTypeValue, string createdBy)
     {
-        return new LogLibAm
+        return new LogLibDm
         {
             ObjectId = Id,
             ObjectFirstVersionId = FirstVersionId,
@@ -156,8 +156,7 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
             ObjectName = Name,
             ObjectVersion = Version,
             LogType = logType,
-            LogTypeValue = logTypeValue,
-            Comment = comment
+            LogTypeValue = logTypeValue
         };
     }
 

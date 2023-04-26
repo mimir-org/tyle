@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
@@ -12,6 +9,11 @@ using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
@@ -27,8 +29,9 @@ public class TerminalService : ITerminalService
     private readonly ILogService _logService;
     private readonly ILogger<TerminalService> _logger;
     private readonly IAttributeRepository _attributeRepository;
+    private readonly IHttpContextAccessor _contextAccessor;
 
-    public TerminalService(IEfTerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService, ILogService logService, ILogger<TerminalService> logger, IAttributeRepository attributeRepository)
+    public TerminalService(IEfTerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService, ILogService logService, ILogger<TerminalService> logger, IAttributeRepository attributeRepository, IHttpContextAccessor contextAccessor)
     {
         _terminalRepository = terminalRepository;
         _mapper = mapper;
@@ -36,6 +39,7 @@ public class TerminalService : ITerminalService
         _logService = logService;
         _logger = logger;
         _attributeRepository = attributeRepository;
+        _contextAccessor = contextAccessor;
     }
 
     /// <inheritdoc />
@@ -102,7 +106,7 @@ public class TerminalService : ITerminalService
 
         var createdTerminal = await _terminalRepository.Create(dm);
         _terminalRepository.ClearAllChangeTrackers();
-        await _logService.CreateLog(createdTerminal, LogType.State, State.Draft.ToString());
+        await _logService.CreateLog(createdTerminal, LogType.Create, createdTerminal.State.ToString(), createdTerminal.CreatedBy);
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
         return Get(createdTerminal.Id);
@@ -130,6 +134,8 @@ public class TerminalService : ITerminalService
 
         _terminalRepository.Update(terminalToUpdate);
         await _terminalRepository.SaveAsync();
+        var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
+        await _logService.CreateLog(terminalToUpdate, LogType.Update, terminalToUpdate.State.ToString(), updatedBy);
 
         _terminalRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
@@ -152,7 +158,13 @@ public class TerminalService : ITerminalService
             throw new MimirorgNotFoundException($"Terminal with id {id} not found, or is not latest version.");
 
         await _terminalRepository.ChangeState(state, dm.Id);
-        await _logService.CreateLog(dm, LogType.State, state.ToString());
+
+        await _logService.CreateLog(
+            dm,
+            LogType.State,
+            state.ToString(),
+            !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown);
+
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
         return state == State.Deleted ? null : Get(id);

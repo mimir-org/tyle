@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
@@ -11,6 +8,11 @@ using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
@@ -23,13 +25,15 @@ public class UnitService : IUnitService
     private readonly IEfUnitRepository _unitRepository;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
+    private readonly IHttpContextAccessor _contextAccessor;
 
-    public UnitService(IMapper mapper, IEfUnitRepository unitRepository, ITimedHookService hookService, ILogService logService)
+    public UnitService(IMapper mapper, IEfUnitRepository unitRepository, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor)
     {
         _mapper = mapper;
         _unitRepository = unitRepository;
         _hookService = hookService;
         _logService = logService;
+        _contextAccessor = contextAccessor;
     }
 
     /// <inheritdoc />
@@ -74,7 +78,7 @@ public class UnitService : IUnitService
 
         var createdUnit = await _unitRepository.Create(dm);
         _unitRepository.ClearAllChangeTrackers();
-        await _logService.CreateLog(createdUnit, LogType.State, State.Draft.ToString());
+        await _logService.CreateLog(createdUnit, LogType.Create, createdUnit.State.ToString(), createdUnit.CreatedBy);
         _hookService.HookQueue.Enqueue(CacheKey.Unit);
 
         return _mapper.Map<UnitLibCm>(createdUnit);
@@ -101,6 +105,8 @@ public class UnitService : IUnitService
 
         _unitRepository.Update(unitToUpdate);
         await _unitRepository.SaveAsync();
+        var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
+        await _logService.CreateLog(unitToUpdate, LogType.Update, unitToUpdate.State.ToString(), updatedBy);
 
         _unitRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.Unit);
@@ -117,7 +123,13 @@ public class UnitService : IUnitService
             throw new MimirorgNotFoundException($"Unit with id {id} not found, or is not latest version.");
 
         await _unitRepository.ChangeState(state, dm.Id);
-        await _logService.CreateLog(dm, LogType.State, state.ToString());
+
+        await _logService.CreateLog(
+            dm,
+            LogType.State,
+            state.ToString(),
+            !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown);
+
         _hookService.HookQueue.Enqueue(CacheKey.Unit);
 
         return new ApprovalDataCm

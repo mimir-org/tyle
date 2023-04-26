@@ -1,13 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Common;
 using TypeLibrary.Data.Models;
@@ -43,13 +42,12 @@ public class LogService : ILogService
     /// <param name="logObject"></param>
     /// <param name="logType"></param>
     /// <param name="logTypeValue"></param>
-    /// <param name="comment"></param>
+    /// <param name="createdBy"></param>
     /// <returns>Completed task</returns>
-    public async Task CreateLog(ILogable logObject, LogType logType, string logTypeValue, string comment = null)
+    public async Task CreateLog(ILogable logObject, LogType logType, string logTypeValue, string createdBy)
     {
-        var logAm = logObject.CreateLog(logType, logTypeValue, comment);
-
-        await _logRepository.Create(_mapper.Map<List<LogLibDm>>(new List<LogLibAm> { logAm }));
+        var logDm = logObject.CreateLog(logType, logTypeValue, createdBy);
+        await _logRepository.Create(new List<LogLibDm> { logDm });
     }
 
     /// <summary>
@@ -58,13 +56,12 @@ public class LogService : ILogService
     /// <param name="logObjects"></param>
     /// <param name="logType"></param>
     /// <param name="logTypeValue"></param>
-    /// <param name="comment"></param>
+    /// <param name="createdBy"></param>
     /// <returns>Completed task</returns>
-    public async Task CreateLogs(IEnumerable<ILogable> logObjects, LogType logType, string logTypeValue, string comment = null)
+    public async Task CreateLogs(IEnumerable<ILogable> logObjects, LogType logType, string logTypeValue, string createdBy)
     {
-        var logAms = logObjects.Select(x => x.CreateLog(logType, logTypeValue, comment)).ToList();
-
-        await _logRepository.Create(_mapper.Map<List<LogLibDm>>(logAms));
+        var logDms = logObjects.Select(x => x.CreateLog(logType, logTypeValue, createdBy)).ToList();
+        await _logRepository.Create(logDms);
     }
 
     /// <summary>

@@ -43,7 +43,7 @@ public static class TypeLibraryServiceCollectionExtensions
         cfg.AddProfile(new UnitProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
         cfg.AddProfile(new SelectedAttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>()));
         cfg.AddProfile(new AspectObjectTerminalProfile());
-        cfg.AddProfile(new LogProfile(provider.GetService<IHttpContextAccessor>()));
+        cfg.AddProfile(new LogProfile());
         cfg.AddProfile(new AttributeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>(), provider.GetService<ICompanyFactory>()));
         cfg.AddProfile(new AttributeUnitProfile());
 

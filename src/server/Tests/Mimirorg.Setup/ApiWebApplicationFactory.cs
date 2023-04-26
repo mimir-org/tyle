@@ -69,7 +69,7 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
                     Iri = "",
                     TypeReference = "",
                     Created = DateTime.UtcNow,
-                    CreatedBy = "",
+                    CreatedBy = null,
                     CompanyId = null,
                     State = State.Draft,
                     Description = ""
