@@ -64,9 +64,6 @@ public class AspectObjectService : IAspectObjectService
         if (dms == null)
             throw new MimirorgNotFoundException("No aspect objects were found.");
 
-        foreach (var dm in dms)
-            dm.Children = dms.Where(x => x.ParentId == dm.Id).ToList();
-
         return !dms.Any() ? new List<AspectObjectLibCm>() : _mapper.Map<List<AspectObjectLibCm>>(dms);
     }
 
@@ -202,7 +199,6 @@ public class AspectObjectService : IAspectObjectService
 
         var aspectObjectCm = await _aspectObjectRepository.Create(dm);
         _aspectObjectRepository.ClearAllChangeTrackers();
-        await _aspectObjectRepository.ChangeParentId(id, aspectObjectCm.Id);
         await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
         _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
 

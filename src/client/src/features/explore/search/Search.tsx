@@ -112,12 +112,6 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
                 setSelected={() => setSelected({ id: item.id, type: "terminal" })}
                 user={user}
               />
-              <ConditionalTerminalSearchItem
-                item={item}
-                isSelected={item.id === selected?.id && selected.type === "attribute"}
-                setSelected={() => setSelected({ id: item.id, type: "attribute" })}
-                user={user}
-              />
             </Fragment>
           ))}
         </ItemList>

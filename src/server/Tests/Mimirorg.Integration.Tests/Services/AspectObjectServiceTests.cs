@@ -55,7 +55,6 @@ public class AspectObjectServiceTests : IntegrationTest
             },
             Symbol = "symbol",
             TypeReference = "https://url.com/1234567890",
-            ParentId = "1234",
             Version = "1.0"
         };
 
@@ -90,7 +89,6 @@ public class AspectObjectServiceTests : IntegrationTest
         Assert.Equal(aspectObjectAm.TypeReference, aspectObjectCm.TypeReference);
 
         Assert.Equal(aspectObjectAm.Symbol, aspectObjectCm.Symbol);
-        Assert.Equal(aspectObjectAm.ParentId, aspectObjectCm.ParentId);
 
         var logCm = logService.Get().FirstOrDefault(x => x.ObjectId == aspectObjectCm.Id && x.ObjectType == "AspectObjectLibDm");
 
