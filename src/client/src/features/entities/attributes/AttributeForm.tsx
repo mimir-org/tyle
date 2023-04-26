@@ -8,20 +8,16 @@ import { usePrefilledForm } from "features/entities/common/utils/usePrefilledFor
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import {
-  createEmptyFormAttributeLib,
-  mapAttributeLibCmToFormAttributeLib,
-  mapFormAttributeLibToApiModel,
-} from "./types/formAttributeLib";
 import { useAttributeMutation, useAttributeQuery } from "./AttributeForm.helpers";
 import { AttributeFormContainer } from "./AttributeFormContainer.styled";
 import { AttributeFormBaseFields } from "./AttributeFormBaseFields";
+import { createEmptyAttribute, toAttributeLibAm } from "./types/formAttributeLib";
 
 interface AttributeFormProps {
   defaultValues?: AttributeLibAm;
 }
 
-export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }: AttributeFormProps) => {
+export const AttributeForm = ({ defaultValues = createEmptyAttribute() }: AttributeFormProps) => {
   const { t } = useTranslation("entities");
 
   const formMethods = useForm<AttributeLibAm>({
@@ -31,7 +27,7 @@ export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }:
   const { handleSubmit, control, setError, reset } = formMethods;
 
   const query = useAttributeQuery();
-  const mapper = (source: AttributeLibCm) => mapAttributeLibCmToFormAttributeLib(source);
+  const mapper = (source: AttributeLibCm) => toAttributeLibAm(source);
   const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useAttributeMutation(query.data?.id, true);
@@ -44,23 +40,18 @@ export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }:
   return (
     <FormProvider {...formMethods}>
       <AttributeFormContainer
-            onSubmit={handleSubmit((data) => {
-              console.log("this is the data from the form", data),
-              onSubmitForm(mapFormAttributeLibToApiModel(data), mutation.mutateAsync, toast)
-            }
-            )}
-          >
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          
-          
+        onSubmit={handleSubmit((data) => {
+          console.log("this is the data from the form", data), onSubmitForm(data, mutation.mutateAsync, toast);
+        })}
+      >
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <>
             <AttributeFormBaseFields />
             <DevTool control={control} placement={"bottom-right"} />
-          
-        </>
-      )}
+          </>
+        )}
       </AttributeFormContainer>
     </FormProvider>
   );
