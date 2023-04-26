@@ -12,7 +12,7 @@ using TypeLibrary.Data;
 namespace TypeLibrary.Core.Migrations
 {
     [DbContext(typeof(TypeLibraryDbContext))]
-    [Migration("20230413102311_Initial")]
+    [Migration("20230413125401_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -27,10 +27,12 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AspectObjectAttributeLibDm", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AspectObjectId")
                         .HasColumnType("nvarchar(63)");
@@ -335,10 +337,12 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("TypeLibrary.Data.Models.LogLibDm", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Comment")
                         .HasMaxLength(511)
@@ -525,10 +529,12 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("TypeLibrary.Data.Models.TerminalAttributeLibDm", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AttributeId")
                         .HasColumnType("nvarchar(63)");

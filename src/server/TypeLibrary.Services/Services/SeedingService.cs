@@ -1,9 +1,10 @@
+using Microsoft.Extensions.Logging;
+using Mimirorg.TypeLibrary.Models.Application;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
-using Mimirorg.TypeLibrary.Models.Application;
 using TypeLibrary.Services.Contracts;
 // ReSharper disable InconsistentNaming
 
@@ -18,13 +19,15 @@ public class SeedingService : ISeedingService
     private readonly ISymbolService _symbolService;
     private readonly IFileRepository _fileRepository;
     private readonly ILogger<SeedingService> _logger;
+    private readonly IRdsService _rdsService;
 
-    public SeedingService(IAttributeService attributeService, ISymbolService symbolService, IFileRepository fileRepository, ILogger<SeedingService> logger)
+    public SeedingService(IAttributeService attributeService, ISymbolService symbolService, IFileRepository fileRepository, ILogger<SeedingService> logger, IRdsService rdsService)
     {
         _attributeService = attributeService;
         _symbolService = symbolService;
         _fileRepository = fileRepository;
         _logger = logger;
+        _rdsService = rdsService;
     }
 
     public async Task LoadDataFromFiles()
@@ -42,7 +45,8 @@ public class SeedingService : ISeedingService
             var symbols = _fileRepository.ReadAllFiles<SymbolLibAm>(symbolFileNames).ToList();
 
             await _attributeService.CreatePredefined(attributesPredefined);
-            await _symbolService.Create(symbols, true);
+            await _symbolService.Create(symbols, CreatedBy.Seeding);
+            await _rdsService.Initialize();
         }
         catch (Exception e)
         {

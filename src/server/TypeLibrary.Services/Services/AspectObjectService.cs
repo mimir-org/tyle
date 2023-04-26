@@ -26,9 +26,8 @@ public class AspectObjectService : IAspectObjectService
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
     private readonly ILogger<AspectObjectService> _logger;
-    private readonly IApplicationSettingsRepository _settings;
 
-    public AspectObjectService(IMapper mapper, IAspectObjectRepository aspectObjectRepository, IAttributeRepository attributeRepository, ITimedHookService hookService, ILogService logService, ILogger<AspectObjectService> logger, IApplicationSettingsRepository settings)
+    public AspectObjectService(IMapper mapper, IAspectObjectRepository aspectObjectRepository, IAttributeRepository attributeRepository, ITimedHookService hookService, ILogService logService, ILogger<AspectObjectService> logger)
     {
         _mapper = mapper;
         _aspectObjectRepository = aspectObjectRepository;
@@ -36,7 +35,6 @@ public class AspectObjectService : IAspectObjectService
         _hookService = hookService;
         _logService = logService;
         _logger = logger;
-        _settings = settings;
     }
 
     /// <summary>
@@ -94,14 +92,11 @@ public class AspectObjectService : IAspectObjectService
         aspectObjectAm.Version = "1.0";
         var dm = _mapper.Map<AspectObjectLibDm>(aspectObjectAm);
 
-        dm.Id = Guid.NewGuid().ToString();
-        dm.Iri = $"{_settings.ApplicationSemanticUrl}/aspectobject/{dm.Id}";
         dm.FirstVersionId ??= dm.Id;
         dm.State = State.Draft;
 
         foreach (var aspectObjectTerminal in dm.AspectObjectTerminals)
         {
-            aspectObjectTerminal.Id = Guid.NewGuid().ToString();
             aspectObjectTerminal.AspectObjectId = dm.Id;
         }
 
@@ -117,7 +112,6 @@ public class AspectObjectService : IAspectObjectService
                 else
                     dm.AspectObjectAttributes.Add(new AspectObjectAttributeLibDm()
                     {
-                        Id = Guid.NewGuid().ToString(),
                         AspectObjectId = dm.Id,
                         AttributeId = attribute.Id
                     });
@@ -153,7 +147,7 @@ public class AspectObjectService : IAspectObjectService
         if (aspectObjectToUpdate == null)
         {
             validation = new Validation(new List<string> { nameof(AspectObjectLibAm.Name), nameof(AspectObjectLibAm.Version) },
-                $"Aspect object with name {aspectObjectAm.Name}, aspect {aspectObjectAm.Aspect}, Rds Code {aspectObjectAm.RdsCode}, id {id} and version {aspectObjectAm.Version} does not exist.");
+                $"Aspect object with name {aspectObjectAm.Name}, aspect {aspectObjectAm.Aspect}, Rds Id {aspectObjectAm.RdsId}, id {id} and version {aspectObjectAm.Version} does not exist.");
             throw new MimirorgBadRequestException("Aspect object does not exist or is flagged as deleted. Update is not possible.", validation);
         }
 
@@ -180,18 +174,15 @@ public class AspectObjectService : IAspectObjectService
 
         var dm = _mapper.Map<AspectObjectLibDm>(aspectObjectAm);
 
-        dm.Id = Guid.NewGuid().ToString();
-        dm.Iri = $"{_settings.ApplicationSemanticUrl}/aspectobject/{dm.Id}";
         dm.State = State.Draft;
         dm.FirstVersionId = aspectObjectToUpdate.FirstVersionId;
 
         foreach (var aspectObjectTerminal in dm.AspectObjectTerminals)
         {
-            aspectObjectTerminal.Id = Guid.NewGuid().ToString();
             aspectObjectTerminal.AspectObjectId = dm.Id;
         }
 
-        dm.Attributes = new List<AttributeLibDm>();
+        dm.AspectObjectAttributes = new List<AspectObjectAttributeLibDm>();
         if (aspectObjectAm.Attributes != null)
         {
             foreach (var attributeId in aspectObjectAm.Attributes)
@@ -201,7 +192,11 @@ public class AspectObjectService : IAspectObjectService
                     _logger.LogError(
                         $"Could not add attribute with id {attributeId} to aspect object with id {dm.Id}, attribute not found.");
                 else
-                    dm.Attributes.Add(attribute);
+                    dm.AspectObjectAttributes.Add(new AspectObjectAttributeLibDm()
+                    {
+                        AspectObjectId = dm.Id,
+                        AttributeId = attribute.Id
+                    });
             }
         }
 
@@ -234,7 +229,7 @@ public class AspectObjectService : IAspectObjectService
 
         return new ApprovalDataCm
         {
-            Id = id.ToString(),
+            Id = id,
             State = state
         };
     }

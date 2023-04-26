@@ -1,12 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using TypeLibrary.Core.Factories;
+using TypeLibrary.Core.Profiles.Resolvers;
+using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 
@@ -17,26 +19,26 @@ public class AspectObjectProfile : Profile
     public AspectObjectProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor, ICompanyFactory companyFactory)
     {
         CreateMap<AspectObjectLibAm, AspectObjectLibDm>()
-            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid().ToString()))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(dest => dest.Iri, opt => opt.Ignore())
+            .ForMember(dest => dest.Iri, opt => opt.MapFrom(new AspectObjectIriResolver(settings)))
             .ForMember(dest => dest.TypeReference, opt => opt.MapFrom(src => src.TypeReference))
             .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
             .ForMember(dest => dest.FirstVersionId, opt => opt.Ignore())
             .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow))
-            .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? "Unknown" : contextAccessor.GetUserId()))
+            .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? CreatedBy.Unknown : contextAccessor.GetUserId()))
             .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
             .ForMember(dest => dest.State, opt => opt.Ignore())
             .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
             .ForMember(dest => dest.PurposeName, opt => opt.MapFrom(src => src.PurposeName))
-            .ForMember(dest => dest.RdsCode, opt => opt.MapFrom(src => src.RdsCode))
-            .ForMember(dest => dest.RdsName, opt => opt.MapFrom(src => src.RdsName))
+            .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
+            .ForMember(dest => dest.Rds, opt => opt.Ignore())
             .ForMember(dest => dest.Symbol, opt => opt.MapFrom(src => src.Symbol))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.ParentId) ? null : src.ParentId))
             .ForMember(dest => dest.Parent, opt => opt.Ignore())
             .ForMember(dest => dest.Children, opt => opt.Ignore())
-            .ForMember(dest => dest.AspectObjectTerminals, opt => opt.MapFrom(src => CreateTerminals(src.AspectObjectTerminals).ToList()))
+            .ForMember(dest => dest.AspectObjectTerminals, opt => opt.MapFrom(src => CreateTerminals(src.AspectObjectTerminals)))
             .ForMember(dest => dest.Attributes, opt => opt.Ignore())
             .ForMember(dest => dest.AspectObjectAttributes, opt => opt.Ignore())
             .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
@@ -55,8 +57,9 @@ public class AspectObjectProfile : Profile
             .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
             .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
             .ForMember(dest => dest.PurposeName, opt => opt.MapFrom(src => src.PurposeName))
-            .ForMember(dest => dest.RdsCode, opt => opt.MapFrom(src => src.RdsCode))
-            .ForMember(dest => dest.RdsName, opt => opt.MapFrom(src => src.RdsName))
+            .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
+            .ForMember(dest => dest.RdsCode, opt => opt.MapFrom(src => src.Rds.RdsCode))
+            .ForMember(dest => dest.RdsName, opt => opt.MapFrom(src => src.Rds.Name))
             .ForMember(dest => dest.Symbol, opt => opt.MapFrom(src => src.Symbol))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.ParentId, opt => opt.MapFrom(src => src.ParentId))
@@ -80,7 +83,7 @@ public class AspectObjectProfile : Profile
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
     }
 
-    private static IEnumerable<AspectObjectTerminalLibDm> CreateTerminals(ICollection<AspectObjectTerminalLibAm> terminals)
+    private static IEnumerable<AspectObjectTerminalLibAm> CreateTerminals(ICollection<AspectObjectTerminalLibAm> terminals)
     {
         if (terminals == null || !terminals.Any())
             yield break;
@@ -105,13 +108,7 @@ public class AspectObjectProfile : Profile
 
         foreach (var item in sortedTerminalTypes)
         {
-            yield return new AspectObjectTerminalLibDm
-            {
-                TerminalId = item.TerminalId,
-                MinQuantity = item.MinQuantity,
-                MaxQuantity = item.MaxQuantity,
-                ConnectorDirection = item.ConnectorDirection
-            };
+            yield return item;
         }
     }
 }

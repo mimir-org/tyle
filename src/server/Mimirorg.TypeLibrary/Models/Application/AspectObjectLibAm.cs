@@ -62,22 +62,13 @@ public class AspectObjectLibAm
     public string PurposeName { get; set; }
 
     /// <summary>
-    /// The RDS code of the aspect object
+    /// The id of the RDS of the aspect object
     /// </summary>
     /// <remarks>
-    /// The RDS code is not allowed to change
+    /// The RDS is not allowed to change
     /// </remarks>
     [Required]
-    public string RdsCode { get; set; }
-
-    /// <summary>
-    /// The RDS name of the aspect object
-    /// </summary>
-    /// <remarks>
-    /// The RDS name is not allowed to change
-    /// </remarks>
-    [Required]
-    public string RdsName { get; set; }
+    public string RdsId { get; set; }
 
     /// <summary>
     /// The symbol of the aspect object type

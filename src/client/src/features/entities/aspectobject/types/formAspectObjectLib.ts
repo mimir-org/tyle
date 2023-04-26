@@ -54,8 +54,7 @@ export const createEmptyFormAspectObjectLib = (): FormAspectObjectLib => ({
 
 const emptyAspectObjectLibAm: AspectObjectLibAm = {
   name: "",
-  rdsName: "",
-  rdsCode: "",
+  rdsId: "",
   purposeName: "",
   aspect: Aspect.None,
   companyId: 0,

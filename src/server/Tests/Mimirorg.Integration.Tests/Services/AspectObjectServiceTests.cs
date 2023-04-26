@@ -27,8 +27,7 @@ public class AspectObjectServiceTests : IntegrationTest
         var aspectObjectAm = new AspectObjectLibAm
         {
             Name = "AspectObject2",
-            RdsName = "RdsName",
-            RdsCode = "RdsCode",
+            RdsId = "rds-id",
             PurposeName = "PurposeName",
             Description = "Description",
             Aspect = Aspect.NotSet,
@@ -65,8 +64,7 @@ public class AspectObjectServiceTests : IntegrationTest
         Assert.NotNull(aspectObjectCm);
         Assert.True(aspectObjectCm.State == State.Draft);
         Assert.Equal(aspectObjectAm.Name, aspectObjectCm.Name);
-        Assert.Equal(aspectObjectAm.RdsName, aspectObjectCm.RdsName);
-        Assert.Equal(aspectObjectAm.RdsCode, aspectObjectCm.RdsCode);
+        Assert.Equal(aspectObjectAm.RdsId, aspectObjectCm.RdsId);
         Assert.Equal(aspectObjectAm.PurposeName, aspectObjectCm.PurposeName);
         Assert.Equal(aspectObjectAm.Aspect, aspectObjectCm.Aspect);
         Assert.Equal(aspectObjectAm.Description, aspectObjectCm.Description);
@@ -115,8 +113,7 @@ public class AspectObjectServiceTests : IntegrationTest
         var aspectObjectAm = new AspectObjectLibAm
         {
             Name = "AspectObject4",
-            RdsName = "RdsName",
-            RdsCode = "RdsCode",
+            RdsId = "rds-id",
             PurposeName = "PurposeName",
             Description = "Description",
             Aspect = Aspect.NotSet,
@@ -144,8 +141,7 @@ public class AspectObjectServiceTests : IntegrationTest
         var aspectObjectAm = new AspectObjectLibAm
         {
             Name = "AspectObject6",
-            RdsName = "RdsName",
-            RdsCode = "RdsCode",
+            RdsId = "rds-id",
             PurposeName = "PurposeName",
             Description = "Description1",
             Aspect = Aspect.NotSet,

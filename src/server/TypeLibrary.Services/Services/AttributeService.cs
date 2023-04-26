@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
@@ -12,7 +7,13 @@ using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
@@ -21,22 +22,18 @@ namespace TypeLibrary.Services.Services;
 public class AttributeService : IAttributeService
 {
     private readonly IMapper _mapper;
-    private readonly ApplicationSettings _applicationSettings;
     private readonly IAttributePredefinedRepository _attributePredefinedRepository;
-    private readonly IAttributeRepository _attributeRepository;
+    private readonly IEfAttributeRepository _attributeRepository;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
-    private readonly IApplicationSettingsRepository _settings;
 
-    public AttributeService(IMapper mapper, IOptions<ApplicationSettings> applicationSettings, IAttributePredefinedRepository attributePredefinedRepository, IAttributeRepository attributeRepository, ITimedHookService hookService, ILogService logService, IApplicationSettingsRepository settings)
+    public AttributeService(IMapper mapper, IAttributePredefinedRepository attributePredefinedRepository, IEfAttributeRepository attributeRepository, ITimedHookService hookService, ILogService logService)
     {
         _mapper = mapper;
         _attributePredefinedRepository = attributePredefinedRepository;
         _attributeRepository = attributeRepository;
-        _applicationSettings = applicationSettings?.Value;
         _hookService = hookService;
         _logService = logService;
-        _settings = settings;
     }
 
     /// <summary>
@@ -45,7 +42,7 @@ public class AttributeService : IAttributeService
     /// <returns>List of attributes and their units></returns>
     public IEnumerable<AttributeLibCm> Get()
     {
-        var dataSet = _attributeRepository.Get().ToList();
+        var dataSet = _attributeRepository.Get().ExcludeDeleted().ToList();
 
         if (dataSet == null)
             throw new MimirorgNotFoundException("No attributes were found.");
@@ -67,25 +64,26 @@ public class AttributeService : IAttributeService
         return _mapper.Map<AttributeLibCm>(dm);
     }
 
-    /// <summary>
-    /// Create a new attribute
-    /// </summary>
-    /// <param name="attributeAm">The attribute that should be created</param>
-    /// <returns>The created attribute</returns>
-    public async Task<AttributeLibCm> Create(AttributeLibAm attributeAm)
+    /// <inheritdoc />
+    public async Task<AttributeLibCm> Create(AttributeLibAm attributeAm, string createdBy = null)
     {
         if (attributeAm == null)
             throw new ArgumentNullException(nameof(attributeAm));
 
         var dm = _mapper.Map<AttributeLibDm>(attributeAm);
 
-        dm.Id = Guid.NewGuid().ToString();
-        dm.Iri = $"{_settings.ApplicationSemanticUrl}/attribute/{dm.Id}";
-        dm.State = State.Draft;
+        if (!string.IsNullOrEmpty(createdBy))
+        {
+            dm.CreatedBy = createdBy;
+            dm.State = State.ApprovedGlobal;
+        }
+        else
+        {
+            dm.State = State.Draft;
+        }
 
         foreach (var attributeUnit in dm.AttributeUnits)
         {
-            attributeUnit.Id = Guid.NewGuid().ToString();
             attributeUnit.AttributeId = dm.Id;
         }
 
@@ -95,6 +93,34 @@ public class AttributeService : IAttributeService
         _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 
         return _mapper.Map<AttributeLibCm>(createdAttribute);
+    }
+
+    /// <inheritdoc />
+    public async Task<AttributeLibCm> Update(string id, AttributeLibAm attributeAm)
+    {
+        var validation = attributeAm.ValidateObject();
+
+        if (!validation.IsValid)
+            throw new MimirorgBadRequestException("Attribute is not valid.", validation);
+
+        var attributeToUpdate = _attributeRepository.Get(id);
+
+        if (attributeToUpdate == null)
+        {
+            validation = new Validation(new List<string> { nameof(AttributeLibAm.Name) },
+                $"Attribute with name {attributeAm.Name} and id {id} does not exist.");
+            throw new MimirorgBadRequestException("Attribute does not exist or is flagged as deleted. Update is not possible.", validation);
+        }
+
+        attributeToUpdate.Description = attributeAm.Description;
+
+        _attributeRepository.Update(attributeToUpdate);
+        await _attributeRepository.SaveAsync();
+
+        _attributeRepository.ClearAllChangeTrackers();
+        _hookService.HookQueue.Enqueue(CacheKey.Attribute);
+
+        return Get(attributeToUpdate.Id);
     }
 
     /// <inheritdoc />
@@ -154,7 +180,7 @@ public class AttributeService : IAttributeService
 
         foreach (var attribute in notExisting)
         {
-            attribute.CreatedBy = _applicationSettings.System;
+            attribute.CreatedBy = CreatedBy.Seeding;
             attribute.State = State.ApproveGlobal;
             await _attributePredefinedRepository.CreatePredefined(attribute);
         }

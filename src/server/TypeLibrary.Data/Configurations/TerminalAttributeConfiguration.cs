@@ -10,6 +10,6 @@ public class TerminalAttributeConfiguration : IEntityTypeConfiguration<TerminalA
     {
         builder.HasKey(x => x.Id);
         builder.ToTable("Terminal_Attribute");
-        builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(63);
+        builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
     }
 }

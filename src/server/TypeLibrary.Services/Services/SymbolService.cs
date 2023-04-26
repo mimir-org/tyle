@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.Extensions.Options;
 using Mimirorg.Common.Enums;
-using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
@@ -18,15 +16,11 @@ public class SymbolService : ISymbolService
 {
     private readonly IMapper _mapper;
     private readonly ISymbolRepository _symbolRepository;
-    private readonly ApplicationSettings _applicationSettings;
-    private readonly IApplicationSettingsRepository _settings;
 
-    public SymbolService(IMapper mapper, ISymbolRepository symbolRepository, IOptions<ApplicationSettings> applicationSettings, IApplicationSettingsRepository settings)
+    public SymbolService(IMapper mapper, ISymbolRepository symbolRepository)
     {
         _mapper = mapper;
         _symbolRepository = symbolRepository;
-        _applicationSettings = applicationSettings?.Value;
-        _settings = settings;
     }
 
     public IEnumerable<SymbolLibCm> Get()
@@ -37,7 +31,7 @@ public class SymbolService : ISymbolService
         return _mapper.Map<List<SymbolLibCm>>(symbolLibDms);
     }
 
-    public async Task Create(IEnumerable<SymbolLibAm> symbolLibAmList, bool createdBySystem = false)
+    public async Task Create(IEnumerable<SymbolLibAm> symbolLibAmList, string createdBy = null)
     {
         var dataList = _mapper.Map<List<SymbolLibDm>>(symbolLibAmList);
         var existing = _symbolRepository.Get().ToList();
@@ -48,12 +42,10 @@ public class SymbolService : ISymbolService
 
         foreach (var data in notExisting)
         {
-            data.Id = Guid.NewGuid().ToString();
-            data.Iri = $"{_settings.ApplicationSemanticUrl}/symbol/{data.Id}";
-            data.CreatedBy = createdBySystem ? _applicationSettings.System : data.CreatedBy;
+            data.CreatedBy = string.IsNullOrEmpty(createdBy) ? data.CreatedBy : createdBy;
         }
 
-        await _symbolRepository.Create(notExisting, createdBySystem ? State.ApprovedGlobal : State.Draft);
+        await _symbolRepository.Create(notExisting, string.IsNullOrEmpty(createdBy) ? State.Draft : State.ApprovedGlobal);
         _symbolRepository.ClearAllChangeTrackers();
     }
 }

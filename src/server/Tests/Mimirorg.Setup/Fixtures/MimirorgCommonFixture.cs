@@ -29,7 +29,6 @@ public class MimirorgCommonFixture : IDisposable
     // Services
     public Mock<ITimedHookService> TimedHookService = new();
     public Mock<ILogService> LogService = new();
-    public Mock<IApplicationSettingsRepository> ApplicationSettingsRepository = new();
 
     public MimirorgCommonFixture()
     {
@@ -47,8 +46,7 @@ public class MimirorgCommonFixture : IDisposable
         var aspectObjectLibAm = new AspectObjectLibAm
         {
             Name = "AA",
-            RdsName = "AA",
-            RdsCode = "AA",
+            RdsId = "AA",
             Aspect = Aspect.Function,
             AspectObjectTerminals = new List<AspectObjectTerminalLibAm>
             {
@@ -86,8 +84,7 @@ public class MimirorgCommonFixture : IDisposable
         {
             Id = "68313",
             Name = "AA",
-            RdsName = "AA",
-            RdsCode = "AA",
+            RdsId = "AA",
             Aspect = Aspect.Function,
             AspectObjectTerminals = new List<AspectObjectTerminalLibDm>
             {
