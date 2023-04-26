@@ -2,7 +2,7 @@ import { AttributeLibAm, AttributeLibCm } from "@mimirorg/typelibrary-types";
 
 export const mapFormAttributeLibToApiModel = (formAttribute: AttributeLibAm): AttributeLibAm => ({
   ...formAttribute,
-  attributeUnits: formAttribute.attributeUnits.map((x) => x),
+  attributeUnits: formAttribute.attributeUnits,
 });
 
 export const createEmptyFormAttributeLib = (): AttributeLibAm => ({
@@ -24,5 +24,5 @@ const emptyAttributeLib: AttributeLibAm = {
   name: "",
   typeReference: "",
   description: "",
-  companyId: 0,
+  companyId: 1,
 };

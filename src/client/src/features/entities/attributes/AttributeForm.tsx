@@ -34,7 +34,7 @@ export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }:
   const mapper = (source: AttributeLibCm) => mapAttributeLibCmToFormAttributeLib(source);
   const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
-  const mutation = useAttributeMutation(query.data?.id);
+  const mutation = useAttributeMutation(query.data?.id, true);
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
   console.log(mutation);
@@ -43,21 +43,25 @@ export const AttributeForm = ({ defaultValues = createEmptyFormAttributeLib() }:
 
   return (
     <FormProvider {...formMethods}>
+      <AttributeFormContainer
+            onSubmit={handleSubmit((data) => {
+              console.log("this is the data from the form", data),
+              onSubmitForm(mapFormAttributeLibToApiModel(data), mutation.mutateAsync, toast)
+            }
+            )}
+          >
       {isLoading ? (
         <Loader />
       ) : (
         <>
-          <AttributeFormBaseFields />
-          <AttributeFormContainer
-            onSubmit={handleSubmit((data) =>
-              // console.log("this is the data from the form", data),
-              onSubmitForm(mapFormAttributeLibToApiModel(data), mutation.mutateAsync, toast)
-            )}
-          >
+          
+          
+            <AttributeFormBaseFields />
             <DevTool control={control} placement={"bottom-right"} />
-          </AttributeFormContainer>
+          
         </>
       )}
+      </AttributeFormContainer>
     </FormProvider>
   );
 };

@@ -28,7 +28,7 @@ export const AttributeFormBaseFields = () => {
   const units = unitQuery.data || [];
 
   return (
-    <AttributeFormContainer>
+    <>
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
         <FormField label={t("attribute.name")} error={errors.name}>
           <Input placeholder={t("attribute.placeholders.name")} {...register("name")} disabled={false} />
@@ -52,7 +52,7 @@ export const AttributeFormBaseFields = () => {
                 getOptionLabel={(x) => x.name}
                 getOptionValue={(x) => x.id.toString()}
                 onChange={(x) => {
-                  onChange(x);
+                  onChange([{unitId: x?.id, isDefault: true}]);
                   setDefaultUnit(x);
                 }}
               />
@@ -70,6 +70,6 @@ export const AttributeFormBaseFields = () => {
         </Flexbox>
         <FormUnitSelector units={units.filter((unit) => unit.id === defaultUnit?.id)} />
       </Flexbox>
-    </AttributeFormContainer>
+    </>
   );
 };
