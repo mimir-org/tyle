@@ -150,7 +150,9 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
             ObjectName = Name,
             ObjectVersion = Version,
             LogType = logType,
-            LogTypeValue = logTypeValue
+            LogTypeValue = logTypeValue,
+            Created = DateTime.UtcNow,
+            CreatedBy = createdBy
         };
     }
 

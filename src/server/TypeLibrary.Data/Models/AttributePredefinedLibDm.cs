@@ -30,6 +30,7 @@ public class AttributePredefinedLibDm : IStatefulObject, ILogable
             ObjectVersion = null,
             LogType = logType,
             LogTypeValue = logTypeValue,
+            Created = DateTime.UtcNow,
             CreatedBy = createdBy
         };
     }

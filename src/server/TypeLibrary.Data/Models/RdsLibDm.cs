@@ -31,6 +31,7 @@ public class RdsLibDm : ILogable, IStatefulObject
             ObjectVersion = null,
             LogType = logType,
             LogTypeValue = logTypeValue,
+            Created = DateTime.UtcNow,
             CreatedBy = createdBy
         };
     }
