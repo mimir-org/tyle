@@ -3,7 +3,6 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Mimirorg.Authentication.Contracts;
@@ -15,7 +14,6 @@ using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Client;
-using Newtonsoft.Json.Linq;
 
 namespace Mimirorg.Authentication.Repositories;
 

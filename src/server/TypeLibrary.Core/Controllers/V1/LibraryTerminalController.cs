@@ -14,7 +14,6 @@ using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Client;
-using TypeLibrary.Core.Factories;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Constants;
 using TypeLibrary.Services.Contracts;
