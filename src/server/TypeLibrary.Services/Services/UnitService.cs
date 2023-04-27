@@ -101,6 +101,14 @@ public class UnitService : IUnitService
             throw new MimirorgBadRequestException("Unit does not exist or is flagged as deleted. Update is not possible.", validation);
         }
 
+        if (unitToUpdate.State != State.Approved)
+        {
+            unitToUpdate.Name = unitAm.Name;
+            unitToUpdate.TypeReference = unitAm.TypeReference;
+            unitToUpdate.Symbol = unitAm.Symbol;
+
+            unitToUpdate.State = State.Draft;
+        }
         unitToUpdate.Description = unitAm.Description;
 
         _unitRepository.Update(unitToUpdate);
