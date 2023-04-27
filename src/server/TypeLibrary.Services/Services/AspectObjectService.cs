@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
@@ -12,6 +8,10 @@ using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
@@ -117,10 +117,10 @@ public class AspectObjectService : IAspectObjectService
 
         var createdAspectObject = await _aspectObjectRepository.Create(dm);
         _aspectObjectRepository.ClearAllChangeTrackers();
-        await _logService.CreateLog(createdAspectObject, LogType.State, State.Draft.ToString());
+        await _logService.CreateLog(createdAspectObject, LogType.Create, createdAspectObject?.State.ToString(), createdAspectObject?.CreatedBy);
         _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
 
-        return Get(createdAspectObject.Id);
+        return Get(createdAspectObject?.Id);
     }
 
     /// <summary>
@@ -197,12 +197,12 @@ public class AspectObjectService : IAspectObjectService
             }
         }
 
-        var aspectObjectCm = await _aspectObjectRepository.Create(dm);
+        var createdAspectObject = await _aspectObjectRepository.Create(dm);
         _aspectObjectRepository.ClearAllChangeTrackers();
-        await _logService.CreateLog(dm, LogType.State, State.Draft.ToString());
+        await _logService.CreateLog(createdAspectObject, LogType.State, createdAspectObject?.State.ToString(), createdAspectObject?.CreatedBy);
         _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
 
-        return Get(aspectObjectCm.Id);
+        return Get(createdAspectObject?.Id);
     }
 
     /// <summary>
@@ -224,7 +224,7 @@ public class AspectObjectService : IAspectObjectService
                 $"State change on approved aspect object with id {id} is not allowed.");
 
         await _aspectObjectRepository.ChangeState(state, dm.Id);
-        await _logService.CreateLog(dm, LogType.State, state.ToString());
+        await _logService.CreateLog(dm, LogType.State, state.ToString(), dm.CreatedBy);
         _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
 
         return new ApprovalDataCm

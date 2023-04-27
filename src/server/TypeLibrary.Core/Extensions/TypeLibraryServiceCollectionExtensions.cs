@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Models;
+using System;
+using System.IO;
 using TypeLibrary.Core.Factories;
 using TypeLibrary.Core.Profiles;
 using TypeLibrary.Data;
@@ -43,8 +43,8 @@ public static class TypeLibraryServiceCollectionExtensions
         cfg.AddProfile(new UnitProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
         cfg.AddProfile(new SelectedAttributePredefinedProfile(provider.GetService<IApplicationSettingsRepository>()));
         cfg.AddProfile(new AspectObjectTerminalProfile());
-        cfg.AddProfile(new LogProfile(provider.GetService<IHttpContextAccessor>()));
         cfg.AddProfile(new AttributeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
+        cfg.AddProfile(new LogProfile());
         cfg.AddProfile(new AttributeUnitProfile());
 
         var mapperConfig = new MapperConfiguration(cfg);

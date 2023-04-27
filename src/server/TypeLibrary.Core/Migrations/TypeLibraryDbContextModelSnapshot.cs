@@ -342,15 +342,16 @@ namespace TypeLibrary.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Comment")
-                        .HasMaxLength(511)
-                        .HasColumnType("nvarchar(511)")
-                        .HasColumnName("Comment");
-
                     b.Property<DateTime>("Created")
                         .HasMaxLength(63)
                         .HasColumnType("datetime2")
                         .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("User");
 
                     b.Property<string>("LogType")
                         .IsRequired()
@@ -365,7 +366,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("LogTypeValue");
 
                     b.Property<string>("ObjectFirstVersionId")
-                        .IsRequired()
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("ObjectFirstVersionId");
@@ -389,16 +389,9 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("ObjectType");
 
                     b.Property<string>("ObjectVersion")
-                        .IsRequired()
                         .HasMaxLength(7)
                         .HasColumnType("nvarchar(7)")
                         .HasColumnName("ObjectVersion");
-
-                    b.Property<string>("User")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("User");
 
                     b.HasKey("Id");
 
