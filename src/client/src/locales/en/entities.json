@@ -150,7 +150,13 @@
   },
   "unit": {
     "title": "Unit",
-    "defaultUnitTitle": "Default unit"
+    "defaultUnitTitle": "Default unit",
+    "symbol": "Symbol",
+    "placeholders": {
+      "name": "Unit name",
+      "description": "Additional information about this unit can be supplied here.",
+      "symbol": "Unit symbol"
+    }
   },
   "terminal": {
     "title": "Terminal",

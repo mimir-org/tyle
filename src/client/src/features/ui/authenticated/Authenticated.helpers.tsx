@@ -7,6 +7,7 @@ import { ErrorMessage } from "features/ui/common/ErrorMessage";
 import { useTranslation } from "react-i18next";
 import { createBrowserRouter } from "react-router-dom";
 import { attributeFormRoutes } from "../../entities/attributes/AttributeFormRoutes";
+import { unitFormRoutes } from "../../entities/units/UnitFormRoutes";
 
 export const useAuthenticatedRouter = () => {
   const { t } = useTranslation("ui");
@@ -29,6 +30,7 @@ export const useAuthenticatedRouter = () => {
         ...aspectObjectFormRoutes,
         ...terminalFormRoutes,
         ...attributeFormRoutes,
+        ...unitFormRoutes,
         settingsRoutes,
         {
           path: "*",

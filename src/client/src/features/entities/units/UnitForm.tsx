@@ -1,5 +1,5 @@
 import { DevTool } from "@hookform/devtools";
-import { AttributeLibAm, AttributeLibCm, UnitLibCm } from "@mimirorg/typelibrary-types";
+import { UnitLibCm, UnitLibAm } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { Loader } from "features/common/loader";
@@ -9,17 +9,18 @@ import { useSubmissionToast } from "features/entities/common/utils/useSubmission
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { createEmptyUnit, toUnitLibAm } from "./types/formUnitLib";
-import { UnitLibAm } from "@mimirorg/typelibrary-types/index";
 import { useUnitMutation, useUnitQuery } from "./UnitForm.helpers";
+import UnitFormBaseFields from "./UnitFormBaseFields";
 
 interface UnitFormProps {
   defaultValues?: UnitLibAm;
 }
 
-export const AttributeForm = ({ defaultValues = createEmptyUnit() }: UnitFormProps) => {
+export const UnitForm = ({ defaultValues = createEmptyUnit() }: UnitFormProps) => {
   const { t } = useTranslation("entities");
 
-  const formMethods = useForm<AttributeLibAm>({
+  // TODO: Maybe use AM model here?
+  const formMethods = useForm<UnitLibCm>({
     defaultValues: defaultValues,
   });
 
@@ -33,7 +34,7 @@ export const AttributeForm = ({ defaultValues = createEmptyUnit() }: UnitFormPro
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
-  const toast = useSubmissionToast(t("attribute.title"));
+  const toast = useSubmissionToast(t("unit.title"));
 
   return (
     <FormProvider {...formMethods}>
