@@ -11,9 +11,9 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
@@ -139,6 +139,9 @@ public class TerminalService : ITerminalService
             terminalToUpdate.Color = terminalAm.Color;
             terminalToUpdate.Description = terminalAm.Description;
 
+            terminalToUpdate.Attributes ??= new List<AttributeLibDm>();
+            terminalToUpdate.TerminalAttributes ??= new List<TerminalAttributeLibDm>();
+
             var currentAttributes = terminalToUpdate.Attributes.ToHashSet();
             var newAttributes = new HashSet<AttributeLibDm>();
             if (terminalAm.Attributes != null)
@@ -161,8 +164,6 @@ public class TerminalService : ITerminalService
                 await _terminalAttributeRepository.Delete(terminalAttribute.Id);
             }
 
-            terminalToUpdate.TerminalAttributes ??= new List<TerminalAttributeLibDm>();
-
             foreach (var attribute in newAttributes.ExceptBy(currentAttributes.Select(x => x.Id), y => y.Id))
             {
                 terminalToUpdate.TerminalAttributes.Add(new TerminalAttributeLibDm
@@ -180,6 +181,7 @@ public class TerminalService : ITerminalService
             terminalToUpdate.Description = terminalAm.Description;
         }
 
+        await _terminalAttributeRepository.SaveAsync();
         await _terminalRepository.SaveAsync();
         var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
         await _logService.CreateLog(terminalToUpdate, LogType.Update, terminalToUpdate.State.ToString(), updatedBy);
