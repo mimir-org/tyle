@@ -122,15 +122,52 @@ public class TerminalService : ITerminalService
 
         var terminalToUpdate = _terminalRepository.Get(id);
 
-        if (terminalToUpdate == null)
+        if (terminalToUpdate == null || terminalToUpdate.State == State.Deleted)
         {
             validation = new Validation(new List<string> { nameof(TerminalLibAm.Name) },
-                $"Terminal with name {terminalAm.Name} and id {id} does not exist.");
+                $"Terminal with name {terminalAm.Name} and id {id} does not exist or is flagged as deleted.");
             throw new MimirorgBadRequestException("Terminal does not exist or is flagged as deleted. Update is not possible.", validation);
         }
 
-        terminalToUpdate.Color = terminalAm.Color;
-        terminalToUpdate.Description = terminalAm.Description;
+        if (terminalToUpdate.State != State.Approved)
+        {
+            terminalToUpdate.Name = terminalAm.Name;
+            terminalToUpdate.TypeReference = terminalAm.TypeReference;
+            terminalToUpdate.Color = terminalAm.Color;
+            terminalToUpdate.Description = terminalAm.Description;
+
+            var currentAttributes = terminalToUpdate.Attributes.ToHashSet();
+            var newAttributes = new HashSet<AttributeLibDm>();
+            if (terminalAm.Attributes != null)
+            {
+                foreach (var attributeId in terminalAm.Attributes)
+                {
+                    var attribute = _attributeRepository.Get(attributeId);
+                    if (attribute == null)
+                        _logger.LogError(
+                            $"Could not add attribute with id {attributeId} to terminal with id {id}, attribute not found.");
+                    else
+                        newAttributes.Add(attribute);
+                }
+            }
+
+            foreach (var attribute in currentAttributes.Except(newAttributes))
+            {
+                terminalToUpdate.Attributes.Remove(attribute);
+            }
+
+            foreach (var attribute in newAttributes.Except(currentAttributes))
+            {
+                terminalToUpdate.Attributes.Add(attribute);
+            }
+
+            terminalToUpdate.State = State.Draft;
+        }
+        else
+        {
+            terminalToUpdate.Color = terminalAm.Color;
+            terminalToUpdate.Description = terminalAm.Description;
+        }
 
         _terminalRepository.Update(terminalToUpdate);
         await _terminalRepository.SaveAsync();
