@@ -7,6 +7,5 @@ export const useUnitQuery = () => {
 };
 
 export const useUnitMutation = () => {
-  const createMutation = useCreateUnit();
-  return createMutation;
+  return useCreateUnit();
 };

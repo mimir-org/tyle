@@ -27,48 +27,46 @@ export const AttributeFormBaseFields = () => {
   const units = unitQuery.data || [];
 
   return (
-    <>
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
-        <FormField label={t("attribute.name")} error={errors.name}>
-          <Input placeholder={t("attribute.placeholders.name")} {...register("name")} disabled={false} />
-        </FormField>
+    <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
+      <FormField label={t("attribute.name")} error={errors.name}>
+        <Input placeholder={t("attribute.placeholders.name")} {...register("name")} disabled={false} />
+      </FormField>
 
-        <FormField label={t("attribute.description")} error={errors.description}>
-          <Textarea placeholder={t("attribute.placeholders.description")} {...register("description")} />
-        </FormField>
+      <FormField label={t("attribute.description")} error={errors.description}>
+        <Textarea placeholder={t("attribute.placeholders.description")} {...register("description")} />
+      </FormField>
 
-        <FormField label={t("unit.defaultUnitTitle")} error={errors.attributeUnits}>
-          <Controller
-            control={control}
-            name={"attributeUnits"}
-            render={({ field: { value: _, onChange, ref, ...rest } }) => (
-              <Select
-                {...rest}
-                placeholder={t("common.templates.select", { object: t("unit.defaultUnitTitle").toLowerCase() })}
-                options={units}
-                isLoading={unitQuery.isLoading}
-                selectRef={ref}
-                getOptionLabel={(x) => x.name}
-                getOptionValue={(x) => x.id.toString()}
-                onChange={(x) => {
-                  onChange([{ unitId: x?.id, isDefault: true }]);
-                  setDefaultUnit(x);
-                }}
-              />
-            )}
-          />
-        </FormField>
+      <FormField label={t("unit.defaultUnitTitle")} error={errors.attributeUnits}>
+        <Controller
+          control={control}
+          name={"attributeUnits"}
+          render={({ field: { value: _, onChange, ref, ...rest } }) => (
+            <Select
+              {...rest}
+              placeholder={t("common.templates.select", { object: t("unit.defaultUnitTitle").toLowerCase() })}
+              options={units}
+              isLoading={unitQuery.isLoading}
+              selectRef={ref}
+              getOptionLabel={(x) => x.name}
+              getOptionValue={(x) => x.id.toString()}
+              onChange={(x) => {
+                onChange([{ unitId: x?.id, isDefault: true }]);
+                setDefaultUnit(x);
+              }}
+            />
+          )}
+        />
+      </FormField>
 
-        <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
-          <PlainLink tabIndex={-1} to={"/"}>
-            <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>
-              {t("common.cancel")}
-            </Button>
-          </PlainLink>
-          <Button type={"submit"}>{t("common.submit")}</Button>
-        </Flexbox>
-        <FormUnitSelector units={units.filter((unit) => unit.id === defaultUnit?.id)} />
+      <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
+        <PlainLink tabIndex={-1} to={"/"}>
+          <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>
+            {t("common.cancel")}
+          </Button>
+        </PlainLink>
+        <Button type={"submit"}>{t("common.submit")}</Button>
       </Flexbox>
-    </>
+      <FormUnitSelector units={units.filter((unit) => unit.id === defaultUnit?.id)} />
+    </Flexbox>
   );
 };

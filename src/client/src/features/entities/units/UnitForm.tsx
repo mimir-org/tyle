@@ -19,8 +19,7 @@ interface UnitFormProps {
 export const UnitForm = ({ defaultValues = createEmptyUnit() }: UnitFormProps) => {
   const { t } = useTranslation("entities");
 
-  // TODO: Maybe use AM model here?
-  const formMethods = useForm<UnitLibCm>({
+  const formMethods = useForm<UnitLibAm>({
     defaultValues: defaultValues,
   });
 
@@ -38,7 +37,7 @@ export const UnitForm = ({ defaultValues = createEmptyUnit() }: UnitFormProps) =
 
   return (
     <FormProvider {...formMethods}>
-      <div
+      <form
         onSubmit={handleSubmit((data) => {
           onSubmitForm(data, mutation.mutateAsync, toast);
         })}
@@ -51,7 +50,7 @@ export const UnitForm = ({ defaultValues = createEmptyUnit() }: UnitFormProps) =
             <DevTool control={control} placement={"bottom-right"} />
           </>
         )}
-      </div>
+      </form>
     </FormProvider>
   );
 };
