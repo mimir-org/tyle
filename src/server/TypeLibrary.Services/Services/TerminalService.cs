@@ -11,6 +11,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using TypeLibrary.Data.Constants;
@@ -29,9 +30,10 @@ public class TerminalService : ITerminalService
     private readonly ILogService _logService;
     private readonly ILogger<TerminalService> _logger;
     private readonly IAttributeRepository _attributeRepository;
+    private readonly IEfTerminalAttributeRepository _terminalAttributeRepository;
     private readonly IHttpContextAccessor _contextAccessor;
 
-    public TerminalService(IEfTerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService, ILogService logService, ILogger<TerminalService> logger, IAttributeRepository attributeRepository, IHttpContextAccessor contextAccessor)
+    public TerminalService(IEfTerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService, ILogService logService, ILogger<TerminalService> logger, IAttributeRepository attributeRepository, IEfTerminalAttributeRepository terminalAttributeRepository, IHttpContextAccessor contextAccessor)
     {
         _terminalRepository = terminalRepository;
         _mapper = mapper;
@@ -39,6 +41,7 @@ public class TerminalService : ITerminalService
         _logService = logService;
         _logger = logger;
         _attributeRepository = attributeRepository;
+        _terminalAttributeRepository = terminalAttributeRepository;
         _contextAccessor = contextAccessor;
     }
 
@@ -120,7 +123,7 @@ public class TerminalService : ITerminalService
         if (!validation.IsValid)
             throw new MimirorgBadRequestException("Terminal is not valid.", validation);
 
-        var terminalToUpdate = _terminalRepository.Get(id);
+        var terminalToUpdate = _terminalRepository.FindBy(x => x.Id == id, false).Include(x => x.Attributes).FirstOrDefault();
 
         if (terminalToUpdate == null || terminalToUpdate.State == State.Deleted)
         {
@@ -151,14 +154,22 @@ public class TerminalService : ITerminalService
                 }
             }
 
-            foreach (var attribute in currentAttributes.Except(newAttributes))
+            foreach (var attribute in currentAttributes.ExceptBy(newAttributes.Select(x => x.Id), y => y.Id))
             {
-                terminalToUpdate.Attributes.Remove(attribute);
+                var terminalAttribute = _terminalAttributeRepository.FindBy(x => x.TerminalId == terminalToUpdate.Id && x.AttributeId == attribute.Id).FirstOrDefault();
+                if (terminalAttribute == null) continue;
+                await _terminalAttributeRepository.Delete(terminalAttribute.Id);
             }
 
-            foreach (var attribute in newAttributes.Except(currentAttributes))
+            terminalToUpdate.TerminalAttributes ??= new List<TerminalAttributeLibDm>();
+
+            foreach (var attribute in newAttributes.ExceptBy(currentAttributes.Select(x => x.Id), y => y.Id))
             {
-                terminalToUpdate.Attributes.Add(attribute);
+                terminalToUpdate.TerminalAttributes.Add(new TerminalAttributeLibDm
+                {
+                    TerminalId = terminalToUpdate.Id,
+                    AttributeId = attribute.Id
+                });
             }
 
             terminalToUpdate.State = State.Draft;
@@ -169,7 +180,6 @@ public class TerminalService : ITerminalService
             terminalToUpdate.Description = terminalAm.Description;
         }
 
-        _terminalRepository.Update(terminalToUpdate);
         await _terminalRepository.SaveAsync();
         var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
         await _logService.CreateLog(terminalToUpdate, LogType.Update, terminalToUpdate.State.ToString(), updatedBy);
