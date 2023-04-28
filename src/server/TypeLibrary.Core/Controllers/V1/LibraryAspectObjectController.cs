@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +10,10 @@ using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
-using TypeLibrary.Data.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1;
@@ -29,14 +28,12 @@ public class LibraryAspectObjectController : ControllerBase
     private readonly ILogger<LibraryAspectObjectController> _logger;
     private readonly IAspectObjectService _aspectObjectService;
     private readonly IMimirorgAuthService _authService;
-    private readonly ILogService _logService;
 
-    public LibraryAspectObjectController(ILogger<LibraryAspectObjectController> logger, IAspectObjectService aspectObjectService, IMimirorgAuthService authService, ILogService logService)
+    public LibraryAspectObjectController(ILogger<LibraryAspectObjectController> logger, IAspectObjectService aspectObjectService, IMimirorgAuthService authService)
     {
         _logger = logger;
         _aspectObjectService = aspectObjectService;
         _authService = authService;
-        _logService = logService;
     }
 
     /// <summary>
@@ -217,7 +214,7 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
-    /// Reject a state change request and revert the aspect object to its previous state
+    /// Reject a state change request by setting the state back to 'Draft'
     /// </summary>
     /// <param name="id">The id of the aspect object with the requested state change</param>
     /// <returns>An approval data object containing the id of the aspect object and the reverted state</returns>
@@ -232,14 +229,20 @@ public class LibraryAspectObjectController : ControllerBase
     {
         try
         {
-            var companyId = _aspectObjectService.GetCompanyId(id);
-            var previousState = await _logService.GetPreviousState(id, nameof(AspectObjectLibDm));
-            var hasAccess = await _authService.HasAccess(companyId, previousState);
+            var cm = _aspectObjectService.Get(id);
+
+            if (cm == null)
+                return StatusCode(StatusCodes.Status404NotFound);
+
+            if (cm.State is State.Draft or State.Deleted or State.Approved)
+                throw new MimirorgInvalidOperationException($"Can't reject a state change for an object with state {cm.State}");
+
+            var hasAccess = await _authService.HasAccess(_aspectObjectService.GetCompanyId(id), cm.State == State.Approve ? State.Approved : State.Delete);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _aspectObjectService.ChangeState(id, previousState);
+            var data = await _aspectObjectService.ChangeState(id, State.Draft);
             return Ok(data);
         }
         catch (Exception e)

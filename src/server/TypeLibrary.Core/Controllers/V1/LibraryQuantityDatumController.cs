@@ -1,21 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Mimirorg.TypeLibrary.Enums;
-using Swashbuckle.AspNetCore.Annotations;
-using Mimirorg.TypeLibrary.Models.Client;
-using TypeLibrary.Services.Contracts;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.Common.Enums;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Constants;
+using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
+using Swashbuckle.AspNetCore.Annotations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1;
 
@@ -29,14 +29,12 @@ public class LibraryQuantityDatumController : ControllerBase
     private readonly ILogger<LibraryQuantityDatumController> _logger;
     private readonly IQuantityDatumService _quantityDatumService;
     private readonly IMimirorgAuthService _authService;
-    private readonly ILogService _logService;
 
-    public LibraryQuantityDatumController(ILogger<LibraryQuantityDatumController> logger, IQuantityDatumService quantityDatumService, IMimirorgAuthService authService, ILogService logService)
+    public LibraryQuantityDatumController(ILogger<LibraryQuantityDatumController> logger, IQuantityDatumService quantityDatumService, IMimirorgAuthService authService)
     {
         _logger = logger;
         _quantityDatumService = quantityDatumService;
         _authService = authService;
-        _logService = logService;
     }
 
     /// <summary>
@@ -193,7 +191,7 @@ public class LibraryQuantityDatumController : ControllerBase
     }
 
     /// <summary>
-    /// Reject a state change request and revert the quantity datum to its previous state
+    /// Reject a state change request by setting the state back to 'Draft'
     /// </summary>
     /// <param name="id">The id of the quantity datum with the requested state change</param>
     /// <returns>An approval data object containing the id of the quantity datum and the reverted state</returns>
@@ -208,13 +206,20 @@ public class LibraryQuantityDatumController : ControllerBase
     {
         try
         {
-            var previousState = await _logService.GetPreviousState(id, nameof(QuantityDatumLibAm));
-            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, previousState);
+            var cm = _quantityDatumService.Get(id);
+
+            if (cm == null)
+                return StatusCode(StatusCodes.Status404NotFound);
+
+            if (cm.State is State.Draft or State.Deleted or State.Approved)
+                throw new MimirorgInvalidOperationException($"Can't reject a state change for an object with state {cm.State}");
+
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, cm.State == State.Approve ? State.Approved : State.Delete);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _quantityDatumService.ChangeState(id, previousState);
+            var data = await _quantityDatumService.ChangeState(id, State.Draft);
             return Ok(data);
         }
         catch (Exception e)
