@@ -29,17 +29,19 @@ public class TerminalService : ITerminalService
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
     private readonly ILogger<TerminalService> _logger;
+    private readonly IAttributeService _attributeService;
     private readonly IAttributeRepository _attributeRepository;
     private readonly IEfTerminalAttributeRepository _terminalAttributeRepository;
     private readonly IHttpContextAccessor _contextAccessor;
 
-    public TerminalService(IEfTerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService, ILogService logService, ILogger<TerminalService> logger, IAttributeRepository attributeRepository, IEfTerminalAttributeRepository terminalAttributeRepository, IHttpContextAccessor contextAccessor)
+    public TerminalService(IEfTerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService, ILogService logService, ILogger<TerminalService> logger, IAttributeService attributeService, IAttributeRepository attributeRepository, IEfTerminalAttributeRepository terminalAttributeRepository, IHttpContextAccessor contextAccessor)
     {
         _terminalRepository = terminalRepository;
         _mapper = mapper;
         _hookService = hookService;
         _logService = logService;
         _logger = logger;
+        _attributeService = attributeService;
         _attributeRepository = attributeRepository;
         _terminalAttributeRepository = terminalAttributeRepository;
         _contextAccessor = contextAccessor;
@@ -207,8 +209,22 @@ public class TerminalService : ITerminalService
             throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException(
-                $"State change on approved terminal with id {id} is not allowed.");
+            throw new MimirorgInvalidOperationException($"State change on approved terminal with id {id} is not allowed.");
+
+        if (state == State.Approve)
+        {
+            foreach (var attribute in dm.Attributes)
+            {
+                if (attribute.State == State.Approved) continue;
+                if (attribute.State == State.Deleted) throw new MimirorgBadRequestException("Cannot request approval for terminal that uses deleted attributes.");
+
+                await _attributeService.ChangeState(attribute.Id, State.Approve);
+            }
+        }
+        else if (state == State.Approved && dm.Attributes.Any(attribute => attribute.State != State.Approved))
+        {
+            throw new MimirorgBadRequestException("Cannot approve terminal that uses unapproved attributes.");
+        }
 
         await _terminalRepository.ChangeState(state, dm.Id);
 

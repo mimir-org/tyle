@@ -29,18 +29,24 @@ public class AspectObjectService : IAspectObjectService
     private readonly IAttributeRepository _attributeRepository;
     private readonly IEfAspectObjectTerminalRepository _aspectObjectTerminalRepository;
     private readonly IEfAspectObjectAttributeRepository _aspectObjectAttributeRepository;
+    private readonly IAttributeService _attributeService;
+    private readonly ITerminalService _terminalService;
+    private readonly IRdsService _rdsService;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
     private readonly ILogger<AspectObjectService> _logger;
     private readonly IHttpContextAccessor _contextAccessor;
 
-    public AspectObjectService(IMapper mapper, IEfAspectObjectRepository aspectObjectRepository, IAttributeRepository attributeRepository, IEfAspectObjectTerminalRepository aspectObjectTerminalRepository, IEfAspectObjectAttributeRepository aspectObjectAttributeRepository, ITimedHookService hookService, ILogService logService, ILogger<AspectObjectService> logger, IHttpContextAccessor contextAccessor)
+    public AspectObjectService(IMapper mapper, IEfAspectObjectRepository aspectObjectRepository, IAttributeRepository attributeRepository, IEfAspectObjectTerminalRepository aspectObjectTerminalRepository, IEfAspectObjectAttributeRepository aspectObjectAttributeRepository, ITerminalService terminalService, IAttributeService attributeService, IRdsService rdsService, ITimedHookService hookService, ILogService logService, ILogger<AspectObjectService> logger, IHttpContextAccessor contextAccessor)
     {
         _mapper = mapper;
         _aspectObjectRepository = aspectObjectRepository;
         _attributeRepository = attributeRepository;
         _aspectObjectTerminalRepository = aspectObjectTerminalRepository;
         _aspectObjectAttributeRepository = aspectObjectAttributeRepository;
+        _terminalService = terminalService;
+        _attributeService = attributeService;
+        _rdsService = rdsService;
         _hookService = hookService;
         _logService = logService;
         _logger = logger;
@@ -328,8 +334,44 @@ public class AspectObjectService : IAspectObjectService
             throw new MimirorgNotFoundException($"Aspect object with id {id} not found, or is not latest version.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException(
-                $"State change on approved aspect object with id {id} is not allowed.");
+            throw new MimirorgInvalidOperationException($"State change on approved aspect object with id {id} is not allowed.");
+
+        if (state == State.Approve)
+        {
+            if (dm.Rds.State != State.Approved)
+            {
+                if (dm.Rds.State == State.Deleted) throw new MimirorgBadRequestException("Cannot request approval for aspect object that uses deleted RDS.");
+
+                await _rdsService.ChangeState(dm.RdsId, State.Approve);
+            }
+
+            foreach (var attribute in dm.Attributes)
+            {
+                if (attribute.State == State.Approved) continue;
+                if (attribute.State == State.Deleted) throw new MimirorgBadRequestException("Cannot request approval for aspect object that uses deleted attributes.");
+
+                await _attributeService.ChangeState(attribute.Id, State.Approve);
+            }
+
+            foreach (var aspectObjectTerminal in dm.AspectObjectTerminals)
+            {
+                var terminal = _terminalService.Get(aspectObjectTerminal.TerminalId);
+
+                if (terminal.State == State.Approved) continue;
+                if (terminal.State == State.Deleted) throw new MimirorgBadRequestException("Cannot request approval for aspect object that uses deleted terminals.");
+
+                await _terminalService.ChangeState(terminal.Id, State.Approve);
+            }
+        }
+        else if (state == State.Approved)
+        {
+            if (dm.Rds.State != State.Approved)
+                throw new MimirorgBadRequestException("Cannot approve aspect object that uses unapproved RDS.");
+            if (dm.Attributes.Any(attribute => attribute.State != State.Approved))
+                throw new MimirorgBadRequestException("Cannot approve aspect object that uses unapproved attributes.");
+            if (dm.AspectObjectTerminals.Select(x => x.Terminal).Any(terminal => terminal.State != State.Approved))
+                throw new MimirorgBadRequestException("Cannot approve aspect object that uses unapproved terminals.");
+        }
 
         await _aspectObjectRepository.ChangeState(state, dm.Id);
         await _logService.CreateLog(dm, LogType.State, state.ToString(), dm.CreatedBy);

@@ -27,16 +27,18 @@ public class AttributeService : IAttributeService
     private readonly IAttributePredefinedRepository _attributePredefinedRepository;
     private readonly IEfAttributeRepository _attributeRepository;
     private readonly IEfAttributeUnitRepository _attributeUnitRepository;
+    private readonly IUnitService _unitService;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
     private readonly IHttpContextAccessor _contextAccessor;
 
-    public AttributeService(IMapper mapper, IAttributePredefinedRepository attributePredefinedRepository, IEfAttributeRepository attributeRepository, IEfAttributeUnitRepository attributeUnitRepository, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor)
+    public AttributeService(IMapper mapper, IAttributePredefinedRepository attributePredefinedRepository, IEfAttributeRepository attributeRepository, IEfAttributeUnitRepository attributeUnitRepository, IUnitService unitService, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor)
     {
         _mapper = mapper;
         _attributePredefinedRepository = attributePredefinedRepository;
         _attributeRepository = attributeRepository;
         _attributeUnitRepository = attributeUnitRepository;
+        _unitService = unitService;
         _hookService = hookService;
         _logService = logService;
         _contextAccessor = contextAccessor;
@@ -138,13 +140,8 @@ public class AttributeService : IAttributeService
 
             foreach (var attributeUnit in newAttributeUnits.ExceptBy(currentAttributeUnits.Select(x => x.UnitId + x.IsDefault), y => y.UnitId + y.IsDefault))
             {
-                attributeToUpdate.AttributeUnits.Add(new AttributeUnitLibDm
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    AttributeId = attributeToUpdate.Id,
-                    UnitId = attributeUnit.UnitId,
-                    IsDefault = attributeUnit.IsDefault
-                });
+                attributeUnit.AttributeId = attributeToUpdate.Id;
+                attributeToUpdate.AttributeUnits.Add(attributeUnit);
             }
 
             attributeToUpdate.State = State.Draft;
@@ -174,8 +171,24 @@ public class AttributeService : IAttributeService
             throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException(
-                $"State change on approved attribute with id {id} is not allowed.");
+            throw new MimirorgBadRequestException($"State change on approved attribute with id {id} is not allowed.");
+
+        if (state == State.Approve)
+        {
+            foreach (var attributeUnit in dm.AttributeUnits)
+            {
+                var unit = _unitService.Get(attributeUnit.UnitId);
+
+                if (unit.State == State.Approved) continue;
+                if (unit.State == State.Deleted) throw new MimirorgBadRequestException("Cannot request approval for attribute that uses deleted units.");
+
+                await _unitService.ChangeState(unit.Id, State.Approve);
+            }
+        }
+        else if (state == State.Approved && dm.AttributeUnits.Select(attributeUnit => _unitService.Get(attributeUnit.UnitId)).Any(unit => unit.State != State.Approved))
+        {
+            throw new MimirorgBadRequestException("Cannot approve attribute that uses unapproved units.");
+        }
 
         await _attributeRepository.ChangeState(state, new List<string> { dm.Id });
 
