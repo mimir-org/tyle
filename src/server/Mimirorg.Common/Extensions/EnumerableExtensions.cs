@@ -1,6 +1,6 @@
-using System.Globalization;
 using Mimirorg.Common.Contracts;
 using Mimirorg.Common.Enums;
+using System.Globalization;
 
 namespace Mimirorg.Common.Extensions;
 
@@ -26,14 +26,14 @@ public static class EnumerableExtensions
     {
         return collection
             .Where(x => x.State != State.Deleted)
-            .OrderByDescending(x => double.Parse(x.Version, CultureInfo.InvariantCulture))
+            .OrderByDescending(x => VersionToDouble(x.Version))
             .DistinctBy(x => x.FirstVersionId);
     }
 
     public static IEnumerable<T> LatestVersionsIncludeDeleted<T>(this IEnumerable<T> collection) where T : IVersionObject
     {
         return collection
-            .OrderByDescending(x => double.Parse(x.Version, CultureInfo.InvariantCulture))
+            .OrderByDescending(x => VersionToDouble(x.Version))
             .DistinctBy(x => x.FirstVersionId);
     }
 
@@ -41,7 +41,7 @@ public static class EnumerableExtensions
     {
         return collection
             .Where(x => x.FirstVersionId == firstVersionId && x.State != State.Deleted)
-            .OrderByDescending(x => double.Parse(x.Version, CultureInfo.InvariantCulture))
+            .OrderByDescending(x => VersionToDouble(x.Version))
             .FirstOrDefault();
     }
 
@@ -49,8 +49,13 @@ public static class EnumerableExtensions
     {
         return collection
             .Where(x => x.FirstVersionId == firstVersionId)
-            .OrderByDescending(x => double.Parse(x.Version, CultureInfo.InvariantCulture))
+            .OrderByDescending(x => VersionToDouble(x.Version))
             .FirstOrDefault();
     }
 
+    private static double VersionToDouble(string version)
+    {
+        var split = version.Split(".");
+        return double.Parse(split[1].Length == 1 ? $"{split[0]}.0{split[1]}" : $"{split[0]}.{split[1]}", CultureInfo.InvariantCulture);
+    }
 }
