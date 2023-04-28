@@ -1,22 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
-using Swashbuckle.AspNetCore.Annotations;
-using Mimirorg.TypeLibrary.Models.Client;
-using TypeLibrary.Services.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
-using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Models.Application;
-using TypeLibrary.Data.Models;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Constants;
+using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
+using Swashbuckle.AspNetCore.Annotations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1;
 
@@ -30,14 +29,12 @@ public class LibraryUnitController : ControllerBase
     private readonly ILogger<LibraryUnitController> _logger;
     private readonly IUnitService _unitService;
     private readonly IMimirorgAuthService _authService;
-    private readonly ILogService _logService;
 
-    public LibraryUnitController(ILogger<LibraryUnitController> logger, IUnitService unitService, IMimirorgAuthService authService, ILogService logService)
+    public LibraryUnitController(ILogger<LibraryUnitController> logger, IUnitService unitService, IMimirorgAuthService authService)
     {
         _logger = logger;
         _unitService = unitService;
         _authService = authService;
-        _logService = logService;
     }
 
     /// <summary>
@@ -194,7 +191,8 @@ public class LibraryUnitController : ControllerBase
     }
 
     /// <summary>
-    /// Reject a state change request and revert the unit to its previous state
+    /// Reject a state change request by setting the state back to 'Draft'
+    /// Need permission to set 'State.Approved' (MimirorgPermission.Approve) to be able to reject a state change.
     /// </summary>
     /// <param name="id">The id of the unit with the requested state change</param>
     /// <returns>An approval data object containing the id of the unit and the reverted state</returns>
@@ -209,13 +207,12 @@ public class LibraryUnitController : ControllerBase
     {
         try
         {
-            var previousState = await _logService.GetPreviousState(id, nameof(UnitLibDm));
-            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, previousState);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, State.Approved);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _unitService.ChangeState(id, previousState);
+            var data = await _unitService.ChangeState(id, State.Draft);
             return Ok(data);
         }
         catch (Exception e)
