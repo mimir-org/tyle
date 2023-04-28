@@ -338,6 +338,53 @@ public class AspectObjectService : IAspectObjectService
 
         if (state == State.Approve)
         {
+            var latestApprovedVersion =
+                _aspectObjectRepository.Get().LatestVersionApproved(dm.FirstVersionId);
+
+            if (latestApprovedVersion != null)
+            {
+                var am = new AspectObjectLibAm
+                {
+                    Name = dm.Name,
+                    TypeReference = dm.TypeReference,
+                    Version = dm.Version,
+                    CompanyId = dm.CompanyId,
+                    Aspect = dm.Aspect,
+                    PurposeName = dm.PurposeName,
+                    RdsId = dm.RdsId,
+                    Symbol = dm.Symbol,
+                    Description = dm.Description,
+                    AspectObjectTerminals = new List<AspectObjectTerminalLibAm>(),
+                    Attributes = dm.Attributes.Select(x => x.Id).ToList(),
+                    SelectedAttributePredefined = new List<SelectedAttributePredefinedLibAm>()
+                };
+                foreach (var aspectObjectTerminal in dm.AspectObjectTerminals)
+                {
+                    am.AspectObjectTerminals.Add(new AspectObjectTerminalLibAm
+                    {
+                        MinQuantity = aspectObjectTerminal.MinQuantity,
+                        MaxQuantity = aspectObjectTerminal.MaxQuantity,
+                        ConnectorDirection = aspectObjectTerminal.ConnectorDirection,
+                        TerminalId = aspectObjectTerminal.TerminalId
+                    });
+                }
+                foreach (var selectedAttributePredefined in dm.SelectedAttributePredefined)
+                {
+                    am.SelectedAttributePredefined.Add(new SelectedAttributePredefinedLibAm
+                    {
+                        Key = selectedAttributePredefined.Key,
+                        TypeReference = selectedAttributePredefined.TypeReference,
+                        IsMultiSelect = selectedAttributePredefined.IsMultiSelect,
+                        Values = selectedAttributePredefined.Values
+                    });
+                }
+
+                var versionStatus = latestApprovedVersion.CalculateVersionStatus(am);
+
+                if (versionStatus == VersionStatus.NoChange)
+                    throw new MimirorgBadRequestException("Cannot approve this aspect object since it is identical to the currently approved version.");
+            }
+
             if (dm.Rds.State != State.Approved)
             {
                 if (dm.Rds.State == State.Deleted) throw new MimirorgBadRequestException("Cannot request approval for aspect object that uses deleted RDS.");
