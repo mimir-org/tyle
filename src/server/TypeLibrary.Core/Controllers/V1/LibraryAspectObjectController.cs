@@ -215,7 +215,6 @@ public class LibraryAspectObjectController : ControllerBase
 
     /// <summary>
     /// Reject a state change request by setting the state back to 'Draft'
-    /// Need permission to set 'State.Approved' (MimirorgPermission.Approve) to be able to reject a state change.
     /// </summary>
     /// <param name="id">The id of the aspect object with the requested state change</param>
     /// <returns>An approval data object containing the id of the aspect object and the reverted state</returns>
@@ -230,8 +229,15 @@ public class LibraryAspectObjectController : ControllerBase
     {
         try
         {
-            var companyId = _aspectObjectService.GetCompanyId(id);
-            var hasAccess = await _authService.HasAccess(companyId, State.Approved);
+            var cm = _aspectObjectService.Get(id);
+
+            if (cm == null)
+                return StatusCode(StatusCodes.Status404NotFound);
+
+            if (cm.State is State.Draft or State.Deleted or State.Approved)
+                throw new MimirorgInvalidOperationException($"Can't reject a state change for an object with state {cm.State}");
+
+            var hasAccess = await _authService.HasAccess(_aspectObjectService.GetCompanyId(id), cm.State == State.Approve ? State.Approved : State.Delete);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);

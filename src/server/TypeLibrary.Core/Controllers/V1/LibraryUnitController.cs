@@ -192,7 +192,6 @@ public class LibraryUnitController : ControllerBase
 
     /// <summary>
     /// Reject a state change request by setting the state back to 'Draft'
-    /// Need permission to set 'State.Approved' (MimirorgPermission.Approve) to be able to reject a state change.
     /// </summary>
     /// <param name="id">The id of the unit with the requested state change</param>
     /// <returns>An approval data object containing the id of the unit and the reverted state</returns>
@@ -207,7 +206,15 @@ public class LibraryUnitController : ControllerBase
     {
         try
         {
-            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, State.Approved);
+            var cm = _unitService.Get(id);
+
+            if (cm == null)
+                return StatusCode(StatusCodes.Status404NotFound);
+
+            if (cm.State is State.Draft or State.Deleted or State.Approved)
+                throw new MimirorgInvalidOperationException($"Can't reject a state change for an object with state {cm.State}");
+
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, cm.State == State.Approve ? State.Approved : State.Delete);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
