@@ -126,24 +126,24 @@ public class AttributeService : IAttributeService
 
             attributeToUpdate.AttributeUnits ??= new List<AttributeUnitLibDm>();
 
-            var currentUnits = attributeToUpdate.AttributeUnits.ToHashSet();
-            var newUnits = _mapper.Map<HashSet<AttributeUnitLibDm>>(attributeAm.AttributeUnits.ToHashSet());
+            var currentAttributeUnits = attributeToUpdate.AttributeUnits.ToHashSet();
+            var newAttributeUnits = _mapper.Map<HashSet<AttributeUnitLibDm>>(attributeAm.AttributeUnits.ToHashSet());
 
-            foreach (var unit in currentUnits.ExceptBy(newUnits.Select(x => x.UnitId + x.IsDefault), y => y.UnitId + y.IsDefault))
+            foreach (var attributeUnit in currentAttributeUnits.ExceptBy(newAttributeUnits.Select(x => x.UnitId + x.IsDefault), y => y.UnitId + y.IsDefault))
             {
-                var attributeUnit = _attributeUnitRepository.FindBy(x => x.AttributeId == attributeToUpdate.Id && x.UnitId == unit.UnitId).FirstOrDefault();
-                if (attributeUnit == null) continue;
-                await _attributeUnitRepository.Delete(attributeUnit.Id);
+                var attributeUnitDm = _attributeUnitRepository.FindBy(x => x.AttributeId == attributeToUpdate.Id && x.UnitId == attributeUnit.UnitId).FirstOrDefault();
+                if (attributeUnitDm == null) continue;
+                await _attributeUnitRepository.Delete(attributeUnitDm.Id);
             }
 
-            foreach (var unit in newUnits.ExceptBy(currentUnits.Select(x => x.UnitId + x.IsDefault), y => y.UnitId + y.IsDefault))
+            foreach (var attributeUnit in newAttributeUnits.ExceptBy(currentAttributeUnits.Select(x => x.UnitId + x.IsDefault), y => y.UnitId + y.IsDefault))
             {
                 attributeToUpdate.AttributeUnits.Add(new AttributeUnitLibDm
                 {
                     Id = Guid.NewGuid().ToString(),
                     AttributeId = attributeToUpdate.Id,
-                    UnitId = unit.UnitId,
-                    IsDefault = unit.IsDefault
+                    UnitId = attributeUnit.UnitId,
+                    IsDefault = attributeUnit.IsDefault
                 });
             }
 
