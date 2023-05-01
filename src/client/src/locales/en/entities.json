@@ -153,6 +153,7 @@
     "name": "Name",
     "description": "Description",
     "defaultUnitTitle": "Default unit",
+    "multiple": "Units",
     "symbol": "Symbol",
     "placeholders": {
       "name": "Unit name",
