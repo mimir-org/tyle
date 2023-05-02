@@ -71,24 +71,26 @@ export const AttributeFormBaseFields = () => {
           }}
         />
       </FormField>
-
-      <FormField label={t("unit.defaultUnitTitle")} error={errors.attributeUnits}>
-        <Select
-          placeholder={t("common.templates.select", { object: t("unit.defaultUnitTitle").toLowerCase() })}
-          options={unitArray}
-          isLoading={unitQuery.isLoading}
-          getOptionLabel={(x) => x.name}
-          getOptionValue={(x) => x.unitId}
-          onChange={(x) => {
-            setUnitArray(
-              unitArray.map((unit) => {
-                unit.unitId === x?.unitId && setDefaultUnit(unit);
-                return { ...unit, isDefault: unit.unitId === x?.unitId };
-              })
-            );
-          }}
-        />
-      </FormField>
+      {unitArray.length > 0 && (
+        <FormField label={t("unit.defaultUnitTitle")} error={errors.attributeUnits}>
+          <Select
+            placeholder={t("common.templates.select", { object: t("unit.defaultUnitTitle").toLowerCase() })}
+            options={unitArray}
+            isLoading={unitQuery.isLoading}
+            getOptionLabel={(x) => x.name}
+            getOptionValue={(x) => x.unitId}
+            defaultValue={unitArray[0]}
+            onChange={(x) => {
+              setUnitArray(
+                unitArray.map((unit) => {
+                  unit.unitId === x?.unitId && setDefaultUnit(unit);
+                  return { ...unit, isDefault: unit.unitId === x?.unitId };
+                })
+              );
+            }}
+          />
+        </FormField>
+      )}
 
       <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
         <PlainLink tabIndex={-1} to={"/"}>
