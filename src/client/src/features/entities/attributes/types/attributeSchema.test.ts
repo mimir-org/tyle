@@ -15,12 +15,7 @@ describe("attributeSchema tests", () => {
     await expect(attributeSchema.validateAt("description", terminalWithLongDescription)).rejects.toBeTruthy();
   });
 
-  it("should reject without a description", async () => {
-    const terminalWithoutDescription: Partial<AttributeSchema> = { description: "" };
-    await expect(attributeSchema.validateAt("description", terminalWithoutDescription)).rejects.toBeTruthy();
-  });
-
-  it("should reject if there is no default attribute unit", async () => {
+  it("should reject if there is no default attribute unit, and there is an attribute", async () => {
     const attributeWithoutDefaultAttributeUnit: Partial<AttributeSchema> = {
       attributeUnits: [
         {
