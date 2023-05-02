@@ -1,9 +1,6 @@
 using AutoMapper;
-using Mimirorg.Common.Enums;
-using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Client;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -62,32 +59,5 @@ public class LogService : ILogService
     {
         var logDms = logObjects.Select(x => x.CreateLog(logType, logTypeValue, createdBy)).ToList();
         await _logRepository.Create(logDms);
-    }
-
-    /// <summary>
-    /// Find last log - state - from object id
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="objectType"></param>
-    /// <returns>Return the state from last log-entry</returns>
-    /// <exception cref="MimirorgNotFoundException"></exception>
-    public Task<State> GetPreviousState(string id, string objectType)
-    {
-        var logEntry = _logRepository.Get()
-            .Where(x =>
-                x.ObjectId == id &&
-                x.LogType == LogType.State &&
-                x.ObjectType == objectType &&
-                x.LogTypeValue != State.Delete.ToString() &&
-                x.LogTypeValue != State.Approve.ToString())
-            .MaxBy(x => x.Id);
-
-        if (logEntry == null)
-            throw new MimirorgNotFoundException($"Can't find any log entry with id: {id}");
-
-        if (!Enum.TryParse(logEntry.LogTypeValue, false, out State state))
-            throw new MimirorgNotFoundException($"Can't convert log-entry to state for type with id: {id}");
-
-        return Task.FromResult(state);
     }
 }

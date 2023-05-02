@@ -1,14 +1,12 @@
-using System;
-using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Mimirorg.Common.Exceptions;
-using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
+using System.Linq;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1;
@@ -28,16 +26,14 @@ public class SemanticController : ControllerBase
     private readonly IAspectObjectService _aspectObjectService;
     private readonly ITerminalService _terminalService;
     private readonly IUnitService _unitService;
-    private readonly MimirorgAuthSettings _authSettings;
 
-    public SemanticController(ILogger<SemanticController> logger, IAttributeService attributeService, IAspectObjectService aspectObjectService, ITerminalService terminalService, IUnitService unitService, IOptions<MimirorgAuthSettings> authSettings)
+    public SemanticController(ILogger<SemanticController> logger, IAttributeService attributeService, IAspectObjectService aspectObjectService, ITerminalService terminalService, IUnitService unitService)
     {
         _logger = logger;
         _attributeService = attributeService;
         _aspectObjectService = aspectObjectService;
         _terminalService = terminalService;
         _unitService = unitService;
-        _authSettings = authSettings?.Value;
     }
 
     /// <summary>

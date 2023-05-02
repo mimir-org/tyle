@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,12 +6,15 @@ using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
-using Swashbuckle.AspNetCore.Annotations;
 using Mimirorg.TypeLibrary.Models.Client;
-using TypeLibrary.Data.Models;
-using Mimirorg.TypeLibrary.Constants;
+using Swashbuckle.AspNetCore.Annotations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using TypeLibrary.Services.Contracts;
 
 // ReSharper disable StringLiteralTypo
@@ -32,14 +31,12 @@ public class LibraryTerminalController : ControllerBase
     private readonly ILogger<LibraryTerminalController> _logger;
     private readonly ITerminalService _terminalService;
     private readonly IMimirorgAuthService _authService;
-    private readonly ILogService _logService;
 
-    public LibraryTerminalController(ILogger<LibraryTerminalController> logger, ITerminalService terminalService, IMimirorgAuthService authService, ILogService logService)
+    public LibraryTerminalController(ILogger<LibraryTerminalController> logger, ITerminalService terminalService, IMimirorgAuthService authService)
     {
         _logger = logger;
         _terminalService = terminalService;
         _authService = authService;
-        _logService = logService;
     }
 
     /// <summary>
@@ -206,7 +203,7 @@ public class LibraryTerminalController : ControllerBase
     }
 
     /// <summary>
-    /// Reject a state change request and revert the terminal to its previous state
+    /// Reject a state change request by setting the state back to 'Draft'
     /// </summary>
     /// <param name="id">The id of the terminal with the requested state change</param>
     /// <returns>An approval data object containing the id of the terminal and the reverted state</returns>
@@ -221,13 +218,20 @@ public class LibraryTerminalController : ControllerBase
     {
         try
         {
-            var previousState = await _logService.GetPreviousState(id, nameof(TerminalLibDm));
-            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, previousState);
+            var cm = _terminalService.Get(id);
+
+            if (cm == null)
+                return StatusCode(StatusCodes.Status404NotFound);
+
+            if (cm.State is State.Draft or State.Deleted or State.Approved)
+                throw new MimirorgInvalidOperationException($"Can't reject a state change for an object with state {cm.State}");
+
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, cm.State == State.Approve ? State.Approved : State.Delete);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _terminalService.ChangeState(id, previousState);
+            var data = await _terminalService.ChangeState(id, State.Draft);
             return Ok(data);
         }
         catch (Exception e)
