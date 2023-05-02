@@ -27,7 +27,7 @@ public class RdsProfile : Profile
                     string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? CreatedBy.Unknown : contextAccessor.GetUserId()))
             .ForMember(dest => dest.State, opt => opt.Ignore())
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-            .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.CategoryId))
+            .ForMember(dest => dest.CategoryId, opt => opt.Ignore())
             .ForMember(dest => dest.Category, opt => opt.Ignore());
 
         CreateMap<RdsLibDm, RdsLibCm>()

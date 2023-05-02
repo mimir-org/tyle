@@ -23,14 +23,16 @@ public class RdsService : IRdsService
 {
     private readonly IMapper _mapper;
     private readonly IEfRdsRepository _rdsRepository;
+    private readonly IEfCategoryRepository _categoryRepository;
     private readonly ILogService _logService;
     private readonly ITimedHookService _hookService;
     private readonly IHttpContextAccessor _contextAccessor;
 
-    public RdsService(IMapper mapper, IEfRdsRepository rdsRepository, ILogService logService, ITimedHookService hookService, IHttpContextAccessor contextAccessor)
+    public RdsService(IMapper mapper, IEfRdsRepository rdsRepository, IEfCategoryRepository categoryRepository, ILogService logService, ITimedHookService hookService, IHttpContextAccessor contextAccessor)
     {
         _mapper = mapper;
         _rdsRepository = rdsRepository;
+        _categoryRepository = categoryRepository;
         _logService = logService;
         _hookService = hookService;
         _contextAccessor = contextAccessor;
@@ -66,6 +68,7 @@ public class RdsService : IRdsService
         var dm = _mapper.Map<RdsLibDm>(rdsAm);
 
         dm.State = State.Draft;
+        dm.CategoryId = _categoryRepository.GetAll().FirstOrDefault()?.Id;
 
         var createdRds = await _rdsRepository.Create(dm);
         _rdsRepository.ClearAllChangeTrackers();
