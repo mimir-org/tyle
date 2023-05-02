@@ -14,4 +14,19 @@ describe("attributeSchema tests", () => {
     const terminalWithLongDescription: Partial<AttributeSchema> = { description: "c".repeat(501) };
     await expect(attributeSchema.validateAt("description", terminalWithLongDescription)).rejects.toBeTruthy();
   });
+
+  it("should reject if there is no default attribute unit, and there is an unit", async () => {
+    const attributeWithoutDefaultAttributeUnit: Partial<AttributeSchema> = {
+      attributeUnits: [
+        {
+          unitId: "1",
+          isDefault: false,
+          description: "description",
+        },
+      ],
+    };
+    await expect(
+      attributeSchema.validateAt("attributeUnits", attributeWithoutDefaultAttributeUnit)
+    ).rejects.toBeTruthy();
+  });
 });

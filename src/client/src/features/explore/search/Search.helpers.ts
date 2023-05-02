@@ -3,6 +3,7 @@ import { aspectObjectFormBasePath } from "features/entities/aspectobject/AspectO
 import { terminalFormBasePath } from "features/entities/terminal/TerminalFormRoutes";
 import { useTranslation } from "react-i18next";
 import { attributeFormBasePath } from "../../entities/attributes/AttributeFormRoutes";
+import { unitFormBasePath } from "../../entities/units/UnitFormRoutes";
 
 export const useCreateMenuLinks = (): Link[] => {
   const { t } = useTranslation("explore");
@@ -19,6 +20,10 @@ export const useCreateMenuLinks = (): Link[] => {
     {
       name: t("search.create.attribute"),
       path: attributeFormBasePath,
+    },
+    {
+      name: t("search.create.unit"),
+      path: unitFormBasePath,
     },
   ];
 };
