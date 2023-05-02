@@ -256,7 +256,7 @@ public class AspectObjectService : IAspectObjectService
             aspectObjectToUpdate.AspectObjectAttributes ??= new List<AspectObjectAttributeLibDm>();
 
             tempDm.AspectObjectTerminals ??= new List<AspectObjectTerminalLibDm>();
-            
+
             var currentAspectObjectTerminals = aspectObjectToUpdate.AspectObjectTerminals.ToHashSet();
             var newAspectObjectTerminals = tempDm.AspectObjectTerminals.ToHashSet();
             foreach (var aspectObjectTerminal in currentAspectObjectTerminals.ExceptBy(
@@ -312,7 +312,7 @@ public class AspectObjectService : IAspectObjectService
             aspectObjectToReturn = Get(aspectObjectToUpdate.Id);
         }
 
-        
+
         _aspectObjectRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
 
