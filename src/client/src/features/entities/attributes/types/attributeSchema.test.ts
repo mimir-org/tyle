@@ -15,7 +15,7 @@ describe("attributeSchema tests", () => {
     await expect(attributeSchema.validateAt("description", terminalWithLongDescription)).rejects.toBeTruthy();
   });
 
-  it("should reject if there is no default attribute unit, and there is an attribute", async () => {
+  it("should reject if there is no default attribute unit, and there is an unit", async () => {
     const attributeWithoutDefaultAttributeUnit: Partial<AttributeSchema> = {
       attributeUnits: [
         {
