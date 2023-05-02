@@ -1,22 +1,21 @@
 using System.ComponentModel.DataAnnotations;
 using Mimirorg.TypeLibrary.Enums;
 
-namespace Mimirorg.TypeLibrary.Models.Application
+namespace Mimirorg.TypeLibrary.Models.Application;
+
+public class AttributePredefinedLibAm
 {
-    public class AttributePredefinedLibAm
-    {
-        [Required]
-        public string Key { get; set; }
+    [Required]
+    public string Key { get; set; }
 
-        [Required]
-        public bool IsMultiSelect { get; set; }
+    public string TypeReference { get; set; }
 
-        [Required]
-        public ICollection<string> ValueStringList { get; set; }
+    [Required]
+    public Aspect Aspect { get; set; }
 
-        [Required]
-        public Aspect Aspect { get; set; }
+    [Required]
+    public bool IsMultiSelect { get; set; }
 
-        public ICollection<TypeReferenceAm> TypeReferences { get; set; }
-    }
+    [Required]
+    public ICollection<string> ValueStringList { get; set; }
 }

@@ -27,6 +27,77 @@
       "emptyApproval": "There is no types ready for approval or deletion"
     }
   },
+  "usersettings": {
+    "title": "User settings",
+    "validation": {
+      "firstName": {
+        "required": "Please enter a first name"
+      },
+      "lastName": {
+        "required": "Please enter a last name"
+      }
+    },
+    "updating": {
+      "loading": "Updating user settings",
+      "success": "Your user settings have been updated",
+      "error": "An error occured while updating your user settings"
+    },
+    "labels": {
+      "firstName": "First name",
+      "lastName": "Last name"
+    },
+    "placeholders": {
+      "firstName": "Enter first name",
+      "lastName": "Enter last name"
+    },
+    "submit": "Update user settings"
+  },
+  "createCompany": {
+    "title": "Create new company",
+    "company": "company",
+    "creating": {
+      "loading": "Creating new company",
+      "success": "The new company has been created successfully",
+      "error": "An error occured while trying to create the new company"
+    },
+    "validation": {
+      "name": {
+        "required": "Please enter a company name"
+      },
+      "displayName": {
+        "required": "Please enter a company display name"
+      },
+      "domain": {
+        "required": "Please enter a company domain name"
+      },
+      "logo": {
+        "required": "Please upload a logo in SVG format"
+      }
+    },
+    "labels": {
+      "name": "Name",
+      "displayName": "Display name",
+      "description": "Description",
+      "secret": "Secret (must be kept for later use)",
+      "domain": "Domain name",
+      "logo": "Logo (SVG)",
+      "homePage": "Home page"
+    },
+    "placeholders": {
+      "name": "Name",
+      "displayName": "Display name",
+      "description": "Description",
+      "domain": "Domain name",
+      "homePage": "Home page"
+    },
+    "submit": "Create new company",
+    "toasts": {
+      "userdataError": "Could not fetch user data, please try again",
+      "companyNameError": "A company with that name already exists",
+      "companyDomainError": "A company with that domain name already exists",
+      "copySecret": "Secret copied to clipboard"
+    }
+  },
   "common": {
     "templates": {
       "select": "Select {{object}}"

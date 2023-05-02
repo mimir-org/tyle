@@ -3,7 +3,7 @@ import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFil
 import { UserItem } from "common/types/userItem";
 import { getOptionsFromEnum, Option } from "common/utils/getOptionsFromEnum";
 import { mapMimirorgUserCmToUserItem } from "common/utils/mappers/mapMimirorgUserCmToUserItem";
-import { useGetCompanyUsers } from "external/sources/company/company.queries";
+import { useGetAuthCompanyUsers } from "external/sources/company/company.queries";
 import { MimirorgPermissionExtended, UserItemPermission } from "features/settings/permission/types/userItemPermission";
 import { useEffect } from "react";
 
@@ -39,11 +39,11 @@ export const getPermissionOptions = (): Option<string>[] => {
 };
 
 export const useFilteredUsers = (companyId: string, permission: UserItemPermission): UserItem[] => {
-  const userQuery = useGetCompanyUsers(companyId);
+  const userQuery = useGetAuthCompanyUsers(companyId);
   const users = userQuery.data?.map((x) => mapMimirorgUserCmToUserItem(x)) ?? [];
 
   if (permission == MimirorgPermissionExtended.All) {
-    return users;
+    return users.filter((user) => user.permissions[companyId]);
   }
 
   return users.filter((user) => user.permissions[companyId]?.value == permission);

@@ -1,6 +1,5 @@
-import { AttributeLibAm, AttributeLibCm } from "@mimirorg/typelibrary-types";
+import { AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { Trash } from "@styled-icons/heroicons-outline";
-import { UpdateEntity } from "common/types/updateEntity";
 import { Flexbox } from "complib/layouts";
 import { useGetAttributes } from "external/sources/attribute/attribute.queries";
 import { InfoItemButton } from "features/common/info-item";
@@ -16,8 +15,8 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 
 export interface FormAttributesProps {
-  fields: ValueObject<UpdateEntity<AttributeLibAm>>[];
-  append: (item: ValueObject<UpdateEntity<AttributeLibAm>>) => void;
+  fields: ValueObject<string>[];
+  append: (item: ValueObject<string>) => void;
   remove: (index: number) => void;
   register: (index: number) => UseFormRegisterReturn;
   preprocess?: (attributes?: AttributeLibCm[]) => AttributeLibCm[];
@@ -72,11 +71,11 @@ export const FormAttributes = ({
     >
       <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.xl}>
         {fields.map((field, index) => {
-          const attribute = selected.find((x) => x.id === field.value.id);
+          const attribute = selected.find((x) => x.id === field.value);
           return (
             attribute && (
               <InfoItemButton
-                key={field.value.id}
+                key={`${index},${field.value}`}
                 {...register(index)}
                 {...attribute}
                 actionable={canRemoveAttributes}

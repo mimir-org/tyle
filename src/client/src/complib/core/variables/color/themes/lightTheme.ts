@@ -30,6 +30,10 @@ export const lightTheme: ColorTheme = {
     base: colorReference.warning[95],
     on: colorReference.warning[0]
   },
+  dangerousAction: {
+    base: colorReference.dangerousAction[95],
+    on: colorReference.dangerousAction[10]
+  },
   outline: {
     base: colorReference.neutralVariant[60]
   },

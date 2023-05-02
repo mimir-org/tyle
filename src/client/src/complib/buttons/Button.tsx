@@ -12,6 +12,7 @@ type ButtonProps = ButtonContainerProps & {
   iconPlacement?: "left" | "right";
   iconOnly?: boolean;
   textVariant?: TextTypes;
+  dangerousAction?: boolean;
 };
 
 export const Button = forwardRef((props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {

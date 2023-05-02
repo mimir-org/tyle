@@ -2,36 +2,47 @@ using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Configurations;
 using TypeLibrary.Data.Models;
 
-namespace TypeLibrary.Data
+namespace TypeLibrary.Data;
+
+public class TypeLibraryDbContext : DbContext
 {
-    public class TypeLibraryDbContext : DbContext
+    public virtual DbSet<SymbolLibDm> Symbol { get; set; }
+    public virtual DbSet<AspectObjectTerminalLibDm> AspectObjectTerminal { get; set; }
+    public virtual DbSet<AttributePredefinedLibDm> AttributePredefined { get; set; }
+    public virtual DbSet<TerminalLibDm> Terminal { get; set; }
+    public virtual DbSet<AspectObjectLibDm> AspectObject { get; set; }
+    public virtual DbSet<LogLibDm> Log { get; set; }
+    public virtual DbSet<AttributeLibDm> Attribute { get; set; }
+    public virtual DbSet<UnitLibDm> Unit { get; set; }
+    public virtual DbSet<AttributeUnitLibDm> AttributeUnit { get; set; }
+    public virtual DbSet<QuantityDatumLibDm> QuantityDatum { get; set; }
+    public virtual DbSet<AspectObjectAttributeLibDm> AspectObjectAttribute { get; set; }
+    public virtual DbSet<TerminalAttributeLibDm> TerminalAttribute { get; set; }
+    public virtual DbSet<CategoryLibDm> Category { get; set; }
+    public virtual DbSet<RdsLibDm> Rds { get; set; }
+
+
+    public TypeLibraryDbContext(DbContextOptions<TypeLibraryDbContext> options) : base(options)
     {
-        public virtual DbSet<SymbolLibDm> Symbol { get; set; }
-        public virtual DbSet<InterfaceLibDm> Interface { get; set; }
-        public virtual DbSet<NodeTerminalLibDm> TerminalNode { get; set; }
-        public virtual DbSet<AttributePredefinedLibDm> AttributePredefined { get; set; }
-        public virtual DbSet<TerminalLibDm> Terminal { get; set; }
-        public virtual DbSet<TransportLibDm> Transport { get; set; }
-        public virtual DbSet<NodeLibDm> Node { get; set; }
-        public virtual DbSet<LogLibDm> Log { get; set; }
+    }
 
-        public TypeLibraryDbContext(DbContextOptions<TypeLibraryDbContext> options) : base(options)
-        {
-        }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());
-            modelBuilder.ApplyConfiguration(new SymbolConfiguration());
-            modelBuilder.ApplyConfiguration(new InterfaceConfiguration());
-            modelBuilder.ApplyConfiguration(new NodeTerminalConfiguration());
-            modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());
-            modelBuilder.ApplyConfiguration(new TerminalConfiguration());
-            modelBuilder.ApplyConfiguration(new TransportConfiguration());
-            modelBuilder.ApplyConfiguration(new NodeConfiguration());
-            modelBuilder.ApplyConfiguration(new LogConfiguration());
-        }
+        modelBuilder.ApplyConfiguration(new SymbolConfiguration());
+        modelBuilder.ApplyConfiguration(new AspectObjectTerminalConfiguration());
+        modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());
+        modelBuilder.ApplyConfiguration(new TerminalConfiguration());
+        modelBuilder.ApplyConfiguration(new AspectObjectConfiguration());
+        modelBuilder.ApplyConfiguration(new LogConfiguration());
+        modelBuilder.ApplyConfiguration(new AttributeConfiguration());
+        modelBuilder.ApplyConfiguration(new UnitConfiguration());
+        modelBuilder.ApplyConfiguration(new AttributeUnitConfiguration());
+        modelBuilder.ApplyConfiguration(new QuantityDatumConfiguration());
+        modelBuilder.ApplyConfiguration(new AspectObjectAttributeConfiguration());
+        modelBuilder.ApplyConfiguration(new TerminalAttributeConfiguration());
+        modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+        modelBuilder.ApplyConfiguration(new RdsConfiguration());
     }
 }

@@ -17,10 +17,225 @@ namespace TypeLibrary.Core.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.AspectObjectAttributeLibDm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AspectObjectId")
+                        .HasColumnType("nvarchar(63)");
+
+                    b.Property<string>("AttributeId")
+                        .HasColumnType("nvarchar(63)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AspectObjectId");
+
+                    b.HasIndex("AttributeId");
+
+                    b.ToTable("AspectObject_Attribute", (string)null);
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.AspectObjectLibDm", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("Id");
+
+                    b.Property<string>("Aspect")
+                        .IsRequired()
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("Aspect");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int")
+                        .HasColumnName("CompanyId");
+
+                    b.Property<DateTime>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(63)
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc))
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("CreatedBy");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(511)
+                        .HasColumnType("nvarchar(511)")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("FirstVersionId")
+                        .IsRequired()
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("FirstVersionId");
+
+                    b.Property<string>("Iri")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("Iri");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("Name");
+
+                    b.Property<string>("PurposeName")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("PurposeName");
+
+                    b.Property<string>("RdsId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(63)");
+
+                    b.Property<string>("SelectedAttributePredefined")
+                        .HasColumnType("nvarchar(MAX)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("State");
+
+                    b.Property<string>("Symbol")
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("Symbol");
+
+                    b.Property<string>("TypeReference")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("TypeReference");
+
+                    b.Property<string>("Version")
+                        .IsRequired()
+                        .HasMaxLength(7)
+                        .HasColumnType("nvarchar(7)")
+                        .HasColumnName("Version");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FirstVersionId");
+
+                    b.HasIndex("RdsId");
+
+                    b.HasIndex("State");
+
+                    b.HasIndex("State", "Aspect");
+
+                    b.ToTable("AspectObject", (string)null);
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.AspectObjectTerminalLibDm", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("Id");
+
+                    b.Property<string>("AspectObjectId")
+                        .HasColumnType("nvarchar(63)");
+
+                    b.Property<string>("ConnectorDirection")
+                        .IsRequired()
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("ConnectorDirection");
+
+                    b.Property<int>("MaxQuantity")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(2147483647)
+                        .HasColumnName("MaxQuantity");
+
+                    b.Property<int>("MinQuantity")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1)
+                        .HasColumnName("MinQuantity");
+
+                    b.Property<string>("TerminalId")
+                        .HasColumnType("nvarchar(63)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AspectObjectId");
+
+                    b.HasIndex("TerminalId");
+
+                    b.ToTable("AspectObject_Terminal", (string)null);
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("CreatedBy");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(511)
+                        .HasColumnType("nvarchar(511)")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("Iri")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("Iri");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("Name");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("State");
+
+                    b.Property<string>("TypeReference")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("TypeReference");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("State");
+
+                    b.ToTable("Attribute", (string)null);
+                });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributePredefinedLibDm", b =>
                 {
@@ -60,9 +275,10 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("State");
 
-                    b.Property<string>("TypeReferences")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("TypeReferences");
+                    b.Property<string>("TypeReference")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("TypeReference");
 
                     b.Property<string>("ValueStringList")
                         .HasColumnType("nvarchar(max)")
@@ -73,117 +289,48 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("AttributePredefined", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.InterfaceLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeUnitLibDm", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("Id");
-
-                    b.Property<string>("Aspect")
-                        .IsRequired()
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
-                        .HasColumnName("Aspect");
-
-                    b.Property<string>("Attributes")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Attributes");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Created")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(63)
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc))
-                        .HasColumnName("Created");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("CreatedBy");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(511)
-                        .HasColumnType("nvarchar(511)")
-                        .HasColumnName("Description");
-
-                    b.Property<string>("FirstVersionId")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("FirstVersionId");
-
-                    b.Property<string>("Iri")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("Iri");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(63)
                         .HasColumnType("nvarchar(63)")
-                        .HasColumnName("Name");
+                        .HasColumnName("Id");
 
-                    b.Property<string>("ParentId")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("ParentId");
+                    b.Property<string>("AttributeId")
+                        .HasColumnType("nvarchar(63)");
 
-                    b.Property<string>("PurposeName")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("PurposeName");
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit")
+                        .HasColumnName("IsDefault");
 
-                    b.Property<string>("RdsCode")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("RdsCode");
-
-                    b.Property<string>("RdsName")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("RdsName");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
-                        .HasColumnName("State");
-
-                    b.Property<string>("TerminalId")
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("Interface_TerminalId");
-
-                    b.Property<string>("TypeReferences")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("TypeReferences");
-
-                    b.Property<string>("Version")
-                        .IsRequired()
-                        .HasMaxLength(7)
-                        .HasColumnType("nvarchar(7)")
-                        .HasColumnName("Version");
+                    b.Property<string>("UnitId")
+                        .HasColumnType("nvarchar(63)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FirstVersionId");
+                    b.HasIndex("AttributeId");
 
-                    b.HasIndex("ParentId");
+                    b.HasIndex("UnitId");
 
-                    b.HasIndex("State");
+                    b.ToTable("Attribute_Unit", (string)null);
+                });
 
-                    b.HasIndex("TerminalId");
+            modelBuilder.Entity("TypeLibrary.Data.Models.CategoryLibDm", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("Id");
 
-                    b.HasIndex("State", "Aspect");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("Name");
 
-                    b.ToTable("Interface", (string)null);
+                    b.HasKey("Id");
+
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.LogLibDm", b =>
@@ -193,17 +340,18 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("int")
                         .HasColumnName("Id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Comment")
-                        .HasMaxLength(511)
-                        .HasColumnType("nvarchar(511)")
-                        .HasColumnName("Comment");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Created")
                         .HasMaxLength(63)
                         .HasColumnType("datetime2")
                         .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("User");
 
                     b.Property<string>("LogType")
                         .IsRequired()
@@ -218,15 +366,14 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("LogTypeValue");
 
                     b.Property<string>("ObjectFirstVersionId")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("ObjectFirstVersionId");
 
                     b.Property<string>("ObjectId")
                         .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("ObjectId");
 
                     b.Property<string>("ObjectName")
@@ -242,16 +389,9 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("ObjectType");
 
                     b.Property<string>("ObjectVersion")
-                        .IsRequired()
                         .HasMaxLength(7)
                         .HasColumnType("nvarchar(7)")
                         .HasColumnName("ObjectVersion");
-
-                    b.Property<string>("User")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("User");
 
                     b.HasKey("Id");
 
@@ -268,33 +408,15 @@ namespace TypeLibrary.Core.Migrations
                     b.ToTable("Log", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.NodeLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.QuantityDatumLibDm", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
-                    b.Property<string>("Aspect")
-                        .IsRequired()
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
-                        .HasColumnName("Aspect");
-
-                    b.Property<string>("Attributes")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Attributes");
-
-                    b.Property<int>("CompanyId")
-                        .HasMaxLength(127)
-                        .HasColumnType("int")
-                        .HasColumnName("CompanyId");
-
                     b.Property<DateTime>("Created")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(63)
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc))
                         .HasColumnName("Created");
 
                     b.Property<string>("CreatedBy")
@@ -308,49 +430,22 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(511)")
                         .HasColumnName("Description");
 
-                    b.Property<string>("FirstVersionId")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("FirstVersionId");
-
                     b.Property<string>("Iri")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("Iri");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
                         .HasColumnName("Name");
 
-                    b.Property<string>("ParentId")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("ParentId");
-
-                    b.Property<string>("PurposeName")
+                    b.Property<string>("QuantityDatumType")
                         .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("PurposeName");
-
-                    b.Property<string>("RdsCode")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("RdsCode");
-
-                    b.Property<string>("RdsName")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("RdsName");
-
-                    b.Property<string>("SelectedAttributePredefined")
-                        .HasColumnType("nvarchar(MAX)");
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("QuantityDatumType");
 
                     b.Property<string>("State")
                         .IsRequired()
@@ -358,79 +453,88 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("State");
 
-                    b.Property<string>("Symbol")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("Symbol");
-
-                    b.Property<string>("TypeReferences")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("TypeReferences");
-
-                    b.Property<string>("Version")
-                        .IsRequired()
-                        .HasMaxLength(7)
-                        .HasColumnType("nvarchar(7)")
-                        .HasColumnName("Version");
+                    b.Property<string>("TypeReference")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("TypeReference");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FirstVersionId");
-
-                    b.HasIndex("ParentId");
 
                     b.HasIndex("State");
 
-                    b.HasIndex("State", "Aspect");
-
-                    b.ToTable("Node", (string)null);
+                    b.ToTable("QuantityDatum", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.NodeTerminalLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.RdsLibDm", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
-                    b.Property<string>("ConnectorDirection")
+                    b.Property<string>("CategoryId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(63)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("CreatedBy");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(511)
+                        .HasColumnType("nvarchar(511)")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("Iri")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("Iri");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
+                        .HasColumnName("Name");
+
+                    b.Property<string>("RdsCode")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)")
+                        .HasColumnName("RdsCode");
+
+                    b.Property<string>("State")
                         .IsRequired()
                         .HasMaxLength(31)
                         .HasColumnType("nvarchar(31)")
-                        .HasColumnName("ConnectorDirection");
+                        .HasColumnName("State");
 
-                    b.Property<int>("MaxQuantity")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(2147483647)
-                        .HasColumnName("MaxQuantity");
-
-                    b.Property<int>("MinQuantity")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(1)
-                        .HasColumnName("MinQuantity");
-
-                    b.Property<string>("NodeId")
-                        .HasColumnType("nvarchar(127)");
-
-                    b.Property<string>("TerminalId")
-                        .HasColumnType("nvarchar(127)");
+                    b.Property<string>("TypeReference")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("TypeReference");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NodeId");
+                    b.HasAlternateKey("RdsCode", "Name");
 
-                    b.HasIndex("TerminalId");
+                    b.HasIndex("CategoryId");
 
-                    b.ToTable("Node_Terminal", (string)null);
+                    b.HasIndex("State");
+
+                    b.ToTable("Rds", (string)null);
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.SymbolLibDm", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
                     b.Property<DateTime>("Created")
@@ -465,121 +569,55 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("State");
 
-                    b.Property<string>("TypeReferences")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("TypeReferences");
+                    b.Property<string>("TypeReference")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("TypeReference");
 
                     b.HasKey("Id");
 
                     b.ToTable("Symbol", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalAttributeLibDm", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("Id");
 
-                    b.Property<string>("Attributes")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Attributes");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Color")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("AttributeId")
+                        .HasColumnType("nvarchar(63)");
 
-                    b.Property<int>("CompanyId")
-                        .HasMaxLength(127)
-                        .HasColumnType("int")
-                        .HasColumnName("CompanyId");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Created");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("CreatedBy");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstVersionId")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("FirstVersionId");
-
-                    b.Property<string>("Iri")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("Iri");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
-                        .HasColumnName("Name");
-
-                    b.Property<string>("ParentId")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("ParentId");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
-                        .HasColumnName("State");
-
-                    b.Property<string>("TypeReferences")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("TypeReferences");
-
-                    b.Property<string>("Version")
-                        .IsRequired()
-                        .HasMaxLength(7)
-                        .HasColumnType("nvarchar(7)")
-                        .HasColumnName("Version");
+                    b.Property<string>("TerminalId")
+                        .HasColumnType("nvarchar(63)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FirstVersionId");
+                    b.HasIndex("AttributeId");
 
-                    b.HasIndex("ParentId");
+                    b.HasIndex("TerminalId");
 
-                    b.HasIndex("State");
-
-                    b.ToTable("Terminal", (string)null);
+                    b.ToTable("Terminal_Attribute", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.TransportLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>
                 {
                     b.Property<string>("Id")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
-                    b.Property<string>("Aspect")
+                    b.Property<string>("Color")
                         .IsRequired()
-                        .HasMaxLength(31)
-                        .HasColumnType("nvarchar(31)")
-                        .HasColumnName("Aspect");
-
-                    b.Property<string>("Attributes")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Attributes");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
+                        .HasMaxLength(7)
+                        .HasColumnType("nvarchar(7)")
+                        .HasColumnName("Color");
 
                     b.Property<DateTime>("Created")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(63)
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc))
                         .HasColumnName("Created");
 
                     b.Property<string>("CreatedBy")
@@ -593,14 +631,7 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(511)")
                         .HasColumnName("Description");
 
-                    b.Property<string>("FirstVersionId")
-                        .IsRequired()
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("FirstVersionId");
-
                     b.Property<string>("Iri")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("Iri");
@@ -611,27 +642,56 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Name");
 
-                    b.Property<string>("ParentId")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("ParentId");
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("State");
 
-                    b.Property<string>("PurposeName")
-                        .HasMaxLength(127)
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("PurposeName");
+                    b.Property<string>("TypeReference")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("TypeReference");
 
-                    b.Property<string>("RdsCode")
+                    b.HasKey("Id");
+
+                    b.HasIndex("State");
+
+                    b.ToTable("Terminal", (string)null);
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.UnitLibDm", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Created");
+
+                    b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
-                        .HasColumnName("RdsCode");
+                        .HasColumnName("CreatedBy");
 
-                    b.Property<string>("RdsName")
+                    b.Property<string>("Description")
+                        .HasMaxLength(511)
+                        .HasColumnType("nvarchar(511)")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("Iri")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("Iri");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(127)
                         .HasColumnType("nvarchar(127)")
-                        .HasColumnName("RdsName");
+                        .HasColumnName("Name");
 
                     b.Property<string>("State")
                         .IsRequired()
@@ -639,132 +699,133 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("State");
 
-                    b.Property<string>("TerminalId")
-                        .HasColumnType("nvarchar(127)")
-                        .HasColumnName("Transport_TerminalId");
+                    b.Property<string>("Symbol")
+                        .HasMaxLength(31)
+                        .HasColumnType("nvarchar(31)")
+                        .HasColumnName("Symbol");
 
-                    b.Property<string>("TypeReferences")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("TypeReferences");
-
-                    b.Property<string>("Version")
-                        .IsRequired()
-                        .HasMaxLength(7)
-                        .HasColumnType("nvarchar(7)")
-                        .HasColumnName("Version");
+                    b.Property<string>("TypeReference")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("TypeReference");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FirstVersionId");
-
-                    b.HasIndex("ParentId");
-
                     b.HasIndex("State");
 
-                    b.HasIndex("TerminalId");
+                    b.HasIndex("TypeReference");
 
-                    b.HasIndex("State", "Aspect");
-
-                    b.ToTable("Transport", (string)null);
+                    b.ToTable("Unit", (string)null);
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.InterfaceLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.AspectObjectAttributeLibDm", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.InterfaceLibDm", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId")
+                    b.HasOne("TypeLibrary.Data.Models.AspectObjectLibDm", "AspectObject")
+                        .WithMany("AspectObjectAttributes")
+                        .HasForeignKey("AspectObjectId");
+
+                    b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", "Attribute")
+                        .WithMany()
+                        .HasForeignKey("AttributeId");
+
+                    b.Navigation("AspectObject");
+
+                    b.Navigation("Attribute");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.AspectObjectLibDm", b =>
+                {
+                    b.HasOne("TypeLibrary.Data.Models.RdsLibDm", "Rds")
+                        .WithMany()
+                        .HasForeignKey("RdsId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Rds");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.AspectObjectTerminalLibDm", b =>
+                {
+                    b.HasOne("TypeLibrary.Data.Models.AspectObjectLibDm", "AspectObject")
+                        .WithMany("AspectObjectTerminals")
+                        .HasForeignKey("AspectObjectId")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", "Terminal")
-                        .WithMany("Interfaces")
+                        .WithMany("TerminalAspectObjects")
                         .HasForeignKey("TerminalId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.Navigation("Parent");
+                    b.Navigation("AspectObject");
 
                     b.Navigation("Terminal");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.NodeLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeUnitLibDm", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.NodeLibDm", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId")
+                    b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", "Attribute")
+                        .WithMany("AttributeUnits")
+                        .HasForeignKey("AttributeId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.Navigation("Parent");
+                    b.HasOne("TypeLibrary.Data.Models.UnitLibDm", "Unit")
+                        .WithMany("UnitAttributes")
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Attribute");
+
+                    b.Navigation("Unit");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.NodeTerminalLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.RdsLibDm", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.NodeLibDm", "Node")
-                        .WithMany("NodeTerminals")
-                        .HasForeignKey("NodeId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                    b.HasOne("TypeLibrary.Data.Models.CategoryLibDm", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalAttributeLibDm", b =>
+                {
+                    b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", "Attribute")
+                        .WithMany()
+                        .HasForeignKey("AttributeId");
 
                     b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", "Terminal")
-                        .WithMany("TerminalNodes")
-                        .HasForeignKey("TerminalId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .WithMany("TerminalAttributes")
+                        .HasForeignKey("TerminalId");
 
-                    b.Navigation("Node");
+                    b.Navigation("Attribute");
 
                     b.Navigation("Terminal");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.AspectObjectLibDm", b =>
+                {
+                    b.Navigation("AspectObjectAttributes");
+
+                    b.Navigation("AspectObjectTerminals");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>
+                {
+                    b.Navigation("AttributeUnits");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                    b.Navigation("TerminalAspectObjects");
 
-                    b.Navigation("Parent");
+                    b.Navigation("TerminalAttributes");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.TransportLibDm", b =>
+            modelBuilder.Entity("TypeLibrary.Data.Models.UnitLibDm", b =>
                 {
-                    b.HasOne("TypeLibrary.Data.Models.TransportLibDm", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", "Terminal")
-                        .WithMany("Transports")
-                        .HasForeignKey("TerminalId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Parent");
-
-                    b.Navigation("Terminal");
-                });
-
-            modelBuilder.Entity("TypeLibrary.Data.Models.InterfaceLibDm", b =>
-                {
-                    b.Navigation("Children");
-                });
-
-            modelBuilder.Entity("TypeLibrary.Data.Models.NodeLibDm", b =>
-                {
-                    b.Navigation("Children");
-
-                    b.Navigation("NodeTerminals");
-                });
-
-            modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>
-                {
-                    b.Navigation("Children");
-
-                    b.Navigation("Interfaces");
-
-                    b.Navigation("TerminalNodes");
-
-                    b.Navigation("Transports");
-                });
-
-            modelBuilder.Entity("TypeLibrary.Data.Models.TransportLibDm", b =>
-                {
-                    b.Navigation("Children");
+                    b.Navigation("UnitAttributes");
                 });
 #pragma warning restore 612, 618
         }

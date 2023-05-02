@@ -9,13 +9,11 @@ import { SearchField } from "features/common/search-field";
 import { ExploreSection } from "features/explore/common/ExploreSection";
 import { SelectedInfo } from "features/explore/common/selectedInfo";
 import { FilterMenu } from "features/explore/search/components/filter/FilterMenu";
-import { ConditionalInterfaceSearchItem } from "features/explore/search/components/interface/ConditionalInterfaceSearchItem";
 import { ItemList } from "features/explore/search/components/item/ItemList";
 import { LinkMenu } from "features/explore/search/components/link/LinkMenu";
-import { ConditionalNodeSearchItem } from "features/explore/search/components/node/ConditionalNodeSearchItem";
+import { ConditionalAspectObjectSearchItem } from "features/explore/search/components/aspectobject/ConditionalAspectObjectSearchItem";
 import { SearchPlaceholder } from "features/explore/search/components/SearchPlaceholder";
 import { ConditionalTerminalSearchItem } from "features/explore/search/components/terminal/ConditionalTerminalSearchItem";
-import { ConditionalTransportSearchItem } from "features/explore/search/components/transport/ConditionalTransportSearchItem";
 import { useFilterState } from "features/explore/search/hooks/useFilterState";
 import { useGetFilterGroups } from "features/explore/search/hooks/useGetFilterGroups";
 import { useSearchResults } from "features/explore/search/hooks/useSearchResults";
@@ -68,14 +66,14 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
           activeFilters={activeFilters}
           toggleFilter={toggleFilter}
         />
-        <LinkMenu name={t("search.create.title")} links={createMenuLinks} />
+        <LinkMenu name={t("search.create.title")} links={createMenuLinks} justifyContent={"space-between"} />
       </Flexbox>
 
       {showFilterTokens && (
         <MotionFlexbox layout={"position"} flexWrap={"wrap"} gap={theme.tyle.spacing.base}>
-          {activeFilters.map((x, i) => (
+          {activeFilters.map((x) => (
             <Token
-              key={i}
+              key={`${x.key}`}
               actionable
               actionText={t("search.filter.templates.remove", { object: x.label })}
               actionIcon={<XCircle />}
@@ -101,29 +99,17 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
       {showResults && user && (
         <ItemList>
           {results.map((item) => (
-            <Fragment key={item.id}>
-              <ConditionalNodeSearchItem
+            <Fragment key={item.id + item.kind}>
+              <ConditionalAspectObjectSearchItem
                 item={item}
-                isSelected={item.id == selected?.id}
-                setSelected={() => setSelected({ id: item.id, type: "node" })}
+                isSelected={item.id === selected?.id && selected.type === "aspectObject"}
+                setSelected={() => setSelected({ id: item.id, type: "aspectObject" })}
                 user={user}
               />
               <ConditionalTerminalSearchItem
                 item={item}
-                isSelected={item.id == selected?.id}
+                isSelected={item.id === selected?.id && selected.type === "terminal"}
                 setSelected={() => setSelected({ id: item.id, type: "terminal" })}
-                user={user}
-              />
-              <ConditionalTransportSearchItem
-                item={item}
-                isSelected={item.id == selected?.id}
-                setSelected={() => setSelected({ id: item.id, type: "transport" })}
-                user={user}
-              />
-              <ConditionalInterfaceSearchItem
-                item={item}
-                isSelected={item.id == selected?.id}
-                setSelected={() => setSelected({ id: item.id, type: "interface" })}
                 user={user}
               />
             </Fragment>

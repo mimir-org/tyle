@@ -1,9 +1,9 @@
 import { Link } from "common/types/link";
-import { interfaceFormBasePath } from "features/entities/interface/InterfaceFormRoutes";
-import { nodeFormBasePath } from "features/entities/node/NodeFormRoutes";
+import { aspectObjectFormBasePath } from "features/entities/aspectobject/AspectObjectFormRoutes";
 import { terminalFormBasePath } from "features/entities/terminal/TerminalFormRoutes";
-import { transportFormBasePath } from "features/entities/transport/TransportFormRoutes";
 import { useTranslation } from "react-i18next";
+import { attributeFormBasePath } from "../../entities/attributes/AttributeFormRoutes";
+import { unitFormBasePath } from "../../entities/units/UnitFormRoutes";
 
 export const useCreateMenuLinks = (): Link[] => {
   const { t } = useTranslation("explore");
@@ -11,19 +11,19 @@ export const useCreateMenuLinks = (): Link[] => {
   return [
     {
       name: t("search.create.aspectObject"),
-      path: nodeFormBasePath,
-    },
-    {
-      name: t("search.create.interface"),
-      path: interfaceFormBasePath,
+      path: aspectObjectFormBasePath,
     },
     {
       name: t("search.create.terminal"),
       path: terminalFormBasePath,
     },
     {
-      name: t("search.create.transport"),
-      path: transportFormBasePath,
+      name: t("search.create.attribute"),
+      path: attributeFormBasePath,
+    },
+    {
+      name: t("search.create.unit"),
+      path: unitFormBasePath,
     },
   ];
 };

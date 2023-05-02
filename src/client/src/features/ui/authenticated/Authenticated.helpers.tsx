@@ -1,13 +1,13 @@
-import { interfaceFormRoutes } from "features/entities/interface/InterfaceFormRoutes";
-import { nodeFormRoutes } from "features/entities/node/NodeFormRoutes";
+import { aspectObjectFormRoutes } from "features/entities/aspectobject/AspectObjectFormRoutes";
 import { terminalFormRoutes } from "features/entities/terminal/TerminalFormRoutes";
-import { transportFormRoutes } from "features/entities/transport/TransportFormRoutes";
 import { exploreRoutes } from "features/explore/ExploreRoutes";
 import { settingsRoutes } from "features/settings/SettingsRoutes";
 import { AuthenticatedLayout } from "features/ui/authenticated/layout/AuthenticatedLayout";
 import { ErrorMessage } from "features/ui/common/ErrorMessage";
 import { useTranslation } from "react-i18next";
 import { createBrowserRouter } from "react-router-dom";
+import { attributeFormRoutes } from "../../entities/attributes/AttributeFormRoutes";
+import { unitFormRoutes } from "../../entities/units/UnitFormRoutes";
 
 export const useAuthenticatedRouter = () => {
   const { t } = useTranslation("ui");
@@ -27,10 +27,10 @@ export const useAuthenticatedRouter = () => {
       ),
       children: [
         ...exploreRoutes,
-        ...nodeFormRoutes,
+        ...aspectObjectFormRoutes,
         ...terminalFormRoutes,
-        ...transportFormRoutes,
-        ...interfaceFormRoutes,
+        ...attributeFormRoutes,
+        ...unitFormRoutes,
         settingsRoutes,
         {
           path: "*",

@@ -1,5 +1,5 @@
 import { MimirorgTokenCm } from "@mimirorg/typelibrary-types";
-import { AxiosRequestConfig } from "axios";
+import { InternalAxiosRequestConfig } from "axios";
 import { getToken, setToken } from "common/utils/token";
 import { authenticateApi } from "external/sources/authenticate/authenticate.api";
 
@@ -15,7 +15,7 @@ const resetExpiredTokenRequest = () => (expiredTokenRequest = null);
  *
  * @param config
  */
-export async function refreshExpiredToken(config: AxiosRequestConfig) {
+export async function refreshExpiredToken(config: InternalAxiosRequestConfig) {
   const currentToken = getToken();
 
   if (!expiredTokenRequest && currentToken && isTokenExpired(currentToken)) {

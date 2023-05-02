@@ -1,8 +1,7 @@
-namespace Mimirorg.Common.Models
+namespace Mimirorg.Common.Models;
+
+public class Scope
 {
-    public class Scope
-    {
-        public string Name { get; set; }
-        public string Description { get; set; }
-    }
+    public string Name { get; set; }
+    public string Description { get; set; }
 }

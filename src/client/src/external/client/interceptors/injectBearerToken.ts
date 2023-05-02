@@ -1,4 +1,4 @@
-import { AxiosRequestConfig } from "axios";
+import { InternalAxiosRequestConfig } from "axios";
 import { getToken } from "common/utils/token";
 
 /**
@@ -7,7 +7,7 @@ import { getToken } from "common/utils/token";
  *
  * @param config
  */
-export async function injectBearerToken(config: AxiosRequestConfig) {
+export async function injectBearerToken(config: InternalAxiosRequestConfig) {
   const token = getToken();
 
   if (token?.secret && config.headers) {

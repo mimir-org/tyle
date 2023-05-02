@@ -43,10 +43,10 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
   const attributeFields = useFieldArray({ control, name: "attributes" });
 
   const query = useTerminalQuery();
-  const mapper = (source: TerminalLibCm) => mapTerminalLibCmToFormTerminalLib(source, mode);
+  const mapper = (source: TerminalLibCm) => mapTerminalLibCmToFormTerminalLib(source);
   const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
-  const mutation = useTerminalMutation(mode);
+  const mutation = useTerminalMutation(query.data?.id, mode);
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 

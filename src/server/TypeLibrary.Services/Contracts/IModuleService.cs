@@ -1,6 +1,5 @@
-namespace TypeLibrary.Services.Contracts
+namespace TypeLibrary.Services.Contracts;
+
+public interface IModuleService
 {
-    public interface IModuleService
-    {
-    }
 }

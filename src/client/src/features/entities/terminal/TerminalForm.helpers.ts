@@ -7,8 +7,8 @@ export const useTerminalQuery = () => {
   return useGetTerminal(id);
 };
 
-export const useTerminalMutation = (mode?: TerminalFormMode) => {
+export const useTerminalMutation = (id?: string, mode?: TerminalFormMode) => {
   const createMutation = useCreateTerminal();
-  const updateMutation = useUpdateTerminal();
+  const updateMutation = useUpdateTerminal(id);
   return mode === "edit" ? updateMutation : createMutation;
 };

@@ -1,4 +1,4 @@
-import { ArrowSmRight } from "@styled-icons/heroicons-outline";
+import { ArrowSmallRight } from "@styled-icons/heroicons-outline";
 import { Link } from "common/types/link";
 import { Button } from "complib/buttons";
 import { Popover } from "complib/data-display";
@@ -9,6 +9,7 @@ import { useTheme } from "styled-components";
 interface LinkMenuProps {
   name: string;
   links: Link[];
+  justifyContent?: "space-between" | "space-around" | "center" | "start" | "end" | "normal";
 }
 
 /**
@@ -16,9 +17,10 @@ interface LinkMenuProps {
  *
  * @param name text on menu button
  * @param links shortcuts presented in popover
+ * @param justifyContent how to arrange the button text and icons in the list
  * @constructor
  */
-export const LinkMenu = ({ name, links }: LinkMenuProps) => {
+export const LinkMenu = ({ name, links, justifyContent }: LinkMenuProps) => {
   const theme = useTheme();
 
   return (
@@ -35,7 +37,8 @@ export const LinkMenu = ({ name, links }: LinkMenuProps) => {
                 as={"span"}
                 variant={"text"}
                 textVariant={"label-large"}
-                icon={<ArrowSmRight size={24} />}
+                justifyContent={justifyContent ?? "normal"}
+                icon={<ArrowSmallRight size={24} />}
                 width={"100%"}
               >
                 {link.name}

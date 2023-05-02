@@ -3,11 +3,10 @@ using System.Threading.Tasks;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 
-namespace TypeLibrary.Services.Contracts
+namespace TypeLibrary.Services.Contracts;
+
+public interface ISymbolService
 {
-    public interface ISymbolService
-    {
-        IEnumerable<SymbolLibCm> Get();
-        Task Create(IEnumerable<SymbolLibAm> symbolDataList, bool createdBySystem = false);
-    }
+    IEnumerable<SymbolLibCm> Get();
+    Task Create(IEnumerable<SymbolLibAm> symbolDataList, string createdBy = null);
 }

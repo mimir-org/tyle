@@ -1,126 +1,248 @@
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using Mimirorg.Authentication.Contracts;
+using Mimirorg.Common.Enums;
+using Mimirorg.Common.Exceptions;
+using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Models;
+using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.Extensions.Options;
-using Mimirorg.Common.Enums;
-using Mimirorg.Common.Extensions;
-using Mimirorg.Common.Models;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
+using Microsoft.EntityFrameworkCore;
+using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 
-namespace TypeLibrary.Services.Services
+namespace TypeLibrary.Services.Services;
+
+public class AttributeService : IAttributeService
 {
-    public class AttributeService : IAttributeService
+    private readonly IMapper _mapper;
+    private readonly IAttributePredefinedRepository _attributePredefinedRepository;
+    private readonly IEfAttributeRepository _attributeRepository;
+    private readonly IEfAttributeUnitRepository _attributeUnitRepository;
+    private readonly IUnitService _unitService;
+    private readonly ITimedHookService _hookService;
+    private readonly ILogService _logService;
+    private readonly IHttpContextAccessor _contextAccessor;
+
+    public AttributeService(IMapper mapper, IAttributePredefinedRepository attributePredefinedRepository, IEfAttributeRepository attributeRepository, IEfAttributeUnitRepository attributeUnitRepository, IUnitService unitService, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor)
     {
-        private readonly IMapper _mapper;
-        private readonly ApplicationSettings _applicationSettings;
-        private readonly IAttributePredefinedRepository _attributePredefinedRepository;
-        private readonly IQuantityDatumRepository _datumRepository;
-        private readonly IAttributeReferenceRepository _attributeReferenceRepository;
+        _mapper = mapper;
+        _attributePredefinedRepository = attributePredefinedRepository;
+        _attributeRepository = attributeRepository;
+        _attributeUnitRepository = attributeUnitRepository;
+        _unitService = unitService;
+        _hookService = hookService;
+        _logService = logService;
+        _contextAccessor = contextAccessor;
+    }
 
-        public AttributeService(IMapper mapper, IOptions<ApplicationSettings> applicationSettings, IAttributePredefinedRepository attributePredefinedRepository, IAttributeReferenceRepository attributeReferenceRepository, IQuantityDatumRepository datumRepository)
+    /// <summary>
+    /// Get all attributes and their units
+    /// </summary>
+    /// <returns>List of attributes and their units></returns>
+    public IEnumerable<AttributeLibCm> Get()
+    {
+        var dataSet = _attributeRepository.Get().ExcludeDeleted().ToList();
+
+        if (dataSet == null)
+            throw new MimirorgNotFoundException("No attributes were found.");
+
+        return !dataSet.Any() ? new List<AttributeLibCm>() : _mapper.Map<List<AttributeLibCm>>(dataSet);
+    }
+
+    /// <summary>
+    /// Get an attribute and its units
+    /// </summary>
+    /// <returns>Attribute and its units></returns>
+    public AttributeLibCm Get(string id)
+    {
+        var dm = _attributeRepository.Get(id);
+
+        if (dm == null)
+            throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
+
+        return _mapper.Map<AttributeLibCm>(dm);
+    }
+
+    /// <inheritdoc />
+    public async Task<AttributeLibCm> Create(AttributeLibAm attributeAm, string createdBy = null)
+    {
+        if (attributeAm == null)
+            throw new ArgumentNullException(nameof(attributeAm));
+
+        var dm = _mapper.Map<AttributeLibDm>(attributeAm);
+
+        if (!string.IsNullOrEmpty(createdBy))
         {
-            _mapper = mapper;
-            _attributePredefinedRepository = attributePredefinedRepository;
-            _attributeReferenceRepository = attributeReferenceRepository;
-            _datumRepository = datumRepository;
-            _applicationSettings = applicationSettings?.Value;
+            dm.CreatedBy = createdBy;
+            dm.State = State.Approved;
+        }
+        else
+        {
+            dm.State = State.Draft;
         }
 
-        /// <summary>
-        /// Get all attributes and their units
-        /// </summary>
-        /// <returns>List of attributes and their units></returns>
-        public async Task<ICollection<AttributeLibCm>> Get()
+        foreach (var attributeUnit in dm.AttributeUnits)
         {
-            var dataSet = await _attributeReferenceRepository.Get();
-            return _mapper.Map<List<AttributeLibCm>>(dataSet);
+            attributeUnit.AttributeId = dm.Id;
         }
 
-        /// <summary>
-        /// Get predefined attributes
-        /// </summary>
-        /// <returns>List of predefined attributes</returns>
-        public IEnumerable<AttributePredefinedLibCm> GetPredefined()
-        {
-            var attributes = _attributePredefinedRepository.GetPredefined().Where(x => x.State != State.Deleted).ToList()
-                .OrderBy(x => x.Aspect).ThenBy(x => x.Key, StringComparer.InvariantCultureIgnoreCase).ToList();
+        var createdAttribute = await _attributeRepository.Create(dm);
+        _attributeRepository.ClearAllChangeTrackers();
+        await _logService.CreateLog(createdAttribute, LogType.Create, createdAttribute?.State.ToString(), createdAttribute?.CreatedBy);
+        _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 
-            return _mapper.Map<List<AttributePredefinedLibCm>>(attributes);
+        return _mapper.Map<AttributeLibCm>(createdAttribute);
+    }
+
+    /// <inheritdoc />
+    public async Task<AttributeLibCm> Update(string id, AttributeLibAm attributeAm)
+    {
+        var validation = attributeAm.ValidateObject();
+
+        if (!validation.IsValid)
+            throw new MimirorgBadRequestException("Attribute is not valid.", validation);
+
+        var attributeToUpdate = _attributeRepository.FindBy(x => x.Id == id, false).Include(x => x.AttributeUnits).FirstOrDefault();
+
+        if (attributeToUpdate == null || attributeToUpdate.State == State.Deleted)
+        {
+            validation = new Validation(new List<string> { nameof(AttributeLibAm.Name) },
+                $"Attribute with name {attributeAm.Name} and id {id} does not exist or is flagged as deleted.");
+            throw new MimirorgBadRequestException("Attribute does not exist or is flagged as deleted. Update is not possible.", validation);
         }
 
-        /// <summary>
-        /// Create predefined attributes
-        /// </summary>
-        /// <param name="predefined"></param>
-        /// <returns>Created predefined attribute</returns>
-        public async Task CreatePredefined(List<AttributePredefinedLibAm> predefined)
+        if (attributeToUpdate.State != State.Approved)
         {
-            if (predefined == null || !predefined.Any())
-                return;
+            attributeToUpdate.Name = attributeAm.Name;
+            attributeToUpdate.TypeReference = attributeAm.TypeReference;
+            attributeToUpdate.Description = attributeAm.Description;
 
-            var data = _mapper.Map<List<AttributePredefinedLibDm>>(predefined);
-            var existing = _attributePredefinedRepository.GetPredefined().ToList();
-            var notExisting = data.Exclude(existing, x => x.Key).ToList();
+            attributeToUpdate.AttributeUnits ??= new List<AttributeUnitLibDm>();
 
-            if (!notExisting.Any())
-                return;
+            var currentAttributeUnits = attributeToUpdate.AttributeUnits.ToHashSet();
+            var newAttributeUnits = _mapper.Map<HashSet<AttributeUnitLibDm>>(attributeAm.AttributeUnits.ToHashSet());
 
-            foreach (var attribute in notExisting)
+            foreach (var attributeUnit in currentAttributeUnits.ExceptBy(newAttributeUnits.Select(x => x.UnitId + x.IsDefault), y => y.UnitId + y.IsDefault))
             {
-                attribute.CreatedBy = _applicationSettings.System;
-                attribute.State = State.ApproveGlobal;
-                await _attributePredefinedRepository.CreatePredefined(attribute);
+                var attributeUnitDm = _attributeUnitRepository.FindBy(x => x.AttributeId == attributeToUpdate.Id && x.UnitId == attributeUnit.UnitId).FirstOrDefault();
+                if (attributeUnitDm == null) continue;
+                await _attributeUnitRepository.Delete(attributeUnitDm.Id);
+            }
+
+            foreach (var attributeUnit in newAttributeUnits.ExceptBy(currentAttributeUnits.Select(x => x.UnitId + x.IsDefault), y => y.UnitId + y.IsDefault))
+            {
+                attributeUnit.AttributeId = attributeToUpdate.Id;
+                attributeToUpdate.AttributeUnits.Add(attributeUnit);
+            }
+
+            attributeToUpdate.State = State.Draft;
+        }
+        else
+        {
+            attributeToUpdate.Description = attributeAm.Description;
+        }
+
+        await _attributeUnitRepository.SaveAsync();
+        await _attributeRepository.SaveAsync();
+        var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
+        await _logService.CreateLog(attributeToUpdate, LogType.Update, attributeToUpdate.State.ToString(), updatedBy);
+
+        _attributeRepository.ClearAllChangeTrackers();
+        _hookService.HookQueue.Enqueue(CacheKey.Attribute);
+
+        return Get(attributeToUpdate.Id);
+    }
+
+    /// <inheritdoc />
+    public async Task<ApprovalDataCm> ChangeState(string id, State state)
+    {
+        var dm = _attributeRepository.Get().FirstOrDefault(x => x.Id == id);
+
+        if (dm == null)
+            throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
+
+        if (dm.State == State.Approved)
+            throw new MimirorgBadRequestException($"State change on approved attribute with id {id} is not allowed.");
+
+        if (state == State.Approve)
+        {
+            foreach (var attributeUnit in dm.AttributeUnits)
+            {
+                var unit = _unitService.Get(attributeUnit.UnitId);
+
+                if (unit.State == State.Approved) continue;
+                if (unit.State == State.Deleted) throw new MimirorgBadRequestException("Cannot request approval for attribute that uses deleted units.");
+
+                await _unitService.ChangeState(unit.Id, State.Approve);
             }
         }
-
-        /// <summary>
-        /// Get all quantity datum range specifying
-        /// </summary>
-        /// <returns>List of quantity datums</returns>
-        public async Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumRangeSpecifying()
+        else if (state == State.Approved && dm.AttributeUnits.Select(attributeUnit => _unitService.Get(attributeUnit.UnitId)).Any(unit => unit.State != State.Approved))
         {
-            var dataSet = await _datumRepository.GetQuantityDatumRangeSpecifying();
-            var dataCmList = _mapper.Map<List<QuantityDatumCm>>(dataSet);
-            return dataCmList.AsEnumerable();
+            throw new MimirorgBadRequestException("Cannot approve attribute that uses unapproved units.");
         }
 
-        /// <summary>
-        /// Get all quantity datum specified scopes
-        /// </summary>
-        /// <returns>List of quantity datums</returns>
-        public async Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumSpecifiedScope()
-        {
-            var dataSet = await _datumRepository.GetQuantityDatumSpecifiedScope();
-            var dataCmList = _mapper.Map<List<QuantityDatumCm>>(dataSet);
-            return dataCmList.AsEnumerable();
-        }
+        await _attributeRepository.ChangeState(state, new List<string> { dm.Id });
 
-        /// <summary>
-        /// Get all quantity datum with specified provenances
-        /// </summary>
-        /// <returns>List of quantity datums</returns>
-        public async Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumSpecifiedProvenance()
-        {
-            var dataSet = await _datumRepository.GetQuantityDatumSpecifiedProvenance();
-            var dataCmList = _mapper.Map<List<QuantityDatumCm>>(dataSet);
-            return dataCmList.AsEnumerable();
-        }
+        await _logService.CreateLog(
+            dm,
+            LogType.State,
+            state.ToString(),
+            !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown);
 
-        /// <summary>
-        /// Get all quantity datum regularity specified
-        /// </summary>
-        /// <returns>List of quantity datums</returns>
-        public async Task<IEnumerable<QuantityDatumCm>> GetQuantityDatumRegularitySpecified()
+        _hookService.HookQueue.Enqueue(CacheKey.Attribute);
+
+        return new ApprovalDataCm
         {
-            var dataSet = await _datumRepository.GetQuantityDatumRegularitySpecified();
-            var dataCmList = _mapper.Map<List<QuantityDatumCm>>(dataSet);
-            return dataCmList.AsEnumerable();
+            Id = id,
+            State = state
+
+        };
+    }
+
+    /// <summary>
+    /// Get predefined attributes
+    /// </summary>
+    /// <returns>List of predefined attributes</returns>
+    public IEnumerable<AttributePredefinedLibCm> GetPredefined()
+    {
+        var attributes = _attributePredefinedRepository.GetPredefined().Where(x => x.State != State.Deleted).ToList()
+            .OrderBy(x => x.Aspect).ThenBy(x => x.Key, StringComparer.InvariantCultureIgnoreCase).ToList();
+
+        return _mapper.Map<List<AttributePredefinedLibCm>>(attributes);
+    }
+
+    /// <summary>
+    /// Create predefined attributes
+    /// </summary>
+    /// <param name="predefined"></param>
+    /// <returns>Created predefined attribute</returns>
+    public async Task CreatePredefined(List<AttributePredefinedLibAm> predefined)
+    {
+        if (predefined == null || !predefined.Any())
+            return;
+
+        var data = _mapper.Map<List<AttributePredefinedLibDm>>(predefined);
+        var existing = _attributePredefinedRepository.GetPredefined().ToList();
+        var notExisting = data.Exclude(existing, x => x.Key).ToList();
+
+        if (!notExisting.Any())
+            return;
+
+        foreach (var attribute in notExisting)
+        {
+            attribute.CreatedBy = CreatedBy.Seeding;
+            attribute.State = State.Approved;
+            await _attributePredefinedRepository.CreatePredefined(attribute);
+            await _logService.CreateLog(attribute, LogType.Create, attribute.State.ToString(), attribute.CreatedBy);
         }
     }
 }

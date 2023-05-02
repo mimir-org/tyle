@@ -1,10 +1,9 @@
 using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.TypeLibrary.Models.Application;
 
-namespace Mimirorg.Authentication.Contracts
+namespace Mimirorg.Authentication.Contracts;
+
+public interface IMimirorgTemplateRepository
 {
-    public interface IMimirorgTemplateRepository
-    {
-        Task<MimirorgMailAm> CreateCodeVerificationMail(MimirorgUser user, string secret);
-    }
+    Task<MimirorgMailAm> CreateCodeVerificationMail(MimirorgUser user, string secret);
 }

@@ -14,6 +14,8 @@ export const useGetCurrentUser = () =>
 
 export const useCreateUser = () => useMutation((item: MimirorgUserAm) => userApi.postUser(item), {});
 
+export const useUpdateUser = () => useMutation((item: MimirorgUserAm) => userApi.patchUser(item));
+
 export const useVerification = () => useMutation((item: MimirorgVerifyAm) => userApi.postVerification(item));
 
 export const useGenerateMfa = () => useMutation((item: MimirorgVerifyAm) => userApi.postGenerateMfa(item));

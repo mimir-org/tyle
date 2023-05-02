@@ -1,6 +1,4 @@
-import { AttributeLibAm, TerminalLibAm, TerminalLibCm } from "@mimirorg/typelibrary-types";
-import { UpdateEntity } from "common/types/updateEntity";
-import { TerminalFormMode } from "features/entities/terminal/types/terminalFormMode";
+import { TerminalLibAm, TerminalLibCm } from "@mimirorg/typelibrary-types";
 import { ValueObject } from "features/entities/types/valueObject";
 
 /**
@@ -8,7 +6,7 @@ import { ValueObject } from "features/entities/types/valueObject";
  * It allows you to adapt the expected api model to fit client/form logic needs.
  */
 export interface FormTerminalLib extends Omit<TerminalLibAm, "attributes"> {
-  attributes: ValueObject<UpdateEntity<AttributeLibAm>>[];
+  attributes: ValueObject<string>[];
 }
 
 /**
@@ -20,13 +18,9 @@ export const mapFormTerminalLibToApiModel = (formTerminal: FormTerminalLib): Ter
   attributes: formTerminal.attributes.map((x) => x.value),
 });
 
-export const mapTerminalLibCmToFormTerminalLib = (
-  terminalLibCm: TerminalLibCm,
-  mode?: TerminalFormMode
-): FormTerminalLib => ({
+export const mapTerminalLibCmToFormTerminalLib = (terminalLibCm: TerminalLibCm): FormTerminalLib => ({
   ...terminalLibCm,
-  parentId: mode === "clone" ? terminalLibCm.id : terminalLibCm.parentId,
-  attributes: terminalLibCm.attributes.map((x) => ({ value: x })),
+  attributes: terminalLibCm.attributes.map((x) => ({ value: x.id })),
 });
 
 export const createEmptyFormTerminalLib = (): FormTerminalLib => ({
@@ -37,11 +31,8 @@ export const createEmptyFormTerminalLib = (): FormTerminalLib => ({
 
 const emptyTerminalLibAm: TerminalLibAm = {
   name: "",
-  parentId: "",
-  typeReferences: [],
+  typeReference: "",
   color: "",
   description: "",
   attributes: [],
-  companyId: 0,
-  version: "1.0",
 };

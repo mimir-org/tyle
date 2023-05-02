@@ -1,9 +1,7 @@
-import { InterfaceLibCm, NodeLibCm, TerminalLibCm, TransportLibCm } from "@mimirorg/typelibrary-types";
-import { InterfaceItem } from "common/types/interfaceItem";
-import { NodeItem } from "common/types/nodeItem";
+import { AspectObjectLibCm, TerminalLibCm } from "@mimirorg/typelibrary-types";
+import { AspectObjectItem } from "common/types/aspectObjectItem";
 import { TerminalItem } from "common/types/terminalItem";
-import { TransportItem } from "common/types/transportItem";
 
-export type SearchResult = NodeItem | TerminalItem | TransportItem | InterfaceItem;
+export type SearchResult = AspectObjectItem | TerminalItem;
 
-export type SearchResultRaw = NodeLibCm | TerminalLibCm | TransportLibCm | InterfaceLibCm;
+export type SearchResultRaw = AspectObjectLibCm | TerminalLibCm;

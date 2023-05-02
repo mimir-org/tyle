@@ -15,6 +15,7 @@ export type ButtonContainerProps = Flex &
     variant?: "filled" | "outlined" | "text";
     iconPlacement?: "left" | "right";
     iconOnly?: boolean;
+    dangerousAction?: boolean;
   };
 
 export const ButtonContainer = styled.button<ButtonContainerProps>`
@@ -53,25 +54,25 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
 
   ${focus};
 
-  ${({ variant, ...props }) => {
+  ${({ variant, dangerousAction, ...props }) => {
     const {
       color: { sys },
     } = props.theme.tyle;
 
     switch (variant) {
       case "filled": {
-        return filledButton(sys);
+        return filledButton(sys, dangerousAction);
       }
       case "outlined": {
-        return outlinedButton(sys);
+        return outlinedButton(sys, dangerousAction);
       }
       case "text": {
-        return textButton(sys);
+        return textButton(sys, dangerousAction);
       }
     }
   }};
 
-  ${({ iconOnly, ...props }) =>
+  ${({ iconOnly, dangerousAction, ...props }) =>
     iconOnly &&
     css`
       padding: ${props.theme.tyle.spacing.xs};
@@ -83,6 +84,10 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
       svg {
         max-width: 18px;
         max-height: 18px;
+      }
+      &:hover {
+        background-color: ${dangerousAction ? props.theme.tyle.color.sys.dangerousAction.base : ""};
+        color: white;
       }
     `};
 
