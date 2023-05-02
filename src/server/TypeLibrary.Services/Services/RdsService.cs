@@ -92,6 +92,15 @@ public class RdsService : IRdsService
             throw new MimirorgBadRequestException("RDS does not exist or is flagged as deleted. Update is not possible.", validation);
         }
 
+        if (rdsToUpdate.State != State.Approved)
+        {
+            rdsToUpdate.RdsCode = rdsAm.RdsCode;
+            rdsToUpdate.Name = rdsAm.Name;
+            rdsToUpdate.TypeReference = rdsAm.TypeReference;
+            rdsToUpdate.CategoryId = rdsAm.CategoryId;
+
+            rdsToUpdate.State = State.Draft;
+        }
         rdsToUpdate.Description = rdsAm.Description;
 
         _rdsRepository.Update(rdsToUpdate);

@@ -37,6 +37,14 @@ public static class EnumerableExtensions
             .DistinctBy(x => x.FirstVersionId);
     }
 
+    public static IEnumerable<T> LatestVersionsApproved<T>(this IEnumerable<T> collection) where T : IVersionObject
+    {
+        return collection
+            .Where(x => x.State == State.Approved)
+            .OrderByDescending(x => VersionToDouble(x.Version))
+            .DistinctBy(x => x.FirstVersionId);
+    }
+
     public static T LatestVersionExcludeDeleted<T>(this IEnumerable<T> collection, string firstVersionId) where T : IVersionObject
     {
         return collection
@@ -49,6 +57,14 @@ public static class EnumerableExtensions
     {
         return collection
             .Where(x => x.FirstVersionId == firstVersionId)
+            .OrderByDescending(x => VersionToDouble(x.Version))
+            .FirstOrDefault();
+    }
+
+    public static T LatestVersionApproved<T>(this IEnumerable<T> collection, string firstVersionId) where T : IVersionObject
+    {
+        return collection
+            .Where(x => x.FirstVersionId == firstVersionId && x.State == State.Approved)
             .OrderByDescending(x => VersionToDouble(x.Version))
             .FirstOrDefault();
     }

@@ -121,6 +121,7 @@ public class AspectObjectServiceTests : IntegrationTest
 
         var aspectObjectService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IAspectObjectService>();
         var aspectObjectCm = await aspectObjectService.Create(aspectObjectAm);
+        await aspectObjectService.ChangeState(aspectObjectCm.Id, State.Approved);
 
         aspectObjectAm.Description = "Description v1.1";
 
@@ -150,6 +151,7 @@ public class AspectObjectServiceTests : IntegrationTest
         var aspectObjectService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<IAspectObjectService>();
 
         var cm = await aspectObjectService.Create(aspectObjectAm);
+        await aspectObjectService.ChangeState(cm.Id, State.Approved);
         aspectObjectAm.Description = "Description2";
         var cmUpdated = await aspectObjectService.Update(cm.Id, aspectObjectAm);
 

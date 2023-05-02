@@ -74,7 +74,8 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
                     Description = ""
                 };
 
-                rdsRepository.Create(rds);
+                var createdRds = rdsRepository.Create(rds).Result;
+                rdsRepository.ChangeState(State.Approved, createdRds.Id);
             }
             catch (Exception e)
             {

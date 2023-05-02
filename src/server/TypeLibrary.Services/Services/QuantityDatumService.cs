@@ -133,6 +133,14 @@ public class QuantityDatumService : IQuantityDatumService
             throw new MimirorgBadRequestException("Quantity datum does not exist or is flagged as deleted. Update is not possible.", validation);
         }
 
+        if (quantityDatumToUpdate.State != State.Approved)
+        {
+            quantityDatumToUpdate.Name = quantityDatumAm.Name;
+            quantityDatumToUpdate.TypeReference = quantityDatumAm.TypeReference;
+            quantityDatumToUpdate.QuantityDatumType = quantityDatumAm.QuantityDatumType;
+
+            quantityDatumToUpdate.State = State.Draft;
+        }
         quantityDatumToUpdate.Description = quantityDatumAm.Description;
 
         _quantityDatumRepository.Update(quantityDatumToUpdate);

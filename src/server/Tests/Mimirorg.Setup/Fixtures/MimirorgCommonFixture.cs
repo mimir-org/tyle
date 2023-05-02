@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Models;
@@ -6,6 +7,7 @@ using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Moq;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
 using TypeLibrary.Services.Services;
@@ -18,15 +20,21 @@ public class MimirorgCommonFixture : IDisposable
     public MimirorgAuthSettings MimirorgAuthSettings = new();
     public ApplicationSettings ApplicationSettings = new();
     public Mock<IMapper> Mapper = new();
+    public Mock<IHttpContextAccessor> HttpContextAccessor = new();
 
     // Loggers
     public Mock<ILogger<AspectObjectService>> AspectObjectServiceLogger = new();
 
     // Repositories
-    public Mock<IAspectObjectRepository> AspectObjectRepository = new();
+    public Mock<IEfAspectObjectRepository> AspectObjectRepository = new();
     public Mock<IAttributeRepository> AttributeRepository = new();
+    public Mock<IEfAspectObjectTerminalRepository> AspectObjectTerminalRepository = new();
+    public Mock<IEfAspectObjectAttributeRepository> AspectObjectAttributeRepository = new();
 
     // Services
+    public Mock<IAttributeService> AttributeService = new();
+    public Mock<ITerminalService> TerminalService = new();
+    public Mock<IRdsService> RdsService = new();
     public Mock<ITimedHookService> TimedHookService = new();
     public Mock<ILogService> LogService = new();
 

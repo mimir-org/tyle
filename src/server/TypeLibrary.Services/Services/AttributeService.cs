@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
@@ -25,15 +26,19 @@ public class AttributeService : IAttributeService
     private readonly IMapper _mapper;
     private readonly IAttributePredefinedRepository _attributePredefinedRepository;
     private readonly IEfAttributeRepository _attributeRepository;
+    private readonly IEfAttributeUnitRepository _attributeUnitRepository;
+    private readonly IUnitService _unitService;
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
     private readonly IHttpContextAccessor _contextAccessor;
 
-    public AttributeService(IMapper mapper, IAttributePredefinedRepository attributePredefinedRepository, IEfAttributeRepository attributeRepository, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor)
+    public AttributeService(IMapper mapper, IAttributePredefinedRepository attributePredefinedRepository, IEfAttributeRepository attributeRepository, IEfAttributeUnitRepository attributeUnitRepository, IUnitService unitService, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor)
     {
         _mapper = mapper;
         _attributePredefinedRepository = attributePredefinedRepository;
         _attributeRepository = attributeRepository;
+        _attributeUnitRepository = attributeUnitRepository;
+        _unitService = unitService;
         _hookService = hookService;
         _logService = logService;
         _contextAccessor = contextAccessor;
@@ -106,18 +111,47 @@ public class AttributeService : IAttributeService
         if (!validation.IsValid)
             throw new MimirorgBadRequestException("Attribute is not valid.", validation);
 
-        var attributeToUpdate = _attributeRepository.Get(id);
+        var attributeToUpdate = _attributeRepository.FindBy(x => x.Id == id, false).Include(x => x.AttributeUnits).FirstOrDefault();
 
-        if (attributeToUpdate == null)
+        if (attributeToUpdate == null || attributeToUpdate.State == State.Deleted)
         {
             validation = new Validation(new List<string> { nameof(AttributeLibAm.Name) },
-                $"Attribute with name {attributeAm.Name} and id {id} does not exist.");
+                $"Attribute with name {attributeAm.Name} and id {id} does not exist or is flagged as deleted.");
             throw new MimirorgBadRequestException("Attribute does not exist or is flagged as deleted. Update is not possible.", validation);
         }
 
-        attributeToUpdate.Description = attributeAm.Description;
+        if (attributeToUpdate.State != State.Approved)
+        {
+            attributeToUpdate.Name = attributeAm.Name;
+            attributeToUpdate.TypeReference = attributeAm.TypeReference;
+            attributeToUpdate.Description = attributeAm.Description;
 
-        _attributeRepository.Update(attributeToUpdate);
+            attributeToUpdate.AttributeUnits ??= new List<AttributeUnitLibDm>();
+
+            var currentAttributeUnits = attributeToUpdate.AttributeUnits.ToHashSet();
+            var newAttributeUnits = _mapper.Map<HashSet<AttributeUnitLibDm>>(attributeAm.AttributeUnits.ToHashSet());
+
+            foreach (var attributeUnit in currentAttributeUnits.ExceptBy(newAttributeUnits.Select(x => x.UnitId + x.IsDefault), y => y.UnitId + y.IsDefault))
+            {
+                var attributeUnitDm = _attributeUnitRepository.FindBy(x => x.AttributeId == attributeToUpdate.Id && x.UnitId == attributeUnit.UnitId).FirstOrDefault();
+                if (attributeUnitDm == null) continue;
+                await _attributeUnitRepository.Delete(attributeUnitDm.Id);
+            }
+
+            foreach (var attributeUnit in newAttributeUnits.ExceptBy(currentAttributeUnits.Select(x => x.UnitId + x.IsDefault), y => y.UnitId + y.IsDefault))
+            {
+                attributeUnit.AttributeId = attributeToUpdate.Id;
+                attributeToUpdate.AttributeUnits.Add(attributeUnit);
+            }
+
+            attributeToUpdate.State = State.Draft;
+        }
+        else
+        {
+            attributeToUpdate.Description = attributeAm.Description;
+        }
+
+        await _attributeUnitRepository.SaveAsync();
         await _attributeRepository.SaveAsync();
         var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
         await _logService.CreateLog(attributeToUpdate, LogType.Update, attributeToUpdate.State.ToString(), updatedBy);
@@ -137,8 +171,24 @@ public class AttributeService : IAttributeService
             throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException(
-                $"State change on approved attribute with id {id} is not allowed.");
+            throw new MimirorgBadRequestException($"State change on approved attribute with id {id} is not allowed.");
+
+        if (state == State.Approve)
+        {
+            foreach (var attributeUnit in dm.AttributeUnits)
+            {
+                var unit = _unitService.Get(attributeUnit.UnitId);
+
+                if (unit.State == State.Approved) continue;
+                if (unit.State == State.Deleted) throw new MimirorgBadRequestException("Cannot request approval for attribute that uses deleted units.");
+
+                await _unitService.ChangeState(unit.Id, State.Approve);
+            }
+        }
+        else if (state == State.Approved && dm.AttributeUnits.Select(attributeUnit => _unitService.Get(attributeUnit.UnitId)).Any(unit => unit.State != State.Approved))
+        {
+            throw new MimirorgBadRequestException("Cannot approve attribute that uses unapproved units.");
+        }
 
         await _attributeRepository.ChangeState(state, new List<string> { dm.Id });
 

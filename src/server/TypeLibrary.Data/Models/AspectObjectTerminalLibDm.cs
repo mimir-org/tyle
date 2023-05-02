@@ -1,4 +1,5 @@
 using Mimirorg.TypeLibrary.Enums;
+using VDS.RDF;
 
 namespace TypeLibrary.Data.Models;
 
@@ -12,4 +13,9 @@ public class AspectObjectTerminalLibDm
     public AspectObjectLibDm AspectObject { get; set; }
     public string TerminalId { get; set; }
     public TerminalLibDm Terminal { get; set; }
+
+    public string GetHash()
+    {
+        return $"{MinQuantity}-{MaxQuantity}-{ConnectorDirection}-{TerminalId}".GetSha256Hash();
+    }
 }
