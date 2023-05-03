@@ -52,12 +52,18 @@ public class AspectObjectService : IAspectObjectService
         _contextAccessor = contextAccessor;
     }
 
-    /// <summary>
-    /// Get the latest version of an aspect object based on given id
-    /// </summary>
-    /// <param name="id">The id of the aspect object</param>
-    /// <returns>The latest version of the aspect object of given id</returns>
-    /// <exception cref="MimirorgNotFoundException">Throws if there is no aspect object with the given id, and that aspect object is at the latest version.</exception>
+    /// <inheritdoc />
+    public IEnumerable<AspectObjectLibCm> GetLatestVersions()
+    {
+        var dms = _aspectObjectRepository.Get()?.LatestVersionsExcludeDeleted()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
+        if (dms == null || !dms.Any())
+            return new List<AspectObjectLibCm>();
+
+        return _mapper.Map<List<AspectObjectLibCm>>(dms);
+    }
+
+    /// <inheritdoc />
     public AspectObjectLibCm Get(string id)
     {
         var dm = _aspectObjectRepository.Get(id);
@@ -68,29 +74,7 @@ public class AspectObjectService : IAspectObjectService
         return _mapper.Map<AspectObjectLibCm>(dm);
     }
 
-    /// <summary>
-    /// Get the latest aspect object versions
-    /// </summary>
-    /// <returns>A collection of aspect objects</returns>
-    public IEnumerable<AspectObjectLibCm> GetLatestVersions()
-    {
-        var dms = _aspectObjectRepository.Get()?.LatestVersionsExcludeDeleted()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
-
-        if (dms == null)
-            throw new MimirorgNotFoundException("No aspect objects were found.");
-
-        return !dms.Any() ? new List<AspectObjectLibCm>() : _mapper.Map<List<AspectObjectLibCm>>(dms);
-    }
-
-    /// <summary>
-    /// Create a new aspect object
-    /// </summary>
-    /// <param name="aspectObjectAm">The aspect object that should be created</param>
-    /// <returns>The created aspect object</returns>
-    /// <exception cref="MimirorgBadRequestException">Throws if aspect object is not valid</exception>
-    /// <exception cref="MimirorgDuplicateException">Throws if aspect object already exist</exception>
-    /// <remarks>Remember that creating a new aspect object could be creating a new version of existing aspect object.
-    /// They will have the same first version id, but have different version and id.</remarks>
+    /// <inheritdoc />
     public async Task<AspectObjectLibCm> Create(AspectObjectLibAm aspectObjectAm)
     {
         if (aspectObjectAm == null)
@@ -138,15 +122,7 @@ public class AspectObjectService : IAspectObjectService
         return Get(createdAspectObject?.Id);
     }
 
-    /// <summary>
-    /// Update an aspect object if the data is allowed to be changed.
-    /// </summary>
-    /// <param name="id">The id of the aspect object to update</param>
-    /// <param name="aspectObjectAm">The aspect object to update</param>
-    /// <returns>The updated aspect object</returns>
-    /// <exception cref="MimirorgBadRequestException">Throws if the aspect object does not exist,
-    /// if it is not valid or there are not allowed changes.</exception>
-    /// <remarks>ParentId to old references will also be updated.</remarks>
+    /// <inheritdoc />
     public async Task<AspectObjectLibCm> Update(string id, AspectObjectLibAm aspectObjectAm)
     {
         var validation = aspectObjectAm.ValidateObject();
@@ -333,13 +309,7 @@ public class AspectObjectService : IAspectObjectService
         return Get(aspectObjectToUpdate.Id);
     }
 
-    /// <summary>
-    /// Change aspect object state
-    /// </summary>
-    /// <param name="id">The aspect object id that should change the state</param>
-    /// <param name="state">The new aspect object state</param>
-    /// <returns>Aspect objects with updated state</returns>
-    /// <exception cref="MimirorgNotFoundException">Throws if the aspect object does not exist on latest version</exception>
+    /// <inheritdoc />
     public async Task<ApprovalDataCm> ChangeState(string id, State state)
     {
         var dm = _aspectObjectRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
@@ -406,11 +376,7 @@ public class AspectObjectService : IAspectObjectService
         };
     }
 
-    /// <summary>
-    /// Get aspect object existing company id for terminal by id
-    /// </summary>
-    /// <param name="id">The aspect object id</param>
-    /// <returns>Company id for aspect object</returns>
+    /// <inheritdoc />
     public int GetCompanyId(string id)
     {
         return _aspectObjectRepository.HasCompany(id);

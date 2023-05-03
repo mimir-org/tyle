@@ -16,11 +16,11 @@ public interface IAspectObjectService
     IEnumerable<AspectObjectLibCm> GetLatestVersions();
 
     /// <summary>
-    /// Get the latest version of an aspect object based on given id
+    /// Get an aspect object based on given id
     /// </summary>
     /// <param name="id">The id of the aspect object</param>
-    /// <returns>The latest version of the aspect object of given id</returns>
-    /// <exception cref="MimirorgNotFoundException">Throws if there is no aspect object with the given id, and that aspect object is at the latest version.</exception>
+    /// <returns>The aspect object of given id</returns>
+    /// <exception cref="MimirorgNotFoundException">Throws if there is no aspect object with the given id.</exception>
     AspectObjectLibCm Get(string id);
 
     /// <summary>
@@ -29,7 +29,6 @@ public interface IAspectObjectService
     /// <param name="aspectObjectAm">The aspect object that should be created</param>
     /// <returns>The created aspect object</returns>
     /// <exception cref="MimirorgBadRequestException">Throws if aspect object is not valid</exception>
-    /// <exception cref="MimirorgDuplicateException">Throws if aspect object already exist</exception>
     /// <remarks>Remember that creating a new aspect object could be creating a new version of existing aspect object.
     /// They will have the same first version id, but have different version and id.</remarks>
     Task<AspectObjectLibCm> Create(AspectObjectLibAm aspectObjectAm);
@@ -38,20 +37,24 @@ public interface IAspectObjectService
     /// Update an aspect object if the data is allowed to be changed.
     /// </summary>
     /// <param name="id">The id of the aspect object to update</param>
-    /// <param name="aspectObjectAm">The aspect object to update</param>
+    /// <param name="aspectObjectAm">The new aspect object values</param>
     /// <returns>The updated aspect object</returns>
-    /// <exception cref="MimirorgBadRequestException">Throws if the aspect object does not exist,
-    /// if it is not valid or there are not allowed changes.</exception>
-    /// <remarks>ParentId to old references will also be updated.</remarks>
+    /// <exception cref="MimirorgNotFoundException">Throws if the aspect object with the given id is not found.</exception>
+    /// <exception cref="MimirorgBadRequestException">Throws if the aspect object is not valid.</exception>
+    /// <exception cref="MimirorgInvalidOperationException">Throws if the aspect object is a state that makes it invalid for updates,
+    /// a draft already exists for this type or if changes are not allowed.</exception>
     Task<AspectObjectLibCm> Update(string id, AspectObjectLibAm aspectObjectAm);
 
     /// <summary>
     /// Change aspect object state
     /// </summary>
-    /// <param name="id">The aspect object id that should change the state</param>
+    /// <param name="id">The id of the aspect object that should change state</param>
     /// <param name="state">The new aspect object state</param>
-    /// <returns>Aspect object with updated state</returns>
-    /// <exception cref="MimirorgNotFoundException">Throws if the aspect object does not exist on latest version</exception>
+    /// <returns>An approval data object</returns>
+    /// <exception cref="MimirorgNotFoundException">Throws if the aspect object does not exist</exception>
+    /// <exception cref="MimirorgInvalidOperationException">Throws if the aspect object is already
+    /// approved, is identical to an already approved aspect object or contains references to deleted or unapproved
+    /// terminals, attributes or RDS</exception>
     Task<ApprovalDataCm> ChangeState(string id, State state);
 
     /// <summary>
