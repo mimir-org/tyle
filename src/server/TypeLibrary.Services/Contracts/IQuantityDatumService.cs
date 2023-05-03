@@ -53,6 +53,7 @@ public interface IQuantityDatumService
     /// <param name="quantityDatumAm">The quantity datum that should be created</param>
     /// <param name="createdBy">Used to set created by value for instances where objects are not created by the user</param>
     /// <returns>The created quantity datum</returns>
+    /// <exception cref="MimirorgBadRequestException">Throws if quantity datum is not valid</exception>
     Task<QuantityDatumLibCm> Create(QuantityDatumLibAm quantityDatumAm, string createdBy = null);
 
     /// <summary>

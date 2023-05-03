@@ -28,6 +28,7 @@ public interface IRdsService
     /// </summary>
     /// <param name="rdsAm">The RDS that should be created</param>
     /// <returns>The created RDS</returns>
+    /// <exception cref="MimirorgBadRequestException">Throws if RDS is not valid</exception>
     Task<RdsLibCm> Create(RdsLibAm rdsAm);
 
     /// <summary>

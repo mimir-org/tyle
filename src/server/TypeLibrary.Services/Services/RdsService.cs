@@ -65,6 +65,11 @@ public class RdsService : IRdsService
         if (rdsAm == null)
             throw new ArgumentNullException(nameof(rdsAm));
 
+        var validation = rdsAm.ValidateObject();
+
+        if (!validation.IsValid)
+            throw new MimirorgBadRequestException("RDS is not valid.", validation);
+
         var dm = _mapper.Map<RdsLibDm>(rdsAm);
 
         dm.State = State.Draft;

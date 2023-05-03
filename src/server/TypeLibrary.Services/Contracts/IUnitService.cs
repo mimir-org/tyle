@@ -29,6 +29,7 @@ public interface IUnitService
     /// <param name="unitAm">The unit that should be created</param>
     /// <param name="createdBy">Used to set created by value for instances where objects are not created by the user</param>
     /// <returns>The created unit</returns>
+    /// <exception cref="MimirorgBadRequestException">Throws if the unit is not valid.</exception>
     Task<UnitLibCm> Create(UnitLibAm unitAm, string createdBy = null);
 
     /// <summary>

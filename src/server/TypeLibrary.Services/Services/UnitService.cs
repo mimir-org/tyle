@@ -63,6 +63,11 @@ public class UnitService : IUnitService
         if (unitAm == null)
             throw new ArgumentNullException(nameof(unitAm));
 
+        var validation = unitAm.ValidateObject();
+
+        if (!validation.IsValid)
+            throw new MimirorgBadRequestException("Unit is not valid.", validation);
+
         var dm = _mapper.Map<UnitLibDm>(unitAm);
 
         if (!string.IsNullOrEmpty(createdBy))

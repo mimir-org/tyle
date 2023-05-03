@@ -96,6 +96,11 @@ public class QuantityDatumService : IQuantityDatumService
         if (quantityDatumAm == null)
             throw new ArgumentNullException(nameof(quantityDatumAm));
 
+        var validation = quantityDatumAm.ValidateObject();
+
+        if (!validation.IsValid)
+            throw new MimirorgBadRequestException("Quantity datum is not valid.", validation);
+
         var dm = _mapper.Map<QuantityDatumLibDm>(quantityDatumAm);
 
         if (!string.IsNullOrEmpty(createdBy))

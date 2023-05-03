@@ -71,6 +71,11 @@ public class AttributeService : IAttributeService
         if (attributeAm == null)
             throw new ArgumentNullException(nameof(attributeAm));
 
+        var validation = attributeAm.ValidateObject();
+
+        if (!validation.IsValid)
+            throw new MimirorgBadRequestException("Attribute is not valid.", validation);
+
         var dm = _mapper.Map<AttributeLibDm>(attributeAm);
 
         if (!string.IsNullOrEmpty(createdBy))

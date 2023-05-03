@@ -28,6 +28,7 @@ public interface IAttributeService
     /// <param name="attributeAm">The attribute that should be created</param>
     /// <param name="createdBy">Used to set created by value for instances where objects are not created by the user</param>
     /// <returns>The created attribute</returns>
+    /// <exception cref="MimirorgBadRequestException">Throws if attribute is not valid</exception>
     Task<AttributeLibCm> Create(AttributeLibAm attributeAm, string createdBy = null);
 
     /// <summary>
