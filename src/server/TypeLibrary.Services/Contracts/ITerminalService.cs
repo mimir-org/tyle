@@ -51,5 +51,5 @@ public interface ITerminalService
     /// <exception cref="MimirorgNotFoundException">Throws if the terminal does not exist</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the terminal is already
     /// approved or contains references to deleted or unapproved attributes.</exception>
-    Task<TerminalLibCm> ChangeState(string id, State state);
+    Task<ApprovalDataCm> ChangeState(string id, State state);
 }

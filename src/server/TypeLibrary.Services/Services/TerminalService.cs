@@ -190,7 +190,7 @@ public class TerminalService : ITerminalService
     }
 
     /// <inheritdoc />
-    public async Task<TerminalLibCm> ChangeState(string id, State state)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state)
     {
         var dm = _terminalRepository.Get().FirstOrDefault(x => x.Id == id);
 
@@ -225,6 +225,10 @@ public class TerminalService : ITerminalService
 
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
-        return state == State.Deleted ? null : Get(id);
+        return new ApprovalDataCm
+        {
+            Id = id,
+            State = state
+        };
     }
 }
