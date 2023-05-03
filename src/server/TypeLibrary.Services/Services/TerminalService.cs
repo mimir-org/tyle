@@ -48,6 +48,17 @@ public class TerminalService : ITerminalService
     }
 
     /// <inheritdoc />
+    public IEnumerable<TerminalLibCm> Get()
+    {
+        var dataSet = _terminalRepository.Get()?.ExcludeDeleted().ToList();
+
+        if (dataSet == null || !dataSet.Any())
+            return new List<TerminalLibCm>();
+
+        return _mapper.Map<List<TerminalLibCm>>(dataSet);
+    }
+
+    /// <inheritdoc />
     public TerminalLibCm Get(string id)
     {
         var dm = _terminalRepository.Get(id);
@@ -56,17 +67,6 @@ public class TerminalService : ITerminalService
             throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
 
         return _mapper.Map<TerminalLibCm>(dm);
-    }
-
-    /// <inheritdoc />
-    public IEnumerable<TerminalLibCm> Get()
-    {
-        var dataSet = _terminalRepository.Get().ExcludeDeleted().ToList();
-
-        if (dataSet == null)
-            throw new MimirorgNotFoundException("No terminals were found.");
-
-        return !dataSet.Any() ? new List<TerminalLibCm>() : _mapper.Map<List<TerminalLibCm>>(dataSet);
     }
 
     /// <inheritdoc />
@@ -189,13 +189,7 @@ public class TerminalService : ITerminalService
         return Get(terminalToUpdate.Id);
     }
 
-    /// <summary>
-    /// Change terminal state
-    /// </summary>
-    /// <param name="id">The terminal id that should change the state</param>
-    /// <param name="state">The new terminal state</param>
-    /// <returns>Terminal with updated state</returns>
-    /// <exception cref="MimirorgNotFoundException">Throws if the terminal does not exist on latest version</exception>
+    /// <inheritdoc />
     public async Task<TerminalLibCm> ChangeState(string id, State state)
     {
         var dm = _terminalRepository.Get().FirstOrDefault(x => x.Id == id);

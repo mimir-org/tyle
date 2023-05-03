@@ -4,7 +4,6 @@ using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
-using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -39,12 +38,12 @@ public class UnitService : IUnitService
     /// <inheritdoc />
     public IEnumerable<UnitLibCm> Get()
     {
-        var dataList = _unitRepository.Get().ExcludeDeleted().ToList();
+        var dataList = _unitRepository.Get()?.ExcludeDeleted().ToList();
 
-        if (dataList == null)
-            throw new MimirorgNotFoundException("No units were found.");
+        if (dataList == null || !dataList.Any())
+            return new List<UnitLibCm>();
 
-        return !dataList.Any() ? new List<UnitLibCm>() : _mapper.Map<List<UnitLibCm>>(dataList);
+        return _mapper.Map<List<UnitLibCm>>(dataList);
     }
 
     /// <inheritdoc />

@@ -43,24 +43,18 @@ public class AttributeService : IAttributeService
         _contextAccessor = contextAccessor;
     }
 
-    /// <summary>
-    /// Get all attributes and their units
-    /// </summary>
-    /// <returns>List of attributes and their units></returns>
+    /// <inheritdoc />
     public IEnumerable<AttributeLibCm> Get()
     {
-        var dataSet = _attributeRepository.Get().ExcludeDeleted().ToList();
+        var dataSet = _attributeRepository.Get()?.ExcludeDeleted().ToList();
 
-        if (dataSet == null)
-            throw new MimirorgNotFoundException("No attributes were found.");
+        if (dataSet == null || !dataSet.Any())
+            return new List<AttributeLibCm>();
 
-        return !dataSet.Any() ? new List<AttributeLibCm>() : _mapper.Map<List<AttributeLibCm>>(dataSet);
+        return _mapper.Map<List<AttributeLibCm>>(dataSet);
     }
 
-    /// <summary>
-    /// Get an attribute and its units
-    /// </summary>
-    /// <returns>Attribute and its units></returns>
+    /// <inheritdoc />
     public AttributeLibCm Get(string id)
     {
         var dm = _attributeRepository.Get(id);
@@ -210,10 +204,7 @@ public class AttributeService : IAttributeService
         };
     }
 
-    /// <summary>
-    /// Get predefined attributes
-    /// </summary>
-    /// <returns>List of predefined attributes</returns>
+    /// <inheritdoc />
     public IEnumerable<AttributePredefinedLibCm> GetPredefined()
     {
         var attributes = _attributePredefinedRepository.GetPredefined().Where(x => x.State != State.Deleted).ToList()
@@ -222,11 +213,7 @@ public class AttributeService : IAttributeService
         return _mapper.Map<List<AttributePredefinedLibCm>>(attributes);
     }
 
-    /// <summary>
-    /// Create predefined attributes
-    /// </summary>
-    /// <param name="predefined"></param>
-    /// <returns>Created predefined attribute</returns>
+    /// <inheritdoc />
     public async Task CreatePredefined(List<AttributePredefinedLibAm> predefined)
     {
         if (predefined == null || !predefined.Any())

@@ -39,12 +39,12 @@ public class QuantityDatumService : IQuantityDatumService
     /// <inheritdoc />
     public IEnumerable<QuantityDatumLibCm> Get()
     {
-        var dataSet = _quantityDatumRepository.Get().ExcludeDeleted().ToList();
+        var dataSet = _quantityDatumRepository.Get()?.ExcludeDeleted().ToList();
 
-        if (dataSet == null)
-            throw new MimirorgNotFoundException("No quantity datums were found.");
+        if (dataSet == null || !dataSet.Any())
+            return new List<QuantityDatumLibCm>();
 
-        return !dataSet.Any() ? new List<QuantityDatumLibCm>() : _mapper.Map<List<QuantityDatumLibCm>>(dataSet);
+        return _mapper.Map<List<QuantityDatumLibCm>>(dataSet);
     }
 
     /// <inheritdoc />

@@ -40,12 +40,12 @@ public class RdsService : IRdsService
 
     public ICollection<RdsLibCm> Get()
     {
-        var dataList = _rdsRepository.Get().ToList().OrderBy(x => x.RdsCode.Length).ThenBy(x => x.RdsCode, StringComparer.InvariantCultureIgnoreCase);
+        var dataList = _rdsRepository.Get()?.ToList().OrderBy(x => x.RdsCode.Length).ThenBy(x => x.RdsCode, StringComparer.InvariantCultureIgnoreCase);
 
-        if (dataList == null)
-            throw new MimirorgNotFoundException("No RDS objects were found.");
+        if (dataList == null || !dataList.Any())
+            return new List<RdsLibCm>();
 
-        return !dataList.Any() ? new List<RdsLibCm>() : _mapper.Map<List<RdsLibCm>>(dataList);
+        return _mapper.Map<List<RdsLibCm>>(dataList);
     }
 
     /// <inheritdoc />

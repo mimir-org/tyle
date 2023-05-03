@@ -54,7 +54,7 @@ public interface IAspectObjectService
     /// <exception cref="MimirorgNotFoundException">Throws if the aspect object does not exist</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the aspect object is already
     /// approved, is identical to an already approved aspect object or contains references to deleted or unapproved
-    /// terminals, attributes or RDS</exception>
+    /// terminals, attributes or RDS.</exception>
     Task<ApprovalDataCm> ChangeState(string id, State state);
 
     /// <summary>
