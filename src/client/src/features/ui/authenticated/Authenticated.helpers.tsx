@@ -8,6 +8,8 @@ import { useTranslation } from "react-i18next";
 import { createBrowserRouter } from "react-router-dom";
 import { attributeFormRoutes } from "../../entities/attributes/AttributeFormRoutes";
 import { unitFormRoutes } from "../../entities/units/UnitFormRoutes";
+import { datumFormRoutes } from "../../entities/datum/DatumFormRoutes";
+import { rdsFormRoutes } from "../../entities/RDS/RdsFormRoutes";
 
 export const useAuthenticatedRouter = () => {
   const { t } = useTranslation("ui");
@@ -31,6 +33,8 @@ export const useAuthenticatedRouter = () => {
         ...terminalFormRoutes,
         ...attributeFormRoutes,
         ...unitFormRoutes,
+        ...datumFormRoutes,
+        ...rdsFormRoutes,
         settingsRoutes,
         {
           path: "*",

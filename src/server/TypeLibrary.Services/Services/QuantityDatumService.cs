@@ -39,12 +39,12 @@ public class QuantityDatumService : IQuantityDatumService
     /// <inheritdoc />
     public IEnumerable<QuantityDatumLibCm> Get()
     {
-        var dataSet = _quantityDatumRepository.Get().ExcludeDeleted().ToList();
+        var dataSet = _quantityDatumRepository.Get()?.ExcludeDeleted().ToList();
 
-        if (dataSet == null)
-            throw new MimirorgNotFoundException("No quantity datums were found.");
+        if (dataSet == null || !dataSet.Any())
+            return new List<QuantityDatumLibCm>();
 
-        return !dataSet.Any() ? new List<QuantityDatumLibCm>() : _mapper.Map<List<QuantityDatumLibCm>>(dataSet);
+        return _mapper.Map<List<QuantityDatumLibCm>>(dataSet);
     }
 
     /// <inheritdoc />
@@ -96,6 +96,11 @@ public class QuantityDatumService : IQuantityDatumService
         if (quantityDatumAm == null)
             throw new ArgumentNullException(nameof(quantityDatumAm));
 
+        var validation = quantityDatumAm.ValidateObject();
+
+        if (!validation.IsValid)
+            throw new MimirorgBadRequestException("Quantity datum is not valid.", validation);
+
         var dm = _mapper.Map<QuantityDatumLibDm>(quantityDatumAm);
 
         if (!string.IsNullOrEmpty(createdBy))
@@ -128,9 +133,12 @@ public class QuantityDatumService : IQuantityDatumService
 
         if (quantityDatumToUpdate == null)
         {
-            validation = new Validation(new List<string> { nameof(QuantityDatumLibAm.Name) },
-                $"Quantity datum with name {quantityDatumAm.Name} and id {id} does not exist.");
-            throw new MimirorgBadRequestException("Quantity datum does not exist or is flagged as deleted. Update is not possible.", validation);
+            throw new MimirorgNotFoundException("Quantity datum not found. Update is not possible.");
+        }
+
+        if (quantityDatumToUpdate.State != State.Approved && quantityDatumToUpdate.State != State.Draft)
+        {
+            throw new MimirorgInvalidOperationException("Update can only be performed on quantity datum drafts or approved quantity datums.");
         }
 
         if (quantityDatumToUpdate.State != State.Approved)

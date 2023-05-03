@@ -13,7 +13,7 @@ namespace TypeLibrary.Data.Models;
 /// <summary>
 /// Aspect object domain model
 /// </summary>
-public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject, ILogable
+public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject, ILogable, IEquatable<AspectObjectLibDm>
 {
     public string Id { get; set; }
     public string Name { get; set; }
@@ -157,4 +157,54 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
     }
 
     #endregion ILogable
+
+    public bool Equals(AspectObjectLibDm other)
+    {
+        if (ReferenceEquals(null, other)) return false;
+        if (ReferenceEquals(this, other)) return true;
+
+        if (Name != other.Name || Aspect != other.Aspect || RdsId != other.RdsId || PurposeName != other.PurposeName || CompanyId != other.CompanyId || TypeReference != other.TypeReference || Description != other.Description || Symbol != other.Symbol)
+            return false;
+
+        //Aspect Object Attributes
+        AspectObjectAttributes ??= new List<AspectObjectAttributeLibDm>();
+        other.AspectObjectAttributes ??= new List<AspectObjectAttributeLibDm>();
+        if (!AspectObjectAttributes.Select(x => x.AttributeId).Order().SequenceEqual(other.AspectObjectAttributes.Select(x => x.AttributeId).Order()))
+        {
+            return false;
+        }
+
+        // Aspect Object Terminals
+        AspectObjectTerminals ??= new List<AspectObjectTerminalLibDm>();
+        other.AspectObjectTerminals ??= new List<AspectObjectTerminalLibDm>();
+        if (!AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection)).Order()
+                .SequenceEqual(other.AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection)).Order()))
+        {
+            return false;
+        }
+
+        // Attribute Predefined
+        SelectedAttributePredefined ??= new List<SelectedAttributePredefinedLibDm>();
+        other.SelectedAttributePredefined ??= new List<SelectedAttributePredefinedLibDm>();
+        if (!SelectedAttributePredefined.Select(x => x.Key).Order()
+                .SequenceEqual(other.SelectedAttributePredefined.Select(x => x.Key).Order()))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj.GetType() != this.GetType()) return false;
+        return Equals((AspectObjectLibDm) obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return Id.GetHashCode();
+    }
 }

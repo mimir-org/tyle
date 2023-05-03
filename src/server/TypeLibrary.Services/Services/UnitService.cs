@@ -4,7 +4,6 @@ using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
-using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -39,12 +38,12 @@ public class UnitService : IUnitService
     /// <inheritdoc />
     public IEnumerable<UnitLibCm> Get()
     {
-        var dataList = _unitRepository.Get().ExcludeDeleted().ToList();
+        var dataList = _unitRepository.Get()?.ExcludeDeleted().ToList();
 
-        if (dataList == null)
-            throw new MimirorgNotFoundException("No units were found.");
+        if (dataList == null || !dataList.Any())
+            return new List<UnitLibCm>();
 
-        return !dataList.Any() ? new List<UnitLibCm>() : _mapper.Map<List<UnitLibCm>>(dataList);
+        return _mapper.Map<List<UnitLibCm>>(dataList);
     }
 
     /// <inheritdoc />
@@ -63,6 +62,11 @@ public class UnitService : IUnitService
     {
         if (unitAm == null)
             throw new ArgumentNullException(nameof(unitAm));
+
+        var validation = unitAm.ValidateObject();
+
+        if (!validation.IsValid)
+            throw new MimirorgBadRequestException("Unit is not valid.", validation);
 
         var dm = _mapper.Map<UnitLibDm>(unitAm);
 
@@ -96,9 +100,12 @@ public class UnitService : IUnitService
 
         if (unitToUpdate == null)
         {
-            validation = new Validation(new List<string> { nameof(UnitLibAm.Name) },
-                $"Unit with name {unitAm.Name} and id {id} does not exist.");
-            throw new MimirorgBadRequestException("Unit does not exist or is flagged as deleted. Update is not possible.", validation);
+            throw new MimirorgNotFoundException("Unit not found. Update is not possible.");
+        }
+
+        if (unitToUpdate.State != State.Approved && unitToUpdate.State != State.Draft)
+        {
+            throw new MimirorgInvalidOperationException("Update can only be performed on unit drafts or approved units.");
         }
 
         if (unitToUpdate.State != State.Approved)
