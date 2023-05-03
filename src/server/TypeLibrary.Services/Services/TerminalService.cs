@@ -209,7 +209,7 @@ public class TerminalService : ITerminalService
             throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException($"State change on approved terminal with id {id} is not allowed.");
+            throw new MimirorgBadRequestException($"State change on approved terminal with id {id} is not allowed.");
 
         if (state == State.Approve)
         {

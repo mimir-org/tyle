@@ -131,7 +131,7 @@ public class UnitService : IUnitService
             throw new MimirorgNotFoundException($"Unit with id {id} not found.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException(
+            throw new MimirorgBadRequestException(
                 $"State change on approved unit with id {id} is not allowed.");
 
         await _unitRepository.ChangeState(state, dm.Id);

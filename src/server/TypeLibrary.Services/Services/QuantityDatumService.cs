@@ -163,7 +163,7 @@ public class QuantityDatumService : IQuantityDatumService
             throw new MimirorgNotFoundException($"Quantity datum with id {id} not found.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException(
+            throw new MimirorgBadRequestException(
                 $"State change on approved quantity datum with id {id} is not allowed.");
 
         await _quantityDatumRepository.ChangeState(state, dm.Id);
