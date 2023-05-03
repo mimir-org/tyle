@@ -4,7 +4,6 @@ using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
-using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -113,11 +112,14 @@ public class AttributeService : IAttributeService
 
         var attributeToUpdate = _attributeRepository.FindBy(x => x.Id == id, false).Include(x => x.AttributeUnits).FirstOrDefault();
 
-        if (attributeToUpdate == null || attributeToUpdate.State == State.Deleted)
+        if (attributeToUpdate == null)
         {
-            validation = new Validation(new List<string> { nameof(AttributeLibAm.Name) },
-                $"Attribute with name {attributeAm.Name} and id {id} does not exist or is flagged as deleted.");
-            throw new MimirorgBadRequestException("Attribute does not exist or is flagged as deleted. Update is not possible.", validation);
+            throw new MimirorgNotFoundException("Attribute not found. Update is not possible.");
+        }
+
+        if (attributeToUpdate.State != State.Approved && attributeToUpdate.State != State.Draft)
+        {
+            throw new MimirorgInvalidOperationException("Update can only be performed on attribute drafts or approved attributes.");
         }
 
         if (attributeToUpdate.State != State.Approved)
@@ -171,7 +173,7 @@ public class AttributeService : IAttributeService
             throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgBadRequestException($"State change on approved attribute with id {id} is not allowed.");
+            throw new MimirorgInvalidOperationException($"State change on approved attribute with id {id} is not allowed.");
 
         if (state == State.Approve)
         {
@@ -180,14 +182,14 @@ public class AttributeService : IAttributeService
                 var unit = _unitService.Get(attributeUnit.UnitId);
 
                 if (unit.State == State.Approved) continue;
-                if (unit.State == State.Deleted) throw new MimirorgBadRequestException("Cannot request approval for attribute that uses deleted units.");
+                if (unit.State == State.Deleted) throw new MimirorgInvalidOperationException("Cannot request approval for attribute that uses deleted units.");
 
                 await _unitService.ChangeState(unit.Id, State.Approve);
             }
         }
         else if (state == State.Approved && dm.AttributeUnits.Select(attributeUnit => _unitService.Get(attributeUnit.UnitId)).Any(unit => unit.State != State.Approved))
         {
-            throw new MimirorgBadRequestException("Cannot approve attribute that uses unapproved units.");
+            throw new MimirorgInvalidOperationException("Cannot approve attribute that uses unapproved units.");
         }
 
         await _attributeRepository.ChangeState(state, new List<string> { dm.Id });

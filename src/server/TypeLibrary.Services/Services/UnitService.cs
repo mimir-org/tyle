@@ -96,9 +96,12 @@ public class UnitService : IUnitService
 
         if (unitToUpdate == null)
         {
-            validation = new Validation(new List<string> { nameof(UnitLibAm.Name) },
-                $"Unit with name {unitAm.Name} and id {id} does not exist.");
-            throw new MimirorgBadRequestException("Unit does not exist or is flagged as deleted. Update is not possible.", validation);
+            throw new MimirorgNotFoundException("Unit not found. Update is not possible.");
+        }
+
+        if (unitToUpdate.State != State.Approved && unitToUpdate.State != State.Draft)
+        {
+            throw new MimirorgInvalidOperationException("Update can only be performed on unit drafts or approved units.");
         }
 
         if (unitToUpdate.State != State.Approved)
@@ -131,7 +134,7 @@ public class UnitService : IUnitService
             throw new MimirorgNotFoundException($"Unit with id {id} not found.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgBadRequestException(
+            throw new MimirorgInvalidOperationException(
                 $"State change on approved unit with id {id} is not allowed.");
 
         await _unitRepository.ChangeState(state, dm.Id);

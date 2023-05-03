@@ -90,9 +90,12 @@ public class RdsService : IRdsService
 
         if (rdsToUpdate == null)
         {
-            validation = new Validation(new List<string> { nameof(RdsLibAm.Name) },
-                $"RDS with name {rdsAm.Name} and id {id} does not exist.");
-            throw new MimirorgBadRequestException("RDS does not exist or is flagged as deleted. Update is not possible.", validation);
+            throw new MimirorgNotFoundException("RDS not found. Update is not possible.");
+        }
+
+        if (rdsToUpdate.State != State.Approved && rdsToUpdate.State != State.Draft)
+        {
+            throw new MimirorgInvalidOperationException("Update can only be performed on RDS drafts or approved RDS.");
         }
 
         if (rdsToUpdate.State != State.Approved)
@@ -126,8 +129,7 @@ public class RdsService : IRdsService
             throw new MimirorgNotFoundException($"RDS with id {id} not found.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgBadRequestException(
-                $"State change on approved RDS with id {id} is not allowed.");
+            throw new MimirorgInvalidOperationException($"State change on approved RDS with id {id} is not allowed.");
 
         await _rdsRepository.ChangeState(state, dm.Id);
 

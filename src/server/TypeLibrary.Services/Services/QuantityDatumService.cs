@@ -128,9 +128,12 @@ public class QuantityDatumService : IQuantityDatumService
 
         if (quantityDatumToUpdate == null)
         {
-            validation = new Validation(new List<string> { nameof(QuantityDatumLibAm.Name) },
-                $"Quantity datum with name {quantityDatumAm.Name} and id {id} does not exist.");
-            throw new MimirorgBadRequestException("Quantity datum does not exist or is flagged as deleted. Update is not possible.", validation);
+            throw new MimirorgNotFoundException("Quantity datum not found. Update is not possible.");
+        }
+
+        if (quantityDatumToUpdate.State != State.Approved && quantityDatumToUpdate.State != State.Draft)
+        {
+            throw new MimirorgInvalidOperationException("Update can only be performed on quantity datum drafts or approved quantity datums.");
         }
 
         if (quantityDatumToUpdate.State != State.Approved)
@@ -163,7 +166,7 @@ public class QuantityDatumService : IQuantityDatumService
             throw new MimirorgNotFoundException($"Quantity datum with id {id} not found.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgBadRequestException(
+            throw new MimirorgInvalidOperationException(
                 $"State change on approved quantity datum with id {id} is not allowed.");
 
         await _quantityDatumRepository.ChangeState(state, dm.Id);

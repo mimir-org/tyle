@@ -4,7 +4,6 @@ using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
-using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -158,16 +157,14 @@ public class AspectObjectService : IAspectObjectService
         var aspectObjectToUpdate = _aspectObjectRepository.FindBy(x => x.Id == id, false)
             .Include(x => x.AspectObjectTerminals).Include(x => x.Attributes).AsSplitQuery().FirstOrDefault();
 
-        if (aspectObjectToUpdate == null || aspectObjectToUpdate.State == State.Deleted)
+        if (aspectObjectToUpdate == null)
         {
-            validation = new Validation(new List<string> { nameof(AspectObjectLibAm.Name), nameof(AspectObjectLibAm.Version) },
-                $"Aspect object with name {aspectObjectAm.Name}, id {id} and version {aspectObjectAm.Version} does not exist or is flagged as deleted.");
-            throw new MimirorgBadRequestException("Aspect object does not exist or is flagged as deleted. Update is not possible.", validation);
+            throw new MimirorgNotFoundException("Aspect object not found. Update is not possible.");
         }
 
         if (aspectObjectToUpdate.State != State.Approved && aspectObjectToUpdate.State != State.Draft)
         {
-            throw new MimirorgBadRequestException("Update can only be performed on aspect object drafts or approved aspect objects.");
+            throw new MimirorgInvalidOperationException("Update can only be performed on aspect object drafts or approved aspect objects.");
         }
 
         // If the aspect object we want to update is approved, we want to make sure it is the latest version of this object
@@ -176,7 +173,7 @@ public class AspectObjectService : IAspectObjectService
         {
             var latestVersion = _aspectObjectRepository.Get().LatestVersionExcludeDeleted(aspectObjectToUpdate.FirstVersionId);
             if (latestVersion.Id != aspectObjectToUpdate.Id)
-                throw new MimirorgBadRequestException($"Cannot create new version draft for this object, a draft or newer approved version already exists (id: {latestVersion.Id}).");
+                throw new MimirorgInvalidOperationException($"Cannot create new version draft for this object, a draft or newer approved version already exists (id: {latestVersion.Id}).");
         }
 
         aspectObjectAm.Version = CalculateVersion(aspectObjectAm, aspectObjectToUpdate);
@@ -211,7 +208,7 @@ public class AspectObjectService : IAspectObjectService
 
         var validation = latestApprovedVersion.HasIllegalChanges(aspectObjectAm);
         if (!validation.IsValid)
-            throw new MimirorgBadRequestException(validation.Message, validation);
+            throw new MimirorgInvalidOperationException(validation.Message);
 
         var versionStatus = latestApprovedVersion.CalculateVersionStatus(aspectObjectAm);
 
@@ -351,7 +348,7 @@ public class AspectObjectService : IAspectObjectService
             throw new MimirorgNotFoundException($"Aspect object with id {id} not found, or is not latest version.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgBadRequestException($"State change on approved aspect object with id {id} is not allowed.");
+            throw new MimirorgInvalidOperationException($"State change on approved aspect object with id {id} is not allowed.");
 
         if (state == State.Approve)
         {
@@ -360,12 +357,12 @@ public class AspectObjectService : IAspectObjectService
 
             if (latestApprovedVersion != null && latestApprovedVersion.Equals(dm))
             {
-                throw new MimirorgBadRequestException("Cannot approve this aspect object since it is identical to the currently approved version.");
+                throw new MimirorgInvalidOperationException("Cannot approve this aspect object since it is identical to the currently approved version.");
             }
 
             if (dm.Rds.State != State.Approved)
             {
-                if (dm.Rds.State == State.Deleted) throw new MimirorgBadRequestException("Cannot request approval for aspect object that uses deleted RDS.");
+                if (dm.Rds.State == State.Deleted) throw new MimirorgInvalidOperationException("Cannot request approval for aspect object that uses deleted RDS.");
 
                 await _rdsService.ChangeState(dm.RdsId, State.Approve);
             }
@@ -373,7 +370,7 @@ public class AspectObjectService : IAspectObjectService
             foreach (var attribute in dm.Attributes)
             {
                 if (attribute.State == State.Approved) continue;
-                if (attribute.State == State.Deleted) throw new MimirorgBadRequestException("Cannot request approval for aspect object that uses deleted attributes.");
+                if (attribute.State == State.Deleted) throw new MimirorgInvalidOperationException("Cannot request approval for aspect object that uses deleted attributes.");
 
                 await _attributeService.ChangeState(attribute.Id, State.Approve);
             }
@@ -383,7 +380,7 @@ public class AspectObjectService : IAspectObjectService
                 var terminal = _terminalService.Get(aspectObjectTerminal.TerminalId);
 
                 if (terminal.State == State.Approved) continue;
-                if (terminal.State == State.Deleted) throw new MimirorgBadRequestException("Cannot request approval for aspect object that uses deleted terminals.");
+                if (terminal.State == State.Deleted) throw new MimirorgInvalidOperationException("Cannot request approval for aspect object that uses deleted terminals.");
 
                 await _terminalService.ChangeState(terminal.Id, State.Approve);
             }
@@ -391,11 +388,11 @@ public class AspectObjectService : IAspectObjectService
         else if (state == State.Approved)
         {
             if (dm.Rds.State != State.Approved)
-                throw new MimirorgBadRequestException("Cannot approve aspect object that uses unapproved RDS.");
+                throw new MimirorgInvalidOperationException("Cannot approve aspect object that uses unapproved RDS.");
             if (dm.Attributes.Any(attribute => attribute.State != State.Approved))
-                throw new MimirorgBadRequestException("Cannot approve aspect object that uses unapproved attributes.");
+                throw new MimirorgInvalidOperationException("Cannot approve aspect object that uses unapproved attributes.");
             if (dm.AspectObjectTerminals.Select(x => x.Terminal).Any(terminal => terminal.State != State.Approved))
-                throw new MimirorgBadRequestException("Cannot approve aspect object that uses unapproved terminals.");
+                throw new MimirorgInvalidOperationException("Cannot approve aspect object that uses unapproved terminals.");
         }
 
         await _aspectObjectRepository.ChangeState(state, dm.Id);

@@ -69,15 +69,7 @@ public class TerminalService : ITerminalService
         return !dataSet.Any() ? new List<TerminalLibCm>() : _mapper.Map<List<TerminalLibCm>>(dataSet);
     }
 
-    /// <summary>
-    /// Create a new terminal
-    /// </summary>
-    /// <param name="terminal">The terminal that should be created</param>
-    /// <returns></returns>
-    /// <exception cref="MimirorgBadRequestException">Throws if terminal is not valid</exception>
-    /// <exception cref="MimirorgDuplicateException">Throws if terminal already exist</exception>
-    /// <remarks>Remember that creating a new terminal could be creating a new version of existing terminal.
-    /// They will have the same first version id, but have different version and id.</remarks>
+    /// <inheritdoc />
     public async Task<TerminalLibCm> Create(TerminalLibAm terminal)
     {
         if (terminal == null)
@@ -127,11 +119,14 @@ public class TerminalService : ITerminalService
 
         var terminalToUpdate = _terminalRepository.FindBy(x => x.Id == id, false).Include(x => x.Attributes).FirstOrDefault();
 
-        if (terminalToUpdate == null || terminalToUpdate.State == State.Deleted)
+        if (terminalToUpdate == null)
         {
-            validation = new Validation(new List<string> { nameof(TerminalLibAm.Name) },
-                $"Terminal with name {terminalAm.Name} and id {id} does not exist or is flagged as deleted.");
-            throw new MimirorgBadRequestException("Terminal does not exist or is flagged as deleted. Update is not possible.", validation);
+            throw new MimirorgNotFoundException("Terminal not found. Update is not possible.");
+        }
+
+        if (terminalToUpdate.State != State.Approved && terminalToUpdate.State != State.Draft)
+        {
+            throw new MimirorgInvalidOperationException("Update can only be performed on terminal drafts or approved terminals.");
         }
 
         if (terminalToUpdate.State != State.Approved)
@@ -209,21 +204,21 @@ public class TerminalService : ITerminalService
             throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgBadRequestException($"State change on approved terminal with id {id} is not allowed.");
+            throw new MimirorgInvalidOperationException($"State change on approved terminal with id {id} is not allowed.");
 
         if (state == State.Approve)
         {
             foreach (var attribute in dm.Attributes)
             {
                 if (attribute.State == State.Approved) continue;
-                if (attribute.State == State.Deleted) throw new MimirorgBadRequestException("Cannot request approval for terminal that uses deleted attributes.");
+                if (attribute.State == State.Deleted) throw new MimirorgInvalidOperationException("Cannot request approval for terminal that uses deleted attributes.");
 
                 await _attributeService.ChangeState(attribute.Id, State.Approve);
             }
         }
         else if (state == State.Approved && dm.Attributes.Any(attribute => attribute.State != State.Approved))
         {
-            throw new MimirorgBadRequestException("Cannot approve terminal that uses unapproved attributes.");
+            throw new MimirorgInvalidOperationException("Cannot approve terminal that uses unapproved attributes.");
         }
 
         await _terminalRepository.ChangeState(state, dm.Id);
