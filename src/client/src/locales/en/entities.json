@@ -95,18 +95,18 @@
       }
     },
     "terminals": {
-      "title": "terminals",
-      "name": "name",
-      "limit": "limit",
-      "amount": "max amount",
-      "infinite": "infinite",
-      "direction": "direction",
-      "attributes": "attributes",
-      "add": "add terminal",
-      "remove": "remove terminal",
+      "title": "Terminals",
+      "name": "Name",
+      "limit": "Limit",
+      "amount": "Max amount",
+      "infinite": "Infinite",
+      "direction": "Direction",
+      "attributes": "Attributes",
+      "add": "Add terminal",
+      "remove": "Remove terminal",
 
       "templates": {
-        "terminal": "terminal {{object}}"
+        "terminal": "Terminal {{object}}"
       }
     },
     "predefinedAttributes": {
