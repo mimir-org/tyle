@@ -29,27 +29,27 @@ public interface ITerminalService
     /// <param name="terminal">The terminal that should be created</param>
     /// <returns></returns>
     /// <exception cref="MimirorgBadRequestException">Throws if terminal is not valid</exception>
-    /// <exception cref="MimirorgDuplicateException">Throws if terminal already exist</exception>
-    /// <remarks>Remember that creating a new terminal could be creating a new version of existing terminal.
-    /// They will have the same first version id, but have different version and id.</remarks>
     Task<TerminalLibCm> Create(TerminalLibAm terminal);
 
     /// <summary>
-    /// Update a terminal if the data is allowed to be changed.
+    /// Update an existing terminal
     /// </summary>
-    /// <param name="id">The id of the terminal to update</param>
-    /// <param name="terminalAm">The terminal to update</param>
+    /// <param name="id">The id of the terminal that should be updated</param>
+    /// <param name="terminalAm">The new terminal values</param>
     /// <returns>The updated terminal</returns>
-    /// <exception cref="MimirorgBadRequestException">Throws if the aspect object does not exist or
-    /// if it is not valid.</exception>
+    /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id.</exception>
+    /// <exception cref="MimirorgBadRequestException">Throws if the new terminal values are not valid.</exception>
+    /// <exception cref="MimirorgInvalidOperationException">Throws if the terminal is not a draft or approved.</exception>
     Task<TerminalLibCm> Update(string id, TerminalLibAm terminalAm);
 
     /// <summary>
     /// Change terminal state
     /// </summary>
-    /// <param name="id">The terminal id that should change the state</param>
+    /// <param name="id">The id of the terminal that should change state</param>
     /// <param name="state">The new terminal state</param>
-    /// <returns>Terminal with updated state</returns>
-    /// <exception cref="MimirorgNotFoundException">Throws if the terminal does not exist on latest version</exception>
-    Task<TerminalLibCm> ChangeState(string id, State state);
+    /// <returns>An approval data object</returns>
+    /// <exception cref="MimirorgNotFoundException">Throws if the terminal does not exist</exception>
+    /// <exception cref="MimirorgInvalidOperationException">Throws if the terminal is already
+    /// approved or contains references to deleted or unapproved attributes.</exception>
+    Task<ApprovalDataCm> ChangeState(string id, State state);
 }

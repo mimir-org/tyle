@@ -4,7 +4,6 @@ using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
-using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -44,24 +43,18 @@ public class AttributeService : IAttributeService
         _contextAccessor = contextAccessor;
     }
 
-    /// <summary>
-    /// Get all attributes and their units
-    /// </summary>
-    /// <returns>List of attributes and their units></returns>
+    /// <inheritdoc />
     public IEnumerable<AttributeLibCm> Get()
     {
-        var dataSet = _attributeRepository.Get().ExcludeDeleted().ToList();
+        var dataSet = _attributeRepository.Get()?.ExcludeDeleted().ToList();
 
-        if (dataSet == null)
-            throw new MimirorgNotFoundException("No attributes were found.");
+        if (dataSet == null || !dataSet.Any())
+            return new List<AttributeLibCm>();
 
-        return !dataSet.Any() ? new List<AttributeLibCm>() : _mapper.Map<List<AttributeLibCm>>(dataSet);
+        return _mapper.Map<List<AttributeLibCm>>(dataSet);
     }
 
-    /// <summary>
-    /// Get an attribute and its units
-    /// </summary>
-    /// <returns>Attribute and its units></returns>
+    /// <inheritdoc />
     public AttributeLibCm Get(string id)
     {
         var dm = _attributeRepository.Get(id);
@@ -77,6 +70,11 @@ public class AttributeService : IAttributeService
     {
         if (attributeAm == null)
             throw new ArgumentNullException(nameof(attributeAm));
+
+        var validation = attributeAm.ValidateObject();
+
+        if (!validation.IsValid)
+            throw new MimirorgBadRequestException("Attribute is not valid.", validation);
 
         var dm = _mapper.Map<AttributeLibDm>(attributeAm);
 
@@ -113,11 +111,14 @@ public class AttributeService : IAttributeService
 
         var attributeToUpdate = _attributeRepository.FindBy(x => x.Id == id, false).Include(x => x.AttributeUnits).FirstOrDefault();
 
-        if (attributeToUpdate == null || attributeToUpdate.State == State.Deleted)
+        if (attributeToUpdate == null)
         {
-            validation = new Validation(new List<string> { nameof(AttributeLibAm.Name) },
-                $"Attribute with name {attributeAm.Name} and id {id} does not exist or is flagged as deleted.");
-            throw new MimirorgBadRequestException("Attribute does not exist or is flagged as deleted. Update is not possible.", validation);
+            throw new MimirorgNotFoundException("Attribute not found. Update is not possible.");
+        }
+
+        if (attributeToUpdate.State != State.Approved && attributeToUpdate.State != State.Draft)
+        {
+            throw new MimirorgInvalidOperationException("Update can only be performed on attribute drafts or approved attributes.");
         }
 
         if (attributeToUpdate.State != State.Approved)
@@ -171,7 +172,7 @@ public class AttributeService : IAttributeService
             throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgBadRequestException($"State change on approved attribute with id {id} is not allowed.");
+            throw new MimirorgInvalidOperationException($"State change on approved attribute with id {id} is not allowed.");
 
         if (state == State.Approve)
         {
@@ -180,14 +181,14 @@ public class AttributeService : IAttributeService
                 var unit = _unitService.Get(attributeUnit.UnitId);
 
                 if (unit.State == State.Approved) continue;
-                if (unit.State == State.Deleted) throw new MimirorgBadRequestException("Cannot request approval for attribute that uses deleted units.");
+                if (unit.State == State.Deleted) throw new MimirorgInvalidOperationException("Cannot request approval for attribute that uses deleted units.");
 
                 await _unitService.ChangeState(unit.Id, State.Approve);
             }
         }
         else if (state == State.Approved && dm.AttributeUnits.Select(attributeUnit => _unitService.Get(attributeUnit.UnitId)).Any(unit => unit.State != State.Approved))
         {
-            throw new MimirorgBadRequestException("Cannot approve attribute that uses unapproved units.");
+            throw new MimirorgInvalidOperationException("Cannot approve attribute that uses unapproved units.");
         }
 
         await _attributeRepository.ChangeState(state, new List<string> { dm.Id });
@@ -208,10 +209,7 @@ public class AttributeService : IAttributeService
         };
     }
 
-    /// <summary>
-    /// Get predefined attributes
-    /// </summary>
-    /// <returns>List of predefined attributes</returns>
+    /// <inheritdoc />
     public IEnumerable<AttributePredefinedLibCm> GetPredefined()
     {
         var attributes = _attributePredefinedRepository.GetPredefined().Where(x => x.State != State.Deleted).ToList()
@@ -220,11 +218,7 @@ public class AttributeService : IAttributeService
         return _mapper.Map<List<AttributePredefinedLibCm>>(attributes);
     }
 
-    /// <summary>
-    /// Create predefined attributes
-    /// </summary>
-    /// <param name="predefined"></param>
-    /// <returns>Created predefined attribute</returns>
+    /// <inheritdoc />
     public async Task CreatePredefined(List<AttributePredefinedLibAm> predefined)
     {
         if (predefined == null || !predefined.Any())

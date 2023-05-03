@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TypeLibrary.Data.Contracts.Common;
-using VDS.RDF.Query.Algebra;
 
 namespace TypeLibrary.Data.Models;
 
