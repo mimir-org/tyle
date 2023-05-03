@@ -126,7 +126,7 @@ public class RdsService : IRdsService
             throw new MimirorgNotFoundException($"RDS with id {id} not found.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException(
+            throw new MimirorgBadRequestException(
                 $"State change on approved RDS with id {id} is not allowed.");
 
         await _rdsRepository.ChangeState(state, dm.Id);
