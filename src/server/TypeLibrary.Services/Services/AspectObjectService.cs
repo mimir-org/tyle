@@ -180,7 +180,7 @@ public class AspectObjectService : IAspectObjectService
         }
 
         aspectObjectAm.Version = CalculateVersion(aspectObjectAm, aspectObjectToUpdate);
-        
+
         AspectObjectLibCm aspectObjectToReturn;
 
         if (aspectObjectToUpdate.State == State.Approved)
@@ -255,7 +255,7 @@ public class AspectObjectService : IAspectObjectService
         _aspectObjectRepository.Detach(aspectObjectToUpdate);
         var createdAspectObject = await _aspectObjectRepository.Create(dm);
         await _logService.CreateLog(createdAspectObject, LogType.Create, createdAspectObject?.State.ToString(), createdAspectObject?.CreatedBy);
-        
+
         return Get(createdAspectObject?.Id);
     }
 
