@@ -95,18 +95,18 @@
       }
     },
     "terminals": {
-      "title": "Terminals",
-      "name": "Name",
-      "limit": "Limit",
-      "amount": "Max amount",
-      "infinite": "Infinite",
-      "direction": "Direction",
-      "attributes": "Attributes",
-      "add": "Add terminal",
-      "remove": "Remove terminal",
+      "title": "terminals",
+      "name": "name",
+      "limit": "limit",
+      "amount": "max amount",
+      "infinite": "infinite",
+      "direction": "direction",
+      "attributes": "attributes",
+      "add": "add terminal",
+      "remove": "remove terminal",
 
       "templates": {
-        "terminal": "Terminal {{object}}"
+        "terminal": "terminal {{object}}"
       }
     },
     "predefinedAttributes": {
@@ -148,19 +148,6 @@
       }
     }
   },
-  "unit": {
-    "title": "Unit",
-    "name": "Name",
-    "description": "Description",
-    "defaultUnitTitle": "Default unit",
-    "multiple": "Units",
-    "symbol": "Symbol",
-    "placeholders": {
-      "name": "Unit name",
-      "description": "Additional information about this unit can be supplied here.",
-      "symbol": "Unit symbol"
-    }
-  },
   "terminal": {
     "title": "Terminal",
     "name": "Name",
@@ -191,6 +178,42 @@
       "description": {
         "max": "The description can be at most 500 characters"
       }
+    }
+  },
+  "unit": {
+    "title": "Unit",
+    "name": "Name",
+    "description": "Description",
+    "defaultUnitTitle": "Default unit",
+    "multiple": "Units",
+    "symbol": "Symbol",
+    "placeholders": {
+      "name": "Unit name",
+      "description": "Additional information about this unit can be supplied here.",
+      "symbol": "Unit symbol"
+    }
+  },
+  "datum": {
+    "title": "Datum",
+    "name": "Name",
+    "description": "Description",
+    "multiple": "Datums",
+    "datumType": "Datum type",
+    "quantityDatumType": "Quantity type",
+    "typeReference": "Type reference",
+    "placeholders": {
+      "name": "Datum name",
+      "description": "Additional information about this datum can be supplied here."
+    }
+  },
+  "rds": {
+    "rdsCode": "RDS code",
+    "name": "Name",
+    "title": "RDS",
+    "description": "Description",
+    "typeReference": "Type reference",
+    "placeholders": {
+      "rdsCode": "Additional information about this rds can be supplied here."
     }
   }
 }

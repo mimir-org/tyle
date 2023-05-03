@@ -4,6 +4,8 @@ import { terminalFormBasePath } from "features/entities/terminal/TerminalFormRou
 import { useTranslation } from "react-i18next";
 import { attributeFormBasePath } from "../../entities/attributes/AttributeFormRoutes";
 import { unitFormBasePath } from "../../entities/units/UnitFormRoutes";
+import { datumFormBasePath } from "../../entities/datum/DatumFormRoutes";
+import { rdsFormBasePath } from "../../entities/RDS/RdsFormRoutes";
 
 export const useCreateMenuLinks = (): Link[] => {
   const { t } = useTranslation("explore");
@@ -24,6 +26,14 @@ export const useCreateMenuLinks = (): Link[] => {
     {
       name: t("search.create.unit"),
       path: unitFormBasePath,
+    },
+    {
+      name: t("search.create.datum"),
+      path: datumFormBasePath,
+    },
+    {
+      name: t("search.create.rds"),
+      path: rdsFormBasePath,
     },
   ];
 };

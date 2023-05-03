@@ -39,7 +39,9 @@
       "aspectObject": "Aspect object",
       "terminal": "Terminal",
       "attribute": "Attribute",
-      "unit": "Unit"
+      "unit": "Unit",
+      "datum": "Datum",
+      "rds": "RDS"
     }
   },
   "about": {
