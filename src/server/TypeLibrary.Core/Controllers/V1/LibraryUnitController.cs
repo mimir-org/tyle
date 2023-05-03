@@ -53,7 +53,7 @@ public class LibraryUnitController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -83,10 +83,14 @@ public class LibraryUnitController : ControllerBase
 
             return Ok(data);
         }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-            return StatusCode(500, e.Message);
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
         }
     }
 
@@ -112,10 +116,14 @@ public class LibraryUnitController : ControllerBase
             var cm = await _unitService.Create(unit);
             return Ok(cm);
         }
+        catch (MimirorgBadRequestException e)
+        {
+            return BadRequest(e.Message);
+        }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-            return StatusCode(500, e.Message);
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
         }
     }
 
@@ -141,19 +149,21 @@ public class LibraryUnitController : ControllerBase
             var data = await _unitService.Update(id, unit);
             return Ok(data);
         }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
         catch (MimirorgBadRequestException e)
         {
-            foreach (var error in e.Errors().ToList())
-            {
-                ModelState.Remove(error.Key);
-                ModelState.TryAddModelError(error.Key, error.Error);
-            }
-
-            return BadRequest(ModelState);
+            return BadRequest(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return Forbid(e.Message);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -178,10 +188,18 @@ public class LibraryUnitController : ControllerBase
             var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);
+                return StatusCode(StatusCodes.Status401Unauthorized);
 
             var data = await _unitService.ChangeState(id, state);
             return Ok(data);
+        }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return Forbid(e.Message);
         }
         catch (Exception e)
         {
@@ -212,15 +230,24 @@ public class LibraryUnitController : ControllerBase
                 return StatusCode(StatusCodes.Status404NotFound);
 
             if (cm.State is State.Draft or State.Deleted or State.Approved)
-                throw new MimirorgInvalidOperationException($"Can't reject a state change for an object with state {cm.State}");
+                return Forbid($"Can't reject a state change for an object with state {cm.State}");
 
-            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, cm.State == State.Approve ? State.Approved : State.Delete);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId,
+                cm.State == State.Approve ? State.Approved : State.Delete);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);
+                return StatusCode(StatusCodes.Status401Unauthorized);
 
             var data = await _unitService.ChangeState(id, State.Draft);
             return Ok(data);
+        }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return Forbid(e.Message);
         }
         catch (Exception e)
         {
