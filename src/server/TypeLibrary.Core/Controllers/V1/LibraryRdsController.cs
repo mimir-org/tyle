@@ -19,9 +19,6 @@ using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1;
 
-/// <summary>
-/// TypeCm file services
-/// </summary>
 [Produces("application/json")]
 [ApiController]
 [ApiVersion("1.0")]
@@ -46,6 +43,7 @@ public class LibraryRdsController : ControllerBase
     /// <returns>A collection of RDS objects</returns>
     [HttpGet]
     [ProducesResponseType(typeof(ICollection<RdsLibCm>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult Get()
     {
@@ -56,7 +54,7 @@ public class LibraryRdsController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -68,28 +66,27 @@ public class LibraryRdsController : ControllerBase
     /// <returns>The requested RDS</returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(RdsLibCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult Get([FromRoute] string id)
     {
         try
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var data = _rdsService.Get(id);
-
             if (data == null)
                 return NotFound(id);
 
             return Ok(data);
         }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-            return StatusCode(500, e.Message);
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
         }
     }
 
@@ -101,9 +98,8 @@ public class LibraryRdsController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(RdsLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "rds", "CompanyId")]
     public async Task<IActionResult> Create([FromBody] RdsLibAm rds)
     {
@@ -115,10 +111,14 @@ public class LibraryRdsController : ControllerBase
             var cm = await _rdsService.Create(rds);
             return Ok(cm);
         }
+        catch (MimirorgBadRequestException e)
+        {
+            return BadRequest(e.Message);
+        }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-            return StatusCode(500, e.Message);
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
         }
     }
 
@@ -133,6 +133,8 @@ public class LibraryRdsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "rds", "CompanyId")]
     public async Task<IActionResult> Update(string id, [FromBody] RdsLibAm rds)
     {
@@ -144,19 +146,21 @@ public class LibraryRdsController : ControllerBase
             var data = await _rdsService.Update(id, rds);
             return Ok(data);
         }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
         catch (MimirorgBadRequestException e)
         {
-            foreach (var error in e.Errors().ToList())
-            {
-                ModelState.Remove(error.Key);
-                ModelState.TryAddModelError(error.Key, error.Error);
-            }
-
-            return BadRequest(ModelState);
+            return BadRequest(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return Forbid(e.Message);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -169,9 +173,9 @@ public class LibraryRdsController : ControllerBase
     /// <returns>An approval data object containing the id of the RDS and the new state</returns>
     [HttpPatch("{id}/state/{state}")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
     public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
@@ -181,14 +185,22 @@ public class LibraryRdsController : ControllerBase
             var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);
+                return StatusCode(StatusCodes.Status401Unauthorized);
 
             var data = await _rdsService.ChangeState(id, state);
             return Ok(data);
         }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return Forbid(e.Message);
+        }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -200,9 +212,9 @@ public class LibraryRdsController : ControllerBase
     /// <returns>An approval data object containing the id of the RDS and the reverted state</returns>
     [HttpPatch("{id}/state/reject")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
     public async Task<IActionResult> RejectChangeState([FromRoute] string id)
@@ -215,19 +227,27 @@ public class LibraryRdsController : ControllerBase
                 return StatusCode(StatusCodes.Status404NotFound);
 
             if (cm.State is State.Draft or State.Deleted or State.Approved)
-                throw new MimirorgInvalidOperationException($"Can't reject a state change for an object with state {cm.State}");
+                return Forbid($"Can't reject a state change for an object with state {cm.State}");
 
             var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, cm.State == State.Approve ? State.Approved : State.Delete);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);
+                return StatusCode(StatusCodes.Status401Unauthorized);
 
             var data = await _rdsService.ChangeState(id, State.Draft);
             return Ok(data);
         }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return Forbid(e.Message);
+        }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }

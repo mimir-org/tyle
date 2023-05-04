@@ -43,6 +43,7 @@ public class LibraryQuantityDatumController : ControllerBase
     /// <returns>A collection of quantity datums</returns>
     [HttpGet]
     [ProducesResponseType(typeof(ICollection<QuantityDatumLibCm>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult Get()
     {
@@ -53,7 +54,7 @@ public class LibraryQuantityDatumController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -65,7 +66,6 @@ public class LibraryQuantityDatumController : ControllerBase
     /// <returns>A collection of quantity datums</returns>
     [HttpGet("{type}")]
     [ProducesResponseType(typeof(ICollection<QuantityDatumLibCm>), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult Get(QuantityDatumType type)
@@ -81,11 +81,13 @@ public class LibraryQuantityDatumController : ControllerBase
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, $"Enum type ({nameof(QuantityDatumType)}): {type} out of range.")
             };
 
-            return Ok(data?.ToList());
+            data ??= new List<QuantityDatumLibCm>();
+
+            return Ok(data.ToList());
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -98,9 +100,8 @@ public class LibraryQuantityDatumController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(QuantityDatumLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "quantityDatum", "CompanyId")]
     public async Task<IActionResult> Create([FromBody] QuantityDatumLibAm quantityDatum)
     {
@@ -112,10 +113,14 @@ public class LibraryQuantityDatumController : ControllerBase
             var cm = await _quantityDatumService.Create(quantityDatum);
             return Ok(cm);
         }
+        catch (MimirorgBadRequestException e)
+        {
+            return BadRequest(e.Message);
+        }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-            return StatusCode(500, e.Message);
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
         }
     }
 
@@ -130,7 +135,8 @@ public class LibraryQuantityDatumController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "quantityDatum", "CompanyId")]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Update(string id, [FromBody] QuantityDatumLibAm quantityDatum)
     {
         try
@@ -141,19 +147,21 @@ public class LibraryQuantityDatumController : ControllerBase
             var data = await _quantityDatumService.Update(id, quantityDatum);
             return Ok(data);
         }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
         catch (MimirorgBadRequestException e)
         {
-            foreach (var error in e.Errors().ToList())
-            {
-                ModelState.Remove(error.Key);
-                ModelState.TryAddModelError(error.Key, error.Error);
-            }
-
-            return BadRequest(ModelState);
+            return BadRequest(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return Forbid(e.Message);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -166,9 +174,9 @@ public class LibraryQuantityDatumController : ControllerBase
     /// <returns>An approval data object containing the id of the quantity datum and the new state</returns>
     [HttpPatch("{id}/state/{state}")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
     public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
@@ -178,14 +186,22 @@ public class LibraryQuantityDatumController : ControllerBase
             var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);
+                return StatusCode(StatusCodes.Status401Unauthorized);
 
             var data = await _quantityDatumService.ChangeState(id, state);
             return Ok(data);
         }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return Forbid(e.Message);
+        }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -197,9 +213,9 @@ public class LibraryQuantityDatumController : ControllerBase
     /// <returns>An approval data object containing the id of the quantity datum and the reverted state</returns>
     [HttpPatch("{id}/state/reject")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
     public async Task<IActionResult> RejectChangeState([FromRoute] string id)
@@ -212,19 +228,27 @@ public class LibraryQuantityDatumController : ControllerBase
                 return StatusCode(StatusCodes.Status404NotFound);
 
             if (cm.State is State.Draft or State.Deleted or State.Approved)
-                throw new MimirorgInvalidOperationException($"Can't reject a state change for an object with state {cm.State}");
+                return Forbid($"Can't reject a state change for an object with state {cm.State}");
 
             var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, cm.State == State.Approve ? State.Approved : State.Delete);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);
+                return StatusCode(StatusCodes.Status401Unauthorized);
 
             var data = await _quantityDatumService.ChangeState(id, State.Draft);
             return Ok(data);
         }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return Forbid(e.Message);
+        }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
