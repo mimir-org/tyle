@@ -119,7 +119,7 @@ public static class RolePermissionExtensions
             }
         }
 
-        var highestPermission = resolvedPermissions.Values.Max();
+        var highestPermission = resolvedPermissions.Any() ? resolvedPermissions.Values.Max() : MimirorgPermission.None;
         resolvedPermissions.Add(CompanyConstants.AnyCompanyId, highestPermission);
 
         return resolvedPermissions;

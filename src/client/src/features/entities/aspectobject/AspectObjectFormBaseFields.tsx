@@ -10,7 +10,7 @@ import { Icon } from "complib/media";
 import { Text } from "complib/text";
 import { ConditionalWrapper } from "complib/utils";
 import { useGetPurposes } from "external/sources/purpose/purpose.queries";
-import { useGetRds } from "external/sources/rds/rds.queries";
+import { useGetAllRds } from "external/sources/rds/rds.queries";
 import { useGetSymbols } from "external/sources/symbol/symbol.queries";
 import { PlainLink } from "features/common/plain-link";
 import { resetSubform } from "features/entities/aspectobject/AspectObjectForm.helpers";
@@ -38,7 +38,7 @@ export const AspectObjectFormBaseFields = ({ mode }: AspectObjectFormBaseFieldsP
   const { control, register, resetField, formState } = useFormContext<FormAspectObjectLib>();
   const { errors } = formState;
 
-  const rdsQuery = useGetRds();
+  const rdsQuery = useGetAllRds();
   const symbolQuery = useGetSymbols();
   const purposeQuery = useGetPurposes();
   const aspectOptions = getOptionsFromEnum<Aspect>(Aspect);

@@ -17,11 +17,11 @@ export default function UnitFormBaseFields() {
   return (
     <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
       <FormField label={t("unit.name")} error={errors.name}>
-        <Input placeholder={t("unit.placeholders.name")} {...register("name")} disabled={false} />
+        <Input placeholder={t("unit.placeholders.name")} {...register("name")} required />
       </FormField>
 
       <FormField label={t("unit.symbol")} error={errors.symbol}>
-        <Input placeholder={t("unit.placeholders.symbol")} {...register("symbol")} disabled={false} />
+        <Input placeholder={t("unit.placeholders.symbol")} {...register("symbol")} />
       </FormField>
 
       <FormField label={t("unit.description")} error={errors.description}>
