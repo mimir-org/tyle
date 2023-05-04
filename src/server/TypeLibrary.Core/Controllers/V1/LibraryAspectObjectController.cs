@@ -42,7 +42,6 @@ public class LibraryAspectObjectController : ControllerBase
     /// <returns>A collection of aspect objects</returns>
     [HttpGet]
     [ProducesResponseType(typeof(ICollection<AspectObjectLibCm>), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult GetLatestVersions()
@@ -54,8 +53,8 @@ public class LibraryAspectObjectController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-            return StatusCode(500, e.Message);
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
         }
     }
 
@@ -66,19 +65,14 @@ public class LibraryAspectObjectController : ControllerBase
     /// <returns>The requested aspect object</returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(AspectObjectLibCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult Get([FromRoute] string id)
     {
         try
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var data = _aspectObjectService.Get(id);
-
             if (data == null)
                 return NotFound(id);
 
@@ -90,8 +84,8 @@ public class LibraryAspectObjectController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-            return StatusCode(500, e.Message);
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
         }
     }
 
@@ -103,9 +97,8 @@ public class LibraryAspectObjectController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(AspectObjectLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "aspectObject", "CompanyId")]
     public async Task<IActionResult> Create([FromBody] AspectObjectLibAm aspectObject)
     {
@@ -119,20 +112,12 @@ public class LibraryAspectObjectController : ControllerBase
         }
         catch (MimirorgBadRequestException e)
         {
-            _logger.LogWarning(e, $"Warning error: {e.Message}");
-
-            foreach (var error in e.Errors().ToList())
-            {
-                ModelState.Remove(error.Key);
-                ModelState.TryAddModelError(error.Key, error.Error);
-            }
-
-            return BadRequest(ModelState);
+            return BadRequest(e.Message);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
-            return StatusCode(500, e.Message);
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
         }
     }
 
@@ -147,6 +132,8 @@ public class LibraryAspectObjectController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "aspectObject", "CompanyId")]
     public async Task<IActionResult> Update(string id, [FromBody] AspectObjectLibAm aspectObject)
     {
@@ -163,19 +150,21 @@ public class LibraryAspectObjectController : ControllerBase
             var data = await _aspectObjectService.Update(id, aspectObject);
             return Ok(data);
         }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
         catch (MimirorgBadRequestException e)
         {
-            foreach (var error in e.Errors().ToList())
-            {
-                ModelState.Remove(error.Key);
-                ModelState.TryAddModelError(error.Key, error.Error);
-            }
-
-            return BadRequest(ModelState);
+            return BadRequest(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return Forbid(e.Message);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -188,9 +177,9 @@ public class LibraryAspectObjectController : ControllerBase
     /// <returns>An approval data object containing the id of the aspect object and the new state</returns>
     [HttpPatch("{id}/state/{state}")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
     public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
@@ -201,14 +190,22 @@ public class LibraryAspectObjectController : ControllerBase
             var hasAccess = await _authService.HasAccess(companyId, state);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);
+                return StatusCode(StatusCodes.Status401Unauthorized);
 
             var data = await _aspectObjectService.ChangeState(id, state);
             return Ok(data);
         }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return Forbid(e.Message);
+        }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -220,9 +217,9 @@ public class LibraryAspectObjectController : ControllerBase
     /// <returns>An approval data object containing the id of the aspect object and the reverted state</returns>
     [HttpPatch("{id}/state/reject")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
     public async Task<IActionResult> RejectChangeState([FromRoute] string id)
@@ -235,19 +232,27 @@ public class LibraryAspectObjectController : ControllerBase
                 return StatusCode(StatusCodes.Status404NotFound);
 
             if (cm.State is State.Draft or State.Deleted or State.Approved)
-                throw new MimirorgInvalidOperationException($"Can't reject a state change for an object with state {cm.State}");
+                return Forbid($"Can't reject a state change for an object with state {cm.State}");
 
             var hasAccess = await _authService.HasAccess(_aspectObjectService.GetCompanyId(id), cm.State == State.Approve ? State.Approved : State.Delete);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);
+                return StatusCode(StatusCodes.Status401Unauthorized);
 
             var data = await _aspectObjectService.ChangeState(id, State.Draft);
             return Ok(data);
         }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return Forbid(e.Message);
+        }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }

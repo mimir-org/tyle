@@ -38,11 +38,12 @@ public class LibraryPurposeController : ControllerBase
         try
         {
             var data = await _purposeService.Get();
+            data ??= new List<PurposeLibCm>();
             return Ok(data);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
