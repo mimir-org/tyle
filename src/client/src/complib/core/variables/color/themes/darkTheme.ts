@@ -66,5 +66,19 @@ export const darkTheme: ColorTheme = {
   pure: {
     base: colorReference.neutral[20],
     on: colorReference.neutral[100]
-  }
+  },
+  badge: {
+    success: {
+      base: colorReference.secondary[80],
+      on: colorReference.secondary[10],
+    },
+    error: {
+      base: colorReference.error[40],
+      on: colorReference.error[100],
+
+    },
+    warning: {
+      base: colorReference.neutral[80],
+      on: colorReference.neutral[10],
+    },}
 };
