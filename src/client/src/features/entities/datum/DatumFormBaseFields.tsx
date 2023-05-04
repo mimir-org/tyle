@@ -26,10 +26,6 @@ export const DatumFormBaseFields = () => {
         <Textarea placeholder={t("datum.placeholders.description")} {...register("description")} />
       </FormField>
 
-      <FormField label={t("datum.typeReference")} error={errors.typeReference}>
-        <Input placeholder={t("datum.typeReference")} {...register("typeReference")} />
-      </FormField>
-
       <FormField label={t("datum.quantityDatumType")} error={errors.quantityDatumType}>
         <Controller
           control={control}
