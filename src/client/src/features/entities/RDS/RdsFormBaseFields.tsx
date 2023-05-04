@@ -19,10 +19,6 @@ export const RdsFormBaseFields = () => {
         <Input placeholder={t("rds.name")} {...register("name")} required />
       </FormField>
 
-      <FormField label={t("rds.typeReference")} error={errors.typeReference}>
-        <Input placeholder={t("rds.typeReference")} {...register("typeReference")} required />
-      </FormField>
-
       <FormField label={t("rds.description")} error={errors.description}>
         <Textarea placeholder={t("rds.description")} {...register("description")} />
       </FormField>
