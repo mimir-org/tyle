@@ -43,6 +43,7 @@ public class LibraryUnitController : ControllerBase
     /// <returns>A collection of units</returns>
     [HttpGet]
     [ProducesResponseType(typeof(ICollection<UnitLibCm>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult Get()
     {
@@ -65,19 +66,14 @@ public class LibraryUnitController : ControllerBase
     /// <returns>The requested unit</returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(UnitLibCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult Get([FromRoute] string id)
     {
         try
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var data = _unitService.Get(id);
-
             if (data == null)
                 return NotFound(id);
 
@@ -102,9 +98,8 @@ public class LibraryUnitController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(UnitLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "unit", "CompanyId")]
     public async Task<IActionResult> Create([FromBody] UnitLibAm unit)
     {
@@ -138,6 +133,8 @@ public class LibraryUnitController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "unit", "CompanyId")]
     public async Task<IActionResult> Update(string id, [FromBody] UnitLibAm unit)
     {
@@ -176,7 +173,6 @@ public class LibraryUnitController : ControllerBase
     /// <returns>An approval data object containing the id of the unit and the new state</returns>
     [HttpPatch("{id}/state/{state}")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -215,7 +211,6 @@ public class LibraryUnitController : ControllerBase
     /// <returns>An approval data object containing the id of the unit and the reverted state</returns>
     [HttpPatch("{id}/state/reject")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
