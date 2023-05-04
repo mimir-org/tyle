@@ -203,7 +203,7 @@ public class LibraryUnitController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -251,7 +251,7 @@ public class LibraryUnitController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
