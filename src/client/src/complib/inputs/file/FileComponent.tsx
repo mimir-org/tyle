@@ -82,6 +82,7 @@ export const FileComponent = forwardRef(
       };
 
       setFile(fileToBeAdded);
+      console.log(fileToBeAdded);
     };
 
     const onFileRemove = () => {

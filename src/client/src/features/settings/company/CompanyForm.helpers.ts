@@ -1,6 +1,7 @@
-import { MimirorgCompanyAm } from "@mimirorg/typelibrary-types";
+import { MimirorgCompanyAm, MimirorgCompanyCm } from "@mimirorg/typelibrary-types";
 import { toast } from "complib/data-display";
 import { FileInfo } from "complib/inputs/file/FileComponent";
+import { useCreateCompany, useUpdateCompany } from "external/sources/company/company.queries";
 import { useTranslation } from "react-i18next";
 
 export interface FormMimirorgCompany extends Omit<MimirorgCompanyAm, "managerId" | "logo"> {
@@ -17,6 +18,24 @@ export const createEmptyFormMimirorgCompany = (): FormMimirorgCompany => ({
   homePage: "",
 });
 
+export const mapCompanyCmToFormCompany = (companyCm: MimirorgCompanyCm | undefined) => {
+  if (companyCm == undefined) return createEmptyFormMimirorgCompany();
+  return {
+    name: companyCm.name,
+    displayName: companyCm.displayName,
+    description: companyCm.description,
+    secret: companyCm.secret,
+    domain: companyCm.domain,
+    logo: {
+      fileName: "logo.svg",
+      fileSize: companyCm.logo.length,
+      file: companyCm.logo,
+      contentType: "image/svg+xml"
+    },
+    homePage: companyCm.homePage
+  }
+}
+
 export const mapFormCompanyToCompanyAm = (formCompany: FormMimirorgCompany, userId: string): MimirorgCompanyAm => {
   let logo = "";
 
@@ -30,6 +49,12 @@ export const mapFormCompanyToCompanyAm = (formCompany: FormMimirorgCompany, user
     logo: logo,
     managerId: userId,
   };
+};
+
+export const useCompanyMutation = (companyId: string) => {
+  const createCompanyMutation = useCreateCompany();
+  const updateCompanyMutation = useUpdateCompany(String(companyId));
+  return companyId == "0" ? createCompanyMutation : updateCompanyMutation;
 };
 
 export const useCreatingToast = () => {
