@@ -22,5 +22,6 @@ export interface ColorTheme {
     success: Pick<Accent, "base" | "on">,
     warning: Pick<Accent, "base" | "on">,
     error: Pick<Accent, "base" | "on">,
+    info: Pick<Accent, "base" | "on">
   }
 }

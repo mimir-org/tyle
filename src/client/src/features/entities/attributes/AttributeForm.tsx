@@ -17,7 +17,7 @@ import {
   fromFormAttributeLibToApiModel,
   toFormAttributeLib,
 } from "./types/formAttributeLib";
-import AttributePreview from "./AttributePreview";
+import { AttributeFormPreview } from "./AttributeFormPreview";
 
 interface AttributeFormProps {
   defaultValues?: FormAttributeLib;
@@ -54,7 +54,7 @@ export const AttributeForm = ({ defaultValues = createEmptyAttribute() }: Attrib
         ) : (
           <>
             <AttributeFormBaseFields />
-            <AttributePreview control={control} />
+            <AttributeFormPreview control={control} />
             <DevTool control={control} placement={"bottom-right"} />
           </>
         )}

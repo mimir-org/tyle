@@ -81,5 +81,9 @@ export const lightTheme: ColorTheme = {
       base: colorReference.neutral[80],
       on: colorReference.neutral[10],
     },
+    info: {
+      base: colorReference.tertiary[90],
+      on: colorReference.tertiary[10],
+    }
   }
 };

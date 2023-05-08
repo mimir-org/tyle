@@ -42,3 +42,29 @@ const getEntityFilters = (): FilterGroup => ({
     },
   ],
 });
+
+const getAttributeFilters = (): FilterGroup => ({
+  name: "Attributes",
+  filters: [
+    {
+      key: "kind",
+      label: "Attributes",
+      value: "AttributeLibCm",
+    },
+    {
+      key: "kind",
+      label: "Units",
+      value: "UnitLibCm",
+    },
+    {
+      key: "kind",
+      label: "Datums",
+      value: "QuantityDatumLibCm",
+    },
+    {
+      key: "kind",
+      label: "RDS",
+      value: "RdsLibCm",
+    },
+  ],
+});

@@ -16,7 +16,7 @@ import { useButtonStateFilter } from "features/explore/search/hooks/useButtonFil
 export type AspectObjectSearchItemProps = AspectObjectItem & {
   isSelected?: boolean;
   setSelected?: () => void;
-  user: UserItem;
+  user?: UserItem;
 };
 
 /**
@@ -43,7 +43,7 @@ export const AspectObjectSearchItem = ({
 );
 
 type AspectObjectSearchItemActionProps = {
-  user: UserItem;
+  user?: UserItem;
   aspectObject?: AspectObjectItem;
 };
 

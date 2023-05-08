@@ -1,9 +1,8 @@
 import styled from "styled-components/macro";
-import { Control, useWatch } from "react-hook-form";
-import { FormAttributeLib } from "./types/formAttributeLib";
 import { Text } from "../../../complib/text";
 import { Flexbox } from "../../../complib/layouts";
 import { useTheme } from "styled-components";
+import { FormUnitHelper } from "../units/types/FormUnitHelper";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -52,13 +51,12 @@ const StyledBadge = styled.span`
 `;
 
 interface attributePreviewProps {
-  control: Control<FormAttributeLib>;
+  name: string;
+  description: string;
+  attributeUnits?: FormUnitHelper[];
 }
 
-export default function AttributePreview({ control }: attributePreviewProps) {
-  const name = useWatch({ control, name: "name" });
-  const description = useWatch({ control, name: "description" });
-  const attributeUnits = useWatch({ control, name: "attributeUnits" });
+export default function AttributePreview({ name, description, attributeUnits }: attributePreviewProps) {
   const theme = useTheme();
 
   return (

@@ -18,7 +18,7 @@ export interface ButtonState {
  * @param item state item
  * @param user current user
  */
-export const useButtonStateFilter = (item: StateItem | null, user: UserItem | null) => {
+export const useButtonStateFilter = (item: StateItem | null, user?: UserItem) => {
   const initialState: ButtonState = {
     clone: false,
     edit: false,
@@ -46,7 +46,7 @@ export const useButtonStateFilter = (item: StateItem | null, user: UserItem | nu
   return buttonState;
 };
 
-const allowClone = (item: StateItem | null, user: UserItem | null): boolean => {
+const allowClone = (item: StateItem | null, user?: UserItem): boolean => {
   if (item == null || user == null) return false;
 
   const anyWrite = Object.values(user.permissions).some(
@@ -55,7 +55,7 @@ const allowClone = (item: StateItem | null, user: UserItem | null): boolean => {
   return anyWrite && item.state !== State.Delete && item.state !== State.Deleted;
 };
 
-const allowEditDelete = (item: StateItem | null, user: UserItem | null): boolean => {
+const allowEditDelete = (item: StateItem | null, user?: UserItem | null): boolean => {
   if (item == null || user == null) return false;
 
   let permissionForCompany: MimirorgPermission;
@@ -70,7 +70,7 @@ const allowEditDelete = (item: StateItem | null, user: UserItem | null): boolean
   return hasMinimumWrite && item.state !== State.Delete && item.state !== State.Deleted;
 };
 
-const allowApprove = (item: StateItem | null, user: UserItem | null): boolean => {
+const allowApprove = (item: StateItem | null, user?: UserItem | null): boolean => {
   if (item == null || user == null) return false;
 
   let permissionForCompany: MimirorgPermission;
