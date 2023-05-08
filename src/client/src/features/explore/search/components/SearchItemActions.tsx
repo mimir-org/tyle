@@ -5,7 +5,7 @@ import { useButtonStateFilter } from "../hooks/useButtonFilter";
 import { State } from "@mimirorg/typelibrary-types";
 import { PlainLink } from "../../../common/plain-link";
 import { Button } from "../../../../complib/buttons";
-import { ChevronUp, DocumentDuplicate, PencilSquare, Trash } from "@styled-icons/heroicons-outline";
+import { Check, DocumentDuplicate, PencilSquare, Trash } from "@styled-icons/heroicons-outline";
 import { AlertDialog } from "../../../../complib/overlays";
 import { UserItem } from "../../../../common/types/userItem";
 import { TerminalItem } from "../../../../common/types/terminalItem";
@@ -91,7 +91,7 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
         <Button
           disabled={!btnFilter.approve}
           variant={btnFilter.approved ? "outlined" : "filled"}
-          icon={<ChevronUp />}
+          icon={<Check />}
           iconOnly
         >
           {t("search.item.approve")}
