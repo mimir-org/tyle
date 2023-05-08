@@ -18,16 +18,7 @@ import { useSearchResults } from "features/explore/search/hooks/useSearchResults
 import { useCreateMenuLinks } from "features/explore/search/Search.helpers";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { AttributeSearchItem } from "./components/attribute/AttributeSearchItem";
-import { SearchResult } from "./types/searchResult";
-import { TerminalItem } from "../../../common/types/terminalItem";
-import { AspectObjectItem } from "../../../common/types/aspectObjectItem";
-import { AttributeItem } from "../../../common/types/attributeItem";
-import { Item } from "./components/item/Item";
-import { AspectObjectPreview } from "../../common/aspectobject";
-import { ItemDescription } from "./components/item/ItemDescription";
-import { SearchItemActions } from "./components/SearchItemActions";
-import { TerminalPreview } from "../../common/terminal/TerminalPreview";
+import { SearchResultsRenderer } from "./SearchResultsRenderer";
 
 interface SearchProps {
   selected?: SelectedInfo;
@@ -58,54 +49,6 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
   const showFilterTokens = activeFilters.length > 0;
   const showPlaceholder = !isLoading && results.length === 0;
   const shown = totalHits < pageLimit ? totalHits : pageLimit;
-
-  function resultsRenderer(item: SearchResult) {
-    const currentlySelected = item.id === selected?.id;
-    switch (item.kind) {
-      case "TerminalItem":
-        return (
-          <Item
-            key={item.id + item.kind}
-            isSelected={currentlySelected}
-            preview={<TerminalPreview {...(item as TerminalItem)} />}
-            description={
-              <ItemDescription
-                onClick={() => setSelected({ id: item.id, type: "terminal" })}
-                {...(item as TerminalItem)}
-              />
-            }
-            actions={<SearchItemActions user={user} item={item} />}
-          />
-        );
-      case "AspectObjectItem":
-        return (
-          <Item
-            key={item.id + item.kind}
-            isSelected={currentlySelected}
-            preview={<AspectObjectPreview {...(item as AspectObjectItem)} />}
-            description={
-              <ItemDescription
-                onClick={() => setSelected({ id: item.id, type: "aspectObject" })}
-                {...(item as AspectObjectItem)}
-              />
-            }
-            actions={<SearchItemActions user={user} item={item} />}
-          />
-        );
-      case "AttributeItem":
-        return (
-          <AttributeSearchItem
-            key={item.id + item.kind}
-            isSelected={currentlySelected}
-            setSelected={() => setSelected({ id: item.id, type: "attribute" })}
-            user={user}
-            {...(item as AttributeItem)}
-          />
-        );
-      default:
-        null;
-    }
-  }
 
   return (
     <ExploreSection title={t("search.title")}>
@@ -151,7 +94,19 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
         </MotionText>
       )}
 
-      {showResults && user && <ItemList>{results.map((item) => resultsRenderer(item))}</ItemList>}
+      {showResults && user && (
+        <ItemList>
+          {results.map((item) => (
+            <SearchResultsRenderer
+              key={item.id}
+              item={item}
+              selectedItemId={selected?.id ?? ""}
+              setSelected={setSelected}
+              user={user}
+            />
+          ))}
+        </ItemList>
+      )}
 
       {showPlaceholder && (
         <SearchPlaceholder

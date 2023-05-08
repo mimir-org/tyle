@@ -11,4 +11,7 @@ export interface AttributeItem extends StateItem {
   description: string;
   attributeUnits: AttributeUnitLibCm[];
   kind: string;
+  symbol: string;
+  unitId: string;
+  isDefault: boolean;
 }

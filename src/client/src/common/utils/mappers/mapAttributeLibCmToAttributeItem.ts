@@ -13,5 +13,8 @@ export const toAttributeItem = (attribute: AttributeLibCm): AttributeItem => {
     description: attribute.description,
     kind: "AttributeItem",
     state: attribute.state,
+    symbol: "",
+    unitId: "",
+    isDefault: false,
   };
 };
