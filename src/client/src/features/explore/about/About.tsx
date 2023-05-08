@@ -9,6 +9,9 @@ import { ExploreSection } from "features/explore/common/ExploreSection";
 import { SelectedInfo } from "features/explore/common/selectedInfo";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useGetAttribute } from "../../../external/sources/attribute/attribute.queries";
+import AttributePreview from "../../entities/attributes/AttributePreview";
+import { toFormAttributeLib } from "../../entities/attributes/types/formAttributeLib";
 
 interface AboutProps {
   selected?: SelectedInfo;
@@ -24,18 +27,20 @@ export const About = ({ selected }: AboutProps) => {
   const { t } = useTranslation("explore");
 
   const aspectObjectQuery = useGetAspectObject(selected?.type === "aspectObject" ? selected?.id : undefined);
-  const terminalQuery = useGetTerminal(selected?.type == "terminal" ? selected?.id : undefined);
+  const terminalQuery = useGetTerminal(selected?.type === "terminal" ? selected?.id : undefined);
+  const attributeQuery = useGetAttribute(selected?.type === "attribute" ? selected?.id : undefined);
 
   const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
-    const allQueries = [aspectObjectQuery, terminalQuery];
+    const allQueries = [aspectObjectQuery, terminalQuery, attributeQuery];
     setShowLoader(allQueries.some((x) => x.isFetching));
-  }, [aspectObjectQuery, terminalQuery]);
+  }, [aspectObjectQuery, terminalQuery, attributeQuery]);
 
   const showPlaceHolder = !showLoader && selected?.type === undefined;
   const showAspectObjectPanel = !showLoader && selected?.type === "aspectObject" && aspectObjectQuery.isSuccess;
   const showTerminalPanel = !showLoader && selected?.type === "terminal" && terminalQuery.isSuccess;
+  const showAttributePanel = !showLoader && selected?.type === "attribute" && attributeQuery.isSuccess;
 
   return (
     <ExploreSection title={t("about.title")}>
@@ -53,6 +58,7 @@ export const About = ({ selected }: AboutProps) => {
           {...mapTerminalLibCmToTerminalItem(terminalQuery.data)}
         />
       )}
+      {showAttributePanel && <AttributePreview {...toFormAttributeLib(attributeQuery.data)} />}
     </ExploreSection>
   );
 };

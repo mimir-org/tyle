@@ -11,7 +11,6 @@ import { AspectObjectItem } from "../../../common/types/aspectObjectItem";
 import AttributePreview from "../../entities/attributes/AttributePreview";
 import { toFormAttributeLib } from "../../entities/attributes/types/formAttributeLib";
 import { AttributeLibCm } from "@mimirorg/typelibrary-types";
-import { AttributeItem } from "../../../common/types/attributeItem";
 
 interface SearchResultsRendererProps {
   item: SearchResult;
@@ -53,8 +52,8 @@ export function SearchResultsRenderer({
         <Item
           isSelected={currentlySelected}
           onClick={() => setSelected({ id: item.id, type: "attribute" })}
-          preview={<AttributePreview {...toFormAttributeLib(item as AttributeLibCm)} />}
-          description={<ItemDescription {...(item as AttributeItem)} />}
+          preview={<AttributePreview small {...toFormAttributeLib(item as AttributeLibCm)} />}
+          description={null}
           actions={<SearchItemActions user={user} item={item} />}
         />
       );

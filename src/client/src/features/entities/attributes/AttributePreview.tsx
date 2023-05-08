@@ -1,8 +1,8 @@
 import styled from "styled-components/macro";
 import { Text } from "../../../complib/text";
-import { Flexbox } from "../../../complib/layouts";
 import { useTheme } from "styled-components";
 import { FormUnitHelper } from "../units/types/FormUnitHelper";
+import UnitPreview from "../units/UnitPreview";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -16,48 +16,19 @@ const StyledDiv = styled.div`
   box-shadow: ${(props) => props.theme.tyle.shadow.small};
   width: 70%;
   max-width: 40rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
 `;
-
-interface UnitContainerProps {
-  isDefault?: boolean;
-}
-
-const StyledUnit = styled.div<UnitContainerProps>`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #ccc;
-  gap: ${(props) => props.theme.tyle.spacing.l};
-  padding: ${(props) => props.theme.tyle.spacing.l};
-  border-radius: ${(props) => props.theme.tyle.border.radius.large};
-  background-color: ${(props) =>
-    props.isDefault ? props.theme.tyle.color.sys.surface.variant.base : props.theme.tyle.color.sys.surface.base};
-  max-width: 40rem;
-`;
-
-const NameAndUnitContainer = styled.span`
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  align-items: center;
-`;
-
-const StyledBadge = styled.span`
-  align-items: center;
-  border-radius: 99999px;
-  color: ${(props) => props.theme.tyle.color.sys.badge.success.on};
-  padding: 0 8px 0 8px;
-  background-color: ${(props) => props.theme.tyle.color.sys.badge.success.base};
-  border: 1px solid ${(props) => props.theme.tyle.color.sys.badge.success.on};
-`;
-
 interface attributePreviewProps {
   name: string;
   description: string;
   attributeUnits?: FormUnitHelper[];
+  small?: boolean;
 }
 
-export default function AttributePreview({ name, description, attributeUnits }: attributePreviewProps) {
+export default function AttributePreview({ name, description, attributeUnits, small }: attributePreviewProps) {
   const theme = useTheme();
+  attributeUnits && attributeUnits.sort((a) => (a.isDefault ? -1 : 1));
 
   return (
     <StyledDiv>
@@ -66,18 +37,9 @@ export default function AttributePreview({ name, description, attributeUnits }: 
       </Text>
       <Text color={theme.tyle.color.sys.pure.base}>{description}</Text>
       {attributeUnits &&
-        attributeUnits.map((unit) => (
-          <StyledUnit key={unit.unitId} isDefault={unit.isDefault}>
-            <Flexbox justifyContent={"space-between"}>
-              <NameAndUnitContainer>
-                <Text fontSize={"24px"}>{unit.name}</Text>
-                <Text color={"gray"}>{unit.symbol}</Text>
-              </NameAndUnitContainer>
-              {unit.isDefault && <StyledBadge>default</StyledBadge>}
-            </Flexbox>
-            <p>{unit.description}</p>
-          </StyledUnit>
-        ))}
+        (small
+          ? attributeUnits.filter((unit) => unit.isDefault).map((unit) => <UnitPreview unit={unit} key={unit.unitId} />)
+          : attributeUnits.map((unit) => <UnitPreview unit={unit} key={unit.unitId} />))}
     </StyledDiv>
   );
 }
