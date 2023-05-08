@@ -4,6 +4,7 @@ import {
   QuantityDatumLibCm,
   QuantityDatumType,
   AttributeLibAm,
+  State,
 } from "@mimirorg/typelibrary-types";
 import { apiClient } from "external/client/apiClient";
 
@@ -27,5 +28,8 @@ export const attributeApi = {
   },
   postAttribute(item: AttributeLibAm) {
     return apiClient.post<AttributeLibCm>(`${_basePath}`, item).then((r) => r.data);
+  },
+  patchAttributeState(id: string, state: State) {
+    return apiClient.patch<AttributeLibCm>(`${_basePath}/${id}/state`, { state }).then((r) => r.data);
   },
 };

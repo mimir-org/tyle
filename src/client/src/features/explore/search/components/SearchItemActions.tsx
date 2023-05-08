@@ -7,18 +7,19 @@ import { PlainLink } from "../../../common/plain-link";
 import { Button } from "../../../../complib/buttons";
 import { ChevronUp, DocumentDuplicate, PencilSquare, Trash } from "@styled-icons/heroicons-outline";
 import { AlertDialog } from "../../../../complib/overlays";
-import { TerminalPreview } from "../../../common/terminal/TerminalPreview";
 import { UserItem } from "../../../../common/types/userItem";
 import { TerminalItem } from "../../../../common/types/terminalItem";
 import { AspectObjectItem } from "../../../../common/types/aspectObjectItem";
 import { AttributeItem } from "../../../../common/types/attributeItem";
+import { getCloneLink, getEditLink } from "./SearchItemActions.helpers";
 
 type SearchItemProps = {
   user?: UserItem;
   item: TerminalItem | AspectObjectItem | AttributeItem;
+  children?: React.ReactNode;
 };
 
-export const SearchItemActions = ({ user, item }: SearchItemProps) => {
+export const SearchItemActions = ({ user, item, children }: SearchItemProps) => {
   const theme = useTheme();
   const { t } = useTranslation("explore");
   const patchMutation = usePatchTerminalState();
@@ -34,8 +35,8 @@ export const SearchItemActions = ({ user, item }: SearchItemProps) => {
     onAction: () => patchMutation.mutate({ id: item.id, state: State.Approve }),
   };
 
-  const cloneLink = btnFilter.clone ? `/form/terminal/clone/${item.id}` : "#";
-  const editLink = btnFilter.edit ? `/form/terminal/edit/${item.id}` : "#";
+  const cloneLink = btnFilter.clone ? getCloneLink(item) : "#";
+  const editLink = btnFilter.edit ? getEditLink(item) : "#";
 
   return (
     <>
@@ -67,7 +68,7 @@ export const SearchItemActions = ({ user, item }: SearchItemProps) => {
         title={t("search.item.templates.delete", { object: name })}
         description={t("search.item.deleteDescription")}
         hideDescription
-        content={<TerminalPreview name={item.name} color={""} />}
+        content={children}
       >
         <Button
           disabled={!btnFilter.delete}
@@ -85,7 +86,7 @@ export const SearchItemActions = ({ user, item }: SearchItemProps) => {
         title={t("search.item.templates.approve")}
         description={t("search.item.approveDescription")}
         hideDescription
-        content={<TerminalPreview name={item.name} color={""} />}
+        content={children}
       >
         <Button
           disabled={!btnFilter.approve}

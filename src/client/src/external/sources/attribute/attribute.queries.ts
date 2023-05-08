@@ -1,7 +1,6 @@
 import { AttributeLibAm, State } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { attributeApi } from "./attribute.api";
-import { terminalApi } from "../terminal/terminal.api";
 
 const keys = {
   allAttributes: ["attributes"] as const,
@@ -29,7 +28,7 @@ export const useUpdateAttributes = (id?: string) => {
 export const usePatchAttributeState = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: { id: string; state: State }) => terminalApi.patchTerminalState(item.id, item.state), {
+  return useMutation((item: { id: string; state: State }) => attributeApi.patchAttributeState(item.id, item.state), {
     onSuccess: () => queryClient.invalidateQueries(keys.attributeLists()),
   });
 };
