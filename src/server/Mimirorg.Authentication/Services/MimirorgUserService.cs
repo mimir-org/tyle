@@ -1,22 +1,24 @@
-using System.Security.Principal;
 using AspNetCore.Totp;
+using AspNetCore.Totp.Interface.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
+using Mimirorg.Authentication.Extensions;
 using Mimirorg.Authentication.Models.Constants;
 using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
-using System.Security.Cryptography;
-using System.Text;
-using AspNetCore.Totp.Interface.Models;
-using Mimirorg.Authentication.Extensions;
 using Mimirorg.Common.Models;
+using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System.Security.Cryptography;
+using System.Security.Principal;
+using System.Text;
 
 namespace Mimirorg.Authentication.Services;
 
@@ -29,8 +31,9 @@ public class MimirorgUserService : IMimirorgUserService
     private readonly IMimirorgTemplateRepository _templateRepository;
     private readonly IMimirorgCompanyService _mimirorgCompanyService;
     private readonly IMimirorgAuthService _mimirorgAuthService;
+    private readonly IHttpContextAccessor _contextAccessor;
 
-    public MimirorgUserService(UserManager<MimirorgUser> userManager, IOptions<MimirorgAuthSettings> authSettings, IMimirorgTokenRepository tokenRepository, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IMimirorgCompanyService mimirorgCompanyService, IMimirorgAuthService mimirorgAuthService)
+    public MimirorgUserService(UserManager<MimirorgUser> userManager, IOptions<MimirorgAuthSettings> authSettings, IMimirorgTokenRepository tokenRepository, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IMimirorgCompanyService mimirorgCompanyService, IMimirorgAuthService mimirorgAuthService, IHttpContextAccessor contextAccessor)
     {
         _userManager = userManager;
         _tokenRepository = tokenRepository;
@@ -39,6 +42,7 @@ public class MimirorgUserService : IMimirorgUserService
         _authSettings = authSettings?.Value;
         _mimirorgCompanyService = mimirorgCompanyService;
         _mimirorgAuthService = mimirorgAuthService;
+        _contextAccessor = contextAccessor;
     }
 
     /// <summary>
@@ -95,9 +99,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// <summary>
     /// Update user
     /// </summary>
-    /// <param name="id">Id of user to update</param>
-    /// <param name="firstName">New first name</param>
-    /// <param name="lastName">New last name</param>
+    /// <param name="userAm">New last name</param>
     /// <returns>UserCm</returns>
     /// <exception cref="MimirorgNotFoundException"></exception>
     /// <exception cref="MimirorgInvalidOperationException"></exception>
@@ -426,7 +428,7 @@ public class MimirorgUserService : IMimirorgUserService
                 var hook = new MimirorgHookAm
                 {
                     CompanyId = company.Id,
-                    Iri = "http://mimirserver/v1.0/common/cache/invalidate",
+                    Iri = _contextAccessor.GetBaseUrl() + $"/v{VersionConstant.OnePointZero}/common/cache/invalidate",
                     Key = cacheKey
                 };
 

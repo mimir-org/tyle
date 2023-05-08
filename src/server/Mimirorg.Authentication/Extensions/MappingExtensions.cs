@@ -53,7 +53,7 @@ public static class MappingExtensions
         {
             Id = hook.Id,
             CompanyId = hook.CompanyId,
-            Company = hook.Company.ToContentModel(),
+            Company = hook.Company?.ToContentModel(),
             Key = hook.Key,
             Iri = hook.Iri
         };

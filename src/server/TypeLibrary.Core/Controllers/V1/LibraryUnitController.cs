@@ -21,7 +21,7 @@ namespace TypeLibrary.Core.Controllers.V1;
 
 [Produces("application/json")]
 [ApiController]
-[ApiVersion("1.0")]
+[ApiVersion(VersionConstant.OnePointZero)]
 [Route("V{version:apiVersion}/[controller]")]
 [SwaggerTag("Unit services")]
 public class LibraryUnitController : ControllerBase

@@ -13,7 +13,6 @@ using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TypeLibrary.Services.Contracts;
 
@@ -21,7 +20,7 @@ namespace TypeLibrary.Core.Controllers.V1;
 
 [Produces("application/json")]
 [ApiController]
-[ApiVersion("1.0")]
+[ApiVersion(VersionConstant.OnePointZero)]
 [Route("V{version:apiVersion}/[controller]")]
 [SwaggerTag("RDS services")]
 public class LibraryRdsController : ControllerBase
