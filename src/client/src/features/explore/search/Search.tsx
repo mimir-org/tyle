@@ -20,11 +20,14 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { AttributeSearchItem } from "./components/attribute/AttributeSearchItem";
 import { SearchResult } from "./types/searchResult";
-import { AspectObjectSearchItem } from "./components/aspectobject/AspectObjectSearchItem";
-import { TerminalSearchItem } from "./components/terminal/TerminalSearchItem";
 import { TerminalItem } from "../../../common/types/terminalItem";
 import { AspectObjectItem } from "../../../common/types/aspectObjectItem";
 import { AttributeItem } from "../../../common/types/attributeItem";
+import { Item } from "./components/item/Item";
+import { AspectObjectPreview } from "../../common/aspectobject";
+import { ItemDescription } from "./components/item/ItemDescription";
+import { SearchItemActions } from "./components/SearchItemActions";
+import { TerminalPreview } from "../../common/terminal/TerminalPreview";
 
 interface SearchProps {
   selected?: SelectedInfo;
@@ -61,22 +64,32 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
     switch (item.kind) {
       case "TerminalItem":
         return (
-          <TerminalSearchItem
+          <Item
             key={item.id + item.kind}
             isSelected={currentlySelected}
-            setSelected={() => setSelected({ id: item.id, type: "terminal" })}
-            user={user}
-            {...(item as TerminalItem)}
+            preview={<TerminalPreview {...(item as TerminalItem)} />}
+            description={
+              <ItemDescription
+                onClick={() => setSelected({ id: item.id, type: "terminal" })}
+                {...(item as TerminalItem)}
+              />
+            }
+            actions={<SearchItemActions user={user} item={item} />}
           />
         );
       case "AspectObjectItem":
         return (
-          <AspectObjectSearchItem
+          <Item
             key={item.id + item.kind}
             isSelected={currentlySelected}
-            setSelected={() => setSelected({ id: item.id, type: "aspectObject" })}
-            user={user}
-            {...(item as AspectObjectItem)}
+            preview={<AspectObjectPreview {...(item as AspectObjectItem)} />}
+            description={
+              <ItemDescription
+                onClick={() => setSelected({ id: item.id, type: "aspectObject" })}
+                {...(item as AspectObjectItem)}
+              />
+            }
+            actions={<SearchItemActions user={user} item={item} />}
           />
         );
       case "AttributeItem":
