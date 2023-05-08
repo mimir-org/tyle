@@ -1,10 +1,12 @@
-using System.Net.Http.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
+using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Models.Client;
 using Mimirorg.TypeLibrary.Models.Common;
+using System.Net.Http.Json;
 
 namespace Mimirorg.Authentication.Services;
 
@@ -63,26 +65,49 @@ public class TimedHookService : IHostedService, ITimedHookService, IDisposable
         using var scope = _scopeFactory.CreateScope();
         var companyService = scope.ServiceProvider.GetRequiredService<IMimirorgCompanyService>();
         var allHooks = await companyService.GetAllHooksForCache(nextItem);
+        var companyWithAnAllHook = new List<int>();
 
-
-        foreach (var hook in allHooks)
+        foreach (var hook in allHooks.OrderBy(x => x.Key).ToList())
         {
-            var data = new CacheInvalidation
+
+            if (companyWithAnAllHook.Contains(hook.CompanyId))
+                continue;
+
+            if (hook.Key == CacheKey.All)
+            {
+                companyWithAnAllHook.Add(hook.Company.Id);
+
+                foreach (var cacheKey in EnumExtensions.AsEnumerable<CacheKey>().ToList())
+                    SendCacheInvalidationToClient(hook, cacheKey);
+            }
+            else
+            {
+                SendCacheInvalidationToClient(hook, hook.Key);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Helper method to send the hooks to all listeners
+    /// </summary>
+    /// <param name="hook"></param>
+    /// <param name="cacheKey"></param>
+    private async void SendCacheInvalidationToClient(MimirorgHookCm hook, CacheKey cacheKey)
+    {
+        try
+        {
+            using var response = await _httpClient.PostAsJsonAsync(hook.Iri, new CacheInvalidation
             {
                 Secret = hook.Company?.Secret,
-                Key = hook.Key
-            };
+                Key = cacheKey
+            });
 
-            try
-            {
-                using var response = await _httpClient.PostAsJsonAsync(hook.Iri, data);
-                if (!response.IsSuccessStatusCode)
-                    _logger.LogInformation($"Can't send CacheInvalidation data to {hook.Iri}. Code: {response.StatusCode}. Message: {response.ReasonPhrase}");
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"Can't send CacheInvalidation data to {hook.Iri}. Message: {e.Message}");
-            }
+            if (!response.IsSuccessStatusCode)
+                _logger.LogInformation($"Can't send CacheInvalidation data to {hook.Iri}. Code: {response.StatusCode}. Message: {response.ReasonPhrase}");
+        }
+        catch (Exception e)
+        {
+            _logger.LogInformation($"Can't send CacheInvalidation data to {hook.Iri}. Message: {e.Message}");
         }
     }
 

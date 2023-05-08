@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Domain;
@@ -10,6 +6,10 @@ using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
 using Mimirorg.TypeLibrary.Enums;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Mimirorg.Test.Unit.Services;
@@ -310,6 +310,6 @@ public class MimirorgUserServiceTests : UnitTest<MimirorgCommonFixture>
         userManagerMock.Setup(x => x.Users).Returns(users.AsQueryable());
         tokenRepositoryMock.Setup(x => x.GetAll(true)).Returns(tokens.AsQueryable);
 
-        return new MimirorgUserService(userManagerMock.Object, null, tokenRepositoryMock.Object, null, null, null, null);
+        return new MimirorgUserService(userManagerMock.Object, null, tokenRepositoryMock.Object, null, null, null, null, null);
     }
 }
