@@ -3,7 +3,12 @@ import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { useGetPurposes } from "external/sources/purpose/purpose.queries";
 import { FilterGroup } from "features/explore/search/types/filterGroup";
 
-export const useGetFilterGroups = (): FilterGroup[] => [getEntityFilters(), getAspectFilters(), useGetPurposeFilters()];
+export const useGetFilterGroups = (): FilterGroup[] => [
+  getEntityFilters(),
+  getAspectFilters(),
+  getAttributeFilters(),
+  useGetPurposeFilters(),
+];
 
 const useGetPurposeFilters = (): FilterGroup => {
   const purposeQuery = useGetPurposes();
