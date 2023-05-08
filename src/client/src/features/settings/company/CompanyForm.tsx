@@ -3,8 +3,10 @@ import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
   copySecret,
+  createEmptyFormMimirorgCompany,
   createSecret,
   FormMimirorgCompany,
+  mapCompanyCmToFormCompany,
   mapFormCompanyToCompanyAm,
   useCompanyMutation,
   useCreatingToast,
@@ -25,28 +27,32 @@ import { Flexbox } from "complib/layouts";
 import { useState } from "react";
 import { DocumentDuplicate } from "@styled-icons/heroicons-outline";
 import { isAxiosError } from "axios";
+import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
+import { MimirorgPermission } from "@mimirorg/typelibrary-types";
+import { Option } from "common/utils/getOptionsFromEnum";
+import { RadioFilters } from "../common/radio-filters/RadioFilters";
 
-interface CompanyFormProps {
-  defaultValues: FormMimirorgCompany;
-  companyId: string;
-}
-
-export const CompanyForm = ({ defaultValues, companyId } : CompanyFormProps) => {
-  const [secret, _] = useState(createSecret(50));
-
+export const CompanyForm = () => {
+  const companies = useGetFilteredCompanies(MimirorgPermission.Manage);
+  const companyOptions = companies.map(x => ({ value: String(x.id), label: x.displayName })) as Option<string>[];
+  companyOptions.unshift({ value: "0", label: "Create new company" });
+  const [selectedCompany, setSelectedCompany] = useState(companyOptions[0]?.value);
+  const [secret, setSecret] = useState<string>(createSecret(50));
+  const [updateSecret, setUpdateSecret] = useState(true);
+  
   const theme = useTheme();
   const { t } = useTranslation("settings");
 
   const formMethods = useForm<FormMimirorgCompany>({
-    defaultValues: defaultValues,
+    defaultValues: { ...createEmptyFormMimirorgCompany(), secret: secret },
     resolver: yupResolver(companySchema(t)),
   });
 
-  const { register, handleSubmit, control, setError, formState } = formMethods;
+  const { register, handleSubmit, control, setError, formState, reset } = formMethods;
 
   const userQuery = useGetCurrentUser();
 
-  const mutation = useCompanyMutation(companyId);
+  const mutation = useCompanyMutation(selectedCompany);
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
@@ -55,7 +61,7 @@ export const CompanyForm = ({ defaultValues, companyId } : CompanyFormProps) => 
   const onSubmit = async (data: FormMimirorgCompany) => {
     if (userQuery.isSuccess) {
       try {
-        await onSubmitForm(mapFormCompanyToCompanyAm(data, userQuery.data?.id), mutation.mutateAsync, creationToast);
+        await onSubmitForm(mapFormCompanyToCompanyAm(data, userQuery.data?.id, secret), mutation.mutateAsync, creationToast);
       } catch (e) {
         if (isAxiosError(e) && e.response?.status == 400) {
           if (e.response?.data.Name) toast.error(t("createCompany.toasts.companyNameError"));
@@ -66,52 +72,77 @@ export const CompanyForm = ({ defaultValues, companyId } : CompanyFormProps) => 
   };
 
   return (
-    <FormProvider {...formMethods}>
-      <Form onSubmit={handleSubmit((data) => onSubmit(data))}>
-        <FormField label={t("createCompany.labels.name")} error={formState.errors.name}>
-          <Input placeholder={t("createCompany.placeholders.name")} {...register("name")} />
-        </FormField>
-        <FormField label={t("createCompany.labels.displayName")} error={formState.errors.displayName}>
-          <Input placeholder={t("createCompany.placeholders.displayName")} {...register("displayName")} />
-        </FormField>
-        <FormField label={t("createCompany.labels.description")} error={formState.errors.description}>
-          <Textarea placeholder={t("createCompany.placeholders.description")} {...register("description")} />
-        </FormField>
-        <FormField label={t("createCompany.labels.secret")} error={formState.errors.secret}>
-          <Input
-            type="text"
-            value={secret}
-            readOnly
-            icon={
-              <Button
-                icon={<DocumentDuplicate size={24} />}
-                onClick={() => copySecret(secret, t("createCompany.toasts.copySecret"))}
-              >
-                {""}
-              </Button>
-            }
-            {...register("secret")}
-          />
-        </FormField>
-        <FormField label={t("createCompany.labels.domain")} error={formState.errors.domain}>
-          <Input placeholder={t("createCompany.placeholders.domain")} {...register("domain")} />
-        </FormField>
-        <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
-          <FormField label={t("createCompany.labels.logo")} error={formState.errors.logo}></FormField>
-          <Controller
-            control={control}
-            name={"logo"}
-            render={({ field: { value, onChange, ref, ...rest } }) => (
-              <FileComponent {...rest} accept=".svg,image/svg+xml" ref={ref} value={value} onChange={onChange} />
-            )}
-          />
-        </Flexbox>
-        <FormField label={t("createCompany.labels.homePage")} error={formState.errors.homePage}>
-          <Input placeholder={t("createCompany.placeholders.homePage")} {...register("homePage")} />
-        </FormField>
-        <Button type={"submit"}>{t("createCompany.submit")}</Button>
-        <DevTool control={control} placement={"bottom-right"} />
-      </Form>
-    </FormProvider>
+    <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xxl}>
+      <RadioFilters
+        filters={companyOptions}
+        value={selectedCompany}
+        onChange={(x) => { 
+          setSelectedCompany(x);
+          reset(mapCompanyCmToFormCompany(companies.find(c => c.id == Number(x))));
+          if (x == "0") {
+            setSecret(createSecret(50));
+            setUpdateSecret(true);
+          } else {
+            setUpdateSecret(false);
+            setSecret("");
+          }
+        } }
+      />
+      <FormProvider {...formMethods}>
+        <Form onSubmit={handleSubmit((data) => onSubmit(data))}>
+          <FormField label={t("createCompany.labels.name")} error={formState.errors.name}>
+            <Input placeholder={t("createCompany.placeholders.name")} {...register("name")} />
+          </FormField>
+          <FormField label={t("createCompany.labels.displayName")} error={formState.errors.displayName}>
+            <Input placeholder={t("createCompany.placeholders.displayName")} {...register("displayName")} />
+          </FormField>
+          <FormField label={t("createCompany.labels.description")} error={formState.errors.description}>
+            <Textarea placeholder={t("createCompany.placeholders.description")} {...register("description")} />
+          </FormField>
+          { updateSecret ?
+            <FormField label={t("createCompany.labels.secret")} error={formState.errors.secret}>
+              <Input
+                type="text"
+                value={secret}
+                readOnly
+                icon={
+                <Button
+                    icon={<DocumentDuplicate size={24} />}
+                    onClick={() => copySecret(secret, t("createCompany.toasts.copySecret"))}
+                  >
+                    {""}
+                  </Button>
+                }
+                {...register("secret")}
+              />
+            </FormField> :
+            <FormField label={t("createCompany.labels.hiddenSecret")}>
+              <Button onClick={() => {
+                setSecret(createSecret(50));
+                setUpdateSecret(true);
+              }}>Generate new secret</Button>
+            </FormField>
+          }
+          <FormField label={t("createCompany.labels.domain")} error={formState.errors.domain}>
+            <Input placeholder={t("createCompany.placeholders.domain")} {...register("domain")} />
+          </FormField>
+          <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
+            <FormField label={t("createCompany.labels.logo")} error={formState.errors.logo}></FormField>
+            <Controller
+              control={control}
+              name={"logo"}
+              render={({ field: { value, onChange, ref, ...rest } }) => (
+                <FileComponent {...rest} accept=".svg,image/svg+xml" ref={ref} value={value} onChange={onChange} />
+              )}
+            />
+          </Flexbox>
+          <FormField label={t("createCompany.labels.homePage")} error={formState.errors.homePage}>
+            <Input placeholder={t("createCompany.placeholders.homePage")} {...register("homePage")} />
+          </FormField>
+          <Button type={"submit"}>{selectedCompany == "0" ? t("createCompany.submit.create") : t("createCompany.submit.update")}</Button>
+          <DevTool control={control} placement={"bottom-right"} />
+        </Form>
+      </FormProvider>
+    </Flexbox>
   );
 };

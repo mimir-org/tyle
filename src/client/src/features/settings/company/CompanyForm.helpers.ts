@@ -8,23 +8,21 @@ export interface FormMimirorgCompany extends Omit<MimirorgCompanyAm, "managerId"
   logo: FileInfo | null;
 }
 
-export const createEmptyFormMimirorgCompany = (): FormMimirorgCompany => ({
+export const createEmptyFormMimirorgCompany = (): Omit<FormMimirorgCompany, "secret"> => ({
   name: "",
   displayName: "",
   description: "",
-  secret: "",
   domain: "",
   logo: null,
   homePage: "",
 });
 
-export const mapCompanyCmToFormCompany = (companyCm: MimirorgCompanyCm | undefined) => {
+export const mapCompanyCmToFormCompany = (companyCm: MimirorgCompanyCm | undefined): Omit<FormMimirorgCompany, "secret"> => {
   if (companyCm == undefined) return createEmptyFormMimirorgCompany();
   return {
     name: companyCm.name,
     displayName: companyCm.displayName,
     description: companyCm.description,
-    secret: companyCm.secret,
     domain: companyCm.domain,
     logo: {
       fileName: "logo.svg",
@@ -36,7 +34,7 @@ export const mapCompanyCmToFormCompany = (companyCm: MimirorgCompanyCm | undefin
   }
 }
 
-export const mapFormCompanyToCompanyAm = (formCompany: FormMimirorgCompany, userId: string): MimirorgCompanyAm => {
+export const mapFormCompanyToCompanyAm = (formCompany: FormMimirorgCompany, userId: string, secret: string): MimirorgCompanyAm => {
   let logo = "";
 
   if (formCompany.logo?.file) {
@@ -48,6 +46,7 @@ export const mapFormCompanyToCompanyAm = (formCompany: FormMimirorgCompany, user
     ...formCompany,
     logo: logo,
     managerId: userId,
+    secret: secret,
   };
 };
 
