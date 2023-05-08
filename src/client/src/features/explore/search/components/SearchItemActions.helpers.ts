@@ -2,7 +2,9 @@ import { TerminalItem } from "../../../../common/types/terminalItem";
 import { AspectObjectItem } from "../../../../common/types/aspectObjectItem";
 import { AttributeItem } from "../../../../common/types/attributeItem";
 
-export function getCloneLink(item: TerminalItem | AspectObjectItem | AttributeItem) {
+type LinkItem = TerminalItem | AspectObjectItem | AttributeItem;
+
+export function getCloneLink(item: LinkItem) {
   switch (item.kind) {
     case "TerminalItem":
       return `/form/terminal/clone/${item.id}`;
@@ -15,7 +17,7 @@ export function getCloneLink(item: TerminalItem | AspectObjectItem | AttributeIt
   }
 }
 
-export function getEditLink(item: TerminalItem | AspectObjectItem | AttributeItem) {
+export function getEditLink(item: LinkItem) {
   switch (item.kind) {
     case "TerminalItem":
       return `/form/terminal/edit/${item.id}`;
