@@ -20,6 +20,7 @@ const StyledBadge = styled.span<StyledBadgeProps>`
       props.variant
         ? props.theme.tyle.color.sys.badge[props.variant].on
         : props.theme.tyle.color.sys.badge.success.base};
+  max-height: 1.5rem;
 `;
 
 interface BadgeProps {
