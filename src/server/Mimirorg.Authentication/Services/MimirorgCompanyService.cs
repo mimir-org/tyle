@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -17,15 +18,17 @@ public class MimirorgCompanyService : IMimirorgCompanyService
 {
     private readonly IMimirorgCompanyRepository _mimirorgCompanyRepository;
     private readonly IMimirorgHookRepository _mimirorgHookRepository;
+    private readonly IHttpContextAccessor _contextAccessor;
     private readonly ApplicationSettings _applicationSettings;
     private readonly UserManager<MimirorgUser> _userManager;
 
-    public MimirorgCompanyService(IMimirorgCompanyRepository mimirorgCompanyRepository, IMimirorgHookRepository mimirorgHookRepository, IOptions<ApplicationSettings> applicationSettings, UserManager<MimirorgUser> userManager)
+    public MimirorgCompanyService(IMimirorgCompanyRepository mimirorgCompanyRepository, IMimirorgHookRepository mimirorgHookRepository, IOptions<ApplicationSettings> applicationSettings, UserManager<MimirorgUser> userManager, IHttpContextAccessor contextAccessor)
     {
         _mimirorgCompanyRepository = mimirorgCompanyRepository;
         _mimirorgHookRepository = mimirorgHookRepository;
         _applicationSettings = applicationSettings?.Value;
         _userManager = userManager;
+        _contextAccessor = contextAccessor;
     }
 
     /// <summary>
@@ -47,6 +50,8 @@ public class MimirorgCompanyService : IMimirorgCompanyService
         if (_mimirorgCompanyRepository.FindBy(x => x.Domain != null && x.Domain.ToLower() == company.Domain.ToLower()).Any())
             throw new MimirorgBadRequestException($"{nameof(company.Domain)} must be unique", new Validation(nameof(company.Domain), $"{nameof(company.Domain)} must be unique"));
 
+        if (!await IsAdministrator())
+            throw new MimirorgUnauthorizedAccessException("Forbidden");
 
         var domainCompany = company.ToDomainModel();
         await _mimirorgCompanyRepository.CreateAsync(domainCompany);
@@ -56,6 +61,20 @@ public class MimirorgCompanyService : IMimirorgCompanyService
             throw new MimirorgInvalidOperationException($"Could not create company with name {company.Name}");
 
         return await GetCompanyById(domainCompany.Id);
+    }
+
+    private async Task<bool> IsAdministrator()
+    {
+        var currentUser = _contextAccessor?.HttpContext?.User;
+        var currentUserEmail = currentUser?.Identity?.Name;
+        var user = _userManager.Users.FirstOrDefault(x => x.Email == currentUserEmail);
+
+        if (currentUser == null || string.IsNullOrWhiteSpace(currentUserEmail) || user == null)
+            throw new MimirorgNullReferenceException("User not found");
+
+        var userRoles = await _userManager.GetRolesAsync(user);
+
+        return userRoles.Any(x => x.ToLower() == "administrator");
     }
 
     /// <summary>
