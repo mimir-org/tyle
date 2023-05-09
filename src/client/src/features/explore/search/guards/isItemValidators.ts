@@ -1,4 +1,10 @@
-import { AspectObjectLibCm, AttributeLibCm, TerminalLibCm } from "@mimirorg/typelibrary-types";
+import {
+  AspectObjectLibCm,
+  AttributeLibCm,
+  QuantityDatumLibCm,
+  TerminalLibCm,
+  UnitLibCm,
+} from "@mimirorg/typelibrary-types";
 import { TerminalItem } from "../../../../common/types/terminalItem";
 import { AttributeItem } from "../../../../common/types/attributeItem";
 import { AspectObjectItem } from "../../../../common/types/aspectObjectItem";
@@ -19,4 +25,7 @@ export const isAspectObjectLibCm = (item: unknown): item is AspectObjectLibCm =>
 export const isAspectObjectItem = (item: unknown): item is AspectObjectItem =>
   (<AspectObjectItem>item).kind === "AspectObjectItem";
 
-export const isUnitLibCm = (item: unknown): item is AspectObjectLibCm => (<AspectObjectLibCm>item).kind === "UnitLibCm";
+export const isUnitLibCm = (item: unknown): item is UnitLibCm => (<UnitLibCm>item).kind === "UnitLibCm";
+
+export const isQuantityDatumLibCm = (item: unknown): item is QuantityDatumLibCm =>
+  (<QuantityDatumLibCm>item).kind === "QuantityDatumLibCm";

@@ -8,14 +8,12 @@ import { Button } from "../../../../complib/buttons";
 import { Check, DocumentDuplicate, PencilSquare, Trash } from "@styled-icons/heroicons-outline";
 import { AlertDialog } from "../../../../complib/overlays";
 import { UserItem } from "../../../../common/types/userItem";
-import { TerminalItem } from "../../../../common/types/terminalItem";
-import { AspectObjectItem } from "../../../../common/types/aspectObjectItem";
-import { AttributeItem } from "../../../../common/types/attributeItem";
 import { getCloneLink, getEditLink } from "./SearchItemActions.helpers";
+import { ItemType } from "../../../entities/types/itemTypes";
 
 type SearchItemProps = {
   user?: UserItem;
-  item: TerminalItem | AspectObjectItem | AttributeItem;
+  item: ItemType;
   children?: React.ReactNode;
 };
 

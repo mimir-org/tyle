@@ -8,7 +8,15 @@ import { toAttributeItem } from "../../../../common/utils/mappers/mapAttributeLi
 import { useGetUnits } from "../../../../external/sources/unit/unit.queries";
 import { useGetDatums } from "../../../../external/sources/datum/datum.queries";
 import { useGetAllRds } from "../../../../external/sources/rds/rds.queries";
-import { isAspectObjectLibCm, isAttributeLibCm, isTerminalLibCm, isUnitLibCm } from "../guards/isItemValidators";
+import {
+  isAspectObjectLibCm,
+  isAttributeLibCm,
+  isQuantityDatumLibCm,
+  isTerminalLibCm,
+  isUnitLibCm,
+} from "../guards/isItemValidators";
+import { toUnitItem } from "../../../../common/utils/mappers/toUnitItem";
+import { toDatumItem } from "../../../../common/utils/mappers/toDatumItem";
 
 /**
  * Filters items with AND-logic if there are any filters available, returns items sorted by date if not.
@@ -61,7 +69,8 @@ export const mapSearchResults = (items: SearchResultRaw[]) => {
     if (isAspectObjectLibCm(x)) mappedSearchResults.push(mapAspectObjectLibCmToAspectObjectItem(x));
     else if (isTerminalLibCm(x)) mappedSearchResults.push(mapTerminalLibCmToTerminalItem(x));
     else if (isAttributeLibCm(x)) mappedSearchResults.push(toAttributeItem(x));
-    else if (isUnitLibCm(x)) mappedSearchResults.push();
+    else if (isUnitLibCm(x)) mappedSearchResults.push(toUnitItem(x));
+    else if (isQuantityDatumLibCm(x)) mappedSearchResults.push(toDatumItem(x));
   });
 
   return mappedSearchResults;

@@ -5,7 +5,7 @@ import { Loader } from "features/common/loader";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
 import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { QuantityDatumLibAm, QuantityDatumLibCm } from "@mimirorg/typelibrary-types";
 import { createEmptyDatum, toDatumLibAm } from "./types/formDatumLib";
@@ -16,6 +16,7 @@ import { PlainLink } from "../../common/plain-link";
 import { Button } from "../../../complib/buttons";
 import { useTheme } from "styled-components";
 import { DatumFormBaseFields } from "./DatumFormBaseFields";
+import DatumPreview from "./DatumPreview";
 
 interface DatumFormProps {
   defaultValues?: QuantityDatumLibAm;
@@ -40,6 +41,11 @@ export const DatumForm = ({ defaultValues = createEmptyDatum() }: DatumFormProps
   useNavigateOnCriteria("/", mutation.isSuccess);
 
   const toast = useSubmissionToast(t("datum.title"));
+  const name = useWatch({ control, name: "name" });
+  const description = useWatch({ control, name: "description" });
+  const quantityDatumType = useWatch({ control, name: "quantityDatumType" });
+
+  const datum = { name, description, quantityType: quantityDatumType };
 
   return (
     <FormProvider {...formMethods}>
@@ -63,8 +69,9 @@ export const DatumForm = ({ defaultValues = createEmptyDatum() }: DatumFormProps
             </Flexbox>
           </Flexbox>
         )}
+        <DatumPreview datum={datum} />
+        <DevTool control={control} placement={"bottom-right"} />
       </AttributeFormContainer>
-      <DevTool control={control} placement={"bottom-right"} />
     </FormProvider>
   );
 };

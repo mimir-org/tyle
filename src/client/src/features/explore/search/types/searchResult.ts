@@ -6,11 +6,9 @@ import {
   TerminalLibCm,
   UnitLibCm,
 } from "@mimirorg/typelibrary-types";
-import { AspectObjectItem } from "common/types/aspectObjectItem";
-import { TerminalItem } from "common/types/terminalItem";
-import { AttributeItem } from "../../../../common/types/attributeItem";
+import { ItemType } from "../../../entities/types/itemTypes";
 
-export type SearchResult = AspectObjectItem | TerminalItem | AttributeItem;
+export type SearchResult = ItemType;
 
 export type SearchResultRaw =
   | AspectObjectLibCm

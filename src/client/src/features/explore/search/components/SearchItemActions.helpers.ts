@@ -1,10 +1,6 @@
-import { TerminalItem } from "../../../../common/types/terminalItem";
-import { AspectObjectItem } from "../../../../common/types/aspectObjectItem";
-import { AttributeItem } from "../../../../common/types/attributeItem";
+import { ItemType } from "../../../entities/types/itemTypes";
 
-type LinkItem = TerminalItem | AspectObjectItem | AttributeItem;
-
-export function getCloneLink(item: LinkItem) {
+export function getCloneLink(item: ItemType) {
   switch (item.kind) {
     case "TerminalItem":
       return `/form/terminal/clone/${item.id}`;
@@ -12,12 +8,14 @@ export function getCloneLink(item: LinkItem) {
       return `/form/aspectobject/clone/${item.id}`;
     case "AttributeItem":
       return `/form/attribute/clone/${item.id}`;
+    case "UnitItem":
+      return `/form/unit/clone/${item.id}`;
     default:
       return "#";
   }
 }
 
-export function getEditLink(item: LinkItem) {
+export function getEditLink(item: ItemType) {
   switch (item.kind) {
     case "TerminalItem":
       return `/form/terminal/edit/${item.id}`;
@@ -25,6 +23,8 @@ export function getEditLink(item: LinkItem) {
       return `/form/aspectobject/edit/${item.id}`;
     case "AttributeItem":
       return `/form/attribute/edit/${item.id}`;
+    case "UnitItem":
+      return `/form/unit/edit/${item.id}`;
     default:
       return "#";
   }

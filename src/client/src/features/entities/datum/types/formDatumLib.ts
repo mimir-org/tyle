@@ -16,6 +16,6 @@ export const createEmptyDatum = (): QuantityDatumLibCm => ({
   createdBy: "",
   name: "",
   typeReference: "",
-  quantityDatumType: QuantityDatumType.QuantityDatumRangeSpecifying,
+  quantityDatumType: QuantityDatumType.QuantityDatumSpecifiedScope,
   description: "",
 });

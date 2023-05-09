@@ -10,7 +10,11 @@ import { AspectObjectPreview } from "../../common/aspectobject";
 import { AspectObjectItem } from "../../../common/types/aspectObjectItem";
 import AttributePreview from "../../entities/attributes/AttributePreview";
 import { toFormAttributeLib } from "../../entities/attributes/types/formAttributeLib";
-import { AttributeLibCm } from "@mimirorg/typelibrary-types";
+import { AttributeLibCm, UnitLibCm } from "@mimirorg/typelibrary-types";
+import UnitPreview from "../../entities/units/UnitPreview";
+import { FormUnitHelper } from "../../entities/units/types/FormUnitHelper";
+import DatumPreview from "../../entities/datum/DatumPreview";
+import { DatumItem } from "../../../common/types/datumItem";
 
 interface SearchResultsRendererProps {
   item: SearchResult;
@@ -54,6 +58,26 @@ export function SearchResultsRenderer({
           onClick={() => setSelected({ id: item.id, type: "attribute" })}
           preview={<AttributePreview small {...toFormAttributeLib(item as AttributeLibCm)} />}
           description={<ItemDescription {...(item as AttributeLibCm)} />}
+          actions={<SearchItemActions user={user} item={item} />}
+        />
+      );
+    case "UnitItem":
+      return (
+        <Item
+          isSelected={currentlySelected}
+          onClick={() => setSelected({ id: item.id, type: "unit" })}
+          preview={<UnitPreview unit={item as FormUnitHelper} />}
+          description={<ItemDescription {...(item as UnitLibCm)} />}
+          actions={<SearchItemActions user={user} item={item} />}
+        />
+      );
+    case "DatumItem":
+      return (
+        <Item
+          isSelected={currentlySelected}
+          onClick={() => setSelected({ id: item.id, type: "datum" })}
+          preview={<DatumPreview datum={item as DatumItem} />}
+          description={null}
           actions={<SearchItemActions user={user} item={item} />}
         />
       );
