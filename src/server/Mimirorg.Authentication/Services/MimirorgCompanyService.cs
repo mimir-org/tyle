@@ -153,10 +153,15 @@ public class MimirorgCompanyService : IMimirorgCompanyService
         if (!validation.IsValid)
             throw new MimirorgBadRequestException($"Couldn't register: {company.DisplayName ?? company.Name}", validation);
 
-        var exist = await _mimirorgCompanyRepository.GetAll().AnyAsync(x => x.Id == id);
+        var existingCompany = await _mimirorgCompanyRepository.GetAsync(id);
 
-        if (!exist)
+        if (existingCompany == null)
             throw new MimirorgNotFoundException($"Could not find company with id {id}");
+
+        if (company.Secret == "")
+            company.Secret = existingCompany.Secret;
+
+        _mimirorgCompanyRepository.Detach(existingCompany);
 
         var domainCompany = company.ToDomainModel();
         domainCompany.Id = id;
