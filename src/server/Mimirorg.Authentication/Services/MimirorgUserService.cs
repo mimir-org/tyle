@@ -421,19 +421,12 @@ public class MimirorgUserService : IMimirorgUserService
 
             await _userManager.AddToRoleAsync(user, MimirorgDefaultRoles.Administrator);
 
-            // Create hooks
-            var cacheKeys = EnumExtensions.AsEnumerable<CacheKey>().ToList();
-            foreach (var cacheKey in cacheKeys)
+            _ = await _mimirorgCompanyService.CreateHook(new MimirorgHookAm
             {
-                var hook = new MimirorgHookAm
-                {
-                    CompanyId = company.Id,
-                    Iri = _contextAccessor.GetBaseUrl() + $"/v{VersionConstant.OnePointZero}/common/cache/invalidate",
-                    Key = cacheKey
-                };
-
-                _ = await _mimirorgCompanyService.CreateHook(hook);
-            }
+                CompanyId = company.Id,
+                Iri = _contextAccessor.GetBaseUrl() + $"/v{VersionConstant.OnePointZero}/common/cache/invalidate",
+                Key = CacheKey.All
+            });
         }
         catch (Exception)
         {
