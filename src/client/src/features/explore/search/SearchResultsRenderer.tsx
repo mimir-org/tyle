@@ -53,7 +53,7 @@ export function SearchResultsRenderer({
           isSelected={currentlySelected}
           onClick={() => setSelected({ id: item.id, type: "attribute" })}
           preview={<AttributePreview small {...toFormAttributeLib(item as AttributeLibCm)} />}
-          description={null}
+          description={<ItemDescription {...(item as AttributeLibCm)} />}
           actions={<SearchItemActions user={user} item={item} />}
         />
       );

@@ -78,8 +78,8 @@ export const lightTheme: ColorTheme = {
 
     },
     warning: {
-      base: colorReference.neutral[80],
-      on: colorReference.neutral[10],
+      base: colorReference.warning[90],
+      on: colorReference.warning[30],
     },
     info: {
       base: colorReference.tertiary[90],

@@ -12,6 +12,7 @@ import { createEmptyUnit, toUnitLibAm } from "./types/formUnitLib";
 import { useUnitMutation, useUnitQuery } from "./UnitForm.helpers";
 import UnitFormBaseFields from "./UnitFormBaseFields";
 import { AttributeFormContainer } from "../attributes/AttributeFormContainer.styled";
+import { UnitFormPreview } from "./UnitFormPreview";
 
 interface UnitFormProps {
   defaultValues?: UnitLibAm;
@@ -48,6 +49,7 @@ export const UnitForm = ({ defaultValues = createEmptyUnit() }: UnitFormProps) =
         ) : (
           <>
             <UnitFormBaseFields />
+            <UnitFormPreview control={control} />
             <DevTool control={control} placement={"bottom-right"} />
           </>
         )}

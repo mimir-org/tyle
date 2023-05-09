@@ -4,21 +4,29 @@ import { useTheme } from "styled-components";
 import { FormUnitHelper } from "../units/types/FormUnitHelper";
 import UnitPreview from "../units/UnitPreview";
 
-const StyledDiv = styled.div`
+interface StyledDivProps {
+  small?: boolean;
+}
+
+const StyledDiv = styled.div<StyledDivProps>`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  height: fit-content;
+  gap: ${(props) => props.theme.tyle.spacing.xl};
+  padding: ${(props) => props.theme.tyle.spacing.xl};
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
   background-color: ${(props) => props.theme.tyle.color.sys.surface.tint.base};
   box-shadow: ${(props) => props.theme.tyle.shadow.small};
-  width: 70%;
   max-width: 40rem;
+  height: fit-content;
   overflow-y: auto;
   scrollbar-width: thin;
+  transition: all 0.5s ease-in-out;
+  transform: ${(props) => (props.small ? "scale(0.5)" : "scale(1)")};
+  width: ${(props) => (props.small ? "300px" : "auto")};
+  margin: ${(props) => (props.small ? "-5%" : "0")};
+  cursor: ${(props) => (props.small ? "pointer" : "auto")};
 `;
+
 interface attributePreviewProps {
   name: string;
   description: string;
@@ -31,14 +39,16 @@ export default function AttributePreview({ name, description, attributeUnits, sm
   attributeUnits && attributeUnits.sort((a) => (a.isDefault ? -1 : 1));
 
   return (
-    <StyledDiv>
+    <StyledDiv small={small}>
       <Text color={theme.tyle.color.sys.pure.base} variant={"headline-large"}>
         {name}
       </Text>
       <Text color={theme.tyle.color.sys.pure.base}>{description}</Text>
       {attributeUnits &&
         (small
-          ? attributeUnits.filter((unit) => unit.isDefault).map((unit) => <UnitPreview unit={unit} key={unit.unitId} />)
+          ? attributeUnits
+              .filter((unit) => unit.isDefault)
+              .map((unit) => <UnitPreview unit={unit} key={unit.unitId} noBadge />)
           : attributeUnits.map((unit) => <UnitPreview unit={unit} key={unit.unitId} />))}
     </StyledDiv>
   );
