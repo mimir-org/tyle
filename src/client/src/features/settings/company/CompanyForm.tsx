@@ -72,7 +72,7 @@ export const CompanyForm = () => {
           submitToast
         );
       } catch (e) {
-        if (isAxiosError(e) && e.response?.status == 400) {
+        if (isAxiosError(e) && e.response?.status === 400) {
           if (e.response?.data.Name) toast.error(t("company.toasts.companyNameError"));
           if (e.response?.data.Domain) toast.error(t("company.toasts.companyDomainError"));
         }
@@ -93,7 +93,7 @@ export const CompanyForm = () => {
         value={selectedCompany}
         onChange={async (x) => {
           setSelectedCompany(x);
-          reset(await mapCompanyCmToFormCompany(companies.find((c) => c.id == Number(x))));
+          reset(await mapCompanyCmToFormCompany(companies.find((c) => c.id === Number(x))));
           if (x == "0") {
             setSecret(createSecret(50));
             setUpdateSecret(true);
@@ -181,7 +181,7 @@ export const CompanyForm = () => {
             <Input placeholder={t("company.placeholders.homePage")} {...register("homePage")} />
           </FormField>
           <Button type={"submit"}>
-            {selectedCompany == "0" ? t("company.submit.create") : t("company.submit.update")}
+            {selectedCompany === "0" ? t("company.submit.create") : t("company.submit.update")}
           </Button>
           <DevTool control={control} placement={"bottom-right"} />
         </Form>

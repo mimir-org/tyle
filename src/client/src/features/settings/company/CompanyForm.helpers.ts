@@ -87,7 +87,7 @@ export const useCompanyMutation = (companyId: string) => {
 export const useCreatingToast = (companyId: string) => {
   const { t } = useTranslation("settings");
 
-  if (companyId == "0") {
+  if (companyId === "0") {
     return (updatingPromise: Promise<unknown>) =>
       toast.promise(updatingPromise, {
         loading: t("company.creating.loading"),
