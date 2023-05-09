@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -8,7 +7,6 @@ using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
-using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -19,17 +17,15 @@ public class MimirorgCompanyService : IMimirorgCompanyService
 {
     private readonly IMimirorgCompanyRepository _mimirorgCompanyRepository;
     private readonly IMimirorgHookRepository _mimirorgHookRepository;
-    private readonly IHttpContextAccessor _contextAccessor;
     private readonly ApplicationSettings _applicationSettings;
     private readonly UserManager<MimirorgUser> _userManager;
 
-    public MimirorgCompanyService(IMimirorgCompanyRepository mimirorgCompanyRepository, IMimirorgHookRepository mimirorgHookRepository, IOptions<ApplicationSettings> applicationSettings, UserManager<MimirorgUser> userManager, IHttpContextAccessor contextAccessor)
+    public MimirorgCompanyService(IMimirorgCompanyRepository mimirorgCompanyRepository, IMimirorgHookRepository mimirorgHookRepository, IOptions<ApplicationSettings> applicationSettings, UserManager<MimirorgUser> userManager)
     {
         _mimirorgCompanyRepository = mimirorgCompanyRepository;
         _mimirorgHookRepository = mimirorgHookRepository;
         _applicationSettings = applicationSettings?.Value;
         _userManager = userManager;
-        _contextAccessor = contextAccessor;
     }
 
     /// <summary>
@@ -68,7 +64,7 @@ public class MimirorgCompanyService : IMimirorgCompanyService
             await CreateHook(new MimirorgHookAm
             {
                 CompanyId = createdCompany.Id,
-                Iri = _contextAccessor.GetBaseUrl() + $"/v{VersionConstant.OnePointZero}/common/cache/invalidate",
+                Iri = "https://mimirserver.azurewebsites.net/v1.0/common/cache/invalidate/",
                 Key = CacheKey.All
             });
         }
