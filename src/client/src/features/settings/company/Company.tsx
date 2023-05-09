@@ -8,7 +8,7 @@ export const Company = () => {
 
   return (
     <Box minWidth={"60%"}>
-      <SettingsSection title={t("createCompany.title")}>
+      <SettingsSection title={t("company.title")}>
         <CompanyForm />
       </SettingsSection>
     </Box>

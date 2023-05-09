@@ -75,15 +75,24 @@ export const useCompanyMutation = (companyId: string) => {
   return companyId == "0" ? createCompanyMutation : updateCompanyMutation;
 };
 
-export const useCreatingToast = () => {
+export const useCreatingToast = (companyId: string) => {
   const { t } = useTranslation("settings");
 
-  return (updatingPromise: Promise<unknown>) =>
+  if (companyId == "0") {
+    return (updatingPromise: Promise<unknown>) =>
     toast.promise(updatingPromise, {
-      loading: t("createCompany.creating.loading"),
-      success: t("createCompany.creating.success"),
-      error: t("createCompany.creating.error"),
+      loading: t("company.creating.loading"),
+      success: t("company.creating.success"),
+      error: t("company.creating.error"),
     });
+  } else {
+    return (updatingPromise: Promise<unknown>) =>
+    toast.promise(updatingPromise, {
+      loading: t("company.updating.loading"),
+      success: t("company.updating.success"),
+      error: t("company.updating.error"),
+    });
+  }
 };
 
 export const createSecret = (length: number): string => {

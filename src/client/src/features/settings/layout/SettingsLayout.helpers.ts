@@ -34,7 +34,7 @@ const useAdministerLinks = (): Link[] => {
       path: usersettingsBasePath,
     },
     {
-      name: t("createCompany.title"),
+      name: t("company.title"),
       path: companyBasePath,
     },
   ];

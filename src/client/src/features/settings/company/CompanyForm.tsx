@@ -60,20 +60,20 @@ export const CompanyForm = () => {
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
-  const creationToast = useCreatingToast();
+  const submitToast = useCreatingToast(selectedCompany);
 
   const onSubmit = async (data: FormMimirorgCompany) => {
     console.log(data);
     if (userQuery.isSuccess) {
       try {
-        await onSubmitForm(mapFormCompanyToCompanyAm(data, userQuery.data?.id, secret), mutation.mutateAsync, creationToast);
+        await onSubmitForm(mapFormCompanyToCompanyAm(data, userQuery.data?.id, secret), mutation.mutateAsync, submitToast);
       } catch (e) {
         if (isAxiosError(e) && e.response?.status == 400) {
-          if (e.response?.data.Name) toast.error(t("createCompany.toasts.companyNameError"));
-          if (e.response?.data.Domain) toast.error(t("createCompany.toasts.companyDomainError"));
+          if (e.response?.data.Name) toast.error(t("company.toasts.companyNameError"));
+          if (e.response?.data.Domain) toast.error(t("company.toasts.companyDomainError"));
         }
       }
-    } else toast.error(t("createCompany.toasts.userdataError"));
+    } else toast.error(t("company.toasts.userdataError"));
   };
 
   const onFileRemove = () => {
@@ -102,17 +102,17 @@ export const CompanyForm = () => {
       />
       <FormProvider {...formMethods}>
         <Form onSubmit={handleSubmit((data) => onSubmit(data))}>
-          <FormField label={t("createCompany.labels.name")} error={formState.errors.name}>
-            <Input placeholder={t("createCompany.placeholders.name")} {...register("name")} />
+          <FormField label={t("company.labels.name")} error={formState.errors.name}>
+            <Input placeholder={t("company.placeholders.name")} {...register("name")} />
           </FormField>
-          <FormField label={t("createCompany.labels.displayName")} error={formState.errors.displayName}>
-            <Input placeholder={t("createCompany.placeholders.displayName")} {...register("displayName")} />
+          <FormField label={t("company.labels.displayName")} error={formState.errors.displayName}>
+            <Input placeholder={t("company.placeholders.displayName")} {...register("displayName")} />
           </FormField>
-          <FormField label={t("createCompany.labels.description")} error={formState.errors.description}>
-            <Textarea placeholder={t("createCompany.placeholders.description")} {...register("description")} />
+          <FormField label={t("company.labels.description")} error={formState.errors.description}>
+            <Textarea placeholder={t("company.placeholders.description")} {...register("description")} />
           </FormField>
           { updateSecret ?
-            <FormField label={t("createCompany.labels.secret")} error={formState.errors.secret}>
+            <FormField label={t("company.labels.secret")} error={formState.errors.secret}>
               <Input
                 type="text"
                 value={secret}
@@ -120,25 +120,25 @@ export const CompanyForm = () => {
                 icon={
                 <Button
                     icon={<DocumentDuplicate size={24} />}
-                    onClick={() => copySecret(secret, t("createCompany.toasts.copySecret"))}
+                    onClick={() => copySecret(secret, t("company.toasts.copySecret"))}
                   >
                     {""}
                   </Button>
                 }
               />
             </FormField> :
-            <FormField label={t("createCompany.labels.hiddenSecret")}>
+            <FormField label={t("company.labels.hiddenSecret")}>
               <Button onClick={() => {
                 setSecret(createSecret(50));
                 setUpdateSecret(true);
               }}>Generate new secret</Button>
             </FormField>
           }
-          <FormField label={t("createCompany.labels.domain")} error={formState.errors.domain}>
-            <Input placeholder={t("createCompany.placeholders.domain")} {...register("domain")} />
+          <FormField label={t("company.labels.domain")} error={formState.errors.domain}>
+            <Input placeholder={t("company.placeholders.domain")} {...register("domain")} />
           </FormField>
           <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
-            <FormField label={t("createCompany.labels.logo")} error={formState.errors.logo}></FormField>
+            <FormField label={t("company.labels.logo")} error={formState.errors.logo}></FormField>
             <input
               accept=".svg,image/svg+xml"
               type={"file"}
@@ -168,10 +168,10 @@ export const CompanyForm = () => {
               </div>
             )}
           </Flexbox>
-          <FormField label={t("createCompany.labels.homePage")} error={formState.errors.homePage}>
-            <Input placeholder={t("createCompany.placeholders.homePage")} {...register("homePage")} />
+          <FormField label={t("company.labels.homePage")} error={formState.errors.homePage}>
+            <Input placeholder={t("company.placeholders.homePage")} {...register("homePage")} />
           </FormField>
-          <Button type={"submit"}>{selectedCompany == "0" ? t("createCompany.submit.create") : t("createCompany.submit.update")}</Button>
+          <Button type={"submit"}>{selectedCompany == "0" ? t("company.submit.create") : t("company.submit.update")}</Button>
           <DevTool control={control} placement={"bottom-right"} />
         </Form>
       </FormProvider>

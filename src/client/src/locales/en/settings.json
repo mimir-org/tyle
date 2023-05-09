@@ -52,13 +52,18 @@
     },
     "submit": "Update user settings"
   },
-  "createCompany": {
-    "title": "Create new company",
+  "company": {
+    "title": "Create or update company",
     "company": "company",
     "creating": {
       "loading": "Creating new company",
       "success": "The new company has been created successfully",
       "error": "An error occured while trying to create the new company"
+    },
+    "updating": {
+      "loading": "Updating company",
+      "success": "Company has been updated successfully",
+      "error": "An error occured while trying to update company"
     },
     "validation": {
       "name": {
