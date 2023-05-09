@@ -1,12 +1,30 @@
 import { MimirorgCompanyAm, MimirorgCompanyCm } from "@mimirorg/typelibrary-types";
+import axios from "axios";
 import { toast } from "complib/data-display";
-import { FileInfo } from "complib/inputs/file/FileComponent";
+import { FileInfo, toBase64 } from "complib/inputs/file/FileComponent";
 import { useCreateCompany, useUpdateCompany } from "external/sources/company/company.queries";
 import { useTranslation } from "react-i18next";
 
 export interface FormMimirorgCompany extends Omit<MimirorgCompanyAm, "managerId" | "logo"> {
   logo: FileInfo | null;
 }
+
+export const encodeFile = async (addedFile: File): Promise<FileInfo | null> => {
+  if (!(addedFile.name.endsWith(".svg") || addedFile.type == "image/svg+xml")) {
+    toast.error(`Incorrect filetype: ${addedFile.type}`);
+    return null;
+  }
+
+  const bytes = await toBase64(addedFile);
+  const fileToBeAdded: FileInfo = {
+    fileName: addedFile.name,
+    fileSize: addedFile.size,
+    file: bytes != null ? bytes.toString() : null,
+    contentType: addedFile.type,
+  };
+
+  return fileToBeAdded;
+};
 
 export const createEmptyFormMimirorgCompany = (): Omit<FormMimirorgCompany, "secret"> => ({
   name: "",
@@ -17,19 +35,20 @@ export const createEmptyFormMimirorgCompany = (): Omit<FormMimirorgCompany, "sec
   homePage: "",
 });
 
-export const mapCompanyCmToFormCompany = (companyCm: MimirorgCompanyCm | undefined): Omit<FormMimirorgCompany, "secret"> => {
+export const mapCompanyCmToFormCompany = async (companyCm: MimirorgCompanyCm | undefined): Promise<Omit<FormMimirorgCompany, "secret">> => {
   if (companyCm == undefined) return createEmptyFormMimirorgCompany();
+  const downloadedLogo = axios.get(companyCm.logo, { responseType: "blob" , headers: { "Content-Type": "image/svg+xml" }}).then((res) => {
+    return encodeFile(new File([res.data], "logo.svg", { type: "image/svg+xml" }));
+  }).catch((error) => {
+    console.log(error);
+    return null;
+  });
   return {
     name: companyCm.name,
     displayName: companyCm.displayName,
     description: companyCm.description,
     domain: companyCm.domain,
-    logo: {
-      fileName: "logo.svg",
-      fileSize: companyCm.logo.length,
-      file: companyCm.logo,
-      contentType: "image/svg+xml"
-    },
+    logo: await downloadedLogo,
     homePage: companyCm.homePage
   }
 }

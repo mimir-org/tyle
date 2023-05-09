@@ -1,10 +1,11 @@
 import { Form, FormField } from "complib/form";
-import { Controller, FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
   copySecret,
   createEmptyFormMimirorgCompany,
   createSecret,
+  encodeFile,
   FormMimirorgCompany,
   mapCompanyCmToFormCompany,
   mapFormCompanyToCompanyAm,
@@ -21,16 +22,16 @@ import { Input, Textarea } from "complib/inputs";
 import { toast } from "complib/data-display";
 import { Button } from "complib/buttons";
 import { DevTool } from "@hookform/devtools";
-import { FileComponent } from "complib/inputs/file/FileComponent";
 import { useTheme } from "styled-components";
 import { Flexbox } from "complib/layouts";
-import { useState } from "react";
-import { DocumentDuplicate } from "@styled-icons/heroicons-outline";
+import { useRef, useState } from "react";
+import { DocumentDuplicate, PaperClip } from "@styled-icons/heroicons-outline";
 import { isAxiosError } from "axios";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { Option } from "common/utils/getOptionsFromEnum";
 import { RadioFilters } from "../common/radio-filters/RadioFilters";
+import { FileItemComponent } from "complib/inputs/file/components/FileItemComponent";
 
 export const CompanyForm = () => {
   const companies = useGetFilteredCompanies(MimirorgPermission.Manage);
@@ -39,6 +40,7 @@ export const CompanyForm = () => {
   const [selectedCompany, setSelectedCompany] = useState(companyOptions[0]?.value);
   const [secret, setSecret] = useState<string>(createSecret(50));
   const [updateSecret, setUpdateSecret] = useState(true);
+  const [previewLogo, setPreviewLogo] = useState(false);
   
   const theme = useTheme();
   const { t } = useTranslation("settings");
@@ -48,7 +50,9 @@ export const CompanyForm = () => {
     resolver: yupResolver(companySchema(t)),
   });
 
-  const { register, handleSubmit, control, setError, formState, reset } = formMethods;
+  const { register, handleSubmit, control, setError, formState, reset, setValue, getValues } = formMethods;
+  const { ref, ...fields} = register("logo");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const userQuery = useGetCurrentUser();
 
@@ -59,6 +63,7 @@ export const CompanyForm = () => {
   const creationToast = useCreatingToast();
 
   const onSubmit = async (data: FormMimirorgCompany) => {
+    console.log(data);
     if (userQuery.isSuccess) {
       try {
         await onSubmitForm(mapFormCompanyToCompanyAm(data, userQuery.data?.id, secret), mutation.mutateAsync, creationToast);
@@ -71,14 +76,20 @@ export const CompanyForm = () => {
     } else toast.error(t("createCompany.toasts.userdataError"));
   };
 
+  const onFileRemove = () => {
+    setValue("logo", null);
+    if (fileInputRef?.current?.value != null) fileInputRef.current.value = "";
+    setPreviewLogo(false);
+  };
+
   return (
     <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xxl}>
       <RadioFilters
         filters={companyOptions}
         value={selectedCompany}
-        onChange={(x) => { 
+        onChange={async (x) => { 
           setSelectedCompany(x);
-          reset(mapCompanyCmToFormCompany(companies.find(c => c.id == Number(x))));
+          reset(await mapCompanyCmToFormCompany(companies.find(c => c.id == Number(x))));
           if (x == "0") {
             setSecret(createSecret(50));
             setUpdateSecret(true);
@@ -86,6 +97,7 @@ export const CompanyForm = () => {
             setUpdateSecret(false);
             setSecret("");
           }
+          getValues("logo") == null ? setPreviewLogo(false) : setPreviewLogo(true);
         } }
       />
       <FormProvider {...formMethods}>
@@ -113,7 +125,6 @@ export const CompanyForm = () => {
                     {""}
                   </Button>
                 }
-                {...register("secret")}
               />
             </FormField> :
             <FormField label={t("createCompany.labels.hiddenSecret")}>
@@ -128,13 +139,34 @@ export const CompanyForm = () => {
           </FormField>
           <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
             <FormField label={t("createCompany.labels.logo")} error={formState.errors.logo}></FormField>
-            <Controller
-              control={control}
-              name={"logo"}
-              render={({ field: { value, onChange, ref, ...rest } }) => (
-                <FileComponent {...rest} accept=".svg,image/svg+xml" ref={ref} value={value} onChange={onChange} />
-              )}
+            <input
+              accept=".svg,image/svg+xml"
+              type={"file"}
+              style={{ display: "none" }}
+              {...fields}
+              ref={(instance) => {
+                ref(instance);
+                fileInputRef.current = instance;
+              }}
+              onChange={async (e) => {
+                if (e.currentTarget.files != null && e.currentTarget.files.length > 0) {
+                  setValue("logo", await encodeFile(e.currentTarget.files[0]));
+                  setPreviewLogo(true);
+                } else {
+                  setValue("logo", null);
+                  setPreviewLogo(false);
+                }
+              }}
             />
+            <Button icon={<PaperClip size={24} />} onClick={() => fileInputRef?.current?.click()}>
+              Add attachment
+            </Button>
+          
+            {previewLogo && (
+              <div>
+                <FileItemComponent fileInfo={getValues("logo")} onRemove={onFileRemove} />
+              </div>
+            )}
           </Flexbox>
           <FormField label={t("createCompany.labels.homePage")} error={formState.errors.homePage}>
             <Input placeholder={t("createCompany.placeholders.homePage")} {...register("homePage")} />
