@@ -35,25 +35,34 @@ export const createEmptyFormMimirorgCompany = (): Omit<FormMimirorgCompany, "sec
   homePage: "",
 });
 
-export const mapCompanyCmToFormCompany = async (companyCm: MimirorgCompanyCm | undefined): Promise<Omit<FormMimirorgCompany, "secret">> => {
+export const mapCompanyCmToFormCompany = async (
+  companyCm: MimirorgCompanyCm | undefined
+): Promise<Omit<FormMimirorgCompany, "secret">> => {
   if (companyCm == undefined) return createEmptyFormMimirorgCompany();
-  const downloadedLogo = axios.get(companyCm.logo, { responseType: "blob" , headers: { "Content-Type": "image/svg+xml" }}).then((res) => {
-    return encodeFile(new File([res.data], "logo.svg", { type: "image/svg+xml" }));
-  }).catch((error) => {
-    console.log(error);
-    return null;
-  });
+  const downloadedLogo = axios
+    .get(companyCm.logo, { responseType: "blob", headers: { "Content-Type": "image/svg+xml" } })
+    .then((res) => {
+      return encodeFile(new File([res.data], "logo.svg", { type: "image/svg+xml" }));
+    })
+    .catch((error) => {
+      console.log(error);
+      return null;
+    });
   return {
     name: companyCm.name,
     displayName: companyCm.displayName,
     description: companyCm.description,
     domain: companyCm.domain,
     logo: await downloadedLogo,
-    homePage: companyCm.homePage
-  }
-}
+    homePage: companyCm.homePage,
+  };
+};
 
-export const mapFormCompanyToCompanyAm = (formCompany: FormMimirorgCompany, userId: string, secret: string): MimirorgCompanyAm => {
+export const mapFormCompanyToCompanyAm = (
+  formCompany: FormMimirorgCompany,
+  userId: string,
+  secret: string
+): MimirorgCompanyAm => {
   let logo = "";
 
   if (formCompany.logo?.file) {
@@ -80,18 +89,18 @@ export const useCreatingToast = (companyId: string) => {
 
   if (companyId == "0") {
     return (updatingPromise: Promise<unknown>) =>
-    toast.promise(updatingPromise, {
-      loading: t("company.creating.loading"),
-      success: t("company.creating.success"),
-      error: t("company.creating.error"),
-    });
+      toast.promise(updatingPromise, {
+        loading: t("company.creating.loading"),
+        success: t("company.creating.success"),
+        error: t("company.creating.error"),
+      });
   } else {
     return (updatingPromise: Promise<unknown>) =>
-    toast.promise(updatingPromise, {
-      loading: t("company.updating.loading"),
-      success: t("company.updating.success"),
-      error: t("company.updating.error"),
-    });
+      toast.promise(updatingPromise, {
+        loading: t("company.updating.loading"),
+        success: t("company.updating.success"),
+        error: t("company.updating.error"),
+      });
   }
 };
 

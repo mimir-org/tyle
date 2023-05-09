@@ -35,13 +35,13 @@ import { FileItemComponent } from "complib/inputs/file/components/FileItemCompon
 
 export const CompanyForm = () => {
   const companies = useGetFilteredCompanies(MimirorgPermission.Manage);
-  const companyOptions = companies.map(x => ({ value: String(x.id), label: x.displayName })) as Option<string>[];
+  const companyOptions = companies.map((x) => ({ value: String(x.id), label: x.displayName })) as Option<string>[];
   companyOptions.unshift({ value: "0", label: "Create new company" });
   const [selectedCompany, setSelectedCompany] = useState(companyOptions[0]?.value);
   const [secret, setSecret] = useState<string>(createSecret(50));
   const [updateSecret, setUpdateSecret] = useState(true);
   const [previewLogo, setPreviewLogo] = useState(false);
-  
+
   const theme = useTheme();
   const { t } = useTranslation("settings");
 
@@ -51,7 +51,7 @@ export const CompanyForm = () => {
   });
 
   const { register, handleSubmit, control, setError, formState, reset, setValue, getValues } = formMethods;
-  const { ref, ...fields} = register("logo");
+  const { ref, ...fields } = register("logo");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const userQuery = useGetCurrentUser();
@@ -66,7 +66,11 @@ export const CompanyForm = () => {
     console.log(data);
     if (userQuery.isSuccess) {
       try {
-        await onSubmitForm(mapFormCompanyToCompanyAm(data, userQuery.data?.id, secret), mutation.mutateAsync, submitToast);
+        await onSubmitForm(
+          mapFormCompanyToCompanyAm(data, userQuery.data?.id, secret),
+          mutation.mutateAsync,
+          submitToast
+        );
       } catch (e) {
         if (isAxiosError(e) && e.response?.status == 400) {
           if (e.response?.data.Name) toast.error(t("company.toasts.companyNameError"));
@@ -87,9 +91,9 @@ export const CompanyForm = () => {
       <RadioFilters
         filters={companyOptions}
         value={selectedCompany}
-        onChange={async (x) => { 
+        onChange={async (x) => {
           setSelectedCompany(x);
-          reset(await mapCompanyCmToFormCompany(companies.find(c => c.id == Number(x))));
+          reset(await mapCompanyCmToFormCompany(companies.find((c) => c.id == Number(x))));
           if (x == "0") {
             setSecret(createSecret(50));
             setUpdateSecret(true);
@@ -98,7 +102,7 @@ export const CompanyForm = () => {
             setSecret("");
           }
           getValues("logo") == null ? setPreviewLogo(false) : setPreviewLogo(true);
-        } }
+        }}
       />
       <FormProvider {...formMethods}>
         <Form onSubmit={handleSubmit((data) => onSubmit(data))}>
@@ -111,14 +115,14 @@ export const CompanyForm = () => {
           <FormField label={t("company.labels.description")} error={formState.errors.description}>
             <Textarea placeholder={t("company.placeholders.description")} {...register("description")} />
           </FormField>
-          { updateSecret ?
+          {updateSecret ? (
             <FormField label={t("company.labels.secret")} error={formState.errors.secret}>
               <Input
                 type="text"
                 value={secret}
                 readOnly
                 icon={
-                <Button
+                  <Button
                     icon={<DocumentDuplicate size={24} />}
                     onClick={() => copySecret(secret, t("company.toasts.copySecret"))}
                   >
@@ -126,14 +130,19 @@ export const CompanyForm = () => {
                   </Button>
                 }
               />
-            </FormField> :
-            <FormField label={t("company.labels.hiddenSecret")}>
-              <Button onClick={() => {
-                setSecret(createSecret(50));
-                setUpdateSecret(true);
-              }}>Generate new secret</Button>
             </FormField>
-          }
+          ) : (
+            <FormField label={t("company.labels.hiddenSecret")}>
+              <Button
+                onClick={() => {
+                  setSecret(createSecret(50));
+                  setUpdateSecret(true);
+                }}
+              >
+                Generate new secret
+              </Button>
+            </FormField>
+          )}
           <FormField label={t("company.labels.domain")} error={formState.errors.domain}>
             <Input placeholder={t("company.placeholders.domain")} {...register("domain")} />
           </FormField>
@@ -161,7 +170,7 @@ export const CompanyForm = () => {
             <Button icon={<PaperClip size={24} />} onClick={() => fileInputRef?.current?.click()}>
               Add attachment
             </Button>
-          
+
             {previewLogo && (
               <div>
                 <FileItemComponent fileInfo={getValues("logo")} onRemove={onFileRemove} />
@@ -171,7 +180,9 @@ export const CompanyForm = () => {
           <FormField label={t("company.labels.homePage")} error={formState.errors.homePage}>
             <Input placeholder={t("company.placeholders.homePage")} {...register("homePage")} />
           </FormField>
-          <Button type={"submit"}>{selectedCompany == "0" ? t("company.submit.create") : t("company.submit.update")}</Button>
+          <Button type={"submit"}>
+            {selectedCompany == "0" ? t("company.submit.create") : t("company.submit.update")}
+          </Button>
           <DevTool control={control} placement={"bottom-right"} />
         </Form>
       </FormProvider>
