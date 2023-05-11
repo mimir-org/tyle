@@ -1,5 +1,4 @@
 import { MimirorgCompanyAm, MimirorgCompanyCm } from "@mimirorg/typelibrary-types";
-import axios from "axios";
 import { toast } from "complib/data-display";
 import { FileInfo, toBase64 } from "complib/inputs/file/FileComponent";
 import { useCreateCompany, useUpdateCompany } from "external/sources/company/company.queries";
@@ -35,25 +34,21 @@ export const createEmptyFormMimirorgCompany = (): Omit<FormMimirorgCompany, "sec
   homePage: "",
 });
 
-export const mapCompanyCmToFormCompany = async (
+export const mapCompanyCmToFormCompany = (
   companyCm: MimirorgCompanyCm | undefined
-): Promise<Omit<FormMimirorgCompany, "secret">> => {
+): Omit<FormMimirorgCompany, "secret"> => {
   if (companyCm == undefined) return createEmptyFormMimirorgCompany();
-  const downloadedLogo = axios
-    .get(companyCm.logo, { responseType: "blob", headers: { "Content-Type": "image/svg+xml" } })
-    .then((res) => {
-      return encodeFile(new File([res.data], "logo.svg", { type: "image/svg+xml" }));
-    })
-    .catch((error) => {
-      console.log(error);
-      return null;
-    });
   return {
     name: companyCm.name,
     displayName: companyCm.displayName,
     description: companyCm.description,
     domain: companyCm.domain,
-    logo: await downloadedLogo,
+    logo: {
+      fileName: companyCm.id + ".svg",
+      fileSize: companyCm.logo.length,
+      file: "data:image/svg+xml;base64," + companyCm.logo,
+      contentType: "image/svg+xml",
+    },
     homePage: companyCm.homePage,
   };
 };

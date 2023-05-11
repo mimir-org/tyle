@@ -1,4 +1,5 @@
 using Mimirorg.Authentication.Models.Domain;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 
@@ -21,7 +22,7 @@ public static class MappingExtensions
         };
     }
 
-    public static MimirorgCompanyCm ToContentModel(this MimirorgCompany company)
+    public static MimirorgCompanyCm ToContentModel(this MimirorgCompany company, ApplicationSettings applicationSettings)
     {
         return new MimirorgCompanyCm
         {
@@ -33,6 +34,7 @@ public static class MappingExtensions
             Secret = company.Secret,
             Domain = company.Domain,
             Logo = company.Logo,
+            LogoUrl = $"{applicationSettings.ApplicationUrl}/logo/{company.Id}.svg",
             HomePage = company.HomePage
         };
     }
@@ -47,13 +49,13 @@ public static class MappingExtensions
         };
     }
 
-    public static MimirorgHookCm ToContentModel(this MimirorgHook hook)
+    public static MimirorgHookCm ToContentModel(this MimirorgHook hook, ApplicationSettings applicationSettings)
     {
         return new MimirorgHookCm
         {
             Id = hook.Id,
             CompanyId = hook.CompanyId,
-            Company = hook.Company?.ToContentModel(),
+            Company = hook.Company?.ToContentModel(applicationSettings),
             Key = hook.Key,
             Iri = hook.Iri
         };
