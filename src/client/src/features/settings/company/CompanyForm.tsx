@@ -91,9 +91,9 @@ export const CompanyForm = () => {
       <RadioFilters
         filters={companyOptions}
         value={selectedCompany}
-        onChange={async (x) => {
+        onChange={(x) => {
           setSelectedCompany(x);
-          reset(await mapCompanyCmToFormCompany(companies.find((c) => c.id === Number(x))));
+          reset(mapCompanyCmToFormCompany(companies.find((c) => c.id === Number(x))));
           if (x == "0") {
             setSecret(createSecret(50));
             setUpdateSecret(true);
