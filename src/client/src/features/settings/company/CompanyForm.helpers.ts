@@ -76,22 +76,22 @@ export const useCreatingToast = () => {
   const { t } = useTranslation("settings");
 
   return (updatingPromise: Promise<unknown>) =>
-      toast.promise(updatingPromise, {
-        loading: t("company.creating.loading"),
-        success: t("company.creating.success"),
-        error: t("company.creating.error"),
-      });
+    toast.promise(updatingPromise, {
+      loading: t("company.creating.loading"),
+      success: t("company.creating.success"),
+      error: t("company.creating.error"),
+    });
 };
 
 export const useUpdateToast = () => {
   const { t } = useTranslation("settings");
 
   return (updatingPromise: Promise<unknown>) =>
-      toast.promise(updatingPromise, {
-        loading: t("company.updating.loading"),
-        success: t("company.updating.success"),
-        error: t("company.updating.error"),
-      });
+    toast.promise(updatingPromise, {
+      loading: t("company.updating.loading"),
+      success: t("company.updating.success"),
+      error: t("company.updating.error"),
+    });
 };
 
 export const createSecret = (length: number): string => {

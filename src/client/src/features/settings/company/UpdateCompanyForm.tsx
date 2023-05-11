@@ -3,13 +3,12 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
   copySecret,
-  createEmptyFormMimirorgCompany,
   createSecret,
   encodeFile,
   FormMimirorgCompany,
   mapCompanyCmToFormCompany,
   mapFormCompanyToCompanyAm,
-  useCreatingToast,
+  useUpdateToast,
 } from "features/settings/company/CompanyForm.helpers";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { companySchema } from "features/settings/company/companySchema";
@@ -33,7 +32,6 @@ import { RadioFilters } from "../common/radio-filters/RadioFilters";
 import { FileItemComponent } from "complib/inputs/file/components/FileItemComponent";
 import { FileInfo } from "complib/inputs/file/FileComponent";
 import { useUpdateCompany } from "external/sources/company/company.queries";
-import { useUpdatingToast } from "../usersettings/userSettingsForm.helpers";
 
 export const UpdateCompanyForm = () => {
   const companies = useGetFilteredCompanies(MimirorgPermission.Manage);
@@ -47,7 +45,10 @@ export const UpdateCompanyForm = () => {
   const { t } = useTranslation("settings");
 
   const formMethods = useForm<FormMimirorgCompany>({
-    defaultValues: { ...mapCompanyCmToFormCompany(companies.find((c) => c.id === Number(selectedCompany))), secret: secret },
+    defaultValues: {
+      ...mapCompanyCmToFormCompany(companies.find((c) => c.id === Number(selectedCompany))),
+      secret: secret,
+    },
     resolver: yupResolver(companySchema(t)),
   });
 
@@ -61,7 +62,7 @@ export const UpdateCompanyForm = () => {
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
-  const submitToast = useUpdatingToast();
+  const submitToast = useUpdateToast();
 
   const onSubmit = async (data: FormMimirorgCompany) => {
     console.log(data);
@@ -176,9 +177,7 @@ export const UpdateCompanyForm = () => {
           <FormField label={t("company.labels.homePage")} error={formState.errors.homePage}>
             <Input placeholder={t("company.placeholders.homePage")} {...register("homePage")} />
           </FormField>
-          <Button type={"submit"}>
-            { t("company.submit.update") }
-          </Button>
+          <Button type={"submit"}>{t("company.submit.update")}</Button>
           <DevTool control={control} placement={"bottom-right"} />
         </Form>
       </FormProvider>

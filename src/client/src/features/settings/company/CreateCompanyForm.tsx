@@ -142,9 +142,7 @@ export const CreateCompanyForm = () => {
           <FormField label={t("company.labels.homePage")} error={formState.errors.homePage}>
             <Input placeholder={t("company.placeholders.homePage")} {...register("homePage")} />
           </FormField>
-          <Button type={"submit"}>
-            {t("company.submit.create")}
-          </Button>
+          <Button type={"submit"}>{t("company.submit.create")}</Button>
           <DevTool control={control} placement={"bottom-right"} />
         </Form>
       </FormProvider>
