@@ -6,7 +6,6 @@ import { TerminalPreview } from "../../entities/entityPreviews/terminal/Terminal
 import { TerminalItem } from "../../../common/types/terminalItem";
 import { ItemDescription } from "./components/item/ItemDescription";
 import { SearchItemActions } from "./components/SearchItemActions";
-import { AspectObjectPreview } from "../../common/aspectobject";
 import { AspectObjectItem } from "../../../common/types/aspectObjectItem";
 import AttributePreview from "../../entities/entityPreviews/attribute/AttributePreview";
 import { toFormAttributeLib } from "../../entities/attributes/types/formAttributeLib";
@@ -17,6 +16,7 @@ import DatumPreview from "../../entities/entityPreviews/datum/DatumPreview";
 import { DatumItem } from "../../../common/types/datumItem";
 import { RdsItem } from "../../../common/types/rdsItem";
 import { RdsPreview } from "../../entities/entityPreviews/rds/RdsPreview";
+import { AspectObjectPreview } from "../../entities/entityPreviews/aspectobject/AspectObjectPreview";
 
 interface SearchResultsRendererProps {
   item: SearchResult;

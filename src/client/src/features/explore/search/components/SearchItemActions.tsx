@@ -12,7 +12,7 @@ import { getCloneLink, getEditLink } from "./SearchItemActions.helpers";
 import { ItemType } from "../../../entities/types/itemTypes";
 
 type SearchItemProps = {
-  user?: UserItem;
+  user: UserItem | null;
   item: ItemType;
   children?: React.ReactNode;
 };

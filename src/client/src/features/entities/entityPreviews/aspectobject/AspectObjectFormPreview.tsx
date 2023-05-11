@@ -1,10 +1,10 @@
 import { getColorFromAspect } from "common/utils/getColorFromAspect";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
-import { AspectObjectPreview } from "features/common/aspectobject";
 import { getTerminalItemsFromFormData } from "features/entities/entityPreviews/aspectobject/AspectObjectFormPreview.helpers";
 import { FormAspectObjectLib } from "features/entities/aspectobject/types/formAspectObjectLib";
 import { Control, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { AspectObjectPreview } from "./AspectObjectPreview";
 
 interface AspectObjectFormPreviewProps {
   control: Control<FormAspectObjectLib>;
