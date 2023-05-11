@@ -14,7 +14,7 @@ export const mapPermissionDescriptions = (
 ) => {
   const permissionsValueObjects = getOptionsFromEnum(MimirorgPermission);
 
-  const permissionDescriptions = Object.keys(permissions).map((k) => {
+  const permissionDescriptions = Object.keys(permissions).filter(x => x !== "0").map((k) => {
     const permissionEnum = permissions[Number(k)];
     const companyLabel = companies.find((x) => x.id.toString() === k)?.displayName;
     const permissionLabel = permissionsValueObjects.find((x) => x.value == permissionEnum)?.label;
