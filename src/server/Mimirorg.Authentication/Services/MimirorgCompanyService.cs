@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -17,15 +18,17 @@ public class MimirorgCompanyService : IMimirorgCompanyService
 {
     private readonly IMimirorgCompanyRepository _mimirorgCompanyRepository;
     private readonly IMimirorgHookRepository _mimirorgHookRepository;
+    private readonly IHttpContextAccessor _contextAccessor;
     private readonly ApplicationSettings _applicationSettings;
     private readonly UserManager<MimirorgUser> _userManager;
 
-    public MimirorgCompanyService(IMimirorgCompanyRepository mimirorgCompanyRepository, IMimirorgHookRepository mimirorgHookRepository, IOptions<ApplicationSettings> applicationSettings, UserManager<MimirorgUser> userManager)
+    public MimirorgCompanyService(IMimirorgCompanyRepository mimirorgCompanyRepository, IMimirorgHookRepository mimirorgHookRepository, IOptions<ApplicationSettings> applicationSettings, UserManager<MimirorgUser> userManager, IHttpContextAccessor contextAccessor)
     {
         _mimirorgCompanyRepository = mimirorgCompanyRepository;
         _mimirorgHookRepository = mimirorgHookRepository;
         _applicationSettings = applicationSettings?.Value;
         _userManager = userManager;
+        _contextAccessor = contextAccessor;
     }
 
     /// <summary>
@@ -38,6 +41,7 @@ public class MimirorgCompanyService : IMimirorgCompanyService
     public async Task<MimirorgCompanyCm> CreateCompany(MimirorgCompanyAm company)
     {
         var validation = company.ValidateObject();
+
         if (!validation.IsValid)
             throw new MimirorgBadRequestException($"Couldn't register: {company.DisplayName ?? company.Name}", validation);
 
@@ -47,6 +51,8 @@ public class MimirorgCompanyService : IMimirorgCompanyService
         if (_mimirorgCompanyRepository.FindBy(x => x.Domain != null && x.Domain.ToLower() == company.Domain.ToLower()).Any())
             throw new MimirorgBadRequestException($"{nameof(company.Domain)} must be unique", new Validation(nameof(company.Domain), $"{nameof(company.Domain)} must be unique"));
 
+        if (!await IsAdministrator())
+            throw new MimirorgUnauthorizedAccessException("Forbidden");
 
         var domainCompany = company.ToDomainModel();
         await _mimirorgCompanyRepository.CreateAsync(domainCompany);
@@ -55,7 +61,34 @@ public class MimirorgCompanyService : IMimirorgCompanyService
         if (domainCompany.Id < 1)
             throw new MimirorgInvalidOperationException($"Could not create company with name {company.Name}");
 
-        return await GetCompanyById(domainCompany.Id);
+        var createdCompany = await GetCompanyById(domainCompany.Id);
+        var allHooks = _mimirorgHookRepository.GetAll();
+
+        if (allHooks.FirstOrDefault(x => x.CompanyId == createdCompany.Id && x.Key == CacheKey.All) == null)
+        {
+            await CreateHook(new MimirorgHookAm
+            {
+                CompanyId = createdCompany.Id,
+                Iri = "https://mimirserver.azurewebsites.net/v1.0/common/cache/invalidate/",
+                Key = CacheKey.All
+            });
+        }
+
+        return createdCompany;
+    }
+
+    private async Task<bool> IsAdministrator()
+    {
+        var currentUser = _contextAccessor?.HttpContext?.User;
+        var currentUserEmail = currentUser?.Identity?.Name;
+        var user = _userManager.Users.FirstOrDefault(x => x.Email == currentUserEmail);
+
+        if (currentUser == null || string.IsNullOrWhiteSpace(currentUserEmail) || user == null)
+            throw new MimirorgNullReferenceException("User not found");
+
+        var userRoles = await _userManager.GetRolesAsync(user);
+
+        return userRoles.Any(x => x.ToLower() == "administrator");
     }
 
     /// <summary>
@@ -64,12 +97,7 @@ public class MimirorgCompanyService : IMimirorgCompanyService
     /// <returns>ICollection&lt;MimirorgCompanyCm&gt;</returns>
     public async Task<ICollection<MimirorgCompanyCm>> GetAllCompanies()
     {
-        var companies = _mimirorgCompanyRepository.GetAll().Select(x => x.ToContentModel()).ToList();
-        companies = companies.Select(x =>
-        {
-            x.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{x.Id}.svg";
-            return x;
-        }).ToList();
+        var companies = _mimirorgCompanyRepository.GetAll().Select(x => x.ToContentModel(_applicationSettings)).ToList();
 
         return await Task.FromResult(companies);
     }
@@ -83,11 +111,12 @@ public class MimirorgCompanyService : IMimirorgCompanyService
     public async Task<MimirorgCompanyCm> GetCompanyById(int id)
     {
         var company = await _mimirorgCompanyRepository.FindBy(x => x.Id == id).Include(x => x.Manager).FirstOrDefaultAsync();
+
         if (company == null)
             throw new MimirorgNotFoundException($"Could not find company with id {id}");
 
-        var companyCm = company.ToContentModel();
-        companyCm.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{companyCm.Id}.svg";
+        var companyCm = company.ToContentModel(_applicationSettings);
+
         return companyCm;
     }
 
@@ -111,8 +140,8 @@ public class MimirorgCompanyService : IMimirorgCompanyService
         if (company == null)
             throw new MimirorgNotFoundException($"Could not find company with auth param");
 
-        var companyCm = company.ToContentModel();
-        companyCm.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{companyCm.Id}.svg";
+        var companyCm = company.ToContentModel(_applicationSettings);
+
         return companyCm;
     }
 
@@ -127,18 +156,25 @@ public class MimirorgCompanyService : IMimirorgCompanyService
     public async Task<MimirorgCompanyCm> UpdateCompany(int id, MimirorgCompanyAm company)
     {
         var validation = company.ValidateObject();
+
         if (!validation.IsValid)
             throw new MimirorgBadRequestException($"Couldn't register: {company.DisplayName ?? company.Name}", validation);
 
-        var exist = await _mimirorgCompanyRepository.GetAll().AnyAsync(x => x.Id == id);
-        if (!exist)
+        var existingCompany = await _mimirorgCompanyRepository.GetAsync(id);
+
+        if (existingCompany == null)
             throw new MimirorgNotFoundException($"Could not find company with id {id}");
+
+        if (company.Secret == "")
+            company.Secret = existingCompany.Secret;
+
+        _mimirorgCompanyRepository.Detach(existingCompany);
 
         var domainCompany = company.ToDomainModel();
         domainCompany.Id = id;
-
         _mimirorgCompanyRepository.Update(domainCompany);
         await _mimirorgCompanyRepository.SaveAsync();
+
         return await GetCompanyById(domainCompany.Id);
     }
 
@@ -151,11 +187,13 @@ public class MimirorgCompanyService : IMimirorgCompanyService
     public async Task<bool> DeleteCompany(int id)
     {
         var exist = await _mimirorgCompanyRepository.GetAll().AnyAsync(x => x.Id == id);
+
         if (!exist)
             throw new MimirorgNotFoundException($"Could not find company with id {id}");
 
         await _mimirorgCompanyRepository.Delete(id);
         var status = await _mimirorgCompanyRepository.SaveAsync();
+
         return status == 1;
     }
 
@@ -163,9 +201,7 @@ public class MimirorgCompanyService : IMimirorgCompanyService
     {
         var users = _userManager.Users.Where(x => x.CompanyId == id).ToList();
         if (!users.Any())
-        {
             return Array.Empty<MimirorgUserCm>();
-        }
 
         var companies = await GetAllCompanies();
         var permissions = MimirorgPermissionCm.FromPermissionEnum().ToList();
@@ -174,13 +210,11 @@ public class MimirorgCompanyService : IMimirorgCompanyService
         foreach (var user in users)
         {
             var claims = await _userManager.GetClaimsAsync(user);
+
             if (!claims.Any())
-            {
                 continue;
-            }
 
             var roles = await _userManager.GetRolesAsync(user);
-
             var userCm = user.ToContentModel();
             userCm.ResolvePermissions(roles, claims, companies, permissions);
             userCm.ResolveRoles(roles, claims, companies, permissions);
@@ -193,7 +227,6 @@ public class MimirorgCompanyService : IMimirorgCompanyService
     public async Task<ICollection<MimirorgUserCm>> GetAuthorizedCompanyUsers(int id)
     {
         var allUsers = _userManager.Users.ToList();
-
         var companies = await GetAllCompanies();
         var permissions = MimirorgPermissionCm.FromPermissionEnum().ToList();
         var mappedUsers = new List<MimirorgUserCm>();
@@ -202,10 +235,9 @@ public class MimirorgCompanyService : IMimirorgCompanyService
         {
             var claims = await _userManager.GetClaimsAsync(user);
             var roles = await _userManager.GetRolesAsync(user);
+
             if (!claims.Any() && !roles.Any())
-            {
                 continue;
-            }
 
             var userCm = user.ToContentModel();
             userCm.ResolvePermissions(roles, claims, companies, permissions);
@@ -224,10 +256,9 @@ public class MimirorgCompanyService : IMimirorgCompanyService
     public async Task<ICollection<MimirorgUserCm>> GetCompanyPendingUsers(ICollection<int> companyIds)
     {
         var users = _userManager.Users.Where(x => companyIds.Any(y => y == x.CompanyId)).ToList();
+
         if (!users.Any())
-        {
             return Array.Empty<MimirorgUserCm>();
-        }
 
         var companies = await GetAllCompanies();
         var permissions = MimirorgPermissionCm.FromPermissionEnum().ToList();
@@ -236,13 +267,11 @@ public class MimirorgCompanyService : IMimirorgCompanyService
         foreach (var user in users)
         {
             var claims = await _userManager.GetClaimsAsync(user);
+
             if (claims.Any())
-            {
                 continue;
-            }
 
             var roles = await _userManager.GetRolesAsync(user);
-
             var userCm = user.ToContentModel();
             userCm.ResolvePermissions(roles, claims, companies, permissions);
             userCm.ResolveRoles(roles, claims, companies, permissions);
@@ -259,14 +288,8 @@ public class MimirorgCompanyService : IMimirorgCompanyService
     /// <returns>A collection of hooks</returns>
     public async Task<ICollection<MimirorgHookCm>> GetAllHooksForCache(CacheKey key)
     {
-        var hooks = _mimirorgHookRepository.GetAll().Where(x => x.Key == key).Include(x => x.Company).Select(x => x.ToContentModel()).ToList();
-        foreach (var mimirorgHookCm in hooks)
-        {
-            if (mimirorgHookCm.Company == null)
-                continue;
+        var hooks = _mimirorgHookRepository.GetAll().Where(x => x.Key == key).Include(x => x.Company).Select(x => x.ToContentModel(_applicationSettings)).ToList();
 
-            mimirorgHookCm.Company.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{mimirorgHookCm.Company.Id}.svg";
-        }
         return await Task.FromResult(hooks);
     }
 
@@ -278,21 +301,19 @@ public class MimirorgCompanyService : IMimirorgCompanyService
     public async Task<MimirorgHookCm> CreateHook(MimirorgHookAm hook)
     {
         var validation = hook.ValidateObject();
+
         if (!validation.IsValid)
             throw new MimirorgBadRequestException($"Couldn't register hook: {hook?.CompanyId}-{hook?.Key}", validation);
 
         var existingHook = await _mimirorgHookRepository.FindBy(x => x.CompanyId == hook.CompanyId && x.Key == hook.Key && x.Iri == hook.Iri).FirstOrDefaultAsync();
+
         if (existingHook != null)
             throw new MimirorgBadRequestException("The hook already exist");
 
         var hookDm = hook.ToDomainModel();
         await _mimirorgHookRepository.CreateAsync(hookDm);
         await _mimirorgHookRepository.SaveAsync();
-        var hookCm = hookDm.ToContentModel();
-        if (hookCm.Company != null)
-        {
-            hookCm.Company.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{hookCm.Company.Id}.svg";
-        }
+        var hookCm = hookDm.ToContentModel(_applicationSettings);
 
         return hookCm;
     }

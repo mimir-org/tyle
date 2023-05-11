@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Exceptions;
+using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
@@ -12,7 +13,7 @@ namespace Mimirorg.Authentication.Controllers.V1;
 
 [Produces("application/json")]
 [ApiController]
-[ApiVersion("1.0")]
+[ApiVersion(VersionConstant.OnePointZero)]
 [Route("V{version:apiVersion}/[controller]")]
 [SwaggerTag("MimirorgUser")]
 public class MimirorgUserController : ControllerBase

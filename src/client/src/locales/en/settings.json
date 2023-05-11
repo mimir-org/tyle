@@ -52,13 +52,18 @@
     },
     "submit": "Update user settings"
   },
-  "createCompany": {
-    "title": "Create new company",
+  "company": {
+    "title": "Create or update company",
     "company": "company",
     "creating": {
       "loading": "Creating new company",
       "success": "The new company has been created successfully",
       "error": "An error occured while trying to create the new company"
+    },
+    "updating": {
+      "loading": "Updating company",
+      "success": "Company has been updated successfully",
+      "error": "An error occured while trying to update company"
     },
     "validation": {
       "name": {
@@ -79,6 +84,7 @@
       "displayName": "Display name",
       "description": "Description",
       "secret": "Secret (must be kept for later use)",
+      "hiddenSecret": "Secret (will be unchanged unless you generate a new one)",
       "domain": "Domain name",
       "logo": "Logo (SVG)",
       "homePage": "Home page"
@@ -90,7 +96,10 @@
       "domain": "Domain name",
       "homePage": "Home page"
     },
-    "submit": "Create new company",
+    "submit": {
+      "create": "Create new company",
+      "update": "Update company"
+    },
     "toasts": {
       "userdataError": "Could not fetch user data, please try again",
       "companyNameError": "A company with that name already exists",

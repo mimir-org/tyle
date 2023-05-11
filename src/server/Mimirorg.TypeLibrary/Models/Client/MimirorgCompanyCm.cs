@@ -14,5 +14,6 @@ public class MimirorgCompanyCm
     public string Secret { get; set; }
     public string Domain { get; set; }
     public string Logo { get; set; }
+    public string LogoUrl { get; set; }
     public string HomePage { get; set; }
 }
