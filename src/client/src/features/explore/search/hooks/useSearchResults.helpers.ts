@@ -12,11 +12,13 @@ import {
   isAspectObjectLibCm,
   isAttributeLibCm,
   isQuantityDatumLibCm,
+  isRdsLibCm,
   isTerminalLibCm,
   isUnitLibCm,
 } from "../guards/isItemValidators";
 import { toUnitItem } from "../../../../common/utils/mappers/toUnitItem";
 import { toDatumItem } from "../../../../common/utils/mappers/toDatumItem";
+import { toRdsItem } from "../../../../common/utils/mappers/toRdsItem";
 
 /**
  * Filters items with AND-logic if there are any filters available, returns items sorted by date if not.
@@ -71,6 +73,7 @@ export const mapSearchResults = (items: SearchResultRaw[]) => {
     else if (isAttributeLibCm(x)) mappedSearchResults.push(toAttributeItem(x));
     else if (isUnitLibCm(x)) mappedSearchResults.push(toUnitItem(x));
     else if (isQuantityDatumLibCm(x)) mappedSearchResults.push(toDatumItem(x));
+    else if (isRdsLibCm(x)) mappedSearchResults.push(toRdsItem(x));
   });
 
   return mappedSearchResults;

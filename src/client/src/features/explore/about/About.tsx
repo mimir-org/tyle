@@ -10,8 +10,17 @@ import { SelectedInfo } from "features/explore/common/selectedInfo";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useGetAttribute } from "../../../external/sources/attribute/attribute.queries";
-import AttributePreview from "../../entities/attributes/AttributePreview";
+import AttributePreview from "../../entities/entityPreviews/AttributePreview";
 import { toFormAttributeLib } from "../../entities/attributes/types/formAttributeLib";
+import UnitPreview from "../../entities/entityPreviews/UnitPreview";
+import DatumPreview from "../../entities/entityPreviews/DatumPreview";
+import { RdsPreview } from "../../entities/entityPreviews/RdsPreview";
+import { toFormUnitLib } from "../../entities/units/types/formUnitLib";
+import { useGetUnit } from "../../../external/sources/unit/unit.queries";
+import { useGetDatum } from "../../../external/sources/datum/datum.queries";
+import { useGetRds } from "../../../external/sources/rds/rds.queries";
+import { toFormDatumLib } from "../../entities/datum/types/formDatumLib";
+import { toFormRdsLib } from "../../entities/RDS/types/formRdsLib";
 
 interface AboutProps {
   selected?: SelectedInfo;
@@ -29,18 +38,26 @@ export const About = ({ selected }: AboutProps) => {
   const aspectObjectQuery = useGetAspectObject(selected?.type === "aspectObject" ? selected?.id : undefined);
   const terminalQuery = useGetTerminal(selected?.type === "terminal" ? selected?.id : undefined);
   const attributeQuery = useGetAttribute(selected?.type === "attribute" ? selected?.id : undefined);
+  const unitQuery = useGetUnit(selected?.type === "unit" ? selected?.id : undefined);
+  const datumQuery = useGetDatum(selected?.type === "datum" ? selected?.id : undefined);
+  const rdsQuery = useGetRds(selected?.type === "rds" ? selected?.id : undefined);
 
   const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
-    const allQueries = [aspectObjectQuery, terminalQuery, attributeQuery];
+    const allQueries = [aspectObjectQuery, terminalQuery, attributeQuery, unitQuery, datumQuery, rdsQuery];
     setShowLoader(allQueries.some((x) => x.isFetching));
-  }, [aspectObjectQuery, terminalQuery, attributeQuery]);
+  }, [aspectObjectQuery, terminalQuery, attributeQuery, unitQuery, datumQuery, rdsQuery]);
 
   const showPlaceHolder = !showLoader && selected?.type === undefined;
   const showAspectObjectPanel = !showLoader && selected?.type === "aspectObject" && aspectObjectQuery.isSuccess;
   const showTerminalPanel = !showLoader && selected?.type === "terminal" && terminalQuery.isSuccess;
   const showAttributePanel = !showLoader && selected?.type === "attribute" && attributeQuery.isSuccess;
+  const showUnitPanel = !showLoader && selected?.type === "unit" && unitQuery.isSuccess;
+  const showDatumPanel = !showLoader && selected?.type === "datum" && datumQuery.isSuccess;
+  const showRdsPanel = !showLoader && selected?.type === "rds" && rdsQuery.isSuccess;
+
+  console.log(datumQuery.data);
 
   return (
     <ExploreSection title={t("about.title")}>
@@ -59,6 +76,9 @@ export const About = ({ selected }: AboutProps) => {
         />
       )}
       {showAttributePanel && <AttributePreview {...toFormAttributeLib(attributeQuery.data)} />}
+      {showUnitPanel && <UnitPreview {...toFormUnitLib(unitQuery.data)} />}
+      {showDatumPanel && <DatumPreview {...toFormDatumLib(datumQuery.data)} />}
+      {showRdsPanel && <RdsPreview {...toFormRdsLib(rdsQuery.data)} />}
     </ExploreSection>
   );
 };
