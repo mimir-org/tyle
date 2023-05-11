@@ -9,7 +9,6 @@ import {
   FormMimirorgCompany,
   mapCompanyCmToFormCompany,
   mapFormCompanyToCompanyAm,
-  useCompanyMutation,
   useCreatingToast,
 } from "features/settings/company/CompanyForm.helpers";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -33,21 +32,22 @@ import { Option } from "common/utils/getOptionsFromEnum";
 import { RadioFilters } from "../common/radio-filters/RadioFilters";
 import { FileItemComponent } from "complib/inputs/file/components/FileItemComponent";
 import { FileInfo } from "complib/inputs/file/FileComponent";
+import { useUpdateCompany } from "external/sources/company/company.queries";
+import { useUpdatingToast } from "../usersettings/userSettingsForm.helpers";
 
-export const CompanyForm = () => {
+export const UpdateCompanyForm = () => {
   const companies = useGetFilteredCompanies(MimirorgPermission.Manage);
   const companyOptions = companies.map((x) => ({ value: String(x.id), label: x.displayName })) as Option<string>[];
-  companyOptions.unshift({ value: "0", label: "Create new company" });
   const [selectedCompany, setSelectedCompany] = useState(companyOptions[0]?.value);
-  const [secret, setSecret] = useState<string>(createSecret(50));
-  const [updateSecret, setUpdateSecret] = useState(true);
+  const [secret, setSecret] = useState<string>("");
+  const [updateSecret, setUpdateSecret] = useState(false);
   const [previewLogo, setPreviewLogo] = useState<FileInfo | null>(null);
 
   const theme = useTheme();
   const { t } = useTranslation("settings");
 
   const formMethods = useForm<FormMimirorgCompany>({
-    defaultValues: { ...createEmptyFormMimirorgCompany(), secret: secret },
+    defaultValues: { ...mapCompanyCmToFormCompany(companies.find((c) => c.id === Number(selectedCompany))), secret: secret },
     resolver: yupResolver(companySchema(t)),
   });
 
@@ -57,11 +57,11 @@ export const CompanyForm = () => {
 
   const userQuery = useGetCurrentUser();
 
-  const mutation = useCompanyMutation(selectedCompany);
+  const mutation = useUpdateCompany(selectedCompany);
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
-  const submitToast = useCreatingToast(selectedCompany);
+  const submitToast = useUpdatingToast();
 
   const onSubmit = async (data: FormMimirorgCompany) => {
     console.log(data);
@@ -95,13 +95,8 @@ export const CompanyForm = () => {
         onChange={(x) => {
           setSelectedCompany(x);
           reset(mapCompanyCmToFormCompany(companies.find((c) => c.id === Number(x))));
-          if (x == "0") {
-            setSecret(createSecret(50));
-            setUpdateSecret(true);
-          } else {
-            setUpdateSecret(false);
-            setSecret("");
-          }
+          setUpdateSecret(false);
+          setSecret("");
           getValues("logo") == null ? setPreviewLogo(null) : setPreviewLogo(getValues("logo"));
         }}
       />
@@ -182,7 +177,7 @@ export const CompanyForm = () => {
             <Input placeholder={t("company.placeholders.homePage")} {...register("homePage")} />
           </FormField>
           <Button type={"submit"}>
-            {selectedCompany === "0" ? t("company.submit.create") : t("company.submit.update")}
+            { t("company.submit.update") }
           </Button>
           <DevTool control={control} placement={"bottom-right"} />
         </Form>

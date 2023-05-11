@@ -1,7 +1,6 @@
 import { MimirorgCompanyAm, MimirorgCompanyCm } from "@mimirorg/typelibrary-types";
 import { toast } from "complib/data-display";
 import { FileInfo, toBase64 } from "complib/inputs/file/FileComponent";
-import { useCreateCompany, useUpdateCompany } from "external/sources/company/company.queries";
 import { useTranslation } from "react-i18next";
 
 export interface FormMimirorgCompany extends Omit<MimirorgCompanyAm, "managerId" | "logo"> {
@@ -73,30 +72,26 @@ export const mapFormCompanyToCompanyAm = (
   };
 };
 
-export const useCompanyMutation = (companyId: string) => {
-  const createCompanyMutation = useCreateCompany();
-  const updateCompanyMutation = useUpdateCompany(String(companyId));
-  return companyId == "0" ? createCompanyMutation : updateCompanyMutation;
-};
-
-export const useCreatingToast = (companyId: string) => {
+export const useCreatingToast = () => {
   const { t } = useTranslation("settings");
 
-  if (companyId === "0") {
-    return (updatingPromise: Promise<unknown>) =>
+  return (updatingPromise: Promise<unknown>) =>
       toast.promise(updatingPromise, {
         loading: t("company.creating.loading"),
         success: t("company.creating.success"),
         error: t("company.creating.error"),
       });
-  } else {
-    return (updatingPromise: Promise<unknown>) =>
+};
+
+export const useUpdateToast = () => {
+  const { t } = useTranslation("settings");
+
+  return (updatingPromise: Promise<unknown>) =>
       toast.promise(updatingPromise, {
         loading: t("company.updating.loading"),
         success: t("company.updating.success"),
         error: t("company.updating.error"),
       });
-  }
 };
 
 export const createSecret = (length: number): string => {

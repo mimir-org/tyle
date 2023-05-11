@@ -5,9 +5,10 @@ import { permissionsBasePath } from "features/settings/permission/PermissionsRou
 import { approvalBasePath } from "features/settings/approval/ApprovalRoutes";
 import { useTranslation } from "react-i18next";
 import { usersettingsBasePath } from "../usersettings/UserSettingsRoutes";
-import { companyBasePath } from "features/settings/company/CompanyRoutes";
+import { createCompanyBasePath, updateCompanyBasePath } from "features/settings/company/CompanyRoutes";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
+import { useGetRoles } from "common/hooks/useGetRoles";
 
 export const useSettingsLinkGroups = (): LinkGroup[] => {
   const admLinks = useAdministerLinks();
@@ -18,13 +19,17 @@ export const useSettingsLinkGroups = (): LinkGroup[] => {
 const useAdministerLinks = (): Link[] => {
   const { t } = useTranslation("settings");
 
+  console.log(useGetRoles());
+  const isGlobalAdmin = useGetRoles()?.includes("Global administrator");
   const managesCompanies = useGetFilteredCompanies(MimirorgPermission.Manage).length > 0;
   const hasDeletePermissionOrHigher = useGetFilteredCompanies(MimirorgPermission.Delete).length > 0;
 
-  const result: Link[] = [{
-    name: t("usersettings.title"),
-    path: usersettingsBasePath,
-  }];
+  const result: Link[] = [
+    {
+      name: t("usersettings.title"),
+      path: usersettingsBasePath,
+    },
+  ];
 
   if (hasDeletePermissionOrHigher) {
     result.push({
@@ -34,17 +39,26 @@ const useAdministerLinks = (): Link[] => {
   }
 
   if (managesCompanies) {
+    result.push(
+      {
+        name: t("access.title"),
+        path: accessBasePath,
+      },
+      {
+        name: t("permissions.title"),
+        path: permissionsBasePath,
+      },
+      {
+        name: t("company.title.update"),
+        path: updateCompanyBasePath,
+      }
+    );
+  }
+
+  if (isGlobalAdmin) {
     result.push({
-      name: t("access.title"),
-      path: accessBasePath,
-    },
-    {
-      name: t("permissions.title"),
-      path: permissionsBasePath,
-    },
-    {
-      name: t("company.title"),
-      path: companyBasePath,
+      name: t("company.title.create"),
+      path: createCompanyBasePath,
     });
   }
 
