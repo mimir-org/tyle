@@ -19,7 +19,6 @@ export const useSettingsLinkGroups = (): LinkGroup[] => {
 const useAdministerLinks = (): Link[] => {
   const { t } = useTranslation("settings");
 
-  console.log(useGetRoles());
   const isGlobalAdmin = useGetRoles()?.includes("Global administrator");
   const managesCompanies = useGetFilteredCompanies(MimirorgPermission.Manage).length > 0;
   const hasDeletePermissionOrHigher = useGetFilteredCompanies(MimirorgPermission.Delete).length > 0;
