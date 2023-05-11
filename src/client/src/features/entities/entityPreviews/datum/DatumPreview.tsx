@@ -25,12 +25,8 @@ interface DatumPreviewProps {
   small?: boolean;
 }
 
-enum quantityDatumTypeString {
-  "Specified scope",
-  "Specified provenance",
-  "Specified range",
-  "Specified regularity",
-}
+const quantityDatumTypeString = ["Specified scope", "Specified provenance", "Specified range", "Specified regularity"];
+
 export default function DatumPreview({ name, quantityDatumType, description, small }: DatumPreviewProps) {
   return (
     <StyledDiv small={small}>
