@@ -54,7 +54,6 @@ export const CreateCompanyForm = () => {
   const submitToast = useCreatingToast();
 
   const onSubmit = async (data: FormMimirorgCompany) => {
-    console.log(data);
     if (userQuery.isSuccess) {
       try {
         await onSubmitForm(
