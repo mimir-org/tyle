@@ -32,6 +32,7 @@ import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { Option } from "common/utils/getOptionsFromEnum";
 import { RadioFilters } from "../common/radio-filters/RadioFilters";
 import { FileItemComponent } from "complib/inputs/file/components/FileItemComponent";
+import { FileInfo } from "complib/inputs/file/FileComponent";
 
 export const CompanyForm = () => {
   const companies = useGetFilteredCompanies(MimirorgPermission.Manage);
@@ -40,7 +41,7 @@ export const CompanyForm = () => {
   const [selectedCompany, setSelectedCompany] = useState(companyOptions[0]?.value);
   const [secret, setSecret] = useState<string>(createSecret(50));
   const [updateSecret, setUpdateSecret] = useState(true);
-  const [previewLogo, setPreviewLogo] = useState(false);
+  const [previewLogo, setPreviewLogo] = useState<FileInfo | null>(null);
 
   const theme = useTheme();
   const { t } = useTranslation("settings");
@@ -83,7 +84,7 @@ export const CompanyForm = () => {
   const onFileRemove = () => {
     setValue("logo", null);
     if (fileInputRef?.current?.value != null) fileInputRef.current.value = "";
-    setPreviewLogo(false);
+    setPreviewLogo(null);
   };
 
   return (
@@ -101,7 +102,7 @@ export const CompanyForm = () => {
             setUpdateSecret(false);
             setSecret("");
           }
-          getValues("logo") == null ? setPreviewLogo(false) : setPreviewLogo(true);
+          getValues("logo") == null ? setPreviewLogo(null) : setPreviewLogo(getValues("logo"));
         }}
       />
       <FormProvider {...formMethods}>
@@ -160,10 +161,10 @@ export const CompanyForm = () => {
               onChange={async (e) => {
                 if (e.currentTarget.files != null && e.currentTarget.files.length > 0) {
                   setValue("logo", await encodeFile(e.currentTarget.files[0]));
-                  setPreviewLogo(true);
+                  setPreviewLogo(getValues("logo"));
                 } else {
                   setValue("logo", null);
-                  setPreviewLogo(false);
+                  setPreviewLogo(null);
                 }
               }}
             />
@@ -173,7 +174,7 @@ export const CompanyForm = () => {
 
             {previewLogo && (
               <div>
-                <FileItemComponent fileInfo={getValues("logo")} onRemove={onFileRemove} />
+                <FileItemComponent fileInfo={previewLogo} onRemove={onFileRemove} />
               </div>
             )}
           </Flexbox>
