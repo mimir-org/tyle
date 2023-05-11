@@ -97,13 +97,7 @@ public class MimirorgCompanyService : IMimirorgCompanyService
     /// <returns>ICollection&lt;MimirorgCompanyCm&gt;</returns>
     public async Task<ICollection<MimirorgCompanyCm>> GetAllCompanies()
     {
-        var companies = _mimirorgCompanyRepository.GetAll().Select(x => x.ToContentModel()).ToList();
-
-        companies = companies.Select(x =>
-        {
-            x.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{x.Id}.svg";
-            return x;
-        }).ToList();
+        var companies = _mimirorgCompanyRepository.GetAll().Select(x => x.ToContentModel(_applicationSettings)).ToList();
 
         return await Task.FromResult(companies);
     }
@@ -121,8 +115,7 @@ public class MimirorgCompanyService : IMimirorgCompanyService
         if (company == null)
             throw new MimirorgNotFoundException($"Could not find company with id {id}");
 
-        var companyCm = company.ToContentModel();
-        companyCm.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{companyCm.Id}.svg";
+        var companyCm = company.ToContentModel(_applicationSettings);
 
         return companyCm;
     }
@@ -147,8 +140,7 @@ public class MimirorgCompanyService : IMimirorgCompanyService
         if (company == null)
             throw new MimirorgNotFoundException($"Could not find company with auth param");
 
-        var companyCm = company.ToContentModel();
-        companyCm.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{companyCm.Id}.svg";
+        var companyCm = company.ToContentModel(_applicationSettings);
 
         return companyCm;
     }
@@ -296,15 +288,7 @@ public class MimirorgCompanyService : IMimirorgCompanyService
     /// <returns>A collection of hooks</returns>
     public async Task<ICollection<MimirorgHookCm>> GetAllHooksForCache(CacheKey key)
     {
-        var hooks = _mimirorgHookRepository.GetAll().Where(x => x.Key == key).Include(x => x.Company).Select(x => x.ToContentModel()).ToList();
-
-        foreach (var mimirorgHookCm in hooks)
-        {
-            if (mimirorgHookCm.Company == null)
-                continue;
-
-            mimirorgHookCm.Company.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{mimirorgHookCm.Company.Id}.svg";
-        }
+        var hooks = _mimirorgHookRepository.GetAll().Where(x => x.Key == key).Include(x => x.Company).Select(x => x.ToContentModel(_applicationSettings)).ToList();
 
         return await Task.FromResult(hooks);
     }
@@ -329,10 +313,7 @@ public class MimirorgCompanyService : IMimirorgCompanyService
         var hookDm = hook.ToDomainModel();
         await _mimirorgHookRepository.CreateAsync(hookDm);
         await _mimirorgHookRepository.SaveAsync();
-        var hookCm = hookDm.ToContentModel();
-
-        if (hookCm.Company != null)
-            hookCm.Company.Logo = $"{_applicationSettings.ApplicationUrl}/logo/{hookCm.Company.Id}.svg";
+        var hookCm = hookDm.ToContentModel(_applicationSettings);
 
         return hookCm;
     }
