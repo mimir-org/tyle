@@ -16,7 +16,7 @@ import {
   fromFormAttributeLibToApiModel,
   toFormAttributeLib,
 } from "./types/formAttributeLib";
-import { AttributeFormPreview } from "../entityPreviews/AttributeFormPreview";
+import { AttributeFormPreview } from "../entityPreviews/attribute/AttributeFormPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
 
 interface AttributeFormProps {

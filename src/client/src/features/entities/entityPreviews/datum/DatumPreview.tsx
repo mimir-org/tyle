@@ -1,6 +1,6 @@
 import styled from "styled-components/macro";
-import { Text } from "../../../complib/text";
-import Badge from "../../ui/badges/Badge";
+import { Text } from "../../../../complib/text";
+import Badge from "../../../ui/badges/Badge";
 
 interface StyledDivProps {
   small?: boolean;

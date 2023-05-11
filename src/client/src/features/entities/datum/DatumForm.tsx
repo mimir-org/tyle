@@ -15,7 +15,7 @@ import { PlainLink } from "../../common/plain-link";
 import { Button } from "../../../complib/buttons";
 import { useTheme } from "styled-components";
 import { DatumFormBaseFields } from "./DatumFormBaseFields";
-import DatumPreview from "../entityPreviews/DatumPreview";
+import DatumPreview from "../entityPreviews/datum/DatumPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
 
 interface DatumFormProps {

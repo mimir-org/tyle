@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import { createEmptyUnit, toUnitLibAm } from "./types/formUnitLib";
 import { useUnitMutation, useUnitQuery } from "./UnitForm.helpers";
 import UnitFormBaseFields from "./UnitFormBaseFields";
-import { UnitFormPreview } from "../entityPreviews/UnitFormPreview";
+import { UnitFormPreview } from "../entityPreviews/unit/UnitFormPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
 
 interface UnitFormProps {

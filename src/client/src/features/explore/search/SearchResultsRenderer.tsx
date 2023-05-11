@@ -2,21 +2,21 @@ import { SearchResult } from "./types/searchResult";
 import { SelectedInfo } from "../common/selectedInfo";
 import { UserItem } from "../../../common/types/userItem";
 import { Item } from "./components/item/Item";
-import { TerminalPreview } from "../../entities/entityPreviews/TerminalPreview";
+import { TerminalPreview } from "../../entities/entityPreviews/terminal/TerminalPreview";
 import { TerminalItem } from "../../../common/types/terminalItem";
 import { ItemDescription } from "./components/item/ItemDescription";
 import { SearchItemActions } from "./components/SearchItemActions";
 import { AspectObjectPreview } from "../../common/aspectobject";
 import { AspectObjectItem } from "../../../common/types/aspectObjectItem";
-import AttributePreview from "../../entities/entityPreviews/AttributePreview";
+import AttributePreview from "../../entities/entityPreviews/attribute/AttributePreview";
 import { toFormAttributeLib } from "../../entities/attributes/types/formAttributeLib";
 import { AttributeLibCm, UnitLibCm } from "@mimirorg/typelibrary-types";
-import UnitPreview from "../../entities/entityPreviews/UnitPreview";
+import UnitPreview from "../../entities/entityPreviews/unit/UnitPreview";
 import { FormUnitHelper } from "../../entities/units/types/FormUnitHelper";
-import DatumPreview from "../../entities/entityPreviews/DatumPreview";
+import DatumPreview from "../../entities/entityPreviews/datum/DatumPreview";
 import { DatumItem } from "../../../common/types/datumItem";
 import { RdsItem } from "../../../common/types/rdsItem";
-import { RdsPreview } from "../../entities/entityPreviews/RdsPreview";
+import { RdsPreview } from "../../entities/entityPreviews/rds/RdsPreview";
 
 interface SearchResultsRendererProps {
   item: SearchResult;

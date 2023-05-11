@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { mockAspectObjectTerminalItem } from "common/utils/mocks";
 import { LibraryIcon } from "complib/assets";
-import { AspectObjectPreview } from "features/common/aspectobject/AspectObjectPreview";
+import { AspectObjectPreview } from "features/entities/entityPreviews/aspectobject/AspectObjectPreview";
 
 export default {
   title: "Features/Common/AspectObject/AspectObjectPreview",

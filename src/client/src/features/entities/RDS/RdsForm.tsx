@@ -15,7 +15,7 @@ import { useTheme } from "styled-components";
 import { createEmptyRds, toRdsLibAm } from "./types/formRdsLib";
 import { useRdsMutation, useRdsQuery } from "./RdsForm.helpers";
 import { RdsFormBaseFields } from "./RdsFormBaseFields";
-import { RdsFormPreview } from "../entityPreviews/RdsFormPreview";
+import { RdsFormPreview } from "../entityPreviews/rds/RdsFormPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
 
 interface RdsFormProps {

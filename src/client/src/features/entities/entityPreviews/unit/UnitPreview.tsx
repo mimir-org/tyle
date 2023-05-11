@@ -1,7 +1,7 @@
-import { Flexbox } from "../../../complib/layouts";
-import { Text } from "../../../complib/text";
+import { Flexbox } from "../../../../complib/layouts";
+import { Text } from "../../../../complib/text";
 import styled from "styled-components/macro";
-import Badge from "../../ui/badges/Badge";
+import Badge from "../../../ui/badges/Badge";
 
 interface UnitContainerProps {
   isDefault?: boolean;

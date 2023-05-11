@@ -2,7 +2,10 @@ import { AspectObjectTerminalItem } from "common/types/aspectObjectTerminalItem"
 import { Box } from "complib/layouts";
 import { AspectObject } from "features/common/aspectobject/AspectObject";
 import { AspectObjectVariant } from "features/common/aspectobject/AspectObject.styled";
-import { meetsInputCriteria, meetsOutputCriteria } from "features/common/aspectobject/AspectObjectPreview.helpers";
+import {
+  meetsInputCriteria,
+  meetsOutputCriteria,
+} from "features/entities/entityPreviews/aspectobject/AspectObjectPreview.helpers";
 import { TerminalButtonVariant, Terminals } from "features/common/terminal";
 
 export interface AspectObjectPreviewProps {

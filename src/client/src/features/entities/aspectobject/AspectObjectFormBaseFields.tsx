@@ -14,7 +14,7 @@ import { useGetAllRds } from "external/sources/rds/rds.queries";
 import { useGetSymbols } from "external/sources/symbol/symbol.queries";
 import { PlainLink } from "features/common/plain-link";
 import { resetSubform } from "features/entities/aspectobject/AspectObjectForm.helpers";
-import { AspectObjectFormPreview } from "features/entities/entityPreviews/AspectObjectFormPreview";
+import { AspectObjectFormPreview } from "features/entities/entityPreviews/aspectobject/AspectObjectFormPreview";
 import { FormAspectObjectLib } from "features/entities/aspectobject/types/formAspectObjectLib";
 import { AspectObjectFormMode } from "features/entities/aspectobject/types/aspectObjectFormMode";
 import { Controller, useFormContext } from "react-hook-form";

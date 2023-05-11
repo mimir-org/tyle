@@ -1,8 +1,8 @@
 import styled from "styled-components/macro";
-import { Text } from "../../../complib/text";
+import { Text } from "../../../../complib/text";
 import { useTheme } from "styled-components";
-import { FormUnitHelper } from "../units/types/FormUnitHelper";
-import UnitPreview from "./UnitPreview";
+import { FormUnitHelper } from "../../units/types/FormUnitHelper";
+import UnitPreview from "../unit/UnitPreview";
 
 interface StyledDivProps {
   small?: boolean;
