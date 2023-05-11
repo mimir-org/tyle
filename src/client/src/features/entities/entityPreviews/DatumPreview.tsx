@@ -32,7 +32,6 @@ enum quantityDatumTypeString {
   "Specified regularity",
 }
 export default function DatumPreview({ name, quantityDatumType, description, small }: DatumPreviewProps) {
-  console.log(quantityDatumType);
   return (
     <StyledDiv small={small}>
       <Text variant={small ? "title-large" : "display-small"} useEllipsis={small}>

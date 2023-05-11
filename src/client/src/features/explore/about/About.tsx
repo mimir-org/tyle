@@ -57,8 +57,6 @@ export const About = ({ selected }: AboutProps) => {
   const showDatumPanel = !showLoader && selected?.type === "datum" && datumQuery.isSuccess;
   const showRdsPanel = !showLoader && selected?.type === "rds" && rdsQuery.isSuccess;
 
-  console.log(datumQuery.data);
-
   return (
     <ExploreSection title={t("about.title")}>
       {showLoader && <Loader />}
