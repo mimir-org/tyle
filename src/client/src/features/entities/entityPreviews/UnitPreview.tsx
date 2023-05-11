@@ -1,11 +1,11 @@
 import { Flexbox } from "../../../complib/layouts";
 import { Text } from "../../../complib/text";
-import { FormUnitHelper } from "./types/FormUnitHelper";
 import styled from "styled-components/macro";
 import Badge from "../../ui/badges/Badge";
 
 interface UnitContainerProps {
   isDefault?: boolean;
+  small?: boolean;
 }
 
 const StyledUnit = styled.div<UnitContainerProps>`
@@ -18,33 +18,42 @@ const StyledUnit = styled.div<UnitContainerProps>`
   height: fit-content;
   background-color: ${(props) =>
     props.isDefault ? props.theme.tyle.color.sys.surface.variant.base : props.theme.tyle.color.sys.surface.base};
-  max-width: 40rem;
-  max-height: 20rem;
-`;
-
-const NameAndUnitContainer = styled.span`
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  align-items: center;
+  max-width: ${(props) => (props.small ? "200px" : "100%")};
 `;
 
 interface UnitPreviewProps {
-  unit: Partial<FormUnitHelper>;
+  name: string;
+  description: string;
+  isDefault?: boolean;
+  unitId?: string;
+  symbol: string;
   noBadge?: boolean;
+  small?: boolean;
 }
 
-export default function UnitPreview({ unit, noBadge }: UnitPreviewProps) {
+export default function UnitPreview({
+  name,
+  description,
+  unitId,
+  isDefault,
+  symbol,
+  noBadge,
+  small,
+}: UnitPreviewProps) {
   return (
-    <StyledUnit key={unit.unitId} isDefault={unit.isDefault}>
+    <StyledUnit key={unitId} small={small} isDefault={isDefault}>
       <Flexbox justifyContent={"space-between"}>
-        <NameAndUnitContainer>
-          <Text fontSize={"24px"}>{unit.name}</Text>
-          <Text color={"gray"}>{unit.symbol}</Text>
-        </NameAndUnitContainer>
-        {unit.isDefault && !noBadge && <Badge variant={"success"}>default</Badge>}
+        <Flexbox gap={"1rem"} alignItems={"center"}>
+          <Text variant={small ? "title-small" : "display-small"}>{name}</Text>
+          <Text variant={small ? "title-small" : "title-large"} color={"gray"}>
+            {symbol}
+          </Text>
+        </Flexbox>
+        {isDefault && !noBadge && <Badge variant={"success"}>default</Badge>}
       </Flexbox>
-      <p>{unit.description}</p>
+      <Text variant={small ? "body-small" : "body-large"} useEllipsis={small}>
+        {description}
+      </Text>
     </StyledUnit>
   );
 }

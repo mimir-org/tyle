@@ -29,3 +29,7 @@ export const isUnitLibCm = (item: unknown): item is UnitLibCm => (<UnitLibCm>ite
 
 export const isQuantityDatumLibCm = (item: unknown): item is QuantityDatumLibCm =>
   (<QuantityDatumLibCm>item).kind === "QuantityDatumLibCm";
+
+export const isRdsLibCm = (item: unknown): item is QuantityDatumLibCm => (<QuantityDatumLibCm>item).kind === "RdsLibCm";
+
+export const isRdsItem = (item: unknown): item is QuantityDatumLibCm => (<QuantityDatumLibCm>item).kind === "RdsItem";

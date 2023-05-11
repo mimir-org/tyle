@@ -2,19 +2,21 @@ import { SearchResult } from "./types/searchResult";
 import { SelectedInfo } from "../common/selectedInfo";
 import { UserItem } from "../../../common/types/userItem";
 import { Item } from "./components/item/Item";
-import { TerminalPreview } from "../../common/terminal/TerminalPreview";
+import { TerminalPreview } from "../../entities/entityPreviews/TerminalPreview";
 import { TerminalItem } from "../../../common/types/terminalItem";
 import { ItemDescription } from "./components/item/ItemDescription";
 import { SearchItemActions } from "./components/SearchItemActions";
 import { AspectObjectPreview } from "../../common/aspectobject";
 import { AspectObjectItem } from "../../../common/types/aspectObjectItem";
-import AttributePreview from "../../entities/attributes/AttributePreview";
+import AttributePreview from "../../entities/entityPreviews/AttributePreview";
 import { toFormAttributeLib } from "../../entities/attributes/types/formAttributeLib";
 import { AttributeLibCm, UnitLibCm } from "@mimirorg/typelibrary-types";
-import UnitPreview from "../../entities/units/UnitPreview";
+import UnitPreview from "../../entities/entityPreviews/UnitPreview";
 import { FormUnitHelper } from "../../entities/units/types/FormUnitHelper";
-import DatumPreview from "../../entities/datum/DatumPreview";
+import DatumPreview from "../../entities/entityPreviews/DatumPreview";
 import { DatumItem } from "../../../common/types/datumItem";
+import { RdsItem } from "../../../common/types/rdsItem";
+import { RdsPreview } from "../../entities/entityPreviews/RdsPreview";
 
 interface SearchResultsRendererProps {
   item: SearchResult;
@@ -66,7 +68,7 @@ export function SearchResultsRenderer({
         <Item
           isSelected={currentlySelected}
           onClick={() => setSelected({ id: item.id, type: "unit" })}
-          preview={<UnitPreview unit={item as FormUnitHelper} />}
+          preview={<UnitPreview small {...(item as FormUnitHelper)} />}
           description={<ItemDescription {...(item as UnitLibCm)} />}
           actions={<SearchItemActions user={user} item={item} />}
         />
@@ -76,15 +78,25 @@ export function SearchResultsRenderer({
         <Item
           isSelected={currentlySelected}
           onClick={() => setSelected({ id: item.id, type: "datum" })}
-          preview={<DatumPreview datum={item as DatumItem} />}
-          description={null}
+          preview={<DatumPreview {...(item as DatumItem)} small />}
+          description={<ItemDescription {...(item as DatumItem)} />}
+          actions={<SearchItemActions user={user} item={item} />}
+        />
+      );
+    case "RdsItem":
+      return (
+        <Item
+          isSelected={currentlySelected}
+          onClick={() => setSelected({ id: item.id, type: "rds" })}
+          preview={<RdsPreview small {...(item as RdsItem)} />}
+          description={<ItemDescription {...(item as DatumItem)} />}
           actions={<SearchItemActions user={user} item={item} />}
         />
       );
     default:
       return (
         <div>
-          <p>This item has no preview</p>
+          <p>Something went wrong loading this property...</p>
         </div>
       );
   }

@@ -11,5 +11,5 @@ export const UnitFormPreview = ({ control }: UnitFormPreviewProps) => {
   const description = useWatch({ control, name: "description" });
   const symbol = useWatch({ control, name: "symbol" });
 
-  return <UnitPreview unit={{ name, description, symbol }} />;
+  return <UnitPreview {...{ name, description, symbol }} />;
 };

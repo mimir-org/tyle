@@ -10,6 +10,10 @@ export function getCloneLink(item: ItemType) {
       return `/form/attribute/clone/${item.id}`;
     case "UnitItem":
       return `/form/unit/clone/${item.id}`;
+    case "DatumItem":
+      return `/form/datum/clone/${item.id}`;
+    case "RdsItem":
+      return `/form/rds/clone/${item.id}`;
     default:
       return "#";
   }
@@ -25,6 +29,10 @@ export function getEditLink(item: ItemType) {
       return `/form/attribute/edit/${item.id}`;
     case "UnitItem":
       return `/form/unit/edit/${item.id}`;
+    case "DatumItem":
+      return `/form/datum/edit/${item.id}`;
+    case "RdsItem":
+      return `/form/rds/edit/${item.id}`;
     default:
       return "#";
   }

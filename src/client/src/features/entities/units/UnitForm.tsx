@@ -11,8 +11,8 @@ import { useTranslation } from "react-i18next";
 import { createEmptyUnit, toUnitLibAm } from "./types/formUnitLib";
 import { useUnitMutation, useUnitQuery } from "./UnitForm.helpers";
 import UnitFormBaseFields from "./UnitFormBaseFields";
-import { AttributeFormContainer } from "../attributes/AttributeFormContainer.styled";
-import { UnitFormPreview } from "./UnitFormPreview";
+import { UnitFormPreview } from "../entityPreviews/UnitFormPreview";
+import { FormContainer } from "../../../complib/form/FormContainer.styled";
 
 interface UnitFormProps {
   defaultValues?: UnitLibAm;
@@ -39,7 +39,7 @@ export const UnitForm = ({ defaultValues = createEmptyUnit() }: UnitFormProps) =
 
   return (
     <FormProvider {...formMethods}>
-      <AttributeFormContainer
+      <FormContainer
         onSubmit={handleSubmit((data) => {
           onSubmitForm(data, mutation.mutateAsync, toast);
         })}
@@ -53,7 +53,7 @@ export const UnitForm = ({ defaultValues = createEmptyUnit() }: UnitFormProps) =
             <DevTool control={control} placement={"bottom-right"} />
           </>
         )}
-      </AttributeFormContainer>
+      </FormContainer>
     </FormProvider>
   );
 };

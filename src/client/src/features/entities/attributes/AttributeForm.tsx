@@ -9,7 +9,6 @@ import { useSubmissionToast } from "features/entities/common/utils/useSubmission
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useAttributeMutation, useAttributeQuery } from "./AttributeForm.helpers";
-import { AttributeFormContainer } from "./AttributeFormContainer.styled";
 import { AttributeFormBaseFields } from "./AttributeFormBaseFields";
 import {
   createEmptyAttribute,
@@ -17,7 +16,8 @@ import {
   fromFormAttributeLibToApiModel,
   toFormAttributeLib,
 } from "./types/formAttributeLib";
-import { AttributeFormPreview } from "./AttributeFormPreview";
+import { AttributeFormPreview } from "../entityPreviews/AttributeFormPreview";
+import { FormContainer } from "../../../complib/form/FormContainer.styled";
 
 interface AttributeFormProps {
   defaultValues?: FormAttributeLib;
@@ -44,7 +44,7 @@ export const AttributeForm = ({ defaultValues = createEmptyAttribute() }: Attrib
 
   return (
     <FormProvider {...formMethods}>
-      <AttributeFormContainer
+      <FormContainer
         onSubmit={handleSubmit((data) =>
           onSubmitForm(fromFormAttributeLibToApiModel(data), mutation.mutateAsync, toast)
         )}
@@ -58,7 +58,7 @@ export const AttributeForm = ({ defaultValues = createEmptyAttribute() }: Attrib
             <DevTool control={control} placement={"bottom-right"} />
           </>
         )}
-      </AttributeFormContainer>
+      </FormContainer>
     </FormProvider>
   );
 };

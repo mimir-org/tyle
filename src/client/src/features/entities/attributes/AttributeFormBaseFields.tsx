@@ -10,6 +10,7 @@ import { useGetUnits } from "../../../external/sources/unit/unit.queries";
 import { useEffect, useState } from "react";
 import { FormUnitHelper } from "../units/types/FormUnitHelper";
 import { FormAttributeLib } from "./types/formAttributeLib";
+import { FormBaseFieldsContainer } from "../../../complib/form/FormContainer.styled";
 
 /**
  * Component which contains all simple value fields of the attribute form.
@@ -36,7 +37,7 @@ export const AttributeFormBaseFields = () => {
   }, [setValue, unitArray]);
 
   return (
-    <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
+    <FormBaseFieldsContainer>
       <FormField label={t("attribute.name")} error={errors.name}>
         <Input placeholder={t("attribute.placeholders.name")} {...register("name")} disabled={false} />
       </FormField>
@@ -96,6 +97,6 @@ export const AttributeFormBaseFields = () => {
         </PlainLink>
         <Button type={"submit"}>{t("common.submit")}</Button>
       </Flexbox>
-    </Flexbox>
+    </FormBaseFieldsContainer>
   );
 };

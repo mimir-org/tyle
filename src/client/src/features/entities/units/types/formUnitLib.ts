@@ -14,3 +14,11 @@ export const createEmptyUnit = (): UnitLibAm => ({
   symbol: "",
   description: "",
 });
+
+export const toFormUnitLib = (unit: UnitLibAm): UnitLibAm => ({
+  ...unit,
+  name: unit.name,
+  typeReference: unit.typeReference,
+  symbol: unit.symbol,
+  description: unit.description,
+});

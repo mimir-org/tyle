@@ -1,6 +1,6 @@
 import { Control, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { FormAttributeLib } from "./types/formAttributeLib";
+import { FormAttributeLib } from "../attributes/types/formAttributeLib";
 import AttributePreview from "./AttributePreview";
 
 interface AttributeFormPreviewProps {
@@ -15,7 +15,7 @@ export const AttributeFormPreview = ({ control }: AttributeFormPreviewProps) => 
 
   return (
     <AttributePreview
-      name={name ? name : t("terminal.name")}
+      name={name ? name : t("attribute.name")}
       description={description}
       attributeUnits={attributeUnits}
     />

@@ -19,3 +19,11 @@ export const createEmptyDatum = (): QuantityDatumLibCm => ({
   quantityDatumType: QuantityDatumType.QuantityDatumSpecifiedScope,
   description: "",
 });
+
+export const toFormDatumLib = (datum: QuantityDatumLibCm): QuantityDatumLibCm => ({
+  ...datum,
+  name: datum.name,
+  typeReference: datum.typeReference,
+  description: datum.description,
+  quantityDatumType: datum.quantityDatumType,
+});

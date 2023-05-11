@@ -10,13 +10,13 @@ import { useTranslation } from "react-i18next";
 import { QuantityDatumLibAm, QuantityDatumLibCm } from "@mimirorg/typelibrary-types";
 import { createEmptyDatum, toDatumLibAm } from "./types/formDatumLib";
 import { useDatumMutation, useDatumQuery } from "./DatumForm.helpers";
-import { AttributeFormContainer } from "../attributes/AttributeFormContainer.styled";
 import { Flexbox } from "../../../complib/layouts";
 import { PlainLink } from "../../common/plain-link";
 import { Button } from "../../../complib/buttons";
 import { useTheme } from "styled-components";
 import { DatumFormBaseFields } from "./DatumFormBaseFields";
-import DatumPreview from "./DatumPreview";
+import DatumPreview from "../entityPreviews/DatumPreview";
+import { FormContainer } from "../../../complib/form/FormContainer.styled";
 
 interface DatumFormProps {
   defaultValues?: QuantityDatumLibAm;
@@ -49,7 +49,7 @@ export const DatumForm = ({ defaultValues = createEmptyDatum() }: DatumFormProps
 
   return (
     <FormProvider {...formMethods}>
-      <AttributeFormContainer
+      <FormContainer
         onSubmit={handleSubmit((data) => {
           onSubmitForm(data, mutation.mutateAsync, toast);
         })}
@@ -69,9 +69,9 @@ export const DatumForm = ({ defaultValues = createEmptyDatum() }: DatumFormProps
             </Flexbox>
           </Flexbox>
         )}
-        <DatumPreview datum={datum} />
+        <DatumPreview {...datum} />
         <DevTool control={control} placement={"bottom-right"} />
-      </AttributeFormContainer>
+      </FormContainer>
     </FormProvider>
   );
 };

@@ -14,13 +14,13 @@ import { useGetAllRds } from "external/sources/rds/rds.queries";
 import { useGetSymbols } from "external/sources/symbol/symbol.queries";
 import { PlainLink } from "features/common/plain-link";
 import { resetSubform } from "features/entities/aspectobject/AspectObjectForm.helpers";
-import { AspectObjectFormBaseFieldsContainer } from "features/entities/aspectobject/AspectObjectFormBaseFields.styled";
-import { AspectObjectFormPreview } from "features/entities/aspectobject/AspectObjectFormPreview";
+import { AspectObjectFormPreview } from "features/entities/entityPreviews/AspectObjectFormPreview";
 import { FormAspectObjectLib } from "features/entities/aspectobject/types/formAspectObjectLib";
 import { AspectObjectFormMode } from "features/entities/aspectobject/types/aspectObjectFormMode";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
+import { FormBaseFieldsContainer } from "../../../complib/form/FormContainer.styled";
 
 interface AspectObjectFormBaseFieldsProps {
   mode?: AspectObjectFormMode;
@@ -45,7 +45,7 @@ export const AspectObjectFormBaseFields = ({ mode }: AspectObjectFormBaseFieldsP
   const companies = useGetFilteredCompanies(MimirorgPermission.Write);
 
   return (
-    <AspectObjectFormBaseFieldsContainer>
+    <FormBaseFieldsContainer>
       <AspectObjectFormPreview control={control} />
 
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
@@ -185,6 +185,6 @@ export const AspectObjectFormBaseFields = ({ mode }: AspectObjectFormBaseFieldsP
         </PlainLink>
         <Button type={"submit"}>{t("common.submit")}</Button>
       </Flexbox>
-    </AspectObjectFormBaseFieldsContainer>
+    </FormBaseFieldsContainer>
   );
 };

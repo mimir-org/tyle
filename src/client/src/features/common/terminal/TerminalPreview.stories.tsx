@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { TerminalPreview } from "features/common/terminal/TerminalPreview";
+import { TerminalPreview } from "features/entities/entityPreviews/TerminalPreview";
 
 export default {
   title: "Features/Common/Terminal/TerminalPreview",

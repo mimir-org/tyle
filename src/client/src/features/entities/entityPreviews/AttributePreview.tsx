@@ -2,7 +2,7 @@ import styled from "styled-components/macro";
 import { Text } from "../../../complib/text";
 import { useTheme } from "styled-components";
 import { FormUnitHelper } from "../units/types/FormUnitHelper";
-import UnitPreview from "../units/UnitPreview";
+import UnitPreview from "./UnitPreview";
 
 interface StyledDivProps {
   small?: boolean;
@@ -11,7 +11,7 @@ interface StyledDivProps {
 const StyledDiv = styled.div<StyledDivProps>`
   display: flex;
   flex-direction: column;
-  gap: ${(props) => props.theme.tyle.spacing.xl};
+  gap: ${(props) => (props.small ? props.theme.tyle.spacing.xs : props.theme.tyle.spacing.xl)};
   padding: ${(props) => props.theme.tyle.spacing.xl};
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
   background-color: ${(props) => props.theme.tyle.color.sys.surface.tint.base};
@@ -20,10 +20,7 @@ const StyledDiv = styled.div<StyledDivProps>`
   height: fit-content;
   overflow-y: auto;
   scrollbar-width: thin;
-  transition: all 0.5s ease-in-out;
-  transform: ${(props) => (props.small ? "scale(0.5)" : "scale(1)")};
-  width: ${(props) => (props.small ? "300px" : "auto")};
-  margin: ${(props) => (props.small ? "-5%" : "0")};
+  width: ${(props) => (props.small ? "200px" : "40rem")};
   cursor: ${(props) => (props.small ? "pointer" : "auto")};
 `;
 
@@ -40,16 +37,16 @@ export default function AttributePreview({ name, description, attributeUnits, sm
 
   return (
     <StyledDiv small={small}>
-      <Text color={theme.tyle.color.sys.pure.base} variant={"headline-large"}>
+      <Text color={theme.tyle.color.sys.pure.base} variant={"headline-large"} useEllipsis={small}>
         {name}
       </Text>
-      <Text color={theme.tyle.color.sys.pure.base}>{description}</Text>
+      {!small && <Text color={theme.tyle.color.sys.pure.base}>{description}</Text>}
       {attributeUnits &&
         (small
           ? attributeUnits
               .filter((unit) => unit.isDefault)
-              .map((unit) => <UnitPreview unit={unit} key={unit.unitId} noBadge />)
-          : attributeUnits.map((unit) => <UnitPreview unit={unit} key={unit.unitId} />))}
+              .map((unit) => <UnitPreview {...unit} key={unit.unitId} small={small} noBadge />)
+          : attributeUnits.map((unit) => <UnitPreview {...unit} key={unit.unitId} />))}
     </StyledDiv>
   );
 }
