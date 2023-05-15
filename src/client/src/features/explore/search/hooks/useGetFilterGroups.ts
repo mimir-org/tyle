@@ -63,7 +63,7 @@ const getAttributeFilters = (): FilterGroup => ({
     },
     {
       key: "kind",
-      label: "Datums",
+      label: "QuantityDatums",
       value: "QuantityDatumLibCm",
     },
     {

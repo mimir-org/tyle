@@ -3,7 +3,7 @@ import { QuantityDatumLibAm } from "@mimirorg/typelibrary-types";
 import { quantityDatum } from "./quantityDatum";
 
 const keys = {
-  all: ["datums"] as const,
+  all: ["quantityDatums"] as const,
   lists: () => [...keys.all, "list"] as const,
   quantityDatum: (id?: string) => [...keys.lists(), id] as const,
 };
@@ -11,7 +11,7 @@ const keys = {
 export const useGetQuantityDatums = (options?: Pick<UseQueryOptions, "staleTime">) =>
   useQuery(keys.lists(), quantityDatum.getQuantityDatums, options);
 
-export const useGetQuantityDatum = (id?: string) =>
+export const useGetQuantityQuantityDatum = (id?: string) =>
   useQuery(keys.quantityDatum(id), () => quantityDatum.getQuantityDatum(id), { enabled: !!id, retry: false });
 
 export const useCreateQuantityDatum = () => {

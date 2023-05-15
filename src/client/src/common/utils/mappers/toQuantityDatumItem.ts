@@ -1,14 +1,14 @@
 import { QuantityDatumLibCm } from "@mimirorg/typelibrary-types";
-import { DatumItem } from "../../types/datumItem";
+import { QuantityDatumItem } from "../../types/quantityDatumItem";
 
-export const toDatumItem = (datum: QuantityDatumLibCm): DatumItem => {
+export const toQuantityDatumItem = (datum: QuantityDatumLibCm): QuantityDatumItem => {
   return {
     id: datum.id,
     name: datum.name,
     description: datum.description,
     quantityType: datum.quantityDatumType,
     typeReference: datum.typeReference,
-    kind: "DatumItem",
+    kind: "QuantityDatumItem",
     state: datum.state,
   };
 };

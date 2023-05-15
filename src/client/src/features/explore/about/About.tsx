@@ -13,13 +13,13 @@ import { useGetAttribute } from "../../../external/sources/attribute/attribute.q
 import AttributePreview from "../../entities/entityPreviews/attribute/AttributePreview";
 import { toFormAttributeLib } from "../../entities/attributes/types/formAttributeLib";
 import UnitPreview from "../../entities/entityPreviews/unit/UnitPreview";
-import DatumPreview from "../../entities/entityPreviews/datum/DatumPreview";
+import QuantityDatumPreview from "../../entities/entityPreviews/quantityDatum/QuantityDatumPreview";
 import { RdsPreview } from "../../entities/entityPreviews/rds/RdsPreview";
 import { toFormUnitLib } from "../../entities/units/types/formUnitLib";
 import { useGetUnit } from "../../../external/sources/unit/unit.queries";
-import { useGetQuantityDatum } from "../../../external/sources/datum/quantityDatum.queries";
+import { useGetQuantityQuantityDatum } from "../../../external/sources/datum/quantityDatum.queries";
 import { useGetRds } from "../../../external/sources/rds/rds.queries";
-import { toFormDatumLib } from "../../entities/datum/types/formDatumLib";
+import { toFormDatumLib } from "../../entities/quantityDatum/types/formQuantityDatumLib";
 import { toFormRdsLib } from "../../entities/RDS/types/formRdsLib";
 
 interface AboutProps {
@@ -39,7 +39,7 @@ export const About = ({ selected }: AboutProps) => {
   const terminalQuery = useGetTerminal(selected?.type === "terminal" ? selected?.id : undefined);
   const attributeQuery = useGetAttribute(selected?.type === "attribute" ? selected?.id : undefined);
   const unitQuery = useGetUnit(selected?.type === "unit" ? selected?.id : undefined);
-  const datumQuery = useGetQuantityDatum(selected?.type === "datum" ? selected?.id : undefined);
+  const datumQuery = useGetQuantityQuantityDatum(selected?.type === "quantityDatum" ? selected?.id : undefined);
   const rdsQuery = useGetRds(selected?.type === "rds" ? selected?.id : undefined);
 
   const [showLoader, setShowLoader] = useState(true);
@@ -54,7 +54,7 @@ export const About = ({ selected }: AboutProps) => {
   const showTerminalPanel = !showLoader && selected?.type === "terminal" && terminalQuery.isSuccess;
   const showAttributePanel = !showLoader && selected?.type === "attribute" && attributeQuery.isSuccess;
   const showUnitPanel = !showLoader && selected?.type === "unit" && unitQuery.isSuccess;
-  const showDatumPanel = !showLoader && selected?.type === "datum" && datumQuery.isSuccess;
+  const showDatumPanel = !showLoader && selected?.type === "quantityDatum" && datumQuery.isSuccess;
   const showRdsPanel = !showLoader && selected?.type === "rds" && rdsQuery.isSuccess;
 
   return (
@@ -75,7 +75,7 @@ export const About = ({ selected }: AboutProps) => {
       )}
       {showAttributePanel && <AttributePreview {...toFormAttributeLib(attributeQuery.data)} />}
       {showUnitPanel && <UnitPreview {...toFormUnitLib(unitQuery.data)} />}
-      {showDatumPanel && <DatumPreview {...toFormDatumLib(datumQuery.data)} />}
+      {showDatumPanel && <QuantityDatumPreview {...toFormDatumLib(datumQuery.data)} />}
       {showRdsPanel && <RdsPreview {...toFormRdsLib(rdsQuery.data)} />}
     </ExploreSection>
   );

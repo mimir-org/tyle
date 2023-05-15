@@ -17,7 +17,7 @@ import {
   isUnitLibCm,
 } from "../guards/isItemValidators";
 import { toUnitItem } from "../../../../common/utils/mappers/toUnitItem";
-import { toDatumItem } from "../../../../common/utils/mappers/toDatumItem";
+import { toQuantityDatumItem } from "../../../../common/utils/mappers/toQuantityDatumItem";
 import { toRdsItem } from "../../../../common/utils/mappers/toRdsItem";
 
 /**
@@ -72,7 +72,7 @@ export const mapSearchResults = (items: SearchResultRaw[]) => {
     else if (isTerminalLibCm(x)) mappedSearchResults.push(mapTerminalLibCmToTerminalItem(x));
     else if (isAttributeLibCm(x)) mappedSearchResults.push(toAttributeItem(x));
     else if (isUnitLibCm(x)) mappedSearchResults.push(toUnitItem(x));
-    else if (isQuantityDatumLibCm(x)) mappedSearchResults.push(toDatumItem(x));
+    else if (isQuantityDatumLibCm(x)) mappedSearchResults.push(toQuantityDatumItem(x));
     else if (isRdsLibCm(x)) mappedSearchResults.push(toRdsItem(x));
   });
 

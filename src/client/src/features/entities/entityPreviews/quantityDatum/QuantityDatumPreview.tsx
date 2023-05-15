@@ -18,7 +18,7 @@ const StyledDiv = styled.div<StyledDivProps>`
   width: ${(props) => (props.small ? "200px" : "100%")};
 `;
 
-interface DatumPreviewProps {
+interface QuantityDatumPreviewProps {
   name: string;
   quantityDatumType?: number;
   description: string;
@@ -27,7 +27,12 @@ interface DatumPreviewProps {
 
 const quantityDatumTypeString = ["Specified scope", "Specified provenance", "Specified range", "Specified regularity"];
 
-export default function DatumPreview({ name, quantityDatumType, description, small }: DatumPreviewProps) {
+export default function QuantityDatumPreview({
+  name,
+  quantityDatumType,
+  description,
+  small,
+}: QuantityDatumPreviewProps) {
   return (
     <StyledDiv small={small}>
       <Text variant={small ? "title-large" : "display-small"} useEllipsis={small}>

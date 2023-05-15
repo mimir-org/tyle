@@ -8,21 +8,21 @@ import { useSubmissionToast } from "features/entities/common/utils/useSubmission
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { QuantityDatumLibAm, QuantityDatumLibCm } from "@mimirorg/typelibrary-types";
-import { createEmptyDatum, toDatumLibAm } from "./types/formDatumLib";
-import { useDatumMutation, useDatumQuery } from "./DatumForm.helpers";
+import { createEmptyDatum, toDatumLibAm } from "./types/formQuantityDatumLib";
+import { useQuantityDatumMutation, useQuantityDatumQuery } from "./QuantityDatumForm.helpers";
 import { Flexbox } from "../../../complib/layouts";
 import { PlainLink } from "../../common/plain-link";
 import { Button } from "../../../complib/buttons";
 import { useTheme } from "styled-components";
-import { DatumFormBaseFields } from "./DatumFormBaseFields";
-import DatumPreview from "../entityPreviews/datum/DatumPreview";
+import { QuantityDatumFormBaseFields } from "./QuantityDatumFormBaseFields";
+import QuantityDatumPreview from "../entityPreviews/quantityDatum/QuantityDatumPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
 
 interface DatumFormProps {
   defaultValues?: QuantityDatumLibAm;
 }
 
-export const DatumForm = ({ defaultValues = createEmptyDatum() }: DatumFormProps) => {
+export const QuantityDatumForm = ({ defaultValues = createEmptyDatum() }: DatumFormProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
@@ -32,15 +32,15 @@ export const DatumForm = ({ defaultValues = createEmptyDatum() }: DatumFormProps
 
   const { control, handleSubmit, setError, reset } = formMethods;
 
-  const query = useDatumQuery();
+  const query = useQuantityDatumQuery();
   const mapper = (source: QuantityDatumLibCm) => toDatumLibAm(source);
   const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
-  const mutation = useDatumMutation();
+  const mutation = useQuantityDatumMutation();
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
-  const toast = useSubmissionToast(t("datum.title"));
+  const toast = useSubmissionToast(t("quantityDatum.title"));
   const name = useWatch({ control, name: "name" });
   const description = useWatch({ control, name: "description" });
   const quantityDatumType = useWatch({ control, name: "quantityDatumType" });
@@ -58,7 +58,7 @@ export const DatumForm = ({ defaultValues = createEmptyDatum() }: DatumFormProps
           <Loader />
         ) : (
           <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
-            <DatumFormBaseFields />
+            <QuantityDatumFormBaseFields />
             <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
               <PlainLink tabIndex={-1} to={"/"}>
                 <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>
@@ -69,7 +69,7 @@ export const DatumForm = ({ defaultValues = createEmptyDatum() }: DatumFormProps
             </Flexbox>
           </Flexbox>
         )}
-        <DatumPreview {...quantityDatum} />
+        <QuantityDatumPreview {...quantityDatum} />
         <DevTool control={control} placement={"bottom-right"} />
       </FormContainer>
     </FormProvider>

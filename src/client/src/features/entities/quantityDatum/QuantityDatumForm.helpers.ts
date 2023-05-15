@@ -1,17 +1,17 @@
 import { useParams } from "react-router-dom";
 import {
   useCreateQuantityDatum,
-  useGetQuantityDatum,
+  useGetQuantityQuantityDatum,
   useUpdateQuantityDatum,
 } from "../../../external/sources/datum/quantityDatum.queries";
 import { TerminalFormMode } from "../terminal/types/terminalFormMode";
 
-export const useDatumQuery = () => {
+export const useQuantityDatumQuery = () => {
   const { id } = useParams();
-  return useGetQuantityDatum(id);
+  return useGetQuantityQuantityDatum(id);
 };
 
-export const useDatumMutation = (id?: string, mode?: TerminalFormMode) => {
+export const useQuantityDatumMutation = (id?: string, mode?: TerminalFormMode) => {
   const createMutation = useCreateQuantityDatum();
   const updateMutation = useUpdateQuantityDatum(id);
   return mode === "edit" ? updateMutation : createMutation;
