@@ -11,16 +11,14 @@ import { SelectedInfo } from "features/explore/common/selectedInfo";
 import { FilterMenu } from "features/explore/search/components/filter/FilterMenu";
 import { ItemList } from "features/explore/search/components/item/ItemList";
 import { LinkMenu } from "features/explore/search/components/link/LinkMenu";
-import { ConditionalAspectObjectSearchItem } from "features/explore/search/components/aspectobject/ConditionalAspectObjectSearchItem";
 import { SearchPlaceholder } from "features/explore/search/components/SearchPlaceholder";
-import { ConditionalTerminalSearchItem } from "features/explore/search/components/terminal/ConditionalTerminalSearchItem";
 import { useFilterState } from "features/explore/search/hooks/useFilterState";
 import { useGetFilterGroups } from "features/explore/search/hooks/useGetFilterGroups";
 import { useSearchResults } from "features/explore/search/hooks/useSearchResults";
 import { useCreateMenuLinks } from "features/explore/search/Search.helpers";
-import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { SearchResultsRenderer } from "./SearchResultsRenderer";
 
 interface SearchProps {
   selected?: SelectedInfo;
@@ -44,7 +42,7 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
   const [query, setQuery, debouncedQuery] = useDebounceState("");
   const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit);
   const userQuery = useGetCurrentUser();
-  const user = userQuery?.data != null ? mapMimirorgUserCmToUserItem(userQuery.data) : null;
+  const user = userQuery?.data != null ? mapMimirorgUserCmToUserItem(userQuery.data) : undefined;
 
   const showSearchText = !isLoading;
   const showResults = results.length > 0;
@@ -99,20 +97,13 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
       {showResults && user && (
         <ItemList>
           {results.map((item) => (
-            <Fragment key={item.id + item.kind}>
-              <ConditionalAspectObjectSearchItem
-                item={item}
-                isSelected={item.id === selected?.id && selected.type === "aspectObject"}
-                setSelected={() => setSelected({ id: item.id, type: "aspectObject" })}
-                user={user}
-              />
-              <ConditionalTerminalSearchItem
-                item={item}
-                isSelected={item.id === selected?.id && selected.type === "terminal"}
-                setSelected={() => setSelected({ id: item.id, type: "terminal" })}
-                user={user}
-              />
-            </Fragment>
+            <SearchResultsRenderer
+              key={item.id}
+              item={item}
+              selectedItemId={selected?.id ?? ""}
+              setSelected={setSelected}
+              user={user}
+            />
           ))}
         </ItemList>
       )}

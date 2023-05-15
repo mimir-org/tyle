@@ -1,4 +1,4 @@
-type SelectedInfoType = "aspectObject" | "terminal" | "attribute";
+type SelectedInfoType = "aspectObject" | "terminal" | "attribute" | "unit" | "quantityDatum" | "rds";
 
 /**
  * Interface for describing the currently selected item in the search list.

@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TypeLibrary.Services.Contracts;
+using TypeLibrary.Services.Services;
 
 namespace TypeLibrary.Core.Controllers.V1;
 
@@ -60,11 +61,42 @@ public class LibraryQuantityDatumController : ControllerBase
     }
 
     /// <summary>
+    /// Get quantity datum by id
+    /// </summary>
+    /// <param name="id">The id of the quantity datum to get</param>
+    /// <returns>The requested quantity datum</returns>
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(QuantityDatumLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [AllowAnonymous]
+    public IActionResult Get([FromRoute] string id)
+    {
+        try
+        {
+            var data = _quantityDatumService.Get(id);
+            if (data == null)
+                return NotFound(id);
+
+            return Ok(data);
+        }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
     /// Get all quantity datums of a given type
     /// </summary>
     /// <param name="type">The type of the quantity datum you want to receive</param>
     /// <returns>A collection of quantity datums</returns>
-    [HttpGet("{type}")]
+    [HttpGet("type/{type}")]
     [ProducesResponseType(typeof(ICollection<QuantityDatumLibCm>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]

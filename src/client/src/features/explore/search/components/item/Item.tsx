@@ -9,6 +9,7 @@ export interface ItemProps {
   preview: ReactNode;
   description: ReactNode;
   actions: ReactNode;
+  onClick?: () => void;
 }
 
 /**
@@ -19,13 +20,19 @@ export interface ItemProps {
  * @param preview slot for visual preview of the item
  * @param description slot for description of the item
  * @param actions slot for actions you can do with the item (usually buttons)
+ * @param onClick callback for when the item is clicked
  * @constructor
  */
-export const Item = ({ isSelected, preview, description, actions }: ItemProps) => {
+export const Item = ({ isSelected, preview, description, actions, onClick }: ItemProps) => {
   const theme = useTheme();
 
   return (
-    <MotionCard layout={"position"} variant={isSelected ? "selected" : "filled"} {...theme.tyle.animation.selectHover}>
+    <MotionCard
+      onClick={onClick}
+      layout={"position"}
+      variant={isSelected ? "selected" : "filled"}
+      {...theme.tyle.animation.selectHover}
+    >
       <Box
         position={"relative"}
         display={"flex"}

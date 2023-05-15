@@ -15,7 +15,6 @@ import {
   useAspectObjectMutation,
   useAspectObjectQuery,
 } from "features/entities/aspectobject/AspectObjectForm.helpers";
-import { AspectObjectFormContainer } from "features/entities/aspectobject/AspectObjectForm.styled";
 import { AspectObjectFormBaseFields } from "features/entities/aspectobject/AspectObjectFormBaseFields";
 import { aspectObjectSchema } from "features/entities/aspectobject/aspectObjectSchema";
 import {
@@ -28,6 +27,7 @@ import { AspectObjectFormMode } from "features/entities/aspectobject/types/aspec
 import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
+import { FormContainer } from "../../../complib/form/FormContainer.styled";
 
 interface AspectObjectFormProps {
   defaultValues?: FormAspectObjectLib;
@@ -60,7 +60,7 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
 
   return (
     <FormProvider {...formMethods}>
-      <AspectObjectFormContainer
+      <FormContainer
         onSubmit={handleSubmit((data) =>
           onSubmitForm(mapFormAspectObjectLibToApiModel(data), mutation.mutateAsync, toast)
         )}
@@ -84,7 +84,7 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
           </>
         )}
         <DevTool control={control} placement={"bottom-right"} />
-      </AspectObjectFormContainer>
+      </FormContainer>
     </FormProvider>
   );
 };

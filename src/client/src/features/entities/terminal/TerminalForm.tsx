@@ -11,7 +11,6 @@ import { prepareAttributes } from "features/entities/common/utils/prepareAttribu
 import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
 import { useTerminalMutation, useTerminalQuery } from "features/entities/terminal/TerminalForm.helpers";
-import { TerminalFormContainer } from "features/entities/terminal/TerminalForm.styled";
 import { TerminalFormBaseFields } from "features/entities/terminal/TerminalFormBaseFields";
 import { terminalSchema } from "features/entities/terminal/terminalSchema";
 import {
@@ -24,6 +23,7 @@ import { TerminalFormMode } from "features/entities/terminal/types/terminalFormM
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { FormContainer } from "../../../complib/form/FormContainer.styled";
 
 interface TerminalFormProps {
   defaultValues?: FormTerminalLib;
@@ -54,7 +54,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
 
   return (
     <FormProvider {...formMethods}>
-      <TerminalFormContainer
+      <FormContainer
         onSubmit={handleSubmit((data) => onSubmitForm(mapFormTerminalLibToApiModel(data), mutation.mutateAsync, toast))}
       >
         {isLoading && <Loader />}
@@ -75,7 +75,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
           </>
         )}
         <DevTool control={control} placement={"bottom-right"} />
-      </TerminalFormContainer>
+      </FormContainer>
     </FormProvider>
   );
 };

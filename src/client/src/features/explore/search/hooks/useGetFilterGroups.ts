@@ -40,5 +40,25 @@ const getEntityFilters = (): FilterGroup => ({
       label: "Terminal",
       value: "TerminalLibCm",
     },
+    {
+      key: "kind",
+      label: "Attribute",
+      value: "AttributeLibCm",
+    },
+    {
+      key: "kind",
+      label: "Unit",
+      value: "UnitLibCm",
+    },
+    {
+      key: "kind",
+      label: "Quantity datum",
+      value: "QuantityDatumLibCm",
+    },
+    {
+      key: "kind",
+      label: "RDS",
+      value: "RdsLibCm",
+    },
   ],
 });

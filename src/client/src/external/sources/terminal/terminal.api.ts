@@ -19,7 +19,7 @@ export const terminalApi = {
   patchTerminalState(id: string, state: State) {
     return apiClient.patch<TerminalLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
   },
-  patchhTerminalStateReject(id: string) {
+  patchTerminalStateReject(id: string) {
     return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/reject`).then((r) => r.data);
   },
 };

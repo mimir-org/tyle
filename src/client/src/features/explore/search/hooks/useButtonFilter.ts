@@ -2,7 +2,7 @@ import { StateItem } from "common/types/stateItem";
 import { UserItem } from "common/types/userItem";
 import { useEffect, useState } from "react";
 import { MimirorgPermission, State } from "@mimirorg/typelibrary-types";
-import { isAspectObjectItem } from "../guards";
+import { isAspectObjectItem } from "../guards/isItemValidators";
 
 export interface ButtonState {
   clone: boolean;

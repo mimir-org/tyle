@@ -1,4 +1,3 @@
-import { AttributeLibAm } from "@mimirorg/typelibrary-types";
 import { Button } from "complib/buttons";
 import { FormField } from "complib/form";
 import { Input, Select, Textarea } from "complib/inputs";
@@ -9,6 +8,9 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { useGetUnits } from "../../../external/sources/unit/unit.queries";
 import { useEffect, useState } from "react";
+import { FormUnitHelper } from "../units/types/FormUnitHelper";
+import { FormAttributeLib } from "./types/formAttributeLib";
+import { FormBaseFieldsContainer } from "../../../complib/form/FormContainer.styled";
 
 /**
  * Component which contains all simple value fields of the attribute form.
@@ -16,19 +18,12 @@ import { useEffect, useState } from "react";
  * @constructor
  */
 
-interface FormUnitHelper {
-  name: string;
-  symbol: string;
-  unitId: string;
-  isDefault: boolean;
-}
-
 export const AttributeFormBaseFields = () => {
   const [unitArray, setUnitArray] = useState<FormUnitHelper[]>([]);
   const [defaultUnit, setDefaultUnit] = useState<FormUnitHelper | null>(null);
   const theme = useTheme();
   const { t } = useTranslation("entities");
-  const { register, setValue, formState } = useFormContext<AttributeLibAm>();
+  const { register, setValue, formState } = useFormContext<FormAttributeLib>();
   const { errors } = formState;
 
   register("attributeUnits");
@@ -38,10 +33,11 @@ export const AttributeFormBaseFields = () => {
 
   useEffect(() => {
     setValue("attributeUnits", unitArray);
+    unitArray.length > 0 && setDefaultUnit(unitArray.find((unit) => unit.isDefault) || null);
   }, [setValue, unitArray]);
 
   return (
-    <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
+    <FormBaseFieldsContainer>
       <FormField label={t("attribute.name")} error={errors.name}>
         <Input placeholder={t("attribute.placeholders.name")} {...register("name")} disabled={false} />
       </FormField>
@@ -64,7 +60,8 @@ export const AttributeFormBaseFields = () => {
                 symbol: unit.symbol,
                 name: unit.name,
                 unitId: unit.id,
-                isDefault: unit.id === defaultUnit?.unitId,
+                description: unit.description,
+                isDefault: unit.id === defaultUnit?.unitId || unitArray.length === 0,
               }))
             );
             setValue("attributeUnits", unitArray);
@@ -100,6 +97,6 @@ export const AttributeFormBaseFields = () => {
         </PlainLink>
         <Button type={"submit"}>{t("common.submit")}</Button>
       </Flexbox>
-    </Flexbox>
+    </FormBaseFieldsContainer>
   );
 };

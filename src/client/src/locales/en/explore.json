@@ -40,7 +40,7 @@
       "terminal": "Terminal",
       "attribute": "Attribute",
       "unit": "Unit",
-      "datum": "Datum",
+      "quantityDatum": "QuantityDatum",
       "rds": "RDS"
     }
   },

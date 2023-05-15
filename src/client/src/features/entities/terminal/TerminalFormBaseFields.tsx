@@ -4,7 +4,7 @@ import { Input, Textarea } from "complib/inputs";
 import { Flexbox } from "complib/layouts";
 import { PlainLink } from "features/common/plain-link";
 import { TerminalFormBaseFieldsContainer } from "features/entities/terminal/TerminalFormBaseFields.styled";
-import { TerminalFormPreview } from "features/entities/terminal/TerminalFormPreview";
+import { TerminalFormPreview } from "features/entities/entityPreviews/terminal/TerminalFormPreview";
 import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";
 import { TerminalFormMode } from "features/entities/terminal/types/terminalFormMode";
 import { useFormContext } from "react-hook-form";
