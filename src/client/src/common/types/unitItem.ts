@@ -10,6 +10,4 @@ export interface UnitItem extends StateItem {
   description: string;
   kind: string;
   symbol: string;
-  unitId: string;
-  isDefault: boolean;
 }
