@@ -22,7 +22,14 @@ public record ApprovalData()
 
     public ICollection<ApprovalCm> GetAllData()
     {
-        return AspectObjects.Union(Terminals).ToList();
+        var allData = new List<ApprovalCm>();
+        allData.AddRange(AspectObjects);
+        allData.AddRange(Terminals);
+        allData.AddRange(Attributes);
+        allData.AddRange(Units);
+        allData.AddRange(QuantityDatums);
+        allData.AddRange(Rds);
+        return allData;
     }
 
     public Task ResolveAspectObjects(IAspectObjectService aspectObjectService, IMapper mapper, IMimirorgAuthService authService)
