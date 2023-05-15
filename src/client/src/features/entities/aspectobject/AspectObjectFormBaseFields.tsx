@@ -16,14 +16,14 @@ import { PlainLink } from "features/common/plain-link";
 import { resetSubform } from "features/entities/aspectobject/AspectObjectForm.helpers";
 import { AspectObjectFormPreview } from "features/entities/entityPreviews/aspectobject/AspectObjectFormPreview";
 import { FormAspectObjectLib } from "features/entities/aspectobject/types/formAspectObjectLib";
-import { AspectObjectFormMode } from "features/entities/aspectobject/types/aspectObjectFormMode";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { FormBaseFieldsContainer } from "../../../complib/form/FormContainer.styled";
+import { FormMode } from "../types/formMode";
 
 interface AspectObjectFormBaseFieldsProps {
-  mode?: AspectObjectFormMode;
+  mode?: FormMode;
 }
 
 /**

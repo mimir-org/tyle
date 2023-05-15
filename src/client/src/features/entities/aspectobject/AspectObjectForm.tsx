@@ -23,15 +23,15 @@ import {
   mapFormAspectObjectLibToApiModel,
   mapAspectObjectLibCmToClientModel,
 } from "features/entities/aspectobject/types/formAspectObjectLib";
-import { AspectObjectFormMode } from "features/entities/aspectobject/types/aspectObjectFormMode";
 import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
+import { FormMode } from "../types/formMode";
 
 interface AspectObjectFormProps {
   defaultValues?: FormAspectObjectLib;
-  mode?: AspectObjectFormMode;
+  mode?: FormMode;
 }
 
 export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLib(), mode }: AspectObjectFormProps) => {

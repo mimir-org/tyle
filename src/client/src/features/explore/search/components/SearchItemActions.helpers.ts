@@ -11,7 +11,7 @@ export function getCloneLink(item: ItemType) {
     case "UnitItem":
       return `/form/unit/clone/${item.id}`;
     case "QuantityDatumItem":
-      return `/form/datum/clone/${item.id}`;
+      return `/form/quantityDatum/clone/${item.id}`;
     case "RdsItem":
       return `/form/rds/clone/${item.id}`;
     default:
@@ -30,7 +30,7 @@ export function getEditLink(item: ItemType) {
     case "UnitItem":
       return `/form/unit/edit/${item.id}`;
     case "QuantityDatumItem":
-      return `/form/datum/edit/${item.id}`;
+      return `/form/quantityDatum/edit/${item.id}`;
     case "RdsItem":
       return `/form/rds/edit/${item.id}`;
     default:

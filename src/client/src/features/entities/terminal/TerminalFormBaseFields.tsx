@@ -6,13 +6,13 @@ import { PlainLink } from "features/common/plain-link";
 import { TerminalFormBaseFieldsContainer } from "features/entities/terminal/TerminalFormBaseFields.styled";
 import { TerminalFormPreview } from "features/entities/entityPreviews/terminal/TerminalFormPreview";
 import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";
-import { TerminalFormMode } from "features/entities/terminal/types/terminalFormMode";
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { FormMode } from "../types/formMode";
 
 interface TerminalFormBaseFieldsProps {
-  mode?: TerminalFormMode;
+  mode?: FormMode;
 }
 
 /**

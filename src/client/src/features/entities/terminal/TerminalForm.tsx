@@ -19,15 +19,15 @@ import {
   mapFormTerminalLibToApiModel,
   mapTerminalLibCmToFormTerminalLib,
 } from "features/entities/terminal/types/formTerminalLib";
-import { TerminalFormMode } from "features/entities/terminal/types/terminalFormMode";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
+import { FormMode } from "../types/formMode";
 
 interface TerminalFormProps {
   defaultValues?: FormTerminalLib;
-  mode?: TerminalFormMode;
+  mode?: FormMode;
 }
 
 export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mode }: TerminalFormProps) => {

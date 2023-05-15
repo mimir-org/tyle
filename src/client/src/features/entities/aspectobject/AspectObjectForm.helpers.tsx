@@ -7,15 +7,15 @@ import {
 import { AspectObjectFormPredefinedAttributes } from "features/entities/aspectobject/predefined-attributes/AspectObjectFormPredefinedAttributes";
 import { AspectObjectFormTerminals } from "features/entities/aspectobject/terminals/AspectObjectFormTerminals";
 import { FormAspectObjectLib } from "features/entities/aspectobject/types/formAspectObjectLib";
-import { AspectObjectFormMode } from "features/entities/aspectobject/types/aspectObjectFormMode";
 import { useParams } from "react-router-dom";
+import { FormMode } from "../types/formMode";
 
 export const useAspectObjectQuery = () => {
   const { id } = useParams();
   return useGetAspectObject(id);
 };
 
-export const useAspectObjectMutation = (id?: string, mode?: AspectObjectFormMode) => {
+export const useAspectObjectMutation = (id?: string, mode?: FormMode) => {
   const aspectObjectUpdateMutation = useUpdateAspectObject(id);
   const aspectObjectCreateMutation = useCreateAspectObject();
   return mode === "edit" ? aspectObjectUpdateMutation : aspectObjectCreateMutation;
@@ -32,7 +32,7 @@ export const resetSubform = (resetField: (value: keyof FormAspectObjectLib) => v
   resetField("attributes");
 };
 
-export const getSubformForAspect = (aspect: Aspect, mode?: AspectObjectFormMode) => {
+export const getSubformForAspect = (aspect: Aspect, mode?: FormMode) => {
   switch (aspect) {
     case Aspect.Function:
       return <AspectObjectFormTerminals canRemoveTerminals={mode !== "edit"} />;

@@ -18,12 +18,14 @@ import {
 } from "./types/formAttributeLib";
 import { AttributeFormPreview } from "../entityPreviews/attribute/AttributeFormPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
+import { FormMode } from "../types/formMode";
 
 interface AttributeFormProps {
   defaultValues?: FormAttributeLib;
+  mode?: FormMode;
 }
 
-export const AttributeForm = ({ defaultValues = createEmptyAttribute() }: AttributeFormProps) => {
+export const AttributeForm = ({ defaultValues = createEmptyAttribute(), mode }: AttributeFormProps) => {
   const { t } = useTranslation("entities");
 
   const formMethods = useForm<FormAttributeLib>({
@@ -36,7 +38,7 @@ export const AttributeForm = ({ defaultValues = createEmptyAttribute() }: Attrib
   const mapper = (source: AttributeLibCm) => toFormAttributeLib(source);
   const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
-  const mutation = useAttributeMutation(query.data?.id, true);
+  const mutation = useAttributeMutation(query.data?.id, mode);
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
@@ -53,7 +55,7 @@ export const AttributeForm = ({ defaultValues = createEmptyAttribute() }: Attrib
           <Loader />
         ) : (
           <>
-            <AttributeFormBaseFields />
+            <AttributeFormBaseFields mode={mode} />
             <AttributeFormPreview control={control} />
             <DevTool control={control} placement={"bottom-right"} />
           </>
