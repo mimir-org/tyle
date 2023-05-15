@@ -39,7 +39,7 @@ export default function QuantityDatumPreview({
         {name}
       </Text>
       <Text useEllipsis={small}>{description}</Text>
-      {quantityDatumType != undefined ? (
+      {quantityDatumType !== undefined ? (
         <Badge variant={"info"}>
           <Text variant={small ? "body-small" : "body-medium"}>{quantityDatumTypeString[quantityDatumType]}</Text>
         </Badge>

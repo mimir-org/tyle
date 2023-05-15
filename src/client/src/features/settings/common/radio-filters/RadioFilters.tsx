@@ -32,11 +32,16 @@ export const RadioFilters = ({ title, filters, onChange, value }: RadioFiltersPr
         {filters.map((x, i) => {
           const conditionalProps: Partial<{ checked: boolean }> = {};
           if (inputIsControlled) {
-            conditionalProps.checked = value == x.value;
+            conditionalProps.checked = value === x.value;
           }
 
           return (
-            <TokenRadioGroupItem key={i} value={x.value} onClick={() => onChange(x.value)} {...conditionalProps}>
+            <TokenRadioGroupItem
+              key={x.value + i}
+              value={x.value}
+              onClick={() => onChange(x.value)}
+              {...conditionalProps}
+            >
               {x.label}
             </TokenRadioGroupItem>
           );
