@@ -12,8 +12,8 @@ import { usePatchAspectObjectStateReject } from "external/sources/aspectobject/a
 import { usePatchTerminalStateReject } from "external/sources/terminal/terminal.queries";
 import { usePatchAttributeState } from "../../../external/sources/attribute/attribute.queries";
 import { usePatchUnitState } from "../../../external/sources/unit/unit.queries";
-import { usePatchQuantityDatumState } from "../../../external/sources/datum/datum.queries";
 import { usePatchRdsState } from "../../../external/sources/rds/rds.queries";
+import { usePatchQuantityDatumState } from "../../../external/sources/datum/quantityDatum.queries";
 
 export const Approval = () => {
   const queryClient = useQueryClient();
@@ -56,6 +56,8 @@ export const Approval = () => {
       case "Rds":
         patchMutationRejectRds.mutateAsync(data);
         break;
+      default:
+        break;
     }
 
     setTimeout(() => {
@@ -70,8 +72,8 @@ export const Approval = () => {
       </Text>
       <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.tyle.spacing.xxxl}>
         {showPlaceholder && <ApprovalPlaceholder text={t("approval.placeholders.emptyApproval")} />}
-        {approvals.data?.map((approval, index) => (
-          <ApprovalCard key={`${index},${approval.id}`} item={approval} onSubmit={onSubmit} onReject={onReject} />
+        {approvals.data?.map((approval) => (
+          <ApprovalCard key={`${approval.id}`} item={approval} onSubmit={onSubmit} onReject={onReject} />
         ))}
       </Flexbox>
     </SettingsSection>

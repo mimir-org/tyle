@@ -1,4 +1,4 @@
-import { ApprovalDataCm, QuantityDatumLibAm, QuantityDatumLibCm, State } from "@mimirorg/typelibrary-types";
+import { QuantityDatumLibAm, QuantityDatumLibCm, State } from "@mimirorg/typelibrary-types";
 import { apiClient } from "external/client/apiClient";
 
 const _basePath = "libraryquantitydatum";

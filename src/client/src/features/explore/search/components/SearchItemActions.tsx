@@ -14,7 +14,7 @@ import { usePatchRdsState } from "../../../../external/sources/rds/rds.queries";
 import { usePatchAspectObjectState } from "../../../../external/sources/aspectobject/aspectObject.queries";
 import { usePatchAttributeState } from "../../../../external/sources/attribute/attribute.queries";
 import { usePatchUnitState } from "../../../../external/sources/unit/unit.queries";
-import { usePatchQuantityDatumState } from "../../../../external/sources/datum/datum.queries";
+import { usePatchQuantityDatumState } from "../../../../external/sources/datum/quantityDatum.queries";
 
 type SearchItemProps = {
   user: UserItem | null;
@@ -33,14 +33,34 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
   const patchAttributeMutation = usePatchAttributeState();
   const btnFilter = useButtonStateFilter(item, user);
 
+  function getMutation() {
+    switch (item.kind) {
+      case "AspectObjectItem":
+        return patchAspectObjectMutation;
+      case "TerminalItem":
+        return patchTerminalMutation;
+      case "AttributeItem":
+        return patchAttributeMutation;
+      case "UnitItem":
+        return patchUnitMutation;
+      case "QuantityDatumItem":
+        return patchQuantityDatumMutation;
+      case "RdsItem":
+        return patchRdsMutation;
+      default:
+        console.log(item.kind);
+        throw new Error("Unknown item kind");
+    }
+  }
+
   const deleteAction = {
     name: t("search.item.delete"),
-    onAction: () => patchMutation.mutate({ id: item.id, state: State.Delete }),
+    onAction: () => getMutation().mutate({ id: item.id, state: State.Delete }),
   };
 
   const approveAction = {
     name: t("search.item.approve"),
-    onAction: () => patchMutation.mutate({ id: item.id, state: State.Approve }),
+    onAction: () => getMutation().mutate({ id: item.id, state: State.Approve }),
   };
 
   const cloneLink = btnFilter.clone ? getCloneLink(item) : "#";

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient, UseQueryOptions } from "@tanstack/react-query";
-import { QuantityDatumLibAm } from "@mimirorg/typelibrary-types";
+import { QuantityDatumLibAm, State } from "@mimirorg/typelibrary-types";
 import { quantityDatum } from "./quantityDatum";
 
 const keys = {
@@ -28,4 +28,15 @@ export const useUpdateQuantityDatum = (id?: string) => {
   return useMutation((item: QuantityDatumLibAm) => quantityDatum.putQuantityDatum(item, id), {
     onSuccess: () => queryClient.invalidateQueries(keys.quantityDatum(id)),
   });
+};
+
+export const usePatchQuantityDatumState = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    (item: { id: string; state: State }) => quantityDatum.patchQuantityDatumState(item.id, item.state),
+    {
+      onSuccess: () => queryClient.invalidateQueries(keys.lists()),
+    }
+  );
 };
