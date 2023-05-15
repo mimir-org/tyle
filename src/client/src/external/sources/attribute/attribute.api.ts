@@ -20,9 +20,6 @@ export const attributeApi = {
   getAttributesPredefined() {
     return apiClient.get<AttributePredefinedLibCm[]>(`${_basePath}/predefined`).then((r) => r.data);
   },
-  getQuantityDatum(datumType: QuantityDatumType) {
-    return apiClient.get<QuantityDatumLibCm[]>(`${_basePath}/datum/${datumType}`).then((r) => r.data);
-  },
   putAttribute(item: AttributeLibAm, id?: string) {
     return apiClient.put<AttributeLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
   },
