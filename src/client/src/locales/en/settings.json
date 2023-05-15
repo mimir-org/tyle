@@ -53,7 +53,10 @@
     "submit": "Update user settings"
   },
   "company": {
-    "title": "Create or update company",
+    "title": {
+      "create": "Create new company",
+      "update": "Update company"
+    },
     "company": "company",
     "creating": {
       "loading": "Creating new company",

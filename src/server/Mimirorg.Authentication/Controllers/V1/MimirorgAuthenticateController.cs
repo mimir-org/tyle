@@ -71,7 +71,7 @@ public class MimirorgAuthenticateController : ControllerBase
         {
             _logger.LogError(e, $"An error occurred while trying to authenticate the user. Error: {e.Message}");
             await RemoveRefreshCookies(HttpContext.Request, HttpContext.Response);
-            return StatusCode(401, "Authentication failed");
+            return StatusCode(401, "Unable to login");
         }
         catch (Exception e)
         {
