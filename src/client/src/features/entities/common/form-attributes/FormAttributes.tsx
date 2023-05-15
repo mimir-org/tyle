@@ -1,9 +1,8 @@
 import { AttributeLibCm } from "@mimirorg/typelibrary-types";
-import { Trash, XCircle } from "@styled-icons/heroicons-outline";
+import { XCircle } from "@styled-icons/heroicons-outline";
 import { Token } from "complib/general";
 import { Flexbox } from "complib/layouts";
 import { useGetAttributes } from "external/sources/attribute/attribute.queries";
-import { InfoItemButton } from "features/common/info-item";
 import {
   onAddAttributes,
   resolveSelectedAndAvailableAttributes,
