@@ -19,7 +19,7 @@ export const datumApi = {
   patchDatumState(id: string, state: State) {
     return apiClient.patch<QuantityDatumLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
   },
-  patchDatumStateReject(id: string) {
-    return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/reject`).then((r) => r.data);
+  patchQuantityDatumState(id: string, state: State) {
+    return apiClient.patch<QuantityDatumLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
   },
 };

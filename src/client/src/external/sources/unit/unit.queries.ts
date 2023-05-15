@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { unitApi } from "external/sources/unit/unit.api";
-import { UnitLibAm } from "@mimirorg/typelibrary-types";
+import { State, UnitLibAm } from "@mimirorg/typelibrary-types";
 
 const keys = {
   allUnits: ["units"] as const,
@@ -18,5 +18,13 @@ export const useCreateUnit = () => {
 
   return useMutation((item: UnitLibAm) => unitApi.postUnit(item), {
     onSuccess: () => queryClient.invalidateQueries(keys.allUnits),
+  });
+};
+
+export const usePatchUnitState = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation((item: { id: string; state: State }) => unitApi.patchUnitState(item.id, item.state), {
+    onSuccess: () => queryClient.invalidateQueries(keys.unitLists()),
   });
 };

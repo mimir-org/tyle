@@ -10,6 +10,11 @@ import { AlertDialog } from "../../../../complib/overlays";
 import { UserItem } from "../../../../common/types/userItem";
 import { getCloneLink, getEditLink } from "./SearchItemActions.helpers";
 import { ItemType } from "../../../entities/types/itemTypes";
+import { usePatchRdsState } from "../../../../external/sources/rds/rds.queries";
+import { usePatchAspectObjectState } from "../../../../external/sources/aspectobject/aspectObject.queries";
+import { usePatchAttributeState } from "../../../../external/sources/attribute/attribute.queries";
+import { usePatchUnitState } from "../../../../external/sources/unit/unit.queries";
+import { usePatchQuantityDatumState } from "../../../../external/sources/datum/datum.queries";
 
 type SearchItemProps = {
   user: UserItem | null;
@@ -20,7 +25,12 @@ type SearchItemProps = {
 export const SearchItemActions = ({ user, item, children }: SearchItemProps) => {
   const theme = useTheme();
   const { t } = useTranslation("explore");
-  const patchMutation = usePatchTerminalState();
+  const patchAspectObjectMutation = usePatchAspectObjectState();
+  const patchTerminalMutation = usePatchTerminalState();
+  const patchUnitMutation = usePatchUnitState();
+  const patchQuantityDatumMutation = usePatchQuantityDatumState();
+  const patchRdsMutation = usePatchRdsState();
+  const patchAttributeMutation = usePatchAttributeState();
   const btnFilter = useButtonStateFilter(item, user);
 
   const deleteAction = {
@@ -62,24 +72,6 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
       </PlainLink>
       <AlertDialog
         gap={theme.tyle.spacing.multiple(6)}
-        actions={[deleteAction]}
-        title={t("search.item.templates.delete", { object: name })}
-        description={t("search.item.deleteDescription")}
-        hideDescription
-        content={children}
-      >
-        <Button
-          disabled={!btnFilter.delete}
-          variant={btnFilter.deleted ? "outlined" : "filled"}
-          icon={<Trash />}
-          iconOnly
-        >
-          {t("search.item.delete")}
-        </Button>
-      </AlertDialog>
-
-      <AlertDialog
-        gap={theme.tyle.spacing.multiple(6)}
         actions={[approveAction]}
         title={t("search.item.templates.approve")}
         description={t("search.item.approveDescription")}
@@ -93,6 +85,24 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
           iconOnly
         >
           {t("search.item.approve")}
+        </Button>
+      </AlertDialog>
+      <AlertDialog
+        gap={theme.tyle.spacing.multiple(6)}
+        actions={[deleteAction]}
+        title={t("search.item.templates.delete", { object: name })}
+        description={t("search.item.deleteDescription")}
+        hideDescription
+        content={children}
+      >
+        <Button
+          disabled={!btnFilter.delete}
+          variant={btnFilter.deleted ? "outlined" : "filled"}
+          icon={<Trash />}
+          dangerousAction
+          iconOnly
+        >
+          {t("search.item.delete")}
         </Button>
       </AlertDialog>
     </>

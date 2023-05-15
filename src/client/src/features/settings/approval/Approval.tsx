@@ -10,6 +10,10 @@ import { approvalKeys, useGetApprovals } from "external/sources/approval/approva
 import { ApprovalDataCm, State } from "@mimirorg/typelibrary-types";
 import { usePatchAspectObjectStateReject } from "external/sources/aspectobject/aspectObject.queries";
 import { usePatchTerminalStateReject } from "external/sources/terminal/terminal.queries";
+import { usePatchAttributeState } from "../../../external/sources/attribute/attribute.queries";
+import { usePatchUnitState } from "../../../external/sources/unit/unit.queries";
+import { usePatchQuantityDatumState } from "../../../external/sources/datum/datum.queries";
+import { usePatchRdsState } from "../../../external/sources/rds/rds.queries";
 
 export const Approval = () => {
   const queryClient = useQueryClient();
@@ -18,6 +22,10 @@ export const Approval = () => {
   const approvals = useGetApprovals();
   const patcMutationRejectAspectObject = usePatchAspectObjectStateReject();
   const patcMutationRejectTerminal = usePatchTerminalStateReject();
+  const patchMutationRejectAttribute = usePatchAttributeState();
+  const patchMutationRejectUnit = usePatchUnitState();
+  const patchMutationRejectQuantityDatum = usePatchQuantityDatumState();
+  const patchMutationRejectRds = usePatchRdsState();
   const showPlaceholder = approvals?.data && approvals.data.length === 0;
 
   const onSubmit = () => {
@@ -35,6 +43,18 @@ export const Approval = () => {
         break;
       case "Terminal":
         patcMutationRejectTerminal.mutateAsync(data);
+        break;
+      case "Attribute":
+        patchMutationRejectAttribute.mutateAsync(data);
+        break;
+      case "Unit":
+        patchMutationRejectUnit.mutateAsync(data);
+        break;
+      case "QuantityDatum":
+        patchMutationRejectQuantityDatum.mutateAsync(data);
+        break;
+      case "Rds":
+        patchMutationRejectRds.mutateAsync(data);
         break;
     }
 
