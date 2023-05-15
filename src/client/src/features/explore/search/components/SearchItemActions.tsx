@@ -48,7 +48,6 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
       case "RdsItem":
         return patchRdsMutation;
       default:
-        console.log(item.kind);
         throw new Error("Unknown item kind");
     }
   }
