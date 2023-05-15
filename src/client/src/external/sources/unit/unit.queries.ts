@@ -20,3 +20,11 @@ export const useCreateUnit = () => {
     onSuccess: () => queryClient.invalidateQueries(keys.allUnits),
   });
 };
+
+export const useUpdateUnit = (id?: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation((item: UnitLibAm) => unitApi.putUnit(item, id), {
+    onSuccess: () => queryClient.invalidateQueries(keys.unit(id)),
+  });
+};
