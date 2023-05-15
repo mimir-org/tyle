@@ -3,12 +3,7 @@ import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { useGetPurposes } from "external/sources/purpose/purpose.queries";
 import { FilterGroup } from "features/explore/search/types/filterGroup";
 
-export const useGetFilterGroups = (): FilterGroup[] => [
-  getEntityFilters(),
-  getAspectFilters(),
-  getAttributeFilters(),
-  useGetPurposeFilters(),
-];
+export const useGetFilterGroups = (): FilterGroup[] => [getEntityFilters(), getAspectFilters(), useGetPurposeFilters()];
 
 const useGetPurposeFilters = (): FilterGroup => {
   const purposeQuery = useGetPurposes();
@@ -45,25 +40,19 @@ const getEntityFilters = (): FilterGroup => ({
       label: "Terminal",
       value: "TerminalLibCm",
     },
-  ],
-});
-
-const getAttributeFilters = (): FilterGroup => ({
-  name: "Attributes",
-  filters: [
     {
       key: "kind",
-      label: "Attributes",
+      label: "Attribute",
       value: "AttributeLibCm",
     },
     {
       key: "kind",
-      label: "Units",
+      label: "Unit",
       value: "UnitLibCm",
     },
     {
       key: "kind",
-      label: "Datums",
+      label: "Quantity datum",
       value: "QuantityDatumLibCm",
     },
     {
