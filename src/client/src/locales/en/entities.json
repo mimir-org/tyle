@@ -199,7 +199,7 @@
     "description": "Description",
     "multiple": "Datums",
     "datumType": "Datum type",
-    "quantityDatumType": "Quantity type",
+    "quantityType": "Quantity type",
     "typeReference": "Type reference",
     "placeholders": {
       "name": "Datum name",

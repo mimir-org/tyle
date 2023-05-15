@@ -45,7 +45,7 @@ export const DatumForm = ({ defaultValues = createEmptyDatum() }: DatumFormProps
   const description = useWatch({ control, name: "description" });
   const quantityDatumType = useWatch({ control, name: "quantityDatumType" });
 
-  const datum = { name, description, quantityType: quantityDatumType };
+  const quantityDatum = { name, description, quantityType: quantityDatumType };
 
   return (
     <FormProvider {...formMethods}>
@@ -69,7 +69,7 @@ export const DatumForm = ({ defaultValues = createEmptyDatum() }: DatumFormProps
             </Flexbox>
           </Flexbox>
         )}
-        <DatumPreview {...datum} />
+        <DatumPreview {...quantityDatum} />
         <DevTool control={control} placement={"bottom-right"} />
       </FormContainer>
     </FormProvider>

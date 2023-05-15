@@ -6,7 +6,7 @@ import { SearchResult, SearchResultRaw } from "features/explore/search/types/sea
 import { useGetAttributes } from "../../../../external/sources/attribute/attribute.queries";
 import { toAttributeItem } from "../../../../common/utils/mappers/mapAttributeLibCmToAttributeItem";
 import { useGetUnits } from "../../../../external/sources/unit/unit.queries";
-import { useGetDatums } from "../../../../external/sources/datum/datum.queries";
+import { useGetQuantityDatums } from "../../../../external/sources/datum/quantityDatum.queries";
 import { useGetAllRds } from "../../../../external/sources/rds/rds.queries";
 import {
   isAspectObjectLibCm,
@@ -41,7 +41,7 @@ export const useSearchItems = (): [items: SearchResultRaw[], isLoading: boolean]
   const terminalQuery = useGetTerminals();
   const attributeQuery = useGetAttributes();
   const unitQuery = useGetUnits();
-  const datumQuery = useGetDatums();
+  const datumQuery = useGetQuantityDatums();
   const rdsQuery = useGetAllRds();
 
   const isLoading =
