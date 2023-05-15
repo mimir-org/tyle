@@ -1,5 +1,6 @@
 import { AttributeLibCm } from "@mimirorg/typelibrary-types";
-import { Trash } from "@styled-icons/heroicons-outline";
+import { Trash, XCircle } from "@styled-icons/heroicons-outline";
+import { Token } from "complib/general";
 import { Flexbox } from "complib/layouts";
 import { useGetAttributes } from "external/sources/attribute/attribute.queries";
 import { InfoItemButton } from "features/common/info-item";
@@ -74,15 +75,9 @@ export const FormAttributes = ({
           const attribute = selected.find((x) => x.id === field.value);
           return (
             attribute && (
-              <InfoItemButton
-                key={`${index},${field.value}`}
-                {...register(index)}
-                {...attribute}
-                actionable={canRemoveAttributes}
-                actionIcon={<Trash />}
-                actionText={t("common.attributes.remove")}
-                onAction={() => remove(index)}
-              />
+              <Token variant={"secondary"} key={attribute.id} {...register(index)} actionable={canRemoveAttributes} actionIcon={<XCircle />} actionText={t("common.attributes.remove")} onAction={() => remove(index)} dangerousAction>
+                {attribute.name}
+              </Token>
             )
           );
         })}
