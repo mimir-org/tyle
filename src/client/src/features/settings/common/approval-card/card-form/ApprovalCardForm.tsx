@@ -34,8 +34,8 @@ export const ApprovalCardForm = ({
 
   const stateOptions = getOptionsFromEnum<State>(State);
   const nextState = findNextState(item.state);
-  const currentState = stateOptions.find((x) => x.value == nextState);
-  const oldState = stateOptions.find((x) => x.value == item.state);
+  const currentState = stateOptions.find((x) => x.value === nextState);
+  const oldState = stateOptions.find((x) => x.value === item.state);
 
   const { register, control, handleSubmit, formState } = useForm<FormApproval>({
     resolver: yupResolver(approvalSchema(t)),

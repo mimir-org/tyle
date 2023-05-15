@@ -10,14 +10,22 @@ import { approvalKeys, useGetApprovals } from "external/sources/approval/approva
 import { ApprovalDataCm, State } from "@mimirorg/typelibrary-types";
 import { usePatchAspectObjectStateReject } from "external/sources/aspectobject/aspectObject.queries";
 import { usePatchTerminalStateReject } from "external/sources/terminal/terminal.queries";
+import { usePatchAttributeState } from "../../../external/sources/attribute/attribute.queries";
+import { usePatchUnitState } from "../../../external/sources/unit/unit.queries";
+import { usePatchRdsState } from "../../../external/sources/rds/rds.queries";
+import { usePatchQuantityDatumState } from "../../../external/sources/datum/quantityDatum.queries";
 
 export const Approval = () => {
   const queryClient = useQueryClient();
   const theme = useTheme();
   const { t } = useTranslation("settings");
   const approvals = useGetApprovals();
-  const patcMutationRejectAspectObject = usePatchAspectObjectStateReject();
-  const patcMutationRejectTerminal = usePatchTerminalStateReject();
+  const patchMutationRejectAspectObject = usePatchAspectObjectStateReject();
+  const patchMutationRejectTerminal = usePatchTerminalStateReject();
+  const patchMutationRejectAttribute = usePatchAttributeState();
+  const patchMutationRejectUnit = usePatchUnitState();
+  const patchMutationRejectQuantityDatum = usePatchQuantityDatumState();
+  const patchMutationRejectRds = usePatchRdsState();
   const showPlaceholder = approvals?.data && approvals.data.length === 0;
 
   const onSubmit = () => {
@@ -31,10 +39,24 @@ export const Approval = () => {
 
     switch (objectType) {
       case "AspectObject":
-        patcMutationRejectAspectObject.mutateAsync(data);
+        patchMutationRejectAspectObject.mutateAsync(data);
         break;
       case "Terminal":
-        patcMutationRejectTerminal.mutateAsync(data);
+        patchMutationRejectTerminal.mutateAsync(data);
+        break;
+      case "Attribute":
+        patchMutationRejectAttribute.mutateAsync(data);
+        break;
+      case "Unit":
+        patchMutationRejectUnit.mutateAsync(data);
+        break;
+      case "QuantityDatum":
+        patchMutationRejectQuantityDatum.mutateAsync(data);
+        break;
+      case "Rds":
+        patchMutationRejectRds.mutateAsync(data);
+        break;
+      default:
         break;
     }
 
@@ -50,8 +72,8 @@ export const Approval = () => {
       </Text>
       <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.tyle.spacing.xxxl}>
         {showPlaceholder && <ApprovalPlaceholder text={t("approval.placeholders.emptyApproval")} />}
-        {approvals.data?.map((approval, index) => (
-          <ApprovalCard key={`${index},${approval.id}`} item={approval} onSubmit={onSubmit} onReject={onReject} />
+        {approvals.data?.map((approval) => (
+          <ApprovalCard key={`${approval.id}`} item={approval} onSubmit={onSubmit} onReject={onReject} />
         ))}
       </Flexbox>
     </SettingsSection>

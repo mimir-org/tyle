@@ -1,4 +1,4 @@
-import { UnitLibAm, UnitLibCm } from "@mimirorg/typelibrary-types";
+import { State, UnitLibAm, UnitLibCm } from "@mimirorg/typelibrary-types";
 import { apiClient } from "external/client/apiClient";
 
 const _basePath = "libraryunit";
@@ -12,5 +12,8 @@ export const unitApi = {
   },
   postUnit(item: UnitLibAm) {
     return apiClient.post<UnitLibCm>(`${_basePath}`, item).then((r) => r.data);
+  },
+  patchUnitState(id: string, state: State) {
+    return apiClient.patch<UnitLibCm>(`${_basePath}/${id}/state`, { state }).then((r) => r.data);
   },
 };

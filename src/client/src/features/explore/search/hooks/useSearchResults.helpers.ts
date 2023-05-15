@@ -31,7 +31,7 @@ export const filterSearchResults = (filters: Filter[], items: SearchResultRaw[])
 };
 
 const andFilterItems = (filters: Filter[], items: SearchResultRaw[]) =>
-  items.filter((x) => filters.every((f) => x[f.key as keyof SearchResultRaw] == f.value));
+  items.filter((x) => filters.every((f) => x[f.key as keyof SearchResultRaw] === f.value));
 
 const sortItemsByDate = (items: SearchResultRaw[]) =>
   [...items].sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
