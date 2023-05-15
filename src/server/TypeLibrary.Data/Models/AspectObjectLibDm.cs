@@ -167,9 +167,9 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
             return false;
 
         //Aspect Object Attributes
-        AspectObjectAttributes ??= new List<AspectObjectAttributeLibDm>();
-        other.AspectObjectAttributes ??= new List<AspectObjectAttributeLibDm>();
-        if (!AspectObjectAttributes.Select(x => x.AttributeId).Order().SequenceEqual(other.AspectObjectAttributes.Select(x => x.AttributeId).Order()))
+        Attributes ??= new List<AttributeLibDm>();
+        other.Attributes ??= new List<AttributeLibDm>();
+        if (!Attributes.Select(x => x.Id).Order().SequenceEqual(other.Attributes.Select(x => x.Id).Order()))
         {
             return false;
         }

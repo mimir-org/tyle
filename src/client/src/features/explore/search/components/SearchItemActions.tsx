@@ -56,7 +56,7 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
   const deleteAction = {
     name: t("search.item.delete"),
     onAction: () => getMutation().mutate({ id: item.id, state: State.Delete }),
-  };
+  }
 
   const approveAction = {
     name: t("search.item.approve"),

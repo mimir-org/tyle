@@ -189,7 +189,7 @@ public class LibraryQuantityDatumController : ControllerBase
         }
         catch (MimirorgInvalidOperationException e)
         {
-            return Forbid(e.Message);
+            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
         }
         catch (Exception e)
         {
@@ -229,7 +229,7 @@ public class LibraryQuantityDatumController : ControllerBase
         }
         catch (MimirorgInvalidOperationException e)
         {
-            return Forbid(e.Message);
+            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
         }
         catch (Exception e)
         {
@@ -260,7 +260,7 @@ public class LibraryQuantityDatumController : ControllerBase
                 return StatusCode(StatusCodes.Status404NotFound);
 
             if (cm.State is State.Draft or State.Deleted or State.Approved)
-                return Forbid($"Can't reject a state change for an object with state {cm.State}");
+                return StatusCode(StatusCodes.Status403Forbidden, $"Can't reject a state change for an object with state {cm.State}");
 
             var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, cm.State == State.Approve ? State.Approved : State.Delete);
 
@@ -276,7 +276,7 @@ public class LibraryQuantityDatumController : ControllerBase
         }
         catch (MimirorgInvalidOperationException e)
         {
-            return Forbid(e.Message);
+            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
         }
         catch (Exception e)
         {
