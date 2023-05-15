@@ -20,8 +20,8 @@ export const Approval = () => {
   const theme = useTheme();
   const { t } = useTranslation("settings");
   const approvals = useGetApprovals();
-  const patcMutationRejectAspectObject = usePatchAspectObjectStateReject();
-  const patcMutationRejectTerminal = usePatchTerminalStateReject();
+  const patchMutationRejectAspectObject = usePatchAspectObjectStateReject();
+  const patchMutationRejectTerminal = usePatchTerminalStateReject();
   const patchMutationRejectAttribute = usePatchAttributeState();
   const patchMutationRejectUnit = usePatchUnitState();
   const patchMutationRejectQuantityDatum = usePatchQuantityDatumState();
@@ -39,10 +39,10 @@ export const Approval = () => {
 
     switch (objectType) {
       case "AspectObject":
-        patcMutationRejectAspectObject.mutateAsync(data);
+        patchMutationRejectAspectObject.mutateAsync(data);
         break;
       case "Terminal":
-        patcMutationRejectTerminal.mutateAsync(data);
+        patchMutationRejectTerminal.mutateAsync(data);
         break;
       case "Attribute":
         patchMutationRejectAttribute.mutateAsync(data);
