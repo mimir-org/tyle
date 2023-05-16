@@ -9,7 +9,7 @@ import {
 import { ApprovalCm } from "@mimirorg/typelibrary-types";
 import { Text } from "complib/text";
 import { Horizontal } from "../../../../complib/data-display/divider/Divider.stories";
-import { Box } from "../../../../complib/layouts";
+import { Flexbox } from "../../../../complib/layouts";
 
 export type ApprovalCardProps = ApprovalCardFormProps & {
   item: ApprovalCm;
@@ -43,16 +43,16 @@ export const ApprovalCard = ({ item, selected, ...delegated }: ApprovalCardProps
         <Text variant={"title-large"}>{item.name}</Text>
       </ApprovalCardHeader>
       <Horizontal color={"#2e2e2e"} />
-      <Box>
+      <Flexbox flexFlow={"column"} justifyContent={"space-between"} style={{ height: "100%" }}>
         <Text variant={"title-small"}>{item.description}</Text>
-      </Box>
-      <ApprovalCardForm
-        item={item}
-        formId={formId}
-        onSubmit={onSubmit}
-        onReject={onReject}
-        showSubmitButton={showSubmitButton}
-      />
+        <ApprovalCardForm
+          item={item}
+          formId={formId}
+          onSubmit={onSubmit}
+          onReject={onReject}
+          showSubmitButton={showSubmitButton}
+        />
+      </Flexbox>
     </MotionApprovalCardContainer>
   );
 };

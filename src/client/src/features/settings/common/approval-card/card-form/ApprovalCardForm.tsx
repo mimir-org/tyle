@@ -52,15 +52,13 @@ export const ApprovalCardForm = ({
 
   return (
     <Form id={formId} onSubmit={handleSubmit((data) => toast(item.id, data).then(() => onSubmit && onSubmit()))}>
-      <Flexbox flexFlow={"row"} justifyContent={"space-between"}>
-        <div>
-          <Input type={"hidden"} value={item.id} {...register("id")} />
-          <Input type={"hidden"} value={item.objectType} {...register("objectType")} />
-          <Input type={"hidden"} value={item.companyId} {...register("companyId")} />
-          <Input type={"hidden"} value={nextState} {...register("state")} />
-        </div>
+      <Flexbox flexFlow={"row"} justifyContent={"space-between"} style={{ marginTop: "8px" }}>
+        <Input type={"hidden"} value={item.id} {...register("id")} />
+        <Input type={"hidden"} value={item.objectType} {...register("objectType")} />
+        <Input type={"hidden"} value={item.companyId} {...register("companyId")} />
+        <Input type={"hidden"} value={nextState} {...register("state")} />
+        <Text variant={"body-large"}>{`Requesting to be ${stateOptions[nextState].label.toLowerCase()}`}</Text>
         <Flexbox justifyContent={"center"} alignItems={"center"} flexFlow="row" gap={theme.spacing.base}>
-          <Text variant={"body-large"}>{`Requesting to be ${stateOptions[nextState].label.toLowerCase()}`}</Text>
           {onReject && (
             <>
               {showSubmitButton && (
