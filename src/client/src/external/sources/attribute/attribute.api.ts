@@ -1,8 +1,6 @@
 import {
   AttributeLibCm,
   AttributePredefinedLibCm,
-  QuantityDatumLibCm,
-  QuantityDatumType,
   AttributeLibAm,
   State,
   ApprovalDataCm,
