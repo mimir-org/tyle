@@ -8,7 +8,7 @@ import { Button } from "../../../../complib/buttons";
 import { Check, DocumentDuplicate, PencilSquare, Trash } from "@styled-icons/heroicons-outline";
 import { AlertDialog } from "../../../../complib/overlays";
 import { UserItem } from "../../../../common/types/userItem";
-import { getCloneLink, getEditLink } from "./SearchItemActions.helpers";
+import { getCloneLink, getEditLink, usePatchMutation } from "./SearchItemActions.helpers";
 import { ItemType } from "../../../entities/types/itemTypes";
 
 type SearchItemProps = {
@@ -20,7 +20,7 @@ type SearchItemProps = {
 export const SearchItemActions = ({ user, item, children }: SearchItemProps) => {
   const theme = useTheme();
   const { t } = useTranslation("explore");
-  const patchMutation = usePatchTerminalState();
+  const patchMutation = usePatchMutation(item);
   const btnFilter = useButtonStateFilter(item, user);
 
   const deleteAction = {
