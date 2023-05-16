@@ -193,7 +193,7 @@ export const AspectObjectTerminal = ({
         )}
       </AspectObjectTerminalContainer>
       <Box>
-        <Button variant={"outlined"} dangerousAction disabled={removable} alignSelf={"end"} onClick={() => onRemove()}>
+        <Button variant={"outlined"} dangerousAction disabled={!removable} alignSelf={"end"} onClick={() => onRemove()}>
           <Trash size={48} />
         </Button>
       </Box>
