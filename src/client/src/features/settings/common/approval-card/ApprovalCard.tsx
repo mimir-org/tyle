@@ -1,14 +1,15 @@
-import { useApprovalDescriptors } from "features/settings/common/approval-card/ApprovalCard.helpers";
 import { MotionApprovalCardContainer } from "features/settings/common/approval-card/ApprovalCard.styled";
 import { useRef } from "react";
 import { useTheme } from "styled-components";
 import { ApprovalCardHeader } from "features/settings/common/approval-card/card-header/ApprovalCardHeader";
-import { ApprovalCardDetails } from "features/settings/common/approval-card/card-details/ApprovalCardDetails";
 import {
   ApprovalCardForm,
   ApprovalCardFormProps,
 } from "features/settings/common/approval-card/card-form/ApprovalCardForm";
 import { ApprovalCm } from "@mimirorg/typelibrary-types";
+import { Text } from "complib/text";
+import { Horizontal } from "../../../../complib/data-display/divider/Divider.stories";
+import { Box } from "../../../../complib/layouts";
 
 export type ApprovalCardProps = ApprovalCardFormProps & {
   item: ApprovalCm;
@@ -26,7 +27,6 @@ export type ApprovalCardProps = ApprovalCardFormProps & {
 export const ApprovalCard = ({ item, selected, ...delegated }: ApprovalCardProps) => {
   const theme = useTheme();
   const cardRef = useRef(null);
-  const approvalDescriptors = useApprovalDescriptors(item);
   const { formId, onSubmit, onReject, showSubmitButton } = delegated;
 
   if (item == null) return <></>;
@@ -39,8 +39,13 @@ export const ApprovalCard = ({ item, selected, ...delegated }: ApprovalCardProps
       layout={"position"}
       {...theme.tyle.animation.selectHover}
     >
-      <ApprovalCardHeader>{item.name}</ApprovalCardHeader>
-      <ApprovalCardDetails descriptors={approvalDescriptors} />
+      <ApprovalCardHeader objectType={item.objectType}>
+        <Text variant={"title-large"}>{item.name}</Text>
+      </ApprovalCardHeader>
+      <Horizontal color={"#2e2e2e"} />
+      <Box>
+        <Text variant={"title-small"}>{item.description}</Text>
+      </Box>
       <ApprovalCardForm
         item={item}
         formId={formId}

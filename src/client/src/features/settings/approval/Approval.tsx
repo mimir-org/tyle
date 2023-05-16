@@ -1,4 +1,4 @@
-import { Flexbox } from "complib/layouts";
+import { Box, Flexbox } from "complib/layouts";
 import { Text } from "complib/text";
 import { ApprovalPlaceholder } from "features/settings/approval/placeholder/ApprovalPlaceholder";
 import { ApprovalCard } from "features/settings/common/approval-card/ApprovalCard";
@@ -68,14 +68,29 @@ export const Approval = () => {
   return (
     <SettingsSection title={t("approval.title")}>
       <Text variant={"title-medium"} mb={theme.tyle.spacing.l}>
-        {t("approval.subtitle")}
+        {t("approval.approval")}
       </Text>
       <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.tyle.spacing.xxxl}>
         {showPlaceholder && <ApprovalPlaceholder text={t("approval.placeholders.emptyApproval")} />}
-        {approvals.data?.map((approval) => (
-          <ApprovalCard key={`${approval.id}`} item={approval} onSubmit={onSubmit} onReject={onReject} />
-        ))}
+        {approvals.data
+          ?.filter((x) => x.state !== State.Delete)
+          .map((approval) => (
+            <ApprovalCard key={`${approval.id}`} item={approval} onSubmit={onSubmit} onReject={onReject} />
+          ))}
       </Flexbox>
+      <Box mt={theme.tyle.spacing.xxl} mb={theme.tyle.spacing.xxl}>
+        <Text variant={"title-large"} mb={theme.tyle.spacing.l}>
+          {t("approval.deletion")}
+        </Text>
+        <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.tyle.spacing.xxxl}>
+          {showPlaceholder && <ApprovalPlaceholder text={t("approval.placeholders.emptyApproval")} />}
+          {approvals.data
+            ?.filter((x) => x.state === State.Delete)
+            .map((approval) => (
+              <ApprovalCard key={`${approval.id}`} item={approval} onSubmit={onSubmit} onReject={onReject} />
+            ))}
+        </Flexbox>
+      </Box>
     </SettingsSection>
   );
 };
