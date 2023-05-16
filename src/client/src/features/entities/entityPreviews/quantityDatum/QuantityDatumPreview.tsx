@@ -35,10 +35,12 @@ export default function QuantityDatumPreview({
 }: QuantityDatumPreviewProps) {
   return (
     <StyledDiv small={small}>
-      <Text variant={small ? "title-large" : "display-small"} useEllipsis={small}>
+      <Text variant={small ? "body-large" : "display-small"} useEllipsis={small}>
         {name}
       </Text>
-      <Text useEllipsis={small}>{description}</Text>
+      <Text useEllipsis={small} variant={"body-small"}>
+        {description}
+      </Text>
       {quantityDatumType !== undefined ? (
         <Badge variant={"info"}>
           <Text variant={small ? "body-small" : "body-medium"}>{quantityDatumTypeString[quantityDatumType]}</Text>
