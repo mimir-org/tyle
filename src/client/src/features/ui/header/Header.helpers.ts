@@ -19,7 +19,7 @@ export const mapPermissionDescriptions = (
     .map((k) => {
       const permissionEnum = permissions[Number(k)];
       const companyLabel = companies.find((x) => x.id.toString() === k)?.displayName;
-      const permissionLabel = permissionsValueObjects.find((x) => x.value == permissionEnum)?.label;
+      const permissionLabel = permissionsValueObjects.find((x) => x.value === permissionEnum)?.label;
 
       return `${companyLabel}: ${permissionLabel}`;
     });

@@ -3,7 +3,7 @@ import { apiClient } from "external/client/apiClient";
 
 const _basePath = "libraryquantitydatum";
 
-export const quantityDatum = {
+export const quantityDatumApi = {
   getQuantityDatums() {
     return apiClient.get<QuantityDatumLibCm[]>(_basePath).then((r) => r.data);
   },
@@ -19,7 +19,10 @@ export const quantityDatum = {
   patchDatumState(id: string, state: State) {
     return apiClient.patch<QuantityDatumLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
   },
-  patchDatumStateReject(id: string) {
+  patchQuantityDatumState(id: string, state: State) {
+    return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
+  },
+  patchQuantityDatumStateReject(id: string) {
     return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/reject`).then((r) => r.data);
   },
 };

@@ -8,20 +8,18 @@ export interface FormMimirorgCompany extends Omit<MimirorgCompanyAm, "managerId"
 }
 
 export const encodeFile = async (addedFile: File): Promise<FileInfo | null> => {
-  if (!(addedFile.name.endsWith(".svg") || addedFile.type == "image/svg+xml")) {
+  if (!(addedFile.name.endsWith(".svg") || addedFile.type === "image/svg+xml")) {
     toast.error(`Incorrect filetype: ${addedFile.type}`);
     return null;
   }
 
   const bytes = await toBase64(addedFile);
-  const fileToBeAdded: FileInfo = {
+  return {
     fileName: addedFile.name,
     fileSize: addedFile.size,
     file: bytes != null ? bytes.toString() : null,
     contentType: addedFile.type,
   };
-
-  return fileToBeAdded;
 };
 
 export const createEmptyFormMimirorgCompany = (): Omit<FormMimirorgCompany, "secret"> => ({
@@ -36,7 +34,7 @@ export const createEmptyFormMimirorgCompany = (): Omit<FormMimirorgCompany, "sec
 export const mapCompanyCmToFormCompany = (
   companyCm: MimirorgCompanyCm | undefined
 ): Omit<FormMimirorgCompany, "secret"> => {
-  if (companyCm == undefined) return createEmptyFormMimirorgCompany();
+  if (companyCm === undefined) return createEmptyFormMimirorgCompany();
   return {
     name: companyCm.name,
     displayName: companyCm.displayName,
@@ -61,7 +59,7 @@ export const mapFormCompanyToCompanyAm = (
 
   if (formCompany.logo?.file) {
     const index = formCompany.logo.file.indexOf("base64,") + "base64,".length;
-    if (index != -1) logo = formCompany.logo.file.slice(index);
+    if (index !== -1) logo = formCompany.logo.file.slice(index);
   }
 
   return {
