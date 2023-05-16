@@ -17,7 +17,15 @@ export const useGetAttributesPredefined = () => useQuery(keys.predefinedLists(),
 export const useGetAttribute = (id?: string) =>
   useQuery(keys.attribute(id), () => attributeApi.getAttribute(id), { enabled: !!id, retry: false });
 
-export const useUpdateAttributes = (id?: string) => {
+export const useCreateAttribute = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation((item: AttributeLibAm) => attributeApi.postAttribute(item), {
+    onSuccess: () => queryClient.invalidateQueries(keys.allAttributes),
+  });
+};
+
+export const useUpdateAttribute = (id?: string) => {
   const queryClient = useQueryClient();
 
   return useMutation((item: AttributeLibAm) => attributeApi.putAttribute(item, id), {
@@ -33,18 +41,10 @@ export const usePatchAttributeState = () => {
   });
 };
 
-export const useCreateAttribute = () => {
+export const usePatchAttributeStateReject = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: AttributeLibAm) => attributeApi.postAttribute(item), {
-    onSuccess: () => queryClient.invalidateQueries(keys.allAttributes),
-  });
-};
-
-export const useUpdateAttribute = (id?: string) => {
-  const queryClient = useQueryClient();
-
-  return useMutation((item: AttributeLibAm) => attributeApi.putAttribute(item, id), {
-    onSuccess: (unit) => queryClient.invalidateQueries(keys.attribute(unit.id)),
+  return useMutation((item: { id: string }) => attributeApi.patchAttributeStateReject(item.id), {
+    onSuccess: () => queryClient.invalidateQueries(keys.attributeLists()),
   });
 };

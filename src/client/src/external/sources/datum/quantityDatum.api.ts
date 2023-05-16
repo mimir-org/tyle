@@ -1,9 +1,9 @@
-import { QuantityDatumLibAm, QuantityDatumLibCm, State } from "@mimirorg/typelibrary-types";
+import { ApprovalDataCm, QuantityDatumLibAm, QuantityDatumLibCm, State } from "@mimirorg/typelibrary-types";
 import { apiClient } from "external/client/apiClient";
 
 const _basePath = "libraryquantitydatum";
 
-export const quantityDatum = {
+export const quantityDatumApi = {
   getQuantityDatums() {
     return apiClient.get<QuantityDatumLibCm[]>(_basePath).then((r) => r.data);
   },
@@ -20,6 +20,9 @@ export const quantityDatum = {
     return apiClient.patch<QuantityDatumLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
   },
   patchQuantityDatumState(id: string, state: State) {
-    return apiClient.patch<QuantityDatumLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
+    return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
+  },
+  patchQuantityDatumStateReject(id: string) {
+    return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/reject`).then((r) => r.data);
   },
 };

@@ -17,7 +17,7 @@ import QuantityDatumPreview from "../../entities/entityPreviews/quantityDatum/Qu
 import { RdsPreview } from "../../entities/entityPreviews/rds/RdsPreview";
 import { toFormUnitLib } from "../../entities/units/types/formUnitLib";
 import { useGetUnit } from "../../../external/sources/unit/unit.queries";
-import { useGetQuantityQuantityDatum } from "../../../external/sources/datum/quantityDatum.queries";
+import { useGetQuantityDatum } from "../../../external/sources/datum/quantityDatum.queries";
 import { useGetRds } from "../../../external/sources/rds/rds.queries";
 import { toFormDatumLib } from "../../entities/quantityDatum/types/formQuantityDatumLib";
 import { toFormRdsLib } from "../../entities/RDS/types/formRdsLib";
@@ -39,7 +39,7 @@ export const About = ({ selected }: AboutProps) => {
   const terminalQuery = useGetTerminal(selected?.type === "terminal" ? selected?.id : undefined);
   const attributeQuery = useGetAttribute(selected?.type === "attribute" ? selected?.id : undefined);
   const unitQuery = useGetUnit(selected?.type === "unit" ? selected?.id : undefined);
-  const datumQuery = useGetQuantityQuantityDatum(selected?.type === "quantityDatum" ? selected?.id : undefined);
+  const datumQuery = useGetQuantityDatum(selected?.type === "quantityDatum" ? selected?.id : undefined);
   const rdsQuery = useGetRds(selected?.type === "rds" ? selected?.id : undefined);
 
   const [showLoader, setShowLoader] = useState(true);
