@@ -24,9 +24,9 @@ export const UserInfo = ({ name, roles, permissions }: UserInfoProps) => {
           ))}
         </Flexbox>
       )}
-      <Text variant={"title-small"}>{"Permissions:"}</Text>
       {permissions && (
         <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
+          <Text variant={"title-small"}>{"Permissions:"}</Text>
           {permissions?.map((x, i) => (
             <Text key={i} variant={"label-small"}>
               {x}
