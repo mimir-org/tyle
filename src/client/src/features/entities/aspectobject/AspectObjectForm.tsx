@@ -58,7 +58,7 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
 
   const toast = useSubmissionToast(t("aspectObject.title"));
 
-  const isFirstDraft = query.data?.state === State.Draft && query.data?.id === query.data?.firstVersionId;
+  const isFirstDraft = !mode || (query.data?.state === State.Draft && query.data?.id === query.data?.firstVersionId);
   const limit = mode === "edit" && (query.data?.state === State.Approved || !isFirstDraft);
 
   return (
@@ -74,7 +74,7 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
             <AspectObjectFormBaseFields isFirstDraft={isFirstDraft} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
-              {getSubformForAspect(aspect, mode)}
+              {getSubformForAspect(aspect, limit ? query.data?.aspectObjectTerminals.map((x) => x.terminal.id) : [])}
               <FormAttributes
                 register={(index) => register(`attributes.${index}`)}
                 fields={attributeFields.fields}

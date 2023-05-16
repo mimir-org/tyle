@@ -8,19 +8,19 @@ import { useTranslation } from "react-i18next";
 
 interface AspectObjectFormTerminalsProps {
   canAddTerminals?: boolean;
-  canRemoveTerminals?: boolean;
+  limitedTerminals?: string[];
 }
 
 /**
  * Form section for adding terminals to aspect objects
  *
  * @param canAddTerminals controls if the add action is shown
- * @param canRemoveTerminals controls if the remove action is shown
+ * @param limitedTerminals list of id's for terminals that cannot be removed
  * @constructor
  */
 export const AspectObjectFormTerminals = ({
   canAddTerminals = true,
-  canRemoveTerminals = true,
+  limitedTerminals,
 }: AspectObjectFormTerminalsProps) => {
   const { t } = useTranslation("entities");
   const { control, setValue, formState } = useFormContext<FormAspectObjectLib>();
@@ -48,7 +48,7 @@ export const AspectObjectFormTerminals = ({
           field={field}
           errors={errors}
           setValue={setValue}
-          removable={canRemoveTerminals}
+          removable={limitedTerminals?.includes(field.terminalId) ? false : true}
           onRemove={() => terminalFields.remove(index)}
         />
       ))}

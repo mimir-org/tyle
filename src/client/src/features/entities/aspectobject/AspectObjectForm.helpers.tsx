@@ -32,12 +32,12 @@ export const resetSubform = (resetField: (value: keyof FormAspectObjectLib) => v
   resetField("attributes");
 };
 
-export const getSubformForAspect = (aspect: Aspect, mode?: FormMode) => {
+export const getSubformForAspect = (aspect: Aspect, limitedTerminals?: string[]) => {
   switch (aspect) {
     case Aspect.Function:
-      return <AspectObjectFormTerminals canRemoveTerminals={mode !== "edit"} />;
+      return <AspectObjectFormTerminals limitedTerminals={limitedTerminals} />;
     case Aspect.Product:
-      return <AspectObjectFormTerminals canRemoveTerminals={mode !== "edit"} />;
+      return <AspectObjectFormTerminals limitedTerminals={limitedTerminals} />;
     case Aspect.Location:
       return <AspectObjectFormPredefinedAttributes aspects={[aspect]} />;
     default:
