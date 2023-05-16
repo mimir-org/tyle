@@ -1,6 +1,6 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { AspectObjectLibCm } from "@mimirorg/typelibrary-types";
+import { AspectObjectLibCm, State } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { Box } from "complib/layouts";
@@ -58,6 +58,9 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
 
   const toast = useSubmissionToast(t("aspectObject.title"));
 
+  const isFirstDraft = query.data?.state === State.Draft && query.data?.id === query.data?.firstVersionId;
+  const limit = mode === "edit" && (query.data?.state === State.Approved || !isFirstDraft);
+
   return (
     <FormProvider {...formMethods}>
       <FormContainer
@@ -68,7 +71,7 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
         {isLoading && <Loader />}
         {!isLoading && (
           <>
-            <AspectObjectFormBaseFields mode={mode} />
+            <AspectObjectFormBaseFields isFirstDraft={isFirstDraft} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
               {getSubformForAspect(aspect, mode)}

@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Mimirorg.TypeLibrary.Constants;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
@@ -237,11 +238,16 @@ public class AspectObjectService : IAspectObjectService
         aspectObjectToUpdate.Name = aspectObjectAm.Name;
         aspectObjectToUpdate.TypeReference = aspectObjectAm.TypeReference;
         aspectObjectToUpdate.Version = aspectObjectAm.Version;
-        aspectObjectToUpdate.Aspect = aspectObjectAm.Aspect;
         aspectObjectToUpdate.PurposeName = aspectObjectAm.PurposeName;
         aspectObjectToUpdate.RdsId = aspectObjectAm.RdsId;
         aspectObjectToUpdate.Symbol = aspectObjectAm.Symbol;
         aspectObjectToUpdate.Description = aspectObjectAm.Description;
+
+        if (aspectObjectToUpdate.Version == VersionConstant.OnePointZero)
+        {
+            aspectObjectToUpdate.Aspect = aspectObjectAm.Aspect;
+            aspectObjectToUpdate.CompanyId = aspectObjectAm.CompanyId;
+        }
 
         var tempDm = _mapper.Map<AspectObjectLibDm>(aspectObjectAm);
         aspectObjectToUpdate.SelectedAttributePredefined = tempDm.SelectedAttributePredefined;
