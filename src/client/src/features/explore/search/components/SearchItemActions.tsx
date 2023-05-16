@@ -8,7 +8,7 @@ import { Button } from "../../../../complib/buttons";
 import { Check, DocumentDuplicate, PencilSquare, Trash } from "@styled-icons/heroicons-outline";
 import { AlertDialog } from "../../../../complib/overlays";
 import { UserItem } from "../../../../common/types/userItem";
-import { getCloneLink, getEditLink, usePatchMutation } from "./SearchItemActions.helpers";
+import { getCloneLink, getEditLink } from "./SearchItemActions.helpers";
 import { ItemType } from "../../../entities/types/itemTypes";
 import { usePatchRdsState } from "../../../../external/sources/rds/rds.queries";
 import { usePatchAspectObjectState } from "../../../../external/sources/aspectobject/aspectObject.queries";
