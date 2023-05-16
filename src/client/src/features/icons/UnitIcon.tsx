@@ -1,5 +1,3 @@
-import React from "react";
-
 const UnitIcon = () => (
   <svg
     width="100%"
