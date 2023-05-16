@@ -1,6 +1,6 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TerminalLibCm } from "@mimirorg/typelibrary-types";
+import { State, TerminalLibCm } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { Box } from "complib/layouts";
@@ -52,6 +52,8 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
 
   const toast = useSubmissionToast(t("terminal.title"));
 
+  const limit = mode === "edit" && query.data?.state === State.Approved;
+
   return (
     <FormProvider {...formMethods}>
       <FormContainer
@@ -60,7 +62,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
         {isLoading && <Loader />}
         {!isLoading && (
           <>
-            <TerminalFormBaseFields mode={mode} />
+            <TerminalFormBaseFields limit={limit} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
               <FormAttributes
@@ -69,7 +71,8 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
                 append={attributeFields.append}
                 remove={attributeFields.remove}
                 preprocess={prepareAttributes}
-                canRemoveAttributes={mode !== "edit"}
+                canAddAttributes={!limit}
+                canRemoveAttributes={!limit}
               />
             </Box>
           </>

@@ -1,5 +1,5 @@
 import { DevTool } from "@hookform/devtools";
-import { AttributeLibCm } from "@mimirorg/typelibrary-types";
+import { AttributeLibCm, State } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { Loader } from "features/common/loader";
@@ -55,7 +55,7 @@ export const AttributeForm = ({ defaultValues = createEmptyAttribute(), mode }: 
           <Loader />
         ) : (
           <>
-            <AttributeFormBaseFields mode={mode} />
+            <AttributeFormBaseFields limit={mode === "edit" && query.data?.state === State.Approved} />
             <AttributeFormPreview control={control} />
             <DevTool control={control} placement={"bottom-right"} />
           </>
