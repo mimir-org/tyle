@@ -21,7 +21,7 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
   letter-spacing: ${(props) => props.theme.tyle.typography.sys.roles.label.large.letterSpacing};
 
   :hover {
-    cursor: pointer;
+    cursor: default;
   }
 
   :disabled {
