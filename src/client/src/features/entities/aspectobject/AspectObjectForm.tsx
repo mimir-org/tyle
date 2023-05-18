@@ -28,6 +28,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
+import { useGetLatestApprovedAspectObject } from "external/sources/aspectobject/aspectObject.queries";
 
 interface AspectObjectFormProps {
   defaultValues?: FormAspectObjectLib;
@@ -52,6 +53,7 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
   const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useAspectObjectMutation(query.data?.id, mode);
+  const latestApprovedQuery = useGetLatestApprovedAspectObject(query.data?.id);
 
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
@@ -74,7 +76,7 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
             <AspectObjectFormBaseFields isFirstDraft={isFirstDraft} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
-              {getSubformForAspect(aspect, limit ? query.data?.aspectObjectTerminals : [])}
+              {getSubformForAspect(aspect, limit ? latestApprovedQuery.data?.aspectObjectTerminals : [])}
               <FormAttributes
                 register={(index) => register(`attributes.${index}`)}
                 fields={attributeFields.fields}
