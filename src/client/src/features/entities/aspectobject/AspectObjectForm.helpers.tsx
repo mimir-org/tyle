@@ -1,4 +1,4 @@
-import { Aspect } from "@mimirorg/typelibrary-types";
+import { Aspect, AspectObjectTerminalLibCm } from "@mimirorg/typelibrary-types";
 import {
   useCreateAspectObject,
   useGetAspectObject,
@@ -32,7 +32,7 @@ export const resetSubform = (resetField: (value: keyof FormAspectObjectLib) => v
   resetField("attributes");
 };
 
-export const getSubformForAspect = (aspect: Aspect, limitedTerminals?: string[]) => {
+export const getSubformForAspect = (aspect: Aspect, limitedTerminals?: AspectObjectTerminalLibCm[]) => {
   switch (aspect) {
     case Aspect.Function:
       return <AspectObjectFormTerminals limitedTerminals={limitedTerminals} />;

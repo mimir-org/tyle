@@ -32,6 +32,7 @@ interface AspectObjectTerminalProps {
   setValue: UseFormSetValue<FormAspectObjectLib>;
   removable: boolean;
   onRemove: () => void;
+  minValue?: number;
 }
 
 /**
@@ -55,6 +56,7 @@ export const AspectObjectTerminal = ({
   setValue,
   removable = true,
   onRemove,
+  minValue,
 }: AspectObjectTerminalProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
@@ -168,7 +170,7 @@ export const AspectObjectTerminal = ({
                     <Counter
                       {...rest}
                       id={field.id}
-                      min={MINIMUM_TERMINAL_QUANTITY_VALUE}
+                      min={minValue ? minValue : MINIMUM_TERMINAL_QUANTITY_VALUE}
                       max={MAXIMUM_TERMINAL_QUANTITY_VALUE}
                       value={!terminalHasMaxQuantity ? 0 : value}
                       disabled={!terminalHasMaxQuantity}

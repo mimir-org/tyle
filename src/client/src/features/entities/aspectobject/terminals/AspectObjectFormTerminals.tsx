@@ -5,10 +5,11 @@ import { FormAspectObjectLib } from "features/entities/aspectobject/types/formAs
 import { createEmptyFormAspectObjectTerminalLib } from "features/entities/aspectobject/types/formAspectObjectTerminalLib";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { AspectObjectTerminalLibCm } from "@mimirorg/typelibrary-types";
 
 interface AspectObjectFormTerminalsProps {
   canAddTerminals?: boolean;
-  limitedTerminals?: string[];
+  limitedTerminals?: AspectObjectTerminalLibCm[];
 }
 
 /**
@@ -48,8 +49,9 @@ export const AspectObjectFormTerminals = ({
           field={field}
           errors={errors}
           setValue={setValue}
-          removable={limitedTerminals?.includes(field.terminalId) ? false : true}
+          removable={limitedTerminals?.map((x) => x.terminal.id).includes(field.terminalId) ? false : true}
           onRemove={() => terminalFields.remove(index)}
+          minValue={limitedTerminals?.find((x) => x.terminal.id === field.terminalId)?.maxQuantity}
         />
       ))}
     </FormSection>
