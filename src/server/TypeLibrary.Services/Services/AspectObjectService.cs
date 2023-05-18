@@ -76,6 +76,23 @@ public class AspectObjectService : IAspectObjectService
     }
 
     /// <inheritdoc />
+    public AspectObjectLibCm GetLatestApproved(string id)
+    {
+        var givenAspectObject = _aspectObjectRepository.Get(id);
+
+        if (givenAspectObject == null)
+            throw new MimirorgNotFoundException($"Aspect object with id {id} not found.");
+
+        var allVersions = _aspectObjectRepository.GetAllVersions(givenAspectObject);
+        var latestVersionApproved = allVersions.LatestVersionApproved(givenAspectObject.FirstVersionId);
+
+        if (latestVersionApproved == null)
+            throw new MimirorgNotFoundException($"No approved version was found for aspect object with id {id}.");
+
+        return _mapper.Map<AspectObjectLibCm>(latestVersionApproved);
+    }
+
+    /// <inheritdoc />
     public async Task<AspectObjectLibCm> Create(AspectObjectLibAm aspectObjectAm)
     {
         if (aspectObjectAm == null)
