@@ -1,6 +1,6 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TerminalLibCm } from "@mimirorg/typelibrary-types";
+import { State, TerminalLibCm } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { Box } from "complib/layouts";
@@ -19,15 +19,15 @@ import {
   mapFormTerminalLibToApiModel,
   mapTerminalLibCmToFormTerminalLib,
 } from "features/entities/terminal/types/formTerminalLib";
-import { TerminalFormMode } from "features/entities/terminal/types/terminalFormMode";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
+import { FormMode } from "../types/formMode";
 
 interface TerminalFormProps {
   defaultValues?: FormTerminalLib;
-  mode?: TerminalFormMode;
+  mode?: FormMode;
 }
 
 export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mode }: TerminalFormProps) => {
@@ -52,6 +52,8 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
 
   const toast = useSubmissionToast(t("terminal.title"));
 
+  const limited = mode === "edit" && query.data?.state === State.Approved;
+
   return (
     <FormProvider {...formMethods}>
       <FormContainer
@@ -60,7 +62,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
         {isLoading && <Loader />}
         {!isLoading && (
           <>
-            <TerminalFormBaseFields mode={mode} />
+            <TerminalFormBaseFields limited={limited} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
               <FormAttributes
@@ -69,7 +71,8 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
                 append={attributeFields.append}
                 remove={attributeFields.remove}
                 preprocess={prepareAttributes}
-                canRemoveAttributes={mode !== "edit"}
+                canAddAttributes={!limited}
+                canRemoveAttributes={!limited}
               />
             </Box>
           </>

@@ -10,6 +10,9 @@ export const aspectObjectApi = {
   getLibraryAspectObject(id?: string) {
     return apiClient.get<AspectObjectLibCm>(`${_basePath}/${id}`).then((r) => r.data);
   },
+  getLatestApprovedLibraryAspectObject(id?: string) {
+    return apiClient.get<AspectObjectLibCm>(`${_basePath}/latest-approved/${id}`).then((r) => r.data);
+  },
   postLibraryAspectObject(item: AspectObjectLibAm) {
     return apiClient.post<AspectObjectLibCm>(_basePath, item).then((r) => r.data);
   },

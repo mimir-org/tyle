@@ -91,6 +91,37 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
+    /// Get latest approved version of an aspect object by id
+    /// </summary>
+    /// <param name="id">The id of the aspect object we want to get the latest approved version of</param>
+    /// <returns>The requested aspect object</returns>
+    [HttpGet("latest-approved/{id}")]
+    [ProducesResponseType(typeof(AspectObjectLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [AllowAnonymous]
+    public IActionResult GetLatestApproved([FromRoute] string id)
+    {
+        try
+        {
+            var data = _aspectObjectService.GetLatestApproved(id);
+            if (data == null)
+                return NotFound(id);
+
+            return Ok(data);
+        }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
     /// Create an aspect object
     /// </summary>
     /// <param name="aspectObject">The aspect object that should be created</param>

@@ -7,7 +7,7 @@ import { usePrefilledForm } from "features/entities/common/utils/usePrefilledFor
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { QuantityDatumLibAm, QuantityDatumLibCm } from "@mimirorg/typelibrary-types";
+import { QuantityDatumLibAm, QuantityDatumLibCm, State } from "@mimirorg/typelibrary-types";
 import { createEmptyDatum, toDatumLibAm } from "./types/formQuantityDatumLib";
 import { useQuantityDatumMutation, useQuantityDatumQuery } from "./QuantityDatumForm.helpers";
 import { Flexbox } from "../../../complib/layouts";
@@ -17,12 +17,14 @@ import { useTheme } from "styled-components";
 import { QuantityDatumFormBaseFields } from "./QuantityDatumFormBaseFields";
 import QuantityDatumPreview from "../entityPreviews/quantityDatum/QuantityDatumPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
+import { FormMode } from "../types/formMode";
 
-interface DatumFormProps {
+interface QuantityDatumFormProps {
   defaultValues?: QuantityDatumLibAm;
+  mode?: FormMode;
 }
 
-export const QuantityDatumForm = ({ defaultValues = createEmptyDatum() }: DatumFormProps) => {
+export const QuantityDatumForm = ({ defaultValues = createEmptyDatum(), mode }: QuantityDatumFormProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
@@ -36,7 +38,7 @@ export const QuantityDatumForm = ({ defaultValues = createEmptyDatum() }: DatumF
   const mapper = (source: QuantityDatumLibCm) => toDatumLibAm(source);
   const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
-  const mutation = useQuantityDatumMutation();
+  const mutation = useQuantityDatumMutation(query.data?.id, mode);
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
@@ -58,7 +60,7 @@ export const QuantityDatumForm = ({ defaultValues = createEmptyDatum() }: DatumF
           <Loader />
         ) : (
           <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
-            <QuantityDatumFormBaseFields />
+            <QuantityDatumFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
             <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
               <PlainLink tabIndex={-1} to={"/"}>
                 <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>

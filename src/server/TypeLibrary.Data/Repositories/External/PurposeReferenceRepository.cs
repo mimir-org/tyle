@@ -23,10 +23,7 @@ public class PurposeReferenceRepository : IPurposeReferenceRepository
 
     #region Public
 
-    /// <summary>
-    /// Get all purposes
-    /// </summary>
-    /// <returns>List of purpose sorted by name></returns>
+    /// <inheritdoc />
     public async Task<List<PurposeLibDm>> Get()
     {
         var data = await _cacheRepository.GetOrCreateAsync("pca_purposes", FetchPurposesFromPca);

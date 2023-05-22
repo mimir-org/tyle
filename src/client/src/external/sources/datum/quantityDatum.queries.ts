@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient, UseQueryOptions } from "@tanstack/react-query";
 import { QuantityDatumLibAm, State } from "@mimirorg/typelibrary-types";
-import { quantityDatum } from "./quantityDatum";
+import { quantityDatumApi } from "./quantityDatum.api";
 
 const keys = {
   all: ["quantityDatums"] as const,
@@ -9,15 +9,15 @@ const keys = {
 };
 
 export const useGetQuantityDatums = (options?: Pick<UseQueryOptions, "staleTime">) =>
-  useQuery(keys.lists(), quantityDatum.getQuantityDatums, options);
+  useQuery(keys.lists(), quantityDatumApi.getQuantityDatums, options);
 
-export const useGetQuantityQuantityDatum = (id?: string) =>
-  useQuery(keys.quantityDatum(id), () => quantityDatum.getQuantityDatum(id), { enabled: !!id, retry: false });
+export const useGetQuantityDatum = (id?: string) =>
+  useQuery(keys.quantityDatum(id), () => quantityDatumApi.getQuantityDatum(id), { enabled: !!id, retry: false });
 
 export const useCreateQuantityDatum = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: QuantityDatumLibAm) => quantityDatum.postQuantityDatum(item), {
+  return useMutation((item: QuantityDatumLibAm) => quantityDatumApi.postQuantityDatum(item), {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };
@@ -25,7 +25,7 @@ export const useCreateQuantityDatum = () => {
 export const useUpdateQuantityDatum = (id?: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: QuantityDatumLibAm) => quantityDatum.putQuantityDatum(item, id), {
+  return useMutation((item: QuantityDatumLibAm) => quantityDatumApi.putQuantityDatum(item, id), {
     onSuccess: () => queryClient.invalidateQueries(keys.quantityDatum(id)),
   });
 };
@@ -34,9 +34,17 @@ export const usePatchQuantityDatumState = () => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    (item: { id: string; state: State }) => quantityDatum.patchQuantityDatumState(item.id, item.state),
+    (item: { id: string; state: State }) => quantityDatumApi.patchQuantityDatumState(item.id, item.state),
     {
       onSuccess: () => queryClient.invalidateQueries(keys.lists()),
     }
   );
+};
+
+export const usePatchQuantityDatumStateReject = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation((item: { id: string }) => quantityDatumApi.patchQuantityDatumStateReject(item.id), {
+    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
+  });
 };

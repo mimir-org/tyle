@@ -1,10 +1,9 @@
 import {
   AttributeLibCm,
   AttributePredefinedLibCm,
-  QuantityDatumLibCm,
-  QuantityDatumType,
   AttributeLibAm,
   State,
+  ApprovalDataCm,
 } from "@mimirorg/typelibrary-types";
 import { apiClient } from "external/client/apiClient";
 
@@ -20,9 +19,6 @@ export const attributeApi = {
   getAttributesPredefined() {
     return apiClient.get<AttributePredefinedLibCm[]>(`${_basePath}/predefined`).then((r) => r.data);
   },
-  getQuantityDatum(datumType: QuantityDatumType) {
-    return apiClient.get<QuantityDatumLibCm[]>(`${_basePath}/datum/${datumType}`).then((r) => r.data);
-  },
   putAttribute(item: AttributeLibAm, id?: string) {
     return apiClient.put<AttributeLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
   },
@@ -30,6 +26,9 @@ export const attributeApi = {
     return apiClient.post<AttributeLibCm>(`${_basePath}`, item).then((r) => r.data);
   },
   patchAttributeState(id: string, state: State) {
-    return apiClient.patch<AttributeLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
+    return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
+  },
+  patchAttributeStateReject(id: string) {
+    return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/reject`).then((r) => r.data);
   },
 };
