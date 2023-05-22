@@ -5,10 +5,10 @@ import { QuantityDatumLibAm, QuantityDatumType } from "@mimirorg/typelibrary-typ
 import { useTranslation } from "react-i18next";
 
 interface QuantityDatumFormBaseFieldsProps {
-  limit?: boolean;
+  limited?: boolean;
 }
 
-export const QuantityDatumFormBaseFields = ({ limit }: QuantityDatumFormBaseFieldsProps) => {
+export const QuantityDatumFormBaseFields = ({ limited }: QuantityDatumFormBaseFieldsProps) => {
   const { control, register, formState } = useFormContext<QuantityDatumLibAm>();
   const { errors } = formState;
   const { t } = useTranslation("entities");
@@ -23,7 +23,7 @@ export const QuantityDatumFormBaseFields = ({ limit }: QuantityDatumFormBaseFiel
   return (
     <>
       <FormField label={t("quantityDatum.name")} error={errors.name}>
-        <Input placeholder={t("quantityDatum.placeholders.name")} {...register("name")} required disabled={limit} />
+        <Input placeholder={t("quantityDatum.placeholders.name")} {...register("name")} required disabled={limited} />
       </FormField>
 
       <FormField label={t("quantityDatum.description")} error={errors.description}>
@@ -46,7 +46,7 @@ export const QuantityDatumFormBaseFields = ({ limit }: QuantityDatumFormBaseFiel
               onChange={(x) => {
                 onChange(x?.value);
               }}
-              isDisabled={limit}
+              isDisabled={limited}
             />
           )}
         />

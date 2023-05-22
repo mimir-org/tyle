@@ -61,7 +61,7 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
   const toast = useSubmissionToast(t("aspectObject.title"));
 
   const isFirstDraft = !mode || (query.data?.state === State.Draft && query.data?.id === query.data?.firstVersionId);
-  const limit = mode === "edit" && (query.data?.state === State.Approved || !isFirstDraft);
+  const limited = mode === "edit" && (query.data?.state === State.Approved || !isFirstDraft);
 
   return (
     <FormProvider {...formMethods}>
@@ -76,14 +76,14 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
             <AspectObjectFormBaseFields isFirstDraft={isFirstDraft} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
-              {getSubformForAspect(aspect, limit ? latestApprovedQuery.data?.aspectObjectTerminals : [])}
+              {getSubformForAspect(aspect, limited ? latestApprovedQuery.data?.aspectObjectTerminals : [])}
               <FormAttributes
                 register={(index) => register(`attributes.${index}`)}
                 fields={attributeFields.fields}
                 append={attributeFields.append}
                 remove={attributeFields.remove}
                 preprocess={prepareAttributes}
-                limitedAttributes={limit ? latestApprovedQuery.data?.attributes : []}
+                limitedAttributes={limited ? latestApprovedQuery.data?.attributes : []}
               />
             </Box>
           </>

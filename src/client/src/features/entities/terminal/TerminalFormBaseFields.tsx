@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 
 interface TerminalFormBaseFieldsProps {
-  limit?: boolean;
+  limited?: boolean;
 }
 
 /**
@@ -20,7 +20,7 @@ interface TerminalFormBaseFieldsProps {
  * @param mode
  * @constructor
  */
-export const TerminalFormBaseFields = ({ limit }: TerminalFormBaseFieldsProps) => {
+export const TerminalFormBaseFields = ({ limited }: TerminalFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
   const { control, register, formState } = useFormContext<FormTerminalLib>();
@@ -32,7 +32,7 @@ export const TerminalFormBaseFields = ({ limit }: TerminalFormBaseFieldsProps) =
 
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
         <FormField label={t("terminal.name")} error={errors.name}>
-          <Input placeholder={t("terminal.placeholders.name")} {...register("name")} disabled={limit} />
+          <Input placeholder={t("terminal.placeholders.name")} {...register("name")} disabled={limited} />
         </FormField>
 
         <FormField label={t("terminal.color")} error={errors.color}>

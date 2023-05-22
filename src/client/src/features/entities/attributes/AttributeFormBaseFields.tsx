@@ -13,7 +13,7 @@ import { FormAttributeLib } from "./types/formAttributeLib";
 import { FormBaseFieldsContainer } from "../../../complib/form/FormContainer.styled";
 
 interface AttributeFormBaseFieldsProps {
-  limit?: boolean;
+  limited?: boolean;
 }
 
 /**
@@ -22,7 +22,7 @@ interface AttributeFormBaseFieldsProps {
  * @constructor
  */
 
-export const AttributeFormBaseFields = ({ limit }: AttributeFormBaseFieldsProps) => {
+export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProps) => {
   const [unitArray, setUnitArray] = useState<FormUnitHelper[]>([]);
   const [defaultUnit, setDefaultUnit] = useState<FormUnitHelper | null>(null);
   const theme = useTheme();
@@ -43,7 +43,7 @@ export const AttributeFormBaseFields = ({ limit }: AttributeFormBaseFieldsProps)
   return (
     <FormBaseFieldsContainer>
       <FormField label={t("attribute.name")} error={errors.name}>
-        <Input placeholder={t("attribute.placeholders.name")} {...register("name")} disabled={limit} />
+        <Input placeholder={t("attribute.placeholders.name")} {...register("name")} disabled={limited} />
       </FormField>
 
       <FormField label={t("attribute.description")} error={errors.description}>
@@ -70,7 +70,7 @@ export const AttributeFormBaseFields = ({ limit }: AttributeFormBaseFieldsProps)
             );
             setValue("attributeUnits", unitArray);
           }}
-          isDisabled={limit}
+          isDisabled={limited}
         />
       </FormField>
       {unitArray.length > 0 && (
@@ -90,7 +90,7 @@ export const AttributeFormBaseFields = ({ limit }: AttributeFormBaseFieldsProps)
                 })
               );
             }}
-            isDisabled={limit}
+            isDisabled={limited}
           />
         </FormField>
       )}

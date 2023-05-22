@@ -5,10 +5,10 @@ import { useTranslation } from "react-i18next";
 import { RdsLibAm } from "@mimirorg/typelibrary-types";
 
 interface RdsFormBaseFieldsProps {
-  limit?: boolean;
+  limited?: boolean;
 }
 
-export const RdsFormBaseFields = ({ limit }: RdsFormBaseFieldsProps) => {
+export const RdsFormBaseFields = ({ limited }: RdsFormBaseFieldsProps) => {
   const { register, formState } = useFormContext<RdsLibAm>();
   const { errors } = formState;
   const { t } = useTranslation("entities");
@@ -16,11 +16,11 @@ export const RdsFormBaseFields = ({ limit }: RdsFormBaseFieldsProps) => {
   return (
     <>
       <FormField label={t("rds.rdsCode")} error={errors.rdsCode}>
-        <Input placeholder={t("rds.placeholders.rdsCode")} {...register("rdsCode")} required disabled={limit} />
+        <Input placeholder={t("rds.placeholders.rdsCode")} {...register("rdsCode")} required disabled={limited} />
       </FormField>
 
       <FormField label={t("rds.name")} error={errors.name}>
-        <Input placeholder={t("rds.name")} {...register("name")} required disabled={limit} />
+        <Input placeholder={t("rds.name")} {...register("name")} required disabled={limited} />
       </FormField>
 
       <FormField label={t("rds.description")} error={errors.description}>

@@ -60,7 +60,7 @@ export const QuantityDatumForm = ({ defaultValues = createEmptyDatum(), mode }: 
           <Loader />
         ) : (
           <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
-            <QuantityDatumFormBaseFields limit={mode === "edit" && query.data?.state === State.Approved} />
+            <QuantityDatumFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
             <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
               <PlainLink tabIndex={-1} to={"/"}>
                 <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>

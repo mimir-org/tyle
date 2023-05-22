@@ -55,7 +55,7 @@ export const AttributeForm = ({ defaultValues = createEmptyAttribute(), mode }: 
           <Loader />
         ) : (
           <>
-            <AttributeFormBaseFields limit={mode === "edit" && query.data?.state === State.Approved} />
+            <AttributeFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
             <AttributeFormPreview control={control} />
             <DevTool control={control} placement={"bottom-right"} />
           </>

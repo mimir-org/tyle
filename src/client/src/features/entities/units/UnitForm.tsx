@@ -50,7 +50,7 @@ export const UnitForm = ({ defaultValues = createEmptyUnit(), mode }: UnitFormPr
           <Loader />
         ) : (
           <>
-            <UnitFormBaseFields limit={mode === "edit" && query.data?.state === State.Approved} />
+            <UnitFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
             <UnitFormPreview control={control} />
             <DevTool control={control} placement={"bottom-right"} />
           </>

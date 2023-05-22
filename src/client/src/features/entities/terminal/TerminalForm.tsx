@@ -52,7 +52,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
 
   const toast = useSubmissionToast(t("terminal.title"));
 
-  const limit = mode === "edit" && query.data?.state === State.Approved;
+  const limited = mode === "edit" && query.data?.state === State.Approved;
 
   return (
     <FormProvider {...formMethods}>
@@ -62,7 +62,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
         {isLoading && <Loader />}
         {!isLoading && (
           <>
-            <TerminalFormBaseFields limit={limit} />
+            <TerminalFormBaseFields limited={limited} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
               <FormAttributes
@@ -71,8 +71,8 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
                 append={attributeFields.append}
                 remove={attributeFields.remove}
                 preprocess={prepareAttributes}
-                canAddAttributes={!limit}
-                canRemoveAttributes={!limit}
+                canAddAttributes={!limited}
+                canRemoveAttributes={!limited}
               />
             </Box>
           </>

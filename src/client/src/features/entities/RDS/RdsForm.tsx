@@ -56,7 +56,7 @@ export const RdsForm = ({ defaultValues = createEmptyRds(), mode }: RdsFormProps
         ) : (
           <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
             <RdsFormPreview control={control} />
-            <RdsFormBaseFields limit={mode === "edit" && query.data?.state === State.Approved} />
+            <RdsFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
             <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
               <PlainLink tabIndex={-1} to={"/"}>
                 <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>
