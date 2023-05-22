@@ -3,7 +3,7 @@ import { ColorTheme } from "complib/core/variables/color/types/colorTheme";
 
 export const darkTheme: ColorTheme = {
   primary: {
-    base: colorReference.neutral[50],
+    base: colorReference.neutral[60],
     on: colorReference.primary[0]
   },
   secondary: {
