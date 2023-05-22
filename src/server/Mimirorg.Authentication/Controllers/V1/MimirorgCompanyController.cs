@@ -28,6 +28,7 @@ public class MimirorgCompanyController : ControllerBase
     /// MimirorgCompanyController constructor
     /// </summary>
     /// <param name="companyService"></param>
+    /// <param name="userService"></param>
     /// <param name="logger"></param>
     public MimirorgCompanyController(IMimirorgCompanyService companyService, IMimirorgUserService userService, ILogger<MimirorgCompanyController> logger)
     {

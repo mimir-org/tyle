@@ -38,9 +38,7 @@ public interface IMimirorgUserService
     /// <summary>
     /// Update user
     /// </summary>
-    /// <param name="id">Id of user to update</param>
-    /// <param name="firstName">New first name</param>
-    /// <param name="lastName">New last name</param>
+    /// <param name="userAm">New user information</param>
     /// <returns>UserCm</returns>
     /// <exception cref="MimirorgNotFoundException"></exception>
     /// <exception cref="MimirorgInvalidOperationException"></exception>

@@ -14,7 +14,6 @@ public class ValidIriAttribute : ValidationAttribute
 
             if (Uri.TryCreate(str, UriKind.Absolute, out var uri))
             {
-                var segments = uri.Segments;
                 if (uri.Segments.Length >= 2)
                     return ValidationResult.Success;
             }
