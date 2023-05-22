@@ -17,7 +17,7 @@ export const unitApi = {
     return apiClient.post<UnitLibCm>(`${_basePath}`, item).then((r) => r.data);
   },
   patchUnitState(id: string, state: State) {
-    return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state`, { state }).then((r) => r.data);
+    return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/${state}`, { state }).then((r) => r.data);
   },
   patchUnitStateReject(id: string) {
     return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/reject`).then((r) => r.data);

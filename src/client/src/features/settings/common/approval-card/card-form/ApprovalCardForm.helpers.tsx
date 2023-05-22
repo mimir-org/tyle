@@ -12,6 +12,10 @@ import {
 import { Flexbox } from "complib/layouts/Flexbox";
 import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
 import { usePatchAspectObjectState } from "external/sources/aspectobject/aspectObject.queries";
+import { usePatchUnitState } from "../../../../../external/sources/unit/unit.queries";
+import { usePatchQuantityDatumState } from "../../../../../external/sources/datum/quantityDatum.queries";
+import { usePatchRdsState } from "../../../../../external/sources/rds/rds.queries";
+import { usePatchAttributeState } from "../../../../../external/sources/attribute/attribute.queries";
 
 /**
  * Shows a toast while an approval is sent to server.
@@ -25,6 +29,10 @@ export const useApprovalToasts = (oldState?: Option<State>) => {
   const undoToast = useUndoApprovalToast(oldState);
   const patchMutationAspectObject = usePatchAspectObjectState();
   const patchMutationTerminal = usePatchTerminalState();
+  const patchMutationUnit = usePatchUnitState();
+  const patchMutationQuantityDatum = usePatchQuantityDatumState();
+  const patchMutationRds = usePatchRdsState();
+  const patchMutationAttribute = usePatchAttributeState();
 
   let mutationPromise = {} as Promise<ApprovalDataCm>;
 
@@ -36,8 +44,20 @@ export const useApprovalToasts = (oldState?: Option<State>) => {
       case "Terminal":
         mutationPromise = patchMutationTerminal.mutateAsync(mapFormApprovalToApiModel(submission));
         break;
+      case "Unit":
+        mutationPromise = patchMutationUnit.mutateAsync(mapFormApprovalToApiModel(submission));
+        break;
+      case "Quantity datum":
+        mutationPromise = patchMutationQuantityDatum.mutateAsync(mapFormApprovalToApiModel(submission));
+        break;
+      case "Rds":
+        mutationPromise = patchMutationRds.mutateAsync(mapFormApprovalToApiModel(submission));
+        break;
+      case "Attribute":
+        mutationPromise = patchMutationAttribute.mutateAsync(mapFormApprovalToApiModel(submission));
+        break;
       default:
-        throw new Error("Can't");
+        throw new Error("Unable to approve, reject or undo, ask a developer for help resolving this issue.");
     }
 
     return toast.promise(
@@ -79,6 +99,10 @@ const useUndoApprovalToast = (oldState?: Option<State>) => {
   const { t } = useTranslation("settings");
   const patchMutationAspectObject = usePatchAspectObjectState();
   const patchMutationTerminal = usePatchTerminalState();
+  const patchMutationUnit = usePatchUnitState();
+  const patchMutationQuantityDatum = usePatchQuantityDatumState();
+  const patchMutationRds = usePatchRdsState();
+  const patchMutationAttribute = usePatchAttributeState();
   const shouldRevertToOldApproval = !!oldState;
 
   return (name: string, submission: FormApproval) => {
@@ -92,8 +116,20 @@ const useUndoApprovalToast = (oldState?: Option<State>) => {
       case "Terminal":
         mutationPromise = patchMutationTerminal.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
         break;
+      case "Unit":
+        mutationPromise = patchMutationUnit.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
+        break;
+      case "QuantityDatum":
+        mutationPromise = patchMutationQuantityDatum.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
+        break;
+      case "Rds":
+        mutationPromise = patchMutationRds.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
+        break;
+      case "Attribute":
+        mutationPromise = patchMutationAttribute.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
+        break;
       default:
-        throw new Error("Can't");
+        throw new Error("Unable to approve, reject or undo, ask a developer for help resolving this issue.");
     }
 
     return toast.promise(mutationPromise, {
