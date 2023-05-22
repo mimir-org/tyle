@@ -95,7 +95,7 @@ public class LibraryAspectObjectController : ControllerBase
     /// </summary>
     /// <param name="id">The id of the aspect object we want to get the latest approved version of</param>
     /// <returns>The requested aspect object</returns>
-    [HttpGet("latestApproved/{id}")]
+    [HttpGet("latest-approved/{id}")]
     [ProducesResponseType(typeof(AspectObjectLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
