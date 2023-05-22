@@ -12,21 +12,13 @@ public class EfAttributePredefinedRepository : GenericRepository<TypeLibraryDbCo
     {
     }
 
-    /// <summary>
-    /// Get all predefined attributes
-    /// </summary>
-    /// <returns>A collection of predefined attributes</returns>
-    /// <remarks>Only attributes that is not deleted will be returned</remarks>
+    /// <inheritdoc />
     public IEnumerable<AttributePredefinedLibDm> GetPredefined()
     {
         return GetAll();
     }
 
-    /// <summary>
-    /// Create a predefined attribute
-    /// </summary>
-    /// <param name="predefined">The attribute that should be created</param>
-    /// <returns>An attribute</returns>
+    /// <inheritdoc />
     public async Task<AttributePredefinedLibDm> CreatePredefined(AttributePredefinedLibDm predefined)
     {
         await CreateAsync(predefined);

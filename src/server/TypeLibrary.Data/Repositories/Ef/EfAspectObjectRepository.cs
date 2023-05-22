@@ -47,20 +47,13 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
         return aspectObjectsToChange.Count;
     }
 
-    /// <summary>
-    /// Check if aspect object exists
-    /// </summary>
-    /// <param name="id">The id of the aspect object</param>
-    /// <returns>True if aspect object exist</returns>
+    /// <inheritdoc />
     public async Task<bool> Exist(string id)
     {
         return await Exist(x => x.Id == id);
     }
 
-    /// <summary>
-    /// Get all aspect objects
-    /// </summary>
-    /// <returns>A collection of aspect objects</returns>
+    /// <inheritdoc />
     public IEnumerable<AspectObjectLibDm> Get()
     {
         return GetAll()
@@ -71,11 +64,7 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
             .AsSplitQuery();
     }
 
-    /// <summary>
-    /// Get aspect object by id
-    /// </summary>
-    /// <param name="id">The aspect object id</param>
-    /// <returns>Aspect object if found</returns>
+    /// <inheritdoc />
     public AspectObjectLibDm Get(string id)
     {
         return FindBy(x => x.Id == id)
@@ -87,11 +76,7 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
             .FirstOrDefault();
     }
 
-    /// <summary>
-    /// Create an aspect object
-    /// </summary>
-    /// <param name="aspectObject">The aspect object to be created</param>
-    /// <returns>The created aspect object</returns>
+    /// <inheritdoc />
     public async Task<AspectObjectLibDm> Create(AspectObjectLibDm aspectObject)
     {
         await CreateAsync(aspectObject);
@@ -102,9 +87,7 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
         return aspectObject;
     }
 
-    /// <summary>
-    /// Clear all entity framework change trackers
-    /// </summary>
+    /// <inheritdoc />
     public void ClearAllChangeTrackers()
     {
         Context?.ChangeTracker.Clear();

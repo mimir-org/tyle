@@ -42,31 +42,20 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
         return terminalsToChange.Count;
     }
 
-    /// <summary>
-    /// Check if terminal exists
-    /// </summary>
-    /// <param name="id">The id of the terminal</param>
-    /// <returns>True if terminal exist</returns>
+    /// <inheritdoc />
     public async Task<bool> Exist(string id)
     {
         return await Exist(x => x.Id == id);
     }
 
-    /// <summary>
-    /// Get all terminals
-    /// </summary>
-    /// <returns>A collection of terminals</returns>
+    /// <inheritdoc />
     public IEnumerable<TerminalLibDm> Get()
     {
         return GetAll()
             .Include(x => x.Attributes);
     }
 
-    /// <summary>
-    /// Get terminal by id
-    /// </summary>
-    /// <param name="id">The terminal id</param>
-    /// <returns>Terminal if found</returns>
+    /// <inheritdoc />
     public TerminalLibDm Get(string id)
     {
         var terminal = FindBy(x => x.Id == id)
@@ -75,11 +64,7 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
         return terminal;
     }
 
-    /// <summary>
-    /// Create a terminal in database
-    /// </summary>
-    /// <param name="terminal">The terminal to be created</param>
-    /// <returns>The created terminal</returns>
+    /// <inheritdoc />
     public async Task<TerminalLibDm> Create(TerminalLibDm terminal)
     {
         await CreateAsync(terminal);
@@ -88,9 +73,7 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
         return terminal;
     }
 
-    /// <summary>
-    /// Clear all entity framework change trackers
-    /// </summary>
+    /// <inheritdoc />
     public void ClearAllChangeTrackers()
     {
         Context?.ChangeTracker.Clear();
