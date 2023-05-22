@@ -12,7 +12,7 @@ interface UnitFormBaseFieldsProps {
   limit?: boolean;
 }
 
-export default function UnitFormBaseFields({ limit } : UnitFormBaseFieldsProps) {
+export default function UnitFormBaseFields({ limit }: UnitFormBaseFieldsProps) {
   const theme = useTheme();
   const { t } = useTranslation("entities");
   const { register, formState } = useFormContext<UnitLibAm>();

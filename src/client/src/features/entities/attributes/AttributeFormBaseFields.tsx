@@ -22,7 +22,7 @@ interface AttributeFormBaseFieldsProps {
  * @constructor
  */
 
-export const AttributeFormBaseFields = ({ limit } : AttributeFormBaseFieldsProps) => {
+export const AttributeFormBaseFields = ({ limit }: AttributeFormBaseFieldsProps) => {
   const [unitArray, setUnitArray] = useState<FormUnitHelper[]>([]);
   const [defaultUnit, setDefaultUnit] = useState<FormUnitHelper | null>(null);
   const theme = useTheme();

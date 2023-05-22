@@ -47,7 +47,6 @@ export const FormAttributes = ({
   canAddAttributes = true,
   canRemoveAttributes = true,
   limitedAttributes = [],
-
 }: FormAttributesProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
@@ -78,7 +77,16 @@ export const FormAttributes = ({
           const attribute = selected.find((x) => x.id === field.value);
           return (
             attribute && (
-              <Token variant={"secondary"} key={attribute.id} {...register(index)} actionable={canRemoveAttributes && !limitedAttributes.map((x) => x.id).includes(attribute.id ?? "")} actionIcon={<XCircle />} actionText={t("common.attributes.remove")} onAction={() => remove(index)} dangerousAction>
+              <Token
+                variant={"secondary"}
+                key={attribute.id}
+                {...register(index)}
+                actionable={canRemoveAttributes && !limitedAttributes.map((x) => x.id).includes(attribute.id ?? "")}
+                actionIcon={<XCircle />}
+                actionText={t("common.attributes.remove")}
+                onAction={() => remove(index)}
+                dangerousAction
+              >
                 {attribute.name}
               </Token>
             )

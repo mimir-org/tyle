@@ -8,7 +8,7 @@ interface QuantityDatumFormBaseFieldsProps {
   limit?: boolean;
 }
 
-export const QuantityDatumFormBaseFields = ({ limit } : QuantityDatumFormBaseFieldsProps) => {
+export const QuantityDatumFormBaseFields = ({ limit }: QuantityDatumFormBaseFieldsProps) => {
   const { control, register, formState } = useFormContext<QuantityDatumLibAm>();
   const { errors } = formState;
   const { t } = useTranslation("entities");

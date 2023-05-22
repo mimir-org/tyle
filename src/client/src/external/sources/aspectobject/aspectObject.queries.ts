@@ -14,7 +14,10 @@ export const useGetAspectObject = (id?: string) =>
   useQuery(keys.aspectObject(id), () => aspectObjectApi.getLibraryAspectObject(id), { enabled: !!id, retry: false });
 
 export const useGetLatestApprovedAspectObject = (id?: string) =>
-  useQuery(keys.aspectObject("latest-approved/" + id), () => aspectObjectApi.getLatestApprovedLibraryAspectObject(id), { enabled: !!id, retry: false });
+  useQuery(keys.aspectObject("latest-approved/" + id), () => aspectObjectApi.getLatestApprovedLibraryAspectObject(id), {
+    enabled: !!id,
+    retry: false,
+  });
 
 export const useCreateAspectObject = () => {
   const queryClient = useQueryClient();
