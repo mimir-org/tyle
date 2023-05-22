@@ -77,6 +77,17 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     }
 
     /// <inheritdoc />
+    public IEnumerable<AspectObjectLibDm> GetAllVersions(AspectObjectLibDm aspectObject)
+    {
+        return FindBy(x => x.FirstVersionId == aspectObject.FirstVersionId)
+            .Include(x => x.AspectObjectTerminals)
+            .ThenInclude(x => x.Terminal)
+            .Include(x => x.Attributes)
+            .Include(x => x.Rds)
+            .AsSplitQuery();
+    }
+
+    /// <inheritdoc />
     public async Task<AspectObjectLibDm> Create(AspectObjectLibDm aspectObject)
     {
         await CreateAsync(aspectObject);

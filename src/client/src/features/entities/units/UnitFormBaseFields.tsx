@@ -8,7 +8,11 @@ import { PlainLink } from "../../common/plain-link";
 import { Button } from "../../../complib/buttons";
 import { UnitLibAm } from "@mimirorg/typelibrary-types";
 
-export default function UnitFormBaseFields() {
+interface UnitFormBaseFieldsProps {
+  limited?: boolean;
+}
+
+export default function UnitFormBaseFields({ limited }: UnitFormBaseFieldsProps) {
   const theme = useTheme();
   const { t } = useTranslation("entities");
   const { register, formState } = useFormContext<UnitLibAm>();
@@ -17,11 +21,11 @@ export default function UnitFormBaseFields() {
   return (
     <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
       <FormField label={t("unit.name")} error={errors.name}>
-        <Input placeholder={t("unit.placeholders.name")} {...register("name")} required />
+        <Input placeholder={t("unit.placeholders.name")} {...register("name")} required disabled={limited} />
       </FormField>
 
       <FormField label={t("unit.symbol")} error={errors.symbol}>
-        <Input placeholder={t("unit.placeholders.symbol")} {...register("symbol")} />
+        <Input placeholder={t("unit.placeholders.symbol")} {...register("symbol")} disabled={limited} />
       </FormField>
 
       <FormField label={t("unit.description")} error={errors.description}>
