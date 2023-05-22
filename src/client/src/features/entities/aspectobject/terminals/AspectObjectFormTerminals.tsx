@@ -16,7 +16,7 @@ interface AspectObjectFormTerminalsProps {
  * Form section for adding terminals to aspect objects
  *
  * @param canAddTerminals controls if the add action is shown
- * @param limitedTerminals list of id's for terminals that cannot be removed
+ * @param limitedTerminals list of terminals that cannot be removed
  * @constructor
  */
 export const AspectObjectFormTerminals = ({
