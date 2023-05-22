@@ -11,7 +11,7 @@ using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Records;
 
-public record ApprovalData()
+public record ApprovalData
 {
     private List<ApprovalCm> AspectObjects { get; } = new();
     private List<ApprovalCm> Terminals { get; } = new();

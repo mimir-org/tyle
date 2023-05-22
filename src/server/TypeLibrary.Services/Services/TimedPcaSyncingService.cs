@@ -2,7 +2,6 @@ using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Mimirorg.Common.Enums;
 using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -21,7 +20,6 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 {
     private bool _disposedValue;
     private readonly ILogger<TimedPcaSyncingService> _logger;
-    private readonly IMapper _mapper;
     private readonly IServiceProvider _serviceProvider;
     private readonly IApplicationSettingsRepository _settings;
     private Timer _timer = null;
@@ -29,10 +27,9 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
     private readonly IQuantityDatumReferenceRepository _quantityDatumReferenceRepository;
     private readonly IUnitReferenceRepository _unitReferenceRepository;
 
-    public TimedPcaSyncingService(ILogger<TimedPcaSyncingService> logger, IMapper mapper, IServiceProvider serviceProvider, IApplicationSettingsRepository settings, IAttributeReferenceRepository attributeReferenceReferenceRepository, IQuantityDatumReferenceRepository quantityDatumReferenceRepository, IUnitReferenceRepository unitReferenceRepository)
+    public TimedPcaSyncingService(ILogger<TimedPcaSyncingService> logger, IServiceProvider serviceProvider, IApplicationSettingsRepository settings, IAttributeReferenceRepository attributeReferenceReferenceRepository, IQuantityDatumReferenceRepository quantityDatumReferenceRepository, IUnitReferenceRepository unitReferenceRepository)
     {
         _logger = logger;
-        _mapper = mapper;
         _serviceProvider = serviceProvider;
         _settings = settings;
         _attributeReferenceRepository = attributeReferenceReferenceRepository;

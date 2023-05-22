@@ -13,12 +13,10 @@ namespace TypeLibrary.Services.Services;
 public class VersionService : IVersionService
 {
     private readonly IAspectObjectRepository _aspectObjectRepository;
-    private readonly ITerminalRepository _terminalRepository;
 
-    public VersionService(IAspectObjectRepository aspectObjectRepository, ITerminalRepository terminalRepository)
+    public VersionService(IAspectObjectRepository aspectObjectRepository)
     {
         _aspectObjectRepository = aspectObjectRepository;
-        _terminalRepository = terminalRepository;
     }
 
     /// <summary>
