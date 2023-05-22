@@ -83,7 +83,7 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
                 append={attributeFields.append}
                 remove={attributeFields.remove}
                 preprocess={prepareAttributes}
-                canRemoveAttributes={mode !== "edit"}
+                limitedAttributes={limit ? latestApprovedQuery.data?.attributes : []}
               />
             </Box>
           </>
