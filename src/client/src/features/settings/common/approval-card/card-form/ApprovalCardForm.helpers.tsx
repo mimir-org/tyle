@@ -107,7 +107,7 @@ const useUndoApprovalToast = (oldState?: Option<State>) => {
 
   return (name: string, submission: FormApproval) => {
     const targetSubmission = shouldRevertToOldApproval ? { ...submission, state: oldState } : submission;
-    let mutationPromise = {} as Promise<ApprovalDataCm>;
+    let mutationPromise;
 
     switch (submission.objectType) {
       case "AspectObject":
@@ -119,7 +119,7 @@ const useUndoApprovalToast = (oldState?: Option<State>) => {
       case "Unit":
         mutationPromise = patchMutationUnit.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
         break;
-      case "QuantityDatum":
+      case "Quantity datum":
         mutationPromise = patchMutationQuantityDatum.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
         break;
       case "Rds":
@@ -129,7 +129,7 @@ const useUndoApprovalToast = (oldState?: Option<State>) => {
         mutationPromise = patchMutationAttribute.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
         break;
       default:
-        throw new Error("Unable to approve, reject or undo, ask a developer for help resolving this issue.");
+        throw new Error("Unable to undo, ask a developer for help resolving this issue.");
     }
 
     return toast.promise(mutationPromise, {
