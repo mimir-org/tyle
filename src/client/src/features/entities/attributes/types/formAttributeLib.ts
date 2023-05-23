@@ -1,4 +1,4 @@
-import { AttributeLibAm, AttributeLibCm, AttributeUnitLibCm } from "@mimirorg/typelibrary-types";
+import { AttributeLibAm, AttributeLibCm, UnitLibCm } from "@mimirorg/typelibrary-types";
 import { FormUnitHelper, createEmptyFormUnitHelper } from "features/entities/units/types/FormUnitHelper";
 
 export interface FormAttributeLib extends Omit<AttributeLibAm, "attributeUnits"> {
@@ -20,24 +20,24 @@ export const toFormAttributeLib = (attribute: AttributeLibCm): FormAttributeLib 
   name: attribute.name,
   typeReference: attribute.typeReference,
   description: attribute.description,
-  units: attribute.attributeUnits.map((x) => toFormUnitHelper(x)),
-  defaultUnit: toFormUnitHelper(attribute.attributeUnits.find((x) => x.isDefault === true))
+  units: attribute.attributeUnits.map((x) => toFormUnitHelper(x.unit)),
+  defaultUnit: toFormUnitHelper(attribute.attributeUnits.find((x) => x.isDefault === true)?.unit),
 });
 
-export const toFormUnitHelper = (attributeUnit: AttributeUnitLibCm | undefined): FormUnitHelper => {
-  if (!attributeUnit) return createEmptyFormUnitHelper();
-  return ({
-    name: attributeUnit.unit.name,
-    description: attributeUnit.unit.description,
-    symbol: attributeUnit.unit.symbol,
-    unitId: attributeUnit.unit.id
-  });
-}
+export const toFormUnitHelper = (unit: UnitLibCm | undefined): FormUnitHelper => {
+  if (!unit) return createEmptyFormUnitHelper();
+  return {
+    name: unit.name,
+    description: unit.description,
+    symbol: unit.symbol,
+    unitId: unit.id,
+  };
+};
 
 export const createEmptyAttribute = (): FormAttributeLib => ({
   name: "",
   typeReference: "",
   description: "",
   units: [],
-  defaultUnit: undefined
+  defaultUnit: undefined,
 });

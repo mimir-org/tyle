@@ -9,5 +9,5 @@ export const createEmptyFormUnitHelper = (): FormUnitHelper => ({
   name: "",
   description: "",
   symbol: "",
-  unitId: ""
+  unitId: "",
 });
