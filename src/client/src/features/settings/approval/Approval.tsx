@@ -77,7 +77,7 @@ export const Approval = () => {
       <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.tyle.spacing.xxxl}>
         {showPlaceholder && <ApprovalPlaceholder text={t("approval.placeholders.emptyApproval")} />}
         {approvals.data
-          ?.filter((x) => x.state !== State.Delete)
+          ?.filter((x) => x.state === State.Approve)
           .map((approval) => (
             <ApprovalCard key={`${approval.id}`} item={approval} onSubmit={onSubmit} onReject={onReject} />
           ))}
