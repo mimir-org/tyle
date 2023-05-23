@@ -32,6 +32,7 @@ interface AspectObjectTerminalProps {
   setValue: UseFormSetValue<FormAspectObjectLib>;
   removable: boolean;
   onRemove: () => void;
+  minValue?: number;
 }
 
 /**
@@ -55,6 +56,7 @@ export const AspectObjectTerminal = ({
   setValue,
   removable = true,
   onRemove,
+  minValue,
 }: AspectObjectTerminalProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
@@ -120,62 +122,65 @@ export const AspectObjectTerminal = ({
                   options={connectorDirectionOptions}
                   onChange={(x) => onChange(x?.value)}
                   value={connectorDirectionOptions.find((x) => x.value === value)}
+                  isDisabled={!removable}
                 />
               </FormField>
             )}
           />
-          <AspectObjectTerminalInputContainer>
-            <Controller
-              control={control}
-              name={`aspectObjectTerminals.${index}.hasMaxQuantity`}
-              render={({ field: { onChange, value, ...rest } }) => (
-                <FormField
-                  indent={false}
-                  label={t("aspectObject.terminals.limit")}
-                  error={errors.aspectObjectTerminals?.[index]?.hasMaxQuantity}
-                >
-                  <Box display={"flex"} justifyContent={"center"} alignItems={"center"} height={"40px"}>
-                    <Checkbox
+          {terminalCanHaveLimit && (
+            <AspectObjectTerminalInputContainer>
+              <Controller
+                control={control}
+                name={`aspectObjectTerminals.${index}.hasMaxQuantity`}
+                render={({ field: { onChange, value, ...rest } }) => (
+                  <FormField
+                    indent={false}
+                    label={t("aspectObject.terminals.limit")}
+                    error={errors.aspectObjectTerminals?.[index]?.hasMaxQuantity}
+                  >
+                    <Box display={"flex"} justifyContent={"center"} alignItems={"center"} height={"40px"}>
+                      <Checkbox
+                        {...rest}
+                        onCheckedChange={(checked) => {
+                          !checked &&
+                            setValue(`aspectObjectTerminals.${index}.maxQuantity`, MAXIMUM_TERMINAL_QUANTITY_VALUE, {
+                              shouldDirty: true,
+                            });
+                          checked &&
+                            setValue(`aspectObjectTerminals.${index}.maxQuantity`, minValue ?? 1, {
+                              shouldDirty: true,
+                            });
+                          onChange(checked);
+                        }}
+                        checked={value}
+                        disabled={!terminalCanHaveLimit}
+                      />
+                    </Box>
+                  </FormField>
+                )}
+              />
+              <Controller
+                control={control}
+                name={`aspectObjectTerminals.${index}.maxQuantity`}
+                render={({ field: { value, ...rest } }) => (
+                  <FormField
+                    indent={false}
+                    label={t("aspectObject.terminals.amount")}
+                    error={errors.aspectObjectTerminals?.[index]?.maxQuantity}
+                  >
+                    <Counter
                       {...rest}
-                      onCheckedChange={(checked) => {
-                        !checked &&
-                          setValue(`aspectObjectTerminals.${index}.maxQuantity`, MAXIMUM_TERMINAL_QUANTITY_VALUE, {
-                            shouldDirty: true,
-                          });
-                        checked &&
-                          setValue(`aspectObjectTerminals.${index}.maxQuantity`, 1, {
-                            shouldDirty: true,
-                          });
-                        onChange(checked);
-                      }}
-                      checked={value}
-                      disabled={!terminalCanHaveLimit}
+                      id={field.id}
+                      min={minValue ?? MINIMUM_TERMINAL_QUANTITY_VALUE}
+                      max={MAXIMUM_TERMINAL_QUANTITY_VALUE}
+                      value={!terminalHasMaxQuantity ? 0 : value}
+                      disabled={!terminalHasMaxQuantity}
                     />
-                  </Box>
-                </FormField>
-              )}
-            />
-            <Controller
-              control={control}
-              name={`aspectObjectTerminals.${index}.maxQuantity`}
-              render={({ field: { value, ...rest } }) => (
-                <FormField
-                  indent={false}
-                  label={t("aspectObject.terminals.amount")}
-                  error={errors.aspectObjectTerminals?.[index]?.maxQuantity}
-                >
-                  <Counter
-                    {...rest}
-                    id={field.id}
-                    min={MINIMUM_TERMINAL_QUANTITY_VALUE}
-                    max={MAXIMUM_TERMINAL_QUANTITY_VALUE}
-                    value={!terminalHasMaxQuantity ? 0 : value}
-                    disabled={!terminalHasMaxQuantity}
-                  />
-                </FormField>
-              )}
-            />
-          </AspectObjectTerminalInputContainer>
+                  </FormField>
+                )}
+              />
+            </AspectObjectTerminalInputContainer>
+          )}
         </AspectObjectTerminalInputContainer>
         {sourceTerminal && sourceTerminal.attributes.length >= 4 ? (
           <Accordion>
@@ -191,7 +196,7 @@ export const AspectObjectTerminal = ({
         )}
       </AspectObjectTerminalContainer>
       <Box>
-        <Button variant={"outlined"} dangerousAction disabled={removable} alignSelf={"end"} onClick={() => onRemove()}>
+        <Button variant={"outlined"} dangerousAction disabled={!removable} alignSelf={"end"} onClick={() => onRemove()}>
           <Trash size={48} />
         </Button>
       </Box>

@@ -12,19 +12,13 @@ public class EfLogRepository : GenericRepository<TypeLibraryDbContext, LogLibDm>
     {
     }
 
-    /// <summary>
-    /// Get all logs
-    /// </summary>
-    /// <returns>A collection of logs</returns>
+    /// <inheritdoc />
     public IEnumerable<LogLibDm> Get()
     {
         return GetAll();
     }
 
-    /// <summary>
-    /// Create a log entry
-    /// </summary>
-    /// <param name="logDms">The log entry to be created</param>
+    /// <inheritdoc />
     public async Task Create(ICollection<LogLibDm> logDms)
     {
         foreach (var dm in logDms)

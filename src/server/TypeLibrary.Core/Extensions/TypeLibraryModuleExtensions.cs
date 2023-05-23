@@ -125,13 +125,13 @@ public static class TypeLibraryModuleExtensions
         var logger = serviceScope.ServiceProvider.GetRequiredService<ILogger<IModuleService>>();
 
         var applicationSettings = serviceScope.ServiceProvider.GetRequiredService<IOptions<ApplicationSettings>>();
-        logger.LogInformation(applicationSettings?.Value?.ToString());
+        logger.LogInformation(applicationSettings?.Value.ToString());
 
         var databaseConfigurations = serviceScope.ServiceProvider.GetRequiredService<IOptions<DatabaseConfiguration>>();
-        logger.LogInformation(databaseConfigurations?.Value?.ToString());
+        logger.LogInformation(databaseConfigurations?.Value.ToString());
 
         var authSettings = serviceScope.ServiceProvider.GetRequiredService<IOptions<MimirorgAuthSettings>>();
-        logger.LogInformation(authSettings?.Value?.ToString());
+        logger.LogInformation(authSettings?.Value.ToString());
 
         if (context.Database.IsRelational())
             context.Database.Migrate();

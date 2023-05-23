@@ -1,22 +1,22 @@
-using System.Security.Principal;
 using AspNetCore.Totp;
+using AspNetCore.Totp.Interface.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
+using Mimirorg.Authentication.Extensions;
 using Mimirorg.Authentication.Models.Constants;
 using Mimirorg.Authentication.Models.Domain;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
-using System.Security.Cryptography;
-using System.Text;
-using AspNetCore.Totp.Interface.Models;
-using Mimirorg.Authentication.Extensions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System.Security.Cryptography;
+using System.Security.Principal;
+using System.Text;
 
 namespace Mimirorg.Authentication.Services;
 
@@ -95,9 +95,7 @@ public class MimirorgUserService : IMimirorgUserService
     /// <summary>
     /// Update user
     /// </summary>
-    /// <param name="id">Id of user to update</param>
-    /// <param name="firstName">New first name</param>
-    /// <param name="lastName">New last name</param>
+    /// <param name="userAm">New last name</param>
     /// <returns>UserCm</returns>
     /// <exception cref="MimirorgNotFoundException"></exception>
     /// <exception cref="MimirorgInvalidOperationException"></exception>
@@ -419,19 +417,12 @@ public class MimirorgUserService : IMimirorgUserService
 
             await _userManager.AddToRoleAsync(user, MimirorgDefaultRoles.Administrator);
 
-            // Create hooks
-            var cacheKeys = EnumExtensions.AsEnumerable<CacheKey>().ToList();
-            foreach (var cacheKey in cacheKeys)
+            _ = await _mimirorgCompanyService.CreateHook(new MimirorgHookAm
             {
-                var hook = new MimirorgHookAm
-                {
-                    CompanyId = company.Id,
-                    Iri = "http://mimirserver/v1.0/common/cache/invalidate",
-                    Key = cacheKey
-                };
-
-                _ = await _mimirorgCompanyService.CreateHook(hook);
-            }
+                CompanyId = company.Id,
+                Iri = "https://mimirserver.azurewebsites.net/v1.0/common/cache/invalidate/",
+                Key = CacheKey.All
+            });
         }
         catch (Exception)
         {

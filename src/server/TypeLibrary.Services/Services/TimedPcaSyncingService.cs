@@ -2,7 +2,6 @@ using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Mimirorg.Common.Enums;
 using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -21,7 +20,6 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 {
     private bool _disposedValue;
     private readonly ILogger<TimedPcaSyncingService> _logger;
-    private readonly IMapper _mapper;
     private readonly IServiceProvider _serviceProvider;
     private readonly IApplicationSettingsRepository _settings;
     private Timer _timer = null;
@@ -29,10 +27,9 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
     private readonly IQuantityDatumReferenceRepository _quantityDatumReferenceRepository;
     private readonly IUnitReferenceRepository _unitReferenceRepository;
 
-    public TimedPcaSyncingService(ILogger<TimedPcaSyncingService> logger, IMapper mapper, IServiceProvider serviceProvider, IApplicationSettingsRepository settings, IAttributeReferenceRepository attributeReferenceReferenceRepository, IQuantityDatumReferenceRepository quantityDatumReferenceRepository, IUnitReferenceRepository unitReferenceRepository)
+    public TimedPcaSyncingService(ILogger<TimedPcaSyncingService> logger, IServiceProvider serviceProvider, IApplicationSettingsRepository settings, IAttributeReferenceRepository attributeReferenceReferenceRepository, IQuantityDatumReferenceRepository quantityDatumReferenceRepository, IUnitReferenceRepository unitReferenceRepository)
     {
         _logger = logger;
-        _mapper = mapper;
         _serviceProvider = serviceProvider;
         _settings = settings;
         _attributeReferenceRepository = attributeReferenceReferenceRepository;
@@ -113,8 +110,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         var pcaUnits = await pcaUnitsFetch;
         _logger.LogInformation("Retrieved unit data from PCA...");
 
-        var idsOfUnitsToDelete = new List<string>();
-        var unitsToCreate = new List<UnitLibAm>();
+        var created = 0;
 
         foreach (var pcaUnit in pcaUnits)
         {
@@ -124,24 +120,17 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
                 if (storedUnit.Equals(pcaUnit)) continue;
 
-                idsOfUnitsToDelete.Add(storedUnit.Id);
+                _logger.LogError($"Unit with id {storedUnit.Id} deviates from PCA.");
             }
-            unitsToCreate.Add(pcaUnit);
-        }
-
-        foreach (var id in idsOfUnitsToDelete)
-        {
-            await unitService.ChangeState(id, State.Deleted);
-        }
-
-        foreach (var unit in unitsToCreate)
-        {
-            await unitService.Create(unit, CreatedBy.PcaSyncJob);
+            else
+            {
+                await unitService.Create(pcaUnit, CreatedBy.PcaSyncJob);
+                created++;
+            }
         }
 
         _logger.LogInformation("Unit sync from PCA completed.");
-        _logger.LogInformation($"Number of updated units: {idsOfUnitsToDelete.Count}");
-        _logger.LogInformation($"Number of new units: {unitsToCreate.Count - idsOfUnitsToDelete.Count}");
+        _logger.LogInformation($"Number of new units: {created}");
     }
 
     private async Task SyncAttributes()
@@ -171,8 +160,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         var pcaAttributes = await pcaAttributesFetch;
         _logger.LogInformation("Retrieved attribute data from PCA...");
 
-        var idsOfAttributesToDelete = new List<string>();
-        var attributesToCreate = new List<AttributeLibAm>();
+        var created = 0;
 
         foreach (var pcaAttribute in pcaAttributes)
         {
@@ -182,24 +170,17 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
                 if (AttributeIsUnchanged(storedAttribute, pcaAttribute)) continue;
 
-                idsOfAttributesToDelete.Add(storedAttribute.Id);
+                _logger.LogError($"Attribute with id {storedAttribute.Id} deviates from PCA.");
             }
-            attributesToCreate.Add(pcaAttribute);
-        }
-
-        foreach (var id in idsOfAttributesToDelete)
-        {
-            await attributeService.ChangeState(id, State.Deleted);
-        }
-
-        foreach (var attribute in attributesToCreate)
-        {
-            await attributeService.Create(attribute, CreatedBy.PcaSyncJob);
+            else
+            {
+                await attributeService.Create(pcaAttribute, CreatedBy.PcaSyncJob);
+                created++;
+            }
         }
 
         _logger.LogInformation("Attribute sync from PCA completed.");
-        _logger.LogInformation($"Number of updated attributes: {idsOfAttributesToDelete.Count}");
-        _logger.LogInformation($"Number of new attributes: {attributesToCreate.Count - idsOfAttributesToDelete.Count}");
+        _logger.LogInformation($"Number of new attributes: {created}");
     }
 
     private static bool AttributeIsUnchanged(AttributeLibCm stored, AttributeLibAm external)
@@ -256,8 +237,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         var pcaQuantityDatums = await pcaQuantityDatumsFetch;
         _logger.LogInformation("Retrieved quantity datum data from PCA...");
 
-        var idsOfQuantityDatumsToDelete = new List<string>();
-        var quantityDatumsToCreate = new List<QuantityDatumLibAm>();
+        var created = 0;
 
         foreach (var pcaQuantityDatum in pcaQuantityDatums)
         {
@@ -267,24 +247,17 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
                 if (storedQuantityDatum.Equals(pcaQuantityDatum)) continue;
 
-                idsOfQuantityDatumsToDelete.Add(storedQuantityDatum.Id);
+                _logger.LogError($"Quantity datum with id {storedQuantityDatum.Id} deviates from PCA.");
             }
-            quantityDatumsToCreate.Add(pcaQuantityDatum);
-        }
-
-        foreach (var id in idsOfQuantityDatumsToDelete)
-        {
-            await quantityDatumService.ChangeState(id, State.Deleted);
-        }
-
-        foreach (var quantityDatum in quantityDatumsToCreate)
-        {
-            await quantityDatumService.Create(quantityDatum, CreatedBy.PcaSyncJob);
+            else
+            {
+                await quantityDatumService.Create(pcaQuantityDatum, CreatedBy.PcaSyncJob);
+                created++;
+            }
         }
 
         _logger.LogInformation("Quantity datum sync from PCA completed.");
-        _logger.LogInformation($"Number of updated quantity datums: {idsOfQuantityDatumsToDelete.Count}");
-        _logger.LogInformation($"Number of new quantity datums: {quantityDatumsToCreate.Count - idsOfQuantityDatumsToDelete.Count}");
+        _logger.LogInformation($"Number of new quantity datums: {created}");
     }
 
     protected virtual void Dispose(bool disposing)

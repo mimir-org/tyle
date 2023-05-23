@@ -11,7 +11,7 @@ using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Records;
 
-public record ApprovalData()
+public record ApprovalData
 {
     private List<ApprovalCm> AspectObjects { get; } = new();
     private List<ApprovalCm> Terminals { get; } = new();
@@ -22,7 +22,14 @@ public record ApprovalData()
 
     public ICollection<ApprovalCm> GetAllData()
     {
-        return AspectObjects.Union(Terminals).ToList();
+        var allData = new List<ApprovalCm>();
+        allData.AddRange(AspectObjects);
+        allData.AddRange(Terminals);
+        allData.AddRange(Attributes);
+        allData.AddRange(Units);
+        allData.AddRange(QuantityDatums);
+        allData.AddRange(Rds);
+        return allData;
     }
 
     public Task ResolveAspectObjects(IAspectObjectService aspectObjectService, IMapper mapper, IMimirorgAuthService authService)

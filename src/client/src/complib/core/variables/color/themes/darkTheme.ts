@@ -3,7 +3,7 @@ import { ColorTheme } from "complib/core/variables/color/types/colorTheme";
 
 export const darkTheme: ColorTheme = {
   primary: {
-    base: colorReference.neutral[50],
+    base: colorReference.neutral[60],
     on: colorReference.primary[0]
   },
   secondary: {
@@ -66,5 +66,23 @@ export const darkTheme: ColorTheme = {
   pure: {
     base: colorReference.neutral[20],
     on: colorReference.neutral[100]
+  },
+  badge: {
+    success: {
+      base: colorReference.secondary[80],
+      on: colorReference.secondary[10]
+    },
+    error: {
+      base: colorReference.error[40],
+      on: colorReference.error[100]
+    },
+    warning: {
+      base: colorReference.neutral[80],
+      on: colorReference.neutral[10]
+    },
+    info: {
+      base: colorReference.neutral[80],
+      on: colorReference.neutral[10]
+    }
   }
 };

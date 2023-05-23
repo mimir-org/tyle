@@ -5,4 +5,5 @@ export interface Actionable {
   actionIcon: string | ReactElement;
   actionText: string;
   onAction: () => void;
+  dangerousAction?: boolean;
 }

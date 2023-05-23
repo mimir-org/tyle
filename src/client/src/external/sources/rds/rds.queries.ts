@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { rdsApi } from "external/sources/rds/rds.api";
-import { RdsLibAm } from "@mimirorg/typelibrary-types";
+import { RdsLibAm, State } from "@mimirorg/typelibrary-types";
 
 const keys = {
   all: ["rds"] as const,
@@ -26,5 +26,21 @@ export const useUpdateRds = (id?: string) => {
 
   return useMutation((item: RdsLibAm) => rdsApi.putRds(item, id), {
     onSuccess: () => queryClient.invalidateQueries(keys.rds(id)),
+  });
+};
+
+export const usePatchRdsState = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation((item: { id: string; state: State }) => rdsApi.patchRdsState(item.id, item.state), {
+    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
+  });
+};
+
+export const usePatchRdsStateReject = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation((item: { id: string }) => rdsApi.patchRdsStateReject(item.id), {
+    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };

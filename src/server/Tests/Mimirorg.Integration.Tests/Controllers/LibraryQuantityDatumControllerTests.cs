@@ -14,10 +14,10 @@ public class LibraryQuantityDatumControllerTests : IntegrationTest
 
     [Theory]
     [InlineData("/v1/libraryquantitydatum")]
-    [InlineData("/v1/libraryquantitydatum/0")]
-    [InlineData("/v1/libraryquantitydatum/1")]
-    [InlineData("/v1/libraryquantitydatum/2")]
-    [InlineData("/v1/libraryquantitydatum/3")]
+    [InlineData("/v1/libraryquantitydatum/type/0")]
+    [InlineData("/v1/libraryquantitydatum/type/1")]
+    [InlineData("/v1/libraryquantitydatum/type/2")]
+    [InlineData("/v1/libraryquantitydatum/type/3")]
     public async Task GET_Retrieves_Status_Ok(string endpoint)
     {
         var client = Factory.WithWebHostBuilder(builder =>

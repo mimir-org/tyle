@@ -6,7 +6,7 @@ import { FileItemContainer } from "./FileItemComponent.styled";
 import { Photo, MinusCircle } from "@styled-icons/heroicons-outline";
 
 interface Props {
-  fileInfo?: FileInfo;
+  fileInfo?: FileInfo | null;
   onRemove: () => void;
   tooltip?: string;
 }

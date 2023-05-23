@@ -1,8 +1,8 @@
 import { AttributeLibCm } from "@mimirorg/typelibrary-types";
-import { Trash } from "@styled-icons/heroicons-outline";
+import { XCircle } from "@styled-icons/heroicons-outline";
+import { Token } from "complib/general";
 import { Flexbox } from "complib/layouts";
 import { useGetAttributes } from "external/sources/attribute/attribute.queries";
-import { InfoItemButton } from "features/common/info-item";
 import {
   onAddAttributes,
   resolveSelectedAndAvailableAttributes,
@@ -22,6 +22,7 @@ export interface FormAttributesProps {
   preprocess?: (attributes?: AttributeLibCm[]) => AttributeLibCm[];
   canAddAttributes?: boolean;
   canRemoveAttributes?: boolean;
+  limitedAttributes?: AttributeLibCm[];
 }
 
 /**
@@ -34,6 +35,7 @@ export interface FormAttributesProps {
  * @param preprocess pass a function to alter the attribute data before it is shown to the user
  * @param canAddAttributes controls if the add action is shown
  * @param canRemoveAttributes controls if the remove action is shown
+ * @param limitedAttributes attributes that cannot be removed, even if removing attributes is allowed
  * @constructor
  */
 export const FormAttributes = ({
@@ -44,6 +46,7 @@ export const FormAttributes = ({
   preprocess,
   canAddAttributes = true,
   canRemoveAttributes = true,
+  limitedAttributes = [],
 }: FormAttributesProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
@@ -74,15 +77,18 @@ export const FormAttributes = ({
           const attribute = selected.find((x) => x.id === field.value);
           return (
             attribute && (
-              <InfoItemButton
-                key={`${index},${field.value}`}
+              <Token
+                variant={"secondary"}
+                key={attribute.id}
                 {...register(index)}
-                {...attribute}
-                actionable={canRemoveAttributes}
-                actionIcon={<Trash />}
+                actionable={canRemoveAttributes && !limitedAttributes.map((x) => x.id).includes(attribute.id ?? "")}
+                actionIcon={<XCircle />}
                 actionText={t("common.attributes.remove")}
                 onAction={() => remove(index)}
-              />
+                dangerousAction
+              >
+                {attribute.name}
+              </Token>
             )
           );
         })}
