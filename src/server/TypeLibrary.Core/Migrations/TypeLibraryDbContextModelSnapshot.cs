@@ -521,7 +521,7 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("RdsCode", "CategoryId");
+                    b.HasAlternateKey("RdsCode", "Name");
 
                     b.HasIndex("CategoryId");
 

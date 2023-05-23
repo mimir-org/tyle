@@ -9,7 +9,7 @@ public class RdsConfiguration : IEntityTypeConfiguration<RdsLibDm>
     public void Configure(EntityTypeBuilder<RdsLibDm> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.HasAlternateKey(x => new { x.RdsCode, x.CategoryId });
+        builder.HasAlternateKey(x => new { x.RdsCode, x.Name });
         builder.HasIndex(x => x.State).IsUnique(false);
         builder.ToTable("Rds");
         builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(63);

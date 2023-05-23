@@ -29,7 +29,7 @@ export const ContactCard = ({ name, email }: ContactCardProps) => {
       <User size={34} color={theme.tyle.color.sys.primary.base} />
       <Box maxWidth={"200px"}>
         <Text variant={"title-medium"}>{name}</Text>
-        <Text color={theme.tyle.color.sys.primary.base} as={"a"} href={`mailto:${email}`} variant={"title-small"}>
+        <Text as={"a"} href={`mailto:${email}`} variant={"title-small"}>
           {email}
         </Text>
       </Box>

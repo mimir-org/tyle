@@ -47,13 +47,20 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
         return aspectObjectsToChange.Count;
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Check if aspect object exists
+    /// </summary>
+    /// <param name="id">The id of the aspect object</param>
+    /// <returns>True if aspect object exist</returns>
     public async Task<bool> Exist(string id)
     {
         return await Exist(x => x.Id == id);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Get all aspect objects
+    /// </summary>
+    /// <returns>A collection of aspect objects</returns>
     public IEnumerable<AspectObjectLibDm> Get()
     {
         return GetAll()
@@ -64,7 +71,11 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
             .AsSplitQuery();
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Get aspect object by id
+    /// </summary>
+    /// <param name="id">The aspect object id</param>
+    /// <returns>Aspect object if found</returns>
     public AspectObjectLibDm Get(string id)
     {
         return FindBy(x => x.Id == id)
@@ -76,18 +87,11 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
             .FirstOrDefault();
     }
 
-    /// <inheritdoc />
-    public IEnumerable<AspectObjectLibDm> GetAllVersions(AspectObjectLibDm aspectObject)
-    {
-        return FindBy(x => x.FirstVersionId == aspectObject.FirstVersionId)
-            .Include(x => x.AspectObjectTerminals)
-            .ThenInclude(x => x.Terminal)
-            .Include(x => x.Attributes)
-            .Include(x => x.Rds)
-            .AsSplitQuery();
-    }
-
-    /// <inheritdoc />
+    /// <summary>
+    /// Create an aspect object
+    /// </summary>
+    /// <param name="aspectObject">The aspect object to be created</param>
+    /// <returns>The created aspect object</returns>
     public async Task<AspectObjectLibDm> Create(AspectObjectLibDm aspectObject)
     {
         await CreateAsync(aspectObject);
@@ -98,7 +102,9 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
         return aspectObject;
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Clear all entity framework change trackers
+    /// </summary>
     public void ClearAllChangeTrackers()
     {
         Context?.ChangeTracker.Clear();

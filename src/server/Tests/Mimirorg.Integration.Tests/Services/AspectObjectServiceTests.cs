@@ -127,7 +127,7 @@ public class AspectObjectServiceTests : IntegrationTest
 
         var aspectObjectCmUpdated = await aspectObjectService.Update(aspectObjectCm.Id, aspectObjectAm);
 
-        Assert.True(aspectObjectCm.Description == "Description");
+        Assert.True(aspectObjectCm?.Description == "Description");
         Assert.True(aspectObjectCm.Version == "1.0");
         Assert.True(aspectObjectCmUpdated?.Description == "Description v1.1");
         Assert.True(aspectObjectCmUpdated.Version == "1.1");

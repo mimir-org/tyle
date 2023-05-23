@@ -18,10 +18,4 @@ export interface ColorTheme {
   }
   shadow: Pick<Accent, "base">,
   pure: Accent,
-  badge: {
-    success: Pick<Accent, "base" | "on">,
-    warning: Pick<Accent, "base" | "on">,
-    error: Pick<Accent, "base" | "on">,
-    info: Pick<Accent, "base" | "on">
-  }
 }

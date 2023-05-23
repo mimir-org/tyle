@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
 using Mimirorg.Common.Exceptions;
-using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -15,7 +14,7 @@ namespace Mimirorg.Authentication.Controllers.V1;
 
 [Produces("application/json")]
 [ApiController]
-[ApiVersion(VersionConstant.OnePointZero)]
+[ApiVersion("1.0")]
 [Route("V{version:apiVersion}/[controller]")]
 [SwaggerTag("Mimirorg authorize services")]
 public class MimirorgAuthorizeController : ControllerBase

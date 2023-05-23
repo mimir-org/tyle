@@ -14,11 +14,13 @@ namespace TypeLibrary.Data.Repositories.Ef;
 
 public class EfRdsRepository : GenericRepository<TypeLibraryDbContext, RdsLibDm>, IEfRdsRepository
 {
+    private readonly TypeLibraryDbContext _context;
     private readonly IApplicationSettingsRepository _settings;
     private readonly IEfCategoryRepository _categoryRepository;
 
     public EfRdsRepository(TypeLibraryDbContext dbContext, IApplicationSettingsRepository settings, IEfCategoryRepository categoryRepository) : base(dbContext)
     {
+        _context = dbContext;
         _settings = settings;
         _categoryRepository = categoryRepository;
     }

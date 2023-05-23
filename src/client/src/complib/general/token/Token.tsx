@@ -31,7 +31,7 @@ export type TokenProps = HTMLAttributes<HTMLSpanElement> & TokenBaseProps & Part
  * @constructor
  */
 export const Token = forwardRef((props: TokenProps, ref: ForwardedRef<HTMLSpanElement>) => {
-  const { children, actionable, actionIcon, actionText, onAction, dangerousAction, ...delegated } = props;
+  const { children, actionable, actionIcon, actionText, onAction, ...delegated } = props;
 
   return (
     <TokenContainer ref={ref} {...delegated}>
@@ -39,7 +39,7 @@ export const Token = forwardRef((props: TokenProps, ref: ForwardedRef<HTMLSpanEl
         {children}
       </Text>
       {actionable && onAction && (
-        <Button variant={"text"} onClick={onAction} icon={actionIcon} iconOnly dangerousAction={dangerousAction}>
+        <Button variant={"text"} onClick={onAction} icon={actionIcon} iconOnly>
           {actionText}
         </Button>
       )}

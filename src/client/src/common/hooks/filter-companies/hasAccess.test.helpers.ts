@@ -9,7 +9,6 @@ export const createEmptyMimirorgCompanyCm = (): MimirorgCompanyCm => ({
   secret: "",
   domain: "",
   logo: "",
-  logoUrl: "",
   homePage: "",
 });
 

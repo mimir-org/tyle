@@ -10,13 +10,19 @@ namespace TypeLibrary.Data.Repositories.Common;
 
 public class InMemoryCacheRepository : ICacheRepository
 {
-    /// <inheritdoc />
+    /// <summary>
+    /// Refresh queue
+    /// </summary>
     public Queue<(string, string)> RefreshList { get; set; }
 
     private const int Seconds = 86400;
     private readonly IMemoryCache _memoryCache;
     private readonly ConcurrentDictionary<string, SemaphoreSlim> _locks;
 
+    /// <summary>
+    /// Default constructor
+    /// </summary>
+    /// <param name="memoryCache"></param>
     public InMemoryCacheRepository(IMemoryCache memoryCache)
     {
         _memoryCache = memoryCache;
@@ -24,14 +30,25 @@ public class InMemoryCacheRepository : ICacheRepository
         RefreshList = new Queue<(string, string)>();
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Delete from cache based on key
+    /// </summary>
+    /// <param name="key">The cache key to delete</param>
+    /// <returns>Completed Task</returns>
     public Task DeleteCacheAsync(string key)
     {
         _memoryCache.Remove(key);
         return Task.CompletedTask;
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    /// Get or create cache
+    /// </summary>
+    /// <typeparam name="T">Generic return value of function param</typeparam>
+    /// <param name="key">Cache key</param>
+    /// <param name="item">Function param that create the cache</param>
+    /// <param name="seconds">Override lifetime cache</param>
+    /// <returns>T value</returns>
     public async Task<T> GetOrCreateAsync<T>(string key, Func<Task<T>> item, int? seconds)
     {
         if (_memoryCache.TryGetValue(key, out T cacheEntry))

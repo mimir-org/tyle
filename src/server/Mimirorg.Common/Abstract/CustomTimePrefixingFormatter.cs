@@ -18,9 +18,13 @@ public sealed class CustomTimePrefixingFormatter : ConsoleFormatter, IDisposable
 
     public override void Write<TState>(in LogEntry<TState> logEntry, IExternalScopeProvider scopeProvider, TextWriter textWriter)
     {
-        var message = logEntry.Formatter(logEntry.State, logEntry.Exception);
-        WritePrefix(textWriter, logEntry.LogLevel);
-        textWriter.Write(message);
+        if (logEntry.Formatter != null)
+        {
+            var message = logEntry.Formatter(logEntry.State, logEntry.Exception);
+            WritePrefix(textWriter, logEntry.LogLevel);
+            textWriter.Write(message);
+        }
+
         WriteSuffix(textWriter);
     }
 

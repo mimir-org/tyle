@@ -14,15 +14,16 @@ import { useGetAllRds } from "external/sources/rds/rds.queries";
 import { useGetSymbols } from "external/sources/symbol/symbol.queries";
 import { PlainLink } from "features/common/plain-link";
 import { resetSubform } from "features/entities/aspectobject/AspectObjectForm.helpers";
-import { AspectObjectFormPreview } from "features/entities/entityPreviews/aspectobject/AspectObjectFormPreview";
+import { AspectObjectFormBaseFieldsContainer } from "features/entities/aspectobject/AspectObjectFormBaseFields.styled";
+import { AspectObjectFormPreview } from "features/entities/aspectobject/AspectObjectFormPreview";
 import { FormAspectObjectLib } from "features/entities/aspectobject/types/formAspectObjectLib";
+import { AspectObjectFormMode } from "features/entities/aspectobject/types/aspectObjectFormMode";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { FormBaseFieldsContainer } from "../../../complib/form/FormContainer.styled";
 
 interface AspectObjectFormBaseFieldsProps {
-  isFirstDraft?: boolean;
+  mode?: AspectObjectFormMode;
 }
 
 /**
@@ -31,7 +32,7 @@ interface AspectObjectFormBaseFieldsProps {
  * @param mode
  * @constructor
  */
-export const AspectObjectFormBaseFields = ({ isFirstDraft }: AspectObjectFormBaseFieldsProps) => {
+export const AspectObjectFormBaseFields = ({ mode }: AspectObjectFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
   const { control, register, resetField, formState } = useFormContext<FormAspectObjectLib>();
@@ -44,12 +45,12 @@ export const AspectObjectFormBaseFields = ({ isFirstDraft }: AspectObjectFormBas
   const companies = useGetFilteredCompanies(MimirorgPermission.Write);
 
   return (
-    <FormBaseFieldsContainer>
+    <AspectObjectFormBaseFieldsContainer>
       <AspectObjectFormPreview control={control} />
 
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
         <FormField label={t("aspectObject.name")} error={errors.name}>
-          <Input placeholder={t("aspectObject.placeholders.name")} {...register("name")} />
+          <Input placeholder={t("aspectObject.placeholders.name")} {...register("name")} disabled={mode === "edit"} />
         </FormField>
         <FormField label={t("aspectObject.purpose")} error={errors.purposeName}>
           <Controller
@@ -76,7 +77,7 @@ export const AspectObjectFormBaseFields = ({ isFirstDraft }: AspectObjectFormBas
             name={"aspect"}
             render={({ field: { value, onChange, ref, ...rest } }) => (
               <ConditionalWrapper
-                condition={!isFirstDraft}
+                condition={mode === "edit"}
                 wrapper={(c) => (
                   <Popover align={"start"} maxWidth={"225px"} content={t("aspectObject.disabled.aspect")}>
                     <Box borderRadius={theme.tyle.border.radius.medium} tabIndex={0}>
@@ -96,7 +97,7 @@ export const AspectObjectFormBaseFields = ({ isFirstDraft }: AspectObjectFormBas
                     onChange(x?.value);
                   }}
                   value={aspectOptions.find((x) => x.value === value)}
-                  isDisabled={!isFirstDraft}
+                  isDisabled={mode === "edit"}
                 />
               </ConditionalWrapper>
             )}
@@ -145,6 +146,7 @@ export const AspectObjectFormBaseFields = ({ isFirstDraft }: AspectObjectFormBas
                 onChange={(rds) => {
                   onChange(rds?.id);
                 }}
+                isDisabled={mode === "edit"}
               />
             )}
           />
@@ -164,7 +166,7 @@ export const AspectObjectFormBaseFields = ({ isFirstDraft }: AspectObjectFormBas
                 onChange={(x) => {
                   onChange(x?.id);
                 }}
-                isDisabled={!isFirstDraft}
+                isDisabled={mode === "edit"}
                 value={companies.find((x) => x.id === value)}
               />
             )}
@@ -183,6 +185,6 @@ export const AspectObjectFormBaseFields = ({ isFirstDraft }: AspectObjectFormBas
         </PlainLink>
         <Button type={"submit"}>{t("common.submit")}</Button>
       </Flexbox>
-    </FormBaseFieldsContainer>
+    </AspectObjectFormBaseFieldsContainer>
   );
 };

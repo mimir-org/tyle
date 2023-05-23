@@ -21,10 +21,3 @@ export const createEmptyRds = (): RdsLibCm => ({
   categoryName: "",
   kind: "",
 });
-
-export const toFormRdsLib = (rds: RdsLibCm): RdsLibCm => ({
-  ...rds,
-  name: rds.name,
-  typeReference: rds.typeReference,
-  description: rds.description,
-});

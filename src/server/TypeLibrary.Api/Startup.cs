@@ -24,7 +24,7 @@ public class Startup
         });
 
         // Add Cors policy
-        var origins = Configuration.GetSection("CorsConfiguration").GetValue<string>("ValidOrigins")?.Split(",");
+        var origins = Configuration.GetSection("CorsConfiguration")?.GetValue<string>("ValidOrigins")?.Split(",");
         var hasOrigins = origins != null && origins.Any();
 
         services.AddCors(options =>

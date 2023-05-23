@@ -24,14 +24,6 @@ public interface IAspectObjectService
     AspectObjectLibCm Get(string id);
 
     /// <summary>
-    /// Get the latest approved version of an aspect object
-    /// </summary>
-    /// <param name="id">The id of the aspect object we want to get the latest approved version of</param>
-    /// <returns>The latest approved version of the aspect object of given id</returns>
-    /// <exception cref="MimirorgNotFoundException">Throws if there is no latest approved aspect object with the given id.</exception>
-    AspectObjectLibCm GetLatestApproved(string id);
-
-    /// <summary>
     /// Create a new aspect object
     /// </summary>
     /// <param name="aspectObjectAm">The aspect object that should be created</param>

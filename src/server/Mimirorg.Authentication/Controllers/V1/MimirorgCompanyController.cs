@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Attributes;
 using Mimirorg.Common.Exceptions;
-using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -15,11 +14,12 @@ namespace Mimirorg.Authentication.Controllers.V1;
 
 [Produces("application/json")]
 [ApiController]
-[ApiVersion(VersionConstant.OnePointZero)]
+[ApiVersion("1.0")]
 [Route("V{version:apiVersion}/[controller]")]
 [SwaggerTag("Mimirorg company services")]
 public class MimirorgCompanyController : ControllerBase
 {
+    private readonly IMimirorgAuthService _authService;
     private readonly IMimirorgCompanyService _companyService;
     private readonly IMimirorgUserService _userService;
     private readonly ILogger<MimirorgCompanyController> _logger;
@@ -28,10 +28,10 @@ public class MimirorgCompanyController : ControllerBase
     /// MimirorgCompanyController constructor
     /// </summary>
     /// <param name="companyService"></param>
-    /// <param name="userService"></param>
     /// <param name="logger"></param>
-    public MimirorgCompanyController(IMimirorgCompanyService companyService, IMimirorgUserService userService, ILogger<MimirorgCompanyController> logger)
+    public MimirorgCompanyController(IMimirorgAuthService authService, IMimirorgCompanyService companyService, IMimirorgUserService userService, ILogger<MimirorgCompanyController> logger)
     {
+        _authService = authService;
         _companyService = companyService;
         _userService = userService;
         _logger = logger;
@@ -155,6 +155,14 @@ public class MimirorgCompanyController : ControllerBase
                 return BadRequest(ModelState);
 
             var data = await _companyService.CreateCompany(company);
+
+            var manageCompanyPermission = new MimirorgUserPermissionAm
+            {
+                CompanyId = data.Id,
+                UserId = data.Manager.Id,
+                Permission = MimirorgPermission.Manage
+            };
+            await _authService.SetPermission(manageCompanyPermission);
 
             return Ok(data);
         }

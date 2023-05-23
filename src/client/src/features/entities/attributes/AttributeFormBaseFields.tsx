@@ -1,18 +1,14 @@
+import { AttributeLibAm } from "@mimirorg/typelibrary-types";
 import { Button } from "complib/buttons";
 import { FormField } from "complib/form";
 import { Input, Select, Textarea } from "complib/inputs";
 import { Flexbox } from "complib/layouts";
 import { PlainLink } from "features/common/plain-link";
-import { Controller, useFormContext, useWatch } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { useGetUnits } from "../../../external/sources/unit/unit.queries";
-import { FormAttributeLib, toFormUnitHelper } from "./types/formAttributeLib";
-import { FormBaseFieldsContainer } from "../../../complib/form/FormContainer.styled";
-
-interface AttributeFormBaseFieldsProps {
-  limited?: boolean;
-}
+import { useEffect, useState } from "react";
 
 /**
  * Component which contains all simple value fields of the attribute form.
@@ -20,75 +16,78 @@ interface AttributeFormBaseFieldsProps {
  * @constructor
  */
 
-export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProps) => {
+interface FormUnitHelper {
+  name: string;
+  symbol: string;
+  unitId: string;
+  isDefault: boolean;
+}
+
+export const AttributeFormBaseFields = () => {
+  const [unitArray, setUnitArray] = useState<FormUnitHelper[]>([]);
+  const [defaultUnit, setDefaultUnit] = useState<FormUnitHelper | null>(null);
   const theme = useTheme();
   const { t } = useTranslation("entities");
-  const {
-    control,
-    register,
-    setValue,
-    formState: { errors },
-  } = useFormContext<FormAttributeLib>();
+  const { register, setValue, formState } = useFormContext<AttributeLibAm>();
+  const { errors } = formState;
+
+  register("attributeUnits");
 
   const unitQuery = useGetUnits();
   const units = unitQuery.data || [];
-  const chosenUnits = useWatch({ control, name: "units" });
-  const defaultUnit = useWatch({ control, name: "defaultUnit" });
+
+  useEffect(() => {
+    setValue("attributeUnits", unitArray);
+  }, [setValue, unitArray]);
 
   return (
-    <FormBaseFieldsContainer>
+    <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
       <FormField label={t("attribute.name")} error={errors.name}>
-        <Input placeholder={t("attribute.placeholders.name")} {...register("name")} disabled={limited} />
+        <Input placeholder={t("attribute.placeholders.name")} {...register("name")} disabled={false} />
       </FormField>
 
       <FormField label={t("attribute.description")} error={errors.description}>
         <Textarea placeholder={t("attribute.placeholders.description")} {...register("description")} />
       </FormField>
 
-      <FormField label={t("unit.multiple")} error={errors.units}>
-        <Controller
-          name="units"
-          control={control}
-          render={({ field: { onChange, ref, ...rest } }) => (
-            <Select
-              {...rest}
-              selectRef={ref}
-              placeholder={t("common.templates.select", { object: t("unit.multiple").toLowerCase() })}
-              options={units.map((x) => toFormUnitHelper(x))}
-              isLoading={unitQuery.isLoading}
-              getOptionLabel={(x) => x.name}
-              getOptionValue={(x) => x.unitId}
-              isMulti={true}
-              isDisabled={limited}
-              onChange={(val) => {
-                if (val.filter((x) => x.unitId === defaultUnit?.unitId).length === 0) {
-                  if (val.length === 0) setValue("defaultUnit", undefined);
-                  else setValue("defaultUnit", val[0]);
-                }
-                onChange(val);
-              }}
-            />
-          )}
+      <FormField label={t("unit.multiple")} error={errors.attributeUnits}>
+        <Select
+          placeholder={t("common.templates.select", { object: t("unit.defaultUnitTitle").toLowerCase() })}
+          options={units}
+          isLoading={unitQuery.isLoading}
+          getOptionLabel={(x) => x.name}
+          getOptionValue={(x) => x.id.toString()}
+          isMulti={true}
+          onChange={(x) => {
+            setUnitArray(
+              x.map((unit) => ({
+                symbol: unit.symbol,
+                name: unit.name,
+                unitId: unit.id,
+                isDefault: unit.id === defaultUnit?.unitId,
+              }))
+            );
+            setValue("attributeUnits", unitArray);
+          }}
         />
       </FormField>
-      {chosenUnits.length > 0 && (
-        <FormField label={t("unit.defaultUnitTitle")} error={errors.defaultUnit}>
-          <Controller
-            name="defaultUnit"
-            control={control}
-            render={({ field: { ref, ...rest } }) => (
-              <Select
-                {...rest}
-                selectRef={ref}
-                placeholder={t("common.templates.select", { object: t("unit.defaultUnitTitle").toLowerCase() })}
-                options={chosenUnits}
-                isLoading={unitQuery.isLoading}
-                getOptionLabel={(x) => x.name}
-                getOptionValue={(x) => x.unitId}
-                defaultValue={chosenUnits[0]}
-                isDisabled={limited}
-              />
-            )}
+      {unitArray.length > 0 && (
+        <FormField label={t("unit.defaultUnitTitle")} error={errors.attributeUnits}>
+          <Select
+            placeholder={t("common.templates.select", { object: t("unit.defaultUnitTitle").toLowerCase() })}
+            options={unitArray}
+            isLoading={unitQuery.isLoading}
+            getOptionLabel={(x) => x.name}
+            getOptionValue={(x) => x.unitId}
+            defaultValue={unitArray[0]}
+            onChange={(x) => {
+              setUnitArray(
+                unitArray.map((unit) => {
+                  unit.unitId === x?.unitId && setDefaultUnit(unit);
+                  return { ...unit, isDefault: unit.unitId === x?.unitId };
+                })
+              );
+            }}
           />
         </FormField>
       )}
@@ -101,6 +100,6 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
         </PlainLink>
         <Button type={"submit"}>{t("common.submit")}</Button>
       </Flexbox>
-    </FormBaseFieldsContainer>
+    </Flexbox>
   );
 };

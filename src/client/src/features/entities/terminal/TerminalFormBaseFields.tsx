@@ -4,14 +4,15 @@ import { Input, Textarea } from "complib/inputs";
 import { Flexbox } from "complib/layouts";
 import { PlainLink } from "features/common/plain-link";
 import { TerminalFormBaseFieldsContainer } from "features/entities/terminal/TerminalFormBaseFields.styled";
-import { TerminalFormPreview } from "features/entities/entityPreviews/terminal/TerminalFormPreview";
+import { TerminalFormPreview } from "features/entities/terminal/TerminalFormPreview";
 import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";
+import { TerminalFormMode } from "features/entities/terminal/types/terminalFormMode";
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 
 interface TerminalFormBaseFieldsProps {
-  limited?: boolean;
+  mode?: TerminalFormMode;
 }
 
 /**
@@ -20,7 +21,7 @@ interface TerminalFormBaseFieldsProps {
  * @param mode
  * @constructor
  */
-export const TerminalFormBaseFields = ({ limited }: TerminalFormBaseFieldsProps) => {
+export const TerminalFormBaseFields = ({ mode }: TerminalFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
   const { control, register, formState } = useFormContext<FormTerminalLib>();
@@ -32,7 +33,7 @@ export const TerminalFormBaseFields = ({ limited }: TerminalFormBaseFieldsProps)
 
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
         <FormField label={t("terminal.name")} error={errors.name}>
-          <Input placeholder={t("terminal.placeholders.name")} {...register("name")} disabled={limited} />
+          <Input placeholder={t("terminal.placeholders.name")} {...register("name")} disabled={mode === "edit"} />
         </FormField>
 
         <FormField label={t("terminal.color")} error={errors.color}>

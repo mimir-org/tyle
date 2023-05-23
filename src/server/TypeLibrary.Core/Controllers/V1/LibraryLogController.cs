@@ -1,16 +1,15 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Models.Attributes;
-using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1;
@@ -20,7 +19,7 @@ namespace TypeLibrary.Core.Controllers.V1;
 /// </summary>
 [Produces("application/json")]
 [ApiController]
-[ApiVersion(VersionConstant.OnePointZero)]
+[ApiVersion("1.0")]
 [Route("V{version:apiVersion}/[controller]")]
 [SwaggerTag("Library Log Services")]
 public class LibraryLogController : ControllerBase
@@ -42,7 +41,7 @@ public class LibraryLogController : ControllerBase
     /// <returns>A collection of all logs</returns>
     [HttpGet]
     [ProducesResponseType(typeof(ICollection<LogLibCm>), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Manage)]
     public IActionResult Get()
@@ -54,8 +53,8 @@ public class LibraryLogController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, e.Message);
         }
     }
 
@@ -65,7 +64,7 @@ public class LibraryLogController : ControllerBase
     /// <returns>A collection of all approvals</returns>
     [HttpGet("approvals")]
     [ProducesResponseType(typeof(ICollection<ApprovalCm>), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
     public async Task<IActionResult> GetApprovals()
@@ -77,8 +76,8 @@ public class LibraryLogController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error {e.Message}");
-            return StatusCode(500, "Internal Server Error");
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, e.Message);
         }
     }
 

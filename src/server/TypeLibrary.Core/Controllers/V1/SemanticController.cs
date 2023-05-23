@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Common.Exceptions;
-using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -17,7 +16,7 @@ namespace TypeLibrary.Core.Controllers.V1;
 /// </summary>
 [Produces("application/json")]
 [ApiController]
-[ApiVersion(VersionConstant.OnePointZero)]
+[ApiVersion("1.0")]
 [Route("V{version:apiVersion}/ont")]
 [SwaggerTag("Ontology Services")]
 public class SemanticController : ControllerBase

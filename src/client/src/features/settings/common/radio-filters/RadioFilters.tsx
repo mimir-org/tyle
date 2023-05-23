@@ -5,7 +5,7 @@ import { Text } from "complib/text";
 import { useTheme } from "styled-components";
 
 interface RadioFiltersProps {
-  title?: string;
+  title: string;
   filters: Option<string>[];
   onChange: (value: string) => void;
   value?: string;
@@ -27,21 +27,16 @@ export const RadioFilters = ({ title, filters, onChange, value }: RadioFiltersPr
 
   return (
     <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
-      {title && <Text variant={"title-medium"}>{title}</Text>}
+      <Text variant={"title-medium"}>{title}</Text>
       <TokenRadioGroup onValueChange={onChange}>
         {filters.map((x, i) => {
           const conditionalProps: Partial<{ checked: boolean }> = {};
           if (inputIsControlled) {
-            conditionalProps.checked = value === x.value;
+            conditionalProps.checked = value == x.value;
           }
 
           return (
-            <TokenRadioGroupItem
-              key={x.value + i}
-              value={x.value}
-              onClick={() => onChange(x.value)}
-              {...conditionalProps}
-            >
+            <TokenRadioGroupItem key={i} value={x.value} onClick={() => onChange(x.value)} {...conditionalProps}>
               {x.label}
             </TokenRadioGroupItem>
           );

@@ -66,24 +66,5 @@ export const lightTheme: ColorTheme = {
   pure: {
     base: colorReference.neutral[100],
     on: colorReference.neutral[0]
-  },
-  badge: {
-    success: {
-      base: colorReference.secondary[90],
-      on: colorReference.secondary[10],
-    },
-    error: {
-      base: colorReference.error[40],
-      on: colorReference.error[100],
-
-    },
-    warning: {
-      base: colorReference.warning[90],
-      on: colorReference.warning[30],
-    },
-    info: {
-      base: colorReference.tertiary[90],
-      on: colorReference.tertiary[10],
-    }
   }
 };

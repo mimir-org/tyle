@@ -8,7 +8,7 @@ namespace TypeLibrary.Data.Repositories.Application;
 
 public class JsonFileRepository : IFileRepository
 {
-    private static readonly string CatalogName = "Data";
+    private static string CatalogName = "Data";
     private readonly string _rootPath;
 
     public JsonFileRepository()

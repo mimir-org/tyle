@@ -69,7 +69,7 @@ public class TerminalServiceTests : IntegrationTest
 
         var terminalCmUpdated = await terminalService.Update(terminalLibCm.Id, terminalAm);
 
-        Assert.True(terminalLibCm.Description == "Description v1.0");
+        Assert.True(terminalLibCm?.Description == "Description v1.0");
         Assert.True(terminalCmUpdated?.Description == "Description v1.1");
 
         var logService = Factory.Server.Services.CreateScope().ServiceProvider.GetRequiredService<ILogService>();

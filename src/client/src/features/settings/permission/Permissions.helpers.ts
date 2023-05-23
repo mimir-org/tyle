@@ -42,9 +42,9 @@ export const useFilteredUsers = (companyId: string, permission: UserItemPermissi
   const userQuery = useGetAuthCompanyUsers(companyId);
   const users = userQuery.data?.map((x) => mapMimirorgUserCmToUserItem(x)) ?? [];
 
-  if (permission === MimirorgPermissionExtended.All) {
+  if (permission == MimirorgPermissionExtended.All) {
     return users.filter((user) => user.permissions[companyId]);
   }
 
-  return users.filter((user) => user.permissions[companyId]?.value === permission);
+  return users.filter((user) => user.permissions[companyId]?.value == permission);
 };

@@ -9,7 +9,6 @@ const ApprovalCardContainer = styled(Card).attrs(() => ({
   flex-direction: column;
   gap: ${(props) => props.theme.tyle.spacing.xl};
   max-width: 350px;
-  min-width: 300px;
 `;
 
 export const MotionApprovalCardContainer = motion(ApprovalCardContainer);

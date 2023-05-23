@@ -2,9 +2,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { ApprovalCm, State } from "@mimirorg/typelibrary-types";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { Button } from "complib/buttons";
-import { Form } from "complib/form";
-import { Input } from "complib/inputs";
-import { useForm } from "react-hook-form";
+import { Form, FormField } from "complib/form";
+import { Input, Select } from "complib/inputs";
+import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
   useApprovalToasts,
@@ -14,7 +14,6 @@ import { approvalSchema } from "features/settings/common/approval-card/card-form
 import { FormApproval } from "features/settings/common/approval-card/card-form/types/formApproval";
 import { Flexbox } from "../../../../../complib/layouts";
 import { theme } from "../../../../../complib/core";
-import { Text } from "../../../../../complib/text";
 
 export interface ApprovalCardFormProps {
   item: ApprovalCm;
@@ -35,10 +34,10 @@ export const ApprovalCardForm = ({
 
   const stateOptions = getOptionsFromEnum<State>(State);
   const nextState = findNextState(item.state);
-  const currentState = stateOptions.find((x) => x.value === nextState);
-  const oldState = stateOptions.find((x) => x.value === item.state);
+  const currentState = stateOptions.find((x) => x.value == nextState);
+  const oldState = stateOptions.find((x) => x.value == item.state);
 
-  const { register, handleSubmit } = useForm<FormApproval>({
+  const { register, control, handleSubmit, formState } = useForm<FormApproval>({
     resolver: yupResolver(approvalSchema(t)),
     defaultValues: {
       id: item.id,
@@ -51,25 +50,40 @@ export const ApprovalCardForm = ({
   const toast = useApprovalToasts(oldState);
 
   return (
-    <Form id={formId} onSubmit={handleSubmit((data) => toast(item.id, data).then(() => onSubmit && onSubmit()))}>
-      <Flexbox flexFlow={"row"} justifyContent={"space-between"} style={{ marginTop: "8px" }}>
-        <Input type={"hidden"} value={item.id} {...register("id")} />
-        <Input type={"hidden"} value={item.objectType} {...register("objectType")} />
-        <Input type={"hidden"} value={item.companyId} {...register("companyId")} />
-        <Input type={"hidden"} value={nextState} {...register("state")} />
-        <Text variant={"body-large"}>{`Requesting to be ${stateOptions[nextState].label.toLowerCase()}`}</Text>
-        <Flexbox justifyContent={"center"} alignItems={"center"} flexFlow="row" gap={theme.spacing.base}>
-          {onReject && (
-            <>
-              {showSubmitButton && (
-                <Button dangerousAction type={"button"} onClick={() => onReject(item.id, item.state, item.objectType)}>
-                  {t("common.approval.reject")}
-                </Button>
-              )}
-            </>
-          )}
-          {showSubmitButton && <Button type={"submit"}>{t("common.approval.submit")}</Button>}
-        </Flexbox>
+    <Form
+      id={formId}
+      alignItems={"center"}
+      onSubmit={handleSubmit((data) => toast(item.id, data).then(() => onSubmit && onSubmit()))}
+    >
+      <Input type={"hidden"} value={item.id} {...register("id")} />
+      <Input type={"hidden"} value={item.objectType} {...register("objectType")} />
+      <Input type={"hidden"} value={item.companyId} {...register("companyId")} />
+      <Controller
+        control={control}
+        name={"state"}
+        render={({ field: { value, ref, ...rest } }) => (
+          <FormField label={t("common.approval.stateDropdown")} error={formState.errors.state} indent={false}>
+            <Select
+              {...rest}
+              selectRef={ref}
+              placeholder={t("common.templates.select", { object: t("common.approval.stateDropdown").toLowerCase() })}
+              options={stateOptions}
+              value={stateOptions.find((x) => x.value === value.value)}
+            />
+          </FormField>
+        )}
+      />
+      <Flexbox flexFlow="row" gap={theme.spacing.base}>
+        {onReject && (
+          <>
+            {showSubmitButton && (
+              <Button type={"button"} onClick={() => onReject(item.id, item.state, item.objectType)}>
+                {t("common.approval.reject")}
+              </Button>
+            )}
+          </>
+        )}
+        {showSubmitButton && <Button type={"submit"}>{t("common.approval.submit")}</Button>}
       </Flexbox>
     </Form>
   );

@@ -62,8 +62,8 @@ export const FileComponent = forwardRef(
 
         let correctFiletype = false;
         acceptArray.forEach((x) => {
-          if (x.startsWith(".") && x === `.${filenameExtension}`) correctFiletype = true;
-          else if (x === contentType) correctFiletype = true;
+          if (x.startsWith(".") && x == `.${filenameExtension}`) correctFiletype = true;
+          else if (x == contentType) correctFiletype = true;
         });
 
         if (!correctFiletype) {

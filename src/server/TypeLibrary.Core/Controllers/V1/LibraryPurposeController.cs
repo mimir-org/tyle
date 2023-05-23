@@ -1,13 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Mimirorg.TypeLibrary.Constants;
-using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Core.Controllers.V1;
@@ -17,7 +16,7 @@ namespace TypeLibrary.Core.Controllers.V1;
 /// </summary>
 [Produces("application/json")]
 [ApiController]
-[ApiVersion(VersionConstant.OnePointZero)]
+[ApiVersion("1.0")]
 [Route("V{version:apiVersion}/[controller]")]
 [SwaggerTag("PurposeId services")]
 public class LibraryPurposeController : ControllerBase
@@ -39,12 +38,11 @@ public class LibraryPurposeController : ControllerBase
         try
         {
             var data = await _purposeService.Get();
-            data ??= new List<PurposeLibCm>();
             return Ok(data);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }

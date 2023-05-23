@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 export const ThemeButton = () => {
   const { t } = useTranslation("ui");
   const [colorTheme] = usePrefersTheme("light");
-  const isDarkModeEnabled = colorTheme === "dark";
+  const isDarkModeEnabled = colorTheme == "dark";
 
   return (
     <UserMenuButton icon={isDarkModeEnabled ? <Sun size={24} /> : <Moon size={24} />} onClick={() => toggleDarkTheme()}>

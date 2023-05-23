@@ -21,7 +21,7 @@ namespace TypeLibrary.Core.Controllers.V1;
 
 [Produces("application/json")]
 [ApiController]
-[ApiVersion(VersionConstant.OnePointZero)]
+[ApiVersion("1.0")]
 [Route("V{version:apiVersion}/[controller]")]
 [SwaggerTag("Unit services")]
 public class LibraryUnitController : ControllerBase
@@ -43,7 +43,6 @@ public class LibraryUnitController : ControllerBase
     /// <returns>A collection of units</returns>
     [HttpGet]
     [ProducesResponseType(typeof(ICollection<UnitLibCm>), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult Get()
     {
@@ -54,7 +53,7 @@ public class LibraryUnitController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -66,27 +65,28 @@ public class LibraryUnitController : ControllerBase
     /// <returns>The requested unit</returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(UnitLibCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult Get([FromRoute] string id)
     {
         try
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var data = _unitService.Get(id);
+
             if (data == null)
                 return NotFound(id);
 
             return Ok(data);
         }
-        catch (MimirorgNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, e.Message);
         }
     }
 
@@ -98,8 +98,9 @@ public class LibraryUnitController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(UnitLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [MimirorgAuthorize(MimirorgPermission.Write, "unit", "CompanyId")]
     public async Task<IActionResult> Create([FromBody] UnitLibAm unit)
     {
@@ -111,14 +112,10 @@ public class LibraryUnitController : ControllerBase
             var cm = await _unitService.Create(unit);
             return Ok(cm);
         }
-        catch (MimirorgBadRequestException e)
-        {
-            return BadRequest(e.Message);
-        }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, e.Message);
         }
     }
 
@@ -133,8 +130,6 @@ public class LibraryUnitController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "unit", "CompanyId")]
     public async Task<IActionResult> Update(string id, [FromBody] UnitLibAm unit)
     {
@@ -146,21 +141,19 @@ public class LibraryUnitController : ControllerBase
             var data = await _unitService.Update(id, unit);
             return Ok(data);
         }
-        catch (MimirorgNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
         catch (MimirorgBadRequestException e)
         {
-            return BadRequest(e.Message);
-        }
-        catch (MimirorgInvalidOperationException e)
-        {
-            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
+            foreach (var error in e.Errors().ToList())
+            {
+                ModelState.Remove(error.Key);
+                ModelState.TryAddModelError(error.Key, error.Error);
+            }
+
+            return BadRequest(ModelState);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -173,9 +166,9 @@ public class LibraryUnitController : ControllerBase
     /// <returns>An approval data object containing the id of the unit and the new state</returns>
     [HttpPatch("{id}/state/{state}")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
     public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
@@ -185,22 +178,14 @@ public class LibraryUnitController : ControllerBase
             var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status401Unauthorized);
+                return StatusCode(StatusCodes.Status403Forbidden);
 
             var data = await _unitService.ChangeState(id, state);
             return Ok(data);
         }
-        catch (MimirorgNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
-        catch (MimirorgInvalidOperationException e)
-        {
-            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
-        }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -212,9 +197,9 @@ public class LibraryUnitController : ControllerBase
     /// <returns>An approval data object containing the id of the unit and the reverted state</returns>
     [HttpPatch("{id}/state/reject")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
     public async Task<IActionResult> RejectChangeState([FromRoute] string id)
@@ -227,28 +212,19 @@ public class LibraryUnitController : ControllerBase
                 return StatusCode(StatusCodes.Status404NotFound);
 
             if (cm.State is State.Draft or State.Deleted or State.Approved)
-                return StatusCode(StatusCodes.Status403Forbidden, $"Can't reject a state change for an object with state {cm.State}");
+                throw new MimirorgInvalidOperationException($"Can't reject a state change for an object with state {cm.State}");
 
-            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId,
-                cm.State == State.Approve ? State.Approved : State.Delete);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, cm.State == State.Approve ? State.Approved : State.Delete);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status401Unauthorized);
+                return StatusCode(StatusCodes.Status403Forbidden);
 
             var data = await _unitService.ChangeState(id, State.Draft);
             return Ok(data);
         }
-        catch (MimirorgNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
-        catch (MimirorgInvalidOperationException e)
-        {
-            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
-        }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }

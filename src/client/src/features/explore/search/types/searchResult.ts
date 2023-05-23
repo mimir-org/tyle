@@ -1,19 +1,7 @@
-import {
-  AspectObjectLibCm,
-  AttributeLibCm,
-  QuantityDatumLibCm,
-  RdsLibCm,
-  TerminalLibCm,
-  UnitLibCm,
-} from "@mimirorg/typelibrary-types";
-import { ItemType } from "../../../entities/types/itemTypes";
+import { AspectObjectLibCm, TerminalLibCm } from "@mimirorg/typelibrary-types";
+import { AspectObjectItem } from "common/types/aspectObjectItem";
+import { TerminalItem } from "common/types/terminalItem";
 
-export type SearchResult = ItemType;
+export type SearchResult = AspectObjectItem | TerminalItem;
 
-export type SearchResultRaw =
-  | AspectObjectLibCm
-  | TerminalLibCm
-  | AttributeLibCm
-  | UnitLibCm
-  | QuantityDatumLibCm
-  | RdsLibCm;
+export type SearchResultRaw = AspectObjectLibCm | TerminalLibCm;

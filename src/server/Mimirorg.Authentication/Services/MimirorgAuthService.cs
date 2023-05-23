@@ -1,3 +1,5 @@
+using System.Security.Authentication;
+using System.Security.Claims;
 using AspNetCore.Totp;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -13,8 +15,6 @@ using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
-using System.Security.Authentication;
-using System.Security.Claims;
 
 namespace Mimirorg.Authentication.Services;
 
@@ -55,14 +55,13 @@ public class MimirorgAuthService : IMimirorgAuthService
             throw new MimirorgBadRequestException($"Couldn't authenticate: {authenticate?.Email}", validation);
 
         var user = await _userManager.FindByEmailAsync(authenticate.Email);
-
         if (user == null)
             throw new AuthenticationException($"Couldn't find user with email {authenticate.Email}");
 
         var userStatus = await _signInManager.CheckPasswordSignInAsync(user, authenticate.Password, true);
 
         if (!userStatus.Succeeded)
-            throw new AuthenticationException($"The user account with email {authenticate.Email} could not be signed in. Status: {userStatus}");
+            throw new AuthenticationException($"The user account with email {authenticate.Email} could not be signed in. Have you forgot to activate the account?");
 
         // Validate security code if user has enabled two factor
         if (!ValidateSecurityCode(user, authenticate.Code))

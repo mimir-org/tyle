@@ -50,13 +50,6 @@ public interface IAspectObjectRepository
     AspectObjectLibDm Get(string id);
 
     /// <summary>
-    /// Get all versions of the given aspect object
-    /// </summary>
-    /// <param name="aspectObject">The aspect object</param>
-    /// <returns>A collection of all versions of the aspect object</returns>
-    IEnumerable<AspectObjectLibDm> GetAllVersions(AspectObjectLibDm aspectObject);
-
-    /// <summary>
     /// Create a aspect object
     /// </summary>
     /// <param name="aspectObject">The aspect object to be created</param>

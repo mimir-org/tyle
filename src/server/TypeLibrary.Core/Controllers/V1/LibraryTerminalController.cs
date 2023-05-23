@@ -23,7 +23,7 @@ namespace TypeLibrary.Core.Controllers.V1;
 
 [Produces("application/json")]
 [ApiController]
-[ApiVersion(VersionConstant.OnePointZero)]
+[ApiVersion("1.0")]
 [Route("V{version:apiVersion}/[controller]")]
 [SwaggerTag("Terminal services")]
 public class LibraryTerminalController : ControllerBase
@@ -56,7 +56,7 @@ public class LibraryTerminalController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -87,7 +87,7 @@ public class LibraryTerminalController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -100,8 +100,9 @@ public class LibraryTerminalController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
     public async Task<IActionResult> Create([FromBody] TerminalLibAm terminal)
     {
@@ -115,12 +116,18 @@ public class LibraryTerminalController : ControllerBase
         }
         catch (MimirorgBadRequestException e)
         {
-            return BadRequest(e.Message);
+            foreach (var error in e.Errors().ToList())
+            {
+                ModelState.Remove(error.Key);
+                ModelState.TryAddModelError(error.Key, error.Error);
+            }
+
+            return BadRequest(ModelState);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            return StatusCode(500, e.Message);
         }
     }
 
@@ -135,8 +142,6 @@ public class LibraryTerminalController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
     public async Task<IActionResult> Update(string id, [FromBody] TerminalLibAm terminal)
     {
@@ -148,21 +153,19 @@ public class LibraryTerminalController : ControllerBase
             var data = await _terminalService.Update(id, terminal);
             return Ok(data);
         }
-        catch (MimirorgNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
         catch (MimirorgBadRequestException e)
         {
-            return BadRequest(e.Message);
-        }
-        catch (MimirorgInvalidOperationException e)
-        {
-            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
+            foreach (var error in e.Errors().ToList())
+            {
+                ModelState.Remove(error.Key);
+                ModelState.TryAddModelError(error.Key, error.Error);
+            }
+
+            return BadRequest(ModelState);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -175,9 +178,9 @@ public class LibraryTerminalController : ControllerBase
     /// <returns>An approval data object containing the id of the terminal and the new state</returns>
     [HttpPatch("{id}/state/{state}")]
     [ProducesResponseType(typeof(TerminalLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
     public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
@@ -187,22 +190,14 @@ public class LibraryTerminalController : ControllerBase
             var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status401Unauthorized);
+                return StatusCode(StatusCodes.Status403Forbidden);
 
             var data = await _terminalService.ChangeState(id, state);
             return Ok(data);
         }
-        catch (MimirorgNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
-        catch (MimirorgInvalidOperationException e)
-        {
-            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
-        }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -214,9 +209,9 @@ public class LibraryTerminalController : ControllerBase
     /// <returns>An approval data object containing the id of the terminal and the reverted state</returns>
     [HttpPatch("{id}/state/reject")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
     public async Task<IActionResult> RejectChangeState([FromRoute] string id)
@@ -229,27 +224,19 @@ public class LibraryTerminalController : ControllerBase
                 return StatusCode(StatusCodes.Status404NotFound);
 
             if (cm.State is State.Draft or State.Deleted or State.Approved)
-                return StatusCode(StatusCodes.Status403Forbidden, $"Can't reject a state change for an object with state {cm.State}");
+                throw new MimirorgInvalidOperationException($"Can't reject a state change for an object with state {cm.State}");
 
             var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, cm.State == State.Approve ? State.Approved : State.Delete);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status401Unauthorized);
+                return StatusCode(StatusCodes.Status403Forbidden);
 
             var data = await _terminalService.ChangeState(id, State.Draft);
             return Ok(data);
         }
-        catch (MimirorgNotFoundException e)
-        {
-            return NotFound(e.Message);
-        }
-        catch (MimirorgInvalidOperationException e)
-        {
-            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
-        }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }

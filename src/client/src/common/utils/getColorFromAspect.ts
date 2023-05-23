@@ -3,9 +3,8 @@ import { Aspect } from "@mimirorg/typelibrary-types";
 export const getColorFromAspect = (aspect: Aspect) => {
   switch (aspect) {
     case Aspect.NotSet:
-      return "hsl(318, 29%, 91%)";
     case Aspect.None:
-      return "hsl(318, 29%, 91%)";
+      return "";
     case Aspect.Function:
       return "hsl(57,99%,63%)";
     case Aspect.Product:

@@ -17,7 +17,7 @@ export const rdsApi = {
     return apiClient.put<RdsLibCm>(`${_basePath}/${id}`, item).then((r) => r.data);
   },
   patchRdsState(id: string, state: State) {
-    return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
+    return apiClient.patch<RdsLibCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
   },
   patchRdsStateReject(id: string) {
     return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/reject`).then((r) => r.data);

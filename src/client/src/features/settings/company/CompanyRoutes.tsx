@@ -1,10 +1,6 @@
-import { Company } from "features/settings/company/Company";
+import { CreateCompany } from "features/settings/company/CreateCompany";
 import { RouteObject } from "react-router-dom";
 
-export const createCompanyBasePath = "company/create";
-export const updateCompanyBasePath = "company/update";
+export const companyBasePath = "company";
 
-export const companyRoutes: RouteObject[] = [
-  { path: createCompanyBasePath, element: <Company /> },
-  { path: updateCompanyBasePath, element: <Company update={true} /> },
-];
+export const companyRoutes: RouteObject[] = [{ path: companyBasePath, element: <CreateCompany /> }];

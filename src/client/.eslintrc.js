@@ -36,7 +36,6 @@ module.exports = {
       },
     ],
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    eqeqeq: ["error", "smart"],
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {

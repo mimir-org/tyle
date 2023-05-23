@@ -193,16 +193,16 @@
       "symbol": "Unit symbol"
     }
   },
-  "quantityDatum": {
-    "title": "QuantityDatum",
+  "datum": {
+    "title": "Datum",
     "name": "Name",
     "description": "Description",
-    "multiple": "Quantity Datums",
+    "multiple": "Datums",
     "datumType": "Datum type",
-    "quantityType": "Quantity type",
+    "quantityDatumType": "Quantity type",
     "typeReference": "Type reference",
     "placeholders": {
-      "name": "Quantity Datum name",
+      "name": "Datum name",
       "description": "Additional information about this datum can be supplied here."
     }
   },

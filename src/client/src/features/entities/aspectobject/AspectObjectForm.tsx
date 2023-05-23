@@ -1,6 +1,6 @@
 import { DevTool } from "@hookform/devtools";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { AspectObjectLibCm, State } from "@mimirorg/typelibrary-types";
+import { AspectObjectLibCm } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { Box } from "complib/layouts";
@@ -15,6 +15,7 @@ import {
   useAspectObjectMutation,
   useAspectObjectQuery,
 } from "features/entities/aspectobject/AspectObjectForm.helpers";
+import { AspectObjectFormContainer } from "features/entities/aspectobject/AspectObjectForm.styled";
 import { AspectObjectFormBaseFields } from "features/entities/aspectobject/AspectObjectFormBaseFields";
 import { aspectObjectSchema } from "features/entities/aspectobject/aspectObjectSchema";
 import {
@@ -23,16 +24,14 @@ import {
   mapFormAspectObjectLibToApiModel,
   mapAspectObjectLibCmToClientModel,
 } from "features/entities/aspectobject/types/formAspectObjectLib";
+import { AspectObjectFormMode } from "features/entities/aspectobject/types/aspectObjectFormMode";
 import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { FormContainer } from "../../../complib/form/FormContainer.styled";
-import { FormMode } from "../types/formMode";
-import { useGetLatestApprovedAspectObject } from "external/sources/aspectobject/aspectObject.queries";
 
 interface AspectObjectFormProps {
   defaultValues?: FormAspectObjectLib;
-  mode?: FormMode;
+  mode?: AspectObjectFormMode;
 }
 
 export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLib(), mode }: AspectObjectFormProps) => {
@@ -53,19 +52,15 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
   const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useAspectObjectMutation(query.data?.id, mode);
-  const latestApprovedQuery = useGetLatestApprovedAspectObject(query.data?.id);
 
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
 
   const toast = useSubmissionToast(t("aspectObject.title"));
 
-  const isFirstDraft = !mode || (query.data?.state === State.Draft && query.data?.id === query.data?.firstVersionId);
-  const limited = mode === "edit" && (query.data?.state === State.Approved || !isFirstDraft);
-
   return (
     <FormProvider {...formMethods}>
-      <FormContainer
+      <AspectObjectFormContainer
         onSubmit={handleSubmit((data) =>
           onSubmitForm(mapFormAspectObjectLibToApiModel(data), mutation.mutateAsync, toast)
         )}
@@ -73,23 +68,23 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
         {isLoading && <Loader />}
         {!isLoading && (
           <>
-            <AspectObjectFormBaseFields isFirstDraft={isFirstDraft} />
+            <AspectObjectFormBaseFields mode={mode} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
-              {getSubformForAspect(aspect, limited ? latestApprovedQuery.data?.aspectObjectTerminals : [])}
+              {getSubformForAspect(aspect, mode)}
               <FormAttributes
                 register={(index) => register(`attributes.${index}`)}
                 fields={attributeFields.fields}
                 append={attributeFields.append}
                 remove={attributeFields.remove}
                 preprocess={prepareAttributes}
-                limitedAttributes={limited ? latestApprovedQuery.data?.attributes : []}
+                canRemoveAttributes={mode !== "edit"}
               />
             </Box>
           </>
         )}
         <DevTool control={control} placement={"bottom-right"} />
-      </FormContainer>
+      </AspectObjectFormContainer>
     </FormProvider>
   );
 };

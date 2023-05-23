@@ -12,8 +12,8 @@ public class ApplicationSettingsRepository : IApplicationSettingsRepository
 
     public ApplicationSettingsRepository(IOptions<ApplicationSettings> applicationSettings)
     {
-        ApplicationSemanticUrl = applicationSettings?.Value.ApplicationSemanticUrl;
-        ApplicationUrl = applicationSettings?.Value.ApplicationUrl;
-        PcaSyncTime = applicationSettings?.Value.PcaSyncTime;
+        ApplicationSemanticUrl = applicationSettings?.Value?.ApplicationSemanticUrl;
+        ApplicationUrl = applicationSettings?.Value?.ApplicationUrl;
+        PcaSyncTime = applicationSettings?.Value?.PcaSyncTime;
     }
 }

@@ -45,11 +45,14 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
 
         var validation = new Validation();
 
+        if (Name != other.Name)
+            validation.AddNotAllowToChange(nameof(Name));
+
+        if (RdsId != other.RdsId)
+            validation.AddNotAllowToChange(nameof(RdsId));
+
         if (Aspect != other.Aspect)
             validation.AddNotAllowToChange(nameof(Aspect));
-
-        if (CompanyId != other.CompanyId)
-            validation.AddNotAllowToChange(nameof(CompanyId));
 
         //Attributes
         var attributeAmIds = new List<string>();
@@ -67,16 +70,7 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
         var otherTerminals = other.AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection));
         if (AspectObjectTerminals.Select(y => (y.TerminalId, y.ConnectorDirection)).Any(identifier => otherTerminals.Select(x => x).All(x => x != identifier)))
         {
-            validation.AddNotAllowToChange(nameof(AspectObjectTerminals), "It is not allowed to remove terminals");
-        }
-
-        foreach (var terminal in other.AspectObjectTerminals)
-        {
-            if (!AspectObjectTerminals.Select(x => x.TerminalId).Contains(terminal.TerminalId)) continue;
-
-            var current = AspectObjectTerminals.FirstOrDefault(x => x.TerminalId == terminal.TerminalId);
-            if (terminal.MaxQuantity != 0 && current?.MaxQuantity > terminal.MaxQuantity)
-                validation.AddNotAllowToChange(nameof(AspectObjectTerminals), "It is not allowed to lower max quantity of terminals");
+            validation.AddNotAllowToChange(nameof(AspectObjectTerminals), "It is not allowed to remove items from terminals");
         }
 
         //Predefined attributes
@@ -99,22 +93,10 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
         var minor = false;
         var major = false;
 
-        if (Name != other.Name)
-            minor = true;
-
-        if (TypeReference != other.TypeReference)
-            minor = true;
-
         if (PurposeName != other.PurposeName)
             minor = true;
 
-        if (RdsId != other.RdsId)
-            minor = true;
-
-        if (Symbol != other.Symbol)
-            minor = true;
-
-        if (Description != other.Description)
+        if (CompanyId != other.CompanyId)
             minor = true;
 
         //Attributes
@@ -124,7 +106,7 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
         attributeAmIds.AddRange(other.Attributes ?? new List<string>());
         attributeDms.AddRange(Attributes ?? new List<AttributeLibDm>());
 
-        if (!attributeDms.Select(x => x.Id).Order().SequenceEqual(attributeAmIds.Order()))
+        if (!attributeDms.Select(x => x.Id).SequenceEqual(attributeAmIds))
         {
             major = true;
         }
@@ -132,15 +114,24 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
         // Aspect Object Terminals
         AspectObjectTerminals ??= new List<AspectObjectTerminalLibDm>();
         other.AspectObjectTerminals ??= new List<AspectObjectTerminalLibAm>();
-        var otherTerminals = other.AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection, x.MaxQuantity)).OrderBy(x => x.TerminalId).ThenBy(x => x.ConnectorDirection).ThenBy(x => x.MaxQuantity);
-        if (!AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection, x.MaxQuantity)).OrderBy(x => x.TerminalId).ThenBy(x => x.ConnectorDirection).ThenBy(x => x.MaxQuantity).SequenceEqual(otherTerminals))
+        var otherTerminals = other.AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection));
+        if (!AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection)).SequenceEqual(otherTerminals))
             major = true;
 
         // Attribute Predefined
         SelectedAttributePredefined ??= new List<SelectedAttributePredefinedLibDm>();
         other.SelectedAttributePredefined ??= new List<SelectedAttributePredefinedLibAm>();
-        if (!SelectedAttributePredefined.Select(x => x.Key).Order().SequenceEqual(other.SelectedAttributePredefined.Select(x => x.Key).Order()))
+        if (!SelectedAttributePredefined.Select(x => x.Key).SequenceEqual(other.SelectedAttributePredefined.Select(x => x.Key)))
             major = true;
+
+        if (TypeReference != other.TypeReference)
+            minor = true;
+
+        if (Description != other.Description)
+            minor = true;
+
+        if (Symbol != other.Symbol)
+            minor = true;
 
         return major ? VersionStatus.Major : minor ? VersionStatus.Minor : VersionStatus.NoChange;
     }
@@ -176,9 +167,9 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
             return false;
 
         //Aspect Object Attributes
-        Attributes ??= new List<AttributeLibDm>();
-        other.Attributes ??= new List<AttributeLibDm>();
-        if (!Attributes.Select(x => x.Id).Order().SequenceEqual(other.Attributes.Select(x => x.Id).Order()))
+        AspectObjectAttributes ??= new List<AspectObjectAttributeLibDm>();
+        other.AspectObjectAttributes ??= new List<AspectObjectAttributeLibDm>();
+        if (!AspectObjectAttributes.Select(x => x.AttributeId).Order().SequenceEqual(other.AspectObjectAttributes.Select(x => x.AttributeId).Order()))
         {
             return false;
         }

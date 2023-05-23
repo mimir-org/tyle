@@ -8,7 +8,7 @@ export const mapMimirorgUserCmToUserItem = (user: MimirorgUserCm): UserItem => {
 
   Object.keys(user.permissions).forEach((companyId) => {
     const permissionForCompany = user.permissions[Number(companyId)];
-    const permissionLabel = permissionOptions.find((x) => x.value === permissionForCompany)?.label;
+    const permissionLabel = permissionOptions.find((x) => x.value == permissionForCompany)?.label;
 
     if (permissionLabel) {
       permissionsMap[companyId] = { value: permissionForCompany, label: permissionLabel };

@@ -37,7 +37,7 @@ public static class EnumExtensions
         if (!typeof(T).IsEnum)
             throw new NotSupportedException($"{typeof(T)} must be an enumerated type");
 
-        return (T) (object) flags.Cast<int>().Aggregate(0, (c, n) => c | n);
+        return (T) (object) flags.Cast<int>().Aggregate(0, (c, n) => c |= n);
     }
 
     /// <summary>
