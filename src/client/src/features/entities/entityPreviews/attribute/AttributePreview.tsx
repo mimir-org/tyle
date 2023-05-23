@@ -27,13 +27,14 @@ const StyledDiv = styled.div<StyledDivProps>`
 interface attributePreviewProps {
   name: string;
   description: string;
-  attributeUnits?: FormUnitHelper[];
+  units?: FormUnitHelper[];
+  defaultUnit?: FormUnitHelper;
   small?: boolean;
 }
 
-export default function AttributePreview({ name, description, attributeUnits, small }: attributePreviewProps) {
+export default function AttributePreview({ name, description, units, defaultUnit, small }: attributePreviewProps) {
   const theme = useTheme();
-  attributeUnits && attributeUnits.sort((a) => (a.isDefault ? -1 : 1));
+  units && units.sort((a) => (a.unitId === defaultUnit?.unitId ? -1 : 1));
 
   return (
     <StyledDiv small={small}>
@@ -45,12 +46,14 @@ export default function AttributePreview({ name, description, attributeUnits, sm
         {name}
       </Text>
       {!small && <Text color={theme.tyle.color.sys.pure.base}>{description}</Text>}
-      {attributeUnits &&
+      {units &&
         (small
-          ? attributeUnits
-              .filter((unit) => unit.isDefault)
+          ? units
+              .filter((unit) => unit.unitId === defaultUnit?.unitId)
               .map((unit) => <UnitPreview {...unit} key={unit.unitId} small={small} noBadge />)
-          : attributeUnits.map((unit) => <UnitPreview {...unit} key={unit.unitId} />))}
+          : units.map((unit) => (
+              <UnitPreview {...unit} key={unit.unitId} isDefault={unit.unitId === defaultUnit?.unitId} />
+            )))}
     </StyledDiv>
   );
 }
