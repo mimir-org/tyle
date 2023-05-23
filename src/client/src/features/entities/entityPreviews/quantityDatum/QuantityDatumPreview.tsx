@@ -13,9 +13,10 @@ const StyledDiv = styled.div<StyledDivProps>`
   padding: ${(props) => props.theme.tyle.spacing.xl};
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
   background-color: ${(props) => props.theme.tyle.color.sys.surface.base};
-  max-width: ${(props) => (props.small ? "200px" : "100%")};
-  max-height: ${(props) => (props.small ? "200px" : "100%")};
+  max-width: ${(props) => (props.small ? "200px" : "500px")};
+  max-height: 200px;
   width: ${(props) => (props.small ? "200px" : "100%")};
+  border: ${(props) => props.theme.tyle.color.sys.outline.base} solid 1px};
 `;
 
 interface QuantityDatumPreviewProps {
