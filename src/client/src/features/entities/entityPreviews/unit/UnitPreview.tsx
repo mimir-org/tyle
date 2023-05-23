@@ -19,6 +19,7 @@ const StyledUnit = styled.div<UnitContainerProps>`
   background-color: ${(props) =>
     props.isDefault ? props.theme.tyle.color.sys.surface.variant.base : props.theme.tyle.color.sys.surface.base};
   max-width: ${(props) => (props.small ? "200px" : "100%")};
+  width: 100%;
 `;
 
 interface UnitPreviewProps {

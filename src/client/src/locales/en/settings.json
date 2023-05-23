@@ -23,6 +23,8 @@
   "approval": {
     "title": "Approval",
     "subtitle": "Types ready for approval or deletion",
+    "approval": "Types ready for approval",
+    "deletion": "Types ready for deletion",
     "placeholders": {
       "emptyApproval": "There is no types ready for approval or deletion"
     }
@@ -149,7 +151,7 @@
       "userName": "User",
       "stateName": "State",
       "stateDropdown": "Set new state",
-      "submit": "Approve state",
+      "submit": "Approve",
       "reject": "Reject",
       "processing": {
         "loading": "Approving state",

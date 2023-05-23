@@ -1,4 +1,4 @@
-import { Flexbox } from "complib/layouts";
+import { Box, Flexbox } from "complib/layouts";
 import { Text } from "complib/text";
 import { ApprovalPlaceholder } from "features/settings/approval/placeholder/ApprovalPlaceholder";
 import { ApprovalCard } from "features/settings/common/approval-card/ApprovalCard";
@@ -34,6 +34,9 @@ export const Approval = () => {
     }, 500);
   };
 
+  /*
+   * Rejects an approval request
+   */
   const onReject = (id: string, state: State, objectType: string) => {
     const data: ApprovalDataCm = { id: id, state: state };
 
@@ -67,15 +70,34 @@ export const Approval = () => {
 
   return (
     <SettingsSection title={t("approval.title")}>
+      {/* Approval */}
       <Text variant={"title-medium"} mb={theme.tyle.spacing.l}>
-        {t("approval.subtitle")}
+        {t("approval.approval")}
       </Text>
       <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.tyle.spacing.xxxl}>
         {showPlaceholder && <ApprovalPlaceholder text={t("approval.placeholders.emptyApproval")} />}
-        {approvals.data?.map((approval) => (
-          <ApprovalCard key={`${approval.id}`} item={approval} onSubmit={onSubmit} onReject={onReject} />
-        ))}
+        {approvals.data
+          ?.filter((x) => x.state === State.Approve)
+          .map((approval) => (
+            <ApprovalCard key={`${approval.id}`} item={approval} onSubmit={onSubmit} onReject={onReject} />
+          ))}
       </Flexbox>
+      {/* Deletion */}
+      {approvals.data?.find((x) => x.state === State.Delete) && (
+        <Box mt={theme.tyle.spacing.xxl} pt={"12px"}>
+          <Text variant={"title-medium"} mb={theme.tyle.spacing.l}>
+            {t("approval.deletion")}
+          </Text>
+          <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.tyle.spacing.xxxl}>
+            {showPlaceholder && <ApprovalPlaceholder text={t("approval.placeholders.emptyApproval")} />}
+            {approvals.data
+              ?.filter((x) => x.state === State.Delete)
+              .map((approval) => (
+                <ApprovalCard key={`${approval.id}`} item={approval} onSubmit={onSubmit} onReject={onReject} />
+              ))}
+          </Flexbox>
+        </Box>
+      )}
     </SettingsSection>
   );
 };

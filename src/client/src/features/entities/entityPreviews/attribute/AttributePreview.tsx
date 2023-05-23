@@ -37,7 +37,11 @@ export default function AttributePreview({ name, description, attributeUnits, sm
 
   return (
     <StyledDiv small={small}>
-      <Text color={theme.tyle.color.sys.pure.base} variant={"headline-large"} useEllipsis={small}>
+      <Text
+        color={theme.tyle.color.sys.pure.base}
+        variant={small ? "body-medium" : "headline-large"}
+        useEllipsis={small}
+      >
         {name}
       </Text>
       {!small && <Text color={theme.tyle.color.sys.pure.base}>{description}</Text>}

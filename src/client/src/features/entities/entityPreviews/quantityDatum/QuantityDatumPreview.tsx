@@ -13,9 +13,10 @@ const StyledDiv = styled.div<StyledDivProps>`
   padding: ${(props) => props.theme.tyle.spacing.xl};
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
   background-color: ${(props) => props.theme.tyle.color.sys.surface.base};
-  max-width: ${(props) => (props.small ? "200px" : "100%")};
-  max-height: ${(props) => (props.small ? "200px" : "100%")};
+  max-width: ${(props) => (props.small ? "200px" : "500px")};
+  max-height: 200px;
   width: ${(props) => (props.small ? "200px" : "100%")};
+  border: ${(props) => props.theme.tyle.color.sys.outline.base} solid 1px};
 `;
 
 interface QuantityDatumPreviewProps {
@@ -35,10 +36,12 @@ export default function QuantityDatumPreview({
 }: QuantityDatumPreviewProps) {
   return (
     <StyledDiv small={small}>
-      <Text variant={small ? "title-large" : "display-small"} useEllipsis={small}>
+      <Text variant={small ? "body-large" : "display-small"} useEllipsis={small}>
         {name}
       </Text>
-      <Text useEllipsis={small}>{description}</Text>
+      <Text useEllipsis={small} variant={"body-small"}>
+        {description}
+      </Text>
       {quantityDatumType !== undefined ? (
         <Badge variant={"info"}>
           <Text variant={small ? "body-small" : "body-medium"}>{quantityDatumTypeString[quantityDatumType]}</Text>

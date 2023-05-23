@@ -21,17 +21,30 @@ import { toQuantityDatumItem } from "../../../../common/utils/mappers/toQuantity
 import { toRdsItem } from "../../../../common/utils/mappers/toRdsItem";
 
 /**
- * Filters items with AND-logic if there are any filters available, returns items sorted by date if not.
+ * Filters items with OR-logic if there are any filters available, returns items sorted by date if not.
  *
  * @param filters currently active filters
  * @param items available items after initial search
  */
 export const filterSearchResults = (filters: Filter[], items: SearchResultRaw[]) => {
-  return filters.length > 0 ? andFilterItems(filters, items) : sortItemsByDate(items);
+  return filters.length > 0 ? orFilterItems(filters, items) : sortItemsByDate(items);
 };
 
-const andFilterItems = (filters: Filter[], items: SearchResultRaw[]) =>
-  items.filter((x) => filters.every((f) => x[f.key as keyof SearchResultRaw] === f.value));
+/**
+ * Filters items using AND-logic.
+ * @param filters currently active filters
+ * @param items available items after initial search
+ */
+// const andFilterItems = (filters: Filter[], items: SearchResultRaw[]) =>
+//   items.filter((x) => filters.every((f) => x[f.key as keyof SearchResultRaw] === f.value));
+
+/**
+ * Filters items using OR-logic.
+ * @param filters currently active filters
+ * @param items available items after initial search
+ */
+const orFilterItems = (filters: Filter[], items: SearchResultRaw[]) =>
+  items.filter((x) => filters.some((f) => x[f.key as keyof SearchResultRaw] === f.value));
 
 const sortItemsByDate = (items: SearchResultRaw[]) =>
   [...items].sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
