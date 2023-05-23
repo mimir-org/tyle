@@ -35,8 +35,8 @@ export const filterSearchResults = (filters: Filter[], items: SearchResultRaw[])
  * @param filters currently active filters
  * @param items available items after initial search
  */
-const andFilterItems = (filters: Filter[], items: SearchResultRaw[]) =>
-  items.filter((x) => filters.every((f) => x[f.key as keyof SearchResultRaw] === f.value));
+// const andFilterItems = (filters: Filter[], items: SearchResultRaw[]) =>
+//   items.filter((x) => filters.every((f) => x[f.key as keyof SearchResultRaw] === f.value));
 
 /**
  * Filters items using OR-logic.
