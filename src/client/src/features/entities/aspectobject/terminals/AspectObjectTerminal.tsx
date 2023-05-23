@@ -122,6 +122,7 @@ export const AspectObjectTerminal = ({
                   options={connectorDirectionOptions}
                   onChange={(x) => onChange(x?.value)}
                   value={connectorDirectionOptions.find((x) => x.value === value)}
+                  isDisabled={!removable}
                 />
               </FormField>
             )}
@@ -146,7 +147,7 @@ export const AspectObjectTerminal = ({
                               shouldDirty: true,
                             });
                           checked &&
-                            setValue(`aspectObjectTerminals.${index}.maxQuantity`, 1, {
+                            setValue(`aspectObjectTerminals.${index}.maxQuantity`, minValue ?? 1, {
                               shouldDirty: true,
                             });
                           onChange(checked);
@@ -170,7 +171,7 @@ export const AspectObjectTerminal = ({
                     <Counter
                       {...rest}
                       id={field.id}
-                      min={minValue ? minValue : MINIMUM_TERMINAL_QUANTITY_VALUE}
+                      min={minValue ?? MINIMUM_TERMINAL_QUANTITY_VALUE}
                       max={MAXIMUM_TERMINAL_QUANTITY_VALUE}
                       value={!terminalHasMaxQuantity ? 0 : value}
                       disabled={!terminalHasMaxQuantity}
