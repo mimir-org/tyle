@@ -29,7 +29,7 @@ export const SearchPlaceholder = ({ title, subtitle, tips }: SearchPlaceholderPr
       </Text>
       <ul>
         {tips.map((tip, i) => (
-          <li key={i}>{tip}</li>
+          <li key={i + tip}>{tip}</li>
         ))}
       </ul>
     </MotionFlexbox>

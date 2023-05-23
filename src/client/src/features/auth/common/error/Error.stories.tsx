@@ -1,12 +1,12 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Error } from "features/auth/common/error/Error";
 
 export default {
   title: "Features/Auth/Common/Error",
   component: Error,
-} as ComponentMeta<typeof Error>;
+} as Meta<typeof Error>;
 
-const Template: ComponentStory<typeof Error> = (args) => <Error {...args} />;
+const Template: StoryFn<typeof Error> = (args) => <Error {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

@@ -1,12 +1,12 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { FormErrorBanner } from "complib/form/FormErrorBanner";
 
 export default {
   title: "Form/FormErrorBanner",
   component: FormErrorBanner,
-} as ComponentMeta<typeof FormErrorBanner>;
+} as Meta<typeof FormErrorBanner>;
 
-const Template: ComponentStory<typeof FormErrorBanner> = (args) => <FormErrorBanner {...args} />;
+const Template: StoryFn<typeof FormErrorBanner> = (args) => <FormErrorBanner {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

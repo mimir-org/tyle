@@ -17,7 +17,7 @@ interface DigitsProps {
  */
 export const Digits = ({ length = 6, value = "", onChange }: DigitsProps) => {
   const digits = useDigitInput({
-    acceptedCharacters: /^[0-9]$/,
+    acceptedCharacters: /\d/,
     length: length,
     value,
     onChange,

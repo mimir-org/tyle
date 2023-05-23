@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { PencilSquare } from "@styled-icons/heroicons-outline";
 import { Button } from "complib/buttons";
 import { UserListItem } from "features/settings/permission/user-list/UserListItem";
@@ -8,7 +8,7 @@ export default {
   component: UserListItem,
 };
 
-const Template: ComponentStory<typeof UserListItem> = (args) => <UserListItem {...args} />;
+const Template: StoryFn<typeof UserListItem> = (args) => <UserListItem {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

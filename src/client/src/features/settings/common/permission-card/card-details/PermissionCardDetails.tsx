@@ -9,7 +9,7 @@ export const PermissionCardDetails = ({ descriptors }: PermissionCardDetailsProp
   <Dl>
     {descriptors &&
       Object.keys(descriptors).map((k, i) => (
-        <Fragment key={i}>
+        <Fragment key={i + k}>
           <Dt>{k}</Dt>
           <Dd>{descriptors[k]}</Dd>
         </Fragment>

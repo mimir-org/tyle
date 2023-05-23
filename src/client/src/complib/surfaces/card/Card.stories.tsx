@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Button } from "complib/buttons";
 import { Box, Flexbox } from "complib/layouts";
 import { Card } from "complib/surfaces/card/Card";
@@ -7,9 +7,9 @@ import { Heading, Text } from "complib/text";
 export default {
   title: "Surfaces/Card",
   component: Card,
-} as ComponentMeta<typeof Card>;
+} as Meta<typeof Card>;
 
-const Template: ComponentStory<typeof Flexbox> = (args) => (
+const Template: StoryFn<typeof Flexbox> = (args) => (
   <Box width={"250px"}>
     <Card {...args}>
       <Flexbox flexDirection={"column"} gap={"20px"}>

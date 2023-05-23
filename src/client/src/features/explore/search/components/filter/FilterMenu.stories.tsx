@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { FilterMenu } from "features/explore/search/components/filter/FilterMenu";
 import { FilterMenuGroup } from "features/explore/search/components/filter/FilterMenuGroup";
 import { Filter } from "features/explore/search/types/filter";
@@ -7,9 +7,9 @@ export default {
   title: "Features/Explore/Search/Filter/FilterMenu",
   component: FilterMenu,
   subcomponents: { FilterMenuGroup },
-} as ComponentMeta<typeof FilterMenu>;
+} as Meta<typeof FilterMenu>;
 
-const Template: ComponentStory<typeof FilterMenu> = (args) => <FilterMenu {...args} />;
+const Template: StoryFn<typeof FilterMenu> = (args) => <FilterMenu {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

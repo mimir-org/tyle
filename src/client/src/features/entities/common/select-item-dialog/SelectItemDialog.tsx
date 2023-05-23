@@ -72,7 +72,7 @@ export const SelectItemDialog = ({
               .filter((x) => filterInfoItem(x, searchQuery))
               .map((a, i) => (
                 <InfoItemCheckbox
-                  key={i}
+                  key={a?.id ?? i}
                   checked={selected.includes(a?.id ?? "")}
                   onClick={() => onSelectionChange(a?.id ?? "", selected, setSelected)}
                   {...a}

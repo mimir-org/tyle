@@ -1,13 +1,13 @@
 import { faker } from "@faker-js/faker";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { TerminalPreview } from "features/entities/entityPreviews/terminal/TerminalPreview";
 
 export default {
   title: "Features/Common/Terminal/TerminalPreview",
   component: TerminalPreview,
-} as ComponentMeta<typeof TerminalPreview>;
+} as Meta<typeof TerminalPreview>;
 
-const Template: ComponentStory<typeof TerminalPreview> = (args) => <TerminalPreview {...args} />;
+const Template: StoryFn<typeof TerminalPreview> = (args) => <TerminalPreview {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

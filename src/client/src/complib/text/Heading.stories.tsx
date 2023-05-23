@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { Heading } from "complib/text/Heading";
 
 export default {
@@ -9,7 +9,7 @@ export default {
   },
 };
 
-const Template: ComponentStory<typeof Heading> = (args) => <Heading {...args}></Heading>;
+const Template: StoryFn<typeof Heading> = (args) => <Heading {...args}></Heading>;
 
 export const H1 = Template.bind({});
 H1.args = {

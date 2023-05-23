@@ -4,7 +4,7 @@ import { Text } from "complib/text";
 import { useTheme } from "styled-components";
 
 interface PermissionCardHeaderProps {
-  children: string;
+  children?: string;
 }
 
 export const PermissionCardHeader = ({ children }: PermissionCardHeaderProps) => {

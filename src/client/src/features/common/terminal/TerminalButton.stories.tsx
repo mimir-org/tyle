@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { TerminalButton } from "features/common/terminal/TerminalButton";
 
 export default {
@@ -7,9 +7,9 @@ export default {
   args: {
     color: "grey",
   },
-} as ComponentMeta<typeof TerminalButton>;
+} as Meta<typeof TerminalButton>;
 
-const Template: ComponentStory<typeof TerminalButton> = (args) => <TerminalButton {...args} />;
+const Template: StoryFn<typeof TerminalButton> = (args) => <TerminalButton {...args} />;
 
 export const Default = Template.bind({});
 

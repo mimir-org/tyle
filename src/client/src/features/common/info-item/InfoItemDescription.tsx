@@ -60,7 +60,7 @@ export const InfoItemDescription = ({
       >
         {descriptors &&
           Object.keys(descriptors).map((k, i) => (
-            <Text key={i} variant={"body-small"} color={theme.tyle.color.sys.primary.on}>
+            <Text key={k + i} variant={"body-small"} color={theme.tyle.color.sys.primary.on}>
               <Text as={"span"} color={theme.tyle.color.sys.secondary.base} textTransform={"capitalize"}>
                 {k}:{" "}
               </Text>

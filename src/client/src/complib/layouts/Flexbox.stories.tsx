@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { theme } from "complib/core";
 import { Box } from "complib/layouts/Box";
 import { Flexbox } from "complib/layouts/Flexbox";
@@ -8,7 +8,7 @@ export default {
   component: Flexbox,
 };
 
-const Template: ComponentStory<typeof Flexbox> = (args) => (
+const Template: StoryFn<typeof Flexbox> = (args) => (
   <Flexbox {...args}>
     {[...Array(5)].map((_, i) => {
       const color = 20 * i;

@@ -11,7 +11,7 @@ import { ReactNode } from "react";
 import { Tooltip } from "../../../../../complib/data-display";
 
 interface ApprovalCardHeaderProps {
-  children: ReactNode;
+  children?: ReactNode;
   objectType?: string;
 }
 

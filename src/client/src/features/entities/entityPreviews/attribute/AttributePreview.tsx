@@ -24,14 +24,14 @@ const StyledDiv = styled.div<StyledDivProps>`
   cursor: ${(props) => (props.small ? "pointer" : "auto")};
 `;
 
-interface attributePreviewProps {
+interface AttributePreviewProps {
   name: string;
   description: string;
   attributeUnits?: FormUnitHelper[];
   small?: boolean;
 }
 
-export default function AttributePreview({ name, description, attributeUnits, small }: attributePreviewProps) {
+export default function AttributePreview({ name, description, attributeUnits, small }: AttributePreviewProps) {
   const theme = useTheme();
   attributeUnits && attributeUnits.sort((a) => (a.isDefault ? -1 : 1));
 

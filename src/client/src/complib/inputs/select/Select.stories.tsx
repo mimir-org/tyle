@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { LibraryIcon } from "complib/assets";
 import { Select } from "complib/inputs/select/Select";
 import { Flexbox } from "complib/layouts";
@@ -16,9 +16,9 @@ const mockData = [
 export default {
   title: "Inputs/Select",
   component: Select,
-} as ComponentMeta<typeof Select>;
+} as Meta<typeof Select>;
 
-const Template: ComponentStory<typeof Select> = (args) => <Select {...args} />;
+const Template: StoryFn<typeof Select> = (args) => <Select {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
