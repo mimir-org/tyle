@@ -19,6 +19,8 @@ import {
 import { AttributeFormPreview } from "../entityPreviews/attribute/AttributeFormPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { attributeSchema } from "./attributeSchema";
 
 interface AttributeFormProps {
   defaultValues?: FormAttributeLib;
@@ -30,6 +32,7 @@ export const AttributeForm = ({ defaultValues = createEmptyAttribute(), mode }: 
 
   const formMethods = useForm<FormAttributeLib>({
     defaultValues: defaultValues,
+    resolver: yupResolver(attributeSchema(t)),
   });
 
   const { handleSubmit, control, setError, reset } = formMethods;

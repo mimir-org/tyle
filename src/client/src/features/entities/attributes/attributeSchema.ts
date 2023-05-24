@@ -1,21 +1,26 @@
-import { object, string, number, array, boolean, InferType } from "yup";
+import { YupShape } from "common/types/yupShape";
+import { TFunction } from "react-i18next";
+import * as yup from "yup";
+import { FormAttributeLib } from "./types/formAttributeLib";
 
-export const attributeSchema = object({
-  name: string().max(60).required(),
-  companyId: number().min(1).required(),
-  description: string().max(500).required(),
-  attributeUnits: array()
+export const attributeSchema = (t: TFunction<"translation">) => 
+  yup.object<YupShape<FormAttributeLib>>({
+  name: yup.string().max(120, t("attribute.validation.name.max")).required(),
+  description: yup.string().max(500).required(),
+  typeReference: yup.string(),
+  units: yup.array()
     .of(
-      object({
-        unitId: string().required(),
-        isDefault: boolean().required(),
-        description: string().max(500).required(),
+      yup.object({
+        name: yup.string().max(120).required(),
+        description: yup.string().max(500).required(),
+        symbol: yup.string().max(30).required(),
+        unitId: yup.string().required(),
       })
-    )
-    .test("At least one default", "You need at least one default value", (attributeUnit) => {
-      return attributeUnit ? attributeUnit.some((attributeUnit) => attributeUnit.isDefault) : false;
-    })
-    .required(),
+    ),
+  defaultUnit: yup.object({
+    name: yup.string().max(120).required(),
+    description: yup.string().max(500).required(),
+    symbol: yup.string().max(30).required(),
+    unitId: yup.string().required(),
+  })
 });
-
-export type AttributeSchema = InferType<typeof attributeSchema>;

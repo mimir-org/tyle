@@ -7,7 +7,7 @@ import { usePrefilledForm } from "features/entities/common/utils/usePrefilledFor
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { RdsLibCm, State } from "@mimirorg/typelibrary-types";
+import { RdsLibAm, RdsLibCm, State } from "@mimirorg/typelibrary-types";
 import { Flexbox } from "../../../complib/layouts";
 import { PlainLink } from "../../common/plain-link";
 import { Button } from "../../../complib/buttons";
@@ -18,6 +18,8 @@ import { RdsFormBaseFields } from "./RdsFormBaseFields";
 import { RdsFormPreview } from "../entityPreviews/rds/RdsFormPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { rdsSchema } from "./rdsSchema";
 
 interface RdsFormProps {
   defaultValues?: RdsLibCm;
@@ -28,8 +30,9 @@ export const RdsForm = ({ defaultValues = createEmptyRds(), mode }: RdsFormProps
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
-  const formMethods = useForm<RdsLibCm>({
+  const formMethods = useForm<RdsLibAm>({
     defaultValues: defaultValues,
+    resolver: yupResolver(rdsSchema(t)),
   });
 
   const { control, handleSubmit, setError, reset } = formMethods;
