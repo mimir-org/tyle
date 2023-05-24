@@ -194,7 +194,7 @@
     }
   },
   "quantityDatum": {
-    "title": "QuantityDatum",
+    "title": "Quantity Datum",
     "name": "Name",
     "description": "Description",
     "multiple": "Quantity Datums",
@@ -210,6 +210,7 @@
     "rdsCode": "RDS code",
     "name": "Name",
     "title": "RDS",
+    "subTitle": "Resource Description Scheme",
     "description": "Description",
     "typeReference": "Type reference",
     "placeholders": {

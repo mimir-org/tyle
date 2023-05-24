@@ -20,7 +20,7 @@ const StyledDiv = styled.div<StyledDivProps>`
   height: fit-content;
   overflow-y: auto;
   scrollbar-width: thin;
-  width: ${(props) => (props.small ? "200px" : "40rem")};
+  width: ${(props) => (props.small ? "200px" : "auto")};
   cursor: ${(props) => (props.small ? "pointer" : "auto")};
 `;
 

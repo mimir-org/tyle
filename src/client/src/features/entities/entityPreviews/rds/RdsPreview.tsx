@@ -20,7 +20,8 @@ const StyledDiv = styled.div<StyledDivProps>`
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
   background-color: ${(props) => props.theme.tyle.color.sys.surface.base};
   border: 1px solid ${(props) => props.theme.tyle.color.sys.outline.base};
-  width: ${(props) => (props.small ? "200px" : "100%")};
+  width: ${(props) => (props.small ? "200px" : "auto")};
+  height: fit-content;
 `;
 
 export const RdsPreview = ({ name, description, rdsCode, small }: RdsPreviewProps): JSX.Element => {

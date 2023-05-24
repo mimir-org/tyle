@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { FormUnitHelper } from "../units/types/FormUnitHelper";
 import { FormAttributeLib } from "./types/formAttributeLib";
 import { FormBaseFieldsContainer } from "../../../complib/form/FormContainer.styled";
+import { Text } from "../../../complib/text";
 
 interface AttributeFormBaseFieldsProps {
   limited?: boolean;
@@ -42,6 +43,7 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
 
   return (
     <FormBaseFieldsContainer>
+      <Text variant={"display-small"}>{t("attribute.title")}</Text>
       <FormField label={t("attribute.name")} error={errors.name}>
         <Input placeholder={t("attribute.placeholders.name")} {...register("name")} disabled={limited} />
       </FormField>

@@ -18,6 +18,7 @@ import { RdsFormBaseFields } from "./RdsFormBaseFields";
 import { RdsFormPreview } from "../entityPreviews/rds/RdsFormPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
+import { Text } from "../../../complib/text";
 
 interface RdsFormProps {
   defaultValues?: RdsLibCm;
@@ -54,17 +55,20 @@ export const RdsForm = ({ defaultValues = createEmptyRds(), mode }: RdsFormProps
         {isLoading ? (
           <Loader />
         ) : (
-          <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
-            <RdsFormPreview control={control} />
-            <RdsFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
-            <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
-              <PlainLink tabIndex={-1} to={"/"}>
-                <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>
-                  {t("common.cancel")}
-                </Button>
-              </PlainLink>
-              <Button type={"submit"}>{t("common.submit")}</Button>
+          <Flexbox flexDirection={"row"} gap={theme.tyle.spacing.l}>
+            <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
+              <Text variant={"display-small"}>{t("rds.title")}</Text>
+              <RdsFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
+              <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
+                <PlainLink tabIndex={-1} to={"/"}>
+                  <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>
+                    {t("common.cancel")}
+                  </Button>
+                </PlainLink>
+                <Button type={"submit"}>{t("common.submit")}</Button>
+              </Flexbox>
             </Flexbox>
+            <RdsFormPreview control={control} />
           </Flexbox>
         )}
       </FormContainer>

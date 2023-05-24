@@ -45,6 +45,7 @@ export const AspectObjectFormBaseFields = ({ isFirstDraft }: AspectObjectFormBas
 
   return (
     <FormBaseFieldsContainer>
+      <Text variant={"display-small"}>{t("aspectObject.title")}</Text>
       <AspectObjectFormPreview control={control} />
 
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>

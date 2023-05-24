@@ -39,7 +39,7 @@ export default function QuantityDatumPreview({
       <Text variant={small ? "body-large" : "display-small"} useEllipsis={small}>
         {name}
       </Text>
-      <Text useEllipsis={small} variant={"body-small"}>
+      <Text useEllipsis={small} variant={small ? "body-small" : "body-large"}>
         {description}
       </Text>
       {quantityDatumType !== undefined ? (

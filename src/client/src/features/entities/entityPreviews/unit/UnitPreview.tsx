@@ -18,7 +18,7 @@ const StyledUnit = styled.div<UnitContainerProps>`
   height: fit-content;
   background-color: ${(props) =>
     props.isDefault ? props.theme.tyle.color.sys.surface.variant.base : props.theme.tyle.color.sys.surface.base};
-  max-width: ${(props) => (props.small ? "200px" : "100%")};
+  max-width: ${(props) => (props.small ? "200px" : "auto")};
   width: 100%;
 `;
 
@@ -45,8 +45,8 @@ export default function UnitPreview({
     <StyledUnit key={unitId} small={small} isDefault={isDefault}>
       <Flexbox justifyContent={"space-between"}>
         <Flexbox gap={"1rem"} alignItems={"center"}>
-          <Text variant={small ? "title-small" : "display-small"}>{name}</Text>
-          <Text variant={small ? "title-small" : "title-large"} color={"gray"}>
+          <Text variant={small ? "title-small" : "title-large"}>{name}</Text>
+          <Text variant={small ? "title-small" : "title-medium"} color={"gray"}>
             {symbol}
           </Text>
         </Flexbox>
