@@ -32,7 +32,7 @@ export const filterSearchResults = (filters: Filter[], items: SearchResultRaw[])
 
 /**
  * Filters items with OR-logic per key present in filters, then returns the intersection of the results.
- * 
+ *
  * @param filters currently active filters
  * @param items available items after initial search
  */
@@ -40,22 +40,27 @@ const filterItems = (filters: Filter[], items: SearchResultRaw[]) => {
   const filterKeys = Array.from(new Set(filters.map((f) => f.key)));
   const filteredPerKey: SearchResultRaw[][] = [];
   for (const key of filterKeys) {
-    filteredPerKey.push(orFilterItems(filters.filter((f) => f.key === key), items));
+    filteredPerKey.push(
+      orFilterItems(
+        filters.filter((f) => f.key === key),
+        items
+      )
+    );
   }
 
   return intersect(filteredPerKey);
-}
+};
 
 /**
  * Returns the intersection of the arrays in the input array.
- * 
+ *
  * @param arrayOfArrays an array of the arrays that should be intersected
  */
 const intersect = (arrayOfArrays: SearchResultRaw[][]): SearchResultRaw[] => {
   if (arrayOfArrays.length === 1) return arrayOfArrays[0];
 
-  return arrayOfArrays.reduce((a, b) => a.filter(c => b.includes(c)));
-}
+  return arrayOfArrays.reduce((a, b) => a.filter((c) => b.includes(c)));
+};
 
 /**
  * Filters items using OR-logic.
