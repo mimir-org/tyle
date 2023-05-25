@@ -207,13 +207,13 @@
     }
   },
   "rds": {
-    "rdsCode": "RDS code",
+    "rdsCode": "Code",
     "name": "Name",
     "title": "RDS",
     "description": "Description",
     "typeReference": "Type reference",
     "placeholders": {
-      "rdsCode": "Additional information about this rds can be supplied here."
+      "rdsCode": "Code"
     }
   }
 }
