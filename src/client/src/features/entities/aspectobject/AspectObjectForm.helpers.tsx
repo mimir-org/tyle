@@ -2,6 +2,7 @@ import { Aspect, AspectObjectTerminalLibCm } from "@mimirorg/typelibrary-types";
 import {
   useCreateAspectObject,
   useGetAspectObject,
+  useGetLatestApprovedAspectObject,
   useUpdateAspectObject,
 } from "external/sources/aspectobject/aspectObject.queries";
 import { AspectObjectFormPredefinedAttributes } from "features/entities/aspectobject/predefined-attributes/AspectObjectFormPredefinedAttributes";
@@ -20,6 +21,11 @@ export const useAspectObjectMutation = (id?: string, mode?: FormMode) => {
   const aspectObjectCreateMutation = useCreateAspectObject();
   return mode === "edit" ? aspectObjectUpdateMutation : aspectObjectCreateMutation;
 };
+
+export const useLatestApprovedQuery = (id?: string, limited?: boolean) => {
+  const latestApprovedQuery = useGetLatestApprovedAspectObject(id);
+  return limited ? latestApprovedQuery : null;
+}
 
 /**
  * Resets the part of aspect object form which is dependent on initial choices, e.g. aspect
