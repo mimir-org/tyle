@@ -38,7 +38,7 @@ export const FilterMenu = ({ name, filterGroups, ...delegated }: FilterMenuProps
           <Accordion>
             {filterGroups.map((x, i) => (
               <FilterMenuGroup
-                key={`${i},${x.name}`}
+                key={`${i + x.name}`}
                 name={x.name}
                 filters={filterAvailableFilters(filterQuery, x.filters)}
                 {...delegated}

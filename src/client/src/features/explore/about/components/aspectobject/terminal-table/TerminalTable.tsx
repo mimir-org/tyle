@@ -18,8 +18,8 @@ export const TerminalTable = ({ terminals }: { terminals: AspectObjectTerminalIt
       <TerminalTableHeader />
     </Thead>
     <Tbody>
-      {terminals.map((terminal, i) => (
-        <Tr key={i + terminal.name}>
+      {terminals.map((terminal) => (
+        <Tr key={terminal.name + terminal.color + terminal.direction}>
           <TerminalTableIdentifier {...terminal} />
           <TerminalTableDirection {...terminal} />
           <TerminalTableAmount {...terminal} />

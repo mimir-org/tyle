@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { ContactCard } from "features/ui/header/contact/ContactCard";
 
 export default {
@@ -6,7 +6,7 @@ export default {
   component: ContactCard,
 };
 
-const Template: ComponentStory<typeof ContactCard> = (args) => <ContactCard {...args} />;
+const Template: StoryFn<typeof ContactCard> = (args) => <ContactCard {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

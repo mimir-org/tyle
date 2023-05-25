@@ -7,6 +7,7 @@ import { Input, Textarea } from "../../../complib/inputs";
 import { PlainLink } from "../../common/plain-link";
 import { Button } from "../../../complib/buttons";
 import { UnitLibAm } from "@mimirorg/typelibrary-types";
+import { Text } from "../../../complib/text";
 
 interface UnitFormBaseFieldsProps {
   limited?: boolean;
@@ -20,6 +21,7 @@ export default function UnitFormBaseFields({ limited }: UnitFormBaseFieldsProps)
 
   return (
     <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
+      <Text variant={"display-small"}>{t("unit.title")}</Text>
       <FormField label={t("unit.name")} error={errors.name}>
         <Input placeholder={t("unit.placeholders.name")} {...register("name")} required disabled={limited} />
       </FormField>

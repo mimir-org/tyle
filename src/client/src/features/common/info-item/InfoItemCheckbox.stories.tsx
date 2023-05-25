@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { InfoItemCheckbox } from "features/common/info-item/InfoItemCheckbox";
 
 export default {
@@ -14,8 +14,8 @@ export default {
     },
     checked: false,
   },
-} as ComponentMeta<typeof InfoItemCheckbox>;
+} as Meta<typeof InfoItemCheckbox>;
 
-const Template: ComponentStory<typeof InfoItemCheckbox> = (args) => <InfoItemCheckbox {...args} />;
+const Template: StoryFn<typeof InfoItemCheckbox> = (args) => <InfoItemCheckbox {...args} />;
 
 export const Default = Template.bind({});

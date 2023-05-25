@@ -11,7 +11,7 @@ import { Tooltip } from "../../../../../complib/data-display";
 import QuantityDatumIcon from "../../../../icons/QuantityDatumIcon";
 
 interface ApprovalCardHeaderProps {
-  children: ReactNode;
+  children?: ReactNode;
   objectType?: string;
 }
 

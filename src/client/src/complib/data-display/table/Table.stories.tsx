@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Token } from "complib/general";
 import { Input, Select } from "complib/inputs";
 import { Box, Flexbox } from "complib/layouts";
@@ -19,9 +19,9 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof Table>;
+} as Meta<typeof Table>;
 
-const Template: ComponentStory<typeof Table> = (args) => <Table {...args} />;
+const Template: StoryFn<typeof Table> = (args) => <Table {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

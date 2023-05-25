@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { mockAspectObjectTerminalItem } from "common/utils/mocks";
 import { LibraryIcon } from "complib/assets";
 import { AspectObjectPreview } from "features/entities/entityPreviews/aspectobject/AspectObjectPreview";
@@ -7,9 +7,9 @@ import { AspectObjectPreview } from "features/entities/entityPreviews/aspectobje
 export default {
   title: "Features/Common/AspectObject/AspectObjectPreview",
   component: AspectObjectPreview,
-} as ComponentMeta<typeof AspectObjectPreview>;
+} as Meta<typeof AspectObjectPreview>;
 
-const Template: ComponentStory<typeof AspectObjectPreview> = (args) => <AspectObjectPreview {...args} />;
+const Template: StoryFn<typeof AspectObjectPreview> = (args) => <AspectObjectPreview {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

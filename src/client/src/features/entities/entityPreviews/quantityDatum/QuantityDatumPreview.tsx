@@ -59,7 +59,7 @@ export default function QuantityDatumPreview({
   );
 }
 
-const QuantityDatumSmallPreview = (quantityDatumType: string) => {
+export const QuantityDatumSmallPreview = (quantityDatumType: string): JSX.Element => {
   const theme = useTheme();
   return (
     <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.tyle.spacing.base}>

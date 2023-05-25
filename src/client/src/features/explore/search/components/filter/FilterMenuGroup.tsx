@@ -37,7 +37,7 @@ export const FilterMenuGroup = ({ name, filters, activeFilters, toggleFilter }: 
           overflow={"auto"}
         >
           {filters?.map((f, i) => (
-            <FilterMenuGroupLabel key={`${i},${f.label}`}>
+            <FilterMenuGroupLabel key={`${i + f.label + f.key}`}>
               <Checkbox onClick={() => toggleFilter(f)} checked={activeFilters?.some((x) => x.value === f.value)} />
               <Text as={"span"} color={theme.tyle.color.sys.pure.on}>
                 {f.label}

@@ -1,6 +1,7 @@
 import { RdsLibAm } from "@mimirorg/typelibrary-types";
 import { Control, useWatch } from "react-hook-form";
 import { RdsPreview } from "./RdsPreview";
+import { StyledFormPreviewDiv } from "../FormPreviewContainer";
 
 interface RdsFormPreviewProps {
   control: Control<RdsLibAm>;
@@ -12,5 +13,14 @@ export const RdsFormPreview = ({ control, small }: RdsFormPreviewProps): JSX.Ele
   const description = useWatch({ control, name: "description" });
   const rdsCode = useWatch({ control, name: "rdsCode" });
 
-  return <RdsPreview name={name ? name : "RDS"} description={description} rdsCode={rdsCode} small={small} />;
+  return (
+    <StyledFormPreviewDiv>
+      <RdsPreview
+        name={name ? name : "Resource Description Scheme"}
+        description={description}
+        rdsCode={rdsCode}
+        small={small}
+      />
+    </StyledFormPreviewDiv>
+  );
 };

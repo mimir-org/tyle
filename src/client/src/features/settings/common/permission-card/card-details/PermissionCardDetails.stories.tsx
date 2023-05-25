@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { PermissionCardDetails } from "features/settings/common/permission-card/card-details/PermissionCardDetails";
 
 export default {
@@ -6,7 +6,7 @@ export default {
   component: PermissionCardDetails,
 };
 
-const Template: ComponentStory<typeof PermissionCardDetails> = (args) => <PermissionCardDetails {...args} />;
+const Template: StoryFn<typeof PermissionCardDetails> = (args) => <PermissionCardDetails {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Button } from "complib/buttons";
 import { Flexbox } from "complib/layouts";
 import { InfoItemButtonProps } from "features/common/info-item/InfoItemButton";
@@ -8,9 +8,9 @@ import { FormSection } from "features/entities/common/form-section/FormSection";
 export default {
   title: "Features/Entities/Common/FormSection",
   component: FormSection,
-} as ComponentMeta<typeof FormSection>;
+} as Meta<typeof FormSection>;
 
-const Template: ComponentStory<typeof FormSection> = (args) => <FormSection {...args} />;
+const Template: StoryFn<typeof FormSection> = (args) => <FormSection {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

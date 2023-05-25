@@ -1,12 +1,12 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Processing } from "features/auth/common/processing/Processing";
 
 export default {
   title: "Features/Auth/Common/Processing",
   component: Processing,
-} as ComponentMeta<typeof Processing>;
+} as Meta<typeof Processing>;
 
-const Template: ComponentStory<typeof Processing> = (args) => <Processing {...args} />;
+const Template: StoryFn<typeof Processing> = (args) => <Processing {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

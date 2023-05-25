@@ -1,12 +1,12 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Completion } from "features/auth/common/completion/Completion";
 
 export default {
   title: "Features/Auth/Common/Completion",
   component: Completion,
-} as ComponentMeta<typeof Completion>;
+} as Meta<typeof Completion>;
 
-const Template: ComponentStory<typeof Completion> = (args) => <Completion {...args} />;
+const Template: StoryFn<typeof Completion> = (args) => <Completion {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

@@ -15,7 +15,7 @@ import { toFormAttributeLib } from "../../entities/attributes/types/formAttribut
 import UnitPreview from "../../entities/entityPreviews/unit/UnitPreview";
 import QuantityDatumPreview from "../../entities/entityPreviews/quantityDatum/QuantityDatumPreview";
 import { RdsPreview } from "../../entities/entityPreviews/rds/RdsPreview";
-import { toFormUnitLib } from "../../entities/units/types/formUnitLib";
+import { toUnitLibAm } from "../../entities/units/types/formUnitLib";
 import { useGetUnit } from "../../../external/sources/unit/unit.queries";
 import { useGetQuantityDatum } from "../../../external/sources/datum/quantityDatum.queries";
 import { useGetRds } from "../../../external/sources/rds/rds.queries";
@@ -94,7 +94,7 @@ export const About = ({ selected }: AboutProps) => {
         />
       )}
       {showAttributePanel && <AttributePreview {...toFormAttributeLib(attributeQuery.data)} />}
-      {showUnitPanel && <UnitPreview {...toFormUnitLib(unitQuery.data)} />}
+      {showUnitPanel && <UnitPreview {...toUnitLibAm(unitQuery.data)} />}
       {showDatumPanel && <QuantityDatumPreview {...toFormDatumLib(datumQuery.data)} />}
       {showRdsPanel && <RdsPreview {...toFormRdsLib(rdsQuery.data)} />}
     </ExploreSection>

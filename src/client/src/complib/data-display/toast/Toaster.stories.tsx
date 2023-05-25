@@ -1,4 +1,4 @@
-import { ComponentMeta } from "@storybook/react";
+import { Meta } from "@storybook/react";
 import { Button } from "complib/buttons";
 import { toast } from "complib/data-display/toast/toast";
 import { Toaster } from "complib/data-display/toast/Toaster";
@@ -10,7 +10,7 @@ import { useTheme } from "styled-components";
 export default {
   title: "Data display/Toaster",
   component: Toaster,
-} as ComponentMeta<typeof Toaster>;
+} as Meta<typeof Toaster>;
 
 export const Default = () => <Button onClick={() => toast("The default toast experience")}>Click to toast</Button>;
 

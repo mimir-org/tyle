@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Button } from "complib/buttons";
 import { Accordion } from "complib/surfaces/accordion/Accordion";
 import { AccordionContent } from "complib/surfaces/accordion/components/AccordionContent";
@@ -9,9 +9,9 @@ export default {
   title: "Surfaces/Accordion",
   component: Accordion,
   subcomponents: { AccordionItem, AccordionTrigger, AccordionContent },
-} as ComponentMeta<typeof Accordion>;
+} as Meta<typeof Accordion>;
 
-const Template: ComponentStory<typeof Accordion> = (args) => <Accordion {...args} />;
+const Template: StoryFn<typeof Accordion> = (args) => <Accordion {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

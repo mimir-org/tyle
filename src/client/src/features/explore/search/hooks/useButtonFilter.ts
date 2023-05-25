@@ -34,8 +34,8 @@ export const useButtonStateFilter = (item: StateItem | null, user: UserItem | nu
     const currentButtonState: ButtonState = {
       clone: allowClone(item ?? null, user),
       edit: allowEdit(item ?? null, user),
-      delete: allowDelete(item ?? null, user),
-      approve: allowApprove(item ?? null, user),
+      delete: allowStateChange(item ?? null, user),
+      approve: allowStateChange(item ?? null, user),
       deleted: item?.state === State.Deleted,
       approved: item?.state === State.Approved,
     };
@@ -70,22 +70,7 @@ const allowEdit = (item: StateItem | null, user: UserItem | null): boolean => {
   return hasMinimumWrite && item.state !== State.Approve && item.state !== State.Delete && item.state !== State.Deleted;
 };
 
-const allowDelete = (item: StateItem | null, user: UserItem | null): boolean => {
-  if (item == null || user == null) return false;
-
-  let permissionForCompany: MimirorgPermission;
-  if (isAspectObjectItem(item)) {
-    permissionForCompany = user.permissions[item.companyId]?.value;
-  } else {
-    permissionForCompany = user.permissions[0].value;
-  }
-  if (permissionForCompany == null) return false;
-
-  const hasMinimumWrite = (permissionForCompany & MimirorgPermission.Write) === MimirorgPermission.Write;
-  return hasMinimumWrite && item.state === State.Draft;
-};
-
-const allowApprove = (item: StateItem | null, user: UserItem | null): boolean => {
+const allowStateChange = (item: StateItem | null, user: UserItem | null): boolean => {
   if (item == null || user == null) return false;
 
   let permissionForCompany: MimirorgPermission;

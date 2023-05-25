@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Box } from "complib/layouts";
 import { Text } from "complib/text";
 import { SearchField } from "features/common/search-field";
@@ -9,9 +9,9 @@ import { Default as ItemList } from "features/explore/search/components/item/Ite
 export default {
   title: "Features/Explore/Common/ExploreSection",
   component: ExploreSection,
-} as ComponentMeta<typeof ExploreSection>;
+} as Meta<typeof ExploreSection>;
 
-const Template: ComponentStory<typeof ExploreSection> = (args) => <ExploreSection {...args} />;
+const Template: StoryFn<typeof ExploreSection> = (args) => <ExploreSection {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

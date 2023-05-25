@@ -1,13 +1,13 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { FormField } from "complib/form/FormField";
 import { Text } from "complib/inputs/input/Input.stories";
 
 export default {
   title: "Form/FormField",
   component: FormField,
-} as ComponentMeta<typeof FormField>;
+} as Meta<typeof FormField>;
 
-const Template: ComponentStory<typeof FormField> = (args) => <FormField {...args} />;
+const Template: StoryFn<typeof FormField> = (args) => <FormField {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

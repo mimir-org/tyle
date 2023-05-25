@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { MultiFactorAuthentication } from "features/auth/common/mfa/MultiFactorAuthentication";
 
 const qrCodeBase64 =
@@ -7,9 +7,9 @@ const qrCodeBase64 =
 export default {
   title: "Features/Auth/Common/MultiFactorAuthentication",
   component: MultiFactorAuthentication,
-} as ComponentMeta<typeof MultiFactorAuthentication>;
+} as Meta<typeof MultiFactorAuthentication>;
 
-const Template: ComponentStory<typeof MultiFactorAuthentication> = (args) => <MultiFactorAuthentication {...args} />;
+const Template: StoryFn<typeof MultiFactorAuthentication> = (args) => <MultiFactorAuthentication {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

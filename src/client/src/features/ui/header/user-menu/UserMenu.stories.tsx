@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { Checkbox } from "complib/inputs/checkbox/Checkbox";
 import { Flexbox } from "complib/layouts";
 import { UserMenu } from "features/ui/header/user-menu/UserMenu";
@@ -8,7 +8,7 @@ export default {
   component: UserMenu,
 };
 
-const Template: ComponentStory<typeof UserMenu> = (args) => <UserMenu {...args} />;
+const Template: StoryFn<typeof UserMenu> = (args) => <UserMenu {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

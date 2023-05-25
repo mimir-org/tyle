@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { PermissionCardHeader } from "features/settings/common/permission-card/card-header/PermissionCardHeader";
 
 export default {
@@ -6,7 +6,7 @@ export default {
   component: PermissionCardHeader,
 };
 
-const Template: ComponentStory<typeof PermissionCardHeader> = (args) => <PermissionCardHeader {...args} />;
+const Template: StoryFn<typeof PermissionCardHeader> = (args) => <PermissionCardHeader {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

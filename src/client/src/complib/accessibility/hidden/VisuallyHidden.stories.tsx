@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { VisuallyHidden } from "./VisuallyHidden";
 
 export default {
@@ -15,9 +15,9 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof VisuallyHidden>;
+} as Meta<typeof VisuallyHidden>;
 
-const Template: ComponentStory<typeof VisuallyHidden> = (args) => <VisuallyHidden {...args} />;
+const Template: StoryFn<typeof VisuallyHidden> = (args) => <VisuallyHidden {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

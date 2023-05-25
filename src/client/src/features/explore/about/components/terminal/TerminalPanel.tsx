@@ -41,7 +41,7 @@ export const TerminalPanel = ({ name, description, color, attributes, tokens }: 
         </Text>
       </Flexbox>
       <Flexbox gap={theme.tyle.spacing.xl} flexWrap={"wrap"}>
-        {tokens && tokens.map((token, i) => <Token key={i}>{token}</Token>)}
+        {tokens && tokens.map((token, i) => <Token key={token + i}>{token}</Token>)}
       </Flexbox>
 
       <PanelPropertiesContainer>

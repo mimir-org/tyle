@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { theme } from "complib/core";
 import { Box } from "complib/layouts/Box";
 
@@ -7,7 +7,7 @@ export default {
   component: Box,
 };
 
-const Template: ComponentStory<typeof Box> = (args) => (
+const Template: StoryFn<typeof Box> = (args) => (
   <Box {...args}>
     {[...Array(3)].map((_, i) => {
       const color = 20 * i;

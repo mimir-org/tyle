@@ -1,4 +1,4 @@
-import { ComponentMeta } from "@storybook/react";
+import { Meta } from "@storybook/react";
 import { Button } from "complib/buttons";
 import { Divider } from "complib/data-display/divider/Divider";
 import { Popover } from "complib/data-display/popover/Popover";
@@ -8,7 +8,7 @@ import { Text } from "complib/text";
 export default {
   title: "Data display/Popover",
   component: Popover,
-} as ComponentMeta<typeof Popover>;
+} as Meta<typeof Popover>;
 
 const Content = () => (
   <Box display={"flex"} flexDirection={"column"} gap={"8px"} maxWidth={"200px"}>

@@ -1,4 +1,4 @@
-import { ComponentMeta } from "@storybook/react";
+import { Meta } from "@storybook/react";
 import { Button } from "complib/buttons";
 import { Tooltip } from "complib/data-display/tooltip/Tooltip";
 import { Box, Flexbox } from "complib/layouts";
@@ -7,7 +7,7 @@ import { Text } from "complib/text";
 export default {
   title: "Data display/Tooltip",
   component: Tooltip,
-} as ComponentMeta<typeof Tooltip>;
+} as Meta<typeof Tooltip>;
 
 export const Default = () => (
   <Tooltip content={"The tooltip defaults to top position if there is enough space available"}>

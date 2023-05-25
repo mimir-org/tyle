@@ -9,6 +9,7 @@ export const FormContainer = styled.form`
   padding-left: min(${(props) => props.theme.tyle.spacing.multiple(11)}, 5vw);
   padding-right: min(${(props) => props.theme.tyle.spacing.multiple(11)}, 5vw);
   padding-top: ${(props) => props.theme.tyle.spacing.multiple(6)};
+  min-width: 300px;
 `;
 
 export const FormBaseFieldsContainer = styled.fieldset`
@@ -16,7 +17,6 @@ export const FormBaseFieldsContainer = styled.fieldset`
   display: flex;
   flex-direction: column;
   flex-grow: 0;
-  align-items: center;
   gap: ${(props) => props.theme.tyle.spacing.xl};
   border: 0;
   padding: 0;

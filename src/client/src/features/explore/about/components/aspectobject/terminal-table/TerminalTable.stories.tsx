@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { mockAspectObjectTerminalItem } from "common/utils/mocks";
 import { TerminalTable } from "features/explore/about/components/aspectobject/terminal-table/TerminalTable";
 
@@ -8,8 +8,8 @@ export default {
   args: {
     terminals: [...Array(7)].map((_) => mockAspectObjectTerminalItem()),
   },
-} as ComponentMeta<typeof TerminalTable>;
+} as Meta<typeof TerminalTable>;
 
-const Template: ComponentStory<typeof TerminalTable> = (args) => <TerminalTable {...args} />;
+const Template: StoryFn<typeof TerminalTable> = (args) => <TerminalTable {...args} />;
 
 export const Default = Template.bind({});

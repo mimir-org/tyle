@@ -19,7 +19,7 @@ const StyledUnit = styled.div<UnitContainerProps>`
   height: fit-content;
   background-color: ${(props) =>
     props.isDefault ? props.theme.tyle.color.sys.surface.variant.base : props.theme.tyle.color.sys.pure.base};
-  max-width: ${(props) => (props.small ? "200px" : "100%")};
+  max-width: ${(props) => (props.small ? "200px" : "auto")};
   width: 100%;
 `;
 

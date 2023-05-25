@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { LibraryIcon } from "complib/assets";
 import { InfoItemDescription } from "features/common/info-item/InfoItemDescription";
 
@@ -14,9 +14,9 @@ export default {
       source: "Calculated",
     },
   },
-} as ComponentMeta<typeof InfoItemDescription>;
+} as Meta<typeof InfoItemDescription>;
 
-const Template: ComponentStory<typeof InfoItemDescription> = (args) => <InfoItemDescription {...args} />;
+const Template: StoryFn<typeof InfoItemDescription> = (args) => <InfoItemDescription {...args} />;
 
 export const Default = Template.bind({});
 

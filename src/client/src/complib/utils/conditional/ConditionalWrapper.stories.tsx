@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Button } from "complib/buttons";
 import { Card } from "complib/surfaces";
 import { ConditionalWrapper } from "./ConditionalWrapper";
@@ -10,8 +10,8 @@ export default {
     wrapper: (c) => <Card>{c}</Card>,
     children: <Button>Wrapped?</Button>,
   },
-} as ComponentMeta<typeof ConditionalWrapper>;
+} as Meta<typeof ConditionalWrapper>;
 
-const Template: ComponentStory<typeof ConditionalWrapper> = (args) => <ConditionalWrapper {...args} />;
+const Template: StoryFn<typeof ConditionalWrapper> = (args) => <ConditionalWrapper {...args} />;
 
 export const Example = Template.bind({});

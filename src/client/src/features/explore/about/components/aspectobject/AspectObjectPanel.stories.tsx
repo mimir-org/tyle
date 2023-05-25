@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { mockAspectObjectItem } from "common/utils/mocks";
 import { AspectObjectPanel } from "features/explore/about/components/aspectobject/AspectObjectPanel";
 
@@ -8,8 +8,8 @@ export default {
   args: {
     ...mockAspectObjectItem(),
   },
-} as ComponentMeta<typeof AspectObjectPanel>;
+} as Meta<typeof AspectObjectPanel>;
 
-const Template: ComponentStory<typeof AspectObjectPanel> = (args) => <AspectObjectPanel {...args} />;
+const Template: StoryFn<typeof AspectObjectPanel> = (args) => <AspectObjectPanel {...args} />;
 
 export const Default = Template.bind({});

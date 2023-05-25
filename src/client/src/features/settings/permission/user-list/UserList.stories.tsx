@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { UserList } from "features/settings/permission/user-list/UserList";
 import { UserListItem, UserListItemProps } from "features/settings/permission/user-list/UserListItem";
 import { Default as UserListItemStory } from "features/settings/permission/user-list/UserListItem.stories";
@@ -9,7 +9,7 @@ export default {
   subcomponents: { UserListItem },
 };
 
-const Template: ComponentStory<typeof UserList> = (args) => <UserList {...args} />;
+const Template: StoryFn<typeof UserList> = (args) => <UserList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

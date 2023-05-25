@@ -9,6 +9,7 @@ import { useTheme } from "styled-components";
 import { useGetUnits } from "../../../external/sources/unit/unit.queries";
 import { FormAttributeLib, toFormUnitHelper } from "./types/formAttributeLib";
 import { FormBaseFieldsContainer } from "../../../complib/form/FormContainer.styled";
+import { Text } from "../../../complib/text";
 
 interface AttributeFormBaseFieldsProps {
   limited?: boolean;
@@ -37,6 +38,7 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
 
   return (
     <FormBaseFieldsContainer>
+      <Text variant={"display-small"}>{t("attribute.title")}</Text>
       <FormField label={t("attribute.name")} error={errors.name}>
         <Input placeholder={t("attribute.placeholders.name")} {...register("name")} disabled={limited} />
       </FormField>

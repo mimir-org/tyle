@@ -2,7 +2,14 @@ import { InputContainer, InputIconContainer } from "complib/inputs/input/Input.s
 import { Box } from "complib/layouts";
 import { Icon } from "complib/media";
 import { Sizing } from "complib/props";
-import { ForwardedRef, forwardRef, InputHTMLAttributes, isValidElement, ReactElement } from "react";
+import {
+  ForwardedRef,
+  forwardRef,
+  InputHTMLAttributes,
+  isValidElement,
+  JSXElementConstructor,
+  ReactElement,
+} from "react";
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement> &
   Omit<Sizing, "boxSizing"> & {
@@ -10,12 +17,14 @@ export type InputProps = InputHTMLAttributes<HTMLInputElement> &
     iconPlacement?: "left" | "right";
   };
 
+const IconComponent = (icon: string | ReactElement<unknown, string | JSXElementConstructor<unknown>> | undefined) =>
+  isValidElement(icon) ? icon : <Icon src={icon} alt="" />;
+
 /**
  * A simple wrapper over the input-tag, with styling that follows library conventions.
  */
 export const Input = forwardRef((props: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
   const { width, maxWidth, minWidth, height, maxHeight, minHeight, icon, iconPlacement, type, ...delegated } = props;
-  const IconComponent = () => (isValidElement(icon) ? icon : <Icon src={icon} alt="" />);
   const isHidden = type === "hidden";
 
   return (
@@ -30,11 +39,7 @@ export const Input = forwardRef((props: InputProps, ref: ForwardedRef<HTMLInputE
       minWidth={minWidth}
     >
       <InputContainer ref={ref} type={type} iconPlacement={iconPlacement} {...delegated} />
-      {icon && (
-        <InputIconContainer iconPlacement={iconPlacement}>
-          <IconComponent />
-        </InputIconContainer>
-      )}
+      {icon && <InputIconContainer iconPlacement={iconPlacement}>{IconComponent(icon)}</InputIconContainer>}
     </Box>
   );
 });

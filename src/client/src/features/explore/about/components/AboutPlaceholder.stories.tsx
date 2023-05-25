@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { AboutPlaceholder } from "features/explore/about/components/AboutPlaceholder";
 
 export default {
@@ -6,7 +6,7 @@ export default {
   component: AboutPlaceholder,
 };
 
-const Template: ComponentStory<typeof AboutPlaceholder> = (args) => <AboutPlaceholder {...args}></AboutPlaceholder>;
+const Template: StoryFn<typeof AboutPlaceholder> = (args) => <AboutPlaceholder {...args}></AboutPlaceholder>;
 
 export const Default = Template.bind({});
 Default.args = {

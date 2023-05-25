@@ -57,14 +57,14 @@ export const AspectObjectPanel = ({
         </Text>
       </Flexbox>
       <Flexbox gap={theme.tyle.spacing.xl} flexWrap={"wrap"}>
-        {tokens && tokens.map((token, i) => <Token key={i}>{token}</Token>)}
+        {tokens && tokens.map((token, i) => <Token key={i + token}>{token}</Token>)}
       </Flexbox>
 
       <PanelPropertiesContainer>
         {showAttributes && (
           <PanelSection title={t("about.attributes")}>
-            {attributes.map((a, i) => (
-              <InfoItemButton key={i} {...a} />
+            {attributes.map((a) => (
+              <InfoItemButton key={a.id} {...a} />
             ))}
           </PanelSection>
         )}

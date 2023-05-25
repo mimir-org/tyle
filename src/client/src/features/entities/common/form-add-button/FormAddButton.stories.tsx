@@ -1,12 +1,12 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { FormAddButton } from "features/entities/common/form-add-button/FormAddButton";
 
 export default {
   title: "Features/Entities/Common/FormAddButton",
   component: FormAddButton,
-} as ComponentMeta<typeof FormAddButton>;
+} as Meta<typeof FormAddButton>;
 
-const Template: ComponentStory<typeof FormAddButton> = (args) => <FormAddButton {...args} />;
+const Template: StoryFn<typeof FormAddButton> = (args) => <FormAddButton {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

@@ -1,12 +1,12 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { FileComponent } from "./FileComponent";
 
 export default {
   title: "Inputs/File",
   component: FileComponent,
-} as ComponentMeta<typeof FileComponent>;
+} as Meta<typeof FileComponent>;
 
-const Template: ComponentStory<typeof FileComponent> = (args) => <FileComponent {...args} />;
+const Template: StoryFn<typeof FileComponent> = (args) => <FileComponent {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
