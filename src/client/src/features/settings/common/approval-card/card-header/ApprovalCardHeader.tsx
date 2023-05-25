@@ -1,4 +1,3 @@
-import { Share } from "@styled-icons/heroicons-outline";
 import { Box, Flexbox } from "complib/layouts";
 import { Text } from "complib/text";
 import { useTheme } from "styled-components";
@@ -9,6 +8,7 @@ import RdsIcon from "../../../../icons/RdsIcon";
 import UnitIcon from "../../../../icons/UnitIcon";
 import { ReactNode } from "react";
 import { Tooltip } from "../../../../../complib/data-display";
+import QuantityDatumIcon from "../../../../icons/QuantityDatumIcon";
 
 interface ApprovalCardHeaderProps {
   children: ReactNode;
@@ -19,17 +19,17 @@ export const ApprovalCardHeader = ({ children, objectType }: ApprovalCardHeaderP
   function getIcon(type: string) {
     switch (type) {
       case "Terminal":
-        return <TerminalIcon size={28} />;
+        return <TerminalIcon />;
       case "AspectObject":
-        return <AspectObjectIcon size={28} />;
+        return <AspectObjectIcon />;
       case "Attribute":
-        return <AttributeIcon size={28} />;
+        return <AttributeIcon />;
       case "Rds":
-        return <RdsIcon size={28} />;
+        return <RdsIcon />;
       case "Unit":
-        return <UnitIcon size={28} />;
+        return <UnitIcon />;
       default:
-        return <Share size={28} />;
+        return <QuantityDatumIcon />;
     }
   }
 

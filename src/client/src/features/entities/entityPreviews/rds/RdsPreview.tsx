@@ -26,15 +26,19 @@ const StyledDiv = styled.div<StyledDivProps>`
 export const RdsPreview = ({ name, description, rdsCode, small }: RdsPreviewProps): JSX.Element => {
   return (
     <StyledDiv small={small}>
-      <Text variant={small ? "title-small" : "display-small"} useEllipsis={small}>
-        {name}
-      </Text>
+      {!small && (
+        <Text variant={"title-medium"} useEllipsis={small}>
+          {name}
+        </Text>
+      )}
       <Badge variant={"info"}>
-        <Text variant={small ? "body-small" : "body-large"}>{rdsCode}</Text>
+        <Text variant={small ? "display-small" : "body-large"}>{rdsCode}</Text>
       </Badge>
-      <Text variant={small ? "body-small" : "body-large"} useEllipsis={small}>
-        {description}
-      </Text>
+      {!small && (
+        <Text variant={"body-large"} useEllipsis={small}>
+          {description}
+        </Text>
+      )}
     </StyledDiv>
   );
 };

@@ -1,29 +1,24 @@
-import { useTheme } from "styled-components";
-
 interface TerminalIconProps {
   size?: number;
+  fillColor?: string;
+  color?: string;
+  props?: React.SVGProps<SVGSVGElement>;
 }
-const TerminalIcon = ({ size }: TerminalIconProps) => {
-  const theme = useTheme();
+const TerminalIcon = ({ size = 1, fillColor = "none", color = "#000", props }: TerminalIconProps) => {
   return (
-    <svg
-      width={size ?? 24}
-      height={size ?? 24}
-      viewBox="0 0 67 67"
-      version="1.1"
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      xmlSpace="preserve"
-      fill={theme.tyle.color.sys.tertiary.on}
-      style={{
-        fillRule: "evenodd",
-        clipRule: "evenodd",
-        strokeLinejoin: "round",
-        strokeMiterlimit: "2",
-      }}
-    >
-      <path d="M66.667,3.97l-0,58.726c-0,2.192 -1.779,3.971 -3.971,3.971l-58.726,-0c-2.191,-0 -3.97,-1.779 -3.97,-3.971l0,-58.726c0,-2.191 1.779,-3.97 3.97,-3.97l58.726,-0c2.192,-0 3.971,1.779 3.971,3.97Zm-62.5,0.197l-0,58.333l58.333,-0l0,-58.333l-58.333,-0Z" />
-      <path d="M33.333,6.667c14.718,-0 26.667,11.949 26.667,26.666c0,14.718 -11.949,26.667 -26.667,26.667c-14.717,-0 -26.666,-11.949 -26.666,-26.667c-0,-14.717 11.949,-26.666 26.666,-26.666Zm0,4.166c-12.418,0 -22.5,10.082 -22.5,22.5c0,12.418 10.082,22.5 22.5,22.5c12.418,0 22.5,-10.082 22.5,-22.5c0,-12.418 -10.082,-22.5 -22.5,-22.5Z" />
+    <svg xmlns="http://www.w3.org/2000/svg" width={35} height={35} scale={`transform(${size})`} fill="none" {...props}>
+      <path
+        fill={fillColor}
+        fillRule="evenodd"
+        d="M3.063 1.313a1.75 1.75 0 0 0-1.75 1.75v28.875c0 .966.783 1.75 1.75 1.75h28.875a1.75 1.75 0 0 0 1.75-1.75V3.063a1.75 1.75 0 0 0-1.75-1.75H3.063ZM17.5 28.576c6.117 0 11.076-4.96 11.076-11.076 0-6.117-4.96-11.076-11.076-11.076-6.117 0-11.076 4.96-11.076 11.076 0 6.117 4.96 11.076 11.076 11.076Z"
+        clipRule="evenodd"
+      />
+      <path
+        fill={color}
+        fillRule="evenodd"
+        d="M3.063 2.625a.438.438 0 0 0-.438.438v28.875c0 .241.196.437.438.437h28.875a.438.438 0 0 0 .437-.438V3.063a.438.438 0 0 0-.438-.437H3.063ZM0 3.063A3.063 3.063 0 0 1 3.063 0h28.875A3.062 3.062 0 0 1 35 3.063v28.875A3.062 3.062 0 0 1 31.937 35H3.063A3.062 3.062 0 0 1 0 31.937V3.063Zm17.5 4.674c-5.392 0-9.763 4.371-9.763 9.763 0 5.392 4.371 9.763 9.763 9.763 5.392 0 9.763-4.371 9.763-9.763 0-5.392-4.371-9.763-9.763-9.763ZM5.112 17.5c0-6.842 5.546-12.388 12.388-12.388S29.888 10.658 29.888 17.5 24.342 29.888 17.5 29.888 5.112 24.342 5.112 17.5Z"
+        clipRule="evenodd"
+      />
     </svg>
   );
 };
