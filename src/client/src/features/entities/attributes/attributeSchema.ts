@@ -15,8 +15,6 @@ export const attributeSchema = (t: TFunction<"translation">) =>
     name: yup.string().max(120, t("common.validation.name.max")).required(t("common.validation.name.required")),
     typeReference: yup.string().max(255),
     description: yup.string().max(500, t("common.validation.description.max")),
-    units: yup.array().of(
-      yup.object(formUnitHelperShape)
-    ).nullable(),
+    units: yup.array().of(yup.object(formUnitHelperShape)).nullable(),
     defaultUnit: yup.object(formUnitHelperShape).nullable(),
   });
