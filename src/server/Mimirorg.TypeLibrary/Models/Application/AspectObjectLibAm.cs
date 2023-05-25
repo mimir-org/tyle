@@ -40,6 +40,7 @@ public class AspectObjectLibAm : ICompanyObject
     /// <remarks>
     /// A company id change, will trigger a minor version increase
     /// </remarks>
+    [Required]
     [Display(Name = "CompanyId")]
     [Range(1, int.MaxValue, ErrorMessage = "{0} must be greater than 0")]
     public int CompanyId { get; set; }

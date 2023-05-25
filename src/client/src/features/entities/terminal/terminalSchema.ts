@@ -5,9 +5,9 @@ import * as yup from "yup";
 
 export const terminalSchema = (t: TFunction<"translation">) =>
   yup.object<YupShape<FormTerminalLib>>({
-    name: yup.string().max(60, t("terminal.validation.name.max")).required(t("terminal.validation.name.required")),
-    color: yup.string().required(t("terminal.validation.color.required")),
-    description: yup.string().max(500, t("terminal.validation.description.max")),
-    attributes: yup.array().nullable(),
-    typeReference: yup.string(),
+    name: yup.string().max(60, t("common.validation.name.max")).required(t("common.validation.name.required")),
+    typeReference: yup.string().max(255),
+    color: yup.string().max(7).required(t("terminal.validation.color.required")),
+    description: yup.string().max(500, t("common.validation.description.max")),
+    attributes: yup.array().of(yup.string()).nullable(),
   });

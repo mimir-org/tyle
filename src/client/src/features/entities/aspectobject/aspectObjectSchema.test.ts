@@ -10,8 +10,8 @@ describe("aspectObjectSchema tests", () => {
     await expect(aspectObjectSchema(t).validateAt("name", aspectObjectWithoutAName)).rejects.toBeTruthy();
   });
 
-  it("should reject with a name longer than 60 characters", async () => {
-    const aspectObjectWithLongName: Partial<FormAspectObjectLib> = { name: "c".repeat(61) };
+  it("should reject with a name longer than 120 characters", async () => {
+    const aspectObjectWithLongName: Partial<FormAspectObjectLib> = { name: "c".repeat(121) };
     await expect(aspectObjectSchema(t).validateAt("name", aspectObjectWithLongName)).rejects.toBeTruthy();
   });
 

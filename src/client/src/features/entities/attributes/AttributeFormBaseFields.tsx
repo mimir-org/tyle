@@ -64,7 +64,7 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
               isDisabled={limited}
               onChange={(val) => {
                 if (val.filter((x) => x.unitId === defaultUnit?.unitId).length === 0) {
-                  if (val.length === 0) setValue("defaultUnit", undefined);
+                  if (val.length === 0) setValue("defaultUnit", null);
                   else setValue("defaultUnit", val[0]);
                 }
                 onChange(val);

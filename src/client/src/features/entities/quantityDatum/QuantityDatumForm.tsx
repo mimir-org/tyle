@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { QuantityDatumLibAm, QuantityDatumLibCm, State } from "@mimirorg/typelibrary-types";
 import { createEmptyDatum, toDatumLibAm } from "./types/formQuantityDatumLib";
 import { useQuantityDatumMutation, useQuantityDatumQuery } from "./QuantityDatumForm.helpers";
-import { Box, Flexbox } from "../../../complib/layouts";
+import { Flexbox, Box } from "../../../complib/layouts";
 import { PlainLink } from "../../common/plain-link";
 import { Button } from "../../../complib/buttons";
 import { useTheme } from "styled-components";
@@ -19,6 +19,8 @@ import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
 import { Text } from "../../../complib/text";
 import { QuantityDatumFormPreview } from "../entityPreviews/quantityDatum/QuantityDatumFormPreview";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { quantityDatumSchema } from "./quantityDatumSchema";
 
 /**
  * Props for QuantityDatumForm
@@ -44,6 +46,7 @@ export const QuantityDatumForm = ({ defaultValues = createEmptyDatum(), mode }: 
 
   const formMethods = useForm<QuantityDatumLibAm>({
     defaultValues: defaultValues,
+    resolver: yupResolver(quantityDatumSchema(t)),
   });
 
   const { control, handleSubmit, setError, reset } = formMethods;
