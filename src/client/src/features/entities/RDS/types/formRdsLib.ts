@@ -7,19 +7,12 @@ export const toRdsLibAm = (datum: RdsLibCm): RdsLibAm => ({
   description: datum.description,
 });
 
-export const createEmptyRds = (): RdsLibCm => ({
+export const createEmptyRds = (): RdsLibAm => ({
   name: "",
-  id: "",
-  iri: "",
   rdsCode: "",
-  created: new Date(),
-  createdBy: "",
-  state: State.Draft,
   description: "",
   typeReference: "",
   categoryId: "",
-  categoryName: "",
-  kind: "",
 });
 
 export const toFormRdsLib = (rds: RdsLibCm): RdsLibCm => ({
