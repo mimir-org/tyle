@@ -21,31 +21,49 @@ import { toQuantityDatumItem } from "../../../../common/utils/mappers/toQuantity
 import { toRdsItem } from "../../../../common/utils/mappers/toRdsItem";
 
 /**
- * Filters items with OR-logic if there are any filters available, returns items sorted by date if not.
+ * Filters items if there are any filters available, returns items sorted by date if not.
  *
  * @param filters currently active filters
  * @param items available items after initial search
  */
 export const filterSearchResults = (filters: Filter[], items: SearchResultRaw[]) => {
-  return filters.length > 0 ? orFilterItems(filters, items) : sortItemsByDate(items);
+  return filters.length > 0 ? filterItems(filters, items) : sortItemsByDate(items);
 };
 
 /**
- * Filters items using AND-logic.
+ * Filters items with OR-logic per key present in filters, then returns the intersection of the results.
+ * 
  * @param filters currently active filters
  * @param items available items after initial search
  */
-// const andFilterItems = (filters: Filter[], items: SearchResultRaw[]) =>
-//   items.filter((x) => filters.every((f) => x[f.key as keyof SearchResultRaw] === f.value));
+const filterItems = (filters: Filter[], items: SearchResultRaw[]) => {
+  const filterKeys = Array.from(new Set(filters.map((f) => f.key)));
+  const filteredPerKey: SearchResultRaw[][] = [];
+  for (const key of filterKeys) {
+    filteredPerKey.push(orFilterItems(filters.filter((f) => f.key === key), items));
+  }
+
+  return intersect(filteredPerKey);
+}
+
+/**
+ * Returns the intersection of the arrays in the input array.
+ * 
+ * @param arrayOfArrays an array of the arrays that should be intersected
+ */
+const intersect = (arrayOfArrays: SearchResultRaw[][]): SearchResultRaw[] => {
+  if (arrayOfArrays.length === 1) return arrayOfArrays[0];
+
+  return arrayOfArrays.reduce((a, b) => a.filter(c => b.includes(c)));
+}
 
 /**
  * Filters items using OR-logic.
  * @param filters currently active filters
  * @param items available items after initial search
  */
-const orFilterItems = (filters: Filter[], items: SearchResultRaw[]) => {
-  return items.filter((x) => filters.some((f) => String(x[f.key as keyof SearchResultRaw]) === f.value));
-}
+const orFilterItems = (filters: Filter[], items: SearchResultRaw[]) =>
+  items.filter((x) => filters.some((f) => String(x[f.key as keyof SearchResultRaw]) === f.value));
 
 const sortItemsByDate = (items: SearchResultRaw[]) =>
   [...items].sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
