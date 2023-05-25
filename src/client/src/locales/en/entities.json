@@ -23,10 +23,12 @@
       "error": "An error occurred during {{type}} submission"
     },
     "validation": {
-      "typeReferences": {
-        "name": {
-          "required": "Please specify a reference"
-        }
+      "name": {
+        "max": "The name can be at most 120 characters",
+        "required": "Please enter a name"
+      },
+      "description": {
+        "max": "The description can be at most 500 characters"
       }
     },
     "templates": {
@@ -57,10 +59,6 @@
       "error": "An error occurred during aspect object submission"
     },
     "validation": {
-      "name": {
-        "required": "Please enter a name",
-        "max": "The name can be at most 60 characters"
-      },
       "rdsId": {
         "required": "Please select a RDS"
       },
@@ -71,10 +69,8 @@
         "required": "Please select an aspect"
       },
       "companyId": {
-        "min": "Please select an owner"
-      },
-      "description": {
-        "max": "The description can be at most 500 characters"
+        "min": "Please select an owner",
+        "required": "Please select a company"
       },
       "aspectObjectTerminals": {
         "array": {
@@ -131,20 +127,38 @@
       "loading": "Submitting attribute",
       "success": "Your attribute has been submitted",
       "error": "An error occurred during attribute submission"
+    }
+  },
+  "quantityDatum": {
+    "title": "Quantity Datum",
+    "name": "Name",
+    "description": "Description",
+    "multiple": "Quantity Datums",
+    "datumType": "Datum type",
+    "quantityType": "Quantity type",
+    "typeReference": "Type reference",
+    "placeholders": {
+      "name": "Quantity Datum name",
+      "description": "Additional information about this datum can be supplied here."
     },
     "validation": {
-      "name": {
-        "required": "Please enter a name",
-        "max": "The name can be at most 30 characters"
-      },
-      "color": {
-        "required": "Please select a color"
-      },
-      "companyId": {
-        "min": "Please select an owner"
-      },
-      "description": {
-        "max": "The description can be at most 500 characters"
+      "type": {
+        "required": "Please select a quantity datum type"
+      }
+    }
+  },
+  "rds": {
+    "rdsCode": "Code",
+    "name": "Name",
+    "title": "RDS",
+    "description": "Description",
+    "typeReference": "Type reference",
+    "placeholders": {
+      "rdsCode": "Code"
+    },
+    "validation": {
+      "rdsCode": {
+        "max": "The RDS code can be at most 10 characters"
       }
     }
   },
@@ -165,18 +179,8 @@
       "error": "An error occurred during terminal submission"
     },
     "validation": {
-      "name": {
-        "required": "Please enter a name",
-        "max": "The name can be at most 30 characters"
-      },
       "color": {
         "required": "Please select a color"
-      },
-      "companyId": {
-        "min": "Please select an owner"
-      },
-      "description": {
-        "max": "The description can be at most 500 characters"
       }
     }
   },
@@ -191,29 +195,11 @@
       "name": "Unit name",
       "description": "Additional information about this unit can be supplied here.",
       "symbol": "Unit symbol"
-    }
-  },
-  "quantityDatum": {
-    "title": "Quantity Datum",
-    "name": "Name",
-    "description": "Description",
-    "multiple": "Quantity Datums",
-    "datumType": "Datum type",
-    "quantityType": "Quantity type",
-    "typeReference": "Type reference",
-    "placeholders": {
-      "name": "Quantity Datum name",
-      "description": "Additional information about this datum can be supplied here."
-    }
-  },
-  "rds": {
-    "rdsCode": "Code",
-    "name": "Name",
-    "title": "RDS",
-    "description": "Description",
-    "typeReference": "Type reference",
-    "placeholders": {
-      "rdsCode": "Code"
+    },
+    "validation": {
+      "symbol": {
+        "max": "The symbol can be at most 30 characters"
+      }
     }
   }
 }

@@ -31,7 +31,7 @@ interface attributePreviewProps {
   name: string;
   description: string;
   units?: FormUnitHelper[];
-  defaultUnit?: FormUnitHelper;
+  defaultUnit?: FormUnitHelper | null;
   small?: boolean;
 }
 

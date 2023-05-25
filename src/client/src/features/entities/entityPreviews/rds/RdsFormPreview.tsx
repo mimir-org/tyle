@@ -1,9 +1,9 @@
-import { RdsLibCm } from "@mimirorg/typelibrary-types";
+import { RdsLibAm } from "@mimirorg/typelibrary-types";
 import { Control, useWatch } from "react-hook-form";
 import { RdsPreview } from "./RdsPreview";
 
 interface RdsFormPreviewProps {
-  control: Control<RdsLibCm>;
+  control: Control<RdsLibAm>;
   small?: boolean;
 }
 
