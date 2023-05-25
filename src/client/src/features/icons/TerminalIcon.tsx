@@ -6,7 +6,7 @@ interface TerminalIconProps {
 }
 const TerminalIcon = ({ size = 1, fillColor = "none", color = "#000", props }: TerminalIconProps) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={35} height={35} scale={`transform(${size})`} fill="none" {...props}>
+    <svg xmlns="http://www.w3.org/2000/svg" width={35} height={35} transform={`scale(${size})`} fill="none" {...props}>
       <path
         fill={fillColor}
         fillRule="evenodd"

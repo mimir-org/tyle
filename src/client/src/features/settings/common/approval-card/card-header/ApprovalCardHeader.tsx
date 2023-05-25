@@ -19,17 +19,17 @@ export const ApprovalCardHeader = ({ children, objectType }: ApprovalCardHeaderP
   function getIcon(type: string) {
     switch (type) {
       case "Terminal":
-        return <TerminalIcon />;
+        return <TerminalIcon size={1} />;
       case "AspectObject":
-        return <AspectObjectIcon />;
+        return <AspectObjectIcon size={1} />;
       case "Attribute":
-        return <AttributeIcon />;
+        return <AttributeIcon size={1} />;
       case "Rds":
-        return <RdsIcon />;
+        return <RdsIcon size={1} />;
       case "Unit":
-        return <UnitIcon />;
+        return <UnitIcon size={1} />;
       default:
-        return <QuantityDatumIcon />;
+        return <QuantityDatumIcon size={1} />;
     }
   }
 

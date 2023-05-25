@@ -6,7 +6,7 @@ interface AspectObjectIconProps {
 
 const AspectObjectIcon = ({ size, color = "#000", props }: AspectObjectIconProps) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={38} height={27} scale={`transform(${size})`} fill="none" {...props}>
+    <svg xmlns="http://www.w3.org/2000/svg" width={38} height={27} transform={`scale(${size})`} fill="none" {...props}>
       <path
         fill={color}
         fillRule="evenodd"
