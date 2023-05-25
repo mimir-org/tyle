@@ -11,15 +11,15 @@ export const attributeSchema = (t: TFunction<"translation">) =>
     units: yup.array().of(
       yup.object({
         name: yup.string().max(120).required(),
-        description: yup.string().max(500).required(),
-        symbol: yup.string().max(30).required(),
+        description: yup.string().max(500),
+        symbol: yup.string().max(30),
         unitId: yup.string().required(),
       })
-    ),
+    ).nullable(),
     defaultUnit: yup.object({
-      name: yup.string().max(120).required(),
-      description: yup.string().max(500).required(),
-      symbol: yup.string().max(30).required(),
-      unitId: yup.string().required(),
-    }),
+        name: yup.string().max(120).required(),
+        description: yup.string().max(500),
+        symbol: yup.string().max(30),
+        unitId: yup.string().required(),
+      }).nullable(),
   });
