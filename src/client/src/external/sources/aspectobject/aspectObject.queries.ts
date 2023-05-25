@@ -13,9 +13,9 @@ export const useGetAspectObjects = () => useQuery(keys.lists(), aspectObjectApi.
 export const useGetAspectObject = (id?: string) =>
   useQuery(keys.aspectObject(id), () => aspectObjectApi.getLibraryAspectObject(id), { enabled: !!id, retry: false });
 
-export const useGetLatestApprovedAspectObject = (id?: string) =>
+export const useGetLatestApprovedAspectObject = (id?: string, enable = true) =>
   useQuery(keys.aspectObject("latest-approved/" + id), () => aspectObjectApi.getLatestApprovedLibraryAspectObject(id), {
-    enabled: !!id,
+    enabled: enable && !!id,
     retry: false,
   });
 
