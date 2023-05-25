@@ -11,7 +11,7 @@ const keys = {
 export const useGetUnits = () => useQuery(keys.unitLists(), unitApi.getUnits);
 
 export const useGetUnit = (id?: string) =>
-  useQuery(keys.allUnits, () => unitApi.getUnit(id), { enabled: !!id, retry: false });
+  useQuery(keys.unit(id), () => unitApi.getUnit(id), { enabled: !!id, retry: false });
 
 export const useCreateUnit = () => {
   const queryClient = useQueryClient();
