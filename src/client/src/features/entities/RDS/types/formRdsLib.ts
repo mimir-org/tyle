@@ -1,4 +1,4 @@
-import { RdsLibCm, State, RdsLibAm } from "@mimirorg/typelibrary-types";
+import { RdsLibCm, RdsLibAm } from "@mimirorg/typelibrary-types";
 
 export const toRdsLibAm = (datum: RdsLibCm): RdsLibAm => ({
   ...datum,
