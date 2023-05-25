@@ -1,5 +1,5 @@
-import { attributeSchema } from "../attributeSchema";
-import { FormAttributeLib } from "./formAttributeLib";
+import { attributeSchema } from "./attributeSchema";
+import { FormAttributeLib } from "./types/formAttributeLib";
 
 describe("attributeSchema tests", () => {
   const t = (key: string) => key;
@@ -15,7 +15,7 @@ describe("attributeSchema tests", () => {
   });
 
   it("should reject with a description longer than 500 characters", async () => {
-    const terminalWithLongDescription: Partial<FormAttributeLib> = { description: "c".repeat(501) };
-    await expect(attributeSchema(t).validateAt("description", terminalWithLongDescription)).rejects.toBeTruthy();
+    const attributeWithLongDescription: Partial<FormAttributeLib> = { description: "c".repeat(501) };
+    await expect(attributeSchema(t).validateAt("description", attributeWithLongDescription)).rejects.toBeTruthy();
   });
 });

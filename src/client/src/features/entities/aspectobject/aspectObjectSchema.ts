@@ -5,16 +5,15 @@ import { FormAspectObjectLib } from "./types/formAspectObjectLib";
 
 export const aspectObjectSchema = (t: TFunction<"translation">) =>
   yup.object<YupShape<FormAspectObjectLib>>({
-    name: yup
-      .string()
-      .max(60, t("aspectObject.validation.name.max"))
-      .required(t("aspectObject.validation.name.required")),
-    rdsId: yup.string().required(t("aspectObject.validation.rdsId.required")),
-    purposeName: yup.string().required(t("aspectObject.validation.purposeName.required")),
+    name: yup.string().max(120, t("common.validation.name.max")).required(t("common.validation.name.required")),
+    typeReference: yup.string().max(255),
+    version: yup.string().max(7),
+    companyId: yup.number().min(1, t("aspectObject.validation.companyId.min")).required(t("aspectObject.validation.companyId.required")),
     aspect: yup.number().required(t("aspectObject.validation.aspect.required")),
-    companyId: yup.number().min(1, t("aspectObject.validation.companyId.min")).required(),
-    description: yup.string().max(500, t("aspectObject.validation.description.max")),
-    symbol: yup.string(),
+    purposeName: yup.string().max(127).required(t("aspectObject.validation.purposeName.required")),
+    rdsId: yup.string().required(t("aspectObject.validation.rdsId.required")),
+    symbol: yup.string().max(127),
+    description: yup.string().max(500, t("common.validation.description.max")),
     aspectObjectTerminals: yup
       .array()
       .of(
@@ -23,8 +22,8 @@ export const aspectObjectSchema = (t: TFunction<"translation">) =>
           connectorDirection: yup
             .number()
             .required(t("aspectObject.validation.aspectObjectTerminals.direction.required")),
-          maxQuantity: yup.number().min(0, t("aspectObject.validation.aspectObjectTerminals.maxQuantity.min")),
-          minQuantity: yup.number().min(0, t("aspectObject.validation.aspectObjectTerminals.minQuantity.min")),
+          maxQuantity: yup.number().min(0, t("aspectObject.validation.aspectObjectTerminals.maxQuantity.min")).required(),
+          minQuantity: yup.number().min(0, t("aspectObject.validation.aspectObjectTerminals.minQuantity.min")).required(),
         })
       )
       .test("Uniqueness", t("aspectObject.validation.aspectObjectTerminals.array.unique"), (terminals) => {
@@ -34,5 +33,4 @@ export const aspectObjectSchema = (t: TFunction<"translation">) =>
         return terminals?.length === uniqueTerminalAndDirectionCombinations.size;
       }),
     attributes: yup.array().nullable(),
-    typeReference: yup.string(),
   });

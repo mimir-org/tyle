@@ -5,8 +5,8 @@ import * as yup from "yup";
 
 export const quantityDatumSchema = (t: TFunction<"translation">) => 
   yup.object<YupShape<QuantityDatumLibAm>>({
-  name: yup.string().max(120, t("quantityDatum.validation.name.max")).required(),
-  description: yup.string().max(500).required(),
-  typeReference: yup.string(),
-  quantityDatumType: yup.number().required(t("quantityDatum.validation.type.required"))
-});
+    name: yup.string().max(120, t("common.validation.name.max")).required(t("common.validation.name.required")),
+    typeReference: yup.string().max(255),
+    quantityDatumType: yup.number().required(t("quantityDatum.validation.type.required")),
+    description: yup.string().max(500, t("commmon.validation.description.max"))
+  });
