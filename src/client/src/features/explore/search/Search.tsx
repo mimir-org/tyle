@@ -71,7 +71,7 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
         <MotionFlexbox layout={"position"} flexWrap={"wrap"} gap={theme.tyle.spacing.base}>
           {activeFilters.map((x) => (
             <Token
-              key={`${x.key}`}
+              key={`${x.value}`}
               actionable
               actionText={t("search.filter.templates.remove", { object: x.label })}
               actionIcon={<XCircle />}
