@@ -43,8 +43,9 @@ export const filterSearchResults = (filters: Filter[], items: SearchResultRaw[])
  * @param filters currently active filters
  * @param items available items after initial search
  */
-const orFilterItems = (filters: Filter[], items: SearchResultRaw[]) =>
-  items.filter((x) => filters.some((f) => x[f.key as keyof SearchResultRaw] === f.value));
+const orFilterItems = (filters: Filter[], items: SearchResultRaw[]) => {
+  return items.filter((x) => filters.some((f) => String(x[f.key as keyof SearchResultRaw]) === f.value));
+}
 
 const sortItemsByDate = (items: SearchResultRaw[]) =>
   [...items].sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
