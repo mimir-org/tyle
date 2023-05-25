@@ -9,6 +9,6 @@ export const loginSchema = (t: TFunction<"translation">) =>
     password: yup.string().required(t("login.validation.password.required")),
     code: yup
       .string()
-      .matches(/^[0-9]+$/, t("login.validation.code.matches"))
+      .matches(/^[0-9]$/, t("login.validation.code.matches"))
       .required(t("login.validation.code.required")),
   });
