@@ -17,12 +17,12 @@ export const AttributeFormPreview = ({ control }: AttributeFormPreviewProps) => 
 
   return (
     <StyledFormPreviewDiv>
-    <AttributePreview
-      name={name ? name : t("attribute.name")}
-      description={description}
-      units={units}
-      defaultUnit={defaultUnit}
-    />
+      <AttributePreview
+        name={name ? name : t("attribute.name")}
+        description={description}
+        units={units}
+        defaultUnit={defaultUnit}
+      />
     </StyledFormPreviewDiv>
   );
 };

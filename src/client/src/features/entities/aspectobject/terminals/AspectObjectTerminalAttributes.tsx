@@ -26,7 +26,7 @@ export const AspectObjectTerminalAttributes = ({ attributes, hideLabel }: Aspect
             gap={theme.tyle.spacing.base}
             minHeight={"40px"}
           >
-            {attributes.map((x, i) => x && <InfoItemButton key={x.id} {...mapAttributeLibCmToInfoItem(x)} />)}
+            {attributes.map((x) => x && <InfoItemButton key={x.id} {...mapAttributeLibCmToInfoItem(x)} />)}
           </Box>
         </FormField>
       )}

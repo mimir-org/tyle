@@ -63,7 +63,7 @@ export const AspectObjectPanel = ({
       <PanelPropertiesContainer>
         {showAttributes && (
           <PanelSection title={t("about.attributes")}>
-            {attributes.map((a, i) => (
+            {attributes.map((a) => (
               <InfoItemButton key={a.id} {...a} />
             ))}
           </PanelSection>
