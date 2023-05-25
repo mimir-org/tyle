@@ -3,6 +3,8 @@ import { Text } from "../../../../complib/text";
 import { useTheme } from "styled-components";
 import { FormUnitHelper } from "../../units/types/FormUnitHelper";
 import UnitPreview from "../unit/UnitPreview";
+import { Flexbox } from "../../../../complib/layouts";
+import AttributeIcon from "../../../icons/AttributeIcon";
 
 interface StyledDivProps {
   small?: boolean;
@@ -14,8 +16,9 @@ const StyledDiv = styled.div<StyledDivProps>`
   gap: ${(props) => (props.small ? props.theme.tyle.spacing.xs : props.theme.tyle.spacing.xl)};
   padding: ${(props) => props.theme.tyle.spacing.xl};
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
-  background-color: ${(props) => props.theme.tyle.color.sys.surface.tint.base};
-  box-shadow: ${(props) => props.theme.tyle.shadow.small};
+  background-color: ${(props) =>
+    props.small ? props.theme.tyle.color.sys.pure.base : props.theme.tyle.color.sys.tertiary.on};
+  border: 1px solid ${(props) => props.theme.tyle.color.sys.outline.base};
   max-width: 40rem;
   height: fit-content;
   overflow-y: auto;
@@ -38,22 +41,40 @@ export default function AttributePreview({ name, description, units, defaultUnit
 
   return (
     <StyledDiv small={small}>
-      <Text
-        color={theme.tyle.color.sys.pure.base}
-        variant={small ? "body-medium" : "headline-large"}
-        useEllipsis={small}
-      >
-        {name}
-      </Text>
-      {!small && <Text color={theme.tyle.color.sys.pure.base}>{description}</Text>}
-      {units &&
-        (small
-          ? units
-              .filter((unit) => unit.unitId === defaultUnit?.unitId)
-              .map((unit) => <UnitPreview {...unit} key={unit.unitId} small={small} noBadge />)
-          : units.map((unit) => (
-              <UnitPreview {...unit} key={unit.unitId} isDefault={unit.unitId === defaultUnit?.unitId} />
-            )))}
+      {small ? (
+        AttributeSmallPreview(defaultUnit?.name ?? "Attribute")
+      ) : (
+        <>
+          <Text
+            color={theme.tyle.color.sys.pure.base}
+            variant={small ? "body-medium" : "headline-large"}
+            useEllipsis={small}
+          >
+            {name}
+          </Text>
+          {!small && <Text color={theme.tyle.color.sys.pure.base}>{description}</Text>}
+          {units &&
+            (small
+              ? units
+                  .filter((unit) => unit.unitId === defaultUnit?.unitId)
+                  .map((unit) => <UnitPreview {...unit} key={unit.unitId} small={small} noBadge />)
+              : units.map((unit) => (
+                  <UnitPreview {...unit} key={unit.unitId} isDefault={unit.unitId === defaultUnit?.unitId} />
+                )))}
+        </>
+      )}
     </StyledDiv>
   );
 }
+
+const AttributeSmallPreview = (defaultAttributeSymbol: string) => {
+  const theme = useTheme();
+  return (
+    <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.tyle.spacing.base}>
+      <AttributeIcon color={theme.tyle.color.sys.pure.on} />
+      <Text variant={"title-large"} textAlign={"center"}>
+        {defaultAttributeSymbol}
+      </Text>
+    </Flexbox>
+  );
+};

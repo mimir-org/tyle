@@ -34,6 +34,7 @@ interface AboutProps {
  */
 export const About = ({ selected }: AboutProps) => {
   const { t } = useTranslation("explore");
+  const { t: typeName } = useTranslation("entities");
 
   const aspectObjectQuery = useGetAspectObject(selected?.type === "aspectObject" ? selected?.id : undefined);
   const terminalQuery = useGetTerminal(selected?.type === "terminal" ? selected?.id : undefined);
@@ -57,8 +58,27 @@ export const About = ({ selected }: AboutProps) => {
   const showDatumPanel = !showLoader && selected?.type === "quantityDatum" && datumQuery.isSuccess;
   const showRdsPanel = !showLoader && selected?.type === "rds" && rdsQuery.isSuccess;
 
+  function typeParser(type?: string) {
+    switch (type) {
+      case "aspectObject":
+        return typeName("aspectObject.title");
+      case "terminal":
+        return typeName("terminal.title");
+      case "attribute":
+        return typeName("attribute.title");
+      case "unit":
+        return typeName("unit.title");
+      case "quantityDatum":
+        return typeName("quantityDatum.title");
+      case "rds":
+        return typeName("rds.title");
+      default:
+        return t("about.title");
+    }
+  }
+
   return (
-    <ExploreSection title={t("about.title")}>
+    <ExploreSection title={typeParser(selected?.type)}>
       {showLoader && <Loader />}
       {showPlaceHolder && <AboutPlaceholder text={t("about.placeholders.item")} />}
       {showAspectObjectPanel && (

@@ -130,7 +130,7 @@
     }
   },
   "quantityDatum": {
-    "title": "QuantityDatum",
+    "title": "Quantity Datum",
     "name": "Name",
     "description": "Description",
     "multiple": "Quantity Datums",
