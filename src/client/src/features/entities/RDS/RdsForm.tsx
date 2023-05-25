@@ -8,7 +8,7 @@ import { useSubmissionToast } from "features/entities/common/utils/useSubmission
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { RdsLibCm, State } from "@mimirorg/typelibrary-types";
-import { Flexbox } from "../../../complib/layouts";
+import { Box, Flexbox } from "../../../complib/layouts";
 import { PlainLink } from "../../common/plain-link";
 import { Button } from "../../../complib/buttons";
 import { useTheme } from "styled-components";
@@ -55,7 +55,7 @@ export const RdsForm = ({ defaultValues = createEmptyRds(), mode }: RdsFormProps
         {isLoading ? (
           <Loader />
         ) : (
-          <Flexbox flexDirection={"row"} gap={theme.tyle.spacing.l}>
+          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.tyle.spacing.multiple(6)}>
             <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
               <Text variant={"display-small"}>{t("rds.title")}</Text>
               <RdsFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
@@ -69,7 +69,7 @@ export const RdsForm = ({ defaultValues = createEmptyRds(), mode }: RdsFormProps
               </Flexbox>
             </Flexbox>
             <RdsFormPreview control={control} />
-          </Flexbox>
+          </Box>
         )}
       </FormContainer>
       <DevTool control={control} placement={"bottom-right"} />

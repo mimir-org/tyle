@@ -14,7 +14,7 @@ import UnitFormBaseFields from "./UnitFormBaseFields";
 import { UnitFormPreview } from "../entityPreviews/unit/UnitFormPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
-import { Flexbox } from "../../../complib/layouts";
+import { Box } from "../../../complib/layouts";
 import { useTheme } from "styled-components";
 
 interface UnitFormProps {
@@ -52,11 +52,11 @@ export const UnitForm = ({ defaultValues = createEmptyUnit(), mode }: UnitFormPr
         {isLoading ? (
           <Loader />
         ) : (
-          <Flexbox flexDirection={"row"} gap={theme.tyle.spacing.xxxl}>
+          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.tyle.spacing.multiple(6)}>
             <UnitFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
             <UnitFormPreview control={control} />
             <DevTool control={control} placement={"bottom-right"} />
-          </Flexbox>
+          </Box>
         )}
       </FormContainer>
     </FormProvider>

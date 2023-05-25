@@ -18,7 +18,7 @@ const StyledUnit = styled.div<UnitContainerProps>`
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
   height: fit-content;
   background-color: ${(props) =>
-    props.isDefault ? props.theme.tyle.color.sys.surface.variant.base : props.theme.tyle.color.sys.surface.base};
+    props.isDefault ? props.theme.tyle.color.sys.surface.variant.base : props.theme.tyle.color.sys.pure.base};
   max-width: ${(props) => (props.small ? "200px" : "auto")};
   width: 100%;
 `;

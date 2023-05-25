@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { QuantityDatumLibAm, QuantityDatumLibCm, State } from "@mimirorg/typelibrary-types";
 import { createEmptyDatum, toDatumLibAm } from "./types/formQuantityDatumLib";
 import { useQuantityDatumMutation, useQuantityDatumQuery } from "./QuantityDatumForm.helpers";
-import { Flexbox } from "../../../complib/layouts";
+import { Box, Flexbox } from "../../../complib/layouts";
 import { PlainLink } from "../../common/plain-link";
 import { Button } from "../../../complib/buttons";
 import { useTheme } from "styled-components";
@@ -68,7 +68,7 @@ export const QuantityDatumForm = ({ defaultValues = createEmptyDatum(), mode }: 
         {isLoading ? (
           <Loader />
         ) : (
-          <Flexbox flexDirection={"row"} gap={theme.tyle.spacing.xxxl}>
+          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.tyle.spacing.multiple(6)}>
             <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
               <Text variant={"display-small"}>{t("quantityDatum.title")}</Text>
               <QuantityDatumFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
@@ -82,7 +82,7 @@ export const QuantityDatumForm = ({ defaultValues = createEmptyDatum(), mode }: 
               </Flexbox>
             </Flexbox>
             <QuantityDatumFormPreview control={control} />
-          </Flexbox>
+          </Box>
         )}
         <DevTool control={control} placement={"bottom-right"} />
       </FormContainer>

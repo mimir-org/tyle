@@ -14,7 +14,7 @@ const StyledDiv = styled.div<StyledDivProps>`
   gap: ${(props) => props.theme.tyle.spacing.xl};
   padding: ${(props) => props.theme.tyle.spacing.xl};
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
-  background-color: ${(props) => props.theme.tyle.color.sys.surface.base};
+  background-color: ${(props) => props.theme.tyle.color.sys.pure.base};
   max-width: ${(props) => (props.small ? "200px" : "500px")};
   max-height: 200px;
   width: ${(props) => (props.small ? "200px" : "100%")};
@@ -59,7 +59,7 @@ export default function QuantityDatumPreview({
   );
 }
 
-const QuantityDatumSmallPreview = (quantityDatumType: string) => {
+export const QuantityDatumSmallPreview = (quantityDatumType: string): JSX.Element => {
   const theme = useTheme();
   return (
     <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.tyle.spacing.base}>
