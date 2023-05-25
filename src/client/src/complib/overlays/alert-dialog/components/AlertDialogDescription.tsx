@@ -10,10 +10,10 @@ interface DialogDescriptionProps {
   hide?: boolean;
 }
 
+const WrappedComponent = (c: ReactElement) => <VisuallyHidden asChild>{c}</VisuallyHidden>;
+
 export const AlertDialogDescription = ({ children, hide }: DialogDescriptionProps) => {
   const theme = useTheme();
-
-  const WrappedComponent = (c: ReactElement) => <VisuallyHidden asChild>{c}</VisuallyHidden>;
 
   return (
     <ConditionalWrapper condition={hide} wrapper={WrappedComponent}>

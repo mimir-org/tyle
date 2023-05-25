@@ -25,16 +25,18 @@ Default.args = {
   options: mockData,
 };
 
+const GetOptionLabels = (libraryIcon: string, x: (typeof mockData)[0]) => (
+  <Flexbox alignItems={"center"} gap={"8px"}>
+    <Icon src={libraryIcon} />
+    <Text>{x.label}</Text>
+  </Flexbox>
+);
+
 export const WithComponentOptions = () => (
   <Select
     options={mockData}
     getOptionLabel={(x) => x.label}
     getOptionValue={(x) => x.value}
-    formatOptionLabel={(x) => (
-      <Flexbox alignItems={"center"} gap={"8px"}>
-        <Icon src={LibraryIcon} />
-        <Text>{x.label}</Text>
-      </Flexbox>
-    )}
+    formatOptionLabel={(x) => GetOptionLabels(LibraryIcon, x)}
   />
 );
