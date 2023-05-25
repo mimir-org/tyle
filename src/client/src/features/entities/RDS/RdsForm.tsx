@@ -23,7 +23,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { rdsSchema } from "./rdsSchema";
 
 interface RdsFormProps {
-  defaultValues?: RdsLibCm;
+  defaultValues?: RdsLibAm;
   mode?: FormMode;
 }
 

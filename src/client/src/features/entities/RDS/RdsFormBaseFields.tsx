@@ -4,18 +4,20 @@ import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { RdsLibAm } from "@mimirorg/typelibrary-types";
 import { Flexbox } from "../../../complib/layouts";
+import { useTheme } from "styled-components";
 
 interface RdsFormBaseFieldsProps {
   limited?: boolean;
 }
 
 export const RdsFormBaseFields = ({ limited }: RdsFormBaseFieldsProps) => {
+  const theme = useTheme();
   const { register, formState } = useFormContext<RdsLibAm>();
   const { errors } = formState;
   const { t } = useTranslation("entities");
 
   return (
-    <Flexbox flexDirection={"column"}>
+    <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
       <FormField label={t("rds.name")} error={errors.name}>
         <Input placeholder={t("rds.name")} {...register("name")} required disabled={limited} />
       </FormField>
