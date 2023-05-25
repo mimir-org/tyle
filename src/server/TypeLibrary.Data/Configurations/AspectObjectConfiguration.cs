@@ -21,7 +21,7 @@ public class AspectObjectConfiguration : IEntityTypeConfiguration<AspectObjectLi
         builder.Property(p => p.TypeReference).HasColumnName("TypeReference").HasMaxLength(255);
         builder.Property(p => p.Version).HasColumnName("Version").IsRequired().HasMaxLength(7);
         builder.Property(p => p.FirstVersionId).HasColumnName("FirstVersionId").IsRequired().HasMaxLength(63);
-        builder.Property(p => p.Created).HasColumnName("Created").IsRequired().HasDefaultValue(DateTime.MinValue.ToUniversalTime());
+        builder.Property(p => p.Created).HasColumnName("Created").IsRequired();
         builder.Property(p => p.CreatedBy).HasColumnName("CreatedBy").IsRequired().HasMaxLength(127);
         builder.Property(p => p.CompanyId).HasColumnName("CompanyId").IsRequired();
         builder.Property(p => p.State).HasColumnName("State").IsRequired().HasConversion<string>().HasMaxLength(31);
