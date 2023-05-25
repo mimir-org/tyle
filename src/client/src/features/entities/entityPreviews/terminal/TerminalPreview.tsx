@@ -21,15 +21,15 @@ interface AttributePreviewProps {
  * @constructor
  */
 export const TerminalPreview = ({ name, color, variant = "small" }: AttributePreviewProps) => {
-  const headerTextVariant: TextTypes = variant === "small" ? "label-small" : "label-large";
+  const headerTextVariant: TextTypes = variant === "small" ? "title-large" : "label-large";
   const colorToShow = color.length ? color : "rgba(0,0,0,0)";
 
   return (
     <TerminalPreviewContainer variant={variant}>
+      <TerminalButton as={"span"} variant={"large"} color={colorToShow} />
       <Text variant={headerTextVariant} width={"100%"} textAlign={"center"} useEllipsis>
         {name}
       </Text>
-      <TerminalButton as={"span"} variant={"large"} color={colorToShow} />
     </TerminalPreviewContainer>
   );
 };
