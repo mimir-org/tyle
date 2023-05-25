@@ -5,7 +5,7 @@ interface RdsIconProps {
   props?: React.SVGProps<SVGSVGElement>;
 }
 const RdsIcon = ({ color = "#000", textColor, size = 1, props }: RdsIconProps) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={45} height={31} transform={`scale(${size})`} fill="none" {...props}>
+  <svg xmlns="http://www.w3.org/2000/svg" width={38} height={26} transform={`scale(${size})`} fill="none" {...props}>
     <path
       fill={color}
       fillRule="evenodd"
