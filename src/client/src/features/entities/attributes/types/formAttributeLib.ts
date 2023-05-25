@@ -1,40 +1,43 @@
-import { AttributeLibAm, AttributeLibCm, AttributeUnitLibAm } from "@mimirorg/typelibrary-types";
-import { FormUnitHelper } from "../../units/types/FormUnitHelper";
+import { AttributeLibAm, AttributeLibCm, UnitLibCm } from "@mimirorg/typelibrary-types";
+import { FormUnitHelper, createEmptyFormUnitHelper } from "features/entities/units/types/FormUnitHelper";
 
 export interface FormAttributeLib extends Omit<AttributeLibAm, "attributeUnits"> {
-  attributeUnits: FormUnitHelper[];
+  units: FormUnitHelper[];
+  defaultUnit: FormUnitHelper | undefined;
 }
 
 export const fromFormAttributeLibToApiModel = (formAttribute: FormAttributeLib): AttributeLibAm => ({
-  ...formAttribute,
-  attributeUnits: formAttribute.attributeUnits.map((x: AttributeUnitLibAm) => ({
+  name: formAttribute.name,
+  typeReference: formAttribute.typeReference,
+  description: formAttribute.description,
+  attributeUnits: formAttribute.units.map((x: FormUnitHelper) => ({
     unitId: x.unitId,
-    isDefault: x.isDefault,
+    isDefault: x.unitId === formAttribute.defaultUnit?.unitId,
   })),
 });
 
 export const toFormAttributeLib = (attribute: AttributeLibCm): FormAttributeLib => ({
-  ...attribute,
-  attributeUnits: attribute.attributeUnits.map((x) => ({
-    unitId: x.id,
-    isDefault: x.isDefault,
-    name: x.unit.name,
-    description: x.unit.description,
-    symbol: x.unit.symbol,
-  })),
-});
-
-export const toAttributeLibAm = (attribute: AttributeLibCm): AttributeLibAm => ({
-  ...attribute,
-  attributeUnits: attribute.attributeUnits.map((x) => ({ unitId: x.unit.id, isDefault: x.isDefault })),
-  description: attribute.description,
   name: attribute.name,
   typeReference: attribute.typeReference,
+  description: attribute.description,
+  units: attribute.attributeUnits.map((x) => toFormUnitHelper(x.unit)),
+  defaultUnit: toFormUnitHelper(attribute.attributeUnits.find((x) => x.isDefault === true)?.unit),
 });
 
+export const toFormUnitHelper = (unit: UnitLibCm | undefined): FormUnitHelper => {
+  if (!unit) return createEmptyFormUnitHelper();
+  return {
+    name: unit.name,
+    description: unit.description,
+    symbol: unit.symbol,
+    unitId: unit.id,
+  };
+};
+
 export const createEmptyAttribute = (): FormAttributeLib => ({
-  attributeUnits: [],
   name: "",
   typeReference: "",
   description: "",
+  units: [],
+  defaultUnit: undefined,
 });

@@ -12,15 +12,17 @@ export const AttributeFormPreview = ({ control }: AttributeFormPreviewProps) => 
   const { t } = useTranslation("entities");
   const name = useWatch({ control, name: "name" });
   const description = useWatch({ control, name: "description" });
-  const attributeUnits = useWatch({ control, name: "attributeUnits" });
+  const units = useWatch({ control, name: "units" });
+  const defaultUnit = useWatch({ control, name: "defaultUnit" });
 
   return (
     <StyledFormPreviewDiv>
-      <AttributePreview
-        name={name ? name : t("attribute.name")}
-        description={description}
-        attributeUnits={attributeUnits}
-      />
+    <AttributePreview
+      name={name ? name : t("attribute.name")}
+      description={description}
+      units={units}
+      defaultUnit={defaultUnit}
+    />
     </StyledFormPreviewDiv>
   );
 };

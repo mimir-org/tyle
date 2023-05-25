@@ -1,7 +1,8 @@
 import { Flexbox } from "../../../../complib/layouts";
 import { Text } from "../../../../complib/text";
-import styled from "styled-components/macro";
+import styled, { useTheme } from "styled-components/macro";
 import Badge from "../../../ui/badges/Badge";
+import UnitIcon from "../../../icons/UnitIcon";
 
 interface UnitContainerProps {
   isDefault?: boolean;
@@ -43,18 +44,36 @@ export default function UnitPreview({
 }: UnitPreviewProps) {
   return (
     <StyledUnit key={unitId} small={small} isDefault={isDefault}>
-      <Flexbox justifyContent={"space-between"}>
-        <Flexbox gap={"1rem"} alignItems={"center"}>
-          <Text variant={small ? "title-small" : "title-large"}>{name}</Text>
-          <Text variant={small ? "title-small" : "title-medium"} color={"gray"}>
-            {symbol}
+      {small ? (
+        UnitSmallPreview(symbol)
+      ) : (
+        <>
+          <Flexbox justifyContent={"space-between"}>
+            <Flexbox gap={"1rem"} alignItems={"center"}>
+              <Text variant={"display-small"}>{name}</Text>
+              <Text variant={"title-large"} color={"gray"}>
+                {symbol}
+              </Text>
+            </Flexbox>
+            {isDefault && !noBadge && <Badge variant={"success"}>default</Badge>}
+          </Flexbox>
+          <Text variant={"body-large"} useEllipsis={small}>
+            {description}
           </Text>
-        </Flexbox>
-        {isDefault && !noBadge && <Badge variant={"success"}>default</Badge>}
-      </Flexbox>
-      <Text variant={small ? "body-small" : "body-large"} useEllipsis={small}>
-        {description}
-      </Text>
+        </>
+      )}
     </StyledUnit>
   );
 }
+
+const UnitSmallPreview = (symbol: string) => {
+  const theme = useTheme();
+  return (
+    <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.tyle.spacing.base}>
+      <UnitIcon color={theme.tyle.color.sys.pure.on} />
+      <Text variant={"title-large"} textAlign={"center"}>
+        {symbol}
+      </Text>
+    </Flexbox>
+  );
+};
