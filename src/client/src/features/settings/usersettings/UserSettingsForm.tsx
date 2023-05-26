@@ -50,10 +50,10 @@ export const UserSettingsForm = ({ defaultValues }: UserSettingsFormProps) => {
       {!isLoading && (
         <>
           <FormField label={t("usersettings.labels.firstName")} error={formState.errors.firstName}>
-            <Input placeholder={t("usersettings.placeholders.firstName")} {...register("firstName")} />
+            <Input style={{ fontSize: "17px" }} placeholder={t("usersettings.placeholders.firstName")} {...register("firstName")} />
           </FormField>
           <FormField label={t("usersettings.labels.lastName")} error={formState.errors.lastName}>
-            <Input placeholder={t("usersettings.placeholders.lastName")} {...register("lastName")} />
+            <Input style={{ fontSize: "17px" }} placeholder={t("usersettings.placeholders.lastName")} {...register("lastName")} />
           </FormField>
           <Button type={"submit"}>{t("usersettings.submit")}</Button>
         </>
