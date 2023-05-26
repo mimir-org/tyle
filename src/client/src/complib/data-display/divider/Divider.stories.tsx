@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Divider } from "complib/data-display/divider/Divider";
 
 export default {
@@ -7,9 +7,9 @@ export default {
   args: {
     decorative: false,
   },
-} as ComponentMeta<typeof Divider>;
+} as Meta<typeof Divider>;
 
-const Template: ComponentStory<typeof Divider> = (args) => <Divider {...args} />;
+const Template: StoryFn<typeof Divider> = (args) => <Divider {...args} />;
 
 export const Horizontal = Template.bind({});
 Horizontal.args = {

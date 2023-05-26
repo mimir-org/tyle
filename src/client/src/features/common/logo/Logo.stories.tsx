@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { Logo } from "features/common/logo/Logo";
 
 export default {
@@ -6,7 +6,7 @@ export default {
   component: Logo,
 };
 
-const Template: ComponentStory<typeof Logo> = (args) => <Logo {...args}></Logo>;
+const Template: StoryFn<typeof Logo> = (args) => <Logo {...args}></Logo>;
 
 export const Default = Template.bind({});
 Default.args = {

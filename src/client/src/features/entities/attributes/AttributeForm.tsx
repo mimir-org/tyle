@@ -19,6 +19,10 @@ import {
 import { AttributeFormPreview } from "../entityPreviews/attribute/AttributeFormPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
+import { Box } from "../../../complib/layouts";
+import { useTheme } from "styled-components";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { attributeSchema } from "./attributeSchema";
 
 interface AttributeFormProps {
   defaultValues?: FormAttributeLib;
@@ -27,9 +31,11 @@ interface AttributeFormProps {
 
 export const AttributeForm = ({ defaultValues = createEmptyAttribute(), mode }: AttributeFormProps) => {
   const { t } = useTranslation("entities");
+  const theme = useTheme();
 
   const formMethods = useForm<FormAttributeLib>({
     defaultValues: defaultValues,
+    resolver: yupResolver(attributeSchema(t)),
   });
 
   const { handleSubmit, control, setError, reset } = formMethods;
@@ -54,12 +60,12 @@ export const AttributeForm = ({ defaultValues = createEmptyAttribute(), mode }: 
         {isLoading ? (
           <Loader />
         ) : (
-          <>
+          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.tyle.spacing.multiple(6)}>
             <AttributeFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
             <AttributeFormPreview control={control} />
-            <DevTool control={control} placement={"bottom-right"} />
-          </>
+          </Box>
         )}
+        <DevTool control={control} placement={"bottom-right"} />
       </FormContainer>
     </FormProvider>
   );

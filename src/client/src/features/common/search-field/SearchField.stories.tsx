@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { SearchField } from "features/common/search-field/SearchField";
 
 export default {
@@ -6,6 +6,6 @@ export default {
   component: SearchField,
 };
 
-const Template: ComponentStory<typeof SearchField> = (args) => <SearchField {...args} />;
+const Template: StoryFn<typeof SearchField> = (args) => <SearchField {...args} />;
 
 export const Default = Template.bind({});

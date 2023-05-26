@@ -1,13 +1,13 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { LibraryIcon } from "complib/assets";
 import { Token } from "complib/general/token/Token";
 
 export default {
   title: "General/Token",
   component: Token,
-} as ComponentMeta<typeof Token>;
+} as Meta<typeof Token>;
 
-const Template: ComponentStory<typeof Token> = (args) => <Token {...args} />;
+const Template: StoryFn<typeof Token> = (args) => <Token {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {

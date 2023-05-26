@@ -1,6 +1,8 @@
-import styled from "styled-components/macro";
+import styled, { useTheme } from "styled-components/macro";
 import { Text } from "../../../../complib/text";
 import Badge from "../../../ui/badges/Badge";
+import { Flexbox } from "../../../../complib/layouts";
+import QuantityDatumIcon from "../../../icons/QuantityDatumIcon";
 
 interface StyledDivProps {
   small?: boolean;
@@ -12,7 +14,7 @@ const StyledDiv = styled.div<StyledDivProps>`
   gap: ${(props) => props.theme.tyle.spacing.xl};
   padding: ${(props) => props.theme.tyle.spacing.xl};
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
-  background-color: ${(props) => props.theme.tyle.color.sys.surface.base};
+  background-color: ${(props) => props.theme.tyle.color.sys.pure.base};
   max-width: ${(props) => (props.small ? "200px" : "500px")};
   max-height: 200px;
   width: ${(props) => (props.small ? "200px" : "100%")};
@@ -36,17 +38,35 @@ export default function QuantityDatumPreview({
 }: QuantityDatumPreviewProps) {
   return (
     <StyledDiv small={small}>
-      <Text variant={small ? "body-large" : "display-small"} useEllipsis={small}>
-        {name}
-      </Text>
-      <Text useEllipsis={small} variant={"body-small"}>
-        {description}
-      </Text>
-      {quantityDatumType !== undefined ? (
-        <Badge variant={"info"}>
-          <Text variant={small ? "body-small" : "body-medium"}>{quantityDatumTypeString[quantityDatumType]}</Text>
-        </Badge>
-      ) : null}
+      {small ? (
+        QuantityDatumSmallPreview(quantityDatumTypeString[quantityDatumType ?? 0])
+      ) : (
+        <>
+          <Text variant={"display-small"} useEllipsis={small}>
+            {name}
+          </Text>
+          <Text useEllipsis={small} variant={"body-small"}>
+            {description}
+          </Text>
+          {quantityDatumType !== undefined ? (
+            <Badge variant={"info"}>
+              <Text variant={"body-medium"}>{quantityDatumTypeString[quantityDatumType]}</Text>
+            </Badge>
+          ) : null}
+        </>
+      )}
     </StyledDiv>
   );
 }
+
+export const QuantityDatumSmallPreview = (quantityDatumType: string): JSX.Element => {
+  const theme = useTheme();
+  return (
+    <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.tyle.spacing.base}>
+      <QuantityDatumIcon color={theme.tyle.color.sys.pure.on} />
+      <Text variant={"title-large"} textAlign={"center"}>
+        {quantityDatumType}
+      </Text>
+    </Flexbox>
+  );
+};

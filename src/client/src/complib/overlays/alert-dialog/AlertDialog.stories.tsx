@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Button } from "complib/buttons";
 import { Token } from "complib/general";
 import { Box } from "complib/layouts";
@@ -7,9 +7,9 @@ import { AlertDialog } from "complib/overlays/alert-dialog/AlertDialog";
 export default {
   title: "Overlays/AlertDialog",
   component: AlertDialog,
-} as ComponentMeta<typeof AlertDialog>;
+} as Meta<typeof AlertDialog>;
 
-const Template: ComponentStory<typeof AlertDialog> = (args) => <AlertDialog {...args} />;
+const Template: StoryFn<typeof AlertDialog> = (args) => <AlertDialog {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

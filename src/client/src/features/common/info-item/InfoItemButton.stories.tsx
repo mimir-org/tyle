@@ -1,13 +1,13 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { LibraryIcon } from "complib/assets";
 import { InfoItemButton } from "features/common/info-item/InfoItemButton";
 
 export default {
   title: "Features/Common/InfoItem/InfoItemButton",
   component: InfoItemButton,
-} as ComponentMeta<typeof InfoItemButton>;
+} as Meta<typeof InfoItemButton>;
 
-const Template: ComponentStory<typeof InfoItemButton> = (args) => <InfoItemButton {...args} />;
+const Template: StoryFn<typeof InfoItemButton> = (args) => <InfoItemButton {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

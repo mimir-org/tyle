@@ -31,7 +31,7 @@ export const LinkMenu = ({ name, links, justifyContent }: LinkMenuProps) => {
       content={
         <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.base} minWidth={"170px"}>
           {links.map((link, index) => (
-            <PlainLink key={index} tabIndex={-1} to={link.path}>
+            <PlainLink key={index + link.path} tabIndex={-1} to={link.path}>
               <Button
                 tabIndex={0}
                 as={"span"}

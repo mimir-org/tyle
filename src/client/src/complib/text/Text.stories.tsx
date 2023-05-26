@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { Text } from "complib/text/Text";
 
 export default {
@@ -9,7 +9,7 @@ export default {
   },
 };
 
-const Template: ComponentStory<typeof Text> = (args) => <Text {...args}></Text>;
+const Template: StoryFn<typeof Text> = (args) => <Text {...args}></Text>;
 
 export const Paragraph = Template.bind({});
 Paragraph.args = {

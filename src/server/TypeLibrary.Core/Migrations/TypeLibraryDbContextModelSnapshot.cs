@@ -64,10 +64,7 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("CompanyId");
 
                     b.Property<DateTime>("Created")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(63)
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc))
                         .HasColumnName("Created");
 
                     b.Property<string>("CreatedBy")
@@ -94,8 +91,8 @@ namespace TypeLibrary.Core.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
                         .HasColumnName("Name");
 
                     b.Property<string>("PurposeName")
@@ -638,8 +635,8 @@ namespace TypeLibrary.Core.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
                         .HasColumnName("Name");
 
                     b.Property<string>("State")

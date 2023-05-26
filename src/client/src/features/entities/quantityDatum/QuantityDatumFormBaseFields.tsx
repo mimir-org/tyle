@@ -9,7 +9,7 @@ interface QuantityDatumFormBaseFieldsProps {
 }
 
 export const QuantityDatumFormBaseFields = ({ limited }: QuantityDatumFormBaseFieldsProps) => {
-  const { control, register, formState } = useFormContext<QuantityDatumLibAm>();
+  const { control, register, formState, getValues } = useFormContext<QuantityDatumLibAm>();
   const { errors } = formState;
   const { t } = useTranslation("entities");
 
@@ -42,7 +42,7 @@ export const QuantityDatumFormBaseFields = ({ limited }: QuantityDatumFormBaseFi
               options={quantityDatumTypeArray}
               getOptionValue={(x) => x.value}
               getOptionLabel={(x) => x.name}
-              defaultValue={quantityDatumTypeArray[0]}
+              value={quantityDatumTypeArray.find((x) => x.value === getValues("quantityDatumType").toString())}
               onChange={(x) => {
                 onChange(x?.value);
               }}

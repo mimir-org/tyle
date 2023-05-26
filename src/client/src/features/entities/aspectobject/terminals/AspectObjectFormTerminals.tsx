@@ -43,7 +43,7 @@ export const AspectObjectFormTerminals = ({
     >
       {terminalFields.fields.map((field, index) => (
         <AspectObjectTerminal
-          key={`${index},${field.id}`}
+          key={`${index + field.id}`}
           index={index}
           control={control}
           field={field}

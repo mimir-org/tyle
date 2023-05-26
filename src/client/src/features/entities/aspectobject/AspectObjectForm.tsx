@@ -53,7 +53,6 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
   const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useAspectObjectMutation(query.data?.id, mode);
-  const latestApprovedQuery = useGetLatestApprovedAspectObject(query.data?.id);
 
   useServerValidation(mutation.error, setError);
   useNavigateOnCriteria("/", mutation.isSuccess);
@@ -62,6 +61,8 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
 
   const isFirstDraft = !mode || (query.data?.state === State.Draft && query.data?.id === query.data?.firstVersionId);
   const limited = mode === "edit" && (query.data?.state === State.Approved || !isFirstDraft);
+
+  const latestApprovedQuery = useGetLatestApprovedAspectObject(query.data?.id, limited);
 
   return (
     <FormProvider {...formMethods}>

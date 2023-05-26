@@ -3,7 +3,7 @@ import { FormUnitHelper, createEmptyFormUnitHelper } from "features/entities/uni
 
 export interface FormAttributeLib extends Omit<AttributeLibAm, "attributeUnits"> {
   units: FormUnitHelper[];
-  defaultUnit: FormUnitHelper | undefined;
+  defaultUnit: FormUnitHelper | null;
 }
 
 export const fromFormAttributeLibToApiModel = (formAttribute: FormAttributeLib): AttributeLibAm => ({
@@ -39,5 +39,5 @@ export const createEmptyAttribute = (): FormAttributeLib => ({
   typeReference: "",
   description: "",
   units: [],
-  defaultUnit: undefined,
+  defaultUnit: null,
 });

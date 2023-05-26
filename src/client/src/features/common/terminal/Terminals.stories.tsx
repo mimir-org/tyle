@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Terminals } from "features/common/terminal/Terminals";
 
 export default {
@@ -13,9 +13,9 @@ export default {
       { name: "Example D", color: "purple", maxQuantity: 4, direction: "Bidirectional" },
     ],
   },
-} as ComponentMeta<typeof Terminals>;
+} as Meta<typeof Terminals>;
 
-const Template: ComponentStory<typeof Terminals> = (args) => <Terminals {...args} />;
+const Template: StoryFn<typeof Terminals> = (args) => <Terminals {...args} />;
 
 export const CollectionLimitBelow = Template.bind({});
 CollectionLimitBelow.args = {

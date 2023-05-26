@@ -14,6 +14,10 @@ import UnitFormBaseFields from "./UnitFormBaseFields";
 import { UnitFormPreview } from "../entityPreviews/unit/UnitFormPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
+import { Box } from "../../../complib/layouts";
+import { useTheme } from "styled-components";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { unitSchema } from "./unitSchema";
 
 interface UnitFormProps {
   defaultValues?: UnitLibAm;
@@ -22,9 +26,11 @@ interface UnitFormProps {
 
 export const UnitForm = ({ defaultValues = createEmptyUnit(), mode }: UnitFormProps) => {
   const { t } = useTranslation("entities");
+  const theme = useTheme();
 
   const formMethods = useForm<UnitLibAm>({
     defaultValues: defaultValues,
+    resolver: yupResolver(unitSchema(t)),
   });
 
   const { handleSubmit, control, setError, reset } = formMethods;
@@ -49,11 +55,11 @@ export const UnitForm = ({ defaultValues = createEmptyUnit(), mode }: UnitFormPr
         {isLoading ? (
           <Loader />
         ) : (
-          <>
+          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.tyle.spacing.multiple(6)}>
             <UnitFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
             <UnitFormPreview control={control} />
             <DevTool control={control} placement={"bottom-right"} />
-          </>
+          </Box>
         )}
       </FormContainer>
     </FormProvider>

@@ -14,14 +14,14 @@ export const TerminalPreviewContainer = styled.div<TerminalPreviewContainerProps
   padding: ${(props) => props.theme.tyle.spacing.xl};
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
   border: 1px solid ${(props) => props.theme.tyle.color.sys.outline.base};
-  background-color: ${(props) => props.theme.tyle.color.sys.surface.base};
+  background-color: ${(props) => props.theme.tyle.color.sys.pure.base};
 
   ${({ variant, ...props }) => {
     switch (variant) {
       case "small": {
         return css`
           gap: ${props.theme.tyle.spacing.l};
-          width: 210px;
+          width: 200px;
           min-height: 100px;
         `;
       }

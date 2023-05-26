@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { TerminalSingle } from "features/common/terminal/TerminalSingle";
 
 export default {
@@ -10,8 +10,8 @@ export default {
     maxQuantity: 2,
     direction: "Bidirectional",
   },
-} as ComponentMeta<typeof TerminalSingle>;
+} as Meta<typeof TerminalSingle>;
 
-const Template: ComponentStory<typeof TerminalSingle> = (args) => <TerminalSingle {...args} />;
+const Template: StoryFn<typeof TerminalSingle> = (args) => <TerminalSingle {...args} />;
 
 export const Default = Template.bind({});

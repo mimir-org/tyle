@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { UserInfo } from "features/ui/header/user-info/UserInfo";
 
 export default {
@@ -6,7 +6,7 @@ export default {
   component: UserInfo,
 };
 
-const Template: ComponentStory<typeof UserInfo> = (args) => <UserInfo {...args} />;
+const Template: StoryFn<typeof UserInfo> = (args) => <UserInfo {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

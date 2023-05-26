@@ -26,7 +26,7 @@ export const Permissions = () => {
   const permissions = getPermissionOptions();
   const [selectedPermission, setSelectedPermission] = useState(permissions[0]?.value);
 
-  const users = useFilteredUsers(selectedCompany, selectedPermission as unknown as UserItemPermission);
+  const users = useFilteredUsers(selectedCompany, Number(selectedPermission) as UserItemPermission);
 
   return (
     <SettingsSection title={t("permissions.title")}>

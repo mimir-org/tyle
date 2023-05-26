@@ -9,8 +9,8 @@ describe("terminalSchema tests", () => {
     await expect(terminalSchema(t).validateAt("name", terminalWithoutAName)).rejects.toBeTruthy();
   });
 
-  it("should reject with a name longer than 60 characters", async () => {
-    const terminalWithLongName: Partial<FormTerminalLib> = { name: "c".repeat(61) };
+  it("should reject with a name longer than 120 characters", async () => {
+    const terminalWithLongName: Partial<FormTerminalLib> = { name: "c".repeat(121) };
     await expect(terminalSchema(t).validateAt("name", terminalWithLongName)).rejects.toBeTruthy();
   });
 
