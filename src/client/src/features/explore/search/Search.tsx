@@ -47,14 +47,16 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
   const isOnlyDigits = (value: string | null): boolean => {
     return value ? /^\d+$/.test(value) : false;
   }
-  const pageNum = isOnlyDigits(urlParams.get("page")) ? Number(urlParams.get("page")) : 0;
+  const pageNum = isOnlyDigits(urlParams.get("page")) ? Number(urlParams.get("page")) : 1;
   const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit, pageNum);
 
   const showSearchText = !isLoading;
   const showResults = results.length > 0;
   const showFilterTokens = activeFilters.length > 0;
   const showPlaceholder = !isLoading && results.length === 0;
-  const shown = totalHits < pageLimit ? totalHits : pageLimit;
+  const lowerShown = ((pageNum - 1) * pageLimit + 1);
+  const higherShown = Math.min(pageNum * pageLimit, totalHits);
+  const shown = totalHits < pageLimit ? totalHits : (lowerShown <= higherShown) ?  lowerShown + "–" + higherShown : 0;
 
   return (
     <ExploreSection title={t("search.title")}>
