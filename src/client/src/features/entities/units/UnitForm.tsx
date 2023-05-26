@@ -16,6 +16,8 @@ import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
 import { Box } from "../../../complib/layouts";
 import { useTheme } from "styled-components";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { unitSchema } from "./unitSchema";
 
 interface UnitFormProps {
   defaultValues?: UnitLibAm;
@@ -28,6 +30,7 @@ export const UnitForm = ({ defaultValues = createEmptyUnit(), mode }: UnitFormPr
 
   const formMethods = useForm<UnitLibAm>({
     defaultValues: defaultValues,
+    resolver: yupResolver(unitSchema(t)),
   });
 
   const { handleSubmit, control, setError, reset } = formMethods;
