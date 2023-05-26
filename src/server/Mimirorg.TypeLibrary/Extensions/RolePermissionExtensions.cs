@@ -35,33 +35,6 @@ public static class RolePermissionExtensions
             }
         }
 
-        if (resolvedRoles.Any())
-        {
-            return resolvedRoles;
-        }
-
-
-        if (!companies.Any())
-        {
-            return resolvedRoles;
-        }
-
-        var userCompanyClaims = claims.Where(x => companies.Any(y => x.Type == y.Id.ToString())).ToList();
-        if (!userCompanyClaims.Any())
-        {
-            return resolvedRoles;
-        }
-
-        foreach (var claim in userCompanyClaims)
-        {
-            var company = companies.FirstOrDefault(x => x.Id.ToString() == claim.Type);
-            var permission = permissions.FirstOrDefault(x => x.Name == claim.Value);
-            if (company != null && permission != null)
-            {
-                resolvedRoles.Add($"{company.DisplayName ?? company.Name} {(MimirorgPermission) permission.Id}");
-            }
-        }
-
         return resolvedRoles;
     }
 
