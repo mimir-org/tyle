@@ -40,9 +40,15 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
   const createMenuLinks = useCreateMenuLinks();
   const [activeFilters, toggleFilter] = useFilterState([]);
   const [query, setQuery, debouncedQuery] = useDebounceState("");
-  const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit);
   const userQuery = useGetCurrentUser();
   const user = userQuery?.data != null ? mapMimirorgUserCmToUserItem(userQuery.data) : undefined;
+  
+  const urlParams = new URLSearchParams(window.location.search);
+  const isOnlyDigits = (value: string | null): boolean => {
+    return value ? /^\d+$/.test(value) : false;
+  }
+  const pageNum = isOnlyDigits(urlParams.get("page")) ? Number(urlParams.get("page")) : 0;
+  const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit, pageNum);
 
   const showSearchText = !isLoading;
   const showResults = results.length > 0;
