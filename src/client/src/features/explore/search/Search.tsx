@@ -15,10 +15,11 @@ import { SearchPlaceholder } from "features/explore/search/components/SearchPlac
 import { useFilterState } from "features/explore/search/hooks/useFilterState";
 import { useGetFilterGroups } from "features/explore/search/hooks/useGetFilterGroups";
 import { useSearchResults } from "features/explore/search/hooks/useSearchResults";
-import { useCreateMenuLinks } from "features/explore/search/Search.helpers";
+import { isPositiveInt, useCreateMenuLinks } from "features/explore/search/Search.helpers";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { SearchResultsRenderer } from "./SearchResultsRenderer";
+import { useSearchParams } from "react-router-dom";
 
 interface SearchProps {
   selected?: SelectedInfo;
@@ -40,23 +41,23 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
   const createMenuLinks = useCreateMenuLinks();
   const [activeFilters, toggleFilter] = useFilterState([]);
   const [query, setQuery, debouncedQuery] = useDebounceState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageParam = searchParams.get("page");
   const userQuery = useGetCurrentUser();
   const user = userQuery?.data != null ? mapMimirorgUserCmToUserItem(userQuery.data) : undefined;
-  
-  const urlParams = new URLSearchParams(window.location.search);
-  const isOnlyDigits = (value: string | null): boolean => {
-    return value ? /^\d+$/.test(value) : false;
+  const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit, Number(pageParam));
+
+  if (!isPositiveInt(pageParam) || (!isLoading && Number(pageParam) > Math.ceil(totalHits / pageLimit))) {
+    setSearchParams({ page: "1" });
   }
-  const pageNum = isOnlyDigits(urlParams.get("page")) ? Number(urlParams.get("page")) : 1;
-  const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit, pageNum);
 
   const showSearchText = !isLoading;
   const showResults = results.length > 0;
   const showFilterTokens = activeFilters.length > 0;
   const showPlaceholder = !isLoading && results.length === 0;
-  const lowerShown = ((pageNum - 1) * pageLimit + 1);
-  const higherShown = Math.min(pageNum * pageLimit, totalHits);
-  const shown = totalHits < pageLimit ? totalHits : (lowerShown <= higherShown) ?  lowerShown + "–" + higherShown : 0;
+  const lowerShown = (Number(pageParam) - 1) * pageLimit + 1;
+  const higherShown = Math.min(Number(pageParam) * pageLimit, totalHits);
+  const shown = totalHits < pageLimit ? totalHits : lowerShown <= higherShown ? lowerShown + "–" + higherShown : 0;
 
   return (
     <ExploreSection title={t("search.title")}>

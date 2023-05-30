@@ -37,3 +37,7 @@ export const useCreateMenuLinks = (): Link[] => {
     },
   ];
 };
+
+export const isPositiveInt = (value: string | null): boolean => {
+  return value ? /^\d+$/.test(value) && Number(value) > 0 : false;
+};
