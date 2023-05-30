@@ -8,6 +8,7 @@ import { PlainLink } from "../../common/plain-link";
 import { Button } from "../../../complib/buttons";
 import { UnitLibAm } from "@mimirorg/typelibrary-types";
 import { Text } from "../../../complib/text";
+import { FormBaseFieldsContainer } from "complib/form/FormContainer.styled";
 
 interface UnitFormBaseFieldsProps {
   limited?: boolean;
@@ -20,6 +21,7 @@ export default function UnitFormBaseFields({ limited }: UnitFormBaseFieldsProps)
   const { errors } = formState;
 
   return (
+    <FormBaseFieldsContainer>
     <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
       <Text variant={"display-small"}>{t("unit.title")}</Text>
       <FormField label={t("unit.name")} error={errors.name}>
@@ -43,5 +45,6 @@ export default function UnitFormBaseFields({ limited }: UnitFormBaseFieldsProps)
         <Button type={"submit"}>{t("common.submit")}</Button>
       </Flexbox>
     </Flexbox>
+    </FormBaseFieldsContainer>
   );
 }

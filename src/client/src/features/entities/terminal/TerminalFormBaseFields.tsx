@@ -3,13 +3,13 @@ import { FormField } from "complib/form";
 import { Input, Textarea } from "complib/inputs";
 import { Flexbox } from "complib/layouts";
 import { PlainLink } from "features/common/plain-link";
-import { TerminalFormBaseFieldsContainer } from "features/entities/terminal/TerminalFormBaseFields.styled";
 import { TerminalFormPreview } from "features/entities/entityPreviews/terminal/TerminalFormPreview";
 import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-
+import { Text } from "../../../complib/text";
+import { FormBaseFieldsContainer } from "complib/form/FormContainer.styled";
 interface TerminalFormBaseFieldsProps {
   limited?: boolean;
 }
@@ -27,10 +27,10 @@ export const TerminalFormBaseFields = ({ limited }: TerminalFormBaseFieldsProps)
   const { errors } = formState;
 
   return (
-    <TerminalFormBaseFieldsContainer>
+    <FormBaseFieldsContainer>
+      <Text variant={"display-small"}>{t("terminal.title")}</Text>
       <TerminalFormPreview control={control} />
-
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
+        <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
         <FormField label={t("terminal.name")} error={errors.name}>
           <Input placeholder={t("terminal.placeholders.name")} {...register("name")} disabled={limited} />
         </FormField>
@@ -52,6 +52,6 @@ export const TerminalFormBaseFields = ({ limited }: TerminalFormBaseFieldsProps)
         </PlainLink>
         <Button type={"submit"}>{t("common.submit")}</Button>
       </Flexbox>
-    </TerminalFormBaseFieldsContainer>
+    </FormBaseFieldsContainer>
   );
 };

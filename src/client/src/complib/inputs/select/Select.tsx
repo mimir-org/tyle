@@ -43,7 +43,6 @@ const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends Grou
   control: (base, state) => ({
     ...base,
     boxShadow: "none",
-    width: "250px",
     minHeight: "40px",
     borderWidth: "1px",
     borderStyle: "solid",
