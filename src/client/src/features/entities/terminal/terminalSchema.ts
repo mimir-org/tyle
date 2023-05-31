@@ -9,5 +9,5 @@ export const terminalSchema = (t: TFunction<"translation">) =>
     typeReference: yup.string().max(255),
     color: yup.string().max(7).required(t("terminal.validation.color.required")),
     description: yup.string().max(500, t("common.validation.description.max")),
-    attributes: yup.array().of(yup.string()).nullable(),
+    attributes: yup.array().nullable(),
   });
