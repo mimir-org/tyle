@@ -37,6 +37,7 @@ const mapAspectObjectTerminalLibCmsToAspectObjectTerminalItems = (
   terminals: AspectObjectTerminalLibCm[]
 ): AspectObjectTerminalItem[] =>
   terminals.map((x) => ({
+    id: x.terminal.id,
     name: x.terminal.name,
     color: x.terminal.color,
     maxQuantity: x.maxQuantity,

@@ -16,6 +16,7 @@ export const getTerminalItemsFromFormData = (
 
     sourceTerminal &&
       terminalItems.push({
+        id: sourceTerminal.id,
         name: sourceTerminal.name,
         color: sourceTerminal.color,
         maxQuantity: formTerminal.maxQuantity,

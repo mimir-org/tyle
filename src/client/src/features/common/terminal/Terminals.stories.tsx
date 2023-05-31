@@ -20,22 +20,22 @@ const Template: StoryFn<typeof Terminals> = (args) => <Terminals {...args} />;
 export const CollectionLimitBelow = Template.bind({});
 CollectionLimitBelow.args = {
   terminals: [
-    { name: "Example A", color: "grey", maxQuantity: 1, direction: "Output" },
-    { name: "Example B", color: "red", maxQuantity: 2, direction: "Output" },
-    { name: "Example C", color: "orange", maxQuantity: 3, direction: "Output" },
-    { name: "Example D", color: "purple", maxQuantity: 4, direction: "Bidirectional" },
+    { id: "idA", name: "Example A", color: "grey", maxQuantity: 1, direction: "Output" },
+    { id: "idB", name: "Example B", color: "red", maxQuantity: 2, direction: "Output" },
+    { id: "idC", name: "Example C", color: "orange", maxQuantity: 3, direction: "Output" },
+    { id: "idD", name: "Example D", color: "purple", maxQuantity: 4, direction: "Bidirectional" },
   ],
 };
 
 export const CollectionLimitAbove = Template.bind({});
 CollectionLimitAbove.args = {
   terminals: [
-    { name: "Example A", color: "grey", maxQuantity: 1, direction: "Input" },
-    { name: "Example B", color: "red", maxQuantity: 2, direction: "Input" },
-    { name: "Example C", color: "orange", maxQuantity: 3, direction: "Input" },
-    { name: "Example D", color: "purple", maxQuantity: 4, direction: "Input" },
-    { name: "Example E", color: "purple", maxQuantity: 4, direction: "Bidirectional" },
-    { name: "Example F", color: "purple", maxQuantity: 4, direction: "Bidirectional" },
+    { id: "idA", name: "Example A", color: "grey", maxQuantity: 1, direction: "Input" },
+    { id: "idB", name: "Example B", color: "red", maxQuantity: 2, direction: "Input" },
+    { id: "idC", name: "Example C", color: "orange", maxQuantity: 3, direction: "Input" },
+    { id: "idD", name: "Example D", color: "purple", maxQuantity: 4, direction: "Input" },
+    { id: "idE", name: "Example E", color: "purple", maxQuantity: 4, direction: "Bidirectional" },
+    { id: "idF", name: "Example F", color: "purple", maxQuantity: 4, direction: "Bidirectional" },
   ],
 };
 

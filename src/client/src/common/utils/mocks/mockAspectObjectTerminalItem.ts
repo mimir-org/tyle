@@ -3,6 +3,7 @@ import { AspectObjectTerminalItem } from "common/types/aspectObjectTerminalItem"
 import { mockInfoItem } from "common/utils/mocks/mockInfoItem";
 
 export const mockAspectObjectTerminalItem = (): AspectObjectTerminalItem => ({
+  id: faker.random.alpha({ count: 20 }),
   name: `Terminal ${faker.random.alpha({ count: 3, casing: "upper" })}`,
   color: faker.internet.color(),
   maxQuantity: parseInt(faker.random.numeric(1)),
