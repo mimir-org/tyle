@@ -30,7 +30,7 @@ export const TerminalFormBaseFields = ({ limited }: TerminalFormBaseFieldsProps)
     <FormBaseFieldsContainer>
       <Text variant={"display-small"}>{t("terminal.title")}</Text>
       <TerminalFormPreview control={control} />
-        <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
+      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
         <FormField label={t("terminal.name")} error={errors.name}>
           <Input placeholder={t("terminal.placeholders.name")} {...register("name")} disabled={limited} />
         </FormField>

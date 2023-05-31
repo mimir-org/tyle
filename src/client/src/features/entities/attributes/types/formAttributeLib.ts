@@ -25,7 +25,7 @@ export const toFormAttributeLib = (attribute: AttributeLibCm): FormAttributeLib 
     description: attribute.description,
     units: attribute.attributeUnits.map((x) => toFormUnitHelper(x.unit)),
     defaultUnit: defaultUnit ? toFormUnitHelper(defaultUnit) : null,
-  }
+  };
 };
 
 export const toFormUnitHelper = (unit: UnitLibCm): FormUnitHelper => {
