@@ -93,7 +93,7 @@ export const AspectObjectFormBaseFields = ({ isFirstDraft }: AspectObjectFormBas
                   options={aspectOptions}
                   getOptionLabel={(x) => x.label}
                   onChange={(x) => {
-                    resetSubform(resetField);
+                    resetSubform(resetField, x?.value);
                     onChange(x?.value);
                   }}
                   value={aspectOptions.find((x) => x.value === value)}
