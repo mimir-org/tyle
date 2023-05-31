@@ -23,6 +23,7 @@ import { Control, Controller, FieldArrayWithId, FieldErrors, UseFormSetValue, us
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../../../../complib/surfaces";
+import { useEffect } from "react";
 
 interface AspectObjectTerminalProps {
   index: number;
@@ -69,6 +70,17 @@ export const AspectObjectTerminal = ({
   const terminalCanHaveLimit = aspect === Aspect.Product;
 
   const sourceTerminal = terminalQuery.data?.find((x) => x.id === field.terminalId);
+
+  useEffect(() => {
+    if (aspect === Aspect.Function) {
+      setValue(`aspectObjectTerminals.${index}.maxQuantity`, 0, {
+        shouldDirty: true,
+      });
+      setValue(`aspectObjectTerminals.${index}.hasMaxQuantity`, false, {
+        shouldDirty: true,
+      });
+    }
+  }, [index, setValue, aspect]);
 
   return (
     <Flexbox gap={"24px"} alignItems={"center"}>
@@ -143,7 +155,7 @@ export const AspectObjectTerminal = ({
                         {...rest}
                         onCheckedChange={(checked) => {
                           !checked &&
-                            setValue(`aspectObjectTerminals.${index}.maxQuantity`, MAXIMUM_TERMINAL_QUANTITY_VALUE, {
+                            setValue(`aspectObjectTerminals.${index}.maxQuantity`, 0, {
                               shouldDirty: true,
                             });
                           checked &&
