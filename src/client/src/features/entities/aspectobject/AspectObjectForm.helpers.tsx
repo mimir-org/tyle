@@ -29,7 +29,6 @@ export const useAspectObjectMutation = (id?: string, mode?: FormMode) => {
 export const resetSubform = (resetField: (value: keyof FormAspectObjectLib) => void) => {
   resetField("selectedAttributePredefined");
   resetField("aspectObjectTerminals");
-  resetField("attributes");
 };
 
 export const getSubformForAspect = (aspect: Aspect, limitedTerminals?: AspectObjectTerminalLibCm[]) => {
