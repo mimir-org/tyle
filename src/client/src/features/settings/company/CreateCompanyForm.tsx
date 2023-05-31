@@ -28,6 +28,8 @@ import { isAxiosError } from "axios";
 import { FileItemComponent } from "complib/inputs/file/components/FileItemComponent";
 import { FileInfo } from "complib/inputs/file/FileComponent";
 import { useCreateCompany } from "external/sources/company/company.queries";
+import { PlainLink } from "features/common/plain-link";
+import { settingsBasePath } from "../SettingsRoutes";
 
 export const CreateCompanyForm = () => {
   const [secret, _] = useState<string>(createSecret(50));
@@ -83,12 +85,15 @@ export const CreateCompanyForm = () => {
           <FormField label={t("company.labels.name")} error={formState.errors.name}>
             <Input placeholder={t("company.placeholders.name")} {...register("name")} />
           </FormField>
+
           <FormField label={t("company.labels.displayName")} error={formState.errors.displayName}>
             <Input placeholder={t("company.placeholders.displayName")} {...register("displayName")} />
           </FormField>
+
           <FormField label={t("company.labels.description")} error={formState.errors.description}>
             <Textarea placeholder={t("company.placeholders.description")} {...register("description")} />
           </FormField>
+
           <FormField label={t("company.labels.secret")} error={formState.errors.secret}>
             <Input
               type="text"
@@ -98,15 +103,18 @@ export const CreateCompanyForm = () => {
                 <Button
                   icon={<DocumentDuplicate size={24} />}
                   onClick={() => copySecret(secret, t("company.toasts.copySecret"))}
+                  iconOnly
                 >
                   {""}
                 </Button>
               }
             />
           </FormField>
+
           <FormField label={t("company.labels.domain")} error={formState.errors.domain}>
             <Input placeholder={t("company.placeholders.domain")} {...register("domain")} />
           </FormField>
+
           <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
             <FormField label={t("company.labels.logo")} error={formState.errors.logo}></FormField>
             <input
@@ -138,10 +146,20 @@ export const CreateCompanyForm = () => {
               </div>
             )}
           </Flexbox>
+
           <FormField label={t("company.labels.homePage")} error={formState.errors.homePage}>
             <Input placeholder={t("company.placeholders.homePage")} {...register("homePage")} />
           </FormField>
-          <Button type={"submit"}>{t("company.submit.create")}</Button>
+
+          <Flexbox gap={theme.tyle.spacing.xl}>
+            <Button type={"submit"}>{t("company.submit.create")}</Button>
+            <PlainLink tabIndex={-1} to={settingsBasePath}>
+              <Button tabIndex={0} as={"span"} variant={"outlined"}>
+                {t("company.submit.cancel")}
+              </Button>
+            </PlainLink>
+          </Flexbox>
+
           <DevTool control={control} placement={"bottom-right"} />
         </Form>
       </FormProvider>
