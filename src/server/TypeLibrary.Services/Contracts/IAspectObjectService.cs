@@ -10,10 +10,16 @@ namespace TypeLibrary.Services.Contracts;
 public interface IAspectObjectService
 {
     /// <summary>
-    /// Get the latest aspect object versions
+    /// Get the latest approved aspect object versions as well as any drafts
     /// </summary>
     /// <returns>A collection of aspect objects</returns>
-    IEnumerable<AspectObjectLibCm> GetLatestVersions();
+    IEnumerable<AspectObjectLibCm> GetLatestApprovedAndDrafts();
+
+    /// <summary>
+    /// Get the latest aspect object versions with request states (approve and delete)
+    /// </summary>
+    /// <returns>A collection of aspect objects</returns>
+    IEnumerable<AspectObjectLibCm> GetLatestRequests();
 
     /// <summary>
     /// Get an aspect object based on given id
