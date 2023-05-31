@@ -20,6 +20,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { SearchResultsRenderer } from "./SearchResultsRenderer";
 import { useSearchParams } from "react-router-dom";
+import { SearchNavigation } from "./SearchNavigation";
 
 interface SearchProps {
   selected?: SelectedInfo;
@@ -48,11 +49,13 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
   const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit, Number(pageParam));
 
   if (!isPositiveInt(pageParam) || (!isLoading && Number(pageParam) > Math.ceil(totalHits / pageLimit))) {
+    console.log(pageParam);
     setSearchParams({ page: "1" });
   }
 
   const showSearchText = !isLoading;
   const showResults = results.length > 0;
+  const showNavigation = totalHits > pageLimit;
   const showFilterTokens = activeFilters.length > 0;
   const showPlaceholder = !isLoading && results.length === 0;
   const lowerShown = (Number(pageParam) - 1) * pageLimit + 1;
@@ -116,6 +119,8 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
           ))}
         </ItemList>
       )}
+
+      {showNavigation && user && <SearchNavigation numPages={Math.ceil(totalHits / pageLimit)} />}
 
       {showPlaceholder && (
         <SearchPlaceholder
