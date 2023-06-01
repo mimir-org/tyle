@@ -1,5 +1,4 @@
 import { Icon } from "complib/media";
-import { TextTypes } from "complib/props";
 import { Text } from "complib/text";
 import { AspectObjectContainer, AspectObjectContainerProps } from "features/common/aspectobject/AspectObject.styled";
 import { useTheme } from "styled-components";
