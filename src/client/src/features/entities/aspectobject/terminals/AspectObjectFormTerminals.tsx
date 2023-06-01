@@ -49,9 +49,9 @@ export const AspectObjectFormTerminals = ({
           field={field}
           errors={errors}
           setValue={setValue}
-          removable={limitedTerminals?.map((x) => x.terminal.id).includes(field.terminalId) ? false : true}
+          removable={limitedTerminals?.map((x) => x.terminal.id + x.connectorDirection).includes(field.terminalId + field.connectorDirection) ? false : true}
           onRemove={() => terminalFields.remove(index)}
-          minValue={limitedTerminals?.find((x) => x.terminal.id === field.terminalId)?.maxQuantity}
+          minValue={limitedTerminals?.find((x) => x.terminal.id === field.terminalId && x.connectorDirection === field.connectorDirection)?.maxQuantity}
         />
       ))}
     </FormSection>
