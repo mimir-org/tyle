@@ -71,7 +71,7 @@ const UnitSmallPreview = (symbol: string) => {
   return (
     <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.tyle.spacing.base}>
       <UnitIcon color={theme.tyle.color.sys.pure.on} />
-      <Text variant={"title-large"} textAlign={"center"}>
+      <Text variant={"title-medium"} textAlign={"center"}>
         {symbol}
       </Text>
     </Flexbox>

@@ -21,7 +21,7 @@ interface AttributePreviewProps {
  * @constructor
  */
 export const TerminalPreview = ({ name, color, variant = "small" }: AttributePreviewProps) => {
-  const headerTextVariant: TextTypes = variant === "small" ? "title-large" : "label-large";
+  const headerTextVariant: TextTypes = variant === "small" ? "title-medium" : "label-large";
   const colorToShow = color.length ? color : "rgba(0,0,0,0)";
 
   return (
