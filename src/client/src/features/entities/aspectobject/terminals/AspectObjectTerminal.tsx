@@ -72,9 +72,15 @@ export const AspectObjectTerminal = ({
 
   const directionOptions = (terminalId: string | undefined) => {
     if (!terminalId) return connectorDirectionOptions;
-    
-    return connectorDirectionOptions.filter((x) => !allTerminals.filter((y) => y.terminalId === terminalId).map((y) => y.connectorDirection).includes(x.value));
-  }
+
+    return connectorDirectionOptions.filter(
+      (x) =>
+        !allTerminals
+          .filter((y) => y.terminalId === terminalId)
+          .map((y) => y.connectorDirection)
+          .includes(x.value)
+    );
+  };
 
   const sourceTerminal = terminalQuery.data?.find((x) => x.id === field.terminalId);
 
@@ -107,7 +113,9 @@ export const AspectObjectTerminal = ({
                   {...rest}
                   selectRef={ref}
                   placeholder={t("common.templates.select", { object: t("aspectObject.terminals.name").toLowerCase() })}
-                  options={terminalQuery.data?.filter((x) => allTerminals.filter((y) => y.terminalId === x.id).length < connectorDirectionOptions.length)}
+                  options={terminalQuery.data?.filter(
+                    (x) => allTerminals.filter((y) => y.terminalId === x.id).length < connectorDirectionOptions.length
+                  )}
                   isLoading={terminalQuery.isLoading}
                   getOptionLabel={(x) => x.name}
                   getOptionValue={(x) => x.id.toString()}
