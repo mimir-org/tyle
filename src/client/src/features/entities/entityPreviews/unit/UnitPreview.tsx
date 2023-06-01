@@ -51,12 +51,12 @@ export default function UnitPreview({
           <Flexbox justifyContent={"space-between"}>
             <Flexbox gap={"1rem"} alignItems={"center"}>
               <Text variant={"display-small"}>{name}</Text>
-              <Text variant={"title-large"} color={"gray"}>
-                {symbol}
-              </Text>
             </Flexbox>
             {isDefault && !noBadge && <Badge variant={"success"}>default</Badge>}
           </Flexbox>
+          <Text variant={"title-large"} color={"gray"}>
+            {symbol}
+          </Text>
           <Text variant={"body-large"} useEllipsis={small}>
             {description}
           </Text>

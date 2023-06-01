@@ -15,8 +15,7 @@ const StyledDiv = styled.div<StyledDivProps>`
   padding: ${(props) => props.theme.tyle.spacing.xl};
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
   background-color: ${(props) => props.theme.tyle.color.sys.pure.base};
-  max-width: ${(props) => (props.small ? "200px" : "500px")};
-  max-height: 200px;
+  max-width: ${(props) => (props.small ? "200px" : "100%")};
   width: ${(props) => (props.small ? "200px" : "100%")};
   border: ${(props) => props.theme.tyle.color.sys.outline.base} solid 1px};
 `;
@@ -45,14 +44,14 @@ export default function QuantityDatumPreview({
           <Text variant={"display-small"} useEllipsis={small}>
             {name}
           </Text>
-          <Text useEllipsis={small} variant={"body-small"}>
-            {description}
-          </Text>
           {quantityDatumType !== undefined ? (
             <Badge variant={"info"}>
               <Text variant={"body-medium"}>{quantityDatumTypeString[quantityDatumType]}</Text>
             </Badge>
           ) : null}
+          <Text useEllipsis={small} variant={"body-large"}>
+            {description}
+          </Text>
         </>
       )}
     </StyledDiv>

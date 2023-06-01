@@ -15,10 +15,12 @@ import { SearchPlaceholder } from "features/explore/search/components/SearchPlac
 import { useFilterState } from "features/explore/search/hooks/useFilterState";
 import { useGetFilterGroups } from "features/explore/search/hooks/useGetFilterGroups";
 import { useSearchResults } from "features/explore/search/hooks/useSearchResults";
-import { useCreateMenuLinks } from "features/explore/search/Search.helpers";
+import { isPositiveInt, useCreateMenuLinks } from "features/explore/search/Search.helpers";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { SearchResultsRenderer } from "./SearchResultsRenderer";
+import { useSearchParams } from "react-router-dom";
+import { SearchNavigation } from "./SearchNavigation";
 
 interface SearchProps {
   selected?: SelectedInfo;
@@ -40,15 +42,24 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
   const createMenuLinks = useCreateMenuLinks();
   const [activeFilters, toggleFilter] = useFilterState([]);
   const [query, setQuery, debouncedQuery] = useDebounceState("");
-  const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageParam = searchParams.get("page");
   const userQuery = useGetCurrentUser();
   const user = userQuery?.data != null ? mapMimirorgUserCmToUserItem(userQuery.data) : undefined;
+  const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit, Number(pageParam));
+
+  if (!isPositiveInt(pageParam) || (!isLoading && Number(pageParam) > Math.ceil(totalHits / pageLimit))) {
+    setSearchParams({ page: "1" });
+  }
 
   const showSearchText = !isLoading;
   const showResults = results.length > 0;
+  const showNavigation = totalHits > pageLimit;
   const showFilterTokens = activeFilters.length > 0;
   const showPlaceholder = !isLoading && results.length === 0;
-  const shown = totalHits < pageLimit ? totalHits : pageLimit;
+  const lowerShown = (Number(pageParam) - 1) * pageLimit + 1;
+  const higherShown = Math.min(Number(pageParam) * pageLimit, totalHits);
+  const shown = totalHits < pageLimit ? totalHits : lowerShown <= higherShown ? lowerShown + "–" + higherShown : 0;
 
   return (
     <ExploreSection title={t("search.title")}>
@@ -107,6 +118,8 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
           ))}
         </ItemList>
       )}
+
+      {showNavigation && user && <SearchNavigation numPages={Math.ceil(totalHits / pageLimit)} />}
 
       {showPlaceholder && (
         <SearchPlaceholder
