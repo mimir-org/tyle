@@ -49,7 +49,7 @@ export default function QuantityDatumPreview({
               <Text variant={"body-medium"}>{quantityDatumTypeString[quantityDatumType]}</Text>
             </Badge>
           ) : null}
-           <Text useEllipsis={small} variant={"body-large"}>
+          <Text useEllipsis={small} variant={"body-large"}>
             {description}
           </Text>
         </>
