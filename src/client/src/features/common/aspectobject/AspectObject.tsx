@@ -1,5 +1,4 @@
 import { Icon } from "complib/media";
-import { TextTypes } from "complib/props";
 import { Text } from "complib/text";
 import { AspectObjectContainer, AspectObjectContainerProps } from "features/common/aspectobject/AspectObject.styled";
 import { useTheme } from "styled-components";
@@ -24,14 +23,10 @@ export const AspectObject = ({ name, img, color, variant = "small" }: AspectObje
 
   return (
     <AspectObjectContainer variant={variant} color={color}>
-      <Text
-        variant={variantSpecs.text.variant as TextTypes}
-        color={theme.tyle.color.ref.neutral["0"]}
-        textAlign={"center"}
-      >
+      {img && <Icon size={variantSpecs.icon.size} src={img} alt="" />}
+      <Text variant={"title-medium"} color={theme.tyle.color.ref.neutral["0"]} textAlign={"center"}>
         {name}
       </Text>
-      {img && <Icon size={variantSpecs.icon.size} src={img} alt="" />}
     </AspectObjectContainer>
   );
 };
@@ -42,7 +37,7 @@ const AspectObjectVariantSpecs = {
       variant: "label-small",
     },
     icon: {
-      size: 24,
+      size: 35,
     },
   },
   large: {
@@ -50,7 +45,7 @@ const AspectObjectVariantSpecs = {
       variant: "label-large",
     },
     icon: {
-      size: 30,
+      size: 40,
     },
   },
 };

@@ -21,6 +21,7 @@ import { useTheme } from "styled-components";
 import { SearchResultsRenderer } from "./SearchResultsRenderer";
 import { useSearchParams } from "react-router-dom";
 import { SearchNavigation } from "./SearchNavigation";
+import { useEffect } from "react";
 
 interface SearchProps {
   selected?: SelectedInfo;
@@ -48,9 +49,11 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
   const user = userQuery?.data != null ? mapMimirorgUserCmToUserItem(userQuery.data) : undefined;
   const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit, Number(pageParam));
 
-  if (!isPositiveInt(pageParam) || (!isLoading && Number(pageParam) > Math.ceil(totalHits / pageLimit))) {
-    setSearchParams({ page: "1" });
-  }
+  useEffect(() => {
+    if (!isPositiveInt(pageParam) || (!isLoading && Number(pageParam) > Math.ceil(totalHits / pageLimit))) {
+      setSearchParams({ page: "1" });
+    }
+  });
 
   const showSearchText = !isLoading;
   const showResults = results.length > 0;

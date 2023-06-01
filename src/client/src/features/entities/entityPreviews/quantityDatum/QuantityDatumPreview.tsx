@@ -63,7 +63,7 @@ export const QuantityDatumSmallPreview = (quantityDatumType: string): JSX.Elemen
   return (
     <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.tyle.spacing.base}>
       <QuantityDatumIcon color={theme.tyle.color.sys.pure.on} />
-      <Text variant={"title-large"} textAlign={"center"}>
+      <Text variant={"title-medium"} textAlign={"center"}>
         {quantityDatumType}
       </Text>
     </Flexbox>
