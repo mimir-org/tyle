@@ -1,8 +1,8 @@
+import { useLocalStorage } from "common/hooks/useLocalStorage";
 import { Filter } from "features/explore/search/types/filter";
-import { useState } from "react";
 
 export const useFilterState = (initial: Filter[]): [filters: Filter[], toggleFilter: (filter: Filter) => void] => {
-  const [filters, setFilters] = useState<Filter[]>(initial);
+  const [filters, setFilters] = useLocalStorage<Filter[]>("search_filter", initial);
 
   const toggleFilter = (filter: Filter) => {
     const filterIsActive = filters.some((x) => x.value === filter.value);
