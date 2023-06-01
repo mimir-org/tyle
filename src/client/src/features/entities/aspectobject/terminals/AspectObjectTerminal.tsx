@@ -82,7 +82,7 @@ export const AspectObjectTerminal = ({
     );
   };
 
-  const sourceTerminal = terminalQuery.data?.find((x) => x.id === field.terminalId);
+  const sourceTerminal = terminalQuery.data?.find((x) => x.id === allTerminals[index].terminalId);
 
   useEffect(() => {
     if (aspect === Aspect.Function) {
