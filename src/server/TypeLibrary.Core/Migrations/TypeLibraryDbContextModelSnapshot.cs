@@ -375,8 +375,8 @@ namespace TypeLibrary.Core.Migrations
 
                     b.Property<string>("ObjectName")
                         .IsRequired()
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)")
                         .HasColumnName("ObjectName");
 
                     b.Property<string>("ObjectType")

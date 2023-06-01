@@ -23,6 +23,7 @@ import { Control, Controller, FieldArrayWithId, FieldErrors, UseFormSetValue, us
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../../../../complib/surfaces";
+import { useEffect } from "react";
 
 interface AspectObjectTerminalProps {
   index: number;
@@ -65,10 +66,34 @@ export const AspectObjectTerminal = ({
   const connectorDirectionOptions = getOptionsFromEnum<ConnectorDirection>(ConnectorDirection);
 
   const aspect = useWatch({ control, name: "aspect" });
+  const allTerminals = useWatch({ control, name: "aspectObjectTerminals" });
   const terminalHasMaxQuantity = useWatch({ control, name: `aspectObjectTerminals.${index}.hasMaxQuantity` });
   const terminalCanHaveLimit = aspect === Aspect.Product;
 
-  const sourceTerminal = terminalQuery.data?.find((x) => x.id === field.terminalId);
+  const directionOptions = (terminalId: string | undefined) => {
+    if (!terminalId) return connectorDirectionOptions;
+
+    return connectorDirectionOptions.filter(
+      (x) =>
+        !allTerminals
+          .filter((y) => y.terminalId === terminalId)
+          .map((y) => y.connectorDirection)
+          .includes(x.value)
+    );
+  };
+
+  const sourceTerminal = terminalQuery.data?.find((x) => x.id === allTerminals[index].terminalId);
+
+  useEffect(() => {
+    if (aspect === Aspect.Function) {
+      setValue(`aspectObjectTerminals.${index}.maxQuantity`, 0, {
+        shouldDirty: true,
+      });
+      setValue(`aspectObjectTerminals.${index}.hasMaxQuantity`, false, {
+        shouldDirty: true,
+      });
+    }
+  }, [index, setValue, aspect]);
 
   return (
     <Flexbox gap={"24px"} alignItems={"center"}>
@@ -88,11 +113,16 @@ export const AspectObjectTerminal = ({
                   {...rest}
                   selectRef={ref}
                   placeholder={t("common.templates.select", { object: t("aspectObject.terminals.name").toLowerCase() })}
-                  options={terminalQuery.data}
+                  options={terminalQuery.data?.filter(
+                    (x) => allTerminals.filter((y) => y.terminalId === x.id).length < connectorDirectionOptions.length
+                  )}
                   isLoading={terminalQuery.isLoading}
                   getOptionLabel={(x) => x.name}
                   getOptionValue={(x) => x.id.toString()}
-                  onChange={(x) => onChange(x?.id)}
+                  onChange={(x) => {
+                    onChange(x?.id);
+                    setValue(`aspectObjectTerminals.${index}.connectorDirection`, directionOptions(x?.id)[0].value);
+                  }}
                   value={terminalQuery.data?.find((x) => x.id === value)}
                   formatOptionLabel={(x) => (
                     <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
@@ -119,7 +149,7 @@ export const AspectObjectTerminal = ({
                   placeholder={t("common.templates.select", {
                     object: t("aspectObject.terminals.direction").toLowerCase(),
                   })}
-                  options={connectorDirectionOptions}
+                  options={directionOptions(allTerminals[index].terminalId)}
                   onChange={(x) => onChange(x?.value)}
                   value={connectorDirectionOptions.find((x) => x.value === value)}
                   isDisabled={!removable}
@@ -143,7 +173,7 @@ export const AspectObjectTerminal = ({
                         {...rest}
                         onCheckedChange={(checked) => {
                           !checked &&
-                            setValue(`aspectObjectTerminals.${index}.maxQuantity`, MAXIMUM_TERMINAL_QUANTITY_VALUE, {
+                            setValue(`aspectObjectTerminals.${index}.maxQuantity`, 0, {
                               shouldDirty: true,
                             });
                           checked &&

@@ -33,7 +33,7 @@ export const TerminalSingle = ({
   );
 };
 
-export const TerminalDescription = ({ name, maxQuantity, color, direction }: AspectObjectTerminalItem) => {
+export const TerminalDescription = ({ name, maxQuantity, color, direction }: Omit<AspectObjectTerminalItem, "id">) => {
   const theme = useTheme();
   const { t } = useTranslation("common");
   const shownQuantity = maxQuantity === MAXIMUM_TERMINAL_QUANTITY_VALUE ? t("terminal.infinite") : maxQuantity;

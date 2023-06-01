@@ -20,4 +20,5 @@ export const FormBaseFieldsContainer = styled.fieldset`
   gap: ${(props) => props.theme.tyle.spacing.xl};
   border: 0;
   padding: 0;
+  min-width: 300px;
 `;

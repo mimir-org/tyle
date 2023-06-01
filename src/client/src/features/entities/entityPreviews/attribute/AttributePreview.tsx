@@ -47,7 +47,7 @@ export default function AttributePreview({ name, description, units, defaultUnit
         <>
           <Text
             color={theme.tyle.color.sys.pure.base}
-            variant={small ? "body-medium" : "headline-large"}
+            variant={small ? "body-medium" : "headline-small"}
             useEllipsis={small}
           >
             {name}
