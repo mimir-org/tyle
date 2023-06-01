@@ -25,11 +25,7 @@ export const AspectObject = ({ name, img, color, variant = "small" }: AspectObje
   return (
     <AspectObjectContainer variant={variant} color={color}>
       {img && <Icon size={variantSpecs.icon.size} src={img} alt="" />}
-      <Text
-        variant={"title-medium"}
-        color={theme.tyle.color.ref.neutral["0"]}
-        textAlign={"center"}
-      >
+      <Text variant={"title-medium"} color={theme.tyle.color.ref.neutral["0"]} textAlign={"center"}>
         {name}
       </Text>
     </AspectObjectContainer>
