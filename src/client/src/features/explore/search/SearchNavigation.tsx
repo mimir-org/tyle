@@ -15,8 +15,16 @@ interface SearchNavigationProps {
  * @param range - the range of pages to show on either side of the current page
  */
 const getPaginationRange = (pageNum: number, numPages: number, range: number) => {
-  const start = Math.max(1, pageNum - range);
-  const end = Math.min(numPages, pageNum + range);
+  if (pageNum - range < 1) {
+    pageNum = range + 1;
+  }
+  if (pageNum + range > numPages) {
+    pageNum = numPages - range;
+  }
+
+  const start = pageNum - range;
+  const end = pageNum + range;
+
   return { start, end };
 };
 
