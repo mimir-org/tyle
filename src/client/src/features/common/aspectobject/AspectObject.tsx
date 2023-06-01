@@ -24,14 +24,14 @@ export const AspectObject = ({ name, img, color, variant = "small" }: AspectObje
 
   return (
     <AspectObjectContainer variant={variant} color={color}>
+      {img && <Icon size={variantSpecs.icon.size} src={img} alt="" />}
       <Text
-        variant={variantSpecs.text.variant as TextTypes}
+        variant={"title-medium"}
         color={theme.tyle.color.ref.neutral["0"]}
         textAlign={"center"}
       >
         {name}
       </Text>
-      {img && <Icon size={variantSpecs.icon.size} src={img} alt="" />}
     </AspectObjectContainer>
   );
 };
@@ -42,7 +42,7 @@ const AspectObjectVariantSpecs = {
       variant: "label-small",
     },
     icon: {
-      size: 24,
+      size: 35,
     },
   },
   large: {
@@ -50,7 +50,7 @@ const AspectObjectVariantSpecs = {
       variant: "label-large",
     },
     icon: {
-      size: 30,
+      size: 40,
     },
   },
 };
