@@ -49,7 +49,6 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
   const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit, Number(pageParam));
 
   if (!isPositiveInt(pageParam) || (!isLoading && Number(pageParam) > Math.ceil(totalHits / pageLimit))) {
-    console.log(pageParam);
     setSearchParams({ page: "1" });
   }
 
