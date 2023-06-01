@@ -5,7 +5,7 @@ export interface QuantityDatumItem extends StateItem {
   id: string;
   name: string;
   description: string;
-  quantityType: QuantityDatumType;
+  quantityDatumType: QuantityDatumType;
   typeReference: string;
   kind: string;
 }

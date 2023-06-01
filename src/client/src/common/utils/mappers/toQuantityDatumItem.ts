@@ -6,7 +6,7 @@ export const toQuantityDatumItem = (datum: QuantityDatumLibCm): QuantityDatumIte
     id: datum.id,
     name: datum.name,
     description: datum.description,
-    quantityType: datum.quantityDatumType,
+    quantityDatumType: datum.quantityDatumType,
     typeReference: datum.typeReference,
     kind: "QuantityDatumItem",
     state: datum.state,
