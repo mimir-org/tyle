@@ -54,7 +54,7 @@ export default function UnitPreview({
             </Flexbox>
             {isDefault && !noBadge && <Badge variant={"success"}>default</Badge>}
           </Flexbox>
-          <Text variant={"title-large"} color={"gray"}>
+          <Text variant={"title-medium"} color={"gray"}>
             {symbol}
           </Text>
           <Text variant={"body-large"} useEllipsis={small}>
