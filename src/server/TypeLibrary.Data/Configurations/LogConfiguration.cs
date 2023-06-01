@@ -20,7 +20,7 @@ public class LogConfiguration : IEntityTypeConfiguration<LogLibDm>
         builder.Property(p => p.ObjectFirstVersionId).HasColumnName("ObjectFirstVersionId").IsRequired(false).HasMaxLength(63);
         builder.Property(p => p.ObjectVersion).HasColumnName("ObjectVersion").IsRequired(false).HasMaxLength(7);
         builder.Property(p => p.ObjectType).HasColumnName("ObjectType").IsRequired().HasMaxLength(63);
-        builder.Property(p => p.ObjectName).HasColumnName("ObjectName").IsRequired().HasMaxLength(63);
+        builder.Property(p => p.ObjectName).HasColumnName("ObjectName").IsRequired().HasMaxLength(127);
         builder.Property(p => p.Created).HasColumnName("Created").IsRequired().HasMaxLength(63);
         builder.Property(p => p.CreatedBy).HasColumnName("User").IsRequired().HasMaxLength(127);
         builder.Property(p => p.LogType).HasColumnName("LogType").IsRequired().HasConversion<string>().HasMaxLength(31);

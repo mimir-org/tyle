@@ -43,10 +43,6 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
         <Input placeholder={t("attribute.placeholders.name")} {...register("name")} disabled={limited} />
       </FormField>
 
-      <FormField label={t("attribute.description")} error={errors.description}>
-        <Textarea placeholder={t("attribute.placeholders.description")} {...register("description")} />
-      </FormField>
-
       <FormField label={t("unit.multiple")} error={errors.units}>
         <Controller
           name="units"
@@ -73,6 +69,7 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
           )}
         />
       </FormField>
+
       {chosenUnits.length > 0 && (
         <FormField label={t("unit.defaultUnitTitle")} error={errors.defaultUnit}>
           <Controller
@@ -94,6 +91,10 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
           />
         </FormField>
       )}
+
+      <FormField label={t("attribute.description")} error={errors.description}>
+        <Textarea placeholder={t("attribute.placeholders.description")} {...register("description")} />
+      </FormField>
 
       <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
         <PlainLink tabIndex={-1} to={"/"}>

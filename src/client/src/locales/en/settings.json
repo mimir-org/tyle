@@ -102,8 +102,9 @@
       "homePage": "Home page"
     },
     "submit": {
+      "cancel": "Cancel",
       "create": "Create new company",
-      "update": "Update company"
+      "update": "Apply changes"
     },
     "toasts": {
       "userdataError": "Could not fetch user data, please try again",

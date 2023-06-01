@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { RdsLibAm } from "@mimirorg/typelibrary-types";
 import { Flexbox } from "../../../complib/layouts";
 import { useTheme } from "styled-components";
+import { FormBaseFieldsContainer } from "complib/form/FormContainer.styled";
 
 interface RdsFormBaseFieldsProps {
   limited?: boolean;
@@ -17,18 +18,20 @@ export const RdsFormBaseFields = ({ limited }: RdsFormBaseFieldsProps) => {
   const { t } = useTranslation("entities");
 
   return (
-    <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
-      <FormField label={t("rds.name")} error={errors.name}>
-        <Input placeholder={t("rds.name")} {...register("name")} required disabled={limited} />
-      </FormField>
+    <FormBaseFieldsContainer>
+      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
+        <FormField label={t("rds.name")} error={errors.name}>
+          <Input placeholder={t("rds.name")} {...register("name")} required disabled={limited} />
+        </FormField>
 
-      <FormField label={t("rds.rdsCode")} error={errors.rdsCode}>
-        <Input placeholder={t("rds.placeholders.rdsCode")} {...register("rdsCode")} required disabled={limited} />
-      </FormField>
+        <FormField label={t("rds.rdsCode")} error={errors.rdsCode}>
+          <Input placeholder={t("rds.placeholders.rdsCode")} {...register("rdsCode")} required disabled={limited} />
+        </FormField>
 
-      <FormField label={t("rds.description")} error={errors.description}>
-        <Textarea placeholder={t("rds.description")} {...register("description")} />
-      </FormField>
-    </Flexbox>
+        <FormField label={t("rds.description")} error={errors.description}>
+          <Textarea placeholder={t("rds.placeholders.description")} {...register("description")} />
+        </FormField>
+      </Flexbox>
+    </FormBaseFieldsContainer>
   );
 };
