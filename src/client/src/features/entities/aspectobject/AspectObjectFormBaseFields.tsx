@@ -187,7 +187,13 @@ export const AspectObjectFormBaseFields = ({ isFirstDraft, mode, state }: Aspect
             {t("common.cancel")}
           </Button>
         </PlainLink>
-        <Button type={"submit"}>{mode === "edit" ? (state === State.Approved ? t("aspectObject.createDraft") : t("common.edit")) : t("common.submit")}</Button>
+        <Button type={"submit"}>
+          {mode === "edit"
+            ? state === State.Approved
+              ? t("aspectObject.createDraft")
+              : t("common.edit")
+            : t("common.submit")}
+        </Button>
       </Flexbox>
     </FormBaseFieldsContainer>
   );

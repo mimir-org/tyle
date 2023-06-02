@@ -70,7 +70,8 @@ export const UnitForm = ({ defaultValues = createEmptyUnit(), mode }: UnitFormPr
                 </PlainLink>
                 <Button type={"submit"}>{mode === "edit" ? t("common.edit") : t("common.submit")}</Button>
               </Flexbox>
-            </Flexbox><UnitFormPreview control={control} />
+            </Flexbox>
+            <UnitFormPreview control={control} />
           </Box>
         )}
         <DevTool control={control} placement={"bottom-right"} />
