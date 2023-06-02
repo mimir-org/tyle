@@ -6,7 +6,7 @@ import { FormAspectObjectLib } from "./types/formAspectObjectLib";
 export const aspectObjectSchema = (t: TFunction<"translation">) =>
   yup.object<YupShape<FormAspectObjectLib>>({
     name: yup.string().max(120, t("common.validation.name.max")).required(t("common.validation.name.required")),
-    typeReference: yup.string().max(255),
+    typeReference: yup.string().max(255).nullable(),
     version: yup.string().max(7),
     companyId: yup
       .number()
@@ -15,8 +15,8 @@ export const aspectObjectSchema = (t: TFunction<"translation">) =>
     aspect: yup.number().required(t("aspectObject.validation.aspect.required")),
     purposeName: yup.string().max(127).required(t("aspectObject.validation.purposeName.required")),
     rdsId: yup.string().required(t("aspectObject.validation.rdsId.required")),
-    symbol: yup.string().max(127),
-    description: yup.string().max(500, t("common.validation.description.max")),
+    symbol: yup.string().max(127).nullable(),
+    description: yup.string().max(500, t("common.validation.description.max")).nullable(),
     aspectObjectTerminals: yup
       .array()
       .of(

@@ -160,7 +160,8 @@
     },
     "validation": {
       "rdsCode": {
-        "max": "The RDS code can be at most 10 characters"
+        "max": "The RDS code can be at most 10 characters",
+        "required": "Please enter a RDS code"
       }
     }
   },
