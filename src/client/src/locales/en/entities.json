@@ -39,6 +39,7 @@
     "submit": "Submit"
   },
   "aspectObject": {
+    "createDraft": "Create new draft",
     "title": "Aspect object",
     "name": "Name",
     "purpose": "Purpose",
