@@ -35,9 +35,11 @@
       "select": "Select {{object}}"
     },
     "cancel": "Cancel",
+    "edit": "Apply changes",
     "submit": "Submit"
   },
   "aspectObject": {
+    "createDraft": "Create new draft",
     "title": "Aspect object",
     "name": "Name",
     "purpose": "Purpose",
@@ -159,7 +161,8 @@
     },
     "validation": {
       "rdsCode": {
-        "max": "The RDS code can be at most 10 characters"
+        "max": "The RDS code can be at most 10 characters",
+        "required": "Please enter a RDS code"
       }
     }
   },

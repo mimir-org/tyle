@@ -62,7 +62,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
         {isLoading && <Loader />}
         {!isLoading && (
           <>
-            <TerminalFormBaseFields limited={limited} />
+            <TerminalFormBaseFields limited={limited} mode={mode} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
               <FormAttributes

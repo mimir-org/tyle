@@ -10,7 +10,9 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { Text } from "../../../complib/text";
 import { FormBaseFieldsContainer } from "complib/form/FormContainer.styled";
+import { FormMode } from "../types/formMode";
 interface TerminalFormBaseFieldsProps {
+  mode?: FormMode;
   limited?: boolean;
 }
 
@@ -18,9 +20,10 @@ interface TerminalFormBaseFieldsProps {
  * Component which contains all simple value fields of the terminal form.
  *
  * @param mode
+ * @param limited
  * @constructor
  */
-export const TerminalFormBaseFields = ({ limited }: TerminalFormBaseFieldsProps) => {
+export const TerminalFormBaseFields = ({ mode, limited }: TerminalFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
   const { control, register, formState } = useFormContext<FormTerminalLib>();
@@ -50,7 +53,7 @@ export const TerminalFormBaseFields = ({ limited }: TerminalFormBaseFieldsProps)
             {t("common.cancel")}
           </Button>
         </PlainLink>
-        <Button type={"submit"}>{t("common.submit")}</Button>
+        <Button type={"submit"}>{mode === "edit" ? t("common.edit") : t("common.submit")}</Button>
       </Flexbox>
     </FormBaseFieldsContainer>
   );
