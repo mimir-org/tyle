@@ -22,7 +22,6 @@ export const QuantityDatumFormBaseFields = ({ limited }: QuantityDatumFormBaseFi
   ];
 
   return (
-    <>
       <FormBaseFieldsContainer>
         <FormField label={t("quantityDatum.name")} error={errors.name}>
           <Input placeholder={t("quantityDatum.placeholders.name")} {...register("name")} required disabled={limited} />
@@ -54,6 +53,5 @@ export const QuantityDatumFormBaseFields = ({ limited }: QuantityDatumFormBaseFi
           <Textarea placeholder={t("quantityDatum.placeholders.description")} {...register("description")} />
         </FormField>
       </FormBaseFieldsContainer>
-    </>
   );
 };

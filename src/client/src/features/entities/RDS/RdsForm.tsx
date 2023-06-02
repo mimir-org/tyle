@@ -68,7 +68,7 @@ export const RdsForm = ({ defaultValues = createEmptyRds(), mode }: RdsFormProps
                     {t("common.cancel")}
                   </Button>
                 </PlainLink>
-                <Button type={"submit"}>{t("common.submit")}</Button>
+                <Button type={"submit"}>{mode === "edit" ? t("common.edit") : t("common.submit")}</Button>
               </Flexbox>
             </Flexbox>
             <RdsFormPreview control={control} />
