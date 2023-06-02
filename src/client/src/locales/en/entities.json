@@ -35,6 +35,7 @@
       "select": "Select {{object}}"
     },
     "cancel": "Cancel",
+    "edit": "Apply changes",
     "submit": "Submit"
   },
   "aspectObject": {
