@@ -20,7 +20,7 @@ describe("registerDetailsSchema tests", () => {
   });
 
   it("should reject with illegal email", async () => {
-    const userForm: Partial<MimirorgUserAm> = { email: "this@missingtopleveldomain" };
+    const userForm: Partial<MimirorgUserAm> = { email: "no-at-character" };
     await expect(registerDetailsSchema(t).validateAt("email", userForm)).rejects.toBeTruthy();
   });
 
