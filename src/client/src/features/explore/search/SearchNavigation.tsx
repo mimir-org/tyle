@@ -1,4 +1,4 @@
-import { ChevronDoubleLeft, ChevronDoubleRight, ChevronLeft, ChevronRight } from "@styled-icons/heroicons-outline";
+import { ChevronLeft, ChevronRight } from "@styled-icons/heroicons-outline";
 import { Button } from "complib/buttons";
 import { Flexbox } from "complib/layouts";
 import { useSearchParams } from "react-router-dom";
@@ -27,17 +27,8 @@ export const SearchNavigation = ({ numPages }: SearchNavigationProps) => {
   const { start, end } = getPaginationRange(pageNum, numPages, 2);
 
   return (
-    <Flexbox gap={theme.tyle.spacing.s} alignItems={"center"} justifyContent={"center"}>
+    <Flexbox gap={theme.tyle.spacing.xl} alignItems={"center"} justifyContent={"center"}>
       <Flexbox justifyContent={"center"}>
-        <Button
-          variant="filled"
-          icon={<ChevronDoubleLeft />}
-          iconOnly
-          onClick={() => setSearchParams({ page: "1" })}
-          disabled={pageNum <= 1}
-        >
-          First
-        </Button>
         <Button
           variant="filled"
           icon={<ChevronLeft />}
@@ -48,18 +39,33 @@ export const SearchNavigation = ({ numPages }: SearchNavigationProps) => {
           Previous
         </Button>
       </Flexbox>
+      {4 <= pageNum && (
+        <>
+          <span onClick={() => setSearchParams({ page: "0" })} style={{ cursor: "pointer" }}>
+            1
+          </span>
+          <span>...</span>
+        </>
+      )}
       {[...Array(numPages).keys()]
         .filter((x) => x + 1 >= start && x + 1 <= end)
         .map((x) => (
-          <Button
+          <span
             key={"navButton" + x}
-            variant="filled"
             onClick={() => setSearchParams({ page: String(x + 1) })}
-            disabled={x + 1 === pageNum}
+            style={{ textDecoration: x + 1 === pageNum ? "underline" : "none", cursor: "pointer" }}
           >
             {x + 1}
-          </Button>
+          </span>
         ))}
+      {pageNum < numPages - 2 && (
+        <>
+          <span>...</span>
+          <span onClick={() => setSearchParams({ page: String(numPages) })} style={{ cursor: "pointer" }}>
+            {numPages}
+          </span>
+        </>
+      )}
       <Flexbox>
         <Button
           variant="filled"
@@ -69,15 +75,6 @@ export const SearchNavigation = ({ numPages }: SearchNavigationProps) => {
           disabled={pageNum >= numPages}
         >
           Next
-        </Button>
-        <Button
-          variant="filled"
-          icon={<ChevronDoubleRight />}
-          iconOnly
-          onClick={() => setSearchParams({ page: String(numPages) })}
-          disabled={pageNum >= numPages}
-        >
-          Last
         </Button>
       </Flexbox>
     </Flexbox>
