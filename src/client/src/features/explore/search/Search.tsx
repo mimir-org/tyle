@@ -80,9 +80,12 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
           activeFilters={activeFilters}
           toggleFilter={toggleFilter}
         />
-        {hasWriteAccess && (
-          <LinkMenu name={t("search.create.title")} links={createMenuLinks} justifyContent={"space-between"} />
-        )}
+        <LinkMenu
+          name={t("search.create.title")}
+          links={createMenuLinks}
+          justifyContent={"space-between"}
+          disabled={!hasWriteAccess}
+        />
       </Flexbox>
 
       {showFilterTokens && (

@@ -10,6 +10,7 @@ interface LinkMenuProps {
   name: string;
   links: Link[];
   justifyContent?: "space-between" | "space-around" | "center" | "start" | "end" | "normal";
+  disabled?: boolean;
 }
 
 /**
@@ -17,10 +18,11 @@ interface LinkMenuProps {
  *
  * @param name text on menu button
  * @param links shortcuts presented in popover
+ * @param disabled whether the button is disabled
  * @param justifyContent how to arrange the button text and icons in the list
  * @constructor
  */
-export const LinkMenu = ({ name, links, justifyContent }: LinkMenuProps) => {
+export const LinkMenu = ({ name, links, justifyContent, disabled }: LinkMenuProps) => {
   const theme = useTheme();
 
   return (
@@ -48,7 +50,9 @@ export const LinkMenu = ({ name, links, justifyContent }: LinkMenuProps) => {
         </Box>
       }
     >
-      <Button flexShrink={"0"}>{name}</Button>
+      <Button disabled={disabled} flexShrink={"0"}>
+        {name}
+      </Button>
     </Popover>
   );
 };
