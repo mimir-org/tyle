@@ -21,6 +21,7 @@ import { FormMode } from "../types/formMode";
 import { Text } from "../../../complib/text";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { rdsSchema } from "./rdsSchema";
+import { useGetAllRds } from "external/sources/rds/rds.queries";
 
 interface RdsFormProps {
   defaultValues?: RdsLibAm;
@@ -31,9 +32,11 @@ export const RdsForm = ({ defaultValues = createEmptyRds(), mode }: RdsFormProps
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
+  const allRdsQuery = useGetAllRds();
+
   const formMethods = useForm<RdsLibAm>({
     defaultValues: defaultValues,
-    resolver: yupResolver(rdsSchema(t)),
+    resolver: yupResolver(rdsSchema(t, allRdsQuery.data ? allRdsQuery.data.map((x) => x.rdsCode) : [])),
   });
 
   const { control, handleSubmit, setError, reset } = formMethods;
