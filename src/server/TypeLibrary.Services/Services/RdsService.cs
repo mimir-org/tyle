@@ -69,6 +69,9 @@ public class RdsService : IRdsService
         if (!validation.IsValid)
             throw new MimirorgBadRequestException("RDS is not valid.", validation);
 
+        if (await _rdsRepository.Exist(x => x.RdsCode.ToUpper().Equals(rdsAm.RdsCode.ToUpper())))
+            throw new MimirorgBadRequestException($"RDS code {rdsAm.RdsCode} is already in use.");
+
         var dm = _mapper.Map<RdsLibDm>(rdsAm);
 
         dm.State = State.Draft;
