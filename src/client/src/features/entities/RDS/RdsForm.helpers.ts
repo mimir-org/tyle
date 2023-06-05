@@ -16,5 +16,5 @@ export const useRdsMutation = (id?: string, mode?: FormMode) => {
 
 export const rdsCodeToUpper = (rds: RdsLibAm): RdsLibAm => ({
   ...rds,
-  rdsCode: rds.rdsCode.toUpperCase()
+  rdsCode: rds.rdsCode.toUpperCase(),
 });
