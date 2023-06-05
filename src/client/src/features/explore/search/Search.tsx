@@ -22,6 +22,7 @@ import { SearchResultsRenderer } from "./SearchResultsRenderer";
 import { useSearchParams } from "react-router-dom";
 import { SearchNavigation } from "./SearchNavigation";
 import { useEffect } from "react";
+import { useHasWriteAccess } from "../../../common/hooks/useGetRoles";
 
 interface SearchProps {
   selected?: SelectedInfo;
@@ -48,6 +49,7 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
   const userQuery = useGetCurrentUser();
   const user = userQuery?.data != null ? mapMimirorgUserCmToUserItem(userQuery.data) : undefined;
   const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit, Number(pageParam));
+  const hasWriteAccess = useHasWriteAccess();
 
   useEffect(() => {
     if (!isPositiveInt(pageParam) || (!isLoading && Number(pageParam) > Math.ceil(totalHits / pageLimit))) {
@@ -78,7 +80,9 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
           activeFilters={activeFilters}
           toggleFilter={toggleFilter}
         />
-        <LinkMenu name={t("search.create.title")} links={createMenuLinks} justifyContent={"space-between"} />
+        {hasWriteAccess && (
+          <LinkMenu name={t("search.create.title")} links={createMenuLinks} justifyContent={"space-between"} />
+        )}
       </Flexbox>
 
       {showFilterTokens && (
