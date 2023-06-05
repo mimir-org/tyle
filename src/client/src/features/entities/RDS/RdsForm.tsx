@@ -13,7 +13,7 @@ import { PlainLink } from "../../common/plain-link";
 import { Button } from "../../../complib/buttons";
 import { useTheme } from "styled-components";
 import { createEmptyRds, toRdsLibAm } from "./types/formRdsLib";
-import { useRdsMutation, useRdsQuery } from "./RdsForm.helpers";
+import { rdsCodeToUpper, useRdsMutation, useRdsQuery } from "./RdsForm.helpers";
 import { RdsFormBaseFields } from "./RdsFormBaseFields";
 import { RdsFormPreview } from "../entityPreviews/rds/RdsFormPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
@@ -55,7 +55,7 @@ export const RdsForm = ({ defaultValues = createEmptyRds(), mode }: RdsFormProps
     <FormProvider {...formMethods}>
       <FormContainer
         onSubmit={handleSubmit((data) => {
-          onSubmitForm(data, mutation.mutateAsync, toast);
+          onSubmitForm(rdsCodeToUpper(data), mutation.mutateAsync, toast);
         })}
       >
         {isLoading ? (
