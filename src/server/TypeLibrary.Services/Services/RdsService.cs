@@ -97,6 +97,12 @@ public class RdsService : IRdsService
 
         var rdsToUpdate = _rdsRepository.Get(id);
 
+        if (!rdsToUpdate.RdsCode.ToUpper().Equals(rdsAm.RdsCode.ToUpper()))
+        {
+            if (await _rdsRepository.Exist(x => x.RdsCode.ToUpper().Equals(rdsAm.RdsCode.ToUpper())))
+                throw new MimirorgBadRequestException($"RDS code {rdsAm.RdsCode} is already in use.");
+        }
+
         if (rdsToUpdate == null)
         {
             throw new MimirorgNotFoundException("RDS not found. Update is not possible.");
