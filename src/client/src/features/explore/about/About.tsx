@@ -94,7 +94,7 @@ export const About = ({ selected }: AboutProps) => {
         />
       )}
       {showAttributePanel && <AttributePreview {...toFormAttributeLib(attributeQuery.data)} />}
-      {showUnitPanel && <UnitPreview {...toUnitLibAm(unitQuery.data)} />}
+      {showUnitPanel && <UnitPreview {...toUnitLibAm(unitQuery.data)} state={unitQuery.data.state} />}
       {showDatumPanel && <QuantityDatumPreview {...toFormDatumLib(datumQuery.data)} />}
       {showRdsPanel && <RdsPreview {...toFormRdsLib(rdsQuery.data)} />}
     </ExploreSection>

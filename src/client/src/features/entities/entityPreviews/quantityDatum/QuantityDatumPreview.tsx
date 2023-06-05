@@ -3,6 +3,8 @@ import { Text } from "../../../../complib/text";
 import Badge from "../../../ui/badges/Badge";
 import { Flexbox } from "../../../../complib/layouts";
 import QuantityDatumIcon from "../../../icons/QuantityDatumIcon";
+import { State } from "@mimirorg/typelibrary-types";
+import { StateBadge } from "../StateBadge";
 
 interface StyledDivProps {
   small?: boolean;
@@ -25,6 +27,7 @@ interface QuantityDatumPreviewProps {
   quantityDatumType?: number;
   description: string;
   small?: boolean;
+  state?: State;
 }
 
 const quantityDatumTypeString = ["Specified scope", "Specified provenance", "Specified range", "Specified regularity"];
@@ -34,6 +37,7 @@ export default function QuantityDatumPreview({
   quantityDatumType,
   description,
   small,
+  state,
 }: QuantityDatumPreviewProps) {
   return (
     <StyledDiv small={small}>
@@ -41,9 +45,12 @@ export default function QuantityDatumPreview({
         QuantityDatumSmallPreview(quantityDatumTypeString[quantityDatumType ?? 0])
       ) : (
         <>
-          <Text variant={"display-small"} useEllipsis={small}>
-            {name}
-          </Text>
+          <Flexbox justifyContent={"space-between"} alignItems={"center"}>
+            <Text variant={"display-small"} useEllipsis={small}>
+              {name}
+            </Text>
+            {state !== undefined ? <StateBadge state={state} /> : null}
+          </Flexbox>
           {quantityDatumType !== undefined ? (
             <Badge variant={"info"}>
               <Text variant={"body-medium"}>{quantityDatumTypeString[quantityDatumType]}</Text>

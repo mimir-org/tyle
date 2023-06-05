@@ -3,12 +3,15 @@ import { Text } from "../../../../complib/text";
 import Badge from "../../../ui/badges/Badge";
 import RdsIcon from "../../../icons/RdsIcon";
 import { Flexbox } from "../../../../complib/layouts";
+import { State } from "@mimirorg/typelibrary-types";
+import { StateBadge } from "../StateBadge";
 
 interface RdsPreviewProps {
   name: string;
   description: string;
   rdsCode: string;
   small?: boolean;
+  state?: State;
 }
 
 interface StyledDivProps {
@@ -26,16 +29,19 @@ const StyledDiv = styled.div<StyledDivProps>`
   height: fit-content;
 `;
 
-export const RdsPreview = ({ name, description, rdsCode, small }: RdsPreviewProps): JSX.Element => {
+export const RdsPreview = ({ name, description, rdsCode, small, state }: RdsPreviewProps): JSX.Element => {
   return (
     <StyledDiv small={small}>
       {small ? (
         RdsSmallPreview(rdsCode)
       ) : (
         <>
-          <Text variant={"title-medium"} useEllipsis={small}>
-            {name}
-          </Text>
+          <Flexbox justifyContent={"space-between"}>
+            <Text variant={"title-medium"} useEllipsis={small}>
+              {name}
+            </Text>
+            {state !== undefined ? <StateBadge state={state} /> : null}
+          </Flexbox>
           <Badge variant={"info"}>
             <Text variant={"body-large"}>{rdsCode}</Text>
           </Badge>
