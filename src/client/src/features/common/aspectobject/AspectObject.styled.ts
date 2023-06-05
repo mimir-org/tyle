@@ -14,7 +14,7 @@ export const AspectObjectContainer = styled.div<AspectObjectContainerProps>`
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  padding: ${(props) => props.theme.tyle.spacing.xl};
+  padding: ${(props) => props.theme.tyle.spacing.base};
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
   border: ${(props) => !props.color && css`1px solid ${props.theme.tyle.color.sys.outline.base}`};
   background: ${(props) => (props.color ? props.color : props.theme.tyle.color.sys.surface.base)};

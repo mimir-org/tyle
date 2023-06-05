@@ -34,7 +34,7 @@ public record ApprovalData
 
     public Task ResolveAspectObjects(IAspectObjectService aspectObjectService, IMapper mapper, IMimirorgAuthService authService)
     {
-        var data = aspectObjectService.GetLatestVersions().Where(x => x.State is State.Approve or State.Delete).ToList();
+        var data = aspectObjectService.GetLatestRequests().ToList();
         data = data.Where(x => authService.HasAccess(x.CompanyId, NextStateMapper(x.State)).Result).ToList();
         var mappedData = mapper.Map<ICollection<ApprovalCm>>(data);
         AspectObjects.AddRange(mappedData);

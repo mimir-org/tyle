@@ -47,7 +47,7 @@ export default function AttributePreview({ name, description, units, defaultUnit
         <>
           <Text
             color={theme.tyle.color.sys.pure.base}
-            variant={small ? "body-medium" : "headline-large"}
+            variant={small ? "body-medium" : "headline-small"}
             useEllipsis={small}
           >
             {name}
@@ -72,7 +72,7 @@ const AttributeSmallPreview = (defaultAttributeSymbol: string) => {
   return (
     <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.tyle.spacing.base}>
       <AttributeIcon color={theme.tyle.color.sys.pure.on} />
-      <Text variant={"title-large"} textAlign={"center"}>
+      <Text variant={"title-medium"} textAlign={"center"}>
         {defaultAttributeSymbol}
       </Text>
     </Flexbox>

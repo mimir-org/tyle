@@ -51,12 +51,12 @@ export default function UnitPreview({
           <Flexbox justifyContent={"space-between"}>
             <Flexbox gap={"1rem"} alignItems={"center"}>
               <Text variant={"display-small"}>{name}</Text>
-              <Text variant={"title-large"} color={"gray"}>
-                {symbol}
-              </Text>
             </Flexbox>
             {isDefault && !noBadge && <Badge variant={"success"}>default</Badge>}
           </Flexbox>
+          <Text variant={"title-medium"} color={"gray"}>
+            {symbol}
+          </Text>
           <Text variant={"body-large"} useEllipsis={small}>
             {description}
           </Text>
@@ -71,7 +71,7 @@ const UnitSmallPreview = (symbol: string) => {
   return (
     <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.tyle.spacing.base}>
       <UnitIcon color={theme.tyle.color.sys.pure.on} />
-      <Text variant={"title-large"} textAlign={"center"}>
+      <Text variant={"title-medium"} textAlign={"center"}>
         {symbol}
       </Text>
     </Flexbox>

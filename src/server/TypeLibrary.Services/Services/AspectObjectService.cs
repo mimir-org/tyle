@@ -54,14 +54,23 @@ public class AspectObjectService : IAspectObjectService
     }
 
     /// <inheritdoc />
-    public IEnumerable<AspectObjectLibCm> GetLatestVersions()
+    public IEnumerable<AspectObjectLibCm> GetLatestApprovedAndDrafts()
     {
-        var dms = _aspectObjectRepository.Get()?.LatestVersionsExcludeDeleted()?.OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+        var latestAll = _aspectObjectRepository.Get()?.LatestVersionsExcludeDeleted()?.ToList() ?? new List<AspectObjectLibDm>();
+        var latestApproved = _aspectObjectRepository.Get()?.LatestVersionsApproved()?.ToList() ?? new List<AspectObjectLibDm>();
 
-        if (dms == null || !dms.Any())
-            return new List<AspectObjectLibCm>();
+        var result = latestAll.Union(latestApproved).OrderBy(x => x.Aspect)
+            .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase);
 
-        return _mapper.Map<List<AspectObjectLibCm>>(dms);
+        return !result.Any() ? new List<AspectObjectLibCm>() : _mapper.Map<List<AspectObjectLibCm>>(result);
+    }
+
+    /// <inheritdoc />
+    public IEnumerable<AspectObjectLibCm> GetLatestRequests()
+    {
+        var latestRequests = _aspectObjectRepository.Get()?.LatestVersionsExcludeDeleted()?.Where(x => x.State is State.Approve or State.Delete).ToList() ?? new List<AspectObjectLibDm>();
+
+        return !latestRequests.Any() ? new List<AspectObjectLibCm>() : _mapper.Map<List<AspectObjectLibCm>>(latestRequests);
     }
 
     /// <inheritdoc />

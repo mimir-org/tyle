@@ -72,9 +72,9 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
 
         foreach (var terminal in other.AspectObjectTerminals)
         {
-            if (!AspectObjectTerminals.Select(x => x.TerminalId).Contains(terminal.TerminalId)) continue;
+            if (!AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection)).Contains((terminal.TerminalId, terminal.ConnectorDirection))) continue;
 
-            var current = AspectObjectTerminals.FirstOrDefault(x => x.TerminalId == terminal.TerminalId);
+            var current = AspectObjectTerminals.FirstOrDefault(x => x.TerminalId == terminal.TerminalId && x.ConnectorDirection == terminal.ConnectorDirection);
             if (terminal.MaxQuantity != 0 && current?.MaxQuantity > terminal.MaxQuantity)
                 validation.AddNotAllowToChange(nameof(AspectObjectTerminals), "It is not allowed to lower max quantity of terminals");
         }

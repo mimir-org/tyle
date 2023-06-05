@@ -14,10 +14,13 @@ import UnitFormBaseFields from "./UnitFormBaseFields";
 import { UnitFormPreview } from "../entityPreviews/unit/UnitFormPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
-import { Box } from "../../../complib/layouts";
+import { Box, Flexbox } from "../../../complib/layouts";
 import { useTheme } from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { unitSchema } from "./unitSchema";
+import { PlainLink } from "features/common/plain-link";
+import { Button } from "complib/buttons";
+import { Text } from "../../../complib/text";
 
 interface UnitFormProps {
   defaultValues?: UnitLibAm;
@@ -56,11 +59,22 @@ export const UnitForm = ({ defaultValues = createEmptyUnit(), mode }: UnitFormPr
           <Loader />
         ) : (
           <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.tyle.spacing.multiple(6)}>
-            <UnitFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
+            <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
+              <Text variant={"display-small"}>{t("unit.title")}</Text>
+              <UnitFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
+              <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
+                <PlainLink tabIndex={-1} to={"/"}>
+                  <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>
+                    {t("common.cancel")}
+                  </Button>
+                </PlainLink>
+                <Button type={"submit"}>{mode === "edit" ? t("common.edit") : t("common.submit")}</Button>
+              </Flexbox>
+            </Flexbox>
             <UnitFormPreview control={control} />
-            <DevTool control={control} placement={"bottom-right"} />
           </Box>
         )}
+        <DevTool control={control} placement={"bottom-right"} />
       </FormContainer>
     </FormProvider>
   );

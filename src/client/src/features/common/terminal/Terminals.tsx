@@ -29,8 +29,8 @@ export const Terminals = ({ terminals, placement, variant, showCollectionLimit =
   return (
     <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xs} minWidth={"30px"} alignItems={alignment}>
       {!useSummary &&
-        terminals.map((terminal) => (
-          <TerminalSingle variant={variant} {...terminal} key={terminal.name + terminal.color + terminal.direction} />
+        terminals.map((terminal, index) => (
+          <TerminalSingle variant={variant} {...terminal} key={terminal.id + terminal.direction + index} />
         ))}
       {useSummary && <TerminalCollection placement={placement} terminals={terminals} />}
     </Box>

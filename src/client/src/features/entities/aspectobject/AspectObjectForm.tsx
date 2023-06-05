@@ -74,7 +74,7 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
         {isLoading && <Loader />}
         {!isLoading && (
           <>
-            <AspectObjectFormBaseFields isFirstDraft={isFirstDraft} />
+            <AspectObjectFormBaseFields isFirstDraft={isFirstDraft} mode={mode} state={query.data?.state} />
 
             <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
               {getSubformForAspect(aspect, limited ? latestApprovedQuery.data?.aspectObjectTerminals : [])}

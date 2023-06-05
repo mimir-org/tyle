@@ -3,14 +3,16 @@ import { FormField } from "complib/form";
 import { Input, Textarea } from "complib/inputs";
 import { Flexbox } from "complib/layouts";
 import { PlainLink } from "features/common/plain-link";
-import { TerminalFormBaseFieldsContainer } from "features/entities/terminal/TerminalFormBaseFields.styled";
 import { TerminalFormPreview } from "features/entities/entityPreviews/terminal/TerminalFormPreview";
 import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-
+import { Text } from "../../../complib/text";
+import { FormBaseFieldsContainer } from "complib/form/FormContainer.styled";
+import { FormMode } from "../types/formMode";
 interface TerminalFormBaseFieldsProps {
+  mode?: FormMode;
   limited?: boolean;
 }
 
@@ -18,18 +20,19 @@ interface TerminalFormBaseFieldsProps {
  * Component which contains all simple value fields of the terminal form.
  *
  * @param mode
+ * @param limited
  * @constructor
  */
-export const TerminalFormBaseFields = ({ limited }: TerminalFormBaseFieldsProps) => {
+export const TerminalFormBaseFields = ({ mode, limited }: TerminalFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
   const { control, register, formState } = useFormContext<FormTerminalLib>();
   const { errors } = formState;
 
   return (
-    <TerminalFormBaseFieldsContainer>
+    <FormBaseFieldsContainer>
+      <Text variant={"display-small"}>{t("terminal.title")}</Text>
       <TerminalFormPreview control={control} />
-
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
         <FormField label={t("terminal.name")} error={errors.name}>
           <Input placeholder={t("terminal.placeholders.name")} {...register("name")} disabled={limited} />
@@ -50,8 +53,8 @@ export const TerminalFormBaseFields = ({ limited }: TerminalFormBaseFieldsProps)
             {t("common.cancel")}
           </Button>
         </PlainLink>
-        <Button type={"submit"}>{t("common.submit")}</Button>
+        <Button type={"submit"}>{mode === "edit" ? t("common.edit") : t("common.submit")}</Button>
       </Flexbox>
-    </TerminalFormBaseFieldsContainer>
+    </FormBaseFieldsContainer>
   );
 };

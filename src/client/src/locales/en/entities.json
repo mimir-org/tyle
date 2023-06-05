@@ -35,9 +35,11 @@
       "select": "Select {{object}}"
     },
     "cancel": "Cancel",
+    "edit": "Apply changes",
     "submit": "Submit"
   },
   "aspectObject": {
+    "createDraft": "Create new draft",
     "title": "Aspect object",
     "name": "Name",
     "purpose": "Purpose",
@@ -47,7 +49,7 @@
     "owner": "Owner",
     "description": "Description",
     "placeholders": {
-      "name": "Aspect object name",
+      "name": "Name",
       "description": "Additional information about this aspect object can be supplied here."
     },
     "disabled": {
@@ -119,7 +121,7 @@
     "owner": "Owner",
     "description": "Description",
     "placeholders": {
-      "name": "Attribute name",
+      "name": "Name",
       "color": "Select color",
       "description": "Additional information about this attribute can be supplied here."
     },
@@ -135,11 +137,11 @@
     "description": "Description",
     "multiple": "Quantity Datums",
     "datumType": "Datum type",
-    "quantityType": "Quantity type",
+    "quantityType": "Quantity Type",
     "typeReference": "Type reference",
     "placeholders": {
-      "name": "Quantity Datum name",
-      "description": "Additional information about this datum can be supplied here."
+      "name": "Name",
+      "description": "Additional information about this quantity datum can be supplied here."
     },
     "validation": {
       "type": {
@@ -154,11 +156,13 @@
     "description": "Description",
     "typeReference": "Type reference",
     "placeholders": {
-      "rdsCode": "Code"
+      "rdsCode": "Code",
+      "description": "Additional information about this RDS can be supplied here."
     },
     "validation": {
       "rdsCode": {
-        "max": "The RDS code can be at most 10 characters"
+        "max": "The RDS code can be at most 10 characters",
+        "required": "Please enter a RDS code"
       }
     }
   },
@@ -169,7 +173,7 @@
     "owner": "Owner",
     "description": "Description",
     "placeholders": {
-      "name": "Terminal name",
+      "name": "Name",
       "color": "Select color",
       "description": "Additional information about this terminal can be supplied here."
     },
@@ -192,9 +196,9 @@
     "multiple": "Units",
     "symbol": "Symbol",
     "placeholders": {
-      "name": "Unit name",
+      "name": "Name",
       "description": "Additional information about this unit can be supplied here.",
-      "symbol": "Unit symbol"
+      "symbol": "Symbol (e.g. kHz, cm, m/s)"
     },
     "validation": {
       "symbol": {

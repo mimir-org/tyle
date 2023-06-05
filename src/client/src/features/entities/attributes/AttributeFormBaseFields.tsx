@@ -1,15 +1,10 @@
-import { Button } from "complib/buttons";
 import { FormField } from "complib/form";
 import { Input, Select, Textarea } from "complib/inputs";
-import { Flexbox } from "complib/layouts";
-import { PlainLink } from "features/common/plain-link";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useTheme } from "styled-components";
 import { useGetUnits } from "../../../external/sources/unit/unit.queries";
 import { FormAttributeLib, toFormUnitHelper } from "./types/formAttributeLib";
 import { FormBaseFieldsContainer } from "../../../complib/form/FormContainer.styled";
-import { Text } from "../../../complib/text";
 
 interface AttributeFormBaseFieldsProps {
   limited?: boolean;
@@ -22,7 +17,6 @@ interface AttributeFormBaseFieldsProps {
  */
 
 export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProps) => {
-  const theme = useTheme();
   const { t } = useTranslation("entities");
   const {
     control,
@@ -38,13 +32,8 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
 
   return (
     <FormBaseFieldsContainer>
-      <Text variant={"display-small"}>{t("attribute.title")}</Text>
       <FormField label={t("attribute.name")} error={errors.name}>
         <Input placeholder={t("attribute.placeholders.name")} {...register("name")} disabled={limited} />
-      </FormField>
-
-      <FormField label={t("attribute.description")} error={errors.description}>
-        <Textarea placeholder={t("attribute.placeholders.description")} {...register("description")} />
       </FormField>
 
       <FormField label={t("unit.multiple")} error={errors.units}>
@@ -73,6 +62,7 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
           )}
         />
       </FormField>
+
       {chosenUnits.length > 0 && (
         <FormField label={t("unit.defaultUnitTitle")} error={errors.defaultUnit}>
           <Controller
@@ -95,14 +85,9 @@ export const AttributeFormBaseFields = ({ limited }: AttributeFormBaseFieldsProp
         </FormField>
       )}
 
-      <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
-        <PlainLink tabIndex={-1} to={"/"}>
-          <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>
-            {t("common.cancel")}
-          </Button>
-        </PlainLink>
-        <Button type={"submit"}>{t("common.submit")}</Button>
-      </Flexbox>
+      <FormField label={t("attribute.description")} error={errors.description}>
+        <Textarea placeholder={t("attribute.placeholders.description")} {...register("description")} />
+      </FormField>
     </FormBaseFieldsContainer>
   );
 };

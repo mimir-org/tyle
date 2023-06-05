@@ -4,10 +4,3 @@ export interface FormUnitHelper {
   symbol: string;
   unitId: string;
 }
-
-export const createEmptyFormUnitHelper = (): FormUnitHelper => ({
-  name: "",
-  description: "",
-  symbol: "",
-  unitId: "",
-});

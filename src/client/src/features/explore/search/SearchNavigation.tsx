@@ -15,8 +15,16 @@ interface SearchNavigationProps {
  * @param range - the range of pages to show on either side of the current page
  */
 const getPaginationRange = (pageNum: number, numPages: number, range: number) => {
-  const start = Math.max(1, pageNum - range);
-  const end = Math.min(numPages, pageNum + range);
+  if (pageNum - range < 1) {
+    pageNum = range + 1;
+  }
+  if (pageNum + range > numPages) {
+    pageNum = numPages - range;
+  }
+
+  const start = pageNum - range;
+  const end = pageNum + range;
+
   return { start, end };
 };
 
@@ -27,8 +35,17 @@ export const SearchNavigation = ({ numPages }: SearchNavigationProps) => {
   const { start, end } = getPaginationRange(pageNum, numPages, 2);
 
   return (
-    <Flexbox gap={theme.tyle.spacing.xl} alignItems={"center"} justifyContent={"center"}>
+    <Flexbox gap={theme.tyle.spacing.s} alignItems={"center"} justifyContent={"center"}>
       <Flexbox justifyContent={"center"}>
+        <Button
+          variant="filled"
+          icon={<ChevronDoubleLeft />}
+          iconOnly
+          onClick={() => setSearchParams({ page: "1" })}
+          disabled={pageNum <= 1}
+        >
+          First
+        </Button>
         <Button
           variant="filled"
           icon={<ChevronLeft />}

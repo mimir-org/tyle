@@ -3,6 +3,7 @@ import { Input, Select, Textarea } from "../../../complib/inputs";
 import { Controller, useFormContext } from "react-hook-form";
 import { QuantityDatumLibAm, QuantityDatumType } from "@mimirorg/typelibrary-types";
 import { useTranslation } from "react-i18next";
+import { FormBaseFieldsContainer } from "complib/form/FormContainer.styled";
 
 interface QuantityDatumFormBaseFieldsProps {
   limited?: boolean;
@@ -21,13 +22,9 @@ export const QuantityDatumFormBaseFields = ({ limited }: QuantityDatumFormBaseFi
   ];
 
   return (
-    <>
+    <FormBaseFieldsContainer>
       <FormField label={t("quantityDatum.name")} error={errors.name}>
         <Input placeholder={t("quantityDatum.placeholders.name")} {...register("name")} required disabled={limited} />
-      </FormField>
-
-      <FormField label={t("quantityDatum.description")} error={errors.description}>
-        <Textarea placeholder={t("quantityDatum.placeholders.description")} {...register("description")} />
       </FormField>
 
       <FormField label={t("quantityDatum.quantityType")} error={errors.quantityDatumType}>
@@ -51,6 +48,10 @@ export const QuantityDatumFormBaseFields = ({ limited }: QuantityDatumFormBaseFi
           )}
         />
       </FormField>
-    </>
+
+      <FormField label={t("quantityDatum.description")} error={errors.description}>
+        <Textarea placeholder={t("quantityDatum.placeholders.description")} {...register("description")} />
+      </FormField>
+    </FormBaseFieldsContainer>
   );
 };
