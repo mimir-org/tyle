@@ -1,5 +1,4 @@
 import { ApprovalDataCm, State } from "@mimirorg/typelibrary-types";
-import { Option } from "common/utils/getOptionsFromEnum";
 import { toast } from "complib/data-display";
 import { Text } from "complib/text";
 import { useTranslation } from "react-i18next";
@@ -19,10 +18,8 @@ import { usePatchAttributeState } from "../../../../../external/sources/attribut
 /**
  * Shows a toast while an approval is sent to server.
  * Shows an undo action on the toast after the approval is sent.
- *
- * @param oldState state that the approval had before being approved
  */
-export const useApprovalToasts = (oldState?: Option<State>) => {
+export const useApprovalToasts = () => {
   const theme = useTheme();
   const { t } = useTranslation("settings");
   const patchMutationAspectObject = usePatchAspectObjectState();
@@ -79,59 +76,6 @@ export const useApprovalToasts = (oldState?: Option<State>) => {
         },
       }
     );
-  };
-};
-
-/**
- * Shows a toast while an approval is being reverted.
- *
- * Reverts the approval.
- * Reverts back to the old approval.
- *
- * @param oldState state that the approval had before being approved
- */
-const useUndoApprovalToast = (oldState?: Option<State>) => {
-  const { t } = useTranslation("settings");
-  const patchMutationAspectObject = usePatchAspectObjectState();
-  const patchMutationTerminal = usePatchTerminalState();
-  const patchMutationUnit = usePatchUnitState();
-  const patchMutationQuantityDatum = usePatchQuantityDatumState();
-  const patchMutationRds = usePatchRdsState();
-  const patchMutationAttribute = usePatchAttributeState();
-  const shouldRevertToOldApproval = !!oldState;
-
-  return (name: string, submission: FormApproval) => {
-    const targetSubmission = shouldRevertToOldApproval ? { ...submission, state: oldState } : submission;
-    let mutationPromise;
-
-    switch (submission.objectType) {
-      case "AspectObject":
-        mutationPromise = patchMutationAspectObject.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
-        break;
-      case "Terminal":
-        mutationPromise = patchMutationTerminal.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
-        break;
-      case "Unit":
-        mutationPromise = patchMutationUnit.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
-        break;
-      case "Quantity datum":
-        mutationPromise = patchMutationQuantityDatum.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
-        break;
-      case "Rds":
-        mutationPromise = patchMutationRds.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
-        break;
-      case "Attribute":
-        mutationPromise = patchMutationAttribute.mutateAsync(mapFormApprovalToApiModel(targetSubmission));
-        break;
-      default:
-        throw new Error("Unable to undo, ask a developer for help resolving this issue.");
-    }
-
-    return toast.promise(mutationPromise, {
-      loading: t("common.approval.undo.loading"),
-      success: t("common.approval.undo.success"),
-      error: t("common.approval.undo.error"),
-    });
   };
 };
 
