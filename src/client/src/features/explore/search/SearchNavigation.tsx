@@ -35,17 +35,8 @@ export const SearchNavigation = ({ numPages }: SearchNavigationProps) => {
   const { start, end } = getPaginationRange(pageNum, numPages, 2);
 
   return (
-    <Flexbox gap={theme.tyle.spacing.s} alignItems={"center"} justifyContent={"center"}>
+    <Flexbox gap={theme.tyle.spacing.l} alignItems={"center"} justifyContent={"center"}>
       <Flexbox justifyContent={"center"}>
-        <Button
-          variant="filled"
-          icon={<ChevronDoubleLeft />}
-          iconOnly
-          onClick={() => setSearchParams({ page: "1" })}
-          disabled={pageNum <= 1}
-        >
-          First
-        </Button>
         <Button
           variant="filled"
           icon={<ChevronLeft />}
