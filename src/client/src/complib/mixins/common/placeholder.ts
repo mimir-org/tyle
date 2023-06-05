@@ -9,5 +9,6 @@ export const placeholder = css`
     letter-spacing: ${(props) => props.theme.tyle.typography.sys.roles.body.medium.letterSpacing};
     line-height: ${(props) => props.theme.tyle.typography.sys.roles.body.medium.lineHeight};
     color: ${(props) => props.theme.tyle.color.sys.outline.base};
+    text-transform: none;
   }
 `;

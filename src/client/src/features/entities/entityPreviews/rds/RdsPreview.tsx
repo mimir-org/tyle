@@ -43,7 +43,7 @@ export const RdsPreview = ({ name, description, rdsCode, small, state }: RdsPrev
             {state !== undefined ? <StateBadge state={state} /> : null}
           </Flexbox>
           <Badge variant={"info"}>
-            <Text variant={"body-large"}>{rdsCode}</Text>
+            <Text variant={"body-large"}>{rdsCode.toUpperCase()}</Text>
           </Badge>
           <Text variant={"body-large"} useEllipsis={small}>
             {description}
@@ -60,7 +60,7 @@ const RdsSmallPreview = (rdsCode: string) => {
     <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.tyle.spacing.base}>
       <RdsIcon color={theme.tyle.color.sys.pure.on} />
       <Text variant={"title-medium"} textAlign={"center"}>
-        {rdsCode}
+        {rdsCode.toUpperCase()}
       </Text>
     </Flexbox>
   );

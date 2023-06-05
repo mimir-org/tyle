@@ -13,7 +13,7 @@ import { PlainLink } from "../../common/plain-link";
 import { Button } from "../../../complib/buttons";
 import { useTheme } from "styled-components";
 import { createEmptyRds, toRdsLibAm } from "./types/formRdsLib";
-import { useRdsMutation, useRdsQuery } from "./RdsForm.helpers";
+import { rdsCodeToUpper, useRdsMutation, useRdsQuery } from "./RdsForm.helpers";
 import { RdsFormBaseFields } from "./RdsFormBaseFields";
 import { RdsFormPreview } from "../entityPreviews/rds/RdsFormPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
@@ -21,6 +21,7 @@ import { FormMode } from "../types/formMode";
 import { Text } from "../../../complib/text";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { rdsSchema } from "./rdsSchema";
+import { useGetAllRds } from "external/sources/rds/rds.queries";
 
 interface RdsFormProps {
   defaultValues?: RdsLibAm;
@@ -31,15 +32,23 @@ export const RdsForm = ({ defaultValues = createEmptyRds(), mode }: RdsFormProps
   const theme = useTheme();
   const { t } = useTranslation("entities");
 
+  const allRdsQuery = useGetAllRds();
+
+  const query = useRdsQuery();
+  const mapper = (source: RdsLibCm) => toRdsLibAm(source);
+
   const formMethods = useForm<RdsLibAm>({
     defaultValues: defaultValues,
-    resolver: yupResolver(rdsSchema(t)),
+    resolver: yupResolver(
+      rdsSchema(
+        t,
+        allRdsQuery.data ? allRdsQuery.data.map((x) => x.rdsCode).filter((x) => x !== query.data?.rdsCode) : []
+      )
+    ),
   });
 
   const { control, handleSubmit, setError, reset } = formMethods;
 
-  const query = useRdsQuery();
-  const mapper = (source: RdsLibCm) => toRdsLibAm(source);
   const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useRdsMutation(query.data?.id, mode);
@@ -52,7 +61,7 @@ export const RdsForm = ({ defaultValues = createEmptyRds(), mode }: RdsFormProps
     <FormProvider {...formMethods}>
       <FormContainer
         onSubmit={handleSubmit((data) => {
-          onSubmitForm(data, mutation.mutateAsync, toast);
+          onSubmitForm(rdsCodeToUpper(data), mutation.mutateAsync, toast);
         })}
       >
         {isLoading ? (
