@@ -34,15 +34,21 @@ export const RdsForm = ({ defaultValues = createEmptyRds(), mode }: RdsFormProps
 
   const allRdsQuery = useGetAllRds();
 
+  const query = useRdsQuery();
+  const mapper = (source: RdsLibCm) => toRdsLibAm(source);
+
   const formMethods = useForm<RdsLibAm>({
     defaultValues: defaultValues,
-    resolver: yupResolver(rdsSchema(t, allRdsQuery.data ? allRdsQuery.data.map((x) => x.rdsCode) : [])),
+    resolver: yupResolver(
+      rdsSchema(
+        t,
+        allRdsQuery.data ? allRdsQuery.data.map((x) => x.rdsCode).filter((x) => x !== query.data?.rdsCode) : []
+      )
+    ),
   });
 
   const { control, handleSubmit, setError, reset } = formMethods;
 
-  const query = useRdsQuery();
-  const mapper = (source: RdsLibCm) => toRdsLibAm(source);
   const [_, isLoading] = usePrefilledForm(query, mapper, reset);
 
   const mutation = useRdsMutation(query.data?.id, mode);
