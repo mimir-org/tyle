@@ -28,6 +28,20 @@ export const useDefaultCompanyOptions = (
   }, [companyOptions, selectedCompany, setSelectedCompany]);
 };
 
+/**
+ * Returns the permission options for the permission dropdown.
+ * The options are based on the MimirorgPermission enum.
+ * @returns {Option<string>[]} The permission options
+ * @example
+ * const permissionOptions = getPermissionOptions();
+ * // permissionOptions = [
+ * //   { value: "-1", label: "All" },
+ * //   { value: "0", label: "None" },
+ * //   { value: "1", label: "Read" },
+ * //   { value: "2", label: "Write" },
+ * //   { value: "3", label: "Manage" },
+ * // ];
+ */
 export const getPermissionOptions = (): Option<string>[] => {
   const regularPermissions = getOptionsFromEnum<MimirorgPermission>(MimirorgPermission);
   const regularPermissionsMapped = regularPermissions.map((x) => ({

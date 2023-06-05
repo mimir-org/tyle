@@ -36,6 +36,10 @@ export const Approval = () => {
 
   /*
    * Rejects an approval request
+   * @param id the id of the approval request
+   * @param state the state to set the approval request to
+   * @param objectType the type of object the approval request is for
+   * @see State
    */
   const onReject = (id: string, state: State, objectType: string) => {
     const data: ApprovalDataCm = { id: id, state: state };
