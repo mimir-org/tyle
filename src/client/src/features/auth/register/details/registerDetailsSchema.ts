@@ -15,7 +15,7 @@ export const registerDetailsSchema = (t: TFunction<"translation">, companiesAreA
       .required(t("register.details.validation.password.required")),
     confirmPassword: yup
       .string()
-      .oneOf([yup.ref("password"), null], t("register.details.validation.confirmPassword.match"))
+      .oneOf([yup.ref("password"), undefined], t("register.details.validation.confirmPassword.match"))
       .required(t("register.details.validation.confirmPassword.required")),
     firstName: yup.string().required(t("register.details.validation.firstName.required")),
     lastName: yup.string().required(t("register.details.validation.lastName.required")),

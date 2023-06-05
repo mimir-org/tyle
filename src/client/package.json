@@ -35,7 +35,7 @@
     "styled-components": "^5.3.9",
     "typescript": "^4.9.5",
     "usehooks-ts": "^2.9.1",
-    "yup": "^0.32.11"
+    "yup": "^1.2.0"
   },
   "scripts": {
     "start": "cross-env PORT=3001 react-scripts start",
