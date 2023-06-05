@@ -22,7 +22,7 @@ import { SearchResultsRenderer } from "./SearchResultsRenderer";
 import { useSearchParams } from "react-router-dom";
 import { SearchNavigation } from "./SearchNavigation";
 import { useEffect } from "react";
-import { useHasWriteAccess } from "../../../common/hooks/useGetRoles";
+import { useHasWriteAccess } from "../../../common/hooks/useHasWriteAccess";
 
 interface SearchProps {
   selected?: SelectedInfo;
