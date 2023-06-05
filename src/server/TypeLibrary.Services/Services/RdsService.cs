@@ -72,6 +72,8 @@ public class RdsService : IRdsService
         if (await _rdsRepository.Exist(x => x.RdsCode.ToUpper().Equals(rdsAm.RdsCode.ToUpper())))
             throw new MimirorgBadRequestException($"RDS code {rdsAm.RdsCode} is already in use.");
 
+        rdsAm.RdsCode = rdsAm.RdsCode.ToUpper();
+
         var dm = _mapper.Map<RdsLibDm>(rdsAm);
 
         dm.State = State.Draft;
@@ -107,7 +109,7 @@ public class RdsService : IRdsService
 
         if (rdsToUpdate.State != State.Approved)
         {
-            rdsToUpdate.RdsCode = rdsAm.RdsCode;
+            rdsToUpdate.RdsCode = rdsAm.RdsCode.ToUpper();
             rdsToUpdate.Name = rdsAm.Name;
             rdsToUpdate.TypeReference = rdsAm.TypeReference;
             rdsToUpdate.CategoryId = rdsAm.CategoryId;
