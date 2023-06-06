@@ -11,7 +11,7 @@ export const useSubmissionToast = (type: string) => {
       loading: t("common.processing.loading", { type }),
       success: t("common.processing.success", { type }),
       error: (error: AxiosError) => {
-        if (error.response?.status === 403)  return t("common.processing.error.403", { data: error.response?.data });
+        if (error.response?.status === 403) return t("common.processing.error.403", { data: error.response?.data });
         return t("common.processing.error.default", { type });
       },
     });
