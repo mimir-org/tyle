@@ -1,4 +1,4 @@
-import { Aspect, MimirorgPermission } from "@mimirorg/typelibrary-types";
+import { Aspect, MimirorgPermission, State } from "@mimirorg/typelibrary-types";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { Button } from "complib/buttons";
@@ -20,18 +20,23 @@ import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
 import { FormBaseFieldsContainer } from "../../../complib/form/FormContainer.styled";
+import { FormMode } from "../types/formMode";
 
 interface AspectObjectFormBaseFieldsProps {
   isFirstDraft?: boolean;
+  mode?: FormMode;
+  state?: State;
 }
 
 /**
  * Component which contains all shared fields for variations of the aspect object form.
  *
+ * @param isFirstDraft
  * @param mode
+ * @param state
  * @constructor
  */
-export const AspectObjectFormBaseFields = ({ isFirstDraft }: AspectObjectFormBaseFieldsProps) => {
+export const AspectObjectFormBaseFields = ({ isFirstDraft, mode, state }: AspectObjectFormBaseFieldsProps) => {
   const theme = useTheme();
   const { t } = useTranslation("entities");
   const { control, register, resetField, formState } = useFormContext<FormAspectObjectLib>();
@@ -182,7 +187,13 @@ export const AspectObjectFormBaseFields = ({ isFirstDraft }: AspectObjectFormBas
             {t("common.cancel")}
           </Button>
         </PlainLink>
-        <Button type={"submit"}>{t("common.submit")}</Button>
+        <Button type={"submit"}>
+          {mode === "edit"
+            ? state === State.Approved
+              ? t("aspectObject.createDraft")
+              : t("common.edit")
+            : t("common.submit")}
+        </Button>
       </Flexbox>
     </FormBaseFieldsContainer>
   );

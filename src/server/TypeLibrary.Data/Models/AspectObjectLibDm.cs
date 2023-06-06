@@ -132,7 +132,7 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
         // Aspect Object Terminals
         AspectObjectTerminals ??= new List<AspectObjectTerminalLibDm>();
         other.AspectObjectTerminals ??= new List<AspectObjectTerminalLibAm>();
-        var otherTerminals = other.AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection, x.MaxQuantity)).OrderBy(x => x.TerminalId).ThenBy(x => x.ConnectorDirection).ThenBy(x => x.MaxQuantity);
+        var otherTerminals = other.AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection, MaxQuantity: x.MaxQuantity == 0 ? int.MaxValue : x.MaxQuantity)).OrderBy(x => x.TerminalId).ThenBy(x => x.ConnectorDirection).ThenBy(x => x.MaxQuantity);
         if (!AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection, x.MaxQuantity)).OrderBy(x => x.TerminalId).ThenBy(x => x.ConnectorDirection).ThenBy(x => x.MaxQuantity).SequenceEqual(otherTerminals))
             major = true;
 

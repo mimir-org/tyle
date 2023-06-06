@@ -48,7 +48,7 @@ const filterItems = (filters: Filter[], items: SearchResultRaw[]) => {
     );
   }
 
-  return intersect(filteredPerKey);
+  return sortItemsByDate(intersect(filteredPerKey));
 };
 
 /**
