@@ -17,6 +17,14 @@
       "templates": {
         "delete": "Do you want to send delete request?",
         "approve": "Do you want to send approval request?"
+      },
+      "toast": {
+        "loading": "Sending request",
+        "success": "Request submitted",
+        "error": {
+          "403": "403 (Forbidden) error: {{data}}",
+          "default": "An error occurred while sending the request"
+        }
       }
     },
     "help": {

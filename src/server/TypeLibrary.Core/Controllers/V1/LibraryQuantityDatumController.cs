@@ -217,7 +217,7 @@ public class LibraryQuantityDatumController : ControllerBase
             var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status401Unauthorized);
+                return StatusCode(StatusCodes.Status403Forbidden);
 
             var data = await _quantityDatumService.ChangeState(id, state);
             return Ok(data);
@@ -264,7 +264,7 @@ public class LibraryQuantityDatumController : ControllerBase
             var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, cm.State == State.Approve ? State.Approved : State.Delete);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status401Unauthorized);
+                return StatusCode(StatusCodes.Status403Forbidden);
 
             var data = await _quantityDatumService.ChangeState(id, State.Draft);
             return Ok(data);

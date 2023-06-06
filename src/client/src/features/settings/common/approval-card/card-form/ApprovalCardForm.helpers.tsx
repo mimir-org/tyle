@@ -14,6 +14,7 @@ import { usePatchUnitState } from "../../../../../external/sources/unit/unit.que
 import { usePatchQuantityDatumState } from "../../../../../external/sources/datum/quantityDatum.queries";
 import { usePatchRdsState } from "../../../../../external/sources/rds/rds.queries";
 import { usePatchAttributeState } from "../../../../../external/sources/attribute/attribute.queries";
+import { AxiosError } from "axios";
 
 /**
  * Shows a toast while an approval is sent to server.
@@ -66,7 +67,11 @@ export const useApprovalToasts = () => {
             </Text>
           </Flexbox>
         ),
-        error: t("common.approval.processing.error"),
+        error: (error: AxiosError) => {
+          if (error.response?.status === 403)
+            return t("common.approval.processing.error.403", { data: error.response?.data ?? "" });
+          return t("common.approval.processing.error.default");
+        },
       },
       {
         success: {
