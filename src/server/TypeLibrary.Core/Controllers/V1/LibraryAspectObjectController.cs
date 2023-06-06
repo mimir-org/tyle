@@ -267,7 +267,7 @@ public class LibraryAspectObjectController : ControllerBase
                 return StatusCode(StatusCodes.Status403Forbidden,
                     $"Can't reject a state change for an object with state {cm.State}");
 
-            var hasAccess = await _authService.HasAccess(_aspectObjectService.GetCompanyId(id), cm.State == State.Approve ? State.Approved : State.Delete);
+            var hasAccess = await _authService.HasAccess(_aspectObjectService.GetCompanyId(id), cm.State == State.Approve ? State.Approved : State.Deleted);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
