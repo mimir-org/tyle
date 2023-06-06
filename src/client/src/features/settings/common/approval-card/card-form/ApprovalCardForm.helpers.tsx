@@ -68,7 +68,8 @@ export const useApprovalToasts = () => {
           </Flexbox>
         ),
         error: (error: AxiosError) => {
-          if (error.response?.status === 403) return t("common.approval.processing.error.403", { data: error.response?.data });
+          if (error.response?.status === 403)
+            return t("common.approval.processing.error.403", { data: error.response?.data ?? "" });
           return t("common.approval.processing.error.default");
         },
       },
