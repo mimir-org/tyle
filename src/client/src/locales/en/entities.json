@@ -20,7 +20,10 @@
     "processing": {
       "loading": "Submitting {{type}}",
       "success": "Your {{type}} has been submitted",
-      "error": "An error occurred during {{type}} submission"
+      "error": {
+        "403": "403 (Forbidden) error: {{data}}",
+        "default": "An error occurred during {{type}} submission"
+      }
     },
     "validation": {
       "name": {
