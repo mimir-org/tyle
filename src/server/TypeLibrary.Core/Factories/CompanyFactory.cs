@@ -26,7 +26,7 @@ public class CompanyFactory : ICompanyFactory
         try
         {
             return _companyCache.GetOrCreateAsync($"company-{companyId}",
-                async () => await _mimirorgCompanyService.GetCompanyById(companyId.Value)).Result.Name;
+                async () => await _mimirorgCompanyService.GetCompanyById(companyId.Value), 300).Result.Name;
         }
         catch (MimirorgNotFoundException exception)
         {
