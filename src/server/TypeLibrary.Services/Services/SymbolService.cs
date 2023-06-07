@@ -1,5 +1,6 @@
 using AutoMapper;
 using Mimirorg.Common.Enums;
+using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;
@@ -32,6 +34,16 @@ public class SymbolService : ISymbolService
             .OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 
         return _mapper.Map<List<SymbolLibCm>>(symbolLibDms);
+    }
+
+    public SymbolLibCm Get(string id)
+    {
+        var dm = _symbolRepository.Get(id);
+
+        if (dm == null)
+            throw new MimirorgNotFoundException($"Symbol with id {id} not found.");
+
+        return _mapper.Map<SymbolLibCm>(dm);
     }
 
     public async Task Create(IEnumerable<SymbolLibAm> symbolLibAmList, string createdBy = null)
