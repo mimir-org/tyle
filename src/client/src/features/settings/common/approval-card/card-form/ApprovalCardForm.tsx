@@ -36,7 +36,6 @@ export const ApprovalCardForm = ({
   const stateOptions = getOptionsFromEnum<State>(State);
   const nextState = findNextState(item.state);
   const currentState = stateOptions.find((x) => x.value === nextState);
-  const oldState = stateOptions.find((x) => x.value === item.state);
 
   const { register, handleSubmit } = useForm<FormApproval>({
     resolver: yupResolver(approvalSchema(t)),
@@ -48,7 +47,7 @@ export const ApprovalCardForm = ({
     },
   });
 
-  const toast = useApprovalToasts(oldState);
+  const toast = useApprovalToasts();
 
   return (
     <Form id={formId} onSubmit={handleSubmit((data) => toast(item.id, data).then(() => onSubmit && onSubmit()))}>

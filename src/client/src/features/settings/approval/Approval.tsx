@@ -10,10 +10,10 @@ import { approvalKeys, useGetApprovals } from "external/sources/approval/approva
 import { ApprovalDataCm, State } from "@mimirorg/typelibrary-types";
 import { usePatchAspectObjectStateReject } from "external/sources/aspectobject/aspectObject.queries";
 import { usePatchTerminalStateReject } from "external/sources/terminal/terminal.queries";
-import { usePatchAttributeState } from "../../../external/sources/attribute/attribute.queries";
-import { usePatchUnitState } from "../../../external/sources/unit/unit.queries";
-import { usePatchRdsState } from "../../../external/sources/rds/rds.queries";
-import { usePatchQuantityDatumState } from "../../../external/sources/datum/quantityDatum.queries";
+import { usePatchAttributeStateReject } from "../../../external/sources/attribute/attribute.queries";
+import { usePatchUnitStateReject } from "../../../external/sources/unit/unit.queries";
+import { usePatchRdsStateReject } from "../../../external/sources/rds/rds.queries";
+import { usePatchQuantityDatumStateReject } from "../../../external/sources/datum/quantityDatum.queries";
 
 export const Approval = () => {
   const queryClient = useQueryClient();
@@ -22,10 +22,10 @@ export const Approval = () => {
   const approvals = useGetApprovals();
   const patchMutationRejectAspectObject = usePatchAspectObjectStateReject();
   const patchMutationRejectTerminal = usePatchTerminalStateReject();
-  const patchMutationRejectAttribute = usePatchAttributeState();
-  const patchMutationRejectUnit = usePatchUnitState();
-  const patchMutationRejectQuantityDatum = usePatchQuantityDatumState();
-  const patchMutationRejectRds = usePatchRdsState();
+  const patchMutationRejectAttribute = usePatchAttributeStateReject();
+  const patchMutationRejectUnit = usePatchUnitStateReject();
+  const patchMutationRejectQuantityDatum = usePatchQuantityDatumStateReject();
+  const patchMutationRejectRds = usePatchRdsStateReject();
   const showPlaceholder = approvals?.data && approvals.data.length === 0;
 
   const onSubmit = () => {
@@ -36,6 +36,10 @@ export const Approval = () => {
 
   /*
    * Rejects an approval request
+   * @param id the id of the approval request
+   * @param state the state to set the approval request to
+   * @param objectType the type of object the approval request is for
+   * @see State
    */
   const onReject = (id: string, state: State, objectType: string) => {
     const data: ApprovalDataCm = { id: id, state: state };
@@ -53,7 +57,7 @@ export const Approval = () => {
       case "Unit":
         patchMutationRejectUnit.mutateAsync(data);
         break;
-      case "QuantityDatum":
+      case "Quantity datum":
         patchMutationRejectQuantityDatum.mutateAsync(data);
         break;
       case "Rds":

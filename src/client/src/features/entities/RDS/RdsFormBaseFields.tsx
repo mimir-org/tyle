@@ -21,7 +21,13 @@ export const RdsFormBaseFields = ({ limited }: RdsFormBaseFieldsProps) => {
       </FormField>
 
       <FormField label={t("rds.rdsCode")} error={errors.rdsCode}>
-        <Input placeholder={t("rds.placeholders.rdsCode")} {...register("rdsCode")} required disabled={limited} />
+        <Input
+          placeholder={t("rds.placeholders.rdsCode")}
+          {...register("rdsCode")}
+          required
+          disabled={limited}
+          style={{ textTransform: "uppercase" }}
+        />
       </FormField>
 
       <FormField label={t("rds.description")} error={errors.description}>

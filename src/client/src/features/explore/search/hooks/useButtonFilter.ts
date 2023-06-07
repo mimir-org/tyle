@@ -3,6 +3,7 @@ import { UserItem } from "common/types/userItem";
 import { useEffect, useState } from "react";
 import { MimirorgPermission, State } from "@mimirorg/typelibrary-types";
 import { isAspectObjectItem } from "../guards/isItemValidators";
+import { hasWriteAccess } from "../../../../common/hooks/useHasWriteAccess";
 
 export interface ButtonState {
   clone: boolean;
@@ -49,10 +50,7 @@ export const useButtonStateFilter = (item: StateItem | null, user: UserItem | nu
 const allowClone = (item: StateItem | null, user: UserItem | null): boolean => {
   if (item == null || user == null) return false;
 
-  const anyWrite = Object.values(user.permissions).some(
-    (x) => (x.value & MimirorgPermission.Write) === MimirorgPermission.Write
-  );
-  return anyWrite && item.state !== State.Delete && item.state !== State.Deleted;
+  return hasWriteAccess(user) && item.state !== State.Delete && item.state !== State.Deleted;
 };
 
 const allowEdit = (item: StateItem | null, user: UserItem | null): boolean => {
@@ -66,7 +64,8 @@ const allowEdit = (item: StateItem | null, user: UserItem | null): boolean => {
   }
   if (permissionForCompany == null) return false;
 
-  const hasMinimumWrite = (permissionForCompany & MimirorgPermission.Write) === MimirorgPermission.Write;
+  const hasMinimumWrite = hasWriteAccess(user);
+
   return hasMinimumWrite && item.state !== State.Approve && item.state !== State.Delete && item.state !== State.Deleted;
 };
 

@@ -20,7 +20,10 @@
     "processing": {
       "loading": "Submitting {{type}}",
       "success": "Your {{type}} has been submitted",
-      "error": "An error occurred during {{type}} submission"
+      "error": {
+        "403": "403 (Forbidden) error: {{data}}",
+        "default": "An error occurred during {{type}} submission"
+      }
     },
     "validation": {
       "name": {
@@ -162,7 +165,8 @@
     "validation": {
       "rdsCode": {
         "max": "The RDS code can be at most 10 characters",
-        "required": "Please enter a RDS code"
+        "required": "Please enter a RDS code",
+        "unique": "This RDS code is already in use"
       }
     }
   },

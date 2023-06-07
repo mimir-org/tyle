@@ -11,6 +11,6 @@ export const recoverPasswordSchema = (t: TFunction<"translation">) =>
       .required(t("recover.password.validation.password.required")),
     confirmPassword: yup
       .string()
-      .oneOf([yup.ref("password"), null], t("recover.password.validation.confirmPassword.match"))
+      .oneOf([yup.ref("password"), undefined], t("recover.password.validation.confirmPassword.match"))
       .required(t("recover.password.validation.confirmPassword.required")),
   });
