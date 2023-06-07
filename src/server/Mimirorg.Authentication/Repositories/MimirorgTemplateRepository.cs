@@ -29,8 +29,8 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
             FromName = _authSettings.ApplicationName,
             ToEmail = user.Email,
             ToName = $"{user.FirstName} {user.LastName}",
-            Subject = "Your verification code",
-            HtmlContent = $@"<div><h1>Your verification code</h1><p>Hi {user.FirstName} {user.LastName},</p><br /><br /><p>Your code: {secret}</p></div>"
+            Subject = "Tyle registration",
+            HtmlContent = $@"<div><h1>Tyle registration</h1><p>Hi {user.FirstName} {user.LastName},</p><br /><br /><p>Here is your verification code: {secret}</p></div>"
         };
 
         return Task.FromResult(mail);
@@ -51,7 +51,7 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
 
             case State.Approve:
                 subject = $"Tyle {objectTypeName} approval request";
-                content = $"User {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} request approval for the {objectTypeName} {objectName}.";
+                content = $"User {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} request approval for the {objectTypeName} {objectName}. This can be done in Tyle under 'Settings' and 'Approval'.";
                 break;
 
             case State.Approved:
@@ -61,7 +61,7 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
 
             case State.Delete:
                 subject = $"Tyle {objectTypeName} delete request";
-                content = $"User {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} request delete for the {objectTypeName} {objectName}.";
+                content = $"User {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} request delete for the {objectTypeName} {objectName}. This can be done in Tyle under 'Settings' and 'Approval'.";
                 break;
 
             case State.Deleted:
@@ -81,6 +81,22 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
             ToName = $"{sendToUser.FirstName} {sendToUser.LastName}",
             Subject = $@"{subject}",
             HtmlContent = $@"<div><h1>{subject}</h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>{content}</p></div>"
+        });
+    }
+
+    public Task<MimirorgMailAm> CreateUserRegistrationEmail(MimirorgUserCm sendToUser, MimirorgUserCm newUser)
+    {
+        if (_authSettings == null || string.IsNullOrEmpty(_authSettings.Email))
+            throw new MimirorgConfigurationException("Missing configuration for email");
+
+        return Task.FromResult(new MimirorgMailAm
+        {
+            FromEmail = _authSettings.Email,
+            FromName = _authSettings.ApplicationName,
+            ToEmail = sendToUser.Email,
+            ToName = $"{sendToUser.FirstName} {sendToUser.LastName}",
+            Subject = $@"Tyle has a new user",
+            HtmlContent = $@"<div><h1>Tyle has a new user</h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user {newUser.FirstName} {newUser.LastName} with email {newUser.Email} just created an account.</p><p>The user needs an appropriate access level. This can be set in Tyle under 'Settings' and 'Access'.</p></div>"
         });
     }
 }

@@ -524,7 +524,18 @@ public class MimirorgUserService : IMimirorgUserService
 
         // If this is the first registered user and environment is Development, create a dummy organization
         await CreateDefaultUserData(user);
-        return user.ToContentModel();
+        var userCm = user.ToContentModel();
+
+        var allUsers = await GetUsers();
+        var companyManagers = allUsers.Where(x => x.CompanyId == userCm.CompanyId && x.Permissions.ContainsValue(MimirorgPermission.Manage)).ToList();
+
+        foreach (var companyManager in companyManagers)
+        {
+            var email = await _templateRepository.CreateUserRegistrationEmail(companyManager, userCm);
+            await _emailRepository.SendEmail(email);
+        }
+
+        return userCm;
     }
 
     /// <summary>
