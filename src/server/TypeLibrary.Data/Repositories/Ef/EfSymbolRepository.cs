@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Mimirorg.Common.Abstract;
@@ -27,6 +28,11 @@ public class EfSymbolRepository : GenericRepository<TypeLibraryDbContext, Symbol
     public IEnumerable<SymbolLibDm> Get()
     {
         return GetAll();
+    }
+
+    public SymbolLibDm Get(string id)
+    {
+        return FindBy(x => x.Id == id).FirstOrDefault();
     }
 
     public async Task Create(List<SymbolLibDm> symbols, State state)
