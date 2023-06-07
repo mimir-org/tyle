@@ -8,5 +8,6 @@ namespace TypeLibrary.Services.Contracts;
 public interface ISymbolService
 {
     IEnumerable<SymbolLibCm> Get();
+    SymbolLibCm Get(string id);
     Task Create(IEnumerable<SymbolLibAm> symbolDataList, string createdBy = null);
 }

@@ -27,14 +27,20 @@ public class SemanticController : ControllerBase
     private readonly IAspectObjectService _aspectObjectService;
     private readonly ITerminalService _terminalService;
     private readonly IUnitService _unitService;
+    private readonly IQuantityDatumService _quantityDatumService;
+    private readonly IRdsService _rdsService;
+    private readonly ISymbolService _symbolService;
 
-    public SemanticController(ILogger<SemanticController> logger, IAttributeService attributeService, IAspectObjectService aspectObjectService, ITerminalService terminalService, IUnitService unitService)
+    public SemanticController(ILogger<SemanticController> logger, IAttributeService attributeService, IAspectObjectService aspectObjectService, ITerminalService terminalService, IUnitService unitService, IQuantityDatumService quantityDatumService, IRdsService rdsService, ISymbolService symbolService)
     {
         _logger = logger;
         _attributeService = attributeService;
         _aspectObjectService = aspectObjectService;
         _terminalService = terminalService;
         _unitService = unitService;
+        _quantityDatumService = quantityDatumService;
+        _rdsService = rdsService;
+        _symbolService = symbolService;
     }
 
     /// <summary>
@@ -77,7 +83,7 @@ public class SemanticController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -104,13 +110,25 @@ public class SemanticController : ControllerBase
 
             return Ok(data);
         }
+        catch (MimirorgBadRequestException e)
+        {
+            _logger.LogWarning(e, $"Warning error: {e.Message}");
+
+            foreach (var error in e.Errors().ToList())
+            {
+                ModelState.Remove(error.Key);
+                ModelState.TryAddModelError(error.Key, error.Error);
+            }
+
+            return BadRequest(ModelState);
+        }
         catch (MimirorgNotFoundException)
         {
             return NoContent();
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -154,7 +172,7 @@ public class SemanticController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
@@ -198,7 +216,139 @@ public class SemanticController : ControllerBase
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
+    /// Get quantity datum ontology
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet("quantitydatum/{id}")]
+    [ProducesResponseType(typeof(QuantityDatumLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [AllowAnonymous]
+    public IActionResult GetQuantityDatum(string id)
+    {
+        try
+        {
+            var data = _quantityDatumService.Get(id);
+            if (data == null)
+                return NoContent();
+
+            return Ok(data);
+        }
+        catch (MimirorgBadRequestException e)
+        {
+            _logger.LogWarning(e, $"Warning error: {e.Message}");
+
+            foreach (var error in e.Errors().ToList())
+            {
+                ModelState.Remove(error.Key);
+                ModelState.TryAddModelError(error.Key, error.Error);
+            }
+
+            return BadRequest(ModelState);
+        }
+        catch (MimirorgNotFoundException)
+        {
+            return NoContent();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
+    /// Get RDS ontology
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet("rds/{id}")]
+    [ProducesResponseType(typeof(RdsLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [AllowAnonymous]
+    public IActionResult GetRds(string id)
+    {
+        try
+        {
+            var data = _rdsService.Get(id);
+            if (data == null)
+                return NoContent();
+
+            return Ok(data);
+        }
+        catch (MimirorgBadRequestException e)
+        {
+            _logger.LogWarning(e, $"Warning error: {e.Message}");
+
+            foreach (var error in e.Errors().ToList())
+            {
+                ModelState.Remove(error.Key);
+                ModelState.TryAddModelError(error.Key, error.Error);
+            }
+
+            return BadRequest(ModelState);
+        }
+        catch (MimirorgNotFoundException)
+        {
+            return NoContent();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
+    /// Get symbol ontology
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet("symbol/{id}")]
+    [ProducesResponseType(typeof(SymbolLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [AllowAnonymous]
+    public IActionResult GetSymbol(string id)
+    {
+        try
+        {
+            var data = _symbolService.Get(id);
+            if (data == null)
+                return NoContent();
+
+            return Ok(data);
+        }
+        catch (MimirorgBadRequestException e)
+        {
+            _logger.LogWarning(e, $"Warning error: {e.Message}");
+
+            foreach (var error in e.Errors().ToList())
+            {
+                ModelState.Remove(error.Key);
+                ModelState.TryAddModelError(error.Key, error.Error);
+            }
+
+            return BadRequest(ModelState);
+        }
+        catch (MimirorgNotFoundException)
+        {
+            return NoContent();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
     }
