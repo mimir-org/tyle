@@ -191,7 +191,7 @@ public class TerminalService : ITerminalService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true)
     {
         var dm = _terminalRepository.Get().FirstOrDefault(x => x.Id == id);
 
@@ -226,7 +226,8 @@ public class TerminalService : ITerminalService
 
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
-        await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.Terminal);
+        if (sendStateEmail)
+            await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.Terminal);
 
         return new ApprovalDataCm
         {

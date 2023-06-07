@@ -16,7 +16,7 @@ public class AspectObjectServiceTests : UnitTest<MimirorgCommonFixture>
 
     public AspectObjectServiceTests(MimirorgCommonFixture fixture) : base(fixture)
     {
-        _aspectObjectService = new AspectObjectService(fixture.Mapper.Object, fixture.AspectObjectRepository.Object, fixture.AttributeRepository.Object, fixture.AspectObjectTerminalRepository.Object, fixture.AspectObjectAttributeRepository.Object, fixture.TerminalService.Object, fixture.AttributeService.Object, fixture.RdsService.Object, fixture.TimedHookService.Object, fixture.LogService.Object, fixture.AspectObjectServiceLogger.Object, fixture.HttpContextAccessor.Object, null);
+        _aspectObjectService = new AspectObjectService(fixture.Mapper.Object, fixture.AspectObjectRepository.Object, fixture.AttributeRepository.Object, fixture.AspectObjectTerminalRepository.Object, fixture.AspectObjectAttributeRepository.Object, fixture.TerminalService.Object, fixture.AttributeService.Object, fixture.RdsService.Object, fixture.TimedHookService.Object, fixture.LogService.Object, fixture.AspectObjectServiceLogger.Object, fixture.HttpContextAccessor.Object, fixture.EmailService.Object);
     }
 
     [Fact]

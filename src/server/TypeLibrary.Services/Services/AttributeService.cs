@@ -166,7 +166,7 @@ public class AttributeService : IAttributeService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true)
     {
         var dm = _attributeRepository.Get().FirstOrDefault(x => x.Id == id);
 
@@ -203,7 +203,8 @@ public class AttributeService : IAttributeService
 
         _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 
-        await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.Attribute);
+        if (sendStateEmail)
+            await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.Attribute);
 
         return new ApprovalDataCm
         {

@@ -37,6 +37,7 @@ public class MimirorgCommonFixture : IDisposable
     public Mock<IRdsService> RdsService = new();
     public Mock<ITimedHookService> TimedHookService = new();
     public Mock<ILogService> LogService = new();
+    public Mock<IEmailService> EmailService = new();
 
     public MimirorgCommonFixture()
     {

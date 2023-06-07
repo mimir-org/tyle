@@ -344,7 +344,7 @@ public class AspectObjectService : IAspectObjectService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true)
     {
         var dm = _aspectObjectRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
@@ -403,7 +403,8 @@ public class AspectObjectService : IAspectObjectService
         await _logService.CreateLog(dm, LogType.State, state.ToString(), dm.CreatedBy);
         _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
 
-        await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.AspectObject);
+        if (sendStateEmail)
+            await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.AspectObject);
 
         return new ApprovalDataCm
         {

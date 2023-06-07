@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace TypeLibrary.Services.Contracts;
 
@@ -47,11 +47,12 @@ public interface IAttributeService
     /// </summary>
     /// <param name="id">The id of the attribute that should change state</param>
     /// <param name="state">The new attribute state</param>
+    /// <param name="sendStateEmail"></param>
     /// <returns>An approval data object</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if the attribute does not exist</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the attribute is already
     /// approved or contains references to deleted or unapproved units.</exception>
-    Task<ApprovalDataCm> ChangeState(string id, State state);
+    Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true);
 
     /// <summary>
     /// Get predefined attributes

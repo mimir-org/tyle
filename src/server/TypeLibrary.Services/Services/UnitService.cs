@@ -132,7 +132,7 @@ public class UnitService : IUnitService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true)
     {
         var dm = _unitRepository.Get().FirstOrDefault(x => x.Id == id);
 
@@ -152,7 +152,8 @@ public class UnitService : IUnitService
 
         _hookService.HookQueue.Enqueue(CacheKey.Unit);
 
-        await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.Unit);
+        if (sendStateEmail)
+            await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.Unit);
 
         return new ApprovalDataCm
         {

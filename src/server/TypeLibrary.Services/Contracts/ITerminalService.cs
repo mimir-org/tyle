@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace TypeLibrary.Services.Contracts;
 
@@ -47,9 +47,10 @@ public interface ITerminalService
     /// </summary>
     /// <param name="id">The id of the terminal that should change state</param>
     /// <param name="state">The new terminal state</param>
+    /// <param name="sendStateEmail"></param>
     /// <returns>An approval data object</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if the terminal does not exist</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the terminal is already
     /// approved or contains references to deleted or unapproved attributes.</exception>
-    Task<ApprovalDataCm> ChangeState(string id, State state);
+    Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true);
 }

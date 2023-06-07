@@ -164,7 +164,7 @@ public class QuantityDatumService : IQuantityDatumService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true)
     {
         var dm = _quantityDatumRepository.Get().FirstOrDefault(x => x.Id == id);
 
@@ -185,7 +185,8 @@ public class QuantityDatumService : IQuantityDatumService
 
         _hookService.HookQueue.Enqueue(CacheKey.QuantityDatum);
 
-        await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.QuantityDatum);
+        if (sendStateEmail)
+            await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.QuantityDatum);
 
         return new ApprovalDataCm
         {

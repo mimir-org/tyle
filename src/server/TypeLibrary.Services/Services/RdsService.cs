@@ -138,7 +138,7 @@ public class RdsService : IRdsService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true)
     {
         var dm = _rdsRepository.Get(id);
 
@@ -158,7 +158,8 @@ public class RdsService : IRdsService
 
         _hookService.HookQueue.Enqueue(CacheKey.Rds);
 
-        await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.Rds);
+        if (sendStateEmail)
+            await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.Rds);
 
         return new ApprovalDataCm
         {

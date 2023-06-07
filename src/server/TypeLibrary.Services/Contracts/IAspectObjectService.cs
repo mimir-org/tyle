@@ -70,7 +70,7 @@ public interface IAspectObjectService
     /// <exception cref="MimirorgInvalidOperationException">Throws if the aspect object is already
     /// approved, is identical to an already approved aspect object or contains references to deleted or unapproved
     /// terminals, attributes or RDS.</exception>
-    Task<ApprovalDataCm> ChangeState(string id, State state);
+    Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true);
 
     /// <summary>
     /// Get the company id of an aspect object
