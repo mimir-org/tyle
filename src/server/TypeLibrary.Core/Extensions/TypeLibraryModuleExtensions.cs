@@ -1,4 +1,3 @@
-using System.Threading;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -7,8 +6,9 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Mimirorg.Common.Abstract;
-using TypeLibrary.Core.Factories;
 using Mimirorg.Common.Models;
+using System.Threading;
+using TypeLibrary.Core.Factories;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Common;
 using TypeLibrary.Data.Contracts;
@@ -85,6 +85,7 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<ILogService, LogService>();
         services.AddScoped<IApprovalService, ApprovalService>();
         services.AddScoped<IQuantityDatumService, QuantityDatumService>();
+        services.AddScoped<IEmailService, EmailService>();
 
         // Hosted services
         services.AddHostedService<TimedPcaSyncingService>();

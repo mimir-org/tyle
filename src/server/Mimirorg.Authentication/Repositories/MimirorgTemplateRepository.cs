@@ -1,9 +1,11 @@
 using Microsoft.Extensions.Options;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Models.Domain;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 
 namespace Mimirorg.Authentication.Repositories;
 
@@ -32,5 +34,53 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
         };
 
         return Task.FromResult(mail);
+    }
+
+    public Task<MimirorgMailAm> CreateObjectStateEmail(MimirorgUserCm sendToUser, MimirorgUserCm fromUser, State state, string objectName, string objectTypeName)
+    {
+        if (_authSettings == null || string.IsNullOrEmpty(_authSettings.Email))
+            throw new MimirorgConfigurationException("Missing configuration for email");
+
+        string subject;
+        string content;
+
+        switch (state)
+        {
+            case State.Draft:
+                return Task.FromResult(new MimirorgMailAm());
+
+            case State.Approve:
+                subject = $"Tyle {objectTypeName} approval request";
+                content = $"User {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} request approval for the {objectTypeName} {objectName}.";
+                break;
+
+            case State.Approved:
+                subject = $"Tyle {objectTypeName} is approved";
+                content = $"The {objectTypeName} {objectName} is approved.)";
+                break;
+
+            case State.Delete:
+                subject = $"Tyle {objectTypeName} delete request";
+                content = $"User {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} request delete for the {objectTypeName} {objectName}.";
+                break;
+
+            case State.Deleted:
+                subject = $"Tyle {objectTypeName} is deleted";
+                content = $"The {objectTypeName} {objectName} is deleted.)";
+                break;
+
+            default:
+                throw new ArgumentOutOfRangeException($"Switch with state '{state}' not found");
+        }
+
+        return Task.FromResult(new MimirorgMailAm
+        {
+            FromEmail = _authSettings.Email,
+            FromName = _authSettings.ApplicationName,
+            ToEmail = sendToUser.Email,
+            ToName = $"{sendToUser.FirstName} {sendToUser.LastName}",
+            Subject = $@"{subject}",
+            HtmlContent = $@"<div><h1>{subject}</h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>{content}</p></div>"
+        });
     }
 }

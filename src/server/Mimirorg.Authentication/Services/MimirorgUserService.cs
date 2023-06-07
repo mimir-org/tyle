@@ -7,6 +7,7 @@ using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Extensions;
 using Mimirorg.Authentication.Models.Constants;
 using Mimirorg.Authentication.Models.Domain;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
@@ -76,20 +77,39 @@ public class MimirorgUserService : IMimirorgUserService
     /// <exception cref="MimirorgNotFoundException"></exception>
     public async Task<MimirorgUserCm> GetUser(string id)
     {
-        var user = await _userManager.FindByIdAsync(id);
-        if (user == null)
-            throw new MimirorgNotFoundException($"Couldn't find user with id {id}");
+        var users = await GetUsers();
+        var user = users.FirstOrDefault(x => x.Id == id);
 
-        var userCm = user.ToContentModel();
+        return user ?? throw new MimirorgNotFoundException($"Couldn't find user with id {id}");
+    }
 
-        var companies = await _mimirorgCompanyService.GetAllCompanies();
-        var permissions = await _mimirorgAuthService.GetAllPermissions();
-        var roles = await _userManager.GetRolesAsync(user);
-        var claims = await _userManager.GetClaimsAsync(user);
-        userCm.ResolvePermissions(roles, claims, companies, permissions);
-        userCm.ResolveRoles(roles, claims, companies, permissions);
+    /// <summary>
+    /// Get all users
+    /// </summary>
+    /// <returns>List(MimirorgUserCm)</returns>
+    /// <exception cref="MimirorgNotFoundException"></exception>
+    public async Task<List<MimirorgUserCm>> GetUsers()
+    {
+        var users = _userManager.Users.ToList();
 
-        return userCm;
+        if (!users.Any())
+            throw new MimirorgNotFoundException("Couldn't find any users");
+
+        var mimirorgUserCms = new List<MimirorgUserCm>();
+
+        foreach (var user in users)
+        {
+            var userCm = user.ToContentModel();
+            var companies = await _mimirorgCompanyService.GetAllCompanies();
+            var permissions = await _mimirorgAuthService.GetAllPermissions();
+            var roles = await _userManager.GetRolesAsync(user);
+            var claims = await _userManager.GetClaimsAsync(user);
+            userCm.ResolvePermissions(roles, claims, companies, permissions);
+            userCm.ResolveRoles(roles, claims, companies, permissions);
+            mimirorgUserCms.Add(userCm);
+        }
+
+        return mimirorgUserCms;
     }
 
     /// <summary>
@@ -315,6 +335,24 @@ public class MimirorgUserService : IMimirorgUserService
         _tokenRepository.Attach(regToken, EntityState.Deleted);
         await _tokenRepository.SaveAsync();
         return result.Succeeded;
+    }
+
+    /// <summary>
+    /// Send emails with object state
+    /// </summary>
+    /// <param name="sendToUsers"></param>
+    /// <param name="fromUser"></param>
+    /// <param name="state"></param>
+    /// <param name="objectName"></param>
+    /// <param name="objectTypeName"></param>
+    /// <returns>A completed task</returns>
+    public async Task CreateAndSendObjectStateEmail(List<MimirorgUserCm> sendToUsers, MimirorgUserCm fromUser, State state, string objectName, string objectTypeName)
+    {
+        foreach (var sendToUser in sendToUsers)
+        {
+            var email = await _templateRepository.CreateObjectStateEmail(sendToUser, fromUser, state, objectName, objectTypeName);
+            await _emailRepository.SendEmail(email);
+        }
     }
 
     #region Private methods

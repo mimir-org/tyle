@@ -26,8 +26,9 @@ public class RdsService : IRdsService
     private readonly ILogService _logService;
     private readonly ITimedHookService _hookService;
     private readonly IHttpContextAccessor _contextAccessor;
+    private readonly IEmailService _emailService;
 
-    public RdsService(IMapper mapper, IEfRdsRepository rdsRepository, IEfCategoryRepository categoryRepository, ILogService logService, ITimedHookService hookService, IHttpContextAccessor contextAccessor)
+    public RdsService(IMapper mapper, IEfRdsRepository rdsRepository, IEfCategoryRepository categoryRepository, ILogService logService, ITimedHookService hookService, IHttpContextAccessor contextAccessor, IEmailService emailService)
     {
         _mapper = mapper;
         _rdsRepository = rdsRepository;
@@ -35,6 +36,7 @@ public class RdsService : IRdsService
         _logService = logService;
         _hookService = hookService;
         _contextAccessor = contextAccessor;
+        _emailService = emailService;
     }
 
     public ICollection<RdsLibCm> Get()
@@ -141,9 +143,11 @@ public class RdsService : IRdsService
             dm,
             LogType.State,
             state.ToString(),
-            !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown);
+            _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         _hookService.HookQueue.Enqueue(CacheKey.Rds);
+
+        await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.Rds);
 
         return new ApprovalDataCm
         {

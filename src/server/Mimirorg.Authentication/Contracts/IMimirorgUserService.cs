@@ -1,8 +1,9 @@
-using System.Security.Principal;
+using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System.Security.Principal;
 
 namespace Mimirorg.Authentication.Contracts;
 
@@ -36,6 +37,13 @@ public interface IMimirorgUserService
     Task<MimirorgUserCm> GetUser(string id);
 
     /// <summary>
+    /// Get all users
+    /// </summary>
+    /// <returns>List(MimirorgUserCm)</returns>
+    /// <exception cref="MimirorgNotFoundException"></exception>
+    Task<List<MimirorgUserCm>> GetUsers();
+
+    /// <summary>
     /// Update user
     /// </summary>
     /// <param name="userAm">New user information</param>
@@ -43,7 +51,6 @@ public interface IMimirorgUserService
     /// <exception cref="MimirorgNotFoundException"></exception>
     /// <exception cref="MimirorgInvalidOperationException"></exception>
     Task<MimirorgUserCm> UpdateUser(MimirorgUserAm userAm);
-
 
     /// <summary>
     /// Gets all companies that the principal can access given a specific permission level
@@ -98,4 +105,15 @@ public interface IMimirorgUserService
     /// <exception cref="MimirorgInvalidOperationException"></exception>
     /// <exception cref="MimirorgNotFoundException"></exception>
     Task<bool> VerifyAccount(MimirorgVerifyAm verifyEmail);
+
+    /// <summary>
+    /// Send email if object state changes
+    /// </summary>
+    /// <param name="sendToUsers"></param>
+    /// <param name="fromUser"></param>
+    /// <param name="state"></param>
+    /// <param name="objectName"></param>
+    /// <param name="objectTypeName"></param>
+    /// <returns>A completed task</returns>
+    Task CreateAndSendObjectStateEmail(List<MimirorgUserCm> sendToUsers, MimirorgUserCm fromUser, State state, string objectName, string objectTypeName);
 }

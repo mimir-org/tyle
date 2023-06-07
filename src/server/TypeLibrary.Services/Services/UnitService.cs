@@ -25,14 +25,16 @@ public class UnitService : IUnitService
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
     private readonly IHttpContextAccessor _contextAccessor;
+    private readonly IEmailService _emailService;
 
-    public UnitService(IMapper mapper, IEfUnitRepository unitRepository, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor)
+    public UnitService(IMapper mapper, IEfUnitRepository unitRepository, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor, IEmailService emailService)
     {
         _mapper = mapper;
         _unitRepository = unitRepository;
         _hookService = hookService;
         _logService = logService;
         _contextAccessor = contextAccessor;
+        _emailService = emailService;
     }
 
     /// <inheritdoc />
@@ -138,8 +140,7 @@ public class UnitService : IUnitService
             throw new MimirorgNotFoundException($"Unit with id {id} not found.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException(
-                $"State change on approved unit with id {id} is not allowed.");
+            throw new MimirorgInvalidOperationException($"State change on approved unit with id {id} is not allowed.");
 
         await _unitRepository.ChangeState(state, dm.Id);
 
@@ -147,15 +148,16 @@ public class UnitService : IUnitService
             dm,
             LogType.State,
             state.ToString(),
-            !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown);
+            _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         _hookService.HookQueue.Enqueue(CacheKey.Unit);
+
+        await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.Unit);
 
         return new ApprovalDataCm
         {
             Id = id,
             State = state
-
         };
     }
 }
