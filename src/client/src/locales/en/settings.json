@@ -157,7 +157,10 @@
       "processing": {
         "loading": "Approving state",
         "success": "State approved",
-        "error": "An error occurred"
+        "error": {
+          "403": "403 (Forbidden) error: {{data}}",
+          "default": "An error occurred"
+        }
       },
       "undo": {
         "action": "Undo",

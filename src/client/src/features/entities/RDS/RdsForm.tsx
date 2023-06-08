@@ -33,18 +33,16 @@ export const RdsForm = ({ defaultValues = createEmptyRds(), mode }: RdsFormProps
   const { t } = useTranslation("entities");
 
   const allRdsQuery = useGetAllRds();
-
   const query = useRdsQuery();
   const mapper = (source: RdsLibCm) => toRdsLibAm(source);
+  const prohibitedCodes =
+    mode === "edit"
+      ? allRdsQuery.data?.map((x) => x.rdsCode).filter((x) => x !== query.data?.rdsCode)
+      : allRdsQuery.data?.map((x) => x.rdsCode);
 
   const formMethods = useForm<RdsLibAm>({
     defaultValues: defaultValues,
-    resolver: yupResolver(
-      rdsSchema(
-        t,
-        allRdsQuery.data ? allRdsQuery.data.map((x) => x.rdsCode).filter((x) => x !== query.data?.rdsCode) : []
-      )
-    ),
+    resolver: yupResolver(rdsSchema(t, prohibitedCodes ?? [])),
   });
 
   const { control, handleSubmit, setError, reset } = formMethods;

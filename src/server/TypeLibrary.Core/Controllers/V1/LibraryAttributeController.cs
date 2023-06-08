@@ -185,7 +185,7 @@ public class LibraryAttributeController : ControllerBase
             var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status401Unauthorized);
+                return StatusCode(StatusCodes.Status403Forbidden);
 
             var data = await _attributeService.ChangeState(id, state);
             return Ok(data);
@@ -229,10 +229,10 @@ public class LibraryAttributeController : ControllerBase
             if (cm.State is State.Draft or State.Deleted or State.Approved)
                 return StatusCode(StatusCodes.Status403Forbidden, $"Can't reject a state change for an object with state {cm.State}");
 
-            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, cm.State == State.Approve ? State.Approved : State.Delete);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, cm.State == State.Approve ? State.Approved : State.Deleted);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status401Unauthorized);
+                return StatusCode(StatusCodes.Status403Forbidden);
 
             var data = await _attributeService.ChangeState(id, State.Draft);
             return Ok(data);

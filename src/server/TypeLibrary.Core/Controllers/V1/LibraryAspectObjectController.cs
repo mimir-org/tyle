@@ -222,7 +222,7 @@ public class LibraryAspectObjectController : ControllerBase
             var hasAccess = await _authService.HasAccess(companyId, state);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status401Unauthorized);
+                return StatusCode(StatusCodes.Status403Forbidden);
 
             var data = await _aspectObjectService.ChangeState(id, state);
             return Ok(data);
@@ -267,10 +267,10 @@ public class LibraryAspectObjectController : ControllerBase
                 return StatusCode(StatusCodes.Status403Forbidden,
                     $"Can't reject a state change for an object with state {cm.State}");
 
-            var hasAccess = await _authService.HasAccess(_aspectObjectService.GetCompanyId(id), cm.State == State.Approve ? State.Approved : State.Delete);
+            var hasAccess = await _authService.HasAccess(_aspectObjectService.GetCompanyId(id), cm.State == State.Approve ? State.Approved : State.Deleted);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status401Unauthorized);
+                return StatusCode(StatusCodes.Status403Forbidden);
 
             var data = await _aspectObjectService.ChangeState(id, State.Draft);
             return Ok(data);
