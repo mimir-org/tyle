@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using Mimirorg.Common.Models;
 using System;
 using System.IO;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using TypeLibrary.Core.Factories;
 using TypeLibrary.Core.Profiles;
 using TypeLibrary.Data;
@@ -107,4 +108,60 @@ public static class TypeLibraryServiceCollectionExtensions
 
         return serviceCollection;
     }
+
+    public static IServiceCollection AddApplicationInsightsLoggingModule(this IServiceCollection services)
+    {
+        var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory());
+
+        builder.AddJsonFile("appsettings.json");
+        builder.AddJsonFile($"appsettings.{environment}.json", true);
+        builder.AddJsonFile("appsettings.local.json", true);
+        builder.AddEnvironmentVariables();
+
+        var config = builder.Build();
+
+        var insightsConfig = new ApplicationInsightsConfig();
+        var insightsConfiguration = config.GetSection("ApplicationInsights");
+        insightsConfiguration.Bind(insightsConfig);
+
+        var aiOptions = new ApplicationInsightsServiceOptions
+        {
+            ConnectionString = insightsConfig.ConnectionString,
+            EnableAdaptiveSampling = insightsConfig.EnableAdaptiveSampling,
+            EnableQuickPulseMetricStream = insightsConfig.EnableQuickPulseMetricStream,
+            EnablePerformanceCounterCollectionModule = insightsConfig.EnablePerformanceCounterCollectionModule,
+            EnableHeartbeat = insightsConfig.EnableHeartbeat,
+            EnableAzureInstanceMetadataTelemetryModule = insightsConfig.EnableAzureInstanceMetadataTelemetryModule,
+            EnableDependencyTrackingTelemetryModule = insightsConfig.EnableDependencyTrackingTelemetryModule,
+            EnableEventCounterCollectionModule = insightsConfig.EnableEventCounterCollectionModule,
+            EnableDiagnosticsTelemetryModule = insightsConfig.EnableDiagnosticsTelemetryModule,
+            EnableRequestTrackingTelemetryModule = insightsConfig.EnableRequestTrackingTelemetryModule,
+            DeveloperMode = insightsConfig.DeveloperMode
+        };
+
+        if (!string.IsNullOrEmpty(insightsConfig.ConnectionString))
+        {
+            services.AddApplicationInsightsTelemetry(aiOptions);
+        }
+
+        services.AddSingleton(Options.Create(insightsConfig));
+
+        return services;
+    }
+}
+
+public class ApplicationInsightsConfig
+{
+    public string ConnectionString { get; set; }
+    public bool EnableAdaptiveSampling { get; set; }
+    public bool EnableQuickPulseMetricStream { get; set; }
+    public bool EnablePerformanceCounterCollectionModule { get; set; }
+    public bool EnableHeartbeat { get; set;  }
+    public bool EnableAzureInstanceMetadataTelemetryModule { get; set; }
+    public bool EnableDependencyTrackingTelemetryModule { get; set; }
+    public bool EnableEventCounterCollectionModule { get; set; }
+    public bool EnableDiagnosticsTelemetryModule { get; set; }
+    public bool EnableRequestTrackingTelemetryModule { get; set; }
+    public bool DeveloperMode { get; set; }
 }
