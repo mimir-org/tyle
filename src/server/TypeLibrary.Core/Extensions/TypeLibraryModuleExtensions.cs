@@ -111,7 +111,7 @@ public static class TypeLibraryModuleExtensions
         services.AddApiVersion();
 
         // Add Application Insights
-        services.AddApplicationInsightsLoggingModule();
+        services.AddApplicationInsightsTelemetry();
 
         // Add authentication
 
