@@ -110,6 +110,9 @@ public static class TypeLibraryModuleExtensions
         // Add API version
         services.AddApiVersion();
 
+        // Add Application Insights
+        services.AddApplicationInsightsTelemetry();
+
         // Add authentication
 
         // Add swagger documentation

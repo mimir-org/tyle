@@ -18,6 +18,8 @@ import { usePatchQuantityDatumState } from "../../../../external/sources/datum/q
 import { Text } from "../../../../complib/text";
 import { Tooltip } from "../../../../complib/data-display";
 import { StateBadge } from "../../../ui/badges/StateBadge";
+import { toast } from "complib/data-display";
+import { AxiosError } from "axios";
 
 type SearchItemProps = {
   user: UserItem | null;
@@ -55,14 +57,31 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
     }
   }
 
+  const submitToast = (submissionPromise: Promise<unknown>) =>
+    toast.promise(submissionPromise, {
+      loading: t("search.item.toast.loading"),
+      success: t("search.item.toast.success"),
+      error: (error: AxiosError) => {
+        if (error.response?.status === 403)
+          return t("search.item.toast.error.403", { data: error.response?.data ?? "" });
+        return t("search.item.toast.error.default");
+      },
+    });
+
   const deleteAction = {
     name: t("search.item.delete"),
-    onAction: () => getMutation().mutate({ id: item.id, state: State.Delete }),
+    onAction: () => {
+      const mutation = getMutation().mutateAsync({ id: item.id, state: State.Delete });
+      submitToast(mutation);
+    },
   };
 
   const approveAction = {
     name: t("search.item.approve"),
-    onAction: () => getMutation().mutate({ id: item.id, state: State.Approve }),
+    onAction: () => {
+      const mutation = getMutation().mutateAsync({ id: item.id, state: State.Approve });
+      submitToast(mutation);
+    },
   };
 
   const cloneLink = btnFilter.clone ? getCloneLink(item) : "#";

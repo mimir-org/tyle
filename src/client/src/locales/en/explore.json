@@ -24,6 +24,14 @@
         "deleted": "Deleted",
         "approved": "Approved",
         "draft": "Draft"
+      },
+      "toast": {
+        "loading": "Sending request",
+        "success": "Request submitted",
+        "error": {
+          "403": "403 (Forbidden) error: {{data}}",
+          "default": "An error occurred while sending the request"
+        }
       }
     },
     "help": {
