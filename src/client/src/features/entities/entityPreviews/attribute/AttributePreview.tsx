@@ -5,6 +5,7 @@ import { FormUnitHelper } from "../../units/types/FormUnitHelper";
 import UnitPreview from "../unit/UnitPreview";
 import { Flexbox } from "../../../../complib/layouts";
 import AttributeIcon from "../../../icons/AttributeIcon";
+import { State } from "@mimirorg/typelibrary-types";
 
 interface StyledDivProps {
   small?: boolean;
@@ -27,15 +28,16 @@ const StyledDiv = styled.div<StyledDivProps>`
   cursor: ${(props) => (props.small ? "pointer" : "auto")};
 `;
 
-interface attributePreviewProps {
+interface AttributePreviewProps {
   name: string;
   description: string;
   units?: FormUnitHelper[];
   defaultUnit?: FormUnitHelper | null;
   small?: boolean;
+  state?: State;
 }
 
-export default function AttributePreview({ name, description, units, defaultUnit, small }: attributePreviewProps) {
+export default function AttributePreview({ name, description, units, defaultUnit, small }: AttributePreviewProps) {
   const theme = useTheme();
   units && units.sort((a) => (a.unitId === defaultUnit?.unitId ? -1 : 1));
 
@@ -45,21 +47,29 @@ export default function AttributePreview({ name, description, units, defaultUnit
         AttributeSmallPreview(defaultUnit?.name ?? "Attribute")
       ) : (
         <>
-          <Text
-            color={theme.tyle.color.sys.pure.base}
-            variant={small ? "body-medium" : "headline-small"}
-            useEllipsis={small}
-          >
-            {name}
-          </Text>
+          <Flexbox justifyContent={"space-between"}>
+            <Text
+              color={theme.tyle.color.sys.pure.base}
+              variant={small ? "body-medium" : "headline-small"}
+              useEllipsis={small}
+            >
+              {name}
+            </Text>
+          </Flexbox>
           {!small && <Text color={theme.tyle.color.sys.pure.base}>{description}</Text>}
           {units &&
             (small
               ? units
                   .filter((unit) => unit.unitId === defaultUnit?.unitId)
-                  .map((unit) => <UnitPreview {...unit} key={unit.unitId} small={small} noBadge />)
+                  .map((unit) => <UnitPreview {...unit} key={unit.unitId} small={small} />)
               : units.map((unit) => (
-                  <UnitPreview {...unit} key={unit.unitId} isDefault={unit.unitId === defaultUnit?.unitId} />
+                  <UnitPreview
+                    {...unit}
+                    key={unit.unitId}
+                    isDefault={unit.unitId === defaultUnit?.unitId}
+                    state={unit.state}
+                    stateBadge
+                  />
                 )))}
         </>
       )}
