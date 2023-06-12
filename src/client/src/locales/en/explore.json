@@ -17,6 +17,13 @@
       "templates": {
         "delete": "Do you want to send delete request?",
         "approve": "Do you want to send approval request?"
+      },
+      "states": {
+        "delete": "Pending deletion",
+        "approve": "Pending approval",
+        "deleted": "Deleted",
+        "approved": "Approved",
+        "draft": "Draft"
       }
     },
     "help": {
