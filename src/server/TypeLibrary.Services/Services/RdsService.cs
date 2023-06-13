@@ -41,7 +41,7 @@ public class RdsService : IRdsService
 
     public ICollection<RdsLibCm> Get()
     {
-        var dataList = _rdsRepository.Get()?.ToList().OrderBy(x => x.RdsCode.Length).ThenBy(x => x.RdsCode, StringComparer.InvariantCultureIgnoreCase);
+        var dataList = _rdsRepository.Get()?.ExcludeDeleted().ToList().OrderBy(x => x.RdsCode.Length).ThenBy(x => x.RdsCode, StringComparer.InvariantCultureIgnoreCase);
 
         if (dataList == null || !dataList.Any())
             return new List<RdsLibCm>();

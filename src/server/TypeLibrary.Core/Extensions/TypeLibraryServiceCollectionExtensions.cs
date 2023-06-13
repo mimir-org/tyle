@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using Mimirorg.Common.Models;
 using System;
 using System.IO;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using TypeLibrary.Core.Factories;
 using TypeLibrary.Core.Profiles;
 using TypeLibrary.Data;
