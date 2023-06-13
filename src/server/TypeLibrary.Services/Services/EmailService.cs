@@ -44,7 +44,7 @@ namespace TypeLibrary.Services.Services
             var currentUser = allUsers.FirstOrDefault(x => x.Id == _contextAccessor.GetUserId());
 
             if (currentUser == null)
-                throw new MimirorgNotFoundException($"Current user not found. Unable to sendt state '{objectState}' email for {objectTypeName} {objectName}.");
+                throw new MimirorgNotFoundException($"Current user not found. Unable to send state '{objectState}' email for {objectTypeName} {objectName}.");
 
             switch (objectState)
             {
