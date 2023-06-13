@@ -128,8 +128,7 @@ public class RdsService : IRdsService
 
         _rdsRepository.Update(rdsToUpdate);
         await _rdsRepository.SaveAsync();
-        var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
-        await _logService.CreateLog(rdsToUpdate, LogType.Update, rdsToUpdate.State.ToString(), updatedBy);
+        await _logService.CreateLog(rdsToUpdate, LogType.Update, rdsToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         _rdsRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.Rds);

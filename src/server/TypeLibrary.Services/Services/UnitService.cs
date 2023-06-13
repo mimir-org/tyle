@@ -122,8 +122,7 @@ public class UnitService : IUnitService
 
         _unitRepository.Update(unitToUpdate);
         await _unitRepository.SaveAsync();
-        var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
-        await _logService.CreateLog(unitToUpdate, LogType.Update, unitToUpdate.State.ToString(), updatedBy);
+        await _logService.CreateLog(unitToUpdate, LogType.Update, unitToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         _unitRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.Unit);

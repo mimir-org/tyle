@@ -154,8 +154,7 @@ public class QuantityDatumService : IQuantityDatumService
 
         _quantityDatumRepository.Update(quantityDatumToUpdate);
         await _quantityDatumRepository.SaveAsync();
-        var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
-        await _logService.CreateLog(quantityDatumToUpdate, LogType.Update, quantityDatumToUpdate.State.ToString(), updatedBy);
+        await _logService.CreateLog(quantityDatumToUpdate, LogType.Update, quantityDatumToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         _quantityDatumRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.QuantityDatum);

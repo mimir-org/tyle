@@ -337,8 +337,7 @@ public class AspectObjectService : IAspectObjectService
         await _aspectObjectTerminalRepository.SaveAsync();
         await _aspectObjectAttributeRepository.SaveAsync();
         await _aspectObjectRepository.SaveAsync();
-        var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
-        await _logService.CreateLog(aspectObjectToUpdate, LogType.Update, aspectObjectToUpdate.State.ToString(), updatedBy);
+        await _logService.CreateLog(aspectObjectToUpdate, LogType.Update, aspectObjectToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         return Get(aspectObjectToUpdate.Id);
     }
@@ -403,7 +402,7 @@ public class AspectObjectService : IAspectObjectService
         await _logService.CreateLog(dm, LogType.State, state.ToString(), dm.CreatedBy);
 
         if (state == State.Rejected)
-            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), dm.CreatedBy);
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
 

@@ -156,8 +156,7 @@ public class AttributeService : IAttributeService
 
         await _attributeUnitRepository.SaveAsync();
         await _attributeRepository.SaveAsync();
-        var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
-        await _logService.CreateLog(attributeToUpdate, LogType.Update, attributeToUpdate.State.ToString(), updatedBy);
+        await _logService.CreateLog(attributeToUpdate, LogType.Update, attributeToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         _attributeRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.Attribute);
@@ -197,7 +196,7 @@ public class AttributeService : IAttributeService
         await _logService.CreateLog(dm, LogType.State, state.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         if (state == State.Rejected)
-            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), dm.CreatedBy);
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 

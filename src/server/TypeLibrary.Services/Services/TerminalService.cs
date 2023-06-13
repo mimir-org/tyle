@@ -181,8 +181,7 @@ public class TerminalService : ITerminalService
 
         await _terminalAttributeRepository.SaveAsync();
         await _terminalRepository.SaveAsync();
-        var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
-        await _logService.CreateLog(terminalToUpdate, LogType.Update, terminalToUpdate.State.ToString(), updatedBy);
+        await _logService.CreateLog(terminalToUpdate, LogType.Update, terminalToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         _terminalRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
