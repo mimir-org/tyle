@@ -193,13 +193,11 @@ public class AttributeService : IAttributeService
             throw new MimirorgInvalidOperationException("Cannot approve attribute that uses unapproved units.");
         }
 
-        await _attributeRepository.ChangeState(state, new List<string> { dm.Id });
+        await _attributeRepository.ChangeState(state == State.Rejected ? State.Draft : state, new List<string> { dm.Id });
+        await _logService.CreateLog(dm, LogType.State, state.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
-        await _logService.CreateLog(
-            dm,
-            LogType.State,
-            state.ToString(),
-            _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
+        if (state == State.Rejected)
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), dm.CreatedBy);
 
         _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 
@@ -209,7 +207,7 @@ public class AttributeService : IAttributeService
         return new ApprovalDataCm
         {
             Id = id,
-            State = state
+            State = state == State.Rejected ? State.Draft : state
 
         };
     }

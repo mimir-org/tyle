@@ -1,4 +1,3 @@
-using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -32,15 +31,14 @@ public interface IMimirorgUserService
     /// Get user from id
     /// </summary>
     /// <param name="id"></param>
-    /// <returns>UserCm</returns>
+    /// <returns>MimirorgUserCm</returns>
     /// <exception cref="MimirorgNotFoundException"></exception>
     Task<MimirorgUserCm> GetUser(string id);
 
     /// <summary>
     /// Get all users
     /// </summary>
-    /// <returns>List(MimirorgUserCm)</returns>
-    /// <exception cref="MimirorgNotFoundException"></exception>
+    /// <returns>IEnumerable(MimirorgUserCm)</returns>
     Task<List<MimirorgUserCm>> GetUsers();
 
     /// <summary>
@@ -105,15 +103,4 @@ public interface IMimirorgUserService
     /// <exception cref="MimirorgInvalidOperationException"></exception>
     /// <exception cref="MimirorgNotFoundException"></exception>
     Task<bool> VerifyAccount(MimirorgVerifyAm verifyEmail);
-
-    /// <summary>
-    /// Send email if object state changes
-    /// </summary>
-    /// <param name="sendToUsers"></param>
-    /// <param name="fromUser"></param>
-    /// <param name="state"></param>
-    /// <param name="objectName"></param>
-    /// <param name="objectTypeName"></param>
-    /// <returns>A completed task</returns>
-    Task CreateAndSendObjectStateEmail(List<MimirorgUserCm> sendToUsers, MimirorgUserCm fromUser, State state, string objectName, string objectTypeName);
 }

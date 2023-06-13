@@ -216,13 +216,11 @@ public class TerminalService : ITerminalService
             throw new MimirorgInvalidOperationException("Cannot approve terminal that uses unapproved attributes.");
         }
 
-        await _terminalRepository.ChangeState(state, dm.Id);
+        await _terminalRepository.ChangeState(state == State.Rejected ? State.Draft : state, dm.Id);
+        await _logService.CreateLog(dm, LogType.State, state.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
-        await _logService.CreateLog(
-            dm,
-            LogType.State,
-            state.ToString(),
-            _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
+        if (state == State.Rejected)
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
@@ -232,7 +230,7 @@ public class TerminalService : ITerminalService
         return new ApprovalDataCm
         {
             Id = id,
-            State = state
+            State = state == State.Rejected ? State.Draft : state
         };
     }
 }

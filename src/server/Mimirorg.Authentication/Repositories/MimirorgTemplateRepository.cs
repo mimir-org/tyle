@@ -51,22 +51,27 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
 
             case State.Approve:
                 subject = $"Tyle {objectTypeName} approval request";
-                content = $"User {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} request approval for the {objectTypeName} {objectName}. This can be done in Tyle under 'Settings' and 'Approval'.";
+                content = $"User {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} requests approval for the {objectTypeName} {objectName}. This can be done in Tyle under 'Settings' and 'Approval'.";
                 break;
 
             case State.Approved:
                 subject = $"Tyle {objectTypeName} is approved";
-                content = $"The {objectTypeName} {objectName} is approved.)";
+                content = $"The {objectTypeName} {objectName} is approved by {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email}";
                 break;
 
             case State.Delete:
                 subject = $"Tyle {objectTypeName} delete request";
-                content = $"User {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} request delete for the {objectTypeName} {objectName}. This can be done in Tyle under 'Settings' and 'Approval'.";
+                content = $"User {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} requests delete for the {objectTypeName} {objectName}. This can be done in Tyle under 'Settings' and 'Approval'.";
                 break;
 
             case State.Deleted:
                 subject = $"Tyle {objectTypeName} is deleted";
-                content = $"The {objectTypeName} {objectName} is deleted.)";
+                content = $"The {objectTypeName} {objectName} is deleted by {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email}";
+                break;
+
+            case State.Rejected:
+                subject = $"Tyle {objectTypeName} is rejected";
+                content = $"The {objectTypeName} {objectName} is rejected by {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email}";
                 break;
 
             default:
@@ -84,7 +89,7 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
         });
     }
 
-    public Task<MimirorgMailAm> CreateUserRegistrationEmail(MimirorgUserCm sendToUser, MimirorgUserCm newUser)
+    public Task<MimirorgMailAm> CreateUserRegistrationEmail(MimirorgUserCm sendToUser, MimirorgUserCm fromUser)
     {
         if (_authSettings == null || string.IsNullOrEmpty(_authSettings.Email))
             throw new MimirorgConfigurationException("Missing configuration for email");
@@ -96,7 +101,7 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
             ToEmail = sendToUser.Email,
             ToName = $"{sendToUser.FirstName} {sendToUser.LastName}",
             Subject = $@"Tyle has a new user",
-            HtmlContent = $@"<div><h1>Tyle has a new user</h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user {newUser.FirstName} {newUser.LastName} with email {newUser.Email} just created an account.</p><p>The user needs an appropriate access level. This can be set in Tyle under 'Settings' and 'Access'.</p></div>"
+            HtmlContent = $@"<div><h1>Tyle has a new user</h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} just created an account.</p><p>The user needs an appropriate access level. This can be set in Tyle under 'Settings' and 'Access'.</p></div>"
         });
     }
 }

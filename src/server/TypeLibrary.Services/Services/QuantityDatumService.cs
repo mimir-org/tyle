@@ -175,13 +175,11 @@ public class QuantityDatumService : IQuantityDatumService
             throw new MimirorgInvalidOperationException(
                 $"State change on approved quantity datum with id {id} is not allowed.");
 
-        await _quantityDatumRepository.ChangeState(state, dm.Id);
+        await _quantityDatumRepository.ChangeState(state == State.Rejected ? State.Draft : state, dm.Id);
+        await _logService.CreateLog(dm, LogType.State, state.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
-        await _logService.CreateLog(
-            dm,
-            LogType.State,
-            state.ToString(),
-            _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
+        if (state == State.Rejected)
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         _hookService.HookQueue.Enqueue(CacheKey.QuantityDatum);
 
@@ -191,7 +189,7 @@ public class QuantityDatumService : IQuantityDatumService
         return new ApprovalDataCm
         {
             Id = id,
-            State = state
+            State = state == State.Rejected ? State.Draft : state
 
         };
     }

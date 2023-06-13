@@ -399,8 +399,12 @@ public class AspectObjectService : IAspectObjectService
                 throw new MimirorgInvalidOperationException("Cannot approve aspect object that uses unapproved terminals.");
         }
 
-        await _aspectObjectRepository.ChangeState(state, dm.Id);
+        await _aspectObjectRepository.ChangeState(state == State.Rejected ? State.Draft : state, dm.Id);
         await _logService.CreateLog(dm, LogType.State, state.ToString(), dm.CreatedBy);
+
+        if (state == State.Rejected)
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), dm.CreatedBy);
+
         _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
 
         if (sendStateEmail)
@@ -409,7 +413,7 @@ public class AspectObjectService : IAspectObjectService
         return new ApprovalDataCm
         {
             Id = id,
-            State = state
+            State = state == State.Rejected ? State.Draft : state
         };
     }
 

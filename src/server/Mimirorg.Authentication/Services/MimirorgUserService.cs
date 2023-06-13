@@ -7,7 +7,6 @@ using Mimirorg.Authentication.Contracts;
 using Mimirorg.Authentication.Extensions;
 using Mimirorg.Authentication.Models.Constants;
 using Mimirorg.Authentication.Models.Domain;
-using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
 using Mimirorg.Common.Models;
@@ -15,6 +14,7 @@ using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
@@ -77,39 +77,43 @@ public class MimirorgUserService : IMimirorgUserService
     /// <exception cref="MimirorgNotFoundException"></exception>
     public async Task<MimirorgUserCm> GetUser(string id)
     {
-        var users = await GetUsers();
-        var user = users.FirstOrDefault(x => x.Id == id);
+        var user = await _userManager.FindByIdAsync(id);
 
-        return user ?? throw new MimirorgNotFoundException($"Couldn't find user with id {id}");
+        if (user == null)
+            throw new MimirorgNotFoundException($"Couldn't find user with id {id}");
+
+        var companies = await _mimirorgCompanyService.GetAllCompanies();
+        var permissions = await _mimirorgAuthService.GetAllPermissions();
+        var roles = await _userManager.GetRolesAsync(user);
+        var claims = await _userManager.GetClaimsAsync(user);
+
+        return UserToCm(user, companies, permissions, roles, claims);
     }
 
-    /// <summary>
-    /// Get all users
-    /// </summary>
-    /// <returns>List(MimirorgUserCm)</returns>
-    /// <exception cref="MimirorgNotFoundException"></exception>
+    /// <inheritdoc />
     public async Task<List<MimirorgUserCm>> GetUsers()
     {
-        var users = _userManager.Users.ToList();
+        var companies = await _mimirorgCompanyService.GetAllCompanies();
+        var permissions = await _mimirorgAuthService.GetAllPermissions();
+        var userCms = new List<MimirorgUserCm>();
 
-        if (!users.Any())
-            throw new MimirorgNotFoundException("Couldn't find any users");
-
-        var mimirorgUserCms = new List<MimirorgUserCm>();
-
-        foreach (var user in users)
+        foreach (var user in _userManager.Users.ToList())
         {
-            var userCm = user.ToContentModel();
-            var companies = await _mimirorgCompanyService.GetAllCompanies();
-            var permissions = await _mimirorgAuthService.GetAllPermissions();
             var roles = await _userManager.GetRolesAsync(user);
             var claims = await _userManager.GetClaimsAsync(user);
-            userCm.ResolvePermissions(roles, claims, companies, permissions);
-            userCm.ResolveRoles(roles, claims, companies, permissions);
-            mimirorgUserCms.Add(userCm);
+            userCms.Add(UserToCm(user, companies, permissions, roles, claims));
         }
 
-        return mimirorgUserCms;
+        return userCms;
+    }
+
+    private MimirorgUserCm UserToCm(MimirorgUser user, ICollection<MimirorgCompanyCm> companies, ICollection<MimirorgPermissionCm> permissions, IList<string> roles, IList<Claim> claims)
+    {
+        var userCm = user.ToContentModel();
+        userCm.ResolvePermissions(roles, claims, companies, permissions);
+        userCm.ResolveRoles(roles, claims, companies, permissions);
+
+        return userCm;
     }
 
     /// <summary>
@@ -337,24 +341,6 @@ public class MimirorgUserService : IMimirorgUserService
         return result.Succeeded;
     }
 
-    /// <summary>
-    /// Send emails with object state
-    /// </summary>
-    /// <param name="sendToUsers"></param>
-    /// <param name="fromUser"></param>
-    /// <param name="state"></param>
-    /// <param name="objectName"></param>
-    /// <param name="objectTypeName"></param>
-    /// <returns>A completed task</returns>
-    public async Task CreateAndSendObjectStateEmail(List<MimirorgUserCm> sendToUsers, MimirorgUserCm fromUser, State state, string objectName, string objectTypeName)
-    {
-        foreach (var sendToUser in sendToUsers)
-        {
-            var email = await _templateRepository.CreateObjectStateEmail(sendToUser, fromUser, state, objectName, objectTypeName);
-            await _emailRepository.SendEmail(email);
-        }
-    }
-
     #region Private methods
 
     /// <summary>
@@ -524,10 +510,12 @@ public class MimirorgUserService : IMimirorgUserService
 
         // If this is the first registered user and environment is Development, create a dummy organization
         await CreateDefaultUserData(user);
+
         var userCm = user.ToContentModel();
 
-        var allUsers = await GetUsers();
-        var companyManagers = allUsers.Where(x => x.CompanyId == userCm.CompanyId && x.Permissions.ContainsValue(MimirorgPermission.Manage)).ToList();
+        //Send email to company managers
+        var users = await GetUsers();
+        var companyManagers = users.Where(x => x.Permissions.ContainsKey(user.CompanyId) && x.Permissions.ContainsValue(MimirorgPermission.Manage)).DistinctBy(x => x.Id).ToList();
 
         foreach (var companyManager in companyManagers)
         {

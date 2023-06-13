@@ -9,5 +9,5 @@ public interface IMimirorgTemplateRepository
 {
     Task<MimirorgMailAm> CreateCodeVerificationMail(MimirorgUser user, string secret);
     Task<MimirorgMailAm> CreateObjectStateEmail(MimirorgUserCm sendToUser, MimirorgUserCm fromUser, State state, string objectName, string objectTypeName);
-    Task<MimirorgMailAm> CreateUserRegistrationEmail(MimirorgUserCm sendToUser, MimirorgUserCm newUser);
+    Task<MimirorgMailAm> CreateUserRegistrationEmail(MimirorgUserCm sendToUser, MimirorgUserCm fromUser);
 }

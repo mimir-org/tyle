@@ -17,12 +17,16 @@ namespace TypeLibrary.Services.Services
         private readonly ILogService _logService;
         private readonly IMimirorgUserService _mimirorgUserService;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IMimirorgTemplateRepository _templateRepository;
+        private readonly IMimirorgEmailRepository _emailRepository;
 
-        public EmailService(ILogService logService, IMimirorgUserService mimirorgUserService, IHttpContextAccessor contextAccessor)
+        public EmailService(ILogService logService, IMimirorgUserService mimirorgUserService, IHttpContextAccessor contextAccessor, IMimirorgTemplateRepository templateRepository, IMimirorgEmailRepository emailRepository)
         {
             _logService = logService;
             _mimirorgUserService = mimirorgUserService;
             _contextAccessor = contextAccessor;
+            _templateRepository = templateRepository;
+            _emailRepository = emailRepository;
         }
 
         /// <summary>
@@ -40,10 +44,7 @@ namespace TypeLibrary.Services.Services
             var currentUser = allUsers.FirstOrDefault(x => x.Id == _contextAccessor.GetUserId());
 
             if (currentUser == null)
-                throw new MimirorgNotFoundException($"Current user not found. Unable to sendt state '{objectState}' email for object '{objectTypeName} {objectName}.");
-
-            var companyApproveAndManagers = allUsers.Where(x => x.CompanyId == currentUser.CompanyId && x.Permissions.ContainsValue(MimirorgPermission.Approve) || x.Permissions.ContainsValue(MimirorgPermission.Manage)).ToList();
-            var companyDeleteAndManagers = allUsers.Where(x => x.CompanyId == currentUser.CompanyId && x.Permissions.ContainsValue(MimirorgPermission.Delete) || x.Permissions.ContainsValue(MimirorgPermission.Manage)).ToList();
+                throw new MimirorgNotFoundException($"Current user not found. Unable to sendt state '{objectState}' email for {objectTypeName} {objectName}.");
 
             switch (objectState)
             {
@@ -51,21 +52,28 @@ namespace TypeLibrary.Services.Services
                     return;
 
                 case State.Approve:
-                    sendEmailToUserIds.AddRange(companyApproveAndManagers.Select(x => x.Id));
-                    break;
-
-                case State.Approved:
-                    var sendApprovedToUsers = _logService.Get().Where(x => x.ObjectId == objectId && x.LogTypeValue == State.Approve.ToString() || x.LogTypeValue == State.Draft.ToString()).ToList();
-                    sendEmailToUserIds.AddRange(sendApprovedToUsers.Select(x => x.CreatedBy));
+                    var canApprove = allUsers.Where(x => x.Permissions.ContainsKey(currentUser.CompanyId) && x.Permissions[currentUser.CompanyId].HasFlag(MimirorgPermission.Approve)).DistinctBy(x => x.Id).ToList();
+                    sendEmailToUserIds.AddRange(canApprove.Select(x => x.Id));
                     break;
 
                 case State.Delete:
-                    sendEmailToUserIds.AddRange(companyDeleteAndManagers.Select(x => x.Id));
+                    var canDelete = allUsers.Where(x => x.Permissions.ContainsKey(currentUser.CompanyId) && x.Permissions[currentUser.CompanyId].HasFlag(MimirorgPermission.Delete)).DistinctBy(x => x.Id).ToList();
+                    sendEmailToUserIds.AddRange(canDelete.Select(x => x.Id));
+                    break;
+
+                case State.Approved:
+                    var sendApprovedToUsers = _logService.Get().Where(x => x.ObjectId == objectId && x.LogTypeValue == State.Approve.ToString() || x.LogTypeValue == State.Draft.ToString());
+                    sendEmailToUserIds.AddRange(sendApprovedToUsers.Select(x => x.CreatedBy));
                     break;
 
                 case State.Deleted:
-                    var sendDeletedToUsers = _logService.Get().Where(x => x.ObjectId == objectId && x.LogTypeValue == State.Delete.ToString() || x.LogTypeValue == State.Draft.ToString()).ToList();
+                    var sendDeletedToUsers = _logService.Get().Where(x => x.ObjectId == objectId && x.LogTypeValue == State.Delete.ToString() || x.LogTypeValue == State.Draft.ToString());
                     sendEmailToUserIds.AddRange(sendDeletedToUsers.Select(x => x.CreatedBy));
+                    break;
+
+                case State.Rejected:
+                    var sendRejectedToUsers = _logService.Get().Where(x => x.ObjectId == objectId && x.LogTypeValue == State.Approve.ToString() || x.LogTypeValue == State.Delete.ToString() || x.LogTypeValue == State.Draft.ToString());
+                    sendEmailToUserIds.AddRange(sendRejectedToUsers.Select(x => x.CreatedBy));
                     break;
 
                 default:
@@ -74,7 +82,11 @@ namespace TypeLibrary.Services.Services
 
             var sendEmailToUsers = sendEmailToUserIds.Distinct().Select(id => allUsers.FirstOrDefault(x => x.Id == id)).ToList();
 
-            await _mimirorgUserService.CreateAndSendObjectStateEmail(sendEmailToUsers, currentUser, objectState, objectName, objectTypeName);
+            foreach (var sendToUser in sendEmailToUsers)
+            {
+                var email = await _templateRepository.CreateObjectStateEmail(sendToUser, currentUser, objectState, objectName, objectTypeName);
+                await _emailRepository.SendEmail(email);
+            }
         }
     }
 }

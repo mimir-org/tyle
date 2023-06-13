@@ -236,7 +236,7 @@ public class LibraryTerminalController : ControllerBase
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _terminalService.ChangeState(id, State.Draft);
+            var data = await _terminalService.ChangeState(id, State.Rejected);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)
