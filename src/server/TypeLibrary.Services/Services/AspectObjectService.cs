@@ -1,9 +1,12 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Common.Extensions;
+using Mimirorg.TypeLibrary.Constants;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
@@ -11,14 +14,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Mimirorg.TypeLibrary.Constants;
+using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
-using TypeLibrary.Data.Constants;
 
 namespace TypeLibrary.Services.Services;
 
@@ -36,8 +36,9 @@ public class AspectObjectService : IAspectObjectService
     private readonly ILogService _logService;
     private readonly ILogger<AspectObjectService> _logger;
     private readonly IHttpContextAccessor _contextAccessor;
+    private readonly IEmailService _emailService;
 
-    public AspectObjectService(IMapper mapper, IEfAspectObjectRepository aspectObjectRepository, IAttributeRepository attributeRepository, IEfAspectObjectTerminalRepository aspectObjectTerminalRepository, IEfAspectObjectAttributeRepository aspectObjectAttributeRepository, ITerminalService terminalService, IAttributeService attributeService, IRdsService rdsService, ITimedHookService hookService, ILogService logService, ILogger<AspectObjectService> logger, IHttpContextAccessor contextAccessor)
+    public AspectObjectService(IMapper mapper, IEfAspectObjectRepository aspectObjectRepository, IAttributeRepository attributeRepository, IEfAspectObjectTerminalRepository aspectObjectTerminalRepository, IEfAspectObjectAttributeRepository aspectObjectAttributeRepository, ITerminalService terminalService, IAttributeService attributeService, IRdsService rdsService, ITimedHookService hookService, ILogService logService, ILogger<AspectObjectService> logger, IHttpContextAccessor contextAccessor, IEmailService emailService)
     {
         _mapper = mapper;
         _aspectObjectRepository = aspectObjectRepository;
@@ -51,6 +52,7 @@ public class AspectObjectService : IAspectObjectService
         _logService = logService;
         _logger = logger;
         _contextAccessor = contextAccessor;
+        _emailService = emailService;
     }
 
     /// <inheritdoc />
@@ -335,14 +337,13 @@ public class AspectObjectService : IAspectObjectService
         await _aspectObjectTerminalRepository.SaveAsync();
         await _aspectObjectAttributeRepository.SaveAsync();
         await _aspectObjectRepository.SaveAsync();
-        var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
-        await _logService.CreateLog(aspectObjectToUpdate, LogType.Update, aspectObjectToUpdate.State.ToString(), updatedBy);
+        await _logService.CreateLog(aspectObjectToUpdate, LogType.Update, aspectObjectToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         return Get(aspectObjectToUpdate.Id);
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true)
     {
         var dm = _aspectObjectRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
@@ -397,14 +398,21 @@ public class AspectObjectService : IAspectObjectService
                 throw new MimirorgInvalidOperationException("Cannot approve aspect object that uses unapproved terminals.");
         }
 
-        await _aspectObjectRepository.ChangeState(state, dm.Id);
+        await _aspectObjectRepository.ChangeState(state == State.Rejected ? State.Draft : state, dm.Id);
         await _logService.CreateLog(dm, LogType.State, state.ToString(), dm.CreatedBy);
+
+        if (state == State.Rejected)
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
+
         _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
+
+        if (sendStateEmail)
+            await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.AspectObject);
 
         return new ApprovalDataCm
         {
             Id = id,
-            State = state
+            State = state == State.Rejected ? State.Draft : state
         };
     }
 

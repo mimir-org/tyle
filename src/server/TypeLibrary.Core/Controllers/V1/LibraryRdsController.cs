@@ -233,7 +233,7 @@ public class LibraryRdsController : ControllerBase
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _rdsService.ChangeState(id, State.Draft);
+            var data = await _rdsService.ChangeState(id, State.Rejected);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)

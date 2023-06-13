@@ -1,10 +1,10 @@
-using System;
-using System.Threading.Tasks;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
 using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
+using System;
+using System.Threading.Tasks;
 using TypeLibrary.Services.Services;
 using Xunit;
 
@@ -16,7 +16,7 @@ public class AspectObjectServiceTests : UnitTest<MimirorgCommonFixture>
 
     public AspectObjectServiceTests(MimirorgCommonFixture fixture) : base(fixture)
     {
-        _aspectObjectService = new AspectObjectService(fixture.Mapper.Object, fixture.AspectObjectRepository.Object, fixture.AttributeRepository.Object, fixture.AspectObjectTerminalRepository.Object, fixture.AspectObjectAttributeRepository.Object, fixture.TerminalService.Object, fixture.AttributeService.Object, fixture.RdsService.Object, fixture.TimedHookService.Object, fixture.LogService.Object, fixture.AspectObjectServiceLogger.Object, fixture.HttpContextAccessor.Object);
+        _aspectObjectService = new AspectObjectService(fixture.Mapper.Object, fixture.AspectObjectRepository.Object, fixture.AttributeRepository.Object, fixture.AspectObjectTerminalRepository.Object, fixture.AspectObjectAttributeRepository.Object, fixture.TerminalService.Object, fixture.AttributeService.Object, fixture.RdsService.Object, fixture.TimedHookService.Object, fixture.LogService.Object, fixture.AspectObjectServiceLogger.Object, fixture.HttpContextAccessor.Object, fixture.EmailService.Object);
     }
 
     [Fact]

@@ -26,8 +26,9 @@ public class RdsService : IRdsService
     private readonly ILogService _logService;
     private readonly ITimedHookService _hookService;
     private readonly IHttpContextAccessor _contextAccessor;
+    private readonly IEmailService _emailService;
 
-    public RdsService(IMapper mapper, IEfRdsRepository rdsRepository, IEfCategoryRepository categoryRepository, ILogService logService, ITimedHookService hookService, IHttpContextAccessor contextAccessor)
+    public RdsService(IMapper mapper, IEfRdsRepository rdsRepository, IEfCategoryRepository categoryRepository, ILogService logService, ITimedHookService hookService, IHttpContextAccessor contextAccessor, IEmailService emailService)
     {
         _mapper = mapper;
         _rdsRepository = rdsRepository;
@@ -35,6 +36,7 @@ public class RdsService : IRdsService
         _logService = logService;
         _hookService = hookService;
         _contextAccessor = contextAccessor;
+        _emailService = emailService;
     }
 
     public ICollection<RdsLibCm> Get()
@@ -126,8 +128,7 @@ public class RdsService : IRdsService
 
         _rdsRepository.Update(rdsToUpdate);
         await _rdsRepository.SaveAsync();
-        var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
-        await _logService.CreateLog(rdsToUpdate, LogType.Update, rdsToUpdate.State.ToString(), updatedBy);
+        await _logService.CreateLog(rdsToUpdate, LogType.Update, rdsToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         _rdsRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.Rds);
@@ -136,7 +137,7 @@ public class RdsService : IRdsService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true)
     {
         var dm = _rdsRepository.Get(id);
 
@@ -146,20 +147,21 @@ public class RdsService : IRdsService
         if (dm.State == State.Approved)
             throw new MimirorgInvalidOperationException($"State change on approved RDS with id {id} is not allowed.");
 
-        await _rdsRepository.ChangeState(state, dm.Id);
+        await _rdsRepository.ChangeState(state == State.Rejected ? State.Draft : state, dm.Id);
+        await _logService.CreateLog(dm, LogType.State, state.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
-        await _logService.CreateLog(
-            dm,
-            LogType.State,
-            state.ToString(),
-            !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown);
+        if (state == State.Rejected)
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         _hookService.HookQueue.Enqueue(CacheKey.Rds);
+
+        if (sendStateEmail)
+            await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.Rds);
 
         return new ApprovalDataCm
         {
             Id = id,
-            State = state
+            State = state == State.Rejected ? State.Draft : state
         };
     }
 

@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
@@ -12,7 +13,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
@@ -32,8 +32,9 @@ public class TerminalService : ITerminalService
     private readonly IAttributeRepository _attributeRepository;
     private readonly IEfTerminalAttributeRepository _terminalAttributeRepository;
     private readonly IHttpContextAccessor _contextAccessor;
+    private readonly IEmailService _emailService;
 
-    public TerminalService(IEfTerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService, ILogService logService, ILogger<TerminalService> logger, IAttributeService attributeService, IAttributeRepository attributeRepository, IEfTerminalAttributeRepository terminalAttributeRepository, IHttpContextAccessor contextAccessor)
+    public TerminalService(IEfTerminalRepository terminalRepository, IMapper mapper, ITimedHookService hookService, ILogService logService, ILogger<TerminalService> logger, IAttributeService attributeService, IAttributeRepository attributeRepository, IEfTerminalAttributeRepository terminalAttributeRepository, IHttpContextAccessor contextAccessor, IEmailService emailService)
     {
         _terminalRepository = terminalRepository;
         _mapper = mapper;
@@ -44,6 +45,7 @@ public class TerminalService : ITerminalService
         _attributeRepository = attributeRepository;
         _terminalAttributeRepository = terminalAttributeRepository;
         _contextAccessor = contextAccessor;
+        _emailService = emailService;
     }
 
     /// <inheritdoc />
@@ -179,8 +181,7 @@ public class TerminalService : ITerminalService
 
         await _terminalAttributeRepository.SaveAsync();
         await _terminalRepository.SaveAsync();
-        var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
-        await _logService.CreateLog(terminalToUpdate, LogType.Update, terminalToUpdate.State.ToString(), updatedBy);
+        await _logService.CreateLog(terminalToUpdate, LogType.Update, terminalToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         _terminalRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
@@ -189,7 +190,7 @@ public class TerminalService : ITerminalService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true)
     {
         var dm = _terminalRepository.Get().FirstOrDefault(x => x.Id == id);
 
@@ -214,20 +215,21 @@ public class TerminalService : ITerminalService
             throw new MimirorgInvalidOperationException("Cannot approve terminal that uses unapproved attributes.");
         }
 
-        await _terminalRepository.ChangeState(state, dm.Id);
+        await _terminalRepository.ChangeState(state == State.Rejected ? State.Draft : state, dm.Id);
+        await _logService.CreateLog(dm, LogType.State, state.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
-        await _logService.CreateLog(
-            dm,
-            LogType.State,
-            state.ToString(),
-            !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown);
+        if (state == State.Rejected)
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
+
+        if (sendStateEmail)
+            await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.Terminal);
 
         return new ApprovalDataCm
         {
             Id = id,
-            State = state
+            State = state == State.Rejected ? State.Draft : state
         };
     }
 }

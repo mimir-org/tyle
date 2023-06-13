@@ -25,14 +25,16 @@ public class UnitService : IUnitService
     private readonly ITimedHookService _hookService;
     private readonly ILogService _logService;
     private readonly IHttpContextAccessor _contextAccessor;
+    private readonly IEmailService _emailService;
 
-    public UnitService(IMapper mapper, IEfUnitRepository unitRepository, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor)
+    public UnitService(IMapper mapper, IEfUnitRepository unitRepository, ITimedHookService hookService, ILogService logService, IHttpContextAccessor contextAccessor, IEmailService emailService)
     {
         _mapper = mapper;
         _unitRepository = unitRepository;
         _hookService = hookService;
         _logService = logService;
         _contextAccessor = contextAccessor;
+        _emailService = emailService;
     }
 
     /// <inheritdoc />
@@ -120,8 +122,7 @@ public class UnitService : IUnitService
 
         _unitRepository.Update(unitToUpdate);
         await _unitRepository.SaveAsync();
-        var updatedBy = !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown;
-        await _logService.CreateLog(unitToUpdate, LogType.Update, unitToUpdate.State.ToString(), updatedBy);
+        await _logService.CreateLog(unitToUpdate, LogType.Update, unitToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         _unitRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.Unit);
@@ -130,7 +131,7 @@ public class UnitService : IUnitService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true)
     {
         var dm = _unitRepository.Get().FirstOrDefault(x => x.Id == id);
 
@@ -138,24 +139,23 @@ public class UnitService : IUnitService
             throw new MimirorgNotFoundException($"Unit with id {id} not found.");
 
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException(
-                $"State change on approved unit with id {id} is not allowed.");
+            throw new MimirorgInvalidOperationException($"State change on approved unit with id {id} is not allowed.");
 
-        await _unitRepository.ChangeState(state, dm.Id);
+        await _unitRepository.ChangeState(state == State.Rejected ? State.Draft : state, dm.Id);
+        await _logService.CreateLog(dm, LogType.State, state.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
-        await _logService.CreateLog(
-            dm,
-            LogType.State,
-            state.ToString(),
-            !string.IsNullOrWhiteSpace(_contextAccessor.GetName()) ? _contextAccessor.GetName() : CreatedBy.Unknown);
+        if (state == State.Rejected)
+            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         _hookService.HookQueue.Enqueue(CacheKey.Unit);
+
+        if (sendStateEmail)
+            await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.Unit);
 
         return new ApprovalDataCm
         {
             Id = id,
-            State = state
-
+            State = state == State.Rejected ? State.Draft : state
         };
     }
 }

@@ -14,6 +14,7 @@ using Mimirorg.TypeLibrary.Enums;
 using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
@@ -77,15 +78,38 @@ public class MimirorgUserService : IMimirorgUserService
     public async Task<MimirorgUserCm> GetUser(string id)
     {
         var user = await _userManager.FindByIdAsync(id);
+
         if (user == null)
             throw new MimirorgNotFoundException($"Couldn't find user with id {id}");
-
-        var userCm = user.ToContentModel();
 
         var companies = await _mimirorgCompanyService.GetAllCompanies();
         var permissions = await _mimirorgAuthService.GetAllPermissions();
         var roles = await _userManager.GetRolesAsync(user);
         var claims = await _userManager.GetClaimsAsync(user);
+
+        return UserToCm(user, companies, permissions, roles, claims);
+    }
+
+    /// <inheritdoc />
+    public async Task<List<MimirorgUserCm>> GetUsers()
+    {
+        var companies = await _mimirorgCompanyService.GetAllCompanies();
+        var permissions = await _mimirorgAuthService.GetAllPermissions();
+        var userCms = new List<MimirorgUserCm>();
+
+        foreach (var user in _userManager.Users.ToList())
+        {
+            var roles = await _userManager.GetRolesAsync(user);
+            var claims = await _userManager.GetClaimsAsync(user);
+            userCms.Add(UserToCm(user, companies, permissions, roles, claims));
+        }
+
+        return userCms;
+    }
+
+    private MimirorgUserCm UserToCm(MimirorgUser user, ICollection<MimirorgCompanyCm> companies, ICollection<MimirorgPermissionCm> permissions, IList<string> roles, IList<Claim> claims)
+    {
+        var userCm = user.ToContentModel();
         userCm.ResolvePermissions(roles, claims, companies, permissions);
         userCm.ResolveRoles(roles, claims, companies, permissions);
 
@@ -486,7 +510,32 @@ public class MimirorgUserService : IMimirorgUserService
 
         // If this is the first registered user and environment is Development, create a dummy organization
         await CreateDefaultUserData(user);
-        return user.ToContentModel();
+
+        var userCm = user.ToContentModel();
+
+        //Send email to company managers
+        var users = await GetUsers();
+
+        var companyManagers = new List<MimirorgUserCm>();
+
+        foreach (var item in users)
+        {
+            foreach (var permission in item.Permissions)
+            {
+                if (permission.Key == user.CompanyId && permission.Value == MimirorgPermission.Manage)
+                {
+                    companyManagers.Add(item);
+                }
+            }
+        }
+
+        foreach (var companyManager in companyManagers.DistinctBy(x => x.Id))
+        {
+            var email = await _templateRepository.CreateUserRegistrationEmail(companyManager, userCm);
+            await _emailRepository.SendEmail(email);
+        }
+
+        return userCm;
     }
 
     /// <summary>
