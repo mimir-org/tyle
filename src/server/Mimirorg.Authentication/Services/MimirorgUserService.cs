@@ -515,9 +515,21 @@ public class MimirorgUserService : IMimirorgUserService
 
         //Send email to company managers
         var users = await GetUsers();
-        var companyManagers = users.Where(x => x.Permissions.ContainsKey(user.CompanyId) && x.Permissions.ContainsValue(MimirorgPermission.Manage)).DistinctBy(x => x.Id).ToList();
 
-        foreach (var companyManager in companyManagers)
+        var companyManagers = new List<MimirorgUserCm>();
+
+        foreach (var item in users)
+        {
+            foreach (var permission in item.Permissions)
+            {
+                if (permission.Key == user.CompanyId && permission.Value == MimirorgPermission.Manage)
+                {
+                    companyManagers.Add(item);
+                }
+            }
+        }
+
+        foreach (var companyManager in companyManagers.DistinctBy(x => x.Id))
         {
             var email = await _templateRepository.CreateUserRegistrationEmail(companyManager, userCm);
             await _emailRepository.SendEmail(email);
