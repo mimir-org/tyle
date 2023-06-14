@@ -1,5 +1,4 @@
 import { AspectObjectItem } from "common/types/aspectObjectItem";
-import { Token } from "complib/general";
 import { Flexbox, MotionBox } from "complib/layouts";
 import { Heading, Text } from "complib/text";
 import { InfoItemButton } from "features/common/info-item";
@@ -9,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { TerminalTable } from "./terminal-table/TerminalTable";
 import { AspectObjectPreview } from "../../../../entities/entityPreviews/aspectobject/AspectObjectPreview";
+import { StateBadge } from "../../../../ui/badges/StateBadge";
 
 /**
  * Component that displays information about a given aspect object.
@@ -57,7 +57,7 @@ export const AspectObjectPanel = ({
         </Text>
       </Flexbox>
       <Flexbox gap={theme.tyle.spacing.xl} flexWrap={"wrap"}>
-        {tokens && tokens.map((token, i) => <Token key={i + token}>{token}</Token>)}
+        {tokens && tokens.map((token, i) => <StateBadge key={i + token} state={token} />)}
       </Flexbox>
 
       <PanelPropertiesContainer>

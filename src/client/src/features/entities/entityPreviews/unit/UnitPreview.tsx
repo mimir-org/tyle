@@ -1,8 +1,9 @@
 import { Flexbox } from "../../../../complib/layouts";
 import { Text } from "../../../../complib/text";
 import styled, { useTheme } from "styled-components/macro";
-import Badge from "../../../ui/badges/Badge";
 import UnitIcon from "../../../icons/UnitIcon";
+import { StateBadge } from "../../../ui/badges/StateBadge";
+import { State } from "@mimirorg/typelibrary-types";
 
 interface UnitContainerProps {
   isDefault?: boolean;
@@ -14,7 +15,7 @@ const StyledUnit = styled.div<UnitContainerProps>`
   flex-direction: column;
   border: 1px solid #ccc;
   gap: ${(props) => props.theme.tyle.spacing.l};
-  padding: ${(props) => props.theme.tyle.spacing.l};
+  padding: ${(props) => props.theme.tyle.spacing.xl};
   border-radius: ${(props) => props.theme.tyle.border.radius.large};
   height: fit-content;
   background-color: ${(props) =>
@@ -29,8 +30,9 @@ interface UnitPreviewProps {
   isDefault?: boolean;
   unitId?: string;
   symbol: string;
-  noBadge?: boolean;
   small?: boolean;
+  state?: State;
+  stateBadge?: boolean;
 }
 
 export default function UnitPreview({
@@ -39,8 +41,9 @@ export default function UnitPreview({
   unitId,
   isDefault,
   symbol,
-  noBadge,
   small,
+  state,
+  stateBadge = false,
 }: UnitPreviewProps) {
   return (
     <StyledUnit key={unitId} small={small} isDefault={isDefault}>
@@ -49,10 +52,13 @@ export default function UnitPreview({
       ) : (
         <>
           <Flexbox justifyContent={"space-between"}>
-            <Flexbox gap={"1rem"} alignItems={"center"}>
-              <Text variant={"display-small"}>{name}</Text>
+            <Text variant={"display-small"} useEllipsis={small}>
+              {name}
+              {isDefault ? " (default)" : null}
+            </Text>
+            <Flexbox flexDirection={"row"}>
+              {state !== undefined && stateBadge ? <StateBadge state={state} /> : null}
             </Flexbox>
-            {isDefault && !noBadge && <Badge variant={"success"}>default</Badge>}
           </Flexbox>
           <Text variant={"title-medium"} color={"gray"}>
             {symbol}

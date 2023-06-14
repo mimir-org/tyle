@@ -15,8 +15,12 @@ import { usePatchAspectObjectState } from "../../../../external/sources/aspectob
 import { usePatchAttributeState } from "../../../../external/sources/attribute/attribute.queries";
 import { usePatchUnitState } from "../../../../external/sources/unit/unit.queries";
 import { usePatchQuantityDatumState } from "../../../../external/sources/datum/quantityDatum.queries";
+import { Text } from "../../../../complib/text";
+import { Tooltip } from "../../../../complib/data-display";
+import { StateBadge } from "../../../ui/badges/StateBadge";
 import { toast } from "complib/data-display";
 import { AxiosError } from "axios";
+import { useState } from "react";
 
 type SearchItemProps = {
   user: UserItem | null;
@@ -25,6 +29,8 @@ type SearchItemProps = {
 };
 
 export const SearchItemActions = ({ user, item, children }: SearchItemProps) => {
+  const [isApprovalOpen, setIsApprovalOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const theme = useTheme();
   const { t } = useTranslation("explore");
   const patchAspectObjectMutation = usePatchAspectObjectState();
@@ -83,30 +89,36 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
 
   const cloneLink = btnFilter.clone ? getCloneLink(item) : "#";
   const editLink = btnFilter.edit ? getEditLink(item) : "#";
+  const isStateApproved = item.state === State.Approved;
 
   return (
     <>
+      {!isStateApproved && <StateBadge state={item.state} />}
       <PlainLink tabIndex={-1} to={cloneLink}>
-        <Button
-          disabled={!btnFilter.clone}
-          tabIndex={0}
-          as={!btnFilter.clone ? "button" : "span"}
-          icon={<DocumentDuplicate />}
-          iconOnly
-        >
-          {t("search.item.clone")}
-        </Button>
+        <Tooltip content={<Text>{t("search.item.clone")}</Text>}>
+          <Button
+            disabled={!btnFilter.clone}
+            tabIndex={0}
+            as={!btnFilter.clone ? "button" : "span"}
+            icon={<DocumentDuplicate />}
+            iconOnly
+          >
+            {t("search.item.clone")}
+          </Button>
+        </Tooltip>
       </PlainLink>
       <PlainLink tabIndex={-1} to={editLink}>
-        <Button
-          disabled={!btnFilter.edit}
-          tabIndex={0}
-          as={!btnFilter.edit ? "button" : "span"}
-          icon={<PencilSquare />}
-          iconOnly
-        >
-          {t("search.item.edit")}
-        </Button>
+        <Tooltip content={<Text>{t("search.item.edit")}</Text>}>
+          <Button
+            disabled={!btnFilter.edit}
+            tabIndex={0}
+            as={!btnFilter.edit ? "button" : "span"}
+            icon={<PencilSquare />}
+            iconOnly
+          >
+            {t("search.item.edit")}
+          </Button>
+        </Tooltip>
       </PlainLink>
       <AlertDialog
         gap={theme.tyle.spacing.multiple(6)}
@@ -115,16 +127,21 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
         description={t("search.item.approveDescription")}
         hideDescription
         content={children}
-      >
+        open={isApprovalOpen}
+        onOpenChange={(open) => setIsApprovalOpen(open)}
+      />
+      <Tooltip content={<Text>{t("search.item.approve")}</Text>}>
         <Button
           disabled={!btnFilter.approve}
+          tabIndex={0}
           variant={btnFilter.approved ? "outlined" : "filled"}
           icon={<Check />}
           iconOnly
+          onClick={() => setIsApprovalOpen(true)}
         >
           {t("search.item.approve")}
         </Button>
-      </AlertDialog>
+      </Tooltip>
       <AlertDialog
         gap={theme.tyle.spacing.multiple(6)}
         actions={[deleteAction]}
@@ -132,17 +149,21 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
         description={t("search.item.deleteDescription")}
         hideDescription
         content={children}
-      >
+        open={isDeleteOpen}
+        onOpenChange={(open) => setIsDeleteOpen(open)}
+      />
+      <Tooltip content={<Text>{t("search.item.delete")}</Text>}>
         <Button
           disabled={!btnFilter.delete}
           variant={btnFilter.deleted ? "outlined" : "filled"}
           icon={<Trash />}
           dangerousAction
           iconOnly
+          onClick={() => setIsDeleteOpen(true)}
         >
           {t("search.item.delete")}
         </Button>
-      </AlertDialog>
+      </Tooltip>
     </>
   );
 };

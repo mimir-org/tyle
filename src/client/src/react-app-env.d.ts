@@ -2,6 +2,7 @@
 
 interface TypeLibraryEnv {
   API_BASE_URL?: string;
+  TYLE_VERSION?: string;
   SOCKET_BASE_URL?: string;
   APP_ID?: string;
   CLIENT_ID?: string;
