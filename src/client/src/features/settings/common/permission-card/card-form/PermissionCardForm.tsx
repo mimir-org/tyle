@@ -22,7 +22,7 @@ export const PermissionCardForm = ({ user, formId, onSubmit, showSubmitButton = 
   const { t } = useTranslation(["settings"]);
 
   const permissionOptions = getOptionsFromEnum<MimirorgPermission>(MimirorgPermission);
-  const currentPermission = permissionOptions.find((x) => x.value == user.permissions[user.company.id]?.value);
+  const currentPermission = permissionOptions.find((x) => x.value === user.permissions[user.company.id]?.value);
 
   const { register, control, handleSubmit, formState } = useForm<FormUserPermission>({
     resolver: yupResolver(permissionSchema(t)),

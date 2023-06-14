@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { RadioFilters } from "features/settings/common/radio-filters/RadioFilters";
 
 export default {
@@ -6,7 +6,7 @@ export default {
   component: RadioFilters,
 };
 
-const Template: ComponentStory<typeof RadioFilters> = (args) => <RadioFilters {...args} />;
+const Template: StoryFn<typeof RadioFilters> = (args) => <RadioFilters {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

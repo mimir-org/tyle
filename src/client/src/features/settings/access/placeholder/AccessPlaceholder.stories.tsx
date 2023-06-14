@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { AccessPlaceholder } from "features/settings/access/placeholder/AccessPlaceholder";
 
 export default {
@@ -6,7 +6,7 @@ export default {
   component: AccessPlaceholder,
 };
 
-const Template: ComponentStory<typeof AccessPlaceholder> = (args) => <AccessPlaceholder {...args}></AccessPlaceholder>;
+const Template: StoryFn<typeof AccessPlaceholder> = (args) => <AccessPlaceholder {...args}></AccessPlaceholder>;
 
 export const Default = Template.bind({});
 Default.args = {

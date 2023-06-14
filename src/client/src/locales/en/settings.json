@@ -23,8 +23,94 @@
   "approval": {
     "title": "Approval",
     "subtitle": "Types ready for approval or deletion",
+    "approval": "Types ready for approval",
+    "deletion": "Types ready for deletion",
     "placeholders": {
       "emptyApproval": "There is no types ready for approval or deletion"
+    }
+  },
+  "usersettings": {
+    "title": "User settings",
+    "validation": {
+      "firstName": {
+        "required": "Please enter a first name"
+      },
+      "lastName": {
+        "required": "Please enter a last name"
+      }
+    },
+    "updating": {
+      "loading": "Updating user settings",
+      "success": "Your user settings have been updated",
+      "error": "An error occured while updating your user settings"
+    },
+    "labels": {
+      "firstName": "First name",
+      "lastName": "Last name"
+    },
+    "placeholders": {
+      "firstName": "Enter first name",
+      "lastName": "Enter last name"
+    },
+    "submit": "Update user settings"
+  },
+  "company": {
+    "title": {
+      "create": "Create new company",
+      "update": "Update company"
+    },
+    "company": "company",
+    "creating": {
+      "loading": "Creating new company",
+      "success": "The new company has been created successfully",
+      "error": "An error occured while trying to create the new company"
+    },
+    "updating": {
+      "loading": "Updating company",
+      "success": "Company has been updated successfully",
+      "error": "An error occured while trying to update company"
+    },
+    "validation": {
+      "name": {
+        "required": "Please enter a company name"
+      },
+      "displayName": {
+        "required": "Please enter a company display name"
+      },
+      "domain": {
+        "required": "Please enter a company domain name"
+      },
+      "logo": {
+        "required": "Please upload a logo in SVG format"
+      }
+    },
+    "labels": {
+      "name": "Name",
+      "displayName": "Display name",
+      "description": "Description",
+      "secret": "Secret (must be kept for later use)",
+      "hiddenSecret": "Secret (will be unchanged unless you generate a new one)",
+      "domain": "Domain name",
+      "logo": "Logo (SVG)",
+      "homePage": "Home page"
+    },
+    "placeholders": {
+      "name": "Name",
+      "displayName": "Display name",
+      "description": "Description",
+      "domain": "Domain name",
+      "homePage": "Home page"
+    },
+    "submit": {
+      "cancel": "Cancel",
+      "create": "Create new company",
+      "update": "Apply changes"
+    },
+    "toasts": {
+      "userdataError": "Could not fetch user data, please try again",
+      "companyNameError": "A company with that name already exists",
+      "companyDomainError": "A company with that domain name already exists",
+      "copySecret": "Secret copied to clipboard"
     }
   },
   "common": {
@@ -66,12 +152,15 @@
       "userName": "User",
       "stateName": "State",
       "stateDropdown": "Set new state",
-      "submit": "Approve state",
+      "submit": "Approve",
       "reject": "Reject",
       "processing": {
         "loading": "Approving state",
         "success": "State approved",
-        "error": "An error occurred"
+        "error": {
+          "403": "403 (Forbidden) error: {{data}}",
+          "default": "An error occurred"
+        }
       },
       "undo": {
         "action": "Undo",

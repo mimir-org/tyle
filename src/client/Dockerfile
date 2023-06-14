@@ -1,8 +1,8 @@
-FROM node:13.12.0-alpine AS base
+FROM node:current-alpine3.17 AS base
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json package-lock.json ./
-RUN npm i --silent
+RUN npm ci --silent
 COPY . .
 
 FROM base as lint

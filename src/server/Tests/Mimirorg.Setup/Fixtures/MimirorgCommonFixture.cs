@@ -1,329 +1,146 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Enums;
-using Mimirorg.TypeLibrary.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Moq;
 using TypeLibrary.Data.Contracts;
+using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
+using TypeLibrary.Services.Services;
 
-namespace Mimirorg.Test.Setup.Fixtures
+namespace Mimirorg.Test.Setup.Fixtures;
+
+public class MimirorgCommonFixture : IDisposable
 {
-    public class MimirorgCommonFixture : IDisposable
+    // Common
+    public MimirorgAuthSettings MimirorgAuthSettings = new();
+    public ApplicationSettings ApplicationSettings = new();
+    public Mock<IMapper> Mapper = new();
+    public Mock<IHttpContextAccessor> HttpContextAccessor = new();
+
+    // Loggers
+    public Mock<ILogger<AspectObjectService>> AspectObjectServiceLogger = new();
+
+    // Repositories
+    public Mock<IEfAspectObjectRepository> AspectObjectRepository = new();
+    public Mock<IAttributeRepository> AttributeRepository = new();
+    public Mock<IEfAspectObjectTerminalRepository> AspectObjectTerminalRepository = new();
+    public Mock<IEfAspectObjectAttributeRepository> AspectObjectAttributeRepository = new();
+
+    // Services
+    public Mock<IAttributeService> AttributeService = new();
+    public Mock<ITerminalService> TerminalService = new();
+    public Mock<IRdsService> RdsService = new();
+    public Mock<ITimedHookService> TimedHookService = new();
+    public Mock<ILogService> LogService = new();
+    public Mock<IEmailService> EmailService = new();
+
+    public MimirorgCommonFixture()
     {
-        // Common
-        public MimirorgAuthSettings MimirorgAuthSettings = new();
-        public ApplicationSettings ApplicationSettings = new();
-        public Mock<IMapper> Mapper = new();
+        ApplicationSettings.ApplicationSemanticUrl = @"http://localhost:5001/v1/ont";
+        ApplicationSettings.ApplicationUrl = @"http://localhost:5001";
+        MimirorgAuthSettings.ApplicationUrl = @"http://localhost:5001";
+        MimirorgAuthSettings.RequireDigit = true;
+        MimirorgAuthSettings.RequireNonAlphanumeric = true;
+        MimirorgAuthSettings.RequireUppercase = true;
+        MimirorgAuthSettings.RequiredLength = 10;
+    }
 
-        // Repositories
-        public Mock<INodeRepository> NodeRepository = new();
-        public Mock<IQuantityDatumRepository> DatumRepository = new();
-        public Mock<IAttributePredefinedRepository> AttributePredefinedRepository = new();
-        public Mock<IAttributeReferenceRepository> AttributeReferenceRepository = new();
-
-        // Services
-        public Mock<ITimedHookService> TimedHookService = new();
-        public Mock<ILogService> LogService = new();
-
-        public MimirorgCommonFixture()
+    public (AspectObjectLibAm am, AspectObjectLibDm dm) CreateAspectObjectTestData()
+    {
+        var aspectObjectLibAm = new AspectObjectLibAm
         {
-            ApplicationSettings.ApplicationSemanticUrl = @"http://localhost:5001/v1/ont";
-            ApplicationSettings.ApplicationUrl = @"http://localhost:5001";
-            MimirorgAuthSettings.ApplicationUrl = @"http://localhost:5001";
-            MimirorgAuthSettings.RequireDigit = true;
-            MimirorgAuthSettings.RequireNonAlphanumeric = true;
-            MimirorgAuthSettings.RequireUppercase = true;
-            MimirorgAuthSettings.RequiredLength = 10;
-        }
-
-        public (NodeLibAm am, NodeLibDm dm) CreateNodeTestData()
-        {
-            var typeRefs = new List<TypeReferenceAm>
+            Name = "AA",
+            RdsId = "AA",
+            Aspect = Aspect.Function,
+            AspectObjectTerminals = new List<AspectObjectTerminalLibAm>
             {
                 new()
                 {
-                    Iri = "https://tyle.com",
-                    Name = "XX"
+                    ConnectorDirection = ConnectorDirection.Input,
+                    MinQuantity = 1,
+                    MaxQuantity = int.MaxValue,
+                    TerminalId = "123"
+                },
+                new()
+                {
+                    ConnectorDirection = ConnectorDirection.Input,
+                    MinQuantity = 1,
+                    MaxQuantity = int.MaxValue,
+                    TerminalId = "555"
                 }
-            };
-
-            var nodeLibAm = new NodeLibAm
-            {
-                Name = "AA",
-                RdsName = "AA",
-                RdsCode = "AA",
-                Aspect = Aspect.Function,
-                Attributes = new List<AttributeLibAm>
-                {
-                    new()
-                    {
-                        Name = "a1",
-                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
-                        Source = "PCA",
-                        Units = new List<UnitLibAm>
-                        {
-                            new()
-                            {
-                                Name = "u1",
-                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u1",
-                                IsDefault = true
-                            },
-                            new()
-                            {
-                                Name = "u2",
-                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u2",
-                                IsDefault = false
-                            }
-                        }
-                    }
-                },
-                NodeTerminals = new List<NodeTerminalLibAm>
-                {
-                    new()
-                    {
-                        ConnectorDirection = ConnectorDirection.Input,
-                        MinQuantity = 1,
-                        MaxQuantity = int.MaxValue,
-                        TerminalId = "123"
-                    },
-                    new()
-                    {
-                        ConnectorDirection = ConnectorDirection.Input,
-                        MinQuantity = 1,
-                        MaxQuantity = int.MaxValue,
-                        TerminalId = "555"
-                    }
-                },
-                SelectedAttributePredefined = new List<SelectedAttributePredefinedLibAm>
-                {
-                    new()
-                    {
-                        Key = "123"
-                    },
-                    new()
-                    {
-                        Key = "555"
-                    }
-                },
-                ParentId = "123",
-                TypeReferences = typeRefs
-            };
-
-            var id = $"AA-AA-{Aspect.Function}-1.0".CreateMd5();
-            var terminalId = $"123-{ConnectorDirection.Input}".CreateMd5();
-
-            var nodeLibDm = new NodeLibDm
-            {
-                Id = $"AA-AA-{Aspect.Function}-1.0".CreateMd5(),
-                Name = "AA",
-                RdsName = "AA",
-                RdsCode = "AA",
-                Aspect = Aspect.Function,
-                Attributes = nodeLibAm.Attributes.ConvertToString(),
-                NodeTerminals = new List<NodeTerminalLibDm>
-                {
-                    new()
-                    {
-                        ConnectorDirection = ConnectorDirection.Input,
-                        MinQuantity = 1,
-                        MaxQuantity = int.MaxValue,
-                        TerminalId = "123",
-                        Id = $"{terminalId}-{id}".CreateMd5()
-                    }
-                },
-                SelectedAttributePredefined = new List<SelectedAttributePredefinedLibDm>
-                {
-                    new()
-                    {
-                        Key = "123"
-                    }
-                },
-                ParentId = "123",
-                TypeReferences = typeRefs.ConvertToString()
-            };
-
-            return (nodeLibAm, nodeLibDm);
-        }
-
-        public (InterfaceLibAm am, InterfaceLibDm dm) CreateInterfaceTestData()
-        {
-            var typeRefs = new List<TypeReferenceAm>
+            },
+            SelectedAttributePredefined = new List<SelectedAttributePredefinedLibAm>
             {
                 new()
                 {
-                    Iri = "https://tyle.com",
-                    Name = "XX"
-                }
-            };
-
-            var interfaceLibAm = new InterfaceLibAm
-            {
-                Name = "AA",
-                RdsName = "AA",
-                RdsCode = "AA",
-                Aspect = Aspect.Function,
-                Attributes = new List<AttributeLibAm>
-                {
-                    new()
-                    {
-                        Name = "a1",
-                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
-                        Source = "PCA",
-                        Units = new List<UnitLibAm>
-                        {
-                            new()
-                            {
-                                Name = "u1",
-                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u1",
-                                IsDefault = true
-                            },
-                            new()
-                            {
-                                Name = "u2",
-                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u2",
-                                IsDefault = false
-                            }
-                        }
-                    }
+                    Key = "123"
                 },
-                ParentId = "123",
-                TypeReferences = typeRefs
-            };
+                new()
+                {
+                    Key = "555"
+                }
+            },
+            TypeReference = "https://www.tyle.com/"
+        };
 
-            var interfaceLibDm = new InterfaceLibDm
-            {
-                Name = "AA",
-                RdsName = "AA",
-                RdsCode = "AA",
-                Aspect = Aspect.Function,
-                Attributes = interfaceLibAm.Attributes.ConvertToString(),
-                ParentId = "123",
-                TypeReferences = typeRefs.ConvertToString()
-            };
-
-            return (interfaceLibAm, interfaceLibDm);
-        }
-
-        public (TransportLibAm am, TransportLibDm dm) CreateTransportTestData()
+        var aspectObjectLibDm = new AspectObjectLibDm
         {
-            var typeRefs = new List<TypeReferenceAm>
+            Id = "68313",
+            Name = "AA",
+            RdsId = "AA",
+            Aspect = Aspect.Function,
+            AspectObjectTerminals = new List<AspectObjectTerminalLibDm>
             {
                 new()
                 {
-                    Iri = "https://tyle.com",
-                    Name = "XX"
+                    ConnectorDirection = ConnectorDirection.Input,
+                    MinQuantity = 1,
+                    MaxQuantity = int.MaxValue,
+                    TerminalId = "123",
+                    Id = "74853"
                 }
-            };
-
-            var transportLibAm = new TransportLibAm
-            {
-                Name = "AA",
-                RdsName = "AA",
-                RdsCode = "AA",
-                Aspect = Aspect.Function,
-                Attributes = new List<AttributeLibAm>
-                {
-                    new()
-                    {
-                        Name = "a1",
-                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
-                        Source = "PCA",
-                        Units = new List<UnitLibAm>
-                        {
-                            new()
-                            {
-                                Name = "u1",
-                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u1",
-                                IsDefault = true
-                            },
-                            new()
-                            {
-                                Name = "u2",
-                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u2",
-                                IsDefault = false
-                            }
-                        }
-                    }
-                },
-                ParentId = "123",
-                TypeReferences = typeRefs
-            };
-
-            var transportLibDm = new TransportLibDm
-            {
-                Name = "AA",
-                RdsName = "AA",
-                RdsCode = "AA",
-                Aspect = Aspect.Function,
-                Attributes = transportLibAm.Attributes.ConvertToString(),
-                ParentId = "123",
-                TypeReferences = typeRefs.ConvertToString()
-            };
-
-            return (transportLibAm, transportLibDm);
-        }
-
-        public (TerminalLibAm am, TerminalLibDm dm) CreateTerminalTestData()
-        {
-            var typeRefs = new List<TypeReferenceAm>
+            },
+            SelectedAttributePredefined = new List<SelectedAttributePredefinedLibDm>
             {
                 new()
                 {
-                    Iri = "https://tyle.com",
-                    Name = "XX"
+                    Key = "123"
                 }
-            };
+            },
+            TypeReference = "https://www.tyle.com/"
+        };
 
-            var terminalLibAm = new TerminalLibAm
-            {
-                Name = "AA",
-                TypeReferences = typeRefs,
-                Color = "#123",
-                Attributes = new List<AttributeLibAm>
-                {
-                    new()
-                    {
-                        Name = "a1",
-                        Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_a1",
-                        Source = "PCA",
-                        Units = new List<UnitLibAm>
-                        {
-                            new()
-                            {
-                                Name = "u1",
-                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u1",
-                                IsDefault = true
-                            },
-                            new()
-                            {
-                                Name = "u2",
-                                Iri = "http://rds.posccaesar.org/ontology/plm/rdl/PCA_u2",
-                                IsDefault = false
-                            }
-                        }
-                    }
-                },
-                Version = "1.0"
-            };
+        return (aspectObjectLibAm, aspectObjectLibDm);
+    }
 
-            var terminalLibDm = new TerminalLibDm
-            {
-                Name = "AA",
-                Color = "#123",
-                Attributes = terminalLibAm.Attributes.ConvertToString(),
-                Version = "1.0",
-                TypeReferences = typeRefs.ConvertToString()
-            };
-
-            return (terminalLibAm, terminalLibDm);
-        }
-
-        public void Dispose()
+    public (TerminalLibAm am, TerminalLibDm dm) CreateTerminalTestData()
+    {
+        var terminalLibAm = new TerminalLibAm
         {
+            Name = "AA",
+            TypeReference = "https://www.tyle.com/",
+            Color = "#123",
+            Attributes = new List<string>()
+        };
 
-        }
+        var terminalLibDm = new TerminalLibDm
+        {
+            Name = "AA",
+            Color = "#123",
+            Attributes = new List<AttributeLibDm>(),
+            TypeReference = "https://www.tyle.com/"
+        };
+
+        return (terminalLibAm, terminalLibDm);
+    }
+
+    public void Dispose()
+    {
+
     }
 }

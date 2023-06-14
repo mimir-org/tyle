@@ -1,112 +1,110 @@
 using Mimirorg.Authentication.Models.Domain;
-using Mimirorg.Common.Extensions;
+using Mimirorg.Common.Models;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 
-namespace Mimirorg.Authentication.Extensions
+namespace Mimirorg.Authentication.Extensions;
+
+public static class MappingExtensions
 {
-    public static class MappingExtensions
+    public static MimirorgCompany ToDomainModel(this MimirorgCompanyAm company)
     {
-        public static MimirorgCompany ToDomainModel(this MimirorgCompanyAm company)
+        return new MimirorgCompany
         {
-            return new MimirorgCompany
-            {
-                Name = company.Name,
-                DisplayName = company.DisplayName,
-                Description = company.Description,
-                ManagerId = company.ManagerId,
-                Secret = company.Secret,
-                Domain = company.Domain,
-                Logo = company.Logo,
-                HomePage = company.HomePage,
-                Iris = company.Iris?.ConvertToString()
-            };
-        }
+            Name = company.Name,
+            DisplayName = company.DisplayName,
+            Description = company.Description,
+            ManagerId = company.ManagerId,
+            Secret = company.Secret,
+            Domain = company.Domain,
+            Logo = company.Logo,
+            HomePage = company.HomePage
+        };
+    }
 
-        public static MimirorgCompanyCm ToContentModel(this MimirorgCompany company)
+    public static MimirorgCompanyCm ToContentModel(this MimirorgCompany company, ApplicationSettings applicationSettings)
+    {
+        return new MimirorgCompanyCm
         {
-            return new MimirorgCompanyCm
-            {
-                Id = company.Id,
-                Name = company.Name,
-                DisplayName = company.DisplayName,
-                Description = company.Description,
-                Manager = company.Manager?.ToContentModel(),
-                Secret = company.Secret,
-                Domain = company.Domain,
-                Logo = company.Logo,
-                HomePage = company.HomePage,
-                Iris = company.Iris?.ConvertToArray()
-            };
-        }
+            Id = company.Id,
+            Name = company.Name,
+            DisplayName = company.DisplayName,
+            Description = company.Description,
+            Manager = company.Manager?.ToContentModel(),
+            Secret = company.Secret,
+            Domain = company.Domain,
+            Logo = company.Logo,
+            LogoUrl = $"{applicationSettings.ApplicationUrl}/logo/{company.Id}.svg",
+            HomePage = company.HomePage
+        };
+    }
 
-        public static MimirorgHook ToDomainModel(this MimirorgHookAm hook)
+    public static MimirorgHook ToDomainModel(this MimirorgHookAm hook)
+    {
+        return new MimirorgHook
         {
-            return new MimirorgHook
-            {
-                CompanyId = hook.CompanyId,
-                Key = hook.Key,
-                Iri = hook.Iri
-            };
-        }
+            CompanyId = hook.CompanyId,
+            Key = hook.Key,
+            Iri = hook.Iri
+        };
+    }
 
-        public static MimirorgHookCm ToContentModel(this MimirorgHook hook)
+    public static MimirorgHookCm ToContentModel(this MimirorgHook hook, ApplicationSettings applicationSettings)
+    {
+        return new MimirorgHookCm
         {
-            return new MimirorgHookCm
-            {
-                Id = hook.Id,
-                CompanyId = hook.CompanyId,
-                Company = hook.Company.ToContentModel(),
-                Key = hook.Key,
-                Iri = hook.Iri
-            };
-        }
+            Id = hook.Id,
+            CompanyId = hook.CompanyId,
+            Company = hook.Company?.ToContentModel(applicationSettings),
+            Key = hook.Key,
+            Iri = hook.Iri
+        };
+    }
 
-        public static MimirorgUser ToDomainModel(this MimirorgUserAm user)
+    public static MimirorgUser ToDomainModel(this MimirorgUserAm user)
+    {
+        return new MimirorgUser
         {
-            return new MimirorgUser
-            {
-                UserName = user.Email,
-                Email = user.Email,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                CompanyId = user.CompanyId,
-                Purpose = user.Purpose
-            };
-        }
+            UserName = user.Email,
+            Email = user.Email,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            CompanyId = user.CompanyId,
+            Purpose = user.Purpose
+        };
+    }
 
-        public static MimirorgUser UpdateDomainModel(this MimirorgUser self, MimirorgUserAm update)
-        {
-            self.FirstName = update.FirstName;
-            self.LastName = update.LastName;
-            self.CompanyId = update.CompanyId;
-            self.Purpose = update.Purpose;
-            return self;
-        }
+    public static MimirorgUser UpdateDomainModel(this MimirorgUser self, MimirorgUserAm update)
+    {
+        self.FirstName = update.FirstName;
+        self.LastName = update.LastName;
+        self.CompanyId = update.CompanyId;
+        self.Purpose = update.Purpose;
+        return self;
+    }
 
-        public static MimirorgUserCm ToContentModel(this MimirorgUser user)
+    public static MimirorgUserCm ToContentModel(this MimirorgUser user)
+    {
+        return new MimirorgUserCm
         {
-            return new MimirorgUserCm
-            {
-                Id = user.Id,
-                Email = user.Email,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                CompanyId = user.CompanyId,
-                CompanyName = user.CompanyName,
-                Purpose = user.Purpose
-            };
-        }
+            Id = user.Id,
+            Email = user.Email,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            CompanyId = user.CompanyId,
+            CompanyName = user.CompanyName,
+            Purpose = user.Purpose
+        };
+    }
 
-        public static MimirorgTokenCm ToContentModel(this MimirorgToken token)
+    public static MimirorgTokenCm ToContentModel(this MimirorgToken token)
+    {
+        return new MimirorgTokenCm
         {
-            return new MimirorgTokenCm
-            {
-                ClientId = token.ClientId,
-                Secret = token.Secret,
-                TokenType = token.TokenType,
-                ValidTo = token.ValidTo
-            };
-        }
+            ClientId = token.ClientId,
+            Secret = token.Secret,
+            TokenType = token.TokenType,
+            ValidTo = token.ValidTo
+        };
     }
 }

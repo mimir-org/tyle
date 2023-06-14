@@ -26,7 +26,7 @@ export const Permissions = () => {
   const permissions = getPermissionOptions();
   const [selectedPermission, setSelectedPermission] = useState(permissions[0]?.value);
 
-  const users = useFilteredUsers(selectedCompany, selectedPermission as unknown as UserItemPermission);
+  const users = useFilteredUsers(selectedCompany, Number(selectedPermission) as UserItemPermission);
 
   return (
     <SettingsSection title={t("permissions.title")}>
@@ -48,7 +48,7 @@ export const Permissions = () => {
             <UserListItem
               key={user.id}
               name={user.name}
-              trait={user.permissions[user.company.id]?.label}
+              trait={user.permissions[selectedCompany]?.label}
               action={<PermissionDialog user={user} />}
             />
           ))}

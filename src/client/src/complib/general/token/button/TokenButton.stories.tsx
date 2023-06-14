@@ -1,12 +1,12 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { TokenButton } from "complib/general/token/button/TokenButton";
 
 export default {
   title: "General/TokenButton",
   component: TokenButton,
-} as ComponentMeta<typeof TokenButton>;
+} as Meta<typeof TokenButton>;
 
-const Template: ComponentStory<typeof TokenButton> = (args) => <TokenButton {...args} />;
+const Template: StoryFn<typeof TokenButton> = (args) => <TokenButton {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {

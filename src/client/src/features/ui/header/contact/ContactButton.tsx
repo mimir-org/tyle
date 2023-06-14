@@ -1,5 +1,5 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
-import { Mail } from "@styled-icons/heroicons-outline";
+import { Envelope } from "@styled-icons/heroicons-outline";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { Select } from "complib/inputs";
 import { Box } from "complib/layouts";
@@ -53,7 +53,7 @@ export const ContactButton = () => {
         </>
       }
     >
-      <UserMenuButton icon={<Mail size={24} />}>{t("header.menu.contact.title")}</UserMenuButton>
+      <UserMenuButton icon={<Envelope size={24} />}>{t("header.menu.contact.title")}</UserMenuButton>
     </Dialog>
   );
 };

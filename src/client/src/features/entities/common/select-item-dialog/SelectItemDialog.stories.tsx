@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { mockInfoItem } from "common/utils/mocks";
 import { SelectItemDialog } from "features/entities/common/select-item-dialog/SelectItemDialog";
 
@@ -16,8 +16,8 @@ export default {
     items: mockData,
     onAdd: () => alert("[STORYBOOK] SelectItemDialog.Add"),
   },
-} as ComponentMeta<typeof SelectItemDialog>;
+} as Meta<typeof SelectItemDialog>;
 
-const Template: ComponentStory<typeof SelectItemDialog> = (args) => <SelectItemDialog {...args} />;
+const Template: StoryFn<typeof SelectItemDialog> = (args) => <SelectItemDialog {...args} />;
 
 export const Default = Template.bind({});

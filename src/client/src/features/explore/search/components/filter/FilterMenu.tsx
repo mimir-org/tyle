@@ -1,4 +1,4 @@
-import { PlusSm } from "@styled-icons/heroicons-outline";
+import { AdjustmentsHorizontal } from "@styled-icons/heroicons-outline";
 import { Button } from "complib/buttons";
 import { Popover } from "complib/data-display";
 import { Box } from "complib/layouts";
@@ -36,9 +36,9 @@ export const FilterMenu = ({ name, filterGroups, ...delegated }: FilterMenuProps
         <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xl} width={"260px"}>
           <SearchField placeholder={"Search"} value={filterQuery} onChange={(e) => setFilterQuery(e.target.value)} />
           <Accordion>
-            {filterGroups.map((x) => (
+            {filterGroups.map((x, i) => (
               <FilterMenuGroup
-                key={x.name}
+                key={`${i + x.name}`}
                 name={x.name}
                 filters={filterAvailableFilters(filterQuery, x.filters)}
                 {...delegated}
@@ -48,7 +48,7 @@ export const FilterMenu = ({ name, filterGroups, ...delegated }: FilterMenuProps
         </Box>
       }
     >
-      <Button icon={<PlusSm size={24} />} flexShrink={"0"}>
+      <Button icon={<AdjustmentsHorizontal size={24} />} flexShrink={"0"}>
         {name}
       </Button>
     </Popover>

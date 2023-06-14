@@ -9,20 +9,20 @@ import { SearchField } from "features/common/search-field";
 import { ExploreSection } from "features/explore/common/ExploreSection";
 import { SelectedInfo } from "features/explore/common/selectedInfo";
 import { FilterMenu } from "features/explore/search/components/filter/FilterMenu";
-import { ConditionalInterfaceSearchItem } from "features/explore/search/components/interface/ConditionalInterfaceSearchItem";
 import { ItemList } from "features/explore/search/components/item/ItemList";
 import { LinkMenu } from "features/explore/search/components/link/LinkMenu";
-import { ConditionalNodeSearchItem } from "features/explore/search/components/node/ConditionalNodeSearchItem";
 import { SearchPlaceholder } from "features/explore/search/components/SearchPlaceholder";
-import { ConditionalTerminalSearchItem } from "features/explore/search/components/terminal/ConditionalTerminalSearchItem";
-import { ConditionalTransportSearchItem } from "features/explore/search/components/transport/ConditionalTransportSearchItem";
 import { useFilterState } from "features/explore/search/hooks/useFilterState";
 import { useGetFilterGroups } from "features/explore/search/hooks/useGetFilterGroups";
 import { useSearchResults } from "features/explore/search/hooks/useSearchResults";
-import { useCreateMenuLinks } from "features/explore/search/Search.helpers";
-import { Fragment } from "react";
+import { isPositiveInt, useCreateMenuLinks } from "features/explore/search/Search.helpers";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { SearchResultsRenderer } from "./SearchResultsRenderer";
+import { useSearchParams } from "react-router-dom";
+import { SearchNavigation } from "./SearchNavigation";
+import { useEffect } from "react";
+import { useHasWriteAccess } from "../../../common/hooks/useHasWriteAccess";
 
 interface SearchProps {
   selected?: SelectedInfo;
@@ -44,15 +44,27 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
   const createMenuLinks = useCreateMenuLinks();
   const [activeFilters, toggleFilter] = useFilterState([]);
   const [query, setQuery, debouncedQuery] = useDebounceState("");
-  const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageParam = searchParams.get("page");
   const userQuery = useGetCurrentUser();
-  const user = userQuery?.data != null ? mapMimirorgUserCmToUserItem(userQuery.data) : null;
+  const user = userQuery?.data != null ? mapMimirorgUserCmToUserItem(userQuery.data) : undefined;
+  const [results, totalHits, isLoading] = useSearchResults(debouncedQuery, activeFilters, pageLimit, Number(pageParam));
+  const hasWriteAccess = useHasWriteAccess();
+
+  useEffect(() => {
+    if (!isPositiveInt(pageParam) || (!isLoading && Number(pageParam) > Math.ceil(totalHits / pageLimit))) {
+      setSearchParams({ page: "1" });
+    }
+  });
 
   const showSearchText = !isLoading;
   const showResults = results.length > 0;
+  const showNavigation = totalHits > pageLimit;
   const showFilterTokens = activeFilters.length > 0;
   const showPlaceholder = !isLoading && results.length === 0;
-  const shown = totalHits < pageLimit ? totalHits : pageLimit;
+  const lowerShown = (Number(pageParam) - 1) * pageLimit + 1;
+  const higherShown = Math.min(Number(pageParam) * pageLimit, totalHits);
+  const shown = totalHits < pageLimit ? totalHits : lowerShown <= higherShown ? lowerShown + "–" + higherShown : 0;
 
   return (
     <ExploreSection title={t("search.title")}>
@@ -68,14 +80,19 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
           activeFilters={activeFilters}
           toggleFilter={toggleFilter}
         />
-        <LinkMenu name={t("search.create.title")} links={createMenuLinks} />
+        <LinkMenu
+          name={t("search.create.title")}
+          links={createMenuLinks}
+          justifyContent={"space-between"}
+          disabled={!hasWriteAccess}
+        />
       </Flexbox>
 
       {showFilterTokens && (
         <MotionFlexbox layout={"position"} flexWrap={"wrap"} gap={theme.tyle.spacing.base}>
-          {activeFilters.map((x, i) => (
+          {activeFilters.map((x) => (
             <Token
-              key={i}
+              key={`${x.value}`}
               actionable
               actionText={t("search.filter.templates.remove", { object: x.label })}
               actionIcon={<XCircle />}
@@ -101,35 +118,18 @@ export const Search = ({ selected, setSelected, pageLimit = 20 }: SearchProps) =
       {showResults && user && (
         <ItemList>
           {results.map((item) => (
-            <Fragment key={item.id}>
-              <ConditionalNodeSearchItem
-                item={item}
-                isSelected={item.id == selected?.id}
-                setSelected={() => setSelected({ id: item.id, type: "node" })}
-                user={user}
-              />
-              <ConditionalTerminalSearchItem
-                item={item}
-                isSelected={item.id == selected?.id}
-                setSelected={() => setSelected({ id: item.id, type: "terminal" })}
-                user={user}
-              />
-              <ConditionalTransportSearchItem
-                item={item}
-                isSelected={item.id == selected?.id}
-                setSelected={() => setSelected({ id: item.id, type: "transport" })}
-                user={user}
-              />
-              <ConditionalInterfaceSearchItem
-                item={item}
-                isSelected={item.id == selected?.id}
-                setSelected={() => setSelected({ id: item.id, type: "interface" })}
-                user={user}
-              />
-            </Fragment>
+            <SearchResultsRenderer
+              key={item.id}
+              item={item}
+              selectedItemId={selected?.id ?? ""}
+              setSelected={setSelected}
+              user={user}
+            />
           ))}
         </ItemList>
       )}
+
+      {showNavigation && user && <SearchNavigation numPages={Math.ceil(totalHits / pageLimit)} />}
 
       {showPlaceholder && (
         <SearchPlaceholder

@@ -6,6 +6,7 @@ export interface ColorTheme {
   tertiary: Accent,
   error: Accent,
   warning: Accent,
+  dangerousAction: Accent,
   outline: Pick<Accent, "base">,
   background: Pick<Accent, "base" | "on"> & {
     inverse: Pick<Accent, "base" | "on">
@@ -17,4 +18,10 @@ export interface ColorTheme {
   }
   shadow: Pick<Accent, "base">,
   pure: Accent,
+  badge: {
+    success: Pick<Accent, "base" | "on">,
+    warning: Pick<Accent, "base" | "on">,
+    error: Pick<Accent, "base" | "on">,
+    info: Pick<Accent, "base" | "on">
+  }
 }

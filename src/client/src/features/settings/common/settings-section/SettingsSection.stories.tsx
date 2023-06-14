@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { Box } from "complib/layouts";
 import { Text } from "complib/text";
 import { SettingsSection } from "features/settings/common/settings-section/SettingsSection";
@@ -8,7 +8,7 @@ export default {
   component: SettingsSection,
 };
 
-const Template: ComponentStory<typeof SettingsSection> = (args) => <SettingsSection {...args}></SettingsSection>;
+const Template: StoryFn<typeof SettingsSection> = (args) => <SettingsSection {...args}></SettingsSection>;
 
 export const Default = Template.bind({});
 Default.args = {

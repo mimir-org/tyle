@@ -1,6 +1,5 @@
 import { MimirorgCompanyAm } from "@mimirorg/typelibrary-types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { UpdateEntity } from "common/types/updateEntity";
 import { companyApi } from "external/sources/company/company.api";
 import { userKeys } from "external/sources/user/user.queries";
 
@@ -26,10 +25,10 @@ export const useCreateCompany = () => {
   });
 };
 
-export const useUpdateCompany = () => {
+export const useUpdateCompany = (id: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation((update: UpdateEntity<MimirorgCompanyAm>) => companyApi.putCompany(update.id, update), {
+  return useMutation((update: MimirorgCompanyAm) => companyApi.putCompany(id, update), {
     onSuccess: (data) => queryClient.invalidateQueries(companyKeys.company(data.id)),
   });
 };
@@ -44,6 +43,12 @@ export const useDeleteCompany = () => {
 
 export const useGetCompanyUsers = (companyId?: string) =>
   useQuery(companyKeys.companyUsers(companyId), () => companyApi.getCompanyUsers(companyId), {
+    enabled: !!companyId,
+    retry: false,
+  });
+
+export const useGetAuthCompanyUsers = (companyId?: string) =>
+  useQuery(companyKeys.companyUsers(companyId), () => companyApi.getAuthCompanyUsers(companyId), {
     enabled: !!companyId,
     retry: false,
   });

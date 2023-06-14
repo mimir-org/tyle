@@ -1,12 +1,12 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { AuthContent } from "features/auth/common/auth-content/AuthContent";
 
 export default {
   title: "Features/Auth/Common/AuthContent",
   component: AuthContent,
-} as ComponentMeta<typeof AuthContent>;
+} as Meta<typeof AuthContent>;
 
-const Template: ComponentStory<typeof AuthContent> = (args) => <AuthContent {...args} />;
+const Template: StoryFn<typeof AuthContent> = (args) => <AuthContent {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

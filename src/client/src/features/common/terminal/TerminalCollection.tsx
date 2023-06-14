@@ -1,4 +1,4 @@
-import { NodeTerminalItem } from "common/types/nodeTerminalItem";
+import { AspectObjectTerminalItem } from "common/types/aspectObjectTerminalItem";
 import { VisuallyHidden } from "complib/accessibility";
 import { Divider, Popover } from "complib/data-display";
 import { Box, Flexbox } from "complib/layouts";
@@ -7,10 +7,10 @@ import { TerminalButton } from "features/common/terminal/TerminalButton";
 import { TerminalDescription } from "features/common/terminal/TerminalSingle";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { MAXIMUM_TERMINAL_QUANTITY_VALUE } from "../../../common/utils/nodeTerminalQuantityRestrictions";
+import { MAXIMUM_TERMINAL_QUANTITY_VALUE } from "../../../common/utils/aspectObjectTerminalQuantityRestrictions";
 
 interface TerminalCollectionProps {
-  terminals: NodeTerminalItem[];
+  terminals: AspectObjectTerminalItem[];
   placement?: "left" | "right";
 }
 
@@ -35,7 +35,7 @@ export const TerminalCollection = ({ terminals, placement }: TerminalCollectionP
 };
 
 interface TerminalCollectionDescriptionProps {
-  terminals: NodeTerminalItem[];
+  terminals: AspectObjectTerminalItem[];
 }
 
 const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescriptionProps) => {
@@ -51,7 +51,7 @@ const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescript
       <Box display={"flex"} gap={theme.tyle.spacing.l} flexDirection={"column"} maxHeight={"250px"} overflow={"auto"}>
         {terminals.map((x) => (
           <TerminalDescription
-            key={x.name}
+            key={x.name + x.color + x.direction}
             name={x.name}
             maxQuantity={x.maxQuantity}
             color={x.color}

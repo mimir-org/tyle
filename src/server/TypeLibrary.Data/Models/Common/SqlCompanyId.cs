@@ -1,7 +1,6 @@
-namespace TypeLibrary.Data.Models.Common
+namespace TypeLibrary.Data.Models.Common;
+
+public class SqlCompanyId
 {
-    public class SqlCompanyId
-    {
-        public int CompanyId { get; set; }
-    }
+    public int CompanyId { get; set; }
 }

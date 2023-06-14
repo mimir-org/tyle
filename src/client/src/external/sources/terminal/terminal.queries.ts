@@ -22,10 +22,10 @@ export const useCreateTerminal = () => {
   });
 };
 
-export const useUpdateTerminal = () => {
+export const useUpdateTerminal = (id?: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: TerminalLibAm) => terminalApi.putTerminal(item), {
+  return useMutation((item: TerminalLibAm) => terminalApi.putTerminal(item, id), {
     onSuccess: (unit) => queryClient.invalidateQueries(keys.terminal(unit.id)),
   });
 };
@@ -41,7 +41,7 @@ export const usePatchTerminalState = () => {
 export const usePatchTerminalStateReject = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: { id: string }) => terminalApi.patchhTerminalStateReject(item.id), {
+  return useMutation((item: { id: string }) => terminalApi.patchTerminalStateReject(item.id), {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };

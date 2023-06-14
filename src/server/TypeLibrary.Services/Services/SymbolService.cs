@@ -1,54 +1,72 @@
+using AutoMapper;
+using Mimirorg.Common.Enums;
+using Mimirorg.Common.Exceptions;
+using Mimirorg.TypeLibrary.Enums;
+using Mimirorg.TypeLibrary.Models.Application;
+using Mimirorg.TypeLibrary.Models.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.Extensions.Options;
-using Mimirorg.Common.Enums;
-using Mimirorg.Common.Models;
-using Mimirorg.TypeLibrary.Models.Application;
-using Mimirorg.TypeLibrary.Models.Client;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
-namespace TypeLibrary.Services.Services
+namespace TypeLibrary.Services.Services;
+
+public class SymbolService : ISymbolService
 {
-    public class SymbolService : ISymbolService
+    private readonly IMapper _mapper;
+    private readonly ISymbolRepository _symbolRepository;
+    private readonly ILogService _logService;
+
+    public SymbolService(IMapper mapper, ISymbolRepository symbolRepository, ILogService logService)
     {
-        private readonly IMapper _mapper;
-        private readonly ISymbolRepository _symbolRepository;
-        private readonly ApplicationSettings _applicationSettings;
+        _mapper = mapper;
+        _symbolRepository = symbolRepository;
+        _logService = logService;
+    }
 
-        public SymbolService(IMapper mapper, ISymbolRepository symbolRepository, IOptions<ApplicationSettings> applicationSettings)
+    public IEnumerable<SymbolLibCm> Get()
+    {
+        var symbolLibDms = _symbolRepository.Get().Where(x => x.State != State.Deleted).ToList()
+            .OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+
+        return _mapper.Map<List<SymbolLibCm>>(symbolLibDms);
+    }
+
+    public SymbolLibCm Get(string id)
+    {
+        var dm = _symbolRepository.Get(id);
+
+        if (dm == null)
+            throw new MimirorgNotFoundException($"Symbol with id {id} not found.");
+
+        return _mapper.Map<SymbolLibCm>(dm);
+    }
+
+    public async Task Create(IEnumerable<SymbolLibAm> symbolLibAmList, string createdBy = null)
+    {
+        var dataList = _mapper.Map<List<SymbolLibDm>>(symbolLibAmList);
+        var existing = _symbolRepository.Get().ToList();
+        var notExisting = dataList.Where(x => existing.All(y => y.Name != x.Name)).ToList();
+
+        if (!notExisting.Any())
+            return;
+
+        foreach (var data in notExisting)
         {
-            _mapper = mapper;
-            _symbolRepository = symbolRepository;
-            _applicationSettings = applicationSettings?.Value;
+            data.CreatedBy = string.IsNullOrEmpty(createdBy) ? data.CreatedBy : createdBy;
         }
 
-        public IEnumerable<SymbolLibCm> Get()
-        {
-            var symbolLibDms = _symbolRepository.Get().Where(x => x.State != State.Deleted).ToList()
-                .OrderBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
+        await _symbolRepository.Create(notExisting, string.IsNullOrEmpty(createdBy) ? State.Draft : State.Approved);
 
-            return _mapper.Map<List<SymbolLibCm>>(symbolLibDms);
-        }
+        await _logService.CreateLogs(
+            notExisting,
+            LogType.Create,
+            string.IsNullOrEmpty(createdBy) ? State.Draft.ToString() : State.Approved.ToString(), notExisting[0]?.CreatedBy);
 
-        public async Task Create(IEnumerable<SymbolLibAm> symbolLibAmList, bool createdBySystem = false)
-        {
-            var dataList = _mapper.Map<List<SymbolLibDm>>(symbolLibAmList);
-            var existing = _symbolRepository.Get().ToList();
-            var notExisting = dataList.Where(x => existing.All(y => y.Id != x.Id)).ToList();
-
-            if (!notExisting.Any())
-                return;
-
-            foreach (var data in notExisting)
-                data.CreatedBy = createdBySystem ? _applicationSettings.System : data.CreatedBy;
-
-            await _symbolRepository.Create(notExisting, createdBySystem ? State.ApprovedGlobal : State.Draft);
-            _symbolRepository.ClearAllChangeTrackers();
-        }
+        _symbolRepository.ClearAllChangeTrackers();
     }
 }

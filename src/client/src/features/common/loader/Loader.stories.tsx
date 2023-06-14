@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { Loader } from "features/common/loader/Loader";
 
 export default {
@@ -6,6 +6,6 @@ export default {
   component: Loader,
 };
 
-const Template: ComponentStory<typeof Loader> = () => <Loader />;
+const Template: StoryFn<typeof Loader> = () => <Loader />;
 
 export const Default = Template.bind({});

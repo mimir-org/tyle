@@ -10,11 +10,12 @@ interface DialogDescriptionProps {
   hide?: boolean;
 }
 
+const WrappedComponent = (c: ReactNode) => <VisuallyHidden asChild>{c}</VisuallyHidden>;
 export const DialogDescription = ({ children, hide }: DialogDescriptionProps) => {
   const theme = useTheme();
 
   return (
-    <ConditionalWrapper condition={hide} wrapper={(c) => <VisuallyHidden asChild>{c}</VisuallyHidden>}>
+    <ConditionalWrapper condition={hide} wrapper={(c) => WrappedComponent(c)}>
       <DialogPrimitive.Description asChild>
         <Text variant={"title-medium"} textAlign={"center"} color={theme.tyle.color.sys.surface.variant.on}>
           {children}

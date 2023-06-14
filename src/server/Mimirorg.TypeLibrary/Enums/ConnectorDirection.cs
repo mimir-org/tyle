@@ -1,16 +1,15 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Mimirorg.TypeLibrary.Enums
+namespace Mimirorg.TypeLibrary.Enums;
+
+public enum ConnectorDirection
 {
-    public enum ConnectorDirection
-    {
-        [Display(Name = "Input")]
-        Input = 0,
+    [Display(Name = "Input")]
+    Input = 0,
 
-        [Display(Name = "Output")]
-        Output = 1,
+    [Display(Name = "Output")]
+    Output = 1,
 
-        [Display(Name = "Bidirectional")]
-        Bidirectional = 2
-    }
+    [Display(Name = "Bidirectional")]
+    Bidirectional = 2
 }

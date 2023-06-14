@@ -1,4 +1,4 @@
-import { ArrowSmRight } from "@styled-icons/heroicons-outline";
+import { ArrowSmallRight } from "@styled-icons/heroicons-outline";
 import { Link } from "common/types/link";
 import { Button } from "complib/buttons";
 import { Popover } from "complib/data-display";
@@ -9,6 +9,8 @@ import { useTheme } from "styled-components";
 interface LinkMenuProps {
   name: string;
   links: Link[];
+  justifyContent?: "space-between" | "space-around" | "center" | "start" | "end" | "normal";
+  disabled?: boolean;
 }
 
 /**
@@ -16,9 +18,11 @@ interface LinkMenuProps {
  *
  * @param name text on menu button
  * @param links shortcuts presented in popover
+ * @param disabled whether the button is disabled
+ * @param justifyContent how to arrange the button text and icons in the list
  * @constructor
  */
-export const LinkMenu = ({ name, links }: LinkMenuProps) => {
+export const LinkMenu = ({ name, links, justifyContent, disabled }: LinkMenuProps) => {
   const theme = useTheme();
 
   return (
@@ -29,13 +33,14 @@ export const LinkMenu = ({ name, links }: LinkMenuProps) => {
       content={
         <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.base} minWidth={"170px"}>
           {links.map((link, index) => (
-            <PlainLink key={index} tabIndex={-1} to={link.path}>
+            <PlainLink key={index + link.path} tabIndex={-1} to={link.path}>
               <Button
                 tabIndex={0}
                 as={"span"}
                 variant={"text"}
                 textVariant={"label-large"}
-                icon={<ArrowSmRight size={24} />}
+                justifyContent={justifyContent ?? "normal"}
+                icon={<ArrowSmallRight size={24} />}
                 width={"100%"}
               >
                 {link.name}
@@ -45,7 +50,9 @@ export const LinkMenu = ({ name, links }: LinkMenuProps) => {
         </Box>
       }
     >
-      <Button flexShrink={"0"}>{name}</Button>
+      <Button disabled={disabled} flexShrink={"0"}>
+        {name}
+      </Button>
     </Popover>
   );
 };

@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { ApprovalCardDetails } from "features/settings/common/approval-card/card-details/ApprovalCardDetails";
 
 export default {
@@ -6,7 +6,7 @@ export default {
   component: ApprovalCardDetails,
 };
 
-const Template: ComponentStory<typeof ApprovalCardDetails> = (args) => <ApprovalCardDetails {...args} />;
+const Template: StoryFn<typeof ApprovalCardDetails> = (args) => <ApprovalCardDetails {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

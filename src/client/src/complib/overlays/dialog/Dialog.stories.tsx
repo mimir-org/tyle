@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Button } from "complib/buttons";
 import { Token } from "complib/general";
 import { Box } from "complib/layouts";
@@ -7,9 +7,9 @@ import { Dialog } from "complib/overlays/dialog/Dialog";
 export default {
   title: "Overlays/Dialog",
   component: Dialog,
-} as ComponentMeta<typeof Dialog>;
+} as Meta<typeof Dialog>;
 
-const Template: ComponentStory<typeof Dialog> = (args) => <Dialog {...args} />;
+const Template: StoryFn<typeof Dialog> = (args) => <Dialog {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

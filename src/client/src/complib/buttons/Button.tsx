@@ -3,7 +3,7 @@ import { ButtonContainerProps, MotionButtonContainer } from "complib/buttons/But
 import { Icon } from "complib/media";
 import { TextTypes } from "complib/props";
 import { Text } from "complib/text";
-import { ForwardedRef, forwardRef, isValidElement, ReactElement, ReactNode } from "react";
+import { ForwardedRef, forwardRef, isValidElement, JSXElementConstructor, ReactElement, ReactNode } from "react";
 import { useTheme } from "styled-components";
 
 type ButtonProps = ButtonContainerProps & {
@@ -12,12 +12,15 @@ type ButtonProps = ButtonContainerProps & {
   iconPlacement?: "left" | "right";
   iconOnly?: boolean;
   textVariant?: TextTypes;
+  dangerousAction?: boolean;
 };
+
+const IconComponent = (icon: string | ReactElement<unknown, string | JSXElementConstructor<unknown>>) =>
+  isValidElement(icon) ? icon : <Icon src={icon} alt="" />;
 
 export const Button = forwardRef((props: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
   const theme = useTheme();
   const { children, icon, iconPlacement, iconOnly, textVariant, ...delegated } = props;
-  const IconComponent = () => (isValidElement(icon) ? icon : <Icon src={icon} alt="" />);
 
   return (
     <MotionButtonContainer
@@ -34,7 +37,7 @@ export const Button = forwardRef((props: ButtonProps, ref: ForwardedRef<HTMLButt
           {children}
         </Text>
       )}
-      {icon && <IconComponent />}
+      {icon && IconComponent(icon)}
     </MotionButtonContainer>
   );
 });

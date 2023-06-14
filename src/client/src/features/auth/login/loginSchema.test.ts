@@ -10,7 +10,7 @@ describe("loginSchema tests", () => {
   });
 
   it("should reject with illegal email", async () => {
-    const userForm: Partial<MimirorgAuthenticateAm> = { email: "this@missingtopleveldomain" };
+    const userForm: Partial<MimirorgAuthenticateAm> = { email: "no-at-character" };
     await expect(loginSchema(t).validateAt("email", userForm)).rejects.toBeTruthy();
   });
 

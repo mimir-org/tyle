@@ -1,9 +1,14 @@
-import { Aspect } from "@mimirorg/typelibrary-types";
+import { Aspect, State } from "@mimirorg/typelibrary-types";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { useGetPurposes } from "external/sources/purpose/purpose.queries";
 import { FilterGroup } from "features/explore/search/types/filterGroup";
 
-export const useGetFilterGroups = (): FilterGroup[] => [getEntityFilters(), getAspectFilters(), useGetPurposeFilters()];
+export const useGetFilterGroups = (): FilterGroup[] => [
+  getEntityFilters(),
+  getStateFilters(),
+  getAspectFilters(),
+  useGetPurposeFilters(),
+];
 
 const useGetPurposeFilters = (): FilterGroup => {
   const purposeQuery = useGetPurposes();
@@ -27,18 +32,26 @@ const getAspectFilters = (): FilterGroup => {
   };
 };
 
+const getStateFilters = (): FilterGroup => {
+  const stateOptions = getOptionsFromEnum<State>(State).filter((s) => s.label !== "Deleted");
+
+  return {
+    name: "State",
+    filters: stateOptions.map((s) => ({
+      key: "state",
+      label: s.label,
+      value: s.value.toString(),
+    })),
+  };
+};
+
 const getEntityFilters = (): FilterGroup => ({
   name: "Entity",
   filters: [
     {
       key: "kind",
       label: "Aspect object",
-      value: "NodeLibCm",
-    },
-    {
-      key: "kind",
-      label: "Interface",
-      value: "InterfaceLibCm",
+      value: "AspectObjectLibCm",
     },
     {
       key: "kind",
@@ -47,8 +60,23 @@ const getEntityFilters = (): FilterGroup => ({
     },
     {
       key: "kind",
-      label: "Transport",
-      value: "TransportLibCm",
+      label: "Attribute",
+      value: "AttributeLibCm",
+    },
+    {
+      key: "kind",
+      label: "Unit",
+      value: "UnitLibCm",
+    },
+    {
+      key: "kind",
+      label: "Quantity datum",
+      value: "QuantityDatumLibCm",
+    },
+    {
+      key: "kind",
+      label: "RDS",
+      value: "RdsLibCm",
     },
   ],
 });

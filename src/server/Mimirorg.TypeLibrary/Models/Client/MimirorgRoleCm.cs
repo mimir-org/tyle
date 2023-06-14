@@ -1,8 +1,7 @@
-namespace Mimirorg.TypeLibrary.Models.Client
+namespace Mimirorg.TypeLibrary.Models.Client;
+
+public class MimirorgRoleCm
 {
-    public class MimirorgRoleCm
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-    }
+    public string Id { get; set; }
+    public string Name { get; set; }
 }

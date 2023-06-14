@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 
 interface ErrorProps {
-  children: string;
+  children?: string;
 }
 
 /**

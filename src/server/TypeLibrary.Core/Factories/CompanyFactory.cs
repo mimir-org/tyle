@@ -1,26 +1,43 @@
-using System.Collections.Generic;
-using System.Linq;
+using System;
+using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication.Contracts;
-using Mimirorg.TypeLibrary.Models.Client;
+using Mimirorg.Common.Exceptions;
+using TypeLibrary.Data.Contracts.Common;
 
-namespace TypeLibrary.Core.Factories
+namespace TypeLibrary.Core.Factories;
+
+public class CompanyFactory : ICompanyFactory
 {
-    public class CompanyFactory : ICompanyFactory
+    private readonly ICacheRepository _companyCache;
+    private readonly ILogger<CompanyFactory> _logger;
+    private readonly IMimirorgCompanyService _mimirorgCompanyService;
+
+    public CompanyFactory(ICacheRepository companyCache, ILogger<CompanyFactory> logger, IMimirorgCompanyService mimirorgCompanyService)
     {
-        private ICollection<MimirorgCompanyCm> _companies;
-        private readonly IMimirorgCompanyService _mimirorgCompanyService;
+        _companyCache = companyCache;
+        _logger = logger;
+        _mimirorgCompanyService = mimirorgCompanyService;
+    }
 
-        public CompanyFactory(IMimirorgCompanyService mimirorgCompanyService)
+    public string GetCompanyName(int? companyId)
+    {
+        if (companyId == null) return null;
+
+        try
         {
-            _mimirorgCompanyService = mimirorgCompanyService;
+            return _companyCache.GetOrCreateAsync($"company-{companyId}",
+                async () => await _mimirorgCompanyService.GetCompanyById(companyId.Value), 300).Result.DisplayName;
         }
-
-        public string GetCompanyName(int companyId)
+        catch (MimirorgNotFoundException exception)
         {
-            _companies ??= _mimirorgCompanyService.GetAllCompanies().Result;
+            _logger.LogError($"Error when getting company name: {exception.Message}");
+            return null;
+        }
+        catch (AggregateException exception)
+        {
+            if (exception.InnerException is MimirorgNotFoundException) return null;
 
-            var company = _companies.FirstOrDefault(x => x.Id == companyId);
-            return company?.Name;
+            throw;
         }
     }
 }

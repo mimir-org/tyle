@@ -1,14 +1,13 @@
 using Newtonsoft.Json.Serialization;
 
-namespace Mimirorg.Common
+namespace Mimirorg.Common;
+
+public class CamelCaseExceptDictionaryKeysResolver : CamelCasePropertyNamesContractResolver
 {
-    public class CamelCaseExceptDictionaryKeysResolver : CamelCasePropertyNamesContractResolver
+    protected override JsonDictionaryContract CreateDictionaryContract(Type objectType)
     {
-        protected override JsonDictionaryContract CreateDictionaryContract(Type objectType)
-        {
-            var contract = base.CreateDictionaryContract(objectType);
-            contract.DictionaryKeyResolver = propertyName => propertyName;
-            return contract;
-        }
+        var contract = base.CreateDictionaryContract(objectType);
+        contract.DictionaryKeyResolver = propertyName => propertyName;
+        return contract;
     }
 }

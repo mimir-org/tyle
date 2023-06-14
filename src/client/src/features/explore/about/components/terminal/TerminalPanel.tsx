@@ -1,13 +1,13 @@
 import { TerminalItem } from "common/types/terminalItem";
-import { Token } from "complib/general";
 import { Flexbox, MotionBox } from "complib/layouts";
 import { Heading, Text } from "complib/text";
 import { InfoItemButton } from "features/common/info-item";
-import { TerminalPreview } from "features/common/terminal/TerminalPreview";
+import { TerminalPreview } from "features/entities/entityPreviews/terminal/TerminalPreview";
 import { PanelPropertiesContainer } from "features/explore/about/components/common/PanelPropertiesContainer";
 import { PanelSection } from "features/explore/about/components/common/PanelSection";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
+import { StateBadge } from "../../../../ui/badges/StateBadge";
 
 /**
  * Component that displays information about a given terminal.
@@ -41,7 +41,7 @@ export const TerminalPanel = ({ name, description, color, attributes, tokens }: 
         </Text>
       </Flexbox>
       <Flexbox gap={theme.tyle.spacing.xl} flexWrap={"wrap"}>
-        {tokens && tokens.map((token, i) => <Token key={i}>{token}</Token>)}
+        {tokens && tokens.map((token, i) => <StateBadge state={token} key={token + i} />)}
       </Flexbox>
 
       <PanelPropertiesContainer>

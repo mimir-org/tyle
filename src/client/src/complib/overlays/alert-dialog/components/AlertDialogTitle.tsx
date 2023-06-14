@@ -9,8 +9,10 @@ interface DialogTitleProps {
   hide?: boolean;
 }
 
+const WrappedComponent = (c: ReactNode) => <VisuallyHidden asChild>{c}</VisuallyHidden>;
+
 export const AlertDialogTitle = ({ children, hide }: DialogTitleProps) => (
-  <ConditionalWrapper condition={hide} wrapper={(c) => <VisuallyHidden asChild>{c}</VisuallyHidden>}>
+  <ConditionalWrapper condition={hide} wrapper={(c) => WrappedComponent(c)}>
     <AlertDialogPrimitive.Title asChild>
       <Text variant={"title-large"} textAlign={"center"}>
         {children}

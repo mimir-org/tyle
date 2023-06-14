@@ -1,13 +1,13 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Input } from "complib/inputs";
 import { FieldsCard } from "features/entities/common/fields-card/FieldsCard";
 
 export default {
   title: "Features/Entities/Common/FieldsCard",
   component: FieldsCard,
-} as ComponentMeta<typeof FieldsCard>;
+} as Meta<typeof FieldsCard>;
 
-const Template: ComponentStory<typeof FieldsCard> = (args) => <FieldsCard {...args} />;
+const Template: StoryFn<typeof FieldsCard> = (args) => <FieldsCard {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

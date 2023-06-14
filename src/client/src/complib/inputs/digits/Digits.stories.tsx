@@ -1,11 +1,11 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { Digits } from "complib/inputs/digits/Digits";
 
 export default {
   title: "Inputs/Digits",
   component: Digits,
-} as ComponentMeta<typeof Digits>;
+} as Meta<typeof Digits>;
 
-const Template: ComponentStory<typeof Digits> = (args) => <Digits {...args} />;
+const Template: StoryFn<typeof Digits> = (args) => <Digits {...args} />;
 
 export const Default = Template.bind({});

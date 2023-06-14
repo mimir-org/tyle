@@ -14,19 +14,19 @@ export const UserInfo = ({ name, roles, permissions }: UserInfoProps) => {
   return (
     <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.s}>
       <Text variant={"title-medium"}>{name}</Text>
-      {roles && (
+      {roles && roles.length > 0 && (
         <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
           {roles?.map((x, i) => (
-            <Text key={i} variant={"label-medium"}>
+            <Text style={{ color: "gray" }} key={x + i} variant={"label-medium"}>
               {x}
             </Text>
           ))}
         </Flexbox>
       )}
-      {permissions && (
+      {permissions && permissions.length > 0 && (
         <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
           {permissions?.map((x, i) => (
-            <Text key={i} variant={"label-small"}>
+            <Text style={{ color: "gray" }} key={i} variant={"label-small"}>
               {x}
             </Text>
           ))}

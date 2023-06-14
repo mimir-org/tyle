@@ -1,4 +1,4 @@
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { SearchPlaceholder } from "features/explore/search/components/SearchPlaceholder";
 
 export default {
@@ -6,7 +6,7 @@ export default {
   component: SearchPlaceholder,
 };
 
-const Template: ComponentStory<typeof SearchPlaceholder> = (args) => <SearchPlaceholder {...args}></SearchPlaceholder>;
+const Template: StoryFn<typeof SearchPlaceholder> = (args) => <SearchPlaceholder {...args}></SearchPlaceholder>;
 
 export const Default = Template.bind({});
 Default.args = {

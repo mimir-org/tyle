@@ -7,7 +7,7 @@ export const HeaderHomeLink = () => {
 
   return (
     <PlainLink to={"/"} height={"100%"}>
-      <Logo height={"100%"} width={"fit-content"} alt={t("header.home")} />
+      <Logo height={"100%"} width={"100%"} alt={t("header.home")} />
     </PlainLink>
   );
 };

@@ -4,7 +4,7 @@ import { TerminalItem } from "common/types/terminalItem";
 import { mockInfoItem } from "common/utils/mocks/mockInfoItem";
 
 export const mockTerminalItem = (): TerminalItem => ({
-  id: faker.random.alphaNumeric(),
+  id: faker.random.alphaNumeric(36),
   name: `Terminal ${faker.random.alpha({ count: 3, casing: "upper" })}`,
   color: faker.internet.color(),
   description: faker.commerce.productDescription(),
@@ -12,5 +12,4 @@ export const mockTerminalItem = (): TerminalItem => ({
   tokens: [...Array(5)].map((_) => faker.commerce.productAdjective()),
   kind: "TerminalItem",
   state: State.Draft,
-  companyId: 1,
 });
