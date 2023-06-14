@@ -40,11 +40,13 @@ namespace TypeLibrary.Services.Services
         public async Task SendObjectStateEmail(string objectId, State objectState, string objectName, string objectTypeName)
         {
             var sendEmailToUserIds = new List<string>();
-            var allUsers = await _mimirorgUserService.GetUsers();
-            var currentUser = allUsers.FirstOrDefault(x => x.Id == _contextAccessor.GetUserId());
+            var users = await _mimirorgUserService.GetUsers();
+            var currentUser = users.FirstOrDefault(x => x.Id == _contextAccessor.GetUserId());
 
             if (currentUser == null)
                 throw new MimirorgNotFoundException($"Current user not found. Unable to send state '{objectState}' email for {objectTypeName} {objectName}.");
+
+            var usersExceptCurrent = users.Where(x => x.Id != currentUser.Id).ToList();
 
             switch (objectState)
             {
@@ -52,12 +54,12 @@ namespace TypeLibrary.Services.Services
                     return;
 
                 case State.Approve:
-                    var canApprove = allUsers.Where(x => x.Permissions.ContainsKey(currentUser.CompanyId) && x.Permissions[currentUser.CompanyId].HasFlag(MimirorgPermission.Approve)).DistinctBy(x => x.Id).ToList();
+                    var canApprove = usersExceptCurrent.Where(x => x.Permissions.ContainsKey(currentUser.CompanyId) && x.Permissions[currentUser.CompanyId].HasFlag(MimirorgPermission.Approve)).DistinctBy(x => x.Id).ToList();
                     sendEmailToUserIds.AddRange(canApprove.Select(x => x.Id));
                     break;
 
                 case State.Delete:
-                    var canDelete = allUsers.Where(x => x.Permissions.ContainsKey(currentUser.CompanyId) && x.Permissions[currentUser.CompanyId].HasFlag(MimirorgPermission.Delete)).DistinctBy(x => x.Id).ToList();
+                    var canDelete = usersExceptCurrent.Where(x => x.Permissions.ContainsKey(currentUser.CompanyId) && x.Permissions[currentUser.CompanyId].HasFlag(MimirorgPermission.Delete)).DistinctBy(x => x.Id).ToList();
                     sendEmailToUserIds.AddRange(canDelete.Select(x => x.Id));
                     break;
 
@@ -80,7 +82,7 @@ namespace TypeLibrary.Services.Services
                     throw new ArgumentOutOfRangeException($"'SendObjectStateEmail' switch with state '{objectState}' not found");
             }
 
-            var sendEmailToUsers = sendEmailToUserIds.Distinct().Select(id => allUsers.FirstOrDefault(x => x.Id == id)).ToList();
+            var sendEmailToUsers = sendEmailToUserIds.Distinct().Select(id => usersExceptCurrent.FirstOrDefault(x => x.Id == id)).ToList();
 
             foreach (var sendToUser in sendEmailToUsers)
             {
