@@ -43,6 +43,7 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
 
         string subject;
         string content;
+        const string TYLE_SETTINGS = "This can be done in Tyle under 'Settings' and 'Approval'.";
 
         switch (state)
         {
@@ -51,7 +52,7 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
 
             case State.Approve:
                 subject = $"Tyle {objectTypeName} approval request";
-                content = $"User {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} requests approval for the {objectTypeName} {objectName}. This can be done in Tyle under 'Settings' and 'Approval'.";
+                content = $"User {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} requests approval for the {objectTypeName} {objectName}. {TYLE_SETTINGS} ";
                 break;
 
             case State.Approved:
@@ -61,7 +62,7 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
 
             case State.Delete:
                 subject = $"Tyle {objectTypeName} delete request";
-                content = $"User {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} requests delete for the {objectTypeName} {objectName}. This can be done in Tyle under 'Settings' and 'Approval'.";
+                content = $"User {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} requests delete for the {objectTypeName} {objectName}. {TYLE_SETTINGS}";
                 break;
 
             case State.Deleted:
@@ -75,7 +76,7 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
                 break;
 
             default:
-                throw new ArgumentOutOfRangeException($"Switch with state '{state}' not found");
+                throw new ArgumentOutOfRangeException($"'CreateObjectStateEmail' switch with state '{state}' not found");
         }
 
         return Task.FromResult(new MimirorgMailAm

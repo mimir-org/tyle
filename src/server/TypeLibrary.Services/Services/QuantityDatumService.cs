@@ -52,10 +52,12 @@ public class QuantityDatumService : IQuantityDatumService
     public QuantityDatumLibCm Get(string id)
     {
         var quantityDatum = _quantityDatumRepository.Get(id);
+
         if (quantityDatum == null)
             throw new MimirorgNotFoundException($"Quantity datum with id {id} not found.");
 
         var data = _mapper.Map<QuantityDatumLibCm>(quantityDatum);
+
         return data;
     }
 
@@ -64,6 +66,7 @@ public class QuantityDatumService : IQuantityDatumService
     {
         var dataSet = _quantityDatumRepository.GetQuantityDatumRangeSpecifying();
         var dataCmList = _mapper.Map<List<QuantityDatumLibCm>>(dataSet);
+
         return dataCmList.AsEnumerable();
     }
 
@@ -72,6 +75,7 @@ public class QuantityDatumService : IQuantityDatumService
     {
         var dataSet = _quantityDatumRepository.GetQuantityDatumSpecifiedScope();
         var dataCmList = _mapper.Map<List<QuantityDatumLibCm>>(dataSet);
+
         return dataCmList.AsEnumerable();
     }
 
@@ -80,6 +84,7 @@ public class QuantityDatumService : IQuantityDatumService
     {
         var dataSet = _quantityDatumRepository.GetQuantityDatumSpecifiedProvenance();
         var dataCmList = _mapper.Map<List<QuantityDatumLibCm>>(dataSet);
+
         return dataCmList.AsEnumerable();
     }
 
@@ -88,6 +93,7 @@ public class QuantityDatumService : IQuantityDatumService
     {
         var dataSet = _quantityDatumRepository.GetQuantityDatumRegularitySpecified();
         var dataCmList = _mapper.Map<List<QuantityDatumLibCm>>(dataSet);
+
         return dataCmList.AsEnumerable();
     }
 
@@ -115,9 +121,9 @@ public class QuantityDatumService : IQuantityDatumService
         }
 
         var createdQuantityDatum = await _quantityDatumRepository.Create(dm);
+        _hookService.HookQueue.Enqueue(CacheKey.QuantityDatum);
         _quantityDatumRepository.ClearAllChangeTrackers();
         await _logService.CreateLog(createdQuantityDatum, LogType.Create, createdQuantityDatum.State.ToString(), createdQuantityDatum.CreatedBy);
-        _hookService.HookQueue.Enqueue(CacheKey.QuantityDatum);
 
         return _mapper.Map<QuantityDatumLibCm>(createdQuantityDatum);
     }
@@ -133,31 +139,26 @@ public class QuantityDatumService : IQuantityDatumService
         var quantityDatumToUpdate = _quantityDatumRepository.Get(id);
 
         if (quantityDatumToUpdate == null)
-        {
             throw new MimirorgNotFoundException("Quantity datum not found. Update is not possible.");
-        }
 
         if (quantityDatumToUpdate.State != State.Approved && quantityDatumToUpdate.State != State.Draft)
-        {
             throw new MimirorgInvalidOperationException("Update can only be performed on quantity datum drafts or approved quantity datums.");
-        }
 
         if (quantityDatumToUpdate.State != State.Approved)
         {
             quantityDatumToUpdate.Name = quantityDatumAm.Name;
             quantityDatumToUpdate.TypeReference = quantityDatumAm.TypeReference;
             quantityDatumToUpdate.QuantityDatumType = quantityDatumAm.QuantityDatumType;
-
             quantityDatumToUpdate.State = State.Draft;
         }
+
         quantityDatumToUpdate.Description = quantityDatumAm.Description;
 
         _quantityDatumRepository.Update(quantityDatumToUpdate);
         await _quantityDatumRepository.SaveAsync();
-        await _logService.CreateLog(quantityDatumToUpdate, LogType.Update, quantityDatumToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
-
-        _quantityDatumRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.QuantityDatum);
+        _quantityDatumRepository.ClearAllChangeTrackers();
+        await _logService.CreateLog(quantityDatumToUpdate, LogType.Update, quantityDatumToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         return Get(quantityDatumToUpdate.Id);
     }
@@ -170,26 +171,22 @@ public class QuantityDatumService : IQuantityDatumService
         if (dm == null)
             throw new MimirorgNotFoundException($"Quantity datum with id {id} not found.");
 
+        if (state == State.Rejected && dm.State is State.Draft or State.Deleted or State.Approved)
+            throw new MimirorgInvalidOperationException($"State 'Rejected' is not allowed for object {dm.Name} with id {id} since current state is {dm.State}");
+
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException(
-                $"State change on approved quantity datum with id {id} is not allowed.");
+            throw new MimirorgInvalidOperationException($"State '{state}' is not allowed for object {dm.Name} with id {id} since current state is {dm.State}");
 
         await _quantityDatumRepository.ChangeState(state == State.Rejected ? State.Draft : state, dm.Id);
+        _hookService.HookQueue.Enqueue(CacheKey.QuantityDatum);
         await _logService.CreateLog(dm, LogType.State, state.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         if (state == State.Rejected)
             await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
-        _hookService.HookQueue.Enqueue(CacheKey.QuantityDatum);
-
         if (sendStateEmail)
             await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.QuantityDatum);
 
-        return new ApprovalDataCm
-        {
-            Id = id,
-            State = state == State.Rejected ? State.Draft : state
-
-        };
+        return new ApprovalDataCm { Id = id, State = state == State.Rejected ? State.Draft : state };
     }
 }

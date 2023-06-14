@@ -61,8 +61,7 @@ public class AspectObjectService : IAspectObjectService
         var latestAll = _aspectObjectRepository.Get()?.LatestVersionsExcludeDeleted()?.ToList() ?? new List<AspectObjectLibDm>();
         var latestApproved = _aspectObjectRepository.Get()?.LatestVersionsApproved()?.ToList() ?? new List<AspectObjectLibDm>();
 
-        var result = latestAll.Union(latestApproved).OrderBy(x => x.Aspect)
-            .ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase);
+        var result = latestAll.Union(latestApproved).OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase);
 
         return !result.Any() ? new List<AspectObjectLibCm>() : _mapper.Map<List<AspectObjectLibCm>>(result);
     }
@@ -126,27 +125,28 @@ public class AspectObjectService : IAspectObjectService
         }
 
         dm.AspectObjectAttributes = new List<AspectObjectAttributeLibDm>();
+
         if (aspectObjectAm.Attributes != null)
         {
             foreach (var attributeId in aspectObjectAm.Attributes)
             {
                 var attribute = _attributeRepository.Get(attributeId);
+
                 if (attribute == null)
-                    _logger.LogError(
-                        $"Could not add attribute with id {attributeId} to aspect object with id {dm.Id}, attribute not found.");
+                {
+                    _logger.LogError($"Could not add attribute with id {attributeId} to aspect object with id {dm.Id}, attribute not found.");
+                }
                 else
-                    dm.AspectObjectAttributes.Add(new AspectObjectAttributeLibDm()
-                    {
-                        AspectObjectId = dm.Id,
-                        AttributeId = attribute.Id
-                    });
+                {
+                    dm.AspectObjectAttributes.Add(new AspectObjectAttributeLibDm { AspectObjectId = dm.Id, AttributeId = attribute.Id });
+                }
             }
         }
 
         var createdAspectObject = await _aspectObjectRepository.Create(dm);
         _aspectObjectRepository.ClearAllChangeTrackers();
-        await _logService.CreateLog(createdAspectObject, LogType.Create, createdAspectObject?.State.ToString(), createdAspectObject?.CreatedBy);
         _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
+        await _logService.CreateLog(createdAspectObject, LogType.Create, createdAspectObject?.State.ToString(), createdAspectObject?.CreatedBy);
 
         return Get(createdAspectObject?.Id);
     }
@@ -159,24 +159,20 @@ public class AspectObjectService : IAspectObjectService
         if (!validation.IsValid)
             throw new MimirorgBadRequestException("Aspect object is not valid.", validation);
 
-        var aspectObjectToUpdate = _aspectObjectRepository.FindBy(x => x.Id == id, false)
-            .Include(x => x.AspectObjectTerminals).Include(x => x.Attributes).AsSplitQuery().FirstOrDefault();
+        var aspectObjectToUpdate = _aspectObjectRepository.FindBy(x => x.Id == id, false).Include(x => x.AspectObjectTerminals).Include(x => x.Attributes).AsSplitQuery().FirstOrDefault();
 
         if (aspectObjectToUpdate == null)
-        {
             throw new MimirorgNotFoundException("Aspect object not found. Update is not possible.");
-        }
 
         if (aspectObjectToUpdate.State != State.Approved && aspectObjectToUpdate.State != State.Draft)
-        {
             throw new MimirorgInvalidOperationException("Update can only be performed on aspect object drafts or approved aspect objects.");
-        }
 
-        // If the aspect object we want to update is approved, we want to make sure it is the latest version of this object
-        // If not, a draft already exists, or it is not the latest approved version of the object
+        /* If the aspect object we want to update is approved, we want to make sure it is the latest version of this object
+           If not, a draft already exists, or it is not the latest approved version of the object */
         if (aspectObjectToUpdate.State == State.Approved)
         {
             var latestVersion = _aspectObjectRepository.Get().LatestVersionExcludeDeleted(aspectObjectToUpdate.FirstVersionId);
+
             if (latestVersion.Id != aspectObjectToUpdate.Id)
                 throw new MimirorgInvalidOperationException($"Cannot create new version draft for this object, a draft or newer approved version already exists (id: {latestVersion.Id}).");
         }
@@ -186,14 +182,9 @@ public class AspectObjectService : IAspectObjectService
         AspectObjectLibCm aspectObjectToReturn;
 
         if (aspectObjectToUpdate.State == State.Approved)
-        {
             aspectObjectToReturn = await CreateNewDraft(aspectObjectAm, aspectObjectToUpdate);
-        }
         else
-        {
             aspectObjectToReturn = await UpdateDraft(aspectObjectAm, aspectObjectToUpdate);
-        }
-
 
         _aspectObjectRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
@@ -203,15 +194,13 @@ public class AspectObjectService : IAspectObjectService
 
     private string CalculateVersion(AspectObjectLibAm aspectObjectAm, AspectObjectLibDm aspectObjectToUpdate)
     {
-        var latestApprovedVersion =
-            _aspectObjectRepository.Get().LatestVersionApproved(aspectObjectToUpdate.FirstVersionId);
+        var latestApprovedVersion = _aspectObjectRepository.Get().LatestVersionApproved(aspectObjectToUpdate.FirstVersionId);
 
         if (latestApprovedVersion == null)
-        {
             return "1.0";
-        }
 
         var validation = latestApprovedVersion.HasIllegalChanges(aspectObjectAm);
+
         if (!validation.IsValid)
             throw new MimirorgInvalidOperationException(validation.Message);
 
@@ -237,20 +226,20 @@ public class AspectObjectService : IAspectObjectService
         }
 
         dm.AspectObjectAttributes = new List<AspectObjectAttributeLibDm>();
+
         if (aspectObjectAm.Attributes != null)
         {
             foreach (var attributeId in aspectObjectAm.Attributes)
             {
                 var attribute = _attributeRepository.Get(attributeId);
                 if (attribute == null)
-                    _logger.LogError(
-                        $"Could not add attribute with id {attributeId} to aspect object with id {dm.Id}, attribute not found.");
+                {
+                    _logger.LogError($"Could not add attribute with id {attributeId} to aspect object with id {dm.Id}, attribute not found.");
+                }
                 else
-                    dm.AspectObjectAttributes.Add(new AspectObjectAttributeLibDm()
-                    {
-                        AspectObjectId = dm.Id,
-                        AttributeId = attribute.Id
-                    });
+                {
+                    dm.AspectObjectAttributes.Add(new AspectObjectAttributeLibDm { AspectObjectId = dm.Id, AttributeId = attribute.Id });
+                }
             }
         }
 
@@ -278,8 +267,8 @@ public class AspectObjectService : IAspectObjectService
         }
 
         var tempDm = _mapper.Map<AspectObjectLibDm>(aspectObjectAm);
-        aspectObjectToUpdate.SelectedAttributePredefined = tempDm.SelectedAttributePredefined;
 
+        aspectObjectToUpdate.SelectedAttributePredefined = tempDm.SelectedAttributePredefined;
         aspectObjectToUpdate.AspectObjectTerminals ??= new List<AspectObjectTerminalLibDm>();
         aspectObjectToUpdate.Attributes ??= new List<AttributeLibDm>();
         aspectObjectToUpdate.AspectObjectAttributes ??= new List<AspectObjectAttributeLibDm>();
@@ -289,17 +278,21 @@ public class AspectObjectService : IAspectObjectService
         // Delete removed terminal connections, and add new terminal connections
         var currentAspectObjectTerminals = aspectObjectToUpdate.AspectObjectTerminals.ToHashSet();
         var newAspectObjectTerminals = tempDm.AspectObjectTerminals.ToHashSet();
-        foreach (var aspectObjectTerminal in currentAspectObjectTerminals.ExceptBy(
-                     newAspectObjectTerminals.Select(x => x.GetHash()), y => y.GetHash()))
+
+        foreach (var aspectObjectTerminal in currentAspectObjectTerminals.ExceptBy(newAspectObjectTerminals.Select(x => x.GetHash()), y => y.GetHash()))
         {
-            var aspectObjectTerminalDb = _aspectObjectTerminalRepository.FindBy(x =>
-                    x.AspectObjectId == aspectObjectToUpdate.Id && x.TerminalId == aspectObjectTerminal.TerminalId && x.ConnectorDirection == aspectObjectTerminal.ConnectorDirection)
-                .FirstOrDefault();
-            if (aspectObjectTerminalDb == null) continue;
+            var aspectObjectTerminalDb = _aspectObjectTerminalRepository
+                .FindBy(x => x.AspectObjectId == aspectObjectToUpdate.Id
+                 && x.TerminalId == aspectObjectTerminal.TerminalId
+                 && x.ConnectorDirection == aspectObjectTerminal.ConnectorDirection).FirstOrDefault();
+
+            if (aspectObjectTerminalDb == null)
+                continue;
+
             await _aspectObjectTerminalRepository.Delete(aspectObjectTerminalDb.Id);
         }
-        foreach (var aspectObjectTerminal in newAspectObjectTerminals.ExceptBy(
-                     currentAspectObjectTerminals.Select(x => x.GetHash()), y => y.GetHash()))
+
+        foreach (var aspectObjectTerminal in newAspectObjectTerminals.ExceptBy(currentAspectObjectTerminals.Select(x => x.GetHash()), y => y.GetHash()))
         {
             aspectObjectToUpdate.AspectObjectTerminals.Add(aspectObjectTerminal);
         }
@@ -307,24 +300,34 @@ public class AspectObjectService : IAspectObjectService
         // Delete removed attributes, and add new attributes
         var currentAttributes = aspectObjectToUpdate.Attributes.ToHashSet();
         var newAttributes = new HashSet<AttributeLibDm>();
+
         if (aspectObjectAm.Attributes != null)
         {
             foreach (var attributeId in aspectObjectAm.Attributes)
             {
                 var attribute = _attributeRepository.Get(attributeId);
+
                 if (attribute == null)
-                    _logger.LogError(
-                        $"Could not add attribute with id {attributeId} to aspect object with id {aspectObjectToUpdate.Id}, attribute not found.");
+                {
+                    _logger.LogError($"Could not add attribute with id {attributeId} to aspect object with id {aspectObjectToUpdate.Id}, attribute not found.");
+                }
                 else
+                {
                     newAttributes.Add(attribute);
+                }
             }
         }
+
         foreach (var attribute in currentAttributes.ExceptBy(newAttributes.Select(x => x.Id), y => y.Id))
         {
             var aspectObjectAttribute = _aspectObjectAttributeRepository.FindBy(x => x.AspectObjectId == aspectObjectToUpdate.Id && x.AttributeId == attribute.Id).FirstOrDefault();
-            if (aspectObjectAttribute == null) continue;
+
+            if (aspectObjectAttribute == null)
+                continue;
+
             await _aspectObjectAttributeRepository.Delete(aspectObjectAttribute.Id);
         }
+
         foreach (var attribute in newAttributes.ExceptBy(currentAttributes.Select(x => x.Id), y => y.Id))
         {
             aspectObjectToUpdate.AspectObjectAttributes.Add(new AspectObjectAttributeLibDm
@@ -350,30 +353,34 @@ public class AspectObjectService : IAspectObjectService
         if (dm == null)
             throw new MimirorgNotFoundException($"Aspect object with id {id} not found, or is not latest version.");
 
+        if (state == State.Rejected && dm.State is State.Draft or State.Deleted or State.Approved)
+            throw new MimirorgInvalidOperationException($"State 'Rejected' is not allowed for object {dm.Name} with id {id} since current state is {dm.State}");
+
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException($"State change on approved aspect object with id {id} is not allowed.");
+            throw new MimirorgInvalidOperationException($"State '{state}' is not allowed for object {dm.Name} with id {id} since current state is {dm.State}");
 
         if (state == State.Approve)
         {
-            var latestApprovedVersion =
-                _aspectObjectRepository.Get().LatestVersionApproved(dm.FirstVersionId);
+            var latestApprovedVersion = _aspectObjectRepository.Get().LatestVersionApproved(dm.FirstVersionId);
 
             if (latestApprovedVersion != null && latestApprovedVersion.Equals(dm))
-            {
                 throw new MimirorgInvalidOperationException("Cannot approve this aspect object since it is identical to the currently approved version.");
-            }
 
             if (dm.Rds.State != State.Approved)
             {
-                if (dm.Rds.State == State.Deleted) throw new MimirorgInvalidOperationException("Cannot request approval for aspect object that uses deleted RDS.");
+                if (dm.Rds.State == State.Deleted)
+                    throw new MimirorgInvalidOperationException("Cannot request approval for aspect object that uses deleted RDS.");
 
                 await _rdsService.ChangeState(dm.RdsId, State.Approve);
             }
 
             foreach (var attribute in dm.Attributes)
             {
-                if (attribute.State == State.Approved) continue;
-                if (attribute.State == State.Deleted) throw new MimirorgInvalidOperationException("Cannot request approval for aspect object that uses deleted attributes.");
+                if (attribute.State == State.Approved)
+                    continue;
+
+                if (attribute.State == State.Deleted)
+                    throw new MimirorgInvalidOperationException("Cannot request approval for aspect object that uses deleted attributes.");
 
                 await _attributeService.ChangeState(attribute.Id, State.Approve);
             }
@@ -382,8 +389,11 @@ public class AspectObjectService : IAspectObjectService
             {
                 var terminal = _terminalService.Get(aspectObjectTerminal.TerminalId);
 
-                if (terminal.State == State.Approved) continue;
-                if (terminal.State == State.Deleted) throw new MimirorgInvalidOperationException("Cannot request approval for aspect object that uses deleted terminals.");
+                if (terminal.State == State.Approved)
+                    continue;
+
+                if (terminal.State == State.Deleted)
+                    throw new MimirorgInvalidOperationException("Cannot request approval for aspect object that uses deleted terminals.");
 
                 await _terminalService.ChangeState(terminal.Id, State.Approve);
             }
@@ -392,28 +402,25 @@ public class AspectObjectService : IAspectObjectService
         {
             if (dm.Rds.State != State.Approved)
                 throw new MimirorgInvalidOperationException("Cannot approve aspect object that uses unapproved RDS.");
+
             if (dm.Attributes.Any(attribute => attribute.State != State.Approved))
                 throw new MimirorgInvalidOperationException("Cannot approve aspect object that uses unapproved attributes.");
+
             if (dm.AspectObjectTerminals.Select(x => x.Terminal).Any(terminal => terminal.State != State.Approved))
                 throw new MimirorgInvalidOperationException("Cannot approve aspect object that uses unapproved terminals.");
         }
 
         await _aspectObjectRepository.ChangeState(state == State.Rejected ? State.Draft : state, dm.Id);
+        _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
         await _logService.CreateLog(dm, LogType.State, state.ToString(), dm.CreatedBy);
 
         if (state == State.Rejected)
             await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
-        _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
-
         if (sendStateEmail)
             await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.AspectObject);
 
-        return new ApprovalDataCm
-        {
-            Id = id,
-            State = state == State.Rejected ? State.Draft : state
-        };
+        return new ApprovalDataCm { Id = id, State = state == State.Rejected ? State.Draft : state };
     }
 
     /// <inheritdoc />

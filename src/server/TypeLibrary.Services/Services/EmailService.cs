@@ -77,7 +77,7 @@ namespace TypeLibrary.Services.Services
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException($"Switch with state '{objectState}' not found");
+                    throw new ArgumentOutOfRangeException($"'SendObjectStateEmail' switch with state '{objectState}' not found");
             }
 
             var sendEmailToUsers = sendEmailToUserIds.Distinct().Select(id => allUsers.FirstOrDefault(x => x.Id == id)).ToList();

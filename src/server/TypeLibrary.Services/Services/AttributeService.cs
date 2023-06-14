@@ -96,9 +96,9 @@ public class AttributeService : IAttributeService
         }
 
         var createdAttribute = await _attributeRepository.Create(dm);
+        _hookService.HookQueue.Enqueue(CacheKey.Attribute);
         _attributeRepository.ClearAllChangeTrackers();
         await _logService.CreateLog(createdAttribute, LogType.Create, createdAttribute?.State.ToString(), createdAttribute?.CreatedBy);
-        _hookService.HookQueue.Enqueue(CacheKey.Attribute);
 
         return _mapper.Map<AttributeLibCm>(createdAttribute);
     }
@@ -114,21 +114,16 @@ public class AttributeService : IAttributeService
         var attributeToUpdate = _attributeRepository.FindBy(x => x.Id == id, false).Include(x => x.AttributeUnits).FirstOrDefault();
 
         if (attributeToUpdate == null)
-        {
             throw new MimirorgNotFoundException("Attribute not found. Update is not possible.");
-        }
 
         if (attributeToUpdate.State != State.Approved && attributeToUpdate.State != State.Draft)
-        {
             throw new MimirorgInvalidOperationException("Update can only be performed on attribute drafts or approved attributes.");
-        }
 
         if (attributeToUpdate.State != State.Approved)
         {
             attributeToUpdate.Name = attributeAm.Name;
             attributeToUpdate.TypeReference = attributeAm.TypeReference;
             attributeToUpdate.Description = attributeAm.Description;
-
             attributeToUpdate.AttributeUnits ??= new List<AttributeUnitLibDm>();
 
             var currentAttributeUnits = attributeToUpdate.AttributeUnits.ToHashSet();
@@ -137,7 +132,10 @@ public class AttributeService : IAttributeService
             foreach (var attributeUnit in currentAttributeUnits.ExceptBy(newAttributeUnits.Select(x => x.UnitId + x.IsDefault), y => y.UnitId + y.IsDefault))
             {
                 var attributeUnitDm = _attributeUnitRepository.FindBy(x => x.AttributeId == attributeToUpdate.Id && x.UnitId == attributeUnit.UnitId).FirstOrDefault();
-                if (attributeUnitDm == null) continue;
+
+                if (attributeUnitDm == null)
+                    continue;
+
                 await _attributeUnitRepository.Delete(attributeUnitDm.Id);
             }
 
@@ -156,10 +154,9 @@ public class AttributeService : IAttributeService
 
         await _attributeUnitRepository.SaveAsync();
         await _attributeRepository.SaveAsync();
-        await _logService.CreateLog(attributeToUpdate, LogType.Update, attributeToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
-
-        _attributeRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.Attribute);
+        _attributeRepository.ClearAllChangeTrackers();
+        await _logService.CreateLog(attributeToUpdate, LogType.Update, attributeToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         return Get(attributeToUpdate.Id);
     }
@@ -172,8 +169,11 @@ public class AttributeService : IAttributeService
         if (dm == null)
             throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
 
+        if (state == State.Rejected && dm.State is State.Draft or State.Deleted or State.Approved)
+            throw new MimirorgInvalidOperationException($"State 'Rejected' is not allowed for object {dm.Name} with id {id} since current state is {dm.State}");
+
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException($"State change on approved attribute with id {id} is not allowed.");
+            throw new MimirorgInvalidOperationException($"State '{state}' is not allowed for object {dm.Name} with id {id} since current state is {dm.State}");
 
         if (state == State.Approve)
         {
@@ -181,8 +181,11 @@ public class AttributeService : IAttributeService
             {
                 var unit = _unitService.Get(attributeUnit.UnitId);
 
-                if (unit.State == State.Approved) continue;
-                if (unit.State == State.Deleted) throw new MimirorgInvalidOperationException("Cannot request approval for attribute that uses deleted units.");
+                if (unit.State == State.Approved)
+                    continue;
+
+                if (unit.State == State.Deleted)
+                    throw new MimirorgInvalidOperationException("Cannot request approval for attribute that uses deleted units.");
 
                 await _unitService.ChangeState(unit.Id, State.Approve);
             }
@@ -193,22 +196,16 @@ public class AttributeService : IAttributeService
         }
 
         await _attributeRepository.ChangeState(state == State.Rejected ? State.Draft : state, new List<string> { dm.Id });
+        _hookService.HookQueue.Enqueue(CacheKey.Attribute);
         await _logService.CreateLog(dm, LogType.State, state.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         if (state == State.Rejected)
             await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
-        _hookService.HookQueue.Enqueue(CacheKey.Attribute);
-
         if (sendStateEmail)
             await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.Attribute);
 
-        return new ApprovalDataCm
-        {
-            Id = id,
-            State = state == State.Rejected ? State.Draft : state
-
-        };
+        return new ApprovalDataCm { Id = id, State = state == State.Rejected ? State.Draft : state };
     }
 
     /// <inheritdoc />
