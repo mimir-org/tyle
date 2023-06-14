@@ -16,9 +16,8 @@ export const UserInfo = ({ name, roles, permissions }: UserInfoProps) => {
       <Text variant={"title-medium"}>{name}</Text>
       {roles && roles.length > 0 && (
         <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
-          <Text variant={"title-small"}>{"Roles:"}</Text>
           {roles?.map((x, i) => (
-            <Text key={x + i} variant={"label-medium"}>
+            <Text style={{ color: "gray" }} key={x + i} variant={"label-medium"}>
               {x}
             </Text>
           ))}
@@ -26,9 +25,8 @@ export const UserInfo = ({ name, roles, permissions }: UserInfoProps) => {
       )}
       {permissions && permissions.length > 0 && (
         <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
-          <Text variant={"title-small"}>{"Permissions:"}</Text>
           {permissions?.map((x, i) => (
-            <Text key={i} variant={"label-small"}>
+            <Text style={{ color: "gray" }} key={i} variant={"label-small"}>
               {x}
             </Text>
           ))}

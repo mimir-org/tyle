@@ -8,6 +8,15 @@ interface PanelSectionProps {
   children?: ReactNode;
 }
 
+/**
+ * @param title the title of the section
+ * @param children the children of the section
+ * @constructor
+ * @example
+ * <PanelSection title={"My Section"}>
+ *   <MyComponent />
+ * </PanelSection>
+ */
 export const PanelSection = ({ title, children }: PanelSectionProps) => {
   const theme = useTheme();
 

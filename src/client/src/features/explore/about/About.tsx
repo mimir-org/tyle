@@ -21,6 +21,7 @@ import { useGetQuantityDatum } from "../../../external/sources/datum/quantityDat
 import { useGetRds } from "../../../external/sources/rds/rds.queries";
 import { toFormDatumLib } from "../../entities/quantityDatum/types/formQuantityDatumLib";
 import { toFormRdsLib } from "../../entities/RDS/types/formRdsLib";
+import UnifiedPanel from "./components/common/UnifiedPanel";
 
 interface AboutProps {
   selected?: SelectedInfo;
@@ -93,10 +94,26 @@ export const About = ({ selected }: AboutProps) => {
           {...mapTerminalLibCmToTerminalItem(terminalQuery.data)}
         />
       )}
-      {showAttributePanel && <AttributePreview {...toFormAttributeLib(attributeQuery.data)} />}
-      {showUnitPanel && <UnitPreview {...toUnitLibAm(unitQuery.data)} />}
-      {showDatumPanel && <QuantityDatumPreview {...toFormDatumLib(datumQuery.data)} />}
-      {showRdsPanel && <RdsPreview {...toFormRdsLib(rdsQuery.data)} />}
+      {showAttributePanel && (
+        <UnifiedPanel {...toFormAttributeLib(attributeQuery.data)}>
+          <AttributePreview {...toFormAttributeLib(attributeQuery.data)} />
+        </UnifiedPanel>
+      )}
+      {showUnitPanel && (
+        <UnifiedPanel {...toUnitLibAm(unitQuery.data)} state={unitQuery.data.state}>
+          <UnitPreview {...toUnitLibAm(unitQuery.data)} state={unitQuery.data.state} />
+        </UnifiedPanel>
+      )}
+      {showDatumPanel && (
+        <UnifiedPanel {...toFormDatumLib(datumQuery.data)}>
+          <QuantityDatumPreview {...toFormDatumLib(datumQuery.data)} />
+        </UnifiedPanel>
+      )}
+      {showRdsPanel && (
+        <UnifiedPanel {...toFormRdsLib(rdsQuery.data)}>
+          <RdsPreview {...toFormRdsLib(rdsQuery.data)} />
+        </UnifiedPanel>
+      )}
     </ExploreSection>
   );
 };
