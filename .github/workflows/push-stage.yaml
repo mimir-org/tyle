@@ -21,7 +21,7 @@ jobs:
     secrets:
       DOCKERHUB_ORG: mimirorg
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+      DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   # Build and push server to dockerhub
   build-server:
