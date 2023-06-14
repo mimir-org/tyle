@@ -23,19 +23,19 @@ jobs:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-    # Build and push server to dockerhub
-    build-server:
-      uses: mimir-org/mimir-actions/.github/workflows/docker-build-push-cached.yaml@main
-      with:
-        repository: typelibrary-server
-        tags: stage
-        context: ./src/server
-        file: ./src/server/Dockerfile
-        target: final
-        hash_files_template: "**/*.csproj"
-        push: true
-        use_dockerhub: true
-      secrets:
-        DOCKERHUB_ORG: mimirorg
-        DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-        DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+  # Build and push server to dockerhub
+  build-server:
+    uses: mimir-org/mimir-actions/.github/workflows/docker-build-push-cached.yaml@main
+    with:
+      repository: typelibrary-server
+      tags: stage
+      context: ./src/server
+      file: ./src/server/Dockerfile
+      target: final
+      hash_files_template: "**/*.csproj"
+      push: true
+      use_dockerhub: true
+    secrets:
+      DOCKERHUB_ORG: mimirorg
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
