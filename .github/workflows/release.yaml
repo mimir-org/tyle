@@ -1,0 +1,43 @@
+name: Create Docker images on release or manual trigger
+
+on:
+  release:
+    types: [published]
+
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: Docker image tags, separated by commas
+
+env:
+  TAGS: >
+    ${{
+      github.event_name == 'workflow_dispatch' && github.event.inputs.tags ||
+      (github.event.release.prerelease && format('stage,{0}', github.event.release.tag_name) ||
+      github.event.release.tag_name )
+    }}
+
+jobs:
+
+  # Check branch and release type logic
+  check-branch-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail on branch and release mismatch
+        if: >
+          github.event_name == 'release' &&
+          !((github.event.release.prerelease && github.event.release.target_commitish == 'stage')
+          || (!github.event.release.prerelease && github.event.release.target_commitish == 'main'))
+        run: exit 1
+      - name: Succeed otherwise
+        run: |
+          echo 'Branch name and release type match, or action was manually triggered'
+  
+  # Output the correct tags
+  output-tags:
+    runs-on: ubuntu-latest
+    needs: check-branch-and-release
+    steps:
+      - name: 'Print tags'
+        run: |
+          echo "tags: $TAGS"
