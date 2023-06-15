@@ -59,11 +59,6 @@ jobs:
         with:
           driver-opts: image=mimirorg/typelibrary-client
 
-      - name: Docker meta
-        uses: docker/metadata-action@v4
-        with:
-          images: mimirorg/typelibrary-client
-
       - name: Build and push client
         uses: docker/build-push-action@v4
         with:
