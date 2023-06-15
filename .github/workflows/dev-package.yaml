@@ -27,7 +27,7 @@ jobs:
           cp -a ../src/server/Mimirorg.Package/template/. ./
           npx tsc index.ts --declaration
           npm version ${{ inputs.version }}
-          sed -i 's/"name": "@mimirorg/typelibrary-types,"/"name": "@mimir-org/typelibrary-types",\n"repository": "https://github.com/mimir-org/typelibrary.git"/' package.json
+          sed -i 's/"name": "@mimirorg/typelibrary-types,"/"name": "@mimir-org/typelibrary-types",\n "repository": "https://github.com/mimir-org/typelibrary.git",/' package.json
 
       - name: Create .npmrc file
         run: echo '@mimir-org:registry=https://npm.pkg.github.com' > .npmrc
