@@ -84,6 +84,9 @@ namespace TypeLibrary.Services.Services
 
             var sendEmailToUsers = sendEmailToUserIds.Distinct().Select(id => usersExceptCurrent.FirstOrDefault(x => x.Id == id)).ToList();
 
+            if (!sendEmailToUsers.Any())
+                return;
+
             foreach (var sendToUser in sendEmailToUsers)
             {
                 var email = await _templateRepository.CreateObjectStateEmail(sendToUser, currentUser, objectState, objectName, objectTypeName);

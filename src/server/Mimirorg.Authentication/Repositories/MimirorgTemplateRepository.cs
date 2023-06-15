@@ -24,6 +24,9 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
         if (_authSettings == null || string.IsNullOrEmpty(_authSettings.Email))
             throw new MimirorgConfigurationException("Missing configuration for email");
 
+        if (user == null)
+            return Task.FromResult(new MimirorgMailAm());
+
         var mail = new MimirorgMailAm
         {
             FromEmail = _authSettings.Email,
@@ -41,6 +44,9 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
     {
         if (_authSettings == null || string.IsNullOrEmpty(_authSettings.Email))
             throw new MimirorgConfigurationException("Missing configuration for email");
+
+        if (sendToUser == null || fromUser == null)
+            return Task.FromResult(new MimirorgMailAm());
 
         string subject;
         string content;
@@ -96,6 +102,9 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
         if (_authSettings == null || string.IsNullOrEmpty(_authSettings.Email))
             throw new MimirorgConfigurationException("Missing configuration for email");
 
+        if (sendToUser == null || fromUser == null)
+            return Task.FromResult(new MimirorgMailAm());
+
         return Task.FromResult(new MimirorgMailAm
         {
             FromEmail = _authSettings.Email,
@@ -111,6 +120,9 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
     {
         if (_authSettings == null || string.IsNullOrEmpty(_authSettings.Email))
             throw new MimirorgConfigurationException("Missing configuration for email");
+
+        if (sendToUser == null || fromUser == null)
+            return Task.FromResult(new MimirorgMailAm());
 
         var subject = isPermissionRemoval
             ? $@"Tyle <i>{permission.ToString().ToLower()}</i> permission for <i>{companyName}</i> removed"
