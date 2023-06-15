@@ -30,10 +30,9 @@ public class MimirorgAuthService : IMimirorgAuthService
     private readonly MimirorgAuthSettings _authSettings;
     private readonly IMimirorgEmailRepository _emailRepository;
     private readonly IMimirorgTemplateRepository _templateRepository;
-    private readonly IMimirorgUserService _userService;
     private readonly IHttpContextAccessor _contextAccessor;
 
-    public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IMimirorgCompanyService mimirorgCompanyService, IActionContextAccessor actionContextAccessor, IOptions<MimirorgAuthSettings> authSettings, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IMimirorgUserService userService, IHttpContextAccessor contextAccessor)
+    public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IMimirorgCompanyService mimirorgCompanyService, IActionContextAccessor actionContextAccessor, IOptions<MimirorgAuthSettings> authSettings, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IHttpContextAccessor contextAccessor)
     {
         _userManager = userManager;
         _signInManager = signInManager;
@@ -42,7 +41,6 @@ public class MimirorgAuthService : IMimirorgAuthService
         _actionContextAccessor = actionContextAccessor;
         _emailRepository = emailRepository;
         _templateRepository = templateRepository;
-        _userService = userService;
         _contextAccessor = contextAccessor;
         _authSettings = authSettings?.Value;
         _roleManager = roleManager;
@@ -352,16 +350,38 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// <summary>
     /// Sends an email to a user about permission
     /// </summary>
-    /// <param name="toUserId"></param>
+    /// <param name="toUser"></param>
     /// <param name="companyName"></param>
     /// <param name="permission"></param>
     /// <param name="isPermissionRemoval"></param>
     /// <returns></returns>
-    private async Task SendUserPermissionEmail(string toUserId, MimirorgPermission permission, string companyName, bool isPermissionRemoval)
+    private async Task SendUserPermissionEmail(MimirorgUser toUser, MimirorgPermission permission, string companyName, bool isPermissionRemoval)
     {
-        var fromUser = await _userService.GetUser(_contextAccessor.GetUserId());
-        var toUser = await _userService.GetUser(toUserId);
-        var email = await _templateRepository.CreateUserPermissionEmail(toUser, fromUser, permission, companyName, isPermissionRemoval);
+        /* We can not reference 'IMimirorgUserService' because that service is referencing this service.
+         * If this reference is atempted it will result in a 'circular dependency' error. 
+         * The 'MimirorgUserCm' objects needs to be manually constructed here.
+         */
+
+        var from = await _userManager.FindByIdAsync(_contextAccessor.GetUserId());
+
+        if (toUser == null || from == null)
+            throw new MimirorgNotFoundException("User(s) not found 'SendUserPermissionEmail'");
+
+        var sendToUser = new MimirorgUserCm
+        {
+            FirstName = toUser.FirstName,
+            LastName = toUser.LastName,
+            Email = toUser.Email
+        };
+
+        var fromUser = new MimirorgUserCm
+        {
+            FirstName = from.FirstName,
+            LastName = from.LastName,
+            Email = from.Email
+        };
+
+        var email = await _templateRepository.CreateUserPermissionEmail(sendToUser, fromUser, permission, companyName, isPermissionRemoval);
 
         await _emailRepository.SendEmail(email);
     }
