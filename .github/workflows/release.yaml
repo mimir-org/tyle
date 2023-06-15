@@ -13,7 +13,9 @@ env:
   TAGS: >
     ${{
       github.event_name == 'workflow_dispatch' && github.event.inputs.tags
-      || github.event.release.tag_name
+      || (github.event.release.prerelease && github.event.release.tag_name
+      || format('{0},latest', github.event.release.tag_name))
+      
     }}
 
 jobs:
