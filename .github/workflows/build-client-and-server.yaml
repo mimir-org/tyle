@@ -16,8 +16,8 @@ on:
 
 jobs:
 
-  # Deploy client and server to Dockerhub
-  deploy-to-dockerhub:
+  # Deploy server to Dockerhub
+  deploy-server-to-dockerhub:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,6 +32,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
+      - name: Docker meta
+        uses: docker/metadata-action@v4
+        with:
+          images: mimirorg/typelibrary-server
+
       - name: Build and push server
         uses: docker/build-push-action@v4
         with:
@@ -41,6 +46,27 @@ jobs:
           secrets: ${{ secrets.DOCKER_SECRETS }}
           tags: ${{ inputs.tags }}
           target: final
+
+  # Deploy client to Dockerhub
+  deploy-client-to-dockerhub:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Docker meta
+        uses: docker/metadata-action@v4
+        with:
+          images: mimirorg/typelibrary-client
 
       - name: Build and push client
         uses: docker/build-push-action@v4
