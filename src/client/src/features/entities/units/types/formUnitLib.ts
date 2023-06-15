@@ -1,5 +1,10 @@
 import { UnitLibAm } from "@mimirorg/typelibrary-types";
 
+/**
+ * Convert a unit from api model to form model.
+ * @interface UnitLibAm
+ * @param unit
+ */
 export const toUnitLibAm = (unit: UnitLibAm): UnitLibAm => ({
   ...unit,
   name: unit.name,

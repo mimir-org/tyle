@@ -12,6 +12,8 @@ import { ThemeButton } from "features/ui/header/theme-button/ThemeButton";
 import { UserInfo } from "features/ui/header/user-info/UserInfo";
 import { UserMenu } from "features/ui/header/user-menu/UserMenu";
 import { useTheme } from "styled-components";
+import { Text } from "complib/text";
+import config from "../../../common/utils/config";
 
 export const Header = () => {
   const theme = useTheme();
@@ -29,12 +31,17 @@ export const Header = () => {
       <HeaderHomeLink />
       {!userQuery.isLoading && (
         <UserMenu name={userInitials}>
-          <UserInfo name={userFullName} permissions={permissions} roles={userRoles} />
           <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.base}>
+            <UserInfo name={userFullName} permissions={permissions} roles={userRoles} />
             <ThemeButton />
             <ContactButton />
             <SettingsButton />
             <LogoutButton />
+            <Flexbox alignItems={"center"} justifyContent={"center"} gap={theme.tyle.spacing.base}>
+              <Text style={{ color: "gray" }} variant={"body-small"}>
+                {"Tyle version: " + config.TYLE_VERSION}
+              </Text>
+            </Flexbox>
           </Flexbox>
         </UserMenu>
       )}

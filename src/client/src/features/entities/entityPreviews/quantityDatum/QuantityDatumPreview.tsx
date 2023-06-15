@@ -41,9 +41,11 @@ export default function QuantityDatumPreview({
         QuantityDatumSmallPreview(quantityDatumTypeString[quantityDatumType ?? 0])
       ) : (
         <>
-          <Text variant={"display-small"} useEllipsis={small}>
-            {name}
-          </Text>
+          <Flexbox justifyContent={"space-between"} alignItems={"center"}>
+            <Text variant={"display-small"} useEllipsis={small}>
+              {name}
+            </Text>
+          </Flexbox>
           {quantityDatumType !== undefined ? (
             <Badge variant={"info"}>
               <Text variant={"body-medium"}>{quantityDatumTypeString[quantityDatumType]}</Text>
