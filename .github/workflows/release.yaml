@@ -45,7 +45,7 @@ jobs:
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "tags<<$EOF" >> "$GITHUB_OUTPUT"
           IFS=','
-          for item in $list; do
+          for item in $TAGS; do
             # Trim trailing and leading whitespace from the item
             trimmed_item=$(echo "$item" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
             echo "$trimmed_item" >> "$GITHUB_OUTPUT"
