@@ -11,6 +11,8 @@ on:
         required: true
       DOCKERHUB_PASSWORD:
         required: true
+      DOCKER_SECRETS:
+        required: true
 
 jobs:
 
@@ -36,6 +38,7 @@ jobs:
           context: ./src/server
           file: ./src/server/Dockerfile
           push: true
+          secrets: ${{ secrets.DOCKER_SECRETS }}
           tags: ${{ inputs.tags }}
           target: final
 
@@ -45,5 +48,6 @@ jobs:
           context: ./src/client
           file: ./src/client/Dockerfile
           push: true
+          secrets: ${{ secrets.DOCKER_SECRETS }}
           tags: ${{ inputs.tags }}
           target: final
