@@ -48,17 +48,27 @@ jobs:
           echo "tags<<$EOF" >> "$GITHUB_OUTPUT"
           IFS=','
           for item in $TAGS; do
-            # Trim trailing and leading whitespace from the item
             trimmed_item=$(echo "$item" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
             echo "$trimmed_item" >> "$GITHUB_OUTPUT"
           done
           echo "$EOF" >> "$GITHUB_OUTPUT"
 
-  # Build and push server and client to Dockerhub
-  build-push-to-dockerhub:
+  # Build and push client to Dockerhub
+  build-and-push-client:
     needs: output-tags
-    uses: ./.github/workflows/build-client-and-server.yaml
+    uses: ./.github/workflows/build-push.yaml
     with:
+      build-target: client
+      tags: |
+        ${{ needs.output-tags.outputs.tags }}
+    secrets: inherit
+
+    # Build and push server to Dockerhub
+  build-and-push-server:
+    needs: output-tags
+    uses: ./.github/workflows/build-push.yaml
+    with:
+      build-target: server
       tags: |
         ${{ needs.output-tags.outputs.tags }}
     secrets: inherit
