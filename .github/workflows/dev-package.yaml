@@ -29,11 +29,8 @@ jobs:
           npm version ${{ inputs.version }}
           sed -i 's#"name": "@mimirorg/typelibrary-types",#"name": "@mimir-org/typelibrary-types",\n "repository": "https://github.com/mimir-org/typelibrary.git",#' package.json
 
-      - name: Create .npmrc file
-        run: echo '@mimir-org:registry=https://npm.pkg.github.com' > .npmrc
-
-
       - name: Publish npm package
         run: |
+          echo '@mimir-org:registry=https://npm.pkg.github.com' > .npmrc
           npm publish
         working-directory: typelibrary-types
