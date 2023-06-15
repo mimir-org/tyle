@@ -193,7 +193,7 @@ public class TerminalService : ITerminalService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
     {
         var dm = _terminalRepository.Get().FirstOrDefault(x => x.Id == id);
 
@@ -216,7 +216,7 @@ public class TerminalService : ITerminalService
                 if (attribute.State == State.Deleted)
                     throw new MimirorgInvalidOperationException("Cannot request approval for terminal that uses deleted attributes.");
 
-                await _attributeService.ChangeState(attribute.Id, State.Approve);
+                await _attributeService.ChangeState(attribute.Id, State.Approve, true);
             }
         }
         else if (state == State.Approved && dm.Attributes.Any(attribute => attribute.State != State.Approved))

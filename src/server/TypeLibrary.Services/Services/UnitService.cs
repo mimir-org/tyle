@@ -128,7 +128,7 @@ public class UnitService : IUnitService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
     {
         var dm = _unitRepository.Get().FirstOrDefault(x => x.Id == id);
 

@@ -51,7 +51,7 @@ public interface IRdsService
     /// <returns>An approval data object</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if the RDS does not exist</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the RDS is already approved.</exception>
-    Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true);
+    Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail);
 
     /// <summary>
     /// Initializes the database with RDS

@@ -187,7 +187,7 @@ public class LibraryAttributeController : ControllerBase
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _attributeService.ChangeState(id, state);
+            var data = await _attributeService.ChangeState(id, state, true);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)

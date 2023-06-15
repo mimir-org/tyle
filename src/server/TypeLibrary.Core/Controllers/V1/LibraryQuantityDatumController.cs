@@ -219,7 +219,7 @@ public class LibraryQuantityDatumController : ControllerBase
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _quantityDatumService.ChangeState(id, state);
+            var data = await _quantityDatumService.ChangeState(id, state, true);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)

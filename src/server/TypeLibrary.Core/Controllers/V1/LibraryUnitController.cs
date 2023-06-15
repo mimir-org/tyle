@@ -187,7 +187,7 @@ public class LibraryUnitController : ControllerBase
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _unitService.ChangeState(id, state);
+            var data = await _unitService.ChangeState(id, state, true);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)

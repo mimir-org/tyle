@@ -224,7 +224,7 @@ public class LibraryAspectObjectController : ControllerBase
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _aspectObjectService.ChangeState(id, state);
+            var data = await _aspectObjectService.ChangeState(id, state, true);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)

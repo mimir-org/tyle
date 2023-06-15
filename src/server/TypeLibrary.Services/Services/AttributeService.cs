@@ -162,7 +162,7 @@ public class AttributeService : IAttributeService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
     {
         var dm = _attributeRepository.Get().FirstOrDefault(x => x.Id == id);
 
@@ -187,7 +187,7 @@ public class AttributeService : IAttributeService
                 if (unit.State == State.Deleted)
                     throw new MimirorgInvalidOperationException("Cannot request approval for attribute that uses deleted units.");
 
-                await _unitService.ChangeState(unit.Id, State.Approve);
+                await _unitService.ChangeState(unit.Id, State.Approve, true);
             }
         }
         else if (state == State.Approved && dm.AttributeUnits.Select(attributeUnit => _unitService.Get(attributeUnit.UnitId)).Any(unit => unit.State != State.Approved))

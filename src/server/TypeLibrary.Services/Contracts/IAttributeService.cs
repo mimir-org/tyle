@@ -52,7 +52,7 @@ public interface IAttributeService
     /// <exception cref="MimirorgNotFoundException">Throws if the attribute does not exist</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the attribute is already
     /// approved or contains references to deleted or unapproved units.</exception>
-    Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true);
+    Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail);
 
     /// <summary>
     /// Get predefined attributes

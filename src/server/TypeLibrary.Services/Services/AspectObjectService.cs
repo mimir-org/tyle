@@ -346,7 +346,7 @@ public class AspectObjectService : IAspectObjectService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
     {
         var dm = _aspectObjectRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
 
@@ -371,7 +371,7 @@ public class AspectObjectService : IAspectObjectService
                 if (dm.Rds.State == State.Deleted)
                     throw new MimirorgInvalidOperationException("Cannot request approval for aspect object that uses deleted RDS.");
 
-                await _rdsService.ChangeState(dm.RdsId, State.Approve);
+                await _rdsService.ChangeState(dm.RdsId, State.Approve, true);
             }
 
             foreach (var attribute in dm.Attributes)
@@ -382,7 +382,7 @@ public class AspectObjectService : IAspectObjectService
                 if (attribute.State == State.Deleted)
                     throw new MimirorgInvalidOperationException("Cannot request approval for aspect object that uses deleted attributes.");
 
-                await _attributeService.ChangeState(attribute.Id, State.Approve);
+                await _attributeService.ChangeState(attribute.Id, State.Approve, true);
             }
 
             foreach (var aspectObjectTerminal in dm.AspectObjectTerminals)
@@ -395,7 +395,7 @@ public class AspectObjectService : IAspectObjectService
                 if (terminal.State == State.Deleted)
                     throw new MimirorgInvalidOperationException("Cannot request approval for aspect object that uses deleted terminals.");
 
-                await _terminalService.ChangeState(terminal.Id, State.Approve);
+                await _terminalService.ChangeState(terminal.Id, State.Approve, true);
             }
         }
         else if (state == State.Approved)
