@@ -7,9 +7,10 @@ on:
         required: true
         type: string
     secrets:
-      dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
-      dockerhub-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
+      dockerhub-username:
+        required: true
+      dockerhub-password:
+        required: true
 jobs:
 
   # Deploy client and server to Dockerhub

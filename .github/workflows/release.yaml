@@ -49,4 +49,6 @@ jobs:
     uses: ./.github/workflows/build-client-and-server.yaml
     with:
       tags: ${{ needs.output-tags.outputs.tags }}
-      secrets: inherit
+      secrets:
+        dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
+        dockerhub-password: ${{ secrets.DOCKERHUB_PASSWORD }}
