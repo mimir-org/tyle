@@ -43,7 +43,7 @@ jobs:
       - name: Output tags
         id: output-tags
         run: |
-          formatted_tags=$(echo "$TAGS" | tr ',' '%0A')
+          formatted_tags=$(echo "$TAGS" | sed -e 's/ *, */%0A/g' -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
           echo "tags=$formatted_tags" >> "$GITHUB_OUTPUT"
 
   # Build and push client to dockerhub
