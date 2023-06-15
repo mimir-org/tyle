@@ -77,5 +77,5 @@ jobs:
           context: ./src/client
           file: ./src/client/Dockerfile
           push: true
-          tags: ${{ inputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }}
           target: final
