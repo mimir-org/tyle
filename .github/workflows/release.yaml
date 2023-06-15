@@ -49,3 +49,4 @@ jobs:
     uses: ./.github/workflows/build-client-and-server.yaml
     with:
       tags: ${{ needs.output-tags.outputs.tags }}
+      secrets: inherit
