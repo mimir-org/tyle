@@ -44,7 +44,7 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
 
         string subject;
         string content;
-        const string TYLE_SETTINGS = "This can be done in Tyle under 'Settings' and 'Approval'.";
+        const string TYLE_SETTINGS = "This can be done in Tyle under <i>Settings</i> and <i>Approval</i>.";
 
         switch (state)
         {
@@ -53,27 +53,27 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
 
             case State.Approve:
                 subject = $"Tyle {objectTypeName} approval request";
-                content = $"User {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} requests approval for the {objectTypeName} {objectName}. {TYLE_SETTINGS} ";
+                content = $"User <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i> requests approval for the {objectTypeName} <i>{objectName}</i>. {TYLE_SETTINGS} ";
                 break;
 
             case State.Approved:
                 subject = $"Tyle {objectTypeName} is approved";
-                content = $"The {objectTypeName} {objectName} is approved by {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email}";
+                content = $"The {objectTypeName} <i>{objectName}</i> is approved by <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i>";
                 break;
 
             case State.Delete:
                 subject = $"Tyle {objectTypeName} delete request";
-                content = $"User {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} requests delete for the {objectTypeName} {objectName}. {TYLE_SETTINGS}";
+                content = $"User <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i> requests delete for the {objectTypeName} <i>{objectName}</i>. {TYLE_SETTINGS}";
                 break;
 
             case State.Deleted:
                 subject = $"Tyle {objectTypeName} is deleted";
-                content = $"The {objectTypeName} {objectName} is deleted by {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email}";
+                content = $"The {objectTypeName} <i>{objectName}</i> is deleted by <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i>";
                 break;
 
             case State.Rejected:
                 subject = $"Tyle {objectTypeName} is rejected";
-                content = $"The {objectTypeName} {objectName} is rejected by {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email}";
+                content = $"The {objectTypeName} <i>{objectName}</i> is rejected by <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i>";
                 break;
 
             default:
@@ -103,7 +103,7 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
             ToEmail = sendToUser.Email,
             ToName = $"{sendToUser.FirstName} {sendToUser.LastName}",
             Subject = $@"Tyle has a new user",
-            HtmlContent = $@"<div><h1>Tyle has a new user</h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} just created an account.</p><p>The user needs an appropriate access level. This can be set in Tyle under 'Settings' and 'Access'.</p></div>"
+            HtmlContent = $@"<div><h1>Tyle has a new user</h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i> just created an account.</p><p>The user needs an appropriate access level. This can be set in Tyle under <i>Settings</i> and <i>Access</i>.</p></div>"
         });
     }
 
@@ -112,11 +112,13 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
         if (_authSettings == null || string.IsNullOrEmpty(_authSettings.Email))
             throw new MimirorgConfigurationException("Missing configuration for email");
 
-        var subject = $@"Tyle {permission.ToString().ToLower()} permission for {companyName}";
+        var subject = isPermissionRemoval
+            ? $@"Tyle <i>{permission.ToString().ToLower()}</i> permission for <i>{companyName}</i> removed"
+            : $@"Tyle <i>{permission.ToString().ToLower()}</i> permission for <i>{companyName}</i> granted";
 
         var htmlContent = isPermissionRemoval
-            ? $@"<div><h1>Tyle removed {permission.ToString().ToLower()} permission for {companyName}</h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} has removed your {permission.ToString().ToLower()} permission for {companyName}.</p></div>"
-            : $@"<div><h1>Tyle {permission.ToString().ToLower()} permission for {companyName}</h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} has given you {permission.ToString().ToLower()} permission for {companyName}.</p></div>";
+            ? $@"<div><h1>Tyle removed <i>{permission.ToString().ToLower()}</i> permission for <i>{companyName}</i></h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i> has removed your <i>{permission.ToString().ToLower()}</i> permission for <i>{companyName}</i>.</p></div>"
+            : $@"<div><h1>Tyle granted <i>{permission.ToString().ToLower()}</i> permission for <i>{companyName}</i></h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i> has granted you <i>{permission.ToString().ToLower()}</i> permission for <i>{companyName}</i>.</p></div>";
 
 
         return Task.FromResult(new MimirorgMailAm

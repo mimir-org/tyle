@@ -255,7 +255,7 @@ public class MimirorgAuthService : IMimirorgAuthService
         if (!status.Succeeded)
             throw new MimirorgNotFoundException("Couldn't add new permission for user");
 
-        await SendUserPermissionEmail(user.Id, userPermission.Permission, company.Name, false);
+        await SendUserPermissionEmail(user, userPermission.Permission, company.Name, false);
     }
 
     /// <summary>
@@ -286,7 +286,7 @@ public class MimirorgAuthService : IMimirorgAuthService
         if (!status.Succeeded)
             throw new MimirorgNotFoundException("Couldn't remove permission for user");
 
-        await SendUserPermissionEmail(user.Id, userPermission.Permission, company.Name, true);
+        await SendUserPermissionEmail(user, userPermission.Permission, company.Name, true);
     }
 
     /// <summary>
@@ -364,21 +364,21 @@ public class MimirorgAuthService : IMimirorgAuthService
 
         var from = await _userManager.FindByIdAsync(_contextAccessor.GetUserId());
 
-        if (toUser == null || from == null)
+        if (from == null || toUser == null)
             throw new MimirorgNotFoundException("User(s) not found 'SendUserPermissionEmail'");
-
-        var sendToUser = new MimirorgUserCm
-        {
-            FirstName = toUser.FirstName,
-            LastName = toUser.LastName,
-            Email = toUser.Email
-        };
 
         var fromUser = new MimirorgUserCm
         {
             FirstName = from.FirstName,
             LastName = from.LastName,
             Email = from.Email
+        };
+
+        var sendToUser = new MimirorgUserCm
+        {
+            FirstName = toUser.FirstName,
+            LastName = toUser.LastName,
+            Email = toUser.Email
         };
 
         var email = await _templateRepository.CreateUserPermissionEmail(sendToUser, fromUser, permission, companyName, isPermissionRemoval);
