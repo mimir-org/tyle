@@ -361,7 +361,8 @@ public class MimirorgAuthService : IMimirorgAuthService
     {
         var fromUser = await _userService.GetUser(_contextAccessor.GetUserId());
         var toUser = await _userService.GetUser(toUserId);
-        var email = isPermissionRemoval ? await _templateRepository.CreateRemoveUserPermissionEmail(toUser, fromUser, permission, companyName) : await _templateRepository.CreateSetUserPermissionEmail(toUser, fromUser, permission, companyName);
+        var email = await _templateRepository.CreateUserPermissionEmail(toUser, fromUser, permission, companyName, isPermissionRemoval);
+
         await _emailRepository.SendEmail(email);
     }
 

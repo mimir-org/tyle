@@ -11,6 +11,5 @@ public interface IMimirorgTemplateRepository
     Task<MimirorgMailAm> CreateCodeVerificationMail(MimirorgUser user, string secret);
     Task<MimirorgMailAm> CreateObjectStateEmail(MimirorgUserCm sendToUser, MimirorgUserCm fromUser, State state, string objectName, string objectTypeName);
     Task<MimirorgMailAm> CreateUserRegistrationEmail(MimirorgUserCm sendToUser, MimirorgUserCm fromUser);
-    Task<MimirorgMailAm> CreateSetUserPermissionEmail(MimirorgUserCm sendToUser, MimirorgUserCm fromUser, MimirorgPermission permission, string companyName);
-    Task<MimirorgMailAm> CreateRemoveUserPermissionEmail(MimirorgUserCm sendToUser, MimirorgUserCm fromUser, MimirorgPermission permission, string companyName);
+    Task<MimirorgMailAm> CreateUserPermissionEmail(MimirorgUserCm sendToUser, MimirorgUserCm fromUser, MimirorgPermission permission, string companyName, bool isPermissionRemoval);
 }

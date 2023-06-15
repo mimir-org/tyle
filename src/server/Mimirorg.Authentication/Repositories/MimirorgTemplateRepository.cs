@@ -107,10 +107,17 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
         });
     }
 
-    public Task<MimirorgMailAm> CreateSetUserPermissionEmail(MimirorgUserCm sendToUser, MimirorgUserCm fromUser, MimirorgPermission permission, string companyName)
+    public Task<MimirorgMailAm> CreateUserPermissionEmail(MimirorgUserCm sendToUser, MimirorgUserCm fromUser, MimirorgPermission permission, string companyName, bool isPermissionRemoval)
     {
         if (_authSettings == null || string.IsNullOrEmpty(_authSettings.Email))
             throw new MimirorgConfigurationException("Missing configuration for email");
+
+        var subject = $@"Tyle {permission.ToString().ToLower()} permission for {companyName}";
+
+        var htmlContent = isPermissionRemoval
+            ? $@"<div><h1>Tyle removed {permission.ToString().ToLower()} permission for {companyName}</h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} has removed your {permission.ToString().ToLower()} permission for {companyName}.</p></div>"
+            : $@"<div><h1>Tyle {permission.ToString().ToLower()} permission for {companyName}</h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} has given you {permission.ToString().ToLower()} permission for {companyName}.</p></div>";
+
 
         return Task.FromResult(new MimirorgMailAm
         {
@@ -118,24 +125,8 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
             FromName = _authSettings.ApplicationName,
             ToEmail = sendToUser.Email,
             ToName = $"{sendToUser.FirstName} {sendToUser.LastName}",
-            Subject = $@"Tyle {permission.ToString().ToLower()} permission for {companyName}",
-            HtmlContent = $@"<div><h1>Tyle {permission.ToString().ToLower()} permission for {companyName}</h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} has given you {permission.ToString().ToLower()} permission for {companyName}.</p></div>"
-        });
-    }
-
-    public Task<MimirorgMailAm> CreateRemoveUserPermissionEmail(MimirorgUserCm sendToUser, MimirorgUserCm fromUser, MimirorgPermission permission, string companyName)
-    {
-        if (_authSettings == null || string.IsNullOrEmpty(_authSettings.Email))
-            throw new MimirorgConfigurationException("Missing configuration for email");
-
-        return Task.FromResult(new MimirorgMailAm
-        {
-            FromEmail = _authSettings.Email,
-            FromName = _authSettings.ApplicationName,
-            ToEmail = sendToUser.Email,
-            ToName = $"{sendToUser.FirstName} {sendToUser.LastName}",
-            Subject = $@"Tyle removed {permission.ToString().ToLower()} permission for {companyName}",
-            HtmlContent = $@"<div><h1>Tyle removed {permission.ToString().ToLower()} permission for {companyName}</h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user {fromUser.FirstName} {fromUser.LastName} with email {fromUser.Email} has removed your {permission.ToString().ToLower()} permission for {companyName}.</p></div>"
+            Subject = subject,
+            HtmlContent = htmlContent
         });
     }
 }
