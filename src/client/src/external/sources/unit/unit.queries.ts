@@ -36,11 +36,3 @@ export const usePatchUnitState = () => {
     onSuccess: () => queryClient.invalidateQueries(keys.unitLists()),
   });
 };
-
-export const usePatchUnitStateReject = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation((item: { id: string }) => unitApi.patchUnitStateReject(item.id), {
-    onSuccess: () => queryClient.invalidateQueries(keys.unitLists()),
-  });
-};

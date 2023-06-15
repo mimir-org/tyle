@@ -20,7 +20,7 @@ export interface ApprovalCardFormProps {
   item: ApprovalCm;
   formId?: string;
   onSubmit?: () => void;
-  onReject?: (id: string, state: State, objectType: string) => void;
+  onReject?: (id: string, objectType: string) => void;
   showSubmitButton?: boolean;
 }
 
@@ -61,7 +61,7 @@ export const ApprovalCardForm = ({
           {onReject && (
             <>
               {showSubmitButton && (
-                <Button dangerousAction type={"button"} onClick={() => onReject(item.id, item.state, item.objectType)}>
+                <Button dangerousAction type={"button"} onClick={() => onReject(item.id, item.objectType)}>
                   {t("common.approval.reject")}
                 </Button>
               )}
