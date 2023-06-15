@@ -33,7 +33,7 @@ jobs:
         run: |
           echo 'Branch name and release type match, or action was manually triggered'
 
-  # Output tags (needed because env context is not available from with)
+  # Output tags in correct format, separated by line breaks
   output-tags:
     runs-on: ubuntu-latest
     needs: check-branch-and-release
@@ -42,7 +42,9 @@ jobs:
     steps:
       - name: Output tags
         id: output-tags
-        run: echo "tags=$TAGS" >> "$GITHUB_OUTPUT"
+        run: |
+          formatted_tags=$(echo "$TAGS" | tr ',' '\n' | sed 's/^[[:space]]*//;s/[[:space:]]*$//')
+          echo "tags=$formatted_tags" >> "$GITHUB_OUTPUT"
 
   # Build and push client to dockerhub
   build-client:
