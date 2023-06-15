@@ -24,18 +24,18 @@ jobs:
 
       - name: Build and push server
         uses: docker/build-push-action@v4
-          with:
-            context: ./src/server
-            file: ./src/server/Dockerfile
-            push: true
-            tags: ${{ inputs.tags }}
-            target: final
+        with:
+          context: ./src/server
+          file: ./src/server/Dockerfile
+          push: true
+          tags: ${{ inputs.tags }}
+          target: final
 
       - name: Build and push client
         uses: docker/build-push-action@v4
-          with:
-            context: ./src/client
-            file: ./src/client/Dockerfile
-            push: true
-            tags: ${{ inputs.tags }}
-            target: final
+        with:
+          context: ./src/client
+          file: ./src/client/Dockerfile
+          push: true
+          tags: ${{ inputs.tags }}
+          target: final
