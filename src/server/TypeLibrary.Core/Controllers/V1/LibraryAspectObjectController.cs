@@ -202,7 +202,7 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
-    /// Update an aspect object with a new state
+    /// Update an aspect object with new state
     /// </summary>
     /// <param name="id">The id of the aspect object to be updated</param>
     /// <param name="state">The new state</param>
