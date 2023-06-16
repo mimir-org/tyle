@@ -43,7 +43,6 @@ export const Approval = () => {
    */
   const onReject = (id: string, objectType: string) => {
     const data: ApprovalDataCm = { id: id, state: State.Rejected };
-    console.log(data);
 
     switch (objectType) {
       case "AspectObject":
