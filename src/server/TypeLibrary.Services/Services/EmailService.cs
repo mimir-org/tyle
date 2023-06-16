@@ -82,7 +82,7 @@ namespace TypeLibrary.Services.Services
                     throw new ArgumentOutOfRangeException($"'SendObjectStateEmail' switch with state '{objectState}' not found");
             }
 
-            var sendEmailToUsers = sendEmailToUserIds.Distinct().Select(id => usersExceptCurrent.FirstOrDefault(x => x.Id == id)).ToList();
+            var sendEmailToUsers = sendEmailToUserIds.Select(id => usersExceptCurrent.FirstOrDefault(x => x.Id == id)).Distinct().ToList();
 
             foreach (var sendToUser in sendEmailToUsers)
             {
