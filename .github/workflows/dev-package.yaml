@@ -31,9 +31,9 @@ jobs:
 
       - name: Publish npm package
         run: |
-          echo '@mimir-org:registry=https://npm.pkg.github.com' > .npmrc
+          echo '@mimir-org:registry=https://npm.pkg.github.com
+          //npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}' > .npmrc
           npm publish
         working-directory: typelibrary-types
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
