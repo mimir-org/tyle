@@ -218,13 +218,13 @@ public class LibraryAspectObjectController : ControllerBase
     {
         try
         {
-            var companyId = _aspectObjectService.GetCompanyId(id);
-            var hasAccess = await _authService.HasAccess(companyId, state);
+            var dm = _aspectObjectService.GetLatestVersionExcludeDeleted(id);
+            var hasAccess = await _authService.HasAccess(dm.CompanyId, state, dm.State);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _aspectObjectService.ChangeState(id, state, true);
+            var data = await _aspectObjectService.ChangeState(dm, state, true);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)

@@ -63,6 +63,12 @@ public class RdsService : IRdsService
     }
 
     /// <inheritdoc />
+    public RdsLibDm GetDm(string id)
+    {
+        return _rdsRepository.Get(id) ?? throw new MimirorgNotFoundException($"RDS with id {id} not found.");
+    }
+
+    /// <inheritdoc />
     public async Task<RdsLibCm> Create(RdsLibAm rdsAm)
     {
         if (rdsAm == null)
@@ -134,18 +140,16 @@ public class RdsService : IRdsService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
+    public async Task<ApprovalDataCm> ChangeState(RdsLibDm dm, State state, bool sendStateEmail)
     {
-        var dm = _rdsRepository.Get(id);
-
         if (dm == null)
-            throw new MimirorgNotFoundException($"RDS with id {id} not found.");
+            throw new MimirorgNotFoundException("RdsLibDm is 'null'.");
 
         if (state == State.Rejected && dm.State is State.Draft or State.Deleted or State.Approved)
-            throw new MimirorgInvalidOperationException($"State 'Rejected' is not allowed for object {dm.Name} with id {id} since current state is {dm.State}");
+            throw new MimirorgInvalidOperationException($"State 'Rejected' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
 
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException($"State '{state}' is not allowed for object {dm.Name} with id {id} since current state is {dm.State}");
+            throw new MimirorgInvalidOperationException($"State '{state}' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
 
         await _rdsRepository.ChangeState(state == State.Rejected ? State.Draft : state, dm.Id);
         _hookService.HookQueue.Enqueue(CacheKey.Rds);
@@ -155,9 +159,9 @@ public class RdsService : IRdsService
             await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         if (sendStateEmail)
-            await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.Rds);
+            await _emailService.SendObjectStateEmail(dm.Id, state, dm.Name, ObjectTypeName.Rds);
 
-        return new ApprovalDataCm { Id = id, State = state == State.Rejected ? State.Draft : state };
+        return new ApprovalDataCm { Id = dm.Id, State = state == State.Rejected ? State.Draft : state };
     }
 
     /// <inheritdoc />

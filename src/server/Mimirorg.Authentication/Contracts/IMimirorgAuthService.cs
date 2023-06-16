@@ -1,8 +1,8 @@
-using System.Security.Authentication;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
+using System.Security.Authentication;
 
 namespace Mimirorg.Authentication.Contracts;
 
@@ -90,10 +90,11 @@ public interface IMimirorgAuthService
     /// Check if user has permission to change the state for a given company
     /// </summary>
     /// <param name="companyId">The id of the company</param>
-    /// <param name="state">The state to check for permission</param>
+    /// <param name="newState">The state to check for permission</param>
+    /// <param name="currentState"></param>
     /// <returns>True if has access, otherwise it returns false</returns>
     /// <exception cref="ArgumentOutOfRangeException">If not a valid state</exception>
-    Task<bool> HasAccess(int companyId, State state);
+    Task<bool> HasAccess(int companyId, State newState, State currentState);
 
     #endregion
 }

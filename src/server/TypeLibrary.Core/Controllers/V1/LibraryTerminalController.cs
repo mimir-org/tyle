@@ -184,12 +184,13 @@ public class LibraryTerminalController : ControllerBase
     {
         try
         {
-            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
+            var dm = _terminalService.GetDm(id);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state, dm.State);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _terminalService.ChangeState(id, state, true);
+            var data = await _terminalService.ChangeState(dm, state, true);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)
