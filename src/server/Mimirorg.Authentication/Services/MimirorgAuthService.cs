@@ -305,6 +305,7 @@ public class MimirorgAuthService : IMimirorgAuthService
             State.Delete => MimirorgPermission.Write,
             State.Approved => MimirorgPermission.Approve,
             State.Deleted => MimirorgPermission.Delete,
+            State.Rejected => MimirorgPermission.Approve,
             _ => throw new ArgumentOutOfRangeException(nameof(state), state, null)
         };
 
