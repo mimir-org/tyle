@@ -3,9 +3,9 @@ import { InfoItem } from "common/types/infoItem";
 
 export const mockInfoItem = (): InfoItem => {
   return {
-    id: faker.random.alphaNumeric(),
+    id: faker.string.alphanumeric(3),
     name: `${faker.commerce.productAdjective()}`,
-    descriptors: mockInfoItemDescriptors(parseInt(faker.random.numeric(1))),
+    descriptors: mockInfoItemDescriptors(parseInt(faker.string.numeric(1))),
   };
 };
 
