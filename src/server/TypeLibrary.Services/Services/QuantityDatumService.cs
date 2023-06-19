@@ -178,14 +178,14 @@ public class QuantityDatumService : IQuantityDatumService
     public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
     {
         var dm = _quantityDatumRepository.Get(id) ?? throw new MimirorgNotFoundException($"Quantity datum with id {id} not found.");
-        
+
         if (dm.State == State.Approved)
             throw new MimirorgInvalidOperationException($"State '{state}' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
 
         await _quantityDatumRepository.ChangeState(state, dm.Id);
         _hookService.HookQueue.Enqueue(CacheKey.QuantityDatum);
         await _logService.CreateLog(dm, LogType.State, state.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
-        
+
         if (sendStateEmail)
             await _emailService.SendObjectStateEmail(dm.Id, state, dm.Name, ObjectTypeName.QuantityDatum);
 

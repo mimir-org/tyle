@@ -15,7 +15,7 @@ public enum MimirorgPermission
     Write = 2 | Read,
 
     [Display(Name = "Approve")]
-    Approve = 4 |  Write,
+    Approve = 4 | Write,
 
     [Display(Name = "Manage")]
     Manage = 8 | Approve

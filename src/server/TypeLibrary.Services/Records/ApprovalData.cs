@@ -43,7 +43,7 @@ public record ApprovalData
     public Task ResolveTerminals(ITerminalService terminalService, IMapper mapper, IMimirorgAuthService authService)
     {
         if (!authService.HasAccess(CompanyConstants.AnyCompanyId, State.Approved).Result) return Task.CompletedTask;
-        
+
         var data = terminalService.Get().Where(x => x.State == State.Review).ToList();
         var mappedData = mapper.Map<ICollection<ApprovalCm>>(data);
         Terminals.AddRange(mappedData);
