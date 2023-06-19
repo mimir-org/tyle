@@ -50,19 +50,23 @@ namespace TypeLibrary.Services.Services
 
             switch (objectState)
             {
-                case State.Draft:
-                    var sendRejectedToUsers = _logService.Get().Where(x => x.ObjectId == objectId && (x.LogTypeValue == State.Review.ToString() || x.LogTypeValue == State.Draft.ToString()));
-                    sendEmailToUserIds.AddRange(sendRejectedToUsers.Select(x => x.CreatedBy));
-                    break;
-
                 case State.Review:
                     var canApprove = usersExceptCurrent.Where(x => x.Permissions.ContainsKey(currentUser.CompanyId) && x.Permissions[currentUser.CompanyId].HasFlag(MimirorgPermission.Approve)).DistinctBy(x => x.Id).ToList();
                     sendEmailToUserIds.AddRange(canApprove.Select(x => x.Id));
                     break;
 
                 case State.Approved:
-                    var sendApprovedToUsers = _logService.Get().Where(x => x.ObjectId == objectId && (x.LogTypeValue == State.Review.ToString() || x.LogTypeValue == State.Draft.ToString()));
+                    var logsForApproved = _logService.Get(objectId);
+                    var sendApprovedToUsers = logsForApproved.Where(x => x.LogTypeValue == State.Draft.ToString() && x.LogType is LogType.Create or LogType.Update).ToList();
+                    sendApprovedToUsers.Add(logsForApproved.OrderByDescending(x => x.Created).First(x => x.LogTypeValue == State.Review.ToString()));
                     sendEmailToUserIds.AddRange(sendApprovedToUsers.Select(x => x.CreatedBy));
+                    break;
+
+                case State.Draft:
+                    var logsForRejected = _logService.Get(objectId);
+                    var sendRejectedToUsers = logsForRejected.Where(x => x.LogTypeValue == State.Draft.ToString() && x.LogType is LogType.Create or LogType.Update).ToList();
+                    sendRejectedToUsers.Add(logsForRejected.OrderByDescending(x => x.Created).First(x => x.LogTypeValue == State.Review.ToString()));
+                    sendEmailToUserIds.AddRange(sendRejectedToUsers.Select(x => x.CreatedBy));
                     break;
 
                 default:
