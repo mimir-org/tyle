@@ -6,36 +6,18 @@ on:
 
 jobs:
 
-  # Build and push client to dockerhub
-  build-client:
-    uses: mimir-org/mimir-actions/.github/workflows/docker-build-push-cached.yaml@main
+  # Build and push client to Dockerhub
+  build-and-push-client:
+    uses: ./.github/workflows/build-push.yaml
     with:
-      repository: typelibrary-client
+      build-target: client
       tags: stage
-      context: ./src/client
-      file: ./src/client/Dockerfile
-      target: final
-      hash_files_template: "**/package-lock.json"
-      push: true
-      use_dockerhub: true
-    secrets:
-      DOCKERHUB_ORG: mimirorg
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+    secrets: inherit
 
-  # Build and push server to dockerhub
-  build-server:
-    uses: mimir-org/mimir-actions/.github/workflows/docker-build-push-cached.yaml@main
+    # Build and push server to Dockerhub
+  build-and-push-server:
+    uses: ./.github/workflows/build-push.yaml
     with:
-      repository: typelibrary-server
+      build-target: server
       tags: stage
-      context: ./src/server
-      file: ./src/server/Dockerfile
-      target: final
-      hash_files_template: "**/*.csproj"
-      push: true
-      use_dockerhub: true
-    secrets:
-      DOCKERHUB_ORG: mimirorg
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+    secrets: inherit

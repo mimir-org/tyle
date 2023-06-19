@@ -12,6 +12,7 @@ interface RdsPreviewProps {
   rdsCode: string;
   small?: boolean;
   state?: State;
+  stateBadge?: boolean;
 }
 
 interface StyledDivProps {
@@ -29,7 +30,14 @@ const StyledDiv = styled.div<StyledDivProps>`
   height: fit-content;
 `;
 
-export const RdsPreview = ({ name, description, rdsCode, small, state }: RdsPreviewProps): JSX.Element => {
+export const RdsPreview = ({
+  name,
+  description,
+  rdsCode,
+  small,
+  state,
+  stateBadge = false,
+}: RdsPreviewProps): JSX.Element => {
   return (
     <StyledDiv small={small}>
       {small ? (
@@ -40,7 +48,7 @@ export const RdsPreview = ({ name, description, rdsCode, small, state }: RdsPrev
             <Text variant={"title-medium"} useEllipsis={small}>
               {name}
             </Text>
-            {state !== undefined ? <StateBadge state={state} /> : null}
+            {state !== undefined && stateBadge && <StateBadge state={state} />}
           </Flexbox>
           <Text variant={"body-large"} useEllipsis={small}>
             {description}
