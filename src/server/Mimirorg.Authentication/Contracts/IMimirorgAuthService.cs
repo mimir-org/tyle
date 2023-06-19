@@ -91,10 +91,9 @@ public interface IMimirorgAuthService
     /// </summary>
     /// <param name="companyId">The id of the company</param>
     /// <param name="newState">The state to check for permission</param>
-    /// <param name="currentState"></param>
     /// <returns>True if has access, otherwise it returns false</returns>
     /// <exception cref="ArgumentOutOfRangeException">If not a valid state</exception>
-    Task<bool> HasAccess(int companyId, State newState, State currentState);
+    Task<bool> HasAccess(int companyId, State newState);
 
     #endregion
 }

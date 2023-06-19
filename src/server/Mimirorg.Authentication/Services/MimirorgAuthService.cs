@@ -294,19 +294,15 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// </summary>
     /// <param name="companyId">The id of the company, or 0 for non-company objects</param>
     /// <param name="newState">The state to check for permission</param>
-    /// <param name="currentState"></param>
     /// <returns>True if has access, otherwise it returns false</returns>
     /// <exception cref="ArgumentOutOfRangeException">If not a valid state</exception>
-    public Task<bool> HasAccess(int companyId, State newState, State currentState)
+    public Task<bool> HasAccess(int companyId, State newState)
     {
         var permission = newState switch
         {
-            State.Draft => MimirorgPermission.Write,
-            State.Approve => MimirorgPermission.Write,
-            State.Delete => MimirorgPermission.Write,
+            State.Draft => MimirorgPermission.Approve,
+            State.Review => MimirorgPermission.Write,
             State.Approved => MimirorgPermission.Approve,
-            State.Deleted => MimirorgPermission.Delete,
-            State.Rejected => RejectStatePermissionNeeded(currentState),
             _ => throw new ArgumentOutOfRangeException(nameof(newState), newState, null)
         };
 
