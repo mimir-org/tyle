@@ -21,7 +21,7 @@ export const Approval = () => {
   const { t } = useTranslation("settings");
   const approvals = useGetApprovals();
   const patchMutationAspectObject = usePatchAspectObjectState();
-  const patchMutationRejectTerminal = usePatchTerminalState();
+  const patchMutationTerminal = usePatchTerminalState();
   const patchMutationAttribute = usePatchAttributeState();
   const patchMutationQuantityDatum = usePatchQuantityDatumState();
   const patchMutationRds = usePatchRdsState();
@@ -49,7 +49,7 @@ export const Approval = () => {
         patchMutationAspectObject.mutateAsync(data);
         break;
       case "Terminal":
-        patchMutationRejectTerminal.mutateAsync(data);
+        patchMutationTerminal.mutateAsync(data);
         break;
       case "Attribute":
         patchMutationAttribute.mutateAsync(data);
