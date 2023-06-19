@@ -4,7 +4,6 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Services.Contracts;
 
@@ -46,7 +45,7 @@ public interface ITerminalService
     /// <summary>
     /// Change terminal state
     /// </summary>
-    /// <param name="dm">The id of the terminal that should change state</param>
+    /// <param name="id">The id of the terminal that should change state</param>
     /// <param name="state">The new terminal state</param>
     /// <param name="sendStateEmail"></param>
     /// <returns>An approval data object</returns>

@@ -4,7 +4,6 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Services.Contracts;
 
@@ -47,7 +46,7 @@ public interface IUnitService
     /// <summary>
     /// Change unit state
     /// </summary>
-    /// <param name="dm">The id of the unit that should change state</param>
+    /// <param name="id">The id of the unit that should change state</param>
     /// <param name="state">The new unit state</param>
     /// <param name="sendStateEmail"></param>
     /// <returns>An approval data object</returns>

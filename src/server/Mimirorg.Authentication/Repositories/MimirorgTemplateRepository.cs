@@ -50,7 +50,7 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
 
         string subject;
         string content;
-        const string TYLE_SETTINGS = "This can be done in Tyle under <i>Settings</i> and <i>Approval</i>.";
+        const string tyleSettings = "This can be done in Tyle under <i>Settings</i> and <i>Approval</i>.";
 
         switch (state)
         {
@@ -61,7 +61,7 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
 
             case State.Review:
                 subject = $"Tyle {objectTypeName} approval request";
-                content = $"User <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i> requests approval for the {objectTypeName} <i>{objectName}</i>. {TYLE_SETTINGS} ";
+                content = $"User <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i> requests approval for the {objectTypeName} <i>{objectName}</i>. {tyleSettings} ";
                 break;
 
             case State.Approved:
