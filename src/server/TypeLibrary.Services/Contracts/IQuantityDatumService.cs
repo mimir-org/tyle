@@ -68,6 +68,14 @@ public interface IQuantityDatumService
     Task<QuantityDatumLibCm> Update(string id, QuantityDatumLibAm quantityDatumAm);
 
     /// <summary>
+    ///  Delete a quantity datum, it can't be approved
+    /// </summary>
+    /// <param name="id">The id of the quantity datum to delete</param>
+    /// <exception cref="MimirorgNotFoundException">Throws if the quantity datum with the given id is not found.</exception>
+    /// <exception cref="MimirorgInvalidOperationException">Throws if the quantity datum in question can't be deleted.</exception>
+    Task Delete(string id);
+
+    /// <summary>
     /// Change quantity datum state
     /// </summary>
     /// <param name="id">The id of the quantity datum that should change state</param>

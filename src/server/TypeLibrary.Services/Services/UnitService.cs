@@ -128,6 +128,17 @@ public class UnitService : IUnitService
     }
 
     /// <inheritdoc />
+    public async Task Delete(string id)
+    {
+        var dm = _unitRepository.Get(id) ?? throw new MimirorgNotFoundException($"Unit with id {id} not found.");
+
+        if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException($"Can't delete approved unit with id {id}.");
+
+        await _unitRepository.Delete(id);
+    }
+
+    /// <inheritdoc />
     public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
     {
         var dm = _unitRepository.Get(id) ?? throw new MimirorgNotFoundException($"Unit with id {id} not found.");

@@ -338,6 +338,17 @@ public class AspectObjectService : IAspectObjectService
     }
 
     /// <inheritdoc />
+    public async Task Delete(string id)
+    {
+        var dm = _aspectObjectRepository.Get(id) ?? throw new MimirorgNotFoundException($"Aspect object with id {id} not found.");
+
+        if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException($"Can't delete approved aspect object with id {id}.");
+
+        await _aspectObjectRepository.Delete(id);
+    }
+
+    /// <inheritdoc />
     public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
     {
         var dm = _aspectObjectRepository.Get(id) ?? throw new MimirorgNotFoundException($"Aspect object with id {id} not found.");

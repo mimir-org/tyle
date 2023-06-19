@@ -17,6 +17,7 @@ using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Contracts.Ef;
 using TypeLibrary.Data.Models;
+using TypeLibrary.Data.Repositories.Ef;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Services;
@@ -190,6 +191,17 @@ public class TerminalService : ITerminalService
         await _logService.CreateLog(terminalToUpdate, LogType.Update, terminalToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         return Get(terminalToUpdate.Id);
+    }
+
+    /// <inheritdoc />
+    public async Task Delete(string id)
+    {
+        var dm = _terminalRepository.Get(id) ?? throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
+
+        if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException($"Can't delete approved terminal with id {id}.");
+
+        await _terminalRepository.Delete(id);
     }
 
     /// <inheritdoc />

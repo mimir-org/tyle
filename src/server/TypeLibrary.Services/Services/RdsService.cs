@@ -134,6 +134,17 @@ public class RdsService : IRdsService
     }
 
     /// <inheritdoc />
+    public async Task Delete(string id)
+    {
+        var dm = _rdsRepository.Get(id) ?? throw new MimirorgNotFoundException($"RDS with id {id} not found.");
+
+        if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException($"Can't delete approved RDS with id {id}.");
+
+        await _rdsRepository.Delete(id);
+    }
+
+    /// <inheritdoc />
     public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
     {
         var dm = _rdsRepository.Get(id) ?? throw new MimirorgNotFoundException($"RDS with id {id} not found.");

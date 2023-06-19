@@ -43,6 +43,15 @@ public interface IUnitService
     /// <exception cref="MimirorgInvalidOperationException">Throws if the unit is not a draft or approved.</exception>
     Task<UnitLibCm> Update(string id, UnitLibAm unitAm);
 
+
+    /// <summary>
+    ///  Delete a unit, it can't be approved
+    /// </summary>
+    /// <param name="id">The id of the unit to delete</param>
+    /// <exception cref="MimirorgNotFoundException">Throws if the unit with the given id is not found.</exception>
+    /// <exception cref="MimirorgInvalidOperationException">Throws if the unit in question can't be deleted.</exception>
+    Task Delete(string id);
+
     /// <summary>
     /// Change unit state
     /// </summary>

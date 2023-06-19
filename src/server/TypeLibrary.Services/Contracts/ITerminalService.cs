@@ -43,6 +43,14 @@ public interface ITerminalService
     Task<TerminalLibCm> Update(string id, TerminalLibAm terminalAm);
 
     /// <summary>
+    ///  Delete a terminal, it can't be approved
+    /// </summary>
+    /// <param name="id">The id of the terminal to delete</param>
+    /// <exception cref="MimirorgNotFoundException">Throws if the terminal with the given id is not found.</exception>
+    /// <exception cref="MimirorgInvalidOperationException">Throws if the terminal in question can't be deleted.</exception>
+    Task Delete(string id);
+
+    /// <summary>
     /// Change terminal state
     /// </summary>
     /// <param name="id">The id of the terminal that should change state</param>

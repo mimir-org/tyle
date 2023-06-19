@@ -54,6 +54,14 @@ public interface IAspectObjectService
     Task<AspectObjectLibCm> Update(string id, AspectObjectLibAm aspectObjectAm);
 
     /// <summary>
+    ///  Delete an aspect object, it can't be approved
+    /// </summary>
+    /// <param name="id">The id of the aspect object to delete</param>
+    /// <exception cref="MimirorgNotFoundException">Throws if the aspect object with the given id is not found.</exception>
+    /// <exception cref="MimirorgInvalidOperationException">Throws if the aspect object in question can't be deleted.</exception>
+    Task Delete(string id);
+
+    /// <summary>
     /// Change aspect object state
     /// </summary>
     /// <param name="id">The id of the aspect object that should change state</param>

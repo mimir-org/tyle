@@ -43,6 +43,14 @@ public interface IRdsService
     Task<RdsLibCm> Update(string id, RdsLibAm rdsAm);
 
     /// <summary>
+    ///  Delete a RDS, it can't be approved
+    /// </summary>
+    /// <param name="id">The id of the RDS to delete</param>
+    /// <exception cref="MimirorgNotFoundException">Throws if the RDS with the given id is not found.</exception>
+    /// <exception cref="MimirorgInvalidOperationException">Throws if the RDS in question can't be deleted.</exception>
+    Task Delete(string id);
+
+    /// <summary>
     /// Change RDS state
     /// </summary>
     /// <param name="id">The id of the RDS that should change state</param>

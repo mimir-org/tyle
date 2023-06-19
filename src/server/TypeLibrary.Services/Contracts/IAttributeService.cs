@@ -43,6 +43,14 @@ public interface IAttributeService
     Task<AttributeLibCm> Update(string id, AttributeLibAm attributeAm);
 
     /// <summary>
+    ///  Delete an attribute, it can't be approved
+    /// </summary>
+    /// <param name="id">The id of the attribute to delete</param>
+    /// <exception cref="MimirorgNotFoundException">Throws if the attribute with the given id is not found.</exception>
+    /// <exception cref="MimirorgInvalidOperationException">Throws if the attribute in question can't be deleted.</exception>
+    Task Delete(string id);
+
+    /// <summary>
     /// Change attribute state
     /// </summary>
     /// <param name="id">The id of the attribute that should change state</param>
