@@ -1,9 +1,9 @@
+using Mimirorg.Common.Enums;
+using Mimirorg.Common.Exceptions;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Mimirorg.Common.Enums;
-using Mimirorg.Common.Exceptions;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
 using TypeLibrary.Services.Contracts;
@@ -39,9 +39,10 @@ public class VersionService : IVersionService
                 .Where(x => x.FirstVersionId == (obj as AspectObjectLibDm)?.FirstVersionId && x.State != State.Deleted).ToList()
                 .OrderBy(x => double.Parse(x.Version, CultureInfo.InvariantCulture)).ToList());
         }
-
         else
+        {
             throw new MimirorgBadRequestException($"GetLatestVersion<T> Parameter T '{obj.GetType()}' not supported.");
+        }
 
         if (existingDmVersions == null || !existingDmVersions.Any())
             throw new MimirorgBadRequestException($"No {obj.GetType()} versions found.");

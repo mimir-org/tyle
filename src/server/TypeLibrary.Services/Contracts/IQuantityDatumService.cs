@@ -4,6 +4,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Services.Contracts;
 
@@ -22,6 +23,14 @@ public interface IQuantityDatumService
     /// <returns>The quantity datum with the given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no quantity datum with the given id.</exception>
     QuantityDatumLibCm Get(string id);
+
+    /// <summary>
+    /// Get quantity datum by id
+    /// </summary>
+    /// <param name="id">The id of the quantity datum to get</param>
+    /// <returns>The quantity datum with the given id</returns>
+    /// <exception cref="MimirorgNotFoundException">Throws if there is no quantity datum with the given id.</exception>
+    QuantityDatumLibDm GetDm(string id);
 
     /// <summary>
     /// Get all quantity datum range specifying
@@ -70,11 +79,11 @@ public interface IQuantityDatumService
     /// <summary>
     /// Change quantity datum state
     /// </summary>
-    /// <param name="id">The id of the quantity datum that should change state</param>
+    /// <param name="dm">The quantity datum that should change state</param>
     /// <param name="state">The new quantity datum state</param>
     /// <param name="sendStateEmail"></param>
     /// <returns>An approval data object</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if the quantity datum does not exist</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the quantity datum is already approved.</exception>
-    Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true);
+    Task<ApprovalDataCm> ChangeState(QuantityDatumLibDm dm, State state, bool sendStateEmail);
 }

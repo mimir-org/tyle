@@ -1,4 +1,5 @@
 using AspNetCore.Totp;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -27,14 +28,20 @@ public class MimirorgAuthService : IMimirorgAuthService
     private readonly IMimirorgCompanyService _mimirorgCompanyService;
     private readonly IActionContextAccessor _actionContextAccessor;
     private readonly MimirorgAuthSettings _authSettings;
+    private readonly IMimirorgEmailRepository _emailRepository;
+    private readonly IMimirorgTemplateRepository _templateRepository;
+    private readonly IHttpContextAccessor _contextAccessor;
 
-    public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IMimirorgCompanyService mimirorgCompanyService, IActionContextAccessor actionContextAccessor, IOptions<MimirorgAuthSettings> authSettings)
+    public MimirorgAuthService(RoleManager<IdentityRole> roleManager, UserManager<MimirorgUser> userManager, SignInManager<MimirorgUser> signInManager, IMimirorgTokenRepository tokenRepository, IMimirorgCompanyService mimirorgCompanyService, IActionContextAccessor actionContextAccessor, IOptions<MimirorgAuthSettings> authSettings, IMimirorgEmailRepository emailRepository, IMimirorgTemplateRepository templateRepository, IHttpContextAccessor contextAccessor)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _tokenRepository = tokenRepository;
         _mimirorgCompanyService = mimirorgCompanyService;
         _actionContextAccessor = actionContextAccessor;
+        _emailRepository = emailRepository;
+        _templateRepository = templateRepository;
+        _contextAccessor = contextAccessor;
         _authSettings = authSettings?.Value;
         _roleManager = roleManager;
     }
@@ -215,7 +222,7 @@ public class MimirorgAuthService : IMimirorgAuthService
     }
 
     /// <summary>
-    /// Set user permission for a specific company.
+    /// Set user permission for a specific company, and send an email to the user
     /// </summary>
     /// <param name="userPermission">MimirorgUserPermissionAm</param>
     /// <returns>Completed task</returns>
@@ -247,10 +254,12 @@ public class MimirorgAuthService : IMimirorgAuthService
         status = await _userManager.AddClaimsAsync(user, new List<Claim> { newClaim });
         if (!status.Succeeded)
             throw new MimirorgNotFoundException("Couldn't add new permission for user");
+
+        await SendUserPermissionEmail(user, userPermission.Permission, company.Name, false);
     }
 
     /// <summary>
-    /// Remove user permission for a specific company.
+    /// Remove user permission for a specific company, and send an email to the user
     /// </summary>
     /// <param name="userPermission">MimirorgUserPermissionAm</param>
     /// <returns>Completed task</returns>
@@ -276,25 +285,29 @@ public class MimirorgAuthService : IMimirorgAuthService
         var status = await _userManager.RemoveClaimsAsync(user, currentClaimsForUser);
         if (!status.Succeeded)
             throw new MimirorgNotFoundException("Couldn't remove permission for user");
+
+        await SendUserPermissionEmail(user, userPermission.Permission, company.Name, true);
     }
 
     /// <summary>
     /// Check if user has permission to change the state for a given company
     /// </summary>
     /// <param name="companyId">The id of the company, or 0 for non-company objects</param>
-    /// <param name="state">The state to check for permission</param>
+    /// <param name="newState">The state to check for permission</param>
+    /// <param name="currentState"></param>
     /// <returns>True if has access, otherwise it returns false</returns>
     /// <exception cref="ArgumentOutOfRangeException">If not a valid state</exception>
-    public Task<bool> HasAccess(int companyId, State state)
+    public Task<bool> HasAccess(int companyId, State newState, State currentState)
     {
-        var permission = state switch
+        var permission = newState switch
         {
             State.Draft => MimirorgPermission.Write,
             State.Approve => MimirorgPermission.Write,
             State.Delete => MimirorgPermission.Write,
             State.Approved => MimirorgPermission.Approve,
             State.Deleted => MimirorgPermission.Delete,
-            _ => throw new ArgumentOutOfRangeException(nameof(state), state, null)
+            State.Rejected => RejectStatePermissionNeeded(currentState),
+            _ => throw new ArgumentOutOfRangeException(nameof(newState), newState, null)
         };
 
         var access = _actionContextAccessor.ActionContext?.HttpContext.HasPermission(permission, companyId.ToString());
@@ -304,6 +317,27 @@ public class MimirorgAuthService : IMimirorgAuthService
     #endregion
 
     #region Private Methods
+
+    /// <summary>
+    /// Returns needed MimirorgPermission to be able to reject a state change request
+    /// </summary>
+    /// <param name="currentState"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    private MimirorgPermission RejectStatePermissionNeeded(State currentState)
+    {
+        switch (currentState)
+        {
+            case State.Delete:
+                return MimirorgPermission.Delete;
+
+            case State.Approve:
+                return MimirorgPermission.Approve;
+
+            default:
+                throw new ArgumentOutOfRangeException($"Method 'CanRejectState' out of range. Current state is: {currentState}");
+        }
+    }
 
     /// <summary>
     /// Validate security code
@@ -334,6 +368,45 @@ public class MimirorgAuthService : IMimirorgAuthService
             return false;
 
         return validator.Validate(user.SecurityHash, codeInt);
+    }
+
+    /// <summary>
+    /// Sends an email to a user about permission
+    /// </summary>
+    /// <param name="toUser"></param>
+    /// <param name="companyName"></param>
+    /// <param name="permission"></param>
+    /// <param name="isPermissionRemoval"></param>
+    /// <returns></returns>
+    private async Task SendUserPermissionEmail(MimirorgUser toUser, MimirorgPermission permission, string companyName, bool isPermissionRemoval)
+    {
+        /* We can not reference 'IMimirorgUserService' because that service is referencing this service.
+         * If this reference is atempted it will result in a 'circular dependency' error. 
+         * The 'MimirorgUserCm' objects needs to be manually constructed here.
+         */
+
+        var from = await _userManager.FindByIdAsync(_contextAccessor.GetUserId());
+
+        if (from == null || toUser == null)
+            throw new MimirorgNotFoundException("User(s) not found 'SendUserPermissionEmail'");
+
+        var fromUser = new MimirorgUserCm
+        {
+            FirstName = from.FirstName,
+            LastName = from.LastName,
+            Email = from.Email
+        };
+
+        var sendToUser = new MimirorgUserCm
+        {
+            FirstName = toUser.FirstName,
+            LastName = toUser.LastName,
+            Email = toUser.Email
+        };
+
+        var email = await _templateRepository.CreateUserPermissionEmail(sendToUser, fromUser, permission, companyName, isPermissionRemoval);
+
+        await _emailRepository.SendEmail(email);
     }
 
     #endregion

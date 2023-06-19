@@ -4,6 +4,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Services.Contracts;
 
@@ -22,6 +23,14 @@ public interface IRdsService
     /// <returns>The RDS with the given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no RDS with the given id.</exception>
     RdsLibCm Get(string id);
+
+    /// <summary>
+    /// Get a RDS object by id
+    /// </summary>
+    /// <param name="id">The id of the RDS</param>
+    /// <returns>The RDS with the given id</returns>
+    /// <exception cref="MimirorgNotFoundException">Throws if there is no RDS with the given id.</exception>
+    RdsLibDm GetDm(string id);
 
     /// <summary>
     /// Create a new RDS object
@@ -45,13 +54,13 @@ public interface IRdsService
     /// <summary>
     /// Change RDS state
     /// </summary>
-    /// <param name="id">The id of the RDS that should change state</param>
+    /// <param name="dm">The RDS that should change state</param>
     /// <param name="state">The new RDS state</param>
     /// <param name="sendStateEmail"></param>
     /// <returns>An approval data object</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if the RDS does not exist</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the RDS is already approved.</exception>
-    Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true);
+    Task<ApprovalDataCm> ChangeState(RdsLibDm dm, State state, bool sendStateEmail);
 
     /// <summary>
     /// Initializes the database with RDS

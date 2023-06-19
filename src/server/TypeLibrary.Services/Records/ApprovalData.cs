@@ -1,12 +1,12 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
-using Mimirorg.TypeLibrary.Models.Client;
 using Mimirorg.TypeLibrary.Constants;
+using Mimirorg.TypeLibrary.Models.Client;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using TypeLibrary.Services.Contracts;
 
 namespace TypeLibrary.Services.Records;
@@ -35,7 +35,7 @@ public record ApprovalData
     public Task ResolveAspectObjects(IAspectObjectService aspectObjectService, IMapper mapper, IMimirorgAuthService authService)
     {
         var data = aspectObjectService.GetLatestRequests().ToList();
-        data = data.Where(x => authService.HasAccess(x.CompanyId, NextStateMapper(x.State)).Result).ToList();
+        data = data.Where(x => authService.HasAccess(x.CompanyId, NextStateMapper(x.State), x.State).Result).ToList();
         var mappedData = mapper.Map<ICollection<ApprovalCm>>(data);
         AspectObjects.AddRange(mappedData);
         return Task.CompletedTask;
@@ -44,7 +44,7 @@ public record ApprovalData
     public Task ResolveTerminals(ITerminalService terminalService, IMapper mapper, IMimirorgAuthService authService)
     {
         var data = terminalService.Get().Where(x => x.State is State.Approve or State.Delete).ToList();
-        data = data.Where(x => authService.HasAccess(CompanyConstants.AnyCompanyId, NextStateMapper(x.State)).Result).ToList();
+        data = data.Where(x => authService.HasAccess(CompanyConstants.AnyCompanyId, NextStateMapper(x.State), x.State).Result).ToList();
         var mappedData = mapper.Map<ICollection<ApprovalCm>>(data);
         Terminals.AddRange(mappedData);
         return Task.CompletedTask;
@@ -53,7 +53,7 @@ public record ApprovalData
     public Task ResolveAttributes(IAttributeService attributeService, IMapper mapper, IMimirorgAuthService authService)
     {
         var data = attributeService.Get().Where(x => x.State is State.Approve or State.Delete).ToList();
-        data = data.Where(x => authService.HasAccess(CompanyConstants.AnyCompanyId, NextStateMapper(x.State)).Result).ToList();
+        data = data.Where(x => authService.HasAccess(CompanyConstants.AnyCompanyId, NextStateMapper(x.State), x.State).Result).ToList();
         var mappedData = mapper.Map<ICollection<ApprovalCm>>(data);
         Attributes.AddRange(mappedData);
         return Task.CompletedTask;
@@ -62,7 +62,7 @@ public record ApprovalData
     public Task ResolveUnits(IUnitService unitService, IMapper mapper, IMimirorgAuthService authService)
     {
         var data = unitService.Get().Where(x => x.State is State.Approve or State.Delete).ToList();
-        data = data.Where(x => authService.HasAccess(CompanyConstants.AnyCompanyId, NextStateMapper(x.State)).Result).ToList();
+        data = data.Where(x => authService.HasAccess(CompanyConstants.AnyCompanyId, NextStateMapper(x.State), x.State).Result).ToList();
         var mappedData = mapper.Map<ICollection<ApprovalCm>>(data);
         Units.AddRange(mappedData);
         return Task.CompletedTask;
@@ -71,7 +71,7 @@ public record ApprovalData
     public Task ResolveQuantityDatums(IQuantityDatumService quantityDatumService, IMapper mapper, IMimirorgAuthService authService)
     {
         var data = quantityDatumService.Get().Where(x => x.State is State.Approve or State.Delete).ToList();
-        data = data.Where(x => authService.HasAccess(CompanyConstants.AnyCompanyId, NextStateMapper(x.State)).Result).ToList();
+        data = data.Where(x => authService.HasAccess(CompanyConstants.AnyCompanyId, NextStateMapper(x.State), x.State).Result).ToList();
         var mappedData = mapper.Map<ICollection<ApprovalCm>>(data);
         QuantityDatums.AddRange(mappedData);
         return Task.CompletedTask;
@@ -80,7 +80,7 @@ public record ApprovalData
     public Task ResolveRds(IRdsService rdsService, IMapper mapper, IMimirorgAuthService authService)
     {
         var data = rdsService.Get().Where(x => x.State is State.Approve or State.Delete).ToList();
-        data = data.Where(x => authService.HasAccess(CompanyConstants.AnyCompanyId, NextStateMapper(x.State)).Result).ToList();
+        data = data.Where(x => authService.HasAccess(CompanyConstants.AnyCompanyId, NextStateMapper(x.State), x.State).Result).ToList();
         var mappedData = mapper.Map<ICollection<ApprovalCm>>(data);
         Rds.AddRange(mappedData);
         return Task.CompletedTask;

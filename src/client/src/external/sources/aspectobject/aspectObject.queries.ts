@@ -45,11 +45,3 @@ export const usePatchAspectObjectState = () => {
     }
   );
 };
-
-export const usePatchAspectObjectStateReject = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation((item: { id: string }) => aspectObjectApi.patchLibraryAspectObjectStateReject(item.id), {
-    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
-  });
-};

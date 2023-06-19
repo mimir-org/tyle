@@ -40,11 +40,3 @@ export const usePatchQuantityDatumState = () => {
     }
   );
 };
-
-export const usePatchQuantityDatumStateReject = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation((item: { id: string }) => quantityDatumApi.patchQuantityDatumStateReject(item.id), {
-    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
-  });
-};

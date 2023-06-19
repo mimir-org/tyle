@@ -40,11 +40,3 @@ export const usePatchAttributeState = () => {
     onSuccess: () => queryClient.invalidateQueries(keys.attributeLists()),
   });
 };
-
-export const usePatchAttributeStateReject = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation((item: { id: string }) => attributeApi.patchAttributeStateReject(item.id), {
-    onSuccess: () => queryClient.invalidateQueries(keys.attributeLists()),
-  });
-};

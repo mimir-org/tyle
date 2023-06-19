@@ -22,7 +22,4 @@ export const aspectObjectApi = {
   patchLibraryAspectObjectState(id: string, state: State) {
     return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
   },
-  patchLibraryAspectObjectStateReject(id: string) {
-    return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/reject`).then((r) => r.data);
-  },
 };

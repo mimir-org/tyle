@@ -4,6 +4,7 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Services.Contracts;
 
@@ -22,6 +23,14 @@ public interface IUnitService
     /// <returns>The unit with the given id</returns>
     /// /// <exception cref="MimirorgNotFoundException">Throws if there is no unit with the given id.</exception>
     UnitLibCm Get(string id);
+
+    /// <summary>
+    /// Get a unit by id
+    /// </summary>
+    /// <param name="id">The id of the unit</param>
+    /// <returns>The unit with the given id</returns>
+    /// /// <exception cref="MimirorgNotFoundException">Throws if there is no unit with the given id.</exception>
+    UnitLibDm GetDm(string id);
 
     /// <summary>
     /// Create a new unit
@@ -46,11 +55,11 @@ public interface IUnitService
     /// <summary>
     /// Change unit state
     /// </summary>
-    /// <param name="id">The id of the unit that should change state</param>
+    /// <param name="dm">The unit that should change state</param>
     /// <param name="state">The new unit state</param>
     /// <param name="sendStateEmail"></param>
     /// <returns>An approval data object</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if the unit does not exist</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the unit is already approved.</exception>
-    Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true);
+    Task<ApprovalDataCm> ChangeState(UnitLibDm dm, State state, bool sendStateEmail);
 }
