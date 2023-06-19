@@ -42,12 +42,6 @@ public class EnumerableExtensionTests : UnitTest<MimirorgCommonFixture>
             },
             new DummyVersionObject
             {
-                State = State.Deleted,
-                FirstVersionId = "123",
-                Version = "5.0"
-            },
-            new DummyVersionObject
-            {
                 FirstVersionId = "123",
                 Version = "2.1"
             },
@@ -58,7 +52,7 @@ public class EnumerableExtensionTests : UnitTest<MimirorgCommonFixture>
             }
         };
 
-        var latest = list.LatestVersionsExcludeDeleted().ToList();
+        var latest = list.LatestVersions().ToList();
         Assert.Equal(2, latest.Count);
         Assert.NotNull(latest.FirstOrDefault(x => x.FirstVersionId == "123" && x.Version == "3.0"));
         Assert.NotNull(latest.FirstOrDefault(x => x.FirstVersionId == "567" && x.Version == "1.0"));

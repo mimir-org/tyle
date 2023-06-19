@@ -38,18 +38,18 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
-    /// Get latest approved aspect objects as well as drafts
+    /// Get latest approved aspect objects as well as unfinished and in review drafts
     /// </summary>
     /// <returns>A collection of aspect objects</returns>
     [HttpGet]
     [ProducesResponseType(typeof(ICollection<AspectObjectLibCm>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult GetLatestApprovedAndDrafts()
+    public IActionResult GetLatestVersions()
     {
         try
         {
-            var cm = _aspectObjectService.GetLatestApprovedAndDrafts().ToList();
+            var cm = _aspectObjectService.GetLatestVersions().ToList();
             return Ok(cm);
         }
         catch (Exception e)

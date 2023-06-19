@@ -315,27 +315,6 @@ public class MimirorgAuthService : IMimirorgAuthService
     #region Private Methods
 
     /// <summary>
-    /// Returns needed MimirorgPermission to be able to reject a state change request
-    /// </summary>
-    /// <param name="currentState"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
-    private MimirorgPermission RejectStatePermissionNeeded(State currentState)
-    {
-        switch (currentState)
-        {
-            case State.Delete:
-                return MimirorgPermission.Delete;
-
-            case State.Approve:
-                return MimirorgPermission.Approve;
-
-            default:
-                throw new ArgumentOutOfRangeException($"Method 'CanRejectState' out of range. Current state is: {currentState}");
-        }
-    }
-
-    /// <summary>
     /// Validate security code
     /// </summary>
     /// <param name="user">The user that should be validated</param>
