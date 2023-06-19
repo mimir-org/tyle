@@ -11,16 +11,10 @@ namespace TypeLibrary.Services.Contracts;
 public interface IAspectObjectService
 {
     /// <summary>
-    /// Get the latest approved aspect object versions as well as any drafts
+    /// Get the latest approved aspect object versions as well as any unfinished or in review drafts
     /// </summary>
     /// <returns>A collection of aspect objects</returns>
-    IEnumerable<AspectObjectLibCm> GetLatestApprovedAndDrafts();
-
-    /// <summary>
-    /// Get the latest aspect object versions with request states (approve and delete)
-    /// </summary>
-    /// <returns>A collection of aspect objects</returns>
-    IEnumerable<AspectObjectLibCm> GetLatestRequests();
+    IEnumerable<AspectObjectLibCm> GetLatestVersions();
 
     /// <summary>
     /// Get an aspect object based on given id
@@ -37,13 +31,6 @@ public interface IAspectObjectService
     /// <returns>The latest approved version of the aspect object of given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no latest approved aspect object with the given id.</exception>
     AspectObjectLibCm GetLatestApproved(string id);
-
-    /// <summary>
-    /// Get the lastest version (excludes those with state 'Deleted')
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    AspectObjectLibDm GetLatestVersionExcludeDeleted(string id);
 
     /// <summary>
     /// Create a new aspect object
@@ -70,7 +57,7 @@ public interface IAspectObjectService
     /// <summary>
     /// Change aspect object state
     /// </summary>
-    /// <param name="dm">The target object for state change</param>
+    /// <param name="id">The id of the aspect object that should change state</param>
     /// <param name="state">The new aspect object state</param>
     /// <param name="sendStateEmail"></param>
     /// <returns>An approval data object</returns>
@@ -78,7 +65,7 @@ public interface IAspectObjectService
     /// <exception cref="MimirorgInvalidOperationException">Throws if the aspect object is already
     /// approved, is identical to an already approved aspect object or contains references to deleted or unapproved
     /// terminals, attributes or RDS.</exception>
-    Task<ApprovalDataCm> ChangeState(AspectObjectLibDm dm, State state, bool sendStateEmail);
+    Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail);
 
     /// <summary>
     /// Get the company id of an aspect object

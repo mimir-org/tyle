@@ -25,14 +25,6 @@ public interface ITerminalService
     TerminalLibCm Get(string id);
 
     /// <summary>
-    /// Get a terminal based on given id
-    /// </summary>
-    /// <param name="id">The id of the terminal</param>
-    /// <returns>The terminal of given id</returns>
-    /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id.</exception>
-    TerminalLibDm GetDm(string id);
-
-    /// <summary>
     /// Create a new terminal
     /// </summary>
     /// <param name="terminal">The terminal that should be created</param>
@@ -54,12 +46,12 @@ public interface ITerminalService
     /// <summary>
     /// Change terminal state
     /// </summary>
-    /// <param name="dm">The terminal that should change state</param>
+    /// <param name="dm">The id of the terminal that should change state</param>
     /// <param name="state">The new terminal state</param>
     /// <param name="sendStateEmail"></param>
     /// <returns>An approval data object</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if the terminal does not exist</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the terminal is already
     /// approved or contains references to deleted or unapproved attributes.</exception>
-    Task<ApprovalDataCm> ChangeState(TerminalLibDm dm, State state, bool sendStateEmail);
+    Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail);
 }

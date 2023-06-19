@@ -51,7 +51,7 @@ public class TerminalService : ITerminalService
     /// <inheritdoc />
     public IEnumerable<TerminalLibCm> Get()
     {
-        var dataSet = _terminalRepository.Get()?.ExcludeDeleted().ToList();
+        var dataSet = _terminalRepository.Get()?.ToList();
 
         if (dataSet == null || !dataSet.Any())
             return new List<TerminalLibCm>();
@@ -68,12 +68,6 @@ public class TerminalService : ITerminalService
             throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
 
         return _mapper.Map<TerminalLibCm>(dm);
-    }
-
-    /// <inheritdoc />
-    public TerminalLibDm GetDm(string id)
-    {
-        return _terminalRepository.Get(id) ?? throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
     }
 
     /// <inheritdoc />
@@ -199,28 +193,21 @@ public class TerminalService : ITerminalService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(TerminalLibDm dm, State state, bool sendStateEmail)
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
     {
-        if (dm == null)
-            throw new MimirorgNotFoundException($"TerminalLibDm is 'null'");
-
-        if (state == State.Rejected && dm.State is State.Draft or State.Deleted or State.Approved)
-            throw new MimirorgInvalidOperationException($"State 'Rejected' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
+        var dm = _terminalRepository.Get(id) ?? throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
 
         if (dm.State == State.Approved)
             throw new MimirorgInvalidOperationException($"State '{state}' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
 
-        if (state == State.Approve)
+        if (state == State.Review)
         {
             foreach (var attribute in dm.Attributes)
             {
                 if (attribute.State == State.Approved)
                     continue;
 
-                if (attribute.State == State.Deleted)
-                    throw new MimirorgInvalidOperationException("Cannot request approval for terminal that uses deleted attributes.");
-
-                await _attributeService.ChangeState(attribute, State.Approve, true);
+                await _attributeService.ChangeState(attribute.Id, State.Review, true);
             }
         }
         else if (state == State.Approved && dm.Attributes.Any(attribute => attribute.State != State.Approved))
@@ -228,16 +215,13 @@ public class TerminalService : ITerminalService
             throw new MimirorgInvalidOperationException("Cannot approve terminal that uses unapproved attributes.");
         }
 
-        await _terminalRepository.ChangeState(state == State.Rejected ? State.Draft : state, dm.Id);
+        await _terminalRepository.ChangeState(state, dm.Id);
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
         await _logService.CreateLog(dm, LogType.State, state.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
-
-        if (state == State.Rejected)
-            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
-
+        
         if (sendStateEmail)
             await _emailService.SendObjectStateEmail(dm.Id, state, dm.Name, ObjectTypeName.Terminal);
 
-        return new ApprovalDataCm { Id = dm.Id, State = state == State.Rejected ? State.Draft : state };
+        return new ApprovalDataCm { Id = dm.Id, State = state };
     }
 }

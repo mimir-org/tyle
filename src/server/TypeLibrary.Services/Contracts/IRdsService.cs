@@ -25,14 +25,6 @@ public interface IRdsService
     RdsLibCm Get(string id);
 
     /// <summary>
-    /// Get a RDS object by id
-    /// </summary>
-    /// <param name="id">The id of the RDS</param>
-    /// <returns>The RDS with the given id</returns>
-    /// <exception cref="MimirorgNotFoundException">Throws if there is no RDS with the given id.</exception>
-    RdsLibDm GetDm(string id);
-
-    /// <summary>
     /// Create a new RDS object
     /// </summary>
     /// <param name="rdsAm">The RDS that should be created</param>
@@ -54,13 +46,13 @@ public interface IRdsService
     /// <summary>
     /// Change RDS state
     /// </summary>
-    /// <param name="dm">The RDS that should change state</param>
+    /// <param name="id">The id of the RDS that should change state</param>
     /// <param name="state">The new RDS state</param>
     /// <param name="sendStateEmail"></param>
     /// <returns>An approval data object</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if the RDS does not exist</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the RDS is already approved.</exception>
-    Task<ApprovalDataCm> ChangeState(RdsLibDm dm, State state, bool sendStateEmail);
+    Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail);
 
     /// <summary>
     /// Initializes the database with RDS
