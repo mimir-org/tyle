@@ -182,13 +182,12 @@ public class LibraryUnitController : ControllerBase
     {
         try
         {
-            var dm = _unitService.GetDm(id);
-            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state, dm.State);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _unitService.ChangeState(dm, state, true);
+            var data = await _unitService.ChangeState(id, state, true);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)

@@ -214,13 +214,12 @@ public class LibraryQuantityDatumController : ControllerBase
     {
         try
         {
-            var dm = _quantityDatumService.GetDm(id);
-            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state, dm.State);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _quantityDatumService.ChangeState(dm, state, true);
+            var data = await _quantityDatumService.ChangeState(id, state, true);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)
