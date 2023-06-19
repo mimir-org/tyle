@@ -95,5 +95,14 @@ public interface IMimirorgAuthService
     /// <exception cref="ArgumentOutOfRangeException">If not a valid state</exception>
     Task<bool> HasAccess(int companyId, State newState);
 
+    /// <summary>
+    /// Check if user has permission to delete an item
+    /// </summary>
+    /// <param name="state">The state of the item</param>
+    /// <param name="createdById">The id of the person who created the item</param>
+    /// <param name="companyId">The id of the item company</param>
+    /// <returns>True if the user can delete the item</returns>
+    Task<bool> CanDelete(State state, string createdById, int companyId);
+
     #endregion
 }

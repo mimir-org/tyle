@@ -13,8 +13,10 @@ using Mimirorg.TypeLibrary.Models.Client;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TypeLibrary.Services.Contracts;
+using TypeLibrary.Services.Services;
 
 namespace TypeLibrary.Core.Controllers.V1;
 
@@ -165,6 +167,45 @@ public class LibraryRdsController : ControllerBase
     }
 
     /// <summary>
+    /// Delete a RDS that is not approved
+    /// </summary>
+    /// <param name="id">The id of the RDS to delete</param>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [MimirorgAuthorize(MimirorgPermission.Write, "rds", "CompanyId")]
+    public async Task<IActionResult> Delete([FromRoute] string id)
+    {
+        try
+        {
+            var rds = _rdsService.Get(id);
+            var hasAccess = await _authService.CanDelete(rds.State, rds.CreatedBy, CompanyConstants.AnyCompanyId);
+
+            if (!hasAccess)
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            await _rdsService.Delete(id);
+            return NoContent();
+        }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
     /// Update a RDS object with a new state
     /// </summary>
     /// <param name="id">The id of the RDS to be updated</param>
@@ -176,7 +217,7 @@ public class LibraryRdsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [Authorize]
+    [MimirorgAuthorize(MimirorgPermission.Write, "rds", "CompanyId")]
     public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
     {
         try

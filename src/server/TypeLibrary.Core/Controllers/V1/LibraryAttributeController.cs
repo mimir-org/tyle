@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TypeLibrary.Services.Contracts;
+using TypeLibrary.Services.Services;
 
 namespace TypeLibrary.Core.Controllers.V1;
 
@@ -166,6 +167,45 @@ public class LibraryAttributeController : ControllerBase
     }
 
     /// <summary>
+    /// Delete an attribute that is not approved
+    /// </summary>
+    /// <param name="id">The id of the attribute to delete</param>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
+    public async Task<IActionResult> Delete([FromRoute] string id)
+    {
+        try
+        {
+            var attribute = _attributeService.Get(id);
+            var hasAccess = await _authService.CanDelete(attribute.State, attribute.CreatedBy, CompanyConstants.AnyCompanyId);
+
+            if (!hasAccess)
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            await _attributeService.Delete(id);
+            return NoContent();
+        }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
     /// Update an attribute with a new state
     /// </summary>
     /// <param name="id">The id of the attribute to be updated</param>
@@ -177,7 +217,7 @@ public class LibraryAttributeController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [Authorize]
+    [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
     public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
     {
         try

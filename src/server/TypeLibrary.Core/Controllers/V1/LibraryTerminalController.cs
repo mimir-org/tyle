@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TypeLibrary.Services.Contracts;
+using TypeLibrary.Services.Services;
 
 // ReSharper disable StringLiteralTypo
 
@@ -168,6 +169,45 @@ public class LibraryTerminalController : ControllerBase
     }
 
     /// <summary>
+    /// Delete a terminal that is not approved
+    /// </summary>
+    /// <param name="id">The id of the terminal to delete</param>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
+    public async Task<IActionResult> Delete([FromRoute] string id)
+    {
+        try
+        {
+            var terminal = _terminalService.Get(id);
+            var hasAccess = await _authService.CanDelete(terminal.State, terminal.CreatedBy, CompanyConstants.AnyCompanyId);
+
+            if (!hasAccess)
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            await _terminalService.Delete(id);
+            return NoContent();
+        }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
     /// Update a terminal with a new state
     /// </summary>
     /// <param name="id">The id of the terminal to be updated</param>
@@ -179,7 +219,7 @@ public class LibraryTerminalController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [Authorize]
+    [MimirorgAuthorize(MimirorgPermission.Write, "terminal", "CompanyId")]
     public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
     {
         try

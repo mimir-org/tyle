@@ -310,6 +310,14 @@ public class MimirorgAuthService : IMimirorgAuthService
         return Task.FromResult(access ?? false);
     }
 
+    public Task<bool> CanDelete(State state, string createdById, int companyId)
+    {
+        if (state == State.Approved) return Task.FromResult(false);
+
+        var currentUserId = _contextAccessor.GetUserId();
+        return currentUserId == createdById ? Task.FromResult(true) : HasAccess(companyId, State.Approved);
+    }
+
     #endregion
 
     #region Private Methods

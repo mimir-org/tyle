@@ -202,6 +202,45 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
+    /// Delete an aspect object that is not approved
+    /// </summary>
+    /// <param name="id">The id of the aspect object to delete</param>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [MimirorgAuthorize(MimirorgPermission.Write, "aspectObject", "CompanyId")]
+    public async Task<IActionResult> Delete([FromRoute] string id)
+    {
+        try
+        {
+            var aspectObject = _aspectObjectService.Get(id);
+            var hasAccess = await _authService.CanDelete(aspectObject.State, aspectObject.CreatedBy, aspectObject.CompanyId);
+
+            if (!hasAccess)
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            await _aspectObjectService.Delete(id);
+            return NoContent();
+        }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
     /// Update an aspect object with new state
     /// </summary>
     /// <param name="id">The id of the aspect object to be updated</param>
@@ -213,7 +252,7 @@ public class LibraryAspectObjectController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [Authorize]
+    [MimirorgAuthorize(MimirorgPermission.Write, "aspectObject", "CompanyId")]
     public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
     {
         try
