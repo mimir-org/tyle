@@ -36,11 +36,3 @@ export const usePatchRdsState = () => {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };
-
-export const usePatchRdsStateReject = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation((item: { id: string }) => rdsApi.patchRdsStateReject(item.id), {
-    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
-  });
-};

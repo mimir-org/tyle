@@ -71,41 +71,48 @@ public class TerminalService : ITerminalService
     }
 
     /// <inheritdoc />
+    public TerminalLibDm GetDm(string id)
+    {
+        return _terminalRepository.Get(id) ?? throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
+    }
+
+    /// <inheritdoc />
     public async Task<TerminalLibCm> Create(TerminalLibAm terminal)
     {
         if (terminal == null)
             throw new ArgumentNullException(nameof(terminal));
 
         var validation = terminal.ValidateObject();
+
         if (!validation.IsValid)
             throw new MimirorgBadRequestException("Terminal is not valid.", validation);
 
         var dm = _mapper.Map<TerminalLibDm>(terminal);
 
         dm.State = State.Draft;
-
         dm.TerminalAttributes = new List<TerminalAttributeLibDm>();
+
         if (terminal.Attributes != null)
         {
             foreach (var attributeId in terminal.Attributes)
             {
                 var attribute = _attributeRepository.Get(attributeId);
+
                 if (attribute == null)
-                    _logger.LogError(
-                        $"Could not add attribute with id {attributeId} to terminal with id {dm.Id}, attribute not found.");
+                {
+                    _logger.LogError($"Could not add attribute with id {attributeId} to terminal with id {dm.Id}, attribute not found.");
+                }
                 else
-                    dm.TerminalAttributes.Add(new TerminalAttributeLibDm()
-                    {
-                        TerminalId = dm.Id,
-                        AttributeId = attribute.Id
-                    });
+                {
+                    dm.TerminalAttributes.Add(new TerminalAttributeLibDm { TerminalId = dm.Id, AttributeId = attribute.Id });
+                }
             }
         }
 
         var createdTerminal = await _terminalRepository.Create(dm);
+        _hookService.HookQueue.Enqueue(CacheKey.Terminal);
         _terminalRepository.ClearAllChangeTrackers();
         await _logService.CreateLog(createdTerminal, LogType.Create, createdTerminal.State.ToString(), createdTerminal.CreatedBy);
-        _hookService.HookQueue.Enqueue(CacheKey.Terminal);
 
         return Get(createdTerminal.Id);
     }
@@ -121,14 +128,10 @@ public class TerminalService : ITerminalService
         var terminalToUpdate = _terminalRepository.FindBy(x => x.Id == id, false).Include(x => x.Attributes).FirstOrDefault();
 
         if (terminalToUpdate == null)
-        {
             throw new MimirorgNotFoundException("Terminal not found. Update is not possible.");
-        }
 
         if (terminalToUpdate.State != State.Approved && terminalToUpdate.State != State.Draft)
-        {
             throw new MimirorgInvalidOperationException("Update can only be performed on terminal drafts or approved terminals.");
-        }
 
         if (terminalToUpdate.State != State.Approved)
         {
@@ -136,29 +139,36 @@ public class TerminalService : ITerminalService
             terminalToUpdate.TypeReference = terminalAm.TypeReference;
             terminalToUpdate.Color = terminalAm.Color;
             terminalToUpdate.Description = terminalAm.Description;
-
             terminalToUpdate.Attributes ??= new List<AttributeLibDm>();
             terminalToUpdate.TerminalAttributes ??= new List<TerminalAttributeLibDm>();
 
             var currentAttributes = terminalToUpdate.Attributes.ToHashSet();
             var newAttributes = new HashSet<AttributeLibDm>();
+
             if (terminalAm.Attributes != null)
             {
                 foreach (var attributeId in terminalAm.Attributes)
                 {
                     var attribute = _attributeRepository.Get(attributeId);
+
                     if (attribute == null)
-                        _logger.LogError(
-                            $"Could not add attribute with id {attributeId} to terminal with id {id}, attribute not found.");
+                    {
+                        _logger.LogError($"Could not add attribute with id {attributeId} to terminal with id {id}, attribute not found.");
+                    }
                     else
+                    {
                         newAttributes.Add(attribute);
+                    }
                 }
             }
 
             foreach (var attribute in currentAttributes.ExceptBy(newAttributes.Select(x => x.Id), y => y.Id))
             {
                 var terminalAttribute = _terminalAttributeRepository.FindBy(x => x.TerminalId == terminalToUpdate.Id && x.AttributeId == attribute.Id).FirstOrDefault();
-                if (terminalAttribute == null) continue;
+
+                if (terminalAttribute == null)
+                    continue;
+
                 await _terminalAttributeRepository.Delete(terminalAttribute.Id);
             }
 
@@ -181,33 +191,36 @@ public class TerminalService : ITerminalService
 
         await _terminalAttributeRepository.SaveAsync();
         await _terminalRepository.SaveAsync();
-        await _logService.CreateLog(terminalToUpdate, LogType.Update, terminalToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
-
-        _terminalRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
+        _terminalRepository.ClearAllChangeTrackers();
+        await _logService.CreateLog(terminalToUpdate, LogType.Update, terminalToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         return Get(terminalToUpdate.Id);
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail = true)
+    public async Task<ApprovalDataCm> ChangeState(TerminalLibDm dm, State state, bool sendStateEmail)
     {
-        var dm = _terminalRepository.Get().FirstOrDefault(x => x.Id == id);
-
         if (dm == null)
-            throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
+            throw new MimirorgNotFoundException($"TerminalLibDm is 'null'");
+
+        if (state == State.Rejected && dm.State is State.Draft or State.Deleted or State.Approved)
+            throw new MimirorgInvalidOperationException($"State 'Rejected' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
 
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException($"State change on approved terminal with id {id} is not allowed.");
+            throw new MimirorgInvalidOperationException($"State '{state}' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
 
         if (state == State.Approve)
         {
             foreach (var attribute in dm.Attributes)
             {
-                if (attribute.State == State.Approved) continue;
-                if (attribute.State == State.Deleted) throw new MimirorgInvalidOperationException("Cannot request approval for terminal that uses deleted attributes.");
+                if (attribute.State == State.Approved)
+                    continue;
 
-                await _attributeService.ChangeState(attribute.Id, State.Approve);
+                if (attribute.State == State.Deleted)
+                    throw new MimirorgInvalidOperationException("Cannot request approval for terminal that uses deleted attributes.");
+
+                await _attributeService.ChangeState(attribute, State.Approve, true);
             }
         }
         else if (state == State.Approved && dm.Attributes.Any(attribute => attribute.State != State.Approved))
@@ -216,20 +229,15 @@ public class TerminalService : ITerminalService
         }
 
         await _terminalRepository.ChangeState(state == State.Rejected ? State.Draft : state, dm.Id);
+        _hookService.HookQueue.Enqueue(CacheKey.Terminal);
         await _logService.CreateLog(dm, LogType.State, state.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         if (state == State.Rejected)
             await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
-        _hookService.HookQueue.Enqueue(CacheKey.Terminal);
-
         if (sendStateEmail)
-            await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.Terminal);
+            await _emailService.SendObjectStateEmail(dm.Id, state, dm.Name, ObjectTypeName.Terminal);
 
-        return new ApprovalDataCm
-        {
-            Id = id,
-            State = state == State.Rejected ? State.Draft : state
-        };
+        return new ApprovalDataCm { Id = dm.Id, State = state == State.Rejected ? State.Draft : state };
     }
 }
