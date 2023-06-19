@@ -202,7 +202,7 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
-    /// Update an aspect object with a new state
+    /// Update an aspect object with new state
     /// </summary>
     /// <param name="id">The id of the aspect object to be updated</param>
     /// <param name="state">The new state</param>
@@ -218,13 +218,13 @@ public class LibraryAspectObjectController : ControllerBase
     {
         try
         {
-            var companyId = _aspectObjectService.GetCompanyId(id);
-            var hasAccess = await _authService.HasAccess(companyId, state);
+            var dm = _aspectObjectService.GetLatestVersionExcludeDeleted(id);
+            var hasAccess = await _authService.HasAccess(dm.CompanyId, state, dm.State);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _aspectObjectService.ChangeState(id, state, true);
+            var data = await _aspectObjectService.ChangeState(dm, state, true);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)

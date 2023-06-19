@@ -71,6 +71,12 @@ public class TerminalService : ITerminalService
     }
 
     /// <inheritdoc />
+    public TerminalLibDm GetDm(string id)
+    {
+        return _terminalRepository.Get(id) ?? throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
+    }
+
+    /// <inheritdoc />
     public async Task<TerminalLibCm> Create(TerminalLibAm terminal)
     {
         if (terminal == null)
@@ -193,18 +199,16 @@ public class TerminalService : ITerminalService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
+    public async Task<ApprovalDataCm> ChangeState(TerminalLibDm dm, State state, bool sendStateEmail)
     {
-        var dm = _terminalRepository.Get().FirstOrDefault(x => x.Id == id);
-
         if (dm == null)
-            throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
+            throw new MimirorgNotFoundException($"TerminalLibDm is 'null'");
 
         if (state == State.Rejected && dm.State is State.Draft or State.Deleted or State.Approved)
-            throw new MimirorgInvalidOperationException($"State 'Rejected' is not allowed for object {dm.Name} with id {id} since current state is {dm.State}");
+            throw new MimirorgInvalidOperationException($"State 'Rejected' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
 
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException($"State '{state}' is not allowed for object {dm.Name} with id {id} since current state is {dm.State}");
+            throw new MimirorgInvalidOperationException($"State '{state}' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
 
         if (state == State.Approve)
         {
@@ -216,7 +220,7 @@ public class TerminalService : ITerminalService
                 if (attribute.State == State.Deleted)
                     throw new MimirorgInvalidOperationException("Cannot request approval for terminal that uses deleted attributes.");
 
-                await _attributeService.ChangeState(attribute.Id, State.Approve, true);
+                await _attributeService.ChangeState(attribute, State.Approve, true);
             }
         }
         else if (state == State.Approved && dm.Attributes.Any(attribute => attribute.State != State.Approved))
@@ -232,8 +236,8 @@ public class TerminalService : ITerminalService
             await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         if (sendStateEmail)
-            await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.Terminal);
+            await _emailService.SendObjectStateEmail(dm.Id, state, dm.Name, ObjectTypeName.Terminal);
 
-        return new ApprovalDataCm { Id = id, State = state == State.Rejected ? State.Draft : state };
+        return new ApprovalDataCm { Id = dm.Id, State = state == State.Rejected ? State.Draft : state };
     }
 }

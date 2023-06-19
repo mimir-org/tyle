@@ -103,6 +103,13 @@ public class AspectObjectService : IAspectObjectService
     }
 
     /// <inheritdoc />
+    public AspectObjectLibDm GetLatestVersionExcludeDeleted(string id)
+    {
+        return _aspectObjectRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id)
+               ?? throw new MimirorgNotFoundException($"Aspect object with id {id} not found, is deleted or is not latest version.");
+    }
+
+    /// <inheritdoc />
     public async Task<AspectObjectLibCm> Create(AspectObjectLibAm aspectObjectAm)
     {
         if (aspectObjectAm == null)
@@ -346,18 +353,16 @@ public class AspectObjectService : IAspectObjectService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
+    public async Task<ApprovalDataCm> ChangeState(AspectObjectLibDm dm, State state, bool sendStateEmail)
     {
-        var dm = _aspectObjectRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id);
-
         if (dm == null)
-            throw new MimirorgNotFoundException($"Aspect object with id {id} not found, or is not latest version.");
+            throw new MimirorgNullReferenceException("Object is 'null'");
 
         if (state == State.Rejected && dm.State is State.Draft or State.Deleted or State.Approved)
-            throw new MimirorgInvalidOperationException($"State 'Rejected' is not allowed for object {dm.Name} with id {id} since current state is {dm.State}");
+            throw new MimirorgInvalidOperationException($"State 'Rejected' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
 
         if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException($"State '{state}' is not allowed for object {dm.Name} with id {id} since current state is {dm.State}");
+            throw new MimirorgInvalidOperationException($"State '{state}' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
 
         if (state == State.Approve)
         {
@@ -371,7 +376,7 @@ public class AspectObjectService : IAspectObjectService
                 if (dm.Rds.State == State.Deleted)
                     throw new MimirorgInvalidOperationException("Cannot request approval for aspect object that uses deleted RDS.");
 
-                await _rdsService.ChangeState(dm.RdsId, State.Approve, true);
+                await _rdsService.ChangeState(dm.Rds, State.Approve, true);
             }
 
             foreach (var attribute in dm.Attributes)
@@ -382,12 +387,12 @@ public class AspectObjectService : IAspectObjectService
                 if (attribute.State == State.Deleted)
                     throw new MimirorgInvalidOperationException("Cannot request approval for aspect object that uses deleted attributes.");
 
-                await _attributeService.ChangeState(attribute.Id, State.Approve, true);
+                await _attributeService.ChangeState(attribute, State.Approve, true);
             }
 
             foreach (var aspectObjectTerminal in dm.AspectObjectTerminals)
             {
-                var terminal = _terminalService.Get(aspectObjectTerminal.TerminalId);
+                var terminal = _terminalService.GetDm(aspectObjectTerminal.TerminalId);
 
                 if (terminal.State == State.Approved)
                     continue;
@@ -395,7 +400,7 @@ public class AspectObjectService : IAspectObjectService
                 if (terminal.State == State.Deleted)
                     throw new MimirorgInvalidOperationException("Cannot request approval for aspect object that uses deleted terminals.");
 
-                await _terminalService.ChangeState(terminal.Id, State.Approve, true);
+                await _terminalService.ChangeState(terminal, State.Approve, true);
             }
         }
         else if (state == State.Approved)
@@ -418,9 +423,9 @@ public class AspectObjectService : IAspectObjectService
             await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         if (sendStateEmail)
-            await _emailService.SendObjectStateEmail(id, state, dm.Name, ObjectTypeName.AspectObject);
+            await _emailService.SendObjectStateEmail(dm.Id, state, dm.Name, ObjectTypeName.AspectObject);
 
-        return new ApprovalDataCm { Id = id, State = state == State.Rejected ? State.Draft : state };
+        return new ApprovalDataCm { Id = dm.Id, State = state == State.Rejected ? State.Draft : state };
     }
 
     /// <inheritdoc />

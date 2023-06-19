@@ -293,20 +293,21 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// Check if user has permission to change the state for a given company
     /// </summary>
     /// <param name="companyId">The id of the company, or 0 for non-company objects</param>
-    /// <param name="state">The state to check for permission</param>
+    /// <param name="newState">The state to check for permission</param>
+    /// <param name="currentState"></param>
     /// <returns>True if has access, otherwise it returns false</returns>
     /// <exception cref="ArgumentOutOfRangeException">If not a valid state</exception>
-    public Task<bool> HasAccess(int companyId, State state)
+    public Task<bool> HasAccess(int companyId, State newState, State currentState)
     {
-        var permission = state switch
+        var permission = newState switch
         {
             State.Draft => MimirorgPermission.Write,
             State.Approve => MimirorgPermission.Write,
             State.Delete => MimirorgPermission.Write,
             State.Approved => MimirorgPermission.Approve,
             State.Deleted => MimirorgPermission.Delete,
-            State.Rejected => MimirorgPermission.Delete,
-            _ => throw new ArgumentOutOfRangeException(nameof(state), state, null)
+            State.Rejected => RejectStatePermissionNeeded(currentState),
+            _ => throw new ArgumentOutOfRangeException(nameof(newState), newState, null)
         };
 
         var access = _actionContextAccessor.ActionContext?.HttpContext.HasPermission(permission, companyId.ToString());
@@ -316,6 +317,27 @@ public class MimirorgAuthService : IMimirorgAuthService
     #endregion
 
     #region Private Methods
+
+    /// <summary>
+    /// Returns needed MimirorgPermission to be able to reject a state change request
+    /// </summary>
+    /// <param name="currentState"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    private MimirorgPermission RejectStatePermissionNeeded(State currentState)
+    {
+        switch (currentState)
+        {
+            case State.Delete:
+                return MimirorgPermission.Delete;
+
+            case State.Approve:
+                return MimirorgPermission.Approve;
+
+            default:
+                throw new ArgumentOutOfRangeException($"Method 'CanRejectState' out of range. Current state is: {currentState}");
+        }
+    }
 
     /// <summary>
     /// Validate security code
