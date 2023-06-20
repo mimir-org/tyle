@@ -404,7 +404,7 @@ public class AspectObjectService : IAspectObjectService
 
         await _aspectObjectRepository.ChangeState(state, dm.Id);
         _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
-        await _logService.CreateLog(dm, LogType.State, state.ToString(), dm.CreatedBy);
+        await _logService.CreateLog(dm, LogType.State, state.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         if (sendStateEmail)
             await _emailService.SendObjectStateEmail(dm.Id, state, dm.Name, ObjectTypeName.AspectObject);
