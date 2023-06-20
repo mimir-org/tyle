@@ -81,7 +81,7 @@ const allowDelete = (item: ItemType | null, user: UserItem | null): boolean => {
   if (permissionForCompany == null) return false;
 
   return (permissionForCompany & MimirorgPermission.Approve) === MimirorgPermission.Approve;
-}
+};
 
 const allowStateChange = (item: StateItem | null, user: UserItem | null): boolean => {
   if (item == null || user == null) return false;

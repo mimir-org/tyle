@@ -51,7 +51,7 @@ export function usePatchMutation(item: ItemType) {
   const patchRdsMutation = usePatchRdsState();
   const patchTerminalMutation = usePatchTerminalState();
   const patchUnitMutation = usePatchUnitState();
-  
+
   switch (item.kind) {
     case "AspectObjectItem":
       return patchAspectObjectMutation;
