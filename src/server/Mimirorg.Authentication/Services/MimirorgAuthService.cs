@@ -315,7 +315,7 @@ public class MimirorgAuthService : IMimirorgAuthService
         if (state == State.Approved) return Task.FromResult(false);
 
         var currentUserId = _contextAccessor.GetUserId();
-        return currentUserId == createdById ? Task.FromResult(true) : HasAccess(companyId, State.Approved);
+        return currentUserId == createdById ? Task.FromResult(_actionContextAccessor.ActionContext?.HttpContext.HasPermission(MimirorgPermission.Write, companyId.ToString()) ?? false) : HasAccess(companyId, State.Approved);
     }
 
     #endregion
