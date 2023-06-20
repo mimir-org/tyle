@@ -363,31 +363,12 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// <returns></returns>
     private async Task SendUserPermissionEmail(MimirorgUser toUser, MimirorgPermission permission, string companyName, bool isPermissionRemoval)
     {
-        /* We can not reference 'IMimirorgUserService' because that service is referencing this service.
-         * If this reference is atempted it will result in a 'circular dependency' error. 
-         * The 'MimirorgUserCm' objects needs to be manually constructed here.
-         */
-
         var from = await _userManager.FindByIdAsync(_contextAccessor.GetUserId());
 
         if (from == null || toUser == null)
             throw new MimirorgNotFoundException("User(s) not found 'SendUserPermissionEmail'");
 
-        var fromUser = new MimirorgUserCm
-        {
-            FirstName = from.FirstName,
-            LastName = from.LastName,
-            Email = from.Email
-        };
-
-        var sendToUser = new MimirorgUserCm
-        {
-            FirstName = toUser.FirstName,
-            LastName = toUser.LastName,
-            Email = toUser.Email
-        };
-
-        var email = await _templateRepository.CreateUserPermissionEmail(sendToUser, fromUser, permission, companyName, isPermissionRemoval);
+        var email = await _templateRepository.CreateUserPermissionEmail(toUser.ToContentModel(), from.ToContentModel(), permission, companyName, isPermissionRemoval);
 
         await _emailRepository.SendEmail(email);
     }
