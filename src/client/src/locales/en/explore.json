@@ -19,9 +19,7 @@
         "approve": "Do you want to send approval request?"
       },
       "states": {
-        "delete": "Pending deletion",
-        "approve": "Pending approval",
-        "deleted": "Deleted",
+        "review": "Pending approval",
         "approved": "Approved",
         "draft": "Draft"
       },
