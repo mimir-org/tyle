@@ -364,6 +364,9 @@ public class AspectObjectService : IAspectObjectService
             if (latestApprovedVersion != null && latestApprovedVersion.Equals(dm))
                 throw new MimirorgInvalidOperationException("Cannot approve this aspect object since it is identical to the currently approved version.");
 
+            if (dm.RdsId == null)
+                throw new MimirorgInvalidOperationException("Cannot approve an aspect object without a RDS code.");
+
             if (dm.Rds.State != State.Approved)
             {
                 await _rdsService.ChangeState(dm.RdsId, State.Review, true);

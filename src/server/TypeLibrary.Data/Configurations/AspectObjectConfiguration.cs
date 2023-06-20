@@ -30,6 +30,6 @@ public class AspectObjectConfiguration : IEntityTypeConfiguration<AspectObjectLi
         builder.Property(p => p.Description).HasColumnName("Description").HasDefaultValue(null).HasMaxLength(511);
         builder.Property(p => p.SelectedAttributePredefined).HasJsonConversion();
 
-        builder.HasOne(x => x.Rds).WithMany().HasForeignKey(x => x.RdsId).OnDelete(DeleteBehavior.NoAction).IsRequired();
+        builder.HasOne(x => x.Rds).WithMany().HasForeignKey(x => x.RdsId).OnDelete(DeleteBehavior.SetNull);
     }
 }
