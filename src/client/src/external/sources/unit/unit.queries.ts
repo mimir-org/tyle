@@ -36,3 +36,11 @@ export const usePatchUnitState = () => {
     onSuccess: () => queryClient.invalidateQueries(keys.unitLists()),
   });
 };
+
+export const useDeleteUnit = (id: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation(() => unitApi.deleteUnit(id), {
+    onSuccess: () => queryClient.invalidateQueries(keys.unitLists()),
+  });
+};

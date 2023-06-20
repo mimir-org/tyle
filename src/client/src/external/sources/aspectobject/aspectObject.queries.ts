@@ -8,13 +8,13 @@ const keys = {
   aspectObject: (id?: string) => [...keys.lists(), id] as const,
 };
 
-export const useGetAspectObjects = () => useQuery(keys.lists(), aspectObjectApi.getLibraryAspectObjects);
+export const useGetAspectObjects = () => useQuery(keys.lists(), aspectObjectApi.getAspectObjects);
 
 export const useGetAspectObject = (id?: string) =>
-  useQuery(keys.aspectObject(id), () => aspectObjectApi.getLibraryAspectObject(id), { enabled: !!id, retry: false });
+  useQuery(keys.aspectObject(id), () => aspectObjectApi.getAspectObject(id), { enabled: !!id, retry: false });
 
 export const useGetLatestApprovedAspectObject = (id?: string, enable = true) =>
-  useQuery(keys.aspectObject("latest-approved/" + id), () => aspectObjectApi.getLatestApprovedLibraryAspectObject(id), {
+  useQuery(keys.aspectObject("latest-approved/" + id), () => aspectObjectApi.getLatestApprovedAspectObject(id), {
     enabled: enable && !!id,
     retry: false,
   });
@@ -22,7 +22,7 @@ export const useGetLatestApprovedAspectObject = (id?: string, enable = true) =>
 export const useCreateAspectObject = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: AspectObjectLibAm) => aspectObjectApi.postLibraryAspectObject(item), {
+  return useMutation((item: AspectObjectLibAm) => aspectObjectApi.postAspectObject(item), {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };
@@ -30,7 +30,7 @@ export const useCreateAspectObject = () => {
 export const useUpdateAspectObject = (id?: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation((item: AspectObjectLibAm) => aspectObjectApi.putLibraryAspectObject(item, id), {
+  return useMutation((item: AspectObjectLibAm) => aspectObjectApi.putAspectObject(item, id), {
     onSuccess: (unit) => queryClient.invalidateQueries(keys.aspectObject(unit.id)),
   });
 };
@@ -39,9 +39,17 @@ export const usePatchAspectObjectState = () => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    (item: { id: string; state: State }) => aspectObjectApi.patchLibraryAspectObjectState(item.id, item.state),
+    (item: { id: string; state: State }) => aspectObjectApi.patchAspectObjectState(item.id, item.state),
     {
       onSuccess: () => queryClient.invalidateQueries(keys.lists()),
     }
   );
+};
+
+export const useDeleteAspectObject = (id: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation(() => aspectObjectApi.deleteAspectObject(id), {
+    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
+  });
 };

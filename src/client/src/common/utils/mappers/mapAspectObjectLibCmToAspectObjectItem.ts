@@ -30,6 +30,7 @@ export const mapAspectObjectLibCmToAspectObjectItem = (aspectObject: AspectObjec
     kind: "AspectObjectItem",
     state: aspectObject.state,
     companyId: aspectObject.companyId,
+    createdBy: aspectObject.createdBy,
   };
 };
 

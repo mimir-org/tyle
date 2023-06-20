@@ -10,12 +10,12 @@
     "item": {
       "clone": "Clone",
       "edit": "Edit",
-      "delete": "Send delete request",
-      "deleteDescription": "Someone has to accept this scope change.",
+      "delete": "Delete",
+      "deleteDescription": "The item will be deleted.",
       "approveDescription": "Someone has to accept this scope change.",
       "approve": "Send approval request",
       "templates": {
-        "delete": "Do you want to send delete request?",
+        "delete": "Do you want to delete this item?",
         "approve": "Do you want to send approval request?"
       },
       "states": {

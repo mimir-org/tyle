@@ -17,4 +17,5 @@ export const mockAspectObjectItem = (): AspectObjectItem => ({
   kind: "AspectObjectItem",
   state: State.Draft,
   companyId: 1,
+  createdBy: faker.string.alphanumeric(36),
 });

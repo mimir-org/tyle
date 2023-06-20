@@ -19,4 +19,7 @@ export const rdsApi = {
   patchRdsState(id: string, state: State) {
     return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
   },
+  deleteRds(id: string) {
+    return apiClient.delete(`${_basePath}/${id}`);
+  },
 };

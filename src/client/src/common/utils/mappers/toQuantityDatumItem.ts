@@ -10,5 +10,6 @@ export const toQuantityDatumItem = (datum: QuantityDatumLibCm): QuantityDatumIte
     typeReference: datum.typeReference,
     kind: "QuantityDatumItem",
     state: datum.state,
+    createdBy: datum.createdBy,
   };
 };
