@@ -142,6 +142,7 @@ public class RdsService : IRdsService
             throw new MimirorgInvalidOperationException($"Can't delete approved RDS with id {id}.");
 
         await _rdsRepository.Delete(id);
+        await _rdsRepository.SaveAsync();
     }
 
     /// <inheritdoc />

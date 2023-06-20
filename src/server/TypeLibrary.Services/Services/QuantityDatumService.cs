@@ -172,6 +172,7 @@ public class QuantityDatumService : IQuantityDatumService
             throw new MimirorgInvalidOperationException($"Can't delete approved quantity datum with id {id}.");
 
         await _quantityDatumRepository.Delete(id);
+        await _quantityDatumRepository.SaveAsync();
     }
 
     /// <inheritdoc />

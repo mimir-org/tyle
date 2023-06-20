@@ -346,6 +346,7 @@ public class AspectObjectService : IAspectObjectService
             throw new MimirorgInvalidOperationException($"Can't delete approved aspect object with id {id}.");
 
         await _aspectObjectRepository.Delete(id);
+        await _aspectObjectRepository.SaveAsync();
     }
 
     /// <inheritdoc />

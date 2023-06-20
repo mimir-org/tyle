@@ -136,6 +136,7 @@ public class UnitService : IUnitService
             throw new MimirorgInvalidOperationException($"Can't delete approved unit with id {id}.");
 
         await _unitRepository.Delete(id);
+        await _unitRepository.SaveAsync();
     }
 
     /// <inheritdoc />

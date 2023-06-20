@@ -201,6 +201,7 @@ public class TerminalService : ITerminalService
             throw new MimirorgInvalidOperationException($"Can't delete approved terminal with id {id}.");
 
         await _terminalRepository.Delete(id);
+        await _terminalRepository.SaveAsync();
     }
 
     /// <inheritdoc />

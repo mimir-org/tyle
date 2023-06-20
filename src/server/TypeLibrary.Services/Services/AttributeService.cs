@@ -170,6 +170,7 @@ public class AttributeService : IAttributeService
             throw new MimirorgInvalidOperationException($"Can't delete approved attribute with id {id}.");
 
         await _attributeRepository.Delete(id);
+        await _attributeRepository.SaveAsync();
     }
 
     /// <inheritdoc />

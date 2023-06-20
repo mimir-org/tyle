@@ -208,7 +208,7 @@ public class LibraryQuantityDatumController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "quantityDatum", "CompanyId")]
+    [MimirorgAuthorize(MimirorgPermission.Write)]
     public async Task<IActionResult> Delete([FromRoute] string id)
     {
         try
@@ -249,7 +249,7 @@ public class LibraryQuantityDatumController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "quantityDatum", "CompanyId")]
+    [MimirorgAuthorize(MimirorgPermission.Write)]
     public async Task<IActionResult> ChangeState([FromRoute] string id, [FromRoute] State state)
     {
         try
