@@ -36,7 +36,6 @@ export default function UnifiedPanel({
       flexDirection={"column"}
       gap={theme.tyle.spacing.xxxl}
       maxHeight={"100%"}
-      overflow={"hidden"}
       {...theme.tyle.animation.fade}
     >
       <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xl}>
