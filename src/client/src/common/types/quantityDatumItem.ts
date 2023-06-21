@@ -8,4 +8,5 @@ export interface QuantityDatumItem extends StateItem {
   quantityDatumType: QuantityDatumType;
   typeReference: string;
   kind: string;
+  createdBy: string;
 }

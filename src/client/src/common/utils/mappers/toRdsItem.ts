@@ -9,5 +9,6 @@ export const toRdsItem = (rds: RdsLibCm): RdsItem => {
     kind: "RdsItem",
     state: rds.state,
     rdsCode: rds.rdsCode,
+    createdBy: rds.createdBy,
   };
 };

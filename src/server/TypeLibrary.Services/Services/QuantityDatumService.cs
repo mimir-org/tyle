@@ -40,7 +40,7 @@ public class QuantityDatumService : IQuantityDatumService
     /// <inheritdoc />
     public IEnumerable<QuantityDatumLibCm> Get()
     {
-        var dataSet = _quantityDatumRepository.Get()?.ExcludeDeleted().ToList();
+        var dataSet = _quantityDatumRepository.Get()?.ToList();
 
         if (dataSet == null || !dataSet.Any())
             return new List<QuantityDatumLibCm>();
@@ -59,12 +59,6 @@ public class QuantityDatumService : IQuantityDatumService
         var data = _mapper.Map<QuantityDatumLibCm>(quantityDatum);
 
         return data;
-    }
-
-    /// <inheritdoc />
-    public QuantityDatumLibDm GetDm(string id)
-    {
-        return _quantityDatumRepository.Get(id) ?? throw new MimirorgNotFoundException($"Quantity datum with id {id} not found.");
     }
 
     /// <inheritdoc />
@@ -170,27 +164,32 @@ public class QuantityDatumService : IQuantityDatumService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(QuantityDatumLibDm dm, State state, bool sendStateEmail)
+    public async Task Delete(string id)
     {
-        if (dm == null)
-            throw new MimirorgNotFoundException($"QuantityDatumLibDm is 'null'");
+        var dm = _quantityDatumRepository.Get(id) ?? throw new MimirorgNotFoundException($"Quantity datum with id {id} not found.");
 
-        if (state == State.Rejected && dm.State is State.Draft or State.Deleted or State.Approved)
-            throw new MimirorgInvalidOperationException($"State 'Rejected' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
+        if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException($"Can't delete approved quantity datum with id {id}.");
+
+        await _quantityDatumRepository.Delete(id);
+        await _quantityDatumRepository.SaveAsync();
+    }
+
+    /// <inheritdoc />
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
+    {
+        var dm = _quantityDatumRepository.Get(id) ?? throw new MimirorgNotFoundException($"Quantity datum with id {id} not found.");
 
         if (dm.State == State.Approved)
             throw new MimirorgInvalidOperationException($"State '{state}' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
 
-        await _quantityDatumRepository.ChangeState(state == State.Rejected ? State.Draft : state, dm.Id);
+        await _quantityDatumRepository.ChangeState(state, dm.Id);
         _hookService.HookQueue.Enqueue(CacheKey.QuantityDatum);
         await _logService.CreateLog(dm, LogType.State, state.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
-
-        if (state == State.Rejected)
-            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         if (sendStateEmail)
             await _emailService.SendObjectStateEmail(dm.Id, state, dm.Name, ObjectTypeName.QuantityDatum);
 
-        return new ApprovalDataCm { Id = dm.Id, State = state == State.Rejected ? State.Draft : state };
+        return new ApprovalDataCm { Id = dm.Id, State = state };
     }
 }

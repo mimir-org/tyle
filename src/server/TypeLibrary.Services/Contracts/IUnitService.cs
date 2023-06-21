@@ -4,7 +4,6 @@ using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Services.Contracts;
 
@@ -23,14 +22,6 @@ public interface IUnitService
     /// <returns>The unit with the given id</returns>
     /// /// <exception cref="MimirorgNotFoundException">Throws if there is no unit with the given id.</exception>
     UnitLibCm Get(string id);
-
-    /// <summary>
-    /// Get a unit by id
-    /// </summary>
-    /// <param name="id">The id of the unit</param>
-    /// <returns>The unit with the given id</returns>
-    /// /// <exception cref="MimirorgNotFoundException">Throws if there is no unit with the given id.</exception>
-    UnitLibDm GetDm(string id);
 
     /// <summary>
     /// Create a new unit
@@ -52,14 +43,23 @@ public interface IUnitService
     /// <exception cref="MimirorgInvalidOperationException">Throws if the unit is not a draft or approved.</exception>
     Task<UnitLibCm> Update(string id, UnitLibAm unitAm);
 
+
+    /// <summary>
+    ///  Delete a unit, it can't be approved
+    /// </summary>
+    /// <param name="id">The id of the unit to delete</param>
+    /// <exception cref="MimirorgNotFoundException">Throws if the unit with the given id is not found.</exception>
+    /// <exception cref="MimirorgInvalidOperationException">Throws if the unit in question can't be deleted.</exception>
+    Task Delete(string id);
+
     /// <summary>
     /// Change unit state
     /// </summary>
-    /// <param name="dm">The unit that should change state</param>
+    /// <param name="id">The id of the unit that should change state</param>
     /// <param name="state">The new unit state</param>
     /// <param name="sendStateEmail"></param>
     /// <returns>An approval data object</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if the unit does not exist</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the unit is already approved.</exception>
-    Task<ApprovalDataCm> ChangeState(UnitLibDm dm, State state, bool sendStateEmail);
+    Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail);
 }

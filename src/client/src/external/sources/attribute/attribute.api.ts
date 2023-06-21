@@ -28,4 +28,7 @@ export const attributeApi = {
   patchAttributeState(id: string, state: State) {
     return apiClient.patch<ApprovalDataCm>(`${_basePath}/${id}/state/${state}`).then((r) => r.data);
   },
+  deleteAttribute(id: string) {
+    return apiClient.delete(`${_basePath}/${id}`);
+  },
 };

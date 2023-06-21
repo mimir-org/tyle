@@ -12,4 +12,5 @@ export const mockTerminalItem = (): TerminalItem => ({
   tokens: [...Array(5)].map((_) => faker.commerce.productAdjective()),
   kind: "TerminalItem",
   state: State.Draft,
+  createdBy: faker.string.alphanumeric(36),
 });

@@ -11,5 +11,8 @@ public class TerminalAttributeConfiguration : IEntityTypeConfiguration<TerminalA
         builder.HasKey(x => x.Id);
         builder.ToTable("Terminal_Attribute");
         builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
+
+        builder.HasOne(x => x.Terminal).WithMany(y => y.TerminalAttributes).HasForeignKey(x => x.TerminalId).OnDelete(DeleteBehavior.Cascade);
+        builder.HasOne(x => x.Attribute).WithMany(y => y.AttributeTerminals).HasForeignKey(x => x.AttributeId).OnDelete(DeleteBehavior.Cascade);
     }
 }

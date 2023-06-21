@@ -14,12 +14,9 @@ public enum MimirorgPermission
     [Display(Name = "Write")]
     Write = 2 | Read,
 
-    [Display(Name = "Delete")]
-    Delete = 4 | Write | Read,
-
     [Display(Name = "Approve")]
-    Approve = 8 | Delete | Write | Read,
+    Approve = 4 | Write,
 
     [Display(Name = "Manage")]
-    Manage = 16 | Approve
+    Manage = 8 | Approve
 }

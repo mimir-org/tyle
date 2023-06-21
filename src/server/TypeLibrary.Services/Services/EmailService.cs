@@ -50,31 +50,22 @@ namespace TypeLibrary.Services.Services
 
             switch (objectState)
             {
-                case State.Draft:
-                    return;
-
-                case State.Approve:
+                case State.Review:
                     var canApprove = usersExceptCurrent.Where(x => x.Permissions.ContainsKey(currentUser.CompanyId) && x.Permissions[currentUser.CompanyId].HasFlag(MimirorgPermission.Approve)).DistinctBy(x => x.Id).ToList();
                     sendEmailToUserIds.AddRange(canApprove.Select(x => x.Id));
                     break;
 
-                case State.Delete:
-                    var canDelete = usersExceptCurrent.Where(x => x.Permissions.ContainsKey(currentUser.CompanyId) && x.Permissions[currentUser.CompanyId].HasFlag(MimirorgPermission.Delete)).DistinctBy(x => x.Id).ToList();
-                    sendEmailToUserIds.AddRange(canDelete.Select(x => x.Id));
-                    break;
-
                 case State.Approved:
-                    var sendApprovedToUsers = _logService.Get().Where(x => x.ObjectId == objectId && (x.LogTypeValue == State.Approve.ToString() || x.LogTypeValue == State.Draft.ToString()));
+                    var logsForApproved = _logService.Get(objectId);
+                    var sendApprovedToUsers = logsForApproved.Where(x => x.LogTypeValue == State.Draft.ToString() && x.LogType is LogType.Create or LogType.Update).ToList();
+                    sendApprovedToUsers.Add(logsForApproved.OrderByDescending(x => x.Created).First(x => x.LogTypeValue == State.Review.ToString()));
                     sendEmailToUserIds.AddRange(sendApprovedToUsers.Select(x => x.CreatedBy));
                     break;
 
-                case State.Deleted:
-                    var sendDeletedToUsers = _logService.Get().Where(x => x.ObjectId == objectId && (x.LogTypeValue == State.Delete.ToString() || x.LogTypeValue == State.Draft.ToString()));
-                    sendEmailToUserIds.AddRange(sendDeletedToUsers.Select(x => x.CreatedBy));
-                    break;
-
-                case State.Rejected:
-                    var sendRejectedToUsers = _logService.Get().Where(x => x.ObjectId == objectId && (x.LogTypeValue == State.Approve.ToString() || x.LogTypeValue == State.Delete.ToString() || x.LogTypeValue == State.Draft.ToString()));
+                case State.Draft:
+                    var logsForRejected = _logService.Get(objectId);
+                    var sendRejectedToUsers = logsForRejected.Where(x => x.LogTypeValue == State.Draft.ToString() && x.LogType is LogType.Create or LogType.Update).ToList();
+                    sendRejectedToUsers.Add(logsForRejected.OrderByDescending(x => x.Created).First(x => x.LogTypeValue == State.Review.ToString()));
                     sendEmailToUserIds.AddRange(sendRejectedToUsers.Select(x => x.CreatedBy));
                     break;
 

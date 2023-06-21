@@ -36,3 +36,11 @@ export const usePatchRdsState = () => {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };
+
+export const useDeleteRds = (id: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation(() => rdsApi.deleteRds(id), {
+    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
+  });
+};

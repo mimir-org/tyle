@@ -20,7 +20,6 @@ public class MimirorgAuthFactory : IMimirorgAuthFactory
     {
         yield return new IdentityRole { Id = MimirorgDefaultRoles.AdministratorRoleId, Name = MimirorgDefaultRoles.Administrator, NormalizedName = MimirorgDefaultRoles.Administrator.ResolveNormalizedName() };
         yield return new IdentityRole { Id = MimirorgDefaultRoles.AccountManagerRoleId, Name = MimirorgDefaultRoles.AccountManager, NormalizedName = MimirorgDefaultRoles.AccountManager.ResolveNormalizedName() };
-        yield return new IdentityRole { Id = MimirorgDefaultRoles.ModeratorRoleId, Name = MimirorgDefaultRoles.Moderator, NormalizedName = MimirorgDefaultRoles.Moderator.ResolveNormalizedName() };
     }
 
     #endregion

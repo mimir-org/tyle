@@ -80,7 +80,6 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IPurposeService, PurposeService>();
         services.AddScoped<IUnitService, UnitService>();
         services.AddScoped<IAspectObjectService, AspectObjectService>();
-        services.AddScoped<IVersionService, VersionService>();
         services.AddScoped<IModuleService, ModuleService>();
         services.AddScoped<ILogService, LogService>();
         services.AddScoped<IApprovalService, ApprovalService>();

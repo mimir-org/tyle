@@ -50,36 +50,23 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
 
         string subject;
         string content;
-        const string TYLE_SETTINGS = "This can be done in Tyle under <i>Settings</i> and <i>Approval</i>.";
+        const string tyleSettings = "This can be done in Tyle under <i>Settings</i> and <i>Approval</i>.";
 
         switch (state)
         {
             case State.Draft:
-                return Task.FromResult(new MimirorgMailAm());
+                subject = $"Tyle {objectTypeName} is rejected";
+                content = $"The {objectTypeName} <i>{objectName}</i> is rejected and reverted to draft by <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i>";
+                break;
 
-            case State.Approve:
+            case State.Review:
                 subject = $"Tyle {objectTypeName} approval request";
-                content = $"User <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i> requests approval for the {objectTypeName} <i>{objectName}</i>. {TYLE_SETTINGS} ";
+                content = $"User <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i> requests approval for the {objectTypeName} <i>{objectName}</i>. {tyleSettings} ";
                 break;
 
             case State.Approved:
                 subject = $"Tyle {objectTypeName} is approved";
                 content = $"The {objectTypeName} <i>{objectName}</i> is approved by <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i>";
-                break;
-
-            case State.Delete:
-                subject = $"Tyle {objectTypeName} delete request";
-                content = $"User <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i> requests delete for the {objectTypeName} <i>{objectName}</i>. {TYLE_SETTINGS}";
-                break;
-
-            case State.Deleted:
-                subject = $"Tyle {objectTypeName} is deleted";
-                content = $"The {objectTypeName} <i>{objectName}</i> is deleted by <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i>";
-                break;
-
-            case State.Rejected:
-                subject = $"Tyle {objectTypeName} is rejected";
-                content = $"The {objectTypeName} <i>{objectName}</i> is rejected by <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i>";
                 break;
 
             default:

@@ -37,3 +37,11 @@ export const usePatchTerminalState = () => {
     onSuccess: () => queryClient.invalidateQueries(keys.lists()),
   });
 };
+
+export const useDeleteTerminal = (id: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation(() => terminalApi.deleteTerminal(id), {
+    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
+  });
+};

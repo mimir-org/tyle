@@ -1,7 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System;
@@ -88,7 +87,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         var pcaUnitsFetch = _unitReferenceRepository.FetchUnitsFromReference();
         using var scope = _serviceProvider.CreateScope();
         var unitService = scope.ServiceProvider.GetService<IUnitService>();
-        var dbUnits = unitService.Get().ExcludeDeleted().ToList();
+        var dbUnits = unitService.Get().ToList();
 
         var dbUnitReferences = new Dictionary<string, string>();
 
@@ -142,7 +141,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         var pcaAttributesFetch = _attributeReferenceRepository.FetchAttributesFromReference();
         using var scope = _serviceProvider.CreateScope();
         var attributeService = scope.ServiceProvider.GetService<IAttributeService>();
-        var dbAttributes = attributeService.Get().ExcludeDeleted().ToList();
+        var dbAttributes = attributeService.Get().ToList();
         var dbAttributeReferences = new Dictionary<string, string>();
 
         foreach (var attribute in dbAttributes)
@@ -223,7 +222,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         var pcaQuantityDatumsFetch = _quantityDatumReferenceRepository.FetchQuantityDatumsFromReference();
         using var scope = _serviceProvider.CreateScope();
         var quantityDatumService = scope.ServiceProvider.GetService<IQuantityDatumService>();
-        var dbQuantityDatums = quantityDatumService.Get().ExcludeDeleted().ToList();
+        var dbQuantityDatums = quantityDatumService.Get().ToList();
         var dbQuantityDatumsReferences = new Dictionary<string, string>();
 
         foreach (var quantityDatum in dbQuantityDatums)

@@ -27,7 +27,6 @@ describe("hasAccess tests", () => {
 
     expect(hasAccess(user, 1, MimirorgPermission.Manage)).toBe(false);
     expect(hasAccess(user, 1, MimirorgPermission.Approve)).toBe(false);
-    expect(hasAccess(user, 1, MimirorgPermission.Delete)).toBe(false);
     expect(hasAccess(user, 1, MimirorgPermission.Write)).toBe(false);
     expect(hasAccess(user, 1, MimirorgPermission.Read)).toBe(false);
   });
@@ -42,7 +41,6 @@ describe("hasAccess tests", () => {
 
     expect(hasAccess(user, 1, MimirorgPermission.Manage)).toBe(true);
     expect(hasAccess(user, 1, MimirorgPermission.Approve)).toBe(true);
-    expect(hasAccess(user, 1, MimirorgPermission.Delete)).toBe(true);
     expect(hasAccess(user, 1, MimirorgPermission.Write)).toBe(true);
     expect(hasAccess(user, 1, MimirorgPermission.Read)).toBe(true);
   });
@@ -57,22 +55,6 @@ describe("hasAccess tests", () => {
 
     expect(hasAccess(user, 1, MimirorgPermission.Manage)).toBe(false);
     expect(hasAccess(user, 1, MimirorgPermission.Approve)).toBe(true);
-    expect(hasAccess(user, 1, MimirorgPermission.Delete)).toBe(true);
-    expect(hasAccess(user, 1, MimirorgPermission.Write)).toBe(true);
-    expect(hasAccess(user, 1, MimirorgPermission.Read)).toBe(true);
-  });
-
-  test("delete validates ok", () => {
-    const user: MimirorgUserCm = {
-      ...createEmptyMimirorgUserCm(),
-      permissions: {
-        "1": MimirorgPermission.Delete,
-      },
-    };
-
-    expect(hasAccess(user, 1, MimirorgPermission.Manage)).toBe(false);
-    expect(hasAccess(user, 1, MimirorgPermission.Approve)).toBe(false);
-    expect(hasAccess(user, 1, MimirorgPermission.Delete)).toBe(true);
     expect(hasAccess(user, 1, MimirorgPermission.Write)).toBe(true);
     expect(hasAccess(user, 1, MimirorgPermission.Read)).toBe(true);
   });
@@ -87,7 +69,6 @@ describe("hasAccess tests", () => {
 
     expect(hasAccess(user, 1, MimirorgPermission.Manage)).toBe(false);
     expect(hasAccess(user, 1, MimirorgPermission.Approve)).toBe(false);
-    expect(hasAccess(user, 1, MimirorgPermission.Delete)).toBe(false);
     expect(hasAccess(user, 1, MimirorgPermission.Write)).toBe(true);
     expect(hasAccess(user, 1, MimirorgPermission.Read)).toBe(true);
   });
@@ -102,7 +83,6 @@ describe("hasAccess tests", () => {
 
     expect(hasAccess(user, 1, MimirorgPermission.Manage)).toBe(false);
     expect(hasAccess(user, 1, MimirorgPermission.Approve)).toBe(false);
-    expect(hasAccess(user, 1, MimirorgPermission.Delete)).toBe(false);
     expect(hasAccess(user, 1, MimirorgPermission.Write)).toBe(false);
     expect(hasAccess(user, 1, MimirorgPermission.Read)).toBe(true);
   });

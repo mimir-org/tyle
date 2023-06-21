@@ -40,7 +40,7 @@ public class UnitService : IUnitService
     /// <inheritdoc />
     public IEnumerable<UnitLibCm> Get()
     {
-        var dataList = _unitRepository.Get()?.ExcludeDeleted().ToList();
+        var dataList = _unitRepository.Get()?.ToList();
 
         if (dataList == null || !dataList.Any())
             return new List<UnitLibCm>();
@@ -59,12 +59,6 @@ public class UnitService : IUnitService
         var data = _mapper.Map<UnitLibCm>(unit);
 
         return data;
-    }
-
-    /// <inheritdoc />
-    public UnitLibDm GetDm(string id)
-    {
-        return _unitRepository.Get(id) ?? throw new MimirorgNotFoundException($"Unit with id {id} not found.");
     }
 
     /// <inheritdoc />
@@ -134,27 +128,32 @@ public class UnitService : IUnitService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(UnitLibDm dm, State state, bool sendStateEmail)
+    public async Task Delete(string id)
     {
-        if (dm == null)
-            throw new MimirorgNotFoundException($"UnitLibDm is 'null'");
+        var dm = _unitRepository.Get(id) ?? throw new MimirorgNotFoundException($"Unit with id {id} not found.");
 
-        if (state == State.Rejected && dm.State is State.Draft or State.Deleted or State.Approved)
-            throw new MimirorgInvalidOperationException($"State 'Rejected' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
+        if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException($"Can't delete approved unit with id {id}.");
+
+        await _unitRepository.Delete(id);
+        await _unitRepository.SaveAsync();
+    }
+
+    /// <inheritdoc />
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
+    {
+        var dm = _unitRepository.Get(id) ?? throw new MimirorgNotFoundException($"Unit with id {id} not found.");
 
         if (dm.State == State.Approved)
             throw new MimirorgInvalidOperationException($"State '{state}' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
 
-        await _unitRepository.ChangeState(state == State.Rejected ? State.Draft : state, dm.Id);
+        await _unitRepository.ChangeState(state, dm.Id);
         _hookService.HookQueue.Enqueue(CacheKey.Unit);
         await _logService.CreateLog(dm, LogType.State, state.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
-
-        if (state == State.Rejected)
-            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         if (sendStateEmail)
             await _emailService.SendObjectStateEmail(dm.Id, state, dm.Name, ObjectTypeName.Unit);
 
-        return new ApprovalDataCm { Id = dm.Id, State = state == State.Rejected ? State.Draft : state };
+        return new ApprovalDataCm { Id = dm.Id, State = state };
     }
 }

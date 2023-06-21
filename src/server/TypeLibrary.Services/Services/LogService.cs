@@ -33,6 +33,13 @@ public class LogService : ILogService
         return _mapper.Map<List<LogLibCm>>(dms);
     }
 
+    public List<LogLibCm> Get(string objectId)
+    {
+        var dms = _logRepository.Get(objectId);
+
+        return _mapper.Map<List<LogLibCm>>(dms);
+    }
+
     /// <summary>
     /// Create a log entry
     /// </summary>

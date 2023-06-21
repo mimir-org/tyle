@@ -21,7 +21,7 @@ const useAdministerLinks = (): Link[] => {
 
   const isGlobalAdmin = useGetRoles()?.includes("Global administrator");
   const managesCompanies = useGetFilteredCompanies(MimirorgPermission.Manage).length > 0;
-  const hasDeletePermissionOrHigher = useGetFilteredCompanies(MimirorgPermission.Delete).length > 0;
+  const hasApprovePermissionOrHigher = useGetFilteredCompanies(MimirorgPermission.Approve).length > 0;
 
   const result: Link[] = [
     {
@@ -30,7 +30,7 @@ const useAdministerLinks = (): Link[] => {
     },
   ];
 
-  if (hasDeletePermissionOrHigher) {
+  if (hasApprovePermissionOrHigher) {
     result.push({
       name: t("approval.title"),
       path: approvalBasePath,

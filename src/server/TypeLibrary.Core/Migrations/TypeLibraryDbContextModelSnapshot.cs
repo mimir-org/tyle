@@ -17,7 +17,7 @@ namespace TypeLibrary.Core.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.5")
+                .HasAnnotation("ProductVersion", "7.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -102,7 +102,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnName("PurposeName");
 
                     b.Property<string>("RdsId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(63)");
 
                     b.Property<string>("SelectedAttributePredefined")
@@ -190,6 +189,9 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
+                    b.Property<string>("AspectObjectLibDmId")
+                        .HasColumnType("nvarchar(63)");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
                         .HasColumnName("Created");
@@ -222,6 +224,9 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("State");
 
+                    b.Property<string>("TerminalLibDmId")
+                        .HasColumnType("nvarchar(63)");
+
                     b.Property<string>("TypeReference")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
@@ -229,7 +234,11 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AspectObjectLibDmId");
+
                     b.HasIndex("State");
+
+                    b.HasIndex("TerminalLibDmId");
 
                     b.ToTable("Attribute", (string)null);
                 });
@@ -719,11 +728,13 @@ namespace TypeLibrary.Core.Migrations
                 {
                     b.HasOne("TypeLibrary.Data.Models.AspectObjectLibDm", "AspectObject")
                         .WithMany("AspectObjectAttributes")
-                        .HasForeignKey("AspectObjectId");
+                        .HasForeignKey("AspectObjectId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", "Attribute")
-                        .WithMany()
-                        .HasForeignKey("AttributeId");
+                        .WithMany("AttributeAspectObjects")
+                        .HasForeignKey("AttributeId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("AspectObject");
 
@@ -735,8 +746,7 @@ namespace TypeLibrary.Core.Migrations
                     b.HasOne("TypeLibrary.Data.Models.RdsLibDm", "Rds")
                         .WithMany()
                         .HasForeignKey("RdsId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Rds");
                 });
@@ -746,16 +756,27 @@ namespace TypeLibrary.Core.Migrations
                     b.HasOne("TypeLibrary.Data.Models.AspectObjectLibDm", "AspectObject")
                         .WithMany("AspectObjectTerminals")
                         .HasForeignKey("AspectObjectId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", "Terminal")
                         .WithMany("TerminalAspectObjects")
                         .HasForeignKey("TerminalId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("AspectObject");
 
                     b.Navigation("Terminal");
+                });
+
+            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>
+                {
+                    b.HasOne("TypeLibrary.Data.Models.AspectObjectLibDm", null)
+                        .WithMany("Attributes")
+                        .HasForeignKey("AspectObjectLibDmId");
+
+                    b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", null)
+                        .WithMany("Attributes")
+                        .HasForeignKey("TerminalLibDmId");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeUnitLibDm", b =>
@@ -763,12 +784,12 @@ namespace TypeLibrary.Core.Migrations
                     b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", "Attribute")
                         .WithMany("AttributeUnits")
                         .HasForeignKey("AttributeId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TypeLibrary.Data.Models.UnitLibDm", "Unit")
                         .WithMany("UnitAttributes")
                         .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Attribute");
 
@@ -789,12 +810,14 @@ namespace TypeLibrary.Core.Migrations
             modelBuilder.Entity("TypeLibrary.Data.Models.TerminalAttributeLibDm", b =>
                 {
                     b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", "Attribute")
-                        .WithMany()
-                        .HasForeignKey("AttributeId");
+                        .WithMany("AttributeTerminals")
+                        .HasForeignKey("AttributeId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", "Terminal")
                         .WithMany("TerminalAttributes")
-                        .HasForeignKey("TerminalId");
+                        .HasForeignKey("TerminalId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Attribute");
 
@@ -806,15 +829,23 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("AspectObjectAttributes");
 
                     b.Navigation("AspectObjectTerminals");
+
+                    b.Navigation("Attributes");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>
                 {
+                    b.Navigation("AttributeAspectObjects");
+
+                    b.Navigation("AttributeTerminals");
+
                     b.Navigation("AttributeUnits");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>
                 {
+                    b.Navigation("Attributes");
+
                     b.Navigation("TerminalAspectObjects");
 
                     b.Navigation("TerminalAttributes");
