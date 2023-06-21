@@ -64,15 +64,6 @@ public static class RolePermissionExtensions
             }
         }
 
-        // Moderator role should give delete permission to all companies
-        else if (roles.Any(x => x is "Moderator"))
-        {
-            foreach (var company in companies)
-            {
-                resolvedPermissions.Add(company.Id, MimirorgPermission.Delete);
-            }
-        }
-
         var userCompanyClaims = claims.Where(x => companies.Any(y => x.Type == y.Id.ToString())).ToList();
         foreach (var claim in userCompanyClaims)
         {

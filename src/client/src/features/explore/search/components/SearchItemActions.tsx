@@ -1,6 +1,5 @@
 import { useTheme } from "styled-components";
 import { useTranslation } from "react-i18next";
-import { usePatchTerminalState } from "../../../../external/sources/terminal/terminal.queries";
 import { useButtonStateFilter } from "../hooks/useButtonFilter";
 import { State } from "@mimirorg/typelibrary-types";
 import { PlainLink } from "../../../common/plain-link";
@@ -8,13 +7,8 @@ import { Button } from "../../../../complib/buttons";
 import { Check, DocumentDuplicate, PencilSquare, Trash } from "@styled-icons/heroicons-outline";
 import { AlertDialog } from "../../../../complib/overlays";
 import { UserItem } from "../../../../common/types/userItem";
-import { getCloneLink, getEditLink } from "./SearchItemActions.helpers";
+import { getCloneLink, getEditLink, useDeleteMutation, usePatchMutation } from "./SearchItemActions.helpers";
 import { ItemType } from "../../../entities/types/itemTypes";
-import { usePatchRdsState } from "../../../../external/sources/rds/rds.queries";
-import { usePatchAspectObjectState } from "../../../../external/sources/aspectobject/aspectObject.queries";
-import { usePatchAttributeState } from "../../../../external/sources/attribute/attribute.queries";
-import { usePatchUnitState } from "../../../../external/sources/unit/unit.queries";
-import { usePatchQuantityDatumState } from "../../../../external/sources/datum/quantityDatum.queries";
 import { Text } from "../../../../complib/text";
 import { Tooltip } from "../../../../complib/data-display";
 import { StateBadge } from "../../../ui/badges/StateBadge";
@@ -33,32 +27,10 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const theme = useTheme();
   const { t } = useTranslation("explore");
-  const patchAspectObjectMutation = usePatchAspectObjectState();
-  const patchTerminalMutation = usePatchTerminalState();
-  const patchUnitMutation = usePatchUnitState();
-  const patchQuantityDatumMutation = usePatchQuantityDatumState();
-  const patchRdsMutation = usePatchRdsState();
-  const patchAttributeMutation = usePatchAttributeState();
   const btnFilter = useButtonStateFilter(item, user);
 
-  function getMutation() {
-    switch (item.kind) {
-      case "AspectObjectItem":
-        return patchAspectObjectMutation;
-      case "TerminalItem":
-        return patchTerminalMutation;
-      case "AttributeItem":
-        return patchAttributeMutation;
-      case "UnitItem":
-        return patchUnitMutation;
-      case "QuantityDatumItem":
-        return patchQuantityDatumMutation;
-      case "RdsItem":
-        return patchRdsMutation;
-      default:
-        throw new Error("Unknown item kind");
-    }
-  }
+  const patchMutation = usePatchMutation(item);
+  const deleteMutation = useDeleteMutation(item);
 
   const submitToast = (submissionPromise: Promise<unknown>) =>
     toast.promise(submissionPromise, {
@@ -74,7 +46,7 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
   const deleteAction = {
     name: t("search.item.delete"),
     onAction: () => {
-      const mutation = getMutation().mutateAsync({ id: item.id, state: State.Delete });
+      const mutation = deleteMutation.mutateAsync();
       submitToast(mutation);
     },
   };
@@ -82,7 +54,7 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
   const approveAction = {
     name: t("search.item.approve"),
     onAction: () => {
-      const mutation = getMutation().mutateAsync({ id: item.id, state: State.Approve });
+      const mutation = patchMutation.mutateAsync({ id: item.id, state: State.Review });
       submitToast(mutation);
     },
   };
@@ -132,7 +104,7 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
       />
       <Tooltip content={<Text>{t("search.item.approve")}</Text>}>
         <Button
-          disabled={!btnFilter.approve}
+          disabled={!btnFilter.review}
           tabIndex={0}
           variant={btnFilter.approved ? "outlined" : "filled"}
           icon={<Check />}
@@ -155,7 +127,7 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
       <Tooltip content={<Text>{t("search.item.delete")}</Text>}>
         <Button
           disabled={!btnFilter.delete}
-          variant={btnFilter.deleted ? "outlined" : "filled"}
+          variant={"filled"}
           icon={<Trash />}
           dangerousAction
           iconOnly

@@ -38,18 +38,18 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
-    /// Get latest approved aspect objects as well as drafts
+    /// Get latest approved aspect objects as well as unfinished and in review drafts
     /// </summary>
     /// <returns>A collection of aspect objects</returns>
     [HttpGet]
     [ProducesResponseType(typeof(ICollection<AspectObjectLibCm>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult GetLatestApprovedAndDrafts()
+    public IActionResult GetLatestVersions()
     {
         try
         {
-            var cm = _aspectObjectService.GetLatestApprovedAndDrafts().ToList();
+            var cm = _aspectObjectService.GetLatestVersions().ToList();
             return Ok(cm);
         }
         catch (Exception e)
@@ -202,6 +202,45 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
+    /// Delete an aspect object that is not approved
+    /// </summary>
+    /// <param name="id">The id of the aspect object to delete</param>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [Authorize]
+    public async Task<IActionResult> Delete([FromRoute] string id)
+    {
+        try
+        {
+            var aspectObject = _aspectObjectService.Get(id);
+            var hasAccess = await _authService.CanDelete(aspectObject.State, aspectObject.CreatedBy, aspectObject.CompanyId);
+
+            if (!hasAccess)
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            await _aspectObjectService.Delete(id);
+            return NoContent();
+        }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
     /// Update an aspect object with new state
     /// </summary>
     /// <param name="id">The id of the aspect object to be updated</param>
@@ -218,13 +257,13 @@ public class LibraryAspectObjectController : ControllerBase
     {
         try
         {
-            var dm = _aspectObjectService.GetLatestVersionExcludeDeleted(id);
-            var hasAccess = await _authService.HasAccess(dm.CompanyId, state, dm.State);
+            var companyId = _aspectObjectService.GetCompanyId(id);
+            var hasAccess = await _authService.HasAccess(companyId, state);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _aspectObjectService.ChangeState(dm, state, true);
+            var data = await _aspectObjectService.ChangeState(id, state, true);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)

@@ -166,6 +166,45 @@ public class LibraryUnitController : ControllerBase
     }
 
     /// <summary>
+    /// Delete a unit that is not approved
+    /// </summary>
+    /// <param name="id">The id of the unit to delete</param>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [Authorize]
+    public async Task<IActionResult> Delete([FromRoute] string id)
+    {
+        try
+        {
+            var unit = _unitService.Get(id);
+            var hasAccess = await _authService.CanDelete(unit.State, unit.CreatedBy, CompanyConstants.AnyCompanyId);
+
+            if (!hasAccess)
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            await _unitService.Delete(id);
+            return NoContent();
+        }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
     /// Update a unit with a new state
     /// </summary>
     /// <param name="id">The id of the unit to be updated</param>
@@ -182,13 +221,12 @@ public class LibraryUnitController : ControllerBase
     {
         try
         {
-            var dm = _unitService.GetDm(id);
-            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state, dm.State);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _unitService.ChangeState(dm, state, true);
+            var data = await _unitService.ChangeState(id, state, true);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)

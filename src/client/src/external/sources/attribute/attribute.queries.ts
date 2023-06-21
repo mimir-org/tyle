@@ -40,3 +40,11 @@ export const usePatchAttributeState = () => {
     onSuccess: () => queryClient.invalidateQueries(keys.attributeLists()),
   });
 };
+
+export const useDeleteAttribute = (id: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation(() => attributeApi.deleteAttribute(id), {
+    onSuccess: () => queryClient.invalidateQueries(keys.attributeLists()),
+  });
+};

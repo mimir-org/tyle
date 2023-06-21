@@ -17,20 +17,7 @@ public static class EnumerableExtensions
         return dictA.Keys.Union(dictB.Keys).ToDictionary(k => k, k => dictA.ContainsKey(k) ? dictA[k] : dictB[k]);
     }
 
-    public static IEnumerable<T> ExcludeDeleted<T>(this IEnumerable<T> collection) where T : IStatefulObject
-    {
-        return collection.Where(x => x.State != State.Deleted);
-    }
-
-    public static IEnumerable<T> LatestVersionsExcludeDeleted<T>(this IEnumerable<T> collection) where T : IVersionObject
-    {
-        return collection
-            .Where(x => x.State != State.Deleted)
-            .OrderByDescending(x => VersionToDouble(x.Version))
-            .DistinctBy(x => x.FirstVersionId);
-    }
-
-    public static IEnumerable<T> LatestVersionsIncludeDeleted<T>(this IEnumerable<T> collection) where T : IVersionObject
+    public static IEnumerable<T> LatestVersions<T>(this IEnumerable<T> collection) where T : IVersionObject
     {
         return collection
             .OrderByDescending(x => VersionToDouble(x.Version))
@@ -45,15 +32,7 @@ public static class EnumerableExtensions
             .DistinctBy(x => x.FirstVersionId);
     }
 
-    public static T LatestVersionExcludeDeleted<T>(this IEnumerable<T> collection, string firstVersionId) where T : IVersionObject
-    {
-        return collection
-            .Where(x => x.FirstVersionId == firstVersionId && x.State != State.Deleted)
-            .OrderByDescending(x => VersionToDouble(x.Version))
-            .FirstOrDefault();
-    }
-
-    public static T LatestVersionIncludeDeleted<T>(this IEnumerable<T> collection, string firstVersionId) where T : IVersionObject
+    public static T LatestVersion<T>(this IEnumerable<T> collection, string firstVersionId) where T : IVersionObject
     {
         return collection
             .Where(x => x.FirstVersionId == firstVersionId)

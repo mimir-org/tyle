@@ -165,6 +165,45 @@ public class LibraryRdsController : ControllerBase
     }
 
     /// <summary>
+    /// Delete a RDS that is not approved
+    /// </summary>
+    /// <param name="id">The id of the RDS to delete</param>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [Authorize]
+    public async Task<IActionResult> Delete([FromRoute] string id)
+    {
+        try
+        {
+            var rds = _rdsService.Get(id);
+            var hasAccess = await _authService.CanDelete(rds.State, rds.CreatedBy, CompanyConstants.AnyCompanyId);
+
+            if (!hasAccess)
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            await _rdsService.Delete(id);
+            return NoContent();
+        }
+        catch (MimirorgNotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+        catch (MimirorgInvalidOperationException e)
+        {
+            return StatusCode(StatusCodes.Status403Forbidden, e.Message);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Internal Server Error: {e.Message}");
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
+
+    /// <summary>
     /// Update a RDS object with a new state
     /// </summary>
     /// <param name="id">The id of the RDS to be updated</param>
@@ -181,13 +220,12 @@ public class LibraryRdsController : ControllerBase
     {
         try
         {
-            var dm = _rdsService.GetDm(id);
-            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state, dm.State);
+            var hasAccess = await _authService.HasAccess(CompanyConstants.AnyCompanyId, state);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _rdsService.ChangeState(dm, state, true);
+            var data = await _rdsService.ChangeState(id, state, true);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)

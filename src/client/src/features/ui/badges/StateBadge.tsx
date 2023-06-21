@@ -22,22 +22,10 @@ export const StateBadge = ({ state }: StateBadgeProps) => {
   const stateString = getStateString(state);
 
   switch (stateString) {
-    case "Delete":
-      return (
-        <Badge variant={"warning"}>
-          <Text variant={"body-medium"}>{t(`search.item.states.delete`)}</Text>
-        </Badge>
-      );
-    case "Deleted":
-      return (
-        <Badge variant={"error"}>
-          <Text variant={"body-medium"}>{t(`search.item.states.deleted`)}</Text>
-        </Badge>
-      );
-    case "Approve":
+    case "Review":
       return (
         <Badge variant={"info"}>
-          <Text variant={"body-medium"}>{t(`search.item.states.approve`)}</Text>
+          <Text variant={"body-medium"}>{t(`search.item.states.review`)}</Text>
         </Badge>
       );
     case "Approved":

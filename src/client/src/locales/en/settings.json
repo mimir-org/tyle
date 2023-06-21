@@ -22,11 +22,10 @@
   },
   "approval": {
     "title": "Approval",
-    "subtitle": "Types ready for approval or deletion",
+    "subtitle": "Types ready for approval",
     "approval": "Types ready for approval",
-    "deletion": "Types ready for deletion",
     "placeholders": {
-      "emptyApproval": "There is no types ready for approval or deletion"
+      "emptyApproval": "There is no types ready for approval"
     }
   },
   "usersettings": {

@@ -18,6 +18,11 @@ public class EfLogRepository : GenericRepository<TypeLibraryDbContext, LogLibDm>
         return GetAll();
     }
 
+    public IEnumerable<LogLibDm> Get(string objectId)
+    {
+        return FindBy(x => x.ObjectId == objectId);
+    }
+
     /// <inheritdoc />
     public async Task Create(ICollection<LogLibDm> logDms)
     {

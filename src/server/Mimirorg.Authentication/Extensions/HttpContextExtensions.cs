@@ -17,10 +17,6 @@ public static class HttpContextExtensions
         if (MimirorgPermission.Manage.HasFlag(permission) && context.User.IsInRole(MimirorgDefaultRoles.AccountManager))
             return true;
 
-        // If delete flag and is in moderator role, always return true 
-        if (MimirorgPermission.Delete.HasFlag(permission) && context.User.IsInRole(MimirorgDefaultRoles.Moderator))
-            return true;
-
         if (value == null)
             return false;
 

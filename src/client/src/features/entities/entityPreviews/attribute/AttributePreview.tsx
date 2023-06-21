@@ -20,6 +20,7 @@ const StyledDiv = styled.div<StyledDivProps>`
   background-color: ${(props) =>
     props.small ? props.theme.tyle.color.sys.pure.base : props.theme.tyle.color.sys.tertiary.on};
   border: 1px solid ${(props) => props.theme.tyle.color.sys.outline.base};
+  max-height: 75vh;
   max-width: 40rem;
   height: fit-content;
   overflow-y: auto;

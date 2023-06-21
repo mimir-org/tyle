@@ -90,17 +90,13 @@ export const useApprovalToasts = () => {
  * @param state current state
  * @returns next state
  * @example
- * findNextState(State.Approve) // State.Approved
- * findNextState(State.Delete) // State.Deleted
+ * findNextState(State.Review) // State.Approved
  * findNextState(State.Approved) // State.Approved
- * findNextState(State.Deleted) // State.Deleted
  */
 export const findNextState = (state: State): State => {
   switch (state) {
-    case State.Approve:
+    case State.Review:
       return State.Approved;
-    case State.Delete:
-      return State.Deleted;
     default:
       return state;
   }

@@ -13,4 +13,5 @@ export interface AspectObjectItem extends StateItem {
   attributes: InfoItem[];
   kind: string;
   companyId: number;
+  createdBy: string;
 }

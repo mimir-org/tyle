@@ -294,19 +294,15 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// </summary>
     /// <param name="companyId">The id of the company, or 0 for non-company objects</param>
     /// <param name="newState">The state to check for permission</param>
-    /// <param name="currentState"></param>
     /// <returns>True if has access, otherwise it returns false</returns>
     /// <exception cref="ArgumentOutOfRangeException">If not a valid state</exception>
-    public Task<bool> HasAccess(int companyId, State newState, State currentState)
+    public Task<bool> HasAccess(int companyId, State newState)
     {
         var permission = newState switch
         {
-            State.Draft => MimirorgPermission.Write,
-            State.Approve => MimirorgPermission.Write,
-            State.Delete => MimirorgPermission.Write,
+            State.Draft => MimirorgPermission.Approve,
+            State.Review => MimirorgPermission.Write,
             State.Approved => MimirorgPermission.Approve,
-            State.Deleted => MimirorgPermission.Delete,
-            State.Rejected => RejectStatePermissionNeeded(currentState),
             _ => throw new ArgumentOutOfRangeException(nameof(newState), newState, null)
         };
 
@@ -314,30 +310,17 @@ public class MimirorgAuthService : IMimirorgAuthService
         return Task.FromResult(access ?? false);
     }
 
+    public Task<bool> CanDelete(State state, string createdById, int companyId)
+    {
+        if (state == State.Approved) return Task.FromResult(false);
+
+        var currentUserId = _contextAccessor.GetUserId();
+        return currentUserId == createdById ? Task.FromResult(_actionContextAccessor.ActionContext?.HttpContext.HasPermission(MimirorgPermission.Write, companyId.ToString()) ?? false) : HasAccess(companyId, State.Approved);
+    }
+
     #endregion
 
     #region Private Methods
-
-    /// <summary>
-    /// Returns needed MimirorgPermission to be able to reject a state change request
-    /// </summary>
-    /// <param name="currentState"></param>
-    /// <returns></returns>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
-    private MimirorgPermission RejectStatePermissionNeeded(State currentState)
-    {
-        switch (currentState)
-        {
-            case State.Delete:
-                return MimirorgPermission.Delete;
-
-            case State.Approve:
-                return MimirorgPermission.Approve;
-
-            default:
-                throw new ArgumentOutOfRangeException($"Method 'CanRejectState' out of range. Current state is: {currentState}");
-        }
-    }
 
     /// <summary>
     /// Validate security code
@@ -380,31 +363,12 @@ public class MimirorgAuthService : IMimirorgAuthService
     /// <returns></returns>
     private async Task SendUserPermissionEmail(MimirorgUser toUser, MimirorgPermission permission, string companyName, bool isPermissionRemoval)
     {
-        /* We can not reference 'IMimirorgUserService' because that service is referencing this service.
-         * If this reference is atempted it will result in a 'circular dependency' error. 
-         * The 'MimirorgUserCm' objects needs to be manually constructed here.
-         */
-
         var from = await _userManager.FindByIdAsync(_contextAccessor.GetUserId());
 
         if (from == null || toUser == null)
             throw new MimirorgNotFoundException("User(s) not found 'SendUserPermissionEmail'");
 
-        var fromUser = new MimirorgUserCm
-        {
-            FirstName = from.FirstName,
-            LastName = from.LastName,
-            Email = from.Email
-        };
-
-        var sendToUser = new MimirorgUserCm
-        {
-            FirstName = toUser.FirstName,
-            LastName = toUser.LastName,
-            Email = toUser.Email
-        };
-
-        var email = await _templateRepository.CreateUserPermissionEmail(sendToUser, fromUser, permission, companyName, isPermissionRemoval);
+        var email = await _templateRepository.CreateUserPermissionEmail(toUser.ToContentModel(), from.ToContentModel(), permission, companyName, isPermissionRemoval);
 
         await _emailRepository.SendEmail(email);
     }

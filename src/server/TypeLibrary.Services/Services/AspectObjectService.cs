@@ -56,22 +56,14 @@ public class AspectObjectService : IAspectObjectService
     }
 
     /// <inheritdoc />
-    public IEnumerable<AspectObjectLibCm> GetLatestApprovedAndDrafts()
+    public IEnumerable<AspectObjectLibCm> GetLatestVersions()
     {
-        var latestAll = _aspectObjectRepository.Get()?.LatestVersionsExcludeDeleted()?.ToList() ?? new List<AspectObjectLibDm>();
+        var latestAll = _aspectObjectRepository.Get()?.LatestVersions()?.ToList() ?? new List<AspectObjectLibDm>();
         var latestApproved = _aspectObjectRepository.Get()?.LatestVersionsApproved()?.ToList() ?? new List<AspectObjectLibDm>();
 
         var result = latestAll.Union(latestApproved).OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase);
 
         return !result.Any() ? new List<AspectObjectLibCm>() : _mapper.Map<List<AspectObjectLibCm>>(result);
-    }
-
-    /// <inheritdoc />
-    public IEnumerable<AspectObjectLibCm> GetLatestRequests()
-    {
-        var latestRequests = _aspectObjectRepository.Get()?.LatestVersionsExcludeDeleted()?.Where(x => x.State is State.Approve or State.Delete).ToList() ?? new List<AspectObjectLibDm>();
-
-        return !latestRequests.Any() ? new List<AspectObjectLibCm>() : _mapper.Map<List<AspectObjectLibCm>>(latestRequests);
     }
 
     /// <inheritdoc />
@@ -100,13 +92,6 @@ public class AspectObjectService : IAspectObjectService
             throw new MimirorgNotFoundException($"No approved version was found for aspect object with id {id}.");
 
         return _mapper.Map<AspectObjectLibCm>(latestVersionApproved);
-    }
-
-    /// <inheritdoc />
-    public AspectObjectLibDm GetLatestVersionExcludeDeleted(string id)
-    {
-        return _aspectObjectRepository.Get().LatestVersionsExcludeDeleted().FirstOrDefault(x => x.Id == id)
-               ?? throw new MimirorgNotFoundException($"Aspect object with id {id} not found, is deleted or is not latest version.");
     }
 
     /// <inheritdoc />
@@ -178,7 +163,7 @@ public class AspectObjectService : IAspectObjectService
            If not, a draft already exists, or it is not the latest approved version of the object */
         if (aspectObjectToUpdate.State == State.Approved)
         {
-            var latestVersion = _aspectObjectRepository.Get().LatestVersionExcludeDeleted(aspectObjectToUpdate.FirstVersionId);
+            var latestVersion = _aspectObjectRepository.Get().LatestVersion(aspectObjectToUpdate.FirstVersionId);
 
             if (latestVersion.Id != aspectObjectToUpdate.Id)
                 throw new MimirorgInvalidOperationException($"Cannot create new version draft for this object, a draft or newer approved version already exists (id: {latestVersion.Id}).");
@@ -353,30 +338,38 @@ public class AspectObjectService : IAspectObjectService
     }
 
     /// <inheritdoc />
-    public async Task<ApprovalDataCm> ChangeState(AspectObjectLibDm dm, State state, bool sendStateEmail)
+    public async Task Delete(string id)
     {
-        if (dm == null)
-            throw new MimirorgNullReferenceException("Object is 'null'");
+        var dm = _aspectObjectRepository.Get(id) ?? throw new MimirorgNotFoundException($"Aspect object with id {id} not found.");
 
-        if (state == State.Rejected && dm.State is State.Draft or State.Deleted or State.Approved)
-            throw new MimirorgInvalidOperationException($"State 'Rejected' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
+        if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException($"Can't delete approved aspect object with id {id}.");
+
+        await _aspectObjectRepository.Delete(id);
+        await _aspectObjectRepository.SaveAsync();
+    }
+
+    /// <inheritdoc />
+    public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
+    {
+        var dm = _aspectObjectRepository.Get(id) ?? throw new MimirorgNotFoundException($"Aspect object with id {id} not found.");
 
         if (dm.State == State.Approved)
             throw new MimirorgInvalidOperationException($"State '{state}' is not allowed for object {dm.Name} with id {dm.Id} since current state is {dm.State}");
 
-        if (state == State.Approve)
+        if (state == State.Review)
         {
             var latestApprovedVersion = _aspectObjectRepository.Get().LatestVersionApproved(dm.FirstVersionId);
 
             if (latestApprovedVersion != null && latestApprovedVersion.Equals(dm))
                 throw new MimirorgInvalidOperationException("Cannot approve this aspect object since it is identical to the currently approved version.");
 
+            if (dm.RdsId == null)
+                throw new MimirorgInvalidOperationException("Cannot approve an aspect object without a RDS code.");
+
             if (dm.Rds.State != State.Approved)
             {
-                if (dm.Rds.State == State.Deleted)
-                    throw new MimirorgInvalidOperationException("Cannot request approval for aspect object that uses deleted RDS.");
-
-                await _rdsService.ChangeState(dm.Rds, State.Approve, true);
+                await _rdsService.ChangeState(dm.RdsId, State.Review, true);
             }
 
             foreach (var attribute in dm.Attributes)
@@ -384,23 +377,17 @@ public class AspectObjectService : IAspectObjectService
                 if (attribute.State == State.Approved)
                     continue;
 
-                if (attribute.State == State.Deleted)
-                    throw new MimirorgInvalidOperationException("Cannot request approval for aspect object that uses deleted attributes.");
-
-                await _attributeService.ChangeState(attribute, State.Approve, true);
+                await _attributeService.ChangeState(attribute.Id, State.Review, true);
             }
 
             foreach (var aspectObjectTerminal in dm.AspectObjectTerminals)
             {
-                var terminal = _terminalService.GetDm(aspectObjectTerminal.TerminalId);
+                var terminal = _terminalService.Get(aspectObjectTerminal.TerminalId);
 
                 if (terminal.State == State.Approved)
                     continue;
 
-                if (terminal.State == State.Deleted)
-                    throw new MimirorgInvalidOperationException("Cannot request approval for aspect object that uses deleted terminals.");
-
-                await _terminalService.ChangeState(terminal, State.Approve, true);
+                await _terminalService.ChangeState(terminal.Id, State.Review, true);
             }
         }
         else if (state == State.Approved)
@@ -415,17 +402,14 @@ public class AspectObjectService : IAspectObjectService
                 throw new MimirorgInvalidOperationException("Cannot approve aspect object that uses unapproved terminals.");
         }
 
-        await _aspectObjectRepository.ChangeState(state == State.Rejected ? State.Draft : state, dm.Id);
+        await _aspectObjectRepository.ChangeState(state, dm.Id);
         _hookService.HookQueue.Enqueue(CacheKey.AspectObject);
-        await _logService.CreateLog(dm, LogType.State, state.ToString(), dm.CreatedBy);
-
-        if (state == State.Rejected)
-            await _logService.CreateLog(dm, LogType.State, State.Draft.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
+        await _logService.CreateLog(dm, LogType.State, state.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         if (sendStateEmail)
             await _emailService.SendObjectStateEmail(dm.Id, state, dm.Name, ObjectTypeName.AspectObject);
 
-        return new ApprovalDataCm { Id = dm.Id, State = state == State.Rejected ? State.Draft : state };
+        return new ApprovalDataCm { Id = dm.Id, State = state };
     }
 
     /// <inheritdoc />

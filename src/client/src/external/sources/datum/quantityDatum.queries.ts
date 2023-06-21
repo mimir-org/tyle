@@ -40,3 +40,11 @@ export const usePatchQuantityDatumState = () => {
     }
   );
 };
+
+export const useDeleteQuantityDatum = (id: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation(() => quantityDatumApi.deleteQuantityDatum(id), {
+    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
+  });
+};
