@@ -52,14 +52,14 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
     public IEnumerable<TerminalLibDm> Get()
     {
         return GetAll()
-            .Include(x => x.Attributes);
+            .Include(x => x.TerminalAttributes);
     }
 
     /// <inheritdoc />
     public TerminalLibDm Get(string id)
     {
         var terminal = FindBy(x => x.Id == id)
-            .Include(x => x.Attributes)
+            .Include(x => x.TerminalAttributes)
             .FirstOrDefault();
         return terminal;
     }
