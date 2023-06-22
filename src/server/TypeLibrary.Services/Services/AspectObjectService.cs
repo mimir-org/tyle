@@ -290,7 +290,7 @@ public class AspectObjectService : IAspectObjectService
 
         // Delete removed attributes, and add new attributes
         var currentAspectObjectAttributes = aspectObjectToUpdate.AspectObjectAttributes.ToHashSet();
-        var newAttributes = new HashSet<AttributeLibDm>();
+        var newAspectObjectAttributes = new HashSet<AspectObjectAttributeLibDm>();
 
         if (aspectObjectAm.Attributes != null)
         {
@@ -304,12 +304,12 @@ public class AspectObjectService : IAspectObjectService
                 }
                 else
                 {
-                    newAttributes.Add(attribute);
+                    newAspectObjectAttributes.Add(new AspectObjectAttributeLibDm { AspectObjectId = aspectObjectToUpdate.Id, AttributeId = attribute.Id });
                 }
             }
         }
 
-        foreach (var aspectObjectAttribute in currentAspectObjectAttributes.ExceptBy(newAttributes.Select(x => x.Id), y => y.AttributeId))
+        foreach (var aspectObjectAttribute in currentAspectObjectAttributes.ExceptBy(newAspectObjectAttributes.Select(x => x.AttributeId), y => y.AttributeId))
         {
             var aspectObjectAttributeToDelete = _aspectObjectAttributeRepository.FindBy(x => x.AspectObjectId == aspectObjectToUpdate.Id && x.AttributeId == aspectObjectAttribute.AttributeId).FirstOrDefault();
 
@@ -319,12 +319,12 @@ public class AspectObjectService : IAspectObjectService
             await _aspectObjectAttributeRepository.Delete(aspectObjectAttributeToDelete.Id);
         }
 
-        foreach (var attribute in newAttributes.ExceptBy(currentAspectObjectAttributes.Select(x => x.AttributeId), y => y.Id))
+        foreach (var aspectObjectAttribute in newAspectObjectAttributes.ExceptBy(currentAspectObjectAttributes.Select(x => x.AttributeId), y => y.AttributeId))
         {
             aspectObjectToUpdate.AspectObjectAttributes.Add(new AspectObjectAttributeLibDm
             {
                 AspectObjectId = aspectObjectToUpdate.Id,
-                AttributeId = attribute.Id
+                AttributeId = aspectObjectAttribute.AttributeId
             });
         }
 
