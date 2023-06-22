@@ -22,8 +22,8 @@ export const mapAttributeLibCmToInfoItem = (attribute: AttributeLibCm): InfoItem
     },
   };
 
-  const attributeHasAttributes = attribute.attributeUnits && attribute.attributeUnits.length > 0;
-  if (attributeHasAttributes) {
+  const attributeHasUnits = attribute.attributeUnits && attribute.attributeUnits.length > 0;
+  if (attributeHasUnits) {
     return {
       ...infoItem,
       descriptors: {

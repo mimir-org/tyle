@@ -119,7 +119,7 @@ public class TerminalService : ITerminalService
         if (!validation.IsValid)
             throw new MimirorgBadRequestException("Terminal is not valid.", validation);
 
-        var terminalToUpdate = _terminalRepository.FindBy(x => x.Id == id, false).Include(x => x.Attributes).FirstOrDefault();
+        var terminalToUpdate = _terminalRepository.FindBy(x => x.Id == id, false).Include(x => x.TerminalAttributes).FirstOrDefault();
 
         if (terminalToUpdate == null)
             throw new MimirorgNotFoundException("Terminal not found. Update is not possible.");
@@ -133,11 +133,10 @@ public class TerminalService : ITerminalService
             terminalToUpdate.TypeReference = terminalAm.TypeReference;
             terminalToUpdate.Color = terminalAm.Color;
             terminalToUpdate.Description = terminalAm.Description;
-            terminalToUpdate.Attributes ??= new List<AttributeLibDm>();
             terminalToUpdate.TerminalAttributes ??= new List<TerminalAttributeLibDm>();
 
-            var currentAttributes = terminalToUpdate.Attributes.ToHashSet();
-            var newAttributes = new HashSet<AttributeLibDm>();
+            var currentTerminalAttributes = terminalToUpdate.TerminalAttributes.ToHashSet();
+            var newTerminalAttributes = new HashSet<TerminalAttributeLibDm>();
 
             if (terminalAm.Attributes != null)
             {
@@ -151,27 +150,27 @@ public class TerminalService : ITerminalService
                     }
                     else
                     {
-                        newAttributes.Add(attribute);
+                        newTerminalAttributes.Add(new TerminalAttributeLibDm { TerminalId = id, AttributeId = attribute.Id });
                     }
                 }
             }
 
-            foreach (var attribute in currentAttributes.ExceptBy(newAttributes.Select(x => x.Id), y => y.Id))
+            foreach (var terminalAttribute in currentTerminalAttributes.ExceptBy(newTerminalAttributes.Select(x => x.AttributeId), y => y.AttributeId))
             {
-                var terminalAttribute = _terminalAttributeRepository.FindBy(x => x.TerminalId == terminalToUpdate.Id && x.AttributeId == attribute.Id).FirstOrDefault();
+                var terminalAttributeToDelete = _terminalAttributeRepository.FindBy(x => x.TerminalId == terminalToUpdate.Id && x.AttributeId == terminalAttribute.AttributeId).FirstOrDefault();
 
-                if (terminalAttribute == null)
+                if (terminalAttributeToDelete == null)
                     continue;
 
-                await _terminalAttributeRepository.Delete(terminalAttribute.Id);
+                await _terminalAttributeRepository.Delete(terminalAttributeToDelete.Id);
             }
 
-            foreach (var attribute in newAttributes.ExceptBy(currentAttributes.Select(x => x.Id), y => y.Id))
+            foreach (var terminalAttribute in newTerminalAttributes.ExceptBy(currentTerminalAttributes.Select(x => x.AttributeId), y => y.AttributeId))
             {
                 terminalToUpdate.TerminalAttributes.Add(new TerminalAttributeLibDm
                 {
                     TerminalId = terminalToUpdate.Id,
-                    AttributeId = attribute.Id
+                    AttributeId = terminalAttribute.AttributeId
                 });
             }
 
@@ -214,15 +213,15 @@ public class TerminalService : ITerminalService
 
         if (state == State.Review)
         {
-            foreach (var attribute in dm.Attributes)
+            foreach (var terminalAttribute in dm.TerminalAttributes)
             {
-                if (attribute.State == State.Approved)
+                if (terminalAttribute.Attribute.State == State.Approved)
                     continue;
 
-                await _attributeService.ChangeState(attribute.Id, State.Review, true);
+                await _attributeService.ChangeState(terminalAttribute.AttributeId, State.Review, true);
             }
         }
-        else if (state == State.Approved && dm.Attributes.Any(attribute => attribute.State != State.Approved))
+        else if (state == State.Approved && dm.TerminalAttributes.Any(terminalAttribute => terminalAttribute.Attribute.State != State.Approved))
         {
             throw new MimirorgInvalidOperationException("Cannot approve terminal that uses unapproved attributes.");
         }

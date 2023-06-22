@@ -118,27 +118,6 @@ public class MimirorgCommonFixture : IDisposable
         return (aspectObjectLibAm, aspectObjectLibDm);
     }
 
-    public (TerminalLibAm am, TerminalLibDm dm) CreateTerminalTestData()
-    {
-        var terminalLibAm = new TerminalLibAm
-        {
-            Name = "AA",
-            TypeReference = "https://www.tyle.com/",
-            Color = "#123",
-            Attributes = new List<string>()
-        };
-
-        var terminalLibDm = new TerminalLibDm
-        {
-            Name = "AA",
-            Color = "#123",
-            Attributes = new List<AttributeLibDm>(),
-            TypeReference = "https://www.tyle.com/"
-        };
-
-        return (terminalLibAm, terminalLibDm);
-    }
-
     public void Dispose()
     {
 

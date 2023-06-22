@@ -4,6 +4,7 @@ using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System;
+using System.Linq;
 using TypeLibrary.Core.Profiles.Resolvers;
 using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
@@ -26,7 +27,6 @@ public class TerminalProfile : Profile
             .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.TerminalAspectObjects, opt => opt.Ignore())
-            .ForMember(dest => dest.Attributes, opt => opt.Ignore())
             .ForMember(dest => dest.TerminalAttributes, opt => opt.Ignore());
 
         CreateMap<TerminalLibDm, TerminalLibCm>()
@@ -39,7 +39,7 @@ public class TerminalProfile : Profile
             .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
             .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-            .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes));
+            .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.TerminalAttributes.Select(x => x.Attribute)));
 
         CreateMap<TerminalLibCm, ApprovalCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
