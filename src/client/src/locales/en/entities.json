@@ -5,7 +5,7 @@
       "open": "Open attribute(s) selection dialog",
       "remove": "Remove attribute",
       "dialog": {
-        "title": "Select attributes(s)",
+        "title": "Select attribute(s)",
         "description": "The attributes that are listed below can be reused across multiple entities.",
         "search": "Search",
         "add": "Add"
