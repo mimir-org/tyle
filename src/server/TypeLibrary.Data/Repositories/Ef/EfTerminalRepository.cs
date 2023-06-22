@@ -53,7 +53,9 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
     {
         return GetAll()
             .Include(x => x.TerminalAttributes)
-            .ThenInclude(x => x.Attribute);
+            .ThenInclude(x => x.Attribute)
+            .ThenInclude(x => x.AttributeUnits)
+            .ThenInclude(x => x.Unit);
     }
 
     /// <inheritdoc />
@@ -62,6 +64,8 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
         var terminal = FindBy(x => x.Id == id)
             .Include(x => x.TerminalAttributes)
             .ThenInclude(x => x.Attribute)
+            .ThenInclude(x => x.AttributeUnits)
+            .ThenInclude(x => x.Unit)
             .FirstOrDefault();
         return terminal;
     }
