@@ -61,6 +61,8 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
             .ThenInclude(x => x.Terminal)
             .Include(x => x.AspectObjectAttributes)
             .ThenInclude(x => x.Attribute)
+            .ThenInclude(x => x.AttributeUnits)
+            .ThenInclude(x => x.Unit)
             .Include(x => x.Rds)
             .AsSplitQuery();
     }
@@ -73,6 +75,8 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
             .ThenInclude(x => x.Terminal)
             .Include(x => x.AspectObjectAttributes)
             .ThenInclude(x => x.Attribute)
+            .ThenInclude(x => x.AttributeUnits)
+            .ThenInclude(x => x.Unit)
             .Include(x => x.Rds)
             .AsSplitQuery()
             .FirstOrDefault();
@@ -86,6 +90,8 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
             .ThenInclude(x => x.Terminal)
             .Include(x => x.AspectObjectAttributes)
             .ThenInclude(x => x.Attribute)
+            .ThenInclude(x => x.AttributeUnits)
+            .ThenInclude(x => x.Unit)
             .Include(x => x.Rds)
             .AsSplitQuery();
     }

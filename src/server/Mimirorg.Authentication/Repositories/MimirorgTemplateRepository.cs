@@ -111,13 +111,11 @@ public class MimirorgTemplateRepository : IMimirorgTemplateRepository
         if (sendToUser == null || fromUser == null)
             return Task.FromResult(new MimirorgMailAm());
 
-        var subject = isPermissionRemoval
-            ? $@"Tyle {permission.ToString().ToLower()} permission for {companyName} removed"
-            : $@"Tyle {permission.ToString().ToLower()} permission for {companyName} granted";
+        var subject = "Your permission level in Tyle has changed";
 
         var htmlContent = isPermissionRemoval
-            ? $@"<div><h1>Tyle removed <i>{permission.ToString().ToLower()}</i> permission for <i>{companyName}</i></h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i> has removed your <i>{permission.ToString().ToLower()}</i> permission for <i>{companyName}</i>.</p></div>"
-            : $@"<div><h1>Tyle granted <i>{permission.ToString().ToLower()}</i> permission for <i>{companyName}</i></h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i> has granted you <i>{permission.ToString().ToLower()}</i> permission for <i>{companyName}</i>.</p></div>";
+            ? $@"<div><h1>Tyle <i>{permission.ToString().ToLower()}</i> permission removed for <i>{companyName}</i></h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i> has removed your <i>{permission.ToString().ToLower()}</i> permission for <i>{companyName}</i>.</p></div>"
+            : $@"<div><h1>Tyle <i>{permission.ToString().ToLower()}</i> permission granted for <i>{companyName}</i></h1><p>Hi {sendToUser.FirstName} {sendToUser.LastName},</p><br /><br /><p>The user <i>{fromUser.FirstName} {fromUser.LastName}</i> with email <i>{fromUser.Email}</i> has granted you <i>{permission.ToString().ToLower()}</i> permission for <i>{companyName}</i>.</p></div>";
 
 
         return Task.FromResult(new MimirorgMailAm
