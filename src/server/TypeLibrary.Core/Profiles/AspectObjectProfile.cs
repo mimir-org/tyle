@@ -36,7 +36,6 @@ public class AspectObjectProfile : Profile
             .ForMember(dest => dest.Symbol, opt => opt.MapFrom(src => src.Symbol))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.AspectObjectTerminals, opt => opt.MapFrom(src => CreateTerminals(src.AspectObjectTerminals)))
-            .ForMember(dest => dest.Attributes, opt => opt.Ignore())
             .ForMember(dest => dest.AspectObjectAttributes, opt => opt.Ignore())
             .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
@@ -60,7 +59,7 @@ public class AspectObjectProfile : Profile
             .ForMember(dest => dest.Symbol, opt => opt.MapFrom(src => src.Symbol))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.AspectObjectTerminals, opt => opt.MapFrom(src => src.AspectObjectTerminals))
-            .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.Attributes))
+            .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.AspectObjectAttributes.Select(x => x.Attribute)))
             .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
         CreateMap<AspectObjectLibCm, ApprovalCm>()

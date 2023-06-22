@@ -32,7 +32,6 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
     public string Symbol { get; set; }
     public string Description { get; set; }
     public virtual ICollection<AspectObjectTerminalLibDm> AspectObjectTerminals { get; set; }
-    public ICollection<AttributeLibDm> Attributes { get; set; }
     public virtual ICollection<AspectObjectAttributeLibDm> AspectObjectAttributes { get; set; }
     public virtual List<SelectedAttributePredefinedLibDm> SelectedAttributePredefined { get; set; }
 
@@ -53,13 +52,13 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
 
         //Attributes
         var attributeAmIds = new List<string>();
-        var attributeDms = new List<AttributeLibDm>();
+        var aspectObjectAttributeDms = new List<AspectObjectAttributeLibDm>();
 
         attributeAmIds.AddRange(other.Attributes ?? new List<string>());
-        attributeDms.AddRange(Attributes ?? new List<AttributeLibDm>());
+        aspectObjectAttributeDms.AddRange(AspectObjectAttributes ?? new List<AspectObjectAttributeLibDm>());
 
-        if (attributeDms.Select(y => y.Id).Any(id => attributeAmIds.All(x => x != id)))
-            validation.AddNotAllowToChange(nameof(Attributes), "It is not allowed to remove or change attributes");
+        if (aspectObjectAttributeDms.Select(y => y.AttributeId).Any(id => attributeAmIds.All(x => x != id)))
+            validation.AddNotAllowToChange(nameof(AspectObjectAttributes), "It is not allowed to remove or change attributes");
 
         //Terminals
         AspectObjectTerminals ??= new List<AspectObjectTerminalLibDm>();
@@ -119,12 +118,12 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
 
         //Attributes
         var attributeAmIds = new List<string>();
-        var attributeDms = new List<AttributeLibDm>();
+        var aspectObjectAttributeDms = new List<AspectObjectAttributeLibDm>();
 
         attributeAmIds.AddRange(other.Attributes ?? new List<string>());
-        attributeDms.AddRange(Attributes ?? new List<AttributeLibDm>());
+        aspectObjectAttributeDms.AddRange(AspectObjectAttributes ?? new List<AspectObjectAttributeLibDm>());
 
-        if (!attributeDms.Select(x => x.Id).Order().SequenceEqual(attributeAmIds.Order()))
+        if (!aspectObjectAttributeDms.Select(x => x.AttributeId).Order().SequenceEqual(attributeAmIds.Order()))
         {
             major = true;
         }
@@ -176,9 +175,9 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
             return false;
 
         //Aspect Object Attributes
-        Attributes ??= new List<AttributeLibDm>();
-        other.Attributes ??= new List<AttributeLibDm>();
-        if (!Attributes.Select(x => x.Id).Order().SequenceEqual(other.Attributes.Select(x => x.Id).Order()))
+        AspectObjectAttributes ??= new List<AspectObjectAttributeLibDm>();
+        other.AspectObjectAttributes ??= new List<AspectObjectAttributeLibDm>();
+        if (!AspectObjectAttributes.Select(x => x.AttributeId).Order().SequenceEqual(other.AspectObjectAttributes.Select(x => x.AttributeId).Order()))
         {
             return false;
         }

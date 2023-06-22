@@ -59,7 +59,8 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
         return GetAll()
             .Include(x => x.AspectObjectTerminals)
             .ThenInclude(x => x.Terminal)
-            .Include(x => x.Attributes)
+            .Include(x => x.AspectObjectAttributes)
+            .ThenInclude(x => x.Attribute)
             .Include(x => x.Rds)
             .AsSplitQuery();
     }
@@ -70,7 +71,8 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
         return FindBy(x => x.Id == id)
             .Include(x => x.AspectObjectTerminals)
             .ThenInclude(x => x.Terminal)
-            .Include(x => x.Attributes)
+            .Include(x => x.AspectObjectAttributes)
+            .ThenInclude(x => x.Attribute)
             .Include(x => x.Rds)
             .AsSplitQuery()
             .FirstOrDefault();
@@ -82,7 +84,8 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
         return FindBy(x => x.FirstVersionId == aspectObject.FirstVersionId)
             .Include(x => x.AspectObjectTerminals)
             .ThenInclude(x => x.Terminal)
-            .Include(x => x.Attributes)
+            .Include(x => x.AspectObjectAttributes)
+            .ThenInclude(x => x.Attribute)
             .Include(x => x.Rds)
             .AsSplitQuery();
     }
