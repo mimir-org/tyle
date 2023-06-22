@@ -35,13 +35,15 @@ export const mapCompanyCmToFormCompany = (
   companyCm: MimirorgCompanyCm | undefined
 ): Omit<FormMimirorgCompany, "secret"> => {
   if (companyCm === undefined) return createEmptyFormMimirorgCompany();
-  
-  const logoFromCm = companyCm.logo ? {
-    fileName: companyCm.id + ".svg",
-    fileSize: companyCm.logo.length,
-    file: "data:image/svg+xml;base64," + companyCm.logo,
-    contentType: "image/svg+xml",
-  } : null;
+
+  const logoFromCm = companyCm.logo
+    ? {
+        fileName: companyCm.id + ".svg",
+        fileSize: companyCm.logo.length,
+        file: "data:image/svg+xml;base64," + companyCm.logo,
+        contentType: "image/svg+xml",
+      }
+    : null;
 
   return {
     name: companyCm.name,
