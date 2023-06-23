@@ -166,7 +166,7 @@ public class LibraryAspectObjectController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //[MimirorgAuthorize(MimirorgPermission.Write, "aspectObject", "CompanyId")]
+    [MimirorgAuthorize(MimirorgPermission.Write, "aspectObject", "CompanyId")]
     public async Task<IActionResult> Update(string id, [FromBody] AspectObjectLibAm aspectObject)
     {
         try
