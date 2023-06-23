@@ -166,19 +166,14 @@ public class LibraryAspectObjectController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "aspectObject", "CompanyId")]
+    //[MimirorgAuthorize(MimirorgPermission.Write, "aspectObject", "CompanyId")]
     public async Task<IActionResult> Update(string id, [FromBody] AspectObjectLibAm aspectObject)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
-            var companyId = _aspectObjectService.GetCompanyId(id);
-
-            if (companyId != aspectObject.CompanyId)
-                return StatusCode(StatusCodes.Status403Forbidden);
-
+            
             var data = await _aspectObjectService.Update(id, aspectObject);
             return Ok(data);
         }
