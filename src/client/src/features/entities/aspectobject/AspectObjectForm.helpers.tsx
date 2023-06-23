@@ -9,6 +9,7 @@ import { AspectObjectFormTerminals } from "features/entities/aspectobject/termin
 import { FormAspectObjectLib } from "features/entities/aspectobject/types/formAspectObjectLib";
 import { useParams } from "react-router-dom";
 import { FormMode } from "../types/formMode";
+import { UseFormResetField } from "react-hook-form";
 
 export const useAspectObjectQuery = () => {
   const { id } = useParams();
@@ -26,10 +27,10 @@ export const useAspectObjectMutation = (id?: string, mode?: FormMode) => {
  *
  * @param resetField
  */
-export const resetSubform = (resetField: (value: keyof FormAspectObjectLib) => void, newAspect: Aspect | undefined) => {
-  resetField("selectedAttributePredefined");
+export const resetSubform = (resetField: UseFormResetField<FormAspectObjectLib>, newAspect: Aspect | undefined) => {
+  resetField("selectedAttributePredefined", { defaultValue: [] });
   if (newAspect !== Aspect.Function && newAspect !== Aspect.Product) {
-    resetField("aspectObjectTerminals");
+    resetField("aspectObjectTerminals", { defaultValue: [] });
   }
 };
 
