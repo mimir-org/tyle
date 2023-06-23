@@ -174,11 +174,6 @@ public class LibraryAspectObjectController : ControllerBase
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var companyId = _aspectObjectService.GetCompanyId(id);
-
-            if (companyId != aspectObject.CompanyId)
-                return StatusCode(StatusCodes.Status403Forbidden);
-
             var data = await _aspectObjectService.Update(id, aspectObject);
             return Ok(data);
         }
