@@ -173,7 +173,7 @@ public class LibraryAspectObjectController : ControllerBase
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            
+
             var data = await _aspectObjectService.Update(id, aspectObject);
             return Ok(data);
         }
