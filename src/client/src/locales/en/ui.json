@@ -19,6 +19,7 @@
     "menu": {
       "darkMode": "Enable dark mode",
       "lightMode": "Enable light mode",
+      "feedback": "Provide feedback",
       "logout": {
         "title": "Logout",
         "error": "Sorry! An error occurred during logout. Please contact support if the problem persists."
