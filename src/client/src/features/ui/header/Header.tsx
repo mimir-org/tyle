@@ -7,6 +7,7 @@ import { mapPermissionDescriptions } from "features/ui/header/Header.helpers";
 import { HeaderContainer } from "features/ui/header/Header.styles";
 import { HeaderHomeLink } from "features/ui/header/home-link/HeaderHomeLink";
 import { LogoutButton } from "features/ui/header/logout-button/LogoutButton";
+import { FeedbackButton } from "features/ui/header/feedback-button/FeedbackButton";
 import { SettingsButton } from "features/ui/header/settings-button/SettingsButton";
 import { ThemeButton } from "features/ui/header/theme-button/ThemeButton";
 import { UserInfo } from "features/ui/header/user-info/UserInfo";
@@ -35,6 +36,7 @@ export const Header = () => {
             <UserInfo name={userFullName} permissions={permissions} roles={userRoles} />
             <ThemeButton />
             <ContactButton />
+            <FeedbackButton />
             <SettingsButton />
             <LogoutButton />
             <Flexbox alignItems={"center"} justifyContent={"center"} gap={theme.tyle.spacing.base}>
