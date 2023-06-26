@@ -42,6 +42,13 @@ body:
       description: A clear and concise description of what you expected to happen if the application was working correctly.
     validations:
       required: false
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: What version of Tyle did you use when encountering the bug?
+      options:
+        - 1.0.0-rc.1
   - type: textarea
     id: environment
     attributes:
