@@ -15,14 +15,6 @@ public interface IAttributeRepository
     Task ChangeState(State state, string id);
 
     /// <summary>
-    /// Change the state of the attribute on all listed ids
-    /// </summary>
-    /// <param name="state">The state to change to</param>
-    /// <param name="ids">A list of attribute ids</param>
-    /// <returns>The number of attributes with changed state</returns>
-    Task<int> ChangeState(State state, ICollection<string> ids);
-
-    /// <summary>
     /// Get all attributes
     /// </summary>
     /// <returns>A collection of attributes</returns>
@@ -41,13 +33,6 @@ public interface IAttributeRepository
     /// <param name="attribute">The attribute to be created</param>
     /// <returns>The created attribute</returns>
     Task<AttributeLibDm> Create(AttributeLibDm attribute);
-
-    /// <summary>
-    /// Create all attributes in a list
-    /// </summary>
-    /// <param name="attributes">The attributes to be created</param>
-    /// <returns>The created attributes</returns>
-    Task<List<AttributeLibDm>> Create(List<AttributeLibDm> attributes);
 
     /// <summary>
     /// Clear all entity framework change trackers

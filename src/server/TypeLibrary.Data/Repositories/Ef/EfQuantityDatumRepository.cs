@@ -25,23 +25,6 @@ public class EfQuantityDatumRepository : GenericRepository<TypeLibraryDbContext,
     }
 
     /// <inheritdoc />
-    public async Task<int> ChangeState(State state, ICollection<string> ids)
-    {
-        var quantityDatumsToChange = new List<QuantityDatumLibDm>();
-        foreach (var id in ids)
-        {
-            var quantityDatum = await GetAsync(id);
-            quantityDatum.State = state;
-            quantityDatumsToChange.Add(quantityDatum);
-        }
-
-        await SaveAsync();
-        Detach(quantityDatumsToChange);
-
-        return quantityDatumsToChange.Count;
-    }
-
-    /// <inheritdoc />
     public IEnumerable<QuantityDatumLibDm> Get()
     {
         return GetAll();
@@ -86,18 +69,6 @@ public class EfQuantityDatumRepository : GenericRepository<TypeLibraryDbContext,
         Detach(quantityDatum);
 
         return quantityDatum;
-    }
-
-    /// <inheritdoc />
-    public async Task<ICollection<QuantityDatumLibDm>> Create(ICollection<QuantityDatumLibDm> quantityDatums)
-    {
-        foreach (var quantityDatum in quantityDatums)
-            await CreateAsync(quantityDatum);
-        await SaveAsync();
-
-        Detach(quantityDatums);
-
-        return quantityDatums;
     }
 
     /// <inheritdoc />

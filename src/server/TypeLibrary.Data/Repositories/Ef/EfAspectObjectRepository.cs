@@ -31,29 +31,6 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     }
 
     /// <inheritdoc />
-    public async Task<int> ChangeState(State state, ICollection<string> ids)
-    {
-        var aspectObjectsToChange = new List<AspectObjectLibDm>();
-        foreach (var id in ids)
-        {
-            var aspectObject = await GetAsync(id);
-            aspectObject.State = state;
-            aspectObjectsToChange.Add(aspectObject);
-        }
-
-        await SaveAsync();
-        Detach(aspectObjectsToChange);
-
-        return aspectObjectsToChange.Count;
-    }
-
-    /// <inheritdoc />
-    public async Task<bool> Exist(string id)
-    {
-        return await Exist(x => x.Id == id);
-    }
-
-    /// <inheritdoc />
     public IEnumerable<AspectObjectLibDm> Get()
     {
         return GetAll()

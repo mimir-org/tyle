@@ -22,21 +22,6 @@ public interface IAspectObjectRepository
     Task ChangeState(State state, string id);
 
     /// <summary>
-    /// Change the state of the aspect object on all listed ids
-    /// </summary>
-    /// <param name="state">The state to change to</param>
-    /// <param name="ids">A list of aspect object ids</param>
-    /// <returns>The number of aspect objects with changed state</returns>
-    Task<int> ChangeState(State state, ICollection<string> ids);
-
-    /// <summary>
-    /// Check if aspect object exists
-    /// </summary>
-    /// <param name="id">The id of the aspect object</param>
-    /// <returns>True if aspect object exist</returns>
-    Task<bool> Exist(string id);
-
-    /// <summary>
     /// Get all aspect objects
     /// </summary>
     /// <returns>A collection of aspect objects</returns>
