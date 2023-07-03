@@ -32,7 +32,8 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
             .Include(x => x.TerminalAttributes)
             .ThenInclude(x => x.Attribute)
             .ThenInclude(x => x.AttributeUnits)
-            .ThenInclude(x => x.Unit);
+            .ThenInclude(x => x.Unit)
+            .AsSplitQuery();
     }
 
     /// <inheritdoc />
@@ -43,6 +44,7 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
             .ThenInclude(x => x.Attribute)
             .ThenInclude(x => x.AttributeUnits)
             .ThenInclude(x => x.Unit)
+            .AsSplitQuery()
             .FirstOrDefault();
         return terminal;
     }
