@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using Mimirorg.Authentication;
 using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Models.Application;
-using TypeLibrary.Api;
 using TypeLibrary.Data;
 using TypeLibrary.Data.Contracts;
 using TypeLibrary.Data.Models;
@@ -17,7 +16,7 @@ using TypeLibrary.Services.Contracts;
 
 namespace Mimirorg.Test.Setup;
 
-public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
+public class ApiWebApplicationFactory : WebApplicationFactory<Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
