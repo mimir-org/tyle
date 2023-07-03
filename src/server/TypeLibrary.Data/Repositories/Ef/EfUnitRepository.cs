@@ -24,23 +24,6 @@ public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibD
     }
 
     /// <inheritdoc />
-    public async Task<int> ChangeState(State state, ICollection<string> ids)
-    {
-        var unitsToChange = new List<UnitLibDm>();
-        foreach (var id in ids)
-        {
-            var unit = await GetAsync(id);
-            unit.State = state;
-            unitsToChange.Add(unit);
-        }
-
-        await SaveAsync();
-        Detach(unitsToChange);
-
-        return unitsToChange.Count;
-    }
-
-    /// <inheritdoc />
     public IEnumerable<UnitLibDm> Get()
     {
         return GetAll();
@@ -67,18 +50,6 @@ public class EfUnitRepository : GenericRepository<TypeLibraryDbContext, UnitLibD
         Detach(unit);
 
         return unit;
-    }
-
-    /// <inheritdoc />
-    public async Task<ICollection<UnitLibDm>> Create(ICollection<UnitLibDm> units)
-    {
-        foreach (var unit in units)
-            await CreateAsync(unit);
-        await SaveAsync();
-
-        Detach(units);
-
-        return units;
     }
 
     /// <inheritdoc />
