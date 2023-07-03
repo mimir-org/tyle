@@ -18,7 +18,6 @@ public class TypeLibraryDbContext : DbContext
     public virtual DbSet<QuantityDatumLibDm> QuantityDatum { get; set; }
     public virtual DbSet<AspectObjectAttributeLibDm> AspectObjectAttribute { get; set; }
     public virtual DbSet<TerminalAttributeLibDm> TerminalAttribute { get; set; }
-    public virtual DbSet<CategoryLibDm> Category { get; set; }
     public virtual DbSet<RdsLibDm> Rds { get; set; }
 
 
@@ -42,7 +41,6 @@ public class TypeLibraryDbContext : DbContext
         modelBuilder.ApplyConfiguration(new QuantityDatumConfiguration());
         modelBuilder.ApplyConfiguration(new AspectObjectAttributeConfiguration());
         modelBuilder.ApplyConfiguration(new TerminalAttributeConfiguration());
-        modelBuilder.ApplyConfiguration(new CategoryConfiguration());
         modelBuilder.ApplyConfiguration(new RdsConfiguration());
     }
 }

@@ -13,7 +13,5 @@ public class RdsLibCm
     public string CreatedBy { get; set; }
     public State State { get; set; }
     public string Description { get; set; }
-    public string CategoryId { get; set; }
-    public string CategoryName { get; set; }
     public string Kind => nameof(RdsLibCm);
 }

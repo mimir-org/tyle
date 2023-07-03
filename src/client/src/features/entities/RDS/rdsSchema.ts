@@ -17,5 +17,4 @@ export const rdsSchema = (t: TFunction<"translation">, usedRdsCodes: string[]) =
     name: yup.string().max(120, t("common.validation.name.max")).required(t("common.validation.name.required")),
     typeReference: yup.string().max(255).nullable(),
     description: yup.string().max(500, t("common.validation.description.max")).nullable(),
-    categoryId: yup.string(),
   });
