@@ -58,14 +58,11 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
             }
             try
             {
-                var categoryId = rdsRepository.Get().ToList().FirstOrDefault()?.CategoryId;
-
                 var rds = new RdsLibDm
                 {
                     Id = "rds-id",
                     RdsCode = "XXXXX",
                     Name = "Test RDS",
-                    CategoryId = categoryId,
                     Iri = "",
                     TypeReference = "",
                     Created = DateTime.UtcNow,
