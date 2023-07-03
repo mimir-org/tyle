@@ -1,5 +1,5 @@
 import { YupShape } from "common/types/yupShape";
-import { TFunction } from "react-i18next";
+import { TFunction } from "i18next";
 import * as yup from "yup";
 import { FormAspectObjectLib } from "./types/formAspectObjectLib";
 

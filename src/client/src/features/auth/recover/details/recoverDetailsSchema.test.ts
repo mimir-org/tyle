@@ -2,7 +2,7 @@ import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
 import { recoverDetailsSchema } from "features/auth/recover/details/recoverDetailsSchema";
 
 describe("recoverDetailsSchema tests", () => {
-  const t = (key: string) => key;
+  const t = jest.fn();
 
   it("should reject without an email", async () => {
     const userForm: Partial<MimirorgUserAm> = { email: "" };

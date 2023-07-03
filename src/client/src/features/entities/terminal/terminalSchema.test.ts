@@ -2,7 +2,7 @@ import { terminalSchema } from "features/entities/terminal/terminalSchema";
 import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";
 
 describe("terminalSchema tests", () => {
-  const t = (key: string) => key;
+  const t = jest.fn();
 
   it("should reject without a name", async () => {
     const terminalWithoutAName: Partial<FormTerminalLib> = { name: "" };
