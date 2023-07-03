@@ -3,7 +3,7 @@ import { permissionSchema } from "features/settings/common/permission-card/card-
 import { FormUserPermission } from "features/settings/common/permission-card/card-form/types/formUserPermission";
 
 describe("accessSchema tests", () => {
-  const t = (key: string) => key;
+  const t = jest.fn();
 
   it("should reject without a user", async () => {
     const userPermission: Partial<FormUserPermission> = {

@@ -2,7 +2,7 @@ import { MimirorgAuthenticateAm } from "@mimirorg/typelibrary-types";
 import { loginSchema } from "features/auth/login/loginSchema";
 
 describe("loginSchema tests", () => {
-  const t = (key: string) => key;
+  const t = jest.fn();
 
   it("should reject without an email", async () => {
     const userForm: Partial<MimirorgAuthenticateAm> = { email: "" };
