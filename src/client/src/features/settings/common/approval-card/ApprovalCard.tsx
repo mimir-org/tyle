@@ -39,12 +39,14 @@ export const ApprovalCard = ({ item, selected, ...delegated }: ApprovalCardProps
       layout={"position"}
       {...theme.tyle.animation.selectHover}
     >
+      <Text variant={"title-medium"}>{item.objectType}</Text>
+      <Horizontal color={"#2e2e2e"} />
       <ApprovalCardHeader objectType={item.objectType}>
         <Text variant={"title-large"}>{item.name}</Text>
       </ApprovalCardHeader>
-      <Horizontal color={"#2e2e2e"} />
       <Flexbox flexFlow={"column"} justifyContent={"space-between"} style={{ height: "100%" }}>
         <Text variant={"title-small"}>{item.description}</Text>
+        <Horizontal color={"#2e2e2e"} />
         <ApprovalCardForm
           item={item}
           formId={formId}
