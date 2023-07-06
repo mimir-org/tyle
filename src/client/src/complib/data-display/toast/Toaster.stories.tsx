@@ -33,7 +33,7 @@ export const WithCustomContent = () => {
               </div>
               <Button variant={"outlined"}>An action</Button>
             </Flexbox>
-          </MotionCard>
+          </MotionCard>,
         )
       }
     >

@@ -43,8 +43,8 @@ const filterItems = (filters: Filter[], items: SearchResultRaw[]) => {
     filteredPerKey.push(
       orFilterItems(
         filters.filter((f) => f.key === key),
-        items
-      )
+        items,
+      ),
     );
   }
 

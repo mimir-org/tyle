@@ -47,7 +47,7 @@ export const usePermissionToasts = (oldPermission?: Option<MimirorgPermission>) 
             backgroundColor: theme.tyle.color.sys.warning.base,
           },
         },
-      }
+      },
     );
   };
 };

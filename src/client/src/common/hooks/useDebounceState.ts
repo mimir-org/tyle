@@ -24,7 +24,7 @@ import { useDebounce } from "usehooks-ts";
  */
 export const useDebounceState = <T>(
   initialState: T,
-  delay = 275
+  delay = 275,
 ): [state: T, setState: Dispatch<T>, debouncedState: T] => {
   const [state, setState] = useState<T>(initialState);
   const debouncedState = useDebounce(state, delay);

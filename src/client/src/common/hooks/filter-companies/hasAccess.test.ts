@@ -118,7 +118,7 @@ describe("hasAccess tests", () => {
     expect(filterCompanyList(companies, user, MimirorgPermission.Write).length).toBe(1);
     expect(filterCompanyList(companies, user, MimirorgPermission.Write).filter((x) => x.id === 1)[0].id).toBe(1);
     expect(filterCompanyList(companies, user, MimirorgPermission.Write).filter((x) => x.id === 1)[0].name).toBe(
-      "Company A"
+      "Company A",
     );
   });
 
@@ -154,10 +154,10 @@ describe("hasAccess tests", () => {
     expect(filterCompanyList(companies, user, MimirorgPermission.Approve).filter((x) => x.id === 1)[0].id).toBe(1);
     expect(filterCompanyList(companies, user, MimirorgPermission.Approve).filter((x) => x.id === 2)[0].id).toBe(2);
     expect(filterCompanyList(companies, user, MimirorgPermission.Write).filter((x) => x.id === 1)[0].name).toBe(
-      "Company A"
+      "Company A",
     );
     expect(filterCompanyList(companies, user, MimirorgPermission.Write).filter((x) => x.id === 2)[0].name).toBe(
-      "Company B"
+      "Company B",
     );
   });
 

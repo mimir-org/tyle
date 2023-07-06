@@ -29,13 +29,13 @@ export const mapFormAspectObjectLibToApiModel = (formAspectObject: FormAspectObj
   ...formAspectObject,
   attributes: formAspectObject.attributes.map((x) => x.value),
   selectedAttributePredefined: formAspectObject.selectedAttributePredefined.map((x) =>
-    mapFormAttributePredefinedLibToApiModel(x)
+    mapFormAttributePredefinedLibToApiModel(x),
   ),
 });
 
 export const mapAspectObjectLibCmToClientModel = (
   aspectObject: AspectObjectLibCm,
-  newCompanyId?: number
+  newCompanyId?: number,
 ): FormAspectObjectLib => ({
   ...aspectObject,
   companyId: newCompanyId ?? aspectObject.companyId,

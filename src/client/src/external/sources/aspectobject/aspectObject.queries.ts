@@ -42,7 +42,7 @@ export const usePatchAspectObjectState = () => {
     (item: { id: string; state: State }) => aspectObjectApi.patchAspectObjectState(item.id, item.state),
     {
       onSuccess: () => queryClient.invalidateQueries(keys.lists()),
-    }
+    },
   );
 };
 

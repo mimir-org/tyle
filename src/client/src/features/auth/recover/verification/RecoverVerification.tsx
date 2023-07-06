@@ -53,7 +53,7 @@ export const RecoverVerification = ({
             <MotionVerifyForm
               id={"verify-form"}
               onSubmit={handleSubmit((data) =>
-                onSubmitForm(data, generateMfaMutation.mutateAsync, setMfaInfo, setVerificationInfo)
+                onSubmitForm(data, generateMfaMutation.mutateAsync, setMfaInfo, setVerificationInfo),
               )}
               layout
             >

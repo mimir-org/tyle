@@ -22,7 +22,7 @@ describe("quantityDatumSchema tests", () => {
   it("should reject with a description longer than 500 characters", async () => {
     const quantityDatumWithLongDescription: Partial<QuantityDatumLibAm> = { description: "c".repeat(501) };
     await expect(
-      quantityDatumSchema(t).validateAt("description", quantityDatumWithLongDescription)
+      quantityDatumSchema(t).validateAt("description", quantityDatumWithLongDescription),
     ).rejects.toBeTruthy();
   });
 });

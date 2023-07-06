@@ -3,7 +3,7 @@ import { AspectObjectTerminalItem } from "common/types/aspectObjectTerminalItem"
 
 export const getTerminalItemsFromFormData = (
   formTerminals: AspectObjectTerminalLibAm[],
-  sourceTerminals?: TerminalLibCm[]
+  sourceTerminals?: TerminalLibCm[],
 ) => {
   if (!sourceTerminals || sourceTerminals.length < 1) {
     return [];

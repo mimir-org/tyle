@@ -29,7 +29,7 @@ export const TerminalButton = forwardRef<HTMLButtonElement, TerminalButtonProps>
       {direction === "Bidirectional" && <ArrowsRightLeft />}
       {!direction && <EllipseIcon color={"#FFF"} />}
     </TerminalButtonContainer>
-  )
+  ),
 );
 
 TerminalButton.displayName = "TerminalButton";

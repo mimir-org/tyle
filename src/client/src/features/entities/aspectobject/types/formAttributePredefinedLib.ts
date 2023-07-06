@@ -14,7 +14,7 @@ export interface FormAttributePredefinedLib extends Omit<SelectedAttributePredef
  * @param formSelectedAttribute client-only model
  */
 export const mapFormAttributePredefinedLibToApiModel = (
-  formSelectedAttribute: FormAttributePredefinedLib
+  formSelectedAttribute: FormAttributePredefinedLib,
 ): SelectedAttributePredefinedLibAm => {
   const predefinedAttributesMap: { [key: string]: boolean } = {};
   formSelectedAttribute.values?.forEach((x) => (predefinedAttributesMap[x.value] = true));
@@ -26,7 +26,7 @@ export const mapFormAttributePredefinedLibToApiModel = (
 };
 
 export const mapAttributePredefinedLibCmToClientModel = (
-  attribute: SelectedAttributePredefinedLibCm
+  attribute: SelectedAttributePredefinedLibCm,
 ): FormAttributePredefinedLib => ({
   ...attribute,
   values: Object.keys(attribute.values).map((y) => ({ value: y })),

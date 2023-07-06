@@ -9,7 +9,7 @@ export const useOnChangeCallback = (onChange: NumberProps["onChange"], value: nu
 export const onChangeCounterValue = (
   value: number,
   onChangeCallback: (value: number) => void,
-  options: { min?: number; max?: number }
+  options: { min?: number; max?: number },
 ) => {
   const { min, max } = options;
 

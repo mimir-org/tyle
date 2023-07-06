@@ -57,7 +57,7 @@ export const AttributeForm = ({ defaultValues = createEmptyAttribute(), mode }: 
     <FormProvider {...formMethods}>
       <FormContainer
         onSubmit={handleSubmit((data) =>
-          onSubmitForm(fromFormAttributeLibToApiModel(data), mutation.mutateAsync, toast)
+          onSubmitForm(fromFormAttributeLibToApiModel(data), mutation.mutateAsync, toast),
         )}
       >
         {isLoading ? (

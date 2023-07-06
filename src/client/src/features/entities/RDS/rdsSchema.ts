@@ -12,7 +12,7 @@ export const rdsSchema = (t: TFunction<"translation">, usedRdsCodes: string[]) =
       .test(
         "uniqueRdsCheck",
         t("rds.validation.rdsCode.unique"),
-        (value) => !usedRdsCodes.includes(value.toUpperCase())
+        (value) => !usedRdsCodes.includes(value.toUpperCase()),
       ),
     name: yup.string().max(120, t("common.validation.name.max")).required(t("common.validation.name.required")),
     typeReference: yup.string().max(255).nullable(),

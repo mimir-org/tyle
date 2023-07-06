@@ -50,7 +50,7 @@ const useAdministerLinks = (): Link[] => {
       {
         name: t("company.title.update"),
         path: updateCompanyBasePath,
-      }
+      },
     );
   }
 

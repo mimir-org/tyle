@@ -16,7 +16,7 @@ export const useSearchResults = (
   query: string,
   filters: Filter[],
   pageSize = 20,
-  pageNum = 1
+  pageNum = 1,
 ): [results: SearchResult[], totalHits: number, isLoading: boolean] => {
   const [searchItems, isLoading] = useSearchItems();
   const fuseResult = useFuse(searchItems, query, { keys: searchKeys, matchAllOnEmpty: true });
