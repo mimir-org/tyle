@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@hookform/devtools": "^4.3.0",
-    "@hookform/resolvers": "^3.0.1",
+    "@hookform/resolvers": "^3.1.1",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.0.4",
     "@radix-ui/react-checkbox": "^1.0.4",
@@ -105,7 +105,7 @@
     "@typescript-eslint/parser": "^5.61.0",
     "cross-env": "^7.0.3",
     "env-cmd": "^10.1.0",
-    "eslint": "8.37.0",
+    "eslint": "8.44.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
