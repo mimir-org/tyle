@@ -32,7 +32,7 @@ If you want to use docker please see the 'Git clone and Docker setup' section in
 <p>You also need to add a user <i>mimir</i> under security logins:</p>
 <img src="/images/SqlMimirUser.png" alt="logo" width="300" height="auto" />
 <p>Give the <i>mimir</i> user <i>db_owner</i> and <i>public</i> properties for <i>MimirorgAuthentication</i> and <i>TypeLibrary</i>:</p>
-<img src="/images/SqlMimirMapping.png" alt="logo" width="200" height="auto" />
+<img src="/src/server/images/SqlMimirMapping.png" alt="logo" width="200" height="auto" />
 
 <h3>But what if I mess up the local/docker database during development?</h3>
 <p>Do not despair! You can use this KILL script to restore you local database to its virginity:</p>
