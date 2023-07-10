@@ -24,7 +24,7 @@ If you want to use docker please see the 'Git clone and Docker setup' section in
 
 <h3>Local setup and database?</h3>
 <p>TypeLibrary is using a MS SQL database. Remember to set the correct <i>server authentication</i>.</p>  
-<img src="/Images/SqlDbProperty.PNG" alt="logo" width="400" height="auto" />
+<img src="/src/server/Images/SqlDbProperty.PNG" alt="logo" width="400" height="auto" />
 
 <h3>Do I need to do something with my local database?</h3>
 <p>Yes. You need to create two empty databases:<p>
