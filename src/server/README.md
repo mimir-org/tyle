@@ -28,9 +28,9 @@ If you want to use docker please see the 'Git clone and Docker setup' section in
 
 <h3>Do I need to do something with my local database?</h3>
 <p>Yes. You need to create two empty databases:<p>
-<img src="/images/SqlDatabases.png" alt="logo" width="200" height="auto" />
+<img src="/src/server/images/SqlDatabases.png" alt="logo" width="200" height="auto" />
 <p>You also need to add a user <i>mimir</i> under security logins:</p>
-<img src="/images/SqlMimirUser.png" alt="logo" width="300" height="auto" />
+<img src="/src/server/images/SqlMimirUser.png" alt="logo" width="300" height="auto" />
 <p>Give the <i>mimir</i> user <i>db_owner</i> and <i>public</i> properties for <i>MimirorgAuthentication</i> and <i>TypeLibrary</i>:</p>
 <img src="/src/server/images/SqlMimirMapping.png" alt="logo" width="200" height="auto" />
 
@@ -81,18 +81,18 @@ To keep it simple in this example we use db user: 'sa' and db passord: 'P4ssw0rd
 
 <h3>The code</h3>
 <h5>Overview</h5>
-<img src="images/code_overview.png" alt="logo" width="250" height="auto" />
+<img src="/src/server/images/code_overview.png" alt="logo" width="250" height="auto" />
 </br>
 Set 'TypeLibrary.Api' as the startup project.
 
 <h5>Tests</h5>
-<img src="images/code_tests.png" alt="logo" width="250" height="auto" />
+<img src="/src/server/images/code_tests.png" alt="logo" width="250" height="auto" />
 </br>
 Here are all the tests located.
 
 
 <h5>Mimirorg.Authentication</h5>
-<img src="images/code_authentication.png" alt="logo" width="250" height="auto" />
+<img src="/src/server/images/code_authentication.png" alt="logo" width="250" height="auto" />
 </br>
 The 'Mimirorg.Authentication' projects is used to authenticate users and have it's own database 'MimirorgAuthentication'. It also has 'hooks' the invalidate cache. 
 
