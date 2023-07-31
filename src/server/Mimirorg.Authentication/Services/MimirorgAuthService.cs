@@ -174,7 +174,7 @@ public class MimirorgAuthService : IMimirorgAuthService
         if (user == null)
             throw new MimirorgNotFoundException($"Couldn't find any user with id: {userRole.UserId}");
 
-        if (!await _userManager.IsInRoleAsync(user, currentRole.NormalizedName))
+        if (!await _userManager.IsInRoleAsync(user, currentRole.NormalizedName!))
         {
             return await _userManager.AddToRoleAsync(user, currentRole.NormalizedName) == IdentityResult.Success;
         }
@@ -203,7 +203,7 @@ public class MimirorgAuthService : IMimirorgAuthService
         if (user == null)
             throw new MimirorgNotFoundException($"Couldn't find any user with id: {userRole.UserId}");
 
-        if (await _userManager.IsInRoleAsync(user, currentRole.NormalizedName))
+        if (await _userManager.IsInRoleAsync(user, currentRole.NormalizedName!))
         {
             return await _userManager.RemoveFromRoleAsync(user, currentRole.NormalizedName) == IdentityResult.Success;
         }

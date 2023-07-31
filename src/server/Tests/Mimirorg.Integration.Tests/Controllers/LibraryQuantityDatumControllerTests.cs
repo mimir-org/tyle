@@ -22,7 +22,7 @@ public class LibraryQuantityDatumControllerTests : IntegrationTest
     {
         var client = Factory.WithWebHostBuilder(builder =>
         {
-            builder.ConfigureServices(services =>
+            builder.ConfigureServices(_ =>
             {
 
             });
