@@ -24,7 +24,7 @@ export const mapAspectObjectLibCmToAspectObjectItem = (aspectObject: AspectObjec
       aspectObject.purposeName,
     ],
     terminals: sortAspectObjectTerminals(
-      mapAspectObjectTerminalLibCmsToAspectObjectTerminalItems(aspectObject.aspectObjectTerminals)
+      mapAspectObjectTerminalLibCmsToAspectObjectTerminalItems(aspectObject.aspectObjectTerminals),
     ),
     attributes: sortInfoItems(mapAttributeLibCmsToInfoItems(aspectObject.attributes)),
     kind: "AspectObjectItem",
@@ -35,7 +35,7 @@ export const mapAspectObjectLibCmToAspectObjectItem = (aspectObject: AspectObjec
 };
 
 const mapAspectObjectTerminalLibCmsToAspectObjectTerminalItems = (
-  terminals: AspectObjectTerminalLibCm[]
+  terminals: AspectObjectTerminalLibCm[],
 ): AspectObjectTerminalItem[] =>
   terminals.map((x) => ({
     id: x.terminal.id,

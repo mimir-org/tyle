@@ -61,7 +61,7 @@ export const CreateCompanyForm = () => {
         await onSubmitForm(
           mapFormCompanyToCompanyAm(data, userQuery.data?.id, secret),
           mutation.mutateAsync,
-          submitToast
+          submitToast,
         );
       } catch (e) {
         if (isAxiosError(e) && e.response?.status === 400) {

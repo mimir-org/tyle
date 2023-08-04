@@ -26,9 +26,7 @@ public class RdsProfile : Profile
                 opt => opt.MapFrom(src =>
                     string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? CreatedBy.Unknown : contextAccessor.GetUserId()))
             .ForMember(dest => dest.State, opt => opt.Ignore())
-            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-            .ForMember(dest => dest.CategoryId, opt => opt.Ignore())
-            .ForMember(dest => dest.Category, opt => opt.Ignore());
+            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
 
         CreateMap<RdsLibDm, RdsLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -39,9 +37,7 @@ public class RdsProfile : Profile
             .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
             .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy))
             .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
-            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-            .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.CategoryId))
-            .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
+            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
 
         CreateMap<RdsLibCm, ApprovalCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

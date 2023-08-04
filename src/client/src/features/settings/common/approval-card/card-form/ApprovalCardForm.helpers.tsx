@@ -79,7 +79,7 @@ export const useApprovalToasts = () => {
             backgroundColor: theme.tyle.color.sys.tertiary.base,
           },
         },
-      }
+      },
     );
   };
 };

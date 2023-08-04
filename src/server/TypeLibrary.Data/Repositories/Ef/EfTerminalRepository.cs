@@ -26,36 +26,14 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
     }
 
     /// <inheritdoc />
-    public async Task<int> ChangeState(State state, ICollection<string> ids)
-    {
-        var terminalsToChange = new List<TerminalLibDm>();
-        foreach (var id in ids)
-        {
-            var terminal = await GetAsync(id);
-            terminal.State = state;
-            terminalsToChange.Add(terminal);
-        }
-
-        await SaveAsync();
-        Detach(terminalsToChange);
-
-        return terminalsToChange.Count;
-    }
-
-    /// <inheritdoc />
-    public async Task<bool> Exist(string id)
-    {
-        return await Exist(x => x.Id == id);
-    }
-
-    /// <inheritdoc />
     public IEnumerable<TerminalLibDm> Get()
     {
         return GetAll()
             .Include(x => x.TerminalAttributes)
             .ThenInclude(x => x.Attribute)
             .ThenInclude(x => x.AttributeUnits)
-            .ThenInclude(x => x.Unit);
+            .ThenInclude(x => x.Unit)
+            .AsSplitQuery();
     }
 
     /// <inheritdoc />
@@ -66,6 +44,7 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
             .ThenInclude(x => x.Attribute)
             .ThenInclude(x => x.AttributeUnits)
             .ThenInclude(x => x.Unit)
+            .AsSplitQuery()
             .FirstOrDefault();
         return terminal;
     }

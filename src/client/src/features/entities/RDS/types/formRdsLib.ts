@@ -12,7 +12,6 @@ export const createEmptyRds = (): RdsLibAm => ({
   rdsCode: "",
   description: "",
   typeReference: "",
-  categoryId: "",
 });
 
 export const toFormRdsLib = (rds: RdsLibCm): RdsLibCm => ({

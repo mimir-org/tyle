@@ -25,23 +25,6 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     }
 
     /// <inheritdoc />
-    public async Task<int> ChangeState(State state, ICollection<string> ids)
-    {
-        var attributesToChange = new List<AttributeLibDm>();
-        foreach (var id in ids)
-        {
-            var attribute = await GetAsync(id);
-            attribute.State = state;
-            attributesToChange.Add(attribute);
-        }
-
-        await SaveAsync();
-        Detach(attributesToChange);
-
-        return attributesToChange.Count;
-    }
-
-    /// <inheritdoc />
     public IEnumerable<AttributeLibDm> Get()
     {
         return GetAll()
@@ -69,18 +52,6 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
         Detach(attribute);
 
         return attribute;
-    }
-
-    /// <inheritdoc />
-    public async Task<List<AttributeLibDm>> Create(List<AttributeLibDm> attributes)
-    {
-        foreach (var attribute in attributes)
-            await CreateAsync(attribute);
-        await SaveAsync();
-
-        Detach(attributes);
-
-        return attributes;
     }
 
     /// <inheritdoc />

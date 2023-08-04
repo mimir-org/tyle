@@ -83,7 +83,7 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
     <FormProvider {...formMethods}>
       <FormContainer
         onSubmit={handleSubmit((data) =>
-          onSubmitForm(mapFormAspectObjectLibToApiModel(data), mutation.mutateAsync, toast)
+          onSubmitForm(mapFormAspectObjectLibToApiModel(data), mutation.mutateAsync, toast),
         )}
       >
         {isLoading && <Loader />}

@@ -34,7 +34,7 @@ export const Select = <Option, IsMulti extends boolean = false, Group extends Gr
  * @param theme used to style the third party component to match the application's design
  */
 const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-  theme: TyleTheme
+  theme: TyleTheme,
 ): StylesConfig<Option, IsMulti, Group> => ({
   container: (base, state) => ({
     ...base,

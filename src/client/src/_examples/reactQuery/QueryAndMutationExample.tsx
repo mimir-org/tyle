@@ -73,9 +73,7 @@ export const QueryAndMutationExample = () => {
         </StatusContainer>
 
         <ResultsContainer>
-          {query.data?.map((n) => (
-            <JsonContent key={n.id}>{JSON.stringify(n, null, 2)}</JsonContent>
-          ))}
+          {query.data?.map((n) => <JsonContent key={n.id}>{JSON.stringify(n, null, 2)}</JsonContent>)}
         </ResultsContainer>
       </StatusAndResultsContainer>
 

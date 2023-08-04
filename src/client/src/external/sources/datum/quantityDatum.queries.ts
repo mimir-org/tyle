@@ -37,7 +37,7 @@ export const usePatchQuantityDatumState = () => {
     (item: { id: string; state: State }) => quantityDatumApi.patchQuantityDatumState(item.id, item.state),
     {
       onSuccess: () => queryClient.invalidateQueries(keys.lists()),
-    }
+    },
   );
 };
 

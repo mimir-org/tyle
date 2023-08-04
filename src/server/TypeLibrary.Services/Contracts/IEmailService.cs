@@ -6,7 +6,7 @@ namespace TypeLibrary.Services.Contracts
     public interface IEmailService
     {
         /// <summary>
-        /// Send email to appropiate users when state has changed
+        /// Send email to appropriate users when state has changed
         /// </summary>
         /// <param name="objectId"></param>
         /// <param name="objectState"></param>

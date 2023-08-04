@@ -47,7 +47,7 @@ export const RegisterVerification = ({ email, setMfaInfo, cancel, complete }: Ve
             <MotionVerifyForm
               id={"verify-form"}
               onSubmit={handleSubmit((data) =>
-                onSubmitForm(data, verificationMutation.mutateAsync, generateMfaMutation.mutateAsync, setMfaInfo)
+                onSubmitForm(data, verificationMutation.mutateAsync, generateMfaMutation.mutateAsync, setMfaInfo),
               )}
               layout
             >

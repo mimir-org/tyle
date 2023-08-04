@@ -19,7 +19,7 @@ export const useFuse = <T>(items: T[], query?: string | Fuse.Expression, options
 
   return useMemo(
     () => (showAllItems ? mapSourceItemsToFuseResults(items) : fuseClient.search(query ?? "")),
-    [fuseClient, items, query, showAllItems]
+    [fuseClient, items, query, showAllItems],
   );
 };
 

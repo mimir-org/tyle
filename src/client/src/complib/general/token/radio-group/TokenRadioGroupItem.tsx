@@ -35,7 +35,7 @@ export const TokenRadioGroupItem = forwardRef(
         </MotionTokenContainer>
       </RadioGroupItem>
     );
-  }
+  },
 );
 
 TokenRadioGroupItem.displayName = "TokenRadioGroupItem";

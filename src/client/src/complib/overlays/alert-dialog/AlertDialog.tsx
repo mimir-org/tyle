@@ -80,9 +80,7 @@ export const AlertDialog = ({
               minWidth={"236px"}
             >
               <AlertDialogCancel name={cancelAction?.name} onAction={cancelAction?.onAction} />
-              {actions?.map((a) => (
-                <AlertDialogAction key={a.name} {...a} />
-              ))}
+              {actions?.map((a) => <AlertDialogAction key={a.name} {...a} />)}
             </Box>
           </AlertDialogContent>
         </AlertDialogPrimitive.Content>

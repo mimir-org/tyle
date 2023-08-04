@@ -59,7 +59,7 @@ export const AspectObjectFormTerminals = ({
           onRemove={() => terminalFields.remove(index)}
           minValue={
             limitedTerminals?.find(
-              (x) => x.terminal.id === field.terminalId && x.connectorDirection === field.connectorDirection
+              (x) => x.terminal.id === field.terminalId && x.connectorDirection === field.connectorDirection,
             )?.maxQuantity
           }
         />

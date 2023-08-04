@@ -32,7 +32,7 @@ export const createEmptyFormMimirorgCompany = (): Omit<FormMimirorgCompany, "sec
 });
 
 export const mapCompanyCmToFormCompany = (
-  companyCm: MimirorgCompanyCm | undefined
+  companyCm: MimirorgCompanyCm | undefined,
 ): Omit<FormMimirorgCompany, "secret"> => {
   if (companyCm === undefined) return createEmptyFormMimirorgCompany();
 
@@ -58,7 +58,7 @@ export const mapCompanyCmToFormCompany = (
 export const mapFormCompanyToCompanyAm = (
   formCompany: FormMimirorgCompany,
   userId: string,
-  secret: string
+  secret: string,
 ): MimirorgCompanyAm => {
   let logo = "";
 

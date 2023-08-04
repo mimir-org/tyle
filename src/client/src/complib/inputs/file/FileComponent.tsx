@@ -112,7 +112,7 @@ export const FileComponent = forwardRef(
         )}
       </FileComponentContainer>
     );
-  }
+  },
 );
 
 FileComponent.displayName = "FileComponent";

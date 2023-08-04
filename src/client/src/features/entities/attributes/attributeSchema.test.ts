@@ -2,7 +2,7 @@ import { attributeSchema } from "./attributeSchema";
 import { FormAttributeLib } from "./types/formAttributeLib";
 
 describe("attributeSchema tests", () => {
-  const t = (key: string) => key;
+  const t = jest.fn();
 
   it("should reject without a name", async () => {
     const attributeWithoutName: Partial<FormAttributeLib> = { name: "" };

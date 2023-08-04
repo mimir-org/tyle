@@ -19,7 +19,7 @@ export const useCompanyOptions = (): Option<string>[] => {
 export const useDefaultCompanyOptions = (
   companyOptions: Option<string>[],
   selectedCompany: string,
-  setSelectedCompany: (value: string) => void
+  setSelectedCompany: (value: string) => void,
 ) => {
   useEffect(() => {
     if (!selectedCompany && companyOptions && companyOptions.length > 0) {

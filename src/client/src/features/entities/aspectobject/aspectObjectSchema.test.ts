@@ -3,7 +3,7 @@ import { aspectObjectSchema } from "features/entities/aspectobject/aspectObjectS
 import { FormAspectObjectLib } from "features/entities/aspectobject/types/formAspectObjectLib";
 
 describe("aspectObjectSchema tests", () => {
-  const t = (key: string) => key;
+  const t = jest.fn();
 
   it("should reject without a name", async () => {
     const aspectObjectWithoutAName: Partial<FormAspectObjectLib> = { name: "" };
@@ -54,7 +54,10 @@ describe("aspectObjectSchema tests", () => {
     };
 
     await expect(
-      aspectObjectSchema(t).validateAt("aspectObjectTerminals.minQuantity", aspectObjectWithNegativeTerminalMinQuantity)
+      aspectObjectSchema(t).validateAt(
+        "aspectObjectTerminals.minQuantity",
+        aspectObjectWithNegativeTerminalMinQuantity,
+      ),
     ).rejects.toBeTruthy();
   });
 
@@ -72,7 +75,10 @@ describe("aspectObjectSchema tests", () => {
     };
 
     await expect(
-      aspectObjectSchema(t).validateAt("aspectObjectTerminals.maxQuantity", aspectObjectWithNegativeTerminalMinQuantity)
+      aspectObjectSchema(t).validateAt(
+        "aspectObjectTerminals.maxQuantity",
+        aspectObjectWithNegativeTerminalMinQuantity,
+      ),
     ).rejects.toBeTruthy();
   });
 

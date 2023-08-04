@@ -20,7 +20,7 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
     private readonly ILogger<TimedPcaSyncingService> _logger;
     private readonly IServiceProvider _serviceProvider;
     private readonly IApplicationSettingsRepository _settings;
-    private Timer _timer = null;
+    private Timer _timer;
     private readonly IAttributeReferenceRepository _attributeReferenceRepository;
     private readonly IQuantityDatumReferenceRepository _quantityDatumReferenceRepository;
     private readonly IUnitReferenceRepository _unitReferenceRepository;
@@ -116,9 +116,9 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
         foreach (var pcaUnit in pcaUnits)
         {
-            if (dbUnitReferences.ContainsKey(pcaUnit.TypeReference))
+            if (dbUnitReferences.TryGetValue(pcaUnit.TypeReference, out var reference))
             {
-                var storedUnit = unitService.Get(dbUnitReferences[pcaUnit.TypeReference]);
+                var storedUnit = unitService.Get(reference);
 
                 if (storedUnit.Equals(pcaUnit))
                     continue;
@@ -169,9 +169,9 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
         foreach (var pcaAttribute in pcaAttributes)
         {
-            if (dbAttributeReferences.ContainsKey(pcaAttribute.TypeReference))
+            if (dbAttributeReferences.TryGetValue(pcaAttribute.TypeReference, out var reference))
             {
-                var storedAttribute = attributeService.Get(dbAttributeReferences[pcaAttribute.TypeReference]);
+                var storedAttribute = attributeService.Get(reference);
 
                 if (AttributeIsUnchanged(storedAttribute, pcaAttribute))
                     continue;
@@ -250,9 +250,9 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
 
         foreach (var pcaQuantityDatum in pcaQuantityDatums)
         {
-            if (dbQuantityDatumsReferences.ContainsKey(pcaQuantityDatum.TypeReference))
+            if (dbQuantityDatumsReferences.TryGetValue(pcaQuantityDatum.TypeReference, out var reference))
             {
-                var storedQuantityDatum = quantityDatumService.Get(dbQuantityDatumsReferences[pcaQuantityDatum.TypeReference]);
+                var storedQuantityDatum = quantityDatumService.Get(reference);
 
                 if (storedQuantityDatum.Equals(pcaQuantityDatum))
                     continue;

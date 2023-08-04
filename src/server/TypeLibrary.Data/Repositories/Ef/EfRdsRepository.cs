@@ -15,12 +15,10 @@ namespace TypeLibrary.Data.Repositories.Ef;
 public class EfRdsRepository : GenericRepository<TypeLibraryDbContext, RdsLibDm>, IEfRdsRepository
 {
     private readonly IApplicationSettingsRepository _settings;
-    private readonly IEfCategoryRepository _categoryRepository;
 
-    public EfRdsRepository(TypeLibraryDbContext dbContext, IApplicationSettingsRepository settings, IEfCategoryRepository categoryRepository) : base(dbContext)
+    public EfRdsRepository(TypeLibraryDbContext dbContext, IApplicationSettingsRepository settings) : base(dbContext)
     {
         _settings = settings;
-        _categoryRepository = categoryRepository;
     }
 
     /// <inheritdoc />
@@ -66,15 +64,6 @@ public class EfRdsRepository : GenericRepository<TypeLibraryDbContext, RdsLibDm>
     {
         if (Get().ToList().IsNullOrEmpty())
         {
-            var categoryId = Guid.NewGuid().ToString();
-
-            await _categoryRepository.CreateAsync(new CategoryLibDm
-            {
-                Id = categoryId,
-                Name = "Oil and gas"
-            });
-            await _categoryRepository.SaveAsync();
-
             var rdsList = GetInitialRds();
             foreach (var rds in rdsList)
             {
@@ -83,7 +72,6 @@ public class EfRdsRepository : GenericRepository<TypeLibraryDbContext, RdsLibDm>
                 rds.Created = DateTime.UtcNow;
                 rds.CreatedBy = CreatedBy.Seeding;
                 rds.State = State.Approved;
-                rds.CategoryId = categoryId;
 
                 await CreateAsync(rds);
             }

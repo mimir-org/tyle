@@ -2,7 +2,7 @@ import { QuantityDatumLibAm } from "@mimirorg/typelibrary-types";
 import { quantityDatumSchema } from "./quantityDatumSchema";
 
 describe("quantityDatumSchema tests", () => {
-  const t = (key: string) => key;
+  const t = jest.fn();
 
   it("should reject without a name", async () => {
     const quantityDatumWithoutName: Partial<QuantityDatumLibAm> = { name: "" };
@@ -22,7 +22,7 @@ describe("quantityDatumSchema tests", () => {
   it("should reject with a description longer than 500 characters", async () => {
     const quantityDatumWithLongDescription: Partial<QuantityDatumLibAm> = { description: "c".repeat(501) };
     await expect(
-      quantityDatumSchema(t).validateAt("description", quantityDatumWithLongDescription)
+      quantityDatumSchema(t).validateAt("description", quantityDatumWithLongDescription),
     ).rejects.toBeTruthy();
   });
 });

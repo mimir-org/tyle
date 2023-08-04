@@ -27,7 +27,7 @@ export const useServerValidation = <T extends FieldValues>(serverErrors: unknown
  */
 const useServerErrorBinding = <T extends FieldValues>(
   setError: UseFormSetError<T>,
-  errors?: Record<keyof T, string[]>
+  errors?: Record<keyof T, string[]>,
 ) => {
   useEffect(() => {
     if (errors) {

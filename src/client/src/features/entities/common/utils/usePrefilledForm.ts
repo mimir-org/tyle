@@ -12,7 +12,7 @@ import { DefaultValues, KeepStateOptions } from "react-hook-form";
 export const usePrefilledForm = <TIn, TOut>(
   query: UseQueryResult<TIn>,
   mapQueryDataToFormModel: (data: TIn) => TOut,
-  populateForm: (values?: DefaultValues<TOut> | TOut, keepStateOptions?: KeepStateOptions) => void
+  populateForm: (values?: DefaultValues<TOut> | TOut, keepStateOptions?: KeepStateOptions) => void,
 ): [isPrefilled: boolean, isLoading: boolean] => {
   const [isPrefilled, setIsPrefilled] = useState(false);
 

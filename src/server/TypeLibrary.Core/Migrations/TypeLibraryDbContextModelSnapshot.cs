@@ -17,7 +17,7 @@ namespace TypeLibrary.Core.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.7")
+                .HasAnnotation("ProductVersion", "7.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -189,9 +189,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
-                    b.Property<string>("AspectObjectLibDmId")
-                        .HasColumnType("nvarchar(63)");
-
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
                         .HasColumnName("Created");
@@ -224,9 +221,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(31)")
                         .HasColumnName("State");
 
-                    b.Property<string>("TerminalLibDmId")
-                        .HasColumnType("nvarchar(63)");
-
                     b.Property<string>("TypeReference")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
@@ -234,11 +228,7 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AspectObjectLibDmId");
-
                     b.HasIndex("State");
-
-                    b.HasIndex("TerminalLibDmId");
 
                     b.ToTable("Attribute", (string)null);
                 });
@@ -319,24 +309,6 @@ namespace TypeLibrary.Core.Migrations
                     b.HasIndex("UnitId");
 
                     b.ToTable("Attribute_Unit", (string)null);
-                });
-
-            modelBuilder.Entity("TypeLibrary.Data.Models.CategoryLibDm", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasMaxLength(63)
-                        .HasColumnType("nvarchar(63)")
-                        .HasColumnName("Id");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.LogLibDm", b =>
@@ -478,10 +450,6 @@ namespace TypeLibrary.Core.Migrations
                         .HasColumnType("nvarchar(63)")
                         .HasColumnName("Id");
 
-                    b.Property<string>("CategoryId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(63)");
-
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2")
                         .HasColumnName("Created");
@@ -527,9 +495,7 @@ namespace TypeLibrary.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("RdsCode", "CategoryId");
-
-                    b.HasIndex("CategoryId");
+                    b.HasAlternateKey("RdsCode");
 
                     b.HasIndex("State");
 
@@ -768,17 +734,6 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Terminal");
                 });
 
-            modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>
-                {
-                    b.HasOne("TypeLibrary.Data.Models.AspectObjectLibDm", null)
-                        .WithMany("Attributes")
-                        .HasForeignKey("AspectObjectLibDmId");
-
-                    b.HasOne("TypeLibrary.Data.Models.TerminalLibDm", null)
-                        .WithMany("Attributes")
-                        .HasForeignKey("TerminalLibDmId");
-                });
-
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeUnitLibDm", b =>
                 {
                     b.HasOne("TypeLibrary.Data.Models.AttributeLibDm", "Attribute")
@@ -794,17 +749,6 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("Attribute");
 
                     b.Navigation("Unit");
-                });
-
-            modelBuilder.Entity("TypeLibrary.Data.Models.RdsLibDm", b =>
-                {
-                    b.HasOne("TypeLibrary.Data.Models.CategoryLibDm", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.TerminalAttributeLibDm", b =>
@@ -829,8 +773,6 @@ namespace TypeLibrary.Core.Migrations
                     b.Navigation("AspectObjectAttributes");
 
                     b.Navigation("AspectObjectTerminals");
-
-                    b.Navigation("Attributes");
                 });
 
             modelBuilder.Entity("TypeLibrary.Data.Models.AttributeLibDm", b =>
@@ -844,8 +786,6 @@ namespace TypeLibrary.Core.Migrations
 
             modelBuilder.Entity("TypeLibrary.Data.Models.TerminalLibDm", b =>
                 {
-                    b.Navigation("Attributes");
-
                     b.Navigation("TerminalAspectObjects");
 
                     b.Navigation("TerminalAttributes");

@@ -54,14 +54,14 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
           background: ${layer(
             translucify(color, elevation.levels[1].opacity),
             translucify(colorSystem.sys.primary.on, state.hover.opacity),
-            translucify(color, state.enabled.opacity)
+            translucify(color, state.enabled.opacity),
           )};
         }
 
         :active {
           background: ${layer(
             translucify(colorSystem.sys.primary.on, state.pressed.opacity),
-            translucify(color, state.enabled.opacity)
+            translucify(color, state.enabled.opacity),
           )};
         }
       }

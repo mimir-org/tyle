@@ -2,7 +2,7 @@ import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
 import { recoverPasswordSchema } from "features/auth/recover/password/recoverPasswordSchema";
 
 describe("recoverPasswordSchema tests", () => {
-  const t = (key: string) => key;
+  const t = jest.fn();
 
   it("should reject with password less than 10 characters", async () => {
     const userForm: Partial<MimirorgUserAm> = { password: "somesmall" };

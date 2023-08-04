@@ -2,7 +2,7 @@ import { UnitLibAm } from "@mimirorg/typelibrary-types";
 import { unitSchema } from "./unitSchema";
 
 describe("unitSchema tests", () => {
-  const t = (key: string) => key;
+  const t = jest.fn();
 
   it("should reject without a name", async () => {
     const unitWithoutName: Partial<UnitLibAm> = { name: "" };

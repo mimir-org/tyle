@@ -14,7 +14,7 @@ public static class EnumerableExtensions
 
     public static IDictionary<TKey, TValue> Merge<TKey, TValue>(this IDictionary<TKey, TValue> dictA, IDictionary<TKey, TValue> dictB) where TValue : class
     {
-        return dictA.Keys.Union(dictB.Keys).ToDictionary(k => k, k => dictA.ContainsKey(k) ? dictA[k] : dictB[k]);
+        return dictA.Keys.Union(dictB.Keys).ToDictionary(k => k, k => dictA.TryGetValue(k, out var value) ? value : dictB[k]);
     }
 
     public static IEnumerable<T> LatestVersions<T>(this IEnumerable<T> collection) where T : IVersionObject

@@ -1,5 +1,5 @@
 import { YupShape } from "common/types/yupShape";
-import { TFunction } from "react-i18next";
+import { TFunction } from "i18next";
 import * as yup from "yup";
 import { FormAspectObjectLib } from "./types/formAspectObjectLib";
 
@@ -33,11 +33,11 @@ export const aspectObjectSchema = (t: TFunction<"translation">) =>
             .number()
             .min(0, t("aspectObject.validation.aspectObjectTerminals.minQuantity.min"))
             .required(),
-        })
+        }),
       )
       .test("Uniqueness", t("aspectObject.validation.aspectObjectTerminals.array.unique"), (terminals) => {
         const uniqueTerminalAndDirectionCombinations = new Set(
-          terminals?.map((x) => `${x.terminalId}${x.connectorDirection}`)
+          terminals?.map((x) => `${x.terminalId}${x.connectorDirection}`),
         );
         return terminals?.length === uniqueTerminalAndDirectionCombinations.size;
       }),
