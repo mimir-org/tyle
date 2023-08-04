@@ -80,6 +80,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@mimirorg/typelibrary-types": "^1.0.0-preview.280",
     "@faker-js/faker": "^8.0.2",
     "@storybook/addon-a11y": "^7.2.1",
