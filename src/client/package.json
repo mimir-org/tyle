@@ -116,7 +116,7 @@
     "react-refresh": "^0.11.0",
     "react-scripts": "^5.0.1",
     "source-map-explorer": "^2.5.3",
-    "storybook": "^7.0.26",
+    "storybook": "^7.2.0",
     "typescript": "^4.9.5",
     "webpack": "^5.88.1"
   },
