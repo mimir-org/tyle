@@ -113,7 +113,7 @@
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-storybook": "^0.6.12",
-    "prettier": "^3.0.0",
+    "prettier": "^3.0.1",
     "react-refresh": "^0.11.0",
     "react-scripts": "^5.0.1",
     "source-map-explorer": "^2.5.3",
