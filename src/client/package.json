@@ -20,7 +20,7 @@
     "axios": "^1.2.1",
     "framer-motion": "^10.15.0",
     "fuse.js": "^6.6.2",
-    "i18next": "^23.2.7",
+    "i18next": "^23.4.2",
     "i18next-browser-languagedetector": "^7.1.0",
     "lodash.camelcase": "^4.3.0",
     "polished": "^4.2.2",
