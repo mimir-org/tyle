@@ -30,5 +30,8 @@ export default defineConfig({
         features: path.resolve("src/features"),
         locales: path.resolve("src/locales"),
     }
+  },
+  server: {
+    port: 3001,    
   }
 });

@@ -1,4 +1,4 @@
-export const isProduction = import.meta.env.NODE_ENV !== "development";
+export const isProduction = import.meta.env.MODE !== "development";
 
 const assignValue = (key: keyof TypeLibraryEnv) =>
   isProduction ? window.__TYPELIBRARY_ENV[key] : import.meta.env[`VITE_${key}`];
