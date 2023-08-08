@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import viteTsconfigPaths from 'vite-tsconfig-paths';
-import svgrPlugin from 'vite-plugin-svgr';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import svgrPlugin from "vite-plugin-svgr";
+import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,7 +12,6 @@ export default defineConfig({
   },
   plugins: [
     react(),
-    viteTsconfigPaths(),
     svgrPlugin({
       svgrOptions: {
         icon: true,
@@ -20,4 +19,14 @@ export default defineConfig({
       },
     }),
   ],
+  resolve: {
+    alias: {
+        fs: require.resolve("rollup-plugin-node-builtins"),
+        common: path.resolve("src/common"),
+        complib: path.resolve("src/complib"),
+        external: path.resolve("src/external"),
+        features: path.resolve("src/features"),
+        locales: path.resolve("src/locales"),
+    }
+  }
 });
