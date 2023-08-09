@@ -1,6 +1,5 @@
 import { LinkGroup } from "common/types/linkGroup";
-import { Divider } from "complib/data-display";
-import { Flexbox } from "complib/layouts";
+import { Divider, Flexbox } from "@mimirorg/component-library";
 import { Heading } from "complib/text";
 import { useGetApprovals } from "external/sources/approval/approval.queries";
 import { useGetPendingUsers } from "external/sources/company/company.queries";

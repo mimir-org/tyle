@@ -1,7 +1,7 @@
 import { AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { Token } from "complib/general";
-import { Flexbox } from "complib/layouts";
+import { Flexbox } from "@mimirorg/component-library";
 import { useGetAttributes } from "external/sources/attribute/attribute.queries";
 import {
   onAddAttributes,

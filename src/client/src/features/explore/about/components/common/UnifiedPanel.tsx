@@ -1,4 +1,4 @@
-import { Flexbox, MotionBox } from "complib/layouts";
+import { Flexbox, MotionBox } from "@mimirorg/component-library";
 import { Heading, Text } from "complib/text";
 import { useTheme } from "styled-components";
 import { State } from "@mimirorg/typelibrary-types";

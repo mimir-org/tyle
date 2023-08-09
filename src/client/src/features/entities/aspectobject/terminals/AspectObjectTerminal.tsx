@@ -7,9 +7,8 @@ import {
 } from "common/utils/aspectObjectTerminalQuantityRestrictions";
 import { Button } from "complib/buttons";
 import { FormField } from "complib/form";
-import { Counter, Select } from "complib/inputs";
-import { Checkbox } from "complib/inputs/checkbox/Checkbox";
-import { Box, Flexbox } from "complib/layouts";
+import { Counter } from "complib/inputs";
+import { Box, Checkbox, Flexbox, Select } from "@mimirorg/component-library";
 import { Text } from "complib/text";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
 import { TerminalButton } from "features/common/terminal";

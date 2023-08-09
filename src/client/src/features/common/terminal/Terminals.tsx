@@ -1,5 +1,5 @@
 import { AspectObjectTerminalItem } from "common/types/aspectObjectTerminalItem";
-import { Box } from "complib/layouts";
+import { Box } from "@mimirorg/component-library";
 import { TerminalButtonProps } from "features/common/terminal/TerminalButton";
 import { TerminalCollection } from "features/common/terminal/TerminalCollection";
 import { TerminalSingle } from "features/common/terminal/TerminalSingle";

@@ -1,6 +1,6 @@
 import { Option } from "common/utils/getOptionsFromEnum";
 import { TokenRadioGroup, TokenRadioGroupItem } from "complib/general";
-import { Flexbox } from "complib/layouts";
+import { Flexbox } from "@mimirorg/component-library";
 import { Text } from "complib/text";
 import { useTheme } from "styled-components";
 

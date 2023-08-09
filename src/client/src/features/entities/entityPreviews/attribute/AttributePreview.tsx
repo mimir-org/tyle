@@ -3,7 +3,7 @@ import { Text } from "../../../../complib/text";
 import { useTheme } from "styled-components";
 import { FormUnitHelper } from "../../units/types/FormUnitHelper";
 import UnitPreview from "../unit/UnitPreview";
-import { Flexbox } from "../../../../complib/layouts";
+import { Flexbox } from "@mimirorg/component-library";
 import AttributeIcon from "../../../icons/AttributeIcon";
 import { State } from "@mimirorg/typelibrary-types";
 

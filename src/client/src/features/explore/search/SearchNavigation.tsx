@@ -1,6 +1,6 @@
 import { ChevronDoubleLeft, ChevronDoubleRight, ChevronLeft, ChevronRight } from "@styled-icons/heroicons-outline";
 import { Button } from "complib/buttons";
-import { Flexbox } from "complib/layouts";
+import { Flexbox } from "@mimirorg/component-library";
 import { useSearchParams } from "react-router-dom";
 import { useTheme } from "styled-components";
 

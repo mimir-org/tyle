@@ -8,7 +8,7 @@ import { useSubmissionToast } from "features/entities/common/utils/useSubmission
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { RdsLibAm, RdsLibCm, State } from "@mimirorg/typelibrary-types";
-import { Box, Flexbox } from "../../../complib/layouts";
+import { Box, Flexbox } from "@mimirorg/component-library";
 import { PlainLink } from "../../common/plain-link";
 import { Button } from "../../../complib/buttons";
 import { useTheme } from "styled-components";

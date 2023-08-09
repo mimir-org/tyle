@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { QuantityDatumLibAm, QuantityDatumLibCm, State } from "@mimirorg/typelibrary-types";
 import { createEmptyDatum, toDatumLibAm } from "./types/formQuantityDatumLib";
 import { useQuantityDatumMutation, useQuantityDatumQuery } from "./QuantityDatumForm.helpers";
-import { Flexbox, Box } from "../../../complib/layouts";
+import { Flexbox, Box } from "@mimirorg/component-library";
 import { PlainLink } from "../../common/plain-link";
 import { Button } from "../../../complib/buttons";
 import { useTheme } from "styled-components";

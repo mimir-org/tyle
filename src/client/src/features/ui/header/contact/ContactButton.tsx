@@ -1,8 +1,7 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { Envelope } from "@styled-icons/heroicons-outline";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
-import { Select } from "complib/inputs";
-import { Box } from "complib/layouts";
+import { Box, Select } from "@mimirorg/component-library";
 import { Dialog } from "complib/overlays";
 import { Text } from "complib/text";
 import { useGetCompany } from "external/sources/company/company.queries";

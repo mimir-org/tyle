@@ -1,4 +1,4 @@
-import { Flexbox } from "complib/layouts";
+import { Flexbox } from "@mimirorg/component-library";
 import { RadioFilters } from "features/settings/common/radio-filters/RadioFilters";
 import { SettingsSection } from "features/settings/common/settings-section/SettingsSection";
 import { PermissionDialog } from "features/settings/permission/permission-dialog/PermissionDialog";

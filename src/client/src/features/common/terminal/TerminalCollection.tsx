@@ -1,7 +1,5 @@
 import { AspectObjectTerminalItem } from "common/types/aspectObjectTerminalItem";
-import { VisuallyHidden } from "complib/accessibility";
-import { Divider, Popover } from "complib/data-display";
-import { Box, Flexbox } from "complib/layouts";
+import { Box, Divider, Flexbox, Popover, VisuallyHidden } from "@mimirorg/component-library";
 import { Text } from "complib/text";
 import { TerminalButton } from "features/common/terminal/TerminalButton";
 import { TerminalDescription } from "features/common/terminal/TerminalSingle";

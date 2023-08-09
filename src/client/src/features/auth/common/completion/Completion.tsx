@@ -1,5 +1,5 @@
 import { Button } from "complib/buttons";
-import { Box } from "complib/layouts";
+import { Box } from "@mimirorg/component-library";
 import { Text } from "complib/text";
 import { Actionable } from "complib/types";
 import { AuthContent } from "features/auth/common/auth-content/AuthContent";

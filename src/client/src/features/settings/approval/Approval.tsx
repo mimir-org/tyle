@@ -1,4 +1,4 @@
-import { Flexbox } from "complib/layouts";
+import { Flexbox } from "@mimirorg/component-library";
 import { Text } from "complib/text";
 import { ApprovalPlaceholder } from "features/settings/approval/placeholder/ApprovalPlaceholder";
 import { ApprovalCard } from "features/settings/common/approval-card/ApprovalCard";

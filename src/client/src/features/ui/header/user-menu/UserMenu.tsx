@@ -1,7 +1,6 @@
 import { UserCircle } from "@styled-icons/heroicons-outline";
 import { Button } from "complib/buttons";
-import { Popover } from "complib/data-display";
-import { Box } from "complib/layouts";
+import { Box, Popover } from "@mimirorg/component-library";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
 

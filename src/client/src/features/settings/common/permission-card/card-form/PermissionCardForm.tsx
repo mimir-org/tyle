@@ -4,7 +4,7 @@ import { UserItem } from "common/types/userItem";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { Button } from "complib/buttons";
 import { Form, FormField } from "complib/form";
-import { Input, Select } from "complib/inputs";
+import { Input, Select } from "@mimirorg/component-library";
 import { usePermissionToasts } from "features/settings/common/permission-card/card-form/PermissionCardForm.helpers";
 import { permissionSchema } from "features/settings/common/permission-card/card-form/permissionSchema";
 import { FormUserPermission } from "features/settings/common/permission-card/card-form/types/formUserPermission";

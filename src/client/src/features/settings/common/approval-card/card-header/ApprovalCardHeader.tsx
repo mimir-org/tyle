@@ -1,4 +1,4 @@
-import { Box, Flexbox } from "complib/layouts";
+import { Box, Flexbox, Tooltip } from "@mimirorg/component-library";
 import { Text } from "complib/text";
 import { useTheme } from "styled-components";
 import TerminalIcon from "../../../../icons/TerminalIcon";
@@ -7,7 +7,6 @@ import AttributeIcon from "../../../../icons/AttributeIcon";
 import RdsIcon from "../../../../icons/RdsIcon";
 import UnitIcon from "../../../../icons/UnitIcon";
 import { ReactNode } from "react";
-import { Tooltip } from "../../../../../complib/data-display";
 import QuantityDatumIcon from "../../../../icons/QuantityDatumIcon";
 
 interface ApprovalCardHeaderProps {

@@ -1,5 +1,5 @@
 import { TerminalItem } from "common/types/terminalItem";
-import { Flexbox, MotionBox } from "complib/layouts";
+import { Flexbox, MotionBox } from "@mimirorg/component-library";
 import { Heading, Text } from "complib/text";
 import { InfoItemButton } from "features/common/info-item";
 import { TerminalPreview } from "features/entities/entityPreviews/terminal/TerminalPreview";

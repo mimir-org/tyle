@@ -14,7 +14,7 @@ import UnitFormBaseFields from "./UnitFormBaseFields";
 import { UnitFormPreview } from "../entityPreviews/unit/UnitFormPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
-import { Box, Flexbox } from "../../../complib/layouts";
+import { Box, Flexbox } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { unitSchema } from "./unitSchema";

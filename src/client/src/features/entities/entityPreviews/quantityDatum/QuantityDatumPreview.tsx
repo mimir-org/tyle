@@ -1,7 +1,7 @@
 import styled, { useTheme } from "styled-components/macro";
 import { Text } from "../../../../complib/text";
 import Badge from "../../../ui/badges/Badge";
-import { Flexbox } from "../../../../complib/layouts";
+import { Flexbox } from "@mimirorg/component-library";
 import QuantityDatumIcon from "../../../icons/QuantityDatumIcon";
 
 interface StyledDivProps {

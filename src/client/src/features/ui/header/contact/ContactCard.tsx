@@ -1,5 +1,5 @@
 import { User } from "@styled-icons/heroicons-outline";
-import { Box, MotionBox } from "complib/layouts";
+import { Box, MotionBox } from "@mimirorg/component-library";
 import { Text } from "complib/text";
 import { useTheme } from "styled-components";
 

@@ -1,6 +1,6 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
-import { Flexbox } from "complib/layouts";
+import { Flexbox } from "@mimirorg/component-library";
 import { useGetCurrentUser } from "external/sources/user/user.queries";
 import { ContactButton } from "features/ui/header/contact/ContactButton";
 import { mapPermissionDescriptions } from "features/ui/header/Header.helpers";

@@ -1,7 +1,7 @@
 import { AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { mapAttributeLibCmToInfoItem } from "common/utils/mappers";
 import { FormField } from "complib/form";
-import { Box } from "complib/layouts";
+import { Box } from "@mimirorg/component-library";
 import { InfoItemButton } from "features/common/info-item";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";

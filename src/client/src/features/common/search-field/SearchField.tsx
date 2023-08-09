@@ -1,4 +1,4 @@
-import { Input } from "complib/inputs";
+import { Input } from "@mimirorg/component-library";
 import { InputProps } from "complib/inputs/input/Input";
 import { SearchFieldIcon } from "features/common/search-field/SearchField.styled";
 

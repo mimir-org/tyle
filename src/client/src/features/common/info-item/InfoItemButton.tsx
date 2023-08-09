@@ -1,4 +1,4 @@
-import { Popover } from "complib/data-display";
+import { Popover } from "@mimirorg/component-library";
 import { TokenButton, TokenButtonProps } from "complib/general";
 import { InfoItemDescription, InfoItemDescriptionProps } from "features/common/info-item/InfoItemDescription";
 import { ForwardedRef, forwardRef, useState } from "react";

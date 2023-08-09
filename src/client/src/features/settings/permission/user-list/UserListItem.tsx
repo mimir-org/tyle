@@ -1,5 +1,5 @@
 import { UserCircle } from "@styled-icons/heroicons-outline";
-import { Flexbox, MotionBox } from "complib/layouts";
+import { Flexbox, MotionBox } from "@mimirorg/component-library";
 import { Text } from "complib/text";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";

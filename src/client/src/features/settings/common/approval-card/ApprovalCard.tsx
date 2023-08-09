@@ -9,7 +9,7 @@ import {
 import { ApprovalCm } from "@mimirorg/typelibrary-types";
 import { Text } from "complib/text";
 import { Horizontal } from "../../../../complib/data-display/divider/Divider.stories";
-import { Flexbox } from "../../../../complib/layouts";
+import { Flexbox } from "@mimirorg/component-library";
 
 export type ApprovalCardProps = ApprovalCardFormProps & {
   item: ApprovalCm;

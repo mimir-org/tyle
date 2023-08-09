@@ -1,5 +1,5 @@
 import { StoryFn } from "@storybook/react";
-import { Box } from "complib/layouts";
+import { Box } from "@mimirorg/component-library";
 import { Text } from "complib/text";
 import { SettingsSection } from "features/settings/common/settings-section/SettingsSection";
 

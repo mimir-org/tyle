@@ -7,7 +7,7 @@ import {
   FormApproval,
   mapFormApprovalToApiModel,
 } from "features/settings/common/approval-card/card-form/types/formApproval";
-import { Flexbox } from "complib/layouts/Flexbox";
+import { Flexbox } from "@mimirorg/component-library";
 import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
 import { usePatchAspectObjectState } from "external/sources/aspectobject/aspectObject.queries";
 import { usePatchUnitState } from "../../../../../external/sources/unit/unit.queries";

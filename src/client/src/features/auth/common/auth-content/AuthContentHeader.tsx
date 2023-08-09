@@ -1,4 +1,4 @@
-import { Box, MotionFlexbox } from "complib/layouts";
+import { Box, MotionFlexbox } from "@mimirorg/component-library";
 import { Heading, Text } from "complib/text";
 import { MotionLogo } from "features/common/logo/Logo";
 import { useTheme } from "styled-components";

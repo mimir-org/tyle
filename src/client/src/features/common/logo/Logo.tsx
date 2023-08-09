@@ -1,5 +1,5 @@
 import { usePrefersTheme } from "common/hooks/usePrefersTheme";
-import { Icon } from "complib/media";
+import { Icon } from "@mimirorg/component-library";
 import { IconProps } from "complib/media/icon/Icon";
 import { TyleLogoDarkRedIcon, TyleLogoWhiteIcon } from "features/common/logo/assets";
 import { motion } from "framer-motion";

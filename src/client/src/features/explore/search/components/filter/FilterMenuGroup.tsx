@@ -1,5 +1,4 @@
-import { Checkbox } from "complib/inputs/checkbox/Checkbox";
-import { Box } from "complib/layouts";
+import { Box, Checkbox } from "@mimirorg/component-library";
 import { AccordionContent, AccordionItem, AccordionTrigger } from "complib/surfaces";
 import { Text } from "complib/text";
 import { FilterMenuGroupLabel } from "features/explore/search/components/filter/FilterMenuGroup.styled";

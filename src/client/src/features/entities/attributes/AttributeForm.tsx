@@ -19,7 +19,7 @@ import {
 import { AttributeFormPreview } from "../entityPreviews/attribute/AttributeFormPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
-import { Box, Flexbox } from "../../../complib/layouts";
+import { Box, Flexbox } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { attributeSchema } from "./attributeSchema";

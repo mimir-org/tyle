@@ -5,8 +5,7 @@ import { useServerValidation } from "common/hooks/server-validation/useServerVal
 import { useExecuteOnCriteria } from "common/hooks/useExecuteOnCriteria";
 import { Button } from "complib/buttons";
 import { Form, FormField, FormFieldset } from "complib/form";
-import { Input, Select, Textarea } from "complib/inputs";
-import { MotionFlexbox } from "complib/layouts";
+import { Input, MotionFlexbox, Select, Textarea } from "@mimirorg/component-library";
 import { MotionText, Text } from "complib/text";
 import { Actionable } from "complib/types";
 import { useGetCompanies } from "external/sources/company/company.queries";

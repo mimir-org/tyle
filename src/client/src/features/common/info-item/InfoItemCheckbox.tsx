@@ -1,5 +1,5 @@
 import { InfoItem } from "common/types/infoItem";
-import { Tooltip } from "complib/data-display";
+import { Tooltip } from "@mimirorg/component-library";
 import { TokenCheckbox, TokenCheckboxProps } from "complib/general";
 import { InfoItemDescription } from "features/common/info-item/InfoItemDescription";
 

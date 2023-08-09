@@ -1,5 +1,5 @@
 import { FormField } from "../../../complib/form";
-import { Input, Select, Textarea } from "../../../complib/inputs";
+import { Input, Select, Textarea } from "@mimirorg/component-library";
 import { Controller, useFormContext } from "react-hook-form";
 import { QuantityDatumLibAm, QuantityDatumType } from "@mimirorg/typelibrary-types";
 import { useTranslation } from "react-i18next";

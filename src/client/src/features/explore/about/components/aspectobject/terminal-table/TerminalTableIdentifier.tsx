@@ -1,6 +1,6 @@
 import { AspectObjectTerminalItem } from "common/types/aspectObjectTerminalItem";
 import { Td } from "complib/data-display";
-import { Flexbox } from "complib/layouts";
+import { Flexbox } from "@mimirorg/component-library";
 import { TerminalButton } from "features/common/terminal/TerminalButton";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";

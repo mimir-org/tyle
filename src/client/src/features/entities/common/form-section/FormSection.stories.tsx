@@ -1,6 +1,6 @@
 import { Meta, StoryFn } from "@storybook/react";
 import { Button } from "complib/buttons";
-import { Flexbox } from "complib/layouts";
+import { Flexbox } from "@mimirorg/component-library";
 import { InfoItemButtonProps } from "features/common/info-item/InfoItemButton";
 import { Default as SelectItemInfoButton } from "features/common/info-item/InfoItemButton.stories";
 import { FormSection } from "features/entities/common/form-section/FormSection";

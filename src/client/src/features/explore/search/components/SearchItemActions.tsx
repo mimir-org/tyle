@@ -10,7 +10,7 @@ import { UserItem } from "../../../../common/types/userItem";
 import { getCloneLink, getEditLink, useDeleteMutation, usePatchMutation } from "./SearchItemActions.helpers";
 import { ItemType } from "../../../entities/types/itemTypes";
 import { Text } from "../../../../complib/text";
-import { Tooltip } from "../../../../complib/data-display";
+import { Tooltip } from "@mimirorg/component-library";
 import { StateBadge } from "../../../ui/badges/StateBadge";
 import { toast } from "complib/data-display";
 import { AxiosError } from "axios";

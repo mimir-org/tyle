@@ -1,7 +1,6 @@
 import { InfoItem } from "common/types/infoItem";
 import { Button } from "complib/buttons";
-import { Divider } from "complib/data-display";
-import { Box, Flexbox } from "complib/layouts";
+import { Box, Divider, Flexbox } from "@mimirorg/component-library";
 import { Text } from "complib/text";
 import { Actionable } from "complib/types";
 import { useTheme } from "styled-components";

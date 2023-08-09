@@ -1,5 +1,5 @@
 import { UserCircle } from "@styled-icons/heroicons-outline";
-import { Box } from "complib/layouts";
+import { Box } from "@mimirorg/component-library";
 import { Text } from "complib/text";
 import { useTheme } from "styled-components";
 

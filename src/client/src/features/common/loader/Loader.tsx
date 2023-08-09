@@ -1,5 +1,5 @@
 import { Spinner } from "complib/feedback";
-import { MotionFlexbox } from "complib/layouts";
+import { MotionFlexbox } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 
 /**
