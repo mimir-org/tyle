@@ -1,6 +1,7 @@
 /// <reference types="vitest" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+// eslint-disable-next-line import/no-unresolved
 import macrosPlugin from "vite-plugin-babel-macros";
 import svgrPlugin from "vite-plugin-svgr";
 import path from "path";
@@ -10,7 +11,7 @@ export default defineConfig({
   // This changes the out put dir from dist to build
   // comment this out if that isn't relevant for your project
   build: {
-    outDir: 'build',
+    outDir: "build",
   },
   plugins: [
     react(),
@@ -24,27 +25,24 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-        fs: require.resolve("rollup-plugin-node-builtins"),
-        common: path.resolve("src/common"),
-        complib: path.resolve("src/complib"),
-        external: path.resolve("src/external"),
-        features: path.resolve("src/features"),
-        locales: path.resolve("src/locales"),
-    }
+      fs: require.resolve("rollup-plugin-node-builtins"),
+      common: path.resolve("src/common"),
+      complib: path.resolve("src/complib"),
+      external: path.resolve("src/external"),
+      features: path.resolve("src/features"),
+      locales: path.resolve("src/locales"),
+    },
   },
   server: {
     open: true,
-    port: 3001,    
+    port: 3001,
   },
-  test : {
+  test: {
     globals: true,
     environment: "jsdom",
     coverage: {
       reporter: ["text", "html"],
-      exclude: [
-        "node_modules/",
-        "src/setupTests.ts",
-      ]
-    }
-  }
+      exclude: ["node_modules/", "src/setupTests.ts"],
+    },
+  },
 });
