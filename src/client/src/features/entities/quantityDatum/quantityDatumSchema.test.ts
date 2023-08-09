@@ -1,8 +1,9 @@
 import { QuantityDatumLibAm } from "@mimirorg/typelibrary-types";
 import { quantityDatumSchema } from "./quantityDatumSchema";
+import { vi } from "vitest";
 
 describe("quantityDatumSchema tests", () => {
-  const t = jest.fn();
+  const t = vi.fn();
 
   it("should reject without a name", async () => {
     const quantityDatumWithoutName: Partial<QuantityDatumLibAm> = { name: "" };

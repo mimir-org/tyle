@@ -1,9 +1,10 @@
 import { ConnectorDirection } from "@mimirorg/typelibrary-types";
 import { aspectObjectSchema } from "features/entities/aspectobject/aspectObjectSchema";
 import { FormAspectObjectLib } from "features/entities/aspectobject/types/formAspectObjectLib";
+import { vi } from "vitest";
 
 describe("aspectObjectSchema tests", () => {
-  const t = jest.fn();
+  const t = vi.fn();
 
   it("should reject without a name", async () => {
     const aspectObjectWithoutAName: Partial<FormAspectObjectLib> = { name: "" };

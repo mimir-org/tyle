@@ -41,7 +41,8 @@
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
-    "test": "vite test",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "lint": "eslint . --max-warnings=0 --ext .ts,.tsx",
     "format": "prettier --write .",
@@ -53,8 +54,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ],
     "overrides": [
       {
@@ -98,7 +98,6 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
-    "@types/jest": "^29.5.3",
     "@types/lodash.camelcase": "^4.3.7",
     "@types/node": "^20.4.8",
     "@types/react": "^18.2.18",
@@ -107,6 +106,8 @@
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
     "@vitejs/plugin-react": "^4.0.4",
+    "@vitest/coverage-v8": "^0.34.1",
+    "c8": "^8.0.1",
     "cross-env": "^7.0.3",
     "env-cmd": "^10.1.0",
     "eslint": "8.46.0",
@@ -116,6 +117,7 @@
     "eslint-plugin-react": "^7.33.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-storybook": "^0.6.13",
+    "jsdom": "^22.1.0",
     "prettier": "^3.0.1",
     "react-refresh": "^0.11.0",
     "source-map-explorer": "^2.5.3",
@@ -124,6 +126,7 @@
     "vite": "^4.4.9",
     "vite-plugin-babel-macros": "^1.0.6",
     "vite-plugin-svgr": "^3.2.0",
+    "vitest": "^0.34.1",
     "webpack": "^5.88.1"
   },
   "overrides": {

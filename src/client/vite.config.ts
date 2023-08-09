@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import macrosPlugin from "vite-plugin-babel-macros";
@@ -34,5 +35,16 @@ export default defineConfig({
   server: {
     open: true,
     port: 3001,    
+  },
+  test : {
+    globals: true,
+    environment: "jsdom",
+    coverage: {
+      reporter: ["text", "html"],
+      exclude: [
+        "node_modules/",
+        "src/setupTests.ts",
+      ]
+    }
   }
 });

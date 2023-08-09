@@ -1,8 +1,9 @@
 import { terminalSchema } from "features/entities/terminal/terminalSchema";
 import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";
+import { vi } from "vitest";
 
 describe("terminalSchema tests", () => {
-  const t = jest.fn();
+  const t = vi.fn();
 
   it("should reject without a name", async () => {
     const terminalWithoutAName: Partial<FormTerminalLib> = { name: "" };
