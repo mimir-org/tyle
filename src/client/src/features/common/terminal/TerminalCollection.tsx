@@ -1,6 +1,5 @@
 import { AspectObjectTerminalItem } from "common/types/aspectObjectTerminalItem";
-import { Box, Divider, Flexbox, Popover, VisuallyHidden } from "@mimirorg/component-library";
-import { Text } from "complib/text";
+import { Box, Divider, Flexbox, Popover, Text, VisuallyHidden } from "@mimirorg/component-library";
 import { TerminalButton } from "features/common/terminal/TerminalButton";
 import { TerminalDescription } from "features/common/terminal/TerminalSingle";
 import { useTranslation } from "react-i18next";

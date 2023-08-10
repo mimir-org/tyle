@@ -1,13 +1,12 @@
 import { ApprovalDataCm, State } from "@mimirorg/typelibrary-types";
 import { toast } from "complib/data-display";
-import { Text } from "complib/text";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import {
   FormApproval,
   mapFormApprovalToApiModel,
 } from "features/settings/common/approval-card/card-form/types/formApproval";
-import { Flexbox } from "@mimirorg/component-library";
+import { Flexbox, Text } from "@mimirorg/component-library";
 import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
 import { usePatchAspectObjectState } from "external/sources/aspectobject/aspectObject.queries";
 import { usePatchUnitState } from "../../../../../external/sources/unit/unit.queries";

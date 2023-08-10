@@ -1,8 +1,7 @@
 import styled, { useTheme } from "styled-components/macro";
-import { Text } from "../../../../complib/text";
 import Badge from "../../../ui/badges/Badge";
 import RdsIcon from "../../../icons/RdsIcon";
-import { Flexbox } from "@mimirorg/component-library";
+import { Flexbox, Text } from "@mimirorg/component-library";
 import { State } from "@mimirorg/typelibrary-types";
 import { StateBadge } from "../../../ui/badges/StateBadge";
 

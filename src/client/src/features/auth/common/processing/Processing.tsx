@@ -1,6 +1,5 @@
 import { Spinner } from "complib/feedback";
-import { Flexbox } from "@mimirorg/component-library";
-import { Text } from "complib/text";
+import { Flexbox, Text } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 
 interface RegisterProcessingProps {

@@ -1,5 +1,4 @@
-import { MotionFlexbox } from "@mimirorg/component-library";
-import { Text } from "complib/text";
+import { MotionFlexbox, Text } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 
 interface SearchPlaceholderProps {

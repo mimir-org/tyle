@@ -1,5 +1,4 @@
-import { Flexbox } from "@mimirorg/component-library";
-import { Text } from "complib/text";
+import { Flexbox, Text } from "@mimirorg/component-library";
 import { ApprovalPlaceholder } from "features/settings/approval/placeholder/ApprovalPlaceholder";
 import { ApprovalCard } from "features/settings/common/approval-card/ApprovalCard";
 import { SettingsSection } from "features/settings/common/settings-section/SettingsSection";

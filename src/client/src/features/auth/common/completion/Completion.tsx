@@ -1,6 +1,5 @@
 import { Button } from "complib/buttons";
-import { Box } from "@mimirorg/component-library";
-import { Text } from "complib/text";
+import { Box, Text } from "@mimirorg/component-library";
 import { Actionable } from "complib/types";
 import { AuthContent } from "features/auth/common/auth-content/AuthContent";
 import { useTheme } from "styled-components";

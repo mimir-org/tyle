@@ -1,5 +1,4 @@
-import { MotionBox } from "@mimirorg/component-library";
-import { Heading } from "complib/text";
+import { Heading, MotionBox } from "@mimirorg/component-library";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
 

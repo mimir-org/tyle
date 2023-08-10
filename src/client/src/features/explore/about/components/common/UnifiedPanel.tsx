@@ -1,5 +1,4 @@
-import { Flexbox, MotionBox } from "@mimirorg/component-library";
-import { Heading, Text } from "complib/text";
+import { Heading, Flexbox, MotionBox, Text } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 import { State } from "@mimirorg/typelibrary-types";
 import { StateBadge } from "../../../../ui/badges/StateBadge";

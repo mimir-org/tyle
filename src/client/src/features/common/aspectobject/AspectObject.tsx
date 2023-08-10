@@ -1,5 +1,4 @@
-import { Icon } from "@mimirorg/component-library";
-import { Text } from "complib/text";
+import { Icon, Text } from "@mimirorg/component-library";
 import { AspectObjectContainer, AspectObjectContainerProps } from "features/common/aspectobject/AspectObject.styled";
 import { useTheme } from "styled-components";
 

@@ -1,5 +1,4 @@
-import { Box, MotionFlexbox } from "@mimirorg/component-library";
-import { Text } from "complib/text";
+import { Box, MotionFlexbox, Text } from "@mimirorg/component-library";
 import { PropsWithChildren } from "react";
 import { useTheme } from "styled-components";
 

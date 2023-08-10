@@ -1,5 +1,4 @@
-import { Box, Flexbox, Tooltip } from "@mimirorg/component-library";
-import { Text } from "complib/text";
+import { Box, Flexbox, Text, Tooltip } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 import TerminalIcon from "../../../../icons/TerminalIcon";
 import AspectObjectIcon from "../../../../icons/AspectObjectIcon";

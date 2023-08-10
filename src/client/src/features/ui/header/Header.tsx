@@ -1,6 +1,6 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
-import { Flexbox } from "@mimirorg/component-library";
+import { Flexbox, Text } from "@mimirorg/component-library";
 import { useGetCurrentUser } from "external/sources/user/user.queries";
 import { ContactButton } from "features/ui/header/contact/ContactButton";
 import { mapPermissionDescriptions } from "features/ui/header/Header.helpers";
@@ -13,7 +13,6 @@ import { ThemeButton } from "features/ui/header/theme-button/ThemeButton";
 import { UserInfo } from "features/ui/header/user-info/UserInfo";
 import { UserMenu } from "features/ui/header/user-menu/UserMenu";
 import { useTheme } from "styled-components";
-import { Text } from "complib/text";
 import config from "../../../common/utils/config";
 
 export const Header = () => {

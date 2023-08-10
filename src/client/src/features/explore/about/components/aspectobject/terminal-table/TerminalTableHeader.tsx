@@ -1,5 +1,5 @@
 import { Th, Tr } from "complib/data-display";
-import { Text } from "complib/text";
+import { Text } from "@mimirorg/component-library";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 import { useMediaQuery } from "usehooks-ts";

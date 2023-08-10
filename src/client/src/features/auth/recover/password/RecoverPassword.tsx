@@ -5,8 +5,7 @@ import { useServerValidation } from "common/hooks/server-validation/useServerVal
 import { useExecuteOnCriteria } from "common/hooks/useExecuteOnCriteria";
 import { Button } from "complib/buttons";
 import { Form, FormField, FormFieldset } from "complib/form";
-import { Flexbox, Input } from "@mimirorg/component-library";
-import { Text } from "complib/text";
+import { Flexbox, Input, Text } from "@mimirorg/component-library";
 import { Actionable } from "complib/types";
 import { useChangePassword } from "external/sources/user/user.queries";
 import { AuthContent } from "features/auth/common/auth-content/AuthContent";

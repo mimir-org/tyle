@@ -1,5 +1,4 @@
-import { Box, Button } from "@mimirorg/component-library";
-import { Heading, Text } from "complib/text";
+import { Box, Button, Heading, Text } from "@mimirorg/component-library";
 import { PlainLink } from "features/common/plain-link";
 import { useTheme } from "styled-components";
 

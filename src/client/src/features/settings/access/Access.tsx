@@ -1,6 +1,5 @@
 import { mapMimirorgUserCmToUserItem } from "common/utils/mappers/mapMimirorgUserCmToUserItem";
-import { Flexbox } from "@mimirorg/component-library";
-import { Text } from "complib/text";
+import { Flexbox, Text } from "@mimirorg/component-library";
 import { useGetPendingUsers } from "external/sources/company/company.queries";
 import { AccessPlaceholder } from "features/settings/access/placeholder/AccessPlaceholder";
 import { PermissionCard } from "features/settings/common/permission-card/PermissionCard";

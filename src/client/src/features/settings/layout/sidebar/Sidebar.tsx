@@ -1,6 +1,5 @@
 import { LinkGroup } from "common/types/linkGroup";
-import { Divider, Flexbox } from "@mimirorg/component-library";
-import { Heading } from "complib/text";
+import { Divider, Flexbox, Heading } from "@mimirorg/component-library";
 import { useGetApprovals } from "external/sources/approval/approval.queries";
 import { useGetPendingUsers } from "external/sources/company/company.queries";
 import { SidebarContainer, SidebarLink } from "features/settings/layout/sidebar/Sidebar.styled";

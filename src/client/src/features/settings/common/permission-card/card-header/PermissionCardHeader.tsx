@@ -1,6 +1,5 @@
 import { UserCircle } from "@styled-icons/heroicons-outline";
-import { Box } from "@mimirorg/component-library";
-import { Text } from "complib/text";
+import { Box, Text } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 
 interface PermissionCardHeaderProps {

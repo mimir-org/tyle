@@ -3,7 +3,7 @@ import { ApprovalCm, State } from "@mimirorg/typelibrary-types";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
 import { Button } from "complib/buttons";
 import { Form } from "complib/form";
-import { Flexbox, Input } from "@mimirorg/component-library";
+import { Flexbox, Input, Text } from "@mimirorg/component-library";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
@@ -13,7 +13,6 @@ import {
 import { approvalSchema } from "features/settings/common/approval-card/card-form/approvalSchema";
 import { FormApproval } from "features/settings/common/approval-card/card-form/types/formApproval";
 import { theme } from "../../../../../complib/core";
-import { Text } from "../../../../../complib/text";
 
 export interface ApprovalCardFormProps {
   item: ApprovalCm;

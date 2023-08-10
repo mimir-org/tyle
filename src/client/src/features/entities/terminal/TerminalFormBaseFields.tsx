@@ -1,13 +1,12 @@
 import { Button } from "complib/buttons";
 import { FormField } from "complib/form";
-import { Flexbox, Input, Textarea } from "@mimirorg/component-library";
+import { Flexbox, Input, Textarea, Text } from "@mimirorg/component-library";
 import { PlainLink } from "features/common/plain-link";
 import { TerminalFormPreview } from "features/entities/entityPreviews/terminal/TerminalFormPreview";
 import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { Text } from "../../../complib/text";
 import { FormBaseFieldsContainer } from "complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
 interface TerminalFormBaseFieldsProps {

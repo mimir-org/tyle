@@ -1,6 +1,5 @@
 import { StoryFn } from "@storybook/react";
-import { Box } from "@mimirorg/component-library";
-import { Text } from "complib/text";
+import { Box, Text } from "@mimirorg/component-library";
 import { SettingsSection } from "features/settings/common/settings-section/SettingsSection";
 
 export default {

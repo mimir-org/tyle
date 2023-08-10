@@ -8,7 +8,7 @@ import { useSubmissionToast } from "features/entities/common/utils/useSubmission
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { RdsLibAm, RdsLibCm, State } from "@mimirorg/typelibrary-types";
-import { Box, Flexbox } from "@mimirorg/component-library";
+import { Box, Flexbox, Text } from "@mimirorg/component-library";
 import { PlainLink } from "../../common/plain-link";
 import { Button } from "../../../complib/buttons";
 import { useTheme } from "styled-components";
@@ -18,7 +18,6 @@ import { RdsFormBaseFields } from "./RdsFormBaseFields";
 import { RdsFormPreview } from "../entityPreviews/rds/RdsFormPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
-import { Text } from "../../../complib/text";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { rdsSchema } from "./rdsSchema";
 import { useGetAllRds } from "external/sources/rds/rds.queries";

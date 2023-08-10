@@ -1,5 +1,4 @@
-import { Flexbox } from "@mimirorg/component-library";
-import { Text } from "../../../../complib/text";
+import { Flexbox, Text } from "@mimirorg/component-library";
 import styled, { useTheme } from "styled-components/macro";
 import UnitIcon from "../../../icons/UnitIcon";
 import { StateBadge } from "../../../ui/badges/StateBadge";

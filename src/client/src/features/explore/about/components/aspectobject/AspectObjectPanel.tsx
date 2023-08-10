@@ -1,6 +1,5 @@
 import { AspectObjectItem } from "common/types/aspectObjectItem";
-import { Flexbox, MotionBox } from "@mimirorg/component-library";
-import { Heading, Text } from "complib/text";
+import { Heading, Flexbox, MotionBox, Text } from "@mimirorg/component-library";
 import { InfoItemButton } from "features/common/info-item";
 import { PanelPropertiesContainer } from "features/explore/about/components/common/PanelPropertiesContainer";
 import { PanelSection } from "features/explore/about/components/common/PanelSection";
