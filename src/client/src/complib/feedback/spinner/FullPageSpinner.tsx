@@ -17,7 +17,7 @@ export const FullPageSpinner = ({ text }: Props) => {
 
   return (
     <FullPageSpinnerContainer>
-      <Heading color={theme.tyle.color.sys.background.on}>{text}</Heading>
+      <Heading color={theme.mimirorg.color.background.on}>{text}</Heading>
       <Spinner />
     </FullPageSpinnerContainer>
   );

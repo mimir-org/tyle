@@ -26,7 +26,7 @@ export const TokenCheckbox = forwardRef((props: TokenCheckboxProps, ref: Forward
         ref={ref}
         variant={"secondary"}
         $interactive
-        {...theme.tyle.animation.checkboxTap}
+        {...theme.mimirorg.animation.checkboxTap}
       >
         <Text variant={"label-small"} useEllipsis ellipsisMaxLines={1}>
           {children}

@@ -1,16 +1,16 @@
-import { TyleTheme } from "complib/core/theme/theme";
+import { Theme } from "@mimirorg/component-library";
 import { getTextRole } from "complib/mixins";
 import { css } from "styled-components/macro";
 
 /**
  * TYPOGRAPHY SPECIFIC GLOBALS
  */
-export const globalTypographyStyle = (theme: TyleTheme) => css`
+export const globalTypographyStyle = (theme: Theme) => css`
   body {
-    font-family: ${theme.typography.ref.typeface.brand};
-    font-weight: ${theme.typography.ref.typeface.weights.normal};
+    font-family: ${theme.typography.typeface.brand};
+    font-weight: ${theme.typography.typeface.weights.normal};
     font-size: 100%;
-    color: ${theme.color.sys.background.on};
+    color: ${theme.color.background.on};
   }
 
   h1 {
@@ -50,7 +50,7 @@ export const globalTypographyStyle = (theme: TyleTheme) => css`
   b,
   strong {
     ${getTextRole("body-large")}
-    font-weight: ${theme.typography.ref.typeface.weights.bold};
+    font-weight: ${theme.typography.typeface.weights.bold};
   }
 
   small {

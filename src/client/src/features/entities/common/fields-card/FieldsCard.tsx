@@ -34,7 +34,7 @@ export const FieldsCard = ({ index, removeText, onRemove, children }: FieldsCard
         </Button>
       </Box>
 
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.s}>
+      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.s}>
         {children}
       </Flexbox>
     </FieldsCardContainer>

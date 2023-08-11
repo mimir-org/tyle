@@ -16,7 +16,7 @@ export const Checkbox = forwardRef((props: CheckboxProps, ref: ForwardedRef<HTML
   const theme = useTheme();
 
   return (
-    <MotionCheckboxRoot ref={ref} {...theme.tyle.animation.checkboxTap} {...props}>
+    <MotionCheckboxRoot ref={ref} {...theme.mimirorg.animation.checkboxTap} {...props}>
       <CheckboxEmptyIcon />
       <CheckboxIndicator>
         <CheckboxChecked />

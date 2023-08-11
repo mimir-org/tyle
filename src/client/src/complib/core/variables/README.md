@@ -22,10 +22,10 @@ export const Styled = () => {
 
   return (
     <Box 
-      bgColor={theme.tyle.color.sys.primary.base} 
-      color={theme.tyle.color.sys.primary.on} 
-      borderRadius={theme.tyle.border.radius.large}
-      p={theme.tyle.spacing.xl} 
+      bgColor={theme.mimirorg.color.primary.base} 
+      color={theme.mimirorg.color.primary.on} 
+      borderRadius={theme.mimirorg.border.radius.large}
+      p={theme.mimirorg.spacing.xl} 
     >
       <Text>This component consumes theme styles via hook</Text>
     </Box>
@@ -38,9 +38,9 @@ export const Styled = () => {
 ```ts
 // Consumes theme via auto-injected theme property
 export const StyledComponent = styled.div`
-  background-color: ${(props) => props.theme.tyle.color.sys.primary.base};
-  color: ${(props) => props.theme.tyle.color.sys.primary.on};
-  border-radius: ${(props) => props.theme.tyle.border.radius.large};
-  padding: ${(props) => props.theme.tyle.spacing.xl};
+  background-color: ${(props) => props.theme.mimirorg.color.primary.base};
+  color: ${(props) => props.theme.mimirorg.color.primary.on};
+  border-radius: ${(props) => props.theme.mimirorg.border.radius.large};
+  padding: ${(props) => props.theme.mimirorg.spacing.xl};
 `;
 ```

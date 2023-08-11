@@ -30,7 +30,7 @@ export const Permissions = () => {
 
   return (
     <SettingsSection title={t("permissions.title")}>
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xxl}>
+      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xxl}>
         <RadioFilters
           title={t("permissions.organization")}
           filters={companies}

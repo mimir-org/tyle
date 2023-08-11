@@ -9,13 +9,13 @@ type CardProps = Polymorphic<ElementType> & {
 };
 
 export const Card = styled.div<CardProps>`
-  padding: ${(props) => props.theme.tyle.spacing.xxxl};
-  background-color: ${(props) => props.theme.tyle.color.sys.surface.base};
-  box-shadow: ${(props) => props.theme.tyle.shadow.small};
-  border-radius: ${(props) => props.theme.tyle.border.radius.large};
+  padding: ${(props) => props.theme.mimirorg.spacing.xxxl};
+  background-color: ${(props) => props.theme.mimirorg.color.surface.base};
+  box-shadow: ${(props) => props.theme.mimirorg.shadow.small};
+  border-radius: ${(props) => props.theme.mimirorg.border.radius.large};
 
   ${({ variant, ...props }) => {
-    const { color } = props.theme.tyle;
+    const { color } = props.theme.mimirorg;
 
     if (variant === "selected") {
       return selectedCard(color);
@@ -28,7 +28,7 @@ Card.defaultProps = {
 };
 
 const selectedCard = (color: ColorSystem) => css`
-  background-color: ${color.sys.tertiary.container?.base};
+  background-color: ${color.tertiary.container?.base};
   box-shadow: none;
 `;
 

@@ -16,18 +16,18 @@ export const AlertDialogContent = styled(MotionBox)<AlertDialogContentProps>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: ${(props) => props.theme.tyle.spacing.xxxl};
+  gap: ${(props) => props.theme.mimirorg.spacing.xxxl};
 
-  background-color: ${(props) => props.theme.tyle.color.sys.background.base};
-  border-radius: ${(props) => props.theme.tyle.border.radius.large};
+  background-color: ${(props) => props.theme.mimirorg.color.background.base};
+  border-radius: ${(props) => props.theme.mimirorg.border.radius.large};
 
   width: 590px;
   min-height: 380px;
   max-width: 90vw;
   max-height: 85vh;
-  padding: ${(props) => props.theme.tyle.spacing.multiple(6)};
+  padding: ${(props) => props.theme.mimirorg.spacing.multiple(6)};
 
-  box-shadow: ${(props) => props.theme.tyle.shadow.small};
+  box-shadow: ${(props) => props.theme.mimirorg.shadow.small};
 
   ${sizingMixin};
   ${flexMixin};
@@ -36,5 +36,5 @@ export const AlertDialogContent = styled(MotionBox)<AlertDialogContentProps>`
 export const AlertDialogOverlay = styled(motion.div)`
   position: fixed;
   inset: 0;
-  background-color: ${(props) => translucify(props.theme.tyle.color.sys.surface.on, 0.08)};
+  background-color: ${(props) => translucify(props.theme.mimirorg.color.surface.on, 0.08)};
 `;

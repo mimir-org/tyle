@@ -43,11 +43,11 @@ export interface TyleTheme {
 /**
  * Defines the theme available through styled-component's theme-provider
  */
-declare module "styled-components" {
-  export interface DefaultTheme {
-    tyle: TyleTheme;
-  }
-}
+//declare module "styled-components" {
+//  export interface DefaultTheme {
+//    tyle: TyleTheme;
+//  }
+//}
 
 export const themeBuilder = (colorTheme: string): TyleTheme => {
   return {

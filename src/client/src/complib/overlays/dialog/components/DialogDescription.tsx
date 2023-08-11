@@ -17,7 +17,7 @@ export const DialogDescription = ({ children, hide }: DialogDescriptionProps) =>
   return (
     <ConditionalWrapper condition={hide} wrapper={(c) => WrappedComponent(c)}>
       <DialogPrimitive.Description asChild>
-        <Text variant={"title-medium"} textAlign={"center"} color={theme.tyle.color.sys.surface.variant.on}>
+        <Text variant={"title-medium"} textAlign={"center"} color={theme.mimirorg.color.surface.variant.on}>
           {children}
         </Text>
       </DialogPrimitive.Description>

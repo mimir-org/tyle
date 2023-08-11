@@ -13,12 +13,12 @@ interface StyledDivProps {
 const StyledDiv = styled.div<StyledDivProps>`
   display: flex;
   flex-direction: column;
-  gap: ${(props) => (props.small ? props.theme.tyle.spacing.xs : props.theme.tyle.spacing.xl)};
-  padding: ${(props) => props.theme.tyle.spacing.xl};
-  border-radius: ${(props) => props.theme.tyle.border.radius.large};
+  gap: ${(props) => (props.small ? props.theme.mimirorg.spacing.xs : props.theme.mimirorg.spacing.xl)};
+  padding: ${(props) => props.theme.mimirorg.spacing.xl};
+  border-radius: ${(props) => props.theme.mimirorg.border.radius.large};
   background-color: ${(props) =>
-    props.small ? props.theme.tyle.color.sys.pure.base : props.theme.tyle.color.sys.tertiary.on};
-  border: 1px solid ${(props) => props.theme.tyle.color.sys.outline.base};
+    props.small ? props.theme.mimirorg.color.pure.base : props.theme.mimirorg.color.tertiary.on};
+  border: 1px solid ${(props) => props.theme.mimirorg.color.outline.base};
   max-height: 75vh;
   max-width: 40rem;
   height: fit-content;
@@ -49,14 +49,14 @@ export default function AttributePreview({ name, description, units, defaultUnit
         <>
           <Flexbox justifyContent={"space-between"}>
             <Text
-              color={theme.tyle.color.sys.pure.base}
+              color={theme.mimirorg.color.pure.base}
               variant={small ? "body-medium" : "headline-small"}
               useEllipsis={small}
             >
               {name}
             </Text>
           </Flexbox>
-          {!small && <Text color={theme.tyle.color.sys.pure.base}>{description}</Text>}
+          {!small && <Text color={theme.mimirorg.color.pure.base}>{description}</Text>}
           {units &&
             (small
               ? units
@@ -80,8 +80,8 @@ export default function AttributePreview({ name, description, units, defaultUnit
 const AttributeSmallPreview = (defaultAttributeSymbol: string) => {
   const theme = useTheme();
   return (
-    <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.tyle.spacing.base}>
-      <AttributeIcon color={theme.tyle.color.sys.pure.on} />
+    <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.mimirorg.spacing.base}>
+      <AttributeIcon color={theme.mimirorg.color.pure.on} />
       <Text variant={"title-medium"} textAlign={"center"}>
         {defaultAttributeSymbol}
       </Text>

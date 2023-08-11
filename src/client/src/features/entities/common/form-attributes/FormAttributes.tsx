@@ -72,7 +72,7 @@ export const FormAttributes = ({
         )
       }
     >
-      <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.xl}>
+      <Flexbox flexWrap={"wrap"} gap={theme.mimirorg.spacing.xl}>
         {fields.map((field, index) => {
           const attribute = selected.find((x) => x.id === field.value);
           return (

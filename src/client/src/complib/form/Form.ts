@@ -12,7 +12,7 @@ export const Form = styled.form<FormProps>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: ${(props) => props.theme.tyle.spacing.xxxl};
+  gap: ${(props) => props.theme.mimirorg.spacing.xxxl};
   width: 100%;
 
   ${flexMixin};

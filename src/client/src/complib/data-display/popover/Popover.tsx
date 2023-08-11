@@ -47,7 +47,7 @@ export const Popover = ({
       <AnimatePresence>
         <PopoverPrimitive.Portal>
           <PopoverPrimitive.Content asChild avoidCollisions sideOffset={offset} side={placement} align={align}>
-            <MotionPopoverContent {...theme.tyle.animation.scale} {...delegated}>
+            <MotionPopoverContent {...theme.mimirorg.animation.scale} {...delegated}>
               {containsTextOnly ? (
                 <Text variant={"body-medium"} textAlign={"center"}>
                   {content}

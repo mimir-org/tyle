@@ -31,7 +31,7 @@ export const TerminalFormBaseFields = ({ mode, limited }: TerminalFormBaseFields
     <FormBaseFieldsContainer>
       <Text variant={"display-small"}>{t("terminal.title")}</Text>
       <TerminalFormPreview control={control} />
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
+      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
         <FormField label={t("terminal.name")} error={errors.name}>
           <Input placeholder={t("terminal.placeholders.name")} {...register("name")} disabled={limited} />
         </FormField>
@@ -45,7 +45,7 @@ export const TerminalFormBaseFields = ({ mode, limited }: TerminalFormBaseFields
         </FormField>
       </Flexbox>
 
-      <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
+      <Flexbox justifyContent={"center"} gap={theme.mimirorg.spacing.xl}>
         <PlainLink tabIndex={-1} to={"/"}>
           <Button tabIndex={0} as={"span"} variant={"outlined"}>
             {t("common.cancel")}

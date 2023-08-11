@@ -64,7 +64,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
           <>
             <TerminalFormBaseFields limited={limited} mode={mode} />
 
-            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
+            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
               <FormAttributes
                 register={(index) => register(`attributes.${index}`)}
                 fields={attributeFields.fields}

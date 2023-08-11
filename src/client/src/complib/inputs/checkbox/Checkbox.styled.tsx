@@ -7,23 +7,23 @@ import styled from "styled-components/macro";
 export const CheckboxRoot = styled(CheckboxPrimitive.Root)`
   all: unset;
   position: relative;
-  border-radius: ${(props) => props.theme.tyle.border.radius.small};
-  color: ${(props) => props.theme.tyle.color.sys.primary.base};
+  border-radius: ${(props) => props.theme.mimirorg.border.radius.small};
+  color: ${(props) => props.theme.mimirorg.color.primary.base};
   height: 24px;
   width: 24px;
 
   :disabled {
-    color: ${(props) => props.theme.tyle.color.sys.surface.variant.on};
+    color: ${(props) => props.theme.mimirorg.color.surface.variant.on};
     cursor: not-allowed;
   }
 
   :not(:disabled) {
     :hover {
-      background-color: ${(props) => props.theme.tyle.color.sys.secondary.base};
+      background-color: ${(props) => props.theme.mimirorg.color.secondary.base};
     }
 
     :active {
-      color: ${(props) => props.theme.tyle.color.sys.surface.on};
+      color: ${(props) => props.theme.mimirorg.color.surface.on};
     }
   }
 

@@ -70,30 +70,30 @@ export const variablesTypography = css`
     --tl-ref-typescale-line-height-p7: ${typography.ref.typeScale.lineHeight.p7};
 
     // REM converted font sizes
-    --tl-sys-typescale-size-b: ${typography.sys.typeScale.size.base};
-    --tl-sys-typescale-size-n3: ${typography.sys.typeScale.size.n3};
-    --tl-sys-typescale-size-n2: ${typography.sys.typeScale.size.n2};
-    --tl-sys-typescale-size-n1: ${typography.sys.typeScale.size.n1};
-    --tl-sys-typescale-size-p1: ${typography.sys.typeScale.size.p1};
-    --tl-sys-typescale-size-p2: ${typography.sys.typeScale.size.p2};
-    --tl-sys-typescale-size-p3: ${typography.sys.typeScale.size.p3};
-    --tl-sys-typescale-size-p4: ${typography.sys.typeScale.size.p4};
-    --tl-sys-typescale-size-p5: ${typography.sys.typeScale.size.p5};
-    --tl-sys-typescale-size-p6: ${typography.sys.typeScale.size.p6};
-    --tl-sys-typescale-size-p7: ${typography.sys.typeScale.size.p7};
+    --tl-sys-typescale-size-b: ${typography.ref.typeScale.size.base};
+    --tl-sys-typescale-size-n3: ${typography.ref.typeScale.size.n3};
+    --tl-sys-typescale-size-n2: ${typography.ref.typeScale.size.n2};
+    --tl-sys-typescale-size-n1: ${typography.ref.typeScale.size.n1};
+    --tl-sys-typescale-size-p1: ${typography.ref.typeScale.size.p1};
+    --tl-sys-typescale-size-p2: ${typography.ref.typeScale.size.p2};
+    --tl-sys-typescale-size-p3: ${typography.ref.typeScale.size.p3};
+    --tl-sys-typescale-size-p4: ${typography.ref.typeScale.size.p4};
+    --tl-sys-typescale-size-p5: ${typography.ref.typeScale.size.p5};
+    --tl-sys-typescale-size-p6: ${typography.ref.typeScale.size.p6};
+    --tl-sys-typescale-size-p7: ${typography.ref.typeScale.size.p7};
 
     // REM converted line heights
-    --tl-sys-typescale-line-height-b: ${typography.sys.typeScale.lineHeight.base};
-    --tl-sys-typescale-line-height-n3: ${typography.sys.typeScale.lineHeight.n3};
-    --tl-sys-typescale-line-height-n2: ${typography.sys.typeScale.lineHeight.n2};
-    --tl-sys-typescale-line-height-n1: ${typography.sys.typeScale.lineHeight.n1};
-    --tl-sys-typescale-line-height-p1: ${typography.sys.typeScale.lineHeight.p1};
-    --tl-sys-typescale-line-height-p2: ${typography.sys.typeScale.lineHeight.p2};
-    --tl-sys-typescale-line-height-p3: ${typography.sys.typeScale.lineHeight.p3};
-    --tl-sys-typescale-line-height-p4: ${typography.sys.typeScale.lineHeight.p4};
-    --tl-sys-typescale-line-height-p5: ${typography.sys.typeScale.lineHeight.p5};
-    --tl-sys-typescale-line-height-p6: ${typography.sys.typeScale.lineHeight.p6};
-    --tl-sys-typescale-line-height-p7: ${typography.sys.typeScale.lineHeight.p7};
+    --tl-sys-typescale-line-height-b: ${typography.ref.typeScale.lineHeight.base};
+    --tl-sys-typescale-line-height-n3: ${typography.ref.typeScale.lineHeight.n3};
+    --tl-sys-typescale-line-height-n2: ${typography.ref.typeScale.lineHeight.n2};
+    --tl-sys-typescale-line-height-n1: ${typography.ref.typeScale.lineHeight.n1};
+    --tl-sys-typescale-line-height-p1: ${typography.ref.typeScale.lineHeight.p1};
+    --tl-sys-typescale-line-height-p2: ${typography.ref.typeScale.lineHeight.p2};
+    --tl-sys-typescale-line-height-p3: ${typography.ref.typeScale.lineHeight.p3};
+    --tl-sys-typescale-line-height-p4: ${typography.ref.typeScale.lineHeight.p4};
+    --tl-sys-typescale-line-height-p5: ${typography.ref.typeScale.lineHeight.p5};
+    --tl-sys-typescale-line-height-p6: ${typography.ref.typeScale.lineHeight.p6};
+    --tl-sys-typescale-line-height-p7: ${typography.ref.typeScale.lineHeight.p7};
 
     // Display types
     --tl-sys-typescale-display-large: ${typography.sys.roles.display.large.font};

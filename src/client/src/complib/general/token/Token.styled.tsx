@@ -9,7 +9,7 @@ export const tokenBaseStyle = css<TokenBaseProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: ${(props) => props.theme.tyle.spacing.s};
+  gap: ${(props) => props.theme.mimirorg.spacing.s};
 
   height: 32px;
   max-width: 166px;
@@ -17,7 +17,7 @@ export const tokenBaseStyle = css<TokenBaseProps>`
   width: fit-content;
 
   border: 0;
-  padding: ${(props) => props.theme.tyle.spacing.base};
+  padding: ${(props) => props.theme.mimirorg.spacing.base};
 
   ${focus};
 
@@ -25,7 +25,7 @@ export const tokenBaseStyle = css<TokenBaseProps>`
     const {
       color: { sys },
       spacing,
-    } = props.theme.tyle;
+    } = props.theme.mimirorg;
 
     switch (variant) {
       case "primary": {
@@ -45,18 +45,18 @@ export const tokenBaseStyle = css<TokenBaseProps>`
       }
 
       :active {
-        background-color: ${props.theme.tyle.color.sys.tertiary.container?.base};
+        background-color: ${props.theme.mimirorg.color.tertiary.container?.base};
       }
     `};
 
   ${({ $selected, ...props }) =>
     $selected &&
     css`
-      background-color: ${props.theme.tyle.color.sys.tertiary.container?.base};
+      background-color: ${props.theme.mimirorg.color.tertiary.container?.base};
     `};
 
   &[aria-checked="true"] {
-    background-color: ${(props) => props.theme.tyle.color.sys.tertiary.container?.base};
+    background-color: ${(props) => props.theme.mimirorg.color.tertiary.container?.base};
   }
 `;
 

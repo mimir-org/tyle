@@ -12,9 +12,9 @@ import { createGlobalStyle } from "styled-components/macro";
 
 export const GlobalStyle = createGlobalStyle`
   ${globalResetStyle}
-  ${({ theme }) => globalTypographyStyle(theme.tyle)}
+  ${({ theme }) => globalTypographyStyle(theme.mimirorg)}
   body {
-    background-color: ${(props) => props.theme.tyle.color.sys.background.base}
+    background-color: ${(props) => props.theme.mimirorg.color.background.base}
   }
 
   ${variablesColor}

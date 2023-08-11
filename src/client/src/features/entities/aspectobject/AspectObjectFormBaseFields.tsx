@@ -48,7 +48,7 @@ export const AspectObjectFormBaseFields = ({ isFirstDraft, mode, state }: Aspect
       <Text variant={"display-small"}>{t("aspectObject.title")}</Text>
       <AspectObjectFormPreview control={control} />
 
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
+      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
         <FormField label={t("aspectObject.name")} error={errors.name}>
           <Input placeholder={t("aspectObject.placeholders.name")} {...register("name")} />
         </FormField>
@@ -80,7 +80,7 @@ export const AspectObjectFormBaseFields = ({ isFirstDraft, mode, state }: Aspect
                 condition={!isFirstDraft}
                 wrapper={(c) => (
                   <Popover align={"start"} maxWidth={"225px"} content={t("aspectObject.disabled.aspect")}>
-                    <Box borderRadius={theme.tyle.border.radius.medium} tabIndex={0}>
+                    <Box borderRadius={theme.mimirorg.border.radius.medium} tabIndex={0}>
                       {c}
                     </Box>
                   </Popover>
@@ -119,7 +119,7 @@ export const AspectObjectFormBaseFields = ({ isFirstDraft, mode, state }: Aspect
                 onChange={(x) => onChange(x?.data)}
                 value={symbolQuery.data?.find((x) => x.data === value)}
                 formatOptionLabel={(x) => (
-                  <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
+                  <Flexbox alignItems={"center"} gap={theme.mimirorg.spacing.base}>
                     <Icon src={x.data} />
                     <Text>{x.name}</Text>
                   </Flexbox>
@@ -176,7 +176,7 @@ export const AspectObjectFormBaseFields = ({ isFirstDraft, mode, state }: Aspect
         </FormField>
       </Flexbox>
 
-      <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
+      <Flexbox justifyContent={"center"} gap={theme.mimirorg.spacing.xl}>
         <PlainLink tabIndex={-1} to={"/"}>
           <Button tabIndex={0} as={"span"} variant={"outlined"}>
             {t("common.cancel")}

@@ -23,7 +23,7 @@ export const AspectObjectTerminalAttributes = ({ attributes, hideLabel }: Aspect
             display={"flex"}
             flexWrap={"wrap"}
             alignItems={"center"}
-            gap={theme.tyle.spacing.base}
+            gap={theme.mimirorg.spacing.base}
             minHeight={"40px"}
           >
             {attributes.map((x) => x && <InfoItemButton key={x.id} {...mapAttributeLibCmToInfoItem(x)} />)}

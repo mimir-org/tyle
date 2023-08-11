@@ -11,7 +11,7 @@ export const Loader = () => {
   const theme = useTheme();
 
   return (
-    <MotionFlexbox flex={1} justifyContent={"center"} alignItems={"center"} {...theme.tyle.animation.fade}>
+    <MotionFlexbox flex={1} justifyContent={"center"} alignItems={"center"} {...theme.mimirorg.animation.fade}>
       <Spinner />
     </MotionFlexbox>
   );

@@ -1,4 +1,4 @@
-import { TyleTheme } from "complib/core";
+import { Theme } from "@mimirorg/component-library";
 import { Ref } from "react";
 import ReactSelect, { GroupBase, Props, StylesConfig } from "react-select";
 import { default as ReactSelectType } from "react-select/base";
@@ -20,7 +20,7 @@ export const Select = <Option, IsMulti extends boolean = false, Group extends Gr
   ...reactSelectProps
 }: Props<Option, IsMulti, Group> & { selectRef?: Ref<ReactSelectType<Option, IsMulti, Group>> }) => {
   const theme = useTheme();
-  const customStyles = getReactSelectStyle<Option, IsMulti, Group>(theme.tyle);
+  const customStyles = getReactSelectStyle<Option, IsMulti, Group>(theme.mimirorg);
 
   return <ReactSelect ref={selectRef} styles={customStyles} {...reactSelectProps} />;
 };
@@ -34,7 +34,7 @@ export const Select = <Option, IsMulti extends boolean = false, Group extends Gr
  * @param theme used to style the third party component to match the application's design
  */
 const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-  theme: TyleTheme,
+  theme: Theme,
 ): StylesConfig<Option, IsMulti, Group> => ({
   container: (base, state) => ({
     ...base,
@@ -46,9 +46,9 @@ const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends Grou
     minHeight: "40px",
     borderWidth: "1px",
     borderStyle: "solid",
-    borderColor: theme.color.sys.outline.base,
-    backgroundColor: state.isDisabled ? theme.color.sys.outline.base : theme.color.sys.pure.base,
-    outline: state.isFocused ? `1px solid ${theme.color.sys.primary.base}` : "revert",
+    borderColor: theme.color.outline.base,
+    backgroundColor: state.isDisabled ? theme.color.outline.base : theme.color.pure.base,
+    outline: state.isFocused ? `1px solid ${theme.color.primary.base}` : "revert",
     outlineOffset: "1px",
     "&:hover": {},
     textOverflow: "ellipsis",
@@ -57,12 +57,12 @@ const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends Grou
   }),
   placeholder: (base) => ({
     ...base,
-    color: theme.color.sys.outline.base,
+    color: theme.color.outline.base,
   }),
   menu: (base) => ({
     ...base,
     width: "250px",
-    color: theme.color.sys.surface.on,
+    color: theme.color.surface.on,
     boxShadow: "none",
   }),
   menuList: (base) => ({
@@ -70,7 +70,7 @@ const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends Grou
     boxShadow: "none",
     borderWidth: "1px",
     borderStyle: "solid",
-    borderColor: theme.color.sys.outline.base,
+    borderColor: theme.color.outline.base,
     borderRadius: theme.border.radius.medium,
   }),
   valueContainer: (base) => ({
@@ -82,26 +82,26 @@ const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends Grou
   }),
   dropdownIndicator: (base, state) => ({
     ...base,
-    color: state.isDisabled ? theme.color.sys.surface.variant.on : theme.color.sys.outline.base,
+    color: state.isDisabled ? theme.color.surface.variant.on : theme.color.outline.base,
   }),
   singleValue: (base, state) => ({
     ...base,
     margin: 0,
-    color: state.isDisabled ? theme.color.sys.surface.variant.on : theme.color.sys.background.on,
-    font: theme.typography.sys.roles.body.large.font,
-    letterSpacing: theme.typography.sys.roles.body.large.letterSpacing,
-    lineHeight: theme.typography.sys.roles.body.large.lineHeight,
+    color: state.isDisabled ? theme.color.surface.variant.on : theme.color.background.on,
+    font: theme.typography.roles.body.large.font,
+    letterSpacing: theme.typography.roles.body.large.letterSpacing,
+    lineHeight: theme.typography.roles.body.large.lineHeight,
   }),
   multiValue: (base, state) => ({
     ...base,
-    color: state.isDisabled ? theme.color.sys.surface.variant.on : theme.color.sys.background.on,
+    color: state.isDisabled ? theme.color.surface.variant.on : theme.color.background.on,
     backgroundColor: state.isDisabled
-      ? theme.color.sys.surface.variant.base
-      : theme.color.sys.secondary.container?.base,
+      ? theme.color.surface.variant.base
+      : theme.color.secondary.container?.base,
     borderRadius: theme.border.radius.small,
-    font: theme.typography.sys.roles.label.large.font,
-    letterSpacing: theme.typography.sys.roles.label.large.letterSpacing,
-    lineHeight: theme.typography.sys.roles.label.large.lineHeight,
+    font: theme.typography.roles.label.large.font,
+    letterSpacing: theme.typography.roles.label.large.letterSpacing,
+    lineHeight: theme.typography.roles.label.large.lineHeight,
   }),
   multiValueLabel: (base) => ({
     ...base,
@@ -114,19 +114,19 @@ const getReactSelectStyle = <Option, IsMulti extends boolean, Group extends Grou
     paddingRight: theme.spacing.s,
   }),
   option: (base, state) => {
-    let backgroundColor = theme.color.sys.pure.base;
+    let backgroundColor = theme.color.pure.base;
 
     if (state.isFocused) {
-      backgroundColor = theme.color.sys.secondary.container?.base ?? "";
+      backgroundColor = theme.color.secondary.container?.base ?? "";
     } else if (state.isSelected) {
-      backgroundColor = theme.color.sys.tertiary.container?.base ?? "";
+      backgroundColor = theme.color.tertiary.container?.base ?? "";
     }
 
     return {
       ...base,
       backgroundColor,
       paddingLeft: theme.spacing.l,
-      color: theme.color.sys.background.on,
+      color: theme.color.background.on,
     };
   },
 });

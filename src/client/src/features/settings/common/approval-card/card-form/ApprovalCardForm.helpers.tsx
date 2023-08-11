@@ -61,7 +61,7 @@ export const useApprovalToasts = () => {
         loading: t("common.approval.processing.loading"),
         success: (
           <Flexbox alignContent="center" alignItems="center">
-            <Text variant={"label-large"} mr={theme.tyle.spacing.base} color={theme.tyle.color.sys.pure.base}>
+            <Text variant={"label-large"} mr={theme.mimirorg.spacing.base} color={theme.mimirorg.color.pure.base}>
               {t("common.approval.processing.success")}
             </Text>
           </Flexbox>
@@ -75,7 +75,7 @@ export const useApprovalToasts = () => {
       {
         success: {
           style: {
-            backgroundColor: theme.tyle.color.sys.tertiary.base,
+            backgroundColor: theme.mimirorg.color.tertiary.base,
           },
         },
       },

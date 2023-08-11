@@ -26,12 +26,12 @@ export const FormField = ({ label, error, indent = true, children }: PropsWithCh
   const hasLabel = !!label?.length;
 
   return (
-    <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.s}>
+    <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.s}>
       <MotionFlexbox
         layout={"preserve-aspect"}
         as={hasLabel ? "label" : "div"}
         flexDirection={"column"}
-        gap={theme.tyle.spacing.xs}
+        gap={theme.mimirorg.spacing.xs}
       >
         <ConditionalWrapper
           condition={hasLabel}
@@ -47,12 +47,12 @@ export const FormField = ({ label, error, indent = true, children }: PropsWithCh
       </MotionFlexbox>
 
       {error && error.message && (
-        <MotionFlexbox layout alignItems={"center"} gap={theme.tyle.spacing.s} {...theme.tyle.animation.fade}>
+        <MotionFlexbox layout alignItems={"center"} gap={theme.mimirorg.spacing.s} {...theme.mimirorg.animation.fade}>
           <ExclamationCircle
-            size={theme.tyle.typography.sys.roles.label.medium.size}
-            color={theme.tyle.color.sys.error.base}
+            size={theme.mimirorg.typography.roles.label.medium.size}
+            color={theme.mimirorg.color.error.base}
           />
-          <Text variant={"label-medium"} color={theme.tyle.color.sys.error.base}>
+          <Text variant={"label-medium"} color={theme.mimirorg.color.error.base}>
             {error.message}
           </Text>
         </MotionFlexbox>

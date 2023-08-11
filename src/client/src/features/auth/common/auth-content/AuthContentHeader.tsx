@@ -11,7 +11,7 @@ export const AuthContentHeader = ({ title, subtitle }: AuthContentHeaderProps) =
   const theme = useTheme();
 
   return (
-    <MotionFlexbox as={"header"} flexDirection={"column"} gap={theme.tyle.spacing.base} layout>
+    <MotionFlexbox as={"header"} flexDirection={"column"} gap={theme.mimirorg.spacing.base} layout>
       <MotionLogo layout width={"100px"} height={"50px"} inverse alt="" />
       <Box>
         {title && (

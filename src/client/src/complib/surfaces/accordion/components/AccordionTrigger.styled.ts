@@ -29,7 +29,7 @@ export const StyledAccordionTrigger = styled(Trigger)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: ${(props) => props.theme.tyle.spacing.l} ${(props) => props.theme.tyle.spacing.xl};
+  padding: ${(props) => props.theme.mimirorg.spacing.l} ${(props) => props.theme.mimirorg.spacing.xl};
 
   :hover {
     text-decoration: underline;

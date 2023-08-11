@@ -4,7 +4,7 @@ import { css } from "styled-components/macro";
  * Focus styles without pseudo-class wrapper
  */
 export const focusRaw = css`
-  outline: 1px solid ${(props) => props.theme.tyle.color.sys.primary.base};
+  outline: 1px solid ${(props) => props.theme.mimirorg.color.primary.base};
   outline-offset: 1px;
 `;
 

@@ -78,7 +78,7 @@ export const CreateCompanyForm = () => {
   };
 
   return (
-    <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xxl}>
+    <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xxl}>
       <FormProvider {...formMethods}>
         <Form onSubmit={handleSubmit((data) => onSubmit(data))}>
           <FormField label={t("company.labels.name")} error={formState.errors.name}>
@@ -114,7 +114,7 @@ export const CreateCompanyForm = () => {
             <Input placeholder={t("company.placeholders.domain")} {...register("domain")} />
           </FormField>
 
-          <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
+          <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xs}>
             <FormField label={t("company.labels.logo")} error={formState.errors.logo}></FormField>
             <input
               accept=".svg,image/svg+xml"
@@ -150,7 +150,7 @@ export const CreateCompanyForm = () => {
             <Input placeholder={t("company.placeholders.homePage")} {...register("homePage")} />
           </FormField>
 
-          <Flexbox gap={theme.tyle.spacing.xl}>
+          <Flexbox gap={theme.mimirorg.spacing.xl}>
             <Button type={"submit"}>{t("company.submit.create")}</Button>
             <PlainLink tabIndex={-1} to={settingsBasePath}>
               <Button tabIndex={0} as={"span"} variant={"outlined"}>

@@ -19,7 +19,7 @@ export const TokenButton = forwardRef((props: TokenButtonProps, ref: ForwardedRe
   const { children, ...delegated } = props;
 
   return (
-    <MotionTokenContainer ref={ref} as={"button"} $interactive {...theme.tyle.animation.buttonTap} {...delegated}>
+    <MotionTokenContainer ref={ref} as={"button"} $interactive {...theme.mimirorg.animation.buttonTap} {...delegated}>
       <Text variant={"label-small"} useEllipsis ellipsisMaxLines={1}>
         {children}
       </Text>

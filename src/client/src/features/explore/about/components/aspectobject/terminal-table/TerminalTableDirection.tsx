@@ -12,11 +12,11 @@ export const TerminalTableDirection = ({ direction }: Pick<AspectObjectTerminalI
 
   return (
     <Td data-label={t("about.terminals.templates.terminal", { object: t("about.terminals.direction").toLowerCase() })}>
-      <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
-        {direction === "Input" && <ArrowRight color={theme.tyle.color.sys.primary.base} size={directionIconSize} />}
-        {direction === "Output" && <ArrowLeft color={theme.tyle.color.sys.primary.base} size={directionIconSize} />}
+      <Flexbox alignItems={"center"} gap={theme.mimirorg.spacing.base}>
+        {direction === "Input" && <ArrowRight color={theme.mimirorg.color.primary.base} size={directionIconSize} />}
+        {direction === "Output" && <ArrowLeft color={theme.mimirorg.color.primary.base} size={directionIconSize} />}
         {direction === "Bidirectional" && (
-          <ArrowsRightLeft color={theme.tyle.color.sys.primary.base} size={directionIconSize} />
+          <ArrowsRightLeft color={theme.mimirorg.color.primary.base} size={directionIconSize} />
         )}
         {direction}
       </Flexbox>

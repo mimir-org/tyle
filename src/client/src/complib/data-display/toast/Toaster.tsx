@@ -15,7 +15,7 @@ import { useTheme } from "styled-components";
  */
 export const Toaster = () => {
   const theme = useTheme();
-  const customToasterStyles = getCustomToasterStyles(theme.tyle);
+  const customToasterStyles = getCustomToasterStyles(theme.mimirorg);
   const customToastBarStyles = getCustomToastBarStyles();
 
   return (
@@ -23,7 +23,7 @@ export const Toaster = () => {
       {(toast) => (
         <AnimatePresence>
           {toast.visible && (
-            <MotionToastBarWrapper {...theme.tyle.animation.from("right", 400)}>
+            <MotionToastBarWrapper {...theme.mimirorg.animation.from("right", 400)}>
               <ReactHotToast.ToastBar toast={toast} style={customToastBarStyles} />
             </MotionToastBarWrapper>
           )}

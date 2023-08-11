@@ -6,11 +6,11 @@ import styled from "styled-components/macro";
 export type PopoverContentProps = Sizing & Palette;
 
 const PopoverContent = styled.div<PopoverContentProps>`
-  padding: ${(props) => props.theme.tyle.spacing.xl};
-  border-radius: ${(props) => props.theme.tyle.border.radius.large};
-  background-color: ${(props) => translucify(props.theme.tyle.color.sys.primary.base, 0.9)};
-  color: ${(props) => props.theme.tyle.color.sys.primary.on};
-  box-shadow: ${(props) => props.theme.tyle.shadow.small};
+  padding: ${(props) => props.theme.mimirorg.spacing.xl};
+  border-radius: ${(props) => props.theme.mimirorg.border.radius.large};
+  background-color: ${(props) => translucify(props.theme.mimirorg.color.primary.base, 0.9)};
+  color: ${(props) => props.theme.mimirorg.color.primary.on};
+  box-shadow: ${(props) => props.theme.mimirorg.shadow.small};
   ${sizingMixin};
   ${paletteMixin};
   ${focus};

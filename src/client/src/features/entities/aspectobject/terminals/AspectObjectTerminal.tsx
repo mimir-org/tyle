@@ -123,7 +123,7 @@ export const AspectObjectTerminal = ({
                   }}
                   value={terminalQuery.data?.find((x) => x.id === value)}
                   formatOptionLabel={(x) => (
-                    <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
+                    <Flexbox alignItems={"center"} gap={theme.mimirorg.spacing.base}>
                       {x.color && <TerminalButton as={"span"} variant={"small"} color={x.color} />}
                       <Text>{x.name}</Text>
                     </Flexbox>

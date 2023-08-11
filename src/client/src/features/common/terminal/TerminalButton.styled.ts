@@ -11,14 +11,14 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
   align-items: center;
   white-space: nowrap;
   text-decoration: none;
-  padding: ${(props) => props.theme.tyle.spacing.xs};
+  padding: ${(props) => props.theme.mimirorg.spacing.xs};
 
-  border: ${(props) => (props.direction ? 0 : `1px solid ${props.theme.tyle.color.sys.outline.base}`)};
-  border-radius: ${(props) => props.theme.tyle.border.radius.small};
+  border: ${(props) => (props.direction ? 0 : `1px solid ${props.theme.mimirorg.color.outline.base}`)};
+  border-radius: ${(props) => props.theme.mimirorg.border.radius.small};
 
-  font: ${(props) => props.theme.tyle.typography.sys.roles.label.large.font};
-  line-height: ${(props) => props.theme.tyle.typography.sys.roles.label.large.lineHeight};
-  letter-spacing: ${(props) => props.theme.tyle.typography.sys.roles.label.large.letterSpacing};
+  font: ${(props) => props.theme.mimirorg.typography.roles.label.large.font};
+  line-height: ${(props) => props.theme.mimirorg.typography.roles.label.large.lineHeight};
+  letter-spacing: ${(props) => props.theme.mimirorg.typography.roles.label.large.letterSpacing};
 
   :hover {
     cursor: default;
@@ -35,32 +35,32 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
   ${focus};
 
   ${({ color, ...props }) => {
-    const { color: colorSystem, state, elevation } = props.theme.tyle;
-    const contentColor = meetsContrastGuidelines(colorSystem.sys.background.on, color).AAA
-      ? colorSystem.sys.background.on
-      : colorSystem.sys.background.inverse.on;
+    const { color: colorSystem, state, elevation } = props.theme.mimirorg;
+    const contentColor = meetsContrastGuidelines(colorSystem.background.on, color).AAA
+      ? colorSystem.background.on
+      : colorSystem.background.inverse.on;
 
     return css`
       background-color: ${color};
       color: ${contentColor};
 
       :disabled {
-        background-color: ${translucify(colorSystem.sys.surface.on, state.disabled.container.opacity)};
-        color: ${translucify(colorSystem.sys.surface.on, state.disabled.content.opacity)};
+        background-color: ${translucify(colorSystem.surface.on, state.disabled.container.opacity)};
+        color: ${translucify(colorSystem.surface.on, state.disabled.content.opacity)};
       }
 
       :not(:disabled) {
         :hover {
           background: ${layer(
             translucify(color, elevation.levels[1].opacity),
-            translucify(colorSystem.sys.primary.on, state.hover.opacity),
+            translucify(colorSystem.primary.on, state.hover.opacity),
             translucify(color, state.enabled.opacity),
           )};
         }
 
         :active {
           background: ${layer(
-            translucify(colorSystem.sys.primary.on, state.pressed.opacity),
+            translucify(colorSystem.primary.on, state.pressed.opacity),
             translucify(color, state.enabled.opacity),
           )};
         }
@@ -86,7 +86,7 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
         return css`
           width: 30px;
           height: 30px;
-          padding: ${props.theme.tyle.spacing.s};
+          padding: ${props.theme.mimirorg.spacing.s};
 
           path {
             stroke-width: 2;

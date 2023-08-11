@@ -8,7 +8,7 @@ export const DialogExit = ({ closeText }: { closeText?: string }) => {
   const theme = useTheme();
   return (
     <DialogPrimitive.Close asChild>
-      <Box position={"absolute"} top={theme.tyle.spacing.xl} right={theme.tyle.spacing.xl}>
+      <Box position={"absolute"} top={theme.mimirorg.spacing.xl} right={theme.mimirorg.spacing.xl}>
         <Button variant={"text"} icon={<XMark />} iconOnly>
           {closeText ?? "Close dialog"}
         </Button>

@@ -15,7 +15,7 @@ export const TerminalTableIdentifier = ({
 
   return (
     <Td data-label={t("about.terminals.templates.terminal", { object: t("about.terminals.name").toLowerCase() })}>
-      <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
+      <Flexbox alignItems={"center"} gap={theme.mimirorg.spacing.base}>
         <TerminalButton variant={"small"} as={"div"} color={color} direction={direction} />
         {name}
       </Flexbox>

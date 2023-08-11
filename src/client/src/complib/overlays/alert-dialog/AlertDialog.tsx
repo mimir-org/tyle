@@ -63,11 +63,11 @@ export const AlertDialog = ({
       <AlertDialogPrimitive.Trigger asChild>{children}</AlertDialogPrimitive.Trigger>
       <AlertDialogPrimitive.Portal>
         <AlertDialogPrimitive.Overlay asChild>
-          <AlertDialogOverlay {...theme.tyle.animation.fade} />
+          <AlertDialogOverlay {...theme.mimirorg.animation.fade} />
         </AlertDialogPrimitive.Overlay>
         <AlertDialogPrimitive.Content asChild>
-          <AlertDialogContent {...theme.tyle.animation.fade} {...delegated}>
-            <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xl} maxWidth={"50ch"}>
+          <AlertDialogContent {...theme.mimirorg.animation.fade} {...delegated}>
+            <Box display={"flex"} flexDirection={"column"} gap={theme.mimirorg.spacing.xl} maxWidth={"50ch"}>
               <AlertDialogTitle hide={hideTitle}>{title}</AlertDialogTitle>
               {description && <AlertDialogDescription hide={hideDescription}>{description}</AlertDialogDescription>}
             </Box>
@@ -76,7 +76,7 @@ export const AlertDialog = ({
               display={"flex"}
               flexWrap={"wrap"}
               justifyContent={"space-between"}
-              gap={theme.tyle.spacing.base}
+              gap={theme.mimirorg.spacing.base}
               minWidth={"236px"}
             >
               <AlertDialogCancel name={cancelAction?.name} onAction={cancelAction?.onAction} />

@@ -15,8 +15,8 @@ import styled, { css } from "styled-components/macro";
  */
 export const AccordionItem = styled(Item)`
   border: 1px solid transparent;
-  border-radius: ${(props) => props.theme.tyle.border.radius.medium};
-  background-color: ${(props) => props.theme.tyle.color.sys.pure.base};
+  border-radius: ${(props) => props.theme.mimirorg.border.radius.medium};
+  background-color: ${(props) => props.theme.mimirorg.color.pure.base};
 
   :focus-within {
     position: relative;
@@ -25,15 +25,15 @@ export const AccordionItem = styled(Item)`
   }
 
   &[data-state="open"] {
-    border: 1px solid ${(props) => props.theme.tyle.color.sys.secondary.base};
-    background-color: ${(props) => props.theme.tyle.color.sys.secondary.container?.base};
+    border: 1px solid ${(props) => props.theme.mimirorg.color.secondary.base};
+    background-color: ${(props) => props.theme.mimirorg.color.secondary.container?.base};
   }
 
   ${({ disabled, ...props }) =>
     disabled &&
     css`
       pointer-events: none;
-      color: ${props.theme.tyle.color.sys.surface.variant.on};
-      background-color: ${props.theme.tyle.color.sys.outline.base};
+      color: ${props.theme.mimirorg.color.surface.variant.on};
+      background-color: ${props.theme.mimirorg.color.outline.base};
     `};
 `;

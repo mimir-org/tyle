@@ -44,7 +44,7 @@ export const usePermissionToasts = (oldPermission?: Option<MimirorgPermission>) 
       {
         success: {
           style: {
-            backgroundColor: theme.tyle.color.sys.warning.base,
+            backgroundColor: theme.mimirorg.color.warning.base,
           },
         },
       },

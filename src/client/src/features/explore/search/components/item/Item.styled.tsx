@@ -5,6 +5,6 @@ export const ItemActionContainer = styled.div`
   top: -36px;
   right: 8px;
   display: flex;
-  gap: ${(props) => props.theme.tyle.spacing.l};
+  gap: ${(props) => props.theme.mimirorg.spacing.l};
   margin-left: auto;
 `;

@@ -47,7 +47,7 @@ export const Tooltip = ({
       <AnimatePresence>
         <TooltipPrimitive.Portal>
           <TooltipPrimitive.Content asChild avoidCollisions sideOffset={offset} side={placement} align={align}>
-            <MotionTooltipContent {...theme.tyle.animation.scale} {...delegated}>
+            <MotionTooltipContent {...theme.mimirorg.animation.scale} {...delegated}>
               {containsTextOnly ? <Text variant={"body-medium"}>{content}</Text> : content}
             </MotionTooltipContent>
           </TooltipPrimitive.Content>

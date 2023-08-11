@@ -11,7 +11,7 @@ export const TerminalTableAttributes = ({ attributes }: Pick<AspectObjectTermina
 
   return (
     <Td data-label={t("about.terminals.templates.terminal", { object: t("about.terminals.attributes").toLowerCase() })}>
-      <Box display={"flex"} flexWrap={"wrap"} minWidth={"200px"} gap={theme.tyle.spacing.base}>
+      <Box display={"flex"} flexWrap={"wrap"} minWidth={"200px"} gap={theme.mimirorg.spacing.base}>
         {attributes?.map((a) => <InfoItemButton key={a.id} {...a} />)}
       </Box>
     </Td>

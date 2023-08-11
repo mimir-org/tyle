@@ -7,12 +7,12 @@ interface FormFieldLabelTextProps {
 
 export const FormFieldLabelText = styled.span<FormFieldLabelTextProps>`
   ${getTextRole("label-large")}
-  color: ${(props) => props.theme.tyle.color.sys.surface.variant.on};
+  color: ${(props) => props.theme.mimirorg.color.surface.variant.on};
 
   ${({ indent }) =>
     indent &&
     css`
-      padding-left: ${(props) => props.theme.tyle.spacing.l};
+      padding-left: ${(props) => props.theme.mimirorg.spacing.l};
       border-left: 1px solid transparent;
     `}
 `;

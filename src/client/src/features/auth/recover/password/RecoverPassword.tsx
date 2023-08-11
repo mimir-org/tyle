@@ -77,7 +77,7 @@ export const RecoverPassword = ({ verificationInfo, cancel, complete }: RecoverP
       secondRow={
         <>
           <Text textAlign={"center"}>{t("recover.password.info.text")}</Text>
-          <Flexbox gap={theme.tyle.spacing.xxl} alignSelf={"center"}>
+          <Flexbox gap={theme.mimirorg.spacing.xxl} alignSelf={"center"}>
             {cancel?.actionable && (
               <Button variant={"outlined"} onClick={cancel.onAction}>
                 {cancel.actionText}

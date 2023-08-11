@@ -46,15 +46,15 @@ export const Table = styled.table<TableProps>`
       }
 
       ${Td} {
-        padding-top: ${props.theme.tyle.spacing.xl};
-        padding-bottom: ${props.theme.tyle.spacing.xl};
+        padding-top: ${props.theme.mimirorg.spacing.xl};
+        padding-bottom: ${props.theme.mimirorg.spacing.xl};
       }
 
       ${Tr}:not(:last-of-type) {
-        border-bottom: 1px solid ${props.theme.tyle.color.sys.outline.base};
+        border-bottom: 1px solid ${props.theme.mimirorg.color.outline.base};
       }
 
-      @media screen and ${props.theme.tyle.queries.laptopAndBelow} {
+      @media screen and ${props.theme.mimirorg.queries.laptopAndBelow} {
         ${Td} {
           padding-top: 0;
         }
@@ -69,25 +69,25 @@ export const Table = styled.table<TableProps>`
 `;
 
 export const Thead = styled.thead`
-  @media screen and ${(props) => props.theme.tyle.queries.laptopAndBelow} {
+  @media screen and ${(props) => props.theme.mimirorg.queries.laptopAndBelow} {
     ${hideVisually};
   }
 `;
 
 export const Tbody = styled.tbody`
-  @media screen and ${(props) => props.theme.tyle.queries.laptopAndBelow} {
+  @media screen and ${(props) => props.theme.mimirorg.queries.laptopAndBelow} {
     display: flex;
     flex-wrap: wrap;
-    gap: ${(props) => props.theme.tyle.spacing.xl};
+    gap: ${(props) => props.theme.mimirorg.spacing.xl};
   }
 `;
 
 export const Tr = styled.tr`
-  @media screen and ${(props) => props.theme.tyle.queries.laptopAndBelow} {
+  @media screen and ${(props) => props.theme.mimirorg.queries.laptopAndBelow} {
     flex: 1;
-    padding: ${(props) => props.theme.tyle.spacing.xl};
-    background-color: ${(props) => props.theme.tyle.color.sys.surface.base};
-    border-radius: ${(props) => props.theme.tyle.border.radius.large};
+    padding: ${(props) => props.theme.mimirorg.spacing.xl};
+    background-color: ${(props) => props.theme.mimirorg.color.surface.base};
+    border-radius: ${(props) => props.theme.mimirorg.border.radius.large};
     width: min(250px, fit-content);
   }
 `;
@@ -95,14 +95,14 @@ export const Tr = styled.tr`
 type ThProps = Pick<Typography, "textAlign">;
 
 export const Th = styled.th<ThProps>`
-  padding-bottom: ${(props) => props.theme.tyle.spacing.s};
-  padding-right: ${(props) => props.theme.tyle.spacing.l};
+  padding-bottom: ${(props) => props.theme.mimirorg.spacing.s};
+  padding-right: ${(props) => props.theme.mimirorg.spacing.l};
 
   &:not(:first-of-type) {
-    padding-left: ${(props) => props.theme.tyle.spacing.l};
+    padding-left: ${(props) => props.theme.mimirorg.spacing.l};
   }
 
-  color: ${(props) => props.theme.tyle.color.sys.surface.variant.on};
+  color: ${(props) => props.theme.mimirorg.color.surface.variant.on};
 
   white-space: nowrap;
   text-align: left;
@@ -114,27 +114,27 @@ export const Th = styled.th<ThProps>`
 type TdProps = Pick<Typography, "textAlign">;
 
 export const Td = styled.td<TdProps>`
-  padding-bottom: ${(props) => props.theme.tyle.spacing.l};
-  padding-right: ${(props) => props.theme.tyle.spacing.l};
+  padding-bottom: ${(props) => props.theme.mimirorg.spacing.l};
+  padding-right: ${(props) => props.theme.mimirorg.spacing.l};
 
   :not(:first-of-type) {
-    padding-left: ${(props) => props.theme.tyle.spacing.l};
+    padding-left: ${(props) => props.theme.mimirorg.spacing.l};
   }
 
-  color: ${(props) => props.theme.tyle.color.sys.background.on};
+  color: ${(props) => props.theme.mimirorg.color.background.on};
 
   text-align: left;
   vertical-align: top;
   ${getTextRole("body-medium")};
   ${typographyMixin};
 
-  @media screen and ${(props) => props.theme.tyle.queries.laptopAndBelow} {
+  @media screen and ${(props) => props.theme.mimirorg.queries.laptopAndBelow} {
     && {
       display: flex;
       flex-direction: column;
       flex-wrap: wrap;
       justify-content: space-between;
-      gap: ${(props) => props.theme.tyle.spacing.base};
+      gap: ${(props) => props.theme.mimirorg.spacing.base};
       width: fit-content;
       padding-left: 0;
       padding-right: 0;
@@ -146,7 +146,7 @@ export const Td = styled.td<TdProps>`
 
     ::before {
       content: attr(data-label);
-      color: ${(props) => props.theme.tyle.color.sys.surface.on};
+      color: ${(props) => props.theme.mimirorg.color.surface.on};
       ${getTextRole("title-small")};
     }
   }

@@ -27,7 +27,7 @@ export const Button = forwardRef((props: ButtonProps, ref: ForwardedRef<HTMLButt
       ref={ref}
       iconOnly={iconOnly}
       iconPlacement={iconPlacement}
-      {...theme.tyle.animation.buttonTap}
+      {...theme.mimirorg.animation.buttonTap}
       {...delegated}
     >
       {icon && iconOnly ? (

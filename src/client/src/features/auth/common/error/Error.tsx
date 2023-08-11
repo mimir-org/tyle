@@ -21,7 +21,7 @@ export const Error = ({ children }: ErrorProps) => {
   return (
     <FormErrorBanner>
       {children}
-      <Text as={"a"} href={`mailto:${t("support.email")}`} color={theme.tyle.color.sys.error.on}>
+      <Text as={"a"} href={`mailto:${t("support.email")}`} color={theme.mimirorg.color.error.on}>
         {t("support.text")}
       </Text>
     </FormErrorBanner>

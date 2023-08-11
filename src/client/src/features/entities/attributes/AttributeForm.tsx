@@ -62,11 +62,11 @@ export const AttributeForm = ({ defaultValues = createEmptyAttribute(), mode }: 
         {isLoading ? (
           <Loader />
         ) : (
-          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.tyle.spacing.multiple(6)}>
-            <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
+          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.mimirorg.spacing.multiple(6)}>
+            <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
               <Text variant={"display-small"}>{t("attribute.title")}</Text>
               <AttributeFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
-              <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
+              <Flexbox justifyContent={"center"} gap={theme.mimirorg.spacing.xl}>
                 <PlainLink tabIndex={-1} to={"/"}>
                   <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>
                     {t("common.cancel")}

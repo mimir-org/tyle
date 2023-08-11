@@ -70,7 +70,7 @@ export const RecoverVerification = ({
       secondRow={
         <>
           <Text textAlign={"center"}>{t("recover.verify.info.text")}</Text>
-          <Flexbox gap={theme.tyle.spacing.xxl} alignSelf={"center"}>
+          <Flexbox gap={theme.mimirorg.spacing.xxl} alignSelf={"center"}>
             {cancel?.actionable && (
               <Button variant={"outlined"} onClick={cancel.onAction}>
                 {cancel.actionText}

@@ -37,7 +37,7 @@ export const Sidebar = ({ title, groups }: SidebarProps) => {
   return (
     <SidebarContainer>
       <Heading variant={"headline-large"}>{title}</Heading>
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.base}>
+      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.base}>
         {groups.map((group, i) => (
           <Fragment key={i}>
             {group.links.map((link, i) => (
@@ -45,7 +45,7 @@ export const Sidebar = ({ title, groups }: SidebarProps) => {
                 {linkText(link.name)}
               </SidebarLink>
             ))}
-            <Divider color={theme.tyle.color.sys.outline.base} />
+            <Divider color={theme.mimirorg.color.outline.base} />
           </Fragment>
         ))}
       </Flexbox>

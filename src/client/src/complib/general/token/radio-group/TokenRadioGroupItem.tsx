@@ -27,7 +27,7 @@ export const TokenRadioGroupItem = forwardRef(
           ref={ref}
           variant={"secondary"}
           $interactive
-          {...theme.tyle.animation.radioButtonTap}
+          {...theme.mimirorg.animation.radioButtonTap}
         >
           <Text variant={"label-small"} useEllipsis ellipsisMaxLines={1}>
             {children}

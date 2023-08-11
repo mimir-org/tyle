@@ -25,10 +25,10 @@ export const AccordionTrigger = forwardRef((props: AccordionTriggerProps, ref: F
   return (
     <StyledAccordionHeader>
       <StyledAccordionTrigger {...delegated} ref={ref}>
-        <Text as={"span"} variant={"body-large"} color={theme.tyle.color.sys.pure.on}>
+        <Text as={"span"} variant={"body-large"} color={theme.mimirorg.color.pure.on}>
           {children}
         </Text>
-        <StyledAccordionChevron color={theme.tyle.color.sys.primary.base} size={24} />
+        <StyledAccordionChevron color={theme.mimirorg.color.primary.base} size={24} />
       </StyledAccordionTrigger>
     </StyledAccordionHeader>
   );

@@ -56,11 +56,11 @@ export const Dialog = ({
       <DialogPrimitive.Trigger asChild>{children}</DialogPrimitive.Trigger>
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay asChild>
-          <DialogOverlay {...theme.tyle.animation.fade} />
+          <DialogOverlay {...theme.mimirorg.animation.fade} />
         </DialogPrimitive.Overlay>
         <DialogPrimitive.Content asChild>
-          <DialogContent {...theme.tyle.animation.fade} {...delegated}>
-            <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xl} maxWidth={"50ch"}>
+          <DialogContent {...theme.mimirorg.animation.fade} {...delegated}>
+            <Box display={"flex"} flexDirection={"column"} gap={theme.mimirorg.spacing.xl} maxWidth={"50ch"}>
               <DialogTitle hide={hideTitle}>{title}</DialogTitle>
               {description && <DialogDescription hide={hideDescription}>{description}</DialogDescription>}
             </Box>

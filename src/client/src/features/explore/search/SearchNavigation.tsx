@@ -35,7 +35,7 @@ export const SearchNavigation = ({ numPages }: SearchNavigationProps) => {
   const { start, end } = getPaginationRange(pageNum, numPages, 3);
 
   return (
-    <Flexbox gap={theme.tyle.spacing.l} alignItems={"center"} justifyContent={"center"}>
+    <Flexbox gap={theme.mimirorg.spacing.l} alignItems={"center"} justifyContent={"center"}>
       <Flexbox justifyContent={"center"}>
         <Button
           variant="filled"

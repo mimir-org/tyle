@@ -31,14 +31,14 @@ export const Header = () => {
       <HeaderHomeLink />
       {!userQuery.isLoading && (
         <UserMenu name={userInitials}>
-          <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.base}>
+          <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.base}>
             <UserInfo name={userFullName} permissions={permissions} roles={userRoles} />
             <ThemeButton />
             <ContactButton />
             <FeedbackButton />
             <SettingsButton />
             <LogoutButton />
-            <Flexbox alignItems={"center"} justifyContent={"center"} gap={theme.tyle.spacing.base}>
+            <Flexbox alignItems={"center"} justifyContent={"center"} gap={theme.mimirorg.spacing.base}>
               <Text style={{ color: "gray" }} variant={"body-small"}>
                 {"Tyle version: " + config.TYLE_VERSION}
               </Text>

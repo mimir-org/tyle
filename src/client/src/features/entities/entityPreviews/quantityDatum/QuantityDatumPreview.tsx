@@ -10,13 +10,13 @@ interface StyledDivProps {
 const StyledDiv = styled.div<StyledDivProps>`
   display: flex;
   flex-direction: column;
-  gap: ${(props) => props.theme.tyle.spacing.xl};
-  padding: ${(props) => props.theme.tyle.spacing.xl};
-  border-radius: ${(props) => props.theme.tyle.border.radius.large};
-  background-color: ${(props) => props.theme.tyle.color.sys.pure.base};
+  gap: ${(props) => props.theme.mimirorg.spacing.xl};
+  padding: ${(props) => props.theme.mimirorg.spacing.xl};
+  border-radius: ${(props) => props.theme.mimirorg.border.radius.large};
+  background-color: ${(props) => props.theme.mimirorg.color.pure.base};
   max-width: ${(props) => (props.small ? "200px" : "100%")};
   width: ${(props) => (props.small ? "200px" : "100%")};
-  border: ${(props) => props.theme.tyle.color.sys.outline.base} solid 1px};
+  border: ${(props) => props.theme.mimirorg.color.outline.base} solid 1px};
 `;
 
 interface QuantityDatumPreviewProps {
@@ -62,8 +62,8 @@ export default function QuantityDatumPreview({
 export const QuantityDatumSmallPreview = (quantityDatumType: string): JSX.Element => {
   const theme = useTheme();
   return (
-    <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.tyle.spacing.base}>
-      <QuantityDatumIcon color={theme.tyle.color.sys.pure.on} />
+    <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.mimirorg.spacing.base}>
+      <QuantityDatumIcon color={theme.mimirorg.color.pure.on} />
       <Text variant={"title-medium"} textAlign={"center"}>
         {quantityDatumType}
       </Text>

@@ -31,7 +31,7 @@ export const Item = ({ isSelected, preview, description, actions, onClick }: Ite
       onClick={onClick}
       layout={"position"}
       variant={isSelected ? "selected" : "filled"}
-      {...theme.tyle.animation.selectHover}
+      {...theme.mimirorg.animation.selectHover}
     >
       <Box
         position={"relative"}
@@ -39,7 +39,7 @@ export const Item = ({ isSelected, preview, description, actions, onClick }: Ite
         justifyContent={"space-between"}
         alignItems={"start"}
         flexWrap={"wrap"}
-        gap={theme.tyle.spacing.xxxl}
+        gap={theme.mimirorg.spacing.xxxl}
       >
         {preview}
         {description}

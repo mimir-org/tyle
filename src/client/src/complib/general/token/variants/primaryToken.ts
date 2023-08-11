@@ -4,5 +4,5 @@ import { css } from "styled-components/macro";
 export const primaryToken = (color: ColorTheme) => css`
   background-color: ${color.tertiary.base};
   color: ${color.tertiary.on};
-  border-radius: ${(props) => props.theme.tyle.border.radius.large};
+  border-radius: ${(props) => props.theme.mimirorg.border.radius.large};
 `;

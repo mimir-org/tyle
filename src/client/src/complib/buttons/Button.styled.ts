@@ -22,21 +22,21 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  gap: ${(props) => props.theme.tyle.spacing.s};
+  gap: ${(props) => props.theme.mimirorg.spacing.s};
   flex-direction: ${(props) => props.iconPlacement === "left" && "row-reverse"};
 
   white-space: nowrap;
   text-decoration: none;
 
-  font: ${(props) => props.theme.tyle.typography.sys.roles.label.large.font};
-  line-height: ${(props) => props.theme.tyle.typography.sys.roles.label.large.lineHeight};
-  letter-spacing: ${(props) => props.theme.tyle.typography.sys.roles.label.large.letterSpacing};
+  font: ${(props) => props.theme.mimirorg.typography.roles.label.large.font};
+  line-height: ${(props) => props.theme.mimirorg.typography.roles.label.large.lineHeight};
+  letter-spacing: ${(props) => props.theme.mimirorg.typography.roles.label.large.letterSpacing};
 
   height: 32px;
   width: fit-content;
   min-width: 70px;
-  padding: ${(props) => props.theme.tyle.spacing.base} ${(props) => props.theme.tyle.spacing.xl};
-  border-radius: ${(props) => props.theme.tyle.border.radius.medium};
+  padding: ${(props) => props.theme.mimirorg.spacing.base} ${(props) => props.theme.mimirorg.spacing.xl};
+  border-radius: ${(props) => props.theme.mimirorg.border.radius.medium};
 
   :hover {
     cursor: pointer;
@@ -55,19 +55,19 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   ${focus};
 
   ${({ variant, dangerousAction, ...props }) => {
-    const {
+    /*const {
       color: { sys },
-    } = props.theme.tyle;
+    } = props.theme.mimirorg; */
 
     switch (variant) {
       case "filled": {
-        return filledButton(sys, dangerousAction);
+        return filledButton(props.theme.mimirorg.color, dangerousAction);
       }
       case "outlined": {
-        return outlinedButton(sys, dangerousAction);
+        return outlinedButton(props.theme.mimirorg.color, dangerousAction);
       }
       case "text": {
-        return textButton(sys, dangerousAction);
+        return textButton(props.theme.mimirorg.color, dangerousAction);
       }
     }
   }};
@@ -75,7 +75,7 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   ${({ iconOnly, dangerousAction, ...props }) =>
     iconOnly &&
     css`
-      padding: ${props.theme.tyle.spacing.xs};
+      padding: ${props.theme.mimirorg.spacing.xs};
       min-width: revert;
       width: 24px;
       height: 24px;
@@ -86,7 +86,7 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
         max-height: 18px;
       }
       &:hover {
-        background-color: ${dangerousAction ? props.theme.tyle.color.sys.dangerousAction.base : ""};
+        background-color: ${dangerousAction ? props.theme.mimirorg.color.dangerousAction.base : ""};
         color: white;
       }
     `};

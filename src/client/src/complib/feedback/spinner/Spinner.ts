@@ -29,7 +29,7 @@ export const Spinner = styled.div<SpinnerProps>`
     width: ${(props) => props.size}px;
     height: ${(props) => props.size}px;
     border-radius: 50%;
-    border: 2px solid ${(props) => props.theme.tyle.color.sys.surface.inverse.base};
+    border: 2px solid ${(props) => props.theme.mimirorg.color.surface.inverse.base};
     animation: ${rotate} 2.5s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
     background: radial-gradient(
       circle,

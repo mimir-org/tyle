@@ -30,10 +30,10 @@ export const ErrorMessage = ({ title, subtitle, status, linkText, linkPath }: No
       alignItems={"center"}
       width={"100%"}
       height={"100%"}
-      p={theme.tyle.spacing.xxxl}
+      p={theme.mimirorg.spacing.xxxl}
     >
-      <Box display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xxxl} maxWidth={"60ch"}>
-        <Heading variant={"display-large"} fontWeight={theme.tyle.typography.ref.typeface.weights.bold}>
+      <Box display={"flex"} flexDirection={"column"} gap={theme.mimirorg.spacing.xxxl} maxWidth={"60ch"}>
+        <Heading variant={"display-large"} fontWeight={theme.mimirorg.typography.ref.typeface.weights.bold}>
           {title}
         </Heading>
         <Heading as={"h2"} variant={"display-medium"}>

@@ -125,7 +125,7 @@ export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps
                   <Textarea placeholder={t("register.details.placeholders.purpose")} {...register("purpose")} />
                 </FormField>
 
-                <MotionText color={theme.tyle.color.sys.surface.variant.on} layout={"position"} as={"i"}>
+                <MotionText color={theme.mimirorg.color.surface.variant.on} layout={"position"} as={"i"}>
                   {t("register.details.placeholders.required")}
                 </MotionText>
               </FormFieldset>
@@ -137,11 +137,11 @@ export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps
       secondRow={
         <>
           <Text textAlign={"center"}>{t("register.details.info.text")}</Text>
-          <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.xxl}>
+          <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.mimirorg.spacing.xxl}>
             <Button type={"submit"} form={"details-form"}>
               {complete?.actionText}
             </Button>
-            <Text color={theme.tyle.color.sys.surface.variant.on}>
+            <Text color={theme.mimirorg.color.surface.variant.on}>
               {t("register.details.altLead")} <Link to="/">{t("register.details.altLink")}</Link>
             </Text>
           </MotionFlexbox>

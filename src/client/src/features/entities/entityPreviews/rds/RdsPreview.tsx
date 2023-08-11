@@ -20,11 +20,11 @@ interface StyledDivProps {
 const StyledDiv = styled.div<StyledDivProps>`
   display: flex;
   flex-direction: column;
-  gap: ${(props) => props.theme.tyle.spacing.xl};
-  padding: ${(props) => props.theme.tyle.spacing.xl};
-  border-radius: ${(props) => props.theme.tyle.border.radius.large};
-  background-color: ${(props) => props.theme.tyle.color.sys.pure.base};
-  border: 1px solid ${(props) => props.theme.tyle.color.sys.outline.base};
+  gap: ${(props) => props.theme.mimirorg.spacing.xl};
+  padding: ${(props) => props.theme.mimirorg.spacing.xl};
+  border-radius: ${(props) => props.theme.mimirorg.border.radius.large};
+  background-color: ${(props) => props.theme.mimirorg.color.pure.base};
+  border: 1px solid ${(props) => props.theme.mimirorg.color.outline.base};
   width: ${(props) => (props.small ? "200px" : "auto")};
   height: fit-content;
 `;
@@ -67,8 +67,8 @@ export const RdsPreview = ({
 const RdsSmallPreview = (rdsCode: string) => {
   const theme = useTheme();
   return (
-    <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.tyle.spacing.base}>
-      <RdsIcon color={theme.tyle.color.sys.pure.on} />
+    <Flexbox justifyContent={"center"} alignItems={"center"} flexDirection={"column"} gap={theme.mimirorg.spacing.base}>
+      <RdsIcon color={theme.mimirorg.color.pure.on} />
       <Text variant={"title-medium"} textAlign={"center"}>
         {rdsCode.toUpperCase()}
       </Text>

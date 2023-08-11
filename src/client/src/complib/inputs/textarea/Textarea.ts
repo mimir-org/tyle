@@ -10,15 +10,15 @@ import styled from "styled-components/macro";
 type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & Sizing;
 
 export const Textarea = styled.textarea<TextareaProps>`
-  border: 1px solid ${(props) => props.theme.tyle.color.sys.outline.base};
-  border-radius: ${(props) => props.theme.tyle.border.radius.medium};
+  border: 1px solid ${(props) => props.theme.mimirorg.color.outline.base};
+  border-radius: ${(props) => props.theme.mimirorg.border.radius.medium};
   min-height: 150px;
   width: 100%;
-  padding: ${(props) => props.theme.tyle.spacing.base};
-  color: ${(props) => props.theme.tyle.color.sys.surface.on};
+  padding: ${(props) => props.theme.mimirorg.spacing.base};
+  color: ${(props) => props.theme.mimirorg.color.surface.on};
 
-  background-color: ${(props) => props.theme.tyle.color.sys.pure.base};
-  color: ${(props) => props.theme.tyle.color.sys.background.on};
+  background-color: ${(props) => props.theme.mimirorg.color.pure.base};
+  color: ${(props) => props.theme.mimirorg.color.background.on};
 
   ${getTextRole("body-large")};
   ${focus};

@@ -28,19 +28,19 @@ export const FormSection = ({ title, action, children, error }: FormSectionProps
       display={"flex"}
       flexDirection={"column"}
       justifyContent={"center"}
-      gap={theme.tyle.spacing.xxxl}
+      gap={theme.mimirorg.spacing.xxxl}
       border={0}
       p={"0"}
-      {...theme.tyle.animation.fade}
+      {...theme.mimirorg.animation.fade}
     >
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.s}>
-        <Box display={"flex"} gap={theme.tyle.spacing.xl} alignItems={"center"}>
+      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.s}>
+        <Box display={"flex"} gap={theme.mimirorg.spacing.xl} alignItems={"center"}>
           <Text variant={"title-large"}>{title}</Text>
           {action}
         </Box>
 
         {error && error.message && (
-          <MotionText variant={"label-large"} color={theme.tyle.color.sys.error.base} {...theme.tyle.animation.fade}>
+          <MotionText variant={"label-large"} color={theme.mimirorg.color.error.base} {...theme.mimirorg.animation.fade}>
             {error.message}
           </MotionText>
         )}

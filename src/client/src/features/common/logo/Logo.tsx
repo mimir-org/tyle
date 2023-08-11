@@ -1,5 +1,4 @@
-import { usePrefersTheme } from "common/hooks/usePrefersTheme";
-import { Icon } from "@mimirorg/component-library";
+import { Icon, usePrefersTheme } from "@mimirorg/component-library";
 import { IconProps } from "complib/media/icon/Icon";
 import { TyleLogoDarkRedIcon, TyleLogoWhiteIcon } from "features/common/logo/assets";
 import { motion } from "framer-motion";
@@ -17,13 +16,13 @@ type LogoProps = Omit<IconProps, "src"> & {
  * @constructor
  */
 export const Logo = forwardRef((props: LogoProps, ref: ForwardedRef<HTMLImageElement>) => {
-  let [theme] = usePrefersTheme("light");
+  let [theme] = usePrefersTheme("tyleLight");
   const { inverse, ...delegated } = props;
 
-  if (inverse && theme === "light") theme = "dark";
-  else if (inverse && theme === "dark") theme = "light";
+  if (inverse && theme === "tyleLight") theme = "tyleDark";
+  else if (inverse && theme === "tyleDark") theme = "tyleLight";
 
-  return theme === "dark" ? (
+  return theme === "tyleDark" ? (
     <Icon ref={ref} src={TyleLogoDarkRedIcon} {...delegated} />
   ) : (
     <Icon ref={ref} src={TyleLogoWhiteIcon} {...delegated} />

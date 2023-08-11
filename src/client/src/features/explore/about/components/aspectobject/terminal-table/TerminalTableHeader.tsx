@@ -8,7 +8,7 @@ export const TerminalTableHeader = () => {
   const theme = useTheme();
   const { t } = useTranslation("explore", { keyPrefix: "about.terminals" });
   const adjustAmountAlignment = useMediaQuery("screen and (min-width: 1500px)");
-  const textColor = theme.tyle.color.sys.primary.base;
+  const textColor = theme.mimirorg.color.primary.base;
 
   return (
     <Tr>

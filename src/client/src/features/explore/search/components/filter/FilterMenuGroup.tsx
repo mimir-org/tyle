@@ -30,14 +30,14 @@ export const FilterMenuGroup = ({ name, filters, activeFilters, toggleFilter }: 
         <Box
           display={"flex"}
           flexDirection={"column"}
-          gap={theme.tyle.spacing.xs}
+          gap={theme.mimirorg.spacing.xs}
           maxHeight={"300px"}
           overflow={"auto"}
         >
           {filters?.map((f, i) => (
             <FilterMenuGroupLabel key={`${i + f.label + f.key}`}>
               <Checkbox onClick={() => toggleFilter(f)} checked={activeFilters?.some((x) => x.value === f.value)} />
-              <Text as={"span"} color={theme.tyle.color.sys.pure.on}>
+              <Text as={"span"} color={theme.mimirorg.color.pure.on}>
                 {f.label}
               </Text>
             </FilterMenuGroupLabel>

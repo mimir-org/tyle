@@ -23,11 +23,12 @@ export const TyleThemeProvider = ({ theme, children }: PropsWithChildren<TyleThe
   };
 
   return (
-    <ThemeProvider theme={customTheme}>
+    <></>
+    /* <ThemeProvider theme={customTheme}>
       <MotionConfig reducedMotion="user">
         <TooltipProvider>{children}</TooltipProvider>
         <Toaster />
       </MotionConfig>
-    </ThemeProvider>
+    </ThemeProvider> */
   );
 };

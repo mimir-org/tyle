@@ -92,7 +92,7 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
         </Tooltip>
       </PlainLink>
       <AlertDialog
-        gap={theme.tyle.spacing.multiple(6)}
+        gap={theme.mimirorg.spacing.multiple(6)}
         actions={[approveAction]}
         title={t("search.item.templates.approve")}
         description={t("search.item.approveDescription")}
@@ -114,7 +114,7 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
         </Button>
       </Tooltip>
       <AlertDialog
-        gap={theme.tyle.spacing.multiple(6)}
+        gap={theme.mimirorg.spacing.multiple(6)}
         actions={[deleteAction]}
         title={t("search.item.templates.delete", { object: name })}
         description={t("search.item.deleteDescription")}

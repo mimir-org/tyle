@@ -91,7 +91,7 @@ export const AspectObjectForm = ({ defaultValues = createEmptyFormAspectObjectLi
           <>
             <AspectObjectFormBaseFields isFirstDraft={isFirstDraft} mode={mode} state={query.data?.state} />
 
-            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
+            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
               {getSubformForAspect(aspect, limited ? latestApprovedQuery.data?.aspectObjectTerminals : [])}
               <FormAttributes
                 register={(index) => register(`attributes.${index}`)}

@@ -61,13 +61,13 @@ export const Login = () => {
               />
             </FormField>
 
-            <MotionText color={theme.tyle.color.sys.surface.variant.on} layout={"position"} as={"i"}>
+            <MotionText color={theme.mimirorg.color.surface.variant.on} layout={"position"} as={"i"}>
               {t("login.placeholders.required")}
             </MotionText>
           </FormFieldset>
-          <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.xxl}>
+          <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.mimirorg.spacing.xxl}>
             <Button type={"submit"}>{t("login.submit")}</Button>
-            <Text color={theme.tyle.color.sys.surface.variant.on}>
+            <Text color={theme.mimirorg.color.surface.variant.on}>
               {t("login.altLead")} <Link to={registerBasePath}>{t("login.altLink")}</Link>
             </Text>
           </MotionFlexbox>

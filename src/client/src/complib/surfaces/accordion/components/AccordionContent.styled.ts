@@ -34,8 +34,8 @@ const slideUp = keyframes`
 
 export const StyledAccordionContent = styled(Content)`
   overflow: hidden;
-  color: ${(props) => props.theme.tyle.color.sys.secondary.container?.on};
-  padding: ${(props) => props.theme.tyle.spacing.xl};
+  color: ${(props) => props.theme.mimirorg.color.secondary.container?.on};
+  padding: ${(props) => props.theme.mimirorg.spacing.xl};
 
   &[data-state="open"] {
     animation: ${slideDown} 300ms cubic-bezier(0.87, 0, 0.13, 1) forwards;

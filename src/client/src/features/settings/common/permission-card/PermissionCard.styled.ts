@@ -7,7 +7,7 @@ const PermissionCardContainer = styled(Card).attrs(() => ({
 }))`
   display: flex;
   flex-direction: column;
-  gap: ${(props) => props.theme.tyle.spacing.xl};
+  gap: ${(props) => props.theme.mimirorg.spacing.xl};
   max-width: 350px;
 `;
 

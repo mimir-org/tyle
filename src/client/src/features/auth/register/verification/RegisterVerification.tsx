@@ -64,7 +64,7 @@ export const RegisterVerification = ({ email, setMfaInfo, cancel, complete }: Ve
       secondRow={
         <>
           <Text textAlign={"center"}>{t("register.verify.info.text")}</Text>
-          <Flexbox gap={theme.tyle.spacing.xxl} alignSelf={"center"}>
+          <Flexbox gap={theme.mimirorg.spacing.xxl} alignSelf={"center"}>
             {cancel?.actionable && (
               <Button variant={"outlined"} onClick={cancel.onAction}>
                 {cancel.actionText}
