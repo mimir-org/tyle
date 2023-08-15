@@ -1,6 +1,5 @@
 import { Trash } from "@styled-icons/heroicons-outline";
-import { Button } from "complib/buttons";
-import { Box, Flexbox, Text } from "@mimirorg/component-library";
+import { Box, Button, Flexbox, Text } from "@mimirorg/component-library";
 import { FieldsCardContainer } from "features/entities/common/fields-card/FieldsCard.styled";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";

@@ -1,8 +1,7 @@
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { Option } from "common/utils/getOptionsFromEnum";
-import { Button } from "complib/buttons";
 import { toast } from "complib/data-display";
-import { Text } from "@mimirorg/component-library";
+import { Button, Text } from "@mimirorg/component-library";
 import { useAddUserPermission, useRemoveUserPermission } from "external/sources/authorize/authorize.queries";
 import {
   FormUserPermission,

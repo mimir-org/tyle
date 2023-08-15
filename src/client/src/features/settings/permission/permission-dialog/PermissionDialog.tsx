@@ -1,6 +1,6 @@
 import { PencilSquare } from "@styled-icons/heroicons-outline";
 import { UserItem } from "common/types/userItem";
-import { Button } from "complib/buttons";
+import { Button } from "@mimirorg/component-library";
 import { AlertDialog, AlertDialogCancelItem } from "complib/overlays";
 import { AlertDialogActionItem } from "complib/overlays/alert-dialog/components/AlertDialogAction";
 import { PermissionCard } from "features/settings/common/permission-card/PermissionCard";

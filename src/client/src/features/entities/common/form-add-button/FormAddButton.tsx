@@ -1,5 +1,5 @@
 import { PlusSmall } from "@styled-icons/heroicons-outline";
-import { Button } from "complib/buttons";
+import { Button } from "@mimirorg/component-library";
 
 interface FormAddButtonProps {
   buttonText: string;

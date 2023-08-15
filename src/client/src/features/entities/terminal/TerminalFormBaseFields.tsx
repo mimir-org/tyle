@@ -1,6 +1,5 @@
-import { Button } from "complib/buttons";
 import { FormField } from "complib/form";
-import { Flexbox, Input, Textarea, Text } from "@mimirorg/component-library";
+import { Button, Flexbox, Input, Textarea, Text } from "@mimirorg/component-library";
 import { PlainLink } from "features/common/plain-link";
 import { TerminalFormPreview } from "features/entities/entityPreviews/terminal/TerminalFormPreview";
 import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";

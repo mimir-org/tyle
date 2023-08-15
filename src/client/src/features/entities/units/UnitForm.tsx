@@ -14,12 +14,11 @@ import UnitFormBaseFields from "./UnitFormBaseFields";
 import { UnitFormPreview } from "../entityPreviews/unit/UnitFormPreview";
 import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
-import { Box, Flexbox, Text } from "@mimirorg/component-library";
+import { Box, Button, Flexbox, Text } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { unitSchema } from "./unitSchema";
 import { PlainLink } from "features/common/plain-link";
-import { Button } from "complib/buttons";
 
 interface UnitFormProps {
   defaultValues?: UnitLibAm;

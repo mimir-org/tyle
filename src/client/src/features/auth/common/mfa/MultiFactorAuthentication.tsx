@@ -1,6 +1,5 @@
 import { MimirorgQrCodeCm } from "@mimirorg/typelibrary-types";
-import { Button } from "complib/buttons";
-import { Box, Flexbox, Icon, Popover, Text } from "@mimirorg/component-library";
+import { Box, Button, Flexbox, Icon, Popover, Text } from "@mimirorg/component-library";
 import { Actionable } from "complib/types";
 import { AuthContent } from "features/auth/common/auth-content/AuthContent";
 import { useTheme } from "styled-components";

@@ -17,8 +17,7 @@ import { Form, FormField } from "complib/form";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
 import { DevTool } from "@hookform/devtools";
 import { Loader } from "features/common/loader";
-import { Input } from "@mimirorg/component-library";
-import { Button } from "complib/buttons";
+import { Button, Input } from "@mimirorg/component-library";
 
 interface UserSettingsFormProps {
   defaultValues?: MimirorgUserAm;

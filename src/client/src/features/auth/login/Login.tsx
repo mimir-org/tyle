@@ -1,9 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { MimirorgAuthenticateAm } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
-import { Button } from "complib/buttons";
 import { Form, FormErrorBanner, FormField, FormFieldset } from "complib/form";
-import { Input, MotionFlexbox, MotionText, Text } from "@mimirorg/component-library";
+import { Button, Input, MotionFlexbox, MotionText, Text } from "@mimirorg/component-library";
 import { useLogin } from "external/sources/authenticate/authenticate.queries";
 import { AuthContent } from "features/auth/common/auth-content/AuthContent";
 import { loginSchema } from "features/auth/login/loginSchema";

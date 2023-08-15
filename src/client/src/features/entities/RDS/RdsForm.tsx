@@ -8,9 +8,8 @@ import { useSubmissionToast } from "features/entities/common/utils/useSubmission
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { RdsLibAm, RdsLibCm, State } from "@mimirorg/typelibrary-types";
-import { Box, Flexbox, Text } from "@mimirorg/component-library";
+import { Box, Button, Flexbox, Text } from "@mimirorg/component-library";
 import { PlainLink } from "../../common/plain-link";
-import { Button } from "../../../complib/buttons";
 import { useTheme } from "styled-components";
 import { createEmptyRds, toRdsLibAm } from "./types/formRdsLib";
 import { rdsCodeToUpper, useRdsMutation, useRdsQuery } from "./RdsForm.helpers";

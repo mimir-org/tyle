@@ -1,8 +1,7 @@
 import { Aspect, MimirorgPermission, State } from "@mimirorg/typelibrary-types";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
-import { Button } from "complib/buttons";
-import { Box, ConditionalWrapper, Flexbox, Icon, Input, Popover, Select, Text, Textarea } from "@mimirorg/component-library";
+import { Box, Button, ConditionalWrapper, Flexbox, Icon, Input, Popover, Select, Text, Textarea } from "@mimirorg/component-library";
 import { FormField } from "complib/form";
 import { useGetPurposes } from "external/sources/purpose/purpose.queries";
 import { useGetAllRds } from "external/sources/rds/rds.queries";
