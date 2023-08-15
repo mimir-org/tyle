@@ -1,8 +1,6 @@
 import { PencilSquare } from "@styled-icons/heroicons-outline";
 import { UserItem } from "common/types/userItem";
-import { Button } from "@mimirorg/component-library";
-import { AlertDialog, AlertDialogCancelItem } from "complib/overlays";
-import { AlertDialogActionItem } from "complib/overlays/alert-dialog/components/AlertDialogAction";
+import { AlertDialog, AlertDialogActionItem, AlertDialogCancelItem, Button } from "@mimirorg/component-library";
 import { PermissionCard } from "features/settings/common/permission-card/PermissionCard";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
