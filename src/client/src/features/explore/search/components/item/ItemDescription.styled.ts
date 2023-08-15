@@ -1,4 +1,4 @@
-import { focus } from "complib/mixins";
+import { focus } from "@mimirorg/component-library";
 import styled from "styled-components/macro";
 
 export const ItemDescriptionContainer = styled.button`

@@ -1,4 +1,4 @@
-import { hideScrollbar } from "complib/mixins";
+import { hideScrollbar } from "@mimirorg/component-library";
 import { motion } from "framer-motion";
 import styled from "styled-components/macro";
 

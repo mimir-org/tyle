@@ -1,4 +1,4 @@
-import { hideScrollbar } from "complib/mixins";
+import { hideScrollbar } from "@mimirorg/component-library";
 import styled from "styled-components/macro";
 
 export const SelectContainer = styled.div`

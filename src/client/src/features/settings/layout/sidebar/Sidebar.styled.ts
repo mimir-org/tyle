@@ -1,4 +1,4 @@
-import { getTextRole } from "complib/mixins";
+import { getTextRole } from "@mimirorg/component-library";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components/macro";
 

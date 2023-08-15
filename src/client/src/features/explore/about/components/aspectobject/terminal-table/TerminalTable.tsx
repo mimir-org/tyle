@@ -1,5 +1,5 @@
 import { AspectObjectTerminalItem } from "common/types/aspectObjectTerminalItem";
-import { Table, Tbody, Thead, Tr } from "complib/data-display";
+import { Table, Tbody, Thead, Tr } from "@mimirorg/component-library";
 import { TerminalTableAmount } from "features/explore/about/components/aspectobject/terminal-table/TerminalTableAmount";
 import { TerminalTableAttributes } from "features/explore/about/components/aspectobject/terminal-table/TerminalTableAttributes";
 import { TerminalTableDirection } from "features/explore/about/components/aspectobject/terminal-table/TerminalTableDirection";

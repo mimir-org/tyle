@@ -1,8 +1,7 @@
 import { XCircle } from "@styled-icons/heroicons-outline";
 import { useDebounceState } from "common/hooks/useDebounceState";
 import { mapMimirorgUserCmToUserItem } from "common/utils/mappers/mapMimirorgUserCmToUserItem";
-import { Token } from "complib/general";
-import { Flexbox, MotionFlexbox, MotionText } from "@mimirorg/component-library";
+import { Flexbox, MotionFlexbox, MotionText, Token } from "@mimirorg/component-library";
 import { useGetCurrentUser } from "external/sources/user/user.queries";
 import { SearchField } from "features/common/search-field";
 import { ExploreSection } from "features/explore/common/ExploreSection";

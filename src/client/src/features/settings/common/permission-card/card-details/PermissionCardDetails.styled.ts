@@ -1,4 +1,4 @@
-import { getTextRole } from "complib/mixins";
+import { getTextRole } from "@mimirorg/component-library";
 import styled from "styled-components/macro";
 
 export const Dl = styled.dl`

@@ -1,6 +1,5 @@
 import { AspectObjectTerminalItem } from "common/types/aspectObjectTerminalItem";
-import { Td } from "complib/data-display";
-import { Box } from "@mimirorg/component-library";
+import { Box, Td } from "@mimirorg/component-library";
 import { InfoItemButton } from "features/common/info-item";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";

@@ -6,8 +6,7 @@ import {
   MINIMUM_TERMINAL_QUANTITY_VALUE,
 } from "common/utils/aspectObjectTerminalQuantityRestrictions";
 import { FormField } from "complib/form";
-import { Counter } from "complib/inputs";
-import { Box, Button, Checkbox, Flexbox, Select, Text } from "@mimirorg/component-library";
+import { Box, Button, Checkbox, Counter, Flexbox, Select, Text } from "@mimirorg/component-library";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
 import { TerminalButton } from "features/common/terminal";
 import {

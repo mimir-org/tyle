@@ -1,6 +1,5 @@
 import { Option } from "common/utils/getOptionsFromEnum";
-import { TokenRadioGroup, TokenRadioGroupItem } from "complib/general";
-import { Flexbox, Text } from "@mimirorg/component-library";
+import { Flexbox, Text, TokenRadioGroup, TokenRadioGroupItem } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 
 interface RadioFiltersProps {
