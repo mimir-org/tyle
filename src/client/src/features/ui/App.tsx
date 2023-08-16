@@ -1,4 +1,4 @@
-import { FullPageSpinner } from "complib/feedback";
+import { FullPageSpinner } from "@mimirorg/component-library";
 import { useGetCurrentUser } from "external/sources/user/user.queries";
 import { Authenticated } from "features/ui/authenticated/Authenticated";
 import { Unauthenticated } from "features/ui/unauthenticated/Unauthenticated";
