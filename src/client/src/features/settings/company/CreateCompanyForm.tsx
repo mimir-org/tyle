@@ -15,15 +15,12 @@ import { useGetCurrentUser } from "external/sources/user/user.queries";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
-import { Button, Flexbox, Form, FormField, Input, Textarea } from "@mimirorg/component-library";
-import { toast } from "complib/data-display";
+import { Button, FileInfo, FileItemComponent, Flexbox, Form, FormField, Input, Textarea, toast } from "@mimirorg/component-library";
 import { DevTool } from "@hookform/devtools";
 import { useTheme } from "styled-components";
 import { useRef, useState } from "react";
 import { DocumentDuplicate, PaperClip } from "@styled-icons/heroicons-outline";
 import { isAxiosError } from "axios";
-import { FileItemComponent } from "complib/inputs/file/components/FileItemComponent";
-import { FileInfo } from "complib/inputs/file/FileComponent";
 import { useCreateCompany } from "external/sources/company/company.queries";
 import { PlainLink } from "features/common/plain-link";
 import { settingsBasePath } from "../SettingsRoutes";
@@ -139,7 +136,7 @@ export const CreateCompanyForm = () => {
 
             {previewLogo && (
               <div>
-                <FileItemComponent fileInfo={previewLogo} onRemove={onFileRemove} />
+                <FileItemComponent fileInfo={previewLogo} onRemove={onFileRemove} onClick={() => console.log("")} onDescriptionChange={() => console.log("")} />
               </div>
             )}
           </Flexbox>

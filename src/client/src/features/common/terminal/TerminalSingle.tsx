@@ -40,7 +40,7 @@ export const TerminalDescription = ({ name, maxQuantity, color, direction }: Omi
     <Flexbox alignItems={"center"} gap={theme.mimirorg.spacing.base}>
       <TerminalButton as={"div"} color={color} direction={direction} />
       <Text variant={"body-small"}>{`${name}`}</Text>
-      <Text ml={"auto"} variant={"body-small"}>{`x ${shownQuantity}`}</Text>
+      <Text spacing={{ ml: "auto" }} variant={"body-small"}>{`x ${shownQuantity}`}</Text>
     </Flexbox>
   );
 };

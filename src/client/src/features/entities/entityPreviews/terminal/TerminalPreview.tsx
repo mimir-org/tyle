@@ -1,5 +1,4 @@
-import { TextTypes } from "complib/props";
-import { Text } from "@mimirorg/component-library";
+import { Text, TextTypes } from "@mimirorg/component-library";
 import { TerminalButton } from "features/common/terminal/TerminalButton";
 import {
   TerminalPreviewContainer,

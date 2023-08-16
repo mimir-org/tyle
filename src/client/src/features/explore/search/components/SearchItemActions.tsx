@@ -7,9 +7,8 @@ import { Check, DocumentDuplicate, PencilSquare, Trash } from "@styled-icons/her
 import { UserItem } from "../../../../common/types/userItem";
 import { getCloneLink, getEditLink, useDeleteMutation, usePatchMutation } from "./SearchItemActions.helpers";
 import { ItemType } from "../../../entities/types/itemTypes";
-import { AlertDialog, Button, Text, Tooltip } from "@mimirorg/component-library";
+import { AlertDialog, Button, Text, toast, Tooltip } from "@mimirorg/component-library";
 import { StateBadge } from "../../../ui/badges/StateBadge";
-import { toast } from "complib/data-display";
 import { AxiosError } from "axios";
 import { useState } from "react";
 

@@ -19,7 +19,7 @@ export const SettingsSection = ({ title, children }: SettingsSectionProps) => {
 
   return (
     <MotionBox as={"section"} {...theme.mimirorg.animation.fade}>
-      <Heading as={"h2"} variant={"headline-medium"} mb={theme.mimirorg.spacing.xxxl}>
+      <Heading as={"h2"} variant={"headline-medium"} spacing={{ mb: theme.mimirorg.spacing.xxxl }}>
         {title}
       </Heading>
       {children}

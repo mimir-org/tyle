@@ -1,6 +1,5 @@
 import { MimirorgCompanyAm, MimirorgCompanyCm } from "@mimirorg/typelibrary-types";
-import { toast } from "complib/data-display";
-import { FileInfo, toBase64 } from "complib/inputs/file/FileComponent";
+import { FileInfo, toast, toBase64 } from "@mimirorg/component-library";
 import { useTranslation } from "react-i18next";
 
 export interface FormMimirorgCompany extends Omit<MimirorgCompanyAm, "managerId" | "logo"> {
@@ -15,10 +14,12 @@ export const encodeFile = async (addedFile: File): Promise<FileInfo | null> => {
 
   const bytes = await toBase64(addedFile);
   return {
+    id: 1,
     fileName: addedFile.name,
     fileSize: addedFile.size,
     file: bytes != null ? bytes.toString() : null,
     contentType: addedFile.type,
+    description: "",
   };
 };
 
@@ -38,10 +39,12 @@ export const mapCompanyCmToFormCompany = (
 
   const logoFromCm = companyCm.logo
     ? {
+        id: 1,
         fileName: companyCm.id + ".svg",
         fileSize: companyCm.logo.length,
         file: "data:image/svg+xml;base64," + companyCm.logo,
         contentType: "image/svg+xml",
+        description: "",
       }
     : null;
 

@@ -24,7 +24,7 @@ export const TerminalCollection = ({ terminals, placement }: TerminalCollectionP
 
   return (
     <Popover placement={placement} content={<TerminalCollectionDescription terminals={terminals} />}>
-      <TerminalButton variant={"large"} color={theme.mimirorg.color.ref.primary["40"]}>
+      <TerminalButton variant={"large"} color={theme.mimirorg.color.reference.primary["40"]}>
         <VisuallyHidden>{t("terminal.summary.open")}</VisuallyHidden>
       </TerminalButton>
     </Popover>

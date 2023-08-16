@@ -12,7 +12,7 @@ export const UserList = ({ title, children }: PropsWithChildren<UsersProps>) => 
   return (
     <MotionFlexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l} {...theme.mimirorg.animation.fade}>
       <Text variant={"label-large"}>{title}</Text>
-      <Box as={"ul"} display={"flex"} flexDirection={"column"} gap={theme.mimirorg.spacing.l} p={"0"}>
+      <Box as={"ul"} display={"flex"} flexDirection={"column"} gap={theme.mimirorg.spacing.l} spacing={{ p: "0" }}>
         {children}
       </Box>
     </MotionFlexbox>

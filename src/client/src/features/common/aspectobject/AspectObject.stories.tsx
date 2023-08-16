@@ -1,5 +1,5 @@
 import { Meta, StoryFn } from "@storybook/react";
-import { LibraryIcon } from "complib/assets";
+import { LibraryIcon } from "@mimirorg/component-library";
 import { AspectObject } from "features/common/aspectobject/AspectObject";
 
 export default {

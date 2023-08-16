@@ -45,23 +45,23 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
       color: ${contentColor};
 
       :disabled {
-        background-color: ${translucify(colorSystem.surface.on, state.disabled.container.opacity)};
-        color: ${translucify(colorSystem.surface.on, state.disabled.content.opacity)};
+        background-color: ${translucify(colorSystem.surface.on, 0.12)};
+        color: ${translucify(colorSystem.surface.on, 0.38)};
       }
 
       :not(:disabled) {
         :hover {
           background: ${layer(
             translucify(color, elevation.levels[1].opacity),
-            translucify(colorSystem.primary.on, state.hover.opacity),
-            translucify(color, state.enabled.opacity),
+            translucify(colorSystem.primary.on, 0.08),
+            translucify(color, 1),
           )};
         }
 
         :active {
           background: ${layer(
-            translucify(colorSystem.primary.on, state.pressed.opacity),
-            translucify(color, state.enabled.opacity),
+            translucify(colorSystem.primary.on, 0.12),
+            translucify(color, 1),
           )};
         }
       }

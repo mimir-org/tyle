@@ -74,7 +74,7 @@ export const Approval = () => {
   return (
     <SettingsSection title={t("approval.title")}>
       {/* Approval */}
-      <Text variant={"title-medium"} mb={theme.mimirorg.spacing.l}>
+      <Text variant={"title-medium"} spacing={{ mb: theme.mimirorg.spacing.l }}>
         {t("approval.approval")}
       </Text>
       <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.mimirorg.spacing.xxxl}>

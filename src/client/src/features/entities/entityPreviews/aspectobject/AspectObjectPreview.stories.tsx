@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { Meta, StoryFn } from "@storybook/react";
 import { mockAspectObjectTerminalItem } from "common/utils/mocks";
-import { LibraryIcon } from "complib/assets";
+import { LibraryIcon } from "@mimirorg/component-library";
 import { AspectObjectPreview } from "features/entities/entityPreviews/aspectobject/AspectObjectPreview";
 
 export default {

@@ -17,7 +17,7 @@ export const Access = () => {
 
   return (
     <SettingsSection title={t("access.title")}>
-      <Text variant={"title-medium"} mb={theme.mimirorg.spacing.l}>
+      <Text variant={"title-medium"} spacing={{ mb: theme.mimirorg.spacing.l }}>
         {t("access.users")}
       </Text>
       <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xxxl}>

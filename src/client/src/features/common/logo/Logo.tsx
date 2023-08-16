@@ -1,5 +1,4 @@
-import { Icon, usePrefersTheme } from "@mimirorg/component-library";
-import { IconProps } from "complib/media/icon/Icon";
+import { Icon, IconProps, usePrefersTheme } from "@mimirorg/component-library";
 import { TyleLogoDarkRedIcon, TyleLogoWhiteIcon } from "features/common/logo/assets";
 import { motion } from "framer-motion";
 import { ForwardedRef, forwardRef } from "react";

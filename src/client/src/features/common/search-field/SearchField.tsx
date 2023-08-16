@@ -1,5 +1,4 @@
-import { Input } from "@mimirorg/component-library";
-import { InputProps } from "complib/inputs/input/Input";
+import { Input, InputProps } from "@mimirorg/component-library";
 import { SearchFieldIcon } from "features/common/search-field/SearchField.styled";
 
 export const SearchField = (props: InputProps) => (

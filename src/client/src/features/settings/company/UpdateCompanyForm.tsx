@@ -15,8 +15,7 @@ import { useGetCurrentUser } from "external/sources/user/user.queries";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
-import { Button, Flexbox, Form, FormField, Input, Textarea } from "@mimirorg/component-library";
-import { toast } from "complib/data-display";
+import { Button, Flexbox, FileItemComponent, FileInfo, Form, FormField, Input, Textarea, toast } from "@mimirorg/component-library";
 import { DevTool } from "@hookform/devtools";
 import { useTheme } from "styled-components";
 import { useRef, useState } from "react";
@@ -26,8 +25,6 @@ import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFil
 import { MimirorgPermission } from "@mimirorg/typelibrary-types";
 import { Option } from "common/utils/getOptionsFromEnum";
 import { RadioFilters } from "../common/radio-filters/RadioFilters";
-import { FileItemComponent } from "complib/inputs/file/components/FileItemComponent";
-import { FileInfo } from "complib/inputs/file/FileComponent";
 import { useUpdateCompany } from "external/sources/company/company.queries";
 import { PlainLink } from "features/common/plain-link";
 import { settingsBasePath } from "../SettingsRoutes";
@@ -175,7 +172,7 @@ export const UpdateCompanyForm = () => {
 
             {previewLogo && (
               <div>
-                <FileItemComponent fileInfo={previewLogo} onRemove={onFileRemove} />
+                <FileItemComponent fileInfo={previewLogo} onRemove={onFileRemove} onClick={() => console.log("")} onDescriptionChange={() => console.log("")} />
               </div>
             )}
           </Flexbox>
