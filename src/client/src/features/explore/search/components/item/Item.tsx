@@ -1,5 +1,4 @@
-import { Box } from "@mimirorg/component-library";
-import { MotionCard } from "complib/surfaces";
+import { Box, MotionCard } from "@mimirorg/component-library";
 import { ItemActionContainer } from "features/explore/search/components/item/Item.styled";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";

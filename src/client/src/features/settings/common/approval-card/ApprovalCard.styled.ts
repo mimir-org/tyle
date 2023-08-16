@@ -1,4 +1,4 @@
-import { Card } from "complib/surfaces";
+import { Card } from "@mimirorg/component-library";
 import { motion } from "framer-motion";
 import styled from "styled-components/macro";
 

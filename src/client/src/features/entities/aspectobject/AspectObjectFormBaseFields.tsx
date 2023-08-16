@@ -1,8 +1,7 @@
 import { Aspect, MimirorgPermission, State } from "@mimirorg/typelibrary-types";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
-import { Box, Button, ConditionalWrapper, Flexbox, Icon, Input, Popover, Select, Text, Textarea } from "@mimirorg/component-library";
-import { FormField } from "complib/form";
+import { Box, Button, ConditionalWrapper, Flexbox, FormBaseFieldsContainer, FormField, Icon, Input, Popover, Select, Text, Textarea } from "@mimirorg/component-library";
 import { useGetPurposes } from "external/sources/purpose/purpose.queries";
 import { useGetAllRds } from "external/sources/rds/rds.queries";
 import { useGetSymbols } from "external/sources/symbol/symbol.queries";
@@ -13,7 +12,6 @@ import { FormAspectObjectLib } from "features/entities/aspectobject/types/formAs
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { FormBaseFieldsContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
 
 interface AspectObjectFormBaseFieldsProps {

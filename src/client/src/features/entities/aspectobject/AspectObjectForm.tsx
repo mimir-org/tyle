@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { AspectObjectLibCm, MimirorgPermission, State } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
-import { Box } from "@mimirorg/component-library";
+import { Box, FormContainer } from "@mimirorg/component-library";
 import { Loader } from "features/common/loader";
 import { FormAttributes } from "features/entities/common/form-attributes/FormAttributes";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
@@ -26,7 +26,6 @@ import {
 import { FormProvider, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
 import { useGetLatestApprovedAspectObject } from "external/sources/aspectobject/aspectObject.queries";
 import { useGetCurrentUser } from "external/sources/user/user.queries";

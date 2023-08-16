@@ -5,8 +5,7 @@ import {
   MAXIMUM_TERMINAL_QUANTITY_VALUE,
   MINIMUM_TERMINAL_QUANTITY_VALUE,
 } from "common/utils/aspectObjectTerminalQuantityRestrictions";
-import { FormField } from "complib/form";
-import { Box, Button, Checkbox, Counter, Flexbox, Select, Text } from "@mimirorg/component-library";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, Box, Button, Checkbox, Counter, Flexbox, FormField, Select, Text } from "@mimirorg/component-library";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
 import { TerminalButton } from "features/common/terminal";
 import {
@@ -18,7 +17,6 @@ import { FormAspectObjectLib } from "features/entities/aspectobject/types/formAs
 import { Control, Controller, FieldArrayWithId, FieldErrors, UseFormSetValue, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../../../../complib/surfaces";
 import { useEffect } from "react";
 
 interface AspectObjectTerminalProps {

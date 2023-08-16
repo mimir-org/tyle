@@ -1,4 +1,3 @@
-import { Form, FormField } from "complib/form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
@@ -16,7 +15,7 @@ import { useGetCurrentUser } from "external/sources/user/user.queries";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
-import { Button, Flexbox, Input, Textarea } from "@mimirorg/component-library";
+import { Button, Flexbox, Form, FormField, Input, Textarea } from "@mimirorg/component-library";
 import { toast } from "complib/data-display";
 import { DevTool } from "@hookform/devtools";
 import { useTheme } from "styled-components";

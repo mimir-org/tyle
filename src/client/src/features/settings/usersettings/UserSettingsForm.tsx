@@ -13,11 +13,10 @@ import {
 import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
 import { useUpdateUser } from "external/sources/user/user.queries";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
-import { Form, FormField } from "complib/form";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
 import { DevTool } from "@hookform/devtools";
 import { Loader } from "features/common/loader";
-import { Button, Input } from "@mimirorg/component-library";
+import { Button, Form, FormField, Input } from "@mimirorg/component-library";
 
 interface UserSettingsFormProps {
   defaultValues?: MimirorgUserAm;

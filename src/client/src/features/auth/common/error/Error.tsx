@@ -1,5 +1,4 @@
-import { FormErrorBanner } from "complib/form";
-import { Text } from "@mimirorg/component-library";
+import { FormErrorBanner, Text } from "@mimirorg/component-library";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
 

@@ -17,9 +17,8 @@ import {
   toFormAttributeLib,
 } from "./types/formAttributeLib";
 import { AttributeFormPreview } from "../entityPreviews/attribute/AttributeFormPreview";
-import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
-import { Box, Button, Flexbox, Text } from "@mimirorg/component-library";
+import { Box, Button, Flexbox, FormContainer, Text } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { attributeSchema } from "./attributeSchema";

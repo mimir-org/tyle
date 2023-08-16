@@ -1,5 +1,4 @@
-import { Box, Checkbox, Text } from "@mimirorg/component-library";
-import { AccordionContent, AccordionItem, AccordionTrigger } from "complib/surfaces";
+import { AccordionContent, AccordionItem, AccordionTrigger, Box, Checkbox, Text } from "@mimirorg/component-library";
 import { FilterMenuGroupLabel } from "features/explore/search/components/filter/FilterMenuGroup.styled";
 import { Filter } from "features/explore/search/types/filter";
 import { useTheme } from "styled-components";

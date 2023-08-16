@@ -1,9 +1,7 @@
-import { FormField } from "../../../complib/form";
-import { Input, Select, Textarea } from "@mimirorg/component-library";
+import { FormBaseFieldsContainer, FormField, Input, Select, Textarea } from "@mimirorg/component-library";
 import { Controller, useFormContext } from "react-hook-form";
 import { QuantityDatumLibAm, QuantityDatumType } from "@mimirorg/typelibrary-types";
 import { useTranslation } from "react-i18next";
-import { FormBaseFieldsContainer } from "complib/form/FormContainer.styled";
 
 interface QuantityDatumFormBaseFieldsProps {
   limited?: boolean;

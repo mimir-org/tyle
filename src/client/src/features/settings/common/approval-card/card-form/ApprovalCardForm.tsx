@@ -1,8 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ApprovalCm, State } from "@mimirorg/typelibrary-types";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
-import { Form } from "complib/form";
-import { Button, Flexbox, Input, Text } from "@mimirorg/component-library";
+import { Button, Flexbox, Form, Input, Text } from "@mimirorg/component-library";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {

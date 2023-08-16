@@ -1,6 +1,5 @@
 import { Aspect } from "@mimirorg/typelibrary-types";
-import { FormField } from "complib/form";
-import { Box, Gridbox, Input, Select } from "@mimirorg/component-library";
+import { Box, FormField, Gridbox, Input, Select } from "@mimirorg/component-library";
 import { useGetAttributesPredefined } from "external/sources/attribute/attribute.queries";
 import { FormSection } from "features/entities/common/form-section/FormSection";
 import { preparePredefinedAttributes } from "features/entities/aspectobject/predefined-attributes/AspectObjectFormPredefinedAttributes.helpers";
