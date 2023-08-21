@@ -34,7 +34,7 @@ export const UserMenu = ({ name, children }: UserMenuProps) => {
         icon={<UserCircle size={24} />}
         iconPlacement={"left"}
         textVariant={"label-large"}
-        mr={`-${theme.mimirorg.spacing.xl}`}
+        spacing={{ mr: `-${theme.mimirorg.spacing.xl}` }}
       >
         {name}
       </Button>
