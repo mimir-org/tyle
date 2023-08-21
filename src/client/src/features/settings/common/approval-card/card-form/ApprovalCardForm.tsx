@@ -1,9 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ApprovalCm, State } from "@mimirorg/typelibrary-types";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
-import { Button } from "complib/buttons";
-import { Form } from "complib/form";
-import { Input } from "complib/inputs";
+import { Button, Flexbox, Form, Input, Text } from "@mimirorg/component-library";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
@@ -12,9 +10,7 @@ import {
 } from "features/settings/common/approval-card/card-form/ApprovalCardForm.helpers";
 import { approvalSchema } from "features/settings/common/approval-card/card-form/approvalSchema";
 import { FormApproval } from "features/settings/common/approval-card/card-form/types/formApproval";
-import { Flexbox } from "../../../../../complib/layouts";
-import { theme } from "../../../../../complib/core";
-import { Text } from "../../../../../complib/text";
+import { useTheme } from "styled-components";
 
 export interface ApprovalCardFormProps {
   item: ApprovalCm;
@@ -32,6 +28,7 @@ export const ApprovalCardForm = ({
   showSubmitButton = true,
 }: ApprovalCardFormProps) => {
   const { t } = useTranslation(["settings"]);
+  const theme = useTheme();
 
   const stateOptions = getOptionsFromEnum<State>(State);
   const nextState = findNextState(item.state);
@@ -57,7 +54,7 @@ export const ApprovalCardForm = ({
         <Input type={"hidden"} value={item.companyId} {...register("companyId")} />
         <Input type={"hidden"} value={nextState} {...register("state")} />
         <Text variant={"body-large"}>{`Requesting to be ${stateOptions[nextState].label.toLowerCase()}`}</Text>
-        <Flexbox justifyContent={"center"} alignItems={"center"} flexFlow="row" gap={theme.spacing.base}>
+        <Flexbox justifyContent={"center"} alignItems={"center"} flexFlow="row" gap={theme.mimirorg.spacing.base}>
           {onReject && (
             <>
               {showSubmitButton && (

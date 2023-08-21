@@ -37,7 +37,7 @@ export const PermissionCard = ({ user, selected, ...delegated }: AccessCardProps
       ref={cardRef}
       variant={selected ? "selected" : "filled"}
       layout={"position"}
-      {...theme.tyle.animation.selectHover}
+      {...theme.mimirorg.animation.selectHover}
     >
       <PermissionCardHeader>{user.name}</PermissionCardHeader>
       <PermissionCardDetails descriptors={userDescriptors} />

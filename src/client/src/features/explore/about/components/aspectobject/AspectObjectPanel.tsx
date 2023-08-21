@@ -1,6 +1,5 @@
 import { AspectObjectItem } from "common/types/aspectObjectItem";
-import { Flexbox, MotionBox } from "complib/layouts";
-import { Heading, Text } from "complib/text";
+import { Heading, Flexbox, MotionBox, Text } from "@mimirorg/component-library";
 import { InfoItemButton } from "features/common/info-item";
 import { PanelPropertiesContainer } from "features/explore/about/components/common/PanelPropertiesContainer";
 import { PanelSection } from "features/explore/about/components/common/PanelSection";
@@ -41,14 +40,14 @@ export const AspectObjectPanel = ({
       flex={1}
       display={"flex"}
       flexDirection={"column"}
-      gap={theme.tyle.spacing.xxxl}
+      gap={theme.mimirorg.spacing.xxxl}
       maxHeight={"100%"}
       overflow={"hidden"}
-      {...theme.tyle.animation.fade}
+      {...theme.mimirorg.animation.fade}
     >
       <AspectObjectPreview variant={"large"} name={name} color={color} img={img} terminals={terminals} />
 
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xl}>
+      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xl}>
         <Heading as={"h2"} variant={"title-large"} fontWeight={"500"} useEllipsis ellipsisMaxLines={2}>
           {name}
         </Heading>
@@ -56,7 +55,7 @@ export const AspectObjectPanel = ({
           {description}
         </Text>
       </Flexbox>
-      <Flexbox gap={theme.tyle.spacing.xl} flexWrap={"wrap"}>
+      <Flexbox gap={theme.mimirorg.spacing.xl} flexWrap={"wrap"}>
         {tokens && tokens.map((token, i) => <StateBadge key={i + token} state={token} />)}
       </Flexbox>
 

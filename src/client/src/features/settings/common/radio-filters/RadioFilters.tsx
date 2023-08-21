@@ -1,7 +1,5 @@
 import { Option } from "common/utils/getOptionsFromEnum";
-import { TokenRadioGroup, TokenRadioGroupItem } from "complib/general";
-import { Flexbox } from "complib/layouts";
-import { Text } from "complib/text";
+import { Flexbox, Text, TokenRadioGroup, TokenRadioGroupItem } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 
 interface RadioFiltersProps {
@@ -26,7 +24,7 @@ export const RadioFilters = ({ title, filters, onChange, value }: RadioFiltersPr
   const inputIsControlled = !!value;
 
   return (
-    <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
+    <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
       {title && <Text variant={"title-medium"}>{title}</Text>}
       <TokenRadioGroup onValueChange={onChange}>
         {filters.map((x, i) => {

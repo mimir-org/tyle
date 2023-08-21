@@ -1,7 +1,6 @@
 import { AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { XCircle } from "@styled-icons/heroicons-outline";
-import { Token } from "complib/general";
-import { Flexbox } from "complib/layouts";
+import { Flexbox, Token } from "@mimirorg/component-library";
 import { useGetAttributes } from "external/sources/attribute/attribute.queries";
 import {
   onAddAttributes,
@@ -72,7 +71,7 @@ export const FormAttributes = ({
         )
       }
     >
-      <Flexbox flexWrap={"wrap"} gap={theme.tyle.spacing.xl}>
+      <Flexbox flexWrap={"wrap"} gap={theme.mimirorg.spacing.xl}>
         {fields.map((field, index) => {
           const attribute = selected.find((x) => x.id === field.value);
           return (

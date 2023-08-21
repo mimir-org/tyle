@@ -1,5 +1,5 @@
 import { Meta, StoryFn } from "@storybook/react";
-import { Input } from "complib/inputs";
+import { Input } from "@mimirorg/component-library";
 import { FieldsCard } from "features/entities/common/fields-card/FieldsCard";
 
 export default {

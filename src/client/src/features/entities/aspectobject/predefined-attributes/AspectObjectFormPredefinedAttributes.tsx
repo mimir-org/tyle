@@ -1,7 +1,5 @@
 import { Aspect } from "@mimirorg/typelibrary-types";
-import { FormField } from "complib/form";
-import { Input, Select } from "complib/inputs";
-import { Box, Grid } from "complib/layouts";
+import { Box, FormField, Gridbox, Input, Select } from "@mimirorg/component-library";
 import { useGetAttributesPredefined } from "external/sources/attribute/attribute.queries";
 import { FormSection } from "features/entities/common/form-section/FormSection";
 import { preparePredefinedAttributes } from "features/entities/aspectobject/predefined-attributes/AspectObjectFormPredefinedAttributes.helpers";
@@ -24,7 +22,7 @@ export const AspectObjectFormPredefinedAttributes = ({ aspects }: AspectObjectFo
 
   return (
     <FormSection title={t("aspectObject.predefinedAttributes.title")}>
-      <Grid gridTemplateColumns={"repeat(auto-fill, 300px)"} gap={theme.tyle.spacing.xl}>
+      <Gridbox gridTemplateColumns={"repeat(auto-fill, 300px)"} gap={theme.mimirorg.spacing.xl}>
         {predefinedAttributes.map((x, index) => {
           return (
             <Box key={x.key}>
@@ -53,7 +51,7 @@ export const AspectObjectFormPredefinedAttributes = ({ aspects }: AspectObjectFo
             </Box>
           );
         })}
-      </Grid>
+      </Gridbox>
     </FormSection>
   );
 };

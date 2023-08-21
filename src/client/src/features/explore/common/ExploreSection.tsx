@@ -1,5 +1,4 @@
-import { Box } from "complib/layouts";
-import { Text } from "complib/text";
+import { Box, Text } from "@mimirorg/component-library";
 import { ReactNode } from "react";
 import { useTheme } from "styled-components";
 
@@ -19,8 +18,8 @@ export const ExploreSection = ({ title, children }: ExploreSectionProps) => {
   const theme = useTheme();
 
   return (
-    <Box flex={1} display={"flex"} flexDirection={"column"} gap={theme.tyle.spacing.xl} height={"100%"}>
-      <Text variant={"headline-large"} color={theme.tyle.color.sys.primary.base}>
+    <Box flex={1} display={"flex"} flexDirection={"column"} gap={theme.mimirorg.spacing.xl} height={"100%"}>
+      <Text variant={"headline-large"} color={theme.mimirorg.color.primary.base}>
         {title}
       </Text>
       {children}

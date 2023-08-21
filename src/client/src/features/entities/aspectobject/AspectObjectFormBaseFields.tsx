@@ -1,14 +1,20 @@
 import { Aspect, MimirorgPermission, State } from "@mimirorg/typelibrary-types";
 import { useGetFilteredCompanies } from "common/hooks/filter-companies/useGetFilteredCompanies";
 import { getOptionsFromEnum } from "common/utils/getOptionsFromEnum";
-import { Button } from "complib/buttons";
-import { Popover } from "complib/data-display";
-import { FormField } from "complib/form";
-import { Input, Select, Textarea } from "complib/inputs";
-import { Box, Flexbox } from "complib/layouts";
-import { Icon } from "complib/media";
-import { Text } from "complib/text";
-import { ConditionalWrapper } from "complib/utils";
+import {
+  Box,
+  Button,
+  ConditionalWrapper,
+  Flexbox,
+  FormBaseFieldsContainer,
+  FormField,
+  Icon,
+  Input,
+  Popover,
+  Select,
+  Text,
+  Textarea,
+} from "@mimirorg/component-library";
 import { useGetPurposes } from "external/sources/purpose/purpose.queries";
 import { useGetAllRds } from "external/sources/rds/rds.queries";
 import { useGetSymbols } from "external/sources/symbol/symbol.queries";
@@ -19,7 +25,6 @@ import { FormAspectObjectLib } from "features/entities/aspectobject/types/formAs
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { FormBaseFieldsContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
 
 interface AspectObjectFormBaseFieldsProps {
@@ -53,7 +58,7 @@ export const AspectObjectFormBaseFields = ({ isFirstDraft, mode, state }: Aspect
       <Text variant={"display-small"}>{t("aspectObject.title")}</Text>
       <AspectObjectFormPreview control={control} />
 
-      <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
+      <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
         <FormField label={t("aspectObject.name")} error={errors.name}>
           <Input placeholder={t("aspectObject.placeholders.name")} {...register("name")} />
         </FormField>
@@ -85,7 +90,7 @@ export const AspectObjectFormBaseFields = ({ isFirstDraft, mode, state }: Aspect
                 condition={!isFirstDraft}
                 wrapper={(c) => (
                   <Popover align={"start"} maxWidth={"225px"} content={t("aspectObject.disabled.aspect")}>
-                    <Box borderRadius={theme.tyle.border.radius.medium} tabIndex={0}>
+                    <Box borderRadius={theme.mimirorg.border.radius.medium} tabIndex={0}>
                       {c}
                     </Box>
                   </Popover>
@@ -124,7 +129,7 @@ export const AspectObjectFormBaseFields = ({ isFirstDraft, mode, state }: Aspect
                 onChange={(x) => onChange(x?.data)}
                 value={symbolQuery.data?.find((x) => x.data === value)}
                 formatOptionLabel={(x) => (
-                  <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
+                  <Flexbox alignItems={"center"} gap={theme.mimirorg.spacing.base}>
                     <Icon src={x.data} />
                     <Text>{x.name}</Text>
                   </Flexbox>
@@ -181,7 +186,7 @@ export const AspectObjectFormBaseFields = ({ isFirstDraft, mode, state }: Aspect
         </FormField>
       </Flexbox>
 
-      <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
+      <Flexbox justifyContent={"center"} gap={theme.mimirorg.spacing.xl}>
         <PlainLink tabIndex={-1} to={"/"}>
           <Button tabIndex={0} as={"span"} variant={"outlined"}>
             {t("common.cancel")}

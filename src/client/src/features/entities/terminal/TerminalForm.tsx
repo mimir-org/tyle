@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { State, TerminalLibCm } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
-import { Box } from "complib/layouts";
+import { Box, FormContainer } from "@mimirorg/component-library";
 import { Loader } from "features/common/loader";
 import { FormAttributes } from "features/entities/common/form-attributes/FormAttributes";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
@@ -22,7 +22,6 @@ import {
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
-import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
 
 interface TerminalFormProps {
@@ -64,7 +63,7 @@ export const TerminalForm = ({ defaultValues = createEmptyFormTerminalLib(), mod
           <>
             <TerminalFormBaseFields limited={limited} mode={mode} />
 
-            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.tyle.spacing.multiple(6)}>
+            <Box display={"flex"} flex={3} flexDirection={"column"} gap={theme.mimirorg.spacing.multiple(6)}>
               <FormAttributes
                 register={(index) => register(`attributes.${index}`)}
                 fields={attributeFields.fields}

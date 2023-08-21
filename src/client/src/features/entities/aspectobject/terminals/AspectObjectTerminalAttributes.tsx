@@ -1,7 +1,6 @@
 import { AttributeLibCm } from "@mimirorg/typelibrary-types";
 import { mapAttributeLibCmToInfoItem } from "common/utils/mappers";
-import { FormField } from "complib/form";
-import { Box } from "complib/layouts";
+import { Box, FormField } from "@mimirorg/component-library";
 import { InfoItemButton } from "features/common/info-item";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
@@ -23,7 +22,7 @@ export const AspectObjectTerminalAttributes = ({ attributes, hideLabel }: Aspect
             display={"flex"}
             flexWrap={"wrap"}
             alignItems={"center"}
-            gap={theme.tyle.spacing.base}
+            gap={theme.mimirorg.spacing.base}
             minHeight={"40px"}
           >
             {attributes.map((x) => x && <InfoItemButton key={x.id} {...mapAttributeLibCmToInfoItem(x)} />)}

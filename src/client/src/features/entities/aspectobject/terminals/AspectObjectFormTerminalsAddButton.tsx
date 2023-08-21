@@ -1,5 +1,5 @@
 import { PlusSmall } from "@styled-icons/heroicons-outline";
-import { Button } from "complib/buttons";
+import { Button } from "@mimirorg/component-library";
 import { useTranslation } from "react-i18next";
 
 export const AspectObjectFormTerminalsAddButton = ({ onClick }: { onClick: () => void }) => {

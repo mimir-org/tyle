@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { toast } from "complib/data-display";
+import { toast } from "@mimirorg/component-library";
 import { useTranslation } from "react-i18next";
 
 export const useSubmissionToast = (type: string) => {

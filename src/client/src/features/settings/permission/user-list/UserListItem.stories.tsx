@@ -1,6 +1,6 @@
 import { StoryFn } from "@storybook/react";
 import { PencilSquare } from "@styled-icons/heroicons-outline";
-import { Button } from "complib/buttons";
+import { Button } from "@mimirorg/component-library";
 import { UserListItem } from "features/settings/permission/user-list/UserListItem";
 
 export default {

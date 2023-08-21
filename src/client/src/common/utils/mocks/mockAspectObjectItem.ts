@@ -3,7 +3,7 @@ import { State } from "@mimirorg/typelibrary-types";
 import { AspectObjectItem } from "common/types/aspectObjectItem";
 import { mockInfoItem } from "common/utils/mocks/mockInfoItem";
 import { mockAspectObjectTerminalItem } from "common/utils/mocks/mockAspectObjectTerminalItem";
-import { LibraryIcon } from "complib/assets";
+import { LibraryIcon } from "@mimirorg/component-library";
 
 export const mockAspectObjectItem = (): AspectObjectItem => ({
   id: faker.string.alphanumeric(36),

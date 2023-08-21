@@ -1,11 +1,11 @@
-import { hideScrollbar } from "complib/mixins";
+import { hideScrollbar } from "@mimirorg/component-library";
 import styled from "styled-components/macro";
 
 export const PanelPropertiesContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: ${(props) => props.theme.tyle.spacing.xxxl};
+  gap: ${(props) => props.theme.mimirorg.spacing.xxxl};
 
   overflow: auto;
   ${hideScrollbar};

@@ -3,12 +3,19 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { MimirorgUserAm } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useExecuteOnCriteria } from "common/hooks/useExecuteOnCriteria";
-import { Button } from "complib/buttons";
-import { Form, FormField, FormFieldset } from "complib/form";
-import { Input, Select, Textarea } from "complib/inputs";
-import { MotionFlexbox } from "complib/layouts";
-import { MotionText, Text } from "complib/text";
-import { Actionable } from "complib/types";
+import {
+  Actionable,
+  Button,
+  Form,
+  FormField,
+  FormFieldset,
+  Input,
+  MotionFlexbox,
+  MotionText,
+  Select,
+  Text,
+  Textarea,
+} from "@mimirorg/component-library";
 import { useGetCompanies } from "external/sources/company/company.queries";
 import { useCreateUser } from "external/sources/user/user.queries";
 import { AuthContent } from "features/auth/common/auth-content/AuthContent";
@@ -127,7 +134,7 @@ export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps
                   <Textarea placeholder={t("register.details.placeholders.purpose")} {...register("purpose")} />
                 </FormField>
 
-                <MotionText color={theme.tyle.color.sys.surface.variant.on} layout={"position"} as={"i"}>
+                <MotionText color={theme.mimirorg.color.surface.variant.on} layout={"position"} as={"i"}>
                   {t("register.details.placeholders.required")}
                 </MotionText>
               </FormFieldset>
@@ -139,11 +146,11 @@ export const RegisterDetails = ({ complete, setUserEmail }: RegisterDetailsProps
       secondRow={
         <>
           <Text textAlign={"center"}>{t("register.details.info.text")}</Text>
-          <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.tyle.spacing.xxl}>
+          <MotionFlexbox layout flexDirection={"column"} alignItems={"center"} gap={theme.mimirorg.spacing.xxl}>
             <Button type={"submit"} form={"details-form"}>
               {complete?.actionText}
             </Button>
-            <Text color={theme.tyle.color.sys.surface.variant.on}>
+            <Text color={theme.mimirorg.color.surface.variant.on}>
               {t("register.details.altLead")} <Link to="/">{t("register.details.altLink")}</Link>
             </Text>
           </MotionFlexbox>

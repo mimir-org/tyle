@@ -1,6 +1,5 @@
 import { Meta, StoryFn } from "@storybook/react";
-import { Box } from "complib/layouts";
-import { Text } from "complib/text";
+import { Box, Text } from "@mimirorg/component-library";
 import { SearchField } from "features/common/search-field";
 import { ExploreSection } from "features/explore/common/ExploreSection";
 import { ItemListProps } from "features/explore/search/components/item/ItemList";

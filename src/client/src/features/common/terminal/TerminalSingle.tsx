@@ -1,7 +1,5 @@
 import { AspectObjectTerminalItem } from "common/types/aspectObjectTerminalItem";
-import { Tooltip } from "complib/data-display";
-import { Flexbox } from "complib/layouts";
-import { Text } from "complib/text";
+import { Flexbox, Text, Tooltip } from "@mimirorg/component-library";
 import { TerminalButton, TerminalButtonProps } from "features/common/terminal/TerminalButton";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components";
@@ -39,10 +37,10 @@ export const TerminalDescription = ({ name, maxQuantity, color, direction }: Omi
   const shownQuantity = maxQuantity === MAXIMUM_TERMINAL_QUANTITY_VALUE ? t("terminal.infinite") : maxQuantity;
 
   return (
-    <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
+    <Flexbox alignItems={"center"} gap={theme.mimirorg.spacing.base}>
       <TerminalButton as={"div"} color={color} direction={direction} />
       <Text variant={"body-small"}>{`${name}`}</Text>
-      <Text ml={"auto"} variant={"body-small"}>{`x ${shownQuantity}`}</Text>
+      <Text spacing={{ ml: "auto" }} variant={"body-small"}>{`x ${shownQuantity}`}</Text>
     </Flexbox>
   );
 };

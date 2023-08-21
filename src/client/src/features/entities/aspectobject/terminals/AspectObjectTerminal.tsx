@@ -5,12 +5,20 @@ import {
   MAXIMUM_TERMINAL_QUANTITY_VALUE,
   MINIMUM_TERMINAL_QUANTITY_VALUE,
 } from "common/utils/aspectObjectTerminalQuantityRestrictions";
-import { Button } from "complib/buttons";
-import { FormField } from "complib/form";
-import { Counter, Select } from "complib/inputs";
-import { Checkbox } from "complib/inputs/checkbox/Checkbox";
-import { Box, Flexbox } from "complib/layouts";
-import { Text } from "complib/text";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  Box,
+  Button,
+  Checkbox,
+  Counter,
+  Flexbox,
+  FormField,
+  Select,
+  Text,
+} from "@mimirorg/component-library";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
 import { TerminalButton } from "features/common/terminal";
 import {
@@ -22,7 +30,6 @@ import { FormAspectObjectLib } from "features/entities/aspectobject/types/formAs
 import { Control, Controller, FieldArrayWithId, FieldErrors, UseFormSetValue, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "styled-components/macro";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../../../../complib/surfaces";
 import { useEffect } from "react";
 
 interface AspectObjectTerminalProps {
@@ -125,7 +132,7 @@ export const AspectObjectTerminal = ({
                   }}
                   value={terminalQuery.data?.find((x) => x.id === value)}
                   formatOptionLabel={(x) => (
-                    <Flexbox alignItems={"center"} gap={theme.tyle.spacing.base}>
+                    <Flexbox alignItems={"center"} gap={theme.mimirorg.spacing.base}>
                       {x.color && <TerminalButton as={"span"} variant={"small"} color={x.color} />}
                       <Text>{x.name}</Text>
                     </Flexbox>

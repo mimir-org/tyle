@@ -1,5 +1,4 @@
-import { Flexbox } from "complib/layouts";
-import { Text } from "complib/text";
+import { Flexbox, Text } from "@mimirorg/component-library";
 import { ApprovalPlaceholder } from "features/settings/approval/placeholder/ApprovalPlaceholder";
 import { ApprovalCard } from "features/settings/common/approval-card/ApprovalCard";
 import { SettingsSection } from "features/settings/common/settings-section/SettingsSection";
@@ -75,10 +74,10 @@ export const Approval = () => {
   return (
     <SettingsSection title={t("approval.title")}>
       {/* Approval */}
-      <Text variant={"title-medium"} mb={theme.tyle.spacing.l}>
+      <Text variant={"title-medium"} spacing={{ mb: theme.mimirorg.spacing.l }}>
         {t("approval.approval")}
       </Text>
-      <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.tyle.spacing.xxxl}>
+      <Flexbox flexDirection={"row"} flexWrap={"wrap"} gap={theme.mimirorg.spacing.xxxl}>
         {showPlaceholder && <ApprovalPlaceholder text={t("approval.placeholders.emptyApproval")} />}
         {approvals.data
           ?.filter((x) => x.state === State.Review)

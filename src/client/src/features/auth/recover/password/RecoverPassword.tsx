@@ -3,12 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { MimirorgChangePasswordAm, MimirorgVerifyAm } from "@mimirorg/typelibrary-types";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useExecuteOnCriteria } from "common/hooks/useExecuteOnCriteria";
-import { Button } from "complib/buttons";
-import { Form, FormField, FormFieldset } from "complib/form";
-import { Input } from "complib/inputs";
-import { Flexbox } from "complib/layouts";
-import { Text } from "complib/text";
-import { Actionable } from "complib/types";
+import { Actionable, Button, Flexbox, Form, FormField, FormFieldset, Input, Text } from "@mimirorg/component-library";
 import { useChangePassword } from "external/sources/user/user.queries";
 import { AuthContent } from "features/auth/common/auth-content/AuthContent";
 import { Error } from "features/auth/common/error/Error";
@@ -79,7 +74,7 @@ export const RecoverPassword = ({ verificationInfo, cancel, complete }: RecoverP
       secondRow={
         <>
           <Text textAlign={"center"}>{t("recover.password.info.text")}</Text>
-          <Flexbox gap={theme.tyle.spacing.xxl} alignSelf={"center"}>
+          <Flexbox gap={theme.mimirorg.spacing.xxl} alignSelf={"center"}>
             {cancel?.actionable && (
               <Button variant={"outlined"} onClick={cancel.onAction}>
                 {cancel.actionText}

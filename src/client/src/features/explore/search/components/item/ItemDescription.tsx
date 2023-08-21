@@ -1,4 +1,4 @@
-import { Text } from "complib/text";
+import { Text } from "@mimirorg/component-library";
 import { ItemDescriptionContainer } from "features/explore/search/components/item/ItemDescription.styled";
 
 export interface ItemDescriptionProps {

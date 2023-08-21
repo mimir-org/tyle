@@ -1,6 +1,4 @@
-import { Spinner } from "complib/feedback";
-import { Flexbox } from "complib/layouts";
-import { Text } from "complib/text";
+import { Flexbox, Spinner, Text } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 
 interface RegisterProcessingProps {
@@ -16,10 +14,10 @@ export const Processing = ({ children }: RegisterProcessingProps) => {
       flexDirection={"column"}
       justifyContent={"center"}
       alignItems={"center"}
-      gap={theme.tyle.spacing.xl}
+      gap={theme.mimirorg.spacing.xl}
     >
       <Text variant={"title-medium"}>{children}</Text>
-      <Spinner />
+      <Spinner disabled={false} />
     </Flexbox>
   );
 };

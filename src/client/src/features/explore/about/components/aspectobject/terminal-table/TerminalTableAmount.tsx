@@ -1,6 +1,6 @@
 import { AspectObjectTerminalItem } from "common/types/aspectObjectTerminalItem";
 import { MAXIMUM_TERMINAL_QUANTITY_VALUE } from "common/utils/aspectObjectTerminalQuantityRestrictions";
-import { Td } from "complib/data-display";
+import { Td } from "@mimirorg/component-library";
 import { useTranslation } from "react-i18next";
 import { useMediaQuery } from "usehooks-ts";
 

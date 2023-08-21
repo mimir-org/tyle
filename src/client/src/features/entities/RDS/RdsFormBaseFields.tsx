@@ -1,9 +1,7 @@
-import { FormField } from "../../../complib/form";
-import { Input, Textarea } from "../../../complib/inputs";
+import { FormBaseFieldsContainer, FormField, Input, Textarea } from "@mimirorg/component-library";
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { RdsLibAm } from "@mimirorg/typelibrary-types";
-import { FormBaseFieldsContainer } from "complib/form/FormContainer.styled";
 
 interface RdsFormBaseFieldsProps {
   limited?: boolean;

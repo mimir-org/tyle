@@ -3,16 +3,12 @@ import { useTranslation } from "react-i18next";
 import { useButtonStateFilter } from "../hooks/useButtonFilter";
 import { State } from "@mimirorg/typelibrary-types";
 import { PlainLink } from "../../../common/plain-link";
-import { Button } from "../../../../complib/buttons";
 import { Check, DocumentDuplicate, PencilSquare, Trash } from "@styled-icons/heroicons-outline";
-import { AlertDialog } from "../../../../complib/overlays";
 import { UserItem } from "../../../../common/types/userItem";
 import { getCloneLink, getEditLink, useDeleteMutation, usePatchMutation } from "./SearchItemActions.helpers";
 import { ItemType } from "../../../entities/types/itemTypes";
-import { Text } from "../../../../complib/text";
-import { Tooltip } from "../../../../complib/data-display";
+import { AlertDialog, Button, Text, toast, Tooltip } from "@mimirorg/component-library";
 import { StateBadge } from "../../../ui/badges/StateBadge";
-import { toast } from "complib/data-display";
 import { AxiosError } from "axios";
 import { useState } from "react";
 
@@ -93,7 +89,7 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
         </Tooltip>
       </PlainLink>
       <AlertDialog
-        gap={theme.tyle.spacing.multiple(6)}
+        gap={theme.mimirorg.spacing.multiple(6)}
         actions={[approveAction]}
         title={t("search.item.templates.approve")}
         description={t("search.item.approveDescription")}
@@ -115,7 +111,7 @@ export const SearchItemActions = ({ user, item, children }: SearchItemProps) => 
         </Button>
       </Tooltip>
       <AlertDialog
-        gap={theme.tyle.spacing.multiple(6)}
+        gap={theme.mimirorg.spacing.multiple(6)}
         actions={[deleteAction]}
         title={t("search.item.templates.delete", { object: name })}
         description={t("search.item.deleteDescription")}

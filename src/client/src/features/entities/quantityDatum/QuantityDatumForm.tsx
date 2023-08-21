@@ -10,14 +10,11 @@ import { useTranslation } from "react-i18next";
 import { QuantityDatumLibAm, QuantityDatumLibCm, State } from "@mimirorg/typelibrary-types";
 import { createEmptyDatum, toDatumLibAm } from "./types/formQuantityDatumLib";
 import { useQuantityDatumMutation, useQuantityDatumQuery } from "./QuantityDatumForm.helpers";
-import { Flexbox, Box } from "../../../complib/layouts";
+import { Button, Flexbox, FormContainer, Box, Text } from "@mimirorg/component-library";
 import { PlainLink } from "../../common/plain-link";
-import { Button } from "../../../complib/buttons";
 import { useTheme } from "styled-components";
 import { QuantityDatumFormBaseFields } from "./QuantityDatumFormBaseFields";
-import { FormContainer } from "../../../complib/form/FormContainer.styled";
 import { FormMode } from "../types/formMode";
-import { Text } from "../../../complib/text";
 import { QuantityDatumFormPreview } from "../entityPreviews/quantityDatum/QuantityDatumFormPreview";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { quantityDatumSchema } from "./quantityDatumSchema";
@@ -71,11 +68,11 @@ export const QuantityDatumForm = ({ defaultValues = createEmptyDatum(), mode }: 
         {isLoading ? (
           <Loader />
         ) : (
-          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.tyle.spacing.multiple(6)}>
-            <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.l}>
+          <Box display={"flex"} flex={2} flexDirection={"row"} gap={theme.mimirorg.spacing.multiple(6)}>
+            <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.l}>
               <Text variant={"display-small"}>{t("quantityDatum.title")}</Text>
               <QuantityDatumFormBaseFields limited={mode === "edit" && query.data?.state === State.Approved} />
-              <Flexbox justifyContent={"center"} gap={theme.tyle.spacing.xl}>
+              <Flexbox justifyContent={"center"} gap={theme.mimirorg.spacing.xl}>
                 <PlainLink tabIndex={-1} to={"/"}>
                   <Button tabIndex={0} as={"span"} variant={"outlined"} dangerousAction>
                     {t("common.cancel")}

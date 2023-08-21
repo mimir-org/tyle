@@ -3,7 +3,7 @@ import { terminalFormRoutes } from "features/entities/terminal/TerminalFormRoute
 import { exploreRoutes } from "features/explore/ExploreRoutes";
 import { settingsRoutes } from "features/settings/SettingsRoutes";
 import { AuthenticatedLayout } from "features/ui/authenticated/layout/AuthenticatedLayout";
-import { ErrorMessage } from "features/ui/common/ErrorMessage";
+import { ErrorMessage } from "@mimirorg/component-library";
 import { useTranslation } from "react-i18next";
 import { createBrowserRouter } from "react-router-dom";
 import { attributeFormRoutes } from "../../entities/attributes/AttributeFormRoutes";

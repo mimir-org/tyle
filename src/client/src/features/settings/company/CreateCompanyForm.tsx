@@ -1,4 +1,3 @@
-import { Form, FormField } from "complib/form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import {
@@ -16,17 +15,22 @@ import { useGetCurrentUser } from "external/sources/user/user.queries";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
-import { Input, Textarea } from "complib/inputs";
-import { toast } from "complib/data-display";
-import { Button } from "complib/buttons";
+import {
+  Button,
+  FileInfo,
+  FileItemComponent,
+  Flexbox,
+  Form,
+  FormField,
+  Input,
+  Textarea,
+  toast,
+} from "@mimirorg/component-library";
 import { DevTool } from "@hookform/devtools";
 import { useTheme } from "styled-components";
-import { Flexbox } from "complib/layouts";
 import { useRef, useState } from "react";
 import { DocumentDuplicate, PaperClip } from "@styled-icons/heroicons-outline";
 import { isAxiosError } from "axios";
-import { FileItemComponent } from "complib/inputs/file/components/FileItemComponent";
-import { FileInfo } from "complib/inputs/file/FileComponent";
 import { useCreateCompany } from "external/sources/company/company.queries";
 import { PlainLink } from "features/common/plain-link";
 import { settingsBasePath } from "../SettingsRoutes";
@@ -79,7 +83,7 @@ export const CreateCompanyForm = () => {
   };
 
   return (
-    <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xxl}>
+    <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xxl}>
       <FormProvider {...formMethods}>
         <Form onSubmit={handleSubmit((data) => onSubmit(data))}>
           <FormField label={t("company.labels.name")} error={formState.errors.name}>
@@ -115,7 +119,7 @@ export const CreateCompanyForm = () => {
             <Input placeholder={t("company.placeholders.domain")} {...register("domain")} />
           </FormField>
 
-          <Flexbox flexDirection={"column"} gap={theme.tyle.spacing.xs}>
+          <Flexbox flexDirection={"column"} gap={theme.mimirorg.spacing.xs}>
             <FormField label={t("company.labels.logo")} error={formState.errors.logo}></FormField>
             <input
               accept=".svg,image/svg+xml"
@@ -142,7 +146,12 @@ export const CreateCompanyForm = () => {
 
             {previewLogo && (
               <div>
-                <FileItemComponent fileInfo={previewLogo} onRemove={onFileRemove} />
+                <FileItemComponent
+                  fileInfo={previewLogo}
+                  onRemove={onFileRemove}
+                  onClick={() => console.log("")}
+                  onDescriptionChange={() => console.log("")}
+                />
               </div>
             )}
           </Flexbox>
@@ -151,7 +160,7 @@ export const CreateCompanyForm = () => {
             <Input placeholder={t("company.placeholders.homePage")} {...register("homePage")} />
           </FormField>
 
-          <Flexbox gap={theme.tyle.spacing.xl}>
+          <Flexbox gap={theme.mimirorg.spacing.xl}>
             <Button type={"submit"}>{t("company.submit.create")}</Button>
             <PlainLink tabIndex={-1} to={settingsBasePath}>
               <Button tabIndex={0} as={"span"} variant={"outlined"}>

@@ -1,7 +1,4 @@
-import { Button } from "complib/buttons";
-import { Box } from "complib/layouts";
-import { Text } from "complib/text";
-import { Actionable } from "complib/types";
+import { Actionable, Box, Button, Text } from "@mimirorg/component-library";
 import { AuthContent } from "features/auth/common/auth-content/AuthContent";
 import { useTheme } from "styled-components";
 
@@ -23,7 +20,7 @@ export const Completion = ({ title, infoText, complete }: CompletionProps) => {
           flexDirection={"column"}
           alignItems={"center"}
           alignSelf={"center"}
-          gap={theme.tyle.spacing.xxxl}
+          gap={theme.mimirorg.spacing.xxxl}
           maxWidth={"300px"}
         >
           <Text textAlign={"center"}>{infoText}</Text>

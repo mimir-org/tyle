@@ -1,5 +1,5 @@
 import { Meta, StoryFn } from "@storybook/react";
-import { Button } from "complib/buttons";
+import { Button } from "@mimirorg/component-library";
 import { AspectObjectProps } from "features/common/aspectobject/AspectObject";
 import { Default as AspectObject } from "features/common/aspectobject/AspectObject.stories";
 import { Item } from "features/explore/search/components/item/Item";

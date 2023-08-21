@@ -1,5 +1,5 @@
 import { AspectObjectTerminalItem } from "common/types/aspectObjectTerminalItem";
-import { Box } from "complib/layouts";
+import { Box } from "@mimirorg/component-library";
 import { AspectObject } from "features/common/aspectobject/AspectObject";
 import { AspectObjectVariant } from "features/common/aspectobject/AspectObject.styled";
 import {

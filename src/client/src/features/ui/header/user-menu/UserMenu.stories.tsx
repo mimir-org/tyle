@@ -1,6 +1,5 @@
 import { StoryFn } from "@storybook/react";
-import { Checkbox } from "complib/inputs/checkbox/Checkbox";
-import { Flexbox } from "complib/layouts";
+import { Checkbox, Flexbox } from "@mimirorg/component-library";
 import { UserMenu } from "features/ui/header/user-menu/UserMenu";
 
 export default {

@@ -1,5 +1,4 @@
-import { Icon } from "complib/media";
-import { Text } from "complib/text";
+import { Icon, Text } from "@mimirorg/component-library";
 import { AspectObjectContainer, AspectObjectContainerProps } from "features/common/aspectobject/AspectObject.styled";
 import { useTheme } from "styled-components";
 
@@ -24,7 +23,7 @@ export const AspectObject = ({ name, img, color, variant = "small" }: AspectObje
   return (
     <AspectObjectContainer variant={variant} color={color}>
       {img && <Icon size={variantSpecs.icon.size} src={img} alt="" />}
-      <Text variant={"title-medium"} color={theme.tyle.color.ref.neutral["0"]} textAlign={"center"}>
+      <Text variant={"title-medium"} color={theme.mimirorg.color.reference.neutral["0"]} textAlign={"center"}>
         {name}
       </Text>
     </AspectObjectContainer>
