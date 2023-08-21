@@ -40,7 +40,11 @@ export const FormSection = ({ title, action, children, error }: FormSectionProps
         </Box>
 
         {error && error.message && (
-          <MotionText variant={"label-large"} color={theme.mimirorg.color.error.base} {...theme.mimirorg.animation.fade}>
+          <MotionText
+            variant={"label-large"}
+            color={theme.mimirorg.color.error.base}
+            {...theme.mimirorg.animation.fade}
+          >
             {error.message}
           </MotionText>
         )}

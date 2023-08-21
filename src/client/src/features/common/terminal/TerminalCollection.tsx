@@ -45,7 +45,13 @@ const TerminalCollectionDescription = ({ terminals }: TerminalCollectionDescript
   return (
     <Box display={"flex"} gap={theme.mimirorg.spacing.l} flexDirection={"column"} maxWidth={"250px"}>
       <Text variant={"title-small"}>{t("terminal.summary.title")}</Text>
-      <Box display={"flex"} gap={theme.mimirorg.spacing.l} flexDirection={"column"} maxHeight={"250px"} overflow={"auto"}>
+      <Box
+        display={"flex"}
+        gap={theme.mimirorg.spacing.l}
+        flexDirection={"column"}
+        maxHeight={"250px"}
+        overflow={"auto"}
+      >
         {terminals.map((x) => (
           <TerminalDescription
             key={x.name + x.color + x.direction}

@@ -60,7 +60,11 @@ export const useApprovalToasts = () => {
         loading: t("common.approval.processing.loading"),
         success: (
           <Flexbox alignContent="center" alignItems="center">
-            <Text variant={"label-large"} spacing={{ mr: theme.mimirorg.spacing.base }} color={theme.mimirorg.color.pure.base}>
+            <Text
+              variant={"label-large"}
+              spacing={{ mr: theme.mimirorg.spacing.base }}
+              color={theme.mimirorg.color.pure.base}
+            >
               {t("common.approval.processing.success")}
             </Text>
           </Flexbox>

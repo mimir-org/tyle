@@ -35,7 +35,7 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
   ${focus};
 
   ${({ color, ...props }) => {
-    const { color: colorSystem, state, elevation } = props.theme.mimirorg;
+    const { color: colorSystem, elevation } = props.theme.mimirorg;
     const contentColor = meetsContrastGuidelines(colorSystem.background.on, color).AAA
       ? colorSystem.background.on
       : colorSystem.background.inverse.on;
@@ -59,10 +59,7 @@ export const TerminalButtonContainer = styled.button<TerminalButtonProps>`
         }
 
         :active {
-          background: ${layer(
-            translucify(colorSystem.primary.on, 0.12),
-            translucify(color, 1),
-          )};
+          background: ${layer(translucify(colorSystem.primary.on, 0.12), translucify(color, 1))};
         }
       }
     `;

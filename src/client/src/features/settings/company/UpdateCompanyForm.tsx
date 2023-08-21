@@ -15,7 +15,17 @@ import { useGetCurrentUser } from "external/sources/user/user.queries";
 import { useServerValidation } from "common/hooks/server-validation/useServerValidation";
 import { useNavigateOnCriteria } from "common/hooks/useNavigateOnCriteria";
 import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
-import { Button, Flexbox, FileItemComponent, FileInfo, Form, FormField, Input, Textarea, toast } from "@mimirorg/component-library";
+import {
+  Button,
+  Flexbox,
+  FileItemComponent,
+  FileInfo,
+  Form,
+  FormField,
+  Input,
+  Textarea,
+  toast,
+} from "@mimirorg/component-library";
 import { DevTool } from "@hookform/devtools";
 import { useTheme } from "styled-components";
 import { useRef, useState } from "react";
@@ -172,7 +182,12 @@ export const UpdateCompanyForm = () => {
 
             {previewLogo && (
               <div>
-                <FileItemComponent fileInfo={previewLogo} onRemove={onFileRemove} onClick={() => console.log("")} onDescriptionChange={() => console.log("")} />
+                <FileItemComponent
+                  fileInfo={previewLogo}
+                  onRemove={onFileRemove}
+                  onClick={() => console.log("")}
+                  onDescriptionChange={() => console.log("")}
+                />
               </div>
             )}
           </Flexbox>

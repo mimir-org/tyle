@@ -5,7 +5,20 @@ import {
   MAXIMUM_TERMINAL_QUANTITY_VALUE,
   MINIMUM_TERMINAL_QUANTITY_VALUE,
 } from "common/utils/aspectObjectTerminalQuantityRestrictions";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, Box, Button, Checkbox, Counter, Flexbox, FormField, Select, Text } from "@mimirorg/component-library";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  Box,
+  Button,
+  Checkbox,
+  Counter,
+  Flexbox,
+  FormField,
+  Select,
+  Text,
+} from "@mimirorg/component-library";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
 import { TerminalButton } from "features/common/terminal";
 import {

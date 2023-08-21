@@ -16,4 +16,3 @@ export const Root = () => (
     {!isProduction && <ReactQueryDevtools />}
   </QueryClientProvider>
 );
-

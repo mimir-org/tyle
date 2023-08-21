@@ -1,4 +1,12 @@
-import { Button, Flexbox, FormBaseFieldsContainer, FormField, Input, Textarea, Text } from "@mimirorg/component-library";
+import {
+  Button,
+  Flexbox,
+  FormBaseFieldsContainer,
+  FormField,
+  Input,
+  Textarea,
+  Text,
+} from "@mimirorg/component-library";
 import { PlainLink } from "features/common/plain-link";
 import { TerminalFormPreview } from "features/entities/entityPreviews/terminal/TerminalFormPreview";
 import { FormTerminalLib } from "features/entities/terminal/types/formTerminalLib";
