@@ -18,7 +18,7 @@ export const ContactButton = () => {
   const { t } = useTranslation("ui");
   const [selected, setSelected] = useState<number>();
 
-  const companies = useGetFilteredCompanies(MimirorgPermission.None);
+  const companies = useGetFilteredCompanies(MimirorgPermission.Read);
   const { data: company } = useGetCompany(selected);
 
   const manager = company?.manager;
