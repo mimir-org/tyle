@@ -37,9 +37,7 @@
     "test": "vitest",
     "lint": "eslint . --max-warnings=0 --ext .ts,.tsx",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "storybook": "storybook dev -p 6006 -s public",
-    "build-storybook": "storybook build -s public"
+    "format:check": "prettier --check ."
   },
   "eslintConfig": {
     "extends": [
@@ -74,16 +72,6 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@faker-js/faker": "^8.0.2",
     "@mimirorg/typelibrary-types": "^1.0.0-preview.280",
-    "@storybook/addon-a11y": "^7.2.1",
-    "@storybook/addon-actions": "^7.2.1",
-    "@storybook/addon-essentials": "^7.2.1",
-    "@storybook/addon-interactions": "^7.2.1",
-    "@storybook/addon-links": "^7.2.1",
-    "@storybook/node-logger": "^7.2.1",
-    "@storybook/preset-create-react-app": "^7.2.1",
-    "@storybook/react": "^7.2.1",
-    "@storybook/react-webpack5": "^7.2.1",
-    "@storybook/testing-library": "^0.2.0",
     "@types/lodash.camelcase": "^4.3.7",
     "@types/node": "^20.4.8",
     "@types/react": "^18.2.18",
@@ -102,7 +90,6 @@
     "eslint-plugin-storybook": "^0.6.13",
     "jsdom": "^22.1.0",
     "prettier": "^3.0.1",
-    "storybook": "^7.2.1",
     "typescript": "^4.9.5",
     "vite": "^4.4.9",
     "vite-plugin-babel-macros": "^1.0.6",
