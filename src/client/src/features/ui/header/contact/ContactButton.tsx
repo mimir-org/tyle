@@ -50,7 +50,9 @@ export const ContactButton = () => {
         </>
       }
     >
-      <UserMenuButton icon={<Envelope size={24} />}>{t("header.menu.contact.title")}</UserMenuButton>
+      {companies.length > 0 && (
+        <UserMenuButton icon={<Envelope size={24} />}>{t("header.menu.contact.title")}</UserMenuButton>
+      )}
     </Dialog>
   );
 };
