@@ -44,7 +44,7 @@ export const About = ({ selected }: AboutProps) => {
   const rdsQuery = useGetRds(selected?.type === "rds" ? selected?.id : undefined);
   const allQueries = [aspectObjectQuery, terminalQuery, attributeQuery, unitQuery, datumQuery, rdsQuery];
 
-  const showLoader = allQueries.some(x => x.isFetching);
+  const showLoader = allQueries.some((x) => x.isFetching);
 
   const showPlaceHolder = !showLoader && selected?.type === undefined;
   const showAspectObjectPanel = !showLoader && selected?.type === "aspectObject" && aspectObjectQuery.isSuccess;
