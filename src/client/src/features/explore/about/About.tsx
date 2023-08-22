@@ -7,7 +7,6 @@ import { AspectObjectPanel } from "features/explore/about/components/aspectobjec
 import { TerminalPanel } from "features/explore/about/components/terminal/TerminalPanel";
 import { ExploreSection } from "features/explore/common/ExploreSection";
 import { SelectedInfo } from "features/explore/common/selectedInfo";
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useGetAttribute } from "../../../external/sources/attribute/attribute.queries";
 import AttributePreview from "../../entities/entityPreviews/attribute/AttributePreview";
@@ -43,13 +42,9 @@ export const About = ({ selected }: AboutProps) => {
   const unitQuery = useGetUnit(selected?.type === "unit" ? selected?.id : undefined);
   const datumQuery = useGetQuantityDatum(selected?.type === "quantityDatum" ? selected?.id : undefined);
   const rdsQuery = useGetRds(selected?.type === "rds" ? selected?.id : undefined);
+  const allQueries = [aspectObjectQuery, terminalQuery, attributeQuery, unitQuery, datumQuery, rdsQuery];
 
-  const [showLoader, setShowLoader] = useState(true);
-
-  useEffect(() => {
-    const allQueries = [aspectObjectQuery, terminalQuery, attributeQuery, unitQuery, datumQuery, rdsQuery];
-    setShowLoader(allQueries.some((x) => x.isFetching));
-  }, [aspectObjectQuery, terminalQuery, attributeQuery, unitQuery, datumQuery, rdsQuery]);
+  const showLoader = allQueries.some((x) => x.isFetching);
 
   const showPlaceHolder = !showLoader && selected?.type === undefined;
   const showAspectObjectPanel = !showLoader && selected?.type === "aspectObject" && aspectObjectQuery.isSuccess;
