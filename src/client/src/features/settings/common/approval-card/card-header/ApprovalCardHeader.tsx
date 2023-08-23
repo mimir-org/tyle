@@ -1,7 +1,7 @@
 import { Box, Flexbox, Text, Tooltip } from "@mimirorg/component-library";
 import { useTheme } from "styled-components";
 import TerminalIcon from "../../../../icons/TerminalIcon";
-import AspectObjectIcon from "../../../../icons/AspectObjectIcon";
+import BlockIcon from "../../../../icons/BlockIcon";
 import AttributeIcon from "../../../../icons/AttributeIcon";
 import RdsIcon from "../../../../icons/RdsIcon";
 import UnitIcon from "../../../../icons/UnitIcon";
@@ -18,8 +18,8 @@ export const ApprovalCardHeader = ({ children, objectType }: ApprovalCardHeaderP
     switch (type) {
       case "Terminal":
         return <TerminalIcon size={1} />;
-      case "AspectObject":
-        return <AspectObjectIcon size={1} />;
+      case "Block":
+        return <BlockIcon size={1} />;
       case "Attribute":
         return <AttributeIcon size={1} />;
       case "Rds":

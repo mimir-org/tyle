@@ -50,8 +50,8 @@ const getEntityFilters = (): FilterGroup => ({
   filters: [
     {
       key: "kind",
-      label: "Aspect object",
-      value: "AspectObjectLibCm",
+      label: "Block",
+      value: "BlockLibCm",
     },
     {
       key: "kind",

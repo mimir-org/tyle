@@ -1,4 +1,4 @@
-import { aspectObjectFormRoutes } from "features/entities/aspectobject/AspectObjectFormRoutes";
+import { blockFormRoutes } from "features/entities/block/BlockFormRoutes";
 import { terminalFormRoutes } from "features/entities/terminal/TerminalFormRoutes";
 import { exploreRoutes } from "features/explore/ExploreRoutes";
 import { settingsRoutes } from "features/settings/SettingsRoutes";
@@ -29,7 +29,7 @@ export const useAuthenticatedRouter = () => {
       ),
       children: [
         ...exploreRoutes,
-        ...aspectObjectFormRoutes,
+        ...blockFormRoutes,
         ...terminalFormRoutes,
         ...attributeFormRoutes,
         ...unitFormRoutes,

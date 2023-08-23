@@ -41,9 +41,9 @@
     "edit": "Apply changes",
     "submit": "Submit"
   },
-  "aspectObject": {
+  "block": {
     "createDraft": "Create new draft",
-    "title": "Aspect object",
+    "title": "Block",
     "name": "Name",
     "purpose": "Purpose",
     "aspect": "Aspect",
@@ -53,15 +53,15 @@
     "description": "Description",
     "placeholders": {
       "name": "Name",
-      "description": "Additional information about this aspect object can be supplied here."
+      "description": "Additional information about this block can be supplied here."
     },
     "disabled": {
       "aspect": "It is not possible to change the aspect of the current type. We recommend that you select a different type with the desired aspect."
     },
     "processing": {
-      "loading": "Submitting aspect object",
-      "success": "Your aspect object has been submitted",
-      "error": "An error occurred during aspect object submission"
+      "loading": "Submitting block",
+      "success": "Your block has been submitted",
+      "error": "An error occurred during block submission"
     },
     "validation": {
       "rdsId": {
@@ -77,7 +77,7 @@
         "min": "Please select an owner",
         "required": "Please select a company"
       },
-      "aspectObjectTerminals": {
+      "blockTerminals": {
         "array": {
           "unique": "Two or more terminals cannot share the same name and direction"
         },

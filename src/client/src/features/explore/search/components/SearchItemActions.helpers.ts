@@ -1,4 +1,4 @@
-import { useDeleteAspectObject, usePatchAspectObjectState } from "external/sources/aspectobject/aspectObject.queries";
+import { useDeleteBlock, usePatchBlockState } from "external/sources/block/block.queries";
 import { ItemType } from "../../../entities/types/itemTypes";
 import { useDeleteTerminal, usePatchTerminalState } from "external/sources/terminal/terminal.queries";
 import { useDeleteUnit, usePatchUnitState } from "external/sources/unit/unit.queries";
@@ -10,8 +10,8 @@ export function getCloneLink(item: ItemType) {
   switch (item.kind) {
     case "TerminalItem":
       return `/form/terminal/clone/${item.id}`;
-    case "AspectObjectItem":
-      return `/form/aspectobject/clone/${item.id}`;
+    case "BlockItem":
+      return `/form/block/clone/${item.id}`;
     case "AttributeItem":
       return `/form/attribute/clone/${item.id}`;
     case "UnitItem":
@@ -29,8 +29,8 @@ export function getEditLink(item: ItemType) {
   switch (item.kind) {
     case "TerminalItem":
       return `/form/terminal/edit/${item.id}`;
-    case "AspectObjectItem":
-      return `/form/aspectobject/edit/${item.id}`;
+    case "BlockItem":
+      return `/form/block/edit/${item.id}`;
     case "AttributeItem":
       return `/form/attribute/edit/${item.id}`;
     case "UnitItem":
@@ -45,7 +45,7 @@ export function getEditLink(item: ItemType) {
 }
 
 export function usePatchMutation(item: ItemType) {
-  const patchAspectObjectMutation = usePatchAspectObjectState();
+  const patchBlockMutation = usePatchBlockState();
   const patchAttributeMutation = usePatchAttributeState();
   const patchQuantityDatumMutation = usePatchQuantityDatumState();
   const patchRdsMutation = usePatchRdsState();
@@ -53,8 +53,8 @@ export function usePatchMutation(item: ItemType) {
   const patchUnitMutation = usePatchUnitState();
 
   switch (item.kind) {
-    case "AspectObjectItem":
-      return patchAspectObjectMutation;
+    case "BlockItem":
+      return patchBlockMutation;
     case "AttributeItem":
       return patchAttributeMutation;
     case "QuantityDatumItem":
@@ -71,7 +71,7 @@ export function usePatchMutation(item: ItemType) {
 }
 
 export function useDeleteMutation(item: ItemType) {
-  const deleteAspectObjectMutation = useDeleteAspectObject(item.id);
+  const deleteBlockMutation = useDeleteBlock(item.id);
   const deleteAttributeMutation = useDeleteAttribute(item.id);
   const deleteQuantityDatumMutation = useDeleteQuantityDatum(item.id);
   const deleteRdsMutation = useDeleteRds(item.id);
@@ -79,8 +79,8 @@ export function useDeleteMutation(item: ItemType) {
   const deleteUnitMutation = useDeleteUnit(item.id);
 
   switch (item.kind) {
-    case "AspectObjectItem":
-      return deleteAspectObjectMutation;
+    case "BlockItem":
+      return deleteBlockMutation;
     case "AttributeItem":
       return deleteAttributeMutation;
     case "QuantityDatumItem":

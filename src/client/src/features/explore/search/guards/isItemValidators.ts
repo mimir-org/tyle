@@ -1,5 +1,5 @@
 import {
-  AspectObjectLibCm,
+  BlockLibCm,
   AttributeLibCm,
   QuantityDatumLibCm,
   TerminalLibCm,
@@ -7,7 +7,7 @@ import {
 } from "@mimirorg/typelibrary-types";
 import { TerminalItem } from "../../../../common/types/terminalItem";
 import { AttributeItem } from "../../../../common/types/attributeItem";
-import { AspectObjectItem } from "../../../../common/types/aspectObjectItem";
+import { BlockItem } from "../../../../common/types/blockItem";
 
 export const isAttributeLibCm = (item: unknown): item is AttributeLibCm =>
   (<AttributeLibCm>item).kind === "AttributeLibCm";
@@ -19,11 +19,11 @@ export const isTerminalItem = (item: unknown): item is TerminalItem => (<Termina
 export const isAttributeItem = (item: unknown): item is AttributeItem =>
   (<AttributeItem>item).kind === "AttributeLibCm";
 
-export const isAspectObjectLibCm = (item: unknown): item is AspectObjectLibCm =>
-  (<AspectObjectLibCm>item).kind === "AspectObjectLibCm";
+export const isBlockLibCm = (item: unknown): item is BlockLibCm =>
+  (<BlockLibCm>item).kind === "BlockLibCm";
 
-export const isAspectObjectItem = (item: unknown): item is AspectObjectItem =>
-  (<AspectObjectItem>item).kind === "AspectObjectItem";
+export const isBlockItem = (item: unknown): item is BlockItem =>
+  (<BlockItem>item).kind === "BlockItem";
 
 export const isUnitLibCm = (item: unknown): item is UnitLibCm => (<UnitLibCm>item).kind === "UnitLibCm";
 

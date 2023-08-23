@@ -71,7 +71,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@faker-js/faker": "^8.0.2",
-    "@mimirorg/typelibrary-types": "^1.0.0-preview.280",
+    "@mimirorg/typelibrary-types": "^1.0.0-preview.281",
     "@types/lodash.camelcase": "^4.3.7",
     "@types/node": "^20.5.2",
     "@types/react": "^18.2.21",
