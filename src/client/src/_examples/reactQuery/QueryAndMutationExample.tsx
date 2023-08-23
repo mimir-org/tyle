@@ -79,9 +79,7 @@ export const QueryAndMutationExample = () => {
 
       <ButtonContainer>
         <button onClick={() => mutation.mutate(exampleBlock)}>Add valid block ✅</button>
-        <button onClick={() => mutation.mutate({ ...exampleBlock, rdsId: "INVALID_ID" })}>
-          Add invalid block ❌
-        </button>
+        <button onClick={() => mutation.mutate({ ...exampleBlock, rdsId: "INVALID_ID" })}>Add invalid block ❌</button>
       </ButtonContainer>
     </QueryAndMutationExampleContainer>
   );

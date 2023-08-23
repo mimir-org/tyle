@@ -17,9 +17,7 @@ interface Props {
  * @param defaultValues
  * @constructor
  */
-export const CreateOrEditBlockFormWithMutation = ({
-  defaultValues = createEmptyFormBlockLib(),
-}: Props) => {
+export const CreateOrEditBlockFormWithMutation = ({ defaultValues = createEmptyFormBlockLib() }: Props) => {
   const {
     register,
     handleSubmit,

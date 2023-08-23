@@ -38,12 +38,9 @@ export const useUpdateBlock = (id?: string) => {
 export const usePatchBlockState = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(
-    (item: { id: string; state: State }) => blockApi.patchBlockState(item.id, item.state),
-    {
-      onSuccess: () => queryClient.invalidateQueries(keys.lists()),
-    },
-  );
+  return useMutation((item: { id: string; state: State }) => blockApi.patchBlockState(item.id, item.state), {
+    onSuccess: () => queryClient.invalidateQueries(keys.lists()),
+  });
 };
 
 export const useDeleteBlock = (id: string) => {

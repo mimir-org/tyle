@@ -19,10 +19,7 @@ interface BlockFormTerminalsProps {
  * @param limitedTerminals list of terminals that cannot be removed
  * @constructor
  */
-export const BlockFormTerminals = ({
-  canAddTerminals = true,
-  limitedTerminals,
-}: BlockFormTerminalsProps) => {
+export const BlockFormTerminals = ({ canAddTerminals = true, limitedTerminals }: BlockFormTerminalsProps) => {
   const { t } = useTranslation("entities");
   const { control, setValue, formState } = useFormContext<FormBlockLib>();
   const { errors } = formState;
@@ -35,9 +32,7 @@ export const BlockFormTerminals = ({
       error={errors.blockTerminals}
       action={
         canAddTerminals && (
-          <BlockFormTerminalsAddButton
-            onClick={() => terminalFields.append(createEmptyFormBlockTerminalLib())}
-          />
+          <BlockFormTerminalsAddButton onClick={() => terminalFields.append(createEmptyFormBlockTerminalLib())} />
         )
       }
     >

@@ -55,10 +55,7 @@ describe("blockSchema tests", () => {
     };
 
     await expect(
-      blockSchema(t).validateAt(
-        "blockTerminals.minQuantity",
-        blockWithNegativeTerminalMinQuantity,
-      ),
+      blockSchema(t).validateAt("blockTerminals.minQuantity", blockWithNegativeTerminalMinQuantity),
     ).rejects.toBeTruthy();
   });
 
@@ -76,10 +73,7 @@ describe("blockSchema tests", () => {
     };
 
     await expect(
-      blockSchema(t).validateAt(
-        "blockTerminals.maxQuantity",
-        blockWithNegativeTerminalMinQuantity,
-      ),
+      blockSchema(t).validateAt("blockTerminals.maxQuantity", blockWithNegativeTerminalMinQuantity),
     ).rejects.toBeTruthy();
   });
 

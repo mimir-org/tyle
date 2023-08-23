@@ -1,7 +1,4 @@
-import {
-  createEmptyFormBlockLib,
-  FormBlockLib,
-} from "features/entities/block/types/formBlockLib";
+import { createEmptyFormBlockLib, FormBlockLib } from "features/entities/block/types/formBlockLib";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 interface Props {

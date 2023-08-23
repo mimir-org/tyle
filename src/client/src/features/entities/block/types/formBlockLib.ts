@@ -33,10 +33,7 @@ export const mapFormBlockLibToApiModel = (formBlock: FormBlockLib): BlockLibAm =
   ),
 });
 
-export const mapBlockLibCmToClientModel = (
-  block: BlockLibCm,
-  newCompanyId?: number,
-): FormBlockLib => ({
+export const mapBlockLibCmToClientModel = (block: BlockLibCm, newCompanyId?: number): FormBlockLib => ({
   ...block,
   companyId: newCompanyId ?? block.companyId,
   attributes: block.attributes.map((x) => ({ value: x.id })),

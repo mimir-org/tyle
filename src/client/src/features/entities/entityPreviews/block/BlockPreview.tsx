@@ -2,10 +2,7 @@ import { BlockTerminalItem } from "common/types/blockTerminalItem";
 import { Box } from "@mimirorg/component-library";
 import { Block } from "features/common/block/Block";
 import { BlockVariant } from "features/common/block/Block.styled";
-import {
-  meetsInputCriteria,
-  meetsOutputCriteria,
-} from "features/entities/entityPreviews/block/BlockPreview.helpers";
+import { meetsInputCriteria, meetsOutputCriteria } from "features/entities/entityPreviews/block/BlockPreview.helpers";
 import { TerminalButtonVariant, Terminals } from "features/common/terminal";
 
 export interface BlockPreviewProps {
@@ -39,12 +36,7 @@ export const BlockPreview = ({ name, color, img, terminals, variant = "small" }:
         placement={"left"}
         variant={variantSpecs.terminals.variant as TerminalButtonVariant}
       />
-      <Block
-        name={name}
-        color={color}
-        img={img}
-        variant={variantSpecs.block.variant as BlockVariant}
-      />
+      <Block name={name} color={color} img={img} variant={variantSpecs.block.variant as BlockVariant} />
       <Terminals
         terminals={outputSideTerminals}
         placement={"right"}

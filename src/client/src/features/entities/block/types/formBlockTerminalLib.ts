@@ -14,18 +14,14 @@ export interface FormBlockTerminalLib extends BlockTerminalLibAm {
   hasMaxQuantity: boolean;
 }
 
-export const mapBlockTerminalLibCmToClientModel = (
-  blockTerminalLibCm: BlockTerminalLibCm,
-): FormBlockTerminalLib => ({
+export const mapBlockTerminalLibCmToClientModel = (blockTerminalLibCm: BlockTerminalLibCm): FormBlockTerminalLib => ({
   ...mapBlockTerminalLibCmToBlockTerminalLibAm(blockTerminalLibCm),
   hasMaxQuantity:
     blockTerminalLibCm.maxQuantity > MINIMUM_TERMINAL_QUANTITY_VALUE &&
     blockTerminalLibCm.maxQuantity < MAXIMUM_TERMINAL_QUANTITY_VALUE,
 });
 
-const mapBlockTerminalLibCmToBlockTerminalLibAm = (
-  terminal: BlockTerminalLibCm,
-): BlockTerminalLibAm => ({
+const mapBlockTerminalLibCmToBlockTerminalLibAm = (terminal: BlockTerminalLibCm): BlockTerminalLibAm => ({
   ...terminal,
   terminalId: terminal.terminal.id,
 });

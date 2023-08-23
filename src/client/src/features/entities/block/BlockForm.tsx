@@ -10,11 +10,7 @@ import { onSubmitForm } from "features/entities/common/utils/onSubmitForm";
 import { prepareAttributes } from "features/entities/common/utils/prepareAttributes";
 import { usePrefilledForm } from "features/entities/common/utils/usePrefilledForm";
 import { useSubmissionToast } from "features/entities/common/utils/useSubmissionToast";
-import {
-  getSubformForAspect,
-  useBlockMutation,
-  useBlockQuery,
-} from "features/entities/block/BlockForm.helpers";
+import { getSubformForAspect, useBlockMutation, useBlockQuery } from "features/entities/block/BlockForm.helpers";
 import { BlockFormBaseFields } from "features/entities/block/BlockFormBaseFields";
 import { blockSchema } from "features/entities/block/blockSchema";
 import {
@@ -81,9 +77,7 @@ export const BlockForm = ({ defaultValues = createEmptyFormBlockLib(), mode }: B
   return (
     <FormProvider {...formMethods}>
       <FormContainer
-        onSubmit={handleSubmit((data) =>
-          onSubmitForm(mapFormBlockLibToApiModel(data), mutation.mutateAsync, toast),
-        )}
+        onSubmit={handleSubmit((data) => onSubmitForm(mapFormBlockLibToApiModel(data), mutation.mutateAsync, toast))}
       >
         {isLoading && <Loader />}
         {!isLoading && (

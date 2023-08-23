@@ -78,10 +78,7 @@ export const About = ({ selected }: AboutProps) => {
       {showLoader && <Loader />}
       {showPlaceHolder && <AboutPlaceholder text={t("about.placeholders.item")} />}
       {showBlockPanel && (
-        <BlockPanel
-          key={blockQuery.data.id + blockQuery.data.kind}
-          {...mapBlockLibCmToBlockItem(blockQuery.data)}
-        />
+        <BlockPanel key={blockQuery.data.id + blockQuery.data.kind} {...mapBlockLibCmToBlockItem(blockQuery.data)} />
       )}
       {showTerminalPanel && (
         <TerminalPanel

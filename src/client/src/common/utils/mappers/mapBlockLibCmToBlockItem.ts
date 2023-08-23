@@ -16,16 +16,8 @@ export const mapBlockLibCmToBlockItem = (block: BlockLibCm): BlockItem => {
     img: block.symbol,
     description: block.description,
     color: getColorFromAspect(block.aspect),
-    tokens: [
-      block.version,
-      block.companyName,
-      currentStateLabel,
-      block.rdsName,
-      block.purposeName,
-    ],
-    terminals: sortBlockTerminals(
-      mapBlockTerminalLibCmsToBlockTerminalItems(block.blockTerminals),
-    ),
+    tokens: [block.version, block.companyName, currentStateLabel, block.rdsName, block.purposeName],
+    terminals: sortBlockTerminals(mapBlockTerminalLibCmsToBlockTerminalItems(block.blockTerminals)),
     attributes: sortInfoItems(mapAttributeLibCmsToInfoItems(block.attributes)),
     kind: "BlockItem",
     state: block.state,
@@ -34,9 +26,7 @@ export const mapBlockLibCmToBlockItem = (block: BlockLibCm): BlockItem => {
   };
 };
 
-const mapBlockTerminalLibCmsToBlockTerminalItems = (
-  terminals: BlockTerminalLibCm[],
-): BlockTerminalItem[] =>
+const mapBlockTerminalLibCmsToBlockTerminalItems = (terminals: BlockTerminalLibCm[]): BlockTerminalItem[] =>
   terminals.map((x) => ({
     id: x.terminal.id,
     name: x.terminal.name,

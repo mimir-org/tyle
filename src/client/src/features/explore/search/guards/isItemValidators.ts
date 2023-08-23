@@ -1,10 +1,4 @@
-import {
-  BlockLibCm,
-  AttributeLibCm,
-  QuantityDatumLibCm,
-  TerminalLibCm,
-  UnitLibCm,
-} from "@mimirorg/typelibrary-types";
+import { BlockLibCm, AttributeLibCm, QuantityDatumLibCm, TerminalLibCm, UnitLibCm } from "@mimirorg/typelibrary-types";
 import { TerminalItem } from "../../../../common/types/terminalItem";
 import { AttributeItem } from "../../../../common/types/attributeItem";
 import { BlockItem } from "../../../../common/types/blockItem";
@@ -19,11 +13,9 @@ export const isTerminalItem = (item: unknown): item is TerminalItem => (<Termina
 export const isAttributeItem = (item: unknown): item is AttributeItem =>
   (<AttributeItem>item).kind === "AttributeLibCm";
 
-export const isBlockLibCm = (item: unknown): item is BlockLibCm =>
-  (<BlockLibCm>item).kind === "BlockLibCm";
+export const isBlockLibCm = (item: unknown): item is BlockLibCm => (<BlockLibCm>item).kind === "BlockLibCm";
 
-export const isBlockItem = (item: unknown): item is BlockItem =>
-  (<BlockItem>item).kind === "BlockItem";
+export const isBlockItem = (item: unknown): item is BlockItem => (<BlockItem>item).kind === "BlockItem";
 
 export const isUnitLibCm = (item: unknown): item is UnitLibCm => (<UnitLibCm>item).kind === "UnitLibCm";
 

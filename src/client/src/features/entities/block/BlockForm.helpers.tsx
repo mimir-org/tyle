@@ -1,9 +1,5 @@
 import { Aspect, BlockTerminalLibCm } from "@mimirorg/typelibrary-types";
-import {
-  useCreateBlock,
-  useGetBlock,
-  useUpdateBlock,
-} from "external/sources/block/block.queries";
+import { useCreateBlock, useGetBlock, useUpdateBlock } from "external/sources/block/block.queries";
 import { BlockFormPredefinedAttributes } from "features/entities/block/predefined-attributes/BlockFormPredefinedAttributes";
 import { BlockFormTerminals } from "features/entities/block/terminals/BlockFormTerminals";
 import { FormBlockLib } from "features/entities/block/types/formBlockLib";

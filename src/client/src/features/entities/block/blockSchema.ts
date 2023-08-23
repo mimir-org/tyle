@@ -22,17 +22,9 @@ export const blockSchema = (t: TFunction<"translation">) =>
       .of(
         yup.object().shape({
           terminalId: yup.string().required(t("block.validation.blockTerminals.terminalId.required")),
-          connectorDirection: yup
-            .number()
-            .required(t("block.validation.blockTerminals.direction.required")),
-          maxQuantity: yup
-            .number()
-            .min(0, t("block.validation.blockTerminals.maxQuantity.min"))
-            .required(),
-          minQuantity: yup
-            .number()
-            .min(0, t("block.validation.blockTerminals.minQuantity.min"))
-            .required(),
+          connectorDirection: yup.number().required(t("block.validation.blockTerminals.direction.required")),
+          maxQuantity: yup.number().min(0, t("block.validation.blockTerminals.maxQuantity.min")).required(),
+          minQuantity: yup.number().min(0, t("block.validation.blockTerminals.minQuantity.min")).required(),
         }),
       )
       .test("Uniqueness", t("block.validation.blockTerminals.array.unique"), (terminals) => {
