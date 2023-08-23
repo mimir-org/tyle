@@ -1,9 +1,9 @@
-import { mapAspectObjectLibCmToAspectObjectItem, mapTerminalLibCmToTerminalItem } from "common/utils/mappers";
-import { useGetAspectObject } from "external/sources/aspectobject/aspectObject.queries";
+import { mapBlockLibCmToBlockItem, mapTerminalLibCmToTerminalItem } from "common/utils/mappers";
+import { useGetBlock } from "external/sources/block/block.queries";
 import { useGetTerminal } from "external/sources/terminal/terminal.queries";
 import { Loader } from "features/common/loader";
 import { AboutPlaceholder } from "features/explore/about/components/AboutPlaceholder";
-import { AspectObjectPanel } from "features/explore/about/components/aspectobject/AspectObjectPanel";
+import { BlockPanel } from "features/explore/about/components/block/BlockPanel";
 import { TerminalPanel } from "features/explore/about/components/terminal/TerminalPanel";
 import { ExploreSection } from "features/explore/common/ExploreSection";
 import { SelectedInfo } from "features/explore/common/selectedInfo";
@@ -36,18 +36,18 @@ export const About = ({ selected }: AboutProps) => {
   const { t } = useTranslation("explore");
   const { t: typeName } = useTranslation("entities");
 
-  const aspectObjectQuery = useGetAspectObject(selected?.type === "aspectObject" ? selected?.id : undefined);
+  const blockQuery = useGetBlock(selected?.type === "block" ? selected?.id : undefined);
   const terminalQuery = useGetTerminal(selected?.type === "terminal" ? selected?.id : undefined);
   const attributeQuery = useGetAttribute(selected?.type === "attribute" ? selected?.id : undefined);
   const unitQuery = useGetUnit(selected?.type === "unit" ? selected?.id : undefined);
   const datumQuery = useGetQuantityDatum(selected?.type === "quantityDatum" ? selected?.id : undefined);
   const rdsQuery = useGetRds(selected?.type === "rds" ? selected?.id : undefined);
-  const allQueries = [aspectObjectQuery, terminalQuery, attributeQuery, unitQuery, datumQuery, rdsQuery];
+  const allQueries = [blockQuery, terminalQuery, attributeQuery, unitQuery, datumQuery, rdsQuery];
 
   const showLoader = allQueries.some((x) => x.isFetching);
 
   const showPlaceHolder = !showLoader && selected?.type === undefined;
-  const showAspectObjectPanel = !showLoader && selected?.type === "aspectObject" && aspectObjectQuery.isSuccess;
+  const showBlockPanel = !showLoader && selected?.type === "block" && blockQuery.isSuccess;
   const showTerminalPanel = !showLoader && selected?.type === "terminal" && terminalQuery.isSuccess;
   const showAttributePanel = !showLoader && selected?.type === "attribute" && attributeQuery.isSuccess;
   const showUnitPanel = !showLoader && selected?.type === "unit" && unitQuery.isSuccess;
@@ -56,8 +56,8 @@ export const About = ({ selected }: AboutProps) => {
 
   function typeParser(type?: string) {
     switch (type) {
-      case "aspectObject":
-        return typeName("aspectObject.title");
+      case "block":
+        return typeName("block.title");
       case "terminal":
         return typeName("terminal.title");
       case "attribute":
@@ -77,11 +77,8 @@ export const About = ({ selected }: AboutProps) => {
     <ExploreSection title={typeParser(selected?.type)}>
       {showLoader && <Loader />}
       {showPlaceHolder && <AboutPlaceholder text={t("about.placeholders.item")} />}
-      {showAspectObjectPanel && (
-        <AspectObjectPanel
-          key={aspectObjectQuery.data.id + aspectObjectQuery.data.kind}
-          {...mapAspectObjectLibCmToAspectObjectItem(aspectObjectQuery.data)}
-        />
+      {showBlockPanel && (
+        <BlockPanel key={blockQuery.data.id + blockQuery.data.kind} {...mapBlockLibCmToBlockItem(blockQuery.data)} />
       )}
       {showTerminalPanel && (
         <TerminalPanel

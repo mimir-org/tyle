@@ -7,7 +7,7 @@ import { useTheme } from "styled-components";
 import { useQueryClient } from "@tanstack/react-query";
 import { approvalKeys, useGetApprovals } from "external/sources/approval/approval.queries";
 import { ApprovalDataCm, State } from "@mimirorg/typelibrary-types";
-import { usePatchAspectObjectState } from "external/sources/aspectobject/aspectObject.queries";
+import { usePatchBlockState } from "external/sources/block/block.queries";
 import { usePatchTerminalState } from "external/sources/terminal/terminal.queries";
 import { usePatchAttributeState } from "../../../external/sources/attribute/attribute.queries";
 import { usePatchRdsState } from "../../../external/sources/rds/rds.queries";
@@ -19,7 +19,7 @@ export const Approval = () => {
   const theme = useTheme();
   const { t } = useTranslation("settings");
   const approvals = useGetApprovals();
-  const patchMutationAspectObject = usePatchAspectObjectState();
+  const patchMutationBlock = usePatchBlockState();
   const patchMutationTerminal = usePatchTerminalState();
   const patchMutationAttribute = usePatchAttributeState();
   const patchMutationQuantityDatum = usePatchQuantityDatumState();
@@ -44,8 +44,8 @@ export const Approval = () => {
     const data: ApprovalDataCm = { id: id, state: State.Draft };
 
     switch (objectType) {
-      case "AspectObject":
-        patchMutationAspectObject.mutateAsync(data);
+      case "Block":
+        patchMutationBlock.mutateAsync(data);
         break;
       case "Terminal":
         patchMutationTerminal.mutateAsync(data);

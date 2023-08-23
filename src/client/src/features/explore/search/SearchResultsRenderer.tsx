@@ -6,7 +6,7 @@ import { TerminalPreview } from "../../entities/entityPreviews/terminal/Terminal
 import { TerminalItem } from "../../../common/types/terminalItem";
 import { ItemDescription } from "./components/item/ItemDescription";
 import { SearchItemActions } from "./components/SearchItemActions";
-import { AspectObjectItem } from "../../../common/types/aspectObjectItem";
+import { BlockItem } from "../../../common/types/blockItem";
 import AttributePreview from "../../entities/entityPreviews/attribute/AttributePreview";
 import { toFormAttributeLib } from "../../entities/attributes/types/formAttributeLib";
 import { AttributeLibCm, UnitLibCm } from "@mimirorg/typelibrary-types";
@@ -16,7 +16,7 @@ import QuantityDatumPreview from "../../entities/entityPreviews/quantityDatum/Qu
 import { QuantityDatumItem } from "../../../common/types/quantityDatumItem";
 import { RdsItem } from "../../../common/types/rdsItem";
 import { RdsPreview } from "../../entities/entityPreviews/rds/RdsPreview";
-import { AspectObjectPreview } from "../../entities/entityPreviews/aspectobject/AspectObjectPreview";
+import { BlockPreview } from "../../entities/entityPreviews/block/BlockPreview";
 
 interface SearchResultsRendererProps {
   item: SearchResult;
@@ -43,13 +43,13 @@ export function SearchResultsRenderer({
           actions={<SearchItemActions user={user} item={item} />}
         />
       );
-    case "AspectObjectItem":
+    case "BlockItem":
       return (
         <Item
           isSelected={currentlySelected}
-          preview={<AspectObjectPreview {...(item as AspectObjectItem)} />}
-          onClick={() => setSelected({ id: item.id, type: "aspectObject" })}
-          description={<ItemDescription {...(item as AspectObjectItem)} />}
+          preview={<BlockPreview {...(item as BlockItem)} />}
+          onClick={() => setSelected({ id: item.id, type: "block" })}
+          description={<ItemDescription {...(item as BlockItem)} />}
           actions={<SearchItemActions user={user} item={item} />}
         />
       );

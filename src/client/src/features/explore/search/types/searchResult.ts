@@ -1,5 +1,5 @@
 import {
-  AspectObjectLibCm,
+  BlockLibCm,
   AttributeLibCm,
   QuantityDatumLibCm,
   RdsLibCm,
@@ -10,10 +10,4 @@ import { ItemType } from "../../../entities/types/itemTypes";
 
 export type SearchResult = ItemType;
 
-export type SearchResultRaw =
-  | AspectObjectLibCm
-  | TerminalLibCm
-  | AttributeLibCm
-  | UnitLibCm
-  | QuantityDatumLibCm
-  | RdsLibCm;
+export type SearchResultRaw = BlockLibCm | TerminalLibCm | AttributeLibCm | UnitLibCm | QuantityDatumLibCm | RdsLibCm;

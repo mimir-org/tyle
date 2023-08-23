@@ -7,8 +7,8 @@ public enum CacheKey
     [Display(Name = "All")]
     All = 0,
 
-    [Display(Name = "Aspect Object")]
-    AspectObject = 1,
+    [Display(Name = "Block")]
+    Block = 1,
 
     [Display(Name = "Attribute")]
     Attribute = 2,

@@ -24,18 +24,18 @@ public class SemanticController : ControllerBase
 {
     private readonly ILogger<SemanticController> _logger;
     private readonly IAttributeService _attributeService;
-    private readonly IAspectObjectService _aspectObjectService;
+    private readonly IBlockService _blockService;
     private readonly ITerminalService _terminalService;
     private readonly IUnitService _unitService;
     private readonly IQuantityDatumService _quantityDatumService;
     private readonly IRdsService _rdsService;
     private readonly ISymbolService _symbolService;
 
-    public SemanticController(ILogger<SemanticController> logger, IAttributeService attributeService, IAspectObjectService aspectObjectService, ITerminalService terminalService, IUnitService unitService, IQuantityDatumService quantityDatumService, IRdsService rdsService, ISymbolService symbolService)
+    public SemanticController(ILogger<SemanticController> logger, IAttributeService attributeService, IBlockService blockService, ITerminalService terminalService, IUnitService unitService, IQuantityDatumService quantityDatumService, IRdsService rdsService, ISymbolService symbolService)
     {
         _logger = logger;
         _attributeService = attributeService;
-        _aspectObjectService = aspectObjectService;
+        _blockService = blockService;
         _terminalService = terminalService;
         _unitService = unitService;
         _quantityDatumService = quantityDatumService;
@@ -44,22 +44,22 @@ public class SemanticController : ControllerBase
     }
 
     /// <summary>
-    /// Get aspect object ontology
+    /// Get block ontology
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
     // ReSharper disable once StringLiteralTypo
-    [HttpGet("aspectobject/{id}")]
-    [ProducesResponseType(typeof(AspectObjectLibCm), StatusCodes.Status200OK)]
+    [HttpGet("block/{id}")]
+    [ProducesResponseType(typeof(BlockLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult GetAspectObject(string id)
+    public IActionResult GetBlock(string id)
     {
         try
         {
-            var data = _aspectObjectService.Get(id);
+            var data = _blockService.Get(id);
             if (data == null)
                 return NoContent();
 

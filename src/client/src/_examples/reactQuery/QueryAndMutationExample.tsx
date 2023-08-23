@@ -1,5 +1,5 @@
-import { Aspect, AspectObjectLibAm } from "@mimirorg/typelibrary-types";
-import { useCreateAspectObject, useGetAspectObjects } from "external/sources/aspectobject/aspectObject.queries";
+import { Aspect, BlockLibAm } from "@mimirorg/typelibrary-types";
+import { useCreateBlock, useGetBlocks } from "external/sources/block/block.queries";
 import {
   ButtonContainer,
   JsonContent,
@@ -10,14 +10,14 @@ import {
 } from "./QueryAndMutationExample.styled";
 
 export const QueryAndMutationExample = () => {
-  const mutation = useCreateAspectObject();
-  const query = useGetAspectObjects();
+  const mutation = useCreateBlock();
+  const query = useGetBlocks();
 
-  // Fetching a single aspect object by id and caching it with that id and type
-  // const aspectObjectQuery = useGetAspectObject("44EEE7F5A7771594F7349A8A230AB272");
+  // Fetching a single block by id and caching it with that id and type
+  // const blockQuery = useGetBlock("44EEE7F5A7771594F7349A8A230AB272");
 
-  const exampleAspectObject: AspectObjectLibAm = {
-    name: "Test aspect object",
+  const exampleBlock: BlockLibAm = {
+    name: "Test block",
     rdsId: "A",
     purposeName: "Heat (Electrical)",
     aspect: Aspect.Function,
@@ -25,7 +25,7 @@ export const QueryAndMutationExample = () => {
     description: "A description goes here",
     symbol: "http://localhost:5001/symbol/018120B75674ABF18AB2F07691D1865C.svg",
     attributes: [],
-    aspectObjectTerminals: [
+    blockTerminals: [
       {
         terminalId: "",
         minQuantity: 1,
@@ -46,7 +46,7 @@ export const QueryAndMutationExample = () => {
 
   return (
     <QueryAndMutationExampleContainer>
-      <h1>Aspect objects example</h1>
+      <h1>Blocks example</h1>
       <p>Throttle the network speed in your browser to view state changes more clearly</p>
 
       <StatusAndResultsContainer>
@@ -54,19 +54,19 @@ export const QueryAndMutationExample = () => {
           <div>
             <b>Query status: </b>
             <i>
-              {query.isLoading && "Loading aspect objects 🔄"}
-              {query.isFetching && !query.isLoading && "Fetching aspect objects after changes 🔄"}
-              {query.isSuccess && !query.isLoading && !query.isFetching && "Success fetching aspect objects ✅"}
-              {query.isError && "Error fetching aspect objects ❌"}
+              {query.isLoading && "Loading blocks 🔄"}
+              {query.isFetching && !query.isLoading && "Fetching blocks after changes 🔄"}
+              {query.isSuccess && !query.isLoading && !query.isFetching && "Success fetching blocks ✅"}
+              {query.isError && "Error fetching blocks ❌"}
             </i>
           </div>
 
           <div>
             <b>Mutation status: </b>
             <i>
-              {mutation.isLoading && "Creating aspect object 🔄"}
-              {mutation.isSuccess && "Success creating aspect object ✅"}
-              {mutation.isError && "Error creating aspect object ❌"}
+              {mutation.isLoading && "Creating block 🔄"}
+              {mutation.isSuccess && "Success creating block ✅"}
+              {mutation.isError && "Error creating block ❌"}
             </i>
             {mutation.isError && <JsonContent>{JSON.stringify(mutation.error, null, 2)}</JsonContent>}
           </div>
@@ -78,10 +78,8 @@ export const QueryAndMutationExample = () => {
       </StatusAndResultsContainer>
 
       <ButtonContainer>
-        <button onClick={() => mutation.mutate(exampleAspectObject)}>Add valid aspect object ✅</button>
-        <button onClick={() => mutation.mutate({ ...exampleAspectObject, rdsId: "INVALID_ID" })}>
-          Add invalid aspect object ❌
-        </button>
+        <button onClick={() => mutation.mutate(exampleBlock)}>Add valid block ✅</button>
+        <button onClick={() => mutation.mutate({ ...exampleBlock, rdsId: "INVALID_ID" })}>Add invalid block ❌</button>
       </ButtonContainer>
     </QueryAndMutationExampleContainer>
   );

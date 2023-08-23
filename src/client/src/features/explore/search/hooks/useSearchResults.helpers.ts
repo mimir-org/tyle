@@ -1,5 +1,5 @@
-import { mapAspectObjectLibCmToAspectObjectItem, mapTerminalLibCmToTerminalItem } from "common/utils/mappers";
-import { useGetAspectObjects } from "external/sources/aspectobject/aspectObject.queries";
+import { mapBlockLibCmToBlockItem, mapTerminalLibCmToTerminalItem } from "common/utils/mappers";
+import { useGetBlocks } from "external/sources/block/block.queries";
 import { useGetTerminals } from "external/sources/terminal/terminal.queries";
 import { Filter } from "features/explore/search/types/filter";
 import { SearchResult, SearchResultRaw } from "features/explore/search/types/searchResult";
@@ -9,7 +9,7 @@ import { useGetUnits } from "../../../../external/sources/unit/unit.queries";
 import { useGetQuantityDatums } from "../../../../external/sources/datum/quantityDatum.queries";
 import { useGetAllRds } from "../../../../external/sources/rds/rds.queries";
 import {
-  isAspectObjectLibCm,
+  isBlockLibCm,
   isAttributeLibCm,
   isQuantityDatumLibCm,
   isRdsLibCm,
@@ -74,7 +74,7 @@ const sortItemsByDate = (items: SearchResultRaw[]) =>
   [...items].sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
 
 export const useSearchItems = (): [items: SearchResultRaw[], isLoading: boolean] => {
-  const aspectObjectQuery = useGetAspectObjects();
+  const blockQuery = useGetBlocks();
   const terminalQuery = useGetTerminals();
   const attributeQuery = useGetAttributes();
   const unitQuery = useGetUnits();
@@ -82,7 +82,7 @@ export const useSearchItems = (): [items: SearchResultRaw[], isLoading: boolean]
   const rdsQuery = useGetAllRds();
 
   const isLoading =
-    aspectObjectQuery.isLoading ||
+    blockQuery.isLoading ||
     terminalQuery.isLoading ||
     attributeQuery.isLoading ||
     unitQuery.isLoading ||
@@ -90,7 +90,7 @@ export const useSearchItems = (): [items: SearchResultRaw[], isLoading: boolean]
     rdsQuery.isLoading;
 
   const mergedItems = [
-    ...(aspectObjectQuery.data ?? []),
+    ...(blockQuery.data ?? []),
     ...(terminalQuery.data ?? []),
     ...(attributeQuery.data ?? []),
     ...(unitQuery.data ?? []),
@@ -105,7 +105,7 @@ export const mapSearchResults = (items: SearchResultRaw[]) => {
   const mappedSearchResults: SearchResult[] = [];
 
   items.forEach((x) => {
-    if (isAspectObjectLibCm(x)) mappedSearchResults.push(mapAspectObjectLibCmToAspectObjectItem(x));
+    if (isBlockLibCm(x)) mappedSearchResults.push(mapBlockLibCmToBlockItem(x));
     else if (isTerminalLibCm(x)) mappedSearchResults.push(mapTerminalLibCmToTerminalItem(x));
     else if (isAttributeLibCm(x)) mappedSearchResults.push(toAttributeItem(x));
     else if (isUnitLibCm(x)) mappedSearchResults.push(toUnitItem(x));

@@ -2,7 +2,7 @@ import { StateItem } from "common/types/stateItem";
 import { UserItem } from "common/types/userItem";
 import { useEffect, useState } from "react";
 import { MimirorgPermission, State } from "@mimirorg/typelibrary-types";
-import { isAspectObjectItem } from "../guards/isItemValidators";
+import { isBlockItem } from "../guards/isItemValidators";
 import { hasWriteAccess } from "../../../../common/hooks/useHasWriteAccess";
 import { ItemType } from "features/entities/types/itemTypes";
 
@@ -55,7 +55,7 @@ const allowEdit = (item: StateItem | null, user: UserItem | null): boolean => {
   if (item == null || user == null) return false;
 
   let permissionForCompany: MimirorgPermission;
-  if (isAspectObjectItem(item)) {
+  if (isBlockItem(item)) {
     permissionForCompany = user.permissions[item.companyId]?.value;
   } else {
     permissionForCompany = user.permissions[0].value;
@@ -73,7 +73,7 @@ const allowDelete = (item: ItemType | null, user: UserItem | null): boolean => {
   if (item.createdBy === user.id && hasWriteAccess(user)) return true;
 
   let permissionForCompany: MimirorgPermission;
-  if (isAspectObjectItem(item)) {
+  if (isBlockItem(item)) {
     permissionForCompany = user.permissions[item.companyId]?.value;
   } else {
     permissionForCompany = user.permissions[0].value;
@@ -87,7 +87,7 @@ const allowStateChange = (item: StateItem | null, user: UserItem | null): boolea
   if (item == null || user == null) return false;
 
   let permissionForCompany: MimirorgPermission;
-  if (isAspectObjectItem(item)) {
+  if (isBlockItem(item)) {
     permissionForCompany = user.permissions[item.companyId]?.value;
   } else {
     permissionForCompany = user.permissions[0].value;
