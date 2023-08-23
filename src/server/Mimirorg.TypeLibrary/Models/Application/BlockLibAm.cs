@@ -6,12 +6,12 @@ using Mimirorg.TypeLibrary.Enums;
 namespace Mimirorg.TypeLibrary.Models.Application;
 
 /// <summary>
-/// Object used to create or update a aspect object
+/// Object used to create or update a block
 /// </summary>
-public class AspectObjectLibAm : ICompanyObject
+public class BlockLibAm : ICompanyObject
 {
     /// <summary>
-    /// The name of the aspect object
+    /// The name of the block
     /// </summary>
     /// <remarks>
     /// The name is not allowed to change
@@ -28,14 +28,14 @@ public class AspectObjectLibAm : ICompanyObject
     public string TypeReference { get; set; }
 
     /// <summary>
-    /// The aspect object version
+    /// The block version
     /// </summary>
     [Required]
     [Double]
     public string Version { get; set; }
 
     /// <summary>
-    /// The owner of the aspect object type
+    /// The owner of the block type
     /// </summary>
     /// <remarks>
     /// A company id change, will trigger a minor version increase
@@ -46,7 +46,7 @@ public class AspectObjectLibAm : ICompanyObject
     public int CompanyId { get; set; }
 
     /// <summary>
-    /// The aspect of the aspect object
+    /// The aspect of the block
     /// </summary>
     /// <remarks>
     /// The aspect is not allowed to change
@@ -55,7 +55,7 @@ public class AspectObjectLibAm : ICompanyObject
     public Aspect Aspect { get; set; }
 
     /// <summary>
-    /// The purpose name of the aspect object
+    /// The purpose name of the block
     /// </summary>
     /// <remarks>
     /// A purpose name change will trigger a minor version increase
@@ -64,7 +64,7 @@ public class AspectObjectLibAm : ICompanyObject
     public string PurposeName { get; set; }
 
     /// <summary>
-    /// The id of the RDS of the aspect object
+    /// The id of the RDS of the block
     /// </summary>
     /// <remarks>
     /// The RDS is not allowed to change
@@ -73,7 +73,7 @@ public class AspectObjectLibAm : ICompanyObject
     public string RdsId { get; set; }
 
     /// <summary>
-    /// The symbol of the aspect object type
+    /// The symbol of the block type
     /// </summary>
     /// <remarks>
     /// A symbol change, will trigger a minor version increase
@@ -81,7 +81,7 @@ public class AspectObjectLibAm : ICompanyObject
     public string Symbol { get; set; }
 
     /// <summary>
-    /// The description of the aspect object type
+    /// The description of the block type
     /// </summary>
     /// <remarks>
     /// A description change, will trigger a minor version increase
@@ -95,7 +95,7 @@ public class AspectObjectLibAm : ICompanyObject
     /// It is not allowed to remove terminals
     /// Adding terminals generates a major increase
     /// </remarks>
-    public ICollection<AspectObjectTerminalLibAm> AspectObjectTerminals { get; set; }
+    public ICollection<BlockTerminalLibAm> BlockTerminals { get; set; }
 
     /// <summary>
     /// A list of attribute ids

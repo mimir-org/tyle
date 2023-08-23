@@ -1,10 +1,10 @@
 namespace TypeLibrary.Data.Models;
 
-public class AspectObjectAttributeLibDm
+public class BlockAttributeLibDm
 {
     public int Id { get; set; }
-    public string AspectObjectId { get; set; }
-    public AspectObjectLibDm AspectObject { get; set; }
+    public string BlockId { get; set; }
+    public BlockLibDm Block { get; set; }
     public string AttributeId { get; set; }
     public AttributeLibDm Attribute { get; set; }
 }

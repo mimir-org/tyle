@@ -8,11 +8,11 @@ using Xunit;
 
 namespace Mimirorg.Test.Unit.Models;
 
-public class AspectObjectLibDmTests : UnitTest<MimirorgCommonFixture>
+public class BlockLibDmTests : UnitTest<MimirorgCommonFixture>
 {
     private readonly MimirorgCommonFixture _fixture;
 
-    public AspectObjectLibDmTests(MimirorgCommonFixture fixture) : base(fixture)
+    public BlockLibDmTests(MimirorgCommonFixture fixture) : base(fixture)
     {
         _fixture = fixture;
     }
@@ -20,7 +20,7 @@ public class AspectObjectLibDmTests : UnitTest<MimirorgCommonFixture>
     [Fact]
     public void HasIllegalChanges_Valid_Ok()
     {
-        var dummy = _fixture.CreateAspectObjectTestData();
+        var dummy = _fixture.CreateBlockTestData();
         var status = dummy.dm.HasIllegalChanges(dummy.am);
         Assert.True(status.IsValid);
     }
@@ -28,10 +28,10 @@ public class AspectObjectLibDmTests : UnitTest<MimirorgCommonFixture>
     [Fact]
     public void HasIllegalChanges_Valid_False_When_Remove_Data_From_Lists()
     {
-        var dummy = _fixture.CreateAspectObjectTestData();
+        var dummy = _fixture.CreateBlockTestData();
 
         // Reset changes
-        dummy.am.AspectObjectTerminals = dummy.am.AspectObjectTerminals.Where(x => x.TerminalId != "123").ToList();
+        dummy.am.BlockTerminals = dummy.am.BlockTerminals.Where(x => x.TerminalId != "123").ToList();
         dummy.am.SelectedAttributePredefined = dummy.am.SelectedAttributePredefined.Where(x => x.Key != "123").ToList();
 
         var status = dummy.dm.HasIllegalChanges(dummy.am);
@@ -42,7 +42,7 @@ public class AspectObjectLibDmTests : UnitTest<MimirorgCommonFixture>
     [Fact]
     public void HasIllegalChanges_Valid_False_When_Not_Legal_Data_Is_Changed()
     {
-        var dummy = _fixture.CreateAspectObjectTestData();
+        var dummy = _fixture.CreateBlockTestData();
 
         dummy.am.CompanyId = 1200;
         dummy.am.Aspect = Aspect.NotSet;
@@ -55,11 +55,11 @@ public class AspectObjectLibDmTests : UnitTest<MimirorgCommonFixture>
     [Fact]
     public void CalculateVersionStatus_Validates_Correct_No_Change_Version()
     {
-        var dummy = _fixture.CreateAspectObjectTestData();
+        var dummy = _fixture.CreateBlockTestData();
 
         // Reset changes
         //dummy.am.AttributeIdList.Remove("555");
-        dummy.am.AspectObjectTerminals = dummy.am.AspectObjectTerminals.Where(x => x.TerminalId != "555").ToList();
+        dummy.am.BlockTerminals = dummy.am.BlockTerminals.Where(x => x.TerminalId != "555").ToList();
         dummy.am.SelectedAttributePredefined = dummy.am.SelectedAttributePredefined.Where(x => x.Key != "555").ToList();
 
         var status = dummy.dm.CalculateVersionStatus(dummy.am);
@@ -69,11 +69,11 @@ public class AspectObjectLibDmTests : UnitTest<MimirorgCommonFixture>
     [Fact]
     public void CalculateVersionStatus_Validates_Correct_Minor_Version()
     {
-        var dummy = _fixture.CreateAspectObjectTestData();
+        var dummy = _fixture.CreateBlockTestData();
 
         // Reset changes
         //dummy.am.AttributeIdList.Remove("555");
-        dummy.am.AspectObjectTerminals = dummy.am.AspectObjectTerminals.Where(x => x.TerminalId != "555").ToList();
+        dummy.am.BlockTerminals = dummy.am.BlockTerminals.Where(x => x.TerminalId != "555").ToList();
         dummy.am.SelectedAttributePredefined = dummy.am.SelectedAttributePredefined.Where(x => x.Key != "555").ToList();
 
         // Trigger minor
@@ -90,7 +90,7 @@ public class AspectObjectLibDmTests : UnitTest<MimirorgCommonFixture>
     [Fact]
     public void CalculateVersionStatus_Validates_Correct_Major_Version()
     {
-        var dummy = _fixture.CreateAspectObjectTestData();
+        var dummy = _fixture.CreateBlockTestData();
 
         // Trigger minor
         dummy.am.PurposeName = "x";
@@ -106,11 +106,11 @@ public class AspectObjectLibDmTests : UnitTest<MimirorgCommonFixture>
     [Fact]
     public void CalculateVersionStatus_Validates_Correct_Major_Version_On_Attribute_Add()
     {
-        var dummy = _fixture.CreateAspectObjectTestData();
+        var dummy = _fixture.CreateBlockTestData();
 
         // Reset changes
         //dummy.am.AttributeIdList.Remove("555");
-        dummy.am.AspectObjectTerminals = dummy.am.AspectObjectTerminals.Where(x => x.TerminalId != "555").ToList();
+        dummy.am.BlockTerminals = dummy.am.BlockTerminals.Where(x => x.TerminalId != "555").ToList();
         dummy.am.SelectedAttributePredefined = dummy.am.SelectedAttributePredefined.Where(x => x.Key != "555").ToList();
 
         // Trigger minor
@@ -133,7 +133,7 @@ public class AspectObjectLibDmTests : UnitTest<MimirorgCommonFixture>
     [Fact]
     public void CalculateVersionStatus_Throws_Exception_On_Null()
     {
-        var dummy = _fixture.CreateAspectObjectTestData();
+        var dummy = _fixture.CreateBlockTestData();
 
         Assert.Throws<ArgumentNullException>(() => dummy.dm.CalculateVersionStatus(null));
     }
@@ -141,12 +141,12 @@ public class AspectObjectLibDmTests : UnitTest<MimirorgCommonFixture>
     [Fact]
     public void CalculateVersionStatus_Handles_Null_Terminals_SelectedAttributes()
     {
-        var dummy = _fixture.CreateAspectObjectTestData();
+        var dummy = _fixture.CreateBlockTestData();
 
-        dummy.am.AspectObjectTerminals = null;
+        dummy.am.BlockTerminals = null;
         dummy.am.SelectedAttributePredefined = null;
 
-        dummy.dm.AspectObjectTerminals = null;
+        dummy.dm.BlockTerminals = null;
         dummy.dm.SelectedAttributePredefined = null;
 
         var status = dummy.dm.CalculateVersionStatus(dummy.am);

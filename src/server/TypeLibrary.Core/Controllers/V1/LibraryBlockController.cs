@@ -23,33 +23,33 @@ namespace TypeLibrary.Core.Controllers.V1;
 [ApiController]
 [ApiVersion(VersionConstant.OnePointZero)]
 [Route("V{version:apiVersion}/[controller]")]
-[SwaggerTag("Aspect Object Services")]
-public class LibraryAspectObjectController : ControllerBase
+[SwaggerTag("Block Services")]
+public class LibraryBlockController : ControllerBase
 {
-    private readonly ILogger<LibraryAspectObjectController> _logger;
-    private readonly IAspectObjectService _aspectObjectService;
+    private readonly ILogger<LibraryBlockController> _logger;
+    private readonly IBlockService _blockService;
     private readonly IMimirorgAuthService _authService;
 
-    public LibraryAspectObjectController(ILogger<LibraryAspectObjectController> logger, IAspectObjectService aspectObjectService, IMimirorgAuthService authService)
+    public LibraryBlockController(ILogger<LibraryBlockController> logger, IBlockService blockService, IMimirorgAuthService authService)
     {
         _logger = logger;
-        _aspectObjectService = aspectObjectService;
+        _blockService = blockService;
         _authService = authService;
     }
 
     /// <summary>
-    /// Get latest approved aspect objects as well as unfinished and in review drafts
+    /// Get latest approved blocks as well as unfinished and in review drafts
     /// </summary>
-    /// <returns>A collection of aspect objects</returns>
+    /// <returns>A collection of blocks</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(ICollection<AspectObjectLibCm>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<BlockLibCm>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
     public IActionResult GetLatestVersions()
     {
         try
         {
-            var cm = _aspectObjectService.GetLatestVersions().ToList();
+            var cm = _blockService.GetLatestVersions().ToList();
             return Ok(cm);
         }
         catch (Exception e)
@@ -60,12 +60,12 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
-    /// Get aspect object by id
+    /// Get block by id
     /// </summary>
-    /// <param name="id">The id of the aspect object to get</param>
-    /// <returns>The requested aspect object</returns>
+    /// <param name="id">The id of the block to get</param>
+    /// <returns>The requested block</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(AspectObjectLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BlockLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
@@ -73,7 +73,7 @@ public class LibraryAspectObjectController : ControllerBase
     {
         try
         {
-            var data = _aspectObjectService.Get(id);
+            var data = _blockService.Get(id);
             if (data == null)
                 return NotFound(id);
 
@@ -91,12 +91,12 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
-    /// Get latest approved version of an aspect object by id
+    /// Get latest approved version of a block by id
     /// </summary>
-    /// <param name="id">The id of the aspect object we want to get the latest approved version of</param>
-    /// <returns>The requested aspect object</returns>
+    /// <param name="id">The id of the block we want to get the latest approved version of</param>
+    /// <returns>The requested block</returns>
     [HttpGet("latest-approved/{id}")]
-    [ProducesResponseType(typeof(AspectObjectLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BlockLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
@@ -104,7 +104,7 @@ public class LibraryAspectObjectController : ControllerBase
     {
         try
         {
-            var data = _aspectObjectService.GetLatestApproved(id);
+            var data = _blockService.GetLatestApproved(id);
             if (data == null)
                 return NotFound(id);
 
@@ -122,24 +122,24 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
-    /// Create an aspect object
+    /// Create a block
     /// </summary>
-    /// <param name="aspectObject">The aspect object that should be created</param>
-    /// <returns>The created aspect object</returns>
+    /// <param name="block">The block that should be created</param>
+    /// <returns>The created block</returns>
     [HttpPost]
-    [ProducesResponseType(typeof(AspectObjectLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BlockLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "aspectObject", "CompanyId")]
-    public async Task<IActionResult> Create([FromBody] AspectObjectLibAm aspectObject)
+    [MimirorgAuthorize(MimirorgPermission.Write, "block", "CompanyId")]
+    public async Task<IActionResult> Create([FromBody] BlockLibAm block)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var cm = await _aspectObjectService.Create(aspectObject);
+            var cm = await _blockService.Create(block);
             return Ok(cm);
         }
         catch (MimirorgBadRequestException e)
@@ -154,27 +154,27 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
-    /// Update an aspect object
+    /// Update a block
     /// </summary>
-    /// <param name="id">The id of the aspect object that should be updated</param>
-    /// <param name="aspectObject">The new values of the aspect object</param>
-    /// <returns>The updated aspect object</returns>
+    /// <param name="id">The id of the block that should be updated</param>
+    /// <param name="block">The new values of the block</param>
+    /// <returns>The updated block</returns>
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(AspectObjectLibCm), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BlockLibCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [MimirorgAuthorize(MimirorgPermission.Write, "aspectObject", "CompanyId")]
-    public async Task<IActionResult> Update(string id, [FromBody] AspectObjectLibAm aspectObject)
+    [MimirorgAuthorize(MimirorgPermission.Write, "block", "CompanyId")]
+    public async Task<IActionResult> Update(string id, [FromBody] BlockLibAm block)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var data = await _aspectObjectService.Update(id, aspectObject);
+            var data = await _blockService.Update(id, block);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)
@@ -197,9 +197,9 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
-    /// Delete an aspect object that is not approved
+    /// Delete a block that is not approved
     /// </summary>
-    /// <param name="id">The id of the aspect object to delete</param>
+    /// <param name="id">The id of the block to delete</param>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -211,13 +211,13 @@ public class LibraryAspectObjectController : ControllerBase
     {
         try
         {
-            var aspectObject = _aspectObjectService.Get(id);
-            var hasAccess = await _authService.CanDelete(aspectObject.State, aspectObject.CreatedBy, aspectObject.CompanyId);
+            var block = _blockService.Get(id);
+            var hasAccess = await _authService.CanDelete(block.State, block.CreatedBy, block.CompanyId);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            await _aspectObjectService.Delete(id);
+            await _blockService.Delete(id);
             return NoContent();
         }
         catch (MimirorgNotFoundException e)
@@ -236,11 +236,11 @@ public class LibraryAspectObjectController : ControllerBase
     }
 
     /// <summary>
-    /// Update an aspect object with new state
+    /// Update a block with new state
     /// </summary>
-    /// <param name="id">The id of the aspect object to be updated</param>
+    /// <param name="id">The id of the block to be updated</param>
     /// <param name="state">The new state</param>
-    /// <returns>An approval data object containing the id of the aspect object and the new state</returns>
+    /// <returns>An approval data object containing the id of the block and the new state</returns>
     [HttpPatch("{id}/state/{state}")]
     [ProducesResponseType(typeof(ApprovalDataCm), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -252,13 +252,13 @@ public class LibraryAspectObjectController : ControllerBase
     {
         try
         {
-            var companyId = _aspectObjectService.GetCompanyId(id);
+            var companyId = _blockService.GetCompanyId(id);
             var hasAccess = await _authService.HasAccess(companyId, state);
 
             if (!hasAccess)
                 return StatusCode(StatusCodes.Status403Forbidden);
 
-            var data = await _aspectObjectService.ChangeState(id, state, true);
+            var data = await _blockService.ChangeState(id, state, true);
             return Ok(data);
         }
         catch (MimirorgNotFoundException e)

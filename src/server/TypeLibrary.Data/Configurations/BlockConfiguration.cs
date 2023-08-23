@@ -5,15 +5,15 @@ using Mimirorg.Common.Converters;
 
 namespace TypeLibrary.Data.Configurations;
 
-public class AspectObjectConfiguration : IEntityTypeConfiguration<AspectObjectLibDm>
+public class BlockConfiguration : IEntityTypeConfiguration<BlockLibDm>
 {
-    public void Configure(EntityTypeBuilder<AspectObjectLibDm> builder)
+    public void Configure(EntityTypeBuilder<BlockLibDm> builder)
     {
         builder.HasKey(x => x.Id);
         builder.HasIndex(x => x.FirstVersionId).IsUnique(false);
         builder.HasIndex(x => x.State).IsUnique(false);
         builder.HasIndex(x => new { x.State, x.Aspect }).IsUnique(false);
-        builder.ToTable("AspectObject");
+        builder.ToTable("Block");
         builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(63);
         builder.Property(p => p.Name).HasColumnName("Name").IsRequired().HasMaxLength(127);
         builder.Property(p => p.Iri).HasColumnName("Iri").IsRequired(false).HasMaxLength(255);

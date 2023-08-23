@@ -9,9 +9,9 @@ using TypeLibrary.Data.Models;
 
 namespace TypeLibrary.Data.Repositories.Ef;
 
-public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, AspectObjectLibDm>, IEfAspectObjectRepository
+public class EfBlockRepository : GenericRepository<TypeLibraryDbContext, BlockLibDm>, IEfBlockRepository
 {
-    public EfAspectObjectRepository(TypeLibraryDbContext dbContext) : base(dbContext)
+    public EfBlockRepository(TypeLibraryDbContext dbContext) : base(dbContext)
     {
     }
 
@@ -24,19 +24,19 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     /// <inheritdoc />
     public async Task ChangeState(State state, string id)
     {
-        var aspectObject = await GetAsync(id);
-        aspectObject.State = state;
+        var block = await GetAsync(id);
+        block.State = state;
         await SaveAsync();
-        Detach(aspectObject);
+        Detach(block);
     }
 
     /// <inheritdoc />
-    public IEnumerable<AspectObjectLibDm> Get()
+    public IEnumerable<BlockLibDm> Get()
     {
         return GetAll()
-            .Include(x => x.AspectObjectTerminals)
+            .Include(x => x.BlockTerminals)
             .ThenInclude(x => x.Terminal)
-            .Include(x => x.AspectObjectAttributes)
+            .Include(x => x.BlockAttributes)
             .ThenInclude(x => x.Attribute)
             .ThenInclude(x => x.AttributeUnits)
             .ThenInclude(x => x.Unit)
@@ -45,12 +45,12 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     }
 
     /// <inheritdoc />
-    public AspectObjectLibDm Get(string id)
+    public BlockLibDm Get(string id)
     {
         return FindBy(x => x.Id == id)
-            .Include(x => x.AspectObjectTerminals)
+            .Include(x => x.BlockTerminals)
             .ThenInclude(x => x.Terminal)
-            .Include(x => x.AspectObjectAttributes)
+            .Include(x => x.BlockAttributes)
             .ThenInclude(x => x.Attribute)
             .ThenInclude(x => x.AttributeUnits)
             .ThenInclude(x => x.Unit)
@@ -60,12 +60,12 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     }
 
     /// <inheritdoc />
-    public IEnumerable<AspectObjectLibDm> GetAllVersions(AspectObjectLibDm aspectObject)
+    public IEnumerable<BlockLibDm> GetAllVersions(BlockLibDm block)
     {
-        return FindBy(x => x.FirstVersionId == aspectObject.FirstVersionId)
-            .Include(x => x.AspectObjectTerminals)
+        return FindBy(x => x.FirstVersionId == block.FirstVersionId)
+            .Include(x => x.BlockTerminals)
             .ThenInclude(x => x.Terminal)
-            .Include(x => x.AspectObjectAttributes)
+            .Include(x => x.BlockAttributes)
             .ThenInclude(x => x.Attribute)
             .ThenInclude(x => x.AttributeUnits)
             .ThenInclude(x => x.Unit)
@@ -74,14 +74,14 @@ public class EfAspectObjectRepository : GenericRepository<TypeLibraryDbContext, 
     }
 
     /// <inheritdoc />
-    public async Task<AspectObjectLibDm> Create(AspectObjectLibDm aspectObject)
+    public async Task<BlockLibDm> Create(BlockLibDm block)
     {
-        await CreateAsync(aspectObject);
+        await CreateAsync(block);
         await SaveAsync();
 
-        Detach(aspectObject);
+        Detach(block);
 
-        return aspectObject;
+        return block;
     }
 
     /// <inheritdoc />

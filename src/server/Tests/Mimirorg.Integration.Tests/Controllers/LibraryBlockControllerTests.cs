@@ -9,14 +9,14 @@ using Xunit;
 
 namespace Mimirorg.Test.Integration.Controllers;
 
-public class AspectObjectControllerTests : IntegrationTest
+public class LibraryBlockControllerTests : IntegrationTest
 {
-    public AspectObjectControllerTests(ApiWebApplicationFactory factory) : base(factory)
+    public LibraryBlockControllerTests(ApiWebApplicationFactory factory) : base(factory)
     {
     }
 
     [Theory]
-    [InlineData("/v1/libraryaspectobject")]
+    [InlineData("/v1/libraryblock")]
     public async Task GET_Retrieves_Status_Ok(string endpoint)
     {
         var client = Factory.WithWebHostBuilder(builder =>
@@ -33,7 +33,7 @@ public class AspectObjectControllerTests : IntegrationTest
     }
 
     [Theory]
-    [InlineData("/v1/libraryaspectobject/")]
+    [InlineData("/v1/libraryblock/")]
     public async Task GET_Id_Retrieves_Status_Ok(string endpoint)
     {
         var client = Factory.WithWebHostBuilder(builder =>
@@ -46,8 +46,8 @@ public class AspectObjectControllerTests : IntegrationTest
 
         const string guid = "2f9e0813-1067-472e-86ea-7c0b47a4eb18";
 
-        // Ensure aspect object in fake database
-        var aspectObjectToCreate = new AspectObjectLibAm
+        // Ensure block in fake database
+        var blockToCreate = new BlockLibAm
         {
             Name = $"{guid}_dummy_name",
             RdsId = "rds-id",
@@ -58,15 +58,15 @@ public class AspectObjectControllerTests : IntegrationTest
         };
 
         using var scope = Factory.Server.Services.CreateScope();
-        var aspectObjectService = scope.ServiceProvider.GetRequiredService<IAspectObjectService>();
-        var createdAspectObject = await aspectObjectService.Create(aspectObjectToCreate);
+        var blockService = scope.ServiceProvider.GetRequiredService<IBlockService>();
+        var createdBlock = await blockService.Create(blockToCreate);
 
-        var response = await client.GetAsync(endpoint + createdAspectObject.Id);
+        var response = await client.GetAsync(endpoint + createdBlock.Id);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 
     [Theory]
-    [InlineData("/v1/libraryaspectobject/666666")]
+    [InlineData("/v1/libraryblock/666666")]
     public async Task GET_Id_Retrieves_Status_No_Content(string endpoint)
     {
         var client = Factory.WithWebHostBuilder(builder =>

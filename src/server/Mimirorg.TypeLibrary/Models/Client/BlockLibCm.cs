@@ -3,7 +3,7 @@ using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Client;
 
-public class AspectObjectLibCm
+public class BlockLibCm
 {
     public string Id { get; set; }
     public string Name { get; set; }
@@ -23,8 +23,8 @@ public class AspectObjectLibCm
     public string RdsName { get; set; }
     public string Symbol { get; set; }
     public string Description { get; set; }
-    public ICollection<AspectObjectTerminalLibCm> AspectObjectTerminals { get; set; }
+    public ICollection<BlockTerminalLibCm> BlockTerminals { get; set; }
     public ICollection<AttributeLibCm> Attributes { get; set; }
     public ICollection<SelectedAttributePredefinedLibCm> SelectedAttributePredefined { get; set; }
-    public string Kind => nameof(AspectObjectLibCm);
+    public string Kind => nameof(BlockLibCm);
 }

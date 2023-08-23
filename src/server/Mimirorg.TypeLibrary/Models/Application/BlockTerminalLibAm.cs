@@ -3,7 +3,7 @@ using Mimirorg.TypeLibrary.Enums;
 
 namespace Mimirorg.TypeLibrary.Models.Application;
 
-public class AspectObjectTerminalLibAm
+public class BlockTerminalLibAm
 {
     [Required]
     public int MinQuantity { get; set; }

@@ -11,9 +11,9 @@ using TypeLibrary.Data.Contracts.Common;
 namespace TypeLibrary.Data.Models;
 
 /// <summary>
-/// Aspect object domain model
+/// Block domain model
 /// </summary>
-public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject, ILogable, IEquatable<AspectObjectLibDm>
+public class BlockLibDm : IVersionable<BlockLibAm>, IVersionObject, ILogable, IEquatable<BlockLibDm>
 {
     public string Id { get; set; }
     public string Name { get; set; }
@@ -31,13 +31,13 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
     public RdsLibDm Rds { get; set; }
     public string Symbol { get; set; }
     public string Description { get; set; }
-    public virtual ICollection<AspectObjectTerminalLibDm> AspectObjectTerminals { get; set; }
-    public virtual ICollection<AspectObjectAttributeLibDm> AspectObjectAttributes { get; set; }
+    public virtual ICollection<BlockTerminalLibDm> BlockTerminals { get; set; }
+    public virtual ICollection<BlockAttributeLibDm> BlockAttributes { get; set; }
     public virtual List<SelectedAttributePredefinedLibDm> SelectedAttributePredefined { get; set; }
 
     #region IVersionable
 
-    public Validation HasIllegalChanges(AspectObjectLibAm other)
+    public Validation HasIllegalChanges(BlockLibAm other)
     {
         if (other == null)
             throw new ArgumentNullException(nameof(other));
@@ -52,30 +52,30 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
 
         //Attributes
         var attributeAmIds = new List<string>();
-        var aspectObjectAttributeDms = new List<AspectObjectAttributeLibDm>();
+        var blockAttributeDms = new List<BlockAttributeLibDm>();
 
         attributeAmIds.AddRange(other.Attributes ?? new List<string>());
-        aspectObjectAttributeDms.AddRange(AspectObjectAttributes ?? new List<AspectObjectAttributeLibDm>());
+        blockAttributeDms.AddRange(BlockAttributes ?? new List<BlockAttributeLibDm>());
 
-        if (aspectObjectAttributeDms.Select(y => y.AttributeId).Any(id => attributeAmIds.All(x => x != id)))
-            validation.AddNotAllowToChange(nameof(AspectObjectAttributes), "It is not allowed to remove or change attributes");
+        if (blockAttributeDms.Select(y => y.AttributeId).Any(id => attributeAmIds.All(x => x != id)))
+            validation.AddNotAllowToChange(nameof(BlockAttributes), "It is not allowed to remove or change attributes");
 
         //Terminals
-        AspectObjectTerminals ??= new List<AspectObjectTerminalLibDm>();
-        other.AspectObjectTerminals ??= new List<AspectObjectTerminalLibAm>();
-        var otherTerminals = other.AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection));
-        if (AspectObjectTerminals.Select(y => (y.TerminalId, y.ConnectorDirection)).Any(identifier => otherTerminals.Select(x => x).All(x => x != identifier)))
+        BlockTerminals ??= new List<BlockTerminalLibDm>();
+        other.BlockTerminals ??= new List<BlockTerminalLibAm>();
+        var otherTerminals = other.BlockTerminals.Select(x => (x.TerminalId, x.ConnectorDirection));
+        if (BlockTerminals.Select(y => (y.TerminalId, y.ConnectorDirection)).Any(identifier => otherTerminals.Select(x => x).All(x => x != identifier)))
         {
-            validation.AddNotAllowToChange(nameof(AspectObjectTerminals), "It is not allowed to remove terminals");
+            validation.AddNotAllowToChange(nameof(BlockTerminals), "It is not allowed to remove terminals");
         }
 
-        foreach (var terminal in other.AspectObjectTerminals)
+        foreach (var terminal in other.BlockTerminals)
         {
-            if (!AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection)).Contains((terminal.TerminalId, terminal.ConnectorDirection))) continue;
+            if (!BlockTerminals.Select(x => (x.TerminalId, x.ConnectorDirection)).Contains((terminal.TerminalId, terminal.ConnectorDirection))) continue;
 
-            var current = AspectObjectTerminals.FirstOrDefault(x => x.TerminalId == terminal.TerminalId && x.ConnectorDirection == terminal.ConnectorDirection);
+            var current = BlockTerminals.FirstOrDefault(x => x.TerminalId == terminal.TerminalId && x.ConnectorDirection == terminal.ConnectorDirection);
             if (terminal.MaxQuantity != 0 && current?.MaxQuantity > terminal.MaxQuantity)
-                validation.AddNotAllowToChange(nameof(AspectObjectTerminals), "It is not allowed to lower max quantity of terminals");
+                validation.AddNotAllowToChange(nameof(BlockTerminals), "It is not allowed to lower max quantity of terminals");
         }
 
         //Predefined attributes
@@ -90,7 +90,7 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
         return validation;
     }
 
-    public VersionStatus CalculateVersionStatus(AspectObjectLibAm other)
+    public VersionStatus CalculateVersionStatus(BlockLibAm other)
     {
         if (other == null)
             throw new ArgumentNullException(nameof(other));
@@ -118,21 +118,21 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
 
         //Attributes
         var attributeAmIds = new List<string>();
-        var aspectObjectAttributeDms = new List<AspectObjectAttributeLibDm>();
+        var blockAttributeDms = new List<BlockAttributeLibDm>();
 
         attributeAmIds.AddRange(other.Attributes ?? new List<string>());
-        aspectObjectAttributeDms.AddRange(AspectObjectAttributes ?? new List<AspectObjectAttributeLibDm>());
+        blockAttributeDms.AddRange(BlockAttributes ?? new List<BlockAttributeLibDm>());
 
-        if (!aspectObjectAttributeDms.Select(x => x.AttributeId).Order().SequenceEqual(attributeAmIds.Order()))
+        if (!blockAttributeDms.Select(x => x.AttributeId).Order().SequenceEqual(attributeAmIds.Order()))
         {
             major = true;
         }
 
-        // Aspect Object Terminals
-        AspectObjectTerminals ??= new List<AspectObjectTerminalLibDm>();
-        other.AspectObjectTerminals ??= new List<AspectObjectTerminalLibAm>();
-        var otherTerminals = other.AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection, MaxQuantity: x.MaxQuantity == 0 ? int.MaxValue : x.MaxQuantity)).OrderBy(x => x.TerminalId).ThenBy(x => x.ConnectorDirection).ThenBy(x => x.MaxQuantity);
-        if (!AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection, x.MaxQuantity)).OrderBy(x => x.TerminalId).ThenBy(x => x.ConnectorDirection).ThenBy(x => x.MaxQuantity).SequenceEqual(otherTerminals))
+        // Block Terminals
+        BlockTerminals ??= new List<BlockTerminalLibDm>();
+        other.BlockTerminals ??= new List<BlockTerminalLibAm>();
+        var otherTerminals = other.BlockTerminals.Select(x => (x.TerminalId, x.ConnectorDirection, MaxQuantity: x.MaxQuantity == 0 ? int.MaxValue : x.MaxQuantity)).OrderBy(x => x.TerminalId).ThenBy(x => x.ConnectorDirection).ThenBy(x => x.MaxQuantity);
+        if (!BlockTerminals.Select(x => (x.TerminalId, x.ConnectorDirection, x.MaxQuantity)).OrderBy(x => x.TerminalId).ThenBy(x => x.ConnectorDirection).ThenBy(x => x.MaxQuantity).SequenceEqual(otherTerminals))
             major = true;
 
         // Attribute Predefined
@@ -154,7 +154,7 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
         {
             ObjectId = Id,
             ObjectFirstVersionId = FirstVersionId,
-            ObjectType = nameof(AspectObjectLibDm),
+            ObjectType = nameof(BlockLibDm),
             ObjectName = Name,
             ObjectVersion = Version,
             LogType = logType,
@@ -166,7 +166,7 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
 
     #endregion ILogable
 
-    public bool Equals(AspectObjectLibDm other)
+    public bool Equals(BlockLibDm other)
     {
         if (ReferenceEquals(null, other)) return false;
         if (ReferenceEquals(this, other)) return true;
@@ -174,19 +174,19 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
         if (Name != other.Name || Aspect != other.Aspect || RdsId != other.RdsId || PurposeName != other.PurposeName || CompanyId != other.CompanyId || TypeReference != other.TypeReference || Description != other.Description || Symbol != other.Symbol)
             return false;
 
-        //Aspect Object Attributes
-        AspectObjectAttributes ??= new List<AspectObjectAttributeLibDm>();
-        other.AspectObjectAttributes ??= new List<AspectObjectAttributeLibDm>();
-        if (!AspectObjectAttributes.Select(x => x.AttributeId).Order().SequenceEqual(other.AspectObjectAttributes.Select(x => x.AttributeId).Order()))
+        // Block Attributes
+        BlockAttributes ??= new List<BlockAttributeLibDm>();
+        other.BlockAttributes ??= new List<BlockAttributeLibDm>();
+        if (!BlockAttributes.Select(x => x.AttributeId).Order().SequenceEqual(other.BlockAttributes.Select(x => x.AttributeId).Order()))
         {
             return false;
         }
 
-        // Aspect Object Terminals
-        AspectObjectTerminals ??= new List<AspectObjectTerminalLibDm>();
-        other.AspectObjectTerminals ??= new List<AspectObjectTerminalLibDm>();
-        if (!AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection)).Order()
-                .SequenceEqual(other.AspectObjectTerminals.Select(x => (x.TerminalId, x.ConnectorDirection)).Order()))
+        // Block Terminals
+        BlockTerminals ??= new List<BlockTerminalLibDm>();
+        other.BlockTerminals ??= new List<BlockTerminalLibDm>();
+        if (!BlockTerminals.Select(x => (x.TerminalId, x.ConnectorDirection)).Order()
+                .SequenceEqual(other.BlockTerminals.Select(x => (x.TerminalId, x.ConnectorDirection)).Order()))
         {
             return false;
         }
@@ -208,7 +208,7 @@ public class AspectObjectLibDm : IVersionable<AspectObjectLibAm>, IVersionObject
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != this.GetType()) return false;
-        return Equals((AspectObjectLibDm) obj);
+        return Equals((BlockLibDm) obj);
     }
 
     public override int GetHashCode()

@@ -12,7 +12,7 @@ namespace TypeLibrary.Services.Records;
 
 public record ApprovalData
 {
-    private List<ApprovalCm> AspectObjects { get; } = new();
+    private List<ApprovalCm> Blocks { get; } = new();
     private List<ApprovalCm> Terminals { get; } = new();
     private List<ApprovalCm> Attributes { get; } = new();
     private List<ApprovalCm> Units { get; } = new();
@@ -22,7 +22,7 @@ public record ApprovalData
     public ICollection<ApprovalCm> GetAllData()
     {
         var allData = new List<ApprovalCm>();
-        allData.AddRange(AspectObjects);
+        allData.AddRange(Blocks);
         allData.AddRange(Terminals);
         allData.AddRange(Attributes);
         allData.AddRange(Units);
@@ -31,12 +31,12 @@ public record ApprovalData
         return allData;
     }
 
-    public Task ResolveAspectObjects(IAspectObjectService aspectObjectService, IMapper mapper, IMimirorgAuthService authService)
+    public Task ResolveBlocks(IBlockService blockService, IMapper mapper, IMimirorgAuthService authService)
     {
-        var data = aspectObjectService.GetLatestVersions().Where(x => x.State == State.Review).ToList();
+        var data = blockService.GetLatestVersions().Where(x => x.State == State.Review).ToList();
         data = data.Where(x => authService.HasAccess(x.CompanyId, State.Approved).Result).ToList();
         var mappedData = mapper.Map<ICollection<ApprovalCm>>(data);
-        AspectObjects.AddRange(mappedData);
+        Blocks.AddRange(mappedData);
         return Task.CompletedTask;
     }
 
