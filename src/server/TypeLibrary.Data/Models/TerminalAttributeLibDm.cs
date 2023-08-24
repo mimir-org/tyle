@@ -4,9 +4,9 @@ public class TerminalAttributeLibDm
 {
     public int Id { get; set; }
     public int MinCount { get; set; }
-    public int MaxCount { get; set; }
-    public string TerminalId { get; set; }
-    public TerminalLibDm Terminal { get; set; }
-    public string AttributeId { get; set; }
-    public AttributeLibDm Attribute { get; set; }
+    public int? MaxCount { get; set; }
+    public string TerminalId { get; set; } = null!;
+    public TerminalLibDm Terminal { get; set; } = null!;
+    public string AttributeId { get; set; } = null!;
+    public AttributeLibDm Attribute { get; set; } = null!;
 }

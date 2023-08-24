@@ -13,7 +13,7 @@ public class AttributeUnitConfiguration : IEntityTypeConfiguration<AttributeUnit
         builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(63);
         builder.Property(p => p.IsDefault).HasColumnName("IsDefault").IsRequired();
 
-        builder.HasOne(x => x.Unit).WithMany(y => y.UnitAttributes).HasForeignKey(x => x.UnitId).OnDelete(DeleteBehavior.Cascade);
-        builder.HasOne(x => x.Attribute).WithMany(y => y.AttributeUnits).HasForeignKey(x => x.AttributeId).OnDelete(DeleteBehavior.Cascade);
+        //builder.HasOne(x => x.Unit).WithMany(y => y.UnitAttributes).HasForeignKey(x => x.UnitId).OnDelete(DeleteBehavior.Cascade);
+        //builder.HasOne(x => x.Attribute).WithMany(y => y.AttributeUnits).HasForeignKey(x => x.AttributeId).OnDelete(DeleteBehavior.Cascade);
     }
 }

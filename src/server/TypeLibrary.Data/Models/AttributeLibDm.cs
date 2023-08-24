@@ -10,11 +10,11 @@ namespace TypeLibrary.Data.Models;
 public class AttributeLibDm // : ILogable, IStatefulObject
 {
     public Guid Id { get; set; }
-    public string Name { get; set; }
+    public required string Name { get; set; }
     public string? Description { get; set; }
     public string Version { get; set; } = "1.0";
     public DateTimeOffset CreatedOn { get; set; }
-    public string CreatedBy { get; set; }
+    public required string CreatedBy { get; set; }
     public ICollection<string> ContributedBy { get; set; } = new List<string>();
     public DateTimeOffset LastUpdateOn { get; set; }
     //public int CompanyId { get; set; }
@@ -27,7 +27,7 @@ public class AttributeLibDm // : ILogable, IStatefulObject
     public ScopeQualifier? ScopeQualifier { get; set; }
     public ValueConstraintLibDm? ValueConstraint { get; set; }
 
-    public ICollection<AttributeUnitLibDm> AttributeUnits { get; set; } = new List<AttributeUnitLibDm>();
+    //public ICollection<AttributeUnitLibDm> AttributeUnits { get; set; } = new List<AttributeUnitLibDm>();
     public ICollection<BlockAttributeLibDm> AttributeBlocks { get; set; } = new List<BlockAttributeLibDm>();
     public ICollection<TerminalAttributeLibDm> AttributeTerminals { get; set; } = new List<TerminalAttributeLibDm>();
 
