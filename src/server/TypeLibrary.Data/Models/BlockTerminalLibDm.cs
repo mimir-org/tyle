@@ -6,9 +6,9 @@ namespace TypeLibrary.Data.Models;
 public class BlockTerminalLibDm
 {
     public string Id { get; set; }
-    public int MinQuantity { get; set; }
-    public int MaxQuantity { get; set; }
-    public ConnectorDirection ConnectorDirection { get; set; }
+    public int MinCount { get; set; }
+    public int MaxCount { get; set; }
+    public Direction Direction { get; set; }
     public string BlockId { get; set; }
     public BlockLibDm Block { get; set; }
     public string TerminalId { get; set; }
@@ -16,6 +16,6 @@ public class BlockTerminalLibDm
 
     public string GetHash()
     {
-        return $"{MinQuantity}-{MaxQuantity}-{ConnectorDirection}-{TerminalId}".GetSha256Hash();
+        return $"{MinCount}-{MaxCount}-{Direction}-{TerminalId}".GetSha256Hash();
     }
 }

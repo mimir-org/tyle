@@ -84,7 +84,7 @@ public class BlockProfile : Profile
 
         foreach (var item in terminals)
         {
-            var existingSortedTerminalType = sortedTerminalTypes.FirstOrDefault(x => x.TerminalId == item.TerminalId && x.ConnectorDirection == item.ConnectorDirection);
+            var existingSortedTerminalType = sortedTerminalTypes.FirstOrDefault(x => x.TerminalId == item.TerminalId && x.Direction == item.Direction);
 
             if (existingSortedTerminalType == null)
             {

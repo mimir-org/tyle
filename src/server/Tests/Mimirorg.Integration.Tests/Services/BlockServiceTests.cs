@@ -38,7 +38,7 @@ public class BlockServiceTests : IntegrationTest
                     TerminalId = terminal.Id,
                     MinQuantity = 1,
                     MaxQuantity = int.MaxValue,
-                    ConnectorDirection = ConnectorDirection.Output
+                    Direction = Direction.Output
                 }
             },
             SelectedAttributePredefined = new List<SelectedAttributePredefinedLibAm>{
@@ -76,7 +76,7 @@ public class BlockServiceTests : IntegrationTest
                 Assert.Equal(am.TerminalId, cm.Terminal.Id);
                 Assert.Equal(am.MinQuantity, cm.MinQuantity);
                 Assert.Equal(am.MaxQuantity, cm.MaxQuantity);
-                Assert.Equal(am.ConnectorDirection.ToString(), cm.ConnectorDirection.ToString());
+                Assert.Equal(am.Direction.ToString(), cm.Direction.ToString());
             }
         }
 

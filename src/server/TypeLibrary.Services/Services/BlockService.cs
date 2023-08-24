@@ -275,7 +275,7 @@ public class BlockService : IBlockService
             var blockTerminalDb = _blockTerminalRepository
                 .FindBy(x => x.BlockId == blockToUpdate.Id
                  && x.TerminalId == blockTerminal.TerminalId
-                 && x.ConnectorDirection == blockTerminal.ConnectorDirection).FirstOrDefault();
+                 && x.Direction == blockTerminal.Direction).FirstOrDefault();
 
             if (blockTerminalDb == null)
                 continue;

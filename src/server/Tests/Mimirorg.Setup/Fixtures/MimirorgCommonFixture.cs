@@ -61,14 +61,14 @@ public class MimirorgCommonFixture : IDisposable
             {
                 new()
                 {
-                    ConnectorDirection = ConnectorDirection.Input,
+                    Direction = Direction.Input,
                     MinQuantity = 1,
                     MaxQuantity = int.MaxValue,
                     TerminalId = "123"
                 },
                 new()
                 {
-                    ConnectorDirection = ConnectorDirection.Input,
+                    Direction = Direction.Input,
                     MinQuantity = 1,
                     MaxQuantity = int.MaxValue,
                     TerminalId = "555"
@@ -98,9 +98,9 @@ public class MimirorgCommonFixture : IDisposable
             {
                 new()
                 {
-                    ConnectorDirection = ConnectorDirection.Input,
-                    MinQuantity = 1,
-                    MaxQuantity = int.MaxValue,
+                    Direction = Direction.Input,
+                    MinCount = 1,
+                    MaxCount = int.MaxValue,
                     TerminalId = "123",
                     Id = "74853"
                 }

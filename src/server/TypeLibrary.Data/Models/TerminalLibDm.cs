@@ -7,21 +7,29 @@ using TypeLibrary.Data.Contracts.Common;
 
 namespace TypeLibrary.Data.Models;
 
-public class TerminalLibDm : IStatefulObject, ILogable
+public class TerminalLibDm // : ILogable, IStatefulObject
 {
     public string Id { get; set; }
     public string Name { get; set; }
-    public string Iri { get; set; }
-    public string TypeReference { get; set; }
-    public DateTime Created { get; set; }
-    public string CreatedBy { get; set; }
-    public State State { get; set; }
-    public string Color { get; set; }
     public string Description { get; set; }
+    public string Version { get; set; }
+    public DateTimeOffset CreatedOn { get; set; }
+    public string CreatedBy { get; set; }
+    public List<string> ContributedBy { get; set; }
+    public DateTimeOffset LastUpdateOn { get; set; }
+    //public int CompanyId { get; set; }
+    //public State State { get; set; }
+    public List<string> Classifiers { get; set; }
+    public string Purpose { get; set; }
+    public string Notation { get; set; }
+    public string Symbol { get; set; }
+    public Aspect Aspect { get; set; }
+    public string Medium { get; set; }
+    public Direction Qualifier { get; set; }
     public ICollection<BlockTerminalLibDm> TerminalBlocks { get; set; }
     public ICollection<TerminalAttributeLibDm> TerminalAttributes { get; set; }
 
-    #region ILogable
+    /*#region ILogable
 
     public LogLibDm CreateLog(LogType logType, string logTypeValue, string createdBy)
     {
@@ -39,5 +47,5 @@ public class TerminalLibDm : IStatefulObject, ILogable
         };
     }
 
-    #endregion ILogable
+    #endregion ILogable*/
 }

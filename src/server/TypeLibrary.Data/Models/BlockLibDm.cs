@@ -13,29 +13,29 @@ namespace TypeLibrary.Data.Models;
 /// <summary>
 /// Block domain model
 /// </summary>
-public class BlockLibDm : IVersionable<BlockLibAm>, IVersionObject, ILogable, IEquatable<BlockLibDm>
+public class BlockLibDm // : IVersionable<BlockLibAm>, IVersionObject, IEquatable<BlockLibDm>, ILogable
 {
     public string Id { get; set; }
     public string Name { get; set; }
-    public string Iri { get; set; }
-    public string TypeReference { get; set; }
-    public string Version { get; set; }
-    public string FirstVersionId { get; set; }
-    public DateTime Created { get; set; }
-    public string CreatedBy { get; set; }
-    public int CompanyId { get; set; }
-    public State State { get; set; }
-    public Aspect Aspect { get; set; }
-    public string PurposeName { get; set; }
-    public string RdsId { get; set; }
-    public RdsLibDm Rds { get; set; }
-    public string Symbol { get; set; }
     public string Description { get; set; }
+    public string Version { get; set; }
+    public DateTimeOffset CreatedOn { get; set; }
+    public string CreatedBy { get; set; }
+    public List<string> ContributedBy { get; set; }
+    public DateTimeOffset LastUpdateOn { get; set; }
+    //public int CompanyId { get; set; }
+    //public State State { get; set; }
+    public List<string> Classifiers { get; set; }
+    public string Purpose { get; set; }
+    public string Notation { get; set; }
+    public string Symbol { get; set; }
+    public Aspect Aspect { get; set; }
+
     public virtual ICollection<BlockTerminalLibDm> BlockTerminals { get; set; }
     public virtual ICollection<BlockAttributeLibDm> BlockAttributes { get; set; }
-    public virtual List<SelectedAttributePredefinedLibDm> SelectedAttributePredefined { get; set; }
+    //public virtual List<SelectedAttributePredefinedLibDm> SelectedAttributePredefined { get; set; }
 
-    #region IVersionable
+    /*#region IVersionable
 
     public Validation HasIllegalChanges(BlockLibAm other)
     {
@@ -63,18 +63,18 @@ public class BlockLibDm : IVersionable<BlockLibAm>, IVersionObject, ILogable, IE
         //Terminals
         BlockTerminals ??= new List<BlockTerminalLibDm>();
         other.BlockTerminals ??= new List<BlockTerminalLibAm>();
-        var otherTerminals = other.BlockTerminals.Select(x => (x.TerminalId, x.ConnectorDirection));
-        if (BlockTerminals.Select(y => (y.TerminalId, y.ConnectorDirection)).Any(identifier => otherTerminals.Select(x => x).All(x => x != identifier)))
+        var otherTerminals = other.BlockTerminals.Select(x => (x.TerminalId, x.Direction));
+        if (BlockTerminals.Select(y => (y.TerminalId, y.Direction)).Any(identifier => otherTerminals.Select(x => x).All(x => x != identifier)))
         {
             validation.AddNotAllowToChange(nameof(BlockTerminals), "It is not allowed to remove terminals");
         }
 
         foreach (var terminal in other.BlockTerminals)
         {
-            if (!BlockTerminals.Select(x => (x.TerminalId, x.ConnectorDirection)).Contains((terminal.TerminalId, terminal.ConnectorDirection))) continue;
+            if (!BlockTerminals.Select(x => (x.TerminalId, x.Direction)).Contains((terminal.TerminalId, terminal.Direction))) continue;
 
-            var current = BlockTerminals.FirstOrDefault(x => x.TerminalId == terminal.TerminalId && x.ConnectorDirection == terminal.ConnectorDirection);
-            if (terminal.MaxQuantity != 0 && current?.MaxQuantity > terminal.MaxQuantity)
+            var current = BlockTerminals.FirstOrDefault(x => x.TerminalId == terminal.TerminalId && x.Direction == terminal.Direction);
+            if (terminal.MaxCount != 0 && current?.MaxCount > terminal.MaxCount)
                 validation.AddNotAllowToChange(nameof(BlockTerminals), "It is not allowed to lower max quantity of terminals");
         }
 
@@ -131,8 +131,8 @@ public class BlockLibDm : IVersionable<BlockLibAm>, IVersionObject, ILogable, IE
         // Block Terminals
         BlockTerminals ??= new List<BlockTerminalLibDm>();
         other.BlockTerminals ??= new List<BlockTerminalLibAm>();
-        var otherTerminals = other.BlockTerminals.Select(x => (x.TerminalId, x.ConnectorDirection, MaxQuantity: x.MaxQuantity == 0 ? int.MaxValue : x.MaxQuantity)).OrderBy(x => x.TerminalId).ThenBy(x => x.ConnectorDirection).ThenBy(x => x.MaxQuantity);
-        if (!BlockTerminals.Select(x => (x.TerminalId, x.ConnectorDirection, x.MaxQuantity)).OrderBy(x => x.TerminalId).ThenBy(x => x.ConnectorDirection).ThenBy(x => x.MaxQuantity).SequenceEqual(otherTerminals))
+        var otherTerminals = other.BlockTerminals.Select(x => (x.TerminalId, x.Direction, MaxCount: x.MaxCount == 0 ? int.MaxValue : x.MaxCount)).OrderBy(x => x.TerminalId).ThenBy(x => x.Direction).ThenBy(x => x.MaxCount);
+        if (!BlockTerminals.Select(x => (x.TerminalId, x.Direction, x.MaxCount)).OrderBy(x => x.TerminalId).ThenBy(x => x.Direction).ThenBy(x => x.MaxCount).SequenceEqual(otherTerminals))
             major = true;
 
         // Attribute Predefined
@@ -185,8 +185,8 @@ public class BlockLibDm : IVersionable<BlockLibAm>, IVersionObject, ILogable, IE
         // Block Terminals
         BlockTerminals ??= new List<BlockTerminalLibDm>();
         other.BlockTerminals ??= new List<BlockTerminalLibDm>();
-        if (!BlockTerminals.Select(x => (x.TerminalId, x.ConnectorDirection)).Order()
-                .SequenceEqual(other.BlockTerminals.Select(x => (x.TerminalId, x.ConnectorDirection)).Order()))
+        if (!BlockTerminals.Select(x => (x.TerminalId, x.Direction)).Order()
+                .SequenceEqual(other.BlockTerminals.Select(x => (x.TerminalId, x.Direction)).Order()))
         {
             return false;
         }
@@ -214,5 +214,5 @@ public class BlockLibDm : IVersionable<BlockLibAm>, IVersionObject, ILogable, IE
     public override int GetHashCode()
     {
         return Id.GetHashCode();
-    }
+    }*/
 }

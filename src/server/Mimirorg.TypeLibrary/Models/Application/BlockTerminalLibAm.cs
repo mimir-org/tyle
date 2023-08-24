@@ -10,7 +10,7 @@ public class BlockTerminalLibAm
     [Required]
     public int MaxQuantity { get; set; }
     [Required]
-    public ConnectorDirection ConnectorDirection { get; set; }
+    public Direction Direction { get; set; }
     [Required]
     public string TerminalId { get; set; }
 }
