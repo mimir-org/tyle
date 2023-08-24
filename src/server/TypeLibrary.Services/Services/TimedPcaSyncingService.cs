@@ -22,16 +22,14 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
     private readonly IApplicationSettingsRepository _settings;
     private Timer _timer;
     private readonly IAttributeReferenceRepository _attributeReferenceRepository;
-    private readonly IQuantityDatumReferenceRepository _quantityDatumReferenceRepository;
     private readonly IUnitReferenceRepository _unitReferenceRepository;
 
-    public TimedPcaSyncingService(ILogger<TimedPcaSyncingService> logger, IServiceProvider serviceProvider, IApplicationSettingsRepository settings, IAttributeReferenceRepository attributeReferenceReferenceRepository, IQuantityDatumReferenceRepository quantityDatumReferenceRepository, IUnitReferenceRepository unitReferenceRepository)
+    public TimedPcaSyncingService(ILogger<TimedPcaSyncingService> logger, IServiceProvider serviceProvider, IApplicationSettingsRepository settings, IAttributeReferenceRepository attributeReferenceRepository, IUnitReferenceRepository unitReferenceRepository)
     {
         _logger = logger;
         _serviceProvider = serviceProvider;
         _settings = settings;
-        _attributeReferenceRepository = attributeReferenceReferenceRepository;
-        _quantityDatumReferenceRepository = quantityDatumReferenceRepository;
+        _attributeReferenceRepository = attributeReferenceRepository;
         _unitReferenceRepository = unitReferenceRepository;
     }
 
@@ -76,8 +74,6 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         await SyncUnits();
         _logger.LogInformation("--------------------------------------------------");
         await SyncAttributes();
-        _logger.LogInformation("--------------------------------------------------");
-        await SyncQuantityDatums();
         _logger.LogInformation("--------------------------------------------------");
         _logger.LogInformation("PCA sync completed.");
     }
@@ -215,59 +211,6 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         externalUnits.Sort();
 
         return storedUnits.SequenceEqual(externalUnits);
-    }
-
-    private async Task SyncQuantityDatums()
-    {
-        var pcaQuantityDatumsFetch = _quantityDatumReferenceRepository.FetchQuantityDatumsFromReference();
-        using var scope = _serviceProvider.CreateScope();
-        var quantityDatumService = scope.ServiceProvider.GetService<IQuantityDatumService>();
-        var dbQuantityDatums = quantityDatumService.Get().ToList();
-        var dbQuantityDatumsReferences = new Dictionary<string, string>();
-
-        foreach (var quantityDatum in dbQuantityDatums)
-        {
-            if (quantityDatum.TypeReference == null)
-                continue;
-
-            if (!quantityDatum.TypeReference.Contains("posccaesar.org"))
-                continue;
-
-            if (dbQuantityDatumsReferences.ContainsKey(quantityDatum.TypeReference))
-            {
-                _logger.LogError("Duplicate PCA type references in QuantityDatum table.");
-            }
-            else
-            {
-                dbQuantityDatumsReferences.Add(quantityDatum.TypeReference, quantityDatum.Id);
-            }
-        }
-
-        var pcaQuantityDatums = await pcaQuantityDatumsFetch;
-        _logger.LogInformation("Retrieved quantity datum data from PCA...");
-
-        var created = 0;
-
-        foreach (var pcaQuantityDatum in pcaQuantityDatums)
-        {
-            if (dbQuantityDatumsReferences.TryGetValue(pcaQuantityDatum.TypeReference, out var reference))
-            {
-                var storedQuantityDatum = quantityDatumService.Get(reference);
-
-                if (storedQuantityDatum.Equals(pcaQuantityDatum))
-                    continue;
-
-                _logger.LogError($"Quantity datum with id {storedQuantityDatum.Id} deviates from PCA.");
-            }
-            else
-            {
-                await quantityDatumService.Create(pcaQuantityDatum, CreatedBy.PcaSyncJob);
-                created++;
-            }
-        }
-
-        _logger.LogInformation("Quantity datum sync from PCA completed.");
-        _logger.LogInformation($"Number of new quantity datums: {created}");
     }
 
     protected virtual void Dispose(bool disposing)
