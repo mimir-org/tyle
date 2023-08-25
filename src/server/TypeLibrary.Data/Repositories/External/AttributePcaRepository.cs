@@ -51,9 +51,9 @@ public class AttributePcaRepository : IAttributeReferenceRepository
             var attribute = new AttributeLibAm
             {
                 Name = firstElement?.Quantity_Label,
-                TypeReference = firstElement?.Quantity,
-                Description = $"Attribute received from PCA at {DateTime.UtcNow.ToString(System.Globalization.CultureInfo.InvariantCulture)} (UTC).",
-                AttributeUnits = new List<AttributeUnitLibAm>()
+                //TypeReference = firstElement?.Quantity,
+                Description = $"Attribute received from PCA at {DateTime.UtcNow.ToString(System.Globalization.CultureInfo.InvariantCulture)} (UTC)."
+                //AttributeUnits = new List<AttributeUnitLibAm>()
             };
 
             foreach (var pcaUnit in group)
@@ -66,11 +66,11 @@ public class AttributePcaRepository : IAttributeReferenceRepository
                     continue;
                 }
 
-                attribute.AttributeUnits.Add(new AttributeUnitLibAm
+                /*attribute.AttributeUnits.Add(new AttributeUnitLibAm
                 {
                     UnitId = dbUnit.Id,
                     IsDefault = !string.IsNullOrWhiteSpace(firstElement?.Default_Uom) && (pcaUnit.Uom == firstElement.Default_Uom)
-                });
+                });*/
             }
 
             attributes.Add(attribute);

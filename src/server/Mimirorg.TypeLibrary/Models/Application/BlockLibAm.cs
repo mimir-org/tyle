@@ -8,7 +8,7 @@ namespace Mimirorg.TypeLibrary.Models.Application;
 /// <summary>
 /// Object used to create or update a block
 /// </summary>
-public class BlockLibAm : ICompanyObject
+public class BlockLibAm // : ICompanyObject
 {
     /// <summary>
     /// The name of the block

@@ -1,4 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
+/*using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -229,4 +229,4 @@ public class TimedPcaSyncingService : IHostedService, IDisposable
         Dispose(true);
         GC.SuppressFinalize(this);
     }
-}
+}*/

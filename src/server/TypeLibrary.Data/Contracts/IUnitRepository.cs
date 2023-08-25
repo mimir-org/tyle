@@ -12,7 +12,7 @@ public interface IUnitRepository
     /// </summary>
     /// <param name="state">The state to change to</param>
     /// <param name="id">The unit id</param>
-    //Task ChangeState(State state, string id);
+    Task ChangeState(State state, string id);
 
     /// <summary>
     /// Get all units

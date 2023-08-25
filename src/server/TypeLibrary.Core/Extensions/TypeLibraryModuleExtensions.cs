@@ -78,7 +78,7 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IBlockService, BlockService>();
         services.AddScoped<IModuleService, ModuleService>();
         services.AddScoped<ILogService, LogService>();
-        services.AddScoped<IApprovalService, ApprovalService>();
+        //services.AddScoped<IApprovalService, ApprovalService>();
         services.AddScoped<IEmailService, EmailService>();
 
         // Hosted services

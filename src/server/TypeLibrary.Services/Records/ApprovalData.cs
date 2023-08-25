@@ -1,4 +1,4 @@
-using AutoMapper;
+/*using AutoMapper;
 using Mimirorg.Authentication.Contracts;
 using Mimirorg.Common.Enums;
 using Mimirorg.TypeLibrary.Constants;
@@ -16,7 +16,6 @@ public record ApprovalData
     private List<ApprovalCm> Terminals { get; } = new();
     private List<ApprovalCm> Attributes { get; } = new();
     private List<ApprovalCm> Units { get; } = new();
-    private List<ApprovalCm> QuantityDatums { get; } = new();
     private List<ApprovalCm> Rds { get; } = new();
 
     public ICollection<ApprovalCm> GetAllData()
@@ -26,7 +25,6 @@ public record ApprovalData
         allData.AddRange(Terminals);
         allData.AddRange(Attributes);
         allData.AddRange(Units);
-        allData.AddRange(QuantityDatums);
         allData.AddRange(Rds);
         return allData;
     }
@@ -70,16 +68,6 @@ public record ApprovalData
         return Task.CompletedTask;
     }
 
-    public Task ResolveQuantityDatums(IQuantityDatumService quantityDatumService, IMapper mapper, IMimirorgAuthService authService)
-    {
-        if (!authService.HasAccess(CompanyConstants.AnyCompanyId, State.Approved).Result) return Task.CompletedTask;
-
-        var data = quantityDatumService.Get().Where(x => x.State == State.Review).ToList();
-        var mappedData = mapper.Map<ICollection<ApprovalCm>>(data);
-        QuantityDatums.AddRange(mappedData);
-        return Task.CompletedTask;
-    }
-
     public Task ResolveRds(IRdsService rdsService, IMapper mapper, IMimirorgAuthService authService)
     {
         if (!authService.HasAccess(CompanyConstants.AnyCompanyId, State.Approved).Result) return Task.CompletedTask;
@@ -89,4 +77,4 @@ public record ApprovalData
         Rds.AddRange(mappedData);
         return Task.CompletedTask;
     }
-}
+}*/
