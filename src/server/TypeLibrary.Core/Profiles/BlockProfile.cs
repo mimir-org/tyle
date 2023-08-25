@@ -21,23 +21,26 @@ public class BlockProfile : Profile
         CreateMap<BlockLibAm, BlockLibDm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid().ToString()))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(dest => dest.Iri, opt => opt.MapFrom(new BlockIriResolver(settings)))
-            .ForMember(dest => dest.TypeReference, opt => opt.MapFrom(src => src.TypeReference))
-            .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
-            .ForMember(dest => dest.FirstVersionId, opt => opt.Ignore())
-            .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.UtcNow))
-            .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? CreatedBy.Unknown : contextAccessor.GetUserId()))
-            .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
-            .ForMember(dest => dest.State, opt => opt.Ignore())
-            .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
-            .ForMember(dest => dest.PurposeName, opt => opt.MapFrom(src => src.PurposeName))
-            .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
-            .ForMember(dest => dest.Rds, opt => opt.Ignore())
-            .ForMember(dest => dest.Symbol, opt => opt.MapFrom(src => src.Symbol))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+            .ForMember(dest => dest.Version, opt => opt.Ignore())
+            .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(src => DateTimeOffset.UtcNow))
+            .ForMember(dest => dest.CreatedBy,
+                opt => opt.MapFrom(src =>
+                    string.IsNullOrWhiteSpace(contextAccessor.GetUserId())
+                        ? CreatedBy.Unknown
+                        : contextAccessor.GetUserId()))
+            .ForMember(dest => dest.ContributedBy, opt => opt.Ignore())
+            .ForMember(dest => dest.LastUpdateOn, opt => opt.Ignore())
+            //.ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
+            //.ForMember(dest => dest.State, opt => opt.Ignore())
+            .ForMember(dest => dest.Classifiers, opt => opt.MapFrom(src => src.Classifiers))
+            .ForMember(dest => dest.Purpose, opt => opt.MapFrom(src => src.Purpose))
+            .ForMember(dest => dest.Notation, opt => opt.MapFrom(src => src.Notation))
+            .ForMember(dest => dest.Symbol, opt => opt.MapFrom(src => src.Symbol))
+            .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
             .ForMember(dest => dest.BlockTerminals, opt => opt.MapFrom(src => CreateTerminals(src.BlockTerminals)))
-            .ForMember(dest => dest.BlockAttributes, opt => opt.Ignore())
-            .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
+            .ForMember(dest => dest.BlockAttributes, opt => opt.Ignore());
+            //.ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
         CreateMap<BlockLibDm, BlockLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -93,8 +96,8 @@ public class BlockProfile : Profile
 
             else
             {
-                existingSortedTerminalType.MinQuantity += item.MinQuantity;
-                existingSortedTerminalType.MaxQuantity += item.MaxQuantity;
+                existingSortedTerminalType.MinCount += item.MinCount;
+                existingSortedTerminalType.MaxCount += item.MaxCount;
             }
         }
 
