@@ -27,18 +27,16 @@ public class SemanticController : ControllerBase
     private readonly IBlockService _blockService;
     private readonly ITerminalService _terminalService;
     private readonly IUnitService _unitService;
-    private readonly IQuantityDatumService _quantityDatumService;
     private readonly IRdsService _rdsService;
     private readonly ISymbolService _symbolService;
 
-    public SemanticController(ILogger<SemanticController> logger, IAttributeService attributeService, IBlockService blockService, ITerminalService terminalService, IUnitService unitService, IQuantityDatumService quantityDatumService, IRdsService rdsService, ISymbolService symbolService)
+    public SemanticController(ILogger<SemanticController> logger, IAttributeService attributeService, IBlockService blockService, ITerminalService terminalService, IUnitService unitService, IRdsService rdsService, ISymbolService symbolService)
     {
         _logger = logger;
         _attributeService = attributeService;
         _blockService = blockService;
         _terminalService = terminalService;
         _unitService = unitService;
-        _quantityDatumService = quantityDatumService;
         _rdsService = rdsService;
         _symbolService = symbolService;
     }
@@ -193,50 +191,6 @@ public class SemanticController : ControllerBase
         try
         {
             var data = _unitService.Get(id);
-            if (data == null)
-                return NoContent();
-
-            return Ok(data);
-        }
-        catch (MimirorgBadRequestException e)
-        {
-            _logger.LogWarning(e, $"Warning error: {e.Message}");
-
-            foreach (var error in e.Errors().ToList())
-            {
-                ModelState.Remove(error.Key);
-                ModelState.TryAddModelError(error.Key, error.Error);
-            }
-
-            return BadRequest(ModelState);
-        }
-        catch (MimirorgNotFoundException)
-        {
-            return NoContent();
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Internal Server Error: {e.Message}");
-            return StatusCode(500, "Internal Server Error");
-        }
-    }
-
-    /// <summary>
-    /// Get quantity datum ontology
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    [HttpGet("quantitydatum/{id}")]
-    [ProducesResponseType(typeof(QuantityDatumLibCm), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [AllowAnonymous]
-    public IActionResult GetQuantityDatum(string id)
-    {
-        try
-        {
-            var data = _quantityDatumService.Get(id);
             if (data == null)
                 return NoContent();
 
