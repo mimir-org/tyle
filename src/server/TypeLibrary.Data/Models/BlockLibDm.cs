@@ -15,24 +15,24 @@ namespace TypeLibrary.Data.Models;
 /// </summary>
 public class BlockLibDm // : IVersionable<BlockLibAm>, IVersionObject, IEquatable<BlockLibDm>, ILogable
 {
-    public string Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public string Version { get; set; }
+    public Guid Id { get; set; }
+    public required string Name { get; set; }
+    public string? Description { get; set; }
+    public string Version { get; set; } = "1.0";
     public DateTimeOffset CreatedOn { get; set; }
-    public string CreatedBy { get; set; }
-    public List<string> ContributedBy { get; set; }
+    public required string CreatedBy { get; set; }
+    public ICollection<string> ContributedBy { get; set; } = new List<string>();
     public DateTimeOffset LastUpdateOn { get; set; }
     //public int CompanyId { get; set; }
     //public State State { get; set; }
-    public List<string> Classifiers { get; set; }
-    public string Purpose { get; set; }
-    public string Notation { get; set; }
-    public string Symbol { get; set; }
+    public ICollection<string> Classifiers { get; set; } = new List<string>();
+    public string? Purpose { get; set; }
+    public string? Notation { get; set; }
+    public string? Symbol { get; set; }
     public Aspect Aspect { get; set; }
 
-    public virtual ICollection<BlockTerminalLibDm> BlockTerminals { get; set; }
-    public virtual ICollection<BlockAttributeLibDm> BlockAttributes { get; set; }
+    public virtual ICollection<BlockTerminalLibDm> BlockTerminals { get; set; } = null!;
+    public virtual ICollection<BlockAttributeLibDm> BlockAttributes { get; set; } = null!;
     //public virtual List<SelectedAttributePredefinedLibDm> SelectedAttributePredefined { get; set; }
 
     /*#region IVersionable

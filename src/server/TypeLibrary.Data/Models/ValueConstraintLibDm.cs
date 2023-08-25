@@ -1,11 +1,12 @@
+using System;
 using Mimirorg.TypeLibrary.Enums;
 
 namespace TypeLibrary.Data.Models;
 
 public class ValueConstraintLibDm
 {
-    public int Id { get; set; }
-    public string AttributeId { get; set; }
+    public Guid Id { get; set; }
+    public Guid AttributeId { get; set; }
     public AttributeLibDm Attribute { get; set; }
     public ConstraintType ConstraintType { get; set; }
     public string Value { get; set; }

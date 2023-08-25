@@ -1,3 +1,4 @@
+using System;
 using Mimirorg.TypeLibrary.Enums;
 using VDS.RDF;
 
@@ -5,14 +6,14 @@ namespace TypeLibrary.Data.Models;
 
 public class BlockTerminalLibDm
 {
-    public string Id { get; set; }
+    public Guid Id { get; set; }
     public int MinCount { get; set; }
-    public int MaxCount { get; set; }
+    public int? MaxCount { get; set; }
     public Direction Direction { get; set; }
-    public string BlockId { get; set; }
-    public BlockLibDm Block { get; set; }
-    public string TerminalId { get; set; }
-    public TerminalLibDm Terminal { get; set; }
+    public Guid BlockId { get; set; }
+    public BlockLibDm Block { get; set; } = null!;
+    public Guid TerminalId { get; set; }
+    public TerminalLibDm Terminal { get; set; } = null!;
 
     public string GetHash()
     {

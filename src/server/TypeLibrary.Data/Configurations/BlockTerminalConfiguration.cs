@@ -10,10 +10,10 @@ public class BlockTerminalConfiguration : IEntityTypeConfiguration<BlockTerminal
     {
         builder.HasKey(x => x.Id);
         builder.ToTable("Block_Terminal");
-        builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(63);
-        builder.Property(p => p.MinCount).HasColumnName("MinCount").IsRequired().HasDefaultValue(1);
-        builder.Property(p => p.MaxCount).HasColumnName("MaxCount").IsRequired().HasDefaultValue(int.MaxValue);
-        builder.Property(p => p.Direction).HasColumnName("Direction").IsRequired().HasConversion<string>().HasMaxLength(31);
+        builder.Property(p => p.Id).HasColumnName("Id").IsRequired().HasMaxLength(50);
+        builder.Property(p => p.MinCount).HasColumnName("MinCount").IsRequired();
+        builder.Property(p => p.MaxCount).HasColumnName("MaxCount");
+        builder.Property(p => p.Direction).HasColumnName("Direction").IsRequired().HasConversion<string>().HasMaxLength(20);
 
         builder.HasOne(x => x.Terminal).WithMany(y => y.TerminalBlocks).HasForeignKey(x => x.TerminalId).OnDelete(DeleteBehavior.Cascade);
         builder.HasOne(x => x.Block).WithMany(y => y.BlockTerminals).HasForeignKey(x => x.BlockId).OnDelete(DeleteBehavior.Cascade);
