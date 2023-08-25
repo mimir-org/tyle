@@ -15,10 +15,12 @@ public class TypeLibraryDbContext : DbContext
     public virtual DbSet<AttributeLibDm> Attribute { get; set; }
     public virtual DbSet<UnitLibDm> Unit { get; set; }
     public virtual DbSet<AttributeUnitLibDm> AttributeUnit { get; set; }
-    public virtual DbSet<QuantityDatumLibDm> QuantityDatum { get; set; }
     public virtual DbSet<BlockAttributeLibDm> BlockAttribute { get; set; }
     public virtual DbSet<TerminalAttributeLibDm> TerminalAttribute { get; set; }
     public virtual DbSet<RdsLibDm> Rds { get; set; }
+    public virtual DbSet<AttributeGroupLibDm> AttributeGroup { get; set; }
+    public virtual DbSet<AttributeGroupMappingLibDm> AttributeGroupMapping { get; set; }
+    public virtual DbSet<ValueConstraintLibDm> ValueConstraint { get; set; }
 
 
     public TypeLibraryDbContext(DbContextOptions<TypeLibraryDbContext> options) : base(options)
@@ -38,9 +40,11 @@ public class TypeLibraryDbContext : DbContext
         modelBuilder.ApplyConfiguration(new AttributeConfiguration());
         modelBuilder.ApplyConfiguration(new UnitConfiguration());
         modelBuilder.ApplyConfiguration(new AttributeUnitConfiguration());
-        modelBuilder.ApplyConfiguration(new QuantityDatumConfiguration());
         modelBuilder.ApplyConfiguration(new BlockAttributeConfiguration());
         modelBuilder.ApplyConfiguration(new TerminalAttributeConfiguration());
         modelBuilder.ApplyConfiguration(new RdsConfiguration());
+        modelBuilder.ApplyConfiguration(new AttributeGroupConfiguration());
+        modelBuilder.ApplyConfiguration(new AttributeGroupMappingConfiguration());
+        modelBuilder.ApplyConfiguration(new ValueConstraintConfiguration());
     }
 }
