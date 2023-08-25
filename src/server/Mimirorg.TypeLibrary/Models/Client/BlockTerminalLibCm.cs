@@ -4,9 +4,9 @@ namespace Mimirorg.TypeLibrary.Models.Client;
 
 public class BlockTerminalLibCm
 {
-    public string Id { get; set; }
-    public int MinQuantity { get; set; }
-    public int MaxQuantity { get; set; }
+    public Guid Id { get; set; }
+    public int MinCount { get; set; }
+    public int? MaxCount { get; set; }
     public Direction Direction { get; set; }
     public TerminalLibCm Terminal { get; set; }
     public string Kind => nameof(BlockTerminalLibCm);
