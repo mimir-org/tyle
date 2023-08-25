@@ -20,6 +20,6 @@ public class TerminalLibCm
     public Aspect Aspect { get; set; }
     public string Medium { get; set; }
     public Direction Qualifier { get; set; }
-    public ICollection<AttributeLibCm> Attributes { get; set; }
+    public ICollection<TerminalAttributeLibCm> TerminalAttributes { get; set; }
     public string Kind => nameof(TerminalLibCm);
 }

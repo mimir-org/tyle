@@ -45,6 +45,7 @@ public static class TypeLibraryServiceCollectionExtensions
         cfg.AddProfile(new AttributeProfile(provider.GetService<IApplicationSettingsRepository>(), provider.GetService<IHttpContextAccessor>()));
         cfg.AddProfile(new LogProfile());
         cfg.AddProfile(new AttributeUnitProfile());
+        cfg.AddProfile(new ValueConstraintProfile());
 
         var mapperConfig = new MapperConfiguration(cfg);
         mapperConfig.AssertConfigurationIsValid();

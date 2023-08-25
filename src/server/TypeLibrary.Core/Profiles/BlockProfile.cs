@@ -19,7 +19,7 @@ public class BlockProfile : Profile
     public BlockProfile(IApplicationSettingsRepository settings, IHttpContextAccessor contextAccessor, ICompanyFactory companyFactory)
     {
         CreateMap<BlockLibAm, BlockLibDm>()
-            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid().ToString()))
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
             .ForMember(dest => dest.Version, opt => opt.Ignore())
@@ -38,47 +38,44 @@ public class BlockProfile : Profile
             .ForMember(dest => dest.Notation, opt => opt.MapFrom(src => src.Notation))
             .ForMember(dest => dest.Symbol, opt => opt.MapFrom(src => src.Symbol))
             .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
-            .ForMember(dest => dest.BlockTerminals, opt => opt.MapFrom(src => CreateTerminals(src.BlockTerminals)))
-            .ForMember(dest => dest.BlockAttributes, opt => opt.Ignore());
+            .ForMember(dest => dest.BlockTerminals, opt => opt.MapFrom(src => src.BlockTerminals))
+            .ForMember(dest => dest.BlockAttributes, opt => opt.MapFrom(src => src.BlockAttributes));
             //.ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
         CreateMap<BlockLibDm, BlockLibCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(dest => dest.Iri, opt => opt.MapFrom(src => src.Iri))
-            .ForMember(dest => dest.TypeReference, opt => opt.MapFrom(src => src.TypeReference))
-            .ForMember(dest => dest.Version, opt => opt.MapFrom(src => src.Version))
-            .ForMember(dest => dest.FirstVersionId, opt => opt.MapFrom(src => src.FirstVersionId))
-            .ForMember(dest => dest.Created, opt => opt.MapFrom(src => src.Created))
-            .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy))
-            .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
-            .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => companyFactory.GetCompanyName(src.CompanyId)))
-            .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
-            .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
-            .ForMember(dest => dest.PurposeName, opt => opt.MapFrom(src => src.PurposeName))
-            .ForMember(dest => dest.RdsId, opt => opt.MapFrom(src => src.RdsId))
-            .ForMember(dest => dest.RdsCode, opt => opt.MapFrom(src => src.Rds.RdsCode))
-            .ForMember(dest => dest.RdsName, opt => opt.MapFrom(src => src.Rds.Name))
-            .ForMember(dest => dest.Symbol, opt => opt.MapFrom(src => src.Symbol))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+            .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(src => src.CreatedOn))
+            .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy))
+            .ForMember(dest => dest.ContributedBy, opt => opt.MapFrom(src => src.ContributedBy))
+            .ForMember(dest => dest.LastUpdateOn, opt => opt.MapFrom(src => src.LastUpdateOn))
+            //.ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
+            //.ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => companyFactory.GetCompanyName(src.CompanyId)))
+            //.ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
+            .ForMember(dest => dest.Classifiers, opt => opt.MapFrom(src => src.Classifiers))
+            .ForMember(dest => dest.Purpose, opt => opt.MapFrom(src => src.Purpose))
+            .ForMember(dest => dest.Notation, opt => opt.MapFrom(src => src.Notation))
+            .ForMember(dest => dest.Symbol, opt => opt.MapFrom(src => src.Symbol))
+            .ForMember(dest => dest.Aspect, opt => opt.MapFrom(src => src.Aspect))
             .ForMember(dest => dest.BlockTerminals, opt => opt.MapFrom(src => src.BlockTerminals))
-            .ForMember(dest => dest.Attributes, opt => opt.MapFrom(src => src.BlockAttributes.Select(x => x.Attribute)))
-            .ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
+            .ForMember(dest => dest.BlockAttributes, opt => opt.MapFrom(src => src.BlockAttributes));
+            //.ForMember(dest => dest.SelectedAttributePredefined, opt => opt.MapFrom(src => src.SelectedAttributePredefined));
 
         CreateMap<BlockLibCm, ApprovalCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.UserId, opt => opt.Ignore())
             .ForMember(dest => dest.UserName, opt => opt.Ignore())
-            .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
-            .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => companyFactory.GetCompanyName(src.CompanyId)))
-            .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
-            .ForMember(dest => dest.StateName, opt => opt.MapFrom(src => src.State.ToString()))
+            //.ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
+            //.ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => companyFactory.GetCompanyName(src.CompanyId)))
+            //.ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
+            //.ForMember(dest => dest.StateName, opt => opt.MapFrom(src => src.State.ToString()))
             .ForMember(dest => dest.ObjectType, opt => opt.MapFrom(src => "Block"))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
     }
 
-    private static IEnumerable<BlockTerminalLibAm> CreateTerminals(ICollection<BlockTerminalLibAm> terminals)
+    /*private static IEnumerable<BlockTerminalLibAm> CreateTerminals(ICollection<BlockTerminalLibAm> terminals)
     {
         if (terminals == null || !terminals.Any())
             yield break;
@@ -105,5 +102,5 @@ public class BlockProfile : Profile
         {
             yield return item;
         }
-    }
+    }*/
 }

@@ -6,9 +6,6 @@ namespace Mimirorg.TypeLibrary.Models.Application;
 public class ValueConstraintLibAm
 {
     [Required]
-    public string AttributeId { get; set; }
-
-    [Required]
     public ConstraintType ConstraintType { get; set; }
 
     public string Value { get; set; }
