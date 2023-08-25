@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,30 +16,30 @@ public class EfAttributeRepository : GenericRepository<TypeLibraryDbContext, Att
     {
     }
 
-    /// <inheritdoc />
+    /*/// <inheritdoc />
     public async Task ChangeState(State state, string id)
     {
         var attribute = await GetAsync(id);
         attribute.State = state;
         await SaveAsync();
         Detach(attribute);
-    }
+    }*/
 
     /// <inheritdoc />
     public IEnumerable<AttributeLibDm> Get()
     {
         return GetAll()
-            .Include(x => x.AttributeUnits)
-            .ThenInclude(x => x.Unit)
+            .Include(x => x.ValueConstraint)
+            .Include(x => x.AttributeGroups)
             .AsSplitQuery();
     }
 
     /// <inheritdoc />
-    public AttributeLibDm Get(string id)
+    public AttributeLibDm Get(Guid id)
     {
         return FindBy(x => x.Id == id)
-            .Include(x => x.AttributeUnits)
-            .ThenInclude(x => x.Unit)
+            .Include(x => x.ValueConstraint)
+            .Include(x => x.AttributeGroups)
             .AsSplitQuery()
             .FirstOrDefault();
     }

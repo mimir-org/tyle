@@ -1,3 +1,4 @@
+using System;
 using Mimirorg.Common.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ public interface IAttributeRepository
     /// </summary>
     /// <param name="state">The state to change to</param>
     /// <param name="id">The attribute id</param>
-    Task ChangeState(State state, string id);
+    //Task ChangeState(State state, string id);
 
     /// <summary>
     /// Get all attributes
@@ -25,7 +26,7 @@ public interface IAttributeRepository
     /// </summary>
     /// <param name="id">The id of the attribute to get</param>
     /// <returns>The attribute with the given id</returns>
-    AttributeLibDm Get(string id);
+    AttributeLibDm Get(Guid id);
 
     /// <summary>
     /// Create an attribute

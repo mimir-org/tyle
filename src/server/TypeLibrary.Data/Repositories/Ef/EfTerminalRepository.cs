@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,14 +17,14 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
     {
     }
 
-    /// <inheritdoc />
+    /*/// <inheritdoc />
     public async Task ChangeState(State state, string id)
     {
         var terminal = await GetAsync(id);
         terminal.State = state;
         await SaveAsync();
         Detach(terminal);
-    }
+    }*/
 
     /// <inheritdoc />
     public IEnumerable<TerminalLibDm> Get()
@@ -31,19 +32,17 @@ public class EfTerminalRepository : GenericRepository<TypeLibraryDbContext, Term
         return GetAll()
             .Include(x => x.TerminalAttributes)
             .ThenInclude(x => x.Attribute)
-            .ThenInclude(x => x.AttributeUnits)
-            .ThenInclude(x => x.Unit)
+            .ThenInclude(x => x.ValueConstraint)
             .AsSplitQuery();
     }
 
     /// <inheritdoc />
-    public TerminalLibDm Get(string id)
+    public TerminalLibDm Get(Guid id)
     {
         var terminal = FindBy(x => x.Id == id)
             .Include(x => x.TerminalAttributes)
             .ThenInclude(x => x.Attribute)
-            .ThenInclude(x => x.AttributeUnits)
-            .ThenInclude(x => x.Unit)
+            .ThenInclude(x => x.ValueConstraint)
             .AsSplitQuery()
             .FirstOrDefault();
         return terminal;

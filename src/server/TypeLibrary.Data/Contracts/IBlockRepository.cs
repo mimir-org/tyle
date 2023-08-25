@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mimirorg.Common.Enums;
@@ -12,14 +13,14 @@ public interface IBlockRepository
     /// </summary>
     /// <param name="id">The block id</param>
     /// <returns>The company id of given block</returns>
-    int HasCompany(string id);
+    //int HasCompany(string id);
 
     /// <summary>
     /// Change the state of the block with the given id
     /// </summary>
     /// <param name="state">The state to change to</param>
     /// <param name="id">The block id</param>
-    Task ChangeState(State state, string id);
+    //Task ChangeState(State state, string id);
 
     /// <summary>
     /// Get all blocks
@@ -32,14 +33,14 @@ public interface IBlockRepository
     /// </summary>
     /// <param name="id">The block id</param>
     /// <returns>Block if found</returns>
-    BlockLibDm Get(string id);
+    BlockLibDm Get(Guid id);
 
     /// <summary>
     /// Get all versions of the given block
     /// </summary>
     /// <param name="block">The block</param>
     /// <returns>A collection of all versions of the block</returns>
-    IEnumerable<BlockLibDm> GetAllVersions(BlockLibDm block);
+    //IEnumerable<BlockLibDm> GetAllVersions(BlockLibDm block);
 
     /// <summary>
     /// Create a block

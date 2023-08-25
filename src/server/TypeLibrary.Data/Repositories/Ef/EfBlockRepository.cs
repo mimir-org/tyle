@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ public class EfBlockRepository : GenericRepository<TypeLibraryDbContext, BlockLi
     {
     }
 
-    /// <inheritdoc />
+    /*/// <inheritdoc />
     public int HasCompany(string id)
     {
         return Get(id).CompanyId;
@@ -28,7 +29,7 @@ public class EfBlockRepository : GenericRepository<TypeLibraryDbContext, BlockLi
         block.State = state;
         await SaveAsync();
         Detach(block);
-    }
+    }*/
 
     /// <inheritdoc />
     public IEnumerable<BlockLibDm> Get()
@@ -38,28 +39,24 @@ public class EfBlockRepository : GenericRepository<TypeLibraryDbContext, BlockLi
             .ThenInclude(x => x.Terminal)
             .Include(x => x.BlockAttributes)
             .ThenInclude(x => x.Attribute)
-            .ThenInclude(x => x.AttributeUnits)
-            .ThenInclude(x => x.Unit)
-            .Include(x => x.Rds)
+            .ThenInclude(x => x.ValueConstraint)
             .AsSplitQuery();
     }
 
     /// <inheritdoc />
-    public BlockLibDm Get(string id)
+    public BlockLibDm Get(Guid id)
     {
         return FindBy(x => x.Id == id)
             .Include(x => x.BlockTerminals)
             .ThenInclude(x => x.Terminal)
             .Include(x => x.BlockAttributes)
             .ThenInclude(x => x.Attribute)
-            .ThenInclude(x => x.AttributeUnits)
-            .ThenInclude(x => x.Unit)
-            .Include(x => x.Rds)
+            .ThenInclude(x => x.ValueConstraint)
             .AsSplitQuery()
             .FirstOrDefault();
     }
 
-    /// <inheritdoc />
+    /*/// <inheritdoc />
     public IEnumerable<BlockLibDm> GetAllVersions(BlockLibDm block)
     {
         return FindBy(x => x.FirstVersionId == block.FirstVersionId)
@@ -71,7 +68,7 @@ public class EfBlockRepository : GenericRepository<TypeLibraryDbContext, BlockLi
             .ThenInclude(x => x.Unit)
             .Include(x => x.Rds)
             .AsSplitQuery();
-    }
+    }*/
 
     /// <inheritdoc />
     public async Task<BlockLibDm> Create(BlockLibDm block)

@@ -63,8 +63,8 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IRdsRepository, EfRdsRepository>();
         services.AddScoped<ITerminalRepository, EfTerminalRepository>();
         services.AddScoped<ISymbolRepository, EfSymbolRepository>();
-        services.AddSingleton<IAttributeReferenceRepository, AttributePcaRepository>();
-        services.AddSingleton<IUnitReferenceRepository, UnitPcaRepository>();
+        //services.AddSingleton<IAttributeReferenceRepository, AttributePcaRepository>();
+        //services.AddSingleton<IUnitReferenceRepository, UnitPcaRepository>();
         services.AddScoped<ILogRepository, EfLogRepository>();
 
         // Dependency Injection - Services
@@ -82,7 +82,7 @@ public static class TypeLibraryModuleExtensions
         services.AddScoped<IEmailService, EmailService>();
 
         // Hosted services
-        services.AddHostedService<TimedPcaSyncingService>();
+        //services.AddHostedService<TimedPcaSyncingService>();
 
         // Factories
         services.AddScoped<ICompanyFactory, CompanyFactory>();

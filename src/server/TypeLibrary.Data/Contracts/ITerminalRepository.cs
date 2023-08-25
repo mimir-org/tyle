@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mimirorg.Common.Enums;
@@ -7,12 +8,12 @@ namespace TypeLibrary.Data.Contracts;
 
 public interface ITerminalRepository
 {
-    /// <summary>
+    /*/// <summary>
     /// Change the state of the terminal with the given id
     /// </summary>
     /// <param name="state">The state to change to</param>
     /// <param name="id">The terminal id</param>
-    Task ChangeState(State state, string id);
+    Task ChangeState(State state, string id);*/
 
     /// <summary>
     /// Get all terminals
@@ -25,7 +26,7 @@ public interface ITerminalRepository
     /// </summary>
     /// <param name="id">The terminal id</param>
     /// <returns>Terminal if found</returns>
-    TerminalLibDm Get(string id);
+    TerminalLibDm Get(Guid id);
 
     /// <summary>
     /// Create a terminal in database
