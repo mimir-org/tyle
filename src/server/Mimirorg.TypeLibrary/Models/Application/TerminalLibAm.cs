@@ -1,3 +1,4 @@
+using Mimirorg.TypeLibrary.Enums;
 using System.ComponentModel.DataAnnotations;
 
 // ReSharper disable InconsistentNaming
@@ -16,23 +17,6 @@ public class TerminalLibAm
     public string Name { get; set; }
 
     /// <summary>
-    /// A list of references to other ontologies
-    /// </summary>
-    /// <remarks>
-    /// It is allowed to change the list. Changing will generate a minor increase
-    /// </remarks>
-    public string TypeReference { get; set; }
-
-    /// <summary>
-    /// The color of the terminal
-    /// </summary>
-    /// <remarks>
-    /// It is allowed to change the color. Changing will generate a minor increase
-    /// </remarks>
-    [Required]
-    public string Color { get; set; }
-
-    /// <summary>
     /// A description of the terminal
     /// </summary>
     /// <remarks>
@@ -40,12 +24,29 @@ public class TerminalLibAm
     /// </remarks>
     public string Description { get; set; }
 
+    [Required]
+    public ICollection<string> Classifiers { get; set; }
+    
+    public string Purpose { get; set; }
+    
+    public string Notation { get; set; }
+    
+    public string Symbol { get; set; }
+    
+    [Required]
+    public Aspect Aspect { get; set; }
+
+    public string Medium { get; set; }
+
+    [Required]
+    public Direction Qualifier { get; set; }
+
     /// <summary>
-    /// A list of attribute ids
+    /// A list of attributes
     /// </summary>
     /// <remarks>
     /// It is not allowed to remove attributes
     /// Adding attributes generates a major increase
     /// </remarks>
-    public ICollection<string> Attributes { get; set; }
+    public ICollection<TerminalAttributeLibAm> TerminalAttributes { get; set; }
 }
