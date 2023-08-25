@@ -28,8 +28,9 @@ public class AttributeLibDm // : ILogable, IStatefulObject
     public ValueConstraintLibDm? ValueConstraint { get; set; }
 
     //public ICollection<AttributeUnitLibDm> AttributeUnits { get; set; } = new List<AttributeUnitLibDm>();
-    public ICollection<BlockAttributeLibDm> AttributeBlocks { get; set; } = new List<BlockAttributeLibDm>();
-    public ICollection<TerminalAttributeLibDm> AttributeTerminals { get; set; } = new List<TerminalAttributeLibDm>();
+    public ICollection<BlockAttributeLibDm> AttributeBlocks { get; set; } = null!;
+    public ICollection<TerminalAttributeLibDm> AttributeTerminals { get; set; } = null!;
+    public ICollection<AttributeGroupMappingLibDm> AttributeGroups { get; set; } = null!;
 
     /*public LogLibDm CreateLog(LogType logType, string logTypeValue, string createdBy)
     {
