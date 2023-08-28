@@ -1,3 +1,4 @@
+using System;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -21,7 +22,7 @@ public interface ITerminalService
     /// <param name="id">The id of the terminal</param>
     /// <returns>The terminal of given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id.</exception>
-    TerminalLibCm Get(string id);
+    TerminalLibCm Get(Guid id);
 
     /// <summary>
     /// Create a new terminal
@@ -31,7 +32,7 @@ public interface ITerminalService
     /// <exception cref="MimirorgBadRequestException">Throws if terminal is not valid</exception>
     Task<TerminalLibCm> Create(TerminalLibAm terminal);
 
-    /// <summary>
+    /*/// <summary>
     /// Update an existing terminal
     /// </summary>
     /// <param name="id">The id of the terminal that should be updated</param>
@@ -40,7 +41,7 @@ public interface ITerminalService
     /// <exception cref="MimirorgNotFoundException">Throws if there is no terminal with the given id.</exception>
     /// <exception cref="MimirorgBadRequestException">Throws if the new terminal values are not valid.</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the terminal is not a draft or approved.</exception>
-    Task<TerminalLibCm> Update(string id, TerminalLibAm terminalAm);
+    Task<TerminalLibCm> Update(string id, TerminalLibAm terminalAm);*/
 
     /// <summary>
     ///  Delete a terminal, it can't be approved
@@ -48,9 +49,9 @@ public interface ITerminalService
     /// <param name="id">The id of the terminal to delete</param>
     /// <exception cref="MimirorgNotFoundException">Throws if the terminal with the given id is not found.</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the terminal in question can't be deleted.</exception>
-    Task Delete(string id);
+    Task Delete(Guid id);
 
-    /// <summary>
+    /*/// <summary>
     /// Change terminal state
     /// </summary>
     /// <param name="id">The id of the terminal that should change state</param>
@@ -60,5 +61,5 @@ public interface ITerminalService
     /// <exception cref="MimirorgNotFoundException">Throws if the terminal does not exist</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the terminal is already
     /// approved or contains references to deleted or unapproved attributes.</exception>
-    Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail);
+    Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail);*/
 }

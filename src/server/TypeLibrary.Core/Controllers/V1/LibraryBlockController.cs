@@ -69,7 +69,7 @@ public class LibraryBlockController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult Get([FromRoute] string id)
+    public IActionResult Get([FromRoute] Guid id)
     {
         try
         {
@@ -90,7 +90,7 @@ public class LibraryBlockController : ControllerBase
         }
     }
 
-    /// <summary>
+    /*/// <summary>
     /// Get latest approved version of a block by id
     /// </summary>
     /// <param name="id">The id of the block we want to get the latest approved version of</param>
@@ -119,7 +119,7 @@ public class LibraryBlockController : ControllerBase
             _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
-    }
+    }*/
 
     /// <summary>
     /// Create a block
@@ -153,7 +153,7 @@ public class LibraryBlockController : ControllerBase
         }
     }
 
-    /// <summary>
+    /*/// <summary>
     /// Update a block
     /// </summary>
     /// <param name="id">The id of the block that should be updated</param>
@@ -194,7 +194,7 @@ public class LibraryBlockController : ControllerBase
             _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
-    }
+    }*/
 
     /// <summary>
     /// Delete a block that is not approved
@@ -207,15 +207,15 @@ public class LibraryBlockController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
-    public async Task<IActionResult> Delete([FromRoute] string id)
+    public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         try
         {
             var block = _blockService.Get(id);
-            var hasAccess = await _authService.CanDelete(block.State, block.CreatedBy, block.CompanyId);
+            /*var hasAccess = await _authService.CanDelete(block.State, block.CreatedBy, block.CompanyId);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);
+                return StatusCode(StatusCodes.Status403Forbidden);*/
 
             await _blockService.Delete(id);
             return NoContent();
@@ -235,7 +235,7 @@ public class LibraryBlockController : ControllerBase
         }
     }
 
-    /// <summary>
+    /*/// <summary>
     /// Update a block with new state
     /// </summary>
     /// <param name="id">The id of the block to be updated</param>
@@ -274,5 +274,5 @@ public class LibraryBlockController : ControllerBase
             _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
-    }
+    }*/
 }

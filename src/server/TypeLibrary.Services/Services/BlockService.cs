@@ -58,16 +58,18 @@ public class BlockService : IBlockService
     /// <inheritdoc />
     public IEnumerable<BlockLibCm> GetLatestVersions()
     {
-        var latestAll = _blockRepository.Get()?.LatestVersions()?.ToList() ?? new List<BlockLibDm>();
+        /*var latestAll = _blockRepository.Get()?.LatestVersions()?.ToList() ?? new List<BlockLibDm>();
         var latestApproved = _blockRepository.Get()?.LatestVersionsApproved()?.ToList() ?? new List<BlockLibDm>();
 
-        var result = latestAll.Union(latestApproved).OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase);
+        var result = latestAll.Union(latestApproved).OrderBy(x => x.Aspect).ThenBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase);*/
+
+        var result = _blockRepository.Get();
 
         return !result.Any() ? new List<BlockLibCm>() : _mapper.Map<List<BlockLibCm>>(result);
     }
 
     /// <inheritdoc />
-    public BlockLibCm Get(string id)
+    public BlockLibCm Get(Guid id)
     {
         var dm = _blockRepository.Get(id);
 
@@ -77,7 +79,7 @@ public class BlockService : IBlockService
         return _mapper.Map<BlockLibCm>(dm);
     }
 
-    /// <inheritdoc />
+    /*/// <inheritdoc />
     public BlockLibCm GetLatestApproved(string id)
     {
         var givenBlock = _blockRepository.Get(id);
@@ -92,7 +94,7 @@ public class BlockService : IBlockService
             throw new MimirorgNotFoundException($"No approved version was found for block with id {id}.");
 
         return _mapper.Map<BlockLibCm>(latestVersionApproved);
-    }
+    }*/
 
     /// <inheritdoc />
     public async Task<BlockLibCm> Create(BlockLibAm blockAm)
@@ -105,18 +107,23 @@ public class BlockService : IBlockService
         if (!validation.IsValid)
             throw new MimirorgBadRequestException("Block is not valid.", validation);
 
-        blockAm.Version = "1.0";
+        //blockAm.Version = "1.0";
         var dm = _mapper.Map<BlockLibDm>(blockAm);
 
-        dm.FirstVersionId ??= dm.Id;
-        dm.State = State.Draft;
+        //dm.FirstVersionId ??= dm.Id;
+        //dm.State = State.Draft;
 
         foreach (var blockTerminal in dm.BlockTerminals)
         {
             blockTerminal.BlockId = dm.Id;
         }
 
-        dm.BlockAttributes = new List<BlockAttributeLibDm>();
+        foreach (var blockAttribute in dm.BlockAttributes)
+        {
+            blockAttribute.BlockId = dm.Id;
+        }
+
+        /*dm.BlockAttributes = new List<BlockAttributeLibDm>();
 
         if (blockAm.Attributes != null)
         {
@@ -133,17 +140,17 @@ public class BlockService : IBlockService
                     dm.BlockAttributes.Add(new BlockAttributeLibDm { BlockId = dm.Id, AttributeId = attribute.Id });
                 }
             }
-        }
+        }*/
 
         var createdBlock = await _blockRepository.Create(dm);
         _blockRepository.ClearAllChangeTrackers();
         _hookService.HookQueue.Enqueue(CacheKey.Block);
-        await _logService.CreateLog(createdBlock, LogType.Create, createdBlock?.State.ToString(), createdBlock?.CreatedBy);
+        //await _logService.CreateLog(createdBlock, LogType.Create, createdBlock?.State.ToString(), createdBlock?.CreatedBy);
 
-        return Get(createdBlock?.Id);
+        return Get(createdBlock!.Id);
     }
 
-    /// <inheritdoc />
+    /*/// <inheritdoc />
     public async Task<BlockLibCm> Update(string id, BlockLibAm blockAm)
     {
         var validation = blockAm.ValidateObject();
@@ -159,8 +166,8 @@ public class BlockService : IBlockService
         if (blockToUpdate.State != State.Approved && blockToUpdate.State != State.Draft)
             throw new MimirorgInvalidOperationException("Update can only be performed on block drafts or approved blocks.");
 
-        /* If the block we want to update is approved, we want to make sure it is the latest version of this object
-           If not, a draft already exists, or it is not the latest approved version of the object */
+        // If the block we want to update is approved, we want to make sure it is the latest version of this object
+        // If not, a draft already exists, or it is not the latest approved version of the object
         if (blockToUpdate.State == State.Approved)
         {
             var latestVersion = _blockRepository.Get().LatestVersion(blockToUpdate.FirstVersionId);
@@ -334,21 +341,21 @@ public class BlockService : IBlockService
         await _logService.CreateLog(blockToUpdate, LogType.Update, blockToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         return Get(blockToUpdate.Id);
-    }
+    }*/
 
     /// <inheritdoc />
-    public async Task Delete(string id)
+    public async Task Delete(Guid id)
     {
         var dm = _blockRepository.Get(id) ?? throw new MimirorgNotFoundException($"Block with id {id} not found.");
 
-        if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException($"Can't delete approved block with id {id}.");
+        //if (dm.State == State.Approved)
+        //    throw new MimirorgInvalidOperationException($"Can't delete approved block with id {id}.");
 
         await _blockRepository.Delete(id);
         await _blockRepository.SaveAsync();
     }
 
-    /// <inheritdoc />
+    /*/// <inheritdoc />
     public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
     {
         var dm = _blockRepository.Get(id) ?? throw new MimirorgNotFoundException($"Block with id {id} not found.");
@@ -415,5 +422,5 @@ public class BlockService : IBlockService
     public int GetCompanyId(string id)
     {
         return _blockRepository.HasCompany(id);
-    }
+    }*/
 }

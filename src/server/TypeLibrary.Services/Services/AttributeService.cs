@@ -57,7 +57,7 @@ public class AttributeService : IAttributeService
     }
 
     /// <inheritdoc />
-    public AttributeLibCm Get(string id)
+    public AttributeLibCm Get(Guid id)
     {
         var dm = _attributeRepository.Get(id);
 
@@ -83,28 +83,28 @@ public class AttributeService : IAttributeService
         if (!string.IsNullOrEmpty(createdBy))
         {
             dm.CreatedBy = createdBy;
-            dm.State = State.Approved;
+            //dm.State = State.Approved;
         }
         else
         {
-            dm.State = State.Draft;
+            //dm.State = State.Draft;
         }
 
-        foreach (var attributeUnit in dm.AttributeUnits)
+        /*foreach (var attributeUnit in dm.AttributeUnits)
         {
             attributeUnit.AttributeId = dm.Id;
-        }
+        }*/
 
         var createdAttribute = await _attributeRepository.Create(dm);
         _hookService.HookQueue.Enqueue(CacheKey.Attribute);
         _attributeRepository.ClearAllChangeTrackers();
-        await _logService.CreateLog(createdAttribute, LogType.Create, createdAttribute?.State.ToString(), createdAttribute?.CreatedBy);
+        //await _logService.CreateLog(createdAttribute, LogType.Create, createdAttribute?.State.ToString(), createdAttribute?.CreatedBy);
 
         return _mapper.Map<AttributeLibCm>(createdAttribute);
     }
 
-    /// <inheritdoc />
-    public async Task<AttributeLibCm> Update(string id, AttributeLibAm attributeAm)
+    /*/// <inheritdoc />
+    public async Task<AttributeLibCm> Update(Guid id, AttributeLibAm attributeAm)
     {
         var validation = attributeAm.ValidateObject();
 
@@ -159,21 +159,21 @@ public class AttributeService : IAttributeService
         await _logService.CreateLog(attributeToUpdate, LogType.Update, attributeToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         return Get(attributeToUpdate.Id);
-    }
+    }*/
 
     /// <inheritdoc />
-    public async Task Delete(string id)
+    public async Task Delete(Guid id)
     {
         var dm = _attributeRepository.Get(id) ?? throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
 
-        if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException($"Can't delete approved attribute with id {id}.");
+        /*if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException($"Can't delete approved attribute with id {id}.");*/
 
         await _attributeRepository.Delete(id);
         await _attributeRepository.SaveAsync();
     }
 
-    /// <inheritdoc />
+    /*/// <inheritdoc />
     public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
     {
         var dm = _attributeRepository.Get(id) ?? throw new MimirorgNotFoundException($"Attribute with id {id} not found.");
@@ -237,5 +237,5 @@ public class AttributeService : IAttributeService
             await _attributePredefinedRepository.CreatePredefined(attribute);
             await _logService.CreateLog(attribute, LogType.Create, attribute.State.ToString(), attribute.CreatedBy);
         }
-    }
+    }*/
 }

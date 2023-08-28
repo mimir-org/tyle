@@ -20,6 +20,7 @@ public class TerminalProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+            .ForMember(dest => dest.Version, opt => opt.Ignore())
             .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(src => DateTimeOffset.UtcNow))
             .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(contextAccessor.GetUserId()) ? CreatedBy.Unknown : contextAccessor.GetUserId()))
             .ForMember(dest => dest.ContributedBy, opt => opt.Ignore())

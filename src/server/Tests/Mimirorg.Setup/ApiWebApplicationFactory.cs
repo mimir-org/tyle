@@ -85,13 +85,13 @@ public class ApiWebApplicationFactory : WebApplicationFactory<Program>
         var terminalA = new TerminalLibAm
         {
             Name = "Information",
-            Color = "#006600"
+            //Color = "#006600"
         };
 
         var terminalB = new TerminalLibAm
         {
             Name = "Automation System 87",
-            Color = "#00CC66"
+            //Color = "#00CC66"
         };
 
         await terminalService.Create(terminalA);

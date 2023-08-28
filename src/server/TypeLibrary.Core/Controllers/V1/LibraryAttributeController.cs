@@ -69,7 +69,7 @@ public class LibraryAttributeController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult Get([FromRoute] string id)
+    public IActionResult Get([FromRoute] Guid id)
     {
         try
         {
@@ -122,7 +122,7 @@ public class LibraryAttributeController : ControllerBase
         }
     }
 
-    /// <summary>
+    /*/// <summary>
     /// Update an attribute object
     /// </summary>
     /// <param name="id">The id of the attribute object that should be updated</param>
@@ -136,7 +136,7 @@ public class LibraryAttributeController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [MimirorgAuthorize(MimirorgPermission.Write, "attribute", "CompanyId")]
-    public async Task<IActionResult> Update(string id, [FromBody] AttributeLibAm attribute)
+    public async Task<IActionResult> Update(Guid id, [FromBody] AttributeLibAm attribute)
     {
         try
         {
@@ -163,7 +163,7 @@ public class LibraryAttributeController : ControllerBase
             _logger.LogError(e, $"Internal Server Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
-    }
+    }*/
 
     /// <summary>
     /// Delete an attribute that is not approved
@@ -176,15 +176,15 @@ public class LibraryAttributeController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [Authorize]
-    public async Task<IActionResult> Delete([FromRoute] string id)
+    public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         try
         {
             var attribute = _attributeService.Get(id);
-            var hasAccess = await _authService.CanDelete(attribute.State, attribute.CreatedBy, CompanyConstants.AnyCompanyId);
+            /*var hasAccess = await _authService.CanDelete(attribute.State, attribute.CreatedBy, CompanyConstants.AnyCompanyId);
 
             if (!hasAccess)
-                return StatusCode(StatusCodes.Status403Forbidden);
+                return StatusCode(StatusCodes.Status403Forbidden);*/
 
             await _attributeService.Delete(id);
             return NoContent();
@@ -204,7 +204,7 @@ public class LibraryAttributeController : ControllerBase
         }
     }
 
-    /// <summary>
+    /*/// <summary>
     /// Update an attribute with a new state
     /// </summary>
     /// <param name="id">The id of the attribute to be updated</param>
@@ -263,5 +263,5 @@ public class LibraryAttributeController : ControllerBase
             _logger.LogError(e, $"Internal Server Error: Error: {e.Message}");
             return StatusCode(500, "Internal Server Error");
         }
-    }
+    }*/
 }

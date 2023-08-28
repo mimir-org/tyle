@@ -44,7 +44,7 @@ public class SeedingService : ISeedingService
             var attributesPredefined = _fileRepository.ReadAllFiles<AttributePredefinedLibAm>(attributePredefinedFiles).ToList();
             var symbols = _fileRepository.ReadAllFiles<SymbolLibAm>(symbolFileNames).ToList();
 
-            await _attributeService.CreatePredefined(attributesPredefined);
+            //await _attributeService.CreatePredefined(attributesPredefined);
             await _symbolService.Create(symbols, CreatedBy.Seeding);
             await _rdsService.Initialize();
         }

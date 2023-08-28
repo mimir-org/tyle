@@ -1,3 +1,4 @@
+using System;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -21,15 +22,15 @@ public interface IBlockService
     /// <param name="id">The id of the block</param>
     /// <returns>The block of given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no block with the given id.</exception>
-    BlockLibCm Get(string id);
+    BlockLibCm Get(Guid id);
 
-    /// <summary>
+    /*/// <summary>
     /// Get the latest approved version of a block
     /// </summary>
     /// <param name="id">The id of the block we want to get the latest approved version of</param>
     /// <returns>The latest approved version of the block of given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no latest approved block with the given id.</exception>
-    BlockLibCm GetLatestApproved(string id);
+    BlockLibCm GetLatestApproved(Guid id);*/
 
     /// <summary>
     /// Create a new block
@@ -41,7 +42,7 @@ public interface IBlockService
     /// They will have the same first version id, but have different version and id.</remarks>
     Task<BlockLibCm> Create(BlockLibAm blockAm);
 
-    /// <summary>
+    /*/// <summary>
     /// Update a block if the data is allowed to be changed.
     /// </summary>
     /// <param name="id">The id of the block to update</param>
@@ -51,7 +52,7 @@ public interface IBlockService
     /// <exception cref="MimirorgBadRequestException">Throws if the block is not valid.</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the block is a state that makes it invalid for updates,
     /// a draft already exists for this type or if changes are not allowed.</exception>
-    Task<BlockLibCm> Update(string id, BlockLibAm blockAm);
+    Task<BlockLibCm> Update(string id, BlockLibAm blockAm);*/
 
     /// <summary>
     ///  Delete a block, it can't be approved
@@ -59,9 +60,9 @@ public interface IBlockService
     /// <param name="id">The id of the block to delete</param>
     /// <exception cref="MimirorgNotFoundException">Throws if the block with the given id is not found.</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the block in question can't be deleted.</exception>
-    Task Delete(string id);
+    Task Delete(Guid id);
 
-    /// <summary>
+    /*/// <summary>
     /// Change block state
     /// </summary>
     /// <param name="id">The id of the block that should change state</param>
@@ -79,5 +80,5 @@ public interface IBlockService
     /// </summary>
     /// <param name="id">The block id</param>
     /// <returns>Company id for the block</returns>
-    int GetCompanyId(string id);
+    int GetCompanyId(string id);*/
 }

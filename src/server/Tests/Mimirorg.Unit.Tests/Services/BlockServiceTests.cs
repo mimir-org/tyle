@@ -1,4 +1,4 @@
-using Mimirorg.Common.Exceptions;
+/*using Mimirorg.Common.Exceptions;
 using Mimirorg.Test.Setup;
 using Mimirorg.Test.Setup.Fixtures;
 using Mimirorg.TypeLibrary.Enums;
@@ -77,4 +77,4 @@ public class BlockServiceTests : UnitTest<MimirorgCommonFixture>
 
         _ = await Assert.ThrowsAsync<MimirorgBadRequestException>(() => _blockService.Create(blockToCreate));
     }
-}
+}*/

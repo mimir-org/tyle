@@ -11,6 +11,7 @@ using System.IO;
 using TypeLibrary.Core.Factories;
 using TypeLibrary.Core.Profiles;
 using TypeLibrary.Data;
+using TypeLibrary.Data.Configurations;
 using TypeLibrary.Data.Contracts;
 
 namespace TypeLibrary.Core.Extensions;
@@ -46,6 +47,9 @@ public static class TypeLibraryServiceCollectionExtensions
         cfg.AddProfile(new LogProfile());
         cfg.AddProfile(new AttributeUnitProfile());
         cfg.AddProfile(new ValueConstraintProfile());
+        cfg.AddProfile(new BlockAttributeProfile());
+        cfg.AddProfile(new TerminalAttributeProfile());
+        cfg.AddProfile(new AttributeGroupProfile());
 
         var mapperConfig = new MapperConfiguration(cfg);
         mapperConfig.AssertConfigurationIsValid();

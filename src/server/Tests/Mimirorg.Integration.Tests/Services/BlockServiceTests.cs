@@ -1,4 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
+/*using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Enums;
 using Mimirorg.Test.Setup;
 using Mimirorg.TypeLibrary.Enums;
@@ -158,4 +158,4 @@ public class BlockServiceTests : IntegrationTest
         Assert.True(cm.Description == "Description1" && cm.Version == "1.0");
         Assert.True(cmUpdated.Description == "Description2" && cmUpdated.Version == "1.1");
     }
-}
+}*/

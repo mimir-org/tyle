@@ -17,6 +17,7 @@ public interface IGenericRepository<TContext, TEntity> where TContext : DbContex
     void Update(TEntity entity);
     Task Delete(int id);
     Task Delete(string id);
+    Task Delete(Guid id);
     void Detach(TEntity entity);
     void Detach(ICollection<TEntity> entities);
     void Attach(TEntity entity, EntityState state);

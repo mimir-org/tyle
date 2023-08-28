@@ -55,15 +55,15 @@ public class MimirorgCommonFixture : IDisposable
         var blockLibAm = new BlockLibAm
         {
             Name = "AA",
-            RdsId = "AA",
+            //RdsId = "AA",
             Aspect = Aspect.Function,
-            BlockTerminals = new List<BlockTerminalLibAm>
-            {
+            BlockTerminals = new List<BlockTerminalLibAm>()
+            /*{
                 new()
                 {
                     Direction = Direction.Input,
-                    MinQuantity = 1,
-                    MaxQuantity = int.MaxValue,
+                    MinCount = 1,
+                    MaxCount = int.MaxValue,
                     TerminalId = "123"
                 },
                 new()
@@ -85,17 +85,18 @@ public class MimirorgCommonFixture : IDisposable
                     Key = "555"
                 }
             },
-            TypeReference = "https://www.tyle.com/"
+            TypeReference = "https://www.tyle.com/"*/
         };
 
         var blockLibDm = new BlockLibDm
         {
-            Id = "68313",
+            Id = Guid.NewGuid(),
+            CreatedBy = "Unknown",
             Name = "AA",
-            RdsId = "AA",
+            //RdsId = "AA",
             Aspect = Aspect.Function,
-            BlockTerminals = new List<BlockTerminalLibDm>
-            {
+            BlockTerminals = new List<BlockTerminalLibDm>()
+            /*{
                 new()
                 {
                     Direction = Direction.Input,
@@ -112,7 +113,7 @@ public class MimirorgCommonFixture : IDisposable
                     Key = "123"
                 }
             },
-            TypeReference = "https://www.tyle.com/"
+            TypeReference = "https://www.tyle.com/"*/
         };
 
         return (blockLibAm, blockLibDm);

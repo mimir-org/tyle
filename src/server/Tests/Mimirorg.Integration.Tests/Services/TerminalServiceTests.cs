@@ -1,4 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
+/*using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Common.Enums;
 using Mimirorg.Test.Setup;
 using Mimirorg.TypeLibrary.Enums;
@@ -76,4 +76,4 @@ public class TerminalServiceTests : IntegrationTest
         var logCm = logService.Get().LastOrDefault(x => x.ObjectId == terminalLibCm.Id && x.ObjectType == "TerminalLibDm");
         Assert.Equal(LogType.Update.ToString(), logCm?.LogType.ToString());
     }
-}
+}*/

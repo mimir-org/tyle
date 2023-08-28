@@ -4,6 +4,7 @@ using Mimirorg.Common.Extensions;
 using Mimirorg.TypeLibrary.Models.Application;
 using Mimirorg.TypeLibrary.Models.Client;
 using System;
+using System.Linq;
 using TypeLibrary.Core.Profiles.Resolvers;
 using TypeLibrary.Data.Constants;
 using TypeLibrary.Data.Contracts;
@@ -52,7 +53,7 @@ public class AttributeProfile : Profile
             .ForMember(dest => dest.RegularityQualifier, opt => opt.MapFrom(src => src.RegularityQualifier))
             .ForMember(dest => dest.ScopeQualifier, opt => opt.MapFrom(src => src.ScopeQualifier))
             .ForMember(dest => dest.ValueConstraint, opt => opt.MapFrom(src => src.ValueConstraint))
-            .ForMember(dest => dest.AttributeGroups, opt => opt.MapFrom(src => src.AttributeGroups));
+            .ForMember(dest => dest.AttributeGroups, opt => opt.MapFrom(src => src.AttributeGroups.Select(x => x.AttributeGroup)));
 
         CreateMap<AttributeLibCm, ApprovalCm>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

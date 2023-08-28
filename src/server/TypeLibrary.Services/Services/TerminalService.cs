@@ -60,7 +60,7 @@ public class TerminalService : ITerminalService
     }
 
     /// <inheritdoc />
-    public TerminalLibCm Get(string id)
+    public TerminalLibCm Get(Guid id)
     {
         var dm = _terminalRepository.Get(id);
 
@@ -83,8 +83,13 @@ public class TerminalService : ITerminalService
 
         var dm = _mapper.Map<TerminalLibDm>(terminal);
 
-        dm.State = State.Draft;
-        dm.TerminalAttributes = new List<TerminalAttributeLibDm>();
+        foreach (var terminalAttribute in dm.TerminalAttributes)
+        {
+            terminalAttribute.TerminalId = dm.Id;
+        }
+
+        //dm.State = State.Draft;
+        /*dm.TerminalAttributes = new List<TerminalAttributeLibDm>();
 
         if (terminal.Attributes != null)
         {
@@ -101,17 +106,17 @@ public class TerminalService : ITerminalService
                     dm.TerminalAttributes.Add(new TerminalAttributeLibDm { TerminalId = dm.Id, AttributeId = attribute.Id });
                 }
             }
-        }
+        }*/
 
         var createdTerminal = await _terminalRepository.Create(dm);
         _hookService.HookQueue.Enqueue(CacheKey.Terminal);
         _terminalRepository.ClearAllChangeTrackers();
-        await _logService.CreateLog(createdTerminal, LogType.Create, createdTerminal.State.ToString(), createdTerminal.CreatedBy);
+        //await _logService.CreateLog(createdTerminal, LogType.Create, createdTerminal.State.ToString(), createdTerminal.CreatedBy);
 
         return Get(createdTerminal.Id);
     }
 
-    /// <inheritdoc />
+    /*/// <inheritdoc />
     public async Task<TerminalLibCm> Update(string id, TerminalLibAm terminalAm)
     {
         var validation = terminalAm.ValidateObject();
@@ -189,21 +194,21 @@ public class TerminalService : ITerminalService
         await _logService.CreateLog(terminalToUpdate, LogType.Update, terminalToUpdate.State.ToString(), _contextAccessor.GetUserId() ?? CreatedBy.Unknown);
 
         return Get(terminalToUpdate.Id);
-    }
+    }*/
 
     /// <inheritdoc />
-    public async Task Delete(string id)
+    public async Task Delete(Guid id)
     {
         var dm = _terminalRepository.Get(id) ?? throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
 
-        if (dm.State == State.Approved)
-            throw new MimirorgInvalidOperationException($"Can't delete approved terminal with id {id}.");
+        /*if (dm.State == State.Approved)
+            throw new MimirorgInvalidOperationException($"Can't delete approved terminal with id {id}.");*/
 
         await _terminalRepository.Delete(id);
         await _terminalRepository.SaveAsync();
     }
 
-    /// <inheritdoc />
+    /*/// <inheritdoc />
     public async Task<ApprovalDataCm> ChangeState(string id, State state, bool sendStateEmail)
     {
         var dm = _terminalRepository.Get(id) ?? throw new MimirorgNotFoundException($"Terminal with id {id} not found.");
@@ -234,5 +239,5 @@ public class TerminalService : ITerminalService
             await _emailService.SendObjectStateEmail(dm.Id, state, dm.Name, ObjectTypeName.Terminal);
 
         return new ApprovalDataCm { Id = dm.Id, State = state };
-    }
+    }*/
 }

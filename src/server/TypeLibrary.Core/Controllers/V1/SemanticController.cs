@@ -53,7 +53,7 @@ public class SemanticController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult GetBlock(string id)
+    public IActionResult GetBlock(Guid id)
     {
         try
         {
@@ -97,7 +97,7 @@ public class SemanticController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult GetAttribute(string id)
+    public IActionResult GetAttribute(Guid id)
     {
         try
         {
@@ -142,7 +142,7 @@ public class SemanticController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [AllowAnonymous]
-    public IActionResult GetTerminal(string id)
+    public IActionResult GetTerminal(Guid id)
     {
         try
         {

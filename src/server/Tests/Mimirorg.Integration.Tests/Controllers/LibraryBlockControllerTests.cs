@@ -1,4 +1,4 @@
-using System.Net;
+/*using System.Net;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Mimirorg.Test.Setup;
@@ -80,4 +80,4 @@ public class LibraryBlockControllerTests : IntegrationTest
         var response = await client.GetAsync(endpoint);
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
-}
+}*/

@@ -1,3 +1,4 @@
+using System;
 using Mimirorg.Common.Enums;
 using Mimirorg.Common.Exceptions;
 using Mimirorg.TypeLibrary.Models.Application;
@@ -20,7 +21,7 @@ public interface IAttributeService
     /// </summary>
     /// <returns>The attribute with the given id</returns>
     /// <exception cref="MimirorgNotFoundException">Throws if there is no attribute with the given id.</exception>
-    AttributeLibCm Get(string id);
+    AttributeLibCm Get(Guid id);
 
     /// <summary>
     /// Create a new attribute
@@ -31,7 +32,7 @@ public interface IAttributeService
     /// <exception cref="MimirorgBadRequestException">Throws if attribute is not valid</exception>
     Task<AttributeLibCm> Create(AttributeLibAm attributeAm, string createdBy = null);
 
-    /// <summary>
+    /*/// <summary>
     /// Update an existing attribute
     /// </summary>
     /// <param name="id">The id of the attribute that should be updated</param>
@@ -40,7 +41,7 @@ public interface IAttributeService
     /// <exception cref="MimirorgNotFoundException">Throws if there is no attribute with the given id.</exception>
     /// <exception cref="MimirorgBadRequestException">Throws if the new attribute values are not valid.</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the attribute is not a draft or approved.</exception>
-    Task<AttributeLibCm> Update(string id, AttributeLibAm attributeAm);
+    Task<AttributeLibCm> Update(Guid id, AttributeLibAm attributeAm);*/
 
     /// <summary>
     ///  Delete an attribute, it can't be approved
@@ -48,9 +49,9 @@ public interface IAttributeService
     /// <param name="id">The id of the attribute to delete</param>
     /// <exception cref="MimirorgNotFoundException">Throws if the attribute with the given id is not found.</exception>
     /// <exception cref="MimirorgInvalidOperationException">Throws if the attribute in question can't be deleted.</exception>
-    Task Delete(string id);
+    Task Delete(Guid id);
 
-    /// <summary>
+    /*/// <summary>
     /// Change attribute state
     /// </summary>
     /// <param name="id">The id of the attribute that should change state</param>
@@ -73,5 +74,5 @@ public interface IAttributeService
     /// </summary>
     /// <param name="predefined"></param>
     /// <returns>Created predefined attribute</returns>
-    Task CreatePredefined(List<AttributePredefinedLibAm> predefined);
+    Task CreatePredefined(List<AttributePredefinedLibAm> predefined);*/
 }
