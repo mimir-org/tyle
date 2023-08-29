@@ -22,8 +22,8 @@ public class ValueConstraintConfiguration : IEntityTypeConfiguration<ValueConstr
         builder.Property(p => p.MinCount).HasColumnName("MinCount");
         builder.Property(p => p.MaxCount).HasColumnName("MaxCount");
         builder.Property(p => p.Pattern).HasColumnName("Pattern").HasMaxLength(500);
-        builder.Property(p => p.MinValue).HasColumnName("MinValue");
-        builder.Property(p => p.MaxValue).HasColumnName("MaxValue");
+        builder.Property(p => p.MinValue).HasColumnName("MinValue").HasPrecision(38, 19);
+        builder.Property(p => p.MaxValue).HasColumnName("MaxValue").HasPrecision(38, 19);
         builder.Property(p => p.MinInclusive).HasColumnName("MinInclusive");
         builder.Property(p => p.MaxInclusive).HasColumnName("MaxInclusive");
     }
