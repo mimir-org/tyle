@@ -8,16 +8,16 @@ public class TypeLibraryDbContext : DbContext
 {
     public virtual DbSet<SymbolLibDm> Symbol { get; set; }
     public virtual DbSet<BlockTerminalLibDm> BlockTerminal { get; set; }
-    public virtual DbSet<AttributePredefinedLibDm> AttributePredefined { get; set; }
+    //public virtual DbSet<AttributePredefinedLibDm> AttributePredefined { get; set; }
     public virtual DbSet<TerminalLibDm> Terminal { get; set; }
     public virtual DbSet<BlockLibDm> Block { get; set; }
     public virtual DbSet<LogLibDm> Log { get; set; }
     public virtual DbSet<AttributeLibDm> Attribute { get; set; }
-    public virtual DbSet<UnitLibDm> Unit { get; set; }
-    public virtual DbSet<AttributeUnitLibDm> AttributeUnit { get; set; }
+    //public virtual DbSet<UnitLibDm> Unit { get; set; }
+    //public virtual DbSet<AttributeUnitLibDm> AttributeUnit { get; set; }
     public virtual DbSet<BlockAttributeLibDm> BlockAttribute { get; set; }
     public virtual DbSet<TerminalAttributeLibDm> TerminalAttribute { get; set; }
-    public virtual DbSet<RdsLibDm> Rds { get; set; }
+    //public virtual DbSet<RdsLibDm> Rds { get; set; }
     public virtual DbSet<AttributeGroupLibDm> AttributeGroup { get; set; }
     public virtual DbSet<AttributeGroupMappingLibDm> AttributeGroupMapping { get; set; }
     public virtual DbSet<ValueConstraintLibDm> ValueConstraint { get; set; }
@@ -33,16 +33,16 @@ public class TypeLibraryDbContext : DbContext
 
         modelBuilder.ApplyConfiguration(new SymbolConfiguration());
         modelBuilder.ApplyConfiguration(new BlockTerminalConfiguration());
-        modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());
+        //modelBuilder.ApplyConfiguration(new AttributePredefinedConfiguration());
         modelBuilder.ApplyConfiguration(new TerminalConfiguration());
         modelBuilder.ApplyConfiguration(new BlockConfiguration());
         modelBuilder.ApplyConfiguration(new LogConfiguration());
         modelBuilder.ApplyConfiguration(new AttributeConfiguration());
-        modelBuilder.ApplyConfiguration(new UnitConfiguration());
-        modelBuilder.ApplyConfiguration(new AttributeUnitConfiguration());
+        //modelBuilder.ApplyConfiguration(new UnitConfiguration());
+        //modelBuilder.ApplyConfiguration(new AttributeUnitConfiguration());
         modelBuilder.ApplyConfiguration(new BlockAttributeConfiguration());
         modelBuilder.ApplyConfiguration(new TerminalAttributeConfiguration());
-        modelBuilder.ApplyConfiguration(new RdsConfiguration());
+        //modelBuilder.ApplyConfiguration(new RdsConfiguration());
         modelBuilder.ApplyConfiguration(new AttributeGroupConfiguration());
         modelBuilder.ApplyConfiguration(new AttributeGroupMappingConfiguration());
         modelBuilder.ApplyConfiguration(new ValueConstraintConfiguration());
