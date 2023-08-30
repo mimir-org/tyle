@@ -15,10 +15,10 @@ public class AttributeLibAm
     [Required]
     public ICollection<string> UoMs { get; set; }
 
-    public ProvenanceQualifier ProvenanceQualifier { get; set; }
-    public RangeQualifier RangeQualifier { get; set; }
-    public RegularityQualifier RegularityQualifier { get; set; }
-    public ScopeQualifier ScopeQualifier { get; set; }
+    public ProvenanceQualifier? ProvenanceQualifier { get; set; }
+    public RangeQualifier? RangeQualifier { get; set; }
+    public RegularityQualifier? RegularityQualifier { get; set; }
+    public ScopeQualifier? ScopeQualifier { get; set; }
 
     public ValueConstraintLibAm ValueConstraint { get; set; }
 }
