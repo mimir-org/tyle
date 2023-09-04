@@ -10,10 +10,10 @@ public class AttributeLibAm
 
     public string Description { get; set; }
 
-    public string PredicateReferenceId { get; set; }
+    public int PredicateReferenceId { get; set; }
 
     [Required]
-    public ICollection<string> UnitReferenceIds { get; set; }
+    public ICollection<int> UnitReferenceIds { get; set; }
 
     public ProvenanceQualifier? ProvenanceQualifier { get; set; }
     public RangeQualifier? RangeQualifier { get; set; }
