@@ -14,7 +14,7 @@ public class ValueConstraint
     public string? Value { get; }
     public ICollection<string>? AllowedValues { get; }
     public Uri? ClassIri { get; }
-    public XsdDataType DataType { get; }
+    public XsdDataType? DataType { get; }
     public int? MinCount { get; }
     public int? MaxCount { get; }
     public string? Pattern { get; }
@@ -52,6 +52,7 @@ public class ValueConstraint
     public ValueConstraint(string pattern)
     {
         ConstraintType = ConstraintType.Pattern;
+        DataType = XsdDataType.String;
         Pattern = pattern;
     }
 
@@ -78,6 +79,37 @@ public class ValueConstraint
         }
 
         ConstraintType = ConstraintType.Range;
+        DataType = XsdDataType.Decimal;
+        MinValue = minValue;
+        MaxValue = maxValue;
+        MinInclusive = minInclusive;
+        MaxInclusive = maxInclusive;
+    }
+
+    public ValueConstraint(int? minValue, int? maxValue, bool? minInclusive, bool? maxInclusive)
+    {
+        if (minValue == null && maxValue == null)
+        {
+            throw new MimirorgBadRequestException("At least one of minValue or maxValue must be provided.");
+        }
+
+        if ((minValue != null && minInclusive == null) || (minValue == null && minInclusive != null))
+        {
+            throw new MimirorgBadRequestException("minValue and minInclusive must both be provided, or both set to null.");
+        }
+
+        if ((maxValue != null && maxInclusive == null) || (maxValue == null && maxInclusive != null))
+        {
+            throw new MimirorgBadRequestException("maxValue and maxInclusive must both be provided, or both set to null.");
+        }
+
+        if (minValue >= maxValue)
+        {
+            throw new MimirorgBadRequestException("maxValue must be greater than minValue.");
+        }
+
+        ConstraintType = ConstraintType.Range;
+        DataType = XsdDataType.Integer;
         MinValue = minValue;
         MaxValue = maxValue;
         MinInclusive = minInclusive;
