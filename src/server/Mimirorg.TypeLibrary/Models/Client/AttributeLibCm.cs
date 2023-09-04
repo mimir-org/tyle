@@ -14,8 +14,8 @@ public class AttributeLibCm // : IStatefulObject
     public ICollection<string> ContributedBy { get; set; }
     public DateTimeOffset LastUpdateOn { get; set; }
     //public State State { get; set; }
-    public string Predicate { get; set; }
-    public ICollection<string> UoMs { get; set; }
+    public PredicateReferenceCm Predicate { get; set; }
+    public ICollection<UnitReferenceCm> UoMs { get; set; }
     public ProvenanceQualifier? ProvenanceQualifier { get; set; }
     public RangeQualifier? RangeQualifier { get; set; }
     public RegularityQualifier? RegularityQualifier { get; set; }

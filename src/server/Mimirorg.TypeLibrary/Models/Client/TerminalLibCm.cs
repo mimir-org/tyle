@@ -13,12 +13,12 @@ public class TerminalLibCm
     public ICollection<string> ContributedBy { get; set; }
     public DateTimeOffset LastUpdateOn { get; set; }
     //public State State { get; set; }
-    public ICollection<string> Classifiers { get; set; }
-    public string Purpose { get; set; }
+    public ICollection<ClassifierReferenceCm> Classifiers { get; set; }
+    public PurposeReferenceCm Purpose { get; set; }
     public string Notation { get; set; }
     public string Symbol { get; set; }
     public Aspect Aspect { get; set; }
-    public string Medium { get; set; }
+    public MediumReferenceCm Medium { get; set; }
     public Direction Qualifier { get; set; }
     public ICollection<TerminalAttributeLibCm> TerminalAttributes { get; set; }
     public string Kind => nameof(TerminalLibCm);
